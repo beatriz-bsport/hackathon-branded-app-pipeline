@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import { Level } from '#libs/level/types';
+import { Level } from '#src/libs/level/types';
 import { Coach } from '../../../associated-coach/types';
 import {
   Establishment,

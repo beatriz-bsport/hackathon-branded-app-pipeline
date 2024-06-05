@@ -5,7 +5,7 @@ import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 
 import { DateTime } from 'luxon';
-import { rudderStackIdentify } from '#components/analytics/rudderstack/utils';
+import { rudderStackIdentify } from '#src/components/analytics/rudderstack/utils';
 import {
   getRelationToken as getRelationTokenAPI,
   impersonateAdmin as impersonateAdminAPI,

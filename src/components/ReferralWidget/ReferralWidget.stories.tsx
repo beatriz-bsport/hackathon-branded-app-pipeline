@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import ReferralWidget, { ReferralWidgetForStorybook, Props } from './';
-import { referralProgramFactory } from '#libs/referral/factories/ReferralProgram';
+import { referralProgramFactory } from '#src/libs/referral/factories/ReferralProgram';
 
 const ReferralWidgetStorybookTemplate: ComponentStory<
   typeof ReferralWidgetForStorybook

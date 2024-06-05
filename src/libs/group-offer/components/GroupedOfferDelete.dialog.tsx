@@ -22,9 +22,9 @@ import {
   ListItemText,
 } from '@material-ui/core';
 
-import RedButton from '#components/button/RedButton.component';
-import { OffersGroup } from '#libs/group-offer/types';
-import { Offer } from '#libs/offer/types';
+import RedButton from '#src/components/button/RedButton.component';
+import { OffersGroup } from '#src/libs/group-offer/types';
+import { Offer } from '#src/libs/offer/types';
 import { OptionCallback } from '../../../state/types';
 
 type Props = {

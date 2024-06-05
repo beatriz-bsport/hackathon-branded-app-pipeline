@@ -11,7 +11,7 @@ import {
   WEEKLY_DURATION_DISPLAY_LIMIT,
   MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS,
   // @ts-expect-error
-} from '#libs/statistics/utils';
+} from '#src/libs/statistics/utils';
 import type {
   DateRange,
   NumberDateRange,

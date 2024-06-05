@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, Typography } from '@material-ui/core';
 import { Alert, Skeleton } from '@material-ui/lab';
-import { MemberVisitREST } from '#libs/access-control/types';
-import { AccessStatus } from '#libs/access-control/constants';
-import { getMemberVisitWarnings } from '#libs/access-control/utils';
+import { MemberVisitREST } from '#src/libs/access-control/types';
+import { AccessStatus } from '#src/libs/access-control/constants';
+import { getMemberVisitWarnings } from '#src/libs/access-control/utils';
 
 export type Props = {
   isLoading: boolean;

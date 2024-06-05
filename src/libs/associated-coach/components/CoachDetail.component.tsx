@@ -3,24 +3,25 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-// @ts-expect-error
-// @ts-expect-error
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
-import { MetaActivity } from '#libs/meta-activity/types';
-import { SCT } from '#libs/category/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { SCT } from '#src/libs/category/types';
 import {
   DisciplineGroup,
   AssignAssociatedCoachDisciplineGroupParams,
-} from '#libs/replacement-request/types';
+} from '#src/libs/replacement-request/types';
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { FeatureList } from '#libs/company/types';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
+import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { FeatureList } from '#src/libs/company/types';
 
-import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
 import type { OptionCallback } from '../../../state/types';
 import type {
   Coach,
@@ -35,7 +36,9 @@ import type {
 import AssociatedCoachDisciplineGroupConfiguration from './coach-detail/AssociatedCoachDisciplineGroupConfiguration.component';
 import CoachSpaceConfiguration from './coach-detail/CoachSpaceConfiguration.component';
 import CoachPaymentRuleBanner from './coach-detail/CoachPaymentRuleBanner.component';
+// @ts-expect-error
 import CoachInformation from './coach-detail/CoachInformation.component';
+// @ts-expect-error
 import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
 
 type Props = {

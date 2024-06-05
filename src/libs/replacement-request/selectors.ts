@@ -1,25 +1,31 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
-import { Offer } from '#libs/offer/types';
+import { Offer } from '#src/libs/offer/types';
 import {
   withCoach,
   withEstablishment,
   withMetaActivity,
   getOfferDataList,
-} from '#libs/offer/selectors';
-import { withCustomLevel } from '#libs/level/selectors';
-import { getAllCoaches } from '#libs/associated-coach/selectors';
-import { getMetaActivities, getWorkshops } from '#libs/meta-activity/selectors';
-import { getEditableSCTs } from '#libs/category/selectors';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { SCT } from '#libs/category/types';
-import { Coach } from '#libs/associated-coach/types';
+} from '#src/libs/offer/selectors';
+import { withCustomLevel } from '#src/libs/level/selectors';
+import { getAllCoaches } from '#src/libs/associated-coach/selectors';
+import {
+  getMetaActivities,
+  getWorkshops,
+} from '#src/libs/meta-activity/selectors';
+import { getEditableSCTs } from '#src/libs/category/selectors';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { SCT } from '#src/libs/category/types';
+import { Coach } from '#src/libs/associated-coach/types';
 import {
   getAvailableEstablishmentList,
   getAssociatedEstablishmentGroup,
-} from '#libs/establishment/selectors';
-import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
+} from '#src/libs/establishment/selectors';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
 import { ReplacementRequestStatus } from './constants';
 import {
   DisciplineGroup,

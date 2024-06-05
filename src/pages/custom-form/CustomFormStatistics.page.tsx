@@ -5,20 +5,20 @@ import { push } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import Grid from '@material-ui/core/Grid';
-import type { CustomForm } from '#libs/custom-form/types';
+import type { CustomForm } from '#src/libs/custom-form/types';
 
 import {
   getCustomFormStatistics,
   getCustomForm,
-} from '#libs/custom-form/selectors';
+} from '#src/libs/custom-form/selectors';
 import {
   fetchCustomForm,
   fetchAllCustomFormStatistics,
-} from '#libs/custom-form/actions';
-import { fetchMemberList as fetchMemberListAPI } from '#libs/member/api';
-import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import CustomFormDetailByMemberPanel from '#libs/custom-form/components/statistics/CustomFormDetailByMemberPanel.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+} from '#src/libs/custom-form/actions';
+import { fetchMemberList as fetchMemberListAPI } from '#src/libs/member/api';
+import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import CustomFormDetailByMemberPanel from '#src/libs/custom-form/components/statistics/CustomFormDetailByMemberPanel.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type { RootState } from '../../reducers/index';
 import type { WithHandlerType } from '../../utils/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

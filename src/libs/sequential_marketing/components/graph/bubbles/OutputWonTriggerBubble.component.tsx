@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import MultipleConnectedTriggerForm from '#libs/sequential_marketing/components/form/connected_triggers/MultipleConnectedTriggerForm.component';
+import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
+import MultipleConnectedTriggerForm from '#src/libs/sequential_marketing/components/form/connected_triggers/MultipleConnectedTriggerForm.component';
 
-import type { SmartList } from '#libs/smart-list/types';
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
 import CadenceBubble from './CadenceBubble.component';
 
 type Props = {

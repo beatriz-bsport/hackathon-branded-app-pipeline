@@ -4,7 +4,7 @@ import type { ComponentMeta } from '@storybook/react';
 
 import { action } from '@storybook/addon-actions';
 
-import CustomStarIcon from '#components/icons/CustomStarIcon.component';
+import CustomStarIcon from '#src/components/icons/CustomStarIcon.component';
 
 const actionData = {
   onClick: action('onClick'),

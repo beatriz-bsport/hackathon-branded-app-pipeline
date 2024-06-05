@@ -16,8 +16,8 @@ import { makeStyles } from '@material-ui/core';
 import {
   MetaActivity,
   MetaActivityCustomRestriction,
-} from '#libs/meta-activity/types';
-import { Tag, TagGroup } from '#libs/tag/types';
+} from '#src/libs/meta-activity/types';
+import { Tag, TagGroup } from '#src/libs/tag/types';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
 import { formatMinutes } from '../../../utils/datetime';

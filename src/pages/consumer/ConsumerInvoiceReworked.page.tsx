@@ -4,12 +4,12 @@ import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import type { RootState } from 'src/reducers';
 
-import { getTheme } from '#libs/theme/selectors';
-import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { urlToMarketplaceSessionTab } from '#libs/marketplace/utils/navigation';
-import ConsumerInvoicePageReworked from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePageReworked';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+import { getTheme } from '#src/libs/theme/selectors';
+import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { urlToMarketplaceSessionTab } from '#src/libs/marketplace/utils/navigation';
+import ConsumerInvoicePageReworked from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePageReworked';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import {
   fetchConsumerUnpaidInvoices as fetchConsumerUnpaidInvoicesAction,
@@ -17,17 +17,17 @@ import {
   fetchConsumerRefundedInvoices as fetchConsumerRefundedInvoicesAction,
   fetchConsumerInvoicesComplementary as fetchConsumerInvoicesComplementaryAction,
   resetConsumerState as resetConsumerStateAction,
-} from '#libs/consumer-space/actions';
+} from '#src/libs/consumer-space/actions';
 import {
   fetchInvoiceList as fetchInvoiceListAction,
   fetchSpecificInvoice as fetchSpecificInvoiceAction,
   applyBalanceToInvoice as applyBalanceToInvoiceAction,
-} from '#libs/invoice/actions';
-import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
+} from '#src/libs/invoice/actions';
+import { fetchMembership as fetchMembershipAction } from '#src/libs/membership/actions';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod as detachPaymentMethodAction,
-} from '#libs/payment/actions';
+} from '#src/libs/payment/actions';
 
 import {
   getInvoiceComplementaryInformation,
@@ -43,13 +43,16 @@ import {
   getUnpaidInvoicesLoading,
   getUnpaidInvoicesNextPage,
   getUnpaidInvoicesPage,
-} from '#libs/consumer-space/selectors';
-import { getInvoice } from '#libs/invoice/selectors';
+} from '#src/libs/consumer-space/selectors';
+import { getInvoice } from '#src/libs/invoice/selectors';
 
-import type { ConsumerInvoice, ConsumerInvoiceREST } from '#libs/invoice/types';
-import type { Membership } from '#libs/membership/types';
-import type { WithHandlerType } from '#utils/types';
-import { PaginatedResponse } from '#state/types';
+import type {
+  ConsumerInvoice,
+  ConsumerInvoiceREST,
+} from '#src/libs/invoice/types';
+import type { Membership } from '#src/libs/membership/types';
+import type { WithHandlerType } from '#src/utils/types';
+import { PaginatedResponse } from '#src/state/types';
 
 type OwnProps = {
   membership: Membership;

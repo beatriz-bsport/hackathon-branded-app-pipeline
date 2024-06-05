@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import BottomDrawer from '#Fabrique/BottomDrawer';
 import DatePicker from '#Fabrique/DatePicker';
 
-import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 
 type Props = {
   isOpen: boolean;

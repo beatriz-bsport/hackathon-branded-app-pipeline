@@ -4,7 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import type { Membership } from '#libs/membership/types';
+import type { Membership } from '#src/libs/membership/types';
 
 type Props = {
   membership: Membership;

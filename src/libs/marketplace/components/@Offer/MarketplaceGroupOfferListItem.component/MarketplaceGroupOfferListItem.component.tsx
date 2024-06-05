@@ -8,17 +8,17 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import RoomIcon from '@material-ui/icons/Room';
 
 import { DateTime } from 'luxon';
-import { Offer } from '#libs/offer/types';
-import { Coach } from '#libs/associated-coach/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { Establishment } from '#libs/establishment/types';
+import { Offer } from '#src/libs/offer/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { Establishment } from '#src/libs/establishment/types';
 
-import { MetaActivity } from '#libs/meta-activity/types';
-import { OffersGroup } from '#libs/group-offer/types';
-import MarketPlaceLevel from '#marketplacecomponents/@Offer/MarketplaceLevelCSSOnly';
-import { Level } from '#libs/level/types';
-import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
-import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { OffersGroup } from '#src/libs/group-offer/types';
+import MarketPlaceLevel from '#src/libs/marketplace/components/@Offer/MarketplaceLevelCSSOnly';
+import { Level } from '#src/libs/level/types';
+import MarketplaceCoachInfos from '#src/libs/marketplace/components/@Coach/MarketplaceCoachInfos';
+import MarketplaceEstablishmentTitle from '#src/libs/marketplace/components/@Establishment/MarketplaceEstablishmentTitle';
 import { isDateInThePast } from '#src/utils/datetime';
 import MarketplaceOfferListItem from '../MarketplaceOfferListItemCSSOnly';
 import {

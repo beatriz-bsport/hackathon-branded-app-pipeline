@@ -3,16 +3,16 @@ import memoize from 'memoize-one';
 import { v4 as uuidv4 } from 'uuid';
 import { TFunction } from 'i18next';
 import isEqual from 'lodash/isEqual';
-// @ts-expect-error
-import { DATATYPE_PRESET_INTEGER_VALUE } from '#libs/datatype-filtering/constants';
+import { DATATYPE_PRESET_INTEGER_VALUE } from '#src/libs/datatype-filtering/constants';
 import {
   IDENTIFIER_NEEDING_TRANSLATION_FOR_VALUES,
   BOOKING_GRAPH_IDENTIFIER,
   PRIVATE_BOOKING_GRAPH_IDENTIFIER,
   SUBSCRIPTION_GRAPH_IDENTIFIER,
   BILLING_PLAN_GRAPH_IDENTIFIER,
-} from '#libs/dashboard/constants';
-import { DatatypeFilterConfig } from '#libs/datatype-filtering/types';
+} from '#src/libs/dashboard/constants';
+import { DatatypeFilterConfig } from '#src/libs/datatype-filtering/types';
+// @ts-expect-error
 import type { Graph } from '../statistics/types';
 import type {
   DataSourceDashboardGraph,

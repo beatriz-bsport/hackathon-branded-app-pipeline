@@ -17,9 +17,9 @@ import { compose, withPropsOnChange, withProps, withState } from 'recompose';
 import { FormLabel } from '@material-ui/core';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import ToolTip from '#components/Tooltip.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import ToolTip from '#src/components/Tooltip.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { browserCountryCode } from '../../i18n';
 import { getAuth, postAuth, API_URI } from '../../http';
 import AvatarFieldWithButton from '../../components/forms/AvatarFieldWithButton.component';
@@ -40,7 +40,6 @@ import AlertExistingUser from './AlertExistingUser.component';
 import withConfirm from '../../hocs/with-confirm.hoc';
 
 import { ALLOWED_COUNTRIES_FOR_STATES } from './constants';
-
 
 const {
   trackFormAdd,

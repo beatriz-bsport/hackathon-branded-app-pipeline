@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import isEqual from 'lodash/isEqual';
-import { DASHBOARD_COLOR_PALETTE } from '#libs/dashboard/colors';
+import { DASHBOARD_COLOR_PALETTE } from '#src/libs/dashboard/colors';
 import { numberFormatter } from '../../libs/statistics/utils';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
 

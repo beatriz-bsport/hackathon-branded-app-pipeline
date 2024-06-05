@@ -1,5 +1,5 @@
-import { Offer } from '#libs/offer/types';
-import { ErrorAndLoading } from '#libs/types';
+import { Offer } from '#src/libs/offer/types';
+import { ErrorAndLoading } from '#src/libs/types';
 import {
   ReplacementRequestStatus,
   ReplacementRequestCoachAnswerStatus,

@@ -4,9 +4,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useTranslation } from 'react-i18next';
 
-import { List } from '#components/css-only/Search';
+import { List } from '#src/components/css-only/Search';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import './style.css';
 

@@ -14,15 +14,15 @@ import {
   ALL_FORMS,
   AT_LEAST_ONE_FORM,
 } from '@bsport/common/lib/master-data/smart-list';
-import DelayedNumericInput from '#components/DelayedNumericInput.component';
+import DelayedNumericInput from '#src/components/DelayedNumericInput.component';
 
-// @ts-expect-error
-import CustomFormListItem from '#libs/custom-form/components/CustomFormListItem.component';
-import type { CustomForm } from '#libs/custom-form/types';
+import CustomFormListItem from '#src/libs/custom-form/components/CustomFormListItem.component';
+import type { CustomForm } from '#src/libs/custom-form/types';
 import type {
   FetchBulkItemsType,
   FetchItemsType,
-} from '#libs/smart-list/types';
+} from '#src/libs/smart-list/types';
+// @ts-expect-error
 import Selector from '../MultiSelector.component';
 
 import CalendarPicker from '../CalendarPicker.component';

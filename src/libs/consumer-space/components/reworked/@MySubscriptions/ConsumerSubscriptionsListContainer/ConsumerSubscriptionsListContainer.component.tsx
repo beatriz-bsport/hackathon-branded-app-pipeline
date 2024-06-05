@@ -3,32 +3,32 @@ import React, { useMemo } from 'react';
 import { DateTime, Interval } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import ConsumerSubscriptionCard from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionCard';
-import ConsumerSubscriptionDetailsCard from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
+import ConsumerSubscriptionCard from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionCard';
+import ConsumerSubscriptionDetailsCard from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
 import Typography from '#Fabrique/Typography';
 
-import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
-import { formatAsDate } from '#utils/datetime';
+import { GenericInfiniteScrollEnhancedCssOnly } from '#src/components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
+import { formatAsDate } from '#src/utils/datetime';
 
 import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
-} from '#libs/subscription/types';
-import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
+} from '#src/libs/subscription/types';
+import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import {
   MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_MOBILE,
   MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_DESKTOP,
   SubscriptionTabEnum,
-} from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
-import type { PaymentMethod } from '#libs/payment/types';
+} from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import type { PaymentMethod } from '#src/libs/payment/types';
 
-import { isPaused } from '#libs/subscription/utils';
+import { isPaused } from '#src/libs/subscription/utils';
 import {
   getSubtitleCardDate,
   getSubtitleCardDetailsDate,
   informationBasedOnCouponApplied,
   mobileDetailsDisplay,
-} from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
+} from '#src/libs/consumer-space/components/reworked/@MySubscriptions/utils';
 
 import './styles.css';
 

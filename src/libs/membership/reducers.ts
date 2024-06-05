@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import { handleActions } from 'redux-actions';
-import { LinkToCompanyWithReferralPayload } from '#libs/referral/types';
+import { LinkToCompanyWithReferralPayload } from '#src/libs/referral/types';
 import {
   listAsConsumerActions,
   retrieveActions,

@@ -12,7 +12,7 @@ import { withFormik, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { Duration } from 'luxon';
-import LevelSelectorFormik from '#libs/level/components/LevelSelectorFormik.component';
+import LevelSelectorFormik from '#src/libs/level/components/LevelSelectorFormik.component';
 import ImageField from '../../../components/forms/ImageField.component';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
 import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';

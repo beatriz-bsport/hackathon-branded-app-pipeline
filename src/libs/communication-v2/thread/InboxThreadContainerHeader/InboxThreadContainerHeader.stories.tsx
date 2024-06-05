@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 import InboxThreadContainerHeader, {
   Props,
-} from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadContainerHeader.component';
+} from '#src/libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadContainerHeader.component';
 import {
   MemberThread,
   OfferThread,
   SmartListThread,
-} from '#libs/communication-v2/factories/CommunicationThread';
+} from '#src/libs/communication-v2/factories/CommunicationThread';
 import { DateTime } from 'luxon';
-import { SelectFieldItem } from '#libs/communication-v2/types';
+import { SelectFieldItem } from '#src/libs/communication-v2/types';
 
 const memberThreadProps = MemberThread();
 const smartlistThreadProps = SmartListThread();

@@ -10,14 +10,13 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 
 import { withTranslation, TFunction } from 'react-i18next';
-import { URLS_PERMISSIONS } from '#libs/role/constants';
-import PaymentPackFormDrawer from '#libs/payment-packs/components/PaymentPackForm';
+import { URLS_PERMISSIONS } from '#src/libs/role/constants';
+import PaymentPackFormDrawer from '#src/libs/payment-packs/components/PaymentPackForm';
 import type { PaymentPack } from '../../payment-packs/types';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import CheckPermissionComponent from '../../role/components/CheckPermission.component';
-
 
 const PAGE_SIZE = 10;
 

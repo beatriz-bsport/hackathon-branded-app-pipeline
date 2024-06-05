@@ -17,12 +17,12 @@ import {
   SwitchField,
   DateField,
   // @ts-expect-error
-} from '#components/forms';
-import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
-import ToolTip from '#components/Tooltip.component';
-import { offPeakGroupDefault } from '#libs/payment-packs/utils';
-import OffPeakTimeSlotGroup from '#libs/payment-packs/components/PaymentPackForm/PaymentPackOffPeak.component';
+} from '#src/components/forms';
+import { CheckboxField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
+import ToolTip from '#src/components/Tooltip.component';
+import { offPeakGroupDefault } from '#src/libs/payment-packs/utils';
+import OffPeakTimeSlotGroup from '#src/libs/payment-packs/components/PaymentPackForm/PaymentPackOffPeak.component';
 import { PaymentPackFormValues, PaymentPackTemplate } from '../../types';
 
 type Props = {

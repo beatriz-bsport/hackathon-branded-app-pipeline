@@ -13,8 +13,8 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { useTranslation } from 'react-i18next';
-import type { Member } from '#libs/member/types';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import type { Member } from '#src/libs/member/types';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 type Props = {

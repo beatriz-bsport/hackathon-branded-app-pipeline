@@ -27,7 +27,7 @@ import {
   sendInvoiceToQuickbooksActions,
   applyBalanceToInvoiceActions,
   applyGiftcardOnInvoiceActions,
-} from '#libs/invoice/actions';
+} from '#src/libs/invoice/actions';
 
 import type {
   InvoiceConfigurationSerializer,
@@ -36,9 +36,9 @@ import type {
   InvoiceV1Serializer,
   InvoiceState,
   PlannedPaymentEventSerializer,
-} from '#libs/invoice/types';
-import type { PaymentItem } from '#libs/invoice/payment/types';
-import type { InvoiceItem } from '#libs/invoice/invoice-item/types';
+} from '#src/libs/invoice/types';
+import type { PaymentItem } from '#src/libs/invoice/payment/types';
+import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 import type { PaginatedResponse } from '../../state/types';
 
 type PayloadReduceTypeUuid<T> = { [uuid: string]: T };

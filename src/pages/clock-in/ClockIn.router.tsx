@@ -6,14 +6,14 @@ import { compose } from 'recompose';
 import { push as pushFunc } from 'connected-react-router';
 import { Redirect, Route, Switch } from 'react-router';
 
-// @ts-expect-error
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import withTitle from '#hocs/with-title.hoc';
-import { getPermissions } from '#libs/role/selectors';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
-import { RolePermission } from '#libs/role/types';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
+import { getPermissions } from '#src/libs/role/selectors';
+import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
+import ContentWithAppBar from '#src/components/generic-appbar-content/ContentWithAppBar.component';
+import { RolePermission } from '#src/libs/role/types';
 import { RootState } from '../../reducers';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 
 const ClockInRealTime = asyncComponent(() => import('./ClockInRealTime.page'));

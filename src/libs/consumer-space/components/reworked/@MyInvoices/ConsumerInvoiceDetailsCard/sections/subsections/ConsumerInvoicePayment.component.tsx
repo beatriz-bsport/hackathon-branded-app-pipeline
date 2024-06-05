@@ -2,9 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { AlertColorEnum, AlertVariantEnum } from '#Fabrique/Alert/constants';
-import { ConsumerInvoiceDisputeChip } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceDetailsCard/sections/subsections';
-import { formatAsDatetimeAdapted } from '#utils/datetime';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { ConsumerInvoiceDisputeChip } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceDetailsCard/sections/subsections';
+import { formatAsDatetimeAdapted } from '#src/utils/datetime';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import Alert from '#Fabrique/Alert';
 import Typography from '#Fabrique/Typography';
 

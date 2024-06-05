@@ -12,11 +12,11 @@ import { push } from 'connected-react-router';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
-import themeSelectors from '#libs/theme/selectors';
-import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
+import themeSelectors from '#src/libs/theme/selectors';
+import ConsumerGiftcardListItem from '#src/libs/giftcard/components/ConsumerGiftcardListItem.component';
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
-import { WidgetUtils } from '#libs/widget/WidgetUtils';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
+import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
 
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
@@ -24,18 +24,18 @@ import {
   fetchConsumerGiftcardSentList as fetchConsumerGiftcardSentListAction,
   retrieveConsumerGiftcard,
   sendEmailInvitation,
-} from '#libs/giftcard/actions';
+} from '#src/libs/giftcard/actions';
 
-import ConsumerGiftcardInvitationModal from '#libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
-import { ConsumerGiftcard, WithGiftcard } from '#libs/giftcard/types';
-import { urlToMarketplace } from '#libs/marketplace/utils';
+import ConsumerGiftcardInvitationModal from '#src/libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
+import { ConsumerGiftcard, WithGiftcard } from '#src/libs/giftcard/types';
+import { urlToMarketplace } from '#src/libs/marketplace/utils';
 
-import { snackbarSuccess } from '#libs/snackbar/actions';
+import { snackbarSuccess } from '#src/libs/snackbar/actions';
 import {
   getConsumerGiftcardReceivedList,
   withGiftcard,
   getConsumerGiftcardSentList,
-} from '#libs/giftcard/selectors';
+} from '#src/libs/giftcard/selectors';
 import { OptionCallback } from '../../state/types';
 
 import { RootState } from '../../reducers';

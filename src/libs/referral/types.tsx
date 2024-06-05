@@ -1,5 +1,5 @@
-import { Membership } from '#libs/membership/types';
-import { Tag } from '#libs/tag/types';
+import { Membership } from '#src/libs/membership/types';
+import { Tag } from '#src/libs/tag/types';
 import {
   ReferralTimeLimitUnits,
   ReferredVoucherTypeChoices,

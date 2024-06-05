@@ -7,10 +7,10 @@ import type { Theme } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
 
-import { MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '#components/menu/constants';
-import type { MenuAction } from '#components/menu/types';
+import { MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '#src/components/menu/constants';
+import type { MenuAction } from '#src/components/menu/types';
 
 type StylesProps = { color: string; open: boolean };
 

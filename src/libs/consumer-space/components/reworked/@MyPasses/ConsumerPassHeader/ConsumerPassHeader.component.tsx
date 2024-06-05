@@ -1,14 +1,14 @@
 import React from 'react';
 
-import ConsumerPassTitleAndButtons from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTitleAndButtons';
-import ConsumerPassFilters from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters';
-import ConsumerPassTabs from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs';
-import ConsumerHeaderSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerHeaderSkeleton';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+import ConsumerPassTitleAndButtons from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTitleAndButtons';
+import ConsumerPassFilters from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters';
+import ConsumerPassTabs from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs';
+import ConsumerHeaderSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerHeaderSkeleton';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
-import type { PassFilterTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
-import type { PassTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
-import type { ConsumerPassesTabDisplay } from '#libs/consumer-space/types';
+import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
+import type { PassTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
+import type { ConsumerPassesTabDisplay } from '#src/libs/consumer-space/types';
 
 import './styles.css';
 

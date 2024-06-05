@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import { useTranslation } from 'react-i18next';
-import ToolTip from '#components/Tooltip.component';
+import ToolTip from '#src/components/Tooltip.component';
 import { Member } from '../../member/types';
 
 type Props = {

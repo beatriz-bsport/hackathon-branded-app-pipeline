@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import type {
   CustomFormFieldAnswer,
   CustomFormFilled,
-} from '#libs/custom-form/types';
+} from '#src/libs/custom-form/types';
 import Button from '#Fabrique/ButtonV2';
 import './styles.css';
 

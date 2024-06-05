@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Dialog from '@material-ui/core/Dialog';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import './SubscriptionErrorDialogStyles.css';
 

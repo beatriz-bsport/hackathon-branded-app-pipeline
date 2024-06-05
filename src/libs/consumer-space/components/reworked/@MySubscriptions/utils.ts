@@ -2,15 +2,15 @@ import type { TFunction } from 'i18next';
 import type {
   SubscriptionInterval,
   SubscriptionREST,
-} from '#libs/subscription/types';
+} from '#src/libs/subscription/types';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import {
   LIST_ITEM_HEIGHT,
   SubscriptionTabEnum,
-} from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
-import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
-import { formatAsDate } from '#utils/datetime';
+} from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
+import { formatAsDate } from '#src/utils/datetime';
 
 export const getSubscriptionRecurrenceLabel = (
   recurrenceBasis: number,

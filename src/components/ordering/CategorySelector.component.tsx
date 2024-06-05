@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import { Category } from '#components/ordering/types';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import { Category } from '#src/components/ordering/types';
 
 type Props = {
   categories: Array<Category>;

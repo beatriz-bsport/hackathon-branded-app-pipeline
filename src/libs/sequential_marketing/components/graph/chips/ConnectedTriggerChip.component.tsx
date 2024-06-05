@@ -5,20 +5,19 @@ import {
   getEventCategoryIconAsString,
   getTriggerKind,
   getTriggerSpecificIcon,
-} from '#libs/sequential_marketing/components/helpers/utils';
+} from '#src/libs/sequential_marketing/components/helpers/utils';
 import {
   TriggerKind,
   SequentialMarketingColors,
-} from '#libs/sequential_marketing/constants';
-import { CustomMuiIcon } from '#components/icons/CustomMuiIcon.component';
+} from '#src/libs/sequential_marketing/constants';
+import { CustomMuiIcon } from '#src/components/icons/CustomMuiIcon.component';
 import type {
   ConnectedTrigger,
   TriggerEventConfig,
-} from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
+} from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
 import { CadenceChip } from './CadenceChip.component';
 import useConnectedTriggerChip from './useConnectedTriggerChip.hook';
-
 
 export type ConnectedTriggerChipProps = {
   connectedTrigger: ConnectedTrigger;

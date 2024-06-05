@@ -9,15 +9,15 @@ import {
   LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
 } from '@bsport/common/lib/master-data/error-codes/lock';
 import memoize from 'memoize-one';
-import { getPrice } from '#libs/theme/utils';
+import { getPrice } from '#src/libs/theme/utils';
 import {
   getCompanyCountry,
   getCurrencyDisplayWithPrice,
-} from '#libs/theme/selectors';
+} from '#src/libs/theme/selectors';
 
-import type { MarketplacePaymentMethodBillingDetails } from '#libs/marketplace/types';
-import { OfferWithSpotInformation } from '#libs/offer/types';
-import { Subscription } from '#libs/subscription/types';
+import type { MarketplacePaymentMethodBillingDetails } from '#src/libs/marketplace/types';
+import { OfferWithSpotInformation } from '#src/libs/offer/types';
+import { Subscription } from '#src/libs/subscription/types';
 import {
   EXCEPTION_BOOKING_GUEST_GENERIC,
   EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_OFFER,

@@ -13,7 +13,7 @@ import {
 import {
   associatedCoachSelector,
   getAllCoaches,
-} from '#libs/associated-coach/selectors';
+} from '#src/libs/associated-coach/selectors';
 
 import type {
   // @ts-expect-error
@@ -25,7 +25,7 @@ import type {
   CoachPaymentRuleGroup,
   // @ts-expect-error
   CoachPaymentRuleGroupAPI,
-} from '#libs/associated-coach/types';
+} from '#src/libs/associated-coach/types';
 import { RootState } from '../../reducers';
 
 export const CoachPaymentSelector = (state: RootState, id: number) =>

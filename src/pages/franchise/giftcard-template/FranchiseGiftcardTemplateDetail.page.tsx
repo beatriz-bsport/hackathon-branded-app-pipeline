@@ -10,15 +10,15 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { push } from 'connected-react-router';
-import GiftcardFormDrawer from '#libs/giftcard/components/GiftcardFormDrawer.component';
+import GiftcardFormDrawer from '#src/libs/giftcard/components/GiftcardFormDrawer.component';
 
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
 
-import BackofficeLinearProgressComponent from '#components/navigation/BackofficeLinearProgress.component';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { getPaymentMethodsConcatenatedString } from '#libs/payment/utils';
+import BackofficeLinearProgressComponent from '#src/components/navigation/BackofficeLinearProgress.component';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getPaymentMethodsConcatenatedString } from '#src/libs/payment/utils';
 
 // --------- GIFTCARD ---------
 import {
@@ -27,14 +27,14 @@ import {
   GiftcardDataAPI,
   WithSender,
   WithReceiver,
-} from '#libs/giftcard/types';
-import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
+} from '#src/libs/giftcard/types';
+import ConsumerGiftcardListItem from '#src/libs/giftcard/components/ConsumerGiftcardListItem.component';
 import {
   withSender,
   withReceiver,
   getConsumerGiftcardList,
   getGiftcardTemplateDetail,
-} from '#libs/giftcard/selectors';
+} from '#src/libs/giftcard/selectors';
 import {
   deleteGiftcardTemplateInstance as deleteGiftcardTemplateInstanceAction,
   createGiftcardTemplateInstances as createGiftcardTemplateInstancesAction,
@@ -42,18 +42,18 @@ import {
   createOrUpdateGiftcardTemplate as createOrUpdateGiftcardTemplateAction,
   retrieveGiftcardTemplate as retrieveGiftcardTemplateAction,
   fetchConsumerGiftcardList as fetchConsumerGiftcardListAction,
-} from '#libs/giftcard/actions';
+} from '#src/libs/giftcard/actions';
 // --------- FRANCHISE ---------
-import FranchiseGenericProductTemplateCard from '#libs/franchise/components/generic-product/template-card/GenericTemplateCard.component';
-import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
+import FranchiseGenericProductTemplateCard from '#src/libs/franchise/components/generic-product/template-card/GenericTemplateCard.component';
+import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/actions';
 import {
   getFranchiseCompanies,
   withAllowedFranchisees,
-} from '#libs/franchise/selectors';
+} from '#src/libs/franchise/selectors';
 import {
   WithFranchiseCompanies,
   FranchiseCompany,
-} from '#libs/franchise/types';
+} from '#src/libs/franchise/types';
 import { RootState } from '../../../reducers';
 import { OptionCallback } from '../../../state/types';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';

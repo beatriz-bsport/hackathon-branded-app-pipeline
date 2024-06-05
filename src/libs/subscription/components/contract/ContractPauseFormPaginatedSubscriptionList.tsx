@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
-import InfoGenericBox from '#components/box/InfoGenericBox.component';
+import InfoGenericBox from '#src/components/box/InfoGenericBox.component';
 import { OptionCallback } from '../../../../state/types';
 import PaginatedSubscriptionList from '../PaginatedSubscriptionList.component';
 import { Subscription } from '../../types';

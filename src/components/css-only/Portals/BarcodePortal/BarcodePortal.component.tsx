@@ -1,5 +1,5 @@
 import React from 'react';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import type { BarcodePortalProps } from '#src/components/css-only/Portals/types';
 import { BarcodeModal, BarcodeBottomDrawer } from '.';

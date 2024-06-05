@@ -6,7 +6,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { AlertSeverity } from '.';
 
 import './styles.css';

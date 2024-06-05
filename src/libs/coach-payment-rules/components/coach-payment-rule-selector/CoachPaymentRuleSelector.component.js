@@ -4,9 +4,9 @@ import React from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import Selector, { Suggestion } from '#components/Selector.component';
-import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
-import { DISSOCIATED_COACH_PAYMENT_RULE } from '#libs/coach-payment-rules/constants';
+import Selector, { Suggestion } from '#src/components/Selector.component';
+import { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
+import { DISSOCIATED_COACH_PAYMENT_RULE } from '#src/libs/coach-payment-rules/constants';
 
 type Props = {
   t: TFunction,

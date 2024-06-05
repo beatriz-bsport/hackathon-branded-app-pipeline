@@ -13,9 +13,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import type { OptionCallback } from '#state/types';
-import type { BookkeepingAccount } from '#libs/payment/types';
-import RedButton from '#components/button/RedButton.component';
+import type { OptionCallback } from '#src/state/types';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
+import RedButton from '#src/components/button/RedButton.component';
 
 export type BookkepingAccountDeletionModalProps = {
   bookkeepingAccountToDelete: BookkeepingAccount | null;

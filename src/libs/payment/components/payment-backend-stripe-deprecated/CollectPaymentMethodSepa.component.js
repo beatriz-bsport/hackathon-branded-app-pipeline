@@ -21,7 +21,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { loadStripe } from '@stripe/stripe-js';
-import type { StripeInit } from '#libs/payment/types';
+import type { StripeInit } from '#src/libs/payment/types';
 import StripeErrorCode from './StripeErrorCode.component';
 
 import { AVAILABLE_PAYMENT_METHOD_TYPE } from './helpers';

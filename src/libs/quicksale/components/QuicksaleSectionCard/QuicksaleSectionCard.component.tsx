@@ -6,7 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import MuiIcon from '#components/MuiIcon.component';
+import MuiIcon from '#src/components/MuiIcon.component';
 import { QuicksaleSection } from '../../types';
 import useGlobalStyle from '../../globalStyleHook';
 import useStyle from './styles';

@@ -12,21 +12,21 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { loadStripe } from '@stripe/stripe-js';
 
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
-import { fetchMember } from '#libs/member/actions';
-import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
-import { fetchPaymentMethodList } from '#libs/payment/actions';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
-import type { StripeInit } from '#libs/payment/types';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
+import { fetchMember } from '#src/libs/member/actions';
+import { fetchMembership as fetchMembershipAction } from '#src/libs/membership/actions';
+import { fetchPaymentMethodList } from '#src/libs/payment/actions';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
+import type { StripeInit } from '#src/libs/payment/types';
 import {
   getCompanyCountry,
   getStripeRegion,
   getTheme,
-} from '#libs/theme/selectors';
-import { getMember } from '#libs/member/selectors';
-import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
+} from '#src/libs/theme/selectors';
+import { getMember } from '#src/libs/member/selectors';
+import AddPaymentMethod from '#src/libs/payment/components/AddPaymentMethod.component';
 import type { RootState } from '../../reducers';
 
 type OwnProps = {

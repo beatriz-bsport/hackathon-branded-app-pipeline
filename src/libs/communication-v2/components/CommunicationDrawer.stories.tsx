@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { CommunicationDrawerWithStyles as CommunicationDrawer } from './CommunicationDrawer.component';
-import MembersFactory, { MemberFactory } from '#libs/member/factories/Member';
+import MembersFactory, {
+  MemberFactory,
+} from '#src/libs/member/factories/Member';
 import CommunicationMessageListFactory from '../factories/Communication';
 import { RecipientWithMemberFromCommunicationMessageFactory } from '../factories/RecipientWithMember';
-import EmailTemplateDetailSummaryListsFactory from '#libs/email-editor/factories/Emails';
+import EmailTemplateDetailSummaryListsFactory from '#src/libs/email-editor/factories/Emails';
 
 import { getMemberIdListsFromMemberList } from '../utils';
 
 import { CommunicationMessage, DrawerProps, Communication } from '../types';
-import { Member } from '#libs/member/types';
-import { tagCategories, tagListFactory } from '#libs/tag/factory';
+import { Member } from '#src/libs/member/types';
+import { tagCategories, tagListFactory } from '#src/libs/tag/factory';
 
 import {
   CONTEXT_NOTIFICATION,

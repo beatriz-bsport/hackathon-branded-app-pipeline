@@ -7,9 +7,9 @@ import Paper from '@material-ui/core/Paper';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { DateTime } from 'luxon';
-import { SmartList } from '#libs/smart-list/types';
-import { getMergeTags } from '#libs/marketing/utils';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { SmartList } from '#src/libs/smart-list/types';
+import { getMergeTags } from '#src/libs/marketing/utils';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
 import type { Establishment, Offer } from '../../../api/types';

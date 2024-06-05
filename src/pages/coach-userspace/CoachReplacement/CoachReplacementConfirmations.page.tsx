@@ -11,31 +11,31 @@ import Typography from '@material-ui/core/Typography';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Pagination from '@material-ui/lab/Pagination';
 
-import ActivitiesToReplaceTable from '#libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
+import ActivitiesToReplaceTable from '#src/libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
 
 import {
   ReplacementDisplays,
   PAGE_SIZE,
-} from '#libs/replacement-request/constants';
+} from '#src/libs/replacement-request/constants';
 import {
   getOfferCalendarStateData,
   withCoach,
   withEstablishment,
   withMetaActivity,
-} from '#libs/offer/selectors';
-import { withCustomLevel } from '#libs/level/selectors';
-import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
+} from '#src/libs/offer/selectors';
+import { withCustomLevel } from '#src/libs/level/selectors';
+import { getMyAssociatedCoachProfile } from '#src/libs/associated-coach/selectors';
 import {
   withEstablishment as groupWithEstablishment,
   getAssociatedEstablishmentGroup,
-} from '#libs/establishment/selectors';
-import { fetchAllOffersPaginated as fetchAllOffersPaginatedAction } from '#libs/offer/actions';
+} from '#src/libs/establishment/selectors';
+import { fetchAllOffersPaginated as fetchAllOffersPaginatedAction } from '#src/libs/offer/actions';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
-import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+} from '#src/libs/establishment/actions';
+import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#src/libs/meta-activity/actions';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
 import { RootState } from '../../../reducers';
 import { WithHandlerType } from '../../../utils/types';
 

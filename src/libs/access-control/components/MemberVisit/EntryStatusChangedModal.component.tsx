@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 
-import { EntryStatus } from '#libs/access-control/constants';
+import { EntryStatus } from '#src/libs/access-control/constants';
 
 type Props = {
   open: boolean;

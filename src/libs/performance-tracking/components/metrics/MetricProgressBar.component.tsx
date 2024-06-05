@@ -2,7 +2,7 @@ import React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Slider, Typography } from '@material-ui/core';
-import { PerformanceTrackingMetric } from '#libs/performance-tracking/types';
+import { PerformanceTrackingMetric } from '#src/libs/performance-tracking/types';
 
 type OwnProps = {
   metric: PerformanceTrackingMetric;

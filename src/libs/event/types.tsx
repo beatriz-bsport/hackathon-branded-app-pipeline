@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
 import { ReactNode } from 'react';
-import { Subscription } from '#libs/subscription/types';
+import { Subscription } from '#src/libs/subscription/types';
 
 type SubscriptionEventPauseData = {
   nb_days?: number;

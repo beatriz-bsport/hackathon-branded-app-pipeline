@@ -7,14 +7,14 @@ import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 import { useTranslation } from 'react-i18next';
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
-import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
-import LoginBackground from '#libs/login/components/LoginBackground.component';
-import { Theme } from '#libs/theme/types';
-import { refreshValidationEmailStatus as refreshValidationEmailStatusAction } from '#libs/login/actions';
-import withThemeProvider from '#hocs/company-themifier.hoc';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
+import LoginBackground from '#src/libs/login/components/LoginBackground.component';
+import { Theme } from '#src/libs/theme/types';
+import { refreshValidationEmailStatus as refreshValidationEmailStatusAction } from '#src/libs/login/actions';
+import withThemeProvider from '#src/hocs/company-themifier.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import namespaces from '../../i18n/namespaces.json';
 import { RootState } from '../../reducers';
 // @ts-expect-error

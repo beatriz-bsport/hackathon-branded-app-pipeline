@@ -1,19 +1,19 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
-import { getBuyableItem } from '#libs/invoice/selectors';
-import shopSelectors, { getAllShopItemData } from '#libs/shop/selectors';
+import { getBuyableItem } from '#src/libs/invoice/selectors';
+import shopSelectors, { getAllShopItemData } from '#src/libs/shop/selectors';
 // @ts-expect-error
-import { getAvailableContractList } from '#libs/subscription/selectors';
-import type { Contract } from '#libs/subscription/types';
+import { getAvailableContractList } from '#src/libs/subscription/selectors';
+import type { Contract } from '#src/libs/subscription/types';
 import {
   groupByCategory,
   getPaymentPackById,
-} from '#libs/payment-packs/selectors';
-import { getPrivatePassByCategoryWithPasses } from '#libs/private-service/selectors/private-pass-category';
-import { getPrivatePassById } from '#libs/private-service/selectors/private-pass';
-import { getPaymenComboDataDict } from '#libs/payment-combo/selectors';
-import { getGiftcardData } from '#libs/giftcard/selectors';
+} from '#src/libs/payment-packs/selectors';
+import { getPrivatePassByCategoryWithPasses } from '#src/libs/private-service/selectors/private-pass-category';
+import { getPrivatePassById } from '#src/libs/private-service/selectors/private-pass';
+import { getPaymenComboDataDict } from '#src/libs/payment-combo/selectors';
+import { getGiftcardData } from '#src/libs/giftcard/selectors';
 import {
   QuicksaleObjectsByItemIdentifierByCategory,
   QuicksaleObjectsByItemIdentifierById,

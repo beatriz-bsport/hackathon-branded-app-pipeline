@@ -3,12 +3,12 @@ import { Collapse, Grid, List, Paper, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { ImmutableArray, ImmutableObject } from 'seamless-immutable';
 import Fuse, { FuseOptions } from 'fuse.js';
-import FuzeSearch from '#components/FuzeSearch.component';
-import IsEmptyList from '#components/navigation/IsEmptyList.component';
-import { isNotCommunicationSentGroupConfigList } from '#libs/communication/utils';
-import { CommunicationSentGroupConfig } from '#libs/communication/types';
+import FuzeSearch from '#src/components/FuzeSearch.component';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
+import { isNotCommunicationSentGroupConfigList } from '#src/libs/communication/utils';
+import { CommunicationSentGroupConfig } from '#src/libs/communication/types';
 // @ts-expect-error
-import SmartListCard from '#libs/smart-list/components/SmartlistCard.component';
+import SmartListCard from '#src/libs/smart-list/components/SmartlistCard.component';
 import CommunicationSentGroupConfigListItem from './CommunicationSentGroupConfigListItem.component';
 
 type Props = {

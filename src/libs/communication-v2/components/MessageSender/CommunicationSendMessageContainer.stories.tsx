@@ -2,15 +2,15 @@ import React from 'react';
 import CommunicationSendMessageContainer, {
   Props,
 } from './CommunicationSendMessageContainer.component';
-import MembersFactory from '#libs/member/factories/Member';
+import MembersFactory from '#src/libs/member/factories/Member';
 import {
   PAGINATION_SIZE_RECIPIENTS,
   WRITE_EMAIL,
   WRITE_PUSH_NOTIFICATION,
   WRITE_SMS,
-} from '#libs/communication-v2/constants';
-import { getMemberIdListsFromMemberList } from '#libs/communication-v2/utils';
-import EmailTemplateDetailSummaryListsFactory from '#libs/email-editor/factories/Emails';
+} from '#src/libs/communication-v2/constants';
+import { getMemberIdListsFromMemberList } from '#src/libs/communication-v2/utils';
+import EmailTemplateDetailSummaryListsFactory from '#src/libs/email-editor/factories/Emails';
 
 const memberList = MembersFactory(9, true);
 const [allMemberIds, allMemberIdsWithoutEmail, allMemberIdsWithoutPhone] =

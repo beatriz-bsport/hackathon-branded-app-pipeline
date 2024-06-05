@@ -2,8 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { SvgIconComponent } from '@material-ui/icons';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import StatusMessageWithIcon from '#components/css-only/StatusMessageWithIcon';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import StatusMessageWithIcon from '#src/components/css-only/StatusMessageWithIcon';
 
 import './MarketplaceBookingBlockedReason.css';
 

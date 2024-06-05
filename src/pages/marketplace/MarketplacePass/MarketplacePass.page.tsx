@@ -14,25 +14,25 @@ import {
   BUYABLE_ITEM_COMBO_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
 import isEqual from 'lodash/isEqual';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import themeSelector from '#libs/theme/selectors';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import themeSelector from '#src/libs/theme/selectors';
 
 // marketplace
 // -----------------------------
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
-import { fetchPaymentComboList } from '#libs/payment-combo/actions';
-import MarketplacePaymentPackList from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackList';
-import MarketplacePrivatePassList from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassList';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#src/libs/establishment/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
+import { fetchPaymentComboList } from '#src/libs/payment-combo/actions';
+import MarketplacePaymentPackList from '#src/libs/marketplace/components/@PaymentPack/MarketplacePaymentPackList';
+import MarketplacePrivatePassList from '#src/libs/marketplace/components/@PrivatePass/MarketplacePrivatePassList';
 
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { getPaymentPackCategoriesWithPacks } from '#libs/payment-packs/selectors';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { getPaymentPackCategoriesWithPacks } from '#src/libs/payment-packs/selectors';
 // checkout
 // -----------------------------
-import { addItemToBasket } from '#libs/checkout/actions';
-import { getCurrentBasket } from '#libs/checkout/selectors';
+import { addItemToBasket } from '#src/libs/checkout/actions';
+import { getCurrentBasket } from '#src/libs/checkout/selectors';
 
 // private-service
 // -----------------------------
@@ -41,46 +41,49 @@ import {
   fetchAllPrivatePassCategory,
   fetchMarketplacePrivateServices,
   fetchMarketplacePrivateSlots,
-} from '#libs/private-service/actions';
-import { getPrivatePassAsConsumer } from '#libs/private-service/selectors/private-pass';
+} from '#src/libs/private-service/actions';
+import { getPrivatePassAsConsumer } from '#src/libs/private-service/selectors/private-pass';
 
 // payment-combo
 // -----------------------------
-import { getPaymentComboListAvailableOnline } from '#libs/payment-combo/selectors';
+import { getPaymentComboListAvailableOnline } from '#src/libs/payment-combo/selectors';
 import {
   fetchMarketplacePacks,
   fetchAllPaymentPackCategory,
-} from '#libs/payment-packs/actions';
-import withTitle from '#hocs/with-title.hoc';
+} from '#src/libs/payment-packs/actions';
+import withTitle from '#src/hocs/with-title.hoc';
 
-import { fetchMemberTagList } from '#libs/tag/actions';
-import { getMemberTagsIdsList } from '#libs/tag/selectors';
-import { getPrivatePassByCategoryWithPasses } from '#libs/private-service/selectors/private-pass-category';
-import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
+import { fetchMemberTagList } from '#src/libs/tag/actions';
+import { getMemberTagsIdsList } from '#src/libs/tag/selectors';
+import { getPrivatePassByCategoryWithPasses } from '#src/libs/private-service/selectors/private-pass-category';
+import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
 import {
   type MarketplaceCategoryPassFilterOption,
   type MarketplacePassDialogStateKey,
   MarketplacePassPageDialogState,
   type MarketplacePassParams,
-} from '#libs/marketplace/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PrivatePass } from '#libs/private-service/types';
-import Carousel from '#components/css-only/Carousel';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import MarketplacePaymentComboCard from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboCard';
+} from '#src/libs/marketplace/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+
+import Carousel from '#src/components/css-only/Carousel';
+
+import MarketplacePaymentComboCard from '#src/libs/marketplace/components/@PaymentCombo/MarketplacePaymentComboCard';
 import {
   BaseAdditionalData,
   SearchItemData,
-} from '#components/css-only/Search/Search.component';
-import MarketplacePaymentComboList from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboList';
+} from '#src/components/css-only/Search/Search.component';
+import MarketplacePaymentComboList from '#src/libs/marketplace/components/@PaymentCombo/MarketplacePaymentComboList';
 import {
   getParsedPassRestrictedCategories,
   getPassFilterAvailableCategories,
-} from '#libs/marketplace/utils';
-import { getAllEstablishmentsDict } from '#libs/establishment/selectors';
-import { getMetaActivityAbstractDict } from '#libs/meta-activity/selectors';
-import { _getPrivateServicesById } from '#libs/private-service/selectors/private-service';
-import { getAllPrivateSlotsDict } from '#libs/private-service/selectors/private-slot';
+} from '#src/libs/marketplace/utils';
+import { getAllEstablishmentsDict } from '#src/libs/establishment/selectors';
+import { getMetaActivityAbstractDict } from '#src/libs/meta-activity/selectors';
+import { _getPrivateServicesById } from '#src/libs/private-service/selectors/private-service';
+import { getAllPrivateSlotsDict } from '#src/libs/private-service/selectors/private-slot';
 import { MarketplacePassDialogsPortal } from './MarketplacePassDialogs.component';
 import MarketplacePassFilters from './MarketplacePassFilters';
 import { RootState } from '../../../reducers';

@@ -4,10 +4,10 @@ import classNames from 'classnames';
 
 import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
-import ConsumerPaymentPackCreditStatus from '#libs/consumer-space/components/reworked/common/ConsumerPaymentPackCreditStatus';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerPaymentPackCreditStatus from '#src/libs/consumer-space/components/reworked/common/ConsumerPaymentPackCreditStatus';
 
-import { useConsumerPassDetailsCardHeaderData } from '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/DetailsCard/hooks';
+import { useConsumerPassDetailsCardHeaderData } from '#src/libs/consumer-space/components/reworked/@MyPasses/GenericPass/DetailsCard/hooks';
 
 type Props = {
   isMobile?: boolean;

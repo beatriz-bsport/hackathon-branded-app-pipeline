@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 
-import FranchiseCompaniesListingTooltip from '#libs/franchise/components/FranchiseCompaniesListingTooltip.component';
-import type { FranchiseCompany } from '#libs/franchise/types';
+import FranchiseCompaniesListingTooltip from '#src/libs/franchise/components/FranchiseCompaniesListingTooltip.component';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
 import CompanyChip from './CompanyChip.component';
 
 type Props = {

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import type { SubscriptionInterval } from '#libs/subscription/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import type { SubscriptionInterval } from '#src/libs/subscription/types';
 
 /**
  * Generates a subscription label with price and recurrence information.

@@ -12,11 +12,14 @@ import {
 import { CouponUniqueCodeEditModeOptions } from '@bsport/common/lib/master-data/coupon';
 import { Alert } from '@material-ui/lab';
 import InfoIcon from '@material-ui/icons/Info';
-import FormSection from '#components/forms/FormSection';
-import FileUploaderCustomized from '#components/FileUploaderCustomized';
-import { Coupon, UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
-import { parseCSVFileToGetVoucherCodes } from '#libs/coupon/utils';
-import Popover from '#components/Popover';
+import FormSection from '#src/components/forms/FormSection';
+import FileUploaderCustomized from '#src/components/FileUploaderCustomized';
+import {
+  Coupon,
+  UniqueCodeCouponCreationPayload,
+} from '#src/libs/coupon/types';
+import { parseCSVFileToGetVoucherCodes } from '#src/libs/coupon/utils';
+import Popover from '#src/components/Popover';
 
 type Props = {
   isProcessing: boolean;

@@ -5,11 +5,11 @@ import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
 
-import SimilarOffersList from '#libs/offer/components/SimilarOffersList.component';
+import SimilarOffersList from '#src/libs/offer/components/SimilarOffersList.component';
 
-import { PropagateCoachOverrideToSimilarOffers } from '#libs/offer/constants';
-import { Coach } from '#libs/associated-coach/types';
-import { Offer } from '#libs/offer/types';
+import { PropagateCoachOverrideToSimilarOffers } from '#src/libs/offer/constants';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Offer } from '#src/libs/offer/types';
 
 type Props = {
   similarOffers: Offer[];

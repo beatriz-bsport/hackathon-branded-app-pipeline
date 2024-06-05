@@ -8,18 +8,18 @@ import { useTranslation } from 'react-i18next';
 import {
   getGroupedEstablishmentOptions,
   GroupHeading,
-} from '#libs/establishment/components/EstablishmentSelector.component';
-import RollCallSelector from '#libs/offer/components/RollCallSelector.component';
-import SubTeacherRequestSelector from '#libs/offer/components/SubTeacherRequestSelector.component';
+} from '#src/libs/establishment/components/EstablishmentSelector.component';
+import RollCallSelector from '#src/libs/offer/components/RollCallSelector.component';
+import SubTeacherRequestSelector from '#src/libs/offer/components/SubTeacherRequestSelector.component';
 
 import type {
   Establishment,
   EstablishmentGroup,
   EstablishmentGroupAPI,
-} from '#libs/establishment/types';
-import type { CompanyTheme } from '#libs/theme/types';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
-import type { Coach } from '#libs/associated-coach/types';
+} from '#src/libs/establishment/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import type { Coach } from '#src/libs/associated-coach/types';
 import type { SelectOption } from '#src/libs/types';
 import type { OfferFilter } from '../types';
 

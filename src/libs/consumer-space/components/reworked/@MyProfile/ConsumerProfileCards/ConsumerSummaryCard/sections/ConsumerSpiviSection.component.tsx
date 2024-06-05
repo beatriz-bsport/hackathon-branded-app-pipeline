@@ -2,13 +2,13 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import List from '#src/components/css-only/Fabrique/List';
 import ListItem from '#src/components/css-only/Fabrique/ListItem';
 
-import type { ConsumerSummaryCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
+import type { ConsumerSummaryCardProps } from '#src/libs/consumer-space/components/reworked/@MyProfile/types';
 import InfoButton from '#src/components/css-only/InfoButton';
-import '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard/styles.css';
+import '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard/styles.css';
 
 type Props = Pick<
   ConsumerSummaryCardProps,

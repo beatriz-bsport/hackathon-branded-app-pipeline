@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MemberMinimalFactory from '#libs/member/factories/MemberMinimal';
+import MemberMinimalFactory from '#src/libs/member/factories/MemberMinimal';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 

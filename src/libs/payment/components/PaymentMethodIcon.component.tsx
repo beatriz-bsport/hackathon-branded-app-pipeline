@@ -15,7 +15,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
 } from '@bsport/common/lib/master-data/payment-group';
-import { QuicksalePaymentMethod } from '#libs/quicksale/constants';
+import { QuicksalePaymentMethod } from '#src/libs/quicksale/constants';
 import { getCurrencyDisplay } from '../../theme/selectors';
 
 // import/no-unresolved

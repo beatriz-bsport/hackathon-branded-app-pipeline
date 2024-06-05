@@ -1,14 +1,14 @@
 import React from 'react';
 
-import OfferSummary from '#libs/offer/OfferSummary';
-import SubscriptionRecap from '#libs/subscription/components/new-checkout-flow/SubscriptionRecap';
+import OfferSummary from '#src/libs/offer/OfferSummary';
+import SubscriptionRecap from '#src/libs/subscription/components/new-checkout-flow/SubscriptionRecap';
 
-import { ContractWithPaymentPack } from '#libs/subscription/types';
-import { Offer, OfferSummaryVariant } from '#libs/offer/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { ContractWithPaymentPack } from '#src/libs/subscription/types';
+import { Offer, OfferSummaryVariant } from '#src/libs/offer/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import './SubscriptionBasketSummaryStyles.css';
 

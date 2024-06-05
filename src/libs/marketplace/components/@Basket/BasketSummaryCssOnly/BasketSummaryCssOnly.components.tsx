@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { getSubTotal } from '#libs/checkout/utils';
-import MarketplaceBasketSummaryListCssOnly from '#libs/marketplace/components/@Basket/MarketplaceBasketSummaryListCssOnly';
-import MarketplaceBasketSummaryPrepaidLineList from '#libs/marketplace/components/@Basket/MarketplaceBasketSummaryPrepaidLineList';
-import CircularProgress from '#components/css-only/CircularProgress';
-import Alert, { AlertSeverity } from '#csscomponents/Alert';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getSubTotal } from '#src/libs/checkout/utils';
+import MarketplaceBasketSummaryListCssOnly from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryListCssOnly';
+import MarketplaceBasketSummaryPrepaidLineList from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryPrepaidLineList';
+import CircularProgress from '#src/components/css-only/CircularProgress';
+import Alert, { AlertSeverity } from '#src/components/css-only/Alert';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 import type {
   CheckoutItem,
@@ -13,7 +13,7 @@ import type {
   PrepaidLine,
   HandleAddCheckoutItemData,
   OnRemoveCheckoutItemData,
-} from '#libs/checkout/types';
+} from '#src/libs/checkout/types';
 
 import type { OptionCallback } from '../../../../../state/types';
 

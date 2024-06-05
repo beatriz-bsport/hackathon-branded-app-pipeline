@@ -17,23 +17,23 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
 
-import type { OptionCallback } from '#state/types';
-import type { BillingDetails } from '#libs/marketplace/types';
-import type { PaymentMethod } from '#libs/payment/types';
+import type { OptionCallback } from '#src/state/types';
+import type { BillingDetails } from '#src/libs/marketplace/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
 
-import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
-import { useWidth } from '#hooks/useWidth';
-import CardBillingDetailsForm from '#libs/payment/components/payment-backend-stripe/CardBillingDetailsForm';
-import PaymentMethodList from '#libs/payment/components/payment-method-list/PaymentMethodList.component';
-import PopOver from '#components/Popover';
-import StripeErrorCode from '#libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
-import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
+import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
+import { useWidth } from '#src/hooks/useWidth';
+import CardBillingDetailsForm from '#src/libs/payment/components/payment-backend-stripe/CardBillingDetailsForm';
+import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
+import PopOver from '#src/components/Popover';
+import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
+import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
 import {
   blockPendingBasket as blockPendingBasketAPI,
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
-} from '#libs/payment/api';
+} from '#src/libs/payment/api';
 import Config from '../../../../config';
 
 type Props = {

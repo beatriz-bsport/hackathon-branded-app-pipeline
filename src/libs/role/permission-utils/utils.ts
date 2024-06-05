@@ -2,7 +2,7 @@ import get from 'lodash/get';
 import every from 'lodash/every';
 import values from 'lodash/values';
 import last from 'lodash/last';
-import { ObjectLevelPermissions } from '#libs/role/types';
+import { ObjectLevelPermissions } from '#src/libs/role/types';
 
 export const hasObjectLevelPermission: (
   userPermissions: ObjectLevelPermissions,

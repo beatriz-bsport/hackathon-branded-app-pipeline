@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { CSS_COMPONENTS } from '#libs/exportable-components/custom_css_variants';
+import { CSS_COMPONENTS } from '#src/libs/exportable-components/custom_css_variants';
 import {
   EXPORTABLE_COMPONENTS,
   EXPORTABLE_COMPONENT_TYPE_PLAYLIST,

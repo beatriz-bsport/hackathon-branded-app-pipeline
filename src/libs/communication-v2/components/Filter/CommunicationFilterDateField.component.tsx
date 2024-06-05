@@ -6,7 +6,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { KeyboardArrowDown } from '@material-ui/icons';
 import { DateTime } from 'luxon';
 
-import DateInput from '#components/input/DateInput.component';
+import DateInput from '#src/components/input/DateInput.component';
 
 type Props = {
   fieldStartValue: DateTime;

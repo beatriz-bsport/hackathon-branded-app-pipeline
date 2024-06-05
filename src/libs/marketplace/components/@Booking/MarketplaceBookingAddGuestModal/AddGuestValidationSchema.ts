@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import { emailValidationRegExp } from '#libs/custom-form/constants';
+import { emailValidationRegExp } from '#src/libs/custom-form/constants';
 
 const AddGuestValidationSchema = Yup.object().shape({
   firstName: Yup.string().required('booking:guest.form.errors.requiredField'),

@@ -1,15 +1,15 @@
-import type { OfferFilter } from '#libs/offer/types';
-import { OffersGroupFilter } from '#libs/meta-activity/types';
+import type { OfferFilter } from '#src/libs/offer/types';
+import { OffersGroupFilter } from '#src/libs/meta-activity/types';
 import {
   PrivateBookingFilterParams,
   ResourceData,
-} from '#libs/private-service/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
+} from '#src/libs/private-service/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
 import {
   ReplacementRequestFilter,
   ReplacementRequestOfferHistoryFilter,
-} from '#libs/replacement-request/types';
+} from '#src/libs/replacement-request/types';
 import {
   ManagerOnly,
   SortOption,

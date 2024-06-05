@@ -15,8 +15,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import { useTranslation } from 'react-i18next';
-import ToolTip from '#components/Tooltip.component';
-import { SMALL_MOBILE_CRITICAL_SIZE } from '#libs/member/constants';
+import ToolTip from '#src/components/Tooltip.component';
+import { SMALL_MOBILE_CRITICAL_SIZE } from '#src/libs/member/constants';
 
 type Props = {
   email: string,

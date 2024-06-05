@@ -6,9 +6,9 @@ import { makeStyles, Typography } from '@material-ui/core';
 import {
   GROUP_AND_OPERAND,
   GROUP_OR_OPERAND,
-} from '#libs/datatype-filtering/constants';
+} from '#src/libs/datatype-filtering/constants';
 
-import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 
 const OperandSelect: React.FC<{
   name: string;

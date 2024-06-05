@@ -21,13 +21,13 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 
 import { TFunction } from 'i18next';
-import { BOOKING_CANCELLED_BY_STAFF } from '#libs/booking/components/constants';
+import { BOOKING_CANCELLED_BY_STAFF } from '#src/libs/booking/components/constants';
 import {
   PRIVATE_BOOKING_CANCELLED_BY_STAFF,
   RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
-} from '#libs/private-service/components/constants';
-import { UserRoleData } from '#libs/role/types';
-import { PrivateBooking } from '#libs/private-service/types';
+} from '#src/libs/private-service/components/constants';
+import { UserRoleData } from '#src/libs/role/types';
+import { PrivateBooking } from '#src/libs/private-service/types';
 import type { Booking } from './types';
 import { formatAsDate, formatISOStringAsTime } from '../../utils/datetime';
 

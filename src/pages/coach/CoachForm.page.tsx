@@ -14,20 +14,20 @@ import {
 } from '@material-ui/core';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 
-import mapRouterParamsToProps from '#hocs/router-params-to-props.hoc';
-import withTitle from '#hocs/with-title.hoc';
+import mapRouterParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
 
 import {
   fetchAssociatedCoach,
   createOrUpdateCoach,
   linkByEmail as linkCoachViaEmail,
-} from '#libs/associated-coach/actions';
-import { getCoach } from '#libs/associated-coach/selectors';
+} from '#src/libs/associated-coach/actions';
+import { getCoach } from '#src/libs/associated-coach/selectors';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import CoachForm from '#src/libs/associated-coach/components/CoachForm.component';
+import CoachEmailCheckDialog from '#src/libs/associated-coach/components/CoachEmailCheckDialog.component';
+import type { CoachUpdateOrCreatedPayload } from '#src/libs/associated-coach/types';
 // @ts-expect-error
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import CoachForm from '#libs/associated-coach/components/CoachForm.component';
-import CoachEmailCheckDialog from '#libs/associated-coach/components/CoachEmailCheckDialog.component';
-import type { CoachUpdateOrCreatedPayload } from '#libs/associated-coach/types';
 import { mapFormData, unmap } from '../form.utils';
 // @ts-expect-error
 import { browserCountryCode } from '../../i18n';

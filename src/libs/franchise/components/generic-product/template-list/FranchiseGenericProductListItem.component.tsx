@@ -17,10 +17,10 @@ import {
   RestoreFromTrash,
 } from '@material-ui/icons';
 import { TFunction } from 'i18next';
-import ListItemResponsiveAction from '#components/button/ListItemResponsiveAction.component';
-import FranchiseCompanyChipList from '#components/franchise/FranchiseCompanyChipList.component';
-import { FranchiseCompany } from '#libs/franchise/types';
-import Tooltip from '#components/Tooltip.component';
+import ListItemResponsiveAction from '#src/components/button/ListItemResponsiveAction.component';
+import FranchiseCompanyChipList from '#src/components/franchise/FranchiseCompanyChipList.component';
+import { FranchiseCompany } from '#src/libs/franchise/types';
+import Tooltip from '#src/components/Tooltip.component';
 
 type Props = {
   id: number;

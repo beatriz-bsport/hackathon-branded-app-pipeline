@@ -8,14 +8,17 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import PlaceIcon from '@material-ui/icons/Place';
-import { MAX_DISPLAY } from '#libs/communication-v2/constants';
+import { MAX_DISPLAY } from '#src/libs/communication-v2/constants';
 
-import CustomAvatarGroup from '#components/CustomAvatarGroup.component';
+import CustomAvatarGroup from '#src/components/CustomAvatarGroup.component';
 
-import { DisciplineGroup } from '#libs/replacement-request/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
-import { MultilocationChoice } from '#libs/replacement-request/constants';
+import { DisciplineGroup } from '#src/libs/replacement-request/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
+import { MultilocationChoice } from '#src/libs/replacement-request/constants';
 
 type Props = {
   disciplineGroup: DisciplineGroup<

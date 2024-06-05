@@ -12,17 +12,17 @@ import PauseIcon from '@material-ui/icons/Pause';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
-import ToolTip from '#components/Tooltip.component';
-import StopBuildIcon from '#components/icons/StopBuildIcon.component';
+import CadenceCreateAndUpdateForm from '#src/libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
+import ToolTip from '#src/components/Tooltip.component';
+import StopBuildIcon from '#src/components/icons/StopBuildIcon.component';
 
-import type { Cadence } from '#libs/sequential_marketing/types';
+import type { Cadence } from '#src/libs/sequential_marketing/types';
 import CadenceUtilityDialog, {
   DialogVariant,
-} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
+} from '#src/libs/sequential_marketing/components/dialogs/DialogUtility';
 
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import type { OptionCallback } from '../../../state/types';
 
 const { trackFormAdd, trackFormCancel } =

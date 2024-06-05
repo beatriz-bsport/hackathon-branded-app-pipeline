@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Menu from '#Fabrique/Menu';
 import MenuItem from '#Fabrique/MenuItem';
 import MenuItemList from '#Fabrique/MenuItemList';

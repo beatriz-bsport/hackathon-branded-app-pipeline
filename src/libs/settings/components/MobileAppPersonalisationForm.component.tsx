@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, InputLabel, Paper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { CompanyTheme, DefaultPageOption } from '#libs/theme/types';
+import { CompanyTheme, DefaultPageOption } from '#src/libs/theme/types';
 import { OptionCallback } from '../../../state/types';
 
 const DEFAULT_HOME_PAGE = DefaultPageOption.HOME;

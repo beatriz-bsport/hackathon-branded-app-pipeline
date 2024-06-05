@@ -3,9 +3,9 @@ import React from 'react';
 import Tune from '@material-ui/icons/Tune';
 import { useTranslation } from 'react-i18next';
 
-import FormSection from '#components/forms/FormSection';
-import { useOfferFormStyles } from '#libs/offer/hooks';
-import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
+import FormSection from '#src/components/forms/FormSection';
+import { useOfferFormStyles } from '#src/libs/offer/hooks';
+import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
 
 type Props = {
   similarOffersLength: number;

@@ -16,12 +16,12 @@ import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import { Settings, DateTime } from 'luxon';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-// @ts-expect-error
-import type { StripeReader } from '#libs/terminal/types';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import type { StripeReader } from '#src/libs/terminal/types';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { LuxonDateTime } from '#src/types';
+// @ts-expect-error
 import SubscriptionPayment from './SubscriptionPayment.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 // @ts-expect-error

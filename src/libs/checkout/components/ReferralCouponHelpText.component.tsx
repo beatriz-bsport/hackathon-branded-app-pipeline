@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 type ReferralCouponHelpTextProps = {
   missingAmountBeforeApplication?: number;

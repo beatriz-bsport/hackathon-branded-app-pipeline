@@ -5,12 +5,12 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Select from 'react-select';
 
-import FuzzySearch from '#components/search/FuzzySearch.component';
-import { EmailTemplateSummary } from '#libs/email-editor/types';
-import { FranchiseCompany } from '#libs/franchise/types';
-import EmailListItem from '#libs/email-editor/components/EmailListItem.components';
-import EmailVirtualizedList from '#libs/email-virtualized-editor';
-import { sortCompanyListByIsAllowedAndName } from '#libs/franchise/utils';
+import FuzzySearch from '#src/components/search/FuzzySearch.component';
+import { EmailTemplateSummary } from '#src/libs/email-editor/types';
+import { FranchiseCompany } from '#src/libs/franchise/types';
+import EmailListItem from '#src/libs/email-editor/components/EmailListItem.components';
+import EmailVirtualizedList from '#src/libs/email-virtualized-editor';
+import { sortCompanyListByIsAllowedAndName } from '#src/libs/franchise/utils';
 
 export type OwnProps = {
   emails: EmailTemplateSummary[];

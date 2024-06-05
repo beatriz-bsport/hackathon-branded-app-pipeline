@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Avatar from '@material-ui/core/Avatar';
-import { AvailabilityDetail } from '#libs/private-service/types';
+import { AvailabilityDetail } from '#src/libs/private-service/types';
 import { formatISOStringAsTime } from '../../../../utils/datetime';
 
 const useStyles = makeStyles((theme: Theme) => ({

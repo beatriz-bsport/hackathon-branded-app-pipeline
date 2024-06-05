@@ -11,14 +11,14 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { useTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import InboxThreadLookup from '#libs/communication-v2/thread/InboxThreadLookup';
+import InboxThreadLookup from '#src/libs/communication-v2/thread/InboxThreadLookup';
 
-import InboxThreadListRow from '#libs/communication-v2/thread/InboxThreadList/InboxThreadListRow.component';
+import InboxThreadListRow from '#src/libs/communication-v2/thread/InboxThreadList/InboxThreadListRow.component';
 import type {
   CommunicationThread,
   CommunicationThreadWithUnreadAnswersCount,
   SelectFieldItem,
-} from '#libs/communication-v2/types';
+} from '#src/libs/communication-v2/types';
 import type { OptionCallback } from '../../../../state/types';
 
 const HEIGHT_ITEM = 82; // an item is 70px and we cnsider a padding of 8px between 2 items

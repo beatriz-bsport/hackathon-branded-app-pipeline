@@ -6,10 +6,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import BaliseIcon from '@material-ui/icons/SettingsEthernet';
 
-import { getAvailableTagsFromContext } from '#libs/communication-v2/utils';
-import { CONTEXT_CADENCE } from '#libs/communication-v2/constants';
+import { getAvailableTagsFromContext } from '#src/libs/communication-v2/utils';
+import { CONTEXT_CADENCE } from '#src/libs/communication-v2/constants';
 
-import NestedMenu from '#components/NestedMenu.component';
+import NestedMenu from '#src/components/NestedMenu.component';
 
 export type Props = {
   tagCategories: { [tag_name: string]: string[] };

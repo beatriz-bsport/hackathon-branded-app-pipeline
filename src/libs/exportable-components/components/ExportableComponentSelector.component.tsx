@@ -2,7 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 
 interface Props {
   source: string[];

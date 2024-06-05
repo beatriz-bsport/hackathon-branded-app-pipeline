@@ -20,8 +20,8 @@ import type {
   ZoomMember,
   ZoomEstablishment,
   ZoomEstablishmentBulkEditData,
-} from '#libs/zoom-app/types';
-import type { Establishment } from '#libs/establishment/types';
+} from '#src/libs/zoom-app/types';
+import type { Establishment } from '#src/libs/establishment/types';
 
 const useStyles = makeStyles((theme) => ({
   row: {

@@ -29,10 +29,10 @@ import {
   RadioGroup,
 } from '@material-ui/core';
 // @ts-expect-error
-import { Submit, DateField } from '#components/forms';
-import RedButton from '#components/button/RedButton.component';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import { Submit, DateField } from '#src/components/forms';
+import RedButton from '#src/components/button/RedButton.component';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { MaterialUiMultiSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 import type { OptionCallback } from '../../../../../state/types';
 
 type InitialValues = {

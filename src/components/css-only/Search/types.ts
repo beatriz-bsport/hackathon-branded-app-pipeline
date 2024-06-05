@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
 
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PrivatePass } from '#libs/private-service/types';
-import { Contract } from '#libs/subscription/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { PrivatePass } from '#src/libs/private-service/types';
+import { Contract } from '#src/libs/subscription/types';
 
 export type SearchItem = any;
 

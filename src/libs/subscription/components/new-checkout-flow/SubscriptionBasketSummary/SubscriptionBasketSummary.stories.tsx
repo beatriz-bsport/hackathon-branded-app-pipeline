@@ -10,9 +10,9 @@ import {
   BUYABLE_ITEM_COUPON,
   BUYABLE_ITEM_PRIVATE_PASS,
 } from '@bsport/common/lib/master-data/buyable-items';
-import { CONTRACT_BOOKING_FUNNEL_IDENTIFIER } from '#libs/marketplace/constants';
-import { offerFactory } from '#libs/offer/factories';
-import { PrepaidLine } from '#libs/checkout/types';
+import { CONTRACT_BOOKING_FUNNEL_IDENTIFIER } from '#src/libs/marketplace/constants';
+import { offerFactory } from '#src/libs/offer/factories';
+import { PrepaidLine } from '#src/libs/checkout/types';
 
 const SubscriptionBasketSummaryTemplate = (args: Props) => (
   <div

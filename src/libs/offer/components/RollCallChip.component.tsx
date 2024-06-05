@@ -5,7 +5,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { DateTime } from 'luxon';
 import classNames from 'classnames';
 import { ButtonBase } from '@material-ui/core';
-import Tooltip from '#components/Tooltip.component';
+import Tooltip from '#src/components/Tooltip.component';
 import { formatISOStringAsTime } from '../../../utils/datetime';
 
 export type Props = {

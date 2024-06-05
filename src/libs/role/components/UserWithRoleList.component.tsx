@@ -6,10 +6,13 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 
-import { Coach } from '#libs/associated-coach/types';
-import { Company } from '#libs/company/types';
-import FranchiseCreateStaffUser from '#libs/franchise/components/FranchiseCreateStaffUser.component';
-import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Company } from '#src/libs/company/types';
+import FranchiseCreateStaffUser from '#src/libs/franchise/components/FranchiseCreateStaffUser.component';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
 import UserWithRoleItem from './UserWithRoleItem.component';
 import CreateStaffUser from './CreateStaffUser.component';
 import {

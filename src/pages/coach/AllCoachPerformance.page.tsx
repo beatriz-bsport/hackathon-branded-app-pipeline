@@ -9,7 +9,7 @@ import { DateTime } from 'luxon';
 import {
   getActiveCoaches,
   getActiveCoachesBulk,
-} from '#libs/associated-coach/selectors';
+} from '#src/libs/associated-coach/selectors';
 import {
   setCoachPaymentRule,
   setCoachPrivatePaymentRule,
@@ -17,7 +17,7 @@ import {
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
   fetchAssociatedCoachesPaginatedList,
   setCoachPaymentRuleGroup,
-} from '#libs/associated-coach/actions';
+} from '#src/libs/associated-coach/actions';
 
 import {
   fetchAllCoachPaymentRules,
@@ -31,7 +31,7 @@ import {
   exportExcelPerformance,
   fetchCoachPerformanceCachedData,
   exportPdfPerformance,
-} from '#libs/coach-payment-rules/actions';
+} from '#src/libs/coach-payment-rules/actions';
 
 import {
   CoachPaymentRulesSelector,
@@ -40,31 +40,31 @@ import {
   withCachedCoachPerformance,
   getCoachPaymentRuleGroups,
   getCoachPerformanceCachedDataList,
-} from '#libs/coach-payment-rules/selectors';
+} from '#src/libs/coach-payment-rules/selectors';
 
-import CoachPerformanceDateFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
-import CoachPerformanceCachedDataList from '#libs/coach-payment-rules/components/performance/CoachPerformanceCachedDataList.components';
-import CoachPerformanceTable from '#libs/coach-payment-rules/components/performance/CoachPerformanceTable.component';
-import CoachPerformanceAdvancedFilters from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceAvancedFilters.component';
-import type { Coach } from '#libs/associated-coach/types';
-import { getTheme } from '#libs/theme/selectors';
+import CoachPerformanceDateFilter from '#src/libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
+import CoachPerformanceCachedDataList from '#src/libs/coach-payment-rules/components/performance/CoachPerformanceCachedDataList.components';
+import CoachPerformanceTable from '#src/libs/coach-payment-rules/components/performance/CoachPerformanceTable.component';
+import CoachPerformanceAdvancedFilters from '#src/libs/coach-payment-rules/components/performance/filters/CoachPerformanceAvancedFilters.component';
+import type { Coach } from '#src/libs/associated-coach/types';
+import { getTheme } from '#src/libs/theme/selectors';
 
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 import {
   getAllEstablishments,
   getAssociatedEstablishmentGroup,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 
 import {
   getFilteredEstablishments,
   getEstablishmentGroupNames,
   getEstablishmentNames,
   // @ts-expect-error js file
-} from '#libs/coach-payment-rules/utils';
-import type { CoachwithPerformance } from '#libs/coach-payment-rules/types';
+} from '#src/libs/coach-payment-rules/utils';
+import type { CoachwithPerformance } from '#src/libs/coach-payment-rules/types';
 import { WithHandlerType } from '../../utils/types';
 import type { RootState } from '../../reducers';
 import withTitle from '../../hocs/with-title.hoc';

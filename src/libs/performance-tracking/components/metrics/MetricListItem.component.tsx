@@ -8,8 +8,8 @@ import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import EditIcon from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
-import { PerformanceTrackingMetric } from '#libs/performance-tracking/types';
-import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
+import { PerformanceTrackingMetric } from '#src/libs/performance-tracking/types';
+import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
 import MetricProgressBar from './MetricProgressBar.component';
 
 const DragHandle = SortableHandle(() => <DragHandleIcon color="action" />);

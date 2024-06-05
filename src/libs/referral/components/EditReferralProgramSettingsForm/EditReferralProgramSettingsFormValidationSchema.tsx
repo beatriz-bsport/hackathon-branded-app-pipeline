@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import {
   ReferredVoucherTypeChoices,
   ReferralTimeLimitUnits,
-} from '#libs/referral/constants';
+} from '#src/libs/referral/constants';
 
 const regexHTTP = /https?:\/\//;
 

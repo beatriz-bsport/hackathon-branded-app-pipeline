@@ -29,12 +29,12 @@ import {
   updateIntentToSavePaymentMethod as updateIntentToSavePaymentMethodAPI,
   updateIntentToSavePaymentMethodWebview as updateIntentToSavePaymentMethodWebviewAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
-} from '#libs/payment/api';
+} from '#src/libs/payment/api';
 
-import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
-import { MarketplacePaymentMethods } from '#libs/marketplace/types';
-import PaymentMethodList from '#libs/payment/components/payment-method-list';
-import PopOver from '#components/Popover';
+import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
+import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
+import PaymentMethodList from '#src/libs/payment/components/payment-method-list';
+import PopOver from '#src/components/Popover';
 
 interface PaymentStripeBacsDebitProps {
   AcceptTermsAndConditionsComponent: React.Component;

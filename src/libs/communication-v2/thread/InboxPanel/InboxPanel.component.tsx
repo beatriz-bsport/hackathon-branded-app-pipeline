@@ -11,17 +11,17 @@ import InfoIcon from '@material-ui/icons/Info';
 import KeyboardTabIcon from '@material-ui/icons/KeyboardTab';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import type { Member } from '#libs/member/types';
-import type { Tag, TagGroup } from '#libs/tag/types';
-import type { SmartList } from '#libs/smart-list/types';
-import type { Coach } from '#libs/associated-coach/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { OffersGroup } from '#libs/group-offer/types';
-import type { Level } from '#libs/level/types';
+import type { Member } from '#src/libs/member/types';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { OffersGroup } from '#src/libs/group-offer/types';
+import type { Level } from '#src/libs/level/types';
 
-import type { Offer } from '#libs/offer/types';
-import type { CommunicationThread } from '#libs/communication-v2/types';
-import InboxThreadHeader from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadHeader.component';
+import type { Offer } from '#src/libs/offer/types';
+import type { CommunicationThread } from '#src/libs/communication-v2/types';
+import InboxThreadHeader from '#src/libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadHeader.component';
 import InboxPanelMember from './InboxPanelMember/InboxPanelMember.component';
 import InboxPanelSmartlist from './InboxPanelSmartlist/InboxPanelSmartlist.component';
 import InboxPanelOffer from './InboxPanelOffer/InboxPanelOffer.component';

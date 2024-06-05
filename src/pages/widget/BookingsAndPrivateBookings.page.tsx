@@ -8,8 +8,8 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { getAllBookingAndPrivateBooking } from '../../libs/consumer-space/selectors';
@@ -194,6 +194,7 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
             ) : (
               <div className={classes.bookingsContainerInner}>
                 <ConsumerDashboardBookingPanel
+// @ts-expect-error
                   fullWidth
                   hideTitle
                   bookingsAndPrivateBookings={

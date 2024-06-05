@@ -1,5 +1,5 @@
 import { Theme, makeStyles } from '@material-ui/core';
-import type { Basket } from '#libs/checkout/types';
+import type { Basket } from '#src/libs/checkout/types';
 
 const useStyles = makeStyles<
   Theme,

@@ -5,8 +5,8 @@ import type { Theme } from '@material-ui/core/styles';
 
 import chroma from 'chroma-js';
 
-import { CadenceMetricsSizes } from '#libs/sequential_marketing/constants';
-import MuiIconComponent from '#components/MuiIcon.component';
+import { CadenceMetricsSizes } from '#src/libs/sequential_marketing/constants';
+import MuiIconComponent from '#src/components/MuiIcon.component';
 
 type Props = {
   icon: string | null;

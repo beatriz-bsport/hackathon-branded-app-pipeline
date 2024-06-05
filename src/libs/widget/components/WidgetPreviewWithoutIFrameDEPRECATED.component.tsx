@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { WidgetCustomCSS } from '#libs/theme/types';
-import { WidgetCodeStringGenerator } from '#libs/marketplace/utils';
+import { WidgetCustomCSS } from '#src/libs/theme/types';
+import { WidgetCodeStringGenerator } from '#src/libs/marketplace/utils';
 
-import ApplyCustomThemeComponent from '#libs/exportable-components/ApplyCustomTheme.component';
+import ApplyCustomThemeComponent from '#src/libs/exportable-components/ApplyCustomTheme.component';
 import WidgetPreview from './WidgetPreview.component';
 import Config from '../../../config';
 

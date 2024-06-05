@@ -9,9 +9,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import InfoBox from '#components/box/InfoBox.component';
-import { AvailabilityDetail, ResourceType } from '#libs/private-service/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import InfoBox from '#src/components/box/InfoBox.component';
+import {
+  AvailabilityDetail,
+  ResourceType,
+} from '#src/libs/private-service/types';
 import SlotDetailListItem from './SlotDetailListItem.component';
 
 const useStyles = makeStyles((theme: Theme) => ({

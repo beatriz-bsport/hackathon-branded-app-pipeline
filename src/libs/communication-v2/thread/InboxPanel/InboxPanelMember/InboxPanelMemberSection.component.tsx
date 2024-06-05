@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 
 import { makeStyles, useTheme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import { CustomChip } from '#components/chip/CustomChip.component';
+import { CustomChip } from '#src/components/chip/CustomChip.component';
 
 type Props = { title: string; count: number };
 

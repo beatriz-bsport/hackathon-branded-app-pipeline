@@ -10,17 +10,17 @@ import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 
 import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import { QuicksaleInterfaceModalColors } from '#libs/quicksale/constants';
-import { BasketSummary } from '#libs/checkout/components/new-checkout-flow/BasketSummary.component';
-import { getSubTotal } from '#libs/checkout/utils';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
+import { QuicksaleInterfaceModalColors } from '#src/libs/quicksale/constants';
+import { BasketSummary } from '#src/libs/checkout/components/new-checkout-flow/BasketSummary.component';
+import { getSubTotal } from '#src/libs/checkout/utils';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import type {
   Basket,
   CheckoutItemData,
   OnRemoveCheckoutItemData,
-} from '#libs/checkout/types';
-import type { Member } from '#libs/member/types';
+} from '#src/libs/checkout/types';
+import type { Member } from '#src/libs/member/types';
 import {
   formatAsDate,
   formatISOStringAsTime,

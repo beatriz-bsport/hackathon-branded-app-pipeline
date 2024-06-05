@@ -11,18 +11,18 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 import {
   updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
   fetchMember as fetchMemberAction,
-} from '#libs/member/actions';
+} from '#src/libs/member/actions';
 import {
   getDefaultEstablishmentBillingGroup,
   getEnabledEstablishmentBillingGroups,
-} from '#libs/establishment/selectors';
-import { withEstablishment } from '#libs/offer/selectors';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
-import type { StripeInit } from '#libs/payment/types';
+} from '#src/libs/establishment/selectors';
+import { withEstablishment } from '#src/libs/offer/selectors';
+import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import type { StripeInit } from '#src/libs/payment/types';
 import { requestSetupIntentSecretNoAuth as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import asyncComponent from '../../AsyncComponent';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';

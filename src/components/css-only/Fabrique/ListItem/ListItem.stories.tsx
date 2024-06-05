@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { ListItemStorybook } from '.';
 import { ListItemSizeEnum, ListItemTypeEnum } from './constants';
-import { ArrowBlockLeft, FileDownload02 } from '#components/untitledui';
+import { ArrowBlockLeft, FileDownload02 } from '#src/components/untitledui';
 import IconButton from '../IconButton';
 
 const ListItemStorybookTemplate: ComponentStory<typeof ListItemStorybook> = (

@@ -8,10 +8,10 @@ import Place from '@material-ui/icons/Place';
 import LocalShipping from '@material-ui/icons/LocalShipping';
 import TextField from '@material-ui/core/TextField';
 
-import AddressForm from '#components/form/AddressForm.component';
-import { getCompanyCountry } from '#libs/theme/selectors';
-import { QuicksaleDeliveryType } from '#libs/quicksale/constants';
-import type { BasketAddress } from '#libs/checkout/types';
+import AddressForm from '#src/components/form/AddressForm.component';
+import { getCompanyCountry } from '#src/libs/theme/selectors';
+import { QuicksaleDeliveryType } from '#src/libs/quicksale/constants';
+import type { BasketAddress } from '#src/libs/checkout/types';
 
 type Props = {
   basketAddress?: BasketAddress;

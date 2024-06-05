@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplacePage,
   type MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 import TextField, { Props as TextFieldProps } from '.';
 import { TextFieldSize, TextFieldVariant } from './types';
 // @ts-expect-error

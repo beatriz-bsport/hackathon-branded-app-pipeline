@@ -23,7 +23,7 @@ import type { Theme } from '@material-ui/core/styles';
 
 import ListItemResponsiveAction, {
   ActionOption,
-} from '#components/button/ListItemResponsiveAction.component';
+} from '#src/components/button/ListItemResponsiveAction.component';
 import type { Coach } from '../types';
 
 import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';

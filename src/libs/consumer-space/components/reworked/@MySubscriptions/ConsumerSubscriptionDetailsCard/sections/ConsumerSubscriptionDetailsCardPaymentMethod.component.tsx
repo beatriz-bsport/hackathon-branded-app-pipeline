@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
 
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import Button from '#Fabrique/ButtonV2';
 
-import { CreditCardEdit, CalendarPlus01 } from '#components/untitledui';
+import { CreditCardEdit, CalendarPlus01 } from '#src/components/untitledui';
 
 import type { ConsumerSubscriptionDetailsCardProps } from '..';
 

@@ -16,9 +16,13 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-// @ts-expect-error
-import { AlertError, DateField, defaultHandleSubmit } from '#components/forms';
-import { DateFilterEnum } from '#libs/datatype-filtering/types';
+import {
+  AlertError,
+  DateField,
+  defaultHandleSubmit,
+  // @ts-expect-error
+} from '#src/components/forms';
+import { DateFilterEnum } from '#src/libs/datatype-filtering/types';
 
 export type Props = {
   isDisabled?: boolean;

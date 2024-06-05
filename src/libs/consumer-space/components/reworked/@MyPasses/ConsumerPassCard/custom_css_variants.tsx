@@ -2,14 +2,14 @@ import React from 'react';
 
 import { DateTime } from 'luxon';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
   MarketplacePage,
-} from '#libs/exportable-components/types';
-import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
-import { paymentPackFactory } from '#libs/payment-packs/factory';
+} from '#src/libs/exportable-components/types';
+import { consumerPaymentPackFactory } from '#src/libs/consumer-payment-pack/factories';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
 // @ts-expect-error
 import ConsumerPassCardCss from './styles.css?raw';
 import ConsumerPassCard, { ConsumerPassCardProps } from '.';

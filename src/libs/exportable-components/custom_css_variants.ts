@@ -1,299 +1,301 @@
 import Immutable from 'seamless-immutable';
 
-
 import {
   MARKETPLACE_OFFER_CARD_CONFIGURATION,
   MARKETPLACE_OFFER_CARD_PREVIEW,
-} from '#marketplacecomponents/@Offer/MarketplaceCardOfferCSSOnly';
+} from '#src/libs/marketplace/components/@Offer/MarketplaceCardOfferCSSOnly';
 
 import {
   MARKETPLACE_BOOKER_MODULE_OFFER_SUMMARY_CONFIGURATION,
   MARKETPLACE_BOOKER_MODULE_OFFER_SUMMARY_PREVIEW,
-} from '#marketplacecomponents/@Offer/BookerModuleOfferSummary';
+} from '#src/libs/marketplace/components/@Offer/BookerModuleOfferSummary';
 
 import {
   MARKETPLACE_PAYMENT_COMBO_CARD_CONFIGURATION,
   MARKETPLACE_PAYMENT_COMBO_CARD_PREVIEW,
-} from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboCard/custom_css_variant';
+} from '#src/libs/marketplace/components/@PaymentCombo/MarketplacePaymentComboCard/custom_css_variant';
 import {
   MARKETPLACE_PAYMENT_PACK_CARD_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_CARD_PREVIEW,
-} from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackCard/custom_css_variant';
+} from '#src/libs/marketplace/components/@PaymentPack/MarketplacePaymentPackCard/custom_css_variant';
 import {
   MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL_PREVIEW,
-} from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackCompatibilityModal/custom_css_variant';
+} from '#src/libs/marketplace/components/@PaymentPack/MarketplacePaymentPackCompatibilityModal/custom_css_variant';
 import {
   MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL_PREVIEW,
-} from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackRestrictionModal/custom_css_variant';
+} from '#src/libs/marketplace/components/@PaymentPack/MarketplacePaymentPackRestrictionModal/custom_css_variant';
 import {
   MARKETPLACE_PRIVATE_PASS_CARD_CONFIGURATION,
   MARKETPLACE_PRIVATE_PASS_CARD_PREVIEW,
-} from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassCard/custom_css_variant';
+} from '#src/libs/marketplace/components/@PrivatePass/MarketplacePrivatePassCard/custom_css_variant';
 import {
   MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL_CONFIGURATION,
   MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL_PREVIEW,
-} from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassCompatibilityModal/custom_css_variant';
+} from '#src/libs/marketplace/components/@PrivatePass/MarketplacePrivatePassCompatibilityModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_CARD_CONFIGURATION,
   MARKETPLACE_CONTRACT_CARD_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractCard/custom_css_variant';
+} from '#src/libs/marketplace/components/@Subscription/MarketplaceContractCard/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_CHECKOUT_CONFIGURATION,
   MARKETPLACE_CONTRACT_CHECKOUT_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractCheckout/custom_css_variant';
+} from '#src/libs/marketplace/components/@Subscription/MarketplaceContractCheckout/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_DETAIL_CONFIGURATION,
   MARKETPLACE_CONTRACT_DETAIL_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractDetail/custom_css_variant';
+} from '#src/libs/marketplace/components/@Subscription/MarketplaceContractDetail/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_DETAIL_MODAL_CONFIGURATION,
   MARKETPLACE_CONTRACT_DETAIL_MODAL_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractDetailModal/custom_css_variant';
+} from '#src/libs/marketplace/components/@Subscription/MarketplaceContractDetailModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_TERMS_MODAL_CONFIGURATION,
   MARKETPLACE_CONTRACT_TERMS_MODAL_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractTermsModal/custom_css_variant';
+} from '#src/libs/marketplace/components/@Subscription/MarketplaceContractTermsModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_COOLDOWN_MODAL_CONFIGURATION,
   MARKETPLACE_CONTRACT_COOLDOWN_MODAL_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractCooldownModal/custom_css_variant';
+} from '#src/libs/marketplace/components/@Subscription/MarketplaceContractCooldownModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_COUPON_FORM_MODAL_CONFIGURATION,
   MARKETPLACE_CONTRACT_COUPON_FORM_MODAL_PREVIEW,
-} from '#marketplacecomponents/@Coupon/MarketplaceCouponFormModal/custom_css_variant';
+} from '#src/libs/marketplace/components/@Coupon/MarketplaceCouponFormModal/custom_css_variant';
 import {
   MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL_PREVIEW,
-} from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackOffPeakRestrictionModal/custom_css_variant';
+} from '#src/libs/marketplace/components/@PaymentPack/MarketplacePaymentPackOffPeakRestrictionModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_NOT_FOUND_CONFIGURATION,
   MARKETPLACE_CONTRACT_NOT_FOUND_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractNotFound/custom_css_variant';
+} from '#src/libs/marketplace/components/@Subscription/MarketplaceContractNotFound/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_PAYMENT_CONFIGURATION,
   MARKETPLACE_CONTRACT_PAYMENT_PREVIEW,
-} from '#marketplacecomponents/@Payment/MarketplaceContractPayment/custom_css_variant';
+} from '#src/libs/marketplace/components/@Payment/MarketplaceContractPayment/custom_css_variant';
 import {
   MARKETPLACE_COLLECT_PAYMENT_METHOD_CONFIGURATION,
   MARKETPLACE_COLLECT_PAYMENT_METHOD_PREVIEW,
-} from '#marketplacecomponents/@Payment/MarketplaceCollectPaymentMethod/custom_css_variant';
+} from '#src/libs/marketplace/components/@Payment/MarketplaceCollectPaymentMethod/custom_css_variant';
 import {
   MARKETPLACE_CALENDAR_FILTER_CONFIGURATION,
   MARKETPLACE_CALENDAR_FILTER_PREVIEW,
-} from '#marketplacecomponents/@RessourceFilter/MarketplaceFilterCSSOnly/custom_css_variant';
+} from '#src/libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly/custom_css_variant';
 import {
   MARKETPLACE_OFFER_LIST_ITEM_CONFIGURATION,
   MARKETPLACE_OFFER_LIST_ITEM_PREVIEW,
-} from '#marketplacecomponents/@Offer/MarketplaceOfferListItemCSSOnly/custom_css_variant';
+} from '#src/libs/marketplace/components/@Offer/MarketplaceOfferListItemCSSOnly/custom_css_variant';
 import {
   MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION,
   MARKETPLACE_WEEK_TIME_TABLE_PREVIEW,
-} from '#marketplacecomponents/@Calendar/MarketplaceWeekTimeTableCSSOnly/custom_css_variant';
+} from '#src/libs/marketplace/components/@Calendar/MarketplaceWeekTimeTableCSSOnly/custom_css_variant';
 import {
   MARKETPLACE_SEARCH_CONFIGURATION,
   MARKETPLACE_SEARCH_PREVIEW,
-} from '#components/css-only/Search/custom_css_variant';
+} from '#src/components/css-only/Search/custom_css_variant';
 import {
   MARKETPLACE_FILTER_CONFIGURATION,
   MARKETPLACE_FILTER_PREVIEW,
-} from '#marketplacecomponents/@RessourceFilter/MarketplaceFilter/custom_css_variant';
+} from '#src/libs/marketplace/components/@RessourceFilter/MarketplaceFilter/custom_css_variant';
 import {
   MARKETPLACE_DATE_PICKER_CONFIGURATION,
   MARKETPLACE_DATE_PICKER_PREVIEW,
-} from '#marketplacecomponents/@Date/MarketplaceDatePicker/custom_css_variant';
+} from '#src/libs/marketplace/components/@Date/MarketplaceDatePicker/custom_css_variant';
 import {
   MARKETPLACE_SELECT_CONFIGURATION,
   MARKETPLACE_SELECT_PREVIEW,
-} from '#components/css-only/Select/custom_css_variant';
+} from '#src/components/css-only/Select/custom_css_variant';
 
 import {
   MARKETPLACE_ACTIVITY_CONFIGURATION,
   MARKETPLACE_ACTIVITY_PREVIEW,
-} from '#marketplacecomponents/@Activity/MarketplaceActivityCSSOnly';
+} from '#src/libs/marketplace/components/@Activity/MarketplaceActivityCSSOnly';
 
 import {
   MARKETPLACE_ACTIVITY_DIALOG_CONFIGURATION,
   MARKETPLACE_ACTIVITY_DIALOG_PREVIEW,
-} from '#marketplacecomponents/@Activity/MarketplaceActivityDialogCSSOnly';
+} from '#src/libs/marketplace/components/@Activity/MarketplaceActivityDialogCSSOnly';
 
 import {
   MARKETPLACE_BOOKING_BUTTON_CONFIGURATION,
   MARKETPLACE_BOOKING_BUTTON_PREVIEW,
-} from '#marketplacecomponents/@Booking/MarketplaceBookButton';
+} from '#src/libs/marketplace/components/@Booking/MarketplaceBookButton';
 
 import {
   MARKETPLACE_BOOKING_BLOCKED_CONFIGURATION,
   MARKETPLACE_BOOKING_BLOCKED_PREVIEW,
-} from '#marketplacecomponents/@Booking/MarketplaceBookingBlockedReason';
+} from '#src/libs/marketplace/components/@Booking/MarketplaceBookingBlockedReason';
 
 import {
   MARKETPLACE_ITEM_QUANTITY_CONFIGURATION,
   MARKETPLACE_ITEM_QUANTITY_PREVIEW,
-} from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryItemCssOnly/ItemQuantity';
+} from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryItemCssOnly/ItemQuantity';
 
 import {
   MARKETPLACE_BASKET_SUMMARY_ITEM_CONFIGURATION,
   MARKETPLACE_BASKET_SUMMARY_ITEM_PREVIEW,
-} from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryItemCssOnly';
+} from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryItemCssOnly';
 
 import {
   MARKETPLACE_BASKET_SUMMARY_LIST_ITEM_CONFIGURATION,
   MARKETPLACE_BASKET_SUMMARY_LIST_ITEM_PREVIEW,
-} from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryListCssOnly';
+} from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryListCssOnly';
 
 import {
   MARKETPLACE_BASKET_SUMMARY_CONFIGURATION,
   MARKETPLACE_BASKET_SUMMARY_PREVIEW,
-} from '#marketplacecomponents/@Basket/BasketSummaryCssOnly';
+} from '#src/libs/marketplace/components/@Basket/BasketSummaryCssOnly';
 
 import {
   MARKETPLACE_BASKET_SUMMARY_DIALOG_CONFIGURATION,
   MARKETPLACE_BASKET_SUMMARY_DIALOG_PREVIEW,
-} from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryDialogCssOnly';
+} from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryDialogCssOnly';
 import {
   MARKETPLACE_PREPAID_LINE_ITEM_CONFIGURATION,
   MARKETPLACE_PREPAID_LINE_ITEM_PREVIEW,
-} from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryPrepaidLineItem';
+} from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryPrepaidLineItem';
 import {
   MARKETPLACE_PREPAID_LINE_LIST_CONFIGURATION,
   MARKETPLACE_PREPAID_LINE_LIST_PREVIEW,
-} from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryPrepaidLineList';
+} from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryPrepaidLineList';
 import {
   MARKETPLACE_MINIMAL_APPBAR_CONFIGURATION,
   MARKETPLACE_MINIMAL_APPBAR_PREVIEW,
-} from '#libs/marketplace/components/@AppBar/MarketplaceAppBar/MinimalMarketplaceAppBarCSSOnly';
+} from '#src/libs/marketplace/components/@AppBar/MarketplaceAppBar/MinimalMarketplaceAppBarCSSOnly';
 
 import {
   FABRIQUE_TYPOGRAPHY_CONFIGURATION,
   FABRIQUE_TYPOGRAPHY_PREVIEW,
-} from '#components/css-only/Fabrique/Typography';
+} from '#src/components/css-only/Fabrique/Typography';
 import {
   FABRIQUE_TITLE_CONFIGURATION,
   FABRIQUE_TITLE_PREVIEW,
-} from '#components/css-only/Fabrique/Title';
+} from '#src/components/css-only/Fabrique/Title';
 import {
   FABRIQUE_CARD_CONFIGURATION,
   FABRIQUE_CARD_PREVIEW,
-} from '#components/css-only/Fabrique/Card';
+} from '#src/components/css-only/Fabrique/Card';
 import {
   AUTHENTICATION_RESET_PASSWORD_FORM_CONFIGURATION,
   AUTHENTICATION_RESET_PASSWORD_FORM_PREVIEW,
-} from '#components/css-only/ResetPasswordForm';
+} from '#src/components/css-only/ResetPasswordForm';
 import {
   AUTHENTICATION_CHANGE_PASSWORD_FORM_CONFIGURATION,
   AUTHENTICATION_CHANGE_PASSWORD_FORM_PREVIEW,
-} from '#components/css-only/ChangePasswordForm';
+} from '#src/components/css-only/ChangePasswordForm';
 import {
   AUTHENTICATION_LOGIN_FORM_CONFIGURATION,
   AUTHENTICATION_LOGIN_FORM_PREVIEW,
-} from '#components/css-only/LoginForm';
+} from '#src/components/css-only/LoginForm';
 import {
   AUTHENTICATION_LOGIN_CONFIGURATION,
   AUTHENTICATION_LOGIN_PREVIEW,
-} from '#components/css-only/Login';
+} from '#src/components/css-only/Login';
 import {
   FABRIQUE_TEXTFIELD_CONFIGURATION,
   FABRIQUE_TEXTFIELD_PREVIEW,
-} from '#components/css-only/Fabrique/TextFieldV2';
+} from '#src/components/css-only/Fabrique/TextFieldV2';
 import {
   FABRIQUE_LIST_ITEM_CONFIGURATION,
   FABRIQUE_LIST_ITEM_PREVIEW,
-} from '#components/css-only/Fabrique/ListItem/custom_css_variants';
+} from '#src/components/css-only/Fabrique/ListItem/custom_css_variants';
 import {
   FABRIQUE_LIST_CONFIGURATION,
   FABRIQUE_LIST_PREVIEW,
-} from '#components/css-only/Fabrique/List/custom_css_variants';
+} from '#src/components/css-only/Fabrique/List/custom_css_variants';
 import {
   FABRIQUE_BUTTON_CONFIGURATION,
   FABRIQUE_BUTTON_PREVIEW,
-} from '#components/css-only/Fabrique/ButtonV2';
+} from '#src/components/css-only/Fabrique/ButtonV2';
 import {
   FABRIQUE_ICON_BUTTON_CONFIGURATION,
   FABRIQUE_ICON_BUTTON_PREVIEW,
-} from '#components/css-only/Fabrique/IconButton';
+} from '#src/components/css-only/Fabrique/IconButton';
 import {
   FABRIQUE_ACTION_TAB_PREVIEW,
   FABRIQUE_ACTION_TAB_CONFIGURATION,
-} from '#components/css-only/Fabrique/ActionTab';
+} from '#src/components/css-only/Fabrique/ActionTab';
 import {
   FABRIQUE_BLANKET_CONFIGURATION,
   FABRIQUE_BLANKET_PREVIEW,
-} from '#components/css-only/Fabrique/Blanket';
+} from '#src/components/css-only/Fabrique/Blanket';
 import {
   FABRIQUE_TAB_CONFIGURATION,
   FABRIQUE_TAB_PREVIEW,
-} from '#components/css-only/Fabrique/Tab';
+} from '#src/components/css-only/Fabrique/Tab';
 import {
   FABRIQUE_CHIP_CONFIGURATION,
   FABRIQUE_CHIP_PREVIEW,
-} from '#components/css-only/Fabrique/Chip';
+} from '#src/components/css-only/Fabrique/Chip';
 import {
   FABRIQUE_ALERT_CONFIGURATION,
   FABRIQUE_ALERT_PREVIEW,
-} from '#components/css-only/Fabrique/Alert';
+} from '#src/components/css-only/Fabrique/Alert';
 import {
   FABRIQUE_MODAL_DIALOG_CONFIGURATION,
   FABRIQUE_MODAL_DIALOG_PREVIEW,
-} from '#components/css-only/Fabrique/ModalDialog';
+} from '#src/components/css-only/Fabrique/ModalDialog';
 
 import {
   CSSComponentPreviews,
   MarketplaceCSSComponentConfig,
   MarketplacePage,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
 import {
   FABRIQUE_BADGE_PREVIEW,
   FABRIQUE_BADGE_CONFIGURATION,
-} from '#components/css-only/Fabrique/Badge/custom_css_variant';
+} from '#src/components/css-only/Fabrique/Badge/custom_css_variant';
 
 import {
   MARKETPLACE_SPOT_SELECTOR_CONFIGURATION,
   MARKETPLACE_SPOT_SELECTOR_PREVIEW,
-} from '#marketplacecomponents/@SpotScheduling/MarketplaceSpotSelector/custom_css_variant';
+} from '#src/libs/marketplace/components/@SpotScheduling/MarketplaceSpotSelector/custom_css_variant';
 
 import {
   FABRIQUE_RADIOBUTTON_CONFIGURATION,
   FABRIQUE_RADIOBUTTON_PREVIEW,
-} from '#components/css-only/Fabrique/RadioButtonV2';
+} from '#src/components/css-only/Fabrique/RadioButtonV2';
 
 import {
   BOOKER_MODULE_BUYABLE_ITEMS_LIST_CONFIGURATION,
   BOOKER_MODULE_BUYABLE_ITEMS_LIST_PREVIEW,
-} from '#marketplacecomponents/@BuyableItem/MarketplaceBookerModuleBuyableItems';
+} from '#src/libs/marketplace/components/@BuyableItem/MarketplaceBookerModuleBuyableItems';
 
 import {
   BOOKER_MODULE_BUYABLE_ITEM_PAYMENT_COMBO_CONFIGURATION,
   BOOKER_MODULE_BUYABLE_ITEM_PAYMENT_COMBO_PREVIEW,
-} from '#marketplacecomponents/@BuyableItem/MarketplacePaymentComboBuyableItem';
+} from '#src/libs/marketplace/components/@BuyableItem/MarketplacePaymentComboBuyableItem';
 
 import {
   BOOKER_MODULE_BUYABLE_ITEM_PAYMENT_PACK_CONFIGURATION,
   BOOKER_MODULE_BUYABLE_ITEM_PAYMENT_PACK_PREVIEW,
-} from '#marketplacecomponents/@BuyableItem/MarketplacePaymentPackBuyableItem';
+} from '#src/libs/marketplace/components/@BuyableItem/MarketplacePaymentPackBuyableItem';
 
 import {
   BOOKER_MODULE_BUYABLE_ITEM_CONTRACT_CONFIGURATION,
   BOOKER_MODULE_BUYABLE_ITEM_CONTRACT_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractBuyableItem';
+} from '#src/libs/marketplace/components/@Subscription/MarketplaceContractBuyableItem';
 
 import {
   CONFIRMATION_CHECKOUT_MESSAGE_CONFIGURATION,
   CONFIRMATION_CHECKOUT_MESSAGE_PREVIEW,
-} from '#libs/checkout/components/ConfirmationMessage';
-import { ALERT_CONFIGURATION, ALERT_PREVIEW } from '#components/css-only/Alert';
+} from '#src/libs/checkout/components/ConfirmationMessage';
+import {
+  ALERT_CONFIGURATION,
+  ALERT_PREVIEW,
+} from '#src/components/css-only/Alert';
 
 import {
   MESSAGE_WITH_ICON_CONFIGURATION,
   MESSAGE_WITH_ICON_PREVIEW,
-} from '#components/css-only/StatusMessageWithIcon';
+} from '#src/components/css-only/StatusMessageWithIcon';
 
 import {
   FABRIQUE_CHECKBOX_PREVIEW,
   FABRIQUE_CHECKBOX_CONFIGURATION,
-} from '#components/css-only/Fabrique/Checkbox';
+} from '#src/components/css-only/Fabrique/Checkbox';
 import {
   FABRIQUE_TEXTFORM_PREVIEW,
   FABRIQUE_TEXTFORM_CONFIGURATION,
@@ -301,77 +303,77 @@ import {
 import {
   MINIMAL_SUBSCRIPTION_CARD_PREVIEW,
   MINIMAL_SUBSCRIPTION_CARD_CONFIGURATION,
-} from '#marketplacecomponents/@Subscription/MinimalSubscriptionCard';
+} from '#src/libs/marketplace/components/@Subscription/MinimalSubscriptionCard';
 
 import {
   MARKETPLACE_PRODUCT_ITEM_CONFIGURATION,
   MARKETPLACE_PRODUCT_ITEM_PREVIEW,
-} from '#marketplacecomponents/@CheckoutItem/MarketplaceProductItem';
+} from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceProductItem';
 
 import {
   MARKETPLACE_PRODUCT_ITEM_LIST_CONFIGURATION,
   MARKETPLACE_PRODUCT_ITEM_LIST_PREVIEW,
-} from '#marketplacecomponents/@CheckoutItem/MarketplaceProductItemList';
+} from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceProductItemList';
 
 import {
   MINIMAL_PRIVATE_PASS_CARD_CONFIGURATION,
   MINIMAL_PRIVATE_PASS_CARD_PREVIEW,
-} from '#marketplacecomponents/@PrivatePass/MinimalPrivatePassCard';
+} from '#src/libs/marketplace/components/@PrivatePass/MinimalPrivatePassCard';
 
 import {
   MARKETPLACE_CHECKOUT_ITEMS_PRIVATE_PASS_LIST_CONFIGURATION,
   MARKETPLACE_CHECKOUT_ITEMS_PRIVATE_PASS_LIST_PREVIEW,
-} from '#marketplacecomponents/@CheckoutItem/MarketplaceCheckoutItemsWithPrivatePassList';
+} from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceCheckoutItemsWithPrivatePassList';
 
 import {
   MINIMAL_PAYMENT_COMBO_CARD_CONFIGURATION,
   MINIMAL_PAYMENT_COMBO_CARD_CARD_PREVIEW,
-} from '#marketplacecomponents/@PaymentCombo/MinimalPaymentComboCard';
+} from '#src/libs/marketplace/components/@PaymentCombo/MinimalPaymentComboCard';
 
 import {
   MARKETPLACE_CHECKOUT_ITEMS_PAYMENT_COMBO_LIST_CONFIGURATION,
   MARKETPLACE_CHECKOUT_ITEMS_PAYMENT_COMBO_LIST_PREVIEW,
-} from '#marketplacecomponents/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentComboList';
+} from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentComboList';
 
 import {
   MARKETPLACE_CHECKOUT_ITEMS_PAYMENT_PACK_LIST_CONFIGURATION,
   MARKETPLACE_CHECKOUT_ITEMS_PAYMENT_PACK_LIST_LIST_PREVIEW,
-} from '#marketplacecomponents/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentPackList';
+} from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentPackList';
 
 import {
   MINIMAL_PAYMENT_PACK_CARD_CONFIGURATION,
   MINIMAL_PAYMENT_PACK_CARD_PREVIEW,
-} from '#marketplacecomponents/@PaymentPack/MinimalPaymentPackCard';
+} from '#src/libs/marketplace/components/@PaymentPack/MinimalPaymentPackCard';
 
 import {
   MARKETPLACE_BOOKING_ITEM_CONFIGURATION,
   MARKETPLACE_BOOKING_ITEM_PREVIEW,
-} from '#marketplacecomponents/@Booking/MarketplaceBookingItem';
+} from '#src/libs/marketplace/components/@Booking/MarketplaceBookingItem';
 
 import {
   MARKETPLACE_OFFER_BOOKING_LIST_CONFIGURATION,
   MARKETPLACE_OFFER_BOOKING_LIST_PREVIEW,
-} from '#marketplacecomponents/@Booking/MarketplaceOfferBookingList';
+} from '#src/libs/marketplace/components/@Booking/MarketplaceOfferBookingList';
 
 import {
   FABRIQUE_MENU_ITEM_PREVIEW,
   FABRIQUE_MENU_ITEM_CONFIGURATION,
-} from '#components/css-only/Fabrique/MenuItem';
+} from '#src/components/css-only/Fabrique/MenuItem';
 
 import {
   FABRIQUE_MENU_ITEM_LIST_CONFIGURATION,
   FABRIQUE_MENU_ITEM_LIST_PREVIEW,
-} from '#components/css-only/Fabrique/MenuItemList';
+} from '#src/components/css-only/Fabrique/MenuItemList';
 
 import {
   FABRIQUE_MENU_CONFIGURATION,
   FABRIQUE_MENU_PREVIEW,
-} from '#components/css-only/Fabrique/Menu';
+} from '#src/components/css-only/Fabrique/Menu';
 
 import {
   FABRIQUE_BOTTOM_DRAWER_CONFIGURATION,
   FABRIQUE_BOTTOM_DRAWER_PREVIEW,
-} from '#components/css-only/Fabrique/BottomDrawer';
+} from '#src/components/css-only/Fabrique/BottomDrawer';
 
 import {
   FABRIQUE_SELECTOR_CONFIGURATION,
@@ -383,85 +385,85 @@ import {
 import {
   MARKETING_NEWSLETTER_FORM_V2_CONFIGURATION,
   MARKETING_NEWSLETTER_FORM_V2_PREVIEW,
-} from '#components/css-only/NewsletterFormV2';
+} from '#src/components/css-only/NewsletterFormV2';
 
 import {
   AUTHENTICATION_TEXTFIELD_CONFIGURATION,
   AUTHENTICATION_TEXTFIELD_PREVIEW,
-} from '#components/css-only/Fabrique/TextField';
+} from '#src/components/css-only/Fabrique/TextField';
 
 import {
   CONSUMER_BOOKING_CARD_PREVIEW,
   CONSUMER_BOOKING_CARD_CONFIGURATION,
-} from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
+} from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
 
 import {
   CONSUMER_BOOKING_DETAILS_CARD_CONFIGURATION,
   CONSUMER_BOOKING_DETAILS_CARD_PREVIEW,
-} from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard/custom_css_variant';
+} from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard/custom_css_variant';
 
 import {
   CONSUMER_PASS_CARD_PREVIEW,
   CONSUMER_PASS_CARD_CONFIGURATION,
-} from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
+} from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
 import {
   PRIVATE_CONSUMER_PASS_DETAILS_CARD_PREVIEW,
   PRIVATE_CONSUMER_PASS_DETAILS_CARD_CONFIGURATION,
-} from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassDetailsCard';
+} from '#src/libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassDetailsCard';
 import {
   CONSUMER_PAYMENT_PACK_DETAILS_CARD_PREVIEW,
   CONSUMER_PAYMENT_PACK_DETAILS_CARD_CONFIGURATION,
-} from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackDetailsCard';
+} from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackDetailsCard';
 import {
   UNIVERSAL_PASS_DETAILS_CARD_PREVIEW,
   UNIVERSAL_PASS_DETAILS_CARD_CONFIGURATION,
-} from '#libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsCard';
+} from '#src/libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsCard';
 
 import {
   RESET_PASSWORD_CONFIRMATION_CONFIGURATION,
   RESET_PASSWORD_CONFIRMATION_PREVIEW,
-} from '#libs/login/components/ResetPasswordConfirmation';
+} from '#src/libs/login/components/ResetPasswordConfirmation';
 import {
   REFERRAL_DETAILS_CONFIGURATION,
   REFERRAL_DETAILS_PREVIEW,
-} from '#components/ReferralWidget';
+} from '#src/components/ReferralWidget';
 import {
   FABRIQUE_BIGICON_CONFIGURATION,
   FABRIQUE_BIGICON_PREVIEW,
-} from '#components/css-only/Fabrique/BigIcon';
+} from '#src/components/css-only/Fabrique/BigIcon';
 import {
   CONSUMER_SUBSCRIPTION_CARD_CONFIGURATION,
   CONSUMER_SUBSCRIPTION_CARD_PREVIEW,
-} from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionCard';
+} from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionCard';
 import {
   CONSUMER_SUBSCRIPTION_DETAILS_CARD_CONFIGURATION,
   CONSUMER_SUBSCRIPTION_DETAILS_CARD_PREVIEW,
-} from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
+} from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
 import {
   CONSUMER_INVOICE_DETAILS_CARD_CONFIGURATION,
   CONSUMER_INVOICE_DETAILS_CARD_PREVIEW,
-} from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceDetailsCard';
+} from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceDetailsCard';
 import {
   CONSUMER_INVOICE_CARD_CONFIGURATION,
   CONSUMER_INVOICE_CARD_PREVIEW,
-} from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceCard';
+} from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceCard';
 import {
   CONSUMER_TERMS_AND_CONDITIONS_CARD_CONFIGURATION,
   CONSUMER_TERMS_AND_CONDITIONS_CARD_PREVIEW,
-} from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/TermsAndConditionsCard';
+} from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/TermsAndConditionsCard';
 import {
   CONSUMER_SAVED_PAYMENT_METHODS_CARD_CONFIGURATION,
   CONSUMER_SAVED_PAYMENT_METHODS_CARD_PREVIEW,
-} from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/SavedPaymentMethodCard';
+} from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/SavedPaymentMethodCard';
 
 import {
   CONSUMER_SUMMARY_CARD_CONFIGURATION,
   CONSUMER_SUMMARY_CARD_PREVIEW,
-} from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard';
+} from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard';
 import {
   FABRIQUE_TOOLTIP_PREVIEW,
   FABRIQUE_TOOLTIP_CONFIGURATION,
-} from '#components/css-only/Fabrique/Tooltipv2/custom_css_variant';
+} from '#src/components/css-only/Fabrique/Tooltipv2/custom_css_variant';
 import { CssComponentsVariantIdentifiers } from './constants';
 import Config from '../../config';
 /* TEMPLATE

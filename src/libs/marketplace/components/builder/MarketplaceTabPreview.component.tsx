@@ -4,8 +4,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import MarketplaceAppBar from '#marketplacecomponents/@AppBar/MarketplaceAppBar';
-import { MarketplaceSettings } from '#libs/marketplace/types';
+import MarketplaceAppBar from '#src/libs/marketplace/components/@AppBar/MarketplaceAppBar';
+import { MarketplaceSettings } from '#src/libs/marketplace/types';
 import { Theme as CompanyTheme } from '../../../theme/types';
 
 type Props = {

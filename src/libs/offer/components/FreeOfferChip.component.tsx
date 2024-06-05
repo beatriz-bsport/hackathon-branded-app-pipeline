@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import chroma from 'chroma-js';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
 
 type Props = {
   credits: number;

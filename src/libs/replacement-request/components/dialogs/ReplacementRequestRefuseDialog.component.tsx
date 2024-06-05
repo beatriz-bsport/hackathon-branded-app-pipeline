@@ -7,10 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import red from '@material-ui/core/colors/red';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-import ErrorIcon from '#components/icons/ErrorIcon.component';
-import { ReplacementRequest } from '#libs/replacement-request/types';
+import ErrorIcon from '#src/components/icons/ErrorIcon.component';
+import { ReplacementRequest } from '#src/libs/replacement-request/types';
 import { OptionCallback } from '../../../../state/types';
 
 type Props = {

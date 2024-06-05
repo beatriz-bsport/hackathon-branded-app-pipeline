@@ -2,9 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import ModalDialog from '#Fabrique/ModalDialog';
 import Typography from '#Fabrique/Typography';
-import { TermsAndConditionType } from '#libs/payment/types';
+import { TermsAndConditionType } from '#src/libs/payment/types';
 import Blanket from '#Fabrique/Blanket';
-import { PortalContainer } from '#components/css-only/Fabrique/PortalContainer';
+import { PortalContainer } from '#src/components/css-only/Fabrique/PortalContainer';
 import './styles.css';
 
 export type TermsAndConditionsModalProps = {

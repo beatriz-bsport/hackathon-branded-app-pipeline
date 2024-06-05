@@ -25,34 +25,34 @@ import {
   getSearchedMembers,
   withTags,
   getSearchedMembersArchived,
-} from '#libs/member/selectors';
-// @ts-expect-error
+} from '#src/libs/member/selectors';
 
 // @ts-expect-error
-import ResultList from '#components/search/ResultList.component';
-import SearchBar from '#components/SearchBar.component';
+import ResultList from '#src/components/search/ResultList.component';
+import SearchBar from '#src/components/SearchBar.component';
 
-// @ts-expect-error
-import { MemberMinimal, Member } from '#libs/member/types';
+import { MemberMinimal, Member } from '#src/libs/member/types';
 
-import withTitle from '#hocs/with-title.hoc';
-import { showVaccinationStatus } from '#libs/custom-form/selectors';
-import MemberMinimalListItem from '#libs/member/components/MemberMinimalListItem.component';
-import { searchArchived as searchArchivedMembers } from '#libs/member/actions';
-import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '#libs/access-control/actions';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
-import { getEstablishmentsSelectedInRole } from '#libs/establishment/selectors';
-import { withSendToBroadcastChannel } from '#libs/broadcast-channel/hocs';
-import type { MemberVisitREST } from '#libs/access-control/types';
+import withTitle from '#src/hocs/with-title.hoc';
+import { showVaccinationStatus } from '#src/libs/custom-form/selectors';
+import MemberMinimalListItem from '#src/libs/member/components/MemberMinimalListItem.component';
+import { searchArchived as searchArchivedMembers } from '#src/libs/member/actions';
+import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '#src/libs/access-control/actions';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#src/libs/platform-billing/upsell-identifiers';
+import { getEstablishmentsSelectedInRole } from '#src/libs/establishment/selectors';
+import { withSendToBroadcastChannel } from '#src/libs/broadcast-channel/hocs';
+import type { MemberVisitREST } from '#src/libs/access-control/types';
 import {
   BroadcastChannelMessageType,
   type BroadcastChannelMessage,
-} from '#libs/broadcast-channel/types';
-import type { OptionCallback } from '#state/types';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+} from '#src/libs/broadcast-channel/types';
+import type { OptionCallback } from '#src/state/types';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { parseQueryString } from '../http';
+// @ts-expect-error
 import { search as searchActions } from '../actions';
+// @ts-expect-error
 import RolePermission from '../libs/role/types';
 import { getPermissions } from '../libs/role/selectors';
 

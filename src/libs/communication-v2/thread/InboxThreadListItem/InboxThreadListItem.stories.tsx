@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import InboxThreadListItem, {
   Props,
-} from '#libs/communication-v2/thread/InboxThreadListItem/InboxThreadListItem.component';
+} from '#src/libs/communication-v2/thread/InboxThreadListItem/InboxThreadListItem.component';
 import {
   MemberThread,
   OfferThread,
   SmartListThread,
-} from '#libs/communication-v2/factories/CommunicationThread';
+} from '#src/libs/communication-v2/factories/CommunicationThread';
 
 const memberThreadProps = MemberThread();
 const smartlistThreadProps = SmartListThread();

@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import MenuItemList, { MenuItemListStorybook, type MenuItemListProps } from '.';
 import MenuItem from '../MenuItem';
-import { generateRandomNames } from '#utils/factories';
+import { generateRandomNames } from '#src/utils/factories';
 
 MenuItemListStorybook.displayName = 'MenuItemList';
 

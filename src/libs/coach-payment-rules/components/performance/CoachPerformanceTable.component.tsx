@@ -20,18 +20,18 @@ import Collapse from '@material-ui/core/Collapse';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import Tooltip from '#components/Tooltip.component';
+import Tooltip from '#src/components/Tooltip.component';
 import type {
   CoachPaymentRuleGroup,
   CoachPaymentRule,
   CoachwithPerformance,
-} from '#libs/coach-payment-rules/types';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
-import AllCoachPerformancePagination from '#libs/coach-payment-rules/components/performance/AllCoachPerformancePagination.component';
-import { getFilteredAssociatedCoachWithPerformance } from '#libs/coach-payment-rules/utils';
-import type { OptionCallback } from '../../../../state/types';
+} from '#src/libs/coach-payment-rules/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import CoachPerformanceTabs from '#src/libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
+import AllCoachPerformancePagination from '#src/libs/coach-payment-rules/components/performance/AllCoachPerformancePagination.component';
 // @ts-expect-error
+import { getFilteredAssociatedCoachWithPerformance } from '#src/libs/coach-payment-rules/utils';
+import type { OptionCallback } from '../../../../state/types';
 
 interface HeadersProps {
   title: string;

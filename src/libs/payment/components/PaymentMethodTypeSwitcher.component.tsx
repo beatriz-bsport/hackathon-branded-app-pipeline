@@ -12,11 +12,11 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
 } from '@bsport/common/lib/master-data/payment-group';
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
-import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
-import type { FeatureList } from '#libs/company/types';
-import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#src/libs/payment/utils';
+import type { FeatureList } from '#src/libs/company/types';
+import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 
 const PaymentMethodTypeSwitcher = (props: {
   onChange: (paymentMethodId: number) => void;

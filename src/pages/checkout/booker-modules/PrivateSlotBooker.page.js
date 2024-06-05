@@ -20,7 +20,7 @@ import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyabl
 import {
   getCheckoutUrl,
   getUserSpaceUrl,
-} from '#libs/marketplace/routing-utils';
+} from '#src/libs/marketplace/routing-utils';
 import themeSelectors from '../../../libs/theme/selectors';
 
 import MarketplaceBasketDialog from '../../marketplace/MarketplaceBasketDialog.component';

@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import MarketplaceBasketSummaryItemCssOnly from '#libs/marketplace/components/@Basket/MarketplaceBasketSummaryItemCssOnly';
-import type { CheckoutItem } from '#libs/checkout/types';
-import { getIsCheckoutItemApplied } from '#libs/checkout/utils';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import MarketplaceBasketSummaryItemCssOnly from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryItemCssOnly';
+import type { CheckoutItem } from '#src/libs/checkout/types';
+import { getIsCheckoutItemApplied } from '#src/libs/checkout/utils';
 
 import './styles.css';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-// @ts-expect-error
 import BarCode from 'react-barcode';
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import Blanket from '#Fabrique/Blanket';

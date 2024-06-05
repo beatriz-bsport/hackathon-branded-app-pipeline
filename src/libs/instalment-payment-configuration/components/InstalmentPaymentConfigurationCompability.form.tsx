@@ -9,15 +9,15 @@ import DoneAll from '@material-ui/icons/DoneAll';
 import {
   CheckboxField,
   MaterialUiMultiSelectorField,
-} from '#libs/custom-form/components/GenericFormik.input';
+} from '#src/libs/custom-form/components/GenericFormik.input';
 
-import { getShopItemName } from '#libs/shop/utils';
+import { getShopItemName } from '#src/libs/shop/utils';
 
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PrivatePass } from '#libs/private-service/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import type { Giftcard } from '#libs/giftcard/types';
-import type { ShopItem } from '#libs/shop/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { Giftcard } from '#src/libs/giftcard/types';
+import type { ShopItem } from '#src/libs/shop/types';
 
 type OwnProps = {
   paymentPackList: Array<PaymentPack>;

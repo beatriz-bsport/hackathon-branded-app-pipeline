@@ -17,9 +17,9 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import type {
   PrivatePass,
   PrivateConsumerPass,
-} from '#libs/private-service/types';
-import UnPrivateConsumerPassBookerListItem from '#libs/private-service/components/booking-module/UnpaidPrivateConsumerPassBookerListItem.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+} from '#src/libs/private-service/types';
+import UnPrivateConsumerPassBookerListItem from '#src/libs/private-service/components/booking-module/UnpaidPrivateConsumerPassBookerListItem.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import PrivatePassBookerListItem from './booking-module/PrivatePassBookerListItem.component';
 import PrivateConsumerPassBookerListItem from './booking-module/PrivateConsumerPassBookerListItem.component';
 import { OptionCallback } from '../../../state/types';

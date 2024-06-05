@@ -3,7 +3,7 @@ import type {
   SpotType,
   RoomBlueprint,
   RoomBlueprintFilters,
-} from '#libs/spot-scheduling/types';
+} from '#src/libs/spot-scheduling/types';
 import {
   API_V1_URI,
   getAuth,

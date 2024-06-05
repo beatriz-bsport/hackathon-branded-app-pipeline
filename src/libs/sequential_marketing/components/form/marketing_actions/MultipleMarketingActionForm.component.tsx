@@ -4,16 +4,16 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { useFormikContext, withFormik } from 'formik';
 
-import MenuSelectorTextButton from '#components/menu/text';
+import MenuSelectorTextButton from '#src/components/menu/text';
 import {
   MarketingActions,
   SequentialMarketingColors,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import type { OptionCallback } from '../../../../../state/types';
 
 import {

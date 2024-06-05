@@ -12,7 +12,7 @@ import { push } from 'connected-react-router';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { useDispatch } from 'react-redux';
 
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type { DeleteAlert } from '../types';
 import AlertList from './AlertList.component';
 

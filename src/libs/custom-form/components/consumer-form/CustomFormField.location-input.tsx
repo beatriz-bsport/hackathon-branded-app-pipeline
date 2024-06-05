@@ -6,9 +6,9 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 import { useTranslation, WithTranslation } from 'react-i18next';
 import { FormLabel } from '@material-ui/core';
+import { generateUniqueCustomFormFieldIdentifier } from '#src/libs/custom-form/utils';
+import FabriqueSelectfield from '#src/components/css-only/Fabrique/Temporary/Selectfield';
 // @ts-expect-error
-import { generateUniqueCustomFormFieldIdentifier } from '#libs/custom-form/utils';
-import FabriqueSelectfield from '#components/css-only/Fabrique/Temporary/Selectfield';
 import { SelectFieldWithEnhancedLabeLError } from '../../../../components/forms';
 
 import { CustomFormField, FormikCustomFormFilled } from '../../types';

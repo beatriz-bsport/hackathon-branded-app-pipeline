@@ -3,7 +3,7 @@ import React from 'react';
 import type {
   ChipColor,
   ChipVariant,
-} from '#components/css-only/Fabrique/Chip';
+} from '#src/components/css-only/Fabrique/Chip';
 
 export type ChipData = {
   shouldDisplay?: boolean;

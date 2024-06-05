@@ -7,11 +7,11 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { Theme, WithStyles, createStyles } from '@material-ui/core';
-import PriceInput from '#components/input/PriceInput.component';
+import PriceInput from '#src/components/input/PriceInput.component';
 import {
   DeliveryFee,
   DeliveryFeeCreationOrUpdatePayload,
-} from '#libs/order/types';
+} from '#src/libs/order/types';
 
 type Props = {
   initial?: DeliveryFee;

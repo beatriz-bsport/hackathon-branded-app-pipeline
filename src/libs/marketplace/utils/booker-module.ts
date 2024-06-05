@@ -8,12 +8,12 @@ import LabelOff from '@material-ui/icons/LabelOff';
 import TimerOff from '@material-ui/icons/TimerOff';
 import Update from '@material-ui/icons/Update';
 import { DateTime } from 'luxon';
-import type { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
+import type { PrivatePassCategoryWithPasses } from '#src/libs/private-service/types';
 import type {
   PaymentPackCategoryWithPacks,
   PaymentPack,
   PaymentPackCategory,
-} from '#libs/payment-packs/types';
+} from '#src/libs/payment-packs/types';
 import {
   CONSUMER_PAYMENT_PACK_IDENTIFIER,
   CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
@@ -21,23 +21,23 @@ import {
   PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
   MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER,
   RECOMMENDED_BUYABLE_CATEGORY_ID,
-} from '#libs/marketplace/constants';
+} from '#src/libs/marketplace/constants';
 import type {
   BookerItem,
   BookerModuleBuyableItem,
   BuyableItemCategory,
   RecommendedBuyableItem,
-} from '#libs/booker-module/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
+} from '#src/libs/booker-module/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import type {
   OfferFeature,
   PricingOptionOrdering,
-} from '#libs/marketplace/types';
+} from '#src/libs/marketplace/types';
 import type {
   Contract,
   ContractWithPaymentPack,
-} from '#libs/subscription/types';
-import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
+} from '#src/libs/subscription/types';
+import { computeProrataPriceForSubscription } from '#src/libs/subscription/utils';
 import type { AddGuestFormValues } from '../components/@Booking/MarketplaceBookingAddGuestModal';
 // pass page category filter - get all of the available categories
 export const getPassFilterAvailableCategories = (

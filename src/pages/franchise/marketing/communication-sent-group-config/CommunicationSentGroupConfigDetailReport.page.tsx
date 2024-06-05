@@ -3,23 +3,23 @@ import { compose, withHandlers } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
 import { goBack } from 'connected-react-router';
 import { WithStyles } from '@material-ui/core';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
   getCommunicationSentGroup,
   getCommunicationSentGroupReport,
   getRecipientListByCommunicationSentGroup,
-} from '#libs/communication/selectors';
-import { CampaignReport } from '#libs/communication/components/CampaignReport.component';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
-import type { Recipient } from '#libs/communication/types';
+} from '#src/libs/communication/selectors';
+import { CampaignReport } from '#src/libs/communication/components/CampaignReport.component';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#src/libs/notification-rule/actions';
+import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
+import type { Recipient } from '#src/libs/communication/types';
 import {
   fetchCommunicationSentGroupDetails as fetchCommunicationSentGroupDetailsAction,
   fetchRecipientListByCommunicationSentGroup as fetchRecipientListByCommunicationSentGroupAction,
   fetchReportByCommunicationSentGroup as fetchReportByCommunicationSentGroupAction,
   fetchCommunicationSentGroupRecipientListExport as fetchCommunicationSentGroupRecipientListExportAction,
   fetchCommunicationSentGroupRecipientListExportLink as fetchCommunicationSentGroupRecipientListExportLinkAction,
-} from '#libs/communication/actions';
+} from '#src/libs/communication/actions';
 import { RootState } from '../../../../reducers';
 import BackofficeLinearProgress from '../../../../components/navigation/BackofficeLinearProgress.component';
 import { OptionCallback, PaginatedResponse } from '../../../../state/types';

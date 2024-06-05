@@ -6,9 +6,9 @@ import SeamlessImmutable from 'seamless-immutable';
 import {
   MaterialUiSingleSelectorField,
   SwitchField,
-} from '#libs/custom-form/components/GenericFormik.input';
-import { SmartList } from '#libs/smart-list/types';
-import { CommunicationSentGroupConfigFormValues } from '#libs/communication/types';
+} from '#src/libs/custom-form/components/GenericFormik.input';
+import { SmartList } from '#src/libs/smart-list/types';
+import { CommunicationSentGroupConfigFormValues } from '#src/libs/communication/types';
 
 type Props = {
   index: number;

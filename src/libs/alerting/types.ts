@@ -1,6 +1,6 @@
 import type { PaginatedResponse } from 'src/state/types';
-import type { LanguageDict } from '#libs/platform-tutorial/types';
-import type { MemberMinimalNoPhoto } from '#libs/member/types';
+import type { LanguageDict } from '#src/libs/platform-tutorial/types';
+import type { MemberMinimalNoPhoto } from '#src/libs/member/types';
 import {
   AlertKind,
   CompanyOnboardingTypes,

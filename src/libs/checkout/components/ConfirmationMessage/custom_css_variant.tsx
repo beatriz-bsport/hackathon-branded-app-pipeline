@@ -2,17 +2,17 @@ import React from 'react';
 
 import Alert from '@material-ui/lab/Alert/Alert';
 import { useTranslation } from 'react-i18next';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { offerFactory } from '#libs/offer/factories';
-import { subscriptionFactory } from '#libs/subscription/factory';
-import { checkoutItemsFactory } from '#libs/checkout/factories';
-import { ConfirmationStatus } from '#libs/checkout/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { offerFactory } from '#src/libs/offer/factories';
+import { subscriptionFactory } from '#src/libs/subscription/factory';
+import { checkoutItemsFactory } from '#src/libs/checkout/factories';
+import { ConfirmationStatus } from '#src/libs/checkout/types';
 // @ts-expect-error
 import ConfirmationMessageCss from './styles.css?raw';
 import ConfirmationMessage from '.';

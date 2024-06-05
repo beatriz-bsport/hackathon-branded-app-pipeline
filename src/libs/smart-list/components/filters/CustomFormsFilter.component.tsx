@@ -10,11 +10,11 @@ import {
   GTE_COMPARATOR,
   BETWEEN_COMPARATOR,
 } from '@bsport/common/lib/master-data/smart-list';
-import DelayedNumericInput from '#components/DelayedNumericInput.component';
+import DelayedNumericInput from '#src/components/DelayedNumericInput.component';
 
+import CustomFormListItem from '#src/libs/custom-form/components/CustomFormListItem.component';
+import { CustomForm } from '#src/libs/custom-form/types';
 // @ts-expect-error
-import CustomFormListItem from '#libs/custom-form/components/CustomFormListItem.component';
-import { CustomForm } from '#libs/custom-form/types';
 import Selector from '../MultiSelector.component';
 import { MaterialStyleType } from '../../../../utils/types';
 

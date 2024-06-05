@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 
 import memoize from 'memoize-one';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 import type { MetaActivity } from './types';
 import { RootState } from '../../reducers';
 

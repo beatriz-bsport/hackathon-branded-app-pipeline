@@ -1,6 +1,6 @@
 import React from 'react';
 import RollCallDrawer, { Props } from './RollCallDrawer.component';
-import MembersFactory from '#libs/member/factories/Member';
+import MembersFactory from '#src/libs/member/factories/Member';
 import { BookingListFactory } from '../../booking/factories';
 import { offerFactory } from '../factory';
 

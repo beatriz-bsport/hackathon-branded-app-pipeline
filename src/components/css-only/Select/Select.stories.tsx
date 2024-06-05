@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Props, SelectForStorybook } from '#components/css-only/Select';
-import { paymentPackListFactory } from '#libs/payment-packs/factory';
+import { Props, SelectForStorybook } from '#src/components/css-only/Select';
+import { paymentPackListFactory } from '#src/libs/payment-packs/factory';
 import { LOCALE_LIST } from '../../input/LocaleSelector.component';
 
 import { useTranslation } from 'react-i18next';

@@ -12,7 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import { withTranslation, WithTranslation } from 'react-i18next';
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
 import { OptionCallback } from '../../../state/types';
 import { EventListParams, GenericEvent, GenericEventSpec } from '../types';
 import EventListItem from './EventListItem.component';

@@ -20,22 +20,21 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Alert from '@material-ui/lab/Alert';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
-import Avatar from '#components/Avatar.component';
-import Tooltip from '#components/Tooltip.component';
-import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
-import ConsumerPackRowItem from '#libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import Avatar from '#src/components/Avatar.component';
+import Tooltip from '#src/components/Tooltip.component';
+import PaymentPackListItem from '#src/libs/payment-packs/components/PaymentPackListItem.component';
+import ConsumerPackRowItem from '#src/libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import {
   ConsumerPaymentPack,
   MaxoutBooking,
-} from '#libs/consumer-payment-pack/types';
+} from '#src/libs/consumer-payment-pack/types';
 import BookingModuleRegisterMethodChoice from './BookingModuleRegisterMethodChoice.component';
 import BookingModuleOfferChoice from './BookingModuleOfferChoice.component';
 import BookerModuleWarningTagDialog from './BookerModuleWarningTagDialog.component';
-
 
 import type { WithIsSharedActive } from '../../../relationship/types';
 import type { EstablishmentBillingGroup } from '../../../establishment/types';

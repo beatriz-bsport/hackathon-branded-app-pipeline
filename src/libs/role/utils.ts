@@ -6,12 +6,12 @@ import get from 'lodash/get';
 
 import cloneDeep from 'lodash/cloneDeep';
 import has from 'lodash/has';
-import type { Coach } from '#libs/associated-coach/types';
-import type { Company, UpsellSumup } from '#libs/company/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Company, UpsellSumup } from '#src/libs/company/types';
 import type {
   Establishment,
   EstablishmentGroupAPI,
-} from '#libs/establishment/types';
+} from '#src/libs/establishment/types';
 import Config from '#src/config';
 import type {
   RolePermission,

@@ -4,17 +4,20 @@ import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/lib/master-d
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import { useTranslation } from 'react-i18next';
-import { formatAsDate, getIsLateBookingCancellation } from '#utils/datetime';
-import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
+import {
+  formatAsDate,
+  getIsLateBookingCancellation,
+} from '#src/utils/datetime';
+import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
-import ConsumerBookingDetailsCard from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard';
+import ConsumerBookingDetailsCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard';
 
 import type {
   ConsumerBooking,
   ConsumerBookingOption,
   ConsumerPrivateBooking,
-} from '#libs/booking/types';
+} from '#src/libs/booking/types';
 
 type Props = {
   isOpen: boolean;

@@ -15,15 +15,15 @@ import IconButton from '@material-ui/core/IconButton';
 import CartIcon from '@material-ui/icons/ShoppingCart';
 import Typography from '@material-ui/core/Typography';
 
-import Tooltip from '#components/Tooltip.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import Tooltip from '#src/components/Tooltip.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import type {
   Giftcard,
   ConsumerGiftcard,
   GiftcardTemplate,
-} from '#libs/giftcard/types';
-import type { Member } from '#libs/member/types';
+} from '#src/libs/giftcard/types';
+import type { Member } from '#src/libs/member/types';
 
 type SenderProps = {
   consumerGiftcard: ConsumerGiftcard;

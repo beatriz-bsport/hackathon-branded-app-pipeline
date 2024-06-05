@@ -16,7 +16,7 @@ import type { ButtonTypeMap } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 
-import MuiIconComponent from '#components/MuiIcon.component';
+import MuiIconComponent from '#src/components/MuiIcon.component';
 
 export type TranslationProps =
   | string

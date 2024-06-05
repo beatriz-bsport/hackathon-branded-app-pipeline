@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import Fuse, { FuseOptions } from 'fuse.js';
 import { Add, KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
-import { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
+import { PerformanceTrackingProgram } from '#src/libs/performance-tracking/types';
 
 import FuzeSearch from '../../../../components/FuzeSearch.component';
 import ProgramMenuItem from './ProgramMenuItem.component';

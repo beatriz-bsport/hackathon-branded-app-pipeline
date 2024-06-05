@@ -3,7 +3,7 @@ import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 
-import { SmartList } from '#libs/smart-list/types';
+import { SmartList } from '#src/libs/smart-list/types';
 import PrivateServiceCard from './PrivateServiceCard.component';
 import PrivateServiceConfigurationChecker from './PrivateServiceConfigurationHelper.component';
 import PrivateSlotEditableList from '../slot/PrivateSlotEditableList.component';

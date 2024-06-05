@@ -28,20 +28,20 @@ import {
 
 import { CircularProgress, makeStyles, Theme } from '@material-ui/core';
 import { DateTime } from 'luxon';
-import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
+import PaymentStripeTerminalWrapper from '#src/libs/terminal/components/PaymentStripeTerminalWrapper.component';
 // @ts-expect-error
-// @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
-import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
-import type { FeatureList } from '#libs/company/types';
-import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#src/libs/payment/utils';
+import type { FeatureList } from '#src/libs/company/types';
+import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 
-import type { PaymentMethod } from '#libs/payment/types';
-import type { StripeReader } from '#libs/terminal/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
+import type { StripeReader } from '#src/libs/terminal/types';
 import type { PlannedPaymentEvent } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
+// @ts-expect-error
 import Checkbox from '../../../components/input/Checkbox.component';
 import DateInput from '../../../components/input/DateInput.component';
 

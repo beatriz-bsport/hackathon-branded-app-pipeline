@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { MemberMap } from '#libs/member/utils';
+import { MemberMap } from '#src/libs/member/utils';
 
-// @ts-expect-error
-import type { Contract } from '#libs/subscription/types';
-import { Basket, QuicksaleMemberUpdateResponse } from '#libs/checkout/types';
-import { QuicksaleCardInfo } from '#libs/quicksale/types';
-import { Member, MemberFormData, MemberMinimal } from '#libs/member/types';
+import type { Contract } from '#src/libs/subscription/types';
+import {
+  Basket,
+  QuicksaleMemberUpdateResponse,
+} from '#src/libs/checkout/types';
+import { QuicksaleCardInfo } from '#src/libs/quicksale/types';
+import { Member, MemberFormData, MemberMinimal } from '#src/libs/member/types';
 import type { OptionCallback } from '../../../../state/types';
+// @ts-expect-error
 import { mapFormData } from '../../../form.utils';
 
 const useMemberAuthentication = (

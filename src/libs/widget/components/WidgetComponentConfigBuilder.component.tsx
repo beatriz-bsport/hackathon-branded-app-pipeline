@@ -10,9 +10,9 @@ import {
   Typography,
 } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { Level } from '#libs/level/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
+import { Level } from '#src/libs/level/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
 import ExportableComponentConfigurator from '../../exportable-components/components/ExportableComponentConfigurator.component';
 import ExportableComponentSelector from '../../exportable-components/components/ExportableComponentSelector.component';
 

@@ -26,7 +26,7 @@ import {
   PLANNED_PAYMENT_EVENT_STATUS_PENDING,
 } from '@bsport/common/lib/master-data/planned-payment-event';
 import { DateTime } from 'luxon';
-import RedButton from '#components/button/RedButton.component';
+import RedButton from '#src/components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PlannedPaymentEvent, Invoice } from '../types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';

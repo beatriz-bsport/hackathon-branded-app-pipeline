@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Add, Remove } from '@material-ui/icons';
 
-import Button from '#components/css-only/Fabrique/Button';
+import Button from '#src/components/css-only/Fabrique/Button';
 
 import './styles.css';
 

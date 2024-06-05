@@ -1,14 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CheckoutItem, ConfirmationStatus } from '#libs/checkout/types';
-import StatusMessageWithIcon from '#components/css-only/StatusMessageWithIcon';
-import { OfferWithSpotInformation } from '#libs/offer/types';
-import { Subscription } from '#libs/subscription/types';
-import Alert, { AlertSeverity } from '#components/css-only/Alert';
-import Button, { ButtonSize } from '#components/css-only/Fabrique/Button';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { CheckoutItem, ConfirmationStatus } from '#src/libs/checkout/types';
+import StatusMessageWithIcon from '#src/components/css-only/StatusMessageWithIcon';
+import { OfferWithSpotInformation } from '#src/libs/offer/types';
+import { Subscription } from '#src/libs/subscription/types';
+import Alert, { AlertSeverity } from '#src/components/css-only/Alert';
+import Button, { ButtonSize } from '#src/components/css-only/Fabrique/Button';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import { useConfirmationMessageData } from '#libs/checkout/hooks';
+import { useConfirmationMessageData } from '#src/libs/checkout/hooks';
 
 import './styles.css';
 

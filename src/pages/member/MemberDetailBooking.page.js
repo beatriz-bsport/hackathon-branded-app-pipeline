@@ -27,14 +27,14 @@ import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/wai
 import {
   getAssetByBlueprintByIdentifier,
   getSpotTypesOfCompany,
-} from '#libs/spot-scheduling/selector';
-import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
-import { getActiveCoaches } from '#libs/associated-coach/selectors';
-import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
+} from '#src/libs/spot-scheduling/selector';
+import { getAvailableEstablishmentList } from '#src/libs/establishment/selectors';
+import { getActiveCoaches } from '#src/libs/associated-coach/selectors';
+import { fetchAssociatedCoachesList } from '#src/libs/associated-coach/actions';
 
-import PaginatedListBase from '#components/PaginatedListBase.component';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import {
   fetchMemberProgram as fetchMemberProgramAction,
@@ -42,7 +42,7 @@ import {
   fetchMetric as fetchMetricAction,
   updateMemberMetricValue as updateMemberMetricValueAction,
   createMemberProgram as createMemberProgramAction,
-} from '#libs/performance-tracking/actions';
+} from '#src/libs/performance-tracking/actions';
 
 import {
   cancelBooking as cancelBookingAction,
@@ -58,23 +58,23 @@ import {
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
   retrieveOfferWithCancelledBookings as retrieveOfferWithCancelledBookingsAction,
   updateOfferWithCancelledBookingsToRetry as updateOfferWithCancelledBookingsToRetryAction,
-} from '#libs/booking/actions';
+} from '#src/libs/booking/actions';
 import {
   fetchEstablishments as fetchEstablishmentList,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 
 import {
   fetchManagerFiltersSettings,
   updateManagerFiltersSettings,
-} from '#libs/dashboard/actions';
+} from '#src/libs/dashboard/actions';
 
 import {
   fetchOfferById as fetchOfferByIdAction,
   fetchOfferStatus as fetchOfferStatusAction,
   fetchOfferWaitingListPositionList as fetchOfferWaitingListPositionListAction,
   fetchOfferBulk as fetchOfferBulkAction,
-} from '#libs/offer/actions';
+} from '#src/libs/offer/actions';
 
 import {
   getDetailedOffer,
@@ -83,58 +83,58 @@ import {
   getOfferById,
   withCoach,
   withMetaActivity,
-} from '#libs/offer/selectors';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { getAllCustomLevels, withCustomLevel } from '#libs/level/selectors';
-import { fetchMember as fetchMemberAction } from '#libs/member/actions';
+} from '#src/libs/offer/selectors';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import { getAllCustomLevels, withCustomLevel } from '#src/libs/level/selectors';
+import { fetchMember as fetchMemberAction } from '#src/libs/member/actions';
 import {
   fetchAssetForBlueprint as fetchAssetForBlueprintAction,
   fetchRoomBlueprintDetail as fetchRoomBlueprintDetailAction,
   fetchSpotForBlueprint as fetchSpotForBlueprintAction,
-} from '#libs/spot-scheduling/actions';
+} from '#src/libs/spot-scheduling/actions';
 
 import {
   retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
   updateCredit as updateCreditAction,
-} from '#libs/consumer-payment-pack/actions';
+} from '#src/libs/consumer-payment-pack/actions';
 import {
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
   fetchActivitiesCompany as fetchActivitiesCompanyAction,
-} from '#libs/meta-activity/actions';
+} from '#src/libs/meta-activity/actions';
 import {
   fetchGroupOffer as fetchGroupOfferAction,
   fetchGroupsOfferList as fetchGroupsOfferListAction,
-} from '#libs/group-offer/actions';
+} from '#src/libs/group-offer/actions';
 import {
   fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction,
   discardBookingOption as discardBookingOptionAction,
   fetchBookingOptionForMember,
-} from '#libs/waiting-list/actions';
+} from '#src/libs/waiting-list/actions';
 import {
   getEnabledMetaActivities,
   getMetaActivity,
-} from '#libs/meta-activity/selectors';
-import { withGroup, getGroupListCount } from '#libs/group-offer/selectors';
+} from '#src/libs/meta-activity/selectors';
+import { withGroup, getGroupListCount } from '#src/libs/group-offer/selectors';
 
 import {
   getWaitingListConfigurationData,
   getBookingOptionListForMember,
-} from '#libs/waiting-list/selectors';
+} from '#src/libs/waiting-list/selectors';
 
-import { Member } from '#libs/member/types';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
+import { Member } from '#src/libs/member/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#src/libs/payment-packs/actions';
 
-import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
-import BookingDetail from '#libs/booking/components/BookingDetail.component';
-import RecurrenceRuleBookingFormDialog from '#libs/booking/components/RecurrenceRuleBookingFormDialog.component';
-import RecurrenceRuleOfferFormDialog from '#libs/booking/components/RecurrenceRuleOfferFormDialog.component';
-import RevertBookingDialog from '#libs/booking/components/RevertBookingDialog.component';
-import BookingFilters from '#libs/booking/components/BookingFilters.component';
-import RecurrenceRuleBookingListItem from '#libs/booking/components/RecurrenceRuleBookingListItem.component';
-import TemporalBarChart from '#components/graph/TemporalBarChart.component';
-import { getActivityWorkshopPermission } from '#libs/role/permission-utils/utils';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import BookingItemForManagerV2 from '#src/libs/booking/components/BookingItemForManagerV2.component';
+import BookingDetail from '#src/libs/booking/components/BookingDetail.component';
+import RecurrenceRuleBookingFormDialog from '#src/libs/booking/components/RecurrenceRuleBookingFormDialog.component';
+import RecurrenceRuleOfferFormDialog from '#src/libs/booking/components/RecurrenceRuleOfferFormDialog.component';
+import RevertBookingDialog from '#src/libs/booking/components/RevertBookingDialog.component';
+import BookingFilters from '#src/libs/booking/components/BookingFilters.component';
+import RecurrenceRuleBookingListItem from '#src/libs/booking/components/RecurrenceRuleBookingListItem.component';
+import TemporalBarChart from '#src/components/graph/TemporalBarChart.component';
+import { getActivityWorkshopPermission } from '#src/libs/role/permission-utils/utils';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
   getMemberBookingListWithConsumerPack,
@@ -146,39 +146,42 @@ import {
   getOffersIds,
   getUpdateOffersToRetryLoading,
   getOffersWithCancelledBookingsLoading,
-} from '#libs/booking/selectors';
-import { getMember } from '#libs/member/selectors';
+} from '#src/libs/booking/selectors';
+import { getMember } from '#src/libs/member/selectors';
 import paymentPackSelectors, {
   getAll as getAllPaymentPacks,
-} from '#libs/payment-packs/selectors';
-import { getConsumerPack } from '#libs/consumer-payment-pack/selectors';
-import themeSelectors from '#libs/theme/selectors';
-import { fetchBookingStatistics2 as fetchBookingStatisticsAction } from '#libs/statistics/actions';
-import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#libs/role/actions';
-import { getStatisticTemporal } from '#libs/statistics/selectors';
-import ChartRange from '#libs/dashboard/components/ChartRange.component';
-import { Theme } from '#libs/theme/types';
+} from '#src/libs/payment-packs/selectors';
+import { getConsumerPack } from '#src/libs/consumer-payment-pack/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
+import { fetchBookingStatistics2 as fetchBookingStatisticsAction } from '#src/libs/statistics/actions';
+import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#src/libs/role/actions';
+import { getStatisticTemporal } from '#src/libs/statistics/selectors';
+import ChartRange from '#src/libs/dashboard/components/ChartRange.component';
+import { Theme } from '#src/libs/theme/types';
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
-} from '#libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
-import type { Offer, OfferStatusWaitingListPosition } from '#libs/offer/types';
+} from '#src/libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
+import type {
+  Offer,
+  OfferStatusWaitingListPosition,
+} from '#src/libs/offer/types';
 import {
   BookingOptionWithActivity,
   Booking,
   RecurrenceRuleBooking,
-} from '#libs/booking/types';
-import WaitingListDetail from '#libs/waiting-list/components/WaitingListDetail.component';
-import PaginatedBookingOptionList from '#libs/waiting-list/components/PaginatedBookingOptionList.component';
-import DiscardBookingOptionDialogV2 from '#libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
-import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
-import type { Coach } from '#libs/associated-coach/types';
-import MemberProgramDetailDialog from '#libs/performance-tracking/components/member-program/MemberProgramDetail.dialog';
+} from '#src/libs/booking/types';
+import WaitingListDetail from '#src/libs/waiting-list/components/WaitingListDetail.component';
+import PaginatedBookingOptionList from '#src/libs/waiting-list/components/PaginatedBookingOptionList.component';
+import DiscardBookingOptionDialogV2 from '#src/libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
+import { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import MemberProgramDetailDialog from '#src/libs/performance-tracking/components/member-program/MemberProgramDetail.dialog';
 import {
   getProgramList,
   getMemberProgramIdsList,
-} from '#libs/performance-tracking/selector';
+} from '#src/libs/performance-tracking/selector';
 
-import type { WaitingListConfiguration } from '#libs/waiting-list/type';
+import type { WaitingListConfiguration } from '#src/libs/waiting-list/type';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 

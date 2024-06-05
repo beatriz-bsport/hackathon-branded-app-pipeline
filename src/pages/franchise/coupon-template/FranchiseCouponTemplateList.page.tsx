@@ -13,24 +13,24 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
-import CouponTemplateListItem from '#libs/coupon/components/CouponTemplateListItem.component';
-import { getPaymentPackTemplateList } from '#libs/payment-packs/selectors';
-import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#libs/payment-packs/actions';
-import { getPrivatePassTemplateList } from '#libs/private-service/selectors/private-pass';
-import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#libs/private-service/actions';
-import CouponTemplateFormDrawer from '#libs/coupon/components/CouponTemplateFormDrawer.component';
-import CouponTemplateDeleteDialog from '#libs/coupon/components/CouponTemplateDeleteDialog.component';
+import CouponTemplateListItem from '#src/libs/coupon/components/CouponTemplateListItem.component';
+import { getPaymentPackTemplateList } from '#src/libs/payment-packs/selectors';
+import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#src/libs/payment-packs/actions';
+import { getPrivatePassTemplateList } from '#src/libs/private-service/selectors/private-pass';
+import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#src/libs/private-service/actions';
+import CouponTemplateFormDrawer from '#src/libs/coupon/components/CouponTemplateFormDrawer.component';
+import CouponTemplateDeleteDialog from '#src/libs/coupon/components/CouponTemplateDeleteDialog.component';
 import {
   fetchCouponTemplateList as fetchCouponTemplateListAction,
   createOrUpdateCouponTemplate as createOrUpdateCouponTemplateAction,
   deleteCouponTemplate as deleteCouponTemplateAction,
-} from '#libs/coupon/actions';
+} from '#src/libs/coupon/actions';
 import {
   getCouponTemplateData,
   getActiveCouponTemplates,
   getInactiveCouponTemplates,
-} from '#libs/coupon/selectors';
-import type { CouponTemplateAPI } from '#libs/coupon/types';
+} from '#src/libs/coupon/selectors';
+import type { CouponTemplateAPI } from '#src/libs/coupon/types';
 import IsEmptyList from '../../../components/navigation/IsEmptyList.component';
 import { buildUrlParams } from '../../../http';
 import { WithHandlerType } from '../../../utils/types';

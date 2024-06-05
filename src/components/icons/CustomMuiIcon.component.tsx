@@ -8,7 +8,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import { SvgIconComponent } from '@material-ui/icons';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import type { Theme } from '@material-ui/core/styles';
-import MuiIconComponent from '#components/MuiIcon.component';
+import MuiIconComponent from '#src/components/MuiIcon.component';
 
 type StylesProps = {
   customColor?: string;

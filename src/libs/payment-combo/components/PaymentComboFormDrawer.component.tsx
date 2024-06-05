@@ -9,11 +9,11 @@ import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 
 import { makeStyles } from '@material-ui/core';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import type { BookkeepingAccount } from '#libs/payment/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
 import PaymentComboFields, {
   PaymentComboFormHoc,
 } from './PaymentComboForm.component';

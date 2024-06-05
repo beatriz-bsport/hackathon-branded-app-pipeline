@@ -6,14 +6,14 @@ import {
   MarketingActionKind,
   MarketingActions,
   TriggerKind,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 import {
   triggerFactory,
   triggerBatchFactory,
   stepMarketingActionFactory,
-} from '#libs/sequential_marketing/factories';
-import { tagWithoutGroupFactory } from '#libs/tag/factory';
-import { companyEmailListFactory } from '#libs/email-editor/factories/EmailTemplateSummary';
+} from '#src/libs/sequential_marketing/factories';
+import { tagWithoutGroupFactory } from '#src/libs/tag/factory';
+import { companyEmailListFactory } from '#src/libs/email-editor/factories/EmailTemplateSummary';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/EntryStep',

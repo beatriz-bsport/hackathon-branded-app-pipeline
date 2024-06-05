@@ -22,7 +22,7 @@ import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
 import { getLocaleWeekdays } from '#src/utils/datetime';
 
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type { LuxonDateTime } from '#src/types';
 import { CalendarDay } from './CalendarDay.component';
 import { CalendarHeader } from './CalendarHeader.component';

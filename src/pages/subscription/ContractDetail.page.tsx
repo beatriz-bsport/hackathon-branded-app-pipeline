@@ -14,57 +14,57 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import memoize from 'memoize-one';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 import { TFunction } from 'i18next';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
 // @ts-expect-error
-import ContractDeleteDialog from '#libs/subscription/components/SubscriptionContractDeleteModal.component';
-import SubscriptionContractFormDrawer from '#libs/subscription/components/SubscriptionContractFormDrawer.component';
-import PaginatedSubscriptionList from '#libs/subscription/components/PaginatedSubscriptionList.component';
-import themeSelectors from '#libs/theme/selectors';
-import { Theme as CompanyTheme } from '#libs/theme/types';
-import { getContractDetailNotifications } from '#libs/marketing/selectors';
+import ContractDeleteDialog from '#src/libs/subscription/components/SubscriptionContractDeleteModal.component';
+import SubscriptionContractFormDrawer from '#src/libs/subscription/components/SubscriptionContractFormDrawer.component';
+import PaginatedSubscriptionList from '#src/libs/subscription/components/PaginatedSubscriptionList.component';
+import themeSelectors from '#src/libs/theme/selectors';
+import { Theme as CompanyTheme } from '#src/libs/theme/types';
+import { getContractDetailNotifications } from '#src/libs/marketing/selectors';
 
-import { fetchPrivatePassList } from '#libs/private-service/actions';
-import { fetchPaymentComboList } from '#libs/payment-combo/actions';
-import { getAllSmartList } from '#libs/smart-list/selectors';
-import { fetchAllSmartLists } from '#libs/smart-list/actions';
-import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
-import { fetchTags } from '#libs/tag/actions';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { fetchPrivatePassList } from '#src/libs/private-service/actions';
+import { fetchPaymentComboList } from '#src/libs/payment-combo/actions';
+import { getAllSmartList } from '#src/libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#src/libs/smart-list/actions';
+import { getPrivatePassAvailable } from '#src/libs/private-service/selectors/private-pass';
+import { fetchTags } from '#src/libs/tag/actions';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
+} from '#src/libs/email-editor/selectors';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
   createMarketingNotification as createMarketingNotificationAction,
   updateMarketingNotification as updateMarketingNotificationAction,
   deleteMarketingNotification as deleteMarketingNotificationAction,
-} from '#libs/marketing/actions';
+} from '#src/libs/marketing/actions';
 import {
   getResolvedGenericTags,
   getTagCategories,
-} from '#libs/notification-rule/selectors';
+} from '#src/libs/notification-rule/selectors';
 import {
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
   fetchTagList,
-} from '#libs/notification-rule/actions';
+} from '#src/libs/notification-rule/actions';
 import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 import {
   getContract,
   withPaymentPack,
   getContractDetailSubscription,
   getContractPauseList,
   // @ts-expect-error
-} from '#libs/subscription/selectors';
-import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selectors';
-import ContractDetail from '#libs/subscription/components/contract/ContractDetail.component';
-import ContractPauseListItemDetail from '#libs/subscription/components/contract/ContractPauseListItemDetail.component';
+} from '#src/libs/subscription/selectors';
+import { getEnabled as getPaymentPackEnabled } from '#src/libs/payment-packs/selectors';
+import ContractDetail from '#src/libs/subscription/components/contract/ContractDetail.component';
+import ContractPauseListItemDetail from '#src/libs/subscription/components/contract/ContractPauseListItemDetail.component';
 import {
   fetchContractDetail as fetchContractDetailAction,
   deleteContract,
@@ -75,21 +75,21 @@ import {
   fetchSubscriptionList as fetchSubscriptionListAction,
   fetchSubscriptionBulk,
   fetchContractPauseList,
-} from '#libs/subscription/actions';
-import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
-import { refreshAllPaymentPack } from '#libs/payment-packs/actions';
-import { snackbarSuccess } from '#libs/snackbar/actions';
+} from '#src/libs/subscription/actions';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '#src/libs/member/actions';
+import { refreshAllPaymentPack } from '#src/libs/payment-packs/actions';
+import { snackbarSuccess } from '#src/libs/snackbar/actions';
 import {
   Contract,
   ContractPauseDetails,
   Subscription,
-} from '#libs/subscription/types';
-import { getMergeTags } from '#libs/marketing/utils';
-import MarketingRuleFormContract from '#libs/marketing/components/marketing-rule-form/MarketingRuleFormContract.component';
-import MarketingRuleListItemContract from '#libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemContract.component';
-import ContractPauseFormDialog from '#libs/subscription/components/contract/ContractPauseFormDialog.component';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+} from '#src/libs/subscription/types';
+import { getMergeTags } from '#src/libs/marketing/utils';
+import MarketingRuleFormContract from '#src/libs/marketing/components/marketing-rule-form/MarketingRuleFormContract.component';
+import MarketingRuleListItemContract from '#src/libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemContract.component';
+import ContractPauseFormDialog from '#src/libs/subscription/components/contract/ContractPauseFormDialog.component';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { RootState } from '../../reducers';
 import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 import { OptionCallback } from '../../state/types';

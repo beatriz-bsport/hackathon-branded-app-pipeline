@@ -10,7 +10,7 @@ import 'prismjs/components/prism-css';
 // eslint-disable-next-line
 import 'prismjs/themes/prism-dark.css';
 
-import { interpolateCSSVar } from '#libs/widget/utils';
+import { interpolateCSSVar } from '#src/libs/widget/utils';
 
 type Props = {
   code: string;

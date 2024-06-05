@@ -18,7 +18,7 @@ import {
   FILTER_IN_OPERAND,
   GROUP_AND_OPERAND,
   HOUR_SUBDATA_TYPE,
-} from '#libs/datatype-filtering/constants';
+} from '#src/libs/datatype-filtering/constants';
 
 import {
   AllComparator,
@@ -30,10 +30,10 @@ import {
   DatatypeFilterConfigGroup,
   DataSourceFieldMetadata,
   DatatypeFilterConfigItem,
-} from '#libs/datatype-filtering/types';
-import { TIME_PERIODS_RANGE } from '#components/date/DateRangeSelector.component';
-import { TIME_PERIODS_SINGLE } from '#components/date/DatePickerSelector.component';
-import { ReportMetadataColumn } from '#libs/reporting/types';
+} from '#src/libs/datatype-filtering/types';
+import { TIME_PERIODS_RANGE } from '#src/components/date/DateRangeSelector.component';
+import { TIME_PERIODS_SINGLE } from '#src/components/date/DatePickerSelector.component';
+import { ReportMetadataColumn } from '#src/libs/reporting/types';
 
 //
 // Getters

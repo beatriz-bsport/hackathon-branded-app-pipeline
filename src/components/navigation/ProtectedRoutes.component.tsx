@@ -5,12 +5,12 @@ import { connect, ConnectedProps } from 'react-redux';
 // import { Redirect, useLocation } from 'react-router';
 import { compose } from 'recompose';
 
-import { getPermissions } from '#libs/role/selectors';
+import { getPermissions } from '#src/libs/role/selectors';
 import { RootState } from '../../reducers';
 // import Config from '../../config';
-// import { UPSELL_PERFORMANCE_TRACKING_IDENTIFIER } from '#libs/platform-billing/upsell-identifiers';
-// import { URLS_PERMISSIONS, URLS_UPSELL } from '#libs/role/constants';
-// import { checkRequiredPermissionsForPath } from '#libs/role/utils';
+// import { UPSELL_PERFORMANCE_TRACKING_IDENTIFIER } from '#src/libs/platform-billing/upsell-identifiers';
+// import { URLS_PERMISSIONS, URLS_UPSELL } from '#src/libs/role/constants';
+// import { checkRequiredPermissionsForPath } from '#src/libs/role/utils';
 
 const ProtectedRoutes: React.FC<ConnectedProps<typeof connector>> = ({
   // permissions,

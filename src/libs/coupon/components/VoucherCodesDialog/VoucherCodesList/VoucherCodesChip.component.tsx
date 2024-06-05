@@ -2,8 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@material-ui/core/styles';
 import { UniqueCodeStateStatus } from '@bsport/common/lib/master-data/coupon';
-import { CustomChip } from '#components/chip/CustomChip.component';
-import type { UniqueCodeState } from '#libs/coupon/types';
+import { CustomChip } from '#src/components/chip/CustomChip.component';
+import type { UniqueCodeState } from '#src/libs/coupon/types';
 
 type Props = {
   code: UniqueCodeState;

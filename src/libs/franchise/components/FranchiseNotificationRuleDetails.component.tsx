@@ -149,6 +149,7 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
                     )}
                     emailDesignList={emailDesignList}
                     fetchPreview={fetchEmailDesignDetail}
+// @ts-expect-error
                     notificationId={notificationId}
                     onDelete={handleDelete(rule.id)}
                     onEdit={handleEdit(rule.id)}

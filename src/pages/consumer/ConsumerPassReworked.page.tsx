@@ -5,20 +5,20 @@ import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
 
 import type { RootState } from 'src/reducers';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 
 /** COMPONENTS */
 
-import ConsumerPassReworkedComponent from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassPageReworked';
+import ConsumerPassReworkedComponent from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassPageReworked';
 
 /** UTILS */
 
 import {
   urlToMarketplacePassTab,
   urlToMarketplaceSessionTab,
-} from '#libs/marketplace/utils/navigation';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+} from '#src/libs/marketplace/utils/navigation';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 /** SELECTORS */
 
@@ -45,9 +45,9 @@ import {
   getMyFutureUniversalPassesState,
   getConsumerPassesTabDisplay,
   getConsumerPassesTabDisplayLoading,
-} from '#libs/consumer-space/selectors';
-import { getTheme } from '#libs/theme/selectors';
-import { getMembership } from '#libs/membership/selectors';
+} from '#src/libs/consumer-space/selectors';
+import { getTheme } from '#src/libs/theme/selectors';
+import { getMembership } from '#src/libs/membership/selectors';
 
 /** ACTIONS */
 
@@ -63,26 +63,26 @@ import {
   fetchMyFutureUniversalPassesAsMember as fetchMyFutureUniversalPassesAsMemberAction,
   fetchConsumerPassesTabDisplay as fetchMyPassesTabsAction,
   resetConsumerState as resetConsumerStateAction,
-} from '#libs/consumer-space/actions';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
-import { fetchSCT as fetchSCTAction } from '#libs/category/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+} from '#src/libs/consumer-space/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#src/libs/payment-packs/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#src/libs/establishment/actions';
+import { fetchSCT as fetchSCTAction } from '#src/libs/category/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
 import {
   fetchPrivatePassBulk as fetchPrivatePassBulkAction,
   fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
   fetchPrivateServiceCompatiblePassList as fetchPrivateServiceCompatiblePassListAction,
-} from '#libs/private-service/actions';
+} from '#src/libs/private-service/actions';
 import {
   fetchRelatedMembersNamesByConsumerPaymentPackLinks as fetchRelatedMembersNamesByConsumerPaymentPackLinksAction,
   fetchRelatedMembersNamesByPrivateConsumerPassLinks as fetchRelatedMembersNamesByPrivateConsumerPassLinksAction,
-} from '#libs/relationship/actions';
+} from '#src/libs/relationship/actions';
 
 /** TYPES */
 
-import type { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
-import type { PrivateConsumerPassREST } from '#libs/private-service/types';
-import { UniversalPassREST } from '#libs/universal-pass/types';
+import type { ConsumerPaymentPackREST } from '#src/libs/consumer-payment-pack/types';
+import type { PrivateConsumerPassREST } from '#src/libs/private-service/types';
+import { UniversalPassREST } from '#src/libs/universal-pass/types';
 
 export class ConsumerPassReworked extends React.Component<
   ConnectedProps<typeof connector>

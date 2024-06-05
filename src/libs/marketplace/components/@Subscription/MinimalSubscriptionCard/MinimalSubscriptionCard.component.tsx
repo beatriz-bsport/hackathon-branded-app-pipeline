@@ -2,21 +2,21 @@ import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import classNames from 'classnames';
-import Card, { CardSize } from '#components/css-only/Card';
-import Content from '#csscomponents/Card/CardContent';
-import Grid from '#components/css-only/Grid';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import Content from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#csscomponents/Grid/GridItem';
-import Price from '#components/css-only/Price';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import type { Subscription } from '#libs/subscription/types';
+} from '#src/components/css-only/Grid/GridItem';
+import Price from '#src/components/css-only/Price';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import type { Subscription } from '#src/libs/subscription/types';
 
-import Collapse from '#components/css-only/Fabrique/Collapse';
-import Button from '#components/css-only/Fabrique/Button';
+import Collapse from '#src/components/css-only/Fabrique/Collapse';
+import Button from '#src/components/css-only/Fabrique/Button';
 import MinimalCardSkeleton from '../../MinimalCardSkeleton';
 import BillingInterval from '../MarketplaceBillingInterval';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';

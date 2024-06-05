@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
-import Unsubscribe from '#libs/consumer-space/components/reworked/@Unsubscribe';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
+import Unsubscribe from '#src/libs/consumer-space/components/reworked/@Unsubscribe';
 import { RootState } from '../../reducers';
-
 
 type ReturnTypeRouterParamasToProps = {
   unsubscribe_uuid: string;

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { establishment_factory } from '#libs/establishment/factory';
-import { coachesFactory } from '#libs/associated-coach/factories';
-import { levelListFactory } from '#libs/level/factories';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
-import { getGroupedEstablishmentOptions } from '#libs/establishment/components/EstablishmentSelector.component';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { establishment_factory } from '#src/libs/establishment/factory';
+import { coachesFactory } from '#src/libs/associated-coach/factories';
+import { levelListFactory } from '#src/libs/level/factories';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { getGroupedEstablishmentOptions } from '#src/libs/establishment/components/EstablishmentSelector.component';
 // @ts-expect-error
 import MarketplaceFilterCss from './MarketplaceFilter.css?raw';
 import MarketplaceFilter, { Props as MarketplaceFilterProps } from '.';

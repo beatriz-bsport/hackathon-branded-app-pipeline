@@ -1,16 +1,16 @@
 import React from 'react';
 
 import { DateTime } from 'luxon';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { offerFactory } from '#libs/offer/factories';
-import { Offer } from '#libs/offer/types';
-import { OffersGroup } from '#libs/group-offer/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { offerFactory } from '#src/libs/offer/factories';
+import { Offer } from '#src/libs/offer/types';
+import { OffersGroup } from '#src/libs/group-offer/types';
 // @ts-expect-error
 import MarketplaceBookButtonCss from './MarketplaceBookButton.css?raw';
 import MarketplaceBookButton, { Props as MarketplaceBookButtonProps } from '.';

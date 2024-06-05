@@ -1,29 +1,26 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import Card, { CardSize } from '#csscomponents/Card';
-import CardContent from '#csscomponents/Card/CardContent';
-import Grid from '#csscomponents/Grid';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#csscomponents/Grid/GridItem';
-import Price, { Color } from '#csscomponents/Price';
+} from '#src/components/css-only/Grid/GridItem';
+import Price, { Color } from '#src/components/css-only/Price';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
-import type { PaymentCombo } from '#libs/payment-combo/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import PaymentComboItemList from '../MarketplacePaymentComboCard/PaymentComboItemList';
 import InitialPrice from '../MarketplacePaymentComboCard/InitialPrice';
 import RestrictionList from './RestrictionList';
 
-
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
-
-
 
 import './styles.css';
 

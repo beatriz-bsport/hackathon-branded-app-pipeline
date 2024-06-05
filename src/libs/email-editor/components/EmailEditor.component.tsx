@@ -25,10 +25,10 @@ import { Alert } from '@material-ui/lab';
 import isEqual from 'lodash/isEqual';
 import { AxiosError } from 'axios';
 import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule';
-import CategorySelector from '#components/ordering/CategorySelector.component';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import RequiredTags from '#components/notification/RequiredTags.component';
+import CategorySelector from '#src/components/ordering/CategorySelector.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import RequiredTags from '#src/components/notification/RequiredTags.component';
 import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
 import Checkbox from '../../../components/input/Checkbox.component';
@@ -507,13 +507,13 @@ export class EmailEditorPanel extends Component<Props, State> {
           ))}
         <Paper>
           {!!Object.entries(mergeTags).length && (
-            // @ts-expect-error
             <EmailEditor
               ref={this.editor}
               locale={i18n.language}
               minHeight="80vh"
               onLoad={() => this.onLoad()}
               options={{
+// @ts-expect-error
                 mergeTags,
                 designTags: {
                   business_name: this.props.company_name,

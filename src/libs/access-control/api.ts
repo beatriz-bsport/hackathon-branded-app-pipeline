@@ -1,4 +1,4 @@
-import type { PaginatedResponse } from '#state/types';
+import type { PaginatedResponse } from '#src/state/types';
 import {
   buildUrlParams,
   API_V1_URI,

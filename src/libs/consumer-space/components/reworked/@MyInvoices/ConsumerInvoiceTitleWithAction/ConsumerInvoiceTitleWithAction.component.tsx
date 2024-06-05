@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ChevronRight } from '#components/untitledui';
-import ConsumerGenericHeader from '#libs/consumer-space/components/reworked/common/ConsumerGenericHeader';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+import { ChevronRight } from '#src/components/untitledui';
+import ConsumerGenericHeader from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
-import type { HeaderButton } from '#libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
+import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
 type Props = {
   isMobile?: boolean;

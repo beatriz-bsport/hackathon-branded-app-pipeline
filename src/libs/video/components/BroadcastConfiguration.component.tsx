@@ -15,22 +15,22 @@ import EmailIcon from '@material-ui/icons/Email';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
 // @ts-expect-error
-import CustomColorButton from '#components/button/CustomColorButton.component';
-import RedButton from '#components/button/RedButton.component';
-import ZoomMultiUserSupportForm from '#libs/zoom-app/components/ZoomMultiUserSupportForm.component';
+import CustomColorButton from '#src/components/button/CustomColorButton.component';
+import RedButton from '#src/components/button/RedButton.component';
+import ZoomMultiUserSupportForm from '#src/libs/zoom-app/components/ZoomMultiUserSupportForm.component';
 
 import type {
   ZoomApp,
   ZoomEstablishment,
   ZoomMember,
   ZoomEstablishmentBulkEditData,
-} from '#libs/zoom-app/types';
-import type { Establishment } from '#libs/establishment/types';
-import { FeatureList } from '#libs/company/types';
-import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
+} from '#src/libs/zoom-app/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import { FeatureList } from '#src/libs/company/types';
+import { UPSELL_IDENTIFIER_ZOOM_APP } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 import type { OptionCallback } from '../../../state/types';
 
 const styles = (theme: Theme) =>

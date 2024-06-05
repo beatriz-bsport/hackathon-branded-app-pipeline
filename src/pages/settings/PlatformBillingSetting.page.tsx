@@ -13,8 +13,8 @@ import type { Theme } from '@material-ui/core/styles';
 import type { UniqueIdentifier } from '@dnd-kit/core';
 import type { TFunction } from 'i18next';
 
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import {
   fetchPlatformInvoiceList as fetchPlatformInvoiceListAction,
   payNowInvoice as payNowInvoiceAction,
@@ -27,43 +27,43 @@ import {
   requestUpsellPackage as requestUpsellPackageAction,
   checkPlatformSubscriptionSetup as checkSubscriptionSetupAction,
   subscribeUpsellPackage as subscribeUpsellPackageAction,
-} from '#libs/platform-billing/actions';
+} from '#src/libs/platform-billing/actions';
 import {
   getPlatformInvoiceList,
   getPlatformSubscription,
   getNonSubscribedUpsellPackages,
   getSubscribedUpsellPackages,
   // @ts-expect-error
-} from '#libs/platform-billing/selectors';
+} from '#src/libs/platform-billing/selectors';
 
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   // fetchStripeBalance as fetchStripeBalanceAction,
   setPaymentMethodAsDefault as setPaymentMethodAsDefaultAction,
   fetchStripePayoutList as fetchStripePayoutListAction,
-} from '#libs/payment/actions';
+} from '#src/libs/payment/actions';
 import {
   getSavedPaymentMethodList,
   getStripePayoutList,
-} from '#libs/payment/selectors';
-import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+} from '#src/libs/payment/selectors';
+import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 // @ts-expect-error
-import CompanyPlatformBillingPaymentDetail from '#libs/platform-billing/components/CompanyPlatformBillingPaymentDetail.component';
-import CompanyPlatformBillinGroupDetail from '#libs/platform-billing/components/CompanyPlatformBillingGroupDetail.component';
-import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
-import PayoutList from '#libs/payment/components/PayoutList.component';
-import { getFeatureList } from '#libs/company/actions';
-// import StripeBalance from '#libs/payment/components/StripeBalance.component';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
+import CompanyPlatformBillingPaymentDetail from '#src/libs/platform-billing/components/CompanyPlatformBillingPaymentDetail.component';
+import CompanyPlatformBillinGroupDetail from '#src/libs/platform-billing/components/CompanyPlatformBillingGroupDetail.component';
+import FeatureRequestDialog from '#src/libs/platform-billing/components/FeatureRequestDialog.component';
+import PayoutList from '#src/libs/payment/components/PayoutList.component';
+import { getFeatureList } from '#src/libs/company/actions';
+// import StripeBalance from '#src/libs/payment/components/StripeBalance.component';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
 
 import type {
   PlatformInvoice,
   PlatformSubscription,
-} from '#libs/platform-billing/type';
-import type { PaymentMethod, StripePayout } from '#libs/payment/types';
-import type { FeatureList, UpsellPackage } from '#libs/company/types';
-import UpsellPackageSubscriptionDrawer from '#libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
-import { getTheme } from '#libs/theme/selectors';
+} from '#src/libs/platform-billing/type';
+import type { PaymentMethod, StripePayout } from '#src/libs/payment/types';
+import type { FeatureList, UpsellPackage } from '#src/libs/company/types';
+import UpsellPackageSubscriptionDrawer from '#src/libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
+import { getTheme } from '#src/libs/theme/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';

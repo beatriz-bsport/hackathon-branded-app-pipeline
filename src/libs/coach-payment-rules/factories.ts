@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { Coach } from '#libs/associated-coach/types';
+import { Coach } from '#src/libs/associated-coach/types';
 import { generateRandomInt } from '../../utils/factories';
 import type { CoachPaymentRule, CoachPaymentRuleGroup } from './types';
 import { coachesFactory } from '../associated-coach/factories';

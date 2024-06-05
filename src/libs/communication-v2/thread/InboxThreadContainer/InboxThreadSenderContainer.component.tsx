@@ -9,23 +9,23 @@ import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import { useTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 
-import CommunicationSendMessageContainer from '#libs/communication-v2/components/MessageSender/CommunicationSendMessageContainer.component';
+import CommunicationSendMessageContainer from '#src/libs/communication-v2/components/MessageSender/CommunicationSendMessageContainer.component';
 import {
   PAGINATION_SIZE_RECIPIENTS,
   MAP_THREAD_KIND_TO_CONTEXT_IDENTIFIER,
-} from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/constants';
 import type {
   Communication,
   CommunicationThread,
   FilteringMemberIdsByGenericCategories,
   MessageData,
-} from '#libs/communication-v2/types';
-import type { Member } from '#libs/member/types';
+} from '#src/libs/communication-v2/types';
+import type { Member } from '#src/libs/member/types';
 import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
+} from '#src/libs/email-editor/types';
 import type { OptionCallback } from '../../../../state/types';
 
 type Props = {

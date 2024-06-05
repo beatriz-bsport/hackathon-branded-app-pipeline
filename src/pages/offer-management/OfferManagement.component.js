@@ -15,62 +15,62 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
-import RecurrenceRuleOfferFormDialog from '#libs/booking/components/RecurrenceRuleOfferFormDialog.component';
+import RecurrenceRuleOfferFormDialog from '#src/libs/booking/components/RecurrenceRuleOfferFormDialog.component';
 
-import RevertBookingDialog from '#libs/booking/components/RevertBookingDialog.component';
+import RevertBookingDialog from '#src/libs/booking/components/RevertBookingDialog.component';
 
-import MemberForm from '#libs/member/MemberForm.component';
-import { getLatest as getLatestMember } from '#libs/member/api';
-import DiscardBookingOptionDialog from '#libs/waiting-list/components/DiscardBookingOptionDialog.component';
+import MemberForm from '#src/libs/member/MemberForm.component';
+import { getLatest as getLatestMember } from '#src/libs/member/api';
+import DiscardBookingOptionDialog from '#src/libs/waiting-list/components/DiscardBookingOptionDialog.component';
 
-import RecurrenceRuleBookingFormDialog from '#libs/booking/components/RecurrenceRuleBookingFormDialog.component';
+import RecurrenceRuleBookingFormDialog from '#src/libs/booking/components/RecurrenceRuleBookingFormDialog.component';
 
-import WaitinglistAutoBookingInfoDialog from '#libs/waiting-list/components/Dialogs/WaitinglistAutoBookingInfoDialog.component';
-import WaitingListAutoBookingLoadingDialog from '#libs/waiting-list/components/Dialogs/WaitingListAutoBookingLoadingDialog.component';
-import WaitingListAutoBookingIncompleteDialog from '#libs/waiting-list/components/Dialogs/WaitingListAutoBookingIncompleteDialog.component';
-import WaitingListAutoBookingFeedbackDialog from '#libs/waiting-list/components/Dialogs/WaitingListAutoBookingFeedbackDialog.component';
-import WaitinglistAutoBookingWarningDialog from '#libs/waiting-list/components/Dialogs/WaitinglistAutoBookingWarningDialog.component';
+import WaitinglistAutoBookingInfoDialog from '#src/libs/waiting-list/components/Dialogs/WaitinglistAutoBookingInfoDialog.component';
+import WaitingListAutoBookingLoadingDialog from '#src/libs/waiting-list/components/Dialogs/WaitingListAutoBookingLoadingDialog.component';
+import WaitingListAutoBookingIncompleteDialog from '#src/libs/waiting-list/components/Dialogs/WaitingListAutoBookingIncompleteDialog.component';
+import WaitingListAutoBookingFeedbackDialog from '#src/libs/waiting-list/components/Dialogs/WaitingListAutoBookingFeedbackDialog.component';
+import WaitinglistAutoBookingWarningDialog from '#src/libs/waiting-list/components/Dialogs/WaitinglistAutoBookingWarningDialog.component';
 
 import type {
   PaymentPack,
   ConsumerPaymentPack,
-} from '#libs/payment-packs/types';
-import type { Booking, BookingOption } from '#libs/booking/types';
-import type { Member } from '#libs/member/types';
-import type { Invoice } from '#libs/invoice/types';
+} from '#src/libs/payment-packs/types';
+import type { Booking, BookingOption } from '#src/libs/booking/types';
+import type { Member } from '#src/libs/member/types';
+import type { Invoice } from '#src/libs/invoice/types';
 import type {
   Establishment,
   EstablishmentBillingGroup,
-} from '#libs/establishment/types';
+} from '#src/libs/establishment/types';
 import type {
   OfferEdit,
   Offer,
   OfferDataListItem,
   OfferStatus,
-} from '#libs/offer/types';
+} from '#src/libs/offer/types';
 import type {
   AssetForBlueprint,
   RoomBlueprint,
-} from '#libs/spot-scheduling/types';
+} from '#src/libs/spot-scheduling/types';
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
-} from '#libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
-import DiscardBookingOptionDialogV2 from '#libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
-import { MemberMap } from '#libs/member/utils';
-import type { Tag, TagGroup } from '#libs/tag/types';
-import GenericDialog from '#components/genericDialog/GenericDialog';
-import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
+} from '#src/libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
+import DiscardBookingOptionDialogV2 from '#src/libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
+import { MemberMap } from '#src/libs/member/utils';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
+import GenericDialog from '#src/components/genericDialog/GenericDialog';
+import { showDeleteDialog } from '#src/components/genericDialog/CustomDialogs';
 
-import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
-import { CONTEXT_OFFER } from '#libs/communication-v2/constants';
-import { getOfferCategories } from '#libs/communication-v2/utils';
-import { DEFAULT_SPOT_TYPE } from '#libs/spot-scheduling/utils';
-import type { ResolvedGenericTags } from '#libs/email-editor/types';
-import type { StripeReader } from '#libs/terminal/types';
-import MemberProgramDetailDialog from '#libs/performance-tracking/components/member-program/MemberProgramDetail.dialog';
-import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollCallDialog.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import SessionNotePad from '#libs/offer/components/SessionNotePad';
+import CommunicationDrawer from '#src/libs/communication-v2/components/CommunicationDrawer.component';
+import { CONTEXT_OFFER } from '#src/libs/communication-v2/constants';
+import { getOfferCategories } from '#src/libs/communication-v2/utils';
+import { DEFAULT_SPOT_TYPE } from '#src/libs/spot-scheduling/utils';
+import type { ResolvedGenericTags } from '#src/libs/email-editor/types';
+import type { StripeReader } from '#src/libs/terminal/types';
+import MemberProgramDetailDialog from '#src/libs/performance-tracking/components/member-program/MemberProgramDetail.dialog';
+import ConfirmationRollCallDialog from '#src/libs/offer/components/ConfirmationRollCallDialog.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import SessionNotePad from '#src/libs/offer/components/SessionNotePad';
 import Config from '../../config';
 import type { InternalPaymentPayload } from '../../libs/payment/types';
 import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
@@ -80,7 +80,7 @@ import type {
   OptionBackgroundCallback,
 } from '../../state/types';
 import OfferManagementRoomBlueprint from './OfferManagementRoomBlueprint.component';
-import type { WaitingListConfiguration } from '#libs/waiting-list/type';
+import type { WaitingListConfiguration } from '#src/libs/waiting-list/type';
 import OfferBroadcastHelper from './OfferBroadcastHelper.component';
 import OfferNavigationHeader from './OfferNavigationHeader.component';
 import BookingManagement from './BookingManagement.component';

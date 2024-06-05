@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Delete from '@material-ui/icons/Delete';
 import { Theme, makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { QuicksaleCardInfo } from '../../../types';
 
 export type SimpleItemListAction = {

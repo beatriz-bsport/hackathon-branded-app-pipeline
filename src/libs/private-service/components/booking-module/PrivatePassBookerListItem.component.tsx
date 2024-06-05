@@ -9,9 +9,9 @@ import StyleIcon from '@material-ui/icons/Style';
 import makeStyles from '@material-ui/styles/makeStyles';
 import IconButton from '@material-ui/core/IconButton';
 import type { Theme } from '@material-ui/core/styles';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import Tooltip from '#components/Tooltip.component';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import Tooltip from '#src/components/Tooltip.component';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 import type { PrivatePass } from '../../types';
 
 type Props = {

@@ -25,23 +25,23 @@ import { SvgIconComponent } from '@material-ui/icons';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
-import Alert, { AlertSeverity } from '#csscomponents/Alert';
+import Alert, { AlertSeverity } from '#src/components/css-only/Alert';
 // @ts-expect-error
-import Analytics from '#components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 import type {
   MaxoutData,
   PaymentPack,
   PaymentPackCategoryWithPacks,
-} from '#libs/payment-packs/types';
-import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
+} from '#src/libs/payment-packs/types';
+import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
 import {
   fetchPaymentComboForBooking,
   fetchPaymentComboFromContract as fetchPaymentComboFromContractAction,
-} from '#libs/payment-combo/actions';
+} from '#src/libs/payment-combo/actions';
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
-import { fetchCurrentBasket as fetchCurrentBasketAction } from '#libs/checkout/actions';
-import { getCurrentBasket } from '#libs/checkout/selectors';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import { fetchCurrentBasket as fetchCurrentBasketAction } from '#src/libs/checkout/actions';
+import { getCurrentBasket } from '#src/libs/checkout/selectors';
 import {
   buildBuyableItemCategories,
   buildDataForUserRegistration,
@@ -49,7 +49,7 @@ import {
   getBookingDisplayPrice,
   urlToMarketplace,
   urlToMarketplaceTab,
-} from '#libs/marketplace/utils';
+} from '#src/libs/marketplace/utils';
 import {
   RECOMMENDED_BUYABLE_CATEGORY_ID,
   MARKETPLACE_PATH_TAB_PASS,
@@ -57,112 +57,112 @@ import {
   PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
   PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
   CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
-} from '#libs/marketplace/constants';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+} from '#src/libs/marketplace/constants';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import {
   retrieveOffer as fetchOffer,
   fetchOfferStatus as fetchOfferStatusAction,
   offerUserRegistration,
   fetchBookingGuestNumber as fetchBookingGuestNumberAction,
-} from '#libs/offer/actions';
-import { getMemberTagsIdsList } from '#libs/tag/selectors';
+} from '#src/libs/offer/actions';
+import { getMemberTagsIdsList } from '#src/libs/tag/selectors';
 
 import {
   getContractForBooking,
   withPaymentPack as withPaymentPackForContract,
   // @ts-expect-error
-} from '#libs/subscription/selectors';
-import { fetchContractForBooking as fetchContractForBookingAction } from '#libs/subscription/actions';
+} from '#src/libs/subscription/selectors';
+import { fetchContractForBooking as fetchContractForBookingAction } from '#src/libs/subscription/actions';
 import {
   getConsumerPaymentPackForBooking,
   withPaymentPack as withPaymentPackForConsumer,
-} from '#libs/consumer-payment-pack/selectors';
+} from '#src/libs/consumer-payment-pack/selectors';
 import {
   fetchConsumerPaymentPackForBooking,
   fetchConsumerPaymentPackMaxoutBooking,
-} from '#libs/consumer-payment-pack/actions';
-import { fetchCoachBulkForCompany } from '#libs/associated-coach/actions';
-import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
+} from '#src/libs/consumer-payment-pack/actions';
+import { fetchCoachBulkForCompany } from '#src/libs/associated-coach/actions';
+import { fetchMetaActivityBulk } from '#src/libs/meta-activity/actions';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
 import {
   fetchBookingFunnelConfiguration,
   fetchMarketplaceSettings,
-} from '#libs/marketplace/actions';
+} from '#src/libs/marketplace/actions';
 import {
   getPaymentComboForBooking,
   withPaymentPack as withPaymentPackForCombo,
-} from '#libs/payment-combo/selectors';
-import { fetchEstablishmentBulk } from '#libs/establishment/actions';
+} from '#src/libs/payment-combo/selectors';
+import { fetchEstablishmentBulk } from '#src/libs/establishment/actions';
 import {
   fetchPaymentPackForBooking,
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
   fetchAllPaymentPackCategory,
   resetPaymentPackForBooking,
-} from '#libs/payment-packs/actions';
+} from '#src/libs/payment-packs/actions';
 import {
   excludeUnaccessiblePacks,
   getPaymentPackForBooking,
   getAllPaymentPackCategory,
-} from '#libs/payment-packs/selectors';
-import { fetchCompanyConfiguration } from '#libs/waiting-list/actions';
-import WidgetUtils from '#libs/widget/WidgetUtils';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
-import { type Offer, type OfferStatus } from '#libs/offer/types';
+} from '#src/libs/payment-packs/selectors';
+import { fetchCompanyConfiguration } from '#src/libs/waiting-list/actions';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
+import { type Offer, type OfferStatus } from '#src/libs/offer/types';
 import {
   withEstablishment,
   withCoach,
   withMetaActivity,
   getOfferById,
   getBookingGuestNumberLeft,
-} from '#libs/offer/selectors';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { fetchMemberTagList } from '#libs/tag/actions';
+} from '#src/libs/offer/selectors';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { fetchMemberTagList } from '#src/libs/tag/actions';
 import {
   fetchSpotForBlueprint,
   fetchRoomBlueprintDetail,
   fetchAssetForBlueprint,
-} from '#libs/spot-scheduling/actions';
+} from '#src/libs/spot-scheduling/actions';
 import {
   getSpotTypesOfCompany,
   getAssetByBlueprintByIdentifier,
-} from '#libs/spot-scheduling/selector';
+} from '#src/libs/spot-scheduling/selector';
 import type {
   BookerItem,
   BookerModuleBuyableItem,
   BuyableItemCategory,
   BuyableItemIdentifier,
   OfferConstraint,
-} from '#libs/booker-module/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import type { Contract } from '#libs/subscription/types';
-import OfferBookingWaitingList from '#libs/offer/components/OfferBookingWaitingList';
-import MarketplaceBookingBlockedReason from '#marketplacecomponents/@Booking/MarketplaceBookingBlockedReason';
-import MarketplaceSpotSelector from '#marketplacecomponents/@SpotScheduling/MarketplaceSpotSelector';
-import type { SpotType } from '#libs/spot-scheduling/types';
-import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
+} from '#src/libs/booker-module/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { Contract } from '#src/libs/subscription/types';
+import OfferBookingWaitingList from '#src/libs/offer/components/OfferBookingWaitingList';
+import MarketplaceBookingBlockedReason from '#src/libs/marketplace/components/@Booking/MarketplaceBookingBlockedReason';
+import MarketplaceSpotSelector from '#src/libs/marketplace/components/@SpotScheduling/MarketplaceSpotSelector';
+import type { SpotType } from '#src/libs/spot-scheduling/types';
+import { DEFAULT_SPOT_TYPE_ID } from '#src/libs/spot-scheduling/utils';
 import {
   getCheckoutUrl,
   getCheckoutValidationUrl,
   getBoutiqueContractCheckoutUrl,
-} from '#libs/marketplace/routing-utils';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Establishment } from '#libs/establishment/types';
-import { Coach } from '#libs/associated-coach/types';
-import { OffersGroup } from '#libs/group-offer/types';
-import { consumerAppBarHOC } from '#hocs/consumer-app-bar.hoc';
-import MarketplaceBookerModuleBuyableItems from '#marketplacecomponents/@BuyableItem/MarketplaceBookerModuleBuyableItems';
+} from '#src/libs/marketplace/routing-utils';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { OffersGroup } from '#src/libs/group-offer/types';
+import { consumerAppBarHOC } from '#src/hocs/consumer-app-bar.hoc';
+import MarketplaceBookerModuleBuyableItems from '#src/libs/marketplace/components/@BuyableItem/MarketplaceBookerModuleBuyableItems';
 import Button, {
   ButtonColor,
   ButtonVariant,
-} from '#components/css-only/Fabrique/Button';
-import Skeleton from '#components/css-only/Skeleton';
-import BookingConfirmButtonWithOfferSummary from '#libs/booking/components/BookingConfirmButtonWithOfferSummary.component';
-import CountDown from '#components/time/CountDown.component';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
-import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
+} from '#src/components/css-only/Fabrique/Button';
+import Skeleton from '#src/components/css-only/Skeleton';
+import BookingConfirmButtonWithOfferSummary from '#src/libs/booking/components/BookingConfirmButtonWithOfferSummary.component';
+import CountDown from '#src/components/time/CountDown.component';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
+import BookerModuleOfferSummary from '#src/libs/marketplace/components/@Offer/BookerModuleOfferSummary';
 
-import withScrollHeightListener from '#hocs/with-widget-scroll-height-listener.hoc';
+import withScrollHeightListener from '#src/hocs/with-widget-scroll-height-listener.hoc';
 import { RootState } from '../../../../reducers';
 import { buildUrlParams } from '../../../../http';
 import type { OptionCallback } from '../../../../state/types';
@@ -1017,6 +1017,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                       displayTax={
                         this.props.theme?.is_tax_excluded_in_marketplace
                       }
+// @ts-expect-error
                       isBookable={isBookable}
                       OfferSummaryComponent={() => (
                         <BookerModuleOfferSummary
@@ -1052,6 +1053,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                     />
                   }
                   buyableItemCategories={this.state.buyableItemCategories}
+// @ts-expect-error
                   companyTheme={this.props.theme}
                   hideCreditsForCustomers={
                     this.props.theme.hide_credits_for_customers
@@ -1087,6 +1089,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 this.getIsLoading()
               }
               displayTax={this.props.theme?.is_tax_excluded_in_marketplace}
+// @ts-expect-error
               isBookable={isBookable}
               OfferSummaryComponent={() => (
                 <BookerModuleOfferSummary

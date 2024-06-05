@@ -3,7 +3,7 @@ import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { fakerEN as faker } from '@faker-js/faker';
 import CadenceMetrics from './CadenceMetrics.component';
-import { cadenceFactory } from '#libs/sequential_marketing/factories';
+import { cadenceFactory } from '#src/libs/sequential_marketing/factories';
 
 export default {
   title: 'Components/Cadences/Metrics/AllMetrics',

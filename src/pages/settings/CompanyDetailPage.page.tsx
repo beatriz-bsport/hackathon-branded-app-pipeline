@@ -9,11 +9,11 @@ import { push } from 'connected-react-router';
 import {
   attachExternalAccount as attachExternalAccountAction,
   retrieveMyCompanySetup as retrieveMyCompanySetupAction,
-} from '#libs/company/actions';
-import { CompanySetup } from '#libs/company/types';
+} from '#src/libs/company/actions';
+import { CompanySetup } from '#src/libs/company/types';
 // @ts-expect-error
-import CompanyDetail from '#components/companies/CompanyDetail.component';
-import withTitle from '#hocs/with-title.hoc';
+import CompanyDetail from '#src/components/companies/CompanyDetail.component';
+import withTitle from '#src/hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 
 import type { OptionCallback } from '../../state/types';

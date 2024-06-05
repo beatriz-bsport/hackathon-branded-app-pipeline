@@ -6,15 +6,18 @@ import Close from '@material-ui/icons/Close';
 
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import ConsumerGiftcardFormWithPreview from '#libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import ConsumerGiftcardFormWithPreview from '#src/libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
 
-import type { FormValues as ConsumerGiftcardDetails } from '#libs/giftcard/components/ConsumerGiftcardForm.component';
-import type { QuicksaleCardInfo } from '#libs/quicksale/types';
-import type { Basket, CheckoutItemData } from '#libs/checkout/types';
-import type { Giftcard, GiftcardBackgroundImage } from '#libs/giftcard/types';
+import type { FormValues as ConsumerGiftcardDetails } from '#src/libs/giftcard/components/ConsumerGiftcardForm.component';
+import type { QuicksaleCardInfo } from '#src/libs/quicksale/types';
+import type { Basket, CheckoutItemData } from '#src/libs/checkout/types';
+import type {
+  Giftcard,
+  GiftcardBackgroundImage,
+} from '#src/libs/giftcard/types';
 
-import { getIdsFromQuicksaleCardInfoId } from '#libs/quicksale/utils';
+import { getIdsFromQuicksaleCardInfoId } from '#src/libs/quicksale/utils';
 import useStyles from './hooks/styles';
 import type { OptionCallback } from '../../../state/types';
 

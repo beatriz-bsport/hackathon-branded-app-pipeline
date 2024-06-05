@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
+import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import { Dispatch, OptionCallback } from '../../state/types';
 
 import {

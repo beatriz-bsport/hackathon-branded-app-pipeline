@@ -12,12 +12,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/core';
-import DelayedTextField from '#components/DelayedTextField.component';
+import DelayedTextField from '#src/components/DelayedTextField.component';
 
-import FuzeSearch from '#components/FuzeSearch.component';
+import FuzeSearch from '#src/components/FuzeSearch.component';
 
-import MembershipListItem from '#libs/membership/components/MembershipListItem.component';
-import type { Company } from '#libs/company/types';
+import MembershipListItem from '#src/libs/membership/components/MembershipListItem.component';
+import type { Company } from '#src/libs/company/types';
 import CompanyListItem from './CompanyListItem.component';
 import type { Membership } from '../types';
 

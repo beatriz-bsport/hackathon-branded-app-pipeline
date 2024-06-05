@@ -2,8 +2,8 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import CircularProgress from '#csscomponents/CircularProgress';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import CircularProgress from '#src/components/css-only/CircularProgress';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { ButtonColor, ButtonSize, ButtonType, ButtonVariant } from '.';
 
 import ButtonBase from '../ButtonBase/ButtonBase.component';

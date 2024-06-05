@@ -9,14 +9,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { withTheme } from '@material-ui/styles';
 import { Paper } from '@material-ui/core';
 
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { getActiveCustomLevels } from '#libs/level/selectors';
-import WidgetCustomizationPreview from '#libs/widget/components/WidgetCustomizationPreview.component';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import { getActiveCustomLevels } from '#src/libs/level/selectors';
+import WidgetCustomizationPreview from '#src/libs/widget/components/WidgetCustomizationPreview.component';
 import {
   updateCompanyTheme as updateCompanyThemeAction,
   fetchCompanyTheme as fetchCompanyThemeAction,
-} from '#libs/theme/actions';
-import { WidgetCustomCSS } from '#libs/theme/types';
+} from '#src/libs/theme/actions';
+import { WidgetCustomCSS } from '#src/libs/theme/types';
 import { MaterialStyleType } from '../../utils/types';
 import { MarketplaceComponentConfig } from '../../libs/marketplace/types';
 import { RootState } from '../../reducers';
@@ -40,7 +40,6 @@ import { snackbarInfo } from '../../libs/snackbar/actions';
 
 import WidgetCssThemeOverride from '../../libs/widget/components/WidgetCssThemeOverride.form';
 import { EXPORTABLE_COMPONENT_TYPE_CALENDAR } from '../../libs/exportable-components/constants';
-
 
 type OwnProps = {
   defaultValue?: {

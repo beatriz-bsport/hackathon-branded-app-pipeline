@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import RedButton from '#components/button/RedButton.component';
+import RedButton from '#src/components/button/RedButton.component';
 
 export const ModalConfirm: React.FC<{
   open?: boolean;

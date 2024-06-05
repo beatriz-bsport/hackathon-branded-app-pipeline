@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Notifications, NotificationsOff } from '@material-ui/icons';
 import { Badge, IconButton } from '@material-ui/core';
-import ToolTip from '#components/Tooltip.component';
+import ToolTip from '#src/components/Tooltip.component';
 
 type OwnProps = {
   badgeContent: number;

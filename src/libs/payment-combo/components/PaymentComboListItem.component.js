@@ -11,8 +11,8 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import ListItemResponsiveAction from '#components/button/ListItemResponsiveAction.component';
-import Tooltip from '#components/Tooltip.component';
+import ListItemResponsiveAction from '#src/components/button/ListItemResponsiveAction.component';
+import Tooltip from '#src/components/Tooltip.component';
 import type { PaymentCombo } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 

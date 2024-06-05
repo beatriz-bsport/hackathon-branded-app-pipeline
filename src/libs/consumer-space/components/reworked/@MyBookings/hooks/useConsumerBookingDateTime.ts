@@ -8,7 +8,7 @@ import {
   formatISOStringAsTime,
   formatMinutes,
   getUserZone,
-} from '#utils/datetime';
+} from '#src/utils/datetime';
 
 /**
  * Get the formatted date from a given booking for member profile

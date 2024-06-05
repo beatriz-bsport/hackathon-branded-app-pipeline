@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import omit from 'lodash/omit';
 import Immutable from 'seamless-immutable';
 
-
 import {
   DestinationKind,
   InitialConfigurationStep,
@@ -13,8 +12,8 @@ import {
   DEFAULT_X_FOR_TRIGGER,
   TriggerKind,
   DestinationStatus,
-} from '#libs/sequential_marketing/constants';
-import { isTriggerFake } from '#libs/sequential_marketing/components/helpers/utils';
+} from '#src/libs/sequential_marketing/constants';
+import { isTriggerFake } from '#src/libs/sequential_marketing/components/helpers/utils';
 
 import type {
   Cadence,
@@ -24,12 +23,12 @@ import type {
   CadenceInitialConfiguration,
   StepMarketingActions,
   MarketingActionEssentials,
-} from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
-import type { EmailTemplateSummary } from '#libs/email-editor/types';
-import type { Tag } from '#libs/tag/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+} from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { EmailTemplateSummary } from '#src/libs/email-editor/types';
+import type { Tag } from '#src/libs/tag/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import type { OptionCallback } from '../../../../../state/types';
 import type { StoredStep, StoredTrigger } from './types';
 import { getConnectedTriggerDefaultValues } from './utils';

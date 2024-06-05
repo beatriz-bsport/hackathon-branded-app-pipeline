@@ -8,10 +8,10 @@ import {
 
 import { BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS } from '@bsport/common/lib/master-data/error-codes/basket';
 
-import { snackbarError } from '#libs/snackbar/actions';
-import { fetchEventList } from '#libs/event/actions';
-import type { EventListParams } from '#libs/event/types';
-import { isErrorWithCustomCode } from '#libs/utils';
+import { snackbarError } from '#src/libs/snackbar/actions';
+import { fetchEventList } from '#src/libs/event/actions';
+import type { EventListParams } from '#src/libs/event/types';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import {
   addItemToBasket as addItemToBasketAPI,
   fetchCurrentBasket as fetchCurrentBasketAPI,
@@ -53,7 +53,6 @@ import type {
 } from './types';
 // @ts-expect-error
 import { COMPANY_EVENTS } from './event.utils';
-
 
 export const currentBasket = {
   error: createAction<Error>('CHECKOUT_BASKET/CURRENT/ERROR'),

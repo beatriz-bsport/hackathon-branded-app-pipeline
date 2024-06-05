@@ -9,61 +9,61 @@ import api, {
   fetchMyPassesTabs as fetchMyPassesTabsAPI,
   fetchConsumerInvoices as fetchConsumerInvoicesAPI,
   fetchConsumerInvoicesComplementary as fetchConsumerInvoicesComplementaryAPI,
-} from '#libs/consumer-space/api';
+} from '#src/libs/consumer-space/api';
 import {
   cancelBookingV2 as cancelBookingV2API,
   fetchBookingListV2 as fetchBookingListAPI,
-} from '#libs/booking/api';
+} from '#src/libs/booking/api';
 import {
   fetchPrivateBookings,
   fetchPrivateBookingsV2 as fetchPrivateBookingsV2API,
   disablePrivateBooking as disablePrivateBookingAPI,
   fetchPrivateConsumerPassList as fetchPrivateConsumerPassListAPI,
-} from '#libs/private-service/api';
+} from '#src/libs/private-service/api';
 import {
   fetchFilteredBookingOptionsPaginated as fetchFilteredBookingOptionsPaginatedAPI,
   discardBookingOption as discardBookingOptionAPI,
-} from '#libs/waiting-list/api';
-import { fetchConsumerPackList as fetchConsumerPaymentPackListAPI } from '#libs/consumer-payment-pack/api';
+} from '#src/libs/waiting-list/api';
+import { fetchConsumerPackList as fetchConsumerPaymentPackListAPI } from '#src/libs/consumer-payment-pack/api';
 
 import type {
   Dispatch,
   OptionCallback,
   ThunkAction,
   PaginatedResponse,
-} from '#state/types';
+} from '#src/state/types';
 import type {
   BookingOrPrivateBooking,
   ConsumerInvoiceParams,
   ConsumerPassesTabDisplay,
   Profile,
-} from '#libs/consumer-space/types';
+} from '#src/libs/consumer-space/types';
 import type {
   PrivateBooking,
   PrivateBookingFilterParams,
   PrivateConsumerPassREST,
-} from '#libs/private-service/types';
+} from '#src/libs/private-service/types';
 import type {
   ConsumerPaymentPack,
   ConsumerPaymentPackREST,
-} from '#libs/consumer-payment-pack/types';
+} from '#src/libs/consumer-payment-pack/types';
 import type {
   Booking,
   BookingOption,
   BookingREST,
   CancelBookingParams,
   CancelPrivateBookingParams,
-} from '#libs/booking/types';
+} from '#src/libs/booking/types';
 import type {
   DiscardBookingOptionParams,
   WaitingListBookingOption,
   WaitingListBookingOptionPaginatedQueryParams,
-} from '#libs/waiting-list/types';
-import type { UniversalPassREST } from '#libs/universal-pass/types';
+} from '#src/libs/waiting-list/types';
+import type { UniversalPassREST } from '#src/libs/universal-pass/types';
 import type {
   ConsumerInvoiceComplementary,
   ConsumerInvoiceREST,
-} from '#libs/invoice/types';
+} from '#src/libs/invoice/types';
 
 export const actionsType = {
   CONSUMER_HAS_FETCHED_OPTIONS: 'CONSUMER_HAS_FETCHED_OPTIONS_SUCCESS',

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import Textfield from '#Fabrique/Temporary/Textfield';
 import IconButton from '#Fabrique/IconButton';
-import { Eye, EyeOff } from '#components/untitledui';
+import { Eye, EyeOff } from '#src/components/untitledui';
 
 import './styles.css';
 

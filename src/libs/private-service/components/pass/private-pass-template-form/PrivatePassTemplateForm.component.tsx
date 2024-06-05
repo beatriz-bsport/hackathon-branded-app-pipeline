@@ -22,7 +22,7 @@ import {
   START_ON_FIRST_BOOKING,
 } from '@bsport/common/lib/master-data/payment-pack';
 
-import ToolTip from '#components/Tooltip.component';
+import ToolTip from '#src/components/Tooltip.component';
 import {
   IntegerField,
   TextField,
@@ -32,9 +32,9 @@ import {
   RadioGroupField,
   DateField,
   // @ts-expect-error
-} from '#components/forms';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+} from '#src/components/forms';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { PrivatePassWithCompatibility } from '../../../types';
 import { getValidityInfo } from '../../../utils';
 import { ALMOST_100 } from '../../../../../constants';

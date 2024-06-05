@@ -31,40 +31,40 @@ import classNames from 'classnames';
 import Select from 'react-select';
 import type { ValueType } from 'react-select/lib/types';
 import chroma from 'chroma-js';
-import type { AutomatedCampaign, OptionType } from '#libs/smart-list/types';
+import type { AutomatedCampaign, OptionType } from '#src/libs/smart-list/types';
 import {
   MAX_LENGTH_PUSH_TITLE,
   MAX_LENGTH_PUSH_CONTENT,
   MAX_LENGTH_AUTOMATIC_SMS,
   MAX_LENGTH_SMS,
-} from '#libs/communication-v2/constants';
-import WriteNotification from '#libs/communication/components/WriteNotification.component';
+} from '#src/libs/communication-v2/constants';
+import WriteNotification from '#src/libs/communication/components/WriteNotification.component';
 // @ts-expect-error
-import WriteSMS from '#libs/communication/components/WriteSMS.component';
+import WriteSMS from '#src/libs/communication/components/WriteSMS.component';
 // @ts-expect-error
-import WriteEmail from '#libs/communication/components/WriteEmail.component';
+import WriteEmail from '#src/libs/communication/components/WriteEmail.component';
 // @ts-expect-error
-import SelectTemplate from '#libs/communication/components/SelectTemplate.component';
+import SelectTemplate from '#src/libs/communication/components/SelectTemplate.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 // @ts-expect-error
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-// @ts-expect-error
-import { Submit, TextField } from '#components/forms';
-import type { FeatureList } from '#libs/company/types';
+import { Submit, TextField } from '#src/components/forms';
+import type { FeatureList } from '#src/libs/company/types';
 import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
+} from '#src/libs/email-editor/types';
 import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
   UPSELL_IDENTIFIER_SMS,
-} from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { UNLIMITED_AUTOMATIC_MESSAGING } from '#libs/smart-list/components/constants';
-import CommunicationSMSCostReminderModal from '#libs/communication-v2/CommunicationSMSCostReminderModal.component';
-import { util } from '#libs/communication-v2/components/convertEncode.utils';
+} from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { UNLIMITED_AUTOMATIC_MESSAGING } from '#src/libs/smart-list/components/constants';
+import CommunicationSMSCostReminderModal from '#src/libs/communication-v2/CommunicationSMSCostReminderModal.component';
+import { util } from '#src/libs/communication-v2/components/convertEncode.utils';
 import type { OptionCallback } from '../../../../state/types';
+// @ts-expect-error
 import FeatureListProvider from '../../../company/hocs/feature-list-provider.hoc';
 import Config from '../../../../config';
 

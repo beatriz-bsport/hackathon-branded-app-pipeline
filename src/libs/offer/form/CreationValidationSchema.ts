@@ -1,8 +1,8 @@
 import * as Yup from 'yup';
 import { DateTime } from 'luxon';
 
-import { isDateTooFar } from '#libs/offer/utils';
-import { OFFER_RECURRENCE } from '#libs/offer/constants';
+import { isDateTooFar } from '#src/libs/offer/utils';
+import { OFFER_RECURRENCE } from '#src/libs/offer/constants';
 
 const OfferFormCreateValidationSchema = Yup.object().shape({
   effectif: Yup.number()

@@ -11,17 +11,16 @@ import {
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
-import DelayedNumericInput from '#components/DelayedNumericInput.component';
+import DelayedNumericInput from '#src/components/DelayedNumericInput.component';
 
-import { PrivatePassListItem } from '#libs/private-service/components/pass/PrivatePassListItem.component';
-import { PrivatePass } from '#libs/private-service/types';
-import ToolTip from '#components/Tooltip.component';
+import { PrivatePassListItem } from '#src/libs/private-service/components/pass/PrivatePassListItem.component';
+import { PrivatePass } from '#src/libs/private-service/types';
+import ToolTip from '#src/components/Tooltip.component';
 import type { PaymentPack } from '../../../payment-packs/types';
 // @ts-expect-error
 import Selector from '../MultiSelector.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 import { MaterialStyleType } from '../../../../utils/types';
-
 
 type OwnProps = {
   filter_data: any;

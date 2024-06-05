@@ -3,16 +3,15 @@ import {
   fetchConsumerSubscriptionList as fetchConsumerSubscriptionListAPI,
   fetchConsumerSubscriptionInvoicesDetails as fetchConsumerSubscriptionInvoicesDetailsAPI,
   fetchConsumerSubscription as fetchConsumerSubscriptionAPI,
-} from '#libs/subscription/api';
-
+} from '#src/libs/subscription/api';
 
 import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
   SubscriptionsInvoicesDetailsParams,
-} from '#libs/subscription/types';
-import { SubscriptionTabEnum } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
-import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
+} from '#src/libs/subscription/types';
+import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import type {
   OptionCallback,
   ThunkAction,

@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import { Divider } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 
 import {
   IntegerField,
@@ -21,9 +21,9 @@ import {
   CheckboxField,
   Submit,
   // @ts-expect-error
-} from '#components/forms';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
-import { getSendingTimeNotification } from '#libs/marketing/utils';
+} from '#src/components/forms';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
+import { getSendingTimeNotification } from '#src/libs/marketing/utils';
 import MarketingRuleBasicTypeField from '../MarketingRuleBasicTypeField.component';
 
 import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';

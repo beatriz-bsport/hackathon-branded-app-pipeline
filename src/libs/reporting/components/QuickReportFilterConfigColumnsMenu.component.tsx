@@ -14,20 +14,20 @@ import Fuse, { FuseOptions } from 'fuse.js';
 import { useFormikContext } from 'formik';
 import uniqBy from 'lodash/uniqBy';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import FuzeSearch from '#components/FuzeSearch.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import FuzeSearch from '#src/components/FuzeSearch.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import {
   DataSourceFieldMetadata,
   DataSourceMedadataDataType,
   DatatypeFilterConfigItem,
   DynamicFilterDataType,
-} from '#libs/datatype-filtering/types';
+} from '#src/libs/datatype-filtering/types';
 import {
   generateNewFilterItem,
   generateNewGroup,
-} from '#libs/datatype-filtering/utils';
-import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
-import { authorIdentifiers } from '#libs/reporting/constants';
+} from '#src/libs/datatype-filtering/utils';
+import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import { authorIdentifiers } from '#src/libs/reporting/constants';
 import QuickReportFilterConfigFilter, {
   QuickFiltersColumnsData,
 } from './QuickReportFilterConfigFilter.component';

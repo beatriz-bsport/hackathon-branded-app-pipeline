@@ -15,12 +15,12 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#src/libs/payment/utils';
+import type { FeatureList } from '#src/libs/company/types';
+import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import type { StripeReader } from '#src/libs/terminal/types';
 // @ts-expect-error
-import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
-import type { FeatureList } from '#libs/company/types';
-import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import type { StripeReader } from '#libs/terminal/types';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { getCurrencyCode } from '../../theme/selectors';
 

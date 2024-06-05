@@ -12,8 +12,8 @@ import {
   MarkerPin04,
   MarkerPin06,
   User01,
-} from '#components/untitledui';
-import { ConsumerGenericCardBodyContainer } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
+} from '#src/components/untitledui';
+import { ConsumerGenericCardBodyContainer } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
 import type { ConsumerBookingCardProps } from '..';
 
 type Props = Required<

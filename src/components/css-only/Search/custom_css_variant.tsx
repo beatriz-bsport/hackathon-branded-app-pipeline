@@ -1,17 +1,17 @@
 import React from 'react';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 
-import { paymentPackListFactory } from '#libs/payment-packs/factory';
-import { privatePassListFactory } from '#libs/private-service/factory';
-import { paymentComboListFactory } from '#libs/payment-combo/factory';
-import { contractListFactory } from '#libs/subscription/factory';
+import { paymentPackListFactory } from '#src/libs/payment-packs/factory';
+import { privatePassListFactory } from '#src/libs/private-service/factory';
+import { paymentComboListFactory } from '#src/libs/payment-combo/factory';
+import { contractListFactory } from '#src/libs/subscription/factory';
 import ClickableItem from '../ClickableItem';
 import { BaseAdditionalData, SearchItemData } from './Search.component';
 // @ts-expect-error

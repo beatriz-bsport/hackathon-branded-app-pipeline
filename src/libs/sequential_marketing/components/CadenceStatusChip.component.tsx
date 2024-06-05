@@ -2,11 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 
-import CustomChip from '#components/chip/CustomChip.component';
+import CustomChip from '#src/components/chip/CustomChip.component';
 import {
   CadenceStatusColors,
   CadenceStatus,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
 type Props = { status: CadenceStatus };
 

@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useField } from 'formik';
 
-import { createUrl } from '#utils/createUrlHandlers';
+import { createUrl } from '#src/utils/createUrlHandlers';
 import PictureUploader from '#Fabrique/Temporary/PictureUploader';
 import Avatar from '#Fabrique/Temporary/Avatar';
 

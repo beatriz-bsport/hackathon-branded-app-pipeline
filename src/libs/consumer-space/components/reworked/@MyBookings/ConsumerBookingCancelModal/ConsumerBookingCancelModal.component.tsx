@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import { DateTime } from 'luxon';
-import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
-import { getIsLateBookingCancellation } from '#utils/datetime';
+import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
+import { getIsLateBookingCancellation } from '#src/utils/datetime';
 import Blanket from '#Fabrique/Blanket';
 import ModalDialog from '#Fabrique/ModalDialog';
 import Typography from '#Fabrique/Typography';
@@ -18,10 +18,10 @@ import type {
   ConsumerBookingOption,
   ConsumerPrivateBooking,
   ConsumerSpaceCancelBookingParams,
-} from '#libs/booking/types';
+} from '#src/libs/booking/types';
 
 import './styles.css';
-import { getCreditsDividedValue } from '#libs/theme/utils';
+import { getCreditsDividedValue } from '#src/libs/theme/utils';
 
 type Props = {
   /** The selected consumer booking in the modal */

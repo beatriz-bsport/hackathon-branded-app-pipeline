@@ -11,8 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import { FormikProps, withFormik } from 'formik';
 import type { Offer as OfferAPI } from 'src/api/types';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import PromptOnPageLeave from '#components/Prompt';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import PromptOnPageLeave from '#src/components/Prompt';
 import { OptionCallback } from '../../../../state/types';
 
 export type Props = {

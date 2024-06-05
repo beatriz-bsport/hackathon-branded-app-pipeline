@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { paymentPackListFactory } from '#libs/payment-packs/factory';
-import { paymentComboListFactory } from '#libs/payment-combo/factory';
-import { privatePassListFactory } from '#libs/private-service/factory';
+import { paymentPackListFactory } from '#src/libs/payment-packs/factory';
+import { paymentComboListFactory } from '#src/libs/payment-combo/factory';
+import { privatePassListFactory } from '#src/libs/private-service/factory';
 import { PassSearchForStorybook, Props } from './index';
 
 const CustomTemplate = (args: Props) => {

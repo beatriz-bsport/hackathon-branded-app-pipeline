@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import type { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/exportable-components/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
 import Typography, { Props as TypographyProps } from '.';
 import { TypographyVariant, TypographyColor } from './constants';
 // @ts-expect-error

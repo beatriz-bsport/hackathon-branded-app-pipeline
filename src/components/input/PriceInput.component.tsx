@@ -2,7 +2,7 @@ import React from 'react';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 
 import NumericInput from './NumericInput.component';
 

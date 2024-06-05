@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import '#csscomponents/Login/LoginBackground.css';
+import '#src/components/css-only/Login/LoginBackground.css';
 import Button from '@material-ui/core/Button';
-import '#csscomponents/Login/styles.css';
+import '#src/components/css-only/Login/styles.css';
 import { useTranslation } from 'react-i18next';
 
 import { Theme } from '@material-ui/core/styles/createTheme';
@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { DateTime } from 'luxon';
-import ValidationIcon from '#components/icons/ValidationIcon.component';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
 
 type Props = {
   open: boolean;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { HourGlass03 } from '#components/untitledui';
+import { HourGlass03 } from '#src/components/untitledui';
 
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 

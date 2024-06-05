@@ -19,10 +19,10 @@ import { MAX_LENGTH_FOR_LONG_ANSWER } from '@bsport/common/lib/master-data/custo
 import {
   PerformanceTrackingMetric,
   PerformanceTrackingProgram,
-} from '#libs/performance-tracking/types';
-import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+} from '#src/libs/performance-tracking/types';
+import { CheckboxField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import MetricConfigurationTable from '../metrics/MetricConfigurationTable.component';
 import {
   TextFieldEnhancedLabelWithError,

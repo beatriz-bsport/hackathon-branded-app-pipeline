@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { useTranslation } from 'react-i18next';
 
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 
 import type { Role, SelectFieldItem } from '../types';
 

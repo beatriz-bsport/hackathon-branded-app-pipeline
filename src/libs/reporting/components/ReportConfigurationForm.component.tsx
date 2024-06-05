@@ -15,8 +15,8 @@ import {
   Actions,
   defaultHandleSubmit,
   // @ts-expect-error
-} from '#components/forms';
-import { ReportMetadataValue } from '#libs/reporting/types';
+} from '#src/components/forms';
+import { ReportMetadataValue } from '#src/libs/reporting/types';
 import ReportCategoriesSelector from './ReportCategoriesSelector.component';
 import ReportColumnSelector from './ReportColumnSelector.component';
 

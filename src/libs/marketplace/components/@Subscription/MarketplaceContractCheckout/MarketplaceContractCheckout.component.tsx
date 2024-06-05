@@ -5,25 +5,25 @@ import UpdateIcon from '@material-ui/icons/Update';
 
 import classNames from 'classnames';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import Card, { CardSize } from '#csscomponents/Card';
-import CardContent from '#csscomponents/Card/CardContent';
-import Grid from '#csscomponents/Grid';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import GridItem, {
   Alignment,
   Justification,
-} from '#csscomponents/Grid/GridItem';
-import Price from '#csscomponents/Price';
-import CircularProgress from '#csscomponents/CircularProgress';
+} from '#src/components/css-only/Grid/GridItem';
+import Price from '#src/components/css-only/Price';
+import CircularProgress from '#src/components/css-only/CircularProgress';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PrivatePass } from '#libs/private-service/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { Contract } from '#libs/subscription/types';
-import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
-import Collapse from '#csscomponents/Fabrique/Collapse';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { PrivatePass } from '#src/libs/private-service/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
+import { Contract } from '#src/libs/subscription/types';
+import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
+import Collapse from '#src/components/css-only/Fabrique/Collapse';
 import BillingInterval from '../MarketplaceBillingInterval';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 

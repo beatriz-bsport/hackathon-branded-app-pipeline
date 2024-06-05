@@ -11,8 +11,8 @@ import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import IconButton from '@material-ui/core/IconButton';
 import { DateTime } from 'luxon';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { hasPaymentPackManagementPermission } from '#src/libs/payment-packs/utils';
 import type { VideoAnalyticsData, VideoPurchase } from '../types';
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 // @ts-expect-error

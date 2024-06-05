@@ -13,73 +13,73 @@ import classNames from 'classnames';
 import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription';
 import { DateTime } from 'luxon';
 
-import themeSelectors, { getStripePkKey } from '#libs/theme/selectors';
+import themeSelectors, { getStripePkKey } from '#src/libs/theme/selectors';
 
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
-import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#libs/establishment/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#src/libs/payment-packs/actions';
+import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#src/libs/establishment/actions';
 import {
   fetchPrivatePassBulk as fetchPrivatePassBulkAction,
   fetchPrivatePassAsConsumerList,
-} from '#libs/private-service/actions';
+} from '#src/libs/private-service/actions';
 import {
   getContract,
   getMarketplaceContractList,
   // @ts-expect-error
-} from '#libs/subscription/selectors';
+} from '#src/libs/subscription/selectors';
 import {
   getDefaultEstablishmentBillingGroup,
   getEnabledEstablishmentBillingGroups,
   withEstablishment,
-} from '#libs/establishment/selectors';
-import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '#libs/membership/actions';
+} from '#src/libs/establishment/selectors';
+import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '#src/libs/membership/actions';
 import {
   fetchMarketplaceContractList,
   fetchContractDetail,
   registerContractBackground,
   downloadPDFContractTermsForContract as downloadPDFContractTermsForContractAction,
-} from '#libs/subscription/actions';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
+} from '#src/libs/subscription/actions';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod,
-} from '#libs/payment/actions';
-import { getSavedPaymentMethodList } from '#libs/payment/selectors';
-import { getPaymentPack } from '#libs/payment-packs/selectors';
-import { getPrivatePass } from '#libs/private-service/selectors/private-pass';
-import { getPaymentCombo } from '#libs/payment-combo/selectors';
+} from '#src/libs/payment/actions';
+import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
+import { getPaymentPack } from '#src/libs/payment-packs/selectors';
+import { getPrivatePass } from '#src/libs/private-service/selectors/private-pass';
+import { getPaymentCombo } from '#src/libs/payment-combo/selectors';
 // @ts-expect-error
-import Analytics from '#components/analytics/Analytics.component';
-import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+import Analytics from '#src/components/analytics/Analytics.component';
+import { snackbarWarning, snackbarSuccess } from '#src/libs/snackbar/actions';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import type {
   Contract,
   ContractWithPaymentPack,
-} from '#libs/subscription/types';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
-import type { PaymentMethod } from '#libs/payment/types';
-import { PaymentPack } from '#libs/payment-packs/types';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { fetchPaymentComboList } from '#libs/payment-combo/actions';
+} from '#src/libs/subscription/types';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { fetchPaymentComboList } from '#src/libs/payment-combo/actions';
 import {
   getMarketplaceRoute,
   getSubscriptionValidationUrl,
-} from '#libs/marketplace/routing-utils';
-import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
-import MarketplaceContractCheckout from '#marketplacecomponents/@Subscription/MarketplaceContractCheckout';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import MarketplaceContractDetail from '#marketplacecomponents/@Subscription/MarketplaceContractDetail';
-import MarketplaceContractTermsModal from '#marketplacecomponents/@Subscription/MarketplaceContractTermsModal';
-import MarketplaceContractCooldownModal from '#marketplacecomponents/@Subscription/MarketplaceContractCooldownModal';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
-import Carousel from '#components/css-only/Carousel';
-import MarketplaceContractNotFound from '#marketplacecomponents/@Subscription/MarketplaceContractNotFound';
-import { updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction } from '#libs/member/actions';
+} from '#src/libs/marketplace/routing-utils';
+import { getMarketplaceEnabledPaymentMethods } from '#src/libs/payment/utils';
+import MarketplaceContractCheckout from '#src/libs/marketplace/components/@Subscription/MarketplaceContractCheckout';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import MarketplaceContractDetail from '#src/libs/marketplace/components/@Subscription/MarketplaceContractDetail';
+import MarketplaceContractTermsModal from '#src/libs/marketplace/components/@Subscription/MarketplaceContractTermsModal';
+import MarketplaceContractCooldownModal from '#src/libs/marketplace/components/@Subscription/MarketplaceContractCooldownModal';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
+import Carousel from '#src/components/css-only/Carousel';
+import MarketplaceContractNotFound from '#src/libs/marketplace/components/@Subscription/MarketplaceContractNotFound';
+import { updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction } from '#src/libs/member/actions';
 
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import {
   getMemberDetailData,
   getMemberThroughMembership,
-} from '#libs/member/selectors';
+} from '#src/libs/member/selectors';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import ConsumerAppBar from './ConsumerAppBar.container';
 import type { OptionCallback } from '../../state/types';
@@ -92,7 +92,10 @@ import withQueryParams from '../../hocs/with-query-params.hoc';
 import './styles.css';
 
 const MarketplaceContractPayment = asyncComponent(
-  () => import('#marketplacecomponents/@Payment/MarketplaceContractPayment'),
+  () =>
+    import(
+      '#src/libs/marketplace/components/@Payment/MarketplaceContractPayment'
+    ),
 );
 
 type ownProps = {

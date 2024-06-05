@@ -7,41 +7,41 @@ import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import OfferFormSkeleton from '#libs/offer/components/OfferFormSkeleton.component';
-import OfferFormBanner from '#libs/offer/form/OfferFormBanner.component';
-import OfferFormSpecificities from '#libs/offer/form/sections/OfferFormSpecificities.component';
-import OfferFormDateTime from '#libs/offer/form/sections/OfferFormDateTime.component';
-import OfferFormCoach from '#libs/offer/form/sections/OfferFormCoach.component';
-import OfferFormSettings from '#libs/offer/form/sections/OfferFormSettings.component';
-import OfferFormTags from '#libs/offer/form/sections/OfferFormTags.component';
-import OfferEditFormValidationSchema from '#libs/offer/form/EditValidationSchema';
-import FormSection from '#components/forms/FormSection';
-import OfferFormEditSettings from '#libs/offer/form/sections/OfferFormEditSettings.component';
-import OfferFormEditCoachOverride from '#libs/offer/form/sections/OfferFormEditCoachOverride.component';
-import OfferFormEditSimilarOffers from '#libs/offer/form/sections/OfferFormEditSimilarOffers.component';
-import EditOfferStepper from '#libs/offer/form/EditOfferStepper.component';
-import { useOfferFormStyles } from '#libs/offer/hooks';
+import OfferFormSkeleton from '#src/libs/offer/components/OfferFormSkeleton.component';
+import OfferFormBanner from '#src/libs/offer/form/OfferFormBanner.component';
+import OfferFormSpecificities from '#src/libs/offer/form/sections/OfferFormSpecificities.component';
+import OfferFormDateTime from '#src/libs/offer/form/sections/OfferFormDateTime.component';
+import OfferFormCoach from '#src/libs/offer/form/sections/OfferFormCoach.component';
+import OfferFormSettings from '#src/libs/offer/form/sections/OfferFormSettings.component';
+import OfferFormTags from '#src/libs/offer/form/sections/OfferFormTags.component';
+import OfferEditFormValidationSchema from '#src/libs/offer/form/EditValidationSchema';
+import FormSection from '#src/components/forms/FormSection';
+import OfferFormEditSettings from '#src/libs/offer/form/sections/OfferFormEditSettings.component';
+import OfferFormEditCoachOverride from '#src/libs/offer/form/sections/OfferFormEditCoachOverride.component';
+import OfferFormEditSimilarOffers from '#src/libs/offer/form/sections/OfferFormEditSimilarOffers.component';
+import EditOfferStepper from '#src/libs/offer/form/EditOfferStepper.component';
+import { useOfferFormStyles } from '#src/libs/offer/hooks';
 
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Level, LevelFilterSet } from '#libs/level/types';
-import { Establishment } from '#libs/establishment/types';
-import { ZoomApp } from '#libs/zoom-app/types';
-import { Coach } from '#libs/associated-coach/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Level, LevelFilterSet } from '#src/libs/level/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { ZoomApp } from '#src/libs/zoom-app/types';
+import { Coach } from '#src/libs/associated-coach/types';
 import {
   Offer as SimilarOffer,
   OfferFormValues,
   OfferFilterData,
   OfferEdit,
-} from '#libs/offer/types';
-import { RoomBlueprint } from '#libs/spot-scheduling/types';
-import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
-import { Tag, TagGroup } from '#libs/tag/types';
+} from '#src/libs/offer/types';
+import { RoomBlueprint } from '#src/libs/spot-scheduling/types';
+import { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
+import { Tag, TagGroup } from '#src/libs/tag/types';
 import {
   OFFER_EDIT_FORM_STEPS,
   PropagateCoachOverrideToSimilarOffers,
-} from '#libs/offer/constants';
-import { OffersGroup } from '#libs/group-offer/types';
-import SpotSchedulingHelper from '#libs/spot-scheduling/utils';
+} from '#src/libs/offer/constants';
+import { OffersGroup } from '#src/libs/group-offer/types';
+import SpotSchedulingHelper from '#src/libs/spot-scheduling/utils';
 import { Offer } from '../../api/types';
 import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 

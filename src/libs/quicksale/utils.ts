@@ -2,20 +2,20 @@ import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-item
 import chroma from 'chroma-js';
 import { TFunction } from 'i18next';
 
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PrivatePass } from '#libs/private-service/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import type { ShopItem } from '#libs/shop/types';
-import type { Contract } from '#libs/subscription/types';
-import type { Giftcard } from '#libs/giftcard/types';
-import type { Basket } from '#libs/checkout/types';
-import type { Member } from '#libs/member/types';
-import type { TranslationProps } from '#components/DialogWithBigIcon/DialogWithBigIcon.component';
-import type { Tag } from '#libs/tag/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { ShopItem } from '#src/libs/shop/types';
+import type { Contract } from '#src/libs/subscription/types';
+import type { Giftcard } from '#src/libs/giftcard/types';
+import type { Basket } from '#src/libs/checkout/types';
+import type { Member } from '#src/libs/member/types';
+import type { TranslationProps } from '#src/components/DialogWithBigIcon/DialogWithBigIcon.component';
+import type { Tag } from '#src/libs/tag/types';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
+} from '#src/libs/theme/utils';
 import type {
   QuicksaleCardInfo,
   QuicksaleItem,

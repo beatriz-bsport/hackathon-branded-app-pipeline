@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import NumericInput from '#components/input/NumericInput.component';
+import NumericInput from '#src/components/input/NumericInput.component';
 
 import type { ShopItemUpdateProvisionFormValues } from './types';
 

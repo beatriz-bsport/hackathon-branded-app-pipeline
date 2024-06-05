@@ -10,7 +10,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 
-import type { UserPhotoUpdate } from '#libs/access-control/types';
+import type { UserPhotoUpdate } from '#src/libs/access-control/types';
 
 type Props = {
   memberPhotoHistory: UserPhotoUpdate[];

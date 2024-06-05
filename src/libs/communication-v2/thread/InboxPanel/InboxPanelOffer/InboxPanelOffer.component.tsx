@@ -8,13 +8,13 @@ import Typography from '@material-ui/core/Typography';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import type { Offer } from '#libs/offer/types';
-import type { Coach } from '#libs/associated-coach/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { OffersGroup } from '#libs/group-offer/types';
-import type { Level } from '#libs/level/types';
-import OfferCardStatistics from '#libs/offer/components/OfferCardStatistics.component';
-import OfferDetail from '#components/offer/OfferDetail.component';
+import type { Offer } from '#src/libs/offer/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { OffersGroup } from '#src/libs/group-offer/types';
+import type { Level } from '#src/libs/level/types';
+import OfferCardStatistics from '#src/libs/offer/components/OfferCardStatistics.component';
+import OfferDetail from '#src/components/offer/OfferDetail.component';
 
 type Props = {
   offer: Offer<

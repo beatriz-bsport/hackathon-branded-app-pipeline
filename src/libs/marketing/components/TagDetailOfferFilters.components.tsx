@@ -10,14 +10,14 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import { TFunction } from 'i18next';
-import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 import {
   AlertError,
   DateField,
   Actions,
   defaultHandleSubmit,
   // @ts-expect-error
-} from '#components/forms';
+} from '#src/components/forms';
 import { TagAuthorizationFilter } from '../../../pages/marketing/MarketingTagManagement.page';
 
 const tagAuthorizationOptions = memoize((t: TFunction) => [

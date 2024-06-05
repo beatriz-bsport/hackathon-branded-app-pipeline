@@ -17,8 +17,8 @@ import {
   newStoryFromTemplate,
   querySelectedElementShouldBeInTheDocument,
   sleep,
-} from '#utils/storybookHelper';
-import { BOOKING_FOR_GUEST_FREQUENCY } from '#libs/offer/types';
+} from '#src/utils/storybookHelper';
+import { BOOKING_FOR_GUEST_FREQUENCY } from '#src/libs/offer/types';
 
 import './styles-storybook.css';
 

@@ -5,7 +5,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { ButtonBase } from '@material-ui/core';
 import MaterialUISelector, {
   MuiSelectProps,
-} from '#components/Selector/MaterialUISelector.component';
+} from '#src/components/Selector/MaterialUISelector.component';
 
 const DoubleIndicatorSelector: React.FC<MuiSelectProps<any>> = ({
   options,

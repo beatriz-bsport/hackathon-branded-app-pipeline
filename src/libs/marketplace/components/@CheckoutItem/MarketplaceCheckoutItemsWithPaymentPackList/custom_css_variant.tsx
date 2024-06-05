@@ -3,16 +3,16 @@ import React from 'react';
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import { checkoutItemsFactory } from '#libs/checkout/factories';
-import { BuyableItemOptions, CheckoutItem } from '#libs/checkout/types';
-import { paymentPackListFactory } from '#libs/payment-packs/factory';
+import { checkoutItemsFactory } from '#src/libs/checkout/factories';
+import { BuyableItemOptions, CheckoutItem } from '#src/libs/checkout/types';
+import { paymentPackListFactory } from '#src/libs/payment-packs/factory';
 // @ts-expect-error
 import MarketplaceCheckoutItemsWithPaymentPackListCss from './styles.css?raw';
 import MarketplaceCheckoutItemsWithPaymentPackList, { type Props } from '.';

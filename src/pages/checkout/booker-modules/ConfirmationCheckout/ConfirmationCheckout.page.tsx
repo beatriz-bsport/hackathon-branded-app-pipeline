@@ -13,13 +13,13 @@ import { RouterProps } from 'react-router';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_BOOKABLE_STATUS_ALREADY_BOOKED } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import themeSelectors from '#libs/theme/selectors';
-import { getBasket } from '#libs/checkout/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
+import { getBasket } from '#src/libs/checkout/selectors';
 import {
   getOfferFromList,
   withMetaActivity,
@@ -27,61 +27,64 @@ import {
   withEstablishment,
   getBookingGuestNumberLeft,
   getOfferBookableStatus,
-} from '#libs/offer/selectors';
-import { withCustomLevel } from '#libs/level/selectors';
+} from '#src/libs/offer/selectors';
+import { withCustomLevel } from '#src/libs/level/selectors';
 // @ts-expect-error
-import { getSubscriptionDetail } from '#libs/subscription/selectors';
+import { getSubscriptionDetail } from '#src/libs/subscription/selectors';
 
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#src/libs/establishment/actions';
 import {
   fetchOfferBulk as fetchOfferBulkAction,
   fetchOfferStatusList as fetchOfferStatusListAction,
   fetchBookingGuestNumber as fetchBookingGuestNumberAction,
-} from '#libs/offer/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
-import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
-import { fetchBasket as fetchBasketAction } from '#libs/checkout/actions';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { fetchPrivatePassBulk as fetchPrivatePassBulkAction } from '#libs/private-service/actions';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
-import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
-import { fetch as fetchBillingPlanAction } from '#libs/subscription/actions';
+} from '#src/libs/offer/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '#src/libs/associated-coach/actions';
+import { fetchBasket as fetchBasketAction } from '#src/libs/checkout/actions';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import { fetchPrivatePassBulk as fetchPrivatePassBulkAction } from '#src/libs/private-service/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#src/libs/payment-packs/actions';
+import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
+import { fetch as fetchBillingPlanAction } from '#src/libs/subscription/actions';
 
-import WidgetUtils from '#libs/widget/WidgetUtils';
-import { urlToMarketplace } from '#libs/marketplace/utils';
-import { withExtraDataFromQueryParams } from '#libs/booker-module/utils';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { urlToMarketplace } from '#src/libs/marketplace/utils';
+import { withExtraDataFromQueryParams } from '#src/libs/booker-module/utils';
 
-import type { CompanyTheme } from '#libs/theme/types';
-import type { OfferWithSpotInformation, Offer_FULL } from '#libs/offer/types';
-import type { ExtraDataFromQueryParams } from '#libs/booker-module/types';
-import { BuyableItemOptions, type Basket } from '#libs/checkout/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type {
+  OfferWithSpotInformation,
+  Offer_FULL,
+} from '#src/libs/offer/types';
+import type { ExtraDataFromQueryParams } from '#src/libs/booker-module/types';
+import { BuyableItemOptions, type Basket } from '#src/libs/checkout/types';
 
-import MarketplaceOfferBookingList from '#marketplacecomponents/@Booking/MarketplaceOfferBookingList';
+import MarketplaceOfferBookingList from '#src/libs/marketplace/components/@Booking/MarketplaceOfferBookingList';
 
 import {
   getConfirmationStatus,
   getNumberOfListToDisplay,
   sortCheckoutItemByBuyableItemIdentifier,
-} from '#libs/checkout/utils';
-import { getPaymentPackById } from '#libs/payment-packs/selectors';
-import { getPrivatePassById } from '#libs/private-service/selectors/private-pass';
-import { getPaymenComboDataDict } from '#libs/payment-combo/selectors';
-import MarketplaceCheckoutItemsWithPaymentPackList from '#marketplacecomponents/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentPackList';
-import MarketplaceCheckoutItemsWithPrivatePassList from '#marketplacecomponents/@CheckoutItem/MarketplaceCheckoutItemsWithPrivatePassList';
-import MarketplaceCheckoutItemsWithPaymentComboList from '#marketplacecomponents/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentComboList';
-import MarketplaceProductItemList from '#marketplacecomponents/@CheckoutItem/MarketplaceProductItemList';
-import MinimalSubscriptionCard from '#marketplacecomponents/@Subscription/MinimalSubscriptionCard';
-import { Subscription } from '#libs/subscription/types';
+} from '#src/libs/checkout/utils';
+import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
+import { getPrivatePassById } from '#src/libs/private-service/selectors/private-pass';
+import { getPaymenComboDataDict } from '#src/libs/payment-combo/selectors';
+import MarketplaceCheckoutItemsWithPaymentPackList from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentPackList';
+import MarketplaceCheckoutItemsWithPrivatePassList from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceCheckoutItemsWithPrivatePassList';
+import MarketplaceCheckoutItemsWithPaymentComboList from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentComboList';
+import MarketplaceProductItemList from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceProductItemList';
+import MinimalSubscriptionCard from '#src/libs/marketplace/components/@Subscription/MinimalSubscriptionCard';
+import { Subscription } from '#src/libs/subscription/types';
 // @ts-expect-error
-import Analytics from '#components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 
-import ConfirmationMessage from '#libs/checkout/components/ConfirmationMessage';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import ConfirmationMessage from '#src/libs/checkout/components/ConfirmationMessage';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import MarketplaceBookingAddGuestModal, {
   AddGuestFormValues,
-} from '#libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
-import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
+} from '#src/libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
+import { getOfferBookerUrl } from '#src/libs/marketplace/routing-utils';
 import { ConfirmationCheckoutSkeleton } from '.';
 import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 import type { RootState } from '../../../../reducers';

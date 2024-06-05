@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import ConsumerGenericFilters from '#libs/consumer-space/components/reworked/common/ConsumerGenericFilters';
-import { SubscriptionTabEnum } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
-import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
+import ConsumerGenericFilters from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericFilters';
+import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 
 type Props = {
   selectedTab: SubscriptionTab;

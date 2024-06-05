@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { ArrowBlockLeft } from '#components/untitledui';
+} from '#src/libs/exportable-components/types';
+import { ArrowBlockLeft } from '#src/components/untitledui';
 // @ts-expect-error
 import ListItemCSS from './styles.css?raw';
 

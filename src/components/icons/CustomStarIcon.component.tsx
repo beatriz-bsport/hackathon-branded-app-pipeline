@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import chroma from 'chroma-js';
-import MuiIconComponent from '#components/MuiIcon.component';
+import MuiIconComponent from '#src/components/MuiIcon.component';
 
 export const CustomStarIcon: React.FC = () => {
   const classes = useStyles();

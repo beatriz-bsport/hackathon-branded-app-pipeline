@@ -17,13 +17,13 @@ import type { ImmutableArray } from 'seamless-immutable';
 
 import { useTranslation } from 'react-i18next';
 // @ts-expect-error
-import { Submit } from '#components/forms';
-import CoachPerformanceDateFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
+import { Submit } from '#src/components/forms';
+import CoachPerformanceDateFilter from '#src/libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
 
 import type {
   Establishment,
   EstablishmentGroupAPI,
-} from '#libs/establishment/types';
+} from '#src/libs/establishment/types';
 import type { OptionCallback } from '../../../../../state/types';
 
 import CoachPerformanceLocationEstablishmentFilter from './CoachPerformanceLocationEstablishmentFilter.component';

@@ -1,23 +1,23 @@
 import type {
   StaffModificationHistory,
   BookingModificationActionIdentifier,
-} from '#libs/role/types';
+} from '#src/libs/role/types';
 import type {
   RoomBlueprint,
   SpotInformation,
-} from '#libs/spot-scheduling/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { Coach } from '#libs/associated-coach/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { Level } from '#libs/level/types';
-import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
+} from '#src/libs/spot-scheduling/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { Level } from '#src/libs/level/types';
+import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
 import type {
   PrivateBooking,
   PrivateConsumerPass,
   PrivateService,
   PrivateSlot,
-} from '#libs/private-service/types';
-import type { WaitingListBookingOption } from '#libs/waiting-list/types';
+} from '#src/libs/private-service/types';
+import type { WaitingListBookingOption } from '#src/libs/waiting-list/types';
 import type { PaymentPack } from '../payment-packs/types';
 import type { Offer, OfferBookingOption, OfferREST } from '../offer/types';
 

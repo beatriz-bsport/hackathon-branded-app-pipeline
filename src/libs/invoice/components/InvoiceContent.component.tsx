@@ -19,13 +19,13 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { INVOICE_TYPE_MIGRATION } from '@bsport/common/lib/master-data/invoice-type';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ListItem } from '@material-ui/core';
-import Tooltip from '#components/Tooltip.component';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import Tooltip from '#src/components/Tooltip.component';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import CouponCodeForm from '#src/libs/coupon/components/CouponCodeForm.component';
+import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import EstablishmentBillingGroupSelector from '#src/libs/establishment/components/EstablishmentBillingGroupSelector';
 // @ts-expect-error
-import CouponCodeForm from '#libs/coupon/components/CouponCodeForm.component';
-import type { EstablishmentBillingGroup } from '#libs/establishment/types';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
 import InvoiceItem from './InvoiceItem.component';
 // @ts-expect-error
 import PaymentItem from './PaymentItem.component';

@@ -1,6 +1,6 @@
 import SeamlessImmutable, { ImmutableObject } from 'seamless-immutable';
-import type { FranchiseCompany } from '#libs/franchise/types';
-import type { SmartList } from '#libs/smart-list/types';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
+import type { SmartList } from '#src/libs/smart-list/types';
 import type {
   CompanyWithSmartList,
   CommunicationSentGroupConfig,

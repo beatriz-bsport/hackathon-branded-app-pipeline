@@ -3,7 +3,7 @@ import uniq from 'lodash/uniq';
 import { handleActions } from 'redux-actions';
 import omit from 'lodash/omit';
 
-import type { PaginatedResponse } from '#state/types';
+import type { PaginatedResponse } from '#src/state/types';
 import type {
   IsShopUsedInComboAPI,
   ShopItem,
@@ -14,7 +14,7 @@ import type {
   ShopSupplierTemplate,
   SubShop,
   SubshopTemplate,
-} from '#libs/shop/types';
+} from '#src/libs/shop/types';
 import {
   fetchShopItemBaseListActions,
   fetchShopItemStandaloneListActions,
@@ -63,7 +63,6 @@ import {
   updateShopSupplierTemplateActions,
   deleteShopSupplierTemplateActions,
 } from './actions/supplier';
-
 
 type PayloadReduceType<T> = { [id: number]: T };
 

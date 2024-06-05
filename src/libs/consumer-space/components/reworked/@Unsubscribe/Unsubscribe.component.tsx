@@ -1,15 +1,15 @@
 import React, { useCallback, useState, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Typography from '#components/css-only/Fabrique/Typography';
-import Button from '#components/css-only/Fabrique/ButtonV2';
-import CircularProgress from '#components/css-only/CircularProgress';
-import Card from '#components/css-only/Fabrique/Card';
-import BigIcon from '#components/css-only/Fabrique/BigIcon';
-import { BellOff01 } from '#components/untitledui';
-import { postUnsubscribe } from '#libs/member/api';
-import type { CompanyTheme } from '#libs/theme/types';
-import Title from '#components/css-only/Fabrique/Title';
+import Typography from '#src/components/css-only/Fabrique/Typography';
+import Button from '#src/components/css-only/Fabrique/ButtonV2';
+import CircularProgress from '#src/components/css-only/CircularProgress';
+import Card from '#src/components/css-only/Fabrique/Card';
+import BigIcon from '#src/components/css-only/Fabrique/BigIcon';
+import { BellOff01 } from '#src/components/untitledui';
+import { postUnsubscribe } from '#src/libs/member/api';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import Title from '#src/components/css-only/Fabrique/Title';
 import UnsubscribeSkeleton from './UnsubscribeSkeleton';
 import './styles.css';
 

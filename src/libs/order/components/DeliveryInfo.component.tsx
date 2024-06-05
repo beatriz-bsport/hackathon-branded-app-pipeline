@@ -3,10 +3,10 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles';
-import type { OrderWithProducts } from '#libs/order/types';
+import type { OrderWithProducts } from '#src/libs/order/types';
 
-import { ALLOWED_COUNTRIES_FOR_STATES } from '#libs/member/constants';
-import { Member } from '#libs/member/types';
+import { ALLOWED_COUNTRIES_FOR_STATES } from '#src/libs/member/constants';
+import { Member } from '#src/libs/member/types';
 
 type Props = {
   order: OrderWithProducts<Member>;

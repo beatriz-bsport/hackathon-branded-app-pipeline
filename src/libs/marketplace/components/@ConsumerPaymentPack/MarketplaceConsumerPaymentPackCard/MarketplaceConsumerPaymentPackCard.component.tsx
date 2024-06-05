@@ -4,11 +4,11 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Warning from '@material-ui/icons/Warning';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import MarketplacePaymentPackCreditStatus from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackCreditStatus';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import MarketplacePaymentPackCreditStatus from '#src/libs/marketplace/components/@PaymentPack/MarketplacePaymentPackCreditStatus';
 
-import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
-import type { PaymentPack, MaxoutData } from '#libs/payment-packs/types';
+import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
+import type { PaymentPack, MaxoutData } from '#src/libs/payment-packs/types';
 import { formatAsDate } from '../../../../../utils/datetime';
 
 import './styles.css';

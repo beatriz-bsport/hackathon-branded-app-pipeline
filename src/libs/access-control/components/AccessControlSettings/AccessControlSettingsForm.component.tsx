@@ -13,7 +13,7 @@ import { FormikProps, useField, useFormikContext, withFormik } from 'formik';
 import { compose } from 'recompose';
 import { DateTime } from 'luxon';
 
-import type { AccessControlPolicy } from '#libs/access-control/types';
+import type { AccessControlPolicy } from '#src/libs/access-control/types';
 
 type OwnProps = {
   // eslint-disable-next-line

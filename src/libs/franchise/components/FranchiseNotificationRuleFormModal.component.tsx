@@ -19,9 +19,9 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
-import InfoBox from '#components/box/InfoBox.component';
-import RequiredTags from '#components/notification/RequiredTags.component';
+import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component';
+import InfoBox from '#src/components/box/InfoBox.component';
+import RequiredTags from '#src/components/notification/RequiredTags.component';
 import { FranchiseCompany } from '../types';
 import {
   AlertError,

@@ -60,35 +60,38 @@ import {
   REFERRED_MEMBERS_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
-import { createUrl } from '#utils/createUrlHandlers';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { UPSELL_IDENTIFIER_CUSTOM_APP } from '#libs/platform-billing/upsell-identifiers';
-import CommunicationScheduledItem from '#libs/smart-list/components/communication_scheduled/CommunicationScheduledItem.component';
-import CustomMobilePopupDialogDialog from '#libs/settings/components/CustomMobilePopupDialog.dialog';
+import { createUrl } from '#src/utils/createUrlHandlers';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { UPSELL_IDENTIFIER_CUSTOM_APP } from '#src/libs/platform-billing/upsell-identifiers';
+import CommunicationScheduledItem from '#src/libs/smart-list/components/communication_scheduled/CommunicationScheduledItem.component';
+import CustomMobilePopupDialogDialog from '#src/libs/settings/components/CustomMobilePopupDialog.dialog';
 // @ts-expect-error
-import FilterCard from '#libs/smart-list/components/FilterListItem.component';
-import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
-import MemberBaseFilter from '#libs/smart-list/components/filters/MemberBaseFilter.component';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import SmartListPopupSendingDrawerComponent from '#libs/communication-v2/components/SmartListPopupSendingDrawer.component';
-import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
+import FilterCard from '#src/libs/smart-list/components/FilterListItem.component';
+import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
+import MemberBaseFilter from '#src/libs/smart-list/components/filters/MemberBaseFilter.component';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import SmartListPopupSendingDrawerComponent from '#src/libs/communication-v2/components/SmartListPopupSendingDrawer.component';
+import SwitchHorizontalIcon from '#src/components/icons/SwitchHorizontalIcon.component';
 
-import type { Cadence } from '#libs/sequential_marketing/types';
-import type { CustomForm } from '#libs/custom-form/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { FetchRecipientsParams, Member } from '#libs/member/types';
-import type { Level } from '#libs/level/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PrivatePass, PrivateService } from '#libs/private-service/types';
-import type { SmartList } from '#libs/smart-list/types';
-import type { UpsellSumup } from '#libs/company/types';
+import type { Cadence } from '#src/libs/sequential_marketing/types';
+import type { CustomForm } from '#src/libs/custom-form/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { FetchRecipientsParams, Member } from '#src/libs/member/types';
+import type { Level } from '#src/libs/level/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type {
+  PrivatePass,
+  PrivateService,
+} from '#src/libs/private-service/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { UpsellSumup } from '#src/libs/company/types';
 import type {
   CommunicationScheduled,
   SmartListPopupSending,
-} from '#libs/communication-v2/types';
+} from '#src/libs/communication-v2/types';
 import type { OptionCallback } from '../../../state/types';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =

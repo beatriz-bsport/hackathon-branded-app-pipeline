@@ -5,40 +5,40 @@ import uniq from 'lodash/uniq';
 import { UNREAD_COMMUNICATION } from '@bsport/common/lib/master-data/alerting_kind';
 
 // COMMUNICATION
-import { fetch as fetchAction } from '#libs/alerting/actions';
+import { fetch as fetchAction } from '#src/libs/alerting/actions';
 import type {
   Communication,
   MessageData,
   DrawerProps,
   Recipient,
   FetchCommunicationParams,
-} from '#libs/communication-v2/types';
+} from '#src/libs/communication-v2/types';
 
 // TEMPLATES
 import {
   emailTemplateComplete,
   emailTemplatesSummaries,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
+} from '#src/libs/email-editor/selectors';
 import {
   getResolvedGenericTags,
   getTagCategories,
-} from '#libs/notification-rule/selectors';
+} from '#src/libs/notification-rule/selectors';
 import {
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
   fetchTagList as fetchTagListAction,
-} from '#libs/notification-rule/actions';
+} from '#src/libs/notification-rule/actions';
 
 // MEMBER
 import {
   fetchCommunicationsPaginatedMembers,
   fetchMemberBulkById as fetchMemberBulkByIdAction,
-} from '#libs/member/actions';
-import { getPaginatedMembers } from '#libs/member/selectors';
-import themeSelectors from '#libs/theme/selectors';
+} from '#src/libs/member/actions';
+import { getPaginatedMembers } from '#src/libs/member/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 import {
   MAX_DISPLAY,
   PAGINATION_SIZE_RECIPIENTS,

@@ -12,16 +12,16 @@ import {
   getAllEstablishmentsDict,
   getAssociatedEstablishmentGroup,
   getEstablishmentsSelectedInRole,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import {
   getMemberNextBookingOrPrivateBooking,
   getMemberVisitIsLoading,
   getUserPhotoUpdatesList,
-} from '#libs/access-control/selectors';
+} from '#src/libs/access-control/selectors';
 
 // Actions
 
-import { search } from '#libs/member/actions';
+import { search } from '#src/libs/member/actions';
 import {
   approvePhotoUpdate as approvePhotoUpdateAction,
   checkMemberInEstablishment as checkMemberInEstablishmentAction,
@@ -30,36 +30,36 @@ import {
   retrieveMemberNextBookingOrPrivateBooking as retrieveMemberNextBookingOrPrivateBookingAction,
   retrieveMemberVisit as retrieveMemberVisitAction,
   setMemberVisitEntryStatus as setMemberVisitEntryStatusAction,
-} from '#libs/access-control/actions';
+} from '#src/libs/access-control/actions';
 
 // Components
 
-import MemberVisitPlaceHolder from '#libs/access-control/components/MemberVisit/EmptyState/MemberVisitPlaceHolder.component';
-import MemberVisitSearchMemberComponent from '#libs/access-control/components/MemberVisit/EmptyState/MemberVisitSearchMember.component';
-import MemberVisitDetailsCard from '#libs/access-control/components/MemberVisit/MemberVisitDetailsCard/MemberVisitDetailsCard.component';
-import MemberVisitHeadButtons from '#libs/access-control/components/MemberVisit/MemberVisitHeadButtons.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import AccessStatusChangedSuccessModal from '#libs/access-control/components/MemberVisit/AccessStatusChangedSuccessModal.component';
-import EntryStatusChangedModalComponent from '#libs/access-control/components/MemberVisit/EntryStatusChangedModal.component';
-import StaffLocationBlocker from '#libs/access-control/components/MemberVisit/StaffLocationBlocker.component';
-import MemberVisitWarnings from '#libs/access-control/components/MemberVisit/MemberVisitWarnings.component';
-import MemberPhotoHistoryModal from '#libs/access-control/components/MemberVisit/MemberPhotoHistoryModal.component';
+import MemberVisitPlaceHolder from '#src/libs/access-control/components/MemberVisit/EmptyState/MemberVisitPlaceHolder.component';
+import MemberVisitSearchMemberComponent from '#src/libs/access-control/components/MemberVisit/EmptyState/MemberVisitSearchMember.component';
+import MemberVisitDetailsCard from '#src/libs/access-control/components/MemberVisit/MemberVisitDetailsCard/MemberVisitDetailsCard.component';
+import MemberVisitHeadButtons from '#src/libs/access-control/components/MemberVisit/MemberVisitHeadButtons.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import AccessStatusChangedSuccessModal from '#src/libs/access-control/components/MemberVisit/AccessStatusChangedSuccessModal.component';
+import EntryStatusChangedModalComponent from '#src/libs/access-control/components/MemberVisit/EntryStatusChangedModal.component';
+import StaffLocationBlocker from '#src/libs/access-control/components/MemberVisit/StaffLocationBlocker.component';
+import MemberVisitWarnings from '#src/libs/access-control/components/MemberVisit/MemberVisitWarnings.component';
+import MemberPhotoHistoryModal from '#src/libs/access-control/components/MemberVisit/MemberPhotoHistoryModal.component';
 
 // Constants
 
-import { AccessStatus, EntryStatus } from '#libs/access-control/constants';
-import { BroadcastChannelMessageType } from '#libs/broadcast-channel/types';
+import { AccessStatus, EntryStatus } from '#src/libs/access-control/constants';
+import { BroadcastChannelMessageType } from '#src/libs/broadcast-channel/types';
 
 // Types
 
-import type { MemberVisitREST } from '#libs/access-control/types';
+import type { MemberVisitREST } from '#src/libs/access-control/types';
 
 // Hooks / hocs
 
-import { useBroadcastChannel } from '#libs/broadcast-channel/hooks';
-import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/checkLocationSetup';
+import { useBroadcastChannel } from '#src/libs/broadcast-channel/hooks';
+import { useCheckAccessControlLocationSetup } from '#src/libs/access-control/hooks/checkLocationSetup';
 
-import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
+import withQueryParamsToProps from '#src/hocs/query-params-to-props.hoc';
 import type { RootState } from '../../reducers';
 
 type OwnProps = {

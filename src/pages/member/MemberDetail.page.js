@@ -9,24 +9,24 @@ import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import { v4 as uuid4 } from 'uuid';
 import { compose, withHandlers, withState } from 'recompose';
-import { fetchProgram as fetchProgramAction } from '#libs/performance-tracking/actions';
-import { getProgramList } from '#libs/performance-tracking/selector';
-import { fetchStripeReaders } from '#libs/terminal/actions';
-import { getStripeReaders } from '#libs/terminal/selectors';
-import type { StripeReader } from '#libs/terminal/types';
-import MemberActions from '#libs/member/components/ManagerMemberActions.components';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
-import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
-import { CONTEXT_MEMBER } from '#libs/communication-v2/constants';
-import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
-import type { CommunicationContext } from '#libs/communication-v2/types';
+import { fetchProgram as fetchProgramAction } from '#src/libs/performance-tracking/actions';
+import { getProgramList } from '#src/libs/performance-tracking/selector';
+import { fetchStripeReaders } from '#src/libs/terminal/actions';
+import { getStripeReaders } from '#src/libs/terminal/selectors';
+import type { StripeReader } from '#src/libs/terminal/types';
+import MemberActions from '#src/libs/member/components/ManagerMemberActions.components';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
+import CommunicationDrawer from '#src/libs/communication-v2/components/CommunicationDrawer.component';
+import { CONTEXT_MEMBER } from '#src/libs/communication-v2/constants';
+import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#src/libs/communication-v2/actions';
+import type { CommunicationContext } from '#src/libs/communication-v2/types';
 import {
   BackgroundDialogDisplayMode,
   BackgroundDialogActionMode,
-} from '#libs/background-dialog/types';
-import withQueryParams from '#hocs/with-query-params.hoc';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
+} from '#src/libs/background-dialog/types';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
+import ContentWithAppBar from '#src/components/generic-appbar-content/ContentWithAppBar.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { fetchManagerFiltersSettings } from '../../libs/dashboard/actions';
@@ -89,7 +89,6 @@ import { hasObjectLevelPermission } from '../../libs/role/permission-utils/utils
 import Config from '../../config';
 
 import { getStripeRegion, getCompanyCountry } from '../../libs/theme/selectors';
-
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),

@@ -8,15 +8,15 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTheme } from '@material-ui/core/';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import ValidationIcon from '#components/icons/ValidationIcon.component';
-import UpdateIcon from '#components/icons/UpdateIcon.component';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
+import UpdateIcon from '#src/components/icons/UpdateIcon.component';
 import DateTimeInput from '#src/components/input/DateTimeInput.component';
-import { ReplacementRequest } from '#libs/replacement-request/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Level } from '#libs/level/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { ReplacementRequest } from '#src/libs/replacement-request/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Level } from '#src/libs/level/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import { OptionCallback } from '../../../../state/types';
 import { formatISOStringAsTime } from '../../../../utils/datetime';
 

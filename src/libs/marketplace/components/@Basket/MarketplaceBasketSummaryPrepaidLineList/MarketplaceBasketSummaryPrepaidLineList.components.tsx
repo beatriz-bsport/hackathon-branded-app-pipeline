@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import type { PrepaidLine } from '#libs/checkout/types';
+import type { PrepaidLine } from '#src/libs/checkout/types';
 
-import MarketplaceBasketSummaryPrepaidLineItem from '#libs/marketplace/components/@Basket/MarketplaceBasketSummaryPrepaidLineItem';
+import MarketplaceBasketSummaryPrepaidLineItem from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryPrepaidLineItem';
 import './styles.css';
 
 export type Props = {

@@ -13,9 +13,9 @@ import { Theme, makeStyles } from '@material-ui/core';
 import clx from 'classnames';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 // @ts-expect-error
-import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
 import RecipientTable from './RecipientTable.component';
 import type {
   Campaign,

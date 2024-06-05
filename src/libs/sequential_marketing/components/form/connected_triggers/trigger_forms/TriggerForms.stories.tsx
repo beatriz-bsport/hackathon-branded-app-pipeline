@@ -7,7 +7,7 @@ import EventForm from './EventForm.component';
 import EventAndSmartlistForm from './EventAndSmartlistForm.component';
 import TimeoutForm from './TimeoutForm.component';
 import LostTriggerTimeoutForm from './LostTriggerTimeoutForm.component';
-import { smartlistBatchFactory } from '#libs/smart-list/factories';
+import { smartlistBatchFactory } from '#src/libs/smart-list/factories';
 
 const smartlists = smartlistBatchFactory(5);
 

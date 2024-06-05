@@ -18,12 +18,12 @@ import {
   CONTENT_MIN_HEIGHT,
   HEADER_FONT_SIZE,
   HEADER_MIN_HEIGHT,
-} from '#libs/sequential_marketing/constants/steps';
-import MenuSelectorCustomButton from '#components/menu/custom';
-import ToolTip from '#components/Tooltip.component';
+} from '#src/libs/sequential_marketing/constants/steps';
+import MenuSelectorCustomButton from '#src/components/menu/custom';
+import ToolTip from '#src/components/Tooltip.component';
 
-import type { MenuAction } from '#components/menu/types';
-import { StepMemberCountChip } from '#libs/sequential_marketing/components/graph/chips/StepMemberCountChip.component';
+import type { MenuAction } from '#src/components/menu/types';
+import { StepMemberCountChip } from '#src/libs/sequential_marketing/components/graph/chips/StepMemberCountChip.component';
 
 const DEFAULT_ADD_BUTTON_COLOR = '#777';
 

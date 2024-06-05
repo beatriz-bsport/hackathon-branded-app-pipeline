@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
-import LocaleSelector from '#components/input/LocaleSelector.component';
+import LocaleSelector from '#src/components/input/LocaleSelector.component';
 
 const useStyles = makeStyles((theme) => ({
   container: { padding: theme.spacing(2) },

@@ -3,12 +3,11 @@ import classNames from 'classnames';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 
-
-import type { Theme } from '#libs/theme/types';
-import type { Coach } from '#libs/associated-coach/types';
-import type { Offer } from '#libs/offer/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
+import type { Theme } from '#src/libs/theme/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Offer } from '#src/libs/offer/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
 import OfferCoachPicture from './OfferCoachPicture';
 import OfferCoachName from './OfferCoachName';
 

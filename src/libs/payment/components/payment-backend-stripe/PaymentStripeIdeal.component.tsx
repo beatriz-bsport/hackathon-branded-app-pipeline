@@ -16,12 +16,12 @@ import Typography from '@material-ui/core/Typography';
 
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL } from '@bsport/common/lib/master-data/payment-group';
 
-import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
-import PopOver from '#components/Popover';
+import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
+import PopOver from '#src/components/Popover';
 import {
   blockPendingBasket as blockPendingBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
-} from '#libs/payment/api';
+} from '#src/libs/payment/api';
 
 const IDEAL_ELEMENT_OPTIONS = {
   // Custom styling can be passed to options when creating an Element

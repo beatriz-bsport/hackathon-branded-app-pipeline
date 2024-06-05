@@ -16,8 +16,8 @@ import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master
 import { push } from 'connected-react-router';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
-import { CompanyTheme } from '#libs/theme/types';
+import { getMarketplaceEnabledPaymentMethods } from '#src/libs/payment/utils';
+import { CompanyTheme } from '#src/libs/theme/types';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   fetchSubscriptionListByMember,

@@ -5,14 +5,14 @@ import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
-import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren';
+import TextFieldWithChildren from '#src/components/input/text-field/TextFieldWithChildren';
 
 import {
   TEXTFIELD_NOTIFICATION_TITLE,
   TEXTFIELD_NOTIFICATION_CONTENT,
   MAX_LENGTH_PUSH_CONTENT,
   MAX_LENGTH_PUSH_TITLE,
-} from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/constants';
 
 type Props = {
   children: React.ReactNode;

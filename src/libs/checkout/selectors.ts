@@ -1,13 +1,13 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
-import { getEventState } from '#libs/event/selectors';
+import { getEventState } from '#src/libs/event/selectors';
 
 import {
   _getOfferData,
   withMetaActivity,
   withCoach,
   withEstablishment,
-} from '#libs/offer/selectors';
+} from '#src/libs/offer/selectors';
 
 import type { RootState } from '../../reducers';
 import type { Basket } from './types';

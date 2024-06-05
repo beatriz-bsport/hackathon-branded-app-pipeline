@@ -3,7 +3,7 @@ import {
   MarketPlaceDaysFormatDisplay,
   MarketPlaceSessionTimeDisplay,
 } from '@bsport/common/lib/master-data/personalization';
-import { BOOKING_FOR_GUEST_FREQUENCY } from '#libs/offer/types';
+import { BOOKING_FOR_GUEST_FREQUENCY } from '#src/libs/offer/types';
 
 export enum DefaultPageOption {
   MEMBERSHIP = 'Membership',

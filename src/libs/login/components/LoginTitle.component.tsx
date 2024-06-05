@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { compose } from 'recompose';
 
 import './LoginTitleStyles.css';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 type Props = {
   title: string;

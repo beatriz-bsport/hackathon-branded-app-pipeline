@@ -19,7 +19,7 @@ import { Settings } from 'luxon';
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 import isEqual from 'lodash/isEqual';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
-import WeekdaySelector from '#components/Selector/WeekdaySelector.component';
+import WeekdaySelector from '#src/components/Selector/WeekdaySelector.component';
 import { MaterialStyleType } from '../../utils/types';
 import { ExpenseWithUser } from '../../libs/expense/types';
 

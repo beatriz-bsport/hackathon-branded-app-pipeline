@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import OffPeakTimeSlotGroup from './PaymentPackOffPeak.component';
 import withFormik from '@bbbtech/storybook-formik';
-import { offPeakGroupDefault } from '#libs/payment-packs/utils';
+import { offPeakGroupDefault } from '#src/libs/payment-packs/utils';
 
 const offPeakDefaultGroup = offPeakGroupDefault();
 

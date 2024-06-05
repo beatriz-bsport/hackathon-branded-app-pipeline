@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { TriggerIdentifier } from '#libs/sequential_marketing/constants';
+import { TriggerIdentifier } from '#src/libs/sequential_marketing/constants';
 
-import type { SmartList } from '#libs/smart-list/types';
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
 
 export const useConnectedTriggerChip = () => {
   const { t } = useTranslation('marketing');

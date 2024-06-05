@@ -8,37 +8,40 @@ import { push as pushRouter } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import type { Theme } from '@material-ui/core';
-import PlaylistListMarketPlace from '#libs/playlist/components/PlaylistListMarketplace.component';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getPlaylistList } from '#libs/playlist/selectors';
+import PlaylistListMarketPlace from '#src/libs/playlist/components/PlaylistListMarketplace.component';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getPlaylistList } from '#src/libs/playlist/selectors';
 import {
   getVideoList,
   withVideoCoach,
   withVideoCategory,
-} from '#libs/video/selectors';
+} from '#src/libs/video/selectors';
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { urlToMarketplaceTab } from '#libs/marketplace/utils';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { urlToMarketplaceTab } from '#src/libs/marketplace/utils';
 
-import VideoSearchBar from '#libs/video/components/VideoSearchBar.component';
+import VideoSearchBar from '#src/libs/video/components/VideoSearchBar.component';
 // @ts-expect-error
-import VideoItemList from '#libs/video/components/VideoItemList.component';
+import VideoItemList from '#src/libs/video/components/VideoItemList.component';
 import {
   fetchVideoList as fetchVideoListAction,
   fetchMoreVideo as fetchMoreVideoAction,
   fetchVideoFilterableParams,
-} from '#libs/video/actions';
-import { fetchPlaylistList, fetchMorePlaylist } from '#libs/playlist/actions';
+} from '#src/libs/video/actions';
+import {
+  fetchPlaylistList,
+  fetchMorePlaylist,
+} from '#src/libs/playlist/actions';
 
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { getActiveCustomLevels } from '#libs/level/selectors';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import { getActiveCustomLevels } from '#src/libs/level/selectors';
 
-import themeSelectors from '#libs/theme/selectors';
-import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
-import { VideoStatusEnum } from '#libs/video/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { PLAYLIST_PAGE_SIZE } from '#libs/playlist/constant';
+import themeSelectors from '#src/libs/theme/selectors';
+import { getMarketplaceRoute } from '#src/libs/marketplace/routing-utils';
+import { VideoStatusEnum } from '#src/libs/video/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { PLAYLIST_PAGE_SIZE } from '#src/libs/playlist/constant';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 

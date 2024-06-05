@@ -10,20 +10,20 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import Pagination from '@material-ui/lab/Pagination';
 
-import AccessStatusChip from '#libs/access-control/components/MemberVisit/MemberVisitDetailsCard/AccessStatusChip.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import AccessStatusChip from '#src/libs/access-control/components/MemberVisit/MemberVisitDetailsCard/AccessStatusChip.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import MemberVisitLiveHistoryTableSkeleton from './MemberVisitLiveHistoryTableSkeleton.component';
 
 import {
   EntryStatus,
   FETCH_MEMBER_VISIT_PAGE_SIZE,
-} from '#libs/access-control/constants';
+} from '#src/libs/access-control/constants';
 import type { OptionCallback } from 'src/state/types';
 import type {
   AccessControlState,
   MemberVisitQueryParams,
   MemberVisitREST,
-} from '#libs/access-control/types';
+} from '#src/libs/access-control/types';
 import classNames from 'classnames';
 
 export type Props = {

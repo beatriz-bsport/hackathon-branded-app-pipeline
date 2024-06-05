@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import classNames from 'classnames';
 import IconButton from '#Fabrique/IconButton';
-import { Pencil02, Plus } from '#components/untitledui';
+import { Pencil02, Plus } from '#src/components/untitledui';
 import { ActionType, ActionTypeEnum } from '.';
 import './styles.css';
 

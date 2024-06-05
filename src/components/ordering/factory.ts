@@ -1,6 +1,5 @@
-import { CategoryWithItems } from '#components/ordering/types';
+import { CategoryWithItems } from '#src/components/ordering/types';
 import { generateRandomInt } from '../../utils/factories';
-
 
 const EMAIL_SUBJECTS = [
   'some things',

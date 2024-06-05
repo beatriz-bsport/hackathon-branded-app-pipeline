@@ -1,10 +1,10 @@
 import uniq from 'lodash/uniq';
 
-import type { ConsumerPaymentPackReworked } from '#libs/consumer-payment-pack/types';
+import type { ConsumerPaymentPackReworked } from '#src/libs/consumer-payment-pack/types';
 import type {
   ConsumerPassRestriction,
   ConsumerPaymentPackCompatibility,
-} from '#libs/consumer-space/types';
+} from '#src/libs/consumer-space/types';
 import type { ConsumerPaymentPackDetailsCardProps } from './ConsumerPaymentPackDetailsCard';
 
 export const parseConsumerPaymentPackData = (

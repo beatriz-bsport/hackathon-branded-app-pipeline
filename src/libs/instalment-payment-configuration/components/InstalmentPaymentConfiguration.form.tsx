@@ -8,20 +8,20 @@ import { Formik, FormikHelpers, FormikProps } from 'formik';
 
 import { Button, Divider, LinearProgress } from '@material-ui/core';
 
-import type { ShopItem } from '#libs/shop/types';
+import type { ShopItem } from '#src/libs/shop/types';
 
-import { PaymentCombo } from '#libs/payment-combo/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
 import {
   CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT,
   CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT,
   MONTHLY,
-} from '#libs/instalment-payment-configuration/constants';
+} from '#src/libs/instalment-payment-configuration/constants';
 
-import { PaymentPack } from '#libs/payment-packs/types';
-import { Giftcard } from '#libs/giftcard/types';
-import { PrivatePass } from '#libs/private-service/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { Giftcard } from '#src/libs/giftcard/types';
+import { PrivatePass } from '#src/libs/private-service/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import InstalmentPaymentCompabilityForm from './InstalmentPaymentConfigurationCompability.form';
 import InstalmentPaymentGeneralInfoForm from './InstalmentPaymentConfigurationGeneralInfo.form';
 import InstalmentPaymentAdvancedForm from './InstalmentPaymentConfigurationAdvanced.form';

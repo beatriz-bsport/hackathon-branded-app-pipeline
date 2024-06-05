@@ -7,12 +7,12 @@ import Grid from '@material-ui/core/Grid';
 import type {
   QuicksaleCardInfo,
   QuicksaleSection,
-} from '#libs/quicksale/types';
-import QuicksaleItemCard from '#libs/quicksale/components/QuicksaleItemCard';
-import QuicksaleConfigurationItemList from '#libs/quicksale/components/QuicksaleConfigurationItemList';
-import QuicksaleConfigurationSectionList from '#libs/quicksale/components/QuicksaleConfigurationSectionList';
+} from '#src/libs/quicksale/types';
+import QuicksaleItemCard from '#src/libs/quicksale/components/QuicksaleItemCard';
+import QuicksaleConfigurationItemList from '#src/libs/quicksale/components/QuicksaleConfigurationItemList';
+import QuicksaleConfigurationSectionList from '#src/libs/quicksale/components/QuicksaleConfigurationSectionList';
 
-import MuiIcon from '#components/MuiIcon.component';
+import MuiIcon from '#src/components/MuiIcon.component';
 
 import useStyles from './hooks/styles';
 

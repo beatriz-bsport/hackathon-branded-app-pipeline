@@ -4,8 +4,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 
-import type { Company } from '#libs/company/types';
-import type { FranchiseCompany } from '#libs/franchise/types';
+import type { Company } from '#src/libs/company/types';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
 
 export const CompanyListItem = (props: {
   company: Company | FranchiseCompany;

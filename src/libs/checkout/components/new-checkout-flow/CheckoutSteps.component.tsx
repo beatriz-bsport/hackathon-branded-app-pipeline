@@ -8,19 +8,19 @@ import StepLabel from '@material-ui/core/StepLabel';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import type { OptionCallback } from 'src/state/types';
-import type { EstablishmentBillingGroup } from '#libs/establishment/types';
-import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
-import { TermsAndConditionType } from '#libs/payment/types';
+import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
+import { TermsAndConditionType } from '#src/libs/payment/types';
 import {
   BasketAddress,
   Basket,
   PrepaidLine,
   StepType,
   STEPS,
-} from '#libs/checkout/types';
+} from '#src/libs/checkout/types';
 
-import AcceptTermsAndConditions from '#libs/payment/components/AcceptTermsAndConditions.component';
-import BasketDeliveryForm from '#libs/checkout/components/BasketDeliveryForm.component';
+import AcceptTermsAndConditions from '#src/libs/payment/components/AcceptTermsAndConditions.component';
+import BasketDeliveryForm from '#src/libs/checkout/components/BasketDeliveryForm.component';
 import { PaymentStep } from './PaymentStep.component';
 
 type CheckoutStepsProps = {

@@ -1,4 +1,4 @@
-import { ErrorAndLoading, GenericListReducerI } from '#libs/types';
+import { ErrorAndLoading, GenericListReducerI } from '#src/libs/types';
 
 type MetaActivityImage = {
   id: number;

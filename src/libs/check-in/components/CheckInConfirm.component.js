@@ -6,7 +6,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import { anonymizeName, anonymizeEmail } from '#libs/member/utils';
+import { anonymizeName, anonymizeEmail } from '#src/libs/member/utils';
 import type { MemberWithBooking } from '../../member/types';
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 

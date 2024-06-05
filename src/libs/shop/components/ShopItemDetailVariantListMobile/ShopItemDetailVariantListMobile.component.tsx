@@ -7,9 +7,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import type { ShopItem } from '#libs/shop/types';
+import type { ShopItem } from '#src/libs/shop/types';
 
 type Props = {
   shopItemVariantList: ShopItem[];

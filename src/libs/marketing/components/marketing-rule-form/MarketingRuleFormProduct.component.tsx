@@ -24,21 +24,21 @@ import {
   Actions,
   Submit,
   // @ts-expect-error
-} from '#components/forms';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { getCreditFactor } from '#libs/theme/selectors';
+} from '#src/components/forms';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { getCreditFactor } from '#src/libs/theme/selectors';
 
 import {
   PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
   PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
-} from '#libs/private-service/utils';
+} from '#src/libs/private-service/utils';
 import {
   CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING,
   CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_OFFER_START,
-} from '#libs/payment-packs/utils';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+} from '#src/libs/payment-packs/utils';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 
-import { getCreditsDividedValue } from '#libs/theme/utils';
+import { getCreditsDividedValue } from '#src/libs/theme/utils';
 import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';
 import MarketingRuleSmartlistField from '../MarketingRuleSmartlistField.component';
 import { MarketingNotification } from '../../types';

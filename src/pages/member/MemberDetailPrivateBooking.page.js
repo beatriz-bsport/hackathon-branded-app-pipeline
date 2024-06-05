@@ -21,11 +21,11 @@ import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import PrivateBookingFilters from '#libs/booking/components/PrivateBookingFilters.component';
-import { fetchCompanyUserRoles } from '#libs/role/actions';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import { getMemberPrivateBookingFilter } from '#libs/user-preference/selectors';
-import { setMemberPrivateBookingFilter as setMemberPrivateBookingFilterAction } from '#libs/user-preference/actions';
+import PrivateBookingFilters from '#src/libs/booking/components/PrivateBookingFilters.component';
+import { fetchCompanyUserRoles } from '#src/libs/role/actions';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { getMemberPrivateBookingFilter } from '#src/libs/user-preference/selectors';
+import { setMemberPrivateBookingFilter as setMemberPrivateBookingFilterAction } from '#src/libs/user-preference/actions';
 import PaginatedListStateful from '../../components/PaginatedListStateful.component';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 

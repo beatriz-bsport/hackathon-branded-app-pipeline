@@ -2,14 +2,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import Typography from '@material-ui/core/Typography';
-import GenericDialogWithIconHeader from '#components/genericDialog/GenericDialogWithIconHeader.component';
-import ErrorIcon from '#components/icons/ErrorIcon.component';
-import ValidationIcon from '#components/icons/ValidationIcon.component';
-import { PauseSubmitResults } from '#libs/subscription/types';
+import GenericDialogWithIconHeader from '#src/components/genericDialog/GenericDialogWithIconHeader.component';
+import ErrorIcon from '#src/components/icons/ErrorIcon.component';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
+import { PauseSubmitResults } from '#src/libs/subscription/types';
 import {
   PAUSE_RESULT_SUCCESS,
   CONTRACT_PAUSE_RESULT_SUCCESS,
-} from '#libs/subscription/constants';
+} from '#src/libs/subscription/constants';
 
 const PAUSE_RESULT_FAIL_INCOMING_BILL = 63101;
 const PAUSE_RESULT_FAIL_OVERLAP_PAUSE = 63102;

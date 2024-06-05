@@ -1,5 +1,5 @@
 import React from 'react';
-import { StepperConfig } from '#components/chip/types';
+import { StepperConfig } from '#src/components/chip/types';
 import CustomChip from './CustomChip.component';
 
 type Props = {

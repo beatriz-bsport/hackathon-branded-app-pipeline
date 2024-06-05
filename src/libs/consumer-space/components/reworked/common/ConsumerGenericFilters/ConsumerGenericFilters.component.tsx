@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import classNames from 'classnames';
 
 import { DateTime } from 'luxon';
-import { Calendar } from '#components/untitledui';
+import { Calendar } from '#src/components/untitledui';
 import ActionTab from '#Fabrique/ActionTab';
 import IconButton from '#Fabrique/IconButton';
 import DatePicker from '#Fabrique/DatePicker';

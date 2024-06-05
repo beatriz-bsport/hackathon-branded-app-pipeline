@@ -1,9 +1,9 @@
 import { useFormik } from 'formik';
 import { useCallback, useMemo } from 'react';
-import { PaymentPackCompatibilitiesData } from '#libs/payment-packs/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Establishment } from '#libs/establishment/types';
-import { SCT } from '#libs/category/types';
+import { PaymentPackCompatibilitiesData } from '#src/libs/payment-packs/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { SCT } from '#src/libs/category/types';
 
 type PaymentPackCompatibilityValues = {
   metaActivities: MetaActivity[];

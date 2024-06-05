@@ -24,19 +24,26 @@
       "ESNext"
     ],
     "moduleResolution": "node",
-    "types": ["react", "node", "jest", "@testing-library/jest-dom"],
+    "types": [
+      "react",
+      "node",
+      "jest",
+      "@testing-library/jest-dom"
+    ],
     "baseUrl": ".", // This must be specified if paths is.
     "paths": {
-      "#src/*": ["./src/*"],
-      "#libs/*": ["./src/libs/*"],
-      "#components/*": ["./src/components/*"],
-      "#hocs/*": ["./src/hocs/*"],
-      "#csscomponents/*": ["./src/components/css-only/*"],
-      "#Fabrique/*": ["./src/components/css-only/Fabrique/*"],
-      "#untitledui/*": ["./src/components/untitledui/*"],
-      "#pages/*": ["./src/pages/*"],
-      "#state": ["./src/state/*"]
+      "#src/*": [
+        "./src/*"
+      ],
+      "#components/*": [
+        "./src/components/*"
+      ],
+      "#Fabrique/*": [
+        "./src/components/css-only/Fabrique/*"
+      ],
     }
   },
-  "include": ["./src/**/*.ts*"]
+  "include": [
+    "./src/**/*.ts*"
+  ]
 }

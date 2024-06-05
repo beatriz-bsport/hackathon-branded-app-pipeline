@@ -2,8 +2,8 @@ import React from 'react';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { PrepaidLine } from '#libs/checkout/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { PrepaidLine } from '#src/libs/checkout/types';
 
 import './styles.css';
 

@@ -7,17 +7,17 @@ import {
   SequentialMarketingColors,
   TRIGGER_KIND_CHOICES,
   TriggerKind,
-} from '#libs/sequential_marketing/constants';
-import { triggerIconByKind } from '#libs/sequential_marketing/components/helpers/utils';
-import CadenceNodeContent from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeContent.component';
-import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
-import StepCard from '#components/card/StepCard.component';
+} from '#src/libs/sequential_marketing/constants';
+import { triggerIconByKind } from '#src/libs/sequential_marketing/components/helpers/utils';
+import CadenceNodeContent from '#src/libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeContent.component';
+import CadenceNodeTitle from '#src/libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
+import StepCard from '#src/components/card/StepCard.component';
 
-import type { EmailTemplateSummary } from '#libs/email-editor/types';
-import type { MenuAction } from '#components/menu/types';
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
-import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
-import type { Tag } from '#libs/tag/types';
+import type { EmailTemplateSummary } from '#src/libs/email-editor/types';
+import type { MenuAction } from '#src/components/menu/types';
+import type { StepMarketingActions } from '#src/libs/sequential_marketing/types';
+import type { StoredStep } from '#src/libs/sequential_marketing/components/graph/hooks/types';
+import type { Tag } from '#src/libs/tag/types';
 
 export type InnerStepCardProps = {
   step: StoredStep;

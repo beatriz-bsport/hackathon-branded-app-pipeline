@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core';
-import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
+import CustomMuiDialog from '#src/components/genericDialog/CustomMuiDialog.component';
 
 export type Props = {
   content?: string;

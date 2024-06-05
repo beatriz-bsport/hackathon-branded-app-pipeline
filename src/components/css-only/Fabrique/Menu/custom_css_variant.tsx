@@ -1,14 +1,14 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 
-import { generateRandomNames } from '#utils/factories';
+import { generateRandomNames } from '#src/utils/factories';
 
 import {
   MarketplacePage,
   MarketplaceCSSComponentConfig,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 import MenuItemList from '#Fabrique/MenuItemList';
 import MenuItem from '#Fabrique/MenuItem';
 import ButtonBase from '#Fabrique/ButtonBaseV2';

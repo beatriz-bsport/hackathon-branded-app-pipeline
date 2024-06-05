@@ -10,7 +10,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { compose } from 'recompose';
 import { Theme, WithStyles, createStyles } from '@material-ui/core';
-import type { DeliveryConfiguration, DeliveryFee } from '#libs/order/types';
+import type { DeliveryConfiguration, DeliveryFee } from '#src/libs/order/types';
 
 type Props = {
   deliveryFees: Array<DeliveryFee>;

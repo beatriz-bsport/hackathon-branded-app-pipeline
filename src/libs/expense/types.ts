@@ -1,5 +1,5 @@
 import { RRule } from 'rrule';
-import { UserRole } from '#libs/role/types';
+import { UserRole } from '#src/libs/role/types';
 import { ErrorAndLoading } from '../../state/types';
 
 export type Expense = {

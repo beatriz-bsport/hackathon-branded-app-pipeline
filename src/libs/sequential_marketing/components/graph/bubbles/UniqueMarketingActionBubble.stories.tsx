@@ -1,18 +1,18 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
+import type { StepMarketingActions } from '#src/libs/sequential_marketing/types';
 
 import UniqueMarketingActionBubble from './UniqueMarketingActionBubble.component';
-import EmailTemplateSummaryFactoryBot from '#libs/email-editor/factories/EmailTemplateSummary';
+import EmailTemplateSummaryFactoryBot from '#src/libs/email-editor/factories/EmailTemplateSummary';
 
-import { getMarketingActionPartialValues } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
-import { stepMarketingActionFactory } from '#libs/sequential_marketing/factories';
-import { tagListFactory } from '#libs/tag/factory';
+import { getMarketingActionPartialValues } from '#src/libs/sequential_marketing/components/form/marketing_actions/utils';
+import { stepMarketingActionFactory } from '#src/libs/sequential_marketing/factories';
+import { tagListFactory } from '#src/libs/tag/factory';
 import {
   MarketingActionKind,
   MarketingActions,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
 export default {
   title: 'Components/Cadences/Bubbles/UniqueMarketingAction',

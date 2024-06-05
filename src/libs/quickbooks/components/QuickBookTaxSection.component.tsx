@@ -17,8 +17,11 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Alert from '@material-ui/lab/Alert';
-import Tooltip from '#components/Tooltip.component';
-import type { QuickbooksApp, QuickBooksTaxCode } from '#libs/quickbooks/types';
+import Tooltip from '#src/components/Tooltip.component';
+import type {
+  QuickbooksApp,
+  QuickBooksTaxCode,
+} from '#src/libs/quickbooks/types';
 
 type Props = {
   loading: boolean;

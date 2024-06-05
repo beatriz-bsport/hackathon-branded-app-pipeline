@@ -6,11 +6,11 @@ import Helmet from 'react-helmet';
 import { Redirect, Route, Switch } from 'react-router';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
+import ContentWithAppBar from '#src/components/generic-appbar-content/ContentWithAppBar.component';
+import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
 // @ts-expect-error
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import SettingsPersonalizePage from './SettingsPersonalizePage.page';
 import MemberProfileSettingsPage from './MemberProfileSettings.page';
 

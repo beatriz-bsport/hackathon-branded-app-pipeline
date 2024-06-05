@@ -10,32 +10,32 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import classnames from 'classnames';
 import { captureException } from '@sentry/react';
-import StripeTerminalError from '#libs/terminal/components/StripeTerminalError';
-import StripeTerminalProcessing from '#libs/terminal/components/StripeTerminalProcessing';
-import StripeTerminalPaymentSuccess from '#libs/terminal/components/StripeTerminalSuccess';
-import PriceInput from '#components/input/PriceInput.component';
+import StripeTerminalError from '#src/libs/terminal/components/StripeTerminalError';
+import StripeTerminalProcessing from '#src/libs/terminal/components/StripeTerminalProcessing';
+import StripeTerminalPaymentSuccess from '#src/libs/terminal/components/StripeTerminalSuccess';
+import PriceInput from '#src/components/input/PriceInput.component';
 
 import {
   processPaymentIntent as processPaymentIntentAPI,
   processSetupIntent as processSetupIntentPI,
   retrieveReaderActionSumup as retrieveReaderActionSumupAPI,
   cancelReaderAction as cancelReaderActionAPI,
-} from '#libs/terminal/api';
-import type { StripeAPIException } from '#libs/payment/types';
+} from '#src/libs/terminal/api';
+import type { StripeAPIException } from '#src/libs/payment/types';
 import {
   parseIntentIdFromClientSecret,
   isSetupForFutureUsageAllowed,
-} from '#libs/terminal/utils';
-import { updateIntentToSavePaymentMethod } from '#libs/payment/api';
+} from '#src/libs/terminal/utils';
+import { updateIntentToSavePaymentMethod } from '#src/libs/payment/api';
 
-import { STRIPE_ERROR_CODE } from '#libs/constants';
+import { STRIPE_ERROR_CODE } from '#src/libs/constants';
 import type {
   StripeReader,
   CancelReaderActionErrorMessage,
   ReaderActionSumup,
-} from '#libs/terminal/types';
+} from '#src/libs/terminal/types';
 // eslint-disable-next-line no-duplicate-imports
-import { TerminalPaymentSteps } from '#libs/terminal/types';
+import { TerminalPaymentSteps } from '#src/libs/terminal/types';
 import type { OptionCallback } from '../../../state/types';
 import {
   getCurrencyDisplayWithPrice,
@@ -458,6 +458,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
         <StripeTerminalProcessing
           cancelErrorMessage={cancelErrorMessage}
           cancelReaderActionProcessing={cancelReaderActionProcessing}
+// @ts-expect-error
           isSetupIntent={isSetupIntent}
           onCancelReaderAction={cancelReaderActionHandler}
           onClickIAmHere={onClickIAmHere}

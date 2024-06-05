@@ -8,23 +8,23 @@ import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
   fetchPaymentPackList as fetchPaymentPackListAction,
-} from '#libs/payment-packs/actions';
+} from '#src/libs/payment-packs/actions';
 
 import {
   fetchPrivatePassBulk as fetchPrivatePassBulkAction,
   fetchPrivatePassList as fetchPrivatePassListAction,
-} from '#libs/private-service/actions';
+} from '#src/libs/private-service/actions';
 import {
   fetchPaymentComboList as fetchPaymentComboListAction,
   fetchPaymentCombo as fetchPaymentComboAction,
-} from '#libs/payment-combo/actions';
-import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
-import { getEnabled as getEnabledPaymentPackList } from '#libs/payment-packs/selectors';
-import { getPaymentComboList } from '#libs/payment-combo/selectors';
+} from '#src/libs/payment-combo/actions';
+import { getPrivatePassAvailable } from '#src/libs/private-service/selectors/private-pass';
+import { getEnabled as getEnabledPaymentPackList } from '#src/libs/payment-packs/selectors';
+import { getPaymentComboList } from '#src/libs/payment-combo/selectors';
 import {
   fetch as fetchSubscriptionAction,
   cancelPause as cancelPauseAction,
@@ -40,30 +40,33 @@ import {
   flagPlannedInvoiceAsLast as flagPlannedInvoiceAsLastAction,
   unflagPlannedInvoiceAsLast as unflagPlannedInvoiceAsLastAction,
   downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAction,
-} from '#libs/subscription/actions';
-import { fetchMember as fetchMemberAction } from '#libs/member/actions';
+} from '#src/libs/subscription/actions';
+import { fetchMember as fetchMemberAction } from '#src/libs/member/actions';
 import {
   get as getSubscriptionById,
   getSubscriptionEventList,
   getSubscriptionEventState,
   // @ts-expect-error
-} from '#libs/subscription/selectors';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import SubscriptionComponent from '#libs/subscription/components/Subscription.component';
-import SubscriptionPaymentComboSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentComboSwitcherDialog.component';
+} from '#src/libs/subscription/selectors';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import SubscriptionComponent from '#src/libs/subscription/components/Subscription.component';
+import SubscriptionPaymentComboSwitcherDialog from '#src/libs/subscription/components/SubscriptionPaymentComboSwitcherDialog.component';
 // @ts-expect-error
-import SubscriptionPaymentMethodSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentMethodSwitcherDialog.component';
-import SubscriptionPaymentPackSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentPackSwitcherDialog.component';
-import SubscriptionPrivatePassSwitcherDialog from '#libs/subscription/components/SubscriptionPrivatePassSwitcherDialog.component';
+import SubscriptionPaymentMethodSwitcherDialog from '#src/libs/subscription/components/SubscriptionPaymentMethodSwitcherDialog.component';
+import SubscriptionPaymentPackSwitcherDialog from '#src/libs/subscription/components/SubscriptionPaymentPackSwitcherDialog.component';
+import SubscriptionPrivatePassSwitcherDialog from '#src/libs/subscription/components/SubscriptionPrivatePassSwitcherDialog.component';
 // @ts-expect-error
-import SubscriptionScheduledStopDialog from '#libs/subscription/components/SubscriptionScheduledStopDialog.component';
-import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#libs/payment/actions';
-import { getSavedPaymentMethodList } from '#libs/payment/selectors';
-import { fetchStripeReaders } from '#libs/terminal/actions';
-import { getStripeReaders } from '#libs/terminal/selectors';
+import SubscriptionScheduledStopDialog from '#src/libs/subscription/components/SubscriptionScheduledStopDialog.component';
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#src/libs/payment/actions';
+import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
+import { fetchStripeReaders } from '#src/libs/terminal/actions';
+import { getStripeReaders } from '#src/libs/terminal/selectors';
 
-import type { Subscription, PauseRequestData } from '#libs/subscription/types';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
+import type {
+  Subscription,
+  PauseRequestData,
+} from '#src/libs/subscription/types';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
 import type { OptionCallback } from '../../state/types';
 import type { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import withTitle from '../../hocs/with-title.hoc';

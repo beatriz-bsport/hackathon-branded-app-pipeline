@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import { BookingOption } from '#libs/booking/types';
+import { BookingOption } from '#src/libs/booking/types';
 
 type Props = {
   isDisabled: boolean;

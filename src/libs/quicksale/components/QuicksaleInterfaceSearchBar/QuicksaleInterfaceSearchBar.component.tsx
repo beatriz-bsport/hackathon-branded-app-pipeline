@@ -7,8 +7,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 
-import FuzeSearch from '#components/FuzeSearch.component';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
+import FuzeSearch from '#src/components/FuzeSearch.component';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
 import type { QuicksaleCardInfo } from '../../types';
 
 import useStyles from './styles';

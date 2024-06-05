@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import PrivatePassTemplateForm, {
   PrivatePassTemplateFormikHOC,
 } from './PrivatePassTemplateForm.component';

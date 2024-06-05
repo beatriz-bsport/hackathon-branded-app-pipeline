@@ -5,8 +5,8 @@ import type {
   CadenceInitialConfigurationState,
   CadenceStep,
   ConnectedTrigger,
-} from '#libs/sequential_marketing/types';
-import { DestinationStatus } from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/types';
+import { DestinationStatus } from '#src/libs/sequential_marketing/constants';
 import Config from '../../config';
 
 export const isCadenceInitialConfigurationCompleted = (

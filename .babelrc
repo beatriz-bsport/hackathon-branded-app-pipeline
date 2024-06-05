@@ -11,17 +11,9 @@
       {
         "alias": {
           "#src": "./src",
-          "#libs": "./src/libs",
           "#components": "./src/components",
           "#marketplacecomponents": "./src/libs/marketplace/components",
-          "#csscomponents": "./src/components/css-only",
-          "#hocs": "./src/hocs",
-          "#hooks": "./src/hooks",
-          "#utils": "./src/utils",
           "#Fabrique": "./src/components/css-only/Fabrique",
-          "#untitledui": "./src/components/untitledui",
-          "#pages": "./src/pages",
-          "#state": "./src/state"
         }
       }
     ]

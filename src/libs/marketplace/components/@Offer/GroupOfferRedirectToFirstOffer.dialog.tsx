@@ -11,8 +11,8 @@ import Divider from '@material-ui/core/Divider';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Typography from '@material-ui/core/Typography';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import { OffersGroup } from '#libs/group-offer/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import { OffersGroup } from '#src/libs/group-offer/types';
 
 type Props = {
   open: boolean;

@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import { AddShoppingCart } from '@material-ui/icons';
-import PaymentPackItem from '#libs/booker-module/components/PaymentPackBookableItem.component';
+import PaymentPackItem from '#src/libs/booker-module/components/PaymentPackBookableItem.component';
 import { PaymentPackTemplate } from '../types';
 
 type OwnProps = {

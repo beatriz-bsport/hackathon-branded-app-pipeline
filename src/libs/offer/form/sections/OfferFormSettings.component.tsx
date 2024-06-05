@@ -9,22 +9,22 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import Alert from '@material-ui/lab/Alert';
 
-import FormSection from '#components/forms/FormSection';
-import { useOfferFormStyles } from '#libs/offer/hooks';
-import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
-import OfferFormField from '#libs/offer/form/OfferFormField.component';
-import NumericInput from '#components/input/NumericInput.component';
+import FormSection from '#src/components/forms/FormSection';
+import { useOfferFormStyles } from '#src/libs/offer/hooks';
+import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
+import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
+import NumericInput from '#src/components/input/NumericInput.component';
 
-import { OfferFormValues } from '#libs/offer/types';
+import { OfferFormValues } from '#src/libs/offer/types';
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
 import {
   UPSELL_IDENTIFIER_SPIVI,
   UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER,
-} from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { FeatureList } from '#libs/company/types';
-import { RoomBlueprint } from '#libs/spot-scheduling/types';
+} from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { FeatureList } from '#src/libs/company/types';
+import { RoomBlueprint } from '#src/libs/spot-scheduling/types';
 
 type Props = {
   allowGuestMaster: boolean;

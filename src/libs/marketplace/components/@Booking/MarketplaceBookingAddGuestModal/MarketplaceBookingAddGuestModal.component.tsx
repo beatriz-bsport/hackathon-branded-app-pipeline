@@ -3,8 +3,8 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { BOOKING_FOR_GUEST_FREQUENCY } from '#libs/offer/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { BOOKING_FOR_GUEST_FREQUENCY } from '#src/libs/offer/types';
 import {
   AddGuestFormInitialStep,
   AddGuestFormEmailWarningStep,

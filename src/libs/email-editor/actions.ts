@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
-import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+import { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import {

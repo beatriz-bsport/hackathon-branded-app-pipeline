@@ -3,15 +3,15 @@ import React from 'react';
 import { compose, withProps } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Switch, Route } from 'react-router';
-import { fetchCompanyTheme } from '#libs/theme/actions';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
-import themeSelectors from '#libs/theme/selectors';
-import { getLoginUrl } from '#libs/marketplace/routing-utils';
+import themeSelectors from '#src/libs/theme/selectors';
+import { getLoginUrl } from '#src/libs/marketplace/routing-utils';
 
-import { fetchProfile } from '#libs/consumer-space/actions';
-import { CompanyTheme } from '#libs/theme/types';
-import withThemeProvider from '#hocs/company-themifier.hoc';
+import { fetchProfile } from '#src/libs/consumer-space/actions';
+import { CompanyTheme } from '#src/libs/theme/types';
+import withThemeProvider from '#src/hocs/company-themifier.hoc';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent.js';
 import { RootState } from '../../reducers';

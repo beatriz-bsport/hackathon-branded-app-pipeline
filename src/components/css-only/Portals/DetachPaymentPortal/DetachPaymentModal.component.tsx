@@ -4,8 +4,8 @@ import { PortalContainer } from '#Fabrique/PortalContainer';
 import Blanket from '#Fabrique/Blanket';
 import ModalDialog from '#Fabrique/ModalDialog';
 
-import type { ModalsAndDrawersProps } from '#csscomponents/Portals/types';
-import '#csscomponents/Portals/styles.css';
+import type { ModalsAndDrawersProps } from '#src/components/css-only/Portals/types';
+import '#src/components/css-only/Portals/styles.css';
 
 const DetachPaymentModal: React.FC<ModalsAndDrawersProps> = ({
   cancelLabel,

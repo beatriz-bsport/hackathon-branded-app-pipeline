@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { LoginStorybook } from './Login.component';
-import { newStoryFromTemplate } from '#utils/storybookHelper';
+import { newStoryFromTemplate } from '#src/utils/storybookHelper';
 
 export default {
   title: 'Login Component',

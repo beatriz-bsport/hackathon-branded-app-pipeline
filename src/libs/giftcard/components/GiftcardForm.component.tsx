@@ -18,19 +18,19 @@ import {
   CheckboxField,
   SwitchField,
   // @ts-expect-error
-} from '#components/forms';
+} from '#src/components/forms';
 // @ts-expect-error
-import PaymentMethodSelectorField from '#libs/payment/components/PaymentMethodSelectorField.component';
+import PaymentMethodSelectorField from '#src/libs/payment/components/PaymentMethodSelectorField.component';
 // @ts-expect-error
-import ImageField from '#components/forms/ImageField.component';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { Tag, TagGroup } from '#libs/tag/types';
-import TagSelector from '#libs/tag/components/TagSelector.selector';
-import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
-import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
-import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
-import type { BookkeepingAccount } from '#libs/payment/types';
+import ImageField from '#src/components/forms/ImageField.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import TagSelector from '#src/libs/tag/components/TagSelector.selector';
+import { useHasTagsSameGroup } from '#src/libs/tag/components/hooks';
+import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';
+import BookkeepingAccountSelector from '#src/libs/payment/components/BookkeepingAccountSelector';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
 import { OptionCallback } from '../../../state/types';
 import { Giftcard, GiftcardTemplate } from '../types';
 

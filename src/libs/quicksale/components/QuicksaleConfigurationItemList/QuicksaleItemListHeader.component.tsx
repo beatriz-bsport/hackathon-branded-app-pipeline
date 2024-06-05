@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
-import MuiIcon from '#components/MuiIcon.component';
+import MuiIcon from '#src/components/MuiIcon.component';
 import useStyles from './styles';
 
 type Props = {

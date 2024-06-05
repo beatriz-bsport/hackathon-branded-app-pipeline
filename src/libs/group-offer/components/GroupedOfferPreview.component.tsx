@@ -21,17 +21,17 @@ import {
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { Alert } from '@material-ui/lab';
-import Calendar from '#components/offer/Calendar.component';
-import DelayedTextField from '#components/DelayedTextField.component';
+import Calendar from '#src/components/offer/Calendar.component';
+import DelayedTextField from '#src/components/DelayedTextField.component';
 // @ts-expect-error
-import { Submit } from '#components/forms';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { OffersGroup } from '#libs/group-offer/types';
+import { Submit } from '#src/components/forms';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { OffersGroup } from '#src/libs/group-offer/types';
 import {
   FREQUENCE_STRING_CONVERTER,
   getDisplayDateFromRecurrence,
-} from '#libs/group-offer/utils';
-import { Offer } from '#libs/offer/types';
+} from '#src/libs/group-offer/utils';
+import { Offer } from '#src/libs/offer/types';
 import { OptionCallback } from '../../../state/types';
 import ReccurenceDisplay from './RecurrenceDisplay.component';
 

@@ -11,12 +11,12 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type {
   PrivateService,
   PrivateServiceGroupWithService,
-} from '#libs/private-service/types';
-import VirtualizeListAutoSize from '#components/virtualize/VirtualListAutoSize.component';
+} from '#src/libs/private-service/types';
+import VirtualizeListAutoSize from '#src/components/virtualize/VirtualListAutoSize.component';
 import PrivateServiceListItem from './PrivateServiceListItem.component';
 
 type Props = {

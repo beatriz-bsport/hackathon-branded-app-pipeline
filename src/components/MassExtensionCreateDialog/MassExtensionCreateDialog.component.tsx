@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import MassExtensionCreateForm from './MassExtensionCreateForm.component';
 import MassExtensionCreateFormValidationSchema from './MassExtensionCreateFormValidationSchema';
 

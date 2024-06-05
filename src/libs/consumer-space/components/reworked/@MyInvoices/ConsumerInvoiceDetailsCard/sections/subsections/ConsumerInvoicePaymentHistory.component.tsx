@@ -2,11 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ConsumerInvoicePayment } from '.';
-import { convertCtsToFullPrice } from '#libs/consumer-space/components/reworked/@MyInvoices/helpers/utils';
+import { convertCtsToFullPrice } from '#src/libs/consumer-space/components/reworked/@MyInvoices/helpers/utils';
 import Typography from '#Fabrique/Typography';
 
-import type { PlannedPaymentEventSerializer } from '#libs/invoice/types';
-import type { PaymentItem } from '#libs/invoice/payment/types';
+import type { PlannedPaymentEventSerializer } from '#src/libs/invoice/types';
+import type { PaymentItem } from '#src/libs/invoice/payment/types';
 
 import '../../styles.css';
 

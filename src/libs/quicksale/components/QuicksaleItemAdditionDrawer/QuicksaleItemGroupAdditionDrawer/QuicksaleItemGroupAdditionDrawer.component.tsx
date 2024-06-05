@@ -8,9 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Pagination from '@material-ui/lab/Pagination';
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
 import classNames from 'classnames';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import FormSection from '#components/forms/FormSection';
-import Selector from '#components/Selector/MaterialUISelector.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import FormSection from '#src/components/forms/FormSection';
+import Selector from '#src/components/Selector/MaterialUISelector.component';
 import {
   QuicksaleCardInfo,
   QuicksaleItemsByItemIdentifierByCategory,

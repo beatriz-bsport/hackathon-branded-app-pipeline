@@ -13,8 +13,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import InfoIcon from '@material-ui/icons/Info';
 import TextField from '@material-ui/core/TextField';
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 
 import TagGroupItem from './TagGroupItem.component';
 import { Tag, TagGroup } from '../types';
@@ -85,6 +85,7 @@ class TagGroupList extends React.PureComponent<Props> {
               onDeleteTag={this.props.onDeleteTag}
               onDeleteTagGroup={this.props.onDeleteTagGroup}
               onSelectTag={this.props.onSelectTag}
+// @ts-expect-error
               onUpdateTag={this.props.onCreateOrUpdateTag}
               onUpdateTagGroup={this.props.onCreateOrUpdateTagGroup}
               selectedTag={this.props.selectedTag}

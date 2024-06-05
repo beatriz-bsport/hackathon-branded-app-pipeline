@@ -18,7 +18,7 @@ import Collapse from '@material-ui/core/Collapse';
 import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
 import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import CommunicationHeader from './CommunicationHeader.component';
 import CommunicationFilterContainer from './Filter/CommunicationFilterContainer.component';
 import CommunicationMessageListContainer from './MessageList/CommunicationMessageListContainer.component';
@@ -317,6 +317,7 @@ export class CommunicationDrawer extends React.PureComponent<Props, State> {
             loadingCommunicationMessageDataList={loadingMessageList}
             loadingRecipientList={loadingInformationRecipientList}
             messageList={messageList}
+// @ts-expect-error
             onCloseSnackbar={this.onCloseSnackbar}
             openSnackbar={this.state.displaySnackbar}
             paginationSize={PAGINATION_SIZE_RECIPIENTS}

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import uniqBy from 'lodash/uniqBy';
 
-import type { ShopItem } from '#libs/shop/types';
+import type { ShopItem } from '#src/libs/shop/types';
 
 type ActiveFilterState = {
   company: string | null;

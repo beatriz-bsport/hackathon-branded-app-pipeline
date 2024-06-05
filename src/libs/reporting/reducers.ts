@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { defaultDynamicDataHasBeenLoaded } from '#libs/datatype-filtering/constants';
+import { defaultDynamicDataHasBeenLoaded } from '#src/libs/datatype-filtering/constants';
 import {
   reportGenerationDetail,
   reportHeadersDetail,

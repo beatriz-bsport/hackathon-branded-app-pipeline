@@ -17,29 +17,29 @@ import {
   Actions,
   Submit,
   // @ts-expect-error
-} from '#components/forms';
-import CoachListItem from '#libs/associated-coach/components/CoachListItem.component';
-import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import SCTChip from '#libs/category/components/SCTChip.component';
+} from '#src/components/forms';
+import CoachListItem from '#src/libs/associated-coach/components/CoachListItem.component';
+import CoachSelector from '#src/libs/associated-coach/components/coach-selector/CoachSelector.component';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import SCTChip from '#src/libs/category/components/SCTChip.component';
 
-import { DisciplineGroupAPIData } from '#libs/replacement-request/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { SCT } from '#libs/category/types';
-import { Coach } from '#libs/associated-coach/types';
+import { DisciplineGroupAPIData } from '#src/libs/replacement-request/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { SCT } from '#src/libs/category/types';
+import { Coach } from '#src/libs/associated-coach/types';
 
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { EstablishmentSelector } from '#libs/establishment/components/EstablishmentSelector.component';
-import { EstablishmentGroupSelector } from '#libs/establishment/components/EstablishmentGroupSelector.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { EstablishmentSelector } from '#src/libs/establishment/components/EstablishmentSelector.component';
+import { EstablishmentGroupSelector } from '#src/libs/establishment/components/EstablishmentGroupSelector.component';
 import {
   Establishment,
   EstablishmentGroup,
   EstablishmentSelectOption,
   EstablishmentGroupSelectOption,
-} from '#libs/establishment/types';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
-import { MultilocationChoice } from '#libs/replacement-request/constants';
+} from '#src/libs/establishment/types';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
+import { MultilocationChoice } from '#src/libs/replacement-request/constants';
 import { OptionCallback } from '../../../../state/types';
 
 const {

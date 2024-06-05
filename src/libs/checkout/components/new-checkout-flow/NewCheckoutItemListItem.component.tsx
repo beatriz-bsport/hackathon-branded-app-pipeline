@@ -8,7 +8,7 @@ import {
   BuyableItemOptions,
   CheckoutItem,
   OnRemoveCheckoutItemData,
-} from '#libs/checkout/types';
+} from '#src/libs/checkout/types';
 import { ItemQuantity } from './ItemQuantity.component';
 
 type NewCheckoutItemListItemProps = {

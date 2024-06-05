@@ -6,12 +6,12 @@ import { useTranslation } from 'react-i18next';
 import {
   ReferralTimeLimitUnits,
   ReferredVoucherTypeChoices,
-} from '#libs/referral/constants';
-import { Tag } from '#libs/tag/types';
+} from '#src/libs/referral/constants';
+import { Tag } from '#src/libs/tag/types';
 // @ts-expect-error
-import { SwitchField } from '#components/forms';
-import type { CompanyTheme } from '#libs/theme/types';
-import type { ReferralProgram } from '#libs/referral/types';
+import { SwitchField } from '#src/components/forms';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type { ReferralProgram } from '#src/libs/referral/types';
 import { OptionCallback } from '../../../../state/types';
 import EditReferralProgramFormValidationSchema from './EditReferralProgramSettingsFormValidationSchema';
 import EditReferralProgramSettingsFormGeneral from './sections/EditReferralProgramSettingsFormGeneral.component';

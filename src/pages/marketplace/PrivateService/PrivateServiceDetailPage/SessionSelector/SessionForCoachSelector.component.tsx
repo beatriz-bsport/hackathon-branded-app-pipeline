@@ -4,9 +4,9 @@ import { ButtonBase, Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-import CoachChip from '#libs/associated-coach/components/CoachChip.component';
-import { Establishment } from '#libs/establishment/types';
-import { Coach } from '#libs/associated-coach/types';
+import CoachChip from '#src/libs/associated-coach/components/CoachChip.component';
+import { Establishment } from '#src/libs/establishment/types';
+import { Coach } from '#src/libs/associated-coach/types';
 
 type Props = {
   coach: Coach | null;

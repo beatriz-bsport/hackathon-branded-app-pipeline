@@ -3,8 +3,8 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import CountrySelector from '#components/input/LocaleSelector.component';
-import type { BillingDetails } from '#libs/marketplace/types';
+import CountrySelector from '#src/components/input/LocaleSelector.component';
+import type { BillingDetails } from '#src/libs/marketplace/types';
 
 type PropsCardBillingDetailsForm = {
   disabled: boolean;

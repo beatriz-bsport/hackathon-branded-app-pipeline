@@ -7,7 +7,7 @@ import {
   FranchiseesFactory,
   FranchiseRolesFactory,
 } from '../factories/FranchiseRoleFactory';
-import { FranchiseUserRoleData } from '#libs/role/types';
+import { FranchiseUserRoleData } from '#src/libs/role/types';
 
 const CustomTemplate = (args: OwnProps) => (
   <CreateFranchiseStaffUser {...args} />

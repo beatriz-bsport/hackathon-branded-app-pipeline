@@ -22,29 +22,29 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Radio, RadioGroup } from '@material-ui/core';
 
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import SCTChip from '#libs/category/components/SCTChip.component';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import SCTChip from '#src/libs/category/components/SCTChip.component';
 
-import { MetaActivity } from '#libs/meta-activity/types';
-import { SCT } from '#libs/category/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { SCT } from '#src/libs/category/types';
 import {
   Coach,
   CoachReplacementPreferencesData,
-} from '#libs/associated-coach/types';
+} from '#src/libs/associated-coach/types';
 import {
   DisciplineGroup,
   AssignAssociatedCoachDisciplineGroupParams,
-} from '#libs/replacement-request/types';
+} from '#src/libs/replacement-request/types';
 import {
   Establishment,
   EstablishmentGroup,
   EstablishmentGroupSelectOption,
   EstablishmentSelectOption,
-} from '#libs/establishment/types';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
-import { EstablishmentGroupSelector } from '#libs/establishment/components/EstablishmentGroupSelector.component';
-import { EstablishmentSelector } from '#libs/establishment/components/EstablishmentSelector.component';
-import { MultilocationChoice } from '#libs/replacement-request/constants';
+} from '#src/libs/establishment/types';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
+import { EstablishmentGroupSelector } from '#src/libs/establishment/components/EstablishmentGroupSelector.component';
+import { EstablishmentSelector } from '#src/libs/establishment/components/EstablishmentSelector.component';
+import { MultilocationChoice } from '#src/libs/replacement-request/constants';
 import { OptionCallback } from '../../../../state/types';
 
 const DISSOCIATE_COACH_DISCIPLINE_GROUP = -8000;

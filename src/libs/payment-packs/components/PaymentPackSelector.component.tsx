@@ -1,16 +1,15 @@
 import React from 'react';
 
 import classNames from 'classnames';
-// @ts-expect-error
 import type {
   PaymentPack,
   PaymentPackTemplate,
-} from '#libs/payment-packs/types';
+} from '#src/libs/payment-packs/types';
+// @ts-expect-error
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 
 // @ts-expect-error
 import Selector from '../../../components/Selector.component';
-
 
 type Props = {
   classes?: Object;

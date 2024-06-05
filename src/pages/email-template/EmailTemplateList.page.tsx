@@ -17,23 +17,23 @@ import { Divider, IconButton } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import memoize from 'memoize-one';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
-import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
-import BottomActionsButton from '#components/button/BottomActionsButton.component';
+import BottomActionsButton from '#src/components/button/BottomActionsButton.component';
 import {
   getEmailTemplatesDetail,
   getAllEmailTemplatesSummaries,
   getEmailTemplateByCategoryWithTemplates,
   getUnavailableEmailTemplatesSummaries,
-} from '#libs/email-editor/selectors';
-import IsEmptyList from '#components/navigation/IsEmptyList.component';
-import HTMLPreview from '#components/html/HTMLPreview.component';
-import EmailListItem from '#libs/email-editor/components/EmailListItem.components';
+} from '#src/libs/email-editor/selectors';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
+import HTMLPreview from '#src/components/html/HTMLPreview.component';
+import EmailListItem from '#src/libs/email-editor/components/EmailListItem.components';
 
-import withTitle from '#hocs/with-title.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
 
 import {
   emailTemplatesSummaries,
@@ -47,29 +47,30 @@ import {
   deleteEmailTemplateCategory,
   editOrderEmailTemplate,
   updateEmailTemplateCategoryOrder,
-} from '#libs/email-editor/actions';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
+} from '#src/libs/email-editor/actions';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#src/libs/notification-rule/actions';
+import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
 import {
   EmailTemplateCategory,
   EmailTemplateCategoryWithTemplates,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import { CategoryList } from '#components/ordering/CategoryList.component';
-import CategoryCreationEditDialog from '#components/ordering/CategoryCreationEditDialog.component';
-import AddCategoryButton from '#components/ordering/AddCategoryButton.component';
-import EmailTemplateSummary from '#libs/email-editor/factories/EmailTemplateSummary';
-import { ArchivedSection } from '#components/ordering/ArchivedSection.component';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+} from '#src/libs/email-editor/types';
+import { CategoryList } from '#src/components/ordering/CategoryList.component';
+import CategoryCreationEditDialog from '#src/components/ordering/CategoryCreationEditDialog.component';
+import AddCategoryButton from '#src/components/ordering/AddCategoryButton.component';
+import EmailTemplateSummary from '#src/libs/email-editor/factories/EmailTemplateSummary';
+import { ArchivedSection } from '#src/components/ordering/ArchivedSection.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import InfoBox from '#components/box/InfoBox.component';
+import InfoBox from '#src/components/box/InfoBox.component';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 import ModalConfirm from '#src/components/ModalConfirm.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
 import { OptionCallback } from '../../state/types';

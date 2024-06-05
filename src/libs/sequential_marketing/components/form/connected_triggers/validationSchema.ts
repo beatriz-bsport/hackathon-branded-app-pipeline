@@ -3,7 +3,7 @@ import {
   CADENCE_EVENT_ALL_CHOICES,
   FilterIdentifier,
   TriggerIdentifier,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
 const triggerValidationSchema = Yup.object().shape({
   trigger_config: Yup.object().shape({

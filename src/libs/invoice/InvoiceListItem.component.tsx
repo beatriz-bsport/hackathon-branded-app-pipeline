@@ -6,9 +6,9 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 // @ts-expect-error
-import LoadingListItem from '#components/LoadingListItem.component';
-import { Invoice } from '#libs/invoice/types';
-import { getInvoiceIdentifier } from '#libs/invoice/utils';
+import LoadingListItem from '#src/components/LoadingListItem.component';
+import { Invoice } from '#src/libs/invoice/types';
+import { getInvoiceIdentifier } from '#src/libs/invoice/utils';
 import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 import { formatAsDatetime } from '../../utils/datetime';
 

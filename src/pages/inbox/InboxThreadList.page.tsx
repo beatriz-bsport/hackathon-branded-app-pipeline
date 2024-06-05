@@ -5,11 +5,11 @@ import { push } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { compose, withHandlers, withState } from 'recompose';
-import InboxThreadList from '#libs/communication-v2/thread/InboxThreadList';
+import InboxThreadList from '#src/libs/communication-v2/thread/InboxThreadList';
 import {
   getInboxThreadsWithUnreadAnswersCount,
   getThreadsPaginationResults,
-} from '#libs/communication-v2/selectors';
+} from '#src/libs/communication-v2/selectors';
 import {
   switchFavoriteStatus as switchFavoriteStatusAction,
   switchMutedStatus as switchMutedStatusAction,
@@ -20,22 +20,22 @@ import {
   fetchBatchUnreadAnswersCounts as fetchUnreadAnswersCountsAction,
   getUnreadAnswersCountFromThread as getUnreadAnswersCountFromThreadAction,
   getOrCreateInboxThread,
-} from '#libs/communication-v2/actions';
+} from '#src/libs/communication-v2/actions';
 import {
   threadFilteringChoices,
   isThreadDisplayed,
   fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts,
   handleSwitchStatus,
   fetchInboxThreadListFromThreadCalledFromURL,
-} from '#libs/communication-v2/utils';
-import { INBOX_ALL_MESSAGES } from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/utils';
+import { INBOX_ALL_MESSAGES } from '#src/libs/communication-v2/constants';
 import type {
   CommunicationThread,
   CommunicationThreadWithUnreadAnswersCount,
   InboxThreadRouterProps,
   SelectFieldItem,
-} from '#libs/communication-v2/types';
-import withTitle from '#hocs/with-title.hoc';
+} from '#src/libs/communication-v2/types';
+import withTitle from '#src/hocs/with-title.hoc';
 import InboxThreadCreator from './InboxThreadCreator.page';
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';

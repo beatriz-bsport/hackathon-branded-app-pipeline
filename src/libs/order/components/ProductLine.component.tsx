@@ -10,9 +10,9 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { colors } from '@bsport/common/lib/colors';
 import { createStyles, WithStyles } from '@material-ui/styles';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import type { Product } from '#libs/order/types';
+import type { Product } from '#src/libs/order/types';
 
 type Props = {
   product: Product;

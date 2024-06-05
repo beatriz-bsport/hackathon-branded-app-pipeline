@@ -4,7 +4,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import { MarketplacePrivatePassCardForStorybook } from '.';
 import type { Props } from '.';
 
-import { privatePassFactory } from '#libs/private-service/factory';
+import { privatePassFactory } from '#src/libs/private-service/factory';
 import { generateRandomDescription } from '../../../../../utils/factories';
 
 const fakePrivatePass = privatePassFactory();

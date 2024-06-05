@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
   MarketplacePage,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 import {
   consumerInvoiceFactory,
   invoiceFactory,
   invoiceItemBatchFactory,
-} from '#libs/invoice/factories';
-import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+} from '#src/libs/invoice/factories';
+import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 // @ts-expect-error
 import ConsumerInvoiceCardCss from './styles.css?raw';
 import ConsumerInvoiceCard from '.';

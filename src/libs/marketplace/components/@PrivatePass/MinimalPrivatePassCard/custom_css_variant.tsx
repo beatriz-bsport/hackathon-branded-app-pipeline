@@ -2,14 +2,14 @@ import React from 'react';
 
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import { privatePassFactory } from '#libs/private-service/factory';
+import { privatePassFactory } from '#src/libs/private-service/factory';
 // @ts-expect-error
 import MinimalPrivatePassCardCss from './styles.css?raw';
 import MinimalPrivatePassCard, { type Props } from '.';

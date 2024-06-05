@@ -3,18 +3,18 @@ import { useTranslation } from 'react-i18next';
 
 import Popover, { PopoverOrigin } from '@material-ui/core/Popover';
 
-import EntryActionBubble from '#libs/sequential_marketing/components/graph/bubbles/EntryActionBubble.component';
-import EntryTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/EntryTriggerBubble.component';
-import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';
+import EntryActionBubble from '#src/libs/sequential_marketing/components/graph/bubbles/EntryActionBubble.component';
+import EntryTriggerBubble from '#src/libs/sequential_marketing/components/graph/bubbles/EntryTriggerBubble.component';
+import UniqueMarketingActionBubble from '#src/libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';
 
 import type {
   ConnectedTrigger,
   EntryStepFlowVersionData,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 
-import { InitialConfigurationStep } from '#libs/sequential_marketing/constants';
-import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#libs/sequential_marketing/constants/keywords';
+import { InitialConfigurationStep } from '#src/libs/sequential_marketing/constants';
+import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#src/libs/sequential_marketing/constants/keywords';
 import EntryStepCard from './EntryStepCard.component';
 
 type Props = {

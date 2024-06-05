@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useField } from 'formik';
 
-import { TermsAndConditionType } from '#libs/payment/types';
+import { TermsAndConditionType } from '#src/libs/payment/types';
 import Checkbox from '#Fabrique/Checkbox';
 import Typography from '#Fabrique/Typography';
 import ButtonBase from '#Fabrique/ButtonBaseV2';

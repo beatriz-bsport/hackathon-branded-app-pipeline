@@ -7,12 +7,12 @@ import {
   fetchStepMarketingActions,
   modifyStepMarketingActionsConfigurationActions,
   upsertStepMarketingActionsActions,
-} from '#libs/sequential_marketing/actions';
+} from '#src/libs/sequential_marketing/actions';
 
 import type {
   MarketingActionState,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 
 import type { PaginatedResponse } from '../../../state/types';
 

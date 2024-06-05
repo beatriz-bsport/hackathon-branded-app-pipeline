@@ -20,10 +20,10 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import { Company } from '#src/libs/company/types';
+import { DEFAULT_ROLES } from '#src/libs/role/constants';
 // @ts-expect-error
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import { Company } from '#libs/company/types';
-import { DEFAULT_ROLES } from '#libs/role/constants';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { Role, UserRole, SelectFieldItem, FranchiseRole } from '../types';
 import { MaterialStyleType } from '../../../utils/types';

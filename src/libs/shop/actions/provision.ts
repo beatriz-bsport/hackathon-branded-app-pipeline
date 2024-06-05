@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
-import * as api from '#libs/shop/api';
+import * as api from '#src/libs/shop/api';
 
-import { Provision, ProvisionCreate } from '#libs/shop/types';
+import { Provision, ProvisionCreate } from '#src/libs/shop/types';
 import { Dispatch, PaginatedResponse } from '../../../state/types';
 
 export const provisionByShopItemActions = {

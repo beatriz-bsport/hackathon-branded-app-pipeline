@@ -6,29 +6,29 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import BottomActionsButton from '#components/button/BottomActionsButton.component';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import BottomActionsButton from '#src/components/button/BottomActionsButton.component';
 
 import {
   fetchPaymentCombo,
   fetchPaymentComboPurchaseList,
   createOrUpdatePaymentCombo,
   deletePaymentCombo,
-} from '#libs/payment-combo/actions';
-import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '#libs/invoice/actions';
+} from '#src/libs/payment-combo/actions';
+import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '#src/libs/invoice/actions';
 import {
   getPaymentCombo,
   getPaymentComboPurchaseListByCombo,
-} from '#libs/payment-combo/selectors';
-import { getInvoice } from '#libs/invoice/selectors';
-import PaymentComboDetailComponent from '#libs/payment-combo/components/PaymentComboDetail.component';
-import PaymentComboDeleteDialog from '#libs/payment-combo/components/PaymentComboDeleteDialog.component';
-import { snackbarSuccess } from '#libs/snackbar/actions';
-import { fetchTags } from '#libs/tag/actions';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+} from '#src/libs/payment-combo/selectors';
+import { getInvoice } from '#src/libs/invoice/selectors';
+import PaymentComboDetailComponent from '#src/libs/payment-combo/components/PaymentComboDetail.component';
+import PaymentComboDeleteDialog from '#src/libs/payment-combo/components/PaymentComboDeleteDialog.component';
+import { snackbarSuccess } from '#src/libs/snackbar/actions';
+import { fetchTags } from '#src/libs/tag/actions';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 
-import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import themeSelectors from '../../libs/theme/selectors';
 import PaymentComboFormDrawerContainer from './PaymentComboFormDrawer.container';
 

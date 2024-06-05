@@ -2,22 +2,22 @@ import React from 'react';
 import HourglassFullIcon from '@material-ui/icons/HourglassFull';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import { useTranslation } from 'react-i18next';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { Establishment } from '#libs/establishment/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Level } from '#libs/level/types';
-import Card, { CardSize } from '#components/css-only/Card';
-import CardContent from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { Establishment } from '#src/libs/establishment/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Level } from '#src/libs/level/types';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import ActivitySummary from '#marketplacecomponents/@Activity/ActivitySummary';
-import { CompanyTheme } from '#libs/theme/types';
-import Chip from '#components/css-only/Chip';
-import MarketplaceLevelCSSOnly from '#marketplacecomponents/@Offer/MarketplaceLevelCSSOnly';
+} from '#src/components/css-only/Grid/GridItem';
+import ActivitySummary from '#src/libs/marketplace/components/@Activity/ActivitySummary';
+import { CompanyTheme } from '#src/libs/theme/types';
+import Chip from '#src/components/css-only/Chip';
+import MarketplaceLevelCSSOnly from '#src/libs/marketplace/components/@Offer/MarketplaceLevelCSSOnly';
 import Button, { ButtonVariant } from '#Fabrique/Button';
 import Tooltip from '#Fabrique/Tooltip';
 

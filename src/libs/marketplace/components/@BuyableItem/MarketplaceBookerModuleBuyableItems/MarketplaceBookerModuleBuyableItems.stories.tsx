@@ -3,7 +3,7 @@ import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
 import { MarketplaceBookerModuleBuyableItemsForStorybook, Props } from '.';
-import { consumerPaymentPackListFactory } from '#libs/consumer-payment-pack/factories';
+import { consumerPaymentPackListFactory } from '#src/libs/consumer-payment-pack/factories';
 import { generateRandomName } from '../../../../../utils/factories';
 
 import type {
@@ -11,21 +11,21 @@ import type {
   BookerModuleBuyableItem,
   BuyableItemCategory,
   BuyableItemIdentifier,
-} from '#libs/booker-module/types';
+} from '#src/libs/booker-module/types';
 import {
   CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
   PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
   PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
-} from '#libs/marketplace/constants';
+} from '#src/libs/marketplace/constants';
 import {
   paymentPackFactory,
   paymentPackListFactory,
-} from '#libs/payment-packs/factory';
-import { paymentComboListFactory } from '#libs/payment-combo/factory';
-import { contractListFactory } from '#libs/subscription/factory';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import type { ContractWithPaymentPack } from '#libs/subscription/types';
+} from '#src/libs/payment-packs/factory';
+import { paymentComboListFactory } from '#src/libs/payment-combo/factory';
+import { contractListFactory } from '#src/libs/subscription/factory';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { ContractWithPaymentPack } from '#src/libs/subscription/types';
 
 const consumerPacks = consumerPaymentPackListFactory(3);
 

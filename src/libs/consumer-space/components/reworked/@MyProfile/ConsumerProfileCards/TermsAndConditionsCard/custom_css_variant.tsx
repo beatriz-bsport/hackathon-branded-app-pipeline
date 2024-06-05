@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { DateTime } from 'luxon';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 import TermsAndConditionsCard from '.';
 // @ts-expect-error
 import TermsAndConditionsCardCss from './styles.css?raw';

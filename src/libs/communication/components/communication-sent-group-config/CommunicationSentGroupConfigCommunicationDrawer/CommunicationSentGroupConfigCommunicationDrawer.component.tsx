@@ -10,22 +10,22 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Radio from '@material-ui/core/Radio';
 import { withFormik, Form, FormikProps, useFormikContext } from 'formik';
 // @ts-expect-error
-import WriteEmail from '#libs/communication/components/WriteEmail.component';
+import WriteEmail from '#src/libs/communication/components/WriteEmail.component';
 // @ts-expect-error
-import SelectTemplate from '#libs/communication/components/SelectTemplate.component';
-// @ts-expect-error
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import SelectTemplate from '#src/libs/communication/components/SelectTemplate.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import type { SendGroupedCommunicationData } from '#libs/communication/types';
-import { CONTEXT_FRANCHISE } from '#libs/communication-v2/constants';
-import { SenderEmailKind } from '#libs/communication/constants';
-import { FranchiseCompany } from '#libs/franchise/types';
+} from '#src/libs/email-editor/types';
+import type { SendGroupedCommunicationData } from '#src/libs/communication/types';
+import { CONTEXT_FRANCHISE } from '#src/libs/communication-v2/constants';
+import { SenderEmailKind } from '#src/libs/communication/constants';
+import { FranchiseCompany } from '#src/libs/franchise/types';
 import type { OptionCallback } from '../../../../../state/types';
+// @ts-expect-error
 import { Submit } from '../../../../../components/forms';
 import CommunicationSentGroupConfigCommunicationSenderEmailChoice from './CommunicationSentGroupConfigCommunicationSenderEmailChoice.component';
 

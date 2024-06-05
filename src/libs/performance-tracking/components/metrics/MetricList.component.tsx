@@ -9,8 +9,8 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { FieldArrayRenderProps } from 'formik';
-import { PerformanceTrackingMetric } from '#libs/performance-tracking/types';
-import { organize_index } from '#libs/performance-tracking/utils';
+import { PerformanceTrackingMetric } from '#src/libs/performance-tracking/types';
+import { organize_index } from '#src/libs/performance-tracking/utils';
 import MetricListItem from './MetricListItem.component';
 
 const Container = SortableContainer((props: any) => {

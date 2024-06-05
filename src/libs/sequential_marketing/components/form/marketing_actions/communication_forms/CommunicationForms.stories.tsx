@@ -16,11 +16,11 @@ import WrittenEmailForm, {
 import {
   MarketingActionKind,
   MarketingActions,
-} from '#libs/sequential_marketing/constants';
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
-import { stepMarketingActionFactory } from '#libs/sequential_marketing/factories';
-import { tagListFactory } from '#libs/tag/factory';
-import EmailTemplateDetailSummaryListsFactory from '#libs/email-editor/factories/Emails';
+} from '#src/libs/sequential_marketing/constants';
+import type { StepMarketingActions } from '#src/libs/sequential_marketing/types';
+import { stepMarketingActionFactory } from '#src/libs/sequential_marketing/factories';
+import { tagListFactory } from '#src/libs/tag/factory';
+import EmailTemplateDetailSummaryListsFactory from '#src/libs/email-editor/factories/Emails';
 
 const fakeTagCategories = {
   User: ['1', '2'],

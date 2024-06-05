@@ -1,8 +1,8 @@
 import React from 'react';
 import { ConsumerPassCardStorybook, ConsumerPassCardProps } from '.';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
-import { paymentPackFactory } from '#libs/payment-packs/factory';
+import { consumerPaymentPackFactory } from '#src/libs/consumer-payment-pack/factories';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
 import { action } from '@storybook/addon-actions';
 import { DateTime } from 'luxon';
 

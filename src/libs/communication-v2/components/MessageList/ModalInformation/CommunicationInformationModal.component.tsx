@@ -22,8 +22,8 @@ import type {
   CommunicationMessage,
   Communication,
   FilteringMemberIdsByGenericCategories,
-} from '#libs/communication-v2/types';
-import type { Member } from '#libs/member/types';
+} from '#src/libs/communication-v2/types';
+import type { Member } from '#src/libs/member/types';
 import CommunicationInformationStatusChip from './CommunicationInformationStatusChip.component';
 import CommunicationInformationOpenChip from './CommunicationInformationOpenChip.component';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';

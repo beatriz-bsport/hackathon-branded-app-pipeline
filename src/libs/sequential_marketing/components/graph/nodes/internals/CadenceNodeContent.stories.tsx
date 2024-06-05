@@ -4,11 +4,11 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import CadenceNodeContent, {
   CadenceNodeContentProps,
 } from './CadenceNodeContent.component';
-import { stepMarketingActionFactory } from '#libs/sequential_marketing/factories';
+import { stepMarketingActionFactory } from '#src/libs/sequential_marketing/factories';
 import {
   MarketingActionKind,
   MarketingActions,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/Content',

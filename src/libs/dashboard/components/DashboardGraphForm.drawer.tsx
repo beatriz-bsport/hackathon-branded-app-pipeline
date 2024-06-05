@@ -28,45 +28,45 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {
   DatatypeFilterConfigSchemaWithOptionalGroups,
   DatatypeFilterConfigSchemaWithRequiredGroups,
-} from '#libs/datatype-filtering/validation_schema';
-import OperandSelect from '#libs/datatype-filtering/components/OperandSelect.component';
-import DatatypeFilterConfigGroupRow from '#libs/datatype-filtering/components/DatatypeFilterConfigGroupRow.component';
-import NestedAlertError from '#libs/datatype-filtering/components/NestedAlertError.component';
+} from '#src/libs/datatype-filtering/validation_schema';
+import OperandSelect from '#src/libs/datatype-filtering/components/OperandSelect.component';
+import DatatypeFilterConfigGroupRow from '#src/libs/datatype-filtering/components/DatatypeFilterConfigGroupRow.component';
+import NestedAlertError from '#src/libs/datatype-filtering/components/NestedAlertError.component';
 
 import {
   MEMBER_GRAPH_IDENTIFIER,
   BOOKING_GRAPH_IDENTIFIER,
   PRIVATE_BOOKING_GRAPH_IDENTIFIER,
   CHART_COMPONENTS_CHOICES_PER_GRAPH_FAMILY,
-} from '#libs/dashboard/constants';
+} from '#src/libs/dashboard/constants';
 import {
   generateNewGroup,
   generateNewGroupForDateRange,
   checkColumnAlreadyExist,
   generateNewFilterItem,
-} from '#libs/datatype-filtering/utils';
+} from '#src/libs/datatype-filtering/utils';
 import {
   getHelperTextForDrawerSelector,
   generateFilterConfigBookingStatusOk,
-} from '#libs/dashboard/utils';
+} from '#src/libs/dashboard/utils';
 
 import {
   DataSourceDashboardGraphMetadata,
   DataSourceDashboardGraph,
-} from '#libs/dashboard/types';
+} from '#src/libs/dashboard/types';
 
-import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 // @ts-expect-error
-import { Submit, DelayTextField, CheckboxField } from '#components/forms';
-import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
-import DatatypeFilterConfigValueManager from '#libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
+import { Submit, DelayTextField, CheckboxField } from '#src/components/forms';
+import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
+import DatatypeFilterConfigValueManager from '#src/libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
 import {
   DATATYPE_FILTERABLE_BY_ID_IN,
   GROUP_AND_OPERAND,
-} from '#libs/datatype-filtering/constants';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+} from '#src/libs/datatype-filtering/constants';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import GraphParamTemporalForm from './GraphParamTemporalForm.component';
 import GraphParamQualitativeForm from './GraphParamQualitativeForm.component';
 import GraphParamTimeslotsForm from './GraphParamTimeslotsForm.component';

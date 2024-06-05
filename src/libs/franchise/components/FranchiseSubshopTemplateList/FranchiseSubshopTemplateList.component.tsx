@@ -18,15 +18,15 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import FranchiseShopItemTemplateListItem from '#libs/franchise/components/FranchiseShopItemTemplateListItem';
-import FranchiseShopItemTemplateListItemSkeleton from '#libs/franchise/components/FranchiseShopItemTemplateListItem/FranchiseShopItemTemplateListItemSkeleton.component';
+import FranchiseShopItemTemplateListItem from '#src/libs/franchise/components/FranchiseShopItemTemplateListItem';
+import FranchiseShopItemTemplateListItemSkeleton from '#src/libs/franchise/components/FranchiseShopItemTemplateListItem/FranchiseShopItemTemplateListItemSkeleton.component';
 
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
-import type { ShopItemTemplate, SubshopTemplate } from '#libs/shop/types';
-import type { ErrorAndLoading } from '#libs/types';
+import type { ShopItemTemplate, SubshopTemplate } from '#src/libs/shop/types';
+import type { ErrorAndLoading } from '#src/libs/types';
 
-import { FranchiseSubshopTemplateDialogEnum } from '#libs/franchise/components/FranchiseSubshopTemplateDialog/constants';
-import { SHOP_ITEM_TEMPLATE_PAGE_SIZE } from '#libs/shop/constants';
+import { FranchiseSubshopTemplateDialogEnum } from '#src/libs/franchise/components/FranchiseSubshopTemplateDialog/constants';
+import { SHOP_ITEM_TEMPLATE_PAGE_SIZE } from '#src/libs/shop/constants';
 
 type Props = {
   subshopTemplateList: SubshopTemplate[];

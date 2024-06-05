@@ -1,12 +1,12 @@
 import { ShopItem } from '@bsport/common/lib/master-data/available-payment.type';
-import { Giftcard } from '#libs/giftcard/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PrivatePass } from '#libs/private-service/types';
+import { Giftcard } from '#src/libs/giftcard/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { PrivatePass } from '#src/libs/private-service/types';
 import {
   CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT,
   CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT,
-} from '#libs/instalment-payment-configuration/constants';
+} from '#src/libs/instalment-payment-configuration/constants';
 
 export enum CustomFirstInstalmentType {
   AMOUNT = CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT,

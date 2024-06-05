@@ -11,41 +11,41 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { push } from 'connected-react-router';
-import GiftcardFormDrawer from '#libs/giftcard/components/GiftcardFormDrawer.component';
-import GiftcardDeleteDialog from '#libs/giftcard/components/GiftcardDeleteDialog.component';
-import BottomActionsButton from '#components/button/BottomActionsButton.component';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import GiftcardFormDrawer from '#src/libs/giftcard/components/GiftcardFormDrawer.component';
+import GiftcardDeleteDialog from '#src/libs/giftcard/components/GiftcardDeleteDialog.component';
+import BottomActionsButton from '#src/components/button/BottomActionsButton.component';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
   Giftcard,
   ConsumerGiftcard,
   GiftcardDataAPI,
   WithSender,
   WithReceiver,
-} from '#libs/giftcard/types';
+} from '#src/libs/giftcard/types';
 
-import GiftcardCardDetail from '#libs/giftcard/components/GiftcardCardDetail.component';
-import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
+import GiftcardCardDetail from '#src/libs/giftcard/components/GiftcardCardDetail.component';
+import ConsumerGiftcardListItem from '#src/libs/giftcard/components/ConsumerGiftcardListItem.component';
 
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
-import { snackbarSuccess } from '#libs/snackbar/actions';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
+import { snackbarSuccess } from '#src/libs/snackbar/actions';
 import {
   withSender,
   withReceiver,
   getConsumerGiftcardList,
   getGiftcard,
-} from '#libs/giftcard/selectors';
+} from '#src/libs/giftcard/selectors';
 
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { fetchTags } from '#libs/tag/actions';
-import { Tag, TagGroup } from '#libs/tag/types';
-import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import { fetchTags } from '#src/libs/tag/actions';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 import {
   getBookkeepingAccountList,
   getBookkeepingAccountById,
-} from '#libs/payment/selectors';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+} from '#src/libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
 import { RootState } from '../../reducers';
 import BackofficeLinearProgressComponent from '../../components/navigation/BackofficeLinearProgress.component';
 import { OptionCallback } from '../../state/types';

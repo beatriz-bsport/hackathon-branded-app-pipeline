@@ -4,8 +4,8 @@ import { compose } from 'recompose';
 import { push as pushAction } from 'connected-react-router';
 import { useTranslation } from 'react-i18next';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { TranslationProps } from '#components/DialogWithBigIcon/DialogWithBigIcon.component';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { TranslationProps } from '#src/components/DialogWithBigIcon/DialogWithBigIcon.component';
 
 import {
   fetchOpenQuicksaleBaskets as fetchOpenQuicksaleBasketsAction,
@@ -14,73 +14,73 @@ import {
   removeItemFromBasket as removeItemFromBasketAction,
   dropQuicksaleBasket as dropQuicksaleBasketAction,
   updateQuicksaleBasketMember as updateQuicksaleBasketMemberAction,
-} from '#libs/checkout/actions';
-import { getOpenBasketList } from '#libs/checkout/selectors';
-import type { Basket } from '#libs/checkout/types';
+} from '#src/libs/checkout/actions';
+import { getOpenBasketList } from '#src/libs/checkout/selectors';
+import type { Basket } from '#src/libs/checkout/types';
 
-import { getMemberListData } from '#libs/member/selectors';
+import { getMemberListData } from '#src/libs/member/selectors';
 import {
   fetchMemberBulk,
   search,
   createOrUpdateMember,
-} from '#libs/member/actions';
-import type { Member } from '#libs/member/types';
+} from '#src/libs/member/actions';
+import type { Member } from '#src/libs/member/types';
 
-import { getSavedPaymentMethodList } from '#libs/payment/selectors';
-import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#libs/payment/actions';
+import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#src/libs/payment/actions';
 
-import { retrievePOSMember } from '#libs/company/actions';
+import { retrievePOSMember } from '#src/libs/company/actions';
 
-import { getLoading, getSectionList } from '#libs/quicksale/selectors';
-import { fetchQuicksaleConfiguration as fetchQuicksaleConfigurationAction } from '#libs/quicksale/actions';
-import { getQuicksaleCardInfoFromQuicksaleItem } from '#libs/quicksale/utils';
-import MemberSearchDialog from '#libs/member/components/MemberSearchDialog';
-import QuicksaleDialogs from '#libs/quicksale/components/QuicksaleDialogs.component';
-import type { QuicksaleCardInfo } from '#libs/quicksale/types';
+import { getLoading, getSectionList } from '#src/libs/quicksale/selectors';
+import { fetchQuicksaleConfiguration as fetchQuicksaleConfigurationAction } from '#src/libs/quicksale/actions';
+import { getQuicksaleCardInfoFromQuicksaleItem } from '#src/libs/quicksale/utils';
+import MemberSearchDialog from '#src/libs/member/components/MemberSearchDialog';
+import QuicksaleDialogs from '#src/libs/quicksale/components/QuicksaleDialogs.component';
+import type { QuicksaleCardInfo } from '#src/libs/quicksale/types';
 
-import { getPaymentPackById } from '#libs/payment-packs/selectors';
+import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
 
-import { _getPrivatePassData } from '#libs/private-service/selectors/private-pass';
+import { _getPrivatePassData } from '#src/libs/private-service/selectors/private-pass';
 
-import { getPaymenComboDataDict } from '#libs/payment-combo/selectors';
-import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
+import { getPaymenComboDataDict } from '#src/libs/payment-combo/selectors';
+import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
 
-import { getAllShopItemData } from '#libs/shop/selectors';
-import { fetchShopItemAsManager } from '#libs/shop/actions/shopitem';
+import { getAllShopItemData } from '#src/libs/shop/selectors';
+import { fetchShopItemAsManager } from '#src/libs/shop/actions/shopitem';
 
 import {
   getGiftcardBackgroundImageList,
   getGiftcardData,
-} from '#libs/giftcard/selectors';
-import { fetchGiftcardBackgroundImageList as fetchGiftcardBackgroundImageListAction } from '#libs/giftcard/actions';
+} from '#src/libs/giftcard/selectors';
+import { fetchGiftcardBackgroundImageList as fetchGiftcardBackgroundImageListAction } from '#src/libs/giftcard/actions';
 
 // @ts-expect-error
-import { getContractsById } from '#libs/subscription/selectors';
+import { getContractsById } from '#src/libs/subscription/selectors';
 import {
   fetchContractList as fetchSubscriptionListAction,
   registerContractBackground as registerContractBackgroundAction,
-} from '#libs/subscription/actions';
-import SubscriptionContractRegister from '#libs/subscription/components/SubscriptionContractRegister.component';
-import type { Contract } from '#libs/subscription/types';
+} from '#src/libs/subscription/actions';
+import SubscriptionContractRegister from '#src/libs/subscription/components/SubscriptionContractRegister.component';
+import type { Contract } from '#src/libs/subscription/types';
 
-import withDatatypeDynamicData from '#libs/datatype-filtering/dynamic-data-hoc';
-import type { DynamicFilterDataType } from '#libs/datatype-filtering/types';
+import withDatatypeDynamicData from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 
-import { getCompanyCountry, getStripeRegion } from '#libs/theme/selectors';
+import { getCompanyCountry, getStripeRegion } from '#src/libs/theme/selectors';
 
-import { getEnabledEstablishmentBillingGroups } from '#libs/establishment/selectors';
-import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#libs/establishment/actions';
+import { getEnabledEstablishmentBillingGroups } from '#src/libs/establishment/selectors';
+import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#src/libs/establishment/actions';
 
-import { getStripeReaders } from '#libs/terminal/selectors';
-import { fetchStripeReaders as fetchStripeReadersAction } from '#libs/terminal/actions';
+import { getStripeReaders } from '#src/libs/terminal/selectors';
+import { fetchStripeReaders as fetchStripeReadersAction } from '#src/libs/terminal/actions';
 
 import {
   displayBackgroundDialog as displayBackgroundDialogAction,
   deletebackgroundDialog as deletebackgroundDialogAction,
-} from '#libs/background-dialog/actions';
+} from '#src/libs/background-dialog/actions';
 
-import { fetchAllTags as fetchAllTagsAction } from '#libs/tag/actions';
-import { getTagsDict } from '#libs/tag/selectors';
+import { fetchAllTags as fetchAllTagsAction } from '#src/libs/tag/actions';
+import { getTagsDict } from '#src/libs/tag/selectors';
 
 import type { RootState } from '../../../reducers';
 import QuicksaleInterfaceComponent from './QuicksaleInterface.component';

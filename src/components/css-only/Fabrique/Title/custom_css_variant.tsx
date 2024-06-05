@@ -5,9 +5,9 @@ import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
-import type { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/exportable-components/types';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
+import type { CompanyTheme } from '#src/libs/theme/types';
 import { TitleSize } from './constants';
 import Title, { Props as TitleProps } from '.';
 // @ts-expect-error

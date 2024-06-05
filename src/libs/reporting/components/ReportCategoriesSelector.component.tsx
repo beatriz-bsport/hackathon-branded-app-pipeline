@@ -5,7 +5,7 @@ import Chip from '@material-ui/core/Chip';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { getCategory } from '../utils';
 
 type Props = {

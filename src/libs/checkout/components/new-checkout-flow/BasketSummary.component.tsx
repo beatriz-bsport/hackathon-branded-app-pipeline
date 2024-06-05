@@ -8,8 +8,8 @@ import {
   CheckoutItem,
   HandleAddCheckoutItemData,
   OnRemoveCheckoutItemData,
-} from '#libs/checkout/types';
-import { getCurrencyDisplayWithPriceAndQuantity } from '#libs/theme/selectors';
+} from '#src/libs/checkout/types';
+import { getCurrencyDisplayWithPriceAndQuantity } from '#src/libs/theme/selectors';
 import { NewCheckoutItemListItem } from './NewCheckoutItemListItem.component';
 
 type BasketSummaryProps = {

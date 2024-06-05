@@ -5,16 +5,16 @@ import { useTranslation } from 'react-i18next';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { Immutable } from 'seamless-immutable';
 
-// @ts-expect-error
 
-import MarketplacePrivatePassCard from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassCard';
-import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
-import { useMarketplacePassFilters } from '#libs/marketplace/hooks';
+import MarketplacePrivatePassCard from '#src/libs/marketplace/components/@PrivatePass/MarketplacePrivatePassCard';
+import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
+import { useMarketplacePassFilters } from '#src/libs/marketplace/hooks';
 
 import {
   PrivatePass,
   PrivatePassCategoryWithPasses,
-} from '#libs/private-service/types';
+} from '#src/libs/private-service/types';
+// @ts-expect-error
 import Analytics from '../../../../../components/analytics/Analytics.component';
 
 import './styles.css';

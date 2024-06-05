@@ -21,7 +21,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import PlaceIcon from '@material-ui/icons/Place';
 import ViewWeekIcon from '@material-ui/icons/ViewWeek';
-// @ts-expect-error
 import BarCode from 'react-barcode';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -35,21 +34,21 @@ import { Theme } from '@material-ui/core/styles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import { Cake } from '@material-ui/icons';
 
-// @ts-expect-error
-import MemberSummaryInfoItem from '#libs/member/components/MemberSummaryInfoItem.component';
+import MemberSummaryInfoItem from '#src/libs/member/components/MemberSummaryInfoItem.component';
 import {
   EmailTemplateDetail,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
+} from '#src/libs/email-editor/types';
 import {
   ALLOWED_COUNTRIES_FOR_STATES,
   SMALL_MOBILE_CRITICAL_SIZE,
-} from '#libs/member/constants';
-import { UPSELL_IDENTIFIER_SMS } from '#libs/platform-billing/upsell-identifiers';
-import { FeatureList } from '#libs/company/types';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+} from '#src/libs/member/constants';
+import { UPSELL_IDENTIFIER_SMS } from '#src/libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#src/libs/company/types';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+// @ts-expect-error
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import CreditMemberBadge from './CreditMemberBadge.component';
 

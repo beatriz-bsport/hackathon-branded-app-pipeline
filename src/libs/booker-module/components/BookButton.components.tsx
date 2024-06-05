@@ -4,7 +4,7 @@ import { Button, Typography } from '@material-ui/core';
 import { HourglassEmpty } from '@material-ui/icons';
 import classnames from 'classnames';
 import { compose } from 'recompose';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 import './BookButton.css';
 

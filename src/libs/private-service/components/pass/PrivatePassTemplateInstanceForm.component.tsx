@@ -5,8 +5,8 @@ import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
 
-import FranchiseCompaniesSelector from '#libs/franchise/components/FranchiseCompaniesSelector.component';
-import { FranchiseCompany } from '#libs/franchise/types';
+import FranchiseCompaniesSelector from '#src/libs/franchise/components/FranchiseCompaniesSelector.component';
+import { FranchiseCompany } from '#src/libs/franchise/types';
 
 type Props = {};
 

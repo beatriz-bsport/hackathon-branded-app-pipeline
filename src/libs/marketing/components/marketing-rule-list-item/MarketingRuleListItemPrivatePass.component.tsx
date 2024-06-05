@@ -18,10 +18,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { useTranslation } from 'react-i18next';
 import { compose, withState, withHandlers } from 'recompose';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
-import { PrivatePass } from '#libs/private-service/types';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { PrivatePass } from '#src/libs/private-service/types';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import MarketingRuleFormProduct from '../marketing-rule-form/MarketingRuleFormProduct.component';
 import NotificationListInner from '../NotificationListInner.component';
 

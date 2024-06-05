@@ -10,29 +10,29 @@ import i18n from 'i18next';
 
 import OfferEditFormWithFormik, {
   OfferEditForm,
-} from '#libs/offer/OfferEditForm.component';
+} from '#src/libs/offer/OfferEditForm.component';
 import {
   OFFER_RECURRENCE,
   PropagateCoachOverrideToSimilarOffers,
-} from '#libs/offer/constants';
+} from '#src/libs/offer/constants';
 import {
   newStoryFromTemplate,
   querySelectedElementShouldBeHiddenInTheDocument,
   querySelectedElementShouldBeInTheDocument,
   sleep,
 } from '../../utils/storybookHelper';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
-import { tagListFactory } from '#libs/tag/factory';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { tagListFactory } from '#src/libs/tag/factory';
 import withFormik from '@bbbtech/storybook-formik';
-import OfferEditFormValidationSchema from '#libs/offer/form/EditValidationSchema';
-import { OfferFormValues } from '#libs/offer/types';
-import { establishment_factory } from '#libs/establishment/factory';
-import { coachesFactory } from '#libs/associated-coach/factories';
-import { levelListFactory } from '#libs/level/factories';
-import { roomBlueprintListFactory } from '#libs/spot-scheduling/factories';
-import { coachPaymentRulesByKindFactory } from '#libs/coach-payment-rules/factories';
-import SpotSchedulingHelper from '#libs/spot-scheduling/utils';
-import { RoomBlueprint } from '#libs/spot-scheduling/types';
+import OfferEditFormValidationSchema from '#src/libs/offer/form/EditValidationSchema';
+import { OfferFormValues } from '#src/libs/offer/types';
+import { establishment_factory } from '#src/libs/establishment/factory';
+import { coachesFactory } from '#src/libs/associated-coach/factories';
+import { levelListFactory } from '#src/libs/level/factories';
+import { roomBlueprintListFactory } from '#src/libs/spot-scheduling/factories';
+import { coachPaymentRulesByKindFactory } from '#src/libs/coach-payment-rules/factories';
+import SpotSchedulingHelper from '#src/libs/spot-scheduling/utils';
+import { RoomBlueprint } from '#src/libs/spot-scheduling/types';
 import { offerFactory, offersFactory } from './factory';
 
 const requiredFieldError = i18n.t('offer:form.errors.required');

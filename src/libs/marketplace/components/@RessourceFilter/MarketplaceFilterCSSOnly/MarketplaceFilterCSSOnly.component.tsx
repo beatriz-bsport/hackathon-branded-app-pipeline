@@ -5,11 +5,11 @@ import { pure } from 'recompose';
 import { withTheme } from '@material-ui/styles';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import { Level } from '#libs/level/types';
-import { getLevelColor, getLevelTranslation } from '#libs/level/utils';
-import { getGroupedEstablishmentOptions } from '#libs/establishment/components/EstablishmentSelector.component';
-import { CompanyTheme } from '#libs/theme/types';
-import MarketplaceCalendarSearch from '#marketplacecomponents/@Calendar/MarketplaceCalendarSearchCSSOnly/MarketplaceCalendarSearchCSSOnly.component';
+import { Level } from '#src/libs/level/types';
+import { getLevelColor, getLevelTranslation } from '#src/libs/level/utils';
+import { getGroupedEstablishmentOptions } from '#src/libs/establishment/components/EstablishmentSelector.component';
+import { CompanyTheme } from '#src/libs/theme/types';
+import MarketplaceCalendarSearch from '#src/libs/marketplace/components/@Calendar/MarketplaceCalendarSearchCSSOnly/MarketplaceCalendarSearchCSSOnly.component';
 import {
   Establishment,
   EstablishmentGroup,
@@ -18,7 +18,6 @@ import { MetaActivity } from '../../../../meta-activity/types';
 import { Coach } from '../../../../associated-coach/types';
 import { MarketPlaceFilter } from '../../../types';
 import MarketplaceFilter from '../MarketplaceFilter/MarketplaceFilter.component';
-
 
 import './MarketplaceFilterCSSOnly.css';
 

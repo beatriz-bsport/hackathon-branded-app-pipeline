@@ -1,7 +1,7 @@
 import React from 'react';
 
 import UpsellPackageSubscriptionForm, { type Props } from '.';
-import { UpsellPackage } from '#libs/company/types';
+import { UpsellPackage } from '#src/libs/company/types';
 
 const Template = (args: Props) => <UpsellPackageSubscriptionForm {...args} />;
 

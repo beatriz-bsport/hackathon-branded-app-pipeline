@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import WebhookFormDialog from '../../libs/webhook/components/WebhookForm.component';
 import WebhookListItem from '../../libs/webhook/components/WebhookListItem';
 import {

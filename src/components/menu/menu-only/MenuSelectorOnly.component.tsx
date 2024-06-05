@@ -7,8 +7,8 @@ import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import type { MenuAction } from '#components/menu/types';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
+import type { MenuAction } from '#src/components/menu/types';
 
 type Props = {
   anchorElement: HTMLDivElement | null;

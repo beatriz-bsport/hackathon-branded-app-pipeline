@@ -5,8 +5,8 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DialogActions from '@material-ui/core/DialogActions';
 import { Form } from 'formik';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 // @ts-expect-error
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { Submit } from '../../../../components/forms';
 import PaymentPackTemplateForm, {
   PaymentPackTemplateFormikHOC,

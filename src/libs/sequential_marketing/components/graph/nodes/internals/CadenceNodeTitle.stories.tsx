@@ -3,8 +3,8 @@ import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import CadenceNodeTitle from './CadenceNodeTitle.component';
-import { triggerBatchFactory } from '#libs/sequential_marketing/factories';
-import { smartlistBatchFactory } from '#libs/smart-list/factories';
+import { triggerBatchFactory } from '#src/libs/sequential_marketing/factories';
+import { smartlistBatchFactory } from '#src/libs/smart-list/factories';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/Title',

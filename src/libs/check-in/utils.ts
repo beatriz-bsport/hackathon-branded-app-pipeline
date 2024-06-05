@@ -12,12 +12,12 @@ import type { TFunction } from 'i18next';
 import {
   LOCAL_STORAGE_KEY_FILTERS_CHECK_IN_TABLET,
   LOCAL_STORAGE_KEY_MINIMAL_ESTABLISHMENT_LIST,
-} from '#libs/check-in/constants';
+} from '#src/libs/check-in/constants';
 
-import type { OfferFilter } from '#libs/offer/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { MemberWithBooking } from '#libs/member/types';
-import type { SpotInformation } from '#libs/spot-scheduling/types';
+import type { OfferFilter } from '#src/libs/offer/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { MemberWithBooking } from '#src/libs/member/types';
+import type { SpotInformation } from '#src/libs/spot-scheduling/types';
 
 // -------------------------FILTER CONFIGURATION-------------------------
 

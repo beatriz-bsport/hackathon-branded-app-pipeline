@@ -36,38 +36,41 @@ import {
 } from '@bsport/common/lib/master-data/booking_status_code';
 import type { LuxonDateTime } from '#src/types';
 
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#src/libs/platform-billing/upsell-identifiers';
 
-import withTitle from '#hocs/with-title.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
 
 import {
   getNumberOfMassDisabledOffer,
   getMassDisabledOfferInGroup,
   getSimilars as getSimilarsOffers,
-} from '#libs/offer/selectors';
-import OfferCard from '#components/offer/OfferCard.component';
-import TimeTable from '#components/offer/TimeTable.component';
-import Calendar from '#components/offer/Calendar.component';
-import { getEnabledMetaActivities } from '#libs/meta-activity/selectors';
+} from '#src/libs/offer/selectors';
+import OfferCard from '#src/components/offer/OfferCard.component';
+import TimeTable from '#src/components/offer/TimeTable.component';
+import Calendar from '#src/components/offer/Calendar.component';
+import { getEnabledMetaActivities } from '#src/libs/meta-activity/selectors';
 import {
   getActiveCoaches,
   getCoachesSelectedInRole,
-} from '#libs/associated-coach/selectors';
-import { fetchActivitiesCompany } from '#libs/meta-activity/actions';
+} from '#src/libs/associated-coach/selectors';
+import { fetchActivitiesCompany } from '#src/libs/meta-activity/actions';
 import {
   fetchEstablishments,
   fetchAllEstablishmentGroup,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 import {
   getAvailableEstablishmentList,
   getAllPageEstablishments,
   getAssociatedEstablishmentGroup,
   withEstablishment as groupWithEstablishment,
-} from '#libs/establishment/selectors';
-import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
-import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
-import BookingStatisticsCard from '#libs/booking/components/BookingStatisticsCard.component';
+} from '#src/libs/establishment/selectors';
+import { fetchAssociatedCoachesList } from '#src/libs/associated-coach/actions';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
+import BookingStatisticsCard from '#src/libs/booking/components/BookingStatisticsCard.component';
 
 import {
   fetchAllOffers as fetchAllOffersAction,
@@ -85,46 +88,45 @@ import {
   postRollCall as postRollCallAction,
   postRollCallBulk as postRollCallBulkAction,
   retrieveOfferAsManager as retrieveOfferAsManagerAction,
-} from '#libs/offer/actions';
+} from '#src/libs/offer/actions';
 import {
   fetchLevelList as fetchLevelListAction,
   updateLevel as updateLevelAction,
   createLevel as createLevelAction,
   deleteLevel as deleteLevelAction,
-} from '#libs/level/actions';
+} from '#src/libs/level/actions';
 import {
   getActiveCustomLevels,
   getAllCustomLevels,
-} from '#libs/level/selectors';
-import { fetchReportOfferManagement as fetchReportOfferManagementActions } from '#libs/reporting/actions';
+} from '#src/libs/level/selectors';
+import { fetchReportOfferManagement as fetchReportOfferManagementActions } from '#src/libs/reporting/actions';
 import {
   setCalendarFilter as setCalendarFilterAction,
   setReplacementRequestManagerFilter as setReplacementRequestManagerFilterAction,
-} from '#libs/user-preference/actions';
+} from '#src/libs/user-preference/actions';
 
-import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
-import { getAllMembers, withTags } from '#libs/member/selectors';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '#src/libs/member/actions';
+import { getAllMembers, withTags } from '#src/libs/member/selectors';
 
 import {
   fetchBookingsByOffer as fetchBookingsByOfferAction,
   confirmAttendanceAndRollCallById as confirmBookingAttendanceAction,
   discardAttendanceAndRollCallById as discardBookingAttendanceAction,
-} from '#libs/booking/actions';
+} from '#src/libs/booking/actions';
 import {
   getOfferBookingList,
   getOfferBookingListWithConsumerPack,
-} from '#libs/booking/selectors';
+} from '#src/libs/booking/selectors';
 
 import {
   fetchBookingStatistics as fetchBookingStatisticsAction,
   fetchOffersWaitingListStatistics as fetchOffersWaitingListStatisticsAction,
-} from '#libs/statistics/actions';
+} from '#src/libs/statistics/actions';
 
+import type { OfferFilter, OfferTypeFilter } from '#src/libs/offer/types';
 
-import type { OfferFilter, OfferTypeFilter } from '#libs/offer/types';
-
-import { snackbarSuccess } from '#libs/snackbar/actions';
-import MassDisablerDialog from '#libs/offer/components/MassDisablerDialog.component';
+import { snackbarSuccess } from '#src/libs/snackbar/actions';
+import MassDisablerDialog from '#src/libs/offer/components/MassDisablerDialog.component';
 import OfferSearchBar, {
   FILTER_COACH,
   FILTER_ESTABLISHMENT,
@@ -132,38 +134,38 @@ import OfferSearchBar, {
   FILTER_ACTIVITY,
   FILTER_ROLLCALL,
   FILTER_SUB_REQUEST_TEACHER,
-} from '#libs/offer/components/OfferSearchBar.component';
-import OfferFormWithActivity from '#libs/offer/OfferFormWithActivity.component';
-import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
+} from '#src/libs/offer/components/OfferSearchBar.component';
+import OfferFormWithActivity from '#src/libs/offer/OfferFormWithActivity.component';
+import DeleteOfferForm from '#src/libs/offer/DeleteOfferForm.component';
 
-import CheckPermission from '#libs/role/components/CheckPermission.component';
+import CheckPermission from '#src/libs/role/components/CheckPermission.component';
 import {
   getAvailableRoomBlueprints,
   getRoomBlueprints,
-} from '#libs/spot-scheduling/selector';
-import { fetchRoomBlueprints } from '#libs/spot-scheduling/actions';
-import { RoomBlueprint } from '#libs/spot-scheduling/types';
-import { fetchAllCoachPaymentRules } from '#libs/coach-payment-rules/actions';
-import { CoachPaymentRuleByKindSelector } from '#libs/coach-payment-rules/selectors';
-import type { CoachPaymentRule } from '#libs/coach-payment-rules/types';
-import { showVaccinationStatus } from '#libs/custom-form/selectors';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import type { Tag, TagGroup } from '#libs/tag/types';
-import { fetchZoomApp as fetchZoomAppAction } from '#libs/zoom-app/actions';
-import zoomAppSelectors from '#libs/zoom-app/selectors';
-import { ZoomApp } from '#libs/zoom-app/types';
-import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutorial/constant';
-import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
+} from '#src/libs/spot-scheduling/selector';
+import { fetchRoomBlueprints } from '#src/libs/spot-scheduling/actions';
+import { RoomBlueprint } from '#src/libs/spot-scheduling/types';
+import { fetchAllCoachPaymentRules } from '#src/libs/coach-payment-rules/actions';
+import { CoachPaymentRuleByKindSelector } from '#src/libs/coach-payment-rules/selectors';
+import type { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
+import { showVaccinationStatus } from '#src/libs/custom-form/selectors';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
+import { fetchZoomApp as fetchZoomAppAction } from '#src/libs/zoom-app/actions';
+import zoomAppSelectors from '#src/libs/zoom-app/selectors';
+import { ZoomApp } from '#src/libs/zoom-app/types';
+import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#src/libs/platform-tutorial/constant';
+import { platformTutorialActivated } from '#src/libs/platform-tutorial/utils';
 
-import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#libs/consumer-payment-pack/actions';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
+import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#src/libs/consumer-payment-pack/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#src/libs/payment-packs/actions';
 
-import RollCallDrawer from '#libs/offer/components/RollCallDrawer.component';
-import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollCallDialog.component';
-import OfferEditForm from '#libs/offer/OfferEditForm.component';
+import RollCallDrawer from '#src/libs/offer/components/RollCallDrawer.component';
+import ConfirmationRollCallDialog from '#src/libs/offer/components/ConfirmationRollCallDialog.component';
+import OfferEditForm from '#src/libs/offer/OfferEditForm.component';
 
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { redirectIfAllowed as redirectIfAllowedAction } from '../../libs/role/actions';
 import type { ReplacementRequestFilter } from '../../libs/replacement-request/types';
 import GenericResponsiveDialog from '../../components/genericDialog/GenericResponsiveDialog';

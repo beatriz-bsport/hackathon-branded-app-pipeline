@@ -10,13 +10,13 @@ import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-d
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
-import type { Basket } from '#libs/checkout/types';
-import type { Member } from '#libs/member/types';
-import type { MarketplaceSettings } from '#libs/marketplace/types';
-import type { Franchise } from '#libs/franchise/types';
-import type { Company } from '#libs/company/types';
-import WidgetUtils from '#libs/widget/WidgetUtils';
-import ToolTip from '#components/Tooltip.component';
+import type { Basket } from '#src/libs/checkout/types';
+import type { Member } from '#src/libs/member/types';
+import type { MarketplaceSettings } from '#src/libs/marketplace/types';
+import type { Franchise } from '#src/libs/franchise/types';
+import type { Company } from '#src/libs/company/types';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import ToolTip from '#src/components/Tooltip.component';
 import AppBarMenu from './AppBarMenu.component';
 import AppBarLogo from './AppBarLogo.component';
 import AppBarBasket from './AppBarBasket.component';

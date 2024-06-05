@@ -5,11 +5,11 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/styles/makeStyles';
 
 import { Theme } from '@material-ui/core/styles/createTheme';
-import FranchiseCompanySearchList from '#libs/franchise/components/FranchiseCompanySearchList.components';
-import { CompanyWithTheme } from '#libs/company/types';
-import { STEPS } from '#libs/login/utils';
-import { WidgetUtils } from '#libs/widget/WidgetUtils';
-import RedButton from '#components/button/RedButton.component';
+import FranchiseCompanySearchList from '#src/libs/franchise/components/FranchiseCompanySearchList.components';
+import { CompanyWithTheme } from '#src/libs/company/types';
+import { STEPS } from '#src/libs/login/utils';
+import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
+import RedButton from '#src/components/button/RedButton.component';
 
 export type OwnProps = {
   companies: Array<CompanyWithTheme>;

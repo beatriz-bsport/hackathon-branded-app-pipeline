@@ -4,13 +4,13 @@ import { compose } from 'recompose';
 
 import { push } from 'connected-react-router';
 import { LinearProgress } from '@material-ui/core';
-import PaymentMethodStep from '#libs/login/components/account-configuration/AccountConfigurationPaymentMethodStep.component';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
-import { fetchMyUserProfile } from '#libs/member/actions';
-import { getSavedPaymentMethodList } from '#libs/payment/selectors';
-import { PaymentMethod } from '#libs/payment/types';
-import { updateCompanyTheme } from '#libs/theme/actions';
-import { PAYMENT_METHOD_CONFIGURATION_STEP } from '#libs/company/constants';
+import PaymentMethodStep from '#src/libs/login/components/account-configuration/AccountConfigurationPaymentMethodStep.component';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
+import { fetchMyUserProfile } from '#src/libs/member/actions';
+import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
+import { PaymentMethod } from '#src/libs/payment/types';
+import { updateCompanyTheme } from '#src/libs/theme/actions';
+import { PAYMENT_METHOD_CONFIGURATION_STEP } from '#src/libs/company/constants';
 import {
   retrieveMyCompanySetup as retrieveMyCompanySetupAction,
   validateAccountConfigurationStepAction,

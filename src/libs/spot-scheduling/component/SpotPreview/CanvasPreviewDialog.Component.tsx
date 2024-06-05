@@ -11,11 +11,11 @@ import { withTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core';
 import { TFunction } from 'i18next';
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
-import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { FeatureList } from '#libs/company/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
+import { UPSELL_IDENTIFIER_SPIVI } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { FeatureList } from '#src/libs/company/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import SpiviCorrespondenceTable from '../SpiviCorrespondenceTable.component';
 import { MaterialStyleType } from '../../../../utils/types';
 import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';

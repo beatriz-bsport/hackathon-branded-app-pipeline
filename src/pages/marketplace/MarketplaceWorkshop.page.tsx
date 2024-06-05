@@ -16,19 +16,19 @@ import {
   resetEstablishments as resetEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
   fetchEstablishments as fetchEstablishmentsAction,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 
 import {
   snackbarSuccess as snackbarSuccessAction,
   snackbarError as snackbarErrorAction,
-} from '#libs/snackbar/actions';
+} from '#src/libs/snackbar/actions';
 import {
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
   fetchAdditionalAssociatedCoachesList as fetchAdditionalAssociatedCoachesListAction,
   resetCoaches,
-} from '#libs/associated-coach/actions';
-import { fetchWorkshopList as fetchWorkshopListAction } from '#libs/meta-activity/actions';
-import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#libs/group-offer/actions';
+} from '#src/libs/associated-coach/actions';
+import { fetchWorkshopList as fetchWorkshopListAction } from '#src/libs/meta-activity/actions';
+import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#src/libs/group-offer/actions';
 
 import {
   getAllEstablishments,
@@ -36,55 +36,61 @@ import {
   getAssociatedEstablishmentGroup,
   withEstablishment as groupWithEstablishment,
   getEstablishmentById,
-} from '#libs/establishment/selectors';
-import { getCoachById, getAllCoaches } from '#libs/associated-coach/selectors';
+} from '#src/libs/establishment/selectors';
+import {
+  getCoachById,
+  getAllCoaches,
+} from '#src/libs/associated-coach/selectors';
 import {
   getWorkshopsByAllIds,
   getWorkshops,
-} from '#libs/meta-activity/selectors';
+} from '#src/libs/meta-activity/selectors';
 import {
   getBookedOffers,
   getOffersListByMetaActivity as getOffersListByMetaActivitySelector,
-} from '#libs/offer/selectors';
+} from '#src/libs/offer/selectors';
 import {
   getGroupByIdCurried,
   getOffersListByGroup as getOffersListByGroupSelector,
-} from '#libs/group-offer/selectors';
-import MarketplaceFilters from '#marketplacecomponents/@RessourceFilter/MarketplaceFilterCSSOnly';
-import themeSelectors from '#libs/theme/selectors';
+} from '#src/libs/group-offer/selectors';
+import MarketplaceFilters from '#src/libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly';
+import themeSelectors from '#src/libs/theme/selectors';
 
 import {
   fetchLevelList as fetchLevelListAction,
   resetLevels as resetLevelsAction,
-} from '#libs/level/actions';
-import { getActiveCustomLevels, getLevelsDetails } from '#libs/level/selectors';
+} from '#src/libs/level/actions';
+import {
+  getActiveCustomLevels,
+  getLevelsDetails,
+} from '#src/libs/level/selectors';
 
-import MarketplaceWorkshop from '#marketplacecomponents/@Workshop/MarketplaceWorkshop.component';
+import MarketplaceWorkshop from '#src/libs/marketplace/components/@Workshop/MarketplaceWorkshop.component';
 // @ts-expect-error
-import Analytics from '#components/analytics/Analytics.component';
-import withTitle from '#hocs/with-title.hoc';
+import Analytics from '#src/components/analytics/Analytics.component';
+import withTitle from '#src/hocs/with-title.hoc';
 import {
   fetchMarketplaceOfferByMetaActivityList as fetchMarketplaceOfferByMetaActivityListAction,
   fetchOfferBulk as fetchOfferBulkAction,
   resetMarketplaceOfferByMetaActivityList as resetMarketplaceOfferByMetaActivityListAction,
   fetchOfferRegisteredIds as fetchOfferRegisteredIdsAction,
-} from '#libs/offer/actions';
+} from '#src/libs/offer/actions';
 // @ts-expect-error
-import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
+import withReplaceQueryParams from '#src/hocs/with-replace-query-params.hoc';
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Offer } from '#libs/offer/types';
-import { convertMarketplaceFilterForMetaActivityCall } from '#libs/meta-activity/utils';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Offer } from '#src/libs/offer/types';
+import { convertMarketplaceFilterForMetaActivityCall } from '#src/libs/meta-activity/utils';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getBookWorkshopUrl } from '#libs/marketplace/routing-utils';
-import withPostMessageOnPropsUpdate from '#hocs/postMessages/with-post-message-on-props-update';
-import withPostMessageToUpdateProps from '#hocs/postMessages/with-post-message-to-update-props';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getBookWorkshopUrl } from '#src/libs/marketplace/routing-utils';
+import withPostMessageOnPropsUpdate from '#src/hocs/postMessages/with-post-message-on-props-update';
+import withPostMessageToUpdateProps from '#src/hocs/postMessages/with-post-message-to-update-props';
 import {
   CalendarFilterValidationSchema,
   CalendarOnlineFilterValidationSchema,
-} from '#libs/marketplace/utils';
+} from '#src/libs/marketplace/utils';
 import { useWidth } from '../../hooks/useWidth';
 import { sortByDate } from '../../utils/datetime';
 import { RootState } from '../../reducers';

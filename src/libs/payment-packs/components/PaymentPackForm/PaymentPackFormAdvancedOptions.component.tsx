@@ -9,11 +9,11 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { FormikProps, useFormikContext } from 'formik';
 import SettingsIcon from '@material-ui/icons/Settings';
-import TagSelector from '#libs/tag/components/TagSelector.selector';
-import { Tag, TagGroup } from '#libs/tag/types';
-import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
-import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
-import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
+import TagSelector from '#src/libs/tag/components/TagSelector.selector';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { useHasTagsSameGroup } from '#src/libs/tag/components/hooks';
+import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';
 import { PaymentPackFormValues } from '../../types';
 
 type Props = {

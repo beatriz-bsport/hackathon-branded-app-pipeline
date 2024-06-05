@@ -16,8 +16,8 @@ import {
   CB as PAYMENT_METHOD_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
 
-import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
-import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+import { verifyPriceBasket as verifyPriceBasketAPI } from '#src/libs/payment/api';
+import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 import type { Basket } from '../types';
 
 import BasketDeliveryForm from './BasketDeliveryForm.component';

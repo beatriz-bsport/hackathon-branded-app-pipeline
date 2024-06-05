@@ -6,9 +6,9 @@ import { push } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { DateTime } from 'luxon';
-import { getAllSmartList } from '#libs/smart-list/selectors';
-import { fetchAllSmartLists } from '#libs/smart-list/actions';
-import { SmartList } from '#libs/smart-list/types';
+import { getAllSmartList } from '#src/libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#src/libs/smart-list/actions';
+import { SmartList } from '#src/libs/smart-list/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { Establishment, Offer } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';

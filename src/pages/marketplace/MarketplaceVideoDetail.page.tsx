@@ -7,9 +7,9 @@ import flatten from 'lodash/flatten';
 import { push as pushRouter } from 'connected-react-router';
 import { LinearProgress, Theme } from '@material-ui/core';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { CompanyTheme } from '#libs/theme/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { CompanyTheme } from '#src/libs/theme/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 // @ts-expect-error
 import VideoThumbnailList from '../../libs/video/components/VideoThumbnailList.component';

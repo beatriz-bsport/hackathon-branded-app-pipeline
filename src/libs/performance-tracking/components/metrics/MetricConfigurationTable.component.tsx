@@ -10,7 +10,7 @@ import { FieldArrayRenderProps } from 'formik';
 import {
   PerformanceTrackingMetric,
   PerformanceTrackingProgram,
-} from '#libs/performance-tracking/types';
+} from '#src/libs/performance-tracking/types';
 import MetricList from './MetricList.component';
 import MetricForm from './MetricForm.component';
 

@@ -15,11 +15,11 @@ import { PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT } from '@bsport/common/lib/maste
 import {
   blockPendingBasket as blockPendingBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
-} from '#libs/payment/api';
-import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
+} from '#src/libs/payment/api';
+import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 // @ts-expect-error
-import CountrySelector from '#components/input/CountrySelector.component';
-import PopOver from '#components/Popover';
+import CountrySelector from '#src/components/input/CountrySelector.component';
+import PopOver from '#src/components/Popover';
 
 type PaymentStripeSofortProps = {
   AcceptTermsAndConditionsComponent: React.Component;

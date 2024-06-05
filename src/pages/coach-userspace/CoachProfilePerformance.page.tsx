@@ -7,34 +7,34 @@ import { WithStyles, createStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 import { DateTime } from 'luxon';
-import CoachPerformanceDateAndEstablishmentFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateAndEstablishmentFilter.component';
-import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
-import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
-import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
-import { withCoachPerformance } from '#libs/coach-payment-rules/selectors';
+import CoachPerformanceDateAndEstablishmentFilter from '#src/libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateAndEstablishmentFilter.component';
+import CoachPerformanceSummaryHeader from '#src/libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
+import CoachPerformanceTabs from '#src/libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
+import { getMyAssociatedCoachProfile } from '#src/libs/associated-coach/selectors';
+import { withCoachPerformance } from '#src/libs/coach-payment-rules/selectors';
 import {
   fetchCoachSessionPerformanceAction,
   fetchCoachPrivateServicePerformanceAction,
   exportPdfPerformance,
-} from '#libs/coach-payment-rules/actions';
-import withTitle from '#hocs/with-title.hoc';
-import { getTheme } from '#libs/theme/selectors';
+} from '#src/libs/coach-payment-rules/actions';
+import withTitle from '#src/hocs/with-title.hoc';
+import { getTheme } from '#src/libs/theme/selectors';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 import {
   getAllEstablishments,
   getAssociatedEstablishmentGroup,
-} from '#libs/establishment/selectors';
-import type { CoachwithPerformance } from '#libs/coach-payment-rules/types';
+} from '#src/libs/establishment/selectors';
+import type { CoachwithPerformance } from '#src/libs/coach-payment-rules/types';
 import {
   getEstablishmentGroupNames,
   getEstablishmentNames,
   getFilteredAssociatedCoachWithPerformance,
   getFilteredEstablishments,
   // @ts-expect-error
-} from '#libs/coach-payment-rules/utils';
+} from '#src/libs/coach-payment-rules/utils';
 import { WithHandlerType } from '../../utils/types';
 import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';

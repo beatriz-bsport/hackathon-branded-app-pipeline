@@ -1,5 +1,5 @@
-import type { SmartList } from '#libs/smart-list/types';
-import type { ErrorAndLoading } from '#libs/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { ErrorAndLoading } from '#src/libs/types';
 
 export type ActiveCampaignList = any; // External api
 export type ActiveCampaignWebhook = any; // External api

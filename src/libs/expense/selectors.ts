@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import { getUsers } from '#libs/role/selectors';
+import { getUsers } from '#src/libs/role/selectors';
 import { RootState } from '../../reducers';
 import { Expense } from './types';
 

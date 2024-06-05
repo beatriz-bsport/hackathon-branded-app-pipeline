@@ -7,10 +7,10 @@ import MarketplacePageContent, {
   Props,
 } from '.';
 import Typography from '#Fabrique/Typography';
-import MarketplaceAppBar from '#libs/marketplace/components/@AppBar/MarketplaceAppBar';
-import { marketplaceSettingsFactory } from '#libs/marketplace/factories';
-import { basketFactory } from '#libs/checkout/factories';
-import { Member } from '#libs/member/types';
+import MarketplaceAppBar from '#src/libs/marketplace/components/@AppBar/MarketplaceAppBar';
+import { marketplaceSettingsFactory } from '#src/libs/marketplace/factories';
+import { basketFactory } from '#src/libs/checkout/factories';
+import { Member } from '#src/libs/member/types';
 
 import './styles-storybook.css';
 

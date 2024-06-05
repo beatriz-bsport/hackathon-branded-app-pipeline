@@ -2,12 +2,12 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 
-import StepCard from '#components/card/StepCard.component';
-import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
+import StepCard from '#src/components/card/StepCard.component';
+import CadenceNodeTitle from '#src/libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
 import {
   DestinationStatus,
   SequentialMarketingColors,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
 export type CadenceExitCardProps = {
   status: DestinationStatus;

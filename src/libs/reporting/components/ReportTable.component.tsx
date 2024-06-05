@@ -19,16 +19,19 @@ import {
   getConverter,
   getColumn,
   ReportColumnPermissions,
-} from '#libs/reporting/utils';
-import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
-import ReportTableRow from '#libs/reporting/components/ReportTableRow';
+} from '#src/libs/reporting/utils';
+import { hasObjectLevelPermission } from '#src/libs/role/permission-utils/utils';
+import ReportTableRow from '#src/libs/reporting/components/ReportTableRow';
 
-import type { ObjectLevelPermissions, RolePermission } from '#libs/role/types';
+import type {
+  ObjectLevelPermissions,
+  RolePermission,
+} from '#src/libs/role/types';
 import type {
   ReportConfiguration,
   ReportMetadata,
   SerializedRow,
-} from '#libs/reporting/types';
+} from '#src/libs/reporting/types';
 
 type TableProps = {
   reportStoreRowsLoading: boolean;

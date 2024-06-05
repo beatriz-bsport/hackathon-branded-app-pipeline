@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import IconButton from '#Fabrique/IconButton';
-import { HelpCircle } from '#components/untitledui';
+import { HelpCircle } from '#src/components/untitledui';
 import { openIntercomHelp } from '../../../../intercom';
 import './styles.css';
 

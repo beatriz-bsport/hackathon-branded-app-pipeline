@@ -19,11 +19,11 @@ import Chip from '@material-ui/core/Chip';
 import Pagination from '@material-ui/lab/Pagination';
 import Alert from '@material-ui/lab/Alert';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 // @ts-expect-error
-import MemberForm from '#libs/member/MemberForm.component';
-import { getLatest } from '#libs/member/api';
-import type { MemberFormData, MemberMinimal } from '#libs/member/types';
+import MemberForm from '#src/libs/member/MemberForm.component';
+import { getLatest } from '#src/libs/member/api';
+import type { MemberFormData, MemberMinimal } from '#src/libs/member/types';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type { OptionCallback } from '../../../../state/types';
 

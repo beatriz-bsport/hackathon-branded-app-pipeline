@@ -7,12 +7,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import type { Booking } from '#libs/booking/types';
+import type { Booking } from '#src/libs/booking/types';
 
-import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
-import { Member } from '#libs/member/types';
-import { Tag, TagGroup } from '#libs/tag/types';
-import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
+import BookingItemForManagerV2 from '#src/libs/booking/components/BookingItemForManagerV2.component';
+import { Member } from '#src/libs/member/types';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import type { PerformanceTrackingProgram } from '#src/libs/performance-tracking/types';
 import ObjectLevelPermissionProvider from '../../role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {

@@ -1,17 +1,17 @@
 import { useCallback, useMemo, useState } from 'react';
-import { SubscriptionTabEnum } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import useViewport from '#Fabrique/hooks/useViewport';
-import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#libs/consumer-space/constants';
+import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 
-import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
+import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
-} from '#libs/subscription/types';
+} from '#src/libs/subscription/types';
 import type {
   ConsumerSubscriptionInvoiceDetails,
   ConsumerSubscriptionReworked,
-} from '#libs/consumer-space/types';
+} from '#src/libs/consumer-space/types';
 import type { OptionCallback } from '../../../../../../state/types';
 
 type Data = {

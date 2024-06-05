@@ -1,11 +1,11 @@
 import { createAction } from 'redux-actions';
-import { CUSTOM_ERROR_CODE } from '#libs/constants';
+import { CUSTOM_ERROR_CODE } from '#src/libs/constants';
 import type {
   ZoomApp,
   ZoomMember,
   ZoomEstablishment,
   ZoomEstablishmentBulkEditData,
-} from '#libs/zoom-app/types';
+} from '#src/libs/zoom-app/types';
 import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
 import {
   fetchZoomApp as fetchZoomAppAPI,

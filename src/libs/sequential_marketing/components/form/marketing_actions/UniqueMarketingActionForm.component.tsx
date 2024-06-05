@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import type { OptionCallback } from '../../../../../state/types';
 
 import MarketingActionContent from './MarketingActionContent.component';

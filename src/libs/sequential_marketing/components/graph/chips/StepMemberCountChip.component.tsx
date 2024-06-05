@@ -3,8 +3,8 @@ import { Theme, makeStyles } from '@material-ui/core/styles';
 
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Chip from '@material-ui/core/Chip';
-import MuiIcon from '#components/MuiIcon.component';
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+import MuiIcon from '#src/components/MuiIcon.component';
+import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
 
 type Props = {
   isVisible?: boolean;

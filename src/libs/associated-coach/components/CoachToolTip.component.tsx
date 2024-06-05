@@ -1,7 +1,7 @@
 import React from 'react';
 import makeStyles from '@material-ui/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
-import type { Coach } from '#libs/associated-coach/types';
+import type { Coach } from '#src/libs/associated-coach/types';
 
 type Props = {
   coach: Coach;

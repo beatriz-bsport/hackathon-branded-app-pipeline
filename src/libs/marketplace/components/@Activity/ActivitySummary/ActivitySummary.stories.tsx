@@ -5,12 +5,12 @@ import { ComponentStory, Meta } from '@storybook/react';
 
 import ActivitySummary, { ActivitySummaryForStorybook, type Props } from '.';
 import { generateRandomName } from '../../../../../utils/factories';
-import { CompanyTheme } from '#libs/theme/types';
-import { Establishment } from '#libs/establishment/types';
-import themeFactoryBot from '#libs/theme/factories';
-import establishmentFactoryBot from '#libs/establishment/factories/Establishments';
-import { coachFactory } from '#libs/associated-coach/factories';
-import { Coach } from '#libs/associated-coach/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { Establishment } from '#src/libs/establishment/types';
+import themeFactoryBot from '#src/libs/theme/factories';
+import establishmentFactoryBot from '#src/libs/establishment/factories/Establishments';
+import { coachFactory } from '#src/libs/associated-coach/factories';
+import { Coach } from '#src/libs/associated-coach/types';
 
 const fakeCompanyTheme: CompanyTheme = themeFactoryBot.companyTheme.createOne();
 

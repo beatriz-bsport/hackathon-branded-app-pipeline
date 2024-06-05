@@ -11,15 +11,15 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import { triggerIconByKind } from '#libs/sequential_marketing/components/helpers/utils';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
+import { triggerIconByKind } from '#src/libs/sequential_marketing/components/helpers/utils';
 import {
   TRIGGER_FORM_DEFAULT_HEIGHT,
   TriggerKind,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
-import type { SmartList } from '#libs/smart-list/types';
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
 import ConnectedTriggerContent from './ConnectedTriggerContent.component';
 
 type Props = {

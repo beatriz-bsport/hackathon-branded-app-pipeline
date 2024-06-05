@@ -19,15 +19,15 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 // @ts-expect-error
-import { Submit, defaultHandleSubmit } from '#components/forms';
-import DateRangeSelector from '#components/date/DateRangeSelector.component';
-import TimeRangeSelector from '#components/time/TimeRangeSelector.component';
-import DatePickerSelector from '#components/date/DatePickerSelector.component';
-import { getReportGlobalCategoryFromCategory } from '#libs/reporting/utils';
+import { Submit, defaultHandleSubmit } from '#src/components/forms';
+import DateRangeSelector from '#src/components/date/DateRangeSelector.component';
+import TimeRangeSelector from '#src/components/time/TimeRangeSelector.component';
+import DatePickerSelector from '#src/components/date/DatePickerSelector.component';
+import { getReportGlobalCategoryFromCategory } from '#src/libs/reporting/utils';
 
-import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
+import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import { OptionCallback } from '../../../state/types';
 import {
   ReportConfiguration as ReportConfigurationType,
@@ -323,10 +323,10 @@ const ReportGenerationForm: React.FC<Props> = ({
               />
             )}
             {reportConfiguration.date_type === 'single' && (
-              // @ts-expect-error
               <DatePickerSelector
                 date={DateTime.fromISO(values.dateEnd).toUnixInteger()}
                 isDisabled={!!isDisabled}
+// @ts-expect-error
                 onSubmit={(_values) => {
                   setFieldValue(
                     'dateStart',

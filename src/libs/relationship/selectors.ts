@@ -2,9 +2,12 @@ import memoize from 'memoize-one';
 import { createSelector } from 'reselect';
 
 import type { RootState } from 'src/reducers';
-import { getMemberDetailData, getMemberListData } from '#libs/member/selectors';
-import { getConsumerPacksWithPaymentPack } from '#libs/consumer-payment-pack/selectors';
-import { getPrivateConsumerPassList } from '#libs/private-service/selectors/private-consumer-pass';
+import {
+  getMemberDetailData,
+  getMemberListData,
+} from '#src/libs/member/selectors';
+import { getConsumerPacksWithPaymentPack } from '#src/libs/consumer-payment-pack/selectors';
+import { getPrivateConsumerPassList } from '#src/libs/private-service/selectors/private-consumer-pass';
 
 import type {
   ConsumerPaymentPackLink,

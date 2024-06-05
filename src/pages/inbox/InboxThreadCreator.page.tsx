@@ -12,34 +12,33 @@ import Alert from '@material-ui/lab/Alert';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { AxiosResponse } from 'axios';
-import type { CommunicationThread } from '#libs/communication-v2/types';
-import { withGroup } from '#libs/group-offer/selectors';
-import { withCustomLevel } from '#libs/level/selectors';
-import { getTheme, getCompanyCountry } from '#libs/theme/selectors';
-import { getSearchedMembers } from '#libs/member/selectors';
+import type { CommunicationThread } from '#src/libs/communication-v2/types';
+import { withGroup } from '#src/libs/group-offer/selectors';
+import { withCustomLevel } from '#src/libs/level/selectors';
+import { getTheme, getCompanyCountry } from '#src/libs/theme/selectors';
+import { getSearchedMembers } from '#src/libs/member/selectors';
 import {
   search as searchMembers,
   createOrUpdateMember,
-} from '#libs/member/actions';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+} from '#src/libs/member/actions';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 // @ts-expect-error
-import SmartListSelector from '#libs/smart-list/components/SmartListSelector.component';
-import { getAllSmartList } from '#libs/smart-list/selectors';
-// @ts-expect-error @ts-expect-error
-import TimeTable from '#components/offer/TimeTable.component';
-import Calendar from '#components/offer/Calendar.component';
+import SmartListSelector from '#src/libs/smart-list/components/SmartListSelector.component';
+import { getAllSmartList } from '#src/libs/smart-list/selectors';
 // @ts-expect-error
-import { MemberMap } from '#libs/member/utils';
+import TimeTable from '#src/components/offer/TimeTable.component';
+import Calendar from '#src/components/offer/Calendar.component';
+import { MemberMap } from '#src/libs/member/utils';
 
 import {
   fetchOffersByDay as fetchOffersByDayAction,
   fetchAllOffers as fetchAllOffersAction,
-} from '#libs/offer/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
-import { fetchGroupsOfferList as fetchGroupsOfferListAction } from '#libs/group-offer/actions';
+} from '#src/libs/offer/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
+import { fetchGroupsOfferList as fetchGroupsOfferListAction } from '#src/libs/group-offer/actions';
 
-import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '#src/libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#src/libs/establishment/actions';
 
 import {
   getManagerOffersFiltered,
@@ -48,16 +47,17 @@ import {
   withEstablishment,
   withGender,
   withTags,
-} from '#libs/offer/selectors';
+} from '#src/libs/offer/selectors';
 
-import { fetchAllSmartLists as fetchAllSmartListsAction } from '#libs/smart-list/actions';
-// @ts-expect-error @ts-expect-error
-import { useOfferHandler } from '#libs/communication-v2/hooks/useOfferHandler';
-import { useSmartlistHandler } from '#libs/communication-v2/hooks/useSmartlistHandler';
-import ThreadCreatorIconAction from '#libs/communication-v2/thread/commons/ThreadCreatorIconAction.component';
-import MemberSearchDialog from '#libs/member/components/MemberSearchDialog';
-import { MemberFormData, MemberMinimal } from '#libs/member/types';
+import { fetchAllSmartLists as fetchAllSmartListsAction } from '#src/libs/smart-list/actions';
+import { useOfferHandler } from '#src/libs/communication-v2/hooks/useOfferHandler';
+import { useSmartlistHandler } from '#src/libs/communication-v2/hooks/useSmartlistHandler';
+import ThreadCreatorIconAction from '#src/libs/communication-v2/thread/commons/ThreadCreatorIconAction.component';
+import MemberSearchDialog from '#src/libs/member/components/MemberSearchDialog';
+import { MemberFormData, MemberMinimal } from '#src/libs/member/types';
+// @ts-expect-error
 import { getDayOffers } from '../planning/Planning.page';
+// @ts-expect-error
 import { mapFormData } from '../form.utils';
 import { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';

@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import uniqBy from 'lodash/uniqBy';
 
-import type { SelectOption } from '#libs/types';
+import type { SelectOption } from '#src/libs/types';
 import type { State } from '../../state/types';
 import type { RootState } from '../../reducers';
 import type { ShopItem, SubShop } from './types';
@@ -56,7 +56,6 @@ export const getSubShopsByCompany = (
   state: RootState,
   companyId: number,
   as_consumer?: boolean,
-  // @ts-expect-error
 ) => getSubShops(state, as_consumer).filter((sub) => sub.company === companyId);
 
 const getShopitem = (state: State, id: number) => {

@@ -1,11 +1,11 @@
 import React from 'react';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import { contractFactory } from '#libs/subscription/factory';
+import { contractFactory } from '#src/libs/subscription/factory';
 // @ts-expect-error
 import MarketplaceContractTermsModalCss from './styles.css?raw';
 import MarketplaceContractTermsModal, {

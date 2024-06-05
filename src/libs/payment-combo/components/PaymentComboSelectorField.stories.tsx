@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import withFormik from '@bbbtech/storybook-formik';
 // @ts-expect-error
 import PaymentComboSelectorField from './PaymentComboSelectorField.component';
-import { paymentComboListFactory } from '#libs/payment-combo/factory';
+import { paymentComboListFactory } from '#src/libs/payment-combo/factory';
 
 const basicChoices = paymentComboListFactory(10);
 

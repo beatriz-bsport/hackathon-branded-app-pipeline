@@ -3,8 +3,8 @@ import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import type { Tag, TagGroup } from '#libs/tag/types';
-import TagChip from '#libs/tag/components/TagChip.component';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
+import TagChip from '#src/libs/tag/components/TagChip.component';
 
 type Props = { memberTags: number[]; tags: Tag<TagGroup>[] };
 

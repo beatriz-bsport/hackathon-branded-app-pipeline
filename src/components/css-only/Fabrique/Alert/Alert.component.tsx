@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import Button from '#Fabrique/ButtonV2';
 import IconButton from '#Fabrique/IconButton';
-import { XClose } from '#components/untitledui';
+import { XClose } from '#src/components/untitledui';
 
 import {
   TypographyTextAlign,

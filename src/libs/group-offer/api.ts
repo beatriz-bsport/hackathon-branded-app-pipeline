@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
-import { GenericPaginationResults } from '#libs/types';
-import { Offer, OfferStatus } from '#libs/offer/types';
+import { GenericPaginationResults } from '#src/libs/types';
+import { Offer, OfferStatus } from '#src/libs/offer/types';
 import {
   API_V1_URI,
   postAuth,

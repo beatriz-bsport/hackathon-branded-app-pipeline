@@ -5,8 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Popover from '@material-ui/core/Popover';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import ReplacementRequestStatusChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestStatusChip.component';
-import { ReplacementRequestStatus } from '#libs/replacement-request/constants';
+import ReplacementRequestStatusChip from '#src/libs/replacement-request/components/replacement-request-table/ReplacementRequestStatusChip.component';
+import { ReplacementRequestStatus } from '#src/libs/replacement-request/constants';
 
 type Props = {
   anchorEl: HTMLElement;

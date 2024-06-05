@@ -4,11 +4,11 @@ import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
-import { CompanyTheme } from '#libs/theme/types';
-import { offerFactory } from '#libs/offer/factories';
-import { Offer } from '#libs/offer/types';
+} from '#src/libs/exportable-components/types';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { offerFactory } from '#src/libs/offer/factories';
+import { Offer } from '#src/libs/offer/types';
 // @ts-expect-error
 import MarketplaceActivityCSSOnlyCss from './MarketplaceActivity.css?raw';
 import MarketplaceActivityCSSOnly, {

@@ -10,9 +10,9 @@ import { createStyles, withTheme } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import { Theme } from '@material-ui/core/styles';
 
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import {
   TextField,
   Actions,
@@ -20,7 +20,7 @@ import {
   ColorField,
   IconField,
   // @ts-expect-error
-} from '#components/forms';
+} from '#src/components/forms';
 
 import { MaterialStyleType } from '../../../utils/types';
 import type { OptionCallback } from '../../../state/types';

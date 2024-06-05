@@ -34,8 +34,8 @@ import {
   BILLING_PLAN_STATUS_ENDED,
 } from '@bsport/common/lib/master-data/subscription-status';
 
-import CustomChip from '#components/chip/CustomChip.component';
-import { AccessStatus } from '#libs/access-control/constants';
+import CustomChip from '#src/components/chip/CustomChip.component';
+import { AccessStatus } from '#src/libs/access-control/constants';
 
 type Props = {
   columnName: string;

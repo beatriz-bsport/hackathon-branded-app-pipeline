@@ -8,7 +8,7 @@ import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
 
-import { displayReworkedMemberProfile } from '#libs/consumer-space/constants';
+import { displayReworkedMemberProfile } from '#src/libs/consumer-space/constants';
 import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.page';
 import CompanyDetailPage from './CompanyDetailPage.page';
 import RoleConfigurationPage from './RoleConfiguration.page';

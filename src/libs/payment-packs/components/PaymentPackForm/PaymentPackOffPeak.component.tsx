@@ -10,9 +10,12 @@ import { ButtonBase, Collapse, alpha, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import { ErrorMessage } from 'formik';
 import { DateTime } from 'luxon';
-import { OffPeakSchedule, OffPeakIsoWeekdays } from '#libs/payment-packs/types';
+import {
+  OffPeakSchedule,
+  OffPeakIsoWeekdays,
+} from '#src/libs/payment-packs/types';
 // @ts-expect-error
-import { TimeField, RadioGroupField } from '#components/forms';
+import { TimeField, RadioGroupField } from '#src/components/forms';
 
 type FieldValueSetter = (
   field: string,

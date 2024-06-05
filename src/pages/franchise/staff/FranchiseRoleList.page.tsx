@@ -7,24 +7,24 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import { TFunction } from 'i18next';
 import { Backdrop, CircularProgress, Theme } from '@material-ui/core';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import RoleList from '#libs/role/components/RoleList.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import RoleList from '#src/libs/role/components/RoleList.component';
 import {
   fetchCompanyRoles,
   fetchFranchiseRoles,
   createFranchiseRole,
   updateFranchiseRole,
   deleteFranchiseRole,
-} from '#libs/role/actions';
+} from '#src/libs/role/actions';
 import {
   getUsersWithRole,
   getAllFranchiseRoles,
   withFranchiseeRoles,
   hasFranchiseRoleUpsertPermission,
-} from '#libs/role/selectors';
-import withTitle from '#hocs/with-title.hoc';
-import { FranchiseRole, Role } from '#libs/role/types';
-import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
+} from '#src/libs/role/selectors';
+import withTitle from '#src/hocs/with-title.hoc';
+import { FranchiseRole, Role } from '#src/libs/role/types';
+import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
 import { RootState } from '../../../reducers';
 import { MaterialStyleType } from '../../../utils/types';
 

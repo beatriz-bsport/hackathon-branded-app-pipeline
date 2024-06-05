@@ -7,7 +7,7 @@ import {
   fetchPresentMembersDataActions,
   searchCadenceMembersHistoricActions,
   searchCadencePresentMembersDataActions,
-} from '#libs/sequential_marketing/actions';
+} from '#src/libs/sequential_marketing/actions';
 
 import type {
   CadenceGlobalMetrics,
@@ -15,7 +15,7 @@ import type {
   CadenceMembersOutData,
   MetricsPaginatedResponse,
   MetricsState,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 
 type ImmutableCadenceMetricsState = Immutable.Immutable<MetricsState>;
 

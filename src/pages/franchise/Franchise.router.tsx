@@ -6,9 +6,9 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core';
 
-import { fetchFranchiseRoles as fetchFranchiseRolesAction } from '#libs/role/actions';
-import { getFranchisePermissions } from '#libs/role/selectors';
-import GenericDialog from '#components/genericDialog/GenericDialog';
+import { fetchFranchiseRoles as fetchFranchiseRolesAction } from '#src/libs/role/actions';
+import { getFranchisePermissions } from '#src/libs/role/selectors';
+import GenericDialog from '#src/components/genericDialog/GenericDialog';
 import { BsportRequestFromHeaderValue } from '../../constants';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent';

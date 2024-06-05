@@ -2,13 +2,13 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import { factory_scts } from '#libs/category/factory';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
+import { factory_scts } from '#src/libs/category/factory';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
 import {
   privatePassCategoryListFactory,
   privateServiceListFactory,
-} from '#libs/private-service/factory';
-import FactoryBotEstablishment from '#libs/establishment/factories/Establishments';
+} from '#src/libs/private-service/factory';
+import FactoryBotEstablishment from '#src/libs/establishment/factories/Establishments';
 
 import { newStoryFromTemplate } from '../../../../../../utils/storybookHelper';
 
@@ -43,7 +43,7 @@ import {
 
 import PrivatePassForm from '../PrivatePassForm.component';
 
-import { Establishment } from '#libs/establishment/types';
+import { Establishment } from '#src/libs/establishment/types';
 
 const actionsData = {
   onSubmit: action('onSubmit'),

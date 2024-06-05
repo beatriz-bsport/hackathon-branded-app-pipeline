@@ -22,22 +22,21 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import LanguageIcon from '@material-ui/icons/Language';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 
 // @ts-expect-error
-import ShopItemListItem from '#libs/shop/components/ShopItemListItem.component';
+import ShopItemListItem from '#src/libs/shop/components/ShopItemListItem.component';
 // @ts-expect-error
 import SubShopList from '#pages/shop/SubShopList.component';
-import ShopListSubshopForm from '#libs/shop/components/ShopListSubshopForm';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
 
-import type { ShopItem, SubShop } from '#libs/shop/types';
-import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+
+import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
 import {
   ShopListTab,
   SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
-} from '#libs/shop/components/ShopListTabs/constants';
-import type { OptionCallback } from '../../../../../state/types';
+} from '#src/libs/shop/components/ShopListTabs/constants';
+import type { OptionCallback } from '#src/state/types';
 
 type ShopItemOption = {
   label: string;
@@ -50,6 +49,10 @@ type ShopItemOption = {
 const Option: React.FC<OptionPropsWithData<ShopItemOption>> = (props) => (
   <ShopItemListItem divider {...props.data} />
 );
+
+import ShopListSubshopForm from '#src/libs/shop/components/ShopListSubshopForm';
+
+import type { ShopItem, SubShop } from '#src/libs/shop/types';
 
 type Props = {
   subshopList: SubShop[];

@@ -5,20 +5,20 @@ import { ConnectedProps, connect } from 'react-redux';
 import { compose } from 'recompose';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import classnames from 'classnames';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
 import {
   fetchFranchise as fetchFranchiseAction,
   fetchFranchiseUser as fetchFranchiseUserAction,
-} from '#libs/franchise/actions';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+} from '#src/libs/franchise/actions';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import {
   getFranchiseUserById,
   withAllowedFranchisees,
-} from '#libs/franchise/selectors';
-import FranchiseMemberDetailsCard from '#libs/franchise/components/FranchiseMemberDetailsCard.components';
-import FranchiseMemberMembership from '#libs/franchise/components/FranchiseMemberMembership.components';
+} from '#src/libs/franchise/selectors';
+import FranchiseMemberDetailsCard from '#src/libs/franchise/components/FranchiseMemberDetailsCard.components';
+import FranchiseMemberMembership from '#src/libs/franchise/components/FranchiseMemberMembership.components';
 import type { RootState } from '../../reducers';
 // @ts-expect-error
 import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';

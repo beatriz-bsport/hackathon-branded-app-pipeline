@@ -14,10 +14,10 @@ import WarningIcon from '@material-ui/icons/Warning';
 import * as Yup from 'yup';
 import { Theme } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { CheckboxField, Submit, PriceField } from '#components/forms';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
-import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
+import { CheckboxField, Submit, PriceField } from '#src/components/forms';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
+import { OptionCallback } from '../../../state/types';
 import { type Subscription, PlannedInvoice } from '../types';
 
 type Props = {

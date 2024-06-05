@@ -2,13 +2,13 @@ import React from 'react';
 import { v4 as uuid4 } from 'uuid';
 import { useTranslation } from 'react-i18next';
 
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 
-import type { Member } from '#libs/member/types';
-import type { PaymentMethod } from '#libs/payment/types';
+import type { Member } from '#src/libs/member/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
 
-import { BackgroundDialogDisplayMode } from '#libs/background-dialog/types';
+import { BackgroundDialogDisplayMode } from '#src/libs/background-dialog/types';
 import type {
   OptionBackgroundCallback,
   OptionCallback,

@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 
-import { memberBulkActions } from '#libs/member/actions';
-import type { Member } from '#libs/member/types';
+import { memberBulkActions } from '#src/libs/member/actions';
+import type { Member } from '#src/libs/member/types';
 import {
   fetchCompanyList as fetchCompanyListAPI,
   createCompany as createCompanyAPI,

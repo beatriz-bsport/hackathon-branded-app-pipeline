@@ -14,8 +14,8 @@ import {
 } from '@material-ui/core';
 import { Link as LinkIcon, Mail, People } from '@material-ui/icons';
 import { Formik } from 'formik';
-import { Member } from '#libs/member/types';
-import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
+import { Member } from '#src/libs/member/types';
+import { CheckboxField } from '#src/libs/custom-form/components/GenericFormik.input';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 // @ts-expect-error
 import { TextFieldEnhancedLabelWithError } from '../../../components/forms';

@@ -16,8 +16,8 @@ import isEqual from 'lodash/isEqual';
 import uniq from 'lodash/uniq';
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/styles';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { urlToMarketplace } from '#libs/marketplace/utils';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { fetchMarketplacePrivateServices } from '../../../../libs/private-service/actions';
 import { _getPrivateServicesMarketplace } from '../../../../libs/private-service/selectors/private-service';
 // @ts-expect-error

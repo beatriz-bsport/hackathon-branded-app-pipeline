@@ -11,19 +11,19 @@ import Tab from '@material-ui/core/Tab';
 import TabContext from '@material-ui/lab/TabContext';
 import Tabs from '@material-ui/core/Tabs';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
+import { useShopDetailTabsModalPrompt } from '#src/hocs/shop-modal-prompt.hoc';
 
-import PromptOnPageLeaveComponent from '#components/Prompt';
+import PromptOnPageLeaveComponent from '#src/components/Prompt';
 import type {
   ProvisionBulkCreate,
   ShopItem,
   TabListOption,
   ProvisionCreate,
   Provision,
-} from '#libs/shop/types';
-import type { SelectOption } from '#libs/types';
+} from '#src/libs/shop/types';
+import type { SelectOption } from '#src/libs/types';
 import ShopItemDetailInventoryTab from './tabs/ShopItemDetailInventoryTab.component';
 import ShopItemDetailVariantsTab from './tabs/ShopItemDetailVariantsTab.component';
 import ShopItemDetailSettingsTab from './tabs/ShopItemDetailSettingsTab.component';

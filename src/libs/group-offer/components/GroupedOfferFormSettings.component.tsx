@@ -30,7 +30,7 @@ import {
 } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Alert } from '@material-ui/lab';
-import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook';
+import useFeaturesProvider from '#src/libs/company/hooks/feature-list-provider.hook';
 
 import {
   TextField,
@@ -42,34 +42,34 @@ import {
   AlertError,
   IntervalRecurrenceSelectField,
   // @ts-expect-error
-} from '#components/forms';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import OfferCreateForm from '#libs/offer/OfferCreateForm.component';
-import OfferEditForm from '#libs/offer/OfferEditForm.component';
+} from '#src/components/forms';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import OfferCreateForm from '#src/libs/offer/OfferCreateForm.component';
+import OfferEditForm from '#src/libs/offer/OfferEditForm.component';
 
-import { CompanyTheme } from '#libs/theme/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { OffersGroup } from '#libs/group-offer/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import { RoomBlueprint } from '#libs/spot-scheduling/types';
-import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
-import { Tag, TagGroup } from '#libs/tag/types';
-import { Offer } from '#libs/offer/types';
-import CoachAvatar from '#libs/associated-coach/components/CoachAvatar.component';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { OffersGroup } from '#src/libs/group-offer/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { RoomBlueprint } from '#src/libs/spot-scheduling/types';
+import { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import { Offer } from '#src/libs/offer/types';
+import CoachAvatar from '#src/libs/associated-coach/components/CoachAvatar.component';
 import {
   FREQUENCE_NUMBER_CONVERTER,
   FREQUENCE_STRING_CONVERTER,
   getDisplayDateFromRecurrence,
-} from '#libs/group-offer/utils';
-import LevelSelectorFormik from '#libs/level/components/LevelSelectorFormik.component';
-import { Level } from '#libs/level/types';
-import ManagerOnlyToggle from '#libs/offer/form/ManagerOnlyToggle.component';
-import BlackWhiteListing from '#libs/offer/BlackWhiteListing.component';
-import FormToggle from '#components/forms/FormToggle.component';
-import { ZoomApp } from '#libs/zoom-app/types';
-import Tooltip from '#components/Tooltip.component';
-import { AdditionalCoachesTooltipTitle } from '#libs/associated-coach/components/CoachToolTip.component';
+} from '#src/libs/group-offer/utils';
+import LevelSelectorFormik from '#src/libs/level/components/LevelSelectorFormik.component';
+import { Level } from '#src/libs/level/types';
+import ManagerOnlyToggle from '#src/libs/offer/form/ManagerOnlyToggle.component';
+import BlackWhiteListing from '#src/libs/offer/BlackWhiteListing.component';
+import FormToggle from '#src/components/forms/FormToggle.component';
+import { ZoomApp } from '#src/libs/zoom-app/types';
+import Tooltip from '#src/components/Tooltip.component';
+import { AdditionalCoachesTooltipTitle } from '#src/libs/associated-coach/components/CoachToolTip.component';
 import { OptionCallback } from '../../../state/types';
 
 type OuterProps = {

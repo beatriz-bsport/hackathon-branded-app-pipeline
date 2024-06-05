@@ -11,8 +11,8 @@ import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 
-import type { PrivateBooking } from '#libs/private-service/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import type { PrivateBooking } from '#src/libs/private-service/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
 type Props = {
   onSubmit: (force_refund: boolean, send_email: boolean) => void;

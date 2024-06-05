@@ -23,11 +23,11 @@ import {
 } from '@material-ui/core';
 
 // @ts-expect-error
-import { Submit, IntegerField, ColorField } from '#components/forms';
+import { Submit, IntegerField, ColorField } from '#src/components/forms';
 // @ts-expect-error
-import withConfirm from '#hocs/with-confirm.hoc';
-import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
-import { CompanyTheme, WidgetCustomCSS } from '#libs/theme/types';
+import withConfirm from '#src/hocs/with-confirm.hoc';
+import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { CompanyTheme, WidgetCustomCSS } from '#src/libs/theme/types';
 
 type OuterProps = {
   // eslint-disable-next-line react/no-unused-prop-types

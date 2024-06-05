@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
 
 import './styles.css';
 

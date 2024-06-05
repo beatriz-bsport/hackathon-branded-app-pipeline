@@ -8,12 +8,12 @@ import useTheme from '@material-ui/core/styles/useTheme';
 import type { DialogProps } from '@material-ui/core/Dialog';
 import type { Theme } from '@material-ui/core/styles';
 
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import DialogWithBigIcon from '#components/DialogWithBigIcon';
-import WarningIconRounded from '#components/icons/WarningIconRounded.component';
-import WelcomeIcon from '#components/icons/WelcomeIcon.component';
+import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
+import DialogWithBigIcon from '#src/components/DialogWithBigIcon';
+import WarningIconRounded from '#src/components/icons/WarningIconRounded.component';
+import WelcomeIcon from '#src/components/icons/WelcomeIcon.component';
 
-import type { Cadence } from '#libs/sequential_marketing/types';
+import type { Cadence } from '#src/libs/sequential_marketing/types';
 
 export enum DialogVariant {
   ACTIVE = 'activate',

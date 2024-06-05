@@ -12,12 +12,12 @@ import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import classnames from 'classnames';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { DateRange, Share, Star } from '@material-ui/icons';
-import RedButtonComponent from '#components/button/RedButton.component';
-import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
+import RedButtonComponent from '#src/components/button/RedButton.component';
+import TypographyMultilineComponent from '#src/components/typo/TypographyMultiline.component';
 import {
   PENALTY_KIND_BLOCK_CPP,
   PENALTY_KIND_NEGATIVE_ACCOUNT,
-} from '#libs/payment-packs/constants';
+} from '#src/libs/payment-packs/constants';
 import { getCreditInfo, getValidityInfo } from '../utils';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PaymentPackTemplate } from '../types';

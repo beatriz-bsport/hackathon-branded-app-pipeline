@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
-import type { Theme } from '#libs/theme/types';
+import type { Theme } from '#src/libs/theme/types';
 
 type Props = {
   theme: Theme;

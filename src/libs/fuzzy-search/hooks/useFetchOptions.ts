@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
-import type { OptionCallback } from '#state/types';
+import type { OptionCallback } from '#src/state/types';
 import type {
   FuzzySearchAPIParams,
   ObjectSearchArray,
@@ -11,9 +11,9 @@ import type {
   SearchIdentifier,
   SearchObjectType,
   SelectOptions,
-} from '#libs/fuzzy-search/types';
-import { getSearchObjectURI } from '#libs/fuzzy-search/utils/getURIFromObjectType';
-import { getLabelFromItem } from '#libs/fuzzy-search/utils/labelExtractor';
+} from '#src/libs/fuzzy-search/types';
+import { getSearchObjectURI } from '#src/libs/fuzzy-search/utils/getURIFromObjectType';
+import { getLabelFromItem } from '#src/libs/fuzzy-search/utils/labelExtractor';
 
 const DEBOUNCE_TIME = 500;
 

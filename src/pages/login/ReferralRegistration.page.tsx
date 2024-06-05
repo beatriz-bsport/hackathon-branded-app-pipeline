@@ -12,53 +12,53 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
 } from '@bsport/common/lib/master-data/custom-form';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
-import { fetchCompanyTheme } from '#libs/theme/actions';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import {
   fetchCompanyCustomSignUp,
   submitSignUpCustomForm,
   fetchCompanyCustomMemberForm,
   submitCustomForm,
-} from '#libs/custom-form/actions';
+} from '#src/libs/custom-form/actions';
 import {
   getReferralLinkStatusLoading,
   getTheReferralLinkStatus,
   getReferralRegistrationErrorCode,
-} from '#libs/referral/selectors';
-import { retrieveReferralLinkStatus } from '#libs/referral/actions';
+} from '#src/libs/referral/selectors';
+import { retrieveReferralLinkStatus } from '#src/libs/referral/actions';
 // @ts-expect-error not typed
-import Analytics from '#components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 import {
   withUserProfileData,
   getMemberCustomFormWithEnabledField,
   getSignUpCustomFormWithEnabledField,
   getSignUpCustomFormLoading,
-} from '#libs/custom-form/selectors';
-import CustomFormTitle from '#libs/custom-form/components/CustomFormTitle.component';
-import CustomFormView from '#libs/custom-form/components/consumer-form/CustomFormView.form';
-import ReferralLinkRegistrationInfo from '#libs/referral/components/ReferralLinkRegistrationInfo.component';
-import { isReferralUsable } from '#libs/referral/utils';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+} from '#src/libs/custom-form/selectors';
+import CustomFormTitle from '#src/libs/custom-form/components/CustomFormTitle.component';
+import CustomFormView from '#src/libs/custom-form/components/consumer-form/CustomFormView.form';
+import ReferralLinkRegistrationInfo from '#src/libs/referral/components/ReferralLinkRegistrationInfo.component';
+import { isReferralUsable } from '#src/libs/referral/utils';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import {
   CustomFormFilled,
   CustomFormFieldAnswer,
   SignUpSuccessResponse,
-} from '#libs/custom-form/types';
+} from '#src/libs/custom-form/types';
 import {
   fetchMember as fetchMemberAction,
   fetchMyUserProfile,
-} from '#libs/member/actions';
+} from '#src/libs/member/actions';
 import {
   linkMeToCompany as linkMeToCompanyAction,
   requestMembershipValidation as requestMembershipValidationAction,
-} from '#libs/membership/actions';
-import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
+} from '#src/libs/membership/actions';
+import { getMarketplaceRoute } from '#src/libs/marketplace/routing-utils';
 
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
-import withThemeProvider from '#hocs/company-themifier.hoc';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
+import withThemeProvider from '#src/hocs/company-themifier.hoc';
 import { buildUrlParams } from '../../http';
 // @ts-expect-error not typed
 import { requestLogin } from '../../actions/auth.actions';

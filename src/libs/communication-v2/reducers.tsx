@@ -4,7 +4,7 @@ import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-in
 import {
   COMMUNICATION_KIND,
   INBOX_THREAD_PAGE_SIZE,
-} from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/constants';
 import {
   sendCommunicationAction,
   recipientAction,

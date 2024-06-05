@@ -3,10 +3,10 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import QuicksaleBasketListBar from './QuicksaleBasketListBar.component';
-import { createManyBaskets } from '#libs/checkout/factories';
-import { MemberFactory } from '#libs/member/factories/Member';
-import type { Member } from '#libs/member/types';
-import type { Basket } from '#libs/checkout/types';
+import { createManyBaskets } from '#src/libs/checkout/factories';
+import { MemberFactory } from '#src/libs/member/factories/Member';
+import type { Member } from '#src/libs/member/types';
+import type { Basket } from '#src/libs/checkout/types';
 
 const basketList = createManyBaskets(10);
 const memberById: { [memberId: number]: Member } = {};

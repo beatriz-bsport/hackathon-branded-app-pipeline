@@ -5,11 +5,11 @@ import OfferBookingWaitingList, {
   OfferBookingWaitingListForStorybook,
   type Props,
 } from '.';
-import { offerFactory } from '#libs/offer/factory';
-import { OfferStatus } from '#libs/offer/types';
-import { coachFactory } from '#libs/associated-coach/factories';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
-import { establishment_factory } from '#libs/establishment/factory';
+import { offerFactory } from '#src/libs/offer/factory';
+import { OfferStatus } from '#src/libs/offer/types';
+import { coachFactory } from '#src/libs/associated-coach/factories';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { establishment_factory } from '#src/libs/establishment/factory';
 
 import {
   OFFER_WAITING_LIST_STATUS_OPEN,
@@ -114,7 +114,6 @@ export default {
   component: OfferBookingWaitingList,
   decorators: [
     (Story) => (
-      // @ts-expect-error
       <div style={{ container: 'bsOfferBookingPage / inline-size' }}>
         <Story />
       </div>

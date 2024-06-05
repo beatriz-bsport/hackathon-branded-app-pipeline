@@ -5,7 +5,7 @@ import CustomFormConfigurationTable from './CustomFormConfigurationTable.form';
 import { CUSTOM_FORM_FIELDS_OPTIONS } from '../../../utils';
 import type { TagGroupAPI, Tag } from '../../../../tag/types';
 import type { CustomForm } from '../../../types';
-import FactoryBot from '#libs/theme/factories';
+import FactoryBot from '#src/libs/theme/factories';
 
 const companyTheme = FactoryBot.companyTheme.createOne();
 

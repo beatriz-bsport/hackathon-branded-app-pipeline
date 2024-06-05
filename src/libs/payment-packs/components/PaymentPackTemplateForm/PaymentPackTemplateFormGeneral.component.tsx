@@ -17,19 +17,19 @@ import BlockIcon from '@material-ui/icons/Block';
 
 import { FormikProps, useFormikContext } from 'formik';
 import classNames from 'classnames';
-import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
+import { CheckboxField } from '#src/libs/custom-form/components/GenericFormik.input';
 import {
   TextFieldEnhancedLabelWithError,
   PriceField,
   TextField,
   SwitchField,
   // @ts-expect-error
-} from '#components/forms';
+} from '#src/components/forms';
 
 import {
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
-} from '#libs/theme/selectors';
+} from '#src/libs/theme/selectors';
 import {
   PaymentPackTemplate,
   PaymentPackTemplateFormValues,

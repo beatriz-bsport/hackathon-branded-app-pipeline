@@ -3,8 +3,8 @@ import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import CountDown from '#components/time/CountDown.component';
-import Alert, { AlertSeverity } from '#csscomponents/Alert';
+import CountDown from '#src/components/time/CountDown.component';
+import Alert, { AlertSeverity } from '#src/components/css-only/Alert';
 
 export type Props = {
   expirationDatetime: string;

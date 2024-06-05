@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 
 import { AxiosResponse } from 'axios';
 import uniq from 'lodash/uniq';
-import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 import {
   fetchAll,
   fetchOld,

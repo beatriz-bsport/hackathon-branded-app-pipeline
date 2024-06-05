@@ -21,7 +21,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import PlaceNumber from '#libs/spot-scheduling/component/PlaceNumber.component';
+import PlaceNumber from '#src/libs/spot-scheduling/component/PlaceNumber.component';
 import {
   formatAsDatetimeAdapted,
   formatISOStringAsTime,

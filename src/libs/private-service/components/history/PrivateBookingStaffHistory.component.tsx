@@ -14,11 +14,11 @@ import {
   PRIVATE_BOOKING_CREATED_BY_STAFF,
   PRIVATE_BOOKING_CANCELLED_BY_STAFF,
   RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
-} from '#libs/private-service/components/constants';
+} from '#src/libs/private-service/components/constants';
 
 import { BookingSource, getStaffName } from '../../../booking/utils';
 
-import { PrivateBooking } from '#libs/private-service/types';
+import { PrivateBooking } from '#src/libs/private-service/types';
 
 type Props = {
   privateBooking: PrivateBooking;

@@ -12,16 +12,16 @@ import Dialog from '@material-ui/core/Dialog';
 
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import { BLOCKER_FRAME_ID } from '#libs/platform-billing/constant';
-import WelcomeIcon from '#components/icons/WelcomeIcon.component';
-import { hasUpsell } from '#libs/platform-billing/utils';
+import { BLOCKER_FRAME_ID } from '#src/libs/platform-billing/constant';
+import WelcomeIcon from '#src/components/icons/WelcomeIcon.component';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 import {
   requestUpsellPackage as requestUpsellPackageAction,
   subscribeUpsellPackage as subscribeUpsellPackageAction,
-} from '#libs/platform-billing/actions';
+} from '#src/libs/platform-billing/actions';
 
-import type { UpsellPackage } from '#libs/company/types';
-import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
+import type { UpsellPackage } from '#src/libs/company/types';
+import FeatureRequestDialog from '#src/libs/platform-billing/components/FeatureRequestDialog.component';
 import Config from '../../../config';
 import type { Dispatch } from '../../../state/types';
 import type { RootState } from '../../../reducers';

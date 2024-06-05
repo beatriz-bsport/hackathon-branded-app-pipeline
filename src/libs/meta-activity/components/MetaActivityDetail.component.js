@@ -12,9 +12,9 @@ import AddIcon from '@material-ui/icons/Add';
 import { withTranslation, TFunction } from 'react-i18next';
 import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
-import { getMergeTags } from '#libs/marketing/utils';
+import { getMergeTags } from '#src/libs/marketing/utils';
 
-import { SmartList } from '#libs/smart-list/types';
+import { SmartList } from '#src/libs/smart-list/types';
 import Calendar from '../../../components/offer/Calendar.component';
 import TimeTable from '../../../components/offer/TimeTable.component';
 import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';

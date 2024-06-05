@@ -3,7 +3,7 @@ import type {
   CustomFormFieldAnswer,
   CustomFormFilled,
   ResponsiveLayouts,
-} from '#libs/custom-form/types';
+} from '#src/libs/custom-form/types';
 import type { ModalDialogSize } from '#Fabrique/ModalDialog/types';
 import type { OptionCallback } from '../../../../../state/types';
 

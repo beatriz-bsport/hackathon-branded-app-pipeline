@@ -5,40 +5,43 @@ import { compose, withHandlers, withState } from 'recompose';
 import { push } from 'connected-react-router';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import InboxPanelComponent from '#libs/communication-v2/thread/InboxPanel';
-import type { CommunicationThread } from '#libs/communication-v2/types';
-import { getMember } from '#libs/member/selectors';
-import { getSmartListFilters, getSmartList } from '#libs/smart-list/selectors';
-import { withCustomLevel } from '#libs/level/selectors';
-import { withGroup } from '#libs/group-offer/selectors';
+import InboxPanelComponent from '#src/libs/communication-v2/thread/InboxPanel';
+import type { CommunicationThread } from '#src/libs/communication-v2/types';
+import { getMember } from '#src/libs/member/selectors';
+import {
+  getSmartListFilters,
+  getSmartList,
+} from '#src/libs/smart-list/selectors';
+import { withCustomLevel } from '#src/libs/level/selectors';
+import { withGroup } from '#src/libs/group-offer/selectors';
 import {
   getOfferById,
   withCoach,
   withEstablishment,
   withMetaActivity,
-} from '#libs/offer/selectors';
-import { withInvoiceItem, getInvoiceList } from '#libs/invoice/selectors';
-import tagSelectors from '#libs/tag/selectors';
-import { fetchMember as fetchMemberAction } from '#libs/member/actions';
-import { fetchInvoiceList as fetchInvoiceListAction } from '#libs/invoice/actions';
-import { fetchTags as fetchTagsAction } from '#libs/tag/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+} from '#src/libs/offer/selectors';
+import { withInvoiceItem, getInvoiceList } from '#src/libs/invoice/selectors';
+import tagSelectors from '#src/libs/tag/selectors';
+import { fetchMember as fetchMemberAction } from '#src/libs/member/actions';
+import { fetchInvoiceList as fetchInvoiceListAction } from '#src/libs/invoice/actions';
+import { fetchTags as fetchTagsAction } from '#src/libs/tag/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
 
 import {
   fetchSmartListDetail as fetchSmartListDetailAction,
   fetchSmartListFilters as fetchSmartListFiltersAction,
-} from '#libs/smart-list/actions';
+} from '#src/libs/smart-list/actions';
 
-import { retrieveOffer as retrieveOfferAction } from '#libs/offer/actions';
-import { fetchGroupsOfferList as fetchGroupsOfferListAction } from '#libs/group-offer/actions';
+import { retrieveOffer as retrieveOfferAction } from '#src/libs/offer/actions';
+import { fetchGroupsOfferList as fetchGroupsOfferListAction } from '#src/libs/group-offer/actions';
 
-import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { fetchSmartListMembers as fetchSmartListMembersAPI } from '#libs/smart-list/api';
-import type { Offer } from '#libs/offer/types';
-import { getFilterTagsFromSmartlist } from '#libs/communication-v2/utils';
-import { getTheme } from '#libs/theme/selectors';
+import { fetchCoachBulk as fetchCoachBulkAction } from '#src/libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#src/libs/establishment/actions';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import { fetchSmartListMembers as fetchSmartListMembersAPI } from '#src/libs/smart-list/api';
+import type { Offer } from '#src/libs/offer/types';
+import { getFilterTagsFromSmartlist } from '#src/libs/communication-v2/utils';
+import { getTheme } from '#src/libs/theme/selectors';
 import type { RootState } from '../../reducers';
 
 type OwnProps = {

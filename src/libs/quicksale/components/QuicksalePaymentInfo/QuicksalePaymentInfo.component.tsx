@@ -17,17 +17,17 @@ import {
   PAYMENT_METHODS_COMPATIBLE_WITH_INSTALMENT_PAYMENT,
   QuicksalePaymentMethod,
   WARNING_FONT_COLOR,
-} from '#libs/quicksale/constants';
-import PaymentMethodCardSelector from '#libs/payment/components/PaymentMethodCardSelector.component';
-import type { StripeReader } from '#libs/terminal/types';
-import PaymentStripeTerminal from '#libs/terminal/components/PaymentStripeTerminal.component';
-import PaymentBsportInternal from '#libs/payment/components/payment-backend-internal/PaymentBsportInternal.component';
-import PaymentStripeCard from '#libs/payment/components/payment-backend-stripe/PaymentStripeCard.component';
-import { getStripePkKey } from '#libs/theme/selectors';
-import PaymentStripeSEPA from '#libs/payment/components/payment-backend-stripe/PaymentStripeSEPA.component';
-import InstalmentPaymentSelector from '#libs/instalment-payment-configuration/components/InstalmentPaymentSelector.component';
-import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
-import type { Basket } from '#libs/checkout/types';
+} from '#src/libs/quicksale/constants';
+import PaymentMethodCardSelector from '#src/libs/payment/components/PaymentMethodCardSelector.component';
+import type { StripeReader } from '#src/libs/terminal/types';
+import PaymentStripeTerminal from '#src/libs/terminal/components/PaymentStripeTerminal.component';
+import PaymentBsportInternal from '#src/libs/payment/components/payment-backend-internal/PaymentBsportInternal.component';
+import PaymentStripeCard from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeCard.component';
+import { getStripePkKey } from '#src/libs/theme/selectors';
+import PaymentStripeSEPA from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeSEPA.component';
+import InstalmentPaymentSelector from '#src/libs/instalment-payment-configuration/components/InstalmentPaymentSelector.component';
+import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
+import type { Basket } from '#src/libs/checkout/types';
 import type { OptionCallback } from '../../../../state/types';
 
 type Props = {

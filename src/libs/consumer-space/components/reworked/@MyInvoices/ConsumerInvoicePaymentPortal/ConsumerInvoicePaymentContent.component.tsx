@@ -7,13 +7,13 @@ import {
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
 
-import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '#libs/payment/api';
+import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '#src/libs/payment/api';
 
 import Alert from '#Fabrique/Alert';
 import BigIcon from '#Fabrique/BigIcon';
-import CircularProgress from '#components/css-only/CircularProgress';
+import CircularProgress from '#src/components/css-only/CircularProgress';
 import LinearProgess from '#Fabrique/LinearProgress';
-import PaymentStripe from '#libs/payment/components/payment-backend-stripe/PaymentStripe.component';
+import PaymentStripe from '#src/libs/payment/components/payment-backend-stripe/PaymentStripe.component';
 import Typography from '#Fabrique/Typography';
 
 import './styles.css';

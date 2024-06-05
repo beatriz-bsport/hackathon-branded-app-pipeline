@@ -4,14 +4,14 @@ import { fakerEN as faker } from '@faker-js/faker';
 import Alert from '@material-ui/lab/Alert';
 import { useTranslation } from 'react-i18next';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import { CompanyTheme } from '#libs/theme/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 // @ts-expect-error
 import LoginFormCss from './styles.css?raw';
 import LoginForm, { Props as LoginFormProps } from '.';

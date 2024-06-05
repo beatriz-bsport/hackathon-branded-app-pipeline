@@ -1,7 +1,7 @@
 import type { AxiosResponse } from 'axios';
 import { createAction } from 'redux-actions';
 
-import { displayAccessControlSnackbar } from '#libs/snackbar/actions';
+import { displayAccessControlSnackbar } from '#src/libs/snackbar/actions';
 
 import {
   approveUserPhotoUpdate as approvePhotoUpdateAPI,

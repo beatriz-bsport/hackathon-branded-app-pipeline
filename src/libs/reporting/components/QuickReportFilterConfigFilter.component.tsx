@@ -11,20 +11,20 @@ import {
   DatatypeFilterConfigItemTypeDate,
   DatatypeFilterConfigItemTypeFloat,
   DynamicFilterDataType,
-} from '#libs/datatype-filtering/types';
+} from '#src/libs/datatype-filtering/types';
 import {
   DATE_SUBDATA_TYPE,
   HOUR_SUBDATA_TYPE,
-} from '#libs/datatype-filtering/constants';
+} from '#src/libs/datatype-filtering/constants';
 import {
   getComparatorCategoryByDataType,
   getComparatorsByDataType,
   getDefaultValueForTimePeriod,
   getDefaultValueForComparator,
-} from '#libs/datatype-filtering/utils';
-import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
-import DatatypeFilterConfigValueManager from '#libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
-import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
+} from '#src/libs/datatype-filtering/utils';
+import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
+import DatatypeFilterConfigValueManager from '#src/libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
+import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
 import { ReportFilterConfig } from '../types';
 

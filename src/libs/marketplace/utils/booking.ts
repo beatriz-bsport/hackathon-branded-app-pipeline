@@ -10,14 +10,14 @@ import type {
   Offer,
   OfferStatus,
   Offer_FULL,
-} from '#libs/offer/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import { CheckoutItem } from '#libs/checkout/types';
-import { AdditionalGuest } from '#libs/booker-module/types';
+} from '#src/libs/offer/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import { CheckoutItem } from '#src/libs/checkout/types';
+import { AdditionalGuest } from '#src/libs/booker-module/types';
 import {
   Establishment,
   EstablishmentBillingGroup,
-} from '#libs/establishment/types';
+} from '#src/libs/establishment/types';
 import { isDateInThePast } from '#src/utils/datetime';
 import { isOfferBookableYet } from './offer';
 

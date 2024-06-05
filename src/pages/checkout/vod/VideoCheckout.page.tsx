@@ -15,11 +15,11 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
 } from '@bsport/common/lib/master-data/buyable-items';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import themeSelectors from '#libs/theme/selectors';
-import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import themeSelectors from '#src/libs/theme/selectors';
+import { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import CollapsibleSection from '../../../components/CollapsibleSection';
@@ -58,7 +58,6 @@ import { RootState } from '../../../reducers';
 
 import PrivatePassBookableItem from '../../../libs/booker-module/components/PrivatePassBookableItem.component';
 import PrivateConsumerPassBookableItem from '../../../libs/booker-module/components/PrivateConsumerPassBookableItem.component';
-
 
 const BOOKER_ITEM_PASS = -1;
 const BOOKER_ITEM_PRIVATE_PASS = -2;

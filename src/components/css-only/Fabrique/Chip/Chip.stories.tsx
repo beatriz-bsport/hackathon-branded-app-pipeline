@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { Star06 } from '#components/untitledui';
+import { Star06 } from '#src/components/untitledui';
 import Chip, { ChipStorybook } from './Chip.component';
 import { ChipVariantEnum, ChipColorEnum, ChipSizeEnum } from './constants';
 

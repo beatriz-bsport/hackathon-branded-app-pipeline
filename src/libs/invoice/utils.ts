@@ -3,7 +3,7 @@ import {
   PLANNED_PAYMENT_EVENT_STATUS_PENDING,
   PLANNED_PAYMENT_EVENT_STATUS_ERROR,
 } from '@bsport/common/lib/master-data/planned-payment-event';
-import { PlannedInvoice } from '#libs/subscription/types';
+import { PlannedInvoice } from '#src/libs/subscription/types';
 import { Invoice, PlannedPaymentEvent } from './types';
 
 export const getInvoiceIdentifier = (invoice: Invoice | PlannedInvoice) => {

@@ -13,17 +13,17 @@ import FolderIcon from '@material-ui/icons/Folder';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import Tooltip from '#components/Tooltip.component';
-import type { Offer } from '#libs/offer/types';
-import { AdditionalCoachesTooltipTitle } from '#libs/associated-coach/components/CoachToolTip.component';
-import CustomAvatarGroup from '#components/CustomAvatarGroup.component';
-import type { Coach } from '#libs/associated-coach/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { OffersGroup } from '#libs/group-offer/types';
-import { ADDITIONAL_COACHES_MAX_DISPLAY } from '#libs/offer/constants';
-import type { Level } from '#libs/level/types';
-import { CustomChip } from '#components/chip/CustomChip.component';
-import { getLevelTranslation } from '#libs/level/utils';
+import Tooltip from '#src/components/Tooltip.component';
+import type { Offer } from '#src/libs/offer/types';
+import { AdditionalCoachesTooltipTitle } from '#src/libs/associated-coach/components/CoachToolTip.component';
+import CustomAvatarGroup from '#src/components/CustomAvatarGroup.component';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { OffersGroup } from '#src/libs/group-offer/types';
+import { ADDITIONAL_COACHES_MAX_DISPLAY } from '#src/libs/offer/constants';
+import type { Level } from '#src/libs/level/types';
+import { CustomChip } from '#src/components/chip/CustomChip.component';
+import { getLevelTranslation } from '#src/libs/level/utils';
 import {
   formatAsDatetimeAdapted,
   formatISOStringAsTime,

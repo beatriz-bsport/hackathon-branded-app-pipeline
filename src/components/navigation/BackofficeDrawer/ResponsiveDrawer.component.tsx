@@ -47,13 +47,14 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import Immutable from 'seamless-immutable';
-import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
-import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
+
+import SwitchHorizontalIcon from '#src/components/icons/SwitchHorizontalIcon.component';
+import TutorialIconWithAlertings from '#src/libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 
 import {
   checkRequiredPermissions,
   hasUpsellIdentifier,
-} from '#libs/role/utils';
+} from '#src/libs/role/utils';
 
 import {
   UPSELL_PERFORMANCE_TRACKING_IDENTIFIER,
@@ -64,12 +65,12 @@ import {
   UPSELL_IDENTIFIER_CADENCE,
   UPSELL_IDENTIFIER_QUICKBOOKS,
   UPSELL_IDENTIFIER_ACCESS_MONITORING,
-} from '#libs/platform-billing/upsell-identifiers';
+} from '#src/libs/platform-billing/upsell-identifiers';
 
-import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
-import { ObjectLevelPermissions, RolePermission } from '#libs/role/types';
-import ToolTip from '#components/Tooltip.component';
-import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
+import { platformTutorialActivated } from '#src/libs/platform-tutorial/utils';
+import { ObjectLevelPermissions, RolePermission } from '#src/libs/role/types';
+import ToolTip from '#src/components/Tooltip.component';
+import { hasObjectLevelPermission } from '#src/libs/role/permission-utils/utils';
 import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
 
 import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '#src/actions/constants';

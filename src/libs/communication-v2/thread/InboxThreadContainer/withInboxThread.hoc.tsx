@@ -19,21 +19,21 @@ import {
   flagAsRead as flagAsReadAction,
   fetchInboxThreadFromId as fetchInboxThreadFromIdAction,
   getUnreadAnswersCountFromThread as getUnreadAnswersCountFromThreadAction,
-} from '#libs/communication-v2/actions';
+} from '#src/libs/communication-v2/actions';
 import {
   getRecipientWithMemberPaginatedList,
   getCommunicationMessageList,
   getCommunicationMessageListHasNextPage,
   getCommunicationMessageListLoading,
   getThreadsPaginationResults,
-} from '#libs/communication-v2/selectors';
+} from '#src/libs/communication-v2/selectors';
 import {
   getFormatedFiltersToFetchCommunicationSent,
   getFormatedQueryParamsFromThread,
   getFormatedQueryParamsToFetchRecipientPaginatedList,
   getFiltersToEnableForThread,
   getCommunicationContextFromThread,
-} from '#libs/communication-v2/utils';
+} from '#src/libs/communication-v2/utils';
 import type {
   Communication,
   FetchCommunicationParams,
@@ -44,51 +44,51 @@ import type {
   SelectFieldItem,
   MessageParams,
   CommunicationContext,
-} from '#libs/communication-v2/types';
+} from '#src/libs/communication-v2/types';
 
 // TEMPLATES
 import {
   emailTemplateComplete,
   emailTemplatesSummaries,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
+} from '#src/libs/email-editor/selectors';
 
 // TAGS
 import {
   getResolvedGenericTags,
   getTagCategories,
-} from '#libs/notification-rule/selectors';
+} from '#src/libs/notification-rule/selectors';
 import {
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
   fetchTagList as fetchTagListAction,
-} from '#libs/notification-rule/actions';
+} from '#src/libs/notification-rule/actions';
 
 // MEMBER
 import {
   fetchCommunicationsPaginatedMembers,
   fetchMemberBulkById as fetchMemberBulkByIdAction,
-} from '#libs/member/actions';
-import { getMember, getPaginatedMembers } from '#libs/member/selectors';
+} from '#src/libs/member/actions';
+import { getMember, getPaginatedMembers } from '#src/libs/member/selectors';
 import {
   MAX_DISPLAY,
   PAGINATION_SIZE_RECIPIENTS,
   REFRESH_THREAD_PAGINATION_SIZE,
   WRITE_EMAIL,
-} from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/constants';
 
 // OFFER
 import {
   getOfferBookingListWithConsumerPack,
   withStaffModificationHistory,
-} from '#libs/booking/selectors';
+} from '#src/libs/booking/selectors';
 
-import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '#libs/booking/actions';
-import { fetchByOffer as fetchBookingOptionByOfferAction } from '#libs/waiting-list/actions';
+import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '#src/libs/booking/actions';
+import { fetchByOffer as fetchBookingOptionByOfferAction } from '#src/libs/waiting-list/actions';
 // THEME
-import themeSelectors from '#libs/theme/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 import type { RootState } from '../../../../reducers';
 import type { OptionCallback } from '../../../../state/types';
 

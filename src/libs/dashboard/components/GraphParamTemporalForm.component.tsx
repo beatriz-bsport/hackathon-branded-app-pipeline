@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
-import { DataSourceDashboardGraphMetadata } from '#libs/dashboard/types';
-import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import { DataSourceDashboardGraphMetadata } from '#src/libs/dashboard/types';
+import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 
 const useStyles = makeStyles((theme: Theme) => ({
   row: {

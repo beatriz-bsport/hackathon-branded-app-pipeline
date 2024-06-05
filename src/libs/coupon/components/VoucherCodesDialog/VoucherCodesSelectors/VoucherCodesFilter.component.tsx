@@ -2,9 +2,9 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { UniqueCodeStateStatus } from '@bsport/common/lib/master-data/coupon';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import type { Coupon } from '#libs/coupon/types';
-import { COUPON_TYPE_FILTER_DEFAULT_VALUE } from '#libs/coupon/constants';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import type { Coupon } from '#src/libs/coupon/types';
+import { COUPON_TYPE_FILTER_DEFAULT_VALUE } from '#src/libs/coupon/constants';
 
 type Props = {
   uniqueCodeCoupon: Coupon;

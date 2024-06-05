@@ -21,20 +21,20 @@ import WarningIcon from '@material-ui/icons/Warning';
 
 import { FormikProps, useFormikContext } from 'formik';
 import { Alert } from '@material-ui/lab';
-// @ts-expect-error
 
-import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
-import { provincialTaxHelperText } from '#libs/theme/utils';
-import type { PrivatePass } from '#libs/private-service/types';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
-import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
-import type { BookkeepingAccount } from '#libs/payment/types';
+import { CheckboxField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { provincialTaxHelperText } from '#src/libs/theme/utils';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
+import BookkeepingAccountSelector from '#src/libs/payment/components/BookkeepingAccountSelector';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
 import { ALMOST_100 } from '../../../../constants';
 import {
   PaymentPack,
   PaymentPackCategory,
   PaymentPackFormValues,
 } from '../../types';
+// @ts-expect-error
 import PaymentPackCategorySelector from '../category/PaymentPackCategorySelector.component';
 import {
   TextFieldEnhancedLabelWithError,

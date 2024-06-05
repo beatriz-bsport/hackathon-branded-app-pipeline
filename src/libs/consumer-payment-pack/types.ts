@@ -1,9 +1,9 @@
-import type { SCT } from '#libs/category/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PrivateConsumerPass } from '#libs/private-service/types';
-import type { ConsumerPaymentPackLinkWithRelatedMemberNames } from '#libs/relationship/types';
+import type { SCT } from '#src/libs/category/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PrivateConsumerPass } from '#src/libs/private-service/types';
+import type { ConsumerPaymentPackLinkWithRelatedMemberNames } from '#src/libs/relationship/types';
 import type { Consumer } from '../../api/types';
 import type { ErrorAndLoading, WithPagination } from '../types';
 

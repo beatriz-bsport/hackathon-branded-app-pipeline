@@ -6,13 +6,13 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 
 import { withTranslation } from 'react-i18next';
+import withThemeProvider from '#src/hocs/company-themifier.hoc';
+import { retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAction } from '#src/libs/associated-coach/actions';
+import { getMyAssociatedCoachProfile } from '#src/libs/associated-coach/selectors';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
+import { getTheme } from '#src/libs/theme/selectors';
+import LoadingBackoffice from '#src/components/navigation/LoadingBackoffice.component';
 // @ts-expect-error
-import withThemeProvider from '#hocs/company-themifier.hoc';
-import { retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAction } from '#libs/associated-coach/actions';
-import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
-import { getTheme } from '#libs/theme/selectors';
-import LoadingBackoffice from '#components/navigation/LoadingBackoffice.component';
 import asyncComponent from '../../AsyncComponent';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 

@@ -9,24 +9,24 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
 
-import QuicksaleAppBar from '#libs/quicksale/components/QuicksaleAppBar';
+import QuicksaleAppBar from '#src/libs/quicksale/components/QuicksaleAppBar';
 
-import type { Theme } from '#libs/theme/types';
-import QuicksaleBasketSummary from '#libs/quicksale/components/QuicksaleBasketSummary';
-import QuicksaleBasketPriceRecap from '#libs/quicksale/components/QuicksaleBasketPriceRecap';
-import type { Basket, BasketAddress } from '#libs/checkout/types';
-import type { Member } from '#libs/member/types';
-import type { PaymentGroup } from '#libs/payment/types';
+import type { Theme } from '#src/libs/theme/types';
+import QuicksaleBasketSummary from '#src/libs/quicksale/components/QuicksaleBasketSummary';
+import QuicksaleBasketPriceRecap from '#src/libs/quicksale/components/QuicksaleBasketPriceRecap';
+import type { Basket, BasketAddress } from '#src/libs/checkout/types';
+import type { Member } from '#src/libs/member/types';
+import type { PaymentGroup } from '#src/libs/payment/types';
 
 import {
   QuicksaleDeliveryType,
   QuicksalePaymentMethod,
-} from '#libs/quicksale/constants';
-import QuicksaleDeliveryForm from '#libs/quicksale/components/QuicksaleDeliveryForm/QuicksaleDeliveryForm.component';
-import QuicksalePaymentInfo from '#libs/quicksale/components/QuicksalePaymentInfo';
-import type { StripeReader } from '#libs/terminal/types';
-import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
-import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
+} from '#src/libs/quicksale/constants';
+import QuicksaleDeliveryForm from '#src/libs/quicksale/components/QuicksaleDeliveryForm/QuicksaleDeliveryForm.component';
+import QuicksalePaymentInfo from '#src/libs/quicksale/components/QuicksalePaymentInfo';
+import type { StripeReader } from '#src/libs/terminal/types';
+import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
+import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
 import type { OptionCallback } from '../../../state/types';
 
 type Props = {

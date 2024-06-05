@@ -5,8 +5,8 @@ import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import { useFormikContext } from 'formik';
 // @ts-expect-error
-import { TextField } from '#components/forms';
-import type { OfferFormValues } from '#libs/offer/types';
+import { TextField } from '#src/components/forms';
+import type { OfferFormValues } from '#src/libs/offer/types';
 
 export type Props = {
   isOpen: boolean;

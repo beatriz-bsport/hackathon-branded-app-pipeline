@@ -1,17 +1,17 @@
 import React from 'react';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
 
-import { contractFactory } from '#libs/subscription/factory';
-import { paymentComboFactory } from '#libs/payment-combo/factory';
-import { paymentPackFactory } from '#libs/payment-packs/factory';
-import { privatePassFactory } from '#libs/private-service/factory';
+import { contractFactory } from '#src/libs/subscription/factory';
+import { paymentComboFactory } from '#src/libs/payment-combo/factory';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
+import { privatePassFactory } from '#src/libs/private-service/factory';
 // @ts-expect-error
 import MarketplaceContractDetailModalCss from './styles.css?raw';
 import MarketplaceContractDetailModal, {

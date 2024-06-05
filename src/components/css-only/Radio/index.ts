@@ -1,7 +1,7 @@
 import Radio, {
   Props,
   RadioForStorybook,
-} from '#components/css-only/Radio/Radio.component';
+} from '#src/components/css-only/Radio/Radio.component';
 
 export type { Props };
 export { RadioForStorybook };

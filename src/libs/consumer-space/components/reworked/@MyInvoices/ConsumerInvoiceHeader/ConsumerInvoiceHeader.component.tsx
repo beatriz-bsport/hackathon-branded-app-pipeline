@@ -1,16 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ChevronLeft } from '#components/untitledui';
-import ConsumerHeaderSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerHeaderSkeleton';
+import { ChevronLeft } from '#src/components/untitledui';
+import ConsumerHeaderSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerHeaderSkeleton';
 import ConsumerInvoiceFilters, {
   InvoicesFiltersEnum,
-} from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+} from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 import Button from '#Fabrique/ButtonV2';
-import ConsumerInvoiceTitleWithAction from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceTitleWithAction';
+import ConsumerInvoiceTitleWithAction from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceTitleWithAction';
 import Typography from '#Fabrique/Typography';
 
-import type { ConsumerInvoice } from '#libs/invoice/types';
+import type { ConsumerInvoice } from '#src/libs/invoice/types';
 
 import './styles.css';
 

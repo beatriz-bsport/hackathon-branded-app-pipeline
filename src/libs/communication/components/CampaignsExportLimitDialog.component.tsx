@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
+import CustomMuiDialog from '#src/components/genericDialog/CustomMuiDialog.component';
 import {
   ONE_HUNDRED,
   ONE_MILLION,
   TEN_THOUSANDS,
-} from '#libs/communication/constants';
+} from '#src/libs/communication/constants';
 
 type Props = {
   recipientsCount: number;

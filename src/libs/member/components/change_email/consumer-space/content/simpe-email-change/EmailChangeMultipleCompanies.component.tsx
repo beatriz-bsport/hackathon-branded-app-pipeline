@@ -4,9 +4,9 @@ import { Theme } from '@material-ui/core/styles';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import { CompanyTheme } from '#libs/theme/types';
-import { ChangeEmailRequest } from '#libs/member/types';
-import { Membership } from '#libs/membership/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { ChangeEmailRequest } from '#src/libs/member/types';
+import { Membership } from '#src/libs/membership/types';
 import {
   ContentTitle,
   SpacedText,

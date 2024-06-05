@@ -2,7 +2,7 @@ import { Button, DialogActions, DialogContent } from '@material-ui/core';
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import WidgetGeneratorPage from '../../../pages/settings/WidgetGenerator.page';
 
 type Ownprops = {

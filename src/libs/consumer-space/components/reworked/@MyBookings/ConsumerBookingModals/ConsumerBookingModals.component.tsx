@@ -3,30 +3,30 @@ import React, { useCallback } from 'react';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import { PortalContainer } from '#Fabrique/PortalContainer';
-import ConsumerBookingCancelModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCancelModal';
-import ConsumerBookingOnlineWarningModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOnlineWarningModal';
-import ConsumerBookingSpotSchedulingModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingSpotSchedulingModal';
-import ConsumerBookingDetailsDrawer from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsDrawer';
-import ConsumerBookingCancelDrawer from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCancelDrawer';
-import ConsumerBookingOnlineWarningDrawer from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOnlineWarningDrawer';
-import ConsumerBookingCalendarDrawer from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCalendarDrawer';
-import ConsumerBookingTabDrawer from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabDrawer';
-import ConsumerBookingSpotSchedulingDrawer from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingSpotSchedulingDrawer';
+import ConsumerBookingCancelModal from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCancelModal';
+import ConsumerBookingOnlineWarningModal from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOnlineWarningModal';
+import ConsumerBookingSpotSchedulingModal from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingSpotSchedulingModal';
+import ConsumerBookingDetailsDrawer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsDrawer';
+import ConsumerBookingCancelDrawer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCancelDrawer';
+import ConsumerBookingOnlineWarningDrawer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOnlineWarningDrawer';
+import ConsumerBookingCalendarDrawer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCalendarDrawer';
+import ConsumerBookingTabDrawer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabDrawer';
+import ConsumerBookingSpotSchedulingDrawer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingSpotSchedulingDrawer';
 
 import type {
   ConsumerBooking,
   ConsumerPrivateBooking,
   ConsumerBookingOption,
-} from '#libs/booking/types';
-import type { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/booking/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
 import type {
   RoomBlueprint,
   SpotInformation,
   SpotType,
-} from '#libs/spot-scheduling/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+} from '#src/libs/spot-scheduling/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 
 type Props = {
   isMobile: boolean;

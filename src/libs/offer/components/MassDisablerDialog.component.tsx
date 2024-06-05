@@ -26,9 +26,9 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import type { LuxonDateTime } from '#src/types';
 
-import RedButtonComponent from '#components/button/RedButton.component';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import OfferListItemV2 from '#libs/offer/components/OfferListItemV2.component';
+import RedButtonComponent from '#src/components/button/RedButton.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import OfferListItemV2 from '#src/libs/offer/components/OfferListItemV2.component';
 import {
   DateField,
   TextFieldEnhancedLabelWithError,

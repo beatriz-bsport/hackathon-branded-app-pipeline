@@ -8,21 +8,21 @@ import {
   BUYABLE_ITEM_COUPON,
   BUYABLE_ITEM_FEE,
 } from '@bsport/common/lib/master-data/buyable-items';
-import { CONTRACT_BOOKING_FUNNEL_IDENTIFIER } from '#libs/marketplace/constants';
+import { CONTRACT_BOOKING_FUNNEL_IDENTIFIER } from '#src/libs/marketplace/constants';
 import type {
   Basket,
   CheckoutItem,
   OnRemoveCheckoutItemData,
   PrepaidLine,
-} from '#libs/checkout/types';
+} from '#src/libs/checkout/types';
 
-import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
+import BasketTaxInfo from '#src/libs/checkout/components/BasketTaxInfo.component';
 
-import { getSubTotal, getCheckoutItemPrice } from '#libs/checkout/utils';
+import { getSubTotal, getCheckoutItemPrice } from '#src/libs/checkout/utils';
 
-import { BillItem } from '#libs/checkout/components/new-checkout-flow/BilllItem.component';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { BillItem } from '#src/libs/checkout/components/new-checkout-flow/BilllItem.component';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 export type PriceCountProps = {
   basket: Basket<string, PrepaidLine>;

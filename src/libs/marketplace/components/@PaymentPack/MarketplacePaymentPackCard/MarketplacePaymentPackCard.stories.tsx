@@ -1,5 +1,5 @@
 import React from 'react';
-import { paymentPackFactory } from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
 
 import { MarketplacePaymentPackCardForStorybook } from '.';
 

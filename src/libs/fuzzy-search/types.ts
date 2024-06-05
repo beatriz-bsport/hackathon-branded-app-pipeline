@@ -2,32 +2,33 @@ import { OptionsType } from 'react-select/lib/types';
 import { ImmutableArray } from 'seamless-immutable';
 import type { OptionProps } from 'react-select/lib/components/Option';
 
-import type { CoachPaymentRule } from '#libs/coach-payment-rules/types';
-import type { Coupon, FetchCouponsParams } from '#libs/coupon/types';
-import type { PaginatedResponse } from '#state/types';
-import type { EmailTemplate } from '#libs/email-editor/types';
+import type { Coupon, FetchCouponsParams } from '#src/libs/coupon/types';
+import type { PaginatedResponse } from '#src/state/types';
+import type { EmailTemplate } from '#src/libs/email-editor/types';
+import type { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
+
 import type {
   Establishment,
   EstablishmentGroupAPI,
   FetchEstablishmentParams,
-} from '#libs/establishment/types';
-import type { Giftcard } from '#libs/giftcard/types';
-import type { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
-import type { Level, LevelFilterSet } from '#libs/level/types';
+} from '#src/libs/establishment/types';
+import type { Giftcard } from '#src/libs/giftcard/types';
+import type { InstalmentPayment } from '#src/libs/instalment-payment-configuration/types';
+import type { Level, LevelFilterSet } from '#src/libs/level/types';
 import type {
   MetaActivity,
   MetaActivityFilter,
-} from '#libs/meta-activity/types';
+} from '#src/libs/meta-activity/types';
 import type {
   PaymentCombo,
   PaymentComboAPIParams as PaymentComboAPIQueryParams,
-} from '#libs/payment-combo/types';
+} from '#src/libs/payment-combo/types';
 import type {
   PaymentPack,
   PaymentPackCategory,
   PaymentPackQueryParams,
-} from '#libs/payment-packs/types';
-import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
+} from '#src/libs/payment-packs/types';
+import type { PerformanceTrackingProgram } from '#src/libs/performance-tracking/types';
 import type {
   PrivatePass,
   PrivatePassCategory,
@@ -37,28 +38,34 @@ import type {
   PrivateServiceQueryParams,
   PrivateSlot,
   PrivateSlotQueryParams,
-} from '#libs/private-service/types';
-import type { Cadence } from '#libs/sequential_marketing/types';
+} from '#src/libs/private-service/types';
+import type { Cadence } from '#src/libs/sequential_marketing/types';
 import type {
   ShopItem,
   ShopItemListFilterParams,
   ShopItemTemplate,
   ShopItemTemplateFilterParams,
   SubShop,
-} from '#libs/shop/types';
-import type { SmartList, SmartListQueryParams } from '#libs/smart-list/types';
-import type { Contract, ContractQueryParams } from '#libs/subscription/types';
-import type { Tag } from '#libs/tag/types';
-import type { Video, VideoQueryParams } from '#libs/video/types';
+} from '#src/libs/shop/types';
+import type {
+  SmartList,
+  SmartListQueryParams,
+} from '#src/libs/smart-list/types';
+import type {
+  Contract,
+  ContractQueryParams,
+} from '#src/libs/subscription/types';
+import type { Tag } from '#src/libs/tag/types';
+import type { Video, VideoQueryParams } from '#src/libs/video/types';
 import type {
   AssociatedCoachFilters,
   Coach,
-} from '#libs/associated-coach/types';
+} from '#src/libs/associated-coach/types';
 import type {
   CustomForm,
   CustomFormQueryParams,
-} from '#libs/custom-form/types';
-import type { PaginationFilterParams, SelectOption } from '#libs/types';
+} from '#src/libs/custom-form/types';
+import type { PaginationFilterParams, SelectOption } from '#src/libs/types';
 
 export type SearchIdentifier = {
   searchedObjectType: SearchObjectType;

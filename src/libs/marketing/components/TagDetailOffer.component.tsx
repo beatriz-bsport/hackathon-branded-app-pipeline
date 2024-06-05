@@ -23,10 +23,10 @@ import LabelOffIcon from '@material-ui/icons/LabelOff';
 import BlockIcon from '@material-ui/icons/Block';
 import CheckIcon from '@material-ui/icons/Check';
 
+import type { Offer } from '#src/libs/offer/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { Tag } from '#src/libs/tag/types';
 // @ts-expect-error
-import type { Offer } from '#libs/offer/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { Tag } from '#libs/tag/types';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import { OptionCallback } from '../../../state/types';
 

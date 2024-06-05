@@ -21,12 +21,12 @@ import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
   blockPendingBasket as blockPendingBasketAPI,
-} from '#libs/payment/api';
-import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
-import PaymentMethodList from '#libs/payment/components/payment-method-list/PaymentMethodList.component';
-import PopOver from '#components/Popover';
-import StripeErrorCode from '#libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
-import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
+} from '#src/libs/payment/api';
+import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
+import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
+import PopOver from '#src/components/Popover';
+import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
+import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
 
 // Custom styling can be passed as options when creating an Element.
 const IBAN_STYLE = {

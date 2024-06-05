@@ -3,8 +3,8 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import QuicksaleBasketPanel from './QuicksaleBasketPanel.component';
-import { basketFactory } from '#libs/checkout/factories';
-import { MemberFactory } from '#libs/member/factories/Member';
+import { basketFactory } from '#src/libs/checkout/factories';
+import { MemberFactory } from '#src/libs/member/factories/Member';
 
 const actionData = {
   addToBasket: action('addToBasket'),

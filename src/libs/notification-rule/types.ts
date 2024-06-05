@@ -1,4 +1,4 @@
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import { ErrorAndLoading } from '../types';
 
 export type NotificationRule = {

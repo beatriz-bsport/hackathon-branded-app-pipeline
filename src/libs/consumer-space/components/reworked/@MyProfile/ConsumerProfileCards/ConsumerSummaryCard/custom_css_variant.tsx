@@ -1,14 +1,15 @@
 import React from 'react';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import { MemberFactory } from '#src/libs/member/factories/Member';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import type { ConsumerSummaryCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
+} from '#src/libs/exportable-components/types';
+import type { ConsumerSummaryCardProps } from '#src/libs/consumer-space/components/reworked/@MyProfile/types';
 import { CompanyTheme } from '#src/libs/theme/types';
+
 // @ts-expect-error
 import ConsumerSummaryCardCss from './styles.css?raw';
 import ConsumerSummaryCard from '.';

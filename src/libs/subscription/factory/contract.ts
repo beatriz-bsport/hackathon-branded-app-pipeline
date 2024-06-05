@@ -3,7 +3,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import {
   ContractFactoryOptions,
   ContractInterval,
-} from '#libs/subscription/types';
+} from '#src/libs/subscription/types';
 import {
   generateRandomDescription,
   generateRandomName,

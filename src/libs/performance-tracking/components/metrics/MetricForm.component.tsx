@@ -10,7 +10,7 @@ import { useTheme } from '@material-ui/styles';
 import {
   PerformanceTrackingMetric,
   PerformanceTrackingProgram,
-} from '#libs/performance-tracking/types';
+} from '#src/libs/performance-tracking/types';
 import {
   TextFieldEnhancedLabelWithError,
   ColorField,

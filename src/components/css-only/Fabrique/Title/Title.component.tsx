@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import Collapse from '#Fabrique/Collapse';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
-import { ChevronDown } from '#components/untitledui';
+import { ChevronDown } from '#src/components/untitledui';
 import { TitleSize } from './constants';
 import type { TitleMapType, TitleVariantType } from './types';
 

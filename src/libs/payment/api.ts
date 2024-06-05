@@ -9,8 +9,8 @@ import type {
   BookkeepingAccount,
   fetchBookkeepingAccountListFilter,
   StripePayout,
-} from '#libs/payment/types';
-import type { BillingDetails } from '#libs/marketplace/types';
+} from '#src/libs/payment/types';
+import type { BillingDetails } from '#src/libs/marketplace/types';
 import {
   API_V1_URI,
   getAuth,

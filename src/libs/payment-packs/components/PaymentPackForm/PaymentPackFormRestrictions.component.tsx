@@ -18,18 +18,18 @@ import InfoIcon from '@material-ui/icons/Info';
 import InputLabel from '@material-ui/core/InputLabel';
 import AddIcon from '@material-ui/icons/Add';
 import { DateTime } from 'luxon';
-import { SCT } from '#libs/category/types';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
-import SCTChip from '#libs/category/components/SCTChip.component';
-import type { PrivatePass } from '#libs/private-service/types';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
-import ToolTip from '#components/Tooltip.component';
-import OffPeakTimeSlotGroup from '#libs/payment-packs/components/PaymentPackForm/PaymentPackOffPeak.component';
-import { offPeakGroupDefault } from '#libs/payment-packs/utils';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { SCT } from '#src/libs/category/types';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { CheckboxField } from '#src/libs/custom-form/components/GenericFormik.input';
+import SCTChip from '#src/libs/category/components/SCTChip.component';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
+import ToolTip from '#src/components/Tooltip.component';
+import OffPeakTimeSlotGroup from '#src/libs/payment-packs/components/PaymentPackForm/PaymentPackOffPeak.component';
+import { offPeakGroupDefault } from '#src/libs/payment-packs/utils';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import {
   TextFieldEnhancedLabelWithError,
   SwitchField,

@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import HTMLPreview from './HTMLPreview.component';
 
 export type OwnProps = {

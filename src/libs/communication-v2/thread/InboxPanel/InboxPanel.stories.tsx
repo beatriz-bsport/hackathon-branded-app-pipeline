@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import InboxPanel, { Props } from './InboxPanel.component';
-import { MemberFactory } from '#libs/member/factories/Member';
-import { smartlistFactory } from '#libs/smart-list/factories';
+import { MemberFactory } from '#src/libs/member/factories/Member';
+import { smartlistFactory } from '#src/libs/smart-list/factories';
 import { generateRandomInt } from '../../../../utils/factories';
 import FactoryBotTag from '../../../tag/factory';
 import { FILTERS_ROOTS } from '@bsport/common/lib/master-data/smart-list';
-import { offerFactory } from '#libs/offer/factory';
-import { BookingListFactory } from '#libs/booking/factories';
+import { offerFactory } from '#src/libs/offer/factory';
+import { BookingListFactory } from '#src/libs/booking/factories';
 import {
   MemberThread,
   OfferThread,
   SmartListThread,
-} from '#libs/communication-v2/factories/CommunicationThread';
+} from '#src/libs/communication-v2/factories/CommunicationThread';
 
 // --- Member Props ---
 const memberProps = MemberFactory({ number_tags: 3 }, false);

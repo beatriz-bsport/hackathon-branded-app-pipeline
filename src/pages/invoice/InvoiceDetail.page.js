@@ -12,7 +12,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import { push as pushRouter } from 'connected-react-router';
 import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group';
 import { INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } from '@bsport/common/lib/master-data/invoice-type';
-import withTitle from '#hocs/with-title.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
 import {
   getInvoice,
   withMember,
@@ -24,17 +24,17 @@ import {
   withEstablishmentBillingGroup,
   getEditEstablishmentBillingGroupIsLoading,
   getInvoiceMemberFullDetail,
-} from '#libs/invoice/selectors';
+} from '#src/libs/invoice/selectors';
 import {
   getPaymentGroupRequiringActionList,
   getSavedPaymentMethodList,
   getStripeBalanceTotal,
-} from '#libs/payment/selectors';
+} from '#src/libs/payment/selectors';
 import {
   fetchMember,
   fetchMemberBulkById as fetchMemberBulkByIdAction,
-} from '#libs/member/actions';
-import { refreshCompanyTheme } from '#libs/theme/actions';
+} from '#src/libs/member/actions';
+import { refreshCompanyTheme } from '#src/libs/theme/actions';
 import {
   fetchSpecificInvoice as fetchInvoiceAction,
   fetchInvoiceItemList,
@@ -52,60 +52,60 @@ import {
   changePaymentMethodAndRegisterPlannedPaymentEvent,
   schedulePayment,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
-} from '#libs/invoice/actions';
+} from '#src/libs/invoice/actions';
 import {
   fetchEstablishments,
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
-} from '#libs/establishment/actions';
-import { fetchStripeReaders } from '#libs/terminal/actions';
-import { getEnabledEstablishmentBillingGroups } from '#libs/establishment/selectors';
-import { getStripeReaders } from '#libs/terminal/selectors';
+} from '#src/libs/establishment/actions';
+import { fetchStripeReaders } from '#src/libs/terminal/actions';
+import { getEnabledEstablishmentBillingGroups } from '#src/libs/establishment/selectors';
+import { getStripeReaders } from '#src/libs/terminal/selectors';
 import {
   updatePaymentGroupPriceCts,
   fetchPaymentGroupList as fetchPaymentGroupListAction,
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   fetchStripeBalance as fetchStripeBalanceAction,
   detachPaymentMethod,
-} from '#libs/payment/actions';
+} from '#src/libs/payment/actions';
 
-import { fetchCompanyUserRoles } from '#libs/role/actions';
+import { fetchCompanyUserRoles } from '#src/libs/role/actions';
 import {
   snackbarSuccess,
   snackbarWarning,
   snackbarError,
-} from '#libs/snackbar/actions';
-import InvoiceHeader from '#libs/invoice/components/InvoiceHeader.component';
-import InvoiceContent from '#libs/invoice/components/InvoiceContent.component';
-import InvoicePaymentPanel from '#libs/invoice/components/InvoicePaymentPanel.component';
-import InvoiceReverterDialog from '#libs/invoice/components/InvoiceReverterDialog.component';
-import PlannedPaymentEventMethodSwitcherDialog from '#libs/invoice/dialog/PlannedPaymentEventMethodSwitcherDialog.component';
-import { requestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
+} from '#src/libs/snackbar/actions';
+import InvoiceHeader from '#src/libs/invoice/components/InvoiceHeader.component';
+import InvoiceContent from '#src/libs/invoice/components/InvoiceContent.component';
+import InvoicePaymentPanel from '#src/libs/invoice/components/InvoicePaymentPanel.component';
+import InvoiceReverterDialog from '#src/libs/invoice/components/InvoiceReverterDialog.component';
+import PlannedPaymentEventMethodSwitcherDialog from '#src/libs/invoice/dialog/PlannedPaymentEventMethodSwitcherDialog.component';
+import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 
-import PaymentDialog from '#libs/payment/components/PaymentDialog.component';
-import InstalmentPaymentDialog from '#libs/payment/components/InstalmentPaymentForm.dialog';
-import CreditMemberBadge from '#libs/member/components/CreditMemberBadge.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import PaymentDialog from '#src/libs/payment/components/PaymentDialog.component';
+import InstalmentPaymentDialog from '#src/libs/payment/components/InstalmentPaymentForm.dialog';
+import CreditMemberBadge from '#src/libs/member/components/CreditMemberBadge.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import themeSelectors, {
   getStripeRegion,
   getCompanyCountry,
-} from '#libs/theme/selectors';
-import { withMemberBannerHOC } from '#hocs/banner.hoc';
+} from '#src/libs/theme/selectors';
+import { withMemberBannerHOC } from '#src/hocs/banner.hoc';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
-} from '#libs/giftcard/actions';
+} from '#src/libs/giftcard/actions';
 import {
   getConsumerGiftcardReceivedList,
   withGiftcard,
   withSender,
   withReceiver,
   onlyUsable,
-} from '#libs/giftcard/selectors';
-import { getBackofficeEnabledPaymentGroupMethods } from '#libs/payment/utils';
-import { withDefaultBillingEstablishment } from '#libs/member/selectors';
-import { getInvoiceIdentifier } from '#libs/invoice/utils';
-import RevalidateMandateDialog from '#libs/payment/components/payment-backend-stripe/RevalidateMandateDialog.component';
+} from '#src/libs/giftcard/selectors';
+import { getBackofficeEnabledPaymentGroupMethods } from '#src/libs/payment/utils';
+import { withDefaultBillingEstablishment } from '#src/libs/member/selectors';
+import { getInvoiceIdentifier } from '#src/libs/invoice/utils';
+import RevalidateMandateDialog from '#src/libs/payment/components/payment-backend-stripe/RevalidateMandateDialog.component';
 import type { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import type { Theme as CompanyThemeType } from '../../libs/theme/types';
 import type { Payment, PaymentMethod } from '../../libs/payment/types';

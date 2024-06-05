@@ -1,15 +1,14 @@
-
-import type { PaginatedResponse } from '#state/types';
-import type { BookingREST } from '#libs/booking/types';
-import type { UniversalPassREST } from '#libs/universal-pass/types';
+import type { PaginatedResponse } from '#src/state/types';
+import type { BookingREST } from '#src/libs/booking/types';
+import type { UniversalPassREST } from '#src/libs/universal-pass/types';
 import type {
   ConsumerInvoiceComplementary,
   ConsumerInvoiceREST,
-} from '#libs/invoice/types';
+} from '#src/libs/invoice/types';
 import type {
   ConsumerInvoiceQueryParams,
   ConsumerPassesTabDisplay,
-} from '#libs/consumer-space/types';
+} from '#src/libs/consumer-space/types';
 import {
   API_URI,
   API_V1_URI,

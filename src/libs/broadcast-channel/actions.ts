@@ -1,9 +1,8 @@
 import { createAction } from 'redux-actions';
 
-import type { Dispatch } from '#state/types';
-import { globalMemberVisitActions } from '#libs/access-control/actions';
+import type { Dispatch } from '#src/state/types';
+import { globalMemberVisitActions } from '#src/libs/access-control/actions';
 import { BroadcastChannelMessage, BroadcastChannelMessageType } from './types';
-
 
 /**
  * Main function to handle the messages received from the broadcast channel.

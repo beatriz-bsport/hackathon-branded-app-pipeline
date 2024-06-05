@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
-import { _getAutomatedCampaignById } from '#libs/smart-list/selectors';
+import { _getAutomatedCampaignById } from '#src/libs/smart-list/selectors';
 import {
   Campaign,
   CommunicationSentGroupConfig,
   CommunicationSentGroup,
-} from '#libs/communication/types';
+} from '#src/libs/communication/types';
 import { RootState } from '../../reducers';
 
 const getData = (state: RootState) => state.communication.campaign.byId;

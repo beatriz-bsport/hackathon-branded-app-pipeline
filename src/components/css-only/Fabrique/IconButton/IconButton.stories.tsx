@@ -8,7 +8,7 @@ import {
   ButtonVariant,
   ButtonSize,
 } from '#Fabrique/ButtonV2/constants';
-import { Star06 } from '#components/untitledui';
+import { Star06 } from '#src/components/untitledui';
 
 const IconButtonStorybookTemplate: ComponentStory<
   typeof IconButtonStorybook

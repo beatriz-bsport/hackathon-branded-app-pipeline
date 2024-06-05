@@ -13,8 +13,8 @@ import { PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY } from '@bsport/common/lib/mast
 import {
   blockPendingBasket as blockPendingBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
-} from '#libs/payment/api';
-import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
+} from '#src/libs/payment/api';
+import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 
 type PaymentStripeGiropayProps = {
   basketId?: string;

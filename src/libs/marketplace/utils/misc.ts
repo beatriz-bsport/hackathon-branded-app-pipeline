@@ -1,4 +1,4 @@
-import { SEPA_REQUIRED_BILLING_ADDRESS_COUNTRIES } from '#libs/marketplace/constants';
+import { SEPA_REQUIRED_BILLING_ADDRESS_COUNTRIES } from '#src/libs/marketplace/constants';
 
 export function httpParser(url: string) {
   const regex = /^https?:\/\//;

@@ -1,5 +1,5 @@
-import type { Member } from '#libs/member/types';
-import { MemberFactory } from '#libs/member/factories/Member';
+import type { Member } from '#src/libs/member/types';
+import { MemberFactory } from '#src/libs/member/factories/Member';
 import type {
   Recipient,
   CommunicationMessage,

@@ -22,7 +22,7 @@ import { push as pushRouter } from 'connected-react-router';
 import Button from '@material-ui/core/Button';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import { OptionCallback } from '../../state/types';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';

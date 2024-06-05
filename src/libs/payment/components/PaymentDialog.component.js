@@ -20,12 +20,12 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
-import PaymentStripeTerminal from '#libs/terminal/components/PaymentStripeTerminal.component';
-import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
-import type { StripeReader } from '#libs/terminal/types';
-import { FeatureList } from '#libs/company/types';
-import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
+import PaymentStripeTerminal from '#src/libs/terminal/components/PaymentStripeTerminal.component';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#src/libs/payment/utils';
+import type { StripeReader } from '#src/libs/terminal/types';
+import { FeatureList } from '#src/libs/company/types';
+import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import PaymentStripe from './payment-backend-stripe/PaymentStripe.component';
 import PaymentBsportInternal from './payment-backend-internal/PaymentBsportInternal.component';

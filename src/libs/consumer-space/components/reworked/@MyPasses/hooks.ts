@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { PassTabEnum } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
-import { PassFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/constants';
-import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#libs/consumer-space/constants';
+import { PassTabEnum } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
+import { PassFilterTabEnum } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/constants';
+import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 import useViewport from '#Fabrique/hooks/useViewport';
 
-import type { PrivateConsumerPassReworked } from '#libs/private-service/types';
-import type { PassTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
-import type { UniversalPassReworked } from '#libs/universal-pass/types';
-import type { ConsumerPaymentPackReworked } from '#libs/consumer-payment-pack/types';
-import type { PassFilterTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
-import type { ConsumerPassesTabDisplay } from '#libs/consumer-space/types';
+import type { PrivateConsumerPassReworked } from '#src/libs/private-service/types';
+import type { PassTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
+import type { UniversalPassReworked } from '#src/libs/universal-pass/types';
+import type { ConsumerPaymentPackReworked } from '#src/libs/consumer-payment-pack/types';
+import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
+import type { ConsumerPassesTabDisplay } from '#src/libs/consumer-space/types';
 import type { ConsumerPassPageReworkedProps } from './ConsumerPassPageReworked';
 
 const consumerPassesTabDisplayMap = {

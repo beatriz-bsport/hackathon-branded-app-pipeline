@@ -6,14 +6,14 @@ import { makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import ToolTip from '#components/Tooltip.component';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
+import ToolTip from '#src/components/Tooltip.component';
 
-import { FeatureList } from '#libs/company/types';
+import { FeatureList } from '#src/libs/company/types';
 import {
   TutorialCompletion,
   TutorialLesson,
-} from '#libs/platform-tutorial/types';
+} from '#src/libs/platform-tutorial/types';
 import { isLessonViewed, isUpsellNotSubscribed } from '../utils';
 
 type Props = {

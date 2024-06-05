@@ -3,8 +3,8 @@ import { ListItem, Typography } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { useTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core/styles';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
-import { Contract } from '#libs/subscription/types';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
+import { Contract } from '#src/libs/subscription/types';
 
 type Props = {
   contract: Contract;

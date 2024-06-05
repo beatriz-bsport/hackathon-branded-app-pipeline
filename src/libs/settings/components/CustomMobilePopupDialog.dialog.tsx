@@ -16,9 +16,9 @@ import {
   Theme,
 } from '@material-ui/core';
 // @ts-expect-error
-import { TextField, AlertError } from '#components/forms';
+import { TextField, AlertError } from '#src/components/forms';
 // @ts-expect-error
-import ImageField from '#components/forms/ImageField.component';
+import ImageField from '#src/components/forms/ImageField.component';
 
 import { OptionCallback } from '../../../state/types';
 import { CustomMobilePopup } from '../types';

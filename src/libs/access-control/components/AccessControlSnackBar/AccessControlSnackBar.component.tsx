@@ -9,7 +9,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { MemberMinimal } from '#libs/member/types';
+import { MemberMinimal } from '#src/libs/member/types';
 
 import { AccessStatus } from '../../constants';
 

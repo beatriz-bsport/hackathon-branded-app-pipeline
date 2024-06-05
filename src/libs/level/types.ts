@@ -1,4 +1,4 @@
-import type { ErrorAndLoading } from '#libs/types';
+import type { ErrorAndLoading } from '#src/libs/types';
 
 export type Level = {
   id: number;

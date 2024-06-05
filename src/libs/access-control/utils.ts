@@ -1,15 +1,15 @@
 import type { TFunction } from 'i18next';
 import type { ImmutableArray, ImmutableObject } from 'seamless-immutable';
-import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
+import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#src/libs/platform-billing/upsell-identifiers';
 
-import { hasUpsell } from '#libs/platform-billing/utils';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 
-import type { RolePermission } from '#libs/role/types';
-import type { UpsellSumup } from '#libs/company/types';
+import type { RolePermission } from '#src/libs/role/types';
+import type { UpsellSumup } from '#src/libs/company/types';
 import type {
   Establishment,
   EstablishmentGroupAPI,
-} from '#libs/establishment/types';
+} from '#src/libs/establishment/types';
 import type { MemberVisitREST, PassCheckResultInclusive } from './types';
 
 /**

@@ -9,9 +9,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 
 import { Form } from 'formik';
-import type { PaymentPackTemplate } from '#libs/payment-packs/types';
-import type { PrivatePassTemplate } from '#libs/private-service/types';
-import type { CouponTemplate } from '#libs/coupon/types';
+import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
+import type { PrivatePassTemplate } from '#src/libs/private-service/types';
+import type { CouponTemplate } from '#src/libs/coupon/types';
 import CouponTemplateInstanceForm, {
   CouponTemplateInstanceFormikHOC,
 } from './CouponTemplateInstanceForm.component';

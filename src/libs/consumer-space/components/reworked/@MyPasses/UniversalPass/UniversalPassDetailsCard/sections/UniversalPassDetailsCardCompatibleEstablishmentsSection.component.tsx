@@ -6,9 +6,9 @@ import classNames from 'classnames';
 import ListItem from '#Fabrique/ListItem';
 import Avatar from '#Fabrique/Temporary/Avatar';
 import List from '#Fabrique/List';
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 
-import type { Establishment } from '#libs/establishment/types';
+import type { Establishment } from '#src/libs/establishment/types';
 
 type Props = {
   compatibleEstablishments: Establishment[];

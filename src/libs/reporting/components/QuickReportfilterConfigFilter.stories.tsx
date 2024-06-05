@@ -4,7 +4,7 @@ import withFormik from '@bbbtech/storybook-formik';
 import { action } from '@storybook/addon-actions';
 
 import QuickReportFilterConfigFilter from './QuickReportFilterConfigFilter.component';
-import { generateNewGroup } from '#libs/datatype-filtering/utils';
+import { generateNewGroup } from '#src/libs/datatype-filtering/utils';
 
 const actionsData = {
   getDataByType: action('getDataByType'),

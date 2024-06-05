@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { fakerEN as faker } from '@faker-js/faker';
 import withFormik from '@bbbtech/storybook-formik';
 
-import { NewsletterV2FieldsKind } from '#libs/marketplace/constants';
+import { NewsletterV2FieldsKind } from '#src/libs/marketplace/constants';
 import { NewsletterFormBase } from '.';
 
 const NewsletterFormTemplate: ComponentStory<typeof NewsletterFormBase> = (

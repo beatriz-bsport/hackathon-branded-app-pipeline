@@ -1,6 +1,6 @@
 import React from 'react';
-import Typography from '#components/css-only/Fabrique/Typography';
-import type { SubscriptionInterval } from '#libs/subscription/types';
+import Typography from '#src/components/css-only/Fabrique/Typography';
+import type { SubscriptionInterval } from '#src/libs/subscription/types';
 import useConsumerSubscriptionRecurrenceLabel from '../hooks/useConsumerSubscriptionRecurrenceLabel';
 import './styles.css';
 

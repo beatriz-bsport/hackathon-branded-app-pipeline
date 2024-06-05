@@ -2,32 +2,32 @@ import React from 'react';
 import { compose } from 'recompose';
 import { LinearProgress } from '@material-ui/core';
 import { ConnectedProps, connect } from 'react-redux';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import type { SendGroupedCommunicationData } from '#libs/communication/types';
-import { getAllFranchiseCompanies } from '#libs/franchise/selectors';
-import { fetchAllSmartLists as fetchAllSmartListsAction } from '#libs/smart-list/actions';
-import { getAllSmartList } from '#libs/smart-list/selectors';
-import CommunicationSentGroupConfigCommunicationDrawer from '#libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigCommunicationDrawer';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import type { SendGroupedCommunicationData } from '#src/libs/communication/types';
+import { getAllFranchiseCompanies } from '#src/libs/franchise/selectors';
+import { fetchAllSmartLists as fetchAllSmartListsAction } from '#src/libs/smart-list/actions';
+import { getAllSmartList } from '#src/libs/smart-list/selectors';
+import CommunicationSentGroupConfigCommunicationDrawer from '#src/libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigCommunicationDrawer';
 import {
   emailTemplateDetail as emailTemplateDetailAction,
   emailTemplatesSummaries as emailTemplatesSummariesAction,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
+} from '#src/libs/email-editor/selectors';
 import {
   sendGroupedCommunication as sendGroupedCommunicationAction,
   updateCommunicationSentGroupConfig as updateCommunicationSentGroupConfigAction,
   fetchMembersDataTableListExport as fetchMembersDataTableListExportAction,
   fetchMembersDataTableListExportLink as fetchMembersDataTableListExportLinkAction,
-} from '#libs/communication/actions';
+} from '#src/libs/communication/actions';
 
-import { getCommunicationSentGroupConfig } from '#libs/communication/selectors';
-import type { FranchiseCompany } from '#libs/franchise/types';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
-import CommunicationSentGroupConfigDetailGeneralPanel from '#libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigDetailGeneralPanel.component';
+import { getCommunicationSentGroupConfig } from '#src/libs/communication/selectors';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#src/libs/notification-rule/actions';
+import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
+import CommunicationSentGroupConfigDetailGeneralPanel from '#src/libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigDetailGeneralPanel.component';
 import type { OptionCallback } from '../../../../state/types';
 import type { RootState } from '../../../../reducers';
 

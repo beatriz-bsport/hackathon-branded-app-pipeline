@@ -8,9 +8,9 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Typography from '@material-ui/core/Typography';
-import DateRangeSelector from '#components/date/DateRangeSelector.component';
+import DateRangeSelector from '#src/components/date/DateRangeSelector.component';
 // eslint-disable-next-line no-duplicate-imports
-import type { Values } from '#components/date/DateRangeSelector.component';
+import type { Values } from '#src/components/date/DateRangeSelector.component';
 
 import { CampaignExportStartEndDates } from '../types';
 

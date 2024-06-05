@@ -2,20 +2,20 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 
 import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
 import Alert from '#Fabrique/Alert';
 
-import { getSubscriptionTextBasedOnCouponApplied } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
+import { getSubscriptionTextBasedOnCouponApplied } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/utils';
 import {
   BellRinging04,
   ClockRefresh,
   PauseCircle,
-} from '#components/untitledui';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { formatAsDate } from '#utils/datetime';
+} from '#src/components/untitledui';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { formatAsDate } from '#src/utils/datetime';
 import type { ConsumerSubscriptionDetailsCardProps } from '..';
 import ConsumerSubscriptionRecurrenceLabel from '../../ConsumerSubscriptionRecurrenceLabel';
 

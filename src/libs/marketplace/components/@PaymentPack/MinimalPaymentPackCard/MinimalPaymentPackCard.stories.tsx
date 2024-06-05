@@ -4,7 +4,7 @@ import { ComponentStory, Meta } from '@storybook/react';
 import MinimalPaymentPackCard, { MinimalPaymentPackCardForStorybook } from '.';
 
 import type { Props } from '.';
-import { paymentPackFactory } from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
 
 const paymentPack = paymentPackFactory();
 

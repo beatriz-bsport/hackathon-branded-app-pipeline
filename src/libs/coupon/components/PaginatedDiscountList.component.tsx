@@ -4,12 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
+import type { Discount } from '#src/libs/coupon/types';
+import { FranchiseCompany } from '#src/libs/franchise/types';
 // @ts-expect-error
-import type { Discount } from '#libs/coupon/types';
-import { FranchiseCompany } from '#libs/franchise/types';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import DiscountListItem from './DiscountListItem.component';
-
 
 type Props = {
   items: Array<Discount>;

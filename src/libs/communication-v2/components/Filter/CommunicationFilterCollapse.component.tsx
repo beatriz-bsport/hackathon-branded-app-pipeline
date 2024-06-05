@@ -11,9 +11,9 @@ import {
   COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT,
   COMMUNICATION_FILTER_IDENTIFIER_SEND_PARAMETER,
   COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST,
-} from '#libs/communication-v2/constants';
-import { getFieldChoicesByIdentifier } from '#libs/communication-v2/utils';
-import { SelectFieldItem } from '#libs/communication-v2/types';
+} from '#src/libs/communication-v2/constants';
+import { getFieldChoicesByIdentifier } from '#src/libs/communication-v2/utils';
+import { SelectFieldItem } from '#src/libs/communication-v2/types';
 import CommunicationFilterDateField from './CommunicationFilterDateField.component';
 import CommunicationFilterGenericField from './CommunicationFilterGenericField.component';
 

@@ -12,44 +12,44 @@ import Typography from '@material-ui/core/Typography';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Pagination from '@material-ui/lab/Pagination';
 
-import ActivitiesToReplaceTable from '#libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
-import EstablishmentsSelector from '#libs/establishment/components/EstablishmentSelector.component';
-import EstablishmentGroupSelector from '#libs/establishment/components/EstablishmentGroupSelector.component';
+import ActivitiesToReplaceTable from '#src/libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
+import EstablishmentsSelector from '#src/libs/establishment/components/EstablishmentSelector.component';
+import EstablishmentGroupSelector from '#src/libs/establishment/components/EstablishmentGroupSelector.component';
 // @ts-expect-error
-import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySelector.component';
+import MetaActivitySelector from '#src/libs/meta-activity/components/MetaActivitySelector.component';
 
 import {
   ReplacementDisplays,
   ReplacementRequestStatus,
   ReplacementRequestCoachAnswerStatus,
   PAGE_SIZE,
-} from '#libs/replacement-request/constants';
-import { ReplacementRequestAPIData } from '#libs/replacement-request/types';
-import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
-import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
+} from '#src/libs/replacement-request/constants';
+import { ReplacementRequestAPIData } from '#src/libs/replacement-request/types';
+import { fetchOfferBulk as fetchOfferBulkAction } from '#src/libs/offer/actions';
+import { getMyAssociatedCoachProfile } from '#src/libs/associated-coach/selectors';
 import {
   withEstablishment as groupWithEstablishment,
   getAssociatedEstablishmentGroup,
   getAvailableEstablishmentList,
-} from '#libs/establishment/selectors';
-import { getEnabledMetaActivities } from '#libs/meta-activity/selectors';
+} from '#src/libs/establishment/selectors';
+import { getEnabledMetaActivities } from '#src/libs/meta-activity/selectors';
 import {
   getAllReplacementRequests,
   withCompleteOffer,
   withCoachAnswers,
-} from '#libs/replacement-request/selectors';
-import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#libs/associated-coach/actions';
+} from '#src/libs/replacement-request/selectors';
+import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#src/libs/associated-coach/actions';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
-import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+} from '#src/libs/establishment/actions';
+import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#src/libs/meta-activity/actions';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
 import {
   fetchAllReplacementRequests as fetchAllReplacementRequestsAction,
   fetchAllReplacementRequestCoachAnswers as fetchAllReplacementRequestCoachAnswersAction,
   createOrUpdateReplacementRequestCoachAnswer as createOrUpdateReplacementRequestCoachAnswerAction,
-} from '#libs/replacement-request/actions';
+} from '#src/libs/replacement-request/actions';
 import { RootState } from '../../../reducers';
 import { WithHandlerType } from '../../../utils/types';
 

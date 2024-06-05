@@ -9,14 +9,14 @@ import {
   PaymentPack,
   PaymentPackTemplate,
   MaxoutData,
-} from '#libs/payment-packs/types';
+} from '#src/libs/payment-packs/types';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { getValidityInfo } from '#libs/payment-packs/utils';
-import Tooltip from '#components/Tooltip.component';
+} from '#src/libs/theme/utils';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getValidityInfo } from '#src/libs/payment-packs/utils';
+import Tooltip from '#src/components/Tooltip.component';
 
 interface Props {
   paymentPack: (PaymentPack | PaymentPackTemplate) & Partial<MaxoutData>;

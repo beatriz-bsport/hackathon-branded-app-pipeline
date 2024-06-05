@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import classNames from 'classnames';
-import { Color } from '#csscomponents/Fabrique/Types';
+import { Color } from '#src/components/css-only/Fabrique/Types';
 
 import './styles.css';
 

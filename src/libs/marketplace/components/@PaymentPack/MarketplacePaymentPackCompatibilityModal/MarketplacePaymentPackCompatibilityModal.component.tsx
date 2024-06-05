@@ -4,17 +4,17 @@ import CategoryIcon from '@material-ui/icons/Category';
 import RoomIcon from '@material-ui/icons/Room';
 import StarIcon from '@material-ui/icons/Star';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import ValidationIcon from '#components/icons/ValidationIcon.component';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
 
-import Card, { CardSize } from '#components/css-only/Card';
-import Content from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
-import Item, { Alignment } from '#components/css-only/Grid/GridItem';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import Content from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
+import Item, { Alignment } from '#src/components/css-only/Grid/GridItem';
 
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { SCT } from '#libs/category/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { SCT } from '#src/libs/category/types';
 
 import './styles.css';
 

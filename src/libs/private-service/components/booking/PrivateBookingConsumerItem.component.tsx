@@ -13,7 +13,7 @@ import TodayIcon from '@material-ui/icons/Today';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 import { makeStyles } from '@material-ui/styles';
-import type { PrivateBooking } from '#libs/private-service/types';
+import type { PrivateBooking } from '#src/libs/private-service/types';
 import WidgetUtils from '../../../widget/WidgetUtils';
 
 import RedButton from '../../../../components/button/RedButton.component';

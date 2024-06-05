@@ -14,8 +14,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import type { BookkeepingAccount } from '#libs/payment/types';
-import InfoTypography from '#components/typo/InfoTypography.components';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
+import InfoTypography from '#src/components/typo/InfoTypography.components';
 
 export type BookkeepingAccountListDisplayProps = {
   setOpenBookkeepingAccountDialogForm: (open: boolean) => void;

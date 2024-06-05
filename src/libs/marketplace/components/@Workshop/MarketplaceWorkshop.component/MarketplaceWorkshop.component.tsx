@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import { Button, CircularProgress } from '@material-ui/core';
 
-import { CompanyTheme } from '#libs/theme/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { OffersGroup } from '#libs/group-offer/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import { Offer } from '#libs/offer/types';
-import { Level } from '#libs/level/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { OffersGroup } from '#src/libs/group-offer/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { Offer } from '#src/libs/offer/types';
+import { Level } from '#src/libs/level/types';
 import useIsVisibleOnScreen from '../../../../../hooks/useIsVisibleOnScreen';
 import MarketPlaceWorkshopCard from '../MarketplaceWorkshopCard.component';
 

@@ -5,13 +5,13 @@ import {
   PAYMENT_INTENT_TYPE_BASKET,
 } from '@bsport/common/lib/master-data/payment-group';
 
-import { QuicksalePaymentMethod } from '#libs/quicksale/constants';
+import { QuicksalePaymentMethod } from '#src/libs/quicksale/constants';
 
-import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook';
+import useFeaturesProvider from '#src/libs/company/hooks/feature-list-provider.hook';
 
-import { requestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
-import type { Theme } from '#libs/theme/types';
-import type { Basket } from '#libs/checkout/types';
+import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
+import type { Theme } from '#src/libs/theme/types';
+import type { Basket } from '#src/libs/checkout/types';
 
 const useQuicksalePayments = ({
   basketId,

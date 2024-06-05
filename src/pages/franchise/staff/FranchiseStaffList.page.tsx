@@ -6,9 +6,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { TFunction } from 'i18next';
 import { Backdrop, CircularProgress, Theme } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import UserWithRoleList from '#libs/role/components/UserWithRoleList.component';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import InfoBox from '#components/box/InfoBox.component';
+import UserWithRoleList from '#src/libs/role/components/UserWithRoleList.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import InfoBox from '#src/components/box/InfoBox.component';
 
 import {
   fetchFranchiseUserRoles,
@@ -17,16 +17,16 @@ import {
   deleteStaffFranchiseUser,
   createStaffFranchiseUser,
   updateFranchiseUserCommission,
-} from '#libs/role/actions';
-import { fetchFranchise } from '#libs/franchise/actions';
+} from '#src/libs/role/actions';
+import { fetchFranchise } from '#src/libs/franchise/actions';
 import {
   getFranchiseUsersWithRole,
   getAllFranchiseRoles,
   hasFranchiseRoleUpsertPermission,
-} from '#libs/role/selectors';
-import withTitle from '#hocs/with-title.hoc';
-import { getFranchiseCompanies } from '#libs/franchise/selectors';
-import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
+} from '#src/libs/role/selectors';
+import withTitle from '#src/hocs/with-title.hoc';
+import { getFranchiseCompanies } from '#src/libs/franchise/selectors';
+import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
 import { RootState } from '../../../reducers';
 import { MaterialStyleType } from '../../../utils/types';
 

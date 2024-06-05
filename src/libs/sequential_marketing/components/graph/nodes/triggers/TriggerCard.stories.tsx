@@ -2,9 +2,9 @@ import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import TriggerCard from './TriggerCard.component';
-import { TriggerKind } from '#libs/sequential_marketing/constants';
-import { triggerFactory } from '#libs/sequential_marketing/factories';
-import { smartlistFactory } from '#libs/smart-list/factories';
+import { TriggerKind } from '#src/libs/sequential_marketing/constants';
+import { triggerFactory } from '#src/libs/sequential_marketing/factories';
+import { smartlistFactory } from '#src/libs/smart-list/factories';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/TriggerCard',

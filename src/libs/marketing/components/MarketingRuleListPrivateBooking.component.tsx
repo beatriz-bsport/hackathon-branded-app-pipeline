@@ -17,7 +17,7 @@ import {
   PRIVATEBOOKING_EVENT_RULES,
 } from '@bsport/common/lib/master-data/notification-rule-events';
 
-import { SmartList } from '#libs/smart-list/types';
+import { SmartList } from '#src/libs/smart-list/types';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { MarketingNotification } from '../types';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';

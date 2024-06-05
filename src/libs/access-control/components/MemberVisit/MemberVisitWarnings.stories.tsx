@@ -4,8 +4,8 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import MemberVisitWarnings, { Props } from './MemberVisitWarnings.component';
 import MemberVisitFactoryBot, {
   generateFakeAccessStatusData,
-} from '#libs/access-control/factories';
-import { AccessStatus } from '#libs/access-control/constants';
+} from '#src/libs/access-control/factories';
+import { AccessStatus } from '#src/libs/access-control/constants';
 
 export default {
   title: 'Libs/AccessControl/MemberVisitWarnings',

@@ -13,16 +13,16 @@ import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
-// import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import ZoomEstablishmentTable from '#libs/zoom-app/components/ZoomEstablishmentTable.component';
+// import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import ZoomEstablishmentTable from '#src/libs/zoom-app/components/ZoomEstablishmentTable.component';
 
 import type {
   ZoomApp,
   ZoomEstablishment,
   ZoomMember,
   ZoomEstablishmentBulkEditData,
-} from '#libs/zoom-app/types';
-import type { Establishment } from '#libs/establishment/types';
+} from '#src/libs/zoom-app/types';
+import type { Establishment } from '#src/libs/establishment/types';
 import { OptionCallback } from '../../../state/types';
 
 const useStyles = makeStyles((theme) => ({

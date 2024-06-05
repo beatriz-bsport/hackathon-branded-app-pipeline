@@ -14,13 +14,13 @@ import { createStyles, Theme } from '@material-ui/core';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import ModalConfirm from '#components/ModalConfirm.component';
-import FuzzySearch from '#components/search/FuzzySearch.component';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { getReportGlobalCategoryFromCategory } from '#libs/reporting/utils';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ModalConfirm from '#src/components/ModalConfirm.component';
+import FuzzySearch from '#src/components/search/FuzzySearch.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { getReportGlobalCategoryFromCategory } from '#src/libs/reporting/utils';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import ReportCategorySelector from './ReportCategorySelector.component';
 import ReportList from './ReportList.component';
 import ReportListItem from './ReportListItem.component';

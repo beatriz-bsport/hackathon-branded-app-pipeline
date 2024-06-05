@@ -35,10 +35,11 @@ import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 
 import type { OptionPropsWithData } from '../../libs/fuzzy-search/types';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { fetchTags } from '#libs/tag/actions';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import { fetchTags } from '#src/libs/tag/actions';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+
 import themeSelectors from '../../libs/theme/selectors';
 import ShopItemDeleteDialog from '../../libs/shop/components/ShopItemDeleteDialog.component';
 import {
@@ -62,7 +63,7 @@ import shopSelectors from '../../libs/shop/selectors';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
-import withtitle from '../../hocs/with-title.hoc';
+import withtitle from '#src/hocs/with-title.hoc';
 import Tooltip from '../../components/Tooltip.component';
 import type { OptionCallback } from '../../state/types';
 import type { BookkeepingAccount } from '../../libs/payment/types';
@@ -77,7 +78,7 @@ import ObjectSearchComponent from '../../libs/fuzzy-search/components/ObjectSear
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 
 type ShopItemOption = {
   label: string,

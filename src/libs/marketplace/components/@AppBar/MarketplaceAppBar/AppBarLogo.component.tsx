@@ -10,9 +10,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 
-import { httpParser } from '#libs/marketplace/utils';
-import { Franchise } from '#libs/franchise/types';
-import { Company } from '#libs/company/types';
+import { httpParser } from '#src/libs/marketplace/utils';
+import { Franchise } from '#src/libs/franchise/types';
+import { Company } from '#src/libs/company/types';
 
 type LogoProps = {
   isWidget?: boolean;

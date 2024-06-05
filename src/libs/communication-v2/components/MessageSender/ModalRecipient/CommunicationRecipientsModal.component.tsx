@@ -28,11 +28,10 @@ import {
   COMMUNICATION_KIND_SMS,
 } from '@bsport/common/lib/master-data/communication-kind';
 
-import { FilteringMemberIdsByGenericCategories } from '#libs/communication-v2/types';
-import { Member } from '#libs/member/types';
+import { FilteringMemberIdsByGenericCategories } from '#src/libs/communication-v2/types';
+import { Member } from '#src/libs/member/types';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 import CommunicationRecipientModalFilter from './CommunicationRecipientsModalFilter.component';
-
 
 type OwnProps = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;

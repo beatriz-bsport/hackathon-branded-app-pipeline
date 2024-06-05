@@ -12,8 +12,8 @@ import Button from '@material-ui/core/Button';
 
 import { Link } from 'react-router-dom';
 import { Alert } from '@material-ui/lab';
-import BankAccountFormDialog from '#libs/payment/components/BankAccountFormDialog.component';
-import BankAccountSuccessDialog from '#libs/payment/components/BankAccountSuccess.dialog';
+import BankAccountFormDialog from '#src/libs/payment/components/BankAccountFormDialog.component';
+import BankAccountSuccessDialog from '#src/libs/payment/components/BankAccountSuccess.dialog';
 
 import AddressDetail from '../AddressDetail.component';
 

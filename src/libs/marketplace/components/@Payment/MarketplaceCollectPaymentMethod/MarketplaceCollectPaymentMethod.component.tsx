@@ -24,24 +24,24 @@ import CheckIcon from '@material-ui/icons/Check';
 import classNames from 'classnames';
 
 import { cloneDeep } from 'lodash';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-// @ts-expect-error
-import CircularProgress from '#csscomponents/CircularProgress';
-import Select from '#components/css-only/Select';
-import { LOCALE_LIST } from '#components/input/LocaleSelector.component';
-import { getSepaDebitNeedsBillingAddress } from '#libs/marketplace/utils';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import CircularProgress from '#src/components/css-only/CircularProgress';
+import Select from '#src/components/css-only/Select';
+import { LOCALE_LIST } from '#src/components/input/LocaleSelector.component';
+import { getSepaDebitNeedsBillingAddress } from '#src/libs/marketplace/utils';
 
 import {
   MarketplacePaymentMethodBillingDetails,
   MarketplacePaymentMethods,
   MarketplaceStripeElementType,
-} from '#libs/marketplace/types';
-import { SelectOptionWithMetaData } from '#components/css-only/Select/Select.component';
+} from '#src/libs/marketplace/types';
+import { SelectOptionWithMetaData } from '#src/components/css-only/Select/Select.component';
 
-import { usePaymentMethodBillingDetails } from '#libs/marketplace/hooks';
-import { PaymentMethod } from '#libs/payment/types';
-import Button, { ButtonType } from '#components/css-only/Fabrique/Button';
+import { usePaymentMethodBillingDetails } from '#src/libs/marketplace/hooks';
+import { PaymentMethod } from '#src/libs/payment/types';
+import Button, { ButtonType } from '#src/components/css-only/Fabrique/Button';
 import MarketplaceCardBillingDetailsFormFields from './MarketplaceCardBillingDetailsFormFields.component';
+// @ts-expect-error
 import { AVAILABLE_PAYMENT_METHOD_TYPE } from '../../../../payment/components/payment-backend-stripe-deprecated/helpers';
 import { getStripePkKey } from '../../../../theme/selectors';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';

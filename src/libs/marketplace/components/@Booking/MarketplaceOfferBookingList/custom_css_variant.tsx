@@ -5,21 +5,21 @@ import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import { checkoutItemsFactory } from '#libs/checkout/factories';
-import { BuyableItemOptions, CheckoutItem } from '#libs/checkout/types';
-import themeFactoryBot from '#libs/theme/factories';
+import { checkoutItemsFactory } from '#src/libs/checkout/factories';
+import { BuyableItemOptions, CheckoutItem } from '#src/libs/checkout/types';
+import themeFactoryBot from '#src/libs/theme/factories';
 
-import { offerFactory } from '#libs/offer/factories';
-import { levelFactory } from '#libs/level/factories';
-import type { OfferWithSpotInformation } from '#libs/offer/types';
-import { CompanyTheme } from '#libs/theme/types';
+import { offerFactory } from '#src/libs/offer/factories';
+import { levelFactory } from '#src/libs/level/factories';
+import type { OfferWithSpotInformation } from '#src/libs/offer/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 // @ts-expect-error
 import MarketplaceOfferBookingListCss from './styles.css?raw';
 import MarketplaceOfferBookingList, { Props } from '.';

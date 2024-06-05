@@ -3,12 +3,12 @@ import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
-import NumericInput from '#components/input/NumericInput.component';
+import NumericInput from '#src/components/input/NumericInput.component';
 
 import type {
   ConnectedTrigger,
   TriggerTimeoutConfig,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import useTimeOutContext from '../hooks/useTimeOutContext.hook';
 
 type Props = {

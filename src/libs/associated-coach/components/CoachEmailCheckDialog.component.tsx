@@ -12,7 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { Form, Formik } from 'formik';
 // @ts-expect-error
-import { TextField } from '#components/forms';
+import { TextField } from '#src/components/forms';
 
 type Props = {
   submit: (email: string) => void;

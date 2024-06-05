@@ -1,4 +1,4 @@
-import { MetaActivityCategory } from '#libs/meta-activity/types';
+import { MetaActivityCategory } from '#src/libs/meta-activity/types';
 import {
   API_V1_URI,
   deleteAuth,

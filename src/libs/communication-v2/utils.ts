@@ -26,10 +26,10 @@ import {
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 
-import { Booking, BookingOption } from '#libs/booking/types';
-import { Member } from '#libs/member/types';
-import { WaitingListBookingOption } from '#libs/waiting-list/types';
-import { Tag, TagGroupAPI } from '#libs/tag/types';
+import { Booking, BookingOption } from '#src/libs/booking/types';
+import { Member } from '#src/libs/member/types';
+import { WaitingListBookingOption } from '#src/libs/waiting-list/types';
+import { Tag, TagGroupAPI } from '#src/libs/tag/types';
 import { OptionCallback } from '../../state/types';
 import {
   SelectFieldItem,

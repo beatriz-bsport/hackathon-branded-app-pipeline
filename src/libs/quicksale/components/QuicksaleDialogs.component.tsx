@@ -2,13 +2,13 @@ import React from 'react';
 import chroma from 'chroma-js';
 import { makeStyles } from '@material-ui/core';
 
-import DialogWithBigIcon from '#components/DialogWithBigIcon';
-import WarningIconRounded from '#components/icons/WarningIconRounded.component';
-import ValidationIcon from '#components/icons/ValidationIcon.component';
-import SadSmileyIcon from '#components/icons/SadSmileyIcon.component';
-import EmailIcon from '#components/icons/EmailIcon.component';
+import DialogWithBigIcon from '#src/components/DialogWithBigIcon';
+import WarningIconRounded from '#src/components/icons/WarningIconRounded.component';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
+import SadSmileyIcon from '#src/components/icons/SadSmileyIcon.component';
+import EmailIcon from '#src/components/icons/EmailIcon.component';
 
-import type { TranslationProps } from '#components/DialogWithBigIcon/DialogWithBigIcon.component';
+import type { TranslationProps } from '#src/components/DialogWithBigIcon/DialogWithBigIcon.component';
 import { QuicksaleInterfaceModalColors } from '../constants';
 
 type Props = {

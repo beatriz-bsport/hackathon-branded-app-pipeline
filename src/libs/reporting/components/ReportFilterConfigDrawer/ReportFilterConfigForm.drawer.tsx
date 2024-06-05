@@ -26,30 +26,30 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import AddIcon from '@material-ui/icons/Add';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import EditIcon from '@material-ui/icons/Edit';
-import { DatatypeFilterConfigSchemaWithRequiredGroups } from '#libs/datatype-filtering/validation_schema';
+import { DatatypeFilterConfigSchemaWithRequiredGroups } from '#src/libs/datatype-filtering/validation_schema';
 
 import {
   DynamicFilterDataType,
   DatatypeFilterConfigGroupOperand,
   DatatypeFilterConfigGroup,
-} from '#libs/datatype-filtering/types';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+} from '#src/libs/datatype-filtering/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 // @ts-expect-error
-import { Submit, DelayTextField } from '#components/forms';
+import { Submit, DelayTextField } from '#src/components/forms';
 
 import {
   DATATYPE_FILTERABLE_BY_ID_IN,
   GROUP_AND_OPERAND,
-} from '#libs/datatype-filtering/constants';
+} from '#src/libs/datatype-filtering/constants';
 import {
   generateNewGroup,
   generateNewFilterItem,
-} from '#libs/datatype-filtering/utils';
+} from '#src/libs/datatype-filtering/utils';
 
-import OperandSelect from '#libs/datatype-filtering/components/OperandSelect.component';
-import DatatypeFilterConfigGroupRow from '#libs/datatype-filtering/components/DatatypeFilterConfigGroupRow.component';
-import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
-import { getFilterableColumns } from '#libs/reporting/utils';
+import OperandSelect from '#src/libs/datatype-filtering/components/OperandSelect.component';
+import DatatypeFilterConfigGroupRow from '#src/libs/datatype-filtering/components/DatatypeFilterConfigGroupRow.component';
+import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import { getFilterableColumns } from '#src/libs/reporting/utils';
 import { OptionCallback } from '../../../../state/types';
 import NestedAlertError from './NestedAlertError.component';
 import { ReportFilterConfig, ReportMetadataColumn } from '../../types';

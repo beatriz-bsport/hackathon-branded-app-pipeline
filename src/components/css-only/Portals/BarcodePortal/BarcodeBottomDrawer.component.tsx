@@ -1,5 +1,4 @@
 import React from 'react';
-// @ts-expect-error
 import BarCode from 'react-barcode';
 import BottomDrawer from '#src/components/css-only/Fabrique/BottomDrawer';
 import type { BarcodeModalsAndDrawersProps } from '#src/components/css-only/Portals/types';

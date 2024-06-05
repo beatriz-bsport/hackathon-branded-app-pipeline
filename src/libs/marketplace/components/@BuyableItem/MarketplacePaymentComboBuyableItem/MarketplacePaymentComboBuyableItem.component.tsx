@@ -6,21 +6,21 @@ import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 
 import classNames from 'classnames';
 import { useMediaQuery, useTheme } from '@material-ui/core';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import Card, { CardSize } from '#csscomponents/Card';
-import RecommendedChip from '#components/css-only/RecommendedChip';
-import CardContent from '#csscomponents/Card/CardContent';
-import Grid from '#csscomponents/Grid';
-import GridItem from '#csscomponents/Grid/GridItem';
-import Price from '#csscomponents/Price';
-import Collapse from '#components/css-only/Fabrique/Collapse';
-import Button from '#components/css-only/Fabrique/Button';
-import InitialPrice from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboCard/InitialPrice';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import RecommendedChip from '#src/components/css-only/RecommendedChip';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
+import GridItem from '#src/components/css-only/Grid/GridItem';
+import Price from '#src/components/css-only/Price';
+import Collapse from '#src/components/css-only/Fabrique/Collapse';
+import Button from '#src/components/css-only/Fabrique/Button';
+import InitialPrice from '#src/libs/marketplace/components/@PaymentCombo/MarketplacePaymentComboCard/InitialPrice';
 
 import './styles.css';
 
-import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 
 export type Props = {

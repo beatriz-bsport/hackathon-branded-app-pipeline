@@ -10,10 +10,10 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
 import {
   getBookingButtonTraduction,
   isOfferInGroupLockedByPreviousOfferInPast,
-} from '#libs/marketplace/utils';
-import { Offer } from '#libs/offer/types';
-import { OffersGroup } from '#libs/group-offer/types';
-import { MetaActivity } from '#libs/meta-activity/types';
+} from '#src/libs/marketplace/utils';
+import { Offer } from '#src/libs/offer/types';
+import { OffersGroup } from '#src/libs/group-offer/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
 
 import { isDateInThePast } from '#src/utils/datetime';
 import './MarketplaceBookButton.css';

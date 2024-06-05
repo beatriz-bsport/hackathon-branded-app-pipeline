@@ -1,5 +1,5 @@
-import { MuiIconName } from '#components/input/muiIcon/MuiIconNameType';
-import { ErrorAndLoading } from '#libs/types';
+import { MuiIconName } from '#src/components/input/muiIcon/MuiIconNameType';
+import { ErrorAndLoading } from '#src/libs/types';
 
 export type CustomShopRedirection = {
   id: string;

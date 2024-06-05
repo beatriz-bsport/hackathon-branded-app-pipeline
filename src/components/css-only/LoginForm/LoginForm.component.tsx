@@ -5,9 +5,9 @@ import HelpIcon from '@material-ui/icons/Help';
 
 import TextField from '#Fabrique/TextField';
 import Button, { ButtonType, ButtonVariant } from '#Fabrique/Button';
-import CircularProgress from '#csscomponents/CircularProgress';
-import Radio from '#csscomponents/Radio';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import CircularProgress from '#src/components/css-only/CircularProgress';
+import Radio from '#src/components/css-only/Radio';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import './styles.css';
 

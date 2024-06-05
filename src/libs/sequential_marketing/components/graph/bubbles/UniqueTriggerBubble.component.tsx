@@ -2,15 +2,15 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import { useTranslation } from 'react-i18next';
 
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
+import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
 
 import {
   getTriggerKind,
   triggerIconByKind,
-} from '#libs/sequential_marketing/components/helpers/utils';
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import ConnectedTriggerForm from '#libs/sequential_marketing/components/form/connected_triggers/ConnectedTriggerForm.component';
+} from '#src/libs/sequential_marketing/components/helpers/utils';
+import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
+import ConnectedTriggerForm from '#src/libs/sequential_marketing/components/form/connected_triggers/ConnectedTriggerForm.component';
 import CadenceBubble from './CadenceBubble.component';
 
 type Props = {

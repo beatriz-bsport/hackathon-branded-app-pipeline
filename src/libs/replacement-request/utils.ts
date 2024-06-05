@@ -1,10 +1,10 @@
 import memoize from 'memoize-one';
 import { DateTime } from 'luxon';
-import { Coach } from '#libs/associated-coach/types';
-import { Level } from '#libs/level/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Establishment } from '#libs/establishment/types';
-import { OfferMinimal } from '#libs/offer/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Level } from '#src/libs/level/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { OfferMinimal } from '#src/libs/offer/types';
 import { CompatibleCoachesByCategory } from './types';
 import {
   REPLACEMENT_REQUEST_DISABLED_REASONS,

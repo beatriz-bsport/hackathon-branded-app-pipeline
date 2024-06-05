@@ -9,12 +9,12 @@ import CloseIcon from '@material-ui/icons/Close';
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
 import { alpha } from '@material-ui/core';
 
-import { ReplacementRequest } from '#libs/replacement-request/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Level } from '#libs/level/types';
-import Tooltip from '#components/Tooltip.component';
+import { ReplacementRequest } from '#src/libs/replacement-request/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Level } from '#src/libs/level/types';
+import Tooltip from '#src/components/Tooltip.component';
 
 type Props = {
   replacementRequest: ReplacementRequest<

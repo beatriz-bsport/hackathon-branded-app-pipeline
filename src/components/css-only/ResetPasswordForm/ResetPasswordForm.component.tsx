@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import TextField from '#Fabrique/TextField';
 import Button, { ButtonColor, ButtonType } from '#Fabrique/Button';
-import CircularProgress from '#csscomponents/CircularProgress';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import CircularProgress from '#src/components/css-only/CircularProgress';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import './styles.css';
 
 export type Props = {

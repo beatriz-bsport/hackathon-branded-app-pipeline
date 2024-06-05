@@ -5,7 +5,7 @@ import Chip from '@material-ui/core/Chip';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import { getNbOfFiltersFromGraph } from '#libs/dashboard/utils';
+import { getNbOfFiltersFromGraph } from '#src/libs/dashboard/utils';
 import type { DataSourceDashboardGraph } from '../types';
 
 const useStyles = makeStyles((theme: Theme) => ({

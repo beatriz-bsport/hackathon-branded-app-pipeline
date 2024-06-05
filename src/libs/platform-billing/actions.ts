@@ -1,10 +1,10 @@
 import { createAction } from 'redux-actions';
 
-import { getFeatureListWithoutLoading } from '#libs/company/actions';
+import { getFeatureListWithoutLoading } from '#src/libs/company/actions';
 import {
   UpsellPackageSubscribedAPI,
   type UpsellPackage,
-} from '#libs/company/types';
+} from '#src/libs/company/types';
 import {
   fetchPlatformInvoiceList as fetchPlatformInvoiceListAPI,
   fetchUpsellPackages as fetchUpsellPackagesAPI,

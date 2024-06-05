@@ -15,22 +15,22 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-import VirtualizedPaymentPackTemplateList from '#libs/payment-packs/components/VirtualizedPaymentPackTemplateList.component';
-import PaymentPackTemplateFormDrawer from '#libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
-import PaymentPackTemplateDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
-import { PaymentPackTemplateAPI } from '#libs/payment-packs/types';
+import VirtualizedPaymentPackTemplateList from '#src/libs/payment-packs/components/VirtualizedPaymentPackTemplateList.component';
+import PaymentPackTemplateFormDrawer from '#src/libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
+import PaymentPackTemplateDeleteDialog from '#src/libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
+import { PaymentPackTemplateAPI } from '#src/libs/payment-packs/types';
 import {
   fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction,
   fetchPaymentPackTemplateListManagerOnly as fetchPaymentPackTemplateListManagerOnlyAction,
   createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAction,
   deletePaymentPackTemplate as deletePaymentPackTemplateAction,
   resetPaymentPackTemplateData as resetPaymentPackTemplateDataAction,
-} from '#libs/payment-packs/actions';
+} from '#src/libs/payment-packs/actions';
 import {
   getPaymentPackTemplateListManagerOnly,
   getPaymentPackTemplateListAvailableForSale,
   getPaymentPackTemplateData,
-} from '#libs/payment-packs/selectors';
+} from '#src/libs/payment-packs/selectors';
 import { OptionCallback } from '../../../state/types';
 import IsEmptyList from '../../../components/navigation/IsEmptyList.component';
 import { RootState } from '../../../reducers';

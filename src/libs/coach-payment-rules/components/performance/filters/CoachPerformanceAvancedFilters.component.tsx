@@ -23,17 +23,17 @@ import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import type { ImmutableArray } from 'seamless-immutable';
 // @ts-expect-error
-import { Submit } from '#components/forms';
-import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
-import { Coach } from '#libs/associated-coach/types';
+import { Submit } from '#src/components/forms';
+import { MaterialUiMultiSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { Coach } from '#src/libs/associated-coach/types';
 import {
   CoachPaymentRuleGroup,
   CoachPaymentRulesByKind,
-} from '#libs/coach-payment-rules/types';
+} from '#src/libs/coach-payment-rules/types';
 import type {
   Establishment,
   EstablishmentGroupAPI,
-} from '#libs/establishment/types';
+} from '#src/libs/establishment/types';
 import CoachPerformanceLocationEstablishmentFilter from './CoachPerformanceLocationEstablishmentFilter.component';
 import type { OptionCallback } from '../../../../../state/types';
 

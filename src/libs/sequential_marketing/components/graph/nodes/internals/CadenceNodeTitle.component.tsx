@@ -8,20 +8,20 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import MenuSelectorIconButton from '#components/menu/icon';
-import NestedMenuSelectorIconButton from '#components/menu/nested';
-import ConnectedTriggerChip from '#libs/sequential_marketing/components/graph/chips/ConnectedTriggerChip.component';
-import { isTriggerValid } from '#libs/sequential_marketing/components/helpers/utils';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
+import MenuSelectorIconButton from '#src/components/menu/icon';
+import NestedMenuSelectorIconButton from '#src/components/menu/nested';
+import ConnectedTriggerChip from '#src/libs/sequential_marketing/components/graph/chips/ConnectedTriggerChip.component';
+import { isTriggerValid } from '#src/libs/sequential_marketing/components/helpers/utils';
 import {
   HEADER_FONT_SIZE,
   HEADER_ICON_SIZE,
   HEADER_MAX_WIDTH,
-} from '#libs/sequential_marketing/constants/steps';
+} from '#src/libs/sequential_marketing/constants/steps';
 
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
-import type { MenuAction, NestedMenuAction } from '#components/menu/types';
+import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { MenuAction, NestedMenuAction } from '#src/components/menu/types';
 
 type StylesProps = {
   color: string;

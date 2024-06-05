@@ -3,8 +3,11 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import QuicksaleBasketSummary from './QuicksaleBasketSummary.component';
-import { basketFactory, checkoutItemsFactory } from '#libs/checkout/factories';
-import { MemberFactory } from '#libs/member/factories/Member';
+import {
+  basketFactory,
+  checkoutItemsFactory,
+} from '#src/libs/checkout/factories';
+import { MemberFactory } from '#src/libs/member/factories/Member';
 
 const actionData = {
   openMemberAuthenticationModal: action('openMemberAuthenticationModal'),

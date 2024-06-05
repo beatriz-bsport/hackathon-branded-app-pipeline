@@ -5,9 +5,9 @@ import { ButtonBase, Collapse, Typography } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { DeepPartial } from 'redux';
-import NotificationsList from '#libs/marketing/components/MarketingRuleNotificationList.component';
-import { SmartList } from '#libs/smart-list/types';
-import { EmailTemplateSummary } from '#libs/email-editor/types';
+import NotificationsList from '#src/libs/marketing/components/MarketingRuleNotificationList.component';
+import { SmartList } from '#src/libs/smart-list/types';
+import { EmailTemplateSummary } from '#src/libs/email-editor/types';
 import { OptionCallback, ThunkAction } from '../../../state/types';
 import { MarketingNotification } from '../types';
 

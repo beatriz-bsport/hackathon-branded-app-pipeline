@@ -2,14 +2,14 @@ import React from 'react';
 
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import { paymentPackFactory } from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
 // @ts-expect-error
 import MinimalPaymentPackCardCss from './styles.css?raw';
 import MinimalPaymentPackCard, { type Props } from '.';

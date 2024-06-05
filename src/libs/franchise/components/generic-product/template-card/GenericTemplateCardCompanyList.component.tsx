@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 import { Typography, Chip, Button, DialogActions } from '@material-ui/core';
 import { Share, Add, InfoOutlined } from '@material-ui/icons';
-import CompanyChip from '#components/franchise/CompanyChip.component';
-import { FranchiseCompany } from '#libs/franchise/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import CompanyChip from '#src/components/franchise/CompanyChip.component';
+import { FranchiseCompany } from '#src/libs/franchise/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
 type Props = {
   companies: FranchiseCompany[];

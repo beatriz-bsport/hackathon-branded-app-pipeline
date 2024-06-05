@@ -7,17 +7,17 @@ import { TFunction } from 'i18next';
 
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
 // @ts-expect-error
-import MarketplaceShopComponent from '#marketplacecomponents/MarketplaceShop.component';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import MarketplaceShopComponent from '#src/libs/marketplace/components/MarketplaceShop.component';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import { fetchAllSubShop } from '#libs/shop/actions/subshop';
-import { fetchShopItemAsConsumer } from '#libs/shop/actions/shopitem';
-import { addItemToBasket } from '#libs/checkout/actions';
-import { getCurrentBasket } from '#libs/checkout/selectors';
-import shopSelectors from '#libs/shop/selectors';
+import { fetchAllSubShop } from '#src/libs/shop/actions/subshop';
+import { fetchShopItemAsConsumer } from '#src/libs/shop/actions/shopitem';
+import { addItemToBasket } from '#src/libs/checkout/actions';
+import { getCurrentBasket } from '#src/libs/checkout/selectors';
+import shopSelectors from '#src/libs/shop/selectors';
 
-import themeSelectors from '#libs/theme/selectors';
-import withTitle from '#hocs/with-title.hoc';
+import themeSelectors from '#src/libs/theme/selectors';
+import withTitle from '#src/hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 
 type OwnProps = {

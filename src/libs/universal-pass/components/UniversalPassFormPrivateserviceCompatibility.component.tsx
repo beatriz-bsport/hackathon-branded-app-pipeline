@@ -17,18 +17,18 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 
-import PrivateServiceSelector from '#libs/private-service/components/service/PrivateServiceSelector.component';
-import PrivateServiceListItem from '#libs/private-service/components/service/PrivateServiceListItem.component';
+import PrivateServiceSelector from '#src/libs/private-service/components/service/PrivateServiceSelector.component';
+import PrivateServiceListItem from '#src/libs/private-service/components/service/PrivateServiceListItem.component';
 import type {
   PrivateServiceWithSlots,
   PrivateSlot,
   CompatiblePrivateService,
   PrivatePass,
   ServiceCompatibilityPass,
-} from '#libs/private-service/types';
-import { filterPrivateService } from '#libs/private-service/utils';
-import { PrivateSlotSelectionDialog } from '#libs/private-service/components//slot/PrivateSlotSelectionDialog.component';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+} from '#src/libs/private-service/types';
+import { filterPrivateService } from '#src/libs/private-service/utils';
+import { PrivateSlotSelectionDialog } from '#src/libs/private-service/components//slot/PrivateSlotSelectionDialog.component';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { PaymentPackFormValues, PaymentPack } from '../../payment-packs/types';
 
 const getExcludedSlots = (

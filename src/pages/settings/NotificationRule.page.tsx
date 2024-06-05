@@ -9,15 +9,15 @@ import {
   fetchEventTypeList as fetchEventTypeListAction,
   fetchNotificationRuleList as fetchNotificationRuleListAction,
   fetchSettingsList as fetchSettingsListAction,
-} from '#libs/notification-rule/actions';
-import { fetchMarketingNotificationList as fetchMarketingNotificationListAction } from '#libs/marketing/actions';
-import { emailTemplatesSummaries as fetchEmailDesignListAction } from '#libs/email-editor/actions';
+} from '#src/libs/notification-rule/actions';
+import { fetchMarketingNotificationList as fetchMarketingNotificationListAction } from '#src/libs/marketing/actions';
+import { emailTemplatesSummaries as fetchEmailDesignListAction } from '#src/libs/email-editor/actions';
 
-import { getEventByGroup } from '#libs/notification-rule/selectors';
+import { getEventByGroup } from '#src/libs/notification-rule/selectors';
 
-import withTitle from '#hocs/with-title.hoc';
-import NotificationRuleGroupHeader from '#libs/notification-rule/components/NotificationRuleGroupHeader.component';
-import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import withTitle from '#src/hocs/with-title.hoc';
+import NotificationRuleGroupHeader from '#src/libs/notification-rule/components/NotificationRuleGroupHeader.component';
+import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import { RootState } from '../../reducers';
 
 const BIRTHDAY_NOTIFICATION = {

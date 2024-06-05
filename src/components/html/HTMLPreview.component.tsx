@@ -12,8 +12,8 @@ import {
 import { WithTranslation, withTranslation } from 'react-i18next';
 import InfoIcon from '@material-ui/icons/Info';
 import classNames from 'classnames';
-import { replaceGenericTagsInTemplate } from '#libs/email-editor/utils';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { replaceGenericTagsInTemplate } from '#src/libs/email-editor/utils';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 
 export type OwnProps = {
   title?: string;

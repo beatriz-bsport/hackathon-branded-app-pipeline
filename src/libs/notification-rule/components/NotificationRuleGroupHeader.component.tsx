@@ -11,12 +11,12 @@ import {
   NotificationRule,
   NotificationRuleEventType,
   NotificationRuleSettings,
-} from '#libs/notification-rule/types';
+} from '#src/libs/notification-rule/types';
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
-import { FeatureList } from '#libs/company/types';
-import { hasUpsell } from '#libs/platform-billing/utils';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
+import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#src/libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#src/libs/company/types';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 
 type Props = {
   eventGroupName: string;

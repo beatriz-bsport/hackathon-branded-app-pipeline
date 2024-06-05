@@ -5,9 +5,9 @@ import ConnectedTriggerChip from './ConnectedTriggerChip.component';
 import {
   TriggerKind,
   SequentialMarketingColors,
-} from '#libs/sequential_marketing/constants';
-import { triggerFactory } from '#libs/sequential_marketing/factories';
-import { smartlistFactory } from '#libs/smart-list/factories';
+} from '#src/libs/sequential_marketing/constants';
+import { triggerFactory } from '#src/libs/sequential_marketing/factories';
+import { smartlistFactory } from '#src/libs/smart-list/factories';
 
 export default {
   title: 'Components/Cadences/Chips/TriggerChips',

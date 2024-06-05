@@ -4,18 +4,18 @@ import {
   PAYMENT_INTENT_TYPE_INVOICE,
 } from '@bsport/common/lib/master-data/payment-group';
 
-import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#libs/consumer-space/constants';
-import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
-import ConsumerInvoiceBodyContainer from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceBodyContainer';
-import ConsumerInvoiceHeader from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceHeader';
-import ConsumerInvoicePaymentPortal from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePaymentPortal';
-import MarketplacePageContent from '#csscomponents/MarketplacePageContent';
+import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
+import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+import ConsumerInvoiceBodyContainer from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceBodyContainer';
+import ConsumerInvoiceHeader from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceHeader';
+import ConsumerInvoicePaymentPortal from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePaymentPortal';
+import MarketplacePageContent from '#src/components/css-only/MarketplacePageContent';
 import useViewport from '#Fabrique/hooks/useViewport';
 
-import { requestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
+import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 
-import type { ConsumerInvoice, Invoice } from '#libs/invoice/types';
-import type { Membership } from '#libs/membership/types';
+import type { ConsumerInvoice, Invoice } from '#src/libs/invoice/types';
+import type { Membership } from '#src/libs/membership/types';
 
 import './styles.css';
 

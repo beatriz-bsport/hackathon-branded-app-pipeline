@@ -21,28 +21,31 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
 } from '@bsport/common/lib/master-data/payment-group';
 
-import type { OptionCallback } from '#state/types';
-import type { Basket } from '#libs/checkout/types';
-import type { EstablishmentBillingGroup } from '#libs/establishment/types';
-import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
-import { TermsAndConditionType, type StripeInit } from '#libs/payment/types';
+import type { OptionCallback } from '#src/state/types';
+import type { Basket } from '#src/libs/checkout/types';
+import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
+import {
+  TermsAndConditionType,
+  type StripeInit,
+} from '#src/libs/payment/types';
 
-import AcceptTermsAndConditions from '#libs/payment/components/AcceptTermsAndConditions.component';
-import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
-import InstalmentPaymentSelector from '#libs/instalment-payment-configuration/components/InstalmentPaymentSelector.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import PaymentMethodCardSelector from '#libs/payment/components/PaymentMethodCardSelector.component';
-import PriceInput from '#components/input/PriceInput.component';
+import AcceptTermsAndConditions from '#src/libs/payment/components/AcceptTermsAndConditions.component';
+import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+import InstalmentPaymentSelector from '#src/libs/instalment-payment-configuration/components/InstalmentPaymentSelector.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import PaymentMethodCardSelector from '#src/libs/payment/components/PaymentMethodCardSelector.component';
+import PriceInput from '#src/components/input/PriceInput.component';
 import {
   getStripePkKey,
   getCurrencyDisplayWithPrice,
   getCompanyCountry,
   getStripeRegion,
-} from '#libs/theme/selectors';
+} from '#src/libs/theme/selectors';
 import {
   updateIntentToSavePaymentMethod as updateIntentToSavePaymentMethodAPI,
   updateIntentToSavePaymentMethodWebview as updateIntentToSavePaymentMethodWebviewAPI,
-} from '#libs/payment/api';
+} from '#src/libs/payment/api';
 import PaymentStripeBacsDebit from './PaymentStripeBacsDebit.component';
 import PaymentStripeBancontact from './PaymentStripeBancontact.component';
 import PaymentStripeCard from './PaymentStripeCard.component';
@@ -51,7 +54,6 @@ import PaymentStripeGiropay from './PaymentStripeGiropay.component';
 import PaymentStripeIdeal from './PaymentStripeIdeal.component';
 import PaymentStripeSEPA from './PaymentStripeSEPA.component';
 import PaymentStripeSofort from './PaymentStripeSofort.component';
-
 
 const fallbackStripePromise = loadStripe(getStripePkKey());
 

@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
-import { PaymentGroup } from '#libs/invoice/types';
+import { PaymentGroup } from '#src/libs/invoice/types';
 import { RootState } from '../../reducers';
 import type { Payout, StripePayout } from './types';
 

@@ -7,9 +7,9 @@ import Tabs from '@material-ui/core/Tabs';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import classNames from 'classnames';
-import { MarketplaceSettings } from '#libs/marketplace/types';
-import { EXPORTABLE_COMPONENT_TYPE_VOD } from '#libs/exportable-components/constants';
-import { getDefaultTitleForComponent } from '#libs/exportable-components/utils';
+import { MarketplaceSettings } from '#src/libs/marketplace/types';
+import { EXPORTABLE_COMPONENT_TYPE_VOD } from '#src/libs/exportable-components/constants';
+import { getDefaultTitleForComponent } from '#src/libs/exportable-components/utils';
 import Config from '../../../../../config';
 
 type MenuProps = {

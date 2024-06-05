@@ -7,29 +7,28 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReplayIcon from '@material-ui/icons/Replay';
 
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { useMarketplaceFixedDialog } from '#libs/marketplace/hooks';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { useMarketplaceFixedDialog } from '#src/libs/marketplace/hooks';
 
-import Card, { CardSize } from '#csscomponents/Card';
-import Content from '#csscomponents/Card/CardContent';
-import Grid from '#csscomponents/Grid';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import Content from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import Item, {
   Alignment,
   Direction,
   Justification,
-} from '#csscomponents/Grid/GridItem';
-import Price, { Color } from '#csscomponents/Price';
-import CircularProgress from '#csscomponents/CircularProgress';
+} from '#src/components/css-only/Grid/GridItem';
+import Price, { Color } from '#src/components/css-only/Price';
+import CircularProgress from '#src/components/css-only/CircularProgress';
 
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-
-import type { Contract } from '#libs/subscription/types';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { PrivatePass } from '#libs/private-service/types';
-import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
-import Collapse from '#components/css-only/Fabrique/Collapse';
+import type { Contract } from '#src/libs/subscription/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
+import { PrivatePass } from '#src/libs/private-service/types';
+import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
+import Collapse from '#src/components/css-only/Fabrique/Collapse';
 import BillingInterval from '../MarketplaceBillingInterval';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';

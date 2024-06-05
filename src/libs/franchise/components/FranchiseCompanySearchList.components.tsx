@@ -11,16 +11,16 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import CompanyListItem from '#libs/membership/components/CompanyListItem.component';
-import FuzzySearch from '#components/search/FuzzySearch.component';
-import HighlightedText from '#components/HighlightedText/HighlightedText.component';
+import CompanyListItem from '#src/libs/membership/components/CompanyListItem.component';
+import FuzzySearch from '#src/components/search/FuzzySearch.component';
+import HighlightedText from '#src/components/HighlightedText/HighlightedText.component';
 
 import type {
   FranchiseCompany,
   CompanyGroup,
   CreateUpdateCompanyGroupData,
-} from '#libs/franchise/types';
-import type { OptionCallback } from '#state/types';
+} from '#src/libs/franchise/types';
+import type { OptionCallback } from '#src/state/types';
 import CompanyGroupFormDialog from './CompanyGroupFormDialog.component';
 
 type Props = {

@@ -6,30 +6,30 @@ import { Redirect } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
-import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
-import { fetchCompanyTheme } from '#libs/theme/actions';
+import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
 // @ts-expect-error
-import Analytics from '#components/analytics/Analytics.component';
-import Login from '#csscomponents/Login/Login.component';
+import Analytics from '#src/components/analytics/Analytics.component';
+import Login from '#src/components/css-only/Login/Login.component';
 // @ts-expect-error
-import { withQueryParamsUndecoded } from '#hocs/with-query-params.hoc';
+import { withQueryParamsUndecoded } from '#src/hocs/with-query-params.hoc';
 
-import WidgetUtils from '#libs/widget/WidgetUtils';
-import FranchiseCompanyLogin from '#libs/franchise/components/FranchiseCompanyLogin.component';
-import { FranchiseDetails } from '#libs/franchise/types';
-import { fetchFranchiseTheme } from '#libs/franchise/actions';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import FranchiseCompanyLogin from '#src/libs/franchise/components/FranchiseCompanyLogin.component';
+import { FranchiseDetails } from '#src/libs/franchise/types';
+import { fetchFranchiseTheme } from '#src/libs/franchise/actions';
 import {
   getFranchiseThemeLoading,
   getFranchisor,
-} from '#libs/franchise/selectors';
-import { STEPS } from '#libs/login/utils';
+} from '#src/libs/franchise/selectors';
+import { STEPS } from '#src/libs/login/utils';
 
 import './LoginPageStyles.css';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
-import { isBookingFlowNext } from '#libs/marketplace/routing-utils';
-import { COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE } from '#libs/sign-up-form/utils';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
+import { isBookingFlowNext } from '#src/libs/marketplace/routing-utils';
+import { COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE } from '#src/libs/sign-up-form/utils';
 import type { RootState } from '../../../reducers';
 import { WithHandlerType } from '../../../utils/types';
 import { buildSignUpUrl } from '../utils';

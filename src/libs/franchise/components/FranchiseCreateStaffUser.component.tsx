@@ -12,19 +12,19 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { Divider, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 // @ts-expect-error
-import { Actions, Submit } from '#components/forms';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import { Actions, Submit } from '#src/components/forms';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 
-import PasswordInput from '#components/input/PasswordInput.component';
+import PasswordInput from '#src/components/input/PasswordInput.component';
 import {
   FranchiseUserRoleData,
   SelectFieldItem,
   FranchiseRole,
-} from '#libs/role/types';
+} from '#src/libs/role/types';
 // @ts-expect-error
-import { OWNER_ROLE, ADMIN_ROLE } from '#libs/role/role-types';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { Company } from '#libs/company/types';
+import { OWNER_ROLE, ADMIN_ROLE } from '#src/libs/role/role-types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { Company } from '#src/libs/company/types';
 import { MaterialStyleType } from '../../../utils/types';
 
 export type OwnProps = {

@@ -7,12 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import BubbleCard from '#components/card/BubbleCard.component';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
+import BubbleCard from '#src/components/card/BubbleCard.component';
 import {
   CADENCE_BUBBLE_WIDTH,
   HEADER_ICON_SIZE,
-} from '#libs/sequential_marketing/constants/steps';
+} from '#src/libs/sequential_marketing/constants/steps';
 
 type Props = {
   color: string;

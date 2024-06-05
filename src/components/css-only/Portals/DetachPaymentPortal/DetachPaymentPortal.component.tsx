@@ -1,5 +1,5 @@
 import React from 'react';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import type { PortalProps } from '#src/components/css-only/Portals/types';
 import { DetachPaymentBottomDrawer, DetachPaymentModal } from '.';

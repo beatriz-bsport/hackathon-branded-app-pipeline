@@ -4,7 +4,7 @@ import { Theme } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Typography } from '@material-ui/core';
-import DateInput from '#components/input/DateInput.component';
+import DateInput from '#src/components/input/DateInput.component';
 
 type Props = {
   fromDate: string;

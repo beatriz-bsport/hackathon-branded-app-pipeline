@@ -6,14 +6,14 @@ import {
   convertCadenceExitIntoStep as convertCadenceExitIntoStepAPI,
   updateConnectedTrigger as updateConnectedTriggerAPI,
   deleteConnectedTrigger as deleteConnectedTriggerAPI,
-} from '#libs/sequential_marketing/api';
+} from '#src/libs/sequential_marketing/api';
 
 import type {
   CadenceStep,
   ConnectedTrigger,
   GraphCanvas,
   UpdatedTrigger,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import type { OptionCallback, Dispatch } from '../../../state/types';
 
 export const subscribeStepToStepActions = {

@@ -6,35 +6,35 @@ import { withTranslation } from 'react-i18next';
 import { ConnectedProps, connect } from 'react-redux';
 import uniq from 'lodash/uniq';
 
-import withTitle from '#hocs/with-title.hoc';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
 import {
   getCoach,
   associatedCoachSelector,
-} from '#libs/associated-coach/selectors';
+} from '#src/libs/associated-coach/selectors';
 import {
   getPrivateBookingListFiltered,
   withRelatedFields,
-} from '#libs/private-service/selectors/private-booking';
+} from '#src/libs/private-service/selectors/private-booking';
 import {
   fetchAllOffers as fetchAllOffersAction,
   listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAction,
-} from '#libs/offer/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+} from '#src/libs/offer/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
 import {
   getOfferAsEventList,
   getOfferHasPendingReplacementRequest,
-} from '#libs/offer/selectors';
+} from '#src/libs/offer/selectors';
 
-import { conditionToHideSpecificTeacherAvailabilities } from '#libs/private-service/utils';
+import { conditionToHideSpecificTeacherAvailabilities } from '#src/libs/private-service/utils';
 // @ts-expect-error js file
-import PrivateCalendarWithControls from '#libs/private-service/components/PrivateCalendarWithControls.component';
-import SlotSpecificEstablishmentDialog from '#libs/private-service/components/availability/SlotSpecificEstablishmentDialog.component';
-import SlotCoachNotAssociatedDialog from '#libs/private-service/components/availability/SlotCoachNotAssociatedDialog.component';
-import { getCoachAvailabilitySlots } from '#libs/private-service/selectors/availability-slot';
+import PrivateCalendarWithControls from '#src/libs/private-service/components/PrivateCalendarWithControls.component';
+import SlotSpecificEstablishmentDialog from '#src/libs/private-service/components/availability/SlotSpecificEstablishmentDialog.component';
+import SlotCoachNotAssociatedDialog from '#src/libs/private-service/components/availability/SlotCoachNotAssociatedDialog.component';
+import { getCoachAvailabilitySlots } from '#src/libs/private-service/selectors/availability-slot';
 import {
   fetchAvailabilitySlots,
   resetAvailabilitySlots,
@@ -47,39 +47,39 @@ import {
   createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
   fetchCustomEventList as fetchCustomEventListAction,
   resetCustomEvent,
-} from '#libs/private-service/actions';
-import { getCustomEventList } from '#libs/private-service/selectors/custom-event';
+} from '#src/libs/private-service/actions';
+import { getCustomEventList } from '#src/libs/private-service/selectors/custom-event';
 // @ts-expect-error js file
-import CustomEvenFormDialog from '#libs/private-service/components/custom-event/CustomEventFormDialog.component';
-import { getPrivateServices } from '#libs/private-service/selectors/private-service';
-import type { PrivateBooking } from '#libs/private-service/types';
+import CustomEvenFormDialog from '#src/libs/private-service/components/custom-event/CustomEventFormDialog.component';
+import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
+import type { PrivateBooking } from '#src/libs/private-service/types';
 
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
 
 import {
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
   fetchEstablishments as fetchEstablishmentsAction,
-} from '#libs/establishment/actions';
-import { getAllEstablishmentsWithAssociatedId } from '#libs/establishment/selectors';
-import type { EstablishmentWithAssociatedId } from '#libs/establishment/types';
+} from '#src/libs/establishment/actions';
+import { getAllEstablishmentsWithAssociatedId } from '#src/libs/establishment/selectors';
+import type { EstablishmentWithAssociatedId } from '#src/libs/establishment/types';
 
 import {
   fetchCoachBulk,
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
-} from '#libs/associated-coach/actions';
+} from '#src/libs/associated-coach/actions';
 
 import {
   setCoachScheduleFilter as setCoachScheduleFilterAction,
   setHideCoachNotAssociatedToPrivateServiceWarning as setHideCoachNotAssociatedToPrivateServiceWarningAction,
-} from '#libs/user-preference/actions';
-import { getCoachScheduleFilter } from '#libs/user-preference/selectors';
-import type { ScheduleFilter } from '#libs/user-preference/types';
+} from '#src/libs/user-preference/actions';
+import { getCoachScheduleFilter } from '#src/libs/user-preference/selectors';
+import type { ScheduleFilter } from '#src/libs/user-preference/types';
 
-import { getTheme } from '#libs/theme/selectors';
+import { getTheme } from '#src/libs/theme/selectors';
 
-import type { Offer } from '#libs/offer/types';
+import type { Offer } from '#src/libs/offer/types';
 
-import type { OptionCallback } from '#state/types';
+import type { OptionCallback } from '#src/state/types';
 import type { RootState } from '../../reducers';
 
 // not found

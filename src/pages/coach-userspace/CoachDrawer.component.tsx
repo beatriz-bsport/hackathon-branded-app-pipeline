@@ -42,10 +42,10 @@ import {
 import { colors } from '@bsport/common/lib/colors';
 
 // @ts-expect-error
-import LanguageButton from '#components/button/LanguageButton.component';
-import { windowTitleToProps } from '#hocs/with-title.hoc';
-import { BannerContext, BannerContextValue } from '#hocs/banner.hoc';
-import VersionVisualizer from '#components/VersionVisualizer.component';
+import LanguageButton from '#src/components/button/LanguageButton.component';
+import { windowTitleToProps } from '#src/hocs/with-title.hoc';
+import { BannerContext, BannerContextValue } from '#src/hocs/banner.hoc';
+import VersionVisualizer from '#src/components/VersionVisualizer.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { openIntercomHelp } from '../../intercom';
 import { DrawerContext, DrawerContextValue } from '../../context';

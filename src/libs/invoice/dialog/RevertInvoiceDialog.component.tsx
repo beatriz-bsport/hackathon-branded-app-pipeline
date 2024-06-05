@@ -7,8 +7,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 
-import RedButton from '#components/button/RedButton.component';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import RedButton from '#src/components/button/RedButton.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
 type Props = {
   open: boolean;

@@ -1,5 +1,5 @@
-import { BookingREST } from '#libs/booking/types';
-import type { ErrorAndLoading, ModelReducerI } from '#libs/types';
+import { BookingREST } from '#src/libs/booking/types';
+import type { ErrorAndLoading, ModelReducerI } from '#src/libs/types';
 
 export type User = {
   id: number;

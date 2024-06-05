@@ -18,7 +18,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import flatten from 'lodash/flatten';
 
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import themeSelector from '../../libs/theme/selectors';
 import {
   PartnershipCompany,

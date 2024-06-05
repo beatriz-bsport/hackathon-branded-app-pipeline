@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { IconButton, InputAdornment } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
-import DelayedTextField from '#components/DelayedTextField.component';
+import DelayedTextField from '#src/components/DelayedTextField.component';
 
 type Props = {
   allCodes: string[];

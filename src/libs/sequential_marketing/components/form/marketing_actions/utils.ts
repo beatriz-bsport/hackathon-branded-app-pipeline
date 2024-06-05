@@ -6,13 +6,13 @@ import {
   MarketingActions,
   CADENCE_MARKETING_ACTION_CHOICES,
   SequentialMarketingColors,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
-import { marketingActionIconDict } from '#libs/sequential_marketing/components/helpers/utils';
+import { marketingActionIconDict } from '#src/libs/sequential_marketing/components/helpers/utils';
 import type {
   StepMarketingActions,
   StepMarketingActionsCommunicationSpec,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 
 export type DraftMarketingAction = {
   type: MarketingActions;

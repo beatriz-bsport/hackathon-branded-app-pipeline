@@ -10,13 +10,13 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 
-import { marketingActionIconDict } from '#libs/sequential_marketing/components/helpers/utils';
-import { TRIGGER_FORM_DEFAULT_HEIGHT } from '#libs/sequential_marketing/constants';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
+import { marketingActionIconDict } from '#src/libs/sequential_marketing/components/helpers/utils';
+import { TRIGGER_FORM_DEFAULT_HEIGHT } from '#src/libs/sequential_marketing/constants';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import MarketingActionContent from './MarketingActionContent.component';
 
 import { getMarketingActionType } from './utils';

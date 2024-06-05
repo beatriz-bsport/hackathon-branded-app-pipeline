@@ -2,23 +2,23 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 
-import StepCard from '#components/card/StepCard.component';
-import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
+import StepCard from '#src/components/card/StepCard.component';
+import CadenceNodeTitle from '#src/libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
 import {
   SequentialMarketingColors,
   TRIGGER_KIND_CHOICES,
   TriggerKind,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 import {
   getTriggerIcon,
   getTriggerKind,
   triggerIconByKind,
-} from '#libs/sequential_marketing/components/helpers/utils';
+} from '#src/libs/sequential_marketing/components/helpers/utils';
 
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
-import type { MenuAction, NestedMenuAction } from '#components/menu/types';
-import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
+import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { MenuAction, NestedMenuAction } from '#src/components/menu/types';
+import type { StoredStep } from '#src/libs/sequential_marketing/components/graph/hooks/types';
 
 export type TriggerCardProps = {
   // eslint-disable-next-line react/no-unused-prop-types

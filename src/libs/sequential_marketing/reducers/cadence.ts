@@ -11,9 +11,9 @@ import {
   activateCadenceActions,
   shutOffCadenceActions,
   upsertCadenceInitialConfigurationActions,
-} from '#libs/sequential_marketing/actions';
+} from '#src/libs/sequential_marketing/actions';
 
-import { Cadence, CadenceState } from '#libs/sequential_marketing/types';
+import { Cadence, CadenceState } from '#src/libs/sequential_marketing/types';
 import type { PaginatedResponse } from '../../../state/types';
 
 type PayloadReduceType<T> = { [id: number]: T };

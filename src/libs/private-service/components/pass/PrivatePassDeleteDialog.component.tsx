@@ -10,7 +10,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
-import RedButton from '#components/button/RedButton.component';
+import RedButton from '#src/components/button/RedButton.component';
 import type { PrivatePass } from '../../types';
 
 type Props = {

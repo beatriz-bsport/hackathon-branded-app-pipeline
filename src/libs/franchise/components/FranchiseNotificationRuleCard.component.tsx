@@ -20,7 +20,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
-import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
+import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component';
 import { FranchiseCompany } from '../types';
 import CompanyChip from '../../../components/franchise/CompanyChip.component';
 import {

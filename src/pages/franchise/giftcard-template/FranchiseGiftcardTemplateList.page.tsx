@@ -5,28 +5,28 @@ import { push as pushAction } from 'connected-react-router';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import {
   getGiftcardTemplateData,
   getGiftcardTemplateListLoading,
   getGiftcardTemplateActiveList,
   getGiftcardTemplateInactiveList,
   getGiftcardTemplateFullList,
-} from '#libs/giftcard/selectors';
+} from '#src/libs/giftcard/selectors';
 import {
   getFranchiseCompanyById,
   getFranchiseCompanies,
-} from '#libs/franchise/selectors';
-import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
+} from '#src/libs/franchise/selectors';
+import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/actions';
 import {
   deleteGiftcardTemplate as deleteGiftcardTemplateAction,
   fetchGiftcardTemplateList as fetchGiftcardTemplateListAction,
   createOrUpdateGiftcardTemplate as createOrUpdateGiftcardTemplateAction,
-} from '#libs/giftcard/actions';
-import GiftcardFormDrawer from '#libs/giftcard/components/GiftcardFormDrawer.component';
-import FranchiseGenericProductDoubleList from '#libs/franchise/components/generic-product/template-list/FranchiseGenericProductDoubleList.component';
-import { GiftcardTemplate, GiftcardDataAPI } from '#libs/giftcard/types';
-import { FranchiseCompany } from '#libs/franchise/types';
+} from '#src/libs/giftcard/actions';
+import GiftcardFormDrawer from '#src/libs/giftcard/components/GiftcardFormDrawer.component';
+import FranchiseGenericProductDoubleList from '#src/libs/franchise/components/generic-product/template-list/FranchiseGenericProductDoubleList.component';
+import { GiftcardTemplate, GiftcardDataAPI } from '#src/libs/giftcard/types';
+import { FranchiseCompany } from '#src/libs/franchise/types';
 import { WithHandlerType } from '../../../utils/types';
 import { OptionCallback } from '../../../state/types';
 import { RootState } from '../../../reducers';
@@ -92,6 +92,7 @@ export class FranchiseGiftcardTemplateListPage extends Component<Props> {
           emptyButtonLabel={t('giftcardTemplate.listPage.addButton')}
           emptyExplainLabel={t('giftcardTemplate.listPage.emptyLabel')}
           fuzzySearchItemList={this.props.allGiftcardTemplateList}
+// @ts-expect-error
           fuzzySearchPlaceholder={t(
             'giftcardTemplate.listPage.fuzzyPlaceholder',
           )}

@@ -5,15 +5,18 @@ import {
   BOOKING_FOR_GUEST_FREQUENCY,
   OfferStatus,
   OfferWithSpotInformation,
-} from '#libs/offer/types';
-import { useOfferFormattedDate, useOfferHours } from '#libs/marketplace/hooks';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { CompanyTheme } from '#libs/theme/types';
-import { getAddGuestTooltipText } from '#libs/marketplace/utils/booking';
+} from '#src/libs/offer/types';
+import {
+  useOfferFormattedDate,
+  useOfferHours,
+} from '#src/libs/marketplace/hooks';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { getAddGuestTooltipText } from '#src/libs/marketplace/utils/booking';
 import {
   formatOfferDateWithTime,
   formatOfferHours,
-} from '#libs/marketplace/utils/offer';
+} from '#src/libs/marketplace/utils/offer';
 import MarketplaceOfferBookingItemSkeleton from './MarketplaceOfferBookingItemSkeleton.component';
 import MarketplaceBookingItem from '../MarketplaceBookingItem';
 

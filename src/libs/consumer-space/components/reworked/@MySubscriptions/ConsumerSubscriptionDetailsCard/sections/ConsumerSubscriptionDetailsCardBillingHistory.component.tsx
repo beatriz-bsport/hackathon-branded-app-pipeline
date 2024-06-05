@@ -1,19 +1,19 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { formatAsDate } from '#utils/datetime';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { formatAsDate } from '#src/utils/datetime';
 
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 import Typography from '#Fabrique/Typography';
 import type { ConsumerSubscriptionDetailsCardProps } from '..';
-import CircularProgress from '#components/css-only/CircularProgress';
+import CircularProgress from '#src/components/css-only/CircularProgress';
 import Button from '#Fabrique/ButtonV2';
 import classNames from 'classnames';
-import IconButton from '#components/css-only/Fabrique/IconButton';
-import { FileDownload02 } from '#components/untitledui';
+import IconButton from '#src/components/css-only/Fabrique/IconButton';
+import { FileDownload02 } from '#src/components/untitledui';
 
 type Props = Pick<
   ConsumerSubscriptionDetailsCardProps,

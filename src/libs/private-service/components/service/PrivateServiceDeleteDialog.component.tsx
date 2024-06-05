@@ -6,8 +6,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import RedButton from '#components/button/RedButton.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import RedButton from '#src/components/button/RedButton.component';
 
 type Props = {
   privateServiceToDeleteId?: number;

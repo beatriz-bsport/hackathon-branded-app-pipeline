@@ -8,17 +8,17 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { CircularProgress, useTheme } from '@material-ui/core/';
 
-import ValidationIcon from '#components/icons/ValidationIcon.component';
-import LevelChip from '#libs/level/components/Level.component';
-import ReplacementRequestRegistrationsStatusChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestRegistrationsStatusChip.component';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
+import LevelChip from '#src/libs/level/components/Level.component';
+import ReplacementRequestRegistrationsStatusChip from '#src/libs/replacement-request/components/replacement-request-table/ReplacementRequestRegistrationsStatusChip.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-import { ReplacementRequest } from '#libs/replacement-request/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Level } from '#libs/level/types';
-import CoachAvatar from '#libs/associated-coach/components/CoachAvatar.component';
+import { ReplacementRequest } from '#src/libs/replacement-request/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Level } from '#src/libs/level/types';
+import CoachAvatar from '#src/libs/associated-coach/components/CoachAvatar.component';
 import ReplacementRequestCoachAnswerTable from '../coach-answer-table/ReplacementRequestCoachAnswerTable.component';
 import { OptionCallback } from '../../../../state/types';
 import { formatISOStringAsTime } from '../../../../utils/datetime';

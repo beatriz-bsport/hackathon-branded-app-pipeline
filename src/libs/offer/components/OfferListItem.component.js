@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import type { TFunction } from 'react-i18next';
 
-import Level from '#libs/level/components/Level.component';
+import Level from '#src/libs/level/components/Level.component';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import { formatISOStringAsTime } from '../../../utils/datetime';
 

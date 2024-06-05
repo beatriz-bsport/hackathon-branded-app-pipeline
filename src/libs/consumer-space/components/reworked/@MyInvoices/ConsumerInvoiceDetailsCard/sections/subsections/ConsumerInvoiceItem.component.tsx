@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import Typography from '#Fabrique/Typography';
 
 import '../../styles.css';

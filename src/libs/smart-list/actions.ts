@@ -6,7 +6,7 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
-import { isErrorWithCustomCode } from '#libs/utils';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 // @ts-expect-error

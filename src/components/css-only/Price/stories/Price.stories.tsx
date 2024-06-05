@@ -4,7 +4,7 @@ import Price, { Props } from '../';
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 import './stories.styles.css';
 

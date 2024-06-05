@@ -2,9 +2,9 @@ import React from 'react';
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-import { Props, SearchForStorybook } from '#components/css-only/Search';
-import ClickableItem from '#components/css-only/ClickableItem';
-import { contractListFactory } from '#libs/subscription/factory';
+import { Props, SearchForStorybook } from '#src/components/css-only/Search';
+import ClickableItem from '#src/components/css-only/ClickableItem';
+import { contractListFactory } from '#src/libs/subscription/factory';
 import { useMarketplaceSearchContractData } from './hooks';
 import { BaseAdditionalData, SearchItemData } from './Search.component';
 

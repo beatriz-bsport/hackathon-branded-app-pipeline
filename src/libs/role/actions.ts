@@ -2,12 +2,12 @@ import { createAction } from 'redux-actions';
 import * as Sentry from '@sentry/react';
 import { push } from 'connected-react-router';
 import { v4 as uuid4 } from 'uuid';
-import { displayBackgroundDialog } from '#libs/background-dialog/actions';
+import { displayBackgroundDialog } from '#src/libs/background-dialog/actions';
 import {
   BackgroundDialogDisplayMode,
   BackgroundDialogActionMode,
-} from '#libs/background-dialog/types';
-import { isErrorWithCustomCode } from '#libs/utils';
+} from '#src/libs/background-dialog/types';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import {
   fetchCompanyUserRoles as fetchCompanyUserRolesAPI,
   createUserRole as createUserRoleAPI,
@@ -47,8 +47,6 @@ import {
 import { getPermissions } from './selectors';
 import { matchUrlToRelevantPermissionKey, getNestedKeyInObject } from './utils';
 import { RootState } from '../../reducers';
-
-
 
 export const userRoleList = {
   error: createAction('ROLE/USER/LIST/ERROR'),

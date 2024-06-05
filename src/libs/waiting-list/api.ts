@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { OfferStatusWaitingListPosition } from '#libs/offer/types';
+import { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import { PaginatedResponse } from '../../state/types';
 import {
   API_V1_URI,

@@ -5,23 +5,23 @@ import classNames from 'classnames';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import UpdateIcon from '@material-ui/icons/Update';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import ToolTip from '#components/Tooltip.component';
-import Card, { CardSize } from '#csscomponents/Card';
-import CardContent from '#csscomponents/Card/CardContent';
-import Grid from '#csscomponents/Grid';
-import GridItem from '#csscomponents/Grid/GridItem';
-import Price from '#csscomponents/Price';
-import Collapse from '#components/css-only/Fabrique/Collapse';
-import RecommendedChip from '#components/css-only/RecommendedChip';
-import BillingInterval from '#marketplacecomponents/@Subscription/MarketplaceBillingInterval';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import Button from '#components/css-only/Fabrique/Button';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import ToolTip from '#src/components/Tooltip.component';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
+import GridItem from '#src/components/css-only/Grid/GridItem';
+import Price from '#src/components/css-only/Price';
+import Collapse from '#src/components/css-only/Fabrique/Collapse';
+import RecommendedChip from '#src/components/css-only/RecommendedChip';
+import BillingInterval from '#src/libs/marketplace/components/@Subscription/MarketplaceBillingInterval';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import Button from '#src/components/css-only/Fabrique/Button';
 
 import type {
   ContractWithPaymentPack,
   Contract,
-} from '#libs/subscription/types';
+} from '#src/libs/subscription/types';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 
 import './styles.css';

@@ -16,47 +16,47 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Info from '@material-ui/icons/Info';
 
-import { fetchGiftcardList as fetchGiftcardListAction } from '#libs/giftcard/actions';
-import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
-import { fetchPaymentPackList as fetchPaymentPackListAction } from '#libs/payment-packs/actions';
-import { fetchPrivatePassList as fetchPrivatePassListAction } from '#libs/private-service/actions';
+import { fetchGiftcardList as fetchGiftcardListAction } from '#src/libs/giftcard/actions';
+import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
+import { fetchPaymentPackList as fetchPaymentPackListAction } from '#src/libs/payment-packs/actions';
+import { fetchPrivatePassList as fetchPrivatePassListAction } from '#src/libs/private-service/actions';
 import {
   fetchShopItemBaseList as fetchShopItemBaseListAction,
   fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
-} from '#libs/shop/actions/shopItemReworked';
+} from '#src/libs/shop/actions/shopItemReworked';
 import {
   createOrUpdateInstalmentPayment as createOrUpdateInstalmentPaymentAction,
   disableInstalmentPayment as disableInstalmentPaymentAction,
   fetchInstalmentPayment as fetchInstalmentPaymentAction,
-} from '#libs/instalment-payment-configuration/actions';
+} from '#src/libs/instalment-payment-configuration/actions';
 
-import { getEnabledPaymentPacks } from '#libs/payment-packs/selectors';
-import { getGiftcardListActive } from '#libs/giftcard/selectors';
-import { getPaymentComboList } from '#libs/payment-combo/selectors';
-import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
-import { getShopItemBaseAndStandaloneList } from '#libs/shop/selectors';
+import { getEnabledPaymentPacks } from '#src/libs/payment-packs/selectors';
+import { getGiftcardListActive } from '#src/libs/giftcard/selectors';
+import { getPaymentComboList } from '#src/libs/payment-combo/selectors';
+import { getPrivatePassAvailable } from '#src/libs/private-service/selectors/private-pass';
+import { getShopItemBaseAndStandaloneList } from '#src/libs/shop/selectors';
 import {
   composeWithAllItems,
   getInstalmentPaymentList,
   retrieveInstalmentPayment,
-} from '#libs/instalment-payment-configuration/selectors';
+} from '#src/libs/instalment-payment-configuration/selectors';
 
-import InstalmentPaymentConfiguration from '#libs/instalment-payment-configuration/components/InstalmentPaymentConfiguration.form';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import InstalmentPaymentListComponent from '#libs/instalment-payment-configuration/components/InstalmentPaymentConfigurationList.component';
-import BottomActionButtons from '#components/button/BottomActionsButton.component';
-import InstalmentPaymentConfigurationDetail from '#libs/instalment-payment-configuration/components/InstalmentPaymentConfigurationDetail.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import InstalmentPaymentConfiguration from '#src/libs/instalment-payment-configuration/components/InstalmentPaymentConfiguration.form';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import InstalmentPaymentListComponent from '#src/libs/instalment-payment-configuration/components/InstalmentPaymentConfigurationList.component';
+import BottomActionButtons from '#src/components/button/BottomActionsButton.component';
+import InstalmentPaymentConfigurationDetail from '#src/libs/instalment-payment-configuration/components/InstalmentPaymentConfigurationDetail.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 
-import withTitle from '#hocs/with-title.hoc';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import withTitle from '#src/hocs/with-title.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 
-import type { WithHandlerType } from '#utils/types';
+import type { WithHandlerType } from '#src/utils/types';
 import type {
   InstalmentPayment,
   InstalmentPaymentApi,
-} from '#libs/instalment-payment-configuration/types';
+} from '#src/libs/instalment-payment-configuration/types';
 import type { RootState } from '../../reducers';
 
 const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(

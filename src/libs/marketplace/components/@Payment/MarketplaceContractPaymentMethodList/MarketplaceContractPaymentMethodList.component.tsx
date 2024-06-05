@@ -7,13 +7,15 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import { MarketplacePaymentMethods } from '#libs/marketplace/types';
-import CircularProgress from '#components/css-only/CircularProgress';
-import { PaymentMethod } from '#libs/payment/types';
+import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
+import CircularProgress from '#src/components/css-only/CircularProgress';
+import { PaymentMethod } from '#src/libs/payment/types';
 
-import Button, { ButtonVariant } from '#components/css-only/Fabrique/Button';
+import Button, {
+  ButtonVariant,
+} from '#src/components/css-only/Fabrique/Button';
 
 import './styles.css';
 

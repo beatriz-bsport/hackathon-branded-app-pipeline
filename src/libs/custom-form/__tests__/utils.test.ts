@@ -19,7 +19,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
   CUSTOM_FORM_FIELD_SIGN_UP_WAIVER,
 } from '@bsport/common/lib/master-data/custom-form';
-import { Member, MemberAddress } from '#libs/member/types';
+import { Member, MemberAddress } from '#src/libs/member/types';
 
 import {
   insertMemberProfileDataToAnswer,

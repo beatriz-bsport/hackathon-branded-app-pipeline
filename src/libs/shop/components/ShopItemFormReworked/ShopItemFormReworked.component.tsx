@@ -9,7 +9,7 @@ import {
   CREDIT_ACCOUNT,
 } from '@bsport/common/lib/master-data/payment-methods';
 
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import type {
   ShopSupplier,
   ShopItem,
@@ -17,13 +17,14 @@ import type {
   ShopItemEdit,
   ShopSupplierTemplate,
   ShopItemTemplate,
-} from '#libs/shop/types';
-import type { BookkeepingAccount } from '#libs/payment/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+} from '#src/libs/shop/types';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import {
   generateShopitemColorSizeCombinationList,
   getFormDataFieldsFromArray,
-} from '#libs/shop/utils';
+} from '#src/libs/shop/utils';
+
 import ShopItemFormProductStep from './ShopItemFormProductStep.component';
 import ShopItemFormVariantStep from './ShopItemFormVariantStep.component';
 
@@ -31,10 +32,10 @@ import {
   ShopItemFormStep,
   ShopItemFormValues,
   ShopItemVariantOption,
-} from '#libs/shop/components/ShopItemFormReworked/types';
-import type { SelectOption } from '#libs/types';
+} from '#src/libs/shop/components/ShopItemFormReworked/types';
+import type { SelectOption } from '#src/libs/types';
 
-import { getShopItemFormValidationSchema } from '#libs/shop/components/ShopItemFormReworked/shopItemFormValidationSchema';
+import { getShopItemFormValidationSchema } from '#src/libs/shop/components/ShopItemFormReworked/shopItemFormValidationSchema';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(

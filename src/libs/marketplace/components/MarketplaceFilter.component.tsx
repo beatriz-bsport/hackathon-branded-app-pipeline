@@ -2,8 +2,8 @@ import React from 'react';
 import { Grid, Theme } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import LevelMultiSelector from '#libs/level/components/LevelMultiSelector.component';
-import { Level } from '#libs/level/types';
+import LevelMultiSelector from '#src/libs/level/components/LevelMultiSelector.component';
+import { Level } from '#src/libs/level/types';
 import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 // @ts-expect-error

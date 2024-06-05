@@ -6,7 +6,7 @@ import Button from '#Fabrique/ButtonV2';
 import Menu from '#Fabrique/Menu';
 import MenuItem from '#Fabrique/MenuItem';
 import Typography from '#Fabrique/Typography';
-import { DotsVertical } from '#components/untitledui';
+import { DotsVertical } from '#src/components/untitledui';
 
 import type { ButtonColor, ButtonVariant } from '#Fabrique/ButtonV2/types';
 

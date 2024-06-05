@@ -3,18 +3,18 @@ import { useTranslation } from 'react-i18next';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 // @ts-expect-error
-import { PaymentPackStorybookFactory } from '#libs/payment-packs/factory';
-import { PaymentPack } from '#libs/payment-packs/types';
+import { PaymentPackStorybookFactory } from '#src/libs/payment-packs/factory';
+import { PaymentPack } from '#src/libs/payment-packs/types';
 import Item, {
   Props,
   ItemForStorybook,
-} from '#components/css-only/Search/Item';
-import ClickableItem from '#components/css-only/ClickableItem';
+} from '#src/components/css-only/Search/Item';
+import ClickableItem from '#src/components/css-only/ClickableItem';
 import {
   getSearchItemIndicator,
   getSearchItemPrice,
   ItemType,
-} from '#components/css-only/Search/PassSearch/utils';
+} from '#src/components/css-only/Search/PassSearch/utils';
 
 const randomItem: Partial<PaymentPack> = PaymentPackStorybookFactory();
 

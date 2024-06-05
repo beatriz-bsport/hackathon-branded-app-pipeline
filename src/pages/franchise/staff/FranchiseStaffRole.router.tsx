@@ -6,10 +6,10 @@ import { compose } from 'recompose';
 import { push as pushFunc } from 'connected-react-router';
 import { Redirect, Route, Switch } from 'react-router';
 
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
+import ContentWithAppBar from '#src/components/generic-appbar-content/ContentWithAppBar.component';
 // @ts-expect-error
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import asyncComponent from '../../../AsyncComponent';
 
 const FranchiseStaffListPage = asyncComponent(

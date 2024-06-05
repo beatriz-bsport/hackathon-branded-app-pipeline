@@ -15,22 +15,22 @@ import classNames from 'classnames';
 import SendIcon from '@material-ui/icons/Send';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import Tooltip from '#components/Tooltip.component';
-import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constants';
+import Tooltip from '#src/components/Tooltip.component';
+import { MAX_LENGTH_PUSH_TITLE } from '#src/libs/communication/constants';
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import EmailSelector from '#libs/email-editor/components/EmailSelector.component';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
+import EmailSelector from '#src/libs/email-editor/components/EmailSelector.component';
 // @ts-expect-error
-import { CheckboxField, TextField } from '#components/forms';
-import NotificationContentInput from '#libs/communication/components/NotificationContentInput.component';
-import type { FeatureList } from '#libs/company/types';
+import { CheckboxField, TextField } from '#src/components/forms';
+import NotificationContentInput from '#src/libs/communication/components/NotificationContentInput.component';
+import type { FeatureList } from '#src/libs/company/types';
 import {
   EmailTemplateDetail,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import { replaceGenericTagsInTemplate } from '#libs/email-editor/utils';
-import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
+} from '#src/libs/email-editor/types';
+import { replaceGenericTagsInTemplate } from '#src/libs/email-editor/utils';
+import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 
 type Props = {
   getEmailDetail: (id: number) => void;

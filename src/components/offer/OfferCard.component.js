@@ -28,11 +28,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { BOOKING_SOURCE_MIGRATION } from '@bsport/common/lib/master-data/booking_source';
 
 import { Alert, AlertTitle } from '@material-ui/lab';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { getDeletePermission, getEditPermission } from '#libs/offer/utils';
-import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
-import { getRecurrenceTrad } from '#libs/group-offer/utils';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getDeletePermission, getEditPermission } from '#src/libs/offer/utils';
+import FreeOfferChip from '#src/libs/offer/components/FreeOfferChip.component';
+import { getRecurrenceTrad } from '#src/libs/group-offer/utils';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
 import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
 import Sport from '../../libs/category/components/SCT.component';
 import RedButton from '../button/RedButton.component';
@@ -42,7 +42,6 @@ import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPa
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import OfferCardStastiticsContainer from '../../libs/offer/components/OfferCardStastisticsContainer.component';
 import OfferDetail from './OfferDetail.component';
-
 
 type Props = {
   t: TFunction,

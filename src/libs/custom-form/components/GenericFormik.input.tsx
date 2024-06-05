@@ -14,7 +14,7 @@ import MaterialUISelector, {
   chipsRendererProps,
   // @ts-expect-error
   Props as MaterialUISelectorProps,
-} from '#components/Selector/MaterialUISelector.component';
+} from '#src/components/Selector/MaterialUISelector.component';
 
 export type BaseFieldProps = {
   // eslint-disable-next-line react/no-unused-prop-types

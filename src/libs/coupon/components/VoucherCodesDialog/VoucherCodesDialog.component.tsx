@@ -11,7 +11,7 @@ import {
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import classNames from 'classnames';
-import type { Coupon } from '#libs/coupon/types';
+import type { Coupon } from '#src/libs/coupon/types';
 import type { OptionCallback } from '../../../../state/types';
 import VoucherCodesTable from './VoucherCodesList/VoucherCodesTable.component';
 import VoucherCodeSearch from './VoucherCodesSelectors/VoucherCodeSearch.component';

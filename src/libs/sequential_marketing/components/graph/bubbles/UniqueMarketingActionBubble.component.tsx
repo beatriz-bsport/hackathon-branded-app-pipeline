@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 
-import UniqueMarketingActionForm from '#libs/sequential_marketing/components/form/marketing_actions/UniqueMarketingActionForm.component';
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import { getMarketingActionType } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
-import { marketingActionIconDict } from '#libs/sequential_marketing/components/helpers/utils';
+import UniqueMarketingActionForm from '#src/libs/sequential_marketing/components/form/marketing_actions/UniqueMarketingActionForm.component';
+import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
+import { getMarketingActionType } from '#src/libs/sequential_marketing/components/form/marketing_actions/utils';
+import { marketingActionIconDict } from '#src/libs/sequential_marketing/components/helpers/utils';
 import CadenceBubble from './CadenceBubble.component';
 
 type Props = {

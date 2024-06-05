@@ -1,4 +1,4 @@
-import { MarketPlaceFilter } from '#libs/marketplace/types';
+import { MarketPlaceFilter } from '#src/libs/marketplace/types';
 import { convertMarketplaceFilterForMetaActivityCall } from '../utils';
 // @ts-expect-error
 import { MetaActivityFilter } from './types';

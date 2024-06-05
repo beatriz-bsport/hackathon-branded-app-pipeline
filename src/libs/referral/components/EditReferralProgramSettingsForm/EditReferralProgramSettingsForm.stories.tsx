@@ -4,11 +4,11 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import EditReferralProgramSettingsFormWithFormik, {
   EditReferralProgramSettingsForm,
 } from './EditReferralProgramSettingsForm.component';
-import { referralProgramFactory } from '#libs/referral/factories/ReferralProgram';
-import { tagWithoutGroupListFactory } from '#libs/tag/factory';
+import { referralProgramFactory } from '#src/libs/referral/factories/ReferralProgram';
+import { tagWithoutGroupListFactory } from '#src/libs/tag/factory';
 import withFormik from '@bbbtech/storybook-formik';
 import EditReferralProgramSettingsFormValidationSchema from './EditReferralProgramSettingsFormValidationSchema';
-import FactoryBotTheme from '#libs/theme/factories';
+import FactoryBotTheme from '#src/libs/theme/factories';
 
 const referralProgram = referralProgramFactory();
 const tagList = tagWithoutGroupListFactory(5);

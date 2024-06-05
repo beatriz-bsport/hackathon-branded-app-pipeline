@@ -1,20 +1,20 @@
 import React from 'react';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
-import useConsumerBookingsDataManager from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingsDataManager';
-import MarketplacePageContent from '#csscomponents/MarketplacePageContent';
-import ConsumerBookingHeader from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingHeader';
-import ConsumerBookingTabs from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs';
-import ConsumerBookingFilters from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters';
-import ConsumerBookingListContainer from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListContainer';
-import ConsumerBookingModals from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingModals';
+import useConsumerBookingsDataManager from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingsDataManager';
+import MarketplacePageContent from '#src/components/css-only/MarketplacePageContent';
+import ConsumerBookingHeader from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingHeader';
+import ConsumerBookingTabs from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs';
+import ConsumerBookingFilters from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters';
+import ConsumerBookingListContainer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListContainer';
+import ConsumerBookingModals from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingModals';
 
-import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type {
   ConsumerBookingReworked,
   ConsumerPrivateBookingReworked,
   ConsumerBookingOptionReworked,
-} from '#libs/consumer-space/types';
+} from '#src/libs/consumer-space/types';
 import type {
   ConsumerBooking,
   BookingREST,
@@ -22,17 +22,17 @@ import type {
   ConsumerPrivateBooking,
   ConsumerBookingOption,
   CancelPrivateBookingParams,
-} from '#libs/booking/types';
-import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
-import type { SpotType } from '#libs/spot-scheduling/types';
-import type { CompanyTheme } from '#libs/theme/types';
-import type { PrivateBooking } from '#libs/private-service/types';
+} from '#src/libs/booking/types';
+import type { BookingFilterTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
+import type { SpotType } from '#src/libs/spot-scheduling/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type { PrivateBooking } from '#src/libs/private-service/types';
 import type {
   DiscardBookingOptionParams,
   WaitingListBookingOption,
-} from '#libs/waiting-list/types';
+} from '#src/libs/waiting-list/types';
 
-import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
+import { BookingTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 import type { OptionCallback } from '../../../../../../state/types';
 
 import './styles.css';

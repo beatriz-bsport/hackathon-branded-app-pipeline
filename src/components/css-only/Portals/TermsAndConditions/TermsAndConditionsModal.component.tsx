@@ -4,8 +4,8 @@ import Blanket from '#Fabrique/Blanket';
 import ModalDialog from '#Fabrique/ModalDialog';
 
 import Typography from '#Fabrique/Typography';
-import type { TermsModalsAndDrawersProps } from '#csscomponents/Portals/types';
-import '#csscomponents/Portals/styles.css';
+import type { TermsModalsAndDrawersProps } from '#src/components/css-only/Portals/types';
+import '#src/components/css-only/Portals/styles.css';
 
 const TermsAndConditionsModal: React.FC<TermsModalsAndDrawersProps> = ({
   isOpen,

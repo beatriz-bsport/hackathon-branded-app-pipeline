@@ -3,7 +3,7 @@
  */
 
 import { FC } from 'react';
-import { ErrorAndLoading } from '#libs/types';
+import { ErrorAndLoading } from '#src/libs/types';
 
 import { CssComponentsVariantIdentifiers } from './constants';
 

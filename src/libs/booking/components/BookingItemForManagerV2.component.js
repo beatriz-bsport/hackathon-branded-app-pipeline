@@ -37,32 +37,32 @@ import {
 } from '@bsport/common/lib/master-data/booking_status_code';
 import { Cake, EventSeat, OfflineBolt } from '@material-ui/icons';
 import WarningIcon from '@material-ui/icons/Warning';
-import AvatarWithBadge from '#libs/member/components/AvatarWithBadge.component';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Offer } from '#libs/offer/types';
+import AvatarWithBadge from '#src/libs/member/components/AvatarWithBadge.component';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Offer } from '#src/libs/offer/types';
 
-import Tooltip from '#components/Tooltip.component';
-import RedButton from '#components/button/RedButton.component';
+import Tooltip from '#src/components/Tooltip.component';
+import RedButton from '#src/components/button/RedButton.component';
 
-import { getCurrencyDisplay } from '#libs/theme/selectors';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 import {
   formatAsDatetime,
   formatAsDate,
   formatISOStringAsTime,
   formatAsDatetimeAdapted,
-} from '#utils/datetime';
+} from '#src/utils/datetime';
 
-import type { Member } from '#libs/member/types';
-import { Booking } from '#libs/booking/types';
-import VaccinationBadge from '#libs/member/components/VaccinationBadge.component';
+import type { Member } from '#src/libs/member/types';
+import { Booking } from '#src/libs/booking/types';
+import VaccinationBadge from '#src/libs/member/components/VaccinationBadge.component';
 
-import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
+import type { PerformanceTrackingProgram } from '#src/libs/performance-tracking/types';
 
-import PlaceNumber from '#libs/spot-scheduling/component/PlaceNumber.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { getActivityWorkshopPermission } from '#libs/role/permission-utils/utils';
+import PlaceNumber from '#src/libs/spot-scheduling/component/PlaceNumber.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getActivityWorkshopPermission } from '#src/libs/role/permission-utils/utils';
 import NoShowChip from './NoShowChip.component';
 import { BookingStatusCodeText } from '../utils';
 

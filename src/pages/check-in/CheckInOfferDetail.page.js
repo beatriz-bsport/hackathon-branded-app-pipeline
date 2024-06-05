@@ -13,9 +13,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { fetchLevel as fetchLevelAction } from '#libs/level/actions';
-import { withCustomLevel } from '#libs/level/selectors';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { fetchLevel as fetchLevelAction } from '#src/libs/level/actions';
+import { withCustomLevel } from '#src/libs/level/selectors';
 import CheckInOfferDetail from '../../libs/check-in/components/CheckInOfferDetail.component';
 import {
   fetchFilteredMembers as fetchFilteredMembersAction,

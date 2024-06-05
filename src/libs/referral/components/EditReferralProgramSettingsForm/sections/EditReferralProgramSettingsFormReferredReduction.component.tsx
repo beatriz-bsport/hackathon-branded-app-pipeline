@@ -11,12 +11,12 @@ import {
   PercentField,
   SelectField,
   // @ts-expect-error
-} from '#components/forms';
+} from '#src/components/forms';
 import {
   ReferredVoucherTypeChoices,
   ReferralTimeLimitUnits,
-} from '#libs/referral/constants';
-import FormSection from '#components/forms/FormSection';
+} from '#src/libs/referral/constants';
+import FormSection from '#src/components/forms/FormSection';
 import { FormikValues as EditReferralProgramFormikValues } from '../EditReferralProgramSettingsForm.component';
 
 const EditReferralProgramSettingsFormReferredReduction: React.FC = () => {

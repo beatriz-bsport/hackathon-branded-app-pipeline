@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { CouponKind } from '@bsport/common/lib/master-data/coupon';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import { CouponFilterOptions } from '#libs/coupon/types';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import { CouponFilterOptions } from '#src/libs/coupon/types';
 
 type Props = {
   onCouponTypeFilter: (couponType: CouponFilterOptions | CouponKind) => void;

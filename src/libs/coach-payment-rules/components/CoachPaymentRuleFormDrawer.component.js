@@ -5,7 +5,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { Form } from 'formik';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import CoachPaymentRuleFields, {
   CoachPaymentRuleFormHoc,
 } from './coach-payment-rule-form/CoachPaymentRuleForm.component';

@@ -23,20 +23,20 @@ import {
   BUYABLE_ITEM_FEE,
 } from '@bsport/common/lib/master-data/buyable-items';
 
-import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
-import PriceCount from '#libs/checkout/components/new-checkout-flow/PriceCount';
-import type { CompanyTheme } from '#libs/theme/types';
-import type { Offer } from '#libs/offer/types';
+import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
+import PriceCount from '#src/libs/checkout/components/new-checkout-flow/PriceCount';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type { Offer } from '#src/libs/offer/types';
 import type {
   Establishment,
   EstablishmentBillingGroup,
-} from '#libs/establishment/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import EmptyBasket from '#libs/checkout/components/new-checkout-flow/EmptyBasket';
-import ExpiredSpotDialog from '#libs/checkout/components/new-checkout-flow/ExpiredSpotDialog';
+} from '#src/libs/establishment/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import EmptyBasket from '#src/libs/checkout/components/new-checkout-flow/EmptyBasket';
+import ExpiredSpotDialog from '#src/libs/checkout/components/new-checkout-flow/ExpiredSpotDialog';
 
-import type { Coupon } from '#libs/coupon/types';
-import { CouponErrorCodes } from '#libs/coupon/constants';
+import type { Coupon } from '#src/libs/coupon/types';
+import { CouponErrorCodes } from '#src/libs/coupon/constants';
 import {
   useHandleSubmitButtonsCallbacks,
   useSubmitButtonsDisabledState,

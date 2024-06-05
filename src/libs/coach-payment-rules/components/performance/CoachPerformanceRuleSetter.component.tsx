@@ -15,14 +15,14 @@ import {
 import {
   DISSOCIATED_COACH_PAYMENT_RULE,
   DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
-} from '#libs/coach-payment-rules/constants';
+} from '#src/libs/coach-payment-rules/constants';
 
-import CoachPaymentRuleSelectorStyled from '#libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
-import { Coach } from '#libs/associated-coach/types';
+import CoachPaymentRuleSelectorStyled from '#src/libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
+import { Coach } from '#src/libs/associated-coach/types';
 import {
   CoachPaymentRule as CoachPaymentRuleType,
   CoachPaymentRuleGroup,
-} from '#libs/coach-payment-rules/types';
+} from '#src/libs/coach-payment-rules/types';
 
 type OwnProps = {
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRuleType> };

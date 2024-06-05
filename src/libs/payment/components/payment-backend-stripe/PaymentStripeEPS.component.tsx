@@ -9,11 +9,11 @@ import TextInput from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_EPS } from '@bsport/common/lib/master-data/payment-group';
-import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
+import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 import {
   blockPendingBasket as blockPendingBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
-} from '#libs/payment/api';
+} from '#src/libs/payment/api';
 
 type PaymentStripeEPSProps = {
   basketId?: string;

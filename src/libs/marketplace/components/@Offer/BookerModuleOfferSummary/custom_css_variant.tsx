@@ -8,16 +8,16 @@ import {
 import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
 import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
-import { offerFactory } from '#libs/offer/factories';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
+import { offerFactory } from '#src/libs/offer/factories';
 
-import type { CompanyTheme } from '#libs/theme/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
 import {
   type MarketplaceCSSComponentConfig,
   MarketplacePage,
   type VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import type { OfferStatus, Offer_FULL } from '#libs/offer/types';
+} from '#src/libs/exportable-components/types';
+import type { OfferStatus, Offer_FULL } from '#src/libs/offer/types';
 // @ts-expect-error
 import BookerModuleOfferSummaryCss from './styles.css?raw';
 import BookerModuleOfferSummary, {

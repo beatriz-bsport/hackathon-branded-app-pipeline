@@ -22,22 +22,22 @@ import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Avatar from '@material-ui/core/Avatar';
 import { COMMUNICATION_CHANNEL_SMARTLIST } from '@bsport/common/lib/master-data/communication-filters';
-import Tooltip from '#components/Tooltip.component';
-import type { CommunicationMessage } from '#libs/communication-v2/types';
-import TypographyMultiline from '#components/typo/TypographyMultiline.component';
-import HTMLPreview from '#components/html/HTMLPreview.component';
+import Tooltip from '#src/components/Tooltip.component';
+import type { CommunicationMessage } from '#src/libs/communication-v2/types';
+import TypographyMultiline from '#src/components/typo/TypographyMultiline.component';
+import HTMLPreview from '#src/components/html/HTMLPreview.component';
 import {
   interpolateHTMLWithTags,
   findMemberAssociatedTagsInTagsGroups,
-} from '#components/html/utils';
-import type { Member } from '#libs/member/types';
-import type { ResolvedGenericTags } from '#libs/email-editor/types';
+} from '#src/components/html/utils';
+import type { Member } from '#src/libs/member/types';
+import type { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import {
   COMMUNICATION_SENT_SENDING_FAIL,
   COMMUNICATION_SENT_SENDING_PROCESSING,
   COMMUNICATION_SENT_SENDING_SUCCESS,
-} from '#libs/communication-v2/constants';
-import { getSmartlistChannelFromMetadata } from '#libs/communication-v2/utils';
+} from '#src/libs/communication-v2/constants';
+import { getSmartlistChannelFromMetadata } from '#src/libs/communication-v2/utils';
 import CommunicationMessageNumberRecipients from './CommunicationMessageNumberRecipients.component';
 import { getTextColorFromRGB } from '../../../../../utils/color';
 

@@ -1,12 +1,12 @@
 import React from 'react';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { paymentPackFactory } from '#libs/payment-packs/factory';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
 // @ts-expect-error
 import MarketplacePaymentPackOffPeakRestrictionModalCss from './styles.css?raw';
 import MarketplacePaymentPackOffPeakRestrictionModal, {

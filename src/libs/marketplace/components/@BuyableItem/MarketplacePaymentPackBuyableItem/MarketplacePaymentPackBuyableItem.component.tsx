@@ -6,25 +6,25 @@ import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import ToolTip from '#components/Tooltip.component';
-import Card from '#components/css-only/Card';
-import CardContent from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
-import GridItem from '#components/css-only/Grid/GridItem';
-import Price from '#components/css-only/Price';
-import Collapse from '#components/css-only/Fabrique/Collapse';
-import Button from '#components/css-only/Fabrique/Button';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import ToolTip from '#src/components/Tooltip.component';
+import Card from '#src/components/css-only/Card';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
+import GridItem from '#src/components/css-only/Grid/GridItem';
+import Price from '#src/components/css-only/Price';
+import Collapse from '#src/components/css-only/Fabrique/Collapse';
+import Button from '#src/components/css-only/Fabrique/Button';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
-import { useValidityInfoForPaymentPackCard } from '#libs/marketplace/utils/payment-pack';
-import RecommendedChip from '#components/css-only/RecommendedChip';
+} from '#src/libs/theme/utils';
+import { useValidityInfoForPaymentPackCard } from '#src/libs/marketplace/utils/payment-pack';
+import RecommendedChip from '#src/components/css-only/RecommendedChip';
 
-import type { PaymentPack } from '#libs/payment-packs/types';
-import { CardSize } from '#components/css-only/Card/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import { CardSize } from '#src/components/css-only/Card/types';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 
 import './styles.css';

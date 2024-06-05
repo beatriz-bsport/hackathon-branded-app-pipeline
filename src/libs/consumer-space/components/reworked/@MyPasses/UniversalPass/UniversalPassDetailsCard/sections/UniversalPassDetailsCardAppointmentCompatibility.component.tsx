@@ -6,10 +6,10 @@ import classNames from 'classnames';
 import { List } from '#Fabrique/List/List.component';
 import ListItem from '#Fabrique/ListItem';
 import Typography from '#Fabrique/Typography';
-import { VideoRecorder, XCircle } from '#components/untitledui';
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import { VideoRecorder, XCircle } from '#src/components/untitledui';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 
-import type { PrivateConsumerPassCompatibility } from '#libs/consumer-space/types';
+import type { PrivateConsumerPassCompatibility } from '#src/libs/consumer-space/types';
 
 type Props = {
   appointmentCompatibilities: PrivateConsumerPassCompatibility[];

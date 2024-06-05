@@ -1,14 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
-import type { SVGComponentProps } from '#components/untitledui/template';
+import type { SVGComponentProps } from '#src/components/untitledui/template';
 import {
   AlertTriangle,
   CheckCircleBroken,
   Clock,
   InfoCircle,
   XCircle,
-} from '#components/untitledui';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+} from '#src/components/untitledui';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { BigIconEnum } from './constants';
 import type { BigIconVariantType } from './types';
 

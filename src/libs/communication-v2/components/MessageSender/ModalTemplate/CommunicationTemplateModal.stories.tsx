@@ -2,7 +2,7 @@ import React from 'react';
 import CommunicationTemplateModal, {
   Props,
 } from './CommunicationTemplateModal.component';
-import EmailTemplateDetailSummaryListsFactory from '#libs/email-editor/factories/Emails';
+import EmailTemplateDetailSummaryListsFactory from '#src/libs/email-editor/factories/Emails';
 
 const [emailTemplateDetailList, emailTemplateSummaryList] =
   EmailTemplateDetailSummaryListsFactory(6);

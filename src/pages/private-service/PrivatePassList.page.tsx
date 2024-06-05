@@ -17,11 +17,12 @@ import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import uniqBy from 'lodash/uniqBy';
-import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
-import IsEmptyList from '#components/navigation/IsEmptyList.component';
-import themeSelectors from '#libs/theme/selectors';
-import withTitle from '#hocs/with-title.hoc';
-import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
+import withTitle from '#src/hocs/with-title.hoc';
+import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
+import themeSelectors from '#src/libs/theme/selectors';
+
 import {
   getPrivatePassCustomerEnabled,
   getAvailablePrivatePasses,
@@ -29,9 +30,9 @@ import {
   getCompatibilityPassWithService as getCompatibleServicePass,
   getCompatibleServicePassLoading,
   withLinkedPaymentPack,
-} from '#libs/private-service/selectors/private-pass';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { getPrivateServices } from '#libs/private-service/selectors/private-service';
+} from '#src/libs/private-service/selectors/private-pass';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
 import {
   fetchPrivatePassList,
   fetchAllPrivateServices,
@@ -46,62 +47,67 @@ import {
   fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
   fetchAllPrivateSlots,
   isPrivatePassUsedInCombo,
-} from '#libs/private-service/actions';
-import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
-import PrivatePassForm from '#libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
+} from '#src/libs/private-service/actions';
+import PrivatePassListItem from '#src/libs/private-service/components/pass/PrivatePassListItem.component';
+import PrivatePassForm from '#src/libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
 import type {
   PrivatePass,
   PrivatePassCategory,
   PrivatePassCategoryWithPasses,
   ServiceCompatibilityPass,
   PrivateSlot,
-} from '#libs/private-service/types';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+} from '#src/libs/private-service/types';
+
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
-import { PrivatePassCategoryList } from '#libs/private-service/components/category/PrivatePassCategoryList.component';
-import PrivatePassCategoryCreationDialog from '#libs/private-service/components/category/PrivatePassCategoryCreationDialog.component';
+
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+
+import { PrivatePassCategoryList } from '#src/libs/private-service/components/category/PrivatePassCategoryList.component';
+import PrivatePassCategoryCreationDialog from '#src/libs/private-service/components/category/PrivatePassCategoryCreationDialog.component';
 import {
   getPrivatePassByCategoryWithPasses,
   getPrivatePassCategories,
-} from '#libs/private-service/selectors/private-pass-category';
+} from '#src/libs/private-service/selectors/private-pass-category';
 import PaymentPackFilterAndSortHeader, {
   ManagerOnly,
   SortOption,
-} from '#libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
+} from '#src/libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import {
   setPrivatePassCategoryFilter,
   setPrivatePassManagerOnlyFilter,
   setPrivatePassSort,
-} from '#libs/user-preference/actions';
-import { getFormInitial } from '#libs/private-service/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { fetchOne as fetchPaymentPackAction } from '#libs/payment-packs/actions';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import { getAllEstablishments } from '#libs/establishment/selectors';
-import { getEditableSCTs } from '#libs/category/selectors';
+} from '#src/libs/user-preference/actions';
+import { getFormInitial } from '#src/libs/private-service/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { fetchOne as fetchPaymentPackAction } from '#src/libs/payment-packs/actions';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import { getAllEstablishments } from '#src/libs/establishment/selectors';
+import { getEditableSCTs } from '#src/libs/category/selectors';
 import {
   getActivitiesByIdList,
   getEnabledMetaActivities,
   getEnabledWorkshops,
-} from '#libs/meta-activity/selectors';
-import PrivatePassDeleteDialog from '#libs/private-service/components/pass/PrivatePassDeleteDialog.component';
-import UniversalPassRestoreDialog from '#libs/universal-pass/components/UniversalPassRestoreDialog.component';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { fetchTags } from '#libs/tag/actions';
-import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+} from '#src/libs/meta-activity/selectors';
+import PrivatePassDeleteDialog from '#src/libs/private-service/components/pass/PrivatePassDeleteDialog.component';
+import UniversalPassRestoreDialog from '#src/libs/universal-pass/components/UniversalPassRestoreDialog.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { fetchTags } from '#src/libs/tag/actions';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 import {
   getBookkeepingAccountList,
   getBookkeepingAccountById,
-} from '#libs/payment/selectors';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+} from '#src/libs/payment/selectors';
+
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
+
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
 import {
   fetchActivitiesCompany,
   fetchMetaActivities as fetchMetaActivitiesAction,

@@ -17,21 +17,21 @@ import AddIcon from '@material-ui/icons/Add';
 import InfoIcon from '@material-ui/icons/Info';
 
 import type { AxiosResponse } from 'axios';
-import type { OptionCallback } from '#state/types';
-import type { PaymentMethod } from '#libs/payment/types';
+import type { OptionCallback } from '#src/state/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
 
-import { MAP_MARKETPLACE_PAYMENT_METHOD_TO_IDENTIFIER } from '#libs/marketplace/constants';
+import { MAP_MARKETPLACE_PAYMENT_METHOD_TO_IDENTIFIER } from '#src/libs/marketplace/constants';
 import {
   MarketplacePaymentMethods,
   MarketplacePaymentMethodBillingDetails,
-} from '#libs/marketplace/types';
-import { getBillingDetailsDefaultValue } from '#libs/checkout/utils';
-import { getCurrencyCode } from '#libs/theme/selectors';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { PaymentMethodCardSelector } from '#libs/payment/components/PaymentMethodCardSelector.component';
-import MarketplaceCollectPaymentMethod from '#marketplacecomponents/@Payment/MarketplaceCollectPaymentMethod';
-import MarketplaceContractPaymentMethodList from '#marketplacecomponents/@Payment/MarketplaceContractPaymentMethodList';
-import Tooltip from '#components/Tooltip.component';
+} from '#src/libs/marketplace/types';
+import { getBillingDetailsDefaultValue } from '#src/libs/checkout/utils';
+import { getCurrencyCode } from '#src/libs/theme/selectors';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { PaymentMethodCardSelector } from '#src/libs/payment/components/PaymentMethodCardSelector.component';
+import MarketplaceCollectPaymentMethod from '#src/libs/marketplace/components/@Payment/MarketplaceCollectPaymentMethod';
+import MarketplaceContractPaymentMethodList from '#src/libs/marketplace/components/@Payment/MarketplaceContractPaymentMethodList';
+import Tooltip from '#src/components/Tooltip.component';
 
 import './SubscriptionPaymentStyle.css';
 

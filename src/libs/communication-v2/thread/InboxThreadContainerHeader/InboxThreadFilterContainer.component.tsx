@@ -13,11 +13,11 @@ import Tune from '@material-ui/icons/Tune';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import { useTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import CommunicationFilterValuesGenericSummary from '#libs/communication-v2/components/Filter/CommunicationFilterValuesGenericSummary.component';
-import CommunicationFilterValuesPeriodSummary from '#libs/communication-v2/components/Filter/CommunicationFilterValuesPeriodSummary.component';
-import { getFiltersToEnableForThread } from '#libs/communication-v2/utils';
-import type { SelectFieldItem } from '#libs/communication-v2/types';
-import CommunicationFilterCollapse from '#libs/communication-v2/components/Filter/CommunicationFilterCollapse.component';
+import CommunicationFilterValuesGenericSummary from '#src/libs/communication-v2/components/Filter/CommunicationFilterValuesGenericSummary.component';
+import CommunicationFilterValuesPeriodSummary from '#src/libs/communication-v2/components/Filter/CommunicationFilterValuesPeriodSummary.component';
+import { getFiltersToEnableForThread } from '#src/libs/communication-v2/utils';
+import type { SelectFieldItem } from '#src/libs/communication-v2/types';
+import CommunicationFilterCollapse from '#src/libs/communication-v2/components/Filter/CommunicationFilterCollapse.component';
 
 type Props = {
   kindFilterValues: SelectFieldItem[];
@@ -208,6 +208,7 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
           hasSrcOrDstFilter={hasSrcOrDstFilter}
           kindFilterSetter={kindFilterSetter}
           kindFilterValues={kindFilterValues}
+// @ts-expect-error
           periodHasChanged={periodHasChanged}
           recipientFilterSetter={recipientFilterSetter}
           recipientFilterValues={recipientFilterValues}

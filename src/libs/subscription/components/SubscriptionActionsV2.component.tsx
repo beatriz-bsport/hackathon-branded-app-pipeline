@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import AlarmAddIcon from '@material-ui/icons/AlarmAdd';
 import EventBusyIcon from '@material-ui/icons/EventBusy';
-import PopOver from '#components/Popover';
+import PopOver from '#src/components/Popover';
 
 import { OptionCallback } from '../../../state/types';
 import RedButton from '../../../components/button/RedButton.component';

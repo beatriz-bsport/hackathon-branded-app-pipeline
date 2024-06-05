@@ -5,10 +5,9 @@ import type {
   DeliveryFeeCreationOrUpdatePayload,
   Order,
   OrderWithProducts,
-} from '#libs/order/types';
+} from '#src/libs/order/types';
 import { PaginatedResponse } from '../../state/types';
 import { API_V1_URI, postAuth, getAuth, patchAuth } from '../../http';
-
 
 export async function fetchOrders(
   page: number,

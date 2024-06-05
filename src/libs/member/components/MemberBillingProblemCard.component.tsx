@@ -15,12 +15,12 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
+import type { Invoice } from '#src/libs/invoice/types';
+import type { ConsumerGiftcard, Giftcard } from '#src/libs/giftcard/types';
+import type { StripeReader } from '#src/libs/terminal/types';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '#src/libs/invoice/constants';
 // @ts-expect-error
-import type { Invoice } from '#libs/invoice/types';
-import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
-import type { StripeReader } from '#libs/terminal/types';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '#libs/invoice/constants';
 import PaymentDialog from '../../payment/components/PaymentDialog.component';
 import MemberBalanceUpdaterDialog from './MemberBalanceUpdaterDialog.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';

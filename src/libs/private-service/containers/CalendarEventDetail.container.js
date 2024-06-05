@@ -25,61 +25,61 @@ import {
   retrieveOfferAsManager as retrieveOfferAsManagerAction,
   fetchSimilarOffers as fetchSimilarOffersAction,
   editOffers as editOffersActions,
-} from '#libs/offer/actions';
-import { fetchCompanyUserRoles } from '#libs/role/actions';
-import zoomAppSelectors from '#libs/zoom-app/selectors';
-import { fetchZoomApp as fetchZoomAppAction } from '#libs/zoom-app/actions';
+} from '#src/libs/offer/actions';
+import { fetchCompanyUserRoles } from '#src/libs/role/actions';
+import zoomAppSelectors from '#src/libs/zoom-app/selectors';
+import { fetchZoomApp as fetchZoomAppAction } from '#src/libs/zoom-app/actions';
 import {
   getActiveCoaches,
   getCoachesSelectedInRole,
-} from '#libs/associated-coach/selectors';
-import { Coach } from '#libs/associated-coach/types';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { withInvoiceItem, getInvoiceList } from '#libs/invoice/selectors';
+} from '#src/libs/associated-coach/selectors';
+import { Coach } from '#src/libs/associated-coach/types';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { withInvoiceItem, getInvoiceList } from '#src/libs/invoice/selectors';
 import {
   fetchInvoiceList as fetchInvoiceListAction,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
-} from '#libs/invoice/actions';
-import { snackbarSuccess } from '#libs/snackbar/actions';
-import { fetchPaymentMethodList } from '#libs/payment/actions';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
-import type { Invoice } from '#libs/invoice/types';
-import type { PaymentMethod } from '#libs/payment/types';
-import { getDeletePermission, getEditPermission } from '#libs/offer/utils';
-import { requestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
-import { getProgramList } from '#libs/performance-tracking/selector';
+} from '#src/libs/invoice/actions';
+import { snackbarSuccess } from '#src/libs/snackbar/actions';
+import { fetchPaymentMethodList } from '#src/libs/payment/actions';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
+import type { Invoice } from '#src/libs/invoice/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
+import { getDeletePermission, getEditPermission } from '#src/libs/offer/utils';
+import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
+import { getProgramList } from '#src/libs/performance-tracking/selector';
 import {
   updateMemberMetricValue as updateMemberMetricValueAction,
   createMemberProgram as createMemberProgramAction,
   fetchMetric as fetchMetricAction,
   fetchProgram as fetchProgramAction,
   fetchMemberProgram as fetchMemberProgramAction,
-} from '#libs/performance-tracking/actions';
+} from '#src/libs/performance-tracking/actions';
 import {
   getConsumerGiftcardReceivedList,
   withGiftcard,
   withSender,
   withReceiver,
   onlyUsable,
-} from '#libs/giftcard/selectors';
+} from '#src/libs/giftcard/selectors';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
-} from '#libs/giftcard/actions';
+} from '#src/libs/giftcard/actions';
 import {
   fetchLevelList as fetchLevelListAction,
   updateLevel as updateLevelAction,
   createLevel as createLevelAction,
   deleteLevel as deleteLevelAction,
-} from '#libs/level/actions';
+} from '#src/libs/level/actions';
 import {
   getActiveCustomLevels,
   getAllCustomLevels,
   withCustomLevel,
-} from '#libs/level/selectors';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import type { Tag, TagGroup } from '#libs/tag/types';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+} from '#src/libs/level/selectors';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import DeleteOfferForm from '../../offer/DeleteOfferForm.component';
 import {
   getAvailableRoomBlueprints,

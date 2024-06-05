@@ -5,10 +5,10 @@ import type {
   ErrorAndLoading,
   GenericListReducerI,
   GenericPaginationResults,
-} from '#libs/types';
-import type { Member, MemberFilter } from '#libs/member/types';
-import type { CustomMobilePopup } from '#libs/settings/types';
-import type { SmartList } from '#libs/smart-list/types';
+} from '#src/libs/types';
+import type { Member, MemberFilter } from '#src/libs/member/types';
+import type { CustomMobilePopup } from '#src/libs/settings/types';
+import type { SmartList } from '#src/libs/smart-list/types';
 
 export type CommunicationProviderState = {
   provider?: CommunicationProvider;

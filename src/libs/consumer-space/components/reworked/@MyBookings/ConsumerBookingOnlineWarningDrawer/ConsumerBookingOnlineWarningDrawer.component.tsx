@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { formatAsDate, formatISOStringAsTime } from '#utils/datetime';
+import { formatAsDate, formatISOStringAsTime } from '#src/utils/datetime';
 import BottomDrawer from '#Fabrique/BottomDrawer';
 import Typography from '#Fabrique/Typography';
 

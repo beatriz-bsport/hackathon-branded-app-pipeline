@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { convertCtsToFullPrice } from '#libs/consumer-space/components/reworked/@MyInvoices/helpers/utils';
+import { convertCtsToFullPrice } from '#src/libs/consumer-space/components/reworked/@MyInvoices/helpers/utils';
 import Typography from '#Fabrique/Typography';
 
-import type { PlannedPaymentEventSerializer } from '#libs/invoice/types';
+import type { PlannedPaymentEventSerializer } from '#src/libs/invoice/types';
 import { ConsumerInvoicePayment } from '.';
 
 import '../../styles.css';

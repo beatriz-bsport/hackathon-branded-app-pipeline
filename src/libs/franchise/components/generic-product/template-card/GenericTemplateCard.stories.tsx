@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import { CheckCircleOutlineRounded } from '@material-ui/icons';
 import GenericTemplateCard, { Props } from './GenericTemplateCard.component';
-import { FranchiseCompanyListFactory } from '#libs/franchise/factories/FranchiseCompanyFactory';
+import { FranchiseCompanyListFactory } from '#src/libs/franchise/factories/FranchiseCompanyFactory';
 
 const franchiseCompanyList = FranchiseCompanyListFactory(20);
 const defaultArgs = {

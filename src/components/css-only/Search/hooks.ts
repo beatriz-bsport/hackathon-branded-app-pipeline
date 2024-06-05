@@ -6,11 +6,11 @@ import {
   getSearchItemIndicator,
   getSearchItemPrice,
   ItemType,
-} from '#components/css-only/Search/PassSearch/utils';
+} from '#src/components/css-only/Search/PassSearch/utils';
 import {
   BaseAdditionalData,
   SearchItemData,
-} from '#components/css-only/Search/Search.component';
+} from '#src/components/css-only/Search/Search.component';
 import {
   MarketplaceSearchContractDataParams,
   MarketplaceSearchDataIdentifier,

@@ -7,7 +7,7 @@ import MinimalPaymentComboCard, {
 
 import type { Props } from '.';
 
-import { paymentComboFactory } from '#libs/payment-combo/factory';
+import { paymentComboFactory } from '#src/libs/payment-combo/factory';
 
 const paymentCombo = paymentComboFactory();
 

@@ -27,7 +27,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import { DateTime } from 'luxon';
-import type { ExpenseWithUser } from '#libs/expense/types';
+import type { ExpenseWithUser } from '#src/libs/expense/types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PAGE_SIZE } from '../../../pages/expense/ExpenseList.page';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';

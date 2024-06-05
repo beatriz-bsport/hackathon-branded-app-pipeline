@@ -18,7 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LockIcon from '@material-ui/icons/Lock';
 import Button from '@material-ui/core/Button';
 
-import { minsToHrMins } from '#libs/theme/utils';
+import { minsToHrMins } from '#src/libs/theme/utils';
 import Countdown from '../../../components/Countdown.component';
 import OfferItemBase from '../../offer/components/OfferListItem.component';
 

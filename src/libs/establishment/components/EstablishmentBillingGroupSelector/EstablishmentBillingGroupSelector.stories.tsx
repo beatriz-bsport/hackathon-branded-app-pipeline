@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import EstablishmentBillingGroupSelector, {
   type Props,
 } from './EstablishmentBillingGroupSelector.component';
-import { establishmentBillingGroupFactory } from '#libs/establishment/factory';
+import { establishmentBillingGroupFactory } from '#src/libs/establishment/factory';
 
 export default {
   title: 'Library/Establishment/EstablishmentBillingGroupSelector',

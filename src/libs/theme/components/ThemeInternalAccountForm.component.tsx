@@ -15,7 +15,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
-import RedButton from '#components/button/RedButton.component';
+import RedButton from '#src/components/button/RedButton.component';
 
 import { MaterialStyleType } from '../../../utils/types';
 import type { CompanyTheme } from '../types';

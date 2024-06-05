@@ -2,15 +2,15 @@ import React from 'react';
 
 import { PortalContainer } from '#Fabrique/PortalContainer';
 
-import UniversalPassDetailsDrawer from '#libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsDrawer';
-import PrivateConsumerPassDetailsDrawer from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassDetailsDrawer';
-import ConsumerPaymentPackDetailsDrawer from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackDetailsDrawer';
-import ConsumerPassTabsDrawer from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabsDrawer';
+import UniversalPassDetailsDrawer from '#src/libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsDrawer';
+import PrivateConsumerPassDetailsDrawer from '#src/libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassDetailsDrawer';
+import ConsumerPaymentPackDetailsDrawer from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackDetailsDrawer';
+import ConsumerPassTabsDrawer from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabsDrawer';
 
-import type { ConsumerPaymentPackReworked } from '#libs/consumer-payment-pack/types';
-import type { PrivateConsumerPassReworked } from '#libs/private-service/types';
-import type { UniversalPassReworked } from '#libs/universal-pass/types';
-import type { PassTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
+import type { ConsumerPaymentPackReworked } from '#src/libs/consumer-payment-pack/types';
+import type { PrivateConsumerPassReworked } from '#src/libs/private-service/types';
+import type { UniversalPassReworked } from '#src/libs/universal-pass/types';
+import type { PassTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
 import { PassTabEnum } from '../ConsumerPassTabs/constants';
 
 type Props = {

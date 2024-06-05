@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { DisciplineGroup } from '#libs/replacement-request/types';
+import { DisciplineGroup } from '#src/libs/replacement-request/types';
 
 type Props = {
   open: boolean;

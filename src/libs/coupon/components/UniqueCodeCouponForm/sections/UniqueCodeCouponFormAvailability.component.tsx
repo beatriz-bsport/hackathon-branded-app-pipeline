@@ -11,8 +11,8 @@ import {
 } from '@material-ui/core';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
-import { UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
-import FormSection from '#components/forms/FormSection';
+import { UniqueCodeCouponCreationPayload } from '#src/libs/coupon/types';
+import FormSection from '#src/components/forms/FormSection';
 
 type Props = {
   isProcessing: boolean;

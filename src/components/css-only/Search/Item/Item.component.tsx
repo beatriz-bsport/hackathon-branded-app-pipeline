@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { BaseAdditionalData, SearchItemData } from '../Search.component';
 
 import './style.css';

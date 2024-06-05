@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import MaxoutInfoMessage from '#libs/booker-module/components/MaxoutInfoMessage.component';
+import MaxoutInfoMessage from '#src/libs/booker-module/components/MaxoutInfoMessage.component';
 import PaymentPackBookableItem from './PaymentPackBookableItem.component';
 import { RadioItem } from '../../../components/radio/RadioItem';
 import {

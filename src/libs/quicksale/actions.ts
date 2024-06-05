@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
+import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import type { Dispatch, ThunkAction } from '../../state/types';
 import {
   fetchQuicksaleConfiguration as fetchConfigurationAPI,

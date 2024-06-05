@@ -14,7 +14,7 @@ import { MenuItem } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import type { ImmutableObject } from 'seamless-immutable';
-import type { CommunicationSentGroupConfig } from '#libs/communication//types';
+import type { CommunicationSentGroupConfig } from '#src/libs/communication//types';
 // @ts-expect-error
 import withConfirm from '../../../../../hocs/with-confirm.hoc';
 

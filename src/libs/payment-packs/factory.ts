@@ -1,6 +1,6 @@
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { PaymentPackFactoryOptions } from '#libs/payment-packs/types';
+import { PaymentPackFactoryOptions } from '#src/libs/payment-packs/types';
 import {
   generateRandomDescription,
   generateRandomIdList,

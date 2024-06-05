@@ -4,22 +4,22 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Helmet from 'react-helmet';
-import type { CompanyTheme } from '#libs/theme/types';
-import EditReferralProgramSettingsForm from '#libs/referral/components/EditReferralProgramSettingsForm/EditReferralProgramSettingsForm.component';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import { updateCompanyTheme } from '#libs/theme/actions';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import EditReferralProgramSettingsForm from '#src/libs/referral/components/EditReferralProgramSettingsForm/EditReferralProgramSettingsForm.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import { updateCompanyTheme } from '#src/libs/theme/actions';
 import {
   retrieveReferralProgram as retrieveReferralProgramAction,
   updateReferralProgram as updateReferralProgramAction,
-} from '#libs/referral/actions';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import type { Tag } from '#libs/tag/types';
+} from '#src/libs/referral/actions';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import type { Tag } from '#src/libs/tag/types';
 import {
   getReferralProgramsLoading,
   getTheReferralProgram,
-} from '#libs/referral/selectors';
-import { getTheme, getThemeLoading } from '#libs/theme/selectors';
-import type { ReferralProgram } from '#libs/referral/types';
+} from '#src/libs/referral/selectors';
+import { getTheme, getThemeLoading } from '#src/libs/theme/selectors';
+import type { ReferralProgram } from '#src/libs/referral/types';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 

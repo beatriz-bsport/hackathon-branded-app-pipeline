@@ -3,7 +3,7 @@ import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 
 import Skeleton, { Props, SkeletonAnimationEnum } from '.';
-import { MuiThemeToCssVarsHOC } from '#hocs/marketplace-css.hoc';
+import { MuiThemeToCssVarsHOC } from '#src/hocs/marketplace-css.hoc';
 
 import './styles-storybook.css';
 

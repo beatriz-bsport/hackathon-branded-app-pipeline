@@ -17,10 +17,10 @@ import {
   CB as PAYMENT_METHOD_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
 
-import CustomChip from '#components/chip/CustomChip.component';
-import GenericCustomBooleanChip from '#components/chip/GenericCustomBooleanChip';
+import CustomChip from '#src/components/chip/CustomChip.component';
+import GenericCustomBooleanChip from '#src/components/chip/GenericCustomBooleanChip';
 
-import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
+import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
 
 type Props = {
   availablePaymentMethodIdentifiers: number[];

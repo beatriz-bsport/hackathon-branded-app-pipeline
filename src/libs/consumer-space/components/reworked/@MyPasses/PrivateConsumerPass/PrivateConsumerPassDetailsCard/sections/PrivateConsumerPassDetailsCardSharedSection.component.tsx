@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 
 type Props = {
   members: string[];

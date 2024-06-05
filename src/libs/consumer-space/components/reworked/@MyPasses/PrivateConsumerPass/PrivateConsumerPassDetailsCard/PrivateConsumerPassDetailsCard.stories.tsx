@@ -3,9 +3,9 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import establishmentFactoryBot from '#libs/establishment/factories/Establishments';
-import { privatePassFactory } from '#libs/private-service/factory';
-import { generateRandomName, generateRandomNames } from '#utils/factories';
+import establishmentFactoryBot from '#src/libs/establishment/factories/Establishments';
+import { privatePassFactory } from '#src/libs/private-service/factory';
+import { generateRandomName, generateRandomNames } from '#src/utils/factories';
 
 import {
   PrivateConsumerPassDetailsCardStorybook,

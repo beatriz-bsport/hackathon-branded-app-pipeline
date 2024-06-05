@@ -1,5 +1,5 @@
-import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
-import type { CancelPrivateBookingParams } from '#libs/booking/types';
+import type { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
+import type { CancelPrivateBookingParams } from '#src/libs/booking/types';
 import {
   getAuth,
   post,

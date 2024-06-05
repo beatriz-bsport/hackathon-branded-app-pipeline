@@ -7,15 +7,15 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-import FranchiseShopItemTemplateDetailInventoryBulkUpdateForm from '#libs/franchise/components/FranchiseShopItemTemplateDetailInventoryBulkUpdateForm.component';
-import ShopItemInventoryUpdateForm from '#libs/shop/components/ShopItemInventoryUpdateForm';
+import FranchiseShopItemTemplateDetailInventoryBulkUpdateForm from '#src/libs/franchise/components/FranchiseShopItemTemplateDetailInventoryBulkUpdateForm.component';
+import ShopItemInventoryUpdateForm from '#src/libs/shop/components/ShopItemInventoryUpdateForm';
 
-import type { ShopItemInventoryBulkUpdateFormValues } from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
-import type { ShopItemInventoryFormValues } from '#libs/shop/components/ShopItemInventoryUpdateForm/types';
-import type { ShopItem, ShopItemTemplate } from '#libs/shop/types';
-import type { SelectOption } from '#libs/types';
+import type { ShopItemInventoryBulkUpdateFormValues } from '#src/libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
+import type { ShopItemInventoryFormValues } from '#src/libs/shop/components/ShopItemInventoryUpdateForm/types';
+import type { ShopItem, ShopItemTemplate } from '#src/libs/shop/types';
+import type { SelectOption } from '#src/libs/types';
 
-import { ShopItemDetailInventoryFormType } from '#libs/shop/constants';
+import { ShopItemDetailInventoryFormType } from '#src/libs/shop/constants';
 
 const shopItemInventoryBulkFormValidationSchema = Yup.object().shape({
   variants: Yup.array().of(

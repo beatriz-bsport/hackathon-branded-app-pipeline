@@ -8,25 +8,27 @@ import { push as pushFunc } from 'connected-react-router';
 import Immutable from 'seamless-immutable';
 import { makeStyles, Theme } from '@material-ui/core';
 
-import withPageHeightHOC, { WithPageHeight } from '#hocs/with-page-height.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
-import { fetchMarketplaceContractList as fetchMarketplaceContractListAction } from '#libs/subscription/actions';
-import { getGiftcardListActive } from '#libs/giftcard/selectors';
-import { fetchGiftcardList as fetchGiftcardListAction } from '#libs/giftcard/actions';
-import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
-import { getPaymentComboListAvailableOnline } from '#libs/payment-combo/selectors';
+import withPageHeightHOC, {
+  WithPageHeight,
+} from '#src/hocs/with-page-height.hoc';
+import ContentWithAppBar from '#src/components/generic-appbar-content/ContentWithAppBar.component';
+import { fetchMarketplaceContractList as fetchMarketplaceContractListAction } from '#src/libs/subscription/actions';
+import { getGiftcardListActive } from '#src/libs/giftcard/selectors';
+import { fetchGiftcardList as fetchGiftcardListAction } from '#src/libs/giftcard/actions';
+import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
+import { getPaymentComboListAvailableOnline } from '#src/libs/payment-combo/selectors';
 import {
   fetchMarketplacePacks as fetchMarketplacePacksAction,
   fetchPaymentPackList as fetchPaymentPackListAction,
-} from '#libs/payment-packs/actions';
-import { getEnabled as getPaymentPackAvailable } from '#libs/payment-packs/selectors';
-import { getSubShopsByCompany } from '#libs/shop/selectors';
-import { fetchVideoList as fetchVideoListAction } from '#libs/video/actions';
-import { getVideoList } from '#libs/video/selectors';
-import { fetchAllSubShop as fetchAllSubShopAction } from '#libs/shop/actions/subshop';
-import MobileCustomShopRedirectionSettings from '#libs/settings/components/MobileCustomShopRedirectionSettings.component';
-import CustomMobilePopupSettings from '#libs/settings/components/CustomMobilePopupSettings.component';
-import MobileAppPersonalisationForm from '#libs/settings/components/MobileAppPersonalisationForm.component';
+} from '#src/libs/payment-packs/actions';
+import { getEnabled as getPaymentPackAvailable } from '#src/libs/payment-packs/selectors';
+import { getSubShopsByCompany } from '#src/libs/shop/selectors';
+import { fetchVideoList as fetchVideoListAction } from '#src/libs/video/actions';
+import { getVideoList } from '#src/libs/video/selectors';
+import { fetchAllSubShop as fetchAllSubShopAction } from '#src/libs/shop/actions/subshop';
+import MobileCustomShopRedirectionSettings from '#src/libs/settings/components/MobileCustomShopRedirectionSettings.component';
+import CustomMobilePopupSettings from '#src/libs/settings/components/CustomMobilePopupSettings.component';
+import MobileAppPersonalisationForm from '#src/libs/settings/components/MobileAppPersonalisationForm.component';
 import {
   fetchCustomShopRedirections as fetchCustomShopRedirectionsAction,
   createCustomShopRedirection as createCustomShopRedirectionAction,
@@ -36,17 +38,17 @@ import {
   createCustomMobilePopup as createCustomMobilePopupAction,
   updateCustomMobilePopup as updateCustomMobilePopupAction,
   deleteCustomMobilePopup as deleteCustomMobilePopupAction,
-} from '#libs/settings/actions';
+} from '#src/libs/settings/actions';
 import {
   getCustomMobilePopupsLoading,
   getCustomShopRedirectionsLoading,
   getCustomMobilePopupsList,
   getCustomMobileRedirectionsList,
-} from '#libs/settings/selectors';
-import { updateCompanyTheme as updateCompanyThemeAction } from '#libs/theme/actions';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+} from '#src/libs/settings/selectors';
+import { updateCompanyTheme as updateCompanyThemeAction } from '#src/libs/theme/actions';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 // @ts-expect-error
-import { getMarketplaceContractList as getContractList } from '#libs/subscription/selectors';
+import { getMarketplaceContractList as getContractList } from '#src/libs/subscription/selectors';
 import { RootState } from '../../reducers';
 
 type Props = {

@@ -3,9 +3,9 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
-import type { PrivatePass } from '#libs/private-service/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import type { State } from '../../state/types';
 import { getEventState } from '../event/selectors';
 import {

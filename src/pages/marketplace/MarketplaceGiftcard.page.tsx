@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { TFunction } from 'i18next';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 // @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import withTitle from '../../hocs/with-title.hoc';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag, TagGroup } from '#libs/tag/types';
+import { Tag, TagGroup } from '#src/libs/tag/types';
 
 // Given a list of tags objects and a list of tag ids, evaluates if at least two tags from the
 // tag ids lis belong to the same group.

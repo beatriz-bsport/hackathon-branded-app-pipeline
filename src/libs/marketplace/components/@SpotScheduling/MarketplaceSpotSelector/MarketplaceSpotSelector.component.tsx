@@ -5,28 +5,28 @@ import { useTranslation } from 'react-i18next';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import {
   OfferREST,
   type OfferStatus,
   type Offer_FULL,
-} from '#libs/offer/types';
-import type { CompanyTheme } from '#libs/theme/types';
-import type { Establishment } from '#libs/establishment/types';
+} from '#src/libs/offer/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type { Establishment } from '#src/libs/establishment/types';
 import type {
   AssetForBlueprint,
   RoomBlueprint,
   SpotType,
-} from '#libs/spot-scheduling/types';
-import CanvasSpotIcon from '#libs/spot-scheduling/CanvasSvg/CanvasSpotIcon.component';
-import ToolTip from '#components/Tooltip.component';
-import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
-import SpotSelector from '#libs/spot-scheduling/component/SpotSelector/SpotSelector.component';
-import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
-import { CanvasElement } from '#libs/spot-scheduling/CanvasSvg/tools/BaseClasses/Base.tool';
-import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
-import Countdown from '#components/time/CountDown.component';
-import type { MetaActivity } from '#libs/meta-activity/types';
+} from '#src/libs/spot-scheduling/types';
+import CanvasSpotIcon from '#src/libs/spot-scheduling/CanvasSvg/CanvasSpotIcon.component';
+import ToolTip from '#src/components/Tooltip.component';
+import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
+import SpotSelector from '#src/libs/spot-scheduling/component/SpotSelector/SpotSelector.component';
+import { DEFAULT_SPOT_TYPE_ID } from '#src/libs/spot-scheduling/utils';
+import { CanvasElement } from '#src/libs/spot-scheduling/CanvasSvg/tools/BaseClasses/Base.tool';
+import BookerModuleOfferSummary from '#src/libs/marketplace/components/@Offer/BookerModuleOfferSummary';
+import Countdown from '#src/components/time/CountDown.component';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
 import type { OptionCallback } from '../../../../../state/types';
 
 import './styles.css';

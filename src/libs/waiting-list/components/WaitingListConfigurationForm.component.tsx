@@ -16,13 +16,17 @@ import {
   WAITING_LIST_DYNAMIC_ORDERED,
 } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import { withFormik, FormikProps, Form } from 'formik';
+import {
+  SwitchField,
+  CheckboxField,
+  RadioGroupField,
 // @ts-expect-error
-import { SwitchField, CheckboxField, RadioGroupField } from '#components/forms';
+} from '#src/components/forms';
 
 import {
   WaitingListConfiguration,
   WaitingListAutoCancellation,
-} from '#libs/waiting-list/types';
+} from '#src/libs/waiting-list/types';
 import WaitingListOrderedForm from './WaitingListOrderedForm.component';
 
 const WaitingListConfigurationFormValidationSchema = Yup.object().shape({

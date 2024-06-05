@@ -16,10 +16,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import WarningIcon from '@material-ui/icons/Warning';
 import { ButtonBase, Checkbox, Theme, Typography } from '@material-ui/core';
-import SlotSpecificEstablishmentPicker from '#libs/private-service/components/availability/SlotSpecificEstablishmentPicker.component';
-import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
-import { conditionToHideSpecificTeacherAvailabilities } from '#libs/private-service/utils';
-import ToolTip from '#components/Tooltip.component';
+import SlotSpecificEstablishmentPicker from '#src/libs/private-service/components/availability/SlotSpecificEstablishmentPicker.component';
+import { EstablishmentWithAssociatedId } from '#src/libs/establishment/types';
+import { conditionToHideSpecificTeacherAvailabilities } from '#src/libs/private-service/utils';
+import ToolTip from '#src/components/Tooltip.component';
 import { PrivateResource } from '../../types';
 import { MaterialStyleType } from '../../../../utils/types';
 

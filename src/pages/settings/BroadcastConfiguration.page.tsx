@@ -7,11 +7,11 @@ import { compose, withProps, withHandlers } from 'recompose';
 import { replace as replaceRouter } from 'connected-react-router';
 import { withRouter } from 'react-router';
 
-import BroadcastConfigurationForm from '#libs/video/components/BroadcastConfiguration.component';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import { fetchCompanyTheme } from '#libs/theme/actions';
-import themeSelectors from '#libs/theme/selectors';
-import zoomAppSelectors from '#libs/zoom-app/selectors';
+import BroadcastConfigurationForm from '#src/libs/video/components/BroadcastConfiguration.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
+import themeSelectors from '#src/libs/theme/selectors';
+import zoomAppSelectors from '#src/libs/zoom-app/selectors';
 import {
   toggleDisableZoomApp as toggleDisableZoomAppAction,
   fetchZoomApp as fetchZoomAppAction,
@@ -23,13 +23,13 @@ import {
   fetchAllZoomMembers as fetchAllZoomMembersAction,
   listZoomEstablishments as listZoomEstablishmentsAction,
   bulkEditZoomEstablishments,
-} from '#libs/zoom-app/actions';
-import { fetchEstablishments as fetchEstablishmentsAction } from '#libs/establishment/actions';
-import { getAllEstablishmentsDict } from '#libs/establishment/selectors';
-import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
-import { requestZoomAccessToken as requestZoomAccessTokenAPI } from '#libs/zoom-app/api';
-import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
-import type { ZoomApp } from '#libs/zoom-app/types';
+} from '#src/libs/zoom-app/actions';
+import { fetchEstablishments as fetchEstablishmentsAction } from '#src/libs/establishment/actions';
+import { getAllEstablishmentsDict } from '#src/libs/establishment/selectors';
+import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
+import { requestZoomAccessToken as requestZoomAccessTokenAPI } from '#src/libs/zoom-app/api';
+import { showDeleteDialog } from '#src/components/genericDialog/CustomDialogs';
+import type { ZoomApp } from '#src/libs/zoom-app/types';
 import { buildUrlParams, parseQueryString } from '../../http';
 import Config from '../../config';
 import withTitle from '../../hocs/with-title.hoc';
@@ -131,6 +131,7 @@ export class BroadcastConfiguration extends Component<Props> {
           fetchZoomMembersAndEstablishments={
             this.props.fetchZoomMembersAndEstablishments
           }
+// @ts-expect-error
           processing={this.props.processing}
           resetZoomEstablishments={
             this.props.resetZoomEstablishmentsAndRefreshZoomApp

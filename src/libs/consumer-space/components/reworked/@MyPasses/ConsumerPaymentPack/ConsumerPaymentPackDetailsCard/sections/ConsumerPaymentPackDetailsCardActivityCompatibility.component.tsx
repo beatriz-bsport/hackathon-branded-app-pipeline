@@ -11,16 +11,16 @@ import {
   ClockCheck,
   UsersPlus,
   VideoRecorder,
-} from '#components/untitledui';
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
-import ConsumerCardChipList from '#libs/consumer-space/components/reworked/common/ConsumerCardChipList';
+} from '#src/components/untitledui';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardChipList from '#src/libs/consumer-space/components/reworked/common/ConsumerCardChipList';
 
 import type {
   ConsumerPaymentPackCompatibility,
   DayOfWeekNumber,
   TimeSlot,
-} from '#libs/consumer-space/types';
-import type { ChipData } from '#libs/consumer-space/components/reworked/common/ConsumerCardChipList/types';
+} from '#src/libs/consumer-space/types';
+import type { ChipData } from '#src/libs/consumer-space/components/reworked/common/ConsumerCardChipList/types';
 
 type ActivityChipDataLists = {
   activity: ChipData[];

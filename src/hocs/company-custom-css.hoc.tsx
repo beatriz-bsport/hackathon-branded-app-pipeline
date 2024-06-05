@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
-import type { MarketplaceCSSConfiguration } from '#libs/exportable-components/types';
-import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.component';
-import { CompanyTheme } from '#libs/theme/types';
+import ApplyCustomCssStyles from '#src/libs/widget/components/ApplyCustomCssStyles.component';
+import type { MarketplaceCSSConfiguration } from '#src/libs/exportable-components/types';
+import ApplyCustomTheme from '#src/libs/exportable-components/ApplyCustomTheme.component';
+import { CompanyTheme } from '#src/libs/theme/types';
 
 type CustomCssConfigurationProps = {
   customConfiguration: MarketplaceCSSConfiguration;

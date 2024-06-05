@@ -5,7 +5,7 @@ import {
   CheckCircle,
   AlertTriangle,
   AlertCircle,
-} from '#components/untitledui';
+} from '#src/components/untitledui';
 
 import { ModalDialogColorEnum } from './constants';
 import { ModalDialogColor } from './types';

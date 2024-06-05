@@ -1,24 +1,24 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
-import Card, { CardSize } from '#components/css-only/Card';
-import Grid from '#components/css-only/Grid';
-import CardContent from '#components/css-only/Card/CardContent';
+} from '#src/libs/theme/utils';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import Grid from '#src/components/css-only/Grid';
+import CardContent from '#src/components/css-only/Card/CardContent';
 
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import Price from '#components/css-only/Price';
-import type { PaymentPack } from '#libs/payment-packs/types';
+} from '#src/components/css-only/Grid/GridItem';
+import Price from '#src/components/css-only/Price';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
 
-import MinimalCardSkeleton from '#marketplacecomponents/MinimalCardSkeleton';
+import MinimalCardSkeleton from '#src/libs/marketplace/components/MinimalCardSkeleton';
 
 import './styles.css';
 

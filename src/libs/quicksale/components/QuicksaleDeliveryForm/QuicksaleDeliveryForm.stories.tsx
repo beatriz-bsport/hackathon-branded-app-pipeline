@@ -2,8 +2,8 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import QuicksaleDeliveryForm from './QuicksaleDeliveryForm.component';
-import { QuicksaleDeliveryType } from '#libs/quicksale/constants';
-import { BasketAddress } from '#libs/checkout/types';
+import { QuicksaleDeliveryType } from '#src/libs/quicksale/constants';
+import { BasketAddress } from '#src/libs/checkout/types';
 
 export default {
   title: 'Components/Quicksale/QuicksaleDeliveryForm',

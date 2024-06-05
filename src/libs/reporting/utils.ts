@@ -77,17 +77,17 @@ import type { SvgIconProps } from '@material-ui/core/SvgIcon';
 import {
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
-} from '#libs/theme/selectors';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
+} from '#src/libs/theme/selectors';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
-import type { ObjectLevelPermissions } from '#libs/role/types';
+import type { ObjectLevelPermissions } from '#src/libs/role/types';
 import type {
   DataSourceFieldMetadata,
   DatatypeFilterConfigGroup,
   AllComparator,
   DataSourceMedadataDataType,
   DynamicFilterDataType,
-} from '#libs/datatype-filtering/types';
+} from '#src/libs/datatype-filtering/types';
 import {
   DATATYPE_FILTERABLE_BY_ID_IN,
   DATATYPE_PRESET_INTEGER_VALUE,
@@ -99,9 +99,9 @@ import {
   FILTER_OUT_OPERAND,
   HOUR_SUBDATA_TYPE,
   ReportFilterableDataType,
-} from '#libs/datatype-filtering/constants';
-import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
-import { checkIdentifierAlreadyExist } from '#libs/datatype-filtering/utils';
+} from '#src/libs/datatype-filtering/constants';
+import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import { checkIdentifierAlreadyExist } from '#src/libs/datatype-filtering/utils';
 import { getLocaleWeekdays } from '#src/utils/datetime';
 import {
   GREEN_GREY_BOOLEAN_CHIPS,

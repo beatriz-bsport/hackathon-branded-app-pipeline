@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 
-import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
-import { GenericPaginationResults } from '#libs/types';
+import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
+import { GenericPaginationResults } from '#src/libs/types';
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import {
   PerformanceTrackingMemberProgram,

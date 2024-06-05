@@ -18,9 +18,9 @@ import FolderIcon from '@material-ui/icons/Folder';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import ReplacementRequestPendingChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
-import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
+import ReplacementRequestPendingChip from '#src/libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
+import FreeOfferChip from '#src/libs/offer/components/FreeOfferChip.component';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
 import {
   formatMinutes,
   formatAsDatetime,

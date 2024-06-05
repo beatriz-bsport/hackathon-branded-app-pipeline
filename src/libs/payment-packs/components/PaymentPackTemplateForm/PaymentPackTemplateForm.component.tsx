@@ -12,7 +12,7 @@ import {
   offPeakGroupDefault,
   formatOffPeakScheduleOnSubmit,
   formatOffPeakScheduleOnEdit,
-} from '#libs/payment-packs/utils';
+} from '#src/libs/payment-packs/utils';
 import type { OptionCallback } from '#src/state/types';
 import PaymentPackTemplateFormRestrictions from './PaymentPackTemplateFormRestrictions.component';
 import PaymentPackTemplateFormValidity from './PaymentPackTemplateFormValidity.component';

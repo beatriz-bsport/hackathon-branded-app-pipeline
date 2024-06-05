@@ -21,14 +21,13 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 import { Alert } from '@material-ui/lab';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import PrivateCalendar from './PrivateCalendar.component';
 import ResourceSelector from './resource/ResourceSelector.component';
 import ResourceDatatypeFilter from './resource/ResourceDatatypeFilter.component';
 import CalendarEventDetail from '../containers/CalendarEventDetail.container';
 
 import PrivateBookingBooker from '../containers/PrivateBookingBooker.container';
-
 
 import type { ResourceData } from '../types';
 import FabPrivateCalendar from './FabPrivateCalendar.component';

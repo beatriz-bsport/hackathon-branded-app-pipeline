@@ -3,12 +3,12 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import MarketplaceOfferStatusChip from '.';
 
-import { offersFactory } from '#libs/offer/factory';
-import themeFactory from '#libs/theme/factories';
+import { offersFactory } from '#src/libs/offer/factory';
+import themeFactory from '#src/libs/theme/factories';
 
 import type { Props } from '.';
 
-import { CompanyTheme } from '#libs/theme/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 
 import './styles.css';
 

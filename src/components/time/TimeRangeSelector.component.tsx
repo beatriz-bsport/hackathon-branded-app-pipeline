@@ -17,7 +17,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 // @ts-expect-error
-import { defaultHandleSubmit } from '#components/forms';
+import { defaultHandleSubmit } from '#src/components/forms';
 
 const ALL_DAY_SELECTION = {
   timePeriod: 'allDay',

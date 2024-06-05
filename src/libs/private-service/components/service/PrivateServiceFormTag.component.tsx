@@ -6,8 +6,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Typography, Collapse } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import BlockIcon from '@material-ui/icons/Block';
-import TagSelector from '#libs/tag/components/TagSelector.selector';
-import { Tag, TagGroup } from '#libs/tag/types';
+import TagSelector from '#src/libs/tag/components/TagSelector.selector';
+import { Tag, TagGroup } from '#src/libs/tag/types';
 
 type OwnProps = {
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;

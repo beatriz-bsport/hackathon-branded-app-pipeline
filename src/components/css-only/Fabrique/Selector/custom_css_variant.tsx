@@ -4,15 +4,15 @@ import { fakerEN as faker } from '@faker-js/faker';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 
-import { generateRandomName, generateRandomNames } from '#utils/factories';
+import { generateRandomName, generateRandomNames } from '#src/utils/factories';
 
 import {
   MarketplacePage,
   MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 import MenuItem from '#Fabrique/MenuItem';
 // @ts-expect-error
 import SelectorCss from './styles.css?raw';

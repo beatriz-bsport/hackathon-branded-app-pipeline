@@ -1,5 +1,5 @@
 import { fakerEN as faker } from '@faker-js/faker';
-import { CanvasSelectableToolsEnum } from '#libs/spot-scheduling/CanvasSvg/tools/CanvasStrategy';
+import { CanvasSelectableToolsEnum } from '#src/libs/spot-scheduling/CanvasSvg/tools/CanvasStrategy';
 import { RoomBlueprint } from './types';
 
 const canvasElementTypes: CanvasSelectableToolsEnum[] = [

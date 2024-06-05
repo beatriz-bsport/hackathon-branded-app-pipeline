@@ -8,9 +8,9 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { Trans, useTranslation } from 'react-i18next';
-import { ReferralTimeLimitUnits } from '#libs/referral/constants';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { ReferralTimeLimitUnits } from '#src/libs/referral/constants';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
 type Props = {
   showConditions: boolean;

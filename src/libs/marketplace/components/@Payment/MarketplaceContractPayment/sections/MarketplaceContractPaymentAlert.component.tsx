@@ -1,9 +1,9 @@
 import React from 'react';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { useTranslation } from 'react-i18next';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
-import type { Contract } from '#libs/subscription/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { computeProrataPriceForSubscription } from '#src/libs/subscription/utils';
+import type { Contract } from '#src/libs/subscription/types';
 import { formatAsDate } from '#src/utils/datetime';
 
 type Props = {

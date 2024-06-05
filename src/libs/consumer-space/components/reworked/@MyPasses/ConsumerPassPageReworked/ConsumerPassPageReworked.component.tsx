@@ -1,30 +1,30 @@
 import React from 'react';
 
-import MarketplacePageContent from '#csscomponents/MarketplacePageContent';
-import ConsumerPassHeader from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassHeader';
-import ConsumerPaymentPackListContainer from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackListContainer';
-import PrivateConsumerPassListContainer from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassListContainer';
-import UniversalPassListContainer from '#libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassListContainer';
-import ConsumerPassModals from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassModals';
-import { useConsumerPassesDataManager } from '#libs/consumer-space/components/reworked/@MyPasses/hooks';
-import { PassTabEnum } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
+import MarketplacePageContent from '#src/components/css-only/MarketplacePageContent';
+import ConsumerPassHeader from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassHeader';
+import ConsumerPaymentPackListContainer from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackListContainer';
+import PrivateConsumerPassListContainer from '#src/libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassListContainer';
+import UniversalPassListContainer from '#src/libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassListContainer';
+import ConsumerPassModals from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassModals';
+import { useConsumerPassesDataManager } from '#src/libs/consumer-space/components/reworked/@MyPasses/hooks';
+import { PassTabEnum } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
 
 import type {
   ConsumerPaymentPackREST,
   ConsumerPaymentPackReworked,
-} from '#libs/consumer-payment-pack/types';
+} from '#src/libs/consumer-payment-pack/types';
 import type {
   PrivateConsumerPassREST,
   PrivateConsumerPassReworked,
-} from '#libs/private-service/types';
+} from '#src/libs/private-service/types';
 import type {
   ConsumerPassReworked,
   ConsumerPassesTabDisplay,
-} from '#libs/consumer-space/types';
+} from '#src/libs/consumer-space/types';
 import type {
   UniversalPassREST,
   UniversalPassReworked,
-} from '#libs/universal-pass/types';
+} from '#src/libs/universal-pass/types';
 
 import './styles.css';
 

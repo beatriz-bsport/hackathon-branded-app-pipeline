@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Button, Typography } from '@material-ui/core';
 
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import type { Member } from '#libs/member/types';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import type { Member } from '#src/libs/member/types';
 
 type Props = {
   memberList: Member[];

@@ -4,20 +4,20 @@ import { useTranslation } from 'react-i18next';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
-import MarketplaceConsumerPaymentPackCard from '#marketplacecomponents/@ConsumerPaymentPack/MarketplaceConsumerPaymentPackCard';
-import MarketplaceFilterBuyableItemCategory from '#marketplacecomponents/@BuyableItem/MarketplaceFilterBuyableItemCategory';
-import MarketplaceBuyableItemCategoryList from '#marketplacecomponents/@BuyableItem/MarketplaceBuyableItemCategoryList';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import Collapse from '#components/css-only/Fabrique/Collapse';
-import ButtonBase from '#components/css-only/Fabrique/ButtonBase';
-import type { MaxoutData, PaymentPack } from '#libs/payment-packs/types';
-import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
+import MarketplaceConsumerPaymentPackCard from '#src/libs/marketplace/components/@ConsumerPaymentPack/MarketplaceConsumerPaymentPackCard';
+import MarketplaceFilterBuyableItemCategory from '#src/libs/marketplace/components/@BuyableItem/MarketplaceFilterBuyableItemCategory';
+import MarketplaceBuyableItemCategoryList from '#src/libs/marketplace/components/@BuyableItem/MarketplaceBuyableItemCategoryList';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import Collapse from '#src/components/css-only/Fabrique/Collapse';
+import ButtonBase from '#src/components/css-only/Fabrique/ButtonBase';
+import type { MaxoutData, PaymentPack } from '#src/libs/payment-packs/types';
+import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
 import type {
   BookerItem,
   BookerModuleBuyableItem,
   BuyableItemCategory,
   BuyableItemIdentifier,
-} from '#libs/booker-module/types';
+} from '#src/libs/booker-module/types';
 import { MarketplaceBookerModuleBuyableItemsSkeleton } from '.';
 
 import './styles.css';

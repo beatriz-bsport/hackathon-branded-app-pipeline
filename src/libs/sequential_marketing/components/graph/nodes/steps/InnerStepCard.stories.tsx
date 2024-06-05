@@ -9,13 +9,13 @@ import InnerStepCard, { InnerStepCardProps } from './InnerStepCard.component';
 import {
   cadenceStepFactory,
   stepMarketingActionFactory,
-} from '#libs/sequential_marketing/factories';
+} from '#src/libs/sequential_marketing/factories';
 import {
   MarketingActionKind,
   MarketingActions,
-} from '#libs/sequential_marketing/constants';
-import { tagWithoutGroupFactory } from '#libs/tag/factory';
-import { companyEmailListFactory } from '#libs/email-editor/factories/EmailTemplateSummary';
+} from '#src/libs/sequential_marketing/constants';
+import { tagWithoutGroupFactory } from '#src/libs/tag/factory';
+import { companyEmailListFactory } from '#src/libs/email-editor/factories/EmailTemplateSummary';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/InnerStep',

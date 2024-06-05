@@ -6,12 +6,12 @@ import Typography from '#Fabrique/Typography';
 import Chip from '#Fabrique/Chip/Chip.component';
 import Button from '#Fabrique/ButtonV2';
 import { ChipSizeEnum } from '#Fabrique/Chip/constants';
-import { AlarmClock, ChevronRight } from '#components/untitledui';
-import { ConsumerGenericCardBodyContainer } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
+import { AlarmClock, ChevronRight } from '#src/components/untitledui';
+import { ConsumerGenericCardBodyContainer } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
 
-import { getAvailabilityInformation } from '#libs/consumer-space/components/reworked/@MyPasses/utils';
+import { getAvailabilityInformation } from '#src/libs/consumer-space/components/reworked/@MyPasses/utils';
 
-import type { ConsumerPassCardProps } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
+import type { ConsumerPassCardProps } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
 
 type Props = Required<
   Pick<

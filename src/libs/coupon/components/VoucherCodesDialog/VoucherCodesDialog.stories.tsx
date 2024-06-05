@@ -6,7 +6,7 @@ import {
   CouponKind,
   UniqueCodeStateStatus,
 } from '@bsport/common/lib/master-data/coupon';
-import { Coupon } from '#libs/coupon/types';
+import { Coupon } from '#src/libs/coupon/types';
 import { action } from '@storybook/addon-actions';
 
 export default {

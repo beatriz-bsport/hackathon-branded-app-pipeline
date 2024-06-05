@@ -4,7 +4,7 @@ import { ComponentStory, Meta } from '@storybook/react';
 import MinimalPrivatePassCard, { MinimalPrivatePassCardForStorybook } from '.';
 
 import type { Props } from '.';
-import { privatePassFactory } from '#libs/private-service/factory';
+import { privatePassFactory } from '#src/libs/private-service/factory';
 
 const privatePass = privatePassFactory();
 

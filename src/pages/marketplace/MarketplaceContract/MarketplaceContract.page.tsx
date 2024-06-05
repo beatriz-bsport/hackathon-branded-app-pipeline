@@ -6,38 +6,38 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 
-import themeSelectors from '#libs/theme/selectors';
-import { getPaymentPack } from '#libs/payment-packs/selectors';
-import { getPrivatePass } from '#libs/private-service/selectors/private-pass';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
-import { fetchPrivatePassBulk as fetchPrivatePassBulkAction } from '#libs/private-service/actions';
+import themeSelectors from '#src/libs/theme/selectors';
+import { getPaymentPack } from '#src/libs/payment-packs/selectors';
+import { getPrivatePass } from '#src/libs/private-service/selectors/private-pass';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#src/libs/payment-packs/actions';
+import { fetchPrivatePassBulk as fetchPrivatePassBulkAction } from '#src/libs/private-service/actions';
 import {
   getPaymentCombo,
   getPaymentComboList,
-} from '#libs/payment-combo/selectors';
-import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
+} from '#src/libs/payment-combo/selectors';
+import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
 // @ts-expect-error
-import { getMarketplaceContractList } from '#libs/subscription/selectors';
-import { fetchMarketplaceContractList } from '#libs/subscription/actions';
-// @ts-expect-error
-import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import MarketplaceContractList from '#marketplacecomponents/@Subscription/MarketplaceContractList';
-import { MarketplaceContractDetailModalPortal } from '#marketplacecomponents/@Subscription/MarketplaceContractDetailModal';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+import { getMarketplaceContractList } from '#src/libs/subscription/selectors';
+import { fetchMarketplaceContractList } from '#src/libs/subscription/actions';
+import { snackbarWarning, snackbarSuccess } from '#src/libs/snackbar/actions';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import MarketplaceContractList from '#src/libs/marketplace/components/@Subscription/MarketplaceContractList';
+import { MarketplaceContractDetailModalPortal } from '#src/libs/marketplace/components/@Subscription/MarketplaceContractDetailModal';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import {
   SearchItemData,
   BaseAdditionalData,
-} from '#components/css-only/Search/Search.component';
-import { Contract } from '#libs/subscription/types';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { getContractCheckoutUrl } from '#libs/marketplace/routing-utils';
+} from '#src/components/css-only/Search/Search.component';
+import { Contract } from '#src/libs/subscription/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { getContractCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 
-import { CompanyTheme } from '#libs/theme/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 import { RootState } from '../../../reducers';
 import MarketplaceContractFilters from './MarketplaceContractFilters';
 import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
+// @ts-expect-error
 import Analytics from '../../../components/analytics/Analytics.component';
 
 import './styles.css';

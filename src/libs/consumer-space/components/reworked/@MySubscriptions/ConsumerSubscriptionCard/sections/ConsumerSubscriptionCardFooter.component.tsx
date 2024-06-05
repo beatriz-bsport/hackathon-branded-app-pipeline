@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import { ConsumerGenericCardFooter } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
-import { CalendarPlus01 } from '#components/untitledui';
+import { ConsumerGenericCardFooter } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
+import { CalendarPlus01 } from '#src/components/untitledui';
 import type { ButtonColor, ButtonVariant } from '#Fabrique/ButtonV2/types';
 import type { ConsumerSubscriptionCardProps } from '..';
 

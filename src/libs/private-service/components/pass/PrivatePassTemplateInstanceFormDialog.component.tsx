@@ -9,12 +9,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 
 import { Form } from 'formik';
-import { Submit } from '#components/forms';
+// @ts-expect-error
+import { Submit } from '#src/components/forms';
 import PrivatePassTemplateInstanceForm, {
   PrivatePassTemplateInstanceFormikHOC,
 } from './PrivatePassTemplateInstanceForm.component';
 
-// @ts-expect-error
 
 type Props = {
   onClose: () => void;

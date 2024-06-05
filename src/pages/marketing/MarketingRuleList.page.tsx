@@ -12,8 +12,8 @@ import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-r
 import {
   getNotificationGrouped,
   getNotificationForMarketingPage,
-} from '#libs/marketing/selectors';
-import { getTheme } from '#libs/theme/selectors';
+} from '#src/libs/marketing/selectors';
+import { getTheme } from '#src/libs/theme/selectors';
 
 import {
   fetchMarketingNotification,
@@ -21,83 +21,82 @@ import {
   createMarketingNotification,
   updateMarketingNotification,
   deleteMarketingNotification,
-} from '#libs/marketing/actions';
+} from '#src/libs/marketing/actions';
 import {
   emailTemplateComplete,
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
   fetchEmailTemplateSummariesBulk,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 // @ts-expect-error
-import { getActiveContractList } from '#libs/subscription/selectors';
+import { getActiveContractList } from '#src/libs/subscription/selectors';
 import {
   fetchAllPrivateServices,
   fetchPrivateServiceBulk,
   fetchPrivatePassList,
-} from '#libs/private-service/actions';
+} from '#src/libs/private-service/actions';
 import {
   fetchActivitiesCompany,
   fetchMetaActivityBulk,
-} from '#libs/meta-activity/actions';
+} from '#src/libs/meta-activity/actions';
 import {
   fetchPaymentPackList as fetchPaymentPackListAction,
   fetchPaymentPackBulk,
-} from '#libs/payment-packs/actions';
+} from '#src/libs/payment-packs/actions';
 import {
   fetchEstablishmentBulk,
   fetchEstablishments,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
-import { fetchContractList } from '#libs/subscription/actions';
+} from '#src/libs/establishment/actions';
+import { fetchContractList } from '#src/libs/subscription/actions';
 import {
   getAllEmailTemplatesDict,
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
-import { fetchMarketingNotificationCampaignSummary } from '#libs/communication/actions';
-import { getAll as getAllPaymentPacks } from '#libs/payment-packs/selectors';
+} from '#src/libs/email-editor/selectors';
+import { fetchMarketingNotificationCampaignSummary } from '#src/libs/communication/actions';
+import { getAll as getAllPaymentPacks } from '#src/libs/payment-packs/selectors';
 import {
   fetchTagList,
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
-} from '#libs/notification-rule/actions';
+} from '#src/libs/notification-rule/actions';
 import {
   getTagCategories,
   getResolvedGenericTags,
-} from '#libs/notification-rule/selectors';
+} from '#src/libs/notification-rule/selectors';
 
+import MarketingRuleListPaymentPack from '#src/libs/marketing/components/MarketingRuleListPaymentPack.component';
+import MarketingRuleListPrivatePass from '#src/libs/marketing/components/MarketingRuleListPrivatePass.component';
+import MarketingRuleListBooking from '#src/libs/marketing/components/MarketingRuleListBooking.component';
+import MarketingRuleListPrivateBooking from '#src/libs/marketing/components/MarketingRuleListPrivateBooking.component';
 
-import MarketingRuleListPaymentPack from '#libs/marketing/components/MarketingRuleListPaymentPack.component';
-import MarketingRuleListPrivatePass from '#libs/marketing/components/MarketingRuleListPrivatePass.component';
-import MarketingRuleListBooking from '#libs/marketing/components/MarketingRuleListBooking.component';
-import MarketingRuleListPrivateBooking from '#libs/marketing/components/MarketingRuleListPrivateBooking.component';
-
-import { MarketingNotification } from '#libs/marketing/types';
-import MarketingRuleDetail from '#libs/marketing/components/MarketingRuleDetail.component';
+import { MarketingNotification } from '#src/libs/marketing/types';
+import MarketingRuleDetail from '#src/libs/marketing/components/MarketingRuleDetail.component';
 import {
   EmailTemplateSummary,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import MarketingRuleFormGeneric from '#libs/marketing/components/MarketingRuleFormGeneric.component';
-import { getAllSmartList } from '#libs/smart-list/selectors';
-import { fetchAllSmartLists } from '#libs/smart-list/actions';
+} from '#src/libs/email-editor/types';
+import MarketingRuleFormGeneric from '#src/libs/marketing/components/MarketingRuleFormGeneric.component';
+import { getAllSmartList } from '#src/libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#src/libs/smart-list/actions';
 import {
   getPageEnabledPureMetaActivities,
   getEnabledWorkshops,
-} from '#libs/meta-activity/selectors';
+} from '#src/libs/meta-activity/selectors';
 import {
   getAssociatedEstablishmentGroup,
   getAvailableEstablishmentList,
   withEstablishment,
-} from '#libs/establishment/selectors';
-import { _getAvailablePrivateServices } from '#libs/private-service/selectors/private-service';
-import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
-import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import { EstablishmentGroup } from '#libs/establishment/types';
+} from '#src/libs/establishment/selectors';
+import { _getAvailablePrivateServices } from '#src/libs/private-service/selectors/private-service';
+import { showDeleteDialog } from '#src/components/genericDialog/CustomDialogs';
+import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import { EstablishmentGroup } from '#src/libs/establishment/types';
 
-import FabWithItems from '#components/button/FabWithItems';
-import MarketingRuleListContract from '#libs/marketing/components/MarketingRuleListContract.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import MarketingRuleListBirthday from '#libs/marketing/components/MarketingRuleListBirthday.component';
+import FabWithItems from '#src/components/button/FabWithItems';
+import MarketingRuleListContract from '#src/libs/marketing/components/MarketingRuleListContract.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import MarketingRuleListBirthday from '#src/libs/marketing/components/MarketingRuleListBirthday.component';
 import { MaterialStyleType } from '../../utils/types';
 import { getPrivatePassListBase as getPrivatePasses } from '../../libs/private-service/selectors/private-pass';
 import { RootState } from '../../reducers';

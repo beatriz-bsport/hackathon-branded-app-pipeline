@@ -6,7 +6,7 @@ import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
 import { withTheme } from '@storybook/theming';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-import { CompanyTheme, Theme } from '#libs/theme/types';
+import { CompanyTheme, Theme } from '#src/libs/theme/types';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import CanvasToolsMenu from './CanvasToolsMenu.component';
 import { CanvasElement } from './tools/BaseClasses/Base.tool';
@@ -304,6 +304,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           {!this.props.disableEdit && !this.props.isBoutiqueDisplay && (
             <CanvasToolbar
               blueprints={this.props.blueprints}
+// @ts-expect-error
               disableSave={!this.hasBlueprintChanged()}
               onChangeBlueprint={this.onChangeBlueprint}
               onClickExit={this.props.onExit}

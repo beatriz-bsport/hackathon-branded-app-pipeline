@@ -21,8 +21,8 @@ import {
   QuicksaleBasketItem,
 } from '@bsport/common/lib/master-data/buyable-items';
 
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 import NumericInput from '../../../components/input/NumericInput.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';

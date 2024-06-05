@@ -1,4 +1,4 @@
-import { Member as MemberType } from '#libs/member/types';
+import { Member as MemberType } from '#src/libs/member/types';
 
 export type PerformanceTrackingMetric<Program = number> = {
   id?: number;

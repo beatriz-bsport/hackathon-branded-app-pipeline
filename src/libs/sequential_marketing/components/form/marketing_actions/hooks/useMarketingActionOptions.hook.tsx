@@ -2,14 +2,13 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import { useTranslation } from 'react-i18next';
 
-
 import {
   CADENCE_MARKETING_ACTION_CHOICES,
   MarketingActions,
   SequentialMarketingColors,
-} from '#libs/sequential_marketing/constants';
-import { marketingActionIconDict } from '#libs/sequential_marketing/components/helpers/utils';
-import type { MenuAction } from '#components/menu/types';
+} from '#src/libs/sequential_marketing/constants';
+import { marketingActionIconDict } from '#src/libs/sequential_marketing/components/helpers/utils';
+import type { MenuAction } from '#src/components/menu/types';
 import Config from '../../../../../../config';
 
 type Props = {

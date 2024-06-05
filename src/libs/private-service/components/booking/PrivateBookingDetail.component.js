@@ -13,7 +13,7 @@ import {
   PRIVATE_BOOKING_CREATED_BY_STAFF,
   PRIVATE_BOOKING_CANCELLED_BY_STAFF,
   RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
-} from '#libs/private-service/components/constants';
+} from '#src/libs/private-service/components/constants';
 import PrivateBookingStaffHistory from '../history/PrivateBookingStaffHistory.component';
 import PrivateSlotListItem from '../slot/PrivateSlotListItem.component';
 import PrivateConsumerPassBookerListItem from '../booking-module/PrivateConsumerPassBookerListItem.component';

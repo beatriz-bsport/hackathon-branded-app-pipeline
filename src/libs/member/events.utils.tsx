@@ -13,8 +13,8 @@ import {
 } from '@material-ui/icons';
 import { TFunction } from 'i18next';
 import { MEMBER_EVENTS } from '@bsport/common/lib/master-data/events';
-import { GenericEvent, MemberEvent } from '#libs/event/types';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { GenericEvent, MemberEvent } from '#src/libs/event/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 const getPrimaryText = (event: GenericEvent<MemberEvent>, t: TFunction) => {
   return t(

@@ -1,4 +1,4 @@
-import { Offer, OfferStatus } from '#libs/offer/types';
+import { Offer, OfferStatus } from '#src/libs/offer/types';
 import { ErrorAndLoading } from '../types';
 
 export type GroupOfferState = ErrorAndLoading & {

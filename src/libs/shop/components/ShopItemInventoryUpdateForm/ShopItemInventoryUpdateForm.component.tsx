@@ -13,11 +13,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
 
-import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
+import { useShopDetailTabsModalPrompt } from '#src/hocs/shop-modal-prompt.hoc';
 
-import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#libs/shop/constants';
+import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#src/libs/shop/constants';
 import type { ShopItemInventoryFormValues } from './types';
-
 
 const ShopItemInventoryUpdateForm: React.FC = () => {
   const { t } = useTranslation('shop');

@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { Paper } from '@material-ui/core';
 
-// @ts-expect-error
-import ExtensionListItem from '#components/ExtensionListItem';
+import ExtensionListItem from '#src/components/ExtensionListItem';
 
-import type { PaymentPackMassExtension } from '#libs/payment-packs/types';
+import type { PaymentPackMassExtension } from '#src/libs/payment-packs/types';
+// @ts-expect-error
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 type Props = {

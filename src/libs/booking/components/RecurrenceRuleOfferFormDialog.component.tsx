@@ -15,10 +15,10 @@ import Button from '@material-ui/core/Button';
 
 import * as Yup from 'yup';
 
-import OfferListItemV2 from '#libs/offer/components/OfferListItemV2.component';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import OfferListItemV2 from '#src/libs/offer/components/OfferListItemV2.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-import type { OfferDataListItem } from '#libs/offer/types';
+import type { OfferDataListItem } from '#src/libs/offer/types';
 
 type FormikValues = { offersChecked: number[] };
 

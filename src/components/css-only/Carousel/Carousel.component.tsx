@@ -9,8 +9,8 @@ import React, {
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getCarouselItemClasses } from '#csscomponents/utils';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getCarouselItemClasses } from '#src/components/css-only/utils';
 import { useSwipe } from '../../../hooks/useSwipe';
 import { useWheel } from '../../../hooks/useWheel';
 import { SLIDESHOW_INTERVAL_TIME, SLIDESHOW_ANIMATION_TIME } from './constants';

@@ -7,13 +7,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventBusyIcon from '@material-ui/icons/EventBusy';
 import { pure } from 'recompose';
-import MarketplaceFilterComponent from '#marketplacecomponents/@RessourceFilter/MarketplaceFilterCSSOnly/MarketplaceFilterCSSOnly.component';
-import { Level } from '#libs/level/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Offer } from '#libs/offer/types';
-import { Theme } from '#libs/theme/types';
-import MarketplaceDatePicker from '#marketplacecomponents/@Date/MarketplaceDatePicker';
-import { Coach } from '#libs/associated-coach/types';
+import MarketplaceFilterComponent from '#src/libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly/MarketplaceFilterCSSOnly.component';
+import { Level } from '#src/libs/level/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Offer } from '#src/libs/offer/types';
+import { Theme } from '#src/libs/theme/types';
+import MarketplaceDatePicker from '#src/libs/marketplace/components/@Date/MarketplaceDatePicker';
+import { Coach } from '#src/libs/associated-coach/types';
 import type { LuxonDateTime } from '#src/types';
 import type {
   Establishment,

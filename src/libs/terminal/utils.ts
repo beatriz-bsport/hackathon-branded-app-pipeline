@@ -1,4 +1,4 @@
-import { TERMINAL_SETUP_FOR_FUTURE_USAGE_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
+import { TERMINAL_SETUP_FOR_FUTURE_USAGE_ALLOWED_COUNTRIES } from '#src/libs/terminal/constants';
 
 export const parseIntentIdFromClientSecret = (
   clientSecret: string,

@@ -8,11 +8,11 @@ import {
 import axios from 'axios';
 
 import type { ImmutableArray } from 'seamless-immutable';
-import type { CoachwithPerformance } from '#libs/coach-payment-rules/types';
+import type { CoachwithPerformance } from '#src/libs/coach-payment-rules/types';
 import type {
   Establishment,
   EstablishmentGroupAPI,
-} from '#libs/establishment/types';
+} from '#src/libs/establishment/types';
 
 export const bonusCoachPaymentRuleConstructor = (
   coach_payment_rule_id: number | null,

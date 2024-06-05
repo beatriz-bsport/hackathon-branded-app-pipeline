@@ -2,11 +2,11 @@ import React from 'react';
 import CommunicationInformationModal, {
   Props,
 } from './CommunicationInformationModal.component';
-import RecipientsWithMemberFactory from '#libs/communication-v2/factories/RecipientWithMember';
-import { CommunicationMessageFactory } from '#libs/communication-v2/factories/Communication';
-import { PAGINATION_SIZE_RECIPIENTS } from '#libs/communication-v2/constants';
-import { Recipient } from '#libs/communication-v2/types';
-import { Member } from '#libs/member/types';
+import RecipientsWithMemberFactory from '#src/libs/communication-v2/factories/RecipientWithMember';
+import { CommunicationMessageFactory } from '#src/libs/communication-v2/factories/Communication';
+import { PAGINATION_SIZE_RECIPIENTS } from '#src/libs/communication-v2/constants';
+import { Recipient } from '#src/libs/communication-v2/types';
+import { Member } from '#src/libs/member/types';
 
 const CustomTemplate = (args: Props) => (
   <CommunicationInformationModal {...args} />

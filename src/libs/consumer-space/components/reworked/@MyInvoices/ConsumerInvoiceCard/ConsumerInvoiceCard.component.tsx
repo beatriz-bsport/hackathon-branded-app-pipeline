@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
-import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
+import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 
-import type { ConsumerInvoice, Invoice } from '#libs/invoice/types';
+import type { ConsumerInvoice, Invoice } from '#src/libs/invoice/types';
 import {
   ConsumerInvoiceCardHeader,
   ConsumerInvoiceCardBody,
   ConsumerInvoiceCardFooter,
 } from './sections';
-
 
 import './styles.css';
 

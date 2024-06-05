@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Price from '#csscomponents/Price';
+import Price from '#src/components/css-only/Price';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
 
 import './styles.css';
 

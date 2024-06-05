@@ -8,7 +8,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import Tooltip from '#components/Tooltip.component';
+import Tooltip from '#src/components/Tooltip.component';
 import type { Coach } from '../types';
 
 type Props = {

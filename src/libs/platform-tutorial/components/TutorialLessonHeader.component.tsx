@@ -18,12 +18,12 @@ import { Skeleton } from '@material-ui/lab';
 import SeamlessImmutable from 'seamless-immutable';
 
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import ToolTip from '#components/Tooltip.component';
-import MuiIcon from '#components/MuiIcon.component';
-import InfoBox from '#components/box/InfoBox.component';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
+import ToolTip from '#src/components/Tooltip.component';
+import MuiIcon from '#src/components/MuiIcon.component';
+import InfoBox from '#src/components/box/InfoBox.component';
 
-import type { FeatureList, UpsellPackage } from '#libs/company/types';
+import type { FeatureList, UpsellPackage } from '#src/libs/company/types';
 import LessonStatusChips from './TutorialLessonStatusChip.component';
 import { isLessonCompleted, isUpsellNotSubscribed } from '../utils';
 import type {

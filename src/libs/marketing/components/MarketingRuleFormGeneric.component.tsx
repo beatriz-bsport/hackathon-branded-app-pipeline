@@ -3,10 +3,10 @@ import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
-import { Contract } from '#libs/subscription/types';
-import { SmartList } from '#libs/smart-list/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { Contract } from '#src/libs/subscription/types';
+import { SmartList } from '#src/libs/smart-list/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { OptionCallback } from '../../../state/types';
 import {
   EmailTemplateDetail,

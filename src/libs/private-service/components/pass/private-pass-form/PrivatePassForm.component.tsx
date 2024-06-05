@@ -43,9 +43,9 @@ import {
 } from 'formik';
 import WarningIcon from '@material-ui/icons/Warning';
 import InputLabel from '@material-ui/core/InputLabel';
-import { Tag, TagGroup } from '#libs/tag/types';
-import TagSelector from '#libs/tag/components/TagSelector.selector';
-import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import TagSelector from '#src/libs/tag/components/TagSelector.selector';
+import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';
 import {
   DateField,
   PriceField,
@@ -55,24 +55,23 @@ import {
   PercentField,
   RadioGroupField,
   // @ts-expect-error
-} from '#components/forms';
-// @ts-expect-error
+} from '#src/components/forms';
 
 // @ts-expect-error
-import PrivatePassCategorySelector from '#libs/payment-packs/components/category/PaymentPackCategorySelector.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { provincialTaxHelperText } from '#libs/theme/utils';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import { SCT } from '#libs/category/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
-import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
-import type { BookkeepingAccount } from '#libs/payment/types';
-import ToolTip from '#components/Tooltip.component';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import PrivatePassCategorySelector from '#src/libs/payment-packs/components/category/PaymentPackCategorySelector.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { provincialTaxHelperText } from '#src/libs/theme/utils';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import { SCT } from '#src/libs/category/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { useHasTagsSameGroup } from '#src/libs/tag/components/hooks';
+import BookkeepingAccountSelector from '#src/libs/payment/components/BookkeepingAccountSelector';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
+import ToolTip from '#src/components/Tooltip.component';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { ALMOST_100 } from '../../../../../constants';
 import UniversalPassFormPaymentPackCompatibility from '../../../../universal-pass/components/UniversalPassFormPaymentPackCompatibility.component';
 import { PrivateSlotSelectionDialog } from '../../slot/PrivateSlotSelectionDialog.component';
@@ -88,6 +87,7 @@ import {
   PrivatePassWithCompatibility,
   CompatiblePrivateService,
 } from '../../../types';
+// @ts-expect-error
 import PaymentMethodSelectorField from '../../../../payment/components/PaymentMethodSelectorField.component';
 import { OptionCallback } from '../../../../../state/types';
 

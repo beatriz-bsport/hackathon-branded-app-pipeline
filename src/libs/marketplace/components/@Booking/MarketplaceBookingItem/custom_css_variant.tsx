@@ -2,23 +2,23 @@ import React from 'react';
 
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import themeFactoryBot from '#libs/theme/factories';
-import establishmentFactoryBot from '#libs/establishment/factories/Establishments';
-import { coachFactory } from '#libs/associated-coach/factories';
-import { levelFactory } from '#libs/level/factories';
+import themeFactoryBot from '#src/libs/theme/factories';
+import establishmentFactoryBot from '#src/libs/establishment/factories/Establishments';
+import { coachFactory } from '#src/libs/associated-coach/factories';
+import { levelFactory } from '#src/libs/level/factories';
 
-import type { CompanyTheme } from '#libs/theme/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { Level } from '#libs/level/types';
-import type { Coach } from '#libs/associated-coach/types';
-import { generateRandomName } from '#utils/factories';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { Level } from '#src/libs/level/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import { generateRandomName } from '#src/utils/factories';
 // @ts-expect-error
 import MarketplaceBookingItemCss from './styles.css?raw';
 import MarketplaceBookingItem, { Props } from '.';

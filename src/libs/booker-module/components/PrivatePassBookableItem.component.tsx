@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
+} from '#src/libs/theme/utils';
 import { PrivatePass } from '../../private-service/types';
 import { getValidityInfo } from '../../private-service/utils';
 

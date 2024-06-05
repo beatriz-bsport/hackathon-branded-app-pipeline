@@ -12,40 +12,40 @@ import {
 } from '@bsport/common/lib/master-data/custom-form';
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
-import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
-// @ts-expect-error
+import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
 
-import { fetchCompanyTheme } from '#libs/theme/actions';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
 // @ts-expect-error
-import Analytics from '#components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 
 import {
   fetchCompanyCustomSignUp,
   submitSignUpCustomForm,
-} from '#libs/custom-form/actions';
-import CustomFormView from '#libs/custom-form/components/consumer-form/CustomFormView.form';
+} from '#src/libs/custom-form/actions';
+import CustomFormView from '#src/libs/custom-form/components/consumer-form/CustomFormView.form';
 import {
   getSignUpCustomFormWithEnabledField,
   getSignUpCustomFormLoading,
-} from '#libs/custom-form/selectors';
-import withScrollHeightListener from '#hocs/with-widget-scroll-height-listener.hoc';
+} from '#src/libs/custom-form/selectors';
+import withScrollHeightListener from '#src/hocs/with-widget-scroll-height-listener.hoc';
 import type {
   CustomFormFilled,
   CustomFormFieldAnswer,
   SignUpCustomFormPayload,
-} from '#libs/custom-form/types';
-import WidgetUtils from '#libs/widget/WidgetUtils';
-import CustomFormTitle from '#libs/custom-form/components/CustomFormTitle.component';
-import CustomFormTitleCSS from '#libs/custom-form/components/CustomFormTitleCSS';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
-import { isCustomFormCssVariantActivated } from '#libs/custom-form/utils';
-import { isBookingFlowNext } from '#libs/marketplace/routing-utils';
+} from '#src/libs/custom-form/types';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import CustomFormTitle from '#src/libs/custom-form/components/CustomFormTitle.component';
+import CustomFormTitleCSS from '#src/libs/custom-form/components/CustomFormTitleCSS';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
+import { isCustomFormCssVariantActivated } from '#src/libs/custom-form/utils';
+import { isBookingFlowNext } from '#src/libs/marketplace/routing-utils';
 
-import { COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE } from '#libs/sign-up-form/utils';
+import { COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE } from '#src/libs/sign-up-form/utils';
 import { WithHandlerType } from '../../../utils/types';
 import type { RootState } from '../../../reducers';
+// @ts-expect-error
 import { requestLogin } from '../../../actions/auth.actions';
 import { buildUrlParams, parseQueryString } from '../../../http';
 import type { Dispatch, OptionCallback } from '../../../state/types';

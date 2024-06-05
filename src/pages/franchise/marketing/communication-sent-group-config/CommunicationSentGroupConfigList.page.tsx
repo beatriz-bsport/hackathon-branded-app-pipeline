@@ -5,24 +5,24 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
 import { ConnectedProps, connect } from 'react-redux';
-import withTitle from '#hocs/with-title.hoc';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
   createCommunicationSentGroupConfig as createCommunicationSentGroupConfigAction,
   deleteCommunicationSentGroupConfig as deleteCommunicationSentGroupConfigAction,
   fetchCommunicationSentGroupConfigsList as fetchCommunicationSentGroupConfigsListAction,
   updateCommunicationSentGroupConfig as updateCommunicationSentGroupConfigAction,
   duplicateCommunicationSentGroupConfig as duplicateCommunicationSentGroupConfigAction,
-} from '#libs/communication/actions';
+} from '#src/libs/communication/actions';
 import {
   getAllCommunicationSentGroupConfigs,
   getCommunicationSentGroupConfig,
-} from '#libs/communication/selectors';
-import type { CommunicationSentGroupConfig } from '#libs/communication/types';
+} from '#src/libs/communication/selectors';
+import type { CommunicationSentGroupConfig } from '#src/libs/communication/types';
 // @ts-expect-error
-import SmartListFormDialog from '#libs/smart-list/components/SmartListFormDialog.component';
-import BottomActionButtons from '#components/button/BottomActionsButton.component';
-import CommunicationSentGroupConfigListing from '#libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigListing';
+import SmartListFormDialog from '#src/libs/smart-list/components/SmartListFormDialog.component';
+import BottomActionButtons from '#src/components/button/BottomActionsButton.component';
+import CommunicationSentGroupConfigListing from '#src/libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigListing';
 // @ts-expect-error
 import withQueryParams from '../../../../hocs/with-query-params.hoc';
 import { RootState } from '../../../../reducers';

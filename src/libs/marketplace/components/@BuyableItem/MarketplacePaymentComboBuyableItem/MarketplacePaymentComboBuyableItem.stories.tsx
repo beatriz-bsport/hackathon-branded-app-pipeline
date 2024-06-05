@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { paymentComboFactory } from '#libs/payment-combo/factory';
+import { paymentComboFactory } from '#src/libs/payment-combo/factory';
 import MarketplacePaymentComboBuyableItem, {
   MarketplacePaymentComboBuyableItemForStorybook,
   Props,

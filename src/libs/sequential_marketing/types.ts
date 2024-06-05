@@ -1,12 +1,12 @@
 import React from 'react';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
-import type { ErrorAndLoading } from '#libs/types';
+import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
+import type { ErrorAndLoading } from '#src/libs/types';
 import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import EntryTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/EntryTriggerBubble.component';
+} from '#src/libs/email-editor/types';
+import EntryTriggerBubble from '#src/libs/sequential_marketing/components/graph/bubbles/EntryTriggerBubble.component';
 import type {
   CadenceStatus,
   DestinationKind,

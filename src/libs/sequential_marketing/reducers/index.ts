@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import Immutable from 'seamless-immutable';
-import type { SequentialMarketingState } from '#libs/sequential_marketing/types';
+import type { SequentialMarketingState } from '#src/libs/sequential_marketing/types';
 
 import handleCadenceActions from './cadence';
 import handleCadenceStepActions from './step';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MarketplacePaymentPackRestrictionModalForStorybook, Props } from '.';
-import { paymentPackFactory } from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
 
 const fakePaymentPack = paymentPackFactory();
 

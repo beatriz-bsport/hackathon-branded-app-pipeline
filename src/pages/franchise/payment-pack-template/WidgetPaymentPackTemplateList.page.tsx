@@ -11,12 +11,12 @@ import {
 } from '@material-ui/core/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { List, Paper, Typography, Dialog } from '@material-ui/core';
-import { retrieveFranchise as retrieveFranchiseAction } from '#libs/franchise/actions';
-import { getPaymentPackTemplateListAvailable } from '#libs/payment-packs/selectors';
-import MarketplacePaymentPackTemplateListItem from '#libs/payment-packs/components/MarketplacePaymentPackTemplateListItem';
+import { retrieveFranchise as retrieveFranchiseAction } from '#src/libs/franchise/actions';
+import { getPaymentPackTemplateListAvailable } from '#src/libs/payment-packs/selectors';
+import MarketplacePaymentPackTemplateListItem from '#src/libs/payment-packs/components/MarketplacePaymentPackTemplateListItem';
 
-import PaymentPackTemplateCard from '#libs/payment-packs/components/PaymentPackTemplateCard.component';
-import { PaymentPackTemplate } from '#libs/payment-packs/types';
+import PaymentPackTemplateCard from '#src/libs/payment-packs/components/PaymentPackTemplateCard.component';
+import { PaymentPackTemplate } from '#src/libs/payment-packs/types';
 import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '../../../libs/payment-packs/actions';
 import { RootState } from '../../../reducers';
 

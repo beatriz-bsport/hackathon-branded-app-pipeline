@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import classNames from 'classnames';
 import SeamlessImmutable from 'seamless-immutable';
-import VimeoEmbedVideo from '#libs/video/components/VimeoEmbedVideo';
+import VimeoEmbedVideo from '#src/libs/video/components/VimeoEmbedVideo';
 import { TutorialCompletion, TutorialLesson } from '../types';
 import { isLessonCompleted } from '../utils';
 

@@ -3,12 +3,12 @@ import React, { memo } from 'react';
 import type { DateTime } from 'luxon';
 import type { CallHistoryMethodAction } from 'connected-react-router';
 
-import InboxThreadHeader from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadHeader.component';
+import InboxThreadHeader from '#src/libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadHeader.component';
 import type {
   CommunicationThread,
   SelectFieldItem,
-} from '#libs/communication-v2/types';
-import InboxThreadFilterContainer from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadFilterContainer.component';
+} from '#src/libs/communication-v2/types';
+import InboxThreadFilterContainer from '#src/libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadFilterContainer.component';
 import type { OptionCallback } from '../../../../state/types';
 
 export type Props = {

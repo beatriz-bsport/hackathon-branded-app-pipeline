@@ -28,9 +28,9 @@ import { makeStyles } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles';
 import { TFunction } from 'i18next';
 // @ts-expect-error
-import { TextField } from '#components/forms';
-import LocaleSelector from '#components/input/LocaleSelector.component';
-import type { StripeInit } from '#libs/payment/types';
+import { TextField } from '#src/components/forms';
+import LocaleSelector from '#src/components/input/LocaleSelector.component';
+import type { StripeInit } from '#src/libs/payment/types';
 import { getStripePkKey } from '../../../theme/selectors';
 // @ts-expect-error
 import StripeErrorCode from './StripeErrorCode.component';

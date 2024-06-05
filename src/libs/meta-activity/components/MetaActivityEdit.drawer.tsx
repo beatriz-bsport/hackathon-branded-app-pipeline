@@ -1,12 +1,12 @@
 import React from 'react';
 import { WithTranslation, useTranslation } from 'react-i18next';
-// @ts-expect-error
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { Tag, TagGroup } from '#libs/tag/types';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import { OptionCallback } from '../../../state/types';
+// @ts-expect-error
 import MetaActivityForm from './MetaActivityForm.component';
 
 type OwnProps = {

@@ -6,8 +6,8 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { Member } from '#libs/member/types';
-import MemberRelationNavigationList from '#libs/relationship/components/MemberRelationNavigationList.component';
+import { Member } from '#src/libs/member/types';
+import MemberRelationNavigationList from '#src/libs/relationship/components/MemberRelationNavigationList.component';
 
 type NavigationBetweenRelationsProps = {
   controlableMemberList?: Array<Member>;

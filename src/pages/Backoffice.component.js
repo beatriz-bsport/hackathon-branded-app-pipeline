@@ -9,29 +9,29 @@ import { CircularProgress, Typography } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
 import clx from 'classnames';
 import { DateTime } from 'luxon';
-import Intercom from '#components/intercom/Intercom.component';
+import Intercom from '#src/components/intercom/Intercom.component';
 import {
   retrieveStripeAccountStatusAction,
   retrieveStripeCompanyAction,
   getFeatureList,
-} from '#libs/company/actions';
-import { userAcknowlegdePlatformTutorial } from '#libs/platform-tutorial/selectors';
-import type { DeleteAlert } from '#libs/alerting/types';
+} from '#src/libs/company/actions';
+import { userAcknowlegdePlatformTutorial } from '#src/libs/platform-tutorial/selectors';
+import type { DeleteAlert } from '#src/libs/alerting/types';
 import {
   getLastClockin as getLastClockinAction,
   clockIn as clockInAction,
   clockOut as clockOutAction,
   getStaffsAttendanceRealTime as getStaffsAttendanceRealTimeAction,
-} from '#libs/clock-in/actions';
+} from '#src/libs/clock-in/actions';
 import {
   getLastClockin,
   getUsersPaginatedWithRolesWithRealTimeAttendance,
-} from '#libs/clock-in/selectors';
+} from '#src/libs/clock-in/selectors';
 import {
   fetchBatchUnreadAnswersCounts as fetchBatchUnreadAnswersCountsAction,
   fetchInboxThreadList as fetchInboxThreadListAction,
-} from '#libs/communication-v2/actions';
-import { fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts } from '#libs/communication-v2/utils';
+} from '#src/libs/communication-v2/actions';
+import { fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts } from '#src/libs/communication-v2/utils';
 import { AlertKind } from '../libs/alerting/constants';
 import {
   BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,

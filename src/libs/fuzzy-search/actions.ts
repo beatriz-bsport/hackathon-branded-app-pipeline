@@ -1,13 +1,13 @@
 import { createAction } from 'redux-actions';
-import { search as searchAPI } from '#libs/fuzzy-search/api';
-import type { Dispatch, OptionCallback } from '#state/types';
+import { search as searchAPI } from '#src/libs/fuzzy-search/api';
+import type { Dispatch, OptionCallback } from '#src/state/types';
 import type {
   FuzzySearchAPIParams,
   IdentifiedValue,
   ObjectSearchPaginated,
   SearchIdentifier,
   SearchObjectType,
-} from '#libs/fuzzy-search/types';
+} from '#src/libs/fuzzy-search/types';
 
 export const objectSearchActions = {
   isLoading: createAction<IdentifiedValue<boolean>>('OBJECTSEARCH/LOADING'),

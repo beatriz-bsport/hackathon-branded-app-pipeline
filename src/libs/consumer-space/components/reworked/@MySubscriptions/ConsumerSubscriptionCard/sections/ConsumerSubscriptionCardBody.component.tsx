@@ -7,10 +7,9 @@ import ListItem from '#Fabrique/ListItem';
 import Button from '#Fabrique/ButtonV2';
 import Typography from '#Fabrique/Typography';
 
-
-import { ConsumerGenericCardBodyContainer } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
-import { ChevronRight } from '#components/untitledui';
-import ConsumerSubscriptionRecurrenceLabel from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionRecurrenceLabel';
+import { ConsumerGenericCardBodyContainer } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
+import { ChevronRight } from '#src/components/untitledui';
+import ConsumerSubscriptionRecurrenceLabel from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionRecurrenceLabel';
 import type { ConsumerSubscriptionCardProps } from '..';
 
 type Props = Pick<

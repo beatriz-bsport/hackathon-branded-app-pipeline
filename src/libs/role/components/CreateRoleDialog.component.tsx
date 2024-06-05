@@ -19,18 +19,18 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import ConditionalWrapper from '#components/ConditionnalWrapper.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import ConditionalWrapper from '#src/components/ConditionnalWrapper.component';
 // @ts-expect-error
-import { Actions } from '#components/forms';
+import { Actions } from '#src/components/forms';
 import {
   DEFAULT_OBJECT_LEVEL_PERMISSIONS,
   OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP,
-} from '#libs/role/constants';
+} from '#src/libs/role/constants';
 
-import type { FeatureList } from '#libs/company/types';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
+import type { FeatureList } from '#src/libs/company/types';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#src/libs/platform-billing/upsell-identifiers';
 import { RolePermission, Role, ObjectLevelPermissions } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import {

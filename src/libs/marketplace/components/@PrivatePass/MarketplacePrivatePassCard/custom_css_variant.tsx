@@ -1,14 +1,14 @@
 import React from 'react';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 
-import { privatePassFactory } from '#libs/private-service/factory';
+import { privatePassFactory } from '#src/libs/private-service/factory';
 // @ts-expect-error
 import MarketplacePrivatePassCardCss from './styles.css?raw';
 import MarketplacePrivatePassCard, {

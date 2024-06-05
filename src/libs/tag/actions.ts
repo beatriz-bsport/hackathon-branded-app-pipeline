@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { CUSTOM_ERROR_CODE } from '#libs/constants';
+import { CUSTOM_ERROR_CODE } from '#src/libs/constants';
 import { snackbarError } from '../snackbar/actions';
 import api from './api';
 

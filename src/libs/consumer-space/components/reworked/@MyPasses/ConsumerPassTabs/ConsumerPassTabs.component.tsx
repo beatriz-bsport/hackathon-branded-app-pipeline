@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 import Selector from '#Fabrique/Selector';
 import IconButton from '#Fabrique/IconButton';
-import { FilterLines } from '#components/untitledui';
+import { FilterLines } from '#src/components/untitledui';
 
-import ConsumerGenericTabs from '#libs/consumer-space/components/reworked/common/ConsumerGenericTabs';
-import type { ConsumerPassesTabDisplay } from '#libs/consumer-space/types';
+import ConsumerGenericTabs from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericTabs';
+import type { ConsumerPassesTabDisplay } from '#src/libs/consumer-space/types';
 import { PassTabEnum } from './constants';
 
 import type { PassTab } from './types';

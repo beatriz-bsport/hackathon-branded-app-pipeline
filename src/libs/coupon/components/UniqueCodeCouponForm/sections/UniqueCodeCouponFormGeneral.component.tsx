@@ -2,8 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core';
+import FormSection from '#src/components/forms/FormSection';
 // @ts-expect-error
-import FormSection from '#components/forms/FormSection';
 import { TextFieldEnhancedLabelWithError } from '../../../../../components/forms';
 
 type Props = {

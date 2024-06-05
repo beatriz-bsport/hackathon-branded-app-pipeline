@@ -17,8 +17,8 @@ import {
   updateLevel as updateLevelAction,
   createLevel as createLevelAction,
   deleteLevel as deleteLevelAction,
-} from '#libs/level/actions';
-import { getActiveCustomLevels } from '#libs/level/selectors';
+} from '#src/libs/level/actions';
+import { getActiveCustomLevels } from '#src/libs/level/selectors';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';

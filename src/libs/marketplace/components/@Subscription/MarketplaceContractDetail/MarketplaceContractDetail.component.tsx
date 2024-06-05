@@ -6,22 +6,21 @@ import StarIcon from '@material-ui/icons/Star';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReplayIcon from '@material-ui/icons/Replay';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import Card, { CardSize } from '#csscomponents/Card';
-import Content from '#csscomponents/Card/CardContent';
-import Grid from '#csscomponents/Grid';
-import Item, { Justification } from '#csscomponents/Grid/GridItem';
-import Price, { Color } from '#csscomponents/Price';
-import CircularProgress from '#components/css-only/CircularProgress';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import Content from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
+import Item, { Justification } from '#src/components/css-only/Grid/GridItem';
+import Price, { Color } from '#src/components/css-only/Price';
+import CircularProgress from '#src/components/css-only/CircularProgress';
 
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PrivatePass } from '#libs/private-service/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { Contract } from '#libs/subscription/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { PrivatePass } from '#src/libs/private-service/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
+import { Contract } from '#src/libs/subscription/types';
 import BillingInterval from '../MarketplaceBillingInterval';
 
 import './styles.css';

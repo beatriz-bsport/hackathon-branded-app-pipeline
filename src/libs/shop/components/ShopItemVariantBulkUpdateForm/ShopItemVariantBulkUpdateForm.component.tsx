@@ -21,9 +21,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import EditIcon from '@material-ui/icons/Edit';
 
-import PriceInput from '#components/input/PriceInput.component';
+import PriceInput from '#src/components/input/PriceInput.component';
 
-import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
+import { useShopDetailTabsModalPrompt } from '#src/hocs/shop-modal-prompt.hoc';
 
 import type { ShopItemVariantBulkUpdateFormValues } from './types';
 

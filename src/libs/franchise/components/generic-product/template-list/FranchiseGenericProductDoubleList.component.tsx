@@ -3,14 +3,14 @@ import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { LinearProgress, Typography, Divider, Paper } from '@material-ui/core';
 import { Theme, makeStyles } from '@material-ui/core/styles';
-import FuzzySearch from '#components/search/FuzzySearch.component';
-import IsEmptyList from '#components/navigation/IsEmptyList.component';
+import FuzzySearch from '#src/components/search/FuzzySearch.component';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
 import {
   FranchiseCompany,
   GenericProductTemplate,
-} from '#libs/franchise/types';
-import { sortCompanyListByIsAllowedAndName } from '#libs/franchise/utils';
-import GenericDeleteDialog from '#components/genericDialog/GenericDeleteDialog.component';
+} from '#src/libs/franchise/types';
+import { sortCompanyListByIsAllowedAndName } from '#src/libs/franchise/utils';
+import GenericDeleteDialog from '#src/components/genericDialog/GenericDeleteDialog.component';
 import FranchiseGenericProductListItem from './FranchiseGenericProductListItem.component';
 import { OptionCallback } from '../../../../../state/types';
 

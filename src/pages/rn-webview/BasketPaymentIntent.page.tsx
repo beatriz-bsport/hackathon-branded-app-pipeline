@@ -18,74 +18,77 @@ import {
   PAYMENT_INTENT_TYPE_BASKET,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
-// @ts-expect-error
 import {
   checkItemsBasket as checkItemsBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
   createPendingBookings as createPendingBookingsAPI,
-} from '#libs/payment/api';
-// @ts-expect-error
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+} from '#src/libs/payment/api';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
   fetchBasket as fetchBasketAction,
   attachPaymentToBasketId as attachPaymentAction,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
   assignInstalmentPayment as assignInstalmentPaymentAction,
-} from '#libs/checkout/actions';
-import { fetchPaymentMethodList } from '#libs/payment/actions';
-import { fetchCompanyTheme } from '#libs/theme/actions';
-import { getSavedPaymentMethodList } from '#libs/payment/selectors';
-import { getBasket, getOffersListFromBasket } from '#libs/checkout/selectors';
-import { PaymentMethod, type StripeInit } from '#libs/payment/types';
-import { unauthenticatedRequestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
-import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
-import { Basket, PrepaidLine } from '#libs/checkout/types';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import PrepaidLineListItem from '#libs/checkout/components/PrepaidLineListItem.component';
-import type { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/checkout/actions';
+import { fetchPaymentMethodList } from '#src/libs/payment/actions';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
+import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
+import {
+  getBasket,
+  getOffersListFromBasket,
+} from '#src/libs/checkout/selectors';
+import { PaymentMethod, type StripeInit } from '#src/libs/payment/types';
+import { unauthenticatedRequestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
+import { getUsableCreditAccountBalance } from '#src/libs/membership/selectors';
+import { Basket, PrepaidLine } from '#src/libs/checkout/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import PrepaidLineListItem from '#src/libs/checkout/components/PrepaidLineListItem.component';
+import type { CompanyTheme } from '#src/libs/theme/types';
 import {
   getSubTotal,
   hasRedirectionFailed,
   shouldCheckPaymentStatus,
   shouldNotRetrieveSecret,
-} from '#libs/checkout/utils';
-import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
-import { fetchMembershipByBasket } from '#libs/membership/actions';
-import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+} from '#src/libs/checkout/utils';
+import BasketTaxInfo from '#src/libs/checkout/components/BasketTaxInfo.component';
+import { fetchMembershipByBasket } from '#src/libs/membership/actions';
+import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 import {
   fetchMember as fetchMemberAction,
   updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
-} from '#libs/member/actions';
-import { validateUnpaid as validateUnpaidAPI } from '#libs/checkout/api';
-import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#libs/instalment-payment-configuration/actions';
+} from '#src/libs/member/actions';
+import { validateUnpaid as validateUnpaidAPI } from '#src/libs/checkout/api';
+import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#src/libs/instalment-payment-configuration/actions';
 
 import {
   snackbarWarning,
   snackbarSuccess,
   snackbarError,
-} from '#libs/snackbar/actions';
-import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
-import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
+} from '#src/libs/snackbar/actions';
+import { getInstalmentForBasketList } from '#src/libs/instalment-payment-configuration/selectors';
+import { InstalmentPayment } from '#src/libs/instalment-payment-configuration/types';
 
-// @ts-expect-error
-import { isErrorWithCustomCode } from '#libs/utils';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 import {
   getDefaultEstablishmentBillingGroup,
   getEnabledEstablishmentBillingGroups,
-} from '#libs/establishment/selectors';
-import { withEstablishment, withMetaActivity } from '#libs/offer/selectors';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
-import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
-import { loadDefaultEstablishmentBillingGroup } from '#libs/marketplace/utils/booking';
+} from '#src/libs/establishment/selectors';
+import { withEstablishment, withMetaActivity } from '#src/libs/offer/selectors';
+import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import { fetchOfferBulk as fetchOfferBulkAction } from '#src/libs/offer/actions';
+import { loadDefaultEstablishmentBillingGroup } from '#src/libs/marketplace/utils/booking';
+// @ts-expect-error
 import CheckPaymentStatus from '../checkout/basket/CheckPaymentStatus.component';
 import { MaterialStyleType } from '../../utils/types';
 import type { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 
 const PaymentStripe = asyncComponent(

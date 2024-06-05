@@ -7,8 +7,8 @@ import {
   consumerInvoiceFactory,
   invoiceItemBatchFactory,
   paymentItemBatchFactory,
-} from '#libs/invoice/factories';
-import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+} from '#src/libs/invoice/factories';
+import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 
 const ConsumerInvoiceDetailsCardTemplate: ComponentStory<
   typeof ConsumerInvoiceDetailsCardStorybook

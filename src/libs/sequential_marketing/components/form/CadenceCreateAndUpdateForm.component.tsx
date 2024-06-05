@@ -15,10 +15,10 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core';
 // @ts-expect-error
-import { TextField, SwitchField } from '#components/forms';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { TextField, SwitchField } from '#src/components/forms';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-import type { Cadence } from '#libs/sequential_marketing/types';
+import type { Cadence } from '#src/libs/sequential_marketing/types';
 import type { OptionCallback } from '../../../../state/types';
 
 export type ComponentProps = {

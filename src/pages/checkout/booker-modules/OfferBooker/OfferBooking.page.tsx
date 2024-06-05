@@ -30,15 +30,15 @@ import {
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 // @ts-expect-error
-import Analytics from '#components/analytics/Analytics.component';
-import withTheme from '#hocs/company-themifier.hoc';
+import Analytics from '#src/components/analytics/Analytics.component';
+import withTheme from '#src/hocs/company-themifier.hoc';
 
-import { urlToMarketplace } from '#libs/marketplace/utils';
-import themeSelectors from '#libs/theme/selectors';
+import { urlToMarketplace } from '#src/libs/marketplace/utils';
+import themeSelectors from '#src/libs/theme/selectors';
 import {
   getOfferById,
   withEstablishment,
@@ -49,13 +49,13 @@ import {
   withBookableStatus,
   getBookingGuestNumberLeft,
   getOfferStatusWaitingListPositionById,
-} from '#libs/offer/selectors';
+} from '#src/libs/offer/selectors';
 import {
   getGroupOffersIdsToBeBooked,
   withGroup,
   getGroupOffersStatus,
   getOffersListByGroup as getOffersListByGroupSelector,
-} from '#libs/group-offer/selectors';
+} from '#src/libs/group-offer/selectors';
 import {
   fetchOfferStatusList,
   fetchOfferStatus as fetchOfferStatusAction,
@@ -68,63 +68,63 @@ import {
   fetchOfferBulk as fetchOfferBulkAction,
   setStoredOffersInGroups as setStoredOffersInGroupsAction,
   fetchOfferWaitingListPosition as fetchOfferWaitingListPositionAction,
-} from '#libs/offer/actions';
+} from '#src/libs/offer/actions';
 import {
   snackbarError as snackbarErrorAction,
   snackbarWarning as snackbarWarningAction,
-} from '#libs/snackbar/actions';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
+} from '#src/libs/snackbar/actions';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
 import {
   fetchSpotForBlueprint,
   fetchRoomBlueprintDetail,
   fetchAssetForBlueprint,
-} from '#libs/spot-scheduling/actions';
+} from '#src/libs/spot-scheduling/actions';
 import {
   getSpotTypesOfCompany,
   getAssetByBlueprintByIdentifier,
-} from '#libs/spot-scheduling/selector';
-import { getWaitingListConfigurationData } from '#libs/waiting-list/selectors';
+} from '#src/libs/spot-scheduling/selector';
+import { getWaitingListConfigurationData } from '#src/libs/waiting-list/selectors';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { fetchMetaActivityBulk } from '#src/libs/meta-activity/actions';
 import {
   fetchGroupOffer as fetchGroupOfferAction,
   getGroupOfferBookableStatus as getGroupOfferBookableStatusAction,
   listGroupOfferOffersIdsToBeBooked as listGroupOfferOffersIdsToBeBookedAction,
   getGroupOfferFirstOfferIdToBeBooked as getGroupOfferFirstOfferIdToBeBookedAction,
   resetOffersToBeBookedByGroup as resetOffersToBeBookedByGroupAction,
-} from '#libs/group-offer/actions';
-import { fetchCoachBulk } from '#libs/associated-coach/actions';
+} from '#src/libs/group-offer/actions';
+import { fetchCoachBulk } from '#src/libs/associated-coach/actions';
 import {
   fetchEstablishmentBulk,
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
-} from '#libs/establishment/actions';
-import { Offer_FULL, Offer } from '#libs/offer/types';
-import SimilarOffers from '#libs/booker-module/components/SimilarOfferSelector.component';
-import BookerModuleHeader from '#libs/booker-module/components/BookerModuleHeader.component';
-import OfferListSummary from '#libs/booker-module/components/OfferListSummary.component';
+} from '#src/libs/establishment/actions';
+import { Offer_FULL, Offer } from '#src/libs/offer/types';
+import SimilarOffers from '#src/libs/booker-module/components/SimilarOfferSelector.component';
+import BookerModuleHeader from '#src/libs/booker-module/components/BookerModuleHeader.component';
+import OfferListSummary from '#src/libs/booker-module/components/OfferListSummary.component';
 
-import { getMyRelatedMemberList } from '#libs/relationship/selectors';
-import { fetchMyRelatedMemberList } from '#libs/relationship/actions';
+import { getMyRelatedMemberList } from '#src/libs/relationship/selectors';
+import { fetchMyRelatedMemberList } from '#src/libs/relationship/actions';
 
 import {
   OfferData,
   SelectedPack,
   OfferConstraint,
   AdditionalGuest,
-} from '#libs/booker-module/types';
-import { MemberMinimal } from '#libs/member/types';
+} from '#src/libs/booker-module/types';
+import { MemberMinimal } from '#src/libs/member/types';
 
-import BookButton from '#libs/booker-module/components/BookButton.components';
-import GroupOfferRedirectToFirstOfferDialog from '#marketplacecomponents/@Offer/GroupOfferRedirectToFirstOffer.dialog';
+import BookButton from '#src/libs/booker-module/components/BookButton.components';
+import GroupOfferRedirectToFirstOfferDialog from '#src/libs/marketplace/components/@Offer/GroupOfferRedirectToFirstOffer.dialog';
 
-import { REDIRECTED_TO_FIRST_OFFER_TO_BE_BOOKED } from '#libs/group-offer/constants';
+import { REDIRECTED_TO_FIRST_OFFER_TO_BE_BOOKED } from '#src/libs/group-offer/constants';
 import {
   getCheckoutUrl,
   getCheckoutValidationUrl,
-} from '#libs/marketplace/routing-utils';
-import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#libs/waiting-list/actions';
-import { getEnabledEstablishmentBillingGroups } from '#libs/establishment/selectors';
+} from '#src/libs/marketplace/routing-utils';
+import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#src/libs/waiting-list/actions';
+import { getEnabledEstablishmentBillingGroups } from '#src/libs/establishment/selectors';
 import OfferSpotSelector from './OfferSpotSelector';
 import BookingMethodSelector from './BookingMethodSelector.container';
 import { buildUrlParams, parseQueryString } from '../../../../http';

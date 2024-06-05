@@ -11,9 +11,9 @@ import TableCell from '@material-ui/core/TableCell';
 import Chip from '@material-ui/core/Chip';
 import EventBusy from '@material-ui/icons/EventBusy';
 
-import { ReplacementRequestCoachAnswer } from '#libs/replacement-request/types';
-import { Coach } from '#libs/associated-coach/types';
-import ReplacementRequestCoachAnswerTableRow from '#libs/replacement-request/components/coach-answer-table/ReplacementRequestCoachAnswerTableRow.component';
+import { ReplacementRequestCoachAnswer } from '#src/libs/replacement-request/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import ReplacementRequestCoachAnswerTableRow from '#src/libs/replacement-request/components/coach-answer-table/ReplacementRequestCoachAnswerTableRow.component';
 
 type Props = {
   replacementRequestCoachAnswerList: ReplacementRequestCoachAnswer<

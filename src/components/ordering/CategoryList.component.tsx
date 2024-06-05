@@ -16,12 +16,12 @@ import memoize from 'memoize-one';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import CategoryItemWithItems, {
   PresentationalComponentCategory,
-} from '#components/ordering/CategoryItem.component';
+} from '#src/components/ordering/CategoryItem.component';
 import {
   Category,
   CategoryWithItems,
   ListItem,
-} from '#components/ordering/types';
+} from '#src/components/ordering/types';
 import { OptionCallback } from '../../state/types';
 
 export type Props = {

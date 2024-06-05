@@ -13,10 +13,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
-} from '#libs/theme/selectors';
-import CouponCodeForm from '#libs/coupon/components/CouponCodeForm.component';
-import type { PaymentGroup } from '#libs/payment/types';
-import type { Basket } from '#libs/checkout/types';
+} from '#src/libs/theme/selectors';
+import CouponCodeForm from '#src/libs/coupon/components/CouponCodeForm.component';
+import type { PaymentGroup } from '#src/libs/payment/types';
+import type { Basket } from '#src/libs/checkout/types';
 
 import type { OptionCallback } from '../../../../state/types';
 import useStyles from './styles';

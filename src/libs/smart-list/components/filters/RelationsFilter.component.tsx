@@ -19,9 +19,9 @@ import {
   BETWEEN_COMPARATOR,
   GTE_COMPARATOR,
 } from '@bsport/common/lib/master-data/smart-list';
-import DelayedNumericInput from '#components/DelayedNumericInput.component';
+import DelayedNumericInput from '#src/components/DelayedNumericInput.component';
 
-import ToolTip from '#components/Tooltip.component';
+import ToolTip from '#src/components/Tooltip.component';
 import { MaterialStyleType } from '../../../../utils/types';
 
 import CalendarPicker from '../CalendarPicker.component';

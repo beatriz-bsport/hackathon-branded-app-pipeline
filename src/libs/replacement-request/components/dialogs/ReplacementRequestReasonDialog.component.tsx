@@ -12,9 +12,9 @@ import { useTheme } from '@material-ui/core/';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { DateTime } from 'luxon';
-import ValidationIcon from '#components/icons/ValidationIcon.component';
-import { ReplacementRequestAPIData } from '#libs/replacement-request/types';
-import { CoachLateReplacementRequestStatus } from '#libs/associated-coach/types';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
+import { ReplacementRequestAPIData } from '#src/libs/replacement-request/types';
+import { CoachLateReplacementRequestStatus } from '#src/libs/associated-coach/types';
 import { OptionCallback } from '../../../../state/types';
 
 type Props = {

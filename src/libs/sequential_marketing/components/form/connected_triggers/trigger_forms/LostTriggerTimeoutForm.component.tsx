@@ -6,14 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import type {
   ConnectedTrigger,
   TriggerTimeoutConfig,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 
 import {
   SequentialMarketingColors,
   TIMEOUT_TRIGGER_INPUT_WIDTH,
-} from '#libs/sequential_marketing/constants';
-import { CustomMuiIcon } from '#components/icons/CustomMuiIcon.component';
-import NumericInput from '#components/input/NumericInput.component';
+} from '#src/libs/sequential_marketing/constants';
+import { CustomMuiIcon } from '#src/components/icons/CustomMuiIcon.component';
+import NumericInput from '#src/components/input/NumericInput.component';
 import useTimeOutContext from '../hooks/useTimeOutContext.hook';
 
 type Props = {

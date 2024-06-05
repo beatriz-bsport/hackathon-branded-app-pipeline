@@ -23,14 +23,15 @@ import { compose } from 'recompose';
 import classNames from 'classnames';
 import { Divider } from '@material-ui/core';
 import chroma from 'chroma-js';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import CreateRoleMasterAccount from '#libs/franchise/components/FranchiseCreateRoleMasterAccount.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import CreateRoleMasterAccount from '#src/libs/franchise/components/FranchiseCreateRoleMasterAccount.component';
 import {
   FranchiseRole,
   FranchiseRoleFranchiseeData,
   FranchiseRoleMasterAccountData,
-} from '#libs/role/types';
+} from '#src/libs/role/types';
 import { MaterialStyleType } from '../../../utils/types';
+// @ts-expect-error
 import asyncComponent from '../../../AsyncComponent';
 
 type OwnProps = {
@@ -139,7 +140,7 @@ const STEP_MASTER_ACCOUNT: number = 0;
 const STEP_FRANCHISEE: number = 1;
 
 const CreateRoleFranchisee = asyncComponent(
-  () => import('#libs/role/components/CreateRoleDialog.component'),
+  () => import('#src/libs/role/components/CreateRoleDialog.component'),
 );
 
 const DEFAULT_MASTER_ACCOUNT_DATA: FranchiseRoleMasterAccountData = {
@@ -212,6 +213,7 @@ class FranchiseCreateRoleDialog extends React.Component<Props, State> {
         <Divider className={this.props.classes.divider} />
         {this.state.currentStep === STEP_MASTER_ACCOUNT && (
           <CreateRoleMasterAccount
+// @ts-expect-error
             open
             onClose={this.props.onClose}
             onNext={(data) => {

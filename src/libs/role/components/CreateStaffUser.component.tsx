@@ -17,7 +17,7 @@ import { Theme } from '@material-ui/core/styles';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-import { Coach } from '#libs/associated-coach/types';
+import { Coach } from '#src/libs/associated-coach/types';
 import PasswordInput from '../../../components/input/PasswordInput.component';
 import { Role, UserRoleData, SelectFieldItem } from '../types';
 import { MaterialStyleType } from '../../../utils/types';

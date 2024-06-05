@@ -1,10 +1,10 @@
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PrivatePass } from '#libs/private-service/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { ShopItem } from '#libs/shop/types';
-import { Giftcard } from '#libs/giftcard/types';
-import { Contract } from '#libs/subscription/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { PrivatePass } from '#src/libs/private-service/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
+import { ShopItem } from '#src/libs/shop/types';
+import { Giftcard } from '#src/libs/giftcard/types';
+import { Contract } from '#src/libs/subscription/types';
 import { QuicksaleItemColor, QuicksaleSectionColor } from './constants';
 import { ErrorAndLoading } from '../types';
 

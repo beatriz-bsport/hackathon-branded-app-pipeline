@@ -1,9 +1,9 @@
-import { displayReworkedMemberProfile } from '#libs/consumer-space/constants';
+import { displayReworkedMemberProfile } from '#src/libs/consumer-space/constants';
 import {
   EXPORTABLE_COMPONENT_TYPE_REFERRAL,
   EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING,
   EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS,
-} from '#libs/exportable-components/constants/widget_builder';
+} from '#src/libs/exportable-components/constants/widget_builder';
 import {
   EXPORTABLE_COMPONENT_TYPE_VOD,
   EXPORTABLE_COMPONENT_TYPE_WORKSHOP,

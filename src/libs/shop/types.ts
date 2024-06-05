@@ -2,8 +2,8 @@ import {
   ErrorAndLoading,
   PaginationFilterParams,
   WithPagination,
-} from '#libs/types';
-import { PaginatedResponse } from '#state/types';
+} from '#src/libs/types';
+import { PaginatedResponse } from '#src/state/types';
 import { ShopItemDetailTab } from './components/ShopItemDetail/constants';
 
 export type Provision = {

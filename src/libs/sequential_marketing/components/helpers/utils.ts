@@ -22,7 +22,7 @@ import {
   TRIGGER_TEMPORARY_ID,
   CADENCE_EVENT_CATEGORY_CHOICES,
   TRIGGER_DEFAULT_ICON,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
 import type {
   ConnectedTrigger,
@@ -30,10 +30,10 @@ import type {
   StepMarketingActionsCommunicationSpec,
   StepMarketingActionsTagSpec,
   TriggerEventConfig,
-} from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
-import type { EmailTemplateSummary } from '#libs/email-editor/types';
-import type { Tag } from '#libs/tag/types';
+} from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { EmailTemplateSummary } from '#src/libs/email-editor/types';
+import type { Tag } from '#src/libs/tag/types';
 
 type TriggerIconProps = {
   connected_trigger_config: ConnectedTrigger;

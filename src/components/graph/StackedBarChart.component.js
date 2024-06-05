@@ -21,7 +21,7 @@ import {
   DAILY_DURATION_DISPLAY_LIMIT,
   WEEKLY_DURATION_DISPLAY_LIMIT,
   MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS,
-} from '#libs/statistics/utils';
+} from '#src/libs/statistics/utils';
 
 const DEBOUNCING_LIMIT = 200;
 

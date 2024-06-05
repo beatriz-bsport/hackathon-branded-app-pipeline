@@ -18,8 +18,8 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 
 import type { ShopItemHistoryTableRow } from '../types';
 
-import { SHOPITEM_PER_PAGE } from '#libs/shop/constants';
-import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
+import { SHOPITEM_PER_PAGE } from '#src/libs/shop/constants';
+import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
 
 type TableRowItemProps = {
   item: ShopItemHistoryTableRow;

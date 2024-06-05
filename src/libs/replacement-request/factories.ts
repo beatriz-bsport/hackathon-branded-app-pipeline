@@ -1,10 +1,10 @@
-import { offerFactory } from '#libs/offer/factory';
+import { offerFactory } from '#src/libs/offer/factory';
 
-import { Coach } from '#libs/associated-coach/types';
-import { Tag } from '#libs/tag/types';
-import { Establishment } from '#libs/establishment/types';
-import { Level } from '#libs/level/types';
-import { coachFactory } from '#libs/associated-coach/factories';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Tag } from '#src/libs/tag/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { Level } from '#src/libs/level/types';
+import { coachFactory } from '#src/libs/associated-coach/factories';
 import {
   ReplacementRequestCoachAnswerStatus,
   ReplacementRequestStatus,

@@ -2,9 +2,9 @@ import React, { memo } from 'react';
 
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
-import { Circle, Union } from '#components/untitledui';
+import { Circle, Union } from '#src/components/untitledui';
 import InputBase from '#Fabrique/InputBase';
 import type { RadioButtonSize } from './types';
 import { RadioButtonSizeEnum } from './constants';

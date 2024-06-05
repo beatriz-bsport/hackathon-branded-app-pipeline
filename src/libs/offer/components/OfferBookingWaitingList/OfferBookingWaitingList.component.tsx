@@ -4,21 +4,23 @@ import { useTranslation } from 'react-i18next';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Skeleton from '@material-ui/lab/Skeleton';
 
-import StatusMessageWithIcon from '#csscomponents/StatusMessageWithIcon';
+import StatusMessageWithIcon from '#src/components/css-only/StatusMessageWithIcon';
 import {
   useOfferWaitingListStatus,
   useOfferWaitingListStatusText,
-} from '#libs/offer/hooks';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+} from '#src/libs/offer/hooks';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import type { Offer, OfferStatus } from '#libs/offer/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { OffersGroup } from '#libs/group-offer/types';
-import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
-import Button, { ButtonVariant } from '#components/css-only/Fabrique/Button';
+import type { Offer, OfferStatus } from '#src/libs/offer/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { OffersGroup } from '#src/libs/group-offer/types';
+import BookerModuleOfferSummary from '#src/libs/marketplace/components/@Offer/BookerModuleOfferSummary';
+import Button, {
+  ButtonVariant,
+} from '#src/components/css-only/Fabrique/Button';
 import OfferBookingWaitingListStatusIcon from '../OfferBookingWaitingListStatusIcon';
 
 import './styles.css';

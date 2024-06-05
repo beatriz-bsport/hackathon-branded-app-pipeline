@@ -18,22 +18,25 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
 import { useTheme } from '@material-ui/styles';
-import { ReplacementRequest } from '#libs/replacement-request/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Level } from '#libs/level/types';
-import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
-import { Offer, OfferMinimal } from '#libs/offer/types';
-import { MetaActivity } from '#libs/meta-activity/types';
+import { ReplacementRequest } from '#src/libs/replacement-request/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Level } from '#src/libs/level/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
+import { Offer, OfferMinimal } from '#src/libs/offer/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
 import {
   ReplacementDisplays,
   ReplacementRequestCoachAnswerStatus,
   REPLACEMENT_DISPLAYS_OFFERS,
   REPLACEMENT_DISPLAYS_REPLACEMENT_REQUESTS,
-} from '#libs/replacement-request/constants';
-import ActivitiesToReplaceTableRow from '#libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTableRow.component';
-import ActivitiesToReplaceTableHeader from '#libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTableHeader.component';
-import ActivitiesPlannedTableRow from '#libs/replacement-request/components/replacement-request-table/ActivitiesPlannedTableRow.component';
-import { replacementEmptyChipTranslationKey } from '#libs/replacement-request/utils';
+} from '#src/libs/replacement-request/constants';
+import ActivitiesToReplaceTableRow from '#src/libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTableRow.component';
+import ActivitiesToReplaceTableHeader from '#src/libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTableHeader.component';
+import ActivitiesPlannedTableRow from '#src/libs/replacement-request/components/replacement-request-table/ActivitiesPlannedTableRow.component';
+import { replacementEmptyChipTranslationKey } from '#src/libs/replacement-request/utils';
 
 type Props = {
   timezoneName: string;

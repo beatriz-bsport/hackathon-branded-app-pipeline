@@ -4,10 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { useFormikContext, withFormik } from 'formik';
 
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
+import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
 
-import { getTriggerKind } from '#libs/sequential_marketing/components/helpers/utils';
+import { getTriggerKind } from '#src/libs/sequential_marketing/components/helpers/utils';
 import { uniqueTriggerValidationSchema } from './validationSchema';
 import ConnectedTriggerContent from './ConnectedTriggerContent.component';
 

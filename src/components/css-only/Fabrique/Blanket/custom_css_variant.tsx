@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next';
 import Button from '#Fabrique/ButtonV2';
 import Card from '#Fabrique/Card';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplacePage,
   type MarketplaceCSSComponentConfig,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 // @ts-expect-error
 import BlanketCss from './styles.css?raw';
 import Blanket from '.';

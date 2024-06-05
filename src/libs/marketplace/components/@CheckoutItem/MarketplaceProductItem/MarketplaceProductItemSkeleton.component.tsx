@@ -1,5 +1,5 @@
 import React from 'react';
-import Skeleton from '#components/css-only/Skeleton';
+import Skeleton from '#src/components/css-only/Skeleton';
 
 import './styles-skeleton.css';
 

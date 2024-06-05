@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import Popover from '@material-ui/core/Popover';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { Member } from '#libs/member/types';
+import { Member } from '#src/libs/member/types';
 import AppBarNavigationBetweenRelations from './AppBarNavigationBetweenRelations.component';
 
 type ProfileMenuProps = {

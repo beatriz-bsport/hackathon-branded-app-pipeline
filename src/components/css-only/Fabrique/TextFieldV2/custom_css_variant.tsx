@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { fakerEN as faker } from '@faker-js/faker';
-import { Star06 } from '#components/untitledui';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { Star06 } from '#src/components/untitledui';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 import TextField, { type Props as TextFieldProps } from '.';
 import type { TextFieldSize, TextFieldType } from './types';
 import { TextFieldSizeEnum, TextFieldTypeEnum } from './constants';

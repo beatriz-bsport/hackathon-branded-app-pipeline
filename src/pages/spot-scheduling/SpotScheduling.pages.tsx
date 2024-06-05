@@ -7,7 +7,7 @@ import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import { ROOM_PLAN_NOT_EDITABLE_BECAUSE_AVAILABLE_OFFERS_SCHEDULED } from '@bsport/common/lib/master-data/spot-scheduling';
 import { v4 as uuid4 } from 'uuid';
-import CanvasEditorComponent from '#libs/spot-scheduling/CanvasSvg/CanvasEditor.component';
+import CanvasEditorComponent from '#src/libs/spot-scheduling/CanvasSvg/CanvasEditor.component';
 
 import {
   createAssetForBlueprint,
@@ -21,34 +21,34 @@ import {
   updateSpotForBlueprint,
   deleteSpotType,
   fetchUnboundAssetForBlueprintPaginated,
-} from '#libs/spot-scheduling/actions';
+} from '#src/libs/spot-scheduling/actions';
 import {
   AssetForBlueprint,
   RoomBlueprint,
   SpotType,
-} from '#libs/spot-scheduling/types';
+} from '#src/libs/spot-scheduling/types';
 import {
   getAssetByIdentifier,
   getRoomBlueprint,
   getAvailableRoomBlueprints,
   getSpotTypesOfCompanyByBlueprintId,
-} from '#libs/spot-scheduling/selector';
-import themeSelectors from '#libs/theme/selectors';
-import { snackbar } from '#libs/snackbar/actions';
-import CanvasSpotCreatorDrawer from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorDrawer.component';
-import CanvasAssetUploaderDialog from '#libs/spot-scheduling/component/SpotCreator/CanvasAssetUploaderDialog.component';
-import CanvasSpotDeleteModal from '#libs/spot-scheduling/CanvasSvg/CanvasSpotDeleteModal.component';
-import { PERSONALIZED_CUSTOMIZATION } from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
-import SpiviConfirmationDialog from '#libs/spot-scheduling/component/SpiviConfirmationDialog.component';
+} from '#src/libs/spot-scheduling/selector';
+import themeSelectors from '#src/libs/theme/selectors';
+import { snackbar } from '#src/libs/snackbar/actions';
+import CanvasSpotCreatorDrawer from '#src/libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorDrawer.component';
+import CanvasAssetUploaderDialog from '#src/libs/spot-scheduling/component/SpotCreator/CanvasAssetUploaderDialog.component';
+import CanvasSpotDeleteModal from '#src/libs/spot-scheduling/CanvasSvg/CanvasSpotDeleteModal.component';
+import { PERSONALIZED_CUSTOMIZATION } from '#src/libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
+import SpiviConfirmationDialog from '#src/libs/spot-scheduling/component/SpiviConfirmationDialog.component';
 
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
-import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { FeatureList } from '#libs/company/types';
-import { buildSpiviCorrespondence } from '#libs/spot-scheduling/utils';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
+import { UPSELL_IDENTIFIER_SPIVI } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { FeatureList } from '#src/libs/company/types';
+import { buildSpiviCorrespondence } from '#src/libs/spot-scheduling/utils';
 
-import { isErrorWithCustomCode } from '#libs/utils';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

@@ -14,8 +14,8 @@ import {
   Theme,
 } from '@material-ui/core';
 // @ts-expect-error
-import { TextField, IconField, AlertError } from '#components/forms';
-import { MuiIconName } from '#components/input/muiIcon/MuiIconNameType';
+import { TextField, IconField, AlertError } from '#src/components/forms';
+import { MuiIconName } from '#src/components/input/muiIcon/MuiIconNameType';
 import { OptionCallback } from '../../../state/types';
 import { CustomShopRedirection } from '../types';
 

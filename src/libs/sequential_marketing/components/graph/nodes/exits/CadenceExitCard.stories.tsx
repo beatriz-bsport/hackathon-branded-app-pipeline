@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import CadenceExitCard, {
   CadenceExitCardProps,
 } from './CadenceExitCard.component';
-import { DestinationStatus } from '#libs/sequential_marketing/constants';
+import { DestinationStatus } from '#src/libs/sequential_marketing/constants';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/Exit',

@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions';
 
 import * as Sentry from '@sentry/react';
-import { LinkToCompanyWithReferralPayload } from '#libs/referral/types';
-import { referralExceptionActions } from '#libs/referral/actions';
+import { LinkToCompanyWithReferralPayload } from '#src/libs/referral/types';
+import { referralExceptionActions } from '#src/libs/referral/actions';
 import {
   fetchMembershipList as fetchMembershipListAPI,
   fetchMembership as fetchMembershipAPI,

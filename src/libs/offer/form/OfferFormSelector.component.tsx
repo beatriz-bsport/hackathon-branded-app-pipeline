@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import Select from 'react-select';
 import { Field, FieldInputProps, FieldProps, useFormikContext } from 'formik';
 
-import { OfferFormValues } from '#libs/offer/types';
+import { OfferFormValues } from '#src/libs/offer/types';
 
 type SelectOption = {
   label: string;

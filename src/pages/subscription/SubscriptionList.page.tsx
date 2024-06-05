@@ -13,8 +13,8 @@ import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 
 import { DateTime } from 'luxon';
-import { COMPANY_EVENTS } from '#libs/subscription/event.utils';
-import { SubscriptionEvent } from '#libs/event/types';
+import { COMPANY_EVENTS } from '#src/libs/subscription/event.utils';
+import { SubscriptionEvent } from '#src/libs/event/types';
 import withTitle from '../../hocs/with-title.hoc';
 
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';

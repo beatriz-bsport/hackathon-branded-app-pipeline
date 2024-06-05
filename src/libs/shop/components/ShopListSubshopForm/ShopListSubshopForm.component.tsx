@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import CancelIcon from '@material-ui/icons/Cancel';
 import SaveIcon from '@material-ui/icons/Save';
 
-import type { SubShop } from '#libs/shop/types';
+import type { SubShop } from '#src/libs/shop/types';
 import type { ShopListSubshopFormValues } from './types';
 
 type Props = {

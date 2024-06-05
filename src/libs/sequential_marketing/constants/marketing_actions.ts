@@ -1,5 +1,5 @@
 import type { ArgTypes } from '@storybook/react';
-import type { MarketingActionEssentials } from '#libs/sequential_marketing/types';
+import type { MarketingActionEssentials } from '#src/libs/sequential_marketing/types';
 
 export enum MarketingActionKind {
   COMMUNICATION = 'COMMUNICATION',

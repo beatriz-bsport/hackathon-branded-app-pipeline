@@ -4,14 +4,14 @@ import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
-import OrderTable from '#libs/order/components/OrderTable.component';
-import { fetchOrders as fetchOrdersAction } from '#libs/order/actions';
-import withTitle from '#hocs/with-title.hoc';
+import OrderTable from '#src/libs/order/components/OrderTable.component';
+import { fetchOrders as fetchOrdersAction } from '#src/libs/order/actions';
+import withTitle from '#src/hocs/with-title.hoc';
 import {
   getAllOrdersItems,
   getOrdersListLoading,
   getOrdersListCount,
-} from '#libs/order/selectors';
+} from '#src/libs/order/selectors';
 import { RootState } from '../../reducers';
 
 type Props = ConnectedProps<typeof connector>;

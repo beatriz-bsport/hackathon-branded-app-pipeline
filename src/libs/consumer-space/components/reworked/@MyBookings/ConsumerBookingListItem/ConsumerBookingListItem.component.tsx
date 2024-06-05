@@ -9,11 +9,11 @@ import {
   getCoachDisplayName,
   getCoachDisplayPicture,
 } from '@bsport/common/lib/master-data/coach';
-import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
-import { isDateInThePast } from '#utils/datetime';
-import ConsumerBookingCard from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
+import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
+import { isDateInThePast } from '#src/utils/datetime';
+import ConsumerBookingCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
 
-import type { ConsumerBooking } from '#libs/booking/types';
+import type { ConsumerBooking } from '#src/libs/booking/types';
 
 type Props = {
   isSelected?: boolean;

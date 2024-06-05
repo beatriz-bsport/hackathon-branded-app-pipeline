@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { subscriptionFactory } from '#libs/subscription/factory';
-import { MarketplacePaymentMethods } from '#libs/marketplace/types';
-import { formatAsDate } from '#utils/datetime';
+} from '#src/libs/exportable-components/types';
+import { subscriptionFactory } from '#src/libs/subscription/factory';
+import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
+import { formatAsDate } from '#src/utils/datetime';
 import { fakeFailedInvoices, fakeSuccessfulInvoices } from './fakeData';
 // @ts-expect-error
 import ConsumerSubscriptionDetailsCardCss from './styles.css?raw';

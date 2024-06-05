@@ -10,8 +10,8 @@ import { push } from 'connected-react-router';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { LinearProgress } from '@material-ui/core';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   createOrUpdateEstablishmentV2,

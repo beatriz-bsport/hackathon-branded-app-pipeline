@@ -8,7 +8,7 @@ import {
   BUYABLE_ITEM_CREDIT as CREDIT,
   BUYABLE_ITEM_GIFTCARD as GIFTCARD,
 } from '@bsport/common/lib/master-data/buyable-items';
-import { AdditionalGuest } from '#libs/booker-module/types';
+import { AdditionalGuest } from '#src/libs/booker-module/types';
 
 export type AddItemToBasketParams = {
   check_offer_unicity?: boolean;

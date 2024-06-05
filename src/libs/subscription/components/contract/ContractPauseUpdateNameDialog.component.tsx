@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
-import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
-import { PAUSE_NAME_MAX_LENGTH } from '#libs/subscription/constants';
+import CustomMuiDialog from '#src/components/genericDialog/CustomMuiDialog.component';
+import { PAUSE_NAME_MAX_LENGTH } from '#src/libs/subscription/constants';
 
 type Props = {
   onCancel: () => void;

@@ -15,8 +15,8 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import TagSelector from '#libs/tag/components/TagSelector.selector';
-import { Tag, TagGroup } from '#libs/tag/types';
+import TagSelector from '#src/libs/tag/components/TagSelector.selector';
+import { Tag, TagGroup } from '#src/libs/tag/types';
 import { MaterialStyleType } from '../../utils/types';
 
 type OwnProps = {

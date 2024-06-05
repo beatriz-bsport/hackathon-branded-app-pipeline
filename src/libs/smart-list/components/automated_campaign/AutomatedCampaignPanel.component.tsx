@@ -33,7 +33,7 @@ import {
   SEND_COMMUNICATION_ON_JOIN,
   SEND_COMMUNICATION_ON_LEFT,
 } from '@bsport/common/lib/master-data/smart-list';
-import type { AutomatedCampaign as AutomatedCampaignType } from '#libs/smart-list/types';
+import type { AutomatedCampaign as AutomatedCampaignType } from '#src/libs/smart-list/types';
 import { MaterialStyleType } from '../../../../utils/types';
 import { formatAsDate } from '../../../../utils/datetime';
 

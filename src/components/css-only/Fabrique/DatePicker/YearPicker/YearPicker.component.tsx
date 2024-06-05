@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
 import { DateTime } from 'luxon';
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import Button from '#components/css-only/Fabrique/ButtonV2';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import Button from '#src/components/css-only/Fabrique/ButtonV2';
 import './styles.css';
 
 type Props = {

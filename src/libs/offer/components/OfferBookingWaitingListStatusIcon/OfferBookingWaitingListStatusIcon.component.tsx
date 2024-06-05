@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Block from '@material-ui/icons/Block';
 import HourglassFull from '@material-ui/icons/HourglassFull';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 export type Props = {
   isError: boolean;

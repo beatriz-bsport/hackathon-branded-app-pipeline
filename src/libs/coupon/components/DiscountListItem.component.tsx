@@ -9,7 +9,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { FranchiseCompany } from '#libs/franchise/types';
+import { FranchiseCompany } from '#src/libs/franchise/types';
 import CompanyChip from '../../../components/franchise/CompanyChip.component';
 import type { Discount } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';

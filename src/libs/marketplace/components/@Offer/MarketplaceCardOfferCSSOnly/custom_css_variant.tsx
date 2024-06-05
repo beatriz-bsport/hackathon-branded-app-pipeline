@@ -2,16 +2,16 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 
-import { offerFactory } from '#libs/offer/factories';
+import { offerFactory } from '#src/libs/offer/factories';
 import { formatAsDate } from '#src/utils/datetime';
 // @ts-expect-error
 import MarketplaceCardOfferCss from './MarketplaceCardOfferCSSOnly.css?raw';

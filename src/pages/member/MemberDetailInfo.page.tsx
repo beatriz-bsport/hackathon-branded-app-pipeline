@@ -9,14 +9,12 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
 
-
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 // @ts-expect-error
-// @ts-expect-error
-import TaskList from '#libs/reminder/components/TaskList.component';
-import { getUsersWithRole } from '#libs/role/selectors';
+import TaskList from '#src/libs/reminder/components/TaskList.component';
+import { getUsersWithRole } from '#src/libs/role/selectors';
 
-import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
+import { snackbarWarning, snackbarSuccess } from '#src/libs/snackbar/actions';
 import {
   createOrUpdateNote as createOrUpdateMemberNote,
   deleteNote,
@@ -32,128 +30,129 @@ import {
   fetchMemberBulkById as fetchMemberBulkByIdAction,
   fetchMemberEventList as fetchMemberEventListAction,
   updateSpiviPrivacySettings as updateSpiviPrivacySettingsAction,
-} from '#libs/member/actions';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
+} from '#src/libs/member/actions';
+import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
 import {
   getSearchedMembers,
   getMemberDetail,
   getFilteredSearchedMembers,
   getMemberEventState,
-} from '#libs/member/selectors';
-import MemberSummaryCard from '#libs/member/components/MemberSummaryCard.component';
+} from '#src/libs/member/selectors';
+import MemberSummaryCard from '#src/libs/member/components/MemberSummaryCard.component';
 // @ts-expect-error
-import TagDeleteDialog from '#libs/tag/components/TagDeleteDialog.component';
+import TagDeleteDialog from '#src/libs/tag/components/TagDeleteDialog.component';
 // @ts-expect-error
-import TagGroupDeleteDialog from '#libs/tag/components/TagGroupDeleteDialog.component';
-import MemberCRM from '#libs/member/components/MemberCRM.component';
-import ModalDeleteFile from '#components/ModalConfirm.component';
-import MemberSearchModal from '#libs/member/components/MemberSearchModal.component';
+import TagGroupDeleteDialog from '#src/libs/tag/components/TagGroupDeleteDialog.component';
+import MemberCRM from '#src/libs/member/components/MemberCRM.component';
+import ModalDeleteFile from '#src/components/ModalConfirm.component';
+import MemberSearchModal from '#src/libs/member/components/MemberSearchModal.component';
 // @ts-expect-error
-import FileUploadDialog from '#components/FileUploadDialog';
-import MemberBillingProblemCard from '#libs/member/components/MemberBillingProblemCard.component';
-import { getMemberTagGroups } from '#libs/tag/selectors';
+import FileUploadDialog from '#src/components/FileUploadDialog';
+import MemberBillingProblemCard from '#src/libs/member/components/MemberBillingProblemCard.component';
+import { getMemberTagGroups } from '#src/libs/tag/selectors';
 import {
   fetchTags,
   createOrUpdateTag,
   createOrUpdateTagGroup,
   deleteTagGroup,
   deleteTag,
-} from '#libs/tag/actions';
-import { getStripeReaders } from '#libs/terminal/selectors';
+} from '#src/libs/tag/actions';
+import { getStripeReaders } from '#src/libs/terminal/selectors';
 
 import {
   fetchPaymentMethodList,
   detachPaymentMethod,
-} from '#libs/payment/actions';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
+} from '#src/libs/payment/actions';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 import {
   fetchTaskListByMember as fetchTaskListByMemberAction,
   createOrUpdateTask as createOrUpdateTaskAction,
   updateTaskStatus,
   // @ts-expect-error
-} from '#libs/reminder/actions';
+} from '#src/libs/reminder/actions';
 // @ts-expect-error
-import { memberTaskListSelector } from '#libs/reminder/selectors';
-import { fetchCompanyUserRoles } from '#libs/role/actions';
+import { memberTaskListSelector } from '#src/libs/reminder/selectors';
+import { fetchCompanyUserRoles } from '#src/libs/role/actions';
 
 import {
   // fetchInvoiceItemList as fetchInvoiceItemListAction,
   fetchInvoiceList as fetchInvoiceListAction,
   applyBalanceToUnpaid,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
-} from '#libs/invoice/actions';
+} from '#src/libs/invoice/actions';
 
-import { withInvoiceItem, getInvoiceList } from '#libs/invoice/selectors';
+import { withInvoiceItem, getInvoiceList } from '#src/libs/invoice/selectors';
 
-import { sendCommunication } from '#libs/communication/actions';
+import { sendCommunication } from '#src/libs/communication/actions';
 import {
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#src/libs/notification-rule/actions';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
+} from '#src/libs/email-editor/selectors';
 import {
   fetchEstablishments,
   fetchAllEstablishmentGroup,
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 import {
   getAvailableEstablishmentList,
   getEnabledEstablishmentBillingGroups,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import themeSelectors, {
   getStripeRegion,
   getCompanyCountry,
-} from '#libs/theme/selectors';
-import { fetchModelBasedAnswer } from '#libs/custom-form/actions';
+} from '#src/libs/theme/selectors';
+import { fetchModelBasedAnswer } from '#src/libs/custom-form/actions';
 import {
   CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
   MODEL_BASED_QUESTION_FAVORITE,
-} from '#libs/custom-form/utils';
+} from '#src/libs/custom-form/utils';
 import {
   getFavoriteEstablishmentGroupList,
   showVaccinationStatus,
-} from '#libs/custom-form/selectors';
-import { Tag } from '#libs/tag/types';
-import { MemberUploadedFile } from '#libs/member/types';
+} from '#src/libs/custom-form/selectors';
+import { Tag } from '#src/libs/tag/types';
+import { MemberUploadedFile } from '#src/libs/member/types';
 import {
   getConsumerGiftcardReceivedList,
   withGiftcard,
   withSender,
   withReceiver,
   onlyUsable,
-} from '#libs/giftcard/selectors';
-// @ts-expect-error
+} from '#src/libs/giftcard/selectors';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
-} from '#libs/giftcard/actions';
-import type { ConsumerGiftcard } from '#libs/giftcard/types';
-import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
-import PaymentModal from '#libs/payment/components/PaymentModal.component';
-import MemberResetPasswordDialog from '#libs/member/components/MemberResetPasswordDialog.component';
-import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
-import { getMemberEventPath } from '#libs/member/events.utils';
-import MemberEventPanel from '#libs/member/components/MemberEventPanel.component';
-import { GenericEvent, MemberEvent } from '#libs/event/types';
+} from '#src/libs/giftcard/actions';
+import type { ConsumerGiftcard } from '#src/libs/giftcard/types';
+import AddPaymentMethod from '#src/libs/payment/components/AddPaymentMethod.component';
+import PaymentModal from '#src/libs/payment/components/PaymentModal.component';
+import MemberResetPasswordDialog from '#src/libs/member/components/MemberResetPasswordDialog.component';
+import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#src/libs/terminal/constants';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
+import { getMemberEventPath } from '#src/libs/member/events.utils';
+import MemberEventPanel from '#src/libs/member/components/MemberEventPanel.component';
+import { GenericEvent, MemberEvent } from '#src/libs/event/types';
 import {
   retrieveReferralProgram as retrieveReferralProgramAction,
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
-} from '#libs/referral/actions';
+} from '#src/libs/referral/actions';
 import {
   getReferralMemberStatusWithMemberId,
   getTheReferralProgram,
-} from '#libs/referral/selectors';
+} from '#src/libs/referral/selectors';
+// @ts-expect-error
 import { resetPassword } from '../../actions/auth.actions';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import Config from '../../config';
 
@@ -694,7 +693,6 @@ const connector = connect(
       props.id,
     ),
     searchedMembers: getSearchedMembers(state),
-    // @ts-expect-error
     filteredSearchedMembers: getFilteredSearchedMembers(state, props.id),
     tagGroups: getMemberTagGroups(state),
     tagGroupsLoading: state.tag.group.loading,

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'lodash/memoize';
-import { getMemberListData } from '#libs/member/selectors';
+import { getMemberListData } from '#src/libs/member/selectors';
 import { RootState } from '../../reducers';
 
 

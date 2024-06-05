@@ -14,13 +14,13 @@ import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
-import { retrieveConsumerPackBulk } from '#libs/consumer-payment-pack/actions';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { retrieveConsumerPackBulk } from '#src/libs/consumer-payment-pack/actions';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import {
   PrivateConsumerPassExtensionParams,
   PrivateConsumerPassExtensionCreate,
-} from '#libs/private-service/types';
-import { getExpirationDate } from '#libs/private-service/utils';
+} from '#src/libs/private-service/types';
+import { getExpirationDate } from '#src/libs/private-service/utils';
 import { getInvoice } from '../../libs/invoice/selectors';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import { getMember } from '../../libs/member/selectors';

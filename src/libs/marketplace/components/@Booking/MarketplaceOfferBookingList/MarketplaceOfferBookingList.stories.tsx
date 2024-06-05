@@ -6,12 +6,12 @@ import { ComponentStory, Meta } from '@storybook/react';
 import MarketplaceOfferBookingList, {
   MarketplaceOfferBookingListForStorybook,
 } from '.';
-import { offerFactory } from '#libs/offer/factories';
-import themeFactory from '#libs/theme/factories';
+import { offerFactory } from '#src/libs/offer/factories';
+import themeFactory from '#src/libs/theme/factories';
 import type { Props } from '.';
-import { OfferWithSpotInformation } from '#libs/offer/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { levelFactory } from '#libs/level/factories';
+import { OfferWithSpotInformation } from '#src/libs/offer/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { levelFactory } from '#src/libs/level/factories';
 
 const offer = {
   ...offerFactory({

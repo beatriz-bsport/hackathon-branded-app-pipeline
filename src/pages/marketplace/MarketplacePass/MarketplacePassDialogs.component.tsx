@@ -1,28 +1,28 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import MarketplacePaymentPackDetailsModal from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackDetailModal';
-import MarketplacePaymentPackRestrictionModal from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackRestrictionModal';
-import MarketplacePaymentPackOffPeakRestrictionModal from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackOffPeakRestrictionModal';
-import MarketplacePaymentPackCompatibilityModal from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackCompatibilityModal';
-import MarketplacePrivatePassDetailsModal from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassDetailsModal';
-import MarketplacePrivatePassCompatibilityModal from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassCompatibilityModal';
-import MarketplacePaymentComboDetailsModal from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboDetailModal';
-import { useMarketplaceFixedDialog } from '#libs/marketplace/hooks';
+import MarketplacePaymentPackDetailsModal from '#src/libs/marketplace/components/@PaymentPack/MarketplacePaymentPackDetailModal';
+import MarketplacePaymentPackRestrictionModal from '#src/libs/marketplace/components/@PaymentPack/MarketplacePaymentPackRestrictionModal';
+import MarketplacePaymentPackOffPeakRestrictionModal from '#src/libs/marketplace/components/@PaymentPack/MarketplacePaymentPackOffPeakRestrictionModal';
+import MarketplacePaymentPackCompatibilityModal from '#src/libs/marketplace/components/@PaymentPack/MarketplacePaymentPackCompatibilityModal';
+import MarketplacePrivatePassDetailsModal from '#src/libs/marketplace/components/@PrivatePass/MarketplacePrivatePassDetailsModal';
+import MarketplacePrivatePassCompatibilityModal from '#src/libs/marketplace/components/@PrivatePass/MarketplacePrivatePassCompatibilityModal';
+import MarketplacePaymentComboDetailsModal from '#src/libs/marketplace/components/@PaymentCombo/MarketplacePaymentComboDetailModal';
+import { useMarketplaceFixedDialog } from '#src/libs/marketplace/hooks';
 
 import {
   MarketplacePassDialogStateKey,
   MarketplacePassPagePaymentPack,
   MarketplacePassPageDialogState,
-} from '#libs/marketplace/types';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
+} from '#src/libs/marketplace/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
 import {
   PrivatePass,
   PrivateService,
   PrivateSlot,
-} from '#libs/private-service/types';
+} from '#src/libs/private-service/types';
 
 type Props = {
   dialogSelectedItem: (PaymentPack | PrivatePass | PaymentCombo) | null;

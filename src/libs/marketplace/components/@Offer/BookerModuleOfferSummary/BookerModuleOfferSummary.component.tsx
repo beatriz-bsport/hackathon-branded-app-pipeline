@@ -6,34 +6,36 @@ import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/lib/master-data/e
 import { HourglassFull } from '@material-ui/icons';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import PersonAdd from '@material-ui/icons/PersonAdd';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import Card from '#components/css-only/Card';
-import CardContent from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import Card from '#src/components/css-only/Card';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import { CardSize } from '#components/css-only/Card/types';
-import type { Coach } from '#libs/associated-coach/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { OfferStatus, Offer_FULL } from '#libs/offer/types';
-import type { CompanyTheme } from '#libs/theme/types';
-import { useOfferFormattedDate, useOfferHours } from '#libs/marketplace/hooks';
-import Chip from '#components/css-only/Chip';
-import ActivitySummary from '#marketplacecomponents/@Activity/ActivitySummary';
-import Price from '#components/css-only/Price';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { getTaxPrice } from '#libs/theme/utils';
-import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+} from '#src/components/css-only/Grid/GridItem';
+import { CardSize } from '#src/components/css-only/Card/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { OfferStatus, Offer_FULL } from '#src/libs/offer/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import {
+  useOfferFormattedDate,
+  useOfferHours,
+} from '#src/libs/marketplace/hooks';
+import Chip from '#src/components/css-only/Chip';
+import ActivitySummary from '#src/libs/marketplace/components/@Activity/ActivitySummary';
+import Price from '#src/components/css-only/Price';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getTaxPrice } from '#src/libs/theme/utils';
+import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
 import {
   formatOfferDateWithTime,
   formatOfferHours,
-} from '#libs/marketplace/utils/offer';
+} from '#src/libs/marketplace/utils/offer';
 import { BookerModuleOfferSummarySkeleton } from '.';
-
 
 import './styles.css';
 

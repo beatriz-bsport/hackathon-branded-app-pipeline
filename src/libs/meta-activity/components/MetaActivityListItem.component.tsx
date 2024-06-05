@@ -17,8 +17,8 @@ import { DraggableSyntheticListeners } from '@dnd-kit/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import ListItemResponsiveAction from '#components/button/ListItemResponsiveAction.component';
-import Tooltip from '#components/Tooltip.component';
+import ListItemResponsiveAction from '#src/components/button/ListItemResponsiveAction.component';
+import Tooltip from '#src/components/Tooltip.component';
 import { MetaActivity } from '../types';
 import { formatAsDatetime } from '../../../utils/datetime';
 

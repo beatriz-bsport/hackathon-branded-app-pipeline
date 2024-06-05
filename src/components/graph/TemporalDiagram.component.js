@@ -10,7 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { parseRechartsDate } from '#libs/statistics/utils';
+import { parseRechartsDate } from '#src/libs/statistics/utils';
 import { ComposedChart } from './Charts.component';
 
 type Props = {

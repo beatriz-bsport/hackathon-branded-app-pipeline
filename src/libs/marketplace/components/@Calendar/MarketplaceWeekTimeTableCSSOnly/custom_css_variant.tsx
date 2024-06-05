@@ -2,17 +2,17 @@ import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 import { DateTime } from 'luxon';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { establishment_factory } from '#libs/establishment/factory';
-import { coachesFactory } from '#libs/associated-coach/factories';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
-import { Coach } from '#libs/associated-coach/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { establishment_factory } from '#src/libs/establishment/factory';
+import { coachesFactory } from '#src/libs/associated-coach/factories';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { Coach } from '#src/libs/associated-coach/types';
 // @ts-expect-error
 import WeekTimeTableCss from './MarketplaceWeekTimeTableCSSOnly.css?raw';
 

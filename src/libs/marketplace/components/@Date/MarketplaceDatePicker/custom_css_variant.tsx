@@ -1,14 +1,14 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 // @ts-expect-error
 import MarketplaceDatePickerCss from './MarketplaceDatePicker.css?raw';
 import MarketplaceDatePicker, { Props as MarketplaceDatePickerProps } from '.';

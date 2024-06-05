@@ -5,7 +5,7 @@ import {
   CADENCE_EVENT_CATEGORY_CHOICES,
   CADENCE_EVENT_GROUPED_BY_CATEGORY,
   Events,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
 export type EventOption = { label: string; value: Events };
 

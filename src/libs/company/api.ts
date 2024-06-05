@@ -1,4 +1,4 @@
-import type { Member } from '#libs/member/types';
+import type { Member } from '#src/libs/member/types';
 import {
   getAuth,
   postAuth,

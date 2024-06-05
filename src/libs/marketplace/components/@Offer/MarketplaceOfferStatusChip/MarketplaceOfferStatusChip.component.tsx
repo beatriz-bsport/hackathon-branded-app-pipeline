@@ -7,14 +7,14 @@ import HourglassFullIcon from '@material-ui/icons/HourglassFull';
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import UpdateIcon from '@material-ui/icons/Update';
 
-import { getOfferStatus } from '#libs/marketplace/utils';
-import PopOver from '#components/Popover';
-import Chip from '#components/css-only/Chip';
+import { getOfferStatus } from '#src/libs/marketplace/utils';
+import PopOver from '#src/components/Popover';
+import Chip from '#src/components/css-only/Chip';
 
-import { MarketplaceOfferStatus, Offer } from '#libs/offer/types';
-import { CompanyTheme } from '#libs/theme/types';
+import { MarketplaceOfferStatus, Offer } from '#src/libs/offer/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 
-import { MetaActivity } from '#libs/meta-activity/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
 
 import './styles.css';
 

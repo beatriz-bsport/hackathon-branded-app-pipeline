@@ -3,14 +3,14 @@ import React, { useCallback, useState } from 'react';
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import { CompanyTheme } from '#libs/theme/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 // @ts-expect-error
 import ResetPasswordFormCss from './styles.css?raw';
 import ResetPasswordForm, { Props as ResetPasswordFormProps } from '.';

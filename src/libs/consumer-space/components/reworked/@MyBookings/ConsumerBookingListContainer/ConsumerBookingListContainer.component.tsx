@@ -12,30 +12,33 @@ import {
   getCoachDisplayName,
   getCoachDisplayPicture,
 } from '@bsport/common/lib/master-data/coach';
-import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
-import { formatAsDate, getIsLateBookingCancellation } from '#utils/datetime';
-import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
-import ConsumerBookingCard from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
-import ConsumerBookingDetailsCard from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard';
-import ConsumerBookingListItem from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListItem';
-import ConsumerPrivateBookingListItem from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerPrivateBookingListItem';
-import ConsumerBookingOptionListItem from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOptionListItem';
+import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
+import {
+  formatAsDate,
+  getIsLateBookingCancellation,
+} from '#src/utils/datetime';
+import { GenericInfiniteScrollEnhancedCssOnly } from '#src/components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
+import ConsumerBookingCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
+import ConsumerBookingDetailsCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard';
+import ConsumerBookingListItem from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListItem';
+import ConsumerPrivateBookingListItem from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerPrivateBookingListItem';
+import ConsumerBookingOptionListItem from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOptionListItem';
 import Typography from '#Fabrique/Typography';
 
 import type {
   ConsumerBooking,
   ConsumerBookingOption,
   ConsumerPrivateBooking,
-} from '#libs/booking/types';
-import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
-import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
+} from '#src/libs/booking/types';
+import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+import type { BookingFilterTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 
-import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
-import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
+import { BookingTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
+import { BookingFilterTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
 import {
   MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
   MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
-} from '#libs/consumer-space/components/reworked/@MyBookings/constants';
+} from '#src/libs/consumer-space/components/reworked/@MyBookings/constants';
 
 import './styles.css';
 

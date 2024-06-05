@@ -1,4 +1,4 @@
-import { LinkToCompanyWithReferralPayload } from '#libs/referral/types';
+import { LinkToCompanyWithReferralPayload } from '#src/libs/referral/types';
 import { getAuth, postAuth, API_V1_URI, buildUrlParams } from '../../http';
 import { Membership } from './types';
 

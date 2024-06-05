@@ -6,15 +6,15 @@ import Typography from '@material-ui/core/Typography';
 
 import Divider from '@material-ui/core/Divider';
 import { Theme } from '@material-ui/core';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Establishment } from '#libs/establishment/types';
-import { Offer, OfferSummaryVariant } from '#libs/offer/types';
-import { CheckoutItem } from '#libs/checkout/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import OfferSummary from '#libs/offer/OfferSummary';
-import SavedSpotCounddown from '#libs/checkout/components/new-checkout-flow/SavedSpotCountdown';
-import { getGuestBookingName } from '#libs/marketplace/utils/booking';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { Offer, OfferSummaryVariant } from '#src/libs/offer/types';
+import { CheckoutItem } from '#src/libs/checkout/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import OfferSummary from '#src/libs/offer/OfferSummary';
+import SavedSpotCounddown from '#src/libs/checkout/components/new-checkout-flow/SavedSpotCountdown';
+import { getGuestBookingName } from '#src/libs/marketplace/utils/booking';
 
 type ActivitiesSummaryProps = {
   activitySummaryCheckoutItems: CheckoutItem[];

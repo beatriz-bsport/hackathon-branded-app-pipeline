@@ -5,7 +5,7 @@ import {
   UPSELL_IDENTIFIER_QUICKSALE,
   UPSELL_IDENTIFIER_VOD,
   UPSELL_IDENTIFIER_WHEREBY,
-} from '#libs/platform-billing/upsell-identifiers';
+} from '#src/libs/platform-billing/upsell-identifiers';
 
 export const BLOCK_BACKOFFICE = 3;
 export const WARN = 2;

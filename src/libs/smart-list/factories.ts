@@ -1,6 +1,6 @@
 import { fakerEN as faker } from '@faker-js/faker';
 import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind';
-import { CommunicationScheduled } from '#libs/communication-v2/types';
+import { CommunicationScheduled } from '#src/libs/communication-v2/types';
 import type { SmartList } from './types';
 
 function generateMemberIdsBatch(length?: number): number[] {

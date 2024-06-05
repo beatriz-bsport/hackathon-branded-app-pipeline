@@ -18,11 +18,11 @@ import {
   COMMUNICATION_KIND_SMS,
 } from '@bsport/common/lib/master-data/communication-kind';
 
-import { formatAsDatetimeAdapted } from '#utils/datetime';
+import { formatAsDatetimeAdapted } from '#src/utils/datetime';
 import type {
   Communication,
   CommunicationScheduled,
-} from '#libs/communication-v2/types';
+} from '#src/libs/communication-v2/types';
 
 type Props = {
   communicationScheduled: CommunicationScheduled;

@@ -2,11 +2,11 @@ import React, { memo } from 'react';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Select from 'react-select';
-import { getFilterOptionsForFilteringByMemberCategory } from '#libs/communication-v2/utils';
+import { getFilterOptionsForFilteringByMemberCategory } from '#src/libs/communication-v2/utils';
 import {
   SelectFieldItem,
   FilteringMemberIdsByGenericCategories,
-} from '#libs/communication-v2/types';
+} from '#src/libs/communication-v2/types';
 
 export type Props = {
   checkedFilters: number[];

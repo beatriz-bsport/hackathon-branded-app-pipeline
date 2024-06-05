@@ -8,13 +8,16 @@ import { Paper, Typography } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Level } from '#libs/level/types';
-import { WidgetCustomCSS } from '#libs/theme/types';
-import { WidgetCodeStringGenerator } from '#libs/marketplace/utils';
+import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
+import { Coach } from '#src/libs/associated-coach/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Level } from '#src/libs/level/types';
+import { WidgetCustomCSS } from '#src/libs/theme/types';
+import { WidgetCodeStringGenerator } from '#src/libs/marketplace/utils';
 import WidgetComponentConfigBuilder from './WidgetComponentConfigBuilder.component';
 import WidgetPreview from './WidgetPreview.component';
 

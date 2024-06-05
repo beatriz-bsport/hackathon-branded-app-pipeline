@@ -4,9 +4,8 @@ import chroma from 'chroma-js';
 import { withTranslation } from 'react-i18next';
 import Select from 'react-select';
 import { colors } from '@bsport/common/lib/colors';
-import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '#libs/video/constant';
+import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '#src/libs/video/constant';
 import Sport from './SCT.component';
-
 
 function SingleValue(props: OptionProps) {
   const { data, innerRef, innerProps } = props;

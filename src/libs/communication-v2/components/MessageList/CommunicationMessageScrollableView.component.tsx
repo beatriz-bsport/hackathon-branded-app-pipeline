@@ -3,9 +3,9 @@ import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import type { CommunicationMessage } from '#libs/communication-v2/types';
-import type { Member } from '#libs/member/types';
-import type { ResolvedGenericTags } from '#libs/email-editor/types';
+import type { CommunicationMessage } from '#src/libs/communication-v2/types';
+import type { Member } from '#src/libs/member/types';
+import type { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import CommunicationMessageBubble from './SingleMessage/CommunicationMessageBubble.component';
 import useIsVisibleOnScreen from '../../../../hooks/useIsVisibleOnScreen';
 

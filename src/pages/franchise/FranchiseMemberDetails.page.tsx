@@ -7,14 +7,14 @@ import { compose } from 'recompose';
 import Helmet from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import {
   getFranchiseUserById,
   withAllowedFranchisees,
-} from '#libs/franchise/selectors';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
+} from '#src/libs/franchise/selectors';
+import ContentWithAppBar from '#src/components/generic-appbar-content/ContentWithAppBar.component';
+import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
 import type { RootState } from '../../reducers';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent';

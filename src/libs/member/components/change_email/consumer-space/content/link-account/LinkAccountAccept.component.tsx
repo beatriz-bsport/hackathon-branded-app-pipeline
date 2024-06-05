@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CompanyTheme } from '#libs/theme/types';
-import { ChangeEmailRequest } from '#libs/member/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { ChangeEmailRequest } from '#src/libs/member/types';
 import {
   ContentTitle,
   SpacedText,

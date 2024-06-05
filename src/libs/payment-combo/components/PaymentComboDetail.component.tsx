@@ -5,10 +5,10 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
 // @ts-expect-error
-import PaymentComboCard from '#libs/payment-combo/components/PaymentComboCard.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import PaymentComboCard from '#src/libs/payment-combo/components/PaymentComboCard.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import PaymentComboPurchaseListItem from './PaymentComboPurchaseListItem.component';
 import { OptionCallback } from '../../../state/types';
 

@@ -15,55 +15,55 @@ import WarningIcon from '@material-ui/icons/Warning';
 import { Clear, HourglassFull, ShoppingBasket, Star } from '@material-ui/icons';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
+import themeSelectors from '#src/libs/theme/selectors';
+import { fetchBasket } from '#src/libs/checkout/actions';
+import { getBasket } from '#src/libs/checkout/selectors';
 // @ts-expect-error
-import themeSelectors from '#libs/theme/selectors';
-import { fetchBasket } from '#libs/checkout/actions';
-import { getBasket } from '#libs/checkout/selectors';
-// @ts-expect-error
-import CheckoutItemListItem from '#libs/checkout/components/CheckoutItemListItem.component';
-import { Offer_FULL } from '#libs/offer/types';
-import { withExtraDataFromQueryParams } from '#libs/booker-module/utils';
-import withTheme from '#hocs/company-themifier.hoc';
+import CheckoutItemListItem from '#src/libs/checkout/components/CheckoutItemListItem.component';
+import { Offer_FULL } from '#src/libs/offer/types';
+import { withExtraDataFromQueryParams } from '#src/libs/booker-module/utils';
+import withTheme from '#src/hocs/company-themifier.hoc';
 import {
   getOfferFromList,
   withMetaActivity,
   withCoach,
   withEstablishment,
   getOfferStatusWaitingListPositionById,
-} from '#libs/offer/selectors';
+} from '#src/libs/offer/selectors';
 import {
   fetchOfferBulk,
   fetchOfferWaitingListPositionList as fetchOfferWaitingListPositionListAction,
-} from '#libs/offer/actions';
+} from '#src/libs/offer/actions';
 // @ts-expect-error
-import Analytics from '#components/analytics/Analytics.component';
-import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
-import { fetchCoachBulk } from '#libs/associated-coach/actions';
-import { fetchEstablishmentBulk } from '#libs/establishment/actions';
-import { getWaitingListConfigurationData } from '#libs/waiting-list/selectors';
+import Analytics from '#src/components/analytics/Analytics.component';
+import { fetchMetaActivityBulk } from '#src/libs/meta-activity/actions';
+import { fetchCoachBulk } from '#src/libs/associated-coach/actions';
+import { fetchEstablishmentBulk } from '#src/libs/establishment/actions';
+import { getWaitingListConfigurationData } from '#src/libs/waiting-list/selectors';
 
-import OfferBookableItem from '#libs/booker-module/components/OfferBookableItem.component';
-import { urlToMarketplace } from '#libs/marketplace/utils';
+import OfferBookableItem from '#src/libs/booker-module/components/OfferBookableItem.component';
+import { urlToMarketplace } from '#src/libs/marketplace/utils';
 
-import WidgetUtils from '#libs/widget/WidgetUtils';
-import ValidationIcon from '#components/icons/ValidationIcon.component';
-import ErrorIcon from '#components/icons/ErrorIcon.component';
-import { getBookingErrorMessage } from '#libs/checkout/utils';
-import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#libs/waiting-list/actions';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
+import ErrorIcon from '#src/components/icons/ErrorIcon.component';
+import { getBookingErrorMessage } from '#src/libs/checkout/utils';
+import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#src/libs/waiting-list/actions';
 import {
   retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
-} from '#libs/referral/actions';
+} from '#src/libs/referral/actions';
 import {
   getTheReferralProgram,
   getReferralMemberStatusThroughMembership,
-} from '#libs/referral/selectors';
-import ReferralLinkIncentive from '#libs/referral/components/ReferralLinkIncentive.component';
+} from '#src/libs/referral/selectors';
+import ReferralLinkIncentive from '#src/libs/referral/components/ReferralLinkIncentive.component';
 import Config from '../../../config';
 import { sortByDate } from '../../../utils/datetime';
 import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+// @ts-expect-error
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import { RootState } from '../../../reducers';
 import {

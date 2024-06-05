@@ -1,7 +1,7 @@
 import React from 'react';
 // @ts-expect-error
 import OfferMinimalSummary, { Props } from './OfferMinimalSummary.component';
-import { offerFactory } from '#libs/offer/factory';
+import { offerFactory } from '#src/libs/offer/factory';
 
 const CustomTemplate = (args: Props) => <OfferMinimalSummary {...args} />;
 

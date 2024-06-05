@@ -12,8 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import * as Yup from 'yup';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
 // @ts-expect-error
-import type { PaymentPack } from '#libs/payment-packs/types';
 import { Submit } from '../../../components/forms';
 // @ts-expect-error
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';

@@ -7,8 +7,8 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import type {
   ConnectedTrigger,
   TriggerEventConfig,
-} from '#libs/sequential_marketing/types';
-import { Events } from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/types';
+import { Events } from '#src/libs/sequential_marketing/constants';
 import useEventContext, {
   type EventOption,
 } from '../hooks/useEventContext.hook';

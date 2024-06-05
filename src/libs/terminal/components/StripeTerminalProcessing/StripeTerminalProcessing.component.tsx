@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import type { CancelReaderActionErrorMessage } from '#libs/terminal/types';
+import type { CancelReaderActionErrorMessage } from '#src/libs/terminal/types';
 import InactivityWarning from './InactivityWarning.component';
 
 const useStyles = makeStyles((theme: Theme) => ({

@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
 import Typography from '#Fabrique/Typography';
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 
-import type { ConsumerPassRestriction } from '#libs/consumer-space/types';
+import type { ConsumerPassRestriction } from '#src/libs/consumer-space/types';
 
 type Props = {
   restriction: ConsumerPassRestriction;

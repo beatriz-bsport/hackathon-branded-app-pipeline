@@ -4,9 +4,9 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { faker } from '@faker-js/faker';
 import { DateTime } from 'luxon';
 
-import establishmentFactoryBot from '#libs/establishment/factories/Establishments';
-import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
-import { generateRandomName, generateRandomNames } from '#utils/factories';
+import establishmentFactoryBot from '#src/libs/establishment/factories/Establishments';
+import { consumerPaymentPackFactory } from '#src/libs/consumer-payment-pack/factories';
+import { generateRandomName, generateRandomNames } from '#src/utils/factories';
 
 import {
   UniversalPassDetailsCardStorybook,

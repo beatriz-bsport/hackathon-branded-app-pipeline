@@ -6,15 +6,15 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import {
   Props,
   ClickableItemForStorybook,
-} from '#components/css-only/ClickableItem';
+} from '#src/components/css-only/ClickableItem';
 // @ts-expect-error
-import { PaymentPackStorybookFactory } from '#libs/payment-packs/factory';
-import { PaymentPack } from '#libs/payment-packs/types';
+import { PaymentPackStorybookFactory } from '#src/libs/payment-packs/factory';
+import { PaymentPack } from '#src/libs/payment-packs/types';
 import {
   getSearchItemIndicator,
   getSearchItemPrice,
   ItemType,
-} from '#components/css-only/Search/PassSearch/utils';
+} from '#src/components/css-only/Search/PassSearch/utils';
 
 const paymentPack: Partial<PaymentPack> = PaymentPackStorybookFactory();
 const showPaymentPackDetail = (_id: number) => {};

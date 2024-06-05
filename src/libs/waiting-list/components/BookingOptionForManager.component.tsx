@@ -13,9 +13,9 @@ import { useTranslation } from 'react-i18next';
 import { Checkbox, Theme, makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
-import type { BookingOption } from '#libs/booking/types';
+import type { BookingOption } from '#src/libs/booking/types';
 import type { Member } from '../../member/types';
 
 type Props = {

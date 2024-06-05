@@ -6,11 +6,11 @@ import Alert from '#Fabrique/Alert';
 import BigIcon from '#Fabrique/BigIcon';
 import Typography from '#Fabrique/Typography';
 
-import MarketplaceSubscriptionPayment from '#libs/checkout/components/new-checkout-flow/SubscriptionPayment/SubscriptionPayment.component';
-import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
+import MarketplaceSubscriptionPayment from '#src/libs/checkout/components/new-checkout-flow/SubscriptionPayment/SubscriptionPayment.component';
+import { getMarketplaceEnabledPaymentMethods } from '#src/libs/payment/utils';
 
-import type { OptionCallback } from '#state/types';
-import type { PaymentMethod } from '#libs/payment/types';
+import type { OptionCallback } from '#src/state/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
 
 type Props = {
   enabledPaymentGroupMethodIdentifierIds: number[];

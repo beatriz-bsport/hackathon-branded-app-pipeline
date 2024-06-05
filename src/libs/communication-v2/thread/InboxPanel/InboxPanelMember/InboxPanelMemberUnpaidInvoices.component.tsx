@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, useTheme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import { CustomChip } from '#components/chip/CustomChip.component';
+import { CustomChip } from '#src/components/chip/CustomChip.component';
 
 type Props = { unpaidInvoicesCount: number };
 

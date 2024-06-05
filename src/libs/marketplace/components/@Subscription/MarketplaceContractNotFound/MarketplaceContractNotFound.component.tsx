@@ -2,8 +2,8 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import SadSmileyIcon from '#components/icons/SadSmileyIcon.component';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import SadSmileyIcon from '#src/components/icons/SadSmileyIcon.component';
 
 import './styles.css';
 

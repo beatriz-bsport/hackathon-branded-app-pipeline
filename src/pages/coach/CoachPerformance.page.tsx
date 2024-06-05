@@ -11,27 +11,27 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import type { WithStyles } from '@material-ui/styles';
 import type { Theme } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
-import CoachPerformanceDateAndEstablishmentFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateAndEstablishmentFilter.component';
-import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
-import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
-import type { Coach } from '#libs/associated-coach/types';
-import { getTheme } from '#libs/theme/selectors';
+import CoachPerformanceDateAndEstablishmentFilter from '#src/libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateAndEstablishmentFilter.component';
+import CoachPerformanceSummaryHeader from '#src/libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
+import CoachPerformanceTabs from '#src/libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
+import type { Coach } from '#src/libs/associated-coach/types';
+import { getTheme } from '#src/libs/theme/selectors';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 import {
   getAllEstablishments,
   getAssociatedEstablishmentGroup,
-} from '#libs/establishment/selectors';
-import type { CoachwithPerformance } from '#libs/coach-payment-rules/types';
+} from '#src/libs/establishment/selectors';
+import type { CoachwithPerformance } from '#src/libs/coach-payment-rules/types';
 import {
   getFilteredAssociatedCoachWithPerformance,
   getFilteredEstablishments,
   getEstablishmentGroupNames,
   getEstablishmentNames,
   // @ts-expect-error js file
-} from '#libs/coach-payment-rules/utils';
+} from '#src/libs/coach-payment-rules/utils';
 import type { OptionCallback } from '../../state/types';
 import mapParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
@@ -55,7 +55,6 @@ import withTitle from '../../hocs/with-title.hoc';
 
 import type { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
-
 
 type OwnProps = {
   associatedCoachId: number;

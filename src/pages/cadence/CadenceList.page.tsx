@@ -13,7 +13,7 @@ import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import withTitle from '#hocs/with-title.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
 
 import {
   fetchCadenceList as fetchCadenceListAction,
@@ -27,8 +27,8 @@ import {
   fetchCadenceStepList as fetchCadenceStepListAction,
   searchCadencePresentMembersData as searchCadencePresentMembersDataAction,
   searchCadenceMembersHistoric as searchCadenceMembersHistoricAction,
-} from '#libs/sequential_marketing/actions';
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
+} from '#src/libs/sequential_marketing/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
 
 import {
   getEnabledCadencesList,
@@ -41,23 +41,23 @@ import {
   getCadenceGlobalMetricsLoading,
   getCadenceMembersHistoricLoading,
   getCadenceMembersPresentLoading,
-} from '#libs/sequential_marketing/selectors';
-import { getMemberListData } from '#libs/member/selectors';
+} from '#src/libs/sequential_marketing/selectors';
+import { getMemberListData } from '#src/libs/member/selectors';
 
-import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
-import CadenceList from '#libs/sequential_marketing/components/CadenceList.component';
-import CadenceManagerFab from '#libs/sequential_marketing/components/CadenceManagerFab.components';
-import CadenceMetrics from '#libs/sequential_marketing/components/metrics/CadenceMetrics.component';
+import CadenceCreateAndUpdateForm from '#src/libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
+import CadenceList from '#src/libs/sequential_marketing/components/CadenceList.component';
+import CadenceManagerFab from '#src/libs/sequential_marketing/components/CadenceManagerFab.components';
+import CadenceMetrics from '#src/libs/sequential_marketing/components/metrics/CadenceMetrics.component';
 import CadenceUtilityDialog, {
   DialogVariant,
-} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
+} from '#src/libs/sequential_marketing/components/dialogs/DialogUtility';
 
 import {
   UPSELL_IDENTIFIER_CADENCE,
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
-} from '#libs/platform-billing/upsell-identifiers';
-import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
-import CustomStarIcon from '#components/icons/CustomStarIcon.component';
+} from '#src/libs/platform-billing/upsell-identifiers';
+import UpsellBlocker from '#src/libs/platform-billing/components/UpsellBlocker.component';
+import CustomStarIcon from '#src/components/icons/CustomStarIcon.component';
 
 import type {
   Cadence,
@@ -65,9 +65,9 @@ import type {
   CadenceMembersInData,
   CadencePaginatedMetricsParams,
   MetricsPaginatedResponse,
-} from '#libs/sequential_marketing/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+} from '#src/libs/sequential_marketing/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';

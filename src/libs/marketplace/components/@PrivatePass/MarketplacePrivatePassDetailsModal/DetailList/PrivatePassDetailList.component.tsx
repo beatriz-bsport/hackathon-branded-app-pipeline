@@ -9,15 +9,15 @@ import PeopleIcon from '@material-ui/icons/People';
 import ClearIcon from '@material-ui/icons/Clear';
 import StyleIcon from '@material-ui/icons/Style';
 
-import { useValidityInfoForPrivatePassCard } from '#libs/marketplace/utils/private-pass';
+import { useValidityInfoForPrivatePassCard } from '#src/libs/marketplace/utils/private-pass';
 
-import { PrivatePass } from '#libs/private-service/types';
+import { PrivatePass } from '#src/libs/private-service/types';
 
 import './styles.list.css';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
+} from '#src/libs/theme/utils';
 
 export type Props = {
   privatePass: PrivatePass;

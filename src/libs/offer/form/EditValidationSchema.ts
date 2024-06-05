@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import { isDateTooFar } from '#libs/offer/utils';
+import { isDateTooFar } from '#src/libs/offer/utils';
 
 const OfferEditFormValidationSchema = Yup.object().shape({
   effectif: Yup.number()

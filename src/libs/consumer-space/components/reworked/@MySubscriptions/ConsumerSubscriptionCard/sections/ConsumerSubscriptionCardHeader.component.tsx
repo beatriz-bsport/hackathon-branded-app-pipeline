@@ -1,9 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ConsumerGenericCardHeader } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
+import { ConsumerGenericCardHeader } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
 
 import type { ChipColor } from '#Fabrique/Chip';
-import { AlertCircle, CreditCardX, PauseCircle } from '#components/untitledui';
+import {
+  AlertCircle,
+  CreditCardX,
+  PauseCircle,
+} from '#src/components/untitledui';
 import type { ConsumerSubscriptionCardProps } from '..';
 
 type Props = Pick<

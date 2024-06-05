@@ -2,9 +2,9 @@ import React from 'react';
 import { Field, FieldInputProps, FieldProps, FormikProps } from 'formik';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import SCTChip from '#libs/category/components/SCTChip.component';
-import { SCT } from '#libs/category/types';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import SCTChip from '#src/libs/category/components/SCTChip.component';
+import { SCT } from '#src/libs/category/types';
 
 type FieldTypeBase = {
   [name: string]: number;

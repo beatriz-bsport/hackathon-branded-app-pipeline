@@ -1,7 +1,7 @@
 import type { AxiosResponse } from 'axios';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import type { FetchRecipientsParams } from '#libs/member/types';
-import type { GenericPaginationResults } from '#libs/types';
+import type { FetchRecipientsParams } from '#src/libs/member/types';
+import type { GenericPaginationResults } from '#src/libs/types';
 import {
   API_V1_URI,
   buildUrlParams,

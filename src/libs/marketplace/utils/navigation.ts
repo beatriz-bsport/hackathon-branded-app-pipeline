@@ -5,7 +5,7 @@ import {
   EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE,
   EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
   EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
-} from '#libs/exportable-components/constants';
+} from '#src/libs/exportable-components/constants';
 import { MarketplaceTabConfig } from '../types';
 import { MARKETPLACE_PATH_TAB_PRIVATE_SERVICE } from '../constants';
 

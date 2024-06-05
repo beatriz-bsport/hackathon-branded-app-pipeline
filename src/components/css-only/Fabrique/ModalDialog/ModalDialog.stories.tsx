@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ModalDialogStorybook } from '.';
 import { fakerEN as faker } from '@faker-js/faker';
 import { ModalDialogColorEnum, ModalDialogSizeEnum } from './constants';
-import { Star06 } from '#components/untitledui';
+import { Star06 } from '#src/components/untitledui';
 
 const ModalDialogStorybookTemplate: ComponentStory<
   typeof ModalDialogStorybook

@@ -1,7 +1,6 @@
 import React, { memo, useCallback, useState } from 'react';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-// @ts-expect-error
 import BarCode from 'react-barcode';
 import type { CallHistoryMethodAction } from 'connected-react-router';
 
@@ -23,12 +22,12 @@ import ViewWeekIcon from '@material-ui/icons/ViewWeek';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import { CustomChip } from '#components/chip/CustomChip.component';
-import { formatAsDate } from '#utils/datetime';
-import EmergencyContactItemComponent from '#libs/communication/components/EmergencyContactItem.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { CustomChip } from '#src/components/chip/CustomChip.component';
+import { formatAsDate } from '#src/utils/datetime';
+import EmergencyContactItemComponent from '#src/libs/communication/components/EmergencyContactItem.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
-import type { Member } from '#libs/member/types';
+import type { Member } from '#src/libs/member/types';
 
 type Props = {
   member: Member;

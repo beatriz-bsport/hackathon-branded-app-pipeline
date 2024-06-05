@@ -1,12 +1,12 @@
 import React from 'react';
-import { privateServiceListFactory } from '#libs/private-service/factory';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { privateServiceListFactory } from '#src/libs/private-service/factory';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
-} from '#libs/exportable-components/types';
-import { PrivateServiceWithSlots } from '#libs/private-service/types';
+} from '#src/libs/exportable-components/types';
+import { PrivateServiceWithSlots } from '#src/libs/private-service/types';
 // @ts-expect-error
 import MarketplacePrivatePassCompatibilityModalCss from './styles.css?raw';
 import MarketplacePrivatePassCompatibilityModal, {

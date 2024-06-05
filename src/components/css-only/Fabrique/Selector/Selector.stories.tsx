@@ -2,12 +2,12 @@ import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { generateRandomName, generateRandomNames } from '#utils/factories';
+import { generateRandomName, generateRandomNames } from '#src/utils/factories';
 
 import Selector, { SelectorStorybook, type SelectorProps } from '.';
 import { MenuItemStorybook } from '#Fabrique/MenuItem';
 import { SelectorSizeEnum } from './constants';
-import { Star06 } from '#components/untitledui';
+import { Star06 } from '#src/components/untitledui';
 import { MenuItemListStorybook } from '../MenuItemList';
 
 MenuItemStorybook.displayName = 'Selector';

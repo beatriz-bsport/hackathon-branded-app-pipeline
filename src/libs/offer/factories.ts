@@ -4,11 +4,11 @@ import { fakerEN as faker } from '@faker-js/faker';
 import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
 
-import metaActivityFactory from '#libs/group-offer/factories';
-import { levelFactory } from '#libs/level/factory';
-import { coachFactory } from '#libs/associated-coach/factories';
-import { establishment_factory } from '#libs/establishment/factory';
-import { offerGroupFactory } from '#libs/group-offer/factory';
+import metaActivityFactory from '#src/libs/group-offer/factories';
+import { levelFactory } from '#src/libs/level/factory';
+import { coachFactory } from '#src/libs/associated-coach/factories';
+import { establishment_factory } from '#src/libs/establishment/factory';
+import { offerGroupFactory } from '#src/libs/group-offer/factory';
 
 FactoryBot.define('Offer', {
   company: 1,

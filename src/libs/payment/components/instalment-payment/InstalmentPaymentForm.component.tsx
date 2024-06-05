@@ -16,9 +16,9 @@ import {
   DateField,
   IntegerFieldEnhancedHelperTextError,
   // @ts-expect-error
-} from '#components/forms';
+} from '#src/components/forms';
 
-import type { PaymentInstalmentData } from '#libs/payment/types';
+import type { PaymentInstalmentData } from '#src/libs/payment/types';
 import InstalmentPaymentPreview from './InstalmentPaymentPreview.component';
 
 const styles = (theme: Theme) =>

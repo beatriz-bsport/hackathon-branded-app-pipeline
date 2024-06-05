@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { useTranslation } from 'react-i18next';
-import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import { MaterialUiMultiSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 
 type Option = {
   value: number;

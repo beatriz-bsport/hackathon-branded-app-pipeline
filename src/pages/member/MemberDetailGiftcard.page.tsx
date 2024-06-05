@@ -12,28 +12,28 @@ import Typography from '@material-ui/core/Typography';
 import { push } from 'connected-react-router';
 import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items';
 import uniq from 'lodash/uniq';
-import themeSelectors from '#libs/theme/selectors';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import themeSelectors from '#src/libs/theme/selectors';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
   fetchConsumerGiftcardSentList as fetchConsumerGiftcardSentListAction,
   retrieveConsumerGiftcard,
   sendEmailInvitation,
-} from '#libs/giftcard/actions';
+} from '#src/libs/giftcard/actions';
 
-import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
-import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '#libs/invoice/actions';
+import ConsumerGiftcardListItem from '#src/libs/giftcard/components/ConsumerGiftcardListItem.component';
+import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '#src/libs/invoice/actions';
 import {
   Giftcard,
   ConsumerGiftcard,
   WithGiftcard,
   WithSender,
   WithReceiver,
-} from '#libs/giftcard/types';
-import ConsumerGiftcardDetail from '#libs/giftcard/components/ConsumerGiftcardDetail.component';
+} from '#src/libs/giftcard/types';
+import ConsumerGiftcardDetail from '#src/libs/giftcard/components/ConsumerGiftcardDetail.component';
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
 import {
   getConsumerGiftcardReceivedList,
   withGiftcard,
@@ -41,12 +41,12 @@ import {
   withSender,
   withReceiver,
   getConsumerGiftcardSentList,
-} from '#libs/giftcard/selectors';
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
+} from '#src/libs/giftcard/selectors';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
 
-import { Invoice } from '#libs/invoice/types';
-import ConsumerGiftcardInvitationModal from '#libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
-import { getMember } from '#libs/member/selectors';
+import { Invoice } from '#src/libs/invoice/types';
+import ConsumerGiftcardInvitationModal from '#src/libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
+import { getMember } from '#src/libs/member/selectors';
 import { RootState } from '../../reducers';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 import { OptionCallback } from '../../state/types';

@@ -7,7 +7,7 @@ import {
 import {
   MarketplacePaymentMethodBillingDetails,
   MarketplacePaymentMethods,
-} from '#libs/marketplace/types';
+} from '#src/libs/marketplace/types';
 
 export type StripeInit = ReturnType<typeof loadStripe>;
 

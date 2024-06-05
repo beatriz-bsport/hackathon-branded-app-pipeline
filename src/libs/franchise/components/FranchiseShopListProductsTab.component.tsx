@@ -8,18 +8,19 @@ import TabPanel from '@material-ui/lab/TabPanel';
 import AddIcon from '@material-ui/icons/Add';
 
 import { OptionProps } from 'react-select/lib/components/Option';
-import FranchiseSubshopTemplateList from '#libs/franchise/components/FranchiseSubshopTemplateList';
-import FranchiseSubshopTemplateDialog from '#libs/franchise/components/FranchiseSubshopTemplateDialog';
-import ObjectSearch from '#libs/fuzzy-search/components/ObjectSearch.component';
-import FranchiseShopItemTemplateListItem from '#libs/franchise/components/FranchiseShopItemTemplateListItem';
 
-import type { ShopItemTemplate, SubshopTemplate } from '#libs/shop/types';
-import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
-import type { OptionCallback, PaginatedResponse } from '#state/types';
-import type { ErrorAndLoading, SelectOption } from '#libs/types';
+import FranchiseSubshopTemplateDialog from '#src/libs/franchise/components/FranchiseSubshopTemplateDialog';
+import ObjectSearch from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import FranchiseShopItemTemplateListItem from '#src/libs/franchise/components/FranchiseShopItemTemplateListItem';
 
-import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
-import { FranchiseSubshopTemplateDialogEnum } from '#libs/franchise/components/FranchiseSubshopTemplateDialog/constants';
+import type { ShopItemTemplate, SubshopTemplate } from '#src/libs/shop/types';
+import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
+import type { OptionCallback, PaginatedResponse } from '#src/state/types';
+import type { ErrorAndLoading, SelectOption } from '#src/libs/types';
+import FranchiseSubshopTemplateList from '#src/libs/franchise/components/FranchiseSubshopTemplateList';
+
+import { ShopListTab } from '#src/libs/shop/components/ShopListTabs/constants';
+import { FranchiseSubshopTemplateDialogEnum } from '#src/libs/franchise/components/FranchiseSubshopTemplateDialog/constants';
 
 type Props = {
   subshopTemplateList: SubshopTemplate[];

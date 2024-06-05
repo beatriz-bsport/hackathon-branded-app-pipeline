@@ -15,12 +15,12 @@ import Typography from '@material-ui/core/Typography';
 
 import AddIcon from '@material-ui/icons/Add';
 
-import ShopSupplierTable from '#libs/shop/components/ShopSupplierTable';
+import ShopSupplierTable from '#src/libs/shop/components/ShopSupplierTable';
 
-import type { ShopSupplierTemplate } from '#libs/shop/types';
+import type { ShopSupplierTemplate } from '#src/libs/shop/types';
 
-import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
-import { SHOP_SUPPLIER_PAGE_SIZE } from '#libs/shop/constants';
+import { ShopListTab } from '#src/libs/shop/components/ShopListTabs/constants';
+import { SHOP_SUPPLIER_PAGE_SIZE } from '#src/libs/shop/constants';
 
 type Props = {
   isSupplierTemplateListLoading?: boolean;

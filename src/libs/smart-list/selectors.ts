@@ -1,9 +1,9 @@
 import objectAssign from 'object-assign';
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
-import { getEnabledCadencesList } from '#libs/sequential_marketing/selectors';
+import { getEnabledCadencesList } from '#src/libs/sequential_marketing/selectors';
 
-import type { Cadence } from '#libs/sequential_marketing/types';
+import type { Cadence } from '#src/libs/sequential_marketing/types';
 import type { AutoTagRule, SmartList } from './types';
 import type { RootState } from '../../reducers';
 

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { OfferStatus } from '#libs/offer/types';
+import { OfferStatus } from '#src/libs/offer/types';
 import useOfferWaitingListStatus from './useOfferWaitingListStatus';
 
 /**

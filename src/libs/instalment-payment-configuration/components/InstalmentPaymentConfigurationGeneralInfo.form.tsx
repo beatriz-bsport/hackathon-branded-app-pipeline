@@ -10,8 +10,8 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
-import { InstalmentPaymentApi } from '#libs/instalment-payment-configuration/types';
+import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { InstalmentPaymentApi } from '#src/libs/instalment-payment-configuration/types';
 import {
   CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT,
   CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT,
@@ -19,7 +19,7 @@ import {
   DAILY,
   MONTHLY,
   WEEKLY,
-} from '#libs/instalment-payment-configuration/constants';
+} from '#src/libs/instalment-payment-configuration/constants';
 import { generateInfo, generateRecurrencyString } from '../utils';
 import {
   TextFieldEnhancedLabelWithError,

@@ -11,9 +11,9 @@ import { useTranslation } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
-import { PrivateBooking } from '#libs/private-service/types';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
+import { PrivateBooking } from '#src/libs/private-service/types';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import {
   formatAsDatetime,
   formatISOStringAsTime,

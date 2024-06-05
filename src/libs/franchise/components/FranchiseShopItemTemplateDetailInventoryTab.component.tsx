@@ -10,24 +10,23 @@ import Typography from '@material-ui/core/Typography';
 
 import AddIcon from '@material-ui/icons/Add';
 
-
 import type {
   Provision,
   ProvisionBulkCreate,
   ProvisionCreate,
   ShopItem,
   ShopItemTemplate,
-} from '#libs/shop/types';
-import type { ShopItemInventoryBulkUpdateFormValues } from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
-import type { OptionCallback } from '#state/types';
-import type { ShopItemInventoryFormValues } from '#libs/shop/components/ShopItemInventoryUpdateForm/types';
-import type { SelectOption } from '#libs/types';
+} from '#src/libs/shop/types';
+import type { ShopItemInventoryBulkUpdateFormValues } from '#src/libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
+import type { OptionCallback } from '#src/state/types';
+import type { ShopItemInventoryFormValues } from '#src/libs/shop/components/ShopItemInventoryUpdateForm/types';
+import type { SelectOption } from '#src/libs/types';
 
-import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
+import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
 import {
   SHOP_ITEM_VARIANTS_PAGE_SIZE,
   ShopItemDetailInventoryFormType,
-} from '#libs/shop/constants';
+} from '#src/libs/shop/constants';
 import FranchiseShopItemDetailInventoryListMobile from './FranchiseShopItemDetailInventoryListMobile.component';
 import FranchiseShopItemTemplateDetailInventoryList from './FranchiseShopItemTemplateDetailInventoryList.component';
 

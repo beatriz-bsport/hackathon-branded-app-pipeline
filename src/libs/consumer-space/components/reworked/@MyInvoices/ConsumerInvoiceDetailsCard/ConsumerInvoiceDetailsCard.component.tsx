@@ -1,18 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import {
   ConsumerInvoiceDetailsCardBody,
   ConsumerInvoiceDetailsCardFooter,
   ConsumerInvoiceDetailsCardHeader,
-} from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceDetailsCard/sections';
-import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+} from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceDetailsCard/sections';
+import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 import Card from '#Fabrique/Card';
-import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
-import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
+import ConsumerCardPlaceholder from '#src/libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
+import ConsumerDetailsCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 
-import type { ConsumerInvoice, Invoice } from '#libs/invoice/types';
+import type { ConsumerInvoice, Invoice } from '#src/libs/invoice/types';
 
 import './styles.css';
 

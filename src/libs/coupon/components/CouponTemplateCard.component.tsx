@@ -17,8 +17,8 @@ import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 
 import { VOUCHER_TYPE_AMOUNT } from '@bsport/common/lib/master-data/coupon';
-import CompanyChip from '#components/franchise/CompanyChip.component';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import CompanyChip from '#src/components/franchise/CompanyChip.component';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 import { isCurrentlyActive } from '../utils';
 

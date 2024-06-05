@@ -13,7 +13,7 @@ import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import { withTranslation, TFunction } from 'react-i18next';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Typography from '@material-ui/core/Typography';
-import Tooltip from '#components/Tooltip.component';
+import Tooltip from '#src/components/Tooltip.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { ContractWithPaymentPack } from '../types';

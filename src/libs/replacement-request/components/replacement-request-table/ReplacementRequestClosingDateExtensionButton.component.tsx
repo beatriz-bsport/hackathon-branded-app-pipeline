@@ -8,11 +8,11 @@ import Update from '@material-ui/icons/Update';
 
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
-import { ReplacementRequest } from '#libs/replacement-request/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Level } from '#libs/level/types';
+import { ReplacementRequest } from '#src/libs/replacement-request/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Level } from '#src/libs/level/types';
 
 type Props = {
   replacementRequest: ReplacementRequest<

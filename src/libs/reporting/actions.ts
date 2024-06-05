@@ -4,7 +4,7 @@ import {
   ReportFilterConfig,
   ReportFilterConfigParams,
   ReportSerializerParams,
-} from '#libs/reporting/types';
+} from '#src/libs/reporting/types';
 import {
   OptionCallback,
   Dispatch,

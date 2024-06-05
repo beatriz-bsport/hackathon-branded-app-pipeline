@@ -9,32 +9,32 @@ import { TFunction } from 'i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { createStyles, Theme } from '@material-ui/core';
 import { WithStyles } from '@material-ui/styles';
-import { conditionToHideSpecificTeacherAvailabilities } from '#libs/private-service/utils';
+import { conditionToHideSpecificTeacherAvailabilities } from '#src/libs/private-service/utils';
 
-import withTitle from '#hocs/with-title.hoc';
-import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import withTitle from '#src/hocs/with-title.hoc';
+import { getMyAssociatedCoachProfile } from '#src/libs/associated-coach/selectors';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import {
   getPrivateBookingListFiltered,
   withRelatedFields,
-} from '#libs/private-service/selectors/private-booking';
+} from '#src/libs/private-service/selectors/private-booking';
 import {
   fetchAllOffers as fetchAllOffersAction,
   listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAction,
-} from '#libs/offer/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+} from '#src/libs/offer/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
 import {
   getOfferAsEventList,
   getOfferHasPendingReplacementRequest,
-} from '#libs/offer/selectors';
-import { setScheduleFilter as setScheduleFilterAction } from '#libs/user-preference/actions';
-import { getScheduleFilter } from '#libs/user-preference/selectors';
-import { ScheduleFilter } from '#libs/user-preference/types';
+} from '#src/libs/offer/selectors';
+import { setScheduleFilter as setScheduleFilterAction } from '#src/libs/user-preference/actions';
+import { getScheduleFilter } from '#src/libs/user-preference/selectors';
+import { ScheduleFilter } from '#src/libs/user-preference/types';
 
 // @ts-expect-error
-import PrivateCalendarWithControls from '#libs/private-service/components/PrivateCalendarWithControls.component';
+import PrivateCalendarWithControls from '#src/libs/private-service/components/PrivateCalendarWithControls.component';
 
-import { getMyAvailabilitySlots } from '#libs/private-service/selectors/availability-slot';
+import { getMyAvailabilitySlots } from '#src/libs/private-service/selectors/availability-slot';
 import {
   fetchAvailabilitySlots,
   resetAvailabilitySlots,
@@ -46,17 +46,17 @@ import {
   resetPrivateBookings,
   fetchCustomEventList as fetchCustomEventListAction,
   resetCustomEvent,
-} from '#libs/private-service/actions';
+} from '#src/libs/private-service/actions';
 import {
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
   fetchEstablishments as fetchEstablishmentsAction,
-} from '#libs/establishment/actions';
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
-import mapRouterParamsToProps from '#hocs/router-params-to-props.hoc';
-import { getAllEstablishmentsWithAssociatedId } from '#libs/establishment/selectors';
-import SlotSpecificEstablishmentDialog from '#libs/private-service/components/availability/SlotSpecificEstablishmentDialog.component';
+} from '#src/libs/establishment/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
+import mapRouterParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { getAllEstablishmentsWithAssociatedId } from '#src/libs/establishment/selectors';
+import SlotSpecificEstablishmentDialog from '#src/libs/private-service/components/availability/SlotSpecificEstablishmentDialog.component';
 
-import { getCustomEventList } from '#libs/private-service/selectors/custom-event';
+import { getCustomEventList } from '#src/libs/private-service/selectors/custom-event';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';

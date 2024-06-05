@@ -14,41 +14,41 @@ import {
   updateSettings as updateSettingsAction,
   fetchTagList as fetchTagListAction,
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
-} from '#libs/notification-rule/actions';
+} from '#src/libs/notification-rule/actions';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
   createOrUpdateMarketingNotification as createOrUpdateMarketingNotificationAction,
   deleteMarketingNotification as deleteMarketingNotificationAction,
-} from '#libs/marketing/actions';
+} from '#src/libs/marketing/actions';
 import {
   emailTemplateDetail as fetchEmailDesignDetailAction,
   bulkEmailTemplateDetail as fetchBulkEmailDesignDetailAction,
   emailTemplatesSummaries as fetchEmailDesignListAction,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 
 import {
   getEventByGroup,
   getRequiredTagsByEvent,
   getResolvedGenericTags,
   getTagCategories,
-} from '#libs/notification-rule/selectors';
+} from '#src/libs/notification-rule/selectors';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
-import { getCelebrationBirthday } from '#libs/marketing/selectors';
+} from '#src/libs/email-editor/selectors';
+import { getCelebrationBirthday } from '#src/libs/marketing/selectors';
 
-import withTitle from '#hocs/with-title.hoc';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import { NotificationRuleSettings } from '#libs/notification-rule/types';
-import NotificationRuleGroupHeader from '#libs/notification-rule/components/NotificationRuleGroupHeader.component';
-import NotificationRulePreview from '#libs/notification-rule/components/NotificationRulePreview.component';
-import NotificationRulePreviewHeader from '#libs/notification-rule/components/NotificationRulePreviewHeader.component';
-import NotificationRuleListItem from '#libs/notification-rule/components/NotificationRuleListItem.component';
-import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import withTitle from '#src/hocs/with-title.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
+import { NotificationRuleSettings } from '#src/libs/notification-rule/types';
+import NotificationRuleGroupHeader from '#src/libs/notification-rule/components/NotificationRuleGroupHeader.component';
+import NotificationRulePreview from '#src/libs/notification-rule/components/NotificationRulePreview.component';
+import NotificationRulePreviewHeader from '#src/libs/notification-rule/components/NotificationRulePreviewHeader.component';
+import NotificationRuleListItem from '#src/libs/notification-rule/components/NotificationRuleListItem.component';
+import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 

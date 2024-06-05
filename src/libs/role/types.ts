@@ -5,11 +5,11 @@ import {
   PRIVATE_BOOKING_COACH_MODIFIED_BY_STAFF,
   PRIVATE_BOOKING_RESTORED_BY_STAFF,
   RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
-} from '#libs/private-service/components/constants';
+} from '#src/libs/private-service/components/constants';
 import {
   BOOKING_CREATED_BY_STAFF,
   BOOKING_CANCELLED_BY_STAFF,
-} from '#libs/booking/components/constants';
+} from '#src/libs/booking/components/constants';
 import { ErrorAndLoading } from '../types';
 
 // FOR CREATING A STAFF USER

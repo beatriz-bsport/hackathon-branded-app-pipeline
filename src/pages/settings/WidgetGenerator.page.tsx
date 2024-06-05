@@ -8,11 +8,11 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import merge from 'lodash/merge';
 
 import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
-import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
-import { getFranchiseId } from '#libs/franchise/selectors';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { getActiveCustomLevels } from '#libs/level/selectors';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { getPrivatePassCategories } from '#src/libs/private-service/selectors/private-pass-category';
+import { getFranchiseId } from '#src/libs/franchise/selectors';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import { getActiveCustomLevels } from '#src/libs/level/selectors';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 import { MaterialStyleType } from '../../utils/types';
 import { MarketplaceComponentConfig } from '../../libs/marketplace/types';
 import { RootState } from '../../reducers';
@@ -68,7 +68,6 @@ import {
   EXPORTABLE_COMPONENT_TYPE_CALENDAR,
   EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE,
 } from '../../libs/exportable-components/constants';
-
 
 type OwnProps = {
   defaultValue?: {

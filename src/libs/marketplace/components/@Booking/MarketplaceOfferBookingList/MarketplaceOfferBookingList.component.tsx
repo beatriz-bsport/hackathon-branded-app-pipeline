@@ -1,17 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import MarketplaceOfferBookingItem from '#marketplacecomponents/@Booking/MarketplaceOfferBookingItem';
-import { getGuestBookingName } from '#libs/marketplace/utils/booking';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import MarketplaceOfferBookingItem from '#src/libs/marketplace/components/@Booking/MarketplaceOfferBookingItem';
+import { getGuestBookingName } from '#src/libs/marketplace/utils/booking';
 
 import {
   BOOKING_FOR_GUEST_FREQUENCY,
   type OfferStatus,
   type OfferWithSpotInformation,
-} from '#libs/offer/types';
-import type { CompanyTheme } from '#libs/theme/types';
-import { CheckoutItem } from '#libs/checkout/types';
+} from '#src/libs/offer/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import { CheckoutItem } from '#src/libs/checkout/types';
 
 import './styles.css';
 

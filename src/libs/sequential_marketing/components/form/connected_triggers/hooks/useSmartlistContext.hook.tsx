@@ -1,6 +1,6 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
-import type { SmartList } from '#libs/smart-list/types';
+import type { SmartList } from '#src/libs/smart-list/types';
 
 export type SmartlistOption = { label: string; value: number };
 

@@ -17,15 +17,16 @@ import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Divider from '@material-ui/core/Divider';
-import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { fetchTags } from '#libs/tag/actions';
-import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
+
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import { fetchTags } from '#src/libs/tag/actions';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 import {
   getBookkeepingAccountList,
   getBookkeepingAccountById,
-} from '#libs/payment/selectors';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+} from '#src/libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
 import withTitle from '../../hocs/with-title.hoc';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import BackofficeLinearProgressComponent from '../../components/navigation/BackofficeLinearProgress.component';
@@ -61,12 +62,12 @@ import {
 } from '../../libs/giftcard/types';
 import { OptionCallback } from '../../state/types';
 import GiftcardListItem from '../../libs/giftcard/components/GiftcardListItem.component';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
-import GiftcardListDeleteDialog from '#libs/giftcard/components/GiftcardListDeleteDialog.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import GiftcardListDeleteDialog from '#src/libs/giftcard/components/GiftcardListDeleteDialog.component';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 
 const styles = (theme: Theme) =>
   createStyles({

@@ -12,8 +12,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core';
-import AccessControlSnackBar from '#libs/access-control/components/AccessControlSnackBar/AccessControlSnackBar.component';
-import { getPerformAccessMonitoringUrl } from '#libs/access-control/utils';
+import AccessControlSnackBar from '#src/libs/access-control/components/AccessControlSnackBar/AccessControlSnackBar.component';
+import { getPerformAccessMonitoringUrl } from '#src/libs/access-control/utils';
 import {
   deleteAccessControlSnackbar as deleteAccessControlSnackbarAction,
   deleteBottomSnackbar as deleteBottomSnackbarAction,

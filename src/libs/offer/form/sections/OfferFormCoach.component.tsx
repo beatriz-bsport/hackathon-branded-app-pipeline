@@ -10,15 +10,15 @@ import {
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
-import FormSection from '#components/forms/FormSection';
-import OfferFormField from '#libs/offer/form/OfferFormField.component';
-import { useOfferFormStyles } from '#libs/offer/hooks';
-import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
-import CoachPaymentRuleSelectorStyled from '#libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
+import FormSection from '#src/components/forms/FormSection';
+import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
+import { useOfferFormStyles } from '#src/libs/offer/hooks';
+import CoachSelector from '#src/libs/associated-coach/components/coach-selector/CoachSelector.component';
+import CoachPaymentRuleSelectorStyled from '#src/libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 
-import { OfferFormValues } from '#libs/offer/types';
-import { Coach } from '#libs/associated-coach/types';
-import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
+import { OfferFormValues } from '#src/libs/offer/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
 import Config from '../../../../config';
 
 type Props = {

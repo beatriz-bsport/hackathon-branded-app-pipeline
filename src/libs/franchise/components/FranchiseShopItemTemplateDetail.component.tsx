@@ -6,15 +6,17 @@ import { makeStyles, useTheme, useMediaQuery, Theme } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import Select from 'react-select';
 
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import ShopItemFormReworked from '#libs/shop/components/ShopItemFormReworked';
-import ShopItemDetailProductCard from '#libs/shop/components/ShopItemDetailProductCard';
-import ShopItemDeleteConfirmDialog from '#libs/shop/components/ShopItemDeleteConfirmDialog.component';
+import ShopItemFormReworked from '#src/libs/shop/components/ShopItemFormReworked';
+
 import FranchiseShopItemTemplateDetailTabs from './FranchiseShopItemTemplateDetailTabs.component';
 import ShopItemVariantForm from '#src/libs/shop/components/ShopItemVariantForm';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { ShopModalContextProvider } from '#hocs/shop-modal-prompt.hoc';
+import ShopItemDetailProductCard from '#src/libs/shop/components/ShopItemDetailProductCard';
+import ShopItemDeleteConfirmDialog from '#src/libs/shop/components/ShopItemDeleteConfirmDialog.component';
+
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { ShopModalContextProvider } from '#src/hocs/shop-modal-prompt.hoc';
 
 import type {
   ShopItemTemplate,
@@ -26,12 +28,12 @@ import type {
   Provision,
   ProvisionBulkCreate,
   ShopItemVariantAttributes,
-} from '#libs/shop/types';
-import type { OptionCallback } from '#state/types';
+} from '#src/libs/shop/types';
+import type { OptionCallback } from '#src/state/types';
 import type { SelectOption } from '#src/libs/types';
 
-import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 
 const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.ShopItem,

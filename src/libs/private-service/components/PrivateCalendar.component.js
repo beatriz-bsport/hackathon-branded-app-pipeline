@@ -35,9 +35,9 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
-import ReplacementRequestPendingChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
-import SlotDetailDialog from '#libs/private-service/components/availability/SlotDetailDialog.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ReplacementRequestPendingChip from '#src/libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
+import SlotDetailDialog from '#src/libs/private-service/components/availability/SlotDetailDialog.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import {
   groupSlotsAndMerge,
   intersectSelectionWithMergedIntervals,

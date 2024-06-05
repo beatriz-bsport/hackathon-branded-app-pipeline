@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
-import { getPrice } from '#libs/theme/utils';
+import { getPrice } from '#src/libs/theme/utils';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PaymentCombo } from '../types';
 // @ts-expect-error

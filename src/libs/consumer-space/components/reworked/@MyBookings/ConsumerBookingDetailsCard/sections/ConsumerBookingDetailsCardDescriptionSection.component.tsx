@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
-import ConsumerCardDescription from '#libs/consumer-space/components/reworked/common/ConsumerCardDescription';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardDescription from '#src/libs/consumer-space/components/reworked/common/ConsumerCardDescription';
 
 type Props = {
   description?: string;

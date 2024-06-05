@@ -20,12 +20,12 @@ import SendIcon from '@material-ui/icons/Send';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { MaterialStyleType, WithHandlerType } from '#utils/types';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { MaterialStyleType, WithHandlerType } from '#src/utils/types';
+import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#src/libs/notification-rule/actions';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 // SMARTLIST
 import {
@@ -48,7 +48,7 @@ import {
   fetchCadencesUsingSmartlist,
   getMemberTableBackground,
   fetchStoredCsvExports,
-} from '#libs/smart-list/actions';
+} from '#src/libs/smart-list/actions';
 import {
   getSmartListFilters,
   getSmartList,
@@ -59,23 +59,23 @@ import {
   getCadenceIdsUsingSmartlistLoading,
   getSmartListCsvExportLink,
   getSmartListCsvExportDate,
-} from '#libs/smart-list/selectors';
+} from '#src/libs/smart-list/selectors';
 import {
   fetchSmartListMembers as fetchSmartListMembersAPI,
   getMemberTable,
-} from '#libs/smart-list/api';
+} from '#src/libs/smart-list/api';
 import type {
   SmartList,
   AutoTagRule,
   AutomatedCampaign,
-} from '#libs/smart-list/types';
+} from '#src/libs/smart-list/types';
 
 // PAYMENT PACK
 import {
   fetchPaymentPackList as fetchPaymentPackListAction,
   fetchPaymentPackBulk,
-} from '#libs/payment-packs/actions';
-import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selectors';
+} from '#src/libs/payment-packs/actions';
+import { getEnabled as getPaymentPackEnabled } from '#src/libs/payment-packs/selectors';
 
 // PRIVATE PASS | PRIVATE SERVICE
 import {
@@ -83,16 +83,16 @@ import {
   fetchPrivatePassBulk,
   fetchAllPrivateServices,
   fetchPrivateServiceBulk,
-} from '#libs/private-service/actions';
-import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
+} from '#src/libs/private-service/actions';
+import { getPrivatePassAvailable } from '#src/libs/private-service/selectors/private-pass';
 import {
   _getPrivateServicesById,
   getAvailablePrivateServices,
-} from '#libs/private-service/selectors/private-service';
-import type { PrivateService } from '#libs/private-service/types';
+} from '#src/libs/private-service/selectors/private-service';
+import type { PrivateService } from '#src/libs/private-service/types';
 
 // COMMUNICATION
-import { sendCommunication as sendCommunicationAction } from '#libs/communication/actions';
+import { sendCommunication as sendCommunicationAction } from '#src/libs/communication/actions';
 import {
   createCommunicationScheduled as createCommunicationScheduledAction,
   fetchCommunicationScheduledListForSmartlist as fetchCommunicationScheduledListForSmartlistAction,
@@ -103,105 +103,105 @@ import {
   getUnreadAnswersCount as getUnreadAnswersCountAction,
   fetchSmartListPopupSendings,
   sendSmartListPopup,
-} from '#libs/communication-v2/actions';
+} from '#src/libs/communication-v2/actions';
 import type {
   MemberMailData,
   SendDirectCommunicationType,
-} from '#libs/communication/types';
+} from '#src/libs/communication/types';
 import type {
   CommunicationContext,
   CommunicationScheduled,
   CommunicationScheduledCreate,
-} from '#libs/communication-v2/types';
+} from '#src/libs/communication-v2/types';
 
 // MEMBER
-import { fetchCommunicationsPaginatedMembers } from '#libs/member/actions';
-import { getPaginatedMembers } from '#libs/member/selectors';
+import { fetchCommunicationsPaginatedMembers } from '#src/libs/member/actions';
+import { getPaginatedMembers } from '#src/libs/member/selectors';
 
 // METAACTIVITY
 import {
   fetchMetaActivityBulk,
   fetchCompanyActivities as fetchAllActivitiesAction,
-} from '#libs/meta-activity/actions';
-import { getMetaActivities } from '#libs/meta-activity/selectors';
+} from '#src/libs/meta-activity/actions';
+import { getMetaActivities } from '#src/libs/meta-activity/selectors';
 
 // TAGS
-import { fetchTags } from '#libs/tag/actions';
-import tagSelectors from '#libs/tag/selectors';
-import type { ResolvedGenericTags } from '#libs/email-editor/types';
+import { fetchTags } from '#src/libs/tag/actions';
+import tagSelectors from '#src/libs/tag/selectors';
+import type { ResolvedGenericTags } from '#src/libs/email-editor/types';
 
 // EMAIL
 import {
   emailTemplatesSummaries,
   emailTemplateDetail,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
+} from '#src/libs/email-editor/selectors';
 
 // ESTABLISHMENT
 import {
   fetchEstablishments,
   fetchEstablishmentBulk,
-} from '#libs/establishment/actions';
-import { getAllEstablishments } from '#libs/establishment/selectors';
+} from '#src/libs/establishment/actions';
+import { getAllEstablishments } from '#src/libs/establishment/selectors';
 
 // COACHES
 import {
   fetchAssociatedCoachesList as fetchCoaches,
   fetchCoachBulk,
-} from '#libs/associated-coach/actions';
+} from '#src/libs/associated-coach/actions';
 
-import { getCoaches } from '#libs/associated-coach/selectors';
+import { getCoaches } from '#src/libs/associated-coach/selectors';
 
 // LEVEL
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { getAllCustomLevels } from '#libs/level/selectors';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import { getAllCustomLevels } from '#src/libs/level/selectors';
 
 // CUSTOM FORMS
 import {
   fetchAllCustomForm,
   fetchCustomFormBulk,
-} from '#libs/custom-form/actions';
+} from '#src/libs/custom-form/actions';
 
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import {
   showInformativeDialog,
   showDeleteDialog,
-} from '#components/genericDialog/CustomDialogs';
-import FiltersPanel from '#libs/smart-list/components/FiltersPanel.component';
+} from '#src/components/genericDialog/CustomDialogs';
+import FiltersPanel from '#src/libs/smart-list/components/FiltersPanel.component';
 // @ts-expect-error
-import AutoTagPanel from '#libs/smart-list/components/AutoTagPanel.component';
+import AutoTagPanel from '#src/libs/smart-list/components/AutoTagPanel.component';
 // @ts-expect-error
-import SmartListEditDialog from '#libs/smart-list/components/SmartListFormDialog.component';
-import AutomatedCampaignDrawer from '#libs/smart-list/components/automated_campaign/AutomatedCampaignDrawer.component';
-import AutomatedCampaignPanel from '#libs/smart-list/components/automated_campaign/AutomatedCampaignPanel.component';
-import MemberTable from '#libs/member/MemberTable.component';
-import CommunicationDrawerDEPRECATED from '#libs/communication/components/CommunicationDrawer.component';
-import { getAllCustomForm } from '#libs/custom-form/selectors';
+import SmartListEditDialog from '#src/libs/smart-list/components/SmartListFormDialog.component';
+import AutomatedCampaignDrawer from '#src/libs/smart-list/components/automated_campaign/AutomatedCampaignDrawer.component';
+import AutomatedCampaignPanel from '#src/libs/smart-list/components/automated_campaign/AutomatedCampaignPanel.component';
+import MemberTable from '#src/libs/member/MemberTable.component';
+import CommunicationDrawerDEPRECATED from '#src/libs/communication/components/CommunicationDrawer.component';
+import { getAllCustomForm } from '#src/libs/custom-form/selectors';
 
 // COMMUNICATION CHAT
-import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
+import CommunicationDrawer from '#src/libs/communication-v2/components/CommunicationDrawer.component';
 import {
   CONTEXT_SMARTLIST,
   MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION,
-} from '#libs/communication-v2/constants';
-import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
+} from '#src/libs/communication-v2/constants';
+import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
 
-import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
-import GenericDeleteDialog from '#components/genericDialog/GenericDeleteDialog.component';
+import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
+import GenericDeleteDialog from '#src/components/genericDialog/GenericDeleteDialog.component';
 
 import {
   getCommunicationScheduledForSmartlist,
   getCommunicationScheduledBySmartlistLoading,
   getCommunicationScheduledBySmartlistTotal,
   getSmartListPopupSendingList,
-} from '#libs/communication-v2/selectors';
+} from '#src/libs/communication-v2/selectors';
 
 // CADENCES
-import { fetchCadenceList } from '#libs/sequential_marketing/actions';
-import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
+import { fetchCadenceList } from '#src/libs/sequential_marketing/actions';
+import { UPSELL_IDENTIFIER_CADENCE } from '#src/libs/platform-billing/upsell-identifiers';
 import Config from '../../config';
 import { snackbarError } from '../../actions/snackbar.actions';
 import type { RootState } from '../../reducers';

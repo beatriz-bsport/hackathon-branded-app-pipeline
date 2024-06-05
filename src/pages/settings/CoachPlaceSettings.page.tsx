@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
-import ReplacementRequestConfigurationForm from '#libs/replacement-request/components/ReplacementRequestConfigurationForm.component';
+import ReplacementRequestConfigurationForm from '#src/libs/replacement-request/components/ReplacementRequestConfigurationForm.component';
 import {
   fetchReplacementConfiguration as fetchReplacementConfigurationAction,
   updateReplacementConfiguration as updateReplacementConfigurationAction,
-} from '#libs/replacement-request/actions';
-import { getReplacementRequestConfiguration } from '#libs/replacement-request/selectors';
-import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
+} from '#src/libs/replacement-request/actions';
+import { getReplacementRequestConfiguration } from '#src/libs/replacement-request/selectors';
+import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 import { RootState } from '../../reducers';
 import { CompanyTheme } from '../../libs/theme/types';
 import CoachUserspaceSettingsForm from '../../libs/theme/components/CoachUserspaceSettingsForm.component';

@@ -9,7 +9,7 @@ import {
 } from '@bsport/common/lib/master-data/resource-attribution-methods';
 import { push as pushAction } from 'connected-react-router';
 import { compose } from 'recompose';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import {
   fetchMarketplacePrivateSlots as fetchMarketplacePrivateSlotsAction,

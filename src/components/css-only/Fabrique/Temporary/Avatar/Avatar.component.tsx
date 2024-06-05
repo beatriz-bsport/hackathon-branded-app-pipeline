@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { Building05, User01 } from '#components/untitledui';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { Building05, User01 } from '#src/components/untitledui';
 import type { AvatarSize, AvatarType } from './types';
 import { AvatarSizeEnum, AvatarTypeEnum } from './constants';
 import DEFAULT_PROFILE_PICTURE_URL from '#src/assets/constants';

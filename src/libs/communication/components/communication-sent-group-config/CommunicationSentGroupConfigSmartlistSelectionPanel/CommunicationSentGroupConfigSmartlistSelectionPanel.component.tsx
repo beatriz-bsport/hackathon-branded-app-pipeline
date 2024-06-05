@@ -15,9 +15,9 @@ import { Alert } from '@material-ui/lab';
 import { ErrorMessage, useFormikContext } from 'formik';
 
 import SeamlessImmutable from 'seamless-immutable';
-import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
-import { CommunicationSentGroupConfigFormValues } from '#libs/communication/types';
-import { SmartList } from '#libs/smart-list/types';
+import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { CommunicationSentGroupConfigFormValues } from '#src/libs/communication/types';
+import { SmartList } from '#src/libs/smart-list/types';
 import CommunicationSentGroupConfigSmartlistSelectionRow from './CommunicationSentGroupConfigSmartlistSelectionRow.component';
 
 type Props = {

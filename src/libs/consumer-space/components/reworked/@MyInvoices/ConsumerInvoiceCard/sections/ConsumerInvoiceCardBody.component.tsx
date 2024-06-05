@@ -1,14 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ChevronRight } from '#components/untitledui';
-import { ConsumerGenericCardBodyContainer } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
-import { convertCtsToFullPrice } from '#libs/consumer-space/components/reworked/@MyInvoices/helpers/utils';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { ChevronRight } from '#src/components/untitledui';
+import { ConsumerGenericCardBodyContainer } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
+import { convertCtsToFullPrice } from '#src/libs/consumer-space/components/reworked/@MyInvoices/helpers/utils';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import Button from '#Fabrique/ButtonV2';
 import Typography from '#Fabrique/Typography';
 
-import type { ConsumerInvoice } from '#libs/invoice/types';
+import type { ConsumerInvoice } from '#src/libs/invoice/types';
 
 import '../styles.css';
 

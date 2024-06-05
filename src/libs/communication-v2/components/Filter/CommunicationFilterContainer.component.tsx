@@ -18,11 +18,11 @@ import { withStyles } from '@material-ui/styles';
 import type {
   SelectFieldItem,
   FilterState,
-} from '#libs/communication-v2/types';
+} from '#src/libs/communication-v2/types';
 import {
   getFiltersToEnable,
   getFilterOptionsOverride,
-} from '#libs/communication-v2/utils';
+} from '#src/libs/communication-v2/utils';
 import CommunicationFilterCollapse from './CommunicationFilterCollapse.component';
 import CommunicationFilterValuesGenericSummary from './CommunicationFilterValuesGenericSummary.component';
 import CommunicationFilterValuesPeriodSummary from './CommunicationFilterValuesPeriodSummary.component';
@@ -372,6 +372,7 @@ export class CommunicationFilterContainer extends React.Component<
             kindFilterOptionsOverride={kindFilterOptionsOverride}
             kindFilterSetter={updateKindFilterValues}
             kindFilterValues={this.state.kindFilterValues}
+// @ts-expect-error
             periodHasChanged={periodHasChanged}
             recipientFilterOptionsOverride={recipientFilterOptionsOverride}
             recipientFilterSetter={updateRecipientFilterValues}

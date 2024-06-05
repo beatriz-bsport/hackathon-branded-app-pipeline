@@ -1,10 +1,10 @@
-import { getExpirationDate } from '#libs/private-service/utils';
+import { getExpirationDate } from '#src/libs/private-service/utils';
 
 import type {
   PrivateConsumerPassReworked,
   PrivateServiceCompatibilityPass,
-} from '#libs/private-service/types';
-import type { PrivateConsumerPassCompatibility } from '#libs/consumer-space/types';
+} from '#src/libs/private-service/types';
+import type { PrivateConsumerPassCompatibility } from '#src/libs/consumer-space/types';
 import type { PrivateConsumerPassDetailsCardProps } from './PrivateConsumerPassDetailsCard';
 
 const getPrivateServiceCompatibilityPassData = (

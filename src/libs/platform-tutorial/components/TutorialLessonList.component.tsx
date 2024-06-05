@@ -20,7 +20,7 @@ import { Tooltip } from '@material-ui/core';
 import {
   TutorialCompletion,
   TutorialLesson,
-} from '#libs/platform-tutorial/types';
+} from '#src/libs/platform-tutorial/types';
 import { isLessonCompleted } from '../utils';
 
 import LessonStatusChips from './TutorialLessonStatusChip.component';

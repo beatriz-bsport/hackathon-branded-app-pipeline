@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { SpotType } from '#libs/spot-scheduling/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { SpotType } from '#src/libs/spot-scheduling/types';
 import CanvasSpotCreatorForm from './CanvasSpotCreatorForm.component';
 
 type Props = {

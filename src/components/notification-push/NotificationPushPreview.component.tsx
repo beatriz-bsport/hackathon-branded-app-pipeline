@@ -2,13 +2,13 @@ import React, { useMemo } from 'react';
 import { DateTime } from 'luxon';
 import classNames from 'classnames';
 import { makeStyles, Paper, Theme, Typography } from '@material-ui/core';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { replaceGenericTagsInTemplate } from '#src/libs/email-editor/utils';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
+import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#src/libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#src/libs/company/types';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 // @ts-expect-error
-import { CompanyTheme } from '#libs/theme/types';
-import { replaceGenericTagsInTemplate } from '#libs/email-editor/utils';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
-import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
-import { FeatureList } from '#libs/company/types';
-import { hasUpsell } from '#libs/platform-billing/utils';
 import FeatureListProvider from '../../libs/company/hocs/feature-list-provider.hoc';
 
 type OwnProps = {

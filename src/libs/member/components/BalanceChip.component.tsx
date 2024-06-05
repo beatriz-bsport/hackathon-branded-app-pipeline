@@ -8,7 +8,7 @@ import {
   BALANCE_AND_UNPAID_AMOUNT,
   ONLY_BALANCE,
   ONLY_UNPAID_AMOUNT,
-} from '#libs/member/constants';
+} from '#src/libs/member/constants';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {

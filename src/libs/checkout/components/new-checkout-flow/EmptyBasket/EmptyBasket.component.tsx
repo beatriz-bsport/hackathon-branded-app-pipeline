@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import StatusMessageWithIcon from '#components/css-only/StatusMessageWithIcon';
-import { WidgetUtils } from '#libs/widget/WidgetUtils';
-import { EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON } from '#libs/exportable-components/constants';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
+import StatusMessageWithIcon from '#src/components/css-only/StatusMessageWithIcon';
+import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
+import { EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON } from '#src/libs/exportable-components/constants';
 
 import './styles.css';
 

@@ -11,7 +11,7 @@ import { createStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import clx from 'classnames';
-import { Video } from '#libs/video/types';
+import { Video } from '#src/libs/video/types';
 
 type OwnProps = {
   url: string;

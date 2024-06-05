@@ -5,9 +5,9 @@ import {
   SequentialMarketingColors,
   TRIGGER_KIND_CHOICES,
   TriggerKind,
-} from '#libs/sequential_marketing/constants';
-import { triggerIconByKind } from '#libs/sequential_marketing/components/helpers/utils';
-import type { MenuAction } from '#components/menu/types';
+} from '#src/libs/sequential_marketing/constants';
+import { triggerIconByKind } from '#src/libs/sequential_marketing/components/helpers/utils';
+import type { MenuAction } from '#src/components/menu/types';
 
 type Props = {
   addConnectedTrigger: (kind: TriggerKind) => void;

@@ -1,4 +1,4 @@
-import { Offer } from '#libs/offer/types';
+import { Offer } from '#src/libs/offer/types';
 
 /**
  * Generates a unique identifier for the provided offer.

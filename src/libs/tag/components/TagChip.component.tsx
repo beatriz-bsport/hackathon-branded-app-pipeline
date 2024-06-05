@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
 import Avatar from '@material-ui/core/Avatar';
-import MuiIcon from '#components/MuiIcon.component';
+import MuiIcon from '#src/components/MuiIcon.component';
 import type { Tag, TagGroup } from '../types';
 
 type Props = {

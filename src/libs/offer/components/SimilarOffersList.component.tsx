@@ -15,10 +15,9 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
-
-import { Coach } from '#libs/associated-coach/types';
-import { SIMILAR_OFFERS_PAGE_SIZE } from '#libs/offer/constants';
-import { Offer, OfferFormValues } from '#libs/offer/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { SIMILAR_OFFERS_PAGE_SIZE } from '#src/libs/offer/constants';
+import { Offer, OfferFormValues } from '#src/libs/offer/types';
 import {
   formatAsDatetimeAdapted,
   formatISOStringAsTime,

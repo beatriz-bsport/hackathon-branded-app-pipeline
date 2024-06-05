@@ -5,7 +5,7 @@ import flatten from 'lodash/flatten';
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 
-import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
+import { getMyAssociatedCoachProfile } from '#src/libs/associated-coach/selectors';
 import { RootState } from '../../../reducers';
 import { AvailabilitySlot, PrivateServiceState } from '../types';
 

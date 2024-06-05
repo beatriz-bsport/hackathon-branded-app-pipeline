@@ -4,9 +4,9 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import TermsAndConditionsPortal, {
   TermsAndConditionsPortalStorybook,
-} from '#csscomponents/Portals/TermsAndConditions';
+} from '#src/components/css-only/Portals/TermsAndConditions';
 
-import type { TermsPortalProps } from '#csscomponents/Portals/types';
+import type { TermsPortalProps } from '#src/components/css-only/Portals/types';
 
 const baseArgs: TermsPortalProps = {
   terms: faker.lorem.paragraphs(3),

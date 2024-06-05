@@ -7,12 +7,12 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import VirtualizeListAutoSize from '#components/virtualize/VirtualListAutoSize.component';
+import VirtualizeListAutoSize from '#src/components/virtualize/VirtualListAutoSize.component';
 
-import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallButton.component';
-import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
+import ValidationRollCallButton from '#src/libs/offer/components/ValidationRollCallButton.component';
+import ValidationRollCallText from '#src/libs/offer/components/ValidationRollCallText.component';
 
-import type { Theme as CompanyTheme } from '#libs/theme/types';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
 import OfferMinimalSummary from './OfferMinimalSummary.component';
 import type { Offer } from '../../api/types';
 import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';

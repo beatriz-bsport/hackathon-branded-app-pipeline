@@ -6,12 +6,12 @@ import { action } from '@storybook/addon-actions';
 import MemberVisitDetailsCard, {
   Props,
 } from './MemberVisitDetailsCard.component';
-import { AccessStatus } from '#libs/access-control/constants';
+import { AccessStatus } from '#src/libs/access-control/constants';
 
 import MemberVisitFactoryBot, {
   generateFakeAccessStatusData,
-} from '#libs/access-control/factories';
-import { consumerBookingFactory } from '#libs/booking/factories';
+} from '#src/libs/access-control/factories';
+import { consumerBookingFactory } from '#src/libs/booking/factories';
 
 const booking = consumerBookingFactory();
 

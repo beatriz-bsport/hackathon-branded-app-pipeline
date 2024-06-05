@@ -1,8 +1,10 @@
 import React from 'react';
-import type { ModalsAndDrawersProps } from '#csscomponents/Portals/types';
+import type { ModalsAndDrawersProps } from '#src/components/css-only/Portals/types';
 import BottomDrawer from '#Fabrique/BottomDrawer';
 import { PortalContainer } from '#Fabrique/PortalContainer';
+
 import '#csscomponents/Portals/styles.css';
+import '#src/components/css-only/Portals/styles.css';
 
 const DetachPaymentBottomDrawer: React.FC<ModalsAndDrawersProps> = ({
   cancelLabel,

@@ -11,8 +11,8 @@ import {
 } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import type { Coupon, UniqueCodeState } from '#libs/coupon/types';
-import { VOUCHER_CODE_TABLE_PAGE_SIZE } from '#libs/coupon/constants';
+import type { Coupon, UniqueCodeState } from '#src/libs/coupon/types';
+import { VOUCHER_CODE_TABLE_PAGE_SIZE } from '#src/libs/coupon/constants';
 import VoucherCodesRowItem from './VoucherCodesRowItem.component';
 import VoucherCodesSelectButtons from '../VoucherCodesSelectors/VoucherCodesSelectButtons.component';
 

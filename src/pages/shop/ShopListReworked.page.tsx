@@ -13,13 +13,13 @@ import {
   createShopSupplier as createShopSupplierAction,
   updateShopSupplier as updateShopSupplierAction,
   deleteShopSupplier as deleteShopSupplierAction,
-} from '#libs/shop/actions/supplier';
+} from '#src/libs/shop/actions/supplier';
 import {
   fetchSubshopList as fetchSubshopListAction,
   createSubshop as createSubshopAction,
   updateSubshop as updateSubshopAction,
   deleteSubshop as deleteSubshopAction,
-} from '#libs/shop/actions/subshopReworked';
+} from '#src/libs/shop/actions/subshopReworked';
 import {
   createShopItem as createShopItemAction,
   fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
@@ -27,18 +27,18 @@ import {
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAction,
   duplicateShopItem as duplicateShopItemAction,
   deleteShopItem as deleteShopItemAction,
-} from '#libs/shop/actions/shopItemReworked';
+} from '#src/libs/shop/actions/shopItemReworked';
 import {
   fetchConfiguration as fetchConfigurationAction,
   patchConfiguration as patchConfigurationAction,
   createOrUpdateDeliveryFee as createOrUpdateDeliveryFeeAction,
   disableDeliveryFee as disableDeliveryFeeAction,
   fetchAllDeliveryFee as fetchAllDeliveryFeeAction,
-} from '#libs/order/actions';
-import { fetchBookkeepingAccountList } from '#libs/payment/actions';
+} from '#src/libs/order/actions';
+import { fetchBookkeepingAccountList } from '#src/libs/payment/actions';
 
 // --- SELECTORS ---
-import { getTheme } from '#libs/theme/selectors';
+import { getTheme } from '#src/libs/theme/selectors';
 import {
   getIsShopItemUsedInCombo,
   getShopItemBaseLoading,
@@ -47,27 +47,27 @@ import {
   getShopSupplierListLoading,
   getSubshopList,
   getSubshopLoading,
-} from '#libs/shop/selectors';
+} from '#src/libs/shop/selectors';
 import {
   getDeliveryFeesActive,
   getOrderConfigurationData,
-} from '#libs/order/selectors';
+} from '#src/libs/order/selectors';
 import {
   getBookkeepingAccountList,
   getBookkeepingAccountById,
-} from '#libs/payment/selectors';
+} from '#src/libs/payment/selectors';
 
 // --- COMPONENTS ---
-import ShopListReworked from '#libs/shop/components/ShopListReworked';
+import ShopListReworked from '#src/libs/shop/components/ShopListReworked';
 
 // --- UTILS/HOCS ---
 // @ts-expect-error
-import { mapFormDataWithObject } from '#pages/form.utils';
-import withTitle from '#hocs/with-title.hoc';
+import { mapFormDataWithObject } from '#src/pages/form.utils';
+import withTitle from '#src/hocs/with-title.hoc';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 
 // --- TYPES ---
 import type {
@@ -77,17 +77,20 @@ import type {
   ShopSupplierUpdate,
   ShopSupplier,
   SubShop,
-} from '#libs/shop/types';
-import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
-import type { DeliveryFee } from '#libs/order/types';
+} from '#src/libs/shop/types';
+import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
+import type { DeliveryFee } from '#src/libs/order/types';
 
 // --- CONSTANTS ---
-import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
+
 import {
   ShopListTab,
   SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
-} from '#libs/shop/components/ShopListTabs/constants';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+} from '#src/libs/shop/components/ShopListTabs/constants';
+
+import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
+
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 

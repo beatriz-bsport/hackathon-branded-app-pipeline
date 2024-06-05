@@ -1,21 +1,20 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 
-// @ts-expect-error
 import Barcode from 'react-barcode';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, useTheme, useMediaQuery, Theme } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import Select from 'react-select';
 
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import ShopItemFormReworked from '#libs/shop/components/ShopItemFormReworked';
-import ShopItemDetailProductCard from '#libs/shop/components/ShopItemDetailProductCard';
-import ShopItemDeleteConfirmDialog from '#libs/shop/components/ShopItemDeleteConfirmDialog.component';
-import ShopItemDetailTabs from '#libs/shop/components/ShopItemDetailTabs';
-import ShopItemVariantForm from '#libs/shop/components/ShopItemVariantForm';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import ShopItemFormReworked from '#src/libs/shop/components/ShopItemFormReworked';
+import ShopItemDetailProductCard from '#src/libs/shop/components/ShopItemDetailProductCard';
+import ShopItemDeleteConfirmDialog from '#src/libs/shop/components/ShopItemDeleteConfirmDialog.component';
+import ShopItemDetailTabs from '#src/libs/shop/components/ShopItemDetailTabs';
+import ShopItemVariantForm from '#src/libs/shop/components/ShopItemVariantForm';
 
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { ShopModalContextProvider } from '#hocs/shop-modal-prompt.hoc';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { ShopModalContextProvider } from '#src/hocs/shop-modal-prompt.hoc';
 
 import type {
   ShopItem,
@@ -28,12 +27,12 @@ import type {
   Provision,
   ProvisionCreate,
   ShopItemVariantCombination,
-} from '#libs/shop/types';
+} from '#src/libs/shop/types';
 
-import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import type { BookkeepingAccount } from '#libs/payment/types';
-import type { SelectOption } from '#libs/types';
+import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
+import type { SelectOption } from '#src/libs/types';
 import type { OptionCallback } from '../../../../state/types';
 
 const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(

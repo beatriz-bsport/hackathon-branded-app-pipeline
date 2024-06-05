@@ -20,14 +20,15 @@ import IconButton from '@material-ui/core/IconButton';
 import memoize from 'memoize-one';
 import uniqBy from 'lodash/uniqBy';
 import { Alert } from '@material-ui/lab';
-import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 
-import { VideoStatusEnum } from '#libs/video/types';
-import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
-import IsEmptyList from '#components/navigation/IsEmptyList.component';
-import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
-import PaymentPackDeleteDialog from '#libs/payment-packs/components/PaymentPackDeleteDialog.component';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import { VideoStatusEnum } from '#src/libs/video/types';
+import PaginatedConsumerPackList from '#src/libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
+import PaymentPackListItem from '#src/libs/payment-packs/components/PaymentPackListItem.component';
+import PaymentPackDeleteDialog from '#src/libs/payment-packs/components/PaymentPackDeleteDialog.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+
 import {
   fetchPaymentPackList as fetchPaymentPackListAction,
   patch as patchPaymentPack,
@@ -40,8 +41,8 @@ import {
   createOrUpdate as createOrUpdatePaymentPackAction,
   isPaymentPackUsedInCombo,
   resetDisabledPaymentPack,
-} from '#libs/payment-packs/actions';
-import BottomActionsButton from '#components/button/BottomActionsButton.component';
+} from '#src/libs/payment-packs/actions';
+import BottomActionsButton from '#src/components/button/BottomActionsButton.component';
 import {
   withSCT,
   getEnabledPaymentPacks,
@@ -49,43 +50,44 @@ import {
   groupByCategory,
   getAllPaymentPackCategory,
   withLinkedPrivatePass,
-} from '#libs/payment-packs/selectors';
-import { fetchVideoFilterableParams } from '#libs/video/actions';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
+} from '#src/libs/payment-packs/selectors';
+import { fetchVideoFilterableParams } from '#src/libs/video/actions';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import { getAvailableEstablishmentList } from '#src/libs/establishment/selectors';
 import {
   getActivitiesByIdList,
   getEnabledMetaActivities,
   getEnabledWorkshops,
-} from '#libs/meta-activity/selectors';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { getPrivateServices } from '#libs/private-service/selectors/private-service';
-import { getCompatibilityPassWithService as getCompatibleServicePass } from '#libs/private-service/selectors/private-pass';
-import type { PrivatePass, PrivateSlot } from '#libs/private-service/types';
-import { getEditableSCTs } from '#libs/category/selectors';
+} from '#src/libs/meta-activity/selectors';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
+import { getCompatibilityPassWithService as getCompatibleServicePass } from '#src/libs/private-service/selectors/private-pass';
+import type { PrivatePass, PrivateSlot } from '#src/libs/private-service/types';
+import { getEditableSCTs } from '#src/libs/category/selectors';
 
 import {
   fetchPrivatePassList,
   fetchAllPrivateServices,
   fetchAllPrivateSlots,
   fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
-} from '#libs/private-service/actions';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
-import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
-import DeleteNoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/DeleteNoShowPenaltyDialog.component';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+} from '#src/libs/private-service/actions';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { refreshCompanyTheme as refreshCompanyThemeAction } from '#src/libs/theme/actions';
+import NoShowPenaltyDialog from '#src/libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
+import DeleteNoShowPenaltyDialog from '#src/libs/payment-packs/components/PaymentPackForm/DeleteNoShowPenaltyDialog.component';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 import {
   getBookkeepingAccountList,
   getBookkeepingAccountById,
-} from '#libs/payment/selectors';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+} from '#src/libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
+
 import themeSelectors from '../../libs/theme/selectors';
 import {
   fetchActivitiesCompany,

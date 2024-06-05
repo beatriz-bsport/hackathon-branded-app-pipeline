@@ -1,6 +1,6 @@
 import React from 'react';
-import FactoryBotTheme from '#libs/theme/factories';
-import FactorybotEstablishment from '#libs/establishment/factories/Establishments';
+import FactoryBotTheme from '#src/libs/theme/factories';
+import FactorybotEstablishment from '#src/libs/establishment/factories/Establishments';
 
 import MarketplaceEstablishmentTitle from '.';
 

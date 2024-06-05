@@ -7,13 +7,13 @@ import {
   NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING,
   NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING,
 } from '@bsport/common/lib/master-data/notification-rule-events';
-import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import { updateCompanyTheme } from '#libs/theme/actions';
-import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
-import type { PaymentMethodsFormValues } from '#libs/settings/components/PaymentMethodsForm/PaymentMethodsForm.component';
-import PaymentMethodsForm from '#libs/settings/components/PaymentMethodsForm';
+import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import { updateCompanyTheme } from '#src/libs/theme/actions';
+import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
+import type { PaymentMethodsFormValues } from '#src/libs/settings/components/PaymentMethodsForm/PaymentMethodsForm.component';
+import PaymentMethodsForm from '#src/libs/settings/components/PaymentMethodsForm';
 
-import { fetchSettingsList as fetchSettingsListAction } from '#libs/notification-rule/actions';
+import { fetchSettingsList as fetchSettingsListAction } from '#src/libs/notification-rule/actions';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
 

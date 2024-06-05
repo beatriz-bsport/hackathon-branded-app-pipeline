@@ -5,8 +5,8 @@ import BottomDrawer from '#Fabrique/BottomDrawer';
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 
-import { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
-import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
+import { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+import { BookingTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 
 import './styles.css';
 

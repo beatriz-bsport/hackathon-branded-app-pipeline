@@ -12,9 +12,9 @@ import {
 import { push as pushAction } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
   emailTemplateDelete as emailTemplateDeleteAction,
   emailTemplateDetail as emailTemplateDetailAction,
@@ -22,20 +22,21 @@ import {
   emailTemplatesSummaries as emailTemplatesSummariesAction,
   fetchFranchisePageFilter as fetchFranchisePageFilterAction,
   updateFranchisePageFilter as updateFranchisePageFilterAction,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
   getFranchisorSavedFilter,
-} from '#libs/email-editor/selectors';
-import BottomActionButtons from '#components/button/BottomActionsButton.component';
-import FranchiseEmailListing from '#libs/franchise/components/FranchiseEmailListing.components';
-import HTMLPreview from '#components/html/HTMLPreview.component';
-import { getFranchiseCompanies } from '#libs/franchise/selectors';
-import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
-import withTitle from '#hocs/with-title.hoc';
-import { FranchiseCompany } from '#libs/franchise/types';
+} from '#src/libs/email-editor/selectors';
+import BottomActionButtons from '#src/components/button/BottomActionsButton.component';
+import FranchiseEmailListing from '#src/libs/franchise/components/FranchiseEmailListing.components';
+import HTMLPreview from '#src/components/html/HTMLPreview.component';
+import { getFranchiseCompanies } from '#src/libs/franchise/selectors';
+import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/actions';
+import withTitle from '#src/hocs/with-title.hoc';
+import { FranchiseCompany } from '#src/libs/franchise/types';
 import ModalConfirm from '#src/components/ModalConfirm.component';
+
 import { RootState } from '../../reducers';
 
 type OwnProps = {

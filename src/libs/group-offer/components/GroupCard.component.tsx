@@ -18,8 +18,8 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 // @ts-expect-error
-import { MetaActivity, OffersGroup } from '#libs/meta-activity/types';
-import { Offer } from '#libs/offer/types';
+import { MetaActivity, OffersGroup } from '#src/libs/meta-activity/types';
+import { Offer } from '#src/libs/offer/types';
 import ReccurenceDisplay from './RecurrenceDisplay.component';
 import { getTextColorFromRGB } from '../../../utils/color';
 import { formatISOStringAsTime } from '../../../utils/datetime';

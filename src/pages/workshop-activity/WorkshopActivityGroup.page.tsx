@@ -8,15 +8,15 @@ import {
 
 import { withWidth } from '@material-ui/core';
 
-import { fetchEstablishments as fetchEstablishmentsAction } from '#libs/establishment/actions';
-import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#libs/associated-coach/actions';
-import { fetchRoomBlueprints as fetchRoomBlueprintsAction } from '#libs/spot-scheduling/actions';
-import { fetchAllCoachPaymentRules as fetchAllCoachPaymentRulesAction } from '#libs/coach-payment-rules/actions';
-import { setWorkshopGroupFilter as setWorkshopGroupFilterAction } from '#libs/user-preference/actions';
+import { fetchEstablishments as fetchEstablishmentsAction } from '#src/libs/establishment/actions';
+import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#src/libs/associated-coach/actions';
+import { fetchRoomBlueprints as fetchRoomBlueprintsAction } from '#src/libs/spot-scheduling/actions';
+import { fetchAllCoachPaymentRules as fetchAllCoachPaymentRulesAction } from '#src/libs/coach-payment-rules/actions';
+import { setWorkshopGroupFilter as setWorkshopGroupFilterAction } from '#src/libs/user-preference/actions';
 import {
   fetchMetaActivities as fetchMetaActivitiesAction,
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
-} from '#libs/meta-activity/actions';
+} from '#src/libs/meta-activity/actions';
 import {
   fetchGroupsOfferList as fetchGroupsOfferListAction,
   fetchGroupOffer as fetchGroupOfferAction,
@@ -27,13 +27,13 @@ import {
   fetchSimilarGroupOffers as fetchSimilarGroupOffersAction,
   deleteGroupOffer as deleteGroupOfferAction,
   fetchExistingGroupOffer as fetchExistingGroupOfferAction,
-} from '#libs/group-offer/actions';
+} from '#src/libs/group-offer/actions';
 import {
   fetchLevelList as fetchLevelListAction,
   updateLevel as updateLevelAction,
   createLevel as createLevelAction,
   deleteLevel as deleteLevelAction,
-} from '#libs/level/actions';
+} from '#src/libs/level/actions';
 import {
   fetchBookedGenderBulk as fetchBookedGenderBulkAction,
   fetchOfferBulk as fetchOfferBulkAction,
@@ -44,29 +44,29 @@ import {
   disableOffer as disableOfferAction,
   hardDeleteOffers as hardDeleteOffersAction,
   fetchSimilarOffersWithReset as fetchSimilarOffersWithResetAction,
-} from '#libs/offer/actions';
-import { snackbarSuccess as snackbarSuccessAction } from '#libs/snackbar/actions';
-import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
-import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '#libs/booking/actions';
+} from '#src/libs/offer/actions';
+import { snackbarSuccess as snackbarSuccessAction } from '#src/libs/snackbar/actions';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '#src/libs/member/actions';
+import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '#src/libs/booking/actions';
 
-import { getOfferBookingList } from '#libs/booking/selectors';
+import { getOfferBookingList } from '#src/libs/booking/selectors';
 import {
   getActiveCustomLevels,
   getAllCustomLevels,
   withCustomLevel,
-} from '#libs/level/selectors';
-import { getActiveCoaches } from '#libs/associated-coach/selectors';
+} from '#src/libs/level/selectors';
+import { getActiveCoaches } from '#src/libs/associated-coach/selectors';
 import {
   getAllEstablishments,
   getAvailableEstablishmentList,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import {
   getAvailableRoomBlueprints,
   getRoomBlueprints,
-} from '#libs/spot-scheduling/selector';
-import { CoachPaymentRuleByKindSelector } from '#libs/coach-payment-rules/selectors';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import themeSelectors from '#libs/theme/selectors';
+} from '#src/libs/spot-scheduling/selector';
+import { CoachPaymentRuleByKindSelector } from '#src/libs/coach-payment-rules/selectors';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 import {
   getGroupPreview,
   getGroupList,
@@ -74,8 +74,8 @@ import {
   withGroup,
   getOffersListByGroup as getOffersListByGroupSelector,
   getSimilarGroups,
-} from '#libs/group-offer/selectors';
-import { getWorkshopGroupFilter } from '#libs/user-preference/selectors';
+} from '#src/libs/group-offer/selectors';
+import { getWorkshopGroupFilter } from '#src/libs/user-preference/selectors';
 import {
   getOfferById,
   withMetaActivity,
@@ -84,17 +84,17 @@ import {
   withGender,
   withTags,
   getSimilars as getSimilarsOffers,
-} from '#libs/offer/selectors';
-import { getEnabledWorkshops } from '#libs/meta-activity/selectors';
-import { showVaccinationStatus as showVaccinationStatusSelector } from '#libs/custom-form/selectors';
+} from '#src/libs/offer/selectors';
+import { getEnabledWorkshops } from '#src/libs/meta-activity/selectors';
+import { showVaccinationStatus as showVaccinationStatusSelector } from '#src/libs/custom-form/selectors';
 import {
   getAllMembers,
   withTags as withMemberTag,
-} from '#libs/member/selectors';
+} from '#src/libs/member/selectors';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { fetchZoomApp as fetchZoomAppAction } from '#libs/zoom-app/actions';
-import zoomAppSelectors from '#libs/zoom-app/selectors';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { fetchZoomApp as fetchZoomAppAction } from '#src/libs/zoom-app/actions';
+import zoomAppSelectors from '#src/libs/zoom-app/selectors';
 import WorkshopActivityGroup from './WorkshopActivityGroup.component';
 import { RootState } from '../../reducers';
 

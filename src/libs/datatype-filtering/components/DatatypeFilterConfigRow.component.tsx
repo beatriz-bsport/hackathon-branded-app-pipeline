@@ -8,28 +8,28 @@ import { makeStyles, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { ReportMetadataColumn } from '#libs/reporting/types';
+import { ReportMetadataColumn } from '#src/libs/reporting/types';
 import {
   AllComparator,
   DynamicFilterDataType,
   DatatypeFilterConfigGroupOperand,
   DatatypeFilterConfigItem,
-} from '#libs/datatype-filtering/types';
+} from '#src/libs/datatype-filtering/types';
 
 import {
   DATE_SUBDATA_TYPE,
   HOUR_SUBDATA_TYPE,
-} from '#libs/datatype-filtering/constants';
+} from '#src/libs/datatype-filtering/constants';
 import {
   getComparatorsByDataType,
   getComparatorCategoryByDataType,
   getDefaultValueForComparator,
   getDefaultValueForTimePeriod,
-} from '#libs/datatype-filtering/utils';
+} from '#src/libs/datatype-filtering/utils';
 
-import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
-import HoverableWarning from '#components/HoverableWarning.component';
-import { authorIdentifiers } from '#libs/reporting/constants';
+import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
+import HoverableWarning from '#src/components/HoverableWarning.component';
+import { authorIdentifiers } from '#src/libs/reporting/constants';
 import DatatypeFilterConfigValueManager from './DatatypeFilterConfigValueManager.component';
 import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
 

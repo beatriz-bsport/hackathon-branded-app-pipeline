@@ -5,9 +5,9 @@ import { makeStyles, Theme } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import { ImmutableArray } from 'seamless-immutable';
-import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
-import { CommunicationSentGroup } from '#libs/communication/types';
+import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
+import { CommunicationSentGroup } from '#src/libs/communication/types';
 import type { Campaign, Recipient } from '../types';
 import CampaignListItem from './CampaignListItem.component';
 

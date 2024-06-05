@@ -11,14 +11,14 @@ import Button from '@material-ui/core/Button';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import { formatAsDatetimeAdapted } from '#utils/datetime';
+import { formatAsDatetimeAdapted } from '#src/utils/datetime';
 
-import type { PaymentPackMassExtension } from '#libs/payment-packs/types';
+import type { PaymentPackMassExtension } from '#src/libs/payment-packs/types';
 import type {
   PrivatePassMassExtension,
   PrivateConsumerPassExtension,
-} from '#libs/private-service/types';
-import type { ConsumerPaymentPackExtension } from '#libs/consumer-payment-pack/types';
+} from '#src/libs/private-service/types';
+import type { ConsumerPaymentPackExtension } from '#src/libs/consumer-payment-pack/types';
 
 const EXTENSION_LIST_ITEM_COLLAPSED_SIZE = 20;
 

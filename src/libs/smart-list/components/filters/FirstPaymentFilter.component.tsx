@@ -5,7 +5,7 @@ import { Theme, makeStyles } from '@material-ui/core';
 
 import { DateTime } from 'luxon';
 import { GTE_COMPARATOR } from '@bsport/common/lib/master-data/smart-list';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 import CalendarPicker from '../CalendarPicker.component';
 import {
   DisableInputComponent,

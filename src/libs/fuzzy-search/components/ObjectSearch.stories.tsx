@@ -1,9 +1,9 @@
 import React from 'react';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ObjectSearchForStorybook } from '#libs/fuzzy-search/components/ObjectSearch.component';
-import type { ObjectSearchProps } from '#libs/fuzzy-search/types';
+import { ObjectSearchForStorybook } from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import type { ObjectSearchProps } from '#src/libs/fuzzy-search/types';
 import { Typography } from '@material-ui/core';
-import MockObjectSearchWrapper from '#libs/fuzzy-search/components/MockObjectSearchWrapper';
+import MockObjectSearchWrapper from '#src/libs/fuzzy-search/components/MockObjectSearchWrapper';
 
 const SearchTemplate: ComponentStory<typeof ObjectSearchForStorybook> = (
   props: ObjectSearchProps,

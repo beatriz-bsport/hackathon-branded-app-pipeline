@@ -1,6 +1,6 @@
 import SeamlessImmutable from 'seamless-immutable';
-import { FeatureList } from '#libs/company/types';
-import { hasUpsell } from '#libs/platform-billing/utils';
+import { FeatureList } from '#src/libs/company/types';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 import { TutorialCompletion, TutorialLesson } from './types';
 
 export const isLessonCompleted = (

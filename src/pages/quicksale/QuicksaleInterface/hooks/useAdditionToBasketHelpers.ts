@@ -7,22 +7,22 @@ import type {
   AddItemToBasketParams,
   Basket,
   CheckoutItemData,
-} from '#libs/checkout/types';
+} from '#src/libs/checkout/types';
 import {
   getBuyableItemFromIdentifierAndId,
   getIdsFromQuicksaleCardInfoId,
   getMemberRestrictionModalSubTexts,
   getQuicksaleCardInfoIdFromIds,
-} from '#libs/quicksale/utils';
-import type { QuicksaleCardInfo } from '#libs/quicksale/types';
-import type { PrivatePass } from '#libs/private-service/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import type { ShopItem } from '#libs/shop/types';
-import type { Giftcard } from '#libs/giftcard/types';
-import type { Member } from '#libs/member/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { TranslationProps } from '#components/DialogWithBigIcon/DialogWithBigIcon.component';
-import type { Tag } from '#libs/tag/types';
+} from '#src/libs/quicksale/utils';
+import type { QuicksaleCardInfo } from '#src/libs/quicksale/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { ShopItem } from '#src/libs/shop/types';
+import type { Giftcard } from '#src/libs/giftcard/types';
+import type { Member } from '#src/libs/member/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { TranslationProps } from '#src/components/DialogWithBigIcon/DialogWithBigIcon.component';
+import type { Tag } from '#src/libs/tag/types';
 
 import type { OptionCallback } from '../../../../state/types';
 

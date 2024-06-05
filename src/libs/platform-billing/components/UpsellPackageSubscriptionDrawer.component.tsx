@@ -4,12 +4,11 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import type { UpsellPackage } from '#libs/company/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import type { UpsellPackage } from '#src/libs/company/types';
 import UpsellPackageSubscriptionForm from './UpsellPackageSubscriptionForm';
 import UpsellSubscriptionConfirmationDialog from './UpsellSubscriptionConfirmationDialog/UpsellSubscriptionConfirmationDialog.component';
-
 
 type Props = {
   loading: boolean;

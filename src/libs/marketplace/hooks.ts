@@ -14,19 +14,23 @@ import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/pe
 
 import { useTranslation } from 'react-i18next';
 
-import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
-import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
+import { PaymentPackCategoryWithPacks } from '#src/libs/payment-packs/types';
+import { PrivatePassCategoryWithPasses } from '#src/libs/private-service/types';
 import {
   MarketplacePassFiltersHookOptions,
   MarketplacePassSearchHookOptions,
   MarketplacePaymentMethodBillingDetails,
-} from '#libs/marketplace/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { CompanyTheme, Theme } from '#libs/theme/types';
-import { Offer, OfferWithSpotInformation, Offer_FULL } from '#libs/offer/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Contract } from '#libs/subscription/types';
+} from '#src/libs/marketplace/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { CompanyTheme, Theme } from '#src/libs/theme/types';
+import {
+  Offer,
+  OfferWithSpotInformation,
+  Offer_FULL,
+} from '#src/libs/offer/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Contract } from '#src/libs/subscription/types';
 import {
   formatAsDateWithWeekday,
   formatISOStringAsTime,

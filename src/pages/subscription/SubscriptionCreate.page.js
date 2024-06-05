@@ -8,9 +8,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { push as pushRouter, goBack } from 'connected-react-router';
 
 import { withTranslation } from 'react-i18next';
-import { fetchStripeReaders } from '#libs/terminal/actions';
-import { getStripeReaders } from '#libs/terminal/selectors';
-import type { StripeReader } from '#libs/terminal/types';
+import { fetchStripeReaders } from '#src/libs/terminal/actions';
+import { getStripeReaders } from '#src/libs/terminal/selectors';
+import type { StripeReader } from '#src/libs/terminal/types';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withFetchDetail from '../../hocs/with-fetch-details.hoc';

@@ -25,7 +25,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
-import type { Cadence } from '#libs/sequential_marketing/types';
+import type { Cadence } from '#src/libs/sequential_marketing/types';
 import CadenceListItem, {
   CadenceListItemLoading,
 } from './CadenceListItem.component';

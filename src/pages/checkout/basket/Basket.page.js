@@ -29,41 +29,41 @@ import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-
 import {
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
-} from '#libs/establishment/actions';
-import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#libs/instalment-payment-configuration/actions';
-import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
-import CheckoutFlow from '#libs/checkout/components/CheckoutFlow.component';
-import NewCheckoutFlow from '#libs/checkout/components/new-checkout-flow/NewCheckoutFlow.component';
+} from '#src/libs/establishment/actions';
+import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#src/libs/instalment-payment-configuration/actions';
+import { getInstalmentForBasketList } from '#src/libs/instalment-payment-configuration/selectors';
+import CheckoutFlow from '#src/libs/checkout/components/CheckoutFlow.component';
+import NewCheckoutFlow from '#src/libs/checkout/components/new-checkout-flow/NewCheckoutFlow.component';
 import {
   getCurrentBasket,
   getBasketOfferList,
   getCurrentBasketItemRemovalStatusLoading,
-} from '#libs/checkout/selectors';
-import { withMetaActivity, withEstablishment } from '#libs/offer/selectors';
-import { WidgetUtils } from '#libs/widget/WidgetUtils';
-import themeSelectors from '#libs/theme/selectors';
-import { fetchCompanyTheme } from '#libs/theme/actions';
+} from '#src/libs/checkout/selectors';
+import { withMetaActivity, withEstablishment } from '#src/libs/offer/selectors';
+import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
+import themeSelectors from '#src/libs/theme/selectors';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
 import {
   getDefaultEstablishmentBillingGroup,
   getEnabledEstablishmentBillingGroups,
-} from '#libs/establishment/selectors';
-import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
+} from '#src/libs/establishment/selectors';
+import { getUsableCreditAccountBalance } from '#src/libs/membership/selectors';
 import {
   fetchMember,
   updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
-} from '#libs/member/actions';
-import { BasketAddress } from '#libs/checkout/types';
+} from '#src/libs/member/actions';
+import { BasketAddress } from '#src/libs/checkout/types';
 import {
   shouldNotRetrieveSecret,
   hasRedirectionFailed,
   shouldCheckPaymentStatus,
-} from '#libs/checkout/utils';
-import { fetchMembership } from '#libs/membership/actions';
-import { CouponErrorCodes } from '#libs/coupon/constants';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
-import { isErrorWithCustomCode } from '#libs/utils';
-import { loadDefaultEstablishmentBillingGroup } from '#libs/marketplace/utils/booking';
+} from '#src/libs/checkout/utils';
+import { fetchMembership } from '#src/libs/membership/actions';
+import { CouponErrorCodes } from '#src/libs/coupon/constants';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
+import { isErrorWithCustomCode } from '#src/libs/utils';
+import { loadDefaultEstablishmentBillingGroup } from '#src/libs/marketplace/utils/booking';
 import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
 import {
   addItemToBasket as addItemToBasketAction,

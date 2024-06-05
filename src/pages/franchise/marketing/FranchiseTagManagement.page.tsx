@@ -8,11 +8,11 @@ import { TFunction } from 'i18next';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { withStyles } from '@material-ui/styles';
-import withTitle from '#hocs/with-title.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
 import {
   fetchAllGroupTemplates,
@@ -22,7 +22,7 @@ import {
   fetchTagTemplateUsage,
   deleteTagTemplate,
   deleteTagGroupTemplate,
-} from '#libs/tag/actions';
+} from '#src/libs/tag/actions';
 
 import {
   fetchMemberListWithoutTagsAction,
@@ -31,18 +31,18 @@ import {
   membersListWithTagRepo,
   tag as tagMemberAction,
   untag as untagMemberAction,
-} from '#libs/member/actions';
+} from '#src/libs/member/actions';
 
-import { getAllTemplate } from '#libs/tag/selectors';
-import TagGroupList from '#libs/tag/components/TagGroupList.component';
-import type { Tag, TagGroup } from '#libs/tag/types';
+import { getAllTemplate } from '#src/libs/tag/selectors';
+import TagGroupList from '#src/libs/tag/components/TagGroupList.component';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
 
-import { Member } from '#libs/member/types';
+import { Member } from '#src/libs/member/types';
 
-import TagDetailHeader from '#libs/marketing/components/TagDetailHeader.component';
-import TagDetailMembers from '#libs/marketing/components/TagDetailMembers.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import TagDetailHeader from '#src/libs/marketing/components/TagDetailHeader.component';
+import TagDetailMembers from '#src/libs/marketing/components/TagDetailMembers.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { RootState } from '../../../reducers';
 import { MaterialStyleType } from '../../../utils/types';
 

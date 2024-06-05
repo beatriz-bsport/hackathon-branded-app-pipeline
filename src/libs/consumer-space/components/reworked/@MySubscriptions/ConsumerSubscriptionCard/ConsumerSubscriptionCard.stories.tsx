@@ -1,7 +1,7 @@
 import React from 'react';
 import { ConsumerSubscriptionCardStorybook } from '.';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { subscriptionFactory } from '#libs/subscription/factory';
+import { subscriptionFactory } from '#src/libs/subscription/factory';
 import { DateTime } from 'luxon';
 
 ConsumerSubscriptionCardStorybook.displayName = 'ConsumerSubscriptionCard';

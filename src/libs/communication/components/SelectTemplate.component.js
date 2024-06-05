@@ -25,7 +25,7 @@ import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
+} from '#src/libs/email-editor/types';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import HTMLPreview from '../../../components/html/HTMLPreview.component';
 

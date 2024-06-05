@@ -11,9 +11,9 @@ import chroma from 'chroma-js';
 import {
   SequentialMarketingColors,
   CadenceMetricsSizes,
-} from '#libs/sequential_marketing/constants';
-import TrophyIcon from '#components/icons/TrophyIcon.component';
-import CadenceGlobalMetricsIcon from '#libs/sequential_marketing/components/metrics/CadenceGlobalMetricsIcon.component';
+} from '#src/libs/sequential_marketing/constants';
+import TrophyIcon from '#src/components/icons/TrophyIcon.component';
+import CadenceGlobalMetricsIcon from '#src/libs/sequential_marketing/components/metrics/CadenceGlobalMetricsIcon.component';
 import CadenceGlobalMetricsCardSkeleton from './CadenceGlobalMetricsCardSkeleton.component';
 
 export enum CadenceMetricsVariant {

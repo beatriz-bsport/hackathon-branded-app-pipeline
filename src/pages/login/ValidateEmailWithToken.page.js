@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { compose, withHandlers, withProps } from 'recompose';
 import { push } from 'connected-react-router';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import ValidateEmailWithToken from '#libs/login/components/ValidateEmailWithToken.component';
-import { validateEmail as validateEmailAction } from '#libs/login/actions';
-import themeSelectors from '#libs/theme/selectors';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import ValidateEmailWithToken from '#src/libs/login/components/ValidateEmailWithToken.component';
+import { validateEmail as validateEmailAction } from '#src/libs/login/actions';
+import themeSelectors from '#src/libs/theme/selectors';
 import { parseQueryString } from '../../http';
 
 type OwnProps = {

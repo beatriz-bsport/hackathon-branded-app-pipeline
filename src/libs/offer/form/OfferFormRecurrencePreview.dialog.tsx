@@ -9,11 +9,11 @@ import { DateRange } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import { useFormikContext } from 'formik';
 
-import FormSection from '#components/forms/FormSection';
-import Calendar from '#components/offer/Calendar.component';
-import { useOfferFormStyles } from '#libs/offer/hooks';
-import { OfferFormValues } from '#libs/offer/types';
-import { getOfferRecurrenceDates } from '#libs/offer/utils';
+import FormSection from '#src/components/forms/FormSection';
+import Calendar from '#src/components/offer/Calendar.component';
+import { useOfferFormStyles } from '#src/libs/offer/hooks';
+import { OfferFormValues } from '#src/libs/offer/types';
+import { getOfferRecurrenceDates } from '#src/libs/offer/utils';
 
 export type Props = {
   timezone: string;

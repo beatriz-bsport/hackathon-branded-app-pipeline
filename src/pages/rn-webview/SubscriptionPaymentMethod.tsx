@@ -8,11 +8,11 @@ import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-gr
 import withStyles from '@material-ui/styles/withStyles';
 import { CircularProgress } from '@material-ui/core';
 
+import type { Theme } from '#src/libs/theme/types';
+import { fetchMembership as fetchMembershipAction } from '#src/libs/membership/actions';
+import { Membership } from '#src/libs/membership/types';
+import type { StripeInit } from '#src/libs/payment/types';
 // @ts-expect-error
-import type { Theme } from '#libs/theme/types';
-import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
-import { Membership } from '#libs/membership/types';
-import type { StripeInit } from '#libs/payment/types';
 import asyncComponent from '../../AsyncComponent';
 
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';

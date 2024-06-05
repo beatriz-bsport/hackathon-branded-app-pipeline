@@ -14,8 +14,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
-import DelayedNumericInput from '#components/DelayedNumericInput.component';
-import ToolTip from '#components/Tooltip.component';
+import DelayedNumericInput from '#src/components/DelayedNumericInput.component';
+import ToolTip from '#src/components/Tooltip.component';
 
 type Keys = {
   comparatorKey: string;

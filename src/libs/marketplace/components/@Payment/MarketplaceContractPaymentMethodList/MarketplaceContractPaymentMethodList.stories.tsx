@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { MarketplaceContractPaymentMethodListForStorybook, Props } from '.';
-import { payment_method_list_factory } from '#libs/payment/factory';
-import { MarketplacePaymentMethods } from '#libs/marketplace/types';
+import { payment_method_list_factory } from '#src/libs/payment/factory';
+import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
 
 const ContractPaymentMethodListTemplate = (args: Props) => (
   // @ts-expect-error

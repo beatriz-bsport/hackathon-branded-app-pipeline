@@ -27,49 +27,49 @@ import AlertTitle from '@material-ui/lab/AlertTitle';
 import { REPLACEMEMENT_REQUEST_LATE_ALERT_KIND } from '@bsport/common/lib/master-data/alerting_kind';
 
 import { DateTime } from 'luxon';
-import ReplacementRequestFilters from '#libs/replacement-request/components/ReplacementRequestFilters.component';
-import ActivitiesToReplaceTable from '#libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
-import ReplacementRequestClosingDateExtensionDialog from '#libs/replacement-request/components/dialogs/ReplacementRequestClosingDateExtensionDialog.component';
-import ReplacementRequestCoachAnswerDialog from '#libs/replacement-request/components/dialogs/ReplacementRequestCoachAnswerDialog.component';
-import ReplacementRequestRefuseDialog from '#libs/replacement-request/components/dialogs/ReplacementRequestRefuseDialog.component';
-import DateRangeSelector from '#components/date/DateRangeSelector.component';
+import ReplacementRequestFilters from '#src/libs/replacement-request/components/ReplacementRequestFilters.component';
+import ActivitiesToReplaceTable from '#src/libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
+import ReplacementRequestClosingDateExtensionDialog from '#src/libs/replacement-request/components/dialogs/ReplacementRequestClosingDateExtensionDialog.component';
+import ReplacementRequestCoachAnswerDialog from '#src/libs/replacement-request/components/dialogs/ReplacementRequestCoachAnswerDialog.component';
+import ReplacementRequestRefuseDialog from '#src/libs/replacement-request/components/dialogs/ReplacementRequestRefuseDialog.component';
+import DateRangeSelector from '#src/components/date/DateRangeSelector.component';
 
 import {
   ReplacementDisplays,
   PAGE_SIZE,
   ReplacementRequestStatus,
-} from '#libs/replacement-request/constants';
+} from '#src/libs/replacement-request/constants';
 import {
   getOfferCalendarStateData,
   withCoach,
   withEstablishment,
   withMetaActivity,
-} from '#libs/offer/selectors';
-import { withCustomLevel } from '#libs/level/selectors';
-import { getActiveCoaches } from '#libs/associated-coach/selectors';
-import { getEditableSCTs } from '#libs/category/selectors';
+} from '#src/libs/offer/selectors';
+import { withCustomLevel } from '#src/libs/level/selectors';
+import { getActiveCoaches } from '#src/libs/associated-coach/selectors';
+import { getEditableSCTs } from '#src/libs/category/selectors';
 import {
   withEstablishment as groupWithEstablishment,
   getAssociatedEstablishmentGroup,
   getAvailableEstablishmentList,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import {
   getAllPendingReplacementRequests,
   withCompleteOffer,
   withCoachAnswers,
-} from '#libs/replacement-request/selectors';
-import { getEnabledMetaActivities } from '#libs/meta-activity/selectors';
+} from '#src/libs/replacement-request/selectors';
+import { getEnabledMetaActivities } from '#src/libs/meta-activity/selectors';
 import {
   fetchAllOffersPaginated as fetchAllOffersPaginatedAction,
   fetchOfferBulk as fetchOfferBulkAction,
-} from '#libs/offer/actions';
-import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#libs/associated-coach/actions';
+} from '#src/libs/offer/actions';
+import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#src/libs/associated-coach/actions';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
-import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+} from '#src/libs/establishment/actions';
+import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#src/libs/meta-activity/actions';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
 import {
   fetchAllReplacementRequests as fetchAllReplacementRequestsAction,
   postponeReplacementRequestClosingDate as postponeReplacementRequestClosingDateAction,
@@ -77,19 +77,22 @@ import {
   fetchAllReplacementRequestCoachAnswers as fetchAllReplacementRequestCoachAnswersAction,
   approveReplacementRequestCoachAnswer as approveReplacementRequestCoachAnswerAction,
   hasRequestsLinkedToCancelledOffers as fetchHasRequestsLinkedToCancelledOffersAction,
-} from '#libs/replacement-request/actions';
-import { ReplacementRequest } from '#libs/replacement-request/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Level } from '#libs/level/types';
-import { fetch as fetchSpecificAlertKindAction } from '#libs/alerting/actions';
-import { updateReplacementRequestLastSeen as updateReplacementRequestLastSeenAPI } from '#libs/replacement-request/api';
+} from '#src/libs/replacement-request/actions';
+import { ReplacementRequest } from '#src/libs/replacement-request/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Level } from '#src/libs/level/types';
+import { fetch as fetchSpecificAlertKindAction } from '#src/libs/alerting/actions';
+import { updateReplacementRequestLastSeen as updateReplacementRequestLastSeenAPI } from '#src/libs/replacement-request/api';
 
 import {
   setReplacementRequestManagerFilter as setReplacementRequestManagerFilterAction,
   setReplacementRequestOfferHistoryFilter as setReplacementRequestOfferHistoryFilterAction,
-} from '#libs/user-preference/actions';
+} from '#src/libs/user-preference/actions';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 

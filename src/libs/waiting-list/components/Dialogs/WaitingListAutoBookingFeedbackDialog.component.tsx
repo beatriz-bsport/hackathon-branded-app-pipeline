@@ -7,9 +7,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import { ValidationIcon } from '#components/icons/ValidationIcon.component';
-import { ErrorIcon } from '#components/icons/ErrorIcon.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import { ValidationIcon } from '#src/components/icons/ValidationIcon.component';
+import { ErrorIcon } from '#src/components/icons/ErrorIcon.component';
 
 type Props = {
   open: boolean;

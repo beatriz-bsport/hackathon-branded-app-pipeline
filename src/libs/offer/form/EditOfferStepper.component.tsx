@@ -12,7 +12,7 @@ import { createStyles, withStyles } from '@material-ui/styles';
 import EventIcon from '@material-ui/icons/Event';
 import Settings from '@material-ui/icons/Settings';
 
-import { useOfferFormStyles } from '#libs/offer/hooks';
+import { useOfferFormStyles } from '#src/libs/offer/hooks';
 
 type Props = {
   activeStep: number;

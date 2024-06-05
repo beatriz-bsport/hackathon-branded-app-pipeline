@@ -1,11 +1,11 @@
 import React from 'react';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { prepaidLinesFactory } from '#libs/checkout/factories';
+} from '#src/libs/exportable-components/types';
+import { prepaidLinesFactory } from '#src/libs/checkout/factories';
 // @ts-expect-error
 import PrepaidLineListCSS from './styles.css?raw';
 import MarketplaceBasketSummaryPrepaidLineList, { Props } from '.';

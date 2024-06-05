@@ -3,7 +3,7 @@ import memoize from 'lodash/memoize';
 import {
   getUsersPaginatedWithRole,
   UsersPaginatedWithRoleSelector,
-} from '#libs/role/selectors';
+} from '#src/libs/role/selectors';
 import { RootState } from '../../reducers';
 
 const _getClockinState = (state: RootState) => state.clockIn;

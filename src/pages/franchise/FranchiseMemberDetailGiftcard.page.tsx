@@ -1,6 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 type OwnProps = {
   userId: number;

@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
-import { Recipient } from '#libs/communication/types';
-import { monitorBackgroundTask } from '#libs/background-task/actions';
+import { Recipient } from '#src/libs/communication/types';
+import { monitorBackgroundTask } from '#src/libs/background-task/actions';
 import type {
   Dispatch,
   OptionBackgroundCallback,

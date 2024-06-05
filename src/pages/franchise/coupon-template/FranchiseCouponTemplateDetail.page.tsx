@@ -3,17 +3,16 @@ import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
 import { push as pushAction } from 'connected-react-router';
 import Grid from '@material-ui/core/Grid';
-import CouponTemplateCard from '#libs/coupon/components/CouponTemplateCard.component';
-import PaginatedDiscountList from '#libs/coupon/components/PaginatedDiscountList.component';
-import { getPaymentPackTemplateList } from '#libs/payment-packs/selectors';
-import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#libs/payment-packs/actions';
-import { getPrivatePassTemplateList } from '#libs/private-service/selectors/private-pass';
-import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#libs/private-service/actions';
-// @ts-expect-error
-import CouponTemplateDeleteDialog from '#libs/coupon/components/CouponTemplateDeleteDialog.component';
-import CouponTemplateInstanceFormDialog from '#libs/coupon/components/CouponTemplateInstanceFormDialog.component';
-import CouponTemplateInstanceDeleteDialog from '#libs/coupon/components/CouponTemplateInstanceDeleteDialog.component';
-import CouponTemplateFormDrawer from '#libs/coupon/components/CouponTemplateFormDrawer.component';
+import CouponTemplateCard from '#src/libs/coupon/components/CouponTemplateCard.component';
+import PaginatedDiscountList from '#src/libs/coupon/components/PaginatedDiscountList.component';
+import { getPaymentPackTemplateList } from '#src/libs/payment-packs/selectors';
+import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#src/libs/payment-packs/actions';
+import { getPrivatePassTemplateList } from '#src/libs/private-service/selectors/private-pass';
+import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#src/libs/private-service/actions';
+import CouponTemplateDeleteDialog from '#src/libs/coupon/components/CouponTemplateDeleteDialog.component';
+import CouponTemplateInstanceFormDialog from '#src/libs/coupon/components/CouponTemplateInstanceFormDialog.component';
+import CouponTemplateInstanceDeleteDialog from '#src/libs/coupon/components/CouponTemplateInstanceDeleteDialog.component';
+import CouponTemplateFormDrawer from '#src/libs/coupon/components/CouponTemplateFormDrawer.component';
 import {
   fetchDiscountList as fetchDiscountListAction,
   retrieveCouponTemplate as retrieveCouponTemplateAction,
@@ -21,12 +20,12 @@ import {
   deleteCouponTemplate as deleteCouponTemplateAction,
   createCouponTemplateInstance as createCouponTemplateInstanceAction,
   deleteCouponTemplateInstance as deleteCouponTemplateInstanceAction,
-} from '#libs/coupon/actions';
-import { getCouponTemplate } from '#libs/coupon/selectors';
+} from '#src/libs/coupon/actions';
+import { getCouponTemplate } from '#src/libs/coupon/selectors';
 import type {
   CouponTemplateAPI,
   CouponTemplateInstance,
-} from '#libs/coupon/types';
+} from '#src/libs/coupon/types';
 import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
 import { parseQueryString } from '../../../http';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
@@ -35,6 +34,7 @@ import {
   getFranchiseCompanies,
   getAllowedFranchisees,
 } from '../../../libs/franchise/selectors';
+// @ts-expect-error
 import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
 import { OptionCallback } from '../../../state/types';
 import { WithHandlerType } from '../../../utils/types';

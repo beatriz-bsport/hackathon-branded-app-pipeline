@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import classNames from 'classnames';
 import { useTheme } from '@material-ui/core';
-import '#csscomponents/Login/LoginBackground.css';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import '#src/components/css-only/Login/LoginBackground.css';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 type Props = {
   company?: boolean;

@@ -24,23 +24,23 @@ import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import type { Theme } from '@material-ui/core/styles';
 
-import { formatAsDate } from '#utils/datetime';
-import { getSpecificIncompatibilitiesReasons } from '#libs/consumer-payment-pack/utils';
-import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
-import { WithIsSharedActive } from '#libs/relationship/types';
-import ConsumerPassSourceChip from '#components/chip/ConsumerPassSourceChip';
-import CreditStatus from '#libs/consumer-payment-pack/components/CreditStatus.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import RedButton from '#components/button/RedButton.component';
-import Tooltip from '#components/Tooltip.component';
+import { formatAsDate } from '#src/utils/datetime';
+import { getSpecificIncompatibilitiesReasons } from '#src/libs/consumer-payment-pack/utils';
+import { showDeleteDialog } from '#src/components/genericDialog/CustomDialogs';
+import { WithIsSharedActive } from '#src/libs/relationship/types';
+import ConsumerPassSourceChip from '#src/components/chip/ConsumerPassSourceChip';
+import CreditStatus from '#src/libs/consumer-payment-pack/components/CreditStatus.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import RedButton from '#src/components/button/RedButton.component';
+import Tooltip from '#src/components/Tooltip.component';
 
-import type { MaterialStyleType } from '#utils/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { Offer } from '#libs/offer/types';
+import type { MaterialStyleType } from '#src/utils/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { Offer } from '#src/libs/offer/types';
 import type {
   MaxoutBooking,
   ConsumerPaymentPack,
-} from '#libs/consumer-payment-pack/types';
+} from '#src/libs/consumer-payment-pack/types';
 import type { OptionCallback } from '../../../state/types';
 import ConsumerPaymentPackIncompatibilitiesReasons from './ConsumerPaymentPackIncompatibilitiesReasons.component';
 

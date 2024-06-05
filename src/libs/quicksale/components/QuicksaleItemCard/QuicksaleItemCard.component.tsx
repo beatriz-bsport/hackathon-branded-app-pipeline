@@ -8,7 +8,7 @@ import RemoveShoppingCard from '@material-ui/icons/RemoveShoppingCart';
 import Block from '@material-ui/icons/Block';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import useGlobalStyle from '../../globalStyleHook';
 import type { QuicksaleCardInfo } from '../../types';
 import useStyle from './styles';

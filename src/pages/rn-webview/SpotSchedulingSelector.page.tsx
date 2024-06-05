@@ -2,50 +2,50 @@ import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 
 import {
   retrieveOffer as fetchOffer,
   fetchOfferStatus as fetchOfferStatusAction,
-} from '#libs/offer/actions';
+} from '#src/libs/offer/actions';
 import {
   getOfferById,
   withMetaActivity,
   withCoach,
   withEstablishment,
-} from '#libs/offer/selectors';
+} from '#src/libs/offer/selectors';
 
-import { fetchCompanyTheme } from '#libs/theme/actions';
-import { fetchMarketplaceSettings } from '#libs/marketplace/actions';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
+import { fetchMarketplaceSettings } from '#src/libs/marketplace/actions';
 
-import { fetchCoachBulk } from '#libs/associated-coach/actions';
-import { fetchEstablishmentBulk } from '#libs/establishment/actions';
+import { fetchCoachBulk } from '#src/libs/associated-coach/actions';
+import { fetchEstablishmentBulk } from '#src/libs/establishment/actions';
 
 import {
   getSpotTypesOfCompany,
   getAssetByBlueprintByIdentifier,
-} from '#libs/spot-scheduling/selector';
+} from '#src/libs/spot-scheduling/selector';
 import {
   fetchSpotForBlueprint,
   fetchRoomBlueprintDetail,
   fetchAssetForBlueprint,
-} from '#libs/spot-scheduling/actions';
-import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
-import MarketplaceSpotSelector from '#marketplacecomponents/@SpotScheduling/MarketplaceSpotSelector';
+} from '#src/libs/spot-scheduling/actions';
+import { DEFAULT_SPOT_TYPE_ID } from '#src/libs/spot-scheduling/utils';
+import MarketplaceSpotSelector from '#src/libs/marketplace/components/@SpotScheduling/MarketplaceSpotSelector';
 
-import { fetchCurrentBasket as fetchCurrentBasketAction } from '#libs/checkout/actions';
-import { getCurrentBasket } from '#libs/checkout/selectors';
+import { fetchCurrentBasket as fetchCurrentBasketAction } from '#src/libs/checkout/actions';
+import { getCurrentBasket } from '#src/libs/checkout/selectors';
 
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { Coach } from '#libs/associated-coach/types';
-import type { OffersGroup } from '#libs/group-offer/types';
-import type { Offer } from '#libs/offer/types';
-import type { SpotType } from '#libs/spot-scheduling/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { OffersGroup } from '#src/libs/group-offer/types';
+import type { Offer } from '#src/libs/offer/types';
+import type { SpotType } from '#src/libs/spot-scheduling/types';
 import type { RootState } from '../../reducers';
 import './styles.css';
 

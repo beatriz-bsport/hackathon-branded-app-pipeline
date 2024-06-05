@@ -7,7 +7,7 @@ import { Theme } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { replace as replaceRouter } from 'connected-react-router';
 import { withRouter } from 'react-router';
-import { updateCompanyTheme, fetchCompanyTheme } from '#libs/theme/actions';
+import { updateCompanyTheme, fetchCompanyTheme } from '#src/libs/theme/actions';
 import {
   retrieveQuickbooksApp as retrieveQuickbooksAppAction,
   updateQuickbooksApp as updateQuickbooksAppAction,
@@ -16,16 +16,16 @@ import {
   fetchQuickbooksTaxAgencies as fetchQuickbooksTaxAgenciesAction,
   fetchQuickbooksTaxCodes as fetchQuickbooksTaxCodesAction,
   setQuickBooksTaxCodes as setQuickBooksTaxCodesAction,
-} from '#libs/quickbooks/actions';
-import themeSelectors from '#libs/theme/selectors';
+} from '#src/libs/quickbooks/actions';
+import themeSelectors from '#src/libs/theme/selectors';
 import {
   getQuickbooksApp,
   getTaxAgenciesList,
   getTaxCodesList,
-} from '#libs/quickbooks/selectors';
-import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
-import QuickBooksConfigrationForm from '#libs/quickbooks/components/QuickBooksConfigurationForm.component';
-import QuickBooksTaxSection from '#libs/quickbooks/components/QuickBookTaxSection.component';
+} from '#src/libs/quickbooks/selectors';
+import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
+import QuickBooksConfigrationForm from '#src/libs/quickbooks/components/QuickBooksConfigurationForm.component';
+import QuickBooksTaxSection from '#src/libs/quickbooks/components/QuickBookTaxSection.component';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';

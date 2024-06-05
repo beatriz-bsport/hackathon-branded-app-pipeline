@@ -6,40 +6,40 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import { createStyles, Grid, Theme } from '@material-ui/core';
 import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
   fetchEventTypeList as fetchEventTypeListAction,
   fetchNotificationRuleList as fetchNotificationRuleListAction,
   updateSettings as updateSettingsAction,
   createOrUpdateNotificationRule as createOrUpdateNotificationRuleAction,
   deleteNotificationRule as deleteNotificationRuleAction,
-} from '#libs/notification-rule/actions';
+} from '#src/libs/notification-rule/actions';
 import {
   getEventByGroup,
   getFranchiseNotificationRules,
   getRequiredTagsByEvent,
-} from '#libs/notification-rule/selectors';
+} from '#src/libs/notification-rule/selectors';
 
-import { fetchMarketingNotificationList as fetchMarketingNotificationListAction } from '#libs/marketing/actions';
-import { getCelebrationBirthday } from '#libs/marketing/selectors';
+import { fetchMarketingNotificationList as fetchMarketingNotificationListAction } from '#src/libs/marketing/actions';
+import { getCelebrationBirthday } from '#src/libs/marketing/selectors';
 
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
+} from '#src/libs/email-editor/selectors';
 
 import {
   emailTemplateDetail as fetchEmailDesignDetailAction,
   emailTemplatesSummaries as fetchEmailDesignListAction,
-} from '#libs/email-editor/actions';
-import withTitle from '#hocs/with-title.hoc';
-import { getFranchiseCompanies } from '#libs/franchise/selectors';
+} from '#src/libs/email-editor/actions';
+import withTitle from '#src/hocs/with-title.hoc';
+import { getFranchiseCompanies } from '#src/libs/franchise/selectors';
 
-import FranchiseNotificationRuleList from '#libs/franchise/components/FranchiseNotificationRuleList.component';
-import FranchiseNotificationRuleDetails from '#libs/franchise/components/FranchiseNotificationRuleDetails.component';
-import { NotificationRule } from '#libs/notification-rule/types';
+import FranchiseNotificationRuleList from '#src/libs/franchise/components/FranchiseNotificationRuleList.component';
+import FranchiseNotificationRuleDetails from '#src/libs/franchise/components/FranchiseNotificationRuleDetails.component';
+import { NotificationRule } from '#src/libs/notification-rule/types';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 

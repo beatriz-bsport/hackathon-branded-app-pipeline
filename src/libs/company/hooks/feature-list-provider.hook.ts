@@ -4,7 +4,7 @@ import {
   UPSELL_IDENTIFIER_SPIVI,
   UPSELL_IDENTIFIER_STRIPE_TERMINAL,
   UPSELL_IDENTIFIER_ZOOM_APP,
-} from '#libs/platform-billing/upsell-identifiers';
+} from '#src/libs/platform-billing/upsell-identifiers';
 import Config from '../../../config';
 
 import { getCompanyFeatureState } from '../selectors';

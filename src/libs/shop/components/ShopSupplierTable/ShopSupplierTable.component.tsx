@@ -18,11 +18,11 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-import useIsTextExpandable from '#hooks/useIsTextExpandable';
+import useIsTextExpandable from '#src/hooks/useIsTextExpandable';
 
-import type { ShopSupplier, ShopSupplierTemplate } from '#libs/shop/types';
+import type { ShopSupplier, ShopSupplierTemplate } from '#src/libs/shop/types';
 
 type Props = {
   supplierList: ShopSupplier[] | ShopSupplierTemplate[];

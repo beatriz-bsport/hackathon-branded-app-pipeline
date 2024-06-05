@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import chroma from 'chroma-js';
 import { getTextColorFromRGB } from '../../../utils/color';
 
-import '#csscomponents/Login/styles.css';
+import '#src/components/css-only/Login/styles.css';
 
 type Props = {
   disconnect: () => void;

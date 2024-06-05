@@ -16,8 +16,8 @@ import {
   Actions,
   defaultHandleSubmit,
   // @ts-expect-error
-} from '#components/forms';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+} from '#src/components/forms';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   handleExportation: () => void;

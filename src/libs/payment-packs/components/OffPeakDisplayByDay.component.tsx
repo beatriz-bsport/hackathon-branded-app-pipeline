@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Theme, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { CustomChip } from '#components/chip/CustomChip.component';
+import { CustomChip } from '#src/components/chip/CustomChip.component';
 
 type OffPeakDisplayByDayProps = {
   timeSlots: string[][];

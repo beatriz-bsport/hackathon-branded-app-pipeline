@@ -3,20 +3,20 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import { DateTime } from 'luxon';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
-import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
-import { establishment_factory } from '#libs/establishment/factory';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
-import { paymentPackFactory } from '#libs/payment-packs/factory';
-import { consumerBookingListFactory } from '#libs/booking/factories';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
+import { consumerPaymentPackFactory } from '#src/libs/consumer-payment-pack/factories';
+import { establishment_factory } from '#src/libs/establishment/factory';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
+import { consumerBookingListFactory } from '#src/libs/booking/factories';
 
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import type { CompanyTheme } from '#libs/theme/types';
-import type { ConsumerBooking } from '#libs/booking/types';
+} from '#src/libs/exportable-components/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type { ConsumerBooking } from '#src/libs/booking/types';
 import { getUserZone } from '#src/utils/datetime';
 // @ts-expect-error
 import ConsumerBookingDetailsCardCss from './styles.css?raw';

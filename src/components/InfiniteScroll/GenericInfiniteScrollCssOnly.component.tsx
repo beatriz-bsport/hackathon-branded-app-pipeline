@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import './styles.css';
 

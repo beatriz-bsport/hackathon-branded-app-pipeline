@@ -8,7 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { useTranslation } from 'react-i18next';
 import { Checkbox, FormControlLabel, makeStyles } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
 export type Props = {
   onClose: (arg: boolean) => void;

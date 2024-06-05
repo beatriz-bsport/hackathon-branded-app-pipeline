@@ -1,9 +1,9 @@
 import Fuse from 'fuse.js';
 
-import type { Establishment } from '#libs/establishment/types';
-import type { Coach } from '#libs/associated-coach/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import { Offer } from '#libs/offer/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import { Offer } from '#src/libs/offer/types';
 
 export const doTextSearch = (
   searchText: string,

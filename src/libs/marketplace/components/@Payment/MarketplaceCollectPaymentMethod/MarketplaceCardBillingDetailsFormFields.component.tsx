@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import Select from '#components/css-only/Select';
-import { SelectOptionWithMetaData } from '#components/css-only/Select/Select.component';
-import { usePaymentMethodBillingDetails } from '#libs/marketplace/hooks';
-import { MarketplacePaymentMethodBillingDetails } from '#libs/marketplace/types';
+import Select from '#src/components/css-only/Select';
+import { SelectOptionWithMetaData } from '#src/components/css-only/Select/Select.component';
+import { usePaymentMethodBillingDetails } from '#src/libs/marketplace/hooks';
+import { MarketplacePaymentMethodBillingDetails } from '#src/libs/marketplace/types';
 import {
   CountryMetaData,
   CountryOption,

@@ -1,10 +1,10 @@
 import React from 'react';
 import './styles.css';
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import type { CheckoutItem } from '#libs/checkout/types';
-import type { PrivatePass } from '#libs/private-service/types';
-import MinimalPrivatePassCard from '#marketplacecomponents/@PrivatePass/MinimalPrivatePassCard';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import type { CheckoutItem } from '#src/libs/checkout/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import MinimalPrivatePassCard from '#src/libs/marketplace/components/@PrivatePass/MinimalPrivatePassCard';
 
 export type Props = {
   items: CheckoutItem[];

@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import MultipleMarketingActionForm from '#libs/sequential_marketing/components/form/marketing_actions/MultipleMarketingActionForm.component';
+import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
+import MultipleMarketingActionForm from '#src/libs/sequential_marketing/components/form/marketing_actions/MultipleMarketingActionForm.component';
 
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import CadenceBubble from './CadenceBubble.component';
 
 type Props = {

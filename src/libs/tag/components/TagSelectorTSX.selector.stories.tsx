@@ -1,6 +1,6 @@
 import React from 'react';
 import TagSelector, { Props as SelectorProps } from './TagSelector.selector';
-import type { Tag, TagGroup } from '#libs/tag/types';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
 import FactoryBot from '../factory';
 
 export const TagSelectorTemplate = (args: SelectorProps) => {

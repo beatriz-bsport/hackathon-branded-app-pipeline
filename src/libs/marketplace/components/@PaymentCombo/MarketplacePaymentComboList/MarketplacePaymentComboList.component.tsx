@@ -3,12 +3,12 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 
-// @ts-expect-error
-import MarketplacePaymentComboCard from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboCard';
-import { useMarketplacePassFilters } from '#libs/marketplace/hooks';
-import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
+import MarketplacePaymentComboCard from '#src/libs/marketplace/components/@PaymentCombo/MarketplacePaymentComboCard';
+import { useMarketplacePassFilters } from '#src/libs/marketplace/hooks';
+import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
 
-import { PaymentCombo } from '#libs/payment-combo/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
+// @ts-expect-error
 import Analytics from '../../../../../components/analytics/Analytics.component';
 
 import './styles.css';

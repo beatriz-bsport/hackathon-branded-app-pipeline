@@ -3,8 +3,8 @@ import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personal
 import {
   DEFAULT_SPOT_TYPE_ID,
   getSpotIndexType,
-} from '#libs/spot-scheduling/utils';
-import type { Coach } from '#libs/associated-coach/types';
+} from '#src/libs/spot-scheduling/utils';
+import type { Coach } from '#src/libs/associated-coach/types';
 import SpotSelectorDialog from '../../../../libs/spot-scheduling/component/SpotSelector/SpotSelectorDialog.component';
 import { Offer, OfferStatus } from '../../../../libs/offer/types';
 import {

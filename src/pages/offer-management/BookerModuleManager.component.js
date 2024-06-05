@@ -3,18 +3,18 @@ import { compose, withHandlers } from 'recompose';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
 import {
   fetchGroupOffer as fetchGroupOfferAction,
   fetchSimilarGroupOffers as fetchSimilarGroupOffersAction,
-} from '#libs/group-offer/actions';
-import { getSimilarGroups } from '#libs/group-offer/selectors';
-import { getFutureBookingsByMemberCount } from '#libs/booking/selectors';
-import { fetchFutureBookingsByMember } from '#libs/booking/actions';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { withCustomLevel } from '#libs/level/selectors';
-import { fetchCompanyUserRoles } from '#libs/role/actions';
-import { getUserRole } from '#libs/role/selectors';
+} from '#src/libs/group-offer/actions';
+import { getSimilarGroups } from '#src/libs/group-offer/selectors';
+import { getFutureBookingsByMemberCount } from '#src/libs/booking/selectors';
+import { fetchFutureBookingsByMember } from '#src/libs/booking/actions';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import { withCustomLevel } from '#src/libs/level/selectors';
+import { fetchCompanyUserRoles } from '#src/libs/role/actions';
+import { getUserRole } from '#src/libs/role/selectors';
 import {
   getSimilars as getSimilarsOffers,
   getOffersListByGroup as getOffersListByGroupSelector,
@@ -59,7 +59,6 @@ import { RootState } from '../../reducers';
 import themeSelectors from '../../libs/theme/selectors';
 import { withIsSharedActive } from '../../libs/relationship/selectors';
 import { fetchConsumerPaymentPackLinks } from '../../libs/relationship/actions';
-
 
 export default compose(
   connect(

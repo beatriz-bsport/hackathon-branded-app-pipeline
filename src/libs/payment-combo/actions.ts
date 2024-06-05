@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
-import { PrivatePass } from '#libs/private-service/types';
+import { PrivatePass } from '#src/libs/private-service/types';
 import {
   fetchPaymentComboList as fetchPaymentComboListAPI,
   fetchPaymentComboPurchaseList as fetchPaymentComboPurchaseListAPI,

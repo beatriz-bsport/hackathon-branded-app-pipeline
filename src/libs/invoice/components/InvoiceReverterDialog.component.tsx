@@ -28,14 +28,14 @@ import {
   InvoiceAllowedReverseMethods,
   Invoice,
   InvoiceReverseMethod,
-} from '#libs/invoice/types';
+} from '#src/libs/invoice/types';
 
-import { fetchInvoiceAllowedReverseTypes as fetchInvoiceAllowedReverseTypesAPI } from '#libs/invoice/api';
+import { fetchInvoiceAllowedReverseTypes as fetchInvoiceAllowedReverseTypesAPI } from '#src/libs/invoice/api';
 
-import type { Payment } from '#libs/payment/types';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import type { Payment } from '#src/libs/payment/types';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import { OptionCallback } from '../../../state/types';
 
 type Props = {

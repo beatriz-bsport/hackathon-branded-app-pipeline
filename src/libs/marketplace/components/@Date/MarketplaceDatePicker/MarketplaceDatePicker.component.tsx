@@ -14,13 +14,13 @@ import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { EventWithElementTarget } from '#libs/marketplace/types';
+import { EventWithElementTarget } from '#src/libs/marketplace/types';
 
 import {
   formatAsDate,
   formatAsTitle,
   getLocaleWeekdays,
-} from '#utils/datetime';
+} from '#src/utils/datetime';
 
 import type { LuxonDateTime } from '#src/types';
 import MarketplaceDatePickerDay from './MarketplaceDatePickerDay.component';

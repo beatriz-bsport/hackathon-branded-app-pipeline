@@ -15,10 +15,10 @@ import {
 } from '@material-ui/core';
 import { push } from 'connected-react-router';
 import { TFunction } from 'i18next';
-import FranchiseCompanyChipList from '#components/franchise/FranchiseCompanyChipList.component';
-import withTitle from '#hocs/with-title.hoc';
-import { FranchiseCompany, FranchiseUser } from '#libs/franchise/types';
-import { getFranchiseCompanyById } from '#libs/franchise/selectors';
+import FranchiseCompanyChipList from '#src/components/franchise/FranchiseCompanyChipList.component';
+import withTitle from '#src/hocs/with-title.hoc';
+import { FranchiseCompany, FranchiseUser } from '#src/libs/franchise/types';
+import { getFranchiseCompanyById } from '#src/libs/franchise/selectors';
 import { RootState } from '../../reducers';
 import { Dispatch } from '../../state/types';
 

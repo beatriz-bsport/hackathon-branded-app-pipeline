@@ -1,7 +1,7 @@
 import React from 'react';
 import chroma from 'chroma-js';
-import BooleanChip from '#components/chip/BooleanChip.component';
-import CustomChip from '#components/chip/CustomChip.component';
+import BooleanChip from '#src/components/chip/BooleanChip.component';
+import CustomChip from '#src/components/chip/CustomChip.component';
 import ReportStatusChip from './ReportChips/ReportStatusChip.component';
 import ReportConditionChip from './ReportChips/ReportConditionChip.component';
 import { isColumnChipsable } from '../utils';

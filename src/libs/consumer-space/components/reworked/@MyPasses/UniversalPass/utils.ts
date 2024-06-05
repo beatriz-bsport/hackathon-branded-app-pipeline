@@ -3,9 +3,9 @@ import uniq from 'lodash/uniq';
 import type {
   ConsumerPaymentPackCompatibility,
   PrivateConsumerPassCompatibility,
-} from '#libs/consumer-space/types';
-import type { UniversalPassReworked } from '#libs/universal-pass/types';
-import { PrivateServiceCompatibilityPass } from '#libs/private-service/types';
+} from '#src/libs/consumer-space/types';
+import type { UniversalPassReworked } from '#src/libs/universal-pass/types';
+import { PrivateServiceCompatibilityPass } from '#src/libs/private-service/types';
 import type { UniversalPassDetailsCardProps } from './UniversalPassDetailsCard';
 
 const getPrivateServiceCompatibilityPassData = (

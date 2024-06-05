@@ -13,10 +13,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { DateTime } from 'luxon';
-import { formatAsDate } from '#utils/datetime';
-import type { MaterialStyleType } from '#utils/types';
-import type { Member } from '#libs/member/types';
-import type { CustomFromStatistics } from '#libs/custom-form/types';
+import { formatAsDate } from '#src/utils/datetime';
+import type { MaterialStyleType } from '#src/utils/types';
+import type { Member } from '#src/libs/member/types';
+import type { CustomFromStatistics } from '#src/libs/custom-form/types';
 
 type MemberAPIDataPaginated = {
   data: {

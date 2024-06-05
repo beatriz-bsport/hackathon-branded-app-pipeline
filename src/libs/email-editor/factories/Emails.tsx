@@ -2,9 +2,9 @@ import { fakerEN as faker } from '@faker-js/faker';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
-} from '#libs/email-editor/types';
+} from '#src/libs/email-editor/types';
 
-import fakerHTML from '#components/html/fakerHTML';
+import fakerHTML from '#src/components/html/fakerHTML';
 
 function randomInt(max: number) {
   return Math.floor(Math.random() * max);

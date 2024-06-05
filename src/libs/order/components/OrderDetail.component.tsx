@@ -19,17 +19,17 @@ import {
   ORDER_STATE_ONSITEDELIVERY,
   ORDER_STATE_SENT,
 } from '@bsport/common/lib/master-data/order-states';
-import RedButton from '#components/button/RedButton.component';
-import MemberSummaryCard from '#libs/member/components/MemberSummaryCard.component';
-import InvoiceSummary from '#libs/invoice/InvoiceListItem.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import RedButton from '#src/components/button/RedButton.component';
+import MemberSummaryCard from '#src/libs/member/components/MemberSummaryCard.component';
+import InvoiceSummary from '#src/libs/invoice/InvoiceListItem.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
-import { OrderWithProducts, Product } from '#libs/order/types';
-import { Invoice } from '#libs/invoice/types';
-import { EmailTemplateDetail } from '#libs/email-editor/types';
+import { OrderWithProducts, Product } from '#src/libs/order/types';
+import { Invoice } from '#src/libs/invoice/types';
+import { EmailTemplateDetail } from '#src/libs/email-editor/types';
 
-import DeliveryFeeListItem from '#libs/order/components/DeliveryFeeListItem.component';
-import { Member } from '#libs/member/types';
+import DeliveryFeeListItem from '#src/libs/order/components/DeliveryFeeListItem.component';
+import { Member } from '#src/libs/member/types';
 import DeliveryInfo from './DeliveryInfo.component';
 import ProductLine from './ProductLine.component';
 

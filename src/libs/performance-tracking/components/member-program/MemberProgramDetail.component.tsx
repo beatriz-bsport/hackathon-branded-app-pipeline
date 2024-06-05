@@ -5,9 +5,9 @@ import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Divider, Typography } from '@material-ui/core';
 import { Info } from '@material-ui/icons';
-import { PerformanceTrackingMemberProgram } from '#libs/performance-tracking/types';
-import MuiIcon from '#components/MuiIcon.component';
-import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
+import { PerformanceTrackingMemberProgram } from '#src/libs/performance-tracking/types';
+import MuiIcon from '#src/components/MuiIcon.component';
+import TypographyMultilineComponent from '#src/components/typo/TypographyMultiline.component';
 import SliderForm from './SliderForm.component';
 
 type OwnProps = {

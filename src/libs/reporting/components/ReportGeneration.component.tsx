@@ -14,11 +14,14 @@ import type {
   ReportFilterConfigParams,
   ReportMetadata,
   SerializedRow,
-} from '#libs/reporting/types';
-import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
-import { getColumn, getReportObjectPermissions } from '#libs/reporting/utils';
-import { ObjectLevelPermissions, RolePermission } from '#libs/role/types';
-import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
+} from '#src/libs/reporting/types';
+import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
+import {
+  getColumn,
+  getReportObjectPermissions,
+} from '#src/libs/reporting/utils';
+import { ObjectLevelPermissions, RolePermission } from '#src/libs/role/types';
+import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import { OptionCallback } from '../../../state/types';
 import ReportTableHeaders from './ReportTableHeaders.component';
 import ReportTable from './ReportTable.component';

@@ -4,7 +4,7 @@ import { useTheme } from '@material-ui/core';
 import { Responsive } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import './react-grid-layout.css';
-import { MuiThemeToCssVarsHOC } from '#hocs/marketplace-css.hoc';
+import { MuiThemeToCssVarsHOC } from '#src/hocs/marketplace-css.hoc';
 import type { Layout, ResponsiveLayouts } from '../../types';
 import customWithProvider from './customwidthProvider';
 

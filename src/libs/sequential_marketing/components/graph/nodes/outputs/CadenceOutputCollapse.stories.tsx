@@ -8,15 +8,15 @@ import CadenceOutput from './CadenceOutput.component';
 import {
   DestinationStatus,
   TriggerKind,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 import {
   triggerBatchFactory,
   triggerFactory,
-} from '#libs/sequential_marketing/factories';
-import { smartlistBatchFactory } from '#libs/smart-list/factories';
+} from '#src/libs/sequential_marketing/factories';
+import { smartlistBatchFactory } from '#src/libs/smart-list/factories';
 
-import type { SmartList } from '#libs/smart-list/types';
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/Output/Collapse',

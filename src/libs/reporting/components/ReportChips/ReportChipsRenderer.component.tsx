@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkbox, Chip, MenuItem } from '@material-ui/core';
-import { isColumnChipsable } from '#libs/reporting/utils';
+import { isColumnChipsable } from '#src/libs/reporting/utils';
 import ReportCellRenderer from '../ReportCellRenderer.component';
 
 type ItemProps = {

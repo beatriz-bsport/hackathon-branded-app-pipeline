@@ -7,14 +7,14 @@ import {
   CalendarDate,
   Coins04,
   CreditCardX,
-} from '#components/untitledui';
-import { ConsumerGenericCardHeader } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
-import { formatAsDatetimeAdapted } from '#utils/datetime';
-import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
-import { useConsumerInvoiceTitle } from '#libs/consumer-space/components/reworked/@MyInvoices/helpers/hooks';
+} from '#src/components/untitledui';
+import { ConsumerGenericCardHeader } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
+import { formatAsDatetimeAdapted } from '#src/utils/datetime';
+import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+import { useConsumerInvoiceTitle } from '#src/libs/consumer-space/components/reworked/@MyInvoices/helpers/hooks';
 
 import type { ChipColor } from '#Fabrique/Chip';
-import type { ConsumerInvoice } from '#libs/invoice/types';
+import type { ConsumerInvoice } from '#src/libs/invoice/types';
 
 import '../styles.css';
 

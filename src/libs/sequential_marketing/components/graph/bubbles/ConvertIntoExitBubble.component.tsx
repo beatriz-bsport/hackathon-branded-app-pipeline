@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import {
   DestinationStatus,
   SequentialMarketingColors,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 import CadenceBubble from './CadenceBubble.component';
 
 export type Props = {

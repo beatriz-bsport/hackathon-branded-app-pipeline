@@ -27,12 +27,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
-import { Theme } from '#libs/theme/types';
-import themeSelectors from '#libs/theme/selectors';
-import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
-import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
-import { getOfferById } from '#libs/offer/selectors';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { Theme } from '#src/libs/theme/types';
+import themeSelectors from '#src/libs/theme/selectors';
+import { fetchOfferBulk as fetchOfferBulkAction } from '#src/libs/offer/actions';
+import { hasPaymentPackManagementPermission } from '#src/libs/payment-packs/utils';
+import { getOfferById } from '#src/libs/offer/selectors';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getMember } from '../../libs/member/selectors';
@@ -98,7 +98,6 @@ import type { Booking } from '../../libs/booking/types';
 import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 import { withIsSharedActive } from '../../libs/relationship/selectors';
 import { WithIsSharedActive } from '../../libs/relationship/types';
-
 
 type Props = {
   member: ?Member,

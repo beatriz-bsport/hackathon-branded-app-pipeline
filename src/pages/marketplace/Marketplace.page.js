@@ -22,56 +22,56 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
 } from '@bsport/common/lib/master-data/custom-form';
 import chroma from 'chroma-js';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
-import { fetchCompanyTheme } from '#libs/theme/actions';
-import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
-import Login from '#csscomponents/Login/Login.component';
-import MarketplaceAppBar from '#marketplacecomponents/@AppBar/MarketplaceAppBar';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import Analytics from '#components/analytics/Analytics.component';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
+import ApplyCustomCssStyles from '#src/libs/widget/components/ApplyCustomCssStyles.component';
+import Login from '#src/components/css-only/Login/Login.component';
+import MarketplaceAppBar from '#src/libs/marketplace/components/@AppBar/MarketplaceAppBar';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import Analytics from '#src/components/analytics/Analytics.component';
 import CustomFormPortal from '#Fabrique/Temporary/CustomFormPortal';
 
 import {
   addItemToBasket,
   removeItemFromBasket,
   fetchCurrentBasket,
-} from '#libs/checkout/actions';
+} from '#src/libs/checkout/actions';
 
-import { getCurrentBasket } from '#libs/checkout/selectors';
-import type { Basket } from '#libs/checkout/types';
+import { getCurrentBasket } from '#src/libs/checkout/selectors';
+import type { Basket } from '#src/libs/checkout/types';
 
-import { fetchSCT } from '#libs/category/actions';
+import { fetchSCT } from '#src/libs/category/actions';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import {
   getMarketplaceRoute,
   fromConfigToUrl,
   getUserSpaceUrl,
   getCheckoutUrl,
-} from '#libs/marketplace/routing-utils';
-import { urlToMarketplace } from '#libs/marketplace/utils';
+} from '#src/libs/marketplace/routing-utils';
+import { urlToMarketplace } from '#src/libs/marketplace/utils';
 
-import { fetchProfile } from '#libs/consumer-space/actions';
+import { fetchProfile } from '#src/libs/consumer-space/actions';
 
 import {
   MarketplaceSettings,
   MarketplaceTabConfig,
-} from '#libs/marketplace/types';
-import { fetchMarketplaceSettings } from '#libs/marketplace/actions';
+} from '#src/libs/marketplace/types';
+import { fetchMarketplaceSettings } from '#src/libs/marketplace/actions';
 import {
   fetchCompanyCustomSignUp,
   submitSignUpCustomForm,
-} from '#libs/custom-form/actions';
-import CustomFormView from '#libs/custom-form/components/consumer-form/CustomFormView.form';
-import CustomFormViewDialogComponent from '#libs/custom-form/components/consumer-form/CustomFormViewDialog.component';
-import { getSignUpCustomFormWithEnabledField } from '#libs/custom-form/selectors';
-import { retrieveFranchise } from '#libs/franchise/actions';
-import type { CustomFormFilled } from '#libs/custom-form/types';
-import { CustomFormTitle } from '#libs/custom-form/components/CustomFormTitle.component';
-import { getMyControlableMemberList } from '#libs/relationship/selectors';
-import { fetchMyControlableMemberList } from '#libs/relationship/actions';
-import { getFranchisor } from '#libs/franchise/selectors';
+} from '#src/libs/custom-form/actions';
+import CustomFormView from '#src/libs/custom-form/components/consumer-form/CustomFormView.form';
+import CustomFormViewDialogComponent from '#src/libs/custom-form/components/consumer-form/CustomFormViewDialog.component';
+import { getSignUpCustomFormWithEnabledField } from '#src/libs/custom-form/selectors';
+import { retrieveFranchise } from '#src/libs/franchise/actions';
+import type { CustomFormFilled } from '#src/libs/custom-form/types';
+import { CustomFormTitle } from '#src/libs/custom-form/components/CustomFormTitle.component';
+import { getMyControlableMemberList } from '#src/libs/relationship/selectors';
+import { fetchMyControlableMemberList } from '#src/libs/relationship/actions';
+import { getFranchisor } from '#src/libs/franchise/selectors';
 import {
   MARKETPLACE_PATH_TAB_CALENDAR,
   MARKETPLACE_PATH_TAB_PASS,
@@ -81,12 +81,12 @@ import {
   MARKETPLACE_PATH_TAB_PRIVATE_SERVICE,
   MARKETPLACE_PATH_TAB_SHOP,
   MARKETPLACE_PATH_TAB_GIFTCARD,
-} from '#libs/marketplace/constants';
+} from '#src/libs/marketplace/constants';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.component';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import ApplyCustomTheme from '#src/libs/exportable-components/ApplyCustomTheme.component';
 
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';

@@ -10,26 +10,26 @@ import { push } from 'connected-react-router';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
-// import Analytics from '#components/analytics/Analytics.component';
-import LoginBackground from '#libs/login/components/LoginBackground.component';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
+// import Analytics from '#src/components/analytics/Analytics.component';
+import LoginBackground from '#src/libs/login/components/LoginBackground.component';
 
-import WidgetUtils from '#libs/widget/WidgetUtils';
-import FranchiseCompanyLogin from '#libs/franchise/components/FranchiseCompanyLogin.component';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import FranchiseCompanyLogin from '#src/libs/franchise/components/FranchiseCompanyLogin.component';
 
-import { fetchFranchiseTheme } from '#libs/franchise/actions';
+import { fetchFranchiseTheme } from '#src/libs/franchise/actions';
 
 import {
   getFranchiseThemeLoading,
   getFranchisor,
   getFranchisorCompaniesAvailableOnMarketplace,
-} from '#libs/franchise/selectors';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+} from '#src/libs/franchise/selectors';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
   getMarketplaceRoute,
   getUserSpaceUrl,
-} from '#libs/marketplace/routing-utils';
-import { getThemeLoading } from '#libs/theme/selectors';
+} from '#src/libs/marketplace/routing-utils';
+import { getThemeLoading } from '#src/libs/theme/selectors';
 // @ts-expect-error
 import { getFranchiseTheme } from '../../theme';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';

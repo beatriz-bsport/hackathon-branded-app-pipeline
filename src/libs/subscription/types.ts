@@ -11,10 +11,10 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
-import type { Payment, PaymentEngine } from '#libs/payment/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PrivatePass } from '#libs/private-service/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { Payment, PaymentEngine } from '#src/libs/payment/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import { ErrorAndLoading } from '../../state/types';
 
 export type PlannedInvoice = {

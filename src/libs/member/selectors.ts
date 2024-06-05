@@ -1,14 +1,14 @@
 import memoize from 'lodash/memoize';
 import { createSelector } from 'reselect';
 
-import { getAllEstablishmentsDict } from '#libs/establishment/selectors';
+import { getAllEstablishmentsDict } from '#src/libs/establishment/selectors';
 import {
   getMemberProgramByMemberDict,
   getMemberProgramDict,
   getMetricDict,
   getProgramDict,
-} from '#libs/performance-tracking/selector';
-import { getEventState } from '#libs/event/selectors';
+} from '#src/libs/performance-tracking/selector';
+import { getEventState } from '#src/libs/event/selectors';
 import type { RootState } from '../../reducers';
 import { getMembership } from '../membership/selectors';
 import type { Member } from './types';

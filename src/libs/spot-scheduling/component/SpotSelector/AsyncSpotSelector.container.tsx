@@ -3,7 +3,7 @@ import React from 'react';
 import {
   DEFAULT_SPOT_TYPE_ID,
   getSpotIndexType,
-} from '#libs/spot-scheduling/utils';
+} from '#src/libs/spot-scheduling/utils';
 import SpotSelectorDialog from './SpotSelectorDialog.component';
 import { Offer, OfferStatus } from '../../../offer/types';
 import { OptionCallback } from '../../../../state/types';

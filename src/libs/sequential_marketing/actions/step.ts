@@ -8,14 +8,14 @@ import {
   updateCadenceStepName as updateCadenceStepNameAPI,
   deleteCadenceStep as deleteCadenceStepAPI,
   fetchCadenceStepMemberIds as fetchCadenceStepMemberIdsAPI,
-} from '#libs/sequential_marketing/api';
-import { DestinationStatus } from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/api';
+import { DestinationStatus } from '#src/libs/sequential_marketing/constants';
 
 import type {
   CadenceStep,
   CadenceStepQueryParams,
   UpdatedTriggersList,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import type {
   OptionCallback,
   Dispatch,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
-import Button, { ButtonSize } from '#csscomponents/Fabrique/Button';
+import Button, { ButtonSize } from '#src/components/css-only/Fabrique/Button';
 
 import { AlertForStorybook, Props, AlertSeverity } from '.';
 

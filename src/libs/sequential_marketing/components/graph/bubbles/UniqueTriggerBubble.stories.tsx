@@ -3,9 +3,9 @@ import Immutable from 'seamless-immutable';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import UniqueTriggerBubble from './UniqueTriggerBubble.component';
-import { triggerFactory } from '#libs/sequential_marketing/factories';
-import { smartlistBatchFactory } from '#libs/smart-list/factories';
-import { TriggerKind } from '#libs/sequential_marketing/constants';
+import { triggerFactory } from '#src/libs/sequential_marketing/factories';
+import { smartlistBatchFactory } from '#src/libs/smart-list/factories';
+import { TriggerKind } from '#src/libs/sequential_marketing/constants';
 
 export default {
   title: 'Components/Cadences/Bubbles/UniqueConnectedTrigger',

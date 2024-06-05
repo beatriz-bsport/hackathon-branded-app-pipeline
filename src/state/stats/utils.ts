@@ -6,7 +6,7 @@ import {
   WEEKLY_DURATION_DISPLAY_LIMIT,
   MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS,
   // @ts-expect-error
-} from '#libs/statistics/utils';
+} from '#src/libs/statistics/utils';
 
 export const discretizeByAndFillMissing = memoize(
   (

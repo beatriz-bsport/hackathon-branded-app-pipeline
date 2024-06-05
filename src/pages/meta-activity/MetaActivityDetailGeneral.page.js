@@ -7,54 +7,54 @@ import { compose, withProps, withHandlers, withState } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import MetaActivityDetail from '#libs/meta-activity/components/MetaActivityDetail.component';
-import MetaActivityDeleteDialog from '#libs/meta-activity/components/MetaActivityDeleteDialog.component';
-import { deleteMetaActivity, upsert } from '#libs/meta-activity/actions';
-import { getAllSmartList } from '#libs/smart-list/selectors';
-import { fetchAllSmartLists } from '#libs/smart-list/actions';
+import MetaActivityDetail from '#src/libs/meta-activity/components/MetaActivityDetail.component';
+import MetaActivityDeleteDialog from '#src/libs/meta-activity/components/MetaActivityDeleteDialog.component';
+import { deleteMetaActivity, upsert } from '#src/libs/meta-activity/actions';
+import { getAllSmartList } from '#src/libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#src/libs/smart-list/actions';
 import {
   getMetaActivity,
   withCustomRestrictionsTags,
-} from '#libs/meta-activity/selectors';
+} from '#src/libs/meta-activity/selectors';
 import {
   getEventsByMetaActivity,
   withEstablishment,
   withCoach,
   getOffersByDay,
-} from '#libs/offer/selectors';
+} from '#src/libs/offer/selectors';
 
 import {
   fetchOffersByDay as fetchOffersByDayActions,
   fetchMetaActivityOffers as fetchMetaActivityOffersAction,
-} from '#libs/offer/actions';
-import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '#libs/meta-activity/api/common';
+} from '#src/libs/offer/actions';
+import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '#src/libs/meta-activity/api/common';
 
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
   createMarketingNotification as createMarketingNotificationAction,
   updateMarketingNotification,
   deleteMarketingNotification as deleteMarketingNotificationAction,
-} from '#libs/marketing/actions';
-import { getBookingNotifications } from '#libs/marketing/selectors';
+} from '#src/libs/marketing/actions';
+import { getBookingNotifications } from '#src/libs/marketing/selectors';
 
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
-import { getEditableSCTs } from '#libs/category/selectors';
+} from '#src/libs/email-editor/selectors';
+import { getEditableSCTs } from '#src/libs/category/selectors';
 
 import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 
-import WidgetGeneratorDialog from '#libs/widget/components/WidgetGeneratorDialog.component';
-import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
-import { SCT } from '#libs/category/types';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { Tag, TagGroup } from '#libs/tag/types';
-import { SmartList } from '#libs/smart-list/types';
+import WidgetGeneratorDialog from '#src/libs/widget/components/WidgetGeneratorDialog.component';
+import MetaActivityEditDrawer from '#src/libs/meta-activity/components/MetaActivityEdit.drawer';
+import { SCT } from '#src/libs/category/types';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import { SmartList } from '#src/libs/smart-list/types';
 import { OptionCallBack } from '../../state/types';
 import { mapFormData, unmap } from '../form.utils';
 import {

@@ -11,25 +11,25 @@ import { compose, withHandlers, withState } from 'recompose';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { getInboxThreadFromSelectedId } from '#libs/communication-v2/selectors';
-import { fetchInboxThreadFromId as fetchInboxThreadFromIdAction } from '#libs/communication-v2/actions';
-import { drawerIconsOnlyWith } from '#components/navigation/BackofficeDrawer/BackofficeDrawer.component';
-import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
-import { UPSELL_IDENTIFIER_INBOX } from '#libs/platform-billing/upsell-identifiers';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { getInboxThreadFromSelectedId } from '#src/libs/communication-v2/selectors';
+import { fetchInboxThreadFromId as fetchInboxThreadFromIdAction } from '#src/libs/communication-v2/actions';
+import { drawerIconsOnlyWith } from '#src/components/navigation/BackofficeDrawer/BackofficeDrawer.component';
+import UpsellBlocker from '#src/libs/platform-billing/components/UpsellBlocker.component';
+import { UPSELL_IDENTIFIER_INBOX } from '#src/libs/platform-billing/upsell-identifiers';
 import {
   fetchUpsellPackage as fetchUpsellPackageAction,
   requestUpsellPackage as requestUpsellPackageAction,
   subscribeUpsellPackage as subscribeUpsellPackageAction,
-} from '#libs/platform-billing/actions';
-import { getFeatureList as getFeatureListAction } from '#libs/company/actions';
+} from '#src/libs/platform-billing/actions';
+import { getFeatureList as getFeatureListAction } from '#src/libs/company/actions';
 // @ts-expect-error
-import { getUpsellPackageByIdentifier } from '#libs/platform-billing/selectors';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import UpsellPackageSubscriptionDrawer from '#libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
+import { getUpsellPackageByIdentifier } from '#src/libs/platform-billing/selectors';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import UpsellPackageSubscriptionDrawer from '#src/libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
 
-import type { UpsellPackage } from '#libs/company/types';
+import type { UpsellPackage } from '#src/libs/company/types';
 import InboxPanel from './InboxPanel.page';
 import InboxThreadContainer from './InboxThreadContainer.page';
 import InboxThreadList from './InboxThreadList.page';

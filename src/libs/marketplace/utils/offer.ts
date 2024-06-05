@@ -1,19 +1,19 @@
 import { DateTime } from 'luxon';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { OffersGroup } from '#libs/group-offer/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { OffersGroup } from '#src/libs/group-offer/types';
 import {
   Offer,
   MarketplaceOfferStatus,
   Offer_FULL,
   OfferREST,
-} from '#libs/offer/types';
+} from '#src/libs/offer/types';
 import { isDateInThePast } from '#src/utils/datetime';
 import {
   OFFER_DATE_HOURS_SEPARATOR,
   OFFER_HOURS_SEPARATOR,
   OFFER_NAME_CAPITALIZED_MAX_LENGTH,
   OFFER_NAME_MAX_LENGTH,
-} from '#libs/marketplace/constants';
+} from '#src/libs/marketplace/constants';
 
 /** @deprecated Use `isDateInThePast` instead. */
 export function isOfferInThePast(offer: Offer | Offer_FULL | OfferREST) {

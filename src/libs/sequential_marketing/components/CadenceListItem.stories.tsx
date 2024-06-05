@@ -4,7 +4,7 @@ import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import CadenceListItem from './CadenceListItem.component';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/styles';
-import { cadenceListFactory } from '#libs/sequential_marketing/factories';
+import { cadenceListFactory } from '#src/libs/sequential_marketing/factories';
 import { action } from '@storybook/addon-actions';
 import type { Cadence } from '../types';
 

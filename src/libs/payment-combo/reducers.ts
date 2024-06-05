@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import type { PrivatePass } from '#libs/private-service/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
 import {
   paymentComboListActions,
   paymentComboBulkActions,

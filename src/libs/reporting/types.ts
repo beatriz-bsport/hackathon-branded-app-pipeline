@@ -1,5 +1,5 @@
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import { ErrorAndLoading } from '#libs/types';
+import { ErrorAndLoading } from '#src/libs/types';
 
 import type {
   DataSourceMedadataDataType,
@@ -8,7 +8,7 @@ import type {
   DynamicFilterDataType,
   DatatypeFilterConfigItemComparatorById,
   DatatypeFilterConfigGroup,
-} from '#libs/datatype-filtering/types';
+} from '#src/libs/datatype-filtering/types';
 
 enum ReportGlobalCategoryEnum {
   PAYMENTS = 'Payments',

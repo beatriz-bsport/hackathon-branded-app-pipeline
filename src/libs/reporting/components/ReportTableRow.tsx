@@ -4,16 +4,19 @@ import { TableRow } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import { generateRowLink } from '#libs/reporting/utils';
-import { hasAccessToUrl } from '#libs/role/utils';
-import ReportTableCell from '#libs/reporting/components/ReportTableCell';
+import { generateRowLink } from '#src/libs/reporting/utils';
+import { hasAccessToUrl } from '#src/libs/role/utils';
+import ReportTableCell from '#src/libs/reporting/components/ReportTableCell';
 
 import type {
   CellConverter,
   ReportMetadataColumn,
   SerializedRow,
-} from '#libs/reporting/types';
-import type { RolePermission, ObjectLevelPermissions } from '#libs/role/types';
+} from '#src/libs/reporting/types';
+import type {
+  RolePermission,
+  ObjectLevelPermissions,
+} from '#src/libs/role/types';
 
 type ReportTableRowsProps = {
   reportStoreRowsLoading: boolean;

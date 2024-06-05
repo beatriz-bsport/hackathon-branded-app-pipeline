@@ -12,8 +12,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-import DateInput from '#components/input/DateInput.component';
-import NumericInput from '#components/input/NumericInput.component';
+import DateInput from '#src/components/input/DateInput.component';
+import NumericInput from '#src/components/input/NumericInput.component';
 
 import type { MassExtensionCreateFormValues } from './types';
 

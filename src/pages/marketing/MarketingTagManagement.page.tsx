@@ -14,8 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import { getTheme } from '#libs/theme/selectors';
-// @ts-expect-error
+import { getTheme } from '#src/libs/theme/selectors';
 
 import {
   fetchAllGroups,
@@ -25,10 +24,10 @@ import {
   fetchTagUsage,
   deleteTag,
   deleteTagGroup,
-} from '#libs/tag/actions';
-import { getAll } from '#libs/tag/selectors';
-import TagGroupList from '#libs/tag/components/TagGroupList.component';
-import type { Tag, TagGroup } from '#libs/tag/types';
+} from '#src/libs/tag/actions';
+import { getAll } from '#src/libs/tag/selectors';
+import TagGroupList from '#src/libs/tag/components/TagGroupList.component';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
 
 import {
   applySmartListAutoTagRules,
@@ -36,9 +35,9 @@ import {
   fetchSmartLists,
   updateSmartListAutoTag,
   deleteMultiSmartListAutoTagRules,
-} from '#libs/smart-list/actions';
-import { AutoTagRule, SmartList } from '#libs/smart-list/types';
-import { getAutotagRuleBySmartlist } from '#libs/smart-list/selectors';
+} from '#src/libs/smart-list/actions';
+import { AutoTagRule, SmartList } from '#src/libs/smart-list/types';
+import { getAutotagRuleBySmartlist } from '#src/libs/smart-list/selectors';
 
 import {
   fetchMemberListWithoutTagsAction,
@@ -50,37 +49,38 @@ import {
   refreshFilteredMembers,
   tag as tagMemberAction,
   untag as untagMemberAction,
-} from '#libs/member/actions';
-import { Member } from '#libs/member/types';
+} from '#src/libs/member/actions';
+import { Member } from '#src/libs/member/types';
 
-import { Coupon } from '#libs/coupon/types';
-import { fetchCoupons, untagCoupon } from '#libs/coupon/actions';
+import { Coupon } from '#src/libs/coupon/types';
+import { fetchCoupons, untagCoupon } from '#src/libs/coupon/actions';
 
 import {
   fetchAllOffers as fetchAllOffersAction,
   fetchAllOffersPaginated as fetchAllOffersPaginatedAction,
   unTagAllOffers as unTagAllOffersAction,
   unTagOffer as unTagOfferAction,
-} from '#libs/offer/actions';
-import { fetchActivitiesCompany } from '#libs/meta-activity/actions';
+} from '#src/libs/offer/actions';
+import { fetchActivitiesCompany } from '#src/libs/meta-activity/actions';
 import {
   getOfferCalendarState,
   getOfferCalendarStateData,
   withMetaActivity,
-} from '#libs/offer/selectors';
+} from '#src/libs/offer/selectors';
 
-import TagDetailHeader from '#libs/marketing/components/TagDetailHeader.component';
-import TagDetailOffer from '#libs/marketing/components/TagDetailOffer.component';
-import TagDetailSmartlist from '#libs/marketing/components/TagDetailSmartlist';
-import TagDetailCoupon from '#libs/marketing/components/TagDetailCoupon';
-import TagDetailMembers from '#libs/marketing/components/TagDetailMembers.component';
-import TadDetailOfferFilters from '#libs/marketing/components/TagDetailOfferFilters.components';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import TagDetailHeader from '#src/libs/marketing/components/TagDetailHeader.component';
+import TagDetailOffer from '#src/libs/marketing/components/TagDetailOffer.component';
+import TagDetailSmartlist from '#src/libs/marketing/components/TagDetailSmartlist';
+import TagDetailCoupon from '#src/libs/marketing/components/TagDetailCoupon';
+import TagDetailMembers from '#src/libs/marketing/components/TagDetailMembers.component';
+import TadDetailOfferFilters from '#src/libs/marketing/components/TagDetailOfferFilters.components';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
@@ -603,6 +603,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
                     onChangeTagRule={this.onChangeSmartListTagRule}
                     onClickRemoveTag={this.onClickUntagSmartlist}
                     smartlistList={this.props.smartlist}
+// @ts-expect-error
                     tag={this.props.selectedTag}
                   />
                 )}

@@ -8,14 +8,14 @@ import {
   createStyles,
 } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import themeSelectors from '#libs/theme/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 import {
   updateCompanyTheme as updateCompanyThemeAction,
   fetchCompanyTheme as fetchCompanyThemeAction,
-} from '#libs/theme/actions';
+} from '#src/libs/theme/actions';
 import type { RootState } from '#src/reducers';
-import MemberProfileSettingsForm from '#libs/theme/components/MemberProfileSettingsForm';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import MemberProfileSettingsForm from '#src/libs/theme/components/MemberProfileSettingsForm';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
 type Props = ConnectedProps<typeof connector> & WithStyles<typeof styles>;
 

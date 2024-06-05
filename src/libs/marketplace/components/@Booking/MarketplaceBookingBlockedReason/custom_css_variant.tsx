@@ -2,16 +2,16 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 
-import { getBookingBlockedReasonIcon } from '#libs/marketplace/utils';
+import { getBookingBlockedReasonIcon } from '#src/libs/marketplace/utils';
 // @ts-expect-error
 import MarketplaceBookingBlockedReasonCss from './MarketplaceBookingBlockedReason.css?raw';
 import MarketplaceBookingBlockedReason, {

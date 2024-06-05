@@ -3,8 +3,8 @@ import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
+import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#src/libs/notification-rule/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import {

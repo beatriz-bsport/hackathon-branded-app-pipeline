@@ -1,4 +1,4 @@
-import { UpsellPackage } from '#libs/company/types';
+import { UpsellPackage } from '#src/libs/company/types';
 import {
   BLOCK_BACKOFFICE,
   DO_NOTHING,

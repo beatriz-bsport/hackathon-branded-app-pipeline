@@ -2,7 +2,7 @@ import { makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 import { PrivateConsumerPass } from '../../private-service/types';
 
 import { getExpirationDate } from '../../private-service/utils';

@@ -3,7 +3,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
 import { DateTime } from 'luxon';
-import { PlannedInvoiceFactoryOptions } from '#libs/subscription/types';
+import { PlannedInvoiceFactoryOptions } from '#src/libs/subscription/types';
 import {
   generateRandomName,
   generateRandomPrice,

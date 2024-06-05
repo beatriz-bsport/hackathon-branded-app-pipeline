@@ -6,17 +6,16 @@ import TabContext from '@material-ui/lab/TabContext';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-
 import type {
   ShopItemTemplate,
   ShopSupplierTemplate,
   SubshopTemplate,
-} from '#libs/shop/types';
+} from '#src/libs/shop/types';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
-import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
-import type { ErrorAndLoading } from '#libs/types';
+import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
+import type { ErrorAndLoading } from '#src/libs/types';
 
-import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
+import { ShopListTab } from '#src/libs/shop/components/ShopListTabs/constants';
 import FranchiseShopListSettingsTab from './FranchiseShopListSettingsTab.component';
 import FranchiseShopListProductsTab from './FranchiseShopListProductsTab.component';
 

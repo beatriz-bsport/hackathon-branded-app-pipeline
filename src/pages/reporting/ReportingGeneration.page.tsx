@@ -4,8 +4,7 @@ import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 
-
-import ReportGeneration from '#libs/reporting/components/ReportGeneration.component';
+import ReportGeneration from '#src/libs/reporting/components/ReportGeneration.component';
 
 import {
   fetchSerializedReport,
@@ -17,9 +16,9 @@ import {
   editReportFilterConfig as editReportFilterConfigAction,
   fetchReportFilterConfigList as fetchReportFilterConfigListAction,
   deleteReportFilterConfig as deleteReportFilterConfigAction,
-} from '#libs/reporting/actions';
+} from '#src/libs/reporting/actions';
 
-import { ReportConfiguration } from '#libs/reporting/types';
+import { ReportConfiguration } from '#src/libs/reporting/types';
 import {
   getReportRows,
   getReportRowsLoading,
@@ -32,13 +31,13 @@ import {
   getReports,
   getReport,
   getReportFilterConfigList,
-} from '#libs/reporting/selectors';
+} from '#src/libs/reporting/selectors';
 
 import withDatatypeDynamicData, {
   withDatatypeDynamicDataProps,
-} from '#libs/datatype-filtering/dynamic-data-hoc';
-import { fetchCompanyRoles as fetchCompanyRolesAction } from '#libs/role/actions';
-import { getObjectPermissions, getPermissions } from '#libs/role/selectors';
+} from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import { fetchCompanyRoles as fetchCompanyRolesAction } from '#src/libs/role/actions';
+import { getObjectPermissions, getPermissions } from '#src/libs/role/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';

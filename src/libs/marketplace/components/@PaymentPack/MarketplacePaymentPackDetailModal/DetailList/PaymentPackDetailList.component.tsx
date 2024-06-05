@@ -15,24 +15,24 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
+} from '#src/libs/theme/utils';
 
 import {
   useCompatibilityInfoForPaymentPackDetailCard,
   useValidityInfoForPaymentPackCard,
   formatOffPeakScheduleOnDisplay,
-} from '#libs/marketplace/utils/payment-pack';
+} from '#src/libs/marketplace/utils/payment-pack';
 
-import { PaymentPack } from '#libs/payment-packs/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
 
 import {
   PENALTY_KIND_BLOCK_CPP,
   PENALTY_KIND_NEGATIVE_ACCOUNT,
-} from '#libs/payment-packs/constants';
+} from '#src/libs/payment-packs/constants';
 
 import './styles.css';
 

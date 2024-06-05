@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core';
 
-import MarketplaceContractCard from '#marketplacecomponents/@Subscription/MarketplaceContractCard';
+import MarketplaceContractCard from '#src/libs/marketplace/components/@Subscription/MarketplaceContractCard';
 
-import { Contract } from '#libs/subscription/types';
-import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
-import { filterSearchedMarketplaceContracts } from '#libs/marketplace/hooks';
+import { Contract } from '#src/libs/subscription/types';
+import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
+import { filterSearchedMarketplaceContracts } from '#src/libs/marketplace/hooks';
 
 import './styles.css';
 

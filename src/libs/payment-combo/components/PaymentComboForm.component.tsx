@@ -20,36 +20,35 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SettingsIcon from '@material-ui/icons/Settings';
 // @ts-expect-error
-import PaymentMethodSelectorField from '#libs/payment/components/PaymentMethodSelectorField.component';
-import { provincialTaxHelperText } from '#libs/theme/utils';
-import ToolTip from '#components/Tooltip.component';
+import PaymentMethodSelectorField from '#src/libs/payment/components/PaymentMethodSelectorField.component';
+import { provincialTaxHelperText } from '#src/libs/theme/utils';
+import ToolTip from '#src/components/Tooltip.component';
 
-import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
+import PaymentPackListItem from '#src/libs/payment-packs/components/PaymentPackListItem.component';
 // @ts-expect-error
-import ShopItemListItem from '#libs/shop/components/ShopItemListItem.component';
-import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
+import ShopItemListItem from '#src/libs/shop/components/ShopItemListItem.component';
+import PrivatePassListItem from '#src/libs/private-service/components/pass/PrivatePassListItem.component';
 
-import { PaymentCombo, PaymentComboItem } from '#libs/payment-combo/types';
-import { PrivatePass } from '#libs/private-service/types';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
-import { Tag, TagGroup } from '#libs/tag/types';
-import TagSelector from '#libs/tag/components/TagSelector.selector';
-import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
+import { PaymentCombo, PaymentComboItem } from '#src/libs/payment-combo/types';
+import { PrivatePass } from '#src/libs/private-service/types';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import TagSelector from '#src/libs/tag/components/TagSelector.selector';
+import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';
 
-
-import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
-import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
-import type { BookkeepingAccount } from '#libs/payment/types';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { paymentPackOption } from '#libs/payment-packs/components/PaymentPackSelector.component';
-import { shopItemOption } from '#libs/shop/components/ShopItemSelector.component';
-import { privatePassOption } from '#libs/private-service/components/pass/PrivatePassSelector.component';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
-import { SelectOption } from '#libs/types';
-import { useObjectSearch } from '#libs/fuzzy-search/hooks/useObjectSearch';
+import { useHasTagsSameGroup } from '#src/libs/tag/components/hooks';
+import BookkeepingAccountSelector from '#src/libs/payment/components/BookkeepingAccountSelector';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { paymentPackOption } from '#src/libs/payment-packs/components/PaymentPackSelector.component';
+import { shopItemOption } from '#src/libs/shop/components/ShopItemSelector.component';
+import { privatePassOption } from '#src/libs/private-service/components/pass/PrivatePassSelector.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import { SelectOption } from '#src/libs/types';
+import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
 import { ShopItem } from '#src/libs/shop/types';
 import Config from '../../../config';
 import { ALMOST_100 } from '../../../constants';

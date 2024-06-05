@@ -4,16 +4,15 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { DateTime } from 'luxon';
 
-import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+import withQueryParamsToProps from '#src/hocs/query-params-to-props.hoc';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 // SELECTORS
-import { getCurrentBasket } from '#libs/checkout/selectors';
-import { getMembership } from '#libs/membership/selectors';
+import { getCurrentBasket } from '#src/libs/checkout/selectors';
+import { getMembership } from '#src/libs/membership/selectors';
 
 // ACTIONS
-import { fetchCurrentBasket } from '#libs/checkout/actions';
-// @ts-expect-error
+import { fetchCurrentBasket } from '#src/libs/checkout/actions';
 import {
   cancelBookingAsMember as cancelBookingAsMemberAction,
   cancelPrivateBookingAsMember as cancelPrivateBookingAsMemberAction,
@@ -37,65 +36,66 @@ import {
   fetchMyFutureConsumerPaymentPacksAsMember as fetchMyFutureConsumerPaymentPacksAsMemberAction,
   fetchMyFuturePrivateConsumerPassesAsMember as fetchMyFuturePrivateConsumerPassesAsMemberAction,
   fetchMyFutureUniversalPassesAsMember as fetchMyFutureUniversalPassesAsMemberAction,
-} from '#libs/consumer-space/actions';
+} from '#src/libs/consumer-space/actions';
 
 import {
   fetchOfferRegisteredIds,
   fetchOfferBulk as fetchOfferBulkAction,
-} from '#libs/offer/actions';
+} from '#src/libs/offer/actions';
 
 import {
   fetchMembership,
   fetchMembershipByCompany,
-} from '#libs/membership/actions';
+} from '#src/libs/membership/actions';
 
-import { fetchMemberTagList } from '#libs/tag/actions';
-import { getPlaybackUrl } from '#libs/video/actions';
+import { fetchMemberTagList } from '#src/libs/tag/actions';
+import { getPlaybackUrl } from '#src/libs/video/actions';
 import {
   retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
-} from '#libs/referral/actions';
-import { fetchMember } from '#libs/member/actions';
-import { bridgeAPIActionsRegistry } from '#libs/widget/actionsRegistry';
-import { fetchMetaActivityBulkWidget } from '#libs/meta-activity/actions';
-import { fetchGroupOffer as fetchGroupOfferAction } from '#libs/group-offer/actions';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#libs/consumer-payment-pack/actions';
-import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
-import { fetchPaymentPackBulkWidget } from '#libs/payment-packs/actions';
+} from '#src/libs/referral/actions';
+import { fetchMember } from '#src/libs/member/actions';
+import { bridgeAPIActionsRegistry } from '#src/libs/widget/actionsRegistry';
+import { fetchMetaActivityBulkWidget } from '#src/libs/meta-activity/actions';
+import { fetchGroupOffer as fetchGroupOfferAction } from '#src/libs/group-offer/actions';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#src/libs/consumer-payment-pack/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '#src/libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#src/libs/establishment/actions';
+import { fetchPaymentPackBulkWidget } from '#src/libs/payment-packs/actions';
 import {
   fetchAssetForBlueprintWidget,
   fetchRoomBlueprintsWidget,
   fetchSpotForBlueprintWidget,
-} from '#libs/spot-scheduling/actions';
+} from '#src/libs/spot-scheduling/actions';
 import {
   fetchPrivateConsumerPassBulk as fetchPrivateConsumerPassBulkAction,
   fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
   fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
   fetchPrivatePassBulk,
   fetchPrivateServiceCompatiblePassList,
-} from '#libs/private-service/actions';
+} from '#src/libs/private-service/actions';
 
 // TYPES
 import {
   WidgetApiMessageType,
   WidgetMessageType,
   widgetApiMessageTypes,
-} from '#libs/widget/types';
-import type { CheckoutItem, Basket } from '#libs/checkout/types';
-import type { Tag } from '#libs/tag/types';
+} from '#src/libs/widget/types';
+import type { CheckoutItem, Basket } from '#src/libs/checkout/types';
+import type { Tag } from '#src/libs/tag/types';
 
 // CONSTANTS
-import actionsBinder from '#libs/widget/actionsBinder';
+import actionsBinder from '#src/libs/widget/actionsBinder';
 import {
   fetchRelatedMembersNamesByConsumerPaymentPackLinks,
   fetchRelatedMembersNamesByPrivateConsumerPassLinks,
-} from '#libs/relationship/actions';
+} from '#src/libs/relationship/actions';
 import {
   BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
   BsportRequestFromHeaderValue,
 } from '../../constants';
+// @ts-expect-error
 import { disconnect, fetchAccessLevel } from '../../actions/auth.actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getAuthToken } from '../../http';

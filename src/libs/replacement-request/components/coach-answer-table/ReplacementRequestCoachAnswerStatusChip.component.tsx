@@ -12,7 +12,7 @@ import red from '@material-ui/core/colors/red';
 import {
   ReplacementRequestCoachAnswerStatus,
   REPLACEMENT_REQUEST_COACH_ANSWER_STATUS_LABELS,
-} from '#libs/replacement-request/constants';
+} from '#src/libs/replacement-request/constants';
 
 type Props = {
   replacementRequestCoachAnswerStatus: ReplacementRequestCoachAnswerStatus;

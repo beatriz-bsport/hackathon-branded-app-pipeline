@@ -16,20 +16,20 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-import { provincialTaxHelperText } from '#libs/theme/utils';
+import { provincialTaxHelperText } from '#src/libs/theme/utils';
 
-import NumericInput from '#components/input/NumericInput.component';
-import PriceInput from '#components/input/PriceInput.component';
+import NumericInput from '#src/components/input/NumericInput.component';
+import PriceInput from '#src/components/input/PriceInput.component';
 // @ts-expect-error
-import ImageUploader from '#components/input/ImageUploader.component';
-import PaymentMethodSelectorInput from '#libs/payment/components/PaymentMethodSelectorInput.component';
-import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import ImageUploader from '#src/components/input/ImageUploader.component';
+import PaymentMethodSelectorInput from '#src/libs/payment/components/PaymentMethodSelectorInput.component';
+import BookkeepingAccountSelector from '#src/libs/payment/components/BookkeepingAccountSelector';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 
-import type { ShopSupplier, ShopSupplierTemplate } from '#libs/shop/types';
-import type { ShopItemFormValues } from '#libs/shop/components/ShopItemFormReworked/types';
-import type { BookkeepingAccount } from '#libs/payment/types';
-import type { SelectOption } from '#libs/types';
+import type { ShopSupplier, ShopSupplierTemplate } from '#src/libs/shop/types';
+import type { ShopItemFormValues } from '#src/libs/shop/components/ShopItemFormReworked/types';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
+import type { SelectOption } from '#src/libs/types';
 
 import { ALMOST_100 } from '../../../../constants';
 

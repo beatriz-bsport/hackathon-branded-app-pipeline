@@ -1,12 +1,12 @@
 import React from 'react';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import type { PrepaidLineExtraData } from '#libs/checkout/types';
-import { prepaidLineFactory } from '#libs/checkout/factories';
+} from '#src/libs/exportable-components/types';
+import type { PrepaidLineExtraData } from '#src/libs/checkout/types';
+import { prepaidLineFactory } from '#src/libs/checkout/factories';
 // @ts-expect-error
 import PrepaidLineItemCSS from './styles.css?raw';
 import PrepaidLineListItemCssOnly, { Props } from '.';

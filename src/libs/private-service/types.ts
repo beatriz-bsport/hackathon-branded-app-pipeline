@@ -2,8 +2,8 @@ import { CancelTokenSource } from 'axios';
 import type {
   PrivateBookingModificationActionIdentifier,
   StaffModificationHistory,
-} from '#libs/role/types';
-import type { PrivateConsumerPassLink } from '#libs/relationship/types';
+} from '#src/libs/role/types';
+import type { PrivateConsumerPassLink } from '#src/libs/relationship/types';
 import { Company } from '../company/types';
 import { ErrorAndLoading, WithPagination } from '../types';
 

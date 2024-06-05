@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 
 import DialogWithBigIcon from './DialogWithBigIcon.component';
 
-import WarningIconRounded from '#components/icons/WarningIconRounded.component';
+import WarningIconRounded from '#src/components/icons/WarningIconRounded.component';
 
 const actionData = {
   onClose: action('onClose'),

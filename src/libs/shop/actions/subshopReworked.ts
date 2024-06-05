@@ -1,16 +1,15 @@
 import { createAction } from 'redux-actions';
 
-
 import type {
   SubShop,
   SubshopTemplate,
   SubshopTemplateCreate,
   SubshopTemplateUpdate,
-} from '#libs/shop/types';
-import type { PaginationFilterParams } from '#libs/types';
+} from '#src/libs/shop/types';
+import type { PaginationFilterParams } from '#src/libs/types';
 import type { RootState } from '#src/reducers';
 
-import { FRANCHISE_SUBSHOP_TEMPLATE_PAGE_SIZE } from '#libs/shop/constants';
+import { FRANCHISE_SUBSHOP_TEMPLATE_PAGE_SIZE } from '#src/libs/shop/constants';
 import type {
   Dispatch,
   OptionCallback,

@@ -8,7 +8,7 @@ import {
 import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
 import { DateTime } from 'luxon';
-import { SubscriptionInterval } from '#libs/subscription/types';
+import { SubscriptionInterval } from '#src/libs/subscription/types';
 import {
   generateRandomDescription,
   generateRandomName,

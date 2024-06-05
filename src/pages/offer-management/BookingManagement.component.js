@@ -37,25 +37,24 @@ import {
   DialogTitle,
 } from '@material-ui/core';
 import { DateTime } from 'luxon';
-import ResultList from '#components/search/ResultList.component';
+import ResultList from '#src/components/search/ResultList.component';
 
+import BookingTable from '#src/libs/booking/components/BookingTable.component';
+import RecurrenceRuleBookingListItem from '#src/libs/booking/components/RecurrenceRuleBookingListItem.component';
+import BookingOptionForManager from '#src/libs/waiting-list/components/BookingOptionForManager.component';
+import BookingOptionActionBar from '#src/libs/waiting-list/components/BookingOptionActionBar.component';
+import { getActivityWorkshopPermission } from '#src/libs/role/permission-utils/utils';
 
-import BookingTable from '#libs/booking/components/BookingTable.component';
-import RecurrenceRuleBookingListItem from '#libs/booking/components/RecurrenceRuleBookingListItem.component';
-import BookingOptionForManager from '#libs/waiting-list/components/BookingOptionForManager.component';
-import BookingOptionActionBar from '#libs/waiting-list/components/BookingOptionActionBar.component';
-import { getActivityWorkshopPermission } from '#libs/role/permission-utils/utils';
-
-import type { Booking, BookingOption } from '#libs/booking/types';
-import type { Member } from '#libs/member/types';
-import type { Invoice } from '#libs/invoice/types';
-import { Tag, TagGroup } from '#libs/tag/types';
-import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
-import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallButton.component';
-import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { OfferStatusWaitingListPosition } from '#libs/offer/types';
-import { MetaActivity } from '#libs/meta-activity/types';
+import type { Booking, BookingOption } from '#src/libs/booking/types';
+import type { Member } from '#src/libs/member/types';
+import type { Invoice } from '#src/libs/invoice/types';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
+import ValidationRollCallButton from '#src/libs/offer/components/ValidationRollCallButton.component';
+import ValidationRollCallText from '#src/libs/offer/components/ValidationRollCallText.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import { formatISOStringAsTime } from '../../utils/datetime';
 import type { PerformanceTrackingProgram } from '../../performance-tracking/types';

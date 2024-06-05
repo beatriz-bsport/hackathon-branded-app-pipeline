@@ -3,7 +3,6 @@ import Immutable from 'seamless-immutable';
 
 import { getConnectedEdges } from 'react-flow-renderer';
 
-
 import type {
   Cadence,
   CadenceStep,
@@ -12,14 +11,14 @@ import type {
   MarketingActionEssentials,
   CadenceInitialConfiguration,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
-import type { EmailTemplateSummary } from '#libs/email-editor/types';
-import type { Tag } from '#libs/tag/types';
+} from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { EmailTemplateSummary } from '#src/libs/email-editor/types';
+import type { Tag } from '#src/libs/tag/types';
 import {
   DestinationStatus,
   InitialConfigurationStep,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 import type { OptionCallback } from '../../../../../state/types';
 
 import type { CustomNode, StoredTrigger } from './types';

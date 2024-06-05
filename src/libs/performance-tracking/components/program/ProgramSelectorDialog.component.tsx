@@ -4,8 +4,8 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Button, Dialog, Typography } from '@material-ui/core';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import { PerformanceTrackingProgram } from '#src/libs/performance-tracking/types';
 import { OptionCallback } from '../../../../state/types';
 import ProgramMenuItem from './ProgramMenuItem.component';
 

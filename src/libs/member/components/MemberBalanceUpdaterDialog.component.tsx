@@ -13,15 +13,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Divider from '@material-ui/core/Divider';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import PriceInput from '#components/input/PriceInput.component';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import PriceInput from '#src/components/input/PriceInput.component';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 import type {
   Establishment,
   EstablishmentBillingGroup,
-} from '#libs/establishment/types';
-import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+} from '#src/libs/establishment/types';
+import EstablishmentBillingGroupSelector from '#src/libs/establishment/components/EstablishmentBillingGroupSelector';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   onSubmit: (amount: number, withoutPaymentNote: boolean) => void;

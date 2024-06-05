@@ -10,9 +10,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import type { MenuAction } from '#components/menu/types';
-import { ClickAwayContext } from '#libs/sequential_marketing/components/graph/nodes/context/ClickAwayContext.component';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
+import type { MenuAction } from '#src/components/menu/types';
+import { ClickAwayContext } from '#src/libs/sequential_marketing/components/graph/nodes/context/ClickAwayContext.component';
 
 type StylesProps = { color: string; open: boolean };
 

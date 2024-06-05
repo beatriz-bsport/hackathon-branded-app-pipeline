@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { CheckoutItem } from '#libs/checkout/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import MinimalPaymentComboCard from '#marketplacecomponents/@PaymentCombo/MinimalPaymentComboCard';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { CheckoutItem } from '#src/libs/checkout/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
+import MinimalPaymentComboCard from '#src/libs/marketplace/components/@PaymentCombo/MinimalPaymentComboCard';
 
 import './styles.css';
 

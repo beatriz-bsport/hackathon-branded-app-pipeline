@@ -1,6 +1,7 @@
 import type { AxiosResponse } from 'axios';
 
-import type { PaginationFilterParams } from '#libs/types';
+import type { PaginationFilterParams } from '#src/libs/types';
+
 import {
   API_V1_URI,
   postAuth,
@@ -10,7 +11,7 @@ import {
   deleteAuth,
 } from '../../http';
 
-import type { PaginatedResponse } from '#state/types';
+import type { PaginatedResponse } from '#src/state/types';
 import type {
   IsShopUsedInComboAPI,
   Provision,

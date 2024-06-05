@@ -4,11 +4,11 @@ import Typography from '@material-ui/core/Typography';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import type { CheckoutItemExtraData } from '#libs/checkout/types';
+import type { CheckoutItemExtraData } from '#src/libs/checkout/types';
 import {
   getIsCheckoutItemApplied,
   getIsCheckoutItemReferralItem,
-} from '#libs/checkout/utils';
+} from '#src/libs/checkout/utils';
 import ReferralCouponHelpText from '../ReferralCouponHelpText.component';
 
 type BillItemProps = {

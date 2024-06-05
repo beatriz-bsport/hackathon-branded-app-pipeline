@@ -11,7 +11,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
-import ConditionalWrapper from '#components/ConditionnalWrapper.component';
+import ConditionalWrapper from '#src/components/ConditionnalWrapper.component';
 
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import { payment_method_list_factory } from '#src/libs/payment/factory';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 // @ts-expect-error
 import SavedPaymentMethodCardCss from './styles.css?raw';
 import SavedPaymentMethodCard from '.';

@@ -11,46 +11,46 @@ import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import IsEmptyList from '#components/navigation/IsEmptyList.component';
-import DashboardGraphWrapper from '#libs/dashboard/components/DashboardGraphWrapper.component';
-import { prepareGraphPropsForDisplay } from '#libs/dashboard/utils';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
+import DashboardGraphWrapper from '#src/libs/dashboard/components/DashboardGraphWrapper.component';
+import { prepareGraphPropsForDisplay } from '#src/libs/dashboard/utils';
 
-import DashboardTabBar from '#libs/dashboard/components/DashboardTabBar.component';
-import DashboardGraphFormDrawer from '#libs/dashboard/components/DashboardGraphForm.drawer';
+import DashboardTabBar from '#src/libs/dashboard/components/DashboardTabBar.component';
+import DashboardGraphFormDrawer from '#src/libs/dashboard/components/DashboardGraphForm.drawer';
 // @ts-expect-error
-import TemporalBarChart from '#components/graph/TemporalBarChart.component';
+import TemporalBarChart from '#src/components/graph/TemporalBarChart.component';
 // @ts-expect-error
-import TemporalAreaChart from '#components/graph/TemporalAreaChart.component';
+import TemporalAreaChart from '#src/components/graph/TemporalAreaChart.component';
 // @ts-expect-error
-import TimeslotGridChart from '#components/graph/TimeslotGridChart.component';
+import TimeslotGridChart from '#src/components/graph/TimeslotGridChart.component';
 // @ts-expect-error
-import PieChart from '#components/graph/PieChart.component';
+import PieChart from '#src/components/graph/PieChart.component';
 // @ts-expect-error
-import QualitativeBarChart from '#components/graph/QualitativeBarChart.component';
+import QualitativeBarChart from '#src/components/graph/QualitativeBarChart.component';
 import withDatatypeDynamicData, {
   withDatatypeDynamicDataProps,
-} from '#libs/datatype-filtering/dynamic-data-hoc';
+} from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import {
   fetchDataSourceDashboardGraphMetadata,
   fetchDataSourceDashboardSettings,
   updateDataSourceDashboardSettings,
   // @ts-expect-error
-} from '#libs/dashboard/actions';
+} from '#src/libs/dashboard/actions';
 import {
   getDataSourceDashboardGraphMetadata,
   getDataSourceDashboardSettings,
   getDataSourceDashboardSettingsTab,
   // @ts-expect-error
-} from '#libs/dashboard/selectors';
-import { fetchDataSourceDashboardStatistics } from '#libs/statistics/actions';
-import { getDataSourceDashboardTabStatistics } from '#libs/statistics/selectors';
+} from '#src/libs/dashboard/selectors';
+import { fetchDataSourceDashboardStatistics } from '#src/libs/statistics/actions';
+import { getDataSourceDashboardTabStatistics } from '#src/libs/statistics/selectors';
 
 import type {
   DataSourceDashboardGraph,
   DataSourceDashboardTab,
-} from '#libs/dashboard/types';
+} from '#src/libs/dashboard/types';
 
-import { getTheme } from '#libs/theme/selectors';
+import { getTheme } from '#src/libs/theme/selectors';
 import type { RootState } from '../reducers';
 import withTitle from '../hocs/with-title.hoc';
 import BottomActionButtons from '../components/button/BottomActionsButton.component';
@@ -317,7 +317,6 @@ const settingsAndMetadataconnector = connect(
 
 const graphDataConnector = connect(
   (state: RootState, { dashboardTab }: SettingsAndMetadataConnectedProps) => ({
-    // @ts-expect-error
     graphData: getDataSourceDashboardTabStatistics(state, dashboardTab),
   }),
 );

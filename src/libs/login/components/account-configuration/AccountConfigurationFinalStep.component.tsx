@@ -6,7 +6,7 @@ import { Button, Typography } from '@material-ui/core';
 import { InfoOutlined } from '@material-ui/icons';
 import classNames from 'classnames';
 import chroma from 'chroma-js';
-import SuccessIcon from '#components/icons/SuccessIcon.component';
+import SuccessIcon from '#src/components/icons/SuccessIcon.component';
 import { buildSteps } from './utils';
 import AccountConfigurationStepper from './AccountConfigurationStepper.component';
 

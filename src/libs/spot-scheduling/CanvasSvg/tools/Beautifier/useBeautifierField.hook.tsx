@@ -1,7 +1,7 @@
 import React from 'react';
-import type { SpotType } from '#libs/spot-scheduling/types';
-import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
-import { PERSONALIZED_CUSTOMIZATION } from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
+import type { SpotType } from '#src/libs/spot-scheduling/types';
+import { DEFAULT_SPOT_TYPE_ID } from '#src/libs/spot-scheduling/utils';
+import { PERSONALIZED_CUSTOMIZATION } from '#src/libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
 import { CanvasElement } from '../BaseClasses/Base.tool';
 import { CANVAS_SELECTABLE_TOOLS } from '../CanvasStrategy';
 

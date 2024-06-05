@@ -14,9 +14,9 @@ import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import { getQuickbooksApp } from '#libs/quickbooks/selectors';
-import { retrieveQuickbooksApp as retrieveQuickbooksAppAction } from '#libs/quickbooks/actions';
-import type { QuickbooksApp } from '#libs/quickbooks/types';
+import { getQuickbooksApp } from '#src/libs/quickbooks/selectors';
+import { retrieveQuickbooksApp as retrieveQuickbooksAppAction } from '#src/libs/quickbooks/actions';
+import type { QuickbooksApp } from '#src/libs/quickbooks/types';
 import Tooltip from '../../components/Tooltip.component';
 import {
   getInvoiceList,

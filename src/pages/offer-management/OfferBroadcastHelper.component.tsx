@@ -3,8 +3,8 @@ import Button from '@material-ui/core/Button';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import { useTranslation } from 'react-i18next';
 import { Paper, Typography, makeStyles } from '@material-ui/core';
-import BroadcastRoom from '#libs/video/components/BroadcastRoom.component';
-import type { Offer } from '#libs/offer/types';
+import BroadcastRoom from '#src/libs/video/components/BroadcastRoom.component';
+import type { Offer } from '#src/libs/offer/types';
 
 type Props = {
   offer: Offer;

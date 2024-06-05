@@ -2,8 +2,8 @@ import React from 'react';
 import { DateTime } from 'luxon';
 
 import { MarketplaceContractPaymentForStorybook, Props } from '.';
-import { contractFactory } from '#libs/subscription/factory';
-import { payment_method_list_factory } from '#libs/payment/factory';
+import { contractFactory } from '#src/libs/subscription/factory';
+import { payment_method_list_factory } from '#src/libs/payment/factory';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,

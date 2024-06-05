@@ -49,39 +49,39 @@ import InboxIcon from '@material-ui/icons/Inbox';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import { getAllUnreadAnswersCount } from '#libs/communication-v2/selectors';
+import { getAllUnreadAnswersCount } from '#src/libs/communication-v2/selectors';
 
 // @ts-expect-error
-import TempPasswordDialog from '#libs/login/components/TempPasswordDialog.component';
-import CashBookForm from '#libs/cashbook/components/CashBookForm.component';
-import AlertButtonMenu from '#libs/alerting/components/AlertButtonMenu.component';
-import { DeleteAlert } from '#libs/alerting/types';
-import { TempPasswordState } from '#libs/login/types';
+import TempPasswordDialog from '#src/libs/login/components/TempPasswordDialog.component';
+import CashBookForm from '#src/libs/cashbook/components/CashBookForm.component';
+import AlertButtonMenu from '#src/libs/alerting/components/AlertButtonMenu.component';
+import { DeleteAlert } from '#src/libs/alerting/types';
+import { TempPasswordState } from '#src/libs/login/types';
 import type {
   RolePermission,
   Role,
   ObjectLevelPermissions,
-} from '#libs/role/types';
-import ClockInDialog from '#libs/clock-in/components/ClockInDialog.component';
+} from '#src/libs/role/types';
+import ClockInDialog from '#src/libs/clock-in/components/ClockInDialog.component';
 import type {
   LastClockIn,
   UserWithRealTimeAttendance,
   ClockInQueryParams,
-} from '#libs/clock-in/types';
+} from '#src/libs/clock-in/types';
 import {
   UPSELL_IDENTIFIER_CLOCK_IN,
   UPSELL_IDENTIFIER_INBOX,
-} from '#libs/platform-billing/upsell-identifiers';
-import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
+} from '#src/libs/platform-billing/upsell-identifiers';
+import TutorialGenericDialog from '#src/libs/platform-tutorial/components/TutorialGenericDialog.component';
 import {
   TUTORIAL_GENERIC_DIALOG_WELCOME,
   TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS,
-} from '#libs/platform-tutorial/constant';
-import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
-import ProtectedRoutes from '#components/navigation/ProtectedRoutes.component';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
-import { setShrinkResponsiveDrawer as setShrinkResponsiveDrawerAction } from '#libs/user-preference/actions';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+} from '#src/libs/platform-tutorial/constant';
+import { platformTutorialActivated } from '#src/libs/platform-tutorial/utils';
+import ProtectedRoutes from '#src/components/navigation/ProtectedRoutes.component';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
+import { setShrinkResponsiveDrawer as setShrinkResponsiveDrawerAction } from '#src/libs/user-preference/actions';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { BannerContext, BannerContextValue } from '#src/hocs/banner.hoc';
 import { useFullScreenWithIconDrawer } from '#src/hooks/useFullScreenWithIconDrawer';
 import { getTextColorFromRGB } from '#src/utils/color';

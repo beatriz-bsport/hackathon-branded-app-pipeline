@@ -5,7 +5,7 @@ import { colors } from '@bsport/common/lib/colors';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { SelectFieldItem } from '#libs/communication-v2/types';
+import { SelectFieldItem } from '#src/libs/communication-v2/types';
 
 type selectorStyle = { option: any };
 type selectorStateType = {

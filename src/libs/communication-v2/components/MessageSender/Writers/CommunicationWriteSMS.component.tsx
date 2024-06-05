@@ -7,12 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import { ReportProblemOutlined as WarningIcon } from '@material-ui/icons';
 import { amber, red } from '@material-ui/core/colors';
 
-import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren';
-import { util } from '#libs/communication-v2/components/convertEncode.utils';
+import TextFieldWithChildren from '#src/components/input/text-field/TextFieldWithChildren';
+import { util } from '#src/libs/communication-v2/components/convertEncode.utils';
 import {
   MAX_LENGTH_SMS,
   MAX_LENGTH_AUTOMATIC_SMS,
-} from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/constants';
 
 type Props = {
   children: React.ReactNode;

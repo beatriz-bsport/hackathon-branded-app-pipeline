@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FormControlLabel, Switch, makeStyles } from '@material-ui/core';
 import { useFormikContext } from 'formik';
-import FormSection from '#components/forms/FormSection';
+import FormSection from '#src/components/forms/FormSection';
+import { UniqueCodeCouponCreationPayload } from '#src/libs/coupon/types';
 // @ts-expect-error
-import { UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
 import { TextFieldEnhancedLabelWithError } from '../../../../../components/forms';
 
 type Props = {

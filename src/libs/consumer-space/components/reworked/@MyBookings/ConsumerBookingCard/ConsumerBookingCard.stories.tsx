@@ -1,10 +1,10 @@
 import React from 'react';
 import { ConsumerBookingCardStorybook, ConsumerBookingCardProps } from '.';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { BookingFactory } from '#libs/booking/factories';
-import { coachFactory } from '#libs/associated-coach/factories';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
-import { establishment_factory } from '#libs/establishment/factory';
+import { BookingFactory } from '#src/libs/booking/factories';
+import { coachFactory } from '#src/libs/associated-coach/factories';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { establishment_factory } from '#src/libs/establishment/factory';
 
 ConsumerBookingCardStorybook.displayName = 'ConsumerBookingCard';
 

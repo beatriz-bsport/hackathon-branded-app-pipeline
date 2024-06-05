@@ -8,11 +8,11 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import SettingsIcon from '@material-ui/icons/Settings';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { InstalmentPaymentApi } from '#libs/instalment-payment-configuration/types';
+import { InstalmentPaymentApi } from '#src/libs/instalment-payment-configuration/types';
 import {
   CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT,
   CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT,
-} from '#libs/instalment-payment-configuration/constants';
+} from '#src/libs/instalment-payment-configuration/constants';
 import {
   PriceField,
   SwitchField,

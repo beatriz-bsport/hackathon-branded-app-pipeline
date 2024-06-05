@@ -8,10 +8,10 @@ import {
   COMMUNICATION_KIND_SMS,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
 } from '@bsport/common/lib/master-data/communication-kind';
-import { Communication } from '#libs/communication-v2/types';
-import { Member } from '#libs/member/types';
-import { CommunicationFactory } from '#libs/communication-v2/factories/Communication';
-import MembersFactory from '#libs/member/factories/Member';
+import { Communication } from '#src/libs/communication-v2/types';
+import { Member } from '#src/libs/member/types';
+import { CommunicationFactory } from '#src/libs/communication-v2/factories/Communication';
+import MembersFactory from '#src/libs/member/factories/Member';
 import {
   COMMUNICATION_CHANNEL_MESSAGE_DIRECT,
   COMMUNICATION_CHANNEL_SESSION,
@@ -20,7 +20,7 @@ import {
 import {
   COMMUNICATION_SENT_SENDING_PROCESSING,
   COMMUNICATION_SENT_SENDING_FAIL,
-} from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/constants';
 
 const CustomTemplate = (args: Props) => (
   <CommunicationMessageBubble {...args} />

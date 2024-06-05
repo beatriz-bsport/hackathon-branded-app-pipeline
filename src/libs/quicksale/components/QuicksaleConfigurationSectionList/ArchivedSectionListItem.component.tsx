@@ -7,7 +7,7 @@ import RestoreFromTrash from '@material-ui/icons/RestoreFromTrash';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 
-import MuiIcon from '#components/MuiIcon.component';
+import MuiIcon from '#src/components/MuiIcon.component';
 import { QuicksaleSection } from '../../types';
 
 type Props = {

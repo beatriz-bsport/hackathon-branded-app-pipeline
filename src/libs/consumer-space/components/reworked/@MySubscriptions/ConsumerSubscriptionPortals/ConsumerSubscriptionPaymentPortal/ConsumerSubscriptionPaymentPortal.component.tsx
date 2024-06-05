@@ -2,10 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { AxiosResponse } from 'axios';
 
-
-import type { OptionCallback } from '#state/types';
-import type { PaymentMethod } from '#libs/payment/types';
-import type { SubscriptionREST } from '#libs/subscription/types';
+import type { OptionCallback } from '#src/state/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
+import type { SubscriptionREST } from '#src/libs/subscription/types';
 import {
   ConsumerSubscriptionPaymentModal,
   ConsumerSubscriptionPaymentBottomDrawer,

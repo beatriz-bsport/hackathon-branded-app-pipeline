@@ -1,13 +1,13 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { Star06 } from '#components/untitledui';
+} from '#src/libs/exportable-components/types';
+import { Star06 } from '#src/components/untitledui';
 import Alert, { Props as AlertProps } from '.';
 import { AlertVariantEnum, AlertColorEnum } from './constants';
 import { AlertVariant, AlertColor } from './types';

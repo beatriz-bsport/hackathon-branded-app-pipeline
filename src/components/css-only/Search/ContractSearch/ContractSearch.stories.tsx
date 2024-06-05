@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ContractSearchForStorybook, Props } from './index';
-import { contractListFactory } from '#libs/subscription/factory';
+import { contractListFactory } from '#src/libs/subscription/factory';
 
 const CustomTemplate = (args: Props) => {
   // @ts-expect-error

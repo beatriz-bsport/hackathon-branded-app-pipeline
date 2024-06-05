@@ -1,16 +1,16 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import CouponCodeInput from '#libs/checkout/components/new-checkout-flow/CouponCodeInput.component';
-import PriceCount from '#libs/checkout/components/new-checkout-flow/PriceCount/PriceCount.component';
+import CouponCodeInput from '#src/libs/checkout/components/new-checkout-flow/CouponCodeInput.component';
+import PriceCount from '#src/libs/checkout/components/new-checkout-flow/PriceCount/PriceCount.component';
 
 import {
   Basket,
   OnRemoveCheckoutItemData,
   PrepaidLine,
-} from '#libs/checkout/types';
+} from '#src/libs/checkout/types';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { CheckoutContext } from '../../../../../pages/checkout/basket/CheckoutContext';
 
 import './styles.css';

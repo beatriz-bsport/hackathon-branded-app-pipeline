@@ -1,5 +1,5 @@
 import React from 'react';
-import { paymentComboFactory } from '#libs/payment-combo/factory';
+import { paymentComboFactory } from '#src/libs/payment-combo/factory';
 import { Props, MarketplacePaymentComboDetailsModalForStorybook } from '.';
 
 const fakePaymentCombo = paymentComboFactory();

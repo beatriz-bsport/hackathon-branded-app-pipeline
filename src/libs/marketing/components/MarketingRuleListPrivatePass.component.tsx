@@ -12,7 +12,7 @@ import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import AvTimerIcon from '@material-ui/icons/AvTimer';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import type { PrivatePass } from '#libs/private-service/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { MarketingNotification } from '../types';
 import { PaymentPack } from '../../../api/types';

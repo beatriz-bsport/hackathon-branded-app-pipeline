@@ -1,12 +1,12 @@
 import React from 'react';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import { paymentPackFactory } from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
 // @ts-expect-error
 import MarketplacePaymentPackRestrictionModalCss from './styles.css?raw';
 import MarketplacePaymentPackRestrictionModal, {

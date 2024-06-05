@@ -16,17 +16,7 @@
       "eslint-import-resolver-custom-alias": {
         "alias": {
           "#src": "./src",
-          "#libs": "./src/libs",
-          "#marketplacecomponents": "./src/libs/marketplace/components",
-          "#components": "./src/components",
-          "#hocs": "./src/hocs",
-          "#hooks": "./src/hooks",
-          "#csscomponents": "./src/components/css-only",
-          "#utils": "./src/utils",
-          "#Fabrique": "./src/components/css-only/Fabrique",
-          "#untitledui": "./src/components/untitledui",
-          "#pages": "./src/pages",
-          "#state": "./src/state"
+          "#Fabrique": "./src/components/css-only/Fabrique"
         },
         "extensions": [
           ".js",

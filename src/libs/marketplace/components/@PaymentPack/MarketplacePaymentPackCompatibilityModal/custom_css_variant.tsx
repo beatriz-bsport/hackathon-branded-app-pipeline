@@ -1,13 +1,13 @@
 import React from 'react';
-import { factory_scts } from '#libs/category/factory';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
-import { establishment_factory } from '#libs/establishment/factory';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { factory_scts } from '#src/libs/category/factory';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { establishment_factory } from '#src/libs/establishment/factory';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 // @ts-expect-error
 import MarketplacePaymentPackCompatibilityModalCss from './styles.css?raw';
 import MarketplacePaymentPackCompatibilityModal, {

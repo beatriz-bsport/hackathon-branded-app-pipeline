@@ -11,9 +11,9 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import { Typography } from '@material-ui/core';
 import { DateTime } from 'luxon';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-import { Offer, Offer_FULL } from '#libs/offer/types';
+import { Offer, Offer_FULL } from '#src/libs/offer/types';
 
 type Props = {
   selectedOffer: (Offer_FULL & { redirect: string }) | null;

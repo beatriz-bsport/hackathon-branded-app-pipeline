@@ -5,7 +5,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { TextFieldSizeEnum } from './constants';
 import type { Props } from '.';
 import { TextFieldStorybook } from '.';
-import { Star06 } from '#components/untitledui';
+import { Star06 } from '#src/components/untitledui';
 
 // displayName must be overriden for preview code to actually work on mdx document.
 TextFieldStorybook.displayName = 'TextField';

@@ -8,10 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import CompatibleCoachesListItem from '#libs/replacement-request/components/discipline-group/CompatibleCoachesListItem.component';
+import CompatibleCoachesListItem from '#src/libs/replacement-request/components/discipline-group/CompatibleCoachesListItem.component';
 
-import { MetaActivity } from '#libs/meta-activity/types';
-import { SCT } from '#libs/category/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { SCT } from '#src/libs/category/types';
 import { CompatibleCoachesByCategory } from '../../types';
 
 type Props = {

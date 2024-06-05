@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Typography from '@material-ui/core/Typography';
-import Tooltip from '#components/Tooltip.component';
+import Tooltip from '#src/components/Tooltip.component';
 import { ReportMetadataColumn } from '../types';
 
 type Props = {

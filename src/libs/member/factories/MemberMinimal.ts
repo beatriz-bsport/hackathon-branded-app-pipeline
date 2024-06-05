@@ -1,7 +1,7 @@
 // @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
-import { tagListFactory } from '#libs/tag/factory';
+import { tagListFactory } from '#src/libs/tag/factory';
 
 FactoryBot.define('MemberMinimal', {
   accept_email: faker.datatype.boolean(),

@@ -4,7 +4,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import createTheme from '@material-ui/core/styles/createTheme';
 import useTheme from '@material-ui/core/styles/useTheme';
-import Tooltip from '#components/Tooltip.component';
+import Tooltip from '#src/components/Tooltip.component';
 
 type Props = {
   companySourceName?: string;

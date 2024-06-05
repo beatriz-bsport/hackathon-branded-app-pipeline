@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-import { OfferStatusWaitingListPosition } from '#libs/offer/types';
+import { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import BookingOptionConsumerItem from '../../waiting-list/components/BookingOptionConsumerItem.component';
 
 type Props = {

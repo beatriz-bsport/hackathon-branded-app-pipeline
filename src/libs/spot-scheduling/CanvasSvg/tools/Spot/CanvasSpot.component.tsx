@@ -1,9 +1,9 @@
 import React from 'react';
 import chroma from 'chroma-js';
 import { withTheme } from '@material-ui/styles';
-import { SpotType } from '#libs/spot-scheduling/types';
-import { Theme } from '#libs/theme/types';
-import { PERSONALIZED_CUSTOMIZATION } from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
+import { SpotType } from '#src/libs/spot-scheduling/types';
+import { Theme } from '#src/libs/theme/types';
+import { PERSONALIZED_CUSTOMIZATION } from '#src/libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
 import CanvasBaseComponent from '../BaseClasses/Base.component';
 import { getTextColorFromRGB } from '../../../../../utils/color';
 

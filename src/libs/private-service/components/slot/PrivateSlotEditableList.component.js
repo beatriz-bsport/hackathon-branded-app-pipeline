@@ -16,7 +16,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withTranslation, TFunction } from 'react-i18next';
 
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import PrivateSlotForm from './PrivateSlotForm.component';
 import PrivateSlotListItem from './PrivateSlotListItem.component';
 

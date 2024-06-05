@@ -3,16 +3,16 @@ import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import WidgetUtils from '#libs/widget/WidgetUtils';
-import { urlToMarketplaceSessionTab } from '#libs/marketplace/utils/navigation';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { urlToMarketplaceSessionTab } from '#src/libs/marketplace/utils/navigation';
 
-import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
-import { fetchGroupOffer as fetchGroupOfferAction } from '#libs/group-offer/actions';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#libs/consumer-payment-pack/actions';
-import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+import { fetchOfferBulk as fetchOfferBulkAction } from '#src/libs/offer/actions';
+import { fetchGroupOffer as fetchGroupOfferAction } from '#src/libs/group-offer/actions';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#src/libs/consumer-payment-pack/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '#src/libs/associated-coach/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
 import {
   fetchMyPastBookingAsMember as fetchMyPastBookingAsMemberAction,
   fetchMyFutureBookingAsMember as fetchMyFutureBookingAsMemberAction,
@@ -26,23 +26,23 @@ import {
   cancelBookingAsMember as cancelBookingAsMemberAction,
   cancelPrivateBookingAsMember as cancelPrivateBookingAsMemberAction,
   cancelBookingOptionAsMember as cancelBookingOptionAsMemberAction,
-} from '#libs/consumer-space/actions';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
+} from '#src/libs/consumer-space/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#src/libs/establishment/actions';
 import {
   fetchRoomBlueprints as fetchRoomBlueprintsAction,
   fetchAssetForBlueprint as fetchAssetForBlueprintAction,
   fetchSpotForBlueprint as fetchSpotForBlueprintAction,
-} from '#libs/spot-scheduling/actions';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
+} from '#src/libs/spot-scheduling/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#src/libs/payment-packs/actions';
 import {
   fetchPrivateConsumerPassBulk as fetchPrivateConsumerPassBulkAction,
   fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
   fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
-} from '#libs/private-service/actions';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+} from '#src/libs/private-service/actions';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 
-import { getTheme } from '#libs/theme/selectors';
-import { getMembership } from '#libs/membership/selectors';
+import { getTheme } from '#src/libs/theme/selectors';
+import { getMembership } from '#src/libs/membership/selectors';
 import {
   getMyPastBookingsState,
   getMyFutureBookingsState,
@@ -62,21 +62,21 @@ import {
   getMyWaitlistBookingsList,
   getMyWaitlistBookingsWorkshopState,
   getMyWaitlistBookingsWorkshopList,
-} from '#libs/consumer-space/selectors';
+} from '#src/libs/consumer-space/selectors';
 import {
   getAssetByBlueprintByIdentifier,
   getAssetByIdentifier,
   getSpotTypesOfCompany,
-} from '#libs/spot-scheduling/selector';
+} from '#src/libs/spot-scheduling/selector';
 
-import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingPageReworked';
+import ConsumerBookingPageReworked from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingPageReworked';
 
-import type { BookingREST } from '#libs/booking/types';
-import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
-import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
-import type { PrivateBooking } from '#libs/private-service/types';
-import type { WaitingListBookingOption } from '#libs/waiting-list/types';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import type { BookingREST } from '#src/libs/booking/types';
+import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+import type { BookingFilterTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
+import type { PrivateBooking } from '#src/libs/private-service/types';
+import type { WaitingListBookingOption } from '#src/libs/waiting-list/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import type { WithHandlerType } from '../../utils/types';
 import type { RootState } from '../../reducers';
 

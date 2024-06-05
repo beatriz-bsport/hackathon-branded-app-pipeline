@@ -5,7 +5,7 @@ import MinimalSubscriptionCard, {
   MinimalSubscriptionCardForStorybook,
   type Props,
 } from '.';
-import { subscriptionFactory } from '#libs/subscription/factory';
+import { subscriptionFactory } from '#src/libs/subscription/factory';
 
 const subscription = subscriptionFactory();
 

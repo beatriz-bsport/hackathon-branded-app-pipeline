@@ -5,7 +5,7 @@ import uniq from 'lodash/uniq';
 import { ThunkDispatch } from 'redux-thunk';
 import { COACH_EMAIL_ADDRESS_EXISTS } from '@bsport/common/lib/master-data/error-codes/associated-coach';
 import { REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME } from '@bsport/common/lib/master-data/error-codes/replacement';
-import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 import {
   updateCoach as updateCoachAPI,
   addCoach as addCoachAPI,
@@ -21,27 +21,27 @@ import {
   retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAPI,
   updateAssociatedCoachReplacementPreferences as updateAssociatedCoachReplacementPreferencesAPI,
   getAssociatedCoachLateReplacementRequestStatus as getAssociatedCoachLateReplacementRequestStatusAPI,
-} from '#libs/associated-coach/api';
-import { assignDisciplineGroup as assignDisciplineGroupAPI } from '#libs/replacement-request/api';
-import { getFreshCoachIds } from '#libs/associated-coach/selectors';
+} from '#src/libs/associated-coach/api';
+import { assignDisciplineGroup as assignDisciplineGroupAPI } from '#src/libs/replacement-request/api';
+import { getFreshCoachIds } from '#src/libs/associated-coach/selectors';
 
-// @ts-expect-error
-import { ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP } from '#libs/coach-payment-rules/constants';
+import { ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP } from '#src/libs/coach-payment-rules/constants';
 import type {
   Coach,
   CoachReplacementPreferencesData,
   CoachLateReplacementRequestStatus,
   UpdateCoachPrivateSlotsPaymentRuleData,
-} from '#libs/associated-coach/types';
-import { AssignAssociatedCoachDisciplineGroupParams } from '#libs/replacement-request/types';
+} from '#src/libs/associated-coach/types';
+import { AssignAssociatedCoachDisciplineGroupParams } from '#src/libs/replacement-request/types';
 
-import { isErrorWithCustomCode } from '#libs/utils';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import { RootState } from '../../reducers';
 import {
   OptionCallback,
   Dispatch,
   CustomErrorActionCallback,
 } from '../../state/types';
+// @ts-expect-error
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { putAuth, API_V1_URI, buildUrlParams } from '../../http';
 

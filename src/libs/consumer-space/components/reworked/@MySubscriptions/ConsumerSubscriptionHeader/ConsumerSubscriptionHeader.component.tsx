@@ -1,15 +1,19 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { mobileDetailsDisplay } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+import { mobileDetailsDisplay } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/utils';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
-import { Calendar, ChevronLeft, ChevronRight } from '#components/untitledui';
-import ConsumerGenericHeader from '#libs/consumer-space/components/reworked/common/ConsumerGenericHeader';
+import {
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+} from '#src/components/untitledui';
+import ConsumerGenericHeader from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader';
 import Button from '#Fabrique/ButtonV2';
 
 import type { ButtonColor, ButtonVariant } from '#Fabrique/ButtonV2/types';
-import type { SubscriptionREST } from '#libs/subscription/types';
+import type { SubscriptionREST } from '#src/libs/subscription/types';
 
 import './styles.css';
 

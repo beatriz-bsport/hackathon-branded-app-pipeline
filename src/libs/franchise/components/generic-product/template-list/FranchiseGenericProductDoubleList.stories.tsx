@@ -3,10 +3,10 @@ import { DateTime } from 'luxon';
 import FranchiseGenericProductDoubleList, {
   Props,
 } from './FranchiseGenericProductDoubleList.component';
-import { paymentPackListFactory } from '#libs/payment-packs/factory';
-import { PaymentPackTemplate } from '#libs/payment-packs/types';
-import { GiftcardTemplateListFactory } from '#libs/giftcard/factory';
-import { GiftcardTemplate } from '#libs/giftcard/types';
+import { paymentPackListFactory } from '#src/libs/payment-packs/factory';
+import { PaymentPackTemplate } from '#src/libs/payment-packs/types';
+import { GiftcardTemplateListFactory } from '#src/libs/giftcard/factory';
+import { GiftcardTemplate } from '#src/libs/giftcard/types';
 
 // TODO: This story is crashing
 const defaultArgs = {

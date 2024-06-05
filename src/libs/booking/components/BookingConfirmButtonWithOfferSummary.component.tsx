@@ -14,8 +14,8 @@ import {
 } from '@material-ui/core';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { getTaxPrice } from '#libs/theme/utils';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getTaxPrice } from '#src/libs/theme/utils';
 import Button, { ButtonColor, ButtonSize } from '#Fabrique/Button';
 
 export type Props = {

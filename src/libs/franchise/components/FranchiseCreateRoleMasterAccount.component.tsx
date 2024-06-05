@@ -11,19 +11,19 @@ import CheckIcon from '@material-ui/icons/Check';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 // @ts-expect-error
-import { Actions, Submit } from '#components/forms';
+import { Actions, Submit } from '#src/components/forms';
 
 import {
   FranchiseRolePermission,
   FranchiseRoleMasterAccountData,
-} from '#libs/role/types';
+} from '#src/libs/role/types';
 import {
   deepMerge,
   getRoleDescription,
   getRoleName,
   setAllValuesInObject,
-} from '#libs/role/utils';
-import RecursiveCheckBoxComponent from '#libs/role/components/RecursiveCheckBox.component';
+} from '#src/libs/role/utils';
+import RecursiveCheckBoxComponent from '#src/libs/role/components/RecursiveCheckBox.component';
 import { MaterialStyleType } from '../../../utils/types';
 import Config from '../../../config';
 

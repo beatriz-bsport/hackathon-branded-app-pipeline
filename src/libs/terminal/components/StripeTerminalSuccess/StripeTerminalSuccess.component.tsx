@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import ValidationIcon from '#components/icons/ValidationIcon.component';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
 
 const useStyles = makeStyles((theme: Theme) => ({
   centerContainer: {

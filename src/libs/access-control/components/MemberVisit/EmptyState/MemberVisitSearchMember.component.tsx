@@ -8,10 +8,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import ConditionalWrapper from '#components/ConditionnalWrapper.component';
-import MemberSearchBar from '#libs/member/components/MemberSearchBar.component';
+import ConditionalWrapper from '#src/components/ConditionnalWrapper.component';
+import MemberSearchBar from '#src/libs/member/components/MemberSearchBar.component';
 
-import type { MemberMinimal } from '#libs/member/types';
+import type { MemberMinimal } from '#src/libs/member/types';
 
 type Props = {
   disabled?: boolean;

@@ -1,6 +1,6 @@
-import type { PaymentPackMassExtensionCreate } from '#libs/payment-packs/types';
-import type { PrivatePassMassExtensionCreate } from '#libs/private-service/types';
-import type { Common } from '#libs/types';
+import type { PaymentPackMassExtensionCreate } from '#src/libs/payment-packs/types';
+import type { PrivatePassMassExtensionCreate } from '#src/libs/private-service/types';
+import type { Common } from '#src/libs/types';
 
 export type MassExtensionCreateFormValues = {
   minEndingDate: string;

@@ -3,23 +3,22 @@ import { useTranslation } from 'react-i18next';
 
 import { Handle, Position } from 'react-flow-renderer';
 
-import MenuSelectorOnly from '#components/menu/menu-only';
-import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
-import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
-
+import MenuSelectorOnly from '#src/components/menu/menu-only';
+import useConnectToStep from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
+import usePopoverBubble from '#src/libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
 
 import {
   HandleTypeChoices,
   MarketingActions,
   RIGHT_HANDLE_STYLE,
   SequentialMarketingColors,
-} from '#libs/sequential_marketing/constants';
-import { getMarketingActionPartialValues } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
+} from '#src/libs/sequential_marketing/constants';
+import { getMarketingActionPartialValues } from '#src/libs/sequential_marketing/components/form/marketing_actions/utils';
 
 import type {
   StepMarketingActions,
   EntryStepFlowVersionData,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import RegularEntryStepFlowConfigurationPopovers from './RegularEntryStepFlowConfigurationPopovers.component';
 import FirstEntryStepFlowConfigurationPopovers from './FirstEntryStepFlowConfigurationPopovers.component';
 import EntryStepCard from './EntryStepCard.component';

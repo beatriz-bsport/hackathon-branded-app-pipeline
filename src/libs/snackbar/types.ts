@@ -1,6 +1,6 @@
-import { AccessStatus } from '#libs/access-control/constants';
+import { AccessStatus } from '#src/libs/access-control/constants';
 
-import type { MemberMinimal } from '#libs/member/types';
+import type { MemberMinimal } from '#src/libs/member/types';
 
 export type SnackKind = 'success' | 'error' | 'info' | 'warning';
 

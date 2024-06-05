@@ -4,9 +4,9 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import { compose } from 'recompose';
 import { push } from 'connected-react-router';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
+import ContentWithAppBar from '#src/components/generic-appbar-content/ContentWithAppBar.component';
 import CoachPrivateCalendar from './CoachPrivateCalendar.page';
 import CoachDetail from './CoachDetail.page';
 

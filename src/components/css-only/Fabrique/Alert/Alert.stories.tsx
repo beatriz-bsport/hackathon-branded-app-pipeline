@@ -4,7 +4,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import Alert, { AlertStorybook } from './Alert.component';
 import { AlertColorEnum, AlertVariantEnum } from './constants';
-import { Star06 } from '#components/untitledui';
+import { Star06 } from '#src/components/untitledui';
 
 const AlertStorybookTemplate: ComponentStory<typeof AlertStorybook> = (
   args,

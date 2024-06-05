@@ -3,8 +3,8 @@ import { ButtonBase, Typography, makeStyles } from '@material-ui/core';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
-import { Gift02 } from '#components/untitledui';
-import type { ReferralProgram } from '#libs/referral/types';
+import { Gift02 } from '#src/components/untitledui';
+import type { ReferralProgram } from '#src/libs/referral/types';
 import ReferralMemberSumupDialog from './referral-member-sumup/ReferralMemberSumupDialog.component';
 import { getReferredReduction } from '../utils';
 

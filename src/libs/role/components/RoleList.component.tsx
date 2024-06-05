@@ -17,7 +17,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import InfoIcon from '@material-ui/icons/Info';
 
-import CreateFranchiseRoleDialog from '#libs/franchise/components/FranchiseCreateRoleDialog.component';
+import CreateFranchiseRoleDialog from '#src/libs/franchise/components/FranchiseCreateRoleDialog.component';
 import {
   Role,
   RolePermission,

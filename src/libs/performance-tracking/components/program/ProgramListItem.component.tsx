@@ -8,10 +8,10 @@ import { IconButton, ListItem, Paper, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import { RestoreFromTrash } from '@material-ui/icons';
-import { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
+import { PerformanceTrackingProgram } from '#src/libs/performance-tracking/types';
 
-import MuiIcon from '#components/MuiIcon.component';
-import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
+import MuiIcon from '#src/components/MuiIcon.component';
+import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
 
 type OwnProps = {
   program: PerformanceTrackingProgram;

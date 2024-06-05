@@ -1,7 +1,11 @@
 import React from 'react';
-import { AlertCircle, AlertTriangle, InfoCircle } from '#components/untitledui';
-import { InfoButtonSeverityEnum } from '#csscomponents/InfoButton/constants';
-import type { InfoButtonSeverityType } from '#csscomponents/InfoButton/types';
+import {
+  AlertCircle,
+  AlertTriangle,
+  InfoCircle,
+} from '#src/components/untitledui';
+import { InfoButtonSeverityEnum } from '#src/components/css-only/InfoButton/constants';
+import type { InfoButtonSeverityType } from '#src/components/css-only/InfoButton/types';
 
 /**
  * Retrieve the icon associated to the current Info Button severity

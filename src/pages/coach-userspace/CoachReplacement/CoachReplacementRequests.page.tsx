@@ -15,43 +15,43 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Pagination from '@material-ui/lab/Pagination';
-import ReplacementRequestDeleteDialog from '#libs/replacement-request/components/dialogs/ReplacementRequestDeleteDialog.component';
+import ReplacementRequestDeleteDialog from '#src/libs/replacement-request/components/dialogs/ReplacementRequestDeleteDialog.component';
 
-import ActivitiesToReplaceTable from '#libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
+import ActivitiesToReplaceTable from '#src/libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
 
 import {
   ReplacementDisplays,
   ReplacementRequestStatus,
   PAGE_SIZE,
   ReplacementRequestPaginationByStatus,
-} from '#libs/replacement-request/constants';
-import { ReplacementRequestAPIData } from '#libs/replacement-request/types';
-import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
+} from '#src/libs/replacement-request/constants';
+import { ReplacementRequestAPIData } from '#src/libs/replacement-request/types';
+import { getMyAssociatedCoachProfile } from '#src/libs/associated-coach/selectors';
 
-import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
+import { fetchOfferBulk as fetchOfferBulkAction } from '#src/libs/offer/actions';
 import {
   withEstablishment as groupWithEstablishment,
   getAssociatedEstablishmentGroup,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import {
   withCompleteOffer,
   getAllPendingReplacementRequestsSpecificPagination,
   getAllTeacherFoundReplacementRequestsSpecificPagination,
-} from '#libs/replacement-request/selectors';
-import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#libs/associated-coach/actions';
+} from '#src/libs/replacement-request/selectors';
+import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#src/libs/associated-coach/actions';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
-import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+} from '#src/libs/establishment/actions';
+import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#src/libs/meta-activity/actions';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
 import {
   fetchAllReplacementRequests as fetchAllReplacementRequestsAction,
   cancelReplacementRequest as cancelReplacementRequestAction,
   fetchHasUnseenConfirmedRequests as fetchHasUnseenConfirmedRequestsAction,
   markConfirmedRequestsAsSeen as markConfirmedRequestsAsSeenAction,
-} from '#libs/replacement-request/actions';
-import { updateReplacementRequestLastSeen as updateReplacementRequestLastSeenAPI } from '#libs/replacement-request/api';
+} from '#src/libs/replacement-request/actions';
+import { updateReplacementRequestLastSeen as updateReplacementRequestLastSeenAPI } from '#src/libs/replacement-request/api';
 import { WithHandlerType } from '../../../utils/types';
 import { RootState } from '../../../reducers';
 

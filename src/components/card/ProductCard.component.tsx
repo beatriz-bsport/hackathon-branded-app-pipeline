@@ -11,8 +11,8 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import LinkIcon from '@material-ui/icons/Link';
 import ProductCardCategoryList, {
   ProductCardCategoryListSchema,
-} from '#components/card/ProductCardCategoryList.component';
-import RedButtonComponent from '#components/button/RedButton.component';
+} from '#src/components/card/ProductCardCategoryList.component';
+import RedButtonComponent from '#src/components/button/RedButton.component';
 
 export type Props = {
   // to custom header of the card

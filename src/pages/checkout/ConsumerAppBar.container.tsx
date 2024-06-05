@@ -4,8 +4,9 @@ import { MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { push } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
-import MarketplaceAppBar from '#marketplacecomponents/@AppBar/MarketplaceAppBar';
-import MinimalMarketplaceAppBarCSSOnly from '#libs/marketplace/components/@AppBar/MarketplaceAppBar/MinimalMarketplaceAppBarCSSOnly';
+
+import MarketplaceAppBar from '#src/libs/marketplace/components/@AppBar/MarketplaceAppBar';
+import MinimalMarketplaceAppBarCSSOnly from '#src/libs/marketplace/components/@AppBar/MarketplaceAppBar/MinimalMarketplaceAppBarCSSOnly';
 // @ts-expect-error
 import { navigateBackToMasterRelation as navigateBackToMasterRelationAction } from '../../actions/auth.actions';
 // @ts-expect-error

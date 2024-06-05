@@ -2,7 +2,7 @@ import React from 'react';
 import MarketPlaceWorkshopCard, {
   Props,
 } from './MarketplaceWorkshopCard.component';
-import { coachFactory } from '#libs/associated-coach/factories';
+import { coachFactory } from '#src/libs/associated-coach/factories';
 // @ts-expect-error
 import { defaultThemeParams } from '../../../../../theme';
 

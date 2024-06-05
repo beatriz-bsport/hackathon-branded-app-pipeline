@@ -19,40 +19,40 @@ import {
   setFilters as setFiltersAction,
   toogleFilter as toogleFilterAction,
   offersFilterActions,
-} from '#libs/offer/actions';
+} from '#src/libs/offer/actions';
 import {
   getAvailableOffersFiltered,
   getManagerFilters,
   withCoach,
   withEstablishment,
-} from '#libs/offer/selectors';
+} from '#src/libs/offer/selectors';
 
-import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
+import { getAvailableEstablishmentList } from '#src/libs/establishment/selectors';
 import {
   fetchEstablishments,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '#libs/establishment/actions';
-import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
+} from '#src/libs/establishment/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '#src/libs/associated-coach/actions';
 // @ts-expect-error
-import CheckInOfferList from '#libs/check-in/components/CheckInOfferList.component';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import type { Offer } from '#libs/offer/types';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-// @ts-expect-error
-import { withCustomLevel } from '#libs/level/selectors';
+import CheckInOfferList from '#src/libs/check-in/components/CheckInOfferList.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import type { Offer } from '#src/libs/offer/types';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import { withCustomLevel } from '#src/libs/level/selectors';
 import {
   lockCheckInFilter as lockCheckInFilterAction,
   unlockCheckInFilter as unlockCheckInFilterAction,
-} from '#libs/user-preference/actions';
-import { getIsCheckInFilterLocked } from '#libs/user-preference/selectors';
+} from '#src/libs/user-preference/actions';
+import { getIsCheckInFilterLocked } from '#src/libs/user-preference/selectors';
 import {
   updateLocalStorageFilters,
   getOfferFilters,
   updateLocalStorageEstablishementList,
   getLocalStorageEstablishementList,
   isLocalStorageEstablishementListValid,
-} from '#libs/check-in/utils';
+} from '#src/libs/check-in/utils';
 import type { Dispatch } from '../../state/types';
+// @ts-expect-error
 import { requestLogin as requestLoginAction } from '../../actions/auth.actions';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { RootState } from '../../reducers';

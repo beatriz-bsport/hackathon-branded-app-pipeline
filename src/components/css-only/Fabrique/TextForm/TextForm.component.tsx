@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback } from 'react';
 
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import Typography from '#Fabrique/Typography';
 import { REQUIRED_SYMBOL } from '#Fabrique/constants';

@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import AccessStatusChip, { Props } from './AccessStatusChip.component';
-import { AccessStatus } from '#libs/access-control/constants';
+import { AccessStatus } from '#src/libs/access-control/constants';
 
 export default {
   title: 'Libs/AccessControl/AccessStatusChip',

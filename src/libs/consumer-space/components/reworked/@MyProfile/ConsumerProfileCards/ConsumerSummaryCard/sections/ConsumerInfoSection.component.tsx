@@ -2,10 +2,10 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import Title from '#src/components/css-only/Fabrique/Title';
-import type { ConsumerSummaryCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
-import '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard/styles.css';
+import type { ConsumerSummaryCardProps } from '#src/libs/consumer-space/components/reworked/@MyProfile/types';
+import '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard/styles.css';
 
 type Props = Pick<
   ConsumerSummaryCardProps,

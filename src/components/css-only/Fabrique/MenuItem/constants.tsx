@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star06 } from '#components/untitledui';
+import { Star06 } from '#src/components/untitledui';
 
 export enum MenuItemTypeEnum {
   TEXT = 'text',

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import ConsumerGenericFilters from '#libs/consumer-space/components/reworked/common/ConsumerGenericFilters';
+import ConsumerGenericFilters from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericFilters';
 import { BookingFilterTabEnum } from './constants';
 
 import type { BookingFilterTab } from './types';

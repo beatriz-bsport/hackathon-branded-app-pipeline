@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
-import EventPanel from '#libs/event/components/EventPanel.component';
-import { EventListParams } from '#libs/event/types';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import EventPanel from '#src/libs/event/components/EventPanel.component';
+import { EventListParams } from '#src/libs/event/types';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import SubscriptionSummary from './SubscriptionSummary.component';
 import PlannedInvoiceListDetail from './PlannedInvoiceListDetail.component';
 import PauseV1ListItem from './pause/PauseV1ListItem.component';

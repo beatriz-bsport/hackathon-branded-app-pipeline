@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import Button from '#Fabrique/ButtonV2';
-import { Eye } from '#components/untitledui';
+import { Eye } from '#src/components/untitledui';
 import type { ConsumerSubscriptionDetailsCardProps } from '..';
 
 type Props = Required<

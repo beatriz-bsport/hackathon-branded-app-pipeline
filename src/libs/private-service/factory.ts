@@ -2,15 +2,15 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 
-import { coachesFactory } from '#libs/associated-coach/factories';
+import { coachesFactory } from '#src/libs/associated-coach/factories';
 
 import type {
   PrivateSlot,
   PrivateService,
   PrivatePassFactoryOptions,
   PrivateServiceFactoryOptions,
-} from '#libs/private-service/types';
-import type { Coach } from '#libs/associated-coach/types';
+} from '#src/libs/private-service/types';
+import type { Coach } from '#src/libs/associated-coach/types';
 import {
   generateRandomDescription,
   generateRandomIdList,

@@ -11,10 +11,10 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { useTranslation } from 'react-i18next';
-import TagSelector from '#libs/tag/components/TagSelector.selector';
-import type { MarketplaceNewsletterV2Data } from '#libs/marketplace/types';
-import { NewsletterV2FieldsKind } from '#libs/marketplace/constants';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
+import TagSelector from '#src/libs/tag/components/TagSelector.selector';
+import type { MarketplaceNewsletterV2Data } from '#src/libs/marketplace/types';
+import { NewsletterV2FieldsKind } from '#src/libs/marketplace/constants';
+import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
 
 interface Props {
   config?: MarketplaceNewsletterV2Data;

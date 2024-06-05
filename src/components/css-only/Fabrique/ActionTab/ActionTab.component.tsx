@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import Badge from '#Fabrique/Badge';

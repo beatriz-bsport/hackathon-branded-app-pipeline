@@ -1,10 +1,10 @@
 import React from 'react';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplacePage,
   MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 import Checkbox, { CheckboxProps, CheckboxSize } from '.';
 import { CheckboxSizeEnum } from './constants';
 // @ts-expect-error

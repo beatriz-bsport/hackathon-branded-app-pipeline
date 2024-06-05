@@ -2,8 +2,8 @@ import React from 'react';
 
 import { DateTime } from 'luxon';
 
-import { paymentPackFactory } from '#libs/payment-packs/factory';
-import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
+import { consumerPaymentPackFactory } from '#src/libs/consumer-payment-pack/factories';
 import { MarketplacePaymentPackCreditStatusForStorybook, type Props } from '.';
 import './styles.css';
 

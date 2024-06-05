@@ -9,28 +9,28 @@ import Paper from '@material-ui/core/Paper';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import InvoiceListItem from '#libs/invoice/InvoiceListItem.component';
+import InvoiceListItem from '#src/libs/invoice/InvoiceListItem.component';
 // @ts-expect-error
-import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
+import BookingItemForManagerV2 from '#src/libs/booking/components/BookingItemForManagerV2.component';
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
-import ExtensionListItem from '#components/ExtensionListItem';
-// @ts-expect-error
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
+import ExtensionListItem from '#src/components/ExtensionListItem';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { Booking } from '#libs/booking/types';
-import type { Invoice } from '#libs/invoice/types';
-import type { Member } from '#libs/member/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { Booking } from '#src/libs/booking/types';
+import type { Invoice } from '#src/libs/invoice/types';
+import type { Member } from '#src/libs/member/types';
 
-import { CONSUMER_PAYMENT_PACK_EXTENSION_PAGE_SIZE } from '#libs/consumer-payment-pack/constants';
+import { CONSUMER_PAYMENT_PACK_EXTENSION_PAGE_SIZE } from '#src/libs/consumer-payment-pack/constants';
 import type {
   ConsumerPaymentPack,
   ConsumerPaymentPackExtension,
   ConsumerPaymentPackPenalty,
   ConsumerPaymentPackCreditRefund,
 } from '../types';
+// @ts-expect-error
 import ConsumerPaymentPackCreditRefundListItem from './ConsumerPaymentPackCreditRefundListItem.component';
 
 const PENALTY_KIND_BLOCK_CPP = 0;

@@ -5,8 +5,8 @@ import MarketplaceProductItemList, {
   MarketplaceProductItemListForStorybook,
   type Props,
 } from '.';
-import { checkoutItemsFactory } from '#libs/checkout/factories';
-import { BuyableItemOptions } from '#libs/checkout/types';
+import { checkoutItemsFactory } from '#src/libs/checkout/factories';
+import { BuyableItemOptions } from '#src/libs/checkout/types';
 
 const checkoutPassItems = checkoutItemsFactory(3);
 const checkoutPrivatePassItems = checkoutItemsFactory(3, {

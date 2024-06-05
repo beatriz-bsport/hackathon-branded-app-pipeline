@@ -10,10 +10,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-import { Tag, TagGroup } from '#libs/tag/types';
-import TagChip from '#libs/tag/components/TagChip.component';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import TagChip from '#src/libs/tag/components/TagChip.component';
 import { formatMinutes } from '../../../utils/datetime';
 
 type Props = {

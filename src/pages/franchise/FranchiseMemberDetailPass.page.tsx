@@ -10,57 +10,57 @@ import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyabl
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
-import FranchiseMemberPageLayout from '#components/franchise/FranchiseMemberPageLayout.component';
-import FranchiseMemberSectionLayout from '#components/franchise/FranchiseMemberSectionLayout.component';
-import FranchiseConsumerPackRowItem from '#libs/consumer-payment-pack/components/FranchiseConsumerPackRowItem.component';
+import FranchiseMemberPageLayout from '#src/components/franchise/FranchiseMemberPageLayout.component';
+import FranchiseMemberSectionLayout from '#src/components/franchise/FranchiseMemberSectionLayout.component';
+import FranchiseConsumerPackRowItem from '#src/libs/consumer-payment-pack/components/FranchiseConsumerPackRowItem.component';
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
-import InvoiceListItem from '#libs/invoice/InvoiceListItem.component';
-import { FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE } from '#libs/franchise/constants';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
+import InvoiceListItem from '#src/libs/invoice/InvoiceListItem.component';
+import { FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE } from '#src/libs/franchise/constants';
 import type { RootState } from '../../reducers';
 import {
   getConsumerPack,
   withPaymentPack,
-} from '#libs/consumer-payment-pack/selectors';
+} from '#src/libs/consumer-payment-pack/selectors';
 import {
   fetchFranchiseUserPasses as fetchFranchiseUserPassesAction,
   fetchCompanyGroupList as fetchCompanyGroupListAction,
-} from '#libs/franchise/actions';
+} from '#src/libs/franchise/actions';
 import {
   getAllowedFranchisees,
   getCompanyGroupList,
   getFranchiseCompanies,
   getFranchiseUserPassesList,
-} from '#libs/franchise/selectors';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
-import { getInvoice } from '#libs/invoice/selectors';
+} from '#src/libs/franchise/selectors';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#src/libs/payment-packs/actions';
+import { getInvoice } from '#src/libs/invoice/selectors';
 import type {
   FranchiseUserPass,
   FranchiseUserPassesQueryParams,
   FranchisePassFilters,
   CompanyGroup,
   FranchiseUserPassWithPaymentPack,
-} from '#libs/franchise/types';
+} from '#src/libs/franchise/types';
 import type {
   OptionCallback,
   PaginatedResponse,
   ThunkAction,
-} from '#state/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import FranchiseConsumerPassFilters from '#libs/franchise/components/FranchiseConsumerPassFilters.component';
-import type { Invoice, InvoiceV1Serializer } from '#libs/invoice/types';
+} from '#src/state/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import FranchiseConsumerPassFilters from '#src/libs/franchise/components/FranchiseConsumerPassFilters.component';
+import type { Invoice, InvoiceV1Serializer } from '#src/libs/invoice/types';
 import {
   fetchSpecificInvoice,
   fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction,
-} from '#libs/invoice/actions';
-import type { Company } from '#libs/company/types';
-import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
+} from '#src/libs/invoice/actions';
+import type { Company } from '#src/libs/company/types';
+import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
 import {
   retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
   fetchConsumerPack as fetchConsumerPackAction,
-} from '#libs/consumer-payment-pack/actions';
+} from '#src/libs/consumer-payment-pack/actions';
 // @ts-expect-error
 import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
 import type { WithHandlerType } from '#src/utils/types';

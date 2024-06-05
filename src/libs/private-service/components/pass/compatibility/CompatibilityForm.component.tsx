@@ -4,14 +4,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import { Chip, Paper, Typography } from '@material-ui/core';
 import WarningIcon from '@material-ui/icons/Warning';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import SCTChip from '#libs/category/components/SCTChip.component';
-import { SCT } from '#libs/category/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { PaymentPackCompatibilitiesData } from '#libs/payment-packs/types';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import SCTChip from '#src/libs/category/components/SCTChip.component';
+import { SCT } from '#src/libs/category/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { PaymentPackCompatibilitiesData } from '#src/libs/payment-packs/types';
 import { useCompatibilityForm } from './useCompatibilityForm.hook';
 
 export type Props = {

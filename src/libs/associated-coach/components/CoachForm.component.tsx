@@ -16,8 +16,8 @@ import HelpCircleOutlinedIcon from '@material-ui/icons/HelpOutline';
 
 import { Typography } from '@material-ui/core';
 import { DateTime } from 'luxon';
-import Tooltip from '#components/Tooltip.component';
-import AvatarField from '#components/forms/AvatarField.component';
+import Tooltip from '#src/components/Tooltip.component';
+import AvatarField from '#src/components/forms/AvatarField.component';
 import {
   TextField,
   PhoneField,
@@ -27,13 +27,13 @@ import {
   Submit,
   ColorField,
   // @ts-expect-error
-} from '#components/forms';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+} from '#src/components/forms';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 
-import type { CoachUpdateOrCreatedPayload } from '#libs/associated-coach/types';
+import type { CoachUpdateOrCreatedPayload } from '#src/libs/associated-coach/types';
 
-import type { OptionCallback } from '#state/types';
+import type { OptionCallback } from '#src/state/types';
 import type { CoachDetailed } from '../../../api/types';
 
 const {

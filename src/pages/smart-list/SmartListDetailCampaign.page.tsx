@@ -15,14 +15,13 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import { withStyles, Theme } from '@material-ui/core/styles';
 
-
-import CampaignList from '#libs/communication/components/CampaignList.component';
-import CampaignsExportLimitDialog from '#libs/communication/components/CampaignsExportLimitDialog.component';
-import CampaignsExportSection from '#libs/communication/components/CampaignsExportSection.component';
-import CommunicationDrawerDEPRECATED from '#libs/communication/components/CommunicationDrawer.component';
-import GenericDeleteDialog from '#components/genericDialog/GenericDeleteDialog.component';
-import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import CampaignList from '#src/libs/communication/components/CampaignList.component';
+import CampaignsExportLimitDialog from '#src/libs/communication/components/CampaignsExportLimitDialog.component';
+import CampaignsExportSection from '#src/libs/communication/components/CampaignsExportSection.component';
+import CommunicationDrawerDEPRECATED from '#src/libs/communication/components/CommunicationDrawer.component';
+import GenericDeleteDialog from '#src/components/genericDialog/GenericDeleteDialog.component';
+import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
   getCampaignBySmartlist,
@@ -33,44 +32,44 @@ import {
   getCsvExportAllCampaignsIsLoading,
   getCsvExportAllCampaignsRecipientCount,
   getCsvExportAllCampaignsIsXlsxExportable,
-} from '#libs/communication/selectors';
+} from '#src/libs/communication/selectors';
 import {
   fetchCampaignSmartlist,
   fetchCampaignSmartlistAutomated,
   fetchRecipientsNumberAllCampaignsIncluded as fetchRecipientsNumberAllCampaignsIncludedAction,
   exportSmartlistCampaignsBackgroundTask as exportSmartlistCampaignsBackgroundTaskAction,
   fetchLatestCampaignExportLink as fetchLatestCampaignExportLinkAction,
-} from '#libs/communication/actions';
-import { fetchSmartListAutomatedCampaign } from '#libs/smart-list/actions';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
-import { CommunicationScheduledList } from '#libs/smart-list/components/communication_scheduled/CommunicationScheduledList.component';
+} from '#src/libs/communication/actions';
+import { fetchSmartListAutomatedCampaign } from '#src/libs/smart-list/actions';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#src/libs/notification-rule/actions';
+import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
+import { CommunicationScheduledList } from '#src/libs/smart-list/components/communication_scheduled/CommunicationScheduledList.component';
 import {
   getCommunicationScheduledForSmartlist,
   getCommunicationScheduledBySmartlistLoading,
   getCommunicationScheduledBySmartlistPage,
   getCommunicationScheduledBySmartlistTotal,
-} from '#libs/communication-v2/selectors';
+} from '#src/libs/communication-v2/selectors';
 import {
   fetchCommunicationScheduledListForSmartlist as fetchCommunicationScheduledListForSmartlistAction,
   deleteCommunicationScheduled as deleteCommunicationScheduledAction,
   updateCommunicationScheduled as updateCommunicationScheduledAction,
   sendNowCommunicationScheduled as sendNowCommunicationScheduledAction,
-} from '#libs/communication-v2/actions';
+} from '#src/libs/communication-v2/actions';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
-import { getPaginatedMembers } from '#libs/member/selectors';
+} from '#src/libs/email-editor/selectors';
+import { getPaginatedMembers } from '#src/libs/member/selectors';
 import {
   emailTemplateDetail,
   emailTemplatesSummaries,
-} from '#libs/email-editor/actions';
-import { MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION } from '#libs/communication-v2/constants';
+} from '#src/libs/email-editor/actions';
+import { MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION } from '#src/libs/communication-v2/constants';
 
-import type { CampaignExportStartEndDates } from '#libs/communication/types';
-import type { CommunicationScheduled } from '#libs/communication-v2/types';
-import type { WithHandlerType, MaterialStyleType } from '#utils/types';
+import type { CampaignExportStartEndDates } from '#src/libs/communication/types';
+import type { CommunicationScheduled } from '#src/libs/communication-v2/types';
+import type { WithHandlerType, MaterialStyleType } from '#src/utils/types';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 import Config from '../../config';

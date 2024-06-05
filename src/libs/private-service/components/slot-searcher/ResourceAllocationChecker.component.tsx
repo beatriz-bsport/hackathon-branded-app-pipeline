@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import red from '@material-ui/core/colors/red';
-import { joinIntervalList } from '#libs/private-service/utils';
+import { joinIntervalList } from '#src/libs/private-service/utils';
 
 type OwnProps = {
   resourceId: number;

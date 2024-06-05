@@ -2,25 +2,25 @@ import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
+import { GenericInfiniteScrollEnhancedCssOnly } from '#src/components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import Typography from '#Fabrique/Typography';
-import ConsumerPassCard from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
-import PrivateConsumerPassDetailsCard from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassDetailsCard';
-import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
+import ConsumerPassCard from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
+import PrivateConsumerPassDetailsCard from '#src/libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassDetailsCard';
+import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 
-import { parsePrivateConsumerPassData } from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/utils';
-import { getExpirationDate } from '#libs/private-service/utils';
+import { parsePrivateConsumerPassData } from '#src/libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/utils';
+import { getExpirationDate } from '#src/libs/private-service/utils';
 import {
   MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
   MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
-} from '#libs/consumer-space/components/reworked/@MyBookings/constants';
+} from '#src/libs/consumer-space/components/reworked/@MyBookings/constants';
 
-import type { PrivateConsumerPassReworked } from '#libs/private-service/types';
-import type { PassFilterTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
+import type { PrivateConsumerPassReworked } from '#src/libs/private-service/types';
+import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
 
 // Common stylesheet
-import '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import '#src/libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 type Props = {
   isLoading?: boolean;

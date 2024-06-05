@@ -5,32 +5,32 @@ import { push } from 'connected-react-router';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withTranslation } from 'react-i18next';
 
-import { getInvoice } from '#libs/invoice/selectors';
-import type { Invoice } from '#libs/invoice/types';
+import { getInvoice } from '#src/libs/invoice/selectors';
+import type { Invoice } from '#src/libs/invoice/types';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
+} from '#src/libs/email-editor/selectors';
 
-import { getOrder, withMember } from '#libs/order/selectors';
+import { getOrder, withMember } from '#src/libs/order/selectors';
 
-import { fetchMember } from '#libs/member/actions';
+import { fetchMember } from '#src/libs/member/actions';
 import {
   fetchOrder,
   patchOrder,
   refreshNewOrderAlerting,
-} from '#libs/order/actions';
-import { fetchByQueryInvoice as fetchByQueryInvoiceAction } from '#libs/invoice/actions';
-import OrderDetailComponent from '#libs/order/components/OrderDetail.component';
-import { sendCommunication } from '#libs/communication/actions';
+} from '#src/libs/order/actions';
+import { fetchByQueryInvoice as fetchByQueryInvoiceAction } from '#src/libs/invoice/actions';
+import OrderDetailComponent from '#src/libs/order/components/OrderDetail.component';
+import { sendCommunication } from '#src/libs/communication/actions';
 import {
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 
-import { showVaccinationStatus } from '#libs/custom-form/selectors';
+import { showVaccinationStatus } from '#src/libs/custom-form/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import { WithHandlerType } from '../../utils/types';
 import type { RootState } from '../../reducers';

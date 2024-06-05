@@ -22,14 +22,14 @@ import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/core/styles';
 
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
-import PaymentStripeTerminal from '#libs/terminal/components/PaymentStripeTerminal.component';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#src/libs/platform-billing/upsell-identifiers';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
+import PaymentStripeTerminal from '#src/libs/terminal/components/PaymentStripeTerminal.component';
 
-import type { FeatureList } from '#libs/company/types';
-import type { StripeReader } from '#libs/terminal/types';
-import type { StripeInit } from '#libs/payment/types';
+import type { FeatureList } from '#src/libs/company/types';
+import type { StripeReader } from '#src/libs/terminal/types';
+import type { StripeInit } from '#src/libs/payment/types';
 import type { BillingDetails } from '../../../marketplace/types';
 import StripeErrorCode from './StripeErrorCode.component';
 import CardBillingDetailsForm from '../payment-backend-stripe/CardBillingDetailsForm';

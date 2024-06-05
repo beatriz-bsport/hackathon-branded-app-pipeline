@@ -8,7 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 
 import { withTranslation, TFunction } from 'react-i18next';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 import { formatMinutes } from '../../../../utils/datetime';
 import withConfirm from '../../../../hocs/with-confirm.hoc';
 

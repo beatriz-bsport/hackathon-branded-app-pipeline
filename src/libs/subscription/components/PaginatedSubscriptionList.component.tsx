@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
 import SubscriptionRowItem from './SubscriptionRowItem.component';
 import { Subscription } from '../types';
 

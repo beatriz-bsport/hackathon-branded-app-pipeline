@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
-import { RecurrenceRuleGroupOffer } from '#libs/group-offer/types';
-import { getRecurrenceTrad } from '#libs/group-offer/utils';
+import { RecurrenceRuleGroupOffer } from '#src/libs/group-offer/types';
+import { getRecurrenceTrad } from '#src/libs/group-offer/utils';
 
 type Props = {
   recurrenceRule: RecurrenceRuleGroupOffer;

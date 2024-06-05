@@ -1,11 +1,11 @@
 import React from 'react';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { MarketplacePaymentMethods } from '#libs/marketplace/types';
+} from '#src/libs/exportable-components/types';
+import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
 // @ts-expect-error
 import MarketplaceCollectPaymentMethodCss from './styles.css?raw';
 import {

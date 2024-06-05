@@ -2,9 +2,12 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import PriceCount, {
   PriceCountStorybook,
-} from '#libs/checkout/components/new-checkout-flow/PriceCount';
-import type { Props } from '#libs/checkout/components/new-checkout-flow/PriceCount';
-import { basketFactory, checkoutItemFactory } from '#libs/checkout/factories';
+} from '#src/libs/checkout/components/new-checkout-flow/PriceCount';
+import type { Props } from '#src/libs/checkout/components/new-checkout-flow/PriceCount';
+import {
+  basketFactory,
+  checkoutItemFactory,
+} from '#src/libs/checkout/factories';
 import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items';
 
 const PriceCountStorybookTemplate: ComponentStory<

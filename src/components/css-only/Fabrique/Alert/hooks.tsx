@@ -5,7 +5,7 @@ import {
   AnnotationInfo,
   CheckCircle,
   InfoCircle,
-} from '#components/untitledui';
+} from '#src/components/untitledui';
 import { AlertColorEnum } from './constants';
 import { AlertColor } from './types';
 

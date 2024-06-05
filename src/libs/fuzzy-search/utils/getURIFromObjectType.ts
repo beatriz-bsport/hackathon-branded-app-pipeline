@@ -1,4 +1,4 @@
-import type { SearchObjectType } from '#libs/fuzzy-search/types';
+import type { SearchObjectType } from '#src/libs/fuzzy-search/types';
 import { API_URI, API_V1_URI } from '../../../http';
 
 const typeToURIMap: Record<SearchObjectType, string> = {

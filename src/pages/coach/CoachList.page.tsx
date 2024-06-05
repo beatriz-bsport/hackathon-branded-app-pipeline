@@ -15,41 +15,41 @@ import Divider from '@material-ui/core/Divider';
 import { createStyles } from '@material-ui/core';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import type { Theme } from '@material-ui/core/styles';
-import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import withTitle from '../../hocs/with-title.hoc';
 
 import {
   deleteCoach,
   restoreCoach,
   fetchAssociatedCoachesList,
-} from '#libs/associated-coach/actions';
+} from '#src/libs/associated-coach/actions';
 import {
   getActiveCoaches,
   getCoachesSelectedInRole,
   getInactiveCoaches,
   getInactiveCoachesSelectedInRole,
-} from '#libs/associated-coach/selectors';
+} from '#src/libs/associated-coach/selectors';
 
 import CoachListItem, {
   CoachListSkeleton,
-} from '#libs/associated-coach/components/CoachListItem.component';
+} from '#src/libs/associated-coach/components/CoachListItem.component';
 
-import CoachDeleteModal from '#libs/associated-coach/components/CoachDeleteModal.component';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import BottomActionsButton from '#components/button/BottomActionsButton.component';
-import IsEmptyList from '#components/navigation/IsEmptyList.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
-import VirtualizedCoachList from '#libs/associated-coach/components/VirtualizedCoachList.component';
+import CoachDeleteModal from '#src/libs/associated-coach/components/CoachDeleteModal.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import BottomActionsButton from '#src/components/button/BottomActionsButton.component';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import VirtualizedCoachList from '#src/libs/associated-coach/components/VirtualizedCoachList.component';
 
-import type { Coach } from '#libs/associated-coach/types';
+import type { Coach } from '#src/libs/associated-coach/types';
 import type { RootState } from '../../reducers';
 
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 
 type OwnProps = {};
 

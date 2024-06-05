@@ -1,7 +1,7 @@
 import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ConsumerInvoicePaymentPortalStorybook } from './ConsumerInvoicePaymentPortal.component';
-import { consumerInvoiceFactory } from '#libs/invoice/factories';
+import { consumerInvoiceFactory } from '#src/libs/invoice/factories';
 
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,

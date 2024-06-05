@@ -4,7 +4,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import type { RouteComponentProps } from 'react-router-dom';
 import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import {
   getMyActiveSubscriptionsState,
@@ -14,40 +14,40 @@ import {
   getMyExpiredSubscriptionsState,
   getMyExpiredSubscriptionsList,
   getMySubscriptionsInvoicesDetailsState,
-} from '#libs/consumer-space/selectors';
+} from '#src/libs/consumer-space/selectors';
 
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod as detachPaymentMethodAction,
-} from '#libs/payment/actions';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
+} from '#src/libs/payment/actions';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 
-import { getSavedPaymentMethodList } from '#libs/payment/selectors';
+import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
 import {
   fetchConsumerSubscriptionInvoicesDetails as fetchConsumerSubscriptionInvoicesDetailsAction,
   fetchMySubscriptionAsMember as fetchMySubscriptionAsMemberAction,
   fetchMyActiveSubscriptionsAsMember as fetchMyActiveSubscriptionsAsMemberAction,
   fetchMyExpiredSubscriptionsAsMember as fetchMyExpiredSubscriptionsAsMemberAction,
   fetchMyFutureSubscriptionsAsMember as fetchMyFutureSubscriptionsAsMemberAction,
-} from '#libs/consumer-space/actions/subscription-actions';
+} from '#src/libs/consumer-space/actions/subscription-actions';
 
-import type { Membership } from '#libs/membership/types';
-import type { SubscriptionREST } from '#libs/subscription/types';
-import type { PaymentMethod } from '#libs/payment/types';
+import type { Membership } from '#src/libs/membership/types';
+import type { SubscriptionREST } from '#src/libs/subscription/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
 
-import ConsumerSubscriptionPageReworked from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPageReworked';
+import ConsumerSubscriptionPageReworked from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPageReworked';
 import {
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction,
   downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAction,
-} from '#libs/subscription/actions';
-import { fetchInvoiceConfigurationAsMember as fetchInvoiceConfigurationAsMemberAction } from '#libs/invoice/actions';
+} from '#src/libs/subscription/actions';
+import { fetchInvoiceConfigurationAsMember as fetchInvoiceConfigurationAsMemberAction } from '#src/libs/invoice/actions';
 import {
   urlToMarketplaceSessionTab,
   urlToMarketplaceSubscriptionTab,
-} from '#libs/marketplace/utils/navigation';
-import { getTheme } from '#libs/theme/selectors';
-import WidgetUtils from '#libs/widget/WidgetUtils';
-import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
+} from '#src/libs/marketplace/utils/navigation';
+import { getTheme } from '#src/libs/theme/selectors';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';

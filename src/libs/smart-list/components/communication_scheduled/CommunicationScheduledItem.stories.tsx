@@ -2,8 +2,8 @@ import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import CommunicationScheduledItem from './CommunicationScheduledItem.component';
-import { communicationScheduledFactory } from '#libs/smart-list/factories';
-import { CommunicationFactory } from '#libs/communication-v2/factories/Communication';
+import { communicationScheduledFactory } from '#src/libs/smart-list/factories';
+import { CommunicationFactory } from '#src/libs/communication-v2/factories/Communication';
 
 export default {
   title: 'Components/Smartlists/CommunicationScheduledItem',

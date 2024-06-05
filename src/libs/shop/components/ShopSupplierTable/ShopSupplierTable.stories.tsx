@@ -4,7 +4,7 @@ import React from 'react';
 
 import ShopSupplierTable from '.';
 
-import { shopSupplierListFactory } from '#libs/shop/factory';
+import { shopSupplierListFactory } from '#src/libs/shop/factory';
 
 const fakeSupplierList = shopSupplierListFactory(12);
 

@@ -23,12 +23,12 @@ import {
   Offer_FULL,
   OfferStatus,
   BOOKING_FOR_GUEST_FREQUENCY,
-} from '#libs/offer/types';
-import AdditionalGuestForm from '#libs/booker-module/components/AdditionalGuestForm.component';
-import AdditionalGuestList from '#libs/booker-module/components/AdditionalGuestList.component';
-import { getLevelTranslation } from '#libs/level/utils';
-import { SpotType } from '#libs/spot-scheduling/types';
-import { getSpotTypeMinimal } from '#libs/spot-scheduling/utils';
+} from '#src/libs/offer/types';
+import AdditionalGuestForm from '#src/libs/booker-module/components/AdditionalGuestForm.component';
+import AdditionalGuestList from '#src/libs/booker-module/components/AdditionalGuestList.component';
+import { getLevelTranslation } from '#src/libs/level/utils';
+import { SpotType } from '#src/libs/spot-scheduling/types';
+import { getSpotTypeMinimal } from '#src/libs/spot-scheduling/utils';
 import { Member, MemberMinimal } from '../../member/types';
 import { OfferData, AdditionalGuest } from '../types';
 import DividerLinearGradient from '../../../components/DividerLinearGradient.component';

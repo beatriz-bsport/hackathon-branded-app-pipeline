@@ -1,8 +1,8 @@
 import React from 'react';
 import ConsumerInvoiceCard, { ConsumerInvoiceCardStorybook } from '.';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { consumerInvoiceFactory } from '#libs/invoice/factories';
-import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+import { consumerInvoiceFactory } from '#src/libs/invoice/factories';
+import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 
 const ConsumerInvoiceCardTemplate: ComponentStory<
   typeof ConsumerInvoiceCardStorybook

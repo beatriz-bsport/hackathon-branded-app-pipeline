@@ -3,7 +3,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import {
   generateShopitemColorSizeCombinationList,
   getDuplicateVariantCombinationList,
-} from '#libs/shop/utils';
+} from '#src/libs/shop/utils';
 
 const FAKE_ID = faker.number.int(5000);
 const COLOR_LIST = faker.helpers.multiple(() => faker.color.human(), {

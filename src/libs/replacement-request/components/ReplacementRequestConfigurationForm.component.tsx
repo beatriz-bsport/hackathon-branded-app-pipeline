@@ -17,11 +17,11 @@ import {
   LATE_REQUEST_LIMITATION_PERIOD_TYPE_MONTH,
   LATE_REQUEST_LIMITATION_PERIOD_TYPE_YEAR,
 } from '@bsport/common/lib/master-data/replacement';
-import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 
-import { ReplacementRequestConfiguration } from '#libs/replacement-request/types';
+import { ReplacementRequestConfiguration } from '#src/libs/replacement-request/types';
 // @ts-expect-error
-import { IntegerField, SwitchField } from '#components/forms';
+import { IntegerField, SwitchField } from '#src/components/forms';
 import { OptionCallback } from '../../../state/types';
 
 interface FormikValues {

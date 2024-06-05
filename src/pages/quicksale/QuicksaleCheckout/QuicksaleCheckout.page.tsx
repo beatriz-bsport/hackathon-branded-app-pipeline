@@ -8,8 +8,7 @@ import {
 
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import {
   fetchBasket as fetchBasketAction,
@@ -19,48 +18,48 @@ import {
   patchCurrentBasket as patchCurrentBasketAction,
   assignInstalmentPayment as assignInstalmentPaymentAction,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
-} from '#libs/checkout/actions';
-import { getBasket } from '#libs/checkout/selectors';
+} from '#src/libs/checkout/actions';
+import { getBasket } from '#src/libs/checkout/selectors';
 
 import {
   updatePaymentGroupPriceCts,
   detachPaymentMethod as detachPaymentMethodAction,
-} from '#libs/payment/actions';
-import { checkItemsBasket as checkItemsBasketAPI } from '#libs/payment/api';
+} from '#src/libs/payment/actions';
+import { checkItemsBasket as checkItemsBasketAPI } from '#src/libs/payment/api';
 
-import { fetchPaymentList as fetchPaymentListAction } from '#libs/invoice/actions';
-import { getPaymentList } from '#libs/invoice/selectors';
+import { fetchPaymentList as fetchPaymentListAction } from '#src/libs/invoice/actions';
+import { getPaymentList } from '#src/libs/invoice/selectors';
 
-import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#libs/instalment-payment-configuration/actions';
+import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#src/libs/instalment-payment-configuration/actions';
 
-import { getMemberListData } from '#libs/member/selectors';
+import { getMemberListData } from '#src/libs/member/selectors';
 import {
   createOrUpdateMember,
   fetchMemberBulk,
   search,
-} from '#libs/member/actions';
-import MemberSearchDialog from '#libs/member/components/MemberSearchDialog';
-import { MemberMap } from '#libs/member/utils';
+} from '#src/libs/member/actions';
+import MemberSearchDialog from '#src/libs/member/components/MemberSearchDialog';
+import { MemberMap } from '#src/libs/member/utils';
 
-import { snackbarWarning } from '#libs/snackbar/actions';
+import { snackbarWarning } from '#src/libs/snackbar/actions';
 
-import QuicksaleDialogs from '#libs/quicksale/components/QuicksaleDialogs.component';
+import QuicksaleDialogs from '#src/libs/quicksale/components/QuicksaleDialogs.component';
 
-import { getCompanyCountry } from '#libs/theme/selectors';
+import { getCompanyCountry } from '#src/libs/theme/selectors';
 
-// @ts-expect-error
-import type { PaymentGroup } from '#libs/payment/types';
-import type { Basket, BasketAddress } from '#libs/checkout/types';
-import { QuicksaleDeliveryType } from '#libs/quicksale/constants';
-import { getFeatureList as getFeatureListAction } from '#libs/company/actions';
-import { fetchStripeReaders as fetchStripeReadersAction } from '#libs/terminal/actions';
-import { getStripeReaders } from '#libs/terminal/selectors';
-import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
-import { MemberFormData } from '#libs/member/types';
+import type { PaymentGroup } from '#src/libs/payment/types';
+import type { Basket, BasketAddress } from '#src/libs/checkout/types';
+import { QuicksaleDeliveryType } from '#src/libs/quicksale/constants';
+import { getFeatureList as getFeatureListAction } from '#src/libs/company/actions';
+import { fetchStripeReaders as fetchStripeReadersAction } from '#src/libs/terminal/actions';
+import { getStripeReaders } from '#src/libs/terminal/selectors';
+import { getInstalmentForBasketList } from '#src/libs/instalment-payment-configuration/selectors';
+import { MemberFormData } from '#src/libs/member/types';
 
-import { isErrorWithCustomCode } from '#libs/utils';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import { useQuicksalePayments, useModals } from './hooks';
 import QuicksaleCheckout from './QuicksaleCheckout.component';
+// @ts-expect-error
 import { mapFormData } from '../../form.utils';
 import type { OptionCallback } from '../../../state/types';
 import { RootState } from '../../../reducers';

@@ -20,21 +20,21 @@ import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personal
 
 import { ImmutableObject } from 'seamless-immutable';
 import PersonAdd from '@material-ui/icons/PersonAdd';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { getTaxPrice } from '#libs/theme/utils';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { Coach } from '#libs/associated-coach/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getTaxPrice } from '#src/libs/theme/utils';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { Coach } from '#src/libs/associated-coach/types';
 import {
   type OfferStatus,
   type Offer_FULL,
   type Offer,
   OfferSummaryVariant,
-} from '#libs/offer/types';
-import { CompanyTheme } from '#libs/theme/types';
-import BookingConfirmButton from '#libs/booking/components/BookingConfirmButton.component';
-import MarketplaceBroadcastCSSOnly from '#marketplacecomponents/@Broadcast/MarketplaceBroadcastCSSOnly';
+} from '#src/libs/offer/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import BookingConfirmButton from '#src/libs/booking/components/BookingConfirmButton.component';
+import MarketplaceBroadcastCSSOnly from '#src/libs/marketplace/components/@Broadcast/MarketplaceBroadcastCSSOnly';
 import { formatAsDateWithWeekday } from '#src/utils/datetime';
 import DEFAULT_PROFILE_PICTURE_URL from '#src/assets/constants';
 import { OfferSummarySkeleton } from '.';

@@ -6,8 +6,8 @@ import chroma from 'chroma-js';
 import { useTheme } from '@material-ui/core';
 
 import { lighten } from '@material-ui/core/styles/colorManipulator';
-import { getLevelColor, getLevelTranslation } from '#libs/level/utils';
-import { Level } from '#libs/level/types';
+import { getLevelColor, getLevelTranslation } from '#src/libs/level/utils';
+import { Level } from '#src/libs/level/types';
 import { getTextColorFromRGB } from '../../../../../utils/color';
 
 import './MarketplaceLevelCSSOnly.css';

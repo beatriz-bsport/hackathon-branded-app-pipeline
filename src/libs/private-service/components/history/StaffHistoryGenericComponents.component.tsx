@@ -11,9 +11,9 @@ import {
   PRIVATE_BOOKING_RESTORED_BY_STAFF,
   RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
   ActionStaffHistoryKindTranslationDict,
-} from '#libs/private-service/components/constants';
+} from '#src/libs/private-service/components/constants';
 import { makeStyles, Theme } from '@material-ui/core';
-import { PrivateBookingModificationActionIdentifier } from '#libs/role/types';
+import { PrivateBookingModificationActionIdentifier } from '#src/libs/role/types';
 
 const getActionIcon = (
   action_identifier: PrivateBookingModificationActionIdentifier,

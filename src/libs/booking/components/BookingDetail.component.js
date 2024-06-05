@@ -8,13 +8,13 @@ import Alert from '@material-ui/lab/Alert/Alert';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
-import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
-import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
+import { hasPaymentPackManagementPermission } from '#src/libs/payment-packs/utils';
+import { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
 import {
   BOOKING_CREATED_BY_STAFF,
   BOOKING_CANCELLED_BY_STAFF,
-} from '#libs/booking/components/constants';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+} from '#src/libs/booking/components/constants';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { formatAsDatetime } from '../../../utils/datetime';
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';

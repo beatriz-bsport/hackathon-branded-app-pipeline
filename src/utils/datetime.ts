@@ -2,7 +2,7 @@ import { TFunction } from 'i18next';
 import { DateTime, Info, SystemZone } from 'luxon';
 import { MarketPlaceDaysFormatDisplay } from '@bsport/common/lib/master-data/personalization';
 
-import type { Theme } from '#libs/theme/types';
+import type { Theme } from '#src/libs/theme/types';
 
 /**
  * Returns a calendar date from an ISO date

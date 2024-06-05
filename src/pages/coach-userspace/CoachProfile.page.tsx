@@ -5,19 +5,19 @@ import { compose, withHandlers, withProps } from 'recompose';
 import { WithStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import { Redirect, Route } from 'react-router';
 import { push } from 'connected-react-router';
-import { retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAction } from '#libs/associated-coach/actions';
-// @ts-expect-error
+import { retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAction } from '#src/libs/associated-coach/actions';
 
-import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
-import LoginBackgroundComponent from '#libs/login/components/LoginBackground.component';
-import ConsumerCoachSpaceSelector from '#libs/associated-coach/components/ConsumerCoachSpaceSelector.component';
-import withThemeProvider from '#hocs/company-themifier.hoc';
+import { getMyAssociatedCoachProfile } from '#src/libs/associated-coach/selectors';
+import LoginBackgroundComponent from '#src/libs/login/components/LoginBackground.component';
+import ConsumerCoachSpaceSelector from '#src/libs/associated-coach/components/ConsumerCoachSpaceSelector.component';
+import withThemeProvider from '#src/hocs/company-themifier.hoc';
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import themeSelectors from '../../libs/theme/selectors';
 

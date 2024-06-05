@@ -17,12 +17,12 @@ import Typography from '@material-ui/core/Typography';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import CadenceStatusChip from '#libs/sequential_marketing/components/CadenceStatusChip.component';
-import NestedMenuSelectorIconButton from '#components/menu/nested';
-import SecondaryActionButton from '#components/button/SecondaryActionButton.component';
+import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
+import CadenceStatusChip from '#src/libs/sequential_marketing/components/CadenceStatusChip.component';
+import NestedMenuSelectorIconButton from '#src/components/menu/nested';
+import SecondaryActionButton from '#src/components/button/SecondaryActionButton.component';
 
-import type { Cadence } from '#libs/sequential_marketing/types';
+import type { Cadence } from '#src/libs/sequential_marketing/types';
 
 type Props = {
   cadence: Cadence;

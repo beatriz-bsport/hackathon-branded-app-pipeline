@@ -6,11 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 
-import CadenceGlobalMetricsIcon from '#libs/sequential_marketing/components/metrics/CadenceGlobalMetricsIcon.component';
+import CadenceGlobalMetricsIcon from '#src/libs/sequential_marketing/components/metrics/CadenceGlobalMetricsIcon.component';
 import {
   SequentialMarketingColors,
   CadenceMetricsSizes,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 import CadenceGlobalMetricsProgressBar from './CadenceGlobalMetricsProgressBar.component';
 import CadenceGlobalMetricsProgressListSkeleton from './CadenceGlobalMetricsProgressListSkeleton.components';
 

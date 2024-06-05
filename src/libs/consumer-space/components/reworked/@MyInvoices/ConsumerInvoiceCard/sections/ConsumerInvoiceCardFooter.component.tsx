@@ -1,14 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ConsumerGenericCardFooter } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
+import { ConsumerGenericCardFooter } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
 import {
   CreditCard01,
   FileCheck02,
   FileDownload02,
   ReceiptCheck,
-} from '#components/untitledui';
-import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+} from '#src/components/untitledui';
+import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 
 import type { ButtonColor, ButtonVariant } from '#Fabrique/ButtonV2/types';
 

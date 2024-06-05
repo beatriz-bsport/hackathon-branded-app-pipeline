@@ -16,13 +16,13 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 
 import { compose } from 'recompose';
 // @ts-expect-error
-import { EmailTemplateSummary } from '#libs/email-editor/types.ts';
+import { EmailTemplateSummary } from '#src/libs/email-editor/types.ts';
 
-import NotificationListInner from '#libs/marketing/components/NotificationListInner.component';
-import { MarketingNotification } from '#libs/marketing/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import { SmartList } from '#libs/smart-list/types';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import NotificationListInner from '#src/libs/marketing/components/NotificationListInner.component';
+import { MarketingNotification } from '#src/libs/marketing/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import { SmartList } from '#src/libs/smart-list/types';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { MaterialStyleType } from '../../../../utils/types';
 
 type OwnProps = {

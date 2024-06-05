@@ -1,7 +1,7 @@
 import React from 'react';
 import type { OptionCallback } from '../../../../state/types';
 
-import { STRIPE_ERROR_CODE } from '#libs/constants';
+import { STRIPE_ERROR_CODE } from '#src/libs/constants';
 import StripeTerminalProcessing, { Props } from '../StripeTerminalProcessing';
 
 const mockStripeAPIException = (code: string) => {

@@ -11,12 +11,13 @@ import Tab from '@material-ui/core/Tab';
 import TabContext from '@material-ui/lab/TabContext';
 import Tabs from '@material-ui/core/Tabs';
 
-import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
+import { useShopDetailTabsModalPrompt } from '#src/hocs/shop-modal-prompt.hoc';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import PromptOnPageLeaveComponent from '#components/Prompt';
+import PromptOnPageLeaveComponent from '#src/components/Prompt';
 import FranchiseShopItemTemplateDetailInventoryTab from './FranchiseShopItemTemplateDetailInventoryTab.component';
 import FranchiseShopItemTemplateDetailVariantsTab from './FranchiseShopItemTemplateDetailVariantsTab.component';
+
 import ShopItemDetailSettingsTab from '#src/libs/shop/components/ShopItemDetailTabs/tabs/ShopItemDetailSettingsTab.component';
 
 import type {
@@ -26,11 +27,11 @@ import type {
   ProvisionCreate,
   Provision,
   ShopItemTemplate,
-} from '#libs/shop/types';
-import type { OptionCallback } from '#state/types';
-import type { SelectOption } from '#libs/types';
+} from '#src/libs/shop/types';
+import type { OptionCallback } from '#src/state/types';
+import type { SelectOption } from '#src/libs/types';
 
-import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
+import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
 
 type Props = {
   isLoading?: boolean;

@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
 import isNil from 'lodash/isNil';
-import { getCreditFactor } from '#libs/theme/selectors';
+import { getCreditFactor } from '#src/libs/theme/selectors';
 
 export const provincialTaxHelperText = (
   tax: number,

@@ -18,14 +18,14 @@ import { Grid } from '@material-ui/core';
 import {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingProgram,
-} from '#libs/performance-tracking/types';
-import ProgramSelectorDialog from '#libs/performance-tracking/components/program/ProgramSelectorDialog.component';
-import ProgramList from '#libs/performance-tracking/components/program/ProgramList.component';
-import MemberProgramDetail from '#libs/performance-tracking/components/member-program/MemberProgramDetail.component';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import ProgramMenuItem from '#libs/performance-tracking/components/program/ProgramMenuItem.component';
-import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
-import GenericDialog from '#components/genericDialog/GenericDialog';
+} from '#src/libs/performance-tracking/types';
+import ProgramSelectorDialog from '#src/libs/performance-tracking/components/program/ProgramSelectorDialog.component';
+import ProgramList from '#src/libs/performance-tracking/components/program/ProgramList.component';
+import MemberProgramDetail from '#src/libs/performance-tracking/components/member-program/MemberProgramDetail.component';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import ProgramMenuItem from '#src/libs/performance-tracking/components/program/ProgramMenuItem.component';
+import { showDeleteDialog } from '#src/components/genericDialog/CustomDialogs';
+import GenericDialog from '#src/components/genericDialog/GenericDialog';
 import {
   getMemberProgramByMemberList,
   composeMemberProgramWithProgram,
@@ -33,7 +33,7 @@ import {
   getMemberProgram,
   getProgramList,
   composeProgramWithMetrics,
-} from '#libs/performance-tracking/selector';
+} from '#src/libs/performance-tracking/selector';
 import {
   fetchProgram as fetchProgramAction,
   createMemberProgram as createMemberProgramAction,
@@ -42,8 +42,8 @@ import {
   disableMemberProgram as disableMemberProgramAction,
   updateMemberMetricValue as updateMemberMetricValueAction,
   retrieveMemberProgram as retrieveMemberProgramAction,
-} from '#libs/performance-tracking/actions';
-import BackofficeLinearProgressComponent from '#components/navigation/BackofficeLinearProgress.component';
+} from '#src/libs/performance-tracking/actions';
+import BackofficeLinearProgressComponent from '#src/components/navigation/BackofficeLinearProgress.component';
 import { RootState } from '../../reducers';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { WithHandlerType } from '../../utils/types';

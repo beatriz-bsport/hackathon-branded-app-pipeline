@@ -8,8 +8,8 @@ import Button from '@material-ui/core/Button';
 import grey from '@material-ui/core/colors/grey';
 import UpdateIcon from '@material-ui/icons/Update';
 import { makeStyles, Theme, isWidthDown } from '@material-ui/core';
-import PopOver from '#components/Popover';
-import { SUBMIT_BUTTONS } from '#libs/checkout/types';
+import PopOver from '#src/components/Popover';
+import { SUBMIT_BUTTONS } from '#src/libs/checkout/types';
 import { useWidth } from '../../../../hooks/useWidth';
 
 type CheckoutButtonsProps = {

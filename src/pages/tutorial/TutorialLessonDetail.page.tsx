@@ -14,8 +14,6 @@ import {
 import Button from '@material-ui/core/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { CircularProgress } from '@material-ui/core';
-// @ts-expect-error
-
 
 import {
   getTutorialLesson,
@@ -26,10 +24,10 @@ import {
   translateSectionsWithLessons,
   translateLesson,
   getTutorialLessonLoadingState,
-} from '#libs/platform-tutorial/selectors';
-import { getPermissions } from '#libs/role/selectors';
+} from '#src/libs/platform-tutorial/selectors';
+import { getPermissions } from '#src/libs/role/selectors';
 // @ts-expect-error
-import { getUpsellPackageByIdentifier } from '#libs/platform-billing/selectors';
+import { getUpsellPackageByIdentifier } from '#src/libs/platform-billing/selectors';
 
 import {
   updateTutorialLessonViewedStatus as updateTutorialLessonViewedStatusAction,
@@ -40,33 +38,37 @@ import {
   retrieveTutorialSection as retrieveTutorialSectionAction,
   retrieveTutorialLesson as retrieveTutorialLessonAction,
   updateUserAcknowlegdeTutorial,
-} from '#libs/platform-tutorial/actions';
+} from '#src/libs/platform-tutorial/actions';
 import {
   fetchUpsellPackage as fetchUpsellPackageAction,
   requestUpsellPackage as requestUpsellPackageAction,
   subscribeUpsellPackage as subscribeUpsellPackageAction,
-} from '#libs/platform-billing/actions';
+} from '#src/libs/platform-billing/actions';
 
-import { checkRequiredPermissions } from '#libs/role/utils';
+import { checkRequiredPermissions } from '#src/libs/role/utils';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
-import TutorialLessonHeader from '#libs/platform-tutorial/components/TutorialLessonHeader.component';
-import TutorialLessonContent from '#libs/platform-tutorial/components/TutorialLessonContent.component';
-import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
-import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
+import TutorialLessonHeader from '#src/libs/platform-tutorial/components/TutorialLessonHeader.component';
+import TutorialLessonContent from '#src/libs/platform-tutorial/components/TutorialLessonContent.component';
+import FeatureRequestDialog from '#src/libs/platform-billing/components/FeatureRequestDialog.component';
+import TutorialGenericDialog from '#src/libs/platform-tutorial/components/TutorialGenericDialog.component';
 
-import { TutorialLesson, TutorialSection } from '#libs/platform-tutorial/types';
+import {
+  TutorialLesson,
+  TutorialSection,
+} from '#src/libs/platform-tutorial/types';
 
 import {
   ALL_TUTORIAL_LESSONS_FINISH_DIALOG_OPEN_QUERY_PARAMS,
   TUTORIAL_GENERIC_DIALOG_SECTION_FINISH,
-} from '#libs/platform-tutorial/constant';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import UpsellPackageSubscriptionDrawer from '#libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
+} from '#src/libs/platform-tutorial/constant';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import UpsellPackageSubscriptionDrawer from '#src/libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
+// @ts-expect-error
 import { getLanguage } from '../../i18n';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =

@@ -1,5 +1,5 @@
 import React from 'react';
-import { contractFactory } from '#libs/subscription/factory';
+import { contractFactory } from '#src/libs/subscription/factory';
 import { MarketplaceContractDetailForStorybook, Props } from '.';
 
 const fakeContract = contractFactory();

@@ -11,10 +11,10 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import flatten from 'lodash/flatten';
-import { fetchCompanyUserRoles } from '#libs/role/actions';
-import { getPrivateServices } from '#libs/private-service/selectors/private-service';
-import { getTheme } from '#libs/theme/selectors';
-import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
+import { fetchCompanyUserRoles } from '#src/libs/role/actions';
+import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
+import { getTheme } from '#src/libs/theme/selectors';
+import { EstablishmentWithAssociatedId } from '#src/libs/establishment/types';
 import {
   getPrivateBookingListFiltered,
   withRelatedFields,

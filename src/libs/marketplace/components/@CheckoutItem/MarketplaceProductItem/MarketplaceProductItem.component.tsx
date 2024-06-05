@@ -1,15 +1,15 @@
 import React from 'react';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import Card, { CardSize } from '#components/css-only/Card';
-import CardContent from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import Price from '#components/css-only/Price/Price.component';
+} from '#src/components/css-only/Grid/GridItem';
+import Price from '#src/components/css-only/Price/Price.component';
 import { MarketplaceProductItemSkeleton } from '.';
 
 import './styles.css';

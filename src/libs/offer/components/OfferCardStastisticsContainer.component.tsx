@@ -5,9 +5,9 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import VideocamIcon from '@material-ui/icons/Videocam';
-import { Offer } from '#libs/offer/types';
-import { Booking } from '#libs/booking/types';
-import ToolTip from '#components/Tooltip.component';
+import { Offer } from '#src/libs/offer/types';
+import { Booking } from '#src/libs/booking/types';
+import ToolTip from '#src/components/Tooltip.component';
 import OfferCardStatistics from './OfferCardStatistics.component';
 
 type Props = {

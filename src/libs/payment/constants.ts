@@ -1,4 +1,4 @@
-import { getCompanyCountry } from '#libs/theme/selectors';
+import { getCompanyCountry } from '#src/libs/theme/selectors';
 
 /**
  * Determines whether the bookkeeping account feature is enabled based on the company's country.

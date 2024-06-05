@@ -2,15 +2,14 @@ import React from 'react';
 
 import { useFormik } from 'formik';
 
-import { smsValidationSchema } from '#libs/sequential_marketing/components/form/marketing_actions/validationSchemas';
-import { MarketingActions } from '#libs/sequential_marketing/constants';
-import CommunicationWriteSMS from '#libs/communication-v2/components/MessageSender/Writers/CommunicationWriteSMS.component';
+import { smsValidationSchema } from '#src/libs/sequential_marketing/components/form/marketing_actions/validationSchemas';
+import { MarketingActions } from '#src/libs/sequential_marketing/constants';
+import CommunicationWriteSMS from '#src/libs/communication-v2/components/MessageSender/Writers/CommunicationWriteSMS.component';
 import type {
   StepMarketingActions,
   StepMarketingActionsCommunicationSpec,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import HTMLTagMenuSelector from './components/HTMLTagMenuSelector.component';
-
 
 export type Props = {
   marketingAction: Partial<StepMarketingActions>;

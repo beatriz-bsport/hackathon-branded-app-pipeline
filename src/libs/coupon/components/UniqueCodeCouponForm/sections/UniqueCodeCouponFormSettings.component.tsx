@@ -12,25 +12,25 @@ import { useFormikContext } from 'formik';
 import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import { ImmutableArray } from 'seamless-immutable';
 import { Alert } from '@material-ui/lab';
-import FormSection from '#components/forms/FormSection';
+import FormSection from '#src/components/forms/FormSection';
 
-import { UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
-import PaymentPackSelector from '#libs/payment-packs/components/PaymentPackSelector.component';
-import ShopItemSelector from '#libs/shop/components/ShopItemSelector.component';
+import { UniqueCodeCouponCreationPayload } from '#src/libs/coupon/types';
+import PaymentPackSelector from '#src/libs/payment-packs/components/PaymentPackSelector.component';
+import ShopItemSelector from '#src/libs/shop/components/ShopItemSelector.component';
 // @ts-expect-error
-import ShopItemListItem from '#libs/shop/components/ShopItemListItem.component';
-import PrivatePassSelector from '#libs/private-service/components/pass/PrivatePassSelector.component';
-import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
+import ShopItemListItem from '#src/libs/shop/components/ShopItemListItem.component';
+import PrivatePassSelector from '#src/libs/private-service/components/pass/PrivatePassSelector.component';
+import PrivatePassListItem from '#src/libs/private-service/components/pass/PrivatePassListItem.component';
 // @ts-expect-error
-import PaymentComboSelector from '#libs/payment-combo/components/PaymentComboSelector.component';
+import PaymentComboSelector from '#src/libs/payment-combo/components/PaymentComboSelector.component';
 // @ts-expect-error
-import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
-import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
+import PaymentComboListItem from '#src/libs/payment-combo/components/PaymentComboListItem.component';
+import PaymentPackListItem from '#src/libs/payment-packs/components/PaymentPackListItem.component';
 
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PrivatePass } from '#libs/private-service/types';
-import type { ShopItem } from '#libs/shop/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import type { ShopItem } from '#src/libs/shop/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
 
 type Props = {
   paymentPacks: PaymentPack[];

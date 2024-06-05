@@ -14,10 +14,10 @@ import Pagination from '@material-ui/lab/Pagination';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
-import { SmartListPopupSending } from '#libs/communication-v2/types';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { FetchRecipientsParams, Member } from '#libs/member/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { SmartListPopupSending } from '#src/libs/communication-v2/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { FetchRecipientsParams, Member } from '#src/libs/member/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import { createUrl } from '../../../utils/createUrlHandlers';
 import SmartListPopupListItem, {
   MEMBER_PAGE_SIZE,

@@ -14,11 +14,11 @@ import {
   fetchShopItemTemplateVariantList as fetchShopItemTemplateVariantListAction,
   fetchShopItemTemplateVariantInstanceList as fetchShopItemTemplateVariantInstanceListAction,
   createShopItemTemplateVariants as createShopItemTemplateVariantsAction,
-} from '#libs/shop/actions/shopItemReworked';
+} from '#src/libs/shop/actions/shopItemReworked';
 
-import { fetchShopSupplierTemplateList as fetchShopSupplierTemplateListAction } from '#libs/shop/actions/supplier';
+import { fetchShopSupplierTemplateList as fetchShopSupplierTemplateListAction } from '#src/libs/shop/actions/supplier';
 
-import { getTheme } from '#libs/theme/selectors';
+import { getTheme } from '#src/libs/theme/selectors';
 import {
   getShopItemTemplateDeleteLoading,
   getShopItemTemplateDetail,
@@ -31,14 +31,14 @@ import {
   getShopItemTemplateVariantInstanceState,
   getShopItemTemplateVariantUpdateLoading,
   getShopSupplierTemplateState,
-} from '#libs/shop/selectors';
+} from '#src/libs/shop/selectors';
 
-import FranchiseShopItemTemplateDetail from '#libs/franchise/components/FranchiseShopItemTemplateDetail.component';
+import FranchiseShopItemTemplateDetail from '#src/libs/franchise/components/FranchiseShopItemTemplateDetail.component';
 
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import withTitle from '#hocs/with-title.hoc';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
 // @ts-expect-error
 import { mapFormDataWithObject } from '#src/pages/form.utils';
 
@@ -51,10 +51,11 @@ import type {
   ShopItemEdit,
   ShopItemTemplate,
   ShopItemVariantAttributes,
-} from '#libs/shop/types';
+} from '#src/libs/shop/types';
+
 import type { SelectOption } from '#src/libs/types';
 
-import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
+import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
 
 type OwnProps = {
   id: number;

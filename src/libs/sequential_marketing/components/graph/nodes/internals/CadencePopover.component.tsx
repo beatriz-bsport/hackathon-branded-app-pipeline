@@ -6,7 +6,7 @@ import {
   boxToRect,
   getNodeToolbarTransform,
   rectToBox,
-} from '#libs/sequential_marketing/utils';
+} from '#src/libs/sequential_marketing/utils';
 import { ClickAwayContext } from '../context/ClickAwayContext.component';
 
 type Props = {

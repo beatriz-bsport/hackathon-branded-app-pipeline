@@ -1,4 +1,4 @@
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { ReferredVoucherTypeChoices } from './constants';
 import type { ReferralLinkStatus } from './types';
 

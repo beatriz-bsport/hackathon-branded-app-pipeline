@@ -26,25 +26,25 @@ import InfoIcon from '@material-ui/icons/Info';
 import Select from '@material-ui/core/Select';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 
-import GroupedOfferCreateForm from '#libs/group-offer/components/GroupedOfferCreateForm.drawer';
-import GroupedOfferEditDrawer from '#libs/group-offer/components/GroupedOfferEdit.drawer';
-import GroupedOfferDuplicate from '#libs/group-offer/components/GroupedOfferDuplicateForm.drawer';
-import GroupedOfferDeleteDialog from '#libs/group-offer/components/GroupedOfferDelete.dialog';
+import GroupedOfferCreateForm from '#src/libs/group-offer/components/GroupedOfferCreateForm.drawer';
+import GroupedOfferEditDrawer from '#src/libs/group-offer/components/GroupedOfferEdit.drawer';
+import GroupedOfferDuplicate from '#src/libs/group-offer/components/GroupedOfferDuplicateForm.drawer';
+import GroupedOfferDeleteDialog from '#src/libs/group-offer/components/GroupedOfferDelete.dialog';
 
-import IsEmptyList from '#components/navigation/IsEmptyList.component';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
 // @ts-expect-error
-import OfferCard from '#components/offer/OfferCard.component';
-import MetaActivityGroupsFilter from '#libs/meta-activity/components/MetaActivityGroupsFilter.component';
-import GroupCard from '#libs/group-offer/components/GroupCard.component';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { Offer } from '#libs/offer/types';
+import OfferCard from '#src/components/offer/OfferCard.component';
+import MetaActivityGroupsFilter from '#src/libs/meta-activity/components/MetaActivityGroupsFilter.component';
+import GroupCard from '#src/libs/group-offer/components/GroupCard.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { Offer } from '#src/libs/offer/types';
 // @ts-expect-error
-import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
-import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import DeleteOfferForm from '#src/libs/offer/DeleteOfferForm.component';
+import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
-import { OffersGroup, OffersGroupFilter } from '#libs/group-offer/types';
-import OfferEditForm from '#libs/offer/OfferEditForm.component';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { OffersGroup, OffersGroupFilter } from '#src/libs/group-offer/types';
+import OfferEditForm from '#src/libs/offer/OfferEditForm.component';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { workshopActivityGroupConnector } from './WorkshopActivityGroup.page';
 import usePagination from '../../hooks/usePagination';
 

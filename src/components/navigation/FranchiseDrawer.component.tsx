@@ -61,9 +61,9 @@ import Send from '@material-ui/icons/Send';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import { colors } from '@bsport/common/lib/colors';
-import { checkRequiredPermissions } from '#libs/role/utils';
-import { FranchiseRolePermission } from '#libs/role/types';
-import FranchiseUserSearchBarComponent from '#libs/franchise/components/FranchiseUserSearchBar.component';
+import { checkRequiredPermissions } from '#src/libs/role/utils';
+import { FranchiseRolePermission } from '#src/libs/role/types';
+import FranchiseUserSearchBarComponent from '#src/libs/franchise/components/FranchiseUserSearchBar.component';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 import { DrawerContext, DrawerContextValue } from '../../context';

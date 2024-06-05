@@ -3,24 +3,24 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import { DateTime } from 'luxon';
 
-import { MetaActivity } from '#libs/meta-activity/types';
-import { OffersGroup, GroupPreviewData } from '#libs/group-offer/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import { RoomBlueprint } from '#libs/spot-scheduling/types';
-import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
-import { Tag, TagGroup } from '#libs/tag/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { OffersGroup, GroupPreviewData } from '#src/libs/group-offer/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { RoomBlueprint } from '#src/libs/spot-scheduling/types';
+import { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
+import { Tag, TagGroup } from '#src/libs/tag/types';
 
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import {
   GROUPED_OFFERS_RECURSIVE_MONTHLY_FREQUENCY,
   GROUPED_OFFERS_RECURSIVE_WEEKLY_FREQUENCY,
   GROUPED_OFFERS_RECURSIVE_YEARLY_FREQUENCE,
-} from '#libs/group-offer/constants';
-import { Offer } from '#libs/offer/types';
-import { Level } from '#libs/level/types';
-import { ZoomApp } from '#libs/zoom-app/types';
+} from '#src/libs/group-offer/constants';
+import { Offer } from '#src/libs/offer/types';
+import { Level } from '#src/libs/level/types';
+import { ZoomApp } from '#src/libs/zoom-app/types';
 import GroupedOfferFormMetaActivitySelect from './GroupedOfferFormMetaActivitySelect.component';
 import GroupedOfferFormSettings from './GroupedOfferFormSettings.component';
 import GroupedOfferPreviewForm from './GroupedOfferPreview.component';

@@ -1,12 +1,12 @@
 import React from 'react';
 import { MarketplaceOfferListItemForStorybook } from './MarketplaceOfferListItemCSSOnly.component';
-import { levelFactory } from '#libs/level/factories';
-import themeFactory from '#libs/theme/factories';
-import establishmentFactoryBot from '#libs/establishment/factories/Establishments';
-import { coachFactory } from '#libs/associated-coach/factories';
-import { CompanyTheme } from '#libs/theme/types';
-import { Establishment } from '#libs/establishment/types';
-import { Coach } from '#libs/associated-coach/types';
+import { levelFactory } from '#src/libs/level/factories';
+import themeFactory from '#src/libs/theme/factories';
+import establishmentFactoryBot from '#src/libs/establishment/factories/Establishments';
+import { coachFactory } from '#src/libs/associated-coach/factories';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { Coach } from '#src/libs/associated-coach/types';
 
 const fakeLevel = { 1: levelFactory() };
 

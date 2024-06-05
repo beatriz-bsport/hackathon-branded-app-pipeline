@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { ButtonBase, Typography } from '@material-ui/core';
 import { TFunction } from 'i18next';
 // @ts-expect-error
-import withConfirm from '#hocs/with-confirm.hoc';
-import DoubleIndicatorSelector from '#components/Selector/DoubleIndicatorSelector.component';
-import HoverableInfo from '#components/HoverableInfo.component';
-import { CSS_COMPONENT_PAGES } from '#libs/exportable-components/custom_css_variants';
+import withConfirm from '#src/hocs/with-confirm.hoc';
+import DoubleIndicatorSelector from '#src/components/Selector/DoubleIndicatorSelector.component';
+import HoverableInfo from '#src/components/HoverableInfo.component';
+import { CSS_COMPONENT_PAGES } from '#src/libs/exportable-components/custom_css_variants';
 import { MarketplaceCSSComponentConfig, MarketplacePage } from '../types';
 import { getCssComponentsForPage } from '../utils';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Skeleton from '@material-ui/lab/Skeleton';
 
-import { CadenceMetricsSizes } from '#libs/sequential_marketing/constants';
+import { CadenceMetricsSizes } from '#src/libs/sequential_marketing/constants';
 
 const CadenceGlobalMetricsCardSkeleton: React.FC = React.memo(() => {
   const classes = useSkeletonStyles();

@@ -11,14 +11,14 @@ import {
   shutOffCadence as shutOffCadenceAPI,
   setCadenceInitialConfiguration as setCadenceInitialConfigurationAPI,
   patchCadenceInitialConfiguration as patchCadenceInitialConfigurationAPI,
-} from '#libs/sequential_marketing/api';
-import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
+} from '#src/libs/sequential_marketing/api';
+import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 
 import type {
   Cadence,
   CadenceQueryParams,
   CadenceInitialConfiguration,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import type {
   OptionCallback,
   Dispatch,

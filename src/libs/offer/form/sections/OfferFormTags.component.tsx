@@ -7,13 +7,13 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { useFormikContext } from 'formik';
 
-import FormSection from '#components/forms/FormSection';
-import { useOfferFormStyles } from '#libs/offer/hooks';
-import OfferFormField from '#libs/offer/form/OfferFormField.component';
-import { TagSelector } from '#libs/tag/components/TagSelector.selector';
+import FormSection from '#src/components/forms/FormSection';
+import { useOfferFormStyles } from '#src/libs/offer/hooks';
+import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
+import { TagSelector } from '#src/libs/tag/components/TagSelector.selector';
 
-import { Tag, TagGroup } from '#libs/tag/types';
-import { OfferFormValues } from '#libs/offer/types';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import { OfferFormValues } from '#src/libs/offer/types';
 
 type Props = {
   tagList: Tag<TagGroup>[];

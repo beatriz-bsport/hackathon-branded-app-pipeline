@@ -19,17 +19,17 @@ import {
 } from '@material-ui/core';
 
 import { TFunction } from 'i18next';
-import NotificationPushPreview from '#components/notification-push/NotificationPushPreview.component';
-import { PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME } from '#libs/private-service/utils';
-import HTMLPreview from '#components/html/HTMLPreview.component';
-import { Contract } from '#libs/subscription/types';
-import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
-import { CONTEXT_NOTIFICATION } from '#libs/communication-v2/constants';
-import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
-import { FeatureList } from '#libs/company/types';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import NotificationPushPreview from '#src/components/notification-push/NotificationPushPreview.component';
+import { PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME } from '#src/libs/private-service/utils';
+import HTMLPreview from '#src/components/html/HTMLPreview.component';
+import { Contract } from '#src/libs/subscription/types';
+import CommunicationDrawer from '#src/libs/communication-v2/components/CommunicationDrawer.component';
+import { CONTEXT_NOTIFICATION } from '#src/libs/communication-v2/constants';
+import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#src/libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#src/libs/company/types';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,

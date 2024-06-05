@@ -9,7 +9,7 @@ import {
   Switch,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { Level } from '#libs/level/types';
+import { Level } from '#src/libs/level/types';
 import {
   MarketplaceCalendarData,
   MarketplaceCalendarVariant,

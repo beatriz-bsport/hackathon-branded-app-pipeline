@@ -17,7 +17,7 @@ import {
   fetchSpecificInvoice as fetchInvoice,
   fetchInvoiceList as fetchInvoiceListAction,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
-} from '#libs/invoice/actions';
+} from '#src/libs/invoice/actions';
 import {
   fetchOfferById as fetchOfferByIdAction,
   toggleWaitingListFreeze as toggleWaitingListFreezeAction,
@@ -26,21 +26,21 @@ import {
   updateInternalNote as updateInternalNoteAction,
   fetchOfferBulk as fetchOfferBulkAction,
   fetchOfferStatusList as fetchOfferStatusListAction,
-} from '#libs/offer/actions';
+} from '#src/libs/offer/actions';
 import {
   getDetailedOffer,
   withSpecificCoach,
   withEstablishment,
   withCoach,
   withMetaActivity,
-} from '#libs/offer/selectors';
-import { getStripeReaders } from '#libs/terminal/selectors';
+} from '#src/libs/offer/selectors';
+import { getStripeReaders } from '#src/libs/terminal/selectors';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { sendCommunication } from '#libs/communication/actions';
-import { fetchCompanyUserRoles } from '#libs/role/actions';
-import { fetchShopItemAsManager as fetchShopItems } from '#libs/shop/actions/shopitem';
-import themeSelectors from '#libs/theme/selectors';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { sendCommunication } from '#src/libs/communication/actions';
+import { fetchCompanyUserRoles } from '#src/libs/role/actions';
+import { fetchShopItemAsManager as fetchShopItems } from '#src/libs/shop/actions/shopitem';
+import themeSelectors from '#src/libs/theme/selectors';
 import {
   registerBooking as registerBookingAction,
   fetchBookingsByOffer as fetchBookingsByOfferAction,
@@ -57,21 +57,21 @@ import {
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
   retrieveOfferWithCancelledBookings as retrieveOfferWithCancelledBookingsAction,
   updateOfferWithCancelledBookingsToRetry as updateOfferWithCancelledBookingsToRetryAction,
-} from '#libs/booking/actions';
+} from '#src/libs/booking/actions';
 import {
   fetchSpotForBlueprint as fetchSpotForBlueprintAction,
   fetchAssetForBlueprint as fetchAssetForBlueprintAction,
   fetchRoomBlueprintDetail as fetchRoomBlueprintDetailAction,
-} from '#libs/spot-scheduling/actions';
-import { fetchStripeReaders } from '#libs/terminal/actions';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
+} from '#src/libs/spot-scheduling/actions';
+import { fetchStripeReaders } from '#src/libs/terminal/actions';
+import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#src/libs/notification-rule/actions';
 
 import {
   getSpotTypesOfCompany,
   getAssetByBlueprintByIdentifierFromState,
-} from '#libs/spot-scheduling/selector';
-import { getActiveCoaches } from '#libs/associated-coach/selectors';
+} from '#src/libs/spot-scheduling/selector';
+import { getActiveCoaches } from '#src/libs/associated-coach/selectors';
 
 import {
   fetchAllWaitingListPositions as fetchAllWaitingListPositionsAction,
@@ -80,7 +80,7 @@ import {
   fetchByOffer as fetchBookingOptionByOfferAction,
   fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction,
   registerMultipleOptionsBackground as registerMultipleOptionsBackgroundAction,
-} from '#libs/waiting-list/actions';
+} from '#src/libs/waiting-list/actions';
 import {
   getOfferBookingListWithConsumerPack,
   getRecurrenceRuleBookingList,
@@ -89,33 +89,33 @@ import {
   getOffersIds,
   getUpdateOffersToRetryLoading,
   getOffersWithCancelledBookingsLoading,
-} from '#libs/booking/selectors';
-import { getAllCustomLevels, withCustomLevel } from '#libs/level/selectors';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+} from '#src/libs/booking/selectors';
+import { getAllCustomLevels, withCustomLevel } from '#src/libs/level/selectors';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
 
-import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#libs/consumer-payment-pack/actions';
+import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#src/libs/consumer-payment-pack/actions';
 
-import { fetchPrivatePassList } from '#libs/private-service/actions';
-import { fetchPaymentComboList } from '#libs/payment-combo/actions';
+import { fetchPrivatePassList } from '#src/libs/private-service/actions';
+import { fetchPaymentComboList } from '#src/libs/payment-combo/actions';
 import {
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 
 import {
   fetchEstablishments,
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 import {
   getAvailableEstablishmentList,
   getEnabledEstablishmentBillingGroups,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
+} from '#src/libs/email-editor/selectors';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#src/libs/payment-packs/actions';
 
 import {
   fetchFilteredMembers as fetchFilteredMembersAction,
@@ -124,7 +124,7 @@ import {
   createOrUpdateMember,
   fetchMember as fetchMemberAction,
   search as searchMembersAction,
-} from '#libs/member/actions';
+} from '#src/libs/member/actions';
 import {
   getSearchedMembers,
   getAllMembers,
@@ -132,57 +132,57 @@ import {
   getMemberHistory,
   withTags,
   withMemberProgram,
-} from '#libs/member/selectors';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
-import { fetchGroupOffer as fetchGroupOfferAction } from '#libs/group-offer/actions';
+} from '#src/libs/member/selectors';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
+import { fetchGroupOffer as fetchGroupOfferAction } from '#src/libs/group-offer/actions';
 import {
   getEnabledMetaActivities,
   getMetaActivity,
-} from '#libs/meta-activity/selectors';
-import { getGroupListCount, withGroup } from '#libs/group-offer/selectors';
+} from '#src/libs/meta-activity/selectors';
+import { getGroupListCount, withGroup } from '#src/libs/group-offer/selectors';
 
 import {
   withInvoiceItem,
   getBuyableItem,
   getAllQuickCreatedInvoices,
   getUnpaidInvoiceListWithInvoiceItemAndMembers,
-} from '#libs/invoice/selectors';
+} from '#src/libs/invoice/selectors';
 
-import withTitle from '#hocs/with-title.hoc';
-import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
-import { Booking } from '#libs/booking/types';
-import { fetchSignFormUpConfiguration } from '#libs/sign-up-form/actions';
-import { getSignUpFormConfigurationDict } from '#libs/sign-up-form/selectors';
+import withTitle from '#src/hocs/with-title.hoc';
+import { fetchAssociatedCoachesList } from '#src/libs/associated-coach/actions';
+import { Booking } from '#src/libs/booking/types';
+import { fetchSignFormUpConfiguration } from '#src/libs/sign-up-form/actions';
+import { getSignUpFormConfigurationDict } from '#src/libs/sign-up-form/selectors';
 import {
   getBookingOptionPositionById,
   getWaitingListConfigurationData,
-} from '#libs/waiting-list/selectors';
+} from '#src/libs/waiting-list/selectors';
 import {
   fetchMemberProgram as fetchMemberProgramAction,
   fetchProgram as fetchProgramAction,
   fetchMetric as fetchMetricAction,
   updateMemberMetricValue as updateMemberMetricValueAction,
   createMemberProgram as createMemberProgramAction,
-} from '#libs/performance-tracking/actions';
-import { showVaccinationStatus } from '#libs/custom-form/selectors';
-import { fetchVideoPurchase } from '#libs/video/actions';
+} from '#src/libs/performance-tracking/actions';
+import { showVaccinationStatus } from '#src/libs/custom-form/selectors';
+import { fetchVideoPurchase } from '#src/libs/video/actions';
 import {
   getProgramList,
   getMemberProgramIdsList,
-} from '#libs/performance-tracking/selector';
+} from '#src/libs/performance-tracking/selector';
 import {
   fetchConsumerGiftcardList as fetchConsumerGiftcardListAction,
   fetchGiftcardBulk as fetchGiftcardBulkAction,
-} from '#libs/giftcard/actions';
+} from '#src/libs/giftcard/actions';
 import {
   getConsumerGiftcardList,
   withGiftcard,
   withSender,
   withReceiver,
   onlyUsable,
-} from '#libs/giftcard/selectors';
-import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
-import type { MemberMinimal } from '#libs/member/types';
+} from '#src/libs/giftcard/selectors';
+import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#src/libs/communication-v2/actions';
+import type { MemberMinimal } from '#src/libs/member/types';
 import { getInvoicePaymentGroupIsProcessing } from '../../libs/payment/selectors';
 import { submitInternalPaymentInBackground as submitInternalPaymentInBackgroundAction } from '../../libs/payment/actions';
 import { RootState } from '../../reducers';

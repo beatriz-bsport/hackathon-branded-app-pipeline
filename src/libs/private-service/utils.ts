@@ -4,11 +4,10 @@ import uniq from 'lodash/uniq';
 import memoize from 'memoize-one';
 import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
 
+import { Member } from '#src/libs/member/types';
 
-import { Member } from '#libs/member/types';
-
-import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import { EstablishmentWithAssociatedId } from '#src/libs/establishment/types';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 import type {
   PrivateConsumerPass,
   PrivatePass,

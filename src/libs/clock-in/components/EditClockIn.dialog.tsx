@@ -22,7 +22,7 @@ import {
   TimeField,
   defaultHandleSubmit,
   // @ts-expect-error
-} from '#components/forms';
+} from '#src/components/forms';
 import { getTextColorFromRGB } from '../../../utils/color';
 
 export type Props = {

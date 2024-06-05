@@ -17,20 +17,20 @@ import {
 import {
   DISSOCIATED_COACH_PAYMENT_RULE,
   DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
-} from '#libs/coach-payment-rules/constants';
+} from '#src/libs/coach-payment-rules/constants';
 
-import CoachPaymentRuleSelectorStyled from '#libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
-import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
-import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
+import CoachPaymentRuleSelectorStyled from '#src/libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
+import CoachPerformanceSummaryHeader from '#src/libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
+import CoachPerformanceTabs from '#src/libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 
 import {
   Coach,
   CoachPerformance as CoachPerformanceType,
-} from '#libs/associated-coach/types';
+} from '#src/libs/associated-coach/types';
 import {
   CoachPaymentRule as CoachPaymentRuleType,
   CoachPaymentRuleGroup,
-} from '#libs/coach-payment-rules/types';
+} from '#src/libs/coach-payment-rules/types';
 
 type OwnProps = {
   loading: boolean;

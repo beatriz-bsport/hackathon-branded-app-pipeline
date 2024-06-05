@@ -26,19 +26,19 @@ import {
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import { Alert } from '@material-ui/lab';
 import memoize from 'memoize-one';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 import type {
   CoachPaymentRule,
   CoachPaymentRuleGroup,
-} from '#libs/coach-payment-rules/types';
-import type { Coach } from '#libs/associated-coach/types';
+} from '#src/libs/coach-payment-rules/types';
+import type { Coach } from '#src/libs/associated-coach/types';
 import {
   DISSOCIATED_COACH_PAYMENT_RULE,
   DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
-} from '#libs/coach-payment-rules/constants';
-import PrivateSlotSelectorStyled from '#libs/coach-payment-rules/components/PrivateSlotSelectorStyled.component';
-import { PrivateServiceWithSlots } from '#libs/private-service/types';
-import CoachPaymentRuleSelectorStyled from '#libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
+} from '#src/libs/coach-payment-rules/constants';
+import PrivateSlotSelectorStyled from '#src/libs/coach-payment-rules/components/PrivateSlotSelectorStyled.component';
+import { PrivateServiceWithSlots } from '#src/libs/private-service/types';
+import CoachPaymentRuleSelectorStyled from '#src/libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 import type { MaterialStyleType } from '../../../../utils/types';
 // @ts-expect-error
 import type { OptionCallback } from '../../../state/types';

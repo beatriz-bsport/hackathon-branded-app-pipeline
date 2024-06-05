@@ -17,17 +17,17 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
 import { withFormik } from 'formik';
 import cloneDeep from 'lodash/cloneDeep';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import ModalConfirm from '#components/ModalConfirm.component';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import ModalConfirm from '#src/components/ModalConfirm.component';
 import type {
   DataSourceFieldMetadata,
   DatatypeFilterConfigGroup,
   DatatypeFilterConfigItem,
   DynamicFilterDataType,
-} from '#libs/datatype-filtering/types';
-import HoverableWarning from '#components/HoverableWarning.component';
-import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
-import { authorIdentifiers } from '#libs/reporting/constants';
+} from '#src/libs/datatype-filtering/types';
+import HoverableWarning from '#src/components/HoverableWarning.component';
+import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import { authorIdentifiers } from '#src/libs/reporting/constants';
 import ReportFilterConfigFormDrawer from './ReportFilterConfigDrawer';
 import type { OptionCallback } from '../../../state/types';
 import type { ReportFilterConfig } from '../types';

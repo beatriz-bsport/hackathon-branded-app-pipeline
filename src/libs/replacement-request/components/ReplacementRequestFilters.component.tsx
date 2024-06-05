@@ -4,16 +4,19 @@ import { useTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
 import Select from 'react-select';
-import EstablishmentsSelector from '#libs/establishment/components/EstablishmentSelector.component';
-import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
-import EstablishmentGroupSelector from '#libs/establishment/components/EstablishmentGroupSelector.component';
+import EstablishmentsSelector from '#src/libs/establishment/components/EstablishmentSelector.component';
+import CoachSelector from '#src/libs/associated-coach/components/coach-selector/CoachSelector.component';
+import EstablishmentGroupSelector from '#src/libs/establishment/components/EstablishmentGroupSelector.component';
 // @ts-expect-error
-import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySelector.component';
+import MetaActivitySelector from '#src/libs/meta-activity/components/MetaActivitySelector.component';
 
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { ReplacementRequestFilter } from '#libs/replacement-request/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { ReplacementRequestFilter } from '#src/libs/replacement-request/types';
 
 const FILTER_COACH = 0;
 const FILTER_ESTABLISHMENT = 1;

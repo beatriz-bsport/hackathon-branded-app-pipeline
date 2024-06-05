@@ -5,10 +5,10 @@ import ConfirmationMessage, {
   ConfirmationMessageForStorybook,
   type Props,
 } from '.';
-import { ConfirmationStatus } from '#libs/checkout/types';
-import { offerFactory } from '#libs/offer/factories';
-import { subscriptionFactory } from '#libs/subscription/factory';
-import { checkoutItemsFactory } from '#libs/checkout/factories';
+import { ConfirmationStatus } from '#src/libs/checkout/types';
+import { offerFactory } from '#src/libs/offer/factories';
+import { subscriptionFactory } from '#src/libs/subscription/factory';
+import { checkoutItemsFactory } from '#src/libs/checkout/factories';
 
 const offers = [offerFactory({})];
 const billingPlan = subscriptionFactory();

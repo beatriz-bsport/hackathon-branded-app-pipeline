@@ -3,9 +3,9 @@ import React from 'react';
 import { replace } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { fetchPrivateServiceBulk } from '#libs/private-service/actions';
-import { OptionCallback } from '#state/types';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import { fetchPrivateServiceBulk } from '#src/libs/private-service/actions';
+import { OptionCallback } from '#src/state/types';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import RedirectionLoading from './RedirectionLoading.component';
 
 type Props = {

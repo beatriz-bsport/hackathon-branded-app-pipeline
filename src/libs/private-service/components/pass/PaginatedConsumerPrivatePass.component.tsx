@@ -3,8 +3,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
+import { Member } from '#src/libs/member/types';
 // @ts-expect-error
-import { Member } from '#libs/member/types';
 import PaginatedListBase from '../../../../components/PaginatedListBase.component';
 import { PrivateConsumerPass } from '../../types';
 import PrivateConsumerPassBookerListItem from '../booking-module/PrivateConsumerPassBookerListItem.component';

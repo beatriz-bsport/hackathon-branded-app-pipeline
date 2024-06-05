@@ -1,13 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import type { ConsumerInvoice } from '#libs/invoice/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import type { ConsumerInvoice } from '#src/libs/invoice/types';
 import {
   ConsumerInvoicePaymentModal,
   ConsumerInvoicePaymentBottomDrawer,
 } from '.';
-
 
 type Props = {
   availablePaymentMethodList: number[];

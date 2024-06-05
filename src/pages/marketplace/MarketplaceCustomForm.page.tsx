@@ -13,9 +13,9 @@ import Button from '@material-ui/core/Button';
 import { createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getLoginUrl as getLoginRedirectionUrl } from '#libs/marketplace/routing-utils';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getLoginUrl as getLoginRedirectionUrl } from '#src/libs/marketplace/routing-utils';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';

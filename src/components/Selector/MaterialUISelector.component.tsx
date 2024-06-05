@@ -41,6 +41,7 @@ import { NoticeProps } from 'react-select/src/components/Menu';
 // @ts-expect-error
 import { GroupHeadingProps } from 'react-select/src/components/Group';
 import { ActionMeta } from 'react-select/lib/types';
+// @ts-expect-error
 import { CSSProperties } from '@emotion/serialize';
 import useIsVisibleOnScreen from '../../hooks/useIsVisibleOnScreen';
 

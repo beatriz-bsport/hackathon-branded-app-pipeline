@@ -2,11 +2,10 @@ import React, { useLayoutEffect, useState } from 'react';
 import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { CompanyTheme } from '#libs/theme/types';
-import { CssComponentsVariantIdentifiersValues } from '#libs/exportable-components/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { CssComponentsVariantIdentifiersValues } from '#src/libs/exportable-components/types';
 import VariationConfigurationWrapper from './VariationConfigurationWrapper.component';
-
 
 type Props = {
   component: (

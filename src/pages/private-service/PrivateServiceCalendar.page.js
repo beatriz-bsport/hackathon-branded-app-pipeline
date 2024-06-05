@@ -7,14 +7,14 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { DateTime } from 'luxon';
-import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
-import { getAllEstablishmentsWithAssociatedId } from '#libs/establishment/selectors';
+import { fetchAssociatedCoachesList } from '#src/libs/associated-coach/actions';
+import { getAllEstablishmentsWithAssociatedId } from '#src/libs/establishment/selectors';
 import {
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
   fetchEstablishments as fetchEstablishmentsAction,
-} from '#libs/establishment/actions';
-import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
-import { getTheme } from '#libs/theme/selectors';
+} from '#src/libs/establishment/actions';
+import { EstablishmentWithAssociatedId } from '#src/libs/establishment/types';
+import { getTheme } from '#src/libs/theme/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import withTitle from '../../hocs/with-title.hoc';

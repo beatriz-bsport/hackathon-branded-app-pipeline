@@ -6,9 +6,9 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
-import { CompanyTheme } from '#libs/theme/types';
-import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
-import { CSS_COMPONENTS_BY_ID } from '#libs/exportable-components/custom_css_variants';
+import { CompanyTheme } from '#src/libs/theme/types';
+import ApplyCustomCssStyles from '#src/libs/widget/components/ApplyCustomCssStyles.component';
+import { CSS_COMPONENTS_BY_ID } from '#src/libs/exportable-components/custom_css_variants';
 import { getCssComponentByLabel } from '../utils';
 import {
   CssComponentsVariantIdentifiersValues,

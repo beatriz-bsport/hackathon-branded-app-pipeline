@@ -2,15 +2,15 @@ import React from 'react';
 import { compose } from 'recompose';
 
 import { useTranslation } from 'react-i18next';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-// @ts-expect-error
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { ShopItem } from '#libs/shop/types';
-import type { PrivatePass } from '#libs/private-service/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { ShopItem } from '#src/libs/shop/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import type { Tag, TagGroupAPI } from '../../tag/types';
 import type { Coupon } from '../types';
+// @ts-expect-error
 import CouponForm from './CouponForm.component';
 import { OptionCallback } from '../../../state/types';
 

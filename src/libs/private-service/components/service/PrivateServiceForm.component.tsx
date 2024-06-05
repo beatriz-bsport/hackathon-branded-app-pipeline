@@ -22,16 +22,16 @@ import {
   RESOURCE_ATTRIBUTION_CONSUMER,
   RESOURCE_ATTRIBUTION_AUTO,
 } from '@bsport/common/lib/master-data/resource-attribution-methods';
-// @ts-expect-error
-import type { Coach } from '#libs/associated-coach/types';
+import type { Coach } from '#src/libs/associated-coach/types';
 import type {
   AssociatedEstablishment,
   Establishment,
-} from '#libs/establishment/types';
-import type { Tag, TagGroup } from '#libs/tag/types';
-import type { PrivateServiceGroup } from '#libs/private-service/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+} from '#src/libs/establishment/types';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
+import type { PrivateServiceGroup } from '#src/libs/private-service/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+// @ts-expect-error
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
 import CoachSelector from '../../../associated-coach/components/coach-selector/CoachSelector.component';

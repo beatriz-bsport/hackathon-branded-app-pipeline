@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions';
 
-import { AccessStatus } from '#libs/access-control/constants';
+import { AccessStatus } from '#src/libs/access-control/constants';
 
-import type { MemberMinimal } from '#libs/member/types';
+import type { MemberMinimal } from '#src/libs/member/types';
 import type { ThunkAction, Dispatch } from '../../state/types';
 import type {
   SnackKind,

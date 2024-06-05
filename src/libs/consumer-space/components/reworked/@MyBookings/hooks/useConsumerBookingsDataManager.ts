@@ -4,13 +4,13 @@ import { useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import useViewport from '#Fabrique/hooks/useViewport';
 
-import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
-import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
+import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+import type { BookingFilterTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type {
   ConsumerBookingOptionReworked,
   ConsumerBookingReworked,
   ConsumerPrivateBookingReworked,
-} from '#libs/consumer-space/types';
+} from '#src/libs/consumer-space/types';
 import type {
   BookingREST,
   CancelBookingParams,
@@ -19,23 +19,23 @@ import type {
   ConsumerBookingOption,
   ConsumerPrivateBooking,
   ConsumerSpaceCancelBookingParams,
-} from '#libs/booking/types';
+} from '#src/libs/booking/types';
 import type {
   RoomBlueprint,
   SpotInformation,
-} from '#libs/spot-scheduling/types';
-import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
-import type { Establishment } from '#libs/establishment/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { PrivateBooking } from '#libs/private-service/types';
+} from '#src/libs/spot-scheduling/types';
+import { BookingFilterTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { PrivateBooking } from '#src/libs/private-service/types';
 import type {
   DiscardBookingOptionParams,
   WaitingListBookingOption,
-} from '#libs/waiting-list/types';
+} from '#src/libs/waiting-list/types';
 
-import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
-import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
-import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#libs/consumer-space/constants';
+import { BookingTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
+import { getOfferBookerUrl } from '#src/libs/marketplace/routing-utils';
+import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 import { getUserZone } from '#src/utils/datetime';
 import type { OptionCallback } from '../../../../../../state/types';
 

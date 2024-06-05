@@ -11,13 +11,13 @@ import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-import FranchiseCompaniesSelector from '#libs/franchise/components/FranchiseCompaniesSelector.component';
+import FranchiseCompaniesSelector from '#src/libs/franchise/components/FranchiseCompaniesSelector.component';
 
 import type {
   CompanyGroup,
   CreateUpdateCompanyGroupData,
   FranchiseCompany,
-} from '#libs/franchise/types';
+} from '#src/libs/franchise/types';
 
 type Props = {
   open: boolean;

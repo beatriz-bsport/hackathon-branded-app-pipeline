@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import MemberVisitLiveHistoryTable, {
   Props,
 } from './MemberVisitLiveHistoryTable.component';
-import MemberVisitFactoryBot from '#libs/access-control/factories';
+import MemberVisitFactoryBot from '#src/libs/access-control/factories';
 
 const actionData = {
   handleMemberProfileClick: action('handleMemberProfileClick'),

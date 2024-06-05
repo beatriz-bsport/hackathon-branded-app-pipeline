@@ -5,15 +5,15 @@ import Radio from '@material-ui/core/Radio';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
 import classNames from 'classnames';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { useBasketInstalmentPaymentOptionStyle } from '#libs/instalment-payment-configuration/hooks';
-import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { useBasketInstalmentPaymentOptionStyle } from '#src/libs/instalment-payment-configuration/hooks';
+import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 import {
   DAILY,
   MONTHLY,
   WEEKLY,
-} from '#libs/instalment-payment-configuration/constants';
-import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
+} from '#src/libs/instalment-payment-configuration/constants';
+import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
 import InstalmentPaymentMultiplyIcon from './InstalmentPaymentConfigurationMultiplyIcon.component';
 
 type Props = {

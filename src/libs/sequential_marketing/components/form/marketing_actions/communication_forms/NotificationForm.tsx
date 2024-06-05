@@ -2,16 +2,15 @@ import React from 'react';
 
 import { useFormik } from 'formik';
 
-import { MarketingActions } from '#libs/sequential_marketing/constants';
-import { MAX_LENGTH_PUSH_CONTENT } from '#libs/communication-v2/constants';
-import { notificationValidationSchema } from '#libs/sequential_marketing/components/form/marketing_actions/validationSchemas';
-import CommunicationWriteNotification from '#libs/communication-v2/components/MessageSender/Writers/CommunicationWriteNotification.component';
+import { MarketingActions } from '#src/libs/sequential_marketing/constants';
+import { MAX_LENGTH_PUSH_CONTENT } from '#src/libs/communication-v2/constants';
+import { notificationValidationSchema } from '#src/libs/sequential_marketing/components/form/marketing_actions/validationSchemas';
+import CommunicationWriteNotification from '#src/libs/communication-v2/components/MessageSender/Writers/CommunicationWriteNotification.component';
 import type {
   StepMarketingActions,
   StepMarketingActionsCommunicationSpec,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import HTMLTagMenuSelector from './components/HTMLTagMenuSelector.component';
-
 
 export type Props = {
   marketingAction: Partial<StepMarketingActions>;

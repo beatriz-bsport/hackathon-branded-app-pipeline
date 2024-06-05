@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Paper, Theme } from '@material-ui/core';
+import type { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 // @ts-expect-error
-import type { OfferStatusWaitingListPosition } from '#libs/offer/types';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 import { BookingOptionWithActivity } from '../../booking/types';

@@ -5,7 +5,7 @@ import {
   TUTORIAL_GENERIC_DIALOG_ALL_FINISH,
   TUTORIAL_GENERIC_DIALOG_SHARE_SECTION,
   TUTORIAL_GENERIC_DIALOG_SHARE_LESSON,
-} from '#libs/platform-tutorial/constant';
+} from '#src/libs/platform-tutorial/constant';
 import TutorialGenericDialog, {
   Props,
 } from './TutorialGenericDialog.component';

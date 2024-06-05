@@ -6,9 +6,9 @@ import Button from '@material-ui/core/Button';
 
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import StripeErrorCode from '#libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
-import PaymentStripeTerminal from '#libs/terminal/components/PaymentStripeTerminal.component';
-import type { StripeReader } from '#libs/terminal/types';
+import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
+import PaymentStripeTerminal from '#src/libs/terminal/components/PaymentStripeTerminal.component';
+import type { StripeReader } from '#src/libs/terminal/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   centered: {

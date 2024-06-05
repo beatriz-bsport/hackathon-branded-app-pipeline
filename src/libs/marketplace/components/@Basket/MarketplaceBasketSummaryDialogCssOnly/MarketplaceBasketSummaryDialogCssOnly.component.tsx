@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next';
 import Button, {
   ButtonColor,
   ButtonVariant,
-} from '#csscomponents/Fabrique/Button';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import BasketSummaryCssOnly from '#libs/marketplace/components/@Basket/BasketSummaryCssOnly';
-import LinearProgress from '#components/css-only/Fabrique/LinearProgress';
+} from '#src/components/css-only/Fabrique/Button';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import BasketSummaryCssOnly from '#src/libs/marketplace/components/@Basket/BasketSummaryCssOnly';
+import LinearProgress from '#src/components/css-only/Fabrique/LinearProgress';
 import type {
   Basket,
   PrepaidLine,
   HandleAddCheckoutItemData,
-} from '#libs/checkout/types';
+} from '#src/libs/checkout/types';
 import type { OptionCallback } from '../../../../../state/types';
 
 import './styles.css';

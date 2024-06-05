@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import DateRangeSelector from '#components/date/DateRangeSelector.component';
-import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
+import DateRangeSelector from '#src/components/date/DateRangeSelector.component';
+import SwitchHorizontalIcon from '#src/components/icons/SwitchHorizontalIcon.component';
 
 import type {
   Cadence,
@@ -15,8 +15,8 @@ import type {
   CadenceMembersOutData,
   CadenceStep,
   MetricsPaginatedResponse,
-} from '#libs/sequential_marketing/types';
-import type { Member } from '#libs/member/types';
+} from '#src/libs/sequential_marketing/types';
+import type { Member } from '#src/libs/member/types';
 import CadenceMetricsMemberTable from './CadenceMetricsMemberTable';
 import CadenceGlobalMetricsProgressList from './CadenceGlobalMetricsProgressList';
 import CadenceGlobalMetricsCard, {

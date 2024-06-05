@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable';
 import type {
   Establishment,
   EstablishmentGroupAPI,
-} from '#libs/establishment/types';
+} from '#src/libs/establishment/types';
 
 /**
  * (By location, we mean the address of the establishments, if the company does not have multi-location upsell,

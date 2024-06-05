@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Button, IconButton, Typography } from '@material-ui/core';
-import TimeoutButton from '#components/button/TimeoutButton.component';
-import InfoBox from '#components/box/InfoBox.component';
-import IntercomIcon from '#components/icons/IntercomIcon.component';
+import TimeoutButton from '#src/components/button/TimeoutButton.component';
+import InfoBox from '#src/components/box/InfoBox.component';
+import IntercomIcon from '#src/components/icons/IntercomIcon.component';
 import {
   FAILED_PAYMENT,
   DISPUTED_PAYMENT,
-} from '#libs/platform-billing/constant';
+} from '#src/libs/platform-billing/constant';
 
 type OwnProps = {
   goNext: () => void;

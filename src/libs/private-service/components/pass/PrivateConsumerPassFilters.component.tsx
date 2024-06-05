@@ -12,7 +12,7 @@ import CheckSharpIcon from '@material-ui/icons/CheckSharp';
 import {
   PrivatePassFilters,
   PrivatePassFiltersOpener,
-} from '#libs/private-service/types';
+} from '#src/libs/private-service/types';
 import FilterMenu from '../../../../components/button/FilterMenu.component';
 
 type Props = {

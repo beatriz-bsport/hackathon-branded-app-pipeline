@@ -5,9 +5,9 @@ import CompatibilityFormComponent, {
   CompatibilityFormForStorybook,
 } from './CompatibilityForm.component';
 import { Props } from './CompatibilityForm.component';
-import { factory_scts } from '#libs/category/factory';
-import { establishment_factory } from '#libs/establishment/factory';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
+import { factory_scts } from '#src/libs/category/factory';
+import { establishment_factory } from '#src/libs/establishment/factory';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
 
 const componentMeta: ComponentMeta<typeof CompatibilityFormComponent> = {
   title: 'Library/PrivateBooking/CompatibilityForm',

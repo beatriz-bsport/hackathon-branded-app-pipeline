@@ -9,10 +9,10 @@ import Helmet from 'react-helmet';
 
 import { makeStyles } from '@material-ui/core';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
+import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
+import ContentWithAppBar from '#src/components/generic-appbar-content/ContentWithAppBar.component';
 import QuicksaleSectionListPage from './QuicksaleSectionList.page';
 import QuicksaleRoleConfiguration from './QuicksaleRoleConfiguration.page';
 import QuicksaleItemListPage from './QuicksaleItemList.page';

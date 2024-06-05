@@ -4,7 +4,7 @@ import { handleActions } from 'redux-actions';
 import {
   objectSearchActions,
   objectSearchClientActions,
-} from '#libs/fuzzy-search/actions';
+} from '#src/libs/fuzzy-search/actions';
 import {
   IdentifiedValue,
   ObjectSearchPaginated,
@@ -14,7 +14,7 @@ import {
   SearchObjectType,
   SearchState,
   searchObjectIdentifiers,
-} from '#libs/fuzzy-search/types';
+} from '#src/libs/fuzzy-search/types';
 
 import { DEFAULT_SELECTOR_ID } from './constants';
 

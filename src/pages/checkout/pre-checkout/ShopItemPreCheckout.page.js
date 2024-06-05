@@ -12,7 +12,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers } from 'recompose';
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
 import InfoIcon from '@material-ui/icons/Info';
-import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
+import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import themeSelectors from '../../../libs/theme/selectors';
 import type { Theme } from '../../../libs/theme/types';

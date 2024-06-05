@@ -13,23 +13,23 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import { Offer } from '#libs/offer/types';
-import MarketplaceLevel from '#marketplacecomponents/@Offer/MarketplaceLevelCSSOnly/MarketplaceLevelCSSOnly.component';
-import MarketplaceBookButtonForDialog from '#marketplacecomponents/@Booking/MarketplaceBookButton/MarketplaceBookButtonForDialog.component';
-import MarketplaceBroadcast from '#marketplacecomponents/@Broadcast/MarketplaceBroadcastCSSOnly/MarketplaceBroadcastCSSOnly.component';
-import { Level } from '#libs/level/types';
-import { Theme as CompanyTheme } from '#libs/theme/types';
+import { Offer } from '#src/libs/offer/types';
+import MarketplaceLevel from '#src/libs/marketplace/components/@Offer/MarketplaceLevelCSSOnly/MarketplaceLevelCSSOnly.component';
+import MarketplaceBookButtonForDialog from '#src/libs/marketplace/components/@Booking/MarketplaceBookButton/MarketplaceBookButtonForDialog.component';
+import MarketplaceBroadcast from '#src/libs/marketplace/components/@Broadcast/MarketplaceBroadcastCSSOnly/MarketplaceBroadcastCSSOnly.component';
+import { Level } from '#src/libs/level/types';
+import { Theme as CompanyTheme } from '#src/libs/theme/types';
 // @ts-expect-error
-import Map from '#components/map/Map.component';
+import Map from '#src/components/map/Map.component';
 
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Establishment } from '#libs/establishment/types';
-import { Coach } from '#libs/associated-coach/types';
-import { OffersGroup } from '#libs/group-offer/types';
-import FreeOfferChip from '#csscomponents/FreeOfferChip';
-import Button from '#components/css-only/Fabrique/Button';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { OffersGroup } from '#src/libs/group-offer/types';
+import FreeOfferChip from '#src/components/css-only/FreeOfferChip';
+import Button from '#src/components/css-only/Fabrique/Button';
 
-import { formatOfferHours } from '#libs/marketplace/utils/offer';
+import { formatOfferHours } from '#src/libs/marketplace/utils/offer';
 import { useOfferHours } from '../../../hooks';
 import { formatMinutes } from '../../../../../utils/datetime';
 import FACEBOOK_PNG from '../../../../../public/images/facebook.png';

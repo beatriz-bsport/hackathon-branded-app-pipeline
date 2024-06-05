@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import InfoIcon from '@material-ui/icons/Info';
 
-import { ReplacementDisplays } from '#libs/replacement-request/constants';
+import { ReplacementDisplays } from '#src/libs/replacement-request/constants';
 import ReplacementRequestStatusPopover from './ReplacementRequestStatusPopover.component';
 
 type Props = {

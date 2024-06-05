@@ -1,8 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { GenericEvent, EventListParams, MemberEvent } from '#libs/event/types';
-import EventPanel from '#libs/event/components/EventPanel.component';
+import {
+  GenericEvent,
+  EventListParams,
+  MemberEvent,
+} from '#src/libs/event/types';
+import EventPanel from '#src/libs/event/components/EventPanel.component';
 import { OptionCallback } from '../../../state/types';
 import { COMPANY_EVENTS } from '../events.utils';
 

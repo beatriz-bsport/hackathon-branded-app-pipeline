@@ -1,7 +1,6 @@
 import { createAction } from 'redux-actions';
 
-
-import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
+import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 
 import type {
   ShopSupplier,
@@ -9,8 +8,8 @@ import type {
   ShopSupplierTemplate,
   ShopSupplierTemplateCreate,
   ShopSupplierUpdate,
-} from '#libs/shop/types';
-import type { PaginationFilterParams } from '#libs/types';
+} from '#src/libs/shop/types';
+import type { PaginationFilterParams } from '#src/libs/types';
 import type {
   Dispatch,
   OptionCallback,

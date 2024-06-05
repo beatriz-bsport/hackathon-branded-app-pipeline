@@ -19,7 +19,7 @@ import {
   BOOKING_STATUS_CANCELLED_BY_OFFER,
   BOOKING_STATUS_OK,
 } from '@bsport/common/lib/master-data/booking_status_code';
-import type { Coach } from '#libs/associated-coach/types';
+import type { Coach } from '#src/libs/associated-coach/types';
 import FilterMenu from '../../../components/button/FilterMenu.component';
 
 type Props = {

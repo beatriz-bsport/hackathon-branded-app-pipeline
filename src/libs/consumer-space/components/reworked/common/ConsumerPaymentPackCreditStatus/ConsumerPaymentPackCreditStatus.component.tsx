@@ -4,14 +4,14 @@ import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 
 import './styles.css';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
+} from '#src/libs/theme/utils';
 
 export type Props = {
   className?: string;

@@ -4,13 +4,13 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Form, FormikProps, withFormik } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
-import MemberProfileSettingsSchema from '#libs/theme/components/MemberProfileSettingsForm/MemberProfileSettingsSchema';
+import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
+import MemberProfileSettingsSchema from '#src/libs/theme/components/MemberProfileSettingsForm/MemberProfileSettingsSchema';
 import type {
   MemberProfileSettingsPayload,
   CompanyTheme,
-} from '#libs/theme/types';
-import type { OptionCallback } from '#state/types';
+} from '#src/libs/theme/types';
+import type { OptionCallback } from '#src/state/types';
 
 type ComponentProps = {
   companyTheme: CompanyTheme;

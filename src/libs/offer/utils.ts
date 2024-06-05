@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
-import type { Coach } from '#libs/associated-coach/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { Level } from '#libs/level/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { Level } from '#src/libs/level/types';
 import type { LuxonDateTime } from '#src/types';
 import { OFFER_RECURRENCE } from './constants';
 import type {

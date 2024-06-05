@@ -1,17 +1,17 @@
 import React from 'react';
 import { Position } from 'react-flow-renderer';
 
-import HiddenHandle from '#libs/sequential_marketing/components/graph/handles/HiddenHandle.component';
+import HiddenHandle from '#src/libs/sequential_marketing/components/graph/handles/HiddenHandle.component';
 import {
   DestinationStatus,
   TRIGGER_LEFT_HANDLE_STYLE,
-} from '#libs/sequential_marketing/constants/triggers';
-import { HandleTypeChoices } from '#libs/sequential_marketing/constants/steps';
-import ConvertIntoStepBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoStepBubble.component';
-import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
+} from '#src/libs/sequential_marketing/constants/triggers';
+import { HandleTypeChoices } from '#src/libs/sequential_marketing/constants/steps';
+import ConvertIntoStepBubble from '#src/libs/sequential_marketing/components/graph/bubbles/ConvertIntoStepBubble.component';
+import ConvertIntoExitBubble from '#src/libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
 import CadenceUtilityDialog, {
   DialogVariant,
-} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
+} from '#src/libs/sequential_marketing/components/dialogs/DialogUtility';
 import { CadencePopover } from '../internals/CadencePopover.component';
 import CadenceExitCard, {
   CadenceExitCardProps,

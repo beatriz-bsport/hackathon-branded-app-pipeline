@@ -13,7 +13,7 @@ import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
-import { SMALL_MOBILE_CRITICAL_SIZE } from '#libs/member/constants';
+import { SMALL_MOBILE_CRITICAL_SIZE } from '#src/libs/member/constants';
 
 type Props = {
   phoneNumber: string,

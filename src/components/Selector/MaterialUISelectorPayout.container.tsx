@@ -5,12 +5,12 @@ import {
   resetIncrementalPayouList as resetIncrementalPayouListAction,
   fetchIncrementalPayoutList as fetchIncrementalPayoutListAction,
   fetchPayoutList as fetchPayoutListAction,
-} from '#libs/payment/actions';
+} from '#src/libs/payment/actions';
 
 import {
   getIncrementalPayoutList,
   getPayoutList,
-} from '#libs/payment/selectors';
+} from '#src/libs/payment/selectors';
 import { RootState } from '../../reducers';
 import MaterialUISelectorPayout from './MaterialUISelectorPayout.component';
 import { MuiSelectProps } from './MaterialUISelector.component';

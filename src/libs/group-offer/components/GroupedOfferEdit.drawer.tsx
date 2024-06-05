@@ -3,18 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 
 // @ts-expect-error
-import { OffersGroup, MetaActivity } from '#libs/meta-activity/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import { RoomBlueprint } from '#libs/spot-scheduling/types';
-import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
-import { Tag, TagGroup } from '#libs/tag/types';
+import { OffersGroup, MetaActivity } from '#src/libs/meta-activity/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { RoomBlueprint } from '#src/libs/spot-scheduling/types';
+import { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
+import { Tag, TagGroup } from '#src/libs/tag/types';
 
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 
-import { Level } from '#libs/level/types';
-import { ZoomApp } from '#libs/zoom-app/types';
+import { Level } from '#src/libs/level/types';
+import { ZoomApp } from '#src/libs/zoom-app/types';
 import { OptionCallback } from '../../../state/types';
 import GroupedOfferFormSettings from './GroupedOfferFormSettings.component';
 

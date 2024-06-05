@@ -1,7 +1,7 @@
 import React from 'react';
-import { paymentPackListFactory } from '#libs/payment-packs/factory';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { ListForStorybook, Props } from '#components/css-only/Search/List';
+import { paymentPackListFactory } from '#src/libs/payment-packs/factory';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { ListForStorybook, Props } from '#src/components/css-only/Search/List';
 
 const paymentPacks = paymentPackListFactory(10);
 

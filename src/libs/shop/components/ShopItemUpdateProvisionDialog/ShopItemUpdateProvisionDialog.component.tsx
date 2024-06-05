@@ -3,7 +3,7 @@ import React from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import ShopItemUpdateProvisionForm from './ShopItemUpdateProvisionForm.component';
 
 import type { ShopItemUpdateProvisionFormValues } from './types';

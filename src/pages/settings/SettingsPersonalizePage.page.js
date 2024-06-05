@@ -8,36 +8,36 @@ import { compose } from 'recompose';
 
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
-import CommunicationPersonalizeForm from '#libs/communication-v2/components/CommunicationPersonalizeForm.component';
-import CreditsPersonalizeForm from '#libs/theme/components/CreditsPersonalizeForm.component';
-import ProductsOrderingPersonalizeForm from '#libs/theme/components/ProductsOrderingPersonalizeForm.component';
+import CommunicationPersonalizeForm from '#src/libs/communication-v2/components/CommunicationPersonalizeForm.component';
+import CreditsPersonalizeForm from '#src/libs/theme/components/CreditsPersonalizeForm.component';
+import ProductsOrderingPersonalizeForm from '#src/libs/theme/components/ProductsOrderingPersonalizeForm.component';
 import {
   fetchCommunicationProviderSettings as fetchCommunicationProviderSettingsAction,
   updateCommunicationProviderSettings as updateCommunicationProviderSettingsAction,
-} from '#libs/communication-v2/actions';
-import { CommunicationProviderSettings } from '#libs/communication-v2/types';
-import { getIsTwoWayEmailActivated } from '#libs/communication-v2/selectors';
+} from '#src/libs/communication-v2/actions';
+import { CommunicationProviderSettings } from '#src/libs/communication-v2/types';
+import { getIsTwoWayEmailActivated } from '#src/libs/communication-v2/selectors';
 import {
   fetchBookingFunnelConfiguration as fetchBookingFunnelConfigurationAction,
   updateBookingFunnelConfiguration as updateBookingFunnelConfigurationAction,
-} from '#libs/marketplace/actions';
-import { BookingFunnelConfiguration } from '#libs/marketplace/types';
+} from '#src/libs/marketplace/actions';
+import { BookingFunnelConfiguration } from '#src/libs/marketplace/types';
 import {
   getPaymentPackCategoryById,
   getPaymentPackCategoryWithNbItems,
-} from '#libs/payment-packs/selectors';
+} from '#src/libs/payment-packs/selectors';
 import {
   fetchAllPaymentPackCategory as fetchAllPaymentPackCategoryAction,
   fetchPaymentPackList as fetchPaymentPackListAction,
-} from '#libs/payment-packs/actions';
-import { PaymentPackCategory } from '#libs/payment-packs/types';
-import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
-import { getPaymentComboList } from '#libs/payment-combo/selectors';
-import { fetchContractList as fetchContractListAction } from '#libs/subscription/actions';
-import { getAvailableContractListCustomer } from '#libs/subscription/selectors';
-import CheckInTabletSettingsForm from '#libs/theme/components/CheckInTabletSettingsForm.component';
+} from '#src/libs/payment-packs/actions';
+import { PaymentPackCategory } from '#src/libs/payment-packs/types';
+import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
+import { getPaymentComboList } from '#src/libs/payment-combo/selectors';
+import { fetchContractList as fetchContractListAction } from '#src/libs/subscription/actions';
+import { getAvailableContractListCustomer } from '#src/libs/subscription/selectors';
+import CheckInTabletSettingsForm from '#src/libs/theme/components/CheckInTabletSettingsForm.component';
 import Config from '../../config';
 import withTitle from '../../hocs/with-title.hoc';
 import themeSelectors from '../../libs/theme/selectors';

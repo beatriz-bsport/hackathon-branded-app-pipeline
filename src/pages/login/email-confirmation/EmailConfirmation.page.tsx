@@ -5,10 +5,10 @@ import { compose, withProps } from 'recompose';
 import { push, goBack as goBackRouter } from 'connected-react-router';
 import { withWidth } from '@material-ui/core';
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
-import { EmailConfirmation } from '#libs/login/components/email-confirmation/EmailConfirmation.component';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getIsUISimplified } from '#libs/theme/selectors';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import { EmailConfirmation } from '#src/libs/login/components/email-confirmation/EmailConfirmation.component';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getIsUISimplified } from '#src/libs/theme/selectors';
 import {
   sendEmailForConfirmation as sendEmailForConfirmationAction,
   disconnect as disconnectAction,

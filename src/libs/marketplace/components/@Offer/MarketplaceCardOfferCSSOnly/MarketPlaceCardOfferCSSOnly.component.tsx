@@ -4,27 +4,27 @@ import GroupIcon from '@material-ui/icons/Group';
 import classNames from 'classnames';
 import { ArrowLeft } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import MarketplaceBookButton from '#marketplacecomponents/@Booking/MarketplaceBookButton';
-import { Offer } from '#libs/offer/types';
-import MarketplaceBroadcast from '#marketplacecomponents/@Broadcast/MarketplaceBroadcastCSSOnly';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
+import MarketplaceBookButton from '#src/libs/marketplace/components/@Booking/MarketplaceBookButton';
+import { Offer } from '#src/libs/offer/types';
+import MarketplaceBroadcast from '#src/libs/marketplace/components/@Broadcast/MarketplaceBroadcastCSSOnly';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
 import {
   AVAILABLE_BOOKING_ELEMENTS_IDS,
   MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
   OFFER_HOURS_SEPARATOR,
-} from '#libs/marketplace/constants';
-import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
-import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
-import { Theme } from '#libs/theme/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { OffersGroup } from '#libs/group-offer/types';
-import FreeOfferChip from '#csscomponents/FreeOfferChip';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { Level } from '#libs/level/types';
-import PopOver from '#components/Popover/Popover.component';
-import { generateUniqueOfferIdentifier } from '#marketplacecomponents/@Offer/utils';
-import { shouldApplyEllipsis } from '#libs/marketplace/utils';
+} from '#src/libs/marketplace/constants';
+import MarketplaceCoachInfos from '#src/libs/marketplace/components/@Coach/MarketplaceCoachInfos';
+import MarketplaceEstablishmentTitle from '#src/libs/marketplace/components/@Establishment/MarketplaceEstablishmentTitle';
+import { Theme } from '#src/libs/theme/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { OffersGroup } from '#src/libs/group-offer/types';
+import FreeOfferChip from '#src/components/css-only/FreeOfferChip';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { Level } from '#src/libs/level/types';
+import PopOver from '#src/components/Popover/Popover.component';
+import { generateUniqueOfferIdentifier } from '#src/libs/marketplace/components/@Offer/utils';
+import { shouldApplyEllipsis } from '#src/libs/marketplace/utils';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 import { useOfferHours } from '../../../hooks';
 import MarketplaceLevel from '../MarketplaceLevelCSSOnly';

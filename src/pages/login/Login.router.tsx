@@ -7,23 +7,24 @@ import { connect } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 import { withTranslation } from 'react-i18next';
-import { fetchCompanyTheme } from '#libs/theme/actions';
-import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
+import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
 
-import { fetchFranchiseTheme } from '#libs/franchise/actions';
+import { fetchFranchiseTheme } from '#src/libs/franchise/actions';
 
-import { fetchCompanyCustomSignUp } from '#libs/custom-form/actions';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
-import LoadingBackoffice from '#components/navigation/LoadingBackoffice.component';
-import LoginBackground from '#libs/login/components/LoginBackground.component';
+import { fetchCompanyCustomSignUp } from '#src/libs/custom-form/actions';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
+import LoadingBackoffice from '#src/components/navigation/LoadingBackoffice.component';
+import LoginBackground from '#src/libs/login/components/LoginBackground.component';
 import {
   getFranchisor,
   getFranchiseThemeLoading,
-} from '#libs/franchise/selectors';
-import { FranchiseDetails } from '#libs/franchise/types';
+} from '#src/libs/franchise/selectors';
+import { FranchiseDetails } from '#src/libs/franchise/types';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import withThemeProvider from '#hocs/company-themifier.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import withThemeProvider from '#src/hocs/company-themifier.hoc';
+
 // @ts-expect-error
 import LanguageButton from '../../components/button/LanguageButton.component';
 import namespaces from '../../i18n/namespaces.json';

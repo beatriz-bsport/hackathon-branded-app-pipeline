@@ -2,11 +2,11 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { Contract } from '#libs/subscription/types';
-import { getPrice, getTaxPrice } from '#libs/theme/utils';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { computeProrataPriceForSubscription } from '#src/libs/subscription/utils';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { Contract } from '#src/libs/subscription/types';
+import { getPrice, getTaxPrice } from '#src/libs/theme/utils';
 
 import '../styles.css';
 

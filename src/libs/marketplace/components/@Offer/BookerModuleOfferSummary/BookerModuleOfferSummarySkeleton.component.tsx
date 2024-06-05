@@ -1,15 +1,15 @@
 import React from 'react';
-import Card from '#components/css-only/Card';
-import CardContent from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
+import Card from '#src/components/css-only/Card';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import { CardSize } from '#components/css-only/Card/types';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import Skeleton from '#components/css-only/Skeleton';
+} from '#src/components/css-only/Grid/GridItem';
+import { CardSize } from '#src/components/css-only/Card/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import Skeleton from '#src/components/css-only/Skeleton';
 
 import './styles-skeleton.css';
 

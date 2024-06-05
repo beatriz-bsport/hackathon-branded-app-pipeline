@@ -11,8 +11,8 @@ import Typography from '@material-ui/core/Typography';
 
 import WarningIcon from '@material-ui/icons/Warning';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import RedButton from '#components/button/RedButton.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import RedButton from '#src/components/button/RedButton.component';
 
 type Props = {
   open: boolean;

@@ -9,7 +9,7 @@ import { alpha } from '@material-ui/core';
 import {
   ReplacementRequestCoachAnswerStatus,
   REPLACEMENT_REQUEST_COACH_ANSWER_STATUS_LABELS,
-} from '#libs/replacement-request/constants';
+} from '#src/libs/replacement-request/constants';
 
 type Props = {
   coachAnswer: ReplacementRequestCoachAnswerStatus | null;

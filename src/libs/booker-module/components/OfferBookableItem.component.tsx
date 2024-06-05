@@ -23,12 +23,15 @@ import {
 } from '@bsport/common/lib/master-data/bookable-status';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import type { OfferStatus as OfferStatusType, Offer } from '#libs/offer/types';
-import type { Coach } from '#libs/associated-coach/types';
-import type { Establishment } from '#libs/establishment/types';
-import { SpotInformation } from '#libs/spot-scheduling/types';
-import PlaceNumber from '#libs/spot-scheduling/component/PlaceNumber.component';
-import CustomChip from '#components/chip/CustomChip.component';
+import type {
+  OfferStatus as OfferStatusType,
+  Offer,
+} from '#src/libs/offer/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import { SpotInformation } from '#src/libs/spot-scheduling/types';
+import PlaceNumber from '#src/libs/spot-scheduling/component/PlaceNumber.component';
+import CustomChip from '#src/components/chip/CustomChip.component';
 import {
   formatAsDatetimeAdapted,
   formatISOStringAsTime,

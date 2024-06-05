@@ -4,8 +4,8 @@ import { handleActions } from 'redux-actions';
 
 import type { AxiosResponse } from 'axios';
 
-import type { PaginatedResponse } from '#state/types';
-import type { ErrorAndLoading, WithPagination } from '#libs/types';
+import type { PaginatedResponse } from '#src/state/types';
+import type { ErrorAndLoading, WithPagination } from '#src/libs/types';
 import {
   approvePhotoUpdateActions,
   checkMemberInEstablishmentActions,

@@ -4,10 +4,10 @@ import {
   MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
   MarketplacePage,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import type { CompanyTheme } from '#libs/theme/types';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import Typography from '#Fabrique/Typography';
 // @ts-expect-error

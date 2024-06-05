@@ -37,49 +37,48 @@ import {
 } from '@bsport/common/lib/master-data/communication-kind';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-
 // @ts-expect-error
-// @ts-expect-error
-// @ts-expect-error
-// @ts-expect-error
-// @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import CommunicationSMSCostReminderModal from '#libs/communication-v2/CommunicationSMSCostReminderModal.component';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
+import CommunicationSMSCostReminderModal from '#src/libs/communication-v2/CommunicationSMSCostReminderModal.component';
 import {
   MAX_LENGTH_PUSH_TITLE,
   MAX_LENGTH_PUSH_CONTENT,
-} from '#libs/communication/constants';
+} from '#src/libs/communication/constants';
 import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
   UPSELL_IDENTIFIER_SMS,
-} from '#libs/platform-billing/upsell-identifiers';
-import { isAmPmTimeFormat } from '#utils/datetime';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION } from '#libs/communication-v2/constants';
-import CustomMuiThemeWrapper from '#components/wrappers/CustomMuiThemeWrapper.component';
+} from '#src/libs/platform-billing/upsell-identifiers';
+import { isAmPmTimeFormat } from '#src/utils/datetime';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION } from '#src/libs/communication-v2/constants';
+import CustomMuiThemeWrapper from '#src/components/wrappers/CustomMuiThemeWrapper.component';
 
-import type { MemberMailData } from '#libs/communication/types';
-import type { Member } from '#libs/member/types';
-import type { FeatureList } from '#libs/company/types';
-import type { DateFilterEnum } from '#libs/datatype-filtering/types';
+import type { MemberMailData } from '#src/libs/communication/types';
+import type { Member } from '#src/libs/member/types';
+import type { FeatureList } from '#src/libs/company/types';
+import type { DateFilterEnum } from '#src/libs/datatype-filtering/types';
 import type {
   CommunicationScheduled,
   CommunicationScheduledCreate,
-} from '#libs/communication-v2/types';
+} from '#src/libs/communication-v2/types';
 
 import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
+} from '#src/libs/email-editor/types';
 import type { OptionCallback } from '../../../state/types';
 import WriteNotification from './WriteNotification.component';
+// @ts-expect-error
 import WriteSMS from './WriteSMS.component';
+// @ts-expect-error
 import WriteEmail from './WriteEmail.component';
+// @ts-expect-error
 import SelectTemplate from './SelectTemplate.component';
+// @ts-expect-error
 import ReceiversCollapseItem from './ReceiversCollapseItem.component';
 import Config from '../../../config';
 

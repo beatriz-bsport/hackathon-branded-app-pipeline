@@ -10,9 +10,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import { MaterialStyleType } from '#utils/types';
-import type { PrivateSlot } from '#libs/private-service/types';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import { MaterialStyleType } from '#src/utils/types';
+import type { PrivateSlot } from '#src/libs/private-service/types';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 type OwnProps = {
   onBook?: () => void;

@@ -10,7 +10,7 @@ import {
   querySelectedElementShouldBeInTheDocument,
 } from '../../../../../utils/storybookHelper';
 import { ReactFramework, StoryContext } from '@storybook/react';
-import { PaymentPackCategory } from '#libs/payment-packs/types';
+import { PaymentPackCategory } from '#src/libs/payment-packs/types';
 
 // Rendering Interaction Tests
 // The purpose of these tests is to mimic user behavior and check that hidden fields / elements are rendered

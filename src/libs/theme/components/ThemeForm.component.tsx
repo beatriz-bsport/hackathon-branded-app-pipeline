@@ -14,8 +14,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 // @ts-expect-error
 import tinycolor from 'tinycolor2';
 import classNames from 'classnames';
+import RedButton from '#src/components/button/RedButton.component';
 // @ts-expect-error
-import RedButton from '#components/button/RedButton.component';
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
 // @ts-expect-error
 import ColorInput from '../../../components/input/ColorInput.component';

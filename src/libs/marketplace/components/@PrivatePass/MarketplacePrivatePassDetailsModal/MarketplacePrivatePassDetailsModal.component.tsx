@@ -1,23 +1,22 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import Card, { CardSize } from '#csscomponents/Card';
-import CardContent from '#csscomponents/Card/CardContent';
-import Grid from '#csscomponents/Grid';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#csscomponents/Grid/GridItem';
-import Price, { Color } from '#csscomponents/Price';
-import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
-import type { PrivatePass } from '#libs/private-service/types';
+} from '#src/components/css-only/Grid/GridItem';
+import Price, { Color } from '#src/components/css-only/Price';
+import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
+import type { PrivatePass } from '#src/libs/private-service/types';
 import PrivatePassDetailsList from './DetailList/PrivatePassDetailList.component';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
-
 
 import './styles.css';
 

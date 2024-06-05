@@ -6,18 +6,18 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-import ShopItemInventoryBulkUpdateForm from '#libs/shop/components/ShopItemInventoryBulkUpdateForm';
-import ShopItemInventoryUpdateForm from '#libs/shop/components/ShopItemInventoryUpdateForm';
+import ShopItemInventoryBulkUpdateForm from '#src/libs/shop/components/ShopItemInventoryBulkUpdateForm';
+import ShopItemInventoryUpdateForm from '#src/libs/shop/components/ShopItemInventoryUpdateForm';
 
-import shopItemInventoryBulkFormValidationSchema from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/shopItemInventoryBulkFormValidationSchema';
-import shopItemInventoryFormValidationSchema from '#libs/shop/components/ShopItemInventoryUpdateForm/shopItemInventoryFormValidationSchema';
+import shopItemInventoryBulkFormValidationSchema from '#src/libs/shop/components/ShopItemInventoryBulkUpdateForm/shopItemInventoryBulkFormValidationSchema';
+import shopItemInventoryFormValidationSchema from '#src/libs/shop/components/ShopItemInventoryUpdateForm/shopItemInventoryFormValidationSchema';
 
-import type { ShopItemInventoryBulkUpdateFormValues } from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
-import type { ShopItemInventoryFormValues } from '#libs/shop/components/ShopItemInventoryUpdateForm/types';
-import type { ShopItem } from '#libs/shop/types';
-import type { SelectOption } from '#libs/types';
+import type { ShopItemInventoryBulkUpdateFormValues } from '#src/libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
+import type { ShopItemInventoryFormValues } from '#src/libs/shop/components/ShopItemInventoryUpdateForm/types';
+import type { ShopItem } from '#src/libs/shop/types';
+import type { SelectOption } from '#src/libs/types';
 
-import { ShopItemDetailInventoryFormType } from '#libs/shop/constants';
+import { ShopItemDetailInventoryFormType } from '#src/libs/shop/constants';
 
 type Props = {
   formType: `${ShopItemDetailInventoryFormType}`;

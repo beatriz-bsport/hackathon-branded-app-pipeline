@@ -12,9 +12,9 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import { Alert } from '@material-ui/lab';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { getReferredReduction } from '#libs/referral/utils';
-import { ReferralProgram } from '#libs/referral/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getReferredReduction } from '#src/libs/referral/utils';
+import { ReferralProgram } from '#src/libs/referral/types';
 import ReferralMemberSumupDialog from './ReferralMemberSumupDialog.component';
 
 type Props = {

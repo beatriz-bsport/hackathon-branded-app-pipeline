@@ -1,7 +1,7 @@
 import { Add, Remove } from '@material-ui/icons';
 import React from 'react';
 import { IconButton } from '@material-ui/core';
-import { PerformanceTrackingMetric } from '#libs/performance-tracking/types';
+import { PerformanceTrackingMetric } from '#src/libs/performance-tracking/types';
 import './MetricSlider.css';
 
 type Props = {

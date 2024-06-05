@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Typography from '#Fabrique/Typography';
 import Chip from '#Fabrique/Chip';
 
-import type { ChipData } from '#libs/consumer-space/components/reworked/common/ConsumerCardChipList/types';
+import type { ChipData } from '#src/libs/consumer-space/components/reworked/common/ConsumerCardChipList/types';
 
 import '../styles.css';
 

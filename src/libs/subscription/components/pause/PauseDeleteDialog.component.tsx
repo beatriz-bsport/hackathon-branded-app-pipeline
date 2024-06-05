@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
+import CustomMuiDialog from '#src/components/genericDialog/CustomMuiDialog.component';
 
 type Props = {
   deleteContent: string;

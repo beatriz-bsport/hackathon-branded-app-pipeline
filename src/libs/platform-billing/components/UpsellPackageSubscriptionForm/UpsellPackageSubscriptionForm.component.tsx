@@ -12,10 +12,10 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { UpsellPackage } from '#libs/company/types';
-import { getUpsellPriceString } from '#libs/platform-billing/utils';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { UpsellPackage } from '#src/libs/company/types';
+import { getUpsellPriceString } from '#src/libs/platform-billing/utils';
 import { MAP_UPSELL_IDENTIFIER_TO_ICON_COMPONENT } from '../UpsellPackage.component';
 
 export type Props = {

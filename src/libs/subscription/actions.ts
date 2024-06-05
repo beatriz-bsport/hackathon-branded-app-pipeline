@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions';
 import * as Sentry from '@sentry/react';
 
-import type { Contract } from '#libs/subscription/types';
-import { isErrorWithCustomCode } from '#libs/utils';
+import type { Contract } from '#src/libs/subscription/types';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import { COMPANY_EVENTS } from './event.utils';
 import api, {
   updatePlannedInvoicePrice as updatePlannedInvoicePriceAPI,
@@ -53,8 +53,6 @@ import {
 
 import { fetchEventList } from '../event/actions';
 import { downloadDocument } from '../../utils/downloader';
-
-
 
 export const fetchSubscriptionEventList = (
   params: { event_types?: any } = {},

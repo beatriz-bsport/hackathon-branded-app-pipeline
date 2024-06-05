@@ -3,22 +3,22 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import { faker } from '@faker-js/faker';
 
-import establishmentFactoryBot from '#libs/establishment/factories/Establishments';
-import { generateRandomName, generateRandomNames } from '#utils/factories';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import establishmentFactoryBot from '#src/libs/establishment/factories/Establishments';
+import { generateRandomName, generateRandomNames } from '#src/utils/factories';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
   MarketplacePage,
-} from '#libs/exportable-components/types';
-import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
+} from '#src/libs/exportable-components/types';
+import { consumerPaymentPackFactory } from '#src/libs/consumer-payment-pack/factories';
 
 import type {
   ConsumerPaymentPackCompatibility,
   DayOfWeekNumber,
   PrivateConsumerPassCompatibility,
   TimeSlot,
-} from '#libs/consumer-space/types';
+} from '#src/libs/consumer-space/types';
 import UniversalPassDetailsCard, { UniversalPassDetailsCardProps } from '.';
 
 // @ts-expect-error

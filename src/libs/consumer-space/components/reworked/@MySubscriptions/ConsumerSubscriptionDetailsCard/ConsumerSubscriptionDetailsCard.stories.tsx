@@ -1,8 +1,8 @@
 import React from 'react';
 import { ConsumerSubscriptionDetailsCardStorybook } from '.';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { subscriptionFactory } from '#libs/subscription/factory';
-import { MarketplacePaymentMethods } from '#libs/marketplace/types';
+import { subscriptionFactory } from '#src/libs/subscription/factory';
+import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
 import { fakeFailedInvoices, fakeSuccessfulInvoices } from './fakeData';
 import { DateTime } from 'luxon';
 

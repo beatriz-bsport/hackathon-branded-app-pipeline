@@ -1,18 +1,18 @@
 import React from 'react';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import Card, { CardSize } from '#components/css-only/Card';
-import Grid from '#components/css-only/Grid';
-import CardContent from '#components/css-only/Card/CardContent';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import Grid from '#src/components/css-only/Grid';
+import CardContent from '#src/components/css-only/Card/CardContent';
 
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import Price from '#components/css-only/Price';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import MinimalCardSkeleton from '#marketplacecomponents/MinimalCardSkeleton';
+} from '#src/components/css-only/Grid/GridItem';
+import Price from '#src/components/css-only/Price';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
+import MinimalCardSkeleton from '#src/libs/marketplace/components/MinimalCardSkeleton';
 import PaymentComboItemList from '../MarketplacePaymentComboCard/PaymentComboItemList';
 import InitialPrice from '../MarketplacePaymentComboCard/InitialPrice';
 

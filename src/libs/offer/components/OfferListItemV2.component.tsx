@@ -10,12 +10,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
 import WarningIcon from '@material-ui/icons/Warning';
 
-import { formatAsDatetime, formatAsDatetimeAdapted } from '#utils/datetime';
+import { formatAsDatetime, formatAsDatetimeAdapted } from '#src/utils/datetime';
 
-import CoachAvatar from '#libs/associated-coach/components/CoachAvatar.component';
-import Level from '#libs/level/components/Level.component';
+import CoachAvatar from '#src/libs/associated-coach/components/CoachAvatar.component';
+import Level from '#src/libs/level/components/Level.component';
 
-import type { OfferDataListItem } from '#libs/offer/types';
+import type { OfferDataListItem } from '#src/libs/offer/types';
 
 type Props = {
   checked?: boolean;

@@ -7,8 +7,8 @@ import type {
   OrderWithProducts,
   OrderListActions,
   Order,
-} from '#libs/order/types';
-import { refreshAlertingByKind } from '#libs/alerting/actions';
+} from '#src/libs/order/types';
+import { refreshAlertingByKind } from '#src/libs/alerting/actions';
 import * as api from './api';
 import type {
   Dispatch,
@@ -16,7 +16,6 @@ import type {
   ThunkAction,
   OptionCallback,
 } from '../../state/types';
-
 
 export const refreshNewOrderAlerting = () =>
   refreshAlertingByKind(NEW_ORDER_ALERT.alert_kind);

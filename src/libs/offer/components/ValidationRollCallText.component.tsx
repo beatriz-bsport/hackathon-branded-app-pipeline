@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Typography, makeStyles } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { DateTime } from 'luxon';
-import Tooltip from '#components/Tooltip.component';
+import Tooltip from '#src/components/Tooltip.component';
 import { formatISOStringAsTime } from '../../../utils/datetime';
 
 export type Props = {

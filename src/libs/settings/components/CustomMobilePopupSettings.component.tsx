@@ -22,8 +22,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
 // @ts-expect-error
-import withConfirm from '#hocs/with-confirm.hoc';
-import { CustomMobilePopup } from '#libs/settings/types';
+import withConfirm from '#src/hocs/with-confirm.hoc';
+import { CustomMobilePopup } from '#src/libs/settings/types';
 import CustomMobilePopupDialog from './CustomMobilePopupDialog.dialog';
 import { OptionCallback } from '../../../state/types';
 

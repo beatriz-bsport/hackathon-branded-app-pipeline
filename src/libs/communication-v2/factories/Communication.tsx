@@ -3,10 +3,10 @@ import { fakerEN as faker } from '@faker-js/faker';
 import type {
   Communication,
   CommunicationMessage,
-} from '#libs/communication-v2/types';
-import type { Member } from '#libs/member/types';
-import MembersFactory from '#libs/member/factories/Member';
-import fakerHTML from '#components/html/fakerHTML';
+} from '#src/libs/communication-v2/types';
+import type { Member } from '#src/libs/member/types';
+import MembersFactory from '#src/libs/member/factories/Member';
+import fakerHTML from '#src/components/html/fakerHTML';
 import { RecipientCompactListFactory } from './RecipientWithMember';
 import {
   COMMUNICATION_SENT_SENDING_SUCCESS,

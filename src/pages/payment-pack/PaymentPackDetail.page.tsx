@@ -18,49 +18,49 @@ import {
   fetchActivitiesCompany,
   fetchMetaActivities as fetchMetaActivitiesAction,
   fetchMetaActivityBulk,
-} from '#libs/meta-activity/actions';
+} from '#src/libs/meta-activity/actions';
 import {
   fetchEstablishments,
   fetchEstablishmentBulk,
-} from '#libs/establishment/actions';
-import MarketingRuleListItemPaymentPack from '#libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemPaymentPack.component';
-import PaymentPackCard from '#libs/payment-packs/components/PaymentPackCard.component';
-import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
-import PaymentPackDeleteDialog from '#libs/payment-packs/components/PaymentPackDeleteDialog.component';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import ConsumerPaymentPackFilters from '#libs/payment-packs/components/ConsumerPaymentPackFilters.component';
+} from '#src/libs/establishment/actions';
+import MarketingRuleListItemPaymentPack from '#src/libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemPaymentPack.component';
+import PaymentPackCard from '#src/libs/payment-packs/components/PaymentPackCard.component';
+import PaginatedConsumerPackList from '#src/libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
+import PaymentPackDeleteDialog from '#src/libs/payment-packs/components/PaymentPackDeleteDialog.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import ConsumerPaymentPackFilters from '#src/libs/payment-packs/components/ConsumerPaymentPackFilters.component';
 import MassExtensionCreateDialog, {
   GenericExtensionCreationPayload,
-} from '#components/MassExtensionCreateDialog';
-import themeSelectors from '#libs/theme/selectors';
+} from '#src/components/MassExtensionCreateDialog';
+import themeSelectors from '#src/libs/theme/selectors';
 
 import {
   updateCredit as updateCreditAction,
   resetByPaymentPack as resetByPaymentPackAction,
   fetchByPaymentPack as fetchByPaymentPackAction,
-} from '#libs/consumer-payment-pack/actions';
-import { getConsumerPacksByPackWithMember } from '#libs/consumer-payment-pack/selectors';
+} from '#src/libs/consumer-payment-pack/actions';
+import { getConsumerPacksByPackWithMember } from '#src/libs/consumer-payment-pack/selectors';
 
 import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
+} from '#src/libs/email-editor/selectors';
 
 import {
   getResolvedGenericTags,
   getTagCategories,
-} from '#libs/notification-rule/selectors';
-import { getEditableSCTs } from '#libs/category/selectors';
+} from '#src/libs/notification-rule/selectors';
+import { getEditableSCTs } from '#src/libs/category/selectors';
 import {
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
   fetchTagList,
-} from '#libs/notification-rule/actions';
+} from '#src/libs/notification-rule/actions';
 import {
   patch as patchPaymentPack,
   fetchOne as fetchPaymentPackAction,
@@ -72,14 +72,14 @@ import {
   fetchPaymentPackMassExtensionList as fetchPaymentPackMassExtensionListAction,
   createPaymentPackMassExtension as createPaymentPackMassExtensionAction,
   deletePaymentPackMassExtension as deletePaymentPackMassExtensionAction,
-} from '#libs/payment-packs/actions';
+} from '#src/libs/payment-packs/actions';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
   createMarketingNotification as createMarketingNotificationAction,
   updateMarketingNotification,
   deleteMarketingNotification as deleteMarketingNotificationAction,
-} from '#libs/marketing/actions';
-import { getPaymentPackNotifications } from '#libs/marketing/selectors';
+} from '#src/libs/marketing/actions';
+import { getPaymentPackNotifications } from '#src/libs/marketing/selectors';
 import {
   withEstablishments,
   withMetaActivities,
@@ -90,9 +90,9 @@ import {
   getPaymentPackCategoryById,
   getAllPaymentPackCategory,
   getPaymentPackMassExtensionList,
-} from '#libs/payment-packs/selectors';
-import withTitle from '#hocs/with-title.hoc';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+} from '#src/libs/payment-packs/selectors';
+import withTitle from '#src/hocs/with-title.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import type {
   PaymentPack,
@@ -101,40 +101,40 @@ import type {
   PaymentPackFiltersOpener,
   PaymentPackFormValues,
   PaymentPackMassExtension,
-} from '#libs/payment-packs/types';
-import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
+} from '#src/libs/payment-packs/types';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '#src/libs/member/actions';
 
-import { snackbarSuccess } from '#libs/snackbar/actions';
-import { getAllSmartList } from '#libs/smart-list/selectors';
-import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+import { snackbarSuccess } from '#src/libs/snackbar/actions';
+import { getAllSmartList } from '#src/libs/smart-list/selectors';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 import {
   getBookkeepingAccountById,
   getBookkeepingAccountList,
-} from '#libs/payment/selectors';
+} from '#src/libs/payment/selectors';
 
 import {
   fetchSmartListBulk as fetchSmartListBulkAction,
   fetchAllSmartLists,
-} from '#libs/smart-list/actions';
-import PaymentPackMassExtensionList from '#libs/consumer-payment-pack/components/PaymentPackMassExtensionList.component';
+} from '#src/libs/smart-list/actions';
+import PaymentPackMassExtensionList from '#src/libs/consumer-payment-pack/components/PaymentPackMassExtensionList.component';
 
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import PaymentPackFormDrawer from '#libs/payment-packs/components/PaymentPackForm';
-import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import PaymentPackFormDrawer from '#src/libs/payment-packs/components/PaymentPackForm';
+import { getAvailableEstablishmentList } from '#src/libs/establishment/selectors';
 import {
   getActivitiesByIdList,
   getEnabledMetaActivities,
   getEnabledWorkshops,
-} from '#libs/meta-activity/selectors';
-import { fetchVideoFilterableParams } from '#libs/video/actions';
-import { VideoStatusEnum } from '#libs/video/types';
-import { getPrivateServices } from '#libs/private-service/selectors/private-service';
+} from '#src/libs/meta-activity/selectors';
+import { fetchVideoFilterableParams } from '#src/libs/video/actions';
+import { VideoStatusEnum } from '#src/libs/video/types';
+import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
 import {
   getPrivatePass,
   withServices,
   withAvailable,
   getCompatibilityPassWithService as getCompatibleServicePass,
-} from '#libs/private-service/selectors/private-pass';
+} from '#src/libs/private-service/selectors/private-pass';
 import {
   fetchPrivatePassList,
   fetchAllPrivateServices,
@@ -143,17 +143,17 @@ import {
   deleteCompatibleServicePass,
   createCompatibleServicePass,
   updateCompatibleServicePass,
-} from '#libs/private-service/actions';
-import type { PrivateSlot } from '#libs/private-service/types';
-import PrivatePassCompatibleServiceList from '#libs/private-service/components/pass/PrivatePassCompatibleServiceList.component';
-import { setGenericFilterValue } from '#libs/payment-packs/utils';
-import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
+} from '#src/libs/private-service/actions';
+import type { PrivateSlot } from '#src/libs/private-service/types';
+import PrivatePassCompatibleServiceList from '#src/libs/private-service/components/pass/PrivatePassCompatibleServiceList.component';
+import { setGenericFilterValue } from '#src/libs/payment-packs/utils';
+import { refreshCompanyTheme as refreshCompanyThemeAction } from '#src/libs/theme/actions';
 
-import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
-import DeleteNoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/DeleteNoShowPenaltyDialog.component';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
-import CompatibilityFormComponent from '#libs/private-service/components/pass/compatibility/CompatibilityForm.component';
+import NoShowPenaltyDialog from '#src/libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
+import DeleteNoShowPenaltyDialog from '#src/libs/payment-packs/components/PaymentPackForm/DeleteNoShowPenaltyDialog.component';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
+import CompatibilityFormComponent from '#src/libs/private-service/components/pass/compatibility/CompatibilityForm.component';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';

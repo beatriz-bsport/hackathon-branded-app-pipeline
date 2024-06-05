@@ -5,14 +5,14 @@ import { compose } from 'recompose';
 import { push } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { LinearProgress } from '@material-ui/core';
-import BankAccountStep from '#libs/login/components/account-configuration/AccountConfigurationBankAccountStep.component';
+import BankAccountStep from '#src/libs/login/components/account-configuration/AccountConfigurationBankAccountStep.component';
 import {
   validateAccountConfigurationStepAction,
   retrieveMyCompanySetup as retrieveMyCompanySetupAction,
   attachExternalAccount as attachExternalAccountAction,
-} from '#libs/company/actions';
-import { CompanySetup } from '#libs/company/types';
-import { BANK_ACCOUNT_CONFIGURATION_STEP } from '#libs/company/constants';
+} from '#src/libs/company/actions';
+import { CompanySetup } from '#src/libs/company/types';
+import { BANK_ACCOUNT_CONFIGURATION_STEP } from '#src/libs/company/constants';
 import {
   AccountConfigurationFinalStepUrl,
   AccountConfigurationPaymentMethodStepUrl,

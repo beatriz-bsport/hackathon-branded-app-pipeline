@@ -6,8 +6,8 @@ import createTheme from '@material-ui/core/styles/createTheme';
 import useTheme from '@material-ui/core/styles/useTheme';
 import { MuiThemeProvider, alpha } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
-import MuiIcon from '#components/MuiIcon.component';
-import ToolTip from '#components/Tooltip.component';
+import MuiIcon from '#src/components/MuiIcon.component';
+import ToolTip from '#src/components/Tooltip.component';
 
 type StylesProps = {
   mainColor?: string;

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import InboxThreadList, {
   Props,
-} from '#libs/communication-v2/thread/InboxThreadList/InboxThreadList.component';
+} from '#src/libs/communication-v2/thread/InboxThreadList/InboxThreadList.component';
 import {
   RandomThreadBatch,
   randomInt,
-} from '#libs/communication-v2/factories/CommunicationThread';
-import { INBOX_ALL_MESSAGES } from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/factories/CommunicationThread';
+import { INBOX_ALL_MESSAGES } from '#src/libs/communication-v2/constants';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 
 const PAGE_SIZE = 15;

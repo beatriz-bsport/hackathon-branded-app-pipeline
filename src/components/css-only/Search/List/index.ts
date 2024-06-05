@@ -1,7 +1,7 @@
 import List, {
   Props,
   ListForStorybook,
-} from '#components/css-only/Search/List/List.component';
+} from '#src/components/css-only/Search/List/List.component';
 
 export type { Props };
 export { ListForStorybook };

@@ -6,12 +6,12 @@ import {
   updateStepMarketingAction as updateStepMarketingActionAPI,
   modifyStepMarketingActionsConfiguration as modifyStepMarketingActionsConfigurationAPI,
   deleteStepMarketingAction as deleteStepMarketingActionAPI,
-} from '#libs/sequential_marketing/api';
+} from '#src/libs/sequential_marketing/api';
 
 import type {
   StepMarketingActionsParams,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import type {
   OptionCallback,
   Dispatch,

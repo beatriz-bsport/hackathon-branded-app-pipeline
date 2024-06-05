@@ -1,4 +1,5 @@
 import React from 'react';
+// @ts-expect-error
 import asyncComponent from '../../../AsyncComponent';
 import '@material-ui/icons';
 import type { MuiIconName } from './MuiIconNameType';

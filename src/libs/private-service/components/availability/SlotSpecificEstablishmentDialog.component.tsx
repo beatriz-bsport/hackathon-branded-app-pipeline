@@ -7,8 +7,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';
 
 import { useTranslation } from 'react-i18next';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import { EstablishmentWithAssociatedId } from '#src/libs/establishment/types';
 import SlotSpecificEstablishmentPicker from './SlotSpecificEstablishmentPicker.component';
 
 export type Props = {

@@ -3,7 +3,7 @@ import chroma from 'chroma-js';
 import { DateTime } from 'luxon';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import Countdown from '#components/time/CountDown.component';
+import Countdown from '#src/components/time/CountDown.component';
 
 const useStyles = makeStyles((theme) => {
   return {

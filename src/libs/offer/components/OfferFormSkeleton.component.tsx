@@ -4,7 +4,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 
-import FormSectionSkeleton from '#components/forms/FormSection/FormSectionSkeleton.component';
+import FormSectionSkeleton from '#src/components/forms/FormSection/FormSectionSkeleton.component';
 
 const OfferFormSkeleton = () => {
   const classes = useStyles();

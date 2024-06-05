@@ -4,7 +4,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import { ComponentMeta } from '@storybook/react';
 
 import TextField, { Props, TextFieldSize } from '.';
-import { MuiThemeToCssVarsHOC } from '#hocs/marketplace-css.hoc';
+import { MuiThemeToCssVarsHOC } from '#src/hocs/marketplace-css.hoc';
 
 import './styles-storybook.css';
 

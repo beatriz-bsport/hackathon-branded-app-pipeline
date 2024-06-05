@@ -2,25 +2,25 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 
-import CadenceNodeContent from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeContent.component';
-import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
-import StepCard from '#components/card/StepCard.component';
-import { triggerIconByKind } from '#libs/sequential_marketing/components/helpers/utils';
+import CadenceNodeContent from '#src/libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeContent.component';
+import CadenceNodeTitle from '#src/libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
+import StepCard from '#src/components/card/StepCard.component';
+import { triggerIconByKind } from '#src/libs/sequential_marketing/components/helpers/utils';
 import {
   MarketingActions,
   SequentialMarketingColors,
   TRIGGER_KIND_CHOICES,
   TriggerKind,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
 import type {
   CadenceStep,
   ConnectedTrigger,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
-import type { Tag } from '#libs/tag/types';
-import type { EmailTemplateSummary } from '#libs/email-editor/types';
+} from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { Tag } from '#src/libs/tag/types';
+import type { EmailTemplateSummary } from '#src/libs/email-editor/types';
 
 type EntryStepHeaderProps = {
   triggerList?: ConnectedTrigger[];

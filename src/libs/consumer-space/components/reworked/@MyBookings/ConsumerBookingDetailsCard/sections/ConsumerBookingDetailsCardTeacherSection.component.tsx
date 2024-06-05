@@ -6,9 +6,9 @@ import {
   FacebookSquare,
   InstagramSquare,
   User01,
-} from '#components/untitledui';
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
-import ConsumerCardDescription from '#libs/consumer-space/components/reworked/common/ConsumerCardDescription';
+} from '#src/components/untitledui';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardDescription from '#src/libs/consumer-space/components/reworked/common/ConsumerCardDescription';
 
 import Typography from '#Fabrique/Typography';
 import List from '#Fabrique/List';

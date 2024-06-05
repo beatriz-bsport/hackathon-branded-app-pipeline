@@ -2,8 +2,8 @@ import React from 'react';
 
 import Intercom from 'react-intercom';
 // @ts-expect-error
-import withSentryErrorReporting from '#hocs/error-boundary-hidden.hoc';
-import { Theme } from '#libs/theme/types';
+import withSentryErrorReporting from '#src/hocs/error-boundary-hidden.hoc';
+import { Theme } from '#src/libs/theme/types';
 
 type Props = {
   email: string;

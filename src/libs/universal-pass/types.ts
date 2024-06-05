@@ -1,11 +1,11 @@
 import type {
   ConsumerPaymentPackREST,
   ConsumerPaymentPackReworked,
-} from '#libs/consumer-payment-pack/types';
+} from '#src/libs/consumer-payment-pack/types';
 import type {
   PrivateConsumerPassREST,
   PrivateConsumerPassReworked,
-} from '#libs/private-service/types';
+} from '#src/libs/private-service/types';
 
 export type UniversalPassREST = {
   id: number;

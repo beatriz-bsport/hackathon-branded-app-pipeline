@@ -12,13 +12,13 @@ import {
 } from '@bsport/common/lib/master-data/error-codes/lock';
 
 import { UNEVEN_INVOICE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
-import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 
-import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
+import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#src/libs/role/constants';
 
-import { refreshAlertingByKind } from '#libs/alerting/actions';
-import { CouponErrorCodes } from '#libs/coupon/constants';
-import { isErrorWithCustomCode } from '#libs/utils';
+import { refreshAlertingByKind } from '#src/libs/alerting/actions';
+import { CouponErrorCodes } from '#src/libs/coupon/constants';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 
 import type {
   Invoice,
@@ -33,10 +33,10 @@ import type {
   PlannedPaymentEvent,
   PlannedPaymentEventFilter,
   PlannedPaymentEventSerializer,
-} from '#libs/invoice/types';
-import type { PaymentItem } from '#libs/invoice/payment/types';
-import type { InvoiceItem } from '#libs/invoice/invoice-item/types';
-import type { Payment } from '#libs/payment/types';
+} from '#src/libs/invoice/types';
+import type { PaymentItem } from '#src/libs/invoice/payment/types';
+import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
+import type { Payment } from '#src/libs/payment/types';
 import type {
   Dispatch,
   OptionCallback,

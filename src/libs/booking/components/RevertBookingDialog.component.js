@@ -14,9 +14,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-import RedButton from '#components/button/RedButton.component';
+import RedButton from '#src/components/button/RedButton.component';
 
 import type { Booking } from '../types';
 

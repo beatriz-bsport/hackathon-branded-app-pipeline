@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import DeliveryFeeDialogForm from '#libs/order/components/DeliveryFeeDialogForm.component';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import ShopItemDeleteConfirmDialog from '#libs/shop/components/ShopItemDeleteConfirmDialog.component';
-import ShopItemFormReworked from '#libs/shop/components/ShopItemFormReworked';
-import ShopListSettingsSupplierModal from '#libs/shop/components/ShopListSettingsSupplierModal';
-import ShopListTabs from '#libs/shop/components/ShopListTabs';
-import ShopSupplierDeleteConfirmModal from '#libs/shop/components/ShopSupplierDeleteConfirmModal';
+import DeliveryFeeDialogForm from '#src/libs/order/components/DeliveryFeeDialogForm.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import ShopItemDeleteConfirmDialog from '#src/libs/shop/components/ShopItemDeleteConfirmDialog.component';
+import ShopItemFormReworked from '#src/libs/shop/components/ShopItemFormReworked';
+import ShopListSettingsSupplierModal from '#src/libs/shop/components/ShopListSettingsSupplierModal';
+import ShopListTabs from '#src/libs/shop/components/ShopListTabs';
+import ShopSupplierDeleteConfirmModal from '#src/libs/shop/components/ShopSupplierDeleteConfirmModal';
 
 import type {
   ShopItem,
@@ -19,18 +19,18 @@ import type {
   ShopSupplierCreate,
   ShopSupplierUpdate,
   SubShop,
-} from '#libs/shop/types';
-import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
-import type { ShopListSettingsSupplierValues } from '#libs/shop/components/ShopListSettingsSupplierModal/types';
+} from '#src/libs/shop/types';
+import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
+import type { ShopListSettingsSupplierValues } from '#src/libs/shop/components/ShopListSettingsSupplierModal/types';
 import type {
   DeliveryConfiguration,
   DeliveryFee,
   DeliveryFeeCreationOrUpdatePayload,
-} from '#libs/order/types';
-import type { BookkeepingAccount } from '#libs/payment/types';
+} from '#src/libs/order/types';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
 
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { ShopListTab } from '#src/libs/shop/components/ShopListTabs/constants';
 import type { OptionCallback } from '../../../../state/types';
 
 type Props = {

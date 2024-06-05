@@ -5,32 +5,32 @@ import { Handle, Position } from 'react-flow-renderer';
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 
 import {
   LEFT_HANDLE_STYLE,
   RIGHT_HANDLE_STYLE,
   HandleTypeChoices,
-} from '#libs/sequential_marketing/constants/steps';
+} from '#src/libs/sequential_marketing/constants/steps';
 import {
   DestinationStatus,
   MarketingActions,
   SequentialMarketingColors,
   TriggerKind,
-} from '#libs/sequential_marketing/constants';
-import { getMarketingActionPartialValues } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
+} from '#src/libs/sequential_marketing/constants';
+import { getMarketingActionPartialValues } from '#src/libs/sequential_marketing/components/form/marketing_actions/utils';
 
-import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
-import MenuSelectorOnly from '#components/menu/menu-only';
+import ConvertIntoExitBubble from '#src/libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
+import MenuSelectorOnly from '#src/components/menu/menu-only';
 import CadenceUtilityDialog, {
   DialogVariant,
-} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
-import StepNameEditionBubble from '#libs/sequential_marketing/components/graph/bubbles/StepNameEditionBubble.component';
-import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';
-import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
+} from '#src/libs/sequential_marketing/components/dialogs/DialogUtility';
+import StepNameEditionBubble from '#src/libs/sequential_marketing/components/graph/bubbles/StepNameEditionBubble.component';
+import UniqueMarketingActionBubble from '#src/libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';
+import useConnectToStep from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
 
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import InnerStepCard, {
   type InnerStepCardProps,
 } from './InnerStepCard.component';

@@ -13,14 +13,14 @@ import classNames from 'classnames';
 import {
   USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY,
   USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY,
-} from '#libs/member/utils';
+} from '#src/libs/member/utils';
 
 import type {
   CustomForm,
   CustomFormFieldAnswer,
   CustomFormFilled,
   ResponsiveLayouts,
-} from '#libs/custom-form/types';
+} from '#src/libs/custom-form/types';
 import ConsumerFormFields, {
   ConsumerFormFieldsHOC,
 } from './CustomForm.formik-hoc';

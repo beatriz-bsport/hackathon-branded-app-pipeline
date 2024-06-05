@@ -1,9 +1,9 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import React from 'react';
-import { coachPaymentRuleFactory } from '#libs/coach-payment-rules/factories';
-import { couponFactory } from '#libs/coupon/factories';
-import type { ObjectSearchPaginated } from '#libs/fuzzy-search/types';
+import { coachPaymentRuleFactory } from '#src/libs/coach-payment-rules/factories';
+import { couponFactory } from '#src/libs/coupon/factories';
+import type { ObjectSearchPaginated } from '#src/libs/fuzzy-search/types';
 import { API_V1_URI } from '../../../http';
 
 const generateFakeCoupons = (length: number): ObjectSearchPaginated => ({

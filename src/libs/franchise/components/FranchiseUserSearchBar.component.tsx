@@ -16,7 +16,7 @@ import { makeStyles } from '@material-ui/styles';
 import { push as pushRouter } from 'connected-react-router';
 
 import classNames from 'classnames';
-import DelayedTextField from '#components/DelayedTextField.component';
+import DelayedTextField from '#src/components/DelayedTextField.component';
 
 import { searchFranchiseUsers as searchFranchiseUsersAction } from '../actions';
 

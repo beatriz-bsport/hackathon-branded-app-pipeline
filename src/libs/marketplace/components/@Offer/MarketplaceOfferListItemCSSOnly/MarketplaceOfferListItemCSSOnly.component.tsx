@@ -8,35 +8,35 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import RoomIcon from '@material-ui/icons/Room';
 
 import { useTranslation } from 'react-i18next';
-import MaleIcon from '#components/icons/MaleIcon.component';
-import FemaleIcon from '#components/icons/FemaleIcon.component';
+import MaleIcon from '#src/components/icons/MaleIcon.component';
+import FemaleIcon from '#src/components/icons/FemaleIcon.component';
 
-import { Offer } from '#libs/offer/types';
-import { Coach } from '#libs/associated-coach/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { Establishment } from '#libs/establishment/types';
+import { Offer } from '#src/libs/offer/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { Establishment } from '#src/libs/establishment/types';
 
-import { useOfferHours } from '#libs/marketplace/hooks';
+import { useOfferHours } from '#src/libs/marketplace/hooks';
 
-import MarketplaceBookButton from '#marketplacecomponents/@Booking/MarketplaceBookButton';
-import { MetaActivity } from '#libs/meta-activity/types';
-import MarketPlaceLevel from '#marketplacecomponents/@Offer/MarketplaceLevelCSSOnly';
-import MarketplaceBroadcast from '#marketplacecomponents/@Broadcast/MarketplaceBroadcastCSSOnly';
-import type { MarketplaceCalendarVariant } from '#libs/marketplace/types';
+import MarketplaceBookButton from '#src/libs/marketplace/components/@Booking/MarketplaceBookButton';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import MarketPlaceLevel from '#src/libs/marketplace/components/@Offer/MarketplaceLevelCSSOnly';
+import MarketplaceBroadcast from '#src/libs/marketplace/components/@Broadcast/MarketplaceBroadcastCSSOnly';
+import type { MarketplaceCalendarVariant } from '#src/libs/marketplace/types';
 import {
   AVAILABLE_BOOKING_ELEMENTS_IDS,
   MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
   OFFER_HOURS_SEPARATOR,
-} from '#libs/marketplace/constants';
-import { Level } from '#libs/level/types';
+} from '#src/libs/marketplace/constants';
+import { Level } from '#src/libs/level/types';
 
-import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
-import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
-import FreeOfferChip from '#csscomponents/FreeOfferChip';
+import MarketplaceCoachInfos from '#src/libs/marketplace/components/@Coach/MarketplaceCoachInfos';
+import MarketplaceEstablishmentTitle from '#src/libs/marketplace/components/@Establishment/MarketplaceEstablishmentTitle';
+import FreeOfferChip from '#src/components/css-only/FreeOfferChip';
 
-import PopOver from '#components/Popover';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { generateUniqueOfferIdentifier } from '#marketplacecomponents/@Offer/utils';
+import PopOver from '#src/components/Popover';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { generateUniqueOfferIdentifier } from '#src/libs/marketplace/components/@Offer/utils';
 import { formatAsDateWithWeekday, getUserZone } from '#src/utils/datetime';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 

@@ -4,7 +4,7 @@ import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { UserInteractionKey } from '#libs/types';
+import { UserInteractionKey } from '#src/libs/types';
 import {
   EditableQuicksaleSectionKey,
   QuicksaleSectionColor,

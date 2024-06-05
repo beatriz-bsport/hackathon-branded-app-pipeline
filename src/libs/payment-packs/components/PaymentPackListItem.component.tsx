@@ -25,16 +25,16 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import StyleIcon from '@material-ui/icons/Style';
 import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
-import Tooltip from '#components/Tooltip.component';
-import ConditionalWrapper from '#components/ConditionnalWrapper.component';
-import ListItemResponsiveAction from '#components/button/ListItemResponsiveAction.component';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import Tooltip from '#src/components/Tooltip.component';
+import ConditionalWrapper from '#src/components/ConditionnalWrapper.component';
+import ListItemResponsiveAction from '#src/components/button/ListItemResponsiveAction.component';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
+} from '#src/libs/theme/utils';
 
-import { MaterialStyleType } from '#utils/types';
+import { MaterialStyleType } from '#src/utils/types';
 import { getValidityInfo } from '../utils';
 
 import type { PaymentPack } from '../types';

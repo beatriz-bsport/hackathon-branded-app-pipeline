@@ -13,13 +13,13 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Divider from '@material-ui/core/Divider';
 import EventIcon from '@material-ui/icons/Event';
 import { PRIVATEBOOKING_EVENT_RULES } from '@bsport/common/lib/master-data/notification-rule-events';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 
 // @ts-expect-error
-import { IntegerField, CheckboxField, Submit } from '#components/forms';
-import { SmartList } from '#libs/smart-list/types';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
-import { getSendingTimeNotification } from '#libs/marketing/utils';
+import { IntegerField, CheckboxField, Submit } from '#src/components/forms';
+import { SmartList } from '#src/libs/smart-list/types';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
+import { getSendingTimeNotification } from '#src/libs/marketing/utils';
 import MarketingRuleBasicTypeField from '../MarketingRuleBasicTypeField.component';
 
 import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';

@@ -2,7 +2,7 @@ import React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import { ListItem, ListItemText, Checkbox } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { FilteringMemberIdsByGenericCategories } from '#libs/communication-v2/types';
+import { FilteringMemberIdsByGenericCategories } from '#src/libs/communication-v2/types';
 
 export type Props = {
   genericMemberCategories: FilteringMemberIdsByGenericCategories;

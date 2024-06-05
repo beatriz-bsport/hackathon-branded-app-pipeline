@@ -13,12 +13,12 @@ import { useTranslation } from 'react-i18next';
 import {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingProgram,
-} from '#libs/performance-tracking/types';
-import MemberProgramDetail from '#libs/performance-tracking/components/member-program/MemberProgramDetail.component';
-import ProgramSelectorDialog from '#libs/performance-tracking/components/program/ProgramSelectorDialog.component';
-import { Booking } from '#libs/booking/types';
-import { Member } from '#libs/member/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+} from '#src/libs/performance-tracking/types';
+import MemberProgramDetail from '#src/libs/performance-tracking/components/member-program/MemberProgramDetail.component';
+import ProgramSelectorDialog from '#src/libs/performance-tracking/components/program/ProgramSelectorDialog.component';
+import { Booking } from '#src/libs/booking/types';
+import { Member } from '#src/libs/member/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import { OptionCallback } from '../../../../state/types';
 
 type OwnProps = {

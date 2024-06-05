@@ -24,18 +24,21 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 
-import FormSection from '#components/forms/FormSection';
-import useOfferFormStyles from '#libs/offer/hooks/useOfferFormStyles';
-import OfferFormField from '#libs/offer/form/OfferFormField.component';
-import NumericInput from '#components/input/NumericInput.component';
-import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
-import { OFFER_RECURRENCE } from '#libs/offer/constants';
-import OfferFormWeeklyRecurrenceDays from '#libs/offer/components/OfferFormWeeklyRecurrenceDays.component';
-import OfferFormSelector from '#libs/offer/form/OfferFormSelector.component';
-import { useOfferFormDateTime } from '#libs/offer/hooks';
+import FormSection from '#src/components/forms/FormSection';
+import useOfferFormStyles from '#src/libs/offer/hooks/useOfferFormStyles';
+import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
+import NumericInput from '#src/components/input/NumericInput.component';
+import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { OFFER_RECURRENCE } from '#src/libs/offer/constants';
+import OfferFormWeeklyRecurrenceDays from '#src/libs/offer/components/OfferFormWeeklyRecurrenceDays.component';
+import OfferFormSelector from '#src/libs/offer/form/OfferFormSelector.component';
+import { useOfferFormDateTime } from '#src/libs/offer/hooks';
 
-import { OfferFormRecurrenceWeekDay, OfferFormValues } from '#libs/offer/types';
-import { getOfferRecurrenceDates } from '#libs/offer/utils';
+import {
+  OfferFormRecurrenceWeekDay,
+  OfferFormValues,
+} from '#src/libs/offer/types';
+import { getOfferRecurrenceDates } from '#src/libs/offer/utils';
 import type { LuxonDateTime } from '#src/types';
 import { isAmPmTimeFormat } from '../../../../utils/datetime';
 

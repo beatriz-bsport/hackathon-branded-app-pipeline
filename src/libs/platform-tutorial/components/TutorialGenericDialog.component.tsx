@@ -5,16 +5,16 @@ import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import { TFunction } from 'i18next';
 import ShareIcon from '@material-ui/icons/Share';
-import CheckIcon from '#components/icons/CheckIcon.component';
-import AnimatedWelcomeIcon from '#components/animations/AnimatedWelcomeIcon.component';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import CheckIcon from '#src/components/icons/CheckIcon.component';
+import AnimatedWelcomeIcon from '#src/components/animations/AnimatedWelcomeIcon.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import {
   TUTORIAL_GENERIC_DIALOG_WELCOME,
   TUTORIAL_GENERIC_DIALOG_SECTION_FINISH,
   TUTORIAL_GENERIC_DIALOG_ALL_FINISH,
   TUTORIAL_GENERIC_DIALOG_SHARE_SECTION,
   TUTORIAL_GENERIC_DIALOG_SHARE_LESSON,
-} from '#libs/platform-tutorial/constant';
+} from '#src/libs/platform-tutorial/constant';
 import { TutorialLesson, TutorialSection } from '../types';
 
 type IdentifierType =

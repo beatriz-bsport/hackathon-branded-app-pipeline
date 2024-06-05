@@ -4,8 +4,8 @@ import { DateTime } from 'luxon';
 
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
-import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
-import { isErrorWithCustomCode } from '#libs/utils';
+import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#src/libs/platform-billing/upsell-identifiers';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import {
   Dispatch,
   OptionBackgroundCallback,
@@ -61,7 +61,6 @@ import type {
   OfferStatusWaitingListPosition,
   OfferStatusParams,
 } from './types';
-
 
 export const similarOffers = {
   isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),

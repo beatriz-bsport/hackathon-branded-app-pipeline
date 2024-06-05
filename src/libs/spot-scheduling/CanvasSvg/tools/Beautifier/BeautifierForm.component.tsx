@@ -4,7 +4,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
-import type { SpotType } from '#libs/spot-scheduling/types';
+import type { SpotType } from '#src/libs/spot-scheduling/types';
 import type { OptionCallback } from '../../../../../state/types';
 
 import {

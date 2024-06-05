@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ButtonStorybook } from './Button.component';
 
 import { ButtonColor, ButtonVariant, ButtonSize } from './constants';
-import { ChevronRight, ShoppingCart03 } from '#components/untitledui';
+import { ChevronRight, ShoppingCart03 } from '#src/components/untitledui';
 const ButtonStorybookTemplate: ComponentStory<typeof ButtonStorybook> = (
   args,
 ) => <ButtonStorybook {...args}>{args.children}</ButtonStorybook>;

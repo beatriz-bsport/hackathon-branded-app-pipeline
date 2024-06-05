@@ -2,12 +2,12 @@ import React, { useCallback, useState } from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 import { useTranslation } from 'react-i18next';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplacePage,
   MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 import Button from '#Fabrique/ButtonV2';
 // @ts-expect-error
 import BottomDrawerCss from './styles.css?raw';

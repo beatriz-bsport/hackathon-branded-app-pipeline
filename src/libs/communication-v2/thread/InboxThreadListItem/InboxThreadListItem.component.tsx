@@ -16,9 +16,9 @@ import { useTranslation } from 'react-i18next';
 import type {
   CommunicationThread,
   CommunicationThreadWithUnreadAnswersCount,
-} from '#libs/communication-v2/types';
-import ThreadMenu from '#libs/communication-v2/thread/InboxThreadListItem/ThreadMenu.component';
-import ThreadAvatar from '#libs/communication-v2/thread/InboxThreadListItem/ThreadAvatar.component';
+} from '#src/libs/communication-v2/types';
+import ThreadMenu from '#src/libs/communication-v2/thread/InboxThreadListItem/ThreadMenu.component';
+import ThreadAvatar from '#src/libs/communication-v2/thread/InboxThreadListItem/ThreadAvatar.component';
 import type { OptionCallback } from '../../../../state/types';
 import ThreadItemSkeleton from './ThreadItemSkeleton.component';
 

@@ -3,7 +3,7 @@ import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import omit from 'lodash/omit';
 
 import StepNameEditionBubble from './StepNameEditionBubble.component';
-import { cadenceStepFactory } from '#libs/sequential_marketing/factories';
+import { cadenceStepFactory } from '#src/libs/sequential_marketing/factories';
 
 export default {
   title: 'Components/Cadences/Bubbles/StepNameEdition',

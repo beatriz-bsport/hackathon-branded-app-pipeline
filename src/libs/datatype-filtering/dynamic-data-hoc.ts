@@ -1,68 +1,68 @@
 import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
-import { getPageMetaActivities } from '#libs/meta-activity/selectors';
+import { getPageMetaActivities } from '#src/libs/meta-activity/selectors';
 import {
   getAll as getAllPaymentPack,
   getAllPaymentPackCategory,
-} from '#libs/payment-packs/selectors';
-import { getAllCoaches } from '#libs/associated-coach/selectors';
+} from '#src/libs/payment-packs/selectors';
+import { getAllCoaches } from '#src/libs/associated-coach/selectors';
 import {
   getAllEstablishments,
   getEstablishmentBillingroups,
   getEstablishmentGroups,
-} from '#libs/establishment/selectors';
-import { getAllMembers } from '#libs/member/selectors';
-import { getPrivatePassListBase } from '#libs/private-service/selectors/private-pass';
-import { _getPrivateServices as getPrivateServices } from '#libs/private-service/selectors/private-service';
-import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
-import { getAllPrivateSlots } from '#libs/private-service/selectors/private-slot';
-import { getAllGiftcardList } from '#libs/giftcard/selectors';
-import { getAllCoupons } from '#libs/coupon/selectors';
-import { getVideoList } from '#libs/video/selectors';
+} from '#src/libs/establishment/selectors';
+import { getAllMembers } from '#src/libs/member/selectors';
+import { getPrivatePassListBase } from '#src/libs/private-service/selectors/private-pass';
+import { _getPrivateServices as getPrivateServices } from '#src/libs/private-service/selectors/private-service';
+import { getPrivatePassCategories } from '#src/libs/private-service/selectors/private-pass-category';
+import { getAllPrivateSlots } from '#src/libs/private-service/selectors/private-slot';
+import { getAllGiftcardList } from '#src/libs/giftcard/selectors';
+import { getAllCoupons } from '#src/libs/coupon/selectors';
+import { getVideoList } from '#src/libs/video/selectors';
 // @ts-expect-error
-import { getAvailableContractList } from '#libs/subscription/selectors';
-import { getTheme } from '#libs/theme/selectors';
-import { getSubShopsByCompany } from '#libs/shop/selectors';
-import { getUsersWithRole } from '#libs/role/selectors';
-import { getBookkeepingAccountList } from '#libs/payment/selectors';
+import { getAvailableContractList } from '#src/libs/subscription/selectors';
+import { getTheme } from '#src/libs/theme/selectors';
+import { getSubShopsByCompany } from '#src/libs/shop/selectors';
+import { getUsersWithRole } from '#src/libs/role/selectors';
+import { getBookkeepingAccountList } from '#src/libs/payment/selectors';
 import {
   getDynamicDataLoading,
   getDynamicDataHasBeenLoaded,
-} from '#libs/datatype-filtering/selectors';
-import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
+} from '#src/libs/datatype-filtering/selectors';
+import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 
-import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#libs/role/actions';
-import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
-import { refreshFilteredMembers as refreshFilteredMembersAction } from '#libs/member/actions';
+import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#src/libs/role/actions';
+import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#src/libs/meta-activity/actions';
+import { refreshFilteredMembers as refreshFilteredMembersAction } from '#src/libs/member/actions';
 import {
   fetchPaymentPackList as fetchPaymentPackListAction,
   fetchAllPaymentPackCategory as fetchAllPaymentPackCategoryAction,
-} from '#libs/payment-packs/actions';
+} from '#src/libs/payment-packs/actions';
 import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
-import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#libs/associated-coach/actions';
+} from '#src/libs/establishment/actions';
+import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#src/libs/associated-coach/actions';
 import {
   fetchAllPrivateServices as fetchAllPrivateServicesAction,
   fetchAllPrivateSlots as fetchAllPrivateSlotsAction,
   fetchPrivatePassList as fetchPrivatePassListAction,
   fetchAllPrivatePassCategory as fetchAllPrivatePassCategoryAction,
-} from '#libs/private-service/actions';
-import { fetchGiftcardList as fetchGiftcardListAction } from '#libs/giftcard/actions';
-import { fetchCoupons as fetchCouponsAction } from '#libs/coupon/actions';
-import { fetchVideoList as fetchVideoListAction } from '#libs/video/actions';
-import { fetchContractList as fetchContractListAction } from '#libs/subscription/actions';
-import { fetchAllSubShop as fetchAllSubShopAction } from '#libs/shop/actions/subshop';
-import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
-import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+} from '#src/libs/private-service/actions';
+import { fetchGiftcardList as fetchGiftcardListAction } from '#src/libs/giftcard/actions';
+import { fetchCoupons as fetchCouponsAction } from '#src/libs/coupon/actions';
+import { fetchVideoList as fetchVideoListAction } from '#src/libs/video/actions';
+import { fetchContractList as fetchContractListAction } from '#src/libs/subscription/actions';
+import { fetchAllSubShop as fetchAllSubShopAction } from '#src/libs/shop/actions/subshop';
+import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/actions';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 import {
   setDynamicDataHasBeenLoaded as setDynamicDataHasBeenLoadedAction,
   resetDynamicDataHasBeenLoaded as resetDynamicDataHasBeenLoadedAction,
-} from '#libs/datatype-filtering/actions';
-import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
+} from '#src/libs/datatype-filtering/actions';
+import { OptionTypeBase } from '#src/components/Selector/MaterialUISelector.component';
 import { getFranchiseCompanies } from '../franchise/selectors';
 import { ReportFilterableDataType } from './constants';
 import type { RootState } from '../../reducers';

@@ -1,9 +1,9 @@
 import { createAction } from 'redux-actions';
 
 import { AxiosResponse } from 'axios';
-import * as api from '#libs/shop/api';
+import * as api from '#src/libs/shop/api';
 
-import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 import type {
   Dispatch,
   OptionCallback,

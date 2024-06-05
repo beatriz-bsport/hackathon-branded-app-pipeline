@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import CircularProgress from '#components/css-only/CircularProgress';
-import { useMarketplaceFixedDialog } from '#libs/marketplace/hooks';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import CircularProgress from '#src/components/css-only/CircularProgress';
+import { useMarketplaceFixedDialog } from '#src/libs/marketplace/hooks';
 
 import './ProcessingPaymentDialogStyles.css';
 

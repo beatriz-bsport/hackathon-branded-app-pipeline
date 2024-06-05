@@ -4,16 +4,16 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles, Theme, WithStyles } from '@material-ui/core';
 import classNames from 'classnames';
 
-import InfoGenericBox from '#components/box/InfoGenericBox.component';
+import InfoGenericBox from '#src/components/box/InfoGenericBox.component';
 import type {
   CommunicationMessage,
   Communication,
   Recipient,
   FilteringMemberIdsByGenericCategories,
-} from '#libs/communication-v2/types';
-import type { Member } from '#libs/member/types';
-import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
-import type { ResolvedGenericTags } from '#libs/email-editor/types';
+} from '#src/libs/communication-v2/types';
+import type { Member } from '#src/libs/member/types';
+import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component';
+import type { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import CommunicationMessageScrollableView from './CommunicationMessageScrollableView.component';
 import CommunicationInformationModal from './ModalInformation/CommunicationInformationModal.component';
 

@@ -7,12 +7,12 @@ import Button from '@material-ui/core/Button';
 
 import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 
 // @ts-expect-error
-import { Actions, Submit } from '#components/forms';
-import { SmartList } from '#libs/smart-list/types';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { Actions, Submit } from '#src/components/forms';
+import { SmartList } from '#src/libs/smart-list/types';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import MarketingRuleSmartlistField from '../MarketingRuleSmartlistField.component';
 import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';
 

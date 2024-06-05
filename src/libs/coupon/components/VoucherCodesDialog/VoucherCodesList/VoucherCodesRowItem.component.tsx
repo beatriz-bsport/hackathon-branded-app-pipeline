@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TableCell, TableRow, Typography } from '@material-ui/core';
-import type { UniqueCodeState } from '#libs/coupon/types';
+import type { UniqueCodeState } from '#src/libs/coupon/types';
 import VoucherCodesCheckBox from './VoucherCodesCheckBox.component';
 import VoucherCodesChip from './VoucherCodesChip.component';
 

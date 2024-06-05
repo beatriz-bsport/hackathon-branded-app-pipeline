@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import type { CompanyTheme } from '#libs/theme/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
 
 import './styles.css';
 

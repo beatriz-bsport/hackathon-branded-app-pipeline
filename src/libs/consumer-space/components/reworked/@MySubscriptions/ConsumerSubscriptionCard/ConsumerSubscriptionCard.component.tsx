@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
-import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
-import type { SubscriptionInterval } from '#libs/subscription/types';
+import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
+import type { SubscriptionInterval } from '#src/libs/subscription/types';
 import {
   ConsumerSubscriptionCardBody,
   ConsumerSubscriptionCardHeader,

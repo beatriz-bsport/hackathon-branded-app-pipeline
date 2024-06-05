@@ -3,7 +3,7 @@ import memoize from 'memoize-one';
 
 import Immutable from 'seamless-immutable';
 import type { RootState } from 'src/reducers';
-import { getSmartListDict } from '#libs/smart-list/selectors';
+import { getSmartListDict } from '#src/libs/smart-list/selectors';
 import type { Account, Link, LinkApi, LinkState } from './types';
 
 const getActiveCampaignLinksIds = (state: RootState): LinkState['allIds'] =>

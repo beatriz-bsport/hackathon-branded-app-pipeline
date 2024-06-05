@@ -15,8 +15,8 @@ import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import classNames from 'classnames';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import type { Basket } from '#libs/checkout/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import type { Basket } from '#src/libs/checkout/types';
 import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
 import type { OptionCallback } from '../../../state/types';
 // @ts-expect-error

@@ -13,18 +13,18 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import {
   IntegerField,
   RadioGroupField,
   Actions,
   Submit,
   // @ts-expect-error
-} from '#components/forms';
+} from '#src/components/forms';
 import {
   EmailTemplateDetail,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
+} from '#src/libs/email-editor/types';
 import { MarketingNotification } from '../../types';
 import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';
 import MarketingRuleSmartlistField from '../MarketingRuleSmartlistField.component';

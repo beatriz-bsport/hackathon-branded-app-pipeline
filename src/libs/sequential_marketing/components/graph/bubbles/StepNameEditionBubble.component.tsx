@@ -5,10 +5,9 @@ import TextField from '@material-ui/core/TextField';
 import {
   MAX_LENGTH_CADENCE_STEP_NAME,
   SequentialMarketingColors,
-} from '#libs/sequential_marketing/constants';
-import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
+} from '#src/libs/sequential_marketing/constants';
+import type { StoredStep } from '#src/libs/sequential_marketing/components/graph/hooks/types';
 import CadenceBubble from './CadenceBubble.component';
-
 
 type Props = {
   step: StoredStep;

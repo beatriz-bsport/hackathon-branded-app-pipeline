@@ -2,7 +2,7 @@ import React from 'react';
 
 import { MarketplacePrivatePassCompatibilityModalForStorybook } from '.';
 import type { Props } from '.';
-import { privateServiceListFactory } from '#libs/private-service/factory';
+import { privateServiceListFactory } from '#src/libs/private-service/factory';
 
 const fakePrivateServices = privateServiceListFactory(3);
 

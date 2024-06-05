@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
 
-import { InvoiceType, Invoice, ConsumerInvoice } from '#libs/invoice/types';
-import { PaymentEngine, PaymentItem } from '#libs/invoice/payment/types';
-import { PaymentMethodsChoices } from '#libs/invoice/payment/constants';
-import type { InvoiceItem } from '#libs/invoice/invoice-item/types';
+import { InvoiceType, Invoice, ConsumerInvoice } from '#src/libs/invoice/types';
+import { PaymentEngine, PaymentItem } from '#src/libs/invoice/payment/types';
+import { PaymentMethodsChoices } from '#src/libs/invoice/payment/constants';
+import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 
 /**
  * Generates an invoice with Faker. You can use the options parameter to alter properties of the returned object.

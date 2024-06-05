@@ -1,5 +1,5 @@
 import React from 'react';
-import { MarketplaceCSSConfiguration } from '#libs/exportable-components/types';
+import { MarketplaceCSSConfiguration } from '#src/libs/exportable-components/types';
 
 const ApplyCustomCssStyles: React.FC<{
   customConfiguration: MarketplaceCSSConfiguration;

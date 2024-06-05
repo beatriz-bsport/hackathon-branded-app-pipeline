@@ -7,11 +7,11 @@ import type { OptionsType } from 'react-select/lib/types';
 import type {
   ShopItemVariantAttributes,
   ShopItemVariantCombination,
-} from '#libs/shop/types';
+} from '#src/libs/shop/types';
 import {
   generateShopitemColorSizeCombinationList,
   getDuplicateVariantCombinationList,
-} from '#libs/shop/utils';
+} from '#src/libs/shop/utils';
 import ShopItemFormVariantStep from '../ShopItemFormReworked/ShopItemFormVariantStep.component';
 
 import type { ShopItemVariantFormValues } from './types';

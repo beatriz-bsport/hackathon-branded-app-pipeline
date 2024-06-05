@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Blanket, { Props as BlanketProps } from '#Fabrique/Blanket';
 import ModalDialog, { Props as ModalDialogProps } from '#Fabrique/ModalDialog';
 import { ModalDialogSizeEnum } from '#Fabrique/ModalDialog/constants';

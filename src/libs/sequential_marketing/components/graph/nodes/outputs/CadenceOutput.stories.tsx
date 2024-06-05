@@ -5,12 +5,12 @@ import CadenceOutput, { CadenceOutputProps } from './CadenceOutput.component';
 import {
   DestinationStatus,
   TriggerKind,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 import {
   triggerBatchFactory,
   triggerFactory,
-} from '#libs/sequential_marketing/factories';
-import { smartlistBatchFactory } from '#libs/smart-list/factories';
+} from '#src/libs/sequential_marketing/factories';
+import { smartlistBatchFactory } from '#src/libs/smart-list/factories';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/Output',

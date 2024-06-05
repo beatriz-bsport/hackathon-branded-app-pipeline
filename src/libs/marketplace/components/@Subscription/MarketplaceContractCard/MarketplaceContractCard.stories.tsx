@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { contractFactory } from '#libs/subscription/factory';
+import { contractFactory } from '#src/libs/subscription/factory';
 import { MarketplaceContractCardForStorybook, Props } from '.';
 
 export default {

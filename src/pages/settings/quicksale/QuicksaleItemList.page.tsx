@@ -21,45 +21,45 @@ import {
   QuicksaleItem,
   QuicksaleSection,
   QuicksaleItemsByItemIdentifierByCategory,
-} from '#libs/quicksale/types';
-import { QuicksaleItemColor } from '#libs/quicksale/constants';
+} from '#src/libs/quicksale/types';
+import { QuicksaleItemColor } from '#src/libs/quicksale/constants';
 import {
   getAvailableItemsByItemIdentifierByCategory,
   getLoading,
   getSectionList,
   getUpdateLoading,
-} from '#libs/quicksale/selectors';
-import ColorPicker from '#libs/quicksale/components/ColorPicker';
+} from '#src/libs/quicksale/selectors';
+import ColorPicker from '#src/libs/quicksale/components/ColorPicker';
 import {
   fetchQuicksaleConfiguration as fetchQuicksaleConfigurationAction,
   updateQuicksaleConfiguration,
-} from '#libs/quicksale/actions';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+} from '#src/libs/quicksale/actions';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
 import {
   BuyableItemAndIdentifier,
   getBuyableItemFromIdentifierAndId,
   getCardInfoFromBuyableItem,
-} from '#libs/quicksale/utils';
-import { getPaymentPackById } from '#libs/payment-packs/selectors';
-import { _getPrivatePassData } from '#libs/private-service/selectors/private-pass';
-import { getPaymenComboDataDict } from '#libs/payment-combo/selectors';
-import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
-import { getAllShopItemData } from '#libs/shop/selectors';
-import { fetchShopItemAsManager } from '#libs/shop/actions/shopitem';
-import { getGiftcardData } from '#libs/giftcard/selectors';
+} from '#src/libs/quicksale/utils';
+import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
+import { _getPrivatePassData } from '#src/libs/private-service/selectors/private-pass';
+import { getPaymenComboDataDict } from '#src/libs/payment-combo/selectors';
+import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
+import { getAllShopItemData } from '#src/libs/shop/selectors';
+import { fetchShopItemAsManager } from '#src/libs/shop/actions/shopitem';
+import { getGiftcardData } from '#src/libs/giftcard/selectors';
 // @ts-expect-error
-import { getContractsById } from '#libs/subscription/selectors';
-import { fetchContractList as fetchSubscriptionListAction } from '#libs/subscription/actions';
+import { getContractsById } from '#src/libs/subscription/selectors';
+import { fetchContractList as fetchSubscriptionListAction } from '#src/libs/subscription/actions';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import PromptOnPageLeave from '#components/Prompt';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import PromptOnPageLeave from '#src/components/Prompt';
 import QuicksaleConfigurationItemList, {
   QuicksaleItemListHeader,
-} from '#libs/quicksale/components/QuicksaleConfigurationItemList';
-import QuicksaleItemAdditionDrawer from '#libs/quicksale/components/QuicksaleItemAdditionDrawer';
-import withDatatypeDynamicData from '#libs/datatype-filtering/dynamic-data-hoc';
-import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
+} from '#src/libs/quicksale/components/QuicksaleConfigurationItemList';
+import QuicksaleItemAdditionDrawer from '#src/libs/quicksale/components/QuicksaleItemAdditionDrawer';
+import withDatatypeDynamicData from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 import useGlobalStyles from './cardListHook';
 import { RootState } from '../../../reducers';
 

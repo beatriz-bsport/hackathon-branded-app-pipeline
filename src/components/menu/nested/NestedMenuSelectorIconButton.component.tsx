@@ -17,11 +17,11 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
 
-import { MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '#components/menu/constants';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import Tooltip from '#components/Tooltip.component';
+import { MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '#src/components/menu/constants';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
+import Tooltip from '#src/components/Tooltip.component';
 
-import type { MenuAction, NestedMenuAction } from '#components/menu/types';
+import type { MenuAction, NestedMenuAction } from '#src/components/menu/types';
 
 type StylesProps = { color: string; open: boolean };
 

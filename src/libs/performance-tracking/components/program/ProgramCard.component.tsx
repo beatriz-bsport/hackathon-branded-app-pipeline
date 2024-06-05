@@ -8,11 +8,11 @@ import { Button, Paper, Typography } from '@material-ui/core';
 import {
   PerformanceTrackingMetric,
   PerformanceTrackingProgram,
-} from '#libs/performance-tracking/types';
+} from '#src/libs/performance-tracking/types';
 
-import MuiIcon from '#components/MuiIcon.component';
-import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
-import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
+import MuiIcon from '#src/components/MuiIcon.component';
+import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
+import TypographyMultilineComponent from '#src/components/typo/TypographyMultiline.component';
 
 type OwnProps = {
   program: PerformanceTrackingProgram<PerformanceTrackingMetric>;

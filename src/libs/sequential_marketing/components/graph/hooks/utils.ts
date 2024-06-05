@@ -8,13 +8,13 @@ import {
   TRIGGER_TEMPORARY_ID,
   TriggerIdentifier,
   TriggerKind,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 import type {
   ConnectedTrigger,
   DestinationConfig,
   GraphCanvas,
-} from '#libs/sequential_marketing/types';
-import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
+} from '#src/libs/sequential_marketing/types';
+import type { StoredStep } from '#src/libs/sequential_marketing/components/graph/hooks/types';
 
 /** Determine the horizontal position of a node in the graph located 400 units away from its source.
  * @param {GraphCanvas} sourceCanvas - Position of the source node

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { NewsletterV2FieldsKind } from '#libs/marketplace/constants';
+} from '#src/libs/exportable-components/types';
+import { NewsletterV2FieldsKind } from '#src/libs/marketplace/constants';
 import { OptionCallback } from '../../../state/types';
 import NewsletterForm, { Props as NewsletterFormProps } from '.';
 // @ts-expect-error

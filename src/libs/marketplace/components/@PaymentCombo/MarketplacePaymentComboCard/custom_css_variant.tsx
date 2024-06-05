@@ -1,15 +1,15 @@
 import React from 'react';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
 
-import { paymentComboFactory } from '#libs/payment-combo/factory';
+import { paymentComboFactory } from '#src/libs/payment-combo/factory';
 // @ts-expect-error
 import MarketplacePaymentComboCardCss from './styles.css?raw';
 import MarketplacePaymentComboCard, {

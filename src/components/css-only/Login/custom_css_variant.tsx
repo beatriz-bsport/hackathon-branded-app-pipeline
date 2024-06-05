@@ -4,14 +4,14 @@ import { fakerEN as faker } from '@faker-js/faker';
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import { CompanyTheme } from '#libs/theme/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 // @ts-expect-error
 import LoginCss from './styles.css?raw';
 import Login, { Props as LoginProps } from '.';
@@ -55,6 +55,7 @@ const usePropsFromVariation = (
     doEmailLogin: () => {},
     requestSignUp: () => {},
     loading: isLoadingSelected,
+    // @ts-expect-error
     classes: null,
     error: isErrorSelected,
     errorFields: {

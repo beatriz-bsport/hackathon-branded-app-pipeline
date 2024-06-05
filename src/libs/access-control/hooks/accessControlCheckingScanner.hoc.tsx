@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 
-import { useBroadcastChannel } from '#libs/broadcast-channel/hooks';
-import { BroadcastChannelMessageType } from '#libs/broadcast-channel/types';
+import { useBroadcastChannel } from '#src/libs/broadcast-channel/hooks';
+import { BroadcastChannelMessageType } from '#src/libs/broadcast-channel/types';
 
-import type { UpsellSumup } from '#libs/company/types';
-import type { RolePermission } from '#libs/role/types';
+import type { UpsellSumup } from '#src/libs/company/types';
+import type { RolePermission } from '#src/libs/role/types';
 import {
   getPerformAccessMonitoringUrl,
   staffMemberCanPerformAccessMonitoring,

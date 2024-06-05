@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { SadSmileyIcon } from '#components/icons/SadSmileyIcon.component';
-import Welcome from '#libs/login/components/Welcome.component';
+import { SadSmileyIcon } from '#src/components/icons/SadSmileyIcon.component';
+import Welcome from '#src/libs/login/components/Welcome.component';
 import type { ReferralLinkStatus } from '../types';
 
 import { isReferralUsable } from '../utils';

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles, Theme } from '@material-ui/core';
-import { emailValidationRegExp } from '#libs/custom-form/constants';
+import { emailValidationRegExp } from '#src/libs/custom-form/constants';
 
 export type Props = {
   emailList: Array<string>;

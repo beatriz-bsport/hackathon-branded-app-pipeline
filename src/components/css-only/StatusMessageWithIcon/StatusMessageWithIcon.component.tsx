@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { StatusMessageWithIconSkeleton } from '.';
 
 import Button, { ButtonColor, ButtonVariant } from '../Fabrique/Button';

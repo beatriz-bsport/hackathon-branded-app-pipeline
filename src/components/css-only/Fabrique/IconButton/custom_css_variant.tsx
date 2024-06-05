@@ -10,14 +10,14 @@ import {
   ButtonVariant as ButtonVariantType,
   ButtonSize as ButtonSizeType,
 } from '#Fabrique/ButtonV2/types';
-import { Star06 } from '#components/untitledui';
+import { Star06 } from '#src/components/untitledui';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 // @ts-expect-error
 import IconButtonCss from './styles.css?raw';
 import IconButton, { Props as IconButtonProps } from '.';

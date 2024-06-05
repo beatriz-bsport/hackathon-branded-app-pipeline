@@ -13,51 +13,51 @@ import { TFunction } from 'i18next';
 
 import uniq from 'lodash/uniq';
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
 // @ts-expect-error
-import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
-import { addItemToBasket as addItemToBasketAction } from '#libs/checkout/actions';
-import MarketplaceCalendarComponent from '#marketplacecomponents/@Calendar/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
-import MarketplaceActivityDialogV2 from '#marketplacecomponents/@Activity/MarketplaceActivityDialogCSSOnly/MarketplaceActivityDialogCSSOnly.component';
-import { getCurrentBasket } from '#libs/checkout/selectors';
+import withReplaceQueryParams from '#src/hocs/with-replace-query-params.hoc';
+import { addItemToBasket as addItemToBasketAction } from '#src/libs/checkout/actions';
+import MarketplaceCalendarComponent from '#src/libs/marketplace/components/@Calendar/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
+import MarketplaceActivityDialogV2 from '#src/libs/marketplace/components/@Activity/MarketplaceActivityDialogCSSOnly/MarketplaceActivityDialogCSSOnly.component';
+import { getCurrentBasket } from '#src/libs/checkout/selectors';
 
-import themeSelectors from '#libs/theme/selectors';
-import { getCoaches } from '#libs/associated-coach/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
+import { getCoaches } from '#src/libs/associated-coach/selectors';
 import {
   getMetaActivitiesDict as getMetaActivitiesWorkshopsDict,
   getPureMetaActivitiesDict,
-} from '#libs/meta-activity/selectors';
+} from '#src/libs/meta-activity/selectors';
 import {
   getOffersListByGroup as getOffersListByGroupSelector,
   getGroupData,
-} from '#libs/group-offer/selectors';
+} from '#src/libs/group-offer/selectors';
 import {
   isOfferInThePast,
   doTextSearch,
   CalendarFilterValidationSchema,
   CalendarOnlineFilterValidationSchema,
-} from '#libs/marketplace/utils';
+} from '#src/libs/marketplace/utils';
 
 import {
   getAllEstablishments,
   getAssociatedEstablishmentGroup,
   withEstablishment as groupWithEstablishment,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 
 import {
   snackbarSuccess as snackbarSuccessActions,
   snackbarError as snackbarErrorActions,
-} from '#libs/snackbar/actions';
+} from '#src/libs/snackbar/actions';
 
 import {
   fetchLevelBulk as fetchLevelBulkAction,
   resetLevels,
-} from '#libs/level/actions';
+} from '#src/libs/level/actions';
 import {
   getActiveCustomLevels,
   getAllCustomLevels,
   getLevelsDetails,
-} from '#libs/level/selectors';
+} from '#src/libs/level/selectors';
 
 import {
   fetchMarketplaceOfferList as fetchOfferListAction,
@@ -65,37 +65,40 @@ import {
   fetchBookedGender as fetchBookedGenderAction,
   fetchOfferRegisteredIds as fetchOfferRegisteredIdsAction,
   fetchOffersInGroup as fetchOffersInGroupAction,
-} from '#libs/offer/actions';
+} from '#src/libs/offer/actions';
 import {
   getMarketplaceOfferList,
   getBookedOffers,
   getNextAvailableOffer,
   getBookedGenderOffer,
   getOfferForAnalytics,
-} from '#libs/offer/selectors';
-import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '#libs/associated-coach/actions';
+} from '#src/libs/offer/selectors';
+import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '#src/libs/associated-coach/actions';
 import {
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
   fetchAllEstablishmentGroup,
-} from '#libs/establishment/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
-import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#libs/group-offer/actions';
+} from '#src/libs/establishment/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
+import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#src/libs/group-offer/actions';
 
-import withTitle from '#hocs/with-title.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
 
 // @ts-expect-error
-import Analytics from '#components/analytics/Analytics.component';
-import { Offer, OfferFilterData, Offer_FULL } from '#libs/offer/types';
-import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
-import GroupRulePopup from '#marketplacecomponents/@Offer/GroupRulePopup.dialog';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
+import Analytics from '#src/components/analytics/Analytics.component';
+import { Offer, OfferFilterData, Offer_FULL } from '#src/libs/offer/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
+import GroupRulePopup from '#src/libs/marketplace/components/@Offer/GroupRulePopup.dialog';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import withQueryParamsToProps from '#src/hocs/query-params-to-props.hoc';
 
-import withPostMessageOnPropsUpdate from '#hocs/postMessages/with-post-message-on-props-update';
-import withPostMessageToUpdateProps from '#hocs/postMessages/with-post-message-to-update-props';
-import { getBookCalendarUrl } from '#libs/marketplace/routing-utils';
+import withPostMessageOnPropsUpdate from '#src/hocs/postMessages/with-post-message-on-props-update';
+import withPostMessageToUpdateProps from '#src/hocs/postMessages/with-post-message-to-update-props';
+import { getBookCalendarUrl } from '#src/libs/marketplace/routing-utils';
 
-import type { MarketplaceComponentConfig } from '#libs/marketplace/types';
+import type { MarketplaceComponentConfig } from '#src/libs/marketplace/types';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 

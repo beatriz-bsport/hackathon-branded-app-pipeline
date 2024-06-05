@@ -9,9 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import classnames from 'classnames';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import CompanyChip from '#components/franchise/CompanyChip.component';
-import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import CompanyChip from '#src/components/franchise/CompanyChip.component';
+import TypographyMultilineComponent from '#src/components/typo/TypographyMultiline.component';
 import { getValidityInfo } from '../../utils';
 
 import { PrivatePassTemplate } from '../../types';

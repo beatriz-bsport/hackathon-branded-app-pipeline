@@ -5,8 +5,8 @@ import BookerModuleOfferSummary, {
   BookerModuleOfferSummaryForStorybook,
   type Props,
 } from '.';
-import themeFactoryBot from '#libs/theme/factories';
-import { offerFactory } from '#libs/offer/factories';
+import themeFactoryBot from '#src/libs/theme/factories';
+import { offerFactory } from '#src/libs/offer/factories';
 import {
   OFFER_WAITING_LIST_STATUS_OPEN,
   OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS,

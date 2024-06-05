@@ -1,7 +1,7 @@
 // @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
-import { Company } from '#libs/company/types';
+import { Company } from '#src/libs/company/types';
 
 const getRandomInt = () => Math.floor(Math.random() * 244);
 

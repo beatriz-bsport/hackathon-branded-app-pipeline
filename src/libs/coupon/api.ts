@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+import { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
 import { PaginatedResponse } from '../../state/types';
 import {
   API_V1_URI,

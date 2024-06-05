@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import type { Offer } from '#libs/offer/types';
+import type { Offer } from '#src/libs/offer/types';
 import {
   byOfferActions,
   byMemberActions,

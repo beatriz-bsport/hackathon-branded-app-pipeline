@@ -1,8 +1,8 @@
 import React from 'react';
 import DownloadIcon from '@material-ui/icons/GetApp';
 import { makeStyles, Theme } from '@material-ui/core';
-import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
-import TypographyMultiline from '#components/typo/TypographyMultiline.component';
+import CustomMuiDialog from '#src/components/genericDialog/CustomMuiDialog.component';
+import TypographyMultiline from '#src/components/typo/TypographyMultiline.component';
 import { downloadDocument } from '../../../../utils/downloader';
 import { OptionCallback } from '../../../../state/types';
 

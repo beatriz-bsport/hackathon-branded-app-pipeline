@@ -2,13 +2,13 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import TextField from '#Fabrique/TextField';
 import Button, { ButtonColor, ButtonType } from '#Fabrique/Button';
-import CircularProgress from '#csscomponents/CircularProgress';
+import CircularProgress from '#src/components/css-only/CircularProgress';
 
-import type { CompanyTheme } from '#libs/theme/types';
-import type { Franchise } from '#libs/franchise/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type { Franchise } from '#src/libs/franchise/types';
 import { TextFieldVariant } from '#Fabrique/TextField/types';
 
 // @ts-expect-error

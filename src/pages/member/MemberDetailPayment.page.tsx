@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { withTranslation, TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { Invoice } from '#libs/invoice/types';
+import { Invoice } from '#src/libs/invoice/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import {

@@ -16,9 +16,9 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 
-import { formatAsDate } from '#utils/datetime';
-import DateInput from '#components/input/DateInput.component';
-import NumericInput from '#components/input/NumericInput.component';
+import { formatAsDate } from '#src/utils/datetime';
+import DateInput from '#src/components/input/DateInput.component';
+import NumericInput from '#src/components/input/NumericInput.component';
 
 import { EXTENSION_OPTIONS } from './constants';
 

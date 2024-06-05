@@ -5,17 +5,17 @@ import { Button } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import CardMedia from '@material-ui/core/CardMedia';
 
-import MarketplaceOfferListItem from '#marketplacecomponents/@Offer/MarketplaceOfferListItemCSSOnly';
+import MarketplaceOfferListItem from '#src/libs/marketplace/components/@Offer/MarketplaceOfferListItemCSSOnly';
 import { formatMinutes, isDateInThePast } from '#src/utils/datetime';
-import { MetaActivity } from '#libs/meta-activity/types';
-import type { OffersGroup } from '#libs/group-offer/types';
-import UnfoldableText from '#components/typo/UnfoldableText.component';
-import { CompanyTheme } from '#libs/theme/types';
-import { Offer } from '#libs/offer/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import { Level } from '#libs/level/types';
-import MarketplaceGroupOfferListItem from '#marketplacecomponents/@Offer/MarketplaceGroupOfferListItem.component/MarketplaceGroupOfferListItem.component';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import type { OffersGroup } from '#src/libs/group-offer/types';
+import UnfoldableText from '#src/components/typo/UnfoldableText.component';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { Offer } from '#src/libs/offer/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { Level } from '#src/libs/level/types';
+import MarketplaceGroupOfferListItem from '#src/libs/marketplace/components/@Offer/MarketplaceGroupOfferListItem.component/MarketplaceGroupOfferListItem.component';
 
 import './MarketplaceWorkshopCard.css';
 

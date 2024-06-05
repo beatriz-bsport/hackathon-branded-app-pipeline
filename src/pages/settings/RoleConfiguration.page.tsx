@@ -9,10 +9,10 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { TFunction } from 'i18next';
 import AddIcon from '@material-ui/icons/Add';
 import { Backdrop, CircularProgress, Divider, Theme } from '@material-ui/core';
-import UserWithRoleList from '#libs/role/components/UserWithRoleList.component';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import RoleList from '#libs/role/components/RoleList.component';
-import { Role, FranchiseRole } from '#libs/role/types';
+import UserWithRoleList from '#src/libs/role/components/UserWithRoleList.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import RoleList from '#src/libs/role/components/RoleList.component';
+import { Role, FranchiseRole } from '#src/libs/role/types';
 import {
   fetchCompanyUserRoles,
   updateUserRole,
@@ -22,26 +22,26 @@ import {
   updateCompanyRole,
   deleteCompanyRole,
   updateUserCommission,
-} from '#libs/role/actions';
+} from '#src/libs/role/actions';
 import {
   getUsersWithRole,
   getAllRoles,
   hasRoleUpsertPermission,
-} from '#libs/role/selectors';
-import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
-import { getActiveCoaches } from '#libs/associated-coach/selectors';
-import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
+} from '#src/libs/role/selectors';
+import { fetchAssociatedCoachesList } from '#src/libs/associated-coach/actions';
+import { getActiveCoaches } from '#src/libs/associated-coach/selectors';
+import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
 import {
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
   fetchEstablishments as fetchEstablishmentsAction,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 import {
   getAvailableEstablishmentList,
   getAssociatedEstablishmentGroup,
-} from '#libs/establishment/selectors';
-import { getTheme } from '#libs/theme/selectors';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
+} from '#src/libs/establishment/selectors';
+import { getTheme } from '#src/libs/theme/selectors';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#src/libs/platform-billing/upsell-identifiers';
 import { MaterialStyleType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import withTitle from '../../hocs/with-title.hoc';

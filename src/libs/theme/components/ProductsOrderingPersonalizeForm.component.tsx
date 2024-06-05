@@ -31,8 +31,8 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 
 import isEqual from 'lodash/isEqual';
 // @ts-expect-error
-import { SwitchField } from '#components/forms';
-import { PricingOptionOrdering } from '#libs/marketplace/types';
+import { SwitchField } from '#src/components/forms';
+import { PricingOptionOrdering } from '#src/libs/marketplace/types';
 
 import {
   CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
@@ -41,8 +41,8 @@ import {
   CONTRACT_BOOKING_FUNNEL_STRING_ID,
   PAYMENT_COMBO_BOOKING_FUNNEL_STRING_ID,
   PAYMENT_PACK_BOOKING_FUNNEL_NO_CATEGORY_STRING_ID,
-} from '#libs/marketplace/constants';
-import { PaymentPackCategory } from '#libs/payment-packs/types';
+} from '#src/libs/marketplace/constants';
+import { PaymentPackCategory } from '#src/libs/payment-packs/types';
 import { OptionCallback } from '../../../state/types';
 
 type PricingOptionItemComponentProps = {

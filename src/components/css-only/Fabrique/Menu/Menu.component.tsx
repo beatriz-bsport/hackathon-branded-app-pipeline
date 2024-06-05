@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import { useCloseModal, usePopoverPositioning } from '#Fabrique/hooks';
 import type { Horizontal, Vertical } from '#Fabrique/Types';

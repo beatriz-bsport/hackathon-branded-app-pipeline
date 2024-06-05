@@ -15,9 +15,9 @@ import Pagination from '@material-ui/lab/Pagination';
 
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
 
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import FormSection from '#components/forms/FormSection';
-import FuzeSearch from '#components/FuzeSearch.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import FormSection from '#src/components/forms/FormSection';
+import FuzeSearch from '#src/components/FuzeSearch.component';
 import { QuicksaleItemColor } from '../../constants';
 import ColorPicker from '../ColorPicker';
 import ListItem, { SimpleItemListAction } from './AdditionDrawerListItem';

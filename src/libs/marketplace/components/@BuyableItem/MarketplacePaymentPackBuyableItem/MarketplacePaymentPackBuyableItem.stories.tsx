@@ -3,7 +3,7 @@ import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { paymentPackFactory } from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
 
 import MarketplacePaymentPackBuyableItem, {
   MarketplacePaymentPackBuyableItemForStorybook,
@@ -85,7 +85,6 @@ export default {
     (Story) => (
       <div
         style={{
-          // @ts-expect-error
           container: 'bsOfferBookingPage / inline-size',
         }}
       >

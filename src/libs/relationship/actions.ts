@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { isErrorWithCustomCode } from '#libs/utils';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import {
   fetchMemberRelations as fetchMemberRelationsAPI,

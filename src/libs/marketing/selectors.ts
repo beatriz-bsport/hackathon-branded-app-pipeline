@@ -3,7 +3,7 @@ import memoize from 'memoize-one';
 import get from 'lodash/get';
 import setWith from 'lodash/setWith';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
-import { Contract } from '#libs/subscription/types';
+import { Contract } from '#src/libs/subscription/types';
 import { RootState } from '../../reducers';
 import { MarketingNotification } from './types';
 

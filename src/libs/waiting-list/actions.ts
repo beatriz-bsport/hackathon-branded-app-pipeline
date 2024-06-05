@@ -4,10 +4,10 @@ import {
   OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
   OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE,
 } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
-import { EXCEPTION_STAFF_ROLE_OVERBOOKING_IN_WAITING_LIST_NOT_ALLOWED } from '#libs/role/constants';
-import { OfferStatusWaitingListPosition } from '#libs/offer/types';
-import { monitorBackgroundTask } from '#libs/background-task/actions';
-import { isErrorWithCustomCode } from '#libs/utils';
+import { EXCEPTION_STAFF_ROLE_OVERBOOKING_IN_WAITING_LIST_NOT_ALLOWED } from '#src/libs/role/constants';
+import { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
+import { monitorBackgroundTask } from '#src/libs/background-task/actions';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import {
   fetchConfiguration as fetchConfigurationAPI,
   fetchCompanyConfiguration as fetchCompanyConfigurationAPI,
@@ -39,8 +39,6 @@ import type {
   WaitingListBookingOptionQueryParams,
   WaitingListConfiguration,
 } from './types';
-
-
 
 export const configurationDetail = {
   error: createAction<Error>('WAITING_LIST_CONFIGURATION/DETAIL/ERROR'),

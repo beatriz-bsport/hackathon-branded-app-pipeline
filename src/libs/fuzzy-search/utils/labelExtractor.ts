@@ -1,38 +1,38 @@
-import type { Coach } from '#libs/associated-coach/types';
-import type { CoachPaymentRule } from '#libs/coach-payment-rules/types';
-import type { Coupon } from '#libs/coupon/types';
-import type { EmailTemplate } from '#libs/email-editor/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
+import type { Coupon } from '#src/libs/coupon/types';
+import type { EmailTemplate } from '#src/libs/email-editor/types';
 import type {
   Establishment,
   EstablishmentGroupAPI,
-} from '#libs/establishment/types';
+} from '#src/libs/establishment/types';
 import type {
   ObjectSearchResult,
   SearchObjectType,
-} from '#libs/fuzzy-search/types';
-import type { Giftcard } from '#libs/giftcard/types';
-import type { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
-import type { Level } from '#libs/level/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
+} from '#src/libs/fuzzy-search/types';
+import type { Giftcard } from '#src/libs/giftcard/types';
+import type { InstalmentPayment } from '#src/libs/instalment-payment-configuration/types';
+import type { Level } from '#src/libs/level/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import type {
   PaymentPack,
   PaymentPackCategory,
-} from '#libs/payment-packs/types';
-import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
+} from '#src/libs/payment-packs/types';
+import type { PerformanceTrackingProgram } from '#src/libs/performance-tracking/types';
 import type {
   PrivatePass,
   PrivatePassCategory,
   PrivateService,
   PrivateSlot,
-} from '#libs/private-service/types';
-import type { Cadence } from '#libs/sequential_marketing/types';
-import type { ShopItem, SubShop } from '#libs/shop/types';
-import type { SmartList } from '#libs/smart-list/types';
-import type { Contract } from '#libs/subscription/types';
-import type { Tag } from '#libs/tag/types';
-import type { Video } from '#libs/video/types';
-import type { CustomForm } from '#libs/custom-form/types';
+} from '#src/libs/private-service/types';
+import type { Cadence } from '#src/libs/sequential_marketing/types';
+import type { ShopItem, SubShop } from '#src/libs/shop/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { Contract } from '#src/libs/subscription/types';
+import type { Tag } from '#src/libs/tag/types';
+import type { Video } from '#src/libs/video/types';
+import type { CustomForm } from '#src/libs/custom-form/types';
 
 const labelExtractorMap: Record<
   SearchObjectType,

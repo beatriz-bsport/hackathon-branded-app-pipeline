@@ -2,19 +2,19 @@ import type { ErrorAndLoading } from 'src/libs/types';
 import type {
   PrivateBooking,
   PrivateConsumerPassREST,
-} from '#libs/private-service/types';
-import type { Booking, BookingREST } from '#libs/booking/types';
-import type { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
-import type { WaitingListBookingOption } from '#libs/waiting-list/types';
+} from '#src/libs/private-service/types';
+import type { Booking, BookingREST } from '#src/libs/booking/types';
+import type { ConsumerPaymentPackREST } from '#src/libs/consumer-payment-pack/types';
+import type { WaitingListBookingOption } from '#src/libs/waiting-list/types';
 import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
-} from '#libs/subscription/types';
-import type { UniversalPassREST } from '#libs/universal-pass/types';
+} from '#src/libs/subscription/types';
+import type { UniversalPassREST } from '#src/libs/universal-pass/types';
 import type {
   ConsumerInvoiceComplementary,
   ConsumerInvoiceREST,
-} from '#libs/invoice/types';
+} from '#src/libs/invoice/types';
 
 export type Profile = {
   name: string;

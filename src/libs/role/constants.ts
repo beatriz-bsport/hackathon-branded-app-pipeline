@@ -6,14 +6,14 @@ import {
   RESTRICTED_STAFF_ROLE,
   STAFF_ROLE,
   // @ts-expect-error
-} from '#libs/role/role-types.js';
+} from '#src/libs/role/role-types.js';
 import {
   UPSELL_IDENTIFIER_ACCESS_MONITORING,
   UPSELL_IDENTIFIER_CLOCK_IN,
   UPSELL_IDENTIFIER_CUSTOM_APP,
   UPSELL_PERFORMANCE_TRACKING_IDENTIFIER,
-} from '#libs/platform-billing/upsell-identifiers';
-import { COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY } from '#libs/reporting/constants';
+} from '#src/libs/platform-billing/upsell-identifiers';
+import { COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY } from '#src/libs/reporting/constants';
 import {
   FranchiseProtectedUrls,
   ProtectedUrls,

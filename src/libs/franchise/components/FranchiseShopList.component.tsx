@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import ShopListSettingsSupplierModal from '#libs/shop/components/ShopListSettingsSupplierModal';
-import ShopSupplierDeleteConfirmModal from '#libs/shop/components/ShopSupplierDeleteConfirmModal';
+import ShopListSettingsSupplierModal from '#src/libs/shop/components/ShopListSettingsSupplierModal';
+import ShopSupplierDeleteConfirmModal from '#src/libs/shop/components/ShopSupplierDeleteConfirmModal';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
-import ShopItemFormReworked from '#libs/shop/components/ShopItemFormReworked';
-import ShopItemDeleteConfirmDialog from '#libs/shop/components/ShopItemDeleteConfirmDialog.component';
+import ShopItemFormReworked from '#src/libs/shop/components/ShopItemFormReworked';
+import ShopItemDeleteConfirmDialog from '#src/libs/shop/components/ShopItemDeleteConfirmDialog.component';
 
 import type {
   ShopItemCreate,
@@ -17,11 +17,11 @@ import type {
   ShopSupplierTemplateCreate,
   ShopSupplierUpdate,
   SubshopTemplate,
-} from '#libs/shop/types';
+} from '#src/libs/shop/types';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
-import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
-import type { ErrorAndLoading, SelectOption } from '#libs/types';
-import type { ShopListSettingsSupplierValues } from '#libs/shop/components/ShopListSettingsSupplierModal/types';
+import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
+import type { ErrorAndLoading } from '#src/libs/types';
+import type { ShopListSettingsSupplierValues } from '#src/libs/shop/components/ShopListSettingsSupplierModal/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import FranchiseShopListTabs from './FranchiseShopListTabs.component';

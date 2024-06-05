@@ -5,11 +5,11 @@ import Avatar from '@material-ui/core/Avatar';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import { useTranslation } from 'react-i18next';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import ButtonBase from '#components/css-only/Fabrique/ButtonBase';
-import AppBarProfileMenu from '#libs/marketplace/components/@AppBar/MarketplaceAppBar/AppBarProfileMenu.component';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+import ButtonBase from '#src/components/css-only/Fabrique/ButtonBase';
+import AppBarProfileMenu from '#src/libs/marketplace/components/@AppBar/MarketplaceAppBar/AppBarProfileMenu.component';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import './styles.css';
 

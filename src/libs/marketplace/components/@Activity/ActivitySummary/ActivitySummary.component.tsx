@@ -5,20 +5,22 @@ import { useTranslation } from 'react-i18next';
 
 import { CreditCard } from '@material-ui/icons';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import Button, { ButtonVariant } from '#components/css-only/Fabrique/Button';
-import type { Coach } from '#libs/associated-coach/types';
-import type { Establishment } from '#libs/establishment/types';
-import CardContent from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
+import Button, {
+  ButtonVariant,
+} from '#src/components/css-only/Fabrique/Button';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import GridItem, {
   Direction,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
-import { CompanyTheme } from '#libs/theme/types';
-import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
-import SavedSpotCounddown from '#libs/checkout/components/new-checkout-flow/SavedSpotCountdown';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+} from '#src/components/css-only/Grid/GridItem';
+import MarketplaceEstablishmentTitle from '#src/libs/marketplace/components/@Establishment/MarketplaceEstablishmentTitle';
+import { CompanyTheme } from '#src/libs/theme/types';
+import MarketplaceCoachInfos from '#src/libs/marketplace/components/@Coach/MarketplaceCoachInfos';
+import SavedSpotCounddown from '#src/libs/checkout/components/new-checkout-flow/SavedSpotCountdown';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import './styles.css';
 

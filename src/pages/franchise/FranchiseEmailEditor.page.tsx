@@ -4,31 +4,31 @@ import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { snackbarError as snackbarErrorAction } from '#libs/snackbar/actions';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { snackbarError as snackbarErrorAction } from '#src/libs/snackbar/actions';
 import {
   emailDesignCreate as emailDesignCreateAction,
   emailTemplateComplete as emailTemplateCompleteAction,
   emailTemplateUpdate as emailTemplateUpdateAction,
   fetchCurrentTemplateMetadata as fetchCurrentTemplateMetadataAcion,
-} from '#libs/email-editor/actions';
-import EmailEditorPanel from '#libs/email-editor/components/EmailEditor.component';
+} from '#src/libs/email-editor/actions';
+import EmailEditorPanel from '#src/libs/email-editor/components/EmailEditor.component';
 
-import { EmailTemplate } from '#libs/email-editor/types';
+import { EmailTemplate } from '#src/libs/email-editor/types';
 import {
   getFranchiseCompanies,
   getFranchiseId,
-} from '#libs/franchise/selectors';
+} from '#src/libs/franchise/selectors';
 import {
   getAllEmailTemplatesDict,
   getEmailTemplatesDetail,
   getRelatedNotificationEvents,
   getRequiredTags,
-} from '#libs/email-editor/selectors';
-import { fetchTagList as fetchTagListAction } from '#libs/notification-rule/actions';
-import { getTagCategories } from '#libs/notification-rule/selectors';
-import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
-import { FranchiseCompany } from '#libs/franchise/types';
+} from '#src/libs/email-editor/selectors';
+import { fetchTagList as fetchTagListAction } from '#src/libs/notification-rule/actions';
+import { getTagCategories } from '#src/libs/notification-rule/selectors';
+import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/actions';
+import { FranchiseCompany } from '#src/libs/franchise/types';
 import { RootState } from '../../reducers';
 import { DrawerContext, DrawerContextValue } from '../../context';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';

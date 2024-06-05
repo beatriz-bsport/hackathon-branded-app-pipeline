@@ -2,15 +2,15 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
 import {
   getMarketingActionChipIcon,
   getMarketingActionChipName,
-} from '#libs/sequential_marketing/components/helpers/utils';
+} from '#src/libs/sequential_marketing/components/helpers/utils';
 
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
-import type { Tag } from '#libs/tag/types';
-import type { EmailTemplateSummary } from '#libs/email-editor/types';
+import type { StepMarketingActions } from '#src/libs/sequential_marketing/types';
+import type { Tag } from '#src/libs/tag/types';
+import type { EmailTemplateSummary } from '#src/libs/email-editor/types';
 import { CadenceChip } from './CadenceChip.component';
 
 type Props = {

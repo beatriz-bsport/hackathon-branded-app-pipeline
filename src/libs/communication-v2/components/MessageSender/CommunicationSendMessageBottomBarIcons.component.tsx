@@ -28,14 +28,14 @@ import {
 import RepeatIcon from '@material-ui/icons/Repeat';
 
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
 
-import NestedList from '#components/NestedMenu.component';
+import NestedList from '#src/components/NestedMenu.component';
 
-import { Member, MemberMinimal } from '#libs/member/types';
-import { FeatureList } from '#libs/company/types';
+import { Member, MemberMinimal } from '#src/libs/member/types';
+import { FeatureList } from '#src/libs/company/types';
 
-import { getValidityTooltipMessage } from '#libs/communication-v2/utils';
+import { getValidityTooltipMessage } from '#src/libs/communication-v2/utils';
 import {
   WRITE_EMAIL,
   WRITE_SMS,
@@ -44,13 +44,13 @@ import {
   MAX_DISPLAY,
   CONTEXT_SMARTLIST,
   CONTEXT_MEMBER,
-} from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/constants';
 import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
   UPSELL_IDENTIFIER_SMS,
-} from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import CommunicationSMSCostReminderModal from '#libs/communication-v2/CommunicationSMSCostReminderModal.component';
+} from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import CommunicationSMSCostReminderModal from '#src/libs/communication-v2/CommunicationSMSCostReminderModal.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import CommunicationMessageNumberRecipients from '../MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
 import Config from '../../../../config';

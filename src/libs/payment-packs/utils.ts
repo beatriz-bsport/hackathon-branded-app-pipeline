@@ -1,10 +1,10 @@
 import { TFunction } from 'i18next';
 import { DateTime } from 'luxon';
 import omit from 'lodash/omit';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
-import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
-import { PrivatePassFilters } from '#libs/private-service/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
+import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
+import { PrivatePassFilters } from '#src/libs/private-service/types';
 import {
   OffPeakSchedule,
   PaymentPack,

@@ -2,8 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import { Building01, MarkerPin04 } from '#components/untitledui';
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import { Building01, MarkerPin04 } from '#src/components/untitledui';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 

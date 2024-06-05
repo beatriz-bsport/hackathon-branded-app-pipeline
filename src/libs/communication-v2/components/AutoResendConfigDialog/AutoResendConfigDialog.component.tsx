@@ -7,9 +7,9 @@ import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 // @ts-expect-error
-import { TextField } from '#components/forms';
+import { TextField } from '#src/components/forms';
 
 type Values = {
   resendCount: number;

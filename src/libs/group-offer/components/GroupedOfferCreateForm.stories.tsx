@@ -1,6 +1,6 @@
 import React from 'react';
-import { coachFactory } from '#libs/associated-coach/factories';
-import { establishment_factory } from '#libs/establishment/factory';
+import { coachFactory } from '#src/libs/associated-coach/factories';
+import { establishment_factory } from '#src/libs/establishment/factory';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import metaActivityFactory from '../factories';
 

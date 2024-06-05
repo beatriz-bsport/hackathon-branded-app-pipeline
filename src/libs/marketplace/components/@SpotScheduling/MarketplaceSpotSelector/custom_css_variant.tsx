@@ -1,13 +1,13 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { offerFactory } from '#libs/offer/factories';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { offerFactory } from '#src/libs/offer/factories';
 // @ts-expect-error
 import MarketplaceSportSelectorCss from './styles.css?raw';
 import MarketplaceSpotSelector from '.';

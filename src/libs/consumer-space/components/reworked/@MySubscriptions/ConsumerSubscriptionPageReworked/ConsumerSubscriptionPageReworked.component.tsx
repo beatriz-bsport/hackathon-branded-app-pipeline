@@ -2,29 +2,29 @@ import React from 'react';
 import type { AxiosResponse } from 'axios';
 
 import classNames from 'classnames';
-import MarketplacePageContent from '#csscomponents/MarketplacePageContent';
-import ConsumerSubscriptionHeader from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionHeader';
-import ConsumerSubscriptionsTabs from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionTabs';
-import ConsumerSubscriptionsListContainer from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
+import MarketplacePageContent from '#src/components/css-only/MarketplacePageContent';
+import ConsumerSubscriptionHeader from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionHeader';
+import ConsumerSubscriptionsTabs from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionTabs';
+import ConsumerSubscriptionsListContainer from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
 import {
   ConsumerSubscriptionTermsPortal,
   ConsumerSubscriptionPaymentPortal,
-} from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPortals';
+} from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPortals';
 
 import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
-} from '#libs/subscription/types';
+} from '#src/libs/subscription/types';
 import type {
   ConsumerSubscriptionInvoiceDetails,
   ConsumerSubscriptionReworked,
-} from '#libs/consumer-space/types';
-import type { PaymentMethod } from '#libs/payment/types';
-import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
+} from '#src/libs/consumer-space/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
+import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 
-import useConsumerSubscriptionsModalManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsModalManager';
-import useConsumerSubscriptionsDataManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
-import { mobileDetailsDisplay } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
+import useConsumerSubscriptionsModalManager from '#src/libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsModalManager';
+import useConsumerSubscriptionsDataManager from '#src/libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
+import { mobileDetailsDisplay } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/utils';
 import type { OptionCallback } from '../../../../../../state/types';
 
 import './styles.css';

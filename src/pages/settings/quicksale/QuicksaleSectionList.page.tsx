@@ -20,29 +20,29 @@ import Collapse from '@material-ui/core/Collapse';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Theme, useMediaQuery } from '@material-ui/core';
 
-import { QuicksaleSection } from '#libs/quicksale/types';
+import { QuicksaleSection } from '#src/libs/quicksale/types';
 import QuicksaleConfigurationSectionList, {
   ArchivedSectionListItem,
-} from '#libs/quicksale/components/QuicksaleConfigurationSectionList';
+} from '#src/libs/quicksale/components/QuicksaleConfigurationSectionList';
 import {
   DEFAULT_SECTION_ICON,
   EditableQuicksaleSectionKey,
   QuicksaleSectionColor,
-} from '#libs/quicksale/constants';
+} from '#src/libs/quicksale/constants';
 import {
   getLoading,
   getSectionList,
   getUpdateLoading,
-} from '#libs/quicksale/selectors';
-import ColorPicker from '#libs/quicksale/components/ColorPicker';
+} from '#src/libs/quicksale/selectors';
+import ColorPicker from '#src/libs/quicksale/components/ColorPicker';
 import {
   fetchQuicksaleConfiguration as fetchQuicksaleConfigurationAction,
   updateQuicksaleConfiguration,
-} from '#libs/quicksale/actions';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import { bottomSnackbarInfo } from '#libs/snackbar/actions';
+} from '#src/libs/quicksale/actions';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import { bottomSnackbarInfo } from '#src/libs/snackbar/actions';
 
-import PromptOnPageLeave from '#components/Prompt';
+import PromptOnPageLeave from '#src/components/Prompt';
 import { Dispatch } from '../../../state/types';
 import { RootState } from '../../../reducers';
 import useStyles from './cardListHook';

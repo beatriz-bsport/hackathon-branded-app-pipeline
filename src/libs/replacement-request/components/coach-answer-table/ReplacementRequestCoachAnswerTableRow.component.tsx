@@ -7,12 +7,12 @@ import TableCell from '@material-ui/core/TableCell';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Button from '@material-ui/core/Button';
 
-import ReplacementRequestCoachAnswerStatusChip from '#libs/replacement-request/components/coach-answer-table/ReplacementRequestCoachAnswerStatusChip.component';
-import CoachAvatar from '#libs/associated-coach/components/CoachAvatar.component';
+import ReplacementRequestCoachAnswerStatusChip from '#src/libs/replacement-request/components/coach-answer-table/ReplacementRequestCoachAnswerStatusChip.component';
+import CoachAvatar from '#src/libs/associated-coach/components/CoachAvatar.component';
 
-import { ReplacementRequestCoachAnswer } from '#libs/replacement-request/types';
-import { Coach } from '#libs/associated-coach/types';
-import { ReplacementRequestCoachAnswerStatus } from '#libs/replacement-request/constants';
+import { ReplacementRequestCoachAnswer } from '#src/libs/replacement-request/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { ReplacementRequestCoachAnswerStatus } from '#src/libs/replacement-request/constants';
 
 type Props = {
   replacementRequestCoachAnswer: ReplacementRequestCoachAnswer<Coach, number>;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { OfferWithSpotInformation } from '#libs/offer/types';
+import { OfferWithSpotInformation } from '#src/libs/offer/types';
 import { CheckoutItem, ConfirmationStatus } from './types';
 import ConfirmationMessageIcon from './components/ConfirmationMessageIcon';
 

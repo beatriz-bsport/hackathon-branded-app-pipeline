@@ -7,12 +7,12 @@ import { Variant } from '@material-ui/core/styles/createTypography';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+} from '#src/libs/theme/utils';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
-import type { FranchiseUserPassWithPaymentPack } from '#libs/franchise/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
+import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
+import type { FranchiseUserPassWithPaymentPack } from '#src/libs/franchise/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
 
 type Props = {
   consumerPack?:

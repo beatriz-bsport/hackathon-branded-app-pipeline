@@ -8,14 +8,14 @@ import MarketplaceBookingItem, {
   type Props,
 } from '.';
 import { generateRandomName } from '../../../../../utils/factories';
-import { CompanyTheme } from '#libs/theme/types';
-import { Establishment } from '#libs/establishment/types';
-import themeFactoryBot from '#libs/theme/factories';
-import establishmentFactoryBot from '#libs/establishment/factories/Establishments';
-import { coachFactory } from '#libs/associated-coach/factories';
-import { Coach } from '#libs/associated-coach/types';
-import { levelFactory } from '#libs/level/factories';
-import { Level } from '#libs/level/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { Establishment } from '#src/libs/establishment/types';
+import themeFactoryBot from '#src/libs/theme/factories';
+import establishmentFactoryBot from '#src/libs/establishment/factories/Establishments';
+import { coachFactory } from '#src/libs/associated-coach/factories';
+import { Coach } from '#src/libs/associated-coach/types';
+import { levelFactory } from '#src/libs/level/factories';
+import { Level } from '#src/libs/level/types';
 
 import i18n from 'i18next';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';

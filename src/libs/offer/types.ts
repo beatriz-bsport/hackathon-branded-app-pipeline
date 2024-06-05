@@ -21,10 +21,10 @@ import {
   OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE,
 } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import type { ImmutableArray } from 'seamless-immutable';
-import { OffersGroup } from '#libs/group-offer/types';
-import { SpotInformation } from '#libs/spot-scheduling/types';
-import { Level } from '#libs/level/types';
-import { BroadcastInfo } from '#libs/booking/types';
+import { OffersGroup } from '#src/libs/group-offer/types';
+import { SpotInformation } from '#src/libs/spot-scheduling/types';
+import { Level } from '#src/libs/level/types';
+import { BroadcastInfo } from '#src/libs/booking/types';
 import type { LuxonDateTime } from '#src/types';
 import { ErrorAndLoading } from '../types';
 import { Establishment } from '../establishment/types';

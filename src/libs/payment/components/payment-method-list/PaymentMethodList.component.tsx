@@ -8,9 +8,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { AxiosResponse } from 'axios';
-import { MarketplacePaymentMethodBillingDetails } from '#libs/marketplace/types';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import type { StripeInit } from '#libs/payment/types';
+import { MarketplacePaymentMethodBillingDetails } from '#src/libs/marketplace/types';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import type { StripeInit } from '#src/libs/payment/types';
 import { OptionCallback } from '../../../../state/types';
 import PaymentMethodListItem from '../PaymentMethodListItem.component';
 import CollectPaymentMethod from '../CollectPaymentMethod.component';

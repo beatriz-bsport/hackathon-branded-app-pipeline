@@ -21,14 +21,14 @@ import {
   TutorialCompletion,
   TutorialLesson,
   TutorialSection,
-} from '#libs/platform-tutorial/types';
-import TutorialLessonList from '#libs/platform-tutorial/components/TutorialLessonList.component';
+} from '#src/libs/platform-tutorial/types';
+import TutorialLessonList from '#src/libs/platform-tutorial/components/TutorialLessonList.component';
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import { FeatureList } from '#libs/company/types';
-import MuiIcon from '#components/MuiIcon.component';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import ToolTip from '#components/Tooltip.component';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
+import { FeatureList } from '#src/libs/company/types';
+import MuiIcon from '#src/components/MuiIcon.component';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import ToolTip from '#src/components/Tooltip.component';
 import { isLessonCompleted, isLessonViewed } from '../utils';
 
 export type Props = {

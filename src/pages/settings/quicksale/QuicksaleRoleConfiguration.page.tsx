@@ -24,19 +24,19 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { RoleType } from '@bsport/common/lib/master-data/user-role';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
 // @ts-expect-error
-import { TextField } from '#components/forms';
+import { TextField } from '#src/components/forms';
 import {
   createStaffUser,
   fetchCompanyUserRoles,
   deleteStaffUser,
-} from '#libs/role/actions';
-import { getRoleStateLoading, getUsers } from '#libs/role/selectors';
-import { UserRole } from '#libs/role/types';
-import PasswordInput from '#components/input/PasswordInput.component';
-import { NO_RESULT_ALERT_BACKGROUND_COLOR } from '#libs/quicksale/constants';
+} from '#src/libs/role/actions';
+import { getRoleStateLoading, getUsers } from '#src/libs/role/selectors';
+import { UserRole } from '#src/libs/role/types';
+import PasswordInput from '#src/components/input/PasswordInput.component';
+import { NO_RESULT_ALERT_BACKGROUND_COLOR } from '#src/libs/quicksale/constants';
 import { RootState } from '../../../reducers';
 
 type QuicksaleAccess = {

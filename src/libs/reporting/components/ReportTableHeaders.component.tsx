@@ -5,8 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 
-import { getConverter } from '#libs/reporting/utils';
-import type { ReportHeader } from '#libs/reporting/types';
+import { getConverter } from '#src/libs/reporting/utils';
+import type { ReportHeader } from '#src/libs/reporting/types';
 
 const CardHeaders: React.FC<{
   headerTitle?: 'average' | 'sum';

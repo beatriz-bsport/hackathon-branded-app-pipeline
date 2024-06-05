@@ -4,7 +4,7 @@ import withFormik from '@bbbtech/storybook-formik';
 import { ComponentMeta, ComponentStory, Meta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import CommunicationSentGroupConfigSmartlistSelectionPanel from '.';
-import { SmartList } from '#libs/smart-list/types';
+import { SmartList } from '#src/libs/smart-list/types';
 import Immutable from 'seamless-immutable';
 const actionsData = { onSave: action('onSave') };
 

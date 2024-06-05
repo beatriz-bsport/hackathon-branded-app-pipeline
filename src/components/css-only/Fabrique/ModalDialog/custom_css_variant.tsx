@@ -1,12 +1,12 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
-import { Star06 } from '#components/untitledui';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { Star06 } from '#src/components/untitledui';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplacePage,
   type MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 import ModalDialog, { Props as ModalDialogProps } from '.';
 import { ModalDialogColorEnum, ModalDialogSizeEnum } from './constants';
 import { ModalDialogColor, ModalDialogSize } from './types';

@@ -11,7 +11,7 @@ import {
   Divider,
   makeStyles,
 } from '@material-ui/core';
-import RedButton from '#components/button/RedButton.component';
+import RedButton from '#src/components/button/RedButton.component';
 import GenericResponsiveDialog from './GenericResponsiveDialog';
 
 type ButtonCustom = {

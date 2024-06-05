@@ -14,7 +14,7 @@ import {
 import React, { useState } from 'react';
 import memoize from 'memoize-one';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import { ManagerOnly } from '#libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
+import { ManagerOnly } from '#src/libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import {
   PrivatePass,
   PrivatePassCategory,

@@ -22,27 +22,27 @@ import {
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import classNames from 'classnames';
 import { cloneDeep } from 'lodash';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getCompanyCountry, getCurrencyCode } from '#libs/theme/selectors';
-import Radio from '#components/css-only/Radio';
-import MarketplaceCollectPaymentMethod from '#marketplacecomponents/@Payment/MarketplaceCollectPaymentMethod';
-import MarketplaceContractPaymentMethodList from '#marketplacecomponents/@Payment/MarketplaceContractPaymentMethodList';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getCompanyCountry, getCurrencyCode } from '#src/libs/theme/selectors';
+import Radio from '#src/components/css-only/Radio';
+import MarketplaceCollectPaymentMethod from '#src/libs/marketplace/components/@Payment/MarketplaceCollectPaymentMethod';
+import MarketplaceContractPaymentMethodList from '#src/libs/marketplace/components/@Payment/MarketplaceContractPaymentMethodList';
 import {
   MarketplacePaymentMethodBillingDetails,
   MarketplacePaymentMethods,
-} from '#libs/marketplace/types';
-import { Contract } from '#libs/subscription/types';
-import { PaymentMethod } from '#libs/payment/types';
-import { appliesToContract } from '#libs/coupon/api';
-import CircularProgress from '#components/css-only/CircularProgress';
+} from '#src/libs/marketplace/types';
+import { Contract } from '#src/libs/subscription/types';
+import { PaymentMethod } from '#src/libs/payment/types';
+import { appliesToContract } from '#src/libs/coupon/api';
+import CircularProgress from '#src/components/css-only/CircularProgress';
 
-import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
-import Button, { ButtonType } from '#components/css-only/Fabrique/Button';
+import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#src/libs/payment/api';
+import Button, { ButtonType } from '#src/components/css-only/Fabrique/Button';
 
-import { CouponErrorCodes } from '#libs/coupon/constants';
-import type { Coupon } from '#libs/coupon/types';
-import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import { CouponErrorCodes } from '#src/libs/coupon/constants';
+import type { Coupon } from '#src/libs/coupon/types';
+import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import MarketplaceContractPaymentAlert from './sections/MarketplaceContractPaymentAlert.component';
 import MarketplaceContractPaymentCoupon from './sections/MarketplaceContractPaymentCoupon';
 import MarketplaceContractPaymentPricing from './sections/MarketplaceContractPaymentPricing.component';

@@ -3,10 +3,10 @@ import { fakerEN as faker } from '@faker-js/faker';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import EntryActionBubble from './EntryActionBubble.component';
-import EmailTemplateSummaryFactoryBot from '#libs/email-editor/factories/EmailTemplateSummary';
-import { tagListFactory } from '#libs/tag/factory';
-import { stepMarketingActionBatchFactory } from '#libs/sequential_marketing/factories';
-import { MarketingActionArgTypes } from '#libs/sequential_marketing/constants/marketing_actions';
+import EmailTemplateSummaryFactoryBot from '#src/libs/email-editor/factories/EmailTemplateSummary';
+import { tagListFactory } from '#src/libs/tag/factory';
+import { stepMarketingActionBatchFactory } from '#src/libs/sequential_marketing/factories';
+import { MarketingActionArgTypes } from '#src/libs/sequential_marketing/constants/marketing_actions';
 
 export default {
   title: 'Components/Cadences/Bubbles/EntryAction',

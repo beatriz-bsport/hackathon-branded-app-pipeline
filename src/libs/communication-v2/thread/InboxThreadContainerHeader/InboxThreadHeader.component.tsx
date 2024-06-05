@@ -13,8 +13,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import type { CommunicationThread } from '#libs/communication-v2/types';
-import ThreadMenu from '#libs/communication-v2/thread/InboxThreadListItem/ThreadMenu.component';
+import type { CommunicationThread } from '#src/libs/communication-v2/types';
+import ThreadMenu from '#src/libs/communication-v2/thread/InboxThreadListItem/ThreadMenu.component';
 import type { OptionCallback } from '../../../../state/types';
 
 type Props = {

@@ -1,7 +1,7 @@
 import ClickableItem, {
   Props,
   ClickableItemForStorybook,
-} from '#components/css-only/ClickableItem/ClickableItem.component';
+} from '#src/components/css-only/ClickableItem/ClickableItem.component';
 
 export type { Props };
 export { ClickableItemForStorybook };

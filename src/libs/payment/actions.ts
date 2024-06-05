@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
-import { isErrorWithCustomCode } from '#libs/utils';
-import { CUSTOM_ERROR_CODE } from '#libs/constants';
+import { isErrorWithCustomCode } from '#src/libs/utils';
+import { CUSTOM_ERROR_CODE } from '#src/libs/constants';
 import type {
   Dispatch,
   ThunkAction,
@@ -41,7 +41,6 @@ import type {
   DetachPaymentMethodPayload,
   DetachPaymentMethodResponse,
 } from './types';
-
 
 // Active campaign Account
 export const listSavedPaymentMethodListActions = {

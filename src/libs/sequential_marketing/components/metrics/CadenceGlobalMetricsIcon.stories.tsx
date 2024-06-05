@@ -3,8 +3,8 @@ import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import CadenceGlobalMetricsIcon from './CadenceGlobalMetricsIcon.component';
-import TrophyIcon from '#components/icons/TrophyIcon.component';
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+import TrophyIcon from '#src/components/icons/TrophyIcon.component';
+import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
 
 const CadenceMetricsIconTemplate: ComponentStory<
   typeof CadenceGlobalMetricsIcon

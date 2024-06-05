@@ -3,7 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 
 import { push } from 'connected-react-router';
-import WelcomeStep from '#libs/login/components/account-configuration/AccountConfigurationWelcomeStep.component';
+import WelcomeStep from '#src/libs/login/components/account-configuration/AccountConfigurationWelcomeStep.component';
 import { RootState } from '../../../reducers';
 import {
   AccountConfigurationPaymentMethodStepUrl,

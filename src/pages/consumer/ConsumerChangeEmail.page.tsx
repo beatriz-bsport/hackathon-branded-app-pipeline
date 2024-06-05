@@ -14,24 +14,24 @@ import {
   getMembership,
   _getConsumerMembershipIds,
   getConsumerMembershipList,
-} from '#libs/membership/selectors';
+} from '#src/libs/membership/selectors';
 import {
   fetchMembershipByCompany,
   fetchMembershipListAsConsumer,
-} from '#libs/membership/actions';
-import { fetchCompanyBulk } from '#libs/company/actions';
+} from '#src/libs/membership/actions';
+import { fetchCompanyBulk } from '#src/libs/company/actions';
 import {
   retrieveChangeEmailRequest,
   retrieveMinimalChangeEmailRequest,
   answerChangeEmailRequest,
-} from '#libs/member/actions';
-import { fetchCompanyTheme } from '#libs/theme/actions';
-import themeSelectors from '#libs/theme/selectors';
+} from '#src/libs/member/actions';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
+import themeSelectors from '#src/libs/theme/selectors';
 import {
   getCurrentChangeEmailRequest,
   getCurrentChangeEmailRequestEmailChoices,
-} from '#libs/member/selectors';
-import ChangeEmailSubmitDialog from '#libs/member/components/change_email/ChangeEmailSubmitDialog.component';
+} from '#src/libs/member/selectors';
+import ChangeEmailSubmitDialog from '#src/libs/member/components/change_email/ChangeEmailSubmitDialog.component';
 import {
   SimpleEmailChangeContent,
   SimpleEmailChangeContentMultipleCompanies,
@@ -39,9 +39,9 @@ import {
   LinkAccountAcceptContent,
   ErrorContent,
   UnAuthorizedContent,
-} from '#libs/member/components/change_email/consumer-space/content';
+} from '#src/libs/member/components/change_email/consumer-space/content';
 
-import LoginComponent from '#csscomponents/Login/Login.component';
+import LoginComponent from '#src/components/css-only/Login/Login.component';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import ConsumerAppBar from '../checkout/ConsumerAppBar.container';

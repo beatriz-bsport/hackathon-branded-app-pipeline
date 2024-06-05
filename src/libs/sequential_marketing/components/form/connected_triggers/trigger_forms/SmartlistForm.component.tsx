@@ -5,8 +5,8 @@ import Select from 'react-select';
 
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
+import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
 import useSmartlistContext, {
   type SmartlistOption,
 } from '../hooks/useSmartlistContext.hook';

@@ -13,15 +13,15 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Pagination from '@material-ui/lab/Pagination';
-import DateRangeSelector from '#components/date/DateRangeSelector.component';
+import DateRangeSelector from '#src/components/date/DateRangeSelector.component';
 
-import ActivitiesToReplaceTable from '#libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
-import ReplacementRequestReasonDialog from '#libs/replacement-request/components/dialogs/ReplacementRequestReasonDialog.component';
+import ActivitiesToReplaceTable from '#src/libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
+import ReplacementRequestReasonDialog from '#src/libs/replacement-request/components/dialogs/ReplacementRequestReasonDialog.component';
 
 import {
   ReplacementDisplays,
   PAGE_SIZE,
-} from '#libs/replacement-request/constants';
+} from '#src/libs/replacement-request/constants';
 import {
   withMetaActivity,
   withCoach,
@@ -29,39 +29,39 @@ import {
   getOfferCalendarStateData,
   getOfferHasPendingReplacementRequest,
   getOfferHasRefusedReplacementRequest,
-} from '#libs/offer/selectors';
-import { withCustomLevel } from '#libs/level/selectors';
+} from '#src/libs/offer/selectors';
+import { withCustomLevel } from '#src/libs/level/selectors';
 import {
   getMyAssociatedCoachProfile,
   getCoachLateReplacementRequestStatus,
-} from '#libs/associated-coach/selectors';
+} from '#src/libs/associated-coach/selectors';
 import {
   withEstablishment as groupWithEstablishment,
   getAssociatedEstablishmentGroup,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import {
   fetchAllOffersPaginated as fetchAllOffersPaginatedAction,
   listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAction,
   listOffersWithRefusedReplacementRequestIds as listOffersWithRefusedReplacementRequestIdsAction,
-} from '#libs/offer/actions';
+} from '#src/libs/offer/actions';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
-import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { createReplacementRequestBulk as createReplacementRequestBulkAction } from '#libs/replacement-request/actions';
-import { retrieveAssociatedCoachLateReplacementRequestStatus as retrieveAssociatedCoachLateReplacementRequestStatusAction } from '#libs/associated-coach/actions';
+} from '#src/libs/establishment/actions';
+import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#src/libs/meta-activity/actions';
+import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import { createReplacementRequestBulk as createReplacementRequestBulkAction } from '#src/libs/replacement-request/actions';
+import { retrieveAssociatedCoachLateReplacementRequestStatus as retrieveAssociatedCoachLateReplacementRequestStatusAction } from '#src/libs/associated-coach/actions';
 import {
   CoachLateReplacementRequestStatus,
   Coach,
-} from '#libs/associated-coach/types';
-import { ReplacementRequestAPIData } from '#libs/replacement-request/types';
-import { isReplacementRequestToBeCreatedLate } from '#libs/replacement-request/utils';
-import { OfferMinimal } from '#libs/offer/types';
-import { Level } from '#libs/level/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Establishment } from '#libs/establishment/types';
+} from '#src/libs/associated-coach/types';
+import { ReplacementRequestAPIData } from '#src/libs/replacement-request/types';
+import { isReplacementRequestToBeCreatedLate } from '#src/libs/replacement-request/utils';
+import { OfferMinimal } from '#src/libs/offer/types';
+import { Level } from '#src/libs/level/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Establishment } from '#src/libs/establishment/types';
 import { OptionCallback } from '../../../state/types';
 import { RootState } from '../../../reducers';
 import { WithHandlerType } from '../../../utils/types';

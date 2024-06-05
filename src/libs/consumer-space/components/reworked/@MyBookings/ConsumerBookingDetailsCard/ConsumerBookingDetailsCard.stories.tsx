@@ -4,16 +4,16 @@ import React, { useState } from 'react';
 
 import { BottomDrawerStorybook } from '#Fabrique/BottomDrawer';
 import { ButtonStorybook } from '#Fabrique/ButtonV2';
-import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
-import { establishment_factory } from '#libs/establishment/factory';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
-import { paymentPackFactory } from '#libs/payment-packs/factory';
-import themeFactoryBot from '#libs/theme/factories';
-import { consumerBookingListFactory } from '#libs/booking/factories';
+import { consumerPaymentPackFactory } from '#src/libs/consumer-payment-pack/factories';
+import { establishment_factory } from '#src/libs/establishment/factory';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
+import themeFactoryBot from '#src/libs/theme/factories';
+import { consumerBookingListFactory } from '#src/libs/booking/factories';
 
 import { ConsumerBookingDetailsCardStorybook } from '.';
 
-import type { ConsumerBooking } from '#libs/booking/types';
+import type { ConsumerBooking } from '#src/libs/booking/types';
 import { DateTime } from 'luxon';
 import { getUserZone } from '#src/utils/datetime';
 

@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { RECOMMENDED_BUYABLE_CATEGORY_ID } from '#libs/marketplace/constants';
-import type { BuyableItemCategory } from '#libs/booker-module/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { RECOMMENDED_BUYABLE_CATEGORY_ID } from '#src/libs/marketplace/constants';
+import type { BuyableItemCategory } from '#src/libs/booker-module/types';
 
 import './styles.css';
 

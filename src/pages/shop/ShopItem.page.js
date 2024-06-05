@@ -14,11 +14,11 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
 
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { fetchTags } from '#libs/tag/actions';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { SHOPITEM_PER_PAGE } from '#libs/shop/constants';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import { fetchTags } from '#src/libs/tag/actions';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { SHOPITEM_PER_PAGE } from '#src/libs/shop/constants';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';

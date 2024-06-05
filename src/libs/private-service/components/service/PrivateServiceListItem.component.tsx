@@ -10,19 +10,18 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 
-import ListItemResponsiveAction from '#components/button/ListItemResponsiveAction.component';
+import ListItemResponsiveAction from '#src/components/button/ListItemResponsiveAction.component';
 
 import type {
   PrivateService,
   PrivateServiceWithSlots,
   PrivateSlot,
   ServiceCompatibilityPass,
-} from '#libs/private-service/types';
+} from '#src/libs/private-service/types';
 import {
   getCompatibilityText,
   getCompatibilityTextWithSlots,
 } from '../../utils';
-
 
 type Props = {
   compatibilityByService?: ServiceCompatibilityPass;

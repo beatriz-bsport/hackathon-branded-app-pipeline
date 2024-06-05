@@ -7,11 +7,11 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import type { Theme } from '@material-ui/core/styles';
 
-import ProgressBar from '#components/ProgressBar.component';
+import ProgressBar from '#src/components/ProgressBar.component';
 import {
   SequentialMarketingColors,
   CadenceMetricsSizes,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
 type Props = {
   label: string;

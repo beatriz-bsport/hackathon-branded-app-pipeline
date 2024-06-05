@@ -9,10 +9,10 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { Theme, WithStyles } from '@material-ui/core/styles';
 
-import withTitle from '#hocs/with-title.hoc';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
-import CustomStarIcon from '#components/icons/CustomStarIcon.component';
+import CustomStarIcon from '#src/components/icons/CustomStarIcon.component';
 
 // ================= SEQUENTIAL MARKETING =================
 import {
@@ -37,7 +37,7 @@ import {
   deleteConnectedTrigger as deleteConnectedTriggerAction,
   modifyStepMarketingActionsConfiguration as modifyStepMarketingActionsConfigurationAction,
   fetchCadenceStepMemberIds as fetchCadenceStepMemberIdsAction,
-} from '#libs/sequential_marketing/actions';
+} from '#src/libs/sequential_marketing/actions';
 import {
   CadencePanelMode,
   DestinationStatus,
@@ -46,7 +46,7 @@ import {
   HEADER_HEIGHT,
   LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
   DestinationKind,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 import {
   getCadenceError,
   getCadenceLoading,
@@ -58,19 +58,19 @@ import {
   getStepMarketingActionsLoading,
   getStepMarketingActionsUpsertLoading,
   getStepMemberCount,
-} from '#libs/sequential_marketing/selectors';
+} from '#src/libs/sequential_marketing/selectors';
 
-import { getHorizontalPositionFromSource } from '#libs/sequential_marketing/components/graph/hooks';
-import { isCadenceInitialConfigurationCompleted } from '#libs/sequential_marketing/utils';
-import CadenceDetailHeader from '#libs/sequential_marketing/components/CadenceDetailHeader.component';
-import CadenceGraphFlow from '#libs/sequential_marketing/components/graph/CadenceGraphFlow.component';
+import { getHorizontalPositionFromSource } from '#src/libs/sequential_marketing/components/graph/hooks';
+import { isCadenceInitialConfigurationCompleted } from '#src/libs/sequential_marketing/utils';
+import CadenceDetailHeader from '#src/libs/sequential_marketing/components/CadenceDetailHeader.component';
+import CadenceGraphFlow from '#src/libs/sequential_marketing/components/graph/CadenceGraphFlow.component';
 import CadenceUtilityDialog, {
   DialogVariant,
-} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
+} from '#src/libs/sequential_marketing/components/dialogs/DialogUtility';
 import {
   refreshConnectedTriggerUuid,
   getConnectedTriggerDefaultValues,
-} from '#libs/sequential_marketing/components/graph/hooks/utils';
+} from '#src/libs/sequential_marketing/components/graph/hooks/utils';
 
 // =================== USER PREFERENCE ====================
 import {
@@ -80,7 +80,7 @@ import {
   doNotDisplayPauseDialogAnymore as doNotDisplayPauseDialogAnymoreAction,
   doNotDisplayWelcomeDialogAnymore as doNotDisplayWelcomeDialogAnymoreAction,
   doNotDisplayEditingCadencePopinAnymore as doNotDisplayEditingCadencePopinAnymoreAction,
-} from '#libs/user-preference/actions';
+} from '#src/libs/user-preference/actions';
 import {
   getIsDeleteStepDialogHidden,
   getIsDeleteExitDialogHidden,
@@ -88,48 +88,48 @@ import {
   getIsPauseDialogHidden,
   getDoNotDisplayCadenceWelcomeDialog,
   getIsEditCadencePopinHidden,
-} from '#libs/user-preference/selectors';
+} from '#src/libs/user-preference/selectors';
 
 // ====================== SMARTLIST =======================
 import {
   getAllSmartList,
   getSmartList,
   getSmartListDict,
-} from '#libs/smart-list/selectors';
-import { fetchAllSmartLists } from '#libs/smart-list/actions';
+} from '#src/libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#src/libs/smart-list/actions';
 
 // ========================= TAG ==========================
-import { getAllTagsWithTagGroup, getTag } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup, getTag } from '#src/libs/tag/selectors';
 
 // ================== NOTIFICATION RULE ===================
 import {
   getResolvedGenericTags,
   getTagCategories,
-} from '#libs/notification-rule/selectors';
+} from '#src/libs/notification-rule/selectors';
 import {
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
   fetchTagList as fetchTagListAction,
-} from '#libs/notification-rule/actions';
+} from '#src/libs/notification-rule/actions';
 
 // =================== PLATFORM BILLING ===================
-import { hasUpsell } from '#libs/platform-billing/utils';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
   UPSELL_IDENTIFIER_CADENCE,
-} from '#libs/platform-billing/upsell-identifiers';
-import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
+} from '#src/libs/platform-billing/upsell-identifiers';
+import UpsellBlocker from '#src/libs/platform-billing/components/UpsellBlocker.component';
 
 // ===================== EMAIL EDITOR =====================
 import {
   emailTemplatesSummaries,
   emailTemplateDetail,
   emailTemplateComplete,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
   getEmailTemplateSummary,
-} from '#libs/email-editor/selectors';
+} from '#src/libs/email-editor/selectors';
 
 // ======================== TYPES =========================
 import type {
@@ -140,11 +140,11 @@ import type {
   GraphCanvas,
   CadenceInitialConfigurationState,
   CadenceInitialConfiguration,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#libs/sequential_marketing/constants/keywords';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#src/libs/sequential_marketing/constants/keywords';
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';
 import type { WithHandlerType } from '../../utils/types';

@@ -105,24 +105,3 @@ import {
 
 export { Props };
 export default ListItem;
-```
-
-Importing a css-only component must be done using the alias #csscomponents
-
----
-
-:heavy_check_mark: DO
-
-```ts
-/* fileWhereCssComponentIsNeeded.tsx*/
-
-import ListItem from '#csscomponents/ListItem';
-```
-
-:x: DO NOT
-
-```ts
-/* fileWhereCssComponentIsNeeded.tsx*/
-
-import ListItem from '../../../../../css-only/ListItem/ListItem.component';
-```

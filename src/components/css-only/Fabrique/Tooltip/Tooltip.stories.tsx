@@ -7,7 +7,7 @@ import PersonAdd from '@material-ui/icons/PersonAdd';
 import i18n from 'i18next';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 
-import { MuiThemeToCssVarsHOC } from '#hocs/marketplace-css.hoc';
+import { MuiThemeToCssVarsHOC } from '#src/hocs/marketplace-css.hoc';
 import Button, { ButtonColor, ButtonVariant } from '#Fabrique/Button';
 import Tooltip, { type Props } from '.';
 

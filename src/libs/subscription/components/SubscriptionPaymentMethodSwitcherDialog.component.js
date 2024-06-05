@@ -4,7 +4,7 @@ import { compose, withState, withHandlers } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import type { StripeReader } from '#libs/terminal/types';
+import type { StripeReader } from '#src/libs/terminal/types';
 
 import SubscriptionPayment from './SubscriptionPayment.component';
 

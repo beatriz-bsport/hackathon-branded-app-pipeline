@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import type { ChipColor } from '#Fabrique/Chip';
 
-import { Building05, PauseCircle, Users01 } from '#components/untitledui';
+import { Building05, PauseCircle, Users01 } from '#src/components/untitledui';
 
-import { ConsumerGenericCardHeader } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
+import { ConsumerGenericCardHeader } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
 import type { ConsumerPassCardProps } from '..';
 
 type Props = Required<

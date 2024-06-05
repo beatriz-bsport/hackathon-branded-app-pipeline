@@ -7,7 +7,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core';
 
-import DelayedTextField from '#components/DelayedTextField.component';
+import DelayedTextField from '#src/components/DelayedTextField.component';
 import PaymentPackTemplateListItem from './PaymentPackTemplateListItem.component';
 import { PaymentPackTemplate } from '../types';
 

@@ -5,9 +5,9 @@ import BottomDrawer from '#Fabrique/BottomDrawer';
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 
-import { PassTabEnum } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
+import { PassTabEnum } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
 
-import type { PassTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
+import type { PassTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
 
 import './styles.css';
 

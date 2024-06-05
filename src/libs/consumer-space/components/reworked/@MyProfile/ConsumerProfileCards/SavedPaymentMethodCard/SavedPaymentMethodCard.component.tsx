@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import Card from '#Fabrique/Card';
 import Title from '#Fabrique/Title';
@@ -16,10 +16,11 @@ import {
   Trash03,
 } from '#src/components/untitledui';
 
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
-import { ConsumerProfileContext } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
-import type { PaymentMethodsCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
-import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
+import { ConsumerProfileContext } from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
+import type { PaymentMethodsCardProps } from '#src/libs/consumer-space/components/reworked/@MyProfile/types';
+import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
+
 import './styles.css';
 
 const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({

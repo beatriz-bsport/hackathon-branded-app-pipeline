@@ -19,18 +19,18 @@ import {
 import { Form } from 'formik';
 import Immutable from 'seamless-immutable';
 // @ts-expect-error
-import { Submit } from '#components/forms';
-import type { OptionCallback } from '#state/types';
+import { Submit } from '#src/components/forms';
+import type { OptionCallback } from '#src/state/types';
 import {
   fromPaymentGroupIdentifierToPaymentMethodIdentifier,
   PAYMENT_STRIPE_TERMINAL_FAKE,
-} from '#libs/payment/utils';
-import type { StripeReader } from '#libs/terminal/types';
-import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
+} from '#src/libs/payment/utils';
+import type { StripeReader } from '#src/libs/terminal/types';
+import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#src/libs/payment/api';
 import {
   BillingDetails,
   MarketplacePaymentMethods,
-} from '#libs/marketplace/types';
+} from '#src/libs/marketplace/types';
 import type { PaymentInstalmentData, PaymentConfigData } from '../types';
 import PaymentMethodSelector from './PaymentMethodSelector.component';
 import PaymentMethodTypeSwitcher from './PaymentMethodTypeSwitcher.component';

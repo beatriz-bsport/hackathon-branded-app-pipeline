@@ -6,16 +6,16 @@ import UniqueCodeCouponFormWithFormik, {
   UniqueCodeCouponForm,
 } from '../UniqueCodeCouponForm.component';
 import { action } from '@storybook/addon-actions';
-import { paymentPackListFactory } from '#libs/payment-packs/factory';
-import { PaymentPack } from '#libs/payment-packs/types';
+import { paymentPackListFactory } from '#src/libs/payment-packs/factory';
+import { PaymentPack } from '#src/libs/payment-packs/types';
 import withFormik from '@bbbtech/storybook-formik';
 import ValidationSchema from '../ValidationSchema';
-import { PrivatePass } from '#libs/private-service/types';
-import { privatePassListFactory } from '#libs/private-service/factory';
-import { paymentComboListFactory } from '#libs/payment-combo/factory';
-import { PaymentCombo } from '#libs/payment-combo/types';
+import { PrivatePass } from '#src/libs/private-service/types';
+import { privatePassListFactory } from '#src/libs/private-service/factory';
+import { paymentComboListFactory } from '#src/libs/payment-combo/factory';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
 import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
-import { UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
+import { UniqueCodeCouponCreationPayload } from '#src/libs/coupon/types';
 
 const actionsData = {
   onCancel: action('onCancel'),

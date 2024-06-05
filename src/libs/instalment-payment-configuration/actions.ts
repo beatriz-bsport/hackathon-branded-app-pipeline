@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
-import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
-import { isErrorWithCustomCode } from '#libs/utils';
+import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import { OptionCallback, ThunkAction, Dispatch } from '../../state/types';
 import { InstalmentPaymentApi } from './types';
 import {
@@ -10,7 +10,6 @@ import {
   deleteInstalmentPayment as deleteInstalmentPaymentAPI,
   fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAPI,
 } from './api';
-
 
 export const instalmentPaymentDisableActions = {
   error: createAction('INSTALMENT_PAYMENT/DISABLE/ERROR'),

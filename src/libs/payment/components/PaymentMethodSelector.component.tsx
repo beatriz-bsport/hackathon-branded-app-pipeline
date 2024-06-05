@@ -3,12 +3,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import cloneDeep from 'lodash/cloneDeep';
-import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
-import type { StripeReader } from '#libs/terminal/types';
+import PaymentStripeTerminalWrapper from '#src/libs/terminal/components/PaymentStripeTerminalWrapper.component';
+import type { StripeReader } from '#src/libs/terminal/types';
 import {
   BillingDetails,
   MarketplacePaymentMethods,
-} from '#libs/marketplace/types';
+} from '#src/libs/marketplace/types';
 import PaymentMethodList from './payment-method-list/PaymentMethodList.component';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '../utils';
 import { PaymentMethod } from '../types';

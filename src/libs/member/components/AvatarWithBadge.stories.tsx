@@ -2,8 +2,8 @@ import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import AvatarWithBadge from './AvatarWithBadge.component';
-import { MemberFactory } from '#libs/member/factories/Member';
-import '#libs/member/components/TagBadge/TagBadge.css';
+import { MemberFactory } from '#src/libs/member/factories/Member';
+import '#src/libs/member/components/TagBadge/TagBadge.css';
 
 const CustomTemplate: ComponentStory<typeof AvatarWithBadge> = (
   args: React.ComponentProps<typeof AvatarWithBadge>,

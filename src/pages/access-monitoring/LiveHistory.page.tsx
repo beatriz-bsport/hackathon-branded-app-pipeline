@@ -8,7 +8,7 @@ import Link from '@material-ui/core/Link';
 import { DateTime } from 'luxon';
 
 /** ACTIONS */
-import { search } from '#libs/member/actions';
+import { search } from '#src/libs/member/actions';
 import {
   getMemberVisitList as getMemberVisitListAction,
   refreshMemberVisitAccessStatus as refreshMemberVisitAccessStatusAction,
@@ -16,18 +16,18 @@ import {
   setMemberVisitEntryStatus as setMemberVisitEntryStatusAction,
   getUserPhotoUpdates as getUserPhotoUpdatesAction,
   approvePhotoUpdate as approvePhotoUpdateAction,
-} from '#libs/access-control/actions';
-import { handleBroadcastChannelMessages as handleBroadcastChannelMessagesAction } from '#libs/broadcast-channel/actions';
+} from '#src/libs/access-control/actions';
+import { handleBroadcastChannelMessages as handleBroadcastChannelMessagesAction } from '#src/libs/broadcast-channel/actions';
 
 /** COMPONENTS */
-import MemberVisitSearchMember from '#libs/access-control/components/MemberVisit/EmptyState/MemberVisitSearchMember.component';
-import MemberVisitLiveHistoryTable from '#libs/access-control/components/MemberVisitLiveHistory/MemberVisitLiveHistoryTable/MemberVisitLiveHistoryTable.component';
-import MemberVisitDetailsCard from '#libs/access-control/components/MemberVisit/MemberVisitDetailsCard/MemberVisitDetailsCard.component';
-import MemberVisitHeadButtons from '#libs/access-control/components/MemberVisit/MemberVisitHeadButtons.component';
-import MemberVisitWarnings from '#libs/access-control/components/MemberVisit/MemberVisitWarnings.component';
-import AccessStatusChangedSuccessModal from '#libs/access-control/components/MemberVisit/AccessStatusChangedSuccessModal.component';
-import EntryStatusChangedModal from '#libs/access-control/components/MemberVisit/EntryStatusChangedModal.component';
-import MemberPhotoHistoryModal from '#libs/access-control/components/MemberVisit/MemberPhotoHistoryModal.component';
+import MemberVisitSearchMember from '#src/libs/access-control/components/MemberVisit/EmptyState/MemberVisitSearchMember.component';
+import MemberVisitLiveHistoryTable from '#src/libs/access-control/components/MemberVisitLiveHistory/MemberVisitLiveHistoryTable/MemberVisitLiveHistoryTable.component';
+import MemberVisitDetailsCard from '#src/libs/access-control/components/MemberVisit/MemberVisitDetailsCard/MemberVisitDetailsCard.component';
+import MemberVisitHeadButtons from '#src/libs/access-control/components/MemberVisit/MemberVisitHeadButtons.component';
+import MemberVisitWarnings from '#src/libs/access-control/components/MemberVisit/MemberVisitWarnings.component';
+import AccessStatusChangedSuccessModal from '#src/libs/access-control/components/MemberVisit/AccessStatusChangedSuccessModal.component';
+import EntryStatusChangedModal from '#src/libs/access-control/components/MemberVisit/EntryStatusChangedModal.component';
+import MemberPhotoHistoryModal from '#src/libs/access-control/components/MemberVisit/MemberPhotoHistoryModal.component';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 /** SELECTORS */
@@ -36,27 +36,27 @@ import {
   getMemberNextBookingOrPrivateBooking,
   getMemberVisitLiveHistoryIsLoading,
   getUserPhotoUpdatesList,
-} from '#libs/access-control/selectors';
+} from '#src/libs/access-control/selectors';
 import {
   getAllEstablishmentsDict,
   getAssociatedEstablishmentGroup,
   getEstablishmentsSelectedInRole,
-} from '#libs/establishment/selectors';
-import { getPermissions } from '#libs/role/selectors';
+} from '#src/libs/establishment/selectors';
+import { getPermissions } from '#src/libs/role/selectors';
 
 /** CONSTANTS */
-import { EntryStatus, AccessStatus } from '#libs/access-control/constants';
+import { EntryStatus, AccessStatus } from '#src/libs/access-control/constants';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 /** TYPES */
 import type { RootState } from 'src/reducers';
-import type { MemberVisitREST } from '#libs/access-control/types';
+import type { MemberVisitREST } from '#src/libs/access-control/types';
 
 /** HOOKS */
-import { useBroadcastChannel } from '#libs/broadcast-channel/hooks';
-import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/checkLocationSetup';
-import { formatLocationString } from '#libs/access-control/utils';
-import { BroadcastChannelMessageType } from '#libs/broadcast-channel/types';
+import { useBroadcastChannel } from '#src/libs/broadcast-channel/hooks';
+import { useCheckAccessControlLocationSetup } from '#src/libs/access-control/hooks/checkLocationSetup';
+import { formatLocationString } from '#src/libs/access-control/utils';
+import { BroadcastChannelMessageType } from '#src/libs/broadcast-channel/types';
 
 export type Props = ConnectedProps<typeof connector>;
 

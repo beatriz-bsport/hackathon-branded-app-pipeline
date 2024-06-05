@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 import {
   CountryMetaData,
   CountryOption,
-} from '#marketplacecomponents/@Payment/MarketplaceCollectPaymentMethod';
-import { LOCALE_LIST } from '#components/input/LocaleSelector.component';
+} from '#src/libs/marketplace/components/@Payment/MarketplaceCollectPaymentMethod';
+import { LOCALE_LIST } from '#src/components/input/LocaleSelector.component';
 import { SelectOptionWithMetaData } from './Select.component';
 // @ts-expect-error
 import MarketplaceSelectCss from './style.css?raw';

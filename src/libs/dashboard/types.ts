@@ -1,9 +1,9 @@
-// @ts-expect-error
-import { ErrorAndLoading } from '#libs/types';
+import { ErrorAndLoading } from '#src/libs/types';
 import {
   DataSourceFieldMetadata,
   DatatypeFilterConfig,
-} from '#libs/datatype-filtering/types';
+} from '#src/libs/datatype-filtering/types';
+// @ts-expect-error
 import type { Graph } from '../statistics/types';
 
 export type DashboardTab = { tab_label: string; graphs: Array<Graph> };

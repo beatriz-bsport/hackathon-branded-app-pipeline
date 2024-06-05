@@ -6,9 +6,9 @@ import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 
 import { withTranslation } from 'react-i18next';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { fetchMarketplaceSettings } from '#libs/marketplace/actions';
-import { getFranchiseId } from '#libs/franchise/selectors';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { fetchMarketplaceSettings } from '#src/libs/marketplace/actions';
+import { getFranchiseId } from '#src/libs/franchise/selectors';
 import { BsportRequestFromHeaderValue } from '../../constants';
 import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 import asyncComponent from '../../AsyncComponent';

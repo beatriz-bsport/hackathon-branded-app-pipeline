@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
 import memoize from 'memoize-one';
-import { Offer } from '#libs/offer/types';
+import { Offer } from '#src/libs/offer/types';
 import { RootState } from '../../reducers';
 
 export const getGroupPreview = (state: RootState) =>

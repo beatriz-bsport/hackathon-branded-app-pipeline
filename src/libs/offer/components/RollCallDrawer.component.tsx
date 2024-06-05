@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 import { PeopleAlt } from '@material-ui/icons';
 import chroma from 'chroma-js';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 // @ts-expect-error
-import BookingTable from '#libs/booking/components/BookingTable.component';
-import { Member } from '#libs/member/types';
-import { Tag, TagGroup } from '#libs/tag/types';
-import { Offer } from '#libs/offer/types';
+import BookingTable from '#src/libs/booking/components/BookingTable.component';
+import { Member } from '#src/libs/member/types';
+import { Tag, TagGroup } from '#src/libs/tag/types';
+import { Offer } from '#src/libs/offer/types';
 import ValidationRollCallText from './ValidationRollCallText.component';
 import ConfirmationRollCallDialog from './ConfirmationRollCallDialog.component';
 import { OptionCallback } from '../../../state/types';

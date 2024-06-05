@@ -1,5 +1,5 @@
 import React from 'react';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 const sendPostMessageUpdate = (height: number) => {
   if (WidgetUtils.isWidget() && !!WidgetUtils.getParentElementId()) {

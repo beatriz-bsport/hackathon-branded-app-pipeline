@@ -3,7 +3,7 @@ import { compose, withHandlers } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
 import { push } from 'connected-react-router';
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
+import withQueryParams from '#src/hocs/with-query-params.hoc';
 
 // --- ACTIONS ---
 import {
@@ -18,18 +18,18 @@ import {
   createShopItemProvision as createShopItemProvisionAction,
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAction,
   fetchShopItemVariantCombinationList as fetchShopItemVariantCombinationListAction,
-} from '#libs/shop/actions/shopItemReworked';
-import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+} from '#src/libs/shop/actions/shopItemReworked';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 
 import {
   retrieveShopItemSupplier as retrieveShopItemSupplierAction,
   fetchShopSupplierList as fetchShopSupplierListAction,
-} from '#libs/shop/actions/supplier';
+} from '#src/libs/shop/actions/supplier';
 
-import { retrieveFranchise as retrieveFranchiseAction } from '#libs/franchise/actions';
+import { retrieveFranchise as retrieveFranchiseAction } from '#src/libs/franchise/actions';
 
 // --- SELECTORS ---
-import { getTheme } from '#libs/theme/selectors';
+import { getTheme } from '#src/libs/theme/selectors';
 import {
   getIsShopItemUsedInCombo as getIsShopItemUsedInComboSelector,
   getShopItemDetailLoading,
@@ -43,19 +43,18 @@ import {
   getShopItemVariantCombinationList,
   getShopSupplierState,
   getShopItemVariantFilterOptionList,
-} from '#libs/shop/selectors';
+} from '#src/libs/shop/selectors';
 import {
   getBookkeepingAccountList,
   getBookkeepingAccountById,
-} from '#libs/payment/selectors';
-import { getFranchisor } from '#libs/franchise/selectors';
+} from '#src/libs/payment/selectors';
+import { getFranchisor } from '#src/libs/franchise/selectors';
 
 // --- COMPONENTS ---
-import ShopItemDetail from '#libs/shop/components/ShopItemDetail';
+import ShopItemDetail from '#src/libs/shop/components/ShopItemDetail';
 
 // --- UTILS ---
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-// @ts-expect-error
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 // --- TYPES ---
 import type {
@@ -65,15 +64,16 @@ import type {
   ShopItem,
   ShopItemEdit,
   ShopItemVariantAttributes,
-} from '#libs/shop/types';
+} from '#src/libs/shop/types';
 
 // --- CONSTANTS ---
-import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
-import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
-import { SelectOption } from '#libs/types';
+import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
+import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
+import { SelectOption } from '#src/libs/types';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
+// @ts-expect-error
 import { mapFormDataWithObject } from '../form.utils';
 import withTitle from '../../hocs/with-title.hoc';
 

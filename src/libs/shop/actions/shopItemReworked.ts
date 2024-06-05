@@ -1,14 +1,13 @@
 import { createAction } from 'redux-actions';
 
+import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 
-import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
-
-import { isErrorWithCustomCode } from '#libs/utils';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 
 import {
   SHOP_ITEM_VARIANTS_PAGE_SIZE,
   SHOP_ITEM_TEMPLATE_PAGE_SIZE,
-} from '#libs/shop/constants';
+} from '#src/libs/shop/constants';
 import type { RootState } from '#src/reducers';
 import type { PaginationFilterParams } from '#src/libs/types';
 import type {

@@ -1,11 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import { TypographyVariant } from '#Fabrique/Typography/constants';
 import IconButton from '#Fabrique/IconButton';
-import { XClose } from '#components/untitledui';
+import { XClose } from '#src/components/untitledui';
 import { ChipColorEnum, ChipSizeEnum, ChipVariantEnum } from './constants';
 import type { ChipColor, ChipSize, ChipVariant } from '.';
 

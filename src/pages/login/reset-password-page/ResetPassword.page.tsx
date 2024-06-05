@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect, ConnectedProps as ConnectedPropsRedux } from 'react-redux';
 import { compose, withProps } from 'recompose';
 import { Redirect, RouterProps } from 'react-router-dom';
-import ResetPasswordForm from '#csscomponents/ResetPasswordForm';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
-import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
+import ResetPasswordForm from '#src/components/css-only/ResetPasswordForm';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
+import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
 import { parseQueryString, buildUrlParams } from '../../../http';
 // @ts-expect-errors
 import { resetPassword } from '../../../actions/auth.actions';

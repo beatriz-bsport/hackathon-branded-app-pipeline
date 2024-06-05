@@ -7,7 +7,7 @@ import { alpha } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items';
-import { Basket } from '#libs/checkout/types';
+import { Basket } from '#src/libs/checkout/types';
 
 type BasketProps = {
   currentBasket?: Basket;

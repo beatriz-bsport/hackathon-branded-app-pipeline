@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { checkoutItemsFactory } from '#libs/checkout/factories';
-import { CompanyTheme } from '#libs/theme/types';
-import { CheckoutItem } from '#libs/checkout/types';
+} from '#src/libs/exportable-components/types';
+import { checkoutItemsFactory } from '#src/libs/checkout/factories';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { CheckoutItem } from '#src/libs/checkout/types';
 // @ts-expect-error
 import MarketplaceBasketSummaryListCss from './styles.css?raw';
 import MarketplaceBasketSummaryListCssOnly, { Props } from '.';

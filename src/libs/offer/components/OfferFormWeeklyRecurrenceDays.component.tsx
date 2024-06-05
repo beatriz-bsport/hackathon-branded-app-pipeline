@@ -11,7 +11,7 @@ import type { Theme } from '@material-ui/core';
 import type {
   OfferFormValues,
   OfferFormRecurrenceWeekDay,
-} from '#libs/offer/types';
+} from '#src/libs/offer/types';
 
 type Props = {
   id?: string;

@@ -2,13 +2,13 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DateTime } from 'luxon';
-import { getAvailabilityInformation } from '#libs/consumer-space/components/reworked/@MyPasses/utils';
+import { getAvailabilityInformation } from '#src/libs/consumer-space/components/reworked/@MyPasses/utils';
 import {
   CalendarCheck02,
   CalendarDate,
   PauseCircle,
   X,
-} from '#components/untitledui';
+} from '#src/components/untitledui';
 
 export const useConsumerPassDetailsCardHeaderData = ({
   creditsLeft,

@@ -38,12 +38,12 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
-import MuiIcon from '#components/MuiIcon.component';
+import MuiIcon from '#src/components/MuiIcon.component';
 // @ts-expect-error
-import withConfirm from '#hocs/with-confirm.hoc';
-import { MuiIconName } from '#components/input/muiIcon/MuiIconNameType';
-import { CustomShopRedirection } from '#libs/settings/types';
-import { SubShop } from '#libs/shop/types';
+import withConfirm from '#src/hocs/with-confirm.hoc';
+import { MuiIconName } from '#src/components/input/muiIcon/MuiIconNameType';
+import { CustomShopRedirection } from '#src/libs/settings/types';
+import { SubShop } from '#src/libs/shop/types';
 import { OptionCallback } from '../../../state/types';
 import MobileShopPreview from './MobileShopPreview.dialog';
 import MobileShopCustomShopRedirectionDialog from './MobileShopCustomShopRedirectionDialog.dialog';

@@ -1,21 +1,21 @@
 import React from 'react';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 import {
   establishmentGroup_factory,
   establishment_factory,
-} from '#libs/establishment/factory';
-import { coachesFactory } from '#libs/associated-coach/factories';
-import { levelListFactory } from '#libs/level/factories';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Level } from '#libs/level/types';
+} from '#src/libs/establishment/factory';
+import { coachesFactory } from '#src/libs/associated-coach/factories';
+import { levelListFactory } from '#src/libs/level/factories';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Level } from '#src/libs/level/types';
 // @ts-expect-error
 import MarketplaceFilterCss from './MarketplaceFilterCSSOnly.css?raw';
 import MarketplaceFilterCSSOnly, {

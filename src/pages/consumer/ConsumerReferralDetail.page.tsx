@@ -5,14 +5,14 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { compose } from 'recompose';
 
 import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
-import themeSelectors from '#libs/theme/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 
 import {
   retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
-} from '#libs/referral/actions';
+} from '#src/libs/referral/actions';
 import {
   getTheReferralProgram,
   getReferralMemberStatusWithMemberId,
@@ -20,19 +20,19 @@ import {
   getReferralMemberStatusLoading,
   getReferralProgramsError,
   getReferralMemberStatusError,
-} from '#libs/referral/selectors';
+} from '#src/libs/referral/selectors';
 
-import { fetchMember as fetchMemberAction } from '#libs/member/actions';
-import { getMemberDetail } from '#libs/member/selectors';
+import { fetchMember as fetchMemberAction } from '#src/libs/member/actions';
+import { getMemberDetail } from '#src/libs/member/selectors';
 
-import type { Membership } from '#libs/membership/types';
-import { getMembership } from '#libs/membership/selectors';
+import type { Membership } from '#src/libs/membership/types';
+import { getMembership } from '#src/libs/membership/selectors';
 
-import ReferralWidget from '#components/ReferralWidget';
+import ReferralWidget from '#src/components/ReferralWidget';
 
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '#libs/membership/actions';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '#src/libs/membership/actions';
 import { RootState } from '../../reducers';
 import Config from '../../config';
 

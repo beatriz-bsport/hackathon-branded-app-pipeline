@@ -4,7 +4,7 @@ import { ComponentStory, Meta } from '@storybook/react';
 import ProductItem from '.';
 import { MarketplaceBasketSummaryItemCssOnlyForStoryBook } from '.';
 import type { Props } from '.';
-import { checkoutItemFactory } from '#libs/checkout/factories';
+import { checkoutItemFactory } from '#src/libs/checkout/factories';
 import './styles.storybook.css';
 
 const checkoutItem = checkoutItemFactory();

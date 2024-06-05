@@ -2,18 +2,18 @@ import React, { PureComponent } from 'react';
 import { compose } from 'recompose';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { connect, type ConnectedProps } from 'react-redux';
-import InboxThreadContainer from '#libs/communication-v2/thread/InboxThreadContainer/InboxThreadContainer.component';
+import InboxThreadContainer from '#src/libs/communication-v2/thread/InboxThreadContainer/InboxThreadContainer.component';
 
 import {
   needToFilterOutReceivedCommunicationSentWithActiveFilters,
   getOfferCategories,
-} from '#libs/communication-v2/utils';
+} from '#src/libs/communication-v2/utils';
 import type {
   Communication,
   InboxThreadRouterProps,
   MessageData,
   SelectFieldItem,
-} from '#libs/communication-v2/types';
+} from '#src/libs/communication-v2/types';
 import {
   COMMUNICATION_FILTER_IDENTIFIER_KIND,
   COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT,
@@ -21,13 +21,13 @@ import {
   COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST,
   REFRESH_THREAD_TIMEOUT,
   WRITE_EMAIL,
-} from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/constants';
 import withInboxThreadData, {
   WithInboxThreadDataProps,
-} from '#libs/communication-v2/thread/InboxThreadContainer/withInboxThread.hoc';
-import { UPSELL_IDENTIFIER_INBOX } from '#libs/platform-billing/upsell-identifiers';
+} from '#src/libs/communication-v2/thread/InboxThreadContainer/withInboxThread.hoc';
+import { UPSELL_IDENTIFIER_INBOX } from '#src/libs/platform-billing/upsell-identifiers';
 
-import { hasUpsell } from '#libs/platform-billing/utils';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 import type { RootState } from '../../reducers';
 
 import Config from '../../config';
@@ -443,6 +443,7 @@ class InboxThreadContainerPage extends PureComponent<Props> {
         contextMember={contextMember}
         // --- Header Actions ---
         contextSelected={contextSelected}
+// @ts-expect-error
         count={count}
         countAvailableRecipientsTotal={countAvailableRecipientsTotal}
         countAvailableRecipientsWithEmail={countAvailableRecipientsWithEmail}

@@ -8,9 +8,9 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-import { MarketplacePassData } from '#libs/marketplace/types';
-import { PaymentPackCategory } from '#libs/payment-packs/types';
-import { PrivatePassCategory } from '#libs/private-service/types';
+import { MarketplacePassData } from '#src/libs/marketplace/types';
+import { PaymentPackCategory } from '#src/libs/payment-packs/types';
+import { PrivatePassCategory } from '#src/libs/private-service/types';
 
 interface Props {
   config?: MarketplacePassData;

@@ -9,7 +9,7 @@ import PersonIcon from '@material-ui/icons/Person';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import { Coach } from '#libs/associated-coach/types';
+import { Coach } from '#src/libs/associated-coach/types';
 import { MaterialStyleType } from '../../../utils/types';
 
 import { getCoachOrSubstitute } from '../../offer/utils';

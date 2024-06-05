@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import PrivateConsumerPassDetailsCardAppointmentCompatibility from './PrivateConsumerPassDetailsCardAppointmentCompatibility.component';
 
 import type { PrivateConsumerPassDetailsCardProps } from '..';

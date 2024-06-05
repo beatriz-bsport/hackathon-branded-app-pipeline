@@ -4,8 +4,8 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import classnames from 'classnames';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   credit: number;

@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import Skeleton from '#csscomponents/Skeleton';
+import Skeleton from '#src/components/css-only/Skeleton';
 import Card from '#Fabrique/Card';
 
 import './styles.css';

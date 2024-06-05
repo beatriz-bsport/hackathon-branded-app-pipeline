@@ -6,16 +6,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import LinkIcon from '@material-ui/icons/Link';
-import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
-import TypographyMultiline from '#components/typo/TypographyMultiline.component';
+import PaymentPackListItem from '#src/libs/payment-packs/components/PaymentPackListItem.component';
+import TypographyMultiline from '#src/components/typo/TypographyMultiline.component';
 // @ts-expect-error
-import TypographyWithShowMore from '#components/typo/TypographyWithShowMore.component';
-import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
+import TypographyWithShowMore from '#src/components/typo/TypographyWithShowMore.component';
+import PrivatePassListItem from '#src/libs/private-service/components/pass/PrivatePassListItem.component';
 // @ts-expect-error
-import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import { getContractCheckoutUrl } from '#libs/marketplace/routing-utils';
+import PaymentComboListItem from '#src/libs/payment-combo/components/PaymentComboListItem.component';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { getContractCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import { ContractWithPaymentPack } from '../../types';
 
 type Props = {

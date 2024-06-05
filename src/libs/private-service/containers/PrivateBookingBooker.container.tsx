@@ -15,10 +15,10 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-import { getCoachesSelectedInRole } from '#libs/associated-coach/selectors';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { getCoachesSelectedInRole } from '#src/libs/associated-coach/selectors';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import { getPrivatePassAvailableForPrivateBooking } from '../selectors/private-pass';
 import {
   getPrivateConsumerPassList,

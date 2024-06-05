@@ -1,12 +1,12 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplacePage,
   MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 import MenuItem, { MenuItemProps, MenuItemType, MenuItemTypeEnum } from '.';
 // @ts-expect-error
 import MenuItemCss from './styles.css?raw';

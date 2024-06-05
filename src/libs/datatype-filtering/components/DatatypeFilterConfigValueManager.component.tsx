@@ -59,11 +59,11 @@ import {
   DynamicFilterDataType,
   DatatypeFilterConfigItem,
   DatatypeFilterConfigItemTypeById,
-} from '#libs/datatype-filtering/types';
+} from '#src/libs/datatype-filtering/types';
 // @ts-expect-error
-import { PriceField, PercentField, TextField } from '#components/forms';
-import DateRangeSelector from '#components/date/DateRangeSelector.component';
-import DatePickerSelector from '#components/date/DatePickerSelector.component';
+import { PriceField, PercentField, TextField } from '#src/components/forms';
+import DateRangeSelector from '#src/components/date/DateRangeSelector.component';
+import DatePickerSelector from '#src/components/date/DatePickerSelector.component';
 
 import {
   DATATYPE_FILTERABLE_BY_FLOAT_RANGE,
@@ -71,16 +71,16 @@ import {
   DATE_SUBDATA_TYPE,
   FILTER_IN_OPERAND,
   HOUR_SUBDATA_TYPE,
-} from '#libs/datatype-filtering/constants';
+} from '#src/libs/datatype-filtering/constants';
 
 import {
   MaterialUiSingleSelectorField,
   MaterialUiMultiSelectorField,
-} from '#libs/custom-form/components/GenericFormik.input';
-import MaterialUISelectorConsumers from '#components/Selector/MaterialUISelectorConsumers.container';
-import MaterialUISelectorPayout from '#components/Selector/MaterialUISelectorPayout.container';
-import ReportChipsRenderer from '#libs/reporting/components/ReportChips/ReportChipsRenderer.component';
-import { AccessStatus, EntryStatus } from '#libs/access-control/constants';
+} from '#src/libs/custom-form/components/GenericFormik.input';
+import MaterialUISelectorConsumers from '#src/components/Selector/MaterialUISelectorConsumers.container';
+import MaterialUISelectorPayout from '#src/components/Selector/MaterialUISelectorPayout.container';
+import ReportChipsRenderer from '#src/libs/reporting/components/ReportChips/ReportChipsRenderer.component';
+import { AccessStatus, EntryStatus } from '#src/libs/access-control/constants';
 import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
 import NestedAlertError from './NestedAlertError.component';
 
@@ -360,10 +360,10 @@ const DatePickerSelectorFormik: React.FC<{
         field: { value },
         form: { setFieldValue },
       }: FieldAttributes<any>) => (
-        // @ts-expect-error
         <DatePickerSelector
           date={value?.value}
           isDisabled={isPreview}
+// @ts-expect-error
           onSubmit={(values) => {
             setFieldValue(
               `${name}.value`,

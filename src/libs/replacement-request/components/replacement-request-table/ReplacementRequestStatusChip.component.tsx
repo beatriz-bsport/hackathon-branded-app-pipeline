@@ -14,7 +14,7 @@ import red from '@material-ui/core/colors/red';
 import {
   ReplacementRequestStatus,
   REPLACEMENT_REQUEST_STATUS_LABELS,
-} from '#libs/replacement-request/constants';
+} from '#src/libs/replacement-request/constants';
 
 type Props = {
   replacementRequestStatus: ReplacementRequestStatus;

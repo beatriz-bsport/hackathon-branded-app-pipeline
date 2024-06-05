@@ -8,8 +8,8 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import DateInput from '#components/input/DateInput.component';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import DateInput from '#src/components/input/DateInput.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import { OptionCallback } from '../../../state/types';
 
 type Props = {

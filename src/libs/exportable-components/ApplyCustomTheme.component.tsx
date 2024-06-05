@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { WidgetCustomCSS } from '#libs/theme/types';
-import { getCustomWidgetStyle } from '#libs/widget/utils';
+import { WidgetCustomCSS } from '#src/libs/theme/types';
+import { getCustomWidgetStyle } from '#src/libs/widget/utils';
 
 type Props = {
   styles: WidgetCustomCSS;

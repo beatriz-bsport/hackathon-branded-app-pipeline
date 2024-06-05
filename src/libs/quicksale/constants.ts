@@ -4,7 +4,7 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
 
-import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#src/libs/payment/utils';
 
 export enum QuicksaleItemColor {
   Gray = '#E4E4E4',

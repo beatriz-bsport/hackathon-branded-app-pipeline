@@ -6,9 +6,9 @@ import { Typography } from '@material-ui/core';
 import { AccountBalance, CreditCard } from '@material-ui/icons';
 import classNames from 'classnames';
 import chroma from 'chroma-js';
-import { StepManager } from '#libs/login/types';
-import StripeIcon from '#components/icons/StripeIcon.component';
-import SuccessIcon from '#components/icons/SuccessIcon.component';
+import { StepManager } from '#src/libs/login/types';
+import StripeIcon from '#src/components/icons/StripeIcon.component';
+import SuccessIcon from '#src/components/icons/SuccessIcon.component';
 
 export type OwnProps = {
   steps: Array<StepManager>;

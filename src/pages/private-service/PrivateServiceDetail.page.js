@@ -7,11 +7,11 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { compose, withState, withHandlers, withStateHandlers } from 'recompose';
 
-import { getAllSmartList } from '#libs/smart-list/selectors';
-import { fetchAllSmartLists } from '#libs/smart-list/actions';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { SmartList } from '#libs/smart-list/types';
-import type { Tag, TagGroup } from '#libs/tag/types';
+import { getAllSmartList } from '#src/libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#src/libs/smart-list/actions';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import { SmartList } from '#src/libs/smart-list/types';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -71,7 +71,6 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
-
 
 const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 

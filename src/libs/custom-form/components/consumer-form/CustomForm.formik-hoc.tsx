@@ -18,8 +18,8 @@ import {
 import {
   CUSTOM_FORM_FIELDS_WITH_CHOICES,
   SIGNUP_CHECKBOX_FIELDS,
-} from '#libs/custom-form/utils';
-import { emailValidationRegExp } from '#libs/custom-form/constants';
+} from '#src/libs/custom-form/utils';
+import { emailValidationRegExp } from '#src/libs/custom-form/constants';
 import CustomFormConsumerInput from './CustomFormField.input';
 import type {
   CustomFormField,

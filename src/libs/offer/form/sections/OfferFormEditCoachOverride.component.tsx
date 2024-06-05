@@ -9,13 +9,13 @@ import { useTranslation } from 'react-i18next';
 import { useFormikContext } from 'formik';
 import Alert from '@material-ui/lab/Alert';
 
-import FormSection from '#components/forms/FormSection';
-import { useOfferFormStyles } from '#libs/offer/hooks';
-import SimilarOffersList from '#libs/offer/components/SimilarOffersList.component';
+import FormSection from '#src/components/forms/FormSection';
+import { useOfferFormStyles } from '#src/libs/offer/hooks';
+import SimilarOffersList from '#src/libs/offer/components/SimilarOffersList.component';
 
-import { Coach } from '#libs/associated-coach/types';
-import { Offer, OfferFormValues } from '#libs/offer/types';
-import { PropagateCoachOverrideToSimilarOffers } from '#libs/offer/constants';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Offer, OfferFormValues } from '#src/libs/offer/types';
+import { PropagateCoachOverrideToSimilarOffers } from '#src/libs/offer/constants';
 
 type Props = {
   similarOffers: Offer[];

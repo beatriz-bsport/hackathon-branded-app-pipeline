@@ -25,14 +25,14 @@ import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 // @ts-expect-error
-import withConfirm from '#hocs/with-confirm.hoc';
+import withConfirm from '#src/hocs/with-confirm.hoc';
 import { ClockInData } from '../types';
 import { getTextColorFromRGB } from '../../../utils/color';
 import EditClockinModal, {
   Values as EditClockInValues,
 } from './EditClockIn.dialog';
-import { getRoleName } from '#libs/role/utils';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getRoleName } from '#src/libs/role/utils';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   value: {

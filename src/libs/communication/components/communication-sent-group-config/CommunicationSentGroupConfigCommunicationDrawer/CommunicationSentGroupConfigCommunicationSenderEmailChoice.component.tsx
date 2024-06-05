@@ -11,8 +11,8 @@ import { useFormikContext } from 'formik';
 import React, { useCallback, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import Select from 'react-select';
-import { SenderEmailKind } from '#libs/communication/constants';
-import { FranchiseCompany } from '#libs/franchise/types';
+import { SenderEmailKind } from '#src/libs/communication/constants';
+import { FranchiseCompany } from '#src/libs/franchise/types';
 import { Values } from './CommunicationSentGroupConfigCommunicationDrawer.component';
 
 type Props = {

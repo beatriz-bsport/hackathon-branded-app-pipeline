@@ -2,9 +2,9 @@ import React from 'react';
 import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import type { PaymentPackTemplate } from '#libs/payment-packs/types';
-import type { PrivatePassTemplate } from '#libs/private-service/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
+import type { PrivatePassTemplate } from '#src/libs/private-service/types';
 import CouponTemplateForm from './CouponTemplateForm.component';
 import type { CouponTemplate } from '../types';
 

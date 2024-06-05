@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { basketFactory } from '#libs/checkout/factories';
-import { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/exportable-components/types';
+import { basketFactory } from '#src/libs/checkout/factories';
+import { CompanyTheme } from '#src/libs/theme/types';
 import {
   HandleAddCheckoutItemData,
   OnRemoveCheckoutItemData,
-} from '#libs/checkout/types';
+} from '#src/libs/checkout/types';
 // @ts-expect-error
 import BasketSummaryCssOnlyDialogCss from './styles.css?raw';
 import BasketSummaryCssOnlyDialog, { Props } from '.';

@@ -20,7 +20,7 @@ import type {
   CoachwithPerformance,
   CoachPaymentRuleGroup,
   CoachPaymentRule,
-} from '#libs/coach-payment-rules/types';
+} from '#src/libs/coach-payment-rules/types';
 import CoachPerformanceSessionTable from './CoachPerformanceSessionTable.component';
 import CoachPerformancePrivateServiceTable from './CoachPerformancePrivateServiceTable.component';
 import CoachPerformanceRuleSetter from './CoachPerformanceRuleSetter.component';

@@ -5,22 +5,22 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { Theme, withStyles, Paper, WithStyles } from '@material-ui/core';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
-import AutoResendConfigDialog from '#libs/communication-v2/components/AutoResendConfigDialog';
+import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component';
+import AutoResendConfigDialog from '#src/libs/communication-v2/components/AutoResendConfigDialog';
 
-import { Member, MemberMinimal } from '#libs/member/types';
+import { Member, MemberMinimal } from '#src/libs/member/types';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
+} from '#src/libs/email-editor/types';
 
 import {
   getAvailableTagsFromContext,
   getAvailableTagsFromThread,
   getFormatedQueryParamsFromContext,
   getFormatedQueryParamsFromThread,
-} from '#libs/communication-v2/utils';
+} from '#src/libs/communication-v2/utils';
 import {
   MAX_LENGTH_PUSH_CONTENT,
   MAX_LENGTH_PUSH_TITLE,
@@ -37,12 +37,12 @@ import {
   CAN_NOT_SEND_BECAUSE_MISSING_CONTENT,
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_A_PHONE_NUMBER,
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL,
-} from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/constants';
 import {
   MessageData,
   FilteringMemberIdsByGenericCategories,
-} from '#libs/communication-v2/types';
-import { fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipientsForChatAllKindsAPI } from '#libs/communication-v2/api';
+} from '#src/libs/communication-v2/types';
+import { fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipientsForChatAllKindsAPI } from '#src/libs/communication-v2/api';
 import BottomBarIcons from './CommunicationSendMessageBottomBarIcons.component';
 import CommunicationWriteSMS from './Writers/CommunicationWriteSMS.component';
 import CommunicationWriteNotification from './Writers/CommunicationWriteNotification.component';

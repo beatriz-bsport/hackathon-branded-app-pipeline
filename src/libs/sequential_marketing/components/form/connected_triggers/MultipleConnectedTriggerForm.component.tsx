@@ -5,18 +5,18 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { useFormikContext, withFormik } from 'formik';
 
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
+import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
 
 import {
   DestinationKind,
   DestinationStatus,
   TriggerIdentifier,
   TriggerKind,
-} from '#libs/sequential_marketing/constants';
-import { getConnectedTriggerDefaultValues } from '#libs/sequential_marketing/components/graph/hooks/utils';
-import { getTriggerKind } from '#libs/sequential_marketing/components/helpers/utils';
-import MenuSelectorTextButton from '#components/menu/text';
+} from '#src/libs/sequential_marketing/constants';
+import { getConnectedTriggerDefaultValues } from '#src/libs/sequential_marketing/components/graph/hooks/utils';
+import { getTriggerKind } from '#src/libs/sequential_marketing/components/helpers/utils';
+import MenuSelectorTextButton from '#src/components/menu/text';
 import { multipleTriggersValidationSchema } from './validationSchema';
 
 import CollapsibleConnectedTriggerContent from './CollapsibleConnectedTriggerContent.component';

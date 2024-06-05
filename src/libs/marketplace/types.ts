@@ -1,18 +1,18 @@
 import { Immutable } from 'seamless-immutable';
 
-import { Coach } from '#libs/associated-coach/types';
-import { SCT } from '#libs/category/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Offer } from '#libs/offer/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { SCT } from '#src/libs/category/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Offer } from '#src/libs/offer/types';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
 import {
   PaymentPack,
   PaymentPackCategoryWithPacks,
-} from '#libs/payment-packs/types';
-import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
-import { WidgetCustomCSS } from '#libs/theme/types';
-import { ErrorAndLoading } from '#libs/types';
+} from '#src/libs/payment-packs/types';
+import { PrivatePassCategoryWithPasses } from '#src/libs/private-service/types';
+import { WidgetCustomCSS } from '#src/libs/theme/types';
+import { ErrorAndLoading } from '#src/libs/types';
 import { NewsletterV2FieldsKind } from './constants';
 
 /**

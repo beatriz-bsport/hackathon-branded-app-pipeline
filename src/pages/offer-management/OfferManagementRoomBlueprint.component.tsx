@@ -10,13 +10,13 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import CanvasPreview from '#libs/spot-scheduling/component/SpotPreview/CanvasPreview.component';
+import CanvasPreview from '#src/libs/spot-scheduling/component/SpotPreview/CanvasPreview.component';
 import type {
   AssetForBlueprint,
   RoomBlueprint,
   SpotType,
-} from '#libs/spot-scheduling/types';
-import type { Offer, OfferStatus } from '#libs/offer/types';
+} from '#src/libs/spot-scheduling/types';
+import type { Offer, OfferStatus } from '#src/libs/offer/types';
 import { getCoachOrSubstitute } from '../../libs/offer/utils';
 import type { MaterialStyleType } from '../../utils/types';
 

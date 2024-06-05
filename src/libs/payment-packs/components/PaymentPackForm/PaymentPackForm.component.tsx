@@ -18,32 +18,32 @@ import {
   offPeakGroupDefault,
   formatOffPeakScheduleOnSubmit,
   formatOffPeakScheduleOnEdit,
-} from '#libs/payment-packs/utils';
+} from '#src/libs/payment-packs/utils';
 import {
   PaymentPack,
   PaymentPackCategory,
   PaymentPackFormValues,
-} from '#libs/payment-packs/types';
-import UniversalPassFormPrivateserviceCompatibility from '#libs/universal-pass/components/UniversalPassFormPrivateserviceCompatibility.component';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+} from '#src/libs/payment-packs/types';
+import UniversalPassFormPrivateserviceCompatibility from '#src/libs/universal-pass/components/UniversalPassFormPrivateserviceCompatibility.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import {
   PENALTY_KIND_BLOCK_CPP,
   PENALTY_KIND_NEGATIVE_ACCOUNT,
-} from '#libs/payment-packs/constants';
+} from '#src/libs/payment-packs/constants';
 // @ts-expect-error
-import { Actions } from '#components/forms';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { Actions } from '#src/components/forms';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 
-import type { Tag, TagGroup } from '#libs/tag/types';
-import type { SCT } from '#libs/category/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
+import type { SCT } from '#src/libs/category/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
 import type {
   PrivateServiceWithSlots,
   PrivatePass,
   ServiceCompatibilityPass,
-} from '#libs/private-service/types';
-import type { BookkeepingAccount } from '#libs/payment/types';
+} from '#src/libs/private-service/types';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
 import { ALMOST_100 } from '../../../../constants';
 import PaymentPackFormAdvancedOptions from './PaymentPackFormAdvancedOptions.component';
 import PaymentPackFormRestrictions from './PaymentPackFormRestrictions.component';

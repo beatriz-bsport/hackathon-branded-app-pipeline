@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 import { useTranslation } from 'react-i18next';
 
-import InstalmentPaymentMultiplyIcon from '#libs/instalment-payment-configuration/components/InstalmentPaymentConfigurationMultiplyIcon.component';
-import { useBasketInstalmentPaymentOptionStyle } from '#libs/instalment-payment-configuration/hooks';
+import InstalmentPaymentMultiplyIcon from '#src/libs/instalment-payment-configuration/components/InstalmentPaymentConfigurationMultiplyIcon.component';
+import { useBasketInstalmentPaymentOptionStyle } from '#src/libs/instalment-payment-configuration/hooks';
 import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
 
 type Props = {

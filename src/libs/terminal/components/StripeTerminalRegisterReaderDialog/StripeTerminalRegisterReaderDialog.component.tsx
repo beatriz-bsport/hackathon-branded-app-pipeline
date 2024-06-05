@@ -10,10 +10,10 @@ import * as Yup from 'yup';
 import { Form, withFormik, FormikProps } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme, CircularProgress } from '@material-ui/core';
-import LocaleSelector from '#components/input/LocaleSelector.component';
-import ValidationIcon from '#components/icons/ValidationIcon.component';
-import ErrorIcon from '#components/icons/ErrorIcon.component';
-import { StripeReader } from '#libs/terminal/types';
+import LocaleSelector from '#src/components/input/LocaleSelector.component';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
+import ErrorIcon from '#src/components/icons/ErrorIcon.component';
+import { StripeReader } from '#src/libs/terminal/types';
 // @ts-expect-error
 import { TextField } from '../../../../components/forms';
 import { OptionCallback } from '../../../../state/types';

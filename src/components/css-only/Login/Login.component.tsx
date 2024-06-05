@@ -8,12 +8,12 @@ import {
   DIALOG_MODE_DEACTIVATED,
   DIALOG_MODE_IFRAME,
 } from '@bsport/common/lib/master-data/widget-dialog-mode';
-import { CompanyTheme } from '#libs/theme/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 import Button, { ButtonVariant } from '#Fabrique/Button';
-import LoginForm from '#components/css-only/LoginForm';
-import WidgetUtils from '#libs/widget/WidgetUtils';
-import { Franchise } from '#libs/franchise/types';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import LoginForm from '#src/components/css-only/LoginForm';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { Franchise } from '#src/libs/franchise/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { openIntercomHelp } from '../../../intercom';
 import getCalendlyLinkFromCountry from '../../../i18n/utils/calendly-link-language';
 import Config from '../../../config';

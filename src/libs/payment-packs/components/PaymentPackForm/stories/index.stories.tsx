@@ -2,15 +2,15 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import { paymentPackCategoryListFactory } from '#libs/payment-packs/factory';
-import FactoryBotEstablishment from '#libs/establishment/factories/Establishments';
-import FactoryBotTag from '#libs/tag/factory';
-import { factory_scts } from '#libs/category/factory';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
-import { privateServiceListFactory } from '#libs/private-service/factory';
+import { paymentPackCategoryListFactory } from '#src/libs/payment-packs/factory';
+import FactoryBotEstablishment from '#src/libs/establishment/factories/Establishments';
+import FactoryBotTag from '#src/libs/tag/factory';
+import { factory_scts } from '#src/libs/category/factory';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { privateServiceListFactory } from '#src/libs/private-service/factory';
 import { newStoryFromTemplate } from '../../../../../utils/storybookHelper';
 
-import PaymentPackForm from '#libs/payment-packs/components/PaymentPackForm/PaymentPackForm.component';
+import PaymentPackForm from '#src/libs/payment-packs/components/PaymentPackForm/PaymentPackForm.component';
 
 import {
   emptyFormRenderingTest,
@@ -36,7 +36,7 @@ import {
 
 import { formValidationTests } from './validation-tests';
 
-import { Establishment } from '#libs/establishment/types';
+import { Establishment } from '#src/libs/establishment/types';
 
 import {
   generalSectionErrorsTests,

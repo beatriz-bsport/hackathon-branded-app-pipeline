@@ -6,8 +6,8 @@ import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
 
 export type Props = {
   open: boolean;

@@ -6,22 +6,25 @@ import { compose } from 'recompose';
 import Select from 'react-select';
 import { Props as SelectProps } from 'react-select/lib/Select';
 import isEqual from 'lodash/isEqual';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import { useFetchOptions } from '#libs/fuzzy-search/hooks/useFetchOptions';
-import { getResultsById, getSelectorState } from '#libs/fuzzy-search/selectors';
+import { useFetchOptions } from '#src/libs/fuzzy-search/hooks/useFetchOptions';
+import {
+  getResultsById,
+  getSelectorState,
+} from '#src/libs/fuzzy-search/selectors';
 import {
   resetObjectSearch as resetObjectSearchAction,
   searchObjects as searchObjectsAction,
-} from '#libs/fuzzy-search/actions';
+} from '#src/libs/fuzzy-search/actions';
 import type {
   ObjectSearchProps,
   SearchObjectType,
   SelectOptions,
-} from '#libs/fuzzy-search/types';
+} from '#src/libs/fuzzy-search/types';
 
-import { useHydrateSearch } from '#libs/fuzzy-search/hooks/useHydrateSearch';
-import type { SelectOption } from '#libs/types';
+import { useHydrateSearch } from '#src/libs/fuzzy-search/hooks/useHydrateSearch';
+import type { SelectOption } from '#src/libs/types';
 import type { RootState } from '../../../reducers';
 import { DEFAULT_SELECTOR_ID } from '../constants';
 import { getSearchVariant } from '#libs/fuzzy-search/utils/getSearchVariant';

@@ -14,9 +14,9 @@ import { PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT } from '@bsport/common/lib/m
 import {
   verifyPriceBasket as verifyPriceBasketAPI,
   blockPendingBasket as blockPendingBasketAPI,
-} from '#libs/payment/api';
-import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
-import PopOver from '#components/Popover';
+} from '#src/libs/payment/api';
+import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
+import PopOver from '#src/components/Popover';
 
 type PaymentStripeBanContactProps = {
   AcceptTermsAndConditionsComponent: React.Component;

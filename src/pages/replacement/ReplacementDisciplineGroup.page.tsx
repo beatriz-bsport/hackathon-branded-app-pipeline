@@ -9,45 +9,45 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
 import { LinearProgress } from '@material-ui/core';
-import DisciplineGroupList from '#libs/replacement-request/components/discipline-group/DisciplineGroupList.component';
-import DisciplineGroupDeleteDialog from '#libs/replacement-request/components/discipline-group/DisciplineGroupDeleteDialog.component';
-import CompatibleCoachesList from '#libs/replacement-request/components/discipline-group/CompatibleCoachesList.component';
-import DisciplineGroupFormDrawer from '#libs/replacement-request/components/discipline-group/DisciplineGroupForm.drawer';
+import DisciplineGroupList from '#src/libs/replacement-request/components/discipline-group/DisciplineGroupList.component';
+import DisciplineGroupDeleteDialog from '#src/libs/replacement-request/components/discipline-group/DisciplineGroupDeleteDialog.component';
+import CompatibleCoachesList from '#src/libs/replacement-request/components/discipline-group/CompatibleCoachesList.component';
+import DisciplineGroupFormDrawer from '#src/libs/replacement-request/components/discipline-group/DisciplineGroupForm.drawer';
 
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
-import { DisciplineGroup } from '#libs/replacement-request/types';
-import themeSelectors from '#libs/theme/selectors';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
+import { DisciplineGroup } from '#src/libs/replacement-request/types';
+import themeSelectors from '#src/libs/theme/selectors';
 import {
   fetchDisciplineGroupList as fetchDisciplineGroupListAction,
   createDisciplineGroup as createDisciplineGroupAction,
   deleteDisciplineGroup as deleteDisciplineGroupAction,
   updateDisciplineGroup as updateDisciplineGroupAction,
-} from '#libs/replacement-request/actions';
-import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#libs/associated-coach/actions';
-import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
+} from '#src/libs/replacement-request/actions';
+import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#src/libs/associated-coach/actions';
+import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#src/libs/meta-activity/actions';
 import {
   getEnabledWorkshops,
   getEnabledMetaActivities,
   getMetaActivityLoading,
-} from '#libs/meta-activity/selectors';
+} from '#src/libs/meta-activity/selectors';
 import {
   getActiveCoaches,
   getCoachLoading,
-} from '#libs/associated-coach/selectors';
-import { getEditableSCTs } from '#libs/category/selectors';
+} from '#src/libs/associated-coach/selectors';
+import { getEditableSCTs } from '#src/libs/category/selectors';
 import {
   getDisciplineGroupLoading,
   getAllDisciplineGroupsWithFullData,
-} from '#libs/replacement-request/selectors';
-import { computeNbCompatibleCoaches } from '#libs/replacement-request/utils';
+} from '#src/libs/replacement-request/selectors';
+import { computeNbCompatibleCoaches } from '#src/libs/replacement-request/utils';
 import {
   getAvailableEstablishmentList,
   getAssociatedEstablishmentGroup,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 

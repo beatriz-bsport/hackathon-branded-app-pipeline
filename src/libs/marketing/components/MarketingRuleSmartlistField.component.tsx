@@ -16,8 +16,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import WarningIcon from '@material-ui/icons/Warning';
 // @ts-expect-error
 import { OptionTypeBase } from 'react-select';
-import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
-import { SmartList } from '#libs/smart-list/types';
+import { MaterialUiMultiSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { SmartList } from '#src/libs/smart-list/types';
 
 type Props = {
   smartLists: SmartList[];

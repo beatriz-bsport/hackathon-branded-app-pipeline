@@ -24,22 +24,24 @@
       "ESNext"
     ],
     "moduleResolution": "node",
-    "types": ["react", "node", "jest", "@testing-library/jest-dom"],
+    "types": [
+      "react",
+      "node",
+      "jest",
+      "@testing-library/jest-dom"
+    ],
     "baseUrl": ".", // This must be specified if paths is.
     "paths": {
-      "#src/*": ["./src/*"],
-      "#libs/*": ["./src/libs/*"],
-      "#marketplacecomponents/*": ["./src/libs/marketplace/components/*"],
-      "#components/*": ["./src/components/*"],
-      "#hocs/*": ["./src/hocs/*"],
-      "#hooks/*": ["./src/hooks/*"],
-      "#csscomponents/*": ["./src/components/css-only/*"],
-      "#utils/*": ["./src/utils/*"],
-      "#Fabrique/*": ["./src/components/css-only/Fabrique/*"],
-      "#untitledui/*": ["./src/components/untitledui/*"],
-      "#pages/*": ["./src/pages/*"],
-      "#state/*": ["./src/state/*"]
+      "#src/*": [
+        "./src/*"
+      ],
+      "#Fabrique/*": [
+        "./src/components/css-only/Fabrique/*"
+      ],
     }
   },
-  "include": ["./src/**/*.ts*", "src/i18n/index.js"]
+  "include": [
+    "./src/**/*.ts*",
+    "src/i18n/index.js"
+  ]
 }

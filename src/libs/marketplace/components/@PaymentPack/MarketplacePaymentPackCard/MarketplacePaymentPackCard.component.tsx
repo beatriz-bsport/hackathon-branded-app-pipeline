@@ -6,26 +6,26 @@ import Style from '@material-ui/icons/Style';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import ToolTip from '#components/Tooltip.component';
-import Card from '#components/css-only/Card';
-import CardContent from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import ToolTip from '#src/components/Tooltip.component';
+import Card from '#src/components/css-only/Card';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import Price from '#components/css-only/Price';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+} from '#src/components/css-only/Grid/GridItem';
+import Price from '#src/components/css-only/Price';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import { CardSize } from '#components/css-only/Card/types';
-import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
-import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+} from '#src/libs/theme/utils';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import { CardSize } from '#src/components/css-only/Card/types';
+import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
+import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
 import { useValidityInfoForPaymentPackCard } from '../../../utils/payment-pack';
 
 import './styles.css';

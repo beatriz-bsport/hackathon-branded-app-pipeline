@@ -38,23 +38,10 @@ module.exports = {
     alias: {
       'react-native': 'react-native-web',
       '#src': path.resolve(__dirname, '../src'),
-      '#libs': path.resolve(__dirname, '../src/libs'),
-      '#marketplacecomponents': path.resolve(
-        __dirname,
-        '../src/libs/marketplace/components',
-      ),
-      '#hocs': path.resolve(__dirname, '../src/hocs'),
-      '#hooks': path.resolve(__dirname, '../src/hooks'),
-      '#components': path.resolve(__dirname, '../src/components'),
-      '#csscomponents': path.resolve(__dirname, '../src/components/css-only'),
-      '#utils': path.resolve(__dirname, '../src/utils'),
       '#Fabrique': path.resolve(
         __dirname,
         '../src/components/css-only/Fabrique',
       ),
-      '#untitledui': path.resolve(__dirname, '../src/components/untitledui'),
-      '#pages': path.resolve(__dirname, '../src/pages'),
-      '#state': path.resolve(__dirname, '../src/state'),
     },
   },
   module: {

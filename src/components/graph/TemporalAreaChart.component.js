@@ -15,8 +15,8 @@ import {
   dateFormatter,
   numberFormatter,
   tooltipLabelFormatter,
-} from '#libs/statistics/utils';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+} from '#src/libs/statistics/utils';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 import TemporalCustomYLabel from './TemporalCustomYLabel.component';
 
 type Props = {

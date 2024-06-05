@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
-import '#csscomponents/Login/styles.css';
+import '#src/components/css-only/Login/styles.css';
 import { useTranslation } from 'react-i18next';
 
 import { StylesProvider } from '@material-ui/styles';
 import { useTheme } from '@material-ui/core';
 import classNames from 'classnames';
-import EmailIcon from '#components/icons/EmailIcon.component';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import EmailIcon from '#src/components/icons/EmailIcon.component';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import ResendEmailForConfirmationDialog from '../ResendEmailForConfirmationDialog.component';
 import LoginTitle from '../LoginTitle.component';
 

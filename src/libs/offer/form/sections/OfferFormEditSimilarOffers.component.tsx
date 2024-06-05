@@ -7,11 +7,11 @@ import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';
 import { useFormikContext } from 'formik';
 
-import FormSection from '#components/forms/FormSection';
-import SimilarOffersList from '#libs/offer/components/SimilarOffersList.component';
+import FormSection from '#src/components/forms/FormSection';
+import SimilarOffersList from '#src/libs/offer/components/SimilarOffersList.component';
 
-import { Coach } from '#libs/associated-coach/types';
-import { Offer, OfferFormValues } from '#libs/offer/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Offer, OfferFormValues } from '#src/libs/offer/types';
 
 type Props = {
   similarOffers: Offer[];

@@ -2,7 +2,7 @@ import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import CommunicationScheduledList from './CommunicationScheduledList.component';
-import { communicationScheduledBatchFactory } from '#libs/smart-list/factories';
+import { communicationScheduledBatchFactory } from '#src/libs/smart-list/factories';
 
 export default {
   title: 'Components/Smartlists/CommunicationScheduledList',

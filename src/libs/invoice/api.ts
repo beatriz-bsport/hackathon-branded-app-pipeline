@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 
-import type { PaginatedResponse } from '#state/types';
+import type { PaginatedResponse } from '#src/state/types';
 import type {
   Invoice,
   InvoiceAllowedReverseMethods,
@@ -16,9 +16,9 @@ import type {
   RequestClientSecretPayload,
   PlannedPaymentEventSerializer,
   InvoiceDetailsSerializer,
-} from '#libs/invoice/types';
-import type { InvoiceItem } from '#libs/invoice/invoice-item/types';
-import type { Payment } from '#libs/payment/types';
+} from '#src/libs/invoice/types';
+import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
+import type { Payment } from '#src/libs/payment/types';
 import {
   API_V1_URI,
   getAuth,

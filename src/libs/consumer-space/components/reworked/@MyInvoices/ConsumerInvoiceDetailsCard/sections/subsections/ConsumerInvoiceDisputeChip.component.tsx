@@ -6,7 +6,7 @@ import {
   CheckCircle,
   RefreshCW05,
   SVGComponentProps,
-} from '#components/untitledui';
+} from '#src/components/untitledui';
 import Chip from '#Fabrique/Chip';
 
 import '../../styles.css';

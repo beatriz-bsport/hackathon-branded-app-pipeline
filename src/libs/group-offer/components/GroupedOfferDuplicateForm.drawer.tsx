@@ -2,11 +2,11 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 import { DateTime } from 'luxon';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { OffersGroup, GroupPreviewData } from '#libs/group-offer/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { OffersGroup, GroupPreviewData } from '#src/libs/group-offer/types';
 
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { Offer } from '#libs/offer/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { Offer } from '#src/libs/offer/types';
 import GroupedOfferPreviewForm from './GroupedOfferPreview.component';
 import { OptionCallback } from '../../../state/types';
 

@@ -18,9 +18,9 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-import muiIconNames from '#components/input/muiIcon/muiIconNames';
-import { SubShop } from '#libs/shop/types';
-import { MuiIconName } from '#components/input/muiIcon/MuiIconNameType';
+import muiIconNames from '#src/components/input/muiIcon/muiIconNames';
+import { SubShop } from '#src/libs/shop/types';
+import { MuiIconName } from '#src/components/input/muiIcon/MuiIconNameType';
 import { CustomShopRedirection } from '../types';
 import { getTextColorFromRGB } from '../../../utils/color';
 

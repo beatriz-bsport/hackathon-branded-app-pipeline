@@ -2,26 +2,26 @@ import React, { useCallback, useMemo } from 'react';
 import isEqual from 'lodash/isEqual';
 import { useTranslation } from 'react-i18next';
 
-import MarketplacePaymentPackBuyableItem from '#marketplacecomponents/@BuyableItem/MarketplacePaymentPackBuyableItem';
-import MarketplacePaymentComboBuyableItem from '#marketplacecomponents/@BuyableItem/MarketplacePaymentComboBuyableItem';
-import MarketplaceContractBuyableItem from '#marketplacecomponents/@Subscription/MarketplaceContractBuyableItem';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import MarketplacePaymentPackBuyableItem from '#src/libs/marketplace/components/@BuyableItem/MarketplacePaymentPackBuyableItem';
+import MarketplacePaymentComboBuyableItem from '#src/libs/marketplace/components/@BuyableItem/MarketplacePaymentComboBuyableItem';
+import MarketplaceContractBuyableItem from '#src/libs/marketplace/components/@Subscription/MarketplaceContractBuyableItem';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import {
   PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
   PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
   CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
   MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER,
   RECOMMENDED_BUYABLE_CATEGORY_ID,
-} from '#libs/marketplace/constants';
+} from '#src/libs/marketplace/constants';
 
 import type {
   BookerModuleBuyableItem,
   BuyableItemCategory,
   RecommendedBuyableItem,
-} from '#libs/booker-module/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import type { ContractWithPaymentPack } from '#libs/subscription/types';
+} from '#src/libs/booker-module/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { ContractWithPaymentPack } from '#src/libs/subscription/types';
 
 import './styles.css';
 

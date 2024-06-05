@@ -2,8 +2,8 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import type { Theme } from '#libs/theme/types';
-import type { Establishment } from '#libs/establishment/types';
+import type { Theme } from '#src/libs/theme/types';
+import type { Establishment } from '#src/libs/establishment/types';
 
 import './styles.css';
 

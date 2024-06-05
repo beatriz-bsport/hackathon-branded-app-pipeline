@@ -8,8 +8,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { DateTime } from 'luxon';
 import uniq from 'lodash/uniq';
 
-import { getTheme } from '#libs/theme/selectors';
-import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
+import { getTheme } from '#src/libs/theme/selectors';
+import { EstablishmentWithAssociatedId } from '#src/libs/establishment/types';
 import withTitle from '../../hocs/with-title.hoc';
 import { getEstablishmentWithAssociatedId } from '../../libs/establishment/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';

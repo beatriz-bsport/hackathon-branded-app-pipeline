@@ -5,14 +5,14 @@ import {
   TRIGGER_LEFT_HANDLE_STYLE,
   TRIGGER_RIGHT_HANDLE_STYLE,
   TriggerKind,
-} from '#libs/sequential_marketing/constants/triggers';
-import { changeConnectedTriggerKind } from '#libs/sequential_marketing/components/graph/hooks/utils';
-import { HandleTypeChoices } from '#libs/sequential_marketing/constants/steps';
-import { isTriggerFake } from '#libs/sequential_marketing/components/helpers/utils';
-import HiddenHandle from '#libs/sequential_marketing/components/graph/handles/HiddenHandle.component';
+} from '#src/libs/sequential_marketing/constants/triggers';
+import { changeConnectedTriggerKind } from '#src/libs/sequential_marketing/components/graph/hooks/utils';
+import { HandleTypeChoices } from '#src/libs/sequential_marketing/constants/steps';
+import { isTriggerFake } from '#src/libs/sequential_marketing/components/helpers/utils';
+import HiddenHandle from '#src/libs/sequential_marketing/components/graph/handles/HiddenHandle.component';
 
-import UniqueTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueTriggerBubble.component';
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import UniqueTriggerBubble from '#src/libs/sequential_marketing/components/graph/bubbles/UniqueTriggerBubble.component';
+import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
 import TriggerCard, { type TriggerCardProps } from './TriggerCard.component';
 import { CadencePopover } from '../internals/CadencePopover.component';
 

@@ -28,10 +28,10 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
 } from '@bsport/common/lib/master-data/buyable-items';
 import { CircularProgress } from '@material-ui/core';
-import CouponTemplateUpdateWarningDialog from '#libs/coupon/components/CouponTemplateUpdateWarningDialog.component';
-import type { PaymentPackTemplate } from '#libs/payment-packs/types';
-import type { PrivatePassTemplate } from '#libs/private-service/types';
-import type { CouponTemplate } from '#libs/coupon/types';
+import CouponTemplateUpdateWarningDialog from '#src/libs/coupon/components/CouponTemplateUpdateWarningDialog.component';
+import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
+import type { PrivatePassTemplate } from '#src/libs/private-service/types';
+import type { CouponTemplate } from '#src/libs/coupon/types';
 import { OptionCallback } from '../../../state/types';
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
@@ -45,7 +45,6 @@ import {
   DateField,
   // @ts-expect-error
 } from '../../../components/forms';
-
 
 const ALL_BUYABLES = 100;
 

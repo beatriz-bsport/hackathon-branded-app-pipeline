@@ -9,7 +9,7 @@ import {
   configurationUpdate,
   deliverFeesList,
   deliverFeesCreateOrUpdate,
-} from '#libs/order/actions';
+} from '#src/libs/order/actions';
 
 import type {
   OrderState,
@@ -17,7 +17,7 @@ import type {
   DeliveryConfiguration,
   OrderWithProducts,
   OrderListActions,
-} from '#libs/order/types';
+} from '#src/libs/order/types';
 
 type Payload<T> = { payload: T };
 

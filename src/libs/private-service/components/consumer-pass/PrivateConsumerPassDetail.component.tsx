@@ -8,20 +8,20 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // @ts-expect-error
-import PaginatedListStateful from '#components/PaginatedListStateful.component';
-import ExtensionListItem from '#components/ExtensionListItem';
-import InvoiceListItem from '#libs/invoice/InvoiceListItem.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import PaginatedListStateful from '#src/components/PaginatedListStateful.component';
+import ExtensionListItem from '#src/components/ExtensionListItem';
+import InvoiceListItem from '#src/libs/invoice/InvoiceListItem.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
 import {
   PrivateBooking,
   PrivateConsumerPass,
   PrivateConsumerPassExtension,
-} from '#libs/private-service/types';
-import { Invoice } from '#libs/invoice/types';
+} from '#src/libs/private-service/types';
+import { Invoice } from '#src/libs/invoice/types';
 
-import { PRIVATE_CONSUMER_PASS_EXTENSION_PAGE_SIZE } from '#libs/private-service/constants';
+import { PRIVATE_CONSUMER_PASS_EXTENSION_PAGE_SIZE } from '#src/libs/private-service/constants';
 import { OptionCallback } from '../../../../state/types';
 import PrivateBookingDisableDialog from '../booking/PrivateBookingDisableDialog.component';
 import PrivateBookingListItem from '../booking/PrivateBookingListItem.component';

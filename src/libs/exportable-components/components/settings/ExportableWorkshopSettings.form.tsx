@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Level } from '#libs/level/types';
+import { Level } from '#src/libs/level/types';
 import CommonSettings from './CommonSettings.form';
 
 import { Coach } from '../../../associated-coach/types';

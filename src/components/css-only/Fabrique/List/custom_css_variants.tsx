@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import type { CompanyTheme } from '#libs/theme/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
 import ListItem from '#Fabrique/ListItem';
 import { ListItemTypeEnum } from '#Fabrique/ListItem/constants';
 import type { ListItemType } from '#Fabrique/ListItem/types';
-import { ArrowBlockLeft } from '#components/untitledui';
+import { ArrowBlockLeft } from '#src/components/untitledui';
 import List from '.';
 // @ts-expect-error
 import ListCSS from './styles.css?raw';

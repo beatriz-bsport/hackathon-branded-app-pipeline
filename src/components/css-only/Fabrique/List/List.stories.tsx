@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { ListStorybook } from '.';
 import ListItem from '#Fabrique/ListItem';
-import { ArrowBlockLeft } from '#components/untitledui';
+import { ArrowBlockLeft } from '#src/components/untitledui';
 
 type NumberKey = '1' | '2' | '3' | '4' | '5';
 const numbersDict: Record<NumberKey, boolean> = {

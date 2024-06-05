@@ -14,9 +14,9 @@ import {
 import { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-status';
 import type { RootState } from 'src/reducers';
 import type { Dispatch, OptionCallback, ThunkAction } from 'src/state/types';
-import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
-import { updateTutorialLessonUserCompletionStatusAction } from '#libs/platform-tutorial/actions';
-import { flagAsReadActions as updateUnreadCommunicationAsReadAction } from '#libs/communication-v2/actions';
+import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#src/libs/platform-billing/upsell-identifiers';
+import { updateTutorialLessonUserCompletionStatusAction } from '#src/libs/platform-tutorial/actions';
+import { flagAsReadActions as updateUnreadCommunicationAsReadAction } from '#src/libs/communication-v2/actions';
 import type { AlertPayloadSuccess, AlertPayloadLoading } from './types';
 import api from './api';
 

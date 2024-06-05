@@ -1,5 +1,5 @@
 import React from 'react';
-import { cadenceListFactory } from '#libs/sequential_marketing/factories';
+import { cadenceListFactory } from '#src/libs/sequential_marketing/factories';
 import SmartListCannotBeDeletedDialog, {
   Props,
 } from './SmartListCannotBeDeletedDialog.component';

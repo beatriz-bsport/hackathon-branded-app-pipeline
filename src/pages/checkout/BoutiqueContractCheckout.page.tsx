@@ -17,92 +17,94 @@ import {
 import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription';
 import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import { consumerAppBarHOC } from '#hocs/consumer-app-bar.hoc';
+import { consumerAppBarHOC } from '#src/hocs/consumer-app-bar.hoc';
 import {
   CONSUMER_PAYMENT_PACK_IDENTIFIER,
   CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
-} from '#libs/marketplace/constants';
-import { buildDataForUserRegistration } from '#libs/marketplace/utils';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
+} from '#src/libs/marketplace/constants';
+import { buildDataForUserRegistration } from '#src/libs/marketplace/utils';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 import {
   getCheckoutValidationUrl,
   getOfferBookerUrl,
-} from '#libs/marketplace/routing-utils';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import themeSelectors, { getStripePkKey } from '#libs/theme/selectors';
+} from '#src/libs/marketplace/routing-utils';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import themeSelectors, { getStripePkKey } from '#src/libs/theme/selectors';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod,
-} from '#libs/payment/actions';
+} from '#src/libs/payment/actions';
 // @ts-expect-error
-import Analytics from '#components/analytics/Analytics.component';
-import Button, { ButtonVariant } from '#components/css-only/Fabrique/Button';
+import Analytics from '#src/components/analytics/Analytics.component';
+import Button, {
+  ButtonVariant,
+} from '#src/components/css-only/Fabrique/Button';
 
-import type { Contract } from '#libs/subscription/types';
-import { getSavedPaymentMethodList } from '#libs/payment/selectors';
+import type { Contract } from '#src/libs/subscription/types';
+import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
 
 import {
   retrieveOffer as retrieveOfferAction,
   fetchOfferStatus as fetchOfferStatusAction,
   offerUserRegistration as offerUserRegistrationAction,
   fetchOfferById as fetchOfferByIdAction,
-} from '#libs/offer/actions';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
-import { invalidatePendingBooking as invalidatePendingBookingAPI } from '#libs/offer/api';
+} from '#src/libs/offer/actions';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
+import { invalidatePendingBooking as invalidatePendingBookingAPI } from '#src/libs/offer/api';
 import {
   getOfferById,
   withMetaActivity,
   withEstablishment,
-} from '#libs/offer/selectors';
+} from '#src/libs/offer/selectors';
 import {
   fetchContractDetail,
   registerContractBackground,
   downloadPDFContractTermsForContract as downloadPDFContractTermsForContractAction,
-} from '#libs/subscription/actions';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
+} from '#src/libs/subscription/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#src/libs/payment-packs/actions';
 import {
   fetchPrivatePassBulk as fetchPrivatePassBulkAction,
   fetchPrivatePassAsConsumerList,
-} from '#libs/private-service/actions';
-import { fetchPaymentComboList } from '#libs/payment-combo/actions';
+} from '#src/libs/private-service/actions';
+import { fetchPaymentComboList } from '#src/libs/payment-combo/actions';
 // @ts-expect-error
-import { getContract, withPaymentPack } from '#libs/subscription/selectors';
-import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
+import { getContract, withPaymentPack } from '#src/libs/subscription/selectors';
+import { getMarketplaceEnabledPaymentMethods } from '#src/libs/payment/utils';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import MarketplaceSubscriptionPayment from '#libs/checkout/components/new-checkout-flow/SubscriptionPayment';
-import SubscriptionTerms from '#libs/subscription/components/new-checkout-flow/SubscriptionTerms';
-import SubscriptionBasketSummary from '#libs/subscription/components/new-checkout-flow/SubscriptionBasketSummary';
-import SubscriptionBillingInfo from '#libs/subscription/components/new-checkout-flow/SubscriptionBillingInfo';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import MarketplaceSubscriptionPayment from '#src/libs/checkout/components/new-checkout-flow/SubscriptionPayment';
+import SubscriptionTerms from '#src/libs/subscription/components/new-checkout-flow/SubscriptionTerms';
+import SubscriptionBasketSummary from '#src/libs/subscription/components/new-checkout-flow/SubscriptionBasketSummary';
+import SubscriptionBillingInfo from '#src/libs/subscription/components/new-checkout-flow/SubscriptionBillingInfo';
 import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '#libs/establishment/actions';
-import { fetchMetaActivityDetails as fetchMetaActivityDetailsAction } from '#libs/meta-activity/actions';
-import { PrepaidLine } from '#libs/checkout/types';
-import MarketplaceContractTermsModal from '#marketplacecomponents/@Subscription/MarketplaceContractTermsModal';
-import { appliesToContract } from '#libs/coupon/api';
-import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
-import { ProcessingPaymentDialogPortal } from '#libs/subscription/components/new-checkout-flow/ProcessingPaymentDialog';
-import SubscriptionErrorDialog from '#libs/subscription/components/new-checkout-flow/SubscriptionErrorDialog';
-import MarketplaceContractCooldownModal from '#marketplacecomponents/@Subscription/MarketplaceContractCooldownModal';
-import { BookerItem } from '#libs/booker-module/types';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+} from '#src/libs/establishment/actions';
+import { fetchMetaActivityDetails as fetchMetaActivityDetailsAction } from '#src/libs/meta-activity/actions';
+import { PrepaidLine } from '#src/libs/checkout/types';
+import MarketplaceContractTermsModal from '#src/libs/marketplace/components/@Subscription/MarketplaceContractTermsModal';
+import { appliesToContract } from '#src/libs/coupon/api';
+import { computeProrataPriceForSubscription } from '#src/libs/subscription/utils';
+import { ProcessingPaymentDialogPortal } from '#src/libs/subscription/components/new-checkout-flow/ProcessingPaymentDialog';
+import SubscriptionErrorDialog from '#src/libs/subscription/components/new-checkout-flow/SubscriptionErrorDialog';
+import MarketplaceContractCooldownModal from '#src/libs/marketplace/components/@Subscription/MarketplaceContractCooldownModal';
+import { BookerItem } from '#src/libs/booker-module/types';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import {
   getEnabledEstablishmentBillingGroups,
   getDefaultEstablishmentBillingGroup,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import {
   fetchMember as fetchMemberAction,
   updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
-} from '#libs/member/actions';
-import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
-import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '#libs/membership/actions';
-import { getMembership } from '#libs/membership/selectors';
-import { loadDefaultEstablishmentBillingGroup } from '#libs/marketplace/utils/booking';
+} from '#src/libs/member/actions';
+import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '#src/libs/membership/actions';
+import { getMembership } from '#src/libs/membership/selectors';
+import { loadDefaultEstablishmentBillingGroup } from '#src/libs/marketplace/utils/booking';
 import { buildUrlParams } from '../../http';
 import type { OptionCallback } from '../../state/types';
 import { WithHandlerType } from '../../utils/types';

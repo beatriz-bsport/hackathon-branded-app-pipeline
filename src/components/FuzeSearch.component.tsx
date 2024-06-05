@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import memoize from 'memoize-one';
 
 import type { ImmutableArray } from 'seamless-immutable';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
 import DelayedTextField from './DelayedTextField.component';
 
 const TEXT_FIELD_DELAY = 170;

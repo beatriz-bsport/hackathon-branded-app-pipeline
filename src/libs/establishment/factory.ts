@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-import { generateRandomInt } from '#utils/factories';
+import { generateRandomInt } from '#src/utils/factories';
 import {
   EasyAccess,
   Establishment,

@@ -6,8 +6,8 @@ import {
   UNREAD_COMMUNICATION,
 } from '@bsport/common/lib/master-data/alerting_kind';
 import type { RootState } from 'src/reducers';
-import { getObjectPermissions } from '#libs/role/selectors';
-import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
+import { getObjectPermissions } from '#src/libs/role/selectors';
+import { hasObjectLevelPermission } from '#src/libs/role/permission-utils/utils';
 import type { AlertingState } from './types';
 import { AlertKind } from './constants';
 

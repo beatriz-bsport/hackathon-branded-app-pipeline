@@ -7,7 +7,7 @@ import {
   BILLING_PLAN_GRAPH_IDENTIFIER,
   PRIVATE_BOOKING_GRAPH_IDENTIFIER,
   INVOICE_GRAPH_IDENTIFIER,
-} from '#libs/dashboard/constants';
+} from '#src/libs/dashboard/constants';
 import type { DataSourceDashboardSettings } from './types';
 
 export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSettings =

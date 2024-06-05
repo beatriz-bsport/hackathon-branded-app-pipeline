@@ -12,10 +12,10 @@ import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
-import CouponListComponent from '#libs/coupon/components/CouponList.component';
-import CouponListItem from '#libs/coupon/components/CouponListItem.component';
+import CouponListComponent from '#src/libs/coupon/components/CouponList.component';
+import CouponListItem from '#src/libs/coupon/components/CouponListItem.component';
 // @ts-expect-error
-import CouponDeleteModal from '#libs/coupon/components/CouponDeleteModal.component';
+import CouponDeleteModal from '#src/libs/coupon/components/CouponDeleteModal.component';
 import {
   fetchCouponPage,
   deleteCoupon,
@@ -24,62 +24,62 @@ import {
   createUniqueCodeCoupon,
   updateUniqueCodeCoupon,
   retrieveCoupon,
-} from '#libs/coupon/actions';
+} from '#src/libs/coupon/actions';
 import {
   getActiveCoupons,
   getInactiveCoupons,
   getAllCoupons,
   withTags,
-} from '#libs/coupon/selectors';
+} from '#src/libs/coupon/selectors';
 import type {
   Coupon,
   UniqueCodeCouponCreationPayload,
   UniqueCodeCouponUpdatePayload,
-} from '#libs/coupon/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component';
+} from '#src/libs/coupon/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import CouponFormDrawer from '#src/libs/coupon/components/CouponFormDrawer.component';
 import {
   fetchPaymentPackList as fetchPaymentPackListAction,
   fetchPaymentPackBulk as fetchSelectedPaymentPacks,
   resetDisabledPaymentPack as resetDisabledPaymentPackAction,
-} from '#libs/payment-packs/actions';
+} from '#src/libs/payment-packs/actions';
 import {
   fetchBulk as fetchSelectedShopItems,
   fetchShopItemAsManager as fetchAllShop,
-} from '#libs/shop/actions/shopitem';
+} from '#src/libs/shop/actions/shopitem';
 import {
   fetchShopItemBaseList as fetchShopItemBaseListAction,
   fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
-} from '#libs/shop/actions/shopItemReworked';
+} from '#src/libs/shop/actions/shopItemReworked';
 import {
   fetchPrivateSlotBulk as fetchSelectedPrivatePasses,
   fetchPrivatePassList,
-} from '#libs/private-service/actions';
+} from '#src/libs/private-service/actions';
 import {
   fetchPaymentComboBulk as fetchSelectedPaymentCombos,
   fetchPaymentComboList,
-} from '#libs/payment-combo/actions';
-import { fetchTags } from '#libs/tag/actions';
+} from '#src/libs/payment-combo/actions';
+import { fetchTags } from '#src/libs/tag/actions';
 import {
   getPaymentPackById,
   getEnabled as getPaymentPacks,
-} from '#libs/payment-packs/selectors';
+} from '#src/libs/payment-packs/selectors';
 import {
   getShopItemBaseAndStandaloneById,
   getShopItemBaseAndStandaloneList,
-} from '#libs/shop/selectors';
+} from '#src/libs/shop/selectors';
 import {
   getPrivatePassById,
   getPrivatePassAvailable as getPrivatePass,
-} from '#libs/private-service/selectors/private-pass';
+} from '#src/libs/private-service/selectors/private-pass';
 import {
   getPaymenComboDataDict,
   getPaymentComboList,
-} from '#libs/payment-combo/selectors';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import FabWithItems from '#components/button/FabWithItems';
-import UniqueCodeCouponFormDrawer from '#libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
-import { CouponErrorCodes } from '#libs/coupon/constants';
+} from '#src/libs/payment-combo/selectors';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import FabWithItems from '#src/components/button/FabWithItems';
+import UniqueCodeCouponFormDrawer from '#src/libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
+import { CouponErrorCodes } from '#src/libs/coupon/constants';
 import type { RootState } from '../../reducers';
 import type {
   OptionCallback,

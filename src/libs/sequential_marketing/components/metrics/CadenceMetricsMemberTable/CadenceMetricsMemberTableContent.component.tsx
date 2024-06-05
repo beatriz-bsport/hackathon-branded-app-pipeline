@@ -12,20 +12,20 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import CustomChip from '#components/chip/CustomChip.component';
+import CustomChip from '#src/components/chip/CustomChip.component';
 import {
   CadenceMetricsSizes,
   DestinationStatus,
   SequentialMarketingColors,
-} from '#libs/sequential_marketing/constants';
-import { formatAsDate } from '#utils/datetime';
+} from '#src/libs/sequential_marketing/constants';
+import { formatAsDate } from '#src/utils/datetime';
 
 import type {
   CadenceMembersInData,
   CadenceMembersOutData,
   CadenceStep,
-} from '#libs/sequential_marketing/types';
-import { Member } from '#libs/member/types';
+} from '#src/libs/sequential_marketing/types';
+import { Member } from '#src/libs/member/types';
 import DEFAULT_PROFILE_PICTURE_URL from '../../../../../assets/constants';
 
 const ResponsiveTable = withStyles(() => ({

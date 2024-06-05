@@ -3,9 +3,9 @@ import type { AxiosResponse } from 'axios';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
 
-import type { OptionCallback } from '#state/types';
-import type { PaymentMethod } from '#libs/payment/types';
-import type { SubscriptionREST } from '#libs/subscription/types';
+import type { OptionCallback } from '#src/state/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
+import type { SubscriptionREST } from '#src/libs/subscription/types';
 import { ConsumerSubscriptionPaymentContent } from '.';
 
 type Props = {

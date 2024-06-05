@@ -7,9 +7,9 @@ import {
 } from '@bsport/common/lib/master-data/payment-methods';
 
 import { DateTime } from 'luxon';
-import { paymentPackFactory } from '#libs/payment-packs/factory';
-import { privatePassFactory } from '#libs/private-service/factory';
-import { shopItemFactory } from '#libs/shop/factory';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
+import { privatePassFactory } from '#src/libs/private-service/factory';
+import { shopItemFactory } from '#src/libs/shop/factory';
 
 import {
   generateRandomName,

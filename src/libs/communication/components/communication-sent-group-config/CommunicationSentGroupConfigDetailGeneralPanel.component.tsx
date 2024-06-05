@@ -12,15 +12,15 @@ import {
   yupToFormErrors,
 } from 'formik';
 import { useTranslation } from 'react-i18next';
-import type { FranchiseCompany } from '#libs/franchise/types';
-import type { SmartList } from '#libs/smart-list/types';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
+import type { SmartList } from '#src/libs/smart-list/types';
 import type {
   CompanyWithSmartList,
   CommunicationSentGroupConfig,
   CommunicationSentGroupConfigFormValues,
-} from '#libs/communication/types';
-import CommunicationSentGroupConfigSmartlistSelectionPanel from '#libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigSmartlistSelectionPanel';
-import { getCompaniesWithSmartLists } from '#libs/communication/utils';
+} from '#src/libs/communication/types';
+import CommunicationSentGroupConfigSmartlistSelectionPanel from '#src/libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigSmartlistSelectionPanel';
+import { getCompaniesWithSmartLists } from '#src/libs/communication/utils';
 import { OptionCallback } from '../../../../state/types';
 
 const CommunicationSentGroupConfigValidationSchema = Yup.object().shape({

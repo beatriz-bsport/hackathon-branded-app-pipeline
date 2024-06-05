@@ -8,9 +8,9 @@ import { useTranslation } from 'react-i18next';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import ErrorIcon from '#components/icons/ErrorIcon.component';
-import CardRefusedIcon from '#components/icons/CardRefusedIcon.component';
-import type { StripeAPIException } from '#libs/payment/types';
+import ErrorIcon from '#src/components/icons/ErrorIcon.component';
+import CardRefusedIcon from '#src/components/icons/CardRefusedIcon.component';
+import type { StripeAPIException } from '#src/libs/payment/types';
 import StripeTerminalErrorCode from '../StripeTerminalErrorCode.component';
 
 const useStyles = makeStyles((theme: Theme) => ({

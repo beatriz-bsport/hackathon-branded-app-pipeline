@@ -10,23 +10,23 @@ import {
   createSubshopTemplate as createSubshopTemplateAction,
   updateSubshopTemplate as updateSubshopTemplateAction,
   deleteSubshopTemplate as deleteSubshopTemplateAction,
-} from '#libs/shop/actions/subshopReworked';
+} from '#src/libs/shop/actions/subshopReworked';
 
 import {
   fetchShopItemTemplateList as fetchShopItemTemplateListAction,
   createShopItemTemplate as createShopItemTemplateAction,
   updateShopItemTemplate as updateShopItemTemplateAction,
   deleteShopItemTemplate as deleteShopItemTemplateAction,
-} from '#libs/shop/actions/shopItemReworked';
+} from '#src/libs/shop/actions/shopItemReworked';
 
 import {
   fetchShopSupplierTemplateList as fetchShopSupplierTemplateListAction,
   createShopSupplierTemplate as createShopSupplierTemplateAction,
   updateShopSupplierTemplate as updateShopSupplierTemplateAction,
   deleteShopSupplierTemplate as deleteShopSupplierTemplateAction,
-} from '#libs/shop/actions/supplier';
+} from '#src/libs/shop/actions/supplier';
 
-import { updateFranchiseTheme as updateFranchiseThemeAction } from '#libs/franchise/actions';
+import { updateFranchiseTheme as updateFranchiseThemeAction } from '#src/libs/franchise/actions';
 
 import {
   // subshop template selectors
@@ -46,7 +46,7 @@ import {
   getShopSupplierTemplateCreateLoading,
   getShopSupplierTemplateUpdateLoading,
   getShopSupplierTemplateDeleteLoading,
-} from '#libs/shop/selectors';
+} from '#src/libs/shop/selectors';
 import {
   getFranchiseCompanies,
   getFranchiseCompanyById,
@@ -55,15 +55,15 @@ import {
   getFranchisor,
 } from '#src/libs/franchise/selectors';
 
-import FranchiseShopList from '#libs/franchise/components/FranchiseShopList.component';
+import FranchiseShopList from '#src/libs/franchise/components/FranchiseShopList.component';
 
+import { objectToFormData } from '#src/libs/utils';
 // @ts-expect-error
-import { mapFormDataWithObject } from '#pages/form.utils';
-import { objectToFormData } from '#libs/utils';
+import { mapFormDataWithObject } from '#src/pages/form.utils';
 
 import type { RootState } from '#src/reducers';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
-import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
+import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
 import type {
   ShopItemCreate,
   ShopItemTemplate,
@@ -71,11 +71,11 @@ import type {
   ShopSupplierTemplateCreate,
   ShopSupplierUpdate,
   SubshopTemplate,
-} from '#libs/shop/types';
-import type { SelectOption } from '#libs/types';
-import type { FranchiseCompany } from '#libs/franchise/types';
+} from '#src/libs/shop/types';
+import type { SelectOption } from '#src/libs/types';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
 
-import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
+import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
 
 type Props = ConnectedProps<typeof connector>;
 

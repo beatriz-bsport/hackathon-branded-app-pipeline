@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import { StaffModificationHistory } from '#libs/role/types';
+import { StaffModificationHistory } from '#src/libs/role/types';
 import type { State } from '../../state/types';
 import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
 import {

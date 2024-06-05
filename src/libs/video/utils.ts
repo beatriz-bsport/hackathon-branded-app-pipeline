@@ -1,8 +1,8 @@
 import { TFunction } from 'i18next';
 import { DateTime } from 'luxon';
-import { VideoPurchase } from '#libs/video/types';
-import { getPackDate } from '#libs/payment-packs/utils';
-import { getPassDate } from '#libs/private-service/utils';
+import { VideoPurchase } from '#src/libs/video/types';
+import { getPackDate } from '#src/libs/payment-packs/utils';
+import { getPassDate } from '#src/libs/private-service/utils';
 import { formatAsDatetime } from '../../utils/datetime';
 
 export const getExpirationDate = (videoPurchase: VideoPurchase) => {

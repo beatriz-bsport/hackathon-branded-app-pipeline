@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
-import { ChevronDown, ChevronUp, XClose } from '#components/untitledui';
+import { ChevronDown, ChevronUp, XClose } from '#src/components/untitledui';
 import Typography from '#Fabrique/Typography';
 import { SelectorSizeEnum } from '../constants';
 import { SelectorSize } from '../types';

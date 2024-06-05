@@ -2,7 +2,7 @@
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
 import { DateTime } from 'luxon';
-import MemberFactory from '#libs/member/factories/MemberMinimal';
+import MemberFactory from '#src/libs/member/factories/MemberMinimal';
 import {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingMetric,

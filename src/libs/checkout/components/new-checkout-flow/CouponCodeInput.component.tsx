@@ -7,9 +7,9 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles, useTheme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
-import TextFieldWithCustomColors from '#components/input/text-field/TextFieldWithCustomColors.component';
-import { CouponErrorCodes } from '#libs/coupon/constants';
-import { Coupon } from '#libs/coupon/types';
+import TextFieldWithCustomColors from '#src/components/input/text-field/TextFieldWithCustomColors.component';
+import { CouponErrorCodes } from '#src/libs/coupon/constants';
+import { Coupon } from '#src/libs/coupon/types';
 import { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
 
 enum ErrorType {

@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { Offer } from '#libs/offer/types';
+import { Offer } from '#src/libs/offer/types';
 import { buildUrlParams } from '../../http';
 import {
   MARKETPLACE_PATH_TAB_CALENDAR,

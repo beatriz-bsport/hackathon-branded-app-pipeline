@@ -27,7 +27,7 @@ import {
   fetchConsumerPaidInvoicesActions,
   fetchConsumerRefundedInvoicesActions,
   fetchConsumerInvoicesComplementaryActions,
-} from '#libs/consumer-space/actions';
+} from '#src/libs/consumer-space/actions';
 import {
   fetchActiveSubscriptionDetailAsMemberActions,
   fetchConsumerSubscriptionInvoicesDetailsActions,
@@ -36,29 +36,29 @@ import {
   fetchMyActiveSubscriptionsAsMemberActions,
   fetchMyExpiredSubscriptionsAsMemberActions,
   fetchMyFutureSubscriptionsAsMemberActions,
-} from '#libs/consumer-space/actions/subscription-actions';
+} from '#src/libs/consumer-space/actions/subscription-actions';
 
-import type { PaginatedResponse } from '#state/types';
-import type { BookingREST } from '#libs/booking/types';
-import type { WaitingListBookingOption } from '#libs/waiting-list/types';
-import type { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
-import type { UniversalPassREST } from '#libs/universal-pass/types';
+import type { PaginatedResponse } from '#src/state/types';
+import type { BookingREST } from '#src/libs/booking/types';
+import type { WaitingListBookingOption } from '#src/libs/waiting-list/types';
+import type { ConsumerPaymentPackREST } from '#src/libs/consumer-payment-pack/types';
+import type { UniversalPassREST } from '#src/libs/universal-pass/types';
 import type {
   ConsumerPassesTabDisplay,
   ConsumerStateReworked,
-} from '#libs/consumer-space/types';
+} from '#src/libs/consumer-space/types';
 import type {
   PrivateBooking,
   PrivateConsumerPassREST,
-} from '#libs/private-service/types';
+} from '#src/libs/private-service/types';
 import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
-} from '#libs/subscription/types';
+} from '#src/libs/subscription/types';
 import {
   ConsumerInvoiceComplementary,
   ConsumerInvoiceREST,
-} from '#libs/invoice/types';
+} from '#src/libs/invoice/types';
 
 type ConsumerInvoiceRESTByUuid = { [uuid: string]: ConsumerInvoiceREST };
 type ConsumerInvoiceComplementaryByUuid = {

@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import EbookProviderDropzone from '#libs/video/components/EbookProviderDropzone.component';
+import EbookProviderDropzone from '#src/libs/video/components/EbookProviderDropzone.component';
 import { getUploadInstruction as getUploadInstructionAPI } from '../api';
 import { Video } from '../types';
 import { MaterialStyleType } from '../../../utils/types';

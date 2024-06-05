@@ -5,11 +5,11 @@ import type { AxiosResponse } from 'axios';
 import URI from 'urijs';
 
 import * as Sentry from '@sentry/react';
+import { fetchEventList } from '#src/libs/event/actions';
+import { EventListParams } from '#src/libs/event/types';
+import { monitorBackgroundTask } from '#src/libs/background-task/actions';
+import { displayCustomBackgroundDialog } from '#src/libs/background-dialog/actions';
 // @ts-expect-error
-import { fetchEventList } from '#libs/event/actions';
-import { EventListParams } from '#libs/event/types';
-import { monitorBackgroundTask } from '#libs/background-task/actions';
-import { displayCustomBackgroundDialog } from '#libs/background-dialog/actions';
 import type { RootState } from '../../reducers/types';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import {

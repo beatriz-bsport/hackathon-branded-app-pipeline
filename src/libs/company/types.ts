@@ -2,8 +2,8 @@ import {
   BLOCK_BACKOFFICE,
   DO_NOTHING,
   WARN,
-} from '#libs/platform-billing/constant';
-import type { ErrorAndLoading } from '#libs/types';
+} from '#src/libs/platform-billing/constant';
+import type { ErrorAndLoading } from '#src/libs/types';
 import {
   BANK_ACCOUNT_CONFIGURATION_STEP,
   ACCOUNT_CONFIGURATION_FINAL_STEP,

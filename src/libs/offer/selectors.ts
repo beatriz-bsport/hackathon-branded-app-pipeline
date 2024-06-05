@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 
 import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
-import { getGroupOffersStatusById } from '#libs/group-offer/selectors';
+import { getGroupOffersStatusById } from '#src/libs/group-offer/selectors';
 import { getAllTagsWithTagGroup } from '../tag/selectors';
 
 import { getAllCoachesDict, getCoach } from '../associated-coach/selectors';

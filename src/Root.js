@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { compose, withProps } from 'recompose';
 
-import { isPendingEmailConfirmation } from '#libs/login/selectors';
+import { isPendingEmailConfirmation } from '#src/libs/login/selectors';
 import asyncComponent from './AsyncComponent';
 import Banner from './components/navigation/Banner.component';
 import Config from './config';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { contractFactory } from '#libs/subscription/factory';
+import { contractFactory } from '#src/libs/subscription/factory';
 import { MarketplaceContractDetailModalForStorybook, Props } from '.';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 

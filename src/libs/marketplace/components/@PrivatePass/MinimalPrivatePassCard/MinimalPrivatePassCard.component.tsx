@@ -1,20 +1,20 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { getCreditsDividedValue } from '#libs/theme/utils';
-import Card, { CardSize } from '#csscomponents/Card';
-import Grid from '#csscomponents/Grid';
-import CardContent from '#csscomponents/Card/CardContent';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getCreditsDividedValue } from '#src/libs/theme/utils';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import Grid from '#src/components/css-only/Grid';
+import CardContent from '#src/components/css-only/Card/CardContent';
 
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#csscomponents/Grid/GridItem';
-import Price from '#csscomponents/Price';
-import MinimalCardSkeleton from '#marketplacecomponents/MinimalCardSkeleton';
-import type { PrivatePass } from '#libs/private-service/types';
+} from '#src/components/css-only/Grid/GridItem';
+import Price from '#src/components/css-only/Price';
+import MinimalCardSkeleton from '#src/libs/marketplace/components/MinimalCardSkeleton';
+import type { PrivatePass } from '#src/libs/private-service/types';
 import './styles.css';
 
 export type Props = {

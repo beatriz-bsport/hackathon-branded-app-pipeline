@@ -2,9 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-import { ConsumerGenericCardFooter } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
-import { CreditCard01 } from '#components/untitledui';
-import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+import { ConsumerGenericCardFooter } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
+import { CreditCard01 } from '#src/components/untitledui';
+import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 
 import type { ButtonColor, ButtonVariant } from '#Fabrique/ButtonV2/types';
 

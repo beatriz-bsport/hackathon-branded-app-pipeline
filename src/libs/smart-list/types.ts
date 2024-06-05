@@ -1,7 +1,7 @@
 import type { OptionCallback, ThunkAction } from 'src/state/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { Coach } from '#libs/associated-coach/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { Coach } from '#src/libs/associated-coach/types';
 import type { ErrorAndLoading } from '../types';
 
 export type SmartList = {

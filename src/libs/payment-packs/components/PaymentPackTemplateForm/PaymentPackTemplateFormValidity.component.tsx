@@ -13,9 +13,12 @@ import {
   START_ON_FIRST_BOOKING,
   START_ON_FIRST_ATTENDANCE,
 } from '@bsport/common/lib/master-data/payment-pack';
-import { TextFieldEnhancedLabelWithError, DateField } from '#components/forms';
-import { PaymentPackFormValues } from '../../types';
+import {
+  TextFieldEnhancedLabelWithError,
+  DateField,
 // @ts-expect-error
+} from '#src/components/forms';
+import { PaymentPackFormValues } from '../../types';
 import { getValidityString } from '../../utils';
 import {
   VALID_BY_DURATION,

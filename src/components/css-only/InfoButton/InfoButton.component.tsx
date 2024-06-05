@@ -1,6 +1,6 @@
 import React from 'react';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import type { InfoButtonSeverityType } from '#csscomponents/InfoButton/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import type { InfoButtonSeverityType } from '#src/components/css-only/InfoButton/types';
 import type { Props as ButtonProps } from '#Fabrique/ButtonV2';
 import type { Props as BottomDrawerProps } from '#Fabrique/BottomDrawer';
 import type { TooltipProps } from '#Fabrique/Tooltipv2';
@@ -11,7 +11,7 @@ import {
   useInfoButtonIcon,
 } from '.';
 
-import '#csscomponents/InfoButton/styles.css';
+import '#src/components/css-only/InfoButton/styles.css';
 
 export type Props = {
   isMobile: boolean;

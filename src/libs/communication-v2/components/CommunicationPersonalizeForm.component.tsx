@@ -7,9 +7,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core';
 
-import { SwitchField } from '#components/forms';
-import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
+import { SwitchField } from '#src/components/forms';
+import { OptionCallback } from '../../../state/types';
 
 interface FormikValues {
   is_two_way_email_activated: boolean;

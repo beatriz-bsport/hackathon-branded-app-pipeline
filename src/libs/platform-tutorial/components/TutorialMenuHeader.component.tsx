@@ -12,7 +12,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import classNames from 'classnames';
-import BookIcon from '#components/icons/BookIcon.component';
+import BookIcon from '#src/components/icons/BookIcon.component';
 
 export type Props = {
   percentage: number;

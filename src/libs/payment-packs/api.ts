@@ -1,4 +1,4 @@
-import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+import { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
 import {
   API_URI,
   getAuth,

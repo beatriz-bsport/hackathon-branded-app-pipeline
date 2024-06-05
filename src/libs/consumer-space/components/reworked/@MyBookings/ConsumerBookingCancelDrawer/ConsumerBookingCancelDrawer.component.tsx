@@ -5,8 +5,8 @@ import classNames from 'classnames';
 
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
-import { getIsLateBookingCancellation } from '#utils/datetime';
-import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
+import { getIsLateBookingCancellation } from '#src/utils/datetime';
+import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import BottomDrawer from '#Fabrique/BottomDrawer';
 import Typography from '#Fabrique/Typography';
 import Alert from '#Fabrique/Alert';
@@ -17,7 +17,7 @@ import type {
   ConsumerBooking,
   ConsumerBookingOption,
   ConsumerPrivateBooking,
-} from '#libs/booking/types';
+} from '#src/libs/booking/types';
 
 import './styles.css';
 

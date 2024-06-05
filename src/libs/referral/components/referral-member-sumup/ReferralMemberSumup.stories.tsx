@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import ReferralMemberSumup from './ReferralMemberSumup.component';
-import { referralProgramFactory } from '#libs/referral/factories/ReferralProgram';
+import { referralProgramFactory } from '#src/libs/referral/factories/ReferralProgram';
 
 const referralProgram = referralProgramFactory();
 

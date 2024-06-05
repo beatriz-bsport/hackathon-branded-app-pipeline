@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 
 import {
   Coupon,
@@ -11,10 +11,10 @@ import {
   FetchDiscountParams,
   ResetDiscountList,
   UniqueCodeCouponCreationPayload,
-} from '#libs/coupon/types';
-import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+} from '#src/libs/coupon/types';
+import { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
 
-import { isErrorWithCustomCode } from '#libs/utils';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import {
   OptionCallback,
   Dispatch,

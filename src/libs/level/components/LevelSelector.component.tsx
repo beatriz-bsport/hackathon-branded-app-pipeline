@@ -10,8 +10,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import AddIcon from '@material-ui/icons/Add';
 import classNames from 'classnames';
 
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import ModalConfirm from '#components/ModalConfirm.component';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import ModalConfirm from '#src/components/ModalConfirm.component';
 import CreateLevelModalDialog from './CreateLevelModal.dialog';
 import { LevelMenuItem } from './LevelMenuItem.component';
 import LevelComponent from './Level.component';

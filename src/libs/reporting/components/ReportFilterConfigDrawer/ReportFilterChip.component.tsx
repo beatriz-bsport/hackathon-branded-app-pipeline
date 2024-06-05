@@ -34,15 +34,15 @@ import type {
   DataSourceMedadataDataType,
   DatatypeFilterConfigItem,
   DynamicFilterDataType,
-} from '#libs/datatype-filtering/types';
-import { ReportFilterableDataType } from '#libs/datatype-filtering/constants';
-import { ReportFilterConfig } from '#libs/reporting/types';
+} from '#src/libs/datatype-filtering/types';
+import { ReportFilterableDataType } from '#src/libs/datatype-filtering/constants';
+import { ReportFilterConfig } from '#src/libs/reporting/types';
 import {
   getComparatorLabel,
   getMultipleValuesLabel,
   getSingleValueLabel,
-} from '#libs/reporting/utils';
-import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
+} from '#src/libs/reporting/utils';
+import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 
 type ReportFilterChipProps = {
   datatype: DataSourceMedadataDataType;

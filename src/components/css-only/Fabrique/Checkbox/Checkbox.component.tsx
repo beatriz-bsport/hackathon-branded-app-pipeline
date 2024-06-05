@@ -1,11 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import Typography from '#Fabrique/Typography';
 import InputBase from '#Fabrique/InputBase';
-import { CheckSquare01, MinusSquare01, Square } from '#components/untitledui';
+import {
+  CheckSquare01,
+  MinusSquare01,
+  Square,
+} from '#src/components/untitledui';
 import { CheckboxSizeEnum } from './constants';
 import type { CheckboxSize } from './types';
 

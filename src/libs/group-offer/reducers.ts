@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 import { handleActions } from 'redux-actions';
 
-import { OfferStatus } from '#libs/offer/types';
+import { OfferStatus } from '#src/libs/offer/types';
 import {
   fetchGroupsOfferListActions,
   generateGroupOffersPreviewActions,

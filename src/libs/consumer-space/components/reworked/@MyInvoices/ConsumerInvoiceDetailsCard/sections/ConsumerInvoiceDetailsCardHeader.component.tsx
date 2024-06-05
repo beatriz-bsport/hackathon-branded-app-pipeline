@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ConsumerGenericCardHeader } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
-import { formatAsDatetimeAdapted } from '#utils/datetime';
-import { useConsumerInvoiceTitle } from '#libs/consumer-space/components/reworked/@MyInvoices/helpers/hooks';
+import { ConsumerGenericCardHeader } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
+import { formatAsDatetimeAdapted } from '#src/utils/datetime';
+import { useConsumerInvoiceTitle } from '#src/libs/consumer-space/components/reworked/@MyInvoices/helpers/hooks';
 
-import type { ConsumerInvoice } from '#libs/invoice/types';
+import type { ConsumerInvoice } from '#src/libs/invoice/types';
 
 import '../styles.css';
 

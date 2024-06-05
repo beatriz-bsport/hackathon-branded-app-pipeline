@@ -1,11 +1,11 @@
-import { ContractWithPaymentPack } from '#libs/subscription/types';
+import { ContractWithPaymentPack } from '#src/libs/subscription/types';
 import type {
   PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
   PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
   CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
   CONSUMER_PAYMENT_PACK_IDENTIFIER,
   MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER,
-} from '#libs/marketplace/constants';
+} from '#src/libs/marketplace/constants';
 import { ConsumerPaymentPack } from '../consumer-payment-pack/types';
 import type { Offer_FULL } from '../offer/types';
 import { PaymentCombo } from '../payment-combo/types';

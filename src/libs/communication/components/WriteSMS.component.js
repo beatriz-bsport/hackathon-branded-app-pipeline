@@ -5,12 +5,12 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { util } from '#libs/communication-v2/components/convertEncode.utils';
+import { util } from '#src/libs/communication-v2/components/convertEncode.utils';
 
 import {
   MAX_LENGTH_SMS,
   MAX_LENGTH_AUTOMATIC_SMS,
-} from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/constants';
 
 type Props = {
   classes: Object,

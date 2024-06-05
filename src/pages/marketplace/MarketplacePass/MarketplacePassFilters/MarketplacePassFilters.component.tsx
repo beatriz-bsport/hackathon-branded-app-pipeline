@@ -5,19 +5,19 @@ import { useTranslation } from 'react-i18next';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Immutable } from 'seamless-immutable';
 
-import PassSearch from '#components/css-only/Search/PassSearch';
-import { MarketplaceCategoryPassFilterOption } from '#libs/marketplace/types';
-import { useMarketplacePassFlatLists } from '#libs/marketplace/hooks';
+import PassSearch from '#src/components/css-only/Search/PassSearch';
+import { MarketplaceCategoryPassFilterOption } from '#src/libs/marketplace/types';
+import { useMarketplacePassFlatLists } from '#src/libs/marketplace/hooks';
 
 import {
   BaseAdditionalData,
   SearchItemData,
-} from '#components/css-only/Search/Search.component';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
-import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
-import Select from '#components/css-only/Select';
-import MarketplaceFilter from '#marketplacecomponents/@RessourceFilter/MarketplaceFilter/MarketplaceFilter.component';
+} from '#src/components/css-only/Search/Search.component';
+import { PaymentCombo } from '#src/libs/payment-combo/types';
+import { PaymentPackCategoryWithPacks } from '#src/libs/payment-packs/types';
+import { PrivatePassCategoryWithPasses } from '#src/libs/private-service/types';
+import Select from '#src/components/css-only/Select';
+import MarketplaceFilter from '#src/libs/marketplace/components/@RessourceFilter/MarketplaceFilter/MarketplaceFilter.component';
 
 import './styles.css';
 

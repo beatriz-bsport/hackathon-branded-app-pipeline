@@ -21,18 +21,18 @@ import type { ThunkAction } from 'src/state/types';
 import { createStyles, Theme } from '@material-ui/core';
 import type { RootState } from 'src/reducers';
 import type { ImmutableObject } from 'seamless-immutable';
-import { getAllSmartList } from '#libs/smart-list/selectors';
-import { createWebhook, deleteWebhook } from '#libs/active-campaign/api';
+import { getAllSmartList } from '#src/libs/smart-list/selectors';
+import { createWebhook, deleteWebhook } from '#src/libs/active-campaign/api';
 import {
   fetchSmartListBulk as fetchSmartListBulkAction,
   fetchAllSmartLists,
-} from '#libs/smart-list/actions';
+} from '#src/libs/smart-list/actions';
 // @ts-expect-error
-import withStayEvent from '#hocs/tracking/stay-event.hoc';
-import ActiveCampaignLinkForm from '#libs/active-campaign/components/ActiveCampaignLinkForm.component';
-import ActiveCampaignWebhooks from '#libs/active-campaign/components/ActiveCampaignWebhooks.component';
-import ActiveCampaignAccountForm from '#libs/active-campaign/components/ActiveCampaignAccountForm.component';
-import ActiveCampaignLinks from '#libs/active-campaign/components/ActiveCampaignLinks.component';
+import withStayEvent from '#src/hocs/tracking/stay-event.hoc';
+import ActiveCampaignLinkForm from '#src/libs/active-campaign/components/ActiveCampaignLinkForm.component';
+import ActiveCampaignWebhooks from '#src/libs/active-campaign/components/ActiveCampaignWebhooks.component';
+import ActiveCampaignAccountForm from '#src/libs/active-campaign/components/ActiveCampaignAccountForm.component';
+import ActiveCampaignLinks from '#src/libs/active-campaign/components/ActiveCampaignLinks.component';
 import {
   fetchActiveCampaignAccount,
   updateActiveCampaignAccount,
@@ -43,16 +43,16 @@ import {
   createActiveCampaignLinks,
   getActiveCampaignLists,
   getActiveCampaignWebhooks,
-} from '#libs/active-campaign/actions';
+} from '#src/libs/active-campaign/actions';
 import {
   withSmartlist,
   getActiveCampaignLinks,
   getAccount,
-} from '#libs/active-campaign/selectors';
+} from '#src/libs/active-campaign/selectors';
 
-import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
-import withTitle from '#hocs/with-title.hoc';
-import type { Link, Account } from '#libs/active-campaign/types';
+import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
+import withTitle from '#src/hocs/with-title.hoc';
+import type { Link, Account } from '#src/libs/active-campaign/types';
 
 type Props = ConnectedProps<typeof connector> &
   WithStyles<typeof styles> &

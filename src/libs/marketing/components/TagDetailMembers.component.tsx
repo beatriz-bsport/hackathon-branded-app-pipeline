@@ -12,10 +12,10 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
-import type { Member } from '#libs/member/types';
+import type { Member } from '#src/libs/member/types';
 import type { OptionCallback } from '../../../state/types';
 
 type MemberTagListItemProps = {

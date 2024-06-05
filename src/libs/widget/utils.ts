@@ -1,7 +1,7 @@
 import { Settings } from 'luxon';
 import chroma from 'chroma-js';
 import memoize from 'memoize-one';
-import { WidgetCustomCSS } from '#libs/theme/types';
+import { WidgetCustomCSS } from '#src/libs/theme/types';
 import { getTextColorFromRGB } from '../../utils/color';
 
 export const getIntercomLink = () =>

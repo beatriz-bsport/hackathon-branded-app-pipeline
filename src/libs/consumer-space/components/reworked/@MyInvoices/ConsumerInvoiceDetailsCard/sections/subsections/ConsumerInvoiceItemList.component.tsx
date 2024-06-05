@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import Typography from '#Fabrique/Typography';
 
-import type { InvoiceItem } from '#libs/invoice/invoice-item/types';
+import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 import { ConsumerInvoiceItem } from '.';
 
 import '../../styles.css';

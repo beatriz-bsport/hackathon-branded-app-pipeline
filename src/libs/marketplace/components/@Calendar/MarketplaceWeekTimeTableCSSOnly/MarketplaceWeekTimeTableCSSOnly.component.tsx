@@ -15,21 +15,21 @@ import {
   formatAsDateWithWeekday,
   formatWeekDay,
   getLocaleWeekdays,
-} from '#utils/datetime';
-import MarketPlaceCardOfferV2 from '#marketplacecomponents/@Offer/MarketplaceCardOfferCSSOnly';
-import MarketPlaceOfferListItemComponent from '#marketplacecomponents/@Offer/MarketplaceOfferListItemCSSOnly';
-import { Offer_FULL, Offer } from '#libs/offer/types';
-import { Level } from '#libs/level/types';
-import { Theme } from '#libs/theme/types';
-import { generateUniqueOfferIdentifier } from '#marketplacecomponents/@Offer/utils';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Establishment } from '#libs/establishment/types';
-import { Coach } from '#libs/associated-coach/types';
+} from '#src/utils/datetime';
+import MarketPlaceCardOfferV2 from '#src/libs/marketplace/components/@Offer/MarketplaceCardOfferCSSOnly';
+import MarketPlaceOfferListItemComponent from '#src/libs/marketplace/components/@Offer/MarketplaceOfferListItemCSSOnly';
+import { Offer_FULL, Offer } from '#src/libs/offer/types';
+import { Level } from '#src/libs/level/types';
+import { Theme } from '#src/libs/theme/types';
+import { generateUniqueOfferIdentifier } from '#src/libs/marketplace/components/@Offer/utils';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { Coach } from '#src/libs/associated-coach/types';
 
 import {
   isOfferInThePast,
   isOfferInGroupLockedByPreviousOfferInPast,
-} from '#libs/marketplace/utils';
+} from '#src/libs/marketplace/utils';
 import './MarketplaceWeekTimeTableCSSOnly.css';
 
 const SPLIT_AFTERNOON = 12;

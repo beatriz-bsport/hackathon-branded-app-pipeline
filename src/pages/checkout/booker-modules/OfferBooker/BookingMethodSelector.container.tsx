@@ -22,11 +22,11 @@ import {
 
 import { replace as replaceAction } from 'connected-react-router';
 import memoize from 'memoize-one';
-import { CompanyTheme } from '#libs/theme/types';
-import { getTheme } from '#libs/theme/selectors';
-import { getSubscriptionValidationUrl } from '#libs/marketplace/routing-utils';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
-import { loadDefaultEstablishmentBillingGroupFromOffers } from '#libs/marketplace/utils/booking';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { getTheme } from '#src/libs/theme/selectors';
+import { getSubscriptionValidationUrl } from '#src/libs/marketplace/routing-utils';
+import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import { loadDefaultEstablishmentBillingGroupFromOffers } from '#src/libs/marketplace/utils/booking';
 import { OptionCallback } from '../../../../state/types';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../../../libs/payment/api';
 import { Offer_FULL, OfferStatus } from '../../../../libs/offer/types';

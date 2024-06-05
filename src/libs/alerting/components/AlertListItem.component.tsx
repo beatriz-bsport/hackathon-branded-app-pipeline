@@ -20,11 +20,11 @@ import {
 } from '@bsport/common/lib/master-data/alerting_kind';
 
 import { Trans, useTranslation } from 'react-i18next';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { AVAILABLE_LANGUAGES, LANGUAGES } from '#src/i18n/languages';
 
-import { formatAsDatetimeAdapted } from '#utils/datetime';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { formatAsDatetimeAdapted } from '#src/utils/datetime';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type {
   Alerting,
   CompanyOnboardingAlerting,

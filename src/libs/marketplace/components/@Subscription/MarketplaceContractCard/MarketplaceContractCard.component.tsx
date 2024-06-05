@@ -5,22 +5,21 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import UpdateIcon from '@material-ui/icons/Update';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import Card, { CardSize } from '#csscomponents/Card';
-import CardContent from '#csscomponents/Card/CardContent';
-import Grid from '#csscomponents/Grid';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#csscomponents/Grid/GridItem';
-import Price from '#csscomponents/Price';
-import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
+} from '#src/components/css-only/Grid/GridItem';
+import Price from '#src/components/css-only/Price';
+import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
 
-
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import type { Contract } from '#libs/subscription/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import type { Contract } from '#src/libs/subscription/types';
 import BillingInterval from '../MarketplaceBillingInterval';
 
 import './styles.css';

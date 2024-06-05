@@ -9,7 +9,7 @@ import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
-import { CustomMuiIcon } from '#components/icons/CustomMuiIcon.component';
+import { CustomMuiIcon } from '#src/components/icons/CustomMuiIcon.component';
 
 type Props = {
   open: boolean;

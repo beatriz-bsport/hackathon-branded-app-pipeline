@@ -10,7 +10,7 @@ import amber from '@material-ui/core/colors/amber';
 import green from '@material-ui/core/colors/green';
 import brown from '@material-ui/core/colors/brown';
 
-import { ReplacementRequestStatus } from '#libs/replacement-request/constants';
+import { ReplacementRequestStatus } from '#src/libs/replacement-request/constants';
 
 type Props = {
   isLate: boolean;

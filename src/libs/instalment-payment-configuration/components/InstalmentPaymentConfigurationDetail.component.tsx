@@ -10,10 +10,10 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import Typography from '@material-ui/core/Typography';
 import Warning from '@material-ui/icons/Warning';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import RedButton from '#components/button/RedButton.component';
-import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
+import RedButton from '#src/components/button/RedButton.component';
+import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
 
 import {
   generateComboCompatibilityInfo,
@@ -23,14 +23,14 @@ import {
   generatePrivatePassCompatibilityInfo,
   generateShopItemCompatibilityInfo,
   identifyCompability,
-} from '#libs/instalment-payment-configuration/utils';
+} from '#src/libs/instalment-payment-configuration/utils';
 
-import type { Giftcard } from '#libs/giftcard/types';
-import type { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PrivatePass } from '#libs/private-service/types';
-import type { ShopItem } from '#libs/shop/types';
+import type { Giftcard } from '#src/libs/giftcard/types';
+import type { InstalmentPayment } from '#src/libs/instalment-payment-configuration/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import type { ShopItem } from '#src/libs/shop/types';
 import InstalmentPaymentConfigurationCompatibilityDetail from './InstalmentPaymentConfigurationCompatibilityDetail.component';
 
 type Props = {

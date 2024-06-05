@@ -1,8 +1,8 @@
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
-import type { UpsellSumup } from '#libs/company/types';
-import { hasUpsellIdentifier } from '#libs/role/utils';
-import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
+import type { UpsellSumup } from '#src/libs/company/types';
+import { hasUpsellIdentifier } from '#src/libs/role/utils';
+import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#src/libs/platform-billing/upsell-identifiers';
 
 /**
  * Checks whether the report should be displayed based on the upsells the studio has.

@@ -1,6 +1,6 @@
 import React from 'react';
 import FranchiseCompanySearchList from './FranchiseCompanySearchList.components';
-import { FranchiseCompanyListFactory } from '#libs/franchise/factories/FranchiseCompanyFactory';
+import { FranchiseCompanyListFactory } from '#src/libs/franchise/factories/FranchiseCompanyFactory';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 const Template: ComponentStory<typeof FranchiseCompanySearchList> = (

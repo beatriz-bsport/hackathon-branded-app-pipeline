@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import type { Coach } from '#libs/associated-coach/types';
+import type { Coach } from '#src/libs/associated-coach/types';
 import {
   getAddressOptionsFromEstablishmentList,
   getEstablishmentOptionsFromSelectedSites,

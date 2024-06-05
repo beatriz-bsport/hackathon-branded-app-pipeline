@@ -5,12 +5,12 @@ import { Typography } from '@material-ui/core';
 
 import type { ImmutableArray, ImmutableObject } from 'seamless-immutable';
 
-import BarcodeIcon from '#components/icons/BarcodeIcon.component';
+import BarcodeIcon from '#src/components/icons/BarcodeIcon.component';
 
 import type {
   Establishment,
   EstablishmentGroupAPI,
-} from '#libs/establishment/types';
+} from '#src/libs/establishment/types';
 
 type Props = {
   enableMultiLocalization: boolean;

@@ -9,23 +9,23 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, Theme } from '@material-ui/core';
 import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
-import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
-import PaymentModal from '#libs/payment/components/PaymentModal.component';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
-import SpiviPrivacySettingsPanel from '#libs/spivi/components/SpiviPrivacySettingsPanel.component';
-import ReferralMemberSumup from '#libs/referral/components/referral-member-sumup';
+import AddPaymentMethod from '#src/libs/payment/components/AddPaymentMethod.component';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
+import PaymentModal from '#src/libs/payment/components/PaymentModal.component';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
+import SpiviPrivacySettingsPanel from '#src/libs/spivi/components/SpiviPrivacySettingsPanel.component';
+import ReferralMemberSumup from '#src/libs/referral/components/referral-member-sumup';
 import {
   retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
-} from '#libs/referral/actions';
+} from '#src/libs/referral/actions';
 import {
   getTheReferralProgram,
   getReferralMemberStatusWithMemberId,
   getReferralProgramsLoading,
   getReferralMemberStatusLoading,
-} from '#libs/referral/selectors';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+} from '#src/libs/referral/selectors';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import Config from '../../config';
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';

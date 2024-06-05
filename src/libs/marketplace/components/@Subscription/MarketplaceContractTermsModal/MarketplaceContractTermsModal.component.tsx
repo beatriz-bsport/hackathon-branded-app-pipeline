@@ -3,11 +3,11 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { downloadDocument } from '#utils/downloader';
-import CircularProgress from '#components/css-only/CircularProgress';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { downloadDocument } from '#src/utils/downloader';
+import CircularProgress from '#src/components/css-only/CircularProgress';
 
-import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import { OptionCallback } from '../../../../../state/types';
 

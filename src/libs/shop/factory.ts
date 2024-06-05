@@ -4,9 +4,9 @@ import {
   generateRandomName,
   generateRandomDescription,
   generateRandomPrice,
-} from '#utils/factories';
+} from '#src/utils/factories';
 
-import { FakerTextLength } from '#utils/types';
+import { FakerTextLength } from '#src/utils/types';
 import type {
   ShopItemFactoryOptions,
   ShopSupplierFactoryOptions,

@@ -1,4 +1,4 @@
-import { StepManager } from '#libs/login/types';
+import { StepManager } from '#src/libs/login/types';
 
 export const buildSteps = ({
   has_no_need_for_stripe_configuration,

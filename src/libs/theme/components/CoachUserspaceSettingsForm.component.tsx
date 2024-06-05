@@ -12,12 +12,12 @@ import Paper from '@material-ui/core/Paper';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { makeStyles, Theme } from '@material-ui/core';
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
 
 // @ts-expect-error
-import { SwitchField } from '#components/forms';
-import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
+import { SwitchField } from '#src/components/forms';
+import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 import type { CompanyTheme } from '../types';
 import { OptionCallback } from '../../../state/types';
 

@@ -6,7 +6,7 @@ import {
   fetchMembersHistoric as fetchMembersHistoricAPI,
   searchCadencePresentMembersData as searchCadencePresentMembersDataAPI,
   searchCadenceMembersHistoric as searchCadenceMembersHistoricAPI,
-} from '#libs/sequential_marketing/api';
+} from '#src/libs/sequential_marketing/api';
 
 import type {
   CadenceGlobalMetrics,
@@ -15,7 +15,7 @@ import type {
   CadenceMembersOutData,
   CadencePaginatedMetricsParams,
   MetricsPaginatedResponse,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import type { OptionCallback, Dispatch } from '../../../state/types';
 
 export const fetchGlobalMetricsActions = {

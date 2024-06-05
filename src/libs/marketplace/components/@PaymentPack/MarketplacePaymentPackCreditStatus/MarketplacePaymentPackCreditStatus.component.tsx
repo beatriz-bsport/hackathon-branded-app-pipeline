@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
+} from '#src/libs/theme/utils';
 
 import './styles.css';
 

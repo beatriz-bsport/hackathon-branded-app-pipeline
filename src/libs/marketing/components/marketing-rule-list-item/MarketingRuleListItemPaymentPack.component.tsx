@@ -19,9 +19,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { compose, withState, withHandlers } from 'recompose';
 
-import NotificationListInner from '#libs/marketing/components/NotificationListInner.component';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import NotificationListInner from '#src/libs/marketing/components/NotificationListInner.component';
+import { ResolvedGenericTags } from '#src/libs/email-editor/types';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import MarketingRuleFormProduct from '../marketing-rule-form/MarketingRuleFormProduct.component';
 import { getMergeTags } from '../../utils';
 import { PaymentPack } from '../../../payment-packs/types';

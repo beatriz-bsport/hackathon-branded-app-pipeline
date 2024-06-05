@@ -7,10 +7,10 @@ import { IconButton, MenuItem, Typography } from '@material-ui/core';
 
 import EditIcon from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
-import { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
+import { PerformanceTrackingProgram } from '#src/libs/performance-tracking/types';
 
-import MuiIcon from '#components/MuiIcon.component';
-import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
+import MuiIcon from '#src/components/MuiIcon.component';
+import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
 
 type OwnProps = {
   program: PerformanceTrackingProgram;

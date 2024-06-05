@@ -6,15 +6,15 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { CompanyTheme } from '#libs/theme/types';
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 
-import { contractFactory } from '#libs/subscription/factory';
+import { contractFactory } from '#src/libs/subscription/factory';
 // @ts-expect-error
 import MarketplaceContractPaymentCss from './styles.css?raw';
 import MarketplaceContractPayment, {

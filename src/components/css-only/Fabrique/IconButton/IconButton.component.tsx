@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import { Props as ButtonProps } from '#Fabrique/ButtonV2';

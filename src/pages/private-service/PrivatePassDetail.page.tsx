@@ -15,22 +15,22 @@ import { CircularProgress, Theme, Typography } from '@material-ui/core';
 import { push as pushRouter, replace } from 'connected-react-router';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import WarningIcon from '@material-ui/icons/Warning';
-import themeSelectors from '#libs/theme/selectors';
-import { snackbarSuccess } from '#libs/snackbar/actions';
+import themeSelectors from '#src/libs/theme/selectors';
+import { snackbarSuccess } from '#src/libs/snackbar/actions';
 
-import withTitle from '#hocs/with-title.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
 import {
   getPrivatePass,
   withServices,
   withAvailable,
   getCompatibilityPassWithService as getCompatibleServicePass,
   getPrivatePassMassExtensionList,
-} from '#libs/private-service/selectors/private-pass';
+} from '#src/libs/private-service/selectors/private-pass';
 import {
   getPrivateConsumerPassByPrivatePass,
   withMember,
-} from '#libs/private-service/selectors/private-consumer-pass';
-import { getPrivateServices } from '#libs/private-service/selectors/private-service';
+} from '#src/libs/private-service/selectors/private-consumer-pass';
+import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
 import {
   fetchPrivatePassRetrieve,
   fetchByPrivatePass,
@@ -50,20 +50,20 @@ import {
   fetchAllPrivateSlots,
   fetchAllPrivatePassCategory,
   isPrivatePassUsedInCombo,
-} from '#libs/private-service/actions';
-import { fetchFilteredMembers as fetchFilteredMembersActions } from '#libs/member/actions';
-import PrivatePassCard from '#libs/private-service/components/pass/PrivatePassCard.component';
-import PrivatePassCompatibleServiceList from '#libs/private-service/components/pass/PrivatePassCompatibleServiceList.component';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import PaginatedConsumerPrivatePass from '#libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
-import PrivatePassForm from '#libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
-import PrivateConsumerPassFilters from '#libs/private-service/components/pass/PrivateConsumerPassFilters.component';
-import PrivatePassMassExtensionList from '#libs/private-service/components/consumer-pass/PrivatePassMassExtensionList.component';
-import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import BottomActionsButton from '#components/button/BottomActionsButton.component';
+} from '#src/libs/private-service/actions';
+import { fetchFilteredMembers as fetchFilteredMembersActions } from '#src/libs/member/actions';
+import PrivatePassCard from '#src/libs/private-service/components/pass/PrivatePassCard.component';
+import PrivatePassCompatibleServiceList from '#src/libs/private-service/components/pass/PrivatePassCompatibleServiceList.component';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import PaginatedConsumerPrivatePass from '#src/libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
+import PrivatePassForm from '#src/libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
+import PrivateConsumerPassFilters from '#src/libs/private-service/components/pass/PrivateConsumerPassFilters.component';
+import PrivatePassMassExtensionList from '#src/libs/private-service/components/consumer-pass/PrivatePassMassExtensionList.component';
+import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import BottomActionsButton from '#src/components/button/BottomActionsButton.component';
 import MassExtensionCreateDialog, {
   GenericExtensionCreationPayload,
-} from '#components/MassExtensionCreateDialog';
+} from '#src/components/MassExtensionCreateDialog';
 import type {
   PrivatePassMassExtension,
   PrivatePassCategory,
@@ -71,56 +71,56 @@ import type {
   PrivatePass,
   PrivatePassFilters,
   PrivatePassFiltersOpener,
-} from '#libs/private-service/types';
-import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
+} from '#src/libs/private-service/types';
+import { getPrivatePassCategories } from '#src/libs/private-service/selectors/private-pass-category';
 import {
   getFormInitial,
   PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
   PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
-} from '#libs/private-service/utils';
-import MarketingRuleListItemPrivatePass from '#libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemPrivatePass.component';
-import { getPrivatePassNotifications } from '#libs/marketing/selectors';
+} from '#src/libs/private-service/utils';
+import MarketingRuleListItemPrivatePass from '#src/libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemPrivatePass.component';
+import { getPrivatePassNotifications } from '#src/libs/marketing/selectors';
 import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '#libs/email-editor/actions';
+} from '#src/libs/email-editor/actions';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
+} from '#src/libs/email-editor/selectors';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
   createMarketingNotification as createMarketingNotificationAction,
   updateMarketingNotification,
   deleteMarketingNotification as deleteMarketingNotificationAction,
-} from '#libs/marketing/actions';
+} from '#src/libs/marketing/actions';
 
 import {
   fetchSmartListBulk as fetchSmartListBulkAction,
   fetchAllSmartLists,
-} from '#libs/smart-list/actions';
-import { getAllSmartList } from '#libs/smart-list/selectors';
+} from '#src/libs/smart-list/actions';
+import { getAllSmartList } from '#src/libs/smart-list/selectors';
 import {
   getTagCategories,
   getResolvedGenericTags,
-} from '#libs/notification-rule/selectors';
+} from '#src/libs/notification-rule/selectors';
 import {
   fetchTagList,
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
-} from '#libs/notification-rule/actions';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { setGenericFilterValue } from '#libs/payment-packs/utils';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { fetchTags } from '#libs/tag/actions';
-import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+} from '#src/libs/notification-rule/actions';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { setGenericFilterValue } from '#src/libs/payment-packs/utils';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import { fetchTags } from '#src/libs/tag/actions';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 import {
   getBookkeepingAccountList,
   getBookkeepingAccountById,
-} from '#libs/payment/selectors';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+} from '#src/libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';

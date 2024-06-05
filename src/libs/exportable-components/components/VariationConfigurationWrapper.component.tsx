@@ -17,9 +17,9 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import {
   CssComponentsVariantIdentifiersValues,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import { getCssComponentByLabel } from '../utils';
 /*  Wrapper that dynamically passes different props based on the current state.
  * This wrapper is utilized to display the appropriate React component (children) sourced from the configurations.

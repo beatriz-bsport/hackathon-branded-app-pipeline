@@ -1,5 +1,5 @@
-import { ErrorAndLoading } from '#libs/types';
-import type { UserRole, Role } from '#libs/role/types';
+import { ErrorAndLoading } from '#src/libs/types';
+import type { UserRole, Role } from '#src/libs/role/types';
 
 export type ClockInQueryParams = {
   user_id__in?: number[];

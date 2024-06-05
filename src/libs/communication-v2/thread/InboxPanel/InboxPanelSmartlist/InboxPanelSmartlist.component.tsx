@@ -9,9 +9,9 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import type { SmartList } from '#libs/smart-list/types';
-import { CustomChip } from '#components/chip/CustomChip.component';
-import type { Tag, TagGroup } from '#libs/tag/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import { CustomChip } from '#src/components/chip/CustomChip.component';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
 import InboxPanelSmartlistTags from './InboxPanelSmartlistTags.component';
 
 type Props = {

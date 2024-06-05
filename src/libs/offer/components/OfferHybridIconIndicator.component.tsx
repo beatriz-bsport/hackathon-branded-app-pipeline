@@ -4,8 +4,8 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
-import ToolTip from '#components/Tooltip.component';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
+import ToolTip from '#src/components/Tooltip.component';
+import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
 
 type Props = {
   iconProps: SvgIconProps;

@@ -2,12 +2,12 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import QuicksaleInterfaceSearchBar from './QuicksaleInterfaceSearchBar.component';
-import { isNotQuicksaleCardInfoList } from '#libs/quicksale/utils';
+import { isNotQuicksaleCardInfoList } from '#src/libs/quicksale/utils';
 
-import type { QuicksaleCardInfo } from '#libs/quicksale/types';
+import type { QuicksaleCardInfo } from '#src/libs/quicksale/types';
 import type { FuseOptions } from 'fuse.js';
 import { action } from '@storybook/addon-actions';
-import createQuicksaleCardInfo from '#libs/quicksale/factories/QuicksaleCardInfo';
+import createQuicksaleCardInfo from '#src/libs/quicksale/factories/QuicksaleCardInfo';
 
 const actionData = {
   onItemClick: action('onItemClick'),

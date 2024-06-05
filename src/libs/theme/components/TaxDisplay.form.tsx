@@ -8,8 +8,8 @@ import { Formik, FormikProps } from 'formik';
 
 import { Button, LinearProgress, Paper, Typography } from '@material-ui/core';
 
-import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
-import InfoTypography from '#components/typo/InfoTypography.components';
+import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
+import InfoTypography from '#src/components/typo/InfoTypography.components';
 import { OptionCallback } from '../../../state/types';
 
 type OwnProps = {

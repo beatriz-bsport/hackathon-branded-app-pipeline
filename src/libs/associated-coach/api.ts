@@ -1,7 +1,7 @@
 import type {
   CoachReplacementPreferencesData,
   UpdateCoachPrivateSlotsPaymentRuleData,
-} from '#libs/associated-coach/types';
+} from '#src/libs/associated-coach/types';
 import {
   API_URI,
   API_V1_URI,

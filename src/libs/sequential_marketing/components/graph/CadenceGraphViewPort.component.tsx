@@ -21,21 +21,21 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
 
-import CadenceOutputCollapse from '#libs/sequential_marketing/components/graph/nodes/outputs/CadenceOutputCollapse.component';
-import CadenceOutput from '#libs/sequential_marketing/components/graph/nodes/outputs/CadenceOutput.component';
-import OutputWonTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/OutputWonTriggerBubble.component';
-import OutputLostTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/OutputLostTriggerBubble.component';
+import CadenceOutputCollapse from '#src/libs/sequential_marketing/components/graph/nodes/outputs/CadenceOutputCollapse.component';
+import CadenceOutput from '#src/libs/sequential_marketing/components/graph/nodes/outputs/CadenceOutput.component';
+import OutputWonTriggerBubble from '#src/libs/sequential_marketing/components/graph/bubbles/OutputWonTriggerBubble.component';
+import OutputLostTriggerBubble from '#src/libs/sequential_marketing/components/graph/bubbles/OutputLostTriggerBubble.component';
 import {
   DestinationStatus,
   InitialConfigurationStep,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
 import type {
   ConnectedTrigger,
   CadenceInitialConfiguration,
-} from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
-import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#libs/sequential_marketing/constants/keywords';
+} from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#src/libs/sequential_marketing/constants/keywords';
 import Config from '../../../../config';
 
 import './styles.css';

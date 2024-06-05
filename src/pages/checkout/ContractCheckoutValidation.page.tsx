@@ -12,17 +12,17 @@ import {
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { Button, Typography, Paper } from '@material-ui/core';
 import { Payment } from '@material-ui/icons';
-import withTheme from '#hocs/company-themifier.hoc';
+import withTheme from '#src/hocs/company-themifier.hoc';
 
-import WidgetUtils from '#libs/widget/WidgetUtils';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 // @ts-expect-error
-import { getContract } from '#libs/subscription/selectors';
-import { fetchContractDetail } from '#libs/subscription/actions';
-import ValidationIcon from '#components/icons/ValidationIcon.component';
-import TimeoutButton from '#components/button/TimeoutButton.component';
-import ErrorIcon from '#components/icons/ErrorIcon.component';
-import ContractValidationCard from '#libs/subscription/components/contract/ContractValidationCard.component';
-import { getContractCheckoutUrl } from '#libs/marketplace/routing-utils';
+import { getContract } from '#src/libs/subscription/selectors';
+import { fetchContractDetail } from '#src/libs/subscription/actions';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
+import TimeoutButton from '#src/components/button/TimeoutButton.component';
+import ErrorIcon from '#src/components/icons/ErrorIcon.component';
+import ContractValidationCard from '#src/libs/subscription/components/contract/ContractValidationCard.component';
+import { getContractCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import ConsumerAppBar from './ConsumerAppBar.container';
 import themeSelectors from '../../libs/theme/selectors';
 import { WithHandlerType } from '../../utils/types';

@@ -3,7 +3,7 @@ import type { Node as FlowNode } from 'react-flow-renderer';
 import type {
   CadenceStep,
   ConnectedTrigger,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import { CustomNodesEnum } from './useNodes.hooks';
 
 import type { InnerStepCardProps } from '../nodes/steps/InnerStepCard.component';

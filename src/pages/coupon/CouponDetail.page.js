@@ -7,44 +7,44 @@ import { push as pushRouter } from 'connected-react-router';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import { CouponKind } from '@bsport/common/lib/master-data/coupon';
 
-import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component';
-import UniqueCodeCouponFormDrawer from '#libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
-import VoucherCodesDialog from '#libs/coupon/components/VoucherCodesDialog/VoucherCodesDialog.component';
+import CouponFormDrawer from '#src/libs/coupon/components/CouponFormDrawer.component';
+import UniqueCodeCouponFormDrawer from '#src/libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
+import VoucherCodesDialog from '#src/libs/coupon/components/VoucherCodesDialog/VoucherCodesDialog.component';
 
-import { fetchBulk as fetchSelectedShopItems } from '#libs/shop/actions/shopitem';
+import { fetchBulk as fetchSelectedShopItems } from '#src/libs/shop/actions/shopitem';
 import {
   fetchShopItemBaseList as fetchShopItemBaseListAction,
   fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
-} from '#libs/shop/actions/shopItemReworked';
+} from '#src/libs/shop/actions/shopItemReworked';
 import {
   fetchPrivateSlotBulk as fetchSelectedPrivatePasses,
   fetchPrivatePassList,
-} from '#libs/private-service/actions';
+} from '#src/libs/private-service/actions';
 import {
   fetchPaymentComboBulk as fetchSelectedPaymentCombos,
   fetchPaymentComboList,
-} from '#libs/payment-combo/actions';
-import { fetchTags } from '#libs/tag/actions';
+} from '#src/libs/payment-combo/actions';
+import { fetchTags } from '#src/libs/tag/actions';
 import {
   getPaymentPackById,
   getEnabled as getPaymentPacks,
-} from '#libs/payment-packs/selectors';
+} from '#src/libs/payment-packs/selectors';
 import {
   getAllShopItemData,
   getShopItemBaseAndStandaloneById,
   getShopItemBaseAndStandaloneList,
-} from '#libs/shop/selectors';
+} from '#src/libs/shop/selectors';
 import {
   getPrivatePassById,
   getPrivatePassAvailable as getPrivatePass,
-} from '#libs/private-service/selectors/private-pass';
+} from '#src/libs/private-service/selectors/private-pass';
 import {
   getPaymenComboDataDict,
   getPaymentComboList,
-} from '#libs/payment-combo/selectors';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import type { ShopItem } from '#libs/shop/types';
-import type { PrivatePass } from '#libs/private-service/types';
+} from '#src/libs/payment-combo/selectors';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import type { ShopItem } from '#src/libs/shop/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
 import { exportAsCsvWithFormattedData } from '../../utils/downloader';
 import {
   fetchAllPaymentPacks,
@@ -73,7 +73,7 @@ import BottomActionButtons from '../../components/button/BottomActionsButton.com
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import CouponDeleteModal from '../../libs/coupon/components/CouponDeleteModal.component';
-import type { PaymentCombo } from '#libs/payment_combo/types';
+import type { PaymentCombo } from '#src/libs/payment_combo/types';
 import type { Tag, TagGroupAPI } from '../../tag/types';
 import type {
   OptionCallback,

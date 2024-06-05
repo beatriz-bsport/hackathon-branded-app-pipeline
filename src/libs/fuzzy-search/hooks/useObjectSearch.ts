@@ -2,12 +2,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback } from 'react';
 import isEqual from 'lodash/isEqual';
-import { getSearchState } from '#libs/fuzzy-search/selectors';
+import { getSearchState } from '#src/libs/fuzzy-search/selectors';
 import {
   FuzzySearchFilterParams,
   SearchObjectType,
   SearchState,
-} from '#libs/fuzzy-search/types';
+} from '#src/libs/fuzzy-search/types';
 import { searchObjects as searchObjectsAction } from '../actions';
 import { getSearchObjectURI } from '../utils/getURIFromObjectType';
 import { DEFAULT_SELECTOR_ID } from '../constants';

@@ -14,21 +14,21 @@ import {
   archiveMember,
   fetchMember,
   interrogateMemberStatus,
-} from '#libs/member/actions';
-import { fetchMemberList } from '#libs/member/api';
-import { fetchTags } from '#libs/tag/actions';
+} from '#src/libs/member/actions';
+import { fetchMemberList } from '#src/libs/member/api';
+import { fetchTags } from '#src/libs/tag/actions';
 import {
   getMemberArchiveStatus,
   getMemberDetail,
-} from '#libs/member/selectors';
-import { getPermissions } from '#libs/role/selectors';
-import MemberArchiveDialog from '#libs/member/components/MemberArchiveDialog.component';
-import MemberTable from '#libs/member/MemberTable.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import TagChipList from '#libs/tag/components/TagChipList.component';
-import TagFilterForm from '#libs/tag/components/TagFilterForm.component';
-import tagSelectors from '#libs/tag/selectors';
-import type { Tag } from '#libs/tag/types';
+} from '#src/libs/member/selectors';
+import { getPermissions } from '#src/libs/role/selectors';
+import MemberArchiveDialog from '#src/libs/member/components/MemberArchiveDialog.component';
+import MemberTable from '#src/libs/member/MemberTable.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import TagChipList from '#src/libs/tag/components/TagChipList.component';
+import TagFilterForm from '#src/libs/tag/components/TagFilterForm.component';
+import tagSelectors from '#src/libs/tag/selectors';
+import type { Tag } from '#src/libs/tag/types';
 import withTitle from '../../hocs/with-title.hoc';
 
 import type { RootState } from '../../reducers';

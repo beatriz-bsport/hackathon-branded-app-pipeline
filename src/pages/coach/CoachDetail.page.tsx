@@ -5,20 +5,20 @@ import { withRouter } from 'react-router-dom';
 import { push as routerPush } from 'connected-react-router';
 import { compose, withState, withHandlers } from 'recompose';
 
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import BottomActionButtons from '#components/button/BottomActionsButton.component';
-import withTitle from '#hocs/with-title.hoc';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import BottomActionButtons from '#src/components/button/BottomActionsButton.component';
+import withTitle from '#src/hocs/with-title.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
   CoachPaymentRulesSelector,
   CoachPaymentRuleByKindSelector,
   getCoachPaymentRuleGroups,
-} from '#libs/coach-payment-rules/selectors';
+} from '#src/libs/coach-payment-rules/selectors';
 import {
   fetchAllCoachPaymentRules,
   fetchAllCoachPaymentRuleGroups,
-} from '#libs/coach-payment-rules/actions';
-import { getCoach } from '#libs/associated-coach/selectors';
+} from '#src/libs/coach-payment-rules/actions';
+import { getCoach } from '#src/libs/associated-coach/selectors';
 
 import {
   startUpdate,
@@ -32,36 +32,36 @@ import {
   editAccessToCoachSpace as editAccessToCoachSpaceAction,
   assignDisciplineGroup,
   updateAssociatedCoachReplacementPreferences,
-} from '#libs/associated-coach/actions';
-import { fetchDisciplineGroupList as fetchDisciplineGroupListAction } from '#libs/replacement-request/actions';
-import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
-import CoachDetail from '#libs/associated-coach/components/CoachDetail.component';
-import CoachDeleteModal from '#libs/associated-coach/components/CoachDeleteModal.component';
+} from '#src/libs/associated-coach/actions';
+import { fetchDisciplineGroupList as fetchDisciplineGroupListAction } from '#src/libs/replacement-request/actions';
+import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#src/libs/meta-activity/actions';
+import CoachDetail from '#src/libs/associated-coach/components/CoachDetail.component';
+import CoachDeleteModal from '#src/libs/associated-coach/components/CoachDeleteModal.component';
 import type {
   Coach as CoachType,
   UpdateCoachPrivateSlotsPaymentRuleData,
-} from '#libs/associated-coach/types';
-import { getAvailablePrivateServices } from '#libs/private-service/selectors/private-service';
-import WidgetGeneratorDialog from '#libs/widget/components/WidgetGeneratorDialog.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+} from '#src/libs/associated-coach/types';
+import { getAvailablePrivateServices } from '#src/libs/private-service/selectors/private-service';
+import WidgetGeneratorDialog from '#src/libs/widget/components/WidgetGeneratorDialog.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import {
   getEnabledWorkshops,
   getEnabledMetaActivities,
-} from '#libs/meta-activity/selectors';
-import { getEditableSCTs } from '#libs/category/selectors';
-import { getAllDisciplineGroups } from '#libs/replacement-request/selectors';
-import type { MetaActivity } from '#libs/meta-activity/types';
+} from '#src/libs/meta-activity/selectors';
+import { getEditableSCTs } from '#src/libs/category/selectors';
+import { getAllDisciplineGroups } from '#src/libs/replacement-request/selectors';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
 
 import {
   getAvailableEstablishmentList,
   getAssociatedEstablishmentGroup,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
-import type { EstablishmentGroup } from '#libs/establishment/types';
-import themeSelectors from '#libs/theme/selectors';
+} from '#src/libs/establishment/actions';
+import type { EstablishmentGroup } from '#src/libs/establishment/types';
+import themeSelectors from '#src/libs/theme/selectors';
 
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';

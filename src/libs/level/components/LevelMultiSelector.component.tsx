@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
 
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 import { Level } from '../types';
 import { LevelMenuItem } from './LevelMenuItem.component';
 import LevelComponent from './Level.component';

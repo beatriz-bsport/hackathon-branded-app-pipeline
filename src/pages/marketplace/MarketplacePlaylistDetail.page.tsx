@@ -7,9 +7,9 @@ import { connect } from 'react-redux';
 import { push, replace } from 'connected-react-router';
 
 import { Theme } from '@material-ui/core';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { urlToMarketplaceTab } from '#src/libs/marketplace/utils';
 // @ts-expect-error
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { urlToMarketplaceTab } from '#libs/marketplace/utils';
 import PlaylistDetail from '../../libs/playlist/components/PlaylistDetail.component';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import { getPlaylist, withCoachInVideo } from '../../libs/playlist/selectors';

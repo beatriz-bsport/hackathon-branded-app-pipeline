@@ -15,7 +15,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Paper from '@material-ui/core/Paper';
 import { CUSTOM_FORM_DISPLAY_ON_SIGN_UP } from '@bsport/common/lib/master-data/custom-form';
 import { TFunction } from 'i18next';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import { OptionCallback } from '../../state/types';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withTitle from '../../hocs/with-title.hoc';

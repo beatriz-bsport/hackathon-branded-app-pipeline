@@ -12,9 +12,9 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import type { DeliveryFee } from '#libs/order/types';
+import type { DeliveryFee } from '#src/libs/order/types';
 // @ts-expect-error
-import withConfirm from '#hocs/with-confirm.hoc';
+import withConfirm from '#src/hocs/with-confirm.hoc';
 
 type Props = {
   deliveryFees: DeliveryFee[];

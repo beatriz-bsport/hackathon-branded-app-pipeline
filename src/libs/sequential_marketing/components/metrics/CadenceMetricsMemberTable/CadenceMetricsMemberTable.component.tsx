@@ -11,15 +11,15 @@ import ClearIcon from '@material-ui/icons/Clear';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 
-import DelayedTextField from '#components/DelayedTextField.component';
-import { CadenceMetricsSizes } from '#libs/sequential_marketing/constants';
+import DelayedTextField from '#src/components/DelayedTextField.component';
+import { CadenceMetricsSizes } from '#src/libs/sequential_marketing/constants';
 
 import type {
   CadenceMembersInData,
   CadenceMembersOutData,
   CadenceStep,
-} from '#libs/sequential_marketing/types';
-import type { Member } from '#libs/member/types';
+} from '#src/libs/sequential_marketing/types';
+import type { Member } from '#src/libs/member/types';
 import CadenceMetricsMemberTableContent from './CadenceMetricsMemberTableContent.component';
 
 type Props = {

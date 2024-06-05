@@ -8,17 +8,17 @@ import { withStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 
-import { fetchCommunicationSentGroupConfigCommunicationSentGroupList as fetchCommunicationSentGroupConfigCommunicationSentGroupListAction } from '#libs/communication/actions';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
-import { getAllCommunicationSentGroup } from '#libs/communication/selectors';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
-import CampaignList from '#libs/communication/components/CampaignList.component';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import { fetchCommunicationSentGroupConfigCommunicationSentGroupList as fetchCommunicationSentGroupConfigCommunicationSentGroupListAction } from '#src/libs/communication/actions';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#src/libs/notification-rule/actions';
+import { getAllCommunicationSentGroup } from '#src/libs/communication/selectors';
+import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
+import CampaignList from '#src/libs/communication/components/CampaignList.component';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import type { RootState } from 'src/reducers';
-import type { WithHandlerType } from '#utils/types';
-import type { CommunicationSentGroup } from '#libs/communication/types';
-import type { OptionCallback, PaginatedResponse } from '#state/types';
+import type { WithHandlerType } from '#src/utils/types';
+import type { CommunicationSentGroup } from '#src/libs/communication/types';
+import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 
 type OwnProps = {
   campaignId: number;

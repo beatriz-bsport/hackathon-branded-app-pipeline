@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import {
   getAllMembers,
   getIncrementalSearchedMembers,
-} from '#libs/member/selectors';
+} from '#src/libs/member/selectors';
 import {
   resetTncrementalSearch as resetTncrementalSearchAction,
   incrementalSearch as incrementalSearchAction,

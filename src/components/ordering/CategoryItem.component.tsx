@@ -23,12 +23,12 @@ import Collapse from '@material-ui/core/Collapse';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
-// @ts-expect-error
 import {
   Category,
   CategoryWithItems,
   ListItem,
-} from '#components/ordering/types';
+} from '#src/components/ordering/types';
+// @ts-expect-error
 import withConfirm from '../../hocs/with-confirm.hoc';
 
 type Props = {

@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import type { OptionCallback } from '#state/types';
+import type { OptionCallback } from '#src/state/types';
 import {
   FuzzySearchAPIParams,
   ObjectSearchPaginated,
   ObjectSearchResult,
   SearchObjectType,
-} from '#libs/fuzzy-search/types';
-import { getSearchObjectURI } from '#libs/fuzzy-search/utils/getURIFromObjectType';
-import { getLabelFromItem } from '#libs/fuzzy-search/utils/labelExtractor';
+} from '#src/libs/fuzzy-search/types';
+import { getSearchObjectURI } from '#src/libs/fuzzy-search/utils/getURIFromObjectType';
+import { getLabelFromItem } from '#src/libs/fuzzy-search/utils/labelExtractor';
 
 type HookProps = {
   searchedObjectType: SearchObjectType;

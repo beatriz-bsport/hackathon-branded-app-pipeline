@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { Star06 } from '#components/untitledui';
+} from '#src/libs/exportable-components/types';
+import { Star06 } from '#src/components/untitledui';
 import Button, { Props as ButtonProps } from '.';
 import { ButtonColor, ButtonVariant, ButtonSize } from './constants';
 import {

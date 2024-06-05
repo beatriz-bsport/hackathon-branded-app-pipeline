@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
+import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import {
   API_URI,
   API_V1_URI,

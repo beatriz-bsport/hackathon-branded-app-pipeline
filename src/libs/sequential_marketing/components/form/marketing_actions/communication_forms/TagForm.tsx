@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 
 import { useFormik } from 'formik';
 
-import { TagSelector } from '#libs/tag/components/TagSelector.selector';
-import { tagValidationSchema } from '#libs/sequential_marketing/components/form/marketing_actions/validationSchemas';
+import { TagSelector } from '#src/libs/tag/components/TagSelector.selector';
+import { tagValidationSchema } from '#src/libs/sequential_marketing/components/form/marketing_actions/validationSchemas';
 
-import type { Tag, TagGroup, TagGroupAPI } from '#libs/tag/types';
+import type { Tag, TagGroup, TagGroupAPI } from '#src/libs/tag/types';
 import type {
   StepMarketingActions,
   StepMarketingActionsTagSpec,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 
 export type Props = {
   marketingAction: Partial<StepMarketingActions>;

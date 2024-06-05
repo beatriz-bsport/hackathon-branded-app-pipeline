@@ -1,12 +1,12 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import themeFactoryBot from '#libs/theme/factories';
+import themeFactoryBot from '#src/libs/theme/factories';
 
 import { MarketplaceOfferBookingItemForStorybook, type Props } from '.';
 
 import MarketplaceOfferBookingItem from '.';
-import { offerFactory } from '#libs/offer/factories';
+import { offerFactory } from '#src/libs/offer/factories';
 
 const fakeTheme = themeFactoryBot.companyTheme.createOne();
 

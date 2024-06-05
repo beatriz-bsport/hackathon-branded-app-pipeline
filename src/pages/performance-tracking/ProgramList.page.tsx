@@ -20,17 +20,17 @@ import {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingMetric,
   PerformanceTrackingProgram,
-} from '#libs/performance-tracking/types';
-import ProgramForm from '#libs/performance-tracking/components/program/ProgramForm.component';
-import ProgramListComponent from '#libs/performance-tracking/components/program/ProgramList.component';
-import ProgramDetail from '#libs/performance-tracking/components/program/ProgramDetail.component';
+} from '#src/libs/performance-tracking/types';
+import ProgramForm from '#src/libs/performance-tracking/components/program/ProgramForm.component';
+import ProgramListComponent from '#src/libs/performance-tracking/components/program/ProgramList.component';
+import ProgramDetail from '#src/libs/performance-tracking/components/program/ProgramDetail.component';
 import {
   createOrUpdateProgram as createOrUpdateProgramAction,
   fetchProgram as fetchProgramAction,
   fetchMetric as fetchMetricAction,
   enableOrDisableProgram as enableOrDisableProgramAction,
   fetchMemberProgram as fetchMemberProgramAction,
-} from '#libs/performance-tracking/actions';
+} from '#src/libs/performance-tracking/actions';
 import {
   getDisabledProgramList,
   getMemberProgramListIdsIn,
@@ -39,16 +39,16 @@ import {
   getProgramList,
   composeProgramWithMetrics,
   getProgram,
-} from '#libs/performance-tracking/selector';
-import { fetchMemberBulkById } from '#libs/member/actions';
-import { GenericPaginationResults } from '#libs/types';
-import withTitle from '#hocs/with-title.hoc';
-import BottomActionButtons from '#components/button/BottomActionsButton.component';
-import { Member } from '#libs/member/types';
-import ProgramListSkeleton from '#libs/performance-tracking/components/program/ProgramListSkeleton.component';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+} from '#src/libs/performance-tracking/selector';
+import { fetchMemberBulkById } from '#src/libs/member/actions';
+import { GenericPaginationResults } from '#src/libs/types';
+import withTitle from '#src/hocs/with-title.hoc';
+import BottomActionButtons from '#src/components/button/BottomActionsButton.component';
+import { Member } from '#src/libs/member/types';
+import ProgramListSkeleton from '#src/libs/performance-tracking/components/program/ProgramListSkeleton.component';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

@@ -8,34 +8,33 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 // import omit from 'lodash/omit';
 
-
 import {
   retrievePrivatePassTemplate as retrievePrivatePassTemplateAction,
   createPrivatePassTemplateInstance as createPrivatePassTemplateInstanceAction,
   deletePrivatePassTemplateInstance as deletePrivatePassTemplateInstanceAction,
   fetchPrivatePassBulk as fetchPrivatePassBulkAction,
   fetchPrivateConsumerPassList as fetchPrivateConsumerPassListAction,
-} from '#libs/private-service/actions';
+} from '#src/libs/private-service/actions';
 import {
   getFranchiseCompanies,
   getAllowedFranchisees,
-} from '#libs/franchise/selectors';
-import { getPrivatePassTemplate } from '#libs/private-service/selectors/private-pass';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import withTitle from '#hocs/with-title.hoc';
+} from '#src/libs/franchise/selectors';
+import { getPrivatePassTemplate } from '#src/libs/private-service/selectors/private-pass';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
 
-import PrivatePassTemplateInstanceDeleteDialog from '#libs/private-service/components/pass/PrivatePassTemplateInstanceDeleteDialog.component';
-// @ts-expect-error
-import PaginatedConsumerPrivatePass from '#libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
-// / import PrivateConsumerPassFilters from '#libs/private-service/components/pass/PrivateConsumerPassFilters.component';
+import PrivatePassTemplateInstanceDeleteDialog from '#src/libs/private-service/components/pass/PrivatePassTemplateInstanceDeleteDialog.component';
+import PaginatedConsumerPrivatePass from '#src/libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
+// / import PrivateConsumerPassFilters from '#src/libs/private-service/components/pass/PrivateConsumerPassFilters.component';
 
-import PrivatePassTemplateCard from '#libs/private-service/components/pass/PrivatePassTemplateCard.component';
-import PrivatePassTemplateInstanceFormDialog from '#libs/private-service/components/pass/PrivatePassTemplateInstanceFormDialog.component';
+import PrivatePassTemplateCard from '#src/libs/private-service/components/pass/PrivatePassTemplateCard.component';
+import PrivatePassTemplateInstanceFormDialog from '#src/libs/private-service/components/pass/PrivatePassTemplateInstanceFormDialog.component';
 
 import {
   getPrivateConsumerPassList,
   withMember,
-} from '#libs/private-service/selectors/private-consumer-pass';
+} from '#src/libs/private-service/selectors/private-consumer-pass';
+// @ts-expect-error
 import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../../libs/member/actions';
 import { RootState } from '../../../reducers';

@@ -10,14 +10,14 @@ import {
   deleteClockIn as deleteClockInAction,
   getStaffsAttendanceHistory as getStaffsAttendanceHistoryAction,
   exportStaffAttendanceHistory as exportStaffAttendanceHistoryAction,
-} from '#libs/clock-in/actions';
-import { getUsersPaginatedWithRole } from '#libs/role/selectors';
-import ClockInHistoryComponent from '#libs/clock-in/components/ClockInHistory.component';
+} from '#src/libs/clock-in/actions';
+import { getUsersPaginatedWithRole } from '#src/libs/role/selectors';
+import ClockInHistoryComponent from '#src/libs/clock-in/components/ClockInHistory.component';
 import ClockInHistoryHeader, {
   Values as ClockInHistoryHeaderValues,
-} from '#libs/clock-in/components/ClockInHistoryHeader.component';
-import { withHistoryAttendance } from '#libs/clock-in/selectors';
-import { fetchCompanyUserRolesPaginated as fetchCompanyUserRolesPaginatedAction } from '#libs/role/actions';
+} from '#src/libs/clock-in/components/ClockInHistoryHeader.component';
+import { withHistoryAttendance } from '#src/libs/clock-in/selectors';
+import { fetchCompanyUserRolesPaginated as fetchCompanyUserRolesPaginatedAction } from '#src/libs/role/actions';
 
 type Props = ConnectedProps<typeof connector>;
 

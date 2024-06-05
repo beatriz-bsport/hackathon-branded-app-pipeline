@@ -3,16 +3,16 @@ import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import MarketingActionChip from './MarketingActionChip.component';
-import { stepMarketingActionFactory } from '#libs/sequential_marketing/factories';
-import { tagWithoutGroupListFactory } from '#libs/tag/factory';
-import { companyEmailListFactory } from '#libs/email-editor/factories/EmailTemplateSummary';
+import { stepMarketingActionFactory } from '#src/libs/sequential_marketing/factories';
+import { tagWithoutGroupListFactory } from '#src/libs/tag/factory';
+import { companyEmailListFactory } from '#src/libs/email-editor/factories/EmailTemplateSummary';
 import {
   MarketingActionKind,
   MarketingActions,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
-import type { Tag } from '#libs/tag/types';
-import type { EmailTemplateSummary } from '#libs/email-editor/types';
+import type { Tag } from '#src/libs/tag/types';
+import type { EmailTemplateSummary } from '#src/libs/email-editor/types';
 
 const actionData = {
   onClick: action('onClick'),

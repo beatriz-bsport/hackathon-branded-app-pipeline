@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { DateTime } from 'luxon';
 import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports';
-import { MetaActivity } from '#libs/meta-activity/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
 import { generateRandomInt } from '../../utils/factories';
 
 import { RecurrenceRuleGroupOffer } from './types';

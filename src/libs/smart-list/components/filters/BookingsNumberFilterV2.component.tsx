@@ -9,27 +9,27 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ListItemText from '@material-ui/core/ListItemText';
 import type { CoachDetailed } from 'src/api/types';
 import { Theme, makeStyles } from '@material-ui/core';
-import MetaActivityListItem from '#libs/meta-activity/components/MetaActivityListItem.component';
-import DelayedNumericInput from '#components/DelayedNumericInput.component';
+import MetaActivityListItem from '#src/libs/meta-activity/components/MetaActivityListItem.component';
+import DelayedNumericInput from '#src/components/DelayedNumericInput.component';
+
+import type { Establishment } from '#src/libs/establishment/types';
 // @ts-expect-error
+import EstablishmentListItem from '#src/libs/establishment/components/EstablishmentListItem.component';
+import PaymentPackListItem from '#src/libs/payment-packs/components/PaymentPackListItem.component';
 
-import type { Establishment } from '#libs/establishment/types';
-// @ts-expect-error
-import EstablishmentListItem from '#libs/establishment/components/EstablishmentListItem.component';
-import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
+import CoachListItem from '#src/libs/associated-coach/components/CoachListItemBasic.component';
 
-import CoachListItem from '#libs/associated-coach/components/CoachListItemBasic.component';
-
-import { getLevelTranslation } from '#libs/level/utils';
-import type { Level } from '#libs/level/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
+import { getLevelTranslation } from '#src/libs/level/utils';
+import type { Level } from '#src/libs/level/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
 import type {
   FetchBulkItemsType,
   FetchItemsType,
-} from '#libs/smart-list/types';
+} from '#src/libs/smart-list/types';
 import CalendarPicker from '../CalendarPicker.component';
 import CheckboxSelector from '../CheckboxSelector.component';
+// @ts-expect-error
 import Selector from '../MultiSelector.component';
 
 const DATE_BETWEEN = 2;

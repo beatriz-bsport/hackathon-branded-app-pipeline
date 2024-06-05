@@ -12,9 +12,9 @@ import {
 } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-import { Contract } from '#libs/subscription/types';
-import ContractSelector from '#libs/subscription/components/contract/ContractSelector.component';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import { Contract } from '#src/libs/subscription/types';
+import ContractSelector from '#src/libs/subscription/components/contract/ContractSelector.component';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 import { MetaActivity } from '../../meta-activity/types';
 // @ts-expect-error
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';

@@ -10,14 +10,14 @@ import {
 } from '@bsport/common/lib/master-data/bookable-status';
 import { BOOKING_SOURCE_SAAS } from '@bsport/common/lib/master-data/booking_source';
 
-import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
-import { establishment_factory } from '#libs/establishment/factory';
-import { coachFactory } from '#libs/associated-coach/factories';
-import { meta_activity_factory } from '#libs/meta-activity/factory';
-import { levelFactory } from '#libs/level/factories';
-import { offerFactory } from '#libs/offer/factories';
+import { consumerPaymentPackFactory } from '#src/libs/consumer-payment-pack/factories';
+import { establishment_factory } from '#src/libs/establishment/factory';
+import { coachFactory } from '#src/libs/associated-coach/factories';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { levelFactory } from '#src/libs/level/factories';
+import { offerFactory } from '#src/libs/offer/factories';
 
-import type { Booking } from '#libs/booking/types';
+import type { Booking } from '#src/libs/booking/types';
 
 import {
   PRIVATE_BOOKING_CANCELLED_BY_STAFF,
@@ -25,7 +25,7 @@ import {
   PRIVATE_BOOKING_DATE_TIME_MODIFIED_BY_STAFF,
   PRIVATE_BOOKING_RESTORED_BY_STAFF,
   RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
-} from '#libs/private-service/components/constants';
+} from '#src/libs/private-service/components/constants';
 
 const ETABLISHMENT = establishment_factory(1)[0];
 const COACH = coachFactory();

@@ -1,14 +1,14 @@
 import { TFunction } from 'i18next';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PrivatePass } from '#libs/private-service/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import type { Contract } from '#libs/subscription/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { Contract } from '#src/libs/subscription/types';
 
-import { getMarketplaceSearchItemIndicator as getPaymentPackIndicator } from '#libs/payment-packs/utils';
-import { getMarketplaceSearchItemIndicator as getPrivatePassIndicator } from '#libs/private-service/utils';
-import { getMarketplaceSearchItemIndicator as getPaymentComboIndicator } from '#libs/payment-combo/utils';
+import { getMarketplaceSearchItemIndicator as getPaymentPackIndicator } from '#src/libs/payment-packs/utils';
+import { getMarketplaceSearchItemIndicator as getPrivatePassIndicator } from '#src/libs/private-service/utils';
+import { getMarketplaceSearchItemIndicator as getPaymentComboIndicator } from '#src/libs/payment-combo/utils';
 
 export enum ItemType {
   PAYMENT_PACK = 1,

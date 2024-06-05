@@ -8,8 +8,8 @@ import { DateTime } from 'luxon';
 import { Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
+import { RolePermission } from '#src/libs/role/types';
 // @ts-expect-error
-import { RolePermission } from '#libs/role/types';
 import { PriceField, Submit } from '../../../components/forms';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { CashBook, CashBookUpdate, Transaction } from '../types';

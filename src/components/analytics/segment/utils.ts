@@ -28,6 +28,7 @@ export async function segmentIdentify(params: {
 }) {
   try {
     const segmentAnalytics = await getSegmentAnalytics();
+    // @ts-expect-error
     segmentAnalytics.identify(params.userId, params.userTraits, {
       All: false,
       Intercom: true,

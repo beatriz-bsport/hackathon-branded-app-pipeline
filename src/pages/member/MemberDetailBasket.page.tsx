@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import Alert from '@material-ui/lab/Alert/Alert';
 import Paper from '@material-ui/core/Paper';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { EventListParams } from '#libs/event/types';
+import { EventListParams } from '#src/libs/event/types';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import EventPanel from '../../libs/event/components/EventPanel.component';
 // @ts-expect-error

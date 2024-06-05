@@ -7,9 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import { getValidityInfo } from '#libs/payment-packs/utils';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import { getValidityInfo } from '#src/libs/payment-packs/utils';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 type Props = {
   t: TFunction,

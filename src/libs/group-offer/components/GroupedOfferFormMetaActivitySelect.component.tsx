@@ -5,8 +5,8 @@ import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 
-import { MetaActivity } from '#libs/meta-activity/types';
-import MetaActivitySelectorWithCard from '#libs/meta-activity/components/MetaActivitySelectorWithCard.component';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import MetaActivitySelectorWithCard from '#src/libs/meta-activity/components/MetaActivitySelectorWithCard.component';
 
 type Props = {
   metaActivities: MetaActivity[];

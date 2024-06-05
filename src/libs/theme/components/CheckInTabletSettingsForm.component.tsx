@@ -4,9 +4,12 @@ import { Button, Typography, makeStyles } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 // @ts-expect-error
-import { TextField } from '#components/forms';
-import { MAX_CUT_OFF_HOUR, MAX_CUT_OFF_MINUTE } from '#libs/theme/constants';
-import { minsToHrMins } from '#libs/theme/utils';
+import { TextField } from '#src/components/forms';
+import {
+  MAX_CUT_OFF_HOUR,
+  MAX_CUT_OFF_MINUTE,
+} from '#src/libs/theme/constants';
+import { minsToHrMins } from '#src/libs/theme/utils';
 import { OptionCallback } from '../../../state/types';
 
 type Props = {

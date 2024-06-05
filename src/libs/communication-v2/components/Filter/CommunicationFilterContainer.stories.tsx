@@ -7,7 +7,7 @@ import {
   CONTEXT_NOTIFICATION,
   CONTEXT_OFFER,
   CONTEXT_SMARTLIST,
-} from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/constants';
 
 const defaultArgs = {
   handleFilters: () => {},

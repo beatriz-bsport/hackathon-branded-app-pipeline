@@ -9,12 +9,12 @@ import TextField from '@material-ui/core/TextField';
 import { FormikProps, withFormik } from 'formik';
 import { Button, CircularProgress, DialogActions } from '@material-ui/core';
 import * as Yup from 'yup';
-import type { OptionCallback } from '#state/types';
+import type { OptionCallback } from '#src/state/types';
 import type {
   BookkeepingAccount,
   BookkeepingAccountSubmitParams,
-} from '#libs/payment/types';
-import NumericInput from '#components/input/NumericInput.component';
+} from '#src/libs/payment/types';
+import NumericInput from '#src/components/input/NumericInput.component';
 
 const validationSchema = Yup.object().shape({
   account_name: Yup.string().required('common:requiredField'),

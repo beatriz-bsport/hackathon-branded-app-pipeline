@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useFormikContext } from 'formik';
 // @ts-expect-error
-import { TagSelectorFieldNoMulti } from '#components/forms';
-import type { Tag } from '#libs/tag/types';
-import FormSection from '#components/forms/FormSection';
+import { TagSelectorFieldNoMulti } from '#src/components/forms';
+import type { Tag } from '#src/libs/tag/types';
+import FormSection from '#src/components/forms/FormSection';
 import { FormikValues as EditReferralProgramFormikValues } from '../EditReferralProgramSettingsForm.component';
 
 type Props = {

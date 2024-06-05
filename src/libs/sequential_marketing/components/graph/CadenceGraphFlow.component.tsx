@@ -11,12 +11,12 @@ import ReactFlow, {
 import {
   DestinationStatus,
   InitialConfigurationStep,
-} from '#libs/sequential_marketing/constants';
-import { getCadenceWinOrLoseConnectedTriggers } from '#libs/sequential_marketing/utils';
+} from '#src/libs/sequential_marketing/constants';
+import { getCadenceWinOrLoseConnectedTriggers } from '#src/libs/sequential_marketing/utils';
 
-import type { EmailTemplateSummary } from '#libs/email-editor/types';
-import type { SmartList } from '#libs/smart-list/types';
-import type { Tag } from '#libs/tag/types';
+import type { EmailTemplateSummary } from '#src/libs/email-editor/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { Tag } from '#src/libs/tag/types';
 import type {
   Cadence,
   CadenceStep,
@@ -25,7 +25,7 @@ import type {
   MarketingActionEssentials,
   CadenceInitialConfiguration,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 import type { OptionCallback } from '../../../../state/types';
 import { useNodeTypes, useGraphStyles, useGraph } from './hooks';
 import CadenceGraphViewPort from './CadenceGraphViewPort.component';

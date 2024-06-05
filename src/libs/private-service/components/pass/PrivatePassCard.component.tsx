@@ -24,15 +24,15 @@ import {
   CB,
   CREDIT_ACCOUNT,
 } from '@bsport/common/lib/master-data/payment-methods';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import RedButton from '#components/button/RedButton.component';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import RedButton from '#src/components/button/RedButton.component';
 
-import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import TypographyMultilineComponent from '#src/components/typo/TypographyMultiline.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
+} from '#src/libs/theme/utils';
 import type { PrivatePass, PrivatePassCategory } from '../../types';
 import { getValidityInfo } from '../../utils';
 

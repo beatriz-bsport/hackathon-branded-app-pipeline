@@ -14,32 +14,32 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import FormSection from '#components/forms/FormSection';
-import OfferFormField from '#libs/offer/form/OfferFormField.component';
-import useOfferFormStyles from '#libs/offer/hooks/useOfferFormStyles';
-import NumericInput from '#components/input/NumericInput.component';
-import { LevelSelector } from '#libs/level/components/LevelSelector.component';
-import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
-import OfferFormSelector from '#libs/offer/form/OfferFormSelector.component';
-import SpotSchedulingHelper from '#libs/spot-scheduling/utils';
-import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook';
-import OfferFormTooltip from '#libs/offer/form/OfferFormTooltip.dialog';
-// @ts-expect-error
-// @ts-expect-error
-import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
-import { OfferFormValues } from '#libs/offer/types';
-import { Level, LevelFilterSet } from '#libs/level/types';
-import { Establishment } from '#libs/establishment/types';
-import { ZoomApp } from '#libs/zoom-app/types';
-import { RoomBlueprint } from '#libs/spot-scheduling/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { HYBRID_OFFER_DEFAULT_EFFECTIF_FOR_ONLINE_SESSION } from '#libs/offer/constants';
-import NameDescriptionOverride from '#libs/offer/components/NameDescriptionOverride.component';
+import FormSection from '#src/components/forms/FormSection';
+import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
+import useOfferFormStyles from '#src/libs/offer/hooks/useOfferFormStyles';
+import NumericInput from '#src/components/input/NumericInput.component';
+import { LevelSelector } from '#src/libs/level/components/LevelSelector.component';
+import EstablishmentSelector from '#src/libs/establishment/components/EstablishmentSelector.component';
+import OfferFormSelector from '#src/libs/offer/form/OfferFormSelector.component';
+import SpotSchedulingHelper from '#src/libs/spot-scheduling/utils';
+import useFeaturesProvider from '#src/libs/company/hooks/feature-list-provider.hook';
+import OfferFormTooltip from '#src/libs/offer/form/OfferFormTooltip.dialog';
+import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { OfferFormValues } from '#src/libs/offer/types';
+import { Level, LevelFilterSet } from '#src/libs/level/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { ZoomApp } from '#src/libs/zoom-app/types';
+import { RoomBlueprint } from '#src/libs/spot-scheduling/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { HYBRID_OFFER_DEFAULT_EFFECTIF_FOR_ONLINE_SESSION } from '#src/libs/offer/constants';
+import NameDescriptionOverride from '#src/libs/offer/components/NameDescriptionOverride.component';
 import {
   OptionCallback,
   OptionPaginatedCallback,
 } from '../../../../state/types';
+// @ts-expect-error
 import { TextField } from '../../../../components/forms';
+// @ts-expect-error
 import MetaActivitySelector from '../../../meta-activity/components/MetaActivitySelector.component';
 
 type Props = {

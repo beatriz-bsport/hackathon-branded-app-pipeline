@@ -9,9 +9,9 @@ import AddCircle from '@material-ui/icons/AddCircle';
 import Popover from '@material-ui/core/Popover';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
-import FuzzySearchIcon from '#components/search/FuzzySearchIcon.component';
-import MuiIcon from '#components/MuiIcon.component';
-import muiIconNames from '#components/input/muiIcon/muiIconNames';
+import FuzzySearchIcon from '#src/components/search/FuzzySearchIcon.component';
+import MuiIcon from '#src/components/MuiIcon.component';
+import muiIconNames from '#src/components/input/muiIcon/muiIconNames';
 import { EditableQuicksaleSectionKey } from '../../constants';
 import useStyle from './styles';
 import QuicksaleSectionCard from '../QuicksaleSectionCard';

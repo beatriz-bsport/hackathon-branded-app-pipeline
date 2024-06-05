@@ -1,15 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import ValidationIcon from '#components/icons/ValidationIcon.component';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
 
-import Card, { CardSize } from '#components/css-only/Card';
-import Content from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
-import Item, { Alignment } from '#components/css-only/Grid/GridItem';
+import Card, { CardSize } from '#src/components/css-only/Card';
+import Content from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
+import Item, { Alignment } from '#src/components/css-only/Grid/GridItem';
 
-import type { PrivateServiceWithSlots } from '#libs/private-service/types';
+import type { PrivateServiceWithSlots } from '#src/libs/private-service/types';
 
 import './styles.css';
 

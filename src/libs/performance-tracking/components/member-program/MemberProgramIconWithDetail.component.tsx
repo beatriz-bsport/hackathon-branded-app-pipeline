@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next';
 import {
   MetricRecord,
   PerformanceTrackingProgram,
-} from '#libs/performance-tracking/types';
-import MuiIcon from '#components/MuiIcon.component';
+} from '#src/libs/performance-tracking/types';
+import MuiIcon from '#src/components/MuiIcon.component';
 import Tooltip from '../../../../components/Tooltip.component';
 
 type OwnProps = {

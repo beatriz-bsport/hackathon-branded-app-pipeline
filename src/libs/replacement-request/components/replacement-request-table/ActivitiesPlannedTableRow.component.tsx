@@ -13,16 +13,19 @@ import Divider from '@material-ui/core/Divider';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import IconButton from '@material-ui/core/IconButton';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import Tooltip from '#components/Tooltip.component';
+import Tooltip from '#src/components/Tooltip.component';
 
-import { reasonCoachCannotAskForReplacement } from '#libs/replacement-request/utils';
-import { ReplacementDisplays } from '#libs/replacement-request/constants';
-import LevelChip from '#libs/level/components/Level.component';
-import { Level } from '#libs/level/types';
-import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Offer } from '#libs/offer/types';
-import { MetaActivity } from '#libs/meta-activity/types';
+import { reasonCoachCannotAskForReplacement } from '#src/libs/replacement-request/utils';
+import { ReplacementDisplays } from '#src/libs/replacement-request/constants';
+import LevelChip from '#src/libs/level/components/Level.component';
+import { Level } from '#src/libs/level/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Offer } from '#src/libs/offer/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
 import {
   formatAsDatetimeAdapted,
   formatISOStringAsTime,

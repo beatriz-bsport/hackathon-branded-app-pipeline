@@ -16,7 +16,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { withTranslation, TFunction } from 'react-i18next';
 import { DateTime } from 'luxon';
 
-import OfferListItem from '#libs/offer/components/OfferListItemV2.component';
+import OfferListItem from '#src/libs/offer/components/OfferListItemV2.component';
 
 type Props = {
   t: TFunction,

@@ -16,8 +16,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import { Theme } from '@material-ui/core';
 
-import { Role } from '#libs/role/types';
-import { getRoleName } from '#libs/role/utils';
+import { Role } from '#src/libs/role/types';
+import { getRoleName } from '#src/libs/role/utils';
 import { UserWithRealTimeAttendance, ClockInQueryParams } from '../types';
 import type {
   OptionCallback,

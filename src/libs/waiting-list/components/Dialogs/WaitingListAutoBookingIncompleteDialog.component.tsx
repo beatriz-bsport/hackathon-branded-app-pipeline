@@ -8,8 +8,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import type { Member } from '#libs/member/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import type { Member } from '#src/libs/member/types';
 
 type Props = {
   open: boolean;

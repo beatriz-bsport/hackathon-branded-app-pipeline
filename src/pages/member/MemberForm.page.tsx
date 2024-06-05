@@ -7,32 +7,32 @@ import type { TFunction } from 'i18next';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { DateTime } from 'luxon';
-import type { OptionCallback } from '#state/types';
+import type { OptionCallback } from '#src/state/types';
 import type { RootState } from '#src/reducers';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { snackbar } from '#libs/snackbar/actions';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { snackbar } from '#src/libs/snackbar/actions';
 // @ts-expect-error
-import MemberForm from '#libs/member/MemberForm.component';
+import MemberForm from '#src/libs/member/MemberForm.component';
 import {
   createOrUpdateMember,
   fetchMember,
   createChangeEmailRequest,
   mergeMembers as mergeMembersAction,
   retrieveMemberPendingEmail,
-} from '#libs/member/actions';
-import { getMember } from '#libs/member/selectors';
-import { getLatest as getLatestMember } from '#libs/member/api';
-import { MemberMap } from '#libs/member/utils';
-import themeSelectors from '#libs/theme/selectors';
+} from '#src/libs/member/actions';
+import { getMember } from '#src/libs/member/selectors';
+import { getLatest as getLatestMember } from '#src/libs/member/api';
+import { MemberMap } from '#src/libs/member/utils';
+import themeSelectors from '#src/libs/theme/selectors';
 // @ts-expect-error
-import { mapFormData, unmap } from '#pages/form.utils';
-import withTitle from '#hocs/with-title.hoc';
-import { withMemberBannerHOC } from '#hocs/banner.hoc';
+import { mapFormData, unmap } from '#src/pages/form.utils';
+import withTitle from '#src/hocs/with-title.hoc';
+import { withMemberBannerHOC } from '#src/hocs/banner.hoc';
 import { getAuth, API_URI } from '#src/http';
-import MemberChangeEmailDialog from '#libs/member/components/MemberChangeEmailDialog.component';
-import { getCompanyCountry } from '#libs/company/selectors';
-import type { WithHandlerType } from '#utils/types';
-import type { Member } from '#libs/member/types';
+import MemberChangeEmailDialog from '#src/libs/member/components/MemberChangeEmailDialog.component';
+import { getCompanyCountry } from '#src/libs/company/selectors';
+import type { WithHandlerType } from '#src/utils/types';
+import type { Member } from '#src/libs/member/types';
 
 type OwnProps = {
   id: number;

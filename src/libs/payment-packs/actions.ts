@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
-import { monitorBackgroundTask } from '#libs/background-task/actions';
-import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+import { monitorBackgroundTask } from '#src/libs/background-task/actions';
+import { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
 import {
   // Payment-Pack
   // -----------------

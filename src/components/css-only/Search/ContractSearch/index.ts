@@ -1,7 +1,7 @@
 import ContractSearch, {
   ContractSearchForStorybook,
   Props,
-} from '#components/css-only/Search/ContractSearch/ContractSearch.component';
+} from '#src/components/css-only/Search/ContractSearch/ContractSearch.component';
 
 export type { Props };
 export { ContractSearchForStorybook };

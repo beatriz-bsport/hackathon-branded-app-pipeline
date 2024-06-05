@@ -11,10 +11,10 @@ import {
 } from '@material-ui/icons';
 import { DeepPartial } from 'seamless-immutable';
 import { TFunction } from 'i18next';
-import { MarketingNotification } from '#libs/marketing/types';
-import { EmailTemplateSummary } from '#libs/email-editor/types';
+import { MarketingNotification } from '#src/libs/marketing/types';
+import { EmailTemplateSummary } from '#src/libs/email-editor/types';
 // @ts-expect-error
-import withConfirm from '#hocs/with-confirm.hoc';
+import withConfirm from '#src/hocs/with-confirm.hoc';
 
 type OwnProps = {
   marketingNotification: MarketingNotification;

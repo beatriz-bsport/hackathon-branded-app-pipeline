@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import { coachFactory } from '#libs/associated-coach/factories';
-import { BookingFactory } from '#libs/booking/factories';
+import { coachFactory } from '#src/libs/associated-coach/factories';
+import { BookingFactory } from '#src/libs/booking/factories';
 // @ts-expect-error
 import ConsumerBookingCardCss from './styles.css?raw';
 import ConsumerBookingCard, { ConsumerBookingCardProps } from '.';

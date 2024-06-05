@@ -5,9 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { hasPaymentPackManagementPermission } from '#src/libs/payment-packs/utils';
 // @ts-expect-error
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import ConsumerPackRowItem from './ConsumerPackRowItem.component';
 

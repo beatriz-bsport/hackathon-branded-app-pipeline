@@ -6,7 +6,7 @@ import pickBy from 'lodash/pickBy';
 import {
   updateRollCallOfferRetrieveActions,
   updateRollCallOfferByIdActions,
-} from '#libs/booking/actions';
+} from '#src/libs/booking/actions';
 import {
   offers,
   offersPaginated,

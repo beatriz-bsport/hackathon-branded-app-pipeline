@@ -1,6 +1,6 @@
-import { PrivatePass } from '#libs/private-service/types';
-import { ShopItem } from '#libs/shop/types';
-import { ErrorAndLoading } from '#libs/types';
+import { PrivatePass } from '#src/libs/private-service/types';
+import { ShopItem } from '#src/libs/shop/types';
+import { ErrorAndLoading } from '#src/libs/types';
 import { PaymentPack } from '../payment-packs/types';
 
 export type PaymentComboItem = {

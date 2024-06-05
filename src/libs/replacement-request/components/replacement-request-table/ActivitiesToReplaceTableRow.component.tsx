@@ -14,24 +14,27 @@ import Hidden from '@material-ui/core/Hidden';
 import Delete from '@material-ui/icons/Delete';
 
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import ReplacementRequestStatusChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestStatusChip.component';
-import ReplacementRequestLateStatusChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestLateStatusChip.component';
-import ReplacementRequestRegistrationsStatusChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestRegistrationsStatusChip.component';
-import ReplacementRequestCoachAnswerButtons from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestCoachAnswerButtons.component';
-import ReplacementRequestManagerActionButtons from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestManagerActionButtons.component';
-import ReplacementRequestClosingDateExtensionButton from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestClosingDateExtensionButton.component';
+import ReplacementRequestStatusChip from '#src/libs/replacement-request/components/replacement-request-table/ReplacementRequestStatusChip.component';
+import ReplacementRequestLateStatusChip from '#src/libs/replacement-request/components/replacement-request-table/ReplacementRequestLateStatusChip.component';
+import ReplacementRequestRegistrationsStatusChip from '#src/libs/replacement-request/components/replacement-request-table/ReplacementRequestRegistrationsStatusChip.component';
+import ReplacementRequestCoachAnswerButtons from '#src/libs/replacement-request/components/replacement-request-table/ReplacementRequestCoachAnswerButtons.component';
+import ReplacementRequestManagerActionButtons from '#src/libs/replacement-request/components/replacement-request-table/ReplacementRequestManagerActionButtons.component';
+import ReplacementRequestClosingDateExtensionButton from '#src/libs/replacement-request/components/replacement-request-table/ReplacementRequestClosingDateExtensionButton.component';
 
-import LevelChip from '#libs/level/components/Level.component';
-import { Level } from '#libs/level/types';
-import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
-import { Coach } from '#libs/associated-coach/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { ReplacementRequest } from '#libs/replacement-request/types';
+import LevelChip from '#src/libs/level/components/Level.component';
+import { Level } from '#src/libs/level/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { ReplacementRequest } from '#src/libs/replacement-request/types';
 import {
   ReplacementDisplays,
   ReplacementRequestCoachAnswerStatus,
   ReplacementRequestStatus,
-} from '#libs/replacement-request/constants';
+} from '#src/libs/replacement-request/constants';
 import {
   formatAsDatetimeAdapted,
   formatISOStringAsTime,

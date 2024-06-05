@@ -12,7 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
+import EstablishmentBillingGroupSelector from '#src/libs/establishment/components/EstablishmentBillingGroupSelector';
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
 
 import InvoiceItem from '../components/InvoiceItem.component';

@@ -1,7 +1,7 @@
 import type { TFunction } from 'i18next';
-import type { FeatureList, UpsellPackage } from '#libs/company/types';
+import type { FeatureList, UpsellPackage } from '#src/libs/company/types';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { UPSELL_IDENTIFIER_SMS } from './upsell-identifiers';
 
 export const hasUpsell = (

@@ -13,9 +13,9 @@ import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items'
 import InfoIcon from '@material-ui/icons/Info';
 import { WithStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { Basket } from '#libs/checkout/types';
-import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { Basket } from '#src/libs/checkout/types';
+import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import { WithHandlerType } from '../../../utils/types';
 import { RootState } from '../../../reducers';
 import { parseQueryString } from '../../../http';

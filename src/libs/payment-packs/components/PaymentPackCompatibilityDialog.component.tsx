@@ -14,10 +14,10 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import DialogContent from '@material-ui/core/DialogContent';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Establishment } from '#libs/establishment/types';
-import { SCS } from '#libs/category/types';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { SCS } from '#src/libs/category/types';
 
 type Props = {
   activities: Array<MetaActivity>;

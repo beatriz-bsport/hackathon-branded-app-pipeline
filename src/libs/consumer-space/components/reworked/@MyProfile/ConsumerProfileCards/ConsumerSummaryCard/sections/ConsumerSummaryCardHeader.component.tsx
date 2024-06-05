@@ -2,15 +2,15 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
-import type { ConsumerSummaryCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import type { ConsumerSummaryCardProps } from '#src/libs/consumer-space/components/reworked/@MyProfile/types';
 import Avatar from '#src/components/css-only/Fabrique/Temporary/Avatar';
 import Title from '#src/components/css-only/Fabrique/Title';
 import Typography from '#src/components/css-only/Fabrique/Typography';
 import { Scan } from '#src/components/untitledui';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import Button from '#src/components/css-only/Fabrique/ButtonV2';
-import '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard/styles.css';
+import '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard/styles.css';
 
 type Props = Pick<
   ConsumerSummaryCardProps,

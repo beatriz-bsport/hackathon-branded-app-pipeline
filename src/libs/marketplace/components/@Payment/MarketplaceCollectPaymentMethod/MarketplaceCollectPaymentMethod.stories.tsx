@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { MarketplaceCollectPaymentMethodForStorybook, Props } from '.';
-import { MarketplacePaymentMethods } from '#libs/marketplace/types';
+import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
 
 const CollectPaymentMethodTemplate = (args: Props) => (
   // @ts-expect-error

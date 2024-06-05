@@ -13,15 +13,15 @@ import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import Radio from '@material-ui/core/Radio';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import type { Member } from '#libs/member/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import type { Member } from '#src/libs/member/types';
 import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
   UPSELL_IDENTIFIER_SMS,
-} from '#libs/platform-billing/upsell-identifiers';
-import { FeatureList } from '#libs/company/types';
-import { hasUpsell } from '#libs/platform-billing/utils';
+} from '#src/libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#src/libs/company/types';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 
 import DEPRECATEDReceiversCollapseItem from './DEPRECATEDReceiversCollapseItem.component';

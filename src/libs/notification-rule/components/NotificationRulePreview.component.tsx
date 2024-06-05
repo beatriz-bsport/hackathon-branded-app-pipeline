@@ -7,10 +7,10 @@ import Alert from '@material-ui/lab/Alert/Alert';
 import {
   EmailTemplateDetail,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import NotificationPushPreview from '#components/notification-push/NotificationPushPreview.component';
-import { CompanyTheme } from '#libs/theme/types';
-import { replaceGenericTagsInTemplate } from '#libs/email-editor/utils';
+} from '#src/libs/email-editor/types';
+import NotificationPushPreview from '#src/components/notification-push/NotificationPushPreview.component';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { replaceGenericTagsInTemplate } from '#src/libs/email-editor/utils';
 import { NotificationRule, NotificationRuleEventType } from '../types';
 
 type Props = {

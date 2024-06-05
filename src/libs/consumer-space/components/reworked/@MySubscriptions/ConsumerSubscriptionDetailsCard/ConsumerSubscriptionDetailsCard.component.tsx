@@ -2,10 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
-import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
+import ConsumerCardPlaceholder from '#src/libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
+import ConsumerDetailsCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 
 import Card from '#Fabrique/Card';
 
@@ -14,8 +14,8 @@ import type {
   SubscriptionPause,
   SubscriptionsFailedInvoicesREST,
   SubscriptionsInvoicesDetailsREST,
-} from '#libs/subscription/types';
-import type { MarketplacePaymentMethodsType } from '#libs/marketplace/types';
+} from '#src/libs/subscription/types';
+import type { MarketplacePaymentMethodsType } from '#src/libs/marketplace/types';
 import {
   ConsumerSubscriptionDetailsCardBillingHistory,
   ConsumerSubscriptionDetailsCardDescription,

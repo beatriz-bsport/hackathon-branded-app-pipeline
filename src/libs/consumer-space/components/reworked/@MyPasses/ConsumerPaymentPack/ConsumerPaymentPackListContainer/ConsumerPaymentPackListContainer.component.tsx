@@ -3,23 +3,23 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import Typography from '#Fabrique/Typography';
-import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
-import ConsumerPassCard from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
-import ConsumerPaymentPackDetailsCard from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackDetailsCard';
-import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import { GenericInfiniteScrollEnhancedCssOnly } from '#src/components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
+import ConsumerPassCard from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
+import ConsumerPaymentPackDetailsCard from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackDetailsCard';
+import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
-import { parseConsumerPaymentPackData } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/utils';
+import { parseConsumerPaymentPackData } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/utils';
 import {
   MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
   MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
-} from '#libs/consumer-space/components/reworked/@MyBookings/constants';
+} from '#src/libs/consumer-space/components/reworked/@MyBookings/constants';
 
-import type { PassFilterTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
-import type { ConsumerPaymentPackReworked } from '#libs/consumer-payment-pack/types';
+import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
+import type { ConsumerPaymentPackReworked } from '#src/libs/consumer-payment-pack/types';
 
 // Common stylesheet
-import '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
+import '#src/libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
 
 type Props = {
   isMobile?: boolean;

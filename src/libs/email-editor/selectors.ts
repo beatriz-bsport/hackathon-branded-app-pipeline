@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import { EmailTemplate } from '#libs/email-editor/types';
+import { EmailTemplate } from '#src/libs/email-editor/types';
 import { RootState } from '../../reducers';
 
 export const getAllEmailTemplatesDict = (state: RootState) =>

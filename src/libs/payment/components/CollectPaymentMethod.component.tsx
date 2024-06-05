@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 
 import { AxiosResponse } from 'axios';
 import { SetupIntentResult } from '@stripe/stripe-js';
-import type { StripeReader } from '#libs/terminal/types';
-import type { StripeInit } from '#libs/payment/types';
+import type { StripeReader } from '#src/libs/terminal/types';
+import type { StripeInit } from '#src/libs/payment/types';
 import CollectPaymentMethodBacsDebit from './payment-backend-stripe-deprecated/CollectPaymentMethodBacsDebit.component';
 // @ts-expect-error
 import CollectPaymentMethodCard from './payment-backend-stripe-deprecated/CollectPaymentMethodCard.component';

@@ -1,10 +1,10 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
+import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
+import type { SmartList } from '#src/libs/smart-list/types';
 
-import { TriggerKind } from '#libs/sequential_marketing/constants';
+import { TriggerKind } from '#src/libs/sequential_marketing/constants';
 
 import EventForm from './trigger_forms/EventForm.component';
 import SmartlistForm from './trigger_forms/SmartlistForm.component';

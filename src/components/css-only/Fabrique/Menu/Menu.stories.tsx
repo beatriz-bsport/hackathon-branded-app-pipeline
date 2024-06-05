@@ -4,7 +4,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { HorizontalEnum, VerticalEnum } from '#Fabrique/constants';
 import Menu, { MenuStorybook } from '.';
-import { generateRandomNames } from '#utils/factories';
+import { generateRandomNames } from '#src/utils/factories';
 import { MenuItemListStorybook } from '#Fabrique/MenuItemList';
 import { MenuItemStorybook } from '#Fabrique/MenuItem';
 import { ButtonBaseStorybook } from '#Fabrique/ButtonBaseV2';

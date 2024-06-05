@@ -5,20 +5,20 @@ import { push as pushAction } from 'connected-react-router';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
-import PaymentPackTemplateCard from '#libs/payment-packs/components/PaymentPackTemplateCard.component';
-import { fetchConsumerPaymentPackList as fetchConsumerPaymentPackListAction } from '#libs/consumer-payment-pack/actions';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '#src/libs/member/actions';
+import PaymentPackTemplateCard from '#src/libs/payment-packs/components/PaymentPackTemplateCard.component';
+import { fetchConsumerPaymentPackList as fetchConsumerPaymentPackListAction } from '#src/libs/consumer-payment-pack/actions';
 import {
   getPaginatedConsumerPaymentPackList,
   withPaymentPack,
   withMember,
-} from '#libs/consumer-payment-pack/selectors';
-import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
-import PaymentPackTemplateInstanceFormDialog from '#libs/payment-packs/components/PaymentPackTemplateInstanceFormDialog.component';
-import PaymentPackTemplateInstanceDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateInstanceDeleteDialog.component';
-import PaymentPackTemplateFormDrawer from '#libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
-import { PaymentPackTemplateAPI } from '#libs/payment-packs/types';
-import PaymentPackTemplateDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
+} from '#src/libs/consumer-payment-pack/selectors';
+import PaginatedConsumerPackList from '#src/libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
+import PaymentPackTemplateInstanceFormDialog from '#src/libs/payment-packs/components/PaymentPackTemplateInstanceFormDialog.component';
+import PaymentPackTemplateInstanceDeleteDialog from '#src/libs/payment-packs/components/PaymentPackTemplateInstanceDeleteDialog.component';
+import PaymentPackTemplateFormDrawer from '#src/libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
+import { PaymentPackTemplateAPI } from '#src/libs/payment-packs/types';
+import PaymentPackTemplateDeleteDialog from '#src/libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
 import { WithHandlerType } from '../../../utils/types';
 import { OptionCallback } from '../../../state/types';
 import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';

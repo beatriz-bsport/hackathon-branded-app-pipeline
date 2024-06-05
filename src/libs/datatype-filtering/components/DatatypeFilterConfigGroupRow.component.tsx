@@ -5,16 +5,16 @@ import classNames from 'classnames';
 import { ButtonBase, makeStyles, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-import { ReportMetadataColumn } from '#libs/reporting/types';
+import { ReportMetadataColumn } from '#src/libs/reporting/types';
 
 import {
   DataSourceFieldMetadata,
   DynamicFilterDataType,
   DatatypeFilterConfigGroupOperand,
   DatatypeFilterConfigGroup,
-} from '#libs/datatype-filtering/types';
+} from '#src/libs/datatype-filtering/types';
 
-import OperandSelect from '#libs/datatype-filtering/components/OperandSelect.component';
+import OperandSelect from '#src/libs/datatype-filtering/components/OperandSelect.component';
 import DatatypeFilterConfigRow from './DatatypeFilterConfigRow.component';
 import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
 

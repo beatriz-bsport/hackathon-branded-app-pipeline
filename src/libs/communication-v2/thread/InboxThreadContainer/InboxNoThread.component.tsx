@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import ItemClickIcon from '#components/icons/ItemClick.component';
+import ItemClickIcon from '#src/components/icons/ItemClick.component';
 
 type Props = {};
 

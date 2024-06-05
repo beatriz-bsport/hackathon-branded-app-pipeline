@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line
 import { connect, ConnectedProps } from 'react-redux';
-import { getObjectPermissions } from '#libs/role/selectors';
+import { getObjectPermissions } from '#src/libs/role/selectors';
 import { RootState } from '../../../reducers';
 import { hasObjectLevelPermission } from './utils';
 

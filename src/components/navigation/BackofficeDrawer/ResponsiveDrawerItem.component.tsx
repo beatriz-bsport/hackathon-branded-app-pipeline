@@ -11,8 +11,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { checkRequiredPermissionsForPath } from '#libs/role/utils';
-import { RolePermission, ProtectedUrls } from '#libs/role/types';
+import { checkRequiredPermissionsForPath } from '#src/libs/role/utils';
+import { RolePermission, ProtectedUrls } from '#src/libs/role/types';
 import type {
   DrawerItem,
   DrawerItemDefault,

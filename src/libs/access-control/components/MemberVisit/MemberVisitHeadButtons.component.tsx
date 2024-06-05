@@ -8,7 +8,7 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Typography from '@material-ui/core/Typography';
 
-import { AccessStatus } from '#libs/access-control/constants';
+import { AccessStatus } from '#src/libs/access-control/constants';
 
 type Props = {
   accessStatus: AccessStatus;

@@ -21,16 +21,16 @@ import type { OptionPropsWithData } from '../../libs/fuzzy-search/types';
 import {
   getActiveCustomLevels,
   getAllCustomLevels,
-} from '#libs/level/selectors';
+} from '#src/libs/level/selectors';
 import {
   fetchLevelList as fetchLevelListAction,
   updateLevel as updateLevelAction,
   createLevel as createLevelAction,
   deleteLevel as deleteLevelAction,
-} from '#libs/level/actions';
-import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
-import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
-import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
+} from '#src/libs/level/actions';
+import MetaActivityEditDrawer from '#src/libs/meta-activity/components/MetaActivityEdit.drawer';
+import { refreshCompanyTheme as refreshCompanyThemeAction } from '#src/libs/theme/actions';
+import NoShowPenaltyDialog from '#src/libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
 import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
 import themeSelectors from '../../libs/theme/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';

@@ -5,7 +5,7 @@ import {
   ReportFilterConfigParams,
   ReportMetadataValue,
   ReportSerializerParams,
-} from '#libs/reporting/types';
+} from '#src/libs/reporting/types';
 import {
   API_URI,
   getAuth,

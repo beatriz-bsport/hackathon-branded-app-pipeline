@@ -3,17 +3,17 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import Selector, { SelectorProps } from '#Fabrique/Selector';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 
-import { generateRandomName, generateRandomNames } from '#utils/factories';
+import { generateRandomName, generateRandomNames } from '#src/utils/factories';
 
 import {
   MarketplacePage,
   MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 import MenuItem from '#Fabrique/MenuItem';
-import { Star06 } from '#components/untitledui';
+import { Star06 } from '#src/components/untitledui';
 import { SelectorSizeEnum } from '../constants';
 import type { SelectorSize } from '../types';
 // @ts-expect-error

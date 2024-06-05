@@ -7,8 +7,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 import { compose } from 'redux';
 
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
+import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
+import ContentWithAppBar from '#src/components/generic-appbar-content/ContentWithAppBar.component';
 import themeSelectors from '../../libs/theme/selectors';
 import ReplacementManagement from './ReplacementManagement.page';
 import ReplacementDisciplineGroup from './ReplacementDisciplineGroup.page';

@@ -9,7 +9,7 @@ import {
   ORDER_STATE_CANCELLED,
   ORDER_STATE_ONSITEDELIVERY,
 } from '@bsport/common/lib/master-data/order-states';
-import type { OrderWithProducts } from '#libs/order/types';
+import type { OrderWithProducts } from '#src/libs/order/types';
 import { formatAsDatetime } from '../../../utils/datetime';
 
 

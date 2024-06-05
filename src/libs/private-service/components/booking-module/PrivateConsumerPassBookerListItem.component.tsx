@@ -21,14 +21,14 @@ import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import {
   getPassDate,
   getSpecificIncompatibilitiesReasons,
-} from '#libs/private-service/utils';
-import ConsumerPassSourceChip from '#components/chip/ConsumerPassSourceChip';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import RedButton from '#components/button/RedButton.component';
+} from '#src/libs/private-service/utils';
+import ConsumerPassSourceChip from '#src/components/chip/ConsumerPassSourceChip';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import RedButton from '#src/components/button/RedButton.component';
 
-import type { PrivateConsumerPass } from '#libs/private-service/types';
-import type { Member } from '#libs/member/types';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import type { PrivateConsumerPass } from '#src/libs/private-service/types';
+import type { Member } from '#src/libs/member/types';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 import type { OptionCallback } from '../../../../state/types';
 import ConsumerPrivatePassIncompatibilitiesReasons from './ConsumerPrivatePassIncompatibilitiesReasons.component';
 

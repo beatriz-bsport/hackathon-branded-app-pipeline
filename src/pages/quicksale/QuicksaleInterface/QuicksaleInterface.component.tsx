@@ -11,35 +11,37 @@ import Close from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import type { Theme } from '#libs/theme/types';
+import type { Theme } from '#src/libs/theme/types';
 
-import QuicksaleAppBar from '#libs/quicksale/components/QuicksaleAppBar';
-import QuicksaleBasketListBar from '#libs/quicksale/components/QuicksaleBasketListBar';
-import { QuicksaleItemListHeader } from '#libs/quicksale/components/QuicksaleConfigurationItemList';
-import QuicksaleInterfaceSearchBar from '#libs/quicksale/components/QuicksaleInterfaceSearchBar';
+import QuicksaleAppBar from '#src/libs/quicksale/components/QuicksaleAppBar';
+import QuicksaleBasketListBar from '#src/libs/quicksale/components/QuicksaleBasketListBar';
+import { QuicksaleItemListHeader } from '#src/libs/quicksale/components/QuicksaleConfigurationItemList';
+import QuicksaleInterfaceSearchBar from '#src/libs/quicksale/components/QuicksaleInterfaceSearchBar';
 import {
   getIdsFromQuicksaleCardInfoId,
   isNotQuicksaleCardInfoList,
-} from '#libs/quicksale/utils';
-import QuicksaleBasketPanel from '#libs/quicksale/components/QuicksaleBasketPanel';
-import QuicksaleDialogs from '#libs/quicksale/components/QuicksaleDialogs.component';
+} from '#src/libs/quicksale/utils';
+import QuicksaleBasketPanel from '#src/libs/quicksale/components/QuicksaleBasketPanel';
+import QuicksaleDialogs from '#src/libs/quicksale/components/QuicksaleDialogs.component';
 import type {
   QuicksaleCardInfo,
   QuicksaleSection,
-} from '#libs/quicksale/types';
+} from '#src/libs/quicksale/types';
 
 import type {
   Basket,
   CheckoutItemData,
   OnRemoveCheckoutItemData,
-} from '#libs/checkout/types';
+} from '#src/libs/checkout/types';
 
-import type { Member } from '#libs/member/types';
+import type { Member } from '#src/libs/member/types';
 
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-
-import type { Giftcard, GiftcardBackgroundImage } from '#libs/giftcard/types';
+import type {
+  Giftcard,
+  GiftcardBackgroundImage,
+} from '#src/libs/giftcard/types';
 import type { OptionCallback } from '../../../state/types';
 
 import useStyles from './hooks/styles';

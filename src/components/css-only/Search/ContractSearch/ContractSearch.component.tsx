@@ -2,13 +2,12 @@ import React from 'react';
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-import Search from '#components/css-only/Search';
-import ClickableItem from '#components/css-only/ClickableItem';
-import { Contract } from '#libs/subscription/types';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import Search from '#src/components/css-only/Search';
+import ClickableItem from '#src/components/css-only/ClickableItem';
+import { Contract } from '#src/libs/subscription/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { useMarketplaceSearchContractData } from '../hooks';
 import { BaseAdditionalData, SearchItemData } from '../Search.component';
-
 
 export type Props = {
   contractList: Contract[];

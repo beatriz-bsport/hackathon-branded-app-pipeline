@@ -10,17 +10,17 @@ import {
   Edit as EditIcon,
 } from '@material-ui/icons';
 
-import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren';
+import TextFieldWithChildren from '#src/components/input/text-field/TextFieldWithChildren';
 import {
   EmailTemplateDetail,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import HTMLPreview from '#components/html/HTMLPreview.component';
+} from '#src/libs/email-editor/types';
+import HTMLPreview from '#src/components/html/HTMLPreview.component';
 
 import {
   TEXTFIELD_MAIL_TITLE,
   TEXTFIELD_MAIL_CONTENT,
-} from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/constants';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 
 type Props = {

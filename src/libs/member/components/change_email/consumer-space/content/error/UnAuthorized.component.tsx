@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CompanyTheme } from '#libs/theme/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 import { ContentTitle, SpacedText } from '../../GenericFields.components';
 
 type UnAuthorizedContentProps = {

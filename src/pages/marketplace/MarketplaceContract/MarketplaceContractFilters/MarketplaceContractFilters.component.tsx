@@ -7,9 +7,9 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {
   BaseAdditionalData,
   SearchItemData,
-} from '#components/css-only/Search/Search.component';
-import ContractSearch from '#components/css-only/Search/ContractSearch';
-import { Contract } from '#libs/subscription/types';
+} from '#src/components/css-only/Search/Search.component';
+import ContractSearch from '#src/components/css-only/Search/ContractSearch';
+import { Contract } from '#src/libs/subscription/types';
 
 import './styles.css';
 

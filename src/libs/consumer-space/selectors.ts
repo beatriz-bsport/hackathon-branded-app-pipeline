@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import type { RootState } from 'src/reducers';
 
-import { filterBookingListByOfferDate } from '#libs/booking/utils';
+import { filterBookingListByOfferDate } from '#src/libs/booking/utils';
 
 import {
   getOfferDataList,
@@ -10,40 +10,40 @@ import {
   withMetaActivity,
   withCoach,
   getOfferById,
-} from '#libs/offer/selectors';
+} from '#src/libs/offer/selectors';
 import {
   getMetaActivity,
   getMetaActivityLoading,
-} from '#libs/meta-activity/selectors';
-import { getCoach } from '#libs/associated-coach/selectors';
+} from '#src/libs/meta-activity/selectors';
+import { getCoach } from '#src/libs/associated-coach/selectors';
 import {
   getEstablishment,
   getEstablishmentBulkRetrieveState,
-} from '#libs/establishment/selectors';
-import { getLevel } from '#libs/level/selectors';
+} from '#src/libs/establishment/selectors';
+import { getLevel } from '#src/libs/level/selectors';
 import {
   getPaymentPack,
   getPaymentPackLoading,
-} from '#libs/payment-packs/selectors';
-import { getConsumerPack } from '#libs/consumer-payment-pack/selectors';
-import { getRoomBlueprint } from '#libs/spot-scheduling/selector';
-import { getPrivateConsumerPass } from '#libs/private-service/selectors/private-consumer-pass';
-import { getPrivateService } from '#libs/private-service/selectors/private-service';
-import { getPrivateSlot } from '#libs/private-service/selectors/private-slot';
-import { getSCTs, getSCTsLoading } from '#libs/category/selectors';
+} from '#src/libs/payment-packs/selectors';
+import { getConsumerPack } from '#src/libs/consumer-payment-pack/selectors';
+import { getRoomBlueprint } from '#src/libs/spot-scheduling/selector';
+import { getPrivateConsumerPass } from '#src/libs/private-service/selectors/private-consumer-pass';
+import { getPrivateService } from '#src/libs/private-service/selectors/private-service';
+import { getPrivateSlot } from '#src/libs/private-service/selectors/private-slot';
+import { getSCTs, getSCTsLoading } from '#src/libs/category/selectors';
 import {
   getConsumerPaymentPackLink,
   getConsumerPaymentPackLinkLoading,
   getPrivateConsumerPassLink,
   getPrivateConsumerPassLinkLoading,
-} from '#libs/relationship/selectors';
+} from '#src/libs/relationship/selectors';
 import {
   getCompatibleServicePassLoading,
   getServiceCompatibilityPassesByPrivatePassAndPrivateService,
-} from '#libs/private-service/selectors/private-pass';
+} from '#src/libs/private-service/selectors/private-pass';
 
-import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
-import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
+import { BookingFilterTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
+import { BookingTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 
 import type {
   Booking,
@@ -51,26 +51,26 @@ import type {
   ConsumerBooking,
   ConsumerBookingOption,
   ConsumerPrivateBooking,
-} from '#libs/booking/types';
+} from '#src/libs/booking/types';
 import type {
   PrivateBooking,
   PrivateConsumerPassREST,
   PrivateConsumerPassReworked,
-} from '#libs/private-service/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
+} from '#src/libs/private-service/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
 import type {
   ConsumerPaymentPack,
   ConsumerPaymentPackREST,
   ConsumerPaymentPackReworked,
-} from '#libs/consumer-payment-pack/types';
-import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
-import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
-import type { WaitingListBookingOption } from '#libs/waiting-list/types';
+} from '#src/libs/consumer-payment-pack/types';
+import type { BookingFilterTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
+import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+import type { WaitingListBookingOption } from '#src/libs/waiting-list/types';
 import type {
   UniversalPassREST,
   UniversalPassReworked,
-} from '#libs/universal-pass/types';
-import type { ConsumerInvoiceREST } from '#libs/invoice/types';
+} from '#src/libs/universal-pass/types';
+import type { ConsumerInvoiceREST } from '#src/libs/invoice/types';
 
 const getAllBookingAndPrivateBookingWithIds = (state: RootState) => {
   return state.consumer.bookingAndPrivateBooking.allObj;

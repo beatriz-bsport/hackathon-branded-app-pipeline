@@ -5,13 +5,13 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
-import TypographyMultiline from '#components/typo/TypographyMultiline.component';
-import { getCustomCurrencyDisplayWithPrice } from '#libs/theme/utils';
+import TypographyMultiline from '#src/components/typo/TypographyMultiline.component';
+import { getCustomCurrencyDisplayWithPrice } from '#src/libs/theme/utils';
 import type {
   PlatformBillingGroup,
   PlatformBillingPlan,
   PlatformBillingStage,
-} from '#libs/platform-billing/type';
+} from '#src/libs/platform-billing/type';
 
 const PlatformBillingStageCard = React.memo(
   (props: {

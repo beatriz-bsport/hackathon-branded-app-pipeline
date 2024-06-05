@@ -17,24 +17,24 @@ import type { ImmutableArray } from 'seamless-immutable';
 
 import { TFunction } from 'i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
-import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 
-import { withContractNotification } from '#libs/marketing/selectors';
-import { fetchTags } from '#libs/tag/actions';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { fetchMarketingNotificationList } from '#libs/marketing/actions';
+import { withContractNotification } from '#src/libs/marketing/selectors';
+import { fetchTags } from '#src/libs/tag/actions';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import { fetchMarketingNotificationList } from '#src/libs/marketing/actions';
 import {
   displayBackgroundDialog as displayBackgroundDialogAction,
   deletebackgroundDialog as deletebackgroundDialogAction,
-} from '#libs/background-dialog/actions';
-import { fetchStripeReaders } from '#libs/terminal/actions';
-import { getStripeReaders } from '#libs/terminal/selectors';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
+} from '#src/libs/background-dialog/actions';
+import { fetchStripeReaders } from '#src/libs/terminal/actions';
+import { getStripeReaders } from '#src/libs/terminal/selectors';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
 import {
   BackgroundDialogDisplayMode,
   BackgroundDialogActionMode,
-} from '#libs/background-dialog/types';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+} from '#src/libs/background-dialog/types';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { RootState } from '../../reducers';
 import themeSelectors, {
   getStripeRegion,
@@ -69,7 +69,7 @@ import { getSearchedMembers } from '../../libs/member/selectors';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import {
   getInactiveContractList,
   getAvailableContractListManager,
@@ -88,23 +88,23 @@ import {
 } from '../../libs/subscription/actions';
 
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import type { OptionCallback } from '#state/types';
+import type { OptionCallback } from '#src/state/types';
 import type {
   Contract,
   ContractWithPaymentPack,
-} from '#libs/subscription/types';
-import type { TagGroupAPI } from '#libs/tag/types';
-import type { PaymentCombo } from '#libs/payment-combo/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import type { PrivatePass } from '#libs/private-service/types';
+} from '#src/libs/subscription/types';
+import type { TagGroupAPI } from '#src/libs/tag/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
 import { Member } from '../../libs/member/types';
 
 // @ts-expect-error js file
-import SubscriptionContractListItem from '#libs/subscription/components/SubscriptionContractListItem.component';
+import SubscriptionContractListItem from '#src/libs/subscription/components/SubscriptionContractListItem.component';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 
 type ContractSearchOptionData = {
   tagList: {

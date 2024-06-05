@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import { Member } from '#libs/member/types';
+import { Member } from '#src/libs/member/types';
 import type { PrivateConsumerPass } from '../types';
 import { getMemberListData } from '../../member/selectors';
 import { RootState } from '../../../reducers';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PerformanceTrackingMetric } from '#libs/performance-tracking/types';
+import { PerformanceTrackingMetric } from '#src/libs/performance-tracking/types';
 import MetricSlider from './MetricSlider.component';
 
 type Props = {

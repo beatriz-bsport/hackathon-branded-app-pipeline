@@ -2,14 +2,14 @@ import React, { ChangeEvent } from 'react';
 
 import classNames from 'classnames';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import Typography from '#Fabrique/Typography';
 import InputBase from '#Fabrique/InputBase';
 import { REQUIRED_SYMBOL } from '#Fabrique/constants';
 
-import { XClose } from '#components/untitledui';
+import { XClose } from '#src/components/untitledui';
 import { TextFieldSizeEnum, TextFieldTypeEnum } from './constants';
 import type { TextFieldSize, TextFieldType } from './types';
 

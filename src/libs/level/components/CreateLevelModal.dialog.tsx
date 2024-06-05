@@ -18,9 +18,9 @@ import { DateRange } from '@material-ui/icons';
 import classNames from 'classnames';
 
 // @ts-expect-error
-import { ColorField } from '#components/forms';
-import FormSection from '#components/forms/FormSection';
-import { useOfferFormStyles } from '#libs/offer/hooks';
+import { ColorField } from '#src/components/forms';
+import FormSection from '#src/components/forms/FormSection';
+import { useOfferFormStyles } from '#src/libs/offer/hooks';
 import { Level as LevelType } from '../types';
 import { OptionCallback } from '../../../state/types';
 

@@ -3,18 +3,18 @@ import { useTranslation } from 'react-i18next';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 import classNames from 'classnames';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
-import type { ReferralProgram } from '#libs/referral/types';
-import { getReferredReduction } from '#libs/referral/utils';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { ReferredVoucherTypeChoices } from '#libs/referral/constants';
-import ReferralMemberSumupDialog from '#libs/referral/components/referral-member-sumup/ReferralMemberSumupDialog.component';
+import type { ReferralProgram } from '#src/libs/referral/types';
+import { getReferredReduction } from '#src/libs/referral/utils';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { ReferredVoucherTypeChoices } from '#src/libs/referral/constants';
+import ReferralMemberSumupDialog from '#src/libs/referral/components/referral-member-sumup/ReferralMemberSumupDialog.component';
 
 import Typography from '#Fabrique/Typography';
 import Button from '#Fabrique/ButtonV2';
 import Card from '#Fabrique/Card';
-import { Copy06, InfoCircle, UserRight02 } from '#components/untitledui';
+import { Copy06, InfoCircle, UserRight02 } from '#src/components/untitledui';
 import LinearProgress from '#Fabrique/LinearProgress';
 import Alert from '#Fabrique/Alert';
 

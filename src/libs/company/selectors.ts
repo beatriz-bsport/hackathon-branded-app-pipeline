@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
-import { CompanyOnboardingTypes } from '#libs/alerting/constants';
-import type { Alerting } from '#libs/alerting/types';
+import { CompanyOnboardingTypes } from '#src/libs/alerting/constants';
+import type { Alerting } from '#src/libs/alerting/types';
 import type { RootState } from '#src/reducers';
 import type { State } from '../../state/types';
 import alertingSelectors from '../alerting/selectors';

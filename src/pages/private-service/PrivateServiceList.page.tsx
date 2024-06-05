@@ -7,39 +7,38 @@ import { withStyles, WithStyles, createStyles, Theme } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import PrivateServiceListItem from '#libs/private-service/components/service/PrivateServiceListItem.component';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import PrivateServiceListItem from '#src/libs/private-service/components/service/PrivateServiceListItem.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 
-
-import PrivateServiceFormDrawer from '#libs/private-service/components/service/PrivateServiceFormDrawer.component';
-import PrivateServiceListWithGroup from '#libs/private-service/components/service/PrivateServiceListWithGroup.component';
-import PrivateServiceGroupFormDialog from '#libs/private-service/components/service-group/PrivateServiceGroupFormDialog.component';
-import PrivateServiceDeleteDialog from '#libs/private-service/components/service/PrivateServiceDeleteDialog.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import PrivateServiceFormDrawer from '#src/libs/private-service/components/service/PrivateServiceFormDrawer.component';
+import PrivateServiceListWithGroup from '#src/libs/private-service/components/service/PrivateServiceListWithGroup.component';
+import PrivateServiceGroupFormDialog from '#src/libs/private-service/components/service-group/PrivateServiceGroupFormDialog.component';
+import PrivateServiceDeleteDialog from '#src/libs/private-service/components/service/PrivateServiceDeleteDialog.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
   getAvailablePrivateServicesWithoutGroup,
   getPrivateServiceListByGroup,
   getPrivateServiceGroupList,
   getAvailablePrivateServices,
-} from '#libs/private-service/selectors/private-service';
+} from '#src/libs/private-service/selectors/private-service';
 
 import {
   getAvailableEstablishmentsWithAssociatedId,
   getAllEstablishmentsWithAssociatedId,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import {
   getActiveCoaches,
   getAllCoaches,
-} from '#libs/associated-coach/selectors';
-import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
+} from '#src/libs/associated-coach/selectors';
+import { fetchAssociatedCoachesList } from '#src/libs/associated-coach/actions';
 import {
   fetchEstablishments,
   fetchAssociatedEstablishments,
-} from '#libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 import {
   fetchAllPrivateServices as fetchAllPrivateServicesAction,
   fetchPrivateServiceGroupList as fetchPrivateServiceGroupListAction,
@@ -48,19 +47,19 @@ import {
   deleteServiceGroup as deleteServiceGroupAction,
   createOrUpdateServiceGroup as createOrUpdateServiceGroupAction,
   deletePrivateService,
-} from '#libs/private-service/actions';
-import { fetchMarketingNotificationList } from '#libs/marketing/actions';
-import { withPrivateBookingNotification } from '#libs/marketing/selectors';
+} from '#src/libs/private-service/actions';
+import { fetchMarketingNotificationList } from '#src/libs/marketing/actions';
+import { withPrivateBookingNotification } from '#src/libs/marketing/selectors';
 
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 
-import type { AssociatedEstablishment } from '#libs/establishment/types';
-import type { Coach } from '#libs/associated-coach/types';
+import type { AssociatedEstablishment } from '#src/libs/establishment/types';
+import type { Coach } from '#src/libs/associated-coach/types';
 import type {
   PrivateService,
   PrivateServiceGroup,
   PrivateServiceGroupWithService,
-} from '#libs/private-service/types';
+} from '#src/libs/private-service/types';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withTitle from '../../hocs/with-title.hoc';
@@ -70,7 +69,7 @@ import type { WithHandlerType } from '../../utils/types';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 
 type ConnectProps = ConnectedProps<typeof connector>;
 

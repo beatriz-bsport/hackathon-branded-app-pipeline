@@ -3,8 +3,8 @@ import React from 'react';
 import type {
   BookkeepingAccount,
   BookkeepingAccountSubmitParams,
-} from '#libs/payment/types';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+} from '#src/libs/payment/types';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
 import type { OptionCallback } from '../../../state/types';
 
 import BookkeepingAccountForm from './BookkeepingAccountForm.component';

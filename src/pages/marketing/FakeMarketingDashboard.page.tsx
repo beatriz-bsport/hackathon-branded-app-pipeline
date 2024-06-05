@@ -8,7 +8,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
 // @ts-expect-error
-import RuleCard from '#components/marketing/RuleCard.component';
+import RuleCard from '#src/components/marketing/RuleCard.component';
 
 import withTitle from '../../hocs/with-title.hoc';
 

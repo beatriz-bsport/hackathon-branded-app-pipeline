@@ -9,14 +9,17 @@ import ListItem from '@material-ui/core/ListItem';
 import Select from 'react-select';
 import Typography from '@material-ui/core/Typography';
 
-import ShopItemUpdateProvisionDialog from '#libs/shop/components/ShopItemUpdateProvisionDialog';
+import ShopItemUpdateProvisionDialog from '#src/libs/shop/components/ShopItemUpdateProvisionDialog';
 
-import useShopItemDetailInventoryFilters from '#libs/shop/hooks/useShopItemDetailInventoryFilters';
+import useShopItemDetailInventoryFilters from '#src/libs/shop/hooks/useShopItemDetailInventoryFilters';
 
-import type { Provision, ProvisionCreate, ShopItem } from '#libs/shop/types';
-import { ShopItemDetailInventoryFormType } from '#libs/shop/constants';
+import type {
+  Provision,
+  ProvisionCreate,
+  ShopItem,
+} from '#src/libs/shop/types';
+import { ShopItemDetailInventoryFormType } from '#src/libs/shop/constants';
 import type { OptionCallback } from '../../../../state/types';
-
 
 type Props = {
   formType: `${ShopItemDetailInventoryFormType}`;

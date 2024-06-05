@@ -8,10 +8,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import SearchIcon from '@material-ui/icons/Search';
 import { useTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import DelayedTextField from '#components/DelayedTextField.component';
-import InboxThreadContextSelector from '#libs/communication-v2/thread/InboxThreadLookup/InboxThreadContextSelector.component';
-import { threadFilteringChoices } from '#libs/communication-v2/utils';
-import { SelectFieldItem } from '#libs/communication-v2/types';
+import DelayedTextField from '#src/components/DelayedTextField.component';
+import InboxThreadContextSelector from '#src/libs/communication-v2/thread/InboxThreadLookup/InboxThreadContextSelector.component';
+import { threadFilteringChoices } from '#src/libs/communication-v2/utils';
+import { SelectFieldItem } from '#src/libs/communication-v2/types';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type selectorStyle = { option: any };

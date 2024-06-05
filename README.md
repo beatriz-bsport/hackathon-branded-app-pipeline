@@ -284,8 +284,8 @@ The first argument _id_ is the id of the object you are tracking (for exemple if
 To initialize the use of tracking functions you first need to add a constant name in the file _src/components/analytics/segment/constants_. Then at the top of a component file that contains a form, enter the following code :
 
 ```js
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 
 const {
   trackFormAdd,
@@ -302,8 +302,8 @@ const {
 See the exemple for the integration of the tracking functions :
 
 ```js
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(

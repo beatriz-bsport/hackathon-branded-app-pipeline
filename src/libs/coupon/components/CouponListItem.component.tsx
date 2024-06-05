@@ -16,7 +16,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import { IconButton, makeStyles } from '@material-ui/core';
-import Popover from '#components/Popover';
+import Popover from '#src/components/Popover';
 import type { Coupon } from '../types';
 import ListItemResponsiveAction, {
   ActionOption,

@@ -1,10 +1,10 @@
 import React from 'react';
 import BottomDrawer from '#Fabrique/BottomDrawer';
 import Typography from '#Fabrique/Typography';
-import type { TermsModalsAndDrawersProps } from '#csscomponents/Portals/types';
 import { PortalContainer } from '#Fabrique/PortalContainer';
+import type { TermsModalsAndDrawersProps } from '#src/components/css-only/Portals/types';
 
-import '#csscomponents/Portals/styles.css';
+import '#src/components/css-only/Portals/styles.css';
 
 const TermsAndConditionsDrawer: React.FC<TermsModalsAndDrawersProps> = ({
   cancelLabel,

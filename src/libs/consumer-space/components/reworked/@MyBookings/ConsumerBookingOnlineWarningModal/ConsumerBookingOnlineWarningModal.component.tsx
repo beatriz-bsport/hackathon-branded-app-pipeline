@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { formatAsDate, formatISOStringAsTime } from '#utils/datetime';
+import { formatAsDate, formatISOStringAsTime } from '#src/utils/datetime';
 import Blanket from '#Fabrique/Blanket';
 import ModalDialog from '#Fabrique/ModalDialog';
 import Typography from '#Fabrique/Typography';
-import { Clock } from '#components/untitledui';
+import { Clock } from '#src/components/untitledui';
 import './styles.css';
 
 type Props = {

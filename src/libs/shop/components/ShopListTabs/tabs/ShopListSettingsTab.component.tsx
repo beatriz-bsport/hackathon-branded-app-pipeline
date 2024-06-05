@@ -14,15 +14,15 @@ import Typography from '@material-ui/core/Typography';
 
 import AddIcon from '@material-ui/icons/Add';
 
-import DeliveryFeeTable from '#libs/order/components/DeliveryFeeTable.component';
-import OrderConfigurationForm from '#libs/order/components/OrderConfigurationForm.component';
-import ShopSupplierTable from '#libs/shop/components/ShopSupplierTable';
+import DeliveryFeeTable from '#src/libs/order/components/DeliveryFeeTable.component';
+import OrderConfigurationForm from '#src/libs/order/components/OrderConfigurationForm.component';
+import ShopSupplierTable from '#src/libs/shop/components/ShopSupplierTable';
 
-import type { DeliveryConfiguration, DeliveryFee } from '#libs/order/types';
-import type { ShopSupplier } from '#libs/shop/types';
+import type { DeliveryConfiguration, DeliveryFee } from '#src/libs/order/types';
+import type { ShopSupplier } from '#src/libs/shop/types';
 
-import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
-import { SHOP_SUPPLIER_PAGE_SIZE } from '#libs/shop/constants';
+import { ShopListTab } from '#src/libs/shop/components/ShopListTabs/constants';
+import { SHOP_SUPPLIER_PAGE_SIZE } from '#src/libs/shop/constants';
 import type { OptionCallback } from '../../../../../state/types';
 
 type Props = {

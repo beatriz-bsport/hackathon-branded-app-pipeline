@@ -1,14 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ConsumerGenericCardFooter } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
+import { ConsumerGenericCardFooter } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
 
 import {
   Calendar,
   CalendarMinus02,
   UserPlus01,
   VideoRecorder,
-} from '#components/untitledui';
+} from '#src/components/untitledui';
 
 import type { ButtonColor, ButtonVariant } from '#Fabrique/ButtonV2/types';
 import type { ConsumerBookingCardProps } from '..';

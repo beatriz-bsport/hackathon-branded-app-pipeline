@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
-import { referralProgramFactory } from '#libs/referral/factories/ReferralProgram';
+} from '#src/libs/exportable-components/types';
+import { referralProgramFactory } from '#src/libs/referral/factories/ReferralProgram';
 // @ts-expect-error
 import ReferralWidgetCss from './styles.css?raw';
 import ReferralWidget, { Props as ReferralWidgetProps } from '.';

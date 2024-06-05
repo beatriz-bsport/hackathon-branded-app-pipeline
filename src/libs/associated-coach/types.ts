@@ -1,4 +1,4 @@
-import { ErrorAndLoading } from '#libs/types';
+import { ErrorAndLoading } from '#src/libs/types';
 import { ActivitySimplified } from '../../api/types';
 
 export type CoachUpdateOrCreatedPayload = {

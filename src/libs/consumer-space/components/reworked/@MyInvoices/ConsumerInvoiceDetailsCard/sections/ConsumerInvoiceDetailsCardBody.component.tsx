@@ -5,10 +5,10 @@ import {
   PLANNED_PAYMENT_EVENT_STATUS_PENDING,
 } from '@bsport/common/lib/master-data/planned-payment-event';
 
-import { ConsumerGenericCardBodyContainer } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
-import { convertCtsToFullPrice } from '#libs/consumer-space/components/reworked/@MyInvoices/helpers/utils';
-import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
-import type { ConsumerInvoice } from '#libs/invoice/types';
+import { ConsumerGenericCardBodyContainer } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
+import { convertCtsToFullPrice } from '#src/libs/consumer-space/components/reworked/@MyInvoices/helpers/utils';
+import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+import type { ConsumerInvoice } from '#src/libs/invoice/types';
 import {
   ConsumerInvoiceItemList,
   ConsumerInvoicePaymentHistory,
@@ -16,7 +16,6 @@ import {
   ConsumerInvoiceRefund,
   ConsumerInvoiceTotal,
 } from './subsections';
-
 
 import '../styles.css';
 

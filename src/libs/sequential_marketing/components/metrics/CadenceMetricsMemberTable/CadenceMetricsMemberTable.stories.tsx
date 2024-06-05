@@ -3,11 +3,11 @@ import { faker } from '@faker-js/faker';
 
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { cadenceStepFactory } from '#libs/sequential_marketing/factories';
-import { DestinationStatus } from '#libs/sequential_marketing/constants';
+import { cadenceStepFactory } from '#src/libs/sequential_marketing/factories';
+import { DestinationStatus } from '#src/libs/sequential_marketing/constants';
 import CadenceMetricsMemberTable from './CadenceMetricsMemberTable.component';
-import MembersFactory from '#libs/member/factories/Member';
-import type { Member } from '#libs/member/types';
+import MembersFactory from '#src/libs/member/factories/Member';
+import type { Member } from '#src/libs/member/types';
 
 const members = MembersFactory(faker.number.int({ min: 1, max: 8 }));
 const cadenceSteps = members.map((_) => {

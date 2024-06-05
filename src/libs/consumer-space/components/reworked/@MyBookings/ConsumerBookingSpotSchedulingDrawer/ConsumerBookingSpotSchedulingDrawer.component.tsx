@@ -2,17 +2,17 @@ import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
-import MarketplaceSpotSelector from '#marketplacecomponents/@SpotScheduling/MarketplaceSpotSelector';
+import MarketplaceSpotSelector from '#src/libs/marketplace/components/@SpotScheduling/MarketplaceSpotSelector';
 
 import type {
   RoomBlueprint,
   SpotInformation,
   SpotType,
-} from '#libs/spot-scheduling/types';
-import type { CompanyTheme } from '#libs/theme/types';
-import type { OfferREST } from '#libs/offer/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
+} from '#src/libs/spot-scheduling/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type { OfferREST } from '#src/libs/offer/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 

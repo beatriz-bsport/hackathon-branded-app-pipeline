@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Skeleton from '#csscomponents/Skeleton';
+import Skeleton from '#src/components/css-only/Skeleton';
 
 import './styles-skeleton.css';
 

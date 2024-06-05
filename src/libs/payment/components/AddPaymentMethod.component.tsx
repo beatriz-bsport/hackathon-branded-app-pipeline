@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { AxiosResponse } from 'axios';
-import type { StripeReader } from '#libs/terminal/types';
-import type { StripeInit } from '#libs/payment/types';
+import type { StripeReader } from '#src/libs/terminal/types';
+import type { StripeInit } from '#src/libs/payment/types';
 import CollectPaymentMethod from './CollectPaymentMethod.component';
 import PaymentMethodSwitcher from './PaymentMethodSwitcher.component';
 

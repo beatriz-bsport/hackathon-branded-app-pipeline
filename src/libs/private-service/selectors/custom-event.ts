@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
-import { Period } from '#libs/types';
+import { Period } from '#src/libs/types';
 import { RootState } from '../../../reducers';
 import { getCoaches } from '../../associated-coach/selectors';
 

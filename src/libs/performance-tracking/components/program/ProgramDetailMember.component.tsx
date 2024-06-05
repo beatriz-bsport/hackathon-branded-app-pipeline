@@ -6,17 +6,17 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 import { DateTime } from 'luxon';
-import MemberProgramIconWithDetail from '#libs/performance-tracking/components//member-program/MemberProgramIconWithDetail.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import MemberProgramIconWithDetail from '#src/libs/performance-tracking/components//member-program/MemberProgramIconWithDetail.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
 
-import type { Member } from '#libs/member/types';
+import type { Member } from '#src/libs/member/types';
 import type {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingMetric,
   PerformanceTrackingProgram,
-} from '#libs/performance-tracking/types';
+} from '#src/libs/performance-tracking/types';
 
 type Props = {
   program: PerformanceTrackingProgram;

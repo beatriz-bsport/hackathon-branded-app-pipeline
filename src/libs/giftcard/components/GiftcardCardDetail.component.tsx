@@ -9,7 +9,7 @@ import TodayIcon from '@material-ui/icons/Today';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import LinkIcon from '@material-ui/icons/Link';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import AvailablePaymentMethodList from '../../payment/components/AvailablePaymentMethodList.component';

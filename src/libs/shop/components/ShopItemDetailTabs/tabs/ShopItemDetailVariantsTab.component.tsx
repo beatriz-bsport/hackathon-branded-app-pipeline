@@ -9,14 +9,14 @@ import Typography from '@material-ui/core/Typography';
 
 import AddIcon from '@material-ui/icons/Add';
 
-import ShopItemDetailVariantList from '#libs/shop/components/ShopItemDetailVariantList';
-import ShopItemDetailVariantListMobile from '#libs/shop/components/ShopItemDetailVariantListMobile';
+import ShopItemDetailVariantList from '#src/libs/shop/components/ShopItemDetailVariantList';
+import ShopItemDetailVariantListMobile from '#src/libs/shop/components/ShopItemDetailVariantListMobile';
 
-import type { ShopItem } from '#libs/shop/types';
-import type { ShopItemVariantBulkUpdateFormValues } from '#libs/shop/components/ShopItemVariantBulkUpdateForm/types';
+import type { ShopItem } from '#src/libs/shop/types';
+import type { ShopItemVariantBulkUpdateFormValues } from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/types';
 
-import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '#libs/shop/constants';
-import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
+import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '#src/libs/shop/constants';
+import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
 import type { OptionCallback } from '../../../../../state/types';
 
 type Props = {

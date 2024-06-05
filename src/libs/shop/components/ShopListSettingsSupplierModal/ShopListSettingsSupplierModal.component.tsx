@@ -11,9 +11,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-import type { ShopSupplier } from '#libs/shop/types';
+import type { ShopSupplier } from '#src/libs/shop/types';
 import type { ShopListSettingsSupplierValues } from './types';
 
 import shopListSettingsSupplierSchema from './shopListSettingsSupplierSchema';

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { fakerEN as faker } from '@faker-js/faker';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 import TextForm, { Props } from '.';
 // @ts-expect-error
 import TextFormCss from './styles.css?raw';

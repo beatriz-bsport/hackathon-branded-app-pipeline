@@ -17,18 +17,18 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Chip from '@material-ui/core/Chip';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
-import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
-import CoachGroupChip from '#libs/associated-coach/components/CoachGroupChip.component';
+import CoachSelector from '#src/libs/associated-coach/components/coach-selector/CoachSelector.component';
+import CoachGroupChip from '#src/libs/associated-coach/components/CoachGroupChip.component';
 
-import type { Coach } from '#libs/associated-coach/types';
-import type { Company } from '#libs/company/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Company } from '#src/libs/company/types';
 import CompanyFilterChipPreview from '#src/libs/franchise/components/CompanyFilterChipPreview.component';
-import FranchiseCompaniesSelector from '#libs/franchise/components/FranchiseCompaniesSelector.component';
+import FranchiseCompaniesSelector from '#src/libs/franchise/components/FranchiseCompaniesSelector.component';
 import type {
   CompanyGroup,
   CompanyOptionTypeBase,
-} from '#libs/franchise/types';
-import FranchiseCompanyGroupsSelector from '#libs/franchise/components/FranchiseCompanyGroupsSelector.component';
+} from '#src/libs/franchise/types';
+import FranchiseCompanyGroupsSelector from '#src/libs/franchise/components/FranchiseCompanyGroupsSelector.component';
 
 type SubMenuProps = {
   onClick: () => void;

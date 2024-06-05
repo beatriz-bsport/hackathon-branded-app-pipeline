@@ -1,7 +1,7 @@
 import React from 'react';
-import { QUICKSALE_ITEMS_REQUIRING_AUTHENTICATION } from '#libs/quicksale/constants';
-import type { Basket } from '#libs/checkout/types';
-import type { Member } from '#libs/member/types';
+import { QUICKSALE_ITEMS_REQUIRING_AUTHENTICATION } from '#src/libs/quicksale/constants';
+import type { Basket } from '#src/libs/checkout/types';
+import type { Member } from '#src/libs/member/types';
 
 const useModals = ({
   goBack,

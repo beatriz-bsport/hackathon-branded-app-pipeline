@@ -4,8 +4,8 @@ import Avatar from '@material-ui/core/Avatar';
 import type { BadgeClassKey } from '@material-ui/core/Badge';
 
 import classNames from 'classnames';
-import type { Member } from '#libs/member/types';
-import type { Tag, TagGroup } from '#libs/tag/types';
+import type { Member } from '#src/libs/member/types';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
 import CreditMemberBadge from './CreditMemberBadge.component';
 import TagBadge from './TagBadge/TagBadge.component';
 

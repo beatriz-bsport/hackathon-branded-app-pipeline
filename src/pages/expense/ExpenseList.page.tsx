@@ -6,8 +6,8 @@ import { withTranslation, TFunction, WithTranslation } from 'react-i18next';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { getExpenseList, withUsers } from '#libs/expense/selectors';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { getExpenseList, withUsers } from '#src/libs/expense/selectors';
 import {
   fetchExpenseList,
   fetchFutureExpenses,
@@ -16,23 +16,23 @@ import {
   deleteExpense,
   getCategories,
   getSuppliers,
-} from '#libs/expense/actions';
+} from '#src/libs/expense/actions';
 
-import withTitle from '#hocs/with-title.hoc';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
-import ExpenseTable from '#libs/expense/components/ExpenseTable.component';
-import ExpenseFilters from '#libs/expense/components/ExpenseFilters.component';
-import themeSelectors from '#libs/theme/selectors';
-import BottomActionsButton from '#components/button/BottomActionsButton.component';
-import ExpenseForm from '#libs/expense/components/ExpenseForm.component';
-import { Expense, ExpenseFormValues } from '#libs/expense/types';
-import { getUsers } from '#libs/role/selectors';
-import { fetchCompanyUserRoles } from '#libs/role/actions';
-import { UserRole } from '#libs/role/types';
+import ExpenseTable from '#src/libs/expense/components/ExpenseTable.component';
+import ExpenseFilters from '#src/libs/expense/components/ExpenseFilters.component';
+import themeSelectors from '#src/libs/theme/selectors';
+import BottomActionsButton from '#src/components/button/BottomActionsButton.component';
+import ExpenseForm from '#src/libs/expense/components/ExpenseForm.component';
+import { Expense, ExpenseFormValues } from '#src/libs/expense/types';
+import { getUsers } from '#src/libs/role/selectors';
+import { fetchCompanyUserRoles } from '#src/libs/role/actions';
+import { UserRole } from '#src/libs/role/types';
 
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { OptionCallback } from '../../state/types';

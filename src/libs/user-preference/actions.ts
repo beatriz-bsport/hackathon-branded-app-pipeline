@@ -1,12 +1,12 @@
 import { createAction } from 'redux-actions';
 import { Dispatch } from 'redux';
-import type { OfferFilter } from '#libs/offer/types';
-import type { OffersGroupFilter } from '#libs/group-offer/types';
+import type { OfferFilter } from '#src/libs/offer/types';
+import type { OffersGroupFilter } from '#src/libs/group-offer/types';
 import type {
   ReplacementRequestFilter,
   ReplacementRequestOfferHistoryFilter,
-} from '#libs/replacement-request/types';
-import type { PrivateBookingFilterParams } from '#libs/private-service/types';
+} from '#src/libs/replacement-request/types';
+import type { PrivateBookingFilterParams } from '#src/libs/private-service/types';
 import type { ScheduleFilter } from './types';
 import {
   ManagerOnly,

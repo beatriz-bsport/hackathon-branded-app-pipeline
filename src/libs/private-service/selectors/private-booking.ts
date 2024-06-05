@@ -8,12 +8,12 @@ import {
   getMemberProgramDict,
   getMetricDict,
   getProgramDict,
-} from '#libs/performance-tracking/selector';
-import { Member } from '#libs/member/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import { StaffModificationHistory } from '#libs/role/types';
-import { Period } from '#libs/types';
+} from '#src/libs/performance-tracking/selector';
+import { Member } from '#src/libs/member/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { StaffModificationHistory } from '#src/libs/role/types';
+import { Period } from '#src/libs/types';
 import { RootState } from '../../../reducers';
 import {
   PrivateBooking,
@@ -32,7 +32,6 @@ import { getPrivateConsumerPassDict } from './private-consumer-pass';
 import { getAllCoachesDict } from '../../associated-coach/selectors';
 import { getAllEstablishmentsDict } from '../../establishment/selectors';
 import { getTagGroupsDict, getTagsDict } from '../../tag/selectors';
-
 
 /*
 export const getPrivateConsumerPassListWithPass = createSelector(

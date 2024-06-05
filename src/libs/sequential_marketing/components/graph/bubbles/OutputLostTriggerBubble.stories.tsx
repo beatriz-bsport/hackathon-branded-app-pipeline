@@ -3,8 +3,8 @@ import Immutable from 'seamless-immutable';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import OutputLostTriggerBubble from './OutputLostTriggerBubble.component';
-import { smartlistBatchFactory } from '#libs/smart-list/factories';
-import { triggerBatchFactory } from '#libs/sequential_marketing/factories';
+import { smartlistBatchFactory } from '#src/libs/smart-list/factories';
+import { triggerBatchFactory } from '#src/libs/sequential_marketing/factories';
 
 export default {
   title: 'Components/Cadences/Bubbles/LostTrigger',

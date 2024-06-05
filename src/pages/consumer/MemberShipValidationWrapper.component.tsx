@@ -2,9 +2,9 @@ import React from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
 import {
   fetchMember as fetchMemberAction,

@@ -3,11 +3,11 @@ import React from 'react';
 import {
   BaseAdditionalData,
   SearchItemData,
-} from '#components/css-only/Search/Search.component';
-import Item from '#components/css-only/Search/Item';
+} from '#src/components/css-only/Search/Search.component';
+import Item from '#src/components/css-only/Search/Item';
 
 import './styles.css';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 export type Props = {
   items: SearchItemData<BaseAdditionalData>[];

@@ -1,16 +1,16 @@
 import React, { useEffect, useCallback } from 'react';
 import { ConnectedProps, connect } from 'react-redux';
 
-import { getAccessControlPolicy as getAccessControlPolicySelector } from '#libs/access-control/selectors';
+import { getAccessControlPolicy as getAccessControlPolicySelector } from '#src/libs/access-control/selectors';
 
 import {
   getAccessControlPolicy as getAccessControlPolicyAction,
   patchAccessControlPolicy as patchAccessControlPolicyAction,
-} from '#libs/access-control/actions';
+} from '#src/libs/access-control/actions';
 
-import AccessControlSettingsForm from '#libs/access-control/components/AccessControlSettings/AccessControlSettingsForm.component';
+import AccessControlSettingsForm from '#src/libs/access-control/components/AccessControlSettings/AccessControlSettingsForm.component';
 
-import type { AccessControlPolicy } from '#libs/access-control/types';
+import type { AccessControlPolicy } from '#src/libs/access-control/types';
 import type { RootState } from '../../reducers';
 
 type Props = ConnectedProps<typeof connector>;

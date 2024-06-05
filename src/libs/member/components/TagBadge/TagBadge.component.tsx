@@ -8,12 +8,12 @@ import Hidden from '@material-ui/core/Hidden';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 
-import { ONLY_BALANCE, ONLY_UNPAID_AMOUNT } from '#libs/member/constants';
-import BalanceChip from '#libs/member/components/BalanceChip.component';
-import TagChip from '#libs/tag/components/TagChip.component';
+import { ONLY_BALANCE, ONLY_UNPAID_AMOUNT } from '#src/libs/member/constants';
+import BalanceChip from '#src/libs/member/components/BalanceChip.component';
+import TagChip from '#src/libs/tag/components/TagChip.component';
 
-import type { Member } from '#libs/member/types';
-import type { Tag, TagGroup } from '#libs/tag/types';
+import type { Member } from '#src/libs/member/types';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
 import TagCircle from './TagCircle.component';
 
 import './TagBadge.css';

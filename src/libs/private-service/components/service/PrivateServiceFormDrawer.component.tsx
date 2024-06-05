@@ -7,17 +7,17 @@ import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-// @ts-expect-error
 
-import type { AssociatedEstablishment } from '#libs/establishment/types';
-import type { Coach } from '#libs/associated-coach/types';
-import type { PrivateService } from '#libs/private-service/types';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import type { AssociatedEstablishment } from '#src/libs/establishment/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { PrivateService } from '#src/libs/private-service/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import PrivateServiceFields, {
   PrivateServiceFormikHOC,
 } from './PrivateServiceForm.component';
+// @ts-expect-error
 import { Submit } from '../../../../components/forms';
 
 const { trackFormSubmitIntent, trackFormAdd, trackFormCancel } =

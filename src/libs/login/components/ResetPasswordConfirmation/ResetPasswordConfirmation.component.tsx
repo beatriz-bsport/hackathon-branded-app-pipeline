@@ -2,11 +2,11 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Button from '#Fabrique/ButtonV2';
 import Typography from '#Fabrique/Typography';
 
-import { CheckCircleBroken } from '#components/untitledui';
+import { CheckCircleBroken } from '#src/components/untitledui';
 
 import Card from '#Fabrique/Card';
 

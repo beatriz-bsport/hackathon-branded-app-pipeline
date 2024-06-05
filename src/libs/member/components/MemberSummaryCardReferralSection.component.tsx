@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core';
 import { Trans, useTranslation } from 'react-i18next';
-import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
+import ButtonBaseWithTypography from '#src/components/button/ButtonBaseWithTypography';
 
 type Props = {
   referringMemberName: string;

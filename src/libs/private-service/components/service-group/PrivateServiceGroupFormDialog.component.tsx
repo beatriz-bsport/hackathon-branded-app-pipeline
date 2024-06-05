@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 
 import { Form } from 'formik';
 
-import type { PrivateServiceGroupWithService } from '#libs/private-service/types';
+import type { PrivateServiceGroupWithService } from '#src/libs/private-service/types';
 import PrivateServiceGroupForm, {
   PrivateServiceGroupFormikHOC,
   // @ts-expect-error

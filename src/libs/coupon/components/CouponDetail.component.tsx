@@ -7,10 +7,14 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 
 // @ts-expect-error
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import type {
+  Discount,
+  Coupon,
+  FetchDiscountParams,
+} from '#src/libs/coupon/types';
 // @ts-expect-error
-import PaginatedListBase from '#components/PaginatedListBase.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import type { Discount, Coupon, FetchDiscountParams } from '#libs/coupon/types';
 import CouponCard from './CouponCard.component';
 import DiscountListItem from './DiscountListItem.component';
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import FactoryBotTheme from '#libs/theme/factories';
+import FactoryBotTheme from '#src/libs/theme/factories';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { coachFactory } from '#libs/associated-coach/factories';
+import { coachFactory } from '#src/libs/associated-coach/factories';
 
 import './styles.css';
 

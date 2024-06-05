@@ -6,29 +6,29 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Style } from '@material-ui/icons';
 
 import { useMediaQuery, useTheme } from '@material-ui/core';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import ToolTip from '#components/Tooltip.component';
-import Card from '#csscomponents/Card';
-import CardContent from '#csscomponents/Card/CardContent';
-import Grid from '#csscomponents/Grid';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import ToolTip from '#src/components/Tooltip.component';
+import Card from '#src/components/css-only/Card';
+import CardContent from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#csscomponents/Grid/GridItem';
-import Price from '#csscomponents/Price';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { CardSize } from '#components/css-only/Card/types';
-import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
-import { useValidityInfoForPrivatePassCard } from '#libs/marketplace/utils/private-pass';
-import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
+} from '#src/components/css-only/Grid/GridItem';
+import Price from '#src/components/css-only/Price';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { CardSize } from '#src/components/css-only/Card/types';
+import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
+import { useValidityInfoForPrivatePassCard } from '#src/libs/marketplace/utils/private-pass';
+import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
 
-import type { PrivatePass } from '#libs/private-service/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
 import './styles.css';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
-} from '#libs/theme/utils';
+} from '#src/libs/theme/utils';
 
 export type Props = {
   privatePass: PrivatePass;

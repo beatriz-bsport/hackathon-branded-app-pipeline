@@ -14,9 +14,9 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
-import MaxoutInfoMessage from '#libs/booker-module/components/MaxoutInfoMessage.component';
-import { ContractWithPaymentPack } from '#libs/subscription/types';
-import { CompanyTheme } from '#libs/theme/types';
+import MaxoutInfoMessage from '#src/libs/booker-module/components/MaxoutInfoMessage.component';
+import { ContractWithPaymentPack } from '#src/libs/subscription/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 import { MaterialStyleType } from '../../../utils/types';
 
 import CollapsibleSection from '../../../components/CollapsibleSection';

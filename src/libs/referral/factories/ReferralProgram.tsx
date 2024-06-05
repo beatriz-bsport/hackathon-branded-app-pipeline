@@ -1,5 +1,5 @@
 import { fakerEN as faker } from '@faker-js/faker';
-import { tagWithoutGroupFactory } from '#libs/tag/factory';
+import { tagWithoutGroupFactory } from '#src/libs/tag/factory';
 import { generateRandomName } from '../../../utils/factories';
 import type { ReferralProgram } from '../types';
 import {

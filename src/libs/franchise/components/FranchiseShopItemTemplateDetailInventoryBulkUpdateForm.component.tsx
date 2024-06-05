@@ -23,11 +23,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
 
-import { CustomChip } from '#components/chip/CustomChip.component';
+import { CustomChip } from '#src/components/chip/CustomChip.component';
 
-import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
+import { useShopDetailTabsModalPrompt } from '#src/hocs/shop-modal-prompt.hoc';
 
-import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#libs/shop/constants';
+import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#src/libs/shop/constants';
 
 type ShopItemInventoryBulkUpdateFormRow = {
   id: number;

@@ -1,7 +1,8 @@
 // @ts-expect-error
-import { ReminderState } from '#libs/reminder/types';
-import { PerformanceTrackingState } from '#libs/performance-tracking/types';
-import { ClockInState } from '#libs/clock-in/types';
+import { ReminderState } from '#src/libs/reminder/types';
+import { PerformanceTrackingState } from '#src/libs/performance-tracking/types';
+import { ClockInState } from '#src/libs/clock-in/types';
+// @ts-expect-error
 import { AuthAction } from './auth/types';
 
 import { StatsState } from './stats/types';
@@ -23,7 +24,6 @@ import { CouponState } from '../libs/coupon/types';
 import { LoginState } from '../libs/login/types';
 import { PrivateServiceState } from '../libs/private-service/types';
 import { PaymentComboState } from '../libs/payment-combo/types';
-// @ts-expect-error
 import { MembershipState } from '../libs/membership/types';
 import { CompanyState } from '../libs/company/types';
 import { NotificationRuleState } from '../libs/notification-rule/types';

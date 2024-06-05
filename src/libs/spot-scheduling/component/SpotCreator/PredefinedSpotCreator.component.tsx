@@ -2,8 +2,8 @@ import { Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 // @ts-expect-error
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import { ColorField } from '../../../../components/forms';
 import CanvasSpotComponent from '../../CanvasSvg/tools/Spot/CanvasSpot.component';
 

@@ -5,8 +5,8 @@ import { makeStyles, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import { useFormikContext } from 'formik';
 // @ts-expect-error
-import { PriceField, IntegerField } from '#components/forms';
-import FormSection from '#components/forms/FormSection';
+import { PriceField, IntegerField } from '#src/components/forms';
+import FormSection from '#src/components/forms/FormSection';
 import { FormikValues as EditReferralProgramFormikValues } from '../EditReferralProgramSettingsForm.component';
 
 const EditReferralProgramSettingsFormGeneral: React.FC = () => {

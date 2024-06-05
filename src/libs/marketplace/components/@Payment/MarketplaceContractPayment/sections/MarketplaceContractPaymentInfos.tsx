@@ -3,9 +3,9 @@ import { DateTime } from 'luxon';
 
 import { Trans, useTranslation } from 'react-i18next';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import Checkbox from '#components/css-only/Checkbox/';
-import MarketplaceDatePicker from '#marketplacecomponents/@Date/MarketplaceDatePicker';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import Checkbox from '#src/components/css-only/Checkbox/';
+import MarketplaceDatePicker from '#src/libs/marketplace/components/@Date/MarketplaceDatePicker';
 
 import '../styles.css';
 

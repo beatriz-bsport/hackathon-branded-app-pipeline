@@ -22,13 +22,13 @@ import {
   SwitchField,
   AlertError,
   // @ts-expect-error
-} from '#components/forms';
-import { OffersGroup } from '#libs/group-offer/types';
+} from '#src/components/forms';
+import { OffersGroup } from '#src/libs/group-offer/types';
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
-import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { FeatureList } from '#libs/company/types';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
+import { UPSELL_IDENTIFIER_SPIVI } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { FeatureList } from '#src/libs/company/types';
 import { OptionCallback } from '../../../state/types';
 
 type OuterProps = {

@@ -9,9 +9,9 @@ import {
 import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
 
-import { PaymentPackTemplate } from '#libs/payment-packs/types';
-import { PrivatePassTemplate } from '#libs/private-service/types';
-import { CouponTemplate } from '#libs/coupon/types';
+import { PaymentPackTemplate } from '#src/libs/payment-packs/types';
+import { PrivatePassTemplate } from '#src/libs/private-service/types';
+import { CouponTemplate } from '#src/libs/coupon/types';
 import { OptionCallback } from '../../../state/types';
 import FranchiseCompaniesSelector from '../../franchise/components/FranchiseCompaniesSelector.component';
 import { FranchiseCompany } from '../../franchise/types';

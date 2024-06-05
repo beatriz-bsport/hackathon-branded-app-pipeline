@@ -21,15 +21,15 @@ import {
 } from '@bsport/common/lib/master-data/invoice-type';
 import { CircularProgress } from '@material-ui/core';
 
-import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
+import EstablishmentBillingGroupSelector from '#src/libs/establishment/components/EstablishmentBillingGroupSelector';
 import type {
   Establishment,
   EstablishmentBillingGroup,
   WithEstablishment,
   WithEstablishmentBillingGroup,
-} from '#libs/establishment/types';
-import { getStaffName } from '#libs/booking/utils';
-import { Member } from '#libs/member/types';
+} from '#src/libs/establishment/types';
+import { getStaffName } from '#src/libs/booking/utils';
+import { Member } from '#src/libs/member/types';
 import type { Invoice, WithAuthor } from '../types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 

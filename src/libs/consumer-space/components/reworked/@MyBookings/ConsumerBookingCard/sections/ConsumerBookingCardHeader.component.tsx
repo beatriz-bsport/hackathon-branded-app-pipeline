@@ -10,9 +10,9 @@ import {
   UsersPlus,
   VideoRecorder,
   XCircle,
-} from '#components/untitledui';
+} from '#src/components/untitledui';
 
-import { ConsumerGenericCardHeader } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
+import { ConsumerGenericCardHeader } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
 import type { ConsumerBookingCardProps } from '..';
 
 type Props = Required<

@@ -19,17 +19,17 @@ import { createStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 
 // @ts-expect-error
-import MetaActivityCreate from '#libs/meta-activity/components/MetaActivityCreate.drawer';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import BottomActionButtons from '#components/button/BottomActionsButton.component';
-import IsEmptyList from '#components/navigation/IsEmptyList.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import MetaActivityCreate from '#src/libs/meta-activity/components/MetaActivityCreate.drawer';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import BottomActionButtons from '#src/components/button/BottomActionsButton.component';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
-import MetaActivityList from '#libs/meta-activity/components/MetaActivityList.component';
-import MetaActivityDeleteDialog from '#libs/meta-activity/components/MetaActivityDeleteDialog.component';
+import MetaActivityList from '#src/libs/meta-activity/components/MetaActivityList.component';
+import MetaActivityDeleteDialog from '#src/libs/meta-activity/components/MetaActivityDeleteDialog.component';
 import {
   getPageEnabledPureMetaActivities,
   getDisabledMetaActivityList,
@@ -40,7 +40,7 @@ import {
   getActivitiesByIdList,
   getMetaActivityCategories,
   getMetaActivity,
-} from '#libs/meta-activity/selectors';
+} from '#src/libs/meta-activity/selectors';
 import {
   deleteMetaActivity as deleteMetaActivityAction,
   restoreMetaActivity,
@@ -55,70 +55,71 @@ import {
   fetchActivitiesCompany as fetchActivitiesCompanyAction,
   fetchMetaActivities as fetchMetactivitiesAction,
   fetchDisabledMetaActivityPaginatedList as fetchDisabledMetaActivityPaginatedListAction,
-} from '#libs/meta-activity/actions';
-import { PAGINATION_SIZE } from '#libs/meta-activity/constants';
-import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '#libs/meta-activity/api/common';
+} from '#src/libs/meta-activity/actions';
+import { PAGINATION_SIZE } from '#src/libs/meta-activity/constants';
+import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '#src/libs/meta-activity/api/common';
 
-import { fetchMarketingNotificationList } from '#libs/marketing/actions';
-import { withBookingNotification } from '#libs/marketing/selectors';
-import { CategoryList } from '#components/ordering/CategoryList.component';
-import MetaActivityListItem from '#libs/meta-activity/components/MetaActivityListItem.component';
+import { fetchMarketingNotificationList } from '#src/libs/marketing/actions';
+import { withBookingNotification } from '#src/libs/marketing/selectors';
+import { CategoryList } from '#src/components/ordering/CategoryList.component';
+import MetaActivityListItem from '#src/libs/meta-activity/components/MetaActivityListItem.component';
 import {
   MetaActivity,
   MetaActivityCategory,
   MetaActivityCategoryWithActivities,
-} from '#libs/meta-activity/types';
-// import AddCategoryButton from '#components/ordering/AddCategoryButton.component';
-import CategoryCreationEditDialog from '#components/ordering/CategoryCreationEditDialog.component';
-import { redirectIfAllowed as redirectIfAllowedAction } from '#libs/role/actions';
+} from '#src/libs/meta-activity/types';
+// import AddCategoryButton from '#src/components/ordering/AddCategoryButton.component';
+import CategoryCreationEditDialog from '#src/components/ordering/CategoryCreationEditDialog.component';
+import { redirectIfAllowed as redirectIfAllowedAction } from '#src/libs/role/actions';
 
 import {
   fetchAllOffers as fetchAllOffersAction,
   createOffers as createOffersActions,
-} from '#libs/offer/actions';
-import { getActiveCoaches } from '#libs/associated-coach/selectors';
-import { getEditableSCTs } from '#libs/category/selectors';
+} from '#src/libs/offer/actions';
+import { getActiveCoaches } from '#src/libs/associated-coach/selectors';
+import { getEditableSCTs } from '#src/libs/category/selectors';
 import {
   fetchActivityCompatiblePaymentPacks as fetchActivityCompatiblePaymentPacksAction,
   resetCompatiblePaymentPacks as resetCompatiblePaymentPacksAction,
   createOrUpdate as createOrUpdatePaymentPackAction,
   fetchAllPaymentPackCategory,
-} from '#libs/payment-packs/actions';
+} from '#src/libs/payment-packs/actions';
 
-import themeSelectors from '#libs/theme/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 import {
   getActivityCompatiblePaymentPacks,
   getAllPaymentPackCategory,
-} from '#libs/payment-packs/selectors';
-import { fetchEstablishments } from '#libs/establishment/actions';
-import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
+} from '#src/libs/payment-packs/selectors';
+import { fetchEstablishments } from '#src/libs/establishment/actions';
+import { fetchAssociatedCoachesList } from '#src/libs/associated-coach/actions';
 import {
   getAvailableEstablishmentList,
   getAllEstablishments,
-} from '#libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import {
   fetchLevelList as fetchLevelListAction,
   updateLevel as updateLevelAction,
   createLevel as createLevelAction,
   deleteLevel as deleteLevelAction,
-} from '#libs/level/actions';
+} from '#src/libs/level/actions';
 import {
   getActiveCustomLevels,
   getAllCustomLevels,
-} from '#libs/level/selectors';
-import { getAvailableRoomBlueprints } from '#libs/spot-scheduling/selector';
-import { fetchRoomBlueprints } from '#libs/spot-scheduling/actions';
-import { fetchAllCoachPaymentRules } from '#libs/coach-payment-rules/actions';
-import { CoachPaymentRuleByKindSelector } from '#libs/coach-payment-rules/selectors';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
-import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
-import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
+} from '#src/libs/level/selectors';
+import { getAvailableRoomBlueprints } from '#src/libs/spot-scheduling/selector';
+import { fetchRoomBlueprints } from '#src/libs/spot-scheduling/actions';
+import { fetchAllCoachPaymentRules } from '#src/libs/coach-payment-rules/actions';
+import { CoachPaymentRuleByKindSelector } from '#src/libs/coach-payment-rules/selectors';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import MetaActivityEditDrawer from '#src/libs/meta-activity/components/MetaActivityEdit.drawer';
+import { refreshCompanyTheme as refreshCompanyThemeAction } from '#src/libs/theme/actions';
+import NoShowPenaltyDialog from '#src/libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
 import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
+
 // @ts-expect-error
 import { mapFormData, unmap } from '../form.utils';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

@@ -5,8 +5,8 @@ import chroma from 'chroma-js';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
-import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 
 type BasketNullPriceProps = {
   areTermsAndConditionsAccepted?: boolean;

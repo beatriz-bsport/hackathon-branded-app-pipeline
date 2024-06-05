@@ -2,14 +2,14 @@ import React from 'react';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import Button from '#components/css-only/Fabrique/Button';
+import Button from '#src/components/css-only/Fabrique/Button';
 
-import CouponCodeInput from '#libs/checkout/components/new-checkout-flow/CouponCodeInput.component';
-import { CouponErrorCodes } from '#libs/coupon/constants';
-import type { Coupon } from '#libs/coupon/types';
+import CouponCodeInput from '#src/libs/checkout/components/new-checkout-flow/CouponCodeInput.component';
+import { CouponErrorCodes } from '#src/libs/coupon/constants';
+import type { Coupon } from '#src/libs/coupon/types';
 import type { OptionCallBackWithKeyedCallbacks } from '../../../../../../state/types';
 import '../styles.css';
 

@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import useOnClickOutside from '../../../hooks/useClickOutside';
 import useOnScrollOutside from '../../../hooks/useScrollOutside';
 

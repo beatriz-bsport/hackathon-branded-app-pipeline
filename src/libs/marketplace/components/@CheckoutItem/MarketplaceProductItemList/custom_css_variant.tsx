@@ -3,15 +3,15 @@ import React from 'react';
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 
-import { BuyableItemOptions } from '#libs/checkout/types';
-import { checkoutItemsFactory } from '#libs/checkout/factories';
+import { BuyableItemOptions } from '#src/libs/checkout/types';
+import { checkoutItemsFactory } from '#src/libs/checkout/factories';
 // @ts-expect-error
 import MarketplaceProductItemListCss from './styles.css?raw';
 import MarketplaceProductItemList, { Props } from '.';

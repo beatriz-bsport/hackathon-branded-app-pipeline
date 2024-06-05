@@ -11,19 +11,22 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import {
   getGiftcard,
   getGiftcardBackgroundImageList,
-} from '#libs/giftcard/selectors';
+} from '#src/libs/giftcard/selectors';
 import {
   retrieveGiftcard,
   fetchGiftcardBackgroundImageList,
-} from '#libs/giftcard/actions';
-import ConsumerGiftcardFormWithPreview from '#libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
-import themeSelectors from '#libs/theme/selectors';
-import { fetchCompanyTheme } from '#libs/theme/actions';
-import { addItemToBasket, fetchCurrentBasket } from '#libs/checkout/actions';
-import { Giftcard } from '#libs/giftcard/types';
+} from '#src/libs/giftcard/actions';
+import ConsumerGiftcardFormWithPreview from '#src/libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
+import themeSelectors from '#src/libs/theme/selectors';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
+import {
+  addItemToBasket,
+  fetchCurrentBasket,
+} from '#src/libs/checkout/actions';
+import { Giftcard } from '#src/libs/giftcard/types';
 
-import { getCurrentBasket } from '#libs/checkout/selectors';
-import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
+import { getCurrentBasket } from '#src/libs/checkout/selectors';
+import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import { RootState } from '../../../reducers';

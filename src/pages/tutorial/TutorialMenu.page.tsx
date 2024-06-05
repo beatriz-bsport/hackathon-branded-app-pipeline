@@ -13,13 +13,13 @@ import { withRouter } from 'react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import Fab from '@material-ui/core/Fab';
-// @ts-expect-error
-import { snackbarInfo } from '#libs/snackbar/actions';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+
+import { snackbarInfo } from '#src/libs/snackbar/actions';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import type {
   TutorialLesson,
   TutorialSection,
-} from '#libs/platform-tutorial/types';
+} from '#src/libs/platform-tutorial/types';
 
 import {
   getAllTutorialSectionList,
@@ -27,7 +27,7 @@ import {
   withLessons,
   getUserTutorialStatistics,
   getUserTutorialCompletion,
-} from '#libs/platform-tutorial/selectors';
+} from '#src/libs/platform-tutorial/selectors';
 
 import {
   updateTutorialLessonViewedStatus as updateTutorialLessonViewedStatusAction,
@@ -35,21 +35,22 @@ import {
   fetchListTutorialLessons as fetchListTutorialLessonsAction,
   fetchUserTutorialCompletion as fetchUserTutorialCompletionAction,
   updateUserAcknowlegdeTutorial,
-} from '#libs/platform-tutorial/actions';
-import TutorialSectionList from '#libs/platform-tutorial/components/TutorialSectionList.component';
+} from '#src/libs/platform-tutorial/actions';
+import TutorialSectionList from '#src/libs/platform-tutorial/components/TutorialSectionList.component';
 import {
   ALL_TUTORIAL_LESSONS_FINISH_DIALOG_OPEN_QUERY_PARAMS,
   TUTORIAL_GENERIC_DIALOG_ALL_FINISH,
   TUTORIAL_GENERIC_DIALOG_SHARE_LESSON,
   TUTORIAL_GENERIC_DIALOG_SHARE_SECTION,
-} from '#libs/platform-tutorial/constant';
+} from '#src/libs/platform-tutorial/constant';
 
-import TutorialMenuHeader from '#libs/platform-tutorial/components/TutorialMenuHeader.component';
-import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
-import { fetchAll as fetchAllAlertings } from '#libs/alerting/actions';
+import TutorialMenuHeader from '#src/libs/platform-tutorial/components/TutorialMenuHeader.component';
+import TutorialGenericDialog from '#src/libs/platform-tutorial/components/TutorialGenericDialog.component';
+import { fetchAll as fetchAllAlertings } from '#src/libs/alerting/actions';
 import { openIntercomHelp } from '../../intercom';
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
+// @ts-expect-error
 import { getLanguage } from '../../i18n';
 
 type IdentifierType =

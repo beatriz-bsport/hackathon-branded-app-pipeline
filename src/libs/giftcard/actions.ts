@@ -7,8 +7,8 @@ import {
   GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_ALREADY_ACTIVATED,
   GIFTCARD_ACTIVATION_FAIL_WHEN_MISSING_RECIPIENT_MEMBER,
 } from '@bsport/common/lib/master-data/error-codes/giftcard';
-import { snackbarError } from '#libs/snackbar/actions';
-import { isErrorWithCustomCode } from '#libs/utils';
+import { snackbarError } from '#src/libs/snackbar/actions';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import { monitorBackgroundTask } from '../background-task/actions';
 import { OptionCallback, Dispatch } from '../../state/types';
 import {
@@ -40,7 +40,6 @@ import {
   GiftcardDataAPI,
   GiftcardTemplate,
 } from './types';
-
 
 const GIFTCARD_ACTIVATION_ERRORS = [
   GIFTCARD_ACTIVATION_CODE_ERROR_CODE,

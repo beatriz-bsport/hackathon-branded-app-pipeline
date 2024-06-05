@@ -5,7 +5,7 @@ import { HorizontalEnum, VerticalEnum } from '#Fabrique/constants';
 import { ButtonBaseStorybook } from '#Fabrique/ButtonBaseV2';
 import Typography from '#Fabrique/Typography';
 import { colorEnum, placementEnum } from './constants';
-import { MuiThemeToCssVarsHOC } from '#hocs/marketplace-css.hoc';
+import { MuiThemeToCssVarsHOC } from '#src/hocs/marketplace-css.hoc';
 TooltipStorybook.displayName = 'Tooltip';
 
 export default {

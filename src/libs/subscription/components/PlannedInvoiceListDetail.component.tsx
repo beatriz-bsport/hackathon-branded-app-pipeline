@@ -37,9 +37,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import type { LuxonDateTime } from '#src/types';
 
-import Tooltip from '#components/Tooltip.component';
-import { getInvoiceIdentifier } from '#libs/invoice/utils';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import Tooltip from '#src/components/Tooltip.component';
+import { getInvoiceIdentifier } from '#src/libs/invoice/utils';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { formatAsDate, sortByDate } from '../../../utils/datetime';
 import PlannedInvoicePriceUpdater from './PlannedInvoicePriceUpdater.component';
 import PlannedInvoiceDateUpdater from './PlannedInvoiceDateUpdater.component';

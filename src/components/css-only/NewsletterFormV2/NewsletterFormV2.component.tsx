@@ -2,20 +2,19 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import TextField from '#Fabrique/TextFieldV2';
 import Button from '#Fabrique/ButtonV2';
 import Typography from '#Fabrique/Typography';
 import BigIcon from '#Fabrique/BigIcon';
-import { emailValidationRegExp } from '#libs/custom-form/constants';
+import { emailValidationRegExp } from '#src/libs/custom-form/constants';
 
-import { NewsletterV2FieldsKind } from '#libs/marketplace/constants';
+import { NewsletterV2FieldsKind } from '#src/libs/marketplace/constants';
 
 import './styles.css';
-import Analytics from '#components/analytics/Analytics.component';
-import { OptionCallback } from '../../../state/types';
-
 // @ts-expect-error
+import Analytics from '#src/components/analytics/Analytics.component';
+import { OptionCallback } from '../../../state/types';
 
 const NewsletterFormSchema = Yup.object({
   firstName: Yup.string().nullable(),

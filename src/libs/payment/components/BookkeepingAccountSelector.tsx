@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 import type { BookkeepingAccount } from '../types';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '../constants';
 

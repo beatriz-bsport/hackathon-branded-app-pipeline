@@ -5,7 +5,7 @@ import {
   TransformComponent,
   ReactZoomPanPinchRef,
 } from 'react-zoom-pan-pinch';
-import useParentSize from '#hooks/useParentSize';
+import useParentSize from '#src/hooks/useParentSize';
 
 const SVG_CANVAS_DISPLAY_ID = 'svg-canvas-display';
 // https://developer.mozilla.org/en-US/docs/Web/API/SVGGraphicsElement/getBBox

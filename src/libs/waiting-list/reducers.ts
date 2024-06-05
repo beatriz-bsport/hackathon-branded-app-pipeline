@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import type { OfferStatusWaitingListPosition } from '#libs/offer/types';
+import type { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import {
   byOfferActions,
   discardOptionActions,

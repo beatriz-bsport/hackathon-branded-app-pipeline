@@ -13,9 +13,9 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { DateTime } from 'luxon';
-import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
-import InfoGenericBox from '#components/box/InfoGenericBox.component';
-import { isErrorWithCustomCode } from '#libs/utils';
+import CustomMuiDialog from '#src/components/genericDialog/CustomMuiDialog.component';
+import InfoGenericBox from '#src/components/box/InfoGenericBox.component';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import { OptionCallback } from '../../../../state/types';
 import PauseResultDialog from './PauseResultDialog.component';
 import PauseFormDateRange from './PauseFormDateRange.component';
@@ -26,7 +26,6 @@ import {
   Subscription,
 } from '../../types';
 import { PAUSE_RESULT_SUCCESS, PAUSE_NAME_MAX_LENGTH } from '../../constants';
-
 
 const PAUSE_RESULT_FAIL_UNKNOWN_ERROR = 63200;
 

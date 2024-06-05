@@ -2,15 +2,15 @@ import React from 'react';
 
 import { useFormik } from 'formik';
 
-import { MarketingActions } from '#libs/sequential_marketing/constants';
-import { templateEmailValidationSchema } from '#libs/sequential_marketing/components/form/marketing_actions/validationSchemas';
-import CommunicationSelectTemplate from '#libs/communication-v2/components/MessageSender/ModalTemplate/CommunicationSelectTemplate.component';
+import { MarketingActions } from '#src/libs/sequential_marketing/constants';
+import { templateEmailValidationSchema } from '#src/libs/sequential_marketing/components/form/marketing_actions/validationSchemas';
+import CommunicationSelectTemplate from '#src/libs/communication-v2/components/MessageSender/ModalTemplate/CommunicationSelectTemplate.component';
 
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
   StepMarketingActionsCommunicationSpec,
-} from '#libs/sequential_marketing/types';
+} from '#src/libs/sequential_marketing/types';
 
 export type Props = {
   marketingAction: Partial<StepMarketingActions>;

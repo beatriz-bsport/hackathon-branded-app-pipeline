@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import NestedMenuSelectorIconButton from '.';
-import type { MenuAction, NestedMenuAction } from '#components/menu/types';
+import type { MenuAction, NestedMenuAction } from '#src/components/menu/types';
 
 export default {
   title: 'Components/Buttons/NestedMenuSelectorIconButton',

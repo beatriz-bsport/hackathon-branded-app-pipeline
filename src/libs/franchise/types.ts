@@ -1,8 +1,11 @@
-import { CompanyWithTheme, Company } from '#libs/company/types';
-import { PaymentPack, PaymentPackTemplate } from '#libs/payment-packs/types';
-import { PrivatePassTemplate } from '#libs/private-service/types';
-import { CouponTemplate } from '#libs/coupon/types';
-import { GiftcardTemplate } from '#libs/giftcard/types';
+import { CompanyWithTheme, Company } from '#src/libs/company/types';
+import {
+  PaymentPack,
+  PaymentPackTemplate,
+} from '#src/libs/payment-packs/types';
+import { PrivatePassTemplate } from '#src/libs/private-service/types';
+import { CouponTemplate } from '#src/libs/coupon/types';
+import { GiftcardTemplate } from '#src/libs/giftcard/types';
 
 export type FranchiseState = {
   error: null | boolean;

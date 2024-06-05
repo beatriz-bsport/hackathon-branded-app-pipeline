@@ -11,11 +11,11 @@ import CheckIcon from '@material-ui/icons/Check';
 import AddIcon from '@material-ui/icons/Add';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import InfoIcon from '@material-ui/icons/Info';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 
-import RedButton from '#components/button/RedButton.component';
-import { PaymentMethod } from '#libs/payment/types';
-import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
+import RedButton from '#src/components/button/RedButton.component';
+import { PaymentMethod } from '#src/libs/payment/types';
+import ButtonBaseWithTypography from '#src/components/button/ButtonBaseWithTypography';
 import SubscriptionPaymentMethod from '../SubscriptionPaymentMethod.component';
 import { Subscription } from '../../types';
 import { OptionCallback } from '../../../../state/types';

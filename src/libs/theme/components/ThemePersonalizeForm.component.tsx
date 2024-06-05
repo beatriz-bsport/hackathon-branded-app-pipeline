@@ -42,13 +42,13 @@ import {
   SwitchField,
   HoursDaysIntervalRecurrenceSelectField,
   // @ts-expect-error
-} from '#components/forms';
+} from '#src/components/forms';
 
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { FeatureList } from '#libs/company/types';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
+import { UPSELL_IDENTIFIER_SPIVI } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { FeatureList } from '#src/libs/company/types';
 import { CompanyTheme } from '../types';
 import { OptionCallback } from '../../../state/types';
 import Config from '../../../config';

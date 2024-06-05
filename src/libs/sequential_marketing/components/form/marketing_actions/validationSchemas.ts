@@ -3,7 +3,7 @@ import {
   MarketingActionKind,
   MarketingActions,
   CADENCE_MARKETING_ACTION_CHOICES,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 
 export const notificationValidationSchema = Yup.object().shape({
   id: Yup.number().nullable(),

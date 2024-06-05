@@ -26,8 +26,8 @@ import Typography from '@material-ui/core/Typography';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
 import { memoize } from 'lodash';
-import { UpsellPackage } from '#libs/company/types';
-import { getUpsellPriceString } from '#libs/platform-billing/utils';
+import { UpsellPackage } from '#src/libs/company/types';
+import { getUpsellPriceString } from '#src/libs/platform-billing/utils';
 import {
   UPSELL_IDENTIFIER_CUSTOM_APP,
   UPSELL_IDENTIFIER_VOD,

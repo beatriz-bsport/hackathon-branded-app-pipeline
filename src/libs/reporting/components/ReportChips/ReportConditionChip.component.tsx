@@ -1,8 +1,8 @@
 import React from 'react';
 import { Theme, useTheme } from '@material-ui/core';
-import { StepperConfig } from '#components/chip/types';
-import NumberChip from '#components/chip/NumberChip.component';
-import CustomChip from '#components/chip/CustomChip.component';
+import { StepperConfig } from '#src/components/chip/types';
+import NumberChip from '#src/components/chip/NumberChip.component';
+import CustomChip from '#src/components/chip/CustomChip.component';
 
 type Props = {
   value: number;

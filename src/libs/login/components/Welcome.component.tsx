@@ -1,12 +1,12 @@
 import React from 'react';
-import '#csscomponents/Login/LoginBackground.css';
+import '#src/components/css-only/Login/LoginBackground.css';
 import Button from '@material-ui/core/Button';
-import '#csscomponents/Login/styles.css';
+import '#src/components/css-only/Login/styles.css';
 import { useTranslation } from 'react-i18next';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import { Typography, useTheme, makeStyles } from '@material-ui/core';
-import WelcomeIcon from '#components/icons/WelcomeIcon.component';
-import { httpParser } from '#libs/marketplace/utils';
+import WelcomeIcon from '#src/components/icons/WelcomeIcon.component';
+import { httpParser } from '#src/libs/marketplace/utils';
 import { LoginTitleCssHoc } from './LoginTitle.component';
 
 type Props = {

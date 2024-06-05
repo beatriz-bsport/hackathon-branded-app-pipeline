@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
-import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
-import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
+import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 
-import type { ConsumerBooking } from '#libs/booking/types';
+import type { ConsumerBooking } from '#src/libs/booking/types';
 
 type Props = {
   workshopLinkedOffers?: ConsumerBooking[];

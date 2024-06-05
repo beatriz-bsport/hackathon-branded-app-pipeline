@@ -5,9 +5,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
-import InfoBox from '#components/box/InfoBox.component';
-import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
+import EstablishmentSelector from '#src/libs/establishment/components/EstablishmentSelector.component';
+import InfoBox from '#src/components/box/InfoBox.component';
+import { EstablishmentWithAssociatedId } from '#src/libs/establishment/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   input: {

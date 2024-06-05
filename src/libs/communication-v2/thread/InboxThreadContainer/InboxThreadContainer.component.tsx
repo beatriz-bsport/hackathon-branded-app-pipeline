@@ -9,8 +9,8 @@ import Alert from '@material-ui/lab/Alert';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { useTranslation } from 'react-i18next';
 import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind';
-import InboxThreadContainerHeader from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadContainerHeader.component';
-import CommunicationMessageListContainer from '#libs/communication-v2/components/MessageList/CommunicationMessageListContainer.component';
+import InboxThreadContainerHeader from '#src/libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadContainerHeader.component';
+import CommunicationMessageListContainer from '#src/libs/communication-v2/components/MessageList/CommunicationMessageListContainer.component';
 import type {
   Communication,
   CommunicationThread,
@@ -19,18 +19,18 @@ import type {
   SelectFieldItem,
   CommunicationMessage,
   MessageData,
-} from '#libs/communication-v2/types';
-import { getConsentWarning } from '#libs/communication-v2/utils';
-import type { Member } from '#libs/member/types';
-import { PAGINATION_SIZE_RECIPIENTS } from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/types';
+import { getConsentWarning } from '#src/libs/communication-v2/utils';
+import type { Member } from '#src/libs/member/types';
+import { PAGINATION_SIZE_RECIPIENTS } from '#src/libs/communication-v2/constants';
 import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import type { Theme } from '#libs/theme/types';
-import InboxNoThread from '#libs/communication-v2/thread/InboxThreadContainer/InboxNoThread.component';
-import InboxThreadSenderContainer from '#libs/communication-v2/thread/InboxThreadContainer/InboxThreadSenderContainer.component';
+} from '#src/libs/email-editor/types';
+import type { Theme } from '#src/libs/theme/types';
+import InboxNoThread from '#src/libs/communication-v2/thread/InboxThreadContainer/InboxNoThread.component';
+import InboxThreadSenderContainer from '#src/libs/communication-v2/thread/InboxThreadContainer/InboxThreadSenderContainer.component';
 import type { OptionCallback } from '../../../../state/types';
 import Config from '../../../../config';
 
@@ -270,6 +270,7 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
                   }
                   loadingRecipientList={props.loadingInformationRecipientList}
                   messageList={props.messageList}
+// @ts-expect-error
                   onCloseSnackbar={props.onCloseSnackbar}
                   openSnackbar={props.displaySnackbar}
                   paginationSize={PAGINATION_SIZE_RECIPIENTS}

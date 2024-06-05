@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 // @ts-expect-error
-import { IntegerField } from '#components/forms';
+import { IntegerField } from '#src/components/forms';
 import { useStyles } from './marketing-rule-form/marketing_rule_form.hooks';
 
 const DAYS = 'days';

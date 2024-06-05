@@ -1,9 +1,9 @@
 // @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
-import MemberMinimalFactoryBot from '#libs/member/factories/MemberMinimal';
+import MemberMinimalFactoryBot from '#src/libs/member/factories/MemberMinimal';
 
-import { generateRandomName } from '#utils/factories';
+import { generateRandomName } from '#src/utils/factories';
 import { AccessStatus, EntryStatus } from './constants';
 
 /**

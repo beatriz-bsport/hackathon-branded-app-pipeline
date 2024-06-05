@@ -3,7 +3,7 @@ import WarningRounded from '@material-ui/icons/WarningRounded';
 import { useTranslation } from 'react-i18next';
 import { useFormikContext } from 'formik';
 
-import StatusMessageWithIcon from '#components/css-only/StatusMessageWithIcon';
+import StatusMessageWithIcon from '#src/components/css-only/StatusMessageWithIcon';
 import TextField from '#Fabrique/TextField';
 import Button, { ButtonColor, ButtonType } from '#Fabrique/Button';
 import { type AddGuestFormValues } from '..';

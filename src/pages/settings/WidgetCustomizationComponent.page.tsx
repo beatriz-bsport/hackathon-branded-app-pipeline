@@ -4,23 +4,23 @@ import { makeStyles } from '@material-ui/core/styles';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 
-import CssEditorForm from '#libs/exportable-components/components/CssEditorForm.component';
-import { cleanCSSFile } from '#libs/widget/utils';
-import CssEditorPreview from '#libs/exportable-components/components/CssEditorPreview.component';
-import { getCssComponentByLabel } from '#libs/exportable-components/utils';
-import CssEditorSelector from '#libs/exportable-components/components/CssEditorSelector.component';
+import CssEditorForm from '#src/libs/exportable-components/components/CssEditorForm.component';
+import { cleanCSSFile } from '#src/libs/widget/utils';
+import CssEditorPreview from '#src/libs/exportable-components/components/CssEditorPreview.component';
+import { getCssComponentByLabel } from '#src/libs/exportable-components/utils';
+import CssEditorSelector from '#src/libs/exportable-components/components/CssEditorSelector.component';
 import {
   CssComponentsVariantIdentifiersValues,
   MarketplacePage,
-} from '#libs/exportable-components/types';
+} from '#src/libs/exportable-components/types';
 import {
   resetCssWidgetConfiguration as resetCssWidgetConfigurationAction,
   retrieveManagerCssConfiguration as retrieveManagerCssConfigurationAction,
   saveCssConfiguration as saveCssConfigurationAction,
-} from '#libs/exportable-components/actions';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { getCustomCssConfiguration } from '#libs/exportable-components/selectors';
-import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.component';
+} from '#src/libs/exportable-components/actions';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import { getCustomCssConfiguration } from '#src/libs/exportable-components/selectors';
+import ApplyCustomTheme from '#src/libs/exportable-components/ApplyCustomTheme.component';
 import { RootState } from '../../reducers';
 
 type Props = ConnectedProps<typeof connector> & {

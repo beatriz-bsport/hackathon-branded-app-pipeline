@@ -3,7 +3,7 @@ import type {
   ZoomMember,
   ZoomEstablishment,
   ZoomEstablishmentBulkEditData,
-} from '#libs/zoom-app/types';
+} from '#src/libs/zoom-app/types';
 import {
   API_V1_URI,
   getAuth,
@@ -11,7 +11,6 @@ import {
   patchAuth,
   postAuth,
 } from '../../http';
-
 
 export const fetchZoomApp = (companyId: number) => {
   return getAuth<ZoomApp>(`${API_V1_URI}/zoom_app/company/${companyId}/`);

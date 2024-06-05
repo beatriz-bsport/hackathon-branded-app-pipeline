@@ -3,9 +3,9 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { CircularProgress } from '@material-ui/core';
-import { MemberMinimal } from '#libs/member/types';
-import { MAX_DISPLAY } from '#libs/communication-v2/constants';
-import CustomAvatarGroup from '#components/CustomAvatarGroup.component';
+import { MemberMinimal } from '#src/libs/member/types';
+import { MAX_DISPLAY } from '#src/libs/communication-v2/constants';
+import CustomAvatarGroup from '#src/components/CustomAvatarGroup.component';
 
 const MAX_DISPLAY_COMPACT = 2;
 

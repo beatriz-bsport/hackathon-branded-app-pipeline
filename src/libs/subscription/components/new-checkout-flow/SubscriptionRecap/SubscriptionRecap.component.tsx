@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 
-import { ContractWithPaymentPack } from '#libs/subscription/types';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { ContractWithPaymentPack } from '#src/libs/subscription/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { computeProrataPriceForSubscription } from '#src/libs/subscription/utils';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import './SubscriptionRecapStyles.css';
 

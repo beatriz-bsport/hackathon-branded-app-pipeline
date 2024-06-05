@@ -3,7 +3,7 @@ import {
   UniqueCodeStateStatus,
   CouponUniqueCodeEditModeOptions,
 } from '@bsport/common/lib/master-data/coupon';
-import { Invoice } from '#libs/invoice/types';
+import { Invoice } from '#src/libs/invoice/types';
 import type { LuxonDateTime } from '#src/types';
 import { ErrorAndLoading } from '../types';
 import { Company } from '../company/types';

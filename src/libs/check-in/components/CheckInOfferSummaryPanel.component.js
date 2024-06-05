@@ -8,7 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlaceIcon from '@material-ui/icons/PlaceOutlined';
 
-import Level from '#libs/level/components/Level.component';
+import Level from '#src/libs/level/components/Level.component';
 import { formatISOStringAsTime } from '../../../utils/datetime';
 
 type Props = {

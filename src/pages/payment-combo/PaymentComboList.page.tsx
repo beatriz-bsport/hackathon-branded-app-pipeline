@@ -7,36 +7,36 @@ import type { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
 
 import { Theme } from '@material-ui/core/styles';
-import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import {
   fetchPaymentComboList,
   createOrUpdatePaymentCombo,
   deletePaymentCombo,
-} from '#libs/payment-combo/actions';
-import { fetchTags } from '#libs/tag/actions';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+} from '#src/libs/payment-combo/actions';
+import { fetchTags } from '#src/libs/tag/actions';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 import {
   getPaymentComboList,
   getPaymentComboListAvailableForSale,
   getPaymentComboListUnavailableForSale,
-} from '#libs/payment-combo/selectors';
+} from '#src/libs/payment-combo/selectors';
 
-import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
 // @ts-expect-error
-import PaymentComboList from '#libs/payment-combo/components/PaymentComboList.component';
+import PaymentComboList from '#src/libs/payment-combo/components/PaymentComboList.component';
 // @ts-expect-error
-import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
-import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+import PaymentComboListItem from '#src/libs/payment-combo/components/PaymentComboListItem.component';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 import {
   getBookkeepingAccountList,
   getBookkeepingAccountById,
-} from '#libs/payment/selectors';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+} from '#src/libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 import ModalConfirm from '#src/components/ModalConfirm.component';
 
 // @ts-expect-error

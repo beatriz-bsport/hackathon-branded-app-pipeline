@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import InboxThreadLookup, {
   Props,
-} from '#libs/communication-v2/thread/InboxThreadLookup/InboxThreadLookup.component';
-import { INBOX_ALL_MESSAGES } from '#libs/communication-v2/constants';
+} from '#src/libs/communication-v2/thread/InboxThreadLookup/InboxThreadLookup.component';
+import { INBOX_ALL_MESSAGES } from '#src/libs/communication-v2/constants';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 
 const CustomTemplate = (args: Props) => {

@@ -27,12 +27,12 @@ import Typography from '@material-ui/core/Typography';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import type { MemberMinimal } from '#libs/member/types';
-import type { Tag } from '#libs/tag/types';
-import type { GenericPaginationResults } from '#libs/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import type { MemberMinimal } from '#src/libs/member/types';
+import type { Tag } from '#src/libs/tag/types';
+import type { GenericPaginationResults } from '#src/libs/types';
 
 const MEMBER_PER_PAGE = 50;
 

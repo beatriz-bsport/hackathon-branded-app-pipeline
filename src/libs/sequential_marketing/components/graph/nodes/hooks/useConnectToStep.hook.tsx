@@ -7,8 +7,8 @@ import {
   SequentialMarketingColors,
   TRIGGER_KIND_CHOICES,
   TriggerKind,
-} from '#libs/sequential_marketing/constants';
-import { triggerIconByKind } from '#libs/sequential_marketing/components/helpers/utils';
+} from '#src/libs/sequential_marketing/constants';
+import { triggerIconByKind } from '#src/libs/sequential_marketing/components/helpers/utils';
 
 export const useConnectToStep = (
   onConnectToStep: (destinationId: number, triggerKind: TriggerKind) => void,

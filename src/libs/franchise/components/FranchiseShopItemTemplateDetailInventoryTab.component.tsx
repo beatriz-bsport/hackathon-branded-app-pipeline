@@ -17,9 +17,8 @@ import type {
   ShopItem,
   ShopItemTemplate,
 } from '#src/libs/shop/types';
-import type { ShopItemInventoryBulkUpdateFormValues } from '#src/libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
+import type { ShopItemTemplateInventoryBulkUpdateFormValues } from '#src/libs/franchise/components/FranchiseShopItemTemplateDetailInventoryBulkUpdateForm/types';
 import type { OptionCallback } from '#src/state/types';
-import type { ShopItemInventoryFormValues } from '#src/libs/shop/components/ShopItemInventoryUpdateForm/types';
 import type { SelectOption } from '#src/libs/types';
 
 import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
@@ -31,7 +30,7 @@ import FranchiseShopItemDetailInventoryListMobile from './FranchiseShopItemDetai
 import FranchiseShopItemTemplateDetailInventoryList from './FranchiseShopItemTemplateDetailInventoryList.component';
 
 type Props = {
-  shopItemVariantList: ShopItem[];
+  shopItemTemplateInstanceList: ShopItem[];
   page: number;
   count: number;
   isUpdatingVariant?: boolean;
@@ -64,7 +63,7 @@ type Props = {
 };
 
 const FranchiseShopItemTemplateDetailInventoryTab: React.FC<Props> = ({
-  shopItemVariantList,
+  shopItemTemplateInstanceList,
   page,
   count,
   isUpdatingVariant,
@@ -96,15 +95,17 @@ const FranchiseShopItemTemplateDetailInventoryTab: React.FC<Props> = ({
     [setQueryParam],
   );
 
-  const handleOnSubmitVariants = useCallback(
+  const handleOnSubmit = useCallback(
     (
-      values: ShopItemInventoryBulkUpdateFormValues,
-      { resetForm }: FormikHelpers<ShopItemInventoryBulkUpdateFormValues>,
+      values: ShopItemTemplateInventoryBulkUpdateFormValues,
+      {
+        resetForm,
+      }: FormikHelpers<ShopItemTemplateInventoryBulkUpdateFormValues>,
     ) => {
       const payload = [];
 
-      for (let i = 0; i < values.variants.length; i += 1) {
-        const variant = values.variants[i];
+      for (let i = 0; i < values.instances.length; i += 1) {
+        const variant = values.instances[i];
         if (variant.stockAdjustment) {
           payload.push({
             shop_item: variant.id,
@@ -119,30 +120,6 @@ const FranchiseShopItemTemplateDetailInventoryTab: React.FC<Props> = ({
     },
     [createShopItemProvisionBulk],
   );
-
-  const handleOnSubmitStandalone = useCallback(
-    (
-      values: ShopItemInventoryFormValues,
-      { resetForm }: FormikHelpers<ShopItemInventoryFormValues>,
-    ) => {
-      shopItemTemplate?.id &&
-        createShopItemProvision(
-          {
-            shop_item: shopItemTemplate?.id,
-            qty: parseInt(values.stockAdjustment, 10),
-          },
-          {
-            onSuccess: () => resetForm(),
-          },
-        );
-    },
-    [createShopItemProvision, shopItemTemplate?.id],
-  );
-
-  const submitHandlerMapper = {
-    [ShopItemDetailInventoryFormType.STANDALONE]: handleOnSubmitStandalone,
-    [ShopItemDetailInventoryFormType.VARIANTS]: handleOnSubmitVariants,
-  };
 
   if (
     variantCombinationListCount === 0 &&
@@ -181,16 +158,16 @@ const FranchiseShopItemTemplateDetailInventoryTab: React.FC<Props> = ({
           formType={formType}
           isUpdatingVariant={isUpdatingVariant}
           shopItemTemplate={shopItemTemplate}
-          shopItemVariantList={shopItemVariantList}
+          shopItemVariantList={shopItemTemplateInstanceList}
         />
       ) : (
         <FranchiseShopItemTemplateDetailInventoryList
           changeInventoryVariantFilter={changeInventoryVariantFilter}
-          formType={formType}
-          handleSubmit={submitHandlerMapper[formType]}
+          handleSubmit={handleOnSubmit}
           isUpdatingVariant={isUpdatingVariant}
           shopItemTemplate={shopItemTemplate}
-          shopItemVariantList={shopItemVariantList}
+          shopItemTemplateInstanceList={shopItemTemplateInstanceList}
+          showVariantFilters={shopItemTemplate?.number_of_variants > 0}
           variantColorFilterOptionList={shopItemVariantFilterOptionList.colors}
           variantColorFilterOptionValueList={
             shopItemVariantFilterOptionValues.colors

@@ -1,7 +1,8 @@
 export type ShopItemInventoryBulkUpdateFormRow = {
   id: number;
-  color: string;
-  size: string;
+  color?: string;
+  size?: string;
+  companyName?: string;
   currentStock: number;
   stockAdjustment: string;
   totalSales: number;

@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import * as Yup from 'yup';
 
 import { Formik, FormikHelpers } from 'formik';
 import Select from 'react-select';
@@ -7,38 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-import FranchiseShopItemTemplateDetailInventoryBulkUpdateForm from '#src/libs/franchise/components/FranchiseShopItemTemplateDetailInventoryBulkUpdateForm.component';
-import ShopItemInventoryUpdateForm from '#src/libs/shop/components/ShopItemInventoryUpdateForm';
+import FranchiseShopItemTemplateDetailInventoryBulkUpdateForm from '#src/libs/franchise/components/FranchiseShopItemTemplateDetailInventoryBulkUpdateForm';
+import franchiseShopItemTemplateDetailInventoryBulkUpdateFormValidationSchema from '#src/libs/franchise/components/FranchiseShopItemTemplateDetailInventoryBulkUpdateForm/validationSchema';
 
-import type { ShopItemInventoryBulkUpdateFormValues } from '#src/libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
-import type { ShopItemInventoryFormValues } from '#src/libs/shop/components/ShopItemInventoryUpdateForm/types';
+import type { ShopItemTemplateInventoryBulkUpdateFormValues } from '#src/libs/franchise/components/FranchiseShopItemTemplateDetailInventoryBulkUpdateForm/types';
 import type { ShopItem, ShopItemTemplate } from '#src/libs/shop/types';
 import type { SelectOption } from '#src/libs/types';
 
-import { ShopItemDetailInventoryFormType } from '#src/libs/shop/constants';
-
-const shopItemInventoryBulkFormValidationSchema = Yup.object().shape({
-  variants: Yup.array().of(
-    Yup.object().shape({
-      id: Yup.number().nullable(false),
-      color: Yup.string().nullable(true),
-      size: Yup.string().nullable(true),
-      currentStock: Yup.number(),
-      companyName: Yup.string(),
-      stockAdjustment: Yup.number().nullable(true),
-      totalSales: Yup.number(),
-    }),
-  ),
-});
-
-const shopItemInventoryFormValidationSchema = Yup.object().shape({
-  currentStock: Yup.number(),
-  stockAdjustment: Yup.number().required(),
-  totalSales: Yup.number(),
-});
-
 type Props = {
-  formType: `${ShopItemDetailInventoryFormType}`;
   isUpdatingVariant?: boolean;
   shopItemTemplate: ShopItemTemplate;
   shopItemTemplateInstanceList: ShopItem[];
@@ -48,13 +23,10 @@ type Props = {
   variantColorFilterOptionValueList: SelectOption[];
   variantCompanyFilterOptionList: SelectOption[];
   variantCompanyFilterOptionValueList: SelectOption[];
+  showVariantFilters?: boolean;
   handleSubmit: (
-    values: ShopItemInventoryBulkUpdateFormValues | ShopItemInventoryFormValues,
-    {
-      resetForm,
-    }: FormikHelpers<
-      ShopItemInventoryBulkUpdateFormValues | ShopItemInventoryFormValues
-    >,
+    values: ShopItemTemplateInventoryBulkUpdateFormValues,
+    { resetForm }: FormikHelpers<ShopItemTemplateInventoryBulkUpdateFormValues>,
   ) => void;
   changeInventoryVariantFilter: (
     type: 'colors' | 'sizes' | 'company',
@@ -62,7 +34,6 @@ type Props = {
 };
 
 const FranchiseShopItemTemplateDetailInventoryList: React.FC<Props> = ({
-  formType,
   isUpdatingVariant,
   shopItemTemplate,
   shopItemTemplateInstanceList,
@@ -72,18 +43,12 @@ const FranchiseShopItemTemplateDetailInventoryList: React.FC<Props> = ({
   variantColorFilterOptionValueList,
   variantCompanyFilterOptionList,
   variantCompanyFilterOptionValueList,
+  showVariantFilters,
   handleSubmit,
   changeInventoryVariantFilter,
 }) => {
   const { t } = useTranslation('shop');
   const classes = useStyles();
-
-  const validationSchema = {
-    [ShopItemDetailInventoryFormType.STANDALONE]:
-      shopItemInventoryFormValidationSchema,
-    [ShopItemDetailInventoryFormType.VARIANTS]:
-      shopItemInventoryBulkFormValidationSchema,
-  };
 
   const initialValues = useMemo(
     () => ({
@@ -106,28 +71,25 @@ const FranchiseShopItemTemplateDetailInventoryList: React.FC<Props> = ({
       validateOnChange
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validationSchema={validationSchema[formType]}
+      validationSchema={
+        franchiseShopItemTemplateDetailInventoryBulkUpdateFormValidationSchema
+      }
     >
       <>
-        {formType === ShopItemDetailInventoryFormType.STANDALONE && (
-          <ShopItemInventoryUpdateForm />
-        )}
-        {formType === ShopItemDetailInventoryFormType.VARIANTS && (
-          <>
-            <div
-              className={classNames(classes.flexGap, classes.filterContainer)}
-            >
-              <Select
-                isClearable
-                isMulti
-                className={classes.flexGrow}
-                onChange={changeInventoryVariantFilter('company')}
-                options={variantCompanyFilterOptionList}
-                placeholder={t(
-                  'shopItemDetail.table.inventory.filterPlaceholder.company',
-                )}
-                value={variantCompanyFilterOptionValueList}
-              />
+        <div className={classNames(classes.flexGap, classes.filterContainer)}>
+          <Select
+            isClearable
+            isMulti
+            className={classes.flexGrow}
+            onChange={changeInventoryVariantFilter('company')}
+            options={variantCompanyFilterOptionList}
+            placeholder={t(
+              'shopItemDetail.table.inventory.filterPlaceholder.company',
+            )}
+            value={variantCompanyFilterOptionValueList}
+          />
+          {showVariantFilters && (
+            <>
               <Select
                 isClearable
                 isMulti
@@ -150,13 +112,13 @@ const FranchiseShopItemTemplateDetailInventoryList: React.FC<Props> = ({
                 )}
                 value={variantColorFilterOptionValueList}
               />
-            </div>
+            </>
+          )}
+        </div>
 
-            <FranchiseShopItemTemplateDetailInventoryBulkUpdateForm
-              isUpdatingVariant={isUpdatingVariant}
-            />
-          </>
-        )}
+        <FranchiseShopItemTemplateDetailInventoryBulkUpdateForm
+          isUpdatingVariant={isUpdatingVariant}
+        />
       </>
     </Formik>
   );

@@ -4,6 +4,7 @@ import { VideoPurchase } from '#src/libs/video/types';
 import { getPackDate } from '#src/libs/payment-packs/utils';
 import { getPassDate } from '#src/libs/private-service/utils';
 import { formatAsDatetime } from '../../utils/datetime';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 export const getExpirationDate = (videoPurchase: VideoPurchase) => {
   return DateTime.fromISO(videoPurchase.date_created).plus({
@@ -84,10 +85,12 @@ export const getStatusText = (videoPurchase: VideoPurchase, t: TFunction) => {
     // @ts-expect-error
     payment_pack.credits - private_consumer_pass?.used_credits;
   const { credits } = payment_pack;
+  const displayedCredits = getCreditsDividedDisplay(credits);
+  const displayedAvailableCredits = getCreditsDividedDisplay(available_credits);
   return [
     [payment_pack.name, 'secondary'],
     [
-      ` ${packDates} - ${available_credits}/${credits}${
+      ` ${packDates} - ${displayedAvailableCredits}/${displayedCredits}${
         // @ts-expect-error
         videoPurchase.was_refunded ? `, (${t('wasRefunded')})` : ''
       }`,

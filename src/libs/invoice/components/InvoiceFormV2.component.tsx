@@ -27,16 +27,19 @@ import {
   OptionCallBackWithKeyedCallbacks,
 } from '../../../state/types';
 import { InvoiceItem } from '../invoice-item/types';
-import { BuyableItem } from '../types';
 
 type OwnProps = {
-  invoiceItemList: Array<InvoiceItem>;
+  invoiceItemList: InvoiceItem[];
 
   member: Member;
   finalizeInvoice: (uuid: string) => void;
   onSubmit: (
     data: {
-      buyable_items: Array<BuyableItem>;
+      // Poor naming ...
+      buyable_items: InvoiceItem[];
+      coupon_codes: string[];
+      establishment_billing_group?: number;
+      giftcard_config_list: any[];
     },
     options?: OptionCallback,
   ) => void;
@@ -59,7 +62,6 @@ type State = {
   coupon_list: Array<{
     coupon_code: string;
     coupon_voucher: number;
-    compatible_items: Array<number>;
   }>;
   couponLoading: boolean;
   selectedEstablishmentBillingGroup?: EstablishmentBillingGroup | null;
@@ -76,20 +78,18 @@ const asEditable = (editable: boolean, items: Array<any>) => {
 };
 
 export class InvoiceForm extends React.Component<Props, State> {
-  state = {
-    // @ts-expect-error
-    invoiceItemList: [],
-    // @ts-expect-error
-    coupon_list: [],
-    couponLoading: false,
-    // @ts-expect-error
-    selectedEstablishmentBillingGroup: null,
-    // @ts-expect-error
-    giftcardToConfigureList: [],
-    // @ts-expect-error
-    giftcardConfigList: [],
-    requiredEstablishmentIsMissing: false,
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      invoiceItemList: [],
+      coupon_list: [],
+      couponLoading: false,
+      selectedEstablishmentBillingGroup: null,
+      giftcardToConfigureList: [],
+      giftcardConfigList: [],
+      requiredEstablishmentIsMissing: false,
+    };
+  }
 
   componentDidMount() {
     const { initialItems } = this.props;
@@ -160,8 +160,14 @@ export class InvoiceForm extends React.Component<Props, State> {
     ]
       .filter((ii) => !!ii && !ii.reverted)
       .reduce(
-        (acc, v) => acc + parseFloat(v.price) - parseFloat(v.voucher || 0),
-        -this.state.coupon_list.reduce((acc, v) => acc + v.coupon_voucher, 0),
+        (acc, invoiceItem) =>
+          acc +
+          parseFloat(invoiceItem.price) -
+          parseFloat(invoiceItem.voucher || '0'),
+        -this.state.coupon_list.reduce(
+          (acc, appliedCoupon) => acc + appliedCoupon.coupon_voucher,
+          0,
+        ),
       );
     return amount < 0 ? 0 : amount;
   };
@@ -178,15 +184,14 @@ export class InvoiceForm extends React.Component<Props, State> {
     options?: OptionCallBackWithKeyedCallbacks & { onNotFound: () => void },
   ) => {
     try {
-      const { data } = await appliesToInvoice(
-        couponCode,
-        this.props.member.id,
-        {
-          invoice_items: this.state.invoiceItemList.map((item) => item),
-          invoice_amount: this.getInvoiceItemAmount(),
+      const { data } = await appliesToInvoice({
+        coupon_code: couponCode,
+        memberId: this.props.member.id,
+        invoice: {
+          invoice_items: this.state.invoiceItemList,
         },
-      );
-      // @ts-expect-error
+      });
+
       if (data.can_be_applied) {
         this.setState((prevState) => {
           return {
@@ -194,10 +199,7 @@ export class InvoiceForm extends React.Component<Props, State> {
               ...prevState.coupon_list,
               {
                 coupon_code: couponCode,
-                // @ts-expect-error
                 coupon_voucher: data.voucher,
-                // @ts-expect-error
-                compatible_items: data.compatible_items,
               },
             ],
           };
@@ -265,7 +267,6 @@ export class InvoiceForm extends React.Component<Props, State> {
     } else {
       this.props.onSubmit({
         buyable_items: this.state.invoiceItemList,
-        // @ts-expect-error
         coupon_codes: this.state.coupon_list.map(
           (coupon) => coupon.coupon_code,
         ),
@@ -366,11 +367,11 @@ export class InvoiceForm extends React.Component<Props, State> {
           open={this.props.finalizeInvoiceAlertOpen}
         />
         {!!this.state.giftcardToConfigureList?.length &&
-          this.state.giftcardToConfigureList.map((gc) => (
+          this.state.giftcardToConfigureList.map((giftcardId) => (
             <Modal
-              key={gc.id}
+              key={giftcardId}
               classes={{ paper: classes.container }}
-              open={gc.id === this.state.giftcardToConfigureList[0].id}
+              open={giftcardId === this.state.giftcardToConfigureList[0]}
             >
               <>
                 <div

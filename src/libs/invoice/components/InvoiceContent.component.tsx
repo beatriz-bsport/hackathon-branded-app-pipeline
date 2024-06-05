@@ -39,7 +39,6 @@ type Props = {
   couponList?: {
     coupon_code: string;
     coupon_voucher: number;
-    compatible_items: number[];
   }[];
   couponLoading: boolean;
   disableCoupon: boolean;

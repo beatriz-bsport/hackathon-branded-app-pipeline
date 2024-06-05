@@ -3,10 +3,10 @@ import {
   UniqueCodeStateStatus,
   CouponUniqueCodeEditModeOptions,
 } from '@bsport/common/lib/master-data/coupon';
-import { Invoice } from '#src/libs/invoice/types';
 import type { LuxonDateTime } from '#src/types';
 import { ErrorAndLoading } from '../types';
 import type { Company } from '#src/libs/company/types';
+import { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 
 export type Discount = {
   id: string;
@@ -156,9 +156,17 @@ export type FetchCouponsParams = {
   available?: boolean;
 };
 
-export type InvoiceParams = {
-  invoice_items: Invoice[];
-  invoice_amount: number;
+export type AppliesToInvoiceBody = {
+  memberId: number;
+  coupon_code: string;
+  invoice: {
+    invoice_items: InvoiceItem[];
+  };
+};
+
+export type AppliesToInvoiceResponse = {
+  can_be_applied: boolean;
+  voucher: number;
 };
 
 export type ApplyToContractAPI = {

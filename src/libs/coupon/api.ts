@@ -11,14 +11,15 @@ import {
   buildUrlParams,
   post,
 } from '../../http';
-import {
+import type {
   ApplyToContractAPI,
   Coupon,
   FetchCouponsParams,
   CouponTemplate,
   CouponTemplateInstance,
   Discount,
-  InvoiceParams,
+  AppliesToInvoiceBody,
+  AppliesToInvoiceResponse,
   FetchDiscountParams,
   UniqueCodeCouponCreationPayload,
   CheckCouponCodePayload,
@@ -117,21 +118,8 @@ export const untagCoupon: (
   return postAuth(`${COUPON_URI}${id}/untag/`, { tag });
 };
 
-export const appliesToInvoice: (
-  coupon_code: string,
-  memberId: number,
-  invoice: InvoiceParams,
-) => Promise<AxiosResponse<InvoiceParams>> = async (
-  coupon_code,
-  memberId,
-  invoice,
-) => {
-  return post(`${COUPON_URI}applies_to_invoice/`, {
-    coupon_code,
-    memberId,
-    invoice,
-  });
-};
+export const appliesToInvoice = (payload: AppliesToInvoiceBody) =>
+  post<AppliesToInvoiceResponse>(`${COUPON_URI}applies_to_invoice/`, payload);
 
 export const fetchCouponTemplateList: (
   params?: FranchiseProductTemplateQueryParams,

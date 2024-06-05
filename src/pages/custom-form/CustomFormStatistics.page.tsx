@@ -28,6 +28,7 @@ type StateHandlerInit = {};
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
 type OwnProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   id: number;
 };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
@@ -82,6 +83,7 @@ export class CustomFormStatistics extends React.Component<Props, State> {
 }
 const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   customFormStatistic: getCustomFormStatistics(state, id),
+  // eslint-disable-next-line react/no-unused-prop-types
   customForm: getCustomForm(state, id),
 });
 const mapDispatchToProps = {

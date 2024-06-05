@@ -16,7 +16,6 @@ import {
   ButtonSize as ButtonSizeType,
 } from './types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ButtonCss from './styles.css?raw';
 
 const fabriqueButtonVariationRegistry = [

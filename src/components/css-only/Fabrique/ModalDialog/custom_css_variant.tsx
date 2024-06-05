@@ -11,7 +11,6 @@ import ModalDialog, { Props as ModalDialogProps } from '.';
 import { ModalDialogColorEnum, ModalDialogSizeEnum } from './constants';
 import { ModalDialogColor, ModalDialogSize } from './types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import BadgeCss from './styles.css?raw';
 
 const MODAL_DIALOG_TITLE = faker.lorem.words(6);

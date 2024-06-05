@@ -10,7 +10,6 @@ import type { CompanyTheme } from '#libs/theme/types';
 import Typography, { Props as TypographyProps } from '.';
 import { TypographyVariant, TypographyColor } from './constants';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TypographyCss from './styles.css?raw';
 
 import type { TypographyColorType } from './types';

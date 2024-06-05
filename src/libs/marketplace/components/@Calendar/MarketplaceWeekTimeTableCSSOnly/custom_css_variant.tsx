@@ -14,7 +14,6 @@ import { coachesFactory } from '#libs/associated-coach/factories';
 import { meta_activity_factory } from '#libs/meta-activity/factory';
 import { Coach } from '#libs/associated-coach/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import WeekTimeTableCss from './MarketplaceWeekTimeTableCSSOnly.css?raw';
 
 import MarketplaceWeekTimeTableCSSOnly, {

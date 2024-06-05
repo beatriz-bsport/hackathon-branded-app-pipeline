@@ -11,7 +11,6 @@ import type { CompanyTheme } from '#libs/theme/types';
 import { TitleSize } from './constants';
 import Title, { Props as TitleProps } from '.';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TitleCss from './styles.css?raw';
 
 const fabriqueTextFieldVariationRegistry = [

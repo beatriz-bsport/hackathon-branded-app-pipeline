@@ -35,7 +35,9 @@ type Props = ReturnType<typeof mapStateToProps> &
   State;
 
 type State = {
+  // eslint-disable-next-line react/no-unused-prop-types
   openCreateRoleDialog: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   currentRole: null | Role | FranchiseRole;
 };
 

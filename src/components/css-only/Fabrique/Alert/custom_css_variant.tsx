@@ -12,7 +12,6 @@ import Alert, { Props as AlertProps } from '.';
 import { AlertVariantEnum, AlertColorEnum } from './constants';
 import { AlertVariant, AlertColor } from './types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import AlertCss from './styles.css?raw';
 
 const ALERT_TITLE = faker.lorem.words(5);

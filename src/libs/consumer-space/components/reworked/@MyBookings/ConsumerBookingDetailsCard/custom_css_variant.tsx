@@ -19,7 +19,6 @@ import type { CompanyTheme } from '#libs/theme/types';
 import type { ConsumerBooking } from '#libs/booking/types';
 import { getUserZone } from '#src/utils/datetime';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ConsumerBookingDetailsCardCss from './styles.css?raw';
 import {
   ConsumerBookingDetailsCardStorybook,

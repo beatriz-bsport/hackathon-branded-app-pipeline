@@ -14,7 +14,6 @@ import { levelListFactory } from '#libs/level/factories';
 import { meta_activity_factory } from '#libs/meta-activity/factory';
 import { getGroupedEstablishmentOptions } from '#libs/establishment/components/EstablishmentSelector.component';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceFilterCss from './MarketplaceFilter.css?raw';
 import MarketplaceFilter, { Props as MarketplaceFilterProps } from '.';
 

@@ -11,7 +11,6 @@ import { MarketplacePaymentMethods } from '#libs/marketplace/types';
 import { formatAsDate } from '#utils/datetime';
 import { fakeFailedInvoices, fakeSuccessfulInvoices } from './fakeData';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ConsumerSubscriptionDetailsCardCss from './styles.css?raw';
 import ConsumerSubscriptionDetailsCard, {
   ConsumerSubscriptionDetailsCardProps,

@@ -8,7 +8,6 @@ import {
 import Checkbox, { CheckboxProps, CheckboxSize } from '.';
 import { CheckboxSizeEnum } from './constants';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import CheckboxCss from './styles.css?raw';
 
 const fabriqueCheckboxVariationRegistry = [

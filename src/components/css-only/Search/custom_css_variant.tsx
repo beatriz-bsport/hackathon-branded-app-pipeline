@@ -15,7 +15,6 @@ import { contractListFactory } from '#libs/subscription/factory';
 import ClickableItem from '../ClickableItem';
 import { BaseAdditionalData, SearchItemData } from './Search.component';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import SearchCss from './style.css?raw';
 import Search, { Props as SearchProps } from '.';
 import {

@@ -10,7 +10,6 @@ import {
 import type { ConsumerSummaryCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
 import { CompanyTheme } from '#src/libs/theme/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ConsumerSummaryCardCss from './styles.css?raw';
 import ConsumerSummaryCard from '.';
 

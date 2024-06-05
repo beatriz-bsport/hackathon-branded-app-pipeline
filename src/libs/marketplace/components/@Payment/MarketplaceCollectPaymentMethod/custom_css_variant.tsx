@@ -7,7 +7,6 @@ import {
 } from '#libs/exportable-components/types';
 import { MarketplacePaymentMethods } from '#libs/marketplace/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceCollectPaymentMethodCss from './styles.css?raw';
 import {
   MarketplaceCollectPaymentMethodForStorybook as MarketplaceCollectPaymentMethod,

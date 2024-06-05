@@ -8,7 +8,6 @@ import {
 import type { PrepaidLineExtraData } from '#libs/checkout/types';
 import { prepaidLineFactory } from '#libs/checkout/factories';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import PrepaidLineItemCSS from './styles.css?raw';
 import PrepaidLineListItemCssOnly, { Props } from '.';
 

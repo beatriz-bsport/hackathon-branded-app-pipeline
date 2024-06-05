@@ -11,7 +11,6 @@ import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/con
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import Typography from '#Fabrique/Typography';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TooltipCSS from './styles.css?raw';
 import Tooltip from '.';
 import { colorEnum } from './constants';

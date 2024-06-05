@@ -20,7 +20,6 @@ import type { Level } from '#libs/level/types';
 import type { Coach } from '#libs/associated-coach/types';
 import { generateRandomName } from '#utils/factories';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceBookingItemCss from './styles.css?raw';
 import MarketplaceBookingItem, { Props } from '.';
 

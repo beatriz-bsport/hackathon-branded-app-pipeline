@@ -9,7 +9,6 @@ import {
 } from '#libs/exportable-components/types';
 import { CompanyTheme } from '#libs/theme/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import StatusMessageWithIconCss from './styles.css?raw';
 import StatusMessageWithIcon from '.';
 

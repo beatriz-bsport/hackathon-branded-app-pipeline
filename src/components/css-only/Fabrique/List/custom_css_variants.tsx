@@ -14,7 +14,6 @@ import type { ListItemType } from '#Fabrique/ListItem/types';
 import { ArrowBlockLeft } from '#components/untitledui';
 import List from '.';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ListCSS from './styles.css?raw';
 
 type NumberKey = '1' | '2' | '3' | '4' | '5';

@@ -13,7 +13,6 @@ import {
 import { BuyableItemOptions } from '#libs/checkout/types';
 import { checkoutItemsFactory } from '#libs/checkout/factories';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceProductItemListCss from './styles.css?raw';
 import MarketplaceProductItemList, { Props } from '.';
 

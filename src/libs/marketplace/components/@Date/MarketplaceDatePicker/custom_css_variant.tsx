@@ -10,7 +10,6 @@ import {
 } from '#libs/exportable-components/types';
 import { CompanyTheme } from '#libs/theme/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceDatePickerCss from './MarketplaceDatePicker.css?raw';
 import MarketplaceDatePicker, { Props as MarketplaceDatePickerProps } from '.';
 

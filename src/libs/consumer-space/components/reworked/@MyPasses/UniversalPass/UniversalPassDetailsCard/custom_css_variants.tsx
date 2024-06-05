@@ -22,7 +22,6 @@ import type {
 import UniversalPassDetailsCard, { UniversalPassDetailsCardProps } from '.';
 
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import UniversalPassDetailsCardCss from './styles.css?raw';
 
 const fakeEstablishments = establishmentFactoryBot.Establishment.create(2);

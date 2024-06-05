@@ -9,7 +9,6 @@ import {
 } from '#libs/exportable-components/types';
 import MenuItemList, { MenuItemListProps } from '.';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MenuItemListCss from './styles.css?raw';
 
 import MenuItem from '../MenuItem';

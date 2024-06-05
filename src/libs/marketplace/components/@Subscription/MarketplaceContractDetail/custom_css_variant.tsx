@@ -13,7 +13,6 @@ import { paymentComboFactory } from '#libs/payment-combo/factory';
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 import { privatePassFactory } from '#libs/private-service/factory';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceContractDetailCss from './styles.css?raw';
 import MarketplaceContractDetail, {
   Props as MarketplaceContractDetailProps,

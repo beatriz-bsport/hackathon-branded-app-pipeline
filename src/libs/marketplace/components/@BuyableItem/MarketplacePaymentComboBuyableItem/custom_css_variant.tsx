@@ -9,7 +9,6 @@ import {
 import { CompanyTheme } from '#libs/theme/types';
 import { paymentComboFactory } from '#libs/payment-combo/factory';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePaymentComboBuyableItemCss from './styles.css?raw';
 import MarketplacePaymentComboBuyableItem from '.';
 

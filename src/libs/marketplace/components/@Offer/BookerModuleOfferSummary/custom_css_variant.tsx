@@ -19,7 +19,6 @@ import {
 } from '#libs/exportable-components/types';
 import type { OfferStatus, Offer_FULL } from '#libs/offer/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import BookerModuleOfferSummaryCss from './styles.css?raw';
 import BookerModuleOfferSummary, {
   Props as BookerModuleOfferSummaryProps,

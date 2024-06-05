@@ -474,6 +474,7 @@ const mapStateToProps = (
   state: RootState,
   { customFormSelected }: { customFormSelected: number },
 ) => ({
+  // eslint-disable-next-line
   theme: state.theme.theme,
   // @ts-expect-error
   customForm: withDisplayRule(getCustomFormWithEnableField)(

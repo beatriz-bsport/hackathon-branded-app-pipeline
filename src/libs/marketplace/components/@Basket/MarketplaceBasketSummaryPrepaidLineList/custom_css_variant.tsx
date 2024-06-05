@@ -7,7 +7,6 @@ import {
 } from '#libs/exportable-components/types';
 import { prepaidLinesFactory } from '#libs/checkout/factories';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import PrepaidLineListCSS from './styles.css?raw';
 import MarketplaceBasketSummaryPrepaidLineList, { Props } from '.';
 

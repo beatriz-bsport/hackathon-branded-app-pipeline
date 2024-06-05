@@ -20,16 +20,17 @@ import {
 } from '#libs/communication/selectors';
 import type { CommunicationSentGroupConfig } from '#libs/communication/types';
 // @ts-expect-error
-// @ts-expect-error
 import SmartListFormDialog from '#libs/smart-list/components/SmartListFormDialog.component';
 import BottomActionButtons from '#components/button/BottomActionsButton.component';
 import CommunicationSentGroupConfigListing from '#libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigListing';
+// @ts-expect-error
 import withQueryParams from '../../../../hocs/with-query-params.hoc';
 import { RootState } from '../../../../reducers';
 import { OptionCallback } from '../../../../state/types';
 import { WithHandlerType } from '../../../../utils/types';
 
 type OwnProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   campaignId: number;
   setQueryParams: (queryName: string) => (queryValue: boolean) => void;
   selectedId: number;

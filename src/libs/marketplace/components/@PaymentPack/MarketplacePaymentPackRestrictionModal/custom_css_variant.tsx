@@ -8,7 +8,6 @@ import {
 
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePaymentPackRestrictionModalCss from './styles.css?raw';
 import MarketplacePaymentPackRestrictionModal, {
   Props as MarketplacePaymentPackRestrictionModalProps,

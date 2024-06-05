@@ -8,7 +8,6 @@ import {
 } from '#libs/exportable-components/types';
 import { referralProgramFactory } from '#libs/referral/factories/ReferralProgram';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ReferralWidgetCss from './styles.css?raw';
 import ReferralWidget, { Props as ReferralWidgetProps } from '.';
 

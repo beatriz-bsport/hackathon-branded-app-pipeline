@@ -9,7 +9,6 @@ import {
   MarketplacePage,
 } from '#libs/exportable-components/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePaymentPackCompatibilityModalCss from './styles.css?raw';
 import MarketplacePaymentPackCompatibilityModal, {
   Props as MarketplacePaymentPackCompatibilityModalProps,

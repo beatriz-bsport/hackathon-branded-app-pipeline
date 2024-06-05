@@ -15,7 +15,6 @@ import {
 } from '#libs/exportable-components/types';
 import MenuItem from '#Fabrique/MenuItem';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import SelectorCss from './styles.css?raw';
 import Selector, { SelectorProps } from '.';
 import { SelectorSizeEnum } from './constants';

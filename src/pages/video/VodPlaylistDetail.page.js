@@ -45,7 +45,7 @@ type Props = {
   replaceToVideoInPlaylist: (playlistId: number, videoId: number) => void,
   goToVideoInPlaylist: (videoId: number) => void,
 
-  classes: Object,
+  classes: any,
   searchVideoText: string,
   searchVideo: (ev: SyntheticEvent<>) => void,
   searchLoading: boolean,
@@ -110,7 +110,7 @@ export class VodPlaylistDetailPage extends React.Component<Props> {
       return <LinearProgress />;
     }
     return (
-      <div container={this.props.classes.container}>
+      <div className={this.props.classes.container}>
         <PlaylistDetail
           authenticated
           accessDenied={this.props.accessDenied}

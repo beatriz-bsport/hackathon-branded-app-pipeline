@@ -10,7 +10,6 @@ import { NewsletterV2FieldsKind } from '#libs/marketplace/constants';
 import { OptionCallback } from '../../../state/types';
 import NewsletterForm, { Props as NewsletterFormProps } from '.';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import NewsletterFormCss from './styles.css?raw';
 
 const newsletterFormV2VariationRegistry = [

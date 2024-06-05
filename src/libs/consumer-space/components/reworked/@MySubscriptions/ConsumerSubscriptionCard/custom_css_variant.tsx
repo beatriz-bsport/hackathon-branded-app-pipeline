@@ -9,7 +9,6 @@ import {
 import { subscriptionFactory } from '#libs/subscription/factory';
 import { formatAsDate } from '#utils/datetime';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ConsumerSubscriptionCardCss from './styles.css?raw';
 import ConsumerSubscriptionCard, { ConsumerSubscriptionCardProps } from '.';
 

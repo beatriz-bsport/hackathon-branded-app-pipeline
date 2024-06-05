@@ -11,7 +11,6 @@ import {
 
 import { privatePassFactory } from '#libs/private-service/factory';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MinimalPrivatePassCardCss from './styles.css?raw';
 import MinimalPrivatePassCard, { type Props } from '.';
 

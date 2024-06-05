@@ -12,7 +12,6 @@ import {
 
 import { CompanyTheme } from '#libs/theme/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ResetPasswordFormCss from './styles.css?raw';
 import ResetPasswordForm, { Props as ResetPasswordFormProps } from '.';
 

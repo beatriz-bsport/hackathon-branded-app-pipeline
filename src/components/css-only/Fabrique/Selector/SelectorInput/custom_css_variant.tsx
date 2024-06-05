@@ -17,7 +17,6 @@ import { Star06 } from '#components/untitledui';
 import { SelectorSizeEnum } from '../constants';
 import type { SelectorSize } from '../types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import SelectorCss from './selector-input-styles.css?raw';
 
 const PLACEHOLDER = generateRandomName(faker);

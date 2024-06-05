@@ -9,7 +9,6 @@ import {
 } from '#libs/exportable-components/types';
 import TextForm, { Props } from '.';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TextFormCss from './styles.css?raw';
 
 const HELPER_TEXT = faker.lorem.sentences(1);

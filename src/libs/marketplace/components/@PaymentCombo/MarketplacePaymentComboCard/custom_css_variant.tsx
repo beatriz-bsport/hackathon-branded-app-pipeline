@@ -11,7 +11,6 @@ import { PaymentCombo } from '#libs/payment-combo/types';
 
 import { paymentComboFactory } from '#libs/payment-combo/factory';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePaymentComboCardCss from './styles.css?raw';
 import MarketplacePaymentComboCard, {
   Props as MarketplacePaymentComboCardProps,

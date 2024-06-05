@@ -24,7 +24,6 @@ import ConsumerPaymentPackDetailsCard, {
 } from '.';
 
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ConsumerPaymentPackDetailsCardCss from './styles.css?raw';
 
 const fakeEstablishments = establishmentFactoryBot.Establishment.create(2);

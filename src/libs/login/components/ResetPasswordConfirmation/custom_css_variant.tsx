@@ -7,7 +7,6 @@ import {
 } from '#libs/exportable-components/types';
 import ResetPasswordConfirmation from '.';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ResetPasswordConfirmationCss from './styles.css?raw';
 
 const voidFunction = () => {};

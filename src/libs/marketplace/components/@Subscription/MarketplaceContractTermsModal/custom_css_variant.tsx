@@ -7,7 +7,6 @@ import {
 
 import { contractFactory } from '#libs/subscription/factory';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceContractTermsModalCss from './styles.css?raw';
 import MarketplaceContractTermsModal, {
   Props as MarketplaceContractTermsModalProps,

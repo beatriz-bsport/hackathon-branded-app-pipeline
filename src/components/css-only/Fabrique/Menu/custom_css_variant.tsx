@@ -14,7 +14,6 @@ import MenuItem from '#Fabrique/MenuItem';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import Typography from '#Fabrique/Typography';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MenuCss from './styles.css?raw';
 import Menu from '.';
 

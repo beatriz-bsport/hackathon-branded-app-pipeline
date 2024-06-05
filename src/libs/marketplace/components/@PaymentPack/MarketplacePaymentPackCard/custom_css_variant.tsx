@@ -10,7 +10,6 @@ import { CompanyTheme } from '#libs/theme/types';
 
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePaymentPackCardCss from './styles.css?raw';
 import MarketplacePaymentPackCard, {
   Props as MarketplacePaymentPackCardProps,

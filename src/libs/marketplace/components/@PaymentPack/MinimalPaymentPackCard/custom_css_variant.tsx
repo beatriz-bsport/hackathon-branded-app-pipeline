@@ -11,7 +11,6 @@ import {
 
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MinimalPaymentPackCardCss from './styles.css?raw';
 import MinimalPaymentPackCard, { type Props } from '.';
 

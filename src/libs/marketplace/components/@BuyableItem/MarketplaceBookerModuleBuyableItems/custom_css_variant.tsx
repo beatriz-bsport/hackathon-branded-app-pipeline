@@ -32,7 +32,6 @@ import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { ContractWithPaymentPack } from '#libs/subscription/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceBookerModuleBuyableItemsCss from './styles.css?raw';
 import MarketplaceBookerModuleBuyableItems from '.';
 import { generateRandomName } from '../../../../../utils/factories';

@@ -8,7 +8,6 @@ import { TFunction } from 'i18next';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { withStyles } from '@material-ui/styles';
-import { getTheme } from '#libs/theme/selectors';
 import withTitle from '#hocs/with-title.hoc';
 // @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
@@ -38,8 +37,6 @@ import { getAllTemplate } from '#libs/tag/selectors';
 import TagGroupList from '#libs/tag/components/TagGroupList.component';
 import type { Tag, TagGroup } from '#libs/tag/types';
 
-import { getAutotagRuleBySmartlist } from '#libs/smart-list/selectors';
-
 import { Member } from '#libs/member/types';
 
 import TagDetailHeader from '#libs/marketing/components/TagDetailHeader.component';
@@ -55,9 +52,6 @@ type StateHandlerType = {
   tagKind: string;
   selectedTag?: Tag;
   selectedTagId?: number;
-  // goToCoupon: () => void;
-  // goToSmartlist: () => void;
-  // goToActivity: () => void;
 };
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
@@ -74,7 +68,6 @@ class MarketingTagManagement extends React.PureComponent<Props> {
   componentDidMount() {
     this.props.fetchAllGroups();
     this.props.fetchAllTags();
-    // this.props.fetchActivitiesCompany(this.props.theme.company);
     this.fetchTagData();
   }
 
@@ -178,44 +171,6 @@ class MarketingTagManagement extends React.PureComponent<Props> {
     });
   };
 
-  // cf comment on DETAIL_PANEL_ENABLED
-  //
-  // untagAllMember = (options: OptionCallback) => {
-  //   if (this.props.selectedTagId) {
-  //     this.props.fetchUntagAllMemberAction(this.props.selectedTagId, {
-  //       onSuccess: () => {
-  //         this.fetchTagData();
-  //         if (options && options.onSuccess) {
-  //           options.onSuccess();
-  //         }
-  //       },
-  //       onError: () => {
-  //         if (options && options.onError) {
-  //           options.onError();
-  //         }
-  //       },
-  //     });
-  //   }
-  // };
-
-  // tagAllMember = (options: OptionCallback) => {
-  //   if (this.props.selectedTagId) {
-  //     this.props.fetchTagAllMembersAction(this.props.selectedTagId, {
-  //       onSuccess: () => {
-  //         this.fetchTagData();
-  //         if (options && options.onSuccess) {
-  //           options.onSuccess();
-  //         }
-  //       },
-  //       onError: () => {
-  //         if (options && options.onError) {
-  //           options.onError();
-  //         }
-  //       },
-  //     });
-  //   }
-  // };
-
   render() {
     const { classes, membersWithTagList, membersWithoutTagList } = this.props;
     return (
@@ -272,22 +227,10 @@ class MarketingTagManagement extends React.PureComponent<Props> {
 
 const mapStateToProps = (state: RootState) => ({
   tagGroups: getAllTemplate(state),
-  tagGroupsLoading: state.tag.groupTemplate.loading,
   tagUsageById: state.tag.tagTemplateUsage.byId,
   tagsLoading: state.tag.tagTemplate.loading,
-  members: state.member.allIds,
   membersWithTagList: membersListWithTagRepo.selectors.full(state.member),
   membersWithoutTagList: membersListWithoutTagRepo.selectors.full(state.member),
-  offersLoading: state.offer.loading,
-  coupons: state.coupon.coupon.items,
-  couponsLoading: state.coupon.coupon.loading,
-  smartlist: state.smartList.smartListFiltered.items,
-  smartlistLoading: state.smartList.smartListFiltered.loading,
-  theme: getTheme(state),
-
-  autotagRuleBySmartList: getAutotagRuleBySmartlist(state),
-  autotagRuleLoading: state.smartList.smartListTagRules.loading,
-  offerTagManagementLoading: state.offer.tagManagement.loading,
 });
 
 const mapDispatchToProps = {

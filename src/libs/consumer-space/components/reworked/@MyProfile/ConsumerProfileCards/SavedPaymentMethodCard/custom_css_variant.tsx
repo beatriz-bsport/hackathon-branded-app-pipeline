@@ -8,7 +8,6 @@ import {
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import SavedPaymentMethodCardCss from './styles.css?raw';
 import SavedPaymentMethodCard from '.';
 

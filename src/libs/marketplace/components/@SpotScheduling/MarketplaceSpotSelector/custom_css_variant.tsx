@@ -9,7 +9,6 @@ import {
 import { CompanyTheme } from '#libs/theme/types';
 import { offerFactory } from '#libs/offer/factories';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceSportSelectorCss from './styles.css?raw';
 import MarketplaceSpotSelector from '.';
 

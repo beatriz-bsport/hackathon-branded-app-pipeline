@@ -13,7 +13,6 @@ import { CompanyTheme } from '#libs/theme/types';
 
 import { getBookingBlockedReasonIcon } from '#libs/marketplace/utils';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceBookingBlockedReasonCss from './MarketplaceBookingBlockedReason.css?raw';
 import MarketplaceBookingBlockedReason, {
   Props as MarketplaceBookingBlockedReasonProps,

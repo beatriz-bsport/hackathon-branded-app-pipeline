@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { compose } from 'recompose';
 import { WithStyles, withStyles } from '@material-ui/styles';
@@ -41,7 +40,6 @@ class VersionVisualizer extends React.Component<
     const { classes } = this.props;
 
     return (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div className={classes.version} onClick={this.reloadIfOudated}>
         <Tooltip title={RELEASE_DATE}>
           <div>

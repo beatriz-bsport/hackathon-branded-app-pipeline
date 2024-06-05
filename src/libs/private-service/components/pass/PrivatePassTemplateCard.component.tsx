@@ -108,9 +108,11 @@ const PrivatePassTemplateCard = (props: Props) => {
           )}
           <div className={classes.chipListContainer}>
             {template.companies.map((c) => (
-              <div className={classes.chipContainer}>
+              <div
+                key={`company_chip-${c.id}`}
+                className={classes.chipContainer}
+              >
                 <CompanyChip
-                  key={c.id}
                   // @ts-expect-error
                   company={c}
                   onDelete={

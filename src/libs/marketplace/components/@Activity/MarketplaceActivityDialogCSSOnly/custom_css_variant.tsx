@@ -10,7 +10,6 @@ import { offerFactory } from '#libs/offer/factories';
 import { Offer } from '#libs/offer/types';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceActivityDialogCSSOnlyCss from './MarketplaceActivityDialogCSSOnly.css?raw';
 import MarketplaceActivityDialogCSSOnly, {
   Props as MarketplaceActivityDialogCSSOnlyProps,

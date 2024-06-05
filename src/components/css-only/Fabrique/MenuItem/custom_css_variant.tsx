@@ -9,7 +9,6 @@ import {
 } from '#libs/exportable-components/types';
 import MenuItem, { MenuItemProps, MenuItemType, MenuItemTypeEnum } from '.';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MenuItemCss from './styles.css?raw';
 
 import { MENU_ITEM_START_ICON } from './constants';

@@ -9,7 +9,6 @@ import { CompanyTheme } from '#libs/theme/types';
 
 import { contractFactory } from '#libs/subscription/factory';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceContractCardCss from './styles.css?raw';
 import MarketplaceContractCard, {
   Props as MarketplaceContractCardProps,

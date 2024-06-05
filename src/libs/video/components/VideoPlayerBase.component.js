@@ -84,7 +84,6 @@ export class VideoPlayerBase extends React.Component<Props, State> {
 
   render() {
     return (
-      /* eslint-disable jsx-a11y/media-has-caption */
       <div>
         <Helmet
           onChangeClientState={(addedTags) => {

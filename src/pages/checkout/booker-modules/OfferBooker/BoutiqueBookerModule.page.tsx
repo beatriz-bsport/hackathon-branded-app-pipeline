@@ -204,8 +204,11 @@ type OwnProps = {
     guest_last_name?: 'true';
     guest_email?: 'true';
   };
+  // eslint-disable-next-line react/no-unused-prop-types
   memberTagList: number[];
+  // eslint-disable-next-line react/no-unused-prop-types
   authenticated: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   goBack: () => void;
   containerRef: React.MutableRefObject<any>;
 };

@@ -17,7 +17,6 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Level } from '#libs/level/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceFilterCss from './MarketplaceFilterCSSOnly.css?raw';
 import MarketplaceFilterCSSOnly, {
   Props as MarketplaceFilterCSSOnlyProps,

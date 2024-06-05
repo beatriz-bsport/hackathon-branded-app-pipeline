@@ -142,7 +142,9 @@ const mapStateToProps = (state: RootState) => ({
   authenticated: state.auth.authenticated,
   franchiseTheme: getFranchisor(state),
   availableCompanies: getFranchisorCompaniesAvailableOnMarketplace(state),
+  // eslint-disable-next-line react/no-unused-prop-types
   franchiseThemeLoading: getFranchiseThemeLoading(state),
+  // eslint-disable-next-line react/no-unused-prop-types
   getCompanyThemeLoading: getThemeLoading(state),
 });
 

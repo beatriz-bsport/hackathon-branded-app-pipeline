@@ -21,7 +21,6 @@ import { levelFactory } from '#libs/level/factories';
 import type { OfferWithSpotInformation } from '#libs/offer/types';
 import { CompanyTheme } from '#libs/theme/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceOfferBookingListCss from './styles.css?raw';
 import MarketplaceOfferBookingList, { Props } from '.';
 

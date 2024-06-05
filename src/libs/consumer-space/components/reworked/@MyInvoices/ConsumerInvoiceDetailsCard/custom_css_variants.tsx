@@ -15,7 +15,6 @@ import {
 } from '#libs/invoice/factories';
 import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ConsumerInvoiceDetailsCardCss from './styles.css?raw';
 import ConsumerInvoiceDetailsCard from '.';
 

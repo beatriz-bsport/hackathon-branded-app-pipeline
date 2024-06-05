@@ -13,7 +13,6 @@ import {
 
 import { CompanyTheme } from '#libs/theme/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ChangePasswordFormCss from './styles.css?raw';
 import ChangePasswordForm, { Props as ChangePasswordFormProps } from '.';
 

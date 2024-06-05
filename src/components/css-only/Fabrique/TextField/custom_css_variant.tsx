@@ -9,7 +9,6 @@ import {
 import TextField, { Props as TextFieldProps } from '.';
 import { TextFieldSize, TextFieldVariant } from './types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TextFieldCss from './styles.css?raw';
 
 const FAKE_LABEL = faker.lorem.words(1);

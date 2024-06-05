@@ -15,7 +15,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-
 import VirtualizedPaymentPackTemplateList from '#libs/payment-packs/components/VirtualizedPaymentPackTemplateList.component';
 import PaymentPackTemplateFormDrawer from '#libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
 import PaymentPackTemplateDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
@@ -62,7 +61,6 @@ const styles = (theme: Theme) =>
 type OwnProps = {
   openCreateDialog: () => void;
   closeCreateDialog: () => void;
-  onCreateOpen: () => void;
   loading: boolean;
 };
 

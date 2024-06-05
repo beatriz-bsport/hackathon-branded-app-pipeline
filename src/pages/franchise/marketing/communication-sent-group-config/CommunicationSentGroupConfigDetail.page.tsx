@@ -23,6 +23,7 @@ type Props = {
   campaignId: number;
   fetchCommunicationSentGroupConfigDetail: (id: number) => void;
   pageHeight: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   communicationSentGroupConfig: CommunicationSentGroupConfig;
 };
 

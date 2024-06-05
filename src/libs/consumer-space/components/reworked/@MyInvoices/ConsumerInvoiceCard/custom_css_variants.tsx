@@ -13,7 +13,6 @@ import {
 } from '#libs/invoice/factories';
 import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ConsumerInvoiceCardCss from './styles.css?raw';
 import ConsumerInvoiceCard from '.';
 

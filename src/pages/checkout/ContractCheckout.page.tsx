@@ -13,9 +13,7 @@ import classNames from 'classnames';
 import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription';
 import { DateTime } from 'luxon';
 
-// @ts-expect-error
 import themeSelectors, { getStripePkKey } from '#libs/theme/selectors';
-// @ts-expect-error
 
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#libs/establishment/actions';
@@ -85,8 +83,10 @@ import {
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import ConsumerAppBar from './ConsumerAppBar.container';
 import type { OptionCallback } from '../../state/types';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import { RootState } from '../../reducers';
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 
 import './styles.css';
@@ -640,6 +640,7 @@ const mapStateToProps = (
       state,
       member?.id,
     ),
+    // eslint-disable-next-line react/no-unused-prop-types
     member,
   };
 };

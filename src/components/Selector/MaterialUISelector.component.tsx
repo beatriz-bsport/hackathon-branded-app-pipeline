@@ -593,7 +593,6 @@ function MultiValueRemove<T extends OptionTypeBase>(
         {({ displayMore }) => (
           <div className={classes.row}>
             <components.MultiValueRemove getStyles={resetStyle}>
-              {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
               <div className={classes.chip} onMouseDown={catchFocusAndEvent}>
                 {(index < maxDisplay || displayMore) && props.data && (
                   <>

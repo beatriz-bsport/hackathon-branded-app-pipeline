@@ -12,7 +12,6 @@ import { offerFactory } from '#libs/offer/factories';
 import { Offer } from '#libs/offer/types';
 import { OffersGroup } from '#libs/group-offer/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceBookButtonCss from './MarketplaceBookButton.css?raw';
 import MarketplaceBookButton, { Props as MarketplaceBookButtonProps } from '.';
 

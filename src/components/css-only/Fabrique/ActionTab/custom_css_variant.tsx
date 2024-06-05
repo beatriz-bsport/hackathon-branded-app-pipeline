@@ -9,7 +9,6 @@ import {
 } from '#libs/exportable-components/types';
 
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ActionTabCss from './styles.css?raw';
 import ActionTab, { Props as ActionTabProps } from '.';
 

@@ -14,7 +14,6 @@ import { CompanyTheme } from '#libs/theme/types';
 import { offerFactory } from '#libs/offer/factories';
 import { formatAsDate } from '#src/utils/datetime';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceCardOfferCss from './MarketplaceCardOfferCSSOnly.css?raw';
 import MarketPlaceCardOfferCSSOnly, {
   Props as MarketplaceOfferCardProps,

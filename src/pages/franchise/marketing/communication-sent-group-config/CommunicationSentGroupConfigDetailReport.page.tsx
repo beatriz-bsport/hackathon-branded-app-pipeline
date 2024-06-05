@@ -25,6 +25,7 @@ import BackofficeLinearProgress from '../../../../components/navigation/Backoffi
 import { OptionCallback, PaginatedResponse } from '../../../../state/types';
 import { WithHandlerType } from '../../../../utils/types';
 
+// eslint-disable-next-line react/no-unused-prop-types
 type OwnProps = { communicationSentGroupId: number; campaignId: number };
 
 type OwnAndConnectedProps = OwnProps & ConnectedProps<typeof connector>;

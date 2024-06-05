@@ -13,7 +13,6 @@ import TextField, { type Props as TextFieldProps } from '.';
 import type { TextFieldSize, TextFieldType } from './types';
 import { TextFieldSizeEnum, TextFieldTypeEnum } from './constants';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TextFieldCss from './styles.css?raw';
 
 const HELPER_TEXT = faker.lorem.sentences(1);

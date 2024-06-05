@@ -11,7 +11,6 @@ import { Star06 } from '#components/untitledui';
 import Chip, { Props as ChipProps } from '.';
 import { ChipColorEnum, ChipSizeEnum, ChipVariantEnum } from './constants';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ChipCss from './styles.css?raw';
 
 const CHIP_TEXT = faker.lorem.word(8);

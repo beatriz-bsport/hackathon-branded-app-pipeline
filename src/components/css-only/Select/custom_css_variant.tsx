@@ -16,7 +16,6 @@ import {
 import { LOCALE_LIST } from '#components/input/LocaleSelector.component';
 import { SelectOptionWithMetaData } from './Select.component';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceSelectCss from './style.css?raw';
 import Select, { Props as SelectProps } from '.';
 

@@ -47,7 +47,6 @@ const styles = (theme: Theme) =>
 
 type OwnProps = {
   closeCreateDialog: () => void;
-  onCreateOpen: () => void;
   loading: boolean;
 };
 

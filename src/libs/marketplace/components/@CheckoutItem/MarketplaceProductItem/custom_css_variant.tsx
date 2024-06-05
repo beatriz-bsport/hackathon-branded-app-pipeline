@@ -11,7 +11,6 @@ import {
 
 import { generateRandomName } from '#utils/factories';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceProductItemCss from './styles.css?raw';
 import MarketplaceProductItem, { type Props } from '.';
 

@@ -323,7 +323,6 @@ const mapStateToProps = (state: RootState, props: StateHandlerType) => ({
   emailListLoading: state.emailTemplate.loading,
   emailDetailLoading: state.emailTemplate.detail.loading,
   smartLists: getAllSmartList(state),
-  smartListLoading: state.smartList.loading,
 });
 const mapDispatchToProps = {
   fetchEmailTemplateDetail: emailTemplateDetail,

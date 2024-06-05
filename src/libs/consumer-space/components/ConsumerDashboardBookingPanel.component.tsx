@@ -44,7 +44,6 @@ type OwnProps = {
   loading: boolean;
   hasMore: boolean;
   hideCoach: boolean;
-  fullWidth?: boolean;
   hideTitle?: boolean;
   onClickBlueprintPreview?: (
     booking: Booking<Offer<Coach, Establishment, MetaActivity>>,

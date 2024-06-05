@@ -13,7 +13,6 @@ import {
   OnRemoveCheckoutItemData,
 } from '#libs/checkout/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import BasketSummaryCssOnlyDialogCss from './styles.css?raw';
 import BasketSummaryCssOnlyDialog, { Props } from '.';
 

@@ -14,7 +14,6 @@ import { meta_activity_factory } from '#libs/meta-activity/factory';
 import { offerFactory } from '#libs/offer/factory';
 import { Coach } from '#libs/associated-coach/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import OfferListItemCss from './MarketplaceOfferListItemCSSOnly.css?raw';
 import MarketplaceOfferListItemCSSOnly, {
   Props as MarketplaceOfferListItemCSSOnlyProps,

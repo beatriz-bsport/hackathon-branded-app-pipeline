@@ -14,7 +14,6 @@ import { checkoutItemsFactory } from '#libs/checkout/factories';
 import { BuyableItemOptions, CheckoutItem } from '#libs/checkout/types';
 import { paymentComboListFactory } from '#libs/payment-combo/factory';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceCheckoutItemsWithPrivatePassListCss from './styles.css?raw';
 import MarketplaceCheckoutItemsWithPrivatePassList, { Props } from '.';
 

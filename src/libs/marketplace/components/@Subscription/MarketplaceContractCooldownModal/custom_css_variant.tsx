@@ -8,7 +8,6 @@ import MarketplaceContractCooldownModal, {
   Props as MarketplaceContractCooldownModalProps,
 } from '.';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceContractCooldownModalCss from './styles.css?raw';
 
 const usePropsFromVariation = (): MarketplaceContractCooldownModalProps => {

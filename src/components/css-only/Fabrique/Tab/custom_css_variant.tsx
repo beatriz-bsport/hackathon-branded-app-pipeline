@@ -8,7 +8,6 @@ import {
 } from '#libs/exportable-components/types';
 import type { CompanyTheme } from '#libs/theme/types';
 // @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TabCss from './styles.css?raw';
 import Tab, { Props as TabProps } from '.';
 import { TabColorEnum } from './constants';

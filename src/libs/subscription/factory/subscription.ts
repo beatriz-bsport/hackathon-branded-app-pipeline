@@ -85,6 +85,8 @@ export const subscriptionFactory = (options?: SubscriptionFactoryOptions) => {
       ? null
       : faker.number.int({ min: 1, max: 25 }),
     has_discount: options?.hasDiscount ?? faker.datatype.boolean(),
+    nb_interval_after_auto_renewal: faker.number.int({ min: 2, max: 12 }),
+    has_changed_after_renewal: faker.datatype.boolean(),
   };
 };
 

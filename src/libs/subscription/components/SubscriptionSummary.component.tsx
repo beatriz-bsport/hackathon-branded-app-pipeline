@@ -85,9 +85,20 @@ export const SubscriptionSummary = (props: Props) => {
     <div className={classes.container}>
       <fieldset>
         <legend>{t('parameters.parameters')}</legend>
+        {subscription.has_changed_after_renewal && (
+          <div className={classes.field}>
+            <Typography variant="body1">
+              {t('parameters.secondBillingPlanEnabled')}
+            </Typography>
+          </div>
+        )}
         <div className={classes.field}>
           <Typography variant="body2">{t('parameters.nbInterval')}</Typography>
-          <Typography>{subscription.nb_interval}</Typography>
+          <Typography>
+            {subscription.has_changed_after_renewal
+              ? subscription.nb_interval_after_auto_renewal
+              : subscription.nb_interval}
+          </Typography>
         </div>
         <div className={classes.field}>
           <Typography variant="body2">

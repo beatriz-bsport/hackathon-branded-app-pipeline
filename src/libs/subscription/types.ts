@@ -80,6 +80,8 @@ export type Subscription<
   trial_nb: number;
   month_billing_day: number | null;
   has_discount: boolean;
+  nb_interval_after_auto_renewal: number | null;
+  has_changed_after_renewal: boolean;
 };
 
 export type SubscriptionInterval = 'month' | 'week' | 'day' | 'year';

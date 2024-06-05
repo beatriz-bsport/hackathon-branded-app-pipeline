@@ -9230,6 +9230,7 @@
       "start_date_date": "Start date",
       "fee": "Fees",
       "bsport_fee": "Transaction fees",
+      "on_the_fly_bsport_fee": "PayPal transaction fees",
       "author": "Author",
       "nb_bookings_same_pass": "Number of bookings with the same pass",
       "credit_consumed": "Consumed credits",

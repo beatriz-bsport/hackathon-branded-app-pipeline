@@ -24,6 +24,7 @@ import type {
   PrivateConsumerPass,
   PrivateSlot,
 } from '../../types';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 type Props = {
   t: TFunction,
@@ -181,7 +182,9 @@ export const PrivateBookingDetail = (props: Props) => {
               <div>
                 <Typography>
                   {t('privateBooking.detail.unpaidBooking', {
-                    credits: props.private_slot?.credit,
+                    credits: getCreditsDividedDisplay(
+                      props.private_slot?.credit,
+                    ),
                   })}
                 </Typography>
                 {!!props.forceRegularizeUnpaid && (

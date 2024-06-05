@@ -2,7 +2,10 @@ import { TFunction } from 'i18next';
 import { DateTime } from 'luxon';
 import omit from 'lodash/omit';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
-import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
+import {
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#src/libs/theme/utils';
 import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
 import { PrivatePassFilters } from '#src/libs/private-service/types';
 import {
@@ -258,12 +261,11 @@ export const getCreditInfo = (
   pack: PaymentPack | PaymentPackTemplate,
   t: TFunction,
   isManager: boolean = false,
-  creditScaleFactor: number = 1,
 ) => {
   const { unlimited, theorical_margin_value, credits } = pack;
   let creditInfo: string = '';
   if (!unlimited) {
-    creditInfo = `${credits / (creditScaleFactor || 1)}\u00A0${t('credits', {
+    creditInfo = `${getCreditsDividedValue(credits)}\u00A0${t('credits', {
       count: credits,
     }).toLowerCase()}`;
   } else {

@@ -390,8 +390,6 @@ export class PaymentPackList extends React.Component<Props, State> {
               key={pack.id}
               disabled
               divider
-              // @ts-expect-error
-              creditScaleFactor={this.props.theme.pass_credit_factor}
               onClick={
                 pack.disabled ? null : () => this.props.goToPack(pack.id)
               }
@@ -763,8 +761,6 @@ export class PaymentPackList extends React.Component<Props, State> {
                 }
                 closeForm={this.closePaymentPackFormDrawer}
                 compatibleServicePass={this.props.compatibleServicePass}
-                // @ts-expect-error
-                creditScaleFactor={this.props.theme.pass_credit_factor}
                 displayNewCheckoutFlow={
                   this.props.theme.display_new_checkout_flow
                 }

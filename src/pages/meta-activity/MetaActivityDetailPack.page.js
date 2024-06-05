@@ -103,7 +103,6 @@ export class MetaActivityDetailPacks extends Component<state, Props> {
       <PaymentPackListItem
         key={pack.id}
         divider
-        creditScaleFactor={this.props.theme.pass_credit_factor}
         onClick={() => this.props.goToPack(this.props.id, pack.id)}
         pack={pack}
         selected={pack.id === this.props.packId}

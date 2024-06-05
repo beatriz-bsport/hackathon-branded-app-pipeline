@@ -389,8 +389,6 @@ export class PaymentPackDetail extends Component<Props, State> {
               <PaymentPackCard
                 // @ts-expect-error
                 isManager
-                // @ts-expect-error
-                creditScaleFactor={this.props.theme.pass_credit_factor}
                 loadingMassExtension={this.props.loadingMassExtension}
                 onDeleteButtonClick={
                   // @ts-expect-error
@@ -611,8 +609,6 @@ export class PaymentPackDetail extends Component<Props, State> {
               }
               closeForm={this.closePaymentPackFormDrawer}
               compatibleServicePass={this.props.compatibleServicePass}
-              // @ts-expect-error
-              creditScaleFactor={this.props.theme.pass_credit_factor}
               displayNewCheckoutFlow={
                 this.props.theme.display_new_checkout_flow
               }

@@ -145,6 +145,12 @@ exports.default = {
     next: 'Next',
     save: 'Save',
     delete: 'Delete',
+    viewPreview: 'View Preview',
+    preview: 'Preview',
+    pushNotificationTitle: 'Push notification',
+    smartListTitle: 'Smartlist',
+    included: 'Included',
+    excluded: 'Excluded',
     passNotificationDeleteDialog: {
       title: 'Delete this notification',
       warning: {

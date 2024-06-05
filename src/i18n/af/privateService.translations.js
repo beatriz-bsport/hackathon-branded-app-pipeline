@@ -839,6 +839,7 @@ const getTranslations = async () => {
       credits: 'Credit(s)',
       expiration: 'Validity',
       all: 'All passes',
+      empty: 'All appointment passes',
       isValidToday: 'Valid',
     },
     recurrenceRule: {

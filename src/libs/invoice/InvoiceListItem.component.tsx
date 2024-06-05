@@ -15,11 +15,12 @@ import { getInvoiceIdentifier } from '#libs/invoice/utils';
 type Props = {
   onClick: (uuid: string) => void;
   invoice: Invoice;
+  disabled?: boolean;
 };
 
 const InvoiceListItem = (props: Props) => {
   const classes = useStyles({ reverted: props?.invoice?.reverted });
-  const { invoice } = props;
+  const { invoice, disabled } = props;
 
   if (!invoice) {
     return <LoadingListItem dense divider />;
@@ -41,6 +42,7 @@ const InvoiceListItem = (props: Props) => {
       button
       dense
       divider
+      disabled={disabled}
       onClick={() => props.onClick(invoice.uuid)}
     >
       <ListItemText primary={invoiceDate} secondary={invoiceId} />

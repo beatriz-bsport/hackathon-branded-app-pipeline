@@ -131,10 +131,8 @@
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
     "format": "find src -name \"*.js\" | xargs yarn prettier --write",
-    "start": "export NODE_OPTIONS=--openssl-legacy-provider && yarn updateTranslation && cp envs/local public/env.js && BROWSER=none node scripts/start.js",
-    "start-wp": "export NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development && yarn updateTranslation && cp envs/local public/env.js && BROWSER=none webpack serve --config config/webpack.dev.js",
-    "start-staging": "export NODE_OPTIONS=--openssl-legacy-provider && yarn updateTranslation && cp envs/staging-api-only public/env.js && node scripts/start.js",
-    "start-staging-wp": "export NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development && yarn updateTranslation && cp envs/staging-api-only public/env.js && BROWSER=none webpack serve --config config/webpack.dev.js",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development && yarn updateTranslation && cp envs/local public/env.js && BROWSER=none webpack serve --config config/webpack.dev.js",
+    "start-staging": "export NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development && yarn updateTranslation && cp envs/staging-api-only public/env.js && BROWSER=none webpack serve --config config/webpack.dev.js",
     "build": "export CI=false ; node --max_old_space_size=19000 scripts/build.js",
     "server:build": "webpack -p --progress",
     "test": "export NODE_OPTIONS=--openssl-legacy-provider && yarn jest --logHeapUsage",

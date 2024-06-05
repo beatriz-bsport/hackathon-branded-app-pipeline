@@ -1,15 +1,15 @@
 export type NXPrintAffectedOutput = {
-  projects: string[],
+  projects: string[];
   projectGraph: {
-    nodes: string[],
+    nodes: {};
     dependencies: {
       [projectName: string]: {
-        source: string,
-        target: string,
-        type: string,
-      }[]
-    }
-  }
-}
+        source: string;
+        target: string;
+        type: string;
+      }[];
+    };
+  };
+};
 
-export type { PackageJson } from 'type-fest'
+export type { PackageJson } from "type-fest";

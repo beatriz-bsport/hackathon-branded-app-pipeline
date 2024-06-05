@@ -1,12 +1,12 @@
-import type { Command } from 'commander'
+import type { Command } from "commander";
 
-import commandCreate from './command-create'
-import commandList from './command-list'
-import projectCreate from './project-create'
-import projectImport from './project-import'
-import projectList from './project-list'
-import projectDependenciesList from './project-dependencies-list'
-import dbSync from './db-sync'
+import commandCreate from "./command-create";
+import commandList from "./command-list";
+import projectCreate from "./project-create";
+import projectImport from "./project-import";
+import projectList from "./project-list";
+import projectDependenciesList from "./project-dependencies-list";
+import dbSync from "./db-sync";
 // DO NOT REMOVE THIS LINE: IMPORTS
 
 const COMMANDS: ((program: Command) => Command)[] = [
@@ -18,6 +18,6 @@ const COMMANDS: ((program: Command) => Command)[] = [
   projectDependenciesList,
   dbSync,
   // DO NOT REMOVE THIS LINE: COMMANDS
-]
+];
 
-export default COMMANDS
+export default COMMANDS;

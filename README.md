@@ -2,6 +2,86 @@
 
 This project is a simple implementation of how a Monorepository can be configured with [pnpm workspaces](https://pnpm.io/fr/workspaces) and [NxJS](https://nx.dev/).
 
+## How to use
+
+### Get started
+
+1. Install [pnpm](https://pnpm.io/). Current version: 9.1.4
+
+On MacOS,
+
+```sh
+curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=9.1.4 sh -
+```
+
+2. Install [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) and run
+
+```sh
+nvm install && nvm use
+```
+
+3. Install dependencies
+
+```sh
+pnpm install
+```
+
+### Run a project
+
+To run of an app, you can either
+
+```sh
+cd app/app-1 && pnpm run start
+```
+
+or
+
+```sh
+pnpm run -w nx start @bsport/app-1
+```
+
+## Quick guide
+
+### CLI commands
+
+#### Utils
+
+To administrate the monorepository you can use the [`monorepo-utils`](/tools/monorepo-utils/README.md) command. It allows you to create new projects, commands, etc...
+
+```sh
+pnpm run utils --help
+```
+
+### Create project
+
+To create a new project, you can use the `project:create` command.
+
+```sh
+pnpm run project:create
+```
+
+It will ask you some questions to create the project:
+
+- The project name that will be used to create the folder and the `package.json` file.
+- The path where the project will be created. It can be relative to the monorepo root or absolute.
+- The template you want to use. The templates are located in the [`/templates`](/templates) folder. You can create your own templates and use them in this command.
+
+Full documentation [here](/tools/monorepo-utils/README.md#projectcreate).
+
+### Add pre-commit hook
+
+If you need your project to include a "pre-commit" hook, you can add it to the `package.json` file of your project.
+
+```json
+{
+  "scripts": {
+    "pre-commit": "your command"
+  }
+}
+```
+
+It will be executed just before committing (don't forget to use `git add` if you want your changes to be added) when your project has some changes compared to remote branch `origin/main`.
+
 ## Structure
 
 ```tree

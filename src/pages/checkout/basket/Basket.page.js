@@ -344,6 +344,10 @@ export class BasketPage extends React.Component<Props> {
             clientSecretLoading: false,
           });
         }
+
+        // TEMP: While installment payments are not available on PayPal, we remove them from the backend when creating PayPal payment attempt. So we need to refetch the basket in this case.
+        // Should be removed with BS-4286
+        this.props.refreshBasket();
       })
       .catch((err) => {
         console.error(err);

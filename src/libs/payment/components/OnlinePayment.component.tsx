@@ -164,17 +164,13 @@ const OnlinePayment: React.FC<Props> = forwardRef(
         if (setPaymentEngine) {
           if (paymentMethod === PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET) {
             setPaymentEngine(PAYMENT_ENGINE_PAYPAL);
-
-            // Only temporary while instalment payments are not available with PayPal.
-            // Incoming with BS-3592
-            if (onSelectInstalmentPayment) onSelectInstalmentPayment(null);
           } else {
             setPaymentEngine(PAYMENT_ENGINE_STRIPE);
           }
         }
         selectPaymentMethod(paymentMethod);
       },
-      [selectPaymentMethod, setPaymentEngine, onSelectInstalmentPayment],
+      [selectPaymentMethod, setPaymentEngine],
     );
 
     const classes = useStyles();

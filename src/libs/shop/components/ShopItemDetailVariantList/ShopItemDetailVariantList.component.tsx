@@ -44,14 +44,18 @@ type Props = {
   isVariantEditMode?: boolean;
   onDeleteShopItemVariant: (id: number) => void;
   shopItemVariantList: ShopItem[];
+  isSupplierPriceHidden?: boolean;
 };
 
-type TableRowItemProps = {
-  companyId?: number;
+type TableRowItemProps = Pick<
+  Props,
+  | 'onDeleteShopItemVariant'
+  | 'isSupplierPriceHidden'
+  | 'isDeletingVariant'
+  | 'companyId'
+> & {
   item: ShopItem;
-  isDeletingVariant?: boolean;
   onShowBarcode: (barcode: string) => void;
-  onDeleteShopItemVariant: (id: number) => void;
 };
 
 const TableRowItem: React.FC<TableRowItemProps> = React.memo(
@@ -59,6 +63,7 @@ const TableRowItem: React.FC<TableRowItemProps> = React.memo(
     companyId,
     item,
     isDeletingVariant,
+    isSupplierPriceHidden,
     onShowBarcode,
     onDeleteShopItemVariant,
   }) => {
@@ -109,9 +114,11 @@ const TableRowItem: React.FC<TableRowItemProps> = React.memo(
           </div>
         </TableCell>
         <TableCell>{getCurrencyDisplayWithPrice(item.price)}</TableCell>
-        <TableCell>
-          {getCurrencyDisplayWithPrice(item.supplier_price)}
-        </TableCell>
+        {!isSupplierPriceHidden && (
+          <TableCell>
+            {getCurrencyDisplayWithPrice(item.supplier_price)}
+          </TableCell>
+        )}
         <TableCell>{item.stock_keeping_unit}</TableCell>
         <TableCell>{item.barcode}</TableCell>
         <TableCell>
@@ -187,6 +194,7 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
   isVariantEditMode,
   onDeleteShopItemVariant,
   shopItemVariantList,
+  isSupplierPriceHidden,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -258,9 +266,11 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
                 <TableCell>
                   {t('shopItemDetail.table.variants.price')}
                 </TableCell>
-                <TableCell>
-                  {t('shopItemDetail.table.variants.supplierPrice')}
-                </TableCell>
+                {!isSupplierPriceHidden && (
+                  <TableCell>
+                    {t('shopItemDetail.table.variants.supplierPrice')}
+                  </TableCell>
+                )}
                 <TableCell>{t('shopItemDetail.table.variants.sku')}</TableCell>
                 <TableCell>
                   {t('shopItemDetail.table.variants.barcode')}
@@ -281,6 +291,7 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
                     key={row.id}
                     companyId={companyId}
                     isDeletingVariant={isDeletingVariant}
+                    isSupplierPriceHidden={isSupplierPriceHidden}
                     item={row}
                     onDeleteShopItemVariant={onDeleteShopItemVariant}
                     onShowBarcode={handleShowBarcode}

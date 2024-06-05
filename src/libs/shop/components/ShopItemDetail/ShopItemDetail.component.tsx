@@ -64,6 +64,7 @@ type Props = {
     colors: SelectOption[];
     sizes: SelectOption[];
   };
+  isSupplierPriceHidden?: boolean;
   getIsShopItemUsedInCombo: (shopItemId: number) => boolean;
   updateShopItem: (
     formData: Partial<ShopItemEdit>,
@@ -111,6 +112,7 @@ const ShopItemDetail: React.FC<Props> = ({
   variantCombinationList,
   shopItemVariantFilterOptionList,
   shopItemVariantFilterOptionValues,
+  isSupplierPriceHidden,
   getIsShopItemUsedInCombo,
   bookkeepingAccounts,
   bookkeepingAccountById,
@@ -329,6 +331,7 @@ const ShopItemDetail: React.FC<Props> = ({
           handleOpenVariantDrawer={handleOpenCreateVariantDrawer}
           isDeletingVariant={isDeletingVariant}
           isLoading={isLoading}
+          isSupplierPriceHidden={isSupplierPriceHidden}
           isUpdatingVariant={isUpdatingVariant}
           isVariantEditMode={isVariantEditMode}
           isVariantListLoading={isVariantListLoading}

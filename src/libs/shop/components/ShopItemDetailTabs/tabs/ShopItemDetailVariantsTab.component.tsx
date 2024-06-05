@@ -26,6 +26,7 @@ type Props = {
   page: number;
   count: number;
   isVariantEditMode?: boolean;
+  isSupplierPriceHidden?: boolean;
   handleOpenBarcodeModal: (barcode: string) => void;
   handleOpenVariantDrawer: () => void;
   onDeleteShopItemVariant: (id: number) => void;
@@ -41,6 +42,7 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
   page,
   count,
   isVariantEditMode,
+  isSupplierPriceHidden,
   handleOpenBarcodeModal,
   handleOpenVariantDrawer,
   onDeleteShopItemVariant,
@@ -141,6 +143,7 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
     >
       {isMobile ? (
         <ShopItemDetailVariantListMobile
+          isSupplierPriceHidden={isSupplierPriceHidden}
           shopItemVariantList={shopItemVariantList}
         />
       ) : (
@@ -152,6 +155,7 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
           handleShowBarcode={handleShowBarcode}
           handleSubmit={handleSubmit}
           isDeletingVariant={isDeletingVariant}
+          isSupplierPriceHidden={isSupplierPriceHidden}
           isVariantEditMode={isVariantEditMode}
           onDeleteShopItemVariant={onDeleteShopItemVariant}
           shopItemVariantList={shopItemVariantList}

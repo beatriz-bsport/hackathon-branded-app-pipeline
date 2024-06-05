@@ -56,6 +56,7 @@ type Props = {
     sizes: SelectOption[];
   };
   variantCombinationListCount: number;
+  isSupplierPriceHidden?: boolean;
   handleOpenBarcodeModal: (barcode: string) => void;
   handleOpenVariantDrawer: () => void;
   updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
@@ -92,6 +93,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   shopItemVariantFilterOptionList,
   shopItemVariantFilterOptionValues,
   variantCombinationListCount,
+  isSupplierPriceHidden,
   handleOpenBarcodeModal,
   handleOpenVariantDrawer,
   updateShopItemVariantBulk,
@@ -188,6 +190,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
               handleOpenBarcodeModal={handleOpenBarcodeModal}
               handleOpenVariantDrawer={handleOpenVariantDrawer}
               isDeletingVariant={isDeletingVariant}
+              isSupplierPriceHidden={isSupplierPriceHidden}
               isVariantEditMode={isVariantEditMode}
               onDeleteShopItemVariant={onDeleteShopItemVariant}
               page={page}
@@ -207,6 +210,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
                 isDeliverable={shopItem.is_deliverable}
                 isFeatured={shopItem.featured}
                 isMarketplaceEnabled={shopItem.marketplace_enabled}
+                isSupplierPriceHidden={isSupplierPriceHidden}
                 productHasVariants={count > 0}
                 sellOnlyOnProvision={shopItem.sell_only_on_provision}
                 stockKeepingUnit={shopItem.stock_keeping_unit}

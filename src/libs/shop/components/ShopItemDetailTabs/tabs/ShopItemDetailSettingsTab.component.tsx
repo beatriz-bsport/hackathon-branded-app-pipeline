@@ -34,6 +34,7 @@ type Props = {
   supplierPrice: string;
   tva: string;
   productHasVariants?: boolean;
+  isSupplierPriceHidden?: boolean;
   handleOpenBarcodeModal: (barcode: string) => void;
 };
 
@@ -107,6 +108,7 @@ const ShopItemDetailSettingsTab: React.FC<Props> = ({
   supplierPrice,
   tva,
   productHasVariants,
+  isSupplierPriceHidden,
   handleOpenBarcodeModal,
 }) => {
   const classes = useStyles();
@@ -138,12 +140,14 @@ const ShopItemDetailSettingsTab: React.FC<Props> = ({
 
         <Divider />
 
-        <ListItem className={classes.listItem}>
-          <Typography variant="subtitle2">
-            {t('shopItemDetail.table.settings.supplierPrice')}
-          </Typography>
-          <div className={classes.listItemValue}>{supplierPrice}</div>
-        </ListItem>
+        {!isSupplierPriceHidden && (
+          <ListItem className={classes.listItem}>
+            <Typography variant="subtitle2">
+              {t('shopItemDetail.table.settings.supplierPrice')}
+            </Typography>
+            <div className={classes.listItemValue}>{supplierPrice}</div>
+          </ListItem>
+        )}
 
         <Divider />
 

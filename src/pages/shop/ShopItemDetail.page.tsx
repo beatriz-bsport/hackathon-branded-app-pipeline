@@ -26,6 +26,8 @@ import {
   fetchShopSupplierList as fetchShopSupplierListAction,
 } from '#libs/shop/actions/supplier';
 
+import { retrieveFranchise as retrieveFranchiseAction } from '#libs/franchise/actions';
+
 // --- SELECTORS ---
 import { getTheme } from '#libs/theme/selectors';
 import {
@@ -46,6 +48,7 @@ import {
   getBookkeepingAccountList,
   getBookkeepingAccountById,
 } from '#libs/payment/selectors';
+import { getFranchisor } from '#libs/franchise/selectors';
 
 // --- COMPONENTS ---
 import ShopItemDetail from '#libs/shop/components/ShopItemDetail';
@@ -95,6 +98,8 @@ export class ShopItemDetailPage extends Component<Props> {
     this.props.fetchShopItemVariantCombinationList(this.props.id);
     IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
       this.props.fetchBookkeepingAccountList();
+    this.props.theme.franchisor &&
+      this.props.retrieveFranchise(this.props.theme.franchisor);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -269,6 +274,20 @@ export class ShopItemDetailPage extends Component<Props> {
     this.props.retrieveShopItemUsedInCombo(id);
 
   /**
+   * Computes if the current shop item has been created from the master account
+   * If it is the case and
+   * @returns {boolean}
+   */
+  isSupplierPriceHidden = () => {
+    const isShopItemCreatedFromFranchise =
+      !!this.props.shopItem?.shop_item_template;
+    return (
+      isShopItemCreatedFromFranchise &&
+      this.props.franchisor?.hide_shop_supplier_price_for_franchisees
+    );
+  };
+
+  /**
    * Transform the color/size query params into an array of selector options
    * to set selector options on page render (if any query params)
    */
@@ -301,6 +320,7 @@ export class ShopItemDetailPage extends Component<Props> {
         isDeleting={this.props.isDeleteLoading}
         isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
+        isSupplierPriceHidden={this.isSupplierPriceHidden()}
         isUpdatingVariant={this.props.isUpdateVariantLoading}
         isVariantListLoading={this.props.isVariantListLoading}
         page={this.props.shopItemVariantState.page}
@@ -327,6 +347,7 @@ export class ShopItemDetailPage extends Component<Props> {
 
 const connector = connect(
   (state: RootState, { id }: { id: number }) => ({
+    franchisor: getFranchisor(state),
     theme: getTheme(state),
     isLoading: getShopItemDetailLoading(state),
     isVariantListLoading: getShopItemVariantListLoading(state),
@@ -365,6 +386,7 @@ const connector = connect(
       fetchShopItemVariantCombinationListAction,
     backToShopPage: () => push('/shop'),
     fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
+    retrieveFranchise: retrieveFranchiseAction,
   },
 );
 

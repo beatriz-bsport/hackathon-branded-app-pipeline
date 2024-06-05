@@ -13,10 +13,12 @@ import type { ShopItem } from '#libs/shop/types';
 
 type Props = {
   shopItemVariantList: ShopItem[];
+  isSupplierPriceHidden?: boolean;
 };
 
 const ShopItemDetailVariantListMobile: React.FC<Props> = ({
   shopItemVariantList,
+  isSupplierPriceHidden,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -45,11 +47,13 @@ const ShopItemDetailVariantListMobile: React.FC<Props> = ({
             </Typography>
 
             <div className={classes.flexColumn}>
-              <Typography variant="body2">
-                {`${t(
-                  'shopItemDetail.table.variants.supplierPrice',
-                )}: ${getCurrencyDisplayWithPrice(variant.supplier_price)}`}
-              </Typography>
+              {!isSupplierPriceHidden && (
+                <Typography variant="body2">
+                  {`${t(
+                    'shopItemDetail.table.variants.supplierPrice',
+                  )}: ${getCurrencyDisplayWithPrice(variant.supplier_price)}`}
+                </Typography>
+              )}
               <Typography variant="body2">
                 {`${t('shopItemDetail.table.variants.sku')}: ${
                   variant.stock_keeping_unit || 'N/A'

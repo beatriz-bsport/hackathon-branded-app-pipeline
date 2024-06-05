@@ -64,6 +64,7 @@ export type ShopItem = {
     id: number;
     name: string;
   };
+  bookkeeping_account?: number;
   cover: string | null;
   current_stock?: number;
   description: string;
@@ -78,6 +79,7 @@ export type ShopItem = {
   number_of_variants: number;
   price: string;
   sell_only_on_provision: boolean;
+  shop_item_template: number | null;
   size: string;
   stock_keeping_unit: string;
   subshop: number;
@@ -88,10 +90,12 @@ export type ShopItem = {
   total_sales?: number;
   tva: string;
   unlimited_provisions?: boolean;
-  bookkeeping_account?: number;
 };
 
-export type ShopItemTemplate = Omit<ShopItem, 'supplier' | 'subshop'> & {
+export type ShopItemTemplate = Omit<
+  ShopItem,
+  'supplier' | 'subshop' | 'shop_item_template'
+> & {
   franchisor: number;
   sub_shop_template: number;
   supplier_template: number | null;

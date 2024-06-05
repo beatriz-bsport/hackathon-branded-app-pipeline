@@ -112,6 +112,7 @@ export const shopItemFactory = (options?: ShopItemFactoryOptions) => {
       faker.number.int({ min: 1, max: 1000 }),
       null,
     ]),
+    shop_item_template: faker.number.int({ max: 10000 }),
     ...(options?.isFranchise && {
       franchisor: faker.number.int({ max: 10000 }),
     }),

@@ -594,8 +594,6 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                         bookingsLoading={bookingsLoading || !bookings}
                         companyId={companyId}
                         companyTheme={theme}
-                        // @ts-expect-error
-                        creditScaleFactor={theme.pass_credit_factor}
                         goToOfferManagement={navigateToOffer}
                         members={members}
                         membersLoading={membersLoading || !members}
@@ -642,8 +640,6 @@ const WorkshopActivityGroup: React.FC<Props> = ({
               coachPaymentRulesByKind={coachPaymentRulesByKind}
               createGroupOffers={handleCreateGroup}
               createLevel={createLevel}
-              // @ts-expect-error
-              creditScaleFactor={theme.pass_credit_factor}
               customLevels={customLevels}
               deleteLevel={deleteLevel}
               fetchLevelList={handleFetchLevel}
@@ -674,8 +670,6 @@ const WorkshopActivityGroup: React.FC<Props> = ({
               coaches={coaches}
               coachPaymentRulesByKind={coachPaymentRulesByKind}
               createLevel={createLevel}
-              // @ts-expect-error
-              creditScaleFactor={theme.pass_credit_factor}
               customLevels={customLevels}
               deleteLevel={deleteLevel}
               fetchLevelList={handleFetchLevel}
@@ -746,8 +740,6 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                   coaches={coaches}
                   coachPaymentRulesByKind={coachPaymentRulesByKind}
                   createLevel={createLevel}
-                  // @ts-expect-error
-                  creditScaleFactor={theme.pass_credit_factor}
                   deleteLevel={deleteLevel}
                   fetchLevelList={handleFetchLevel}
                   fetchSimilarOffers={fetchSimilarOffers}

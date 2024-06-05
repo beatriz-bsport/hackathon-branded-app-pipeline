@@ -42,6 +42,7 @@ import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPa
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import OfferCardStastiticsContainer from '../../libs/offer/components/OfferCardStastisticsContainer.component';
 import OfferDetail from './OfferDetail.component';
+import { getCreditsDividedValue } from '#src/libs/theme/utils';
 
 type Props = {
   t: TFunction,
@@ -63,7 +64,6 @@ type Props = {
   showVaccinationStatus: boolean,
   onModifyTags?: (offer: Offer) => void,
   companyTheme?: CompanyTheme,
-  creditScaleFactor: number,
 };
 
 type State = {
@@ -80,7 +80,7 @@ export class OfferCard extends Component<Props, State> {
   }
 
   getHeader = () => {
-    const { classes, t, offer, companyTheme, creditScaleFactor } = this.props;
+    const { classes, t, offer, companyTheme } = this.props;
     const {
       available,
       name,
@@ -110,11 +110,11 @@ export class OfferCard extends Component<Props, State> {
                     {meta_activity?.name && `${meta_activity.name}`}
                   </Typography>
                 )}
-                {credit_price_override !== 1 * creditScaleFactor
-                  ? `${credit_price_override / (creditScaleFactor || 1)} ${t(
-                      'offer:credit_price',
-                    )}`
-                  : null}
+                <Typography component="span" variant="body2">
+                  {`${getCreditsDividedValue(credit_price_override)} ${t(
+                    'offer:credit_price',
+                  )}`}
+                </Typography>
               </div>
             }
           />

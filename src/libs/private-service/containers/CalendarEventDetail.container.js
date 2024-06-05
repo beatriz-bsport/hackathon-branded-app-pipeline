@@ -728,7 +728,6 @@ export class CalendarEventDetail extends React.Component<Props, State> {
             coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
             companyId={this.props.companyId}
             createLevel={this.props.createLevel}
-            creditScaleFactor={this.props.theme.pass_credit_factor}
             deleteLevel={this.props.deleteLevel}
             fetchLevelList={this.handleFetchLevel}
             fetchSimilarOffers={this.props.fetchSimilarOffers}

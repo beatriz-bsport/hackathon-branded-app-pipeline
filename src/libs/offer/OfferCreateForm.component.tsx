@@ -69,8 +69,6 @@ type ComponentProps = {
   deleteLevel?: (id: number, options?: OptionCallback) => void;
   onCancel: () => void;
   onBannerGoBack?: () => void;
-  // eslint-disable-next-line
-  creditScaleFactor: number;
   onSelectMetaActivity?: (activity: MetaActivity) => void;
 };
 
@@ -312,10 +310,7 @@ const formikFormWrapper = withFormik<
   enableReinitialize: false,
   validationSchema: OfferFormCreationValidationSchema,
   validateOnBlur: false,
-  handleSubmit: (
-    values,
-    { props: { timezone, creditScaleFactor, onSubmit, metaActivity } },
-  ) => {
+  handleSubmit: (values, { props: { timezone, onSubmit, metaActivity } }) => {
     const {
       level,
       effectif,
@@ -370,7 +365,7 @@ const formikFormWrapper = withFormik<
       partner_max_booking_count: partnerMaxBookingCount,
       waiting_list_max_size: waitingListMaxSize,
       level,
-      credits: credits * (creditScaleFactor || 1),
+      credits,
       duration_minute: durationMinute,
       broadcast_link: broadcastLink,
       coach_payment_rule: coachPaymentRule,

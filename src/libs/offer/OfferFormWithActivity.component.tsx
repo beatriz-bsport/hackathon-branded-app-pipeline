@@ -51,7 +51,6 @@ type Props = {
   zoomAppDetail: ZoomApp;
   coachesLoading: boolean;
   establishmentsLoading: boolean;
-  creditScaleFactor: number;
 };
 
 export const OfferFormWithActivity: React.FC<Props> = ({
@@ -79,7 +78,6 @@ export const OfferFormWithActivity: React.FC<Props> = ({
   zoomAppDetail,
   coachesLoading,
   establishmentsLoading,
-  creditScaleFactor,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['metaActivity', 'translation', 'common']);
@@ -141,7 +139,6 @@ export const OfferFormWithActivity: React.FC<Props> = ({
       coaches={coaches}
       coachPaymentRulesByKind={coachPaymentRulesByKind}
       createLevel={createLevel}
-      creditScaleFactor={creditScaleFactor}
       deleteLevel={deleteLevel}
       fetchLevelList={fetchLevelList}
       isLoading={coachesLoading || establishmentsLoading}

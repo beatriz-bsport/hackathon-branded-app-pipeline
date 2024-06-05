@@ -43,7 +43,8 @@ import {
 import { OffersGroup } from '#src/libs/group-offer/types';
 import SpotSchedulingHelper from '#src/libs/spot-scheduling/utils';
 import { Offer } from '../../api/types';
-import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
+import { OptionCallback, OptionPaginatedCallback } from '#src/state/types';
+import { getCreditsDividedValue } from '#src/libs/theme/utils';
 
 type ComponentProps = {
   metaActivity: MetaActivity<number>;
@@ -95,7 +96,6 @@ type ComponentProps = {
   onCancel: () => void;
   onBannerGoBack?: () => void;
   fetchSimilarOffers: (id: number, params?: OfferFilterData) => void;
-  creditScaleFactor: number;
 };
 
 type FormProps = {
@@ -137,7 +137,6 @@ export const OfferEditForm = (props: Props) => {
     deleteLevel,
     onCancel,
     onBannerGoBack,
-    creditScaleFactor,
   } = props;
 
   const [editCurrentStep, setEditCurrentStep] = useState(
@@ -291,11 +290,7 @@ export const OfferEditForm = (props: Props) => {
             createLevel={createLevel}
             deleteLevel={handleDeleteLevel}
             fetchLevelList={fetchLevelList}
-            initialOfferCredits={
-              offer?.credit_price
-                ? offer?.credit_price / (creditScaleFactor || 1)
-                : offer?.credit_price
-            }
+            initialOfferCredits={getCreditsDividedValue(offer?.credit_price)}
             isBroadcast={metaActivity?.is_broadcast}
             isOfferInGroup={isOfferInGroup}
             isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
@@ -370,8 +365,8 @@ const formikFormWrapper = withFormik<
     coachPaymentRule: props.offer?.coach_payment_rule_id ?? null,
     credits:
       props.offer?.credit_price !== undefined
-        ? props.offer?.credit_price / props.creditScaleFactor
-        : props.offer?.credits / props.creditScaleFactor,
+        ? props.offer?.credit_price
+        : props.offer?.credits,
     dateIntervalStart: props.offer
       ? DateTime.fromISO(props.offer.date_start)
       : DateTime.now(),
@@ -411,10 +406,7 @@ const formikFormWrapper = withFormik<
   enableReinitialize: true,
   validationSchema: OfferEditFormValidationSchema,
   validateOnBlur: false,
-  handleSubmit: (
-    values,
-    { props: { offer, similarOffers, onSubmit, creditScaleFactor } },
-  ) => {
+  handleSubmit: (values, { props: { offer, similarOffers, onSubmit } }) => {
     const {
       level,
       effectif,
@@ -498,9 +490,9 @@ const formikFormWrapper = withFormik<
     };
 
     if (offer.credit_price !== undefined && credits !== offer.credit_price) {
-      offerData.credit_price_override = credits * creditScaleFactor;
+      offerData.credit_price_override = credits;
     } else {
-      offerData.credits = credits * creditScaleFactor;
+      offerData.credits = credits;
     }
 
     if (roomBlueprint) {

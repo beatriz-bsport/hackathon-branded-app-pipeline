@@ -684,8 +684,6 @@ const OfferDialogs: React.FC<{
   handleCloseOffersModal,
   coachPaymentRulesByKind,
   offerEdited,
-  // @ts-expect-error
-  creditScaleFactor,
   handleResetEdit,
   allRoomBlueprints,
   handleEditOffer,
@@ -708,7 +706,6 @@ const OfferDialogs: React.FC<{
         subtitle={t('translation:common.offerCreation')}
         title={t('translation:common.offers')}
       >
-        {/* @ts-expect-error */}
         <OfferCreateForm
           editableCoachPaymentRule
           hideActivitySection
@@ -746,7 +743,6 @@ const OfferDialogs: React.FC<{
           availableEstablishments={availableEstablishments}
           coaches={coaches}
           coachPaymentRulesByKind={coachPaymentRulesByKind}
-          creditScaleFactor={creditScaleFactor}
           isLoading={!offerEdited}
           isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
           metaActivities={[metaActivity]}

@@ -124,8 +124,6 @@ export class OfferFormPage extends Component<Props, {}> {
               coaches={this.props.coaches}
               coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
               createLevel={this.props.createLevel}
-              // @ts-expect-error
-              creditScaleFactor={this.props.theme.pass_credit_factor}
               deleteLevel={this.props.deleteLevel}
               error={this.props.error}
               fetchLevelList={this.handleFetchLevel}

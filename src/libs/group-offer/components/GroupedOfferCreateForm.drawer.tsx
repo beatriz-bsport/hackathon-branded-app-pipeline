@@ -67,7 +67,6 @@ export type Props = {
   resetPreview: () => void;
   onClose?: () => void;
   zoomAppDetail: ZoomApp;
-  creditScaleFactor: number;
 };
 
 const STEP_METACTIVITY_SELECT = 0;
@@ -98,7 +97,6 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
   generatePreview,
   createGroupOffers,
   zoomAppDetail,
-  creditScaleFactor,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -319,8 +317,6 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
               coaches={coaches}
               coachPaymentRulesByKind={coachPaymentRulesByKind}
               createLevel={createLevel}
-              // @ts-expect-error
-              creditScaleFactor={creditScaleFactor}
               customLevels={customLevels}
               deleteLevel={deleteLevel}
               fetchLevelList={fetchLevelList}

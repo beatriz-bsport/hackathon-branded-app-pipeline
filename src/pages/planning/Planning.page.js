@@ -782,7 +782,6 @@ export class Planning extends PureComponent<Props, State> {
             coaches={coaches}
             coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
             createLevel={this.props.createLevel}
-            creditScaleFactor={this.props.theme.pass_credit_factor}
             deleteLevel={this.props.deleteLevel}
             fetchLevelList={this.handleFetchLevel}
             fetchSimilarOffers={fetchSimilarOffers}
@@ -851,7 +850,6 @@ export class Planning extends PureComponent<Props, State> {
             coachesLoading={this.props.coachesLoading}
             coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
             createLevel={this.props.createLevel}
-            creditScaleFactor={this.props.theme.pass_credit_factor}
             deleteLevel={this.props.deleteLevel}
             establishmentsLoading={this.props.establishmentsLoading}
             fetchLevelList={this.handleFetchLevel}
@@ -1359,7 +1357,6 @@ export class Planning extends PureComponent<Props, State> {
                         }
                         companyId={this.props.companyId}
                         companyTheme={this.props.theme}
-                        creditScaleFactor={this.props.theme.pass_credit_factor}
                         goToOfferManagement={this.props.goToOfferManagement}
                         linkedHybridSession={hybridOfferLinkedToSelectedOffer}
                         members={this.props.members}

@@ -23,12 +23,12 @@ import {
   fetchEstablishments,
   fetchEstablishmentBulk,
 } from '#src/libs/establishment/actions';
-import MarketingRuleListItemPaymentPack from '#src/libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemPaymentPack.component';
 import PaymentPackCard from '#src/libs/payment-packs/components/PaymentPackCard.component';
 import PaginatedConsumerPackList from '#src/libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
 import PaymentPackDeleteDialog from '#src/libs/payment-packs/components/PaymentPackDeleteDialog.component';
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import ConsumerPaymentPackFilters from '#src/libs/payment-packs/components/ConsumerPaymentPackFilters.component';
+import MarketingRuleListPassNotifications from '#src/libs/marketing/components/marketing-rule-list-item/MarketingRulePassNotifications.component';
 import MassExtensionCreateDialog, {
   GenericExtensionCreationPayload,
 } from '#src/components/MassExtensionCreateDialog';
@@ -48,7 +48,7 @@ import {
 } from '#src/libs/email-editor/actions';
 
 import {
-  getAllEmailTemplatesSummaries,
+  getAllEmailTemplatesDict,
   getEmailTemplatesDetail,
 } from '#src/libs/email-editor/selectors';
 
@@ -79,7 +79,6 @@ import {
   updateMarketingNotification,
   deleteMarketingNotification as deleteMarketingNotificationAction,
 } from '#src/libs/marketing/actions';
-import { getPaymentPackNotifications } from '#src/libs/marketing/selectors';
 import {
   withEstablishments,
   withMetaActivities,
@@ -105,7 +104,6 @@ import type {
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '#src/libs/member/actions';
 
 import { snackbarSuccess } from '#src/libs/snackbar/actions';
-import { getAllSmartList } from '#src/libs/smart-list/selectors';
 import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 import {
   getBookkeepingAccountById,
@@ -158,6 +156,8 @@ import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 import { ConsumerPaymentPackREST } from '#src/libs/consumer-payment-pack/types';
+import { getSmartListDict } from '#src/libs/smart-list/selectors';
+import { getPaymentPackNotificationsByPackId } from '#src/libs/marketing/selectors';
 
 type OwnProps = {
   id: number;
@@ -452,25 +452,19 @@ export class PaymentPackDetail extends Component<Props, State> {
                   />
                 </div>
               )}
-              <MarketingRuleListItemPaymentPack
-                // @ts-expect-error
-                is_expired
-                createNotification={this.createNotification}
-                deleteNotification={this.props.deleteMarketingNotification}
+              <MarketingRuleListPassNotifications
                 emailDetailLoading={this.props.emailDetailLoading}
                 emailDetails={this.props.email_templates_details}
-                emailListLoading={this.props.emailListLoading}
-                emails={this.props.email_templates_list}
+                emailSummariesById={this.props.emailSummariesById}
                 getEmailDetail={this.props.fetchEmailTemplateDetail}
-                getEmails={this.props.fetchEmailTemplatesSummaries}
-                getSmartLists={this.props.getSmartLists}
-                goToSmartlist={this.props.goToSmartlist}
-                notifications={notifications}
-                pack={pack}
+                notifications={notifications.items}
+                notificationsLoading={notifications.loading}
+                // @ts-expect-error
+                pass={pack}
                 resolvedGenericTags={this.props.resolvedGenericTags}
-                smartListLoading={this.props.smartListLoading}
-                smartLists={this.props.smartLists}
-                tags={this.props.tagCategories}
+                smartListsById={this.props.smartListsById}
+                smartListsLoading={this.props.smartListLoading}
+                theme={this.props.theme}
                 updateNotification={this.props.updateMarketingNotification}
               />
             </Grid>
@@ -719,7 +713,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     )(state, props.id),
     scaleCreditLoading: state.paymentPack.scaleCredit.loading,
     notifications: {
-      items: getPaymentPackNotifications(state),
+      items: getPaymentPackNotificationsByPackId(state, props.id),
       loading: state.marketingNotification.loading,
     },
     consumerPacks: {
@@ -729,11 +723,11 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
       page: state.consumerPaymentPack.byPaymentPack.page,
       updatingById: state.consumerPaymentPack.updatingById,
     },
-    email_templates_list: getAllEmailTemplatesSummaries(state),
     email_templates_details: getEmailTemplatesDetail(state),
+    emailSummariesById: getAllEmailTemplatesDict(state),
     emailListLoading: state.emailTemplate.loading,
     emailDetailLoading: state.emailTemplate.detail.loading,
-    smartLists: getAllSmartList(state),
+    smartListsById: getSmartListDict(state),
     smartListLoading: state.smartList.loading,
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     paymentPackCategoryById: getPaymentPackCategoryById(state),

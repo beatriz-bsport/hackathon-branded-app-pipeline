@@ -82,6 +82,16 @@ export const getPaymentPackNotifications = createSelector(
   },
 );
 
+export const getPaymentPackNotificationsByPackId = (
+  state: RootState,
+  packId: number,
+) =>
+  getPaymentPackNotifications(state).filter(
+    (notif) =>
+      notif.event_rules.payment_pack_ids.includes(packId) ||
+      notif.event_rules.contains_all_payment_packs,
+  );
+
 export const getContractNotifications = createSelector(
   [_getNotificationIds, _getNotifications],
   (ids, data) => {
@@ -118,6 +128,17 @@ export const getPrivatePassNotifications = createSelector(
       );
   },
 );
+
+export const getPrivatePassNotificationsByPassId = (
+  state: RootState,
+  passId: number,
+) =>
+  getPrivatePassNotifications(state).filter(
+    (notif) =>
+      notif.event_rules.private_pass_ids.includes(passId) ||
+      notif.event_rules.contains_all_private_passes,
+  );
+
 export const getNotificationForMarketingPage = createSelector(
   [_getNotificationIds, _getNotifications],
   (ids, data) => {

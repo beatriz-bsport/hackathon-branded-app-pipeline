@@ -78,15 +78,13 @@ import {
   PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
   PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
 } from '#src/libs/private-service/utils';
-import MarketingRuleListItemPrivatePass from '#src/libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemPrivatePass.component';
-import { getPrivatePassNotifications } from '#src/libs/marketing/selectors';
 import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '#src/libs/email-editor/actions';
 import {
-  getAllEmailTemplatesSummaries,
+  getAllEmailTemplatesDict,
   getEmailTemplatesDetail,
 } from '#src/libs/email-editor/selectors';
 import {
@@ -100,7 +98,6 @@ import {
   fetchSmartListBulk as fetchSmartListBulkAction,
   fetchAllSmartLists,
 } from '#src/libs/smart-list/actions';
-import { getAllSmartList } from '#src/libs/smart-list/selectors';
 import {
   getTagCategories,
   getResolvedGenericTags,
@@ -124,6 +121,9 @@ import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constan
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
+import MarketingRulePassNotifications from '#src/libs/marketing/components/marketing-rule-list-item/MarketingRulePassNotifications.component';
+import { getPrivatePassNotificationsByPassId } from '#src/libs/marketing/selectors';
+import { getSmartListDict } from '#src/libs/smart-list/selectors';
 
 type OwnProps = {
   id: number;
@@ -305,26 +305,19 @@ export class PrivatePassDetails extends Component<Props> {
                   </div>
                 </>
               )}
-              <MarketingRuleListItemPrivatePass
-                is_expired
-                createNotification={this.createNotification}
-                deleteNotification={this.props.deleteMarketingNotification}
+
+              <MarketingRulePassNotifications
                 emailDetailLoading={this.props.emailDetailLoading}
-                // @ts-expect-error
                 emailDetails={this.props.email_templates_details}
-                emailListLoading={this.props.emailListLoading}
-                emails={this.props.email_templates_list}
+                emailSummariesById={this.props.emailSummariesById}
                 getEmailDetail={this.props.fetchEmailTemplateDetail}
-                getEmails={this.props.fetchEmailTemplatesSummaries}
-                getSmartLists={this.props.getSmartLists}
-                goToSmartlist={this.props.goToSmartlist}
-                notifications={this.props.notifications}
-                private_pass={this.props.privatePass}
+                notifications={this.props.notifications.items}
+                notificationsLoading={this.props.notifications.loading}
+                pass={this.props.privatePass}
                 resolvedGenericTags={this.props.resolvedGenericTags}
-                smartListLoading={this.props.smartListLoading}
-                // @ts-expect-error
-                smartLists={this.props.smartLists}
-                tags={this.props.tagCategories}
+                smartListsById={this.props.smartListsById}
+                smartListsLoading={this.props.smartListLoading}
+                theme={this.props.theme}
                 updateNotification={this.props.updateMarketingNotification}
               />
             </Grid>
@@ -573,15 +566,15 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   compatibleServicePass: getCompatibleServicePass(state),
   privatePassCategories: getPrivatePassCategories(state),
   notifications: {
-    items: getPrivatePassNotifications(state),
+    items: getPrivatePassNotificationsByPassId(state, id),
     loading: state.marketingNotification.loading,
   },
-  email_templates_list: getAllEmailTemplatesSummaries(state),
   email_templates_details: getEmailTemplatesDetail(state),
+  emailSummariesById: getAllEmailTemplatesDict(state),
   emailListLoading: state.emailTemplate.loading,
   emailDetailLoading: state.emailTemplate.detail.loading,
-  smartLists: getAllSmartList(state),
   smartListLoading: state.smartList.loading,
+  smartListsById: getSmartListDict(state),
   tagCategories: getTagCategories(state),
   resolvedGenericTags: getResolvedGenericTags(state),
   archivationWarning: state.privateService.privatePass.archivationWarning,

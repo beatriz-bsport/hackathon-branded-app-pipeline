@@ -882,8 +882,10 @@ const mapStateToProps = (state: RootState) => ({
   categoryList: getEditableSCTs(state),
   paymentPackByCategory: groupByCategory(
     withPaymentPackNotification(
-      // @ts-expect-error
-      withLinkedPrivatePass(withSCT(getEnabledPaymentPacks)),
+      withLinkedPrivatePass(
+        // @ts-expect-error
+        withSCT(getEnabledPaymentPacks),
+      ),
     ),
   )(state),
   disabledPacks: getDisabledPaymentPacks(state),

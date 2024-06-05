@@ -357,7 +357,6 @@ export function stampLastStripeAccountConfigurationWarningDateAction(
   };
 }
 
-// BS-3649 action called on setLogin
 function setLogin(
   {
     username,
@@ -531,7 +530,6 @@ function impersonateManagerLoading(loading: boolean) {
   return { type: types.IMPERSONATE_MANAGER_LOADING, loading };
 }
 
-// BS-3649 Impersonation function called when you impersonate a company
 export function navigateAsCompanyAdmin(
   companyId: number,
   url?: string,
@@ -616,7 +614,6 @@ function clearSessionStorageOnDeImpersonating() {
   sessionStorage.removeItem(STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR);
 }
 
-// BS-3649 Impersonation action dispatched when you click on return to Master Account
 export function navigateBackToFranchise() {
   return async (dispatch: Dispatch) => {
     try {

@@ -1,5 +1,5 @@
 import { compose, withProps } from 'recompose';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import asyncComponent from '../AsyncComponent';
 import { getAuthToken } from '../http';
 import { RootState } from '../reducers';
-import MultipleSessions from './MultipleSessions.page';
 
 // @ts-expect-error
 import { disconnect as disconnectAction } from '../actions/auth.actions';
@@ -46,12 +45,8 @@ export const UserspaceSwitcher = (props: Props) => {
     has_completed_account_configuration_on_boarding,
   } = props;
   useTranslation(namespaces);
-  const [tokenChangedInOtherTab, setTokenChangedInOtherTab] = useState(false);
-  const [authToken, setAuthToken] = useState(getAuthToken());
   useEffect(() => {
     const updateToken = () => {
-      setTokenChangedInOtherTab(storedToken !== getAuthToken());
-      setAuthToken(getAuthToken());
       if (getAuthToken() === 'null') {
         disconnect();
       }
@@ -66,17 +61,6 @@ export const UserspaceSwitcher = (props: Props) => {
       window.removeEventListener('storage', updateToken);
     };
   }, [storedToken, disconnect]);
-
-  useEffect(() => {
-    if (storedToken === authToken || authToken === 'null') {
-      setTokenChangedInOtherTab(false);
-    }
-  }, [setTokenChangedInOtherTab, authToken, storedToken]);
-
-  if (tokenChangedInOtherTab) {
-    // @ts-expect-error
-    return <MultipleSessions newToken={authToken} />;
-  }
 
   if (!authenticated) {
     return <Redirect to="/login" />;

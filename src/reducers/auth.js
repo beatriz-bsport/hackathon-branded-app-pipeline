@@ -113,7 +113,6 @@ export default function authReducers(state = initialState, action = {}) {
     case validateEmailActions.refresh.toString():
       return state.set('email_confirmed', action.payload.email_confirmed);
 
-    // BS-3649
     case actionTypes.LOGIN_SUCCESSFUL: {
       const {
         username,

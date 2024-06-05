@@ -118,7 +118,6 @@ export const getTimezoneName = () => {
     : 'Europe/Paris';
 };
 
-// TODO (Impersonate - BS-3649) : should update this function if I change from the localStorage to the sessionStorage
 export function getAuthToken() {
   return (
     sessionStorage.getItem(STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN) ||

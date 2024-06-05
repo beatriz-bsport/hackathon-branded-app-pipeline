@@ -12,7 +12,6 @@ import {
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { Button, Typography, Paper } from '@material-ui/core';
 import { Payment } from '@material-ui/icons';
-// @ts-expect-error
 import withTheme from '#hocs/company-themifier.hoc';
 
 import WidgetUtils from '#libs/widget/WidgetUtils';
@@ -27,12 +26,14 @@ import { getContractCheckoutUrl } from '#libs/marketplace/routing-utils';
 import ConsumerAppBar from './ConsumerAppBar.container';
 import themeSelectors from '../../libs/theme/selectors';
 import { WithHandlerType } from '../../utils/types';
+// @ts-expect-error
 import { withQueryParamsUndecoded } from '../../hocs/with-query-params.hoc';
 import { RootState } from '../../reducers';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 type RouterProps = {
   success: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   companyId: number;
   contractId: string;
   next?: string;

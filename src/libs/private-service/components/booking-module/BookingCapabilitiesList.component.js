@@ -37,7 +37,7 @@ export const BookingCapabilities = (props: Props) => {
   }
   return (
     <div>
-      <div classsName={classes.section}>
+      <div className={classes.section}>
         <Typography
           className={classes.sectionTitle}
           component="h4"
@@ -72,7 +72,7 @@ export const BookingCapabilities = (props: Props) => {
       </div>
 
       {props.privatePassByCategory.length === 0 ? (
-        <div classsName={classes.section}>
+        <div className={classes.section}>
           <Typography
             className={classes.sectionTitle}
             component="h4"
@@ -87,7 +87,7 @@ export const BookingCapabilities = (props: Props) => {
         </div>
       ) : (
         props.privatePassByCategory.map((cat) => (
-          <div classsName={classes.section}>
+          <div className={classes.section}>
             <Typography
               className={classes.sectionTitle}
               component="h4"

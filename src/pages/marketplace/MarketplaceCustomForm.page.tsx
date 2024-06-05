@@ -63,7 +63,7 @@ type Props = OwnAndConnectedProps &
 type State = {};
 
 export class MarketplaceCustomForm extends React.Component<Props, State> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchMembershipByCompany(this.props.companyId);
   }
 

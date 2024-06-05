@@ -63,7 +63,7 @@ export class ChangePassword extends Component<Props, State> {
 
   token: string | null;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.uid = this.props.match.params.uid;
     this.token = this.props.match.params.token;
 

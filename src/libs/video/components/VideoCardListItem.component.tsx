@@ -29,7 +29,6 @@ const VIDEO_STATUS_CREATED = 100;
 
 type OwnProps = {
   video: Video<SCT, Coach>;
-  onClick?: () => void;
   onEdit: (v: Video<SCT, Coach>) => void;
   onDelete: (v: Video<SCT, Coach>) => void;
   onRequestUpload: (v: Video<SCT, Coach>) => void;

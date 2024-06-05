@@ -12,7 +12,6 @@ export type AvatarProps = {
   size?: AvatarSize;
   className?: string;
   classes?: { icon: string };
-  defaultPicture?: string;
   type?: AvatarType;
 };
 

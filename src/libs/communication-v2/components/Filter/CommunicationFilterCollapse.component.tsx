@@ -17,7 +17,7 @@ import { SelectFieldItem } from '#libs/communication-v2/types';
 import CommunicationFilterDateField from './CommunicationFilterDateField.component';
 import CommunicationFilterGenericField from './CommunicationFilterGenericField.component';
 
-export type FilterModalProps = {
+type FilterModalProps = {
   hasKindFilter?: boolean;
   hasRecipientFilter?: boolean;
   hasChannelFilter?: boolean;
@@ -43,7 +43,6 @@ export type FilterModalProps = {
   dateStartSetter?: (newDate: DateTime) => void;
   dateEndValue?: DateTime;
   dateEndSetter?: (newDate: DateTime) => void;
-  periodHasChanged?: boolean;
   handleFiltersSubmit: () => void;
   allPreviousFilter?: {
     filters: number[];

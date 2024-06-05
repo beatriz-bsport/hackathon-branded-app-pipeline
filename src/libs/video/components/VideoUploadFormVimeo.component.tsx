@@ -17,6 +17,7 @@ import { Video } from '../types';
 import { OptionCallback } from '../../../state/types';
 
 interface OwnProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   fowardedRef: (ref: VideoProviderVimeo) => void;
   onClose: () => void;
   video: Video;

@@ -28,7 +28,7 @@ type OwnProps = {
 type Props = OwnProps & WithStyles & ConnectedProps<typeof connector>;
 
 export class CompanyDetailPage extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.retrieveMyCompanySetup();
   }
 

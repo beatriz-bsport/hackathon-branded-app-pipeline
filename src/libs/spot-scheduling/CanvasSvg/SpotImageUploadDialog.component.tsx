@@ -21,10 +21,12 @@ import { OptionCallback } from '../../../state/types';
 
 interface OwnProps {
   open: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   initial?: {
     spot_free: string;
     spot_taken: string;
   };
+  // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (
     images: { spot_free: any; spot_taken: any },
     options: OptionCallback,

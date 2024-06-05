@@ -29,7 +29,6 @@ import Config from '../../../config';
 
 type OwnProps = {
   onNext: (data: FranchiseRoleMasterAccountData) => void;
-  open: boolean;
   role?: FranchiseRoleMasterAccountData | null;
   onClose: () => void;
 };

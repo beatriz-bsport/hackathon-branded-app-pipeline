@@ -12,7 +12,6 @@ export type Props = {
   customLevels: Level[];
   selectedLevels: number[];
   inScrollBar?: boolean;
-  error?: boolean;
   onSelect: (levelId: number[]) => void;
 };
 

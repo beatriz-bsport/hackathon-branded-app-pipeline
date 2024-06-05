@@ -33,7 +33,6 @@ export type Props = {
   offerDetailsloading: boolean;
   bookedOffers: number[];
   hideCoach: boolean;
-  coaches: Coach[];
   onBookOption: (offer: Offer) => void;
   onBook: (offer: Offer) => void;
   onLoadMoreOffer: (page: number) => void;

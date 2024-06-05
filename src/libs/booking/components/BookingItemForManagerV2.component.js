@@ -663,10 +663,7 @@ export class BookingItemForManager extends Component<Props, State> {
         let Wrapper = (p) => <div>{p.children}</div>;
         if (this.props.showVaccinationStatus)
           Wrapper = (p) => (
-            <VaccinationBadge
-              topRightIcon
-              status={this.props.member.vaccination_status}
-            >
+            <VaccinationBadge topRightIcon status={member?.vaccination_status}>
               {p.children}
             </VaccinationBadge>
           );

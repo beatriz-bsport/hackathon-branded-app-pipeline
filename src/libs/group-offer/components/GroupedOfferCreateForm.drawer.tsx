@@ -26,7 +26,6 @@ import GroupedOfferFormSettings from './GroupedOfferFormSettings.component';
 import GroupedOfferPreviewForm from './GroupedOfferPreview.component';
 import { OptionCallback } from '../../../state/types';
 
-
 export type Props = {
   open: boolean;
   metaActivity?: MetaActivity | null;
@@ -52,7 +51,6 @@ export type Props = {
   updateLevel: (id: number, data: Level, options: OptionCallback) => void;
   createLevel: (data: Level, options?: OptionCallback<Level>) => void;
   deleteLevel: (id: number, options?: OptionCallback) => void;
-  handlePreviousStep: () => void;
   generatePreview: (arg0: GroupPreviewData, options?: OptionCallback) => void;
   createGroupOffers: (
     data: {

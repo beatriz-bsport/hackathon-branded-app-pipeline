@@ -14,8 +14,8 @@ import { MenuItem } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import type { ImmutableObject } from 'seamless-immutable';
-// @ts-expect-error
 import type { CommunicationSentGroupConfig } from '#libs/communication//types';
+// @ts-expect-error
 import withConfirm from '../../../../../hocs/with-confirm.hoc';
 
 import ListItemResponsiveAction from '../../../../../components/button/ListItemResponsiveAction.component';

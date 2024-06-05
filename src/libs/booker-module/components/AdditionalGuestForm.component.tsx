@@ -15,16 +15,13 @@ import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { OptionCallback } from '../../../state/types';
 import { AdditionalGuest } from '../types';
-import { Offer } from '../../offer/types';
 
 type OwnProps = {
-  offer: Offer | null;
   disabled: boolean;
   onAddAdditionalGuest: (
     guest: AdditionalGuest,
     options?: OptionCallback,
   ) => void;
-  additionalGuestList: Array<AdditionalGuest>;
   fullScreen: boolean;
 };
 

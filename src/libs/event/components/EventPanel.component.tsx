@@ -11,14 +11,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import { withTranslation, WithTranslation } from 'react-i18next';
+// @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
 import { OptionCallback } from '../../../state/types';
 import { EventListParams, GenericEvent, GenericEventSpec } from '../types';
 import EventListItem from './EventListItem.component';
-// @ts-expect-error
 import { WithHandlerType } from '../../../utils/types';
 
 type OwnProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   fetchEventList: (params: EventListParams, options?: OptionCallback) => void;
   // @ts-expect-error
   eventSpec: GenericEventSpec;
@@ -175,17 +176,14 @@ const styles: any = (theme: Theme) => ({
 
 const handlers = {
   fetchEventPage:
-    // @ts-expect-error
-
-
-      ({ fetchEventList, eventSpec, extraFetchParams }) =>
-      (page: number, eventTypeList?: Array<string>) =>
-        fetchEventList({
-          page,
-          page_size: 10,
-          event_types: eventTypeList || Object.keys(eventSpec),
-          ...(extraFetchParams || {}),
-        }),
+    ({ fetchEventList, eventSpec, extraFetchParams }: OwnProps) =>
+    (page: number, eventTypeList?: Array<string>) =>
+      fetchEventList({
+        page,
+        page_size: 10,
+        event_types: eventTypeList || Object.keys(eventSpec),
+        ...(extraFetchParams || {}),
+      }),
 };
 
 export default compose<any, OwnProps>(

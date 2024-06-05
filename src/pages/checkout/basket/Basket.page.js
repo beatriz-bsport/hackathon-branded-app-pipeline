@@ -43,6 +43,27 @@ import { withMetaActivity, withEstablishment } from '#libs/offer/selectors';
 import { WidgetUtils } from '#libs/widget/WidgetUtils';
 import themeSelectors from '#libs/theme/selectors';
 import { fetchCompanyTheme } from '#libs/theme/actions';
+import {
+  getDefaultEstablishmentBillingGroup,
+  getEnabledEstablishmentBillingGroups,
+} from '#libs/establishment/selectors';
+import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
+import {
+  fetchMember,
+  updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
+} from '#libs/member/actions';
+import { BasketAddress } from '#libs/checkout/types';
+import {
+  shouldNotRetrieveSecret,
+  hasRedirectionFailed,
+  shouldCheckPaymentStatus,
+} from '#libs/checkout/utils';
+import { fetchMembership } from '#libs/membership/actions';
+import { CouponErrorCodes } from '#libs/coupon/constants';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import { isErrorWithCustomCode } from '#libs/utils';
+import { loadDefaultEstablishmentBillingGroup } from '#libs/marketplace/utils/booking';
 import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
 import {
   addItemToBasket as addItemToBasketAction,
@@ -58,7 +79,6 @@ import {
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-
 
 import { fetchOfferBulk as fetchOfferBulkAction } from '../../../libs/offer/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../../libs/meta-activity/actions';
@@ -88,30 +108,14 @@ import {
 } from '../../../libs/snackbar/actions';
 
 import { fetchProfile } from '../../../libs/consumer-space/actions';
-import {
-  getDefaultEstablishmentBillingGroup,
-  getEnabledEstablishmentBillingGroups,
-} from '#libs/establishment/selectors';
 
 import CheckPaymentStatus from './CheckPaymentStatus.component';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
-import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
 import type {
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
   APIPollOptionCallback,
 } from '../../../state/types';
-import {
-  fetchMember,
-  updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
-} from '#libs/member/actions';
-import { BasketAddress } from '#libs/checkout/types';
-import {
-  shouldNotRetrieveSecret,
-  hasRedirectionFailed,
-  shouldCheckPaymentStatus,
-} from '#libs/checkout/utils';
-import { fetchMembership } from '#libs/membership/actions';
 import { CheckoutContext } from './CheckoutContext';
 import {
   getCheckoutValidationUrl,
@@ -119,13 +123,8 @@ import {
   getMarketplaceRoute,
   getMemberProfileRoute,
 } from '../../../libs/marketplace/routing-utils';
-import { CouponErrorCodes } from '#libs/coupon/constants';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 
-import { isErrorWithCustomCode } from '#libs/utils';
 import { type EstablishmentBillingGroup } from '../../../libs/establishment/types';
-import { loadDefaultEstablishmentBillingGroup } from '#libs/marketplace/utils/booking';
 
 type Props = {
   basket: ?Basket,
@@ -231,7 +230,7 @@ export class BasketPage extends React.Component<Props> {
     });
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.refreshBasket();
     this.props.fetchShopItemFeatured(this.props.companyId);
     this.props.retrieveCompanyCssConfiguration(this.props.companyId);

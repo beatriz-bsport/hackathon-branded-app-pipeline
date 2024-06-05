@@ -19,7 +19,6 @@ export type Props = {
   isDisabled?: boolean;
   label?: string;
   onBlur?: () => void;
-  onChange?: () => void;
 };
 
 const PasswordVisibilityButton: React.FC<ButtonProps> = ({

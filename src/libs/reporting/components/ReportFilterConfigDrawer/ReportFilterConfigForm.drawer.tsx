@@ -28,7 +28,6 @@ import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import EditIcon from '@material-ui/icons/Edit';
 import { DatatypeFilterConfigSchemaWithRequiredGroups } from '#libs/datatype-filtering/validation_schema';
 
-
 import {
   DynamicFilterDataType,
   DatatypeFilterConfigGroupOperand,
@@ -66,12 +65,14 @@ type Values = {
 export type OuterProps = {
   open: boolean;
   columns: ReportMetadataColumn[];
+  // eslint-disable-next-line react/no-unused-prop-types
   initial?: ReportFilterConfig;
   isPreview?: boolean;
   onClose?: () => void;
   handleGetDynamicDataForReport: (
     datatype: DynamicFilterDataType,
   ) => handleGetDynamicDataForFiltersReturn;
+  // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (props: {
     id: number;
     valuesHandledByDrawer: Omit<ReportFilterConfig, 'id'>;

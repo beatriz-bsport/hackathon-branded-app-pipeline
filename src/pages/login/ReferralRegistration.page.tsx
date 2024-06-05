@@ -23,8 +23,6 @@ import {
   fetchCompanyCustomMemberForm,
   submitCustomForm,
 } from '#libs/custom-form/actions';
-import { WithHandlerType } from '../../utils/types';
-import type { OptionCallback } from '../../state/types';
 import {
   getReferralLinkStatusLoading,
   getTheReferralLinkStatus,
@@ -59,15 +57,17 @@ import {
 } from '#libs/membership/actions';
 import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
 
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import withThemeProvider from '#hocs/company-themifier.hoc';
 import { buildUrlParams } from '../../http';
 // @ts-expect-error not typed
 import { requestLogin } from '../../actions/auth.actions';
 
-import './signup-page/SignupPageStyles.css';
-
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
-import withThemeProvider from '#hocs/company-themifier.hoc';
+import type { OptionCallback } from '../../state/types';
+import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
+
+import './signup-page/SignupPageStyles.css';
 
 type OwnProps = {
   title: string;

@@ -11,7 +11,6 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Collapse from '#components/css-only/Fabrique/Collapse';
 import ButtonBase from '#components/css-only/Fabrique/ButtonBase';
 import type { MaxoutData, PaymentPack } from '#libs/payment-packs/types';
-import type { CompanyTheme } from '#libs/theme/types';
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import type {
   BookerItem,
@@ -31,7 +30,6 @@ export type Props = {
   selectedItem?: BookerItem;
   selectedBuyableItemCategory?: BuyableItemCategory;
   isExcludingTax: boolean;
-  companyTheme: CompanyTheme;
   hideUnnecessaryCompatiblePurchaseMethod: boolean;
   hideCreditsForCustomers: boolean;
   onSelectConsumerPaymentPack: (

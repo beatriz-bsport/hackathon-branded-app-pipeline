@@ -24,7 +24,7 @@ type Props = {
 };
 
 export class ConsumerBookingBroadcast extends React.Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchBookingBroadcastRoom(this.props.bookingId);
   }
 

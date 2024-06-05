@@ -19,6 +19,14 @@ import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/uti
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_MEMBER } from '#libs/communication-v2/constants';
 import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
+import type { CommunicationContext } from '#libs/communication-v2/types';
+import {
+  BackgroundDialogDisplayMode,
+  BackgroundDialogActionMode,
+} from '#libs/background-dialog/types';
+import withQueryParams from '#hocs/with-query-params.hoc';
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { fetchManagerFiltersSettings } from '../../libs/dashboard/actions';
@@ -75,21 +83,13 @@ import type { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import type { OptionCallback } from '../../state/types';
 import MemberArchiveDialog from '../../libs/member/components/MemberArchiveDialog.component';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
-import type { CommunicationContext } from '#libs/communication-v2/types';
 import { ObjectLevelPermissions } from '../../libs/role/types';
 import { hasObjectLevelPermission } from '../../libs/role/permission-utils/utils';
-import {
-  BackgroundDialogDisplayMode,
-  BackgroundDialogActionMode,
-} from '#libs/background-dialog/types';
 
 import Config from '../../config';
-import withQueryParams from '#hocs/with-query-params.hoc';
 
 import { getStripeRegion, getCompanyCountry } from '../../libs/theme/selectors';
 
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),

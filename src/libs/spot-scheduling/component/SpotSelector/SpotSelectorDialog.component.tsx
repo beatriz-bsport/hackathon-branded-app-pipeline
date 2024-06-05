@@ -41,7 +41,6 @@ interface OwnProps {
   forceFullScreen: boolean | null;
   fullScreen: boolean;
   spotTypesOfBlueprint: SpotType[];
-  theme: Theme;
   coachDisplay?: MarketPlaceCoachDisplay;
   width: any;
 }

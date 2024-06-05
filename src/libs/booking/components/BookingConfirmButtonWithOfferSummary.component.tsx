@@ -25,7 +25,6 @@ export type Props = {
   onClick: () => void;
   OfferSummaryComponent?: () => React.ReactElement;
   price?: string;
-  isBookable: boolean;
   displayTax: boolean;
   // To investigate, taxes are decimal therefore strings.
   tax?: number;

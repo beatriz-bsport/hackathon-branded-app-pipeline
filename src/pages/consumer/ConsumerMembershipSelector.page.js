@@ -45,7 +45,7 @@ export class ConsumerMembershipSelector extends React.Component<Props, State> {
     loading: true,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchMembershipListAsConsumer(
       { page_size: 30 },
       {

@@ -374,7 +374,6 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
 
     return (
       <React.Fragment>
-        {/* @ts-expect-error */}
         <BookingMethodSelector
           availableComboPacks={availableComboPacks}
           availableConsumerPacks={availableConsumerPacks}
@@ -548,21 +547,27 @@ const mapStateToProps = (
     authenticated,
   }: { memberTagList: Array<Tag>; authenticated: boolean },
 ) => ({
+  // eslint-disable-next-line react/no-unused-prop-types
   consumerPaymentPackList: withPaymentPackForConsumer(
     getConsumerPaymentPackForBooking,
   )(state) as ConsumerPaymentPack<PaymentPack>[],
   // @ts-expect-error
+  // eslint-disable-next-line react/no-unused-prop-types
   paymentPackList: excludeUnaccessiblePacks(getPaymentPackForBooking)(state, {
     // @ts-expect-error
     memberTagList,
     authenticated,
   }) as PaymentPack[],
+  // eslint-disable-next-line react/no-unused-prop-types
   paymentComboList: withPaymentPackForCombo(getPaymentComboForBooking)(
     state,
   ) as PaymentCombo[],
   offerStatusById: state.offer.offerStatus.byId,
+  // eslint-disable-next-line react/no-unused-prop-types
   contractList: withPaymentPackForContract(getContractForBooking)(state),
+  // eslint-disable-next-line react/no-unused-prop-types
   cppMaxoutBookings: state.consumerPaymentPack.maxout_booking.byId,
+  // eslint-disable-next-line react/no-unused-prop-types
   paymentPacksById: state.paymentPack.byId,
   paymentPackCategories: getAllPaymentPackCategory(state),
   paymentPackForBookingNextPage: state.paymentPack.forBooking.page,

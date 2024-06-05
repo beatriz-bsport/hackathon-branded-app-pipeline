@@ -96,7 +96,7 @@ export class CheckInOfferListPage extends React.Component<Props, State> {
       updateLocalStorageEstablishementList(this.props.establishments);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.setFilters(getOfferFilters(this.props.offerFilters));
     this.refreshData();
     this.handleFetchLevel();

@@ -67,7 +67,7 @@ const ClickOnPaymentPack = withTranslation(['paymentPack'])(
 );
 
 export class WorkshopActivityDetailPacks extends Component<state, Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.resetPaymentPacks();
     this.props.resetConsumerPacks();
     if (this.props.packId) {

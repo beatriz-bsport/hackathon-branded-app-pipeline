@@ -40,7 +40,6 @@ export type Props = {
   isThreadLoading: boolean;
 
   // --- Thread List ---
-  count: number;
   contextSelected?: ChatThreadKinds;
 
   // --- Header Actions ---

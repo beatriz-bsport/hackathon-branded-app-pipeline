@@ -24,8 +24,6 @@ import {
 } from '#libs/marketplace/constants';
 import { buildDataForUserRegistration } from '#libs/marketplace/utils';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
-import { RootState } from '../../reducers';
-import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import {
   getCheckoutValidationUrl,
   getOfferBookerUrl,
@@ -36,9 +34,6 @@ import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod,
 } from '#libs/payment/actions';
-// @ts-expect-error
-import withQueryParams from '../../hocs/with-query-params.hoc';
-import { WithHandlerType } from '../../utils/types';
 // @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
 import Button, { ButtonVariant } from '#components/css-only/Fabrique/Button';
@@ -72,7 +67,6 @@ import {
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 // @ts-expect-error
 import { getContract, withPaymentPack } from '#libs/subscription/selectors';
-import type { OptionCallback } from '../../state/types';
 import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -95,9 +89,7 @@ import MarketplaceContractCooldownModal from '#marketplacecomponents/@Subscripti
 import { BookerItem } from '#libs/booker-module/types';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
-import { buildUrlParams } from '../../http';
 
-import './BoutiqueContractCheckout.css';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
 import {
   getEnabledEstablishmentBillingGroups,
@@ -111,10 +103,20 @@ import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/C
 import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '#libs/membership/actions';
 import { getMembership } from '#libs/membership/selectors';
 import { loadDefaultEstablishmentBillingGroup } from '#libs/marketplace/utils/booking';
+import { buildUrlParams } from '../../http';
+import type { OptionCallback } from '../../state/types';
+import { WithHandlerType } from '../../utils/types';
+// @ts-expect-error
+import withQueryParams from '../../hocs/with-query-params.hoc';
+import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
+import { RootState } from '../../reducers';
+
+import './BoutiqueContractCheckout.css';
 
 type RouterProps = {
   companyId: number;
   contractId: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   queryParams: {
     force: string;
     offerId: string;
@@ -128,6 +130,7 @@ type RouterProps = {
 
 type WithProps = {
   offerId: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   selectedSpotId: number | null;
 };
 
@@ -751,18 +754,16 @@ const mapStateToProps = (
   offer: withMetaActivity(withEstablishment(getOfferById))(state, offerId),
   contract: withPaymentPack(getContract)(state, contractId),
   contractLoading: state.subscription.contract.byMarketplace.loading,
-  paymentPackLoading: state.paymentPack.loading,
-  privatePassLoading: state.privateService.privatePass.loading,
-  paymentComboLoading: state.paymentCombo.loading,
   theme: themeSelectors.getTheme(state),
   savedPaymentMethodList: getSavedPaymentMethodList(state),
-  detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
   contractTermsDownloadLoading:
     state.subscription.contractTermsDownload.loading,
   auth: state.auth,
-
+  // eslint-disable-next-line react/no-unused-prop-types
   offerStatusById: state.offer.offerStatus.byId,
   paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
+  // used by HOC
+  // eslint-disable-next-line react/no-unused-prop-types
   customConfiguration: state.exportableComponents.customCss,
   establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
   memberId: getMembership(state, companyId)?.id,

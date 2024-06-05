@@ -534,6 +534,7 @@ const mapStateToProps = (
   state: RootState,
   { requestedPrivateSlot }: { requestedPrivateSlot: number },
 ) => ({
+  // eslint-disable-next-line react/no-unused-prop-types
   theme: state.theme.theme,
   coachesSelectedInRole: getCoachesSelectedInRole(state),
   private_services: getAvailablePrivateServices(state),

@@ -67,18 +67,6 @@ const getSessionLabel = (sessionNumber: number, t: TFunction) => {
 };
 
 type OwnProps = {
-  bookingNotifications: {
-    [byGroup: string]: {
-      identifier:
-        | 'meta_activity'
-        | 'establishment'
-        | 'private_service'
-        | 'establishment_group';
-      bySession: {
-        [bySession: string]: { [byKind: string]: MarketingNotification[] };
-      };
-    };
-  };
   privateBookingNotifications: {
     [byGroup: string]: {
       identifier: 'meta_activity' | 'establishment' | 'private_service';

@@ -92,13 +92,7 @@ type OwnAndConnectedProps = OwnProps &
   ParamsProps &
   ConnectedProps<typeof connector>;
 
-type Props = {
-  // Keeping for typing only
-  bookings: BookingREST[];
-  fetchBookingList: (member: number, page: number, page_size: number) => void;
-  goToCalendar: (companyName: string, companyId: number) => void;
-} & WithHandlerType<typeof mapWithHandlers> &
-  OwnAndConnectedProps;
+type Props = WithHandlerType<typeof mapWithHandlers> & OwnAndConnectedProps;
 
 export class ConsumerBooking extends React.Component<Props, State> {
   constructor(props: Props) {

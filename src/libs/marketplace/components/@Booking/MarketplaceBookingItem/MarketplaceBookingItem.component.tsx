@@ -38,7 +38,6 @@ export type Props = {
   isAddGuestDisabled?: boolean;
   guestName?: string;
   onOpenAddGuestModal?: () => void;
-  onAddGuestModalCancel?: () => void;
   spotId?: string | number;
 };
 

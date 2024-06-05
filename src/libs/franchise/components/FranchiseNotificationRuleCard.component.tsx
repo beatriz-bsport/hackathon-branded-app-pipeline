@@ -35,7 +35,6 @@ import { OptionCallback } from '../../../state/types';
 export type OwnProps = {
   rule: FranchiseCompleteNotificationRule;
   companies: FranchiseCompany[];
-  notificationId: number;
   previewEmail: Record<string, EmailTemplateDetail>;
   emailDesignList: EmailTemplateSummary[];
   fetchPreview: (id: number) => void;

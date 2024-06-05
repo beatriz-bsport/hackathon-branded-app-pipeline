@@ -361,8 +361,11 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   theme: state.theme.theme,
   tag_groups: tagSelectors.getMemberTagGroups(state),
   tags: tagSelectors.getMemberTags(state),
+  // eslint-disable-next-line react/no-unused-prop-types
   signUpCustomForm: getSignUpCustomForm(state),
+  // eslint-disable-next-line react/no-unused-prop-types
   memberCustomForm: getMemberCustomForm(state),
+  // eslint-disable-next-line react/no-unused-prop-types
   layoutLoading: state.customForm.layout.loading,
   companyTheme: themeSelectors.getTheme(state),
 });

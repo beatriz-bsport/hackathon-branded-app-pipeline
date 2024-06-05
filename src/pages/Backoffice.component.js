@@ -461,7 +461,7 @@ export class Backoffice extends Component<Props, State> {
 
   countAlerting: number = 0;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     document.title = 'Backoffice - bsport';
     this.refreshInterval = setInterval(() => {
       if (ALERTING_REFRESH_INTERVAL * this.countAlerting > 60 * 1000 * 60 * 2)

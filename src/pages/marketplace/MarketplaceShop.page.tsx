@@ -87,7 +87,7 @@ export const MarketplaceShopBase = compose<any, OwnProps>(
   marketplaceCssHoc(),
   connect(mapStateToProps, mapDispatchToProps),
   lifecycle({
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       const { fetchShopItems, fetchSubShops, companyId } = this.props as any;
       fetchShopItems(companyId);
       fetchSubShops(companyId);

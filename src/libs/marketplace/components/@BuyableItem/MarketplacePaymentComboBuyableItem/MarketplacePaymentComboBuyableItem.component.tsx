@@ -15,13 +15,13 @@ import Grid from '#csscomponents/Grid';
 import GridItem from '#csscomponents/Grid/GridItem';
 import Price from '#csscomponents/Price';
 import Collapse from '#components/css-only/Fabrique/Collapse';
-import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import Button from '#components/css-only/Fabrique/Button';
 import InitialPrice from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboCard/InitialPrice';
 
 import './styles.css';
 
 import type { PaymentCombo } from '#libs/payment-combo/types';
+import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 
 export type Props = {
   paymentCombo: PaymentCombo;

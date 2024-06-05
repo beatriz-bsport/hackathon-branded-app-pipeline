@@ -212,7 +212,7 @@ export class PaymentPackDetail extends Component<Props, State> {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.resetConsumerPacks();
   }
 

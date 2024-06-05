@@ -29,6 +29,7 @@ import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upse
 import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
@@ -46,7 +47,6 @@ import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { CompanyTheme } from '../../theme/types';
 
 import Config from '../../../config';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 type OwnProps = {
   emailSummary?: EmailTemplateSummary;
@@ -403,7 +403,18 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { classes, t } = this.props;
+    const {
+      classes,
+      t,
+      selectedNotification,
+      privateServiceById,
+      metaActivityBydId,
+      paymentPackById,
+      establishmentById,
+      establishmentGroupById,
+      privatePassById,
+      contractById,
+    } = this.props;
     return (
       <React.Fragment>
         {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
@@ -432,7 +443,18 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
               <Divider className={classes.divider} />
 
               <Paper className={classes.paperDetail}>
-                <Typography variant="h6">{getLabel(this.props)}</Typography>
+                <Typography variant="h6">
+                  {getLabel({
+                    selectedNotification,
+                    privateServiceById,
+                    metaActivityBydId,
+                    paymentPackById,
+                    establishmentById,
+                    establishmentGroupById,
+                    privatePassById,
+                    contractById,
+                  })}
+                </Typography>
                 {this.renderPrimaryText(this.props.selectedNotification)}
                 <ObjectLevelPermissionWrapper
                   forcedBehavior="hidden"
@@ -583,18 +605,28 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
   }
 }
 
-const getLabel = (props: Props) => {
-  const {
-    selectedNotification,
-    privateServiceById,
-    metaActivityBydId,
-    paymentPackById,
-    establishmentById,
-    establishmentGroupById,
-    privatePassById,
-    contractById,
-  } = props;
+type GetLabelProps = Pick<
+  Props,
+  | 'selectedNotification'
+  | 'privateServiceById'
+  | 'metaActivityBydId'
+  | 'paymentPackById'
+  | 'establishmentById'
+  | 'establishmentGroupById'
+  | 'privatePassById'
+  | 'contractById'
+>;
 
+const getLabel = ({
+  selectedNotification,
+  privateServiceById,
+  metaActivityBydId,
+  paymentPackById,
+  establishmentById,
+  establishmentGroupById,
+  privatePassById,
+  contractById,
+}: GetLabelProps) => {
   if (!selectedNotification) {
     return '';
   }

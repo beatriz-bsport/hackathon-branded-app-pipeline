@@ -3,8 +3,7 @@ import { compose, withState, withHandlers, withProps } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { push as pushRouter } from 'connected-react-router';
-// @ts-expect-error
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -76,7 +75,6 @@ type RouterProps = {
   membership: Membership;
   isAddPaymentMethodDialogOpen: boolean;
   setQueryParams: (queryParam: string) => (value: boolean | null) => void;
-  t: TFunction;
 };
 type StateProps = {
   editMember: boolean;

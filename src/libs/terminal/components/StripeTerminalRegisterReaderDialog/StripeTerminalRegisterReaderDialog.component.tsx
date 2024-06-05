@@ -13,8 +13,8 @@ import { makeStyles, Theme, CircularProgress } from '@material-ui/core';
 import LocaleSelector from '#components/input/LocaleSelector.component';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import ErrorIcon from '#components/icons/ErrorIcon.component';
-// @ts-expect-error
 import { StripeReader } from '#libs/terminal/types';
+// @ts-expect-error
 import { TextField } from '../../../../components/forms';
 import { OptionCallback } from '../../../../state/types';
 
@@ -79,8 +79,10 @@ export interface FormikValues {
 
 type OwnProps = {
   setOpenDialog: (open: boolean) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
   createReaderAndFetch: (data: any, options?: OptionCallback) => void;
   selectedReaderToUpdate: StripeReader | null;
+  // eslint-disable-next-line react/no-unused-prop-types
   editReaderAndFetch: (
     readerId: string,
     label: string,
@@ -90,6 +92,7 @@ type OwnProps = {
   displaySuccess: boolean;
   displayError: boolean;
   setDisplayForm: (value: boolean) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
   setDisplaySuccess: (value: boolean) => void;
   setDisplayError: (value: boolean) => void;
   setSelectedReaderToUpdate: (reader: StripeReader | null) => void;

@@ -131,7 +131,7 @@ export default compose(
     },
   ),
   lifecycle({
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       let id = this.props.companyId;
       if (Number.isNaN(id) || id === undefined) {
         if (this.props.theme.company !== undefined) {

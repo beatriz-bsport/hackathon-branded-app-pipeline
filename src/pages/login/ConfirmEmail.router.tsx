@@ -7,23 +7,23 @@ import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 import { useTranslation } from 'react-i18next';
 // @ts-expect-error
-// @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import LoginBackground from '#libs/login/components/LoginBackground.component';
-// @ts-expect-error
-import LanguageButton from '../../components/button/LanguageButton.component';
 import { Theme } from '#libs/theme/types';
 import { refreshValidationEmailStatus as refreshValidationEmailStatusAction } from '#libs/login/actions';
-import namespaces from '../../i18n/namespaces.json';
-import { RootState } from '../../reducers';
-import './ConfirmEmailRouterStyles.css';
 import withThemeProvider from '#hocs/company-themifier.hoc';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import namespaces from '../../i18n/namespaces.json';
+import { RootState } from '../../reducers';
+// @ts-expect-error
+import LanguageButton from '../../components/button/LanguageButton.component';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 import { BsportRequestFromHeaderValue } from '../../constants';
+import './ConfirmEmailRouterStyles.css';
 
 const ConfirmingEmailPage = asyncComponent(
   () => import('./ConfirmingEmail.page'),

@@ -25,7 +25,6 @@ type OwnProps<T> = {
   selectedItems: Array<number>;
   onChange: (selectedItems: Array<number>) => void;
   renderItem: (item: T) => React.ReactNode;
-  helperAllSelectedText: string;
   labelName: keyof T;
 };
 

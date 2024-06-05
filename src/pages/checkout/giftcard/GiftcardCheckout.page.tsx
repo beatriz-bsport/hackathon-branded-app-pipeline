@@ -29,6 +29,7 @@ import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import { RootState } from '../../../reducers';
 
 type OwnProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   companyId: number;
   id: number;
   giftcardBackgroundImageList: Array<String>;

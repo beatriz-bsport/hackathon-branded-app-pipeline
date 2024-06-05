@@ -29,8 +29,6 @@ type Props = {
   relatedVideoPurchaseList?: Array<VideoPurchase>;
   incrementCredit: (id: number) => void;
   decrementCredit: (id: number) => void;
-  incrementPrivatePassCredit: (id: number) => void;
-  decrementPrivatePassCredit: (id: number) => void;
   onConsumerPassSelected: (id: number) => void;
   onPrivatePassSelected: (id: number) => void;
   analytics: {

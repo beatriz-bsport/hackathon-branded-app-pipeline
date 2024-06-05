@@ -23,7 +23,6 @@ type OwnProps = {
   onClickExit: () => void;
   blueprints: RoomBlueprint[];
   onChangeBlueprint: (roomBlueprint: RoomBlueprint) => void;
-  disableSave: boolean;
   openSpiviDialog: () => void;
   selectedRoomBlueprint: RoomBlueprint | null;
 };

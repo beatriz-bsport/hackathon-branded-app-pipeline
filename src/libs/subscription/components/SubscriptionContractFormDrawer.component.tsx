@@ -23,7 +23,7 @@ export const SubscriptionContractFormDrawer = (
   const { t } = useTranslation('subscription');
   const classes = useStyles();
 
-  const { onClose, resetForm } = props;
+  const { onClose, resetForm, open, isSubmitting } = props;
   const onDrawerClose = React.useCallback(() => {
     resetForm();
     onClose();
@@ -33,7 +33,7 @@ export const SubscriptionContractFormDrawer = (
     <GenericResponsiveDrawer
       withoutPadding
       onClose={onDrawerClose}
-      open={props.open}
+      open={open}
       title={t('contract.form.title')}
       trackingObjectId={props.initial?.id}
       trackingObjectIdentifier={
@@ -54,7 +54,7 @@ export const SubscriptionContractFormDrawer = (
           </Button>
           <Button
             color="primary"
-            disabled={props.isSubmitting}
+            disabled={isSubmitting}
             onClick={() => {
               trackFormSubmitIntent(props.initial?.id);
               props.handleSubmit();

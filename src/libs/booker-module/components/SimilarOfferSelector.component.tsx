@@ -65,7 +65,7 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
     }
   };
 
-  componentWillMount = () => {
+  UNSAFE_componentWillMount = () => {
     // @ts-expect-error
     this.props.resetSimilarOffers();
   };

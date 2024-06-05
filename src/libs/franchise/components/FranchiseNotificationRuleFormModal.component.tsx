@@ -40,11 +40,13 @@ import {
 import { FranchiseCompleteNotificationRule } from '../../notification-rule/types';
 
 export type OwnProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   rule?: FranchiseCompleteNotificationRule;
   notification_event: number;
   open: boolean;
   companies: FranchiseCompany[];
   emailTemplates: EmailTemplateSummary[];
+  // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (data: Omit<FranchiseCompleteNotificationRule, 'id'>) => void;
   onClose: () => void;
   previewEmail: EmailTemplateDetail;

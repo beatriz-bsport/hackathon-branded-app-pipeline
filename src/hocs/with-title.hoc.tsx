@@ -23,7 +23,7 @@ export function windowTitleToProps<P extends { title: string }>(
       }
     };
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       if (WidgetUtils.isWidget()) {
         return;
       }

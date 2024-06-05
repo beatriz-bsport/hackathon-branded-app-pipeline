@@ -64,6 +64,7 @@ import { OptionCallback } from '../../state/types';
 type Period = { start: string; end: string };
 type withStateType = {
   periodFilter: Period;
+  // eslint-disable-next-line react/no-unused-prop-types
   setPeriodFilter: (periodFilter: Period) => void;
 };
 

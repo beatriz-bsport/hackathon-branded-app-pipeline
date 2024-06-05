@@ -51,7 +51,7 @@ type Props = OwnProps &
   typeof mapDispatchToProps;
 
 export class MarketingEmail extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.hasBeenLoadedOnce) {
       window.location.reload();
     }

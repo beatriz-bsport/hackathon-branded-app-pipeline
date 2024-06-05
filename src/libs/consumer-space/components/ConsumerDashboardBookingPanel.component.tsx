@@ -17,7 +17,6 @@ import BookingConsumerItem from '../../booking/components/BookingConsumerItem.co
 import PrivateBookingConsumerItem from '../../private-service/components/booking/PrivateBookingConsumerItem.component';
 
 import type { Booking } from '../../booking/types';
-import type { Membership } from '../../membership/types';
 import { BookingOrPrivateBooking } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import { PrivateBooking } from '../../private-service/types';
@@ -28,7 +27,6 @@ import { MetaActivity } from '../../meta-activity/types';
 
 type OwnProps = {
   showMoreBooking: () => void;
-  membership: Membership;
   goToBroadcast?: (id: number) => void;
   goToCalendar?: (
     params: {

@@ -11,7 +11,6 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 type Props = {
   id: number;
   replace: (path: string) => void;
-  fetchPrivatePassBulk: (ids: number[], options: OptionCallback) => void;
 };
 
 export class PaymentPackPreCheckoutRedirect extends React.Component<Props> {

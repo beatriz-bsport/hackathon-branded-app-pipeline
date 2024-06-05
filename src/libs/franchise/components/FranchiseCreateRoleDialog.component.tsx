@@ -23,7 +23,6 @@ import { compose } from 'recompose';
 import classNames from 'classnames';
 import { Divider } from '@material-ui/core';
 import chroma from 'chroma-js';
-// @ts-expect-error
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import CreateRoleMasterAccount from '#libs/franchise/components/FranchiseCreateRoleMasterAccount.component';
 import {

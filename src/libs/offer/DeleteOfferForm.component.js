@@ -69,7 +69,7 @@ export class DeleteOfferForm extends Component<Props, State> {
     ),
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchSimilarOffers();
   }
 

@@ -64,7 +64,7 @@ type State = {
 export class CheckInPage extends React.Component<Props, State> {
   state = { loading: true, refreshInterval: null };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchCompanyTheme();
     this.props.fetchCompanyRoles();
     this.refreshData();

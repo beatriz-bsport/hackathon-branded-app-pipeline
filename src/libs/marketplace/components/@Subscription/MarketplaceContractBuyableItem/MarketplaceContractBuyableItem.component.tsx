@@ -15,16 +15,16 @@ import Price from '#csscomponents/Price';
 import Collapse from '#components/css-only/Fabrique/Collapse';
 import RecommendedChip from '#components/css-only/RecommendedChip';
 import BillingInterval from '#marketplacecomponents/@Subscription/MarketplaceBillingInterval';
-import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import Button from '#components/css-only/Fabrique/Button';
-
-import './styles.css';
 
 import type {
   ContractWithPaymentPack,
   Contract,
 } from '#libs/subscription/types';
+import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
+
+import './styles.css';
 
 export type Props = {
   isExcludingTax: boolean;

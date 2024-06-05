@@ -124,7 +124,7 @@ type WidgetMessageEvent =
 class BridgeWidgetPage extends React.PureComponent<Props> {
   token: string = '';
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     window.addEventListener('message', this.handleMessages, false);
     window.addEventListener('storage', this.onStorageChange);
   }

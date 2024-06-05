@@ -53,7 +53,9 @@ import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
 
 type OwnProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   membership: Membership;
+  // eslint-disable-next-line react/no-unused-prop-types
   companyId: number;
   push: (path: string) => void;
 };

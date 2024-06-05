@@ -6,13 +6,20 @@ import { FixedSizeGrid } from 'react-window';
 import FuzeSearch from '../FuzeSearch.component';
 import { NUMBER_OF_MUI_ICONS } from '../input/muiIcon/muiIconNames';
 
-export type OwnProps<T> = {
+export type Props<T> = {
+  // eslint-disable-next-line react/no-unused-prop-types
   items: T[];
+  // eslint-disable-next-line react/no-unused-prop-types
   placeholder: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   searchFields: (keyof T)[];
+  // eslint-disable-next-line react/no-unused-prop-types
   itemRenderer: (item: T, search?: string) => React.ReactNode;
+  // eslint-disable-next-line react/no-unused-prop-types
   startWithAll: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   customClasses?: { [className: string]: string };
+  // eslint-disable-next-line react/no-unused-prop-types
   iconRender?: boolean;
   numberOfColumns?: number;
   gridHeight?: number; // in pixels
@@ -22,8 +29,6 @@ export type OwnProps<T> = {
 const NUMBER_OF_COLUMNS = 5;
 const WIDTH = 400;
 const HEIGHT = 400;
-
-type Props<T> = OwnProps<T>;
 
 function FuzzySearchIcon<T>(props: Props<T>) {
   const {

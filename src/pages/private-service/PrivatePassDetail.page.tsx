@@ -147,7 +147,7 @@ const CONSUMER_PrivatePass_PAGINATION_SIZE = 7;
 const MASS_EXTENSION_PAGINATION_SIZE = 5;
 
 export class PrivatePassDetails extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.resetConsumerPrivatePass();
   }
 

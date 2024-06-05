@@ -19,7 +19,6 @@ export type Props = {
   open: boolean;
   offer?: Offer;
   onClose: () => void;
-  onConfirm: () => void;
   bookingTableLoading: boolean;
   confirmBookingAttendance: (bookingId: number) => void;
   discardBookingAttendance: (bookingId: number) => void;

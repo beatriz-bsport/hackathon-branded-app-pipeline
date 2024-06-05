@@ -21,6 +21,7 @@ import type { MenuAction, NestedMenuAction } from '#components/menu/types';
 import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
 
 export type TriggerCardProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   step: StoredStep;
   trigger: ConnectedTrigger;
   canBeDeleted?: boolean;

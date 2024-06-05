@@ -13,7 +13,6 @@ import { Tag, TagGroup } from '#libs/tag/types';
 
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
-import { Offer } from '#libs/offer/types';
 import { Level } from '#libs/level/types';
 import { ZoomApp } from '#libs/zoom-app/types';
 import { OptionCallback } from '../../../state/types';
@@ -30,13 +29,6 @@ export type Props = {
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
   tagList: Array<Tag<TagGroup>>;
   theme: CompanyTheme;
-  groupPreview: Record<
-    number,
-    {
-      offers_data: Offer[];
-      group: OffersGroup<Offer>;
-    }
-  >;
   group: OffersGroup;
   customLevels: Level[];
   onSubmit: (arg0: {
@@ -52,7 +44,6 @@ export type Props = {
   updateLevel: (id: number, data: Level, options: OptionCallback) => void;
   createLevel: (data: Level, options?: OptionCallback<Level>) => void;
   deleteLevel: (id: number, options?: OptionCallback) => void;
-  handlePreviousStep: () => void;
   onClose?: () => void;
   zoomAppDetail: ZoomApp;
   creditScaleFactor: number;

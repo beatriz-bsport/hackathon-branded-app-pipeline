@@ -16,6 +16,7 @@ import Alert from '@material-ui/lab/Alert';
 import * as Yup from 'yup';
 import { FormikProps, useFormikContext, withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
+
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { PaymentPack } from '#libs/payment-packs/types';
@@ -91,9 +92,13 @@ type FormValues = Omit<
 };
 
 export type SubscriptionContractFormDrawerPropsWithoutFormik = {
-  open: boolean;
-  onClose: () => void;
+  // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (data: any, options: OptionCallback) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
+  onClose: () => void;
+  // eslint-disable-next-line react/no-unused-prop-types
+  open: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   isSubmitting: boolean;
   initial?: ContractWithPaymentPack<PrivatePass, PaymentCombo> | Contract;
   paymentPackList: PaymentPack[];

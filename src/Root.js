@@ -20,7 +20,6 @@ import WidgetUtils from './libs/widget/WidgetUtils';
 import { checkBsportPluginActivated } from './libs/plugin/actions';
 import withQueryParams from './hocs/with-query-params.hoc';
 
-
 const MarketPlaceRouter = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
 );
@@ -102,7 +101,7 @@ type Props = {
 };
 
 export class Root extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const query = parseQueryString(window.location.href);
 
     /**

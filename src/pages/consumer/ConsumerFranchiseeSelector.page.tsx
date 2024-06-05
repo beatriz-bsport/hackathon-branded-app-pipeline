@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
-// @ts-expect-error
+
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 // import Analytics from '#components/analytics/Analytics.component';
 import LoginBackground from '#libs/login/components/LoginBackground.component';
@@ -18,7 +18,7 @@ import WidgetUtils from '#libs/widget/WidgetUtils';
 import FranchiseCompanyLogin from '#libs/franchise/components/FranchiseCompanyLogin.component';
 
 import { fetchFranchiseTheme } from '#libs/franchise/actions';
-// @ts-expect-error
+
 import {
   getFranchiseThemeLoading,
   getFranchisor,
@@ -30,13 +30,16 @@ import {
   getUserSpaceUrl,
 } from '#libs/marketplace/routing-utils';
 import { getThemeLoading } from '#libs/theme/selectors';
+// @ts-expect-error
 import { getFranchiseTheme } from '../../theme';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { RootState } from '../../reducers';
+// @ts-expect-error
 import { disconnect } from '../../actions/auth.actions';
 import { parseQueryString } from '../../http';
 
 type OwnProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   location: {
     hash: string;
     key: string;
@@ -45,7 +48,9 @@ type OwnProps = {
     state: string;
   };
   franchisorId: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   next: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   companies: Array<number>;
   context: string;
 

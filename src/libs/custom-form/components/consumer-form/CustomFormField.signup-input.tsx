@@ -40,7 +40,17 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
   CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
 } from '@bsport/common/lib/master-data/custom-form';
+import type { TermsAndConditionType } from '#libs/payment/types';
+import { CUSTOM_FORM_FIELD_SIGN_UP_PREFIX } from '#libs/custom-form/constants';
 
+import FabriqueTextfield from '#Fabrique/Temporary/Textfield';
+import FabriquePasswordField from '#Fabrique/Temporary/PasswordField';
+import FabriqueCountrySignUpField from '#Fabrique/Temporary/CountrySignUpField';
+import FabriqueSelectfield from '#Fabrique/Temporary/Selectfield';
+import FabriqueDateField from '#Fabrique/Temporary/DateField/DateField.component';
+import FabriqueAvatarField from '#Fabrique/Temporary/AvatarField';
+import FabriqueCheckboxfield from '#Fabrique/Temporary/Checkboxfield/Checkboxfield.component';
+import FabriqueAcceptTermsAndConditions from '#Fabrique/Temporary/AcceptTermsAndConditions';
 import {
   MAX_LENGTH_FOR_SHORT_ANSWER,
   get_custom_form_sign_question_label,
@@ -67,18 +77,6 @@ import AvatarFieldWithButton from '../../../../components/forms/AvatarFieldWithB
 import AcceptTermsAndConditions from '../../../payment/components/AcceptTermsAndConditions.component';
 import { CheckboxField } from '../GenericFormik.input';
 import './styles.css';
-import { TermsAndConditionType } from '#libs/payment/types';
-
-import { CUSTOM_FORM_FIELD_SIGN_UP_PREFIX } from '#libs/custom-form/constants';
-
-import FabriqueTextfield from '#Fabrique/Temporary/Textfield';
-import FabriquePasswordField from '#Fabrique/Temporary/PasswordField';
-import FabriqueCountrySignUpField from '#Fabrique/Temporary/CountrySignUpField';
-import FabriqueSelectfield from '#Fabrique/Temporary/Selectfield';
-import FabriqueDateField from '#Fabrique/Temporary/DateField/DateField.component';
-import FabriqueAvatarField from '#Fabrique/Temporary/AvatarField';
-import FabriqueCheckboxfield from '#Fabrique/Temporary/Checkboxfield/Checkboxfield.component';
-import FabriqueAcceptTermsAndConditions from '#Fabrique/Temporary/AcceptTermsAndConditions';
 
 type OwnProps = {
   field: CustomFormField & { answer: string | number | boolean };

@@ -18,7 +18,7 @@ type Props = {
 };
 
 export class ConsumerMembershipValidator extends React.Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.isValidated) {
       this.props.goToConsumerHome(this.props.companyId);
     }

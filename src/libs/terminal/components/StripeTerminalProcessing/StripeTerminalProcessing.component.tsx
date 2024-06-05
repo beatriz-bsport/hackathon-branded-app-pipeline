@@ -60,7 +60,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export type Props = {
-  isSetupIntent: boolean;
   onlySavePaymentMethod: boolean;
   onCancelReaderAction: () => void;
   cancelReaderActionProcessing: boolean;

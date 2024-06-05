@@ -28,7 +28,6 @@ import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import MarketingRuleFormContract from './marketing-rule-form/MarketingRuleFormContract.component';
 
-
 type Identifier =
   | 'birthday'
   | 'workshop'
@@ -68,9 +67,7 @@ type OwnProps = {
   tags: { [tag_name: string]: string[] };
   resolvedGenericTags: ResolvedGenericTags;
   privatePasses: PrivatePass[];
-  withoutBirthday: boolean;
   establishmentGroups: Array<EstablishmentGroup>;
-  onlyEdit?: boolean;
   createFormOpenType: Identifier;
 };
 

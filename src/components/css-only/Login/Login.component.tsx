@@ -25,7 +25,6 @@ export type Props = {
   doEmailLogin: (Obj: { email: string; password: string }) => void;
   requestSignUp?: () => void;
   loading: boolean;
-  classes: any;
   error?: boolean;
   errorFields?: {
     email?: string;
@@ -36,7 +35,6 @@ export type Props = {
   company?: boolean;
   theme?: CompanyTheme;
   logoHidden?: boolean;
-  marketplace?: boolean;
   franchisor?: Franchise;
   hideRegister?: boolean;
   emailChoices?: Array<string>;

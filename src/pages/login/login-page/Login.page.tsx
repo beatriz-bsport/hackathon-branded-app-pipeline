@@ -7,15 +7,13 @@ import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
-// @ts-expect-error
 import { fetchCompanyTheme } from '#libs/theme/actions';
 // @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
 import Login from '#csscomponents/Login/Login.component';
 // @ts-expect-error
 import { withQueryParamsUndecoded } from '#hocs/with-query-params.hoc';
-import type { RootState } from '../../../reducers';
-import { WithHandlerType } from '../../../utils/types';
+
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import FranchiseCompanyLogin from '#libs/franchise/components/FranchiseCompanyLogin.component';
 import { FranchiseDetails } from '#libs/franchise/types';
@@ -25,13 +23,17 @@ import {
   getFranchisor,
 } from '#libs/franchise/selectors';
 import { STEPS } from '#libs/login/utils';
-import { buildSignUpUrl } from '../utils';
+
 import './LoginPageStyles.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import { isBookingFlowNext } from '#libs/marketplace/routing-utils';
 import { COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE } from '#libs/sign-up-form/utils';
+import type { RootState } from '../../../reducers';
+import { WithHandlerType } from '../../../utils/types';
+import { buildSignUpUrl } from '../utils';
+// @ts-expect-error
 import { requestLogin, disconnect } from '../../../actions/auth.actions';
 import { parseQueryString } from '../../../http';
 import type { Dispatch } from '../../../state/types';

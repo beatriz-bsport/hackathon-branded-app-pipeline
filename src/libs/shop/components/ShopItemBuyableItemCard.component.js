@@ -36,6 +36,7 @@ const ShopItemBuyableItemCard = (props: {
           <img
             alt={props.shopitem.name}
             className={props.classes.cover}
+            // eslint-disable-next-line react/no-unknown-property
             component="img"
             src={props.shopitem.cover}
           />

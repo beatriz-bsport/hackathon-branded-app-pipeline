@@ -32,7 +32,6 @@ import { FeatureList } from '#libs/company/types';
 import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import type { OptionCallback } from '../../../state/types';
-import type { Theme as CompanyTheme } from '../../theme/types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -97,18 +96,12 @@ const styles = (theme: Theme) =>
   });
 
 type OuterProps = {
-  theme: CompanyTheme;
   connectZoom: () => void;
-  processing: boolean;
   revokeZoomApp: () => void;
   zoomApp: ZoomApp;
   zoomLoading: boolean;
   toggleMultiZoomUserSupport: (options?: OptionCallback<ZoomApp>) => void;
-  updateZoomGroupId: (
-    data: { zoom_group_id: string },
-    options?: OptionCallback<ZoomApp>,
-  ) => void;
-  resetZoomEstablishments: (options?: OptionCallback) => void;
+
   fetchZoomMembersAndEstablishments: () => void;
   zoomEstablishmentTableDataLoading: boolean;
   zoomEstablishments: ZoomEstablishment[];
@@ -118,7 +111,6 @@ type OuterProps = {
     data: ZoomEstablishmentBulkEditData,
     options?: OptionCallback<ZoomEstablishment[]>,
   ) => void;
-  zoomAppUpdateLoading: boolean;
   toggleDisableZoomApp: () => void;
 };
 
@@ -211,13 +203,10 @@ export class BroadcastConfigurationForm extends Component<InnerProps> {
                     fetchZoomMembersAndEstablishments={
                       this.props.fetchZoomMembersAndEstablishments
                     }
-                    // resetZoomEstablishments={this.props.resetZoomEstablishments}
                     toggleMultiZoomUserSupport={
                       this.props.toggleMultiZoomUserSupport
                     }
-                    // updateZoomGroupId={this.props.updateZoomGroupId}
                     zoomApp={this.props.zoomApp}
-                    // zoomAppUpdateLoading={this.props.zoomAppUpdateLoading}
                     zoomEstablishments={this.props.zoomEstablishments}
                     zoomEstablishmentTableDataLoading={
                       this.props.zoomEstablishmentTableDataLoading

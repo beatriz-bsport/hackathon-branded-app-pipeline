@@ -35,8 +35,6 @@ type OwnProps = {
   hasActiveFilters: boolean;
   loadingCommunicationMessageDataList: boolean;
   loadingRecipientList: boolean;
-  onCloseSnackbar: () => void;
-  openSnackbar: boolean;
   paginationSize: number;
   recipientList: Recipient<Member>[];
   recipientListCount: number;

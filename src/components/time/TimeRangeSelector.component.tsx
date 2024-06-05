@@ -30,6 +30,7 @@ export type Props = {
   originalTimeEnd: string;
   originalTimeWindowPeriod: string;
   isDisabled?: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (values: Values) => void;
 };
 

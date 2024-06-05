@@ -245,7 +245,7 @@ export class FaceRecognition extends React.Component<Props, State> {
             ref={this.stream}
             autoPlay
             muted
-            playsinline
+            playsInline
             id="inputVideo"
             onLoadedMetadata={this.onPlay}
             style={{

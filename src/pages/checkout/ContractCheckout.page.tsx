@@ -14,11 +14,8 @@ import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/e
 import { DateTime } from 'luxon';
 
 // @ts-expect-error
-import withQueryParams from '../../hocs/with-query-params.hoc';
-import { RootState } from '../../reducers';
 import themeSelectors, { getStripePkKey } from '#libs/theme/selectors';
 // @ts-expect-error
-import asyncComponent from '../../AsyncComponent';
 
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#libs/establishment/actions';
@@ -62,11 +59,9 @@ import type {
 } from '#libs/subscription/types';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
 import type { PaymentMethod } from '#libs/payment/types';
-import type { OptionCallback } from '../../state/types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
-import ConsumerAppBar from './ConsumerAppBar.container';
 import {
   getMarketplaceRoute,
   getSubscriptionValidationUrl,
@@ -80,15 +75,21 @@ import MarketplaceContractCooldownModal from '#marketplacecomponents/@Subscripti
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import Carousel from '#components/css-only/Carousel';
 import MarketplaceContractNotFound from '#marketplacecomponents/@Subscription/MarketplaceContractNotFound';
-import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import { updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction } from '#libs/member/actions';
 
-import './styles.css';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
 import {
   getMemberDetailData,
   getMemberThroughMembership,
 } from '#libs/member/selectors';
+import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
+import ConsumerAppBar from './ConsumerAppBar.container';
+import type { OptionCallback } from '../../state/types';
+import asyncComponent from '../../AsyncComponent';
+import { RootState } from '../../reducers';
+import withQueryParams from '../../hocs/with-query-params.hoc';
+
+import './styles.css';
 
 const MarketplaceContractPayment = asyncComponent(
   () => import('#marketplacecomponents/@Payment/MarketplaceContractPayment'),
@@ -102,30 +103,21 @@ type ownProps = {
   companyName: string;
   fetchContractList: (companyId: number, options: OptionCallback) => void;
   contractLoading: boolean;
-  classes: Object;
   contractList: ContractWithPaymentPack[];
-  goToUserSpace: (companyId: number) => void;
   theme: CompanyTheme;
   contractId: string;
   setSelected: (contractId: number) => void;
-  authenticated: boolean;
-  fullScreen: boolean;
-  paymentDialogOpen: boolean;
   requestSetupIntentSecret: () => { data: { client_secret: string } };
   fetchPaymentMethodList: (
     params: { company: number },
     options?: OptionCallback<PaymentMethod[]>,
   ) => void;
   savedPaymentMethodList: PaymentMethod[];
-  detachPaymentMethodLoading: boolean;
   detachPaymentMethod: (
     paymentMethodId: string,
     options?: OptionCallback,
   ) => void;
-  snackbarErrorMsg: (msg: string) => void;
-  snackbarSuccessMsg: (msg: string) => void;
   auth: any;
-  onPayRequest: (date: string) => void;
   downloadContractTerms: (options: OptionCallback) => void;
   fetchAllEstablishmentBillingGroup: () => void;
   establishmentBillingGroups: EstablishmentBillingGroup[];
@@ -640,10 +632,6 @@ const mapStateToProps = (
     paymentComboLoading: state.paymentCombo.loading,
     theme: themeSelectors.getTheme(state),
     savedPaymentMethodList: getSavedPaymentMethodList(state),
-    detachPaymentMethodLoading:
-      state.paymentBackend.detachPaymentMethod.loading,
-    contractTermsDownloadLoading:
-      state.subscription.contractTermsDownload.loading,
     auth: state.auth,
     establishmentBillingGroups: withEstablishment(
       getEnabledEstablishmentBillingGroups,

@@ -86,7 +86,7 @@ type Props = BeforeHandlerProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 export class SubscriptionDetail extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchSubscription();
     this.props.fetchSubscriptionEventList({
       page: 1,

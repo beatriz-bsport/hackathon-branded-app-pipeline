@@ -12,7 +12,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { MaterialStyleType } from '../../../utils/types';
-import { Tag } from '../../tag/types';
 import { AutoTagRule, SmartList } from '../../smart-list/types';
 import TagRuleSelector from '../../smart-list/components/TagRuleSelector.component';
 
@@ -21,7 +20,6 @@ type OwnProps = {
   autotagRuleBySmartlist: { [key: string]: AutoTagRule[] };
   loading: boolean;
   onClickRemoveTag: (smartlist: SmartList) => void;
-  tag: Tag;
   onChangeTagRule: (autotagRule: AutoTagRule) => void;
   goToSmartlist: () => void;
 };

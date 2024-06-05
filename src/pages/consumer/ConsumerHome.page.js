@@ -153,7 +153,7 @@ type Props = {
 };
 
 export class ConsumerHome extends React.Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.from_basket) {
       this.props.fetchBasketGeneratedObjects(this.props.from_basket);
     }
@@ -202,9 +202,12 @@ export class ConsumerHome extends React.Component<Props> {
   attachConsumerProps = (MyComponent: React.Component<*>) => (props: any) =>
     (
       <MyComponent
+        // eslint-disable-next-line react/no-this-in-sfc
         companyId={this.props.companyId}
         {...props}
+        // eslint-disable-next-line react/no-this-in-sfc
         membership={this.props.membership}
+        // eslint-disable-next-line react/no-this-in-sfc
         push={this.buildPath}
       />
     );

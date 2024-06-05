@@ -33,25 +33,26 @@ import {
 } from '#libs/marketplace/types';
 import { Contract } from '#libs/subscription/types';
 import { PaymentMethod } from '#libs/payment/types';
-import {
-  OptionCallBackWithKeyedCallbacks,
-  OptionCallback,
-} from '../../../../../state/types';
 import { appliesToContract } from '#libs/coupon/api';
 import CircularProgress from '#components/css-only/CircularProgress';
 
-import MarketplaceContractPaymentInfos from './sections/MarketplaceContractPaymentInfos';
-import MarketplaceContractPaymentPricing from './sections/MarketplaceContractPaymentPricing.component';
-import MarketplaceContractPaymentCoupon from './sections/MarketplaceContractPaymentCoupon';
 import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
 import Button, { ButtonType } from '#components/css-only/Fabrique/Button';
 
 import { CouponErrorCodes } from '#libs/coupon/constants';
-import MarketplaceContractPaymentAlert from './sections/MarketplaceContractPaymentAlert.component';
 import type { Coupon } from '#libs/coupon/types';
-import './styles.css';
 import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import MarketplaceContractPaymentAlert from './sections/MarketplaceContractPaymentAlert.component';
+import MarketplaceContractPaymentCoupon from './sections/MarketplaceContractPaymentCoupon';
+import MarketplaceContractPaymentPricing from './sections/MarketplaceContractPaymentPricing.component';
+import MarketplaceContractPaymentInfos from './sections/MarketplaceContractPaymentInfos';
+import {
+  OptionCallBackWithKeyedCallbacks,
+  OptionCallback,
+} from '../../../../../state/types';
+
+import './styles.css';
 
 export type Props = {
   contract: Contract;

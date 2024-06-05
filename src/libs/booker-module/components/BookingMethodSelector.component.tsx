@@ -57,7 +57,6 @@ type OwnProps = {
   contractList: Array<ContractWithPaymentPack & MaxoutData>;
   isExcludingTax?: boolean;
   theme: CompanyTheme;
-  offerTagStatus: boolean;
   onOpenSubscriptionModal: (contract: ContractWithPaymentPack) => void;
 };
 

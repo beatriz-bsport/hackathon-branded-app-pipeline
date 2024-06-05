@@ -23,12 +23,11 @@ import {
 import { FranchiseDetails } from '#libs/franchise/types';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import withThemeProvider from '#hocs/company-themifier.hoc';
 // @ts-expect-error
 import LanguageButton from '../../components/button/LanguageButton.component';
 import namespaces from '../../i18n/namespaces.json';
-import './LoginRouterStyles.css';
 import { isLoginBackgroundFixed } from './utils';
-import withThemeProvider from '#hocs/company-themifier.hoc';
 import { removeItemInStorage, setItemInStorage } from '#src/utils/storage';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
@@ -41,6 +40,7 @@ import {
   BsportRequestFromHeaderValue,
 } from '../../constants';
 
+import './LoginRouterStyles.css';
 /* Some of these pages were reworked to be CSS Only, some were not. Here is which ones and why:
 
 Login, ResetPassword and Signup pages were reworked because they appear on the booking flow on the member side.
@@ -141,7 +141,7 @@ export class LoginRouter extends React.Component<Props> {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.loginProcessing) {
       this.props.disconnect();
     }

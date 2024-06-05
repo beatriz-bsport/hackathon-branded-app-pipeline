@@ -1,6 +1,9 @@
 {
   "parser": "@babel/eslint-parser",
   "settings": {
+    "react": {
+      "version": "detect"
+    },
     "import/resolver": {
       "node": {
         "extensions": [

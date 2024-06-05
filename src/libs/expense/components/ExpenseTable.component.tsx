@@ -38,7 +38,6 @@ type OwnProps = {
   count: number;
   page: number;
   onDelete: (id: number, scope: string) => void;
-  onCreateOrEdit: (id?: number) => void;
   loading: boolean;
 
   deleteDialogOpen: boolean;

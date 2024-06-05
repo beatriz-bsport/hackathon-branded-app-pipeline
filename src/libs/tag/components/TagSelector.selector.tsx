@@ -231,7 +231,6 @@ type OwnProps = {
     | Array<Tag<TagGroupAPI>>;
   inScrollBar: boolean;
   menuPlacement?: 'auto' | 'top';
-  noSpaceBelow?: boolean;
 };
 
 export type Props = Partial<WithTranslation> & OwnProps;

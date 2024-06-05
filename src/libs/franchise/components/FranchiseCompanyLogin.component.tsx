@@ -17,18 +17,10 @@ export type OwnProps = {
   setStep?: (step: number) => void;
   disconnect: () => void;
   selectedFranchisee: number;
-  setSelectedFranchisee: (id: number) => void;
   goToCompanyMemberProfilePage?: (id: number, name: string) => void;
-  // goToSignup?: ({
-  //   membership,
-  //   franchisor,
-  // }: {
-  //   membership: string | null;
-  //   franchisor: string | null;
-  // }) => void;
+
   goToSignup: (id: number) => void;
   context: string;
-  // franchisor: string;
 };
 
 type Props = OwnProps & WithTranslation;

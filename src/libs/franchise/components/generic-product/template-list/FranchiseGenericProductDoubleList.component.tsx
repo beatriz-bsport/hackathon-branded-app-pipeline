@@ -25,7 +25,6 @@ export type Props = {
   inactiveItemList: Array<GenericProductTemplate>;
   inactiveItemListLabel?: string;
   withFuzzySearch?: boolean;
-  fuzzySearchPlaceholder?: string;
   fuzzySearchSearchFields?: Array<string>;
   fuzzySearchItemList?: Array<GenericProductTemplate>;
   // Delete template

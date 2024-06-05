@@ -51,17 +51,6 @@ import {
   withLinkedPrivatePass,
 } from '#libs/payment-packs/selectors';
 import { fetchVideoFilterableParams } from '#libs/video/actions';
-import {
-  setPaymentPackCategoryFilter,
-  setPaymentPackManagerOnlyFilter,
-  setPaymentPackSort,
-} from '../../libs/user-preference/actions';
-import PaymentPackFilterAndSortHeader, {
-  ManagerOnly,
-  SortOption,
-} from '../../libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
-import PaymentPackFormDrawer from '../../libs/payment-packs/components/PaymentPackForm';
-import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
 import {
@@ -69,12 +58,7 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '#libs/meta-activity/selectors';
-import {
-  fetchActivitiesCompany,
-  fetchMetaActivities as fetchMetaActivitiesAction,
-} from '../../libs/meta-activity/actions';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import themeSelectors from '../../libs/theme/selectors';
 import { getPrivateServices } from '#libs/private-service/selectors/private-service';
 import { getCompatibilityPassWithService as getCompatibleServicePass } from '#libs/private-service/selectors/private-pass';
 import type { PrivatePass, PrivateSlot } from '#libs/private-service/types';
@@ -102,6 +86,22 @@ import {
   withObjectSearch,
   WithObjectSearch,
 } from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+import themeSelectors from '../../libs/theme/selectors';
+import {
+  fetchActivitiesCompany,
+  fetchMetaActivities as fetchMetaActivitiesAction,
+} from '../../libs/meta-activity/actions';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import PaymentPackFormDrawer from '../../libs/payment-packs/components/PaymentPackForm';
+import PaymentPackFilterAndSortHeader, {
+  ManagerOnly,
+  SortOption,
+} from '../../libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
+import {
+  setPaymentPackCategoryFilter,
+  setPaymentPackManagerOnlyFilter,
+  setPaymentPackSort,
+} from '../../libs/user-preference/actions';
 import PaymentPackCategoryList from '../../libs/payment-packs/components/category/PaymentPackCategoryList.component';
 import PaymentPackCategoryCreationDialog from '../../libs/payment-packs/components/category/PaymentPackCategoryCreationDialog.component';
 import { withPaymentPackNotification } from '../../libs/marketing/selectors';

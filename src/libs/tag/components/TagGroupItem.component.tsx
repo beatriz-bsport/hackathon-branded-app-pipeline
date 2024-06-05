@@ -48,7 +48,6 @@ type OwnProps = {
   onDeleteTagGroup: (tagGroup: TagGroup) => void;
 
   onCreateTag: (tag: DeepPartial<Tag>) => void;
-  onUpdateTag: (tag: Tag) => void;
   onDeleteTag: (tag: Tag) => void;
 
   onSelectTag?: (tag: Tag) => void;

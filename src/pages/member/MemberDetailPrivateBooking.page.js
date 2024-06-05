@@ -154,7 +154,7 @@ type Props = {
 };
 
 export class MemberDetailPrivateBooking extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.resetPrivateBookingList();
   }
 

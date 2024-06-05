@@ -19,6 +19,7 @@ import MarketPlaceLevel from '#marketplacecomponents/@Offer/MarketplaceLevelCSSO
 import { Level } from '#libs/level/types';
 import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
+import { isDateInThePast } from '#src/utils/datetime';
 import MarketplaceOfferListItem from '../MarketplaceOfferListItemCSSOnly';
 import {
   getBookingButtonTraduction,
@@ -27,7 +28,6 @@ import {
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 
 import './MarketplaceGroupOfferListItem.css';
-import { isDateInThePast } from '#src/utils/datetime';
 
 export type Props = {
   showOfferFilling: boolean;

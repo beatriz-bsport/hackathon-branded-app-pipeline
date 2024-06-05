@@ -24,7 +24,6 @@ export type Props = {
   isDisabled?: boolean;
   keepHours?: boolean;
   singleDate?: boolean;
-  onSubmit: (values: Values) => void;
 } & Values &
   StylesProps;
 

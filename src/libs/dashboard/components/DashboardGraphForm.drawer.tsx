@@ -71,7 +71,6 @@ import GraphParamTemporalForm from './GraphParamTemporalForm.component';
 import GraphParamQualitativeForm from './GraphParamQualitativeForm.component';
 import GraphParamTimeslotsForm from './GraphParamTimeslotsForm.component';
 
-
 import { ChartComponentFieldInput } from './ChartComponentField.input';
 import { OptionCallback } from '../../../state/types';
 
@@ -89,6 +88,7 @@ export type OuterProps = {
   isPreview?: boolean;
   onClose?: () => void;
   handleGetDynamicDataForFilters: (datatype: DynamicFilterDataType) => any[];
+  // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (data: DataSourceDashboardGraph, options?: OptionCallback) => void;
   t: TFunction;
 };

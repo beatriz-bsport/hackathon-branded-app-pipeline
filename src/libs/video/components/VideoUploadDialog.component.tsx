@@ -35,7 +35,6 @@ type State = {
 };
 
 type OwnProps = {
-  onSubmit: () => void;
   video: Video;
   onClose: () => void;
   setExternalUrl: (

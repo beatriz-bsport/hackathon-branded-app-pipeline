@@ -68,7 +68,7 @@ export class TimeTable extends React.PureComponent<Props, State> {
     const { loading, offers, t, classes, virtualized } = this.props;
 
     return (
-      <div disablePadding className={classes.container}>
+      <div className={classes.container}>
         {loading ? <LinearProgress /> : null}
         {offers.length === 0 && !loading ? (
           <div className={classes.emptyMessage}>

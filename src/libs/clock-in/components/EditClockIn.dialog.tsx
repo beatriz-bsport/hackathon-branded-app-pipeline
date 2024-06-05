@@ -33,7 +33,9 @@ export type Props = {
 } & Values;
 
 export type Values = {
+  // eslint-disable-next-line react/no-unused-prop-types
   dateStart: DateTime;
+  // eslint-disable-next-line react/no-unused-prop-types
   dateEnd: DateTime;
 };
 

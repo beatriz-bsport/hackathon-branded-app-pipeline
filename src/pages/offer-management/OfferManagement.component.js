@@ -67,14 +67,14 @@ import { getOfferCategories } from '#libs/communication-v2/utils';
 import { DEFAULT_SPOT_TYPE } from '#libs/spot-scheduling/utils';
 import type { ResolvedGenericTags } from '#libs/email-editor/types';
 import type { StripeReader } from '#libs/terminal/types';
-import Config from '../../config';
 import MemberProgramDetailDialog from '#libs/performance-tracking/components/member-program/MemberProgramDetail.dialog';
 import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollCallDialog.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import SessionNotePad from '#libs/offer/components/SessionNotePad';
+import Config from '../../config';
 import type { InternalPaymentPayload } from '../../libs/payment/types';
 import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getActivityWorkshopPermission } from '../../libs/role/permission-utils/utils';
-import SessionNotePad from '#libs/offer/components/SessionNotePad';
 import type {
   OptionCallback,
   OptionBackgroundCallback,

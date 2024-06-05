@@ -5,13 +5,14 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Switch, Route } from 'react-router';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-// @ts-expect-error
+
 import themeSelectors from '#libs/theme/selectors';
 import { getLoginUrl } from '#libs/marketplace/routing-utils';
 
 import { fetchProfile } from '#libs/consumer-space/actions';
 import { CompanyTheme } from '#libs/theme/types';
 import withThemeProvider from '#hocs/company-themifier.hoc';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent.js';
 import { RootState } from '../../reducers';
 
@@ -41,7 +42,9 @@ const ValidationCheckout = asyncComponent(
 type Props = {
   location: { [key: string]: string };
   companyId: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   isNewCheckoutFlow: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   theme: CompanyTheme;
 } & ConnectedProps<typeof connector>;
 

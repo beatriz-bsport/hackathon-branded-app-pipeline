@@ -28,8 +28,6 @@ import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/w
 import Alert, { AlertSeverity } from '#csscomponents/Alert';
 // @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
-import type { WithHandlerType } from '../../../../utils/types';
-import type { OptionCallback } from '../../../../state/types';
 import type {
   MaxoutData,
   PaymentPack,
@@ -44,7 +42,6 @@ import {
 import withQueryParams from '#hocs/with-query-params.hoc';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '#libs/checkout/actions';
 import { getCurrentBasket } from '#libs/checkout/selectors';
-import { buildUrlParams } from '../../../../http';
 import {
   buildBuyableItemCategories,
   buildDataForUserRegistration,
@@ -91,7 +88,6 @@ import {
   fetchBookingFunnelConfiguration,
   fetchMarketplaceSettings,
 } from '#libs/marketplace/actions';
-import { RootState } from '../../../../reducers';
 import {
   getPaymentComboForBooking,
   withPaymentPack as withPaymentPackForCombo,
@@ -166,8 +162,12 @@ import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationActio
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
 
-import './BoutiqueBookerModule.css';
 import withScrollHeightListener from '#hocs/with-widget-scroll-height-listener.hoc';
+import { RootState } from '../../../../reducers';
+import { buildUrlParams } from '../../../../http';
+import type { OptionCallback } from '../../../../state/types';
+import type { WithHandlerType } from '../../../../utils/types';
+import './BoutiqueBookerModule.css';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 

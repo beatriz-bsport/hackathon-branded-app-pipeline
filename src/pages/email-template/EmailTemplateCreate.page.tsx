@@ -31,7 +31,7 @@ const { trackFormAdd, trackFormSuccess } =
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 export class EmailTemplateCreate extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.hasBeenLoadedOnce) {
       window.location.reload();
     }

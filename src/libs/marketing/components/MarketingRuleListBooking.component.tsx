@@ -79,15 +79,6 @@ type OwnProps = {
       };
     };
   };
-  privateBookingNotifications: {
-    [byGroup: string]: {
-      identifier: 'meta_activity' | 'establishment' | 'private_service';
-      bySession: {
-        [bySession: string]: { [byKind: string]: MarketingNotification[] };
-      };
-    };
-  };
-
   onClickNotification: (notification: MarketingNotification) => void;
   establishmentById: { [key: string]: Establishment };
   establishmentGroupById: { [key: string]: EstablishmentGroup };

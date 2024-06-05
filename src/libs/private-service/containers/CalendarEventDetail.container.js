@@ -42,6 +42,44 @@ import {
 } from '#libs/invoice/actions';
 import { snackbarSuccess } from '#libs/snackbar/actions';
 import { fetchPaymentMethodList } from '#libs/payment/actions';
+import type { Theme as CompanyTheme } from '#libs/theme/types';
+import type { Invoice } from '#libs/invoice/types';
+import type { PaymentMethod } from '#libs/payment/types';
+import { getDeletePermission, getEditPermission } from '#libs/offer/utils';
+import { requestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
+import { getProgramList } from '#libs/performance-tracking/selector';
+import {
+  updateMemberMetricValue as updateMemberMetricValueAction,
+  createMemberProgram as createMemberProgramAction,
+  fetchMetric as fetchMetricAction,
+  fetchProgram as fetchProgramAction,
+  fetchMemberProgram as fetchMemberProgramAction,
+} from '#libs/performance-tracking/actions';
+import {
+  getConsumerGiftcardReceivedList,
+  withGiftcard,
+  withSender,
+  withReceiver,
+  onlyUsable,
+} from '#libs/giftcard/selectors';
+import {
+  fetchGiftcardBulk as fetchGiftcardBulkAction,
+  fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
+} from '#libs/giftcard/actions';
+import {
+  fetchLevelList as fetchLevelListAction,
+  updateLevel as updateLevelAction,
+  createLevel as createLevelAction,
+  deleteLevel as deleteLevelAction,
+} from '#libs/level/actions';
+import {
+  getActiveCustomLevels,
+  getAllCustomLevels,
+  withCustomLevel,
+} from '#libs/level/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import type { Tag, TagGroup } from '#libs/tag/types';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import DeleteOfferForm from '../../offer/DeleteOfferForm.component';
 import {
   getAvailableRoomBlueprints,
@@ -117,47 +155,8 @@ import { fetchAllCoachPaymentRules } from '../../coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../../coach-payment-rules/selectors';
 import type { CoachPaymentRule } from '../../coach-payment-rules/types';
 import { showVaccinationStatus } from '../../custom-form/selectors';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
 import type { OptionCallback } from '../../../state/types';
-import type { Invoice } from '#libs/invoice/types';
-import type { PaymentMethod } from '#libs/payment/types';
-import { getDeletePermission, getEditPermission } from '#libs/offer/utils';
-import { requestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
-import { getProgramList } from '#libs/performance-tracking/selector';
-import {
-  updateMemberMetricValue as updateMemberMetricValueAction,
-  createMemberProgram as createMemberProgramAction,
-  fetchMetric as fetchMetricAction,
-  fetchProgram as fetchProgramAction,
-  fetchMemberProgram as fetchMemberProgramAction,
-} from '#libs/performance-tracking/actions';
-import {
-  getConsumerGiftcardReceivedList,
-  withGiftcard,
-  withSender,
-  withReceiver,
-  onlyUsable,
-} from '#libs/giftcard/selectors';
-import {
-  fetchGiftcardBulk as fetchGiftcardBulkAction,
-  fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
-} from '#libs/giftcard/actions';
 
-import {
-  fetchLevelList as fetchLevelListAction,
-  updateLevel as updateLevelAction,
-  createLevel as createLevelAction,
-  deleteLevel as deleteLevelAction,
-} from '#libs/level/actions';
-import {
-  getActiveCustomLevels,
-  getAllCustomLevels,
-  withCustomLevel,
-} from '#libs/level/selectors';
-
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import type { Tag, TagGroup } from '#libs/tag/types';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { ZoomApp } from '../../zoom-app/types';
 
 type Props = {

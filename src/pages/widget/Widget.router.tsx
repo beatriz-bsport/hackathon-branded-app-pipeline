@@ -5,7 +5,6 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import themeSelectors from '../../libs/theme/selectors';
 // @ts-expect-error

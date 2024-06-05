@@ -28,7 +28,7 @@ function createSpecs(props, row) {
   const specs = row.analyticSpec.map((e) =>
     e.specs.length ? (
       <TableCell className={props.classes.cellsBorder}>
-        <div align="left">
+        <div>
           <b>params: {'{'}</b>
         </div>
         {e.specs.map((s) => {

@@ -145,7 +145,7 @@ type Props = {
 };
 
 export class MemberDetailRelation extends React.Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchMember(this.props.memberId);
     this.fetchRelationList();
 

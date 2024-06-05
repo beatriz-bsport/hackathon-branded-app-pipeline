@@ -127,7 +127,9 @@ export type Props = {
   isDisabled?: boolean;
   futureOnly?: boolean;
   timePeriod: DateFilterRangeEnum;
+  // eslint-disable-next-line react/no-unused-prop-types
   isEndDateBeforeCurrentDate?: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (values: Values) => void;
 };
 

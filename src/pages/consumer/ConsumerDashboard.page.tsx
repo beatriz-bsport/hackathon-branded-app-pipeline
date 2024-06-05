@@ -124,11 +124,11 @@ import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import CanvasPreviewDialog from '#libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 
-// @ts-expect-error
 import { fetchConsumerPaymentPackLinks } from '#libs/relationship/actions';
 import { withIsSharedActive } from '#libs/relationship/selectors';
 import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
 import { fetchMemberTagList } from '#libs/tag/actions';
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { OptionCallback } from '../../state/types';
@@ -490,8 +490,10 @@ const mapStateToProps = (state: RootState, props) => ({
   onlinePaymentEnabled: state.theme.theme.online_payment_enabled,
   payment_method_available_basket:
     state.theme.theme.payment_method_available_basket,
+  // eslint-disable-next-line react/no-unused-prop-types
   metaActivitiesById: state.metaActivity.byId,
   detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
+  // eslint-disable-next-line react/no-unused-prop-types
   marketplaceSettings: state.marketplace.settings,
   member: getMember(state, props.membership.id),
   roomBlueprintById: state.spotScheduling.roomBlueprint.byId,

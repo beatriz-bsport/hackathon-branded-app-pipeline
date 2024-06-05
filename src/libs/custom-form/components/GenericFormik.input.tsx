@@ -17,6 +17,7 @@ import MaterialUISelector, {
 } from '#components/Selector/MaterialUISelector.component';
 
 export type BaseFieldProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   name: string;
 };
 const useTextFieldStyles = makeStyles(() => ({

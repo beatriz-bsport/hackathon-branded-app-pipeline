@@ -33,6 +33,7 @@ type EntryStepContentProps = {
   stepMemberCount?: number;
   getEmailTemplate?: (id: string) => EmailTemplateSummary;
   getTag?: (id: string) => Tag;
+  // eslint-disable-next-line react/no-unused-prop-types
   onClickNewMarketingAction?: (type: MarketingActions) => void;
   editMarketingAction?: (action: StepMarketingActions) => void;
 };
@@ -41,7 +42,9 @@ export type EntryStepCardProps = {
   disabled?: boolean;
   isFirstConfigurationMode?: boolean;
   isSelected?: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   step: CadenceStep;
+  // eslint-disable-next-line react/no-unused-prop-types
   cadenceEditMode?: boolean;
   stepMemberCount?: number;
   addMarketingAction?: (type: MarketingActions) => void;

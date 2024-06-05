@@ -61,6 +61,7 @@ type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
 type OwnProps = {
   companyId: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   membership: Membership;
   disconnect: () => void;
   submitCustomMembeForm: (formData: FormData, options?: OptionCallback) => void;
@@ -265,12 +266,15 @@ const mapStateToProps = (
   authenticated: state.auth.authenticated,
   isValidated:
     state.membership.memberShipValidation.missingInformation.validated,
+  // eslint-disable-next-line react/no-unused-prop-types
   missingInformation:
     state.membership.memberShipValidation.missingInformation.fields,
   userStatus: state.membership.memberShipValidation.missingInformation.status,
+  // eslint-disable-next-line react/no-unused-prop-types
   member: getMemberThroughMembership(getMemberDetailData)(state, companyId),
   membership: getMembership(state, companyId),
   userProfile: state.member.userProfile.profile,
+  // eslint-disable-next-line react/no-unused-prop-types
   memberLoading: state.member.loading,
   customFormLoading: state.customForm.loading,
   // @ts-expect-error

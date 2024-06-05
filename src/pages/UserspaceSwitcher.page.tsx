@@ -5,7 +5,6 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
-// @ts-expect-error
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import asyncComponent from '../AsyncComponent';
 import { getAuthToken } from '../http';

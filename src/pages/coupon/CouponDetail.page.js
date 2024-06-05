@@ -7,7 +7,6 @@ import { push as pushRouter } from 'connected-react-router';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import { CouponKind } from '@bsport/common/lib/master-data/coupon';
 
-
 import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component';
 import UniqueCodeCouponFormDrawer from '#libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
 import VoucherCodesDialog from '#libs/coupon/components/VoucherCodesDialog/VoucherCodesDialog.component';
@@ -145,7 +144,7 @@ export class CouponCreate extends Component<Props, State> {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.resetDiscounts();
     this.props.fetchCouponDiscounts(this.props.id, {
       page: 1,

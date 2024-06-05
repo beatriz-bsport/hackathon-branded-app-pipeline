@@ -53,6 +53,7 @@ import { PaginatedResponse } from '#state/types';
 
 type OwnProps = {
   membership: Membership;
+  // eslint-disable-next-line react/no-unused-prop-types
   companyId: number;
   push: (path: string) => void;
 };

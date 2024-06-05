@@ -21,10 +21,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
 
-import Config from '../../../../config';
-
-import './styles.css';
-
 import CadenceOutputCollapse from '#libs/sequential_marketing/components/graph/nodes/outputs/CadenceOutputCollapse.component';
 import CadenceOutput from '#libs/sequential_marketing/components/graph/nodes/outputs/CadenceOutput.component';
 import OutputWonTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/OutputWonTriggerBubble.component';
@@ -40,6 +36,9 @@ import type {
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#libs/sequential_marketing/constants/keywords';
+import Config from '../../../../config';
+
+import './styles.css';
 
 const nbsp = `\u00A0`;
 type Props = {

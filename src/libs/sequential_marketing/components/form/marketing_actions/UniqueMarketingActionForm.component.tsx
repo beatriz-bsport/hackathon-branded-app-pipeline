@@ -14,6 +14,7 @@ import MarketingActionContent from './MarketingActionContent.component';
 import { uniqueMarketingActionValidationSchema } from './validationSchemas';
 
 export type Props = {
+  // eslint-disable-next-line react/no-unused-prop-types
   onSubmit?: (
     value: Partial<StepMarketingActions>,
     options?: OptionCallback,

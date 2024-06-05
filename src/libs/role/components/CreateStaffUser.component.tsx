@@ -28,6 +28,7 @@ import { useAdvancedRoleSettings } from '../hooks/advancedRoleSettings';
 import AdvancedRoleSettingsForm from './AdvancedRoleSettingsForm.component';
 
 type OwnProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   coachList: Array<Coach>;
   coachListLoading: boolean;
   establishmentGroupListLoading: boolean;

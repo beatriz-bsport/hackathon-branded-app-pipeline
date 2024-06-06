@@ -36,6 +36,7 @@ import {
   fetchAllDeliveryFee as fetchAllDeliveryFeeAction,
 } from '#src/libs/order/actions';
 import { fetchBookkeepingAccountList } from '#src/libs/payment/actions';
+import { fetchTags as fetchTagsAction } from '#src/libs/tag/actions';
 
 // --- SELECTORS ---
 import { getTheme } from '#src/libs/theme/selectors';
@@ -56,6 +57,7 @@ import {
   getBookkeepingAccountList,
   getBookkeepingAccountById,
 } from '#src/libs/payment/selectors';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 
 // --- COMPONENTS ---
 import ShopListReworked from '#src/libs/shop/components/ShopListReworked';
@@ -94,16 +96,11 @@ import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constan
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 
-type OwnProps = {};
-
 type Handlers = {
   fetchBookkeepingAccountList: () => void;
 };
 
-type Props = OwnProps &
-  ConnectedProps<typeof connector> &
-  Handlers &
-  WithObjectSearch;
+type Props = ConnectedProps<typeof connector> & Handlers & WithObjectSearch;
 
 export class ShopListReworkedPage extends PureComponent<Props> {
   componentDidMount() {
@@ -114,6 +111,7 @@ export class ShopListReworkedPage extends PureComponent<Props> {
     IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
       this.props.fetchBookkeepingAccountList();
     this.handleFetchShopSupplierList();
+    this.props.fetchTags();
   }
 
   /** Handler to retrieve standalone + base shop items */
@@ -297,6 +295,7 @@ export class ShopListReworkedPage extends PureComponent<Props> {
         supplierList={this.props.supplierState.suppliers}
         supplierListCount={this.props.supplierState.count}
         supplierListPage={this.props.supplierState.page}
+        tagList={this.props.allTagsWithTagGroup}
         updateSubshop={this.handleUpdateSubshop}
         updateSupplier={this.handleUpdateSupplier}
       />
@@ -321,6 +320,7 @@ const connector = connect(
       getIsShopItemUsedInCombo(state, id),
     bookkeepingAccounts: getBookkeepingAccountList(state),
     bookkeepingAccountByid: getBookkeepingAccountById(state),
+    allTagsWithTagGroup: getAllTagsWithTagGroup(state),
   }),
   {
     // SHOP ITEM
@@ -349,10 +349,12 @@ const connector = connect(
     disableDeliveryFee: disableDeliveryFeeAction,
     // BOOKKEEPING ACCOUNT
     fetchBookkeepingAccountListAction: fetchBookkeepingAccountList,
+    // TAGS
+    fetchTags: fetchTagsAction,
   },
 );
 
-export default compose<Props, OwnProps>(
+export default compose<Props, {}>(
   withTranslation('titles'),
   connector,
   withObjectSearch,

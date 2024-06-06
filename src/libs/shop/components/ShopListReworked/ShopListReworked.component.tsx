@@ -28,6 +28,7 @@ import type {
   DeliveryFeeCreationOrUpdatePayload,
 } from '#src/libs/order/types';
 import type { BookkeepingAccount } from '#src/libs/payment/types';
+import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { ShopListTab } from '#src/libs/shop/components/ShopListTabs/constants';
@@ -44,6 +45,7 @@ type Props = {
   deliveryFees: DeliveryFee[];
   isOrderConfigurationLoading: boolean;
   isOrderConfigurationUpdateLoading: boolean;
+  tagList: Tag<TagGroupAPI>[];
   retrieveShopItemUsedInCombo: (id: number) => void;
   getIsShopItemUsedInCombo: (id: number) => boolean;
   goToShopItem: (id: number) => void;
@@ -95,6 +97,7 @@ const ShopListReworked: React.FC<Props> = ({
   deliveryFees,
   isOrderConfigurationLoading,
   isOrderConfigurationUpdateLoading,
+  tagList,
   retrieveShopItemUsedInCombo,
   getIsShopItemUsedInCombo,
   goToShopItem,
@@ -319,6 +322,7 @@ const ShopListReworked: React.FC<Props> = ({
           onCreateSubmit={handleCreateShopItem}
           provincialTax={provincialTax}
           supplierList={supplierList}
+          tagList={tagList}
         />
       </GenericResponsiveDrawer>
 

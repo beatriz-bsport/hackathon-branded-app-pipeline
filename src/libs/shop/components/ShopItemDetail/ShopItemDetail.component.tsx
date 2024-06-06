@@ -27,12 +27,13 @@ import type {
   ProvisionCreate,
   ShopItemVariantCombination,
 } from '#src/libs/shop/types';
+import type { OptionCallback } from '#src/state/types';
+import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
+import type { BookkeepingAccount } from '#src/libs/payment/types';
+import type { SelectOption } from '#src/libs/types';
 
 import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
-import type { BookkeepingAccount } from '#src/libs/payment/types';
-import type { SelectOption } from '#src/libs/types';
-import type { OptionCallback } from '../../../../state/types';
 
 const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.ShopItem,
@@ -63,6 +64,7 @@ type Props = {
     sizes: SelectOption[];
   };
   isSupplierPriceHidden?: boolean;
+  tagList: Tag<TagGroupAPI>[];
   getIsShopItemUsedInCombo: (shopItemId: number) => boolean;
   updateShopItem: (
     formData: Partial<ShopItemEdit>,
@@ -111,6 +113,7 @@ const ShopItemDetail: React.FC<Props> = ({
   shopItemVariantFilterOptionList,
   shopItemVariantFilterOptionValues,
   isSupplierPriceHidden,
+  tagList,
   getIsShopItemUsedInCombo,
   bookkeepingAccounts,
   bookkeepingAccountById,
@@ -366,6 +369,7 @@ const ShopItemDetail: React.FC<Props> = ({
           onUpdateSubmit={handleSubmitEditShopItem}
           provincialTax={provincialTaxValue}
           supplierList={supplierList}
+          tagList={tagList}
         />
       </GenericResponsiveDrawer>
 

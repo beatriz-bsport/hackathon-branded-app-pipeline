@@ -27,6 +27,7 @@ import {
 } from '#src/libs/shop/actions/supplier';
 
 import { retrieveFranchise as retrieveFranchiseAction } from '#src/libs/franchise/actions';
+import { fetchTags as fetchTagsAction } from '#src/libs/tag/actions';
 
 // --- SELECTORS ---
 import { getTheme } from '#src/libs/theme/selectors';
@@ -49,6 +50,7 @@ import {
   getBookkeepingAccountById,
 } from '#src/libs/payment/selectors';
 import { getFranchisor } from '#src/libs/franchise/selectors';
+import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 
 // --- COMPONENTS ---
 import ShopItemDetail from '#src/libs/shop/components/ShopItemDetail';
@@ -100,6 +102,7 @@ export class ShopItemDetailPage extends Component<Props> {
       this.props.fetchBookkeepingAccountList();
     this.props.theme.franchisor &&
       this.props.retrieveFranchise(this.props.theme.franchisor);
+    this.props.fetchTags();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -336,6 +339,7 @@ export class ShopItemDetailPage extends Component<Props> {
         shopItemVariantFilterOptionValues={this.getVariantFilterOptionValues()}
         supplierList={this.props.supplierState.suppliers}
         tab={this.props.queryParams.tab}
+        tagList={this.props.allTagsWithTagGroup}
         updateShopItem={this.handleUpdateShopItem}
         updateShopItemVariantBulk={this.handleUpdateShopItemVariantBulk}
         variantCombinationList={this.props.variantCombinationList ?? []}
@@ -368,6 +372,7 @@ const connector = connect(
     variantCombinationList: getShopItemVariantCombinationList(state, id),
     bookkeepingAccounts: getBookkeepingAccountList(state),
     bookkeepingAccountById: getBookkeepingAccountById(state),
+    allTagsWithTagGroup: getAllTagsWithTagGroup(state),
   }),
   {
     retrieveShopItemUsedInCombo: retrieveShopItemUsedInComboAction,
@@ -384,6 +389,7 @@ const connector = connect(
     createShopItemProvision: createShopItemProvisionAction,
     fetchShopItemVariantCombinationList:
       fetchShopItemVariantCombinationListAction,
+    fetchTags: fetchTagsAction,
     backToShopPage: () => push('/shop'),
     fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
     retrieveFranchise: retrieveFranchiseAction,

@@ -59,8 +59,8 @@ export const useObjectSearch = (searchedObjectTypes?: SearchObjectType[]) => {
     })(dispatch);
   };
 
-  const getSelectorState = (
-    searchedObjectType: SearchObjectType,
+  const getSelectorState = <T extends SearchObjectType>(
+    searchedObjectType: T,
     selectorId = DEFAULT_SELECTOR_ID,
   ) => searchResults[searchedObjectType].bySelectorId[selectorId];
 

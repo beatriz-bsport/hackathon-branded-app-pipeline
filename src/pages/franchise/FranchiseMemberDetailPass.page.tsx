@@ -163,10 +163,9 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
   React.useEffect(() => {
     selectorState?.results?.currentResults &&
       fetchPaymentPackBulk(
-        selectorState.results.currentResults.map(
-          // @ts-expect-error: due to Union type
-          (consumerPaymentPack) => consumerPaymentPack.payment_pack,
-        ),
+        selectorState.results.currentResults
+          .map((consumerPaymentPack) => consumerPaymentPack.payment_pack)
+          .asMutable(),
       );
   }, [fetchPaymentPackBulk, selectorState]);
 

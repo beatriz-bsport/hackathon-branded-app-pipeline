@@ -28,7 +28,7 @@ const defaultSelectorState: ObjectSearchState<SearchObjectType> = {
     page: 1,
     count: 0,
     allIds: [],
-    currentResults: [],
+    currentResults: Immutable([]),
   },
 };
 

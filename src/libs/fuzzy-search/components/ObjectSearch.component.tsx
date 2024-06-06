@@ -94,7 +94,6 @@ const ObjectSearch: React.FC<Props> = ({
   if (!hasHydratedResults) {
     return <PlaceholderSelect {...selectorProps} />;
   }
-
   return (
     <Select<SelectOptions[number]>
       components={componentsVariant}
@@ -103,7 +102,7 @@ const ObjectSearch: React.FC<Props> = ({
       filterOption={(_option, _text) => true}
       isLoading={isLoading}
       onInputChange={handleInputChange}
-      options={[...formattedResults] as SelectOptions}
+      options={formattedResults}
       {...otherSelectProps}
     />
   );

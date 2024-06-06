@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
+import type { Immutable } from 'seamless-immutable';
 import type { OptionCallback } from '#src/state/types';
 import type {
   FuzzySearchAPIParams,
@@ -38,7 +39,7 @@ type HookProps = {
     },
     options?: OptionCallback<ObjectSearchPaginated>,
   ) => Promise<void>;
-  rawResults: ObjectSearchArray;
+  rawResults: Immutable<ObjectSearchArray>;
   searchedObjectType: SearchObjectType;
   resetSearch: (identifier: SearchIdentifier) => void;
   additionalParams?: ObjectSearchProps['additionalParams'];
@@ -121,9 +122,11 @@ export const useFetchOptions = ({
     paramsRef.current = additionalParams;
   }
 
+  const mutableResults = rawResults.asMutable({ deep: true });
+
   const formattedResults = optionsFormatter
-    ? optionsFormatter(rawResults)
-    : defaultFormatter(searchedObjectType, rawResults);
+    ? optionsFormatter(mutableResults)
+    : defaultFormatter(searchedObjectType, mutableResults);
 
   return {
     handleInputChange,

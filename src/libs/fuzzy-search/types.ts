@@ -89,7 +89,7 @@ export type ObjectSearchState<T extends SearchObjectType> = {
   error: Error | null;
   loading: boolean;
   results: {
-    currentResults: ResultsMap[T]['array'];
+    currentResults: ResultsMap[T]['immutableArray'];
     page: number;
     next_page: number | null;
     count: number;
@@ -193,6 +193,7 @@ export type VariantType = (typeof variantType)[number];
 type ResultTypeMap<T extends SearchObjectType> = {
   result: ResultsTypes[T];
   array: ResultsTypes[T][];
+  immutableArray: ImmutableArray<ResultsTypes[T]>;
   paginated: PaginatedResponse<ResultsTypes[T]>;
   full: PaginatedResponse<ResultsTypes[T]> & { searchedObjectType: T };
 };

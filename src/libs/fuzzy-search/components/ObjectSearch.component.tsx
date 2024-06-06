@@ -19,6 +19,7 @@ import {
 } from '#src/libs/fuzzy-search/actions';
 import type {
   ObjectSearchProps,
+  ObjectSelectOption,
   SearchObjectType,
   SelectOptions,
 } from '#src/libs/fuzzy-search/types';
@@ -94,8 +95,9 @@ const ObjectSearch: React.FC<Props> = ({
   if (!hasHydratedResults) {
     return <PlaceholderSelect {...selectorProps} />;
   }
+
   return (
-    <Select<SelectOptions[number]>
+    <Select<ObjectSelectOption>
       components={componentsVariant}
       defaultValue={formattedInitialValues}
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

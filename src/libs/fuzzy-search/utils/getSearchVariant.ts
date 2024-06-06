@@ -1,11 +1,14 @@
 import { SelectComponents } from 'react-select/lib/components';
-import type { SelectOptions, VariantType } from '#src/libs/fuzzy-search/types';
+import type {
+  ObjectSelectOption,
+  VariantType,
+} from '#src/libs/fuzzy-search/types';
 import { UnderlinedSearchBarControl } from '#src/libs/fuzzy-search/components/variants';
 
 export const getSearchVariant = (
   variant: VariantType,
-  components: Partial<SelectComponents<SelectOptions[number]>>,
-): Partial<SelectComponents<SelectOptions[number]>> => {
+  components: Partial<SelectComponents<ObjectSelectOption>>,
+): Partial<SelectComponents<ObjectSelectOption>> => {
   switch (variant) {
     case 'underlined':
       return {

@@ -1,4 +1,3 @@
-import { OptionsType } from 'react-select/lib/types';
 import { ImmutableArray } from 'seamless-immutable';
 import type { OptionProps } from 'react-select/lib/components/Option';
 
@@ -66,7 +65,8 @@ import type {
   CustomFormQueryParams,
 } from '#src/libs/custom-form/types';
 import type { PaginationFilterParams, SelectOption } from '#src/libs/types';
-import type {
+import type { OptionsType } from 'react-select/lib/types';
+import {
   FranchiseUserPass,
   FranchiseUserPrivatePass,
   PassesSearchPaginatedQueryParams,
@@ -203,15 +203,11 @@ export type ResultsMap = { [key in SearchObjectType]: ResultTypeMap<key> };
  * The different props that can be passed to the ObjectSearch component depending on the searched object
  */
 
-export type SelectOptions =
-  | OptionsType<{
-      label: string;
-      value: number;
-    }>
-  | OptionsType<{
-      label: string;
-      options: { label: string; value: number }[];
-    }>;
+export type ObjectSelectOption =
+  | SelectOption<number>
+  | { label: string; options: SelectOption<number>[] };
+
+export type SelectOptions = OptionsType<ObjectSelectOption>;
 
 export type ObjectSearchProps = {
   [key in SearchObjectType]: {

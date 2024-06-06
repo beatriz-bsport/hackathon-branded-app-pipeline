@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
-import { connect } from 'react-redux';
+import type {
+  Theme,
+  WithStyles,
+} from 'bsport-saas/node_modules/@material-ui/core/styles';
+import { ConnectedProps, connect } from 'react-redux';
 
 import { MarketplaceWorkshopBase } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
-import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types';
-import { MaterialStyleType } from 'bsport-saas/src/utils/types';
-import { Theme } from 'bsport-saas/src/libs/theme/types';
+import { OwnProps as MarketplaceWorkshopOwnProps } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
+import type {
+  MarketplaceFilters,
+  MarketplaceSetFilters,
+  MarketplaceWorkshopData,
+} from 'bsport-saas/src/libs/marketplace/types';
+import type { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import withPostMessageOnPropsUpdate from 'bsport-saas/src/hocs/postMessages/with-post-message-on-props-update';
 import withPostMessageToUpdateProps from 'bsport-saas/src/hocs/postMessages/with-post-message-to-update-props';
@@ -21,7 +29,14 @@ import { getEnv } from '../utils/env';
 import { bridgeRequestRegisteredOfferIdList } from '../libs/bridge/actions';
 import { RootState } from '../reducers';
 
-const MarketplaceWorkshopBaseStyled = compose(
+type MarketplaceWorkshopStyledProps = MarketplaceWorkshopOwnProps & {
+  theme: CompanyTheme,
+};
+
+const MarketplaceWorkshopBaseStyled = compose<
+  MarketplaceWorkshopOwnProps,
+  MarketplaceWorkshopStyledProps
+>(
   themify,
   withPostMessageOnPropsUpdate([
     { propName: 'filters', messageType: 'bsport:calendar:filter:update' },
@@ -43,29 +58,29 @@ const MarketplaceWorkshopBaseStyled = compose(
     },
   ]),
 )(MarketplaceWorkshopBase);
+
 type OwnProps = {
   companyId: number,
   config: MarketplaceWorkshopData,
   store: any,
-  theme: Theme,
+  theme: CompanyTheme,
   username: string,
   onWindowOpen: (url: string) => void,
 };
 
 type Props = OwnProps &
-  MaterialStyleType<ReturnType<typeof styles>> &
-  ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+  WithStyles<typeof styles> &
+  ConnectedProps<typeof connector>;
 
 type State = {
-  filters: any,
+  filters: MarketplaceFilters,
 };
 
 class WorkshopWidget extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const filters: any = {
+    const filters: MarketplaceFilters = {
       coaches: props.config.coaches || [],
       establishments: props.config.establishments || [],
       activity__in: props.config.metaActivities || [],
@@ -82,7 +97,7 @@ class WorkshopWidget extends Component<Props, State> {
     }
   }
 
-  setFilters = (key: any) => {
+  setFilters: MarketplaceSetFilters = (key: string) => {
     const _this = this;
 
     return (values: any) => {
@@ -118,7 +133,7 @@ class WorkshopWidget extends Component<Props, State> {
   }
 }
 
-const styles = (theme: MuiTheme) => ({
+const styles = (theme: Theme) => ({
   container: {
     width: '100%',
     fontFamily: theme.typography.fontFamily,
@@ -135,7 +150,9 @@ const mapDispatchToProps = {
   bridgeRequestRegisteredOfferIdList,
 };
 
-export default compose<any, OwnProps>(
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose<Props, OwnProps>(
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
 )(WorkshopWidget);

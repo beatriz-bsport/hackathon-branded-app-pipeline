@@ -7,6 +7,11 @@ export enum ShopItemFormStep {
 
 export type ShopItemVariantOption = { label: string; value: string };
 
+export enum GenerateBarcodesForVariantsEnum {
+  INHERIT_FROM_BASE_ITEM = 'inherit_from_base_item',
+  GENERATE_NEW_BARCODES = 'generate_new_barcodes',
+}
+
 export type ShopItemFormValues = {
   availablePaymentMethodIdentifiers: number[];
   barcode: string;
@@ -30,6 +35,7 @@ export type ShopItemFormValues = {
   tva: number;
   bookkeepingAccount?: number;
   tagsOnPurchase: number[];
+  generateBarcodesForVariants: `${GenerateBarcodesForVariantsEnum}`;
   /**
    * In franchisor context, this field is used to spread the shop item template
    * In BO context this field is always an empty array an unused in the final payload

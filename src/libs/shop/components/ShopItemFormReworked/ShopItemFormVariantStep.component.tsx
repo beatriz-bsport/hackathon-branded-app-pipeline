@@ -6,10 +6,19 @@ import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
 import Grid from '@material-ui/core/Grid';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import Typography from '@material-ui/core/Typography';
 
-import type { ShopItemFormValues, ShopItemVariantOption } from './types';
+import {
+  GenerateBarcodesForVariantsEnum,
+  ShopItemFormValues,
+  ShopItemVariantOption,
+} from './types';
 
 type Props = {
   warningMessage?: string;
@@ -30,7 +39,7 @@ const ShopItemFormVariantStep: React.FC<Props> = ({
 
   const classes = useStyles();
 
-  const { values, errors, isValid, setFieldValue } =
+  const { values, errors, isValid, setFieldValue, handleChange } =
     useFormikContext<ShopItemFormValues>();
 
   const handleSetColors = useCallback(
@@ -97,6 +106,34 @@ const ShopItemFormVariantStep: React.FC<Props> = ({
               ? t('shopitem.form.error.colorSize')
               : t('shopitem.form.sizes.helperText')}
           </Typography>
+        </Grid>
+        <Grid item className={classes.gridItemContainer} xs={12}>
+          <FormControl
+            component="fieldset"
+            disabled={
+              !(values.sizes ?? []).length && !(values.colors ?? []).length
+            }
+          >
+            <FormLabel component="legend">
+              {t('shopitem.form.barcodes.title')}
+            </FormLabel>
+            <RadioGroup
+              name="generateBarcodesForVariants"
+              onChange={handleChange}
+              value={values.generateBarcodesForVariants}
+            >
+              <FormControlLabel
+                control={<Radio />}
+                label={t('shopitem.form.barcodes.option.inherit')}
+                value={GenerateBarcodesForVariantsEnum.INHERIT_FROM_BASE_ITEM}
+              />
+              <FormControlLabel
+                control={<Radio />}
+                label={t('shopitem.form.barcodes.option.generate')}
+                value={GenerateBarcodesForVariantsEnum.GENERATE_NEW_BARCODES}
+              />
+            </RadioGroup>
+          </FormControl>
         </Grid>
       </Grid>
 

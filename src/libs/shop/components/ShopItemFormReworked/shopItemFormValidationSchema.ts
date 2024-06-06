@@ -20,6 +20,7 @@ const shopItemFormProductStepValidationSchema = Yup.object().shape({
   barcode: Yup.string(),
   stockKeepingUnit: Yup.string(),
   marketplaceEnabled: Yup.boolean().required('common:requiredField'),
+  generateBarcodesForVariants: Yup.string().notRequired(),
   availablePaymentMethodIdentifiers: Yup.array().of(Yup.number()),
   featured: Yup.boolean().required('common:requiredField'),
   sellOnlyOnProvision: Yup.boolean().required('common:requiredField'),

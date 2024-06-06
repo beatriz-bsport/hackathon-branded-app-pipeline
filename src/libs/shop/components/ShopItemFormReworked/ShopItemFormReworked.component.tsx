@@ -29,6 +29,7 @@ import ShopItemFormProductStep from './ShopItemFormProductStep.component';
 import ShopItemFormVariantStep from './ShopItemFormVariantStep.component';
 
 import {
+  GenerateBarcodesForVariantsEnum,
   ShopItemFormStep,
   ShopItemFormValues,
   ShopItemVariantOption,
@@ -113,6 +114,8 @@ const ShopItemFormReworked: React.FC<Props> = ({
           value: company.id,
         })) ?? [],
       tagsOnPurchase: [],
+      generateBarcodesForVariants:
+        GenerateBarcodesForVariantsEnum.GENERATE_NEW_BARCODES,
     }),
     [initial],
   );
@@ -179,6 +182,13 @@ const ShopItemFormReworked: React.FC<Props> = ({
             'tags_on_purchase[]': values.tagsOnPurchase,
           }),
           ...(!!values.subshop && { subshop: values.subshop }),
+          ...(!!(
+            (values.colors ?? []).length || (values.sizes ?? []).length
+          ) && {
+            generate_barcodes_for_variants:
+              values.generateBarcodesForVariants ===
+              GenerateBarcodesForVariantsEnum.GENERATE_NEW_BARCODES,
+          }),
           stock_keeping_unit: values.stockKeepingUnit || '',
           ...(!!values.supplier && { supplier: values.supplier }),
           ...(!!values.colors?.length && { ...variantColorListPayload }),

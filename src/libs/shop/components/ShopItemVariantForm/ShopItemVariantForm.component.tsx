@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Formik, Form } from 'formik';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -15,7 +15,10 @@ import {
 import ShopItemFormVariantStep from '../ShopItemFormReworked/ShopItemFormVariantStep.component';
 
 import type { ShopItemVariantFormValues } from './types';
-import type { ShopItemVariantOption } from '../ShopItemFormReworked/types';
+import {
+  GenerateBarcodesForVariantsEnum,
+  ShopItemVariantOption,
+} from '#src/libs/shop/components/ShopItemFormReworked/types';
 
 import { shopItemVariantFormValidationSchema } from './shopItemVariantFormValidationSchema';
 
@@ -39,10 +42,15 @@ const ShopItemVariantForm: React.FC<Props> = ({
 
   const { t } = useTranslation('shop');
 
-  const [initialValues] = useState<ShopItemVariantFormValues>({
-    colors: [],
-    sizes: [],
-  });
+  const initialValues: ShopItemVariantFormValues = useMemo(
+    () => ({
+      colors: [],
+      sizes: [],
+      generateBarcodesForVariants:
+        GenerateBarcodesForVariantsEnum.GENERATE_NEW_BARCODES,
+    }),
+    [],
+  );
 
   const handleOnSubmit = useCallback(
     (values: ShopItemVariantFormValues) => {
@@ -52,6 +60,9 @@ const ShopItemVariantForm: React.FC<Props> = ({
       onSubmit({
         colors: values.colors.map((option) => option.value),
         sizes: values.sizes.map((option) => option.value),
+        generate_barcodes_for_variants:
+          values.generateBarcodesForVariants ===
+          GenerateBarcodesForVariantsEnum.GENERATE_NEW_BARCODES,
       });
     },
     [onSubmit],

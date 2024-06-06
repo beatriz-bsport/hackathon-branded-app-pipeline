@@ -9,7 +9,7 @@ import {
 
 import ShopItemFormReworked from './ShopItemFormReworked.component';
 
-import type { ShopItemFormValues } from './types';
+import { GenerateBarcodesForVariantsEnum, ShopItemFormValues } from './types';
 
 import shopItemFormValidationSchema from './shopItemFormValidationSchema';
 
@@ -39,6 +39,8 @@ const initialValues: ShopItemFormValues = {
   subshop: null,
   franchiseCompanyList: [],
   tagsOnPurchase: [],
+  generateBarcodesForVariants:
+    GenerateBarcodesForVariantsEnum.GENERATE_NEW_BARCODES,
 };
 
 export const EmptyForm = ShopItemFormTemplate.bind({});

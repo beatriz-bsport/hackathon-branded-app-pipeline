@@ -1,15 +1,19 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { useFormikContext } from 'formik';
-import { FormControl, InputLabel, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import CardMedia from '@material-ui/core/CardMedia';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Collapse from '@material-ui/core/Collapse';
+import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import InputLabel from '@material-ui/core/InputLabel';
 import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -17,6 +21,11 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import { provincialTaxHelperText } from '#src/libs/theme/utils';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SettingsIcon from '@material-ui/icons/Settings';
+
+import { useHasTagsSameGroup } from '#src/libs/tag/components/hooks';
 
 import NumericInput from '#src/components/input/NumericInput.component';
 import PriceInput from '#src/components/input/PriceInput.component';
@@ -25,11 +34,14 @@ import ImageUploader from '#src/components/input/ImageUploader.component';
 import PaymentMethodSelectorInput from '#src/libs/payment/components/PaymentMethodSelectorInput.component';
 import BookkeepingAccountSelector from '#src/libs/payment/components/BookkeepingAccountSelector';
 import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import TagSelector from '#src/libs/tag/components/TagSelector.selector';
+import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';
 
 import type { ShopSupplier, ShopSupplierTemplate } from '#src/libs/shop/types';
 import type { ShopItemFormValues } from '#src/libs/shop/components/ShopItemFormReworked/types';
 import type { BookkeepingAccount } from '#src/libs/payment/types';
 import type { SelectOption } from '#src/libs/types';
+import type { Tag, TagGroup, TagGroupAPI } from '#src/libs/tag/types';
 
 import { ALMOST_100 } from '../../../../constants';
 
@@ -69,6 +81,7 @@ type Props = {
   bookkeepingAccounts?: BookkeepingAccount[];
   bookkeepingAccountById?: Record<number, BookkeepingAccount>;
   initialValues: ShopItemFormValues;
+  tagList?: Tag<TagGroupAPI>[];
 };
 
 const ShopItemFormProductStep: React.FC<Props> = ({
@@ -81,6 +94,7 @@ const ShopItemFormProductStep: React.FC<Props> = ({
   bookkeepingAccounts,
   bookkeepingAccountById,
   initialValues,
+  tagList,
 }) => {
   const { t } = useTranslation(['translation', 'theme', 'common', 'shop']);
 
@@ -88,6 +102,14 @@ const ShopItemFormProductStep: React.FC<Props> = ({
 
   const { values, errors, handleChange, setFieldValue } =
     useFormikContext<ShopItemFormValues>();
+
+  const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
+
+  const hasTagsSameGroup = useHasTagsSameGroup({
+    selectedTagsIds: values?.tagsOnPurchase,
+    // @ts-expect-error
+    tagsWithGroup: tagList ?? [],
+  });
 
   const handleSelectPaymentMethods = useCallback(
     (paymentMethodIdentifiers: number[]) => {
@@ -125,6 +147,30 @@ const ShopItemFormProductStep: React.FC<Props> = ({
     (companyList: SelectOption[]) => {
       setFieldValue('franchiseCompanyList', companyList);
     },
+    [setFieldValue],
+  );
+
+  const handleToggleAdvancedSettings = useCallback(
+    () => setShowAdvancedSettings((prevState) => !prevState),
+    [],
+  );
+
+  const handleDeleteTagOnPurchase = useCallback(
+    (id: number) => {
+      const filteredTagList = values.tagsOnPurchase.filter(
+        (tagId) => tagId !== id,
+      );
+      setFieldValue('tagsOnPurchase', filteredTagList);
+    },
+    [setFieldValue, values.tagsOnPurchase],
+  );
+
+  const handleChangeTagOnPurchase = useCallback(
+    (options: { label: string; value: number; tag: Tag<TagGroup> }[]) =>
+      setFieldValue(
+        'tagsOnPurchase',
+        options.map((option) => option.value),
+      ),
     [setFieldValue],
   );
 
@@ -385,6 +431,56 @@ const ShopItemFormProductStep: React.FC<Props> = ({
           />
         </Grid>
       </Grid>
+
+      {(tagList ?? []).length > 0 && (
+        <Grid item xs={12}>
+          <ButtonBase
+            className={classes.advancedSettingsButton}
+            onClick={handleToggleAdvancedSettings}
+          >
+            <SettingsIcon />
+            <Typography variant="h6">
+              {t('translation:form.shop.item.advancedOptions.header')}
+            </Typography>
+            {showAdvancedSettings ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </ButtonBase>
+
+          <Collapse in={showAdvancedSettings}>
+            <Grid
+              container
+              className={classes.advancedSettingsContainer}
+              spacing={4}
+            >
+              <Grid item className={classes.tagsOnPurchaseContainer} xs={12}>
+                <Typography>
+                  {t(
+                    'translation:form.shop.item.advancedOptions.tag.tagsOnAcquisition',
+                  )}
+                </Typography>
+                <Typography variant="caption">
+                  {t(
+                    'translation:form.shop.item.advancedOptions.tag.tagsOnAcquisitionHelper',
+                  )}
+                </Typography>
+                <TagSelector
+                  closeMenuOnSelect
+                  inScrollBar
+                  isClearable
+                  allTagsWithTagGroup={tagList ?? []}
+                  onChange={handleChangeTagOnPurchase}
+                  onDeleteTag={handleDeleteTagOnPurchase}
+                  placeholder={t(
+                    'translation:form.shop.item.advancedOptions.tag.selectTags',
+                  )}
+                  selectedTags={values.tagsOnPurchase}
+                />
+                {hasTagsSameGroup && <TagGroupDuplicatedAlert />}
+              </Grid>
+            </Grid>
+          </Collapse>
+        </Grid>
+      )}
+
       <div className={classes.buttons}>
         {isLoading ? (
           <CircularProgress />
@@ -441,6 +537,24 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     paddingTop: theme.spacing(2),
+  },
+  advancedSettingsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    paddingTop: theme.spacing(2),
+  },
+  advancedSettingsButton: {
+    width: '100%',
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'flex-start',
+    gap: theme.spacing(2),
+    alignItems: 'center',
+  },
+  tagsOnPurchaseContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
   },
   header: {
     paddingLeft: theme.spacing(3),

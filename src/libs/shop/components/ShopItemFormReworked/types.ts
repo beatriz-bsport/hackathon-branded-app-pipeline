@@ -29,6 +29,7 @@ export type ShopItemFormValues = {
   supplier?: number | null;
   tva: number;
   bookkeepingAccount?: number;
+  tagsOnPurchase: number[];
   /**
    * In franchisor context, this field is used to spread the shop item template
    * In BO context this field is always an empty array an unused in the final payload

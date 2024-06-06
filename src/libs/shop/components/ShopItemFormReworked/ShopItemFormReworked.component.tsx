@@ -34,6 +34,7 @@ import {
   ShopItemVariantOption,
 } from '#src/libs/shop/components/ShopItemFormReworked/types';
 import type { SelectOption } from '#src/libs/types';
+import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
 
 import { getShopItemFormValidationSchema } from '#src/libs/shop/components/ShopItemFormReworked/shopItemFormValidationSchema';
 
@@ -53,6 +54,8 @@ type Props = {
   supplierList: ShopSupplier[] | ShopSupplierTemplate[];
   bookkeepingAccounts?: BookkeepingAccount[];
   bookkeepingAccountById?: Record<number, BookkeepingAccount>;
+  /** List of all tags for member assignation post purchase. Not active on franchise context */
+  tagList?: Tag<TagGroupAPI>[];
   /** Used on franchise context */
   franchiseCompanyListOptions?: SelectOption[];
 };
@@ -68,6 +71,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
   supplierList,
   bookkeepingAccounts,
   bookkeepingAccountById,
+  tagList,
   franchiseCompanyListOptions,
 }: Props) => {
   const classes = useStyles();
@@ -108,6 +112,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
           label: company.name,
           value: company.id,
         })) ?? [],
+      tagsOnPurchase: [],
     }),
     [initial],
   );
@@ -170,6 +175,9 @@ const ShopItemFormReworked: React.FC<Props> = ({
           featured: values.featured,
           sell_only_on_provision: values.sellOnlyOnProvision,
           is_deliverable: values.isDeliverable,
+          ...(!!values.tagsOnPurchase.length && {
+            'tags_on_purchase[]': values.tagsOnPurchase,
+          }),
           ...(!!values.subshop && { subshop: values.subshop }),
           stock_keeping_unit: values.stockKeepingUnit || '',
           ...(!!values.supplier && { supplier: values.supplier }),
@@ -229,6 +237,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
               isLoading={isLoading}
               provincialTax={provincialTax}
               supplierList={supplierList}
+              tagList={tagList}
             />
           )}
           {formStep === ShopItemFormStep.VARIANT && (

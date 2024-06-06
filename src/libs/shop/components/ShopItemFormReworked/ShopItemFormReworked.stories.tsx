@@ -38,6 +38,7 @@ const initialValues: ShopItemFormValues = {
   isDeliverable: true,
   subshop: null,
   franchiseCompanyList: [],
+  tagsOnPurchase: [],
 };
 
 export const EmptyForm = ShopItemFormTemplate.bind({});

@@ -30,6 +30,7 @@ export const SHOPITEM_FORMDATA_KEYS_MAPPER = {
   tva: 'tva',
   variants: 'variants',
   bookkeeping_account: 'bookkeeping_account',
+  'tags_on_purchase[]': 'tags_on_purchase[]',
 };
 
 export const SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER = {

@@ -63,9 +63,5 @@ module.exports = merge(common, {
       navigateFallbackDenylist: [/^\/__/], // This replaces navigateFallbackWhitelist
       exclude: [/\.map$/, /asset-manifest\.json$/],
     }),
-
-    new webpack.IgnorePlugin({
-      resourceRegExp: /^\.\/locale$/, // Ignore all files matching this pattern
-    }),
   ],
 });

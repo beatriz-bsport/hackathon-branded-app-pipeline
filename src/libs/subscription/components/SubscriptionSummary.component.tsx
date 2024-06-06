@@ -8,7 +8,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import { DateTime } from 'luxon';
-import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import {
+  getCompanyCountry,
+  getCurrencyDisplayWithPrice,
+} from '#src/libs/theme/selectors';
 import { PaymentPack } from '#src/libs/payment-packs/types';
 import { PrivatePass } from '#src/libs/private-service/types';
 import { PaymentCombo } from '#src/libs/payment-combo/types';
@@ -18,6 +21,7 @@ import { Subscription, SubscriptionPause } from '../types';
 import ContractTermsDialog from './contract/ContractTermsDialog.component';
 import { isPaused } from '../utils';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+import GermanMarketSetSubscriptionAutoRenewalAlert from '../GermanMarketSetSubscriptionAutoRenewalAlert.component';
 
 type Props = {
   canEditPassBillingPlan: boolean;
@@ -29,6 +33,39 @@ type Props = {
   loading: boolean;
   unflagPlannedInvoiceAsLast: (id: number) => void;
   downloadContractTerms: (options: OptionCallback) => void;
+};
+
+const isCycleMoreThanOneYearAfterAutoRenewal = (
+  subscription: Subscription<PrivatePass, PaymentPack, PaymentCombo>,
+): boolean => {
+  const {
+    month_billing_day,
+    nb_interval,
+    nb_interval_after_auto_renewal,
+    interval,
+  } = subscription;
+
+  const getIntervalThreshold = (subInterval: string): number => {
+    switch (subInterval) {
+      case 'year':
+        return 1;
+      case 'month':
+        return 12;
+      case 'week':
+        return 4 * 12;
+      case 'day':
+        return 365;
+      default:
+        return Infinity;
+    }
+  };
+  const threshold = getIntervalThreshold(interval);
+  if (month_billing_day !== null) {
+    // Contract on a fixed day of the month
+    return (nb_interval_after_auto_renewal ?? nb_interval) >= 12;
+  }
+
+  return (nb_interval_after_auto_renewal ?? nb_interval) >= threshold;
 };
 
 const renderStatus = (
@@ -65,7 +102,7 @@ const renderStatus = (
 };
 
 export const SubscriptionSummary = (props: Props) => {
-  const { subscription } = props;
+  const { subscription, updateRenewal } = props;
   const { t } = useTranslation('subscription');
   const classes = useStyles();
   const lastInvoice = subscription.planned_invoices.find(
@@ -73,6 +110,41 @@ export const SubscriptionSummary = (props: Props) => {
   );
   const [openContractTermsDialog, setOpenContractTermsDialog] =
     React.useState(false);
+
+  const [
+    openGermanMarketSetSubscriptionAutoRenewalAlert,
+    setOpenGermanMarketSetSubscriptionAutoRenewalAlert,
+  ] = React.useState(false);
+
+  const onValidateGermanMarketSetSubscriptionAutoRenewalAlert =
+    React.useCallback(() => {
+      updateRenewal({
+        auto_renewal: true,
+      });
+    }, [updateRenewal]);
+
+  const onAutoRenewalCheckboxChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.checked;
+      if (
+        value &&
+        getCompanyCountry() === 'DE' &&
+        isCycleMoreThanOneYearAfterAutoRenewal(subscription)
+      ) {
+        setOpenGermanMarketSetSubscriptionAutoRenewalAlert(true);
+      } else {
+        updateRenewal({
+          auto_renewal: value,
+        });
+      }
+    },
+    [
+      setOpenGermanMarketSetSubscriptionAutoRenewalAlert,
+      updateRenewal,
+      subscription,
+    ],
+  );
+
   const onOpenContractTermsDialog = () => setOpenContractTermsDialog(true);
   const onCloseContractTermsDialog = () => setOpenContractTermsDialog(false);
   if (!subscription) {
@@ -85,7 +157,7 @@ export const SubscriptionSummary = (props: Props) => {
     <div className={classes.container}>
       <fieldset>
         <legend>{t('parameters.parameters')}</legend>
-        {subscription.has_changed_after_renewal && (
+        {!!subscription.has_changed_after_renewal && (
           <div className={classes.field}>
             <Typography variant="body1">
               {t('parameters.secondBillingPlanEnabled')}
@@ -131,11 +203,7 @@ export const SubscriptionSummary = (props: Props) => {
           <Checkbox
             checked={subscription.auto_renewal}
             disabled={props.loading || !subscription.editable}
-            onChange={(ev) =>
-              props.updateRenewal({
-                auto_renewal: ev.target.checked,
-              })
-            }
+            onChange={onAutoRenewalCheckboxChange}
           />
         </div>
         {!!subscription.payment_pack && (
@@ -233,6 +301,7 @@ export const SubscriptionSummary = (props: Props) => {
               <Trans
                 components={[
                   <ButtonBaseWithTypography
+                    key="OpenContractTermsDialogButton"
                     disableRipple
                     className={classes.contractTermsButton}
                     onClick={onOpenContractTermsDialog}
@@ -275,6 +344,11 @@ export const SubscriptionSummary = (props: Props) => {
         contractTermsLink={subscription.contract_terms_pdf_link}
         downloadContractTerms={props.downloadContractTerms}
         open={openContractTermsDialog}
+      />
+      <GermanMarketSetSubscriptionAutoRenewalAlert
+        onValidate={onValidateGermanMarketSetSubscriptionAutoRenewalAlert}
+        open={openGermanMarketSetSubscriptionAutoRenewalAlert}
+        setOpen={setOpenGermanMarketSetSubscriptionAutoRenewalAlert}
       />
     </div>
   );

@@ -977,6 +977,7 @@ export function fetchMarketplaceOfferByMetaActivityList(
     page: number;
     min_date: string;
     max_date: string;
+    with_unique_offer_by_group: boolean;
     username?: string;
     filters: OfferFilterData | OfferFilter;
     is_workshop?: boolean;

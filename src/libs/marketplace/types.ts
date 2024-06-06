@@ -163,13 +163,14 @@ export type MarketplaceMetaActivity = MetaActivity &
     offers: Offer<Coach, Establishment>[];
   };
 
-export type MarketPlaceFilter = {
+export type MarketplaceFilters = {
   coaches: number[];
   establishments: number[];
   levels: number[];
   activity__in: number[];
   establishment_group__in: number[];
 };
+export type MarketplaceSetFilters = (key: string) => (value: any) => void;
 
 export type MarketplaceCategoryPassFilterOption = {
   label: string;

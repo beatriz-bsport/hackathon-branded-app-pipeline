@@ -13,10 +13,13 @@ import MarketplaceCalendarSearch from '#src/libs/marketplace/components/@Calenda
 import {
   Establishment,
   EstablishmentGroup,
-} from '../../../../establishment/types';
-import { MetaActivity } from '../../../../meta-activity/types';
-import { Coach } from '../../../../associated-coach/types';
-import { MarketPlaceFilter } from '../../../types';
+} from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import type {
+  MarketplaceFilters,
+  MarketplaceSetFilters,
+} from '#src/libs/marketplace/types';
 import MarketplaceFilter from '../MarketplaceFilter/MarketplaceFilter.component';
 
 import './MarketplaceFilterCSSOnly.css';
@@ -28,8 +31,8 @@ export type Props = {
   allEstablishments: Establishment[];
   establishmentGroupList: Array<EstablishmentGroup>;
   metaActivities: { [key: number]: MetaActivity };
-  filters: MarketPlaceFilter;
-  setFilters: (key: string) => (value: any) => void;
+  filters: MarketplaceFilters;
+  setFilters: MarketplaceSetFilters;
   variant: 'activity' | 'workshop';
   showMultiLocalization: boolean;
   customLevels: Level[];

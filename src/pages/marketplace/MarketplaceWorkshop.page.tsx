@@ -54,6 +54,10 @@ import {
   getOffersListByGroup as getOffersListByGroupSelector,
 } from '#src/libs/group-offer/selectors';
 import MarketplaceFilters from '#src/libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly';
+import type {
+  MarketplaceFilters as MarketplaceFiltersType,
+  MarketplaceSetFilters,
+} from '#src/libs/marketplace/types';
 import themeSelectors from '#src/libs/theme/selectors';
 
 import {
@@ -99,16 +103,22 @@ import './MarketplaceWorkshop.css';
 
 const BATCH_SIZE_FOR_META_ACTIVITY = 6;
 
-type OwnProps = {
+export type OwnProps = {
   companyId: number;
   username: string;
+  filters: MarketplaceFiltersType;
+  setFilters: MarketplaceSetFilters;
+  store: any;
+  bookedOffers: number[];
+  mapContainerClassName?: string;
   goToBook?: (offerId: number, companyId: number) => void;
-  onlineFilter: {
+  onlineFilter?: {
     is_online: boolean | undefined;
   };
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
+
 const MIN_DATE = DateTime.now().toISODate();
 
 const MAX_DATE = DateTime.now()
@@ -117,9 +127,7 @@ const MAX_DATE = DateTime.now()
   .toISODate();
 
 const MarketplaceWorkshopPage: React.FC<Props> = ({
-  // @ts-expect-error
   filters,
-  // @ts-expect-error
   setFilters,
   onlineFilter,
   companyId,
@@ -137,7 +145,6 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   // username is necessary in order to retrieve user
   // specific information without relying on auth tokens
   username,
-  // @ts-expect-error
   bookedOffers,
   fetchEstablishments,
   fetchWorkshopList,
@@ -203,7 +210,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
           ...(username ? { username: encodeURI(username) } : {}),
           company: companyId,
           with_unique_offer_by_group: true,
-          ...filters,
+          filters: { ...filters },
           ...(typeof onlineFilter?.is_online === 'boolean'
             ? { is_online: onlineFilter.is_online }
             : {}),
@@ -458,7 +465,7 @@ const connector = connect(
 );
 
 // Used in the widget
-export const MarketplaceWorkshopBase = compose<any, OwnProps>(
+export const MarketplaceWorkshopBase = compose<Props, OwnProps>(
   marketplaceCssHoc(),
   withTranslation(['booking', 'titles']),
   withTitle(({ t }: { t: TFunction }) =>
@@ -516,7 +523,6 @@ export default compose(
     'setOtherParams',
   ]),
   withPostMessageOnPropsUpdate<Props>([
-    // @ts-expect-error
     { propName: 'filters', messageType: 'bsport:workshop:filter:update' },
     {
       propName: 'onlineFilter',
@@ -525,7 +531,6 @@ export default compose(
   ]),
   withPostMessageToUpdateProps<Props>([
     {
-      // @ts-expect-error
       propName: 'filters',
       messageType: 'bsport:workshop:filter:control',
       validationSchema: CalendarFilterValidationSchema,

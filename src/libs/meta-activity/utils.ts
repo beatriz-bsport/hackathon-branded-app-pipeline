@@ -1,9 +1,9 @@
-import { MarketPlaceFilter } from '#src/libs/marketplace/types';
+import { MarketplaceFilters } from '#src/libs/marketplace/types';
 import { MetaActivityFilter } from './types';
 
 export const convertMarketplaceFilterForMetaActivityCall = (
   companyId: number,
-  filters: MarketPlaceFilter,
+  filters: MarketplaceFilters,
   onlineFilter?: { is_online: boolean | undefined },
 ): MetaActivityFilter => {
   return {

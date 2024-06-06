@@ -1,4 +1,4 @@
-import { MarketPlaceFilter } from '#src/libs/marketplace/types';
+import { MarketplaceFilters } from '#src/libs/marketplace/types';
 import { convertMarketplaceFilterForMetaActivityCall } from '../utils';
 // @ts-expect-error
 import { MetaActivityFilter } from './types';
@@ -8,7 +8,7 @@ const defaultFilter: MetaActivityFilter = {
   with_future_slots: true,
 };
 
-const completeFilterMarketplace: MarketPlaceFilter = {
+const completeFilterMarketplace: MarketplaceFilters = {
   activity__in: [1, 42],
   coaches: [2, 43],
   establishments: [3, 44],

@@ -226,6 +226,7 @@ const getTranslations = async () => {
       today_end_amount: "Day's closing amount",
       today_start_amount: "Day's starting amount",
       date_last_update: 'Date',
+      second_billing_plan: 'Second billing plan',
       amount: "Day's earnings",
       nb_offers_cancelled: 'Number of cancelled sessions',
       nb_offers: 'Number of sessions',

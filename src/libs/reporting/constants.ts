@@ -13,6 +13,7 @@ export const GREEN_GREY_BOOLEAN_CHIPS = [
   'new_member_only',
   'plan_auto_renewal',
   'is_recurring',
+  'second_billing_plan',
 ];
 
 export const RED_GREEN_BOOLEAN_CHIPS = [

@@ -402,6 +402,7 @@ exports.default = {
     goBack: 'Return',
     refresh: 'Refresh',
     logoff: 'Logout',
+    closeTab: 'Close Tab',
     payment: 'Payments',
     establishment: 'Establishments',
     member: 'Members',

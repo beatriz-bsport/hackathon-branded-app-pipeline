@@ -55,6 +55,13 @@ exports.default = {
         title: 'Sizes',
         helperText: 'Add a size by pressing enter',
       },
+      barcodes: {
+        title: 'Barcodes',
+        option: {
+          inherit: 'Inherit from the base product',
+          generate: 'Generate new barcodes',
+        },
+      },
       variantHelperText:
         'Define variants if this product is available in multiple colours and/or sizes. You will be able to edit the properties of each variant later.',
       error: {

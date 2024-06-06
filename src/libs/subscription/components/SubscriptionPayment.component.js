@@ -554,7 +554,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 priceWithCurrency: getCurrencyDisplayWithPrice(
                   this.getPriceDisplay(),
                 ),
-                firstBillingDate: DateTime.fromISO(date).toFormat('D'),
+                firstBillingDate: date
+                  ? DateTime.fromISO(date).toFormat('D')
+                  : DateTime.now().toFormat('D'),
                 recurrentPrice: `${getCurrencyDisplayWithPrice(
                   parseFloat(this.props.contract.recurrent_price).toFixed(2),
                 )}`,

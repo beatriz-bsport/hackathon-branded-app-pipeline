@@ -18,7 +18,9 @@ export const computeProrataPriceForSubscription = (
   recurrentPrice: string,
 ): string => {
   const reccurentPriceFloat = parseFloat(recurrentPrice);
-  const firstBillingDate = DateTime.fromISO(first_BillingDate);
+  const firstBillingDate = first_BillingDate
+    ? DateTime.fromISO(first_BillingDate)
+    : DateTime.now();
   const secondBillingDate = getNextBillingDate(
     firstBillingDate,
     monthBillingDay,

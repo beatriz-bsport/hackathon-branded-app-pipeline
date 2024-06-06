@@ -5,6 +5,7 @@ import {
   BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
 } from '../constants';
 import {
+  STORAGE_KEY_BSPORT_ACCM_CHANNEL_ID,
   STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
   STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
   STORAGE_KEY_BSPORT_TOKEN,
@@ -110,10 +111,10 @@ function clearTokens() {
 
 export function setAccessControlBroadcastsChannelId(uuid: string) {
   if (!uuid || uuid === 'null') {
-    removeItemInStorage('local', 'bsport:accm-channel:id');
+    removeItemInStorage('local', STORAGE_KEY_BSPORT_ACCM_CHANNEL_ID);
     return;
   }
-  setItemInStorage('local', 'bsport:accm-channel:id', uuid);
+  setItemInStorage('local', STORAGE_KEY_BSPORT_ACCM_CHANNEL_ID, uuid);
 }
 
 export const getTimezoneName = () => {

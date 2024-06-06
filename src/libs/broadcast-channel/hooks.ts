@@ -8,6 +8,7 @@ import { senderLocalIdActions } from './actions';
 
 import type { BroadcastChannelMessage } from './types';
 import type { RootState } from '../../reducers';
+import { STORAGE_KEY_BSPORT_ACCM_CHANNEL_ID } from '#src/actions/constants';
 
 /**
  * @hook
@@ -42,7 +43,7 @@ export const useBroadcastChannel = <PayloadType = any>(
   // Update the channel id when the storage event is triggered
   useEffect(() => {
     const updateBroadcastChannelId = (event: StorageEvent) => {
-      if (event.key === 'bsport:accm-channel:id') {
+      if (event.key === STORAGE_KEY_BSPORT_ACCM_CHANNEL_ID) {
         channel.close();
         channelRef.current = new BroadcastChannel(
           getAccessControlBroadcastsChannelId(),

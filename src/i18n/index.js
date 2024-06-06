@@ -145,9 +145,11 @@ const setLanguage = (lng: string) => {
 };
 
 const getLanguage = () => {
-  return (
-    getItemInStorage('local', STORAGE_KEY_BSPORT_I18NEXTLNG).slice(0, 2) || 'en'
-  );
+  const language =
+    getItemInStorage('local', STORAGE_KEY_BSPORT_I18NEXTLNG)?.slice(0, 2) ??
+    'en';
+
+  return language;
 };
 
 export default i18n;

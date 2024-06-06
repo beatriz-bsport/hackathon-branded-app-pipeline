@@ -2,9 +2,10 @@
 
 import { DateTime } from 'luxon';
 import { getItemInStorage } from '../../utils/storage';
+import { STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE } from '../../libs/theme/constants';
 
 const currencyCode = (
-  getItemInStorage('local', 'bsport:payment:currency_code') || 'EUR'
+  getItemInStorage('local', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE) || 'EUR'
 ).toUpperCase();
 export default class FacebookPixel {
   static methods = [];

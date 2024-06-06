@@ -9,3 +9,6 @@ export const STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL =
   'bsport:impersonation:url:origin';
 export const STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL =
   'bsport:impersonation:url:exited';
+export const STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN =
+  'bsport:relatedMemberMaster:http:token';
+export const STORAGE_KEY_BSPORT_ACCM_CHANNEL_ID = 'bsport:accm-channel:id';

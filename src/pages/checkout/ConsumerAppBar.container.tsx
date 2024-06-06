@@ -23,6 +23,7 @@ import { fetchProfile as fetchProfileAction } from '../../libs/consumer-space/ac
 import { RootState } from '../../reducers';
 import MinimalMarketplaceAppBarCSSOnly from '#libs/marketplace/components/@AppBar/MarketplaceAppBar/MinimalMarketplaceAppBarCSSOnly';
 import { getItemInStorage } from '#src/utils/storage';
+import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '#src/actions/constants';
 
 type OwnProps = {
   companyId?: number;
@@ -53,7 +54,7 @@ export const ConsumerAppBar: React.FC<Props> = ({
 
   const isRelationNavigation = !!getItemInStorage(
     'local',
-    'bsport:relatedMemberMaster:http:token',
+    STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
   );
   const classes = useStyles({ backgroundColor });
 

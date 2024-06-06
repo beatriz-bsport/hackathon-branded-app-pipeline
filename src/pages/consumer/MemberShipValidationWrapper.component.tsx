@@ -34,6 +34,7 @@ import MemberShipValidationWrapperInnerComponent from './MemberShipValidationWra
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import { getItemInStorage } from '#src/utils/storage';
+import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '#src/actions/constants';
 
 type OwnProps = {
   companyId: number;
@@ -141,7 +142,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
   render() {
     const isRelationNavigation = !!getItemInStorage(
       'local',
-      'bsport:relatedMemberMaster:http:token',
+      STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
     );
     // @ts-expect-error
     if (!this.props.theme && !this.props.authenticated) {

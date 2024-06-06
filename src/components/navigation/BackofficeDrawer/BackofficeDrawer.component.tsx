@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
@@ -321,6 +321,12 @@ export const BackOfficeDrawer: React.FC<Props> = ({
     openWelcometutorialDialog,
   ]);
 
+  const getDisconnectButtonText = useCallback(() => {
+    return getItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN)
+      ? t('backofficeMenu.closeTab')
+      : t('backofficeMenu.logoff');
+  }, [t]);
+
   const handleDrawerToggle = () => {
     if (mobileOpen) {
       setMobileOpen(false);
@@ -403,16 +409,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             <ListItemIcon>
               <PowerSettingsNewIcon />
             </ListItemIcon>
-            <ListItemText
-              primary={
-                getItemInStorage(
-                  'session',
-                  STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
-                )
-                  ? t('backofficeMenu.closeTab')
-                  : t('backofficeMenu.logoff')
-              }
-            />
+            <ListItemText primary={getDisconnectButtonText()} />
           </MenuItem>
         </Menu>
       </Grid>

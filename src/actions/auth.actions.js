@@ -38,6 +38,7 @@ import {
   STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
   STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL,
   STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
+  STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
 } from './constants';
 import {
   STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR,
@@ -511,7 +512,7 @@ export function disconnect(callback) {
     } catch (err) {
       console.error(err);
     }
-    removeItemInStorage('local', 'bsport:relatedMemberMaster:http:token');
+    removeItemInStorage('local', STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN);
     removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL);
     removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL);
     dispatch((() => ({ type: types.DISCONNECT }))());
@@ -693,7 +694,7 @@ export function navigateToRelationAccount(
       }
       setItemInStorage(
         'local',
-        'bsport:relatedMemberMaster:http:token',
+        STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
         masterToken,
       );
 
@@ -762,12 +763,12 @@ export function navigateBackToMasterRelation(params: {
     try {
       const newToken = getItemInStorage(
         'local',
-        'bsport:relatedMemberMaster:http:token',
+        STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
       );
 
       const { data } = await accessLevelAPI(newToken);
 
-      removeItemInStorage('local', 'bsport:relatedMemberMaster:http:token');
+      removeItemInStorage('local', STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN);
       dispatch((() => ({ type: types.RESET_STORE }))());
 
       // Set new access level

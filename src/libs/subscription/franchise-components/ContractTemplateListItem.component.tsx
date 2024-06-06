@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
@@ -25,10 +25,10 @@ type Props = {
   getPaymentPackTemplateById: (id: number) => PaymentPackTemplate;
   getPrivatePassTemplateById: (id: number) => PrivatePassTemplate;
   getFranchiseCompanyListById: (id__in: number[]) => FranchiseCompany[];
-  onDelete?: () => void;
+  onDelete?: (id: number) => void;
   onEdit?: () => void;
   onClick?: () => void;
-  onRestore?: () => void;
+  onRestore?: (id: number) => void;
   selected?: boolean;
   dense?: boolean;
 };
@@ -92,6 +92,16 @@ const ContractTemplateListItem: React.FC<Props> = ({
     t,
   ]);
 
+  const deleteHandler = useCallback(
+    () => onDelete(contractTemplate.id),
+    [onDelete, contractTemplate.id],
+  );
+
+  const restoreHandler = useCallback(
+    () => onRestore(contractTemplate.id),
+    [onRestore, contractTemplate.id],
+  );
+
   return (
     <ListItem
       button
@@ -130,19 +140,19 @@ const ContractTemplateListItem: React.FC<Props> = ({
           </IconButton>
         </Tooltip>
       )}
-      {onDelete && (
+      {!!onDelete && (
         <Tooltip classes={tooltipClasses} title={t('subscription.delete')}>
-          <IconButton onClick={onDelete}>
+          <IconButton onClick={deleteHandler}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
       )}
-      {onRestore && (
+      {!!onRestore && (
         <Tooltip
           classes={tooltipClasses}
           title={t('contractTemplate.icons.restore')}
         >
-          <IconButton onClick={onRestore}>
+          <IconButton onClick={restoreHandler}>
             <RestoreFromTrashIcon />
           </IconButton>
         </Tooltip>

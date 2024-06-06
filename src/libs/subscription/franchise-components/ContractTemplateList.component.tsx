@@ -26,9 +26,9 @@ type Props = {
   getPrivatePassTemplateById: (id: number) => PrivatePassTemplate;
   getFranchiseCompanyListById: (id__in: number[]) => FranchiseCompany[];
   onClick?: () => void;
-  onDelete?: () => void;
+  onDelete?: (id: number) => void;
   onEdit?: () => void;
-  onRestore?: () => void;
+  onRestore?: (id: number) => void;
 };
 
 const ContractTemplateList: React.FC<Props> = ({

@@ -339,3 +339,11 @@ export const fetchContractTemplateList = (
     )}`,
   );
 };
+
+export const deleteContractTemplate = (id: number) => {
+  return deleteAuth(`${API_URI}/subscription/contract-template/${id}/`);
+};
+
+export const restoreContractTemplate = (id: number) => {
+  return postAuth(`${API_URI}/subscription/contract-template/${id}/restore/`);
+};

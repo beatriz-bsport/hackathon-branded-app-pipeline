@@ -30,6 +30,8 @@ import {
   downloadPDFContractTermsActions,
   fetchActiveContractTemplateListActions,
   fetchDisabledContractTemplateListActions,
+  deleteContractTemplateActions,
+  restoreContractTemplateActions,
 } from './actions';
 
 import type { ContractTemplate, SubscriptionState } from './types';
@@ -130,6 +132,14 @@ const initialState: SubscriptionState = Immutable({
   },
 
   contractTemplate: {
+    delete: {
+      loading: false,
+      error: null,
+    },
+    restore: {
+      loading: false,
+      error: null,
+    },
     active: {
       loading: false,
       error: null,
@@ -571,6 +581,30 @@ export default handleActions<Immutable.Immutable<SubscriptionState>>(
           },
           { deep: true },
         );
+    },
+    [deleteContractTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['contractTemplate', 'delete', 'loading'], payload);
+    },
+    [deleteContractTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['contractTemplate', 'delete', 'error'], payload);
+    },
+    [restoreContractTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['contractTemplate', 'restore', 'loading'], payload);
+    },
+    [restoreContractTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['contractTemplate', 'restore', 'error'], payload);
     },
   },
   initialState,

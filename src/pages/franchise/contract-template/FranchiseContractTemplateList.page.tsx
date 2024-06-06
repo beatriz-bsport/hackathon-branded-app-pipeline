@@ -18,6 +18,8 @@ import { RootState } from '#src/reducers';
 import {
   fetchActiveContractTemplateList as fetchActiveContractTemplateListAction,
   fetchDisabledContractTemplateList as fetchDisabledContractTemplateListAction,
+  deleteContractTemplate as deleteContractTemplateAction,
+  restoreContractTemplate as restoreContractTemplateAction,
 } from '#src/libs/subscription/actions';
 import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#src/libs/payment-packs/actions';
 import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#src/libs/private-service/actions';
@@ -31,6 +33,7 @@ import { getPaymentPackTemplateById as getPaymentPackTemplateByIdSelector } from
 import { getPrivatePassTemplateById as getPrivatePassTemplateByIdSelector } from '#src/libs/private-service/selectors/private-pass';
 import { getFranchiseCompanyListById as getFranchiseCompanyListByIdSelector } from '#src/libs/franchise/selectors';
 import ContractTemplateList from '#src/libs/subscription/franchise-components/ContractTemplateList.component';
+import ContractTemplateDeleteDialog from '#src/libs/subscription/components/ContractTemplateDeleteDialog.component';
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
 
@@ -42,6 +45,8 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
   getFranchiseCompanyListById,
   fetchActiveContractTemplateList,
   fetchDisabledContractTemplateList,
+  deleteContractTemplate,
+  restoreContractTemplate,
   fetchPaymentPackTemplateList,
   fetchPrivatePassTemplateList,
   fetchFranchise,
@@ -50,6 +55,11 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
   const classes = useStyles();
   const [showDisabledContractList, setShowDisabledContractList] =
     useState(false);
+
+  const [
+    selectedContractTemplateIdToDelete,
+    setSelectedContractTemplateIdToDelete,
+  ] = React.useState<number | null>(null);
 
   const fetchActiveContractTemplateListHandler = useCallback(
     (page?: number) => {
@@ -85,7 +95,45 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
     );
   }, []);
 
-  const handleDeleteContractTemplate = () => {};
+  const handleOpenDeleteDialog = useCallback((id: number) => {
+    setSelectedContractTemplateIdToDelete(id);
+  }, []);
+
+  const handleCloseDeleteDialog = useCallback(() => {
+    setSelectedContractTemplateIdToDelete(null);
+  }, []);
+
+  const handleDeleteContractTemplate = useCallback(() => {
+    deleteContractTemplate(selectedContractTemplateIdToDelete, {
+      onSuccess: () => {
+        fetchActiveContractTemplateListHandler();
+        fetchDisabledContractTemplateListHandler();
+      },
+    });
+    setSelectedContractTemplateIdToDelete(null);
+  }, [
+    deleteContractTemplate,
+    fetchActiveContractTemplateListHandler,
+    fetchDisabledContractTemplateListHandler,
+    selectedContractTemplateIdToDelete,
+  ]);
+
+  const handleRestoreContractTemplate = useCallback(
+    (id: number) => {
+      restoreContractTemplate(id, {
+        onSuccess: () => {
+          fetchActiveContractTemplateListHandler();
+          fetchDisabledContractTemplateListHandler();
+        },
+      });
+    },
+    [
+      fetchActiveContractTemplateListHandler,
+      fetchDisabledContractTemplateListHandler,
+      restoreContractTemplate,
+    ],
+  );
+
   const handleEditContractTemplate = () => {};
   const handleOnClickTemplate = () => {};
 
@@ -102,7 +150,7 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
         getPrivatePassTemplateById={getPrivatePassTemplateById}
         loading={activeContractTemplateState.loading}
         onClick={handleOnClickTemplate}
-        onDelete={handleDeleteContractTemplate}
+        onDelete={handleOpenDeleteDialog}
         onEdit={handleEditContractTemplate}
         page={activeContractTemplateState.page}
       />
@@ -129,15 +177,24 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
             getPaymentPackTemplateById={getPaymentPackTemplateById}
             getPrivatePassTemplateById={getPrivatePassTemplateById}
             loading={disabledContractTemplateState.loading}
+            onRestore={handleRestoreContractTemplate}
             page={disabledContractTemplateState.page}
           />
         )}
       </div>
+      <ContractTemplateDeleteDialog
+        onClose={handleCloseDeleteDialog}
+        onSubmit={handleDeleteContractTemplate}
+        open={!!selectedContractTemplateIdToDelete}
+      />
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
+  searchInput: {
+    flex: 1,
+  },
   sectionTitle: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
@@ -178,6 +235,8 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = {
   fetchActiveContractTemplateList: fetchActiveContractTemplateListAction,
   fetchDisabledContractTemplateList: fetchDisabledContractTemplateListAction,
+  deleteContractTemplate: deleteContractTemplateAction,
+  restoreContractTemplate: restoreContractTemplateAction,
   fetchPaymentPackTemplateList: fetchPaymentPackTemplateListAction,
   fetchPrivatePassTemplateList: fetchPrivatePassTemplateListAction,
   fetchFranchise: fetchFranchiseAction,

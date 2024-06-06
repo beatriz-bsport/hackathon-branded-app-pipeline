@@ -27,6 +27,8 @@ import api, {
   downloadPDFContractTermsForContract as downloadPDFContractTermsForContractAPI,
   downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAPI,
   fetchContractTemplateList as fetchContractTemplateListAPI,
+  deleteContractTemplate as deleteContractTemplateAPI,
+  restoreContractTemplate as restoreContractTemplateAPI,
 } from './api';
 
 import type {
@@ -1140,13 +1142,13 @@ export function downloadPDFContractTermsForBillingPlan(
 
 export const fetchActiveContractTemplateListActions = {
   error: createAction<Error | null>(
-    'FRANCHISE/ACTIVE_CONTRACT_TEMPLATE/LIST/ERROR',
+    'FRANCHISE/CONTRACT_TEMPLATE/ACTIVE_LIST/ERROR',
   ),
   isLoading: createAction<boolean>(
-    'FRANCHISE/ACTIVE_CONTRACT_TEMPLATE/LIST/IS_LOADING',
+    'FRANCHISE/CONTRACT_TEMPLATE/ACTIVE_LIST/IS_LOADING',
   ),
   success: createAction<PaginatedResponse<ContractTemplate>>(
-    'FRANCHISE/ACTIVE_CONTRACT_TEMPLATE/LIST/SUCCESS',
+    'FRANCHISE/CONTRACT_TEMPLATE/ACTIVE_LIST/SUCCESS',
   ),
 };
 
@@ -1182,13 +1184,13 @@ export function fetchActiveContractTemplateList(
 
 export const fetchDisabledContractTemplateListActions = {
   error: createAction<Error | null>(
-    'FRANCHISE/DISABLED_CONTRACT_TEMPLATE/LIST/ERROR',
+    'FRANCHISE/CONTRACT_TEMPLATE/DISABLED_LIST/ERROR',
   ),
   isLoading: createAction<boolean>(
-    'FRANCHISE/DISABLED_CONTRACT_TEMPLATE/LIST/IS_LOADING',
+    'FRANCHISE/CONTRACT_TEMPLATE/DISABLED_LIST/IS_LOADING',
   ),
   success: createAction<PaginatedResponse<ContractTemplate>>(
-    'FRANCHISE/DISABLED_CONTRACT_TEMPLATE/LIST/SUCCESS',
+    'FRANCHISE/CONTRACT_TEMPLATE/DISABLED_LIST/SUCCESS',
   ),
 };
 
@@ -1221,4 +1223,52 @@ export const fetchDisabledContractTemplateList =
     }
 
     dispatch(fetchDisabledContractTemplateListActions.isLoading(false));
+  };
+
+export const deleteContractTemplateActions = {
+  error: createAction<Error | null>('FRANCHISE/CONTRACT_TEMPLATE/DELETE/ERROR'),
+  isLoading: createAction<boolean>(
+    'FRANCHISE/CONTRACT_TEMPLATE/DELETE/IS_LOADING',
+  ),
+};
+
+export const deleteContractTemplate =
+  (id: number, options: OptionCallback) => async (dispatch: Dispatch) => {
+    dispatch(deleteContractTemplateActions.isLoading(true));
+    dispatch(deleteContractTemplateActions.error(null));
+
+    try {
+      await deleteContractTemplateAPI(id);
+      options.onSuccess?.();
+    } catch (error) {
+      dispatch(deleteContractTemplateActions.error(error));
+      options.onError?.(error);
+    }
+
+    dispatch(deleteContractTemplateActions.isLoading(false));
+  };
+
+export const restoreContractTemplateActions = {
+  error: createAction<Error | null>(
+    'FRANCHISE/CONTRACT_TEMPLATE/RESTORE/ERROR',
+  ),
+  isLoading: createAction<boolean>(
+    'FRANCHISE/CONTRACT_TEMPLATE/RESTORE/IS_LOADING',
+  ),
+};
+
+export const restoreContractTemplate =
+  (id: number, options: OptionCallback) => async (dispatch: Dispatch) => {
+    dispatch(restoreContractTemplateActions.isLoading(true));
+    dispatch(restoreContractTemplateActions.error(null));
+
+    try {
+      await restoreContractTemplateAPI(id);
+      options.onSuccess?.();
+    } catch (error) {
+      dispatch(restoreContractTemplateActions.error(error));
+      options.onError?.(error);
+    }
+
+    dispatch(restoreContractTemplateActions.isLoading(false));
   };

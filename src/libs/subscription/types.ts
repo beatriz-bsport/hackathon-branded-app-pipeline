@@ -275,6 +275,8 @@ export type SubscriptionState = {
     };
   };
   contractTemplate: {
+    delete: ErrorAndLoading;
+    restore: ErrorAndLoading;
     active: ErrorAndLoading & {
       byId: { [id: number]: ContractTemplate };
       allIds: number[];

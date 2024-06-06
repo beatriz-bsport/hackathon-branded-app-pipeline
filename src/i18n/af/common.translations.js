@@ -13,6 +13,9 @@ exports.default = {
       minute_plural: 'Minutes:',
     },
     requiredField: 'This field is mandatory.',
+    validation: {
+      number: 'This field must be a number.',
+    },
   },
   selector: {
     validate: 'Confirm',

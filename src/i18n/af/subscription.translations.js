@@ -181,7 +181,15 @@ const getTranslations = async () => {
             'The number of billings must be between 2 and 12 for fixed-day billing',
         },
         managerOnly: { label: 'Unavailable for purchase' },
-        autoRenewal: { label: 'Activate the automatic renewal' },
+        autoRenewal: {
+          label: 'Activate the automatic renewal',
+          germanMarketWarning:
+            'To comply with the German Fair Consumers Contract Act, after 2 years of subscription, the new subscription cycles must be for less than a year. Please make sure you follow these conditions.',
+        },
+        nbIntervalAfterAutoRenewal: {
+          firstLabel: 'Change subscription billing for next cycles',
+          secondLabel: 'Number of bills *',
+        },
         recurrent_price: {
           label: 'Recurring payment',
           infoBox:
@@ -360,6 +368,45 @@ const getTranslations = async () => {
         title: 'Past date',
       },
       monthBillingDay: 'Invoiced every {{ month_billing_day }} of the month',
+      recurrenceInfo: {
+        day: 'per day',
+        day_plural: 'every {{count}} days',
+        week: 'per week',
+        week_plural: 'every {{count}} weeks',
+        month: 'per month',
+        month_plural: 'every {{count}} months',
+        year: 'per year',
+        year_plural: 'every {{count}} years',
+      },
+      recurrenceInfoFixedDay: 'every {{day}} of the month',
+      autoRenewalInfo: 'Auto-renewal',
+      durationInfo: {
+        day: '{{count}} day',
+        day_plural: '{{count}} days',
+        week: '{{count}} week',
+        week_plural: '{{count}} weeks',
+        month: '{{count}} month',
+        month_plural: '{{count}} months',
+        year: '{{count}} year',
+        year_plural: '{{count}} years',
+      },
+      nbIntervalAfterAutoRenewal: {
+        title: 'Second billing plan',
+        details: {
+          day: 'After renewal, the subscription will be modified to a {{durationAfterAutoRenewal}}-day plan.',
+          week: 'After renewal, the subscription will be modified to a {{durationAfterAutoRenewal}}-week plan.',
+          month:
+            'After renewal, the subscription will be modified to a {{durationAfterAutoRenewal}}-month plan.',
+          year: 'After renewal, the subscription will be modified to a {{durationAfterAutoRenewal}}-year plan.',
+        },
+      },
+    },
+    germanNbIntervalAlert:
+      'To comply with the German Fair Consumers Contract Act, the number of billings has to be less than 24.',
+    GermanMarketSetSubscriptionAutoRenewalAlert: {
+      title: 'Automatic renewal',
+      content:
+        'To comply with the German Fair Consumers Contract Act, after 2 years of subscription, the new subscription cycles must be for less than a year. Are you sure you want to continue?',
     },
     recap: {
       willBecharged: ' will be charged ',
@@ -414,6 +461,7 @@ const getTranslations = async () => {
       member: 'Member',
       dateCreated: 'Date of creation',
       nbInterval: 'Number of billings',
+      secondBillingPlanEnabled: 'Second billing plan enabled',
       recurrent_price: 'Recurring payment',
       paymentPack: 'Pass',
       nbMonths: 'Number of billings',

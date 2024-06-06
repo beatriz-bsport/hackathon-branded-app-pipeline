@@ -15,6 +15,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import Alert from '@material-ui/lab/Alert';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 // @ts-expect-error
@@ -35,6 +36,7 @@ import { Member } from '../../member/types';
 import { MaterialStyleType } from '../../../utils/types';
 import { PaymentCombo } from '../../payment-combo/types';
 import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
+import { getCompanyCountry } from '#src/libs/theme/selectors';
 
 type OwnProps = {
   paymentPacks: Array<PaymentPack>;
@@ -399,6 +401,11 @@ export class SubscriptionCreate extends Component<Props, State> {
               subscriptionContentName={recapName}
             />
           </div>
+          {this.state.nb_interval > 24 && getCompanyCountry() === 'DE' && (
+            <Alert className={classes.germanNbIntervalAlert} severity="warning">
+              {t('germanNbIntervalAlert')}
+            </Alert>
+          )}
           <div>
             <Button color="secondary" onClick={onCancel}>
               {t('form.cancel')}
@@ -466,6 +473,9 @@ const styles = (theme: Theme) => ({
   },
   selector: {
     width: '100%',
+  },
+  germanNbIntervalAlert: {
+    marginBottom: theme.spacing(1),
   },
 });
 

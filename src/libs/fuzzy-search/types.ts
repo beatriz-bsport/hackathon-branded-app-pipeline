@@ -67,6 +67,7 @@ import type {
 } from '#src/libs/custom-form/types';
 import type { PaginationFilterParams, SelectOption } from '#src/libs/types';
 import type {
+  FranchiseUserPass,
   FranchiseUserPrivatePass,
   PassesSearchPaginatedQueryParams,
 } from '#src/libs/franchise/types';
@@ -128,6 +129,7 @@ export const searchObjectIdentifiers = [
   'private_pass_category',
   'private_pass_template',
   'franchise_user_private_pass',
+  'franchise_user_payment_pack',
   'cadence',
   'sub_shop',
   'sub_shop_template',
@@ -169,6 +171,7 @@ type ResultsTypes = {
   private_pass_category: PrivatePassCategory;
   private_pass_template: PrivatePassTemplate;
   franchise_user_private_pass: FranchiseUserPrivatePass;
+  franchise_user_payment_pack: FranchiseUserPass;
   cadence: Cadence;
   sub_shop: SubShop;
   sub_shop_template: SubShop;
@@ -271,6 +274,7 @@ type APIParamsMap = {
   private_pass_category: PrivatePassCategoryAPIParams;
   private_pass_template: PrivatePassTemplateAPIParams;
   franchise_user_private_pass: PassesSearchPaginatedQueryParams;
+  franchise_user_payment_pack: PassesSearchPaginatedQueryParams;
   cadence: CadenceAPIParams;
   sub_shop: SubShopAPIParams;
   sub_shop_template: SubShopTemplateAPIParams;

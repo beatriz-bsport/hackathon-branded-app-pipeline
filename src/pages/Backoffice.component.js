@@ -137,7 +137,15 @@ import {
 import { fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts } from '#libs/communication-v2/utils';
 import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '../libs/access-control/actions';
 import { getEstablishmentsSelectedInRole } from '../libs/establishment/selectors';
-import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '../actions/constants';
+import {
+  STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
+  STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
+} from '../actions/constants';
+import {
+  getItemInStorage,
+  removeItemInStorage,
+  setItemInStorage,
+} from '../utils/storage';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -462,7 +470,8 @@ export class Backoffice extends Component<Props, State> {
       this.props.fetchAllAlertings();
     }, ALERTING_REFRESH_INTERVAL);
     this.props.fetchAccessLevel(getAuthToken());
-    window?.sessionStorage?.setItem(
+    setItemInStorage(
+      'local',
       BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
       BsportRequestFromHeaderValue.SAAS_BACKOFFICE,
     );
@@ -652,9 +661,7 @@ export class Backoffice extends Component<Props, State> {
   };
 
   componentWillUnmount() {
-    window?.sessionStorage?.removeItem(
-      BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
-    );
+    removeItemInStorage('local', BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION);
     if (this.refreshInterval) {
       clearInterval(this.refreshInterval);
     }
@@ -798,7 +805,10 @@ export class Backoffice extends Component<Props, State> {
                   this.props.getStaffsAttendanceRealTime
                 }
                 isFranchisorNavigation={
-                  !!window.sessionStorage.getItem('bsport:franchise:http:token')
+                  !!getItemInStorage(
+                    'session',
+                    STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
+                  )
                 }
                 lastClockIn={this.props.lastClockin}
                 logo={this.props.theme ? this.props.theme.cover : null}
@@ -1091,7 +1101,7 @@ export default compose(
       ({ navigateBackToFranchise, signout, theme }) =>
       () => {
         if (
-          window.sessionStorage.getItem(STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN)
+          getItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN)
         ) {
           navigateBackToFranchise();
         } else {

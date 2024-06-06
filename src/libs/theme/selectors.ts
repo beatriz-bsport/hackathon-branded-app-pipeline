@@ -10,16 +10,14 @@ import {
   STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION,
   STORAGE_KEY_BSPORT_STRIPE_PK_KEY,
 } from './constants';
-
-const sessionStorage = window.sessionStorage;
-const localStorage = window.localStorage;
+import { getItemInStorage } from '#src/utils/storage';
 
 export const getTheme = (state: RootState) => state.theme.theme;
 
 export const getStripePkKey = () => {
   const key =
-    sessionStorage.getItem(STORAGE_KEY_BSPORT_STRIPE_PK_KEY) ||
-    localStorage.getItem(STORAGE_KEY_BSPORT_STRIPE_PK_KEY);
+    getItemInStorage('session', STORAGE_KEY_BSPORT_STRIPE_PK_KEY) ||
+    getItemInStorage('local', STORAGE_KEY_BSPORT_STRIPE_PK_KEY);
   if (!key || key === 'null' || key === 'undefined') {
     return Config.REACT_APP_STRIPE_PK_KEY;
   }
@@ -28,8 +26,8 @@ export const getStripePkKey = () => {
 
 export const getCurrencyCode = () => {
   const key =
-    sessionStorage.getItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE) ||
-    localStorage.getItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE);
+    getItemInStorage('session', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE) ||
+    getItemInStorage('local', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE);
   if (!key || key === 'null' || key === 'undefined') {
     return 'eur';
   }
@@ -38,8 +36,8 @@ export const getCurrencyCode = () => {
 
 export const getCurrencyDisplay = () => {
   const key =
-    sessionStorage.getItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY) ||
-    localStorage.getItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY);
+    getItemInStorage('session', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY) ||
+    getItemInStorage('local', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY);
   if (!key || key === 'null' || key === 'undefined') {
     return '€';
   }
@@ -48,8 +46,8 @@ export const getCurrencyDisplay = () => {
 
 export const getStripeRegion = () => {
   const key =
-    sessionStorage.getItem(STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION) ||
-    localStorage.getItem(STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION);
+    getItemInStorage('session', STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION) ||
+    getItemInStorage('local', STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION);
   if (!key || key === 'null' || key === 'undefined') {
     return 'Europe';
   }
@@ -58,8 +56,8 @@ export const getStripeRegion = () => {
 
 export const getCompanyCountry = () => {
   const key =
-    sessionStorage.getItem(STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY) ||
-    localStorage.getItem(STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY);
+    getItemInStorage('session', STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY) ||
+    getItemInStorage('local', STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY);
   if (!key || key === 'null' || key === 'undefined') {
     return '';
   }
@@ -67,8 +65,11 @@ export const getCompanyCountry = () => {
 };
 export const getCreditFactor = () => {
   const key =
-    sessionStorage.getItem(STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR) ||
-    localStorage.getItem(STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR);
+    getItemInStorage(
+      'session',
+      STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR,
+    ) ||
+    getItemInStorage('local', STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR);
   if (!key || key === 'null' || key === 'undefined') {
     return 1;
   }

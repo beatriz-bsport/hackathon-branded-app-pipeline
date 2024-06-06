@@ -33,6 +33,7 @@ import {
 import MemberShipValidationWrapperInnerComponent from './MemberShipValidationWrapperInner.component';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import { getItemInStorage } from '#src/utils/storage';
 
 type OwnProps = {
   companyId: number;
@@ -138,7 +139,8 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
   checkForFormUrlLocation = () => urlRegex.test(window.location.href);
 
   render() {
-    const isRelationNavigation = !!window.localStorage.getItem(
+    const isRelationNavigation = !!getItemInStorage(
+      'local',
       'bsport:relatedMemberMaster:http:token',
     );
     // @ts-expect-error

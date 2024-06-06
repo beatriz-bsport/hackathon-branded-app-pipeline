@@ -14,6 +14,7 @@ import {
 } from '../actions/auth.actions';
 import MultipleSessionDetails from '../components/navigation/MultipleSessions.component';
 import { STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN } from '#src/actions/constants';
+import { setItemInStorage } from '#src/utils/storage';
 
 type OwnProps = {
   newToken: string;
@@ -42,7 +43,8 @@ export const MultipleSessions = (props: Props) => {
   const restoreSession = () => {
     if (getStatus(currentConnexionRight) === 'franchisor') {
       // Reset the franchise token as it was delete during rollback navigation
-      window.sessionStorage.setItem(
+      setItemInStorage(
+        'session',
         STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
         newToken,
       );

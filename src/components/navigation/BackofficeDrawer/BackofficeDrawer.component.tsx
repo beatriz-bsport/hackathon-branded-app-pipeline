@@ -99,6 +99,7 @@ import ResponsiveDrawer from './ResponsiveDrawer.component';
 import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 import { setAuthToken } from '#src/http';
 import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '#src/actions/constants';
+import { clearStorage, getItemInStorage } from '#src/utils/storage';
 
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;
@@ -279,7 +280,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
     const handleLogoffOnOtherTab = (event: StorageEvent) => {
       if (event?.key === 'bsport:http:token' && event?.newValue === 'null') {
         setAuthToken('null');
-        window.sessionStorage.clear();
+        clearStorage('session');
         disconnect();
       }
     };
@@ -404,7 +405,8 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             </ListItemIcon>
             <ListItemText
               primary={
-                window.sessionStorage.getItem(
+                getItemInStorage(
+                  'session',
                   STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
                 )
                   ? t('backofficeMenu.closeTab')

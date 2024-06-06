@@ -1,10 +1,10 @@
 /* global fbq */
 
 import { DateTime } from 'luxon';
+import { getItemInStorage } from '../../utils/storage';
 
-const storage = window.localStorage;
 const currencyCode = (
-  storage.getItem('bsport:payment:currency_code') || 'EUR'
+  getItemInStorage('local', 'bsport:payment:currency_code') || 'EUR'
 ).toUpperCase();
 export default class FacebookPixel {
   static methods = [];

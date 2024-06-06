@@ -103,6 +103,7 @@ import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.compo
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 import MarketplaceBasketSummaryDialogCssOnly from '../../libs/marketplace/components/@Basket/MarketplaceBasketSummaryDialogCssOnly';
+import { getItemInStorage } from '../../utils/storage';
 
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
@@ -536,7 +537,8 @@ export class MarketPlace extends Component<Props, State> {
               hideAppBar={this.props.hideAppBar}
               hideNavigation={this.props.hideNavigation}
               isRelationNavigation={
-                !!window.localStorage.getItem(
+                !!getItemInStorage(
+                  'local',
                   'bsport:relatedMemberMaster:http:token',
                 )
               }

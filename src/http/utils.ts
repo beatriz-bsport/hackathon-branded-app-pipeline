@@ -9,13 +9,16 @@ import {
   STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
   STORAGE_KEY_BSPORT_TOKEN,
 } from '#src/actions/constants';
-
-const storage = window.localStorage;
-const sessionStorage = window.sessionStorage;
+import {
+  getItemInStorage,
+  removeItemInStorage,
+  setItemInStorage,
+} from '#src/utils/storage';
 
 export const getBsportRequestFromHeader = () => {
   try {
-    const storedValue = sessionStorage.getItem(
+    const storedValue = getItemInStorage(
+      'session',
       BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
     );
     return storedValue ? { [BSPORT_REQUEST_FROM_HEADER]: storedValue } : {};
@@ -82,7 +85,8 @@ export function buildUrlParams(params: any) {
 }
 
 export function setAuthToken(token: string) {
-  const originTmpToken: string = sessionStorage.getItem(
+  const originTmpToken: string = getItemInStorage(
+    'session',
     STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
   );
 
@@ -92,24 +96,24 @@ export function setAuthToken(token: string) {
   if (isTokenInvalid) {
     clearTokens();
   } else if (isOriginTmpTokenValid) {
-    sessionStorage.setItem(STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN, token);
+    setItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN, token);
   } else {
-    storage.setItem(STORAGE_KEY_BSPORT_TOKEN, token);
+    setItemInStorage('local', STORAGE_KEY_BSPORT_TOKEN, token);
   }
 }
 
 function clearTokens() {
-  storage.setItem(STORAGE_KEY_BSPORT_TOKEN, 'null');
-  sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN);
-  sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN);
+  setItemInStorage('local', STORAGE_KEY_BSPORT_TOKEN, 'null');
+  removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN);
+  removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN);
 }
 
 export function setAccessControlBroadcastsChannelId(uuid: string) {
   if (!uuid || uuid === 'null') {
-    storage.removeItem('bsport:accm-channel:id');
+    removeItemInStorage('local', 'bsport:accm-channel:id');
     return;
   }
-  storage.setItem('bsport:accm-channel:id', uuid);
+  setItemInStorage('local', 'bsport:accm-channel:id', uuid);
 }
 
 export const getTimezoneName = () => {
@@ -120,11 +124,11 @@ export const getTimezoneName = () => {
 
 export function getAuthToken() {
   return (
-    sessionStorage.getItem(STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN) ||
-    storage.getItem(STORAGE_KEY_BSPORT_TOKEN)
+    getItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN) ||
+    getItemInStorage('local', STORAGE_KEY_BSPORT_TOKEN)
   );
 }
 
 export function getAccessControlBroadcastsChannelId() {
-  return storage.getItem('bsport:accm-channel:id');
+  return getItemInStorage('local', 'bsport:accm-channel:id');
 }

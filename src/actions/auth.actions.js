@@ -48,6 +48,11 @@ import {
   STORAGE_KEY_BSPORT_STRIPE_PK_KEY,
 } from '../libs/theme/constants';
 import i18n from '../i18n';
+import {
+  getItemInStorage,
+  removeItemInStorage,
+  setItemInStorage,
+} from '../utils/storage';
 
 export const initiateInterface = createAction('initiate');
 
@@ -506,10 +511,9 @@ export function disconnect(callback) {
     } catch (err) {
       console.error(err);
     }
-    const { localStorage, sessionStorage } = window;
-    localStorage.removeItem('bsport:relatedMemberMaster:http:token');
-    sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL);
-    sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL);
+    removeItemInStorage('local', 'bsport:relatedMemberMaster:http:token');
+    removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL);
+    removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL);
     dispatch((() => ({ type: types.DISCONNECT }))());
     if (callback && typeof callback === 'function') callback();
   };
@@ -550,23 +554,26 @@ export function navigateAsCompanyAdmin(
       if (!newToken) {
         throw new Error('No token');
       }
-      const { localStorage, sessionStorage } = window;
       const impersonatedOnUrl = window.location.href
         .toString()
         .split(window.location.host)[1];
 
-      const actualLanguage = localStorage.getItem(
+      const actualLanguage = getItemInStorage(
+        'local',
         STORAGE_KEY_BSPORT_I18NEXTLNG,
       );
-      sessionStorage.setItem(
+      setItemInStorage(
+        'session',
         STORAGE_KEY_BSPORT_I18NEXTLNG_ORIGIN,
         actualLanguage,
       );
-      sessionStorage.setItem(
+      setItemInStorage(
+        'session',
         STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL,
         impersonatedOnUrl,
       );
-      sessionStorage.setItem(
+      setItemInStorage(
+        'session',
         STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
         franchiseConnexionToken,
       );
@@ -604,14 +611,14 @@ export function navigateAsCompanyAdmin(
 }
 
 function clearSessionStorageOnDeImpersonating() {
-  sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN);
-  sessionStorage.removeItem(STORAGE_KEY_BSPORT_I18NEXTLNG);
-  sessionStorage.removeItem(STORAGE_KEY_BSPORT_STRIPE_PK_KEY);
-  sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE);
-  sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY);
-  sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION);
-  sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY);
-  sessionStorage.removeItem(STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR);
+  removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN);
+  removeItemInStorage('session', STORAGE_KEY_BSPORT_I18NEXTLNG);
+  removeItemInStorage('session', STORAGE_KEY_BSPORT_STRIPE_PK_KEY);
+  removeItemInStorage('session', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE);
+  removeItemInStorage('session', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY);
+  removeItemInStorage('session', STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION);
+  removeItemInStorage('session', STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY);
+  removeItemInStorage('session', STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR);
 }
 
 export function navigateBackToFranchise() {
@@ -619,8 +626,8 @@ export function navigateBackToFranchise() {
     try {
       dispatch(impersonateManagerLoading(true));
 
-      const { sessionStorage } = window;
-      const newToken = sessionStorage.getItem(
+      const newToken = getItemInStorage(
+        'session',
         STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
       );
 
@@ -630,7 +637,8 @@ export function navigateBackToFranchise() {
         .toString()
         .split(window.location.host)[1];
 
-      sessionStorage.setItem(
+      setItemInStorage(
+        'session',
         STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL,
         lastUrlImpersonated,
       );
@@ -647,10 +655,10 @@ export function navigateBackToFranchise() {
         }),
       );
       i18n.changeLanguage(
-        sessionStorage.getItem(STORAGE_KEY_BSPORT_I18NEXTLNG_ORIGIN),
+        getItemInStorage('session', STORAGE_KEY_BSPORT_I18NEXTLNG_ORIGIN),
       );
-      sessionStorage.removeItem(STORAGE_KEY_BSPORT_I18NEXTLNG_ORIGIN);
-      sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN);
+      removeItemInStorage('session', STORAGE_KEY_BSPORT_I18NEXTLNG_ORIGIN);
+      removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN);
 
       dispatch(impersonateManagerLoading(false));
 
@@ -683,8 +691,11 @@ export function navigateToRelationAccount(
       if (!newToken) {
         throw new Error('No token');
       }
-      const storage = window.localStorage;
-      storage.setItem('bsport:relatedMemberMaster:http:token', masterToken);
+      setItemInStorage(
+        'local',
+        'bsport:relatedMemberMaster:http:token',
+        masterToken,
+      );
 
       const { data } = await accessLevelAPI(newToken);
       dispatch((() => ({ type: types.RESET_STORE }))());
@@ -749,12 +760,14 @@ export function navigateBackToMasterRelation(params: {
 }) {
   return async (dispatch: Dispatch) => {
     try {
-      const storage = window.localStorage;
-      const newToken = storage.getItem('bsport:relatedMemberMaster:http:token');
+      const newToken = getItemInStorage(
+        'local',
+        'bsport:relatedMemberMaster:http:token',
+      );
 
       const { data } = await accessLevelAPI(newToken);
 
-      storage.removeItem('bsport:relatedMemberMaster:http:token');
+      removeItemInStorage('local', 'bsport:relatedMemberMaster:http:token');
       dispatch((() => ({ type: types.RESET_STORE }))());
 
       // Set new access level

@@ -15,6 +15,7 @@ import {
   AUDIENCE_WORKFLOW_NAME_PLURAL,
 } from '#libs/sequential_marketing/constants';
 import { STORAGE_KEY_BSPORT_I18NEXTLNG } from '../actions/constants';
+import { getItemInStorage, setItemInStorage } from '../utils/storage';
 
 const backendOptions = {};
 
@@ -140,14 +141,13 @@ setLuxonLocale(i18n.language);
 
 const setLanguage = (lng: string) => {
   i18n.changeLanguage(lng);
-  window.localStorage.setItem(STORAGE_LANGUAGE_KEY, lng);
+  setItemInStorage('local', STORAGE_LANGUAGE_KEY, lng);
 };
 
 const getLanguage = () => {
-  if (window.localStorage && window.sessionStorage) {
-    window.localStorage.getItem(STORAGE_KEY_BSPORT_I18NEXTLNG).slice(0, 2);
-  }
-  return 'en';
+  return (
+    getItemInStorage('local', STORAGE_KEY_BSPORT_I18NEXTLNG).slice(0, 2) || 'en'
+  );
 };
 
 export default i18n;

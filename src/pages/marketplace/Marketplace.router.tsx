@@ -11,6 +11,7 @@ import {
 import asyncComponent from '../../AsyncComponent';
 import { RootState } from '../../reducers';
 import namespaces from '../../i18n/namespaces.json';
+import { removeItemInStorage, setItemInStorage } from '#src/utils/storage';
 
 const MarketplaceResolver = asyncComponent(
   // @ts-expect-error
@@ -32,16 +33,15 @@ type Props = ConnectedProps<typeof connector> & WithTranslation;
 
 export class MarketplaceRouter extends React.Component<Props> {
   componentDidMount() {
-    window?.sessionStorage?.setItem(
+    setItemInStorage(
+      'session',
       BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
       BsportRequestFromHeaderValue.SAAS_MARKETPLACE_ROUTER,
     );
   }
 
   componentWillUnmount() {
-    window?.sessionStorage?.removeItem(
-      BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
-    );
+    removeItemInStorage('session', BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION);
   }
 
   render() {

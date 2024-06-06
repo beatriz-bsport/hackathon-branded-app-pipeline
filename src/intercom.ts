@@ -1,11 +1,9 @@
 import { STORAGE_KEY_BSPORT_I18NEXTLNG } from './actions/constants';
+import { getItemInStorage } from './utils/storage';
 
-const storage = window.localStorage;
-
-const language = (storage.getItem(STORAGE_KEY_BSPORT_I18NEXTLNG) || '').slice(
-  0,
-  2,
-);
+const language = (
+  getItemInStorage('local', STORAGE_KEY_BSPORT_I18NEXTLNG) || ''
+).slice(0, 2);
 
 export const openIntercomHelp = (pageName?: string) => {
   switch (pageName) {

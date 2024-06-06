@@ -22,6 +22,7 @@ import { Theme } from '../../libs/theme/types';
 import { fetchProfile as fetchProfileAction } from '../../libs/consumer-space/actions';
 import { RootState } from '../../reducers';
 import MinimalMarketplaceAppBarCSSOnly from '#libs/marketplace/components/@AppBar/MarketplaceAppBar/MinimalMarketplaceAppBarCSSOnly';
+import { getItemInStorage } from '#src/utils/storage';
 
 type OwnProps = {
   companyId?: number;
@@ -50,7 +51,8 @@ export const ConsumerAppBar: React.FC<Props> = ({
   const isWidgetNoPopUp =
     isWidget && WidgetUtils.getDialogMode() === DIALOG_MODE_DEACTIVATED;
 
-  const isRelationNavigation = !!window.localStorage.getItem(
+  const isRelationNavigation = !!getItemInStorage(
+    'local',
     'bsport:relatedMemberMaster:http:token',
   );
   const classes = useStyles({ backgroundColor });

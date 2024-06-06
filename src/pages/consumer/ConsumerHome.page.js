@@ -60,6 +60,7 @@ import {
   navigateBackToMasterRelation as navigateBackToMasterRelationAction,
 } from '../../actions/auth.actions';
 import { displayReworkedMemberProfile } from '../../libs/consumer-space/constants';
+import { getItemInStorage } from '../../utils/storage';
 
 const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),
@@ -208,7 +209,8 @@ export class ConsumerHome extends React.Component<Props> {
     );
 
   render() {
-    const isRelationNavigation = !!window.localStorage.getItem(
+    const isRelationNavigation = !!getItemInStorage(
+      'local',
       'bsport:relatedMemberMaster:http:token',
     );
 

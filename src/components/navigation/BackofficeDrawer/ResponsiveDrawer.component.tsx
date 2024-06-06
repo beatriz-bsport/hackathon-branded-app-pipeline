@@ -77,6 +77,7 @@ import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
 
 import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
 import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '#src/actions/constants';
+import { getItemInStorage } from '#src/utils/storage';
 
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {
@@ -671,9 +672,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
         action: disconnect,
         to: null,
         icon: HighlightOff,
-        text: window.sessionStorage.getItem(
-          STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
-        )
+        text: getItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN)
           ? t('backofficeMenu.closeTab')
           : t('backofficeMenu.logoff'),
       } as DrawerItemDefault,

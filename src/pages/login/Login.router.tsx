@@ -39,6 +39,7 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import './LoginRouterStyles.css';
 import { isLoginBackgroundFixed } from './utils';
 import withThemeProvider from '#hocs/company-themifier.hoc';
+import { removeItemInStorage, setItemInStorage } from '#src/utils/storage';
 
 /* Some of these pages were reworked to be CSS Only, some were not. Here is which ones and why:
 
@@ -108,7 +109,8 @@ type Props = {
 
 export class LoginRouter extends React.Component<Props> {
   componentDidMount() {
-    window?.sessionStorage?.setItem(
+    setItemInStorage(
+      'session',
       BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
       BsportRequestFromHeaderValue.SAAS_LOGIN_ROUTER,
     );
@@ -146,9 +148,7 @@ export class LoginRouter extends React.Component<Props> {
   }
 
   componentWillUnmount() {
-    window?.sessionStorage?.removeItem(
-      BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
-    );
+    removeItemInStorage('session', BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION);
   }
 
   render() {

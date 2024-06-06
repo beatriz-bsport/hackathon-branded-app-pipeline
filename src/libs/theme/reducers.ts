@@ -13,6 +13,7 @@ import {
   STORAGE_KEY_BSPORT_STRIPE_PK_KEY,
 } from './constants';
 import { STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN } from '#src/actions/constants';
+import { getItemInStorage, setItemInStorage } from '#src/utils/storage';
 
 export const initialState: Immutable.Immutable<ThemeState> =
   Immutable<ThemeState>({
@@ -38,43 +39,56 @@ export default handleActions<Immutable.Immutable<ThemeState>>(
       try {
         // If the user is impersonating a studio then we want to retrieve/set those data in the sessionStorage and not in the local storage where it is stored firstly
         const isImpersonatingStudio =
-          window.sessionStorage.getItem(
+          getItemInStorage(
+            'session',
             STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
           ) !== null;
-        const storage = isImpersonatingStudio
-          ? window.sessionStorage
-          : window.localStorage;
+        const storage = isImpersonatingStudio ? 'session' : 'local';
 
-        storage.setItem(
+        setItemInStorage(
+          storage,
           STORAGE_KEY_BSPORT_STRIPE_PK_KEY,
           payload.stripe_pk_key,
         );
-        storage.setItem(
+        setItemInStorage(
+          storage,
           STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE,
           payload.currency,
         );
-        storage.setItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY, '€');
-        storage.setItem(STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION, 'Europe');
+        setItemInStorage(
+          storage,
+          STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY,
+          '€',
+        );
+        setItemInStorage(
+          storage,
+          STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION,
+          'Europe',
+        );
         if (payload.currency_display) {
-          storage.setItem(
+          setItemInStorage(
+            storage,
             STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY,
             payload.currency_display,
           );
         }
         if (payload.stripe_region) {
-          storage.setItem(
+          setItemInStorage(
+            storage,
             STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION,
             payload.stripe_region,
           );
         }
         if (payload.locale) {
-          storage.setItem(
+          setItemInStorage(
+            storage,
             STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY,
             payload.locale.split('_')[1],
           );
         }
         if (payload.pass_credit_factor) {
-          storage.setItem(
+          setItemInStorage(
+            storage,
             STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR,
             payload.pass_credit_factor,
           );

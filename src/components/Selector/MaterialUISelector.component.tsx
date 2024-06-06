@@ -101,6 +101,7 @@ type BaseProps<T extends OptionTypeBase> = {
   removeIndicator?: boolean;
   onConfirm?: () => void;
   stopEventPropagationOnClickAway?: boolean;
+  hideChips?: boolean;
   /** Placeholder to be displayed when the selector is searchable, and focused (ie. search is active) */
   searchPlaceholder?: string;
   withoutConfirmButton?: boolean;
@@ -177,6 +178,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     withoutNullValues,
     withoutPortal = false,
     withoutSelectAll,
+    hideChips = false,
     ...restProps
   } = props;
 
@@ -246,6 +248,12 @@ function MaterialUISelector<T extends OptionTypeBase>(
     setMenuIsOpen(false);
     onClose?.();
   }, [onClose]);
+
+  const handleConfirm = React.useCallback(() => {
+    onConfirm?.();
+    setMenuIsOpen(false);
+    onClose?.();
+  }, [onClose, onConfirm]);
 
   let _menuPortalTarget = withoutPortal
     ? undefined
@@ -387,6 +395,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
           }}
           controlRef={controlRef}
           defaultValue={defaultValue}
+          hideChips={hideChips}
           hideSelectedOptions={false}
           id={id}
           inScrollBar={inScrollBar}
@@ -419,7 +428,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
           displayAllOptionsPlaceholder={displayAllOptionsPlaceholder}
           displaySearchPlaceholder={displaySearchPlaceholder}
           onBlur={handleBlur}
-          onConfirm={onConfirm}
+          onConfirm={handleConfirm}
           onInputChange={onInputChange}
           searchPlaceholder={searchPlaceholder}
           selectRef={selectRef}
@@ -831,9 +840,10 @@ const MultiValueContainer = (props: {
   selectProps?: {
     displayAllOptionsPlaceholder: boolean;
     displaySearchPlaceholder: boolean;
+    hideChips: boolean;
   };
 }) => {
-  const { displayAllOptionsPlaceholder, displaySearchPlaceholder } =
+  const { displayAllOptionsPlaceholder, displaySearchPlaceholder, hideChips } =
     props.selectProps ?? {};
   const classes = useStyles();
 
@@ -845,14 +855,13 @@ const MultiValueContainer = (props: {
   return (
     <SelectorContext.Consumer>
       {({ displayMore }) => {
-        const isHiddenItemChip =
+        const noPlaceLeftForChip =
           (index > maxDisplay && !displayMore && !!data) ||
           displayAllOptionsPlaceholder ||
           displaySearchPlaceholder;
 
-        const className = isHiddenItemChip
-          ? classes.displayNone
-          : classes.reset;
+        const className =
+          noPlaceLeftForChip || hideChips ? classes.displayNone : classes.reset;
 
         return (
           <components.MultiValueContainer
@@ -891,8 +900,13 @@ function NoOptionsMessage<T extends OptionTypeBase>(
 function Placeholder<T extends OptionTypeBase>(
   props: PlaceholderProps<T, boolean, any>,
 ) {
+  const classes = useStyles();
   return (
-    <components.Placeholder {...props} getStyles={resetStyle}>
+    <components.Placeholder
+      {...props}
+      className={props.selectProps?.hideChips ? classes.displayNone : ''}
+      getStyles={resetStyle}
+    >
       {!props.isFocused && (
         <Typography
           className={props?.selectProps?.classes?.placeholder}
@@ -957,6 +971,20 @@ function ValueContainer<T extends OptionTypeBase>(leftIcon: React.ReactNode) {
           Make sure the children components are under display: none rule */}
           {props.children}
         </div>
+      );
+    } else if (props.selectProps?.hideChips) {
+      content = (
+        <>
+          <Typography
+            className={props?.selectProps?.classes?.placeholder}
+            color="textSecondary"
+          >
+            {props.selectProps?.placeholder}
+          </Typography>
+          {/* This is a hack to make the entire select clickable
+          Make sure the children components are under display: none rule */}
+          {props.children}
+        </>
       );
     } else if (props.hasValue && !props.isMulti) {
       content = <div>{props.children}</div>;

@@ -19,35 +19,25 @@ import FranchiseConsumerPackRowItem from '#src/libs/consumer-payment-pack/compon
 import PaginatedListBase from '#src/components/PaginatedListBase.component';
 import InvoiceListItem from '#src/libs/invoice/InvoiceListItem.component';
 import { FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE } from '#src/libs/franchise/constants';
-import type { RootState } from '../../reducers';
+import type { RootState } from '#src/reducers';
 import {
   getConsumerPack,
   withPaymentPack,
 } from '#src/libs/consumer-payment-pack/selectors';
-import {
-  fetchFranchiseUserPasses as fetchFranchiseUserPassesAction,
-  fetchCompanyGroupList as fetchCompanyGroupListAction,
-} from '#src/libs/franchise/actions';
+import { fetchCompanyGroupList as fetchCompanyGroupListAction } from '#src/libs/franchise/actions';
 import {
   getAllowedFranchisees,
   getCompanyGroupList,
   getFranchiseCompanies,
-  getFranchiseUserPassesList,
 } from '#src/libs/franchise/selectors';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#src/libs/payment-packs/actions';
 import { getInvoice } from '#src/libs/invoice/selectors';
 import type {
   FranchiseUserPass,
-  FranchiseUserPassesQueryParams,
   FranchisePassFilters,
   CompanyGroup,
-  FranchiseUserPassWithPaymentPack,
 } from '#src/libs/franchise/types';
-import type {
-  OptionCallback,
-  PaginatedResponse,
-  ThunkAction,
-} from '#src/state/types';
+import type { OptionCallback, ThunkAction } from '#src/state/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import FranchiseConsumerPassFilters from '#src/libs/franchise/components/FranchiseConsumerPassFilters.component';
 import type { Invoice, InvoiceV1Serializer } from '#src/libs/invoice/types';
@@ -62,8 +52,12 @@ import {
   fetchConsumerPack as fetchConsumerPackAction,
 } from '#src/libs/consumer-payment-pack/actions';
 // @ts-expect-error
-import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
+import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '#src/actions/auth.actions';
 import type { WithHandlerType } from '#src/utils/types';
+import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
+import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
 
 type ParamsProps = {
   userId: number;
@@ -71,10 +65,6 @@ type ParamsProps = {
 };
 
 export type ConnectorProps = {
-  userPacks: FranchiseUserPassWithPaymentPack[];
-  userPackCurrentPage: number;
-  userPackLoading: boolean;
-  userPackCount: number;
   selectedConsumerPass?: ConsumerPaymentPack<PaymentPack>;
   consumerPackInvoice: Invoice;
   companies: Company[];
@@ -82,6 +72,7 @@ export type ConnectorProps = {
   invoiceLoading: boolean;
   consumerPackLoading: boolean;
   allowedFranchiseeIds: number[];
+  paymentPackById: PaymentPack[];
   fetchCompanyGroupList: (
     company?: number,
     options?: OptionCallback<CompanyGroup[]>,
@@ -94,10 +85,6 @@ export type ConnectorProps = {
     buyable_item_identifier: number,
     object_id: number,
     options?: OptionCallback<InvoiceV1Serializer>,
-  ) => Promise<void>;
-  fetchFranchiseUserPasses: (
-    params: FranchiseUserPassesQueryParams,
-    options?: OptionCallback<PaginatedResponse<FranchiseUserPass>>,
   ) => Promise<void>;
   fetchPaymentPackBulk: (
     ids: Array<number>,
@@ -131,12 +118,20 @@ type ConnectorOwnAndStateProps = ConnectorAndOwnProps & StateProps;
 type Props = ConnectorOwnAndStateProps &
   WithHandlerType<typeof mapWithHandlers>;
 
+type FranchiseUserPassOption = {
+  label: string;
+  onClick: () => void;
+  consumerPack: FranchiseUserPass;
+  paymentPack: PaymentPack;
+  selected: boolean;
+};
+
+const Option: React.FC<OptionPropsWithData<FranchiseUserPassOption>> = (
+  props,
+) => <FranchiseConsumerPackRowItem {...props.data} />;
+
 const FranchiseMemberDetailPass: React.FC<Props> = ({
   userId,
-  userPacks,
-  userPackLoading,
-  userPackCount,
-  userPackCurrentPage,
   selectedConsumerPaymentPackId,
   selectedConsumerPass,
   consumerPackInvoice,
@@ -145,22 +140,35 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
   invoiceLoading,
   consumerPackLoading,
   allowedFranchiseeIds,
+  paymentPackById,
   replaceRouter,
   fetchCompanyGroupList,
   fetchInvoice,
   fetchInvoiceByInvoiceItem,
   onSelectConsumerPass,
-  fetchFranchiseUserPasses,
   fetchPaymentPackBulk,
   fetchConsumerPack,
   navigateAsCompanyAdmin,
 }) => {
   const { t } = useTranslation(['franchise', 'paymentPack']);
   const classes = useStyles();
+  const { getSelectorState } = useObjectSearch();
+
+  const selectorState = getSelectorState('franchise_user_payment_pack');
 
   React.useEffect(() => {
     fetchCompanyGroupList();
   }, [fetchCompanyGroupList]);
+
+  React.useEffect(() => {
+    selectorState?.results?.currentResults &&
+      fetchPaymentPackBulk(
+        selectorState.results.currentResults.map(
+          // @ts-expect-error: due to Union type
+          (consumerPaymentPack) => consumerPaymentPack.payment_pack,
+        ),
+      );
+  }, [fetchPaymentPackBulk, selectorState]);
 
   React.useEffect(() => {
     if (selectedConsumerPaymentPackId) {
@@ -193,32 +201,14 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
   });
   const [isRedirectLoading, setIsRedirectLoading] =
     React.useState<boolean>(false);
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
 
-  const fetchConsumerPackList = React.useCallback(
+  const onPageRequestHandler = React.useCallback(
     (page: number) => {
+      setCurrentPage(page);
       replaceRouter(`/f/members/${userId}/member/pass/`);
-      fetchFranchiseUserPasses(
-        { user_id: userId, page, filters },
-        {
-          onSuccess: (
-            consumerPaymentPackList: PaginatedResponse<FranchiseUserPass>,
-          ) => {
-            fetchPaymentPackBulk(
-              consumerPaymentPackList.results.map(
-                (consumerPaymentPack) => consumerPaymentPack.payment_pack,
-              ),
-            );
-          },
-        },
-      );
     },
-    [
-      fetchFranchiseUserPasses,
-      fetchPaymentPackBulk,
-      filters,
-      replaceRouter,
-      userId,
-    ],
+    [replaceRouter, userId],
   );
 
   const goToPassInCompany = React.useCallback(() => {
@@ -280,38 +270,70 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
     [onSelectConsumerPass, userId],
   );
 
+  const passesOptionsFormatter = React.useCallback(
+    (consumerPaymentPacks: FranchiseUserPass[]) =>
+      (consumerPaymentPacks ?? []).map((consumerPaymentPack) => {
+        return {
+          label: consumerPaymentPack.payment_pack_name,
+          onClick: onFranchiseConsumerPackRowItemClick(consumerPaymentPack.id),
+          consumerPaymentPack,
+          paymentPack: paymentPackById[consumerPaymentPack.payment_pack],
+          selected: false,
+          key: consumerPaymentPack.id,
+          value: consumerPaymentPack.id,
+        };
+      }),
+    [onFranchiseConsumerPackRowItemClick, paymentPackById],
+  );
+
   return (
     <FranchiseMemberPageLayout
       leftChildren={
         <FranchiseMemberSectionLayout>
+          <ObjectSearchComponent
+            additionalParams={{
+              page: currentPage,
+              page_size: FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE,
+              ...filters,
+            }}
+            components={{
+              Option,
+            }}
+            menuIsOpen={false}
+            objectId={userId}
+            optionsFormatter={passesOptionsFormatter}
+            placeholder={t('paymentPack:search')}
+            searchedObjectType="franchise_user_payment_pack"
+            variant="underlined"
+          />
           <Paper>
             <FranchiseConsumerPassFilters
               companies={companies}
               companyGroups={companyGroups}
               emptyLabel={t('paymentPack:filters.all')}
-              filters={!userPackLoading && filters}
+              filters={!selectorState.loading && filters}
               setFilters={setFilters}
             />
             <Divider />
             <PaginatedListBase
               additionalFilters={filters}
               itemPerPage={FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE}
-              items={userPacks}
+              items={selectorState.results.currentResults}
               listProps={{ disablePadding: true }}
-              loading={userPackLoading}
-              nbItems={userPackCount}
-              onPageRequested={fetchConsumerPackList}
-              page={userPackCurrentPage}
-              renderItem={(
-                consumerPaymentPack: FranchiseUserPassWithPaymentPack,
-              ) => (
+              loading={selectorState.loading}
+              nbItems={selectorState.results.count}
+              onPageRequested={onPageRequestHandler}
+              page={currentPage}
+              renderItem={(consumerPaymentPack: FranchiseUserPass) => (
                 <FranchiseConsumerPackRowItem
                   key={consumerPaymentPack.id}
                   consumerPack={consumerPaymentPack}
                   onClick={onFranchiseConsumerPackRowItemClick(
                     consumerPaymentPack.id,
                   )}
-                  paymentPack={consumerPaymentPack.payment_pack}
+                  paymentPack={
+                    paymentPackById[consumerPaymentPack.payment_pack]
+                  }
                   selected={
                     selectedConsumerPass &&
                     selectedConsumerPass.id === consumerPaymentPack.id
@@ -325,7 +347,9 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
       rightChildren={
         <>
           {selectedConsumerPaymentPackId &&
-            (userPackLoading || consumerPackLoading || invoiceLoading) && (
+            (selectorState.loading ||
+              consumerPackLoading ||
+              invoiceLoading) && (
               <div className={classes.loadingContainer}>
                 <CircularProgress />
               </div>
@@ -390,10 +414,6 @@ const useStyles = makeStyles((theme) => ({
 
 const connector = connect(
   (state: RootState, props: ParamsProps & { relatedInvoice: string }) => ({
-    userPacks: withPaymentPack(getFranchiseUserPassesList)(state),
-    userPackCurrentPage: state.franchise.userProfile.passes.page,
-    userPackCount: state.franchise.userProfile.passes.count,
-    userPackLoading: state.franchise.userProfile.passes.loading,
     // @ts-expect-error
     selectedConsumerPass: withPaymentPack(getConsumerPack)(
       state,
@@ -406,10 +426,10 @@ const connector = connect(
     companyGroups: getCompanyGroupList(state),
     invoiceLoading: state.invoice.loading,
     allowedFranchiseeIds: getAllowedFranchisees(state),
+    paymentPackById: getPaymentPackById(state),
   }),
   {
     fetchCompanyGroupList: fetchCompanyGroupListAction,
-    fetchFranchiseUserPasses: fetchFranchiseUserPassesAction,
     fetchPaymentPackBulk: fetchPaymentPackBulkAction,
     replaceRouter: replace,
     retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,

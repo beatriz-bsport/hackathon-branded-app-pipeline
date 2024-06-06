@@ -11,13 +11,13 @@ import ConsumerPassSourceChip from '#src/components/chip/ConsumerPassSourceChip'
 import CreditStatus from '#src/libs/consumer-payment-pack/components/CreditStatus.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
-import type { FranchiseUserPassWithPaymentPack } from '#src/libs/franchise/types';
+import type { FranchiseUserPass } from '#src/libs/franchise/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 
 type Props = {
   selected?: boolean;
   disabled?: boolean;
-  consumerPack: FranchiseUserPassWithPaymentPack;
+  consumerPack: FranchiseUserPass;
   paymentPack?: PaymentPack;
   onClick?: () => void;
 };

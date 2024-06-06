@@ -11,13 +11,11 @@ import {
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
-import type { FranchiseUserPassWithPaymentPack } from '#src/libs/franchise/types';
+import type { FranchiseUserPass } from '#src/libs/franchise/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 
 type Props = {
-  consumerPack?:
-    | ConsumerPaymentPack<number | PaymentPack>
-    | FranchiseUserPassWithPaymentPack;
+  consumerPack?: ConsumerPaymentPack<number | PaymentPack> | FranchiseUserPass;
   paymentPack?: PaymentPack;
   textColor?: TypographyProps['color'];
   variant?: Variant;
@@ -29,13 +27,11 @@ type Props = {
  * This function helps TypeScript narrow down the type of the provided object to ConsumerPaymentPack<number | PaymentPack>
  * by checking for the presence of a property specific to this type: `available_credits`
  *
- * @param pass - The object to check, which can be either a ConsumerPaymentPack<number | PaymentPack> or a FranchiseUserPassWithPaymentPack.
+ * @param pass - The object to check, which can be either a ConsumerPaymentPack<number | PaymentPack> or a FranchiseUserPass.
  * @returns A boolean indicating whether the object is of type ConsumerPaymentPack<number | PaymentPack>.
  */
 function isConsumerPaymentPack(
-  pass:
-    | ConsumerPaymentPack<number | PaymentPack>
-    | FranchiseUserPassWithPaymentPack,
+  pass: ConsumerPaymentPack<number | PaymentPack> | FranchiseUserPass,
 ): pass is ConsumerPaymentPack<number | PaymentPack> {
   return (pass as any).available_credits !== undefined;
 }

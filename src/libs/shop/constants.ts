@@ -31,6 +31,7 @@ export const SHOPITEM_FORMDATA_KEYS_MAPPER = {
   variants: 'variants',
   bookkeeping_account: 'bookkeeping_account',
   'tags_on_purchase[]': 'tags_on_purchase[]',
+  generate_barcodes_for_variants: 'generate_barcodes_for_variants',
 };
 
 export const SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER = {

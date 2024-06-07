@@ -3,9 +3,11 @@ import {
   Button,
   Paper,
   TextField,
-  Theme,
   Typography,
   withStyles,
+  createStyles,
+  type Theme,
+  type WithStyles,
 } from '@material-ui/core';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { compose } from 'recompose';
@@ -13,15 +15,13 @@ import classNames from 'classnames';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
-import { MaterialStyleType } from '../../../utils/types';
-
-interface OwnProps {
+type OwnProps = {
   onSubmit: (email: string, firstName: string, lastName: string) => void;
-}
+};
 
 type Props = OwnProps & {
   t: TFunction;
-} & MaterialStyleType<ReturnType<typeof styles>>;
+} & WithStyles<typeof styles>;
 
 interface State {
   email: string;
@@ -107,27 +107,27 @@ class NewsletterFormComponent extends React.PureComponent<Props, State> {
   }
 }
 
-const styles = (theme: Theme) => ({
-  container: {
-    maxWidth: 450,
-    padding: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  marginTop: {
-    marginTop: theme.spacing(2),
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  btnHeight: {
-    height: 48,
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      maxWidth: 450,
+      padding: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    marginTop: {
+      marginTop: theme.spacing(2),
+    },
+    fullWidth: {
+      width: '100%',
+    },
+    btnHeight: {
+      height: 48,
+    },
+  });
 
-export default compose<any, OwnProps>(
-  // @ts-expect-error
+export default compose<Props, OwnProps>(
   withStyles(styles),
   withTranslation('marketing'),
 )(NewsletterFormComponent);

@@ -285,8 +285,7 @@ const NewsletterFormV2: React.FC<Props> = React.memo(
   },
 );
 
-export const NewsletterFormBase = marketplaceCssHoc<Props>()(
-  React.memo(NewsletterFormV2),
-);
+export const NewsletterFormBase: React.ComponentType<Props> =
+  marketplaceCssHoc<Props>()(React.memo(NewsletterFormV2));
 
 export default React.memo(NewsletterFormV2);

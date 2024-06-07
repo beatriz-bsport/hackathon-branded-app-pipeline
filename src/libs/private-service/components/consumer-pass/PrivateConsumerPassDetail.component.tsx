@@ -61,7 +61,6 @@ export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
     React.useState<PrivateBooking | null>(null);
   const { t } = useTranslation('privateService');
   const classes = useStyles();
-
   return (
     <div>
       <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
@@ -173,62 +172,63 @@ export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
           />
         )}
       </div>
-      {!!props.extensions && props.extensionsCount > 0 ? (
-        <div className={classes.section}>
-          <Typography
-            className={classes.sectionTitle}
-            component="h2"
-            variant="h5"
-          >
-            {t('consumerPass.detail.extensionsTitle')}
-          </Typography>
-          <Paper>
-            {!!props.privateConsumerPassExtensionDeleteLoading && (
-              <LinearProgress />
-            )}
-            <PaginatedListBase
-              itemPerPage={PRIVATE_CONSUMER_PASS_EXTENSION_PAGE_SIZE}
-              items={props.extensions}
-              listProps={{ disablePadding: 'true' }}
-              loading={props.extensionsLoading}
-              nbItems={props.extensionsCount}
-              onPageRequested={props.onExtensionPageRequested}
-              page={props.extensionsPage}
-              renderItem={(
-                extension: PrivateConsumerPassExtension,
-                index: number,
-              ) => (
-                <ExtensionListItem
-                  key={extension.id}
-                  extension={extension}
-                  onDelete={
-                    props.private_consumer_pass &&
-                    !props.private_consumer_pass.dst_private_consumer_pass
-                      .length
-                      ? () => props.deleteExtension(extension.id)
-                      : null
-                  }
-                  showBottomDivider={index !== props.extensions.length - 1}
-                />
+      <div className={classes.section}>
+        {!!props.extensions && props.extensionsCount > 0 ? (
+          <>
+            <Typography
+              className={classes.sectionTitle}
+              component="h2"
+              variant="h5"
+            >
+              {t('consumerPass.detail.extensionsTitle')}
+            </Typography>
+            <Paper>
+              {!!props.privateConsumerPassExtensionDeleteLoading && (
+                <LinearProgress />
               )}
-            />
-          </Paper>
-
-          {props.onCreateExtension &&
-            !!props.private_consumer_pass &&
-            !props.private_consumer_pass?.private_pass?.template_instance && (
-              <div className={classes.addButtonContainer}>
-                <Button
-                  color="primary"
-                  onClick={props.onCreateExtension}
-                  variant="outlined"
-                >
-                  {t('consumerPass.actions.addExtension')}
-                </Button>
-              </div>
-            )}
-        </div>
-      ) : null}
+              <PaginatedListBase
+                itemPerPage={PRIVATE_CONSUMER_PASS_EXTENSION_PAGE_SIZE}
+                items={props.extensions}
+                listProps={{ disablePadding: 'true' }}
+                loading={props.extensionsLoading}
+                nbItems={props.extensionsCount}
+                onPageRequested={props.onExtensionPageRequested}
+                page={props.extensionsPage}
+                renderItem={(
+                  extension: PrivateConsumerPassExtension,
+                  index: number,
+                ) => (
+                  <ExtensionListItem
+                    key={extension.id}
+                    extension={extension}
+                    onDelete={
+                      props.private_consumer_pass &&
+                      !props.private_consumer_pass.dst_private_consumer_pass
+                        .length
+                        ? () => props.deleteExtension(extension.id)
+                        : null
+                    }
+                    showBottomDivider={index !== props.extensions.length - 1}
+                  />
+                )}
+              />
+            </Paper>
+          </>
+        ) : null}
+        {!!props.private_consumer_pass &&
+          !props.private_consumer_pass?.dst_private_consumer_pass?.length &&
+          !props.private_consumer_pass?.reverted && (
+            <div className={classes.addButtonContainer}>
+              <Button
+                color="primary"
+                onClick={props.onCreateExtension}
+                variant="outlined"
+              >
+                {t('consumerPass.actions.addExtension')}
+              </Button>
+            </div>
+          )}
+      </div>
     </div>
   );
 };

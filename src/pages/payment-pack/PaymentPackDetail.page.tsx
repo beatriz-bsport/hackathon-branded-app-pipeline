@@ -80,6 +80,10 @@ import {
   deleteMarketingNotification as deleteMarketingNotificationAction,
 } from '#src/libs/marketing/actions';
 import {
+  getPaymentPackNotifications,
+  getPaymentPackNotificationsByPackId,
+} from '#src/libs/marketing/selectors';
+import {
   withEstablishments,
   withMetaActivities,
   getPaymentPack,
@@ -157,7 +161,6 @@ import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 import { ConsumerPaymentPackREST } from '#src/libs/consumer-payment-pack/types';
 import { getSmartListDict } from '#src/libs/smart-list/selectors';
-import { getPaymentPackNotificationsByPackId } from '#src/libs/marketing/selectors';
 import type { MarketingNotification } from '#src/libs/marketing/types';
 
 type OwnProps = {
@@ -351,8 +354,62 @@ export class PaymentPackDetail extends Component<Props, State> {
         payment_pack_ids: notification.event_rules.payment_pack_ids.filter(
           (id) => id !== this.props.id,
         ),
+
+        // :TODO: Remove this line when the related backend migration (BS-3934) is done
+        payment_pack_id: undefined,
       },
     });
+  };
+
+  addPassToNotification = (notification: MarketingNotification) => {
+    this.props.updateMarketingNotification(notification.id, {
+      ...notification,
+      event_rules: {
+        ...notification.event_rules,
+        payment_pack_ids: [
+          ...notification.event_rules.payment_pack_ids,
+          this.props.id,
+        ],
+
+        // :TODO: Remove this line when the related backend migration (BS-3934) is done
+        payment_pack_id: undefined,
+      },
+    });
+  };
+
+  createOrUpdatePaymentPackWithNotifications = (
+    data: PaymentPackFormValues,
+    options: OptionCallback,
+  ) => {
+    const { addToNotifications, removeFromNotifications, ...rest } = data;
+
+    this.props.createOrUpdatePaymentPackAction(rest, {
+      ...options,
+      onSuccess: () => {
+        options.onSuccess();
+        this.props.refreshCompanyThemeAction(this.props.companyId, {
+          onSuccess: (theme) => {
+            if (
+              !this.props.isRollCallMandatory &&
+              theme.is_roll_call_mandatory
+            ) {
+              this.props.setOpenNoShowPenaltyDialog(true);
+            } else if (
+              this.props.isRollCallMandatory &&
+              !theme.is_roll_call_mandatory
+            ) {
+              this.props.setOpenDeleteNoShowPenaltyDialog(true);
+            } else {
+              this.props.setOpenPaymentPackFormDialog(false);
+              this.props.fetchPaymentPack(this.props.id);
+            }
+          },
+        });
+      },
+    });
+
+    addToNotifications?.forEach(this.addPassToNotification);
+    removeFromNotifications?.forEach(this.removePassFromNotification);
   };
 
   render() {
@@ -470,8 +527,10 @@ export class PaymentPackDetail extends Component<Props, State> {
                 emailDetails={this.props.email_templates_details}
                 emailSummariesById={this.props.emailSummariesById}
                 getEmailDetail={this.props.fetchEmailTemplateDetail}
-                notifications={notifications.items}
-                notificationsLoading={notifications.loading}
+                notifications={this.props.thisPaymentPackNotifications.items}
+                notificationsLoading={
+                  this.props.thisPaymentPackNotifications.loading
+                }
                 removeNotification={this.removePassFromNotification}
                 resolvedGenericTags={this.props.resolvedGenericTags}
                 smartListsById={this.props.smartListsById}
@@ -604,6 +663,7 @@ export class PaymentPackDetail extends Component<Props, State> {
               open={this.props.openMassExtensionDialog}
             />
             <PaymentPackFormDrawer
+              enableNotificationStep
               allowGuestMaster={
                 this.props.theme?.allow_guest &&
                 this.props.theme?.allow_guest_activatable
@@ -618,6 +678,10 @@ export class PaymentPackDetail extends Component<Props, State> {
               displayNewCheckoutFlow={
                 this.props.theme.display_new_checkout_flow
               }
+              emailDetailLoading={this.props.emailDetailLoading}
+              emailDetails={this.props.email_templates_details}
+              emailSummariesById={this.props.emailSummariesById}
+              getEmailDetail={this.props.fetchEmailTemplateDetail}
               initial={{
                 ...this.state.paymentPackToEdit,
                 establishments:
@@ -642,15 +706,20 @@ export class PaymentPackDetail extends Component<Props, State> {
                   ) ?? [],
               }}
               metaActivityList={[...metaActivities]}
+              notifications={notifications}
               // @ts-expect-error
-              onSubmit={this.props.createOrUpdatePaymentPack}
+              onSubmit={this.createOrUpdatePaymentPackWithNotifications}
               open={this.props.openPaymentPackFormDialog}
               paymentPackCategories={paymentPackCategories}
               // @ts-expect-error
               privateServices={this.props.privateServices}
               provincialTax={this.props.theme?.provincial_tax_value}
+              resolvedGenericTags={this.props.resolvedGenericTags}
+              smartListLoading={this.props.smartListLoading}
+              smartListsById={this.props.smartListsById}
               // @ts-expect-error
               tagList={allTagsWithTagGroup ? [...allTagsWithTagGroup] : []}
+              theme={this.props.theme}
             />
           </Grid>
         )}
@@ -723,10 +792,11 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
       // @ts-expect-error
     )(state, props.id),
     scaleCreditLoading: state.paymentPack.scaleCredit.loading,
-    notifications: {
+    thisPaymentPackNotifications: {
       items: getPaymentPackNotificationsByPackId(state, props.id),
       loading: state.marketingNotification.loading,
     },
+    notifications: getPaymentPackNotifications(state),
     consumerPacks: {
       items: getConsumerPacksByPackWithMember(state),
       count: state.consumerPaymentPack.byPaymentPack.count,
@@ -876,31 +946,6 @@ const mapWithHandlers = {
       },
     });
   },
-  createOrUpdatePaymentPack:
-    (props: WithStateProps) =>
-    (data: PaymentPackFormValues, options: OptionCallback) => {
-      props.createOrUpdatePaymentPackAction(data, {
-        ...options,
-        onSuccess: () => {
-          options.onSuccess();
-          props.refreshCompanyThemeAction(props.companyId, {
-            onSuccess: (theme) => {
-              if (!props.isRollCallMandatory && theme.is_roll_call_mandatory) {
-                props.setOpenNoShowPenaltyDialog(true);
-              } else if (
-                props.isRollCallMandatory &&
-                !theme.is_roll_call_mandatory
-              ) {
-                props.setOpenDeleteNoShowPenaltyDialog(true);
-              } else {
-                props.setOpenPaymentPackFormDialog(false);
-                props.fetchPaymentPack(props.id);
-              }
-            },
-          });
-        },
-      });
-    },
   fetchNotificationsAndTemplatesAndSmartLists:
     (props: WithStateProps) => () => {
       props.fetchMarketingNotificationList(
@@ -909,7 +954,6 @@ const mapWithHandlers = {
             CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
             CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
           ],
-          event_rules__payment_pack_id: props.id,
         },
         {
           onSuccess: (notificationList: any) => {

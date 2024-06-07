@@ -5,6 +5,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { Theme, createStyles } from '@material-ui/core/styles';
 
+import themeSelectors from '#src/libs/theme/selectors';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -21,6 +22,10 @@ import memoize from 'memoize-one';
 import uniqBy from 'lodash/uniqBy';
 import { Alert } from '@material-ui/lab';
 import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
+import {
+  fetchActivitiesCompany,
+  fetchMetaActivities as fetchMetaActivitiesAction,
+} from '#src/libs/meta-activity/actions';
 
 import { VideoStatusEnum } from '#src/libs/video/types';
 import PaginatedConsumerPackList from '#src/libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
@@ -29,6 +34,7 @@ import PaymentPackListItem from '#src/libs/payment-packs/components/PaymentPackL
 import PaymentPackDeleteDialog from '#src/libs/payment-packs/components/PaymentPackDeleteDialog.component';
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
+import { fetchResolvedGenericTags } from '#src/libs/notification-rule/actions';
 import {
   fetchPaymentPackList as fetchPaymentPackListAction,
   patch as patchPaymentPack,
@@ -52,6 +58,36 @@ import {
   withLinkedPrivatePass,
 } from '#src/libs/payment-packs/selectors';
 import { fetchVideoFilterableParams } from '#src/libs/video/actions';
+import {
+  updateCredit as updateCreditAction,
+  resetByPaymentPack as resetByPaymentPackAction,
+  fetchByPaymentPack as fetchByPaymentPackAction,
+} from '../../libs/consumer-payment-pack/actions';
+import type {
+  PaymentPack,
+  PaymentPackCategory,
+  PaymentPackCategoryWithPacks,
+  PaymentPackFormValues,
+} from '../../libs/payment-packs/types';
+import withTitle from '../../hocs/with-title.hoc';
+import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
+import {
+  getPaymentPackNotifications,
+  withPaymentPackNotification,
+} from '../../libs/marketing/selectors';
+import PaymentPackCategoryCreationDialog from '../../libs/payment-packs/components/category/PaymentPackCategoryCreationDialog.component';
+import PaymentPackCategoryList from '../../libs/payment-packs/components/category/PaymentPackCategoryList.component';
+import {
+  setPaymentPackCategoryFilter,
+  setPaymentPackManagerOnlyFilter,
+  setPaymentPackSort,
+} from '../../libs/user-preference/actions';
+import PaymentPackFilterAndSortHeader, {
+  ManagerOnly,
+  SortOption,
+} from '../../libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
+import PaymentPackFormDrawer from '../../libs/payment-packs/components/PaymentPackForm';
+import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 import { getAvailableEstablishmentList } from '#src/libs/establishment/selectors';
 import {
@@ -87,45 +123,25 @@ import {
   withObjectSearch,
   WithObjectSearch,
 } from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
-
-import themeSelectors from '../../libs/theme/selectors';
 import {
-  fetchActivitiesCompany,
-  fetchMetaActivities as fetchMetaActivitiesAction,
-} from '../../libs/meta-activity/actions';
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import PaymentPackFormDrawer from '../../libs/payment-packs/components/PaymentPackForm';
-import PaymentPackFilterAndSortHeader, {
-  ManagerOnly,
-  SortOption,
-} from '../../libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
-import {
-  setPaymentPackCategoryFilter,
-  setPaymentPackManagerOnlyFilter,
-  setPaymentPackSort,
-} from '../../libs/user-preference/actions';
-import PaymentPackCategoryList from '../../libs/payment-packs/components/category/PaymentPackCategoryList.component';
-import PaymentPackCategoryCreationDialog from '../../libs/payment-packs/components/category/PaymentPackCategoryCreationDialog.component';
-import { withPaymentPackNotification } from '../../libs/marketing/selectors';
-import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
-import withTitle from '../../hocs/with-title.hoc';
-import type {
-  PaymentPack,
-  PaymentPackCategory,
-  PaymentPackCategoryWithPacks,
-  PaymentPackFormValues,
-} from '../../libs/payment-packs/types';
-import {
-  updateCredit as updateCreditAction,
-  resetByPaymentPack as resetByPaymentPackAction,
-  fetchByPaymentPack as fetchByPaymentPackAction,
-} from '../../libs/consumer-payment-pack/actions';
+  getAllEmailTemplatesDict,
+  getEmailTemplatesDetail,
+} from '#src/libs/email-editor/selectors';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '#src/libs/member/actions';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
 import { OptionCallback } from '../../state/types';
 import { getConsumerPacksByPackWithMember } from '#src/libs/consumer-payment-pack/selectors';
 import type { ConsumerPaymentPackREST } from '#src/libs/consumer-payment-pack/types';
+import {
+  emailTemplateDetail,
+  fetchEmailTemplateSummariesBulk,
+} from '#src/libs/email-editor/actions';
+import { fetchSmartListBulk } from '#src/libs/smart-list/actions';
+import { getSmartListDict } from '#src/libs/smart-list/selectors';
+import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
+import { updateMarketingNotification } from '#src/libs/marketing/api';
+import type { MarketingNotification } from '#src/libs/marketing/types';
 
 type PaymentPackOption = {
   label: string;
@@ -255,13 +271,8 @@ export class PaymentPackList extends React.Component<Props, State> {
       company: this.props.companyId,
       status: VideoStatusEnum.processed,
     });
-    this.props.fetchMarketingNotificationList({
-      active: true,
-      kind_in: [
-        CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
-        CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
-      ],
-    });
+    this.props.fetchNotificationsAndTemplatesAndSmartLists();
+    this.props.fetchResolvedGenericTags();
     if (this.state.selectedSortOption !== SortOption.customSort)
       this.updateSortOption(this.state.selectedSortOption);
     IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
@@ -495,6 +506,91 @@ export class PaymentPackList extends React.Component<Props, State> {
         };
       });
 
+  removePassFromNotification = (
+    notification: MarketingNotification,
+    passId: number,
+  ) => {
+    this.props.updateMarketingNotification(notification.id, {
+      ...notification,
+      event_rules: {
+        ...notification.event_rules,
+        payment_pack_ids: notification.event_rules.payment_pack_ids.filter(
+          (id) => id !== passId,
+        ),
+
+        // :TODO: Remove this line when the related backend migration (BS-3934) is done
+        payment_pack_id: undefined,
+      },
+    });
+  };
+
+  addPassToNotification = (
+    notification: MarketingNotification,
+    passId: number,
+  ) => {
+    this.props.updateMarketingNotification(notification.id, {
+      ...notification,
+      event_rules: {
+        ...notification.event_rules,
+        payment_pack_ids: [
+          ...notification.event_rules.payment_pack_ids,
+          passId,
+        ],
+
+        // :TODO: Remove this line when the related backend migration (BS-3934) is done
+        payment_pack_id: undefined,
+      },
+    });
+  };
+
+  createOrUpdatePaymentPackWithNotifications = (
+    data: PaymentPackFormValues,
+    options: OptionCallback<PaymentPack>,
+  ) => {
+    const { addToNotifications, removeFromNotifications, ...paymentPackData } =
+      data;
+    this.props.createOrUpdatePaymentPackAction(paymentPackData, {
+      ...options,
+      onSuccess: (res) => {
+        // condition to edit
+        if (data?.id) {
+          this.props.refreshOptions('payment_pack', searchBarAdditionalParams);
+        }
+        options.onSuccess(res);
+        this.props.refreshCompanyThemeAction(this.props.companyId, {
+          onSuccess: (theme) => {
+            if (
+              !this.props.isRollCallMandatory &&
+              theme.is_roll_call_mandatory
+            ) {
+              this.props.setOpenNoShowPenaltyDialog(true);
+            } else if (
+              this.props.isRollCallMandatory &&
+              !theme.is_roll_call_mandatory
+            ) {
+              this.props.setOpenDeleteNoShowPenaltyDialog(true);
+            } else {
+              this.props.setOpenPaymentPackFormDialog(false);
+            }
+            this.props.fetchPaymentPackList({
+              disabled: false,
+              page_size: 70000,
+            });
+            if (res.linked_private_pass) {
+              this.props.fetchPrivatePassList();
+            }
+            addToNotifications?.forEach((n) =>
+              this.addPassToNotification(n, res.id),
+            );
+            removeFromNotifications?.forEach((n) =>
+              this.removePassFromNotification(n, res.id),
+            );
+          },
+        });
+      },
+    });
+  };
+
   render() {
     const {
       loading,
@@ -560,10 +656,15 @@ export class PaymentPackList extends React.Component<Props, State> {
             compatibleServicePass={this.props.compatibleServicePass}
             // @ts-expect-error
             creditFactor={this.props.theme.pass_credit_factor}
+            emailDetailLoading={this.props.emailDetailLoading}
+            emailDetails={this.props.emailDetails}
+            emailSummariesById={this.props.emailSummariesById}
+            getEmailDetail={this.props.fetchEmailTemplateDetail}
             // @ts-expect-error
             initial={this.state.paymentPackToEdit}
             metaActivityList={metaActivities}
-            onSubmit={this.props.createOrUpdatePaymentPack}
+            notifications={this.props.marketingNotificationList}
+            onSubmit={this.createOrUpdatePaymentPackWithNotifications}
             open={this.props.openPaymentPackFormDialog}
             paymentPackCategories={paymentPackCategories}
             // @ts-expect-error
@@ -751,6 +852,7 @@ export class PaymentPackList extends React.Component<Props, State> {
                 pack={this.state.paymentPackToDelete}
               />
               <PaymentPackFormDrawer
+                enableNotificationStep
                 allowGuestMaster={
                   this.props.theme.allow_guest &&
                   this.props.theme.allow_guest_activatable
@@ -767,17 +869,26 @@ export class PaymentPackList extends React.Component<Props, State> {
                 displayNewCheckoutFlow={
                   this.props.theme.display_new_checkout_flow
                 }
+                emailDetailLoading={this.props.emailDetailLoading}
+                emailDetails={this.props.emailDetails}
+                emailSummariesById={this.props.emailSummariesById}
+                getEmailDetail={this.props.fetchEmailTemplateDetail}
                 // @ts-expect-error
                 initial={this.state.paymentPackToEdit}
                 metaActivityList={metaActivities}
-                onSubmit={this.props.createOrUpdatePaymentPack}
+                notifications={this.props.marketingNotificationList}
+                onSubmit={this.createOrUpdatePaymentPackWithNotifications}
                 open={this.props.openPaymentPackFormDialog}
                 paymentPackCategories={paymentPackCategories}
                 // @ts-expect-error
                 privateServices={this.props.privateServices}
                 provincialTax={this.props.theme?.provincial_tax_value}
+                resolvedGenericTags={this.props.resolvedGenericTags}
+                smartListLoading={this.props.smartListLoading}
+                smartListsById={this.props.smartListsById}
                 // @ts-expect-error
                 tagList={allTagsWithTagGroup}
+                theme={this.props.theme}
               />
               {hasCreatePermission && (
                 <BottomActionsButton
@@ -866,11 +977,13 @@ const mapStateToProps = (state: RootState) => ({
   loading: state.paymentPack.loading,
   // @ts-expect-error
   enabledPacks: withSCT(withLinkedPrivatePass(getEnabledPaymentPacks))(state),
+  emailSummariesById: getAllEmailTemplatesDict(state),
   theme: themeSelectors.getTheme(state),
   videoCategories: state.video.filterableParams.items.SCTs,
   allTagsWithTagGroup: getAllTagsWithTagGroup(state),
   availableEstablishmentList: getAvailableEstablishmentList(state),
   paymentPackCategories: getAllPaymentPackCategory(state),
+  marketingNotificationList: getPaymentPackNotifications(state),
   metaActivities: uniqBy(
     [
       ...getEnabledMetaActivities(state),
@@ -908,6 +1021,11 @@ const mapStateToProps = (state: RootState) => ({
   isRollCallMandatory: state.theme.theme.is_roll_call_mandatory,
   bookkeepingAccounts: getBookkeepingAccountList(state),
   bookkeepingAccountById: getBookkeepingAccountById(state),
+  smartListsById: getSmartListDict(state),
+  smartListLoading: state.smartList.loading,
+  resolvedGenericTags: getResolvedGenericTags(state),
+  emailDetails: getEmailTemplatesDetail(state),
+  emailDetailLoading: state.emailTemplate.detail.loading,
 });
 const mapDispatchToProps = {
   fetchEstablishments,
@@ -922,6 +1040,8 @@ const mapDispatchToProps = {
   fetchByPaymentPackAction,
   resetByPaymentPackAction,
   fetchMarketingNotificationList,
+  fetchEmailTemplateSummariesBulk,
+  fetchSmartListBulk,
   upsertPaymenPackCategoryAction: upsertPaymenPackCategory,
   deletePaymentPackCategoryAction: deletePaymentPackCategory,
   fetchPaymentPackBulk,
@@ -942,6 +1062,9 @@ const mapDispatchToProps = {
   refreshCompanyThemeAction,
   fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
   fetchFilteredMembers: fetchFilteredMembersAction,
+  fetchResolvedGenericTags,
+  fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
+  updateMarketingNotification,
 };
 const mapWithHandlers = {
   incrementCredit:
@@ -1018,38 +1141,6 @@ const mapWithHandlers = {
         },
       });
     },
-  createOrUpdatePaymentPack:
-    (props: OwnAndConnectedProps) =>
-    (data: PaymentPackFormValues, options: OptionCallback<PaymentPack>) => {
-      props.createOrUpdatePaymentPackAction(data, {
-        ...options,
-        onSuccess: (res) => {
-          // condition to edit
-          if (data?.id) {
-            props.refreshOptions('payment_pack', searchBarAdditionalParams);
-          }
-          options.onSuccess(res);
-          props.refreshCompanyThemeAction(props.companyId, {
-            onSuccess: (theme) => {
-              if (!props.isRollCallMandatory && theme.is_roll_call_mandatory) {
-                props.setOpenNoShowPenaltyDialog(true);
-              } else if (
-                props.isRollCallMandatory &&
-                !theme.is_roll_call_mandatory
-              ) {
-                props.setOpenDeleteNoShowPenaltyDialog(true);
-              } else {
-                props.setOpenPaymentPackFormDialog(false);
-              }
-              props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
-              if (res.linked_private_pass) {
-                props.fetchPrivatePassList();
-              }
-            },
-          });
-        },
-      });
-    },
   fetchCompatibleServicePasses:
     (props: OwnAndConnectedProps) =>
     (paymentPack: PaymentPack<PrivatePass>) => {
@@ -1071,6 +1162,36 @@ const mapWithHandlers = {
           },
         );
       }
+    },
+  fetchNotificationsAndTemplatesAndSmartLists:
+    (props: OwnAndConnectedProps) => () => {
+      props.fetchMarketingNotificationList(
+        {
+          kind__in: [
+            CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
+            CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
+          ],
+        },
+        {
+          onSuccess: (notificationList: any) => {
+            props.fetchEmailTemplateSummariesBulk(
+              notificationList.map(
+                (notification: any) => notification.email_design,
+              ),
+            );
+            props.fetchSmartListBulk([
+              ...notificationList.map(
+                (notification: any) =>
+                  notification.event_rules.smartlist_include,
+              ),
+              ...notificationList.map(
+                (notification: any) =>
+                  notification.event_rules.smartlist_exclude,
+              ),
+            ]);
+          },
+        },
+      );
     },
   goToSettings: (props: OwnAndConnectedProps) => () => {
     props.pushRouter('/settings/personalization');

@@ -178,6 +178,10 @@ const getTranslations = async () => {
     },
     form: {
       paymentPack: {
+        noNotificationsWarning:
+          'You do not yet have any notifications set up. To add notifications to the pass, go to <strong>Marketing > Notifications</strong>.',
+        detailsAndRestrictions: 'Details and restrictions',
+        notification: 'Notifications',
         from: 'From ',
         until: 'Until ',
         newMemberOnly: 'Only available for new customers',
@@ -250,6 +254,8 @@ const getTranslations = async () => {
           edit: 'Edit',
           create: 'Save',
           cancel: 'Cancel',
+          next: 'Next',
+          back: 'Back',
         },
         sports: 'Category',
         activities: 'Activity',

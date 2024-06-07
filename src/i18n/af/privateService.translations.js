@@ -466,6 +466,8 @@ const getTranslations = async () => {
       none: ' None',
     },
     privatePass: {
+      noNotificationsWarning:
+        'You do not yet have any notifications set up. To add notifications to the appointment pass, go to <strong>Marketing > Notifications</strong>.',
       delete: {
         title: 'Delete pass',
         explain:

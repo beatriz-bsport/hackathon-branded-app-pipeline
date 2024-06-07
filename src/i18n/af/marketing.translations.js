@@ -151,6 +151,7 @@ exports.default = {
     smartListTitle: 'Smartlist',
     included: 'Included',
     excluded: 'Excluded',
+    select: 'Select',
     passNotificationDeleteDialog: {
       title: 'Delete this notification',
       warning: {

@@ -21,9 +21,8 @@ import type {
   ProvisionCreate,
   ShopItemCreate,
   ShopItemEdit,
-  ShopItemListFilterParams,
+  ShopItemFilterParams,
   ShopItemVariantAttributes,
-  ShopItemVariantFilterParams,
   ShopSupplier,
   ProvisionBulkCreate,
   ShopSupplierCreate,
@@ -38,14 +37,18 @@ import type {
   ShopSupplierTemplateCreate,
 } from './types';
 
-export async function fetchAll(
-  params: ShopItemListFilterParams,
-): Promise<AxiosResponse<ShopItem[]>> {
-  return getAuth(`${API_V1_URI}/shop/item/${buildUrlParams(params)}`);
+/**
+ * @deprecated LEGACY - use the reworked API Fn
+ * @see {@link fetchShopItemList} */
+export async function fetchAll(params: ShopItemFilterParams) {
+  return getAuth<ShopItem[]>(
+    `${API_V1_URI}/shop/item/${buildUrlParams(params)}`,
+  );
 }
 
+/** @deprecated LEGACY endpoint with no pagination */
 export async function fetchOld(
-  params?: ShopItemListFilterParams & {
+  params?: ShopItemFilterParams & {
     company: number;
     id__in?: number[];
   },
@@ -165,13 +168,20 @@ export default {
 /* --- REWORKED --- */
 
 /**
- * Fetch a list of shop item. Filters available to exclude items based on type.
- * @param is_variant Include all variants created from a base item
- * @param is_base_item Include all base items
- * @param is_standalone_item Include all standalone items
+ * Fetch a list of shop item. By passing page_size the API response gets paginated
+ * @param base_shop_item_template Filter by
+ * @param color Filter by color field value
+ * @param company__in  Filter items from specific companies only
+ * @param id__not_in Exclude specific items by id
+ * @param is_base_item Include items that are base items (have variants)
+ * @param is_standalone_item Include items that are standalone
+ * @param is_variant Include items that are variants (related to a base item)
+ * @param size Filter by size field value
+ * @param page_size The number of items to retrieve per page
+ * @param page The page number to retrieve
  */
-export const fetchShopItemList = (params?: ShopItemListFilterParams) => {
-  return getAuth<ShopItem[]>(
+export const fetchShopItemList = (params?: ShopItemFilterParams) => {
+  return getAuth<PaginatedResponse<ShopItem>>(
     `${API_V1_URI}/shop/item/${buildUrlParams(params)}`,
   );
 };
@@ -191,19 +201,6 @@ export const retrieveShopItemDetails = (id: number) => {
 export const retrieveShopItemUsedInCombo = (id: number) => {
   return postAuth<IsShopUsedInComboAPI>(
     `${API_V1_URI}/shop/item/${id}/check_archive_side_effects/`,
-  );
-};
-
-/**
- * Retrieves all variants related to a base item.\
- * If there are no variants API will return an empty list
- * @param base_item_id The ID of the base item
- */
-export const fetchShopItemVariantList = (
-  params: ShopItemVariantFilterParams,
-) => {
-  return getAuth<PaginatedResponse<ShopItem>>(
-    `${API_V1_URI}/shop/item/${buildUrlParams(params)}`,
   );
 };
 

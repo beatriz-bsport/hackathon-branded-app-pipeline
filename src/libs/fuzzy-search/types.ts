@@ -42,7 +42,7 @@ import type {
 import type { Cadence } from '#src/libs/sequential_marketing/types';
 import type {
   ShopItem,
-  ShopItemListFilterParams,
+  ShopItemFilterParams,
   ShopItemTemplate,
   ShopItemTemplateFilterParams,
   SubShop,
@@ -349,7 +349,7 @@ type SubShopAPIParams = PaginationFilterParams & { company?: number };
 
 type SubShopTemplateAPIParams = PaginationFilterParams;
 
-type ShopItemAPIParams = PaginationFilterParams & ShopItemListFilterParams;
+type ShopItemAPIParams = PaginationFilterParams & ShopItemFilterParams;
 
 type ShopItemTemplateAPIParams = PaginationFilterParams &
   ShopItemTemplateFilterParams;

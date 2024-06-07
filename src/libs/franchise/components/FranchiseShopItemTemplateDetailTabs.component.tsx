@@ -23,7 +23,6 @@ import ShopItemDetailSettingsTab from '#src/libs/shop/components/ShopItemDetailT
 import type {
   ProvisionBulkCreate,
   ShopItem,
-  TabListOption,
   ProvisionCreate,
   Provision,
   ShopItemTemplate,
@@ -39,7 +38,7 @@ type Props = {
   isUpdatingVariant?: boolean;
   isDeletingVariant?: boolean;
   isVariantEditMode?: boolean;
-  selectedTab: TabListOption;
+  selectedTab: SelectOption<ShopItemDetailTab>;
   variantList: ShopItemTemplate[];
   shopItemTemplateInstanceList: ShopItem[];
   shopItemTemplate: ShopItemTemplate;
@@ -47,7 +46,7 @@ type Props = {
   shopItemTemplateInstancePage: number;
   shopItemTemplateVariantCount: number;
   shopItemTemplateInstanceCount: number;
-  availableTabListOptions: TabListOption[];
+  availableTabListOptions: SelectOption<ShopItemDetailTab>[];
   shopItemVariantFilterOptionList: {
     colors: SelectOption[];
     sizes: SelectOption[];

@@ -166,7 +166,9 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       1;
     const colorFilter = this.props.queryParams?.color?.split(',');
     const sizeFilter = this.props.queryParams?.size?.split(',');
-    const companyIdsFilter = this.props.queryParams?.company?.split(',');
+    const companyIdsFilter = this.props.queryParams?.company
+      ?.split(',')
+      ?.map((companyId) => parseInt(companyId, 10));
 
     !!this.props.shopItemTemplate &&
       this.props.fetchShopItemTemplateInstanceList({
@@ -175,7 +177,6 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         colors: colorFilter,
         sizes: sizeFilter,
         company__in: companyIdsFilter,
-
         ...(this.props.shopItemTemplate?.number_of_variants > 0
           ? {
               is_variant: true,

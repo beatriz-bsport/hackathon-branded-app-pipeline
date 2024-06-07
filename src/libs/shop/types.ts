@@ -4,7 +4,80 @@ import {
   WithPagination,
 } from '#src/libs/types';
 import { PaginatedResponse } from '#src/state/types';
-import { ShopItemDetailTab } from './components/ShopItemDetail/constants';
+
+export type ShopSupplierFactoryOptions = {
+  /** If `true` the factory will return a {@link ShopSupplierTemplate} instance */
+  isFranchise?: boolean;
+};
+
+export type ShopItemFactoryOptions = {
+  isStandaloneItem?: boolean;
+  isUnlimitedProvisions?: boolean;
+  isMarketplaceEnabled?: boolean;
+  isDeliverable?: boolean;
+  isDisabled?: boolean;
+  allVariantsFollowBasePrice?: boolean;
+  /** If `true` the factory will return a {@link ShopItemTemplate} instance */
+  isFranchise?: boolean;
+};
+
+export type SubshopFactoryOptions = {
+  /** If `true` the factory will return a {@link SubshopTemplate} instance */
+  isFranchise?: boolean;
+};
+
+export type ShopAPIFilter = PaginationFilterParams & {
+  marketplace_enabled?: true;
+  disabled?: boolean;
+  company?: number;
+  as_consumer?: true;
+  featured?: boolean;
+};
+
+export type ShopItemFilterParams = ShopAPIFilter & {
+  base_item?: number;
+  base_shop_item_template?: number;
+  color?: string;
+  company__in?: number[];
+  id__not_in?: number[];
+  is_base_item?: boolean;
+  is_standalone_item?: boolean;
+  is_variant?: boolean;
+  size?: string;
+};
+
+export type ShopItemTemplateFilterParams = ShopItemFilterParams & {
+  sub_shop_template?: number;
+};
+
+export type ShopSupplier = {
+  description: string;
+  id: number;
+  name: string;
+};
+
+/** Represents a shop supplier at the franchise context */
+export type ShopSupplierTemplate = ShopSupplier & {
+  franchisor: number;
+};
+
+/** Represents the payload sent when creating a supplier */
+export type ShopSupplierCreate = {
+  name: string;
+  description?: string;
+};
+
+/** Represents the payload sent when creating a supplier template */
+export type ShopSupplierTemplateCreate = ShopSupplierCreate & {
+  franchisor: number;
+};
+
+/** Represents the payload sent when updating a supplier */
+export type ShopSupplierUpdate = {
+  id: number;
+  name: string;
+  description?: string;
+};
 
 export type Provision = {
   product_name: string;
@@ -14,6 +87,10 @@ export type Provision = {
   shop_item: number;
   manual_adjustement: boolean;
 };
+
+export type ProvisionCreate = { shop_item: number; qty: number };
+
+export type ProvisionBulkCreate = ProvisionCreate[];
 
 export type SubShop = {
   id: number;
@@ -46,11 +123,26 @@ export type SubShopAPI = {
   shopitems: Array<number>;
 };
 
-export type AxiosSubShopAPI = { data: SubShopAPI };
-
 export type IsShopUsedInComboAPI = {
   id: number;
   is_used_in_payment_combo: boolean;
+};
+
+/** Represents all attributes you can create variants from */
+export type ShopItemVariantAttributes = {
+  colors?: string[];
+  sizes?: string[];
+};
+
+/**
+ * Represents an array of existing variant combinations created with a related color/size combination
+ * @example
+ * const variantCombinationList: ShopItemVariantCombination[] = [{ id: 1, color: '', size: 'red' }]
+ */
+export type ShopItemVariantCombination = {
+  id: number;
+  color: string;
+  size: string;
 };
 
 export type ShopItem = {
@@ -102,25 +194,6 @@ export type ShopItemTemplate = Omit<
   synced_companies: { id: number; name: string }[];
 };
 
-export type ShopItemTemplateFilterParams = PaginationFilterParams & {
-  sub_shop_template?: number;
-  base_item?: number;
-  is_variant?: boolean;
-  is_base_item?: boolean;
-  is_standalone_item?: boolean;
-};
-
-export type ShopItemVariantFilterParams = PaginationFilterParams & {
-  is_variant?: boolean;
-  is_base_item?: boolean;
-  is_standalone_item?: boolean;
-  base_item_id?: number;
-  color?: string;
-  size?: string;
-  company?: string;
-  base_shop_item_template?: number;
-};
-
 export type ShopItemCreate = {
   'available_payment_method_identifiers[]': string;
   barcode: string;
@@ -141,21 +214,6 @@ export type ShopItemCreate = {
 };
 
 export type ShopItemEdit = Partial<ShopItemCreate>;
-
-export type ShopSupplier = {
-  description: string;
-  id: number;
-  name: string;
-};
-
-export type ShopSupplierTemplate = ShopSupplier & {
-  franchisor: number;
-};
-
-export type ShopSupplierFactoryOptions = {
-  /** If `true` the factory will return a {@link ShopSupplierTemplate} instance */
-  isFranchise?: boolean;
-};
 
 export type ShopState = {
   subShops: Array<SubShopAPI>;
@@ -310,76 +368,4 @@ export type ShopStateReworked = {
     } & WithPagination &
       ErrorAndLoading;
   };
-};
-
-export type ShopAPIFilter = PaginationFilterParams & {
-  marketplace_enabled?: true;
-  disabled?: boolean;
-  company?: number;
-  as_consumer?: true;
-  featured?: boolean;
-};
-
-export type ProvisionCreate = { shop_item: number; qty: number };
-
-export type ProvisionBulkCreate = ProvisionCreate[];
-
-export type ShopItemFactoryOptions = {
-  isStandaloneItem?: boolean;
-  isUnlimitedProvisions?: boolean;
-  isMarketplaceEnabled?: boolean;
-  isDeliverable?: boolean;
-  isDisabled?: boolean;
-  allVariantsFollowBasePrice?: boolean;
-  /** If `true` the factory will return a {@link ShopItemTemplate} instance */
-  isFranchise?: boolean;
-};
-
-export type SubshopFactoryOptions = {
-  /** If `true` the factory will return a {@link SubshopTemplate} instance */
-  isFranchise?: boolean;
-};
-
-export type ShopItemListFilterParams = ShopAPIFilter & {
-  id__not_in?: number[];
-  is_variant?: boolean;
-  is_base_item?: boolean;
-  is_standalone_item?: boolean;
-};
-
-/** Represents all attributes you can create variants from */
-export type ShopItemVariantAttributes = {
-  colors?: string[];
-  sizes?: string[];
-};
-
-/** Represents the payload sent when creating a supplier */
-export type ShopSupplierCreate = {
-  name: string;
-  description?: string;
-};
-
-/** Represents the payload sent when creating a supplier template */
-export type ShopSupplierTemplateCreate = ShopSupplierCreate & {
-  franchisor: number;
-};
-
-/** Represents the payload sent when updating a supplier */
-export type ShopSupplierUpdate = {
-  id: number;
-  name: string;
-  description?: string;
-};
-
-/** An available/selectable tab from the table in shop item details */
-export type TabListOption = {
-  label: string;
-  value: ShopItemDetailTab;
-};
-
-/** Represents an existing variant created with associated color/size combination */
-export type ShopItemVariantCombination = {
-  id: number;
-  color: string;
-  size: string;
 };

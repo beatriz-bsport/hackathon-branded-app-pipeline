@@ -23,7 +23,6 @@ import type {
   ShopItemVariantAttributes,
   ShopSupplier,
   ProvisionBulkCreate,
-  TabListOption,
   Provision,
   ProvisionCreate,
   ShopItemVariantCombination,
@@ -131,14 +130,16 @@ const ShopItemDetail: React.FC<Props> = ({
 
   const { t } = useTranslation('shop');
 
-  const [selectedTab, setSelectedTab] = useState<TabListOption>({
+  const [selectedTab, setSelectedTab] = useState<
+    SelectOption<ShopItemDetailTab>
+  >({
     label: t('shop:shopItemDetail.tab.inventory'),
     value: ShopItemDetailTab.INVENTORY,
   });
 
   const variantListCount = count > 0 ? ` (${count})` : '';
 
-  const availableTabListOptions: TabListOption[] = useMemo(
+  const availableTabListOptions: SelectOption<ShopItemDetailTab>[] = useMemo(
     () => [
       {
         label: t('shop:shopItemDetail.tab.inventory'),
@@ -247,7 +248,7 @@ const ShopItemDetail: React.FC<Props> = ({
   );
 
   const handleChangeTab = useCallback(
-    (option: TabListOption) => {
+    (option: SelectOption<ShopItemDetailTab>) => {
       const isTabRenderingVariants =
         option.value === ShopItemDetailTab.INVENTORY ||
         option.value === ShopItemDetailTab.VARIANTS;

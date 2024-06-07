@@ -19,7 +19,6 @@ import PromptOnPageLeaveComponent from '#src/components/Prompt';
 import type {
   ProvisionBulkCreate,
   ShopItem,
-  TabListOption,
   ProvisionCreate,
   Provision,
 } from '#src/libs/shop/types';
@@ -39,14 +38,14 @@ type Props = {
   isVariantListLoading?: boolean;
   isUpdatingVariant?: boolean;
   isDeletingVariant?: boolean;
-  selectedTab: TabListOption;
+  selectedTab: SelectOption<ShopItemDetailTab>;
   variantList: ShopItem[];
   shopItem: ShopItem;
   shopItemSupplierName?: string;
   page: number;
   count: number;
   isVariantEditMode?: boolean;
-  availableTabListOptions: TabListOption[];
+  availableTabListOptions: SelectOption<ShopItemDetailTab>[];
   shopItemVariantFilterOptionList: {
     colors: SelectOption[];
     sizes: SelectOption[];

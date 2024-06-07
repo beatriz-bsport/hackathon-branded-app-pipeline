@@ -14,7 +14,7 @@ import type {
   IsShopUsedInComboAPI,
   ShopItem,
   ShopItemEdit,
-  ShopItemListFilterParams,
+  ShopItemFilterParams,
   ShopItemVariantAttributes,
   Provision,
   ProvisionBulkCreate,
@@ -22,17 +22,16 @@ import type {
   ShopItemVariantCombination,
   ShopItemTemplate,
   ShopItemTemplateFilterParams,
-} from '../types';
+} from '#src/libs/shop/types';
 import type {
   Dispatch,
   OptionCallback,
   PaginatedResponse,
-} from '../../../state/types';
+} from '#src/state/types';
 import {
-  fetchShopItemList as retrieveShopItemListAPI,
+  fetchShopItemList as fetchShopItemListAPI,
   retrieveShopItemDetails as retrieveShopItemDetailsAPI,
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAPI,
-  fetchShopItemVariantList as fetchShopItemVariantListAPI,
   createShopItem as createShopItemAPI,
   createShopItemVariants as createShopItemVariantsAPI,
   createShopItemTemplateVariants as createShopItemTemplateVariantsAPI,
@@ -50,6 +49,7 @@ import {
   createShopItemTemplate as createShopItemTemplateAPI,
   updateShopItemTemplate as updateShopItemTemplateAPI,
   deleteShopItemTemplate as deleteShopItemTemplateAPI,
+  fetchAll,
 } from '../api';
 
 export const fetchShopItemBaseListActions = {
@@ -60,12 +60,11 @@ export const fetchShopItemBaseListActions = {
 
 /**
  * Fetch a list of base shop item. Those items can have variants.
- * @param is_variant Include all variants created from a base item
- * @param is_base_item Include all base items
- * @param is_standalone_item Include all standalone items
+ * There is no pagination here for compatibility with old UI reasons
+ * @see {@link ShopItemFilterParams}
  */
 export const fetchShopItemBaseList = (
-  params?: ShopItemListFilterParams,
+  params?: ShopItemFilterParams,
   options?: OptionCallback<ShopItem[]>,
 ) => {
   return async (dispatch: Dispatch) => {
@@ -73,7 +72,7 @@ export const fetchShopItemBaseList = (
       dispatch(fetchShopItemBaseListActions.isLoading(true));
       dispatch(fetchShopItemBaseListActions.error(null));
 
-      const result = await retrieveShopItemListAPI({
+      const result = await fetchAll({
         ...params,
         is_variant: false,
         is_base_item: true,
@@ -100,12 +99,11 @@ export const fetchShopItemStandaloneListActions = {
 
 /**
  * Fetch a list of standalone shop item. Those items have no variants.
- * @param is_variant Include all variants created from a base item
- * @param is_base_item Include all base items
- * @param is_standalone_item Include all standalone items
+ * There is no pagination here for compatibility with old UI reasons
+ * @see {@link ShopItemFilterParams}
  */
 export const fetchShopItemStandaloneList = (
-  params?: ShopItemListFilterParams,
+  params?: ShopItemFilterParams,
   options?: OptionCallback<ShopItem[]>,
 ) => {
   return async (dispatch: Dispatch) => {
@@ -113,7 +111,7 @@ export const fetchShopItemStandaloneList = (
       dispatch(fetchShopItemStandaloneListActions.isLoading(true));
       dispatch(fetchShopItemStandaloneListActions.error(null));
 
-      const result = await retrieveShopItemListAPI({
+      const result = await fetchAll({
         ...params,
         is_variant: false,
         is_base_item: false,
@@ -238,8 +236,8 @@ export const fetchShopItemVariantList = ({
       const colorFilter = colors?.length ? { color: colors.join(',') } : {};
       const sizeFilter = sizes?.length ? { size: sizes.join(',') } : {};
 
-      const result = await fetchShopItemVariantListAPI({
-        base_item_id: id,
+      const result = await fetchShopItemListAPI({
+        base_item: id,
         page_size: SHOP_ITEM_VARIANTS_PAGE_SIZE,
         page,
         ...colorFilter,
@@ -992,14 +990,13 @@ export const fetchShopItemTemplateInstanceList = ({
   company__in,
   is_variant,
   options,
-}: PaginationFilterParams & {
-  id: number;
-  colors?: string[];
-  sizes?: string[];
-  company__in?: string[];
-  is_variant?: boolean;
-  options?: OptionCallback<PaginatedResponse<ShopItem>>;
-}) => {
+}: PaginationFilterParams &
+  Pick<ShopItemFilterParams, 'company__in' | 'is_variant'> & {
+    id: number;
+    colors?: string[];
+    sizes?: string[];
+    options?: OptionCallback<PaginatedResponse<ShopItem>>;
+  }) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(fetchShopItemTemplateInstanceListActions.isLoading(true));
@@ -1008,11 +1005,9 @@ export const fetchShopItemTemplateInstanceList = ({
       // parse as string for HTTP GET filter
       const colorFilter = colors?.length ? { color: colors.join(',') } : {};
       const sizeFilter = sizes?.length ? { size: sizes.join(',') } : {};
-      const companyFilter = company__in?.length
-        ? { company__in: company__in.join(',') }
-        : {};
+      const companyFilter = company__in?.length ? { company__in } : {};
 
-      const result = await fetchShopItemVariantListAPI({
+      const result = await fetchShopItemListAPI({
         base_shop_item_template: id,
         page_size: SHOP_ITEM_VARIANTS_PAGE_SIZE,
         page,

@@ -20,7 +20,6 @@ import { ShopModalContextProvider } from '#src/hocs/shop-modal-prompt.hoc';
 
 import type {
   ShopItemTemplate,
-  TabListOption,
   ShopItemEdit,
   ShopSupplierTemplate,
   ShopItem,
@@ -142,14 +141,16 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
     string | null
   >(null);
 
-  const [selectedTab, setSelectedTab] = useState<TabListOption>({
+  const [selectedTab, setSelectedTab] = useState<
+    SelectOption<ShopItemDetailTab>
+  >({
     label: t('shop:shopItemDetail.tab.inventory'),
     value: ShopItemDetailTab.INVENTORY,
   });
 
   const [showBarcodeModal, setShowBarcodeModal] = useState(false);
 
-  const availableTabListOptions: TabListOption[] = useMemo(
+  const availableTabListOptions: SelectOption<ShopItemDetailTab>[] = useMemo(
     () => [
       {
         label: t('shop:shopItemDetail.tab.inventory'),
@@ -280,7 +281,7 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
   );
 
   const handleChangeTab = useCallback(
-    (option: TabListOption) => {
+    (option: SelectOption<ShopItemDetailTab>) => {
       isVariantEditMode && setIsVariantEditMode(false);
       setSelectedTab(option);
     },

@@ -18,18 +18,6 @@ import { getLabelFromItem } from '#src/libs/fuzzy-search/utils/labelExtractor';
 
 const DEBOUNCE_TIME = 500;
 
-const defaultFormatter = <T extends SearchObjectType>(
-  searchedObjectType: T,
-  rawResults: ResultsMap[T]['array'],
-) =>
-  (rawResults ?? []).map((result: ResultsMap[T]['result']) => ({
-    label: getLabelFromItem({
-      item: result,
-      searchedObjectType,
-    }),
-    value: result.id,
-  }));
-
 type HookProps = {
   searchObjects: (
     args: {

@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 import { compose } from 'recompose';
 
-import withStyles from '@material-ui/core/styles/withStyles';
+import {
+  withStyles,
+  createStyles,
+} from 'bsport-saas/node_modules/@material-ui/core/styles';
+import type { WithStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import NewsletterFormComponent from 'bsport-saas/src/libs/marketing/components/NewsletterForm.component';
 import { createNewsletterMember } from 'bsport-saas/src/libs/marketing/api';
-import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import {
   snackbarSuccess,
   snackbarError,
 } from 'bsport-saas/src/libs/snackbar/actions';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { Theme } from 'bsport-saas/src/libs/theme/types';
+import { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
 
 const NewsletterFormComponentStyled = themify(NewsletterFormComponent);
 
 type OwnProps = {
   companyId: number,
-  theme: Theme,
+  theme: CompanyTheme,
 };
 
-type ConnectProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+type ConnectProps = ConnectedProps<typeof connector>;
 
-type Props = OwnProps &
-  ConnectProps &
-  MaterialStyleType<ReturnType<typeof styles>>;
+type Props = OwnProps & ConnectProps & WithStyles<typeof styles>;
 
 interface State {
   showSuccessSnackbar: boolean;
@@ -59,23 +59,24 @@ export class NewsletterWidget extends Component<Props, State> {
   }
 }
 
-const styles = () => ({
-  container: {
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-const mapStateToProps = () => ({});
+const styles = () =>
+  createStyles({
+    container: {
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });
 
 const mapDispatchToProps = {
   snackbarSuccess,
   snackbarError,
 };
 
+const connector = connect(null, mapDispatchToProps);
+
 export default compose<any, OwnProps>(
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
 )(NewsletterWidget);

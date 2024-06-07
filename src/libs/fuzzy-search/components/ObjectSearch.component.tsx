@@ -39,6 +39,8 @@ type OwnProps = SelectProps<SelectOption<number>> & ObjectSearchProps;
 
  * The rest of the props are passed to the Select component. For initial values use the initialValues prop (not defaultValues), except if you
  * want to override the default behaviour of the component.
+ * 
+ * @warning Do not use `getOptionLabel` and `getOptionValue` props from react-select, instead use the `optionsFormatter` prop.
  *
  */
 

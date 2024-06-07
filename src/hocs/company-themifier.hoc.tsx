@@ -10,14 +10,14 @@ import {
 } from '#src/libs/franchise/types';
 
 type Props = {
-  theme: CompanyTheme;
+  theme?: CompanyTheme;
   franchisor?: Franchise | FranchiseDetails;
   franchiseTheme?: FranchiseTheme;
 };
 
-export default <P extends object>(
+export default <P extends Record<string, unknown>>(
   WrappedComponent: React.ComponentType<P>,
-): React.ComponentType<P> => {
+): React.ComponentType<P & Props> => {
   return class extends React.Component<Props & P> {
     getMuiTheme = () => {
       if (!!this.props.franchisor && !!this.props.franchiseTheme) {

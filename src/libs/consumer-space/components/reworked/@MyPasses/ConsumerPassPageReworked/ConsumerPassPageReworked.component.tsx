@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import MarketplacePageContent from '#src/components/css-only/MarketplacePageContent';
 import ConsumerPassHeader from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassHeader';
@@ -8,6 +11,8 @@ import UniversalPassListContainer from '#src/libs/consumer-space/components/rewo
 import ConsumerPassModals from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassModals';
 import { useConsumerPassesDataManager } from '#src/libs/consumer-space/components/reworked/@MyPasses/hooks';
 import { PassTabEnum } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
+import { Calendar, ChevronRight } from '#src/components/untitledui';
+import ConsumerGenericFooter from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericFooter';
 
 import type {
   ConsumerPaymentPackREST,
@@ -25,6 +30,8 @@ import type {
   UniversalPassREST,
   UniversalPassReworked,
 } from '#src/libs/universal-pass/types';
+
+import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
 import './styles.css';
 
@@ -152,8 +159,33 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
     resetConsumerState,
   });
 
+  const { t } = useTranslation('consumerSpace');
+
+  const isWidget = WidgetUtils.isWidget();
+
+  const buttonsData: HeaderButton[] = useMemo(
+    () =>
+      isWidget
+        ? []
+        : [
+            {
+              label: t('reworked.myPasses.bookASession'),
+              onClick: handleBookASessionClick,
+              variant: 'outlined',
+              color: 'grey',
+              leftIcon: <Calendar stroke="currentColor" />,
+            },
+            {
+              label: t('reworked.myPasses.buyANewPass'),
+              onClick: handleBuyPassClick,
+              rightIcon: <ChevronRight stroke="currentColor" />,
+            },
+          ],
+    [handleBookASessionClick, handleBuyPassClick, t, isWidget],
+  );
+
   return (
-    <MarketplacePageContent>
+    <MarketplacePageContent buttonsData={buttonsData} isMobile={isMobile}>
       <div className="bs-consumer-pass-page__root">
         <ConsumerPassModals
           handleSetSelectedTab={handleSetSelectedTab}
@@ -175,10 +207,9 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
         />
         <ConsumerPassHeader
           activeItemsCount={activeItemsCount}
+          buttonsData={buttonsData}
           consumerPassesTabDisplay={consumerPassesTabDisplay}
           futureItemsCount={futureItemsCount}
-          handleBookASessionClick={handleBookASessionClick}
-          handleBuyPassClick={handleBuyPassClick}
           handleSetSelectedFilterTab={handleSetSelectedFilterTab}
           handleSetSelectedTab={handleSetSelectedTab}
           handleTogglePassTabDrawer={handleTogglePassTabDrawer}

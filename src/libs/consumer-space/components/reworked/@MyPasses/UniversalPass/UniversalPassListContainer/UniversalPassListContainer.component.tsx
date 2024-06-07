@@ -10,9 +10,9 @@ import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/c
 
 import { parseUniversalPassData } from '#src/libs/consumer-space/components/reworked/@MyPasses/UniversalPass/utils';
 import {
-  MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
-  MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
-} from '#src/libs/consumer-space/components/reworked/@MyBookings/constants';
+  MY_PASSES_LIST_CONTAINER_HEIGHT,
+  MY_PASSES_MOBILE_LIST_CONTAINER_HEIGHT,
+} from '#src/libs/consumer-space/components/reworked/@MyPasses/constants';
 
 import type { UniversalPassReworked } from '#src/libs/universal-pass/types';
 import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
@@ -71,7 +71,12 @@ export const UniversalPassListContainer: React.FC<Props> = ({
   );
 
   return (
-    <div className="bs-consumer-pass-page__content__list-container">
+    <div
+      className={classNames('bs-consumer-pass-page__content__list-container', {
+        'bs-consumer-pass-page__content__list-container--empty':
+          showPlaceholder,
+      })}
+    >
       {showPlaceholder && (
         <Typography align="center" variant="body-lg">
           {t(
@@ -94,8 +99,8 @@ export const UniversalPassListContainer: React.FC<Props> = ({
           hasMore={hasNextPage}
           height={
             isMobile
-              ? MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT
-              : MY_BOOKINGS_LIST_CONTAINER_HEIGHT
+              ? MY_PASSES_MOBILE_LIST_CONTAINER_HEIGHT
+              : MY_PASSES_LIST_CONTAINER_HEIGHT
           }
           items={passList}
           loader={<ConsumerCardSkeleton />}

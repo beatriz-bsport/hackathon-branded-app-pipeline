@@ -10,13 +10,14 @@ import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/c
 import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 import { parseConsumerPaymentPackData } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/utils';
-import {
-  MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
-  MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
-} from '#src/libs/consumer-space/components/reworked/@MyBookings/constants';
 
 import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
 import type { ConsumerPaymentPackReworked } from '#src/libs/consumer-payment-pack/types';
+
+import {
+  MY_PASSES_LIST_CONTAINER_HEIGHT,
+  MY_PASSES_MOBILE_LIST_CONTAINER_HEIGHT,
+} from '#src/libs/consumer-space/components/reworked/@MyPasses/constants';
 
 // Common stylesheet
 import '#src/libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
@@ -72,7 +73,12 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
   );
 
   return (
-    <div className="bs-consumer-pass-page__content__list-container">
+    <div
+      className={classNames('bs-consumer-pass-page__content__list-container', {
+        'bs-consumer-pass-page__content__list-container--empty':
+          showPlaceholder,
+      })}
+    >
       {showPlaceholder && (
         <Typography align="center" variant="body-lg">
           {t(
@@ -95,8 +101,8 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
           hasMore={hasNextPage}
           height={
             isMobile
-              ? MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT
-              : MY_BOOKINGS_LIST_CONTAINER_HEIGHT
+              ? MY_PASSES_MOBILE_LIST_CONTAINER_HEIGHT
+              : MY_PASSES_LIST_CONTAINER_HEIGHT
           }
           items={passList || []}
           loader={<ConsumerCardSkeleton />}

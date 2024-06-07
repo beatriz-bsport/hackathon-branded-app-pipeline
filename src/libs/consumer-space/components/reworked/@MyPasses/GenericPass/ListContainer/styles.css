@@ -1,3 +1,28 @@
+:root {
+  --my-passes-app-bar-component-height: 64px;
+  --my-passes-header-component-height: 40px;
+  --my-passes-tabs-component-height: 42px;
+  --my-passes-mobile-tabs-component-height: 48px;
+  --my-passes-filters-component-height: 44px;
+  --my-passes-spacing-height: calc(16px + 16px + 8px + 24px);
+  --my-passes-footer-component-height: 125px;
+
+  --my-passes-list-container-height: calc(
+    100vh - var(--my-passes-app-bar-component-height) -
+      var(--my-passes-header-component-height) -
+      var(--my-passes-tabs-component-height) -
+      var(--my-passes-filters-component-height) -
+      var(--my-passes-spacing-height)
+  );
+  --my-passes-mobile-list-container-height: calc(
+    100vh - var(--my-passes-app-bar-component-height) -
+      var(--my-passes-header-component-height) -
+      var(--my-passes-mobile-tabs-component-height) -
+      var(--my-passes-filters-component-height) -
+      var(--my-passes-spacing-height) - var(--my-passes-footer-component-height)
+  );
+}
+
 .bs-consumer-pass-page__content__list-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -14,6 +39,10 @@
   display: none;
 }
 
+.bs-consumer-pass-page__content__list-container--empty {
+  height: var(--my-passes-list-container-height);
+}
+
 .bs-consumer-pass-page__content__list-container__list__container {
   display: flex;
   flex-direction: column;
@@ -22,5 +51,10 @@
 @container bsConsumerPassPage (width < 475px) {
   .bs-consumer-pass-page__content__list-container {
     grid-template-columns: 1fr;
+  }
+
+  .bs-consumer-pass-page__content__list-container--empty {
+    height: var(--my-passes-mobile-list-container-height);
+    align-items: center;
   }
 }

@@ -4,20 +4,19 @@ import ConsumerPassTitleAndButtons from '#src/libs/consumer-space/components/rew
 import ConsumerPassFilters from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters';
 import ConsumerPassTabs from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs';
 import ConsumerHeaderSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerHeaderSkeleton';
-import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
 import type { PassTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
 import type { ConsumerPassesTabDisplay } from '#src/libs/consumer-space/types';
 
+import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 import './styles.css';
 
 type Props = {
   activeItemsCount: number;
+  buttonsData: HeaderButton[];
   consumerPassesTabDisplay?: ConsumerPassesTabDisplay;
   futureItemsCount: number;
-  handleBuyPassClick: () => void;
-  handleBookASessionClick: () => void;
   handleSetSelectedFilterTab: (type: PassFilterTab) => void;
   handleSetSelectedTab: (type: PassTab) => void;
   handleTogglePassTabDrawer: () => void;
@@ -29,10 +28,9 @@ type Props = {
 
 const ConsumerPassHeader: React.FC<Props> = ({
   activeItemsCount,
+  buttonsData,
   consumerPassesTabDisplay,
   futureItemsCount,
-  handleBuyPassClick,
-  handleBookASessionClick,
   handleSetSelectedTab,
   handleSetSelectedFilterTab,
   handleTogglePassTabDrawer,
@@ -41,8 +39,6 @@ const ConsumerPassHeader: React.FC<Props> = ({
   selectedFilterTab,
   selectedTab,
 }) => {
-  const isWidget = WidgetUtils.isWidget();
-
   if (isLoading) {
     return <ConsumerHeaderSkeleton className="bs-consumer-pass-page__header" />;
   }
@@ -50,10 +46,8 @@ const ConsumerPassHeader: React.FC<Props> = ({
   return (
     <div className="bs-consumer-pass-page__header">
       <ConsumerPassTitleAndButtons
-        handleBuyNewPass={handleBuyPassClick}
+        buttonsData={buttonsData}
         isMobile={isMobile}
-        isWidget={isWidget}
-        onBookSessionClick={handleBookASessionClick}
       />
       <ConsumerPassTabs
         consumerPassesTabDisplay={consumerPassesTabDisplay}

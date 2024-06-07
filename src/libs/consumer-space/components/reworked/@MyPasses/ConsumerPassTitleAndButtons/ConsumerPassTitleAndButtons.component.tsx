@@ -2,44 +2,23 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import ConsumerGenericHeader from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader';
-import { Calendar, ChevronRight } from '#src/components/untitledui';
 
 import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
 type Props = {
   isMobile?: boolean;
-  isWidget?: boolean;
-  onBookSessionClick: () => void;
-  handleBuyNewPass: () => void;
+  buttonsData: HeaderButton[];
 };
 
 export const ConsumerPassTitleAndButtons: React.FC<Props> = ({
   isMobile,
-  isWidget,
-  onBookSessionClick,
-  handleBuyNewPass,
+  buttonsData,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
-  const buttons: HeaderButton[] = useMemo(
-    () =>
-      isWidget || isMobile
-        ? []
-        : [
-            {
-              label: t('reworked.myPasses.bookASession'),
-              onClick: onBookSessionClick,
-              variant: 'outlined',
-              color: 'grey',
-              leftIcon: <Calendar stroke="currentColor" />,
-            },
-            {
-              label: t('reworked.myPasses.buyANewPass'),
-              onClick: handleBuyNewPass,
-              rightIcon: <ChevronRight stroke="currentColor" />,
-            },
-          ],
-    [onBookSessionClick, handleBuyNewPass, t, isMobile, isWidget],
+  const buttons = useMemo(
+    () => (isMobile ? [] : buttonsData),
+    [isMobile, buttonsData],
   );
 
   return (

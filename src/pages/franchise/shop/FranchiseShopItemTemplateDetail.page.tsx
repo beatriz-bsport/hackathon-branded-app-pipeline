@@ -174,7 +174,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         page,
         colors: colorFilter,
         sizes: sizeFilter,
-        company: companyIdsFilter,
+        company__in: companyIdsFilter,
 
         ...(this.props.shopItemTemplate?.number_of_variants > 0
           ? {

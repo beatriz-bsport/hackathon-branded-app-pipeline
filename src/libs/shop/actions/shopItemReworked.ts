@@ -989,14 +989,14 @@ export const fetchShopItemTemplateInstanceList = ({
   page,
   colors,
   sizes,
-  company,
+  company__in,
   is_variant,
   options,
 }: PaginationFilterParams & {
   id: number;
   colors?: string[];
   sizes?: string[];
-  company?: string[];
+  company__in?: string[];
   is_variant?: boolean;
   options?: OptionCallback<PaginatedResponse<ShopItem>>;
 }) => {
@@ -1008,8 +1008,8 @@ export const fetchShopItemTemplateInstanceList = ({
       // parse as string for HTTP GET filter
       const colorFilter = colors?.length ? { color: colors.join(',') } : {};
       const sizeFilter = sizes?.length ? { size: sizes.join(',') } : {};
-      const companyFilter = company?.length
-        ? { company: company.join(',') }
+      const companyFilter = company__in?.length
+        ? { company__in: company__in.join(',') }
         : {};
 
       const result = await fetchShopItemVariantListAPI({

@@ -1,6 +1,6 @@
 import React, { MouseEvent, useCallback, useMemo } from 'react';
 import { DateTime } from 'luxon';
-import { Theme } from '@material-ui/core';
+import { Divider, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -19,6 +19,7 @@ import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analyt
 import type { BookkeepingAccount } from '#src/libs/payment/types';
 import { ALMOST_100 } from '../../../../../constants';
 import { Form, FormikProps, FormikBag, Formik } from 'formik';
+import { NotificationsActive, Settings } from '@material-ui/icons';
 import {
   PrivatePassCategory,
   PrivateServiceWithSlots,
@@ -29,6 +30,18 @@ import {
 import PrivatePassFormDetailsAndRestrictionsStep from './PrivatePassFormDetailsAndRestrictionsStep.component';
 import { OptionCallback } from '#src/state/types';
 import { Tag, TagGroup } from '#src/libs/tag/types';
+import { MarketingNotification } from '#src/libs/marketing/types';
+import { PassType } from '#src/components/passes/types';
+import PassFormNoNotificationsWarning from '#src/libs/marketing/components/marketing-rule-pass-forms/PassFormNoNotificationWarning.component';
+import PassFormNotificationStep from '#src/libs/marketing/components/marketing-rule-pass-forms/PassFormNotificationStep.component';
+import {
+  EmailTemplateDetail,
+  EmailTemplateSummary,
+  ResolvedGenericTags,
+} from '#src/libs/email-editor/types';
+import { SmartList } from '#src/libs/smart-list/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { MultiStepper } from '#src/components/forms/Stepper';
 
 export interface FormikValues {
   name: string | null;
@@ -59,6 +72,9 @@ export interface FormikValues {
   description?: string | null;
   tags_on_consumer_item_creation?: Array<number>;
   bookkeeping_account?: number;
+
+  addToNotifications?: Array<MarketingNotification>;
+  removeFromNotifications?: Array<MarketingNotification>;
 }
 type Props = {
   provincialTax: number;
@@ -79,7 +95,24 @@ type Props = {
 
   bookkeepingAccounts: BookkeepingAccount[];
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
+
+  // Props for the PaymentPackFormNotificationStep component
+  enableNotificationStep?: boolean;
+  notifications?: MarketingNotification[];
+  emailSummariesById?: Record<number, EmailTemplateSummary>;
+  emailDetailLoading?: boolean;
+  emailDetails?: { [key: string]: EmailTemplateDetail };
+  getEmailDetail?: (id: number) => void;
+  resolvedGenericTags?: ResolvedGenericTags;
+  smartListsById?: { [key: string]: SmartList };
+  smartListLoading?: boolean;
+  theme?: CompanyTheme;
 } & FormikProps<FormikValues>;
+
+enum PrivatePassFormStep {
+  DetailsAndRestrictions,
+  Notification,
+}
 
 const {
   trackFormAdd,
@@ -97,6 +130,11 @@ export const PrivatePassForm = (props: Props) => {
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
   const { onSubmit, initial } = props;
+  const [currentStep, setCurrentStep] = React.useState<PrivatePassFormStep>(
+    PrivatePassFormStep.DetailsAndRestrictions,
+  );
+
+  const notificationStepAvailable = props.notifications?.length > 0;
 
   const initialValues = useMemo(
     () =>
@@ -193,40 +231,126 @@ export const PrivatePassForm = (props: Props) => {
     [initial?.id, onSubmit],
   );
 
+  const handleNext = useCallback(
+    (values: FormikValues, formikHelpers: FormikBag<Props, FormikValues>) => {
+      if (
+        currentStep === PrivatePassFormStep.DetailsAndRestrictions &&
+        notificationStepAvailable &&
+        props.enableNotificationStep
+      ) {
+        // if first step, trigger form validation first
+        setCurrentStep(PrivatePassFormStep.Notification);
+        formikHelpers.setSubmitting(false);
+      } else {
+        submitForm(values, formikHelpers);
+      }
+    },
+    [
+      currentStep,
+      notificationStepAvailable,
+      submitForm,
+      props.enableNotificationStep,
+    ],
+  );
+
+  const handleCancel = useCallback(
+    (e: MouseEvent) => {
+      currentStep === PrivatePassFormStep.Notification
+        ? setCurrentStep(PrivatePassFormStep.DetailsAndRestrictions)
+        : props.onCancel(e);
+    },
+    [currentStep, props],
+  );
+
+  const formSteps = useMemo(
+    () => [
+      {
+        title: t('privateService:privatePass.form.detailsAndRestrictions'),
+        icon: Settings,
+      },
+      {
+        title: t('privateService:privatePass.form.notification'),
+        icon: NotificationsActive,
+      },
+    ],
+    [t],
+  );
+
+  const onClickCancel = useCallback(
+    (e: MouseEvent) => {
+      handleCancel(e);
+      trackFormCancel(props.initial?.id);
+    },
+    [handleCancel, props.initial?.id],
+  );
+
   return (
     <Formik
       enableReinitialize
       // @ts-expect-error
       initialValues={initialValues}
-      onSubmit={submitForm}
+      onSubmit={handleNext}
       validationSchema={PrivatePassSchema}
     >
       {({ handleSubmit, isSubmitting }: FormikProps<FormikValues>) => (
         <Form className={classes.container} data-testid="private-pass-form">
-          <PrivatePassFormDetailsAndRestrictionsStep
-            bookkeepingAccountById={props.bookkeepingAccountById}
-            bookkeepingAccounts={props.bookkeepingAccounts}
-            categoryList={props.categoryList}
-            compatibleServicePass={props.compatibleServicePass}
-            establishmentList={props.establishmentList}
-            metaActivityList={props.metaActivityList}
-            privatePassCategories={props.privatePassCategories}
-            privateServices={props.privateServices}
-            provincialTax={props.provincialTax}
-            tagList={props.tagList}
-          />
+          {props.enableNotificationStep && (
+            <>
+              <MultiStepper activeStep={currentStep} steps={formSteps} />
+              <Divider className={classes.divider} />
+            </>
+          )}
+          {currentStep === PrivatePassFormStep.DetailsAndRestrictions && (
+            <PrivatePassFormDetailsAndRestrictionsStep
+              bookkeepingAccountById={props.bookkeepingAccountById}
+              bookkeepingAccounts={props.bookkeepingAccounts}
+              categoryList={props.categoryList}
+              compatibleServicePass={props.compatibleServicePass}
+              establishmentList={props.establishmentList}
+              metaActivityList={props.metaActivityList}
+              privatePassCategories={props.privatePassCategories}
+              privateServices={props.privateServices}
+              provincialTax={props.provincialTax}
+              tagList={props.tagList}
+            />
+          )}
+          {props.enableNotificationStep &&
+            !notificationStepAvailable &&
+            currentStep === PrivatePassFormStep.DetailsAndRestrictions && (
+              <>
+                <div className={classes.categoryBlock}>
+                  <PassFormNoNotificationsWarning
+                    passType={PassType.PRIVATE_PASS}
+                  />
+                </div>
+                <Divider className={classes.divider} />
+              </>
+            )}
+
+          {currentStep === PrivatePassFormStep.Notification && (
+            <PassFormNotificationStep
+              emailDetailLoading={props.emailDetailLoading}
+              emailDetails={props.emailDetails}
+              emailSummariesById={props.emailSummariesById}
+              getEmailDetail={props.getEmailDetail}
+              notifications={props.notifications}
+              passId={props.initial?.id}
+              passType={PassType.PRIVATE_PASS}
+              resolvedGenericTags={props.resolvedGenericTags}
+              smartListLoading={props.smartListLoading}
+              smartListsById={props.smartListsById}
+              theme={props.theme}
+            />
+          )}
 
           <div
             className={`${classes.buttonContainer} ${classes.flexRowCenter}`}
             id="private-pass-form-actions-buttons"
           >
-            <Button
-              onClick={(e: MouseEvent) => {
-                props.onCancel(e);
-                trackFormCancel(props.initial?.id);
-              }}
-            >
-              {t('privatePass.form.actions.cancel')}
+            <Button onClick={onClickCancel}>
+              {currentStep === PrivatePassFormStep.DetailsAndRestrictions
+                ? t('privatePass.form.actions.cancel')
+                : t('privatePass.form.actions.back')}
             </Button>
             <Button
               color="primary"
@@ -237,7 +361,11 @@ export const PrivatePassForm = (props: Props) => {
               }}
               variant="contained"
             >
-              {t('privatePass.form.actions.create')}
+              {currentStep === PrivatePassFormStep.DetailsAndRestrictions &&
+              notificationStepAvailable &&
+              props.enableNotificationStep
+                ? t('privatePass.form.actions.next')
+                : t('privatePass.form.actions.submit')}
             </Button>
           </div>
         </Form>

@@ -51,10 +51,10 @@ import {
   PercentField,
   RadioGroupField,
   // @ts-expect-error
-} from '#components/forms';
+} from '#src/components/forms';
 import { getValidityInfo, filterPrivateService } from '../../../utils';
 // @ts-expect-error
-import PrivatePassCategorySelector from '#libs/payment-packs/components/category/PaymentPackCategorySelector.component';
+import PrivatePassCategorySelector from '#src/libs/payment-packs/components/category/PaymentPackCategorySelector.component';
 import { PrivateServiceListItem } from '../../service/PrivateServiceListItem.component';
 import { PrivateServiceSelector } from '../../service/PrivateServiceSelector.component';
 import { PrivateSlotSelectionDialog } from '../../slot/PrivateSlotSelectionDialog.component';

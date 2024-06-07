@@ -20,6 +20,14 @@ import type {
   PaymentPackFormValues,
 } from '../../types';
 import PaymentPackForm from './PaymentPackForm.component';
+import { MarketingNotification } from '#src/libs/marketing/types';
+import type {
+  EmailTemplateDetail,
+  EmailTemplateSummary,
+  ResolvedGenericTags,
+} from '#src/libs/email-editor/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
 
 type OwnProps = {
   open: boolean;
@@ -43,6 +51,18 @@ type OwnProps = {
   allowGuestMaster?: boolean;
   bookkeepingAccounts: BookkeepingAccount[];
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
+
+  // Props for the PaymentPackFormNotificationStep component
+  enableNotificationStep?: boolean;
+  notifications?: MarketingNotification[];
+  emailSummariesById?: Record<number, EmailTemplateSummary>;
+  emailDetailLoading?: boolean;
+  emailDetails?: { [key: string]: EmailTemplateDetail };
+  getEmailDetail?: (id: number) => void;
+  resolvedGenericTags?: ResolvedGenericTags;
+  smartListsById?: { [key: string]: SmartList };
+  smartListLoading?: boolean;
+  theme?: CompanyTheme;
 };
 type Props = OwnProps & WithTranslation;
 export const PaymentPackFormDrawer = (props: Props) => {
@@ -66,6 +86,16 @@ export const PaymentPackFormDrawer = (props: Props) => {
     displayNewCheckoutFlow,
     bookkeepingAccounts,
     bookkeepingAccountById,
+    notifications,
+    emailSummariesById,
+    emailDetailLoading,
+    emailDetails,
+    getEmailDetail,
+    resolvedGenericTags,
+    smartListLoading,
+    smartListsById,
+    theme,
+    enableNotificationStep = false,
   } = props;
 
   return (
@@ -90,16 +120,26 @@ export const PaymentPackFormDrawer = (props: Props) => {
         closeForm={closeForm}
         compatibleServicePass={compatibleServicePass}
         displayNewCheckoutFlow={displayNewCheckoutFlow}
+        emailDetailLoading={emailDetailLoading}
+        emailDetails={emailDetails}
+        emailSummariesById={emailSummariesById}
+        enableNotificationStep={enableNotificationStep}
+        getEmailDetail={getEmailDetail}
         // @ts-expect-error
         initial={initial}
         metaActivityList={metaActivityList}
+        notifications={notifications}
         onCancelText={onCancelText}
         // @ts-expect-error
         onSubmit={onSubmit}
         paymentPackCategories={paymentPackCategories}
         privateServices={privateServices}
         provincialTax={provincialTax}
+        resolvedGenericTags={resolvedGenericTags}
+        smartListLoading={smartListLoading}
+        smartListsById={smartListsById}
         tagList={tagList}
+        theme={theme}
       />
     </GenericResponsiveDrawer>
   );

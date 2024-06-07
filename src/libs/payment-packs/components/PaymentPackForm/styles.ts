@@ -29,4 +29,7 @@ export const useStyles = makeStyles((theme) => ({
   icon: {
     color: '#868686',
   },
+  formikContainer: {
+    paddingTop: theme.spacing(3),
+  },
 }));

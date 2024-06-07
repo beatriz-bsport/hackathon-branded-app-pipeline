@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import pick from 'lodash/pick';
 
 import Button from '@material-ui/core/Button';
-import { LinearProgress } from '@material-ui/core';
+import { Divider, LinearProgress } from '@material-ui/core';
 import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
@@ -13,6 +13,7 @@ import {
 } from '@bsport/common/lib/master-data/payment-pack';
 
 import { DateTime } from 'luxon';
+import { NotificationsActive, Settings } from '@material-ui/icons';
 import {
   offPeakGroupDefault,
   formatOffPeakScheduleOnSubmit,
@@ -44,8 +45,20 @@ import type {
 import type { BookkeepingAccount } from '#src/libs/payment/types';
 import { ALMOST_100 } from '../../../../constants';
 import { OptionCallback } from '../../../../state/types';
+import { MultiStepper } from '#src/components/forms/Stepper';
+import type { MarketingNotification } from '#src/libs/marketing/types';
+import PassFormNoNotificationsWarning from '#src/libs/marketing/components/marketing-rule-pass-forms/PassFormNoNotificationWarning.component';
 import { useStyles } from './styles';
 import PaymentPackFormDetailsAndRestrictionsStep from './PaymentPackFormDetailsAndRestrictionsStep.component';
+import PassFormNotificationStep from '#src/libs/marketing/components/marketing-rule-pass-forms/PassFormNotificationStep.component';
+import type {
+  EmailTemplateDetail,
+  EmailTemplateSummary,
+  ResolvedGenericTags,
+} from '#src/libs/email-editor/types';
+import type { SmartList } from '#src/libs/smart-list/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import { PassType } from '#src/components/passes/types';
 
 const penaltyKindDict = {
   [PENALTY_KIND_BLOCK_CPP]: 'block',
@@ -206,6 +219,18 @@ type Props = {
   allowGuestMaster?: boolean;
   bookkeepingAccounts: BookkeepingAccount[];
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
+
+  // Props for the PaymentPackFormNotificationStep component
+  enableNotificationStep?: boolean;
+  notifications?: MarketingNotification[];
+  emailSummariesById?: Record<number, EmailTemplateSummary>;
+  emailDetailLoading?: boolean;
+  emailDetails?: { [key: string]: EmailTemplateDetail };
+  getEmailDetail?: (id: number) => void;
+  resolvedGenericTags?: ResolvedGenericTags;
+  smartListsById?: { [key: string]: SmartList };
+  smartListLoading?: boolean;
+  theme?: CompanyTheme;
 };
 
 const {
@@ -216,6 +241,11 @@ const {
 } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.PaymentPack,
 );
+
+enum PaymentPackFormStep {
+  DetailsAndRestrictions,
+  Notification,
+}
 
 export const PaymentPackForm: React.FC<Props> = ({
   paymentPackCategories,
@@ -237,10 +267,40 @@ export const PaymentPackForm: React.FC<Props> = ({
   displayNewCheckoutFlow,
   bookkeepingAccounts,
   bookkeepingAccountById,
+
+  // Props for the PaymentPackFormNotificcationStep component
+  enableNotificationStep = false,
+  notifications,
+  emailSummariesById,
+  emailDetailLoading,
+  emailDetails,
+  getEmailDetail,
+  resolvedGenericTags,
+  smartListsById,
+  smartListLoading,
+  theme,
 }) => {
   const [disabledUniversalPassFields, setDisableUniversalPassFields] =
     React.useState<boolean>(false);
+  const [currentStep, setCurrentStep] = React.useState<PaymentPackFormStep>(
+    PaymentPackFormStep.DetailsAndRestrictions,
+  );
   const { t } = useTranslation('paymentPack');
+
+  const formSteps = useMemo(
+    () => [
+      {
+        title: t('paymentPack:form.paymentPack.detailsAndRestrictions'),
+        icon: Settings,
+      },
+      {
+        title: t('paymentPack:form.paymentPack.notification'),
+        icon: NotificationsActive,
+      },
+    ],
+    [t],
+  );
+
   React.useEffect(() => {
     trackFormAdd(initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -279,12 +339,18 @@ export const PaymentPackForm: React.FC<Props> = ({
     [compatibleServicePass],
   );
 
-  const handleCancel = useCallback(() => {
+  const onCloseForm = useCallback(() => {
     trackFormCancel(initial?.id);
     clearPaymentPackToEdit?.();
     closeForm?.();
     onCancel?.();
   }, [clearPaymentPackToEdit, closeForm, initial?.id, onCancel]);
+
+  const handleCancel = useCallback(() => {
+    currentStep === PaymentPackFormStep.Notification
+      ? setCurrentStep(PaymentPackFormStep.DetailsAndRestrictions)
+      : onCloseForm();
+  }, [currentStep, onCloseForm]);
 
   const submitForm = useCallback(
     (values, formikHelpers) => {
@@ -366,6 +432,43 @@ export const PaymentPackForm: React.FC<Props> = ({
     },
     [clearPaymentPackToEdit, closeForm, initial?.id, onSubmit],
   );
+
+  const notificationStepAvailable = notifications?.length > 0;
+
+  const handleNext = useCallback(
+    (values, formikHelpers) => {
+      if (
+        currentStep === PaymentPackFormStep.DetailsAndRestrictions &&
+        notificationStepAvailable &&
+        enableNotificationStep
+      ) {
+        // if first step, trigger form validation first
+        setCurrentStep(PaymentPackFormStep.Notification);
+        formikHelpers.setSubmitting(false);
+      } else {
+        submitForm(values, formikHelpers);
+      }
+    },
+    [
+      currentStep,
+      enableNotificationStep,
+      notificationStepAvailable,
+      submitForm,
+    ],
+  );
+
+  const cancelText =
+    onCancelText ||
+    (currentStep === PaymentPackFormStep.DetailsAndRestrictions
+      ? t('form.paymentPack.actions.cancel')
+      : t('form.paymentPack.actions.back'));
+
+  const nextOrSubmitText =
+    currentStep === PaymentPackFormStep.DetailsAndRestrictions &&
+    notificationStepAvailable &&
+    enableNotificationStep
+      ? t('form.paymentPack.actions.next')
+      : t('form.paymentPack.actions.submit');
 
   return (
     <div>
@@ -496,7 +599,7 @@ export const PaymentPackForm: React.FC<Props> = ({
                 highlighted_as_recommended: false,
               }
         }
-        onSubmit={submitForm}
+        onSubmit={handleNext}
         validationSchema={paymentPackSchema}
       >
         {({
@@ -506,54 +609,98 @@ export const PaymentPackForm: React.FC<Props> = ({
         }: FormikProps<PaymentPackFormValues>) => {
           return (
             <Form data-testid="paymentpack-form">
-              <PaymentPackFormDetailsAndRestrictionsStep
-                allowGuestMaster={allowGuestMaster}
-                availableEstablishmentList={availableEstablishmentList}
-                bookkeepingAccountById={bookkeepingAccountById}
-                bookkeepingAccounts={bookkeepingAccounts}
-                categoryList={categoryList}
-                compatibleServicePass={compatibleServicePass}
-                disabledUniversalPassFields={disabledUniversalPassFields}
-                displayNewCheckoutFlow={displayNewCheckoutFlow}
-                initial={initial}
-                isInDrawer={isInDrawer}
-                metaActivityList={metaActivityList}
-                paymentPackCategories={paymentPackCategories}
-                privateServices={privateServices}
-                provincialTax={provincialTax}
-                setDisableUniversalPassFields={setDisableUniversalPassFields}
-                tagList={tagList}
-                values={values}
-              />
-
+              {enableNotificationStep && (
+                <>
+                  <div className={classes.formContainer}>
+                    <MultiStepper activeStep={currentStep} steps={formSteps} />
+                  </div>
+                  <Divider className={classes.divider} />
+                </>
+              )}
               <div
-                className={classes.actionContainer}
-                id="paymentpack-form-actions"
+                className={enableNotificationStep && classes.formikContainer}
               >
-                <Actions>
-                  {!!onCancel || !!closeForm ? (
-                    <Button onClick={handleCancel}>
-                      {onCancelText || t('form.paymentPack.actions.cancel')}
+                {currentStep === PaymentPackFormStep.DetailsAndRestrictions && (
+                  <PaymentPackFormDetailsAndRestrictionsStep
+                    allowGuestMaster={allowGuestMaster}
+                    availableEstablishmentList={availableEstablishmentList}
+                    bookkeepingAccountById={bookkeepingAccountById}
+                    bookkeepingAccounts={bookkeepingAccounts}
+                    categoryList={categoryList}
+                    compatibleServicePass={compatibleServicePass}
+                    disabledUniversalPassFields={disabledUniversalPassFields}
+                    displayNewCheckoutFlow={displayNewCheckoutFlow}
+                    initial={initial}
+                    isInDrawer={isInDrawer}
+                    metaActivityList={metaActivityList}
+                    paymentPackCategories={paymentPackCategories}
+                    privateServices={privateServices}
+                    provincialTax={provincialTax}
+                    setDisableUniversalPassFields={
+                      setDisableUniversalPassFields
+                    }
+                    tagList={tagList}
+                    values={values}
+                  />
+                )}
+
+                {enableNotificationStep &&
+                  !notificationStepAvailable &&
+                  currentStep ===
+                    PaymentPackFormStep.DetailsAndRestrictions && (
+                    <>
+                      <div className={classes.formContainer}>
+                        <PassFormNoNotificationsWarning
+                          passType={PassType.PAYMENT_PACK}
+                        />
+                      </div>
+                      <Divider className={classes.divider} />
+                    </>
+                  )}
+
+                {currentStep === PaymentPackFormStep.Notification && (
+                  <PassFormNotificationStep
+                    emailDetailLoading={emailDetailLoading}
+                    emailDetails={emailDetails}
+                    emailSummariesById={emailSummariesById}
+                    getEmailDetail={getEmailDetail}
+                    notifications={notifications}
+                    passId={initial?.id}
+                    passType={PassType.PAYMENT_PACK}
+                    resolvedGenericTags={resolvedGenericTags}
+                    smartListLoading={smartListLoading}
+                    smartListsById={smartListsById}
+                    theme={theme}
+                  />
+                )}
+
+                <div
+                  className={classes.actionContainer}
+                  id="paymentpack-form-actions"
+                >
+                  <Actions>
+                    {!!onCancel || !!closeForm ? (
+                      <Button onClick={handleCancel}>{cancelText}</Button>
+                    ) : null}
+                    <Button
+                      color="primary"
+                      disabled={isSubmitting}
+                      onClick={() => {
+                        trackFormSubmitIntent(initial?.id);
+                        handleSubmit();
+                      }}
+                      variant="contained"
+                    >
+                      {nextOrSubmitText}
                     </Button>
-                  ) : null}
-                  <Button
-                    color="primary"
-                    disabled={isSubmitting}
-                    onClick={() => {
-                      trackFormSubmitIntent(initial?.id);
-                      handleSubmit();
-                    }}
-                    variant="contained"
-                  >
-                    {t('form.paymentPack.actions.create')}
-                  </Button>
-                </Actions>
+                  </Actions>
+                </div>
+                <LinearProgress
+                  style={{
+                    visibility: isSubmitting ? 'visible' : 'hidden',
+                  }}
+                />
               </div>
-              <LinearProgress
-                style={{
-                  visibility: isSubmitting ? 'visible' : 'hidden',
-                }}
-              />
             </Form>
           );
         }}

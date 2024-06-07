@@ -10,6 +10,7 @@ import type { CompatiblePrivateService } from '#src/libs/private-service/types';
 import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
 import { ErrorAndLoading } from '../../state/types';
 import { Company } from '../company/types';
+import type { MarketingNotification } from '../marketing/types';
 
 const startDateMethodsTypes = [
   `${START_ON_PURCHASE}`,
@@ -332,6 +333,10 @@ export type PaymentPackFormValues<LPP = number> = {
   off_peak_schedule: OffPeakSchedule[];
   highlighted_as_recommended: boolean;
   bookkeeping_account?: number;
+
+  // Notifications
+  addToNotifications: MarketingNotification[];
+  removeFromNotifications: MarketingNotification[];
 };
 
 export type OffPeakIsoWeekdays = {

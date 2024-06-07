@@ -158,6 +158,7 @@ import { OptionCallback } from '../../state/types';
 import { ConsumerPaymentPackREST } from '#src/libs/consumer-payment-pack/types';
 import { getSmartListDict } from '#src/libs/smart-list/selectors';
 import { getPaymentPackNotificationsByPackId } from '#src/libs/marketing/selectors';
+import type { MarketingNotification } from '#src/libs/marketing/types';
 
 type OwnProps = {
   id: number;
@@ -342,6 +343,18 @@ export class PaymentPackDetail extends Component<Props, State> {
   handleCloseMassExtensionDialog = () =>
     this.props.setOpenMassExtensionDialog(false);
 
+  removePassFromNotification = (notification: MarketingNotification) => {
+    this.props.updateMarketingNotification(notification.id, {
+      ...notification,
+      event_rules: {
+        ...notification.event_rules,
+        payment_pack_ids: notification.event_rules.payment_pack_ids.filter(
+          (id) => id !== this.props.id,
+        ),
+      },
+    });
+  };
+
   render() {
     const {
       pack,
@@ -459,13 +472,11 @@ export class PaymentPackDetail extends Component<Props, State> {
                 getEmailDetail={this.props.fetchEmailTemplateDetail}
                 notifications={notifications.items}
                 notificationsLoading={notifications.loading}
-                // @ts-expect-error
-                pass={pack}
+                removeNotification={this.removePassFromNotification}
                 resolvedGenericTags={this.props.resolvedGenericTags}
                 smartListsById={this.props.smartListsById}
                 smartListsLoading={this.props.smartListLoading}
                 theme={this.props.theme}
-                updateNotification={this.props.updateMarketingNotification}
               />
             </Grid>
             <Grid item md={6} xs={12}>

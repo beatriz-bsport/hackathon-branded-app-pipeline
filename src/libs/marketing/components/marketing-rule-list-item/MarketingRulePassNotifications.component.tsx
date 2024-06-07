@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo } from 'react';
-import Switch from '@material-ui/core/Switch';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import ListItem from '@material-ui/core/ListItem';
@@ -13,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 
 import { Grid, List, Tooltip, Typography } from '@material-ui/core';
 import { RemoveRedEye } from '@material-ui/icons';
-import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 import Immutable from 'seamless-immutable';
 import type {
   EmailTemplateDetail,
@@ -24,70 +22,27 @@ import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/Object
 import type { MarketingNotification } from '../../types';
 import MarketingRulePassNotificationItem from '../MarketingRulePassNotificationItem.component';
 import type { CompanyTheme } from '#src/libs/theme/types';
-import type { PaymentPack } from '#src/libs/payment-packs/types';
-import type { PrivatePass } from '#src/libs/private-service/types';
 import type { SmartList } from '#src/libs/smart-list/types';
 import { splitPassNotificationsByTrigger } from '../../utils';
 import { PreviewModal } from '../MarketingRulePreviewDialog.component';
 
 type NotificationListProps = {
   title: string;
-  passId: number;
   notifications: MarketingNotification[];
-  updateNotification: (id: number, n: MarketingNotification) => void;
+  removeNotification: (n: MarketingNotification) => void;
   emailSummariesById: Record<string, EmailTemplateSummary>;
   onNotificationPreviewOpen: (n: MarketingNotification) => void;
 };
 
 const NotificationList: React.FC<NotificationListProps> = ({
   title,
-  passId,
   notifications,
-  updateNotification,
+  removeNotification,
   emailSummariesById,
   onNotificationPreviewOpen,
 }: NotificationListProps) => {
   const classes = useStyles();
   const { t } = useTranslation('marketing');
-
-  const switchNotificationStatus = useCallback(
-    (notification: MarketingNotification) => {
-      updateNotification(notification.id, {
-        ...notification,
-        active: !notification.active,
-      });
-    },
-    [updateNotification],
-  );
-
-  const deletePassFromNotification = useCallback(
-    (notification: MarketingNotification) => {
-      let pass_ids_key: 'payment_pack_ids' | 'private_pass_ids';
-      switch (notification.kind) {
-        case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT:
-        case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME:
-          pass_ids_key = 'payment_pack_ids';
-          break;
-        case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT:
-        case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME:
-          pass_ids_key = 'private_pass_ids';
-          break;
-        default:
-          return;
-      }
-
-      const pass_ids = notification.event_rules[pass_ids_key];
-
-      updateNotification(notification.id, {
-        ...notification,
-        event_rules: {
-          ...notification.event_rules,
-          [pass_ids_key]: pass_ids.filter((id) => id !== passId),
-        },
-      });
-    },
-    [passId, updateNotification],
-  );
 
   return (
     <Grid container direction="column">
@@ -101,17 +56,6 @@ const NotificationList: React.FC<NotificationListProps> = ({
       <List disablePadding>
         {notifications.map((n) => (
           <ListItem key={n.id} className={classes.notificationListItem}>
-            <ObjectLevelPermissionWrapper
-              forcedBehavior="hidden"
-              requiredPermission="member.allowed_actions.manageNotification"
-            >
-              <Switch
-                checked={n.active}
-                color="primary"
-                edge="start"
-                onClick={() => switchNotificationStatus(n)}
-              />
-            </ObjectLevelPermissionWrapper>
             <MarketingRulePassNotificationItem
               emailSummariesById={emailSummariesById}
               notification={Immutable(n)}
@@ -133,7 +77,7 @@ const NotificationList: React.FC<NotificationListProps> = ({
                   >
                     <IconButton
                       edge="end"
-                      onClick={() => deletePassFromNotification(n)}
+                      onClick={() => removeNotification(n)}
                     >
                       <Tooltip title={t('notifications.delete')}>
                         <DeleteIcon />
@@ -150,10 +94,9 @@ const NotificationList: React.FC<NotificationListProps> = ({
 };
 
 type Props = {
-  pass: PaymentPack | PrivatePass;
-  updateNotification: (id: number, data: any) => void;
   notifications: MarketingNotification[];
-  notificationsLoading: boolean;
+  notificationsLoading?: boolean;
+  removeNotification: (n: MarketingNotification) => void;
   emailSummariesById: Record<string, EmailTemplateSummary>;
   emailDetails: Record<string, EmailTemplateDetail>;
   emailDetailLoading: boolean;
@@ -165,8 +108,7 @@ type Props = {
 };
 
 const PassNotifications = ({
-  pass,
-  updateNotification,
+  removeNotification,
   notifications,
   emailSummariesById,
   emailDetails,
@@ -219,11 +161,10 @@ const PassNotifications = ({
               emailSummariesById={emailSummariesById}
               notifications={remainingCreditNotifications}
               onNotificationPreviewOpen={onNotificationPreviewOpen}
-              passId={pass.id}
+              removeNotification={removeNotification}
               title={t(
                 'marketing:notifications.notificationTitle.remainingCredit',
               )}
-              updateNotification={updateNotification}
             />
           )}
           {remainingValidityNotifications.length > 0 && (
@@ -231,11 +172,10 @@ const PassNotifications = ({
               emailSummariesById={emailSummariesById}
               notifications={remainingValidityNotifications}
               onNotificationPreviewOpen={onNotificationPreviewOpen}
-              passId={pass.id}
+              removeNotification={removeNotification}
               title={t(
                 'marketing:notifications.notificationTitle.remainingValidity',
               )}
-              updateNotification={updateNotification}
             />
           )}
 
@@ -244,11 +184,10 @@ const PassNotifications = ({
               emailSummariesById={emailSummariesById}
               notifications={expiredValidityNotifications}
               onNotificationPreviewOpen={onNotificationPreviewOpen}
-              passId={pass.id}
+              removeNotification={removeNotification}
               title={t(
                 'marketing:notifications.notificationTitle.expiredValidity',
               )}
-              updateNotification={updateNotification}
             />
           )}
         </Paper>

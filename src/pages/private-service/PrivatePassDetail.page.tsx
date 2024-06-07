@@ -124,6 +124,7 @@ import { RootState } from '../../reducers';
 import MarketingRulePassNotifications from '#src/libs/marketing/components/marketing-rule-list-item/MarketingRulePassNotifications.component';
 import { getPrivatePassNotificationsByPassId } from '#src/libs/marketing/selectors';
 import { getSmartListDict } from '#src/libs/smart-list/selectors';
+import { MarketingNotification } from '#src/libs/marketing/types';
 
 type OwnProps = {
   id: number;
@@ -242,6 +243,18 @@ export class PrivatePassDetails extends Component<Props> {
     this.props.setOpenDeletePassDialog(privatePass.id);
   };
 
+  removePassFromNotification = (notification: MarketingNotification) => {
+    this.props.updateMarketingNotification(notification.id, {
+      ...notification,
+      event_rules: {
+        ...notification.event_rules,
+        private_pass_ids: notification.event_rules.private_pass_ids.filter(
+          (id) => id !== this.props.id,
+        ),
+      },
+    });
+  };
+
   render() {
     const { classes, t, privatePass, privatePassCategories } = this.props;
 
@@ -313,12 +326,11 @@ export class PrivatePassDetails extends Component<Props> {
                 getEmailDetail={this.props.fetchEmailTemplateDetail}
                 notifications={this.props.notifications.items}
                 notificationsLoading={this.props.notifications.loading}
-                pass={this.props.privatePass}
+                removeNotification={this.removePassFromNotification}
                 resolvedGenericTags={this.props.resolvedGenericTags}
                 smartListsById={this.props.smartListsById}
                 smartListsLoading={this.props.smartListLoading}
                 theme={this.props.theme}
-                updateNotification={this.props.updateMarketingNotification}
               />
             </Grid>
             <BottomActionsButton

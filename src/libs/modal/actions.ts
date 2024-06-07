@@ -77,6 +77,41 @@ export const genericShowLogin =
     );
   };
 
+export const genericShowSignup =
+  ({
+    dialogMode,
+    fullScreenPopup = true,
+    parentElementId,
+    widgetType,
+  }: {
+    dialogMode: DialogMode,
+    widgetType: string,
+    parentElementId: string,
+    fullScreenPopup?: boolean,
+  }) =>
+  (dispatch: Dispatch, getState: () => RootState) => {
+    const { company } = getState()?.theme?.theme;
+    if (!company) {
+      return;
+    }
+    const { PUBLIC_URL } = getEnv();
+    const uri = new SafeURI(
+      `${PUBLIC_URL}/login/signup?membership=${company}&context=widget`,
+    )
+      .safeAddQuery('dialogMode', dialogMode)
+      .safeAddQuery('widgetType', widgetType)
+      .safeAddQuery('parentElementId', parentElementId)
+      .valueOf();
+
+    dispatch(
+      openUserInteractionPortal({
+        url: uri,
+        dialogMode,
+        fullScreenPopup,
+      }),
+    );
+  };
+
 export const fabShowBasket =
   () => (dispatch: Dispatch, getState: () => RootState) => {
     const { theme } = getState().theme;

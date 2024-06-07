@@ -1,5 +1,7 @@
 import React from 'react';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
+import { useTranslation } from 'react-i18next';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import useConsumerBookingsDataManager from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingsDataManager';
 import MarketplacePageContent from '#src/components/css-only/MarketplacePageContent';
@@ -8,6 +10,8 @@ import ConsumerBookingTabs from '#src/libs/consumer-space/components/reworked/@M
 import ConsumerBookingFilters from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters';
 import ConsumerBookingListContainer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListContainer';
 import ConsumerBookingModals from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingModals';
+
+import { ChevronRight } from '#src/components/untitledui';
 
 import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type {
@@ -31,9 +35,10 @@ import type {
   DiscardBookingOptionParams,
   WaitingListBookingOption,
 } from '#src/libs/waiting-list/types';
+import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
 import { BookingTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
-import type { OptionCallback } from '../../../../../../state/types';
+import type { OptionCallback } from '#src/state/types';
 
 import './styles.css';
 
@@ -212,8 +217,22 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     isConsumerPacksLoading,
   });
 
+  const { t } = useTranslation('consumerSpace');
+
+  const isWidget = WidgetUtils.isWidget();
+
+  const buttonsData: HeaderButton[] = isWidget
+    ? []
+    : [
+        {
+          label: t('consumerSpace:reworked.myBookings.bookASession'),
+          onClick: handleBookASessionClick,
+          rightIcon: <ChevronRight stroke="currentColor" />,
+        },
+      ];
+
   return (
-    <MarketplacePageContent>
+    <MarketplacePageContent buttonsData={buttonsData} isMobile={isMobile}>
       <div className="bs-consumer-booking-page__root">
         <ConsumerBookingModals
           calendarBookingDate={calendarBookingDate}
@@ -259,10 +278,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           timezone={timezone}
         />
 
-        <ConsumerBookingHeader
-          isMobile={isMobile}
-          onBookSessionClick={handleBookASessionClick}
-        />
+        <ConsumerBookingHeader buttonsData={buttonsData} isMobile={isMobile} />
 
         <ConsumerBookingTabs
           handleToggleTabDrawer={handleToggleBookingTabDrawer}

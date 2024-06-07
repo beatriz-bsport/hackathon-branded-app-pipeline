@@ -57,16 +57,17 @@ const fakeTimeSlots: TimeSlot[] = Array.from(
     to: `${faker.number.int(23)}:${faker.number.int(59)}`,
   }),
 );
-const fakeRestriction: {
+const fakeRestrictions: {
   frequency: FrequencyOption;
   amount: number;
-} = {
-  frequency: ['month', 'day', 'week'][faker.number.int({ min: 0, max: 2 })] as
-    | 'month'
-    | 'day'
-    | 'week',
-  amount: faker.number.int(5),
-};
+}[] = [
+  {
+    frequency: ['month', 'day', 'week'][
+      faker.number.int({ min: 0, max: 2 })
+    ] as 'month' | 'day' | 'week',
+    amount: faker.number.int(5),
+  },
+];
 
 const ConsumerPaymentPackDetailsCardVariationRegistry = [
   {
@@ -149,7 +150,7 @@ export const CONSUMER_PAYMENT_PACK_DETAILS_CARD_PREVIEW: React.FC<{
       }
       description={fakeConsumerPaymentPack.payment_pack.description}
       name={fakeConsumerPaymentPack.payment_pack.name}
-      restriction={fakeRestriction}
+      restrictions={fakeRestrictions}
       sharedWith={fakeMembers}
       timeSlots={fakeTimeSlots}
       totalCredits={fakeConsumerPaymentPack.available_credits}

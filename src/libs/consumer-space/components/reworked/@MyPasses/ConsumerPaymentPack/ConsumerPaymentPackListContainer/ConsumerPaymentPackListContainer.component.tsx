@@ -58,7 +58,7 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
     isSuspended,
     isUnlimited,
     name,
-    restriction,
+    restrictions,
     sharedBy,
     sharedWith,
     startDate,
@@ -143,7 +143,7 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
         isSuspended={isSuspended}
         isUnlimited={isUnlimited}
         name={name}
-        restriction={restriction}
+        restrictions={restrictions}
         sharedBy={sharedBy}
         sharedWith={sharedWith}
         showPlaceholder={!selectedPass}

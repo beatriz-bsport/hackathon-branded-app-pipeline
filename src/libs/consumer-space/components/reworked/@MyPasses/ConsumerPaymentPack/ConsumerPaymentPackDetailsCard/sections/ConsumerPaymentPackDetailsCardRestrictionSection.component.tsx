@@ -9,27 +9,32 @@ import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/co
 import type { ConsumerPassRestriction } from '#src/libs/consumer-space/types';
 
 type Props = {
-  restriction: ConsumerPassRestriction;
+  restrictions: ConsumerPassRestriction[];
 };
 
 const ConsumerPaymentPackDetailsCardRestrictionSection: React.FC<Props> = ({
-  restriction,
+  restrictions,
 }) => {
   const { t } = useTranslation('consumerSpace');
-  const { frequency, amount } = restriction;
-  const frequencyMap = {
-    day: 'frequencyDaily',
-    week: 'frequencyWeekly',
-    month: 'frequencyMonthly',
-  };
-  const content = frequencyMap?.[frequency]
-    ? t(
-        `reworked.myPasses.consumerPassDetailsCard.restriction.${frequencyMap[frequency]}`,
-        {
-          amount,
-        },
-      )
-    : '';
+
+  const contents =
+    restrictions?.map((restriction) => {
+      const { frequency, amount } = restriction;
+      const frequencyMap = {
+        day: 'frequencyDaily',
+        week: 'frequencyWeekly',
+        month: 'frequencyMonthly',
+      };
+      const content = frequencyMap?.[frequency]
+        ? t(
+            `reworked.myPasses.consumerPassDetailsCard.restriction.${frequencyMap[frequency]}`,
+            {
+              amount,
+            },
+          )
+        : '';
+      return content;
+    }) ?? [];
 
   return (
     <ConsumerCardSection
@@ -37,17 +42,20 @@ const ConsumerPaymentPackDetailsCardRestrictionSection: React.FC<Props> = ({
         'bs-consumer-payment-pack-details-card__restriction-section',
         {
           'bs-consumer-payment-pack-details-card__restriction-section--hidden':
-            !content,
+            !contents.length,
         },
       )}
       title={t('reworked.myPasses.consumerPassDetailsCard.restriction.title')}
     >
-      <Typography
-        className="bs-consumer-payment-pack-details-card__restriction-section__text"
-        variant="body-sm"
-      >
-        {content}
-      </Typography>
+      {contents.map((content) => (
+        <Typography
+          key={content}
+          className="bs-consumer-payment-pack-details-card__restriction-section__text"
+          variant="body-sm"
+        >
+          {content}
+        </Typography>
+      ))}
     </ConsumerCardSection>
   );
 };

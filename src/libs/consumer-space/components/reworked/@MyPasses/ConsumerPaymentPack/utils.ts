@@ -137,7 +137,7 @@ export const parseConsumerPaymentPackData = (
     isSuspended,
     isUnlimited,
     name,
-    restriction: restrictions[0],
+    restrictions,
     sharedBy,
     sharedWith,
     startDate,

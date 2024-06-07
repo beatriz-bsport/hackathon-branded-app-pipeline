@@ -50,10 +50,12 @@ const fakeTimeSlots = Array.from(
     to: `${faker.number.int(23)}:${faker.number.int(59)}`,
   }),
 );
-const fakeRestriction = {
-  frequency: ['month', 'day', 'week'][faker.number.int({ min: 0, max: 2 })],
-  amount: faker.number.int(5),
-};
+const fakeRestrictions = [
+  {
+    frequency: ['month', 'day', 'week'][faker.number.int({ min: 0, max: 2 })],
+    amount: faker.number.int(5),
+  },
+];
 
 const ConsumerPaymentPackDetailsCardTemplate: ComponentStory<
   typeof ConsumerPaymentPackDetailsCardStorybook
@@ -80,7 +82,7 @@ const defaultArgs: ConsumerPaymentPackDetailsCardProps = {
   isUnlimited: false,
   name: fakeConsumerPaymentPack.payment_pack.name,
   isMobile: false,
-  restriction: null,
+  restrictions: null,
   sharedBy: null,
   sharedWith: null,
   startDate: fakeConsumerPaymentPack.starting_date,
@@ -109,7 +111,7 @@ EverythingDisplayed.args = {
   bookingForGuest: true,
   vod: true,
   compatibleEstablishments: fakeEstablishments,
-  restriction: fakeRestriction,
+  restrictions: fakeRestrictions,
   sharedBy: fakeMemberNames,
 };
 
@@ -172,7 +174,7 @@ WithVod.args = {
 export const WithRestrictions = ConsumerPaymentPackDetailsCardTemplate.bind({});
 WithRestrictions.args = {
   ...defaultArgs,
-  restriction: fakeRestriction,
+  restriction: fakeRestrictions,
 };
 
 export const isUnlimited = ConsumerPaymentPackDetailsCardTemplate.bind({});

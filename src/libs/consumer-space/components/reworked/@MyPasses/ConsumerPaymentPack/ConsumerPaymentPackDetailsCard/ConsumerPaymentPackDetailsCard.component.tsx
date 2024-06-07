@@ -54,7 +54,7 @@ type Props = {
   /** The pass name */
   name: string;
   /** The pass restrictions data */
-  restriction?: ConsumerPassRestriction;
+  restrictions?: ConsumerPassRestriction[];
   /** The pass is shared by this member (name only) */
   sharedBy?: string;
   /** The pass is shared with these members (names only) */
@@ -84,7 +84,7 @@ const ConsumerPaymentPackDetailsCard: React.FC<Props> = ({
   isMobile,
   isSuspended,
   name,
-  restriction,
+  restrictions,
   sharedBy,
   sharedWith,
   showPlaceholder,
@@ -154,9 +154,9 @@ const ConsumerPaymentPackDetailsCard: React.FC<Props> = ({
           timeSlots={timeSlots}
         />
 
-        {!!restriction && (
+        {!!restrictions?.length && (
           <ConsumerPaymentPackDetailsCardRestrictionSection
-            restriction={restriction}
+            restrictions={restrictions}
           />
         )}
       </>

@@ -6,9 +6,9 @@ import type { Basket, PrepaidLine } from '#src/libs/checkout/types';
 import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
 
-import OnlinePayment from '#libs/payment/components/OnlinePayment.component';
-import { BasketNullPrice } from '#libs/checkout/components/new-checkout-flow/BasketNullPrice.component';
-import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
+import OnlinePayment from '#src/libs/payment/components/OnlinePayment.component';
+import { BasketNullPrice } from '#src/libs/checkout/components/new-checkout-flow/BasketNullPrice.component';
+import { verifyPriceBasket as verifyPriceBasketAPI } from '#src/libs/payment/api';
 
 type PaymentStepProps = {
   allowConsumerToUseInternalAccount: boolean;

@@ -13,7 +13,7 @@ import Alert from '#Fabrique/Alert';
 import BigIcon from '#Fabrique/BigIcon';
 import CircularProgress from '#src/components/css-only/CircularProgress';
 import LinearProgess from '#Fabrique/LinearProgress';
-import OnlinePayment from '#libs/payment/components/OnlinePayment.component';
+import OnlinePayment from '#src/libs/payment/components/OnlinePayment.component';
 import Typography from '#Fabrique/Typography';
 
 import './styles.css';

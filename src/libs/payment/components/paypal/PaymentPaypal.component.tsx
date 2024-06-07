@@ -14,13 +14,13 @@ import { useTranslation } from 'react-i18next';
 import i18n from '#src/i18n/index';
 import { getLocaleFromLanguage } from '#src/utils/language';
 import Config from '#src/config';
-import { isErrorWithCustomCode } from '#libs/utils';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 import {
   createPaymentAttempt as createPaymentAttemptAction,
   executePaymentAttempt as executePaymentAttemptAction,
-} from '#libs/payment/actions';
-import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
-import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
+} from '#src/libs/payment/actions';
+import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
+import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
 import { getCurrencyCode } from '#src/libs/theme/selectors';
 import PayPalPaymentButton from './PayPalPaymentButton.component';
 

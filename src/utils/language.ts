@@ -1,6 +1,6 @@
 import memoize from 'memoize-one';
 import { AVAILABLE_LANGUAGES, LANGUAGES } from '../i18n/languages';
-import { LOCALE_LIST } from '#components/input/LocaleSelector.component';
+import { LOCALE_LIST } from '#src/components/input/LocaleSelector.component';
 
 // ISO 639-1 format for language : two letters (fr for French)
 // We got 6 languages on Intercom : fr, en, nl, it, es, de

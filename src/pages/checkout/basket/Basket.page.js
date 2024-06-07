@@ -92,7 +92,7 @@ import { getShopItemFeaturedList } from '../../../libs/shop/selectors';
 import { fetchShopItemFeatured } from '../../../libs/shop/actions/shopitem';
 
 import { requestClientSecret as requestClientSecretAPI } from '../../../libs/invoice/api';
-import OnlinePayment from '#libs/payment/components/OnlinePayment.component';
+import OnlinePayment from '#src/libs/payment/components/OnlinePayment.component';
 import {
   getPaymentGroupStatus as getPaymentGroupStatusAPI,
   checkItemsBasket as checkItemsBasketAPI,

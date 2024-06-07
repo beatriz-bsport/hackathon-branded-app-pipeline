@@ -12,18 +12,18 @@ import EditIcon from '@material-ui/icons/Edit';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import AcceptTermsAndConditions from '#libs/payment/components/AcceptTermsAndConditions.component';
-import PriceInput from '#components/input/PriceInput.component';
+import AcceptTermsAndConditions from '#src/libs/payment/components/AcceptTermsAndConditions.component';
+import PriceInput from '#src/components/input/PriceInput.component';
 import PaymentPaypal from './paypal/PaymentPaypal.component';
 import PaymentStripe from './payment-backend-stripe/PaymentStripe.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { OptionCallback } from '../../../state/types';
-import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
-import type { Basket } from '#libs/checkout/types';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
-import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
+import type { Basket } from '#src/libs/checkout/types';
+import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 
-import { TermsAndConditionType } from '#libs/payment/types';
+import { TermsAndConditionType } from '#src/libs/payment/types';
 import InstalmentPaymentSelector from '../../instalment-payment-configuration/components/InstalmentPaymentSelector.component';
 import PaymentMethodCardSelector from './PaymentMethodCardSelector.component';
 

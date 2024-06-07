@@ -1,7 +1,7 @@
 import React from 'react';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import CircularProgress from '#src/components/css-only/CircularProgress';
-import { snackbarError } from '#libs/snackbar/actions';
+import { snackbarError } from '#src/libs/snackbar/actions';
 
 type Props = {
   createOrder: () => Promise<string>;

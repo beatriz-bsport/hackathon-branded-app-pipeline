@@ -1,28 +1,18 @@
 import { useCallback, useEffect, useState } from 'react';
-import type { OptionCallback } from '#src/state/types';
-import {
-  FuzzySearchAPIParams,
-  ObjectSearchPaginated,
-  ObjectSearchResult,
-  SearchObjectType,
-} from '#src/libs/fuzzy-search/types';
 import { getSearchObjectURI } from '#src/libs/fuzzy-search/utils/getURIFromObjectType';
 import { getLabelFromItem } from '#src/libs/fuzzy-search/utils/labelExtractor';
+import { useDispatch, useSelector } from 'react-redux';
+import { getResultsById } from '#src/libs/fuzzy-search/selectors';
+import isEqual from 'lodash/isEqual';
+import { searchObjects as searchObjectsAction } from '#src/libs/fuzzy-search/actions';
+import type { RootState } from '#src/reducers';
+import type { SearchObjectType } from '#src/libs/fuzzy-search/types';
 
 type HookProps = {
   searchedObjectType: SearchObjectType;
-  initialValues?: number[];
-  resultsById: Record<number, ObjectSearchResult>;
+  valuesToHydrate?: number[];
   selectorId: string;
-  searchObjects: (
-    args: {
-      params: FuzzySearchAPIParams;
-      searchedObjectType: SearchObjectType;
-      selectorId: string;
-    },
-    options?: OptionCallback<ObjectSearchPaginated>,
-  ) => Promise<void>;
-  objectId?: number;
+  objectId: number;
 };
 
 /**
@@ -30,37 +20,42 @@ type HookProps = {
  * This hook is used to load the search results with the initial values given.
  * @param searchedObjectType: The type of object that is being searched
  * @param initialValues: The initial values that need to be hydrated
- * @param resultsById: The search results that are present in the store
- * @param searchObjects: The function that is used to search the objects
  * @returns formattedInitialValues: The initial values that are obtained post-hydration
  * @returns hasHydratedResults: A boolean that indicates if the initial values have been hydrated
  *
  */
 export const useHydrateSearch = ({
-  searchObjects,
   searchedObjectType,
-  resultsById,
-  initialValues,
   selectorId,
   objectId,
+  valuesToHydrate,
 }: HookProps) => {
+  const dispatch = useDispatch();
+  const { resultsById } = useSelector(
+    (state: RootState) => ({
+      resultsById: getResultsById(state, searchedObjectType),
+    }),
+    isEqual,
+  );
   const [hasHydratedResults, setHasHydratedResults] = useState(
-    !initialValues?.length,
+    !valuesToHydrate?.length,
   );
   const hydrateInitialValues = useCallback(() => {
-    searchObjects(
-      {
-        params: {
-          searchObjectURI: getSearchObjectURI(searchedObjectType, objectId),
-          q: '',
-          id__in: initialValues ?? [],
+    dispatch(
+      searchObjectsAction(
+        {
+          params: {
+            searchObjectURI: getSearchObjectURI(searchedObjectType, objectId),
+            q: '',
+            id__in: valuesToHydrate ?? [],
+          },
+          searchedObjectType,
+          selectorId,
         },
-        searchedObjectType,
-        selectorId,
-      },
-      { onSuccess: () => setHasHydratedResults(true) },
+        { onSuccess: () => setHasHydratedResults(true) },
+      ),
     );
-  }, [initialValues, objectId, searchObjects, searchedObjectType, selectorId]);
+  }, [dispatch, objectId, searchedObjectType, selectorId, valuesToHydrate]);
 
   useEffect(() => {
     if (!hasHydratedResults) {
@@ -69,7 +64,7 @@ export const useHydrateSearch = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const formattedInitialValues = (initialValues ?? [])
+  const formattedInitialValues = (valuesToHydrate ?? [])
     .map((id) => {
       if (resultsById?.[id]) {
         return {

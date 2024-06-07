@@ -1,6 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line bsport/no-redux-in-component
-import { ConnectedProps, connect } from 'react-redux';
 
 import { compose } from 'recompose';
 import Select from 'react-select';
@@ -9,28 +7,17 @@ import isEqual from 'lodash/isEqual';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import { useFetchOptions } from '#src/libs/fuzzy-search/hooks/useFetchOptions';
-import {
-  getResultsById,
-  getSelectorState,
-} from '#src/libs/fuzzy-search/selectors';
-import {
-  resetObjectSearch as resetObjectSearchAction,
-  searchObjects as searchObjectsAction,
-} from '#src/libs/fuzzy-search/actions';
 import type {
   ObjectSearchProps,
   ObjectSelectOption,
-  SearchObjectType,
-  SelectOptions,
 } from '#src/libs/fuzzy-search/types';
 
 import { useHydrateSearch } from '#src/libs/fuzzy-search/hooks/useHydrateSearch';
 import type { SelectOption } from '#src/libs/types';
-import type { RootState } from '../../../reducers';
 import { DEFAULT_SELECTOR_ID } from '../constants';
 import { getSearchVariant } from '#src/libs/fuzzy-search/utils/getSearchVariant';
 
-export type Props = OwnProps & ConnectedProps<typeof connector>;
+export type Props = OwnProps;
 
 type OwnProps = SelectProps<SelectOption<number>> & ObjectSearchProps;
 
@@ -56,14 +43,9 @@ type OwnProps = SelectProps<SelectOption<number>> & ObjectSearchProps;
  */
 
 const ObjectSearch: React.FC<Props> = ({
-  results,
-  resultsById,
-  searchObjects,
   searchedObjectType,
-  resetSearch,
   additionalParams,
   initialValues,
-  isLoading,
   optionsFormatter,
   selectorId = DEFAULT_SELECTOR_ID,
   variant = 'default',
@@ -71,18 +53,13 @@ const ObjectSearch: React.FC<Props> = ({
   ...selectorProps
 }) => {
   const { formattedInitialValues, hasHydratedResults } = useHydrateSearch({
-    resultsById,
     searchedObjectType,
-    initialValues,
-    searchObjects,
+    valuesToHydrate: initialValues,
     selectorId,
     objectId,
   });
-  const { handleInputChange, formattedResults } = useFetchOptions({
-    searchObjects,
-    rawResults: results,
+  const { handleInputChange, formattedResults, isLoading } = useFetchOptions({
     searchedObjectType,
-    resetSearch,
     additionalParams,
     optionsFormatter,
     hasHydratedResults,
@@ -114,32 +91,9 @@ const PlaceholderSelect: React.FC<SelectProps<SelectOption<number>>> = (
   props,
 ) => <Select {...props} isDisabled isLoading />;
 
-const connector = connect(
-  (
-    state: RootState,
-    {
-      searchedObjectType,
-      selectorId,
-    }: { searchedObjectType: SearchObjectType; selectorId: string },
-  ) => ({
-    results: getSelectorState(state, searchedObjectType, selectorId).results
-      .currentResults,
-    resultsById: getResultsById(state, searchedObjectType),
-    isLoading: getSelectorState(state, searchedObjectType, selectorId).loading,
-  }),
-  {
-    searchObjects: searchObjectsAction,
-    resetSearch: resetObjectSearchAction,
-  },
-);
-
-const ObjectSearchComponent = compose<Props, OwnProps>(
-  connector,
-  (component: React.FC) => React.memo(component, isEqual),
-)(ObjectSearch);
+const ObjectSearchComponent = React.memo(ObjectSearch, isEqual);
 
 export const ObjectSearchForStorybook = compose<Props, OwnProps>(
-  connector,
   marketplaceCssHoc(),
   (component: React.FC) => React.memo(component, isEqual),
 )(ObjectSearch);

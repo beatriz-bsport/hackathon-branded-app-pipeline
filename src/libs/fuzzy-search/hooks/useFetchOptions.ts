@@ -1,35 +1,26 @@
 import { useCallback, useEffect, useRef } from 'react';
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
-import type { Immutable } from 'seamless-immutable';
-import type { OptionCallback } from '#src/state/types';
 import type {
-  FuzzySearchAPIParams,
   ObjectSearchArray,
-  ObjectSearchPaginated,
   ObjectSearchProps,
-  ResultsMap,
-  SearchIdentifier,
   SearchObjectType,
   SelectOptions,
 } from '#src/libs/fuzzy-search/types';
 import { getSearchObjectURI } from '#src/libs/fuzzy-search/utils/getURIFromObjectType';
-import { getLabelFromItem } from '#src/libs/fuzzy-search/utils/labelExtractor';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSelectorState } from '#src/libs/fuzzy-search/selectors';
+import type { RootState } from '#src/reducers';
+import {
+  resetObjectSearch as resetObjectSearchAction,
+  searchObjects as searchObjectsAction,
+} from '#src/libs/fuzzy-search/actions';
+import { defaultFormatter } from '#src/libs/fuzzy-search/utils/defaultFormatter';
 
 const DEBOUNCE_TIME = 500;
 
 type HookProps = {
-  searchObjects: (
-    args: {
-      params: FuzzySearchAPIParams;
-      searchedObjectType: SearchObjectType;
-      selectorId: string;
-    },
-    options?: OptionCallback<ObjectSearchPaginated>,
-  ) => Promise<void>;
-  rawResults: Immutable<ObjectSearchArray>;
   searchedObjectType: SearchObjectType;
-  resetSearch: (identifier: SearchIdentifier) => void;
   additionalParams?: ObjectSearchProps['additionalParams'];
   optionsFormatter: (results: ObjectSearchArray) => SelectOptions;
   hasHydratedResults: boolean;
@@ -48,55 +39,63 @@ type HookProps = {
  */
 
 export const useFetchOptions = ({
-  searchObjects,
-  rawResults,
   searchedObjectType,
-  resetSearch,
   additionalParams,
   hasHydratedResults,
   optionsFormatter,
   selectorId,
   objectId,
 }: HookProps) => {
+  const dispatch = useDispatch();
+
+  const { rawResults } = useSelector(
+    (state: RootState) => ({
+      rawResults: getSelectorState(state, searchedObjectType, selectorId)
+        .results.currentResults,
+    }),
+    isEqual,
+  );
+  const isLoading = useSelector(
+    (state: RootState) =>
+      getSelectorState(state, searchedObjectType, selectorId).loading,
+  );
   const paramsRef = useRef(additionalParams);
   const compareTextRef = useRef('');
   const hydrateOptions = useCallback(() => {
-    searchObjects({
-      params: {
-        searchObjectURI: getSearchObjectURI(searchedObjectType, objectId),
-        q: '',
-        ...additionalParams,
-      },
-      searchedObjectType,
-      selectorId,
-    });
-  }, [
-    additionalParams,
-    objectId,
-    searchObjects,
-    searchedObjectType,
-    selectorId,
-  ]);
+    dispatch(
+      searchObjectsAction({
+        params: {
+          searchObjectURI: getSearchObjectURI(searchedObjectType, objectId),
+          q: '',
+          ...additionalParams,
+        },
+        searchedObjectType,
+        selectorId,
+      }),
+    );
+  }, [additionalParams, dispatch, objectId, searchedObjectType, selectorId]);
 
   const handleInputChange = debounce((text: string) => {
     if (compareTextRef.current === text) {
       return;
     }
     compareTextRef.current = text;
-    searchObjects({
-      params: {
-        searchObjectURI: getSearchObjectURI(searchedObjectType, objectId),
-        q: text,
-        ...additionalParams,
-      },
-      searchedObjectType,
-      selectorId,
-    });
+    dispatch(
+      searchObjectsAction({
+        params: {
+          searchObjectURI: getSearchObjectURI(searchedObjectType, objectId),
+          q: text,
+          ...additionalParams,
+        },
+        searchedObjectType,
+        selectorId,
+      }),
+    );
   }, DEBOUNCE_TIME);
 
   useEffect(() => {
-    resetSearch({ selectorId, searchedObjectType });
-  }, [resetSearch, searchedObjectType, selectorId]);
+    dispatch(resetObjectSearchAction({ selectorId, searchedObjectType }));
+  }, [dispatch, searchedObjectType, selectorId]);
 
   useEffect(() => {
     if (hasHydratedResults) {
@@ -119,5 +118,6 @@ export const useFetchOptions = ({
   return {
     handleInputChange,
     formattedResults,
+    isLoading,
   };
 };

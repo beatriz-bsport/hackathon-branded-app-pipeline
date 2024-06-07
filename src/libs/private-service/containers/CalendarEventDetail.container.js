@@ -516,7 +516,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
                 isCoach={this.props.isCoach}
                 offer={offer}
               />
-              {offer.available ? (
+              {offer.available && !this.props.isCoach ? (
                 <div className={classes.buttonRow}>
                   {getEditPermission(
                     offer,

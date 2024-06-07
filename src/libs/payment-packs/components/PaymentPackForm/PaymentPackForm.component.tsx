@@ -1,12 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form, Formik, FormikProps } from 'formik';
+import { Form, Formik, type FormikProps } from 'formik';
 import * as Yup from 'yup';
 import pick from 'lodash/pick';
 
-import makeStyles from '@material-ui/core/styles/makeStyles';
 import Button from '@material-ui/core/Button';
-import { Divider, LinearProgress } from '@material-ui/core';
+import { LinearProgress } from '@material-ui/core';
 import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
@@ -24,7 +23,6 @@ import {
   PaymentPackCategory,
   PaymentPackFormValues,
 } from '#src/libs/payment-packs/types';
-import UniversalPassFormPrivateserviceCompatibility from '#src/libs/universal-pass/components/UniversalPassFormPrivateserviceCompatibility.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import {
   PENALTY_KIND_BLOCK_CPP,
@@ -45,16 +43,72 @@ import type {
 } from '#src/libs/private-service/types';
 import type { BookkeepingAccount } from '#src/libs/payment/types';
 import { ALMOST_100 } from '../../../../constants';
-import PaymentPackFormAdvancedOptions from './PaymentPackFormAdvancedOptions.component';
-import PaymentPackFormRestrictions from './PaymentPackFormRestrictions.component';
-import PaymentPackFormValidity from './PaymentPackFormValidity.component';
-import PaymentPackFormGeneral from './PaymentPackFormGeneral.component';
 import { OptionCallback } from '../../../../state/types';
+import { useStyles } from './styles';
+import PaymentPackFormDetailsAndRestrictionsStep from './PaymentPackFormDetailsAndRestrictionsStep.component';
 
 const penaltyKindDict = {
   [PENALTY_KIND_BLOCK_CPP]: 'block',
   [PENALTY_KIND_NEGATIVE_ACCOUNT]: 'account',
 };
+
+const paymentPackFormFields = [
+  'name',
+  'price',
+  'tax',
+  'theorical_margin_value',
+  'unlimited',
+  'credits',
+  'max_bookings_per_day',
+  'max_bookings_per_week',
+  'max_bookings_per_month',
+  'max_purchase_per_member',
+  'id',
+  'new_member_only',
+  'notifications',
+  'manager_only',
+  'onsite_payment_available',
+  'full_vod_access',
+  'only_vod_access',
+  'expiration_days_before_first_use',
+  'start_date_method',
+  'categories',
+  'metaActivities',
+  'establishments',
+  'penalty_active',
+  'penalty_nb_late_cancellations',
+  'penalty_nb_days',
+  'penalty_kind',
+  'penalty_days_blocked',
+  'penalty_account_value',
+  'no_show_penalty_active',
+  'no_show_penalty_threshold',
+  'no_show_penalty_time_window_days',
+  'no_show_penalty_amount',
+  'no_show_penalty_days_blocked',
+  'no_show_penalty_kind',
+  'category',
+  'whitelist_tags',
+  'blacklist_tags',
+  'tags_on_consumer_item_creation',
+  'duration_days',
+  'duration_months',
+  'duration_years',
+  'validity_daterange',
+  'linked_private_pass_compatibility',
+  'is_universal_pass',
+  'allow_guest_pass',
+  'is_usable_by_staff',
+  'applies_for_payroll',
+  'expiration_date',
+  'description',
+  'off_peak_schedule',
+  'highlighted_as_recommended',
+  'bookkeeping_account',
+
+  'addToNotifications',
+  'removeFromNotifications',
+];
 
 export const offPeakScheduleSchemaValidation = Yup.array().of(
   Yup.object().shape({
@@ -186,7 +240,6 @@ export const PaymentPackForm: React.FC<Props> = ({
 }) => {
   const [disabledUniversalPassFields, setDisableUniversalPassFields] =
     React.useState<boolean>(false);
-
   const { t } = useTranslation('paymentPack');
   React.useEffect(() => {
     trackFormAdd(initial?.id);
@@ -232,6 +285,87 @@ export const PaymentPackForm: React.FC<Props> = ({
     closeForm?.();
     onCancel?.();
   }, [clearPaymentPackToEdit, closeForm, initial?.id, onCancel]);
+
+  const submitForm = useCallback(
+    (values, formikHelpers) => {
+      const sanitizedValues = {
+        ...values,
+        unlimited: values.credit_number === 'unlimited',
+        is_usable_by_staff: !values.unusable_by_staff,
+      };
+      if (values.validity === 'slot') {
+        sanitizedValues.duration_days = null;
+        sanitizedValues.duration_months = null;
+        sanitizedValues.duration_years = null;
+        sanitizedValues.validity_daterange = {
+          lower: DateTime.fromISO(values.lower_date).toISODate(),
+          upper: DateTime.fromISO(values.upper_date).toISODate(),
+        };
+      } else {
+        sanitizedValues.validity_daterange = null;
+        sanitizedValues.duration_days = values.duration_days || 0;
+        sanitizedValues.duration_months = values.duration_months || 0;
+        sanitizedValues.duration_years = values.duration_years || 0;
+      }
+      switch (values.penalty_kind) {
+        case 'block':
+          sanitizedValues.penalty_kind = PENALTY_KIND_BLOCK_CPP;
+          break;
+
+        default:
+          sanitizedValues.penalty_kind = PENALTY_KIND_NEGATIVE_ACCOUNT;
+          break;
+      }
+      switch (values.no_show_penalty_kind) {
+        case 'block':
+          sanitizedValues.no_show_penalty_kind = PENALTY_KIND_BLOCK_CPP;
+          break;
+
+        default:
+          sanitizedValues.no_show_penalty_kind = PENALTY_KIND_NEGATIVE_ACCOUNT;
+          break;
+      }
+      if (values.credit_number === 'limited') {
+        sanitizedValues.apply_penalties = false;
+      }
+      if (!values.full_vod_access) {
+        sanitizedValues.only_vod_access = false;
+      }
+      if (!values.apply_penalties) {
+        sanitizedValues.penalty_active = false;
+        sanitizedValues.no_show_penalty_active = false;
+      }
+      if (values.expiration_date_active && values.expiration_date) {
+        sanitizedValues.expiration_date = values.expiration_date.toISODate();
+      } else {
+        sanitizedValues.expiration_date = null;
+      }
+      if (values.off_peak_active && values.off_peak_schedule) {
+        sanitizedValues.off_peak_schedule = formatOffPeakScheduleOnSubmit(
+          values.off_peak_schedule,
+        );
+      } else {
+        sanitizedValues.off_peak_schedule = {};
+      }
+
+      const data = pick(sanitizedValues, paymentPackFormFields);
+      // @ts-expect-error
+      onSubmit(data, {
+        onSuccess: () => {
+          formikHelpers.setSubmitting(false);
+          trackFormSuccess(initial?.id);
+          clearPaymentPackToEdit?.();
+          closeForm?.();
+        },
+        onError: () => {
+          formikHelpers.setSubmitting(false);
+          clearPaymentPackToEdit?.();
+          closeForm?.();
+        },
+      });
+    },
+    [clearPaymentPackToEdit, closeForm, initial?.id, onSubmit],
+  );
 
   return (
     <div>
@@ -291,7 +425,6 @@ export const PaymentPackForm: React.FC<Props> = ({
                 linked_private_pass_compatibility: getFormInitialValue,
                 apply_penalties:
                   initial?.penalty_active || initial?.no_show_penalty_active,
-                // @ts-expect-error
                 applies_for_payroll: initial?.applies_for_payroll,
                 expiration_date_active: !!initial?.expiration_date,
                 off_peak_active: offPeakScheduleIsEmpty,
@@ -363,141 +496,7 @@ export const PaymentPackForm: React.FC<Props> = ({
                 highlighted_as_recommended: false,
               }
         }
-        onSubmit={(values, actions) => {
-          const sanitizedValues = {
-            ...values,
-            unlimited: values.credit_number === 'unlimited',
-            is_usable_by_staff: !values.unusable_by_staff,
-          };
-          if (values.validity === 'slot') {
-            sanitizedValues.duration_days = null;
-            sanitizedValues.duration_months = null;
-            sanitizedValues.duration_years = null;
-            sanitizedValues.validity_daterange = {
-              lower: values.lower_date.toISODate(),
-              upper: values.upper_date.toISODate(),
-            };
-          } else {
-            sanitizedValues.validity_daterange = null;
-            sanitizedValues.duration_days = values.duration_days || 0;
-            sanitizedValues.duration_months = values.duration_months || 0;
-            sanitizedValues.duration_years = values.duration_years || 0;
-          }
-          switch (values.penalty_kind) {
-            case 'block':
-              sanitizedValues.penalty_kind = PENALTY_KIND_BLOCK_CPP;
-              break;
-
-            default:
-              sanitizedValues.penalty_kind = PENALTY_KIND_NEGATIVE_ACCOUNT;
-              break;
-          }
-          switch (values.no_show_penalty_kind) {
-            case 'block':
-              sanitizedValues.no_show_penalty_kind = PENALTY_KIND_BLOCK_CPP;
-              break;
-
-            default:
-              sanitizedValues.no_show_penalty_kind =
-                PENALTY_KIND_NEGATIVE_ACCOUNT;
-              break;
-          }
-          if (values.credit_number === 'limited') {
-            sanitizedValues.apply_penalties = false;
-          }
-          if (!values.full_vod_access) {
-            sanitizedValues.only_vod_access = false;
-          }
-          if (!values.apply_penalties) {
-            sanitizedValues.penalty_active = false;
-            sanitizedValues.no_show_penalty_active = false;
-          }
-          if (values.expiration_date_active && values.expiration_date) {
-            // @ts-expect-error
-            sanitizedValues.expiration_date =
-              values.expiration_date.toISODate();
-          } else {
-            sanitizedValues.expiration_date = null;
-          }
-          if (values.off_peak_active && values.off_peak_schedule) {
-            // @ts-expect-error
-            sanitizedValues.off_peak_schedule = formatOffPeakScheduleOnSubmit(
-              values.off_peak_schedule,
-            );
-          } else {
-            // @ts-expect-error
-            sanitizedValues.off_peak_schedule = {};
-          }
-
-          const keys = [
-            'name',
-            'price',
-            'tax',
-            'theorical_margin_value',
-            'unlimited',
-            'credits',
-            'max_bookings_per_day',
-            'max_bookings_per_week',
-            'max_bookings_per_month',
-            'max_purchase_per_member',
-            'id',
-            'new_member_only',
-            'manager_only',
-            'onsite_payment_available',
-            'full_vod_access',
-            'only_vod_access',
-            'expiration_days_before_first_use',
-            'start_date_method',
-            'categories',
-            'metaActivities',
-            'establishments',
-            'penalty_active',
-            'penalty_nb_late_cancellations',
-            'penalty_nb_days',
-            'penalty_kind',
-            'penalty_days_blocked',
-            'penalty_account_value',
-            'no_show_penalty_active',
-            'no_show_penalty_threshold',
-            'no_show_penalty_time_window_days',
-            'no_show_penalty_amount',
-            'no_show_penalty_days_blocked',
-            'no_show_penalty_kind',
-            'category',
-            'whitelist_tags',
-            'blacklist_tags',
-            'tags_on_consumer_item_creation',
-            'duration_days',
-            'duration_months',
-            'duration_years',
-            'validity_daterange',
-            'linked_private_pass_compatibility',
-            'is_universal_pass',
-            'allow_guest_pass',
-            'is_usable_by_staff',
-            'applies_for_payroll',
-            'expiration_date',
-            'description',
-            'off_peak_schedule',
-            'highlighted_as_recommended',
-            'bookkeeping_account',
-          ];
-          const data = pick(sanitizedValues, keys);
-          // @ts-expect-error
-          onSubmit(data, {
-            onSuccess: () => {
-              actions.setSubmitting(false);
-              trackFormSuccess(initial?.id);
-              clearPaymentPackToEdit?.();
-              closeForm?.();
-            },
-            onError: () => {
-              actions.setSubmitting(false);
-              clearPaymentPackToEdit?.();
-              closeForm?.();
-            },
-          });
-        }}
+        onSubmit={submitForm}
         validationSchema={paymentPackSchema}
       >
         {({
@@ -507,63 +506,26 @@ export const PaymentPackForm: React.FC<Props> = ({
         }: FormikProps<PaymentPackFormValues>) => {
           return (
             <Form data-testid="paymentpack-form">
-              <div
-                className={
-                  !isInDrawer
-                    ? classes.formContainer
-                    : classes.firstFormContainer
-                }
-              >
-                <PaymentPackFormGeneral
-                  bookkeepingAccountById={bookkeepingAccountById}
-                  bookkeepingAccounts={bookkeepingAccounts}
-                  disabledUniversalPassFields={disabledUniversalPassFields}
-                  displayNewCheckoutFlow={displayNewCheckoutFlow}
-                  initial={initial}
-                  paymentPackCategories={paymentPackCategories}
-                  provincialTax={provincialTax}
-                  setDisableUniversalPassFields={setDisableUniversalPassFields}
-                />
-              </div>
-              <Divider className={classes.divider} />
-              <div className={classes.formContainer}>
-                <PaymentPackFormValidity
-                  disabledUniversalPassFields={disabledUniversalPassFields}
-                  initial={initial}
-                />
-              </div>
-              <Divider className={classes.divider} />
-              <div className={classes.formContainer}>
-                <PaymentPackFormRestrictions
-                  allowGuestMaster={!!allowGuestMaster}
-                  availableEstablishmentList={availableEstablishmentList}
-                  categoryList={categoryList}
-                  disabledUniversalPassFields={disabledUniversalPassFields}
-                  initial={initial}
-                  metaActivityList={metaActivityList}
-                />
-              </div>
-              <Divider className={classes.divider} />
-              {values.is_universal_pass && (
-                <>
-                  <div className={classes.formContainer}>
-                    <UniversalPassFormPrivateserviceCompatibility
-                      compatibleServicePass={compatibleServicePass}
-                      field_name="linked_private_pass_compatibility"
-                      initial={initial}
-                      privateServices={privateServices}
-                    />
-                  </div>
-                  <Divider className={classes.divider} />
-                </>
-              )}
-              <div className={classes.formContainer}>
-                <PaymentPackFormAdvancedOptions
-                  disabledUniversalPassFields={disabledUniversalPassFields}
-                  tagList={tagList}
-                />
-              </div>
-              <Divider className={classes.divider} />
+              <PaymentPackFormDetailsAndRestrictionsStep
+                allowGuestMaster={allowGuestMaster}
+                availableEstablishmentList={availableEstablishmentList}
+                bookkeepingAccountById={bookkeepingAccountById}
+                bookkeepingAccounts={bookkeepingAccounts}
+                categoryList={categoryList}
+                compatibleServicePass={compatibleServicePass}
+                disabledUniversalPassFields={disabledUniversalPassFields}
+                displayNewCheckoutFlow={displayNewCheckoutFlow}
+                initial={initial}
+                isInDrawer={isInDrawer}
+                metaActivityList={metaActivityList}
+                paymentPackCategories={paymentPackCategories}
+                privateServices={privateServices}
+                provincialTax={provincialTax}
+                setDisableUniversalPassFields={setDisableUniversalPassFields}
+                tagList={tagList}
+                values={values}
+              />
+
               <div
                 className={classes.actionContainer}
                 id="paymentpack-form-actions"
@@ -599,29 +561,6 @@ export const PaymentPackForm: React.FC<Props> = ({
     </div>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  actionButton: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-
-  divider: {
-    backgroundColor: '#C6C6C6',
-    marginLeft: theme.spacing(-4),
-    marginRight: theme.spacing(-4),
-  },
-  formContainer: {
-    paddingBottom: theme.spacing(4),
-    paddingTop: theme.spacing(4),
-  },
-  firstFormContainer: {
-    paddingBottom: theme.spacing(4),
-  },
-  actionContainer: {
-    padding: theme.spacing(2),
-  },
-}));
 
 export default React.memo(PaymentPackForm);
 
@@ -861,4 +800,5 @@ const paymentPackSchema = Yup.object().shape({
   off_peak_schedule: offPeakScheduleSchemaValidation,
   highlighted_as_recommended: Yup.boolean(),
   bookkeeping_account: Yup.number().nullable(),
+  notifications: Yup.array().of(Yup.object()).notRequired(),
 });

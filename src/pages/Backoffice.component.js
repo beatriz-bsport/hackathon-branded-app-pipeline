@@ -1098,12 +1098,12 @@ export default compose(
   ),
   withHandlers({
     disconnect:
-      ({ navigateBackToFranchise, signout, theme }) =>
+      ({ signout, theme }) =>
       () => {
         if (
           getItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN)
         ) {
-          navigateBackToFranchise();
+          window.close();
         } else {
           signout(theme.company);
         }

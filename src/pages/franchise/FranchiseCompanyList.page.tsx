@@ -38,6 +38,7 @@ import {
 import { Establishment } from '../../libs/establishment/types';
 // @ts-expect-error
 import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
+import { getBaseURL } from '#src/utils/urlUtils';
 
 type OwnProps = {
   companyId: number;
@@ -123,11 +124,8 @@ export class FranchiseCompanyList extends Component<Props, State> {
   };
 
   goToCompany = (companyId: number) => () => {
-    this.setState({ isRedirectLoading: true });
-    this.props.navigateAsCompanyAdmin(companyId, '', {
-      onSuccess: () => this.setState({ isRedirectLoading: false }),
-      onError: () => this.setState({ isRedirectLoading: false }),
-    });
+    const baseUrl = getBaseURL();
+    window.open(`${baseUrl}/impersonate/${companyId}`, '_blank');
   };
 
   goToUser = (companyId: number) => (memberId: number) => () => {

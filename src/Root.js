@@ -65,6 +65,9 @@ const CompanyExternalRouter = asyncComponent(() =>
 const SentryTestError = asyncComponent(() =>
   import('./pages/SentryTestError.component'),
 );
+const ImpersonateHandler = asyncComponent(() =>
+  import('./pages/login/ImpersonateHandler.page.tsx'),
+);
 const CoachBackoffice = asyncComponent(() =>
   import('./pages/coach-userspace/CoachBackoffice.router'),
 );
@@ -230,6 +233,10 @@ export class Root extends Component<Props> {
             <Route component={ConsumerRouter} path="/c/:companyId" />
             <Route component={CoachBackoffice} path="/co/:companyId" />
             <Route component={ConsumerRouter} path="/c/" />
+            <Route
+              component={ImpersonateHandler}
+              path="/impersonate/:companyId"
+            />
             <Route
               component={BoutiqueFlowRouter}
               path="/booker-module-s/:companyId/:offerId"

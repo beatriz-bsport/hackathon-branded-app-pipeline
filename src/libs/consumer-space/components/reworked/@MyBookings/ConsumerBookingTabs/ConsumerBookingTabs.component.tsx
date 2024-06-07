@@ -1,10 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Calendar, FilterLines } from '#src/components/untitledui';
 import ConsumerGenericTabs from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericTabs';
 import Selector from '#Fabrique/Selector';
-import IconButton from '#Fabrique/IconButton';
 
 import { BookingTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 
@@ -17,7 +15,6 @@ type Props = {
   selectedTab: BookingTab;
   onChangeBookingTab: (type: BookingTab) => void;
   handleToggleTabDrawer: () => void;
-  handleToggleCalendarDrawer: () => void;
 };
 
 export const ConsumerBookingTabs: React.FC<Props> = ({
@@ -25,11 +22,8 @@ export const ConsumerBookingTabs: React.FC<Props> = ({
   selectedTab,
   onChangeBookingTab,
   handleToggleTabDrawer,
-  handleToggleCalendarDrawer,
 }) => {
   const { t } = useTranslation('consumerSpace');
-
-  const emptyFn = () => {};
 
   const handleSetActivityBookingTab = useCallback(
     () => onChangeBookingTab?.(BookingTabEnum.ACTIVITY),
@@ -110,25 +104,6 @@ export const ConsumerBookingTabs: React.FC<Props> = ({
             selectedItems={selectorSelectedItem}
             size="lg"
           />
-
-          <div className="bs-consumer-booking-tabs__actions">
-            <IconButton
-              color="grey"
-              onClick={emptyFn}
-              size="lg"
-              variant="outlined"
-            >
-              <FilterLines />
-            </IconButton>
-            <IconButton
-              color="grey"
-              onClick={handleToggleCalendarDrawer}
-              size="lg"
-              variant="outlined"
-            >
-              <Calendar />
-            </IconButton>
-          </div>
         </div>
       ) : (
         <ConsumerGenericTabs<BookingTab>

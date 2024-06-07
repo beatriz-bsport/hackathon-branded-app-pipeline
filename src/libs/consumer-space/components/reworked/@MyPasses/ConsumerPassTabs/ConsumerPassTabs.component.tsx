@@ -2,8 +2,6 @@ import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Selector from '#Fabrique/Selector';
-import IconButton from '#Fabrique/IconButton';
-import { FilterLines } from '#src/components/untitledui';
 
 import ConsumerGenericTabs from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericTabs';
 import type { ConsumerPassesTabDisplay } from '#src/libs/consumer-space/types';
@@ -29,8 +27,6 @@ export const ConsumerPassTabs: React.FC<Props> = ({
   selectedTab,
 }) => {
   const { t } = useTranslation('consumerSpace');
-
-  const emptyFn = () => {};
 
   const handleSetActivityPassTab = useCallback(
     () => onChangePassTab(PassTabEnum.CONSUMER_PAYMENT_PACK),
@@ -129,12 +125,6 @@ export const ConsumerPassTabs: React.FC<Props> = ({
         selectedItems={selectorSelectedItem}
         size="lg"
       />
-
-      <div className="bs-consumer-pass-tabs__actions">
-        <IconButton color="grey" onClick={emptyFn} size="lg" variant="outlined">
-          <FilterLines />
-        </IconButton>
-      </div>
     </div>
   ) : (
     <ConsumerGenericTabs<PassTab> selectedTab={selectedTab} tabs={tabs} />

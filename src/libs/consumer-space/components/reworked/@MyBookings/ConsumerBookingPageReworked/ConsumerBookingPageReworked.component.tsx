@@ -212,8 +212,6 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     isConsumerPacksLoading,
   });
 
-  const emptyFn = () => {};
-
   return (
     <MarketplacePageContent>
       <div className="bs-consumer-booking-page__root">
@@ -267,7 +265,6 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
         />
 
         <ConsumerBookingTabs
-          handleToggleCalendarDrawer={handleToggleCalendarDrawer}
           handleToggleTabDrawer={handleToggleBookingTabDrawer}
           isMobile={isMobile}
           onChangeBookingTab={handleSetSelectedTab}
@@ -279,7 +276,6 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           isMobile={isMobile}
           isWaitlistFilterHidden={selectedTab === BookingTabEnum.APPOINTMENT}
           onChangeFilterTab={handleSetSelectedFilterTab}
-          onDatePickerClick={emptyFn}
           selectedTab={selectedFilterTab}
           waitlistBookingsCount={waitlistItemsCount}
         />

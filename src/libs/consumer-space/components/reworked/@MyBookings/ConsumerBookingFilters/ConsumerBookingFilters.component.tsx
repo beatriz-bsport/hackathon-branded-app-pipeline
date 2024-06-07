@@ -13,7 +13,6 @@ type Props = {
   waitlistBookingsCount: number;
   isWaitlistFilterHidden?: boolean;
   onChangeFilterTab: (type: BookingFilterTab) => void;
-  onDatePickerClick: () => void;
 };
 
 export const ConsumerBookingFilters: React.FC<Props> = ({
@@ -23,7 +22,6 @@ export const ConsumerBookingFilters: React.FC<Props> = ({
   waitlistBookingsCount,
   isWaitlistFilterHidden,
   onChangeFilterTab,
-  onDatePickerClick,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -66,7 +64,6 @@ export const ConsumerBookingFilters: React.FC<Props> = ({
         },
       ]}
       isMobile={isMobile}
-      onDatePickerClick={onDatePickerClick}
       selectedTab={selectedTab}
     />
   );

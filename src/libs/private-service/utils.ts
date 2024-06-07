@@ -29,6 +29,7 @@ import type {
   PrivateConsumerPassReworked,
 } from './types';
 import { sortByDate } from '../../utils/datetime';
+import type { FranchiseUserPrivatePass } from '#src/libs/franchise/types';
 
 export const getMissingResourceForBooking = (
   service: PrivateService,
@@ -179,7 +180,8 @@ export const getExpirationDate = (
   privateConsumerPass:
     | PrivateConsumerPassReworked
     | PrivateConsumerPass
-    | PrivateConsumerPass<Member>,
+    | PrivateConsumerPass<Member>
+    | FranchiseUserPrivatePass,
 ) => {
   if (
     privateConsumerPass.private_pass.start_date_method !== START_ON_PURCHASE &&
@@ -306,7 +308,10 @@ export const filterPrivateService = (
 };
 
 export const getPassDate = (
-  privateConsumerPass: PrivateConsumerPass | PrivateConsumerPass<Member>,
+  privateConsumerPass:
+    | PrivateConsumerPass
+    | PrivateConsumerPass<Member>
+    | FranchiseUserPrivatePass,
 ) => {
   const ending_date = getExpirationDate(privateConsumerPass);
   return [

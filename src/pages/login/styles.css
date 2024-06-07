@@ -1,0 +1,5 @@
+.bs-login-with-disconnected-status__loading__container {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}

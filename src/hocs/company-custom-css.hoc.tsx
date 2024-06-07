@@ -22,7 +22,7 @@ type CompanyThemeProps =
       theme: never;
     };
 
-type Props = CustomCssConfigurationProps & CompanyThemeProps;
+export type Props = CustomCssConfigurationProps & CompanyThemeProps;
 
 export default <P extends object>(WrappedComponent: React.ComponentType<P>) => {
   return class extends React.Component<Props & P> {

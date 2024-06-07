@@ -17,3 +17,11 @@ type Step =
   | 'finalStep';
 
 export type StepManager = { step: Step; visited: boolean };
+
+export type DisconnectedStatusWidgetConfig = {
+  hideWhenNotLoggedIn?: boolean;
+  loginSubtitle?: string;
+  loginTitle?: string;
+  showSubtitle?: boolean;
+  showTitle?: boolean;
+};

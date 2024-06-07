@@ -1086,6 +1086,7 @@ export const fetchMyActiveConsumerPaymentPacksAsMember = (
         page_size,
         is_valid_today: true,
         is_universal: false,
+        reverted: false,
       });
       dispatch(
         fetchMyActiveConsumerPaymentPacksAsMemberActions.success(response.data),
@@ -1132,6 +1133,7 @@ export const fetchMyExpiredConsumerPaymentPacksAsMember = (
         page_size,
         is_expired: true,
         is_universal: false,
+        reverted: false,
       });
       dispatch(
         fetchMyExpiredConsumerPaymentPacksAsMemberActions.success(
@@ -1183,6 +1185,7 @@ export const fetchMyFutureConsumerPaymentPacksAsMember = (
         is_expired: false,
         is_valid_today: false,
         is_universal: false,
+        reverted: false,
       });
       dispatch(
         fetchMyFutureConsumerPaymentPacksAsMemberActions.success(response.data),
@@ -1231,6 +1234,7 @@ export const fetchMyActivePrivateConsumerPassesAsMember = (
         page_size,
         is_valid_today: true,
         is_universal: false,
+        reverted: false,
       });
       dispatch(
         fetchMyActivePrivateConsumerPassesAsMemberActions.success(
@@ -1283,6 +1287,7 @@ export const fetchMyExpiredPrivateConsumerPassesAsMember = (
         page_size,
         is_expired: true,
         is_universal: false,
+        reverted: false,
       });
       dispatch(
         fetchMyExpiredPrivateConsumerPassesAsMemberActions.success(
@@ -1334,6 +1339,7 @@ export const fetchMyFuturePrivateConsumerPassesAsMember = (
         is_expired: false,
         is_valid_today: false,
         is_universal: false,
+        reverted: false,
       });
       dispatch(
         fetchMyFuturePrivateConsumerPassesAsMemberActions.success(

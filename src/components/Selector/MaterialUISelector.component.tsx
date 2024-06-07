@@ -731,16 +731,20 @@ function MenuList<T extends OptionTypeBase>(
   };
 }
 
-const MultiValueContainer = (props: { children: React.ReactNode[] }) => {
+const MultiValueContainer = (props: {
+  children: React.ReactNode[];
+  data: any;
+  selectProps?: {
+    displayAllOptionsPlaceholder: boolean;
+    displaySearchPlaceholder: boolean;
+  };
+}) => {
   const { displayAllOptionsPlaceholder, displaySearchPlaceholder } =
-    // @ts-expect-error
     props.selectProps ?? {};
   const classes = useStyles();
 
   const { index, maxDisplay, data } = getItemPositionData(
-    // @ts-expect-error
     props.selectProps,
-    // @ts-expect-error
     props.data,
   );
 

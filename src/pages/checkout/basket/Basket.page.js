@@ -600,7 +600,6 @@ export class BasketPage extends React.Component<Props> {
                         this.props.processing ||
                         this.props.paymentProcessing
                       }
-                      locale={this.props.theme.locale}
                       memberId={this.props.basket.member}
                       onCancel={this.backToCalendar}
                       onError={this.props.refreshBasket}

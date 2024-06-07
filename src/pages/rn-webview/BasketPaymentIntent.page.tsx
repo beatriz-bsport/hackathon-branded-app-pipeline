@@ -585,7 +585,6 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
               this.props.processing ||
               this.props.paymentProcessing
             }
-            locale={this.state.theme.locale}
             memberId={this.props.basket.member}
             onError={this.props.refreshBasket}
             onSelectInstalmentPayment={this.onSelectInstalmentPayment}

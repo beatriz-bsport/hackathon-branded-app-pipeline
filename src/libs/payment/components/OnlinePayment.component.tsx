@@ -56,7 +56,6 @@ type Props = {
   instalmentPaymentSelectedId?: number;
   isEstablishmentBillingGroupSelected?: boolean;
   loading: boolean;
-  locale?: string;
   memberId: number;
   onCancel?: () => void;
   onError?: () => void;
@@ -119,7 +118,6 @@ const OnlinePayment: React.FC<Props> = forwardRef(
       instalmentPaymentSelectedId,
       isEstablishmentBillingGroupSelected = true,
       loading,
-      locale,
       memberId,
       onCancel,
       onError,
@@ -360,7 +358,6 @@ const OnlinePayment: React.FC<Props> = forwardRef(
                   isEstablishmentBillingGroupSelected
                 }
                 loading={loading}
-                locale={locale}
                 onCancel={onCancel}
                 onError={onError}
                 onSuccess={onSuccess}

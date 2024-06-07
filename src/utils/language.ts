@@ -1,5 +1,6 @@
 import memoize from 'memoize-one';
 import { AVAILABLE_LANGUAGES, LANGUAGES } from '../i18n/languages';
+import { LOCALE_LIST } from '#components/input/LocaleSelector.component';
 
 // ISO 639-1 format for language : two letters (fr for French)
 // We got 6 languages on Intercom : fr, en, nl, it, es, de
@@ -21,4 +22,23 @@ export const getCurrentLanguageIsoCode = memoize((language: string) => {
   ).includes(language);
   if (isFullAvailable) return language.split('-')[0];
   return LANGUAGES.ENGLISH;
+});
+
+/**
+ * Retrieve a locale as xx_XX from a language xx.
+ *
+ * @export
+ * @param {string} language The language to get the locale from.
+ * @return {string | undefined} The locale associated, by default "en_US" for "en" language, or undefined if not found.
+ */
+export const getLocaleFromLanguage = memoize((language: string) => {
+  if (['en-GB', 'en-gb'].includes(language)) {
+    return 'en_GB';
+  }
+  const LANGUAGE_LIST_WITHOUT_GB = LOCALE_LIST.filter(
+    (country) => country.locale !== 'en_GB',
+  );
+  return LANGUAGE_LIST_WITHOUT_GB.find(
+    (country) => country.locale.slice(0, 2) === language,
+  )?.locale;
 });

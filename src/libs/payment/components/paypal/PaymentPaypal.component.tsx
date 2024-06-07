@@ -10,6 +10,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
+// @ts-expect-error
+import i18n from '#src/i18n/index';
+import { getLocaleFromLanguage } from '#src/utils/language';
 import Config from '#src/config';
 import { isErrorWithCustomCode } from '#libs/utils';
 import {
@@ -51,7 +54,6 @@ type Props = {
   fromApp?: boolean;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
-  locale?: string;
   onCancel?: () => void;
   onError?: () => void;
   onSuccess: (callback: () => void) => void;
@@ -80,7 +82,6 @@ const PaymentPaypal: React.FC<Props> = ({
   fromApp,
   isEstablishmentBillingGroupSelected,
   loading,
-  locale,
   termsAndConditionsAccepted,
   onCancel,
   onError,
@@ -164,6 +165,9 @@ const PaymentPaypal: React.FC<Props> = ({
     !termsAndConditionsAccepted ||
     !isEstablishmentBillingGroupSelected;
 
+  const { language } = i18n;
+  const buttonLocale = getLocaleFromLanguage(language);
+
   return (
     <>
       {paymentGroupId && (
@@ -211,7 +215,7 @@ const PaymentPaypal: React.FC<Props> = ({
                       intent: 'capture',
                       dataPartnerAttributionId:
                         Config.REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID,
-                      ...(locale ? { locale } : {}),
+                      ...(buttonLocale ? { locale: buttonLocale } : {}),
                     }}
                   >
                     <PayPalPaymentButton

@@ -56,10 +56,12 @@ type ShopItemBulkFieldArray = {
 
 type Props = {
   isUpdatingVariant?: boolean;
+  showVariantColumn?: boolean;
 };
 
 const FranchiseShopItemTemplateDetailInventoryBulkForm: React.FC<Props> = ({
   isUpdatingVariant,
+  showVariantColumn,
 }) => {
   const theme = useTheme();
 
@@ -116,9 +118,11 @@ const FranchiseShopItemTemplateDetailInventoryBulkForm: React.FC<Props> = ({
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>
-                {t('shopItemDetail.table.inventory.variants')}
-              </TableCell>
+              {showVariantColumn && (
+                <TableCell>
+                  {t('shopItemDetail.table.inventory.variants')}
+                </TableCell>
+              )}
               <TableCell>
                 {t('shopItemDetail.table.inventory.companyName')}
               </TableCell>
@@ -144,12 +148,14 @@ const FranchiseShopItemTemplateDetailInventoryBulkForm: React.FC<Props> = ({
                 (instances ?? []).map(
                   (row: ShopItemInventoryBulkUpdateFormRow, index: number) => (
                     <TableRow key={row.id}>
-                      <TableCell>
-                        <div className={classes.flexColumn}>
-                          {!!row.color && <span>{row.color}</span>}
-                          {!!row.size && <span>{row.size}</span>}
-                        </div>
-                      </TableCell>
+                      {showVariantColumn && (
+                        <TableCell>
+                          <div className={classes.flexColumn}>
+                            {!!row.color && <span>{row.color}</span>}
+                            {!!row.size && <span>{row.size}</span>}
+                          </div>
+                        </TableCell>
+                      )}
                       <TableCell>
                         <CustomChip
                           displayedValue={row.companyName}

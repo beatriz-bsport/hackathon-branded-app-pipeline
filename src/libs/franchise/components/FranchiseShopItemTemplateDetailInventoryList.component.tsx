@@ -118,6 +118,7 @@ const FranchiseShopItemTemplateDetailInventoryList: React.FC<Props> = ({
 
         <FranchiseShopItemTemplateDetailInventoryBulkUpdateForm
           isUpdatingVariant={isUpdatingVariant}
+          showVariantColumn={shopItemTemplate?.number_of_variants > 0}
         />
       </>
     </Formik>

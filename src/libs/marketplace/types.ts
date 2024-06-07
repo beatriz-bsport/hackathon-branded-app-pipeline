@@ -43,8 +43,13 @@ export type MarketplaceCalendarVariant = 'activityName' | 'coach' | 'time';
 
 export type MarketplaceWorkshopData = MarketplaceCommonFilter;
 
+export enum MarketplacePrivateServiceTypeEnum {
+  list = 'list',
+  detail = 'detail',
+}
+
 export type MarketplacePrivateServiceData = {
-  type: 'list' | 'detail';
+  type: MarketplacePrivateServiceTypeEnum;
   serviceId?: number | null;
   privateGroups?: number[] | null;
 };
@@ -69,6 +74,10 @@ export type MarketplacePassData = {
 
 export type MarketplacePaymentPackTemplateData = {
   paymentPackTemplateList?: Array<number>;
+};
+
+export type MarketplacePaymentPackTemplateParams = {
+  paymentPackTemplateList: number[];
 };
 
 export type MarketplaceGiftcardData = {

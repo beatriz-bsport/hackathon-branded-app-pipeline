@@ -19,17 +19,19 @@ import PaymentPackTemplateCard from '#src/libs/payment-packs/components/PaymentP
 import { PaymentPackTemplate } from '#src/libs/payment-packs/types';
 import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '../../../libs/payment-packs/actions';
 import { RootState } from '../../../reducers';
+import { MarketplacePaymentPackTemplateParams } from '#src/libs/marketplace/types';
 
 type OwnProps = {
-  title: string;
   franchiseId: number;
-  paymentPackTemplateDetailed: PaymentPackTemplate;
-  setPaymentPackTemplateDetailed: (arg: PaymentPackTemplate) => void;
+  paymentPackTemplateDetailed?: PaymentPackTemplate;
+  setPaymentPackTemplateDetailed?: (arg: PaymentPackTemplate) => void;
   goToFranchiseSelection?: (
     paymentPackTemplateId: number,
     companies: Array<number>,
   ) => void;
-  params?: { paymentPackTemplateList: Array<number> };
+  /*  Reference to the Redux store that needs to be passed from the widget. */
+  store?: any;
+  params?: MarketplacePaymentPackTemplateParams;
 };
 type State = {};
 
@@ -119,7 +121,7 @@ const connector = connect(
   },
 );
 
-export default compose(
+export default compose<Props, OwnProps>(
   withState(
     'paymentPackTemplateDetailed',
     'setPaymentPackTemplateDetailed',

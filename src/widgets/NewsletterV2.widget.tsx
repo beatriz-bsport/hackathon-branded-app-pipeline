@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { ConnectedProps, connect } from 'react-redux';
 
 import { NewsletterFormBase } from 'bsport-saas/src/components/css-only/NewsletterFormV2';
 import { NewsletterV2FieldsKind } from 'bsport-saas/src/libs/marketplace/constants';
@@ -21,7 +20,7 @@ type OwnProps = {
   companyId: number,
 };
 
-type ConnectProps = typeof mapDispatchToProps;
+type ConnectProps = ConnectedProps<typeof connector>;
 type Props = OwnProps & ConnectProps;
 
 export class NewsletterWidget extends Component<Props> {
@@ -58,7 +57,6 @@ export class NewsletterWidget extends Component<Props> {
   render() {
     return (
       <NewsletterFormV2Styled
-        // @ts-expect-error
         fieldsType={
           this.props.config?.fieldsType ||
           NewsletterV2FieldsKind.FULL_NAME_AND_EMAIL
@@ -82,6 +80,6 @@ const mapDispatchToProps = {
   snackbarError,
 };
 
-export default compose<Props, OwnProps>(connect(null, mapDispatchToProps))(
-  NewsletterWidget,
-);
+const connector = connect(null, mapDispatchToProps);
+
+export default connector(NewsletterWidget);

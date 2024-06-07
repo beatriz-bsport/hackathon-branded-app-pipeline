@@ -39,11 +39,12 @@ module.exports = merge(common, {
       templateParameters: env.raw,
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new ESLintPlugin({
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      emitWarning: true,
-      failOnWarning: false,
-      failOnError: false,
-    }),
+    // Disabling ESLintPlugin for now, it is usefull but does take a lot of time and ressources on first start
+    // new ESLintPlugin({
+    //   extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    //   emitWarning: true,
+    //   failOnWarning: false,
+    //   failOnError: false,
+    // }),
   ],
 });

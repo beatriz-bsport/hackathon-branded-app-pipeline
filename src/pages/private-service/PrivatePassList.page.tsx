@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import uniqBy from 'lodash/uniqBy';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import withTitle from '#src/hocs/with-title.hoc';
 import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
@@ -49,7 +50,9 @@ import {
   isPrivatePassUsedInCombo,
 } from '#src/libs/private-service/actions';
 import PrivatePassListItem from '#src/libs/private-service/components/pass/PrivatePassListItem.component';
-import PrivatePassForm from '#src/libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
+import PrivatePassForm, {
+  FormikValues,
+} from '#src/libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
 import type {
   PrivatePass,
   PrivatePassCategory,
@@ -112,8 +115,26 @@ import {
   fetchActivitiesCompany,
   fetchMetaActivities as fetchMetaActivitiesAction,
 } from '../../libs/meta-activity/actions';
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import { OptionCallback } from '../../state/types';
+import {
+  fetchMarketingNotificationList,
+  updateMarketingNotification,
+} from '#src/libs/marketing/actions';
+import {
+  emailTemplateDetail,
+  fetchEmailTemplateSummariesBulk,
+} from '#src/libs/email-editor/actions';
+import { fetchSmartListBulk } from '#src/libs/smart-list/actions';
+import { fetchResolvedGenericTags } from '#src/libs/notification-rule/actions';
+import { getSmartListDict } from '#src/libs/smart-list/selectors';
+import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
+import {
+  getAllEmailTemplatesDict,
+  getEmailTemplatesDetail,
+} from '#src/libs/email-editor/selectors';
+import { getPrivatePassNotifications } from '#src/libs/marketing/selectors';
+import type { MarketingNotification } from '#src/libs/marketing/types';
+import { OptionCallback } from '#src/state/types';
+import { fetchEstablishments } from '#src/libs/establishment/actions';
 
 const {
   trackFormAdd,
@@ -173,9 +194,7 @@ type OwnAndConnectedProps = OwnProps &
   StateHandlerType &
   WithObjectSearch;
 
-type Props = OwnProps &
-  ConnectedProps &
-  StateHandlerType &
+type Props = OwnAndConnectedProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation &
   WithHandlerType<typeof mapWithHandlers>;
@@ -213,6 +232,8 @@ export class PrivatePassList extends React.Component<Props, State> {
     this.props.fetchTags();
     IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
       this.props.fetchBookkeepingAccountList();
+    this.props.fetchNotificationsAndTemplatesAndSmartLists();
+    this.props.fetchResolvedGenericTags();
   }
 
   componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
@@ -380,10 +401,79 @@ export class PrivatePassList extends React.Component<Props, State> {
             hasDeletePermission && this.getDeletePassHandler(privatePass),
           onEdit: hasEditPermission && this.getOpenEditFormHandler(privatePass),
           pass: privatePass,
-          updatePrivatePass: this.props.createOrUpdatePrivatePass,
+          updatePrivatePass: this.createOrUpdatePrivatePassWithNotifications,
           value: privatePass.id,
         };
       });
+
+  removePassFromNotification = (
+    notification: MarketingNotification,
+    passId: number,
+  ) => {
+    this.props.updateMarketingNotification(notification.id, {
+      ...notification,
+      event_rules: {
+        ...notification.event_rules,
+        private_pass_ids: notification.event_rules.private_pass_ids.filter(
+          (id) => id !== passId,
+        ),
+
+        // :TODO: Remove this line when the related backend migration (BS-3934) is done
+        private_pass_id: undefined,
+      },
+    });
+  };
+
+  addPassToNotification = (
+    notification: MarketingNotification,
+    passId: number,
+  ) => {
+    this.props.updateMarketingNotification(notification.id, {
+      ...notification,
+      event_rules: {
+        ...notification.event_rules,
+        private_pass_ids: [
+          ...notification.event_rules.private_pass_ids,
+          passId,
+        ],
+
+        // :TODO: Remove this line when the related backend migration (BS-3934) is done
+        private_pass_id: undefined,
+      },
+    });
+  };
+
+  createOrUpdatePrivatePassWithNotifications = (
+    data: FormikValues,
+    options?: OptionCallback,
+  ) => {
+    const { addToNotifications, removeFromNotifications, ...rest } = data;
+    this.props.createOrUpdatePrivatePassAction(
+      rest,
+      this.props.selectedPrivatePass?.id || null,
+      {
+        // @ts-expect-error
+        onSuccess: (res: PrivatePass) => {
+          this.props.selectedPrivatePass?.id &&
+            this.props.refreshOptions(
+              'private_pass',
+              searchBarAdditionalParams,
+            );
+          if (options?.onSuccess) options.onSuccess();
+          this.props.closePrivatePassForm();
+          addToNotifications?.forEach((n) =>
+            this.addPassToNotification(n, res.id),
+          );
+          removeFromNotifications?.forEach((n) =>
+            this.removePassFromNotification(n, res.id),
+          );
+        },
+        onError: () => {
+          if (options?.onError) options.onError();
+        },
+      },
+    );
+  };
 
   render() {
     const { classes, t, establishmentList, metaActivities, categoryList } =
@@ -428,20 +518,30 @@ export class PrivatePassList extends React.Component<Props, State> {
             }
           >
             <PrivatePassForm
+              enableNotificationStep
               bookkeepingAccountById={this.props.bookingAccountById}
               bookkeepingAccounts={this.props.bookingAccounts}
               categoryList={paymentPackCategoryList}
               compatibleServicePass={this.props.compatibleServicePass}
+              emailDetailLoading={this.props.emailDetailLoading}
+              emailDetails={this.props.emailDetails}
+              emailSummariesById={this.props.emailSummariesById}
               // @ts-expect-error
               establishmentList={establishmentList}
+              getEmailDetail={this.props.fetchEmailTemplateDetail}
               metaActivityList={metaActivities}
+              notifications={this.props.notifications}
               onCancel={() => this.props.closePrivatePassForm()}
-              onSubmit={this.props.createOrUpdatePrivatePass}
+              onSubmit={this.createOrUpdatePrivatePassWithNotifications}
               privatePassCategories={this.props.privatePassCategories}
               // @ts-expect-error
               privateServices={this.props.privateServices}
+              resolvedGenericTags={this.props.resolvedGenericTags}
+              smartListLoading={this.props.smartListLoading}
+              smartListsById={this.props.smartListsById}
               // @ts-expect-error
               tagList={this.props.allTagsWithTagGroup}
+              theme={this.props.theme}
             />
           </GenericResponsiveDrawer>
         </div>
@@ -589,12 +689,17 @@ export class PrivatePassList extends React.Component<Props, State> {
               }
             >
               <PrivatePassForm
+                enableNotificationStep
                 bookkeepingAccountById={this.props.bookingAccountById}
                 bookkeepingAccounts={this.props.bookingAccounts}
                 categoryList={paymentPackCategoryList}
                 compatibleServicePass={this.props.compatibleServicePass}
+                emailDetailLoading={this.props.emailDetailLoading}
+                emailDetails={this.props.emailDetails}
+                emailSummariesById={this.props.emailSummariesById}
                 // @ts-expect-error
                 establishmentList={establishmentList}
+                getEmailDetail={this.props.fetchEmailTemplateDetail}
                 // @ts-expect-error
                 initial={getFormInitial(
                   // @ts-expect-error
@@ -602,17 +707,22 @@ export class PrivatePassList extends React.Component<Props, State> {
                   this.props.compatibleServicePass,
                 )}
                 metaActivityList={metaActivities}
+                notifications={this.props.notifications}
                 onCancel={(ev: { stopPropagation: () => void }) => {
                   ev.stopPropagation();
                   this.props.closePrivatePassForm();
                 }}
-                onSubmit={this.props.createOrUpdatePrivatePass}
+                onSubmit={this.createOrUpdatePrivatePassWithNotifications}
                 privatePassCategories={this.props.privatePassCategories}
                 // @ts-expect-error
                 privateServices={this.props.privateServices}
                 provincialTax={this.props.theme?.provincial_tax_value}
+                resolvedGenericTags={this.props.resolvedGenericTags}
+                smartListLoading={this.props.smartListLoading}
+                smartListsById={this.props.smartListsById}
                 // @ts-expect-error
                 tagList={this.props.allTagsWithTagGroup}
+                theme={this.props.theme}
               />
             </GenericResponsiveDrawer>
             <PrivatePassDeleteDialog
@@ -774,6 +884,13 @@ const mapStateToProps = (state: RootState) => ({
   videoCategories: state.video.filterableParams.items.SCTs,
   bookingAccounts: getBookkeepingAccountList(state),
   bookingAccountById: getBookkeepingAccountById(state),
+  notifications: getPrivatePassNotifications(state),
+  smartListsById: getSmartListDict(state),
+  smartListLoading: state.smartList.loading,
+  resolvedGenericTags: getResolvedGenericTags(state),
+  emailDetails: getEmailTemplatesDetail(state),
+  emailDetailLoading: state.emailTemplate.detail.loading,
+  emailSummariesById: getAllEmailTemplatesDict(state),
 });
 
 const mapDispatchToProps = {
@@ -800,6 +917,12 @@ const mapDispatchToProps = {
   fetchMetaActivities: fetchMetaActivitiesAction,
   fetchTags,
   fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
+  fetchMarketingNotificationList,
+  fetchEmailTemplateSummariesBulk,
+  fetchSmartListBulk,
+  fetchResolvedGenericTags,
+  fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
+  updateMarketingNotification,
 };
 
 // @ts-expect-error
@@ -886,24 +1009,6 @@ const mapWithHandlers = {
     });
     props.closePrivatePassForm();
   },
-  createOrUpdatePrivatePass:
-    (props: OwnAndConnectedProps) => (data: any, options?: OptionCallback) => {
-      props.createOrUpdatePrivatePassAction(
-        data,
-        props.selectedPrivatePass?.id || null,
-        {
-          onSuccess: () => {
-            props.selectedPrivatePass?.id &&
-              props.refreshOptions('private_pass', searchBarAdditionalParams);
-            if (options?.onSuccess) options.onSuccess();
-            props.closePrivatePassForm();
-          },
-          onError: () => {
-            if (options?.onError) options.onError();
-          },
-        },
-      );
-    },
   fetchCompatibleServicePasses: (props: OwnAndConnectedProps) => () => {
     if (props.selectedPrivatePass) {
       props.fetchCompatibleServicePassList(props.selectedPrivatePass.id, {
@@ -929,6 +1034,36 @@ const mapWithHandlers = {
       () => {
         fetchBookkeepingAccountList({ is_active: true });
       },
+  fetchNotificationsAndTemplatesAndSmartLists:
+    (props: OwnAndConnectedProps) => () => {
+      props.fetchMarketingNotificationList(
+        {
+          kind__in: [
+            NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME,
+            NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT,
+          ],
+        },
+        {
+          onSuccess: (notificationList: any) => {
+            props.fetchEmailTemplateSummariesBulk(
+              notificationList.map(
+                (notification: any) => notification.email_design,
+              ),
+            );
+            props.fetchSmartListBulk([
+              ...notificationList.map(
+                (notification: any) =>
+                  notification.event_rules.smartlist_include,
+              ),
+              ...notificationList.map(
+                (notification: any) =>
+                  notification.event_rules.smartlist_exclude,
+              ),
+            ]);
+          },
+        },
+      );
+    },
 };
 
 export default compose(

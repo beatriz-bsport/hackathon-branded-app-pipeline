@@ -11,35 +11,47 @@ import Typography from '@material-ui/core/Typography';
 
 import ShopItemUpdateProvisionDialog from '#src/libs/shop/components/ShopItemUpdateProvisionDialog';
 
-import useShopItemDetailInventoryFilters from '#src/libs/shop/hooks/useShopItemDetailInventoryFilters';
-
 import type {
   Provision,
   ProvisionCreate,
   ShopItem,
-  ShopItemTemplate,
 } from '#src/libs/shop/types';
 import type { OptionCallback } from '#src/state/types';
+import type { SelectOption } from '#src/libs/types';
 
 import { ShopItemDetailInventoryFormType } from '#src/libs/shop/constants';
 
 type Props = {
   formType: `${ShopItemDetailInventoryFormType}`;
-  shopItemTemplate: ShopItemTemplate;
-  shopItemVariantList: ShopItem[];
+  shopItemTemplateInstanceList: ShopItem[];
+  variantSizeFilterOptionList: SelectOption[];
+  variantSizeFilterOptionValueList: SelectOption[];
+  variantColorFilterOptionList: SelectOption[];
+  variantColorFilterOptionValueList: SelectOption[];
+  variantCompanyFilterOptionList: SelectOption[];
+  variantCompanyFilterOptionValueList: SelectOption[];
   isUpdatingVariant?: boolean;
   createShopItemProvision: (
     data: ProvisionCreate,
     options?: OptionCallback<Provision>,
   ) => void;
+  changeInventoryVariantFilter: (
+    type: 'colors' | 'sizes' | 'company',
+  ) => (options: SelectOption[]) => void;
 };
 
 const FranchiseShopItemDetailInventoryListMobile: React.FC<Props> = ({
   formType,
-  shopItemTemplate,
-  shopItemVariantList,
+  shopItemTemplateInstanceList,
+  variantSizeFilterOptionList,
+  variantSizeFilterOptionValueList,
+  variantColorFilterOptionList,
+  variantColorFilterOptionValueList,
+  variantCompanyFilterOptionList,
+  variantCompanyFilterOptionValueList,
   isUpdatingVariant,
   createShopItemProvision,
+  changeInventoryVariantFilter,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -48,14 +60,6 @@ const FranchiseShopItemDetailInventoryListMobile: React.FC<Props> = ({
   const [isProvisionDialogOpen, setIsProvisionDialogOpen] = useState(false);
 
   const classes = useStyles();
-
-  const {
-    companyFilterOptionList,
-    variantSizeFilterOptionList,
-    variantColorFilterOptionList,
-    filteredVariantList,
-    handleFilterValueChange,
-  } = useShopItemDetailInventoryFilters(shopItemVariantList);
 
   const getListItemTitle = useCallback(
     (color: string, size: string) =>
@@ -89,54 +93,56 @@ const FranchiseShopItemDetailInventoryListMobile: React.FC<Props> = ({
     [createShopItemProvision, handleCloseProvisionDialog, selectedVariant],
   );
 
-  const isMasterAccount = false; // TODO WEBSHOP ON MA
-
   return (
     <>
-      {formType === ShopItemDetailInventoryFormType.VARIANTS && (
-        <div
-          className={classNames(
-            classes.filtersContainer,
-            classes.flexColumn,
-            classes.flexGap,
+      <div
+        className={classNames(
+          classes.filtersContainer,
+          classes.flexColumn,
+          classes.flexGap,
+        )}
+      >
+        <Select
+          isClearable
+          isMulti
+          onChange={changeInventoryVariantFilter('company')}
+          options={variantCompanyFilterOptionList}
+          placeholder={t(
+            'shopItemDetail.table.inventory.filterPlaceholder.company',
           )}
-        >
-          {isMasterAccount && (
-            <Select
-              isClearable
-              onChange={handleFilterValueChange('company')}
-              options={companyFilterOptionList}
-              placeholder={t(
-                'shopItemDetail.table.inventory.filterPlaceholder.company',
-              )}
-            />
-          )}
+          value={variantCompanyFilterOptionValueList}
+        />
+        {formType === ShopItemDetailInventoryFormType.VARIANTS && (
           <div className={classes.flexGap}>
             <Select
               isClearable
+              isMulti
               className={classes.flexGrow}
-              onChange={handleFilterValueChange('size')}
+              onChange={changeInventoryVariantFilter('sizes')}
               options={variantSizeFilterOptionList}
               placeholder={t(
                 'shopItemDetail.table.inventory.filterPlaceholder.size',
               )}
+              value={variantSizeFilterOptionValueList}
             />
             <Select
               isClearable
+              isMulti
               className={classes.flexGrow}
-              onChange={handleFilterValueChange('color')}
+              onChange={changeInventoryVariantFilter('colors')}
               options={variantColorFilterOptionList}
               placeholder={t(
                 'shopItemDetail.table.inventory.filterPlaceholder.color',
               )}
+              value={variantColorFilterOptionValueList}
             />
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {formType === ShopItemDetailInventoryFormType.VARIANTS && (
         <List className={classes.listContainer}>
-          {filteredVariantList.map((variant) => (
+          {shopItemTemplateInstanceList.map((variant) => (
             <ListItem
               key={variant.id}
               className={classNames(
@@ -172,30 +178,37 @@ const FranchiseShopItemDetailInventoryListMobile: React.FC<Props> = ({
 
       {formType === ShopItemDetailInventoryFormType.STANDALONE && (
         <List className={classes.listContainer}>
-          <ListItem
-            className={classNames(
-              classes.listItemContainer,
-              classes.flexColumn,
-            )}
-          >
-            <div className={classes.listItemDetails}>
-              <Typography>{`${t(
-                'shopItemDetail.table.inventory.currentStock',
-              )}: ${shopItemTemplate.current_stock}`}</Typography>
-              <Typography>{`${t(
-                'shopItemDetail.table.inventory.totalSales',
-              )}: ${shopItemTemplate.total_sales}`}</Typography>
-            </div>
-
-            <Button
-              fullWidth
-              color="primary"
-              onClick={handleOpenProvisionDialog(shopItemTemplate.id)}
-              variant="outlined"
+          {(shopItemTemplateInstanceList ?? []).map((shopItem) => (
+            <ListItem
+              key={shopItem.id}
+              className={classNames(
+                classes.listItemContainer,
+                classes.flexColumn,
+              )}
             >
-              {t('shopItemDetail.table.inventory.stockAdjustment')}
-            </Button>
-          </ListItem>
+              <Typography className={classes.listItemTitle}>
+                {shopItem.company_details.name}
+              </Typography>
+
+              <div className={classes.listItemDetails}>
+                <Typography>{`${t(
+                  'shopItemDetail.table.inventory.currentStock',
+                )}: ${shopItem.current_stock}`}</Typography>
+                <Typography>{`${t(
+                  'shopItemDetail.table.inventory.totalSales',
+                )}: ${shopItem.total_sales}`}</Typography>
+              </div>
+
+              <Button
+                fullWidth
+                color="primary"
+                onClick={handleOpenProvisionDialog(shopItem.id)}
+                variant="outlined"
+              >
+                {t('shopItemDetail.table.inventory.stockAdjustment')}
+              </Button>
+            </ListItem>
+          ))}
         </List>
       )}
 

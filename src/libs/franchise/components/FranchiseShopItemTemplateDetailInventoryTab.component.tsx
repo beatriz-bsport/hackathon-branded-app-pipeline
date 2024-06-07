@@ -154,11 +154,25 @@ const FranchiseShopItemTemplateDetailInventoryTab: React.FC<Props> = ({
     >
       {isMobile ? (
         <FranchiseShopItemDetailInventoryListMobile
+          changeInventoryVariantFilter={changeInventoryVariantFilter}
           createShopItemProvision={createShopItemProvision}
           formType={formType}
           isUpdatingVariant={isUpdatingVariant}
-          shopItemTemplate={shopItemTemplate}
-          shopItemVariantList={shopItemTemplateInstanceList}
+          shopItemTemplateInstanceList={shopItemTemplateInstanceList}
+          variantColorFilterOptionList={shopItemVariantFilterOptionList.colors}
+          variantColorFilterOptionValueList={
+            shopItemVariantFilterOptionValues.colors
+          }
+          variantCompanyFilterOptionList={
+            shopItemVariantFilterOptionList.company
+          }
+          variantCompanyFilterOptionValueList={
+            shopItemVariantFilterOptionValues.company
+          }
+          variantSizeFilterOptionList={shopItemVariantFilterOptionList.sizes}
+          variantSizeFilterOptionValueList={
+            shopItemVariantFilterOptionValues.sizes
+          }
         />
       ) : (
         <FranchiseShopItemTemplateDetailInventoryList

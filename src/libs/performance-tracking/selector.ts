@@ -3,7 +3,6 @@ import memoize from 'lodash/memoize';
 import { getMemberListData } from '#src/libs/member/selectors';
 import { RootState } from '../../reducers';
 
-
 const getProgramAllIds = (state: RootState) =>
   state.performanceTracking.program.allIds;
 

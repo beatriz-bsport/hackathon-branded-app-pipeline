@@ -12,7 +12,6 @@ import {
 import type { OrderWithProducts } from '#src/libs/order/types';
 import { formatAsDatetime } from '../../../utils/datetime';
 
-
 type Props = {
   title: string;
   onOrderClick: (id: string) => void;

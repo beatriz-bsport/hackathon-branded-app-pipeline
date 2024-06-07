@@ -213,7 +213,7 @@ class FranchiseCreateRoleDialog extends React.Component<Props, State> {
         <Divider className={this.props.classes.divider} />
         {this.state.currentStep === STEP_MASTER_ACCOUNT && (
           <CreateRoleMasterAccount
-// @ts-expect-error
+            // @ts-expect-error
             open
             onClose={this.props.onClose}
             onNext={(data) => {

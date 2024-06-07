@@ -11,7 +11,6 @@ import {
 } from '../../../utils/factories';
 import { FakerTextLength } from '../../../utils/types';
 
-
 const randomContractInterval = faker.helpers.arrayElement<ContractInterval>([
   'month',
   'week',

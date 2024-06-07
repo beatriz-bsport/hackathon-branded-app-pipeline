@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { PaymentPackTemplate } from '#src/libs/payment-packs/types';
 import { MarketplacePaymentPackTemplateData } from '../../../marketplace/types';
 
-
 interface Props {
   paymentPackTemplateListAvailable: Array<PaymentPackTemplate>;
   config?: MarketplacePaymentPackTemplateData;

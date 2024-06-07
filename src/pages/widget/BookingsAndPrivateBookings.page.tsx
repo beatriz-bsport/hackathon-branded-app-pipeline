@@ -194,7 +194,7 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
             ) : (
               <div className={classes.bookingsContainerInner}>
                 <ConsumerDashboardBookingPanel
-// @ts-expect-error
+                  // @ts-expect-error
                   fullWidth
                   hideTitle
                   bookingsAndPrivateBookings={

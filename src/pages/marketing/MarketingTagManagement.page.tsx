@@ -603,7 +603,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
                     onChangeTagRule={this.onChangeSmartListTagRule}
                     onClickRemoveTag={this.onClickUntagSmartlist}
                     smartlistList={this.props.smartlist}
-// @ts-expect-error
+                    // @ts-expect-error
                     tag={this.props.selectedTag}
                   />
                 )}

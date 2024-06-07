@@ -270,7 +270,7 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
                   }
                   loadingRecipientList={props.loadingInformationRecipientList}
                   messageList={props.messageList}
-// @ts-expect-error
+                  // @ts-expect-error
                   onCloseSnackbar={props.onCloseSnackbar}
                   openSnackbar={props.displaySnackbar}
                   paginationSize={PAGINATION_SIZE_RECIPIENTS}

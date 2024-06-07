@@ -29,7 +29,6 @@ import type {
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import HTMLPreview from '../../../components/html/HTMLPreview.component';
 
-
 type Props = {
   onCancel: () => void,
   classes: Object,

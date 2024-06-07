@@ -8,7 +8,6 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
-
 import { CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING } from '#src/libs/payment-packs/utils';
 import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#src/libs/platform-billing/upsell-identifiers';
 import { FeatureList } from '#src/libs/company/types';

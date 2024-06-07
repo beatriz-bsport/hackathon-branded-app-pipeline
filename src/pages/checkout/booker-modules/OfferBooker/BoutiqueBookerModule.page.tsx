@@ -1017,7 +1017,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                       displayTax={
                         this.props.theme?.is_tax_excluded_in_marketplace
                       }
-// @ts-expect-error
+                      // @ts-expect-error
                       isBookable={isBookable}
                       OfferSummaryComponent={() => (
                         <BookerModuleOfferSummary
@@ -1053,7 +1053,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                     />
                   }
                   buyableItemCategories={this.state.buyableItemCategories}
-// @ts-expect-error
+                  // @ts-expect-error
                   companyTheme={this.props.theme}
                   hideCreditsForCustomers={
                     this.props.theme.hide_credits_for_customers
@@ -1089,7 +1089,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 this.getIsLoading()
               }
               displayTax={this.props.theme?.is_tax_excluded_in_marketplace}
-// @ts-expect-error
+              // @ts-expect-error
               isBookable={isBookable}
               OfferSummaryComponent={() => (
                 <BookerModuleOfferSummary

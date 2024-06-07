@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-
 import type { AssociatedEstablishment } from '#src/libs/establishment/types';
 import type { Coach } from '#src/libs/associated-coach/types';
 import type { PrivateService } from '#src/libs/private-service/types';

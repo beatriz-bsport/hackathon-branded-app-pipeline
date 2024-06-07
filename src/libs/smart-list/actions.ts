@@ -59,7 +59,6 @@ import {
 import { RootState } from '../../reducers';
 import { monitorBackgroundTask } from '../background-task/actions';
 
-
 export const smartListListAction = {
   error: createAction('SMART-LIST/LIST/ERROR'),
   isLoading: createAction('SMART-LIST/LIST/IS_LOADING'),

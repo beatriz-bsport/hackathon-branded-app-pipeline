@@ -30,7 +30,6 @@ import CadenceListItem, {
   CadenceListItemLoading,
 } from './CadenceListItem.component';
 
-
 type Props = {
   cadences: Cadence[];
   cadenceLoading: boolean;

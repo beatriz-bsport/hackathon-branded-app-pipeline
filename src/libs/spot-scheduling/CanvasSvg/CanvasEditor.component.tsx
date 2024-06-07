@@ -304,7 +304,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           {!this.props.disableEdit && !this.props.isBoutiqueDisplay && (
             <CanvasToolbar
               blueprints={this.props.blueprints}
-// @ts-expect-error
+              // @ts-expect-error
               disableSave={!this.hasBlueprintChanged()}
               onChangeBlueprint={this.onChangeBlueprint}
               onClickExit={this.props.onExit}

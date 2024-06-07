@@ -513,7 +513,7 @@ export class EmailEditorPanel extends Component<Props, State> {
               minHeight="80vh"
               onLoad={() => this.onLoad()}
               options={{
-// @ts-expect-error
+                // @ts-expect-error
                 mergeTags,
                 designTags: {
                   business_name: this.props.company_name,

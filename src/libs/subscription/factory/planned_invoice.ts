@@ -9,7 +9,6 @@ import {
   generateRandomPrice,
 } from '../../../utils/factories';
 
-
 import { randomStatus } from './utils';
 
 /**

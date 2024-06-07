@@ -372,7 +372,7 @@ export class CommunicationFilterContainer extends React.Component<
             kindFilterOptionsOverride={kindFilterOptionsOverride}
             kindFilterSetter={updateKindFilterValues}
             kindFilterValues={this.state.kindFilterValues}
-// @ts-expect-error
+            // @ts-expect-error
             periodHasChanged={periodHasChanged}
             recipientFilterOptionsOverride={recipientFilterOptionsOverride}
             recipientFilterSetter={updateRecipientFilterValues}

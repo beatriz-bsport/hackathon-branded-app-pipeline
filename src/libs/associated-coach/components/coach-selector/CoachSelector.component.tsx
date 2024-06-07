@@ -20,7 +20,6 @@ import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '#src/libs/video/constant';
 import type { Coach } from '../../types';
 
-
 type Props = {
   id?: string;
   coaches: Array<Coach> | Immutable.Immutable<Array<Coach>>;

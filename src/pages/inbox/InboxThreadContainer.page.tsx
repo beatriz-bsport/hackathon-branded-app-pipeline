@@ -443,7 +443,7 @@ class InboxThreadContainerPage extends PureComponent<Props> {
         contextMember={contextMember}
         // --- Header Actions ---
         contextSelected={contextSelected}
-// @ts-expect-error
+        // @ts-expect-error
         count={count}
         countAvailableRecipientsTotal={countAvailableRecipientsTotal}
         countAvailableRecipientsWithEmail={countAvailableRecipientsWithEmail}

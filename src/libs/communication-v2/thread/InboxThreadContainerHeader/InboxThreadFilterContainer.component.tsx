@@ -208,7 +208,7 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
           hasSrcOrDstFilter={hasSrcOrDstFilter}
           kindFilterSetter={kindFilterSetter}
           kindFilterValues={kindFilterValues}
-// @ts-expect-error
+          // @ts-expect-error
           periodHasChanged={periodHasChanged}
           recipientFilterSetter={recipientFilterSetter}
           recipientFilterValues={recipientFilterValues}

@@ -1,4 +1,7 @@
-import { UpsellPackage, UpsellPackageSubscribedAPI } from '#src/libs/company/types';
+import {
+  UpsellPackage,
+  UpsellPackageSubscribedAPI,
+} from '#src/libs/company/types';
 import { getAuth, postAuth, buildUrlParams, API_V1_URI } from '../../http';
 
 export const fetchPlatformInvoiceList = (params: any = {}) => {

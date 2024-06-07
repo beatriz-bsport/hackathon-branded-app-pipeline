@@ -15,7 +15,6 @@ import PrivatePassTemplateInstanceForm, {
   PrivatePassTemplateInstanceFormikHOC,
 } from './PrivatePassTemplateInstanceForm.component';
 
-
 type Props = {
   onClose: () => void;
   open?: boolean;

@@ -317,7 +317,7 @@ export class CommunicationDrawer extends React.PureComponent<Props, State> {
             loadingCommunicationMessageDataList={loadingMessageList}
             loadingRecipientList={loadingInformationRecipientList}
             messageList={messageList}
-// @ts-expect-error
+            // @ts-expect-error
             onCloseSnackbar={this.onCloseSnackbar}
             openSnackbar={this.state.displaySnackbar}
             paginationSize={PAGINATION_SIZE_RECIPIENTS}

@@ -20,7 +20,7 @@ import {
   SwitchField,
   CheckboxField,
   RadioGroupField,
-// @ts-expect-error
+  // @ts-expect-error
 } from '#src/components/forms';
 
 import {

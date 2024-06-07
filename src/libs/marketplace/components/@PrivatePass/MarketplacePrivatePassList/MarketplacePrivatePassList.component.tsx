@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { Immutable } from 'seamless-immutable';
 
-
 import MarketplacePrivatePassCard from '#src/libs/marketplace/components/@PrivatePass/MarketplacePrivatePassCard';
 import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
 import { useMarketplacePassFilters } from '#src/libs/marketplace/hooks';

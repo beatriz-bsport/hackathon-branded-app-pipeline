@@ -363,7 +363,7 @@ const DatePickerSelectorFormik: React.FC<{
         <DatePickerSelector
           date={value?.value}
           isDisabled={isPreview}
-// @ts-expect-error
+          // @ts-expect-error
           onSubmit={(values) => {
             setFieldValue(
               `${name}.value`,

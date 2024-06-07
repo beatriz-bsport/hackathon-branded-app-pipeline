@@ -92,7 +92,7 @@ export class FranchiseGiftcardTemplateListPage extends Component<Props> {
           emptyButtonLabel={t('giftcardTemplate.listPage.addButton')}
           emptyExplainLabel={t('giftcardTemplate.listPage.emptyLabel')}
           fuzzySearchItemList={this.props.allGiftcardTemplateList}
-// @ts-expect-error
+          // @ts-expect-error
           fuzzySearchPlaceholder={t(
             'giftcardTemplate.listPage.fuzzyPlaceholder',
           )}

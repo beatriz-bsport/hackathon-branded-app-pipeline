@@ -131,7 +131,7 @@ export class BroadcastConfiguration extends Component<Props> {
           fetchZoomMembersAndEstablishments={
             this.props.fetchZoomMembersAndEstablishments
           }
-// @ts-expect-error
+          // @ts-expect-error
           processing={this.props.processing}
           resetZoomEstablishments={
             this.props.resetZoomEstablishmentsAndRefreshZoomApp

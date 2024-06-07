@@ -16,7 +16,7 @@ import {
 import {
   TextFieldEnhancedLabelWithError,
   DateField,
-// @ts-expect-error
+  // @ts-expect-error
 } from '#src/components/forms';
 import { PaymentPackFormValues } from '../../types';
 import { getValidityString } from '../../utils';

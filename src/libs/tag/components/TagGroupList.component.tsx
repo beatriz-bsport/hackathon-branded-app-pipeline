@@ -85,7 +85,7 @@ class TagGroupList extends React.PureComponent<Props> {
               onDeleteTag={this.props.onDeleteTag}
               onDeleteTagGroup={this.props.onDeleteTagGroup}
               onSelectTag={this.props.onSelectTag}
-// @ts-expect-error
+              // @ts-expect-error
               onUpdateTag={this.props.onCreateOrUpdateTag}
               onUpdateTagGroup={this.props.onCreateOrUpdateTagGroup}
               selectedTag={this.props.selectedTag}

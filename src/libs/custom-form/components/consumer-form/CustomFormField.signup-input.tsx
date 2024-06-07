@@ -571,7 +571,7 @@ export const CustomFormConsumerInput = (props: Props) => {
               name={`custom_form_field.${props.index}.answer`}
               required={props.field.mandatory}
               termsAndConditions={waiver}
-// @ts-expect-error
+              // @ts-expect-error
               type={TermsAndConditionType.WAIVER}
             />
           );
@@ -595,7 +595,7 @@ export const CustomFormConsumerInput = (props: Props) => {
               }
               required={props.field.mandatory}
               termsAndConditions={waiver}
-// @ts-expect-error
+              // @ts-expect-error
               type={TermsAndConditionType.WAIVER}
             />
             <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
@@ -623,7 +623,7 @@ export const CustomFormConsumerInput = (props: Props) => {
               label={label}
               name={`custom_form_field.${props.index}.answer`}
               termsAndConditions={general_terms_and_conditions}
-// @ts-expect-error
+              // @ts-expect-error
               type={TermsAndConditionType.GENERAL_TERMS_OF_USE}
             />
           );
@@ -652,7 +652,7 @@ export const CustomFormConsumerInput = (props: Props) => {
                 )
               }
               termsAndConditions={general_terms_and_conditions}
-// @ts-expect-error
+              // @ts-expect-error
               type={TermsAndConditionType.GENERAL_TERMS_OF_USE}
             />
             <ErrorMessage name={`custom_form_field.${props.index}.answer`}>

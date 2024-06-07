@@ -458,7 +458,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
         <StripeTerminalProcessing
           cancelErrorMessage={cancelErrorMessage}
           cancelReaderActionProcessing={cancelReaderActionProcessing}
-// @ts-expect-error
+          // @ts-expect-error
           isSetupIntent={isSetupIntent}
           onCancelReaderAction={cancelReaderActionHandler}
           onClickIAmHere={onClickIAmHere}

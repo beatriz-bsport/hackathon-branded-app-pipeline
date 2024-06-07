@@ -25,7 +25,6 @@ import { isLessonCompleted } from '../utils';
 
 import LessonStatusChips from './TutorialLessonStatusChip.component';
 
-
 export type Props = {
   lessons: Array<TutorialLesson>;
   goToLesson: (sectionId: number | string, lessonId: number | string) => void;

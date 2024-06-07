@@ -62,32 +62,32 @@ import {
   updateCredit as updateCreditAction,
   resetByPaymentPack as resetByPaymentPackAction,
   fetchByPaymentPack as fetchByPaymentPackAction,
-} from '../../libs/consumer-payment-pack/actions';
+} from '#src/libs/consumer-payment-pack/actions';
 import type {
   PaymentPack,
   PaymentPackCategory,
   PaymentPackCategoryWithPacks,
   PaymentPackFormValues,
-} from '../../libs/payment-packs/types';
-import withTitle from '../../hocs/with-title.hoc';
-import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
+} from '#src/libs/payment-packs/types';
+import withTitle from '#src/hocs/with-title.hoc';
+import { fetchMarketingNotificationList } from '#src/libs/marketing/actions';
 import {
   getPaymentPackNotifications,
   withPaymentPackNotification,
-} from '../../libs/marketing/selectors';
-import PaymentPackCategoryCreationDialog from '../../libs/payment-packs/components/category/PaymentPackCategoryCreationDialog.component';
-import PaymentPackCategoryList from '../../libs/payment-packs/components/category/PaymentPackCategoryList.component';
+} from '#src/libs/marketing/selectors';
+import PaymentPackCategoryCreationDialog from '#src/libs/payment-packs/components/category/PaymentPackCategoryCreationDialog.component';
+import PaymentPackCategoryList from '#src/libs/payment-packs/components/category/PaymentPackCategoryList.component';
 import {
   setPaymentPackCategoryFilter,
   setPaymentPackManagerOnlyFilter,
   setPaymentPackSort,
-} from '../../libs/user-preference/actions';
+} from '#src/libs/user-preference/actions';
 import PaymentPackFilterAndSortHeader, {
   ManagerOnly,
   SortOption,
-} from '../../libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
-import PaymentPackFormDrawer from '../../libs/payment-packs/components/PaymentPackForm';
-import { fetchEstablishments } from '../../libs/establishment/actions';
+} from '#src/libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
+import PaymentPackFormDrawer from '#src/libs/payment-packs/components/PaymentPackForm';
+import { fetchEstablishments } from '#src/libs/establishment/actions';
 import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 import { getAvailableEstablishmentList } from '#src/libs/establishment/selectors';
 import {

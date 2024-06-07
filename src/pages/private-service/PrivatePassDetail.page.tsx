@@ -18,6 +18,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 import themeSelectors from '#src/libs/theme/selectors';
 import { snackbarSuccess } from '#src/libs/snackbar/actions';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import withTitle from '#src/hocs/with-title.hoc';
 import {
@@ -59,6 +60,7 @@ import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import PaginatedConsumerPrivatePass from '#src/libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
 import PrivatePassForm, {
   FormikValues,
+  PrivatePassFormStep,
 } from '#src/libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
 import PrivateConsumerPassFilters from '#src/libs/private-service/components/pass/PrivateConsumerPassFilters.component';
 import PrivatePassMassExtensionList from '#src/libs/private-service/components/consumer-pass/PrivatePassMassExtensionList.component';
@@ -240,6 +242,16 @@ export class PrivatePassDetails extends Component<Props> {
 
   openEditForm = () => this.props.setOpenEditForm(true);
 
+  openEditFormAtNotificationStep = () => {
+    this.props.setOpenEditForm(true);
+    this.props.setEditAtStep(PrivatePassFormStep.Notification);
+  };
+
+  onCloseForm = () => {
+    this.props.setOpenEditForm(false);
+    this.props.setEditAtStep(PrivatePassFormStep.DetailsAndRestrictions);
+  };
+
   getDeletePrivatePassHandler = (privatePass: PrivatePass) => () => {
     this.props.isPrivatePassUsedInCombo(privatePass.id);
     this.props.setOpenDeletePassDialog(privatePass.id);
@@ -250,7 +262,7 @@ export class PrivatePassDetails extends Component<Props> {
     this.props.createOrUpdatePrivatePass(rest, this.props.id, {
       onSuccess: () => {
         options?.onSuccess();
-        this.props.setOpenEditForm(false);
+        this.onCloseForm();
       },
       onError: () => options?.onError(),
     });
@@ -368,6 +380,22 @@ export class PrivatePassDetails extends Component<Props> {
                 smartListsLoading={this.props.smartListLoading}
                 theme={this.props.theme}
               />
+
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="member.allowed_actions.manageNotification"
+              >
+                <div className={classes.addButtonContainer}>
+                  <Button
+                    color="primary"
+                    id="button_pass_notification"
+                    onClick={this.openEditFormAtNotificationStep}
+                    variant="outlined"
+                  >
+                    {t('privateService:notification.addButton')}
+                  </Button>
+                </div>
+              </ObjectLevelPermissionWrapper>
             </Grid>
             <BottomActionsButton
               onDelete={
@@ -466,7 +494,7 @@ export class PrivatePassDetails extends Component<Props> {
             </Grid>
 
             <GenericResponsiveDrawer
-              onClose={() => this.props.setOpenEditForm(false)}
+              onClose={this.onCloseForm}
               open={this.props.openEditForm}
               subtitle={this.props.privatePass?.name}
               title={this.props.t('privatePass.form.title')}
@@ -490,7 +518,7 @@ export class PrivatePassDetails extends Component<Props> {
                   this.props.compatibleServicePass,
                 )}
                 notifications={this.props.notifications.items}
-                onCancel={() => this.props.setOpenEditForm(false)}
+                onCancel={this.onCloseForm}
                 onSubmit={(data: any) => this.onSubmit(data)}
                 privatePassCategories={this.props.privatePassCategories}
                 // @ts-expect-error
@@ -499,6 +527,7 @@ export class PrivatePassDetails extends Component<Props> {
                 resolvedGenericTags={this.props.resolvedGenericTags}
                 smartListLoading={this.props.smartListLoading}
                 smartListsById={this.props.smartListsById}
+                startAtStep={this.props.editAtStep}
                 // @ts-expect-error
                 tagList={this.props.allTagsWithTagGroup}
                 theme={this.props.theme}
@@ -595,6 +624,13 @@ const styles = (theme: Theme) => ({
   },
   warningIcon: {
     marginRight: theme.spacing(2),
+  },
+  addButtonContainer: {
+    width: '100%',
+    paddingTop: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -781,6 +817,7 @@ type StateHandlerInit = {
   openEditForm: boolean;
   openMassExtensionDialog: boolean;
   loadingMassExtension: boolean;
+  editAtStep: PrivatePassFormStep;
 };
 
 const withStateHandlersInit: StateHandlerInit = {
@@ -790,6 +827,7 @@ const withStateHandlersInit: StateHandlerInit = {
   openEditForm: false,
   openMassExtensionDialog: false,
   loadingMassExtension: false,
+  editAtStep: PrivatePassFormStep.DetailsAndRestrictions,
 };
 
 const withStateHandlersSetter = {
@@ -810,6 +848,9 @@ const withStateHandlersSetter = {
   },
   setLoadingMassExtension: () => (loadingMassExtension: boolean) => {
     return { loadingMassExtension };
+  },
+  setEditAtStep: () => (editAtStep: PrivatePassFormStep) => {
+    return { editAtStep };
   },
 };
 

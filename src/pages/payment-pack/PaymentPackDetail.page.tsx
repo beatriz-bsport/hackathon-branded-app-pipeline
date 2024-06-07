@@ -162,6 +162,8 @@ import { OptionCallback } from '../../state/types';
 import { ConsumerPaymentPackREST } from '#src/libs/consumer-payment-pack/types';
 import { getSmartListDict } from '#src/libs/smart-list/selectors';
 import type { MarketingNotification } from '#src/libs/marketing/types';
+import { PaymentPackFormStep } from '#src/libs/payment-packs/components/PaymentPackForm/PaymentPackForm.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type OwnProps = {
   id: number;
@@ -185,6 +187,7 @@ type Props = WithStateProps &
 type State = {
   paymentPackToDeleteId?: number | null;
   paymentPackToEdit?: PaymentPack;
+  startEditAtStep: PaymentPackFormStep;
 };
 
 const PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE = 5;
@@ -196,6 +199,7 @@ export class PaymentPackDetail extends Component<Props, State> {
   state: State = {
     paymentPackToDeleteId: null,
     paymentPackToEdit: null,
+    startEditAtStep: PaymentPackFormStep.DetailsAndRestrictions,
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -259,6 +263,18 @@ export class PaymentPackDetail extends Component<Props, State> {
     this.setState({ paymentPackToEdit: pp }, () => {
       this.props.setOpenPaymentPackFormDialog(true);
     });
+  };
+
+  requestAddNotification = (paymentPack: PaymentPack) => {
+    this.setState(
+      {
+        paymentPackToEdit: paymentPack,
+        startEditAtStep: PaymentPackFormStep.Notification,
+      },
+      () => {
+        this.props.setOpenPaymentPackFormDialog(true);
+      },
+    );
   };
 
   requestDelete = (paymentPack: PaymentPack) => {
@@ -325,8 +341,12 @@ export class PaymentPackDetail extends Component<Props, State> {
     });
   };
 
-  closePaymentPackFormDrawer = () =>
+  closePaymentPackFormDrawer = () => {
     this.props.setOpenPaymentPackFormDialog(false);
+    this.setState({
+      startEditAtStep: PaymentPackFormStep.DetailsAndRestrictions,
+    });
+  };
 
   closeNoShowPenaltyDialog = () => {
     this.props.setOpenNoShowPenaltyDialog(false);
@@ -415,6 +435,7 @@ export class PaymentPackDetail extends Component<Props, State> {
   render() {
     const {
       pack,
+      t,
       loading,
       classes,
       notifications,
@@ -537,6 +558,24 @@ export class PaymentPackDetail extends Component<Props, State> {
                 smartListsLoading={this.props.smartListLoading}
                 theme={this.props.theme}
               />
+              {notifications?.length > 0 && (
+                <ObjectLevelPermissionWrapper
+                  forcedBehavior="hidden"
+                  requiredPermission="member.allowed_actions.manageNotification"
+                >
+                  <div className={classes.addButtonContainer}>
+                    <Button
+                      color="primary"
+                      id="button_pass_notification"
+                      // @ts-expect-error
+                      onClick={() => this.requestAddNotification(pack)}
+                      variant="outlined"
+                    >
+                      {t('paymentPack:notification.addButton')}
+                    </Button>
+                  </div>
+                </ObjectLevelPermissionWrapper>
+              )}
             </Grid>
             <Grid item md={6} xs={12}>
               <Paper>
@@ -717,6 +756,7 @@ export class PaymentPackDetail extends Component<Props, State> {
               resolvedGenericTags={this.props.resolvedGenericTags}
               smartListLoading={this.props.smartListLoading}
               smartListsById={this.props.smartListsById}
+              startAtStep={this.state.startEditAtStep}
               // @ts-expect-error
               tagList={allTagsWithTagGroup ? [...allTagsWithTagGroup] : []}
               theme={this.props.theme}
@@ -729,6 +769,13 @@ export class PaymentPackDetail extends Component<Props, State> {
 }
 
 const styles = (theme: Theme) => ({
+  addButtonContainer: {
+    width: '100%',
+    paddingTop: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   extensionTitle: {
     marginBottom: theme.spacing(1),
   },

@@ -96,6 +96,8 @@ type Props = {
   bookkeepingAccounts: BookkeepingAccount[];
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
 
+  startAtStep?: PrivatePassFormStep;
+
   // Props for the PaymentPackFormNotificationStep component
   enableNotificationStep?: boolean;
   notifications?: MarketingNotification[];
@@ -109,7 +111,7 @@ type Props = {
   theme?: CompanyTheme;
 } & FormikProps<FormikValues>;
 
-enum PrivatePassFormStep {
+export enum PrivatePassFormStep {
   DetailsAndRestrictions,
   Notification,
 }
@@ -131,7 +133,7 @@ export const PrivatePassForm = (props: Props) => {
   const classes = useStyles();
   const { onSubmit, initial } = props;
   const [currentStep, setCurrentStep] = React.useState<PrivatePassFormStep>(
-    PrivatePassFormStep.DetailsAndRestrictions,
+    props.startAtStep ?? PrivatePassFormStep.DetailsAndRestrictions,
   );
 
   const notificationStepAvailable = props.notifications?.length > 0;

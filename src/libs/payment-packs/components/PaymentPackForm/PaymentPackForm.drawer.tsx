@@ -14,12 +14,14 @@ import type {
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import type { BookkeepingAccount } from '#src/libs/payment/types';
 import type { OptionCallback } from '../../../../state/types';
+import PaymentPackForm, {
+  PaymentPackFormStep,
+} from './PaymentPackForm.component';
 import type {
   PaymentPack,
   PaymentPackCategory,
   PaymentPackFormValues,
 } from '../../types';
-import PaymentPackForm from './PaymentPackForm.component';
 import { MarketingNotification } from '#src/libs/marketing/types';
 import type {
   EmailTemplateDetail,
@@ -30,6 +32,8 @@ import type { SmartList } from '#src/libs/smart-list/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
 
 type OwnProps = {
+  startAtStep?: PaymentPackFormStep;
+
   open: boolean;
   paymentPackCategories: Array<PaymentPackCategory>;
   categoryList: Array<SCT>;
@@ -68,6 +72,7 @@ type Props = OwnProps & WithTranslation;
 export const PaymentPackFormDrawer = (props: Props) => {
   const {
     t,
+    startAtStep,
     open,
     paymentPackCategories,
     categoryList,
@@ -138,6 +143,7 @@ export const PaymentPackFormDrawer = (props: Props) => {
         resolvedGenericTags={resolvedGenericTags}
         smartListLoading={smartListLoading}
         smartListsById={smartListsById}
+        startAtStep={startAtStep}
         tagList={tagList}
         theme={theme}
       />

@@ -197,6 +197,8 @@ const getFormInitial = (
 };
 
 type Props = {
+  startAtStep?: PaymentPackFormStep;
+
   paymentPackCategories: PaymentPackCategory[];
   categoryList: SCT[];
   availableEstablishmentList: Establishment[];
@@ -242,12 +244,14 @@ const {
   SegmentAnalyticsFormObjectIdentifier.PaymentPack,
 );
 
-enum PaymentPackFormStep {
+export enum PaymentPackFormStep {
   DetailsAndRestrictions,
   Notification,
 }
 
 export const PaymentPackForm: React.FC<Props> = ({
+  startAtStep,
+
   paymentPackCategories,
   categoryList,
   availableEstablishmentList,
@@ -283,7 +287,7 @@ export const PaymentPackForm: React.FC<Props> = ({
   const [disabledUniversalPassFields, setDisableUniversalPassFields] =
     React.useState<boolean>(false);
   const [currentStep, setCurrentStep] = React.useState<PaymentPackFormStep>(
-    PaymentPackFormStep.DetailsAndRestrictions,
+    startAtStep ?? PaymentPackFormStep.DetailsAndRestrictions,
   );
   const { t } = useTranslation('paymentPack');
 

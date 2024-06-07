@@ -43,7 +43,7 @@ export const parseConsumerPaymentPackData = (
     ) || null;
 
   const sharedBy =
-    consumerPaymentPack?.dst_consumer_payment_pack?.src_member_name || null;
+    consumerPaymentPack?.dst_consumer_payment_pack?.dst_member_name || null;
 
   const timeSlots = consumerPaymentPack?.payment_pack?.off_peak_schedule
     ? Object.keys(consumerPaymentPack.payment_pack.off_peak_schedule)?.reduce(

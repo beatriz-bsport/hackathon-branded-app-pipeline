@@ -146,12 +146,12 @@ export const MarketplaceCalendar = (props: Props) => {
                   : 'privateService:slotSearcher.previousOffer',
                 {
                   date: (nextAvailableOffer?.date_start
-                    ? DateTime.now()
-                    : DateTime.fromISO(nextAvailableOffer.date_start)
+                    ? DateTime.fromISO(nextAvailableOffer.date_start)
+                    : DateTime.now()
                   ).toLocaleString(DateTime.DATE_SHORT),
                   hour: (nextAvailableOffer?.date_start
-                    ? DateTime.now()
-                    : DateTime.fromISO(nextAvailableOffer.date_start)
+                    ? DateTime.fromISO(nextAvailableOffer.date_start)
+                    : DateTime.now()
                   ).toLocaleString(DateTime.TIME_SIMPLE),
                 },
               )}

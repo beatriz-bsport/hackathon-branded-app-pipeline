@@ -37,6 +37,7 @@ const ConsumerPaymentPackDetailsDrawer: React.FC<Props> = ({
     isSuspended,
     isUnlimited,
     name,
+    restriction,
     sharedBy,
     sharedWith,
     startDate,
@@ -79,6 +80,7 @@ const ConsumerPaymentPackDetailsDrawer: React.FC<Props> = ({
         isSuspended={isSuspended}
         isUnlimited={isUnlimited}
         name={name}
+        restriction={restriction}
         sharedBy={sharedBy}
         sharedWith={sharedWith}
         showPlaceholder={!selectedPass}

@@ -88,7 +88,6 @@ const TableRowItem: React.FC<TableRowItemProps> = React.memo(
       <TableRow key={item.id}>
         <TableCell>
           <CardMedia
-            alt={t('shop:shopItemDetail:coverAlt', { product: item.name })}
             className={classes.variantImage}
             component="img"
             image={item.cover}

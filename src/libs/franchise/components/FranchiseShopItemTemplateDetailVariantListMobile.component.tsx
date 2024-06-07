@@ -35,7 +35,6 @@ const FranchiseShopItemTemplateDetailVariantListMobile: React.FC<Props> = ({
       {(variantList || []).map((variant) => (
         <ListItem key={variant.id} className={classes.listItemContainer}>
           <CardMedia
-            alt={t('shopItemDetail:coverAlt', { product: variant.name })}
             className={classes.variantImage}
             component="img"
             image={variant.cover}

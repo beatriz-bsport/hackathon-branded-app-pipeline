@@ -34,6 +34,7 @@ import {
   getShopItemTemplateVariantUpdateLoading,
   getShopSupplierTemplateState,
 } from '#src/libs/shop/selectors';
+import { getFranchiseCompanies } from '#src/libs/franchise/selectors';
 
 import FranchiseShopItemTemplateDetail from '#src/libs/franchise/components/FranchiseShopItemTemplateDetail.component';
 
@@ -56,6 +57,7 @@ import type {
 } from '#src/libs/shop/types';
 
 import type { SelectOption } from '#src/libs/types';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
 
 import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
 
@@ -307,6 +309,15 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     return { colors, sizes, company };
   };
 
+  getFranchiseCompanyListOptions: () => SelectOption[] = () =>
+    // @ts-expect-error bad typing on legacy selector
+    (this.props.franchisorCompanyList.asMutable() ?? []).map(
+      (company: FranchiseCompany) => ({
+        label: company.name,
+        value: company.id,
+      }),
+    );
+
   render() {
     return (
       <FranchiseShopItemTemplateDetail
@@ -318,6 +329,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         }
         deleteShopItemTemplate={this.handleDeleteShopItemTemplate}
         deleteShopItemTemplateVariant={this.handleDeleteShopItemTemplateVariant}
+        franchiseCompanyListOptions={this.getFranchiseCompanyListOptions()}
         isDeleting={this.props.isDeleteLoading}
         isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
@@ -366,6 +378,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
 const connector = connect(
   (state: RootState, { id }: { id: number }) => ({
     theme: getTheme(state),
+    franchisorCompanyList: getFranchiseCompanies(state),
     isLoading: getShopItemTemplateDetailLoading(state),
     isDeleteLoading: getShopItemTemplateDeleteLoading(state),
     shopItemTemplate: getShopItemTemplateDetail(state, id),

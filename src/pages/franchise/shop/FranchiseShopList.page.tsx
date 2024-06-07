@@ -49,7 +49,6 @@ import {
 } from '#src/libs/shop/selectors';
 import {
   getFranchiseCompanies,
-  getFranchiseCompanyById,
   getFranchiseId,
   getFranchiseIsLoading,
   getFranchisor,
@@ -302,7 +301,6 @@ export class FranchiseShopListPage extends PureComponent<Props> {
 const connector = connect(
   (state: RootState) => ({
     franchisorCompanyList: getFranchiseCompanies(state),
-    franchisorCompanyListById: getFranchiseCompanyById(state),
     franchisorId: getFranchiseId(state),
     isFranchiseLoading: getFranchiseIsLoading(state),
     franchisor: getFranchisor(state),

@@ -68,6 +68,7 @@ type Props = {
   };
   shopItemTemplateSupplierName?: string;
   variantCombinationList: ShopItemVariantCombination[];
+  franchiseCompanyListOptions: SelectOption[];
   updateShopItemTemplate: (
     formData: ShopItemEdit,
     options?: OptionCallback,
@@ -117,6 +118,7 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
   shopItemVariantFilterOptionValues,
   shopItemTemplateSupplierName,
   variantCombinationList,
+  franchiseCompanyListOptions,
   updateShopItemTemplate,
   deleteShopItemTemplate,
   deleteShopItemTemplateVariant,
@@ -353,6 +355,7 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
       >
         <ShopItemFormReworked
           isEditForm
+          franchiseCompanyListOptions={franchiseCompanyListOptions}
           initial={shopItemTemplate}
           isLoading={isLoading}
           onCancel={handleCloseEditShopItemDrawer}

@@ -34,5 +34,5 @@ export type ShopItemFormValues = {
    * In BO context this field is always an empty array an unused in the final payload
    * @see https://bsporttest.atlassian.net/browse/BS-3909
    */
-  franchiseCompanyList: SelectOption[];
+  franchiseCompanyList: SelectOption<number>[];
 };

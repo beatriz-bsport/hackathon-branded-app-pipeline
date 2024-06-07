@@ -103,7 +103,11 @@ const ShopItemFormReworked: React.FC<Props> = ({
         (initial as ShopItem)?.subshop ??
         null,
       bookkeepingAccount: initial?.bookkeeping_account ?? null,
-      franchiseCompanyList: [],
+      franchiseCompanyList:
+        (initial as ShopItemTemplate)?.synced_companies?.map((company) => ({
+          label: company.name,
+          value: company.id,
+        })) ?? [],
     }),
     [initial],
   );
@@ -141,7 +145,9 @@ const ShopItemFormReworked: React.FC<Props> = ({
         // only on MA (spread the shop item to x studios only)
         const companyIdListPayload = getFormDataFieldsFromArray(
           'company_ids',
-          (values.franchiseCompanyList ?? []).map((option) => option.value),
+          (values.franchiseCompanyList ?? []).map((option) =>
+            option.value.toString(),
+          ),
         );
 
         const payload = {

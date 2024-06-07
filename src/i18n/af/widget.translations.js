@@ -441,6 +441,7 @@ exports.default = {
       authentication_change_password_form: 'Change password form',
       authentication_login_form: 'Login form',
       authentication_login: 'Login component',
+      authentication_disconnected_status: 'Disconnected status',
       authentication_textfield: 'Authentication textfield',
       fabrique_typography: 'Typography',
       fabrique_title: 'Title',

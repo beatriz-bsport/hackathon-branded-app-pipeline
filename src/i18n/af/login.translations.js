@@ -25,6 +25,10 @@ exports.default = {
     },
     signin: 'Log in',
   },
+  disconnectedStatus: {
+    title: 'Seems like you are not logged in',
+    subtitle: 'You need to be logged in to access your profile.',
+  },
   or: ' or ',
   contactUs:
     'Studio manager, are you interested in our solution?\nPlease contact us.',

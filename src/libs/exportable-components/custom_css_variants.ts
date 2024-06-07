@@ -464,6 +464,10 @@ import {
   FABRIQUE_TOOLTIP_PREVIEW,
   FABRIQUE_TOOLTIP_CONFIGURATION,
 } from '#src/components/css-only/Fabrique/Tooltipv2/custom_css_variant';
+import {
+  AUTHENTICATION_DISCONNECTED_STATUS_CONFIGURATION,
+  AUTHENTICATION_DISCONNECTED_STATUS_PREVIEW,
+} from '#src/libs/login/components/DisconnectedStatus';
 import { CssComponentsVariantIdentifiers } from './constants';
 import Config from '../../config';
 /* TEMPLATE
@@ -547,6 +551,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_OFFER_BOOKING_LIST_CONFIGURATION,
   MARKETING_NEWSLETTER_FORM_V2_CONFIGURATION,
   RESET_PASSWORD_CONFIRMATION_CONFIGURATION,
+  AUTHENTICATION_DISCONNECTED_STATUS_CONFIGURATION,
   REFERRAL_DETAILS_CONFIGURATION,
   ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
     ? [
@@ -737,6 +742,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MARKETING_NEWSLETTER_FORM_V2_PREVIEW,
     [CssComponentsVariantIdentifiers.RESET_PASSWORD_CONFIRMATION]:
       RESET_PASSWORD_CONFIRMATION_PREVIEW,
+    [CssComponentsVariantIdentifiers.AUTHENTICATION_DISCONNECTED_STATUS]:
+      AUTHENTICATION_DISCONNECTED_STATUS_PREVIEW,
     [CssComponentsVariantIdentifiers.REFERRAL_DETAILS]:
       REFERRAL_DETAILS_PREVIEW,
 

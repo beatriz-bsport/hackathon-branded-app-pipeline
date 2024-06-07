@@ -33,6 +33,7 @@ export enum CssComponentsVariantIdentifiers {
   AUTHENTICATION_CHANGE_PASSWORD_FORM = 'authentication_change_password_form',
   AUTHENTICATION_LOGIN_FORM = 'authentication_login_form',
   AUTHENTICATION_LOGIN = 'authentication_login',
+  AUTHENTICATION_DISCONNECTED_STATUS = 'authentication_disconnected_status',
   AUTHENTICATION_TEXTFIELD = 'authentication_textfield',
   MARKETPLACE_ACTIVITY = 'marketplace_activity_summary',
   MARKETPLACE_ACTIVITY_DIALOG = 'marketplace_activity_summary_dialog',

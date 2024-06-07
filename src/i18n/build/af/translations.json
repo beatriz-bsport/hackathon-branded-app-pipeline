@@ -3612,6 +3612,7 @@
       "signup": { "register": "Sign up", "noAccount": "Create a new account", "goBack": "Go back" },
       "signin": "Log in"
     },
+    "disconnectedStatus": { "title": "Seems like you are not logged in", "subtitle": "You need to be logged in to access your profile." },
     "or": " or ",
     "contactUs": "Studio manager, are you interested in our solution?\nPlease contact us.",
     "signup": { "title": "Signup", "titleAsResgisterBooking": "Register your booking" },
@@ -15562,6 +15563,7 @@
         "authentication_change_password_form": "Change password form",
         "authentication_login_form": "Login form",
         "authentication_login": "Login component",
+        "authentication_disconnected_status": "Disconnected status",
         "authentication_textfield": "Authentication textfield",
         "fabrique_typography": "Typography",
         "fabrique_title": "Title",

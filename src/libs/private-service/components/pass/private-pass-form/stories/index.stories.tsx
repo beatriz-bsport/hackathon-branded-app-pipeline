@@ -129,6 +129,7 @@ UniversalCompatibilityInteractionsRenderingTests.play =
 export const GeneralSectionInteractionsTests = newStoryFromTemplate(
   PrivatePassFormTemplate,
 );
+// @ts-expect-error
 GeneralSectionInteractionsTests.play = generalSectionInteractionsTests;
 
 export const PaymentSectionInteractionsTests = newStoryFromTemplate(
@@ -144,18 +145,21 @@ ValiditySectionInteractionsTests.play = validitySectionInteractionsTests;
 export const CompatibilitySectionInteractionsTests = newStoryFromTemplate(
   PrivatePassFormTemplate,
 );
+// @ts-expect-error
 CompatibilitySectionInteractionsTests.play =
   compatibilitySectionInteractionsTests;
 
 export const UniversalCompatibilityInteractionsTests = newStoryFromTemplate(
   PrivatePassFormTemplate,
 );
+// @ts-expect-error
 UniversalCompatibilityInteractionsTests.play =
   universalCompatibilityInteractionsTests;
 
 // Validation tests
 // The purpose is to test if the validation rules are respected
 export const ValidationTests = newStoryFromTemplate(PrivatePassFormTemplate);
+// @ts-expect-error
 ValidationTests.play = validationTests;
 
 // Error tests
@@ -163,9 +167,11 @@ ValidationTests.play = validationTests;
 export const GeneralSectionErrorTests = newStoryFromTemplate(
   PrivatePassFormTemplate,
 );
+// @ts-expect-error
 GeneralSectionErrorTests.play = generalSectionErrorTests;
 
 export const ValiditySectionErrorTests = newStoryFromTemplate(
   PrivatePassFormTemplate,
 );
+// @ts-expect-error
 ValiditySectionErrorTests.play = validitySectionErrorTests;

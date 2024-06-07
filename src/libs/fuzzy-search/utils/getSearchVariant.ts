@@ -1,6 +1,6 @@
 import { SelectComponents } from 'react-select/lib/components';
-import type { SelectOptions, VariantType } from '#libs/fuzzy-search/types';
-import { UnderlinedSearchBarControl } from '#libs/fuzzy-search/components/variants';
+import type { SelectOptions, VariantType } from '#src/libs/fuzzy-search/types';
+import { UnderlinedSearchBarControl } from '#src/libs/fuzzy-search/components/variants';
 
 export const getSearchVariant = (
   variant: VariantType,

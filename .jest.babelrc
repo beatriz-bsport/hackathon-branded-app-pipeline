@@ -13,7 +13,6 @@
         "alias": {
           "#src": "./src",
           "#marketplacecomponents": "./src/libs/marketplace/components",
-          "#components": "./src/components",
           "#Fabrique": "./src/components/css-only/Fabrique",
         }
       }

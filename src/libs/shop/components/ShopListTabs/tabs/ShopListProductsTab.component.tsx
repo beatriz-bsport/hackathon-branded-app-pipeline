@@ -27,7 +27,7 @@ import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 // @ts-expect-error
 import ShopItemListItem from '#src/libs/shop/components/ShopItemListItem.component';
 // @ts-expect-error
-import SubShopList from '#pages/shop/SubShopList.component';
+import SubShopList from '#src/pages/shop/SubShopList.component';
 
 import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 

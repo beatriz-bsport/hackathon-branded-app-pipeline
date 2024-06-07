@@ -7,7 +7,6 @@ import Typography from '#Fabrique/Typography';
 import type { Props as ButtonProps } from '#Fabrique/ButtonV2';
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import type { InfoButtonSeverityType } from '#src/components/css-only/InfoButton/types';
-import '#csscomponents/InfoButton/styles.css';
 import '#src/components/css-only/InfoButton/styles.css';
 
 type Props = {

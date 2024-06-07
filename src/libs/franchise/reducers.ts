@@ -21,8 +21,8 @@ import type {
   CompanyGroup,
   Franchise,
   FranchiseUserPass,
-} from '#libs/franchise/types';
-import type { PaginatedResponse } from '#state/types';
+} from '#src/libs/franchise/types';
+import type { PaginatedResponse } from '#src/state/types';
 
 const initialState: Immutable.Immutable<FranchiseState> =
   Immutable<FranchiseState>({

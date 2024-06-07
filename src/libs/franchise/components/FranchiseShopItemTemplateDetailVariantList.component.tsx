@@ -21,13 +21,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import { CustomChip } from '#components/chip/CustomChip.component';
-import ShopItemVariantBulkUpdateForm from '#libs/shop/components/ShopItemVariantBulkUpdateForm';
+import { CustomChip } from '#src/components/chip/CustomChip.component';
+import ShopItemVariantBulkUpdateForm from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm';
 
-import type { ShopItemTemplate } from '#libs/shop/types';
-import type { ShopItemVariantBulkUpdateFormValues } from '#libs/shop/components/ShopItemVariantBulkUpdateForm/types';
+import type { ShopItemTemplate } from '#src/libs/shop/types';
+import type { ShopItemVariantBulkUpdateFormValues } from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/types';
 
 type Props = {
   handleDisableEditMode: () => void;

@@ -10,14 +10,14 @@ import CheckSharpIcon from '@material-ui/icons/CheckSharp';
 import { useTranslation } from 'react-i18next';
 
 import omit from 'lodash/omit';
-import FilterMenu from '#components/button/FilterMenu.component';
+import FilterMenu from '#src/components/button/FilterMenu.component';
 import type {
   CompanyGroup,
   FranchisePassFilters,
   FranchisePassFiltersOpener,
   CompanyOptionTypeBase,
-} from '#libs/franchise/types';
-import type { Company } from '#libs/company/types';
+} from '#src/libs/franchise/types';
+import type { Company } from '#src/libs/company/types';
 
 type Props = {
   emptyLabel: string;

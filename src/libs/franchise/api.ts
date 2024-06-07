@@ -19,7 +19,7 @@ import type {
   FranchiseUserPass,
   PassesPaginatedQueryParams,
 } from './types';
-import { PaginatedResponse } from '#state/types';
+import { PaginatedResponse } from '#src/state/types';
 
 export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
   return getAuth(`${API_V1_URI}/franchisor/franchisor/me/`);

@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 
 import { Edit03 } from '#src/components/untitledui';
 
-import ConsumerHeaderSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerHeaderSkeleton';
-import ConsumerGenericHeader from '#libs/consumer-space/components/reworked/common/ConsumerGenericHeader';
-import { ConsumerProfileContext } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
+import ConsumerHeaderSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerHeaderSkeleton';
+import ConsumerGenericHeader from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader';
+import { ConsumerProfileContext } from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 
 import type { ConsumerHeaderProps } from '../types';
-import type { HeaderButton } from '#libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
+import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
 import './styles.css';
 

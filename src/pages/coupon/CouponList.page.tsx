@@ -8,7 +8,7 @@ import { compose, withState, withProps, withHandlers } from 'recompose';
 import { Theme } from '@material-ui/core/styles';
 
 import { CouponKind } from '@bsport/common/lib/master-data/coupon';
-import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
@@ -85,11 +85,11 @@ import type {
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
 } from '../../state/types';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import withTitle from '../../hocs/with-title.hoc';
 

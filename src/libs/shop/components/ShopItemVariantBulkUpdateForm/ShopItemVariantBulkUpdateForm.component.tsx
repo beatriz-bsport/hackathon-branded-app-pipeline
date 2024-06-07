@@ -27,7 +27,7 @@ import { useShopDetailTabsModalPrompt } from '#src/hocs/shop-modal-prompt.hoc';
 
 import type { ShopItemVariantBulkUpdateFormValues } from './types';
 
-import { SHOP_VARIANT_BULK_UPDATE_FORM_COVER_CHIP_MAX_WIDTH } from '#libs/shop/constants';
+import { SHOP_VARIANT_BULK_UPDATE_FORM_COVER_CHIP_MAX_WIDTH } from '#src/libs/shop/constants';
 
 type OwnFieldArrayRenderProps = {
   form: FormikProps<ShopItemVariantBulkUpdateFormValues>;

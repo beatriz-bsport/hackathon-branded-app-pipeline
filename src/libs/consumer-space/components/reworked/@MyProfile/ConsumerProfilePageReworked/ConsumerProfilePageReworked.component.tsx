@@ -2,28 +2,28 @@ import React, { useCallback, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { AxiosResponse } from 'axios';
 
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
 
-import MarketplacePageContent from '#csscomponents/MarketplacePageContent';
-import ConsumerSummaryCard from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard';
-import TermsAndConditionsCard from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/TermsAndConditionsCard';
-import SavedPaymentMethodCard from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/SavedPaymentMethodCard';
-import ConsumerProfileHeader from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileHeader';
-import { ConsumerProfileContext } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
+import MarketplacePageContent from '#src/components/css-only/MarketplacePageContent';
+import ConsumerSummaryCard from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard';
+import TermsAndConditionsCard from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/TermsAndConditionsCard';
+import SavedPaymentMethodCard from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/SavedPaymentMethodCard';
+import ConsumerProfileHeader from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileHeader';
+import { ConsumerProfileContext } from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 import CustomFormPortal from '#Fabrique/Temporary/CustomFormPortal';
-import BarcodePortal from '#csscomponents/Portals/BarcodePortal';
-import DetachPaymentPortal from '#csscomponents/Portals/DetachPaymentPortal';
-import TermsAndConditions from '#csscomponents/Portals/TermsAndConditions';
-import PaymentModal from '#libs/payment/components/PaymentModal.component';
-import { AddPaymentMethod } from '#libs/payment/components/AddPaymentMethod.component';
+import BarcodePortal from '#src/components/css-only/Portals/BarcodePortal';
+import DetachPaymentPortal from '#src/components/css-only/Portals/DetachPaymentPortal';
+import TermsAndConditions from '#src/components/css-only/Portals/TermsAndConditions';
+import PaymentModal from '#src/libs/payment/components/PaymentModal.component';
+import { AddPaymentMethod } from '#src/libs/payment/components/AddPaymentMethod.component';
 
 import type {
   CustomForm,
   CustomFormFieldAnswer,
-} from '#libs/custom-form/types';
-import type { CompanyTheme } from '#libs/theme/types';
-import type { Member } from '#libs/member/types';
-import type { PaymentMethod } from '#libs/payment/types';
+} from '#src/libs/custom-form/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type { Member } from '#src/libs/member/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
 import type { OptionCallback } from '#src/state/types';
 
 import './styles.css';

@@ -36,7 +36,11 @@ export const BottomActionsButtonCustom: React.FC<Props> = (props: Props) => {
     <div className={classes.buttonContainer}>
       {props.buttonsProperties?.map(
         (button: ButtonProperties, index: number) => (
-          <PopOver hide={!button.popOverTitle} title={button.popOverTitle}>
+          <PopOver
+            key={`bottom_action_popover_${index}`}
+            hide={!button.popOverTitle}
+            title={button.popOverTitle}
+          >
             <Fab
               key={`bottom_action_${index}`}
               className={classes.actionButton}

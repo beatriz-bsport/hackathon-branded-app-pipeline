@@ -14,8 +14,8 @@ import {
   ConsumerNotificationsSection,
   ConsumerSpiviSection,
 } from './sections';
-import { ConsumerProfileContext } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
-import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton/ConsumerDetailsCardSkeleton.component';
+import { ConsumerProfileContext } from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
+import ConsumerDetailsCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton/ConsumerDetailsCardSkeleton.component';
 import './styles.css';
 
 const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({

@@ -7,7 +7,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import classNames from 'classnames';
 import CompanyFilterChip from './CompanyFilterChip.component';
 import type { CompanyGroup } from '../types';
-import type { Company } from '#libs/company/types';
+import type { Company } from '#src/libs/company/types';
 
 type Props = {
   companies?: Company[] | CompanyGroup[];

@@ -27,7 +27,7 @@ import { useHydrateSearch } from '#src/libs/fuzzy-search/hooks/useHydrateSearch'
 import type { SelectOption } from '#src/libs/types';
 import type { RootState } from '../../../reducers';
 import { DEFAULT_SELECTOR_ID } from '../constants';
-import { getSearchVariant } from '#libs/fuzzy-search/utils/getSearchVariant';
+import { getSearchVariant } from '#src/libs/fuzzy-search/utils/getSearchVariant';
 
 export type Props = OwnProps & ConnectedProps<typeof connector>;
 

@@ -15,7 +15,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import ModalConfirm from '../../components/ModalConfirm.component';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import {
   getAllSmartList,
   getSmartList,
@@ -52,7 +52,7 @@ import { getTheme } from '../../libs/theme/selectors';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 
 type SmartlistOption = {
   label: string,

@@ -25,8 +25,8 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import { OptionCallback } from '../../state/types';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
-import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import CustomFormListItem from '../../libs/custom-form/components/CustomFormListItem.component';
 import withTitle from '../../hocs/with-title.hoc';
@@ -55,7 +55,7 @@ import ModalConfirm from '#src/components/ModalConfirm.component';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 
 type CustomFormOption = {
   label: string;

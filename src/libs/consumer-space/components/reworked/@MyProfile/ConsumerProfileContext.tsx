@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useCallback, useState } from 'react';
 import useViewport from '#Fabrique/hooks/useViewport';
-import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#libs/consumer-space/constants';
+import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 import type { ConsumerProfileContextType } from './types';
 
 export const ConsumerProfileContext =

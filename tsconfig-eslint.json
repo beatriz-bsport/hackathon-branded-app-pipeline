@@ -35,9 +35,6 @@
       "#src/*": [
         "./src/*"
       ],
-      "#components/*": [
-        "./src/components/*"
-      ],
       "#Fabrique/*": [
         "./src/components/css-only/Fabrique/*"
       ],

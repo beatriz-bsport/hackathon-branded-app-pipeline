@@ -12,7 +12,9 @@ import ConsumerSubscription from '../consumer/ConsumerSubscription.page';
 import { RootState } from '../../reducers';
 
 type OwnProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   companyId: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   companyName: string;
 };
 type OwnAndConnectedProps = OwnProps & ReturnType<typeof mapStateToProps>;

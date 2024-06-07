@@ -344,7 +344,7 @@ export const ExampleForm = (props: Props) => {
 
 ## CREATE NEW ALIAS
 
-Aliases are a cool way to simplify the imports e.g `#libs/` instead of `../../libs/`
+Aliases are a cool way to simplify the imports e.g `#src/libs/` instead of `../../libs/`
 
 To create a new alias you need to add them at multiple places
 
@@ -377,12 +377,6 @@ To create a new alias you need to add them at multiple places
 
 ### config/webpack.config.dev.js and config/webpack.config.js
 
-```
-  "paths": {
-    ...
-    '#components': path.resolve(__dirname, ["PATH TO NEW ALIAS FROM THE WEBPACK FILE"/),
-  }
-```
 
 the alias need to respect some convention use a # as a prefix to make it clear it's not a path and can't have a / inside to avoid resolving problems
 

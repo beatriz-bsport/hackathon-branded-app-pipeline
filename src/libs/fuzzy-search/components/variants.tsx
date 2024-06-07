@@ -4,7 +4,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import type { ControlProps } from 'react-select/lib/components/Control';
 import type { InputBaseComponentProps } from '@material-ui/core';
-import type { SelectOptions } from '#libs/fuzzy-search/types';
+import type { SelectOptions } from '#src/libs/fuzzy-search/types';
 
 const UnderlinedSearchBarInputComponent: React.FC<{
   inputRef: React.LegacyRef<HTMLDivElement>;

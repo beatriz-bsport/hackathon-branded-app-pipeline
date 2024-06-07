@@ -89,7 +89,11 @@ class FabWithItems extends React.PureComponent<Props, State> {
               {this.props.items
                 .filter((item) => !!item)
                 .map((item) => (
-                  <Badge badgeContent={item.badgeValue} color="error">
+                  <Badge
+                    key={`${item.label}-badge`}
+                    badgeContent={item.badgeValue}
+                    color="error"
+                  >
                     <ButtonBase
                       key={item.label}
                       className={classes.fabItem}

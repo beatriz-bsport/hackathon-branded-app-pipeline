@@ -2,12 +2,12 @@ import React from 'react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 // @ts-expect-error
 import { getTheme, getFranchiseTheme } from '../theme';
-import { CompanyTheme } from '#libs/theme/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 import {
   Franchise,
   FranchiseDetails,
   FranchiseTheme,
-} from '#libs/franchise/types';
+} from '#src/libs/franchise/types';
 
 type Props = {
   theme: CompanyTheme;

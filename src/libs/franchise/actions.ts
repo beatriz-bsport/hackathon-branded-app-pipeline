@@ -1,7 +1,7 @@
 import type { Dispatch } from 'redux';
 import { createAction } from 'redux-actions';
 import { push as pushRouter } from 'connected-react-router';
-import type { OptionCallback, PaginatedResponse } from '#state/types';
+import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 
 import {
   fetchFranchise as fetchFranchiseAPI,

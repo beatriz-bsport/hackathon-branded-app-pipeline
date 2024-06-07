@@ -4,7 +4,7 @@ import Chip from '@material-ui/core/Chip';
 import Skeleton from '@material-ui/lab/Skeleton';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import classnames from 'classnames';
-import type { Company } from '#libs/company/types';
+import type { Company } from '#src/libs/company/types';
 import type { CompanyGroup } from '../types';
 
 type Props = {

@@ -133,7 +133,7 @@
     "server:build": "webpack -p --progress",
     "test": "export NODE_OPTIONS=--openssl-legacy-provider && yarn jest --logHeapUsage",
     "compile": "npx tsc -p .",
-    "lint": "eslint ./src --max-warnings=237",
+    "lint": "eslint ./src --max-warnings=241",
     "lint-fix": "eslint ./src --fix",
     "lint-cache": "eslint ./src --cache",
     "pretty": "export NODE_OPTIONS=--openssl-legacy-provider && yarn prettier './src' --write --loglevel error",

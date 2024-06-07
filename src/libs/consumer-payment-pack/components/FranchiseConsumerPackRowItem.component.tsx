@@ -6,13 +6,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { formatAsDate } from '#utils/datetime';
-import ConsumerPassSourceChip from '#components/chip/ConsumerPassSourceChip';
-import CreditStatus from '#libs/consumer-payment-pack/components/CreditStatus.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { formatAsDate } from '#src/utils/datetime';
+import ConsumerPassSourceChip from '#src/components/chip/ConsumerPassSourceChip';
+import CreditStatus from '#src/libs/consumer-payment-pack/components/CreditStatus.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
-import type { FranchiseUserPassWithPaymentPack } from '#libs/franchise/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
+import type { FranchiseUserPassWithPaymentPack } from '#src/libs/franchise/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
 
 type Props = {
   selected?: boolean;

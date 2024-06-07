@@ -9,7 +9,7 @@ import {
   AUDIENCE_FEATURE_NAME,
   AUDIENCE_WORKFLOW_NAME,
   AUDIENCE_WORKFLOW_NAME_PLURAL,
-} from '#libs/sequential_marketing/constants';
+} from '#src/libs/sequential_marketing/constants';
 import { STORAGE_KEY_BSPORT_I18NEXTLNG } from '../actions/constants';
 import { getItemInStorage, setItemInStorage } from '../utils/storage';
 

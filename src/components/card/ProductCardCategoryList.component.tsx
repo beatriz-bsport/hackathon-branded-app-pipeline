@@ -143,8 +143,9 @@ const ProductCardCategoryList = (props: {
             <Typography variant="subtitle2">
               {t('card.categoryNames.restrictions')}
             </Typography>
-            {categories.restrictions.map((content: string) => (
+            {categories.restrictions.map((content: string, index: number) => (
               <Typography
+                key={`context-${index}`}
                 className={classes.categoryContent}
                 color="textSecondary"
                 variant="caption"

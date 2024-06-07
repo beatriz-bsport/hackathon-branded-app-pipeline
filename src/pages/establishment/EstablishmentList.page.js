@@ -16,7 +16,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
 
 import Map from '../../components/map/Map.component';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';

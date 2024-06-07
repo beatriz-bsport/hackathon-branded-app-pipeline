@@ -102,8 +102,11 @@ import { getAuthToken } from '../../http';
 import { RootState } from '../../reducers';
 
 type OwnProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   companyId: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   companyName: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   isBackofficePreview?: boolean;
 };
 
@@ -372,6 +375,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   auth: state.auth,
+  // eslint-disable-next-line react/no-unused-prop-types
   basket: getCurrentBasket(state),
   bookingsCount: state.consumer.bookingAndPrivateBooking.count,
   bookingsLoading: state.consumer.bookingAndPrivateBooking.loading,

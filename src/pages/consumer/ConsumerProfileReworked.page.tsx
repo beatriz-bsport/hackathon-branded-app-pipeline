@@ -6,7 +6,7 @@ import {
   fetchMember as fetchMemberAction,
   fetchMyUserProfile as fetchMyUserProfileAction,
   updateSpiviPrivacySettings as updateSpiviPrivacySettingsAction,
-} from '#libs/member/actions';
+} from '#src/libs/member/actions';
 import {
   detachPaymentMethod as detachPaymentMethodAction,
   fetchPaymentMethodList as fetchPaymentMethodListAction,
@@ -22,9 +22,9 @@ import {
   getTheme,
 } from '#src/libs/theme/selectors';
 import { getConsumerProfileCustomForm } from '#src/libs/custom-form/selectors';
-import { getMemberDetail } from '#libs/member/selectors';
+import { getMemberDetail } from '#src/libs/member/selectors';
 
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 
 import ConsumerProfilePageReworked from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfilePageReworked';
 import ConsumerProfileContextProvider from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';

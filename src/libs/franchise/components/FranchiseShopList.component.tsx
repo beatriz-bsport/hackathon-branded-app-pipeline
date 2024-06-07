@@ -20,12 +20,11 @@ import type {
 } from '#src/libs/shop/types';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
-import type { ErrorAndLoading } from '#src/libs/types';
+import type { ErrorAndLoading, SelectOption } from '#src/libs/types';
 import type { ShopListSettingsSupplierValues } from '#src/libs/shop/components/ShopListSettingsSupplierModal/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import FranchiseShopListTabs from './FranchiseShopListTabs.component';
-
 type Props = {
   isLoading?: boolean;
   subshopTemplateList: SubshopTemplate[];

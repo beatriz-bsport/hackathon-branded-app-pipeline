@@ -29,8 +29,7 @@ import {
   deleteLevel as deleteLevelAction,
 } from '#src/libs/level/actions';
 import MetaActivityEditDrawer from '#src/libs/meta-activity/components/MetaActivityEdit.drawer';
-import { refreshCompanyTheme as refreshCompanyThemeAction } from '#src/libs/theme/actions';
-import NoShowPenaltyDialog from '#src/libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
+
 import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
 import themeSelectors from '../../libs/theme/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
@@ -89,14 +88,14 @@ import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../li
 import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
 import { withBookingNotification } from '../../libs/marketing/selectors';
 import { mapFormData, unmap } from '../form.utils';
-import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
-import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
-import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
-import MetaActivityListItem from '#libs/meta-activity/components/MetaActivityListItem.component';
+import { refreshCompanyTheme as refreshCompanyThemeAction } from '#src/libs/theme/actions';
+import NoShowPenaltyDialog from '#src/libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import MetaActivityListItem from '#src/libs/meta-activity/components/MetaActivityListItem.component';
 import {
   withObjectSearch,
   WithObjectSearch,
-} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 
 const MetaActivityMap = {
   cover_main: 'cover_main',

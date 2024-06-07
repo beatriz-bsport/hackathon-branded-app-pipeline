@@ -3,7 +3,7 @@ import React from 'react';
 import Chip from '@material-ui/core/Chip';
 import { useTranslation } from 'react-i18next';
 import type { CompanyGroup, CompanyOptionTypeBase } from '../types';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 
 export type Props = {
   selectedCompanyGroups: CompanyOptionTypeBase[];

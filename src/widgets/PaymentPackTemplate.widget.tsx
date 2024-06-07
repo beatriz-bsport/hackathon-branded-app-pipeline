@@ -67,4 +67,6 @@ const styles = () =>
     },
   });
 
-export default compose<any, OwnProps>(withStyles(styles))(PaymentPackTemplate);
+export default compose<Props, OwnProps>(withStyles(styles))(
+  PaymentPackTemplate,
+);

@@ -108,6 +108,14 @@ export class ConsumerBooking extends React.Component<Props, State> {
     this.fetchBookingOptions();
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (!prevProps?.membership?.id && !!this.props?.membership?.id) {
+      this.fetchPastBookings();
+      this.fetchFutureBookings();
+      this.fetchBookingOptions();
+    }
+  }
+
   fetchAssociatedBlueprintObjects = (blueprintId: number) => {
     this.props.fetchAssetForBlueprint({ blueprint: blueprintId });
     this.props.fetchSpotForBlueprint({

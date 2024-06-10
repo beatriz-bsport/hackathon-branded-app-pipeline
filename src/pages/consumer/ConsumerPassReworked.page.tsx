@@ -108,6 +108,9 @@ export class ConsumerPassReworked extends React.Component<
       this.props.fetchSCTs({
         member: this.props.membership.id,
       });
+      this.fetchActiveConsumerPaymentPacks();
+      this.fetchExpiredConsumerPaymentPacks();
+      this.fetchFutureConsumerPaymentPacks();
     }
   }
 

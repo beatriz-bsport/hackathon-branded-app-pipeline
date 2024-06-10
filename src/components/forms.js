@@ -36,7 +36,6 @@ import MuiTextField from '@material-ui/core/TextField';
 import MuiButton from '@material-ui/core/Button';
 import MuiFormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import PhoneInput from 'react-phone-number-input';
 import { LocalizedLuxonUtils } from '../i18n/utils/luxon-picker-utils';
 import { formatISOStringAsTime } from '../utils/datetime';
 import TagSelector from '../libs/tag/components/TagSelector.selector';
@@ -48,8 +47,6 @@ import DelayedTextField from './DelayedTextField.component';
 import ColorInput from './input/ColorInput.component';
 import Selector from './Selector.component';
 import IconInput from './input/IconInput.component';
-import 'react-phone-number-input/style.css';
-import './phone_number_input.css';
 
 type AlertErrorProps = {
   t: TFunction,
@@ -698,82 +695,6 @@ export const IconField = (props: { name: string, label?: string }) => {
     </Field>
   );
 };
-
-const phoneStyles = () => ({
-  phoneInput: { marginTop: 18 },
-  labelRoot: {
-    position: 'absolute',
-    left: 42,
-  },
-  labelShrink: {
-    left: 0,
-  },
-});
-export const PhoneField = withTranslation([])(
-  withStyles(phoneStyles)((props: any) => {
-    const { t, label, name, classes, fullWidth, required } = props;
-    return (
-      <Field {...props}>
-        {({ field, meta: { touched, error }, form: { setFieldValue } }) => (
-          <div>
-            <MuiFormControl
-              error={!!(touched && error)}
-              fullWidth={fullWidth}
-              required={required}
-            >
-              <InputLabel
-                shrink
-                classes={{
-                  root: classes.labelRoot,
-                  shrink: classes.labelShrink,
-                }}
-                htmlFor={name}
-              >
-                {label}
-              </InputLabel>
-              <PhoneInput
-                autoComplete="tel"
-                country="FR"
-                flagComponent={({ country }) => (
-                  <div className="fill">
-                    <img
-                      alt="flag"
-                      src={`https://flagcdn.com/48x36/${(
-                        country ?? 'fr'
-                      ).toLowerCase()}.png`}
-                    />
-                  </div>
-                )}
-                {...field}
-                name={name}
-                /* FIXME */
-                onBlur={(e) => field.onBlur(e)}
-                onChange={(value) => setFieldValue(field.name, value)}
-                {...omit(props, [
-                  'fullWidth',
-                  't',
-                  'tReady',
-                  'i18n',
-                  'i18nOptions',
-                  'defaultNS',
-                  'reportNS',
-                ])}
-                className={classes.phoneInput}
-              />
-            </MuiFormControl>
-            <ErrorMessage {...props}>
-              {(message) => (
-                <Typography className={classes.alertError} variant="body2">
-                  {t(message)}
-                </Typography>
-              )}
-            </ErrorMessage>
-          </div>
-        )}
-      </Field>
-    );
-  }),
-);
 
 export const GenderField = withStyles(styles)(
   withTranslation([])((props: GenderFieldProps) => {

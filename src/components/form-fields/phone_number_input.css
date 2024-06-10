@@ -1,0 +1,26 @@
+.fill {
+}
+
+.fill img {
+  width: 20px;
+  height: 15px;
+  object-fit: fill;
+}
+
+.PhoneInputCountryIcon--border {
+  box-shadow: none;
+}
+
+.PhoneInputCountrySelect:focus + .PhoneInputCountryIcon--border {
+  box-shadow: none;
+}
+
+.PhoneInputCountry {
+  position: relative;
+  align-self: end;
+  display: flex;
+  align-items: center;
+  height: fit-content;
+  margin-right: var(--PhoneInputCountrySelect-marginRight);
+  padding-bottom: 8px;
+}

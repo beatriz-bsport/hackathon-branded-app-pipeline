@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { DateTime } from 'luxon';
-import { connect } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import {
@@ -16,34 +16,35 @@ import {
   fetchPrivateService as fetchPrivateServiceAction,
   searchAvailableSlots as searchAvailableSlotsAction,
   searchFirstAvailableSlots as searchFirstAvailableSlotsAction,
-} from '../../../../libs/private-service/actions';
-import { findAvailableEstablishment as findAvailableEstablishmentAPI } from '../../../../libs/private-service/api';
+} from '#src/libs/private-service/actions';
+import { findAvailableEstablishment as findAvailableEstablishmentAPI } from '#src/libs/private-service/api';
 import {
   getPrivateService,
   withAssociatedCoach,
   withAvailablePrivateSlots,
   withAssociatedEstablishment,
-} from '../../../../libs/private-service/selectors/private-service';
-import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '../../../../libs/establishment/actions';
-import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../../../libs/associated-coach/actions';
+} from '#src/libs/private-service/selectors/private-service';
+import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '#src/libs/establishment/actions';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '#src/libs/associated-coach/actions';
 
 import {
   getNextDateAvailableSlot,
   getSearchedSlots,
-} from '../../../../libs/private-service/selectors/availability-slot';
+} from '#src/libs/private-service/selectors/availability-slot';
 import PrivateSlotSelector from './PrivateSlotSelector.component';
 import CoachSelector from './CoachSelector.component';
 import EstablishmentSelector from './EstablishmentSelector.component';
 import SlotCalendar from './SlotCalendar/SlotCalendar.component';
 import SessionSelector from './SessionSelector/SessionSelector.component';
-import { PrivateSlot } from '../../../../libs/private-service/types';
-import { ArrayElement } from '../../../../utils/types';
-import { groupSessionsByDayMoment } from '../../../../libs/private-service/utils';
-import { RootState } from '../../../../reducers';
-import { Coach } from '../../../../libs/associated-coach/types';
-import { Establishment } from '../../../../libs/establishment/types';
+import type { PrivateSlot } from '#src/libs/private-service/types';
+import type { ArrayElement } from '../../../../utils/types';
+import { groupSessionsByDayMoment } from '#src/libs/private-service/utils';
+import type { RootState } from '../../../../reducers';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Establishment } from '#src/libs/establishment/types';
 import PrivateServiceDetailSummary from './PrivateServiceDetailSummary.component';
 import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
+import { MarketplacePrivateServiceSessionData } from '#src/libs/marketplace/types';
 
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
 
@@ -79,47 +80,42 @@ const useNumberOfDayToShow = () => {
   return numberOfDayToShow;
 };
 
-type OwnProps = typeof mapParamsToProps & {
+type OwnProps = {
+  companyId: string;
+  serviceId: string;
   /** onSessionSelect is override by the widget */
   onSessionSelect?: (
-    data: {
-      date: string;
-      establishment: number;
-      associated_coach: number;
-    },
+    data: MarketplacePrivateServiceSessionData,
     slot: PrivateSlot,
   ) => void;
   hideDetailSummary?: boolean;
   /** store is override by the widget */
-  // store: any;
+  store?: any;
 };
 
-type Props = OwnProps &
-  ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+type Props = OwnProps & ConnectedProps<typeof connector>;
 
-export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
-  const {
-    onSessionSelect,
-    hideDetailSummary,
-    fetchMarketplacePrivateSlots,
-    fetchPrivateService,
-    fetchAssociatedEstablishmentBulk,
-    fetchAssociatedCoachBulk,
-    searchAvailableSlots,
-    searchFirstAvailableSlots,
-    push,
-    _privateService,
-    privateService,
-    availabilitySlotByDate,
-    nextDateAvailableSlot,
-    nextAvailableSlotLoading,
-    availabilitySlot,
-    availableSlotsLoading,
-    theme,
-    companyId,
-    serviceId,
-  } = props;
+export const PrivateServiceDetailPage: React.FC<Props> = ({
+  onSessionSelect,
+  hideDetailSummary,
+  fetchMarketplacePrivateSlots,
+  fetchPrivateService,
+  fetchAssociatedEstablishmentBulk,
+  fetchAssociatedCoachBulk,
+  searchAvailableSlots,
+  searchFirstAvailableSlots,
+  push,
+  _privateService,
+  privateService,
+  availabilitySlotByDate,
+  nextDateAvailableSlot,
+  nextAvailableSlotLoading,
+  availabilitySlot,
+  availableSlotsLoading,
+  theme,
+  companyId,
+  serviceId,
+}) => {
   const sessionSelectorRefs = useRef();
 
   /** STATE */
@@ -491,18 +487,15 @@ const mapDispatchToProps = {
   push: pushAction,
 };
 
-export const PrivateServiceDetailDataProvider = compose<any, OwnProps>(
-  connect(mapStateToProps, mapDispatchToProps),
-);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
-const mapParamsToProps = {
-  companyId: 'companyId',
-  serviceId: 'serviceId',
-};
+export const PrivateServiceDetailDataProvider = connector;
 
-export default compose(
+export default compose<Props, OwnProps>(
   marketplaceCssHoc(),
-  // @ts-expect-error
-  routerParamsToProps(mapParamsToProps),
-  PrivateServiceDetailDataProvider,
+  routerParamsToProps({
+    companyId: 'companyId:string',
+    serviceId: 'serviceId:string',
+  }),
+  connector,
 )(PrivateServiceDetailPage);

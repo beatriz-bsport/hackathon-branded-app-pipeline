@@ -54,6 +54,12 @@ export type MarketplacePrivateServiceData = {
   privateGroups?: number[] | null;
 };
 
+export type MarketplacePrivateServiceSessionData = {
+  date: string;
+  establishment: number;
+  associated_coach: number;
+};
+
 export type MarketplacePassParams = {
   hideFilters?: string;
   hidePaymentPack?: string;

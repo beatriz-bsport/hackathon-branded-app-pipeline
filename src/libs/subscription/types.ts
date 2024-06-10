@@ -451,4 +451,6 @@ export type ContractTemplatePaginatedQueryParams = PaginationFilterParams & {
   companies?: number[];
   is_appointment_pass?: boolean;
   disabled?: boolean;
+  manager_only?: boolean;
+  is_usable_by_staff?: boolean;
 };

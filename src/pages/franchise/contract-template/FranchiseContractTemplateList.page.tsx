@@ -33,10 +33,21 @@ import { getPaymentPackTemplateById as getPaymentPackTemplateByIdSelector } from
 import { getPrivatePassTemplateById as getPrivatePassTemplateByIdSelector } from '#src/libs/private-service/selectors/private-pass';
 import { getFranchiseCompanyListById as getFranchiseCompanyListByIdSelector } from '#src/libs/franchise/selectors';
 import ContractTemplateList from '#src/libs/subscription/franchise-components/ContractTemplateList.component';
+import ContractTemplateListItem from '#src/libs/subscription/franchise-components/ContractTemplateListItem.component';
 import ContractTemplateDeleteDialog from '#src/libs/subscription/components/ContractTemplateDeleteDialog.component';
+import { CONTRACT_TEMPLATE_PAGE_SIZE } from '#src/libs/subscription/constants';
+
+import ObjectSearch from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
+import type { ContractTemplate } from '#src/libs/subscription/types';
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
 
+type OptionProps = React.ComponentProps<typeof ContractTemplateListItem>;
+
+const SearchOption: React.FC<OptionPropsWithData<OptionProps>> = React.memo(
+  (props) => <ContractTemplateListItem {...props.data} />,
+);
 const FranchiseContractTemplateList: React.FC<Props> = ({
   activeContractTemplateState,
   disabledContractTemplateState,
@@ -95,6 +106,26 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
     );
   }, []);
 
+  const OptionsFormatter = useCallback(
+    (contractTemplateList: ContractTemplate[]) =>
+      (contractTemplateList ?? []).map((contractTemplate) => ({
+        label: contractTemplate.name,
+        value: contractTemplate.id,
+        key: contractTemplate.id,
+        item: contractTemplate,
+        getFranchiseCompanyListById,
+        getPaymentPackTemplateById,
+        getPrivatePassTemplateById,
+        onClick: handleOnClickTemplate,
+        contractTemplate,
+      })),
+    [
+      getFranchiseCompanyListById,
+      getPaymentPackTemplateById,
+      getPrivatePassTemplateById,
+    ],
+  );
+
   const handleOpenDeleteDialog = useCallback((id: number) => {
     setSelectedContractTemplateIdToDelete(id);
   }, []);
@@ -139,6 +170,23 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
 
   return (
     <div>
+      <ObjectSearch
+        additionalParams={{
+          page_size: CONTRACT_TEMPLATE_PAGE_SIZE,
+          id__in: activeContractTemplateState.list.map(
+            (contractTemplate) => contractTemplate.id,
+          ),
+          disabled: false,
+        }}
+        className={classes.searchInput}
+        components={{
+          Option: SearchOption,
+        }}
+        optionsFormatter={OptionsFormatter}
+        placeholder={t('contractTemplate.filter.searchPlaceholder')}
+        searchedObjectType="contract_template"
+        variant="underlined"
+      />
       <ContractTemplateList
         contractTemplateList={activeContractTemplateState.list}
         contractTemplateNumberOfPages={
@@ -194,6 +242,7 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
 const useStyles = makeStyles((theme) => ({
   searchInput: {
     flex: 1,
+    marginBottom: theme.spacing(2),
   },
   sectionTitle: {
     marginTop: theme.spacing(2),

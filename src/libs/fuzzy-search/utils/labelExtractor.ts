@@ -32,7 +32,7 @@ import type {
 import type { Cadence } from '#src/libs/sequential_marketing/types';
 import type { ShopItem, SubShop } from '#src/libs/shop/types';
 import type { SmartList } from '#src/libs/smart-list/types';
-import type { Contract } from '#src/libs/subscription/types';
+import type { Contract, ContractTemplate } from '#src/libs/subscription/types';
 import type { Tag } from '#src/libs/tag/types';
 import type { Video } from '#src/libs/video/types';
 import type { CustomForm } from '#src/libs/custom-form/types';
@@ -63,6 +63,7 @@ const labelExtractorMap: Record<
   payment_pack_category: (category: PaymentPackCategory) => category.name,
   cadence: (cadence: Cadence) => cadence.name,
   contract: (contract: Contract) => contract.name,
+  contract_template: (contract: ContractTemplate) => contract.name,
   performance_tracking_program: (program: PerformanceTrackingProgram) =>
     program.name,
   private_pass: (privatePass: PrivatePass) => privatePass.name,

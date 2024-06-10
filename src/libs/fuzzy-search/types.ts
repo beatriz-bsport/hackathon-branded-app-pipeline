@@ -56,6 +56,8 @@ import type {
 import type {
   Contract,
   ContractQueryParams,
+  ContractTemplate,
+  ContractTemplatePaginatedQueryParams as ContractTemplateAPIParams,
 } from '#src/libs/subscription/types';
 import type { Tag } from '#src/libs/tag/types';
 import type { Video, VideoQueryParams } from '#src/libs/video/types';
@@ -140,6 +142,7 @@ export const searchObjectIdentifiers = [
   'shop_item_template',
   'smart_list',
   'contract',
+  'contract_template',
   'tag',
   'video',
   'associated_coach',
@@ -183,6 +186,7 @@ type ResultsTypes = {
   shop_item_template: ShopItemTemplate;
   smart_list: SmartList;
   contract: Contract;
+  contract_template: ContractTemplate;
   tag: Tag;
   video: Video;
   associated_coach: Coach;
@@ -284,6 +288,7 @@ type APIParamsMap = {
   shop_item_template: ShopItemTemplateAPIParams;
   smart_list: SmartListAPIParams;
   contract: ContractAPIParams;
+  contract_template: ContractTemplateAPIParams;
   tag: TagAPIParams;
   video: VideoAPIParams;
   report: ReportAPIParams;

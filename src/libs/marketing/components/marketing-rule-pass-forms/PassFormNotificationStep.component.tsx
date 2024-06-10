@@ -23,6 +23,7 @@ import { splitPassNotificationsByTrigger } from '#src/libs/marketing/utils';
 import MarketingRulePassNotificationItem from '#src/libs/marketing/components/MarketingRulePassNotificationItem.component';
 import MarketingRulePassNotifications from '#src/libs/marketing/components/marketing-rule-list-item/MarketingRulePassNotifications.component';
 import { useStyles } from './styles';
+import TooltipInfo from '#src/components/TooltipInfo.component';
 
 type NotificationSelectorProps = {
   notifications: MarketingNotification[];
@@ -247,10 +248,17 @@ const PassFormNotificationStep: React.FC<Props> = ({
     <div className={classes.container}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <div className={classes.titleContainer}>
-            <NotificationsActive className={classes.icon} />
-            <Typography variant="h6">{t('notifications.listTitle')}</Typography>
-          </div>
+          <Grid container justifyContent="space-between">
+            <div className={classes.titleContainer}>
+              <NotificationsActive className={classes.icon} />
+              <Typography variant="h6">
+                {t('notifications.listTitle')}
+              </Typography>
+            </div>
+            <TooltipInfo
+              helpText={t('notifications.optionalStepInfo')}
+            ></TooltipInfo>
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <NotificationSelector

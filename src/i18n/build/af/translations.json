@@ -3912,6 +3912,7 @@
       "included": "Included",
       "excluded": "Excluded",
       "select": "Select",
+      "optionalStepInfo": "This step is optional. You can still set up notifications later. Only notifications you have already created are listed here. To create new ones, go to Marketing > Notifications.",
       "passNotificationDeleteDialog": {
         "title": "Delete this notification",
         "warning": {

@@ -2,7 +2,15 @@ import React from 'react';
 import { compose } from 'recompose';
 
 import { ButtonBase } from '@material-ui/core';
-import withStyles from '@material-ui/core/styles/withStyles';
+import {
+  createStyles,
+  withStyles,
+} from 'bsport-saas/node_modules/@material-ui/core/styles';
+
+import type {
+  Theme,
+  WithStyles,
+} from 'bsport-saas/node_modules/@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import {
@@ -17,11 +25,10 @@ import {
   PrivateService,
   PrivateSlot,
 } from 'bsport-saas/src/libs/private-service/types';
-import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { Theme } from 'bsport-saas/src/libs/theme/types';
-
 import { getEnv } from '../utils/env';
+import { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
+import { MarketplacePrivateServiceData } from 'bsport-saas/src/libs/marketplace/types';
 
 const PrivateServiceSelector = themify(
   PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage),
@@ -32,14 +39,14 @@ const PrivateServiceDetailBase = themify(
 
 type OwnProps = {
   companyId: number,
-  config: any,
+  config: MarketplacePrivateServiceData,
   store: any,
-  theme: Theme,
+  theme: CompanyTheme,
   onWindowOpen: (url: string) => void,
   dialogMode: number,
 };
 
-type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
+type Props = OwnProps & WithStyles<typeof styles>;
 
 interface State {
   type: 'detail' | 'list';
@@ -47,8 +54,6 @@ interface State {
 }
 
 class PrivateServiceWidget extends React.PureComponent<Props, State> {
-  popupWindow: any;
-
   constructor(props: Props) {
     super(props);
 
@@ -130,23 +135,23 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
   }
 }
 
-const styles = (theme: any) => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    width: '100%',
-    alignItems: 'center',
-  },
-  detailContainer: {
-    width: '100%',
-  },
-  icon: {
-    marginLeft: theme.spacing(2),
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      flex: 1,
+      width: '100%',
+      alignItems: 'center',
+    },
+    detailContainer: {
+      width: '100%',
+    },
+    icon: {
+      marginLeft: theme.spacing(2),
+    },
+  });
 
-export default compose<any, OwnProps>(
-  // @ts-ignore
-  withStyles(styles),
-)(PrivateServiceWidget);
+export default compose<Props, OwnProps>(withStyles(styles))(
+  PrivateServiceWidget,
+);

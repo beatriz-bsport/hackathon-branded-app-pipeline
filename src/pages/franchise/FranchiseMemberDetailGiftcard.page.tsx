@@ -45,6 +45,7 @@ import {
   getAllDistinctMemberIds,
   getSharedConsumerGiftcardById,
   getFranchiseCompanyById,
+  getAllowedFranchisees,
 } from '#src/libs/franchise/selectors';
 
 import { getInvoiceData } from '#src/libs/invoice/selectors';
@@ -74,6 +75,7 @@ const FranchiseMemberDetailGiftcard: React.FC<Props> = ({
   companiesById,
   navigateAsCompanyAdmin,
   invoiceData,
+  allowedCompanyIds,
   push,
   fetchFranchise,
   fetchSentSharedConsumerGiftcards,
@@ -183,6 +185,12 @@ const FranchiseMemberDetailGiftcard: React.FC<Props> = ({
     fetchReceivedSharedConsumerGiftcardsOnPageRequest,
     fetchSentSharedConsumerGiftcardsOnPageRequest,
   ]);
+
+  const isAllowed = React.useCallback(
+    (companyId: number) =>
+      !allowedCompanyIds.length || allowedCompanyIds.includes(companyId),
+    [allowedCompanyIds],
+  );
 
   return (
     <div>
@@ -299,7 +307,10 @@ const FranchiseMemberDetailGiftcard: React.FC<Props> = ({
               <Button
                 className={classes.button}
                 color="primary"
-                disabled={isRedirectLoading}
+                disabled={
+                  isRedirectLoading ||
+                  !isAllowed(selectedConsumerGiftcard?.giftcard?.company)
+                }
                 onClick={goToMemberGiftcardList}
                 startIcon={<ArrowForward />}
                 variant="contained"
@@ -319,7 +330,10 @@ const FranchiseMemberDetailGiftcard: React.FC<Props> = ({
               </Button>
               <ConsumerGiftcardDetail
                 consumerGiftcard={selectedConsumerGiftcard}
-                consumerGiftCardLoading={false}
+                consumerGiftCardLoading={isRedirectLoading}
+                disabled={
+                  !isAllowed(selectedConsumerGiftcard?.giftcard?.company)
+                }
                 goToGiftcard={goToGiftcardHandler}
                 invoice={invoiceData[selectedConsumerGiftcard?.invoice_id]}
                 onInvoiceClick={goToInvoiceHandler}
@@ -389,6 +403,7 @@ const mapStateToProps = (
     : null,
   companiesById: getFranchiseCompanyById(state),
   invoiceData: getInvoiceData(state),
+  allowedCompanyIds: getAllowedFranchisees(state),
 });
 const mapDispatchToProps = {
   fetchFranchise: fetchFranchiseAction,

@@ -22,6 +22,7 @@ import { OptionCallback } from '../../../state/types';
 type Props = {
   giftcard: Giftcard;
   divider?: boolean;
+  disabled?: boolean;
   onDuplicate?: (id: number) => void;
   onEdit?: (id: number) => void;
   onRemove?: (id: number, options?: OptionCallback<void>) => void;
@@ -35,6 +36,7 @@ export default function GiftcardListItem(props: Props) {
   const {
     giftcard,
     divider,
+    disabled,
     onDuplicate,
     onEdit,
     onRemove,
@@ -49,6 +51,7 @@ export default function GiftcardListItem(props: Props) {
       <ListItem
         // @ts-expect-error
         button={!!onClick}
+        disabled={disabled}
         divider={divider}
         onClick={() => onClick && onClick(giftcard.id)}
         selected={!!selected}

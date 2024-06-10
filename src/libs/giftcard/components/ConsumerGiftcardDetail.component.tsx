@@ -13,6 +13,7 @@ type Props = {
   consumerGiftcard: WithGiftcard<ConsumerGiftcard> | null;
   consumerGiftCardLoading: boolean;
   invoice: Invoice | null;
+  disabled?: boolean;
   onInvoiceClick: (uuid: string) => void;
   goToGiftcard: (giftcardId: number) => void;
 };
@@ -36,6 +37,7 @@ const ConsumerGiftcardDetail = (props: Props) => {
           </Typography>
           <Paper>
             <InvoiceListItem
+              disabled={props.disabled}
               invoice={props.invoice}
               onClick={() => props.onInvoiceClick(props.invoice.uuid)}
             />
@@ -49,6 +51,7 @@ const ConsumerGiftcardDetail = (props: Props) => {
           </Typography>
           <Paper>
             <GiftcardListItem
+              disabled={props.disabled}
               giftcard={props.consumerGiftcard.giftcard}
               onClick={() =>
                 props.goToGiftcard(props.consumerGiftcard.giftcard.id)

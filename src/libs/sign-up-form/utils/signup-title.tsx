@@ -13,7 +13,7 @@ export const COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE =
   Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
     ? [
         // BODY STREET
-        2306,
+        2306, 2628, 2629,
         // LINESPORT CLUB
         498,
       ]

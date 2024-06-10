@@ -287,6 +287,7 @@ class BsportWidget extends Component<Props> {
               parentElement={parentElement}
               uniqueWidgetId={uniqueWidgetId}
               usePostMessageIframeDimensions={usePostMessageIframeDimensions}
+              isBackofficePreview={isBackofficePreview}
             />
             {!!this.props.theme &&
               !this.props.theme.is_premium &&

@@ -7,7 +7,13 @@ export default function withLoginDisconnectedStatusHOC<P>(
   Component: React.ComponentType<P>,
 ) {
   return React.memo((props: P & LoginWithDisconnectedStatusOwnProps) => {
-    const { companyId, config, dialogMode, parentElement } = props;
+    const {
+      companyId,
+      config,
+      dialogMode,
+      parentElement,
+      isBackofficePreview,
+    } = props;
     const { hideWhenNotLoggedIn = false } = config;
     return (
       <LoginWithDisconnectedStatusWidget
@@ -16,6 +22,7 @@ export default function withLoginDisconnectedStatusHOC<P>(
         config={config}
         dialogMode={dialogMode}
         parentElement={parentElement}
+        isBackofficePreview={isBackofficePreview}
       >
         <Component {...props} />
       </LoginWithDisconnectedStatusWidget>

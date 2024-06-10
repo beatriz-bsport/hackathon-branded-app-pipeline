@@ -32,6 +32,7 @@ export type OwnProps = {
   dialogMode: DialogMode,
   hideWhenNotLoggedIn: boolean,
   parentElement: string,
+  isBackofficePreview: boolean,
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
@@ -46,6 +47,7 @@ const LoginWithDisconnectedStatus: React.FC<Props> = ({
   config,
   fetchMembershipByCompany,
   hideWhenNotLoggedIn,
+  isBackofficePreview,
   membership,
   parentElement,
   showLogin,
@@ -102,6 +104,23 @@ const LoginWithDisconnectedStatus: React.FC<Props> = ({
     });
   }, [showSignup, parentElement]);
 
+  if (isBackofficePreview) {
+    if (hideWhenNotLoggedIn) {
+      return null;
+    }
+    return (
+      <LoginWithDisconnectedStatusStyled
+        authenticated={false}
+        authenticationLoading={false}
+        onLoginClick={undefined}
+        loginSubtitle={config?.loginSubtitle || ''}
+        loginTitle={config?.loginTitle || ''}
+        showSubtitle={!!config?.showSubtitle}
+        showTitle={!!config?.showTitle}
+        onSignupClick={undefined}
+      />
+    );
+  }
   if (hideWhenNotLoggedIn && !authenticated && authenticationReceived) {
     parentElementDOM?.style?.setProperty('display', 'none');
     return null;

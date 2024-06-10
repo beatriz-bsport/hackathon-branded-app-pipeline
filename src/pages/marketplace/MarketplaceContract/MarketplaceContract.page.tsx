@@ -1,10 +1,9 @@
 import React from 'react';
 import { push, replace as replaceAction } from 'connected-react-router';
 import { compose, withProps } from 'recompose';
-import { connect } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withRouter } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
 
 import themeSelectors from '#src/libs/theme/selectors';
 import { getPaymentPack } from '#src/libs/payment-packs/selectors';
@@ -29,12 +28,11 @@ import {
   SearchItemData,
   BaseAdditionalData,
 } from '#src/components/css-only/Search/Search.component';
-import { Contract } from '#src/libs/subscription/types';
-import { PaymentPack } from '#src/libs/payment-packs/types';
+import type { Contract } from '#src/libs/subscription/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
 import { getContractCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 
-import { CompanyTheme } from '#src/libs/theme/types';
-import { RootState } from '../../../reducers';
+import type { RootState } from '../../../reducers';
 import MarketplaceContractFilters from './MarketplaceContractFilters';
 import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
 // @ts-expect-error
@@ -44,19 +42,12 @@ import './styles.css';
 
 type OwnProps = {
   companyId: number;
-  contractLoading: boolean;
-  classes: Object;
-  contractList: Contract[];
-  companyTheme: CompanyTheme;
-  push: (path: string) => void;
-  onAddToCart: (id: number) => void;
-  fetchContracts: (companyId: number) => void;
+  onAddToCart?: (id: number) => void;
 };
 
-type Props = OwnProps &
-  RouterProps &
-  typeof mapDispatchToProps &
-  ReturnType<typeof mapStateToProps>;
+type OwnPropsWithStore = OwnProps & { store?: any };
+
+type Props = OwnProps & RouterProps & ConnectedProps<typeof connector>;
 
 type State = {
   selectedContract: Contract | null;
@@ -286,20 +277,21 @@ const mapDispatchToProps = {
   push,
 };
 
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
 const DataHOC = compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
   withProps(({ fetchContracts }) => ({
     fetchContracts: (company: number) => fetchContracts(company),
   })),
 );
 
-export const MarketplaceContractBase = compose<any, OwnProps>(
+export const MarketplaceContractBase = compose<Props, OwnPropsWithStore>(
   marketplaceCssHoc(),
   DataHOC,
 )(MarketplaceContract);
 
-export default compose(
-  withTranslation(['subscription', 'payment', 'invoice', 'translation']),
+export default compose<any, OwnProps>(
   withRouter,
   routerParamsToProps({
     companyId: 'companyId:number',

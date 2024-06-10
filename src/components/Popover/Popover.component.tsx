@@ -12,7 +12,10 @@ type Props = {
   transformOrigin?: PopoverProps['transformOrigin'];
   className?: string;
   customClasses?: {
+    container?: string;
     hoveredText?: string;
+    MUIPopOverContainer?: string;
+    MUIPaperContainer?: string;
   };
 };
 
@@ -38,7 +41,10 @@ const PopOver = (props: Props) => {
   if (props.hide || !props.title) return <>{props.children}</>;
 
   return (
-    <div data-testid="popover-container">
+    <div
+      className={props.customClasses?.container}
+      data-testid="popover-container"
+    >
       <div
         className={props.customClasses?.hoveredText}
         id="hovered-text"
@@ -57,7 +63,11 @@ const PopOver = (props: Props) => {
             horizontal: 'left',
           }
         }
-        className={classes.popover}
+        classes={{ paper: props.customClasses?.MUIPaperContainer }}
+        className={classNames(
+          classes.popover,
+          props.customClasses?.MUIPopOverContainer,
+        )}
         id="mouse-over-popover"
         onClose={handlePopoverClose}
         open={open}

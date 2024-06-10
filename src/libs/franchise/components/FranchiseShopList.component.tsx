@@ -233,7 +233,6 @@ const FranchiseShopList: React.FC<Props> = ({
 
   const handleSetShopItemTemplateToDelete = useCallback(
     (shopItemTemplate: ShopItemTemplate, subshopTemplateId: number) => {
-      // retrieveShopItemUsedInCombo(shopItem.id);
       setSelectedSubshopTemplateId(subshopTemplateId);
       setShopItemTemplateToDelete(shopItemTemplate);
     },

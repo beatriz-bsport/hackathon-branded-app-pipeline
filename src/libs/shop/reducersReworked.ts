@@ -6,6 +6,7 @@ import omit from 'lodash/omit';
 import type { PaginatedResponse } from '#src/state/types';
 import type {
   IsShopUsedInComboAPI,
+  Provision,
   ShopItem,
   ShopItemTemplate,
   ShopItemVariantCombination,
@@ -866,6 +867,27 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       return state.setIn(
         ['shopItemReworked', 'itemVariant', 'updateVariant', 'error'],
         payload,
+      );
+    },
+    [createShopItemProvisionActions.success.toString()]: (
+      state,
+      { payload }: { payload: { id: number; data: Provision } },
+    ) => {
+      const currentStock =
+        state.shopItemReworked.itemDetails.byId[payload.id].current_stock;
+      return state.merge(
+        {
+          shopItemReworked: {
+            itemDetails: {
+              byId: {
+                [payload.id]: {
+                  current_stock: currentStock + payload.data.qty,
+                },
+              },
+            },
+          },
+        },
+        { deep: true },
       );
     },
     [createShopItemProvisionBulkActions.isLoading.toString()]: (

@@ -578,6 +578,9 @@ export const deleteShopItemVariant = (
 export const createShopItemProvisionActions = {
   isLoading: createAction<boolean>('SHOP_ITEM/PROVISION/UPDATE/LOADING'),
   error: createAction<Error | null>('SHOP_ITEM/PROVISION/UPDATE/ERROR'),
+  success: createAction<{ id: number; data: Provision }>(
+    'SHOP_ITEM/PROVISION/UPDATE/SUCCESS',
+  ),
 };
 
 /**
@@ -594,6 +597,13 @@ export const createShopItemProvision = (
       dispatch(createShopItemProvisionActions.error(null));
 
       const result = await createShopItemProvisionAPI(data);
+
+      dispatch(
+        createShopItemProvisionActions.success({
+          id: data.shop_item,
+          data: result.data,
+        }),
+      );
 
       options?.onSuccess?.(result.data);
     } catch (error) {

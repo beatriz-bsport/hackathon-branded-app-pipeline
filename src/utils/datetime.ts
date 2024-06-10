@@ -28,7 +28,7 @@ export function formatAsDateWithWeekday(
   theme: Theme,
   format: string,
 ) {
-  if (!date.isValid || date) return '';
+  if (!date || !date.isValid) return '';
 
   const formattedDate = date.toFormat(format);
 

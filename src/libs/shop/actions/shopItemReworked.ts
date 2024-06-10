@@ -220,8 +220,9 @@ export const fetchShopItemVariantList = ({
   page,
   colors,
   sizes,
+  is_variant,
   options,
-}: PaginationFilterParams & {
+}: ShopItemFilterParams & {
   id: number;
   colors?: string[];
   sizes?: string[];
@@ -240,6 +241,7 @@ export const fetchShopItemVariantList = ({
         base_item: id,
         page_size: SHOP_ITEM_VARIANTS_PAGE_SIZE,
         page,
+        ...(is_variant ? { is_variant } : {}),
         ...colorFilter,
         ...sizeFilter,
       });

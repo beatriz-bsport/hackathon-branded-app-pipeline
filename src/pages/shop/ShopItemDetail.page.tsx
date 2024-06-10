@@ -159,6 +159,11 @@ export class ShopItemDetailPage extends Component<Props> {
       page,
       colors: colorFilter,
       sizes: sizeFilter,
+      ...(this.props.shopItem?.number_of_variants > 0
+        ? {
+            is_variant: true,
+          }
+        : {}),
     });
   };
 
@@ -269,6 +274,7 @@ export class ShopItemDetailPage extends Component<Props> {
         isLastItemInPage &&
           currentPage &&
           this.props.setQueryParam('page')((currentPage - 1).toString());
+        this.fetchShopItemVariantList();
       },
     });
   };

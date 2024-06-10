@@ -325,6 +325,16 @@ const getTranslations = async () => {
         },
       },
     },
+    eventTypeHelperText: {
+      [NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_FIRST_WARNING]:
+        'You can customize the number of days considered when sending this notification in the payment methods section',
+      [NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_SECOND_WARNING]:
+        'You can customize the number of days considered when sending this notification in the payment methods section',
+      [NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING]:
+        'You can customize the number of days considered when sending this notification in the payment methods section',
+      [NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING]:
+        'You can customize the number of days considered when sending this notification in the payment methods section',
+    },
     eventType: {
       [NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER]:
         'Cancelled session (for members)',

@@ -5703,6 +5703,12 @@
         }
       }
     },
+    "eventTypeHelperText": {
+      "200": "You can customize the number of days considered when sending this notification in the payment methods section",
+      "201": "You can customize the number of days considered when sending this notification in the payment methods section",
+      "1200": "You can customize the number of days considered when sending this notification in the payment methods section",
+      "1201": "You can customize the number of days considered when sending this notification in the payment methods section"
+    },
     "eventType": {
       "3": "Cancelled session (for members)",
       "6": "For newly enrolled members (for members)",

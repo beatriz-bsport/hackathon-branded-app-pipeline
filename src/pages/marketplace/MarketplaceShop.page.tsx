@@ -1,6 +1,6 @@
 import React from 'react';
 import { compose, lifecycle } from 'recompose';
-import { connect } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
@@ -22,14 +22,13 @@ import { RootState } from '../../reducers';
 
 type OwnProps = {
   companyId: number;
-  toggleCurrentBasketOpen: (v: boolean) => void;
-  requestSignUp: () => void;
+  toggleCurrentBasketOpen?: (v: boolean) => void;
+  requestSignUp?: () => void;
   onAddToCart?: (shopItemId: number) => void;
+  store?: any;
 };
 
-type Props = OwnProps &
-  ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+type Props = OwnProps & ConnectedProps<typeof connector>;
 
 export class MarketplaceShop extends React.PureComponent<Props> {
   addToCart = (shopItemId: number) => {
@@ -63,8 +62,7 @@ const mapStateToProps = (
 ) => ({
   currentBasket: getCurrentBasket(state),
   subShops: shopSelectors
-    // @ts-expect-error
-    .getSubShopsByCompany(state, companyId, true)
+    .getSubShopsByCompany(state, parseInt(companyId), true)
     .filter((sub: any) => sub.shopItems.length),
   authenticated: state.auth.authenticated,
   theme: themeSelectors.getTheme(state),
@@ -83,9 +81,11 @@ const mapDispatchToProps = {
   push,
 };
 
-export const MarketplaceShopBase = compose<any, OwnProps>(
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export const MarketplaceShopBase = compose<Props, OwnProps>(
   marketplaceCssHoc(),
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
   lifecycle({
     UNSAFE_componentWillMount() {
       const { fetchShopItems, fetchSubShops, companyId } = this.props as any;

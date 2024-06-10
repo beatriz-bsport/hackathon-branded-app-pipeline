@@ -40,7 +40,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
   CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
 } from '@bsport/common/lib/master-data/custom-form';
-import type { TermsAndConditionType } from '#src/libs/payment/types';
+import { TermsAndConditionType } from '#src/libs/payment/types';
 import { CUSTOM_FORM_FIELD_SIGN_UP_PREFIX } from '#src/libs/custom-form/constants';
 
 import FabriqueTextfield from '#Fabrique/Temporary/Textfield';
@@ -571,7 +571,6 @@ export const CustomFormConsumerInput = (props: Props) => {
               name={`custom_form_field.${props.index}.answer`}
               required={props.field.mandatory}
               termsAndConditions={waiver}
-              // @ts-expect-error
               type={TermsAndConditionType.WAIVER}
             />
           );
@@ -595,7 +594,6 @@ export const CustomFormConsumerInput = (props: Props) => {
               }
               required={props.field.mandatory}
               termsAndConditions={waiver}
-              // @ts-expect-error
               type={TermsAndConditionType.WAIVER}
             />
             <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
@@ -623,7 +621,6 @@ export const CustomFormConsumerInput = (props: Props) => {
               label={label}
               name={`custom_form_field.${props.index}.answer`}
               termsAndConditions={general_terms_and_conditions}
-              // @ts-expect-error
               type={TermsAndConditionType.GENERAL_TERMS_OF_USE}
             />
           );
@@ -652,7 +649,6 @@ export const CustomFormConsumerInput = (props: Props) => {
                 )
               }
               termsAndConditions={general_terms_and_conditions}
-              // @ts-expect-error
               type={TermsAndConditionType.GENERAL_TERMS_OF_USE}
             />
             <ErrorMessage name={`custom_form_field.${props.index}.answer`}>

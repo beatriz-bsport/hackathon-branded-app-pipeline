@@ -20,7 +20,6 @@ import Tooltip from '#src/components/Tooltip.component';
 import AvatarField from '#src/components/forms/AvatarField.component';
 import {
   TextField,
-  PhoneField,
   DateField,
   GenderField,
   Actions,
@@ -28,6 +27,7 @@ import {
   ColorField,
   // @ts-expect-error
 } from '#src/components/forms';
+import { PhoneFieldV2 } from '#src/components/form-fields';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 
@@ -142,11 +142,11 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
             />
           </Grid>
           <Grid item md={6} xs={12}>
-            <PhoneField
+            <PhoneFieldV2
               fullWidth
-              country={country}
               label={t('form.phone')}
               name="phone"
+              phoneCountry={country}
             />
           </Grid>
           <Grid item md={6} xs={12}>

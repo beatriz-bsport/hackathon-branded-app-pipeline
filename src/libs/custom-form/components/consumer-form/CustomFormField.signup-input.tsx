@@ -6,9 +6,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { ErrorMessage } from 'formik';
 import { DateTime } from 'luxon';
-// @ts-expect-error
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
 import Grid from '@material-ui/core/Grid';
 import amber from '@material-ui/core/colors/amber';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -76,6 +73,7 @@ import {
 import AvatarFieldWithButton from '../../../../components/forms/AvatarFieldWithButton.component';
 import AcceptTermsAndConditions from '../../../payment/components/AcceptTermsAndConditions.component';
 import { CheckboxField } from '../GenericFormik.input';
+import { EnhancedPhoneInput } from '#src/components/form-fields';
 import './styles.css';
 
 type OwnProps = {
@@ -214,22 +212,10 @@ export const CustomFormConsumerInput = (props: Props) => {
     case CUSTOM_FORM_FIELD_SIGN_UP_PHONE:
       return (
         <div className={classes.phoneField}>
-          <PhoneInput
+          <EnhancedPhoneInput
             fullWidth
-            autoComplete="tel"
             country={browserCountryCode()}
             disabled={props.asManager || !props.field.editable}
-            // eslint-disable-next-line react/no-unused-prop-types
-            flagComponent={({ country }: { country: string }) => (
-              <div className="fill">
-                <img
-                  alt="flag"
-                  src={`https://flagcdn.com/48x36/${(
-                    country ?? 'fr'
-                  ).toLowerCase()}.png`}
-                />
-              </div>
-            )}
             label={label}
             name={`custom_form_field.${props.index}.answer`}
             onChange={(phone_number: string) =>
@@ -240,6 +226,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             }
             placeholder={`${label}${props.field.mandatory ? ' *' : ''}`}
             required={props.field.mandatory}
+            // @ts-expect-error
             value={props.field?.answer}
           />
           <ErrorMessage name={`custom_form_field.${props.index}.answer`}>

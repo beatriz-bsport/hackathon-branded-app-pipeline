@@ -28,7 +28,6 @@ import {
   CheckboxField,
   TextField,
   DelayTextField,
-  PhoneField,
   GenderField,
   VaccinationStatusField,
   Actions,
@@ -36,6 +35,7 @@ import {
   DateField,
   TextFieldEnhancedLabelWithError,
 } from '../../components/forms';
+import { PhoneFieldV2 } from '../../components/form-fields';
 import AlertExistingUser from './AlertExistingUser.component';
 import withConfirm from '../../hocs/with-confirm.hoc';
 
@@ -445,12 +445,12 @@ export function MemberForm(props: Props) {
             <Grid item md={mdSize} xs={12}>
               <Grid container direction="row" spacing={2}>
                 <Grid item md={12} xs={12}>
-                  <PhoneField
+                  <PhoneFieldV2
                     fullWidth
-                    country={browserCountryCode()}
                     disabled={disabled || !asManager}
                     label={t('translation:form.phone')}
                     name="phone"
+                    phoneCountry={browserCountryCode()}
                     required={!asManager}
                   />
                 </Grid>

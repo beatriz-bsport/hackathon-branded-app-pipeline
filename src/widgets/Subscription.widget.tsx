@@ -8,7 +8,6 @@ const MarketplaceContractStyled = themify(MarketplaceContractBase);
 
 type OwnProps = {
   companyId: number,
-  config: any,
   store: any,
   theme: Theme,
   onWindowOpen: (url: string) => void,
@@ -18,10 +17,6 @@ type OwnProps = {
 type Props = OwnProps;
 
 class SubscriptionWidget extends Component<Props> {
-  state = {
-    selected: null,
-  };
-
   componentDidMount() {
     window?.addEventListener('message', this.handleAddToCartPostMessages);
   }

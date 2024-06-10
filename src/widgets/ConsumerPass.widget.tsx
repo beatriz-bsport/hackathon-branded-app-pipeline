@@ -6,7 +6,6 @@ import { ConsumerPassWidget } from 'bsport-saas/src/pages/consumer/ConsumerPassR
 
 import type { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   getConsumerPassesLoading,
   getConsumerPassesTabDisplay,
@@ -43,6 +42,7 @@ import {
 import { getMembershipByCompanyId } from '../libs/bridge/selectors';
 import { RootState } from '../reducers/index';
 import { adaptSelector } from '../utils/reduxHelpers';
+import withLoginDisconnectedStatus from '../hocs/withLoginDisconnectedStatus.hoc';
 
 const ConsumerPassWidgetStyled = themify(ConsumerPassWidget);
 
@@ -71,18 +71,6 @@ class ConsumerPass extends React.Component<Props> {
   }
 
   render() {
-    // Temporary.
-    // TODO: We need a login screen.
-    if (this.props.authenticationReceived && !this.props.authenticated) {
-      return <h1>You are not logged in</h1>;
-    }
-    if (!this.props.authenticationReceived || !this.props.membership) {
-      return (
-        <div className={this.props.classes.container}>
-          <CircularProgress />
-        </div>
-      );
-    }
     return <ConsumerPassWidgetStyled {...this.props} />;
   }
 }
@@ -238,4 +226,5 @@ const mapDispatchToWidgetProps = {
 export default compose<Props, OwnProps>(
   withStyles(styles),
   connect(mapStateToWidgetProps, mapDispatchToWidgetProps),
+  withLoginDisconnectedStatus,
 )(ConsumerPass);

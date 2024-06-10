@@ -36,7 +36,6 @@ import {
 import { connect } from 'react-redux';
 import { ConsumerBookingWidget } from 'bsport-saas/src/pages/consumer/ConsumerBookingReworked.page';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { BookingTab } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { BookingFilterTab } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
@@ -48,6 +47,7 @@ import {
 import { RootState } from '../reducers/index';
 import { getMembershipByCompanyId } from '../libs/bridge/selectors';
 import { adaptSelector } from '../utils/reduxHelpers';
+import withLoginDisconnectedStatus from '../hocs/withLoginDisconnectedStatus.hoc';
 
 type OwnProps = {
   companyId: number,
@@ -77,18 +77,6 @@ class ConsumerBooking extends React.Component<Props> {
   }
 
   render() {
-    // Temporary.
-    // TODO: We need a login screen.
-    if (this.props.authenticationReceived && !this.props.authenticated) {
-      return <h1>You are not logged in</h1>;
-    }
-    if (!this.props.authenticationReceived || !this.props.membership) {
-      return (
-        <div className={this.props.classes.container}>
-          <CircularProgress />
-        </div>
-      );
-    }
     return <ConsumerBookingWidgetStyled {...this.props} />;
   }
 }
@@ -123,7 +111,6 @@ const mapStateToWidgetProps = (
     getBlueprintAssetByIdentifier: (blueprintId: number) =>
       adaptSelector(getAssetByIdentifier)(state, blueprintId),
     getIsBookingsLoading: (selectedTab: BookingTab) =>
-      // @ts-expect-error bad type inference on the selector
       adaptSelector(getConsumerBookingsLoading)(state, selectedTab),
     getRelatedConsumerBookingsInGroup: (
       groupId: number,
@@ -249,4 +236,5 @@ const mapDispatchToWidgetProps = {
 export default compose<any, OwnProps>(
   withStyles(styles),
   connect(mapStateToWidgetProps, mapDispatchToWidgetProps),
+  withLoginDisconnectedStatus,
 )(ConsumerBooking);

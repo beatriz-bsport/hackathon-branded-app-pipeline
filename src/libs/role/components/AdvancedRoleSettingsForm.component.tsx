@@ -1,14 +1,12 @@
 import React from 'react';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import { makeStyles } from '@material-ui/core/styles';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
 import { useTranslation } from 'react-i18next';
 
 import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import InformationIcon from '#src/components/InformationIcon';
 
 import type { Role, SelectFieldItem } from '../types';
 
@@ -37,7 +35,6 @@ const Section: React.FC<{ title: string; helpText?: string }> = ({
   title,
 }) => {
   const classes = useStyles();
-  const theme = useTheme();
   return (
     <div className={classes.section}>
       <div className={classes.sectionTitle}>
@@ -45,19 +42,11 @@ const Section: React.FC<{ title: string; helpText?: string }> = ({
           {title}
         </Typography>
         {!!helpText && (
-          <Tooltip
-            classes={{ tooltip: classes.tooltip }}
-            placement="bottom-end"
-            title={
-              <div>
-                <Typography variant="body1">{helpText}</Typography>
-              </div>
-            }
-          >
-            <IconButton className={classes.iconButton}>
-              <InfoOutlinedIcon htmlColor={theme.palette.info.main} />
-            </IconButton>
-          </Tooltip>
+          <InformationIcon
+            anchorOrigin="top-right"
+            text={helpText}
+            transformOrigin="bottom-right"
+          />
         )}
       </div>
       {children}
@@ -248,16 +237,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  tooltip: {
-    borderColor: theme.palette.info.main,
-    color: theme.palette.text.primary,
-    backgroundColor: 'white',
-    border: '3px solid',
-    borderRadius: theme.spacing(2),
-    padding: theme.spacing(1),
-    width: 400,
-    boxShadow: '0px 0px 12px rgba(121.84, 121.84, 121.84, 0.35)',
   },
   selectorField: {
     display: 'flex',

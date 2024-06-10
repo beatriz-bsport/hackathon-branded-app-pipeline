@@ -24,6 +24,7 @@ import { NotificationRule } from '../types';
 import Tooltip from '../../../components/Tooltip.component';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import { OptionCallback } from '../../../state/types';
+import InformationIcon from '#src/components/InformationIcon';
 
 type Props = {
   emailDesignList: EmailTemplateSummary[];
@@ -80,7 +81,7 @@ export const NotificationRuleListItem = (props: Props) => {
     requiredTags,
   } = props;
 
-  const { t } = useTranslation('notificationRule');
+  const { t, ready, i18n } = useTranslation('notificationRule');
   const classes = useStyles();
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
@@ -275,7 +276,14 @@ export const NotificationRuleListItem = (props: Props) => {
           <Paper className={classNames(classes.container, className)}>
             <Typography className={classes.title}>
               {t(`eventType.${event}`)}
+              {ready &&
+                i18n.exists(
+                  `notificationRule:eventTypeHelperText.${event}`,
+                ) && (
+                  <InformationIcon text={t(`eventTypeHelperText.${event}`)} />
+                )}
             </Typography>
+
             <div className={classes.inner}>
               <div
                 className={
@@ -409,6 +417,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(1),
   },
   title: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
     fontWeight: 500,
     fontSize: 20,
     marginBottom: theme.spacing(2),

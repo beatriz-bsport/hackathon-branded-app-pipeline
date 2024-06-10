@@ -895,10 +895,7 @@ const OffersList: React.FC<{
                   setOfferEdited({
                     ...offer,
                     // @ts-expect-error
-                    date_start: DateTime.fromSeconds(offer.date_start).toFormat(
-                      'yyyy-LL-dd HH:mm',
-                    ),
-                    // @ts-expect-error
+                    date_start: DateTime.fromSeconds(offer.date_start),
                     customlevel: {
                       id: level,
                     },

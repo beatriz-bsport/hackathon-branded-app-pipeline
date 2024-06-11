@@ -1,9 +1,13 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { connect } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 
 import { ButtonBase } from '@material-ui/core';
-import withStyles from '@material-ui/core/styles/withStyles';
+import {
+  createStyles,
+  withStyles,
+} from 'bsport-saas/node_modules/@material-ui/core/styles';
+import type { WithStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import {
@@ -23,8 +27,7 @@ import {
   MarketplaceVODData,
 } from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { MaterialStyleType } from 'bsport-saas/src/utils/types';
-import { Theme } from 'bsport-saas/src/libs/theme/types';
+import { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
 import {
   bridgeRequestAuthenticationStatus,
   bridgeRequestVideoPlaybackUrl,
@@ -40,15 +43,14 @@ type OwnProps = {
   store: any,
   config: MarketplacePlaylistData & MarketplaceVODData,
   onRequestLogin: () => void,
-  theme: Theme,
+  theme: CompanyTheme,
   onWindowOpen: (popupWindow: any) => void,
   dialogMode: number,
 };
 
 type Props = OwnProps &
-  ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  MaterialStyleType<ReturnType<typeof styles>>;
+  ConnectedProps<typeof connector> &
+  WithStyles<typeof styles>;
 
 interface State {
   videoId?: number;
@@ -60,8 +62,8 @@ interface State {
     search: string,
     levels: string,
   };
-  showLogin: boolean;
-  showSignup: boolean;
+  showLogin?: boolean;
+  showSignup?: boolean;
 }
 
 const MarketPlaceVideoStyled = themify(
@@ -219,30 +221,31 @@ class VODWidget extends React.PureComponent<Props, State> {
   }
 }
 
-const styles = () => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    width: '100%',
-    alignItems: 'center',
-  },
-  icon: {},
-  videoContainer: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    width: '100%',
-    height: '100%',
-  },
-  videoDetail: {
-    display: 'block',
-    width: '100%',
-    height: '100%',
-    position: 'relative',
-  },
-});
+const styles = () =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      flex: 1,
+      width: '100%',
+      alignItems: 'center',
+    },
+    icon: {},
+    videoContainer: {
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      width: '100%',
+      height: '100%',
+    },
+    videoDetail: {
+      display: 'block',
+      width: '100%',
+      height: '100%',
+      position: 'relative',
+    },
+  });
 
 const mapStateToProps = (state: RootState) => ({
   authenticated: state.bridge.authentication.authenticated,
@@ -256,8 +259,9 @@ const mapDispatchToProps = {
   bridgeRequestVideoPlaybackUrl,
 };
 
-export default compose<any, OwnProps>(
-  // @ts-ignore
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose<Props, OwnProps>(
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
 )(VODWidget);

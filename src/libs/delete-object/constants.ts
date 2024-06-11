@@ -11,6 +11,12 @@ import type {
   CheckDeleteObjectActions,
 } from './types';
 
+export enum DeleteObjectStatus {
+  ERROR = 'error',
+  WARNING = 'warning',
+  INFO = 'info',
+}
+
 export const DELETE_OBJECT_FUNCTIONS: {
   [K in DeleteObjectVariant]: (id: number) => ThunkAction;
 } = { establishment: deleteEstablishment };

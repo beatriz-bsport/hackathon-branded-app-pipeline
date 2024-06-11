@@ -81,6 +81,7 @@ const ObjectSearch: React.FC<Props> = ({
       defaultValue={formattedInitialValues}
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       filterOption={(_option, _text) => true}
+      hideSelectedOptions={false}
       isLoading={isLoading}
       onInputChange={handleInputChange}
       options={formattedResults}

@@ -14,13 +14,7 @@ import type { IndicatorProps } from 'react-select/lib/components/indicators';
 import type { FranchiseUserTagDict } from '#src/libs/franchise/types';
 
 export type Props = {
-  onChange: (
-    options: {
-      label: string;
-      value: number;
-      tag: Tag<TagGroup> | Tag<TagGroupAPI>;
-    }[],
-  ) => void;
+  onChange: (options: TagOption[]) => void;
   onDeleteTag: (optionId: number) => void;
   id?: string;
   isDisabled?: boolean;

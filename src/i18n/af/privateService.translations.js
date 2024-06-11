@@ -780,6 +780,18 @@ const getTranslations = async () => {
         pad_before_booking: {
           label: 'Activate retroactively for this booking',
         },
+        advancedOptions: {
+          header: 'Advanced',
+          tag: {
+            header: 'Tags',
+            helperText:
+              'Use tags to make the appointment bookable only to a desired group of members: you can select tags to make all the sessions of this appointment bookable only to members with one of the selected tags, or you can select tags to make the appointment’s sessions non-bookable only to members with one of the selected tags.',
+            allowed: 'Allowed',
+            doNotSelectToAllowAllMembers:
+              'Leave this field empty to allow all members',
+            notAllowed: 'Not allowed',
+          },
+        },
       },
       parameters: {
         description: 'Description',

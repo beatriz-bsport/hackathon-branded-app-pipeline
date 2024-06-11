@@ -8438,7 +8438,17 @@
           "label": "Accept unpaid bookings",
           "helperText": "Activate this feature to allow members to complete bookings without any direct payments. The used credit(s) will be automatically deducted from any future appointment pass bought by the members."
         },
-        "pad_before_booking": { "label": "Activate retroactively for this booking" }
+        "pad_before_booking": { "label": "Activate retroactively for this booking" },
+        "advancedOptions": {
+          "header": "Advanced",
+          "tag": {
+            "header": "Tags",
+            "helperText": "Use tags to make the appointment bookable only to a desired group of members: you can select tags to make all the sessions of this appointment bookable only to members with one of the selected tags, or you can select tags to make the appointment’s sessions non-bookable only to members with one of the selected tags.",
+            "allowed": "Allowed",
+            "doNotSelectToAllowAllMembers": "Leave this field empty to allow all members",
+            "notAllowed": "Not allowed"
+          }
+        }
       },
       "parameters": {
         "description": "Description",

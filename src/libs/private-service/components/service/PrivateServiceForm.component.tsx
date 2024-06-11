@@ -27,7 +27,7 @@ import type {
   AssociatedEstablishment,
   Establishment,
 } from '#src/libs/establishment/types';
-import type { Tag, TagGroup } from '#src/libs/tag/types';
+import type { Tag, TagGroup, TagOption } from '#src/libs/tag/types';
 import type { PrivateServiceGroup } from '#src/libs/private-service/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
@@ -52,6 +52,15 @@ import {
 // @ts-expect-error
 import ImageField from '../../../../components/forms/ImageField.component';
 import PrivateServiceFormTag from './PrivateServiceFormTag.component';
+import { ButtonBase, Collapse } from '@material-ui/core';
+import {
+  Block,
+  Check,
+  ExpandLess,
+  ExpandMore,
+  Settings,
+} from '@material-ui/icons';
+import TagSelector from '#src/libs/tag/components/TagSelector.selector';
 
 const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.PrivateService,
@@ -78,6 +87,8 @@ export interface FormikValues {
   unpaid_whitelist_tags: Array<number>;
   unpaid_blacklist_tags: Array<number>;
   pad_before_booking: boolean;
+  member_whitelist_tags: Array<number>;
+  member_blacklist_tags: Array<number>;
 }
 type OwnProps = {
   availableEstablishments: Array<Establishment>;
@@ -126,7 +137,7 @@ const HelpPaddingDialog = ({
 };
 
 export const PrivateServiceForm = (props: Props) => {
-  const { values } = props;
+  const { values, setValues } = props;
   const { t } = useTranslation('privateService');
   const classes = useStyles();
   const [isOpenPadDialog, setIsOpenPadDialog] = React.useState<boolean>(false);
@@ -134,6 +145,75 @@ export const PrivateServiceForm = (props: Props) => {
     () => setIsOpenPadDialog(true),
     () => setIsOpenPadDialog(false),
   ];
+  const [openAdvancedOptions, setOpenAdvancedOptions] = React.useState(false);
+
+  const allWhitelistTagsWithTagGroup = React.useMemo(() => {
+    return (
+      [
+        ...props.tagList?.filter(
+          (tag) => !values.member_blacklist_tags?.includes(tag.id),
+        ),
+      ] || []
+    );
+  }, [props.tagList, values.member_blacklist_tags]);
+
+  const allBlacklistTagsWithTagGroup = React.useMemo(() => {
+    return (
+      [
+        ...props.tagList?.filter(
+          (tag) => !values.member_whitelist_tags?.includes(tag.id),
+        ),
+      ] || []
+    );
+  }, [props.tagList, values.member_whitelist_tags]);
+
+  const toggleAdvancedOptions = React.useCallback(() => {
+    setOpenAdvancedOptions((prev) => !prev);
+  }, []);
+
+  const updateWhitelist = React.useCallback(
+    (items: TagOption[]) => {
+      setValues({
+        ...values,
+        member_whitelist_tags: items.map((item) => item.value),
+      });
+    },
+    [setValues, values],
+  );
+
+  const deleteFromWhitelist = React.useCallback(
+    (itemId: number) => {
+      setValues({
+        ...values,
+        member_whitelist_tags: values.member_whitelist_tags.filter(
+          (tagId) => tagId !== itemId,
+        ),
+      });
+    },
+    [setValues, values],
+  );
+
+  const updateBlacklist = React.useCallback(
+    (items: TagOption[]) => {
+      setValues({
+        ...values,
+        member_blacklist_tags: items.map((item) => item.value),
+      });
+    },
+    [setValues, values],
+  );
+
+  const deleteFromBlacklist = React.useCallback(
+    (itemId: number) => {
+      setValues({
+        ...values,
+        member_blacklist_tags: values.member_blacklist_tags.filter(
+          (tagId) => tagId !== itemId,
+        ),
+      });
+    },
+    [setValues, values],
+  );
 
   return (
     <div className={classes.container}>
@@ -442,6 +522,70 @@ export const PrivateServiceForm = (props: Props) => {
           values={props.values}
         />
       </fieldset>
+      <div className={classes.fieldGroup}>
+        <div className={classes.advancedOptionsSection}>
+          <ButtonBase
+            className={classes.advancedOptionsHeader}
+            onClick={toggleAdvancedOptions}
+          >
+            <Settings className={classes.settings} />
+            <Typography variant="h6">
+              {t('service.form.advancedOptions.header')}
+            </Typography>
+            {openAdvancedOptions ? <ExpandLess /> : <ExpandMore />}
+          </ButtonBase>
+          <Collapse in={openAdvancedOptions}>
+            <div className={classes.tagSection}>
+              <Typography className={classes.title}>
+                {t('service.form.advancedOptions.tag.header')}
+              </Typography>
+              <Typography variant="caption">
+                {t('service.form.advancedOptions.tag.helperText')}
+              </Typography>
+              <div className={classes.tagSelector}>
+                <div className={classes.tagSelectorLabel}>
+                  <Check className={classes.tagSelectorLabelIcon} />
+                  <Typography variant="subtitle1">
+                    {t('service.form.advancedOptions.tag.allowed')}
+                  </Typography>
+                </div>
+                <TagSelector
+                  closeMenuOnSelect
+                  inScrollBar
+                  isClearable
+                  allTagsWithTagGroup={allWhitelistTagsWithTagGroup}
+                  onChange={updateWhitelist}
+                  onDeleteTag={deleteFromWhitelist}
+                  placeholder={t(
+                    'service.form.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                  )}
+                  selectedTags={values.member_whitelist_tags}
+                />
+              </div>
+              <div className={classes.tagSelector}>
+                <div className={classes.tagSelectorLabel}>
+                  <Block className={classes.tagSelectorLabelIcon} />
+                  <Typography variant="subtitle1">
+                    {t('service.form.advancedOptions.tag.notAllowed')}
+                  </Typography>
+                </div>
+                <TagSelector
+                  closeMenuOnSelect
+                  inScrollBar
+                  isClearable
+                  allTagsWithTagGroup={allBlacklistTagsWithTagGroup}
+                  onChange={updateBlacklist}
+                  onDeleteTag={deleteFromBlacklist}
+                  placeholder={t(
+                    'service.form.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                  )}
+                  selectedTags={values.member_blacklist_tags}
+                />
+              </div>
+            </div>
+          </Collapse>
+        </div>
+      </div>
     </div>
   );
 };
@@ -504,6 +648,45 @@ const useStyles = makeStyles((theme) => ({
   },
   alignCenter: {
     alignItems: 'center',
+  },
+  fieldGroup: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  title: {
+    fontWeight: 500,
+  },
+  settings: {
+    color: '#868686',
+  },
+  tagSelectorLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingBottom: theme.spacing(1),
+  },
+  tagSelectorLabelIcon: {
+    marginRight: theme.spacing(1),
+  },
+  tagSelector: {
+    paddingBottom: theme.spacing(2),
+  },
+  tagSection: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+  },
+  advancedOptionsHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: theme.spacing(2),
+  },
+  advancedOptionsSection: {
+    paddingTop: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    paddingBottom: theme.spacing(2),
   },
 }));
 
@@ -578,6 +761,8 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
       allow_unpaid_booking: false,
       unpaid_whitelist_tags: [],
       unpaid_blacklist_tags: [],
+      member_blacklist_tags: [],
+      member_whitelist_tags: [],
     };
   },
   validationSchema: PrivateServiceSchema,

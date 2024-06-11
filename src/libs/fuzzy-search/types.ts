@@ -186,7 +186,7 @@ type ResultsTypes = {
   custom_form: CustomForm;
 };
 
-const variantType = ['default', 'underlined'] as const;
+const variantType = ['default', 'mui-selector', 'underlined'] as const;
 
 export type VariantType = (typeof variantType)[number];
 

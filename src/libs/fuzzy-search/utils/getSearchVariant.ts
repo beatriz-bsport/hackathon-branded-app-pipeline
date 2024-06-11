@@ -3,7 +3,10 @@ import type {
   ObjectSelectOption,
   VariantType,
 } from '#src/libs/fuzzy-search/types';
-import { UnderlinedSearchBarControl } from '#src/libs/fuzzy-search/components/variants';
+import {
+  MaterialUISelectorComponents,
+  UnderlinedSearchBarControl,
+} from '#src/libs/fuzzy-search/components/variants';
 
 export const getSearchVariant = (
   variant: VariantType,
@@ -16,6 +19,8 @@ export const getSearchVariant = (
         DropdownIndicator: null,
         ...components,
       };
+    case 'mui-selector':
+      return { ...MaterialUISelectorComponents, ...components };
     default:
       return components;
   }

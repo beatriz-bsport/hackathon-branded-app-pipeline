@@ -2198,6 +2198,15 @@
                     "entryBarcode": "Code-barres d'entrée",
                     "scanInfo": "Scannez ce code-barres pour entrer dans le studio ou pour vous enregistrer pour votre cours.",
                     "scan": "Scanner le code-barres"
+                },
+                "edition": {
+                    "title": "Modifier votre profil"
+                },
+                "header": {
+                    "title": "Mon Profil",
+                    "buttons": {
+                        "editProfile": "Modifier"
+                    }
                 }
             }
         }
@@ -3422,6 +3431,11 @@
         "search": {
             "usersTableTitle": "Utilisateurs",
             "pageTitle": "Rechercher"
+        },
+        "userProfile": {
+            "numberBrands": "{{ number }} catégories",
+            "numberStudios": "{{ number }} studio d'achats",
+            "goToMemberProfile": "Gérer sur {{ purchasing_studio }}"
         }
     },
     "giftcard": {
@@ -6257,7 +6271,8 @@
             "inbox": "Boîte de réception",
             "audience": "{{ audienceCamelCase }}",
             "backToWebshop": "Revenir au magasin",
-            "accessMonitoring": "Accès"
+            "accessMonitoring": "Accès",
+            "closeTab": "Fermer la fenêtre"
         },
         "multiSession": {
             "title": " Vous semblez utiliser plusieurs onglets simultanément",
@@ -7806,7 +7821,10 @@
             "isActive": "Active",
             "hasCreditLeft": "Avec crédit",
             "hasCreditNull": "Sans crédit",
-            "isValidToday": "Valide"
+            "isValidToday": "Valide",
+            "companyGroupPlaceholder": "Sélectionner les catégories",
+            "companyGroup": "Catégorie",
+            "company": "Studio d'achat"
         },
         "multipleBookingTooltip": "Réservations multiples",
         "section": {
@@ -13294,7 +13312,8 @@
                 "message": "Êtes-vous sûr de vouloir supprimer cet élément du magasin ? Cette opération est irréversible.",
                 "genericTitle": "Confirmer la suppression",
                 "title": "Suppression - {{- name }}"
-            }
+            },
+            "coverAlt": "Image du produit {{ product }}"
         },
         "shopList": {
             "tab": {
@@ -13328,6 +13347,10 @@
                             "detailsModal": {
                                 "title": "Fournisseur: {{name}}"
                             }
+                        },
+                        "supplierPrices": {
+                            "hideSupplierPricesForFranchisees": "Cacher les prix des fournisseurs pour les studios de la franchise",
+                            "title": "Prix du fournisseur"
                         }
                     },
                     "title": "Paramètres"
@@ -17329,7 +17352,8 @@
                         "header": "Avancé"
                     },
                     "supplier": "Fournisseur",
-                    "sku": "SKU"
+                    "sku": "SKU",
+                    "studios": "Studios"
                 }
             },
             "booking": {
@@ -17701,7 +17725,8 @@
             "settings": "Paramètres",
             "myClub": "Mon Club",
             "subscription": "Souscriptions",
-            "coupon": "Promotions"
+            "coupon": "Promotions",
+            "closeTab": "Fermer la fenêtre"
         },
         "invoice": {
             "choseDateTitle": "Date de facturation",

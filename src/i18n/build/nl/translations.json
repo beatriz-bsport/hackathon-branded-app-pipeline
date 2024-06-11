@@ -620,6 +620,15 @@
                     "entryBarcode": "Barcode invoer",
                     "scanInfo": "Scan deze barcode om de studio binnen te komen of om in te checken voor je les.",
                     "scan": "Scan barcode"
+                },
+                "edition": {
+                    "title": "Bewerk jouw profiel"
+                },
+                "header": {
+                    "title": "Mijn Profiel",
+                    "buttons": {
+                        "editProfile": "Bewerk"
+                    }
                 }
             }
         }
@@ -1378,7 +1387,8 @@
             "digital": "Digitaal aanbod",
             "podcast": "Podcasts",
             "playlist": "Afspeellijst",
-            "video": "Videotheek & eBooks"
+            "video": "Videotheek & eBooks",
+            "closeTab": "Tabblad sluiten"
         },
         "consumer": {
             "booking": {
@@ -1714,7 +1724,8 @@
                         "header": "Geavanceerd"
                     },
                     "supplier": "Leverancier",
-                    "sku": "SKU"
+                    "sku": "SKU",
+                    "studios": "Studios"
                 },
                 "subShop": {
                     "delete": {
@@ -4416,7 +4427,10 @@
             "credits": "Credits",
             "expiration": "Geldigheid",
             "all": "Alle kaarten",
-            "isValidToday": "Geldig"
+            "isValidToday": "Geldig",
+            "companyGroupPlaceholder": "Selecteer categorieën",
+            "companyGroup": "Categorie",
+            "company": "Inkoopstudio"
         },
         "multipleBookingTooltip": "Meerdere reserveringen",
         "maxNBookingsByMonth2": " reservering(en) per maand",
@@ -10721,7 +10735,8 @@
             "showMore": "Toon meer",
             "title": "Productdetails",
             "deleteVariant": "Verwijderd variant",
-            "startingAt": "Startend op"
+            "startingAt": "Startend op",
+            "coverAlt": "Afbeelding voor het product {{ product }}"
         },
         "shopList": {
             "tab": {
@@ -10755,6 +10770,10 @@
                             "detailsModal": {
                                 "title": "Leverancier: {{name}}"
                             }
+                        },
+                        "supplierPrices": {
+                            "hideSupplierPricesForFranchisees": "Verberg leveranciersprijzen voor de franchise studio's",
+                            "title": "Prijzen leveranciers"
                         }
                     },
                     "title": "Instellingen"
@@ -16699,7 +16718,8 @@
             "inbox": "Inbox",
             "audience": "{{ audienceCamelCase }}",
             "backToWebshop": "Terug naar Webshop",
-            "accessMonitoring": "Toegang"
+            "accessMonitoring": "Toegang",
+            "closeTab": "Sluit tabblad"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -18619,6 +18639,11 @@
         "search": {
             "usersTableTitle": "Gebruikers",
             "pageTitle": "Zoek"
+        },
+        "userProfile": {
+            "numberBrands": "{{ number }} categorieën",
+            "numberStudios": "{{ number }} betalende studio's",
+            "goToMemberProfile": "Beheer op {{ purchasing_studio }}"
         }
     },
     "giftcard": {

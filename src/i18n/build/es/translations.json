@@ -309,7 +309,8 @@
                         "header": "Avanzado"
                     },
                     "supplier": "Proveedor",
-                    "sku": "SKU"
+                    "sku": "SKU",
+                    "studios": "Estudios"
                 }
             },
             "booking": {
@@ -723,7 +724,8 @@
             "smart_list": "Smartlists",
             "requestTempPassword": "Permitir el acceso",
             "marketing_automation": "Marketing Auto",
-            "playlist": "Recorrido"
+            "playlist": "Recorrido",
+            "closeTab": "Cerrar pestaña"
         },
         "invoice": {
             "choseDateTitle": "Fecha de facturación",
@@ -2900,7 +2902,8 @@
             "showLess": "Ver menos",
             "showMore": "Ver más",
             "startingAt": "A partir de",
-            "title": "Detalles del producto"
+            "title": "Detalles del producto",
+            "coverAlt": "Foto del producto {{ product }}"
         },
         "shopList": {
             "tab": {
@@ -2934,6 +2937,10 @@
                             "detailsModal": {
                                 "title": "Proveedor: {{name}}"
                             }
+                        },
+                        "supplierPrices": {
+                            "hideSupplierPricesForFranchisees": "Ocultar los precios de los proveedor para los estudios de la franquicia",
+                            "title": "Precios de proveedor"
                         }
                     },
                     "title": "Parámetros"
@@ -8241,6 +8248,15 @@
                     "entryBarcode": "Código de barras de entrada",
                     "scanInfo": "Escanee este código de barras para entrar en el estudio o registrarse para su clase.",
                     "scan": "Escanear código de barras"
+                },
+                "edition": {
+                    "title": "Edita to perfil"
+                },
+                "header": {
+                    "title": "Mi Perfil",
+                    "buttons": {
+                        "editProfile": "Editar"
+                    }
                 }
             }
         }
@@ -14651,7 +14667,10 @@
             "credits": "Crédito",
             "expiration": "Validez",
             "all": "Todas las tarjetas",
-            "isValidToday": "Válido"
+            "isValidToday": "Válido",
+            "companyGroupPlaceholder": "Selecciona categorías",
+            "companyGroup": "Categorías",
+            "company": "Estudio de la compra"
         },
         "multipleBookingTooltip": "Reservas múltiples",
         "maxNBookingsByMonth2": " reservas por mes",
@@ -15443,7 +15462,8 @@
             "inbox": "Bandeja de entrada",
             "audience": "{{ audienceCamelCase }}",
             "backToWebshop": "Volver a la tienda",
-            "accessMonitoring": "Acceso"
+            "accessMonitoring": "Acceso",
+            "closeTab": "Cerrar pestaña"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -18654,6 +18674,11 @@
         "search": {
             "usersTableTitle": "Usuarios",
             "pageTitle": "Buscar"
+        },
+        "userProfile": {
+            "numberBrands": "{{ number }} categorías",
+            "numberStudios": "{{ number }} estudios de compra",
+            "goToMemberProfile": "Gestionar en {{ purchasing_studio }}"
         }
     },
     "giftcard": {

@@ -1304,7 +1304,8 @@
             "member": "Mitglieder",
             "reporting": "Berichte",
             "digital": "Digitales Angebot",
-            "playlist": "Playlists"
+            "playlist": "Playlists",
+            "closeTab": "Tab schließen"
         },
         "offer": {
             "noncompatibleConsumerPaymentPacksAre": "DU besitzt die folgenden Pass, der nicht mit diesem Kurs kompatibel sind:",
@@ -1480,7 +1481,8 @@
                         "header": "Erweitert"
                     },
                     "supplier": "Anbieter",
-                    "sku": "SKU"
+                    "sku": "SKU",
+                    "studios": "Studios"
                 },
                 "subShop": {
                     "delete": {
@@ -5500,7 +5502,10 @@
             "credits": "Credits",
             "expiration": "Gültigkeit",
             "all": "Alle Pässe",
-            "isValidToday": "Gültig"
+            "isValidToday": "Gültig",
+            "companyGroupPlaceholder": "Kategorien auswählen",
+            "companyGroup": "Kategorie",
+            "company": "Einkaufsstudio"
         },
         "multipleBookingTooltip": "Mehrfach-Buchungen",
         "maxNBookingsByMonth2": " Buchungen pro Monat",
@@ -9021,7 +9026,8 @@
             "showLess": "Weniger anzeigen",
             "showMore": "Mehr anzeigen",
             "startingAt": "Ab",
-            "title": "Details zum Produkt"
+            "title": "Details zum Produkt",
+            "coverAlt": "Bild zum Produkt {{ product }}"
         },
         "shopList": {
             "tab": {
@@ -9055,6 +9061,10 @@
                             "detailsModal": {
                                 "title": "Lieferant: {{name}}"
                             }
+                        },
+                        "supplierPrices": {
+                            "hideSupplierPricesForFranchisees": "Lieferantenpreise für die Franchisestudios ausblenden",
+                            "title": "Lieferantenpreise"
                         }
                     },
                     "title": "Einstellungen"
@@ -12800,6 +12810,15 @@
                     "entryBarcode": "Eingabe Barcode",
                     "scanInfo": "Scannen Sie diesen Barcode, um das Studio zu betreten oder um für Ihren Kurs einzuchecken.",
                     "scan": "Scan Barcode"
+                },
+                "edition": {
+                    "title": "Dein Profil bearbeiten"
+                },
+                "header": {
+                    "title": "Mein Profil",
+                    "buttons": {
+                        "editProfile": "Bearbeiten"
+                    }
                 }
             }
         }
@@ -14541,7 +14560,8 @@
             "inbox": "Posteingang",
             "audience": "{{ audienceCamelCase }}",
             "backToWebshop": "Zurück zum Webshop",
-            "accessMonitoring": "Zugang"
+            "accessMonitoring": "Zugang",
+            "closeTab": "Tab schließen"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -18505,6 +18525,11 @@
         "search": {
             "usersTableTitle": "Benutzer",
             "pageTitle": "Suchen"
+        },
+        "userProfile": {
+            "numberBrands": "{{ number }} Kategorien",
+            "numberStudios": "{{ number }} zahlende Studios",
+            "goToMemberProfile": "Verwalten auf {{ purchasing_studio }}"
         }
     },
     "giftcard": {

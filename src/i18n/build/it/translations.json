@@ -278,7 +278,8 @@
                         "header": "Avanzate"
                     },
                     "supplier": "Fornitore",
-                    "sku": "SKU"
+                    "sku": "SKU",
+                    "studios": "Studi"
                 }
             },
             "member": {
@@ -678,7 +679,8 @@
             "settings": "Impostazioni",
             "myClub": "Il mio club",
             "subscription": "Abbonamenti ricorrenti",
-            "coupon": "Promozioni"
+            "coupon": "Promozioni",
+            "closeTab": "Chiudi scheda"
         },
         "payment": {
             "payWithNCredits1": "Prenota (",
@@ -2127,6 +2129,15 @@
                     "entryBarcode": "Codice a barre in ingresso",
                     "scanInfo": "Scansiona questo codice a barre per entrare nello studio o per effettuare il check-in per la tua lezione.",
                     "scan": "Scansiona codice a barre"
+                },
+                "edition": {
+                    "title": "Modifica il tuo profilo"
+                },
+                "header": {
+                    "title": "Il mio profilo",
+                    "buttons": {
+                        "editProfile": "Modifica"
+                    }
                 }
             }
         }
@@ -4345,7 +4356,8 @@
             "inbox": "Posta in arrivo",
             "audience": "{{ audienceCamelCase }}",
             "backToWebshop": "Torna allo shop",
-            "accessMonitoring": "Accesso"
+            "accessMonitoring": "Accesso",
+            "closeTab": "Chiudi la scheda"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -9397,7 +9409,10 @@
             "credits": "Credito",
             "expiration": "Validità",
             "all": "Tutti i pacchetti",
-            "isValidToday": "Valido"
+            "isValidToday": "Valido",
+            "companyGroupPlaceholder": "Seleziona categorie",
+            "companyGroup": "Categoria",
+            "company": "Studio di acquisto"
         },
         "multipleBookingTooltip": "Prenotazioni multiple",
         "blockedCpp": "Carta bloccata da {{-blocked_from}} a {{-blocked_until}}",
@@ -13489,7 +13504,8 @@
             "showLess": "Mostra meno",
             "showMore": "Mostra più",
             "startingAt": "A partire da",
-            "title": "Dettagli del prodotto"
+            "title": "Dettagli del prodotto",
+            "coverAlt": "Immagine del prodotto {{ product }}"
         },
         "shopList": {
             "tab": {
@@ -13523,6 +13539,10 @@
                             "detailsModal": {
                                 "title": "Fornitore: {{name}}"
                             }
+                        },
+                        "supplierPrices": {
+                            "hideSupplierPricesForFranchisees": "Nascondere i prezzi dei fornitori per i franchising",
+                            "title": "Prezzi dei fornitori"
                         }
                     },
                     "title": "Impostazioni"
@@ -18598,6 +18618,11 @@
         "search": {
             "usersTableTitle": "Utenti",
             "pageTitle": "Cerca"
+        },
+        "userProfile": {
+            "numberBrands": "{{ number }} categorie",
+            "numberStudios": "{{ number }} studi di acquisto",
+            "goToMemberProfile": "Gestisci su {{ purchasing_studio }}"
         }
     },
     "giftcard": {

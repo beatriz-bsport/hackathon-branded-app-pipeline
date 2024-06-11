@@ -81,6 +81,8 @@ type OwnProps = {
   requestedSlot: string;
   onClose: () => void;
   coachesSelectedInRole: Array<Coach>;
+  /** On some pages we might not want to trigger the fetch of bulk associated coach since another request could override the state */
+  preventFetchCoachBulk?: boolean;
 };
 
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
@@ -120,9 +122,10 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         this.props.fetchEstablishmentBulk(
           serviceList.reduce((acc, s) => [...acc, ...s.establishments], []),
         );
-        this.props.fetchCoachBulk(
-          serviceList.reduce((acc, s) => [...acc, ...s.coaches], []),
-        );
+        !this.props.preventFetchCoachBulk &&
+          this.props.fetchCoachBulk(
+            serviceList.reduce((acc, s) => [...acc, ...s.coaches], []),
+          );
       },
     });
     this.props.resetIncompatibilitiesReasonsBySlotByConsumerPass();

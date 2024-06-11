@@ -319,6 +319,7 @@ export const PrivateCalendarWithControls = (props: Props) => {
           refreshPrivateBookings={props.refreshPrivateBookings}
         />
         <PrivateBookingBooker
+          preventFetchCoachBulk
           coachesSelectedInRole={props.coachesSelectedInRole || []}
           onClose={() => {
             props.closePrivateBooker();

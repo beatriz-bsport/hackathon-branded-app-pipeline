@@ -19,6 +19,11 @@ module.exports = merge(common, {
   output: {
     clean: true,
   },
+  devServer: {
+    client: {
+      overlay: false,
+    },
+  },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({

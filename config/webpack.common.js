@@ -6,11 +6,7 @@ const paths = require('./paths');
 const publicPath = '/';
 
 module.exports = {
-  entry: [
-    require.resolve('./polyfills'),
-    require.resolve('react-dev-utils/webpackHotDevClient'),
-    paths.appIndexJs,
-  ],
+  entry: [require.resolve('./polyfills'), paths.appIndexJs],
   output: {
     pathinfo: true,
     path: paths.appBuild,

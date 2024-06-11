@@ -67,6 +67,7 @@ module.exports = {
             loader: 'babel-loader',
             options: {
               cacheDirectory: true,
+              sourceMaps: true,
               plugins: [
                 '@babel/plugin-transform-class-properties',
                 '@babel/plugin-transform-optional-chaining',

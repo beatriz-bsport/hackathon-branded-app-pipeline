@@ -120,9 +120,12 @@ import {
   resetByPaymentPack as resetByPaymentPackAction,
   fetchByPaymentPack as fetchByPaymentPackAction,
 } from '../../libs/consumer-payment-pack/actions';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '#src/libs/member/actions';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
 import { OptionCallback } from '../../state/types';
+import { getConsumerPacksByPackWithMember } from '#src/libs/consumer-payment-pack/selectors';
+import type { ConsumerPaymentPackREST } from '#src/libs/consumer-payment-pack/types';
 
 type PaymentPackOption = {
   label: string;
@@ -712,7 +715,6 @@ export class PaymentPackList extends React.Component<Props, State> {
               <PaymentPackDeleteDialog
                 consumerPackSummary={
                   this.state.paymentPackToDelete ? (
-                    // @ts-expect-error
                     <PaginatedConsumerPackList
                       consumerPacksUpdatingById={
                         this.props.consumerPacks.updatingById
@@ -720,6 +722,7 @@ export class PaymentPackList extends React.Component<Props, State> {
                       decrementCredit={decrementCredit}
                       incrementCredit={incrementCredit}
                       itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
+                      // @ts-expect-error
                       items={this.props.consumerPacks.items}
                       loading={this.props.consumerPacks.loading}
                       nbItems={this.props.consumerPacks.count}
@@ -885,8 +888,7 @@ const mapStateToProps = (state: RootState) => ({
   )(state),
   disabledPacks: getDisabledPaymentPacks(state),
   consumerPacks: {
-    // @ts-expect-error
-    items: state.consumerPaymentPack.byPaymentPack.items,
+    items: getConsumerPacksByPackWithMember(state),
     count: state.consumerPaymentPack.byPaymentPack.count,
     loading: state.consumerPaymentPack.byPaymentPack.loading,
     page: state.consumerPaymentPack.byPaymentPack.page,
@@ -937,6 +939,7 @@ const mapDispatchToProps = {
   resetDisabledPaymentPack,
   refreshCompanyThemeAction,
   fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
+  fetchFilteredMembers: fetchFilteredMembersAction,
 };
 const mapWithHandlers = {
   incrementCredit:
@@ -962,7 +965,15 @@ const mapWithHandlers = {
   fetchConsumerPacks:
     (props: OwnAndConnectedProps) =>
     (paymentPackId: number, page: number, pageSize: number) => {
-      props.fetchByPaymentPackAction(paymentPackId, page, pageSize);
+      props.fetchByPaymentPackAction(paymentPackId, page, pageSize, {
+        onSuccess: (consumerPaymentPackList: ConsumerPaymentPackREST[]) => {
+          props.fetchFilteredMembers({
+            id__in: consumerPaymentPackList.map(
+              (consumerPaymentPack) => consumerPaymentPack.member_id,
+            ),
+          });
+        },
+      });
     },
   goToPack: (props: OwnAndConnectedProps) => (paymentPackId: number) => {
     props.pushRouter(`/payment-pack/${paymentPackId}`);

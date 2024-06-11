@@ -32,6 +32,7 @@ import type {
   ConsumerPaymentPackExtension,
   ConsumerPaymentPackExtensionCreate,
   ConsumerPaymentPackExtensionParams,
+  ConsumerPaymentPackREST,
 } from './types';
 import type { RootState } from '../../reducers';
 
@@ -175,7 +176,7 @@ export function fetchByPaymentPack(
   paymentPackId: number,
   page?: number,
   page_size?: number,
-  options?: OptionCallback,
+  options?: OptionCallback<ConsumerPaymentPackREST | ConsumerPaymentPackREST[]>,
   params: any = {},
 ) {
   return async (dispatch: Dispatch) => {
@@ -191,7 +192,6 @@ export function fetchByPaymentPack(
       dispatch(byPaymentPack.success({ ...response.data, page: page || 1 }));
       if (options && options.onSuccess) {
         if (response.data.results) {
-          // @ts-expect-error
           options.onSuccess(response.data.results);
         } else {
           // @ts-expect-error

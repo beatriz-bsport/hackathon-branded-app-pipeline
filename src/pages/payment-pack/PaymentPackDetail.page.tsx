@@ -157,6 +157,7 @@ import CompatibilityFormComponent from '#src/libs/private-service/components/pas
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
+import { ConsumerPaymentPackREST } from '#src/libs/consumer-payment-pack/types';
 
 type OwnProps = {
   id: number;
@@ -797,7 +798,9 @@ const mapDispatchToProps = {
     page: number,
     pageSize: number,
     filters?: PaymentPackFilters,
-    options?: OptionCallback,
+    options?: OptionCallback<
+      ConsumerPaymentPackREST | ConsumerPaymentPackREST[]
+    >,
   ) =>
     fetchByPaymentPackAction(paymentPackId, page, pageSize, options, filters),
   fetchFilteredMembers: fetchFilteredMembersAction,

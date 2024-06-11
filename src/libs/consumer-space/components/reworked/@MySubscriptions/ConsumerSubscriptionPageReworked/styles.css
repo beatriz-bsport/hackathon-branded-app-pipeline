@@ -1,6 +1,6 @@
 .bs-consumer__subscription-page__root {
-  padding: var(--bs-space-size-4) var(--bs-space-size-4) 0;
   container: bsConsumerSubscriptionPage / inline-size;
+  padding: var(--bs-space-size-4) var(--bs-space-size-4) 0;
 }
 
 .bs-consumer__subscription-page__root--mobile {

@@ -115,6 +115,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
       className={classNames('bs-consumer-page-root__subscription', {
         'bs-consumer-page-root__subscription--mobile':
           isMobile && !!selectedSubscription?.id,
+        'bs-consumer-page-root__subscription--empty': showEmptyPlaceholder,
       })}
     >
       {showEmptyPlaceholder && (

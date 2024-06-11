@@ -7,6 +7,7 @@ import ExportableWorkshopSettings from './ExportableWorkshopSettings.form';
 import ExportableGiftcardSettings from './ExportableGiftcardSettings.form';
 import ExportablePaymentPackTemplateSettings from './ExportablePaymentPackTemplateSettings.form';
 import ExportableNewsletterV2Settings from './ExportableNewsletterV2Settings.form';
+import ExportableLoginWithDisconnectedStatusSettings from './ExportableLoginWithDisconnectedStatusSettings.form';
 
 import {
   EXPORTABLE_COMPONENT_TYPE_PLAYLIST,
@@ -19,6 +20,8 @@ import {
   EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE,
   EXPORTABLE_COMPONENT_TYPE_CALENDAR,
   EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2,
+  EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING,
+  EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS,
 } from '../../constants';
 
 export const EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE = {
@@ -33,6 +36,10 @@ export const EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE = {
   [EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE]:
     ExportablePaymentPackTemplateSettings,
   [EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2]: ExportableNewsletterV2Settings,
+  [EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING]:
+    ExportableLoginWithDisconnectedStatusSettings,
+  [EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS]:
+    ExportableLoginWithDisconnectedStatusSettings,
 };
 
 export default EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE;

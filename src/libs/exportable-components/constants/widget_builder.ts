@@ -17,6 +17,14 @@ export const EXPORTABLE_COMPONENT_TYPE_REFERRAL = 'referral';
 export const EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING = 'consumerBooking';
 export const EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS = 'consumerPass';
 
+const LOGIN_WITH_DISCONNECTED_STATUS_DEFAULT_CONFIG = {
+  hideWhenNotLoggedIn: false,
+  loginSubtitle: '',
+  loginTitle: '',
+  showSubtitle: true,
+  showTitle: true,
+};
+
 export const EXPORTABLE_COMPONENTS = [
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_REFERRAL,
@@ -26,12 +34,12 @@ export const EXPORTABLE_COMPONENTS = [
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING,
     label: 'consumerBooking',
-    defaultConfig: {},
+    defaultConfig: LOGIN_WITH_DISCONNECTED_STATUS_DEFAULT_CONFIG,
   },
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS,
     label: 'consumerPass',
-    defaultConfig: {},
+    defaultConfig: LOGIN_WITH_DISCONNECTED_STATUS_DEFAULT_CONFIG,
   },
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,

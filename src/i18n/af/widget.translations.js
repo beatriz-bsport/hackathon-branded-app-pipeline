@@ -18,7 +18,7 @@ exports.default = {
     listDisplay: 'Week view (list)',
     codeInfo: 'Integrate this code into your website',
     linkToConfig: 'Link for this configuration',
-
+    disconnectedStatusConfigTitle: 'Disconnected status configuration',
     creationPageInfo:
       'Configure and personalize your widgets to your brand and to your liking. Afterwards, simply copy-paste the specific code on your website.',
     dialogMode: {
@@ -44,6 +44,7 @@ exports.default = {
       successText: 'Confirmation text',
       showSuccessText: 'Show confirmation text',
     },
+    hideWidgets: 'Hide all widgets for unlogged users',
     dialogModeLabel: 'Popup type',
     widgetPreviewError: 'Please finish the settings',
     dialogTitle: 'Widget personalization',

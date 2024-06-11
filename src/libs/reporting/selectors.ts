@@ -67,7 +67,7 @@ export const getReportHeadersLoading = (state: RootState) => {
 };
 
 export const getReportMetadata = (state: RootState) => {
-  return state.reports.metadata;
+  return { ...state.reports.metadata };
 };
 
 export const getReports = (state: RootState) => {

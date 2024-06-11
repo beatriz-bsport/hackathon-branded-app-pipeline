@@ -1,5 +1,6 @@
+import type { RootState } from '#src/reducers';
+
 import memoize from 'memoize-one';
-import { RootState } from '../../reducers';
 
 export const getDynamicDataLoading = memoize((state: RootState) => ({
   activity: state.metaActivity.loading,
@@ -21,5 +22,6 @@ export const getDynamicDataLoading = memoize((state: RootState) => ({
   company: state.franchise.loading,
 }));
 
-export const getDynamicDataHasBeenLoaded = (state: RootState) =>
-  state.datatypeFiltering.dynamicDataHasBeenLoaded;
+export const getDynamicDataHasBeenLoaded = (state: RootState) => {
+  return state.datatypeFiltering.dynamicDataHasBeenLoaded;
+};

@@ -420,6 +420,8 @@ const DatatypeFilterConfigValueList: React.FC<{
   isPreview?: boolean;
   getDataByType: (
     datatype: DynamicFilterDataType,
+    valueId: number[],
+    columnName: string,
   ) => handleGetDynamicDataForFiltersReturn;
   inScrollBar: boolean;
   columnName: string;
@@ -462,6 +464,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       case 'establishment':
       case 'giftcard':
       case 'payment_pack':
+        return getDataByType(datatype, [], columnName);
       case 'payment_pack_category':
       case 'private_pass':
       case 'private_pass_category':
@@ -474,7 +477,6 @@ const DatatypeFilterConfigValueList: React.FC<{
       case 'establishment_group':
         // @ts-expect-error
         return getDataByType(datatype, [], columnName);
-
       case 'payout_status':
         return [
           PAYOUT_STATUS_CANCELED,

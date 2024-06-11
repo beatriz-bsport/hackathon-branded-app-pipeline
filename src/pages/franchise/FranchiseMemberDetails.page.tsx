@@ -50,7 +50,13 @@ const isEnvironnementProduction =
 
 const tabsData = Immutable(
   isEnvironnementProduction
-    ? [{ label: 'tab.member.info', value: 'info' }]
+    ? [
+        { label: 'tab.member.info', value: 'info' },
+        {
+          label: 'tab.member.paymentPack',
+          value: 'pass',
+        },
+      ]
     : [
         { label: 'tab.member.info', value: 'info' },
         {

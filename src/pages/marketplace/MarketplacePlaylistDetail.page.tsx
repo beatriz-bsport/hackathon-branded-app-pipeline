@@ -1,12 +1,16 @@
 import React from 'react';
 import Modal from '@material-ui/core/Modal';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import flatten from 'lodash/flatten';
-import { connect } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 import { push, replace } from 'connected-react-router';
 
-import { Theme } from '@material-ui/core';
+import {
+  createStyles,
+  withStyles,
+  type WithStyles,
+  type Theme,
+} from '@material-ui/core/styles';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { urlToMarketplaceTab } from '#src/libs/marketplace/utils';
 // @ts-expect-error
@@ -28,7 +32,7 @@ import {
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import { WithHandlerType } from '../../utils/types';
 import { VideoCheckoutComponent } from '../checkout/vod/VideoCheckout.page';
 
 type OwnProps = {
@@ -50,10 +54,15 @@ type OwnProps = {
     companyName: string,
   ) => void;
   store?: any;
+  authenticated?: boolean;
+  accessDenied?: boolean;
+  getPlaybackUrl?: () => void;
+  playbackUrlLoading?: boolean;
+  playbackUrl?: string;
+  requestVideoAccess?: () => void;
 };
 
-type ConnectProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+type ConnectProps = ConnectedProps<typeof connector>;
 
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -62,14 +71,12 @@ type Props = ConnectProps &
   OwnProps &
   WithHandlerType<typeof mapHandlers> &
   StateHandlerType &
-  MaterialStyleType<ReturnType<typeof styles>>;
-
+  WithStyles<typeof styles>;
 export class MarketplacePlaylistDetailPage extends React.Component<Props> {
   componentDidMount() {
     this.props.retrievePlaylist();
     if (this.props.videoId) {
       this.props.retrieveVideo(this.props.videoId);
-      // @ts-expect-error
       if (this.props.authenticated) {
         // @ts-expect-error
         this.props.getPlaybackUrl(this.props.videoId);
@@ -95,9 +102,7 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
     }
 
     if (
-      // @ts-expect-error
       (this.props.videoId !== prevProps.videoId && this.props.authenticated) ||
-      // @ts-expect-error
       (this.props.authenticated && !prevProps.authenticated)
     ) {
       // @ts-expect-error
@@ -106,12 +111,9 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
   }
 
   requestVideoAccess = () => {
-    // @ts-expect-error
     if (this.props.requestVideoAccess) {
-      // @ts-expect-error
       return this.props.requestVideoAccess();
     }
-    // @ts-expect-error
     if (!this.props.authenticated) {
       return this.props.requestSignUp();
     }
@@ -151,16 +153,11 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
       <div className={this.props.classes.container}>
         <div className={this.props.classes.playlistDetailContainer}>
           <PlaylistDetail
-            // @ts-expect-error
             accessDenied={this.props.accessDenied}
-            // @ts-expect-error
             authenticated={this.props.authenticated}
-            // @ts-expect-error
             getPlaybackUrl={this.props.getPlaybackUrl}
             onOpenVideo={this.props.goToVideoInPlaylist}
-            // @ts-expect-error
             playbackUrl={this.props.playbackUrl}
-            // @ts-expect-error
             playbackUrlLoading={this.props.playbackUrlLoading}
             playlist={this.props.playlist}
             requestVideoAccess={this.requestVideoAccess}
@@ -197,34 +194,35 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
   }
 }
 
-const styles = (theme: Theme) => ({
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
-    display: 'flex',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-  },
-  playlistDetailContainer: {
-    maxWidth: 1400,
-    height: '100%',
-    width: '100%',
-  },
-  modal: {
-    position: 'absolute',
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: 8,
-    overflow: 'auto',
-    maxHeight: '100vh',
-    maxWidth: '60%',
-    [theme.breakpoints.up('sm')]: {
-      minWidth: 600,
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      paddingTop: theme.spacing(4),
+      paddingLeft: theme.spacing(4),
+      paddingRight: theme.spacing(4),
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
     },
-  },
-});
+    playlistDetailContainer: {
+      maxWidth: 1400,
+      height: '100%',
+      width: '100%',
+    },
+    modal: {
+      position: 'absolute',
+      backgroundColor: theme.palette.background.paper,
+      borderRadius: 8,
+      overflow: 'auto',
+      maxHeight: '100vh',
+      maxWidth: '60%',
+      [theme.breakpoints.up('sm')]: {
+        minWidth: 600,
+      },
+    },
+  });
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   // @ts-expect-error
@@ -244,6 +242,8 @@ const mapDispatchToProps = {
   pushRouter: push,
   replaceRouter: replace,
 };
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 const mapHandlers = {
   retrieveVideo: (props: OwnProps & ConnectProps) => (id: number) => {
@@ -315,11 +315,10 @@ const withStateHandlersSetter = {
   },
 };
 
-export const MarketplacePlaylistDetailDataProvider = compose<any, OwnProps>(
+export const MarketplacePlaylistDetailDataProvider = compose<Props, OwnProps>(
   marketplaceCssHoc(),
-  // @ts-expect-error
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   withHandlers(mapHandlers),
 );

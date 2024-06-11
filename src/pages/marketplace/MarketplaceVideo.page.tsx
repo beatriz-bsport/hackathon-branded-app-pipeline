@@ -1,13 +1,16 @@
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers } from 'recompose';
-import { connect } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 import { RouteChildrenProps, withRouter } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import { push as pushRouter } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
-
-import type { Theme } from '@material-ui/core';
+import {
+  createStyles,
+  withStyles,
+  type WithStyles,
+  type Theme,
+} from '@material-ui/core/styles';
 import PlaylistListMarketPlace from '#src/libs/playlist/components/PlaylistListMarketplace.component';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { getPlaylistList } from '#src/libs/playlist/selectors';
@@ -40,10 +43,10 @@ import { getActiveCustomLevels } from '#src/libs/level/selectors';
 import themeSelectors from '#src/libs/theme/selectors';
 import { getMarketplaceRoute } from '#src/libs/marketplace/routing-utils';
 import { VideoStatusEnum } from '#src/libs/video/types';
-import { CompanyTheme } from '#src/libs/theme/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
 import { PLAYLIST_PAGE_SIZE } from '#src/libs/playlist/constant';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import { RootState } from '../../reducers';
+import type { WithHandlerType } from '../../utils/types';
+import type { RootState } from '../../reducers';
 
 type OwnProps = {
   companyId: number;
@@ -58,16 +61,15 @@ type OwnProps = {
   setSearchParams: (key: string) => (value: any) => void;
   openVideo?: (videoId: number, companyId: number, companyName: string) => void;
   openPlaylist?: (id: number, companyId: number, companyName: string) => void;
-  companyTheme: CompanyTheme;
+  companyTheme?: CompanyTheme;
+  store?: any;
 };
 
-type ConnectedProps = OwnProps &
-  ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+type OwnAndConnectedProps = OwnProps & ConnectedProps<typeof connector>;
 
-type Props = ConnectedProps &
+type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapHandlers> &
-  MaterialStyleType<ReturnType<typeof styles>> &
+  WithStyles<typeof styles> &
   WithTranslation &
   RouteChildrenProps<any>;
 
@@ -136,37 +138,38 @@ export class MarketplaceVideo extends React.Component<Props> {
   }
 }
 
-const styles = (theme: Theme) => ({
-  container: {
-    width: '100%',
-  },
-  container2: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    [theme.breakpoints.down('md')]: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-    },
-    '&>*': {
-      maxWidth: 1200,
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
       width: '100%',
     },
-  },
-  videoListContainer: {
-    display: 'flex',
-    flexBasis: '80%',
-    flexDirection: 'column',
-  },
-  searchContainer: {
-    marginBottom: theme.spacing(2),
-  },
-  divider: {
-    marginBottom: theme.spacing(4),
-  },
-});
+    container2: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      [theme.breakpoints.down('md')]: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+      },
+      '&>*': {
+        maxWidth: 1200,
+        width: '100%',
+      },
+    },
+    videoListContainer: {
+      display: 'flex',
+      flexBasis: '80%',
+      flexDirection: 'column',
+    },
+    searchContainer: {
+      marginBottom: theme.spacing(2),
+    },
+    divider: {
+      marginBottom: theme.spacing(4),
+    },
+  });
 const mapStateToProps = (state: RootState) => ({
   playlistList: getPlaylistList(state),
   companyTheme: themeSelectors.getTheme(state),
@@ -188,6 +191,8 @@ const mapDispatchToProps = {
   fetchVideoFilterableParams,
   fetchLevelList: fetchLevelListAction,
 };
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 const turnSearchParamsIntoQueryParams = (searchParams?: any) => {
   const params: any = {};
@@ -214,7 +219,7 @@ const turnSearchParamsIntoQueryParams = (searchParams?: any) => {
 };
 
 const mapHandlers = {
-  fetchMoreVideo: (props: ConnectedProps) => () => {
+  fetchMoreVideo: (props: OwnAndConnectedProps) => () => {
     const params = turnSearchParamsIntoQueryParams(props.searchParams);
     props.fetchMoreVideo({
       status: VideoStatusEnum.processed,
@@ -223,7 +228,7 @@ const mapHandlers = {
       ...params,
     });
   },
-  fetchVideoList: (props: ConnectedProps) => (options: any) => {
+  fetchVideoList: (props: OwnAndConnectedProps) => (options: any) => {
     const params = turnSearchParamsIntoQueryParams(props.searchParams);
     props.fetchVideoList(
       {
@@ -236,19 +241,19 @@ const mapHandlers = {
       options,
     );
   },
-  fetchPlaylistList: (props: ConnectedProps) => () => {
+  fetchPlaylistList: (props: OwnAndConnectedProps) => () => {
     props.fetchPlaylistList({
       company: props.companyId,
       page_size: PLAYLIST_PAGE_SIZE,
     });
   },
-  fetchMorePlaylist: (props: ConnectedProps) => () => {
+  fetchMorePlaylist: (props: OwnAndConnectedProps) => () => {
     props.fetchMorePlaylist({
       company: props.companyId,
       page_size: PLAYLIST_PAGE_SIZE,
     });
   },
-  openVideo: (props: ConnectedProps) => (videoId: number) => {
+  openVideo: (props: OwnAndConnectedProps) => (videoId: number) => {
     if (props.openVideo) {
       props.openVideo(videoId, props.companyId, props.companyName);
       return;
@@ -261,7 +266,7 @@ const mapHandlers = {
       ),
     );
   },
-  openPlaylist: (props: ConnectedProps) => (id: number) => {
+  openPlaylist: (props: OwnAndConnectedProps) => (id: number) => {
     if (props.openPlaylist) {
       props.openPlaylist(id, props.companyId, props.companyName);
       return;
@@ -277,12 +282,11 @@ const mapHandlers = {
   },
 };
 
-export const MarketplaceVideoDataProvider = compose<any, OwnProps>(
+export const MarketplaceVideoDataProvider = compose<Props, OwnProps>(
   marketplaceCssHoc(),
-  // @ts-expect-error
   withStyles(styles),
   withTranslation('video'),
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
   withHandlers(mapHandlers),
 );
 

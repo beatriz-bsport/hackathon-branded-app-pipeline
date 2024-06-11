@@ -1,14 +1,17 @@
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import Grid from '@material-ui/core/Grid';
-import { connect } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 import flatten from 'lodash/flatten';
 import { push as pushRouter } from 'connected-react-router';
-import { LinearProgress, Theme } from '@material-ui/core';
-
+import { LinearProgress } from '@material-ui/core';
+import {
+  createStyles,
+  withStyles,
+  type WithStyles,
+  type Theme,
+} from '@material-ui/core/styles';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-import { CompanyTheme } from '#src/libs/theme/types';
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 // @ts-expect-error
@@ -35,11 +38,11 @@ import {
 
 import themeSelectors from '../../libs/theme/selectors';
 
-import { RootState } from '../../reducers';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import { Video, VideoPurchase } from '../../libs/video/types';
+import type { RootState } from '../../reducers';
+import type { WithHandlerType } from '../../utils/types';
+import type { Video, VideoPurchase } from '../../libs/video/types';
 import { VideoCheckoutComponent } from '../checkout/vod/VideoCheckout.page';
-import { OptionCallback } from '../../state/types';
+import type { OptionCallback } from '../../state/types';
 
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -49,26 +52,24 @@ type OwnProps = {
   companyId: number;
   companyName: string;
   requestSignUp?: () => void;
-  onRequestBuyPass: (companyId: number, companyName: string) => void;
   openVideo: (videoId: number, companyId: number, companyName: string) => void;
   store?: any;
-  requestVideoAccessRefreshFlag?: number;
   accessDenied: boolean;
   authenticated: any;
   getPlaybackUrl: (videoId: number, options?: OptionCallback) => void;
   playbackUrlLoading: boolean;
   playbackUrl: string;
-  videoPurchase: VideoPurchase;
-  companyTheme: CompanyTheme;
-} & StateHandlerType;
+  videoPurchase?: VideoPurchase;
+  requestVideoAccess?: () => void;
+};
 
-type ConnectProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+type ConnectProps = ConnectedProps<typeof connector>;
 
 type Props = ConnectProps &
   OwnProps &
   WithHandlerType<typeof mapHandlers> &
-  MaterialStyleType<ReturnType<typeof styles>>;
+  StateHandlerType &
+  WithStyles<typeof styles>;
 
 export class MarketplaceVideoDetail extends React.Component<Props> {
   componentDidMount() {
@@ -92,9 +93,7 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
   }
 
   requestVideoAccess = () => {
-    // @ts-expect-error
     if (this.props.requestVideoAccess) {
-      // @ts-expect-error
       return this.props.requestVideoAccess();
     }
 
@@ -175,19 +174,20 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
   }
 }
 
-const styles = (theme: Theme) => ({
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-  },
-  gridContainer: {
-    maxWidth: 1400,
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      paddingTop: theme.spacing(4),
+      paddingLeft: theme.spacing(4),
+      paddingRight: theme.spacing(4),
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+    },
+    gridContainer: {
+      maxWidth: 1400,
+    },
+  });
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   companyTheme: themeSelectors.getTheme(state),
@@ -207,6 +207,8 @@ const mapDispatchToProps = {
   fetchVideoPurchase: fetchVideoPurchaseAction,
   push: pushRouter,
 };
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 const mapHandlers = {
   retrieveVideo: (props: ConnectProps & OwnProps) => () => {
@@ -264,11 +266,10 @@ const withStateHandlersSetter = {
   },
 };
 
-export const MarketplaceVideoDetailDataProvider = compose<any, OwnProps>(
+export const MarketplaceVideoDetailDataProvider = compose<Props, OwnProps>(
   marketplaceCssHoc(),
-  // @ts-expect-error
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   withHandlers(mapHandlers),
 );

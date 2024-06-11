@@ -54,6 +54,10 @@ const tabsData = Immutable(
           label: 'tab.member.paymentPack',
           value: 'pass',
         },
+        {
+          label: 'tab.member.privateConsumerPass',
+          value: 'private-consumer-pass',
+        },
       ]
     : [
         { label: 'tab.member.info', value: 'info' },

@@ -27,3 +27,10 @@ export type DeleteObjectSection<T extends CheckDeleteObjectData> = {
 export type DeleteObjectState = {
   establishment: DeleteEstablishmentSection;
 };
+
+export type CheckDeleteObjectActions<T extends CheckDeleteObjectData> = {
+  loading: ActionFunction1<boolean, Action<boolean>>;
+  error: ActionFunction1<Error | null, Action<Error | null>>;
+  clear: ActionFunctionAny<Action<void>>;
+  success: ActionFunction1<T & { id: number }, Action<T & { id: number }>>;
+};

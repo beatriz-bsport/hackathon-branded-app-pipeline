@@ -10,7 +10,7 @@ module.exports = {
   output: {
     pathinfo: true,
     path: paths.appBuild,
-    filename: 'static/js/bundle.js',
+    filename: 'static/js/[name].[contenthash].js',
     chunkFilename: 'static/js/[name].chunk.js',
     publicPath,
     devtoolModuleFilenameTemplate: (info) =>

@@ -367,7 +367,7 @@ const formikFormWrapper = withFormik<
       partner_max_booking_count: partnerMaxBookingCount,
       waiting_list_max_size: waitingListMaxSize,
       level,
-      credits,
+      credits: credits,
       duration_minute: durationMinute,
       broadcast_link: broadcastLink,
       coach_payment_rule: coachPaymentRule,

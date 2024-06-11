@@ -290,7 +290,7 @@ export const OfferEditForm = (props: Props) => {
             createLevel={createLevel}
             deleteLevel={handleDeleteLevel}
             fetchLevelList={fetchLevelList}
-            initialOfferCredits={getCreditsDividedValue(offer?.credit_price)}
+            initialOfferCredits={offer?.credit_price}
             isBroadcast={metaActivity?.is_broadcast}
             isOfferInGroup={isOfferInGroup}
             isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}

@@ -29,7 +29,7 @@ import Chip from '#src/components/css-only/Chip';
 import ActivitySummary from '#src/libs/marketplace/components/@Activity/ActivitySummary';
 import Price from '#src/components/css-only/Price';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
-import { getTaxPrice } from '#src/libs/theme/utils';
+import { getCreditsDividedDisplay, getTaxPrice } from '#src/libs/theme/utils';
 import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
 import {
   formatOfferDateWithTime,
@@ -133,7 +133,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
   const formattedCredits =
     showCredits &&
     t(`booking:creditConsumed`, {
-      credit_consumed: offer?.credit_price,
+      credit_consumed: getCreditsDividedDisplay(offer?.credit_price),
     });
 
   const taxes = getTaxPrice(price, tax);

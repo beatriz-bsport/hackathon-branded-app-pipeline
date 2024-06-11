@@ -3,6 +3,7 @@ import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_INTENT_TYPE_INVOICE,
 } from '@bsport/common/lib/master-data/payment-group';
+import { useTranslation } from 'react-i18next';
 
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
@@ -11,6 +12,10 @@ import ConsumerInvoiceHeader from '#src/libs/consumer-space/components/reworked/
 import ConsumerInvoicePaymentPortal from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePaymentPortal';
 import MarketplacePageContent from '#src/components/css-only/MarketplacePageContent';
 import useViewport from '#Fabrique/hooks/useViewport';
+
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
+import { ChevronRight } from '#src/components/untitledui';
 
 import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 
@@ -62,6 +67,7 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   refreshConsumerInvoices,
   refreshMembership,
 }) => {
+  const { t } = useTranslation('consumerSpace');
   const { width } = useViewport();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
@@ -144,8 +150,27 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
       });
   }, []);
 
+  const isWidget = WidgetUtils.isWidget();
+
+  const buttonsData: HeaderButton[] = React.useMemo(
+    () =>
+      isWidget
+        ? []
+        : [
+            {
+              label: t('reworked.myInvoices.header.buttons.bookSession'),
+              onClick: goToBookSession,
+              rightIcon: <ChevronRight stroke="currentColor" />,
+            },
+          ],
+    [goToBookSession, t, isWidget],
+  );
+
   return (
-    <MarketplacePageContent>
+    <MarketplacePageContent
+      buttonsData={!selectedConsumerInvoice && buttonsData}
+      isMobile={isMobile}
+    >
       <div
         className={
           isMobile && !!selectedConsumerInvoice
@@ -154,10 +179,10 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
         }
       >
         <ConsumerInvoiceHeader
+          buttonsData={buttonsData}
           handleGoBack={clearSelectedConsumerInvoice}
           isLoading={isLoading}
           isMobile={isMobile}
-          onBookSession={goToBookSession}
           onChangeFilter={handleChangeFilter}
           selectedConsumerInvoice={selectedConsumerInvoice}
           selectedFilter={selectedFilter}

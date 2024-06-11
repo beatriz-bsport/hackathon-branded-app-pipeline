@@ -1,3 +1,26 @@
+:root {
+  --my-invoices-app-bar-component-height: 64px; /* once Fabrique app bar imported => 48px */
+  --my-invoices-header-component-height: 100px;
+  --my-invoices-spacing-height-desktop: calc(
+    16px + 24px
+  ); /* include padding/margin */
+  --my-invoices-spacing-height-mobile: calc(
+    16px + 16px + 16px + 16px
+  ); /* include padding/margin */
+  --my-invoices-footer-height: 58px; /* include padding/margin */
+  --my-invoices-list-container-height: calc(
+    100vh - var(--my-invoices-app-bar-component-height) -
+      var(--my-invoices-header-component-height) -
+      var(--my-invoices-spacing-height-desktop)
+  );
+  --my-invoices-list-container-height-mobile: calc(
+    100vh - var(--my-invoices-app-bar-component-height) -
+      var(--my-invoices-header-component-height) -
+      var(--my-invoices-spacing-height-mobile) -
+      var(--my-invoices-footer-height)
+  );
+}
+
 .bs-consumer-invoice-page__body {
 }
 
@@ -44,4 +67,17 @@
 }
 
 .bs-consumer-invoice-page__details-card-skeleton {
+}
+
+.bs-consumer-invoice-page__body--empty {
+  height: var(--my-invoices-list-container-height);
+}
+@container bsConsumerInvoicePage (width < 475px) {
+  .bs-consumer-invoice-page__body--empty {
+    height: var(--my-invoices-list-container-height-mobile);
+    align-content: center;
+  }
+  .bs-consumer-invoice-page__body-list__loading {
+    height: var(--my-invoices-list-container-height-mobile);
+  }
 }

@@ -11,28 +11,29 @@ import ConsumerInvoiceTitleWithAction from '#src/libs/consumer-space/components/
 import Typography from '#Fabrique/Typography';
 
 import type { ConsumerInvoice } from '#src/libs/invoice/types';
+import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
 import './styles.css';
 
 type Props = {
   isLoading?: boolean;
   isMobile?: boolean;
+  buttonsData: HeaderButton[];
   selectedConsumerInvoice: ConsumerInvoice;
   selectedFilter: InvoicesFiltersEnum;
   totalUnpaid: number;
   handleGoBack: () => void;
-  onBookSession: () => void;
   onChangeFilter: (filter: InvoicesFiltersEnum) => void;
 };
 
 const ConsumerInvoiceHeader: React.FC<Props> = ({
   isLoading,
   isMobile,
+  buttonsData,
   selectedConsumerInvoice,
   selectedFilter,
   totalUnpaid,
   handleGoBack,
-  onBookSession,
   onChangeFilter,
 }) => {
   const { t } = useTranslation('consumerSpace');
@@ -71,8 +72,8 @@ const ConsumerInvoiceHeader: React.FC<Props> = ({
   return (
     <div className="bs-consumer-invoice-page__header">
       <ConsumerInvoiceTitleWithAction
+        buttonsData={buttonsData}
         isMobile={isMobile}
-        onBookSessionClick={onBookSession}
       />
       <ConsumerInvoiceFilters
         onChangeFilter={onChangeFilter}

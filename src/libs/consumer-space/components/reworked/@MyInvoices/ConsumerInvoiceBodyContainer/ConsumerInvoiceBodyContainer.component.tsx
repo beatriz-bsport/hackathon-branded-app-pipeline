@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 import { GenericInfiniteScrollEnhancedCssOnly } from '#src/components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import { getReceiptUrl as getReceiptUrlAPI } from '#src/libs/invoice/api';
@@ -89,6 +90,9 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
     [isMobile],
   );
 
+  const showPlaceholder =
+    !consumerInvoiceList || consumerInvoiceList.length === 0;
+
   React.useEffect(
     () => clearSelectedConsumerInvoice(),
     [clearSelectedConsumerInvoice, selectedFilter],
@@ -101,10 +105,10 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
           <div className="bs-consumer-invoice-page__body-list-container">
             <ConsumerCardSkeleton className="bs-consumer-invoice-page__card-skeleton" />
             <ConsumerCardSkeleton className="bs-consumer-invoice-page__card-skeleton" />
-            <ConsumerCardSkeleton className="bs-consumer-invoice-page__card-skeleton" />
-            <ConsumerCardSkeleton className="bs-consumer-invoice-page__card-skeleton" />
           </div>
-          <ConsumerDetailsCardSkeleton className="bs-consumer-invoice-page__details-card-skeleton" />
+          {!isMobile && (
+            <ConsumerDetailsCardSkeleton className="bs-consumer-invoice-page__details-card-skeleton" />
+          )}
         </div>
       </div>
     );
@@ -138,8 +142,12 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
   }
 
   return (
-    <div className="bs-consumer-invoice-page__body">
-      {!consumerInvoiceList || consumerInvoiceList.length === 0 ? (
+    <div
+      className={classNames('bs-consumer-invoice-page__body', {
+        'bs-consumer-invoice-page__body--empty': showPlaceholder,
+      })}
+    >
+      {showPlaceholder ? (
         <Typography align="center" variant="body-lg">
           {t(`reworked.myInvoices.placeholder.${selectedFilter}`)}
         </Typography>

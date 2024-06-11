@@ -187,4 +187,78 @@ exports.default = {
     helperText:
       'The accounts can be linked to products so that the account number and VAT rate are automatically filled in the reports.',
   },
+  deleteObject: {
+    title: {
+      error:
+        'The establishment cannot be deleted because of the following reasons:',
+      warning:
+        'Deleting this establishment will have the following consequences:',
+    },
+    errors: {
+      hasUpcomingOffers:
+        'Some upcoming sessions take place in this establishment. Please cancel and delete them before deleting this establishment.',
+      hasUpcomingPrivateBookings:
+        'Some upcoming appointments take place in this establishment. Please cancel and delete them before deleting this establishment.',
+      hasExclusiveBillingGroup:
+        'This establishment is the last one of its billing group. Please delete or update this billing group before deleting this establishment.',
+      exclusivePaymentPacks_plural:
+        'The following passes {{- pass_name }} are only usable in this establishment. Please update their restrictions before deleting the establishment.',
+      exclusivePaymentPacks:
+        'The following pass {{- pass_name }} is only usable in this establishment. Please update its restrictions before deleting the establishment.',
+      exclusiveEstablishmentGroups_plural:
+        'The locations {{- establishment_group_name }} only contain the establishment that you want to delete, please update or delete these locations.',
+      exclusiveEstablishmentGroups:
+        'The location {{- establishment_group_name }} only contains the establishment that you want to delete, please update or delete this location.',
+      hasExclusiveMarketplaceComponentConfigs:
+        "One or several tabs in the marketplace are set to only display this establishment's calendar and workshops, please update them before deleting the establishment",
+      isIntegratedInPartnership:
+        'One or several integrations are using this establishment.',
+    },
+    infos: {
+      notificationsDefault:
+        'Notifications related to this establishment will be deleted.',
+      reportsDefault:
+        'The establishment will not be deleted from past reports.',
+      offersDefault:
+        'Existing sessions, workshops and past bookings will not be modified.',
+      widgetsDefault:
+        'Calendar and Workshops widgets may have been configured with this establishment, do not forget to update them.',
+      privateBookingsDefault:
+        'Past appointments sessions will not be modified.',
+    },
+    warnings: {
+      hasBillingGroup:
+        'This establishment will also be removed from the billing group {{- establishment_billing_group_name }}.',
+      exclusivePrivateServices_plural:
+        'The appointments {{- private_service_name }} are configured to take place in this establishment only. By deleting this establishment, these appointments will be able to take place anywhere.',
+      exclusivePrivateServices:
+        'The appointment {{- private_service_name }} is configured to take place in this establishment only. By deleting this establishment, this appointment will be able to take place anywhere.',
+      hasExclusiveStaffConfigurations:
+        "Some staff members are configured to monitor members' access for this establishment only. By deleting the establishment without selecting a new one, they will not be able to perform access monitoring anymore.",
+      hasRelatedStaffConfigurations:
+        'This establishment will be removed from the establishments used by staff members for Access Monitoring.',
+      exclusiveCoachAvailabilitySlots_plural:
+        'The teachers {{- coach_name }} are indicated as being available for this establishment only for some time slots. By deleting the establishment, these time slots will be deleted.',
+      exclusiveCoachAvailabilitySlots:
+        'The teacher {{- coach_name }} is indicated as being available for this establishment only for some time slots. By deleting the establishment, these time slots will be deleted.',
+      hasRelatedCoachAvailabilitySlots:
+        "This establishment will be removed from the list of available establishments used in your teachers' calendar.",
+      exclusiveAssociatedCoaches_plural:
+        'Your teachers {{- coach_name }} are only notified when a substitution request is made for a session in this establishment. By deleting the establishment, they will therefore receive substitution requests from every establishment.',
+      exclusiveAssociatedCoaches:
+        'Your teacher {{- coach_name }} is only notified when a substitution request is made for a session in this establishment. By deleting the establishment, they will therefore receive substitution requests from every establishment.',
+      hasRelatedAssociatedCoaches:
+        'Some teachers are notified when a substitution request is made for a session in this establishment. By deleting the establishment, they will stop receiving the notification for it.',
+      relatedPaymentPacks_plural:
+        'The following passes {{- pass_name }} will no longer be usable for this establishment, make sure to inform your clients about it.',
+      relatedPaymentPacks:
+        'The following pass {{- pass_name }} will no longer be usable for this establishment, make sure to inform your clients about it.',
+      hasRelatedAvailabilitySlots:
+        "The available slots of this establishment's schedule will be deleted.",
+      hasRelatedZoomEstablishment:
+        'This establishment will be removed from the list of establishments used for live streaming with the Zoom integration.',
+      hasRelatedMarketplaceComponentConfigs:
+        "The calendar and workshop tabs configured for your marketplace will not display this establishment's calendar anymore.",
+    },
+  },
 };

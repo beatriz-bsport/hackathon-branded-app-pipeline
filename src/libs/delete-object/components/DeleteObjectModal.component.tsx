@@ -12,6 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 
 import RedButton from '#src/components/button/RedButton.component';
+import DeleteObjectWarnings from './DeleteObjectWarnings.component';
 
 import type { RootState } from '#src/reducers';
 import type { DeleteObjectVariant } from '../types';
@@ -86,7 +87,7 @@ const DeleteObjectModal: React.FC<Props> = ({
     <Dialog open={!!idToCheckAndDelete}>
       <DialogTitle>{t(`${variant}:forms.delete.title`)}</DialogTitle>
       <DialogContent>
-        {/** Next commit */}
+        <DeleteObjectWarnings variant={variant} />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>

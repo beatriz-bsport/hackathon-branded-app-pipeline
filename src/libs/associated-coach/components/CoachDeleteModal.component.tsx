@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DeleteDialogWithCheck from '#src/components/DeleteDialogWithCheck.component';
+import DeleteDialogWithCheck from '#src/components/DeleteDialogWithCheckDEPRECATED.component';
 
 type Props = {
   coachToDeleteId?: number;

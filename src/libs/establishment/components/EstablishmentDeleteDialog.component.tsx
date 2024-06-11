@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AxiosResponse } from 'axios';
-import DeleteDialogWithCheck from '../../../components/DeleteDialogWithCheck.component';
+import DeleteDialogWithCheck from '../../../components/DeleteDialogWithCheckDEPRECATED.component';
 
 type Props = {
   establishmentId?: number;

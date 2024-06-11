@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DeleteDialogWithCheck from '../../../components/DeleteDialogWithCheck.component';
+import DeleteDialogWithCheck from '../../../components/DeleteDialogWithCheckDEPRECATED.component';
 
 type Props = {
   workshopId?: number;

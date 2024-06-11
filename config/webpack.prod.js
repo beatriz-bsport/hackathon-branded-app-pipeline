@@ -16,6 +16,9 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 module.exports = merge(common, {
   mode: 'production',
   devtool: 'source-map',
+  output: {
+    clean: true,
+  },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({

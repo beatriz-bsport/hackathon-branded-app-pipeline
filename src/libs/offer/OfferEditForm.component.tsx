@@ -137,6 +137,7 @@ export const OfferEditForm = (props: Props) => {
     deleteLevel,
     onCancel,
     onBannerGoBack,
+    creditScaleFactor = 1,
   } = props;
 
   const [editCurrentStep, setEditCurrentStep] = useState(

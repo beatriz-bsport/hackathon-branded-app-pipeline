@@ -743,6 +743,7 @@ const OfferDialogs: React.FC<{
           availableEstablishments={availableEstablishments}
           coaches={coaches}
           coachPaymentRulesByKind={coachPaymentRulesByKind}
+          creditScaleFactor={creditScaleFactor || 1}
           isLoading={!offerEdited}
           isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
           metaActivities={[metaActivity]}

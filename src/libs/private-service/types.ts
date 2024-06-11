@@ -86,6 +86,8 @@ export type PrivateService<C = number, E = number, S = number> = {
   availability_padding_start_minutes: number;
   availability_padding_end_minutes: number;
   pad_before_stop: boolean;
+  member_whitelist_tags: Array<number>;
+  member_blacklist_tags: Array<number>;
 };
 export type PrivateServiceWithSlots<C = number, E = number> = {
   id: number;

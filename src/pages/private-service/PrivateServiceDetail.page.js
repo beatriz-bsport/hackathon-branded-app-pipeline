@@ -222,6 +222,7 @@ export class PrivateServiceList extends React.Component<Props> {
                 this.props.privateService.id,
               )
             }
+            tagList={this.props.allTagsWithTagGroup ?? []}
             updateNotification={this.props.updateMarketingNotification}
           />
         ) : null}
@@ -237,11 +238,7 @@ export class PrivateServiceList extends React.Component<Props> {
             onSubmit={this.createOrUpdatePrivateService}
             open={this.props.openEditForm}
             serviceGroupList={this.props.serviceGroupList}
-            tagList={
-              this.props.allTagsWithTagGroup
-                ? [...this.props.allTagsWithTagGroup]
-                : []
-            }
+            tagList={this.props.allTagsWithTagGroup ?? []}
           />
         )}
         {this.props.serviceGroupCreateOpen && (

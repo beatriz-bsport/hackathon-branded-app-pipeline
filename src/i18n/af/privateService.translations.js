@@ -796,6 +796,13 @@ const getTranslations = async () => {
       parameters: {
         description: 'Description',
         coaches: { title: 'Teacher', is_empty: 'Teachers are optional.' },
+        noTags: 'There are no authorized tags to display.',
+        whitelistTags: {
+          title: 'Approved Tags',
+        },
+        blacklistTags: {
+          title: 'Refused Tags',
+        },
         establishments: {
           title: 'Establishment',
           is_empty: 'No establishment is available.',

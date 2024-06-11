@@ -36,6 +36,7 @@ type Props = {
   goToSmartlist: () => void,
   getSmartLists: () => void,
   smartLists: SmartList[],
+  tagList: Array<Tag<TagGroup>>,
 };
 
 export const PrivateServiceDetail = (props: Props) => {
@@ -46,6 +47,7 @@ export const PrivateServiceDetail = (props: Props) => {
           createOrUpdatePrivateSlot={props.createOrUpdatePrivateSlot}
           deletePrivateSlot={props.deletePrivateSlot}
           privateService={props.privateService}
+          tagList={props.tagList}
         />
         <PrivateBookingNotification
           createNotification={props.createNotification}

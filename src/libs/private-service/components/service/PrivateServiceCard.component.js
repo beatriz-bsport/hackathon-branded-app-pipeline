@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
@@ -18,8 +18,11 @@ import CoachListItemBasic from '../../../associated-coach/components/CoachListIt
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 
 import type { PrivateService } from '../../types';
+import { TagChip } from '../../../tag/components/TagChip.component';
+import type { Tag, TagGroup } from '../../../tag/types';
 
 type Props = {
+  tagList: Array<Tag<TagGroup>>,
   privateService: PrivateService,
   t: TFunction,
   classes: Object,
@@ -54,6 +57,25 @@ export const PrivateServiceDetail = (props: Props) => {
     bookingDays * 60 * 24 -
     bookingHours * 60
   }`;
+
+  const whiteListTags = useMemo(
+    () =>
+      privateService.member_whitelist_tags
+        ? props.tagList.filter((tag) =>
+            privateService.member_whitelist_tags.includes(tag.id),
+          )
+        : [],
+    [props.tagList, privateService.member_whitelist_tags],
+  );
+  const blackListTags = useMemo(
+    () =>
+      privateService.member_blacklist_tags
+        ? props.tagList.filter((tag) =>
+            privateService.member_blacklist_tags.includes(tag.id),
+          )
+        : [],
+    [props.tagList, privateService.member_blacklist_tags],
+  );
 
   return (
     <Card className={classes.paperContainer}>
@@ -139,6 +161,39 @@ export const PrivateServiceDetail = (props: Props) => {
             establishment={establishment}
           />
         ))}
+        {(whiteListTags.length > 0 || blackListTags.length > 0) && (
+          <>
+            <Typography inline component="h4" variant="h6">
+              {t('service.parameters.whitelistTags.title')}
+            </Typography>
+            {whiteListTags.length > 0 ? (
+              <div className={classes.chipContainer}>
+                {whiteListTags.map((tag) => (
+                  <TagChip key={tag.id} tag={tag} />
+                ))}
+              </div>
+            ) : (
+              <Typography className={classes.noTags} color="textSecondary">
+                {t('service.parameters.noTags')}
+              </Typography>
+            )}
+
+            <Typography inline component="h4" variant="h6">
+              {t('service.parameters.blacklistTags.title')}
+            </Typography>
+            {blackListTags.length > 0 ? (
+              <div className={classes.chipContainer}>
+                {blackListTags.map((tag) => (
+                  <TagChip key={tag.id} tag={tag} />
+                ))}
+              </div>
+            ) : (
+              <Typography className={classes.noTags} color="textSecondary">
+                {t('service.parameters.noTags')}
+              </Typography>
+            )}
+          </>
+        )}
       </CardContent>
     </Card>
   );
@@ -153,6 +208,22 @@ const styles = (theme) => ({
   },
   leftIcon: {
     marginRight: theme.spacing(2),
+  },
+  chipContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingRight: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
+  },
+  noTags: {
+    paddingLeft: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingRight: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
   },
   row: {
     display: 'flex',

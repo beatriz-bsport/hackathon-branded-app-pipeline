@@ -1,24 +1,18 @@
 import React from 'react';
 
-import { AxiosResponse } from 'axios';
-import DeleteDialogWithCheck from '../../../components/DeleteDialogWithCheckDEPRECATED.component';
+import DeleteObjectModal from '#src/libs/delete-object/components/DeleteObjectModal.component';
+import { DeleteObjectVariant } from '#src/libs/delete-object/types';
 
 type Props = {
   establishmentId?: number;
   onClose: () => void;
-  deleteEstablishment: (id: number) => void;
-  canDeleteEstablishmentChecker: (
-    id: number,
-  ) => Promise<AxiosResponse<{ can_destroy: boolean }>>;
 };
 
 export const EstablishmentDeleteDialog = (props: Props) => (
-  <DeleteDialogWithCheck
-    checkCanDeleteObjectAPI={props.canDeleteEstablishmentChecker}
-    deleteObject={() => props.deleteEstablishment(props.establishmentId)}
-    idToDelete={props.establishmentId}
+  <DeleteObjectModal
+    idToCheckAndDelete={props.establishmentId}
     onClose={props.onClose}
-    trad="establishment"
+    variant={DeleteObjectVariant.ESTABLISHMENT}
   />
 );
 

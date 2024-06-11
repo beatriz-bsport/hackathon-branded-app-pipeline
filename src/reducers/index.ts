@@ -93,6 +93,7 @@ import referralReducers from '#src/libs/referral/reducers';
 import accessControlReducers from '#src/libs/access-control/reducers';
 import communicationSentGroupConfigReducers from '#src/libs/communication/reducers/communication-sent-group-config-reducers';
 import objectSearchReducers from '#src/libs/fuzzy-search/reducers';
+import deleteObjectReducers from '#src/libs/delete-object/reducers';
 
 import type { AlertingState } from '#src/libs/alerting/types';
 import type { BackgroundDialogState } from '#src/libs/background-dialog/types';
@@ -177,6 +178,7 @@ import actionTypes from '../actions/auth.types';
 import searchReducer from './search.reducers';
 // @ts-expect-error
 import authReducers from './auth';
+import type { DeleteObjectState } from '#src/libs/delete-object/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -265,6 +267,7 @@ const rootReducer = (history: any) =>
     accessControl: accessControlReducers,
     broadcastChannel: broadcastChannelReducers,
     objectSearch: objectSearchReducers,
+    deleteObject: deleteObjectReducers,
   });
 
 export type RootState = {
@@ -357,6 +360,7 @@ export type RootState = {
   cadence: SequentialMarketingState;
   exportableComponents: ExportableComponentsState;
   objectSearch: SearchState;
+  deleteObject: DeleteObjectState;
 };
 
 export default (history: any) => (state: any, action: any) => {

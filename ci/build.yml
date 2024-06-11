@@ -19,7 +19,7 @@
     - mv envs/$ENVIRONMENT build/env.js
     - export SENTRY_NO_PROGRESS_BAR=1
     - ./scripts/prepare-sentry-release.sh $VERSION_SHA $FRONTEND_URL
-    - rm ./build/static/js/*.js.map
+    - rm ./build/static/js/*.js.map ./build/static/js/bundle.js
     - aws s3 cp ./build/ $S3_BUCKET --recursive --only-show-errors $ACL_PARAM
     - scripts/invalidate-cloudfront.sh $CLOUDFRONT_ID $CLOUDFRONT_INVALIDATION_TOKEN $CLOUDFRONT_INVALIDATION_LAMBDA_URL
     - scripts/prepare-sentry-deploy.sh $VERSION_SHA $ENVIRONMENT

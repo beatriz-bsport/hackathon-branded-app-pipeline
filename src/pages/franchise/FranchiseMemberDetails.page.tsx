@@ -58,6 +58,7 @@ const tabsData = Immutable(
           label: 'tab.member.privateConsumerPass',
           value: 'private-consumer-pass',
         },
+        { label: 'tab.member.giftcard', value: 'giftcard' },
       ]
     : [
         { label: 'tab.member.info', value: 'info' },

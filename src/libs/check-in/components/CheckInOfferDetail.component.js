@@ -18,8 +18,6 @@ import RedFab from '../../../components/button/RedFab.component';
 import type { Member } from '../../member/types';
 import BookingList from './BookingList.component';
 
-import FaceIDBooker from '../../face-recognition/components/FaceRecognition.component';
-
 import CheckInOfferSummaryPanel from './CheckInOfferSummaryPanel.component';
 import BarcodeLiveReader from '../../../components/BarcodeLiveReader.component';
 
@@ -40,17 +38,10 @@ type Props = {
   barcodeDetectorEnabled: boolean,
   toogleBarcodeDetector: () => void,
 
-  faceIdEnabled: boolean,
-  toogleFaceId: () => void,
-  faceIdAvailable: boolean,
-
   onBarcodeDetected: (string) => void,
-  onFaceDetected: (member: ?Member, imageBlog: ?Blob) => void,
   registrationDialogOpen: boolean,
   barcodeDetectorEnabled: boolean,
-  faceIdAvailable: boolean,
-  faceIdEnabled: boolean,
-  closeBarcodeAndFaceID: () => void,
+  closeBarcode: () => void,
 };
 
 export class CheckInOfferDetail extends React.Component<Props> {
@@ -95,13 +86,6 @@ export class CheckInOfferDetail extends React.Component<Props> {
             />
 
             <Typography>{t('offerDetail.activateBarcode')}</Typography>
-
-            <Switch
-              checked={!!this.props.faceIdEnabled}
-              disabled={!this.props.faceIdAvailable}
-              onChange={this.props.toogleFaceId}
-            />
-            <Typography>{t('offerDetail.activateFaceId')}</Typography>
           </div>
 
           <BookingList
@@ -132,7 +116,7 @@ export class CheckInOfferDetail extends React.Component<Props> {
           </Fab>
         </div>
         {!this.props.registrationDialogOpen &&
-          (this.props.barcodeDetectorEnabled || this.props.faceIdEnabled) && (
+          this.props.barcodeDetectorEnabled && (
             <Dialog open>
               <div className={classes.modal}>
                 {this.props.barcodeDetectorEnabled && (
@@ -140,16 +124,9 @@ export class CheckInOfferDetail extends React.Component<Props> {
                     onDetected={this.props.onBarcodeDetected}
                   />
                 )}
-                {this.props.faceIdEnabled && (
-                  <FaceIDBooker
-                    onDetectMember={(member, imageBlob, options) =>
-                      this.props.onFaceDetected(member, imageBlob, options)
-                    }
-                  />
-                )}
 
                 <DialogActions>
-                  <Button onClick={this.props.closeBarcodeAndFaceID}>
+                  <Button onClick={this.props.closeBarcode}>
                     {t('offerDetail.actions.close')}
                   </Button>
                 </DialogActions>
@@ -224,15 +201,6 @@ export default compose(
             onMemberSearched(member);
           },
         });
-      },
-    onFaceDetected:
-      ({ onMemberSearched, openIncompleteMemberForm }) =>
-      (member, imageBlob, options) => {
-        if (!member) {
-          openIncompleteMemberForm({ avatar: imageBlob }, options);
-        } else {
-          onMemberSearched(member, options);
-        }
       },
   }),
 )(CheckInOfferDetail);

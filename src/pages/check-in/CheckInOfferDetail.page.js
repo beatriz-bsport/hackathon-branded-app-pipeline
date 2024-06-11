@@ -49,7 +49,6 @@ import {
   fetchPaymentPackList as fetchPaymentPackListAction,
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
 } from '../../libs/payment-packs/actions';
-import { checkFaceIDAvailable as checkFaceIDAvailableAPI } from '../../libs/face-recognition/api';
 
 import {
   getByOfferByMember,
@@ -94,10 +93,8 @@ type Props = {
 
   searchedMember: ?Member,
   barcodeDetectorEnabled: boolean,
-  faceIdEnabled: boolean,
   toogleBarcodeDetector: () => void,
-  toogleFaceId: () => void,
-  closeBarcodeAndFaceID: () => void,
+  closeBarcode: () => void,
   registrationFlowOpen: boolean,
 
   executeOnMemberUnselectedCallback: () => void,
@@ -127,19 +124,11 @@ type Props = {
   retrieveConsumerPackBulk: (Array<number>) => void,
 };
 
-type State = {
-  faceIdAvailable: boolean,
-};
-
 const playSound = (audioFile) => {
   audioFile.play();
 };
 
 export class CheckInOfferDetailPage extends React.Component<Props, State> {
-  state = {
-    faceIdAvailable: false,
-  };
-
   handleSearchMembers = (text: string) => {
     this.props.searchMembers(text, { hide_archived: true });
   };
@@ -152,9 +141,6 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
     });
     this.props.fetchOfferData();
     this.props.fetchPaymentPackList();
-    checkFaceIDAvailableAPI().then((r) =>
-      this.setState({ faceIdAvailable: r.data }),
-    );
     this.props.fetchSignFormUpConfiguration();
   }
 
@@ -185,14 +171,12 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
         <CheckInOfferDetail
           barcodeDetectorEnabled={this.props.barcodeDetectorEnabled}
           bookingLoading={this.props.loading}
-          closeBarcodeAndFaceID={this.props.closeBarcodeAndFaceID}
+          closeBarcode={this.props.closeBarcode}
           confirmBookingAttendance={(booking) => {
             playSound(likeAudio);
             this.props.confirmBookingAttendance(booking.id);
             this.props.setBookingShown(booking);
           }}
-          faceIdAvailable={this.state.faceIdAvailable}
-          faceIdEnabled={this.props.faceIdEnabled}
           fetchMemberByBarcode={this.props.fetchMemberByBarcode}
           goBack={this.props.goBack}
           members={this.props.members || []}
@@ -205,7 +189,6 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
           openIncompleteMemberForm={this.props.setMemberDataToComplete}
           refreshData={this.props.fetchOfferData}
           toogleBarcodeDetector={this.props.toogleBarcodeDetector}
-          toogleFaceId={this.props.toogleFaceId}
         />
         {this.props.registrationFlowOpen && (
           <RegistrationFlowDialog
@@ -265,7 +248,6 @@ export default compose(
   withStateHandlers(
     {
       searchMemberModalOpen: false,
-      faceIdEnabled: false,
       barcodeDetectorEnabled: false,
       searchedMember: null,
       onMemberUnselectedCallback: null,
@@ -286,20 +268,12 @@ export default compose(
       setSearchedMember: () => (searchedMember) => ({
         searchedMember,
       }),
-      closeBarcodeAndFaceID: () => () => ({
-        faceIdEnabled: false,
+      closeBarcode: () => () => ({
         barcodeDetectorEnabled: false,
       }),
-      toogleFaceId:
-        ({ faceIdEnabled, barcodeDetectorEnabled }) =>
-        () => ({
-          faceIdEnabled: !faceIdEnabled,
-          barcodeDetectorEnabled: barcodeDetectorEnabled && !!faceIdEnabled,
-        }),
       toogleBarcodeDetector:
-        ({ faceIdEnabled, barcodeDetectorEnabled }) =>
+        ({ barcodeDetectorEnabled }) =>
         () => ({
-          faceIdEnabled: faceIdEnabled && !!barcodeDetectorEnabled,
           barcodeDetectorEnabled: !barcodeDetectorEnabled,
         }),
       setOnMemberUnSelectedCallback: () => (onMemberUnselectedCallback) => ({

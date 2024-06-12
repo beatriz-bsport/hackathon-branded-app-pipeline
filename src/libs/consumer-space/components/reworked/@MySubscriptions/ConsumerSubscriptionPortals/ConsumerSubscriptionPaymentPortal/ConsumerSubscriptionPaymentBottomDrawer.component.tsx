@@ -2,6 +2,7 @@ import React from 'react';
 import type { AxiosResponse } from 'axios';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
+import { PortalContainer } from '#src/components/css-only/Fabrique/PortalContainer';
 
 import type { OptionCallback } from '#src/state/types';
 import type { PaymentMethod } from '#src/libs/payment/types';
@@ -54,40 +55,42 @@ const ConsumerSubscriptionPaymentBottomDrawer: React.FC<Props> = ({
   title,
 }) => {
   return (
-    <BottomDrawer
-      blanketProps={{ isOpen, onClick: handleClose }}
-      className="bs-consumer-booking-details-drawer__root"
-      modalDialogProps={{
-        classes: {
-          content: 'bs-consumer-subscription-payment-modal__content',
-        },
-        isSubmitLoading: isProcessing,
-        isConfirmButtonDisabled: !selectedPaymentMethodId,
-        title,
-        onClose: handleClose,
-        onCancel: handleClose,
-        onConfirm:
-          !switchSucceeded && selectedSubscription ? handleConfirm : null,
-        cancelLabel: switchSucceeded && cancelLabel,
-      }}
-    >
-      <ConsumerSubscriptionPaymentContent
-        detachPaymentMethod={detachPaymentMethod}
-        enabledPaymentGroupMethodIdentifierIds={
-          enabledPaymentGroupMethodIdentifierIds
-        }
-        memberMail={memberMail}
-        memberName={memberName}
-        paymentMethodList={paymentMethodList}
-        paymentMethodLoading={paymentMethodLoading}
-        paymentMethodUsed={paymentMethodUsed}
-        refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
-        requestSetupIntentSecret={requestSetupIntentSecret}
-        selectedPaymentMethodId={selectedPaymentMethodId}
-        setSelectedSavedPaymentMethod={setSelectedSavedPaymentMethod}
-        switchSucceeded={switchSucceeded}
-      />
-    </BottomDrawer>
+    <PortalContainer wrapperId="bs-consumer-subscription-payment-modal-portal-container">
+      <BottomDrawer
+        blanketProps={{ isOpen, onClick: handleClose }}
+        className="bs-consumer-booking-details-drawer__root"
+        modalDialogProps={{
+          classes: {
+            content: 'bs-consumer-subscription-payment-modal__content',
+          },
+          isSubmitLoading: isProcessing,
+          isConfirmButtonDisabled: !selectedPaymentMethodId,
+          title,
+          onClose: handleClose,
+          onCancel: handleClose,
+          onConfirm:
+            !switchSucceeded && selectedSubscription ? handleConfirm : null,
+          cancelLabel: switchSucceeded && cancelLabel,
+        }}
+      >
+        <ConsumerSubscriptionPaymentContent
+          detachPaymentMethod={detachPaymentMethod}
+          enabledPaymentGroupMethodIdentifierIds={
+            enabledPaymentGroupMethodIdentifierIds
+          }
+          memberMail={memberMail}
+          memberName={memberName}
+          paymentMethodList={paymentMethodList}
+          paymentMethodLoading={paymentMethodLoading}
+          paymentMethodUsed={paymentMethodUsed}
+          refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
+          requestSetupIntentSecret={requestSetupIntentSecret}
+          selectedPaymentMethodId={selectedPaymentMethodId}
+          setSelectedSavedPaymentMethod={setSelectedSavedPaymentMethod}
+          switchSucceeded={switchSucceeded}
+        />
+      </BottomDrawer>
+    </PortalContainer>
   );
 };
 

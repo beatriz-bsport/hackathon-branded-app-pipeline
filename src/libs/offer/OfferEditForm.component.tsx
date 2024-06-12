@@ -44,7 +44,6 @@ import { OffersGroup } from '#src/libs/group-offer/types';
 import SpotSchedulingHelper from '#src/libs/spot-scheduling/utils';
 import { Offer } from '../../api/types';
 import { OptionCallback, OptionPaginatedCallback } from '#src/state/types';
-import { getCreditsDividedValue } from '#src/libs/theme/utils';
 
 type ComponentProps = {
   metaActivity: MetaActivity<number>;

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import Typography from '#Fabrique/Typography';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 type Props = {
   isCancelledFromManager?: boolean;
@@ -47,7 +48,7 @@ const ConsumerBookingDetailsCardCancelledSection: React.FC<Props> = ({
             )
           : t(
               'consumerSpace:reworked.myBookings.detailsCard.cancelled.creditsToRefund',
-              { count: creditsToRefund ?? 0 },
+              { count: Number(getCreditsDividedDisplay(creditsToRefund)) ?? 0 },
             )}
       </Typography>
 

@@ -3,6 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Formik, Form } from 'formik';
 import { useTheme, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -27,11 +28,13 @@ import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 import { CustomChip } from '#src/components/chip/CustomChip.component';
 import ShopItemVariantBulkUpdateForm from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm';
+import shopItemVariantBulkUpdateFormValidationSchema from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/shopItemVariantBulkUpdateFormValidationSchema';
 
 import type { ShopItem } from '#src/libs/shop/types';
 import type { ShopItemVariantBulkUpdateFormValues } from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/types';
 
 import Config from '../../../../config';
+import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#src/libs/shop/constants';
 
 type Props = {
   companyId: number;
@@ -196,7 +199,7 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
   shopItemVariantList,
   isSupplierPriceHidden,
 }) => {
-  const { t } = useTranslation('shop');
+  const { t } = useTranslation(['common', 'shop']);
 
   const classes = useStyles();
 
@@ -218,90 +221,104 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
   );
 
   return (
-    <Formik
+    <Formik<ShopItemVariantBulkUpdateFormValues>
       enableReinitialize
       initialValues={initialValues}
       onReset={handleDisableEditMode}
       onSubmit={handleSubmit}
+      validationSchema={shopItemVariantBulkUpdateFormValidationSchema}
     >
-      <Form noValidate>
-        <TableContainer className={classes.tableContainer}>
-          {isVariantEditMode && (
-            <div className={classes.tableEditActions}>
-              <Button color="secondary" type="reset" variant="outlined">
-                {t('common:cancel')}
-              </Button>
-              <Button color="primary" type="submit" variant="contained">
-                {t('common:saveChanges')}
-              </Button>
-            </div>
-          )}
-          {!isVariantEditMode && (
-            <div className={classes.tableEditActions}>
-              <Button
-                color="secondary"
-                onClick={handleOpenVariantDrawer}
-                variant="outlined"
-              >
-                {t('shop:shopItemDetail.table.variants.action.add')}
-              </Button>
-              <Button
-                color="primary"
-                onClick={handleEnableEditMode}
-                variant="contained"
-              >
-                {t('shop:shopItemDetail.table.variants.action.edit')}
-              </Button>
-            </div>
-          )}
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  {t('shopItemDetail.table.variants.image')}
-                </TableCell>
-                <TableCell>
-                  {t('shopItemDetail.table.variants.colorAndSize')}
-                </TableCell>
-                <TableCell>
-                  {t('shopItemDetail.table.variants.price')}
-                </TableCell>
-                {!isSupplierPriceHidden && (
-                  <TableCell>
-                    {t('shopItemDetail.table.variants.supplierPrice')}
-                  </TableCell>
+      {({ errors }) => (
+        <Form noValidate>
+          <TableContainer className={classes.tableContainer}>
+            {isVariantEditMode && (
+              <div className={classes.tableEditActions}>
+                {errors.variants?.length > 0 && (
+                  <Alert
+                    className={classes.tableErrorContainer}
+                    severity="error"
+                  >
+                    {t('shop:shopItemDetail.table.variants.formError')}
+                  </Alert>
                 )}
-                <TableCell>{t('shopItemDetail.table.variants.sku')}</TableCell>
-                <TableCell>
-                  {t('shopItemDetail.table.variants.barcode')}
-                </TableCell>
-                <TableCell>
-                  {t('shopItemDetail.table.variants.availableOnline')}
-                </TableCell>
-                <TableCell>-</TableCell>
-              </TableRow>
-            </TableHead>
 
-            {isVariantEditMode ? (
-              <ShopItemVariantBulkUpdateForm />
-            ) : (
-              <TableBody>
-                {shopItemVariantList.map((row) => (
-                  <TableRowItem
-                    key={row.id}
-                    companyId={companyId}
-                    isDeletingVariant={isDeletingVariant}
-                    isSupplierPriceHidden={isSupplierPriceHidden}
-                    item={row}
-                    onDeleteShopItemVariant={onDeleteShopItemVariant}
-                    onShowBarcode={handleShowBarcode}
-                  />
-                ))}
-              </TableBody>
+                <Button color="secondary" type="reset" variant="outlined">
+                  {t('common:cancel')}
+                </Button>
+                <Button color="primary" type="submit" variant="contained">
+                  {t('common:saveChanges')}
+                </Button>
+              </div>
             )}
-          </Table>
-        </TableContainer>
-      </Form>
+            {!isVariantEditMode && (
+              <div className={classes.tableEditActions}>
+                <Button
+                  color="secondary"
+                  onClick={handleOpenVariantDrawer}
+                  variant="outlined"
+                >
+                  {t('shop:shopItemDetail.table.variants.action.add')}
+                </Button>
+                <Button
+                  color="primary"
+                  onClick={handleEnableEditMode}
+                  variant="contained"
+                >
+                  {t('shop:shopItemDetail.table.variants.action.edit')}
+                </Button>
+              </div>
+            )}
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    {t('shop:shopItemDetail.table.variants.image')}
+                  </TableCell>
+                  <TableCell>
+                    {t('shop:shopItemDetail.table.variants.colorAndSize')}
+                  </TableCell>
+                  <TableCell>
+                    {t('shop:shopItemDetail.table.variants.price')}
+                  </TableCell>
+                  {!isSupplierPriceHidden && (
+                    <TableCell>
+                      {t('shop:shopItemDetail.table.variants.supplierPrice')}
+                    </TableCell>
+                  )}
+                  <TableCell>
+                    {t('shop:shopItemDetail.table.variants.sku')}
+                  </TableCell>
+                  <TableCell>
+                    {t('shop:shopItemDetail.table.variants.barcode')}
+                  </TableCell>
+                  <TableCell>
+                    {t('shop:shopItemDetail.table.variants.availableOnline')}
+                  </TableCell>
+                  <TableCell>-</TableCell>
+                </TableRow>
+              </TableHead>
+
+              {isVariantEditMode ? (
+                <ShopItemVariantBulkUpdateForm />
+              ) : (
+                <TableBody>
+                  {shopItemVariantList.map((row) => (
+                    <TableRowItem
+                      key={row.id}
+                      companyId={companyId}
+                      isDeletingVariant={isDeletingVariant}
+                      isSupplierPriceHidden={isSupplierPriceHidden}
+                      item={row}
+                      onDeleteShopItemVariant={onDeleteShopItemVariant}
+                      onShowBarcode={handleShowBarcode}
+                    />
+                  ))}
+                </TableBody>
+              )}
+            </Table>
+          </TableContainer>
+        </Form>
+      )}
     </Formik>
   );
 };
@@ -322,6 +339,10 @@ const useStyles = makeStyles((theme) => ({
   },
   variantImage: {
     width: 48,
+  },
+  tableErrorContainer: {
+    height: SHOP_TABLE_ERROR_CONTAINER_HEIGHT,
+    alignItems: 'center',
   },
 }));
 

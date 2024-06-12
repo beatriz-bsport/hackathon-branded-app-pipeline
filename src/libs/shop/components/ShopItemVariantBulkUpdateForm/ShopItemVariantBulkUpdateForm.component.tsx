@@ -5,6 +5,7 @@ import {
   FastField,
   FieldArray,
   FieldInputProps,
+  FormikErrors,
   FormikProps,
   useFormikContext,
 } from 'formik';
@@ -25,7 +26,10 @@ import PriceInput from '#src/components/input/PriceInput.component';
 
 import { useShopDetailTabsModalPrompt } from '#src/hocs/shop-modal-prompt.hoc';
 
-import type { ShopItemVariantBulkUpdateFormValues } from './types';
+import type {
+  ShopItemVariantBulkUpdateFormRow,
+  ShopItemVariantBulkUpdateFormValues,
+} from './types';
 
 import { SHOP_VARIANT_BULK_UPDATE_FORM_COVER_CHIP_MAX_WIDTH } from '#src/libs/shop/constants';
 
@@ -40,7 +44,8 @@ const ShopItemVariantBulkUpdateForm: React.FC = () => {
 
   const classes = useStyles();
 
-  const { dirty, resetForm, submitForm } = useFormikContext();
+  const { errors, dirty, resetForm, submitForm } =
+    useFormikContext<ShopItemVariantBulkUpdateFormValues>();
 
   const {
     setIsVariantFormDirty,
@@ -141,7 +146,16 @@ const ShopItemVariantBulkUpdateForm: React.FC = () => {
                   name={`variants.${index}.price`}
                 >
                   {({ field }: { field: FieldInputProps<number> }) => (
-                    <PriceInput {...field} />
+                    <PriceInput
+                      {...field}
+                      error={
+                        !!(
+                          errors.variants?.[
+                            index
+                          ] as FormikErrors<ShopItemVariantBulkUpdateFormRow>
+                        )?.price
+                      }
+                    />
                   )}
                 </FastField>
               </TableCell>
@@ -151,7 +165,16 @@ const ShopItemVariantBulkUpdateForm: React.FC = () => {
                   name={`variants.${index}.supplierPrice`}
                 >
                   {({ field }: { field: FieldInputProps<number> }) => (
-                    <PriceInput {...field} />
+                    <PriceInput
+                      {...field}
+                      error={
+                        !!(
+                          errors.variants?.[
+                            index
+                          ] as FormikErrors<ShopItemVariantBulkUpdateFormRow>
+                        )?.supplierPrice
+                      }
+                    />
                   )}
                 </FastField>
               </TableCell>

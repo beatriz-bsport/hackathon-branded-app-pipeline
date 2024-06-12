@@ -182,6 +182,7 @@ exports.default = {
         totalSales: 'Total sales',
       },
       variants: {
+        formError: 'Price field values must be valid positive numbers',
         placeholder: 'This product does not have variants yet',
         action: { add: 'Add a variant', edit: 'Edit variant' },
         image: 'Image',

@@ -35,8 +35,10 @@ import type { Invoice, InvoiceV1Serializer } from '#src/libs/invoice/types';
 import { FRANCHISE_PRIVATE_CONSUMER_PASS_PAGE_DEFAULT_SIZE } from '#src/libs/franchise/constants';
 import { fetchCompanyGroupList as fetchCompanyGroupListAction } from '#src/libs/franchise/actions';
 import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '#src/libs/invoice/actions';
-// @ts-expect-error
-import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
+import {
+  openNewWindowToImpersonate as openNewWindowToImpersonateAction,
+  // @ts-expect-error
+} from '../../actions/auth.actions';
 import { getPrivateConsumerPass } from '#src/libs/private-service/selectors/private-consumer-pass';
 import {
   fetchPrivateConsumerPassList as fetchPrivateConsumerPassListAction,
@@ -79,7 +81,7 @@ const FranchiseMemberDetailPrivateConsumerPass: React.FC<Props> = ({
   fetchCompanyGroupList,
   fetchInvoiceByInvoiceItem,
   fetchPrivateConsumerPass,
-  navigateAsCompanyAdmin,
+  openNewWindowToImpersonate,
 }) => {
   const { t } = useTranslation(['franchise', 'paymentPack', 'privateService']);
   const classes = useStyles();
@@ -89,7 +91,6 @@ const FranchiseMemberDetailPrivateConsumerPass: React.FC<Props> = ({
     reverted: false,
     is_valid_today: true,
   });
-  const [isRedirectLoading, setIsRedirectLoading] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [relatedInvoice, setRelatedInvoice] = React.useState<Invoice | null>(
     null,
@@ -133,41 +134,39 @@ const FranchiseMemberDetailPrivateConsumerPass: React.FC<Props> = ({
   );
 
   const goToPassInCompany = React.useCallback(() => {
-    setIsRedirectLoading(true);
-    selectedConsumerPass?.private_pass?.company &&
-      selectedConsumerPass?.member &&
+    if (
+      selectedConsumerPass &&
       selectedPrivateConsumerPassId &&
-      navigateAsCompanyAdmin(
-        selectedConsumerPass.private_pass.company,
-        `/member/${selectedConsumerPass.member}/private-consumer-pass/${selectedPrivateConsumerPassId}`,
-        {
-          onSuccess: () => {
-            setIsRedirectLoading(false);
-          },
-          onError: () => {
-            setIsRedirectLoading(false);
-          },
-        },
+      selectedConsumerPass.private_pass &&
+      selectedConsumerPass.member &&
+      selectedConsumerPass.private_pass.company
+    ) {
+      const companyId = selectedConsumerPass.private_pass.company;
+      const memberId = selectedConsumerPass.member;
+      openNewWindowToImpersonate(
+        companyId,
+        `/member/${memberId}/pass/${selectedPrivateConsumerPassId}`,
       );
+    }
   }, [
     selectedPrivateConsumerPassId,
-    navigateAsCompanyAdmin,
-    selectedConsumerPass?.member,
-    selectedConsumerPass?.private_pass?.company,
+    selectedConsumerPass,
+    openNewWindowToImpersonate,
   ]);
 
   const goToInvoice = React.useCallback(() => {
-    selectedConsumerPass?.private_pass.company &&
-      relatedInvoice?.uuid &&
-      navigateAsCompanyAdmin(
-        selectedConsumerPass.private_pass.company,
-        `/invoice/${relatedInvoice.uuid}/`,
-      );
-  }, [
-    relatedInvoice?.uuid,
-    navigateAsCompanyAdmin,
-    selectedConsumerPass?.private_pass.company,
-  ]);
+    if (
+      selectedConsumerPass &&
+      relatedInvoice &&
+      selectedConsumerPass.private_pass &&
+      relatedInvoice.uuid &&
+      selectedConsumerPass.private_pass.company
+    ) {
+      const companyId = selectedConsumerPass.private_pass.company;
+      const invoiceUuid = relatedInvoice.uuid;
+      openNewWindowToImpersonate(companyId, `/invoice/${invoiceUuid}/`);
+    }
+  }, [selectedConsumerPass, relatedInvoice, openNewWindowToImpersonate]);
 
   const isAllowed = React.useCallback(
     (companyId: number) =>
@@ -310,21 +309,11 @@ const FranchiseMemberDetailPrivateConsumerPass: React.FC<Props> = ({
               <Button
                 className={classes.button}
                 color="primary"
-                disabled={
-                  isRedirectLoading ||
-                  !isAllowed(selectedConsumerPass.private_pass.company)
-                }
+                disabled={!isAllowed(selectedConsumerPass.private_pass.company)}
                 onClick={goToPassInCompany}
                 startIcon={<ArrowForward />}
                 variant="contained"
               >
-                {isRedirectLoading && (
-                  <CircularProgress
-                    color="inherit"
-                    size={24}
-                    style={{ marginRight: 8 }}
-                  />
-                )}
                 {t('franchise:userProfile.goToMemberProfile', {
                   purchasing_studio: getCompanyName(
                     selectedConsumerPass.private_pass.company,
@@ -384,7 +373,7 @@ const connector = connect(
     fetchPrivateConsumerPassList: fetchPrivateConsumerPassListAction,
     fetchPrivateConsumerPass: fetchPrivateConsumerPassAction,
     fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
-    navigateAsCompanyAdmin: navigateAsCompanyAdminAction,
+    openNewWindowToImpersonate: openNewWindowToImpersonateAction,
   },
 );
 

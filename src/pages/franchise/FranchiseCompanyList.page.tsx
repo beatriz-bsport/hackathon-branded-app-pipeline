@@ -36,9 +36,12 @@ import {
   getEstablishment,
 } from '../../libs/establishment/selectors';
 import { Establishment } from '../../libs/establishment/types';
-// @ts-expect-error
-import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
-import { getBaseURL } from '#src/utils/urlUtils';
+
+import {
+  navigateAsCompanyAdmin as navigateAsCompanyAdminAction,
+  openNewWindowToImpersonate as openNewWindowToImpersonateAction,
+  // @ts-expect-error
+} from '../../actions/auth.actions';
 
 type OwnProps = {
   companyId: number;
@@ -124,12 +127,18 @@ export class FranchiseCompanyList extends Component<Props, State> {
   };
 
   goToCompany = (companyId: number) => () => {
-    const baseUrl = getBaseURL();
-    window.open(`${baseUrl}/impersonate/${companyId}`, '_blank');
+    if (companyId) {
+      this.props.openNewWindowToImpersonate(companyId, '');
+    }
   };
 
   goToUser = (companyId: number) => (memberId: number) => () => {
-    this.props.navigateAsCompanyAdmin(companyId, `/member/${memberId}/info`);
+    if (companyId && memberId) {
+      this.props.openNewWindowToImpersonate(
+        companyId,
+        `/member/${memberId}/info`,
+      );
+    }
   };
 
   // @ts-expect-error
@@ -241,6 +250,7 @@ const connector = connect(
     fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
     fetchEstablishmentBulk: fetchEstablishmentBulkAction,
     navigateAsCompanyAdmin: navigateAsCompanyAdminAction,
+    openNewWindowToImpersonate: openNewWindowToImpersonateAction,
     push: pushAction,
     createOrUpdateCompanyGroup,
   },

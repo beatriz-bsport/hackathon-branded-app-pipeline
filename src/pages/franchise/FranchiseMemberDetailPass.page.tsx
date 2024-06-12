@@ -47,12 +47,11 @@ import {
 } from '#src/libs/invoice/actions';
 import type { Company } from '#src/libs/company/types';
 import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
+import { fetchConsumerPack as fetchConsumerPackAction } from '#src/libs/consumer-payment-pack/actions';
 import {
-  retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
-  fetchConsumerPack as fetchConsumerPackAction,
-} from '#src/libs/consumer-payment-pack/actions';
-// @ts-expect-error
-import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '#src/actions/auth.actions';
+  openNewWindowToImpersonate as openNewWindowToImpersonateAction,
+  // @ts-expect-error
+} from '#src/actions/auth.actions';
 import type { WithHandlerType } from '#src/utils/types';
 import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
 import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
@@ -91,18 +90,13 @@ export type ConnectorProps = {
     options?: OptionCallback<PaymentPack[]>,
   ) => ThunkAction;
   replaceRouter: (url: string) => void;
-  retrieveConsumerPackBulk: (
-    consumerPaymentPacks: number[],
-    opt: OptionCallback<ConsumerPaymentPack[]>,
-  ) => Promise<void>;
   fetchConsumerPack: (
     id: number,
     options: OptionCallback<ConsumerPaymentPack>,
   ) => Promise<void>;
-  navigateAsCompanyAdmin: (
+  openNewWindowToImpersonate: (
     companyId: number,
-    url?: string,
-    options?: OptionCallback,
+    urlToImpersonate: string,
   ) => Promise<void>;
 };
 
@@ -148,7 +142,7 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
   onSelectConsumerPass,
   fetchPaymentPackBulk,
   fetchConsumerPack,
-  navigateAsCompanyAdmin,
+  openNewWindowToImpersonate,
 }) => {
   const { t } = useTranslation(['franchise', 'paymentPack']);
   const classes = useStyles();
@@ -198,8 +192,6 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
     reverted: false,
     is_valid_today: true,
   });
-  const [isRedirectLoading, setIsRedirectLoading] =
-    React.useState<boolean>(false);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
 
   const onPageRequestHandler = React.useCallback(
@@ -211,41 +203,39 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
   );
 
   const goToPassInCompany = React.useCallback(() => {
-    setIsRedirectLoading(true);
-    selectedConsumerPass?.payment_pack?.company &&
-      selectedConsumerPass?.member_id &&
+    if (
+      selectedConsumerPass &&
       selectedConsumerPaymentPackId &&
-      navigateAsCompanyAdmin(
-        selectedConsumerPass.payment_pack.company,
-        `/member/${selectedConsumerPass.member_id}/pass/${selectedConsumerPaymentPackId}`,
-        {
-          onSuccess: () => {
-            setIsRedirectLoading(false);
-          },
-          onError: () => {
-            setIsRedirectLoading(false);
-          },
-        },
+      selectedConsumerPass.payment_pack &&
+      selectedConsumerPass.member_id &&
+      selectedConsumerPass.payment_pack.company
+    ) {
+      const companyId = selectedConsumerPass.payment_pack.company;
+      const memberId = selectedConsumerPass.member_id;
+      openNewWindowToImpersonate(
+        companyId,
+        `/member/${memberId}/pass/${selectedConsumerPaymentPackId}`,
       );
+    }
   }, [
+    selectedConsumerPass,
     selectedConsumerPaymentPackId,
-    navigateAsCompanyAdmin,
-    selectedConsumerPass?.member_id,
-    selectedConsumerPass?.payment_pack?.company,
+    openNewWindowToImpersonate,
   ]);
 
   const goToInvoice = React.useCallback(() => {
-    selectedConsumerPass?.payment_pack.company &&
-      consumerPackInvoice?.uuid &&
-      navigateAsCompanyAdmin(
-        selectedConsumerPass.payment_pack.company,
-        `/invoice/${consumerPackInvoice.uuid}/`,
-      );
-  }, [
-    consumerPackInvoice?.uuid,
-    navigateAsCompanyAdmin,
-    selectedConsumerPass?.payment_pack.company,
-  ]);
+    if (
+      selectedConsumerPass &&
+      consumerPackInvoice &&
+      selectedConsumerPass.payment_pack &&
+      consumerPackInvoice.uuid &&
+      selectedConsumerPass.payment_pack.company
+    ) {
+      const companyId = selectedConsumerPass.payment_pack.company;
+      const invoiceUuid = consumerPackInvoice.uuid;
+      openNewWindowToImpersonate(companyId, `/invoice/${invoiceUuid}/`);
+    }
+  }, [selectedConsumerPass, consumerPackInvoice, openNewWindowToImpersonate]);
 
   const isAllowed = React.useCallback(
     (companyId: number) =>
@@ -358,21 +348,11 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
               <Button
                 className={classes.button}
                 color="primary"
-                disabled={
-                  isRedirectLoading ||
-                  !isAllowed(selectedConsumerPass.payment_pack.company)
-                }
+                disabled={!isAllowed(selectedConsumerPass.payment_pack.company)}
                 onClick={goToPassInCompany}
                 startIcon={<ArrowForward />}
                 variant="contained"
               >
-                {isRedirectLoading && (
-                  <CircularProgress
-                    color="inherit"
-                    size={24}
-                    style={{ marginRight: 8 }}
-                  />
-                )}
                 {t('userProfile.goToMemberProfile', {
                   purchasing_studio: getCompanyName(
                     selectedConsumerPass.payment_pack.company,
@@ -431,11 +411,10 @@ const connector = connect(
     fetchCompanyGroupList: fetchCompanyGroupListAction,
     fetchPaymentPackBulk: fetchPaymentPackBulkAction,
     replaceRouter: replace,
-    retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
     fetchConsumerPack: fetchConsumerPackAction,
     fetchInvoice: fetchSpecificInvoice,
     fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
-    navigateAsCompanyAdmin: navigateAsCompanyAdminAction,
+    openNewWindowToImpersonate: openNewWindowToImpersonateAction,
   },
 );
 

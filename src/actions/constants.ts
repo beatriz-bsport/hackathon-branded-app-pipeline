@@ -12,3 +12,4 @@ export const STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL =
 export const STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN =
   'bsport:relatedMemberMaster:http:token';
 export const STORAGE_KEY_BSPORT_ACCM_CHANNEL_ID = 'bsport:accm-channel:id';
+export const STORAGE_KEY_BSPORT_IMPERSONATED_GOTO_URL = 'goto:url';

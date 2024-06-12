@@ -39,6 +39,7 @@ import {
   STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL,
   STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
   STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
+  STORAGE_KEY_BSPORT_IMPERSONATED_GOTO_URL,
 } from './constants';
 import {
   STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR,
@@ -54,6 +55,8 @@ import {
   removeItemInStorage,
   setItemInStorage,
 } from '../utils/storage';
+
+import { getBaseURL } from '../utils/urlUtils';
 
 export const initiateInterface = createAction('initiate');
 
@@ -535,6 +538,35 @@ function impersonateManagerLoading(loading: boolean) {
   return { type: types.IMPERSONATE_MANAGER_LOADING, loading };
 }
 
+export function openNewWindowToImpersonate(
+  companyId: number,
+  urlToImpersonate: string,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const baseUrl = getBaseURL();
+      const originUrl = window.location.href
+        .toString()
+        .split(window.location.host)[1];
+
+      setItemInStorage(
+        'session',
+        STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL,
+        originUrl,
+      );
+      setItemInStorage(
+        'local',
+        STORAGE_KEY_BSPORT_IMPERSONATED_GOTO_URL,
+        urlToImpersonate,
+      );
+
+      window.open(`${baseUrl}/impersonate/${companyId}`, '_blank');
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+}
+
 export function navigateAsCompanyAdmin(
   companyId: number,
   url?: string,
@@ -555,9 +587,6 @@ export function navigateAsCompanyAdmin(
       if (!newToken) {
         throw new Error('No token');
       }
-      const impersonatedOnUrl = window.location.href
-        .toString()
-        .split(window.location.host)[1];
 
       const actualLanguage = getItemInStorage(
         'local',
@@ -567,11 +596,6 @@ export function navigateAsCompanyAdmin(
         'session',
         STORAGE_KEY_BSPORT_I18NEXTLNG_ORIGIN,
         actualLanguage,
-      );
-      setItemInStorage(
-        'session',
-        STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL,
-        impersonatedOnUrl,
       );
       setItemInStorage(
         'session',
@@ -631,18 +655,12 @@ export function navigateBackToFranchise() {
         'session',
         STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
       );
+      const originUrl = getItemInStorage(
+        'session',
+        STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL,
+      );
 
       const { data } = await accessLevelAPI(newToken);
-
-      const lastUrlImpersonated = window.location.href
-        .toString()
-        .split(window.location.host)[1];
-
-      setItemInStorage(
-        'session',
-        STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL,
-        lastUrlImpersonated,
-      );
 
       clearSessionStorageOnDeImpersonating();
 
@@ -659,9 +677,14 @@ export function navigateBackToFranchise() {
         getItemInStorage('session', STORAGE_KEY_BSPORT_I18NEXTLNG_ORIGIN),
       );
       removeItemInStorage('session', STORAGE_KEY_BSPORT_I18NEXTLNG_ORIGIN);
+      removeItemInStorage(
+        'session',
+        STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL,
+      );
       removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN);
 
       dispatch(impersonateManagerLoading(false));
+      dispatch(push(originUrl));
 
       return;
     } catch (err) {
@@ -764,6 +787,11 @@ export function navigateBackToMasterRelation(params: {
       const newToken = getItemInStorage(
         'local',
         STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
+      );
+
+      const originUrl = getItemInStorage(
+        'session',
+        STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL,
       );
 
       const { data } = await accessLevelAPI(newToken);

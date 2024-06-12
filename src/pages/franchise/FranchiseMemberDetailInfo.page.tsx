@@ -17,11 +17,11 @@ import {
   updateFranchiseUserTags as updateFranchiseUserTagsActions,
 } from '#src/libs/franchise/actions';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+// @ts-expect-error
+import { openNewWindowToImpersonate as openNewWindowToImpersonateAction } from '#src/actions/auth.actions';
 
 import FranchiseMemberDetailsCard from '#src/libs/franchise/components/FranchiseMemberDetailsCard.components';
 import type { RootState } from '#src/reducers';
-// @ts-expect-error
-import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '#src/actions/auth.actions';
 import {
   FRANCHISE_MEMBER_TAG_PAGE_DEFAULT_SIZE,
   FRANCHISE_USER_MEMBERS_PAGE_DEFAULT_SIZE,
@@ -65,7 +65,7 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
   membersCount,
   membersLoading,
   membersPage,
-  navigateAsCompanyAdmin,
+  openNewWindowToImpersonate,
   tags,
   tagsByTagGroup,
   tagsCount,
@@ -95,12 +95,14 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
 
   const goToMemberInCompany = React.useCallback(
     (companyId: number) => () => {
-      navigateAsCompanyAdmin(
-        companyId,
-        `/member/${user?.company_member[companyId]}/info`,
-      );
+      if (companyId && user && user.company_member) {
+        openNewWindowToImpersonate(
+          companyId,
+          `/member/${user?.company_member[companyId]}/info`,
+        );
+      }
     },
-    [navigateAsCompanyAdmin, user?.company_member],
+    [user, openNewWindowToImpersonate],
   );
 
   const fetchMembersList = React.useCallback(
@@ -250,7 +252,7 @@ const connector = connect(
     updateFranchiseUserTags: updateFranchiseUserTagsActions,
     fetchAllGroupTemplates: fetchAllGroupTemplatesActions,
     fetchAllTagTemplates: fetchAllTagTemplatesActions,
-    navigateAsCompanyAdmin: navigateAsCompanyAdminAction,
+    openNewWindowToImpersonate: openNewWindowToImpersonateAction,
   },
 );
 

@@ -5,6 +5,8 @@ import { ConnectedProps, connect } from 'react-redux';
 // @ts-expect-error
 import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { getItemInStorage, removeItemInStorage } from '#src/utils/storage';
+import { STORAGE_KEY_BSPORT_IMPERSONATED_GOTO_URL } from '#src/actions/constants';
 
 type OwnProps = {
   companyId: number;
@@ -19,8 +21,13 @@ const ImpersonateHandler: React.FC<Props> = ({
 }) => {
   useEffect(() => {
     if (companyId) {
+      const urlToImpersonate = getItemInStorage(
+        'local',
+        STORAGE_KEY_BSPORT_IMPERSONATED_GOTO_URL,
+      );
+      removeItemInStorage('local', STORAGE_KEY_BSPORT_IMPERSONATED_GOTO_URL);
+      navigateAsCompanyAdmin(companyId, urlToImpersonate);
       push('');
-      navigateAsCompanyAdmin(companyId, '');
     }
   }, [push, companyId, navigateAsCompanyAdmin]);
 

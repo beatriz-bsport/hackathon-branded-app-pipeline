@@ -80,17 +80,18 @@ const ShopSupplierListItem: React.FC<ShopSupplierListItemProps> = React.memo(
           </p>
         </TableCell>
         <TableCell className={classes.rowActions} scope="row">
-          {descriptionText.isExpandable && (
-            <Tooltip
-              title={t(
-                'shopList.tab.settings.section.suppliers.table.action.showInfos',
-              )}
-            >
-              <IconButton onClick={onShowSupplierDetails}>
-                <VisibilityIcon />
-              </IconButton>
-            </Tooltip>
-          )}
+          <Tooltip
+            className={
+              descriptionText.isExpandable ? classes.visible : classes.hidden
+            }
+            title={t(
+              'shopList.tab.settings.section.suppliers.table.action.showInfos',
+            )}
+          >
+            <IconButton onClick={onShowSupplierDetails}>
+              <VisibilityIcon />
+            </IconButton>
+          </Tooltip>
           <Tooltip
             title={t(
               'shopList.tab.settings.section.suppliers.table.action.edit',
@@ -200,6 +201,12 @@ const useStyles = makeStyles(() => ({
   },
   noWrap: {
     whiteSpace: 'nowrap',
+  },
+  visible: {
+    visibility: 'visible',
+  },
+  hidden: {
+    visibility: 'hidden',
   },
 }));
 

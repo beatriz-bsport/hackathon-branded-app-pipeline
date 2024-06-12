@@ -14,6 +14,7 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
 import type { PaymentMethod } from '../types';
 import type { OptionCallback } from '../../../state/types';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   paymentMethod?: PaymentMethod;
@@ -150,14 +151,19 @@ export const PaymentMethodListItem: FC<Props> = ({
         </ListItemSecondaryAction>
       )}
       {detachPaymentMethod && (
-        <ListItemSecondaryAction>
-          <IconButton
-            disabled={detachPaymentMethodLoading || disabled}
-            onClick={removePaymentMethod}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="billing.allowed_actions.deletePaymentMethod"
+        >
+          <ListItemSecondaryAction>
+            <IconButton
+              disabled={detachPaymentMethodLoading || disabled}
+              onClick={removePaymentMethod}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ObjectLevelPermissionWrapper>
       )}
     </ListItem>
   );

@@ -94,7 +94,6 @@ export class SignupPage extends Component<Props> {
       this.props.fetchCompanyCustomSignUp({
         company: parseInt(this.props.membership),
       });
-      // @ts-expect-error
       this.props.retrieveCompanyCssConfiguration(
         parseInt(this.props.membership, 10),
       );
@@ -244,7 +243,6 @@ function mapDispatchToProps(dispatch: Dispatch, props: OwnProps) {
     doEmailLogin({ email, password }: { email: string; password: string }) {
       dispatch(requestLogin(email, password, opts));
     },
-    retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
   };
 }
 
@@ -253,7 +251,7 @@ const properMapDispatchToProps = {
   fetchCompanyTheme,
   fetchCompanyCustomSignUp,
   pushRouter: push,
-
+  retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
   goBackToFranchisePage: (franchisor: string | null) =>
     franchisor ? push(`/login?franchisor=${franchisor}`) : push(`/login`),
 };
@@ -290,7 +288,8 @@ const mapStateToProps = (
   authenticated: state.auth.authenticated,
   signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
   signUpCustomFormLoading: getSignUpCustomFormLoading(state),
-  customConfiguration: state.exportableComponents.customCss,
+  // eslint-disable-next-line react/no-unused-prop-types
+  customConfiguration: state.exportableComponents.customCss, // Mandatory prop consumed by WithCustomCSSProvider HOC.
 });
 const withStateHandlersInit = {
   loginInformations: { email: '', password: '' },

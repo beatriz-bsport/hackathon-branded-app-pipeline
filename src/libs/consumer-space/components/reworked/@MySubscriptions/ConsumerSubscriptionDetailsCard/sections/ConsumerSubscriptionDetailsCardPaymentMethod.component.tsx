@@ -32,7 +32,7 @@ const ConsumerSubscriptionDetailsCardPaymentMethod: React.FC<Props> = ({
 
   const subtitle = React.useMemo(
     () =>
-      hasMissingPaymentMethod
+      hasMissingPaymentMethod || !paymentMethodType
         ? t(
             'reworked.mySubscriptions.consumerSubscriptionCardDetails.paymentMethod.internal',
           )

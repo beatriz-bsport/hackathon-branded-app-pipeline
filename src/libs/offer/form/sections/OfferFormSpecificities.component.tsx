@@ -320,7 +320,13 @@ const OfferFormSpecificities: React.FC<Props> = ({
                 id="offer-form-edit-meta-activity-selector"
                 metaActivities={metaActivitiesOptions}
                 selectedMetaActivities={
-                  selectedMetaActivity ? [selectedMetaActivity] : undefined
+                  selectedMetaActivity
+                    ? // @ts-expect-error
+                      selectedMetaActivity.id
+                      ? // @ts-expect-error
+                        [selectedMetaActivity.id]
+                      : [selectedMetaActivity]
+                    : undefined
                 }
                 selectOption={handleSelectMetaActivity}
               />

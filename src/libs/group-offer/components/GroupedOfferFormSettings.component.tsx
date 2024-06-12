@@ -320,7 +320,8 @@ export const GroupedOfferFormSettings: React.FC<
             // @ts-expect-error
             DateTime.fromSeconds(value.date_start).toFormat(
               'yyyy-LL-dd HH:mm',
-            ) !== offerEdited.date_start
+              // @ts-expect-error
+            ) !== offerEdited.date_start.toFormat('yyyy-LL-dd HH:mm')
           ) {
             acc.push(value);
             return acc;
@@ -337,7 +338,7 @@ export const GroupedOfferFormSettings: React.FC<
             ...data,
             ...(data?.date_start
               ? {
-                  date_start: data.date_start.unix(),
+                  date_start: data.date_start.toUnixInteger(),
                 }
               : {
                   date_start: DateTime.fromISO(
@@ -743,7 +744,6 @@ const OfferDialogs: React.FC<{
           availableEstablishments={availableEstablishments}
           coaches={coaches}
           coachPaymentRulesByKind={coachPaymentRulesByKind}
-          creditScaleFactor={creditScaleFactor || 1}
           isLoading={!offerEdited}
           isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
           metaActivities={[metaActivity]}

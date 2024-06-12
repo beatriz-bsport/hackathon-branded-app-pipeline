@@ -137,7 +137,6 @@ export const OfferEditForm = (props: Props) => {
     deleteLevel,
     onCancel,
     onBannerGoBack,
-    creditScaleFactor = 1,
   } = props;
 
   const [editCurrentStep, setEditCurrentStep] = useState(
@@ -392,7 +391,7 @@ const formikFormWrapper = withFormik<
       props.roomBlueprints,
     ),
     selectedBlacklistTags: props.offer?.blacklist_tags.map((tag) => tag.id),
-    selectedMetaActivity: props.offer?.meta_activity.id,
+    selectedMetaActivity: props.offer?.meta_activity,
     selectedSimilarOffers: props.similarOffers?.map((offer) => offer.id) ?? [],
     selectedWhitelistTags: props.offer?.whitelist_tags.map((tag) => tag.id),
     waitingListMaxSize: props.offer?.waiting_list_max_size,
@@ -427,12 +426,12 @@ const formikFormWrapper = withFormik<
       selectedBlacklistTags,
       allowGuestOffer,
       isNotifyConsumers,
-      selectedMetaActivity,
       isModifyRecursively,
       dateIntervalStart,
       selectedSimilarOffers,
       coachOverridePropagateMode,
       isCoachOverridePropagate,
+      selectedMetaActivity,
       partnerMaxBookingCount,
       isOfferInGroup,
       syncOfferOnSpivi,

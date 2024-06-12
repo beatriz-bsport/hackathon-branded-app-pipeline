@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from 'react';
-
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { connect, ConnectedProps } from 'react-redux';
@@ -29,9 +28,20 @@ import {
   getActiveContractTemplateList,
   getDisabledContractTemplateList,
 } from '#src/libs/subscription/selectors';
-import { getPaymentPackTemplateById as getPaymentPackTemplateByIdSelector } from '#src/libs/payment-packs/selectors';
-import { getPrivatePassTemplateById as getPrivatePassTemplateByIdSelector } from '#src/libs/private-service/selectors/private-pass';
-import { getFranchiseCompanyListById as getFranchiseCompanyListByIdSelector } from '#src/libs/franchise/selectors';
+import {
+  getPaymentPackTemplateById as getPaymentPackTemplateByIdSelector,
+  getPaymentPackTemplateIdList,
+} from '#src/libs/payment-packs/selectors';
+import {
+  getPrivatePassTemplateById as getPrivatePassTemplateByIdSelector,
+  getPrivatePassTemplateIdList,
+} from '#src/libs/private-service/selectors/private-pass';
+import {
+  getFranchiseCompanyListById as getFranchiseCompanyListByIdSelector,
+  getFranchiseCompanyNameById as getFranchiseCompanyNameByIdSelector,
+  getAllFranchiseCompanyIds,
+} from '#src/libs/franchise/selectors';
+
 import ContractTemplateList from '#src/libs/subscription/franchise-components/ContractTemplateList.component';
 import ContractTemplateListItem from '#src/libs/subscription/franchise-components/ContractTemplateListItem.component';
 import ContractTemplateDeleteDialog from '#src/libs/subscription/components/ContractTemplateDeleteDialog.component';
@@ -39,7 +49,189 @@ import { CONTRACT_TEMPLATE_PAGE_SIZE } from '#src/libs/subscription/constants';
 
 import ObjectSearch from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
-import type { ContractTemplate } from '#src/libs/subscription/types';
+import type {
+  ContractTemplate,
+  ContractAvailabilityOptionProps,
+  CompanyOptionProps,
+  ContractTemplatePaginatedQueryParams,
+  PrivatePassTemplateOptionProps,
+  PaymentPackTemplateOptionProps,
+  PassTypeOptionProps,
+} from '#src/libs/subscription/types';
+import {
+  ContractAvailabilityMapper,
+  PassTypeMapper,
+} from '#src/libs/subscription/enums';
+import ContractTemplateFilterHeaderComponent from '#src/libs/subscription/franchise-components/ContractTemplateFilterHeader.component';
+
+const useContractTemplateFilters = (
+  fetchActiveContractTemplateList: (
+    params: ContractTemplatePaginatedQueryParams,
+  ) => void,
+) => {
+  const [selectedCompanies, setSelectedCompanies] = useState<
+    CompanyOptionProps[]
+  >([]);
+
+  const [selectedPrivatePassTemplates, setSelectedPrivatePassTemplates] =
+    useState<PrivatePassTemplateOptionProps[]>([]);
+
+  const [selectedPaymentPackTemplates, setSelectedPaymentPackTemplates] =
+    useState<PaymentPackTemplateOptionProps[]>([]);
+
+  const [selectedPassType, setSelectedPassType] =
+    useState<PassTypeOptionProps>(null);
+
+  const [selectedContractAvailability, setSelectedContractAvailability] =
+    useState<ContractAvailabilityOptionProps>(null);
+
+  const fetchActiveContractTemplateListHandlerFilter = useCallback(
+    (params: ContractTemplatePaginatedQueryParams) => {
+      const { manager_only, is_usable_by_staff } =
+        ContractAvailabilityMapper[selectedContractAvailability?.value] ?? {};
+
+      const is_appointment_pass = PassTypeMapper[selectedPassType?.value];
+
+      const selectedCompanyIds = selectedCompanies.map(
+        (company) => company.value,
+      );
+
+      const selectedPrivatePassTemplateIds = selectedPrivatePassTemplates.map(
+        (selectedPrivatePassTemplate) => selectedPrivatePassTemplate.value,
+      );
+
+      const selectedPaymentPackTemplateIds = selectedPaymentPackTemplates.map(
+        (selectedPaymentPackTemplate) => selectedPaymentPackTemplate.value,
+      );
+
+      fetchActiveContractTemplateList({
+        page: params.page,
+        manager_only:
+          typeof params.manager_only !== 'undefined'
+            ? params.manager_only
+            : manager_only,
+        is_usable_by_staff:
+          typeof params.is_usable_by_staff !== 'undefined'
+            ? params.is_usable_by_staff
+            : is_usable_by_staff,
+        companies: params.companies ?? selectedCompanyIds,
+        is_appointment_pass:
+          typeof params.is_appointment_pass !== 'undefined'
+            ? params.is_appointment_pass
+            : is_appointment_pass,
+        private_pass_templates:
+          params.private_pass_templates ?? selectedPrivatePassTemplateIds,
+        payment_pack_templates:
+          params.payment_pack_templates ?? selectedPaymentPackTemplateIds,
+      });
+    },
+    [
+      selectedContractAvailability?.value,
+      selectedPassType?.value,
+      fetchActiveContractTemplateList,
+      selectedCompanies,
+      selectedPrivatePassTemplates,
+      selectedPaymentPackTemplates,
+    ],
+  );
+
+  const handleAvailabilityChange = useCallback(
+    (newAvailability: ContractAvailabilityOptionProps) => {
+      if (!newAvailability) {
+        setSelectedContractAvailability(null);
+        fetchActiveContractTemplateListHandlerFilter({
+          manager_only: null,
+          is_usable_by_staff: null,
+        });
+        return;
+      }
+      const availability = ContractAvailabilityMapper[newAvailability?.value];
+      setSelectedContractAvailability(newAvailability);
+      fetchActiveContractTemplateListHandlerFilter({
+        manager_only: availability?.manager_only,
+        is_usable_by_staff: availability?.is_usable_by_staff,
+      });
+    },
+    [fetchActiveContractTemplateListHandlerFilter],
+  );
+
+  const handleSelectedCompaniesChange = useCallback(
+    (newSelectedCompanies: CompanyOptionProps[]) => {
+      if (!newSelectedCompanies) {
+        setSelectedCompanies([]);
+        fetchActiveContractTemplateListHandlerFilter({ companies: [] });
+        return;
+      }
+      const companies = newSelectedCompanies.map((company) => company.value);
+      setSelectedCompanies(newSelectedCompanies);
+      fetchActiveContractTemplateListHandlerFilter({ companies });
+    },
+    [fetchActiveContractTemplateListHandlerFilter],
+  );
+
+  const handleProductTypeChange = useCallback(
+    (newProductType: PassTypeOptionProps) => {
+      setSelectedPrivatePassTemplates([]);
+      setSelectedPaymentPackTemplates([]);
+      if (!newProductType) {
+        setSelectedPassType(null);
+        fetchActiveContractTemplateListHandlerFilter({
+          is_appointment_pass: null,
+          private_pass_templates: [],
+          payment_pack_templates: [],
+        });
+        return;
+      }
+      const newIsAppointmentPass = PassTypeMapper[newProductType?.value];
+      setSelectedPassType(newProductType);
+      fetchActiveContractTemplateListHandlerFilter({
+        is_appointment_pass: newIsAppointmentPass,
+        private_pass_templates: [],
+        payment_pack_templates: [],
+      });
+    },
+    [fetchActiveContractTemplateListHandlerFilter],
+  );
+
+  const handleSelectedPrivatePassTemplateChange = useCallback(
+    (newSelectedPrivatePassTemplates: PrivatePassTemplateOptionProps[]) => {
+      const privatePassTemplateIds = newSelectedPrivatePassTemplates.map(
+        (template) => template.value,
+      );
+      setSelectedPrivatePassTemplates(newSelectedPrivatePassTemplates);
+      fetchActiveContractTemplateListHandlerFilter({
+        private_pass_templates: privatePassTemplateIds,
+      });
+    },
+    [fetchActiveContractTemplateListHandlerFilter],
+  );
+
+  const handleSelectedPaymentPackTemplateChange = useCallback(
+    (newSelectedPaymentPackTemplates: PaymentPackTemplateOptionProps[]) => {
+      const paymentPackTemplateIds = newSelectedPaymentPackTemplates.map(
+        (template) => template.value,
+      );
+      setSelectedPaymentPackTemplates(newSelectedPaymentPackTemplates);
+      fetchActiveContractTemplateListHandlerFilter({
+        payment_pack_templates: paymentPackTemplateIds,
+      });
+    },
+    [fetchActiveContractTemplateListHandlerFilter],
+  );
+  return {
+    selectedPassType,
+    selectedContractAvailability,
+    selectedCompanies,
+    selectedPaymentPackTemplates,
+    selectedPrivatePassTemplates,
+    handleAvailabilityChange,
+    handleSelectedCompaniesChange,
+    handleProductTypeChange,
+    handleSelectedPrivatePassTemplateChange,
+    handleSelectedPaymentPackTemplateChange,
+    fetchActiveContractTemplateListHandlerFilter,
+  };
+};
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
 
@@ -51,8 +243,12 @@ const SearchOption: React.FC<OptionPropsWithData<OptionProps>> = React.memo(
 const FranchiseContractTemplateList: React.FC<Props> = ({
   activeContractTemplateState,
   disabledContractTemplateState,
+  paymentPackTemplateIdList,
+  privatePassTemplateIdList,
+  companiesIdList,
   getPaymentPackTemplateById,
   getPrivatePassTemplateById,
+  getFranchiseCompanyNameById,
   getFranchiseCompanyListById,
   fetchActiveContractTemplateList,
   fetchDisabledContractTemplateList,
@@ -72,11 +268,25 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
     setSelectedContractTemplateIdToDelete,
   ] = React.useState<number | null>(null);
 
+  const {
+    selectedPassType,
+    selectedCompanies,
+    selectedContractAvailability,
+    selectedPaymentPackTemplates,
+    selectedPrivatePassTemplates,
+    handleAvailabilityChange,
+    handleSelectedCompaniesChange,
+    handleProductTypeChange,
+    handleSelectedPrivatePassTemplateChange,
+    handleSelectedPaymentPackTemplateChange,
+    fetchActiveContractTemplateListHandlerFilter,
+  } = useContractTemplateFilters(fetchActiveContractTemplateList);
+
   const fetchActiveContractTemplateListHandler = useCallback(
     (page?: number) => {
-      fetchActiveContractTemplateList({ page });
+      fetchActiveContractTemplateListHandlerFilter({ page });
     },
-    [fetchActiveContractTemplateList],
+    [fetchActiveContractTemplateListHandlerFilter],
   );
 
   const fetchDisabledContractTemplateListHandler = useCallback(
@@ -168,6 +378,22 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
   const handleEditContractTemplate = () => {};
   const handleOnClickTemplate = () => {};
 
+  const getPaymentPackTemplateNameById = useCallback(
+    (id: number) => {
+      const paymentPack = getPaymentPackTemplateById(id);
+      return paymentPack?.name ?? '';
+    },
+    [getPaymentPackTemplateById],
+  );
+
+  const getPrivatePassTemplateNameById = useCallback(
+    (id: number) => {
+      const privatePass = getPrivatePassTemplateById(id);
+      return privatePass?.name ?? '';
+    },
+    [getPrivatePassTemplateById],
+  );
+
   return (
     <div>
       <ObjectSearch
@@ -186,6 +412,24 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
         placeholder={t('contractTemplate.filter.searchPlaceholder')}
         searchedObjectType="contract_template"
         variant="underlined"
+      />
+      <ContractTemplateFilterHeaderComponent
+        companiesIdList={companiesIdList}
+        getFranchiseCompanyNameById={getFranchiseCompanyNameById}
+        getPaymentPackTemplateNameById={getPaymentPackTemplateNameById}
+        getPrivatePassTemplateNameById={getPrivatePassTemplateNameById}
+        onAvailabilityChange={handleAvailabilityChange}
+        onCompanyChange={handleSelectedCompaniesChange}
+        onPaymentPackTemplateChange={handleSelectedPaymentPackTemplateChange}
+        onPrivatePassTemplateChange={handleSelectedPrivatePassTemplateChange}
+        onProductTypeChange={handleProductTypeChange}
+        paymentPackTemplateIdList={paymentPackTemplateIdList}
+        privatePassTemplateIdList={privatePassTemplateIdList}
+        selectedCompanies={selectedCompanies}
+        selectedContractAvailability={selectedContractAvailability}
+        selectedPassType={selectedPassType}
+        selectedPaymentPackTemplates={selectedPaymentPackTemplates}
+        selectedPrivatePassTemplates={selectedPrivatePassTemplates}
       />
       <ContractTemplateList
         contractTemplateList={activeContractTemplateState.list}
@@ -261,6 +505,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const mapStateToProps = (state: RootState) => ({
+  paymentPackTemplateIdList: getPaymentPackTemplateIdList(state),
+  privatePassTemplateIdList: getPrivatePassTemplateIdList(state),
   activeContractTemplateState: {
     list: getActiveContractTemplateList(state),
     page: state.subscription.contractTemplate.active.page,
@@ -274,10 +520,13 @@ const mapStateToProps = (state: RootState) => ({
     count: state.subscription.contractTemplate.disabled.count,
     numberOfPages: state.subscription.contractTemplate.disabled.numberOfPages,
   },
+  companiesIdList: getAllFranchiseCompanyIds(state),
   getPaymentPackTemplateById: (id: number) =>
     getPaymentPackTemplateByIdSelector(state, id),
   getPrivatePassTemplateById: (id: number) =>
     getPrivatePassTemplateByIdSelector(state, id),
+  getFranchiseCompanyNameById: (id: number) =>
+    getFranchiseCompanyNameByIdSelector(state, id),
   getFranchiseCompanyListById: (id__in: number[]) =>
     getFranchiseCompanyListByIdSelector(state, id__in),
 });

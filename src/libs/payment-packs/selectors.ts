@@ -332,7 +332,8 @@ export const getPaymentPackTemplateData = (state: RootState) =>
 
 export const getPaymentPackTemplateById = (state: RootState, id: number) =>
   state.paymentPack.paymentPackTemplate.byId[id];
-const getPaymentPackTemplateIdList = (state: RootState) =>
+
+export const getPaymentPackTemplateIdList = (state: RootState) =>
   state.paymentPack.paymentPackTemplate.allIds;
 
 const getPaymentPackTemplateIdManagerOnlyList = (state: RootState) =>

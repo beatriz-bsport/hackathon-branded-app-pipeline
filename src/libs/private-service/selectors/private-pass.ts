@@ -282,7 +282,7 @@ export const getPrivatePassTemplateData = (state: RootState) =>
 export const getPrivatePassTemplateById = (state: RootState, id: number) =>
   state.privateService.privatePassTemplate.byId[id];
 
-const getPrivatePassTemplateIdList = (state: RootState) =>
+export const getPrivatePassTemplateIdList = (state: RootState) =>
   state.privateService.privatePassTemplate.allIds;
 
 export const getPrivatePassTemplateList: (

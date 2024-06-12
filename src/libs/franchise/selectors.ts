@@ -172,6 +172,9 @@ export const getFranchiseCompany = (companyId: number) =>
     [getFranchiseCompanyById],
     (companiesById) => companiesById[companyId],
   );
+export const getFranchiseCompanyNameById = (state: RootState, id: number) => {
+  return getFranchiseCompanyById(state)[id]?.name || null;
+};
 
 export const getFranchiseCompanyListById = (
   state: RootState,
@@ -211,6 +214,9 @@ export const getAllFranchiseCompanies = (
   }
   return [];
 };
+
+export const getAllFranchiseCompanyIds = (state: RootState) =>
+  getState(state).companies?.allIds || [];
 
 export const _getCompanyGroupById = (state: RootState) =>
   getState(state).companyGroup.byId;

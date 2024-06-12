@@ -15,7 +15,15 @@ import type { Payment, PaymentEngine } from '#src/libs/payment/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import type { PrivatePass } from '#src/libs/private-service/types';
 import type { PaymentCombo } from '#src/libs/payment-combo/types';
-import type { PaginationFilterParams, ErrorAndLoading } from '#src/libs/types';
+import type {
+  ContractAvailability,
+  PassType,
+} from '#src/libs/subscription/enums';
+import type {
+  SelectOption,
+  PaginationFilterParams,
+  ErrorAndLoading,
+} from '#src/libs/types';
 
 export type PlannedInvoice = {
   date: string;
@@ -453,4 +461,13 @@ export type ContractTemplatePaginatedQueryParams = PaginationFilterParams & {
   disabled?: boolean;
   manager_only?: boolean;
   is_usable_by_staff?: boolean;
+  private_pass_templates?: number[];
+  payment_pack_templates?: number[];
 };
+
+export type ContractAvailabilityOptionProps =
+  SelectOption<ContractAvailability>;
+export type PassTypeOptionProps = SelectOption<PassType>;
+export type CompanyOptionProps = SelectOption<number>;
+export type PrivatePassTemplateOptionProps = SelectOption<number>;
+export type PaymentPackTemplateOptionProps = SelectOption<number>;

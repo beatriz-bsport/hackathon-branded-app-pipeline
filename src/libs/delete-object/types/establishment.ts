@@ -58,6 +58,7 @@ export type CheckDeleteEstablishmentData = {
     has_exclusive_marketplace_component_configs: boolean;
   };
   is_integrated_in_partnership: boolean;
+  has_related_marketing_notifications: boolean;
 };
 
 export type DeleteEstablishmentSection =

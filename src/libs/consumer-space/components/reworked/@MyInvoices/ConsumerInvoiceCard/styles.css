@@ -49,6 +49,20 @@
 .bs-consumer-invoice-card__body__description-label {
 }
 
+.bs-consumer-invoice-card__body__price-section {
+  display: flex;
+  align-items: center;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-consumer-invoice-card__body__amount-due {
+  color: var(--bs-color-text-weak);
+}
+
+.bs-consumer-invoice-card__body__amount-due--hidden {
+  display: none;
+}
+
 .bs-consumer-invoice-card__body__price {
 }
 

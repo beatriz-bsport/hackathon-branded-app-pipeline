@@ -11,6 +11,7 @@ import Typography from '#Fabrique/Typography';
 import type { ConsumerInvoice } from '#src/libs/invoice/types';
 
 import '../styles.css';
+import classNames from 'classnames';
 
 type Props = {
   consumerInvoice: ConsumerInvoice;
@@ -40,14 +41,29 @@ const ConsumerInvoiceCardBody: React.FC<Props> = ({
           </Typography>
         )}
       </div>
-      <Typography
-        className="bs-consumer-invoice-card__body__price"
-        variant="title-md"
-      >
-        {getCurrencyDisplayWithPrice(
-          convertCtsToFullPrice(consumerInvoice?.amount_due_cts),
-        )}
-      </Typography>
+      <div className="bs-consumer-invoice-card__body__price-section">
+        <Typography
+          className="bs-consumer-invoice-card__body__price"
+          variant="title-md"
+        >
+          {getCurrencyDisplayWithPrice(
+            convertCtsToFullPrice(consumerInvoice?.amount_due_cts),
+          )}
+        </Typography>
+        <Typography
+          className={classNames('bs-consumer-invoice-card__body__amount-due', {
+            'bs-consumer-invoice-card__body__amount-due--hidden':
+              !consumerInvoice?.amount_left_to_pay_cts,
+          })}
+          variant="body-md"
+        >
+          {t('reworked.myInvoices.card.amountDue', {
+            amount: getCurrencyDisplayWithPrice(
+              convertCtsToFullPrice(consumerInvoice?.amount_left_to_pay_cts),
+            ),
+          })}
+        </Typography>
+      </div>
       <Button
         className="bs-consumer-invoice-card__body__button"
         color="primary"

@@ -1904,7 +1904,8 @@
             "partiallyPaid": "Partially paid",
             "plannedPayments": "Planned payments",
             "refunded": "Refunded"
-          }
+          },
+          "amountDue": "Amount due: {{- amount}}"
         },
         "detailsCard": {
           "dispute": { "processing": "Processing", "won": "Won", "lost": "Lost" },

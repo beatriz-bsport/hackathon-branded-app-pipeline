@@ -475,6 +475,7 @@ exports.default = {
           plannedPayments: 'Planned payments',
           refunded: 'Refunded',
         },
+        amountDue: 'Amount due: {{- amount}}',
       },
       detailsCard: {
         dispute: {

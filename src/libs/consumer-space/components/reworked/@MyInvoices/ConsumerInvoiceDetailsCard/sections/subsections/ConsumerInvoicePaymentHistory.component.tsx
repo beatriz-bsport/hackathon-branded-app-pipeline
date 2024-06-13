@@ -22,7 +22,6 @@ const ConsumerInvoicePaymentHistory: React.FC<Props> = ({
   plannedPaymentErrorList,
 }) => {
   const { t } = useTranslation('consumerSpace');
-
   return (
     <div className="bs-consumer-invoice-details-card__body__payment-section">
       <Typography
@@ -42,6 +41,10 @@ const ConsumerInvoicePaymentHistory: React.FC<Props> = ({
               paymentNote={paymentItem.payment_note}
               paymentReceived={paymentItem.payment_received}
               price={paymentItem.price}
+              paymentErrorType={paymentItem.payment_note}
+              isPaymentError={
+                !paymentItem.payment_received && !paymentItem.is_processing
+              }
             />
           ))}
           {(plannedPaymentErrorList || []).map((plannedPayment) => (

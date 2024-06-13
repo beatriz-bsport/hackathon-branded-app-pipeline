@@ -493,7 +493,7 @@ exports.default = {
         pay: 'Pay now',
         paymentError: 'This payment was unsuccessful.',
         paymentErrorWithReason:
-          'This payment was unsuccessful. Reason: { {{ reason }} }.',
+          'This payment was unsuccessful. Reason: {{- reason }}.',
         paymentHistory: 'Payment history',
         placeholder: 'Choose an invoice to see details.',
         plannedPayments: 'Planned payments',

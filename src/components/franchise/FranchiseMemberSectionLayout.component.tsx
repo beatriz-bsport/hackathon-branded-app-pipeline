@@ -12,7 +12,11 @@ const FranchiseMemberSectionLayout: React.FC<Props> = ({ title, children }) => {
 
   return (
     <div className={classes.container}>
-      {title && <Typography variant="h5">{title}</Typography>}
+      {title && (
+        <Typography className={classes.title} variant="h5">
+          {title}
+        </Typography>
+      )}
       {children}
     </div>
   );
@@ -23,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.spacing(1),
   },
+  title: { marginBottom: theme.spacing(1) },
 }));
 
 export default React.memo(FranchiseMemberSectionLayout);

@@ -125,10 +125,10 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
     [applyBalanceToInvoice, closePaymentPortal],
   );
 
-  const handleRefreshAfterPayment = React.useCallback(
-    () => refreshConsumerInvoices?.(),
-    [refreshConsumerInvoices],
-  );
+  const handleRefreshAfterPayment = React.useCallback(() => {
+    clearSelectedConsumerInvoice();
+    refreshConsumerInvoices?.();
+  }, [refreshConsumerInvoices, clearSelectedConsumerInvoice]);
 
   const requestClientSecret = React.useCallback((invoiceUuid: string) => {
     setClientSecret(null);

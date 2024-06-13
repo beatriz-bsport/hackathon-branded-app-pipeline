@@ -11,9 +11,11 @@ import type { ConsumerPaymentPackReworked } from '#src/libs/consumer-payment-pac
 import type { PrivateConsumerPassReworked } from '#src/libs/private-service/types';
 import type { UniversalPassReworked } from '#src/libs/universal-pass/types';
 import type { PassTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
+import type { ConsumerPassesTabDisplay } from '#src/libs/consumer-space/types';
 import { PassTabEnum } from '../ConsumerPassTabs/constants';
 
 type Props = {
+  consumerPassesTabDisplay?: ConsumerPassesTabDisplay;
   isConsumerPaymentPackDetailsDrawerOpen: boolean;
   isPrivateConsumerPassDetailsDrawerOpen: boolean;
   isUniversalPassDetailsDrawerOpen: boolean;
@@ -32,6 +34,7 @@ type Props = {
 };
 
 const ConsumerPassModals: React.FC<Props> = ({
+  consumerPassesTabDisplay,
   isConsumerPaymentPackDetailsDrawerOpen,
   isPrivateConsumerPassDetailsDrawerOpen,
   isUniversalPassDetailsDrawerOpen,
@@ -80,6 +83,7 @@ const ConsumerPassModals: React.FC<Props> = ({
       )}
       {isMobile && isPassTabDrawerOpen && (
         <ConsumerPassTabsDrawer
+          consumerPassesTabDisplay={consumerPassesTabDisplay}
           handleClose={handleTogglePassTabDrawer}
           handleSetSelectedTab={handleSetSelectedTab}
           isOpen={isPassTabDrawerOpen}

@@ -9,9 +9,11 @@ import { PassTabEnum } from '#src/libs/consumer-space/components/reworked/@MyPas
 
 import type { PassTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
 
+import type { ConsumerPassesTabDisplay } from '#src/libs/consumer-space/types';
 import './styles.css';
 
 type Props = {
+  consumerPassesTabDisplay?: ConsumerPassesTabDisplay;
   handleSetSelectedTab: (type: PassTab) => void;
   handleClose: () => void;
   isOpen: boolean;
@@ -19,6 +21,7 @@ type Props = {
 };
 
 const ConsumerPassTabDrawer: React.FC<Props> = ({
+  consumerPassesTabDisplay,
   handleSetSelectedTab,
   handleClose,
   isOpen,
@@ -33,6 +36,12 @@ const ConsumerPassTabDrawer: React.FC<Props> = ({
     },
     [handleClose, handleSetSelectedTab],
   );
+
+  const {
+    consumer_payment_pack: showConsumerPaymentPackTab,
+    private_consumer_pass: showPrivateConsumerPassTab,
+    universal_pass: showUniversalPassTab,
+  } = consumerPassesTabDisplay;
 
   const passTabData = useMemo(
     () => ({
@@ -67,27 +76,43 @@ const ConsumerPassTabDrawer: React.FC<Props> = ({
       }}
     >
       <List className="bs-consumer-pass-tab-drawer__list">
-        <ListItem
-          classes={{ label: 'bs-consumer-pass-tab-drawer__list__item__label' }}
-          isSelected={passTabData[PassTabEnum.CONSUMER_PAYMENT_PACK].isSelected}
-          label={passTabData[PassTabEnum.CONSUMER_PAYMENT_PACK].label}
-          onClick={passTabData[PassTabEnum.CONSUMER_PAYMENT_PACK].onClick}
-          type="clickableText"
-        />
-        <ListItem
-          classes={{ label: 'bs-consumer-pass-tab-drawer__list__item__label' }}
-          isSelected={passTabData[PassTabEnum.PRIVATE_CONSUMER_PASS].isSelected}
-          label={passTabData[PassTabEnum.PRIVATE_CONSUMER_PASS].label}
-          onClick={passTabData[PassTabEnum.PRIVATE_CONSUMER_PASS].onClick}
-          type="clickableText"
-        />
-        <ListItem
-          classes={{ label: 'bs-consumer-pass-tab-drawer__list__item__label' }}
-          isSelected={passTabData[PassTabEnum.UNIVERSAL_PASS].isSelected}
-          label={passTabData[PassTabEnum.UNIVERSAL_PASS].label}
-          onClick={passTabData[PassTabEnum.UNIVERSAL_PASS].onClick}
-          type="clickableText"
-        />
+        {showConsumerPaymentPackTab && (
+          <ListItem
+            classes={{
+              label: 'bs-consumer-pass-tab-drawer__list__item__label',
+            }}
+            isSelected={
+              passTabData[PassTabEnum.CONSUMER_PAYMENT_PACK].isSelected
+            }
+            label={passTabData[PassTabEnum.CONSUMER_PAYMENT_PACK].label}
+            onClick={passTabData[PassTabEnum.CONSUMER_PAYMENT_PACK].onClick}
+            type="clickableText"
+          />
+        )}
+        {showPrivateConsumerPassTab && (
+          <ListItem
+            classes={{
+              label: 'bs-consumer-pass-tab-drawer__list__item__label',
+            }}
+            isSelected={
+              passTabData[PassTabEnum.PRIVATE_CONSUMER_PASS].isSelected
+            }
+            label={passTabData[PassTabEnum.PRIVATE_CONSUMER_PASS].label}
+            onClick={passTabData[PassTabEnum.PRIVATE_CONSUMER_PASS].onClick}
+            type="clickableText"
+          />
+        )}
+        {showUniversalPassTab && (
+          <ListItem
+            classes={{
+              label: 'bs-consumer-pass-tab-drawer__list__item__label',
+            }}
+            isSelected={passTabData[PassTabEnum.UNIVERSAL_PASS].isSelected}
+            label={passTabData[PassTabEnum.UNIVERSAL_PASS].label}
+            onClick={passTabData[PassTabEnum.UNIVERSAL_PASS].onClick}
+            type="clickableText"
+          />
+        )}
       </List>
     </BottomDrawer>
   );

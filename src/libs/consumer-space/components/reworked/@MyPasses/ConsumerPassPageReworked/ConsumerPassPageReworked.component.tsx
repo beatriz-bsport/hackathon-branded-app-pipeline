@@ -12,7 +12,6 @@ import ConsumerPassModals from '#src/libs/consumer-space/components/reworked/@My
 import { useConsumerPassesDataManager } from '#src/libs/consumer-space/components/reworked/@MyPasses/hooks';
 import { PassTabEnum } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
 import { Calendar, ChevronRight } from '#src/components/untitledui';
-import ConsumerGenericFooter from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericFooter';
 
 import type {
   ConsumerPaymentPackREST,
@@ -188,6 +187,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
     <MarketplacePageContent buttonsData={buttonsData} isMobile={isMobile}>
       <div className="bs-consumer-pass-page__root">
         <ConsumerPassModals
+          consumerPassesTabDisplay={consumerPassesTabDisplay}
           handleSetSelectedTab={handleSetSelectedTab}
           handleTogglePassDetailsDrawer={handleTogglePassDetailsDrawer}
           handleTogglePassTabDrawer={handleTogglePassTabDrawer}

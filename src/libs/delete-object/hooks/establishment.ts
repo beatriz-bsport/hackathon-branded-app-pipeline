@@ -20,7 +20,6 @@ export const useDeleteEstablishmentWarningMessages: WarningMessagesHook =
 
     infoMessages.push(t('deleteObject.infos.reportsDefault'));
     infoMessages.push(t('deleteObject.infos.widgetsDefault'));
-    infoMessages.push(t('deleteObject.infos.notificationsDefault'));
 
     if (!checkData) {
       return {
@@ -190,6 +189,12 @@ export const useDeleteEstablishmentWarningMessages: WarningMessagesHook =
 
     if (checkData.is_integrated_in_partnership) {
       errorMessages.push(t('deleteObject.errors.isIntegratedInPartnership'));
+    }
+
+    if (checkData.has_related_marketing_notifications) {
+      warningMessages.push(
+        t('deleteObject.warnings.hasRelatedMarketingNotifications'),
+      );
     }
 
     let deleteObjectStatus;

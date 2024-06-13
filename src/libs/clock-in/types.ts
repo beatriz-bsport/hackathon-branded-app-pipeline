@@ -1,4 +1,4 @@
-import { ErrorAndLoading } from '#src/libs/types';
+import { ErrorAndLoading, PaginationFilterParams } from '#src/libs/types';
 import type { UserRole, Role } from '#src/libs/role/types';
 import { withHistoryAttendance } from './selectors';
 
@@ -9,7 +9,7 @@ export type ClockInQueryParams = {
   completed?: boolean;
   min_date?: number;
   max_date?: number;
-};
+} & PaginationFilterParams;
 
 export type LastClockIn = {
   id?: number;
@@ -63,6 +63,12 @@ export type ClockInState = {
     allIds: number[];
     byId: Record<number, UserAttendanceRecord>;
   } & ErrorAndLoading;
+  totalAttendance: {
+    next_page: number;
+    previous_page: number;
+    count: number;
+    byUserId: Record<number, UserTotalAttendance>;
+  } & ErrorAndLoading;
 } & ErrorAndLoading;
 
 export type UserWithRealTimeAttendance = UserRole<Role> & {
@@ -72,3 +78,8 @@ export type UserWithRealTimeAttendance = UserRole<Role> & {
 export type UserAttendanceHistory = ReturnType<
   ReturnType<typeof withHistoryAttendance>
 >['results'][number];
+
+export type UserTotalAttendance = {
+  user_id: number;
+  working_time_in_seconds: number;
+};

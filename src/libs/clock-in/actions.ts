@@ -1,7 +1,11 @@
 import { createAction } from 'redux-actions';
 
 import { isErrorWithCustomCode } from '#src/libs/utils';
-import { Dispatch, OptionCallback } from '../../state/types';
+import type {
+  Dispatch,
+  OptionCallback,
+  PaginatedResponse,
+} from '../../state/types';
 import { snackbarWarning } from '../snackbar/actions';
 
 import {
@@ -12,8 +16,13 @@ import {
   fetchLastClockInList as fetchLastClockInListAPI,
   getStaffsAttendanceHistory as getStaffsAttendanceHistoryAPI,
   exportStaffAttendanceHistory as exportStaffAttendanceHistoryAPI,
+  fetchStaffWorkTimeSummary as fetchStaffWorkTimeSummaryAPI,
 } from './api';
-import type { ClockInData, ClockInQueryParams } from './types';
+import type {
+  ClockInData,
+  ClockInQueryParams,
+  UserTotalAttendance,
+} from './types';
 import { displayBackgroundDialog } from '../background-dialog/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
 
@@ -258,3 +267,31 @@ export function exportStaffAttendanceHistory(
     dispatch(exportStaffAttendanceHistoryActions.loading(false));
   };
 }
+
+export const clockinTotalTimeActions = {
+  error: createAction<Error | null>('CLOCKIN/TOTAL_TIME/ERROR'),
+  isLoading: createAction<boolean>('CLOCKIN/TOTAL_TIME/IS_LOADING'),
+  success: createAction<PaginatedResponse<UserTotalAttendance>>(
+    'CLOCKIN/TOTAL_TIME/SUCCESS',
+  ),
+};
+
+export const fetchStaffWorkTimeSummary = (
+  params: ClockInQueryParams,
+  options?: OptionCallback<PaginatedResponse<UserTotalAttendance>>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(clockinTotalTimeActions.isLoading(true));
+    dispatch(clockinTotalTimeActions.error(null));
+    try {
+      const response = await fetchStaffWorkTimeSummaryAPI(params);
+      dispatch(clockinTotalTimeActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(clockinTotalTimeActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(clockinTotalTimeActions.isLoading(false));
+  };
+};

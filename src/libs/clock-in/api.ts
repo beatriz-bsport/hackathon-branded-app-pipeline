@@ -1,3 +1,4 @@
+import type { PaginatedResponse } from '#src/state/types';
 import {
   API_V1_URI,
   getAuth,
@@ -7,7 +8,11 @@ import {
   postAuth,
   buildUrlParams,
 } from '../../http';
-import type { ClockInData, ClockInQueryParams } from './types';
+import type {
+  ClockInData,
+  ClockInQueryParams,
+  UserTotalAttendance,
+} from './types';
 
 export const clockIn = async ({ userId }: { userId?: number }) =>
   postBaseAuth(`${API_V1_URI}/clockin/`, { user: userId });
@@ -22,6 +27,12 @@ export const editClockIn = async (
 
 export const deleteClockIn = async ({ clockInId }: { clockInId: number }) =>
   deleteAuth(`${API_V1_URI}/clockin/${clockInId}/`);
+
+export const fetchStaffWorkTimeSummary = async (params: ClockInQueryParams) => {
+  return await getAuth<PaginatedResponse<UserTotalAttendance>>(
+    `${API_V1_URI}/clockin/user_work_time_summary/${buildUrlParams(params)}`,
+  );
+};
 
 export const fetchLastClockInList = async (params: ClockInQueryParams) =>
   getAuth(

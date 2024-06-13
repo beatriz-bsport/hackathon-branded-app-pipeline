@@ -25,6 +25,10 @@ const getHistoryDataList = createSelector(
   (list, dict) => list.map((id) => dict[id]),
 );
 
+const _getTotalAttendanceByUser = (state: RootState) => {
+  return _getClockinState(state).totalAttendance.byUserId;
+};
+
 export const getUsersPaginatedWithRolesWithRealTimeAttendance = createSelector(
   [getUsersPaginatedWithRole, _getAttendanceClockinDataByUser],
   (usersPaginated, attendanceByUserDict) => {
@@ -42,14 +46,18 @@ export const getUsersPaginatedWithRolesWithRealTimeAttendance = createSelector(
 export const withHistoryAttendance = memoize(
   (selector: (state: RootState) => UsersPaginatedWithRoleSelector) =>
     createSelector(
-      [selector, getHistoryDataList],
-      (usersPaginated, attendanceHistory) => {
+      [selector, _getTotalAttendanceByUser, getHistoryDataList],
+      (usersPaginated, attendanceByUserDict, attendanceHistory) => {
         if (!usersPaginated?.results) return usersPaginated;
         return {
           ...usersPaginated,
-          results: usersPaginated.results.map((u) => ({
-            ...u,
-            history: attendanceHistory?.filter((data) => data.user === u.id),
+          results: usersPaginated.results.map((user) => ({
+            ...user,
+            history: (attendanceHistory ?? []).filter(
+              (data) => data.user === user.id,
+            ),
+            totalAttendance:
+              attendanceByUserDict[user.id]?.working_time_in_seconds ?? 0,
           })),
         };
       },

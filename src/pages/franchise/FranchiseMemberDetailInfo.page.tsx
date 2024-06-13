@@ -13,6 +13,8 @@ import {
   fetchFranchiseUserInfo as fetchFranchiseUserInfoAction,
   fetchFranchiseUserMembers as fetchFranchiseUserMembersAction,
   fetchFranchise as fetchFranchiseAction,
+  fetchFranchiseUserTags as fetchFranchiseUserTagsAction,
+  updateFranchiseUserTags as updateFranchiseUserTagsActions,
 } from '#src/libs/franchise/actions';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
@@ -20,7 +22,10 @@ import FranchiseMemberDetailsCard from '#src/libs/franchise/components/Franchise
 import type { RootState } from '#src/reducers';
 // @ts-expect-error
 import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '#src/actions/auth.actions';
-import { FRANCHISE_USER_MEMBERS_PAGE_DEFAULT_SIZE } from '#src/libs/franchise/constants';
+import {
+  FRANCHISE_MEMBER_TAG_PAGE_DEFAULT_SIZE,
+  FRANCHISE_USER_MEMBERS_PAGE_DEFAULT_SIZE,
+} from '#src/libs/franchise/constants';
 import type { FranchiseUserMember } from '#src/libs/franchise/types';
 import {
   getFranchiseUserInfo,
@@ -28,9 +33,20 @@ import {
   getFranchiseUserMembersLoading,
   getFranchiseUserMembersPage,
   getFranchiseUserMembersList,
+  getFranchiseUserTagsCount,
+  getFranchiseUserTagsList,
+  getFranchiseUserTagsLoading,
+  getFranchiseUserTagsPage,
 } from '#src/libs/franchise/selectors';
 // @ts-expect-error
 import PaginatedListBase from '#src/components/PaginatedListBase.component';
+import FranchiseMemberTagList from '#src/libs/franchise/components/FranchiseMemberTagList.component';
+import { getTagTemplates, getAllTemplate } from '#src/libs/tag/selectors';
+import {
+  fetchAllGroupTemplates as fetchAllGroupTemplatesActions,
+  fetchAllTagTemplates as fetchAllTagTemplatesActions,
+} from '#src/libs/tag/actions';
+import FranchiseMemberTagManagementModal from '#src/libs/franchise/components/FranchiseMemberTagManagementModal.component';
 
 type ParamsProps = {
   userId: number;
@@ -39,16 +55,26 @@ type ParamsProps = {
 type Props = ParamsProps & ConnectedProps<typeof connector>;
 
 const FranchiseMemberDetailInfo: React.FC<Props> = ({
-  userId,
-  user,
-  members,
-  membersLoading,
-  membersCount,
-  membersPage,
+  fetchAllGroupTemplates,
+  fetchAllTagTemplates,
+  fetchFranchise,
   fetchFranchiseUserInfo,
   fetchFranchiseUserMembers,
-  fetchFranchise,
+  fetchFranchiseUserTags,
+  members,
+  membersCount,
+  membersLoading,
+  membersPage,
   navigateAsCompanyAdmin,
+  tags,
+  tagsByTagGroup,
+  tagsCount,
+  tagsLoading,
+  tagsPage,
+  tagTemplates,
+  updateFranchiseUserTags,
+  user,
+  userId,
 }) => {
   const { t } = useTranslation('franchise');
   const classes = useStyles();
@@ -56,6 +82,8 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
   const listProps = {
     className: classes.companiesContainer,
   };
+
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   useEffect(() => {
     fetchFranchiseUserInfo({ user_id: userId });
@@ -82,6 +110,57 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
     [fetchFranchiseUserMembers, userId],
   );
 
+  const fetchTagsList = React.useCallback(
+    (page: number) => {
+      fetchFranchiseUserTags({ user_id: userId, page });
+    },
+    [fetchFranchiseUserTags, userId],
+  );
+
+  const onModalSave = React.useCallback(
+    (selectedTagTemplateIds: number[]) => {
+      updateFranchiseUserTags(
+        {
+          user_id: userId,
+          data: { user_tag_ids: selectedTagTemplateIds },
+        },
+        {
+          onBackgroundSuccess: () => {
+            fetchFranchiseUserTags({
+              user_id: userId,
+              page: 1,
+              page_size: selectedTagTemplateIds.length,
+            });
+          },
+        },
+      );
+    },
+    [userId, fetchFranchiseUserTags, updateFranchiseUserTags],
+  );
+
+  useEffect(() => {
+    if (isModalOpen) {
+      fetchAllTagTemplates();
+      fetchAllGroupTemplates();
+    }
+  }, [isModalOpen, fetchAllTagTemplates, fetchAllGroupTemplates]);
+
+  useEffect(() => {
+    /*
+    In the modal, we want to retieve all the tags associated to the User
+    but the call on the previous page (which stores the tags in `userTags`) is paginated with `page_size = FRANCHISE_MEMBER_TAG_PAGE_DEFAULT_SIZE`. 
+    So, if `tagsCount > FRANCHISE_MEMBER_TAG_PAGE_DEFAULT_SIZE`, only `FRANCHISE_MEMBER_TAG_PAGE_DEFAULT_SIZE` tags among the `tagsCount` have been fecthed.
+    Thus, we need to fetch all the tags by doing a paginated call with `page_size = tagsCount`.
+    */
+    if (isModalOpen && tagsCount > FRANCHISE_MEMBER_TAG_PAGE_DEFAULT_SIZE) {
+      fetchFranchiseUserTags({
+        user_id: userId,
+        page: 1,
+        page_size: tagsCount,
+      });
+    }
+  }, [isModalOpen, userId, tagsCount, fetchFranchiseUserTags]);
+
   if (!user) return <LinearProgress />;
 
   return (
@@ -89,13 +168,32 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
       leftChildren={
         <FranchiseMemberSectionLayout>
           <FranchiseMemberDetailsCard user={user} />
+          <div className={classes.detailAndTagsContainer}>
+            <Paper>
+              <FranchiseMemberTagList
+                fetchTagsList={fetchTagsList}
+                setIsModalOpen={setIsModalOpen}
+                tags={tags}
+                tagsCount={tagsCount}
+                tagsLoading={tagsLoading}
+                tagsPage={tagsPage}
+              />
+              <FranchiseMemberTagManagementModal
+                onSave={onModalSave}
+                open={isModalOpen}
+                setOpen={setIsModalOpen}
+                tagsByTagGroup={tagsByTagGroup}
+                tagTemplates={tagTemplates}
+                userTags={tags}
+              />
+            </Paper>
+          </div>
         </FranchiseMemberSectionLayout>
       }
       rightChildren={
         <FranchiseMemberSectionLayout title={t('member.franchises')}>
           <Paper>
             <PaginatedListBase
-              displayLastDivider
               itemPerPage={FRANCHISE_USER_MEMBERS_PAGE_DEFAULT_SIZE}
               items={members}
               listProps={listProps}
@@ -120,7 +218,13 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
 
 const useStyles = makeStyles((theme) => ({
   companiesContainer: {
-    padding: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
+  detailAndTagsContainer: {
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -131,11 +235,21 @@ const connector = connect(
     membersLoading: getFranchiseUserMembersLoading(state),
     membersCount: getFranchiseUserMembersCount(state),
     membersPage: getFranchiseUserMembersPage(state),
+    tags: getFranchiseUserTagsList(state),
+    tagsLoading: getFranchiseUserTagsLoading(state),
+    tagsCount: getFranchiseUserTagsCount(state),
+    tagsPage: getFranchiseUserTagsPage(state),
+    tagTemplates: getTagTemplates(state),
+    tagsByTagGroup: getAllTemplate(state),
   }),
   {
     fetchFranchiseUserInfo: fetchFranchiseUserInfoAction,
     fetchFranchiseUserMembers: fetchFranchiseUserMembersAction,
     fetchFranchise: fetchFranchiseAction,
+    fetchFranchiseUserTags: fetchFranchiseUserTagsAction,
+    updateFranchiseUserTags: updateFranchiseUserTagsActions,
+    fetchAllGroupTemplates: fetchAllGroupTemplatesActions,
+    fetchAllTagTemplates: fetchAllTagTemplatesActions,
     navigateAsCompanyAdmin: navigateAsCompanyAdminAction,
   },
 );

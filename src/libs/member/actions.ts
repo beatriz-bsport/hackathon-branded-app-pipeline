@@ -1,5 +1,6 @@
 import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
+import chunk from 'lodash/chunk';
 import { createAction } from 'redux-actions';
 import type { AxiosResponse } from 'axios';
 import URI from 'urijs';
@@ -250,10 +251,54 @@ export function fetchMemberBulkById(
     } catch (err) {
       console.error(err);
       dispatch(memberBulkActions.error(err));
-      dispatch(memberBulkActions.error(err));
+
       options?.onError?.(err);
     }
     dispatch(memberBulkActions.isLoading(false));
+  };
+}
+
+/**
+ * To be used only in cases where the length of the batch could be
+ * critical.
+ */
+export function fetchMemberBulkByIdBatched(
+  ids: Array<number>,
+  options?: OptionCallback,
+  useCacheMilliseconds?: number,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    const id_uniq = uniq(ids);
+    if (!id_uniq.length) return;
+
+    if (useCacheMilliseconds) {
+      const cachedIds = getState().member.cachedIds;
+      if (areAllInCache(id_uniq, cachedIds, useCacheMilliseconds)) return;
+    }
+
+    const BATCH_SIZE = 100;
+
+    const ids_batched = chunk(id_uniq, BATCH_SIZE);
+    const boundActionList = ids_batched.map(
+      (bacth_ids) => () => dispatch(fetchMemberBulkById(bacth_ids)),
+    );
+
+    try {
+      // /!\ Async reduce below to await for batch to be resolved before sending the next ones
+      boundActionList.reduce(
+        async (previousPromise, nextBoundedAction, index) => {
+          if (index === 0) return previousPromise;
+          await previousPromise;
+          return nextBoundedAction();
+        },
+        boundActionList[0](),
+      );
+
+      options?.onSuccess?.();
+    } catch (err) {
+      console.error(err);
+      options?.onError?.();
+    }
   };
 }
 

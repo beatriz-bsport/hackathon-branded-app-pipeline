@@ -41,7 +41,10 @@ import {
   getOfferAsEventList,
   getOfferHasPendingReplacementRequest,
 } from '../libs/offer/selectors';
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../libs/member/actions';
+import {
+  fetchMemberBulkById as fetchMemberBulkByIdAction,
+  fetchMemberBulkByIdBatched as fetchMemberBulkByIdBatchedAction,
+} from '../libs/member/actions';
 import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 import { setScheduleFilter as setScheduleFilterAction } from '../libs/user-preference/actions';
 import { getScheduleFilter } from '../libs/user-preference/selectors';
@@ -510,6 +513,7 @@ export default compose(
         }),
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchMemberBulkById: fetchMemberBulkByIdAction,
+      fetchMemberBulkByIdBatched: fetchMemberBulkByIdBatchedAction,
       createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
       fetchManagerRessourcesFilters: fetchManagerRessourcesFiltersAction,
       updateManagerRessourcesFilters: updateManagerRessourcesFiltersAction,
@@ -576,7 +580,7 @@ export default compose(
         });
       },
     fetchPrivateBookingList:
-      ({ fetchPrivateBookings, fetchMemberBulkById, periodFilter }) =>
+      ({ fetchPrivateBookings, fetchMemberBulkByIdBatched, periodFilter }) =>
       () => {
         fetchPrivateBookings(
           {
@@ -587,7 +591,7 @@ export default compose(
           {
             onSuccess: (bookingList) => {
               if (bookingList.length) {
-                fetchMemberBulkById(
+                fetchMemberBulkByIdBatched(
                   uniq(bookingList.map((b) => b.member)),
                   null,
                   120 * 1000, // cache

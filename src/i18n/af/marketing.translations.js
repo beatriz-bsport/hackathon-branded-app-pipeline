@@ -99,7 +99,7 @@ exports.default = {
             '{{hours}} hours after the end of the session to remind the user that they have {{credits}} credits left on their pass',
         },
       },
-      private_pass: {
+      privatePass: {
         creditsLeft: {
           noCredits:
             'to remind the user that they have no credit left on their appointment pass',
@@ -119,8 +119,8 @@ exports.default = {
     deleteDialogText:
       "Are you sure that you want to delete this rule? This operation can't be undone.",
     deleteDialogTitle: 'Delete this rule',
-    removeRule: 'Delete rule',
-    editRule: 'Edit rule',
+    removeRule: 'Delete',
+    editRule: 'Edit',
     paymentPackKind: { credit: 'Credits', validity: 'Validity' },
     groupTitle: {
       paymentPack: 'Passes',
@@ -166,8 +166,8 @@ exports.default = {
       },
     },
     selectIdentifierLabel: {
-      payment_pack: 'Select a pass',
-      private_service: 'Select an appointment',
+      payment_pack: 'Select passes',
+      private_service: 'Select appointment passes',
       establishment: 'Select an establishment',
       meta_activity: 'Select an activity',
       workshop: 'Select a workshop',
@@ -188,9 +188,9 @@ exports.default = {
     },
     mail: 'Email ',
     notificationDetails: 'Overview',
-    mailTitle: 'Preview',
+    mailTitle: 'Email Preview',
     statisticDetails: 'Statistics',
-    notificationPreview: 'Overview',
+    notificationPreview: 'Push notification preview',
     allOptionsPlaceholder: {
       private_pass: 'All appointment passes',
       payment_pack: 'All passes',
@@ -221,7 +221,7 @@ exports.default = {
       remainingCredit_plural: '{{count}} credits left',
       remainingValidity: '{{count}} day left before expiration',
       remainingValidity_plural: '{{count}} days left before expiration',
-      todayValidity: 'On the day of expiration',
+      todayValidity: 'On the expiration day',
       expiredValidity: 'Expired for {{count}} day',
       expiredValidity_plural: 'Expired for {{count}} days',
     },

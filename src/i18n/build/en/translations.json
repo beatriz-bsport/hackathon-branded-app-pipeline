@@ -3684,9 +3684,13 @@
                 "tax": {
                     "label": "VAT / Sales tax"
                 },
+                "detailsAndRestrictions": "Details and restrictions",
+                "notification": "Notifications",
                 "actions": {
                     "submit": "Save",
-                    "cancel": "Cancel"
+                    "cancel": "Cancel",
+                    "back": "Back",
+                    "next": "Next"
                 },
                 "available_payment_method_identifiers": {
                     "helperText": "Select at least one payment method. If none is selected, a card payment will be offered by default.",
@@ -11545,7 +11549,8 @@
                     "skip": "Skip",
                     "edit": "Edit",
                     "create": "Save",
-                    "cancel": "Cancel"
+                    "cancel": "Cancel",
+                    "submit": "Save"
                 },
                 "sports": "Category",
                 "activities": "Activity",
@@ -16706,7 +16711,7 @@
                   "creditsHours_plural": "{{hours}} hours after the end of the session to remind the user that they have {{credits}} credits left on their pass"
                 }
               },
-              "private_pass": {
+              "privatePass": {
                 "creditsLeft": {
                   "noCredits": "to remind the user that they have no credit left on their appointment pass",
                   "credits": "to remind the user that they have 1 credit left on their appointment pass",
@@ -16719,8 +16724,8 @@
             "notificationsEmpty": "There are no automatic notifications set up for this group to display.",
             "deleteDialogText": "Are you sure that you want to delete this rule? This operation can't be undone.",
             "deleteDialogTitle": "Delete this rule",
-            "removeRule": "Delete rule",
-            "editRule": "Edit rule",
+            "removeRule": "Delete",
+            "editRule": "Edit",
             "paymentPackKind": {
                 "credit": "Credits",
                 "validity": "Validity"
@@ -16764,8 +16769,8 @@
               }
             },
             "selectIdentifierLabel": {
-                "payment_pack": "Select a pass",
-                "private_service": "Select an appointment",
+                "payment_pack": "Select passes",
+                "private_service": "Select appointment passes",
                 "establishment": "Select an establishment",
                 "meta_activity": "Select an activity",
                 "workshop": "Select a workshop",
@@ -16790,9 +16795,7 @@
               "remainingCredit": "{{count}} credit left",
               "remainingCredit_plural": "{{count}} credits left",
               "remainingValidity": "{{count}} day left before expiration",
-              "remainingValidity_plural": "{{count}} days left before expiration",
-              "expiredValidity": "expired for {{count}} day",
-              "expiredValidity_plural": "expired for {{count}} days"
+              "remainingValidity_plural": "{{count}} days left before expiration"
             },
             "sendingDelay": {
               "onBooking": "{{hours}}h after booking",
@@ -16806,9 +16809,9 @@
             "dialogTitle": "Add a notification",
             "addPasses": "Add",
             "editPasses": "Edit",
-            "mailTitle": "Preview",
+            "mailTitle": "Email Preview",
             "statisticDetails": "Statistics",
-            "notificationPreview": "Overview",
+            "notificationPreview": "Push notification preview",
             "allOptionsPlaceholder": { "private_pass": "All appointment passes", "payment_pack": "All passes" },
             "passSelectionPlaceholder": { "private_pass": "Appointment passes", "payment_pack": "Passes" },
             "listTitle": "Notifications",

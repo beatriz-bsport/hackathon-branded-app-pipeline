@@ -3866,7 +3866,7 @@
             "creditsHours_plural": "{{hours}} hours after the end of the session to remind the user that they have {{credits}} credits left on their pass"
           }
         },
-        "private_pass": {
+        "privatePass": {
           "creditsLeft": {
             "noCredits": "to remind the user that they have no credit left on their appointment pass",
             "credits": "to remind the user that they have 1 credit left on their appointment pass",
@@ -3879,8 +3879,8 @@
       "notificationsEmpty": "There are no automatic notifications set up for this group to display.",
       "deleteDialogText": "Are you sure that you want to delete this rule? This operation can't be undone.",
       "deleteDialogTitle": "Delete this rule",
-      "removeRule": "Delete rule",
-      "editRule": "Edit rule",
+      "removeRule": "Delete",
+      "editRule": "Edit",
       "paymentPackKind": { "credit": "Credits", "validity": "Validity" },
       "groupTitle": {
         "paymentPack": "Passes",
@@ -3923,8 +3923,8 @@
         }
       },
       "selectIdentifierLabel": {
-        "payment_pack": "Select a pass",
-        "private_service": "Select an appointment",
+        "payment_pack": "Select passes",
+        "private_service": "Select appointment passes",
         "establishment": "Select an establishment",
         "meta_activity": "Select an activity",
         "workshop": "Select a workshop",
@@ -3941,9 +3941,9 @@
       },
       "mail": "Email ",
       "notificationDetails": "Overview",
-      "mailTitle": "Preview",
+      "mailTitle": "Email Preview",
       "statisticDetails": "Statistics",
-      "notificationPreview": "Overview",
+      "notificationPreview": "Push notification preview",
       "allOptionsPlaceholder": { "private_pass": "All appointment passes", "payment_pack": "All passes" },
       "allPassSelected": { "payment_pack": "All passes are included", "private_pass": "All appointment passes are included" },
       "selectAllPassesToggle": {
@@ -3962,7 +3962,7 @@
         "remainingCredit_plural": "{{count}} credits left",
         "remainingValidity": "{{count}} day left before expiration",
         "remainingValidity_plural": "{{count}} days left before expiration",
-        "todayValidity": "On the day of expiration",
+        "todayValidity": "On the expiration day",
         "expiredValidity": "Expired for {{count}} day",
         "expiredValidity_plural": "Expired for {{count}} days"
       },
@@ -6817,7 +6817,7 @@
     },
     "form": {
       "paymentPack": {
-        "noNotificationsWarning": "You do not yet have any notifications set up. To add notifications to the pass, go to <strong>Marketing > Notifications</strong>.",
+        "noNotificationsWarning": "You have no notifications set up yet. To create new notifications, please go to <strong>Marketing > Notifications.</strong>",
         "detailsAndRestrictions": "Details and restrictions",
         "notification": "Notifications",
         "from": "From ",
@@ -6868,7 +6868,15 @@
         "restrictionsTitle": "Restrictions",
         "noneMeansAll": "Leave this field empty to implement no restrictions",
         "update": { "success": "Pass: operation succeeded", "error": "Pass: operation failed" },
-        "actions": { "skip": "Skip", "edit": "Edit", "create": "Save", "cancel": "Cancel", "next": "Next", "back": "Back" },
+        "actions": {
+          "skip": "Skip",
+          "edit": "Edit",
+          "create": "Save",
+          "submit": "Save",
+          "cancel": "Cancel",
+          "next": "Next",
+          "back": "Back"
+        },
         "sports": "Category",
         "activities": "Activity",
         "establishments": "Establishment",
@@ -8104,7 +8112,7 @@
       "none": " None"
     },
     "privatePass": {
-      "noNotificationsWarning": "You do not yet have any notifications set up. To add notifications to the appointment pass, go to <strong>Marketing > Notifications</strong>.",
+      "noNotificationsWarning": "You have no notifications set up yet. To create new notifications, please go to <strong>Marketing > Notifications.</strong>",
       "delete": {
         "title": "Delete pass",
         "explain": "Are you sure that you want to delete this pass? Members with valid passes and credits will still be able to use them.",
@@ -8134,13 +8142,15 @@
         "unusable": "Unusable"
       },
       "form": {
+        "detailsAndRestrictions": "Details and restrictions",
+        "notification": "Notifications",
         "title": "[Form] Appointment pass",
         "managerOnly": { "label": "Unavailable for purchase" },
         "name": { "label": "Name", "helperText": "Name of the appointment pass" },
         "credits": { "label": "Number of credits", "helperText": "Indicate the number of included credits." },
         "price": { "label": "Price (incl. VAT / Sales Tax)", "helperText": "This is the selling price for members." },
         "tax": { "label": "VAT / Sales tax" },
-        "actions": { "submit": "Save", "cancel": "Cancel" },
+        "actions": { "submit": "Save", "cancel": "Cancel", "back": "Back", "next": "Next" },
         "available_payment_method_identifiers": {
           "helperText": "Select at least one payment method. If none is selected, a card payment will be offered by default.",
           "label": "Accepted payment methods",

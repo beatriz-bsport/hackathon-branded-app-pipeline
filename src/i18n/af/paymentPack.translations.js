@@ -179,7 +179,7 @@ const getTranslations = async () => {
     form: {
       paymentPack: {
         noNotificationsWarning:
-          'You do not yet have any notifications set up. To add notifications to the pass, go to <strong>Marketing > Notifications</strong>.',
+          'You have no notifications set up yet. To create new notifications, please go to <strong>Marketing > Notifications.</strong>',
         detailsAndRestrictions: 'Details and restrictions',
         notification: 'Notifications',
         from: 'From ',
@@ -253,6 +253,7 @@ const getTranslations = async () => {
           skip: 'Skip',
           edit: 'Edit',
           create: 'Save',
+          submit: 'Save',
           cancel: 'Cancel',
           next: 'Next',
           back: 'Back',

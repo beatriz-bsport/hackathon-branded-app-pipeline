@@ -467,7 +467,7 @@ const getTranslations = async () => {
     },
     privatePass: {
       noNotificationsWarning:
-        'You do not yet have any notifications set up. To add notifications to the appointment pass, go to <strong>Marketing > Notifications</strong>.',
+        'You have no notifications set up yet. To create new notifications, please go to <strong>Marketing > Notifications.</strong>',
       delete: {
         title: 'Delete pass',
         explain:
@@ -500,6 +500,8 @@ const getTranslations = async () => {
         unusable: 'Unusable',
       },
       form: {
+        detailsAndRestrictions: 'Details and restrictions',
+        notification: 'Notifications',
         title: '[Form] Appointment pass',
         managerOnly: { label: 'Unavailable for purchase' },
         name: { label: 'Name', helperText: 'Name of the appointment pass' },
@@ -512,7 +514,12 @@ const getTranslations = async () => {
           helperText: 'This is the selling price for members.',
         },
         tax: { label: 'VAT / Sales tax' },
-        actions: { submit: 'Save', cancel: 'Cancel' },
+        actions: {
+          submit: 'Save',
+          cancel: 'Cancel',
+          back: 'Back',
+          next: 'Next',
+        },
         available_payment_method_identifiers: {
           helperText:
             'Select at least one payment method. If none is selected, a card payment will be offered by default.',

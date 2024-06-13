@@ -242,6 +242,27 @@ export const getFranchiseUserMembersList = createSelector(
       .filter((member) => !!member),
 );
 
+export const getFranchiseUserTagsLoading = (state: RootState) =>
+  getState(state).userProfile.tags.loading;
+
+export const getFranchiseUserTagsCount = (state: RootState) =>
+  getState(state).userProfile.tags.count;
+
+export const getFranchiseUserTagsPage = (state: RootState) =>
+  getState(state).userProfile.tags.page;
+
+export const _getFranchiseUserTagsById = (state: RootState) =>
+  getState(state).userProfile.tags.byId;
+
+export const _getFranchiseUserTagsAllIds = (state: RootState) =>
+  getState(state).userProfile.tags.allIds;
+
+export const getFranchiseUserTagsList = createSelector(
+  [_getFranchiseUserTagsAllIds, _getFranchiseUserTagsById],
+  (tagsIds, tagsData) =>
+    (tagsIds ?? []).map((tagId) => tagsData[tagId]).filter((tag) => !!tag),
+);
+
 export const _getFranchiseUserPassesById = (state: RootState) =>
   getState(state).userProfile.passes.byId;
 

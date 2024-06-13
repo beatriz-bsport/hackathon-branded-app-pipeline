@@ -7,6 +7,7 @@ import {
   postAuth,
   patchAuth,
   get,
+  API_URI,
 } from '#src/http';
 import type {
   FranchiseUser,
@@ -19,6 +20,7 @@ import type {
   FranchiseUserMember,
   SharedConsumerGiftcard,
   GiftcardsPaginatedQueryParams,
+  FranchiseUserTag,
 } from '#src/libs/franchise/types';
 import type { PaginatedResponse } from '#src/state/types';
 import { cleanParams } from '#src/utils/createUrlHandlers';
@@ -126,5 +128,26 @@ export const fetchSharedConsumerGiftcards = async (
     `${API_V1_URI}/giftcard/franchise_user_profile/${userId}/consumer_giftcards/${buildUrlParams(
       cleanedParams,
     )}`,
+  );
+};
+
+export const fetchFranchiseUserTags = (
+  user_id: number,
+  paginated_params: PaginationFilterParams,
+) => {
+  return getAuth<PaginatedResponse<FranchiseUserTag>>(
+    `${API_URI}/franchise_user_profile/${user_id}/member_tag/${buildUrlParams(
+      paginated_params,
+    )}`,
+  );
+};
+
+export const updateFranchiseUserTags = (
+  user_id: number,
+  data: { user_tag_ids: number[] },
+) => {
+  return postAuth<number[]>(
+    `${API_URI}/franchise_user_profile/${user_id}/member_tag/update_user_member_tags/`,
+    data,
   );
 };

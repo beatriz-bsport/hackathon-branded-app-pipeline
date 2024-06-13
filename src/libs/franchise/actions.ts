@@ -1,7 +1,11 @@
-import type { Dispatch } from 'redux';
 import { createAction } from 'redux-actions';
 import { push as pushRouter } from 'connected-react-router';
-import type { OptionCallback, PaginatedResponse } from '#src/state/types';
+import type {
+  OptionBackgroundCallback,
+  OptionCallback,
+  PaginatedResponse,
+  Dispatch,
+} from '#src/state/types';
 
 import {
   fetchFranchise as fetchFranchiseAPI,
@@ -17,6 +21,8 @@ import {
   fetchFranchiseUserPasses as fetchFranchiseUserPassesAPI,
   fetchFranchiseUserInfo as fetchFranchiseUserInfoAPI,
   fetchFranchiseUserMembers as fetchFranchiseUserMembersAPI,
+  fetchFranchiseUserTags as fetchFranchiseUserTagsAPI,
+  updateFranchiseUserTags as updateFranchiseUserTagsAPI,
 } from '#src/libs/franchise/api';
 import type {
   CompanyGroup,
@@ -30,12 +36,16 @@ import type {
   SharedConsumerGiftcard,
   GiftcardsPaginatedQueryParams,
   FranchiseDetails,
+  FranchiseUserTag,
+  FranchiseUserTagsUpdate,
 } from '#src/libs/franchise/types';
 import {
   FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE,
+  FRANCHISE_MEMBER_TAG_PAGE_DEFAULT_SIZE,
   FRANCHISE_USER_MEMBERS_PAGE_DEFAULT_SIZE,
 } from '#src/libs/franchise/constants';
 import type { RootState } from '#src/reducers';
+import { monitorBackgroundTask } from '#src/libs/background-task/actions';
 
 export const fetchFranchiseActions = {
   error: createAction<Error | null>('FRANCHISE/ME/ERROR'),
@@ -495,5 +505,78 @@ export function fetchSentSharedConsumerGiftcards(
     }
 
     dispatch(fetchSentSharedConsumerGiftcardsActions.isLoading(false));
+  };
+}
+
+export const fetchFranchiseUserTagsActions = {
+  isLoading: createAction<boolean>('FRANCHISE/USER/TAGS/IS_LOADING'),
+  error: createAction<Error | null>('FRANCHISE/USER/TAGS/ERROR'),
+  success: createAction<PaginatedResponse<FranchiseUserTag>>(
+    'FRANCHISE/USER/TAGS/SUCCESS',
+  ),
+};
+
+export function fetchFranchiseUserTags(
+  params: FranchiseUserMembersQueryParams,
+  options?: OptionCallback<FranchiseUserTag[]>,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(fetchFranchiseUserTagsActions.isLoading(true));
+    dispatch(fetchFranchiseUserTagsActions.error(null));
+    try {
+      const currentState = getState().franchise.userProfile.tags;
+      const page = currentState.page;
+
+      const paginated_params = {
+        page: params.page ?? page,
+        page_size: params.page_size ?? FRANCHISE_MEMBER_TAG_PAGE_DEFAULT_SIZE,
+      };
+      const response = await fetchFranchiseUserTagsAPI(
+        params.user_id,
+        paginated_params,
+      );
+      dispatch(fetchFranchiseUserTagsActions.success(response.data));
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchFranchiseUserTagsActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(fetchFranchiseUserTagsActions.isLoading(false));
+  };
+}
+
+export const updateFranchiseUserTagsActions = {
+  isLoading: createAction<boolean>('FRANCHISE/USER/TAGS/UPDATE/IS_LOADING'),
+  error: createAction<Error | null>('FRANCHISE/USER/TAGS/UPDATE/ERROR'),
+  success: createAction<number[]>('FRANCHISE/USER/TAGS/UPDATE/SUCCESS'),
+};
+
+export function updateFranchiseUserTags(
+  params: FranchiseUserTagsUpdate,
+  options?: OptionBackgroundCallback<number[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateFranchiseUserTagsActions.isLoading(true));
+    dispatch(updateFranchiseUserTagsActions.error(null));
+    try {
+      const response = await updateFranchiseUserTagsAPI(
+        params.user_id,
+        params.data,
+      );
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: options?.onBackgroundSuccess,
+        }),
+      );
+      dispatch(updateFranchiseUserTagsActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(updateFranchiseUserTagsActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(updateFranchiseUserTagsActions.isLoading(false));
   };
 }

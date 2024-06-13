@@ -17,6 +17,8 @@ import {
   fetchFranchiseUserInfoActions,
   fetchReceivedSharedConsumerGiftcardsActions,
   fetchSentSharedConsumerGiftcardsActions,
+  fetchFranchiseUserTagsActions,
+  updateFranchiseUserTagsActions,
 } from '#src/libs/franchise/actions';
 
 import type {
@@ -28,6 +30,7 @@ import type {
   FranchiseUserPass,
   FranchiseUserMember,
   SharedConsumerGiftcard,
+  FranchiseUserTag,
 } from '#src/libs/franchise/types';
 
 const initialState: Immutable.Immutable<FranchiseState> =
@@ -80,6 +83,19 @@ const initialState: Immutable.Immutable<FranchiseState> =
         byId: {},
         loading: false,
         error: null,
+      },
+      tags: {
+        page: 1,
+        next_page: null,
+        count: 0,
+        allIds: [],
+        byId: {},
+        loading: false,
+        error: null,
+        update: {
+          loading: false,
+          error: null,
+        },
       },
       passes: {
         page: 1,
@@ -464,6 +480,64 @@ export default handleActions<Immutable.Immutable<FranchiseState>, any>(
           },
           { deep: true },
         );
+    },
+
+    // User tags
+    [fetchFranchiseUserTagsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['userProfile', 'tags', 'loading'], payload);
+    },
+    [fetchFranchiseUserTagsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['userProfile', 'tags', 'error'], payload);
+    },
+    [fetchFranchiseUserTagsActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<FranchiseUserTag> },
+    ) => {
+      const { page, next_page, count, results } = payload;
+
+      return state
+        .setIn(['userProfile', 'tags', 'page'], page)
+        .setIn(['userProfile', 'tags', 'next_page'], next_page)
+        .setIn(['userProfile', 'tags', 'count'], count)
+        .setIn(
+          ['userProfile', 'tags', 'allIds'],
+          (results || []).map((tag) => tag.id),
+        )
+        .merge(
+          {
+            userProfile: {
+              tags: {
+                byId: results.reduce<Record<number, FranchiseUserTag>>(
+                  (acc, tag) => {
+                    acc[tag.id] = tag;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    // update
+    [updateFranchiseUserTagsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['userProfile', 'tags', 'update', 'loading'], payload);
+    },
+    [updateFranchiseUserTagsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['userProfile', 'tags', 'update', 'error'], payload);
     },
 
     // User passes

@@ -498,7 +498,7 @@ exports.default = {
         plannedPayments: 'Planned payments',
         products: 'My products',
         refunded: 'Refunded',
-        retryDate: 'The payment will be retried on {{ date }}',
+        retryDate: 'The payment will be retried on {{- date }}',
         total: 'Total',
       },
       payment: {

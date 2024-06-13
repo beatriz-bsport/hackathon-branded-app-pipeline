@@ -38,6 +38,12 @@ exports.default = {
     goToMemberProfile: 'Manage on {{ purchasing_studio }}',
     numberStudios: '{{ number }} purchasing studios',
     numberBrands: '{{ number }} categories',
+    tagsListTitle: 'Shared tags',
+    manageTags: 'Manage tags',
+    tagModalText:
+      'Actions taken on tags will be applied to the member in every franchisee',
+    tagModalHelperText: 'Tags',
+    tagModalPlaceholcer: 'Select tags',
   },
   emails: {
     chooseGroup: 'Select a group',

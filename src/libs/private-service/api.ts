@@ -862,3 +862,13 @@ export async function updatePrivateBooking(
     data,
   );
 }
+
+export function checkPrivateServiceTagEligibility(
+  privateServiceId: number,
+  memberId?: number,
+) {
+  return postAuth<{ eligible: boolean }, { member_id: number }>(
+    `${API_V1_URI}/private_service/private_service/${privateServiceId}/check_tags_eligibility/`,
+    memberId ? { member_id: memberId } : undefined,
+  );
+}

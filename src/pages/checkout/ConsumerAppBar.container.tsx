@@ -101,6 +101,7 @@ export const ConsumerAppBar: React.FC<Props> = ({
 const useStyles = makeStyles<Theme, StyleProps>(() => ({
   container: {
     width: '100vw',
+    minHeight: '100vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',

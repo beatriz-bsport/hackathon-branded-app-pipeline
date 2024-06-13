@@ -70,6 +70,7 @@ import {
   fetchPrivatePassMassExtensionListActions,
   createPrivatePassMassExtensionActions,
   deletePrivatePassMassExtensionActions,
+  checkPrivateServiceTagEligibilityActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -301,6 +302,10 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
         loading: false,
         error: null,
       },
+    },
+    privateServiceTagEligibility: {
+      byId: {},
+      loading: false,
     },
   });
 
@@ -1967,6 +1972,27 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           },
           { deep: true },
         );
+    },
+    [checkPrivateServiceTagEligibilityActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['privateServiceTagEligibility', 'loading'], payload);
+    },
+    [checkPrivateServiceTagEligibilityActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['privateServiceTagEligibility', 'error'], payload);
+    },
+    [checkPrivateServiceTagEligibilityActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateServiceTagEligibility', 'byId', payload.id],
+        payload.is_eligible,
+      );
     },
   },
   initialState,

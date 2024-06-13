@@ -330,3 +330,15 @@ export const getPrivateServicesForMarketplace: (state: State) => Array<any> =
 export const _getPrivateServiceDict: (State) => {
   [id: number]: PrivateService;
 } = (state) => state.privateService.privateService.byId;
+
+export const getPrivateServiceTagEligibleById = (state: RootState) => {
+  return state.privateService.privateServiceTagEligibility.byId;
+};
+
+export const getPrivateServiceTagEligible = (state: RootState, id: string) => {
+  return state.privateService.privateServiceTagEligibility.byId[id];
+};
+
+export const getPrivateServiceTagEligibleLoading = (state: RootState) => {
+  return state.privateService.privateServiceTagEligibility.loading;
+};

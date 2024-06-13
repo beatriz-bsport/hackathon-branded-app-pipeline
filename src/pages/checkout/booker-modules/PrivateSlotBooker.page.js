@@ -10,12 +10,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose, withProps } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { replace, goBack as goBackRouter } from 'connected-react-router';
+import { replace, goBack as goBackRouter, push } from 'connected-react-router';
 import { alpha } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withTranslation, TFunction } from 'react-i18next';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import PrivateServiceIneligibleBanner from '#src/libs/private-service/components/service/PrivateServiceIneligibleBanner.component';
 
 import {
   getCheckoutUrl,
@@ -45,7 +46,11 @@ import BookingCapabilities from '../../../libs/private-service/components/bookin
 import PrivateServiceListItem from '../../../libs/private-service/components/service/PrivateServiceListItem.component';
 import PrivateSlotListItem from '../../../libs/private-service/components/slot/PrivateSlotListItem.component';
 import { getPrivateSlot } from '../../../libs/private-service/selectors/private-slot';
-import { getPrivateService } from '../../../libs/private-service/selectors/private-service';
+import {
+  getPrivateService,
+  getPrivateServiceTagEligible,
+  getPrivateServiceTagEligibleLoading,
+} from '../../../libs/private-service/selectors/private-service';
 import {
   getPrivateConsumerPassList,
   getUnPaidBookingAvailabilityForPrivateslot,
@@ -59,6 +64,7 @@ import {
   registerPrivateBooking,
   fetchAllPrivatePassCategory,
   checkPrivateSlotUnpaidBookingEligibility,
+  checkPrivateServiceTagEligibility,
 } from '../../../libs/private-service/actions';
 import type {
   PrivateSlot,
@@ -66,9 +72,13 @@ import type {
   PrivatePassCategoryWithPasses,
   PrivateService,
 } from '../../../libs/private-service/types';
+import type { OptionCallback } from '#src/state/types.ts';
 import type { Basket } from '../../../libs/checkout/types';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
 import { getPrivatePassByCategoryWithPasses } from '../../../libs/private-service/selectors/private-pass-category';
+import { borderRadius } from 'react-select/lib/theme';
+import { LabelOff } from '@material-ui/icons';
+import { getMarketplaceRoute } from '../../../libs/marketplace/routing-utils';
 
 type Props = {
   privateServiceId: number,
@@ -126,8 +136,15 @@ type Props = {
   checkPrivateSlotUnpaidBookingEligibility: (params: {
     privateSlotId: number,
   }) => void,
+  checkPrivateServiceTagEligibility: (
+    privateServiceId: number,
+    callback: OptionCallback,
+  ) => void,
   compatibleWithUnpaidBooking: boolean,
   theme: Theme,
+  push: (string) => void,
+  eligibleByTags: boolean,
+  eligibleByTagsLoading: boolean,
 };
 
 type State = {
@@ -140,6 +157,10 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
   };
 
   componentDidMount() {
+    this.props.checkPrivateServiceTagEligibility(
+      this.props.privateServiceId,
+      null,
+    );
     this.props.fetchPrivateService(this.props.privateServiceId);
     this.props.fetchPrivateSlot(
       this.props.privateServiceId,
@@ -234,8 +255,15 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
   toggleCurrentBasketOpen = (currentBasketOpen: boolean) =>
     this.setState({ currentBasketOpen });
 
+  goToAppointments = () => {
+    this.props.push(
+      getMarketplaceRoute('_', this.props.company, 'private-service'),
+    );
+  };
+
   render() {
     if (
+      this.props.eligibleByTagsLoading ||
       this.props.loading ||
       !this.props.privateSlot ||
       !this.props.privateService
@@ -244,6 +272,16 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
         <div className={this.props.classes.container}>
           <CircularProgress />
         </div>
+      );
+    }
+
+    if (!this.props.eligibleByTags) {
+      return (
+        <ConsumerAppBar>
+          <PrivateServiceIneligibleBanner
+            goToAppointments={this.goToAppointments}
+          />
+        </ConsumerAppBar>
       );
     }
 
@@ -347,7 +385,6 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    paddingBottom: theme.spacing(32),
     paddingTop: theme.spacing(16),
   },
   addressContainer: {
@@ -422,11 +459,14 @@ export default compose(
         state.privateService.privatePass.loading ||
         state.privateService.privateSlot.loading ||
         state.privateService.privateConsumerPass.loading,
+      eligibleByTags: getPrivateServiceTagEligible(state, privateServiceId),
+      eligibleByTagsLoading: getPrivateServiceTagEligibleLoading(state),
     }),
     {
       linkMeToCompany,
       fetchCompanyTheme,
       goBack: goBackRouter,
+      push,
       fetchProfile,
       fetchAllPrivatePassCategory,
       fetchPrivateSlot,
@@ -442,6 +482,7 @@ export default compose(
       goToConsumerHome: (companyId: number) =>
         replace(getUserSpaceUrl(companyId)),
       checkPrivateSlotUnpaidBookingEligibility,
+      checkPrivateServiceTagEligibility,
     },
   ),
 )(PrivateSlotPayment);

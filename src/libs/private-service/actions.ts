@@ -130,6 +130,7 @@ import {
   createPrivatePassTemplateInstance as createPrivatePassTemplateInstanceAPI,
   deletePrivatePassTemplateInstance as deletePrivatePassTemplateInstanceAPI,
   updatePrivateBooking as updatePrivateBookingAPI,
+  checkPrivateServiceTagEligibility as checkPrivateServiceTagEligibilityAPI,
 } from './api';
 
 import { monitorBackgroundTask } from '../background-task/actions';
@@ -3130,5 +3131,44 @@ export function updatePrivateBooking(
       options?.onError(error);
     }
     dispatch(privateBookingCreateOrUpdateActions.isLoading(false));
+  };
+}
+
+export const checkPrivateServiceTagEligibilityActions = {
+  success: createAction('PRIVATE_SERVICE/TAG_ELIGIBILITY/SUCCESS'),
+  error: createAction('PRIVATE_SERVICE/TAG_ELIGIBILITY/ERROR'),
+  isLoading: createAction('PRIVATE_SERVICE/TAG_ELIGIBILITY/IS_LOADING'),
+};
+
+export function checkPrivateServiceTagEligibility(
+  privateServiceId: number,
+  memberId?: number,
+  options?: OptionCallback<boolean>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(checkPrivateServiceTagEligibilityActions.isLoading(true));
+    dispatch(checkPrivateServiceTagEligibilityActions.error(null));
+
+    try {
+      const response = await checkPrivateServiceTagEligibilityAPI(
+        privateServiceId,
+        memberId,
+      );
+      if (response.status === 200) {
+        if (options && options.onSuccess) {
+          options.onSuccess(response.data.eligible);
+        }
+        dispatch(
+          checkPrivateServiceTagEligibilityActions.success({
+            id: privateServiceId,
+            is_eligible: response.data.eligible,
+          }),
+        );
+      }
+    } catch (error) {
+      dispatch(checkPrivateServiceTagEligibilityActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(checkPrivateServiceTagEligibilityActions.isLoading(false));
   };
 }

@@ -7,7 +7,7 @@ import {
   RESOURCE_ATTRIBUTION_CONSUMER,
   RESOURCE_ATTRIBUTION_AUTO,
 } from '@bsport/common/lib/master-data/resource-attribution-methods';
-import { push as pushAction } from 'connected-react-router';
+import { push as pushAction, goBack } from 'connected-react-router';
 import { compose } from 'recompose';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -16,13 +16,16 @@ import {
   fetchPrivateService as fetchPrivateServiceAction,
   searchAvailableSlots as searchAvailableSlotsAction,
   searchFirstAvailableSlots as searchFirstAvailableSlotsAction,
+  checkPrivateServiceTagEligibility as checkPrivateServiceTagEligibilityAction,
 } from '#src/libs/private-service/actions';
-import { findAvailableEstablishment as findAvailableEstablishmentAPI } from '#src/libs/private-service/api';
+import { findAvailableEstablishment as findAvailableEstablishmentAPI } from '../../../../libs/private-service/api';
 import {
   getPrivateService,
   withAssociatedCoach,
   withAvailablePrivateSlots,
   withAssociatedEstablishment,
+  getPrivateServiceTagEligible,
+  getPrivateServiceTagEligibleLoading,
 } from '#src/libs/private-service/selectors/private-service';
 import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '#src/libs/establishment/actions';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '#src/libs/associated-coach/actions';
@@ -44,7 +47,8 @@ import type { Coach } from '#src/libs/associated-coach/types';
 import type { Establishment } from '#src/libs/establishment/types';
 import PrivateServiceDetailSummary from './PrivateServiceDetailSummary.component';
 import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
-import { MarketplacePrivateServiceSessionData } from '#src/libs/marketplace/types';
+import PrivateServiceIneligibleBanner from '#src/libs/private-service/components/service/PrivateServiceIneligibleBanner.component';
+import type { MarketplacePrivateServiceSessionData } from '#src/libs/marketplace/types';
 
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
 
@@ -95,27 +99,34 @@ type OwnProps = {
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
-export const PrivateServiceDetailPage: React.FC<Props> = ({
-  onSessionSelect,
-  hideDetailSummary,
-  fetchMarketplacePrivateSlots,
-  fetchPrivateService,
-  fetchAssociatedEstablishmentBulk,
-  fetchAssociatedCoachBulk,
-  searchAvailableSlots,
-  searchFirstAvailableSlots,
-  push,
-  _privateService,
-  privateService,
-  availabilitySlotByDate,
-  nextDateAvailableSlot,
-  nextAvailableSlotLoading,
-  availabilitySlot,
-  availableSlotsLoading,
-  theme,
-  companyId,
-  serviceId,
-}) => {
+export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
+  const {
+    onSessionSelect,
+    hideDetailSummary,
+    fetchMarketplacePrivateSlots,
+    fetchPrivateService,
+    fetchAssociatedEstablishmentBulk,
+    fetchAssociatedCoachBulk,
+    searchAvailableSlots,
+    searchFirstAvailableSlots,
+    checkPrivateServiceTagEligibility,
+    push,
+    _privateService,
+    privateService,
+    availabilitySlotByDate,
+    nextDateAvailableSlot,
+    nextAvailableSlotLoading,
+    availabilitySlot,
+    availableSlotsLoading,
+    theme,
+    companyId,
+    serviceId,
+    eligibleByTags,
+    eligibleByTagsLoading,
+  } = props;
+  const hideSessionsIneligibleByTags =
+    theme.hide_sessions_with_tags_when_not_eligible;
+  const showSessions = !hideSessionsIneligibleByTags || eligibleByTags;
   const sessionSelectorRefs = useRef();
 
   /** STATE */
@@ -225,6 +236,11 @@ export const PrivateServiceDetailPage: React.FC<Props> = ({
       onPrivateSlotSelect(privateService.slots[0]);
     }
   }, [privateService, onPrivateSlotSelect]);
+
+  useEffect(() => {
+    // @ts-expect-error
+    checkPrivateServiceTagEligibility(serviceId, null);
+  }, [checkPrivateServiceTagEligibility, serviceId]);
 
   const toggleFromArray = (array: any, item: any) => {
     const _array = [...array];
@@ -349,83 +365,88 @@ export const PrivateServiceDetailPage: React.FC<Props> = ({
   return (
     <div className={classes.pageContainer}>
       <div className={classes.container}>
-        <div className={classes.container2}>
-          {!!privateService?.slots?.length && (
-            <PrivateSlotSelector
-              onSelect={onPrivateSlotSelect}
-              privateService={privateService}
-              privateSlot={selectedSlot}
-            />
-          )}
+        {showSessions && (
+          <div className={classes.container2}>
+            {!!privateService?.slots?.length && (
+              <PrivateSlotSelector
+                onSelect={onPrivateSlotSelect}
+                privateService={privateService}
+                privateSlot={selectedSlot}
+              />
+            )}
 
-          {showCoachSelector && (
-            <CoachSelector
-              coachDisplay={theme?.coach_display}
-              onSelect={onCoachSelect}
-              privateService={privateService}
-              privateSlot={selectedSlot}
-              selectedCoaches={selectedCoaches}
-            />
-          )}
-
-          {showEstablishmentSelector && (
-            <EstablishmentSelector
-              onSelect={onEstablishmentSelect}
-              privateService={privateService}
-              privateSlot={selectedSlot}
-              selectedEstablishments={selectedEstablishments}
-            />
-          )}
-
-          {privateService && (
-            <SlotCalendar
-              availabilitySlotByDate={availabilitySlotByDate}
-              availableSlotsLoading={availableSlotsLoading}
-              nextAvailableSlotLoading={nextAvailableSlotLoading}
-              nextDateAvailableSlot={nextDateAvailableSlot}
-              numberOfDayToShow={numberOfDayToShow}
-              onDateChange={onDateChange}
-              onSessionMomentSelect={onSessionMomentSelect}
-              privateService={privateService}
-              privateSlot={selectedSlot}
-              selectedDate={selectedDate}
-              selectedSessionMoment={selectedSessionMoment}
-              timezoneName={theme.timezone_name}
-            />
-          )}
-
-          {selectedSessionMoment && (
-            <div ref={sessionSelectorRefs}>
-              <SessionSelector
-                availabilitySlot={availabilitySlot}
-                bookingIntervalMinutes={selectedSlot.booking_interval_minutes}
-                // @ts-expect-error
-                choseCoach={
-                  privateService.coach_attribution ===
-                  RESOURCE_ATTRIBUTION_CONSUMER
-                }
+            {showCoachSelector && (
+              <CoachSelector
                 coachDisplay={theme?.coach_display}
-                coaches={
-                  selectedCoaches?.length
-                    ? selectedCoaches
-                    : privateService.coaches
-                }
-                duration={selectedSlot.duration_minutes}
-                durationMinutes={selectedSlot.duration_minutes}
-                establishments={
-                  selectedEstablishments?.length
-                    ? selectedEstablishments
-                    : privateService.establishments
-                }
-                onSessionSelect={handleSessionSelect}
-                sessionMoment={selectedSessionMoment}
-                showCoach={multipleCoach}
-                showEstablishment={multipleEstablishment}
+                onSelect={onCoachSelect}
+                privateService={privateService}
+                privateSlot={selectedSlot}
+                selectedCoaches={selectedCoaches}
+              />
+            )}
+
+            {showEstablishmentSelector && (
+              <EstablishmentSelector
+                onSelect={onEstablishmentSelect}
+                privateService={privateService}
+                privateSlot={selectedSlot}
+                selectedEstablishments={selectedEstablishments}
+              />
+            )}
+
+            {privateService && (
+              <SlotCalendar
+                availabilitySlotByDate={availabilitySlotByDate}
+                availableSlotsLoading={availableSlotsLoading}
+                nextAvailableSlotLoading={nextAvailableSlotLoading}
+                nextDateAvailableSlot={nextDateAvailableSlot}
+                numberOfDayToShow={numberOfDayToShow}
+                onDateChange={onDateChange}
+                onSessionMomentSelect={onSessionMomentSelect}
+                privateService={privateService}
+                privateSlot={selectedSlot}
+                selectedDate={selectedDate}
+                selectedSessionMoment={selectedSessionMoment}
                 timezoneName={theme.timezone_name}
               />
-            </div>
-          )}
-        </div>
+            )}
+
+            {selectedSessionMoment && (
+              <div ref={sessionSelectorRefs}>
+                <SessionSelector
+                  availabilitySlot={availabilitySlot}
+                  bookingIntervalMinutes={selectedSlot.booking_interval_minutes}
+                  // @ts-expect-error
+                  choseCoach={
+                    privateService.coach_attribution ===
+                    RESOURCE_ATTRIBUTION_CONSUMER
+                  }
+                  coachDisplay={theme?.coach_display}
+                  coaches={
+                    selectedCoaches?.length
+                      ? selectedCoaches
+                      : privateService.coaches
+                  }
+                  duration={selectedSlot.duration_minutes}
+                  durationMinutes={selectedSlot.duration_minutes}
+                  establishments={
+                    selectedEstablishments?.length
+                      ? selectedEstablishments
+                      : privateService.establishments
+                  }
+                  onSessionSelect={handleSessionSelect}
+                  sessionMoment={selectedSessionMoment}
+                  showCoach={multipleCoach}
+                  showEstablishment={multipleEstablishment}
+                  timezoneName={theme.timezone_name}
+                />
+              </div>
+            )}
+          </div>
+        )}
+        {!eligibleByTagsLoading && showSessions === false && (
+          <PrivateServiceIneligibleBanner goToAppointments={props.goBack} />
+        )}
       </div>
 
       {!hideDetailSummary && (
@@ -475,6 +496,8 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   availabilitySlot: state.privateService.availabilitySlot.searched.items,
   availableSlotsLoading: state.privateService.availabilitySlot.searched.loading,
   theme: state.theme.theme,
+  eligibleByTags: getPrivateServiceTagEligible(state, ownProps.serviceId),
+  eligibleByTagsLoading: getPrivateServiceTagEligibleLoading(state),
 });
 
 const mapDispatchToProps = {
@@ -485,6 +508,8 @@ const mapDispatchToProps = {
   searchAvailableSlots: searchAvailableSlotsAction,
   searchFirstAvailableSlots: searchFirstAvailableSlotsAction,
   push: pushAction,
+  goBack,
+  checkPrivateServiceTagEligibility: checkPrivateServiceTagEligibilityAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

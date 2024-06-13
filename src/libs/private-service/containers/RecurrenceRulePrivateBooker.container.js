@@ -19,8 +19,10 @@ import { fetchAssociatedCoachBulk } from '../../associated-coach/actions';
 import SlotSearcherParams from '../components/slot-searcher/SlotSearcherParams.component';
 import RecurrenceRulePrivateBookingFields from '../components/booking/RecurrenceRulePrivateBookingFields.component';
 import type { PrivateService, RecurrenceRulePrivateBooking } from '../types';
+import type { OptionCallback } from '#src/state/types';
 import { getAvailablePrivateServices } from '../selectors/private-service';
 import {
+  checkPrivateServiceTagEligibility,
   createOrUpdateRecurrenceRulePrivateBooking,
   fetchAllPrivateServices as fetchAllPrivateServicesAction,
   fetchAllPrivateSlots as fetchAllPrivateSlotsAction,
@@ -29,6 +31,7 @@ import MissingResourceForBookingHelper from '../components/MissingResourceForBoo
 import { getMissingResourceForBooking } from '../utils';
 import { RecurrenceRulePrivateBookingUpdateDialog } from '../components/booking/RecurrenceRulePrivateBookingConfirmDialog.component';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import PrivateBookingWarningTagDialog from './PrivateBookingWarningTagDialog';
 
 type Props = {
   open: boolean,
@@ -45,8 +48,17 @@ type Props = {
   fetchEstablishmentBulk: (establishments: Array<number>) => void,
   fetchCoachBulk: (coaches: Array<number>) => void,
   fetchAllPrivateSlots: () => void,
+  checkPrivateServiceTagEligibility: (
+    service: number,
+    memberId: number,
+    callback: OptionCallback<boolean>,
+  ) => void,
   updateDialogOpen: boolean,
   setUpdateDialogOpen: (boolean) => void,
+  incompatibleTagsDialogOpen: boolean,
+  setIncompatibleTagsDialogOpen: (boolean) => void,
+  closeWarningTagDialog: () => void,
+  closeRecurrenceRuleDialog: () => void,
 };
 
 type State = {
@@ -127,6 +139,22 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
       },
     });
     this.props.fetchAllPrivateSlots();
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (
+      prevState.configuration.private_service !==
+        this.state.configuration.private_service &&
+      this.state.configuration.private_service
+    )
+      this.props.checkPrivateServiceTagEligibility(
+        this.state.configuration.private_service,
+        this.props.memberId,
+        {
+          onSuccess: (eligible) =>
+            this.props.setIncompatibleTagsDialogOpen(!eligible),
+        },
+      );
   }
 
   handleConfigurationChange = (configuration: any) => {
@@ -326,6 +354,11 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
             this.props.updateDialogOpen ? this.props.initial.id : null
           }
         />
+        <PrivateBookingWarningTagDialog
+          onCancel={this.props.closeRecurrenceRuleDialog}
+          onConfirm={this.props.closeWarningTagDialog}
+          open={this.props.incompatibleTagsDialogOpen}
+        />
       </div>
     );
   }
@@ -335,6 +368,11 @@ export default compose(
   routerParamsToProps({ initial: 'initial:RecurrenceRulePrivateBooking' }),
   withTranslation(['privateService']),
   withState('updateDialogOpen', 'setUpdateDialogOpen', false),
+  withState(
+    'incompatibleTagsDialogOpen',
+    'setIncompatibleTagsDialogOpen',
+    false,
+  ),
   connect(
     (state) => ({
       privateServicesLoading: state.privateService.privateService.loading,
@@ -347,6 +385,7 @@ export default compose(
       fetchEstablishmentBulk: fetchAssociatedEstablishmentBulk,
       fetchCoachBulk: fetchAssociatedCoachBulk,
       createOrUpdateRecurrentRule: createOrUpdateRecurrenceRulePrivateBooking,
+      checkPrivateServiceTagEligibility,
     },
   ),
   withHandlers({
@@ -370,5 +409,8 @@ export default compose(
           });
         }
       },
+    closeWarningTagDialog: (props) => () =>
+      props.setIncompatibleTagsDialogOpen(false),
+    closeRecurrenceRuleDialog: (props) => () => props.setOpen(false),
   }),
 )(RecurrenceRulePrivateBooker);

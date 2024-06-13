@@ -581,6 +581,9 @@ export interface PrivateServiceState {
       error: Error | null;
     };
   };
+  privateServiceTagEligibility: {
+    byId: Record<string, boolean>;
+  } & ErrorAndLoading;
 }
 
 export type Interval = {

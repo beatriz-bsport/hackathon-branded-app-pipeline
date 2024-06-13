@@ -41,6 +41,7 @@ import {
   checkPrivateSlotUnpaidBookingEligibility,
   fetchIncompatibilitiesReasonsBySlotByConsumerPass as fetchIncompatibilitiesReasonsBySlotByConsumerPassAction,
   resetIncompatibilitiesReasonsBySlotByConsumerPass as resetIncompatibilitiesReasonsBySlotByConsumerPassAction,
+  checkPrivateServiceTagEligibility,
 } from '../actions';
 import { getAvailablePrivateServices } from '../selectors/private-service';
 import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions';
@@ -76,6 +77,7 @@ import { OptionCallback } from '../../../state/types';
 import { showVaccinationStatus } from '../../custom-form/selectors';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
+import PrivateBookingWarningTagDialog from './PrivateBookingWarningTagDialog';
 
 type OwnProps = {
   open: boolean;
@@ -104,6 +106,7 @@ type State = {
   private_booking_data: any;
   date_start: string;
   nb_of_weeks?: number;
+  incompatibleTagsDialogOpen: boolean;
 };
 
 export class PrivateBookingBooker extends React.Component<Props, State> {
@@ -114,6 +117,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
       private_booking_data: {},
       date_start: props.requestedSlot,
       nb_of_weeks: null,
+      incompatibleTagsDialogOpen: false,
     };
   }
 
@@ -154,6 +158,25 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         consumer: this.state.member?.consumer,
       });
     }
+    const member = this.state.member && this.state.member.id;
+    const service = this.state.private_booking_data.private_service;
+    const member_has_changed = member !== prevState.member?.id;
+    const private_service_has_changed =
+      this.state.private_booking_data.private_service !==
+      prevState.private_booking_data.private_service;
+    if (
+      member &&
+      service &&
+      (member_has_changed || private_service_has_changed)
+    )
+      this.props.checkPrivateServiceTagEligibility(
+        this.state.private_booking_data.private_service,
+        this.state.member.id,
+        {
+          onSuccess: (eligible) =>
+            this.props.setIncompatibleTagsDialogOpen(!eligible),
+        },
+      );
   }
 
   fetchPass = () =>
@@ -515,6 +538,11 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         <DialogActions>
           <Button onClick={this.onClose}>{t('bookerModule.cancel')}</Button>
         </DialogActions>
+        <PrivateBookingWarningTagDialog
+          onCancel={this.onClose}
+          onConfirm={this.props.setIncompatibleTagsDialogClose}
+          open={this.props.incompatibleTagsDialogOpen}
+        />
       </GenericResponsiveDrawer>
     );
   }
@@ -584,6 +612,7 @@ const mapDispatchToProps = {
   resetIncompatibilitiesReasonsBySlotByConsumerPass:
     resetIncompatibilitiesReasonsBySlotByConsumerPassAction,
   pushRouter: push,
+  checkPrivateServiceTagEligibility,
   registerPrivateBooking: registerPrivateBookingAction,
   createRecurrentRule: createOrUpdateRecurrenceRulePrivateBooking,
   searchMembers: (text: string) => searchMembers(text, { hide_archived: true }),
@@ -597,6 +626,7 @@ type StateHandlerInit = {
   requestedPrivateSlot: number | null;
   is_overriding_availabilities: boolean;
   allow_unpaid: boolean;
+  incompatibleTagsDialogOpen: boolean;
 };
 
 const withStateHandlersInit: StateHandlerInit = {
@@ -605,6 +635,7 @@ const withStateHandlersInit: StateHandlerInit = {
   requestedPrivateSlot: null,
   is_overriding_availabilities: false,
   allow_unpaid: false,
+  incompatibleTagsDialogOpen: false,
 };
 
 const withStateHandlersSetter = {
@@ -623,6 +654,13 @@ const withStateHandlersSetter = {
   },
   setRequestedPrivateSlot: () => (requestedPrivateSlot: number | null) => {
     return { requestedPrivateSlot };
+  },
+  setIncompatibleTagsDialogOpen:
+    () => (incompatibleTagsDialogOpen: boolean) => {
+      return { incompatibleTagsDialogOpen };
+    },
+  setIncompatibleTagsDialogClose: () => () => {
+    return { incompatibleTagsDialogOpen: false };
   },
 };
 

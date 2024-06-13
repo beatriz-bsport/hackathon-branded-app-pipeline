@@ -112,6 +112,13 @@ const getTranslations = async () => {
     },
     privateBooking: {
       cancel: 'Cancel',
+      incompatibleTagsDialog: {
+        title: 'Info',
+        description:
+          'Please note that this member does not have the required tags for this appointment. Do you want to book them in anyway?',
+        cancel: 'Cancel',
+        confirm: 'Confirm',
+      },
       hardDelete: 'Delete',
       isCancelled: 'Cancelled',
       detail: {
@@ -251,6 +258,12 @@ const getTranslations = async () => {
           'ACTIVE: Appointment will not be possible. The room must be available from 9:45 to 11:15. The next appointment will not be possible until 11:30 am.',
         explain1:
           'If activated, bookings can only be made if the calendar is available including the booking',
+      },
+      ineligibleService: {
+        title: 'You cannot book this appointment',
+        description:
+          'This appointment is only for a specific group of members.',
+        backToAppointments: 'Back to the appointments',
       },
     },
     calendar: {

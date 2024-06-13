@@ -11,7 +11,7 @@ module.exports = {
     pathinfo: true,
     path: paths.appBuild,
     filename: 'static/js/[name].[contenthash].js',
-    chunkFilename: 'static/js/[name].chunk.js',
+    chunkFilename: 'static/js/[name].[contenthash].chunk.js',
     publicPath,
     devtoolModuleFilenameTemplate: (info) =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),

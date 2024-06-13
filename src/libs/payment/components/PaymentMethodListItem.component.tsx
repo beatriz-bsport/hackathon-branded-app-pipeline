@@ -151,19 +151,19 @@ export const PaymentMethodListItem: FC<Props> = ({
         </ListItemSecondaryAction>
       )}
       {detachPaymentMethod && (
-        <ObjectLevelPermissionWrapper
-          forcedBehavior="hidden"
-          requiredPermission="billing.allowed_actions.deletePaymentMethod"
-        >
-          <ListItemSecondaryAction>
+        <ListItemSecondaryAction>
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="billing.allowed_actions.deletePaymentMethod"
+          >
             <IconButton
               disabled={detachPaymentMethodLoading || disabled}
               onClick={removePaymentMethod}
             >
               <DeleteIcon />
             </IconButton>
-          </ListItemSecondaryAction>
-        </ObjectLevelPermissionWrapper>
+          </ObjectLevelPermissionWrapper>
+        </ListItemSecondaryAction>
       )}
     </ListItem>
   );

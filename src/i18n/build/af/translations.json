@@ -2824,7 +2824,6 @@
         "isIntegratedInPartnership": "One or several integrations are using this establishment."
       },
       "infos": {
-        "notificationsDefault": "Notifications related to this establishment will be deleted.",
         "reportsDefault": "The establishment will not be deleted from past reports.",
         "offersDefault": "Existing sessions, workshops and past bookings will not be modified.",
         "widgetsDefault": "Calendar and Workshops widgets may have been configured with this establishment, do not forget to update them.",
@@ -2846,7 +2845,8 @@
         "relatedPaymentPacks": "The following pass {{- pass_name }} will no longer be usable for this establishment, make sure to inform your clients about it.",
         "hasRelatedAvailabilitySlots": "The available slots of this establishment's schedule will be deleted.",
         "hasRelatedZoomEstablishment": "This establishment will be removed from the list of establishments used for live streaming with the Zoom integration.",
-        "hasRelatedMarketplaceComponentConfigs": "The calendar and workshop tabs configured for your marketplace will not display this establishment's calendar anymore."
+        "hasRelatedMarketplaceComponentConfigs": "The calendar and workshop tabs configured for your marketplace will not display this establishment's calendar anymore.",
+        "hasRelatedMarketingNotifications": "Notifications related to this establishment will be deleted."
       }
     }
   },

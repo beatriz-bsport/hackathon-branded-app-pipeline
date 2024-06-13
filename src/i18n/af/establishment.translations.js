@@ -215,8 +215,6 @@ exports.default = {
         'One or several integrations are using this establishment.',
     },
     infos: {
-      notificationsDefault:
-        'Notifications related to this establishment will be deleted.',
       reportsDefault:
         'The establishment will not be deleted from past reports.',
       offersDefault:
@@ -259,6 +257,8 @@ exports.default = {
         'This establishment will be removed from the list of establishments used for live streaming with the Zoom integration.',
       hasRelatedMarketplaceComponentConfigs:
         "The calendar and workshop tabs configured for your marketplace will not display this establishment's calendar anymore.",
+      hasRelatedMarketingNotifications:
+        'Notifications related to this establishment will be deleted.',
     },
   },
 };

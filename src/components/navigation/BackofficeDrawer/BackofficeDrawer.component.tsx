@@ -38,6 +38,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { Dialog } from '@material-ui/core';
 import TodayIcon from '@material-ui/icons/Today';
+import HighlightOff from '@material-ui/icons/HighlightOff';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import VpnKey from '@material-ui/icons/VpnKey';
 import Search from '@material-ui/icons/Search';
@@ -321,11 +322,12 @@ export const BackOfficeDrawer: React.FC<Props> = ({
     openWelcometutorialDialog,
   ]);
 
-  const getDisconnectButtonText = useCallback(() => {
-    return getItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN)
-      ? t('backofficeMenu.closeTab')
-      : t('backofficeMenu.logoff');
-  }, [t]);
+  const isTabImpersonated = useCallback(() => {
+    return (
+      getItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN) !==
+      null
+    );
+  }, []);
 
   const handleDrawerToggle = () => {
     if (mobileOpen) {
@@ -409,8 +411,21 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             <ListItemIcon>
               <PowerSettingsNewIcon />
             </ListItemIcon>
-            <ListItemText primary={getDisconnectButtonText()} />
+            <ListItemText primary={t('backofficeMenu.logoff')} />
           </MenuItem>
+          {isTabImpersonated() ? (
+            <MenuItem
+              onClick={() => {
+                setAnchorEl(null);
+                window.close();
+              }}
+            >
+              <ListItemIcon>
+                <HighlightOff />
+              </ListItemIcon>
+              <ListItemText primary={t('backofficeMenu.closeTab')} />
+            </MenuItem>
+          ) : null}
         </Menu>
       </Grid>
     );

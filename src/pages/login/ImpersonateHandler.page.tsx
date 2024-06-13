@@ -27,7 +27,6 @@ const ImpersonateHandler: React.FC<Props> = ({
       );
       removeItemInStorage('local', STORAGE_KEY_BSPORT_IMPERSONATED_GOTO_URL);
       navigateAsCompanyAdmin(companyId, urlToImpersonate);
-      push('');
     }
   }, [push, companyId, navigateAsCompanyAdmin]);
 

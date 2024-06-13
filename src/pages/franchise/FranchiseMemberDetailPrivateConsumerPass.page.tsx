@@ -145,7 +145,7 @@ const FranchiseMemberDetailPrivateConsumerPass: React.FC<Props> = ({
       const memberId = selectedConsumerPass.member;
       openNewWindowToImpersonate(
         companyId,
-        `/member/${memberId}/pass/${selectedPrivateConsumerPassId}`,
+        `/member/${memberId}/private-consumer-pass/${selectedPrivateConsumerPassId}`,
       );
     }
   }, [

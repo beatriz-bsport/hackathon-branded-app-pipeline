@@ -1100,13 +1100,7 @@ export default compose(
     disconnect:
       ({ signout, theme }) =>
       () => {
-        if (
-          getItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN)
-        ) {
-          window.close();
-        } else {
-          signout(theme.company);
-        }
+        signout(theme.company);
       },
     checkEmailValidation:
       ({ checkEmailValidation, pushRouter, username }) =>

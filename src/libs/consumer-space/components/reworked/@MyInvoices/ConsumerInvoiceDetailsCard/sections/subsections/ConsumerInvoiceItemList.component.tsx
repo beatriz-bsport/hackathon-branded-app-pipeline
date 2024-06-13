@@ -15,6 +15,10 @@ type Props = {
 const ConsumerInvoiceItemList: React.FC<Props> = ({ invoiceItems }) => {
   const { t } = useTranslation('consumerSpace');
 
+  const sortedInvoiceItems = (invoiceItems || []).sort(
+    (a, b) => parseFloat(b.price) - parseFloat(a.price),
+  );
+
   return (
     <div className="bs-consumer-invoice-details-card__body__items">
       <Typography
@@ -23,7 +27,7 @@ const ConsumerInvoiceItemList: React.FC<Props> = ({ invoiceItems }) => {
       >
         {t('reworked.myInvoices.detailsCard.products')}
       </Typography>
-      {(invoiceItems || []).map((invoiceItem: InvoiceItem) => (
+      {sortedInvoiceItems.map((invoiceItem: InvoiceItem) => (
         <ConsumerInvoiceItem
           key={`ConsumerInvoiceDetailsCard-invoiceItem:${invoiceItem.id}`}
           name={invoiceItem.name}

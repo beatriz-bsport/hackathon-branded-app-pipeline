@@ -504,8 +504,8 @@ const LiveHistory: React.FC<Props> = ({
           {memberVisitUnreadCount > 0 && (
             <Link
               variant="body1"
-              style={{ cursor: 'pointer' }}
-              onClick={() => fetchMemberVisitList({ page: 1 })}
+              className={classes.unreadVisitsLink}
+              onClick={handleRefreshFirstPage}
             >
               {t('liveHistory.unreadCount', { count: memberVisitUnreadCount })}
             </Link>
@@ -538,6 +538,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  unreadVisitsLink: {
+    cursor: 'pointer',
+    color: theme.palette.info.dark,
+    fontWeight: 'bold',
+    textDecoration: 'underline',
   },
 }));
 

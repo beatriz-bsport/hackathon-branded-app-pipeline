@@ -439,6 +439,9 @@ const getTranslations = async () => {
         productType: 'Product',
         associatedPass: 'Associated pass',
       },
+      detailPage: {
+        sharedStudios: 'Shared with the following studios:',
+      },
     },
     recap: {
       willBecharged: ' will be charged ',
@@ -582,6 +585,7 @@ const getTranslations = async () => {
       expired: 'Expired',
       canceled: 'Stopped',
       subscribedOn: 'Subscription started on {{- date}}',
+      willSubscribeOn: 'Subscription will start on {{- date}}',
     },
     noAssociatedSubscription: 'There are no saved subscriptions to display.',
     associatedSubscriptions: 'Subscribed members',

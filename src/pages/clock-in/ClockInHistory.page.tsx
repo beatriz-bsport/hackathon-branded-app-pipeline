@@ -10,6 +10,7 @@ import {
   deleteClockIn as deleteClockInAction,
   getStaffsAttendanceHistory as getStaffsAttendanceHistoryAction,
   exportStaffAttendanceHistory as exportStaffAttendanceHistoryAction,
+  fetchStaffWorkTimeSummary as fetchStaffWorkTimeSummaryAction,
 } from '#src/libs/clock-in/actions';
 import { getUsersPaginatedWithRole } from '#src/libs/role/selectors';
 import ClockInHistoryComponent from '#src/libs/clock-in/components/ClockInHistory.component';
@@ -18,48 +19,85 @@ import ClockInHistoryHeader, {
 } from '#src/libs/clock-in/components/ClockInHistoryHeader.component';
 import { withHistoryAttendance } from '#src/libs/clock-in/selectors';
 import { fetchCompanyUserRolesPaginated as fetchCompanyUserRolesPaginatedAction } from '#src/libs/role/actions';
+import {
+  ATTENDANCE_HISTORY_DETAILS_PAGE_SIZE_DEFAULT,
+  ATTENDANCE_HISTORY_PAGE_SIZE_DEFAULT,
+} from '#src/libs/clock-in/constants';
 
 type Props = ConnectedProps<typeof connector>;
 
-const MEMBER_PER_PAGE = 10;
-
 const ClockInHistory: React.FC<Props> = ({
   usersPaginatedWithAttendanceHistory,
+  isSingleUserAttendanceLoading,
   fetchCompanyUserRolesPaginated,
   editClockIn,
   deleteClockIn,
   getStaffsAttendanceHistory,
   exportStaffAttendanceHistory,
+  fetchStaffWorkTimeSummary,
+  singleUserAttendanceRecordsCount,
 }) => {
   const { t } = useTranslation('clockIn');
 
-  const [page, setPage] = useState(1);
-  const [page_size, setPageSize] = useState(MEMBER_PER_PAGE);
+  const [userWithDetails, setUserWithDetails] = useState<number | null>(null);
+  const [detailsPage, setDetailsPage] = useState(1);
+  const [globalPage, setGlobalPage] = useState(1);
+  const [globalPageSize, setGlobalPageSize] = useState<number>(
+    ATTENDANCE_HISTORY_PAGE_SIZE_DEFAULT,
+  );
+  const [detailsPageSize, setDetailsPageSize] = useState(
+    ATTENDANCE_HISTORY_DETAILS_PAGE_SIZE_DEFAULT,
+  );
+
   const [dateStart, setDateStart] = useState<DateTime>(
     DateTime.now().startOf('day'),
   );
   const [dateEnd, setDateEnd] = useState<DateTime>(DateTime.now().endOf('day'));
 
+  const handleToggleDetails = (userId: number) => {
+    setUserWithDetails((prev) => (prev === userId ? null : userId));
+    getStaffsAttendanceHistory({
+      page: detailsPage,
+      page_size: detailsPageSize,
+      min_date: dateStart.toUnixInteger(),
+      max_date: dateEnd.toUnixInteger(),
+      user_id__in: [userId],
+    });
+  };
+
+  useEffect(() => {
+    if (!userWithDetails) return;
+    getStaffsAttendanceHistory({
+      page: detailsPage,
+      page_size: detailsPageSize,
+      min_date: dateStart.toUnixInteger(),
+      max_date: dateEnd.toUnixInteger(),
+      user_id__in: [userWithDetails],
+    });
+  }, [detailsPage, dateEnd, dateStart, detailsPageSize]);
+
   useEffect(() => {
     fetchCompanyUserRolesPaginated(
       {
-        page,
-        page_size,
+        page: globalPage,
+        page_size: globalPageSize,
       },
       {
-        onSuccess: (payload) =>
-          getStaffsAttendanceHistory({
+        onSuccess: (payload) => {
+          fetchStaffWorkTimeSummary({
+            page_size: globalPageSize,
             min_date: dateStart.toUnixInteger(),
             max_date: dateEnd.toUnixInteger(),
             user_id__in: payload.results.map((u) => u.id),
-          }),
+          });
+        },
       },
     );
   }, [
     dateEnd,
     dateStart,
-    page_size,
-    page,
+    globalPageSize,
+    globalPage,
     fetchCompanyUserRolesPaginated,
     getStaffsAttendanceHistory,
   ]);
@@ -100,17 +138,21 @@ const ClockInHistory: React.FC<Props> = ({
         onSubmit={handleSubmitClockInHeader}
       />
       <ClockInHistoryComponent
+        userWithDetails={userWithDetails}
+        areUserDetailsLoading={isSingleUserAttendanceLoading}
+        globalPage={globalPage}
+        globalPageSize={globalPageSize}
+        handleGlobalPageChange={setGlobalPage}
+        handleToggleDetails={handleToggleDetails}
         deleteClockIn={deleteClockIn}
         editClockIn={editClockIn}
         handleExport={handleExport}
-        handlePageChange={(newPage) => {
-          setPage(newPage);
-        }}
-        handlePageSizeChange={(pageSize) => {
-          setPageSize(pageSize);
-        }}
-        page={page}
-        page_size={page_size}
+        handleDetailsPageChange={setDetailsPage}
+        handleGlobalPageSizeChange={setGlobalPageSize}
+        handleDetailsPageSizeChange={setDetailsPageSize}
+        detailsPage={detailsPage}
+        detailsPageSize={detailsPageSize}
+        detailsCount={singleUserAttendanceRecordsCount}
         // @ts-expect-error
         value={usersPaginatedWithAttendanceHistory}
       />
@@ -123,10 +165,13 @@ const connector = connect(
     usersPaginatedWithAttendanceHistory: withHistoryAttendance(
       getUsersPaginatedWithRole,
     )(state),
+    singleUserAttendanceRecordsCount: state.clockIn?.attendanceRecords?.count,
+    isSingleUserAttendanceLoading: state.clockIn?.attendanceRecords?.loading,
   }),
   {
     fetchCompanyUserRolesPaginated: fetchCompanyUserRolesPaginatedAction,
     getStaffsAttendanceHistory: getStaffsAttendanceHistoryAction,
+    fetchStaffWorkTimeSummary: fetchStaffWorkTimeSummaryAction,
     editClockIn: editClockInAction,
     deleteClockIn: deleteClockInAction,
     exportStaffAttendanceHistory: exportStaffAttendanceHistoryAction,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { DateTime, Duration } from 'luxon';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -33,34 +33,53 @@ import EditClockinModal, {
 } from './EditClockIn.dialog';
 import { getRoleName } from '#src/libs/role/utils';
 import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import {
+  ATTENDANCE_HISTORY_DETAILS_PAGE_SIZE_CHOICES,
+  ATTENDANCE_HISTORY_PAGE_SIZE_CHOICES,
+} from '#src/libs/clock-in/constants';
 
 type Props = {
+  userWithDetails: number | null;
+  handleToggleDetails: (userId: number) => void;
   value: {
     loading: boolean;
     count: number;
     results: UserAttendanceHistory[];
   };
-  page: number;
-  page_size: number;
-  handlePageChange: (page: number) => void;
-  handlePageSizeChange: (page_size: number) => void;
+  detailsPage: number;
+  detailsPageSize: number;
+  globalPage: number;
+  globalPageSize: number;
+  handleGlobalPageChange: (page: number) => void;
+  handleGlobalPageSizeChange: (page_size: number) => void;
+  handleDetailsPageChange: (page: number) => void;
+  handleDetailsPageSizeChange: (page_size: number) => void;
   handleExport: (user_id?: number) => void;
   editClockIn: (clockInId: number, clockInData: ClockInData) => Promise<void>;
   deleteClockIn: ({ clockInId }: { clockInId: number }) => Promise<void>;
+  detailsCount: number;
 };
 
 const ClockInHistory: React.FC<Props> = ({
   value: { loading, count, results },
-  page,
-  page_size,
-  handlePageChange,
-  handlePageSizeChange,
+  detailsPage,
+  detailsPageSize,
+  globalPage,
+  globalPageSize,
+  handleGlobalPageChange,
+  handleGlobalPageSizeChange,
+  handleDetailsPageChange,
+  handleDetailsPageSizeChange,
   handleExport,
   editClockIn,
   deleteClockIn,
+  handleToggleDetails,
+  userWithDetails,
+  detailsCount,
 }) => {
   const { t } = useTranslation(['clockIn']);
   const classes = useStyles();
+
   return (
     <TableContainer component={Paper}>
       {loading && <LinearProgress />}
@@ -70,14 +89,16 @@ const ClockInHistory: React.FC<Props> = ({
             <TablePagination
               count={count}
               onPageChange={(_, _page) => {
-                handlePageChange(_page + 1);
+                handleGlobalPageChange(_page + 1);
               }}
               onRowsPerPageChange={(event) => {
-                handlePageSizeChange(Number.parseInt(event.target.value, 10));
+                handleGlobalPageSizeChange(
+                  Number.parseInt(event.target.value, 10),
+                );
               }}
-              page={page - 1}
-              rowsPerPage={page_size}
-              rowsPerPageOptions={[10, 25, 50].sort((a, b) => a - b)}
+              page={globalPage - 1}
+              rowsPerPage={globalPageSize}
+              rowsPerPageOptions={ATTENDANCE_HISTORY_PAGE_SIZE_CHOICES}
             />
           </TableRow>
           <TableRow>
@@ -100,11 +121,18 @@ const ClockInHistory: React.FC<Props> = ({
         <TableBody>
           {results?.map((userHistory) => (
             <ClockInHistoryRow
+              page_size={detailsPageSize}
+              handlePageChange={handleDetailsPageChange}
+              handlePageSizeChange={handleDetailsPageSizeChange}
+              page={detailsPage}
+              isExpanded={userWithDetails === userHistory.id}
+              toggleUserDetails={() => handleToggleDetails(userHistory.id)}
               key={userHistory.id}
               deleteClockIn={deleteClockIn}
               editClockIn={editClockIn}
               handleExport={handleExport}
               row={userHistory}
+              count={detailsCount}
             />
           ))}
         </TableBody>
@@ -117,17 +145,39 @@ const ClockInHistoryRow: React.FC<{
   row: UserAttendanceHistory;
   handleExport: (userId?: number) => void;
   editClockIn: (clockInId: number, clockInData: ClockInData) => Promise<void>;
+  handlePageSizeChange: (page_size: number) => void;
   deleteClockIn: ({ clockInId }: { clockInId: number }) => Promise<void>;
-}> = ({ row, handleExport, editClockIn, deleteClockIn }) => {
-  const { t } = useTranslation(['clockIn']);
+  isExpanded: boolean;
+  toggleUserDetails: () => void;
+  page: number;
+  handlePageChange: (page: number) => void;
+  page_size: number;
+  count: number;
+}> = ({
+  row,
+  handleExport,
+  editClockIn,
+  deleteClockIn,
+  isExpanded,
+  handlePageSizeChange,
+  toggleUserDetails,
+  handlePageChange,
+  page,
+  page_size,
+  count,
+}) => {
+  const { t } = useTranslation('clockIn');
   const classes = useStyles();
 
-  const [expanded, setExpanded] = useState(false);
   const [editData, setEditData] = useState<{
     id: number;
     clock_in: DateTime;
     clock_out: DateTime;
   } | null>(null);
+
+  const onPageChange = useCallback((_, _page: number) => {
+    handlePageChange(_page + 1);
+  }, []);
 
   const getDurationTextInHour = (clock_in: number, clock_out: number) => {
     const end = DateTime.fromSeconds(clock_in);
@@ -145,17 +195,14 @@ const ClockInHistoryRow: React.FC<{
     return Math.floor(duration.as('hours') * 100) / 100;
   };
 
-  const totalDuration: number = // @ts-expect-error
-    row?.history?.reduce<number>((acc, row) => {
-      const end = DateTime.fromSeconds(row.date_start);
-      const start = DateTime.fromSeconds(row.date_end);
-
-      acc += start.diff(end).as('milliseconds');
-      return acc;
-    }, 0) ?? 0;
+  const totalDurationInMs: number = (row?.totalAttendance ?? 0) * 1000;
 
   const totalDurationDisplay =
-    Duration.fromMillis(totalDuration).toFormat('hh:mm');
+    Duration.fromMillis(totalDurationInMs).toFormat('hh:mm');
+
+  const totalDurationDisplayInBase10 = parseFloat(
+    Duration.fromMillis(totalDurationInMs).as('hours').toFixed(2),
+  );
 
   const handleEditClockIn = React.useCallback(
     (clockInId: number, values: EditClockInValues) => {
@@ -170,19 +217,24 @@ const ClockInHistoryRow: React.FC<{
     [],
   );
 
+  const onRowsPerPageChange = useCallback(
+    (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      handlePageSizeChange(Number.parseInt(event.target.value, 10));
+    },
+    [],
+  );
+
   return (
     <>
       <TableRow>
         <TableCell className={classes.firstColumn} colSpan={1}>
           <IconButton
-            aria-expanded={expanded}
+            aria-expanded={isExpanded}
             aria-label="show more"
             className={classNames(classes.icon, {
-              [classes.inverseIcon]: expanded,
+              [classes.inverseIcon]: isExpanded,
             })}
-            onClick={() => {
-              setExpanded(!expanded);
-            }}
+            onClick={toggleUserDetails}
           >
             <ExpandMoreIcon />
           </IconButton>
@@ -191,10 +243,7 @@ const ClockInHistoryRow: React.FC<{
           {`${row.first_name} ${row.last_name}`}
         </TableCell>
         <TableCell colSpan={10}>{totalDurationDisplay}</TableCell>
-        <TableCell colSpan={10}>
-          {Math.floor(Duration.fromMillis(totalDuration).as('hour') * 100) /
-            100}
-        </TableCell>
+        <TableCell colSpan={10}>{totalDurationDisplayInBase10}</TableCell>
         <TableCell className={classes.email} colSpan={10}>
           {row.email}
         </TableCell>
@@ -207,7 +256,7 @@ const ClockInHistoryRow: React.FC<{
           colSpan={1}
         />
         <TableCell className={classes.innerTable} colSpan={250}>
-          <Collapse unmountOnExit in={expanded} timeout="auto">
+          <Collapse unmountOnExit in={isExpanded} timeout="auto">
             <Table>
               <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.attendance">
                 {(hasPermission) =>
@@ -359,6 +408,16 @@ const ClockInHistoryRow: React.FC<{
                   </TableCell>
                 </TableRow>
               ))}
+              <TablePagination
+                count={count}
+                onPageChange={onPageChange}
+                page={page - 1}
+                rowsPerPage={page_size}
+                rowsPerPageOptions={
+                  ATTENDANCE_HISTORY_DETAILS_PAGE_SIZE_CHOICES
+                }
+                onRowsPerPageChange={onRowsPerPageChange}
+              />
             </Table>
           </Collapse>
         </TableCell>

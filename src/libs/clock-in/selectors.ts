@@ -48,7 +48,6 @@ export const withHistoryAttendance = memoize(
     createSelector(
       [selector, _getTotalAttendanceByUser, getHistoryDataList],
       (usersPaginated, attendanceByUserDict, attendanceHistory) => {
-        if (!usersPaginated?.results) return usersPaginated;
         return {
           ...usersPaginated,
           results: usersPaginated.results.map((user) => ({

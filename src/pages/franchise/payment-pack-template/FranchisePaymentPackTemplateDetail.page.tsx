@@ -43,7 +43,7 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import withTitle from '../../../hocs/with-title.hoc';
 
 // @ts-expect-error
-import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
+import { openNewWindowToImpersonate } from '../../../actions/auth.actions';
 
 type OwnProps = { paymentPackTemplateId: number };
 
@@ -163,7 +163,7 @@ const connector = connect(
     pushRouter: pushAction,
     // @ts-expect-error
     goToConsumerPaymentPackDetail: (companyId, memberId, consumerPackId) =>
-      navigateAsCompanyAdmin(
+      openNewWindowToImpersonate(
         companyId,
         `/member/${memberId}/pass/${consumerPackId}`,
       ),

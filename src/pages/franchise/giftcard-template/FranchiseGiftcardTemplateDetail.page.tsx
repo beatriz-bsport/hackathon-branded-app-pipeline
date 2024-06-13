@@ -60,7 +60,7 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import withTitle from '../../../hocs/with-title.hoc';
 import { WithHandlerType } from '../../../utils/types';
 // @ts-expect-error
-import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
+import { openNewWindowToImpersonate } from '../../../actions/auth.actions';
 
 type OwnProps = {
   giftcardTemplateId: number;
@@ -268,7 +268,7 @@ const connector = connect(
       consumerGiftcardId: number,
       memberId: number,
     ) =>
-      navigateAsCompanyAdmin(
+      openNewWindowToImpersonate(
         companyId,
         `/member/${memberId}/giftcard/${consumerGiftcardId}`,
       ),

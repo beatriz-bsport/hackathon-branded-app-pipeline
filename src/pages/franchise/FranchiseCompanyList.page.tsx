@@ -38,7 +38,6 @@ import {
 import { Establishment } from '../../libs/establishment/types';
 
 import {
-  navigateAsCompanyAdmin as navigateAsCompanyAdminAction,
   openNewWindowToImpersonate as openNewWindowToImpersonateAction,
   // @ts-expect-error
 } from '../../actions/auth.actions';
@@ -249,7 +248,6 @@ const connector = connect(
       }),
     fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
     fetchEstablishmentBulk: fetchEstablishmentBulkAction,
-    navigateAsCompanyAdmin: navigateAsCompanyAdminAction,
     openNewWindowToImpersonate: openNewWindowToImpersonateAction,
     push: pushAction,
     createOrUpdateCompanyGroup,

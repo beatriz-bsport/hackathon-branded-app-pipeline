@@ -35,7 +35,7 @@ import {
   getAllowedFranchisees,
 } from '../../../libs/franchise/selectors';
 // @ts-expect-error
-import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
+import { openNewWindowToImpersonate } from '../../../actions/auth.actions';
 import { OptionCallback } from '../../../state/types';
 import { WithHandlerType } from '../../../utils/types';
 
@@ -171,9 +171,9 @@ const connector = connect(
     fetchDiscountList: fetchDiscountListAction,
     goToTemplateList: () => pushAction('/f/coupon-template'),
     goToInvoice: (companyId: number, invoiceUuid: string) =>
-      navigateAsCompanyAdmin(companyId, `/invoice/${invoiceUuid}`),
+      openNewWindowToImpersonate(companyId, `/invoice/${invoiceUuid}`),
     goToBillingPlan: (companyId: number, id: number) =>
-      navigateAsCompanyAdmin(companyId, `/subscription/${id}`),
+      openNewWindowToImpersonate(companyId, `/subscription/${id}`),
   },
 );
 

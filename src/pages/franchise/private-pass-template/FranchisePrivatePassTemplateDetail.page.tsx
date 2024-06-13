@@ -35,7 +35,7 @@ import {
   withMember,
 } from '#src/libs/private-service/selectors/private-consumer-pass';
 // @ts-expect-error
-import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
+import { openNewWindowToImpersonate } from '../../../actions/auth.actions';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../../libs/member/actions';
 import { RootState } from '../../../reducers';
 import { parseQueryString } from '../../../http';
@@ -159,7 +159,7 @@ const connector = connect(
   {
     // @ts-expect-error
     goToPrivateConsumerPassDetail: (companyId, memberId, consumerPackId) =>
-      navigateAsCompanyAdmin(
+      openNewWindowToImpersonate(
         companyId,
         `/member/${memberId}/private-consumer-pass/${consumerPackId}`,
       ),

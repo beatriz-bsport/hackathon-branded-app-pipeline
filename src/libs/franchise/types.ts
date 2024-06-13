@@ -5,7 +5,7 @@ import type {
 } from '#src/libs/payment-packs/types';
 import type { PrivatePassTemplate } from '#src/libs/private-service/types';
 import type { CouponTemplate } from '#src/libs/coupon/types';
-import type { PaginationFilterParams } from '#src/libs/types';
+import type { ErrorAndLoading, PaginationFilterParams } from '#src/libs/types';
 import type {
   ConsumerGiftcard,
   GiftcardTemplate,
@@ -53,6 +53,16 @@ export type FranchiseState = {
       byId: Record<number, FranchiseUserMember>;
       loading: boolean;
       error: Error | null;
+    };
+    tags: {
+      page: number;
+      next_page: number;
+      count: number;
+      allIds: number[];
+      byId: Record<number, FranchiseUserTag>;
+      loading: boolean;
+      error: Error | null;
+      update: ErrorAndLoading;
     };
     passes: {
       page: number;
@@ -301,3 +311,32 @@ export type GiftcardsPaginatedQueryParams = {
 };
 
 export type WithInvoice<T> = T & { invoice: ConsumerInvoiceREST };
+
+export type FranchiseTag = {
+  id: number;
+  name: string;
+  group: number;
+  color: string;
+  icon: string;
+  tag_template: number;
+};
+
+export type FranchiseTagGroup = {
+  id: number;
+  name: string;
+  tags: number[];
+  kind: number;
+  tag_group_template: number;
+};
+
+export type FranchiseUserTag = {
+  id: number;
+  sub_tag: FranchiseTag;
+  member: number;
+  tag_group: FranchiseTagGroup;
+};
+
+export type FranchiseUserTagsUpdate = {
+  user_id: number;
+  data: { user_tag_ids: number[] };
+};

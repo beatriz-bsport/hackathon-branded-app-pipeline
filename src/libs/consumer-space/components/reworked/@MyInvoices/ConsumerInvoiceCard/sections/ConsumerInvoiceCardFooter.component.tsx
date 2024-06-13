@@ -15,6 +15,7 @@ import type { ButtonColor, ButtonVariant } from '#Fabrique/ButtonV2/types';
 import '../styles.css';
 
 type Props = {
+  isMobile: boolean;
   menuIdentifier: string;
   selectedFilter: InvoicesFiltersEnum;
   onDownload?: () => void;
@@ -24,6 +25,7 @@ type Props = {
 };
 
 const ConsumerInvoiceCardFooter: React.FC<Props> = ({
+  isMobile,
   menuIdentifier,
   selectedFilter,
   onDownload,
@@ -191,6 +193,7 @@ const ConsumerInvoiceCardFooter: React.FC<Props> = ({
   return (
     <ConsumerGenericCardFooter
       className="bs-consumer-invoice-card__footer"
+      isMobile={isMobile}
       mainButtonsList={mainButtonsList}
       menuButtonClassName="bs-consumer-invoice-card__footer__menu-button"
       menuButtonLabel={t('reworked.myInvoices.card.downloads')}

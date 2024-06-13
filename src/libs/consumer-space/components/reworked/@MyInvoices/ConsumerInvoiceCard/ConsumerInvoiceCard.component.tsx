@@ -19,6 +19,8 @@ type Props = {
   consumerInvoice: ConsumerInvoice;
   /** Loading state to display skeleton. */
   isLoading?: boolean;
+  /** Indicates if we are on a mobile device. */
+  isMobile?: boolean;
   /** Indicates if the invoice is selected, used to elevate the card. */
   isSelected?: boolean;
   /** The invoice filter currently selected. */
@@ -38,6 +40,7 @@ type Props = {
 const ConsumerInvoiceCard: React.FC<Props> = ({
   consumerInvoice,
   isLoading,
+  isMobile,
   isSelected,
   selectedFilter,
   downloadInvoice,
@@ -95,6 +98,7 @@ const ConsumerInvoiceCard: React.FC<Props> = ({
           seeDetails={seeDetails}
         />
         <ConsumerInvoiceCardFooter
+          isMobile={isMobile}
           menuIdentifier={`ConsumerInvoiceCardFooter-MenuButton-${consumerInvoice.uuid}`}
           onDownload={downloadInvoice ? handleDownloadInvoice : null}
           onPay={payInvoice ? handlePayInvoice : null}

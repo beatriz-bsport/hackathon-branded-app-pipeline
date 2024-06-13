@@ -11,9 +11,13 @@ import { DotsVertical } from '#src/components/untitledui';
 import type { ButtonColor, ButtonVariant } from '#Fabrique/ButtonV2/types';
 
 import '../styles.css';
+import { PortalContainer } from '#src/components/css-only/Fabrique/PortalContainer';
+import { BottomDrawer } from '#src/components/css-only/Fabrique/BottomDrawer/BottomDrawer.component';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   className?: string;
+  isMobile?: boolean;
   secondaryButtonsHidden?: boolean;
   secondaryButtonsList?: {
     shouldDisplay: boolean;
@@ -57,6 +61,7 @@ type Props = {
 };
 
 const ConsumerGenericCardFooter: React.FC<Props> = ({
+  isMobile,
   secondaryButtonsHidden,
   secondaryButtonsList,
   mainButtonsList,
@@ -68,6 +73,8 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
   menuId,
   menuClassName,
 }) => {
+  const { t } = useTranslation(['consumerSpace', 'common']);
+
   const [isButtonMenuOpened, setIsButtonMenuOpened] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement>(null);
 
@@ -173,7 +180,7 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
       )}
 
       {/* TODO: DISPLAY BOTTOMDRAWER IF ON MOBILE AND MENU IF ON DESKTOP */}
-      {!!menuId && (
+      {!!menuId && !isMobile && (
         <Menu
           anchorEl={anchorEl}
           className={classNames(
@@ -198,6 +205,45 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
               ),
           )}
         </Menu>
+      )}
+      {!!menuId && isMobile && (
+        <PortalContainer wrapperId={menuId}>
+          <BottomDrawer
+            blanketProps={{
+              isOpen: isButtonMenuOpened,
+              onClick: handleOnMenuClose,
+            }}
+            className={classNames(
+              'bs-consumer-generic-card__bottom-drawer',
+              menuClassName,
+            )}
+            modalDialogProps={{
+              title: t('consumerSpace:reworked.myInvoices.card.downloads'),
+              onClose: handleOnMenuClose,
+              onCancel: handleOnMenuClose,
+              cancelLabel: t('common:back'),
+            }}
+          >
+            {(menuItemsList || []).map(
+              ({
+                label,
+                leftIcon,
+                onClick,
+                shouldDisplay,
+                menuItemClassName,
+              }) =>
+                shouldDisplay && (
+                  <MenuItem
+                    key={`${menuItemClassName}-${label}`}
+                    className={menuItemClassName}
+                    label={label}
+                    leftIcon={leftIcon}
+                    onClick={onClick}
+                  />
+                ),
+            )}
+          </BottomDrawer>
+        </PortalContainer>
       )}
     </div>
   );

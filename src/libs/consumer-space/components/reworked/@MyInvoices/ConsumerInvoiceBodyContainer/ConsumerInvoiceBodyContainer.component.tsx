@@ -178,6 +178,7 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
                   item?.payments?.length ? handleDownloadReceipt : null
                 }
                 getInvoice={getInvoice}
+                isMobile={isMobile}
                 isSelected={
                   !!selectedConsumerInvoice &&
                   selectedConsumerInvoice.uuid === item.uuid

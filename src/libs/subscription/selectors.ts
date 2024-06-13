@@ -285,4 +285,7 @@ export const getDisabledContractTemplateList = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
+export const getActiveContractTemplateById = (state: RootState, id: number) =>
+  state.subscription.contractTemplate.active.byId[id];
+
 export default { get };

@@ -30,6 +30,7 @@ import api, {
   deleteContractTemplate as deleteContractTemplateAPI,
   restoreContractTemplate as restoreContractTemplateAPI,
   fetchMemberSubscriptionsInAllFranchise as fetchMemberSubscriptionsInAllFranchiseAPI,
+  fetchContractTemplateDetail as fetchContractTemplateDetailAPI,
 } from './api';
 
 import type {
@@ -1297,4 +1298,33 @@ export const restoreContractTemplate =
     }
 
     dispatch(restoreContractTemplateActions.isLoading(false));
+  };
+
+export const fetchContractTemplateDetailActions = {
+  error: createAction<Error | null>('FRANCHISE/CONTRACT_TEMPLATE/DETAIL/ERROR'),
+  isLoading: createAction<boolean>(
+    'FRANCHISE/CONTRACT_TEMPLATE/DETAIL/IS_LOADING',
+  ),
+  success: createAction<ContractTemplate>(
+    'FRANCHISE/CONTRACT_TEMPLATE/DETAIL/SUCCESS',
+  ),
+};
+
+export const fetchContractTemplateDetail =
+  (id: number, options?: OptionCallback<ContractTemplate>) =>
+  async (dispatch: Dispatch) => {
+    dispatch(fetchContractTemplateDetailActions.isLoading(true));
+    dispatch(fetchContractTemplateDetailActions.error(null));
+
+    try {
+      const response = await fetchContractTemplateDetailAPI(id);
+      dispatch(fetchContractTemplateDetailActions.success(response.data));
+
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(fetchContractTemplateDetailActions.error(error));
+      options?.onError?.(error);
+    }
+
+    dispatch(fetchContractTemplateDetailActions.isLoading(false));
   };

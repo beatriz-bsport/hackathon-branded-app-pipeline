@@ -32,6 +32,7 @@ import {
   fetchDisabledContractTemplateListActions,
   deleteContractTemplateActions,
   restoreContractTemplateActions,
+  fetchContractTemplateDetailActions,
 } from './actions';
 
 import type { ContractTemplate, SubscriptionState } from './types';
@@ -137,6 +138,10 @@ const initialState: SubscriptionState = Immutable({
       error: null,
     },
     restore: {
+      loading: false,
+      error: null,
+    },
+    detail: {
       loading: false,
       error: null,
     },
@@ -605,6 +610,27 @@ export default handleActions<Immutable.Immutable<SubscriptionState>>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['contractTemplate', 'restore', 'error'], payload);
+    },
+    [fetchContractTemplateDetailActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['contractTemplate', 'detail', 'loading'], payload);
+    },
+    [fetchContractTemplateDetailActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['contractTemplate', 'detail', 'error'], payload);
+    },
+    [fetchContractTemplateDetailActions.success.toString()]: (
+      state,
+      { payload }: { payload: ContractTemplate },
+    ) => {
+      return state.merge(
+        { contractTemplate: { active: { byId: { [payload.id]: payload } } } },
+        { deep: true },
+      );
     },
   },
   initialState,

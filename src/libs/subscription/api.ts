@@ -358,3 +358,9 @@ export const deleteContractTemplate = (id: number) => {
 export const restoreContractTemplate = (id: number) => {
   return postAuth(`${API_URI}/subscription/contract-template/${id}/restore/`);
 };
+
+export const fetchContractTemplateDetail = (id: number) => {
+  return getAuth<ContractTemplate>(
+    `${API_URI}/subscription/contract-template/${id}/`,
+  );
+};

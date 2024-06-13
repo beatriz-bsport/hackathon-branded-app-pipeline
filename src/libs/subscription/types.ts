@@ -298,6 +298,7 @@ export type SubscriptionState = {
       numberOfPages: number;
       count: number;
     };
+    detail: ErrorAndLoading;
     disabled: ErrorAndLoading & {
       byId: { [id: number]: ContractTemplate };
       allIds: number[];

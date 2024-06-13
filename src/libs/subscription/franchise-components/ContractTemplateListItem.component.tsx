@@ -26,7 +26,7 @@ type Props = {
   getFranchiseCompanyListById: (id__in: number[]) => FranchiseCompany[];
   onDelete?: (id: number) => void;
   onEdit?: () => void;
-  onClick?: () => void;
+  onClick?: (id: number) => void;
   onRestore?: (id: number) => void;
   selected?: boolean;
   dense?: boolean;
@@ -106,13 +106,17 @@ const ContractTemplateListItem: React.FC<Props> = ({
     },
     [onRestore, contractTemplate.id],
   );
+  const clickHandler = useCallback(() => {
+    onClick?.(contractTemplate.id);
+  }, [onClick, contractTemplate.id]);
 
   return (
     <ListItem
-      button
+      // @ts-expect-error
+      button={!!onClick}
       dense={dense}
       id={`contract-template#${contractTemplate.id}`}
-      onClick={onClick}
+      onClick={!!onClick && clickHandler}
       selected={selected}
     >
       <ListItemText

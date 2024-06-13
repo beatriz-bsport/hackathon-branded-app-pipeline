@@ -16,7 +16,7 @@ const FranchiseContractTemplateRouter = () => {
     <Switch>
       <Route
         component={FranchiseContractTemplateDetailPage}
-        path="/f/subscription/contract-template/:contractTemplateId"
+        path="/f/subscription/contract-template/:selectedContractTemplateId"
       />
       <Route
         component={FranchiseContractTemplateListPage}

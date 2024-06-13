@@ -1,4 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { push as pushAction } from 'connected-react-router';
+
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { connect, ConnectedProps } from 'react-redux';
@@ -246,6 +248,7 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
   paymentPackTemplateIdList,
   privatePassTemplateIdList,
   companiesIdList,
+  push,
   getPaymentPackTemplateById,
   getPrivatePassTemplateById,
   getFranchiseCompanyNameById,
@@ -316,6 +319,13 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
     );
   }, []);
 
+  const goToContractTemplateDetailPage = useCallback(
+    (id: number) => {
+      push(`/f/subscription/contract-template/${id}`);
+    },
+    [push],
+  );
+
   const OptionsFormatter = useCallback(
     (contractTemplateList: ContractTemplate[]) =>
       (contractTemplateList ?? []).map((contractTemplate) => ({
@@ -326,13 +336,14 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
         getFranchiseCompanyListById,
         getPaymentPackTemplateById,
         getPrivatePassTemplateById,
-        onClick: handleOnClickTemplate,
+        onClick: goToContractTemplateDetailPage,
         contractTemplate,
       })),
     [
       getFranchiseCompanyListById,
       getPaymentPackTemplateById,
       getPrivatePassTemplateById,
+      goToContractTemplateDetailPage,
     ],
   );
 
@@ -376,7 +387,6 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
   );
 
   const handleEditContractTemplate = () => {};
-  const handleOnClickTemplate = () => {};
 
   const getPaymentPackTemplateNameById = useCallback(
     (id: number) => {
@@ -441,7 +451,7 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
         getPaymentPackTemplateById={getPaymentPackTemplateById}
         getPrivatePassTemplateById={getPrivatePassTemplateById}
         loading={activeContractTemplateState.loading}
-        onClick={handleOnClickTemplate}
+        onClick={goToContractTemplateDetailPage}
         onDelete={handleOpenDeleteDialog}
         onEdit={handleEditContractTemplate}
         page={activeContractTemplateState.page}
@@ -538,6 +548,7 @@ const mapDispatchToProps = {
   fetchPaymentPackTemplateList: fetchPaymentPackTemplateListAction,
   fetchPrivatePassTemplateList: fetchPrivatePassTemplateListAction,
   fetchFranchise: fetchFranchiseAction,
+  push: pushAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

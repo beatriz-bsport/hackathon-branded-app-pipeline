@@ -574,5 +574,30 @@ exports.default = {
         title: 'Edit your profile',
       },
     },
+    navigation: {
+      account: {
+        title: 'Account',
+        summary: 'Summary',
+        myBookings: 'My bookings',
+        myPasses: 'My passes',
+        mySubscriptions: 'My subscriptions',
+        myProfile: 'My profile',
+      },
+      shop: {
+        title: 'Shop',
+        myPurchase: 'My purchases',
+        myGiftcards: 'My giftcards',
+      },
+      payments: {
+        title: 'Payments',
+        myInvoices: 'My invoices',
+        paymentMethods: 'Payment methods',
+      },
+      myAccount: {
+        changeStudio: 'Change studio',
+        changeLanguage: 'Change language',
+        logOut: 'Log out',
+      },
+    },
   },
 };

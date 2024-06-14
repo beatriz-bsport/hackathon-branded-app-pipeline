@@ -1,17 +1,11 @@
-// @flow
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 
-/*
- * source :
- * https://github.com/gunjan4455/Flagicons/tree/master/flags
- *
- */
 import FR_FLAG from './flags/FR.png';
 import ES_FLAG from './flags/ES.png';
 import NL_FLAG from './flags/NL.png';
@@ -19,21 +13,20 @@ import IT_FLAG from './flags/IT.png';
 import BE_FLAG from './flags/BE.png';
 import IE_FLAG from './flags/IE.png';
 import DE_FLAG from './flags/DE.png';
-// import CH_FLAG from './flags/CH.png';
 import AT_FLAG from './flags/AT.png';
 import PT_FLAG from './flags/PT.png';
 import CZ_FLAG from './flags/CZ.png';
 
-type Props = {
-  onChange: (e: SyntheticEvent<HTMLElement>) => void,
-  value: string,
-  label?: string,
-};
+interface Props {
+  onChange: (e: React.ChangeEvent<{ value: string }>) => void;
+  value: string;
+  label?: string;
+}
 
-type Locale = {
-  country: string,
-  icon: string,
-};
+interface Locale {
+  country: string;
+  icon: string;
+}
 
 const localeList: Array<Locale> = [
   {
@@ -78,37 +71,36 @@ const localeList: Array<Locale> = [
   },
 ];
 
-export const CountrySelector = (props: Props) => {
+export const CountrySelector: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['login']);
+
   return (
     <FormControl className={classes.formControl}>
-      {!!props.label && (
+      {props.label && (
         <InputLabel id="locale-simple-select-label">{props.label}</InputLabel>
       )}
       <Select onChange={props.onChange} value={props.value}>
-        {localeList.map((localeContainer) => {
-          return (
-            <MenuItem
-              key={localeContainer.country}
-              className={classes.menuItem}
-              value={localeContainer.country}
-            >
-              <img
-                alt={localeContainer.country}
-                className={classes.flag}
-                src={localeContainer.icon}
-              />
-              {t(`country.${localeContainer.country}`)}
-            </MenuItem>
-          );
-        })}
+        {localeList.map((localeContainer) => (
+          <MenuItem
+            key={localeContainer.country}
+            className={classes.menuItem}
+            value={localeContainer.country}
+          >
+            <img
+              alt={localeContainer.country}
+              className={classes.flag}
+              src={localeContainer.icon}
+            />
+            {t(`country.${localeContainer.country}`)}
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   formControl: {
     minWidth: 120,
   },
@@ -125,4 +117,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default CountrySelector;
+export default React.memo(CountrySelector);

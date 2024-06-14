@@ -22,7 +22,6 @@ import {
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
 import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
-// @ts-expect-error
 import CountrySelector from '#src/components/input/CountrySelector.component';
 import PopOver from '#src/components/Popover';
 

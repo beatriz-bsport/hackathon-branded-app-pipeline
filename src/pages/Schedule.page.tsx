@@ -2,60 +2,28 @@ import React from 'react';
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
 
-import { compose, withStateHandlers, withHandlers } from 'recompose';
+// Third-party libraries
 import uniq from 'lodash/uniq';
+import flatten from 'lodash/flatten';
 import { DateTime } from 'luxon';
 import { withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
+import { compose, withStateHandlers, withHandlers } from 'recompose';
 
-import flatten from 'lodash/flatten';
+// libraries: Actions
 import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#src/libs/role/actions';
-import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
-import { getTheme } from '#src/libs/theme/selectors';
-
-import {
-  getPrivateBookingListFiltered,
-  withRelatedFields,
-} from '#src/libs/private-service/selectors/private-booking';
 import {
   fetchAllOffers as fetchAllOffersAction,
   listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAction,
 } from '#src/libs/offer/actions';
-import withTitle from '../hocs/with-title.hoc';
-import {
-  getAllPageEstablishments,
-  getAllEstablishmentsWithAssociatedId,
-} from '#src/libs/establishment/selectors';
 import {
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
   fetchEstablishments as fetchEstablishmentsAction,
 } from '#src/libs/establishment/actions';
-import {
-  getActiveCoaches,
-  getCoachesSelectedInRole,
-} from '#src/libs/associated-coach/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
-import {
-  getOfferAsEventList,
-  getOfferHasPendingReplacementRequest,
-} from '#src/libs/offer/selectors';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#src/libs/associated-coach/actions';
 import { setScheduleFilter as setScheduleFilterAction } from '#src/libs/user-preference/actions';
-import { getScheduleFilter } from '#src/libs/user-preference/selectors';
-
-import { getCustomEventList } from '#src/libs/private-service/selectors/custom-event';
-import CustomEvenFormDialog from '#src/libs/private-service/components/custom-event/CustomEventFormDialog.component';
-import {
-  getFilteredAvailabilitySlots,
-  getResourceDataList,
-} from '#src/libs/private-service/selectors/availability-slot';
-
-import AvailabilityUpdateResourceChoserDialog from '#src/libs/private-service/components/resource/AvailabilityUpdateResourceChoserDialog.component';
-
-//@ts-expect-error
-import PrivateCalendarWithControls from '#src/libs/private-service/components/PrivateCalendarWithControls.component';
-
 import {
   createOrUpdateCustomEvent as createOrUpdateCustomEventAction,
   fetchCustomEventList as fetchCustomEventListAction,
@@ -68,12 +36,48 @@ import {
   disableAvailabilitySlotMultipleResource as disableAvailabilitySlotMultipleResourceAction,
   enableAvailabilitySlotMultipleResource as enableAvailabilitySlotMultipleResourceAction,
 } from '#src/libs/private-service/actions';
-
 import {
   fetchManagerRessourcesFilters as fetchManagerRessourcesFiltersAction,
   updateManagerRessourcesFilters as updateManagerRessourcesFiltersAction,
   //@ts-expect-error
 } from '#src/libs/dashboard/actions';
+
+// libraries: Selectors
+import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
+import { getTheme } from '#src/libs/theme/selectors';
+import {
+  getPrivateBookingListFiltered,
+  withRelatedFields,
+} from '#src/libs/private-service/selectors/private-booking';
+import {
+  getAllPageEstablishments,
+  getAllEstablishmentsWithAssociatedId,
+} from '#src/libs/establishment/selectors';
+import {
+  getActiveCoaches,
+  getCoachesSelectedInRole,
+} from '#src/libs/associated-coach/selectors';
+import {
+  getOfferAsEventList,
+  getOfferHasPendingReplacementRequest,
+} from '#src/libs/offer/selectors';
+import { getScheduleFilter } from '#src/libs/user-preference/selectors';
+import { getCustomEventList } from '#src/libs/private-service/selectors/custom-event';
+import {
+  getFilteredAvailabilitySlots,
+  getResourceDataList,
+} from '#src/libs/private-service/selectors/availability-slot';
+
+// libraries: Components
+import CustomEvenFormDialog from '#src/libs/private-service/components/custom-event/CustomEventFormDialog.component';
+import AvailabilityUpdateResourceChoserDialog from '#src/libs/private-service/components/resource/AvailabilityUpdateResourceChoserDialog.component';
+//@ts-expect-error
+import PrivateCalendarWithControls from '#src/libs/private-service/components/PrivateCalendarWithControls.component';
+
+// Higher Order Components (HOCs)
+import withTitle from '#src/hocs/with-title.hoc';
+
+// Types
 import { Coach } from '#src/libs/associated-coach/types';
 import { Offer } from '#src/libs/offer/types';
 import {
@@ -81,9 +85,7 @@ import {
   AvailabilitySlot,
   ResourceData,
 } from '#src/libs/private-service/types';
-
 import type { WithHandlerType } from '#src/utils/types';
-
 import type { RootState } from '#src/reducers';
 
 type OwnProps = {};

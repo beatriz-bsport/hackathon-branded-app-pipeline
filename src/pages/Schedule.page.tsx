@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
@@ -8,7 +7,6 @@ import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import withStyles from '@material-ui/core/styles/withStyles';
 
 import flatten from 'lodash/flatten';
 import { fetchCompanyUserRoles } from '#src/libs/role/actions';
@@ -18,48 +16,46 @@ import { EstablishmentWithAssociatedId } from '#src/libs/establishment/types';
 import {
   getPrivateBookingListFiltered,
   withRelatedFields,
-} from '../libs/private-service/selectors/private-booking';
+} from '#src/libs/private-service/selectors/private-booking';
 import {
   fetchAllOffers as fetchAllOffersAction,
   listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAction,
-} from '../libs/offer/actions';
+} from '#src/libs/offer/actions';
 import withTitle from '../hocs/with-title.hoc';
 import {
   getAllPageEstablishments,
   getAllEstablishmentsWithAssociatedId,
-} from '../libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import {
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
   fetchEstablishments as fetchEstablishmentsAction,
-} from '../libs/establishment/actions';
+} from '#src/libs/establishment/actions';
 import {
   getActiveCoaches,
   getCoachesSelectedInRole,
-} from '../libs/associated-coach/selectors';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/meta-activity/actions';
+} from '#src/libs/associated-coach/selectors';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
 import {
   getOfferAsEventList,
   getOfferHasPendingReplacementRequest,
-} from '../libs/offer/selectors';
-import {
-  fetchMemberBulkById as fetchMemberBulkByIdAction,
-  fetchMemberBulkByIdBatched as fetchMemberBulkByIdBatchedAction,
-} from '../libs/member/actions';
-import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
-import { setScheduleFilter as setScheduleFilterAction } from '../libs/user-preference/actions';
-import { getScheduleFilter } from '../libs/user-preference/selectors';
-import { ScheduleFilter } from '../libs/user-preference/types';
+} from '#src/libs/offer/selectors';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
+import { fetchAssociatedCoachesList } from '#src/libs/associated-coach/actions';
+import { setScheduleFilter as setScheduleFilterAction } from '#src/libs/user-preference/actions';
+import { getScheduleFilter } from '#src/libs/user-preference/selectors';
+import { ScheduleFilter } from '#src/libs/user-preference/types';
 
-import { getCustomEventList } from '../libs/private-service/selectors/custom-event';
-import CustomEvenFormDialog from '../libs/private-service/components/custom-event/CustomEventFormDialog.component';
+import { getCustomEventList } from '#src/libs/private-service/selectors/custom-event';
+import CustomEvenFormDialog from '#src/libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import {
   getFilteredAvailabilitySlots,
   getResourceDataList,
-} from '../libs/private-service/selectors/availability-slot';
+} from '#src/libs/private-service/selectors/availability-slot';
 
-import AvailabilityUpdateResourceChoserDialog from '../libs/private-service/components/resource/AvailabilityUpdateResourceChoserDialog.component';
+import AvailabilityUpdateResourceChoserDialog from '#src/libs/private-service/components/resource/AvailabilityUpdateResourceChoserDialog.component';
 
-import PrivateCalendarWithControls from '../libs/private-service/components/PrivateCalendarWithControls.component';
+//@ts-expect-error
+import PrivateCalendarWithControls from '#src/libs/private-service/components/PrivateCalendarWithControls.component';
 
 import {
   createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
@@ -72,84 +68,86 @@ import {
   resetAvailabilitySlots,
   disableAvailabilitySlotMultipleResource,
   enableAvailabilitySlotMultipleResource,
-} from '../libs/private-service/actions';
+} from '#src/libs/private-service/actions';
 
 import {
   fetchManagerRessourcesFilters as fetchManagerRessourcesFiltersAction,
   updateManagerRessourcesFilters as updateManagerRessourcesFiltersAction,
-} from '../libs/dashboard/actions';
-import { CompanyTheme } from '../libs/theme/types';
-import { Coach } from '../libs/associated-coach/types';
-import { Offer } from '../libs/offer/types';
+  //@ts-expect-error
+} from '#src/libs/dashboard/actions';
+import { CompanyTheme } from '#src/libs/theme/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Offer } from '#src/libs/offer/types';
 import {
   PrivateBooking,
   AvailabilitySlot,
   ResourceData,
   PrivateService as PrivateServiceType,
-} from '../libs/private-service/types';
+} from '#src/libs/private-service/types';
 
+import type { OptionCallback } from '#src/state/types';
 type Props = {
-  classes: Object,
-  privateBookingList: Array<PrivateBooking>,
-  offerList: Array<Offer>,
+  privateBookingList: Array<PrivateBooking>;
+  offerList: Array<Offer>;
 
-  resetPrivateBookings: () => void,
+  resetPrivateBookings: () => void;
 
-  goToMember: (id: number) => void,
+  goToMember: (id: number) => void;
   handleDateChange: ({
-    date_start: string,
-    date_end: string,
-  }) => void,
-  periodFilter: { start: string, end: string },
+    date_start,
+    date_end,
+  }: {
+    date_start: string;
+    date_end: string;
+  }) => void;
+  periodFilter: { start: string; end: string };
 
-  fetchPrivateBookingList: () => void,
-  fetchOfferList: () => void,
-  fetchAssociatedEstablishments: () => void,
-  fetchAssociatedCoachesList: (params: any) => void,
-  fetchCompanyUserRoles: () => void,
-  resourcesByDatatype: Array<ResourceDataGroup>,
+  fetchPrivateBookingList: () => void;
+  fetchOfferList: () => void;
+  fetchAssociatedEstablishments: () => void;
+  fetchAssociatedCoachesList: (params: any) => void;
+  fetchCompanyUserRoles: () => void;
+  resourcesByDatatype: Array<unknown>;
 
-  enableAvailabilitySlotMultipleResource: (data: any) => void,
-  disableAvailabilitySlotMultipleResource: (data: any) => void,
-  fetchCustomEventList: () => void,
-  resetCustomEvent: () => void,
+  enableAvailabilitySlotMultipleResource: (data: any) => void;
+  disableAvailabilitySlotMultipleResource: (data: any) => void;
+  fetchCustomEventList: () => void;
+  resetCustomEvent: () => void;
 
-  customEventData: any,
-  availableCoaches: Array<Coach>,
-  coachesSelectedInRole: Array<Coach>,
-  createOrUpdateCustomEvent: (data: any, options: OptionCallback) => void,
-  resetAvailabilitySlots: () => void,
-  fetchAvailabilitySlots: (params: any, options: OptionCallback) => void,
-  availabilitySlots: Array<AvailabilitySlot>,
-  customEventList: Array<CustomEvent>,
-  onRequestCustomEvent: (data: any) => void,
-  resourceData: Array<ResourceData>,
-  resourceDataLoading: boolean,
-  setResourceFiltersArray: (resources: Array<Ressource>) => void,
-  fetchResourceList: () => void,
-  closeCustomEventDialog: () => void,
-  companyTheme: CompanyTheme,
-  resourceFiltersArray: Array<Ressource>,
-  fetchRessourcesFilters: () => void,
-  updateManagerRessourcesFilters: () => void,
-  availabilitySlotUpdating: boolean,
+  customEventData: any;
+  availableCoaches: Array<Coach>;
+  coachesSelectedInRole: Array<Coach>;
+  createOrUpdateCustomEvent: (data: any, options: OptionCallback) => void;
+  resetAvailabilitySlots: () => void;
+  fetchAvailabilitySlots: (params: any, options: OptionCallback) => void;
+  availabilitySlots: Array<AvailabilitySlot>;
+  customEventList: Array<CustomEvent>;
+  onRequestCustomEvent: (data: any) => void;
+  resourceData: Array<ResourceData>;
+  resourceDataLoading: boolean;
+  setResourceFiltersArray: (resources: Array<unknown>) => void;
+  fetchResourceList: () => void;
+  closeCustomEventDialog: () => void;
+  companyTheme: CompanyTheme;
+  resourceFiltersArray: Array<unknown>;
+  fetchRessourcesFilters: () => void;
+  updateManagerRessourcesFilters: () => void;
+  availabilitySlotUpdating: boolean;
 
-  scheduleFilter: ScheduleFilter,
-  setScheduleFilter: (scheduleFilter: ScheduleFilter) => void,
-  establishments: Array<EstablishmentWithAssociatedId>,
-  getHasPendingReplacementRequest: (offerId: number) => boolean,
-  privateServices: PrivateServiceType[],
+  scheduleFilter: ScheduleFilter;
+  setScheduleFilter: (scheduleFilter: ScheduleFilter) => void;
+  establishments: Array<EstablishmentWithAssociatedId>;
+  getHasPendingReplacementRequest: (offerId: number) => boolean;
+  privateServices: PrivateServiceType[];
 };
 
-const styles = (theme) => ({
-  container: {},
-  leftIcon: { marginRight: theme.spacing(1) },
-});
+type State = { updateAvailabilitySlotData: unknown };
 
-export class CoachPrivateCalendar extends React.Component<Props> {
-  state = {
-    updateAvailabilitySlotData: null,
-  };
+export class CoachPrivateCalendar extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { updateAvailabilitySlotData: null };
+  }
 
   componentDidMount() {
     this.props.resetPrivateBookings();
@@ -319,7 +317,6 @@ export class CoachPrivateCalendar extends React.Component<Props> {
   );
 
   render() {
-    const { classes } = this.props;
     let coachList: Coach[];
     let offerList: Array<Offer & { hasPendingReplacementRequest?: boolean }>;
     let availabilitySlotList: AvailabilitySlot[];
@@ -355,7 +352,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
       .flat();
 
     return (
-      <div className={classes.container}>
+      <div>
         <PrivateCalendarWithControls
           collapsResourceSelector
           disableAvailabilitySlotDisplay
@@ -415,7 +412,6 @@ export class CoachPrivateCalendar extends React.Component<Props> {
 }
 
 export default compose(
-  withStyles(styles),
   withTranslation(['privateService']),
   withTitle(({ t }) => t('translation:navigation.schedule')),
   withState('resourceFiltersArray', 'setResourceFiltersArray', []),
@@ -573,7 +569,7 @@ export default compose(
       },
     handleDateChange:
       ({ setPeriodFilter }) =>
-      ({ date_start, date_end }: { date_start: string, date_end: string }) => {
+      ({ date_start, date_end }: { date_start: string; date_end: string }) => {
         setPeriodFilter({
           start: DateTime.fromISO(date_start).minus({ days: 1 }).toISODate(),
           end: DateTime.fromISO(date_end).plus({ days: 1 }).toISODate(),

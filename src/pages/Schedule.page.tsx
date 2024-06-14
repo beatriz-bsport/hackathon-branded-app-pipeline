@@ -349,7 +349,6 @@ export class SchedulePage extends React.Component<Props, State> {
           getHasPendingReplacementRequest={
             this.props.getHasPendingReplacementRequest
           }
-          goToMember={this.props.goToMember}
           offerList={offerList}
           onDateChange={this.props.handleDateChange}
           privateBookings={privateBookingList}

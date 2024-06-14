@@ -288,7 +288,7 @@ export function retrievePayPalCompany(options?: OptionCallback<PayPalCompany>) {
       if (
         isErrorWithCustomCode(err) &&
         err.response?.data?.error_code ===
-        PAYPAL_ACCOUNT_ALREADY_LINKED_TO_OTHER_COMPANY
+          PAYPAL_ACCOUNT_ALREADY_LINKED_TO_OTHER_COMPANY
       ) {
         dispatch(snackbarError(`paypal.${err.response?.data?.error_code}`));
       } else if (

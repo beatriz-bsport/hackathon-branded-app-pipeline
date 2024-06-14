@@ -301,7 +301,7 @@ const OfferFormSpecificities: React.FC<Props> = ({
       sectionIconContainerStyle={classes.sectionIconContainer}
       sectionTitle={t('form.section.specificities.title')}
     >
-      {!hideActivitySection && (
+      {!hideActivitySection && selectedMetaActivity && (
         <OfferFormField
           id="offer-form-name-description-override-field"
           label={t('form.section.specificities.field.metaActivity')}
@@ -320,13 +320,7 @@ const OfferFormSpecificities: React.FC<Props> = ({
                 id="offer-form-edit-meta-activity-selector"
                 metaActivities={metaActivitiesOptions}
                 selectedMetaActivities={
-                  selectedMetaActivity
-                    ? // @ts-expect-error
-                      selectedMetaActivity.id
-                      ? // @ts-expect-error
-                        [selectedMetaActivity.id]
-                      : [selectedMetaActivity]
-                    : undefined
+                  selectedMetaActivity ? [selectedMetaActivity] : undefined
                 }
                 selectOption={handleSelectMetaActivity}
               />

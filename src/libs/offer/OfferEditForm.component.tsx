@@ -391,7 +391,9 @@ const formikFormWrapper = withFormik<
       props.roomBlueprints,
     ),
     selectedBlacklistTags: props.offer?.blacklist_tags.map((tag) => tag.id),
-    selectedMetaActivity: props.offer?.meta_activity,
+    selectedMetaActivity: Number.isInteger(props.offer?.meta_activity)
+      ? props.offer?.meta_activity
+      : props.offer?.meta_activity.id,
     selectedSimilarOffers: props.similarOffers?.map((offer) => offer.id) ?? [],
     selectedWhitelistTags: props.offer?.whitelist_tags.map((tag) => tag.id),
     waitingListMaxSize: props.offer?.waiting_list_max_size,

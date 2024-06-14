@@ -1,4 +1,10 @@
-import { AxiosRequestConfig, AxiosResponse, CancelToken } from 'axios';
+import type {
+  AxiosInstance,
+  AxiosPromise,
+  AxiosRequestConfig,
+  AxiosResponse,
+  CancelToken,
+} from 'axios';
 
 export type PostBase<T = unknown, D = unknown> = (
   uri: string,
@@ -45,3 +51,23 @@ export type PostBaseAuth<T = unknown, D = unknown> = (
   token?: string,
   cancelToken?: AxiosRequestConfig['cancelToken'],
 ) => Promise<AxiosResponse<T>>;
+
+export interface SafeAxiosInstance extends AxiosInstance {
+  get<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>;
+  delete(url: string, config?: AxiosRequestConfig): AxiosPromise;
+  post<T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): AxiosPromise<T>;
+  put<T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): AxiosPromise<T>;
+  patch<T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): AxiosPromise<T>;
+}

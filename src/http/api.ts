@@ -1,4 +1,4 @@
-import axios, { CancelToken, AxiosRequestConfig } from 'axios';
+import originalAxios, { CancelToken, AxiosRequestConfig } from 'axios';
 import * as Sentry from '@sentry/react';
 
 import { setSessionId } from '../sentry/session';
@@ -20,10 +20,9 @@ import type {
   PostBaseAuth,
   PutAuth,
 } from './types';
-import { AxiosSafeLock } from './axiosSafeLock';
+import { ProtectedAxiosBuilder } from './protectedAxios';
 
-const safeClient = new AxiosSafeLock(axios);
-safeClient.installLock();
+const axios = new ProtectedAxiosBuilder(originalAxios).protectedAxios;
 
 /**
  * @deprecated This version is not type safe.

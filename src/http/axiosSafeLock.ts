@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/react';
-import { AxiosInstance } from 'axios';
 
 const DANGER_THRESHOLD_IN_MS = 200;
 const MIN_BLOCK_TIME_IN_MS = 1000 * 5;
@@ -8,8 +7,6 @@ const MAX_CONSECUTIVE_CALLS = 20;
 type Status = 'OK' | 'BLOCKED';
 
 export class AxiosSafeLock {
-  private axiosInstance: AxiosInstance;
-
   private statusStore: Map<string, Status>;
 
   private lastCalledStore: Map<string, Date>;
@@ -20,45 +17,28 @@ export class AxiosSafeLock {
 
   private blockTimeStore: Map<string, number>;
 
-  constructor(axiosInstance: AxiosInstance) {
+  constructor() {
     this.callCountStore = new Map();
     this.statusStore = new Map();
     this.lastCalledStore = new Map();
-    this.axiosInstance = axiosInstance;
     this.blockTimeStore = new Map();
   }
 
-  installLock() {
-    this.axiosInstance.interceptors.request.use(
-      (config) => {
-        const url = config.url || '';
-        this.trackCall(url);
+  /**
+   * Track the call and check if it should be blocked. If it should, locks it.
+   */
+  updateRequestStatus(url: string) {
+    this.trackCall(url);
+    if (this._shouldBlock(url)) {
+      this.lockUrl(url);
+    }
+  }
 
-        if (this.checkIsBlocked(url)) {
-          return Promise.reject(new Error('BLOCKED_REQUEST'));
-        }
-
-        if ((this.callCountStore.get(url) ?? 0) > MAX_CONSECUTIVE_CALLS) {
-          this.lockUrl(url);
-        }
-        return config;
-      },
-      (error) => Promise.reject(error),
-    );
-
-    this.axiosInstance.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        if (error.message === 'BLOCKED_REQUEST') {
-          console.error('Could not reach URL, please try again later.');
-          return new Promise((_, reject) => {
-            reject(error);
-          });
-        }
-        console.error(error);
-        return Promise.reject(error);
-      },
-    );
+  /**
+   * Checks if an URL is flagged as blocked.
+   */
+  checkIsBlocked(url: string) {
+    return this.statusStore.get(url) === 'BLOCKED';
   }
 
   private trackCall(url: string) {
@@ -74,12 +54,12 @@ export class AxiosSafeLock {
     this.callCountStore.set(url, isDangerousCall ? numberOfCalls + 1 : 1);
   }
 
-  private _unblock(url: string) {
-    this.statusStore.set(url, 'OK');
+  private _shouldBlock(url: string) {
+    return (this.callCountStore.get(url) ?? 0) > MAX_CONSECUTIVE_CALLS;
   }
 
-  private checkIsBlocked(url: string) {
-    return this.statusStore.get(url) === 'BLOCKED';
+  private _unblock(url: string) {
+    this.statusStore.set(url, 'OK');
   }
 
   private _incrementBlockTime(url: string) {

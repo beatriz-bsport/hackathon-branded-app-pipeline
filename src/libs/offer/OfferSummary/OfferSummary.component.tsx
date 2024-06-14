@@ -44,7 +44,7 @@ export type Props = {
   establishment: Establishment | ImmutableObject<Establishment>;
   coach?: Coach;
   coachOverride?: Coach;
-  offer:
+  offer?:
     | Offer
     | Offer<
         number,
@@ -143,7 +143,7 @@ const OfferSummary: React.FC<Props> = ({
     return <OfferSummarySkeleton classes={classes} />;
   }
 
-  let dateStart = offer.date_start ? DateTime.fromISO(offer.date_start) : null;
+  let dateStart = offer?.date_start ? DateTime.fromISO(offer.date_start) : null;
 
   if (offer?.timezone_name && dateStart) {
     dateStart = dateStart.setZone(offer?.timezone_name);

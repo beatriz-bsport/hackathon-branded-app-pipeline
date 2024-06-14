@@ -21,6 +21,7 @@ const OfferSummaryTemplate = (args: Props) => {
   return (
     <OfferSummaryForStorybook
       metaActivity={meta_activity}
+      // @ts-expect-error
       offer={offer}
       establishment={establishment}
       coach={coach}

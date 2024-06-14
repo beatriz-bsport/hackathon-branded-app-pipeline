@@ -61,4 +61,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(CustomEventFormikHOC)(CustomEvenFormDialog);
+export default React.memo(CustomEventFormikHOC(CustomEvenFormDialog));

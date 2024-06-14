@@ -2,17 +2,17 @@ import React from 'react';
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
 
-import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
+import { compose, withStateHandlers, withHandlers } from 'recompose';
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 import { withTranslation } from 'react-i18next';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
 import flatten from 'lodash/flatten';
-import { fetchCompanyUserRoles } from '#src/libs/role/actions';
+import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#src/libs/role/actions';
 import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
 import { getTheme } from '#src/libs/theme/selectors';
-import { EstablishmentWithAssociatedId } from '#src/libs/establishment/types';
+
 import {
   getPrivateBookingListFiltered,
   withRelatedFields,
@@ -40,10 +40,9 @@ import {
   getOfferHasPendingReplacementRequest,
 } from '#src/libs/offer/selectors';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
-import { fetchAssociatedCoachesList } from '#src/libs/associated-coach/actions';
+import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#src/libs/associated-coach/actions';
 import { setScheduleFilter as setScheduleFilterAction } from '#src/libs/user-preference/actions';
 import { getScheduleFilter } from '#src/libs/user-preference/selectors';
-import { ScheduleFilter } from '#src/libs/user-preference/types';
 
 import { getCustomEventList } from '#src/libs/private-service/selectors/custom-event';
 import CustomEvenFormDialog from '#src/libs/private-service/components/custom-event/CustomEventFormDialog.component';
@@ -58,16 +57,16 @@ import AvailabilityUpdateResourceChoserDialog from '#src/libs/private-service/co
 import PrivateCalendarWithControls from '#src/libs/private-service/components/PrivateCalendarWithControls.component';
 
 import {
-  createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
+  createOrUpdateCustomEvent as createOrUpdateCustomEventAction,
   fetchCustomEventList as fetchCustomEventListAction,
-  resetCustomEvent,
+  resetCustomEvent as resetCustomEventAction,
   fetchPrivateBookings as fetchPrivateBookingsAction,
-  resetPrivateBookings,
-  fetchResourceList,
-  fetchAvailabilitySlots,
-  resetAvailabilitySlots,
-  disableAvailabilitySlotMultipleResource,
-  enableAvailabilitySlotMultipleResource,
+  resetPrivateBookings as resetPrivateBookingsAction,
+  fetchResourceList as fetchResourceListAction,
+  fetchAvailabilitySlots as fetchAvailabilitySlotsAction,
+  resetAvailabilitySlots as resetAvailabilitySlotsAction,
+  disableAvailabilitySlotMultipleResource as disableAvailabilitySlotMultipleResourceAction,
+  enableAvailabilitySlotMultipleResource as enableAvailabilitySlotMultipleResourceAction,
 } from '#src/libs/private-service/actions';
 
 import {
@@ -75,73 +74,32 @@ import {
   updateManagerRessourcesFilters as updateManagerRessourcesFiltersAction,
   //@ts-expect-error
 } from '#src/libs/dashboard/actions';
-import { CompanyTheme } from '#src/libs/theme/types';
 import { Coach } from '#src/libs/associated-coach/types';
 import { Offer } from '#src/libs/offer/types';
 import {
   PrivateBooking,
   AvailabilitySlot,
   ResourceData,
-  PrivateService as PrivateServiceType,
 } from '#src/libs/private-service/types';
 
-import type { OptionCallback } from '#src/state/types';
-type Props = {
-  privateBookingList: Array<PrivateBooking>;
-  offerList: Array<Offer>;
+import type { WithHandlerType } from '#src/utils/types';
 
-  resetPrivateBookings: () => void;
+import type { RootState } from '#src/reducers';
 
-  goToMember: (id: number) => void;
-  handleDateChange: ({
-    date_start,
-    date_end,
-  }: {
-    date_start: string;
-    date_end: string;
-  }) => void;
-  periodFilter: { start: string; end: string };
+type OwnProps = {};
 
-  fetchPrivateBookingList: () => void;
-  fetchOfferList: () => void;
-  fetchAssociatedEstablishments: () => void;
-  fetchAssociatedCoachesList: (params: any) => void;
-  fetchCompanyUserRoles: () => void;
-  resourcesByDatatype: Array<unknown>;
+type StateHanldersType = typeof StateHandlersInitial &
+  WithHandlerType<typeof StateHandlersSetter>;
 
-  enableAvailabilitySlotMultipleResource: (data: any) => void;
-  disableAvailabilitySlotMultipleResource: (data: any) => void;
-  fetchCustomEventList: () => void;
-  resetCustomEvent: () => void;
+type ConnectedPropsAndStateHanlders = ConnectedProps<typeof connector> &
+  StateHanldersType;
 
-  customEventData: any;
-  availableCoaches: Array<Coach>;
-  coachesSelectedInRole: Array<Coach>;
-  createOrUpdateCustomEvent: (data: any, options: OptionCallback) => void;
-  resetAvailabilitySlots: () => void;
-  fetchAvailabilitySlots: (params: any, options: OptionCallback) => void;
-  availabilitySlots: Array<AvailabilitySlot>;
-  customEventList: Array<CustomEvent>;
-  onRequestCustomEvent: (data: any) => void;
-  resourceData: Array<ResourceData>;
-  resourceDataLoading: boolean;
-  setResourceFiltersArray: (resources: Array<unknown>) => void;
-  fetchResourceList: () => void;
-  closeCustomEventDialog: () => void;
-  companyTheme: CompanyTheme;
-  resourceFiltersArray: Array<unknown>;
-  fetchRessourcesFilters: () => void;
-  updateManagerRessourcesFilters: () => void;
-  availabilitySlotUpdating: boolean;
+type Props = OwnProps &
+  ConnectedProps<typeof connector> &
+  StateHanldersType &
+  WithHandlerType<typeof mapWithHandlers>;
 
-  scheduleFilter: ScheduleFilter;
-  setScheduleFilter: (scheduleFilter: ScheduleFilter) => void;
-  establishments: Array<EstablishmentWithAssociatedId>;
-  getHasPendingReplacementRequest: (offerId: number) => boolean;
-  privateServices: PrivateServiceType[];
-};
-
-type State = { updateAvailabilitySlotData: unknown };
+type State = { updateAvailabilitySlotData: { data: unknown; kind: unknown } };
 
 export class CoachPrivateCalendar extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -234,10 +192,12 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   ) => {
     const {
       kind,
+      //@ts-expect-error
       data: [slotUpdateData, slotUpdateOptions],
     } = this.state.updateAvailabilitySlotData;
 
     const options = {
+      //@ts-expect-error
       onSuccess: (...args) => {
         this.fetchAvailabilitySlotsAllResource();
         if (slotUpdateOptions && slotUpdateOptions.onSuccess) {
@@ -281,7 +241,9 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
       );
       const availabilitySlotList = previousAvailabilitySlotList.filter(
         (slot: AvailabilitySlot) =>
+          //@ts-expect-error
           slot.establishment ||
+          //@ts-expect-error
           slot.associated_establishment ||
           coachesIdsToFilter.includes(slot.coach),
       );
@@ -293,9 +255,12 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
       );
       const resourceAvailable = previousResourceData.map(
         (resourceData: ResourceData) => {
+          //@ts-expect-error
           if (resourceData.datatype === 'associated_coach') {
             const filteredResourceData = { ...resourceData };
+            //@ts-expect-error
             filteredResourceData.data = resourceData.data.filter(
+              //@ts-expect-error
               (coachResource) =>
                 associatedCoachesIdsToFilter.includes(
                   coachResource.resource_id,
@@ -326,24 +291,30 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     if (filterOnCoaches) {
       const lists = this.filteredDataListsOnCoaches(
         this.props.coachesSelectedInRole,
+        //@ts-expect-error
         this.props.offerList,
         this.props.availabilitySlots,
         this.props.privateBookingList,
         this.props.resourceData,
       );
       [
+        //@ts-expect-error
         coachList,
+        //@ts-expect-error
         offerList,
+        //@ts-expect-error
         availabilitySlotList,
+        //@ts-expect-error
         privateBookingList,
+        //@ts-expect-error
         resourceAvailable,
       ] = lists;
     } else {
       coachList = this.props.availableCoaches;
-      // eslint-disable-next-line prefer-destructuring
+      //@ts-expect-error
       offerList = this.props.offerList;
+      //@ts-expect-error
       availabilitySlotList = this.props.availabilitySlots;
-      // eslint-disable-next-line prefer-destructuring
       privateBookingList = this.props.privateBookingList;
       resourceAvailable = this.props.resourceData;
     }
@@ -372,6 +343,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           getHasPendingReplacementRequest={
             this.props.getHasPendingReplacementRequest
           }
+          //@ts-expect-error This might not exists at all on this page
           goToMember={this.props.goToMember}
           offerList={offerList}
           onDateChange={this.props.handleDateChange}
@@ -389,6 +361,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
         />
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog
+            //@ts-expect-error
             coachesRelatedToPrivateServices={coachesIdsRelatedToPrivateServices}
             establishments={this.props.establishments}
             kind={this.state.updateAvailabilitySlotData.kind}
@@ -411,18 +384,16 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   }
 }
 
-export default compose(
-  withTranslation(['privateService']),
-  withTitle(({ t }) => t('translation:navigation.schedule')),
-  withState('resourceFiltersArray', 'setResourceFiltersArray', []),
-  withStateHandlers(
-    { customEventData: null },
-    {
-      closeCustomEventDialog: () => () => ({ customEventData: null }),
-      onRequestCustomEvent: () => (customEventData) => ({ customEventData }),
-    },
-  ),
-  withState('periodFilter', 'setPeriodFilter', {
+type StateHandlersInitialType = {
+  resourceFiltersArray: unknown[];
+  customEventData: unknown | null;
+  periodFilter: { start: string; end: string };
+};
+
+const StateHandlersInitial: StateHandlersInitialType = {
+  resourceFiltersArray: [] as unknown[],
+  customEventData: null,
+  periodFilter: {
     start: DateTime.now()
       .startOf('week', { useLocaleWeeks: true })
       .minus({ days: 1 })
@@ -431,222 +402,264 @@ export default compose(
       .endOf('week', { useLocaleWeeks: true })
       .plus({ days: 1 })
       .toISODate(),
-  }),
-  connect(
-    (state, { periodFilter, resourceFiltersArray }) => ({
-      companyTheme: getTheme(state),
-      companyId: getTheme(state)?.company,
-      availabilitySlots: getFilteredAvailabilitySlots(
-        state,
-        periodFilter,
-        resourceFiltersArray,
-      ),
-      resourcesByDatatype: [
-        {
-          datatype: 'establishment',
-          items: getAllPageEstablishments(state),
-        },
-        {
-          datatype: 'coach',
-          items:
-            state.auth.coaches_selected_in_role?.length > 0
-              ? getCoachesSelectedInRole(state).map((c) => ({
-                  title: c.name,
-                  id: c.id,
-                  color: c.color,
-                }))
-              : getActiveCoaches(state).map((c) => ({
-                  title: c.name,
-                  id: c.id,
-                  color: c.color,
-                })),
-        },
-      ],
-      privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
-        state,
-        null,
-        periodFilter,
-      ),
-      offerList: getOfferAsEventList(state, null, periodFilter).filter((o) => {
-        if (!state.theme.theme.show_cancelled_offers_manager) {
-          return o.available;
-        }
-        return true;
-      }),
-      getHasPendingReplacementRequest:
-        getOfferHasPendingReplacementRequest(state),
-      availableCoaches: getActiveCoaches(state),
-      coachesSelectedInRole: getCoachesSelectedInRole(state),
-      customEventList: getCustomEventList(state, periodFilter),
-      resourceData: getResourceDataList(state),
-      establishments: getAllEstablishmentsWithAssociatedId(state),
-      privateServices: getPrivateServices(state),
-      resourceDataLoading: state.privateService.resource.loading,
-      ressourceFilers:
-        state.dashboardSettings.managerRessourcesFilters.data.filter,
-      ressourceFiltersLoading:
-        state.dashboardSettings.managerRessourcesFilters.loading,
-      availabilitySlotUpdating:
-        state.privateService.availabilitySlot.createOrUpdate.loading,
-      scheduleFilter: getScheduleFilter(state),
-    }),
-    {
-      fetchPrivateBookings: fetchPrivateBookingsAction,
-      resetAvailabilitySlots,
+  },
+};
 
-      fetchAvailabilitySlots,
-      fetchCustomEventList: fetchCustomEventListAction,
-      fetchEstablishments: fetchEstablishmentsAction,
-      fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
-      fetchAssociatedCoachesList,
-      fetchCompanyUserRoles,
-      fetchAllOffers: fetchAllOffersAction,
-      resetPrivateBookings,
-      resetCustomEvent,
-      fetchResourceList: () =>
-        fetchResourceList({
-          datatype: ['associated_establishment', 'associated_coach'],
-        }),
-      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
-      fetchMemberBulkById: fetchMemberBulkByIdAction,
-      fetchMemberBulkByIdBatched: fetchMemberBulkByIdBatchedAction,
-      createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
-      fetchManagerRessourcesFilters: fetchManagerRessourcesFiltersAction,
-      updateManagerRessourcesFilters: updateManagerRessourcesFiltersAction,
-      disableAvailabilitySlotMultipleResource,
-      enableAvailabilitySlotMultipleResource,
-      setScheduleFilter: setScheduleFilterAction,
-      listOffersWithPendingReplacementRequestIds:
-        listOffersWithPendingReplacementRequestIdsAction,
-    },
+const StateHandlersSetter = {
+  setResourceFiltersArray: () => (resources: unknown[]) => ({
+    resourceFiltersArray: resources,
+  }),
+  //@ts-expect-error
+  closeCustomEventDialog: () => () => ({ customEventData: null }),
+  onRequestCustomEvent: () => (customEventData: unknown) => ({
+    customEventData,
+  }),
+  setPeriodFilter: () => (periodFilter: { start: string; end: string }) => ({
+    periodFilter,
+  }),
+};
+
+const mapStateToProps = (
+  state: RootState,
+  { periodFilter, resourceFiltersArray }: StateHanldersType,
+) => ({
+  companyTheme: getTheme(state),
+  companyId: getTheme(state)?.company,
+  availabilitySlots: getFilteredAvailabilitySlots(
+    state,
+    periodFilter,
+    resourceFiltersArray,
   ),
-  withHandlers({
-    createOrUpdateCustomEvent:
-      ({
-        createOrUpdateCustomEvent,
-        customEventData,
-        closeCustomEventDialog,
-      }) =>
-      (data, options) => {
-        createOrUpdateCustomEvent(
-          { ...data, ...customEventData },
-          {
-            onSuccess: (...args) => {
-              if (options && options.onSuccess) options.onSuccess(...args);
-              closeCustomEventDialog();
-            },
-            onError: options && options.onError,
+  resourcesByDatatype: [
+    {
+      datatype: 'establishment',
+      items: getAllPageEstablishments(state),
+    },
+    {
+      datatype: 'coach',
+      items:
+        state.auth.coaches_selected_in_role?.length > 0
+          ? getCoachesSelectedInRole(state).map((c) => ({
+              title: c.name,
+              id: c.id,
+              color: c.color,
+            }))
+          : getActiveCoaches(state).map((c) => ({
+              title: c.name,
+              id: c.id,
+              color: c.color,
+            })),
+    },
+  ],
+  privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
+    state,
+    //@ts-expect-error
+    null,
+    periodFilter,
+  ),
+  offerList: getOfferAsEventList(state, null, periodFilter).filter((o) => {
+    if (!state.theme.theme.show_cancelled_offers_manager) {
+      return o.available;
+    }
+    return true;
+  }),
+  getHasPendingReplacementRequest: getOfferHasPendingReplacementRequest(state),
+  availableCoaches: getActiveCoaches(state),
+  coachesSelectedInRole: getCoachesSelectedInRole(state),
+  customEventList: getCustomEventList(state, periodFilter),
+  resourceData: getResourceDataList(state),
+  establishments: getAllEstablishmentsWithAssociatedId(state),
+  privateServices: getPrivateServices(state),
+  resourceDataLoading: state.privateService.resource.loading,
+  ressourceFilers: state.dashboardSettings.managerRessourcesFilters.data.filter,
+  ressourceFiltersLoading:
+    state.dashboardSettings.managerRessourcesFilters.loading,
+  availabilitySlotUpdating:
+    state.privateService.availabilitySlot.createOrUpdate.loading,
+  scheduleFilter: getScheduleFilter(state),
+});
+
+const mapDispatchToProps = {
+  fetchPrivateBookings: fetchPrivateBookingsAction,
+  resetAvailabilitySlots: resetAvailabilitySlotsAction,
+  fetchAvailabilitySlots: fetchAvailabilitySlotsAction,
+  fetchCustomEventList: fetchCustomEventListAction,
+  fetchEstablishments: fetchEstablishmentsAction,
+  fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
+  fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
+  fetchCompanyUserRoles: fetchCompanyUserRolesAction,
+  fetchAllOffers: fetchAllOffersAction,
+  resetPrivateBookings: resetPrivateBookingsAction,
+  resetCustomEvent: resetCustomEventAction,
+  fetchResourceList: () =>
+    fetchResourceListAction({
+      datatype: ['associated_establishment', 'associated_coach'],
+    }),
+  fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+  fetchMemberBulkById: fetchMemberBulkByIdAction,
+  createOrUpdateCustomEvent: createOrUpdateCustomEventAction,
+  fetchManagerRessourcesFilters: fetchManagerRessourcesFiltersAction,
+  updateManagerRessourcesFilters: updateManagerRessourcesFiltersAction,
+  disableAvailabilitySlotMultipleResource:
+    disableAvailabilitySlotMultipleResourceAction,
+  enableAvailabilitySlotMultipleResource:
+    enableAvailabilitySlotMultipleResourceAction,
+  setScheduleFilter: setScheduleFilterAction,
+  listOffersWithPendingReplacementRequestIds:
+    listOffersWithPendingReplacementRequestIdsAction,
+};
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+const mapWithHandlers = {
+  createOrUpdateCustomEvent:
+    ({
+      createOrUpdateCustomEvent,
+      customEventData,
+      closeCustomEventDialog,
+    }: ConnectedPropsAndStateHanlders) =>
+    //@ts-expect-error
+    (data, options) => {
+      createOrUpdateCustomEvent(
+        //@ts-expect-error
+        { ...data, ...customEventData },
+        {
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) options.onSuccess(...args);
+            closeCustomEventDialog();
           },
-        );
-      },
-    fetchOfferList:
-      ({
-        fetchAllOffers,
-        fetchMetaActivityBulk,
-        periodFilter,
-        listOffersWithPendingReplacementRequestIds,
-      }) =>
-      () => {
-        fetchAllOffers(
-          {
-            min_date: periodFilter.start,
-            max_date: periodFilter.end,
+          onError: options && options.onError,
+        },
+      );
+    },
+  fetchOfferList:
+    ({
+      fetchAllOffers,
+      fetchMetaActivityBulk,
+      periodFilter,
+      listOffersWithPendingReplacementRequestIds,
+    }: ConnectedPropsAndStateHanlders) =>
+    () => {
+      fetchAllOffers(
+        {
+          min_date: periodFilter.start,
+          max_date: periodFilter.end,
+        },
+        {
+          onSuccess: (offers) => {
+            fetchMetaActivityBulk(
+              offers.map((o) => o.meta_activity),
+              null,
+              60 * 10 * 1000,
+            );
+            listOffersWithPendingReplacementRequestIds(
+              offers.map((o) => o.id),
+              true,
+            );
           },
-          {
-            onSuccess: (offers) => {
-              fetchMetaActivityBulk(
-                offers.map((o) => o.meta_activity),
-                null,
-                60 * 10 * 1000,
-              );
-              listOffersWithPendingReplacementRequestIds(
-                offers.map((o) => o.id),
-                true,
-              );
-            },
-          },
-        );
-      },
-    handleDateChange:
-      ({ setPeriodFilter }) =>
-      ({ date_start, date_end }: { date_start: string; date_end: string }) => {
-        setPeriodFilter({
-          start: DateTime.fromISO(date_start).minus({ days: 1 }).toISODate(),
-          end: DateTime.fromISO(date_end).plus({ days: 1 }).toISODate(),
-        });
-      },
-    fetchPrivateBookingList:
-      ({ fetchPrivateBookings, fetchMemberBulkByIdBatched, periodFilter }) =>
-      () => {
-        fetchPrivateBookings(
-          {
-            date_start__gte: periodFilter.start,
-            date_start__lte: periodFilter.end,
-            page_size: null,
-          },
-          {
-            onSuccess: (bookingList) => {
-              if (bookingList.length) {
-                fetchMemberBulkByIdBatched(
-                  uniq(bookingList.map((b) => b.member)),
-                  null,
-                  120 * 1000, // cache
-                );
-              }
-            },
-          },
-        );
-      },
-    fetchCustomEventList:
-      ({ fetchCustomEventList, periodFilter }) =>
-      () => {
-        fetchCustomEventList({
+        },
+      );
+    },
+  handleDateChange:
+    ({ setPeriodFilter }: ConnectedPropsAndStateHanlders) =>
+    ({ date_start, date_end }: { date_start: string; date_end: string }) => {
+      setPeriodFilter({
+        start: DateTime.fromISO(date_start).minus({ days: 1 }).toISODate(),
+        end: DateTime.fromISO(date_end).plus({ days: 1 }).toISODate(),
+      });
+    },
+  fetchPrivateBookingList:
+    ({
+      fetchPrivateBookings,
+      fetchMemberBulkById,
+      periodFilter,
+    }: ConnectedPropsAndStateHanlders) =>
+    () => {
+      fetchPrivateBookings(
+        //@ts-expect-error
+        {
           date_start__gte: periodFilter.start,
           date_start__lte: periodFilter.end,
           page_size: null,
-        });
-      },
-    fetchAssociatedEstablishments:
-      ({ companyId, fetchAssociatedEstablishments, fetchEstablishments }) =>
-      () => {
-        fetchAssociatedEstablishments(
-          { company: companyId },
-          {
-            onSuccess: (associatedEstablishments) => {
-              const idList = associatedEstablishments.map((ae) => ae.id) || [];
-              if (idList.length > 0) {
-                fetchEstablishments({
-                  associated_establishment__in: idList,
-                  page_size: 300,
-                });
-              }
-            },
+        },
+        {
+          onSuccess: (bookingList) => {
+            if (bookingList.length) {
+              fetchMemberBulkById(
+                uniq(bookingList.map((b) => b.member)),
+                null,
+                120 * 1000, // cache
+              );
+            }
           },
-          60 * 10 * 1000, // cache
-        );
-      },
-  }),
-  withHandlers({
-    fetchRessourcesFilters:
-      ({ fetchManagerRessourcesFilters, setResourceFiltersArray }) =>
-      () => {
-        fetchManagerRessourcesFilters({
-          onSuccess: (payload) => {
-            setResourceFiltersArray(payload);
+        },
+      );
+    },
+  fetchCustomEventList:
+    ({ fetchCustomEventList, periodFilter }: ConnectedPropsAndStateHanlders) =>
+    () => {
+      fetchCustomEventList({
+        date_start__gte: periodFilter.start,
+        date_start__lte: periodFilter.end,
+        page_size: null,
+      });
+    },
+  fetchAssociatedEstablishments:
+    ({
+      companyId,
+      fetchAssociatedEstablishments,
+      fetchEstablishments,
+    }: ConnectedPropsAndStateHanlders) =>
+    () => {
+      fetchAssociatedEstablishments(
+        { company: companyId },
+        {
+          onSuccess: (associatedEstablishments) => {
+            const idList = associatedEstablishments.map((ae) => ae.id) || [];
+            if (idList.length > 0) {
+              fetchEstablishments({
+                //@ts-expect-error
+                associated_establishment__in: idList,
+                page_size: 300,
+              });
+            }
           },
-        });
-      },
-  }),
-  withHandlers({
-    updateRessourcesFilters:
-      ({ updateManagerRessourcesFilters, resourceFiltersArray }) =>
-      () => {
-        updateManagerRessourcesFilters([
-          {
-            name: 'schedule',
-            filters: resourceFiltersArray,
-          },
-        ]);
-      },
-  }),
+        },
+        //@ts-expect-error
+
+        60 * 10 * 1000, // cache
+      );
+    },
+  fetchRessourcesFilters:
+    ({
+      fetchManagerRessourcesFilters,
+      setResourceFiltersArray,
+    }: ConnectedPropsAndStateHanlders) =>
+    () => {
+      fetchManagerRessourcesFilters({
+        //@ts-expect-error
+        onSuccess: (payload) => {
+          setResourceFiltersArray(payload);
+        },
+      });
+    },
+  updateRessourcesFilters:
+    ({
+      updateManagerRessourcesFilters,
+      resourceFiltersArray,
+    }: ConnectedPropsAndStateHanlders) =>
+    () => {
+      updateManagerRessourcesFilters([
+        {
+          name: 'schedule',
+          filters: resourceFiltersArray,
+        },
+      ]);
+    },
+};
+export default compose(
+  withTranslation(['privateService']),
+  withTitle(({ t }) => t('translation:navigation.schedule')),
+  withStateHandlers(StateHandlersInitial, StateHandlersSetter),
+  connector,
+  withHandlers(mapWithHandlers),
 )(CoachPrivateCalendar);

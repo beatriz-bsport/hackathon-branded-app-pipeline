@@ -11,6 +11,7 @@ import type {
   GiftcardTemplate,
 } from '#src/libs/giftcard/types';
 import type { ConsumerInvoiceREST } from '#src/libs/invoice/types';
+import type { TagGroup, TagTemplate } from '#src/libs/tag/types';
 
 export type FranchiseState = {
   error: null | boolean;
@@ -339,4 +340,14 @@ export type FranchiseUserTag = {
 export type FranchiseUserTagsUpdate = {
   user_id: number;
   data: { user_tag_ids: number[] };
+};
+
+export type FranchiseUserTagDict = {
+  [key: number]: number;
+};
+
+export type FranchiseUserTagOption = {
+  label: string;
+  value: number;
+  tag: TagTemplate<TagGroup>;
 };

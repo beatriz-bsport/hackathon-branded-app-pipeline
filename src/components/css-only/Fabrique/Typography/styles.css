@@ -110,7 +110,7 @@
 }
 
 .bs-typography-color-default {
-  color: var(--bs-color-text-default);
+  color: unset;
 }
 
 .bs-typography-color-error {

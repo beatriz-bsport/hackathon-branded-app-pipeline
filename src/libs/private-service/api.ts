@@ -277,6 +277,8 @@ export const searchAvailableSlots = (
         : {}),
     },
     {},
+    undefined,
+    { bypassLock: true },
   );
 };
 export const searchFirstvailableSlots = (

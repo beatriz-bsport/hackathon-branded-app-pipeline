@@ -52,22 +52,37 @@ export type PostBaseAuth<T = unknown, D = unknown> = (
   cancelToken?: AxiosRequestConfig['cancelToken'],
 ) => Promise<AxiosResponse<T>>;
 
+export type AxiosLockOptions = {
+  bypassLock?: boolean;
+};
+
 export interface SafeAxiosInstance extends AxiosInstance {
-  get<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>;
-  delete(url: string, config?: AxiosRequestConfig): AxiosPromise;
+  get<T = any>(
+    url: string,
+    config?: AxiosRequestConfig,
+    options?: AxiosLockOptions,
+  ): AxiosPromise<T>;
+  delete(
+    url: string,
+    config?: AxiosRequestConfig,
+    options?: AxiosLockOptions,
+  ): AxiosPromise;
   post<T = any>(
     url: string,
     data?: any,
     config?: AxiosRequestConfig,
+    options?: AxiosLockOptions,
   ): AxiosPromise<T>;
   put<T = any>(
     url: string,
     data?: any,
     config?: AxiosRequestConfig,
+    options?: AxiosLockOptions,
   ): AxiosPromise<T>;
   patch<T = any>(
     url: string,
     data?: any,
     config?: AxiosRequestConfig,
+    options?: AxiosLockOptions,
   ): AxiosPromise<T>;
 }

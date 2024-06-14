@@ -12,6 +12,7 @@ import {
 // @ts-expect-error
 import i18n from '../i18n';
 import type {
+  AxiosLockOptions,
   GetAuth,
   PatchAuth,
   Post,
@@ -34,6 +35,7 @@ export async function postBase<T = unknown, D = unknown>(
   data: D,
   headers: AxiosRequestConfig['headers'],
   cancelToken?: AxiosRequestConfig['cancelToken'],
+  lockOptions?: AxiosLockOptions,
 ) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
@@ -47,10 +49,15 @@ export async function postBase<T = unknown, D = unknown>(
   };
 
   try {
-    const response = await axios.post<T>(uri, data, {
-      headers: Object.assign(baseHeaders, headers),
-      cancelToken,
-    });
+    const response = await axios.post<T>(
+      uri,
+      data,
+      {
+        headers: Object.assign(baseHeaders, headers),
+        cancelToken,
+      },
+      lockOptions,
+    );
     return response;
   } catch (err) {
     if (err?.response?.status >= 500 && err?.response?.status < 600) {
@@ -70,6 +77,7 @@ export async function post<T = unknown, D = unknown>(
   data?: D,
   headers?: AxiosRequestConfig['headers'],
   cancelToken?: AxiosRequestConfig['cancelToken'],
+  lockOptions?: AxiosLockOptions,
 ) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
@@ -83,10 +91,15 @@ export async function post<T = unknown, D = unknown>(
   };
 
   try {
-    const response = await axios.post<T>(uri, data, {
-      headers: Object.assign(baseHeaders, headers),
-      cancelToken,
-    });
+    const response = await axios.post<T>(
+      uri,
+      data,
+      {
+        headers: Object.assign(baseHeaders, headers),
+        cancelToken,
+      },
+      lockOptions,
+    );
 
     return response;
   } catch (err) {
@@ -102,6 +115,7 @@ export async function put<T = unknown, D = unknown>(
   data: D,
   headers: AxiosRequestConfig['headers'],
   cancelToken?: AxiosRequestConfig['cancelToken'],
+  lockOptions?: AxiosLockOptions,
 ) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
@@ -115,10 +129,15 @@ export async function put<T = unknown, D = unknown>(
   };
 
   try {
-    const response = await axios.put<T>(uri, data, {
-      headers: Object.assign(baseHeaders, headers),
-      cancelToken,
-    });
+    const response = await axios.put<T>(
+      uri,
+      data,
+      {
+        headers: Object.assign(baseHeaders, headers),
+        cancelToken,
+      },
+      lockOptions,
+    );
     return response;
   } catch (err) {
     if (err?.response?.status >= 500 && err?.response?.status < 600) {
@@ -133,6 +152,7 @@ export async function patch<T = unknown, D = unknown>(
   data: D,
   headers: AxiosRequestConfig['headers'],
   cancelToken?: AxiosRequestConfig['cancelToken'],
+  lockOptions?: AxiosLockOptions,
 ) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
@@ -146,10 +166,15 @@ export async function patch<T = unknown, D = unknown>(
   };
 
   try {
-    const response = await axios.patch<T>(uri, data, {
-      headers: Object.assign(baseHeaders, headers),
-      cancelToken,
-    });
+    const response = await axios.patch<T>(
+      uri,
+      data,
+      {
+        headers: Object.assign(baseHeaders, headers),
+        cancelToken,
+      },
+      lockOptions,
+    );
     return response;
   } catch (err) {
     if (err?.response?.status >= 500 && err?.response?.status < 600) {
@@ -194,21 +219,26 @@ export async function get<T = unknown>(
   uri: string,
   headers: AxiosRequestConfig['headers'] = {},
   cancelToken?: AxiosRequestConfig['cancelToken'],
+  lockOptions?: AxiosLockOptions,
 ) {
   try {
-    const response = await axios.get<T>(uri, {
-      headers: {
-        'Accept-Language': i18n.language || 'en',
-        'X-Transaction-ID': setTransactionId(),
-        'X-Timezone-Name': getTimezoneName(),
-        'X-Session-ID': setSessionId(),
-        'X-React-Referrer': window.location.href.slice(0, 250),
-        'X-bsport-log-collection': 'true',
-        ...(headers || {}),
-        ...getBsportRequestFromHeader(),
+    const response = await axios.get<T>(
+      uri,
+      {
+        headers: {
+          'Accept-Language': i18n.language || 'en',
+          'X-Transaction-ID': setTransactionId(),
+          'X-Timezone-Name': getTimezoneName(),
+          'X-Session-ID': setSessionId(),
+          'X-React-Referrer': window.location.href.slice(0, 250),
+          'X-bsport-log-collection': 'true',
+          ...(headers || {}),
+          ...getBsportRequestFromHeader(),
+        },
+        cancelToken,
       },
-      cancelToken,
-    });
+      lockOptions,
+    );
     return response;
   } catch (err) {
     if (err?.response?.status >= 500 && err?.response?.status < 600) {
@@ -226,6 +256,7 @@ export async function getAuth<T = unknown>(
   uri: string,
   token?: string,
   cancelToken?: CancelToken,
+  lockOptions?: AxiosLockOptions,
 ) {
   const token_ = token || getAuthToken();
   if (!token_ || token_ === 'null') {
@@ -242,6 +273,7 @@ export async function getAuth<T = unknown>(
       Authorization: `Token ${token_}`,
     },
     cancelToken,
+    lockOptions,
   );
 }
 /**
@@ -254,6 +286,7 @@ export async function postAuth<T = unknown, D = unknown>(
   data?: D,
   token?: string,
   cancelToken?: AxiosRequestConfig['cancelToken'],
+  lockOptions?: AxiosLockOptions,
 ) {
   const token_ = token || getAuthToken();
   return post<T>(
@@ -267,6 +300,7 @@ export async function postAuth<T = unknown, D = unknown>(
       Authorization: `Token ${token_}`,
     },
     cancelToken,
+    lockOptions,
   );
 }
 
@@ -279,6 +313,7 @@ export async function postBaseAuth<T = unknown, D = unknown>(
   data: D,
   token?: string,
   cancelToken?: AxiosRequestConfig['cancelToken'],
+  lockOptions?: AxiosLockOptions,
 ) {
   const token_ = token || getAuthToken();
   return postBase<T>(
@@ -292,6 +327,7 @@ export async function postBaseAuth<T = unknown, D = unknown>(
       Authorization: `Token ${token_}`,
     },
     cancelToken,
+    lockOptions,
   );
 }
 

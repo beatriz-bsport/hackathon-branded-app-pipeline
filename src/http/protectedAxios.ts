@@ -1,16 +1,19 @@
 import { AxiosSafeLock } from './axiosSafeLock';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import type { SafeAxiosInstance } from './types';
+import type { AxiosLockOptions, SafeAxiosInstance } from './types';
 
 export class ProtectedAxiosBuilder {
   private AxiosLocker: AxiosSafeLock;
   private axiosInstance: AxiosInstance;
+  private shouldBlockRequests: boolean;
   protectedAxios: SafeAxiosInstance;
 
   constructor(axiosInstance: AxiosInstance) {
     this.axiosInstance = axiosInstance;
     this.AxiosLocker = new AxiosSafeLock();
     this.protectedAxios = axiosInstance;
+    this.shouldBlockRequests = false;
+
     this.augmentAxiosInstance();
   }
 
@@ -25,10 +28,13 @@ export class ProtectedAxiosBuilder {
     this.protectedAxios.get = <T = any>(
       url: string,
       config?: AxiosRequestConfig,
+      options?: AxiosLockOptions,
     ): Promise<AxiosResponse<T>> => {
+      if (options?.bypassLock)
+        return originalGet.call(this.axiosInstance, url, config);
       this.AxiosLocker.updateRequestStatus(url);
       const isUrlBlocked = this.AxiosLocker.checkIsBlocked(url);
-      if (isUrlBlocked) {
+      if (isUrlBlocked && this.shouldBlockRequests) {
         console.error(`Could not reach ${url}. Please try again later`);
         return;
       }
@@ -40,10 +46,13 @@ export class ProtectedAxiosBuilder {
       url: string,
       data?: any,
       config?: AxiosRequestConfig,
+      options?: AxiosLockOptions,
     ): Promise<AxiosResponse<T>> => {
+      if (options?.bypassLock)
+        return originalPost.call(this.axiosInstance, url, data, config);
       this.AxiosLocker.updateRequestStatus(url);
       const isUrlBlocked = this.AxiosLocker.checkIsBlocked(url);
-      if (isUrlBlocked) {
+      if (isUrlBlocked && this.shouldBlockRequests) {
         console.error(`Could not reach ${url}. Please try again later`);
         return;
       }
@@ -55,10 +64,13 @@ export class ProtectedAxiosBuilder {
       url: string,
       data?: any,
       config?: AxiosRequestConfig,
+      options?: AxiosLockOptions,
     ): Promise<AxiosResponse<T>> => {
+      if (options?.bypassLock)
+        return originalPut.call(this.axiosInstance, url, data, config);
       this.AxiosLocker.updateRequestStatus(url);
       const isUrlBlocked = this.AxiosLocker.checkIsBlocked(url);
-      if (isUrlBlocked) {
+      if (isUrlBlocked && this.shouldBlockRequests) {
         console.error(`Could not reach ${url}. Please try again later`);
         return;
       }
@@ -69,10 +81,13 @@ export class ProtectedAxiosBuilder {
     this.protectedAxios.delete = (
       url: string,
       config?: AxiosRequestConfig,
+      options?: AxiosLockOptions,
     ): Promise<AxiosResponse> => {
+      if (options?.bypassLock)
+        return originalDelete.call(this.axiosInstance, url, config);
       this.AxiosLocker.updateRequestStatus(url);
       const isUrlBlocked = this.AxiosLocker.checkIsBlocked(url);
-      if (isUrlBlocked) {
+      if (isUrlBlocked && this.shouldBlockRequests) {
         console.error(`Could not reach ${url}. Please try again later`);
         return;
       }
@@ -84,10 +99,13 @@ export class ProtectedAxiosBuilder {
       url: string,
       data?: any,
       config?: AxiosRequestConfig,
+      options?: AxiosLockOptions,
     ): Promise<AxiosResponse<T>> => {
+      if (options?.bypassLock)
+        return originalPatch.call(this.axiosInstance, url, data, config);
       this.AxiosLocker.updateRequestStatus(url);
       const isUrlBlocked = this.AxiosLocker.checkIsBlocked(url);
-      if (isUrlBlocked) {
+      if (isUrlBlocked && this.shouldBlockRequests) {
         console.error(`Could not reach ${url}. Please try again later`);
         return;
       }

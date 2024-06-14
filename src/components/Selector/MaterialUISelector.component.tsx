@@ -505,7 +505,7 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
       props.setValue([]);
     } else {
       const globalSelectedValues = displayedOption.flatMap((o) => {
-        if (o.value !== null || o.value !== undefined) {
+        if (o.value !== null && o.value !== undefined) {
           return o;
         }
 

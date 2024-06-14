@@ -37,9 +37,8 @@ import {
   enableAvailabilitySlotMultipleResource as enableAvailabilitySlotMultipleResourceAction,
 } from '#src/libs/private-service/actions';
 import {
-  fetchManagerRessourcesFilters as fetchManagerRessourcesFiltersAction,
-  updateManagerRessourcesFilters as updateManagerRessourcesFiltersAction,
-  //@ts-expect-error
+  fetchManagerScheduleResourceFilters as fetchManagerScheduleResourceFiltersAction,
+  updateManagerScheduleResourcesFilters as updateManagerScheduleResourcesFiltersAction,
 } from '#src/libs/dashboard/actions';
 
 // libraries: Selectors
@@ -85,6 +84,7 @@ import {
   AvailabilitySlot,
   ResourceData,
 } from '#src/libs/private-service/types';
+import type { MyScheduleRessourceValueType } from '#src/libs/dashboard/types';
 import type { WithHandlerType } from '#src/utils/types';
 import type { RootState } from '#src/reducers';
 
@@ -103,7 +103,7 @@ type Props = OwnProps &
 
 type State = { updateAvailabilitySlotData: { data: unknown; kind: unknown } };
 
-export class CoachPrivateCalendar extends React.Component<Props, State> {
+export class SchedulePage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { updateAvailabilitySlotData: null };
@@ -129,7 +129,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
       this.fetchAvailabilitySlotsAllResource();
     }
     if (prevProps.resourceFiltersArray !== this.props.resourceFiltersArray) {
-      this.props.updateManagerRessourcesFilters([
+      this.props.updateManagerScheduleResourcesFilters([
         {
           name: 'schedule',
           filters: this.props.resourceFiltersArray,
@@ -170,7 +170,8 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
 
   storeResourceAvailabilityUpdate =
     (kind: string) =>
-    (...data: any) => {
+    //@ts-expect-error
+    (...data: unknown) => {
       this.setState({
         updateAvailabilitySlotData: {
           data,
@@ -387,13 +388,13 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
 }
 
 type StateHandlersInitialType = {
-  resourceFiltersArray: unknown[];
+  resourceFiltersArray: MyScheduleRessourceValueType[];
   customEventData: unknown | null;
   periodFilter: { start: string; end: string };
 };
 
 const StateHandlersInitial: StateHandlersInitialType = {
-  resourceFiltersArray: [] as unknown[],
+  resourceFiltersArray: [] as MyScheduleRessourceValueType[],
   customEventData: null,
   periodFilter: {
     start: DateTime.now()
@@ -408,9 +409,10 @@ const StateHandlersInitial: StateHandlersInitialType = {
 };
 
 const StateHandlersSetter = {
-  setResourceFiltersArray: () => (resources: unknown[]) => ({
-    resourceFiltersArray: resources,
-  }),
+  setResourceFiltersArray:
+    () => (resources: MyScheduleRessourceValueType[]) => ({
+      resourceFiltersArray: resources,
+    }),
   //@ts-expect-error
   closeCustomEventDialog: () => () => ({ customEventData: null }),
   onRequestCustomEvent: () => (customEventData: unknown) => ({
@@ -473,9 +475,10 @@ const mapStateToProps = (
   establishments: getAllEstablishmentsWithAssociatedId(state),
   privateServices: getPrivateServices(state),
   resourceDataLoading: state.privateService.resource.loading,
-  ressourceFilers: state.dashboardSettings.managerRessourcesFilters.data.filter,
+  ressourceFilers:
+    state.dashboardSettings.managerScheduleRessourcesFilters.data.filter,
   ressourceFiltersLoading:
-    state.dashboardSettings.managerRessourcesFilters.loading,
+    state.dashboardSettings.managerScheduleRessourcesFilters.loading,
   availabilitySlotUpdating:
     state.privateService.availabilitySlot.createOrUpdate.loading,
   scheduleFilter: getScheduleFilter(state),
@@ -500,8 +503,10 @@ const mapDispatchToProps = {
   fetchMetaActivityBulk: fetchMetaActivityBulkAction,
   fetchMemberBulkById: fetchMemberBulkByIdAction,
   createOrUpdateCustomEvent: createOrUpdateCustomEventAction,
-  fetchManagerRessourcesFilters: fetchManagerRessourcesFiltersAction,
-  updateManagerRessourcesFilters: updateManagerRessourcesFiltersAction,
+  fetchManagerScheduleResourceFilters:
+    fetchManagerScheduleResourceFiltersAction,
+  updateManagerScheduleResourcesFilters:
+    updateManagerScheduleResourcesFiltersAction,
   disableAvailabilitySlotMultipleResource:
     disableAvailabilitySlotMultipleResourceAction,
   enableAvailabilitySlotMultipleResource:
@@ -633,12 +638,11 @@ const mapWithHandlers = {
     },
   fetchRessourcesFilters:
     ({
-      fetchManagerRessourcesFilters,
+      fetchManagerScheduleResourceFilters,
       setResourceFiltersArray,
     }: ConnectedPropsAndStateHanlders) =>
     () => {
-      fetchManagerRessourcesFilters({
-        //@ts-expect-error
+      fetchManagerScheduleResourceFilters({
         onSuccess: (payload) => {
           setResourceFiltersArray(payload);
         },
@@ -646,11 +650,11 @@ const mapWithHandlers = {
     },
   updateRessourcesFilters:
     ({
-      updateManagerRessourcesFilters,
+      updateManagerScheduleResourcesFilters,
       resourceFiltersArray,
     }: ConnectedPropsAndStateHanlders) =>
     () => {
-      updateManagerRessourcesFilters([
+      updateManagerScheduleResourcesFilters([
         {
           name: 'schedule',
           filters: resourceFiltersArray,
@@ -658,10 +662,11 @@ const mapWithHandlers = {
       ]);
     },
 };
+
 export default compose(
   withTranslation(['privateService']),
   withTitle(({ t }) => t('translation:navigation.schedule')),
   withStateHandlers(StateHandlersInitial, StateHandlersSetter),
   connector,
   withHandlers(mapWithHandlers),
-)(CoachPrivateCalendar);
+)(SchedulePage);

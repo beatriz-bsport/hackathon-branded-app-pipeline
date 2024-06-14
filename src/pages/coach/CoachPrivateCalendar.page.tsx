@@ -49,7 +49,7 @@ import {
   resetCustomEvent,
 } from '#src/libs/private-service/actions';
 import { getCustomEventList } from '#src/libs/private-service/selectors/custom-event';
-// @ts-expect-error js file
+
 import CustomEvenFormDialog from '#src/libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
 import type { PrivateBooking } from '#src/libs/private-service/types';

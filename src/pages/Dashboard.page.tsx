@@ -34,7 +34,6 @@ import {
   fetchDataSourceDashboardGraphMetadata,
   fetchDataSourceDashboardSettings,
   updateDataSourceDashboardSettings,
-  // @ts-expect-error
 } from '#src/libs/dashboard/actions';
 import {
   getDataSourceDashboardGraphMetadata,

@@ -1,23 +1,28 @@
-// @flow
-
 import { createAction } from 'redux-actions';
-import defaultDashboardConfiguration from './dashboardGraphs';
+
 import { getDefaultDataSourceDashboardSettings } from './defaultDataSourceDashboardSettings';
+//@ts-expect-error
+import defaultDashboardConfiguration from './dashboardGraphs';
 import {
   fetchDashboardSettings as fetchDashboardSettingsAPI,
-  updateDashboardSettings as updateDashboardSettingsAPI,
   fetchManagerFiltersSettings as fetchManagerFiltersSettingsAPI,
   updateManagerFiltersSettings as updateManagerFiltersSettingsAPI,
-  fetchManagerRessourceFilters as fetchManagerRessourceFiltersAPI,
-  updateManagerRessousrcesFilters as updateManagerRessousrcesFiltersAPI,
+  fetchManagerScheduleResourceFilters as fetchManagerScheduleResourceFiltersAPI,
+  updateManagerScheduleResourcesFilters as updateManagerScheduleResourcesFiltersAPI,
   // -------------------------------------------------------------------
   fetchDataSourceDashboardGraphMetadata as fetchDataSourceDashboardGraphMetadataAPI,
   fetchDataSourceDashboardSettings as fetchDataSourceDashboardSettingsAPI,
   updateDataSourceDashboardSettings as updateDataSourceDashboardSettingsAPI,
 } from './api';
-import { snackbarSuccess, snackbarError } from '../snackbar/actions';
-import type { Dispatch, OptionCallback } from '../../state/types';
-import type { DataSourceDashboardSettings } from './types';
+import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
+import type { Dispatch, OptionCallback } from '#src/state/types';
+
+import type {
+  DataSourceDashboardSettings,
+  MyScheduleRessourceValueType,
+  MyResourceFilters,
+  MyRessourceScheduleFilters,
+} from '#src/libs/dashboard/types';
 
 export const dashboardSettings = {
   isLoading: createAction('DASHBOARD/SETTINGS/IS_LOADING'),
@@ -32,10 +37,12 @@ export function fetchDashboardSettings(options: OptionCallback) {
 
     try {
       const response = await fetchDashboardSettingsAPI();
+      //@ts-expect-error
       const { settings } = response.data;
       if (!settings.length) {
         dispatch(
           dashboardSettings.success({
+            //@ts-expect-error
             ...response.data,
             settings: defaultDashboardConfiguration,
           }),
@@ -43,33 +50,11 @@ export function fetchDashboardSettings(options: OptionCallback) {
       } else {
         dispatch(dashboardSettings.success(response.data));
       }
+      //@ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
       dispatch(dashboardSettings.error(error));
-    }
-
-    dispatch(dashboardSettings.isLoading(false));
-  };
-}
-
-export function updateDashboardSettings(
-  settings: Array<DashboardTab>,
-  options: OptionCallback,
-) {
-  return async (dispatch: Dispatch) => {
-    dispatch(dashboardSettings.isLoading(true));
-    dispatch(dashboardSettings.error(null));
-
-    try {
-      const response = await updateDashboardSettingsAPI({ settings });
-      dispatch(dashboardSettings.success(response.data));
-      dispatch(snackbarSuccess('dashboard.save.success'));
-      if (options && options.onSuccess) options.onSuccess();
-    } catch (error) {
-      console.error(error);
-      dispatch(dashboardSettings.error(error));
-      dispatch(snackbarError('dashboard.save.error'));
     }
 
     dispatch(dashboardSettings.isLoading(false));
@@ -91,6 +76,7 @@ export function fetchManagerFiltersSettings(options: OptionCallback) {
       const response = await fetchManagerFiltersSettingsAPI();
       dispatch(managerFiltersSettings.success(response.data));
       if (options && options.onSuccess) {
+        //@ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -117,45 +103,55 @@ export function updateManagerFiltersSettings(filters: object) {
   };
 }
 
-export const managerRessourcesFilters = {
-  isLoading: createAction('RESSOURCES/FILTERS/LOADING'),
-  success: createAction('RESSOURCES/FILTERS/SUCCESS'),
-  error: createAction('RESSOURCES/FILTERS/ERROR'),
+/* =========================== SCHEDULE RESOURCES =========================== */
+export const managerScheduleRessourcesFilters = {
+  isLoading: createAction<boolean>('RESSOURCES/SCHEDULE/FILTERS/LOADING'),
+  success: createAction<MyResourceFilters>(
+    'RESSOURCES/SCHEDULE/FILTERS/SUCCESS',
+  ),
+  error: createAction<Error | null>('RESSOURCES/SCHEDULE/FILTERS/ERROR'),
 };
 
-export function fetchManagerRessourcesFilters(options: OptionCallback) {
+export function fetchManagerScheduleResourceFilters(
+  options: OptionCallback<MyScheduleRessourceValueType[]>,
+) {
   return async (dispatch: Dispatch) => {
-    dispatch(managerRessourcesFilters.error(null));
-    dispatch(managerRessourcesFilters.isLoading(true));
+    dispatch(managerScheduleRessourcesFilters.error(null));
+    dispatch(managerScheduleRessourcesFilters.isLoading(true));
     try {
-      const response = await fetchManagerRessourceFiltersAPI();
-      dispatch(managerRessourcesFilters.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data.filters[0].filters);
-      }
+      const response = await fetchManagerScheduleResourceFiltersAPI();
+      dispatch(managerScheduleRessourcesFilters.success(response.data));
+
+      options?.onSuccess?.(response.data.filters[0].filters);
     } catch (err) {
       console.error(err);
-      dispatch(managerRessourcesFilters.error(err));
+      options?.onError?.();
+      dispatch(managerScheduleRessourcesFilters.error(err));
     }
-    dispatch(managerRessourcesFilters.isLoading(false));
+    dispatch(managerScheduleRessourcesFilters.isLoading(false));
   };
 }
 
-export function updateManagerRessourcesFilters(filters: Object) {
+export function updateManagerScheduleResourcesFilters(
+  filters: [MyRessourceScheduleFilters],
+) {
   return async (dispatch: Dispatch) => {
-    dispatch(managerRessourcesFilters.error(null));
-    dispatch(managerRessourcesFilters.isLoading(true));
+    dispatch(managerScheduleRessourcesFilters.error(null));
+    dispatch(managerScheduleRessourcesFilters.isLoading(true));
     try {
-      const response = await updateManagerRessousrcesFiltersAPI({ filters });
-      dispatch(managerRessourcesFilters.success(response.data));
+      const response = await updateManagerScheduleResourcesFiltersAPI({
+        filters,
+      });
+      dispatch(managerScheduleRessourcesFilters.success(response.data));
     } catch (err) {
       console.error(err);
-      dispatch(managerRessourcesFilters.error(err));
+      dispatch(managerScheduleRessourcesFilters.error(err));
     }
-    dispatch(managerRessourcesFilters.isLoading(false));
+    dispatch(managerScheduleRessourcesFilters.isLoading(false));
   };
 }
-// ----------------------------------------------------------------
+/* =========================== SCHEDULE RESOURCES =========================== */
+
 export const dataSourceDashboardGraphMetadataActions = {
   isLoading: createAction('DATA_SOURCE_DASHBOARD/METADATA/LOADING'),
   success: createAction('DATA_SOURCE_DASHBOARD/METADATA/SUCCESS'),
@@ -189,6 +185,7 @@ export function fetchDataSourceDashboardSettings() {
     dispatch(dataSourceDashboardSettingsActions.isLoading(true));
     try {
       const response = await fetchDataSourceDashboardSettingsAPI();
+      //@ts-expect-error
       const { settings } = response.data;
       dispatch(
         dataSourceDashboardSettingsActions.success(
@@ -207,7 +204,7 @@ export function fetchDataSourceDashboardSettings() {
 
 export function updateDataSourceDashboardSettings(
   settings: DataSourceDashboardSettings,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(dataSourceDashboardSettingsActions.isLoading(true));
@@ -217,6 +214,7 @@ export function updateDataSourceDashboardSettings(
       const response = await updateDataSourceDashboardSettingsAPI({
         settings,
       });
+      //@ts-expect-error
       const { settings: responseSettings } = response.data;
       dispatch(
         dataSourceDashboardSettingsActions.success(

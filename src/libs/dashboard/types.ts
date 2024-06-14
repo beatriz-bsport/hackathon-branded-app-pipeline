@@ -70,3 +70,21 @@ export type DataSourceDashboardGraphMetadata = {
   };
   metadata: Array<DataSourceFieldMetadata>;
 };
+
+export type MyScheduleRessourceValueType =
+  | `associated_establishment:${number}`
+  | `associated_coach:${number}`;
+
+export type MyRessourceScheduleFilters = {
+  name: 'schedule';
+  filters: MyScheduleRessourceValueType[];
+};
+
+/**
+ * Disclaimer: Only used for Schedule Filter, may be misleading.
+ */
+export type MyResourceFilters = {
+  id: number;
+  user: number;
+  filters: MyRessourceScheduleFilters[];
+};

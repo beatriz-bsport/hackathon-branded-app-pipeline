@@ -5,7 +5,7 @@ import { handleActions } from 'redux-actions';
 import {
   dashboardSettings,
   managerFiltersSettings,
-  managerRessourcesFilters,
+  managerScheduleRessourcesFilters,
   // ---------------------------------------
   dataSourceDashboardGraphMetadataActions,
   dataSourceDashboardSettingsActions,
@@ -20,7 +20,7 @@ const initialState = Immutable({
     error: null,
     data: {},
   },
-  managerRessourcesFilters: {
+  managerScheduleRessourcesFilters: {
     loading: false,
     error: null,
     data: {},
@@ -59,14 +59,20 @@ export default handleActions(
     [managerFiltersSettings.success]: (state, { payload }) => {
       return state.setIn(['managerFiltersSettings', 'data'], payload);
     },
-    [managerRessourcesFilters.isLoading]: (state, { payload }) => {
-      return state.setIn(['managerRessourcesFilters', 'loading'], payload);
+    [managerScheduleRessourcesFilters.isLoading]: (state, { payload }) => {
+      return state.setIn(
+        ['managerScheduleRessourcesFilters', 'loading'],
+        payload,
+      );
     },
-    [managerRessourcesFilters.error]: (state, { payload }) => {
-      return state.setIn(['managerRessourcesFilters', 'error'], payload);
+    [managerScheduleRessourcesFilters.error]: (state, { payload }) => {
+      return state.setIn(
+        ['managerScheduleRessourcesFilters', 'error'],
+        payload,
+      );
     },
-    [managerRessourcesFilters.success]: (state, { payload }) => {
-      return state.setIn(['managerRessourcesFilters', 'data'], payload);
+    [managerScheduleRessourcesFilters.success]: (state, { payload }) => {
+      return state.setIn(['managerScheduleRessourcesFilters', 'data'], payload);
     },
     [dataSourceDashboardGraphMetadataActions.isLoading.toString()]: (
       state,

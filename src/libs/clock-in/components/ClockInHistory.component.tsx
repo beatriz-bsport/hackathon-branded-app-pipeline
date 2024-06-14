@@ -46,6 +46,7 @@ type Props = {
     count: number;
     results: UserAttendanceHistory[];
   };
+  areUserDetailsLoading: boolean;
   detailsPage: number;
   detailsPageSize: number;
   globalPage: number;
@@ -64,6 +65,7 @@ const ClockInHistory: React.FC<Props> = ({
   value: { loading, count, results },
   detailsPage,
   detailsPageSize,
+  areUserDetailsLoading,
   globalPage,
   globalPageSize,
   handleGlobalPageChange,
@@ -126,6 +128,9 @@ const ClockInHistory: React.FC<Props> = ({
               handlePageSizeChange={handleDetailsPageSizeChange}
               page={detailsPage}
               isExpanded={userWithDetails === userHistory.id}
+              isLoading={
+                areUserDetailsLoading && userWithDetails === userHistory.id
+              }
               toggleUserDetails={() => handleToggleDetails(userHistory.id)}
               key={userHistory.id}
               deleteClockIn={deleteClockIn}
@@ -143,6 +148,7 @@ const ClockInHistory: React.FC<Props> = ({
 
 const ClockInHistoryRow: React.FC<{
   row: UserAttendanceHistory;
+  isLoading: boolean;
   handleExport: (userId?: number) => void;
   editClockIn: (clockInId: number, clockInData: ClockInData) => Promise<void>;
   handlePageSizeChange: (page_size: number) => void;
@@ -160,6 +166,7 @@ const ClockInHistoryRow: React.FC<{
   deleteClockIn,
   isExpanded,
   handlePageSizeChange,
+  isLoading,
   toggleUserDetails,
   handlePageChange,
   page,
@@ -257,6 +264,7 @@ const ClockInHistoryRow: React.FC<{
         />
         <TableCell className={classes.innerTable} colSpan={250}>
           <Collapse unmountOnExit in={isExpanded} timeout="auto">
+            {isLoading && <LinearProgress />}
             <Table>
               <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.attendance">
                 {(hasPermission) =>

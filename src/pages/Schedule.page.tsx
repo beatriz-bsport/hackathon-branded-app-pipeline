@@ -22,7 +22,10 @@ import {
   fetchEstablishments as fetchEstablishmentsAction,
 } from '#src/libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
+import {
+  fetchMemberBulkById as fetchMemberBulkByIdAction,
+  fetchMemberBulkByIdBatched as fetchMemberBulkByIdBatchedAction,
+} from '#src/libs/member/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#src/libs/associated-coach/actions';
 import { setScheduleFilter as setScheduleFilterAction } from '#src/libs/user-preference/actions';
 import {
@@ -561,6 +564,7 @@ const mapDispatchToProps = {
     }),
   fetchMetaActivityBulk: fetchMetaActivityBulkAction,
   fetchMemberBulkById: fetchMemberBulkByIdAction,
+  fetchMemberBulkByIdBatched: fetchMemberBulkByIdBatchedAction,
   createOrUpdateCustomEvent: createOrUpdateCustomEventAction,
   fetchManagerScheduleResourceFilters:
     fetchManagerScheduleResourceFiltersAction,
@@ -634,7 +638,7 @@ const mapWithHandlers = {
   fetchPrivateBookingList:
     ({
       fetchPrivateBookings,
-      fetchMemberBulkById,
+      fetchMemberBulkByIdBatched,
       periodFilter,
     }: ConnectedPropsAndStateHanlders) =>
     () => {
@@ -647,7 +651,7 @@ const mapWithHandlers = {
         {
           onSuccess: (bookingList) => {
             if (bookingList.length) {
-              fetchMemberBulkById(
+              fetchMemberBulkByIdBatched(
                 uniq(bookingList.map((b) => b.member)),
                 null,
                 120 * 1000, // Redux cache

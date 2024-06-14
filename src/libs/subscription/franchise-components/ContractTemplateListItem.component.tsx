@@ -15,7 +15,6 @@ import type { ContractTemplate } from '#src/libs/subscription/types';
 import type { PaymentPackTemplateAPI as PaymentPackTemplate } from '#src/libs/payment-packs/types';
 import type { PrivatePassTemplateAPI as PrivatePassTemplate } from '#src/libs/private-service/types';
 import type { FranchiseCompany } from '#src/libs/franchise/types';
-
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 import FranchiseCompanyChipList from '#src/components/franchise/FranchiseCompanyChipList.component';
@@ -93,12 +92,18 @@ const ContractTemplateListItem: React.FC<Props> = ({
   ]);
 
   const deleteHandler = useCallback(
-    () => onDelete(contractTemplate.id),
+    (event: React.MouseEvent<HTMLElement>) => {
+      event.stopPropagation();
+      onDelete(contractTemplate.id);
+    },
     [onDelete, contractTemplate.id],
   );
 
   const restoreHandler = useCallback(
-    () => onRestore(contractTemplate.id),
+    (event: React.MouseEvent<HTMLElement>) => {
+      event.stopPropagation();
+      onRestore(contractTemplate.id);
+    },
     [onRestore, contractTemplate.id],
   );
 

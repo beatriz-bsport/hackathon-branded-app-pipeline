@@ -61,6 +61,30 @@ export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
     React.useState<PrivateBooking | null>(null);
   const { t } = useTranslation('privateService');
   const classes = useStyles();
+
+  // Check if the private consumer pass has been reverted
+  const isPassReverted = !!props.private_consumer_pass?.reverted;
+
+  // Check if the pass is associated with an unpaid private booking integration
+  const isUnpaidPrivateBookingIntegration =
+    !!props.private_consumer_pass?.private_pass
+      ?.is_unpaid_private_booking_integration;
+
+  // Check if the pass is original, meaning:
+  // - It is not shared from another company in a franchise and is the one billed and purchased by the consumer
+  // - It is not shared from a relationship pass
+  const isPassOriginal =
+    !props.private_consumer_pass?.private_consumer_pass_source &&
+    !props.private_consumer_pass?.dst_private_consumer_pass?.length;
+
+  // Determine if a validity extension can be added to the pass
+  // This can be done if:
+  // - The pass has not been reverted
+  // - The pass is original
+  // - The pass is not associated with an unpaid private booking integration
+  const canValidityExtensionBeAdded =
+    !isPassReverted && isPassOriginal && !isUnpaidPrivateBookingIntegration;
+
   return (
     <div>
       <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
@@ -215,19 +239,17 @@ export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
             </Paper>
           </>
         ) : null}
-        {!!props.private_consumer_pass &&
-          !props.private_consumer_pass?.dst_private_consumer_pass?.length &&
-          !props.private_consumer_pass?.reverted && (
-            <div className={classes.addButtonContainer}>
-              <Button
-                color="primary"
-                onClick={props.onCreateExtension}
-                variant="outlined"
-              >
-                {t('consumerPass.actions.addExtension')}
-              </Button>
-            </div>
-          )}
+        {canValidityExtensionBeAdded && (
+          <div className={classes.addButtonContainer}>
+            <Button
+              color="primary"
+              onClick={props.onCreateExtension}
+              variant="outlined"
+            >
+              {t('consumerPass.actions.addExtension')}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

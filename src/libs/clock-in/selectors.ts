@@ -15,10 +15,10 @@ const _getAttendanceClockinDataByUser = (state: RootState) =>
   _getClockinState(state).currentAttendance.byUserId;
 
 const _getHistoryClockinData = (state: RootState) =>
-  _getClockinState(state).history.byId;
+  _getClockinState(state).attendanceRecords.byId;
 
 const _getHistoryClockinList = (state: RootState) =>
-  _getClockinState(state).history.allIds;
+  _getClockinState(state).attendanceRecords.allIds;
 
 const getHistoryDataList = createSelector(
   [_getHistoryClockinList, _getHistoryClockinData],

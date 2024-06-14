@@ -32,7 +32,7 @@ const initialState: Immutable.Immutable<ClockInState> = Immutable<ClockInState>(
       loading: false,
       error: null,
     },
-    history: {
+    attendanceRecords: {
       next_page: 0,
       previous_page: 0,
       count: 0,
@@ -74,16 +74,16 @@ export default handleActions(
       state.set('error', payload),
     [editClockInActions.success.toString()]: (state, { payload }) =>
       // @ts-expect-error
-      state.setIn(['history', 'byId', payload.id], payload),
+      state.setIn(['attendanceRecords', 'byId', payload.id], payload),
     [deleteClockInActions.loading.toString()]: (state, { payload }) =>
       state.set('loading', payload),
     [deleteClockInActions.error.toString()]: (state, { payload }) =>
       state.set('error', payload),
     [deleteClockInActions.success.toString()]: (state, { payload }) =>
       state.setIn(
-        ['history', 'allIds'],
+        ['attendanceRecords', 'allIds'],
         // @ts-expect-error
-        state.history.allIds.filter((id) => id !== payload.clockInId),
+        state.attendanceRecords.allIds.filter((id) => id !== payload.clockInId),
       ),
     [listStaffAttendanceRealTimeActions.loading.toString()]: (
       state,
@@ -132,30 +132,30 @@ export default handleActions(
     [getStaffsAttendanceHistoryActions.loading.toString()]: (
       state,
       { payload },
-    ) => state.setIn(['history', 'loading'], payload),
+    ) => state.setIn(['attendanceRecords', 'loading'], payload),
     [getStaffsAttendanceHistoryActions.error.toString()]: (
       state,
       { payload },
-    ) => state.setIn(['history', 'error'], payload),
+    ) => state.setIn(['attendanceRecords', 'error'], payload),
     [getStaffsAttendanceHistoryActions.success.toString()]: (
       state,
       { payload },
     ) =>
       state
         // @ts-expect-error
-        .setIn(['history', 'count'], payload.count)
+        .setIn(['attendanceRecords', 'count'], payload.count)
         // @ts-expect-error
-        .setIn(['history', 'next_page'], payload.next_page)
+        .setIn(['attendanceRecords', 'next_page'], payload.next_page)
         // @ts-expect-error
-        .setIn(['history', 'previous_page'], payload.previous_page)
+        .setIn(['attendanceRecords', 'previous_page'], payload.previous_page)
         .setIn(
-          ['history', 'allIds'],
+          ['attendanceRecords', 'allIds'],
           // @ts-expect-error
           payload.results.map((r) => r.id),
         )
         .merge(
           {
-            history: {
+            attendanceRecords: {
               // @ts-expect-error
               byId: payload.results.reduce((acc: any, ps: any) => {
                 acc[ps.id] = ps;

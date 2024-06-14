@@ -99,13 +99,13 @@ const ClockInHistory: React.FC<Props> = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {results?.map((user) => (
+          {results?.map((userHistory) => (
             <ClockInHistoryRow
-              key={user.id}
+              key={userHistory.id}
               deleteClockIn={deleteClockIn}
               editClockIn={editClockIn}
               handleExport={handleExport}
-              row={user}
+              row={userHistory}
             />
           ))}
         </TableBody>

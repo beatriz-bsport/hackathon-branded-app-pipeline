@@ -46,7 +46,7 @@ export type ClockInState = {
     byId: Record<number, UserCurrentAttendance>;
     byUserId: Record<number, UserCurrentAttendance>;
   } & ErrorAndLoading;
-  history: {
+  attendanceRecords: {
     next_page: number;
     previous_page: number;
     count: number;

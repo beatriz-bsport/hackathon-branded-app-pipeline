@@ -116,7 +116,6 @@ export function fetchEstablishments(
 
     try {
       const response = await fetchEstablishmentListAPI({
-        // @ts-expect-error
         page_size: 200,
         ...(params || {}),
       });

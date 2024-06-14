@@ -70,6 +70,7 @@ import {
 // libraries: Components
 import CustomEvenFormDialog from '#src/libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import AvailabilityUpdateResourceChoserDialog from '#src/libs/private-service/components/resource/AvailabilityUpdateResourceChoserDialog.component';
+
 //@ts-expect-error
 import PrivateCalendarWithControls from '#src/libs/private-service/components/PrivateCalendarWithControls.component';
 
@@ -83,10 +84,12 @@ import {
   PrivateBooking,
   AvailabilitySlot,
   ResourceData,
+  ResourceDataTypeForAllocation,
 } from '#src/libs/private-service/types';
 import type { MyScheduleRessourceValueType } from '#src/libs/dashboard/types';
 import type { WithHandlerType } from '#src/utils/types';
 import type { RootState } from '#src/reducers';
+import { OptionCallback } from '#src/state/types';
 
 type OwnProps = {};
 
@@ -101,7 +104,20 @@ type Props = OwnProps &
   StateHanldersType &
   WithHandlerType<typeof mapWithHandlers>;
 
-type State = { updateAvailabilitySlotData: { data: unknown; kind: unknown } };
+type State = {
+  updateAvailabilitySlotData: {
+    data: [
+      {
+        date_start: string;
+        date_end: string;
+        recurrence_until?: string;
+        all_date_start?: string[];
+      },
+      OptionCallback<unknown>,
+    ];
+    kind: 'enable' | 'disable';
+  } | null;
+};
 
 export class SchedulePage extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -169,9 +185,8 @@ export class SchedulePage extends React.Component<Props, State> {
   };
 
   storeResourceAvailabilityUpdate =
-    (kind: string) =>
-    //@ts-expect-error
-    (...data: unknown) => {
+    (kind: 'enable' | 'disable') =>
+    (...data: [{ date_start: string; date_end: string }, OptionCallback]) => {
       this.setState({
         updateAvailabilitySlotData: {
           data,
@@ -190,22 +205,18 @@ export class SchedulePage extends React.Component<Props, State> {
     this.setState({ updateAvailabilitySlotData: null });
 
   submitAvailabilitySlotUpdate = (
-    resourceData: { [resourceDatatype: string]: string }[],
-    restriction_on_associated_establishments: Array<number>,
+    resourceData: ResourceDataTypeForAllocation[],
+    restriction_on_associated_establishments: number[],
   ) => {
     const {
       kind,
-      //@ts-expect-error
       data: [slotUpdateData, slotUpdateOptions],
     } = this.state.updateAvailabilitySlotData;
 
     const options = {
-      //@ts-expect-error
-      onSuccess: (...args) => {
+      onSuccess: (...args: unknown[]) => {
         this.fetchAvailabilitySlotsAllResource();
-        if (slotUpdateOptions && slotUpdateOptions.onSuccess) {
-          slotUpdateOptions.onSuccess(...args);
-        }
+        slotUpdateOptions?.onSuccess?.(...args);
       },
     };
     if (kind === 'enable') {
@@ -244,9 +255,7 @@ export class SchedulePage extends React.Component<Props, State> {
       );
       const availabilitySlotList = previousAvailabilitySlotList.filter(
         (slot: AvailabilitySlot) =>
-          //@ts-expect-error
           slot.establishment ||
-          //@ts-expect-error
           slot.associated_establishment ||
           coachesIdsToFilter.includes(slot.coach),
       );
@@ -258,12 +267,10 @@ export class SchedulePage extends React.Component<Props, State> {
       );
       const resourceAvailable = previousResourceData.map(
         (resourceData: ResourceData) => {
-          //@ts-expect-error
           if (resourceData.datatype === 'associated_coach') {
             const filteredResourceData = { ...resourceData };
-            //@ts-expect-error
+
             filteredResourceData.data = resourceData.data.filter(
-              //@ts-expect-error
               (coachResource) =>
                 associatedCoachesIdsToFilter.includes(
                   coachResource.resource_id,
@@ -284,6 +291,11 @@ export class SchedulePage extends React.Component<Props, State> {
     },
   );
 
+  getCoachesIdsRelatedToPrivateServices = () =>
+    this.props.privateServices
+      .map(({ coaches }) => coaches.map((coach) => coach?.associated_coach_id))
+      .flat();
+
   render() {
     let coachList: Coach[];
     let offerList: Array<Offer & { hasPendingReplacementRequest?: boolean }>;
@@ -294,36 +306,27 @@ export class SchedulePage extends React.Component<Props, State> {
     if (filterOnCoaches) {
       const lists = this.filteredDataListsOnCoaches(
         this.props.coachesSelectedInRole,
-        //@ts-expect-error
         this.props.offerList,
         this.props.availabilitySlots,
         this.props.privateBookingList,
         this.props.resourceData,
       );
       [
-        //@ts-expect-error
         coachList,
-        //@ts-expect-error
         offerList,
-        //@ts-expect-error
         availabilitySlotList,
-        //@ts-expect-error
         privateBookingList,
-        //@ts-expect-error
         resourceAvailable,
       ] = lists;
     } else {
       coachList = this.props.availableCoaches;
-      //@ts-expect-error
+
       offerList = this.props.offerList;
-      //@ts-expect-error
+
       availabilitySlotList = this.props.availabilitySlots;
       privateBookingList = this.props.privateBookingList;
       resourceAvailable = this.props.resourceData;
     }
-    const coachesIdsRelatedToPrivateServices = this.props.privateServices
-      .map(({ coaches }) => coaches.map((coach) => coach?.associated_coach_id))
-      .flat();
 
     return (
       <div>
@@ -346,7 +349,6 @@ export class SchedulePage extends React.Component<Props, State> {
           getHasPendingReplacementRequest={
             this.props.getHasPendingReplacementRequest
           }
-          //@ts-expect-error This might not exists at all on this page
           goToMember={this.props.goToMember}
           offerList={offerList}
           onDateChange={this.props.handleDateChange}
@@ -365,7 +367,7 @@ export class SchedulePage extends React.Component<Props, State> {
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog
             //@ts-expect-error
-            coachesRelatedToPrivateServices={coachesIdsRelatedToPrivateServices}
+            coachesRelatedToPrivateServices={this.getCoachesIdsRelatedToPrivateServices()}
             establishments={this.props.establishments}
             kind={this.state.updateAvailabilitySlotData.kind}
             onClose={this.onCancelAvailabilityUpdate}
@@ -389,7 +391,7 @@ export class SchedulePage extends React.Component<Props, State> {
 
 type StateHandlersInitialType = {
   resourceFiltersArray: MyScheduleRessourceValueType[];
-  customEventData: unknown | null;
+  customEventData: { state_start: string; date_end: string } | null;
   periodFilter: { start: string; end: string };
 };
 
@@ -413,11 +415,13 @@ const StateHandlersSetter = {
     () => (resources: MyScheduleRessourceValueType[]) => ({
       resourceFiltersArray: resources,
     }),
-  //@ts-expect-error
-  closeCustomEventDialog: () => () => ({ customEventData: null }),
-  onRequestCustomEvent: () => (customEventData: unknown) => ({
-    customEventData,
-  }),
+
+  closeCustomEventDialog: () => () =>
+    ({ customEventData: null } as { customEventData: null }),
+  onRequestCustomEvent:
+    () => (customEventData: { state_start: string; date_end: string }) => ({
+      customEventData,
+    }),
   setPeriodFilter: () => (periodFilter: { start: string; end: string }) => ({
     periodFilter,
   }),
@@ -524,10 +528,8 @@ const mapWithHandlers = {
       customEventData,
       closeCustomEventDialog,
     }: ConnectedPropsAndStateHanlders) =>
-    //@ts-expect-error
-    (data, options) => {
+    (data: ResourceDataTypeForAllocation[], options: OptionCallback) => {
       createOrUpdateCustomEvent(
-        //@ts-expect-error
         { ...data, ...customEventData },
         {
           onSuccess: (...args) => {
@@ -582,7 +584,6 @@ const mapWithHandlers = {
     }: ConnectedPropsAndStateHanlders) =>
     () => {
       fetchPrivateBookings(
-        //@ts-expect-error
         {
           date_start__gte: periodFilter.start,
           date_start__lte: periodFilter.end,
@@ -594,7 +595,7 @@ const mapWithHandlers = {
               fetchMemberBulkById(
                 uniq(bookingList.map((b) => b.member)),
                 null,
-                120 * 1000, // cache
+                120 * 1000, // Redux cache
               );
             }
           },
@@ -624,16 +625,12 @@ const mapWithHandlers = {
             const idList = associatedEstablishments.map((ae) => ae.id) || [];
             if (idList.length > 0) {
               fetchEstablishments({
-                //@ts-expect-error
                 associated_establishment__in: idList,
                 page_size: 300,
               });
             }
           },
         },
-        //@ts-expect-error
-
-        60 * 10 * 1000, // cache
       );
     },
   fetchRessourcesFilters:

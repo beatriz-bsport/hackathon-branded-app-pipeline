@@ -303,6 +303,12 @@ export type ResourceData = {
   resourceIdentifier: number;
   color: string;
   resourceData: any;
+  datatype:
+    | 'associated_coach'
+    | 'associated_establishment'
+    | 'establishment'
+    | 'coach'
+    | 'private_service';
 };
 
 export type RecurrenceRulePrivateBooking<
@@ -698,3 +704,21 @@ export type PrivatePassQueryParams = {
   available?: boolean;
   manager_only?: boolean;
 };
+
+/**
+ * This type is used when calling specific methods to allocate availabilities
+ * or unavailabilities for a resource.
+ *
+ * The generic nature of this type can make it somewhat cumbersome,
+ * as the methods and workflows that utilize it.
+ */
+export type ResourceDataTypeForAllocation = Partial<
+  Record<
+    | 'associated_coach'
+    | 'associated_establishment'
+    | 'establishment'
+    | 'coach'
+    | 'private_service',
+    number
+  >
+>;

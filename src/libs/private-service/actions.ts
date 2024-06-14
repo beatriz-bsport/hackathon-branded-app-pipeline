@@ -149,6 +149,7 @@ import {
   PrivateSlot,
   PrivatePass,
   ServiceCompatibilityPass,
+  ResourceDataTypeForAllocation,
 } from './types';
 
 import {
@@ -354,7 +355,7 @@ export const availabilitySlotUpdateActions = {
 };
 
 export function enableResourceAvailabilitySlot(
-  resourceData: any,
+  resourceData: ResourceDataTypeForAllocation,
   {
     date_start,
     date_end,
@@ -400,13 +401,7 @@ export function enableResourceAvailabilitySlot(
 }
 
 export function enableAvailabilitySlotMultipleResource(
-  resources: {
-    associated_establishment?: number;
-    establishment?: number;
-    associated_coach?: number;
-    coach?: number;
-    private_service?: number;
-  }[],
+  resources: ResourceDataTypeForAllocation[],
   {
     date_start,
     date_end,
@@ -448,7 +443,7 @@ export function enableAvailabilitySlotMultipleResource(
 }
 
 export function disableResourceAvailabilitySlot(
-  resourceData: any,
+  resourceData: ResourceDataTypeForAllocation,
   {
     date_start,
     date_end,
@@ -488,7 +483,7 @@ export function disableResourceAvailabilitySlot(
 }
 
 export function disableAvailabilitySlotMultipleResource(
-  resourceData: any[],
+  resourceData: ResourceDataTypeForAllocation[],
   {
     date_start,
     date_end,
@@ -498,7 +493,7 @@ export function disableAvailabilitySlotMultipleResource(
     recurrence_until?: string;
     date_start: string;
     date_end: string;
-    all_date_start: string[];
+    all_date_start?: string[];
   },
   options: OptionCallback,
 ): ThunkAction {
@@ -577,7 +572,7 @@ export const enablePrivateServiceAvailabilitySlot = (
 ) =>
   enableResourceAvailabilitySlot(
     { private_service: privateServiceId },
-    // @ts-expect-error
+    //@ts-expect-error
     obj,
     options,
   );
@@ -2054,7 +2049,7 @@ export const resetPrivateBookings = privateBookingListActions.reset;
 export function fetchPrivateBookings(
   params: PrivateBookingFilterParams & {
     member?: number;
-    page: number;
+    page?: number;
     page_size?: number;
     date_start__gte?: string;
     date_start__lte?: string;

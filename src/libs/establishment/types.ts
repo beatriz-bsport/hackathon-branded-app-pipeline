@@ -180,11 +180,12 @@ export type WithEstablishmentBillingGroup<T> = T & {
 
 export type FetchEstablishmentParams = {
   id__in?: number[];
-  associated_establishment__in?: string;
+  associated_establishment__in?: number[];
   meta_activity?: number;
   company?: number;
   franchisor?: number;
   ordering?: string;
   disabled?: boolean;
   with_workshop?: boolean;
+  page_size?: number;
 };

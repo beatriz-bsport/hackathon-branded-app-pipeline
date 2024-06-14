@@ -3,7 +3,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 
-import { Alert } from '@material-ui/lab';
 import { withFormik, type FormikProps, Form } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -233,12 +232,14 @@ const PaymentMethodsForm: React.FC<
       </div>
 
       <div className={classes.daysInputsContainer}>
-        <Typography color="textSecondary" variant="body2">
+        <Typography variant="h6">
           {t('paymentMethods.DaysBeforeNotificationInputs.title')}
         </Typography>
-        <Alert className={classes.leftIcon} severity="info">
-          {t('paymentMethods.DaysBeforeNotificationInputs.helpText')}
-        </Alert>
+        <div className={classes.row}>
+          <Typography color="textSecondary" variant="body2">
+            {t('paymentMethods.DaysBeforeNotificationInputs.helpText')}
+          </Typography>
+        </div>
         <NumericInput
           disabled={disablePaymentExpiredFirstWarning}
           error={!!daysBeforeFirstNotificationErrorMessage}
@@ -270,9 +271,9 @@ const PaymentMethodsForm: React.FC<
           {t('paymentMethods.methodPaymentCardBillingDetailsTitle')}
         </Typography>
         <div className={classes.row}>
-          <Alert className={classes.leftIcon} severity="info">
+          <Typography color="textSecondary" variant="body2">
             {t('paymentMethods.methodPaymentCardBillingDetailsHelper')}
-          </Alert>
+          </Typography>
         </div>
         <div className={classes.row}>
           <Switch

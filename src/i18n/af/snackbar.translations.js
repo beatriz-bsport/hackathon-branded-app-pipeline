@@ -138,8 +138,9 @@ const getTranslations = async () => {
     PAYPAL_PAYER_CARD_EXPIRED,
     PAYPAL_REDIRECT_PAYER_FOR_ALTERNATE_FUNDING,
     PAYPAL_EXCEPTION,
+    PAYPAL_API_EXCEPTION,
+    PAYPAL_ACCOUNT_ALREADY_LINKED_TO_OTHER_COMPANY,
   } = await import('@bsport/common/lib/master-data/error-codes/payment.js');
-
   const {
     COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
     COACH_EMAIL_ADDRESS_EXISTS,
@@ -943,6 +944,8 @@ const getTranslations = async () => {
         'Your payment has failed, please select another payment method.',
       [PAYPAL_EXCEPTION]:
         'Your PayPal payment has failed, please try again or use another payment method',
+      [PAYPAL_API_EXCEPTION]:
+        'Your PayPal payment has failed, please try again or use another payment method',
       failedLoadingPayPalScript: 'An error occurred while loading PayPal',
       generic: 'Your payment has failed, please try again',
     },
@@ -1357,6 +1360,14 @@ const getTranslations = async () => {
     },
     privateSlot: {
       notAvailableForBookingAnymore: 'This slot is not availablle anymore.',
+    },
+    paypal: {
+      connectionAttemptFailed: 'An error occurred while connecting to PayPal',
+      couldNotReachPayPal: 'We could not reach PayPal. Please try again later.',
+      onboardingUrlFetchFailed:
+        "An error occurred while trying to retrieve PayPal's onboarding link",
+      [PAYPAL_ACCOUNT_ALREADY_LINKED_TO_OTHER_COMPANY]:
+        'You cannot use an account that is already linked to another company.',
     },
   };
 };

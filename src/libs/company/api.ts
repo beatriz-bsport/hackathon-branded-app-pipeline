@@ -1,4 +1,5 @@
 import type { Member } from '#src/libs/member/types';
+import { AxiosResponse } from 'axios';
 import {
   getAuth,
   postAuth,
@@ -17,6 +18,8 @@ import type {
   GetOnboardingLinkParams,
   StripeAccountStatus,
   StripeCompany,
+  PayPalCompany,
+  GetPayPalOnboardingLinkParams,
 } from './types';
 
 export const fetchCompanyList = (params: FetchCompanyListParams) => {
@@ -26,15 +29,21 @@ export const fetchCompanyList = (params: FetchCompanyListParams) => {
 };
 
 export const createCompany = (data: CompanyCreationParams) => {
-  return post<StripeCompany>(
-    `${API_V1_URI}/payment_backend/stripe/company/init/`,
-    data,
-  );
+  return post<StripeCompany>(`${API_V1_URI}/company/init/`, data);
 };
 
 export const getOnboardingLink = (data: GetOnboardingLinkParams) => {
   return postAuth<string>(
     `${API_V1_URI}/payment_backend/stripe/company/get_onboarding_link/`,
+    data,
+  );
+};
+
+export const getPayPalOnboardingLink = (
+  data?: GetPayPalOnboardingLinkParams,
+): Promise<AxiosResponse<{ onboarding_url: string }>> => {
+  return postAuth<{ onboarding_url: string }>(
+    `${API_V1_URI}/paypal/paypal-company/get_onboarding_link/`,
     data,
   );
 };
@@ -64,6 +73,14 @@ export const getFeatureList = () => {
 
 export const retrieveMyCompanySetup = () => {
   return postAuth<CompanySetup>(`${API_V1_URI}/company/setup/me/`);
+};
+
+export const retrievePayPalAccountStatusAPI = (): Promise<
+  AxiosResponse<PayPalCompany>
+> => {
+  return getAuth<PayPalCompany>(
+    `${API_V1_URI}/paypal/paypal-company/validate_merchant_account_configuration/`,
+  );
 };
 
 export const validateAccountConfigurationStepAPI = ({

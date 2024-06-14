@@ -63,6 +63,17 @@ const getTranslations = async () => {
           'Several documents are pending validation to verify your account. The deadline is: <1> {{date}} </1>.',
         title: 'Business management',
       },
+      paypal: {
+        title: 'PayPal payments are disabled',
+        primary_email_confirmation:
+          'The email for your PayPal account requires confirmation. Please check your PayPal account to resolve this issue.',
+        requires_more_information:
+          'Your PayPal account requires additional information or validation from PayPal. Please check your PayPal account to resolve this issue.',
+        issue_check_account:
+          'There is an issue with your PayPal account. Please check your PayPal account to resolve this issue.',
+        issue_repeat_onboarding:
+          'There is an issue with your PayPal account. Please repeat the connection process using the same account to resolve this issue.',
+      },
     },
     unpaidPrivateBooking: { credits_due: '{{ credits }} unpaid credit(s)' },
     newTutorialSectionOrLesson: {

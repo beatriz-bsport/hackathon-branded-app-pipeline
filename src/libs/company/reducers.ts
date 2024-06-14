@@ -8,6 +8,8 @@ import {
   stripeCompanyRetrieveActions,
   validateAccountConfigurationStepActions,
   retrieveStripeAccountStatusActions,
+  retrievePayPalAccountStatusActions,
+  fetchPayPalOnboardingLinkActions,
 } from './actions';
 import type {
   AccountConfigurationStep,
@@ -15,6 +17,7 @@ import type {
   CompanySetup,
   CompanyState,
   FeatureList,
+  PayPalCompanyStatus,
   StripeAccountStatus,
   StripeCompany,
 } from './types';
@@ -41,6 +44,16 @@ const initialState: Immutable.Immutable<CompanyState> = Immutable<CompanyState>(
     },
     setup: null,
     setupLoading: false,
+    paypalCompanyStatus: {
+      loading: false,
+      error: null,
+      data: null,
+    },
+    paypalOnboardingLink: {
+      loading: false,
+      error: null,
+      data: null,
+    },
     stripeCompany: {
       loading: false,
       error: null,
@@ -184,6 +197,45 @@ export default handleActions<Immutable.Immutable<CompanyState>, any>(
       { payload }: { payload: StripeAccountStatus },
     ) => {
       return state.setIn(['stripeAccountStatus', 'data'], payload);
+    },
+    [retrievePayPalAccountStatusActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['paypalCompanyStatus', 'loading'], payload);
+    },
+    [retrievePayPalAccountStatusActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['paypalCompanyStatus', 'error'], payload);
+    },
+    [retrievePayPalAccountStatusActions.success.toString()]: (
+      state,
+      { payload }: { payload: PayPalCompanyStatus },
+    ) => {
+      return state.setIn(['paypalCompanyStatus', 'data'], payload);
+    },
+    [fetchPayPalOnboardingLinkActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['paypalOnboardingLink', 'loading'], payload);
+    },
+    [fetchPayPalOnboardingLinkActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['paypalOnboardingLink', 'error'], payload);
+    },
+    [fetchPayPalOnboardingLinkActions.success.toString()]: (
+      state,
+      { payload }: { payload: { onboarding_url: string } },
+    ) => {
+      return state.setIn(
+        ['paypalOnboardingLink', 'data'],
+        payload.onboarding_url,
+      );
     },
   },
   initialState,

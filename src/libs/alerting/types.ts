@@ -1,10 +1,15 @@
 import type { PaginatedResponse } from 'src/state/types';
+import {
+  PAYMENT_ENGINE_STRIPE,
+  PAYMENT_ENGINE_PAYPAL,
+} from '@bsport/common/lib/master-data/payment-group';
 import type { LanguageDict } from '#src/libs/platform-tutorial/types';
 import type { MemberMinimalNoPhoto } from '#src/libs/member/types';
 import {
   AlertKind,
   CompanyOnboardingTypes,
   AlertingActions,
+  PayPalPendingActionType,
 } from './constants';
 
 type PrivateBookingAlertingData = {
@@ -24,15 +29,28 @@ type UnpaidPrivateBookingAlertingData = {
 export type UnpaidPrivateBookingAlerting =
   Alerting<UnpaidPrivateBookingAlertingData>;
 
-type CompanyOnboardingAlertingData = {
-  type:
-    | CompanyOnboardingTypes.VERIFICATION
-    | CompanyOnboardingTypes.CREATION
-    | CompanyOnboardingTypes.PAYOUT;
-  level: number;
-  date?: string;
-  count?: number;
-};
+export type CompanyOnboardingAlertingData =
+  | {
+      type:
+        | CompanyOnboardingTypes.VERIFICATION
+        | CompanyOnboardingTypes.CREATION
+        | CompanyOnboardingTypes.PAYOUT;
+      level?: number;
+      date?: string;
+      count?: number;
+      payment_engine_identifier: typeof PAYMENT_ENGINE_STRIPE;
+    }
+  | {
+      type:
+        | PayPalPendingActionType.PRIMARY_EMAIL_CONFIRMATION
+        | PayPalPendingActionType.REQUIRES_MORE_INFORMATION
+        | PayPalPendingActionType.ISSUE_CHECK_ACCOUNT
+        | PayPalPendingActionType.ISSUE_REPEAT_ONBOARDING;
+      level?: number;
+      date?: string;
+      count?: number;
+      payment_engine_identifier: typeof PAYMENT_ENGINE_PAYPAL;
+    };
 
 export type CompanyOnboardingAlerting = Alerting<CompanyOnboardingAlertingData>;
 

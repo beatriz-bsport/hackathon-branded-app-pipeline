@@ -6,6 +6,7 @@ import {
   UNREAD_COMMUNICATION,
 } from '@bsport/common/lib/master-data/alerting_kind';
 import type { RootState } from 'src/reducers';
+import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-group';
 import { getObjectPermissions } from '#src/libs/role/selectors';
 import { hasObjectLevelPermission } from '#src/libs/role/permission-utils/utils';
 import type { AlertingState } from './types';
@@ -99,11 +100,22 @@ const getOneKind = createSelector(
 const getCompanyOnboardingAlerting = (state: RootState) =>
   getOneKind(state, AlertKind.COMPANY_ONBOARDING);
 
+const getStripeCompanyOnboardingAlerting = createSelector(
+  [getCompanyOnboardingAlerting],
+  (byKind) => {
+    return byKind[0]?.results?.filter(
+      (item) =>
+        'payment_engine_identifier' in item?.data &&
+        item?.data?.payment_engine_identifier === PAYMENT_ENGINE_STRIPE,
+    );
+  },
+);
+
 export default {
   countAlerting,
   countAlertingForKind,
   countTutorialAlerting,
   getByKind,
   getOneKind,
-  getCompanyOnboardingAlerting,
+  getStripeCompanyOnboardingAlerting,
 };

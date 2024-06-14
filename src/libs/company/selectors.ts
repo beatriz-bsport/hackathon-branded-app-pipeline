@@ -31,16 +31,20 @@ export const getStripeOnboardingPending = createSelector(
   [
     _getState,
     getStripeCompanyData,
-    alertingSelectors.getCompanyOnboardingAlerting,
+    alertingSelectors.getStripeCompanyOnboardingAlerting,
   ],
   (state, stripeCompanyData, byKind) =>
     stripeCompanyData &&
     !stripeCompanyData.has_no_need_for_stripe_configuration &&
-    !!byKind[0]?.results?.filter((a: Immutable.Immutable<Alerting>) =>
+    !!byKind?.filter((a: Immutable.Immutable<Alerting>) =>
       [
         CompanyOnboardingTypes.VERIFICATION,
         CompanyOnboardingTypes.CREATION,
-      ].includes('type' in a?.data ? a?.data?.type : undefined),
+      ].includes(
+        'type' in a?.data
+          ? (a?.data?.type as CompanyOnboardingTypes)
+          : undefined,
+      ),
     )?.length,
 );
 

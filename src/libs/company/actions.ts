@@ -1,16 +1,20 @@
 import { createAction } from 'redux-actions';
 
-import { memberBulkActions } from '#src/libs/member/actions';
-import type { Member } from '#src/libs/member/types';
+import {
+  PAYPAL_ACCOUNT_ALREADY_LINKED_TO_OTHER_COMPANY,
+  PAYPAL_API_EXCEPTION,
+} from '@bsport/common/lib/master-data/error-codes/payment.js';
 import {
   fetchCompanyList as fetchCompanyListAPI,
   createCompany as createCompanyAPI,
   attachExternalAccount as attachExternalAccountAPI,
   retrieveMyCompanySetup as retrieveMyCompanySetupAPI,
+  retrievePayPalAccountStatusAPI,
   getFeatureList as getFeatureListAPI,
   retrieveStripeCompanyRefreshedAPI,
   validateAccountConfigurationStepAPI,
   retrieveStripeCompanyAPI,
+  getPayPalOnboardingLink as getPayPalOnboardingLinkAPI,
   retrieveStripeAccountStatusAPI,
   retrievePOSMember as retrievePOSMemberAPI,
 } from './api';
@@ -20,9 +24,14 @@ import type {
   Company,
   CompanySetup,
   FeatureList,
+  PayPalCompany,
   StripeAccountStatus,
   StripeCompany,
 } from './types';
+import { memberBulkActions } from '#src/libs/member/actions';
+import type { Member } from '#src/libs/member/types';
+import { isErrorWithCustomCode } from '../utils';
+import { snackbarError } from '#src/actions/snackbar.actions';
 
 export const searchActions = {
   success: createAction<Company[]>('COMPANY/SEARCH/SUCCESS'),
@@ -221,6 +230,80 @@ export function retrieveMyCompanySetup(options?: OptionCallback<CompanySetup>) {
       if (options && options.onError) options.onError(err);
     }
     dispatch(retrieveMyCompanyActions.isLoading(false));
+  };
+}
+
+export const fetchPayPalOnboardingLinkActions = {
+  success: createAction<{ onboarding_url: string }>(
+    'PAYPAL_COMPANY/ONBOARDING_LINK/FETCH/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'PAYPAL_COMPANY/ONBOARDING_LINK/FETCH/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PAYPAL_COMPANY/ONBOARDING_LINK/FETCH/ERROR',
+  ),
+};
+
+export function fetchPayPalOnboardingLink(
+  options?: OptionCallback<{ onboarding_url: string }>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchPayPalOnboardingLinkActions.isLoading(true));
+    dispatch(fetchPayPalOnboardingLinkActions.error(null));
+
+    try {
+      const response = await getPayPalOnboardingLinkAPI();
+      dispatch(fetchPayPalOnboardingLinkActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchPayPalOnboardingLinkActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(fetchPayPalOnboardingLinkActions.isLoading(false));
+  };
+}
+
+export const retrievePayPalAccountStatusActions = {
+  success: createAction<PayPalCompany>('PAYPAL_COMPANY/FETCH/SUCCESS'),
+  isLoading: createAction<boolean>('PAYPAL_COMPANY/FETCH/IS_LOADING'),
+  error: createAction<Error | null>('PAYPAL_COMPANY/FETCH/ERROR'),
+};
+
+export function retrievePayPalCompany(options?: OptionCallback<PayPalCompany>) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrievePayPalAccountStatusActions.isLoading(true));
+    dispatch(retrievePayPalAccountStatusActions.error(null));
+
+    try {
+      const response = await retrievePayPalAccountStatusAPI();
+      dispatch(retrievePayPalAccountStatusActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      if (
+        isErrorWithCustomCode(err) &&
+        err.response?.data?.error_code ===
+        PAYPAL_ACCOUNT_ALREADY_LINKED_TO_OTHER_COMPANY
+      ) {
+        dispatch(snackbarError(`paypal.${err.response?.data?.error_code}`));
+      } else if (
+        isErrorWithCustomCode(err) &&
+        err.response?.data?.error_code === PAYPAL_API_EXCEPTION
+      ) {
+        dispatch(snackbarError('paypal.couldNotReachPayPal'));
+      } else {
+        dispatch(snackbarError('paypal.connectionAttemptFailed'));
+      }
+      console.error(err);
+      dispatch(retrievePayPalAccountStatusActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(retrievePayPalAccountStatusActions.isLoading(false));
   };
 }
 

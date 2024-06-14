@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 import { Link } from 'react-router-dom';
-import { Alert } from '@material-ui/lab';
+import Divider from '@material-ui/core/Divider';
 import BankAccountFormDialog from '#src/libs/payment/components/BankAccountFormDialog.component';
 import BankAccountSuccessDialog from '#src/libs/payment/components/BankAccountSuccess.dialog';
 
@@ -58,34 +58,21 @@ export const CompanyDetail = (props: Props) => {
 
   return (
     <div className="company-detail">
-      <Typography className={classes.pageTitle} variant="h4">
-        {`${company.business_name} (${company.name.toLowerCase()})`}
-      </Typography>
-      <Grid container direction="row" spacing={3}>
-        <Grid item md={6} xs={12}>
-          <Grid container direction="column" spacing={3}>
-            <Grid item>
-              <Paper className={classes.paper}>
-                <Typography className={classes.title} variant="h6">
-                  {t('companies.address')}
-                </Typography>
-                <AddressDetail address={getAddress(company, '')} />
-                <Button
-                  color="primary"
-                  onClick={props.updateCompanyDetail}
-                  variant="contained"
-                >
-                  {t('common.edit')}
-                </Button>
-              </Paper>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item md={6} xs={12}>
+      <Grid container direction="column" spacing={3}>
+        <Grid container>
           <Paper className={classes.paper}>
             <Typography className={classes.title} variant="h6">
               {t('companies.bank_details')}
             </Typography>
+            <div className={classes.row}>
+              <Typography color="textSecondary" variant="subtitle1">
+                {`${t('settings:company.bankAccountInfo.content')} `}
+                <Link className={classes.link} to="/settings/platform-billing">
+                  {t('settings:company.bankAccountInfo.link')}
+                </Link>
+                .
+              </Typography>
+            </div>
             <p>
               <strong>{t('companies.fields.iban')} : </strong>
               {`*************${company.external_account_last4}`}
@@ -94,19 +81,24 @@ export const CompanyDetail = (props: Props) => {
               {company.bank_account_holder}
               <br />
             </p>
-            <Alert className={classes.title} severity="info">
-              {`${t('settings:company.bankAccountInfo.content')} `}
-              <Link className={classes.link} to="/settings/platform-billing">
-                {t('settings:company.bankAccountInfo.link')}
-              </Link>
-              .
-            </Alert>
             <Button
               color="primary"
               onClick={() => setAddExternalAccountOpen(true)}
               variant="contained"
             >
-              {t('common.edit')}
+              {t('settings:company.bankAccountInfo.update')}
+            </Button>
+            <Divider className={classes.divider} color="primary" />
+            <Typography className={classes.title} variant="h6">
+              {t('companies.address')}
+            </Typography>
+            <AddressDetail address={getAddress(company, '')} />
+            <Button
+              color="primary"
+              onClick={props.updateCompanyDetail}
+              variant="contained"
+            >
+              {t('settings:company.stripe.update')}
             </Button>
           </Paper>
         </Grid>
@@ -132,6 +124,11 @@ export const CompanyDetail = (props: Props) => {
 const styles = (theme) => ({
   paper: {
     padding: theme.spacing(2),
+    width: '100%',
+  },
+  divider: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   pageTitle: {
     paddingBottom: theme.spacing(2),

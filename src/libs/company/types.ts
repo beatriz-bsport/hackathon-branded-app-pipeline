@@ -9,6 +9,13 @@ import {
   ACCOUNT_CONFIGURATION_FINAL_STEP,
   PAYMENT_METHOD_CONFIGURATION_STEP,
   STRIPE_CONFIGURATION_STEP,
+  PAYPAL_NOT_CONNECTED,
+  PAYPAL_CONNECTED,
+  PAYPAL_CONNECTED_WITHOUT_VAULTING,
+  PAYPAL_PRIMARY_EMAIL_CONFIRMATION,
+  PAYPAL_REQUIRES_MORE_INFORMATION,
+  PAYPAL_ISSUE_CHECK_ACCOUNT,
+  PAYPAL_ISSUE_REPEAT_ONBOARDING,
 } from './constants';
 
 export type Company = {
@@ -69,6 +76,31 @@ export type StripeAccountStatus = {
   action: typeof BLOCK_BACKOFFICE | typeof WARN | typeof DO_NOTHING;
   reason: string;
   date_account_blocked: string;
+};
+
+export type PayPalCompany = {
+  account_primary_email: string;
+  account_legal_name: string;
+};
+
+export type PayPalAccountStatus =
+  | typeof PAYPAL_NOT_CONNECTED
+  | typeof PAYPAL_CONNECTED
+  | typeof PAYPAL_CONNECTED_WITHOUT_VAULTING
+  | typeof PAYPAL_PRIMARY_EMAIL_CONFIRMATION
+  | typeof PAYPAL_REQUIRES_MORE_INFORMATION
+  | typeof PAYPAL_ISSUE_CHECK_ACCOUNT
+  | typeof PAYPAL_ISSUE_REPEAT_ONBOARDING;
+
+export type PayPalProblematicAccountStatus =
+  | typeof PAYPAL_PRIMARY_EMAIL_CONFIRMATION
+  | typeof PAYPAL_REQUIRES_MORE_INFORMATION
+  | typeof PAYPAL_ISSUE_CHECK_ACCOUNT
+  | typeof PAYPAL_ISSUE_REPEAT_ONBOARDING;
+
+export type PayPalCompanyStatus = {
+  account_status: string;
+  paypal_company: PayPalCompany;
 };
 
 export type UpsellPackage = {
@@ -141,6 +173,8 @@ export type CompanyState = {
   stripeAccountStatus: ErrorAndLoading & { data: StripeAccountStatus };
   setupLoading: boolean;
   stripeCompany?: { data: StripeCompany } & ErrorAndLoading;
+  paypalCompanyStatus: { data: PayPalCompanyStatus } & ErrorAndLoading;
+  paypalOnboardingLink: { data: string } & ErrorAndLoading;
   byId: {
     [id: number]: Company;
   };
@@ -191,6 +225,10 @@ export type CompanyCreationParams = {
 
 export type GetOnboardingLinkParams = {
   account_token: string;
+  return_url?: string;
+};
+
+export type GetPayPalOnboardingLinkParams = {
   return_url?: string;
 };
 

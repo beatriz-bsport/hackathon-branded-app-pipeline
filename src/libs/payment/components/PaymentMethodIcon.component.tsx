@@ -16,7 +16,6 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET,
 } from '@bsport/common/lib/master-data/payment-group';
-import { QuicksalePaymentMethod } from '#src/libs/quicksale/constants';
 import { getCurrencyDisplay } from '../../theme/selectors';
 
 // import/no-unresolved
@@ -28,6 +27,7 @@ import BACS_DEBIT_LOGO from '../icons/bacs-direct-debit.png';
 import PAYPAL_LOGO from '../icons/paypal.png';
 import Stripe from '../icons/Stripe.icon';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '../utils';
+import { QuicksalePaymentMethod } from '#src/libs/quicksale/constants';
 
 const PaymentMethodIcon = (props: { paymentMethod: number }) => {
   const classes = useStyles();
@@ -43,9 +43,15 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
           </Typography>
         </div>
       );
+    case PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET:
+      return (
+        <div className={classes.largeContainer}>
+          <img alt="paypal" className={classes.paypalIcon} src={PAYPAL_LOGO} />
+        </div>
+      );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA:
       return (
-        <div className={classes.sepaContainer}>
+        <div className={classes.largeContainer}>
           <img alt="sepa" className={classes.sepaIcon} src={SEPA_LOGO} />
         </div>
       );
@@ -55,7 +61,7 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
       );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT:
       return (
-        <div className={classes.sepaContainer}>
+        <div className={classes.largeContainer}>
           <img alt="sofort" className={classes.sepaIcon} src={SOFORT_LOGO} />
         </div>
       );
@@ -64,10 +70,6 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
     case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
       return (
         <img alt="bacs_debit" className={classes.icon} src={BACS_DEBIT_LOGO} />
-      );
-    case PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET:
-      return (
-        <img alt="paypal_wallet" className={classes.icon} src={PAYPAL_LOGO} />
       );
     case PAYMENT_STRIPE_TERMINAL_FAKE:
       return <Stripe className={classes.stripeIcon} />;
@@ -87,7 +89,7 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  sepaContainer: {
+  largeContainer: {
     display: 'flex',
     height: 36,
     alignItems: 'center',
@@ -100,6 +102,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   icon: {
     height: 36,
+  },
+  paypalIcon: {
+    height: 26,
   },
   stripeIcon: {
     margin: theme.spacing(1, 2),

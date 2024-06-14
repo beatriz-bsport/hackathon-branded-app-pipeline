@@ -203,15 +203,14 @@ exports.default = {
     methodPaymentCardBillingDetailsHelper:
       'By activating this feature, you will reduce the number of card payments requiring 3D Secure (SMS validation, banking applications, etc.) Please note that these fields are compulsory.',
     DaysBeforeNotificationInputs: {
-      title:
-        'Choose the number of days before the payment method expiration date to send an email notification.',
+      title: 'Payment method expiration reminders',
       helpText:
-        'If you have the “Payment method expiration reminders” enabled for transactional notifications on Subscriptions and Billing, you can customize the number of days here.',
+        'If the corresponding transactional notifications are activated for subscriptions, you can decide how many days before the payment method expires to send a reminder',
       labels: {
         daysBeforeFirstNotification:
-          'First notification (days before expiration date)',
+          'First reminder (days before expiration date)',
         daysBeforeSecondNotification:
-          'Second notification (days before expiration date)',
+          'Second reminder (days before expiration date)',
       },
       errors: {
         secondWarningDayBiggerThanFirst:
@@ -364,16 +363,82 @@ exports.default = {
     },
   },
   company: {
+    stripe: { update: 'Update Stripe information' },
     bankAccountInfo: {
       link: 'here',
       content:
         'This account corresponds to the account on which the online payments via Bsport will be credited. To configure the payment method on which your Bsport subscription will be charged, click',
+      update: 'Update bank information',
     },
     bankAccountSuccess: {
       note: 'Click on "Configure" to be redirected.',
       content:
         'Your banking information was well updated. To be credited and charged on a single account, you can also update the payment method used to charge your Bsport subscription.',
       title: 'Change of bank details',
+    },
+    paypal: {
+      status: {
+        connected: 'Account connected',
+        notConnected: 'Not connected',
+        hasIssues: 'Connection issues',
+        unknown: 'Unknown status',
+      },
+      linkHelper:
+        'Link your PayPal Business Account to allow your members to pay with PayPal',
+      titleWithPayPal: 'With PayPal, your members can',
+      oneTimePayments: 'Make one-time payments',
+      accountName: 'Account name',
+      accountEmail: 'Account email',
+      connect: 'Connect PayPal account',
+      dialog: {
+        title: 'Connect your PayPal business account',
+        helper:
+          'To connect, use your Business account, upgrade a Personal or Premier account to Business, or create a new Business account.',
+        cancel: 'Cancel',
+        startConnecting: 'Start connecting',
+        redirecting: 'Redirecting you to PayPal...',
+        error:
+          "An error occurred while trying to retrieve PayPal's onboarding link",
+      },
+      alert: {
+        rightAccount: {
+          title: 'Make sure you are connecting the right account',
+          content:
+            'Changing or disconnecting it afterwards is a complex process that should be avoided unless absolutely necessary.',
+        },
+        error: {
+          isStatusUnknown: {
+            title: 'We are currently unable to reach PayPal',
+            content: 'Please refresh the page.',
+            goToPayPal:
+              'If the issue persists, check the status of PayPal sytems',
+          },
+          primary_email_confirmation: {
+            title: 'Missing email confirmation on your PayPal account.',
+            content: 'PayPal payments are currently disabled.',
+            goToPayPal:
+              'Please check your PayPal account to resolve this issue.',
+          },
+          requires_more_information: {
+            title: 'PayPal account missing information or not validated.',
+            content:
+              'PayPal payments are currently disabled. If your PayPal account is newly created and you’re certain that your information is accurate, please allow some time for PayPal to validate your account. ',
+            goToPayPal:
+              'Otherwise, please check your PayPal account to resolve this issue.',
+          },
+          issue_check_account: {
+            title: 'Issue with your PayPal account.',
+            content: 'PayPal payments are currently disabled.',
+            goToPayPal:
+              'Please check your PayPal account to resolve this issue.',
+          },
+          issue_repeat_onboarding: {
+            title: 'PayPal payments are currently disabled.',
+            content:
+              'Please repeat the connection progress using the same account to resolve this issue.',
+          },
+        },
+      },
     },
   },
 };

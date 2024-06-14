@@ -20,6 +20,7 @@ import {
 } from '@bsport/common/lib/master-data/alerting_kind';
 
 import { Trans, useTranslation } from 'react-i18next';
+import { PAYMENT_ENGINE_PAYPAL } from '@bsport/common/lib/master-data/payment-group';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { AVAILABLE_LANGUAGES, LANGUAGES } from '#src/i18n/languages';
 
@@ -221,6 +222,16 @@ const CompanyOnboardingAlertListItem: React.FC<{
     content = (
       <Typography component="p" variant="caption">
         {t('companyOnboarding.payout.content')}
+      </Typography>
+    );
+  }
+
+  if (alerting.data.payment_engine_identifier === PAYMENT_ENGINE_PAYPAL) {
+    title = t('companyOnboarding.paypal.title');
+    resolution_url = '/settings/company';
+    content = (
+      <Typography component="p" variant="caption">
+        {t(`companyOnboarding.paypal.${alerting.data.type}`)}
       </Typography>
     );
   }

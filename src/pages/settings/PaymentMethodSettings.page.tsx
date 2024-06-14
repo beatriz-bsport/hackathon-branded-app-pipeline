@@ -9,15 +9,18 @@ import {
   NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_FIRST_WARNING,
   NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_SECOND_WARNING,
 } from '@bsport/common/lib/master-data/notification-rule-events';
+import { MaterialStyleType } from '../../utils/types';
+import { RootState } from '../../reducers';
 import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
-import { updateCompanyTheme } from '#src/libs/theme/actions';
+import {
+  updateCompanyTheme,
+  fetchCompanyTheme as fetchCompanyThemeAction,
+} from '#src/libs/theme/actions';
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import type { PaymentMethodsFormValues } from '#src/libs/settings/components/PaymentMethodsForm/PaymentMethodsForm.component';
 import PaymentMethodsForm from '#src/libs/settings/components/PaymentMethodsForm';
 
 import { fetchSettingsList as fetchSettingsListAction } from '#src/libs/notification-rule/actions';
-import { RootState } from '../../reducers';
-import { MaterialStyleType } from '../../utils/types';
 import type { NotificationRuleSettingsData } from '#src/libs/notification-rule/types';
 
 type Props = ReturnType<typeof mapStateToProps> &
@@ -34,6 +37,7 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
 
   componentDidMount(): void {
     this.props.fetchSettingsList();
+    this.props.fetchCompanyTheme();
   }
 
   /**
@@ -151,6 +155,7 @@ const mapDispatchToProps = {
   snackbarSuccess,
   snackbarError,
   fetchSettingsList: fetchSettingsListAction,
+  fetchCompanyTheme: fetchCompanyThemeAction,
 };
 
 export default compose(

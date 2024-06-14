@@ -28,6 +28,13 @@ export enum CompanyOnboardingTypes {
   PAYOUT = 'payout',
 }
 
+export enum PayPalPendingActionType {
+  PRIMARY_EMAIL_CONFIRMATION = 'primary_email_confirmation',
+  REQUIRES_MORE_INFORMATION = 'requires_more_information',
+  ISSUE_CHECK_ACCOUNT = 'issue_check_account',
+  ISSUE_REPEAT_ONBOARDING = 'issue_repeat_onboarding',
+}
+
 export enum AlertingActions {
   EQUILIBRATE = 'equilibrate',
   FINALIZE = 'finalize',

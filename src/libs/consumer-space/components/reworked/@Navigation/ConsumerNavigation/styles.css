@@ -1,0 +1,15 @@
+.bs-consumer-navigation__root {
+}
+
+.bs-consumer-space__content {
+  display: flex;
+  padding: var(--bs-space-size-6) var(--bs-space-size-4);
+  gap: 32px;
+  align-self: stretch;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.bs-consumer-space__content--mobile {
+  gap: unset;
+}

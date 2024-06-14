@@ -42,6 +42,7 @@ export type MenuItemProps = {
       HTMLAnchorElement | HTMLButtonElement | HTMLInputElement
     >,
   ) => void;
+  rightSlot?: React.ReactElement;
   /**
    * If true, the component is selected
    */
@@ -60,6 +61,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
   label,
   leftIcon,
   onClick,
+  rightSlot,
   selected,
   type = MenuItemTypeEnum.TEXT,
 }) => {
@@ -96,6 +98,13 @@ const MenuItem: React.FC<MenuItemProps> = ({
             {label}
           </Typography>
         </ButtonBase>
+        <div
+          className={classNames('bs-fabrique-menu-item__right-slot', {
+            'bs-fabrique-menu-item__right-slot--hidden': !rightSlot,
+          })}
+        >
+          {rightSlot}
+        </div>
       </li>
     );
   }

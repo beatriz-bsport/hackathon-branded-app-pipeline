@@ -48,3 +48,10 @@
 .bs-fabrique-menu-item__label {
   padding-left: var(--bs-space-size-1);
 }
+
+.bs-fabrique-menu-item__right-slot {
+}
+
+.bs-fabrique-listitem__root__right-slot--hidden {
+  display: none;
+}

@@ -449,7 +449,6 @@ const mapWithHandlers = {
             const idList = associatedEstablishments.map((ae) => ae.id) || [];
             if (idList.length > 0) {
               fetchEstablishments({
-                // @ts-expect-error
                 associated_establishment__in: idList,
                 page_size: 300,
               });

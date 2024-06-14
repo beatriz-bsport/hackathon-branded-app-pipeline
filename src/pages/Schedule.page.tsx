@@ -79,10 +79,8 @@ import withTitle from '#src/hocs/with-title.hoc';
 
 // Types
 import { Coach } from '#src/libs/associated-coach/types';
-import { Offer } from '#src/libs/offer/types';
 import {
   PrivateBooking,
-  AvailabilitySlot,
   ResourceData,
   ResourceDataTypeForAllocation,
 } from '#src/libs/private-service/types';
@@ -91,16 +89,13 @@ import type { WithHandlerType } from '#src/utils/types';
 import type { RootState } from '#src/reducers';
 import { OptionCallback } from '#src/state/types';
 
-type OwnProps = {};
-
 type StateHanldersType = typeof StateHandlersInitial &
   WithHandlerType<typeof StateHandlersSetter>;
 
 type ConnectedPropsAndStateHanlders = ConnectedProps<typeof connector> &
   StateHanldersType;
 
-type Props = OwnProps &
-  ConnectedProps<typeof connector> &
+type Props = ConnectedProps<typeof connector> &
   StateHanldersType &
   WithHandlerType<typeof mapWithHandlers>;
 
@@ -238,11 +233,17 @@ export class SchedulePage extends React.Component<Props, State> {
 
   filteredDataListsOnCoaches = memoize(
     (
-      coachSelectedInRoleList: Array<Coach>,
-      previousOfferList: Array<Offer>,
-      previousAvailabilitySlotList: Array<AvailabilitySlot>,
-      previousPrivateBookingList: Array<PrivateBooking>,
-      previousResourceData: Array<ResourceData>,
+      coachSelectedInRoleList: ReturnType<
+        typeof mapStateToProps
+      >['coachesSelectedInRole'],
+      previousOfferList: ReturnType<typeof mapStateToProps>['offerList'],
+      previousAvailabilitySlotList: ReturnType<
+        typeof mapStateToProps
+      >['availabilitySlots'],
+      previousPrivateBookingList: ReturnType<
+        typeof mapStateToProps
+      >['privateBookingList'],
+      previousResourceData: ReturnType<typeof mapStateToProps>['resourceData'],
     ) => {
       const coachesIdsToFilter = coachSelectedInRoleList.map(
         (coach: Coach) => coach.id,
@@ -250,12 +251,14 @@ export class SchedulePage extends React.Component<Props, State> {
       const associatedCoachesIdsToFilter = coachSelectedInRoleList.map(
         (coach: Coach) => coach.associated_coach_id,
       );
-      const offerList = previousOfferList.filter((offer: Offer) =>
+      const offerList = previousOfferList.filter((offer) =>
         coachesIdsToFilter.includes(offer.coach),
       );
       const availabilitySlotList = previousAvailabilitySlotList.filter(
-        (slot: AvailabilitySlot) =>
+        (slot) =>
+          //@ts-expect-error
           slot.establishment ||
+          //@ts-expect-error
           slot.associated_establishment ||
           coachesIdsToFilter.includes(slot.coach),
       );
@@ -269,8 +272,9 @@ export class SchedulePage extends React.Component<Props, State> {
         (resourceData: ResourceData) => {
           if (resourceData.datatype === 'associated_coach') {
             const filteredResourceData = { ...resourceData };
-
+            //@ts-expect-error
             filteredResourceData.data = resourceData.data.filter(
+              //@ts-expect-error
               (coachResource) =>
                 associatedCoachesIdsToFilter.includes(
                   coachResource.resource_id,
@@ -297,11 +301,15 @@ export class SchedulePage extends React.Component<Props, State> {
       .flat();
 
   render() {
-    let coachList: Coach[];
-    let offerList: Array<Offer & { hasPendingReplacementRequest?: boolean }>;
-    let availabilitySlotList: AvailabilitySlot[];
-    let privateBookingList: PrivateBooking[];
-    let resourceAvailable: ResourceData[];
+    let coachList: ReturnType<typeof mapStateToProps>['availableCoaches'];
+    let offerList: ReturnType<typeof mapStateToProps>['offerList'];
+    let availabilitySlotList: ReturnType<
+      typeof mapStateToProps
+    >['availabilitySlots'];
+    let privateBookingList: ReturnType<
+      typeof mapStateToProps
+    >['privateBookingList'];
+    let resourceAvailable: ReturnType<typeof mapStateToProps>['resourceData'];
     const filterOnCoaches = this.props.coachesSelectedInRole?.length > 0;
     if (filterOnCoaches) {
       const lists = this.filteredDataListsOnCoaches(

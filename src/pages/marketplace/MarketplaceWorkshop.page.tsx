@@ -299,7 +299,6 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     fetchEstablishments({
       company: companyId,
       disabled: false,
-      // @ts-expect-error
       page_size: null,
       with_workshop: true,
     });

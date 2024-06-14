@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -14,8 +14,10 @@ import {
   BILLING_PLAN_STATUS_ENDED,
   BILLING_PLAN_STATUS_PAUSED,
 } from '@bsport/common/lib/master-data/subscription-status';
-import { formatAsDate } from '../../../utils/datetime';
-import { Subscription } from '../types';
+import { formatAsDate, isDateInThePast } from '#src/utils/datetime';
+import type { Subscription, Contract } from '../types';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
+import CompanyChip from '#src/components/franchise/CompanyChip.component';
 
 const SubscriptionStatus = (props: { subscription: Subscription }) => {
   const classes = useStyles();
@@ -57,17 +59,51 @@ const SubscriptionStatus = (props: { subscription: Subscription }) => {
 };
 
 type Props = {
+  getFranchiseCompanyById?: (id: number) => FranchiseCompany;
   subscription: Subscription;
-  onClick: () => void;
+  getContractById: (id: number) => Contract;
+  onClick: (subscriptionId: number, companyId?: number) => void;
   withoutSubscriptionStatus?: boolean;
 };
 
 const SubscriptionRowItem = (props: Props) => {
   const { t } = useTranslation('subscription');
+  const classes = useStyles();
+
+  const formattedFirstBillingDate = useMemo(
+    () => formatAsDate(props.subscription.first_billing_date),
+    [props.subscription.first_billing_date],
+  );
+
+  const companyId = useMemo(
+    () => props.getContractById?.(props.subscription.contract)?.company,
+    [props],
+  );
+
+  const franchiseCompany = useMemo(
+    () => props.getFranchiseCompanyById?.(companyId),
+    [companyId, props],
+  );
+
+  const subscriptionRowSecondaryText = useMemo(
+    () =>
+      isDateInThePast(props.subscription.first_billing_date)
+        ? t('listItem.subscribedOn', {
+            date: formattedFirstBillingDate,
+          })
+        : t('listItem.willSubscribeOn', {
+            date: formattedFirstBillingDate,
+          }),
+    [formattedFirstBillingDate, props.subscription.first_billing_date, t],
+  );
   return (
     <div>
-      {/* @ts-expect-error */}
-      <ListItem dense button={!!props.onClick} onClick={props.onClick || null}>
+      <ListItem
+        dense
+        // @ts-expect-error
+        button={!!props.onClick}
+        onClick={() => props.onClick?.(props.subscription.id, companyId)}
+      >
         <ListItemAvatar>
           <Avatar
             src={
@@ -90,11 +126,12 @@ const SubscriptionRowItem = (props: Props) => {
               )}
             </div>
           }
-          secondary={t('listItem.subscribedOn', {
-            date: formatAsDate(props.subscription.first_billing_date),
-          })}
+          secondary={subscriptionRowSecondaryText}
           secondaryTypographyProps={{ variant: 'caption' }}
         />
+        <div className={classes.chip}>
+          {!!franchiseCompany && <CompanyChip company={franchiseCompany} />}
+        </div>
         {!props.withoutSubscriptionStatus && (
           <SubscriptionStatus subscription={props.subscription} />
         )}
@@ -111,6 +148,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   icon: {
     margin: theme.spacing(2),
+  },
+  chip: {
+    marginRight: theme.spacing(1),
   },
 }));
 

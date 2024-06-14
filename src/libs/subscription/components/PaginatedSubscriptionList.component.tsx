@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 // @ts-expect-error
 import PaginatedListBase from '#src/components/PaginatedListBase.component';
 import SubscriptionRowItem from './SubscriptionRowItem.component';
-import { Subscription } from '../types';
+import type { Subscription, Contract } from '../types';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
 
 type Props = {
   items: Array<Subscription>;
@@ -15,7 +16,9 @@ type Props = {
   page: number;
   itemPerPage: number;
   onPageRequested: (page: number, pageSize?: number) => void;
-  onClick?: (subscriptionId: number) => void;
+  getFranchiseCompanyById?: (id: number) => FranchiseCompany;
+  getContractById?: (id: number) => Contract;
+  onClick?: (subscriptionId: number, companyId?: number) => void;
   withoutSubscriptionStatus?: boolean;
 };
 
@@ -49,7 +52,9 @@ export const PaginatedSubscriptionList = (props: Props) => {
         sub ? (
           <SubscriptionRowItem
             key={sub.id}
-            onClick={props.onClick ? () => props.onClick(sub.id) : null}
+            getContractById={props.getContractById}
+            getFranchiseCompanyById={props.getFranchiseCompanyById}
+            onClick={props.onClick ?? null}
             subscription={sub}
             withoutSubscriptionStatus={props.withoutSubscriptionStatus}
           />

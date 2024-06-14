@@ -5,6 +5,7 @@ import Immutable from 'seamless-immutable';
 // Third-party libraries
 import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
+import isEqual from 'lodash/isEqual';
 import { DateTime } from 'luxon';
 import { withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
@@ -112,12 +113,27 @@ type State = {
     ];
     kind: 'enable' | 'disable';
   } | null;
+  coachList: ReturnType<typeof mapStateToProps>['coachesSelectedInRole'];
+  offerList: ReturnType<typeof mapStateToProps>['offerList'] | [];
+  availabilitySlotList:
+    | ReturnType<typeof mapStateToProps>['availabilitySlots']
+    | [];
+  privateBookingList: ReturnType<typeof mapStateToProps>['privateBookingList'];
+  resourceAvailable: ReturnType<typeof mapStateToProps>['resourceData'];
 };
 
 export class SchedulePage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { updateAvailabilitySlotData: null };
+    this.state = {
+      updateAvailabilitySlotData: null,
+      coachList: [],
+      offerList: [],
+      availabilitySlotList: [],
+      privateBookingList: [],
+      resourceAvailable: [],
+    };
+    this.updateLists = this.updateLists.bind(this);
   }
 
   componentDidMount() {
@@ -127,6 +143,7 @@ export class SchedulePage extends React.Component<Props, State> {
     this.props.fetchAssociatedCoachesList({ disabled: false });
     this.props.fetchRessourcesFilters();
     this.props.fetchCompanyUserRoles();
+    this.updateLists(this.props);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -147,12 +164,78 @@ export class SchedulePage extends React.Component<Props, State> {
         },
       ]);
     }
+    if (
+      this.filteringRelatedPropsHasChanged(
+        {
+          coachesSelectedInRole: prevProps.coachesSelectedInRole,
+          offerList: prevProps.offerList,
+          availabilitySlots: prevProps.availabilitySlots,
+          privateBookingList: prevProps.privateBookingList,
+          resourceData: prevProps.resourceData,
+        },
+        {
+          coachesSelectedInRole: this.props.coachesSelectedInRole,
+          offerList: this.props.offerList,
+          availabilitySlots: this.props.availabilitySlots,
+          privateBookingList: this.props.privateBookingList,
+          resourceData: this.props.resourceData,
+        },
+      )
+    ) {
+      this.updateLists(this.props);
+    }
   }
 
   componentWillUnmount() {
     this.props.resetCustomEvent();
   }
+  /**
+   * This method uses lodash to compare the parts of the props that are related to filtering.
+   * The use of lodash is made to avoid a high amount of re-renders due to shallow comparison of objects.
+   */
+  filteringRelatedPropsHasChanged(
+    prevProps: Partial<Props>,
+    nextProps: Partial<Props>,
+  ): boolean {
+    return !isEqual(prevProps, nextProps);
+  }
 
+  updateLists(props: Partial<Props>) {
+    const {
+      coachesSelectedInRole,
+      offerList,
+      availabilitySlots,
+      privateBookingList,
+      resourceData,
+    } = props;
+    const filterOnCoaches = coachesSelectedInRole?.length > 0;
+
+    if (filterOnCoaches) {
+      const lists = this.filteredDataListsOnCoaches(
+        coachesSelectedInRole,
+        offerList,
+        availabilitySlots,
+        privateBookingList,
+        resourceData,
+      );
+
+      this.setState({
+        coachList: lists[0],
+        offerList: lists[1],
+        availabilitySlotList: lists[2],
+        privateBookingList: lists[3],
+        resourceAvailable: lists[4],
+      });
+    } else {
+      this.setState({
+        coachList: props.availableCoaches,
+        offerList: props.offerList,
+        availabilitySlotList: props.availabilitySlots,
+        privateBookingList: props.privateBookingList,
+        resourceAvailable: props.resourceData,
+      });
+    }
+  }
   fetchAvailabilitySlotsAllResource = () => {
     this.props.resetAvailabilitySlots();
     // fetch service's establshments slots
@@ -301,41 +384,6 @@ export class SchedulePage extends React.Component<Props, State> {
       .flat();
 
   render() {
-    let coachList: ReturnType<typeof mapStateToProps>['availableCoaches'];
-    let offerList: ReturnType<typeof mapStateToProps>['offerList'];
-    let availabilitySlotList: ReturnType<
-      typeof mapStateToProps
-    >['availabilitySlots'];
-    let privateBookingList: ReturnType<
-      typeof mapStateToProps
-    >['privateBookingList'];
-    let resourceAvailable: ReturnType<typeof mapStateToProps>['resourceData'];
-    const filterOnCoaches = this.props.coachesSelectedInRole?.length > 0;
-    if (filterOnCoaches) {
-      const lists = this.filteredDataListsOnCoaches(
-        this.props.coachesSelectedInRole,
-        this.props.offerList,
-        this.props.availabilitySlots,
-        this.props.privateBookingList,
-        this.props.resourceData,
-      );
-      [
-        coachList,
-        offerList,
-        availabilitySlotList,
-        privateBookingList,
-        resourceAvailable,
-      ] = lists;
-    } else {
-      coachList = this.props.availableCoaches;
-
-      offerList = this.props.offerList;
-
-      availabilitySlotList = this.props.availabilitySlots;
-      privateBookingList = this.props.privateBookingList;
-      resourceAvailable = this.props.resourceData;
-    }
-
     return (
       <div>
         <PrivateCalendarWithControls
@@ -345,7 +393,7 @@ export class SchedulePage extends React.Component<Props, State> {
           showHideCancelledEventsToggle
           showOfferListToogle
           showPrivateBookingToogle
-          availabilitySlots={availabilitySlotList}
+          availabilitySlots={this.state.availabilitySlotList}
           availabilitySlotUpdating={this.props.availabilitySlotUpdating}
           coachesSelectedInRole={this.props.coachesSelectedInRole}
           companyTheme={this.props.companyTheme}
@@ -357,12 +405,12 @@ export class SchedulePage extends React.Component<Props, State> {
           getHasPendingReplacementRequest={
             this.props.getHasPendingReplacementRequest
           }
-          offerList={offerList}
+          offerList={this.state.offerList}
           onDateChange={this.props.handleDateChange}
-          privateBookings={privateBookingList}
+          privateBookings={this.state.privateBookingList}
           refreshOffers={this.props.fetchOfferList}
           refreshPrivateBookings={this.props.fetchPrivateBookingList}
-          resourceAvailable={resourceAvailable}
+          resourceAvailable={this.state.resourceAvailable}
           resourceDataLoading={this.props.resourceDataLoading}
           resourcesByDatatype={this.props.resourcesByDatatype}
           resourceSelectedListIds={this.props.resourceFiltersArray}
@@ -380,13 +428,13 @@ export class SchedulePage extends React.Component<Props, State> {
             onClose={this.onCancelAvailabilityUpdate}
             onSubmit={this.submitAvailabilitySlotUpdate}
             open={!!this.state.updateAvailabilitySlotData}
-            resourceAvailable={resourceAvailable}
+            resourceAvailable={this.state.resourceAvailable}
           />
         ) : null}
         {this.props.customEventData && (
           <CustomEvenFormDialog
             open
-            coaches={coachList}
+            coaches={this.state.coachList}
             onClose={this.props.closeCustomEventDialog}
             onSubmit={this.props.createOrUpdateCustomEvent}
           />

@@ -50,15 +50,15 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
 
     // first reminder
     const isFirstReminderMailEnabled =
-      settings[NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING]?.disabled &&
-      settings[
+      !settings[NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING]?.disabled ||
+      !settings[
         NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_FIRST_WARNING
       ]?.disabled;
 
     // second reminder
     const isSecondReminderMailEnabled =
-      settings[NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING]?.disabled &&
-      settings[
+      !settings[NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING]?.disabled ||
+      !settings[
         NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_SECOND_WARNING
       ]?.disabled;
 

@@ -33,9 +33,14 @@ import {
   deleteContractTemplateActions,
   restoreContractTemplateActions,
   fetchContractTemplateDetailActions,
+  fetchContractTemplateRelatedBillingPlansActions,
 } from './actions';
 
-import type { ContractTemplate, SubscriptionState } from './types';
+import type {
+  ContractTemplate,
+  SubscriptionState,
+  SubscriptionREST,
+} from './types';
 import { PaginatedResponse } from '#src/state/types';
 import { CONTRACT_TEMPLATE_PAGE_SIZE } from './constants';
 
@@ -162,6 +167,15 @@ const initialState: SubscriptionState = Immutable({
       count: 0,
       page: 1,
       numberOfPages: 0,
+    },
+    billingPlans: {
+      loading: false,
+      error: null,
+      allIds: [],
+      byId: {},
+      count: 0,
+      page: 1,
+      nextPage: null,
     },
   },
 });
@@ -631,6 +645,61 @@ export default handleActions<Immutable.Immutable<SubscriptionState>>(
         { contractTemplate: { active: { byId: { [payload.id]: payload } } } },
         { deep: true },
       );
+    },
+    [fetchContractTemplateRelatedBillingPlansActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['contractTemplate', 'billingPlans', 'error'],
+        payload,
+      );
+    },
+    [fetchContractTemplateRelatedBillingPlansActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['contractTemplate', 'billingPlans', 'loading'],
+        payload,
+      );
+    },
+    [fetchContractTemplateRelatedBillingPlansActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<SubscriptionREST> },
+    ) => {
+      const { results, page, count, next_page } = payload;
+      return state
+        .setIn(['contractTemplate', 'billingPlans', 'page'], page)
+        .setIn(['contractTemplate', 'billingPlans', 'count'], count)
+        .setIn(['contractTemplate', 'billingPlans', 'nextPage'], next_page)
+        .setIn(
+          ['contractTemplate', 'billingPlans', 'allIds'],
+          results.map(
+            (contractTemplateSubscriptions: SubscriptionREST[]) =>
+              contractTemplateSubscriptions.id,
+          ),
+        )
+        .merge(
+          {
+            contractTemplate: {
+              billingPlans: {
+                byId: results.reduce(
+                  (
+                    acc: Record<number, ContractTemplateSubscriptions>,
+                    contractTemplateSubscriptions: ContractTemplateSubscriptions,
+                  ) => {
+                    acc[contractTemplateSubscriptions.id] =
+                      contractTemplateSubscriptions;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
     },
   },
   initialState,

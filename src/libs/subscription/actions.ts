@@ -31,6 +31,7 @@ import api, {
   restoreContractTemplate as restoreContractTemplateAPI,
   fetchMemberSubscriptionsInAllFranchise as fetchMemberSubscriptionsInAllFranchiseAPI,
   fetchContractTemplateDetail as fetchContractTemplateDetailAPI,
+  fetchContractTemplateRelatedBillingPlans as fetchContractTemplateRelatedBillingPlansAPI,
 } from './api';
 
 import type {
@@ -58,7 +59,11 @@ import type {
   ContractTemplatePaginatedQueryParams,
   SubscriptionREST,
 } from './types';
-import { CONTRACT_TEMPLATE_PAGE_SIZE } from './constants';
+import type { PaginationFilterParams } from '#src/libs/types';
+import {
+  CONTRACT_TEMPLATE_PAGE_SIZE,
+  SUBSCRIBED_MEMBER_LIST_PAGE_SIZE,
+} from './constants';
 import { fetchEventList } from '../event/actions';
 import { downloadDocument } from '../../utils/downloader';
 import { RootState } from '#src/reducers';
@@ -1327,4 +1332,49 @@ export const fetchContractTemplateDetail =
     }
 
     dispatch(fetchContractTemplateDetailActions.isLoading(false));
+  };
+
+export const fetchContractTemplateRelatedBillingPlansActions = {
+  error: createAction<Error | null>(
+    'FRANCHISE/CONTRACT_TEMPLATE/SUBSCRIPTIONS/ERROR',
+  ),
+  isLoading: createAction<boolean>(
+    'FRANCHISE/CONTRACT_TEMPLATE/SUBSCRIPTIONS/IS_LOADING',
+  ),
+  success: createAction<PaginatedResponse<SubscriptionREST>>(
+    'FRANCHISE/CONTRACT_TEMPLATE/SUBSCRIPTIONS/SUCCESS',
+  ),
+};
+
+export const fetchContractTemplateRelatedBillingPlans =
+  (
+    id: number,
+    params?: PaginationFilterParams,
+    options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
+  ) =>
+  async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(fetchContractTemplateRelatedBillingPlansActions.isLoading(true));
+    dispatch(fetchContractTemplateRelatedBillingPlansActions.error(null));
+
+    const page =
+      params?.page ??
+      getState().subscription?.contractTemplate?.billingPlans?.page ??
+      1;
+    try {
+      const response = await fetchContractTemplateRelatedBillingPlansAPI(id, {
+        ...params,
+        page,
+        page_size: params?.page_size ?? SUBSCRIBED_MEMBER_LIST_PAGE_SIZE,
+      });
+      dispatch(
+        fetchContractTemplateRelatedBillingPlansActions.success(response.data),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(fetchContractTemplateRelatedBillingPlansActions.error(error));
+      options?.onError?.(error);
+    }
+
+    dispatch(fetchContractTemplateRelatedBillingPlansActions.isLoading(false));
   };

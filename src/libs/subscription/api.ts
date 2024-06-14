@@ -23,6 +23,7 @@ import type {
   ContractTemplate,
   ContractTemplatePaginatedQueryParams,
 } from './types';
+import type { PaginationFilterParams } from '#src/libs/types';
 import type { PaginatedResponse } from '#src/state/types';
 import { cleanParams } from '#src/utils/createUrlHandlers';
 
@@ -362,5 +363,17 @@ export const restoreContractTemplate = (id: number) => {
 export const fetchContractTemplateDetail = (id: number) => {
   return getAuth<ContractTemplate>(
     `${API_URI}/subscription/contract-template/${id}/`,
+  );
+};
+
+export const fetchContractTemplateRelatedBillingPlans = (
+  id: number,
+  params: PaginationFilterParams,
+) => {
+  const cleanedParams = cleanParams(params);
+  return getAuth<PaginatedResponse<SubscriptionREST>>(
+    `${API_URI}/subscription/contract-template/${id}/billing-plans/${buildUrlParams(
+      cleanedParams,
+    )}`,
   );
 };

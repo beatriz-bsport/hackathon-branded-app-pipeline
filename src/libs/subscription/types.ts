@@ -306,6 +306,13 @@ export type SubscriptionState = {
       numberOfPages: number;
       count: number;
     };
+    billingPlans: ErrorAndLoading & {
+      byId: { [id: number]: Subscription };
+      allIds: number[];
+      page: number;
+      nextPage: number | null;
+      count: number;
+    };
   };
   contractTermsDownload: ErrorAndLoading;
   tags_on_first_billing: number[];

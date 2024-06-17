@@ -22,26 +22,27 @@ export const openUserInteractionPortal: (args: {
   url: string,
   dialogMode: 0 | 1 | 2,
   isFabContext?: boolean,
-  fullScreenPopup: boolean,
+  fullScreenPopup?: boolean,
 }) => any = createAction('WIDGET_SET_IFRAME_URL');
 
 export const closeUserInteractionPortal = () => (dispatch: Dispatch) => {
   dispatch(openUserInteractionPortal({ url: '', dialogMode: 0 }));
 };
 
-export const fabShowLogin = () => (dispatch: Dispatch, getState: any) => {
-  const { theme } = getState().theme;
-  const { company } = theme;
-  const { PUBLIC_URL } = getEnv();
+export const fabShowLogin =
+  () => (dispatch: Dispatch, getState: () => RootState) => {
+    const { theme } = getState().theme;
+    const { company } = theme;
+    const { PUBLIC_URL } = getEnv();
 
-  dispatch(
-    openUserInteractionPortal({
-      url: `${PUBLIC_URL}/login?membership=${company}&context=widget&next=/c/${company}`,
-      dialogMode: DIALOG_MODE_IFRAME,
-      isFabContext: true,
-    }),
-  );
-};
+    dispatch(
+      openUserInteractionPortal({
+        url: `${PUBLIC_URL}/login?membership=${company}&context=widget&next=/c/${company}`,
+        dialogMode: DIALOG_MODE_IFRAME,
+        isFabContext: true,
+      }),
+    );
+  };
 
 export const genericShowLogin =
   ({
@@ -75,37 +76,40 @@ export const genericShowLogin =
     );
   };
 
-export const fabShowBasket = () => (dispatch: Dispatch, getState: any) => {
-  const { theme } = getState().theme;
-  dispatch(
-    openUserInteractionPortal({
-      url: buildWidgetUrl('basket', theme),
-      dialogMode: DIALOG_MODE_IFRAME,
-    }),
-  );
-};
+export const fabShowBasket =
+  () => (dispatch: Dispatch, getState: () => RootState) => {
+    const { theme } = getState().theme;
+    dispatch(
+      openUserInteractionPortal({
+        url: buildWidgetUrl('basket', theme),
+        dialogMode: DIALOG_MODE_IFRAME,
+      }),
+    );
+  };
 
-export const fabShowBookings = () => (dispatch: Dispatch, getState: any) => {
-  const { theme } = getState().theme;
-  dispatch(
-    openUserInteractionPortal({
-      url: buildWidgetUrl('bookings', theme),
-      dialogMode: DIALOG_MODE_IFRAME,
-    }),
-  );
-};
+export const fabShowBookings =
+  () => (dispatch: Dispatch, getState: () => RootState) => {
+    const { theme } = getState().theme;
+    dispatch(
+      openUserInteractionPortal({
+        url: buildWidgetUrl('bookings', theme),
+        dialogMode: DIALOG_MODE_IFRAME,
+      }),
+    );
+  };
 
-export const fabShowProfile = () => (dispatch: Dispatch, getState: any) => {
-  const { theme } = getState().theme;
-  dispatch(
-    openUserInteractionPortal({
-      url: buildWidgetUrl('profile', theme),
-      dialogMode: DIALOG_MODE_IFRAME,
-    }),
-  );
-};
+export const fabShowProfile =
+  () => (dispatch: Dispatch, getState: () => RootState) => {
+    const { theme } = getState().theme;
+    dispatch(
+      openUserInteractionPortal({
+        url: buildWidgetUrl('profile', theme),
+        dialogMode: DIALOG_MODE_IFRAME,
+      }),
+    );
+  };
 export const fabShowSubscription =
-  () => (dispatch: Dispatch, getState: any) => {
+  () => (dispatch: Dispatch, getState: () => RootState) => {
     const { theme } = getState().theme;
     dispatch(
       openUserInteractionPortal({

@@ -1,94 +1,95 @@
-// @flow
-import React from 'react';
-
-import { compose, withStateHandlers } from 'recompose';
-
-import { withTranslation, TFunction } from 'react-i18next';
-
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { UserAgentProvider, UserAgent } from '@quentin-sommer/react-useragent';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { Theme, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import firefox from './browser-icon/firefox_logo.png';
 import chrome from './browser-icon/chrome_logo.png';
+import type UAParser from 'ua-parser-js';
 
-type Props = {
-  classes: Object,
-  t: TFunction,
-  open: boolen,
-  close: () => void,
-};
+interface BrowserInfo {
+  name: string;
+  major: string;
+}
 
-export function IEMessage(props: Props) {
+const IEMessage: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  const classes = useStyles();
+  const { t } = useTranslation(['navigation']);
+
+  const closeDialogModal = useCallback(() => {
+    setIsOpen(false);
+  }, [setIsOpen]);
+
   return (
     <UserAgentProvider ua={window.navigator.userAgent}>
       <UserAgent returnFullParser>
-        {(parser) => {
-          const { name: browserName, major: browserMajor } =
+        {(parser: UAParser) => {
+          const { name: browserName, major: browserMajor }: BrowserInfo =
             parser.getBrowser();
 
           const shouldDialogOpen =
             (browserName === 'IE' && parseInt(browserMajor, 10) <= 11) ||
             (browserName === 'Safari' && parseInt(browserMajor, 10) <= 10);
-          if (shouldDialogOpen) {
-            return (
-              <Dialog open={props.open}>
+
+          return (
+            shouldDialogOpen && (
+              <Dialog open={isOpen}>
                 <DialogContent>
-                  <div className={props.classes.explainText}>
+                  <div className={classes.explainText}>
                     <Typography>
-                      {props.t('deprecatedNavigator.navigatorError')}
+                      {t('deprecatedNavigator.navigatorError')}
                     </Typography>
                   </div>
-                  <div className={props.classes.row}>
+                  <div className={classes.row}>
                     <img
                       alt="Firefox logo"
-                      className={props.classes.image}
+                      className={classes.image}
                       src={firefox}
                     />
                     <a
-                      className={props.classes.link}
+                      className={classes.link}
                       href="https://www.mozilla.org/fr/firefox/new/"
                       target="blank"
                     >
-                      {props.t('deprecatedNavigator.downloadFirefox')}
+                      {t('deprecatedNavigator.downloadFirefox')}
                     </a>
                   </div>
-                  <div className={props.classes.row}>
+                  <div className={classes.row}>
                     <img
                       alt="Chrome logo"
-                      className={props.classes.image}
+                      className={classes.image}
                       src={chrome}
                     />
                     <a
-                      className={props.classes.link}
+                      className={classes.link}
                       href="https://www.google.com/chrome/"
                       target="blank"
                     >
-                      {props.t('deprecatedNavigator.downloadChrome')}
+                      {t('deprecatedNavigator.downloadChrome')}
                     </a>
                   </div>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={props.close}>
-                    {props.t('deprecatedNavigator.close')}
+                  <Button onClick={closeDialogModal}>
+                    {t('deprecatedNavigator.close')}
                   </Button>
                 </DialogActions>
               </Dialog>
-            );
-          }
-          return null;
+            )
+          );
         }}
       </UserAgent>
     </UserAgentProvider>
   );
-}
+};
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   row: {
     display: 'flex',
     flexDirection: 'row',
@@ -107,10 +108,6 @@ const styles = (theme) => ({
     color: 'inherit',
     fontWeight: 'bold',
   },
-});
+}));
 
-export default compose(
-  withTranslation(['navigation']),
-  withStyles(styles),
-  withStateHandlers({ open: true }, { close: () => () => ({ open: false }) }),
-)(IEMessage);
+export default React.memo(IEMessage);

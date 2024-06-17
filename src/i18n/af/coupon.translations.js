@@ -127,6 +127,7 @@ const getTranslations = async () => {
         choicesFranchise: {
           [BUYABLE_ITEM_PASS]: 'Shared passes',
           [BUYABLE_ITEM_PRIVATE_PASS]: 'Shared appointment passes',
+          [BUYABLE_ITEM_SHOP_ITEM]: 'Shared webshop items',
         },
       },
       actions: { cancel: 'Cancel', submit: 'Apply' },

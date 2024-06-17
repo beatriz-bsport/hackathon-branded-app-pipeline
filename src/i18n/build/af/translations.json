@@ -2061,7 +2061,7 @@
           "all": "Ensemble du panier",
           "null": "Applies to the entire basket"
         },
-        "choicesFranchise": { "1": "Shared passes", "9": "Shared appointment passes" }
+        "choicesFranchise": { "1": "Shared passes", "2": "Shared webshop items", "9": "Shared appointment passes" }
       },
       "actions": { "cancel": "Cancel", "submit": "Apply" },
       "subscription_mode": {

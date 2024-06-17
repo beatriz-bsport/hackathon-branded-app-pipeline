@@ -3,18 +3,18 @@ import { handleActions } from 'redux-actions';
 import URI from 'urijs';
 
 import { openUserInteractionPortal } from './actions';
+import type { DialogMode } from './types';
 
 export type ModalState = {
   url: string,
-  dialogMode: 0 | 1 | 2,
+  dialogMode: DialogMode,
 };
 
-export const initialState: Immutable.Immutable<ModalState> = Immutable<ModalState>(
-  {
+export const initialState: Immutable.Immutable<ModalState> =
+  Immutable<ModalState>({
     url: '',
     dialogMode: 0,
-  },
-);
+  });
 
 export default handleActions<Immutable.Immutable<ModalState>>(
   {

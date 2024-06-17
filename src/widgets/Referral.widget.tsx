@@ -25,6 +25,7 @@ import {
   getMembershipByCompanyId,
   getReferralMemberStatusUsingCompanyId,
 } from '../libs/bridge/selectors';
+import type { DialogMode } from '../libs/modal/types';
 
 const ReferralWidgetStyled = themify(ConsumerReferralDetail);
 
@@ -33,7 +34,7 @@ type OwnProps = {
   store: Store,
   theme: Theme,
   authenticated: boolean,
-  dialogMode: 0 | 1 | 2,
+  dialogMode: DialogMode,
   parentElement: string,
 };
 

@@ -16,10 +16,11 @@ import {
   DIALOG_MODE_DEACTIVATED,
 } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import WidgetPortalSlidingContainer from '../../components/PortalContainer';
+import type { DialogMode } from './types';
 
 interface OwnProps {
   url?: string;
-  dialogMode: 0 | 1 | 2 | 3;
+  dialogMode: DialogMode;
   onClose: () => void;
   fullScreenPopup: boolean;
   allowNoPopup?: boolean;

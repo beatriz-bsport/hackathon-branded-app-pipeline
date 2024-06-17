@@ -9,6 +9,7 @@ import { getEnv } from '../../utils/env';
 import { buildUrlParams } from '../../utils/http';
 import { RootState } from '../../reducers';
 import { SafeURI } from '../../widgets/utils';
+import type { DialogMode } from './types';
 
 const buildWidgetUrl = (path: string, theme: CompanyTheme, params?: any) => {
   const { company, company_name } = theme;
@@ -20,7 +21,7 @@ const buildWidgetUrl = (path: string, theme: CompanyTheme, params?: any) => {
 
 export const openUserInteractionPortal: (args: {
   url: string,
-  dialogMode: 0 | 1 | 2,
+  dialogMode: DialogMode,
   isFabContext?: boolean,
   fullScreenPopup?: boolean,
 }) => any = createAction('WIDGET_SET_IFRAME_URL');
@@ -51,7 +52,7 @@ export const genericShowLogin =
     parentElementId,
     widgetType,
   }: {
-    dialogMode: 0 | 1 | 2,
+    dialogMode: DialogMode,
     widgetType: string,
     parentElementId: string,
     fullScreenPopup?: boolean,

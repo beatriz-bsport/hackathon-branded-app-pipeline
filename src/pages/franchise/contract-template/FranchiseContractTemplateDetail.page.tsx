@@ -38,7 +38,7 @@ import {
   getFranchiseCompany as getFranchiseCompanyByIdSelector,
 } from '#src/libs/franchise/selectors';
 
-import ContractTemplateDeleteDialog from '#src/libs/subscription/components/ContractTemplateDeleteDialog.component';
+import ContractTemplateDeleteDialog from '#src/libs/subscription/franchise-components/ContractTemplateDeleteDialog.component';
 import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import ContractTemplateDetail from '#src/libs/subscription/franchise-components/ContractTemplateDetail.component';

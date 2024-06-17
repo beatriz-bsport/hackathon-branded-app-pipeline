@@ -46,7 +46,7 @@ import {
 
 import ContractTemplateList from '#src/libs/subscription/franchise-components/ContractTemplateList.component';
 import ContractTemplateListItem from '#src/libs/subscription/franchise-components/ContractTemplateListItem.component';
-import ContractTemplateDeleteDialog from '#src/libs/subscription/components/ContractTemplateDeleteDialog.component';
+import ContractTemplateDeleteDialog from '#src/libs/subscription/franchise-components/ContractTemplateDeleteDialog.component';
 import { CONTRACT_TEMPLATE_PAGE_SIZE } from '#src/libs/subscription/constants';
 
 import ObjectSearch from '#src/libs/fuzzy-search/components/ObjectSearch.component';

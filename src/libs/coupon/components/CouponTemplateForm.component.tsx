@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { withState, compose } from 'recompose';
 import * as Yup from 'yup';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { Form, withFormik, FormikProps } from 'formik';
+import { Form, withFormik, FormikProps, useFormikContext } from 'formik';
 import { InfoOutlined } from '@material-ui/icons';
 import Typography from '@material-ui/core/Typography';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -26,6 +26,7 @@ import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_FEE,
   BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_SHOP_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
 import { CircularProgress } from '@material-ui/core';
 import CouponTemplateUpdateWarningDialog from '#src/libs/coupon/components/CouponTemplateUpdateWarningDialog.component';
@@ -37,6 +38,9 @@ import PaymentPackListItem from '../../payment-packs/components/PaymentPackListI
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
+import FranchiseShopItemTemplateListItem from '#src/libs/franchise/components/FranchiseShopItemTemplateListItem';
+import ObjectSearch from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
 import {
   PriceField,
   TextField,
@@ -45,6 +49,9 @@ import {
   DateField,
   // @ts-expect-error
 } from '../../../components/forms';
+
+import type { ShopItemTemplate } from '#src/libs/shop/types';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 
 const ALL_BUYABLES = 100;
 
@@ -136,15 +143,65 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
+const SearchOption: React.FC<
+  OptionPropsWithData<{ onClick: () => void; item: ShopItemTemplate }>
+> = (props) => (
+  <FranchiseShopItemTemplateListItem
+    onClick={props.data.onClick}
+    shopItemTemplate={props.data.item}
+  />
+);
+
 export const CouponTemplateForm = (props: Props) => {
   const { values } = props;
   const { t } = useTranslation('coupon');
   const classes = useStyles();
 
+  const { getResultsById } = useObjectSearch();
+
+  const { handleChange } = useFormikContext<InitialValues>();
+
   const onDeletePackOrPass = (id: number) => {
     const newObjects = props.values.only_on_objects.filter((ido) => ido !== id);
     props.setFieldValue('only_on_objects', newObjects);
   };
+
+  const handleSelectShopItemTemplate = useCallback(
+    (shopItemTemplate: ShopItemTemplate) => {
+      // ensure we select "webshop items" radio if not selected already
+      if (values.applies_to !== BUYABLE_ITEM_SHOP_ITEM.toString()) {
+        props.setFieldValue('applies_to', BUYABLE_ITEM_SHOP_ITEM.toString());
+      }
+      const uniqueSelectedShopItemTemplateIds = [
+        ...new Set([...values.only_on_objects, shopItemTemplate.id]),
+      ];
+      props.setFieldValue('only_on_objects', uniqueSelectedShopItemTemplateIds);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [props.setFieldValue, values.only_on_objects],
+  );
+
+  const handleRemoveSelectShopItemTemplate = useCallback(
+    (shopItemTemplateId: number) =>
+      props.setFieldValue('only_on_objects', [
+        ...values.only_on_objects.filter(
+          (templateId) => templateId !== shopItemTemplateId,
+        ),
+      ]),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [props.setFieldValue, values.only_on_objects],
+  );
+
+  const shopItemTemplateOptionFormatter = useMemo(
+    () => (results: ShopItemTemplate[]) =>
+      results.map((shopItemTemplate) => ({
+        label: shopItemTemplate.name,
+        value: shopItemTemplate.id,
+        item: getResultsById('shop_item_template')[shopItemTemplate.id],
+        onClick: handleSelectShopItemTemplate,
+      })),
+    [getResultsById, handleSelectShopItemTemplate],
+  );
 
   return (
     <>
@@ -253,6 +310,8 @@ export const CouponTemplateForm = (props: Props) => {
                 label={t(
                   `form.applies_to.choicesFranchise.${BUYABLE_ITEM_PASS}`,
                 )}
+                name="applies_to"
+                onChange={handleChange}
                 value={BUYABLE_ITEM_PASS.toString()}
               />
               <div className={classes.fullWidth}>
@@ -300,6 +359,8 @@ export const CouponTemplateForm = (props: Props) => {
                 label={t(
                   `form.applies_to.choicesFranchise.${BUYABLE_ITEM_PRIVATE_PASS}`,
                 )}
+                name="applies_to"
+                onChange={handleChange}
                 value={BUYABLE_ITEM_PRIVATE_PASS.toString()}
               />
               <div className={classes.fullWidth}>
@@ -343,10 +404,54 @@ export const CouponTemplateForm = (props: Props) => {
                 className={classes.radioField}
                 control={
                   <Radio
+                    checked={
+                      values.applies_to === BUYABLE_ITEM_SHOP_ITEM.toString()
+                    }
+                  />
+                }
+                label={t(
+                  `form.applies_to.choicesFranchise.${BUYABLE_ITEM_SHOP_ITEM}`,
+                )}
+                name="applies_to"
+                onChange={handleChange}
+                value={BUYABLE_ITEM_SHOP_ITEM.toString()}
+              />
+              <div className={classes.fullWidth}>
+                <ObjectSearch
+                  closeMenuOnSelect
+                  additionalParams={{
+                    is_variant: false,
+                  }}
+                  components={{
+                    Option: SearchOption,
+                  }}
+                  optionsFormatter={shopItemTemplateOptionFormatter}
+                  placeholder={t('form.selectorPlaceholder.shopitem')}
+                  searchedObjectType="shop_item_template"
+                  variant="underlined"
+                />
+                {values.applies_to === BUYABLE_ITEM_SHOP_ITEM.toString() &&
+                  values.only_on_objects.length > 0 &&
+                  values.only_on_objects.map((id: number) => (
+                    <FranchiseShopItemTemplateListItem
+                      key={id}
+                      handleDelete={handleRemoveSelectShopItemTemplate}
+                      shopItemTemplate={
+                        getResultsById('shop_item_template')[id]
+                      }
+                    />
+                  ))}
+              </div>
+              <FormControlLabel
+                className={classes.radioField}
+                control={
+                  <Radio
                     checked={values.applies_to === BUYABLE_ITEM_FEE.toString()}
                   />
                 }
                 label={t(`form.applies_to.choices.${BUYABLE_ITEM_FEE}`)}
+                name="applies_to"
+                onChange={handleChange}
                 value={BUYABLE_ITEM_FEE.toString()}
               />
               <FormControlLabel
@@ -357,6 +462,8 @@ export const CouponTemplateForm = (props: Props) => {
                   />
                 }
                 label={t('form.applies_to.choices.all')}
+                name="applies_to"
+                onChange={handleChange}
                 value={ALL_BUYABLES.toString()}
               />
             </RadioGroup>
@@ -598,9 +705,11 @@ export const couponTemplateFormikHOC = withFormik<
     // disable every coupon template instances
     if (
       initial?.coupon_template_instances?.length &&
-      [BUYABLE_ITEM_PASS, BUYABLE_ITEM_PRIVATE_PASS].includes(
-        data.applies_to,
-      ) &&
+      [
+        BUYABLE_ITEM_PASS,
+        BUYABLE_ITEM_PRIVATE_PASS,
+        BUYABLE_ITEM_SHOP_ITEM,
+      ].includes(data.applies_to) &&
       data.only_on_objects.length > 0 &&
       (data.applies_to !== initial.applies_to ||
         data.only_on_objects !== initial.only_on_objects)

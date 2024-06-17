@@ -12,12 +12,14 @@ import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
 import { MarketplaceNewsletterV2Data } from 'bsport-saas/src/libs/marketplace/types';
 import { OptionCallback } from 'bsport-saas/src/state/types';
+import { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
 
 const NewsletterFormV2Styled = themify(NewsletterFormBase);
 
 type OwnProps = {
   config?: MarketplaceNewsletterV2Data,
   companyId: number,
+  theme: CompanyTheme,
 };
 
 type ConnectProps = ConnectedProps<typeof connector>;
@@ -70,6 +72,7 @@ export class NewsletterWidget extends Component<Props> {
         successTitle={this.props.config?.successTitle}
         showSuccessText={this.props.config?.showSuccessText}
         successText={this.props.config?.successText}
+        theme={this.props.theme}
       />
     );
   }

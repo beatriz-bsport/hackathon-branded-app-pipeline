@@ -17,7 +17,6 @@ import classNames from 'classnames';
 import RedButton from '#src/components/button/RedButton.component';
 // @ts-expect-error
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
-// @ts-expect-error
 import ColorInput from '../../../components/input/ColorInput.component';
 import type { Theme } from '../types';
 // @ts-expect-error
@@ -220,7 +219,7 @@ export class ThemeForm extends Component<Props, State> {
             className={classNames(classes.horizontalInput, classes.alignItems)}
           >
             <ColorInput
-              color={this.state.theme.primary_color}
+              color={this.state.theme?.primary_color}
               helperText={t('forms.primary_color.helperText')}
               label={t('forms.primary_color.label')}
               onChange={(color: any) =>
@@ -242,7 +241,7 @@ export class ThemeForm extends Component<Props, State> {
             className={classNames(classes.horizontalInput, classes.alignItems)}
           >
             <ColorInput
-              color={this.state.theme.secondary_color}
+              color={this.state.theme?.secondary_color}
               helperText={t('forms.secondary_color.helperText')}
               label={t('forms.secondary_color.label')}
               onChange={(color: any) =>

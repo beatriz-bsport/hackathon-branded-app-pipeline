@@ -9,13 +9,12 @@ import EmailInput from '../../../components/input/EmailInput.component';
 
 // @ts-expect-error
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
-// @ts-expect-error
 import ColorInput from '../../../components/input/ColorInput.component';
 
 export type OwnProps = {
   id: number;
   cover: string;
-  primaryColor: string | File;
+  primaryColor: string;
   secondaryColor: string;
   marketingEmail: string;
   submitIsDisabled: boolean;
@@ -86,7 +85,7 @@ const FranchiseThemeForm = (props: Props) => {
             color={primaryColor}
             helperText={t('forms.primary_color.helperText')}
             label={t('forms.primary_color.label')}
-            onChange={(color: any) => handleChange('primaryColor')(color)}
+            onChange={(color: string) => handleChange('primaryColor')(color)}
           />
         </div>
         <div className={classes.horizontalInput}>
@@ -94,7 +93,7 @@ const FranchiseThemeForm = (props: Props) => {
             color={secondaryColor}
             helperText={t('forms.secondary_color.helperText')}
             label={t('forms.secondary_color.label')}
-            onChange={(color: any) => handleChange('secondaryColor')(color)}
+            onChange={(color: string) => handleChange('secondaryColor')(color)}
           />
         </div>
       </div>

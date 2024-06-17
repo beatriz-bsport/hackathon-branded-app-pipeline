@@ -39,7 +39,6 @@ import { hasUpsell } from '#src/libs/platform-billing/utils';
 import { FeatureList } from '#src/libs/company/types';
 import { CompanyTheme } from '#src/libs/theme/types';
 import EraserIcon from './tools/Eraser/Eraser.icon';
-// @ts-expect-error
 import ColorInput from '../../../components/input/ColorInput.component';
 import { MaterialStyleType } from '../../../utils/types';
 import { DEFAULT_SPOT_TYPE_ID } from '../utils';

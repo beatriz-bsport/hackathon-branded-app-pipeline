@@ -54,13 +54,13 @@ export const getSearchObjectURI = (
   objectId?: number,
 ): string => {
   if (objectType === 'franchise_user_private_pass') {
-    return `${API_V1_URI}/private_service/franchise_user_profile/${objectId}/private_consumer_pass/search`;
+    return `${API_V1_URI}/private_service/franchise_user_profile/${objectId}/private_consumer_pass/search/`;
   }
   if (objectType === 'franchise_user_payment_pack') {
-    return `${API_V1_URI}/payment-pack/franchise_user_profile/${objectId}/consumer_payment_pack/search`;
+    return `${API_V1_URI}/payment-pack/franchise_user_profile/${objectId}/consumer_payment_pack/search/`;
   }
   if (objectType in typeToV0URIMap) {
-    return `${API_URI}/${typeToV0URIMap[objectType]}/search`;
+    return `${API_URI}/${typeToV0URIMap[objectType]}/search/`;
   }
-  return `${API_V1_URI}/${typeToURIMap[objectType]}/search`;
+  return `${API_V1_URI}/${typeToURIMap[objectType]}/search/`;
 };

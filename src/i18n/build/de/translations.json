@@ -149,7 +149,7 @@
             "subscribeAgain": "Erneut abonnieren",
             "trial_nb": "Anzahl der geschenkten Monate",
             "recurrent_price": "Periodische Zahlung",
-            "flat_fee": "Anmeldegebühren",
+            "flat_fee": "Anmeldegebühren : {{price_with_currency}}",
             "recurrent_voucher": "Rabatt auf jede Rechnung",
             "private_pass": "Terminpass",
             "privatePass": "Terminpass",

@@ -4095,7 +4095,7 @@
             "dateStart": "Primera facturación",
             "firstBilling": "Primero pago",
             "payment_pack": "Bono",
-            "flat_fee": "Gastos de reserva",
+            "flat_fee": "Gastos de reserva : {{price_with_currency}}",
             "status": "Estado",
             "payment_method": {
                 "label": "Método de pago",

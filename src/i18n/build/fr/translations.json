@@ -16263,7 +16263,7 @@
             "dateCreated": "Date de création",
             "nbInterval": "Nombre d'encaissements",
             "recurrent_price": "Paiement récurrent",
-            "flat_fee": "Frais de dossier",
+            "flat_fee": "Frais de dossier : {{price_with_currency}}",
             "paymentPack": "Carte de cours",
             "privatePass": "Carte RDV",
             "paymentCombo": "Pack",

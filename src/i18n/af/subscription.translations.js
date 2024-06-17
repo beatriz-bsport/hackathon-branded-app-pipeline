@@ -468,7 +468,7 @@ const getTranslations = async () => {
       dateStart: 'First billing',
       firstBilling: 'First billing',
       payment_pack: 'Passes',
-      flat_fee: 'Joining fee',
+      flat_fee: 'Joining fee : {{price_with_currency}}',
       status: 'Status',
       payment_method: {
         [BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT]: 'Internal account balance',

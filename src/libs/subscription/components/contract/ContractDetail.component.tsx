@@ -102,9 +102,9 @@ const ContractDetail = (props: Props) => {
             className={classes.secondaryHelperText}
             color="textSecondary"
           >
-            {`${t('parameters.flat_fee')} : ${getCurrencyDisplayWithPrice(
-              flat_fee,
-            )}`}
+            {t('parameters.flat_fee', {
+              price_with_currency: getCurrencyDisplayWithPrice(flat_fee),
+            })}
           </Typography>
         </div>
         {nb_interval_after_auto_renewal !== null &&

@@ -8352,7 +8352,7 @@
             "recurrent_voucher": "Korting op elke factuur",
             "name": "Naam",
             "recurrent_price": "Herhalende betaling",
-            "flat_fee": "Inschrijfkosten",
+            "flat_fee": "Inschrijfkosten : {{price_with_currency}}",
             "parameters": "Instellingen",
             "payment_method": {
                 "0": "Betaalkaart",

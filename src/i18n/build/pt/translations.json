@@ -17240,7 +17240,7 @@
             "paymentCombo": "Pack",
             "privatePass": "Passe de Marcação",
             "paymentPack": "Passe de aulas",
-            "flat_fee": "Taxas de candidatura",
+            "flat_fee": "Taxas de candidatura : {{price_with_currency}}",
             "recurrent_price": "Pagamento recurrente",
             "nbInterval": "Número de Recibos",
             "dateCreated": "Data da criação",

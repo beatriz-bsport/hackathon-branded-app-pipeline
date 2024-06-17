@@ -7514,7 +7514,7 @@
             "autoRenew": "Rinnovo automatico",
             "nbInterval": "Numero di collezioni",
             "recurrent_price": "Pagamento ricorrente",
-            "flat_fee": "Spese amministrative",
+            "flat_fee": "Spese amministrative : {{price_with_currency}}",
             "paymentPack": "Pacchetto",
             "dateStart": "Prima contabilizzazione",
             "firstBilling": "Primo incasso",

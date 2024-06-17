@@ -17,6 +17,7 @@ import {
   getPayPalOnboardingLink as getPayPalOnboardingLinkAPI,
   retrieveStripeAccountStatusAPI,
   retrievePOSMember as retrievePOSMemberAPI,
+  checkNoOtherCompanyWithSamePayPalAccount as checkNoOtherCompanyWithSamePayPalAccountAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
 import type {
@@ -285,25 +286,45 @@ export function retrievePayPalCompany(options?: OptionCallback<PayPalCompany>) {
         options.onSuccess(response.data);
       }
     } catch (err) {
-      if (
-        isErrorWithCustomCode(err) &&
-        err.response?.data?.error_code ===
-          PAYPAL_ACCOUNT_ALREADY_LINKED_TO_OTHER_COMPANY
-      ) {
-        dispatch(snackbarError(`paypal.${err.response?.data?.error_code}`));
-      } else if (
-        isErrorWithCustomCode(err) &&
-        err.response?.data?.error_code === PAYPAL_API_EXCEPTION
-      ) {
-        dispatch(snackbarError('paypal.couldNotReachPayPal'));
-      } else {
-        dispatch(snackbarError('paypal.connectionAttemptFailed'));
+      switch (err.response?.data?.error_code) {
+        case PAYPAL_ACCOUNT_ALREADY_LINKED_TO_OTHER_COMPANY:
+          // Do nothing, checkNotExistOtherCompanyWithSamePayPalAccount will already dispatch a snack bar error
+          break;
+        case PAYPAL_API_EXCEPTION:
+          dispatch(snackbarError('paypal.couldNotReachPayPal'));
+          break;
+        default:
+          dispatch(snackbarError('paypal.connectionAttemptFailed'));
       }
       console.error(err);
       dispatch(retrievePayPalAccountStatusActions.error(err));
       if (options && options.onError) options.onError(err);
     }
     dispatch(retrievePayPalAccountStatusActions.isLoading(false));
+  };
+}
+export function checkNoOtherCompanyWithSamePayPalAccount(
+  params: {
+    merchantId: string;
+  },
+  options: OptionCallback<void>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      await checkNoOtherCompanyWithSamePayPalAccountAPI({
+        merchantId: params.merchantId,
+      });
+      options?.onSuccess && options.onSuccess();
+    } catch (err) {
+      if (
+        isErrorWithCustomCode(err) &&
+        err.response?.data?.error_code ===
+          PAYPAL_ACCOUNT_ALREADY_LINKED_TO_OTHER_COMPANY
+      ) {
+        dispatch(snackbarError(`paypal.${err.response?.data?.error_code}`));
+      }
+      console.error(err);
+    }
   };
 }
 

@@ -1363,6 +1363,8 @@ const getTranslations = async () => {
     },
     paypal: {
       connectionAttemptFailed: 'An error occurred while connecting to PayPal',
+      connectionAttemptSucceeded:
+        'The PayPal account has been succesfully connected',
       couldNotReachPayPal: 'We could not reach PayPal. Please try again later.',
       onboardingUrlFetchFailed:
         "An error occurred while trying to retrieve PayPal's onboarding link",

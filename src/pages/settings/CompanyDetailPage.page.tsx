@@ -10,13 +10,17 @@ import { withTranslation } from 'react-i18next';
 import { compose, withHandlers } from 'recompose';
 import { push } from 'connected-react-router';
 import Paper from '@material-ui/core/Paper';
-import { snackbarError as snackbarErrorAction } from '#src/libs/snackbar/actions';
+import {
+  snackbarError as snackbarErrorAction,
+  snackbarSuccess as snackbarSuccessAction,
+} from '#src/libs/snackbar/actions';
 
 import {
   attachExternalAccount as attachExternalAccountAction,
   retrieveMyCompanySetup as retrieveMyCompanySetupAction,
   retrievePayPalCompany as retrievePayPalCompanyAction,
   fetchPayPalOnboardingLink as fetchPayPalOnboardingLinkAction,
+  checkNoOtherCompanyWithSamePayPalAccount as checkNoOtherCompanyWithSamePayPalAccountAction,
 } from '#src/libs/company/actions';
 import { CompanySetup } from '#src/libs/company/types';
 // @ts-expect-error
@@ -30,26 +34,59 @@ import type { OptionCallback } from '../../state/types';
 import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import { UPSELL_IDENTIFIER_PAYPAL } from '#src/libs/platform-billing/upsell-identifiers';
 import { hasUpsellIdentifier } from '#src/libs/role/utils';
+// @ts-expect-error
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+
+const BUSINESS_ACCOUNT = 'BUSINESS_ACCOUNT';
+const SUBSCRIBED_WITH_ALL_FEATURES = 'SUBSCRIBED_WITH_ALL_FEATURES';
 
 type OwnProps = {
   companySetup: CompanySetup | null;
   retrieveMyCompanySetup: () => void;
   attachExternalAccount: (data: any, options: OptionCallback) => void;
   updateCompanyDetail: () => void;
+  queryParams: {
+    merchantIdInPayPal: string;
+    isEmailConfirmed: string;
+    permissionsGranted: string;
+    riskStatus: string;
+    accountStatus: string;
+  };
 };
 
 type Props = OwnProps & WithStyles & ConnectedProps<typeof connector>;
 
 export class CompanyDetailPage extends Component<Props> {
-  UNSAFE_componentWillMount() {
+  componentDidMount(): void {
     this.props.retrieveMyCompanySetup();
     if (
       this.props.paypalIsAvailableInCountry &&
       hasUpsellIdentifier(UPSELL_IDENTIFIER_PAYPAL, this.props.featureList)
     ) {
+      this.props.queryParams.merchantIdInPayPal &&
+        this.props.checkNoOtherCompanyWithSamePayPalAccount(
+          {
+            merchantId: this.props.queryParams.merchantIdInPayPal,
+          },
+          {
+            onSuccess: () => {
+              if (this.hasBeenRedirectedAfterCompletePayPalOnboarding()) {
+                this.props.snackbarSuccess('paypal.connectionAttemptSucceeded');
+              }
+            },
+          },
+        );
       this.props.retrievePayPalCompany();
     }
   }
+  hasBeenRedirectedAfterCompletePayPalOnboarding = () => {
+    return (
+      this.props.queryParams.isEmailConfirmed === 'true' &&
+      this.props.queryParams.permissionsGranted === 'true' &&
+      this.props.queryParams.riskStatus === SUBSCRIBED_WITH_ALL_FEATURES &&
+      this.props.queryParams.accountStatus === BUSINESS_ACCOUNT
+    );
+  };
 
   render() {
     const {
@@ -152,13 +189,25 @@ const connector = connect(
     redirectToPlatformBilling: () => push('/settings/platform-billing'),
     attachExternalAccount: attachExternalAccountAction,
     snackbarError: snackbarErrorAction,
+    snackbarSuccess: snackbarSuccessAction,
+    checkNoOtherCompanyWithSamePayPalAccount:
+      checkNoOtherCompanyWithSamePayPalAccountAction,
   },
 );
-
 export default compose(
   withStyles(styles),
   withTranslation(['settings']),
   withTitle(({ t }) => t('tab.company')),
+  withQueryParams([
+    [
+      'merchantIdInPayPal',
+      'isEmailConfirmed',
+      'permissionsGranted',
+      'riskStatus',
+      'accountStatus',
+    ],
+    'queryParams',
+  ]),
   connector,
   withHandlers({
     fetchPayPalOnboardingLink:

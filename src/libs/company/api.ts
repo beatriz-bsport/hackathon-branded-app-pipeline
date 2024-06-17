@@ -75,6 +75,17 @@ export const retrieveMyCompanySetup = () => {
   return postAuth<CompanySetup>(`${API_V1_URI}/company/setup/me/`);
 };
 
+export const checkNoOtherCompanyWithSamePayPalAccount = ({
+  merchantId,
+}: {
+  merchantId: string;
+}): Promise<AxiosResponse<void>> => {
+  return postAuth<void>(
+    `${API_V1_URI}/paypal/paypal-company/check_no_other_company_with_same_account/`,
+    { merchant_id: merchantId },
+  );
+};
+
 export const retrievePayPalAccountStatusAPI = (): Promise<
   AxiosResponse<PayPalCompany>
 > => {

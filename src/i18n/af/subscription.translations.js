@@ -219,6 +219,8 @@ const getTranslations = async () => {
           missingPaymentPack: 'You must select one pass',
           missingPrivatePass: 'You must select one appointment pass',
           missingPaymentCombo: 'You must select one pack',
+          moreThanThreeDecimalPrice:
+            'It looks like you’ve entered more than two decimal places. Please adjust the amount to the nearest cent.',
         },
         recurrence_basis: {
           intervalName: {
@@ -441,6 +443,13 @@ const getTranslations = async () => {
       },
       detailPage: {
         sharedStudios: 'Shared with the following studios:',
+      },
+      form: {
+        title: 'Subscription',
+        sharedPassesSelectorTooltip:
+          'Studios that have access to this shared pass will also have access to the subscription',
+        sharedAppointmentPassesSelectorTooltip:
+          'Studios that have access to this shared appointment pass will also have access to the subscription',
       },
     },
     recap: {

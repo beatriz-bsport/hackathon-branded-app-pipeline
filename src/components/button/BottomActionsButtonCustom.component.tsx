@@ -79,7 +79,7 @@ const useStyles = makeStyles<
     bottom: theme.spacing(2),
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     zIndex: 1000,
   },
   actionButton: {

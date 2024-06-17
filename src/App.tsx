@@ -9,7 +9,6 @@ import {
   createStyles,
 } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import URI from 'urijs';
 import i18n from 'bsport-saas/src/i18n';
 import {
   EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON,
@@ -68,6 +67,7 @@ import {
   buildSafeUtmTrackingParams,
   buildAnalyticsTrackingParamsFromCurrentUrl,
 } from './utils/http';
+import { SafeURI } from './widgets/utils';
 
 const ConsumerBookingWidget = asyncComponent(
   () => import('./widgets/ConsumerBooking.widget'),
@@ -198,11 +198,11 @@ class BsportWidget extends Component<Props> {
   }
 
   onWindowOpen = (url: string) => {
-    const uri = URI(url)
-      .addQuery('context', 'widget')
-      .addQuery('dialogMode', this.props.dialogMode)
-      .addQuery('widgetType', this.props.widgetType)
-      .addQuery('parentElementId', this.props.parentElement);
+    const uri = new SafeURI(url)
+      .safeAddQuery('context', 'widget')
+      .safeAddQuery('dialogMode', this.props.dialogMode)
+      .safeAddQuery('widgetType', this.props.widgetType)
+      .safeAddQuery('parentElementId', this.props.parentElement);
 
     const finalURL = this.props.utmTrackingConfiguration
       ? uri.toString() +

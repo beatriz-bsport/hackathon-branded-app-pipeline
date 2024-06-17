@@ -1,3 +1,4 @@
+import URI from 'urijs';
 import { getEnv } from '../utils/env';
 import { buildUrlParams } from '../utils/http';
 
@@ -26,3 +27,32 @@ export const buildFranchiseSelectionThenCheckoutUrl = (
     franchisor,
   })}`;
 };
+
+/**
+ * Extension of URI to safely add queryParams to avoid empty value in queryparams
+ */
+export class SafeURI extends URI {
+  addQuery = (queryName: string, queryValue?: string | number): SafeURI => {
+    if (!!queryValue && !!queryValue){
+      super.addQuery(queryName, queryValue);
+    }      
+    return this;
+  };
+
+  safeAddQuery = (
+    queryName: string|Record<string, string | number>,
+    queryValue?:  string | number,
+  ) => {
+    if (
+      ['string', 'number'].includes(typeof queryName) ) {
+      return this.addQuery(queryName as string, queryValue as string|number);
+    } else if (typeof queryName == 'object') {
+      for (var key in queryName) {
+        if (['string', 'number'].includes(typeof key) ) {
+          this.addQuery(key, queryName[key]);
+        }
+      }
+    }
+    return this;
+  };
+}

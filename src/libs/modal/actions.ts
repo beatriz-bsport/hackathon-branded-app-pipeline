@@ -5,10 +5,10 @@ import { createAction } from 'redux-actions';
 import { Theme as CompanyTheme } from 'bsport-saas/src/libs/theme/types';
 
 import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
-import URI from 'urijs';
 import { getEnv } from '../../utils/env';
 import { buildUrlParams } from '../../utils/http';
 import { RootState } from '../../reducers';
+import { SafeURI } from '../../widgets/utils';
 
 const buildWidgetUrl = (path: string, theme: CompanyTheme, params?: any) => {
   const { company, company_name } = theme;
@@ -43,34 +43,37 @@ export const fabShowLogin = () => (dispatch: Dispatch, getState: any) => {
   );
 };
 
-export const genericShowLogin = ({
-  dialogMode,
-  fullScreenPopup = true,
-  parentElementId,
-  widgetType,
-}: {
-  dialogMode: 0 | 1 | 2,
-  widgetType: string,
-  parentElementId: string,
-  fullScreenPopup?: boolean,
-}) => (dispatch: Dispatch, getState: () => RootState) => {
-  const { company } = getState()?.theme?.theme;
-  const { PUBLIC_URL } = getEnv();
-  const uri = URI(`${PUBLIC_URL}/login?membership=${company}&context=widget`)
-    .addQuery('context', 'widget')
-    .addQuery('dialogMode', dialogMode)
-    .addQuery('widgetType', widgetType)
-    .addQuery('parentElementId', parentElementId)
-    .valueOf();
+export const genericShowLogin =
+  ({
+    dialogMode,
+    fullScreenPopup = true,
+    parentElementId,
+    widgetType,
+  }: {
+    dialogMode: 0 | 1 | 2,
+    widgetType: string,
+    parentElementId: string,
+    fullScreenPopup?: boolean,
+  }) =>
+  (dispatch: Dispatch, getState: () => RootState) => {
+    const { company } = getState()?.theme?.theme;
+    const { PUBLIC_URL } = getEnv();
+    const uri = new SafeURI(
+      `${PUBLIC_URL}/login?membership=${company}&context=widget`,
+    )
+      .safeAddQuery('dialogMode', dialogMode)
+      .safeAddQuery('widgetType', widgetType)
+      .safeAddQuery('parentElementId', parentElementId)
+      .valueOf();
 
-  dispatch(
-    openUserInteractionPortal({
-      url: uri,
-      dialogMode,
-      fullScreenPopup,
-    }),
-  );
-};
+    dispatch(
+      openUserInteractionPortal({
+        url: uri,
+        dialogMode,
+        fullScreenPopup,
+      }),
+    );
+  };
 
 export const fabShowBasket = () => (dispatch: Dispatch, getState: any) => {
   const { theme } = getState().theme;
@@ -101,15 +104,13 @@ export const fabShowProfile = () => (dispatch: Dispatch, getState: any) => {
     }),
   );
 };
-export const fabShowSubscription = () => (
-  dispatch: Dispatch,
-  getState: any,
-) => {
-  const { theme } = getState().theme;
-  dispatch(
-    openUserInteractionPortal({
-      url: buildWidgetUrl('subscription', theme),
-      dialogMode: DIALOG_MODE_IFRAME,
-    }),
-  );
-};
+export const fabShowSubscription =
+  () => (dispatch: Dispatch, getState: any) => {
+    const { theme } = getState().theme;
+    dispatch(
+      openUserInteractionPortal({
+        url: buildWidgetUrl('subscription', theme),
+        dialogMode: DIALOG_MODE_IFRAME,
+      }),
+    );
+  };

@@ -29,8 +29,13 @@ const renderRows = (subscriptions: Array<Subscription>, t: TFunction) => {
       t,
     ),
     name: sub.name,
-    // @ts-expect-error
-    nb_interval: parseInt(sub.nb_interval, 10),
+    nb_interval:
+      sub.has_changed_after_renewal &&
+      sub.nb_interval_after_auto_renewal !== null
+        ? // @ts-expect-error
+          parseInt(sub.nb_interval_after_auto_renewal, 10)
+        : // @ts-expect-error
+          parseInt(sub.nb_interval, 10),
     first_billing_date: formatAsDate(sub.first_billing_date),
     status: t(`billing_plan_status.${sub.status}`),
     recurrent_price: `${getCurrencyDisplayWithPrice(

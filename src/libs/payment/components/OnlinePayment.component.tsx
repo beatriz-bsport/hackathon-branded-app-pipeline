@@ -173,8 +173,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
 
     const classes = useStyles();
 
-    const isOnlinePaymentLoading =
-      !clientSecret || clientSecretLoading || !totalPriceCts;
+    const isOnlinePaymentLoading = !clientSecret || !totalPriceCts;
 
     // This useEffect is mandatory in the new checkout flow, since if this condition is not
     // fullfilled no Stripe PaymentMethodForm component is mounted yet and so we don't want the
@@ -351,6 +350,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
                 applyBalanceToInvoice={applyBalanceToInvoice}
                 basketId={basketId}
                 clientSecret={clientSecret}
+                clientSecretLoading={clientSecretLoading}
                 creditAccountBalance={creditAccountBalance}
                 forceDisabled={priceUpdaterOpen}
                 fromApp={fromApp}

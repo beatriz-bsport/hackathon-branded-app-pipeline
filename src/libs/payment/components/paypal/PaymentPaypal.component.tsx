@@ -3,6 +3,7 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 
+import CircularProgress from '#src/components/css-only/CircularProgress';
 import type { AxiosError } from 'axios';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { PAYMENT_EXECUTION_ERROR_CODES } from '@bsport/common/lib/master-data/error-codes/payment';
@@ -32,6 +33,7 @@ type Props = {
   basketId: string;
   children?: React.ReactNode;
   clientSecret: string;
+  clientSecretLoading?: boolean;
   createPaymentAttempt: (
     paymentGroupId: number,
     fromApp: boolean,
@@ -73,6 +75,7 @@ const PaymentPaypal: React.FC<Props> = ({
   basketId,
   children,
   clientSecret,
+  clientSecretLoading,
   creditAccountBalance,
   customClasses,
   executePaymentAttempt,
@@ -202,31 +205,35 @@ const PaymentPaypal: React.FC<Props> = ({
                   customClasses?.actionRow,
                 )}
               >
-                <div className={classes.paypalButton}>
-                  <PayPalScriptProvider
-                    options={{
-                      clientId: Config.REACT_APP_PAYPAL_CLIENT_ID,
-                      merchantId: clientSecret,
-                      components: 'buttons,funding-eligibility,marks',
-                      currency: getCurrencyCode().toUpperCase(),
-                      integrationDate: '2020-07-01',
-                      debug: false,
-                      commit: true,
-                      intent: 'capture',
-                      dataPartnerAttributionId:
-                        Config.REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID,
-                      ...(buttonLocale ? { locale: buttonLocale } : {}),
-                    }}
-                  >
-                    <PayPalPaymentButton
-                      createOrder={createOrder}
-                      isDisabled={isSubmitButtonDisabled}
-                      onApprove={onApprove}
-                      onCancel={onPayPalCancel}
-                      onError={onPayPalError}
-                    />
-                  </PayPalScriptProvider>
-                </div>
+                {clientSecretLoading ? (
+                  <CircularProgress />
+                ) : (
+                  <div className={classes.paypalButton}>
+                    <PayPalScriptProvider
+                      options={{
+                        clientId: Config.REACT_APP_PAYPAL_CLIENT_ID,
+                        merchantId: clientSecret,
+                        components: 'buttons,funding-eligibility,marks',
+                        currency: getCurrencyCode().toUpperCase(),
+                        integrationDate: '2020-07-01',
+                        debug: false,
+                        commit: true,
+                        intent: 'capture',
+                        dataPartnerAttributionId:
+                          Config.REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID,
+                        ...(buttonLocale ? { locale: buttonLocale } : {}),
+                      }}
+                    >
+                      <PayPalPaymentButton
+                        createOrder={createOrder}
+                        isDisabled={isSubmitButtonDisabled}
+                        onApprove={onApprove}
+                        onCancel={onPayPalCancel}
+                        onError={onPayPalError}
+                      />
+                    </PayPalScriptProvider>
+                  </div>
+                )}
                 <Button disabled={loading} onClick={onCancel}>
                   {t('paymentPanel.actions.cancel')}
                 </Button>

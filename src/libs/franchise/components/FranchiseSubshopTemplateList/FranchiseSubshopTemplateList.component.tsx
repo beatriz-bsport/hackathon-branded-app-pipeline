@@ -137,6 +137,12 @@ const FranchiseSubshopTemplateListItem: React.FC<FranchiseSubshopTemplateListIte
         [handleSetShopItemTemplateToDelete, subshopTemplate.id],
       );
 
+      const handleShopItemTemplateClick = useCallback(
+        (shopItemTemplate: ShopItemTemplate) =>
+          goToShopItemTemplate(shopItemTemplate.id),
+        [goToShopItemTemplate],
+      );
+
       const subshopTemplateCategoryTitle = (() => {
         let title = subshopTemplate.name;
         if (shopItemTemplateState?.count > 0) {
@@ -214,10 +220,10 @@ const FranchiseSubshopTemplateListItem: React.FC<FranchiseSubshopTemplateListIte
                   <FranchiseShopItemTemplateListItem
                     key={shopItemTemplate.id}
                     className={classes.shopItemTemplateListItem}
-                    goToShopItemTemplate={goToShopItemTemplate}
                     handleDelete={handleDeleteShopItemTemplate(
                       shopItemTemplate,
                     )}
+                    onClick={handleShopItemTemplateClick}
                     shopItemTemplate={shopItemTemplate}
                   />
                 </List>

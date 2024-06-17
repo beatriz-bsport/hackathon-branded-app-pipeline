@@ -53,12 +53,19 @@ const FranchiseShopListProductsTabSearchListItem = React.memo(
   (
     props: OptionProps<SelectOption<number>> &
       Pick<Props, 'goToShopItemTemplate'>,
-  ) => (
-    <FranchiseShopItemTemplateListItem
-      goToShopItemTemplate={props.goToShopItemTemplate}
-      shopItemTemplate={props.data.item}
-    />
-  ),
+  ) => {
+    const handleGoToShopItemTemplate = useCallback(
+      () => props.goToShopItemTemplate(props.data.item.id),
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [props.data],
+    );
+    return (
+      <FranchiseShopItemTemplateListItem
+        onClick={handleGoToShopItemTemplate}
+        shopItemTemplate={props.data.item}
+      />
+    );
+  },
 );
 
 const FranchiseShopListProductsTab: React.FC<Props> = ({

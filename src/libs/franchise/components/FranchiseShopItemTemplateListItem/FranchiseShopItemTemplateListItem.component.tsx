@@ -24,14 +24,14 @@ type Props = {
   className?: string;
   shopItemTemplate: ShopItemTemplate;
   handleDelete?: (shopItemTemplateId: number) => void;
-  goToShopItemTemplate: (shopItemTemplateId: number) => void;
+  onClick?: (shopItemTemplate: ShopItemTemplate) => void;
 };
 
 const FranchiseShopItemTemplateListItem: React.FC<Props> = ({
   className,
   shopItemTemplate,
   handleDelete,
-  goToShopItemTemplate,
+  onClick,
 }) => {
   const { t } = useTranslation(['common', 'shop']);
 
@@ -43,9 +43,9 @@ const FranchiseShopItemTemplateListItem: React.FC<Props> = ({
     handleDelete?.(shopItemTemplate.id);
   }, [handleDelete, shopItemTemplate.id]);
 
-  const handleGoToShopItemTemplate = useCallback(() => {
-    goToShopItemTemplate(shopItemTemplate.id);
-  }, [goToShopItemTemplate, shopItemTemplate.id]);
+  const handleListItemClick = useCallback(() => {
+    onClick?.(shopItemTemplate);
+  }, [onClick, shopItemTemplate]);
 
   const itemPrice = (() => {
     const isStandaloneItem = !!shopItemTemplate?.is_standalone_item;
@@ -69,9 +69,9 @@ const FranchiseShopItemTemplateListItem: React.FC<Props> = ({
 
   return (
     <ListItem
-      button
+      button={!!onClick as any}
       className={classNames(className)}
-      onClick={handleGoToShopItemTemplate}
+      onClick={onClick ? handleListItemClick : undefined}
     >
       {shopItemTemplate.cover && (
         <ListItemAvatar>

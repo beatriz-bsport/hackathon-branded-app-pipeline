@@ -50,7 +50,9 @@ export async function checkCanDeleteEstablishment(id: number) {
 }
 
 export async function deleteEstablishment(id: number) {
-  return deleteAuth(`${API_V1_URI}/establishment/${id}/`);
+  return deleteAuth(
+    `${API_V1_URI}/establishment/${id}/perform_destroy_with_side_effects/`,
+  );
 }
 
 export async function fetchAssociatedEstablishments(params: {

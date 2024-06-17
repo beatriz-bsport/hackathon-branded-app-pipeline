@@ -40,8 +40,8 @@ const FranchiseShopItemTemplateListItem: React.FC<Props> = ({
   const classes = useStyles();
 
   const handleDeleteShopItemTemplate = useCallback(() => {
-    handleDelete?.(shopItemTemplate.id);
-  }, [handleDelete, shopItemTemplate.id]);
+    handleDelete?.(shopItemTemplate?.id);
+  }, [handleDelete, shopItemTemplate?.id]);
 
   const handleListItemClick = useCallback(() => {
     onClick?.(shopItemTemplate);
@@ -73,27 +73,27 @@ const FranchiseShopItemTemplateListItem: React.FC<Props> = ({
       className={classNames(className)}
       onClick={onClick ? handleListItemClick : undefined}
     >
-      {shopItemTemplate.cover && (
+      {shopItemTemplate?.cover && (
         <ListItemAvatar>
-          <Avatar src={shopItemTemplate.cover} />
+          <Avatar src={shopItemTemplate?.cover} />
         </ListItemAvatar>
       )}
 
       <ListItemText
         primary={getShopItemName({
-          name: shopItemTemplate.name ?? '',
+          name: shopItemTemplate?.name ?? '',
           price: itemPrice,
           variantCount:
-            shopItemTemplate.number_of_variants &&
+            shopItemTemplate?.number_of_variants &&
             t('shop:variantCount', {
-              count: shopItemTemplate.number_of_variants,
+              count: shopItemTemplate?.number_of_variants,
             }),
         })}
-        secondary={shopItemTemplate.subtitle}
+        secondary={shopItemTemplate?.subtitle}
       />
 
       <ListItemSecondaryAction className={classes.listItemSecondaryActions}>
-        {shopItemTemplate.marketplace_enabled ? (
+        {shopItemTemplate?.marketplace_enabled ? (
           <CustomChip
             displayedValue={t('shop:shopList.tab.products.online')}
             icon="Phonelink"

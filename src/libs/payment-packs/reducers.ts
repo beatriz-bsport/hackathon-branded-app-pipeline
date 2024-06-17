@@ -584,7 +584,8 @@ export const newPaymentPackReducer = handleActions(
       const { results } = payload;
       return state.merge(
         {
-          byId: results.reduce<{ [id: number]: PaymentPack }>(
+          // @ts-expect-error typed as any...
+          byId: (results || []).reduce<{ [id: number]: PaymentPack }>(
             // @ts-expect-error
             (acc, paymentPack) => {
               acc[paymentPack.id] = paymentPack;

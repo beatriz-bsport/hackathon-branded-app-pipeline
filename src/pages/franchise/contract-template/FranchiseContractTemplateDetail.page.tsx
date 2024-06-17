@@ -13,12 +13,14 @@ import Paper from '@material-ui/core/Paper';
 
 import { openNewWindowToImpersonate } from '#src/utils/windows';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+
 import type { RootState } from '#src/reducers';
 
 import {
   fetchContractList as fetchContractListAction,
   fetchContractTemplateDetail as fetchContractTemplateDetailAction,
   fetchContractTemplateRelatedBillingPlans as fetchContractTemplateRelatedBillingPlansAction,
+  deleteContractTemplate as deleteContractTemplateAction,
 } from '#src/libs/subscription/actions';
 import { retrievePrivatePassTemplate as retrievePrivatePassTemplateAction } from '#src/libs/private-service/actions';
 import { retrievePaymentPackTemplate as retrievePaymentPackTemplateAction } from '#src/libs/payment-packs/actions';
@@ -36,6 +38,8 @@ import {
   getFranchiseCompany as getFranchiseCompanyByIdSelector,
 } from '#src/libs/franchise/selectors';
 
+import ContractTemplateDeleteDialog from '#src/libs/subscription/components/ContractTemplateDeleteDialog.component';
+import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import ContractTemplateDetail from '#src/libs/subscription/franchise-components/ContractTemplateDetail.component';
 import PaginatedSubscriptionList from '#src/libs/subscription/components/PaginatedSubscriptionList.component';
@@ -56,6 +60,7 @@ const FranchiseContractTemplateDetail: React.FC<Props> = ({
   getPrivatePassTemplateById,
   getPaymentPackTemplateById,
   getFranchiseCompanyListById,
+  deleteContractTemplate,
   getContractById,
   push,
   fetchFranchise,
@@ -69,6 +74,7 @@ const FranchiseContractTemplateDetail: React.FC<Props> = ({
   const classes = useStyles();
 
   const [isRedirectLoading, setIsRedirectLoading] = useState<boolean>(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     fetchFranchise();
@@ -119,6 +125,15 @@ const FranchiseContractTemplateDetail: React.FC<Props> = ({
     [push],
   );
 
+  const handleDeleteContractTemplate = useCallback((): void => {
+    setIsDeleteDialogOpen(false);
+    deleteContractTemplate(selectedContractTemplateId, {
+      onSuccess: () => {
+        push('/f/subscription/contract-template');
+      },
+    });
+  }, [deleteContractTemplate, selectedContractTemplateId, push]);
+
   const goToSubscription = useCallback(
     (billingPlanId: number, companyId: number): void => {
       setIsRedirectLoading(true);
@@ -128,46 +143,67 @@ const FranchiseContractTemplateDetail: React.FC<Props> = ({
     [],
   );
 
+  const handleOpenDeleteDialog = useCallback(() => {
+    setIsDeleteDialogOpen(true);
+  }, []);
+
+  const handleCloseDeleteDialog = useCallback(() => {
+    setIsDeleteDialogOpen(false);
+  }, []);
+
   if (selectedContractTemplateState.loading) {
     return <LinearProgress />;
   }
 
   return (
     <div className={classes.pageContainer}>
-      <Grid container alignItems="stretch" spacing={3}>
-        <Grid className={classes.detailContainer} md={6} xs={12}>
-          <ContractTemplateDetail
-            contractTemplate={contractTemplate}
-            getFranchiseCompanyListById={getFranchiseCompanyListById}
-            getPaymentPackTemplateById={getPaymentPackTemplateById}
-            getPrivatePassTemplateById={getPrivatePassTemplateById}
-            onPaymentPackTemplateClick={onPaymentPackTemplateClick}
-            onPrivatePassTemplateClick={onPrivatePassTemplateClick}
-          />
+      <div>
+        <Grid container alignItems="stretch" spacing={3}>
+          <Grid className={classes.detailContainer} md={6} xs={12}>
+            <ContractTemplateDetail
+              contractTemplate={contractTemplate}
+              getFranchiseCompanyListById={getFranchiseCompanyListById}
+              getPaymentPackTemplateById={getPaymentPackTemplateById}
+              getPrivatePassTemplateById={getPrivatePassTemplateById}
+              onPaymentPackTemplateClick={onPaymentPackTemplateClick}
+              onPrivatePassTemplateClick={onPrivatePassTemplateClick}
+            />
+          </Grid>
+          <Grid md={6} xs={12}>
+            <div className={classes.membersContainer}>
+              <Typography className={classes.title} variant="h6">
+                {t('associatedSubscriptions')}
+              </Typography>
+              <Paper>
+                <PaginatedSubscriptionList
+                  getContractById={getContractById}
+                  getFranchiseCompanyById={getFranchiseCompanyById}
+                  itemPerPage={SUBSCRIBED_MEMBER_LIST_PAGE_SIZE}
+                  items={billingPlans.items}
+                  loading={billingPlans.loading}
+                  nbItems={billingPlans.count}
+                  onClick={!isRedirectLoading && goToSubscription}
+                  onPageRequested={
+                    fetchContractTemplateRelatedBillingPlansHandler
+                  }
+                  page={billingPlans.page}
+                />
+              </Paper>
+            </div>
+          </Grid>
         </Grid>
-        <Grid md={6} xs={12}>
-          <div className={classes.membersContainer}>
-            <Typography className={classes.title} variant="h6">
-              {t('associatedSubscriptions')}
-            </Typography>
-            <Paper>
-              <PaginatedSubscriptionList
-                getContractById={getContractById}
-                getFranchiseCompanyById={getFranchiseCompanyById}
-                itemPerPage={SUBSCRIBED_MEMBER_LIST_PAGE_SIZE}
-                items={billingPlans.items}
-                loading={billingPlans.loading}
-                nbItems={billingPlans.count}
-                onClick={!isRedirectLoading && goToSubscription}
-                onPageRequested={
-                  fetchContractTemplateRelatedBillingPlansHandler
-                }
-                page={billingPlans.page}
-              />
-            </Paper>
-          </div>
-        </Grid>
-      </Grid>
+      </div>
+      <div className={classes.buttonDrawer}>
+        <BottomActionsButtonCustom
+          onDelete={handleOpenDeleteDialog}
+          onEdit={() => {}}
+        />
+        <ContractTemplateDeleteDialog
+          onClose={handleCloseDeleteDialog}
+          onSubmit={handleDeleteContractTemplate}
+          open={isDeleteDialogOpen}
+        />
+      </div>
     </div>
   );
 };
@@ -208,6 +244,7 @@ const mapDispatchToProps = {
     fetchContractTemplateRelatedBillingPlansAction,
   retrievePrivatePassTemplate: retrievePrivatePassTemplateAction,
   retrievePaymentPackTemplate: retrievePaymentPackTemplateAction,
+  deleteContractTemplate: deleteContractTemplateAction,
   fetchFranchise: fetchFranchiseAction,
   fetchContractList: fetchContractListAction,
   push: pushAction,
@@ -228,6 +265,9 @@ const useStyles = makeStyles((theme) => ({
   },
   membersContainer: {
     marginLeft: theme.spacing(3),
+  },
+  buttonDrawer: {
+    marginBottom: theme.spacing(3),
   },
 }));
 

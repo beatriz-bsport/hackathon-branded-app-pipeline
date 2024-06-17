@@ -106,6 +106,7 @@ const ContractTemplateListItem: React.FC<Props> = ({
     },
     [onRestore, contractTemplate.id],
   );
+
   const clickHandler = useCallback(() => {
     onClick?.(contractTemplate.id);
   }, [onClick, contractTemplate.id]);

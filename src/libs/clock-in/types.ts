@@ -1,5 +1,6 @@
 import { ErrorAndLoading } from '#src/libs/types';
 import type { UserRole, Role } from '#src/libs/role/types';
+import { withHistoryAttendance } from './selectors';
 
 export type ClockInQueryParams = {
   user_id__in?: number[];
@@ -27,6 +28,15 @@ export type UserCurrentAttendance = {
   ongoing: boolean;
 };
 
+export type UserAttendanceRecord = {
+  id: number;
+  user: number;
+  date_start: number;
+  date_end: number;
+  on_going: boolean;
+  company: number;
+};
+
 export type ClockInData = {
   user: number;
   company: number;
@@ -51,10 +61,14 @@ export type ClockInState = {
     previous_page: number;
     count: number;
     allIds: number[];
-    byId: Record<number, UserCurrentAttendance>;
+    byId: Record<number, UserAttendanceRecord>;
   } & ErrorAndLoading;
 } & ErrorAndLoading;
 
 export type UserWithRealTimeAttendance = UserRole<Role> & {
   attendance: ClockInData;
 };
+
+export type UserAttendanceHistory = ReturnType<
+  ReturnType<typeof withHistoryAttendance>
+>['results'][number];

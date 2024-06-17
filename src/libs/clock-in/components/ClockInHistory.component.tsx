@@ -26,7 +26,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 // @ts-expect-error
 import withConfirm from '#src/hocs/with-confirm.hoc';
-import { ClockInData } from '../types';
+import { ClockInData, UserAttendanceHistory } from '../types';
 import { getTextColorFromRGB } from '../../../utils/color';
 import EditClockinModal, {
   Values as EditClockInValues,
@@ -38,7 +38,6 @@ type Props = {
   value: {
     loading: boolean;
     count: number;
-    // @ts-expect-error
     results: UserAttendanceHistory[];
   };
   page: number;
@@ -115,7 +114,6 @@ const ClockInHistory: React.FC<Props> = ({
 };
 
 const ClockInHistoryRow: React.FC<{
-  // @ts-expect-error
   row: UserAttendanceHistory;
   handleExport: (userId?: number) => void;
   editClockIn: (clockInId: number, clockInData: ClockInData) => Promise<void>;
@@ -200,6 +198,7 @@ const ClockInHistoryRow: React.FC<{
         <TableCell className={classes.email} colSpan={10}>
           {row.email}
         </TableCell>
+        {/* @ts-expect-error role is immutable, and is sometimes undefined - thus no asMutable */}
         <TableCell colSpan={10}>{getRoleName(row?.role, t)}</TableCell>
       </TableRow>
       <TableRow>
@@ -281,7 +280,6 @@ const ClockInHistoryRow: React.FC<{
                   {t('historyTable.action')}
                 </TableCell>
               </TableRow>
-              {/* @ts-expect-error */}
               {row?.history?.map((detail, index) => (
                 <TableRow key={detail.id} className={classes.root}>
                   <TableCell

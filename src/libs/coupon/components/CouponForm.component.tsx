@@ -52,7 +52,6 @@ import PaymentComboListItem from '#src/libs/payment-combo/components/PaymentComb
 import NumericInput from '#src/components/input/NumericInput.component';
 import PriceInput from '#src/components/input/PriceInput.component';
 import PercentInput from '#src/components/input/PercentInput.component';
-// @ts-expect-error
 import Checkbox from '#src/components/input/Checkbox.component';
 import type { Coupon, CheckCouponCodePayload } from '../types';
 
@@ -439,7 +438,6 @@ export class CouponForm extends React.Component<Props, State> {
             !!initial?.coupon_template_instance || !this.state.is_active
           }
           label={t('form.with_expiration_date.label')}
-          // @ts-expect-error
           onChange={(ev) =>
             this.handleChange('with_expiration_date', false)(ev.target.checked)
           }
@@ -888,7 +886,6 @@ export class CouponForm extends React.Component<Props, State> {
           checked={this.state.only_on_first_checkout}
           disabled={!!initial?.coupon_template_instance}
           label={t('form.only_on_first_checkout.label')}
-          // @ts-expect-error
           onChange={(ev) =>
             this.handleChange(
               'only_on_first_checkout',
@@ -900,7 +897,6 @@ export class CouponForm extends React.Component<Props, State> {
           checked={this.state.combinable}
           disabled={!!initial?.coupon_template_instance}
           label={t('form.combinable.label')}
-          // @ts-expect-error
           onChange={(ev) =>
             this.handleChange('combinable', false)(ev.target.checked)
           }

@@ -41,7 +41,6 @@ import type { StripeReader } from '#src/libs/terminal/types';
 import type { PlannedPaymentEvent } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
-// @ts-expect-error
 import Checkbox from '../../../components/input/Checkbox.component';
 import DateInput from '../../../components/input/DateInput.component';
 

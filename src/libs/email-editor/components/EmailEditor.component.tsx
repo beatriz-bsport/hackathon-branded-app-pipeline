@@ -30,7 +30,6 @@ import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analyt
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import RequiredTags from '#src/components/notification/RequiredTags.component';
 import { OptionCallback } from '../../../state/types';
-// @ts-expect-error
 import Checkbox from '../../../components/input/Checkbox.component';
 import {
   EmailTemplate,

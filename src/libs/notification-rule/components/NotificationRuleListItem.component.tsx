@@ -280,7 +280,11 @@ export const NotificationRuleListItem = (props: Props) => {
                 i18n.exists(
                   `notificationRule:eventTypeHelperText.${event}`,
                 ) && (
-                  <InformationIcon text={t(`eventTypeHelperText.${event}`)} />
+                  <InformationIcon
+                    anchorOrigin="bottom-right"
+                    text={t(`eventTypeHelperText.${event}`)}
+                    transformOrigin="top-right"
+                  />
                 )}
             </Typography>
 

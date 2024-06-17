@@ -81,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
     }, 0px 0px 12px 0px ${chroma(theme.palette.grey[500]).alpha(0.35).hex()}`,
     borderRadius: theme.spacing(1),
     maxWidth: 300,
+    marginTop: theme.spacing(1),
   },
   typographyContainer: {
     padding: theme.spacing(1),

@@ -11,6 +11,11 @@ import Typography from '@material-ui/core/Typography';
 
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT } from '@bsport/common/lib/master-data/payment-group';
+import { saveQueryParamInLocalStorage } from '#src/libs/utils';
+import {
+  USER_REGISTRATION_RESPONSE_QUERY_PARAM,
+  USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+} from '#src/libs/payment/constants';
 
 import {
   blockPendingBasket as blockPendingBasketAPI,
@@ -139,9 +144,17 @@ export const PaymentStripeSofort = forwardRef(
           }
         }
 
-        const return_url = window.location.search
-          ? `${window.location.href}&check_payment_intent=true`
-          : `${window.location.href}?check_payment_intent=true`;
+        saveQueryParamInLocalStorage(
+          USER_REGISTRATION_RESPONSE_QUERY_PARAM,
+          USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+        );
+
+        const url = new URL(window.location.toString());
+        const params = url.searchParams;
+        params.delete('user_registration_response');
+        params.set('check_payment_intent', 'true');
+        params.set('get_user_registration_from_storage', 'true');
+        const return_url = url.toString();
 
         const { error } = await stripe.confirmSofortPayment(clientSecret, {
           payment_method: {

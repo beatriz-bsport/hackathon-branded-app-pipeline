@@ -92,6 +92,10 @@ import asyncComponent from '../../AsyncComponent';
 // @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { MaterialStyleType } from '#src/utils/types';
+import {
+  USER_REGISTRATION_RESPONSE_QUERY_PARAM,
+  USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+} from '#src/libs/payment/constants';
 
 const OnlinePayment = asyncComponent(
   () => import('../../libs/payment/components/OnlinePayment.component'),
@@ -101,6 +105,8 @@ type Props = {
   basket: Basket<number, PrepaidLine>;
   basketId: string;
   basketError: any;
+  queryParams: Record<string, string>;
+  setQueryParams: (paramName: string) => (value: string) => void;
   submitPaymentIntent: (data: any, option: OptionCallback) => void;
   savedPaymentMethodList: Array<PaymentMethod>;
   fetchPaymentMethodList: (params: any) => void;
@@ -174,7 +180,19 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    // @ts-expect-error
+    if (this.props.queryParams.get_user_registration_from_storage) {
+      const rawUserRegistrationResponse = window.localStorage.getItem(
+        USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+      );
+      if (rawUserRegistrationResponse) {
+        this.props.setQueryParams(USER_REGISTRATION_RESPONSE_QUERY_PARAM)(
+          encodeURIComponent(rawUserRegistrationResponse),
+        );
+        window.localStorage.removeItem(
+          USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+        );
+      }
+    }
     if (hasRedirectionFailed(this.props.queryParams)) {
       this.props.snackbarError(
         this.props.t(
@@ -260,7 +278,6 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   };
 
   getSecret = (paymentEngine: number) => {
-    // @ts-expect-error
     if (shouldNotRetrieveSecret(this.props.queryParams)) {
       return;
     }
@@ -449,13 +466,11 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         </div>
       );
     }
-    // @ts-expect-error
     if (shouldCheckPaymentStatus(this.props.queryParams)) {
       return (
         <CheckPaymentStatus
           onFail={this.onFail}
           onSuccess={this.onSuccess}
-          // @ts-expect-error
           paymentIntent={this.props.queryParams.payment_intent}
         />
       );
@@ -734,7 +749,13 @@ export default compose(
   connector,
 
   withQueryParams([
-    ['check_payment_intent', 'payment_intent', 'redirect_status'],
+    [
+      'check_payment_intent',
+      'payment_intent',
+      'redirect_status',
+      'get_user_registration_from_storage',
+      'user_registration_response',
+    ],
     'queryParams',
     'setQueryParams',
   ]),

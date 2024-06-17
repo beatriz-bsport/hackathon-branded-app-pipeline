@@ -7,6 +7,11 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextInput from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { saveQueryParamInLocalStorage } from '#src/libs/utils';
+import {
+  USER_REGISTRATION_RESPONSE_QUERY_PARAM,
+  USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+} from '#src/libs/payment/constants';
 
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_EPS } from '@bsport/common/lib/master-data/payment-group';
 import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
@@ -116,9 +121,17 @@ export const PaymentStripeEPS = forwardRef(
           }
         }
 
-        const return_url = window.location.search
-          ? `${window.location.href}&check_payment_intent=true`
-          : `${window.location.href}?check_payment_intent=true`;
+        saveQueryParamInLocalStorage(
+          USER_REGISTRATION_RESPONSE_QUERY_PARAM,
+          USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+        );
+
+        const url = new URL(window.location.toString());
+        const params = url.searchParams;
+        params.delete('user_registration_response');
+        params.set('check_payment_intent', 'true');
+        params.set('get_user_registration_from_storage', 'true');
+        const return_url = url.toString();
 
         // For brevity, this example is using uncontrolled components for
         // the accountholder's name. In a real world app you will

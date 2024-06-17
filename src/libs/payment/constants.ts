@@ -9,3 +9,9 @@ import { getCompanyCountry } from '#src/libs/theme/selectors';
  */
 export const IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED =
   getCompanyCountry() === 'DE';
+
+export const USER_REGISTRATION_RESPONSE_QUERY_PARAM =
+  'user_registration_response';
+
+export const USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY =
+  'latest_user_registration_response';

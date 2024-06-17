@@ -123,6 +123,10 @@ import {
   getMarketplaceRoute,
   getMemberProfileRoute,
 } from '../../../libs/marketplace/routing-utils';
+import {
+  USER_REGISTRATION_RESPONSE_QUERY_PARAM,
+  USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+} from '../../../libs/payment/constants';
 
 import { type EstablishmentBillingGroup } from '../../../libs/establishment/types';
 
@@ -238,6 +242,19 @@ export class BasketPage extends React.Component<Props> {
   }
 
   componentDidMount() {
+    if (this.props.queryParams.get_user_registration_from_storage) {
+      const rawUserRegistrationResponse = window.localStorage.getItem(
+        USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+      );
+      if (rawUserRegistrationResponse) {
+        this.props.setQueryParams(USER_REGISTRATION_RESPONSE_QUERY_PARAM)(
+          encodeURIComponent(rawUserRegistrationResponse),
+        );
+        window.localStorage.removeItem(
+          USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+        );
+      }
+    }
     if (hasRedirectionFailed(this.props.queryParams)) {
       this.props.snackbarError(
         this.props.t(
@@ -803,6 +820,7 @@ export default compose(
       'redirect_status',
       'context',
       'onValidation',
+      'get_user_registration_from_storage',
     ],
     'queryParams',
     'setQueryParams',

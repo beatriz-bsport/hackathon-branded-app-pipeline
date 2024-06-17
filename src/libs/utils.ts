@@ -60,3 +60,16 @@ export const objectToFormData = (data: Record<string, any>) => {
 const _toSnakeCase = (string: string) => {
   return string.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
 };
+
+export const saveQueryParamInLocalStorage = (
+  queryParamName: string,
+  localStorageKey: string,
+) => {
+  const url = new URL(window.location.toString());
+  const params = url.searchParams;
+
+  if (params.get(queryParamName)) {
+    const sanitizedParams = decodeURIComponent(params.get(queryParamName));
+    window.localStorage.setItem(localStorageKey, sanitizedParams);
+  }
+};

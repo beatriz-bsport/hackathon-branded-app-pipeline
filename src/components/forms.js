@@ -47,6 +47,7 @@ import DelayedTextField from './DelayedTextField.component';
 import ColorInput from './input/ColorInput.component';
 import Selector from './Selector.component';
 import IconInput from './input/IconInput.component';
+import InformationIcon from './InformationIcon';
 
 type AlertErrorProps = {
   t: TFunction,
@@ -1075,13 +1076,17 @@ type RadioFieldProps = {
     label: string,
     value: any,
     helperText?: string,
+    helperTextInformationIcon: string,
   }[],
   labelClass?: any,
+  divContainerClass?: any,
   isRow?: boolean,
 };
 
 export const RadioGroupField = (props: RadioFieldProps) => {
-  const { name, choices, label, labelClass, isRow } = props;
+  const { name, choices, label, labelClass, isRow, divContainerClass } = props;
+  const classes = useStylesRadioGroupField();
+
   return (
     <Field name={name}>
       {({ field, form: { setFieldValue } }) => (
@@ -1091,28 +1096,43 @@ export const RadioGroupField = (props: RadioFieldProps) => {
           row={isRow}
         >
           <FormLabel className={labelClass}>{label}</FormLabel>
-          {choices.map(({ value, label: l, helperText }) => (
-            <div key={value}>
-              <FormControlLabel
-                key={value}
-                classes={props.classes}
-                control={<Radio checked={`${field.value}` === `${value}`} />}
-                disabled={props.disabled}
-                label={l}
-                value={value}
-              />
-              {helperText ? (
-                <FormHelperText style={{ marginTop: -8 }}>
-                  {helperText}
-                </FormHelperText>
-              ) : null}
-            </div>
-          ))}
+          {choices.map(
+            ({ value, label: l, helperText, helperTextInformationIcon }) => (
+              <div key={value} className={divContainerClass}>
+                <FormControlLabel
+                  key={value}
+                  classes={props.classes}
+                  control={<Radio checked={`${field.value}` === `${value}`} />}
+                  disabled={props.disabled}
+                  label={l}
+                  value={value}
+                />
+                {helperText ? (
+                  <FormHelperText style={{ marginTop: -8 }}>
+                    {helperText}
+                  </FormHelperText>
+                ) : null}
+                {helperTextInformationIcon && (
+                  <div className={classes.helperTextInformationIcon}>
+                    <InformationIcon text={helperTextInformationIcon} />
+                  </div>
+                )}
+              </div>
+            ),
+          )}
         </RadioGroup>
       )}
     </Field>
   );
 };
+const useStylesRadioGroupField = makeStyles((theme) => ({
+  helperTextInformationIcon: {
+    alignItems: 'center',
+    display: 'flex',
+    paddingBottom: theme.spacing(0.5),
+  },
+}));
+
 type FormControlProps = {};
 
 const formControlStyles = (theme) => ({

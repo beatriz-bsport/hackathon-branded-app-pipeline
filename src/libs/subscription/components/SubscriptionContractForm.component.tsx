@@ -401,24 +401,23 @@ export function SubscriptionContractFields(
                   'contract.form.invoicing.same_day_as_subscription.label',
                 ),
                 value: InvoicingType.sameDayAsSubscription,
+                helperTextInformationIcon: t(
+                  'contract.form.invoicing.same_day_as_subscription.explain',
+                ),
               },
               {
                 label: t('contract.form.invoicing.fixed_day.label'),
                 value: InvoicingType.fixedDay,
+                helperTextInformationIcon: t(
+                  'contract.form.invoicing.fixed_day.explain',
+                ),
               },
             ]}
             disabled={!!props.initial?.id}
+            divContainerClass={classes.RadioGroupFieldContainer}
             name="invoicing_type"
           />
         </PopOver>
-        <Alert
-          className={classNames(classes.fieldMargin2, classes.alert)}
-          severity="info"
-        >
-          {props.values.invoicing_type === InvoicingType.sameDayAsSubscription
-            ? t('contract.form.invoicing.same_day_as_subscription.explain')
-            : t('contract.form.invoicing.fixed_day.explain')}
-        </Alert>
         <Collapse
           in={values.invoicing_type === InvoicingType.sameDayAsSubscription}
         >
@@ -706,6 +705,10 @@ const useStyles = makeStyles((theme) => ({
     color: '#000',
   },
   helperText: { marginBottom: theme.spacing(2) },
+  RadioGroupFieldContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
 }));
 
 export const SubscriptionContractFieldsSchema = Yup.object().shape({

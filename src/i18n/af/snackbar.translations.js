@@ -291,6 +291,12 @@ const getTranslations = async () => {
             'Impossible: Changing a shared pass between franchisees is not allowed',
         },
       },
+      contractTemplate: {
+        deleteSuccess: 'Subscription successfully archived',
+        deleteError: 'Failed to archive subscription',
+        restoreSuccess: 'Subscription successfully restored',
+        restoreError: 'Failed to restore subscription',
+      },
     },
     smartlist: {
       delete: {

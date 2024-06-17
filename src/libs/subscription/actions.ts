@@ -1272,9 +1272,11 @@ export const deleteContractTemplate =
     try {
       await deleteContractTemplateAPI(id);
       options.onSuccess?.();
+      dispatch(snackbarSuccess('subscription.contractTemplate.deleteSuccess'));
     } catch (error) {
       dispatch(deleteContractTemplateActions.error(error));
       options.onError?.(error);
+      dispatch(snackbarError('subscription.contractTemplate.deleteError'));
     }
 
     dispatch(deleteContractTemplateActions.isLoading(false));
@@ -1297,9 +1299,11 @@ export const restoreContractTemplate =
     try {
       await restoreContractTemplateAPI(id);
       options.onSuccess?.();
+      dispatch(snackbarSuccess('subscription.contractTemplate.restoreSuccess'));
     } catch (error) {
       dispatch(restoreContractTemplateActions.error(error));
       options.onError?.(error);
+      dispatch(snackbarSuccess('subscription.contractTemplate.restoreSuccess'));
     }
 
     dispatch(restoreContractTemplateActions.isLoading(false));

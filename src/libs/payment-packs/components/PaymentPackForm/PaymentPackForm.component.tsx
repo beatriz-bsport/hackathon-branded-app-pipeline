@@ -195,9 +195,9 @@ export const PaymentPackForm: React.FC<Props> = ({
 
   const classes = useStyles();
 
-  const now = DateTime.now().toISODate();
+  const now = DateTime.now();
 
-  const oneMonthLater = DateTime.now().plus({ month: 1 }).toISODate();
+  const oneMonthLater = DateTime.now().plus({ month: 1 });
 
   const offPeakGroupDefaultValue = useMemo(() => {
     return [offPeakGroupDefault()];
@@ -249,24 +249,24 @@ export const PaymentPackForm: React.FC<Props> = ({
                   ? DateTime.fromISO(
                       // @ts-expect-error
                       JSON.parse(initial?.validity_daterange).lower,
-                    ).toISODate()
+                    )
                   : now,
                 upper_date: initial?.validity_daterange
                   ? DateTime.fromISO(
                       // @ts-expect-error
                       JSON.parse(initial?.validity_daterange).upper,
-                    ).toISODate()
+                    )
                   : oneMonthLater,
                 validity_daterange: initial?.validity_daterange
                   ? {
                       lower: DateTime.fromISO(
                         // @ts-expect-error
                         JSON.parse(initial?.validity_daterange).lower,
-                      ).toISODate(),
+                      ),
                       upper: DateTime.fromISO(
                         // @ts-expect-error
                         JSON.parse(initial?.validity_daterange).upper,
-                      ).toISODate(),
+                      ),
                     }
                   : {
                       lower: now,
@@ -373,8 +373,8 @@ export const PaymentPackForm: React.FC<Props> = ({
             sanitizedValues.duration_months = null;
             sanitizedValues.duration_years = null;
             sanitizedValues.validity_daterange = {
-              lower: DateTime.fromISO(values.lower_date).toISODate(),
-              upper: DateTime.fromISO(values.upper_date).toISODate(),
+              lower: values.lower_date.toISODate(),
+              upper: values.upper_date.toISODate(),
             };
           } else {
             sanitizedValues.validity_daterange = null;
@@ -754,7 +754,7 @@ const paymentPackSchema = Yup.object().shape({
     },
   ),
   validity: Yup.string().required('paymentPack:addPaymentPack.requiredField'),
-  lower_date: Yup.string()
+  lower_date: Yup.date()
     .required('paymentPack:addPaymentPack.requiredField')
     .test(
       'endAfterStart',
@@ -762,14 +762,15 @@ const paymentPackSchema = Yup.object().shape({
       function testEndAfterStart(item) {
         if (this.parent.validity === 'slot') {
           return (
-            DateTime.fromISO(this.parent.upper_date) > DateTime.fromISO(item)
+            DateTime.fromJSDate(this.parent.upper_date) >
+            DateTime.fromJSDate(item)
           );
         }
 
         return true;
       },
     ),
-  upper_date: Yup.string()
+  upper_date: Yup.date()
     .required('paymentPack:addPaymentPack.requiredField')
     .test(
       'endAfterStart',
@@ -777,7 +778,8 @@ const paymentPackSchema = Yup.object().shape({
       function testEndAfterStart(item) {
         if (this.parent.validity === 'slot') {
           return (
-            DateTime.fromISO(this.parent.lower_date) < DateTime.fromISO(item)
+            DateTime.fromJSDate(this.parent.lower_date) <
+            DateTime.fromJSDate(item)
           );
         }
 

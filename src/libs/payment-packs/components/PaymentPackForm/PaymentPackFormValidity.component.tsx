@@ -100,7 +100,6 @@ export const PaymentPackFormValidity = (props: Props) => {
             <Grid item xs={3}>
               <DateField
                 bottomError
-                parseAsString
                 disabled={initial && !initial?.editable}
                 label={t('addPaymentPack.fromDate')}
                 name="lower_date"
@@ -109,7 +108,6 @@ export const PaymentPackFormValidity = (props: Props) => {
             <Grid item xs={3}>
               <DateField
                 bottomError
-                parseAsString
                 disabled={initial && !initial?.editable}
                 label={t('addPaymentPack.toDate')}
                 name="upper_date"

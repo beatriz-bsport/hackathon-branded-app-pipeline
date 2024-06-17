@@ -284,8 +284,8 @@ export type PaymentPackFormValues<LPP = number> = {
   penalty_active?: boolean;
   no_show_penalty_active?: boolean;
   validity?: 'givenNumber' | 'slot';
-  lower_date?: string;
-  upper_date?: string;
+  lower_date?: DateTime;
+  upper_date?: DateTime;
   validity_daterange?: {
     lower?: string;
     upper?: string;

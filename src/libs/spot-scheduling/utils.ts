@@ -117,6 +117,7 @@ export const getSpotTypeMinimal = (
       ? {
           name: spotType?.name || null,
           prefix: spotType?.prefix,
+          suffix: spotType?.suffix,
           indexType,
           shape: spotType?.shape,
           stroke: spotType?.stroke_color,
@@ -126,6 +127,7 @@ export const getSpotTypeMinimal = (
           name: spotType?.name || null,
           shape: 'personalized',
           prefix: spotType?.prefix,
+          suffix: spotType?.suffix,
           indexType,
         };
 

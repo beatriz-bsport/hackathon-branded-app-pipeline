@@ -2351,7 +2351,9 @@
             "305": "Change of member email from the backoffice",
             "1002": "Spinning session performance",
             "1001": "Spivi account created (for members)",
-            "1003": "Spivi account created (for teachers)"
+            "1003": "Spivi account created (for teachers)",
+            "1200": "Payment method expiration first reminder for payments by instalments",
+            "1201": "Payment method expiration second reminder for payments by instalments"
         },
         "messages": {
             "createOrUpdate": {

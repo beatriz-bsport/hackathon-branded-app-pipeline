@@ -1318,7 +1318,8 @@
                     "invoice_price": "Importo della ricevuta",
                     "invoice_sum_up": "Riepilogo della ricevuta",
                     "invoice_date": "Data di contabilizzazione",
-                    "invoice_download_link": "Link per scaricare"
+                    "invoice_download_link": "Link per scaricare",
+                    "days_until_payment_method_expiration_planned_payment_event": "Giorni prima della scadenza del metodo di pagamento"
                 }
             },
             "GiftCard": {
@@ -1464,7 +1465,9 @@
             "1102": "Contributo per il referral disponibile (membro referente)",
             "1101": "Contributo per il referral disponibile (membro riferito)",
             "201": "Metodo di pagamento dell'abbonamento in scadenza (secondo avviso)",
-            "200": "Metodo di pagamento dell'abbonamento in scadenza (primo avviso)"
+            "200": "Metodo di pagamento dell'abbonamento in scadenza (primo avviso)",
+            "1200": "Modalità di pagamento, primo sollecito per la scadenza dei pagamenti rateali",
+            "1201": "Modalità di pagamento, secondo sollecito per la scadenza dei pagamenti rateali"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -2478,8 +2481,8 @@
             "showSms": "Visualizza SMS",
             "isAnswerWarning": "Attenzione! Solo tu puoi vedere questo messaggio",
             "numberOfRecipientsCompact": "{{count}} destinatari.",
-            "numberOfRecipients": "Invia a 1 destinatario",
-            "numberOfRecipients_plural": "Invia a {{count}} destinatari",
+            "numberOfRecipients": "Invia al destinatario (1)",
+            "numberOfRecipients_plural": "Invia ai destinatari ({{count}})",
             "showNotification": "Vedi la notifica"
         },
         "recipients": "Destinatario",
@@ -3747,7 +3750,8 @@
             "credits": "Credito",
             "expiration": "Validità",
             "all": "Tutti i pacchetti",
-            "isValidToday": "Valido"
+            "isValidToday": "Valido",
+            "empty": "Tutti i pacchetti appuntamenti"
         },
         "recurrenceRule": {
             "item": {
@@ -6246,7 +6250,21 @@
             "errors": {
                 "1": "Un account con questo nome esiste già."
             }
-        }
+        },
+        "canNotExecutePaymentAttempt": {
+            "generic": "Il pagamento non è riuscito, riprovare",
+            "failedLoadingPayPalScript": "Si è verificato un errore durante il caricamento di PayPal",
+            "35013": "Il pagamento non è andato a buon fine, selezionare un altro metodo di pagamento.",
+            "35012": "La carta è scaduta",
+            "35006": "Il conto PayPal non può elaborare il pagamento, riprovare con un altro conto",
+            "35000": "Il pagamento con PayPal non è riuscito, riprovare o utilizzare un altro metodo di pagamento",
+            "12110": "Il carrello non corrisponde all'importo che si è cercato di pagare, abbiamo aggiornato il carrello, si prega di provare di nuovo",
+            "12109": "Il pagamento non è riuscito, riprovare.",
+            "12108": "Il pagamento è già in fase di elaborazione, si prega di attendere",
+            "12107": "Il pagamento non è riuscito, riprovare.",
+            "12102": "Il pagamento è già in fase di elaborazione, si prega di attendere"
+        },
+        "cancelPayPalPaymentAttempt": "Il tentativo di pagamento è stato annullato. Si prega di procedere nuovamente."
     },
     "settings": {
         "broadcast": {
@@ -6443,7 +6461,7 @@
                     "daysBeforeSecondNotification": "Seconda notifica (giorni prima della data di scadenza)",
                     "daysBeforeFirstNotification": "Prima notifica (giorni prima della data di scadenza)"
                 },
-                "helpText": "Se è stata attivata l'opzione \"Promemoria scadenza del metodo di pagamento\" per le notifiche transazionali sugli abbonamenti, puoi modificare il numero di giorni qui.",
+                "helpText": "Se è stata attivata l'opzione \"Promemoria scadenza metodo di pagamento\" per le notifiche transazionali sugli abbonamenti, è possibile personalizzare il numero di giorni.",
                 "title": "Scegliere il numero di giorni prima della data di scadenza del metodo di pagamento per inviare una notifica via email."
             }
         },
@@ -6572,7 +6590,10 @@
                             "marketplace": "Studio",
                             "home": "Attività (predefinita)",
                             "bookings": "Prenotazioni",
-                            "membership": "Programma"
+                            "membership": "Programma",
+                            "studio": "Studio",
+                            "activities": "Attività (predefinita)",
+                            "schedule": "Programma"
                         },
                         "placeholder": "Seleziona una pagina",
                         "helperText": "Questa opzione consente di scegliere la pagina predefinita che gli utenti vedranno all'apertura dell'applicazione.",
@@ -7027,7 +7048,8 @@
                 "1": "Carta di credito",
                 "0": "Cash",
                 "14": "Acconto del cliente (debito)",
-                "16": "Bacs Direct Debit"
+                "16": "Bacs Direct Debit",
+                "17": "PayPal"
             },
             "select": {
                 "label": "Metodo di pagamento"
@@ -8416,7 +8438,8 @@
             "member_email": "Email",
             "member_last_name": "Cognome",
             "member_first_name": "Nome",
-            "studio_address_franchise_only": "Sede/Indirizzo"
+            "studio_address_franchise_only": "Sede/Indirizzo",
+            "payment_method_paypal_wallet": "Portafoglio PayPal"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -8440,7 +8463,8 @@
             "eps": "EPS",
             "giropay": "Giropay",
             "debt": "Credito interno",
-            "bacs_debit": "Bacs Direct Debit"
+            "bacs_debit": "Bacs Direct Debit",
+            "paypal_wallet": "Portafoglio PayPal"
         },
         "list": {
             "empty": "Aggiungi report personalizzati per avere una panoramica dettagliata del tuo studio.",
@@ -12656,7 +12680,8 @@
             "20": "Bancontact",
             "disputeWon": "Risolta",
             "70": "Bacs Direct Debit",
-            "3": "Pacchetto"
+            "3": "Pacchetto",
+            "80": "PayPal"
         },
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
         "method": {
@@ -12690,7 +12715,8 @@
             "1": "Contante",
             "0": "Carta",
             "70": "Bacs Direct Debit",
-            "BACS_DEBIT": "Bacs Direct Debit"
+            "BACS_DEBIT": "Bacs Direct Debit",
+            "80": "PayPal"
         },
         "generalTermsAndConditions": {
             "iAccept": "Accetto le ",
@@ -13461,7 +13487,8 @@
                         "edit": "Modifica variante",
                         "add": "Aggiungi una variante"
                     },
-                    "placeholder": "Questo prodotto non ha ancora varianti"
+                    "placeholder": "Questo prodotto non ha ancora varianti",
+                    "formError": "I valori del campo Prezzo devono essere numeri positivi validi"
                 },
                 "inventory": {
                     "seeInvoice": "Vedi ricevuta",
@@ -18522,7 +18549,8 @@
             "pageTitle": "Membro",
             "seeMembership": "vedere il file del membro",
             "isVaccinated": "Pass sanitario valido",
-            "franchises": "Franchising"
+            "franchises": "Franchising",
+            "seeMemberInCompany": "Mostra"
         },
         "pagination": {
             "outOf": "{{from}} - {{to}} su {{count}}",

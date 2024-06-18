@@ -705,7 +705,9 @@
             "201": "Verlopende betaalmethode voor een abonnement (2e waarschuwing)",
             "200": "Verlopende betaalmethode voor een abonnement (1e waarschuwing)",
             "1102": "Verwijzingsbeloning beschikbaar (verwijzend lid)",
-            "1101": "Verwijzingsbeloning beschikbaar (doorverwezen lid)"
+            "1101": "Verwijzingsbeloning beschikbaar (doorverwezen lid)",
+            "1201": "Betalingsmethode vervaldatum tweede herinnering voor betalingen op afbetaling",
+            "1200": "Betalingsmethode vervaldatum eerste herinnering voor betalingen op afbetaling"
         },
         "tag": {
             "BookingOption": {
@@ -855,7 +857,8 @@
                     "invoice_price": "Factuurbedrag",
                     "invoice_sum_up": "Factuuroverzicht",
                     "invoice_date": "Factuurdatum",
-                    "invoice_download_link": "Download link"
+                    "invoice_download_link": "Download link",
+                    "days_until_payment_method_expiration_planned_payment_event": "Dagen voor de vervaldatum van de betalingsmethode"
                 }
             },
             "GiftCard": {
@@ -3134,7 +3137,8 @@
             "eps": "EPS",
             "giropay": "Giropay",
             "debt": "Interne rekening (Wallet)",
-            "bacs_debit": "Bacs Automatische Incasso"
+            "bacs_debit": "Bacs Automatische Incasso",
+            "paypal_wallet": "PayPal Wallet"
         },
         "product_type": {
             "shop_item": "Webshop",
@@ -3483,7 +3487,8 @@
             "member_email": "Email",
             "member_last_name": "Achternaam",
             "member_first_name": "Voornaam",
-            "studio_address_franchise_only": "Locatie/Adres"
+            "studio_address_franchise_only": "Locatie/Adres",
+            "payment_method_paypal_wallet": "PayPal Wallet"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -9361,7 +9366,10 @@
                             "marketplace": "Studio",
                             "home": "Activiteiten (standaard)",
                             "bookings": "Reserveringen",
-                            "membership": "Rooster"
+                            "membership": "Rooster",
+                            "studio": "Studio",
+                            "activities": "Activiteiten (standaard)",
+                            "schedule": "Rooster"
                         },
                         "placeholder": "Selecteer een pagina",
                         "helperText": "Met deze optie kun je de standaardpagina kiezen die gebruikers te zien krijgen als ze de app openen.",
@@ -10260,7 +10268,8 @@
             "credits": "credit(s)",
             "expiration": "Geldigheid",
             "all": "Alle kaarten",
-            "isValidToday": "Geldig"
+            "isValidToday": "Geldig",
+            "empty": "Alle afspraakkaarten"
         },
         "privateBookingNotification": {
             "form": {
@@ -10676,7 +10685,8 @@
                         "edit": "Variant wijzigen",
                         "add": "Een variant toevoegen"
                     },
-                    "placeholder": "Dit product heeft geen varianten om weer te geven."
+                    "placeholder": "Dit product heeft geen varianten om weer te geven.",
+                    "formError": "De waarden in het prijsveld moeten geldige positieve getallen zijn"
                 },
                 "inventory": {
                     "seeInvoice": "Toon factuur",
@@ -11023,7 +11033,8 @@
             "20": "Bancontact",
             "disputeWon": "Gewonnen",
             "70": "Bacs Automatische Incasso",
-            "3": "Kaart"
+            "3": "Kaart",
+            "80": "PayPal"
         },
         "explainOption": "Je ontvangt een e-mail wanneer er een plaats vrij komt",
         "bookAnotherOption": "Opnieuw op de wachtlijst inschrijven",
@@ -11061,7 +11072,8 @@
             "60": "Giropay",
             "3": "Pass",
             "70": "Bacs Automatische Incasso",
-            "BACS_DEBIT": "Bacs Automatische Incasso"
+            "BACS_DEBIT": "Bacs Automatische Incasso",
+            "80": "PayPal"
         },
         "forms": {
             "cancelPayment": "Terug",
@@ -12401,7 +12413,21 @@
             "errors": {
                 "1": "Er bestaat al een account met deze naam."
             }
-        }
+        },
+        "canNotExecutePaymentAttempt": {
+            "generic": "Je betaling is mislukt, probeer het opnieuw",
+            "failedLoadingPayPalScript": "Er is een fout opgetreden tijdens het laden van PayPal",
+            "35013": "Je betaling is mislukt. Selecteer een andere betaalmethode.",
+            "35012": "Je kaart is verlopen",
+            "35006": "Uw PayPal-rekening kan de betaling niet verwerken. Probeer het opnieuw met een andere rekening",
+            "35000": "Uw PayPal-betaling is mislukt. Probeer het opnieuw of gebruik een andere betaalmethode",
+            "12110": "Uw mandje kwam niet overeen met het bedrag dat u probeerde te betalen, we hebben uw mandje vernieuwd, probeer het opnieuw",
+            "12109": "Je betaling is mislukt, probeer het opnieuw.",
+            "12108": "Je betaling wordt verwerkt, even geduld a.u.b.",
+            "12107": "Je betaling is mislukt, probeer het opnieuw.",
+            "12102": "Je betaling wordt verwerkt, even geduld a.u.b."
+        },
+        "cancelPayPalPaymentAttempt": "Je betalingspoging is geannuleerd. Probeer het opnieuw."
     },
     "coach": {
         "performance": {
@@ -14674,7 +14700,8 @@
                 "1": "Betaalkaart",
                 "0": "Contant",
                 "14": "Interne rekening (Wallet)",
-                "16": "Bacs Automatische Incasso"
+                "16": "Bacs Automatische Incasso",
+                "17": "PayPal"
             },
             "select": {
                 "label": "Betaalmethode"
@@ -18533,7 +18560,8 @@
             "seeMembership": "Toon ledeninformatie",
             "pageTitle": "Lid",
             "isVaccinated": "Ik bezit een geldig coronabewijs",
-            "franchises": "Studio's"
+            "franchises": "Studio's",
+            "seeMemberInCompany": "Laat zien"
         },
         "companies": {
             "pageTitle": "Studio's",

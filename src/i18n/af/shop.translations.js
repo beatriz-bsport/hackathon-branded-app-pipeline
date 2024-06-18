@@ -152,6 +152,7 @@ exports.default = {
     showLess: 'Show less',
     copyPaymentPageLink: 'Copy payment page link',
     viewBarcode: 'View barcode',
+    barcodeUnicityWarning: 'The barcode provided is already in use',
     deleteModal: {
       title: 'Deletion - {{- name }}',
       genericTitle: 'Deletion confirmation',
@@ -189,7 +190,12 @@ exports.default = {
         totalSales: 'Total sales',
       },
       variants: {
-        formError: 'Price field values must be valid positive numbers',
+        formError: {
+          price: 'Price field values must be valid positive numbers',
+        },
+        formWarning: {
+          barcode: 'Some barcode field values are already in use',
+        },
         placeholder: 'This product does not have variants yet',
         action: { add: 'Add a variant', edit: 'Edit variant' },
         image: 'Image',

@@ -28,6 +28,7 @@ import type {
   ProvisionBulkCreate,
   ShopItemVariantAttributes,
   ShopItemVariantCombination,
+  ShopItemBarcodeUnicity,
 } from '#src/libs/shop/types';
 import type { OptionCallback } from '#src/state/types';
 import type { SelectOption } from '#src/libs/types';
@@ -95,6 +96,11 @@ type Props = {
     options?: OptionCallback,
   ) => void;
   setQueryParam: (queryParam: string) => (value: string) => void;
+  checkBarcodeUnicity: (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => void;
+  getShopItemBarcodeListUnicity: (barcodeList: string[]) => boolean;
 };
 
 const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
@@ -127,6 +133,8 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
   updateShopItemTemplateVariantBulk,
   createShopItemTemplateVariants,
   setQueryParam,
+  checkBarcodeUnicity,
+  getShopItemBarcodeListUnicity,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -320,8 +328,10 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
         <FranchiseShopItemTemplateDetailTabs
           availableTabListOptions={availableTabListOptions}
           changeInventoryVariantFilter={changeInventoryVariantFilter}
+          checkBarcodeUnicity={checkBarcodeUnicity}
           createShopItemProvision={createShopItemProvision}
           createShopItemProvisionBulk={createShopItemProvisionBulk}
+          getShopItemBarcodeListUnicity={getShopItemBarcodeListUnicity}
           handleOpenBarcodeModal={handleOpenBarcodeModal}
           handleOpenVariantDrawer={handleOpenCreateVariantDrawer}
           isDeletingVariant={isDeletingVariant}

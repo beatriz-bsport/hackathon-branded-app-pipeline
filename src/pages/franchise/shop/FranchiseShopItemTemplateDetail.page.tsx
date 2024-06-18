@@ -6,6 +6,7 @@ import omit from 'lodash/omit';
 
 import {
   retrieveShopItemTemplate as retrieveShopItemTemplateAction,
+  retrieveShopItemBarcodeUnicity as retrieveShopItemBarcodeUnicityAction,
   updateShopItemTemplate as updateShopItemTemplateAction,
   deleteShopItemTemplate as deleteShopItemTemplateAction,
   createShopItemProvision as createShopItemProvisionAction,
@@ -33,6 +34,8 @@ import {
   getShopItemTemplateInstanceState,
   getShopItemTemplateVariantUpdateLoading,
   getShopSupplierTemplateState,
+  getShopItemBarcodeUnicityLoading,
+  getShopItemBarcodeListUnicity,
 } from '#src/libs/shop/selectors';
 import { getFranchiseCompanies } from '#src/libs/franchise/selectors';
 
@@ -54,6 +57,7 @@ import type {
   ShopItemEdit,
   ShopItemTemplate,
   ShopItemVariantAttributes,
+  ShopItemBarcodeUnicity,
 } from '#src/libs/shop/types';
 
 import type { SelectOption } from '#src/libs/types';
@@ -319,10 +323,20 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       }),
     );
 
+  /**
+   * When entering a shop item barcode, we check first the unicity of it before submit
+   * @param barcode The barcode to check
+   */
+  checkBarcodeUnicity = (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => this.props.retrieveShopItemBarcodeUnicity(barcode, options);
+
   render() {
     return (
       <FranchiseShopItemTemplateDetail
         changeInventoryVariantFilter={this.handleChangeInventoryVariantFilters}
+        checkBarcodeUnicity={this.checkBarcodeUnicity}
         createShopItemProvision={this.handleCreateShopItemProvision}
         createShopItemProvisionBulk={this.handleCreateShopItemProvisionBulk}
         createShopItemTemplateVariants={
@@ -331,6 +345,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         deleteShopItemTemplate={this.handleDeleteShopItemTemplate}
         deleteShopItemTemplateVariant={this.handleDeleteShopItemTemplateVariant}
         franchiseCompanyListOptions={this.getFranchiseCompanyListOptions()}
+        getShopItemBarcodeListUnicity={this.props.getShopItemBarcodeListUnicity}
         isDeleting={this.props.isDeleteLoading}
         isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
@@ -397,11 +412,15 @@ const connector = connect(
       state,
       id,
     ),
+    getShopItemBarcodeListUnicity: (barcodeList: string[]) =>
+      getShopItemBarcodeListUnicity(state, barcodeList),
+    shopItemBarcodeUnicityLoading: getShopItemBarcodeUnicityLoading(state),
     getShopItemTemplateSupplier: (supplierTemplateId: number) =>
       getShopItemTemplateSupplier(state, supplierTemplateId),
   }),
   {
     retrieveShopItemTemplate: retrieveShopItemTemplateAction,
+    retrieveShopItemBarcodeUnicity: retrieveShopItemBarcodeUnicityAction,
     updateShopItemTemplate: updateShopItemTemplateAction,
     deleteShopItemTemplate: deleteShopItemTemplateAction,
     fetchShopSupplierTemplateList: fetchShopSupplierTemplateListAction,

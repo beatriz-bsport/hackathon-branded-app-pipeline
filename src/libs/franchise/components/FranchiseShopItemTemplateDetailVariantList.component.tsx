@@ -3,6 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Formik, Form } from 'formik';
 import { useTheme, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
@@ -25,9 +26,19 @@ import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 import { CustomChip } from '#src/components/chip/CustomChip.component';
 import ShopItemVariantBulkUpdateForm from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm';
+import shopItemVariantBulkFormValidationSchema from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/shopItemVariantBulkUpdateFormValidationSchema';
 
-import type { ShopItemTemplate } from '#src/libs/shop/types';
-import type { ShopItemVariantBulkUpdateFormValues } from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/types';
+import type {
+  ShopItemBarcodeUnicity,
+  ShopItemTemplate,
+} from '#src/libs/shop/types';
+import type {
+  ShopItemVariantBulkUpdateFormRow,
+  ShopItemVariantBulkUpdateFormValues,
+} from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/types';
+import type { OptionCallback } from '#src/state/types';
+
+import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#src/libs/shop/constants';
 
 type Props = {
   handleDisableEditMode: () => void;
@@ -39,6 +50,11 @@ type Props = {
   isVariantEditMode?: boolean;
   onDeleteShopItemTemplateVariant: (id: number) => void;
   variantList: ShopItemTemplate[];
+  checkBarcodeUnicity: (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => void;
+  getShopItemBarcodeListUnicity: (barcodeList: string[]) => boolean;
 };
 
 type TableRowItemProps = {
@@ -166,6 +182,8 @@ const FranchiseShopItemTemplateDetailVariantList: React.FC<Props> = ({
   isVariantEditMode,
   onDeleteShopItemTemplateVariant,
   variantList,
+  checkBarcodeUnicity,
+  getShopItemBarcodeListUnicity,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -188,89 +206,131 @@ const FranchiseShopItemTemplateDetailVariantList: React.FC<Props> = ({
     [variantList],
   );
 
+  const getShowBarcodeUnicityWarning = useCallback(
+    (variants: ShopItemVariantBulkUpdateFormRow[]) =>
+      getShopItemBarcodeListUnicity(
+        variants.map((variant) => variant.barcode),
+      ) === false,
+    [getShopItemBarcodeListUnicity],
+  );
+
   return (
     <Formik
       enableReinitialize
       initialValues={initialValues}
       onReset={handleDisableEditMode}
       onSubmit={handleSubmit}
+      validationSchema={shopItemVariantBulkFormValidationSchema}
     >
-      <Form noValidate>
-        <TableContainer className={classes.tableContainer}>
-          {isVariantEditMode && (
-            <div className={classes.tableEditActions}>
-              <Button color="secondary" type="reset" variant="outlined">
-                {t('common:cancel')}
-              </Button>
-              <Button color="primary" type="submit" variant="contained">
-                {t('common:saveChanges')}
-              </Button>
-            </div>
-          )}
-          {!isVariantEditMode && (
-            <div className={classes.tableEditActions}>
-              <Button
-                color="secondary"
-                onClick={handleOpenVariantDrawer}
-                variant="outlined"
-              >
-                {t('shop:shopItemDetail.table.variants.action.add')}
-              </Button>
-              <Button
-                color="primary"
-                onClick={handleEnableEditMode}
-                variant="contained"
-              >
-                {t('shop:shopItemDetail.table.variants.action.edit')}
-              </Button>
-            </div>
-          )}
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  {t('shopItemDetail.table.variants.image')}
-                </TableCell>
-                <TableCell>
-                  {t('shopItemDetail.table.variants.colorAndSize')}
-                </TableCell>
-                <TableCell>
-                  {t('shopItemDetail.table.variants.price')}
-                </TableCell>
-                <TableCell>
-                  {t('shopItemDetail.table.variants.supplierPrice')}
-                </TableCell>
-                <TableCell>{t('shopItemDetail.table.variants.sku')}</TableCell>
-                <TableCell>
-                  {t('shopItemDetail.table.variants.barcode')}
-                </TableCell>
-                <TableCell>
-                  {t('shopItemDetail.table.variants.availableOnline')}
-                </TableCell>
-                <TableCell>-</TableCell>
-              </TableRow>
-            </TableHead>
-
-            {isVariantEditMode ? (
-              <ShopItemVariantBulkUpdateForm />
-            ) : (
-              <TableBody>
-                {variantList.map((row) => (
-                  <TableRowItem
-                    key={row.id}
-                    isDeletingVariant={isDeletingVariant}
-                    item={row}
-                    onDeleteShopItemTemplateVariant={
-                      onDeleteShopItemTemplateVariant
-                    }
-                    onShowBarcode={handleShowBarcode}
-                  />
-                ))}
-              </TableBody>
+      {({ isValid, isSubmitting, errors, values }) => (
+        <Form noValidate>
+          <TableContainer className={classes.tableContainer}>
+            {isVariantEditMode && (
+              <>
+                <div className={classes.tableEditActions}>
+                  <Button color="secondary" type="reset" variant="outlined">
+                    {t('common:cancel')}
+                  </Button>
+                  <Button
+                    color="primary"
+                    disabled={!isValid || isSubmitting}
+                    type="submit"
+                    variant="contained"
+                  >
+                    {t('common:saveChanges')}
+                  </Button>
+                </div>
+                <div className={classes.formAlerts}>
+                  {!isValid && errors.variants?.length > 0 && (
+                    <Alert
+                      className={classes.tableAlertContainer}
+                      severity="error"
+                    >
+                      {t('shop:shopItemDetail.table.variants.formError.price')}
+                    </Alert>
+                  )}
+                  {getShowBarcodeUnicityWarning(values.variants) && (
+                    <Alert
+                      className={classes.tableAlertContainer}
+                      severity="warning"
+                    >
+                      {t(
+                        'shop:shopItemDetail.table.variants.formWarning.barcode',
+                      )}
+                    </Alert>
+                  )}
+                </div>
+              </>
             )}
-          </Table>
-        </TableContainer>
-      </Form>
+            {!isVariantEditMode && (
+              <div className={classes.tableEditActions}>
+                <Button
+                  color="secondary"
+                  onClick={handleOpenVariantDrawer}
+                  variant="outlined"
+                >
+                  {t('shop:shopItemDetail.table.variants.action.add')}
+                </Button>
+                <Button
+                  color="primary"
+                  onClick={handleEnableEditMode}
+                  variant="contained"
+                >
+                  {t('shop:shopItemDetail.table.variants.action.edit')}
+                </Button>
+              </div>
+            )}
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    {t('shopItemDetail.table.variants.image')}
+                  </TableCell>
+                  <TableCell>
+                    {t('shopItemDetail.table.variants.colorAndSize')}
+                  </TableCell>
+                  <TableCell>
+                    {t('shopItemDetail.table.variants.price')}
+                  </TableCell>
+                  <TableCell>
+                    {t('shopItemDetail.table.variants.supplierPrice')}
+                  </TableCell>
+                  <TableCell>
+                    {t('shopItemDetail.table.variants.sku')}
+                  </TableCell>
+                  <TableCell>
+                    {t('shopItemDetail.table.variants.barcode')}
+                  </TableCell>
+                  <TableCell>
+                    {t('shopItemDetail.table.variants.availableOnline')}
+                  </TableCell>
+                  <TableCell>-</TableCell>
+                </TableRow>
+              </TableHead>
+
+              {isVariantEditMode ? (
+                <ShopItemVariantBulkUpdateForm
+                  checkBarcodeUnicity={checkBarcodeUnicity}
+                />
+              ) : (
+                <TableBody>
+                  {variantList.map((row) => (
+                    <TableRowItem
+                      key={row.id}
+                      isDeletingVariant={isDeletingVariant}
+                      item={row}
+                      onDeleteShopItemTemplateVariant={
+                        onDeleteShopItemTemplateVariant
+                      }
+                      onShowBarcode={handleShowBarcode}
+                    />
+                  ))}
+                </TableBody>
+              )}
+            </Table>
+          </TableContainer>
+        </Form>
+      )}
     </Formik>
   );
 };
@@ -291,6 +351,16 @@ const useStyles = makeStyles((theme) => ({
   },
   variantImage: {
     width: 48,
+  },
+  tableAlertContainer: {
+    height: SHOP_TABLE_ERROR_CONTAINER_HEIGHT,
+    alignItems: 'center',
+  },
+  formAlerts: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+    alignItems: 'flex-end',
   },
 }));
 

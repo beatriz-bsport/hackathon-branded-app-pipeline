@@ -107,7 +107,7 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
         offer?.spot_information &&
         `${t('place')} ${offer.spot_information?.prefix}${
           offer.spot_information?.indexType
-        }`
+        }${offer.spot_information?.suffix}`
       }
       title={offer?.name_override || offer.meta_activity?.name}
     />

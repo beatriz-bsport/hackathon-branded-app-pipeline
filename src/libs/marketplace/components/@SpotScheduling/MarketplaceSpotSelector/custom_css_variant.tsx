@@ -190,6 +190,7 @@ const usePropsFromVariation = (): Omit<
         customization: 'predefined',
         name: 'Example',
         prefix: '',
+        suffix: '',
         fill_color: '',
         stroke_color: '',
         free_image: '',

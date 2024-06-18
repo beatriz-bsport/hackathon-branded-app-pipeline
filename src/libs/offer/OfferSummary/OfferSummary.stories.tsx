@@ -15,7 +15,7 @@ const coach = offer.coach;
 const coachOverride = offer.coach_override;
 const price = (Math.random() * 100 + 100).toFixed(2);
 const tax = Math.random() * 20;
-const spotId = Math.floor(Math.random() * 10);
+const spotId = String(Math.floor(Math.random() * 10));
 
 const OfferSummaryTemplate = (args: Props) => {
   return (

@@ -44,7 +44,7 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
             offer: basketOffers?.find(
               (offerDetail) => offerDetail.id === offerData.offer_id,
             ),
-            spotId: offerData.extra_data.spot_id,
+            spotName: offerData.extra_data.spot_name,
           })),
         });
       }),
@@ -68,7 +68,7 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
               }
               metaActivity={offerDetail.offer?.meta_activity}
               offer={offerDetail.offer}
-              spotId={offerDetail.spotId}
+              spotId={offerDetail.spotName}
               theme={companyTheme}
               variant={OfferSummaryVariant.BASKET}
             />

@@ -301,6 +301,7 @@ export const buildDataForUserRegistration = (
   offerId: number,
   selectedSpotId: number | null,
   bookingForGuestValues?: AddGuestFormValues,
+  selectedSpot?: string | null,
 ) => {
   const data: {
     consumer_payment_pack?: number;
@@ -340,12 +341,16 @@ export const buildDataForUserRegistration = (
                     last_name: bookingForGuestValues.lastName,
                     email: bookingForGuestValues.email,
                     spot_id: selectedSpotId ?? null,
+                    spot_name: selectedSpot ?? null,
                   },
                 ],
                 booking_for_member: null,
                 booking_for_invitee_only: true,
               }
-            : { spot_id: selectedSpotId ?? null }),
+            : {
+                spot_id: selectedSpotId ?? null,
+                spot_name: selectedSpot ?? null,
+              }),
         },
       },
     ];

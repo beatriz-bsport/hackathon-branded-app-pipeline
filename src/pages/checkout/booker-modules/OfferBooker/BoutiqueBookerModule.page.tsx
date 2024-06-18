@@ -511,7 +511,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   updateSpotForOffer = (_: number, index: number) => {
-    /* This method gets the selected spot in the canvas of plan to build the spot name with the right prefix */
+    /* This method gets the selected spot in the canvas of plan to build the spot name with the right prefix and suffix */
     const spot =
       this.props.roomBlueprintsById?.[
         this.props.offer?.room_blueprint
@@ -519,18 +519,20 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         ?.data ?? '';
 
     let prefix = '';
+    let suffix = '';
 
     if (this.props.spotTypes && spot?.spotTypeId !== DEFAULT_SPOT_TYPE_ID) {
-      prefix =
-        this.props.spotTypes?.find?.(
-          (spotType) => spotType.id === spot.spotTypeId,
-        )?.prefix ?? '';
+      const selectedSpotType = this.props.spotTypes?.find?.(
+        (spotType) => spotType.id === spot.spotTypeId,
+      );
+      prefix = selectedSpotType?.prefix ?? '';
+      suffix = selectedSpotType?.suffix ?? '';
     }
 
     // indexType may be undefined for old layout
     const selectedSpot = spot?.indexType
-      ? `${prefix}${spot.indexType}`
-      : `${prefix}${index}`;
+      ? `${prefix}${spot.indexType}${suffix}`
+      : `${prefix}${index}${suffix}`;
 
     this.setState({
       selectedSpot,
@@ -605,6 +607,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         lastName: this.props.queryParams.guest_last_name ?? '',
         email: this.props.queryParams.guest_email ?? '',
       },
+      this.state.selectedSpot,
     );
 
     if (
@@ -1048,7 +1051,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                           loading={offerSummaryLoading}
                           metaActivity={this.props.offer?.meta_activity}
                           offer={this.props.offer}
-                          spotId={this.state.selectedSpot}
+                          spotId={this.state.selectedSpotId}
+                          spotName={this.state.selectedSpot}
                         />
                       )}
                       onClick={this.onConfirm}
@@ -1120,7 +1124,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   loading={offerSummaryLoading}
                   metaActivity={this.props.offer?.meta_activity}
                   offer={this.props.offer}
-                  spotId={this.state.selectedSpot}
+                  spotId={this.state.selectedSpotId}
+                  spotName={this.state.selectedSpot}
                 />
               )}
               onClick={this.onConfirm}

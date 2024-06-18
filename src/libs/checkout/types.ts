@@ -117,6 +117,8 @@ export type CheckoutItemOfferData = {
     booking_for_member?: number | null;
     /** The spot number associated with the booking */
     spot_id?: number | null;
+    /** The spot name associated with the booking */
+    spot_name?: string | null;
     /** `true` if currently booking for a guest */
     booking_for_invitee_only?: boolean;
   };

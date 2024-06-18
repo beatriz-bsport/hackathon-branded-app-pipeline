@@ -49,7 +49,8 @@ export type Props = {
   metaActivity: MetaActivity;
   offer: Offer_FULL;
   /** The spot name e.g `F4` */
-  spotId?: string;
+  spotName?: string;
+  spotId?: string | number;
   price?: number | string;
   tax?: number | string;
   companyTheme: CompanyTheme;
@@ -74,6 +75,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
   loading,
   metaActivity,
   offer,
+  spotName,
   spotId,
   companyTheme,
   offerStatus,
@@ -130,7 +132,9 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
 
   const date = formatOfferDateWithTime(formattedDate, formattedOfferHours);
 
-  const spotName = spotId ? `${t(`booking:place`)} ${spotId}` : null;
+  const displayedSpotName = spotName
+    ? `${t(`booking:place`)} ${spotName}`
+    : null;
 
   const displayWaitlistChip =
     (waitlistExists && offer.full) || isRegisteredToWaitlist;
@@ -273,7 +277,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
               hideCoach={companyTheme?.hideCoach}
               showEstablishmentAddress={showEstablishmentAddress}
               spotId={spotId}
-              spotName={spotName}
+              spotName={displayedSpotName}
             />
           </GridItem>
         </Grid>

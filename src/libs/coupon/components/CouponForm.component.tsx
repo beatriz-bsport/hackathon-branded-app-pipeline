@@ -594,12 +594,20 @@ export class CouponForm extends React.Component<Props, State> {
                     key={`${id}-${i}`}
                     dense
                     disabled={!!initial?.coupon_template_instance}
-                    onDelete={() => {
-                      const newObjects = this.state.only_on_objects.filter(
-                        (ido) => ido !== id,
-                      );
-                      this.handleChange('only_on_objects', false)(newObjects);
-                    }}
+                    onDelete={
+                      initial?.coupon_template_instance
+                        ? undefined
+                        : () => {
+                            const newObjects =
+                              this.state.only_on_objects.filter(
+                                (ido) => ido !== id,
+                              );
+                            this.handleChange(
+                              'only_on_objects',
+                              false,
+                            )(newObjects);
+                          }
+                    }
                     shopitem={allShopItemsById[id]}
                   />
                 ))

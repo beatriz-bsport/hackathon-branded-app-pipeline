@@ -51,6 +51,7 @@ const initialState: Immutable.Immutable<CompanyState> = Immutable<CompanyState>(
     },
     paypalOnboardingLink: {
       loading: false,
+      redirecting: false,
       error: null,
       data: null,
     },
@@ -221,6 +222,12 @@ export default handleActions<Immutable.Immutable<CompanyState>, any>(
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(['paypalOnboardingLink', 'loading'], payload);
+    },
+    [fetchPayPalOnboardingLinkActions.isRedirecting.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['paypalOnboardingLink', 'redirecting'], payload);
     },
     [fetchPayPalOnboardingLinkActions.error.toString()]: (
       state,

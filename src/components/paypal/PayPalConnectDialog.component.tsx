@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 
 import { useTranslation } from 'react-i18next';
@@ -20,8 +20,8 @@ import Alert from '@material-ui/lab/Alert';
 type Props = {
   onCancel: () => void;
   dialogOpen: boolean;
-  paypalOnboardingLink: string;
   paypalOnboardingLinkLoading?: boolean;
+  paypalOnboardingLinkRedirecting?: boolean;
   fetchPayPalOnboardingLink?: () => void;
 };
 
@@ -48,8 +48,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const PayPalConnectDialog: React.FC<Props> = (props: Props) => {
   const {
-    paypalOnboardingLink,
     paypalOnboardingLinkLoading,
+    paypalOnboardingLinkRedirecting,
     onCancel,
     dialogOpen,
     fetchPayPalOnboardingLink,
@@ -58,19 +58,9 @@ export const PayPalConnectDialog: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation(['settings']);
   const classes = useStyles();
 
-  const [redirecting, setRedirecting] = useState(false);
-
-  useEffect(() => {
-    if (paypalOnboardingLink && !paypalOnboardingLinkLoading) {
-      // Redirection to PayPal seems to take almost a second, and without this redirection, the loading spinner is not shown anymore, making the UX a bit weird.
-      setRedirecting(true);
-      window.location.href = paypalOnboardingLink;
-    }
-  }, [paypalOnboardingLink, paypalOnboardingLinkLoading]);
-
   return (
     <Dialog open={dialogOpen} scroll="paper">
-      {paypalOnboardingLinkLoading || redirecting ? (
+      {paypalOnboardingLinkLoading || paypalOnboardingLinkRedirecting ? (
         <div className={classes.redirectionContainer}>
           <CircularProgress size={60} />
           <Typography variant="h4">

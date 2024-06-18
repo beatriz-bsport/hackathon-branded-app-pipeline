@@ -174,7 +174,10 @@ export type CompanyState = {
   setupLoading: boolean;
   stripeCompany?: { data: StripeCompany } & ErrorAndLoading;
   paypalCompanyStatus: { data: PayPalCompanyStatus } & ErrorAndLoading;
-  paypalOnboardingLink: { data: string } & ErrorAndLoading;
+  paypalOnboardingLink: {
+    data: string;
+    redirecting: boolean;
+  } & ErrorAndLoading;
   byId: {
     [id: number]: Company;
   };

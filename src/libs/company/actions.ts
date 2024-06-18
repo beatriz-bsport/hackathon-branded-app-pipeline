@@ -241,6 +241,9 @@ export const fetchPayPalOnboardingLinkActions = {
   isLoading: createAction<boolean>(
     'PAYPAL_COMPANY/ONBOARDING_LINK/FETCH/IS_LOADING',
   ),
+  isRedirecting: createAction<boolean>(
+    'PAYPAL_COMPANY/ONBOARDING_LINK/FETCH/IS_REDIRECTING',
+  ),
   error: createAction<Error | null>(
     'PAYPAL_COMPANY/ONBOARDING_LINK/FETCH/ERROR',
   ),
@@ -264,6 +267,8 @@ export function fetchPayPalOnboardingLink(
       dispatch(fetchPayPalOnboardingLinkActions.error(err));
       if (options && options.onError) options.onError(err);
     }
+    // Redirection to PayPal seems to take almost a second, and without this redirection, the loading spinner is not shown anymore, making the UX a bit weird.
+    dispatch(fetchPayPalOnboardingLinkActions.isRedirecting(true));
     dispatch(fetchPayPalOnboardingLinkActions.isLoading(false));
   };
 }

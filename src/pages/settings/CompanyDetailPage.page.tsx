@@ -98,8 +98,8 @@ export class CompanyDetailPage extends Component<Props> {
       paypalCompanyStatusIsLoading,
       paypalAccountStatus,
       paypalAccountStatusError,
-      paypalOnboardingLink,
       paypalOnboardingLinkLoading,
+      paypalOnboardingLinkRedirecting,
       paypalIsAvailableInCountry,
       featureList,
       fetchPayPalOnboardingLink,
@@ -134,8 +134,10 @@ export class CompanyDetailPage extends Component<Props> {
                     accountName={paypalAccountName}
                     error={paypalAccountStatusError}
                     fetchPayPalOnboardingLink={fetchPayPalOnboardingLink}
-                    paypalOnboardingLink={paypalOnboardingLink}
                     paypalOnboardingLinkLoading={paypalOnboardingLinkLoading}
+                    paypalOnboardingLinkRedirecting={
+                      paypalOnboardingLinkRedirecting
+                    }
                     status={paypalAccountStatus}
                   />
                 </Paper>
@@ -174,8 +176,9 @@ const connector = connect(
     paypalAccountEmail:
       state.company.paypalCompanyStatus.data?.paypal_company
         .account_primary_email,
-    paypalOnboardingLink: state.company.paypalOnboardingLink.data,
     paypalOnboardingLinkLoading: state.company.paypalOnboardingLink.loading,
+    paypalOnboardingLinkRedirecting:
+      state.company.paypalOnboardingLink.redirecting,
     paypalIsAvailableInCountry:
       state.theme.theme.is_paypal_available_in_country,
     featureList: state.company.feature.data.upsell,
@@ -212,11 +215,14 @@ export default compose(
   withHandlers({
     fetchPayPalOnboardingLink:
       ({ fetchPayPalOnboardingLink, snackbarError }) =>
-      (options: OptionCallback) => {
+      (options: OptionCallback<{ onboarding_url: string }>) => {
         fetchPayPalOnboardingLink({
           onError: (error: Error) => {
             snackbarError('paypal.onboardingUrlFetchFailed');
             if (options && options.onError) options.onError(error);
+          },
+          onSuccess: (data: { onboarding_url: string }) => {
+            if (options && options.onSuccess) options.onSuccess(data);
           },
         });
       },

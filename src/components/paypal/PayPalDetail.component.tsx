@@ -86,8 +86,8 @@ type Props = {
   ) => void;
   status?: string;
   error?: Error;
-  paypalOnboardingLink?: string;
   paypalOnboardingLinkLoading?: boolean;
+  paypalOnboardingLinkRedirecting?: boolean;
 };
 
 export const PayPalDetail: React.FC<Props> = (props: Props) => {
@@ -97,7 +97,7 @@ export const PayPalDetail: React.FC<Props> = (props: Props) => {
     fetchPayPalOnboardingLink,
     status,
     error,
-    paypalOnboardingLink,
+    paypalOnboardingLinkRedirecting,
     paypalOnboardingLinkLoading,
   }: Props = props;
 
@@ -139,6 +139,9 @@ export const PayPalDetail: React.FC<Props> = (props: Props) => {
   const fetchPayPalOnboardingLinkCallback = useCallback(() => {
     fetchPayPalOnboardingLink({
       onError: closeDialog,
+      onSuccess: (response) => {
+        window.open(response?.onboarding_url, '_self');
+      },
     });
   }, [fetchPayPalOnboardingLink, closeDialog]);
 
@@ -224,8 +227,8 @@ export const PayPalDetail: React.FC<Props> = (props: Props) => {
         dialogOpen={dialogOpen}
         fetchPayPalOnboardingLink={fetchPayPalOnboardingLinkCallback}
         onCancel={closeDialog}
-        paypalOnboardingLink={paypalOnboardingLink}
         paypalOnboardingLinkLoading={paypalOnboardingLinkLoading}
+        paypalOnboardingLinkRedirecting={paypalOnboardingLinkRedirecting}
       />
     </div>
   );

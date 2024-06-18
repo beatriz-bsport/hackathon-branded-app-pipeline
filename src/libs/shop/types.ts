@@ -128,10 +128,11 @@ export type IsShopUsedInComboAPI = {
   is_used_in_payment_combo: boolean;
 };
 
-/** Represents all attributes you can create variants from */
+/** Represents the payload to send over the API when creating new variants from a base item */
 export type ShopItemVariantAttributes = {
   colors?: string[];
   sizes?: string[];
+  generate_barcodes_for_variants?: boolean;
 };
 
 /**

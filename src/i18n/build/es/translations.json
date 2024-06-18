@@ -2485,14 +2485,14 @@
             "methodPaymentCardBillingDetailsHelper": "Al activar esta función, reducirá el número de pagos con tarjeta que requieren 3D Secure (validación por SMS, aplicaciones bancarias, etc.) Tenga en cuenta que estos campos son obligatorios.",
             "DaysBeforeNotificationInputs": {
                 "helpText": "Si tiene activada la opción \"Recordatorios de caducidad del método de pago\" para las notificaciones transaccionales en las suscripciones, puede personalizar aquí el número de días.",
-                "title": "Elija el número de días antes de la fecha de caducidad del método de pago para enviar una notificación por correo electrónico.",
+                "title": "Recordatorios de caducidad de los métodos de pago",
                 "errors": {
                     "max": "El número de días no puede ser superior a {{maxDays}}",
                     "secondWarningDayBiggerThanFirst": "La segunda notificación no puede ser mayor que la primera"
                 },
                 "labels": {
-                    "daysBeforeSecondNotification": "Segunda notificación (días antes de la fecha de expiración)",
-                    "daysBeforeFirstNotification": "Primera notificación (días antes de la fecha de expiración)"
+                    "daysBeforeSecondNotification": "Segundo recordatorio (días antes de la fecha de caducidad)",
+                    "daysBeforeFirstNotification": "Primer recordatorio (días antes de la fecha de caducidad)"
                 }
             }
         },
@@ -2621,7 +2621,10 @@
                             "bookings": "Reservas",
                             "membership": "Horario",
                             "profile": "Perfil",
-                            "marketplace": "Mi espacio"
+                            "marketplace": "Mi espacio",
+                            "studio": "Estudio",
+                            "activities": "Actividades (predeterminado)",
+                            "schedule": "Horario"
                         },
                         "placeholder": "Seleccione una página",
                         "helperText": "Esta opción le permitirá elegir la página predeterminada que verán los usuarios al abrir la aplicación.",
@@ -2635,12 +2638,70 @@
         "company": {
             "bankAccountInfo": {
                 "link": "aquí",
-                "content": "Esta cuenta corresponde a la cuenta en la que se acreditarán los pagos en línea a través de Bsport. Para configurar el medio de pago en el que se cargará su suscripción Bsport, haga clic"
+                "content": "Esta cuenta corresponde a la cuenta en la que se acreditarán los pagos en línea a través de Bsport. Para configurar el medio de pago en el que se cargará su suscripción Bsport, haga clic",
+                "update": "Actualizar los datos bancarios"
             },
             "bankAccountSuccess": {
                 "note": "Haga clic en \"Configurar\" para ser redirigido.",
                 "content": "Tus datos bancarios fueron bien actualizados. Para que se le acredite y cargue en una sola cuenta, también puede actualizar el método de pago utilizado para cargar su abono Bsport.",
                 "title": "Modificación de datos bancarios"
+            },
+            "paypal": {
+                "alert": {
+                    "error": {
+                        "issue_repeat_onboarding": {
+                            "content": "Por favor, repita el proceso de conexión utilizando la misma cuenta para resolver este problema.",
+                            "title": "Actualmente, los pagos con PayPal están desactivados."
+                        },
+                        "issue_check_account": {
+                            "goToPayPal": "Por favor, compruebe su cuenta PayPal para resolver este problema.",
+                            "content": "Actualmente, los pagos con PayPal están desactivados.",
+                            "title": "Problema con su cuenta PayPal."
+                        },
+                        "requires_more_information": {
+                            "goToPayPal": "De lo contrario, compruebe su cuenta PayPal para resolver este problema.",
+                            "content": "Los pagos con PayPal están actualmente desactivados. Si acaba de crear una cuenta PayPal y está seguro de que sus datos son correctos, espere un poco para que PayPal valide su cuenta. ",
+                            "title": "Falta información en la cuenta PayPal o no está validada."
+                        },
+                        "primary_email_confirmation": {
+                            "goToPayPal": "Por favor, compruebe su cuenta PayPal para resolver este problema.",
+                            "content": "Actualmente, los pagos con PayPal están desactivados.",
+                            "title": "Falta confirmación por correo electrónico en su cuenta PayPal."
+                        },
+                        "isStatusUnknown": {
+                            "goToPayPal": "Si el problema persiste, compruebe el estado de los sistemas PayPal",
+                            "content": "Por favor, actualice la página.",
+                            "title": "Actualmente no podemos contactar con PayPal"
+                        }
+                    },
+                    "rightAccount": {
+                        "content": "Cambiarlo o desconectarlo después es un proceso complejo que debe evitarse a menos que sea absolutamente necesario.",
+                        "title": "Asegúrese de que está conectando la cuenta correcta"
+                    }
+                },
+                "dialog": {
+                    "error": "Se ha producido un error al intentar recuperar el enlace de incorporación de PayPal.",
+                    "redirecting": "Redirigiéndole a PayPal...",
+                    "startConnecting": "Empezar a conectar",
+                    "cancel": "Cancelar",
+                    "helper": "Para conectarse, utilice su cuenta Business, actualice una cuenta Personal o Premier a Business, o cree una nueva cuenta Business.",
+                    "title": "Conecte su cuenta PayPal Business"
+                },
+                "connect": "Conectar la cuenta de PayPal",
+                "accountEmail": "Correo electrónico de la cuenta",
+                "accountName": "Nombre de la cuenta",
+                "oneTimePayments": "Realizar pagos únicos",
+                "titleWithPayPal": "Con PayPal, sus miembros pueden",
+                "linkHelper": "Vincule su cuenta PayPal Business para que sus usuarios puedan pagar con PayPal",
+                "status": {
+                    "unknown": "Estado desconocido",
+                    "hasIssues": "Problemas de conexión",
+                    "notConnected": "No conectada",
+                    "connected": "Cuenta conectada"
+                }
+            },
+            "stripe": {
+                "update": "Actualizar la información de Stripe"
             }
         }
     },
@@ -2859,7 +2920,8 @@
                         "edit": "Editar variante",
                         "add": "Añadir una variante"
                     },
-                    "placeholder": "Este producto aún no tiene variantes"
+                    "placeholder": "Este producto aún no tiene variantes",
+                    "formError": "Los valores del campo Precio deben ser números positivos válidos"
                 },
                 "inventory": {
                     "seeInvoice": "Ver factura",
@@ -3068,7 +3130,8 @@
             "1": "Efectivo",
             "0": "Tarjeta",
             "70": "Bacs Direct Debit",
-            "BACS_DEBIT": "Bacs Direct Debit"
+            "BACS_DEBIT": "Bacs Direct Debit",
+            "80": "PayPal"
         },
         "paymentComboSectionTitle": "Pack",
         "actions": {
@@ -3096,7 +3159,8 @@
             "20": "Bancontact",
             "disputeWon": "Resuelto",
             "70": "Bacs Direct Debit",
-            "3": "Bono"
+            "3": "Bono",
+            "80": "PayPal"
         },
         "creditAccountBalance": {
             "current": "Anticipo actual"
@@ -3701,7 +3765,8 @@
                 "1": "Tarjeta",
                 "0": "Efectivo",
                 "14": "Saldo del cliente (débito)",
-                "16": "Bacs Direct Debit"
+                "16": "Bacs Direct Debit",
+                "17": "PayPal"
             },
             "select": {
                 "label": "Método de pago"
@@ -5145,7 +5210,8 @@
             "member_email": "Email",
             "member_last_name": "Apellido",
             "member_first_name": "Nombre",
-            "studio_address_franchise_only": "Ubicación/Dirección"
+            "studio_address_franchise_only": "Ubicación/Dirección",
+            "payment_method_paypal_wallet": "Cartera PayPal"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -5169,7 +5235,8 @@
             "ideal": "iDeal",
             "sofort": "Sofort",
             "bancontact": "Bancontact",
-            "bacs_debit": "Bacs Direct Debit"
+            "bacs_debit": "Bacs Direct Debit",
+            "paypal_wallet": "Cartera PayPal"
         },
         "product_type": {
             "payment_pack": "Bono",
@@ -5635,6 +5702,13 @@
                 "warning": "¡Los pagos en línea pueden ser <1> desactivados </1> después de esta fecha!",
                 "content": "Hay varios documentos pendientes, tienes hasta <1> {{date}} </1> para verificar su cuenta.",
                 "title": "Gestión de mi negocio"
+            },
+            "paypal": {
+                "issue_repeat_onboarding": "Hay un problema con su cuenta PayPal. Repita el proceso de conexión con la misma cuenta para resolver el problema.",
+                "issue_check_account": "Hay un problema con su cuenta PayPal. Por favor, compruebe su cuenta PayPal para resolver este problema.",
+                "requires_more_information": "Su cuenta PayPal requiere información adicional o validación de PayPal. Compruebe su cuenta PayPal para resolver este problema.",
+                "primary_email_confirmation": "El correo electrónico de su cuenta PayPal requiere confirmación. Compruebe su cuenta PayPal para resolver este problema.",
+                "title": "Los pagos por PayPal están desactivados"
             }
         },
         "unpaidPrivateBooking": {
@@ -7327,7 +7401,9 @@
             "1102": "Bonificación por referencia ( miembro referente)",
             "1101": "Bonificación por referencia disponible ( miembro referido)",
             "201": "Método de pago de la suscripción a punto de caducar (segundo aviso)",
-            "200": "Método de pago de suscripción a punto de caducar (primer aviso)"
+            "200": "Método de pago de suscripción a punto de caducar (primer aviso)",
+            "1200": "Primer recordatorio de vencimiento del método de pago para los pagos a plazos",
+            "1201": "Segundo recordatorio de vencimiento del método de pago para los pagos a plazos"
         },
         "tag": {
             "BookingOption": {
@@ -7477,7 +7553,8 @@
                     "invoice_price": "Importe de la factura",
                     "invoice_sum_up": "Resumen de la factura",
                     "invoice_date": "Fecha de facturación",
-                    "invoice_download_link": "Enlace de descarga"
+                    "invoice_download_link": "Enlace de descarga",
+                    "days_until_payment_method_expiration_planned_payment_event": "Días antes de que caduque el método de pago"
                 }
             },
             "GiftCard": {
@@ -7641,6 +7718,12 @@
             "days": "Días",
             "bookingConcerned": "la sesión afectada por la notificación",
             "sendNotification": "Enviar la notificación"
+        },
+        "eventTypeHelperText": {
+            "1201": "Puede personalizar el número de días que se tienen en cuenta a la hora de enviar esta notificación en la sección Métodos de pago",
+            "1200": "Puede personalizar el número de días que se tienen en cuenta a la hora de enviar esta notificación en la sección Formas de pago",
+            "201": "Puede personalizar el número de días que se tienen en cuenta a la hora de enviar esta notificación en la sección Métodos de pago",
+            "200": "Puede personalizar el número de días que se tienen en cuenta a la hora de enviar esta notificación en la sección Métodos de pago"
         }
     },
     "partnership": {
@@ -8138,13 +8221,13 @@
                 },
                 "detailsCard": {
                     "total": "Total",
-                    "retryDate": "El pago se reintentará en {{ date }}",
+                    "retryDate": "El pago se reintentará en {{- date }}",
                     "refunded": "Reembolsada",
                     "products": "Mis productos",
                     "plannedPayments": "Pagos programados",
                     "placeholder": "Seleccione una factura para ver los detalles.",
                     "paymentHistory": "Historial de pagos",
-                    "paymentErrorWithReason": "Este pago no se ha realizado correctamente. Motivo: { {{ reason }} }.",
+                    "paymentErrorWithReason": "Este pago no se ha realizado correctamente. Motivo: {{ reason }}.",
                     "paymentError": "Este pago no se ha realizado correctamente.",
                     "pay": "Pagar ahora",
                     "paid": "Pagada",
@@ -8182,7 +8265,8 @@
                     "downloadReceipt": "Descargar recibo",
                     "downloadOriginalInvoice": "Descargar la factura original",
                     "downloadInvoice": "Descargar factura",
-                    "download": "Descargar"
+                    "download": "Descargar",
+                    "amountDue": "Importe debido: {{- amount}}"
                 },
                 "header": {
                     "filters": {
@@ -9420,7 +9504,8 @@
             "credits": "Crédito",
             "expiration": "Validez",
             "all": "Todas las tarjetas",
-            "isValidToday": "Válido"
+            "isValidToday": "Válido",
+            "empty": "Todas las tarjetas de citas"
         },
         "recurrenceRule": {
             "item": {
@@ -14191,7 +14276,29 @@
             "errors": {
                 "1": "Ya existe una cuenta con este nombre."
             }
-        }
+        },
+        "paypal": {
+            "onboardingUrlFetchFailed": "Se ha producido un error al intentar recuperar el enlace de incorporación de PayPal.",
+            "couldNotReachPayPal": "No hemos podido contactar con PayPal. Vuelva a intentarlo más tarde.",
+            "connectionAttemptSucceeded": "La cuenta PayPal se ha conectado correctamente",
+            "connectionAttemptFailed": "Se ha producido un error al conectar con PayPal",
+            "35009": "No puede utilizar una cuenta que ya esté vinculada a otra empresa."
+        },
+        "canNotExecutePaymentAttempt": {
+            "generic": "Su pago ha fallado, por favor inténtelo de nuevo",
+            "failedLoadingPayPalScript": "Se ha producido un error al cargar PayPal",
+            "35015": "Su pago PayPal ha fallado, por favor inténtelo de nuevo o utilice otro método de pago",
+            "35013": "Su pago ha fallado, por favor seleccione otro método de pago.",
+            "35012": "Su tarjeta ha caducado",
+            "35006": "Su cuenta PayPal no puede procesar el pago, por favor inténtelo de nuevo con una cuenta diferente.",
+            "35000": "Su pago PayPal ha fallado, por favor inténtelo de nuevo o utilice otro método de pago",
+            "12110": "Su cesta no coincide con el importe que ha intentado pagar, hemos actualizado su cesta, inténtelo de nuevo.",
+            "12109": "Su pago ha fallado, por favor inténtelo de nuevo.",
+            "12108": "Su pago ya se está procesando, por favor espere",
+            "12107": "Su pago ha fallado, por favor inténtelo de nuevo.",
+            "12102": "Su pago ya se está procesando, por favor espere"
+        },
+        "cancelPayPalPaymentAttempt": "Su intento de pago ha sido cancelado. Por favor, proceda de nuevo."
     },
     "paymentPack": {
         "consumer": {
@@ -18578,7 +18685,8 @@
             "pageTitle": "Miembro",
             "seeMembership": "Ver la tarjeta de socio",
             "isVaccinated": "Pass sanitario válido",
-            "franchises": "franquicia"
+            "franchises": "franquicia",
+            "seeMemberInCompany": "Mostrar"
         },
         "pagination": {
             "outOf": "{{from}}-{{to}} en {{count}}",

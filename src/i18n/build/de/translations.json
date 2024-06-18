@@ -5915,6 +5915,13 @@
                 "warning": "Online-Zahlungen können nach diesem Datum <1>deaktiviert</1> werden!",
                 "content": "Mehrere Dokumente müssen noch validiert werden, um Ihr Konto zu verifizieren. Die Frist ist <1>{{date}}</1>.",
                 "title": "Verwaltung meines Unternehmens"
+            },
+            "paypal": {
+                "issue_repeat_onboarding": "Es liegt ein Problem mit Ihrem PayPal-Konto vor. Bitte wiederholen Sie den Verbindungsvorgang mit demselben Konto, um dieses Problem zu beheben.",
+                "issue_check_account": "Es liegt ein Problem mit Ihrem PayPal-Konto vor. Bitte überprüfen Sie Ihr PayPal-Konto, um dieses Problem zu lösen.",
+                "requires_more_information": "Ihr PayPal-Konto erfordert zusätzliche Informationen oder eine Bestätigung von PayPal. Bitte überprüfen Sie Ihr PayPal-Konto, um dieses Problem zu lösen.",
+                "primary_email_confirmation": "Die E-Mail für Ihr PayPal-Konto muss bestätigt werden. Bitte überprüfen Sie Ihr PayPal-Konto, um dieses Problem zu lösen.",
+                "title": "PayPal-Zahlungen sind deaktiviert"
             }
         },
         "unpaidPrivateBooking": {
@@ -5980,7 +5987,8 @@
             "bancontact": "Bankkontakt",
             "sofort": "Sofort",
             "debt": "Interne Abrechnung",
-            "bacs_debit": "Bacs-Lastschriftverfahren"
+            "bacs_debit": "Bacs-Lastschriftverfahren",
+            "paypal_wallet": "PayPal-Wallet"
         },
         "columns": {
             "date_sumup": "Datum",
@@ -6304,7 +6312,8 @@
             "member_email": "Email",
             "member_last_name": "Nachname",
             "member_first_name": "Vorname",
-            "studio_address_franchise_only": "Ort/Adresse"
+            "studio_address_franchise_only": "Ort/Adresse",
+            "payment_method_paypal_wallet": "PayPal-Wallet"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -7810,7 +7819,29 @@
             "errors": {
                 "1": "Ein Konto mit diesem Namen existiert bereits."
             }
-        }
+        },
+        "paypal": {
+            "onboardingUrlFetchFailed": "Beim Versuch, den Onboarding-Link von PayPal abzurufen, ist ein Fehler aufgetreten",
+            "couldNotReachPayPal": "Wir konnten PayPal nicht erreichen. Bitte versuchen Sie es später noch einmal.",
+            "connectionAttemptSucceeded": "Das PayPal-Konto wurde erfolgreich verbunden",
+            "connectionAttemptFailed": "Bei der Verbindung zu PayPal ist ein Fehler aufgetreten",
+            "35009": "Sie können kein Konto verwenden, das bereits mit einem anderen Anbieter verbunden ist."
+        },
+        "canNotExecutePaymentAttempt": {
+            "generic": "Ihre Zahlung ist fehlgeschlagen, bitte versuchen Sie es erneut",
+            "failedLoadingPayPalScript": "Beim Laden von PayPal ist ein Fehler aufgetreten",
+            "35015": "Ihre PayPal-Zahlung ist fehlgeschlagen. Bitte versuchen Sie es erneut oder verwenden Sie eine andere Zahlungsmethode",
+            "35013": "Ihre Zahlung ist fehlgeschlagen, bitte wählen Sie eine andere Zahlungsmethode.",
+            "35012": "Ihre Karte ist abgelaufen",
+            "35006": "Ihr PayPal-Konto kann die Zahlung nicht verarbeiten. Bitte versuchen Sie es erneut mit einem anderen Konto",
+            "35000": "Ihre PayPal-Zahlung ist fehlgeschlagen. Bitte versuchen Sie es erneut oder verwenden Sie eine andere Zahlungsmethode",
+            "12110": "Ihr Warenkorb stimmt nicht mit dem Betrag überein, den Sie zu bezahlen versucht haben. Wir haben Ihren Warenkorb aktualisiert, bitte versuchen Sie es erneut",
+            "12109": "Ihre Zahlung ist fehlgeschlagen, bitte versuchen Sie es erneut.",
+            "12108": "Ihre Zahlung wird bereits bearbeitet, bitte warten Sie",
+            "12107": "Ihre Zahlung ist fehlgeschlagen, bitte versuchen Sie es erneut.",
+            "12102": "Ihre Zahlung wird bereits bearbeitet, bitte warten Sie"
+        },
+        "cancelPayPalPaymentAttempt": "Ihr Zahlungsversuch wurde abgebrochen. Bitte versuchen Sie es erneut."
     },
     "invoice": {
         "configuration": {
@@ -8145,7 +8176,8 @@
                 "1": "Karte",
                 "0": "Bargeld",
                 "14": "Guthaben (debit)",
-                "16": "Bacs-Lastschriftverfahren"
+                "16": "Bacs-Lastschriftverfahren",
+                "17": "PayPal"
             },
             "select": {
                 "label": "Zahlungsmethode"
@@ -8414,7 +8446,8 @@
             "20": "Bancontact",
             "disputeWon": "Gewonnen",
             "70": "Bacs-Lastschriftverfahren",
-            "3": "Pass"
+            "3": "Pass",
+            "80": "PayPal"
         },
         "generalTermsAndConditions": {
             "close": "Schließen",
@@ -8498,7 +8531,8 @@
             "0": "Karte",
             "50": "EPS",
             "70": "Bacs-Lastschriftverfahren",
-            "BACS_DEBIT": "Bacs-Lastschriftverfahren"
+            "BACS_DEBIT": "Bacs-Lastschriftverfahren",
+            "80": "PayPal"
         },
         "paymentComboSectionTitle": "Paket",
         "hasOneOrMoreOption": "Sie sind bereits auf der Warteliste",
@@ -8967,7 +9001,8 @@
                         "edit": "Variante bearbeiten",
                         "add": "Hinzufügen einer Variante"
                     },
-                    "placeholder": "Dieses Produkt hat noch keine Varianten"
+                    "placeholder": "Dieses Produkt hat noch keine Varianten",
+                    "formError": "Please repeat the connection process using the same account to resolve this issue"
                 },
                 "history": {
                     "invoice": {
@@ -11542,7 +11577,8 @@
             "credits": "Credit(s)",
             "expiration": "Gültigkeit",
             "all": "Alle Pässe",
-            "isValidToday": "Gültig"
+            "isValidToday": "Gültig",
+            "empty": "Alle Terminkarten"
         },
         "recurrenceRule": {
             "item": {
@@ -11787,8 +11823,8 @@
             "showSms": "SMS anzeigen",
             "isAnswerWarning": "Achtung ! Nur Sie können diese Nachricht sehen",
             "numberOfRecipientsCompact": "Empfänger: {{count}}",
-            "numberOfRecipients": "Gesendet an einen Empfänger",
-            "numberOfRecipients_plural": "Gesendet an {{count}} Empfänger",
+            "numberOfRecipients": "An Empfänger gesendet",
+            "numberOfRecipients_plural": "An {{count}} Empfänger gesendet",
             "showNotification": "Benachrichtigung anzeigen"
         },
         "campaign": {
@@ -12700,13 +12736,13 @@
                 },
                 "detailsCard": {
                     "total": "Insgesamt",
-                    "retryDate": "Die Zahlung wird am {{ date }} erneut versucht",
+                    "retryDate": "Die Zahlung wird am {{- date }} erneut versucht",
                     "refunded": "Erstattet",
                     "products": "Meine Produkte",
                     "plannedPayments": "Geplante Zahlungen",
                     "placeholder": "Wähle eine Rechnung aus, um Details zu sehen.",
                     "paymentHistory": "Zahlungsverlauf",
-                    "paymentErrorWithReason": "Diese Zahlung war nicht erfolgreich. Grund: { {{ reason }} }.",
+                    "paymentErrorWithReason": "Diese Zahlung war nicht erfolgreich. Grund: {{- reason }}.",
                     "paymentError": "Diese Zahlung war nicht erfolgreich.",
                     "pay": "Jetzt bezahlen",
                     "paid": "Bezahlt",
@@ -12744,7 +12780,8 @@
                     "downloadReceipt": "Beleg herunterladen",
                     "downloadOriginalInvoice": "Originalrechnung herunterladen",
                     "downloadInvoice": "Rechnung herunterladen",
-                    "download": "Herunterladen"
+                    "download": "Herunterladen",
+                    "amountDue": "Fälliger Betrag: {{- amount}}"
                 },
                 "header": {
                     "filters": {
@@ -13353,7 +13390,9 @@
             "1102": "Empfehlungszuschuss verfügbar (empfohlenes Mitglied)",
             "1101": "Empfehlungszuschuss verfügbar (empfohlenes Mitglied)",
             "201": "Zahlmethode für das Abo läuft bald ab (zweite Warnung)",
-            "200": "Zahlungsmethode für das Abo läuft bald ab (erste Warnung)"
+            "200": "Zahlungsmethode für das Abo läuft bald ab (erste Warnung)",
+            "1201": "Zweiten Mahnung für den Zahlungsmethode Ablauf der Ratenzahlungen",
+            "1200": "Zahlungsmethode Ablauf der ersten Mahnung für Ratenzahlungen"
         },
         "tag": {
             "BookingOption": {
@@ -13503,7 +13542,8 @@
                     "invoice_price": "Rechnungsbetrag",
                     "invoice_sum_up": "Rechnungsübersicht",
                     "invoice_date": "Rechnungsdatum",
-                    "invoice_download_link": "Link zum Download"
+                    "invoice_download_link": "Link zum Download",
+                    "days_until_payment_method_expiration_planned_payment_event": "Tage vor Verfall der Zahlungsmethode"
                 }
             },
             "GiftCard": {
@@ -13683,6 +13723,12 @@
         },
         "triggeringEvent": {
             "title": "Auslösendes Ereignis"
+        },
+        "eventTypeHelperText": {
+            "1201": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen",
+            "1200": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen",
+            "201": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen",
+            "200": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen"
         }
     },
     "membership": {
@@ -16000,15 +16046,15 @@
             "methodPaymentCardBillingDetailsTitle": "Vollständige Rechnungsdetails anfordern",
             "methodPaymentCardBillingDetailsHelper": "Wenn Sie diese Funktion aktivieren, reduzieren Sie die Anzahl der Kartenzahlungen, die 3D Secure erfordern (SMS-Validierung, Bankanwendungen usw.).Achtung, diese Felder sind Pflichtfelder.",
             "DaysBeforeNotificationInputs": {
-                "helpText": "Wenn Sie die Funktion \"Erinnerungen an den Ablauf der Zahlungsmethode\" für Transaktionsbenachrichtigungen bei Abonnements aktiviert haben, können Sie die Anzahl der Tage hier anpassen.",
-                "title": "Wählen Sie die Anzahl der Tage vor dem Ablaufdatum der Zahlungsmethode, um eine E-Mail-Benachrichtigung zu senden.",
+                "helpText": "Wenn die entsprechenden Transaktionsbenachrichtigungen für Abonnements aktiviert sind, können Sie entscheiden, wie viele Tage vor Ablauf der Zahlungsmethode eine Erinnerung gesendet werden soll",
+                "title": "Erinnerungen an das Auslaufen von Zahlungsmitteln",
                 "errors": {
                     "max": "Die Anzahl der Tage kann nicht länger sein als 1{{maxDays}}",
                     "secondWarningDayBiggerThanFirst": "Die zweite Benachrichtigung kann nicht mehr Tage enthalten, als die erste Benachrichtigung"
                 },
                 "labels": {
-                    "daysBeforeSecondNotification": "Zweite Benachrichtigung (Tage vor Ablauf der Frist)",
-                    "daysBeforeFirstNotification": "Erste Benachrichtigung (Tage vor Ablauf der Frist)"
+                    "daysBeforeSecondNotification": "Zweite Erinnerung(Tage vor Ablauf der Frist)",
+                    "daysBeforeFirstNotification": "Erste Erinnerung (Tage vor Ablauf der Frist)"
                 }
             }
         },
@@ -16137,7 +16183,10 @@
                             "marketplace": "Studio",
                             "home": "Aktivitäten (Standard)",
                             "bookings": "Buchungen",
-                            "membership": "Wochenplan"
+                            "membership": "Wochenplan",
+                            "studio": "Studio",
+                            "activities": "Aktivitäten (Standard)",
+                            "schedule": "Zeitplan"
                         },
                         "placeholder": "Eine Seite auswählen",
                         "helperText": "Mit dieser Option können Sie die Standardseite auswählen, die Nutzer beim Öffnen der App sehen.",
@@ -16156,7 +16205,65 @@
             },
             "bankAccountInfo": {
                 "content": "Dieses Konto entspricht dem Konto, dem die Online-Zahlungen über Bsport gutgeschrieben werden. Um die Zahlungsmethode einzustellen, von der Ihr Bsport-Abo abgebucht wird, klicken Sie auf",
-                "link": "hier"
+                "link": "hier",
+                "update": "Bankdaten aktualisieren"
+            },
+            "paypal": {
+                "alert": {
+                    "error": {
+                        "issue_repeat_onboarding": {
+                            "content": "Bitte wiederholen Sie den Verbindungsvorgang unter Verwendung desselben Kontos, um dieses Problem zu beheben.",
+                            "title": "PayPal-Zahlungen sind derzeit deaktiviert."
+                        },
+                        "issue_check_account": {
+                            "goToPayPal": "Bitte überprüfen Sie Ihr PayPal-Konto, um dieses Problem zu beheben.",
+                            "content": "PayPal-Zahlungen sind derzeit deaktiviert.",
+                            "title": "Problem mit Ihrem PayPal-Konto."
+                        },
+                        "requires_more_information": {
+                            "goToPayPal": "Andernfalls überprüfen Sie bitte Ihr PayPal-Konto, um dieses Problem zu lösen.",
+                            "content": "PayPal-Zahlungen sind derzeit deaktiviert. Wenn Ihr PayPal-Konto neu erstellt wurde und Sie sicher sind, dass Ihre Angaben korrekt sind, geben Sie PayPal bitte etwas Zeit, um Ihr Konto zu validieren. ",
+                            "title": "Für das PayPal-Konto fehlen Informationen oder es wurde nicht bestätigt."
+                        },
+                        "primary_email_confirmation": {
+                            "goToPayPal": "Bitte überprüfe das PayPal-Konto, um dieses Problem zu beheben.",
+                            "content": "PayPal-Zahlungen sind derzeit deaktiviert.",
+                            "title": "Fehlende E-Mail-Bestätigung auf Ihrem PayPal-Konto."
+                        },
+                        "isStatusUnknown": {
+                            "goToPayPal": "Wenn das Problem weiterhin besteht, überprüfen Sie den Status des PayPal-Systems",
+                            "content": "Bitte aktualisiere die Seite.",
+                            "title": "Wir können PayPal derzeit nicht erreichen"
+                        }
+                    },
+                    "rightAccount": {
+                        "content": "Das nachträgliche Ändern oder Trennen der Verbindung ist ein komplizierter Vorgang, der vermieden werden sollte, wenn es nicht unbedingt notwendig ist.",
+                        "title": "Stellen Sie sicher, dass Sie das richtige Konto verbinden"
+                    }
+                },
+                "dialog": {
+                    "error": "Beim Versuch, den Onboarding-Link von PayPal abzurufen, ist ein Fehler aufgetreten",
+                    "redirecting": "Umleitung auf PayPal...",
+                    "startConnecting": "Verbindung herstellen",
+                    "cancel": "Abbrechen",
+                    "helper": "Um eine Verbindung herzustellen, verwenden Sie Ihr Geschäftskonto, erweitern Sie ein Privat- oder Premier-Konto auf ein Geschäftskonto oder erstellen Sie ein neues Geschäftskonto.",
+                    "title": "Verbinden Sie Ihr PayPal-Geschäftskonto"
+                },
+                "connect": "PayPal-Konto verbinden",
+                "accountEmail": "Konto E-Mail",
+                "accountName": "Kontoname",
+                "oneTimePayments": "Einmalige Zahlungen tätigen",
+                "titleWithPayPal": "Mit PayPal können Ihre Mitglieder",
+                "linkHelper": "Verknüpfen Sie Ihr PayPal-Geschäftskonto, damit Ihre Mitglieder mit PayPal bezahlen können",
+                "status": {
+                    "unknown": "Unbekannter Status",
+                    "hasIssues": "Verbindungsprobleme",
+                    "notConnected": "Nicht verbunden",
+                    "connected": "Verbundenes Konto"
+                }
+            },
+            "stripe": {
+                "update": "Stripe-Informationen aktualisieren"
             }
         }
     },
@@ -18429,7 +18536,8 @@
             "pageTitle": "Mitglied",
             "seeMembership": "Mitgliedinformationen anzeigen",
             "isVaccinated": "Ich habe einen gültigen COVID-19 Ausweis",
-            "franchises": "Franchises"
+            "franchises": "Franchises",
+            "seeMemberInCompany": "anzeigen"
         },
         "pagination": {
             "outOf": "{{from}} - {{to}} -{{count}}",

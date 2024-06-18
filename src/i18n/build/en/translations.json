@@ -2558,6 +2558,11 @@
                     "failedPaymentReason": "Reason: {{- note }} Please contact your studio to regularize the situation",
                     "emptyInvoices": " No billing history to show"
                 }
+            },
+            "myInvoices": {
+                "detailsCard": {
+                    "paymentErrorWithReason": "This payment was unsuccessful. Reason: {{- reason }}."
+                }
             }
         }
     },
@@ -8334,6 +8339,15 @@
                 "note": "Click on \"Configure\" to be redirected.",
                 "content": "Your banking information was well updated. To be credited and charged on a single account, you can also update the payment method used to charge your Bsport subscription.",
                 "title": "Change of bank details"
+            },
+            "paypal": {
+                "alert": {
+                    "error": {
+                        "isStatusUnknown": {
+                            "goToPayPal": "If the issue persists, check the status of PayPal systems"
+                        }
+                    }
+                }
             }
         }
     },

@@ -554,7 +554,8 @@
                     "downloadReceipt": "Download ontvangst",
                     "downloadOriginalInvoice": "Download de originele factuur",
                     "downloadInvoice": "Download factuur",
-                    "download": "Download"
+                    "download": "Download",
+                    "amountDue": "Verschuldigd bedrag: {{- amount}}"
                 },
                 "header": {
                     "filters": {
@@ -1038,6 +1039,12 @@
             "days": "Dagen",
             "bookingConcerned": "de sessie waarop de melding betrekking heeft",
             "sendNotification": "De melding verzenden"
+        },
+        "eventTypeHelperText": {
+            "1201": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
+            "1200": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
+            "201": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
+            "200": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden"
         }
     },
     "membership": {
@@ -3937,6 +3944,13 @@
                 "warning": "Het is mogelijk dat online betalingen na deze datum <1> gedeactiveerd </1> worden!",
                 "content": "Er ontbreken documenten om het aanmaken van je account te voltooien. Je hebt tot <1>{{ date }}</1>  om je account te verifiëren.",
                 "title": "Bedrijfsbeheer"
+            },
+            "paypal": {
+                "issue_repeat_onboarding": "Er is een probleem met uw PayPal-rekening. Herhaal het verbindingsproces met dezelfde rekening om dit probleem op te lossen.",
+                "issue_check_account": "Er is een probleem met je PayPal-rekening. Controleer uw PayPal-rekening om dit probleem op te lossen.",
+                "requires_more_information": "Uw PayPal-rekening vereist aanvullende informatie of validatie van PayPal. Controleer uw PayPal-rekening om dit probleem op te lossen.",
+                "primary_email_confirmation": "De e-mail voor uw PayPal-account moet worden bevestigd. Controleer je PayPal-account om dit probleem op te lossen.",
+                "title": "PayPal-betalingen zijn uitgeschakeld"
             }
         },
         "unpaidPrivateBooking": {
@@ -9233,8 +9247,8 @@
                     "max": "Het aantal dagen kan niet meer dan {{maxDays}} dag(en) zijn",
                     "secondWarningDayBiggerThanFirst": "The tweede melding kan niet eerder zijn dan de eerste melding"
                 },
-                "helpText": "Als je de \"Herinneringen voor vervaldatum van betaalmethode\" hebt ingeschakeld voor ''transactionele berichten'' over ''abonnementen'', kun je hier het aantal dagen aanpassen.",
-                "title": "Kies het aantal dagen vóór de vervaldatum van de betaalmethode om een e-mailmelding te verzenden.",
+                "helpText": "Als je de \"Betalingsmethode vervaldatum herinneringen\" hebt ingeschakeld voor transactiemeldingen bij abonnementen, kun je hier het aantal dagen aanpassen.",
+                "title": "Betalingsmethode vervaldatum herinneringen",
                 "labels": {
                     "daysBeforeSecondNotification": "Tweede melding (dagen vóór vervaldatum)",
                     "daysBeforeFirstNotification": "Eerste melding (dagen vóór vervaldatum)"
@@ -9388,7 +9402,65 @@
             },
             "bankAccountInfo": {
                 "link": "Hier",
-                "content": "Deze rekening komt overeen met de rekening waarop de online betalingen via Bsport zullen worden gestort. Om het betaalmiddel te configureren waarop uw Bsport-abonnement zal worden afgeschreven, klikt u op"
+                "content": "Deze rekening komt overeen met de rekening waarop de online betalingen via Bsport zullen worden gestort. Om het betaalmiddel te configureren waarop uw Bsport-abonnement zal worden afgeschreven, klikt u op",
+                "update": "Bankgegevens bijwerken"
+            },
+            "paypal": {
+                "alert": {
+                    "error": {
+                        "issue_repeat_onboarding": {
+                            "content": "Herhaal het verbindingsproces met dezelfde account om dit probleem op te lossen.",
+                            "title": "PayPal-betalingen zijn momenteel uitgeschakeld."
+                        },
+                        "issue_check_account": {
+                            "goToPayPal": "Controleer uw PayPal-account om dit probleem op te lossen.",
+                            "content": "PayPal-betalingen zijn momenteel uitgeschakeld.",
+                            "title": "Probleem met uw PayPal-rekening."
+                        },
+                        "requires_more_information": {
+                            "goToPayPal": "Controleer anders je PayPal-rekening om dit probleem op te lossen.",
+                            "content": "PayPal-betalingen zijn momenteel uitgeschakeld. Als je een nieuwe PayPal-rekening hebt en je zeker weet dat je gegevens kloppen, laat PayPal dan even de tijd om je rekening te valideren. ",
+                            "title": "PayPal-rekening ontbrekende informatie of niet gevalideerd."
+                        },
+                        "primary_email_confirmation": {
+                            "goToPayPal": "Controleer uw PayPal-account om dit probleem op te lossen.",
+                            "content": "PayPal-betalingen zijn momenteel uitgeschakeld.",
+                            "title": "Ontbrekende e-mailbevestiging op je PayPal-account."
+                        },
+                        "isStatusUnknown": {
+                            "goToPayPal": "Als het probleem aanhoudt, controleer dan de status van PayPal-systemen",
+                            "content": "Vernieuw de pagina.",
+                            "title": "We kunnen PayPal momenteel niet bereiken"
+                        }
+                    },
+                    "rightAccount": {
+                        "content": "Het achteraf wijzigen of loskoppelen is een ingewikkeld proces dat beter vermeden kan worden tenzij het absoluut noodzakelijk is.",
+                        "title": "Zorg ervoor dat je de juiste account aansluit"
+                    }
+                },
+                "dialog": {
+                    "error": "Er is een fout opgetreden tijdens het ophalen van de onboarding-link van PayPal",
+                    "redirecting": "Ik verwijs u door naar PayPal...",
+                    "startConnecting": "Aansluiten",
+                    "cancel": "Annuleer",
+                    "helper": "Om verbinding te maken, gebruik je je zakelijke account, upgrade je een persoonlijk of Premier-account naar zakelijk of maak je een nieuw zakelijk account aan.",
+                    "title": "Verbind uw zakelijke PayPal-rekening"
+                },
+                "connect": "PayPal-rekening aansluiten",
+                "accountEmail": "Account e-mail",
+                "accountName": "Accountnaam",
+                "oneTimePayments": "Eenmalige betalingen doen",
+                "titleWithPayPal": "Met PayPal kunnen uw leden",
+                "linkHelper": "Koppel uw PayPal-bedrijfsrekening zodat uw leden met PayPal kunnen betalen",
+                "status": {
+                    "unknown": "Onbekende status",
+                    "hasIssues": "Verbindingsproblemen",
+                    "notConnected": "Niet aangesloten",
+                    "connected": "Aangesloten account"
+                }
+            },
+            "stripe": {
+                "update": "Update Stripe informatie"
             }
         }
     },
@@ -12425,9 +12497,17 @@
             "12109": "Je betaling is mislukt, probeer het opnieuw.",
             "12108": "Je betaling wordt verwerkt, even geduld a.u.b.",
             "12107": "Je betaling is mislukt, probeer het opnieuw.",
-            "12102": "Je betaling wordt verwerkt, even geduld a.u.b."
+            "12102": "Je betaling wordt verwerkt, even geduld a.u.b.",
+            "35015": "Uw PayPal-betaling is mislukt. Probeer het opnieuw of gebruik een andere betaalmethode"
         },
-        "cancelPayPalPaymentAttempt": "Je betalingspoging is geannuleerd. Probeer het opnieuw."
+        "cancelPayPalPaymentAttempt": "Je betalingspoging is geannuleerd. Probeer het opnieuw.",
+        "paypal": {
+            "onboardingUrlFetchFailed": "Er is een fout opgetreden tijdens het ophalen van de onboarding-link van PayPal",
+            "couldNotReachPayPal": "We konden PayPal niet bereiken. Probeer het later nog eens.",
+            "connectionAttemptSucceeded": "De PayPal-rekening is succesvol aangesloten",
+            "connectionAttemptFailed": "Er is een fout opgetreden tijdens het verbinden met PayPal",
+            "35009": "Je kunt geen account gebruiken dat al gekoppeld is aan een ander bedrijf."
+        }
     },
     "coach": {
         "performance": {

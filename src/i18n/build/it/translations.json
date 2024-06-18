@@ -1573,6 +1573,12 @@
             "days": "Giorni",
             "bookingConcerned": "la sessione interessata dalla notifica",
             "sendNotification": "Invia la notifica"
+        },
+        "eventTypeHelperText": {
+            "1201": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento",
+            "1200": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento",
+            "201": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento",
+            "200": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento"
         }
     },
     "consumerSpace": {
@@ -2032,7 +2038,8 @@
                     "originalInvoice": "Ricevuta originale",
                     "location": "Sede: {{ name }}",
                     "invoice": "Ricevuta",
-                    "downloads": "Download"
+                    "downloads": "Download",
+                    "amountDue": "Importo dovuto: {{- amount}}"
                 },
                 "header": {
                     "filters": {
@@ -2063,13 +2070,13 @@
                 },
                 "detailsCard": {
                     "total": "Totale",
-                    "retryDate": "Il pagamento verrà riproposto il {{ date }}",
+                    "retryDate": "Il pagamento verrà rieseguito il {{- date }}",
                     "refunded": "Rimborsato",
                     "products": "I miei prodotti",
                     "plannedPayments": "Pagamenti pianificati",
                     "placeholder": "Seleziona una ricevuta per vedere i dettagli.",
                     "paymentHistory": "Cronologia dei pagamenti",
-                    "paymentErrorWithReason": "Questo pagamento non è andato a buon fine. Motivo: { {{ reason }} }.",
+                    "paymentErrorWithReason": "Il pagamento non è andato a buon fine. Motivo: {{- reason }}.",
                     "paymentError": "Questo pagamento non è andato a buon fine.",
                     "pay": "Paga ora",
                     "paid": "Pagata",
@@ -6262,9 +6269,17 @@
             "12109": "Il pagamento non è riuscito, riprovare.",
             "12108": "Il pagamento è già in fase di elaborazione, si prega di attendere",
             "12107": "Il pagamento non è riuscito, riprovare.",
-            "12102": "Il pagamento è già in fase di elaborazione, si prega di attendere"
+            "12102": "Il pagamento è già in fase di elaborazione, si prega di attendere",
+            "35015": "Il pagamento con PayPal non è riuscito, riprovare o utilizzare un altro metodo di pagamento"
         },
-        "cancelPayPalPaymentAttempt": "Il tentativo di pagamento è stato annullato. Si prega di procedere nuovamente."
+        "cancelPayPalPaymentAttempt": "Il tentativo di pagamento è stato annullato. Si prega di procedere nuovamente.",
+        "paypal": {
+            "onboardingUrlFetchFailed": "Si è verificato un errore durante il tentativo di recuperare il link per l'onboarding di PayPal",
+            "couldNotReachPayPal": "Non siamo riusciti a contattare PayPal. Si prega di riprovare più tardi.",
+            "connectionAttemptSucceeded": "Il conto PayPal è stato collegato con successo",
+            "connectionAttemptFailed": "Si è verificato un errore durante la connessione a PayPal",
+            "35009": "Non è possibile utilizzare un conto già collegato a un'altra azienda."
+        }
     },
     "settings": {
         "broadcast": {
@@ -6458,11 +6473,11 @@
                     "secondWarningDayBiggerThanFirst": "La seconda notifica non può essere più grande della prima"
                 },
                 "labels": {
-                    "daysBeforeSecondNotification": "Seconda notifica (giorni prima della data di scadenza)",
-                    "daysBeforeFirstNotification": "Prima notifica (giorni prima della data di scadenza)"
+                    "daysBeforeSecondNotification": "Secondo promemoria (giorni prima della data di scadenza)",
+                    "daysBeforeFirstNotification": "Primo promemoria (giorni prima della data di scadenza)"
                 },
-                "helpText": "Se è stata attivata l'opzione \"Promemoria scadenza metodo di pagamento\" per le notifiche transazionali sugli abbonamenti, è possibile personalizzare il numero di giorni.",
-                "title": "Scegliere il numero di giorni prima della data di scadenza del metodo di pagamento per inviare una notifica via email."
+                "helpText": "Se le notifiche transazionali corrispondenti sono attivate per gli abbonamenti, è possibile decidere quanti giorni prima della scadenza del metodo di pagamento inviare un promemoria.",
+                "title": "Promemoria per la scadenza dei metodi di pagamento"
             }
         },
         "billing_group": {
@@ -6612,7 +6627,65 @@
             },
             "bankAccountInfo": {
                 "content": "Questo conto corrisponde al conto su cui verranno accreditati i pagamenti online tramite Bsport. Per configurare il metodo di pagamento su cui verrà addebitato il tuo abbonamento Bsport, fai clic su",
-                "link": "qui"
+                "link": "qui",
+                "update": "Aggiorna le informazioni bancarie"
+            },
+            "paypal": {
+                "alert": {
+                    "error": {
+                        "issue_repeat_onboarding": {
+                            "content": "Per risolvere il problema, ripetere la connessione utilizzando lo stesso account.",
+                            "title": "I pagamenti con PayPal sono attualmente disabilitati."
+                        },
+                        "issue_check_account": {
+                            "goToPayPal": "Si prega di controllare il conto PayPal per risolvere il problema.",
+                            "content": "I pagamenti con PayPal sono attualmente disabilitati.",
+                            "title": "Problema con il conto PayPal."
+                        },
+                        "requires_more_information": {
+                            "goToPayPal": "In caso contrario, si prega di controllare il conto PayPal per risolvere il problema.",
+                            "content": "I pagamenti con PayPal sono attualmente disabilitati. Se il conto PayPal è stato creato di recente e si è certi che le informazioni siano corrette, si prega di attendere un po' di tempo affinché PayPal convalidi il conto. ",
+                            "title": "Il conto PayPal manca di informazioni o non è stato convalidato."
+                        },
+                        "primary_email_confirmation": {
+                            "goToPayPal": "Si prega di controllare il conto PayPal per risolvere il problema.",
+                            "content": "I pagamenti con PayPal sono attualmente disabilitati.",
+                            "title": "Manca l'e-mail di conferma sul conto PayPal."
+                        },
+                        "isStatusUnknown": {
+                            "goToPayPal": "Se il problema persiste, verificare lo stato dei sistemi PayPal",
+                            "content": "Si prega di aggiornare la pagina.",
+                            "title": "Al momento non siamo in grado di raggiungere PayPal"
+                        }
+                    },
+                    "rightAccount": {
+                        "content": "La modifica o la disconnessione successiva è un processo complesso che dovrebbe essere evitato a meno che non sia assolutamente necessario.",
+                        "title": "Assicurati di aver collegato l'account giusto"
+                    }
+                },
+                "dialog": {
+                    "error": "Si è verificato un errore durante il tentativo di recuperare il link per l'onboarding di PayPal",
+                    "redirecting": "Reindirizzandoti al sito PayPal...",
+                    "startConnecting": "Inizia a connetterti",
+                    "cancel": "Cancella",
+                    "helper": "Per connettersi, utilizzare il proprio account Business, aggiornare un account Personal o Premier a Business o creare un nuovo account Business.",
+                    "title": "Collega il conto aziendale PayPal"
+                },
+                "connect": "Collega il conto PayPal",
+                "accountEmail": "Email del conto",
+                "accountName": "Nome del conto",
+                "oneTimePayments": "Effettuare pagamenti una tantum",
+                "titleWithPayPal": "Con PayPal, i membri possono",
+                "linkHelper": "Collega il conto aziendale PayPal per consentire ai membri di pagare con PayPal",
+                "status": {
+                    "unknown": "Status sconosciuto",
+                    "hasIssues": "Problemi nel collegamento",
+                    "notConnected": "Non collegato",
+                    "connected": "Conto collegato"
+                }
+            },
+            "stripe": {
+                "update": "Aggiorna le informazioni di Stripe"
             }
         }
     },
@@ -8938,6 +9011,13 @@
                 "warning": "I pagamenti online rischiano di essere <1> disattivati </1> dopo questa data!",
                 "content": "Diversi documenti sono in sospeso, hai tempo fino a <1> {{date}} </1> per verificare il tuo account.",
                 "title": "Gestire la mia attività"
+            },
+            "paypal": {
+                "issue_repeat_onboarding": "Si è verificato un problema con il conto PayPal. Ripetere la procedura di connessione utilizzando lo stesso conto per risolvere il problema.",
+                "issue_check_account": "Si è verificato un problema con il conto PayPal. Si prega di controllare il conto PayPal per risolvere il problema.",
+                "requires_more_information": "Il conto PayPal richiede informazioni aggiuntive o la convalida di PayPal. Si prega di controllare il conto PayPal per risolvere il problema.",
+                "primary_email_confirmation": "L'email del conto PayPal richiede una conferma. Si prega di controllare il conto PayPal per risolvere il problema.",
+                "title": "I pagamenti con PayPal sono disabilitati"
             }
         },
         "unpaidPrivateBooking": {

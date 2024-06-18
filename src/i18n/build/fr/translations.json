@@ -51,6 +51,13 @@
             "creation": {
                 "title": "Paiement en ligne désactivé",
                 "content": "Pour pouvoir encaisser des paiements carte et SEPA, veuillez vérifier vos informations légales"
+            },
+            "paypal": {
+                "issue_repeat_onboarding": "Il y a un problème avec votre compte PayPal. Veuillez répéter la procédure de connexion en utilisant le même compte pour résoudre ce problème.",
+                "issue_check_account": "Il y a un problème avec votre compte PayPal. Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+                "requires_more_information": "Votre compte PayPal nécessite des informations supplémentaires ou une validation de la part de PayPal. Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+                "primary_email_confirmation": "L'email de votre compte PayPal doit être confirmé. Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+                "title": "Les paiements PayPal sont désactivés"
             }
         },
         "readAll": "Marquer tout comme lu",
@@ -2098,7 +2105,8 @@
                     "downloadRefundedInvoice": "Télécharger la facture remboursée",
                     "downloadReceipt": "Télécharger le reçu",
                     "downloadOriginalInvoice": "Télécharger la facture originale",
-                    "downloadInvoice": "Télécharger la facture"
+                    "downloadInvoice": "Télécharger la facture",
+                    "amountDue": "Montant dû: {{- amount}}"
                 },
                 "header": {
                     "filters": {
@@ -2129,13 +2137,13 @@
                 },
                 "detailsCard": {
                     "total": "Total",
-                    "retryDate": "Le paiement sera retenté le {{ date }}",
+                    "retryDate": "Le paiement sera retenté le {{- date }}",
                     "refunded": "Remboursée",
                     "products": "Mes produits",
                     "plannedPayments": "Paiements prévus",
                     "placeholder": "Sélectionnez une facture pour en voir les détails.",
                     "paymentHistory": "Historique des paiements",
-                    "paymentErrorWithReason": "Ce paiement n'a pas abouti. Raison: { {{ reason }} }.",
+                    "paymentErrorWithReason": "Ce paiement n'a pas abouti. Raison: {{- reason }}.",
                     "paymentError": "Ce paiement n'a pas abouti.",
                     "pay": "Payer maintenant",
                     "paid": "Payé",
@@ -6832,6 +6840,12 @@
         },
         "triggeringEvent": {
             "title": "Événement déclencheur"
+        },
+        "eventTypeHelperText": {
+            "1201": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement",
+            "1200": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement",
+            "201": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement",
+            "200": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement"
         }
     },
     "offer": {
@@ -13002,11 +13016,11 @@
                     "secondWarningDayBiggerThanFirst": "La deuxième notification ne peut pas être supérieure à la première"
                 },
                 "labels": {
-                    "daysBeforeSecondNotification": "Deuxième notification (jours avant la date d'expiration)",
-                    "daysBeforeFirstNotification": "Première notification (jours avant la date d'expiration)"
+                    "daysBeforeSecondNotification": "Deuxième rappel (jours avant la date d'expiration)",
+                    "daysBeforeFirstNotification": "Premier rappel (jours avant la date d'expiration)"
                 },
-                "helpText": "Si vous avez activé l'option \"Rappels d'expiration des méthodes de paiement\" pour les emails transactionnels dans Abonnements et Facturation, vous pouvez personnaliser le nombre de jours ici.",
-                "title": "Choisissez le nombre de jours avant la date d'expiration de la méthode de paiement pour envoyer une notification par email."
+                "helpText": "Si les emails transactionnels correspondants sont activées pour les abonnements, vous pouvez décider du nombre de jours avant l'expiration de la méthode de paiement pour envoyer un rappel",
+                "title": "Rappels d'expiration des modes de paiement"
             }
         },
         "billing_group": {
@@ -13156,7 +13170,65 @@
             },
             "bankAccountInfo": {
                 "content": "Ce compte correspond au compte sur lequel seront crédités les paiements en ligne via Bsport. Pour configurer le moyen de paiement sur lequel votre abonnement Bsport sera débité, cliquez",
-                "link": "ici"
+                "link": "ici",
+                "update": "Mettre à jour les informations bancaires"
+            },
+            "paypal": {
+                "alert": {
+                    "error": {
+                        "issue_repeat_onboarding": {
+                            "content": "Veuillez répéter la procédure de connexion en utilisant le même compte pour résoudre ce problème.",
+                            "title": "Les paiements PayPal sont actuellement désactivés."
+                        },
+                        "issue_check_account": {
+                            "goToPayPal": "Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+                            "content": "Les paiements PayPal sont actuellement désactivés.",
+                            "title": "Problème avec votre compte PayPal."
+                        },
+                        "requires_more_information": {
+                            "goToPayPal": "Dans le cas contraire, veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+                            "content": "Les paiements PayPal sont actuellement désactivés. Si votre compte PayPal vient d'être créé et que vous êtes certain que vos informations sont exactes, veuillez laisser un peu de temps à PayPal pour valider votre compte. ",
+                            "title": "Le compte PayPal contient des informations manquantes ou non validées."
+                        },
+                        "primary_email_confirmation": {
+                            "goToPayPal": "Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+                            "content": "Les paiements PayPal sont actuellement désactivés.",
+                            "title": "Confirmation par email manquante sur le compte PayPal."
+                        },
+                        "isStatusUnknown": {
+                            "goToPayPal": "Si le problème persiste, vérifiez l'état des systèmes PayPal",
+                            "content": "Veuillez rafraîchir la page.",
+                            "title": "Nous sommes actuellement dans l'impossibilité de joindre PayPal"
+                        }
+                    },
+                    "rightAccount": {
+                        "content": "Le modifier ou le déconnecter par la suite est un processus complexe qu'il convient d'éviter, sauf en cas de nécessité absolue.",
+                        "title": "Assurez-vous que vous connectez le bon compte"
+                    }
+                },
+                "dialog": {
+                    "error": "Une erreur s'est produite lors de la récupération du lien d'onboarding de PayPal",
+                    "redirecting": "Redirection vers PayPal...",
+                    "startConnecting": "Commencer à se connecter",
+                    "cancel": "Annuler",
+                    "helper": "Pour vous connecter, utilisez votre compte professionnel, passez d'un compte personnel à un compte professionnel, ou créez un nouveau compte professionnel.",
+                    "title": "Connectez votre compte professionnel PayPal"
+                },
+                "linkHelper": "Liez votre compte PayPal professionnel pour permettre à vos membres de payer avec PayPal",
+                "connect": "Connecter un compte PayPal",
+                "accountEmail": "Email du compte",
+                "accountName": "Nom du compte",
+                "oneTimePayments": "Effectuer des paiements uniques",
+                "titleWithPayPal": "Avec PayPal, vos membres peuvent",
+                "status": {
+                    "unknown": "Statut inconnu",
+                    "hasIssues": "Problèmes de connexion",
+                    "notConnected": "Non connecté",
+                    "connected": "Compte connecté"
+                }
+            },
+            "stripe": {
+                "update": "Mettre à jour les informations Stripe"
             }
         }
     },
@@ -15297,9 +15369,17 @@
             "12109": "Votre paiement a échoué, veuillez réessayer.",
             "12108": "Votre paiement est en cours de traitement, veuillez patienter",
             "12107": "Votre paiement a échoué, veuillez réessayer.",
-            "12102": "Votre paiement est en cours de traitement, veuillez patienter"
+            "12102": "Votre paiement est en cours de traitement, veuillez patienter",
+            "35015": "Votre paiement PayPal a échoué, veuillez réessayer ou utiliser un autre mode de paiement"
         },
-        "cancelPayPalPaymentAttempt": "Votre tentative de paiement a été annulée. Veuillez recommencer."
+        "cancelPayPalPaymentAttempt": "Votre tentative de paiement a été annulée. Veuillez recommencer.",
+        "paypal": {
+            "onboardingUrlFetchFailed": "Une erreur s'est produite lors de la récupération du lien d'onboarding de PayPal",
+            "couldNotReachPayPal": "Nous n'avons pas pu joindre PayPal. Veuillez réessayer plus tard.",
+            "connectionAttemptSucceeded": "Le compte PayPal a été connecté avec succès",
+            "connectionAttemptFailed": "Une erreur s'est produite lors de la connexion à PayPal",
+            "35009": "Vous ne pouvez pas utiliser un compte qui est déjà lié à une autre entreprise."
+        }
     },
     "spotScheduling": {
         "toolsMenu": {

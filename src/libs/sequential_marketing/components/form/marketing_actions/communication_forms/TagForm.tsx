@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useFormik } from 'formik';
 
-import { TagSelector } from '#src/libs/tag/components/TagSelector.selector';
+import TagSelector from '#src/libs/tag/components/TagSelector.selector';
 import { tagValidationSchema } from '#src/libs/sequential_marketing/components/form/marketing_actions/validationSchemas';
 
 import type { Tag, TagGroup, TagGroupAPI } from '#src/libs/tag/types';
@@ -61,7 +61,7 @@ const TagForm: React.FC<Props> = ({
       isClearable
       noMulti
       allTagsWithTagGroup={tagList}
-      // @ts-expect-error : no multi - TagSelector needs refactor
+      //@ts-expect-error: TagSelector expects options to be a list but it's not
       onChange={handleChangeTag}
       onDeleteTag={handleDeleteTag}
       placeholder={t(`cadence.form.marketing_action.select_tag`)}

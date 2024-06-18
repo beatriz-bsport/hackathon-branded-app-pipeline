@@ -78,3 +78,9 @@ export type TagState = {
     tagIdsList: Array<number>;
   };
 };
+
+export type TagOption = {
+  label: string;
+  value: number;
+  tag: Tag<TagGroup> | Tag<TagGroupAPI>;
+};

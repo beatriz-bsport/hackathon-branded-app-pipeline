@@ -43,9 +43,9 @@ export const TagFilterForm = (props: Props) => {
         placeholder={t('form.filter.includeLabel')}
       />
       <div className={classes.selector}>
-        {/* @ts-expect-error */}
         <TagSelector
           noMulti
+          // @ts-expect-error
           allTagsWithTagGroup={tagList}
           onChange={(option) =>
             props.setForm({

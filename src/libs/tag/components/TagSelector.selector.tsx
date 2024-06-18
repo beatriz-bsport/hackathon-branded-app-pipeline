@@ -1,221 +1,24 @@
-import React, { useRef } from 'react';
-import { compose } from 'recompose';
+import React, { CSSProperties, useRef } from 'react';
 
 import Select, { components } from 'react-select';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import { colors } from '@bsport/common/lib/colors';
 import BlockIcon from '@material-ui/icons/Block';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { v4 as uuidv4 } from 'uuid';
-import type { Tag, TagGroup, TagGroupAPI } from '../types';
+import type { Tag, TagGroup, TagGroupAPI, TagOption } from '../types';
 import TagChip from './TagChip.component';
+import type { MultiValueProps } from 'react-select/lib/components/MultiValue';
+import type { SingleValueProps } from 'react-select/lib/components/SingleValue';
+import type { IndicatorProps } from 'react-select/lib/components/indicators';
 
-const getBackgroundColor = (
-  isDisabled: boolean,
-  isSelected: boolean,
-  isFocused: boolean,
-) => {
-  if (isDisabled) {
-    return null;
-  }
-
-  if (isSelected) {
-    return colors.primary;
-  }
-  const color = chroma(colors.secondary);
-
-  if (isFocused) {
-    return color.alpha(0.1).css();
-  }
-
-  return null;
-};
-
-const getColor = (
-  isDisabled: boolean,
-  isSelected: boolean,
-  isFocused: boolean,
-) => {
-  if (isDisabled) {
-    return '#ccc';
-  }
-  const color = chroma(colors.secondary);
-
-  if (isSelected) {
-    return chroma.contrast(color, 'white') > 2 ? 'white' : 'black';
-  }
-
-  if (isFocused) {
-    return colors.secondary;
-  }
-
-  return null;
-};
-
-const tagGroupStyles = {
-  // @ts-expect-error
-  groupHeading: (base) => ({
-    ...base,
-    margin: 0,
-    color: '#868686',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: '14px',
-    borderBottom: '1px solid #868686',
-  }),
-  // @ts-expect-error
-  control: (styles) => ({
-    ...styles,
-    backgroundColor: 'white',
-    paddingTop: '4px',
-    paddingBottom: '4px',
-    zIndex: 1,
-  }),
-  // @ts-expect-error
-  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-  option: (
-    // @ts-expect-error
-    styles,
-    {
-      isDisabled,
-      isFocused,
-      isSelected,
-    }: { isDisabled: boolean; isFocused: boolean; isSelected: boolean },
-  ) => {
-    const color = chroma(colors.secondary);
-
-    return {
-      ...styles,
-      backgroundColor: getBackgroundColor(isDisabled, isFocused, isSelected),
-      color: getColor(isDisabled, isFocused, isSelected),
-      cursor: isDisabled ? 'not-allowed' : 'default',
-
-      ':active': {
-        ...styles[':active'],
-        backgroundColor:
-          !isDisabled &&
-          (isSelected ? colors.secondary : color.alpha(0.3).css()),
-      },
-    };
-  },
-  // @ts-expect-error
-  multiValue: (styles) => {
-    return {
-      ...styles,
-      backgroundColor: 'transparent',
-    };
-  },
-  // @ts-expect-error
-  multiValueLabel: (styles) => ({
-    ...styles,
-    color: colors.secondary,
-  }),
-  // @ts-expect-error
-  multiValueRemove: (styles) => ({
-    ...styles,
-    color: colors.secondary,
-    ':hover': {
-      backgroundColor: colors.secondary,
-      color: 'white',
-    },
-  }),
-};
-
-const MultiValueContainer = ({ ...props }) => (
-  /* eslint-disable */
-  <components.MultiValueContainer {...props}>
-    <div
-      onMouseDown={() => props?.selectProps?.onDeleteTag(props?.data.tag.id)}
-      /* eslint-enable */
-    >
-      {props?.data.tag && (
-        <TagChip
-          deleteOnClick
-          onDelete={() => props?.selectProps?.onDeleteTag(props?.data.tag.id)}
-          size="small"
-          tag={props?.data.tag}
-        />
-      )}
-    </div>
-  </components.MultiValueContainer>
-);
-const MultiValue = ({ ...props }) => {
-  // @ts-expect-error
-  return <components.MultiValue {...props} />;
-};
-const SingleValue = ({ ...props }) => {
-  return (
-    // @ts-expect-error
-    <components.SingleValue {...props}>
-      {props?.data.tag && (
-        <TagChip
-          onDelete={() => props?.selectProps?.onDeleteTag(props?.data.tag.id)}
-          size="small"
-          tag={props?.data.tag}
-        />
-      )}
-    </components.SingleValue>
-  );
-};
-
-const DropdownIndicator = ({ ...props }) => {
-  return (
-    // @ts-expect-error
-    <components.DropdownIndicator {...props}>
-      {props.selectProps.isDisabled ? (
-        <BlockIcon fontSize="small" />
-      ) : (
-        <ExpandMoreIcon fontSize="small" />
-      )}
-    </components.DropdownIndicator>
-  );
-};
-
-const getTagListOptions = (tags: Array<Tag>) =>
-  tags?.map((t) => ({ label: t.name, value: t.id, tag: t }));
-
-const getTagGroupedByTagGroup = (tag_list: Array<Tag>) => {
-  const tagGroupByGroup = tag_list?.reduce((accumulator, tagItem) => {
-    const temp = accumulator.findIndex(
-      // @ts-expect-error
-      (group) => group.id === tagItem.group.id,
-    );
-    if (temp === -1) {
-      accumulator.push({
-        // @ts-expect-error
-        label: tagItem.group.name,
-        // @ts-expect-error
-        id: tagItem.group.id,
-        options: [
-          {
-            value: tagItem.id,
-            label: tagItem.name,
-            tag: tagItem,
-          },
-        ],
-      });
-    } else {
-      accumulator[temp].options.push({
-        value: tagItem.id,
-        // @ts-expect-error
-        id: tagItem.group.id,
-        label: tagItem.name,
-        tag: tagItem,
-      });
-    }
-    return accumulator;
-  }, []);
-  return tagGroupByGroup;
-};
-
-type OwnProps = {
+export type Props = {
   onChange: (
-    options: Array<{
+    options: {
       label: string;
       value: number;
-      tag: Tag<TagGroup>;
-    }>,
+      tag: Tag<TagGroup> | Tag<TagGroupAPI>;
+    }[],
   ) => void;
   onDeleteTag: (optionId: number) => void;
   id?: string;
@@ -225,46 +28,247 @@ type OwnProps = {
   isClearable?: boolean;
   closeMenuOnSelect?: boolean;
   selectedTags?: number[];
-  allTagsWithTagGroup:
-    | Array<Tag>
-    | Array<Tag<TagGroup>>
-    | Array<Tag<TagGroupAPI>>;
-  inScrollBar: boolean;
+  allTagsWithTagGroup: Tag<TagGroup>[] | Tag<TagGroupAPI>[];
+  inScrollBar?: boolean;
   menuPlacement?: 'auto' | 'top';
 };
 
-export type Props = Partial<WithTranslation> & OwnProps;
-export function TagSelector(props: Props) {
-  const {
-    t,
-    id,
-    allTagsWithTagGroup,
-    isDisabled,
-    placeholder,
-    noMulti,
-    isClearable,
-    closeMenuOnSelect,
-    selectedTags,
-    onChange,
-    onDeleteTag,
-    inScrollBar,
-    menuPlacement,
-  } = props;
-  const uuid = useRef(uuidv4());
-  const tagsOptionsSelected =
-    selectedTags && allTagsWithTagGroup
-      ? // @ts-expect-error
-        getTagListOptions(allTagsWithTagGroup).filter(
-          (tagOption: { value: number; label: string }) =>
+const MultiValueContainer: React.FC<MultiValueProps<TagOption>> = React.memo(
+  ({ ...props }) => {
+    const handleDelete = React.useCallback(
+      () =>
+        props?.data?.value &&
+        props?.selectProps?.onDeleteTag?.(props.data.value),
+      [props.data.value, props?.selectProps],
+    );
+
+    return (
+      <components.MultiValueContainer {...props}>
+        <div onMouseDown={handleDelete}>
+          {props?.data?.tag && (
+            <TagChip
+              deleteOnClick
+              onDelete={handleDelete}
+              size="small"
+              //@ts-expect-error: TagChip expects tag to be of type Tag<TagGroup> but it is of type Tag | Tag<TagGroup> | Tag<TagGroupAPI>
+              tag={props?.data.tag}
+            />
+          )}
+        </div>
+      </components.MultiValueContainer>
+    );
+  },
+);
+
+const MultiValue: React.FC<MultiValueProps<TagOption>> = React.memo(
+  ({ ...props }) => <components.MultiValue {...props} />,
+);
+
+const SingleValue: React.FC<SingleValueProps<TagOption>> = React.memo(
+  ({ ...props }) => {
+    const handleDelete = React.useCallback(
+      () =>
+        props?.data?.value &&
+        props?.selectProps?.onDeleteTag?.(props.data.value),
+      [props.data.value, props?.selectProps],
+    );
+
+    return (
+      <components.SingleValue {...props}>
+        {props?.data?.tag && (
+          //@ts-expect-error: TagChip expects tag to be of type Tag<TagGroup> but it is of type Tag | Tag<TagGroup> | Tag<TagGroupAPI>
+          <TagChip onDelete={handleDelete} size="small" tag={props?.data.tag} />
+        )}
+      </components.SingleValue>
+    );
+  },
+);
+
+const DropdownIndicator: React.FC<IndicatorProps<TagOption>> = React.memo(
+  ({ ...props }) => (
+    <components.DropdownIndicator {...props}>
+      {props.selectProps.isDisabled ? (
+        <BlockIcon fontSize="small" />
+      ) : (
+        <ExpandMoreIcon fontSize="small" />
+      )}
+    </components.DropdownIndicator>
+  ),
+);
+
+const TagSelector: React.FC<Props> = ({
+  id,
+  allTagsWithTagGroup,
+  isDisabled,
+  placeholder,
+  noMulti,
+  isClearable,
+  closeMenuOnSelect,
+  selectedTags,
+  onChange,
+  onDeleteTag,
+  inScrollBar,
+  menuPlacement,
+}) => {
+  const { t } = useTranslation('tag');
+
+  const divRef = useRef<HTMLDivElement | null>(null);
+
+  const tagListOptions = React.useMemo(
+    () =>
+      [...allTagsWithTagGroup]?.map((tag) => ({
+        label: tag.name,
+        value: tag.id,
+        tag: tag,
+      })),
+    [allTagsWithTagGroup],
+  );
+
+  const tagsOptionsSelected = React.useMemo(
+    () =>
+      selectedTags && tagListOptions
+        ? tagListOptions.filter((tagOption) =>
             selectedTags.includes(tagOption.value),
-        )
-      : null;
+          )
+        : null,
+    [selectedTags, tagListOptions],
+  );
+
+  const tagGroupedByTagGroup = React.useMemo(() => {
+    const tagGroupByGroup = [...allTagsWithTagGroup]?.reduce(
+      (accumulator, tagItem) => {
+        const temp = accumulator.findIndex(
+          (group) => group.id === tagItem.group.id,
+        );
+        if (temp === -1) {
+          accumulator.push({
+            label: tagItem.group.name,
+            id: tagItem.group.id,
+            options: [
+              {
+                value: tagItem.id,
+                label: tagItem.name,
+                tag: tagItem,
+              },
+            ],
+          });
+        } else {
+          accumulator[temp].options.push({
+            value: tagItem.id,
+            id: tagItem.group.id,
+            label: tagItem.name,
+            tag: tagItem,
+          });
+        }
+        return accumulator;
+      },
+      [],
+    );
+    return tagGroupByGroup;
+  }, [allTagsWithTagGroup]);
+
+  const getBackgroundColor = React.useCallback(
+    (isSelected: boolean, isFocused: boolean) => {
+      if (isDisabled) {
+        return null;
+      }
+
+      if (isSelected) {
+        return colors.primary;
+      }
+      const color = chroma(colors.secondary);
+
+      if (isFocused) {
+        return color.alpha(0.1).css();
+      }
+
+      return null;
+    },
+    [isDisabled],
+  );
+
+  const getColor = React.useCallback(
+    (isSelected: boolean, isFocused: boolean) => {
+      if (isDisabled) {
+        return '#ccc';
+      }
+      const color = chroma(colors.secondary);
+
+      if (isSelected) {
+        return chroma.contrast(color, 'white') > 2 ? 'white' : 'black';
+      }
+
+      if (isFocused) {
+        return colors.secondary;
+      }
+
+      return null;
+    },
+    [isDisabled],
+  );
+
+  const tagGroupStyles = {
+    groupHeading: (base: CSSProperties) => ({
+      ...base,
+      margin: 0,
+      color: '#868686',
+      fontStyle: 'normal',
+      fontWeight: 'normal',
+      fontSize: '14px',
+      borderBottom: '1px solid #868686',
+    }),
+    control: (styles: CSSProperties) => ({
+      ...styles,
+      backgroundColor: 'white',
+      paddingTop: '4px',
+      paddingBottom: '4px',
+      zIndex: 1,
+    }),
+    menuPortal: (base: CSSProperties) => ({ ...base, zIndex: 9999 }),
+    option: (
+      styles: CSSProperties,
+      { isFocused, isSelected }: { isFocused: boolean; isSelected: boolean },
+    ) => {
+      const color = chroma(colors.secondary);
+
+      return {
+        ...styles,
+        backgroundColor: getBackgroundColor(isFocused, isSelected),
+        color: getColor(isFocused, isSelected),
+        cursor: isDisabled ? 'not-allowed' : 'default',
+
+        ':active': {
+          // @ts-expect-error
+          ...styles[':active'],
+          backgroundColor:
+            !isDisabled &&
+            (isSelected ? colors.secondary : color.alpha(0.3).css()),
+        },
+      };
+    },
+    multiValue: (styles: CSSProperties) => {
+      return {
+        ...styles,
+        backgroundColor: 'transparent',
+      };
+    },
+    multiValueLabel: (styles: CSSProperties) => ({
+      ...styles,
+      color: colors.secondary,
+    }),
+    multiValueRemove: (styles: CSSProperties) => ({
+      ...styles,
+      color: colors.secondary,
+      ':hover': {
+        backgroundColor: colors.secondary,
+        color: 'white',
+      },
+    }),
+  };
+
   if (inScrollBar) {
     return (
-      <div
-        id={`selector_${uuid.current}`}
-        style={{ position: 'relative', width: '100%' }}
-      >
+      <div ref={divRef} style={{ position: 'relative', width: '100%' }}>
         <Select
           closeMenuOnSelect={closeMenuOnSelect}
           components={{
@@ -278,13 +282,10 @@ export function TagSelector(props: Props) {
           isDisabled={isDisabled}
           isMulti={!noMulti}
           menuPlacement={menuPlacement}
-          menuPortalTarget={document.getElementById(`selector_${uuid.current}`)}
+          menuPortalTarget={divRef.current}
           onChange={onChange}
           onDeleteTag={onDeleteTag}
-          options={getTagGroupedByTagGroup(
-            // @ts-expect-error
-            allTagsWithTagGroup ? [...allTagsWithTagGroup] : [],
-          )}
+          options={tagGroupedByTagGroup}
           placeholder={placeholder || t('select')}
           styles={{
             ...tagGroupStyles,
@@ -302,6 +303,7 @@ export function TagSelector(props: Props) {
       </div>
     );
   }
+
   return (
     <Select
       closeMenuOnSelect={closeMenuOnSelect}
@@ -318,16 +320,13 @@ export function TagSelector(props: Props) {
       menuPortalTarget={document.querySelector('body')}
       onChange={onChange}
       onDeleteTag={onDeleteTag}
-      options={getTagGroupedByTagGroup(
-        // @ts-expect-error
-        allTagsWithTagGroup ? [...allTagsWithTagGroup] : [],
-      )}
+      options={tagGroupedByTagGroup}
       placeholder={placeholder || t('select')}
       styles={tagGroupStyles}
       tagList={allTagsWithTagGroup}
       value={tagsOptionsSelected}
     />
   );
-}
+};
 
-export default compose<any, Props>(withTranslation('tag'))(TagSelector);
+export default React.memo(TagSelector);

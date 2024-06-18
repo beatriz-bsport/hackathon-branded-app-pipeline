@@ -25,7 +25,7 @@ export const TagSelectorTemplate = (args: SelectorProps) => {
       onChange={onChange}
       onDeleteTag={onDeleteTag}
       allTagsWithTagGroup={[
-        // @ts-expect-error
+        //@ts-expect-error: TagSelector expects Tag<TagGroup>[] | Tag<TagGroupAPI>[]
         { name: 'Tag 1', id: 1, group: { name: 'Tag Group', id: 45 } },
       ]}
     />

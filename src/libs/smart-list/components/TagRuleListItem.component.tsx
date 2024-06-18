@@ -116,9 +116,9 @@ export const TagRuleListItem = (props: Props) => {
           {t('tag_rules.tag')}
         </Typography>
         <div className={classes.tagSelect}>
-          {/* @ts-expect-error */}
           <TagSelector
             noMulti
+            // @ts-expect-error
             allTagsWithTagGroup={props.tags}
             isDisabled={!editRule}
             onChange={(option) =>

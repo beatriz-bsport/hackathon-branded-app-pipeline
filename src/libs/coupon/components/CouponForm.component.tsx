@@ -751,7 +751,6 @@ export class CouponForm extends React.Component<Props, State> {
         <Divider />
         <div className={classes.flexFormControl}>
           <div className={classes.selector}>
-            {/* @ts-expect-error */}
             <TagSelector
               isClearable
               allTagsWithTagGroup={tagList.filter((tag) => {

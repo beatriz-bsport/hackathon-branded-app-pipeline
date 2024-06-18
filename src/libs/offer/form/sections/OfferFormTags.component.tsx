@@ -10,7 +10,7 @@ import { useFormikContext } from 'formik';
 import FormSection from '#src/components/forms/FormSection';
 import { useOfferFormStyles } from '#src/libs/offer/hooks';
 import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
-import { TagSelector } from '#src/libs/tag/components/TagSelector.selector';
+import TagSelector from '#src/libs/tag/components/TagSelector.selector';
 
 import { Tag, TagGroup } from '#src/libs/tag/types';
 import { OfferFormValues } from '#src/libs/offer/types';

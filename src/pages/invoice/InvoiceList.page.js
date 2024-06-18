@@ -39,6 +39,7 @@ import InvoiceTable from '../../libs/invoice/components/InvoiceTable.component';
 import themeSelectors from '../../libs/theme/selectors';
 import type { Theme as CompanyTheme } from '../../libs/theme/types';
 import type { OptionCallback } from '../../state/types';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 type Props = {
   push: (path: string) => void,
@@ -90,8 +91,8 @@ export class InvoiceList extends Component<Props, State> {
   }
 
   onRedirectToQuickBooksSettings = () => {
-    const win = window.open('/settings/quickbooks');
-    win.focus();
+    const url = '/settings/quickbooks';
+    openNewBackOfficeWindow(url);
     this.setState({ proposeRefreshQBA: true });
   };
 

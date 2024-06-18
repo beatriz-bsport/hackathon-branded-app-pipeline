@@ -38,6 +38,7 @@ import type {
   VideoAnalyticsData,
 } from '../../libs/video/types';
 import { formatISOStringAsTime } from '../../utils/datetime';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 type Props = {
   classes: any,
@@ -231,8 +232,7 @@ export default compose(
   withHandlers({
     goToMember: () => (memberId) => {
       const url = `/member/${memberId}/`;
-      const win = window.open(url);
-      win.focus();
+      openNewBackOfficeWindow(url);
     },
     retrieveVideo:
       ({ retrieveVideo, videoId, fetchAssociatedCoachBulk }) =>

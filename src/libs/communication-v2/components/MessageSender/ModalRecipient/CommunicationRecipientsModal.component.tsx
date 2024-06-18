@@ -32,6 +32,7 @@ import { FilteringMemberIdsByGenericCategories } from '#src/libs/communication-v
 import { Member } from '#src/libs/member/types';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 import CommunicationRecipientModalFilter from './CommunicationRecipientsModalFilter.component';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 type OwnProps = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
@@ -247,8 +248,7 @@ export class CommunicationRecipientsModal extends React.Component<
   openMemberPage = (event: React.SyntheticEvent<any>, memberId: number) => {
     event.preventDefault();
     const url = `/member/edit/${memberId}`;
-    const win = window.open(url);
-    win.focus();
+    openNewBackOfficeWindow(url);
     this.setState({ openRefreshDialog: true });
   };
 

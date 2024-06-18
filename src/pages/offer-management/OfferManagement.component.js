@@ -88,6 +88,7 @@ import MailMembers from './MailMembers.component';
 import BookerModuleManager from './BookerModuleManager.component';
 import QuickInvoicePanel from './QuickInvoicePanel.component';
 import { mapFormData } from '../form.utils';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -1558,8 +1559,7 @@ export default compose(
       const url = `/member/${memberId}/bookings/${
         bookingId ? `${bookingId}` : ''
       }`;
-      const win = window.open(url);
-      win.focus();
+      openNewBackOfficeWindow(url);
     },
     registerToOffer:
       ({

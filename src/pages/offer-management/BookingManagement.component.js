@@ -63,6 +63,7 @@ import WaitingListControlHeader from './WaitingListControlHeader.component';
 import MemberSearchBar from '../../libs/member/components/MemberSearchBar.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 import Config from '../../config';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
   const member = membersList.find((m) => m.id === id);
@@ -237,7 +238,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
             }
             showMember={
               hasMemberProfileAccessPermission
-                ? () => window.open(`/member/${member.id}/`)
+                ? () => openNewBackOfficeWindow(`/member/${member.id}/`)
                 : null
             }
           />
@@ -391,7 +392,8 @@ export class BookingManagement extends React.PureComponent<Props, State> {
   openLinkedHybridOfferManagementPage = (e) => {
     e.stopPropagation();
     if (this.props.offer?.linked_hybrid_offer_id) {
-      window.open(`/offer/${this.props.offer?.linked_hybrid_offer_id}`);
+      const url = `/offer/${this.props.offer?.linked_hybrid_offer_id}`;
+      openNewBackOfficeWindow(url);
     }
   };
 

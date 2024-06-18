@@ -81,6 +81,7 @@ import SelectTemplate from './SelectTemplate.component';
 // @ts-expect-error
 import ReceiversCollapseItem from './ReceiversCollapseItem.component';
 import Config from '../../../config';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 const WRITE_EMAIL = 0;
 const SELECT_EMAIL = 1;
@@ -514,8 +515,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
   ) => {
     event?.preventDefault();
     const url = `/member/edit/${id}`;
-    const win = window.open(url);
-    win.focus();
+    openNewBackOfficeWindow(url);
     this.setState({ openRefreshDialog: true });
   };
 

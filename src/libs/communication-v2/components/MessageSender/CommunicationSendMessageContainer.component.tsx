@@ -50,6 +50,7 @@ import CommunicationWriteEmail from './Writers/CommunicationWriteEmail.component
 import CommunicationTemplateModal from './ModalTemplate/CommunicationTemplateModal.component';
 import CommunicationRecipientsModal from './ModalRecipient/CommunicationRecipientsModal.component';
 import { OptionCallback } from '../../../../state/types';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 type OwnProps = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
@@ -476,8 +477,7 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
     const onSeeTemplate = () => this.setState({ openTemplateVisualizer: true });
     const onEditTemplate = () => {
       const url = `/email-template/${this.state.mailTemplateSelected}/edit`;
-      const win = window.open(url);
-      win.focus();
+      openNewBackOfficeWindow(url);
     };
     const onRemoveTemplate = () =>
       this.setState({ mailTemplateSelected: null, mailTitle: '' });

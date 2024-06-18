@@ -25,6 +25,7 @@ import type {
   EmailTemplateSummary,
   ResolvedGenericTags,
 } from '#src/libs/email-editor/types';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 export type Props = {
   currentTitle: string;
@@ -95,15 +96,13 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
   const onCreateClick = React.useCallback(() => {
     setDisplayRefreshAlert(true);
     const url = '/email-template/create';
-    const win = window.open(url);
-    win.focus();
+    openNewBackOfficeWindow(url);
   }, []);
 
   const onEditClick = React.useCallback(() => {
     setDisplayRefreshAlert(true);
     const url = `/email-template/${selectedTemplate}/edit`;
-    const win = window.open(url);
-    win.focus();
+    openNewBackOfficeWindow(url);
   }, [selectedTemplate]);
 
   const onRefreshClick = React.useCallback(() => {

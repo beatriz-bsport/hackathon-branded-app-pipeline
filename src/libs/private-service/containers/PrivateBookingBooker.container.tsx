@@ -75,6 +75,7 @@ import { Member } from '../../member/types';
 import { OptionCallback } from '../../../state/types';
 import { showVaccinationStatus } from '../../custom-form/selectors';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 type OwnProps = {
   open: boolean;
@@ -623,7 +624,7 @@ const withStateHandlersSetter = {
 
 const mapWithHandlers = {
   billMemberPrivatePass: () => (memberId: number, privatePassId: number) =>
-    window.open(
+    openNewBackOfficeWindow(
       `/invoice/bill-member/${memberId}?withPrivatePass=${privatePassId}`,
     ),
 

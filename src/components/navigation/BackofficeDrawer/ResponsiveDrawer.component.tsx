@@ -26,6 +26,7 @@ import Payment from '@material-ui/icons/Payment';
 import People from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import RedeemIcon from '@material-ui/icons/Redeem';
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -190,6 +191,9 @@ const ResponsiveDrawer: React.FC<Props> = ({
   const handleToggleDrawer = () => {
     handleUserSetDrawerIconsOnly && handleUserSetDrawerIconsOnly(!iconsOnly);
   };
+  const closeTab = () => {
+    window.close();
+  };
   const prevIconOnly = usePrevious(iconsOnly);
 
   const accessMonitoringItem = React.useMemo(() => {
@@ -224,6 +228,13 @@ const ResponsiveDrawer: React.FC<Props> = ({
       } as DrawerItemDefault,
     ]);
   }, [t, permissions, featureList]);
+
+  const isTabImpersonated: boolean = React.useMemo(() => {
+    return (
+      getItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN) !==
+      null
+    );
+  }, []);
 
   const items: DrawerItem[] = React.useMemo(() => {
     return [
@@ -668,14 +679,19 @@ const ResponsiveDrawer: React.FC<Props> = ({
             } as DrawerItemDefault,
           ]
         : []),
-      {
-        action: disconnect,
-        to: null,
-        icon: HighlightOff,
-        text: getItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN)
-          ? t('backofficeMenu.closeTab')
-          : t('backofficeMenu.logoff'),
-      } as DrawerItemDefault,
+      isTabImpersonated
+        ? ({
+            action: closeTab,
+            to: null,
+            icon: HighlightOff,
+            text: t('backofficeMenu.closeTab'),
+          } as DrawerItemDefault)
+        : ({
+            action: disconnect,
+            to: null,
+            icon: PowerSettingsNewIcon,
+            text: t('backofficeMenu.logoff'),
+          } as DrawerItemDefault),
     ];
   }, [
     accessMonitoringItem,
@@ -683,6 +699,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
     companyId,
     disconnect,
     iconsOnly,
+    isTabImpersonated,
     permissions,
     setDrawerIconsOnly,
     objectLevelPermissions,

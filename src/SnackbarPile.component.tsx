@@ -22,6 +22,7 @@ import {
 import { RootState } from './reducers';
 
 import type { AccessControlSnack, Snack } from './libs/snackbar/types';
+import { openNewBackOfficeWindow } from './utils/windows';
 
 type Props = {
   topMessages: Snack[];
@@ -143,9 +144,8 @@ export const SnackbarPile: React.FC<Props> = ({
           accessStatus={snack.accessStatus}
           handleClose={handleDeleteAccessControlSnackbar(snack.id)}
           handleOpen={() =>
-            window.open(
+            openNewBackOfficeWindow(
               getPerformAccessMonitoringUrl({ id: snack.id }),
-              '_blank',
             )
           }
           member={snack.member}

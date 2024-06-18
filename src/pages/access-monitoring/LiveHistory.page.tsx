@@ -18,6 +18,7 @@ import {
   approvePhotoUpdate as approvePhotoUpdateAction,
 } from '#src/libs/access-control/actions';
 import { handleBroadcastChannelMessages as handleBroadcastChannelMessagesAction } from '#src/libs/broadcast-channel/actions';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 /** COMPONENTS */
 import MemberVisitSearchMember from '#src/libs/access-control/components/MemberVisit/EmptyState/MemberVisitSearchMember.component';
@@ -218,12 +219,14 @@ const useLiveHistoryPageDataManager = ({
   }, [fetchMemberVisitList]);
 
   const handleMemberProfileClick = useCallback((memberId: number) => {
-    window.open(`/member/${memberId}`);
+    const url = `/member/${memberId}`;
+    openNewBackOfficeWindow(url);
   }, []);
 
   const handleMemberBillClick = useCallback(() => {
     if (selectedMemberVisit?.member?.id) {
-      window.open(`/invoice/bill-member/${selectedMemberVisit.member.id}`);
+      const url = `/invoice/bill-member/${selectedMemberVisit.member.id}`;
+      openNewBackOfficeWindow(url);
     }
   }, [selectedMemberVisit]);
 

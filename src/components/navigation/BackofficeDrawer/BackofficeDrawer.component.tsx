@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
@@ -322,7 +322,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
     openWelcometutorialDialog,
   ]);
 
-  const isTabImpersonated = useCallback(() => {
+  const isTabImpersonated: boolean = React.useMemo(() => {
     return (
       getItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN) !==
       null
@@ -413,7 +413,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             </ListItemIcon>
             <ListItemText primary={t('backofficeMenu.logoff')} />
           </MenuItem>
-          {isTabImpersonated() ? (
+          {isTabImpersonated ? (
             <MenuItem
               onClick={() => {
                 setAnchorEl(null);

@@ -18,6 +18,8 @@ import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/Objec
 import type { BookingOption } from '#src/libs/booking/types';
 import type { Member } from '../../member/types';
 
+import { openNewBackOfficeWindow } from '#src/utils/windows';
+
 type Props = {
   option: BookingOption;
   member?: Member;
@@ -58,8 +60,7 @@ const BookingOptionForManager: React.FC<Props> = ({
     () => (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       event.preventDefault();
       const url = `/member/${option.member}/`;
-      const win = window.open(url);
-      win.focus();
+      openNewBackOfficeWindow(url);
     },
     [option],
   );

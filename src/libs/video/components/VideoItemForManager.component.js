@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import { getStatusText, getHeading } from '../utils';
 import { VideoPurchase } from '../types';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 type Props = {
   classes: any,
@@ -45,8 +46,7 @@ export class VideoItemForManager extends Component<Props, State> {
       this.props.push(`/offer/${videoPurchase.id}`);
     }
     if (redirectToMember && newTab) {
-      const win = window.open(url);
-      win.focus();
+      openNewBackOfficeWindow(url);
       return;
     }
     if (redirectToMember) {

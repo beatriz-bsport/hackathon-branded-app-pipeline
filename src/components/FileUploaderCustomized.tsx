@@ -136,7 +136,7 @@ const FileUploaderCustomized: React.FC<Props> = React.memo(
         fileToPreview = file.toString();
       }
 
-      window.open(fileToPreview);
+      window.open(fileToPreview, '_blank');
     }, [file]);
 
     const {

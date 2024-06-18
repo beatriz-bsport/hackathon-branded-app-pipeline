@@ -7,6 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import WarningIcon from '@material-ui/icons/Warning';
 import Typography from '@material-ui/core/Typography';
 import type { BroadcastInfo } from '../../booking/types';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 type Props = {
   t: TFunction,
@@ -55,14 +56,20 @@ class ErrorCatcher extends React.Component<
 
 export class BroadcastRoomWhereby extends React.Component<Props> {
   openLink = () => {
-    window.open(this.getRoomLink(), '_blank');
+    const url = this.getRoomLink();
+    if (url) {
+      openNewBackOfficeWindow(url);
+    }
   };
 
   getRoomLink = () => {
-    if (!this.props.broadcast_info.room.toLowerCase().includes('http')) {
+    if (
+      this.props.broadcast_info.room &&
+      !this.props.broadcast_info.room.toLowerCase().includes('http')
+    ) {
       return `http://${this.props.broadcast_info.room}`;
     }
-    return this.props.broadcast_info.room;
+    return null;
   };
 
   componentDidMount() {

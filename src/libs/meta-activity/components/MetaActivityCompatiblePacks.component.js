@@ -17,6 +17,7 @@ import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import CheckPermissionComponent from '../../role/components/CheckPermission.component';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 const PAGE_SIZE = 10;
 
@@ -55,7 +56,7 @@ export function CompatiblePaymentPacks(props: Props) {
           key={pack.id}
           divider
           hidePacksNumber
-          onClick={() => window.open(`/payment-pack/${pack.id}`)}
+          onClick={() => openNewBackOfficeWindow(`/payment-pack/${pack.id}`)}
           pack={pack}
         />
       );

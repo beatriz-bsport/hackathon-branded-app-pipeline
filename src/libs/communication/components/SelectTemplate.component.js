@@ -28,6 +28,7 @@ import type {
 } from '#src/libs/email-editor/types';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import HTMLPreview from '../../../components/html/HTMLPreview.component';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 type Props = {
   onCancel: () => void,
@@ -130,8 +131,7 @@ export class SelectTemplate extends Component<Props> {
                   const url = this.props.fromFranchisor
                     ? '/f/email-template/create'
                     : '/email-template/create';
-                  const win = window.open(url);
-                  win.focus();
+                  openNewBackOfficeWindow(url);
                   this.props.onChangeTemplate(null);
                 }}
                 size="small"
@@ -177,8 +177,7 @@ export class SelectTemplate extends Component<Props> {
                   onClick={() => {
                     this.props.onCancel();
                     const url = `/email-template/${this.props.selectedMail}/edit`;
-                    const win = window.open(url);
-                    win.focus();
+                    openNewBackOfficeWindow(url);
                     this.props.onChangeTemplate(null);
                   }}
                   size="small"

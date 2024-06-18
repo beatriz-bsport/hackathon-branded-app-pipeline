@@ -2,6 +2,7 @@
 import React from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 import type { BroadcastInfo } from '../../booking/types';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 type Props = {
   t: TFunction,
@@ -9,11 +10,17 @@ type Props = {
 };
 export class BroadcastRoomWhereby extends React.Component<Props> {
   openLink = () => {
-    window.open(this.getRoomLink(), '_blank');
+    const url = this.getRoomLink();
+    if (url) {
+      openNewBackOfficeWindow(url);
+    }
   };
 
   getRoomLink = () => {
-    return `https://${this.props.broadcast_info.domain}/${this.props.broadcast_info.room}`;
+    if (this.props.broadcast_info.room) {
+      return `https://${this.props.broadcast_info.domain}/${this.props.broadcast_info.room}`;
+    }
+    return null;
   };
 
   componentDidMount() {

@@ -17,6 +17,7 @@ import type {
   RolePermission,
   ObjectLevelPermissions,
 } from '#src/libs/role/types';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 type ReportTableRowsProps = {
   reportStoreRowsLoading: boolean;
@@ -59,7 +60,7 @@ const ReportTableRow: React.FC<ReportTableRowsProps> = ({
     objectLevelPermissions,
   });
   const goToItemDetail = useCallback(() => {
-    if (link && hasAccessToLink) window.open(link, '_blank', 'noreferrer');
+    if (link && hasAccessToLink) openNewBackOfficeWindow(link);
   }, [hasAccessToLink, link]);
   const rowClass = useMemo(() => {
     if (reportStoreRowsLoading) {

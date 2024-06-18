@@ -32,6 +32,8 @@ import {
   setMemberVisitEntryStatus as setMemberVisitEntryStatusAction,
 } from '#src/libs/access-control/actions';
 
+import { openNewBackOfficeWindow } from '#src/utils/windows';
+
 // Components
 
 import MemberVisitPlaceHolder from '#src/libs/access-control/components/MemberVisit/EmptyState/MemberVisitPlaceHolder.component';
@@ -187,13 +189,15 @@ export const useMemberVisitPageDataManager = ({
 
   const handleMemberProfileClick = useCallback(() => {
     if (memberVisit?.member?.id) {
-      window.open(`/member/${memberVisit.member.id}`);
+      const url = `/member/${memberVisit.member.id}`;
+      openNewBackOfficeWindow(url);
     }
   }, [memberVisit]);
 
   const handleMemberBillClick = useCallback(() => {
     if (memberVisit?.member?.id) {
-      window.open(`/invoice/bill-member/${memberVisit.member.id}`);
+      const url = `/invoice/bill-member/${memberVisit.member.id}`;
+      openNewBackOfficeWindow(url);
     }
   }, [memberVisit]);
 

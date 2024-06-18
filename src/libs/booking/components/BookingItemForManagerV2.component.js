@@ -65,6 +65,7 @@ import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/Objec
 import { getActivityWorkshopPermission } from '#src/libs/role/permission-utils/utils';
 import NoShowChip from './NoShowChip.component';
 import { BookingStatusCodeText } from '../utils';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 type Props = {
   t: TFunction,
@@ -708,8 +709,7 @@ export class BookingItemForManager extends Component<Props, State> {
       this.props.push(`/offer/${booking.offer}`);
     }
     if (redirectToMember && newTab) {
-      const win = window.open(url);
-      win?.focus();
+      openNewBackOfficeWindow(url);
       return;
     }
     if (redirectToMember) {

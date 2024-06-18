@@ -17,6 +17,7 @@ import {
   createShopItemTemplate as createShopItemTemplateAction,
   updateShopItemTemplate as updateShopItemTemplateAction,
   deleteShopItemTemplate as deleteShopItemTemplateAction,
+  retrieveShopItemBarcodeUnicity as retrieveShopItemBarcodeUnicityAction,
 } from '#src/libs/shop/actions/shopItemReworked';
 
 import {
@@ -40,6 +41,7 @@ import {
   getShopItemTemplateCreateLoading,
   getShopItemTemplateUpdateLoading,
   getShopItemTemplateDeleteLoading,
+  getShopItemBarcodeUnicity,
   // shop supplier template selectors
   getShopSupplierTemplateState,
   getShopSupplierTemplateListLoading,
@@ -64,6 +66,7 @@ import type { RootState } from '#src/reducers';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
 import type {
+  ShopItemBarcodeUnicity,
   ShopItemCreate,
   ShopItemTemplate,
   ShopSupplierTemplate,
@@ -263,11 +266,21 @@ export class FranchiseShopListPage extends PureComponent<Props> {
       this.props.updateFranchiseTheme(this.props.franchisorId, formData);
   };
 
+  /**
+   * When entering a shop item barcode, we check first the unicity of it before submit
+   * @param barcode The barcode to check
+   */
+  checkBarcodeUnicity = (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => this.props.retrieveShopItemBarcodeUnicity(barcode, options);
+
   render() {
     return (
       <FranchiseShopList
         changeHideShopSupplierPrice={this.handleChangeHideShopSupplierPrice}
         changeSupplierTemplatePage={this.handleChangeSupplierTemplatePage}
+        checkBarcodeUnicity={this.checkBarcodeUnicity}
         createShopItemTemplate={this.handleCreateShopItemTemplate}
         createSubshopTemplate={this.handleCreateSubshopTemplate}
         createSupplierTemplate={this.handleCreateSupplierTemplate}
@@ -276,6 +289,7 @@ export class FranchiseShopListPage extends PureComponent<Props> {
         deleteSupplierTemplate={this.handleDeleteSupplierTemplate}
         fetchShopItemTemplateList={this.handleFetchShopItemTemplateList}
         franchiseCompanyListOptions={this.getFranchiseCompanyListOptions()}
+        getShopItemBarcodeUnicity={this.props.getShopItemBarcodeUnicity}
         getShopItemTemplateState={this.props.getShopItemTemplateState}
         goToShopItemTemplate={this.props.goToShopItemTemplate}
         isFranchiseeSupplierPriceHidden={
@@ -313,6 +327,8 @@ const connector = connect(
     // shop item template selectors
     getShopItemTemplateState: (subshopTemplateId: number) =>
       getShopItemTemplateState(state, subshopTemplateId),
+    getShopItemBarcodeUnicity: (barcode: string) =>
+      getShopItemBarcodeUnicity(state, barcode),
     isShopItemTemplateCreateLoading: getShopItemTemplateCreateLoading(state),
     isShopItemTemplateUpdateLoading: getShopItemTemplateUpdateLoading(state),
     isShopItemTemplateDeleteLoading: getShopItemTemplateDeleteLoading(state),
@@ -340,6 +356,7 @@ const connector = connect(
     createShopItemTemplate: createShopItemTemplateAction,
     updateShopItemTemplate: updateShopItemTemplateAction,
     deleteShopItemTemplate: deleteShopItemTemplateAction,
+    retrieveShopItemBarcodeUnicity: retrieveShopItemBarcodeUnicityAction,
     // shop supplier template actions
     fetchShopSupplierTemplateList: fetchShopSupplierTemplateListAction,
     createShopSupplierTemplate: createShopSupplierTemplateAction,

@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { useFormikContext } from 'formik';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -37,11 +38,16 @@ import MaterialUISelector from '#src/components/Selector/MaterialUISelector.comp
 import TagSelector from '#src/libs/tag/components/TagSelector.selector';
 import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';
 
-import type { ShopSupplier, ShopSupplierTemplate } from '#src/libs/shop/types';
+import type {
+  ShopItemBarcodeUnicity,
+  ShopSupplier,
+  ShopSupplierTemplate,
+} from '#src/libs/shop/types';
 import type { ShopItemFormValues } from '#src/libs/shop/components/ShopItemFormReworked/types';
 import type { BookkeepingAccount } from '#src/libs/payment/types';
 import type { SelectOption } from '#src/libs/types';
 import type { Tag, TagGroup, TagGroupAPI } from '#src/libs/tag/types';
+import type { OptionCallback } from '#src/state/types';
 
 import { ALMOST_100 } from '../../../../constants';
 
@@ -82,6 +88,11 @@ type Props = {
   bookkeepingAccountById?: Record<number, BookkeepingAccount>;
   initialValues: ShopItemFormValues;
   tagList?: Tag<TagGroupAPI>[];
+  showBarcodeUnicityWarning?: boolean;
+  checkBarcodeUnicity?: (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => void;
 };
 
 const ShopItemFormProductStep: React.FC<Props> = ({
@@ -95,6 +106,8 @@ const ShopItemFormProductStep: React.FC<Props> = ({
   bookkeepingAccountById,
   initialValues,
   tagList,
+  showBarcodeUnicityWarning,
+  checkBarcodeUnicity,
 }) => {
   const { t } = useTranslation(['translation', 'theme', 'common', 'shop']);
 
@@ -172,6 +185,16 @@ const ShopItemFormProductStep: React.FC<Props> = ({
         options.map((option) => option.value),
       ),
     [setFieldValue],
+  );
+
+  const handleCheckBarcodeUnicity = useCallback(
+    (event: React.FocusEvent<HTMLInputElement>) => {
+      const target = event.target;
+      if (target.value && target.value !== initialValues?.barcode) {
+        checkBarcodeUnicity?.(target.value);
+      }
+    },
+    [checkBarcodeUnicity, initialValues?.barcode],
   );
 
   const provincialTaxText = provincialTaxHelperText(
@@ -412,6 +435,7 @@ const ShopItemFormProductStep: React.FC<Props> = ({
             helperText={t(errors.barcode)}
             label={t('translation:form.shop.item.barcode')}
             name="barcode"
+            onBlur={handleCheckBarcodeUnicity}
             onChange={handleChange}
             value={values.barcode}
             variant="outlined"
@@ -482,6 +506,12 @@ const ShopItemFormProductStep: React.FC<Props> = ({
       )}
 
       <div className={classes.buttons}>
+        {showBarcodeUnicityWarning && (
+          <Alert severity="warning">
+            {t('shop:shopItemDetail.barcodeUnicityWarning')}
+          </Alert>
+        )}
+
         {isLoading ? (
           <CircularProgress />
         ) : (

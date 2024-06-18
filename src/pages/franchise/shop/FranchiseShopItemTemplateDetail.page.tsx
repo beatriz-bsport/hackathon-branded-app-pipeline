@@ -34,6 +34,7 @@ import {
   getShopItemTemplateInstanceState,
   getShopItemTemplateVariantUpdateLoading,
   getShopSupplierTemplateState,
+  getShopItemBarcodeUnicity,
   getShopItemBarcodeUnicityLoading,
   getShopItemBarcodeListUnicity,
 } from '#src/libs/shop/selectors';
@@ -346,6 +347,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         deleteShopItemTemplateVariant={this.handleDeleteShopItemTemplateVariant}
         franchiseCompanyListOptions={this.getFranchiseCompanyListOptions()}
         getShopItemBarcodeListUnicity={this.props.getShopItemBarcodeListUnicity}
+        getShopItemBarcodeUnicity={this.props.getShopItemBarcodeUnicity}
         isDeleting={this.props.isDeleteLoading}
         isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
@@ -417,6 +419,8 @@ const connector = connect(
     shopItemBarcodeUnicityLoading: getShopItemBarcodeUnicityLoading(state),
     getShopItemTemplateSupplier: (supplierTemplateId: number) =>
       getShopItemTemplateSupplier(state, supplierTemplateId),
+    getShopItemBarcodeUnicity: (barcode: string) =>
+      getShopItemBarcodeUnicity(state, barcode),
   }),
   {
     retrieveShopItemTemplate: retrieveShopItemTemplateAction,

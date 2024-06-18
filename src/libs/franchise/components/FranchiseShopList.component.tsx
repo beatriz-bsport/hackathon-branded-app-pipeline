@@ -11,6 +11,7 @@ import ShopItemFormReworked from '#src/libs/shop/components/ShopItemFormReworked
 import ShopItemDeleteConfirmDialog from '#src/libs/shop/components/ShopItemDeleteConfirmDialog.component';
 
 import type {
+  ShopItemBarcodeUnicity,
   ShopItemCreate,
   ShopItemTemplate,
   ShopSupplierTemplate,
@@ -77,6 +78,11 @@ type Props = {
     event: React.ChangeEvent<HTMLInputElement>,
     hideShopSupplierPriceForFranchisees: boolean,
   ) => void;
+  checkBarcodeUnicity: (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => void;
+  getShopItemBarcodeUnicity: (barcode: string) => boolean;
 };
 
 const FranchiseShopList: React.FC<Props> = ({
@@ -102,6 +108,8 @@ const FranchiseShopList: React.FC<Props> = ({
   createShopItemTemplate,
   deleteShopItemTemplate,
   changeHideShopSupplierPrice,
+  checkBarcodeUnicity,
+  getShopItemBarcodeUnicity,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -292,7 +300,9 @@ const FranchiseShopList: React.FC<Props> = ({
         <ShopItemFormReworked
           bookkeepingAccountById={{}} // TODO - tackled in https://bsporttest.atlassian.net/browse/BS-4055
           bookkeepingAccounts={[]} // TODO - tackled in https://bsporttest.atlassian.net/browse/BS-4055
+          checkBarcodeUnicity={checkBarcodeUnicity}
           franchiseCompanyListOptions={franchiseCompanyListOptions}
+          getShopItemBarcodeUnicity={getShopItemBarcodeUnicity}
           isLoading={isLoading}
           onCancel={handleCloseShopItemTemplateForm}
           onCreateSubmit={handleShopItemTemplateSubmit}

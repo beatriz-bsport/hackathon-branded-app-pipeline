@@ -17,6 +17,7 @@ import type {
   ShopItemEdit,
   ShopSupplierTemplate,
   ShopItemTemplate,
+  ShopItemBarcodeUnicity,
 } from '#src/libs/shop/types';
 import type { BookkeepingAccount } from '#src/libs/payment/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
@@ -36,6 +37,7 @@ import {
 } from '#src/libs/shop/components/ShopItemFormReworked/types';
 import type { SelectOption } from '#src/libs/types';
 import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
+import type { OptionCallback } from '#src/state/types';
 
 import { getShopItemFormValidationSchema } from '#src/libs/shop/components/ShopItemFormReworked/shopItemFormValidationSchema';
 
@@ -59,6 +61,11 @@ type Props = {
   tagList?: Tag<TagGroupAPI>[];
   /** Used on franchise context */
   franchiseCompanyListOptions?: SelectOption[];
+  checkBarcodeUnicity?: (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => void;
+  getShopItemBarcodeUnicity?: (barcode: string) => boolean;
 };
 
 const ShopItemFormReworked: React.FC<Props> = ({
@@ -74,7 +81,9 @@ const ShopItemFormReworked: React.FC<Props> = ({
   bookkeepingAccountById,
   tagList,
   franchiseCompanyListOptions,
-}: Props) => {
+  checkBarcodeUnicity,
+  getShopItemBarcodeUnicity,
+}) => {
   const classes = useStyles();
 
   const { t } = useTranslation('shop');
@@ -240,12 +249,16 @@ const ShopItemFormReworked: React.FC<Props> = ({
             <ShopItemFormProductStep
               bookkeepingAccountById={bookkeepingAccountById}
               bookkeepingAccounts={bookkeepingAccounts}
+              checkBarcodeUnicity={checkBarcodeUnicity}
               franchiseCompanyListOptions={franchiseCompanyListOptions}
               handleCancel={handleCancel}
               initialValues={initialValues}
               isEditForm={isEditForm}
               isLoading={isLoading}
               provincialTax={provincialTax}
+              showBarcodeUnicityWarning={
+                getShopItemBarcodeUnicity?.(values?.barcode) === false
+              }
               supplierList={supplierList}
               tagList={tagList}
             />

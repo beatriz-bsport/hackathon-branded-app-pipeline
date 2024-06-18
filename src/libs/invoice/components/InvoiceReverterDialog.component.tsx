@@ -21,6 +21,7 @@ import {
   REVERSE_ON_NEW_PAYMENT_METHOD,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_ENGINE_BSPORT,
+  PAYMENT_ENGINE_STRIPE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
 } from '@bsport/common/lib/master-data/payment-group';
 import { INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE } from '@bsport/common/lib/master-data/error-codes/payment';
@@ -131,11 +132,22 @@ export const InvoiceReverterDialog = ({
 
   const currencyDisplay = React.useMemo(() => getCurrencyDisplay(), []);
 
-  const refundAmount = (invoice.amount_paid_cts / 100).toFixed(2);
+  const stripeAmountPaid = React.useMemo(
+    () =>
+      payments.reduce((sum, payment) => {
+        if (
+          payment.payment_engine === PAYMENT_ENGINE_STRIPE &&
+          payment.payment_received != false
+        )
+          return sum + parseInt(payment.price, 10);
+        return sum;
+      }, 0),
+    [payments],
+  );
 
   const isReachingRefundLimit = isInChurn
-    ? stripeBalanceSum - invoice.amount_paid_cts / 100 < 0
-    : stripeBalanceSum - invoice.amount_paid_cts / 100 < -refundBlockingLimit;
+    ? stripeBalanceSum - stripeAmountPaid < 0
+    : stripeBalanceSum - stripeAmountPaid < -refundBlockingLimit;
 
   const submitReverseInvoice = React.useCallback(() => {
     setProcessing(true);
@@ -349,7 +361,7 @@ export const InvoiceReverterDialog = ({
           </Alert>
           <Typography>
             {t('revert.autoDebitDialog.helper', {
-              refundAmount,
+              refundAmount: stripeAmountPaid.toFixed(2),
               currencyDisplay,
             })}
           </Typography>

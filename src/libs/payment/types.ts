@@ -94,7 +94,7 @@ export type StripeSetupIntentResponse = {
 
 export type Payment = {
   uuid: string;
-  price: number;
+  price: string;
   id: number;
   payment_received: boolean;
   payment_method: number;

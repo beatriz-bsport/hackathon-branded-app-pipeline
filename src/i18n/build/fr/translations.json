@@ -6842,8 +6842,8 @@
             "title": "Événement déclencheur"
         },
         "eventTypeHelperText": {
-            "1201": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement",
-            "1200": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement",
+            "1201": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Moyens de paiement",
+            "1200": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Moyens de paiement",
             "201": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement",
             "200": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement"
         }

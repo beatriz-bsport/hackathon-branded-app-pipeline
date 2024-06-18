@@ -48,10 +48,7 @@ import {
 import type { Company } from '#src/libs/company/types';
 import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
 import { fetchConsumerPack as fetchConsumerPackAction } from '#src/libs/consumer-payment-pack/actions';
-import {
-  openNewWindowToImpersonate as openNewWindowToImpersonateAction,
-  // @ts-expect-error
-} from '#src/actions/auth.actions';
+import { openNewWindowToImpersonate } from '#src/utils/windows';
 import type { WithHandlerType } from '#src/utils/types';
 import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
 import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
@@ -93,10 +90,6 @@ export type ConnectorProps = {
   fetchConsumerPack: (
     id: number,
     options: OptionCallback<ConsumerPaymentPack>,
-  ) => Promise<void>;
-  openNewWindowToImpersonate: (
-    companyId: number,
-    urlToImpersonate: string,
   ) => Promise<void>;
 };
 
@@ -142,7 +135,6 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
   onSelectConsumerPass,
   fetchPaymentPackBulk,
   fetchConsumerPack,
-  openNewWindowToImpersonate,
 }) => {
   const { t } = useTranslation(['franchise', 'paymentPack']);
   const classes = useStyles();
@@ -217,11 +209,7 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
         `/member/${memberId}/pass/${selectedConsumerPaymentPackId}`,
       );
     }
-  }, [
-    selectedConsumerPass,
-    selectedConsumerPaymentPackId,
-    openNewWindowToImpersonate,
-  ]);
+  }, [selectedConsumerPass, selectedConsumerPaymentPackId]);
 
   const goToInvoice = React.useCallback(() => {
     if (
@@ -235,7 +223,7 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
       const invoiceUuid = consumerPackInvoice.uuid;
       openNewWindowToImpersonate(companyId, `/invoice/${invoiceUuid}/`);
     }
-  }, [selectedConsumerPass, consumerPackInvoice, openNewWindowToImpersonate]);
+  }, [selectedConsumerPass, consumerPackInvoice]);
 
   const isAllowed = React.useCallback(
     (companyId: number) =>
@@ -414,7 +402,6 @@ const connector = connect(
     fetchConsumerPack: fetchConsumerPackAction,
     fetchInvoice: fetchSpecificInvoice,
     fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
-    openNewWindowToImpersonate: openNewWindowToImpersonateAction,
   },
 );
 

@@ -42,8 +42,7 @@ import { getPaymentPackTemplate } from '../../../libs/payment-packs/selectors';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import withTitle from '../../../hocs/with-title.hoc';
 
-// @ts-expect-error
-import { openNewWindowToImpersonate } from '../../../actions/auth.actions';
+import { openNewWindowToImpersonate } from '#src/utils/windows';
 
 type OwnProps = { paymentPackTemplateId: number };
 
@@ -67,6 +66,17 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
       this.props.openCreateForm();
     }
   }
+
+  goToConsumerPaymentPackDetail = (
+    companyId: number,
+    memberId: number,
+    consumerPackId: number,
+  ) => {
+    openNewWindowToImpersonate(
+      companyId,
+      `/member/${memberId}/pass/${consumerPackId}`,
+    );
+  };
 
   render() {
     if (!this.props.paymentPackTemplate) {
@@ -96,7 +106,7 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
               loading={this.props.consumerPaymentPack.loading}
               nbItems={this.props.consumerPaymentPack.count}
               onClick={(cpp: any) => {
-                this.props.goToConsumerPaymentPackDetail(
+                this.goToConsumerPaymentPackDetail(
                   cpp.payment_pack.company,
                   cpp.member_id,
                   cpp.id,
@@ -161,12 +171,6 @@ const connector = connect(
   }),
   {
     pushRouter: pushAction,
-    // @ts-expect-error
-    goToConsumerPaymentPackDetail: (companyId, memberId, consumerPackId) =>
-      openNewWindowToImpersonate(
-        companyId,
-        `/member/${memberId}/pass/${consumerPackId}`,
-      ),
     retrievePaymentPackTemplate: retrievePaymentPackTemplateAction,
     createPaymentPackTemplateInstance: createPaymentPackTemplateInstanceAction,
     deletePaymentPackTemplateInstance: deletePaymentPackTemplateInstanceAction,

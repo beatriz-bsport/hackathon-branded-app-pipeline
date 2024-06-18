@@ -17,8 +17,7 @@ import {
   updateFranchiseUserTags as updateFranchiseUserTagsActions,
 } from '#src/libs/franchise/actions';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
-// @ts-expect-error
-import { openNewWindowToImpersonate as openNewWindowToImpersonateAction } from '#src/actions/auth.actions';
+import { openNewWindowToImpersonate } from '#src/utils/windows';
 
 import FranchiseMemberDetailsCard from '#src/libs/franchise/components/FranchiseMemberDetailsCard.components';
 import type { RootState } from '#src/reducers';
@@ -65,7 +64,6 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
   membersCount,
   membersLoading,
   membersPage,
-  openNewWindowToImpersonate,
   tags,
   tagsByTagGroup,
   tagsCount,
@@ -102,7 +100,7 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
         );
       }
     },
-    [user, openNewWindowToImpersonate],
+    [user],
   );
 
   const fetchMembersList = React.useCallback(
@@ -252,7 +250,6 @@ const connector = connect(
     updateFranchiseUserTags: updateFranchiseUserTagsActions,
     fetchAllGroupTemplates: fetchAllGroupTemplatesActions,
     fetchAllTagTemplates: fetchAllTagTemplatesActions,
-    openNewWindowToImpersonate: openNewWindowToImpersonateAction,
   },
 );
 

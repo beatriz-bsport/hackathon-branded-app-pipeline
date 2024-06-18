@@ -34,8 +34,7 @@ import {
   getPrivateConsumerPassList,
   withMember,
 } from '#src/libs/private-service/selectors/private-consumer-pass';
-// @ts-expect-error
-import { openNewWindowToImpersonate } from '../../../actions/auth.actions';
+import { openNewWindowToImpersonate } from '#src/utils/windows';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../../libs/member/actions';
 import { RootState } from '../../../reducers';
 import { parseQueryString } from '../../../http';
@@ -59,6 +58,17 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
       this.props.openCreateForm();
     }
   }
+
+  goToPrivateConsumerPassDetail = (
+    companyId: number,
+    memberId: number,
+    consumerPackId: number,
+  ) => {
+    openNewWindowToImpersonate(
+      companyId,
+      `/member/${memberId}/private-consumer-pass/${consumerPackId}`,
+    );
+  };
 
   render() {
     if (!this.props.privatePassTemplate) {
@@ -101,7 +111,7 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
                 private_pass: { company: number };
                 id: number;
               }) => {
-                this.props.goToPrivateConsumerPassDetail(
+                this.goToPrivateConsumerPassDetail(
                   cpp.private_pass.company,
                   cpp.member?.id,
                   cpp.id,
@@ -157,12 +167,6 @@ const connector = connect(
     companies: getFranchiseCompanies(state),
   }),
   {
-    // @ts-expect-error
-    goToPrivateConsumerPassDetail: (companyId, memberId, consumerPackId) =>
-      openNewWindowToImpersonate(
-        companyId,
-        `/member/${memberId}/private-consumer-pass/${consumerPackId}`,
-      ),
     retrievePrivatePassTemplate: retrievePrivatePassTemplateAction,
     createPrivatePassTemplateInstance: createPrivatePassTemplateInstanceAction,
     deletePrivatePassTemplateInstance: deletePrivatePassTemplateInstanceAction,

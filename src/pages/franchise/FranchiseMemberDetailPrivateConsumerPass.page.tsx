@@ -35,10 +35,6 @@ import type { Invoice, InvoiceV1Serializer } from '#src/libs/invoice/types';
 import { FRANCHISE_PRIVATE_CONSUMER_PASS_PAGE_DEFAULT_SIZE } from '#src/libs/franchise/constants';
 import { fetchCompanyGroupList as fetchCompanyGroupListAction } from '#src/libs/franchise/actions';
 import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '#src/libs/invoice/actions';
-import {
-  openNewWindowToImpersonate as openNewWindowToImpersonateAction,
-  // @ts-expect-error
-} from '../../actions/auth.actions';
 import { getPrivateConsumerPass } from '#src/libs/private-service/selectors/private-consumer-pass';
 import {
   fetchPrivateConsumerPassList as fetchPrivateConsumerPassListAction,
@@ -48,6 +44,7 @@ import InvoiceListItem from '#src/libs/invoice/InvoiceListItem.component';
 import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
+import { openNewWindowToImpersonate } from '#src/utils/windows';
 
 type ParamsProps = {
   userId: number;
@@ -81,7 +78,6 @@ const FranchiseMemberDetailPrivateConsumerPass: React.FC<Props> = ({
   fetchCompanyGroupList,
   fetchInvoiceByInvoiceItem,
   fetchPrivateConsumerPass,
-  openNewWindowToImpersonate,
 }) => {
   const { t } = useTranslation(['franchise', 'paymentPack', 'privateService']);
   const classes = useStyles();
@@ -148,11 +144,7 @@ const FranchiseMemberDetailPrivateConsumerPass: React.FC<Props> = ({
         `/member/${memberId}/private-consumer-pass/${selectedPrivateConsumerPassId}`,
       );
     }
-  }, [
-    selectedPrivateConsumerPassId,
-    selectedConsumerPass,
-    openNewWindowToImpersonate,
-  ]);
+  }, [selectedPrivateConsumerPassId, selectedConsumerPass]);
 
   const goToInvoice = React.useCallback(() => {
     if (
@@ -166,7 +158,7 @@ const FranchiseMemberDetailPrivateConsumerPass: React.FC<Props> = ({
       const invoiceUuid = relatedInvoice.uuid;
       openNewWindowToImpersonate(companyId, `/invoice/${invoiceUuid}/`);
     }
-  }, [selectedConsumerPass, relatedInvoice, openNewWindowToImpersonate]);
+  }, [selectedConsumerPass, relatedInvoice]);
 
   const isAllowed = React.useCallback(
     (companyId: number) =>
@@ -373,7 +365,6 @@ const connector = connect(
     fetchPrivateConsumerPassList: fetchPrivateConsumerPassListAction,
     fetchPrivateConsumerPass: fetchPrivateConsumerPassAction,
     fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
-    openNewWindowToImpersonate: openNewWindowToImpersonateAction,
   },
 );
 

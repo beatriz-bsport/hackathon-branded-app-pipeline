@@ -37,10 +37,7 @@ import {
 } from '../../libs/establishment/selectors';
 import { Establishment } from '../../libs/establishment/types';
 
-import {
-  openNewWindowToImpersonate as openNewWindowToImpersonateAction,
-  // @ts-expect-error
-} from '../../actions/auth.actions';
+import { openNewWindowToImpersonate } from '#src/utils/windows';
 
 type OwnProps = {
   companyId: number;
@@ -127,16 +124,13 @@ export class FranchiseCompanyList extends Component<Props, State> {
 
   goToCompany = (companyId: number) => () => {
     if (companyId) {
-      this.props.openNewWindowToImpersonate(companyId, '');
+      openNewWindowToImpersonate(companyId, '');
     }
   };
 
   goToUser = (companyId: number) => (memberId: number) => () => {
     if (companyId && memberId) {
-      this.props.openNewWindowToImpersonate(
-        companyId,
-        `/member/${memberId}/info`,
-      );
+      openNewWindowToImpersonate(companyId, `/member/${memberId}/info`);
     }
   };
 
@@ -248,7 +242,6 @@ const connector = connect(
       }),
     fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
     fetchEstablishmentBulk: fetchEstablishmentBulkAction,
-    openNewWindowToImpersonate: openNewWindowToImpersonateAction,
     push: pushAction,
     createOrUpdateCompanyGroup,
   },

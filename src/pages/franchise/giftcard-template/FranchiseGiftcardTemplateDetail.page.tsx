@@ -59,8 +59,7 @@ import { OptionCallback } from '../../../state/types';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import withTitle from '../../../hocs/with-title.hoc';
 import { WithHandlerType } from '../../../utils/types';
-// @ts-expect-error
-import { openNewWindowToImpersonate } from '../../../actions/auth.actions';
+import { openNewWindowToImpersonate } from '#src/utils/windows';
 
 type OwnProps = {
   giftcardTemplateId: number;
@@ -147,6 +146,17 @@ export class GiftcardDetailPage extends Component<Props> {
     };
   };
 
+  goToMemberGiftcard = (
+    companyId: number,
+    memberId: number,
+    consumerGiftcardId: number,
+  ) => {
+    openNewWindowToImpersonate(
+      companyId,
+      `/member/${memberId}/giftcard/${consumerGiftcardId}`,
+    );
+  };
+
   render() {
     const { classes, t } = this.props;
     if (!this.props.giftcardTemplate) {
@@ -211,7 +221,7 @@ export class GiftcardDetailPage extends Component<Props> {
                   onClickReceiver={
                     cgc.dst_member &&
                     ((consumerGiftcardId: number, memberId: number) =>
-                      this.props.goToMemberGiftcard(
+                      this.goToMemberGiftcard(
                         cgc.giftcard_company,
                         consumerGiftcardId,
                         memberId,
@@ -221,7 +231,7 @@ export class GiftcardDetailPage extends Component<Props> {
                     consumerGiftcardId: number,
                     memberId: number,
                   ) =>
-                    this.props.goToMemberGiftcard(
+                    this.goToMemberGiftcard(
                       cgc.giftcard_company,
                       consumerGiftcardId,
                       memberId,
@@ -263,15 +273,6 @@ const connector = connect(
   }),
   {
     fetchMemberBulkById: fetchMemberBulkByIdAction,
-    goToMemberGiftcard: (
-      companyId: number,
-      consumerGiftcardId: number,
-      memberId: number,
-    ) =>
-      openNewWindowToImpersonate(
-        companyId,
-        `/member/${memberId}/giftcard/${consumerGiftcardId}`,
-      ),
     fetchConsumerGiftcardList: fetchConsumerGiftcardListAction,
     fetchFranchise: fetchFranchiseAction,
     goToGiftcardTemplateList: () => push('/f/giftcard-template'),

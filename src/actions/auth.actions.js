@@ -54,6 +54,7 @@ import {
   getItemInStorage,
   removeItemInStorage,
   setItemInStorage,
+  storageToString,
 } from '../utils/storage';
 
 import { getBaseURL } from '../utils/urlUtils';
@@ -538,35 +539,6 @@ function impersonateManagerLoading(loading: boolean) {
   return { type: types.IMPERSONATE_MANAGER_LOADING, loading };
 }
 
-export function openNewWindowToImpersonate(
-  companyId: number,
-  urlToImpersonate: string,
-) {
-  return async (dispatch: Dispatch) => {
-    try {
-      const baseUrl = getBaseURL();
-      const originUrl = window.location.href
-        .toString()
-        .split(window.location.host)[1];
-
-      setItemInStorage(
-        'session',
-        STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL,
-        originUrl,
-      );
-      setItemInStorage(
-        'local',
-        STORAGE_KEY_BSPORT_IMPERSONATED_GOTO_URL,
-        urlToImpersonate,
-      );
-
-      window.open(`${baseUrl}/impersonate/${companyId}`, '_blank');
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-}
-
 export function navigateAsCompanyAdmin(
   companyId: number,
   url?: string,
@@ -616,7 +588,7 @@ export function navigateAsCompanyAdmin(
       );
 
       dispatch(impersonateManagerLoading(false));
-      if (url) {
+      if (url != null) {
         dispatch(push(url));
       }
 

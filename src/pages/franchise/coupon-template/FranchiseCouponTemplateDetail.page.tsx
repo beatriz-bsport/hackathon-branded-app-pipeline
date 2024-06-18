@@ -34,8 +34,7 @@ import {
   getFranchiseCompanies,
   getAllowedFranchisees,
 } from '../../../libs/franchise/selectors';
-// @ts-expect-error
-import { openNewWindowToImpersonate } from '../../../actions/auth.actions';
+import { openNewWindowToImpersonate } from '#src/utils/windows';
 import { OptionCallback } from '../../../state/types';
 import { WithHandlerType } from '../../../utils/types';
 
@@ -63,6 +62,14 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
     }
   }
 
+  goToInvoice = (companyId: number, invoiceUuid: string) => {
+    openNewWindowToImpersonate(companyId, `/invoice/${invoiceUuid}`);
+  };
+
+  goToBillingPlan = (companyId: number, id: number) => {
+    openNewWindowToImpersonate(companyId, `/subscription/${id}`);
+  };
+
   render() {
     if (!this.props.couponTemplate) {
       return <LinearProgress />;
@@ -84,8 +91,8 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
               allowedFranchisees={this.props.allowedFranchisees}
               // @ts-expect-error
               companies={this.props.couponTemplate.companies}
-              goToBillingPlan={this.props.goToBillingPlan}
-              goToInvoice={this.props.goToInvoice}
+              goToBillingPlan={this.goToBillingPlan}
+              goToInvoice={this.goToInvoice}
               itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
               items={this.props.discount.items}
               loading={this.props.discount.loading}
@@ -170,10 +177,6 @@ const connector = connect(
     fetchPrivatePassTemplateList: fetchPrivatePassTemplateListAction,
     fetchDiscountList: fetchDiscountListAction,
     goToTemplateList: () => pushAction('/f/coupon-template'),
-    goToInvoice: (companyId: number, invoiceUuid: string) =>
-      openNewWindowToImpersonate(companyId, `/invoice/${invoiceUuid}`),
-    goToBillingPlan: (companyId: number, id: number) =>
-      openNewWindowToImpersonate(companyId, `/subscription/${id}`),
   },
 );
 

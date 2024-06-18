@@ -35,7 +35,7 @@ exports.default = {
     primaryText: {
       send: {
         email: 'An email will be sent',
-        push: 'A notification will be sent',
+        push: 'A push notification will be sent',
         emailAndPush: 'An email and a push notification will be sent',
       },
       smartlist: {

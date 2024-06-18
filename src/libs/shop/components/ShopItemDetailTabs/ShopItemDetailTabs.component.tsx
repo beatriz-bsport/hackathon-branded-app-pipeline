@@ -21,6 +21,7 @@ import type {
   ShopItem,
   ProvisionCreate,
   Provision,
+  ShopItemBarcodeUnicity,
 } from '#src/libs/shop/types';
 import type { SelectOption } from '#src/libs/types';
 import ShopItemDetailInventoryTab from './tabs/ShopItemDetailInventoryTab.component';
@@ -73,6 +74,11 @@ type Props = {
   changeInventoryVariantFilter: (
     type: 'colors' | 'sizes',
   ) => (options: SelectOption[]) => void;
+  checkBarcodeUnicity: (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => void;
+  getShopItemBarcodeListUnicity: (barcodeList: string[]) => boolean;
 };
 
 const ShopItemDetailTabs: React.FC<Props> = ({
@@ -102,6 +108,8 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   setIsVariantEditMode,
   setQueryParam,
   changeInventoryVariantFilter,
+  checkBarcodeUnicity,
+  getShopItemBarcodeListUnicity,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -184,8 +192,10 @@ const ShopItemDetailTabs: React.FC<Props> = ({
             />
 
             <ShopItemDetailVariantsTab
+              checkBarcodeUnicity={checkBarcodeUnicity}
               companyId={companyId}
               count={count}
+              getShopItemBarcodeListUnicity={getShopItemBarcodeListUnicity}
               handleOpenBarcodeModal={handleOpenBarcodeModal}
               handleOpenVariantDrawer={handleOpenVariantDrawer}
               isDeletingVariant={isDeletingVariant}

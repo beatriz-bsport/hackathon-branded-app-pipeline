@@ -28,10 +28,14 @@ import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 import { CustomChip } from '#src/components/chip/CustomChip.component';
 import ShopItemVariantBulkUpdateForm from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm';
-import shopItemVariantBulkUpdateFormValidationSchema from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/shopItemVariantBulkUpdateFormValidationSchema';
+import shopItemVariantBulkFormValidationSchema from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/shopItemVariantBulkUpdateFormValidationSchema';
 
-import type { ShopItem } from '#src/libs/shop/types';
-import type { ShopItemVariantBulkUpdateFormValues } from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/types';
+import type { ShopItem, ShopItemBarcodeUnicity } from '#src/libs/shop/types';
+import type {
+  ShopItemVariantBulkUpdateFormRow,
+  ShopItemVariantBulkUpdateFormValues,
+} from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/types';
+import type { OptionCallback } from '#src/state/types';
 
 import Config from '../../../../config';
 import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#src/libs/shop/constants';
@@ -48,6 +52,11 @@ type Props = {
   onDeleteShopItemVariant: (id: number) => void;
   shopItemVariantList: ShopItem[];
   isSupplierPriceHidden?: boolean;
+  checkBarcodeUnicity: (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => void;
+  getShopItemBarcodeListUnicity: (barcodeList: string[]) => boolean;
 };
 
 type TableRowItemProps = Pick<
@@ -198,6 +207,8 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
   onDeleteShopItemVariant,
   shopItemVariantList,
   isSupplierPriceHidden,
+  checkBarcodeUnicity,
+  getShopItemBarcodeListUnicity,
 }) => {
   const { t } = useTranslation(['common', 'shop']);
 
@@ -220,35 +231,61 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
     [shopItemVariantList],
   );
 
+  const getShowBarcodeUnicityWarning = useCallback(
+    (variants: ShopItemVariantBulkUpdateFormRow[]) =>
+      getShopItemBarcodeListUnicity(
+        variants.map((variant) => variant.barcode),
+      ) === false,
+    [getShopItemBarcodeListUnicity],
+  );
+
   return (
     <Formik<ShopItemVariantBulkUpdateFormValues>
       enableReinitialize
       initialValues={initialValues}
       onReset={handleDisableEditMode}
       onSubmit={handleSubmit}
-      validationSchema={shopItemVariantBulkUpdateFormValidationSchema}
+      validationSchema={shopItemVariantBulkFormValidationSchema}
     >
-      {({ errors }) => (
+      {({ isValid, isSubmitting, errors, values }) => (
         <Form noValidate>
           <TableContainer className={classes.tableContainer}>
             {isVariantEditMode && (
-              <div className={classes.tableEditActions}>
-                {errors.variants?.length > 0 && (
-                  <Alert
-                    className={classes.tableErrorContainer}
-                    severity="error"
+              <>
+                <div className={classes.tableEditActions}>
+                  <Button color="secondary" type="reset" variant="outlined">
+                    {t('common:cancel')}
+                  </Button>
+                  <Button
+                    color="primary"
+                    disabled={!isValid || isSubmitting}
+                    type="submit"
+                    variant="contained"
                   >
-                    {t('shop:shopItemDetail.table.variants.formError')}
-                  </Alert>
-                )}
-
-                <Button color="secondary" type="reset" variant="outlined">
-                  {t('common:cancel')}
-                </Button>
-                <Button color="primary" type="submit" variant="contained">
-                  {t('common:saveChanges')}
-                </Button>
-              </div>
+                    {t('common:saveChanges')}
+                  </Button>
+                </div>
+                <div className={classes.formAlerts}>
+                  {!isValid && errors.variants?.length > 0 && (
+                    <Alert
+                      className={classes.tableAlertContainer}
+                      severity="error"
+                    >
+                      {t('shop:shopItemDetail.table.variants.formError.price')}
+                    </Alert>
+                  )}
+                  {getShowBarcodeUnicityWarning(values.variants) && (
+                    <Alert
+                      className={classes.tableAlertContainer}
+                      severity="warning"
+                    >
+                      {t(
+                        'shop:shopItemDetail.table.variants.formWarning.barcode',
+                      )}
+                    </Alert>
+                  )}
+                </div>
+              </>
             )}
             {!isVariantEditMode && (
               <div className={classes.tableEditActions}>
@@ -299,7 +336,9 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
               </TableHead>
 
               {isVariantEditMode ? (
-                <ShopItemVariantBulkUpdateForm />
+                <ShopItemVariantBulkUpdateForm
+                  checkBarcodeUnicity={checkBarcodeUnicity}
+                />
               ) : (
                 <TableBody>
                   {shopItemVariantList.map((row) => (
@@ -340,9 +379,15 @@ const useStyles = makeStyles((theme) => ({
   variantImage: {
     width: 48,
   },
-  tableErrorContainer: {
+  tableAlertContainer: {
     height: SHOP_TABLE_ERROR_CONTAINER_HEIGHT,
     alignItems: 'center',
+  },
+  formAlerts: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+    alignItems: 'flex-end',
   },
 }));
 

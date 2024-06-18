@@ -8,6 +8,7 @@ import withQueryParams from '#src/hocs/with-query-params.hoc';
 // --- ACTIONS ---
 import {
   retrieveShopItemDetails as retrieveShopItemDetailsAction,
+  retrieveShopItemBarcodeUnicity as retrieveShopItemBarcodeUnicityAction,
   fetchShopItemVariantList as fetchShopItemVariantListAction,
   updateShopItem as updateShopItemAction,
   updateShopItemVariantBulk as updateShopItemVariantBulkAction,
@@ -44,6 +45,8 @@ import {
   getShopItemVariantCombinationList,
   getShopSupplierState,
   getShopItemVariantFilterOptionList,
+  getShopItemBarcodeUnicityLoading,
+  getShopItemBarcodeListUnicity,
 } from '#src/libs/shop/selectors';
 import {
   getBookkeepingAccountList,
@@ -64,6 +67,7 @@ import type {
   ProvisionBulkCreate,
   ProvisionCreate,
   ShopItem,
+  ShopItemBarcodeUnicity,
   ShopItemEdit,
   ShopItemVariantAttributes,
 } from '#src/libs/shop/types';
@@ -312,12 +316,22 @@ export class ShopItemDetailPage extends Component<Props> {
     return { colors, sizes };
   };
 
+  /**
+   * When entering a barcode in the variant form, we check the unicity of it
+   * @param barcode The barcode to check
+   */
+  checkBarcodeUnicity = (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => this.props.retrieveShopItemBarcodeUnicity(barcode, options);
+
   render() {
     return (
       <ShopItemDetail
         bookkeepingAccountById={this.props.bookkeepingAccountById}
         bookkeepingAccounts={this.props.bookkeepingAccounts}
         changeInventoryVariantFilter={this.handleChangeInventoryVariantFilters}
+        checkBarcodeUnicity={this.checkBarcodeUnicity}
         companyId={this.props.theme.company}
         count={this.props.shopItemVariantState.count}
         createShopItemProvision={this.handleCreateShopItemProvision}
@@ -326,6 +340,7 @@ export class ShopItemDetailPage extends Component<Props> {
         deleteShopItem={this.handleDeleteShopItem}
         deleteShopItemVariant={this.handleDeleteShopItemVariant}
         getIsShopItemUsedInCombo={this.props.getIsShopItemUsedInCombo}
+        getShopItemBarcodeListUnicity={this.props.getShopItemBarcodeListUnicity}
         isDeleting={this.props.isDeleteLoading}
         isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
@@ -379,10 +394,14 @@ const connector = connect(
     bookkeepingAccounts: getBookkeepingAccountList(state),
     bookkeepingAccountById: getBookkeepingAccountById(state),
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+    getShopItemBarcodeListUnicity: (barcodeList: string[]) =>
+      getShopItemBarcodeListUnicity(state, barcodeList),
+    shopItemBarcodeUnicityLoading: getShopItemBarcodeUnicityLoading(state),
   }),
   {
     retrieveShopItemUsedInCombo: retrieveShopItemUsedInComboAction,
     retrieveShopItemDetails: retrieveShopItemDetailsAction,
+    retrieveShopItemBarcodeUnicity: retrieveShopItemBarcodeUnicityAction,
     fetchShopItemVariantList: fetchShopItemVariantListAction,
     updateShopItem: updateShopItemAction,
     retrieveShopItemSupplier: retrieveShopItemSupplierAction,

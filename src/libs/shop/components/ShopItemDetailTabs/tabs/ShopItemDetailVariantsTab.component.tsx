@@ -12,7 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ShopItemDetailVariantList from '#src/libs/shop/components/ShopItemDetailVariantList';
 import ShopItemDetailVariantListMobile from '#src/libs/shop/components/ShopItemDetailVariantListMobile';
 
-import type { ShopItem } from '#src/libs/shop/types';
+import type { ShopItem, ShopItemBarcodeUnicity } from '#src/libs/shop/types';
 import type { ShopItemVariantBulkUpdateFormValues } from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/types';
 
 import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '#src/libs/shop/constants';
@@ -33,6 +33,11 @@ type Props = {
   updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
   setIsVariantEditMode: (value: boolean) => void;
   setQueryParam: (queryParam: string) => (value: string) => void;
+  checkBarcodeUnicity: (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => void;
+  getShopItemBarcodeListUnicity: (barcodeList: string[]) => boolean;
 };
 
 const ShopItemDetailVariantsTab: React.FC<Props> = ({
@@ -49,6 +54,8 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
   updateShopItemVariantBulk,
   setIsVariantEditMode,
   setQueryParam,
+  checkBarcodeUnicity,
+  getShopItemBarcodeListUnicity,
 }) => {
   const { t } = useTranslation(['shop', 'common']);
 
@@ -148,7 +155,9 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
         />
       ) : (
         <ShopItemDetailVariantList
+          checkBarcodeUnicity={checkBarcodeUnicity}
           companyId={companyId}
+          getShopItemBarcodeListUnicity={getShopItemBarcodeListUnicity}
           handleDisableEditMode={handleDisableEditMode}
           handleEnableEditMode={handleEnableEditMode}
           handleOpenVariantDrawer={handleOpenVariantDrawer}

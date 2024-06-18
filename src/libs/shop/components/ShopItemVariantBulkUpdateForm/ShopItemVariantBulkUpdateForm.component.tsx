@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import {
@@ -30,6 +30,8 @@ import type {
   ShopItemVariantBulkUpdateFormRow,
   ShopItemVariantBulkUpdateFormValues,
 } from './types';
+import type { ShopItemBarcodeUnicity } from '#src/libs/shop/types';
+import type { OptionCallback } from '#src/state/types';
 
 import { SHOP_VARIANT_BULK_UPDATE_FORM_COVER_CHIP_MAX_WIDTH } from '#src/libs/shop/constants';
 
@@ -37,14 +39,23 @@ type OwnFieldArrayRenderProps = {
   form: FormikProps<ShopItemVariantBulkUpdateFormValues>;
 };
 
-const ShopItemVariantBulkUpdateForm: React.FC = () => {
+type Props = {
+  checkBarcodeUnicity: (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => void;
+};
+
+const ShopItemVariantBulkUpdateForm: React.FC<Props> = ({
+  checkBarcodeUnicity,
+}) => {
   const { t } = useTranslation('shop');
 
   const emptyFn = () => {};
 
   const classes = useStyles();
 
-  const { errors, dirty, resetForm, submitForm } =
+  const { values, errors, dirty, initialValues, resetForm, submitForm } =
     useFormikContext<ShopItemVariantBulkUpdateFormValues>();
 
   const {
@@ -70,11 +81,21 @@ const ShopItemVariantBulkUpdateForm: React.FC = () => {
     submitForm,
   ]);
 
+  const handleCheckBarcodeUnicity = useCallback(
+    (initialBarcode: string) => (event: React.FocusEvent<HTMLInputElement>) => {
+      const target = event.target;
+      if (target.value && target.value !== initialBarcode) {
+        checkBarcodeUnicity(target.value);
+      }
+    },
+    [checkBarcodeUnicity],
+  );
+
   return (
     <TableBody>
       <FieldArray name="variants">
         {({
-          form: { setFieldValue, setFieldTouched, values },
+          form: { setFieldValue, setFieldTouched },
         }: OwnFieldArrayRenderProps) =>
           (values?.variants ?? []).map((row, index: number) => (
             <TableRow key={row.id}>
@@ -194,7 +215,12 @@ const ShopItemVariantBulkUpdateForm: React.FC = () => {
                   name={`variants.${index}.barcode`}
                 >
                   {({ field }: { field: FieldInputProps<string> }) => (
-                    <TextField {...field} />
+                    <TextField
+                      {...field}
+                      onBlur={handleCheckBarcodeUnicity(
+                        initialValues.variants[index].barcode,
+                      )}
+                    />
                   )}
                 </FastField>
               </TableCell>

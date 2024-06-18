@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 
@@ -48,7 +48,7 @@ const Countdown: React.FC<CountdownProps> = ({ timeToShow, typography }) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   countdownWrapper: {
     display: 'flex',
     alignItems: 'center',

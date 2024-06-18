@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -71,16 +71,20 @@ const localeList: Array<Locale> = [
   },
 ];
 
-export const CountrySelector: React.FC<Props> = (props) => {
+export const CountrySelector: React.FC<Props> = ({
+  label,
+  value,
+  onChange,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation(['login']);
 
   return (
     <FormControl className={classes.formControl}>
-      {props.label && (
-        <InputLabel id="locale-simple-select-label">{props.label}</InputLabel>
+      {label && (
+        <InputLabel id="locale-simple-select-label">{label}</InputLabel>
       )}
-      <Select onChange={props.onChange} value={props.value}>
+      <Select onChange={onChange} value={value}>
         {localeList.map((localeContainer) => (
           <MenuItem
             key={localeContainer.country}
@@ -100,7 +104,7 @@ export const CountrySelector: React.FC<Props> = (props) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 120,
   },

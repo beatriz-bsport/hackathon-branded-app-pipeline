@@ -135,7 +135,7 @@ const ColorInput: React.FC<ColorInputProps> = ({
 
 export default React.memo(ColorInput);
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   buttons: {
     padding: '3px',
     marginLeft: '10px',

@@ -8,6 +8,7 @@ import type {
   IsShopUsedInComboAPI,
   Provision,
   ShopItem,
+  ShopItemBarcodeUnicity,
   ShopItemTemplate,
   ShopItemVariantCombination,
   ShopStateReworked,
@@ -20,6 +21,7 @@ import {
   fetchShopItemBaseListActions,
   fetchShopItemStandaloneListActions,
   retrieveShopItemDetailsActions,
+  retrieveShopItemBarcodeUnicityActions,
   retrieveShopItemUsedInComboActions,
   fetchShopItemVariantListActions,
   createShopItemActions,
@@ -73,6 +75,8 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
     shopItemReworked: {
       /** State for shop list related actions */
       duplicate: { error: null, loading: false },
+      /** State for checking a barcode unicity */
+      barcodeUnicity: { error: null, loading: false },
       /** State for shop item details - only base/standalone items here */
       itemDetails: {
         error: null,
@@ -301,6 +305,35 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
           },
         },
         { deep: true },
+      );
+    },
+    [retrieveShopItemBarcodeUnicityActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'barcodeUnicity', 'loading'],
+        payload,
+      );
+    },
+    [retrieveShopItemBarcodeUnicityActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'barcodeUnicity', 'error'],
+        payload,
+      );
+    },
+    [retrieveShopItemBarcodeUnicityActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: { barcode: string; data: ShopItemBarcodeUnicity } },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'barcodeUnicity', payload.barcode],
+        payload.data.barcode_is_unique,
       );
     },
     [retrieveShopItemUsedInComboActions.isLoading.toString()]: (

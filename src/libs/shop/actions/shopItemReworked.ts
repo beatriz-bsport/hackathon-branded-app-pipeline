@@ -22,6 +22,7 @@ import type {
   ShopItemVariantCombination,
   ShopItemTemplate,
   ShopItemTemplateFilterParams,
+  ShopItemBarcodeUnicity,
 } from '#src/libs/shop/types';
 import type {
   Dispatch,
@@ -31,6 +32,7 @@ import type {
 import {
   fetchShopItemList as fetchShopItemListAPI,
   retrieveShopItemDetails as retrieveShopItemDetailsAPI,
+  retrieveShopItemBarcodeUnicity as retrieveShopItemBarcodeUnicityAPI,
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAPI,
   createShopItem as createShopItemAPI,
   createShopItemVariants as createShopItemVariantsAPI,
@@ -126,6 +128,46 @@ export const fetchShopItemStandaloneList = (
       options?.onError?.();
     } finally {
       dispatch(fetchShopItemStandaloneListActions.isLoading(false));
+    }
+  };
+};
+
+export const retrieveShopItemBarcodeUnicityActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM/BARCODE_UNICITY/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM/BARCODE_UNICITY/ERROR'),
+  success: createAction<{ barcode: string; data: ShopItemBarcodeUnicity }>(
+    'SHOP_ITEM/BARCODE_UNICITY/SUCCESS',
+  ),
+};
+
+/**
+ * Check if a provided shop item barcode is unique (not used by another shop item)
+ * @param barcode The barcode to check
+ */
+export const retrieveShopItemBarcodeUnicity = (
+  barcode: string,
+  options?: OptionCallback<ShopItemBarcodeUnicity>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(retrieveShopItemBarcodeUnicityActions.isLoading(true));
+      dispatch(retrieveShopItemBarcodeUnicityActions.error(null));
+
+      const result = await retrieveShopItemBarcodeUnicityAPI(barcode);
+
+      dispatch(
+        retrieveShopItemBarcodeUnicityActions.success({
+          barcode,
+          data: result.data,
+        }),
+      );
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(retrieveShopItemBarcodeUnicityActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(retrieveShopItemBarcodeUnicityActions.isLoading(false));
     }
   };
 };

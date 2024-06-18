@@ -35,6 +35,7 @@ import type {
   ShopItemTemplateFilterParams,
   ShopSupplierTemplate,
   ShopSupplierTemplateCreate,
+  ShopItemBarcodeUnicity,
 } from './types';
 
 /**
@@ -192,6 +193,16 @@ export const fetchShopItemList = (params?: ShopItemFilterParams) => {
  */
 export const retrieveShopItemDetails = (id: number) => {
   return getAuth<ShopItem>(`${API_V1_URI}/shop/item/${id}`);
+};
+
+/**
+ * Check if a provided shop item barcode is unique (not used by another shop item)
+ * @param barcode The barcode to check
+ */
+export const retrieveShopItemBarcodeUnicity = (barcode: string) => {
+  return getAuth<ShopItemBarcodeUnicity>(
+    `${API_V1_URI}/shop/item/barcode-unicity/${buildUrlParams({ barcode })}`,
+  );
 };
 
 /**

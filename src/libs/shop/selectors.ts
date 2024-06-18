@@ -122,6 +122,25 @@ const getShopSupplierAllIds = (state: RootState) =>
 const getSupplierState = (state: RootState) =>
   state.shopReworked.shopItemReworked.suppliers;
 
+export const getShopItemBarcodeListUnicity = (
+  state: RootState,
+  barcodeList: string[],
+) => {
+  const barcodeState = state.shopReworked.shopItemReworked.barcodeUnicity;
+  const barcodeUnicityArray = [...new Set(barcodeList)].reduce(
+    (acc, barcode: string) => [...acc, barcodeState[barcode]],
+    [],
+  );
+  if (barcodeUnicityArray.includes(false)) return false;
+  return true;
+};
+
+export const getShopItemBarcodeUnicity = (state: RootState, barcode: string) =>
+  state.shopReworked.shopItemReworked.barcodeUnicity[barcode];
+
+export const getShopItemBarcodeUnicityLoading = (state: RootState) =>
+  state.shopReworked.shopItemReworked.barcodeUnicity.loading;
+
 const getShopSupplierById = (state: RootState) =>
   state.shopReworked.shopItemReworked.suppliers.byId;
 

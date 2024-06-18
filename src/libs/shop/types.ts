@@ -184,6 +184,10 @@ export type ShopItem = {
   unlimited_provisions?: boolean;
 };
 
+export type ShopItemBarcodeUnicity = {
+  barcode_is_unique: boolean;
+};
+
 export type ShopItemTemplate = Omit<
   ShopItem,
   'supplier' | 'subshop' | 'shop_item_template'
@@ -256,6 +260,10 @@ export type ShopState = {
 export type ShopStateReworked = {
   shopItemReworked: {
     duplicate: ErrorAndLoading;
+    /** State for checking a barcode unicity */
+    barcodeUnicity: {
+      [barcode: string]: boolean;
+    } & ErrorAndLoading;
     /** State for shop item details - only base/standalone items here */
     itemDetails: {
       byId: {

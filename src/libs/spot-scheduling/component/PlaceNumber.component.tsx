@@ -15,6 +15,7 @@ const PlaceNumber = (props: Props) => {
       <Typography variant="body2">
         {spotInformation?.name || t('booking:place')} {spotInformation.prefix}
         {spotInformation.indexType}
+        {spotInformation.suffix}
       </Typography>
       <svg height={20} width={20}>
         <g>

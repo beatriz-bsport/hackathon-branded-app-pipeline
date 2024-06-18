@@ -316,6 +316,8 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                             this.props?.selectedIndexType ||
                             // @ts-expect-error
                             this.props.selectedIndex,
+                          // @ts-expect-error
+                          suffix: this.props.selectedSpot?.suffix,
                         })
                       : t('spotSelectorDialog.title')}
                   </Typography>
@@ -365,6 +367,8 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                           this.props?.selectedIndexType ||
                           // @ts-expect-error
                           this.props.selectedIndex,
+                        // @ts-expect-error
+                        suffix: this.props.selectedSpot?.suffix,
                       })
                     : t('spotSelectorDialog.title')}
                 </Typography>

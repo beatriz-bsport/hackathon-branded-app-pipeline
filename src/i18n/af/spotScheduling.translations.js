@@ -61,7 +61,7 @@ exports.default = {
     spot: 'Place {{count}}',
     title: 'Select a spot',
     legend: 'Legend',
-    book: 'Book: {{prefix}}{{indexType}}',
+    book: 'Book: {{prefix}}{{indexType}}{{suffix}}',
   },
   toolbar: {
     loadExistingBlueprint: 'Load an existing plan',

@@ -11,6 +11,7 @@ import TagChip from './TagChip.component';
 import type { MultiValueProps } from 'react-select/lib/components/MultiValue';
 import type { SingleValueProps } from 'react-select/lib/components/SingleValue';
 import type { IndicatorProps } from 'react-select/lib/components/indicators';
+import type { FranchiseUserTagDict } from '#src/libs/franchise/types';
 
 export type Props = {
   onChange: (
@@ -31,6 +32,7 @@ export type Props = {
   allTagsWithTagGroup: Tag<TagGroup>[] | Tag<TagGroupAPI>[];
   inScrollBar?: boolean;
   menuPlacement?: 'auto' | 'top';
+  variant?: 'standard' | 'exclusive';
 };
 
 const MultiValueContainer: React.FC<MultiValueProps<TagOption>> = React.memo(
@@ -109,10 +111,14 @@ const TagSelector: React.FC<Props> = ({
   onDeleteTag,
   inScrollBar,
   menuPlacement,
+  variant,
 }) => {
   const { t } = useTranslation('tag');
 
   const divRef = useRef<HTMLDivElement | null>(null);
+
+  const [selectedTagsByTagGroup, setSelectedTagsByTagGroup] =
+    React.useState<FranchiseUserTagDict>({});
 
   const tagListOptions = React.useMemo(
     () =>
@@ -132,6 +138,16 @@ const TagSelector: React.FC<Props> = ({
           )
         : null,
     [selectedTags, tagListOptions],
+  );
+
+  const exclusiveTagsOptionsSelected = React.useMemo(
+    () =>
+      variant === 'exclusive' && selectedTagsByTagGroup && tagListOptions
+        ? tagListOptions.filter((tagOption) =>
+            Object.values(selectedTagsByTagGroup).includes(tagOption.value),
+          )
+        : null,
+    [selectedTagsByTagGroup, tagListOptions, variant],
   );
 
   const tagGroupedByTagGroup = React.useMemo(() => {
@@ -166,6 +182,37 @@ const TagSelector: React.FC<Props> = ({
     );
     return tagGroupByGroup;
   }, [allTagsWithTagGroup]);
+
+  const onChangeExclusive = React.useCallback(
+    (selectedOptions: TagOption[]) => {
+      if (!selectedOptions.length) {
+        onChange(selectedOptions);
+      } else {
+        const addedTag = selectedOptions?.at(-1)?.tag;
+        if (addedTag) {
+          const groupId = addedTag.group.id;
+          if (groupId in selectedTagsByTagGroup) {
+            const tagIdToDelete = selectedTagsByTagGroup[groupId];
+            onDeleteTag(tagIdToDelete);
+            const updatedSelectedOptions = selectedOptions.filter(
+              (option) => option.value !== tagIdToDelete,
+            );
+            onChange(updatedSelectedOptions);
+          } else {
+            onChange(selectedOptions);
+          }
+        }
+      }
+    },
+    [onChange, selectedTagsByTagGroup, onDeleteTag],
+  );
+
+  const onDeleteExclusive = React.useCallback(
+    (selectedTagId: number) => {
+      onDeleteTag(selectedTagId);
+    },
+    [onDeleteTag],
+  );
 
   const getBackgroundColor = React.useCallback(
     (isSelected: boolean, isFocused: boolean) => {
@@ -266,6 +313,19 @@ const TagSelector: React.FC<Props> = ({
     }),
   };
 
+  React.useEffect(() => {
+    if (variant === 'exclusive') {
+      setSelectedTagsByTagGroup(
+        [...allTagsWithTagGroup]?.reduce<FranchiseUserTagDict>((acc, tag) => {
+          if ([...selectedTags]?.includes(tag.id)) {
+            acc[tag.group.id] = tag.id;
+          }
+          return acc;
+        }, {}),
+      );
+    }
+  }, [selectedTags, allTagsWithTagGroup, setSelectedTagsByTagGroup, variant]);
+
   if (inScrollBar) {
     return (
       <div ref={divRef} style={{ position: 'relative', width: '100%' }}>
@@ -283,8 +343,10 @@ const TagSelector: React.FC<Props> = ({
           isMulti={!noMulti}
           menuPlacement={menuPlacement}
           menuPortalTarget={divRef.current}
-          onChange={onChange}
-          onDeleteTag={onDeleteTag}
+          onChange={variant === 'exclusive' ? onChangeExclusive : onChange}
+          onDeleteTag={
+            variant === 'exclusive' ? onDeleteExclusive : onDeleteTag
+          }
           options={tagGroupedByTagGroup}
           placeholder={placeholder || t('select')}
           styles={{
@@ -298,7 +360,11 @@ const TagSelector: React.FC<Props> = ({
             }),
           }}
           tagList={allTagsWithTagGroup}
-          value={tagsOptionsSelected}
+          value={
+            variant === 'exclusive'
+              ? exclusiveTagsOptionsSelected
+              : tagsOptionsSelected
+          }
         />
       </div>
     );
@@ -318,13 +384,17 @@ const TagSelector: React.FC<Props> = ({
       isMulti={!noMulti}
       menuPlacement={menuPlacement}
       menuPortalTarget={document.querySelector('body')}
-      onChange={onChange}
-      onDeleteTag={onDeleteTag}
+      onChange={variant === 'exclusive' ? onChangeExclusive : onChange}
+      onDeleteTag={variant === 'exclusive' ? onDeleteExclusive : onDeleteTag}
       options={tagGroupedByTagGroup}
       placeholder={placeholder || t('select')}
       styles={tagGroupStyles}
       tagList={allTagsWithTagGroup}
-      value={tagsOptionsSelected}
+      value={
+        variant === 'exclusive'
+          ? exclusiveTagsOptionsSelected
+          : tagsOptionsSelected
+      }
     />
   );
 };

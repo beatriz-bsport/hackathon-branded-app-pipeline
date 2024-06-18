@@ -154,6 +154,13 @@ export const PaymentStripeSofort = forwardRef(
         params.delete('user_registration_response');
         params.set('check_payment_intent', 'true');
         params.set('get_user_registration_from_storage', 'true');
+
+        if (basketId) {
+          // Include the current basket id in the return URL, so that the basket page keeps track
+          // of it after the redirection
+          params.set('basket_redirection', basketId);
+        }
+
         const return_url = url.toString();
 
         const { error } = await stripe.confirmSofortPayment(clientSecret, {

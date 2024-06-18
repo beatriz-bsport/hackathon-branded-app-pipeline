@@ -6,6 +6,7 @@ import { connect, ConnectedProps } from 'react-redux';
 
 import { replace as replaceRouter, goBack } from 'connected-react-router';
 import flatten from 'lodash/flatten';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose, withHandlers, withProps } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
@@ -82,6 +83,7 @@ type OwnProps = {
   offerBookedList: Offer_FULL[];
   offerPreBookedList: Offer_FULL[];
   offerNotBookableList: Array<Offer_FULL>;
+  isBasketLoading: boolean;
 };
 
 type Props = OwnProps &
@@ -294,7 +296,12 @@ export class ValidationCheckout extends React.Component<Props> {
               {this.renderHeader()}
               {this.renderActionButton()}
             </div>
-            {!this.isError() && (
+            {this.props.isBasketLoading && (
+              <div className={classes.loadingContainer}>
+                <CircularProgress />
+              </div>
+            )}
+            {!this.props.isBasketLoading && !this.isError() && (
               <>
                 <Typography className={classes.paperSection} variant="h5">
                   {this.props.t('validation.sections.recap')}
@@ -581,6 +588,11 @@ const styles = (theme: Theme) =>
       justifyContent: 'center',
       alignItems: 'center',
     },
+    loadingContainer: {
+      textAlign: 'center',
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
   });
 
 const mapWithHandlers = {
@@ -696,6 +708,7 @@ export default compose<any, OwnProps>(
       waitingListConfiguration: getWaitingListConfigurationData(state),
       offerStatusWaitinListPositionById:
         getOfferStatusWaitingListPositionById(state),
+      isBasketLoading: state.checkout.basket.loading,
     }),
     {
       fetchMembershipByCompany,

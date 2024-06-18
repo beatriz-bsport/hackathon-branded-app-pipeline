@@ -512,13 +512,6 @@ export class BasketPage extends React.Component<Props> {
   };
 
   render() {
-    if (!this.props.basket || this.props.companyThemeLoading) {
-      return (
-        <div className={this.props.classes.loader}>
-          <CircularProgress />
-        </div>
-      );
-    }
     if (shouldCheckPaymentStatus(this.props.queryParams)) {
       return (
         <CheckPaymentStatus
@@ -533,6 +526,14 @@ export class BasketPage extends React.Component<Props> {
           onSuccess={this.props.onSuccess}
           paymentIntent={this.props.queryParams.payment_intent}
         />
+      );
+    }
+
+    if (!this.props.basket || this.props.companyThemeLoading) {
+      return (
+        <div className={this.props.classes.loader}>
+          <CircularProgress />
+        </div>
       );
     }
 
@@ -823,6 +824,7 @@ export default compose(
       'context',
       'onValidation',
       'get_user_registration_from_storage',
+      'basket_redirection',
     ],
     'queryParams',
     'setQueryParams',
@@ -1026,9 +1028,11 @@ export default compose(
           extra_data: {},
         }),
     onSuccess:
-      ({ replace, basket, isNewCheckoutFlow, queryParams }) =>
+      ({ replace, basket, isNewCheckoutFlow, queryParams, theme }) =>
       () => {
-        const urlParams = { basket: basket.id };
+        const urlParams = queryParams.basket_redirection
+          ? { basket: queryParams.basket_redirection }
+          : { basket: basket.id };
         if (queryParams?.context) {
           urlParams.context = queryParams.context.toString();
         }
@@ -1041,11 +1045,7 @@ export default compose(
           urlParams.onValidation = queryParams.onValidation;
         }
         replace(
-          getCheckoutValidationUrl(
-            basket.company,
-            isNewCheckoutFlow,
-            urlParams,
-          ),
+          getCheckoutValidationUrl(theme.company, isNewCheckoutFlow, urlParams),
         );
       },
     checkItemsBasket:

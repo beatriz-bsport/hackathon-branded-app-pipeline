@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.bsport",
+      "sha256_cert_fingerprints": [
+        "F6:A5:FB:4A:BD:FE:7D:88:6D:1E:B2:FD:45:D3:02:D6:94:55:C3:91:EE:3D:80:67:58:40:96:02:8E:46:AB:DD"
+      ]
+    }
+  }
+]

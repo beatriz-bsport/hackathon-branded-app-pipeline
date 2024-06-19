@@ -146,5 +146,7 @@ export const getSpotDisplayText = (
 
   return `${(spotInformation as SpotInformation).name || 'Spot'} ${
     (spotInformation as SpotInformation).prefix || ''
-  }${spotId}`;
+  }${(spotInformation as SpotInformation).indexType}${
+    (spotInformation as SpotInformation).suffix || ''
+  }`;
 };

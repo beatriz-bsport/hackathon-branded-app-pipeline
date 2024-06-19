@@ -101,8 +101,8 @@ class CheckInConfirm extends Component<Props> {
               <Typography align="center" variant="h6">
                 {member?.booking?.spot_id
                   ? `${member.booking.spot_information?.prefix || ''}${
-                      member.booking.spot_id || ''
-                    }`
+                      member.booking.spot_information?.indexType || ''
+                    }${member.booking.spot_information?.suffix || ''}`
                   : t('confirmPage.spotUnassigned')}
               </Typography>
             </>

@@ -95,7 +95,7 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
         <FranchiseMemberSectionLayout title={t('member.franchises')}>
           <Paper>
             <PaginatedListBase
-              displayDivider
+              displayLastDivider
               itemPerPage={FRANCHISE_USER_MEMBERS_PAGE_DEFAULT_SIZE}
               items={members}
               listProps={listProps}

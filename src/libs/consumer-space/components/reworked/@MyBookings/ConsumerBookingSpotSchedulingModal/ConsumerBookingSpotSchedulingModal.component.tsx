@@ -35,6 +35,7 @@ type Props = {
   bookingOffer: OfferREST;
   /** Handler function fired when clicking on blanket or back button */
   onClose: () => void;
+  selectedSpotId: number;
 };
 
 const ConsumerBookingSpotSchedulingModal: React.FC<Props> = ({
@@ -43,6 +44,7 @@ const ConsumerBookingSpotSchedulingModal: React.FC<Props> = ({
   companyTheme,
   bookingOffer,
   onClose,
+  selectedSpotId,
 }) => {
   const { t } = useTranslation(['consumerSpace', 'common']);
   const canvasContainerRef = useRef<HTMLDivElement | null>(null);
@@ -80,7 +82,7 @@ const ConsumerBookingSpotSchedulingModal: React.FC<Props> = ({
             offerRoomBlueprint={bookingSpotDetails.roomBlueprint}
             offerStatusById={{}}
             roomBlueprintsById={{}}
-            selectedSpot={bookingSpotDetails.spotInformation.indexType}
+            selectedSpot={selectedSpotId}
             spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(spotTypes)}
             theme={companyTheme}
             updateSpotForOffer={emptyFn}

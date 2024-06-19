@@ -209,12 +209,14 @@ const ConsumerBookingModals: React.FC<Props> = ({
 
       {!isMobile &&
         isSpotSchedulingModalOpen &&
-        !!selectedBookingSpotDetails && (
+        !!selectedBookingSpotDetails &&
+        !!selectedBooking?.spot_id && (
           <ConsumerBookingSpotSchedulingModal
             bookingOffer={selectedBooking?.offer}
             bookingSpotDetails={selectedBookingSpotDetails}
             companyTheme={companyTheme}
             onClose={handleToggleSpotSchedulingModal}
+            selectedSpotId={selectedBooking?.spot_id}
             spotTypes={spotTypes}
           />
         )}

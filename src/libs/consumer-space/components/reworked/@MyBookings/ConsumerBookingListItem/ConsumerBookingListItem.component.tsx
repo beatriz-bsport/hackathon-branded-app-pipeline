@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import {
   MarketPlaceCoachDisplay,
@@ -106,6 +106,15 @@ const ConsumerBookingListItem: React.FC<Props> = ({
     item.coach?.firstname,
   );
 
+  // Check if the booking has a spot and return its name if so
+  const spotName = useMemo(() => {
+    if ('indexType' in item.spot_information) {
+      return `${item.spot_information?.prefix ?? ''}${
+        item.spot_information?.indexType ?? ''
+      }${item.spot_information?.suffix ?? ''}`;
+    }
+  }, [item.spot_information]);
+
   const coachPicture = getCoachDisplayPicture(coachDisplay, item.coach?.photo);
 
   const isBookableForAGuest =
@@ -139,7 +148,7 @@ const ConsumerBookingListItem: React.FC<Props> = ({
       onDetailsClick={handleSeeDetailsClick}
       onJoinOnlineClick={handleJoinOnlineClick}
       onSpotSchedulingClick={handleSpotSchedulingClick}
-      spotSchedulingPosition={item.spot_id?.toString()}
+      spotSchedulingPosition={spotName}
     />
   );
 };

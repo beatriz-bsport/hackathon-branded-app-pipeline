@@ -132,7 +132,6 @@ export class ConsumerBooking extends React.Component<Props, State> {
     this.props.fetchAssetForBlueprint({ blueprint: blueprintId });
     this.props.fetchSpotForBlueprint({
       company: this.props.companyId,
-      blueprint: blueprintId,
     });
   };
 

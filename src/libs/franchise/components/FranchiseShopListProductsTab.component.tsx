@@ -51,21 +51,15 @@ type Props = {
 
 const FranchiseShopListProductsTabSearchListItem = React.memo(
   (
-    props: OptionProps<SelectOption<number>> &
-      Pick<Props, 'goToShopItemTemplate'>,
-  ) => {
-    const handleGoToShopItemTemplate = useCallback(
-      () => props.goToShopItemTemplate(props.data.item.id),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [props.data],
-    );
-    return (
-      <FranchiseShopItemTemplateListItem
-        onClick={handleGoToShopItemTemplate}
-        shopItemTemplate={props.data.item}
-      />
-    );
-  },
+    props: OptionProps<SelectOption<number>> & {
+      goToShopItemTemplate: (shopItemTemplate: ShopItemTemplate) => () => void;
+    },
+  ) => (
+    <FranchiseShopItemTemplateListItem
+      onClick={props.goToShopItemTemplate(props.data.item)}
+      shopItemTemplate={props.data.item}
+    />
+  ),
 );
 
 const FranchiseShopListProductsTab: React.FC<Props> = ({
@@ -182,24 +176,30 @@ const FranchiseShopListProductsTab: React.FC<Props> = ({
     [],
   );
 
+  const handleGoToShopItemTemplate = useCallback(
+    (shopItemTemplate: ShopItemTemplate) => () =>
+      goToShopItemTemplate(shopItemTemplate.id),
+    [goToShopItemTemplate],
+  );
+
   return (
     <TabPanel className={classes.contentContainer} value={ShopListTab.PRODUCTS}>
       <div className={classes.searchContainer}>
         <ObjectSearch
           additionalParams={{ is_variant: false }}
-          className={classes.searchInput}
+          className={classes.flexGrow}
           components={{
             Option: (props) => (
               <FranchiseShopListProductsTabSearchListItem
                 {...props}
-                goToShopItemTemplate={goToShopItemTemplate}
+                goToShopItemTemplate={handleGoToShopItemTemplate}
               />
             ),
           }}
           optionsFormatter={objectSearchOptionsFormatter}
           placeholder={t('shop:search')}
           searchedObjectType="shop_item_template"
-          styles={objectSearchStyles}
+          variant="underlined"
         />
         <Button
           color="primary"
@@ -245,20 +245,8 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(1),
     marginBottom: theme.spacing(2),
   },
-  searchInput: {
+  flexGrow: {
     flex: 1,
-  },
-  fuzeSearchContainer: { flex: 1 },
-  searchPaperDisplayed: {
-    border: '1px solid',
-    borderColor: theme.palette.primary.main,
-    borderTop: 0,
-  },
-  searchPaperHidden: {
-    border: '1px solid',
-    borderColor: theme.palette.primary.main,
-    borderTop: 0,
-    borderBottom: 0,
   },
   title: {
     marginTop: theme.spacing(2),
@@ -268,25 +256,5 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
 }));
-
-const objectSearchStyles = (() => ({
-  indicatorSeparator: () => ({
-    display: 'none',
-  }),
-  dropdownIndicator: () => ({
-    display: 'none',
-  }),
-  control: (provided: React.CSSProperties) => ({
-    ...provided,
-    background: 'none',
-    border: 'none',
-    borderBottom: '1px solid #000',
-    boxShadow: 'none',
-    borderRadius: 0,
-    ':hover': {
-      borderBottom: '2px solid #000',
-    },
-  }),
-}))();
 
 export default React.memo(FranchiseShopListProductsTab);

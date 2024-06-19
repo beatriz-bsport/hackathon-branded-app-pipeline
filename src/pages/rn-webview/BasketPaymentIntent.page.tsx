@@ -332,6 +332,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   fetchPaymentGroupBasket = () => {
     // Making a request to get the payment group status	instead of the whole basket avoid monopolizing the basket lock,
     // needed to fully acknowledge the payment group success and finalize the basket
+    if (!this.state.paymentGroupId) return;
     this.props.fetchPaymentGroupStatus(this.state.paymentGroupId, {
       onSuccess: (paymentGroupStatus: number) => {
         if (paymentGroupStatus >= PAYMENT_INTENT_STATUS_SUCCESS) {

@@ -10,5 +10,29 @@
         "F6:A5:FB:4A:BD:FE:7D:88:6D:1E:B2:FD:45:D3:02:D6:94:55:C3:91:EE:3D:80:67:58:40:96:02:8E:46:AB:DD"
       ]
     }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.bsport_831",
+      "sha256_cert_fingerprints": [
+        "53:8A:61:31:66:F8:8E:45:00:1F:C7:71:66:0C:B4:99:35:17:08:9A:29:F4:AC:B8:18:50:8C:E5:C4:A3:A7:67"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.bsport_792",
+      "sha256_cert_fingerprints": [
+        "71:79:7D:ED:DB:5C:01:57:B9:6D:75:6F:5F:23:E4:E2:F6:F0:48:53:42:8E:5C:18:36:85:58:5B:FD:FF:F0:95"
+      ]
+    }
   }
 ]

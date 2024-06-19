@@ -47,6 +47,7 @@ import {
   getShopItemVariantFilterOptionList,
   getShopItemBarcodeUnicityLoading,
   getShopItemBarcodeListUnicity,
+  getShopItemBarcodeUnicity,
 } from '#src/libs/shop/selectors';
 import {
   getBookkeepingAccountList,
@@ -341,6 +342,7 @@ export class ShopItemDetailPage extends Component<Props> {
         deleteShopItemVariant={this.handleDeleteShopItemVariant}
         getIsShopItemUsedInCombo={this.props.getIsShopItemUsedInCombo}
         getShopItemBarcodeListUnicity={this.props.getShopItemBarcodeListUnicity}
+        getShopItemBarcodeUnicity={this.props.getShopItemBarcodeUnicity}
         isDeleting={this.props.isDeleteLoading}
         isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
@@ -396,6 +398,8 @@ const connector = connect(
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     getShopItemBarcodeListUnicity: (barcodeList: string[]) =>
       getShopItemBarcodeListUnicity(state, barcodeList),
+    getShopItemBarcodeUnicity: (barcode: string) =>
+      getShopItemBarcodeUnicity(state, barcode),
     shopItemBarcodeUnicityLoading: getShopItemBarcodeUnicityLoading(state),
   }),
   {

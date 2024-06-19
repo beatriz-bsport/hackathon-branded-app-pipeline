@@ -98,6 +98,7 @@ type Props = {
     options?: OptionCallback<ShopItemBarcodeUnicity>,
   ) => void;
   getShopItemBarcodeListUnicity: (barcodeList: string[]) => boolean;
+  getShopItemBarcodeUnicity: (barcode: string) => boolean;
 };
 
 const ShopItemDetail: React.FC<Props> = ({
@@ -134,6 +135,7 @@ const ShopItemDetail: React.FC<Props> = ({
   changeInventoryVariantFilter,
   checkBarcodeUnicity,
   getShopItemBarcodeListUnicity,
+  getShopItemBarcodeUnicity,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -373,6 +375,8 @@ const ShopItemDetail: React.FC<Props> = ({
           isEditForm
           bookkeepingAccountById={bookkeepingAccountById}
           bookkeepingAccounts={bookkeepingAccounts}
+          checkBarcodeUnicity={checkBarcodeUnicity}
+          getShopItemBarcodeUnicity={getShopItemBarcodeUnicity}
           initial={shopItem}
           isLoading={isLoading}
           onCancel={handleCloseEditShopItemDrawer}

@@ -19,6 +19,7 @@ import type {
   ShopSupplierCreate,
   ShopSupplierUpdate,
   SubShop,
+  ShopItemBarcodeUnicity,
 } from '#src/libs/shop/types';
 import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
 import type { ShopListSettingsSupplierValues } from '#src/libs/shop/components/ShopListSettingsSupplierModal/types';
@@ -84,6 +85,11 @@ type Props = {
     page: number,
     options?: OptionCallback<ShopSupplier[]>,
   ) => void;
+  checkBarcodeUnicity: (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => void;
+  getShopItemBarcodeUnicity: (barcode: string) => boolean;
 };
 
 const ShopListReworked: React.FC<Props> = ({
@@ -117,6 +123,8 @@ const ShopListReworked: React.FC<Props> = ({
   bookkeepingAccounts,
   bookkeepingAccountById,
   changeSupplierPage,
+  checkBarcodeUnicity,
+  getShopItemBarcodeUnicity,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -317,6 +325,8 @@ const ShopListReworked: React.FC<Props> = ({
         <ShopItemFormReworked
           bookkeepingAccountById={bookkeepingAccountById}
           bookkeepingAccounts={bookkeepingAccounts}
+          checkBarcodeUnicity={checkBarcodeUnicity}
+          getShopItemBarcodeUnicity={getShopItemBarcodeUnicity}
           isLoading={isLoading}
           onCancel={handleCloseItemCreationDrawer}
           onCreateSubmit={handleCreateShopItem}

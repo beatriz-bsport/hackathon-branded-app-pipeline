@@ -27,6 +27,7 @@ import {
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAction,
   duplicateShopItem as duplicateShopItemAction,
   deleteShopItem as deleteShopItemAction,
+  retrieveShopItemBarcodeUnicity as retrieveShopItemBarcodeUnicityAction,
 } from '#src/libs/shop/actions/shopItemReworked';
 import {
   fetchConfiguration as fetchConfigurationAction,
@@ -48,6 +49,7 @@ import {
   getShopSupplierListLoading,
   getSubshopList,
   getSubshopLoading,
+  getShopItemBarcodeUnicity,
 } from '#src/libs/shop/selectors';
 import {
   getDeliveryFeesActive,
@@ -79,6 +81,7 @@ import type {
   ShopSupplierUpdate,
   ShopSupplier,
   SubShop,
+  ShopItemBarcodeUnicity,
 } from '#src/libs/shop/types';
 import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
 import type { DeliveryFee } from '#src/libs/order/types';
@@ -258,12 +261,22 @@ export class ShopListReworkedPage extends PureComponent<Props> {
   handleDisableDeliveryFee = (deliveryFee: DeliveryFee) =>
     this.props.disableDeliveryFee(deliveryFee);
 
+  /**
+   * When entering a shop item barcode, we check first the unicity of it before submit
+   * @param barcode The barcode to check
+   */
+  checkBarcodeUnicity = (
+    barcode: string,
+    options?: OptionCallback<ShopItemBarcodeUnicity>,
+  ) => this.props.retrieveShopItemBarcodeUnicity(barcode, options);
+
   render() {
     return (
       <ShopListReworked
         bookkeepingAccountById={this.props.bookkeepingAccountByid}
         bookkeepingAccounts={this.props.bookkeepingAccounts}
         changeSupplierPage={this.handleChangeSupplierPage}
+        checkBarcodeUnicity={this.checkBarcodeUnicity}
         createOrUpdateDeliveryFee={this.props.createOrUpdateDeliveryFee}
         createShopItem={this.handleCreateShopItem}
         createSubshop={this.props.createSubshop}
@@ -276,6 +289,7 @@ export class ShopListReworkedPage extends PureComponent<Props> {
         disableDeliveryFee={this.handleDisableDeliveryFee}
         duplicateShopItem={this.handleDuplicateShopItem}
         getIsShopItemUsedInCombo={this.props.getIsShopItemUsedInCombo}
+        getShopItemBarcodeUnicity={this.props.getShopItemBarcodeUnicity}
         goToShopItem={this.props.goToShopItem}
         handleChangeTab={this.handleChangeTab}
         isLoading={
@@ -321,6 +335,8 @@ const connector = connect(
     bookkeepingAccounts: getBookkeepingAccountList(state),
     bookkeepingAccountByid: getBookkeepingAccountById(state),
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+    getShopItemBarcodeUnicity: (barcode: string) =>
+      getShopItemBarcodeUnicity(state, barcode),
   }),
   {
     // SHOP ITEM
@@ -330,6 +346,8 @@ const connector = connect(
     createShopItem: createShopItemAction,
     deleteShopItem: deleteShopItemAction,
     duplicateShopItem: duplicateShopItemAction,
+    retrieveShopItemBarcodeUnicity: retrieveShopItemBarcodeUnicityAction,
+
     goToShopItem: (id: number) => push(`/shop/${id}`),
     // SUBSHOP
     fetchSubshopList: fetchSubshopListAction,

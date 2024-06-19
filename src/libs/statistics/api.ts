@@ -11,11 +11,17 @@ export async function fetchDataSourceDashboardStatistics(
     graph_family,
     graph_params,
   } = graph;
-  return postAuth(`${API_V1_URI}/data_source/dashboard_graph_data`, {
-    dashboard_graph_identifier,
-    filter_config,
-    date_filter_config,
-    graph_family,
-    graph_params,
-  });
+  return postAuth(
+    `${API_V1_URI}/data_source/dashboard_graph_data`,
+    {
+      dashboard_graph_identifier,
+      filter_config,
+      date_filter_config,
+      graph_family,
+      graph_params,
+    },
+    undefined,
+    undefined,
+    { bypassLock: true },
+  );
 }

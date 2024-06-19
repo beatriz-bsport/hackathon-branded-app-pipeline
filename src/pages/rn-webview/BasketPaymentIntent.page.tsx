@@ -453,6 +453,16 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       );
     }
 
+    if (shouldCheckPaymentStatus(this.props.queryParams)) {
+      return (
+        <CheckPaymentStatus
+          onFail={this.onFail}
+          onSuccess={this.onSuccess}
+          paymentIntent={this.props.queryParams.payment_intent}
+        />
+      );
+    }
+
     if (this.props.basket.is_finalized) {
       return (
         <div className={classes.container}>
@@ -467,15 +477,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         </div>
       );
     }
-    if (shouldCheckPaymentStatus(this.props.queryParams)) {
-      return (
-        <CheckPaymentStatus
-          onFail={this.onFail}
-          onSuccess={this.onSuccess}
-          paymentIntent={this.props.queryParams.payment_intent}
-        />
-      );
-    }
+
     const basketPriceExcludingTax = getSubTotal(this.props.basket);
     const taxPrice = (
       parseFloat(this.props.basket.total_price) -

@@ -212,7 +212,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
       notif.kind === NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME ||
       notif.kind === NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME
     ) {
-      return notif.event_rules.days_left < 0 ? 'daysPast' : 'daysLeft';
+      return notif.event_rules.days_left <= 0 ? 'daysPast' : 'daysLeft';
     }
     return 'creditsLeft';
   };

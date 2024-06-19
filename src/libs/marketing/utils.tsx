@@ -67,7 +67,7 @@ export const splitPassNotificationsByTrigger = (
         break;
       case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME:
       case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME:
-        if (notification.event_rules.days_left >= 0) {
+        if (notification.event_rules.days_left > 0) {
           remainingValidityNotifications.push(notification);
         } else {
           expiredValidityNotifications.push(notification);

@@ -53,7 +53,7 @@ const getLabelForRules = (
     notification.kind === NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME
   ) {
     const key =
-      notification.event_rules.days_left < 0
+      notification.event_rules.days_left <= 0
         ? 'daysPastLabel'
         : 'daysLeftLabel';
     const absDay = Math.abs(notification.event_rules.days_left);

@@ -145,7 +145,7 @@ const getNotificationKind = (notif: any) => {
     notif.kind === PAYMENT_PACK_EVENT_RULE.NOTIFICATION_TIME ||
     notif.kind === PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME
   ) {
-    return notif.event_rules.days_left < 0 ? 'daysPast' : 'daysLeft';
+    return notif.event_rules.days_left <= 0 ? 'daysPast' : 'daysLeft';
   }
   return 'creditsLeft';
 };
@@ -532,7 +532,13 @@ const ProductNotificationSchema = Yup.object().shape({
     otherwise: Yup.boolean().notRequired(),
   }),
   private_pass_ids: Yup.array().of(Yup.number()).notRequired(),
-  days_left: Yup.number().min(0).required(),
+  days_left: Yup.number()
+    .when('verboseNotifKind', {
+      is: 'daysLeft',
+      then: Yup.number().min(1),
+      otherwise: Yup.number().min(0),
+    })
+    .required(),
   credits_left: Yup.number().min(0).required(),
   creditNotificationKind: Yup.string().oneOf(['onBooking', 'onOfferStart']),
   hours: Yup.number()

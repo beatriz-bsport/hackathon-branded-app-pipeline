@@ -195,9 +195,10 @@ export const PaymentPackForm: React.FC<Props> = ({
 
   const classes = useStyles();
 
-  const now = DateTime.now();
-
-  const oneMonthLater = DateTime.now().plus({ month: 1 });
+  // Add startOf('day') to make sure the initalValues injected in formik do not change between
+  // two renders because enableReinitialize is enabled
+  const now = DateTime.now().startOf('day');
+  const oneMonthLater = DateTime.now().startOf('day').plus({ month: 1 });
 
   const offPeakGroupDefaultValue = useMemo(() => {
     return [offPeakGroupDefault()];

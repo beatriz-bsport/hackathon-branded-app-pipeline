@@ -134,6 +134,7 @@ export type Theme = {
   latest_hour_to_send_communications: number;
   first_warning_payment_method_expiration_days: string;
   second_warning_payment_method_expiration_days: string;
+  display_credit_price_for_offer: boolean;
   // Member profile
   show_member_account_balance: boolean;
   show_barcode_button: boolean;

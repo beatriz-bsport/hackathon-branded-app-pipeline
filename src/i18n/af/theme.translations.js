@@ -8,6 +8,7 @@ const getTranslations = async () => {
   return {
     forms: {
       themePersonalization: {
+        displayActivityPrice: 'Display the number of credits',
         names_label_info:
           "Edit the fields 'First name' and 'Last name' on your sign up form",
         first_name_label: {

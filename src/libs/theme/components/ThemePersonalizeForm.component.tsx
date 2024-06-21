@@ -98,6 +98,7 @@ interface FormikValues {
   show_free_session_label: boolean;
   hide_book_button: boolean;
   show_past_sessions_calendar: boolean;
+  display_credit_price_for_offer: boolean;
 }
 type Props = {
   theme: CompanyTheme;
@@ -715,6 +716,10 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             name="show_free_session_label"
           />
           <SwitchField
+            label={t('forms.themePersonalization.displayActivityPrice')}
+            name="display_credit_price_for_offer"
+          />
+          <SwitchField
             label={t('forms.themePersonalization.hideBookButton.switchLabel', {
               bookButtonTranslation: t(
                 'translation:marketplace.bookButton.book',
@@ -1140,6 +1145,7 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
   coach_display: Yup.number().required(),
   days_format_display: Yup.number().required(),
   show_free_session_label: Yup.boolean().required(),
+  display_credit_price_for_offer: Yup.boolean().required(),
   hide_book_button: Yup.boolean().required(),
   show_past_sessions_calendar: Yup.boolean().required(),
   start_calendar_week_on_today: Yup.boolean().required(),
@@ -1237,6 +1243,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         show_past_sessions_calendar: theme.show_past_sessions_calendar,
         // @ts-expect-error
         start_calendar_week_on_today: theme.start_calendar_week_on_today,
+        display_credit_price_for_offer: theme.display_credit_price_for_offer,
       };
     }
     return {
@@ -1283,6 +1290,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       hide_book_button: false,
       show_past_sessions_calendar: true,
       start_calendar_week_on_today: false,
+      display_credit_price_for_offer: false,
     };
   },
   validationSchema: ThemePersonalizeFormSchema,
@@ -1328,6 +1336,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'coach_display',
       'days_format_display',
       'show_free_session_label',
+      'display_credit_price_for_offer',
       'hide_book_button',
       'show_past_sessions_calendar',
       // @ts-expect-error

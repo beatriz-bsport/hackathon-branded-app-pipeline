@@ -79,8 +79,15 @@
 .bs-consumer-invoice-card__footer__menu {
 }
 
+.bs-consumer-invoice-card__footer__button--mobile {
+  width: 100%;
+}
 .bs-consumer-invoice-card__footer__menu-button {
   white-space: nowrap;
+}
+
+.bs-consumer-invoice-card__footer__menu-button--mobile {
+  width: 100%;
 }
 
 .bs-consumer-invoice-card__menu-item {
@@ -98,6 +105,10 @@
 
 .bs-consumer-invoice-card__footer__button-download-invoice {
   white-space: nowrap;
+}
+
+.bs-consumer-invoice-card__footer__button-download-invoice--mobile {
+  width: 100%;
 }
 
 .bs-consumer-invoice-card__footer__label-download-original-invoice {

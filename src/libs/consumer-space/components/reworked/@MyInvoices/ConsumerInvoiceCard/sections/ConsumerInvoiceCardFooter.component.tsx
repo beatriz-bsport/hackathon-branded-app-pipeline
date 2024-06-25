@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
+import classNames from 'classnames';
 import { ConsumerGenericCardFooter } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
 import {
   CreditCard01,
@@ -94,7 +94,12 @@ const ConsumerInvoiceCardFooter: React.FC<Props> = ({
         variant: 'outlined' as ButtonVariant,
         isDisabled: !onDownload,
         label: t('reworked.myInvoices.card.download'),
-        buttonClassName: 'bs-consumer-invoice-card__footer__button-download',
+        buttonClassName: classNames(
+          'bs-consumer-invoice-card__footer__button-download',
+          {
+            'bs-consumer-invoice-card__footer__button--mobile': isMobile,
+          },
+        ),
         typographyClassName: 'bs-consumer-invoice-card__footer__label-download',
       },
       {
@@ -108,8 +113,12 @@ const ConsumerInvoiceCardFooter: React.FC<Props> = ({
         variant: 'outlined' as ButtonVariant,
         isDisabled: !onDownload,
         label: t('reworked.myInvoices.card.downloadInvoice'),
-        buttonClassName:
+        buttonClassName: classNames(
           'bs-consumer-invoice-card__footer__button-download-invoice',
+          {
+            'bs-consumer-invoice-card__footer__button--mobile': isMobile,
+          },
+        ),
         typographyClassName:
           'bs-consumer-invoice-card__footer__label-download-invoice',
       },
@@ -121,8 +130,12 @@ const ConsumerInvoiceCardFooter: React.FC<Props> = ({
         variant: 'outlined' as ButtonVariant,
         isDisabled: !onReceiptDownload,
         label: t('reworked.myInvoices.card.downloadReceipt'),
-        buttonClassName:
+        buttonClassName: classNames(
           'bs-consumer-invoice-card__footer__button-download-receipt',
+          {
+            'bs-consumer-invoice-card__footer__button--mobile': isMobile,
+          },
+        ),
         typographyClassName:
           'bs-consumer-invoice-card__footer__label-download-receipt',
       },
@@ -134,8 +147,12 @@ const ConsumerInvoiceCardFooter: React.FC<Props> = ({
         variant: 'outlined' as ButtonVariant,
         isDisabled: !onRefundedInvoiceDownload,
         label: t('reworked.myInvoices.card.downloadRefundedInvoice'),
-        buttonClassName:
+        buttonClassName: classNames(
           'bs-consumer-invoice-card__footer__button-download-refunded-invoice',
+          {
+            'bs-consumer-invoice-card__footer__button--mobile': isMobile,
+          },
+        ),
         typographyClassName:
           'bs-consumer-invoice-card__footer__label-download-refunded-invoice',
       },
@@ -150,8 +167,12 @@ const ConsumerInvoiceCardFooter: React.FC<Props> = ({
         variant: 'outlined' as ButtonVariant,
         isDisabled: !onDownload,
         label: t('reworked.myInvoices.card.downloadOriginalInvoice'),
-        buttonClassName:
+        buttonClassName: classNames(
           'bs-consumer-invoice-card__footer__button-download-original-invoice',
+          {
+            'bs-consumer-invoice-card__footer__button--mobile': isMobile,
+          },
+        ),
         typographyClassName:
           'bs-consumer-invoice-card__footer__label-download-original-invoice',
       },
@@ -163,11 +184,17 @@ const ConsumerInvoiceCardFooter: React.FC<Props> = ({
         variant: 'contained' as ButtonVariant,
         isDisabled: !onPay,
         label: t('reworked.myInvoices.card.pay'),
-        buttonClassName: 'bs-consumer-invoice-card__footer__button-pay',
+        buttonClassName: classNames(
+          'bs-consumer-invoice-card__footer__button-pay',
+          {
+            'bs-consumer-invoice-card__footer__button--mobile': isMobile,
+          },
+        ),
         typographyClassName: 'bs-consumer-invoice-card__footer__label-pay',
       },
     ],
     [
+      isMobile,
       onDownload,
       onPay,
       onReceiptDownload,
@@ -195,7 +222,10 @@ const ConsumerInvoiceCardFooter: React.FC<Props> = ({
       className="bs-consumer-invoice-card__footer"
       isMobile={isMobile}
       mainButtonsList={mainButtonsList}
-      menuButtonClassName="bs-consumer-invoice-card__footer__menu-button"
+      menuButtonClassName={classNames(
+        'bs-consumer-invoice-card__footer__menu-button',
+        { 'bs-consumer-invoice-card__footer__menu-button--mobile': isMobile },
+      )}
       menuButtonLabel={t('reworked.myInvoices.card.downloads')}
       menuClassName="bs-consumer-invoice-card__footer__menu"
       menuId={menuIdentifier}

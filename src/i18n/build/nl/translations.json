@@ -3495,7 +3495,8 @@
             "member_last_name": "Achternaam",
             "member_first_name": "Voornaam",
             "studio_address_franchise_only": "Locatie/Adres",
-            "payment_method_paypal_wallet": "PayPal Wallet"
+            "payment_method_paypal_wallet": "PayPal Wallet",
+            "on_the_fly_bsport_fee": "PayPal transactiekosten"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"

@@ -6313,7 +6313,8 @@
             "member_last_name": "Nachname",
             "member_first_name": "Vorname",
             "studio_address_franchise_only": "Ort/Adresse",
-            "payment_method_paypal_wallet": "PayPal-Wallet"
+            "payment_method_paypal_wallet": "PayPal-Wallet",
+            "on_the_fly_bsport_fee": "PayPal Transaktionsgebühren"
         },
         "no": "Nein",
         "yes": "Ja",

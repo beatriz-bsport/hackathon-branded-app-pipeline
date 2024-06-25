@@ -8512,7 +8512,8 @@
             "member_last_name": "Cognome",
             "member_first_name": "Nome",
             "studio_address_franchise_only": "Sede/Indirizzo",
-            "payment_method_paypal_wallet": "Portafoglio PayPal"
+            "payment_method_paypal_wallet": "Portafoglio PayPal",
+            "on_the_fly_bsport_fee": "Spese di transazione PayPal"
         },
         "payment_method": {
             "dispute": "Contenzioso",

@@ -10777,7 +10777,8 @@
             "member_last_name": "Nom",
             "member_first_name": "Prénom",
             "studio_address_franchise_only": "Localisation/Adresse",
-            "payment_method_paypal_wallet": "Portefeuille PayPal"
+            "payment_method_paypal_wallet": "Portefeuille PayPal",
+            "on_the_fly_bsport_fee": "Frais de transaction PayPal"
         },
         "yes": "Oui",
         "no": "Non",

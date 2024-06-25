@@ -5211,7 +5211,8 @@
             "member_last_name": "Apellido",
             "member_first_name": "Nombre",
             "studio_address_franchise_only": "Ubicación/Dirección",
-            "payment_method_paypal_wallet": "Cartera PayPal"
+            "payment_method_paypal_wallet": "Cartera PayPal",
+            "on_the_fly_bsport_fee": "Comisiones de transacción de PayPal"
         },
         "payment_method": {
             "cash": "Efectivo",

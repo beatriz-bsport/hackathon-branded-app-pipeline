@@ -1,0 +1,14 @@
+.bs-offer-price-tag {
+  padding: 0px var(--spacing-1);
+  border-radius: var(--bs-border-radius-xs);
+  background: var(--bs-grey-300);
+  align-items: center;
+  font-size: var(--body2-fontSize);
+  font-weight: var(--fontWeightMedium);
+  min-height: var(--spacing-3);
+  display: flex;
+}
+
+.bs-offer-price-tag__in-details {
+  color: var(--bs-grey-900);
+}

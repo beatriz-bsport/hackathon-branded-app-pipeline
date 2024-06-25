@@ -385,6 +385,8 @@ exports.default = {
     stepper: { step: { SETTINGS: 'Modification settings', INFOS: 'Session' } },
   },
   isFree: 'Free',
+  numberOfCredits: '{{count}} credit',
+  numberOfCredits_plural: '{{count}} credits',
   onSite: 'At the studio',
   broadcast: 'Videoconferencing',
   additionalCoaches: '{{count}} additional teacher',

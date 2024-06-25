@@ -173,15 +173,20 @@ export class SpotSchedulingSelector extends Component<Props, State> {
         ?.data ?? '';
 
     let prefix = '';
+    let suffix = '';
 
     if (this.props.spotTypes && spot?.spotTypeId !== DEFAULT_SPOT_TYPE_ID) {
       prefix =
         this.props.spotTypes?.find?.(
           (spotType) => spotType.id === spot.spotTypeId,
         )?.prefix ?? '';
+      suffix =
+        this.props.spotTypes?.find?.(
+          (spotType) => spotType.id === spot.spotTypeId,
+        )?.suffix ?? '';
     }
 
-    const selectedSpot = prefix + (spot.indexType ?? index).toString();
+    const selectedSpot = prefix + (spot.indexType ?? index).toString() + suffix;
 
     this.setState({
       selectedSpot,

@@ -205,7 +205,7 @@ exports.default = {
     DaysBeforeNotificationInputs: {
       title: 'Payment method expiration reminders',
       helpText:
-        'If the corresponding transactional notifications are activated for subscriptions, you can decide how many days before the payment method expires to send a reminder',
+        'If the corresponding transactional notifications are activated for subscriptions and payments by instalments, you can decide how many days before the payment method expires to send a reminder.',
       labels: {
         daysBeforeFirstNotification:
           'First reminder (days before expiration date)',

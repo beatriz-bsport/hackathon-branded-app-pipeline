@@ -10832,7 +10832,7 @@
       "methodPaymentCardBillingDetailsHelper": "By activating this feature, you will reduce the number of card payments requiring 3D Secure (SMS validation, banking applications, etc.) Please note that these fields are compulsory.",
       "DaysBeforeNotificationInputs": {
         "title": "Payment method expiration reminders",
-        "helpText": "If the corresponding transactional notifications are activated for subscriptions, you can decide how many days before the payment method expires to send a reminder",
+        "helpText": "If the corresponding transactional notifications are activated for subscriptions and payments by instalments, you can decide how many days before the payment method expires to send a reminder.",
         "labels": {
           "daysBeforeFirstNotification": "First reminder (days before expiration date)",
           "daysBeforeSecondNotification": "Second reminder (days before expiration date)"

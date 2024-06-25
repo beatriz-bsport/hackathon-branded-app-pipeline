@@ -19,7 +19,6 @@ import MarketplaceEstablishmentTitle from '#src/libs/marketplace/components/@Est
 import { Theme } from '#src/libs/theme/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';
 import { OffersGroup } from '#src/libs/group-offer/types';
-import FreeOfferChip from '#src/components/css-only/FreeOfferChip';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { Level } from '#src/libs/level/types';
 import PopOver from '#src/components/Popover/Popover.component';
@@ -31,6 +30,7 @@ import MarketplaceLevel from '../MarketplaceLevelCSSOnly';
 import FemaleIcon from '../../../../../components/icons/FemaleIcon.component';
 import MaleIcon from '../../../../../components/icons/MaleIcon.component';
 import './MarketplaceCardOfferCSSOnly.css';
+import OfferPriceTag from '#src/components/css-only/OfferPriceTag';
 
 type OwnProps = {
   offer: Offer;
@@ -370,11 +370,10 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
             )}
           </div>
           <div className="bs-card-offer__content__status">
-            <FreeOfferChip
-              companyTheme={theme}
+            <OfferPriceTag
               credits={offer?.credit_price}
-              // @ts-expect-error
-              creditsOverride={offer?.credit_price_override}
+              isCreditDisplayEnabled={theme?.display_credit_price_for_offer}
+              isFreeLabelEnabled={theme?.show_free_session_label}
             />
             <MarketplaceLevel
               className="bs-card-offer__content__status__level"

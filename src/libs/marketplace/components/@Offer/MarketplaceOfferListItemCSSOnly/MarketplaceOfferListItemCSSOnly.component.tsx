@@ -32,7 +32,6 @@ import { Level } from '#src/libs/level/types';
 
 import MarketplaceCoachInfos from '#src/libs/marketplace/components/@Coach/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#src/libs/marketplace/components/@Establishment/MarketplaceEstablishmentTitle';
-import FreeOfferChip from '#src/components/css-only/FreeOfferChip';
 
 import PopOver from '#src/components/Popover';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -41,6 +40,7 @@ import { formatAsDateWithWeekday, getUserZone } from '#src/utils/datetime';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 
 import './MarketplaceOfferListItemCSSOnly.css';
+import OfferPriceTag from '#src/components/css-only/OfferPriceTag';
 
 export const DISABLE_BOOKING_ELEMENTS_IDS = [
   'book-button--disabled',
@@ -676,11 +676,10 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                     hideLevel={!theme.show_level}
                   />
                 )}
-                <FreeOfferChip
-                  companyTheme={theme}
+                <OfferPriceTag
                   credits={offer?.credit_price}
-                  // @ts-expect-error
-                  creditsOverride={offer?.credit_price_override}
+                  isCreditDisplayEnabled={theme?.display_credit_price_for_offer}
+                  isFreeLabelEnabled={theme?.show_free_session_label}
                 />
               </div>
               {!isWorkshop && !isMobile && (

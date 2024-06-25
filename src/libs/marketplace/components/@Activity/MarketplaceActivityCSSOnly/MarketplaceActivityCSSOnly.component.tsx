@@ -26,7 +26,6 @@ import { MetaActivity } from '#src/libs/meta-activity/types';
 import { Establishment } from '#src/libs/establishment/types';
 import { Coach } from '#src/libs/associated-coach/types';
 import { OffersGroup } from '#src/libs/group-offer/types';
-import FreeOfferChip from '#src/components/css-only/FreeOfferChip';
 import Button from '#src/components/css-only/Fabrique/Button';
 
 import { formatOfferHours } from '#src/libs/marketplace/utils/offer';
@@ -35,22 +34,23 @@ import { formatMinutes } from '../../../../../utils/datetime';
 import FACEBOOK_PNG from '../../../../../public/images/facebook.png';
 import INSTAGRAM_PNG from '../../../../../public/images/instagram.png';
 import './MarketplaceActivity.css';
+import OfferPriceTag from '#src/components/css-only/OfferPriceTag';
 
 export type Props = {
   offer: Offer;
+  coachDisplay?: MarketPlaceCoachDisplay;
+  companyTheme: CompanyTheme;
   metaActivities: { [key: number]: MetaActivity };
   establishments: Array<Establishment>;
   coaches: Array<Coach>;
   customLevels: Array<Level>;
   onClose: () => void;
-  companyTheme: CompanyTheme;
   onClickBook: (offer: Offer) => void;
   onClickBookOption: (offer: Offer) => void;
   hideCoach: boolean;
   hideLevel?: boolean;
   width: string;
   group: { [key: number]: OffersGroup };
-  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 export const MarketplaceActivityV2 = (props: Props) => {
@@ -61,9 +61,9 @@ export const MarketplaceActivityV2 = (props: Props) => {
     customLevels,
     hideCoach,
     hideLevel,
+    coachDisplay,
     companyTheme,
     group,
-    coachDisplay,
   } = props;
   const { t } = useTranslation([
     'metaActivity',
@@ -214,12 +214,13 @@ export const MarketplaceActivityV2 = (props: Props) => {
             )}
           </div>
           <div className="bs-activity__top__content__status">
-            <FreeOfferChip
-              whiteText
-              companyTheme={companyTheme}
+            <OfferPriceTag
+              colorVariant="in-details"
               credits={offer?.credit_price}
-              // @ts-expect-error
-              creditsOverride={offer?.credit_price_override}
+              isCreditDisplayEnabled={
+                companyTheme?.display_credit_price_for_offer
+              }
+              isFreeLabelEnabled={companyTheme?.show_free_session_label}
             />
             <MarketplaceLevel
               activityDialog

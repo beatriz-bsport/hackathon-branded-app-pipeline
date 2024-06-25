@@ -165,13 +165,13 @@ export type SubscriptionContractFormDrawerProps =
 export function SubscriptionContractFields(
   props: SubscriptionContractFormDrawerProps,
 ) {
-  const { t } = useTranslation(['subscription']);
+  const { t } = useTranslation(['subscription', 'common']);
   const classes = useStyles();
   React.useEffect(() => {
     trackFormAdd(props.initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const { values, setFieldValue, initialValues } =
+  const { values, setFieldValue, initialValues, errors } =
     useFormikContext<FormValues>();
   React.useEffect(() => {
     if (values.invoicing_type === InvoicingType.fixedDay) {
@@ -189,29 +189,6 @@ export function SubscriptionContractFields(
     values.month_billing_day,
     setFieldValue,
   ]);
-
-  let nbIntervalHelperText = '';
-  if (values.nb_interval > CONTRACT_MAX_NB_INTERVAL_ALLOWED)
-    nbIntervalHelperText = t('contract.form.nb_interval.error');
-  else if (
-    values.invoicing_type === InvoicingType.fixedDay &&
-    (values.nb_interval > 12 || values.nb_interval < 2)
-  )
-    nbIntervalHelperText = t(
-      'contract.form.nb_interval.restrictionForFixedBillingDay',
-    );
-
-  let nbIntervalHelperTextAfterAutoRenewal = '';
-  if (values.nb_interval_after_auto_renewal > CONTRACT_MAX_NB_INTERVAL_ALLOWED)
-    nbIntervalHelperTextAfterAutoRenewal = t('contract.form.nb_interval.error');
-  else if (
-    values.invoicing_type === InvoicingType.fixedDay &&
-    (values.nb_interval_after_auto_renewal > 12 ||
-      values.nb_interval_after_auto_renewal < 2)
-  )
-    nbIntervalHelperTextAfterAutoRenewal = t(
-      'contract.form.nb_interval.restrictionForFixedBillingDay',
-    );
 
   const onChangeTagsOnAcquisition = React.useCallback(
     (options: Array<{ label: string; value: number; tag: Tag<TagGroup> }>) => {
@@ -443,7 +420,7 @@ export function SubscriptionContractFields(
           fullWidth
           required
           className={classes.field}
-          helperText={nbIntervalHelperText}
+          helperText={t(errors.nb_interval)}
           label={t('contract.form.nb_interval.label', {
             interval: t(`contract.interval.${props.values.interval}`, {
               count: props.values.recurrence_basis,
@@ -563,7 +540,7 @@ export function SubscriptionContractFields(
           <>
             <TextField
               fullWidth
-              helperText={nbIntervalHelperTextAfterAutoRenewal}
+              helperText={t(errors.nb_interval_after_auto_renewal)}
               label={t('contract.form.nbIntervalAfterAutoRenewal.secondLabel')}
               name="nb_interval_after_auto_renewal"
             />
@@ -714,13 +691,12 @@ const useStyles = makeStyles((theme) => ({
 export const SubscriptionContractFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
   nb_interval: Yup.number()
-    .integer()
-    .min(1)
-    .max(CONTRACT_MAX_NB_INTERVAL_ALLOWED)
-    .required()
+    .integer('common:form.validation.number')
+    .min(1, 'common:positiveNumber')
+    .required('common:form.requiredField')
     .test(
       'Must-be-less-than-twelve-for-fixed-billing-day',
-      'contract.form.nb_interval.errorForFixedBillingDay',
+      'contract.form.nb_interval.restrictionForFixedBillingDay',
       function checkNbIntervalForFixedBillingDay(nb_interval) {
         return (
           this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
@@ -737,7 +713,9 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
           nb_interval > 1
         );
       },
-    ),
+    )
+    .max(CONTRACT_MAX_NB_INTERVAL_ALLOWED, 'contract.form.nb_interval.error'),
+
   recurrence_basis: Yup.number()
     .integer()
     .min(1)
@@ -822,30 +800,36 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
   highlighted_as_recommended: Yup.boolean(),
   tags_on_first_billing: Yup.array().of(Yup.number().integer()),
   nb_interval_after_auto_renewal: Yup.number()
-    .integer()
-    .min(1)
-    .max(CONTRACT_MAX_NB_INTERVAL_ALLOWED)
+    .integer('common:form.validation.number')
+    .min(1, 'common:positiveNumber')
     .nullable()
     .test(
       'Must-be-less-than-twelve-for-fixed-billing-day',
-      'contract.form.nb_interval.errorForFixedBillingDay',
-      function checkNbIntervalForFixedBillingDay(nb_interval) {
+      'contract.form.nb_interval.restrictionForFixedBillingDay',
+      function checkNbIntervalForFixedBillingDay(
+        nb_interval_after_auto_renewal,
+      ) {
         return (
           this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
-          nb_interval <= 12
+          !nb_interval_after_auto_renewal ||
+          nb_interval_after_auto_renewal <= 12
         );
       },
     )
     .test(
       'Must-be-more-than-one-for-fixed-billing-day',
       'contract.form.nb_interval.restrictionForFixedBillingDay',
-      function checkNbIntervalForFixedBillingDay(nb_interval) {
+      function checkNbIntervalForFixedBillingDay(
+        nb_interval_after_auto_renewal,
+      ) {
         return (
           this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
-          nb_interval > 1
+          !nb_interval_after_auto_renewal ||
+          nb_interval_after_auto_renewal > 1
         );
       },
-    ),
+    )
+    .max(CONTRACT_MAX_NB_INTERVAL_ALLOWED, 'contract.form.nb_interval.error'),
 });
 
 function isNumber(value: unknown): value is number {

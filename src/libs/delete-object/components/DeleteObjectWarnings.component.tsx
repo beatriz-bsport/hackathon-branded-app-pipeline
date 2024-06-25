@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Alert } from '@material-ui/lab';
 
 import { WarningMessagesHook, useDeleteObjectWarningMessages } from '../hooks';
-import { DeleteObjectStatus } from '../constants';
+import { DeleteObjectStatus, DELETE_OBJECT_TRANSLATIONS } from '../constants';
 
 import type { DeleteObjectVariant } from '../types';
 
@@ -60,7 +60,7 @@ const DeleteObjectWarningsList: React.FC<ReturnType<WarningMessagesHook>> = ({
  */
 const DeleteObjectWarnings: React.FC<Props> = ({ variant }) => {
   const classes = useStyles();
-  const { t } = useTranslation(variant);
+  const { t } = useTranslation(DELETE_OBJECT_TRANSLATIONS[variant]);
 
   const { warningMessages, errorMessages, infoMessages, deleteObjectStatus } =
     useDeleteObjectWarningMessages[variant]?.() ?? {};

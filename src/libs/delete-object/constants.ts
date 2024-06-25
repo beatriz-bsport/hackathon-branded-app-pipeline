@@ -32,3 +32,9 @@ export const CHECK_CAN_DELETE_OBJECT_ACTIONS: {
 } = {
   establishment: checkDeleteEstablishmentActions,
 };
+
+export const DELETE_OBJECT_TRANSLATIONS: {
+  [K in DeleteObjectVariant]: string;
+} = {
+  establishment: 'establishment',
+};

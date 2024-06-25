@@ -21,6 +21,7 @@ import {
   CHECK_CAN_DELETE_OBJECT_ACTIONS,
   CHECK_CAN_DELETE_OBJECT_FUNCTIONS,
   DELETE_OBJECT_FUNCTIONS,
+  DELETE_OBJECT_TRANSLATIONS,
 } from '../constants';
 
 type Props = {
@@ -36,15 +37,13 @@ type Props = {
  *
  * According to the variant, the component will dispatch the appropriate actions, in the correct store section,
  * to check if the object can be deleted, and then delete it.
- *
- * The declared variant is also used as translation namespace.
  */
 const DeleteObjectModal: React.FC<Props> = ({
   idToCheckAndDelete,
   variant,
   onClose,
 }) => {
-  const { t } = useTranslation(variant);
+  const { t } = useTranslation(DELETE_OBJECT_TRANSLATIONS[variant]);
 
   const { canDestroy, id, isLoading } = useSelector(
     (state: RootState) => state.deleteObject[variant],

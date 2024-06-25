@@ -26,7 +26,7 @@ import ConsumerDashboardPassPanel from '#src/libs/consumer-space/components/Cons
 // @ts-expect-error
 import ConsumerDashboardBookingOptionPanel from '#src/libs/consumer-space/components/ConsumerDashboardBookingOptionPanel.component';
 import { fetchMembership as fetchMembershipAction } from '#src/libs/membership/actions';
-import { fetchMember } from '#src/libs/member/actions';
+import { fetchMyUserProfile } from '#src/libs/member/actions';
 
 import { getFavoriteEstablishment } from '#src/libs/establishment/selectors';
 import { getFavoriteMetaActivity } from '#src/libs/meta-activity/selectors';
@@ -118,7 +118,6 @@ import {
 } from '#src/libs/payment/actions';
 import { snackbarWarning, snackbarSuccess } from '#src/libs/snackbar/actions';
 import { getMarketplaceRoute } from '#src/libs/marketplace/routing-utils';
-import { getMember } from '#src/libs/member/selectors';
 import { Offer } from '#src/libs/offer/types';
 import { Coach } from '#src/libs/associated-coach/types';
 import { Establishment } from '#src/libs/establishment/types';
@@ -171,7 +170,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     this.props.fetchMetaActivityFavorite(this.props.membership.company);
 
     this.props.fetchInvoiceListUnpaid(this.props.membership.id);
-    this.props.fetchMember(this.props.membership.id);
+    this.props.fetchMyUserProfile();
     this.props.fetchMembership(this.props.membership.id);
     this.fetchBookingOption();
     this.props.fetchMemberTagList(this.props.membership.company);
@@ -495,7 +494,7 @@ const mapStateToProps = (state: RootState, props) => ({
   detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
   // eslint-disable-next-line react/no-unused-prop-types
   marketplaceSettings: state.marketplace.settings,
-  member: getMember(state, props.membership.id),
+  member: state.member.userProfile.profile,
   roomBlueprintById: state.spotScheduling.roomBlueprint.byId,
   assetForBlueprint: getAssetByBlueprintByIdentifier(state),
   creditAccountBalance: getUsableCreditAccountBalance(
@@ -548,7 +547,6 @@ const mapDispatchToProps = {
   fetchMembership: fetchMembershipAction,
   cancelBookingOption: cancelBookingOptionAction,
   fetchBookingsAndPrivateBookings: fetchBookingsAndPrivateBookingsAction,
-  fetchMember,
   detachPaymentMethodAction: detachPaymentMethod,
   fetchMemberPaymentMethod: fetchPaymentMethodList,
   snackbarErrorMsg: snackbarWarning,
@@ -556,6 +554,7 @@ const mapDispatchToProps = {
   fetchRoomBlueprintDetail,
   fetchAssetForBlueprint,
   fetchConsumerPaymentPackLinks,
+  fetchMyUserProfile,
   applyBalanceToInvoiceAction,
   fetchInvoiceListUnpaid: (id: number) =>
     fetchInvoiceListAction({

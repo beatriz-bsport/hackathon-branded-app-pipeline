@@ -150,22 +150,20 @@ export const PayPalDetail: React.FC<Props> = (props: Props) => {
       <Grid container direction="column" spacing={3}>
         <Grid container>
           <div className={classes.paper}>
-            <div className={classes.lowGap}>
-              <div className={classes.row}>
-                <img alt="paypal" className={classes.icon} src={PAYPAL_LOGO} />
-                <PayPalConnectionStatusChip
-                  isConnectedWithIssue={isConnectedWithIssue}
-                  isConnectedWithNoIssue={isConnectedWithNoIssue}
-                  isNotConnected={isNotConnected}
-                  isStatusUnknown={isStatusUnknown}
-                />
-              </div>
-              {isNotConnected && (
-                <Typography color="textSecondary" variant="body1">
-                  {t('company.paypal.linkHelper')}
-                </Typography>
-              )}
+            <div className={classes.row}>
+              <img alt="paypal" className={classes.icon} src={PAYPAL_LOGO} />
+              <PayPalConnectionStatusChip
+                isConnectedWithIssue={isConnectedWithIssue}
+                isConnectedWithNoIssue={isConnectedWithNoIssue}
+                isNotConnected={isNotConnected}
+                isStatusUnknown={isStatusUnknown}
+              />
             </div>
+            {isNotConnected && (
+              <Typography color="textSecondary" variant="body1">
+                {t('company.paypal.linkHelper')}
+              </Typography>
+            )}
             {(isConnectedWithIssue || isConnectedWithNoIssue) && (
               <div className={classes.accountInformation}>
                 <div>
@@ -183,26 +181,16 @@ export const PayPalDetail: React.FC<Props> = (props: Props) => {
               </div>
             )}
             {isNotConnected && (
-              <>
-                <div className={classes.notConnectedSection}>
-                  <Typography variant="h6">
-                    {t('company.paypal.titleWithPayPal')}
-                  </Typography>
-                  <Typography color="textSecondary" variant="body1">
-                    {t('company.paypal.oneTimePayments')}
-                  </Typography>
-                </div>
-                <Alert
-                  className={classes.alert}
-                  severity="warning"
-                  variant="standard"
-                >
-                  <AlertTitle>
-                    {t('company.paypal.alert.rightAccount.title')}
-                  </AlertTitle>
-                  {t('company.paypal.alert.rightAccount.content')}
-                </Alert>
-              </>
+              <Alert
+                className={classes.alert}
+                severity="warning"
+                variant="standard"
+              >
+                <AlertTitle>
+                  {t('company.paypal.alert.rightAccount.title')}
+                </AlertTitle>
+                {t('company.paypal.alert.rightAccount.content')}
+              </Alert>
             )}
             {(isConnectedWithIssue || isStatusUnknown) && (
               <PayPalConnectionIssueAlert

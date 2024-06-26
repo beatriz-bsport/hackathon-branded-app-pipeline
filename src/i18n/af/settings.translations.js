@@ -384,7 +384,7 @@ exports.default = {
         unknown: 'Unknown status',
       },
       linkHelper:
-        'Link your PayPal Business Account to allow your members to pay with PayPal',
+        'Link your PayPal Business Account to allow your members to make one-time payments with PayPal',
       titleWithPayPal: 'With PayPal, your members can',
       oneTimePayments: 'Make one-time payments',
       accountName: 'Account name',

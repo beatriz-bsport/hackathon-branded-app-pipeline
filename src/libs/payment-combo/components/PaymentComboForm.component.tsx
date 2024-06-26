@@ -531,6 +531,7 @@ export const PaymentComboForm: React.FC<Props> = ({
               onDeleteTag={onDeleteTagsOnAcquisition}
               placeholder={t('form.advancedOptions.tag.selectTags')}
               selectedTags={values.tags_on_consumer_item_creation}
+              variant={'exclusive'}
             />
             {hasItemsWithTagsSameGroup && (
               <TagGroupDuplicatedAlert

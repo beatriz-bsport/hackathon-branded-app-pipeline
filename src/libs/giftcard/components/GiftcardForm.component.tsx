@@ -194,6 +194,7 @@ const GiftcardForm = (props: Props) => {
                     'form.giftcard.advancedOptions.tag.selectTags',
                   )}
                   selectedTags={props.values.tags_on_consumer_item_creation}
+                  variant={'exclusive'}
                 />
                 {hasTagsSameGroup && <TagGroupDuplicatedAlert />}
               </div>

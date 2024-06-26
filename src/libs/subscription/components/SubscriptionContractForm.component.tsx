@@ -522,6 +522,7 @@ export function SubscriptionContractFields(
           onDeleteTag={onDeleteTagsOnAcquisition}
           placeholder={t('contract.form.advancedOptions.tag.selectTags')}
           selectedTags={values.tags_on_first_billing}
+          variant={'exclusive'}
         />
         {hasItemsWithTagsSameGroup && (
           <TagGroupDuplicatedAlert

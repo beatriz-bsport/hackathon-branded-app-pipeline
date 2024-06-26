@@ -497,6 +497,7 @@ const ShopItemFormProductStep: React.FC<Props> = ({
                     'translation:form.shop.item.advancedOptions.tag.selectTags',
                   )}
                   selectedTags={values.tagsOnPurchase}
+                  variant={'exclusive'}
                 />
                 {hasTagsSameGroup && <TagGroupDuplicatedAlert />}
               </Grid>

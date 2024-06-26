@@ -831,6 +831,7 @@ export const PrivatePassForm = (props: Props) => {
               onDeleteTag={onDeleteTagsOnAcquisition}
               placeholder={t('privatePass.form.advancedOptions.tag.selectTags')}
               selectedTags={values.tags_on_consumer_item_creation}
+              variant={'exclusive'}
             />
             {hasTagsSameGroup && <TagGroupDuplicatedAlert />}
           </div>

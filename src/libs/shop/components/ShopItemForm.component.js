@@ -530,6 +530,7 @@ export class ShopItemForm extends Component<Props, State> {
                     'form.shop.item.advancedOptions.tag.selectTags',
                   )}
                   selectedTags={this.state.tags_on_purchase}
+                  variant={'exclusive'}
                 />
                 {this.state.hasTagsSameGroup && <TagGroupDuplicatedAlert />}
               </div>

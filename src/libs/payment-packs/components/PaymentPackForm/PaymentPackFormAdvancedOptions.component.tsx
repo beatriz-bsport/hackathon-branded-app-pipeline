@@ -200,6 +200,7 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
                   'form.paymentPack.advancedOptions.tag.selectTags',
                 )}
                 selectedTags={values.tags_on_consumer_item_creation}
+                variant={'exclusive'}
               />
               {hasTagsSameGroup && <TagGroupDuplicatedAlert />}
             </div>

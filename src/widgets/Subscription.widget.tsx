@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Theme } from '@material-ui/core';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MarketplaceContractBase } from 'bsport-saas/src/pages/marketplace/MarketplaceContract';
@@ -6,7 +6,7 @@ import { getEnv } from '../utils/env';
 
 const MarketplaceContractStyled = themify(MarketplaceContractBase);
 
-type OwnProps = {
+type Props = {
   companyId: number,
   store: any,
   theme: Theme,
@@ -14,23 +14,27 @@ type OwnProps = {
   uniqueWidgetId: string,
 };
 
-type Props = OwnProps;
+const SubscriptionWidget: React.FC<Props> = ({
+  companyId,
+  store,
+  theme,
+  uniqueWidgetId,
+  onWindowOpen,
+}) => {
+  useEffect(() => {
+    window?.addEventListener('message', handleAddToCartPostMessages);
 
-class SubscriptionWidget extends Component<Props> {
-  componentDidMount() {
-    window?.addEventListener('message', this.handleAddToCartPostMessages);
-  }
+    return () =>
+      window?.removeEventListener('message', handleAddToCartPostMessages);
+  }, []);
 
-  componentWillUnmount() {
-    window?.removeEventListener('message', this.handleAddToCartPostMessages);
-  }
-
-  handleAddToCartPostMessages = (event: MessageEvent) => {
+  const handleAddToCartPostMessages = (event: MessageEvent) => {
     // If the postMessage includes a uniqueWidgetId parameter and the provided ID is not the same as the one belonging to this widget,
     // it indicates that this widget was not targeted. In such cases, we take no action.
+    console.log('CALLED ADD CART');
     if (
       event?.data?.data?.uniqueWidgetId &&
-      event?.data?.data?.uniqueWidgetId !== this.props.uniqueWidgetId
+      event?.data?.data?.uniqueWidgetId !== uniqueWidgetId
     ) {
       return;
     }
@@ -38,28 +42,24 @@ class SubscriptionWidget extends Component<Props> {
       event?.data?.type === 'bsport:subscription:add-to-cart:contract' &&
       event?.data?.data?.contract_id
     ) {
-      this.addToCart(event.data.data.contract_id);
+      addToCart(event.data.data.contract_id);
     }
   };
 
-  addToCart = (contractId: number) => {
+  const addToCart = (contractId: number) => {
     const { PUBLIC_URL } = getEnv();
-    const url = `${PUBLIC_URL}/checkout/${this.props.companyId}/subscription/${contractId}`;
-    this.props.onWindowOpen(url);
+    const url = `${PUBLIC_URL}/checkout/${companyId}/subscription/${contractId}`;
+    onWindowOpen(url);
   };
 
-  render() {
-    const { companyId, store, theme } = this.props;
+  return (
+    <MarketplaceContractStyled
+      companyId={companyId}
+      theme={theme}
+      store={store}
+      onAddToCart={addToCart}
+    />
+  );
+};
 
-    return (
-      <MarketplaceContractStyled
-        companyId={companyId}
-        theme={theme}
-        store={store}
-        onAddToCart={this.addToCart}
-      />
-    );
-  }
-}
-
-export default SubscriptionWidget;
+export default React.memo(SubscriptionWidget);

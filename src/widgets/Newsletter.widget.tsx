@@ -1,12 +1,6 @@
-import React, { Component } from 'react';
-import { ConnectedProps, connect } from 'react-redux';
-import { compose } from 'recompose';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
-import {
-  withStyles,
-  createStyles,
-} from 'bsport-saas/node_modules/@material-ui/core/styles';
-import type { WithStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import NewsletterFormComponent from 'bsport-saas/src/libs/marketing/components/NewsletterForm.component';
 import { createNewsletterMember } from 'bsport-saas/src/libs/marketing/api';
 import {
@@ -15,68 +9,52 @@ import {
 } from 'bsport-saas/src/libs/snackbar/actions';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
+import makeStyles from '@material-ui/styles/makeStyles';
 
 const NewsletterFormComponentStyled = themify(NewsletterFormComponent);
 
-type OwnProps = {
+type Props = {
   companyId: number,
   theme: CompanyTheme,
 };
 
-type ConnectProps = ConnectedProps<typeof connector>;
+export const NewsletterWidget: React.FC<Props> = ({ companyId, theme }) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
 
-type Props = OwnProps & ConnectProps & WithStyles<typeof styles>;
-
-interface State {
-  showSuccessSnackbar: boolean;
-}
-
-export class NewsletterWidget extends Component<Props, State> {
-  onSubmit = async (email: string, first_name: string, last_name: string) => {
+  const onSubmit = async (
+    email: string,
+    first_name: string,
+    last_name: string,
+  ) => {
     const res = await createNewsletterMember({
       email,
       first_name,
       last_name,
-      company: this.props.companyId,
+      company: companyId,
     });
 
     if (res.status === 200) {
-      this.props.snackbarSuccess('marketing:newsletter.messages.success');
+      dispatch(snackbarSuccess('marketing:newsletter.messages.success'));
     } else {
-      this.props.snackbarError('marketing:newsletter.messages.error');
+      dispatch(snackbarError('marketing:newsletter.messages.error'));
     }
   };
 
-  render() {
-    return (
-      <div className={this.props.classes.container}>
-        <NewsletterFormComponentStyled
-          onSubmit={this.onSubmit}
-          theme={this.props.theme}
-        />
-      </div>
-    );
-  }
-}
-
-const styles = () =>
-  createStyles({
-    container: {
-      width: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
-
-const mapDispatchToProps = {
-  snackbarSuccess,
-  snackbarError,
+  return (
+    <div className={classes.container}>
+      <NewsletterFormComponentStyled onSubmit={onSubmit} theme={theme} />
+    </div>
+  );
 };
 
-const connector = connect(null, mapDispatchToProps);
+const useStyles = makeStyles({
+  container: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
-export default compose<any, OwnProps>(
-  withStyles(styles),
-  connector,
-)(NewsletterWidget);
+export default React.memo(NewsletterWidget);

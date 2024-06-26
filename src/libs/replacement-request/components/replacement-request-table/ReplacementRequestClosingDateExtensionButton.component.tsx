@@ -8,6 +8,7 @@ import Update from '@material-ui/icons/Update';
 
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
+import { formatAsDate } from '#src/utils/datetime';
 import { ReplacementRequest } from '#src/libs/replacement-request/types';
 import { Coach } from '#src/libs/associated-coach/types';
 import { Establishment } from '#src/libs/establishment/types';
@@ -63,7 +64,7 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
                   replacementRequest.closing_date,
                 ).toFormat('D - t'),
               })
-            : DateTime.now().toFormat('D')}
+            : formatAsDate(replacementRequest.closing_date)}
         </Typography>
         {DateTime.now() > DateTime.fromISO(replacementRequest.closing_date) && (
           <IconButton className={classes.button} onClick={handleClick}>

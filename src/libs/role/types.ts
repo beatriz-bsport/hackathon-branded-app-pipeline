@@ -387,6 +387,7 @@ export type FranchiseRoleFranchiseeData = {
   editable: boolean;
   has_booking_override_control: boolean;
   permissions: RolePermission;
+  object_level_permissions: ObjectLevelPermissions;
 };
 
 export type UserRole<R = number, FR = number> = {

@@ -156,6 +156,7 @@ const DEFAULT_FRANCHISEE_DATA: FranchiseRoleFranchiseeData = {
   editable: true,
   has_booking_override_control: false,
   permissions: null,
+  object_level_permissions: null,
 };
 
 class FranchiseCreateRoleDialog extends React.Component<Props, State> {
@@ -196,6 +197,7 @@ class FranchiseCreateRoleDialog extends React.Component<Props, State> {
         editable: role?.editable,
         permissions: role?.permissions,
         has_booking_override_control: role?.has_booking_override_control,
+        object_level_permissions: role?.object_level_permissions,
       };
     }
 

@@ -1,16 +1,8 @@
-import React from 'react';
-import { compose } from 'recompose';
+import React, { useState } from 'react';
 
 import { ButtonBase } from '@material-ui/core';
-import {
-  createStyles,
-  withStyles,
-} from 'bsport-saas/node_modules/@material-ui/core/styles';
+import { makeStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
 
-import type {
-  Theme,
-  WithStyles,
-} from 'bsport-saas/node_modules/@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import {
@@ -28,7 +20,11 @@ import {
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { getEnv } from '../utils/env';
 import { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
-import { MarketplacePrivateServiceData } from 'bsport-saas/src/libs/marketplace/types';
+import {
+  MarketplacePrivateServiceData,
+  MarketplacePrivateServiceSessionData,
+  MarketplacePrivateServiceTypeEnum,
+} from 'bsport-saas/src/libs/marketplace/types';
 
 const PrivateServiceSelector = themify(
   PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage),
@@ -37,7 +33,7 @@ const PrivateServiceDetailBase = themify(
   PrivateServiceDetailDataProvider(PrivateServiceDetailPage),
 );
 
-type OwnProps = {
+type Props = {
   companyId: number,
   config: MarketplacePrivateServiceData,
   store: any,
@@ -46,112 +42,91 @@ type OwnProps = {
   dialogMode: number,
 };
 
-type Props = OwnProps & WithStyles<typeof styles>;
+const PrivateServiceWidget: React.FC<Props> = ({
+  config,
+  companyId,
+  onWindowOpen,
+  store,
+  theme,
+}) => {
+  const [type, setType] = useState<MarketplacePrivateServiceTypeEnum>(
+    config.type,
+  );
+  const [serviceId, setServiceId] = useState<number | null>(config.serviceId);
+  const classes = useStyles();
 
-interface State {
-  type: 'detail' | 'list';
-  serviceId?: number | null;
-}
-
-class PrivateServiceWidget extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      type: props.config.type,
-      serviceId: props.config.serviceId,
-    };
-  }
-
-  onClickPrivateService = (ps: PrivateService) => {
-    this.setState({
-      serviceId: ps.id,
-      type: 'detail',
-    });
+  const onClickPrivateService = (ps: PrivateService) => {
+    setType(MarketplacePrivateServiceTypeEnum.detail);
+    setServiceId(ps.id);
   };
 
-  onSessionSelect = (
-    data: {
-      date: string,
-      establishment: number,
-      associated_coach: number,
-    },
+  const onSessionSelect = (
+    data: MarketplacePrivateServiceSessionData,
     privateSlot: PrivateSlot,
   ) => {
     const { PUBLIC_URL } = getEnv();
-    const url = `${PUBLIC_URL}/customer/payment/private-service/${
-      this.state.serviceId
-    }/private-slot/${privateSlot.id}/?membership=${
-      this.props.companyId
-    }&data=${encodeURIComponent(JSON.stringify(data))}`;
+    const url = `${PUBLIC_URL}/customer/payment/private-service/${serviceId}/private-slot/${
+      privateSlot.id
+    }/?membership=${companyId}&data=${encodeURIComponent(
+      JSON.stringify(data),
+    )}`;
 
-    this.props.onWindowOpen(url);
+    onWindowOpen(url);
   };
 
-  render() {
-    const { classes } = this.props;
+  const backToListView = () => {
+    setType(MarketplacePrivateServiceTypeEnum.list);
+    setServiceId(undefined);
+  };
 
-    return (
-      <div className={classes.container}>
-        {this.state.type === 'list' && (
-          <PrivateServiceSelector
-            companyId={this.props.companyId.toString()}
-            companyName=""
-            onClickPrivateService={this.onClickPrivateService}
-            store={this.props.store}
-            theme={this.props.theme}
-            filters={{ private_service_group: this.props.config.privateGroups }}
-          />
-        )}
+  return (
+    <div className={classes.container}>
+      {type === MarketplacePrivateServiceTypeEnum.list && (
+        <PrivateServiceSelector
+          companyId={companyId.toString()}
+          companyName=""
+          onClickPrivateService={onClickPrivateService}
+          store={store}
+          theme={theme}
+          filters={{ private_service_group: config.privateGroups }}
+        />
+      )}
 
-        {this.state.type === 'detail' &&
-          this.state.serviceId !== undefined &&
-          this.state.serviceId !== null && (
-            <div className={classes.detailContainer}>
-              {this.props.config.type === 'list' && (
-                <ButtonBase
-                  onClick={() => {
-                    this.setState({
-                      serviceId: undefined,
-                      type: 'list',
-                    });
-                  }}
-                >
-                  <ChevronLeftIcon className={classes.icon} fontSize="large" />
-                </ButtonBase>
-              )}
-              <PrivateServiceDetailBase
-                companyId={this.props.companyId.toString()}
-                serviceId={this.state.serviceId.toString()}
-                onSessionSelect={this.onSessionSelect}
-                hideDetailSummary
-                store={this.props.store}
-                theme={this.props.theme}
-              />
-            </div>
+      {type === MarketplacePrivateServiceTypeEnum.detail && serviceId && (
+        <div className={classes.detailContainer}>
+          {config.type === MarketplacePrivateServiceTypeEnum.list && (
+            <ButtonBase onClick={backToListView}>
+              <ChevronLeftIcon className={classes.icon} fontSize="large" />
+            </ButtonBase>
           )}
-      </div>
-    );
-  }
-}
+          <PrivateServiceDetailBase
+            companyId={companyId.toString()}
+            serviceId={serviceId.toString()}
+            onSessionSelect={onSessionSelect}
+            hideDetailSummary
+            store={store}
+            theme={theme}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
-const styles = (theme: Theme) =>
-  createStyles({
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      flex: 1,
-      width: '100%',
-      alignItems: 'center',
-    },
-    detailContainer: {
-      width: '100%',
-    },
-    icon: {
-      marginLeft: theme.spacing(2),
-    },
-  });
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+  },
+  detailContainer: {
+    width: '100%',
+  },
+  icon: {
+    marginLeft: theme.spacing(2),
+  },
+}));
 
-export default compose<Props, OwnProps>(withStyles(styles))(
-  PrivateServiceWidget,
-);
+export default React.memo(PrivateServiceWidget);

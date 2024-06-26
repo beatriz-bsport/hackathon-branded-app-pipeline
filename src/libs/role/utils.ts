@@ -49,7 +49,10 @@ export const getRoleDescription = (
 
 export const checkRequiredPermissions = (
   requiredPermissions: string,
-  permissions: RolePermission | FranchiseRolePermission,
+  permissions:
+    | RolePermission
+    | FranchiseRolePermission
+    | ObjectLevelPermissions,
 ) => {
   const permissionsStrArray = requiredPermissions.split(',');
 

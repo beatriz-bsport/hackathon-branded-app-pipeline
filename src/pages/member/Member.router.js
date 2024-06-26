@@ -32,6 +32,7 @@ export const MemberRouter = (props: { t: TFunction }) => (
     </Helmet>
     <Switch>
       <Route exact component={MemberList} path="/member" />
+
       <Route exact component={MemberForm} path="/member/edit/:id" />
       <Route component={MemberForm} path="/member/add" />
       <Route component={MemberMergeForm} path="/member/merge/:src/into/:dst/" />

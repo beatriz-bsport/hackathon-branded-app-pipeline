@@ -33,6 +33,8 @@ import MemberChangeEmailDialog from '#src/libs/member/components/MemberChangeEma
 import { getCompanyCountry } from '#src/libs/company/selectors';
 import type { WithHandlerType } from '#src/utils/types';
 import type { Member } from '#src/libs/member/types';
+import { getObjectPermissions } from '#src/libs/role/selectors';
+import { checkRequiredPermissions } from '#src/libs/role/utils';
 
 type OwnProps = {
   id: number;
@@ -204,6 +206,7 @@ const connector = connect(
     initial: id !== null ? getMember(state, id) : null,
     theme: themeSelectors.getTheme(state),
     country: getCompanyCountry(state),
+    objectPermissions: getObjectPermissions(state),
   }),
   {
     replace,
@@ -239,6 +242,14 @@ const mapWithHandlers = {
       props.upsertMemberAction(props.initial?.id, formData, {
         ...options,
         onSuccess: () => {
+          if (
+            !checkRequiredPermissions(
+              'member.allowed_actions.accessProfile',
+              props.objectPermissions,
+            )
+          ) {
+            return props.goToMemberList();
+          }
           if (props.initial && props.initial.id) {
             props.goToMember(props.initial.id);
           } else {

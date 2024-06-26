@@ -1094,3 +1094,15 @@ export const getConsumerOfferElligibleGuestNumber = createSelector(
   (elligibleGuestNumberByOffer, offerId) =>
     elligibleGuestNumberByOffer.byOfferId[offerId] ?? 0,
 );
+
+const _getConsumerBookingOptionPositionState = (state: RootState) =>
+  state.consumerReworked.myBookings.waitlistPositionByOffer;
+
+export const getConsumerOfferBookingOptionPosition = createSelector(
+  [
+    _getConsumerBookingOptionPositionState,
+    (_: RootState, offerId: number) => offerId,
+  ],
+  (consumerWaitingListPositionByOfferId, offerId) =>
+    consumerWaitingListPositionByOfferId.byOfferId[offerId],
+);

@@ -15,7 +15,7 @@ import type {
   ConsumerInvoiceComplementary,
   ConsumerInvoiceREST,
 } from '#src/libs/invoice/types';
-
+import { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 export type Profile = {
   name: string;
   first_name: string;
@@ -150,6 +150,9 @@ export type ConsumerStateReworked = {
     };
     elligibleGuestNumberByOffer: {
       byOfferId: Record<number, number>;
+    } & ErrorAndLoading;
+    waitlistPositionByOffer: {
+      byOfferId: Record<number, OfferStatusWaitingListPosition>;
     } & ErrorAndLoading;
   };
   mySubscriptions: {

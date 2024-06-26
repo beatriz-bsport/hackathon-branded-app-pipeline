@@ -65,7 +65,12 @@ import type {
   ConsumerInvoiceREST,
 } from '#src/libs/invoice/types';
 
-import { fetchBookingGuestNumberEligibleLeftByOfferBulk } from '#src/libs/offer/api';
+import {
+  fetchBookingGuestNumberEligibleLeftByOfferBulk,
+  fetchOfferWaitingListPositionList,
+} from '#src/libs/offer/api';
+
+import type { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 export const actionsType = {
   CONSUMER_HAS_FETCHED_OPTIONS: 'CONSUMER_HAS_FETCHED_OPTIONS_SUCCESS',
   CONSUMER_START_FETCH_OPTIONS: 'CONSUMER_START_FETCH_OPTIONS',
@@ -969,6 +974,48 @@ export function fetchMyBookingOptionAsMember(
       options?.onError?.(err);
     }
     dispatch(fetchMyBookingOptionAsMemberActions.isLoading(false));
+  };
+}
+
+export const fetchMyBookingOptionsPositionAsMemberByOfferIdsActions = {
+  success: createAction<OfferStatusWaitingListPosition[]>(
+    'BOOKING_OPTION_POSITION/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'BOOKING_OPTION_POSITION/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>('BOOKING_OPTION_POSITION/AS_MEMBER/ERROR'),
+};
+
+export function fetchMyBookingOptionsPositionAsMemberByOfferIds(
+  id__in: number[],
+  options?: OptionCallback<OfferStatusWaitingListPosition[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      fetchMyBookingOptionsPositionAsMemberByOfferIdsActions.isLoading(true),
+    );
+    dispatch(
+      fetchMyBookingOptionsPositionAsMemberByOfferIdsActions.error(null),
+    );
+
+    try {
+      const response = await fetchOfferWaitingListPositionList(id__in);
+      dispatch(
+        fetchMyBookingOptionsPositionAsMemberByOfferIdsActions.success(
+          response.data.results,
+        ),
+      );
+      options?.onSuccess?.(response.data.results);
+    } catch (err) {
+      dispatch(
+        fetchMyBookingOptionsPositionAsMemberByOfferIdsActions.error(err),
+      );
+      options?.onError?.(err);
+    }
+    dispatch(
+      fetchMyBookingOptionsPositionAsMemberByOfferIdsActions.isLoading(false),
+    );
   };
 }
 

@@ -34,14 +34,17 @@ import type { PrivateBooking } from '#src/libs/private-service/types';
 import type {
   DiscardBookingOptionParams,
   WaitingListBookingOption,
+  WaitingListConfiguration,
 } from '#src/libs/waiting-list/types';
 import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
 import { BookingTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 import type { OptionCallback } from '#src/state/types';
-import { BOOKING_FOR_GUEST_FREQUENCY } from '#src/libs/offer/types';
+import {
+  BOOKING_FOR_GUEST_FREQUENCY,
+  OfferStatusWaitingListPosition,
+} from '#src/libs/offer/types';
 import type { AddGuestFormValues } from '#src/libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
-
 import './styles.css';
 
 type Props = {
@@ -103,6 +106,10 @@ type Props = {
     guestFormValues: AddGuestFormValues;
     offerBookedId: number;
   }) => void;
+  getOfferWaitingListPosition: (
+    offerId: number,
+  ) => OfferStatusWaitingListPosition;
+  waitingListConfiguration: WaitingListConfiguration;
 };
 
 export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
@@ -146,6 +153,8 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   getOfferElligibleGuestNumber,
   bookingGuestFrequency,
   onBookingForAGuestSubmit,
+  getOfferWaitingListPosition,
+  waitingListConfiguration,
 }) => {
   const {
     selectedTab,
@@ -328,6 +337,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           bookingOptionList={bookingOptionList}
           coachDisplay={companyTheme?.coach_display}
           getOfferElligibleGuestNumber={getOfferElligibleGuestNumber}
+          getOfferWaitingListPosition={getOfferWaitingListPosition}
           handleBookSession={handleBookSession}
           handleJoinOnlineBooking={handleJoinOnlineBooking}
           handlePaginationFetchMore={handlePaginationFetchMore}
@@ -349,6 +359,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
             setSelectedBookingForBookingForAGuest
           }
           timezone={timezone}
+          waitingListConfiguration={waitingListConfiguration}
         />
       </div>
     </MarketplacePageContent>

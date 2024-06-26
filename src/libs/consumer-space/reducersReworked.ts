@@ -28,6 +28,7 @@ import {
   fetchConsumerRefundedInvoicesActions,
   fetchConsumerInvoicesComplementaryActions,
   fetchConsumerGuestNumberEligibleByOfferBulk,
+  fetchMyBookingOptionsPositionAsMemberByOfferIdsActions,
 } from '#src/libs/consumer-space/actions';
 import {
   fetchActiveSubscriptionDetailAsMemberActions,
@@ -60,6 +61,7 @@ import {
   ConsumerInvoiceComplementary,
   ConsumerInvoiceREST,
 } from '#src/libs/invoice/types';
+import type { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 
 type ConsumerInvoiceRESTByUuid = { [uuid: string]: ConsumerInvoiceREST };
 type ConsumerInvoiceComplementaryByUuid = {
@@ -173,6 +175,11 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
         },
       },
       elligibleGuestNumberByOffer: {
+        byOfferId: {},
+        loading: false,
+        error: null,
+      },
+      waitlistPositionByOffer: {
         byOfferId: {},
         loading: false,
         error: null,
@@ -1856,6 +1863,41 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         payload,
       );
     },
+    [fetchMyBookingOptionsPositionAsMemberByOfferIdsActions.isLoading.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(
+          ['myBookings', 'waitlistPositionByOffer', 'loading'],
+          payload,
+        );
+      },
+    [fetchMyBookingOptionsPositionAsMemberByOfferIdsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['myBookings', 'waitlistPositionByOffer', 'error'],
+        payload,
+      );
+    },
+    [fetchMyBookingOptionsPositionAsMemberByOfferIdsActions.success.toString()]:
+      (state, { payload }: { payload: OfferStatusWaitingListPosition[] }) => {
+        return state.merge(
+          {
+            myBookings: {
+              waitlistPositionByOffer: {
+                byOfferId: (payload || []).reduce(
+                  (accumulator, currentPosition) => ({
+                    ...accumulator,
+                    [currentPosition.id]: currentPosition,
+                  }),
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+      },
   },
   initialState,
 );

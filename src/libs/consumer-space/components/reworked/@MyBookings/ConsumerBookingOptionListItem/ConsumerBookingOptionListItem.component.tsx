@@ -12,7 +12,8 @@ import {
 import { isDateInThePast } from '#src/utils/datetime';
 import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import ConsumerBookingCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
-
+import type { WaitingListConfiguration } from '#src/libs/waiting-list/types';
+import type { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import type { ConsumerBookingOption } from '#src/libs/booking/types';
 
 type Props = {
@@ -25,6 +26,10 @@ type Props = {
   onBookingCardClick: (bookingId: number) => void;
   handleSelectBookingForCancelation: (bookingId: number) => void;
   handleBookSession: (offerId: number) => void;
+  getOfferWaitingListPosition: (
+    offerId: number,
+  ) => OfferStatusWaitingListPosition;
+  waitingListConfiguration: WaitingListConfiguration;
 };
 
 const ConsumerBookingOptionListItem: React.FC<Props> = ({
@@ -37,6 +42,8 @@ const ConsumerBookingOptionListItem: React.FC<Props> = ({
   onBookingCardClick,
   handleSelectBookingForCancelation,
   handleBookSession,
+  getOfferWaitingListPosition,
+  waitingListConfiguration,
 }) => {
   const selectedBookingDate = useConsumerBookingDateTime({
     dateStart: item.offer?.date_start,
@@ -77,6 +84,9 @@ const ConsumerBookingOptionListItem: React.FC<Props> = ({
       activityName={item.meta_activity?.name}
       coachName={coachName}
       coachPhoto={coachPicture}
+      displayWaitingListPosition={
+        !!waitingListConfiguration?.display_member_position
+      }
       establishmentAddress={item.establishment?.location?.address}
       isBookableDisabled={!item.is_convertible}
       isBookingCancelled={!!item.cancelled}
@@ -89,6 +99,7 @@ const ConsumerBookingOptionListItem: React.FC<Props> = ({
       onBookClick={handleBookSessionClick}
       onBookingCancelClick={handleCancelBookingClick}
       onDetailsClick={handleSeeDetailsClick}
+      waitingListPosition={getOfferWaitingListPosition(item.offer?.id)}
     />
   );
 };

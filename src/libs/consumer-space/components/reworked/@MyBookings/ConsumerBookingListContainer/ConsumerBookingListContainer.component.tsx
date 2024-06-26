@@ -39,7 +39,8 @@ import {
   MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
   MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
 } from '#src/libs/consumer-space/components/reworked/@MyBookings/constants';
-
+import type { WaitingListConfiguration } from '#src/libs/waiting-list/types';
+import type { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import './styles.css';
 
 type Props = {
@@ -74,6 +75,10 @@ type Props = {
   handleBookSession: (offerId: number) => void;
   getOfferElligibleGuestNumber: (offerId: number) => number;
   setSelectedBookingForBookingForAGuest: (booking: ConsumerBooking) => void;
+  getOfferWaitingListPosition: (
+    offerId: number,
+  ) => OfferStatusWaitingListPosition;
+  waitingListConfiguration: WaitingListConfiguration;
 };
 
 export const ConsumerBookingListContainer: React.FC<Props> = ({
@@ -100,6 +105,8 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   handleBookSession,
   getOfferElligibleGuestNumber,
   setSelectedBookingForBookingForAGuest,
+  getOfferWaitingListPosition,
+  waitingListConfiguration,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -232,6 +239,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                     <ConsumerBookingOptionListItem
                       key={item.id}
                       coachDisplay={coachDisplay}
+                      getOfferWaitingListPosition={getOfferWaitingListPosition}
                       handleBookSession={handleBookSession}
                       handleSelectBookingForCancelation={
                         handleSelectBookingForCancelation
@@ -244,6 +252,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                       onBookingCardClick={handleSetSelectedBookingOption}
                       sessionTimeDisplay={sessionTimeDisplay}
                       timezone={timezone}
+                      waitingListConfiguration={waitingListConfiguration}
                     />
                   );
                 }

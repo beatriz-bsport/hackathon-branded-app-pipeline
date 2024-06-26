@@ -11,7 +11,7 @@ import {
   ConsumerBookingCardBody,
   ConsumerBookingCardFooter,
 } from './sections';
-
+import type { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import './styles.css';
 
 type Props = {
@@ -20,7 +20,6 @@ type Props = {
   activityName?: string;
   coachPhoto?: string;
   coachName?: string;
-  waitingListPosition?: string;
   establishmentAddress?: string;
   isOnline?: boolean;
   isBookable?: boolean;
@@ -46,6 +45,8 @@ type Props = {
   menuId?: string;
   className?: string;
   isSelected?: boolean;
+  displayWaitingListPosition?: boolean;
+  waitingListPosition?: OfferStatusWaitingListPosition;
 };
 
 const ConsumerBookingCard: React.FC<Props> = ({
@@ -56,7 +57,6 @@ const ConsumerBookingCard: React.FC<Props> = ({
   activityName,
   coachPhoto,
   establishmentAddress,
-  waitingListPosition,
   isDetailsDisabled,
   isItemInThePast,
   isBookableDisabled,
@@ -80,6 +80,8 @@ const ConsumerBookingCard: React.FC<Props> = ({
   isBookableForAGuest,
   menuId,
   isSelected,
+  displayWaitingListPosition,
+  waitingListPosition,
 }) => {
   if (isLoading) {
     return <ConsumerCardSkeleton />;
@@ -111,6 +113,7 @@ const ConsumerBookingCard: React.FC<Props> = ({
         <ConsumerBookingCardBody
           coachName={coachName}
           coachPhoto={coachPhoto}
+          displayWaitingListPosition={displayWaitingListPosition}
           establishmentAddress={establishmentAddress}
           isBookingCancelled={isBookingCancelled}
           isDetailsDisabled={isDetailsDisabled}

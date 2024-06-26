@@ -27,6 +27,7 @@ import {
   cancelPrivateBookingAsMember as cancelPrivateBookingAsMemberAction,
   cancelBookingOptionAsMember as cancelBookingOptionAsMemberAction,
   fetchConsumerGuestNumberEligibleLeftByOfferBulk as fetchConsumerGuestNumberEligibleLeftByOfferBulkAction,
+  fetchMyBookingOptionsPositionAsMemberByOfferIds as fetchMyBookingOptionsPositionAsMemberByOfferIdsAction,
 } from '#src/libs/consumer-space/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#src/libs/establishment/actions';
 import {
@@ -64,6 +65,7 @@ import {
   getMyWaitlistBookingsWorkshopState,
   getMyWaitlistBookingsWorkshopList,
   getConsumerOfferElligibleGuestNumber,
+  getConsumerOfferBookingOptionPosition,
 } from '#src/libs/consumer-space/selectors';
 import {
   getAssetByBlueprintByIdentifier,
@@ -84,6 +86,9 @@ import type { RootState } from '../../reducers';
 import type { AddGuestFormValues } from '#src/libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
 import { getOfferBookerUrl } from '#src/libs/marketplace/routing-utils';
 import { buildUrlParams } from '#src/http';
+
+import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#src/libs/waiting-list/actions';
+import { getWaitingListConfigurationData } from '#src/libs/waiting-list/selectors';
 type OwnProps = {};
 type ParamsProps = {
   companyId: number;
@@ -110,6 +115,7 @@ export class ConsumerBooking extends React.Component<Props, State> {
     this.fetchPastBookings();
     this.fetchFutureBookings();
     this.fetchBookingOptions();
+    this.props.fetchCompanyWaitlistConfiguration(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -198,6 +204,11 @@ export class ConsumerBooking extends React.Component<Props, State> {
     const bookingOptionsMetaActivityList = uniq(
       bookingOptions.map((bookingOption) => bookingOption.meta_activity),
     );
+
+    const offerIds = uniq(
+      bookingOptions.map((bookingOption) => bookingOption.offer.id),
+    );
+
     this.props.fetchEstablishmentBulk(bookingOptionsEstablishmentList);
     bookingOptionsLevelList.length !== 0 &&
       this.props.fetchLevelList({
@@ -205,6 +216,8 @@ export class ConsumerBooking extends React.Component<Props, State> {
       });
     this.props.fetchCoachBulk(bookingOptionsCoachList);
     this.props.fetchMetaActivityBulk(bookingOptionsMetaActivityList);
+    offerIds.length !== 0 &&
+      this.props.fetchMyBookingOptionsPositionAsMemberByOfferIds(offerIds);
   };
 
   fetchAssociatedPrivateBookingsObjects = (
@@ -390,6 +403,7 @@ export class ConsumerBooking extends React.Component<Props, State> {
         futurePrivateBookingsState={this.props.myFuturePrivateBookingsState}
         getIsBookingsLoading={this.props.getIsBookingsLoading}
         getOfferElligibleGuestNumber={this.props.getOfferElligibleGuestNumber}
+        getOfferWaitingListPosition={this.props.getOfferWaitingListPosition}
         getRelatedConsumerBookingsInGroup={
           this.props.getRelatedConsumerBookingsInGroup
         }
@@ -406,6 +420,7 @@ export class ConsumerBooking extends React.Component<Props, State> {
         sessionTimeDisplay={this.props.sessionTimeDisplay}
         spotTypes={this.props.spotTypes}
         timezone={this.props.timezone}
+        waitingListConfiguration={this.props.waitingListConfiguration}
       />
     );
   }
@@ -451,6 +466,9 @@ const connector = connect(
       getAssetByIdentifier(state, blueprintId),
     getOfferElligibleGuestNumber: (offerId: number) =>
       getConsumerOfferElligibleGuestNumber(state, offerId),
+    waitingListConfiguration: getWaitingListConfigurationData(state),
+    getOfferWaitingListPosition: (offerId: number) =>
+      getConsumerOfferBookingOptionPosition(state, offerId),
   }),
   {
     fetchCoachBulk: fetchCoachBulkAction,
@@ -487,6 +505,9 @@ const connector = connect(
     cancelBookingOptionAsMember: cancelBookingOptionAsMemberAction,
     fetchConsumerGuestNumberEligibleLeftByOfferBulk:
       fetchConsumerGuestNumberEligibleLeftByOfferBulkAction,
+    fetchMyBookingOptionsPositionAsMemberByOfferIds:
+      fetchMyBookingOptionsPositionAsMemberByOfferIdsAction,
+    fetchCompanyWaitlistConfiguration: fetchCompanyWaitlistConfigurationAction,
   },
 );
 

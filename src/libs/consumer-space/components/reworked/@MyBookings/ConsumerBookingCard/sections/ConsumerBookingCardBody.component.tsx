@@ -28,6 +28,7 @@ type Props = Required<
     | 'onDetailsClick'
     | 'isBookingCancelled'
     | 'onSpotSchedulingClick'
+    | 'displayWaitingListPosition'
   >
 >;
 
@@ -41,8 +42,10 @@ const ConsumerBookingCardBody: React.FC<Props> = ({
   onDetailsClick,
   isBookingCancelled,
   onSpotSchedulingClick,
+  displayWaitingListPosition,
 }) => {
   const { t } = useTranslation('consumerSpace');
+
   return (
     <ConsumerGenericCardBodyContainer className="bs-consumer-booking-card__container">
       <List
@@ -102,13 +105,16 @@ const ConsumerBookingCardBody: React.FC<Props> = ({
           }}
           className={classNames('bs-consumer-booking-card__list-item', {
             'bs-consumer-booking-card__field--hidden':
-              !waitingListPosition || isBookingCancelled,
+              !waitingListPosition ||
+              isBookingCancelled ||
+              !displayWaitingListPosition,
           })}
           icon={<HourGlass03 />}
           label={t(
             'reworked.myBookings.consumerBookingCard.listItemLabels.waitingList',
             {
-              waitingListPosition,
+              waitingListPosition:
+                waitingListPosition?.waiting_list_position?.member_position,
             },
           )}
         />

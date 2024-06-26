@@ -86,7 +86,9 @@ const MemberVisitDetailsCardBookingSection: React.FC<
                       ? t('memberVisitDetails.spotName', {
                           spotName: `${`${spotInformation?.name} ` || ''}${
                             spotInformation.prefix
-                          }${spotInformation.indexType}`,
+                          }${spotInformation.indexType}${
+                            spotInformation.suffix
+                          }`,
                         })
                       : t('memberVisitDetails.noSpotAllocated')}
                   </Typography>

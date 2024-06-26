@@ -18,6 +18,27 @@ type Props = {
 
 export const OfferListItem = (props: Props) => {
   const { offer, t } = props;
+
+  const offerNameDisplay = React.useMemo(
+    () =>
+      offer?.name_override || offer?.meta_activity?.name || offer?.name || '',
+    [offer],
+  );
+
+  const coach = React.useMemo(() => offer?.coach ?? null, [offer]);
+
+  const coachOverride = React.useMemo(
+    () => offer?.coach_override ?? null,
+    [offer],
+  );
+
+  const coachName = React.useMemo(() => {
+    if (coachOverride?.name || coach?.name) {
+      return ` - ${coachOverride?.name || coach?.name}`;
+    }
+    return '';
+  }, [coach?.name, coachOverride?.name]);
+
   return (
     <ListItem
       divider
@@ -35,15 +56,14 @@ export const OfferListItem = (props: Props) => {
         primary={
           <div>
             <Typography inline>
-              {offer && offer.name ? offer.name : ''}
+              {offerNameDisplay}
               {offer && offer.date_start
                 ? ` - ${formatISOStringAsTime(
                     offer.date_start,
                     offer.timezone_name,
-                  )} `
+                  )}`
                 : ''}
-              &nbsp; - &nbsp;
-              {offer?.coach ? offer.coach.name : null}
+              {coachName}
             </Typography>
             <Level noStyle customLevel={offer.level} variant="caption" />
           </div>

@@ -263,8 +263,8 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
     >
       {theme?.show_activity_color && metaActivity?.color && (
         <ArrowLeft
-          className="arrow-down"
-          style={{ borderTopColor: metaActivity?.color }}
+          className="bs-card-offer__activity-indicator"
+          htmlColor={metaActivity?.color}
         />
       )}
       <div className="bs-card-offer__content">

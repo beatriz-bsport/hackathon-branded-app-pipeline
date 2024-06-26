@@ -28,16 +28,17 @@
   cursor: default;
   opacity: 0.5;
 }
-.arrow-down {
+
+.bs-card-offer__activity-indicator {
   position: absolute;
   right: -40px;
   width: 0;
   height: 0;
   border-left: 40px solid transparent;
   border-right: 40px solid transparent;
-
   border-top: 40px solid;
 }
+
 .bs-card-offer__content {
   padding-top: var(--spacing-1);
   display: flex;

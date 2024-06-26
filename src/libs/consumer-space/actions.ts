@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import type { RootState } from 'src/reducers';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-
+import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 import api, {
   fetchUniversalPasses as fetchUniversalPassesAPI,
@@ -65,6 +65,7 @@ import type {
   ConsumerInvoiceREST,
 } from '#src/libs/invoice/types';
 
+import { fetchBookingGuestNumberEligibleLeftByOfferBulk } from '#src/libs/offer/api';
 export const actionsType = {
   CONSUMER_HAS_FETCHED_OPTIONS: 'CONSUMER_HAS_FETCHED_OPTIONS_SUCCESS',
   CONSUMER_START_FETCH_OPTIONS: 'CONSUMER_START_FETCH_OPTIONS',
@@ -1668,6 +1669,49 @@ export function fetchConsumerInvoicesComplementary(
       dispatch(fetchConsumerInvoicesComplementaryActions.error(error));
     } finally {
       dispatch(fetchConsumerInvoicesComplementaryActions.isLoading(false));
+    }
+  };
+}
+
+export const fetchConsumerGuestNumberEligibleByOfferBulk = {
+  isLoading: createAction<boolean>(
+    'CONSUMER_BOOKING/GUEST_NUMBER_ELIGIBLE_LEFT/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'CONSUMER_BOOKING/GUEST_NUMBER_ELIGIBLE_LEFT/ERROR',
+  ),
+  success: createAction<Record<number, number>>(
+    'CONSUMER_BOOKING/GUEST_NUMBER_ELIGIBLE_LEFT/SUCCESS',
+  ),
+};
+
+export function fetchConsumerGuestNumberEligibleLeftByOfferBulk(
+  id__in: number[],
+  options?: OptionCallback<Record<number, number>>,
+) {
+  return async (dispatch: Dispatch) => {
+    const uniq_ids = uniq((id__in ?? []).filter((id) => !!id));
+    if (uniq_ids.length === 0 || uniq_ids.length > 10) {
+      return;
+    }
+
+    try {
+      dispatch(fetchConsumerGuestNumberEligibleByOfferBulk.isLoading(true));
+      dispatch(fetchConsumerGuestNumberEligibleByOfferBulk.error(null));
+
+      const response = await fetchBookingGuestNumberEligibleLeftByOfferBulk(
+        id__in,
+      );
+      dispatch(
+        fetchConsumerGuestNumberEligibleByOfferBulk.success(response.data),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      options?.onError?.(error);
+      dispatch(fetchConsumerGuestNumberEligibleByOfferBulk.error(error));
+    } finally {
+      dispatch(fetchConsumerGuestNumberEligibleByOfferBulk.isLoading(false));
     }
   };
 }

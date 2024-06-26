@@ -33,7 +33,6 @@ type Props = {
   isDetailsDisabled?: boolean;
   isItemInThePast?: boolean;
   isBookableDisabled?: boolean;
-  isMoreDisabled?: boolean;
   onDetailsClick?: () => void;
   onBookClick?: () => void;
   onBookingCancelClick?: () => void;
@@ -45,8 +44,6 @@ type Props = {
   isCancellable?: boolean;
   isBookableForAGuest?: boolean;
   menuId?: string;
-  // TO BE REMOVED FROM PROPS AFTER INTEGRATION
-  isMoreDisplayed?: boolean;
   className?: string;
   isSelected?: boolean;
 };
@@ -62,7 +59,6 @@ const ConsumerBookingCard: React.FC<Props> = ({
   waitingListPosition,
   isDetailsDisabled,
   isItemInThePast,
-  isMoreDisabled,
   isBookableDisabled,
   isJoinableOnlineDisabled,
   onDetailsClick,
@@ -83,8 +79,6 @@ const ConsumerBookingCard: React.FC<Props> = ({
   isCancellable,
   isBookableForAGuest,
   menuId,
-  // TO BE REMOVED FROM PROPS AFTER INTEGRATION
-  isMoreDisplayed,
   isSelected,
 }) => {
   if (isLoading) {
@@ -134,8 +128,6 @@ const ConsumerBookingCard: React.FC<Props> = ({
             isCancellable={isCancellable}
             isJoinableOnline={isJoinableOnline}
             isJoinableOnlineDisabled={isJoinableOnlineDisabled}
-            isMoreDisabled={isMoreDisabled}
-            isMoreDisplayed={isMoreDisplayed}
             menuId={menuId}
             onBookClick={onBookClick}
             onBookingCancelClick={onBookingCancelClick}

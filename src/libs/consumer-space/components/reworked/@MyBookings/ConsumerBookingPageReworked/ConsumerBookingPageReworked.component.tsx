@@ -39,6 +39,8 @@ import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/
 
 import { BookingTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 import type { OptionCallback } from '#src/state/types';
+import { BOOKING_FOR_GUEST_FREQUENCY } from '#src/libs/offer/types';
+import type { AddGuestFormValues } from '#src/libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
 
 import './styles.css';
 
@@ -92,6 +94,15 @@ type Props = {
     filterTab: BookingFilterTab,
   ) => ConsumerBooking[];
   fetchAssociatedBlueprintObjects: (blueprintId: number) => void;
+  getOfferElligibleGuestNumber: (offerId: number) => number;
+  bookingGuestFrequency: BOOKING_FOR_GUEST_FREQUENCY;
+  onBookingForAGuestSubmit: ({
+    guestFormValues,
+    offerBookedId,
+  }: {
+    guestFormValues: AddGuestFormValues;
+    offerBookedId: number;
+  }) => void;
 };
 
 export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
@@ -132,6 +143,9 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   fetchAssociatedBlueprintObjects,
   cancelPrivateBooking,
   cancelBookingOption,
+  getOfferElligibleGuestNumber,
+  bookingGuestFrequency,
+  onBookingForAGuestSubmit,
 }) => {
   const {
     selectedTab,
@@ -180,6 +194,9 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     handleToggleBookingTabDrawer,
     handleToggleSpotSchedulingDrawer,
     handleSeeBookingDetails,
+    isBookingForAGuestModalOpen,
+    selectedBookingForBookingForAGuest,
+    setSelectedBookingForBookingForAGuest,
   } = useConsumerBookingsDataManager({
     pastBookingsState,
     pastBookingsList,
@@ -235,8 +252,10 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     <MarketplacePageContent buttonsData={buttonsData} isMobile={isMobile}>
       <div className="bs-consumer-booking-page__root">
         <ConsumerBookingModals
+          bookingGuestFrequency={bookingGuestFrequency}
           calendarBookingDate={calendarBookingDate}
           companyTheme={companyTheme}
+          getOfferElligibleGuestNumber={getOfferElligibleGuestNumber}
           handleCancelBooking={handleCancelBooking}
           handleResetSelectedItemsForCancellation={
             handleResetSelectedItemsForCancellation
@@ -251,6 +270,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           handleToggleSpotSchedulingDrawer={handleToggleSpotSchedulingDrawer}
           handleToggleSpotSchedulingModal={handleToggleSpotSchedulingModal}
           isBookingDetailsDrawerOpen={isBookingDetailsDrawerOpen}
+          isBookingForAGuestModalOpen={isBookingForAGuestModalOpen}
           isBookingTabDrawerOpen={isBookingTabDrawerOpen}
           isCalendarDrawerOpen={isCalendarDrawerOpen}
           isCancelBookingModalOpen={isCancelBookingModalOpen}
@@ -259,9 +279,13 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           isOnlineWarningModalOpen={isOnlineWarningModalOpen}
           isSpotSchedulingDrawerOpen={isSpotSchedulingDrawerOpen}
           isSpotSchedulingModalOpen={isSpotSchedulingModalOpen}
+          onBookingForAGuestSubmit={onBookingForAGuestSubmit}
           onlineWarningModalOfferDate={onlineWarningModalOfferDate}
           relatedBookingsInGroup={relatedBookingsInGroup}
           selectedBooking={selectedBooking}
+          selectedBookingForBookingForAGuest={
+            selectedBookingForBookingForAGuest
+          }
           selectedBookingForCancelation={selectedBookingForCancelation}
           selectedBookingOption={selectedBookingOption}
           selectedBookingOptionForCancelation={
@@ -274,6 +298,9 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
             selectedPrivateBookingForCancelation
           }
           sessionTimeDisplay={sessionTimeDisplay}
+          setSelectedBookingForBookingForAGuest={
+            setSelectedBookingForBookingForAGuest
+          }
           spotTypes={spotTypes}
           timezone={timezone}
         />
@@ -300,6 +327,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           bookingList={bookingList}
           bookingOptionList={bookingOptionList}
           coachDisplay={companyTheme?.coach_display}
+          getOfferElligibleGuestNumber={getOfferElligibleGuestNumber}
           handleBookSession={handleBookSession}
           handleJoinOnlineBooking={handleJoinOnlineBooking}
           handlePaginationFetchMore={handlePaginationFetchMore}
@@ -317,6 +345,9 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           selectedPrivateBooking={selectedPrivateBooking}
           selectedTab={selectedTab}
           sessionTimeDisplay={sessionTimeDisplay}
+          setSelectedBookingForBookingForAGuest={
+            setSelectedBookingForBookingForAGuest
+          }
           timezone={timezone}
         />
       </div>

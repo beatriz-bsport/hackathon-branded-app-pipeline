@@ -148,6 +148,9 @@ export type ConsumerStateReworked = {
       past: ConsumerBookingReworked;
       waitlist: ConsumerBookingOptionReworked;
     };
+    elligibleGuestNumberByOffer: {
+      byOfferId: Record<number, number>;
+    } & ErrorAndLoading;
   };
   mySubscriptions: {
     active: ConsumerSubscriptionReworked;

@@ -31,6 +31,8 @@ type Props = {
   ) => void;
   handleSelectBookingForCancelation: (bookingId: number) => void;
   handleShowSpotDetails: (booking: ConsumerBooking) => void;
+  getOfferElligibleGuestNumber: (offerId: number) => number;
+  setSelectedBookingForBookingForAGuest: (booking: ConsumerBooking) => void;
 };
 
 const ConsumerBookingListItem: React.FC<Props> = ({
@@ -44,6 +46,8 @@ const ConsumerBookingListItem: React.FC<Props> = ({
   handleJoinOnlineBooking,
   handleSelectBookingForCancelation,
   handleShowSpotDetails,
+  getOfferElligibleGuestNumber,
+  setSelectedBookingForBookingForAGuest,
 }) => {
   const selectedBookingDate = useConsumerBookingDateTime({
     dateStart: item.offer?.date_start,
@@ -102,13 +106,20 @@ const ConsumerBookingListItem: React.FC<Props> = ({
 
   const coachPicture = getCoachDisplayPicture(coachDisplay, item.coach?.photo);
 
+  const isBookableForAGuest =
+    !!item.offer?.id && getOfferElligibleGuestNumber(item.offer?.id) > 0;
+
+  const handleSelectBookingForBookingForAGuest = React.useCallback(
+    () => setSelectedBookingForBookingForAGuest(item),
+    [setSelectedBookingForBookingForAGuest, item],
+  );
   return (
     <ConsumerBookingCard
-      isMoreDisabled
       activityName={item.offer?.name_override || item.meta_activity?.name}
       coachName={coachName}
       coachPhoto={coachPicture}
       establishmentAddress={item.establishment?.location?.address}
+      isBookableForAGuest={isBookableForAGuest}
       isBookedForAGuest={!!item.source_member}
       isBookingCancelled={!!item.date_canceled}
       isCancellable={bookingActionsMap.isCancellable}
@@ -121,6 +132,7 @@ const ConsumerBookingListItem: React.FC<Props> = ({
       menuId={item.id.toString()}
       offerDate={selectedBookingDate}
       onBookingCancelClick={handleCancelBookingClick}
+      onBookingForAGuestClick={handleSelectBookingForBookingForAGuest}
       onDetailsClick={handleSeeDetailsClick}
       onJoinOnlineClick={handleJoinOnlineClick}
       onSpotSchedulingClick={handleSpotSchedulingClick}

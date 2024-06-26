@@ -12,7 +12,9 @@ import ConsumerBookingOnlineWarningDrawer from '#src/libs/consumer-space/compone
 import ConsumerBookingCalendarDrawer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCalendarDrawer';
 import ConsumerBookingTabDrawer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabDrawer';
 import ConsumerBookingSpotSchedulingDrawer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingSpotSchedulingDrawer';
-
+import MarketplaceBookingAddGuestModal, {
+  AddGuestFormValues,
+} from '#src/libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
 import type {
   ConsumerBooking,
   ConsumerPrivateBooking,
@@ -27,7 +29,7 @@ import type {
 import type { Establishment } from '#src/libs/establishment/types';
 import type { MetaActivity } from '#src/libs/meta-activity/types';
 import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
-
+import { BOOKING_FOR_GUEST_FREQUENCY } from '#src/libs/offer/types';
 type Props = {
   isMobile: boolean;
   companyTheme: CompanyTheme;
@@ -81,6 +83,20 @@ type Props = {
   selectedBookingTab: BookingTab;
   handleSetSelectedTab: (type: BookingTab) => void;
   handleToggleBookingTabDrawer: () => void;
+  bookingGuestFrequency: BOOKING_FOR_GUEST_FREQUENCY;
+  isBookingForAGuestModalOpen: boolean;
+  setSelectedBookingForBookingForAGuest: (
+    booking: ConsumerBooking | null,
+  ) => void;
+  selectedBookingForBookingForAGuest: ConsumerBooking;
+  getOfferElligibleGuestNumber: (offerId: number) => number;
+  onBookingForAGuestSubmit: ({
+    guestFormValues,
+    offerBookedId,
+  }: {
+    guestFormValues: AddGuestFormValues;
+    offerBookedId: number;
+  }) => void;
 };
 
 const ConsumerBookingModals: React.FC<Props> = ({
@@ -126,6 +142,13 @@ const ConsumerBookingModals: React.FC<Props> = ({
   selectedBookingTab,
   handleSetSelectedTab,
   handleToggleBookingTabDrawer,
+  /* BOOKING FOR GUEST */
+  bookingGuestFrequency,
+  isBookingForAGuestModalOpen,
+  setSelectedBookingForBookingForAGuest,
+  selectedBookingForBookingForAGuest,
+  getOfferElligibleGuestNumber,
+  onBookingForAGuestSubmit,
 }) => {
   const handleCloseBookingCancelModal = useCallback(() => {
     if (!isCancellingBooking) {
@@ -137,6 +160,22 @@ const ConsumerBookingModals: React.FC<Props> = ({
     handleToggleCancelBookingModal,
     handleResetSelectedItemsForCancellation,
   ]);
+
+  const handleSubmitBookingForAGuest = React.useCallback(
+    (guestFormValues) => {
+      onBookingForAGuestSubmit({
+        guestFormValues,
+        offerBookedId: selectedBookingForBookingForAGuest?.offer?.id,
+      });
+    },
+    [selectedBookingForBookingForAGuest, onBookingForAGuestSubmit],
+  );
+
+  const handleCloseBookingForAGuest = React.useCallback(
+    () => setSelectedBookingForBookingForAGuest(null),
+    [setSelectedBookingForBookingForAGuest],
+  );
+
   return (
     <PortalContainer wrapperId="bs-consumer-booking-modals-portal-container">
       {isCancelBookingModalOpen &&
@@ -179,7 +218,16 @@ const ConsumerBookingModals: React.FC<Props> = ({
             spotTypes={spotTypes}
           />
         )}
-
+      {isBookingForAGuestModalOpen && (
+        <MarketplaceBookingAddGuestModal
+          bookingGuestFrequency={bookingGuestFrequency}
+          bookingGuestRemainingCount={getOfferElligibleGuestNumber(
+            selectedBookingForBookingForAGuest?.offer?.id,
+          )}
+          onCancel={handleCloseBookingForAGuest}
+          onSubmit={handleSubmitBookingForAGuest}
+        />
+      )}
       <ConsumerBookingSpotSchedulingDrawer
         bookingOffer={selectedBooking?.offer}
         bookingSpotDetails={selectedBookingSpotDetails}

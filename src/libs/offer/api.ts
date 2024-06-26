@@ -267,6 +267,14 @@ export async function fetchBookingGuestNumber(offer_id: number) {
   return getAuth(`${API_V1_URI}/offer/${offer_id}/booking_for_guest/`);
 }
 
+export async function fetchBookingGuestNumberEligibleLeftByOfferBulk(
+  id__in: number[],
+) {
+  return getAuth<Record<number, number>>(
+    `${API_V1_URI}/offer/booking_for_guest_bulk/${buildUrlParams({ id__in })}`,
+  );
+}
+
 export const listOffersWithPendingReplacementRequestIds = (data: {
   offer_id_list: number[];
 }) => {

@@ -27,6 +27,7 @@ import {
   fetchConsumerPaidInvoicesActions,
   fetchConsumerRefundedInvoicesActions,
   fetchConsumerInvoicesComplementaryActions,
+  fetchConsumerGuestNumberEligibleByOfferBulk,
 } from '#src/libs/consumer-space/actions';
 import {
   fetchActiveSubscriptionDetailAsMemberActions,
@@ -170,6 +171,11 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
             byId: {},
           },
         },
+      },
+      elligibleGuestNumberByOffer: {
+        byOfferId: {},
+        loading: false,
+        error: null,
       },
     },
     mySubscriptions: {
@@ -1821,6 +1827,33 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           },
         },
         { deep: true },
+      );
+    },
+    [fetchConsumerGuestNumberEligibleByOfferBulk.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['myBookings', 'elligibleGuestNumberByOffer', 'loading'],
+        payload,
+      );
+    },
+    [fetchConsumerGuestNumberEligibleByOfferBulk.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['myBookings', 'elligibleGuestNumberByOffer', 'error'],
+        payload,
+      );
+    },
+    [fetchConsumerGuestNumberEligibleByOfferBulk.success.toString()]: (
+      state,
+      { payload }: { payload: Record<number, number> },
+    ) => {
+      return state.setIn(
+        ['myBookings', 'elligibleGuestNumberByOffer', 'byOfferId'],
+        payload,
       );
     },
   },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
-import { push } from 'connected-react-router';
+import { push as pushRouter } from 'connected-react-router';
 import uniq from 'lodash/uniq';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
@@ -26,6 +26,7 @@ import {
   cancelBookingAsMember as cancelBookingAsMemberAction,
   cancelPrivateBookingAsMember as cancelPrivateBookingAsMemberAction,
   cancelBookingOptionAsMember as cancelBookingOptionAsMemberAction,
+  fetchConsumerGuestNumberEligibleLeftByOfferBulk as fetchConsumerGuestNumberEligibleLeftByOfferBulkAction,
 } from '#src/libs/consumer-space/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#src/libs/establishment/actions';
 import {
@@ -62,6 +63,7 @@ import {
   getMyWaitlistBookingsList,
   getMyWaitlistBookingsWorkshopState,
   getMyWaitlistBookingsWorkshopList,
+  getConsumerOfferElligibleGuestNumber,
 } from '#src/libs/consumer-space/selectors';
 import {
   getAssetByBlueprintByIdentifier,
@@ -79,7 +81,9 @@ import type { WaitingListBookingOption } from '#src/libs/waiting-list/types';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import type { WithHandlerType } from '../../utils/types';
 import type { RootState } from '../../reducers';
-
+import type { AddGuestFormValues } from '#src/libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
+import { getOfferBookerUrl } from '#src/libs/marketplace/routing-utils';
+import { buildUrlParams } from '#src/http';
 type OwnProps = {};
 type ParamsProps = {
   companyId: number;
@@ -265,8 +269,12 @@ export class ConsumerBooking extends React.Component<Props, State> {
           member: this.props.membership.id,
         },
         {
-          onSuccess: (data) =>
-            this.fetchAssociatedBookingsObjects(data.results),
+          onSuccess: (data) => {
+            this.fetchAssociatedBookingsObjects(data.results);
+            this.props.fetchConsumerGuestNumberEligibleLeftByOfferBulk(
+              data.results.map((booking) => booking.offer),
+            );
+          },
         },
       );
   };
@@ -352,6 +360,7 @@ export class ConsumerBooking extends React.Component<Props, State> {
   render() {
     return (
       <ConsumerBookingPageReworked
+        bookingGuestFrequency={this.props.bookingGuestFrequency}
         bookingOptionsList={this.props.myBookingOptionsList}
         bookingOptionsState={this.props.myBookingOptionsState}
         bookingOptionsWorkshopList={this.props.myBookingOptionsWorkshopList}
@@ -376,11 +385,13 @@ export class ConsumerBooking extends React.Component<Props, State> {
         futurePrivateBookingsList={this.props.myFuturePrivateBookingsList}
         futurePrivateBookingsState={this.props.myFuturePrivateBookingsState}
         getIsBookingsLoading={this.props.getIsBookingsLoading}
+        getOfferElligibleGuestNumber={this.props.getOfferElligibleGuestNumber}
         getRelatedConsumerBookingsInGroup={
           this.props.getRelatedConsumerBookingsInGroup
         }
         handleBookASessionClick={this.handleBookASessionClick}
         isConsumerPacksLoading={this.state.isConsumerPacksLoading}
+        onBookingForAGuestSubmit={this.props.onBookingForAGuestSubmit}
         pastBookingsList={this.props.myPastBookingsList}
         pastBookingsState={this.props.myPastBookingsState}
         pastBookingsWorkshopList={this.props.myPastBookingsWorkshopList}
@@ -405,6 +416,7 @@ const connector = connect(
     theme: getTheme(state),
     marketplaceSettings: state.marketplace.settings,
     sessionTimeDisplay: state.theme.theme.session_time_display,
+    bookingGuestFrequency: state.theme.theme.allow_guest_frequency,
     spotTypes: getSpotTypesOfCompany(state),
     assetByIdBlueprintByIdentifier: getAssetByBlueprintByIdentifier(state),
     roomBlueprintsById: state.spotScheduling.roomBlueprint.byId,
@@ -433,6 +445,8 @@ const connector = connect(
     ) => getRelatedConsumerBookingsInGroup(state, groupId, filterTab),
     getBlueprintAssetByIdentifier: (blueprintId: number) =>
       getAssetByIdentifier(state, blueprintId),
+    getOfferElligibleGuestNumber: (offerId: number) =>
+      getConsumerOfferElligibleGuestNumber(state, offerId),
   }),
   {
     fetchCoachBulk: fetchCoachBulkAction,
@@ -441,7 +455,7 @@ const connector = connect(
     fetchMetaActivityBulk: fetchMetaActivityBulkAction,
     fetchOfferBulk: fetchOfferBulkAction,
     fetchEstablishmentBulk: fetchEstablishmentBulkAction,
-    push,
+    push: pushRouter,
     retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
     fetchPaymentPackBulk: fetchPaymentPackBulkAction,
     fetchRoomBlueprints: fetchRoomBlueprintsAction,
@@ -467,10 +481,36 @@ const connector = connect(
     cancelBookingAsMember: cancelBookingAsMemberAction,
     cancelPrivateBookingAsMember: cancelPrivateBookingAsMemberAction,
     cancelBookingOptionAsMember: cancelBookingOptionAsMemberAction,
+    fetchConsumerGuestNumberEligibleLeftByOfferBulk:
+      fetchConsumerGuestNumberEligibleLeftByOfferBulkAction,
   },
 );
 
-const mapWithHandlers = {};
+const mapWithHandlers = {
+  onBookingForAGuestSubmit:
+    ({ push, companyId }: OwnAndConnectedProps) =>
+    ({
+      guestFormValues,
+      offerBookedId,
+    }: {
+      guestFormValues: AddGuestFormValues;
+      offerBookedId: number;
+    }) => {
+      push(
+        getOfferBookerUrl(companyId, offerBookedId, true) +
+          buildUrlParams({
+            guest_first_name: encodeURIComponent(guestFormValues.firstName),
+            ...(guestFormValues.lastName && {
+              guest_last_name: encodeURIComponent(guestFormValues.lastName),
+            }),
+            ...(guestFormValues.email && {
+              guest_email: encodeURIComponent(guestFormValues.email),
+            }),
+            guest_booking: 'true',
+          }),
+      );
+    },
+};
 
 export const ConsumerBookingWidget = compose(
   marketplaceCssHoc(),

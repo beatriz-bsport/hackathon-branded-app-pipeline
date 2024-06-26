@@ -1082,3 +1082,15 @@ export const getRefundedInvoicesNextPage = (state: RootState) =>
 
 export const getUnpaidInvoicesPage = (state: RootState) =>
   state.consumerReworked.myInvoices.unpaid.page;
+
+const _getConsumerElligibleGuestNumberByOfferState = (state: RootState) =>
+  state.consumerReworked.myBookings.elligibleGuestNumberByOffer;
+
+export const getConsumerOfferElligibleGuestNumber = createSelector(
+  [
+    _getConsumerElligibleGuestNumberByOfferState,
+    (_: RootState, offerId: number) => offerId,
+  ],
+  (elligibleGuestNumberByOffer, offerId) =>
+    elligibleGuestNumberByOffer.byOfferId[offerId] ?? 0,
+);

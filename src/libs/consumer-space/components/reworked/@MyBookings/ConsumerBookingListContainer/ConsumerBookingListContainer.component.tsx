@@ -72,6 +72,8 @@ type Props = {
   relatedBookingsInGroup: ConsumerBooking[];
   handleShowSpotDetails: (booking: ConsumerBooking) => void;
   handleBookSession: (offerId: number) => void;
+  getOfferElligibleGuestNumber: (offerId: number) => number;
+  setSelectedBookingForBookingForAGuest: (booking: ConsumerBooking) => void;
 };
 
 export const ConsumerBookingListContainer: React.FC<Props> = ({
@@ -96,6 +98,8 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   handleJoinOnlineBooking,
   handleShowSpotDetails,
   handleBookSession,
+  getOfferElligibleGuestNumber,
+  setSelectedBookingForBookingForAGuest,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -266,6 +270,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                   <ConsumerBookingListItem
                     key={item.id}
                     coachDisplay={coachDisplay}
+                    getOfferElligibleGuestNumber={getOfferElligibleGuestNumber}
                     handleJoinOnlineBooking={handleJoinOnlineBooking}
                     handleSelectBookingForCancelation={
                       handleSelectBookingForCancelation
@@ -276,6 +281,9 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                     item={item as ConsumerBooking}
                     onBookingCardClick={handleSetSelectedBooking}
                     sessionTimeDisplay={sessionTimeDisplay}
+                    setSelectedBookingForBookingForAGuest={
+                      setSelectedBookingForBookingForAGuest
+                    }
                     timezone={timezone}
                   />
                 );

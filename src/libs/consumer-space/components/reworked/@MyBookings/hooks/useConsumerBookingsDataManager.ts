@@ -178,6 +178,11 @@ export default function useConsumerBookingsDataManager({
   const [isOnlineWarningModalOpen, setIsOnlineWarningModalOpen] =
     useState(false);
 
+  const [
+    selectedBookingForBookingForAGuest,
+    setSelectedBookingForBookingForAGuest,
+  ] = useState<ConsumerBooking | null>(null);
+
   const [onlineWarningModalOfferDate, setOnlineWarningModalOfferDate] =
     useState<string | null>(null);
 
@@ -789,6 +794,9 @@ export default function useConsumerBookingsDataManager({
     onlineWarningModalOfferDate,
     selectedBookingSpotDetails,
     isCancellingBooking,
+    isBookingForAGuestModalOpen: !!selectedBookingForBookingForAGuest,
+    selectedBookingForBookingForAGuest,
+    setSelectedBookingForBookingForAGuest,
     isCalendarDrawerOpen,
     calendarBookingDate,
     isBookingTabDrawerOpen,

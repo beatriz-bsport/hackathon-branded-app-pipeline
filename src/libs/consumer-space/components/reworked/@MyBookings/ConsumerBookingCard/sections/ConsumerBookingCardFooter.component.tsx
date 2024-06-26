@@ -26,9 +26,8 @@ type Props = Required<
     | 'onJoinOnlineClick'
     | 'isJoinableOnline'
     | 'isJoinableOnlineDisabled'
-    | 'isMoreDisabled'
   >
-> & { isMoreDisplayed: boolean; menuId: string; isCancelDisabled: boolean };
+> & { menuId: string; isCancelDisabled: boolean };
 
 const ConsumerBookingCardFooter: React.FC<Props> = ({
   isBookable,
@@ -38,9 +37,7 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
   isCancellable,
   isJoinableOnline,
   isJoinableOnlineDisabled,
-  isMoreDisplayed,
   onBookingCancelClick,
-  isMoreDisabled,
   onBookingForAGuestClick,
   onBookClick,
   onJoinOnlineClick,
@@ -48,6 +45,8 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('consumerSpace');
 
+  const isMoreDisplayed = true;
+  const isMoreDisabled = false;
   const secondaryButtonsList = React.useMemo(
     () => [
       {

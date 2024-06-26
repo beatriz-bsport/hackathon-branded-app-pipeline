@@ -1,19 +1,21 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { compose } from 'recompose';
-import { WithStyles, createStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import WidgetPaymentPackTemplateListPage from 'bsport-saas/src/pages/franchise/payment-pack-template/WidgetPaymentPackTemplateList.page';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
-import { MarketplacePaymentPackTemplateData } from 'bsport-saas/src/libs/marketplace/types';
+import {
+  MarketplacePaymentPackTemplateData,
+  MarketplacePaymentPackTemplateParams,
+} from 'bsport-saas/src/libs/marketplace/types';
 import { buildFranchiseSelectionThenCheckoutUrl } from './utils';
 
 const WidgetPaymentPackTemplateListPageStyled = themify(
   WidgetPaymentPackTemplateListPage,
 );
 
-type OwnProps = {
+type Props = {
   config?: MarketplacePaymentPackTemplateData,
   title: string,
   store: any,
@@ -22,51 +24,54 @@ type OwnProps = {
   onWindowOpen: (url: string) => void,
 };
 
-type Props = OwnProps & WithStyles<typeof styles>;
-
-export class PaymentPackTemplate extends Component<Props> {
-  goToFranchiseSelection = (
-    paymentPackTemplateId: number,
-    companies: Array<number>,
-  ) => {
-    const url = buildFranchiseSelectionThenCheckoutUrl(
-      this.props.franchiseId,
-      paymentPackTemplateId,
-      companies,
-    );
-
-    url && this.props.onWindowOpen(url);
-  };
-
-  render() {
-    const { classes, store, theme, franchiseId } = this.props;
-    const params: { paymentPackTemplateList: Array<number> } = {
-      paymentPackTemplateList: [],
-    };
-    if (this.props.config?.paymentPackTemplateList?.length > 0) {
-      params.paymentPackTemplateList = this.props.config?.paymentPackTemplateList;
-    }
-    return (
-      <div className={classes.container}>
-        <WidgetPaymentPackTemplateListPageStyled
-          theme={theme}
-          store={store}
-          franchiseId={franchiseId}
-          goToFranchiseSelection={this.goToFranchiseSelection}
-          params={params}
-        />
-      </div>
-    );
-  }
-}
-
-const styles = () =>
-  createStyles({
-    container: {
-      width: '100%',
-    },
+export const PaymentPackTemplate: React.FC<Props> = ({
+  franchiseId,
+  onWindowOpen,
+  store,
+  theme,
+  config,
+}) => {
+  const classes = useStyles();
+  const [params, setParams] = useState<MarketplacePaymentPackTemplateParams>({
+    paymentPackTemplateList: config?.paymentPackTemplateList || [],
   });
 
-export default compose<Props, OwnProps>(withStyles(styles))(
-  PaymentPackTemplate,
-);
+  useEffect(() => {
+    if (config?.paymentPackTemplateList?.length > 0) {
+      setParams({ paymentPackTemplateList: config?.paymentPackTemplateList });
+    }
+  }, [config?.paymentPackTemplateList?.length]);
+
+  const goToFranchiseSelection = React.useCallback(
+    (paymentPackTemplateId: number, companies: Array<number>) => {
+      const url = buildFranchiseSelectionThenCheckoutUrl(
+        franchiseId,
+        paymentPackTemplateId,
+        companies,
+      );
+
+      url && onWindowOpen(url);
+    },
+    [franchiseId, buildFranchiseSelectionThenCheckoutUrl, onWindowOpen],
+  );
+
+  return (
+    <div className={classes.container}>
+      <WidgetPaymentPackTemplateListPageStyled
+        theme={theme}
+        store={store}
+        franchiseId={franchiseId}
+        goToFranchiseSelection={goToFranchiseSelection}
+        params={params}
+      />
+    </div>
+  );
+};
+
+const useStyles = makeStyles({
+  container: {
+    width: '100%',
+  },
+});
+
+export default React.memo(PaymentPackTemplate);

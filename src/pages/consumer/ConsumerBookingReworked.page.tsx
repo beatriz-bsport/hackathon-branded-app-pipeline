@@ -176,7 +176,8 @@ export class ConsumerBooking extends React.Component<Props, State> {
       ...bookingsCoachList,
       ...bookingsCoachOverrideList,
     ]);
-    this.props.fetchLevelList({ id__in: bookingsLevelList });
+    bookingsLevelList.length !== 0 &&
+      this.props.fetchLevelList({ id__in: bookingsLevelList });
     this.props.fetchMetaActivityBulk(bookingsMetaActivityList);
     this.props.fetchEstablishmentBulk(bookingsEstablishmentList);
     this.fetchConsumerPacksAndPaymentPacks(bookingsConsumerPackList);
@@ -198,7 +199,10 @@ export class ConsumerBooking extends React.Component<Props, State> {
       bookingOptions.map((bookingOption) => bookingOption.meta_activity),
     );
     this.props.fetchEstablishmentBulk(bookingOptionsEstablishmentList);
-    this.props.fetchLevelList({ id__in: bookingOptionsLevelList });
+    bookingOptionsLevelList.length !== 0 &&
+      this.props.fetchLevelList({
+        id__in: bookingOptionsLevelList,
+      });
     this.props.fetchCoachBulk(bookingOptionsCoachList);
     this.props.fetchMetaActivityBulk(bookingOptionsMetaActivityList);
   };

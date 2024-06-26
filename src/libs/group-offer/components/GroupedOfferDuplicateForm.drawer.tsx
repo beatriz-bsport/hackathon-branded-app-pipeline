@@ -181,7 +181,7 @@ export const GroupedOfferDuplicateFormDrawer: React.FC<Props> = ({
             offers_data: offers.map((o) => ({
               waiting_list_max_size: parseInt(o.waiting_list_max_size),
               effectif: parseInt(o.effectif),
-              credits: parseInt(o.credits),
+              credits: parseInt(o.credit_price),
               available_on_partnership: o.available_on_partnership,
               blacklist_tags: o.blacklist_tags,
               broadcast_link: o.broadcast_link,

@@ -1,6 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form, Formik, type FormikProps } from 'formik';
+import {
+  Form,
+  Formik,
+  FormikBag,
+  FormikValues,
+  type FormikProps,
+} from 'formik';
 import * as Yup from 'yup';
 import pick from 'lodash/pick';
 
@@ -284,26 +290,10 @@ export const PaymentPackForm: React.FC<Props> = ({
   smartListLoading,
   theme,
 }) => {
-  const [disabledUniversalPassFields, setDisableUniversalPassFields] =
-    React.useState<boolean>(false);
   const [currentStep, setCurrentStep] = React.useState<PaymentPackFormStep>(
     startAtStep ?? PaymentPackFormStep.DetailsAndRestrictions,
   );
   const { t } = useTranslation('paymentPack');
-
-  const formSteps = useMemo(
-    () => [
-      {
-        title: t('paymentPack:form.paymentPack.detailsAndRestrictions'),
-        icon: Settings,
-      },
-      {
-        title: t('paymentPack:form.paymentPack.notification'),
-        icon: NotificationsActive,
-      },
-    ],
-    [t],
-  );
 
   React.useEffect(() => {
     trackFormAdd(initial?.id);
@@ -350,14 +340,158 @@ export const PaymentPackForm: React.FC<Props> = ({
     onCancel?.();
   }, [clearPaymentPackToEdit, closeForm, initial?.id, onCancel]);
 
-  const handleCancel = useCallback(() => {
-    currentStep === PaymentPackFormStep.Notification
-      ? setCurrentStep(PaymentPackFormStep.DetailsAndRestrictions)
-      : onCloseForm();
-  }, [currentStep, onCloseForm]);
+  const notificationStepAvailable = notifications?.length > 0;
+
+  const cancelText =
+    onCancelText ||
+    (currentStep === PaymentPackFormStep.DetailsAndRestrictions
+      ? t('form.paymentPack.actions.cancel')
+      : t('form.paymentPack.actions.back'));
+
+  const nextOrSubmitText =
+    currentStep === PaymentPackFormStep.DetailsAndRestrictions &&
+    notificationStepAvailable &&
+    enableNotificationStep
+      ? t('form.paymentPack.actions.next')
+      : t('form.paymentPack.actions.submit');
+
+  const initialValues = useMemo(
+    () =>
+      initial
+        ? {
+            ...initial,
+            credit_number: initial?.unlimited ? 'unlimited' : 'limited',
+            credits: initial?.credits || 0,
+            penalty_active: !!initial?.penalty_active,
+            no_show_penalty_active: !!initial?.no_show_penalty_active,
+            validity: initial?.validity_daterange ? 'slot' : 'givenNumber',
+            lower_date: initial?.validity_daterange
+              ? DateTime.fromISO(
+                  // @ts-expect-error
+                  JSON.parse(initial?.validity_daterange).lower,
+                )
+              : now,
+            upper_date: initial?.validity_daterange
+              ? DateTime.fromISO(
+                  // @ts-expect-error
+                  JSON.parse(initial?.validity_daterange).upper,
+                )
+              : oneMonthLater,
+            validity_daterange: initial?.validity_daterange
+              ? {
+                  lower: DateTime.fromISO(
+                    // @ts-expect-error
+                    JSON.parse(initial?.validity_daterange).lower,
+                  ),
+                  upper: DateTime.fromISO(
+                    // @ts-expect-error
+                    JSON.parse(initial?.validity_daterange).upper,
+                  ),
+                }
+              : {
+                  lower: now,
+                  upper: oneMonthLater,
+                },
+            start_date_method: `${
+              initial?.start_date_method ?? START_ON_PURCHASE
+            }`,
+            // @ts-expect-error
+            penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
+            no_show_penalty_kind:
+              // @ts-expect-error
+              penaltyKindDict[initial?.no_show_penalty_kind] || 'block',
+            categories:
+              initial?.categories
+                // @ts-expect-error
+                ?.map((category) => category?.id)
+                ?.filter((category_id) => !!category_id) ?? [],
+
+            is_universal_pass: !!initial?.linked_private_pass,
+            linked_private_pass_compatibility: getFormInitialValue,
+            apply_penalties:
+              initial?.penalty_active || initial?.no_show_penalty_active,
+            applies_for_payroll: initial?.applies_for_payroll,
+            expiration_date_active: !!initial?.expiration_date,
+            off_peak_active: offPeakScheduleIsEmpty,
+            off_peak_schedule: offPeakGroupOnEdit,
+            unusable_by_staff: !initial.is_usable_by_staff,
+            expiration_date: initial.expiration_date
+              ? DateTime.fromISO(initial.expiration_date)
+              : null,
+          }
+        : {
+            id: null,
+            name: '',
+            category: null,
+            price: 0,
+            tax: 0,
+            credit_number: 'limited',
+            credits: 1,
+            penalty_active: false,
+            no_show_penalty_active: false,
+            validity: 'givenNumber',
+            lower_date: now,
+            upper_date: oneMonthLater,
+            validity_daterange: {
+              lower: now,
+              upper: oneMonthLater,
+            },
+            duration_days: 0,
+            duration_months: 1,
+            duration_years: 0,
+            start_date_method: `${START_ON_PURCHASE}`,
+            expiration_days_before_first_use: 365,
+            theorical_margin_value: 0,
+            penalty_nb_late_cancellations: 3,
+            penalty_nb_days: 7,
+            penalty_kind: 'block',
+            penalty_days_blocked: 7,
+            penalty_account_value: 10,
+            no_show_penalty_threshold: 3,
+            no_show_penalty_time_window_days: 7,
+            no_show_penalty_kind: 'block',
+            no_show_penalty_days_blocked: 7,
+            no_show_penalty_amount: 10,
+            max_bookings_per_day: null,
+            max_bookings_per_week: null,
+            max_bookings_per_month: null,
+            max_purchase_per_member: null,
+            new_member_only: false,
+            manager_only: false,
+            onsite_payment_available: false,
+            categories: [],
+            establishments: [],
+            metaActivities: [],
+            full_vod_access: false,
+            only_vod_access: false,
+            whitelist_tags: [],
+            blacklist_tags: [],
+            tags_on_consumer_item_creation: [],
+            linked_private_pass: null,
+            is_universal_pass: false,
+            linked_private_pass_compatibility: [],
+            allow_guest_pass: true,
+            unusable_by_staff: false,
+            applies_for_payroll: true,
+            expiration_date: null,
+            expiration_date_active: false,
+            description: null,
+            off_peak_schedule: offPeakGroupDefaultValue,
+            off_peak_active: false,
+            highlighted_as_recommended: false,
+          },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      getFormInitialValue,
+      initial,
+      offPeakGroupDefaultValue,
+      offPeakGroupOnEdit,
+      offPeakScheduleIsEmpty,
+    ],
+  );
 
   const submitForm = useCallback(
-    (values, formikHelpers) => {
+    (values, { setSubmitting }: FormikBag<Props, FormikValues>) => {
       const sanitizedValues = {
         ...values,
         unlimited: values.credit_number === 'unlimited',
@@ -368,8 +502,8 @@ export const PaymentPackForm: React.FC<Props> = ({
         sanitizedValues.duration_months = null;
         sanitizedValues.duration_years = null;
         sanitizedValues.validity_daterange = {
-          lower: DateTime.fromISO(values.lower_date).toISODate(),
-          upper: DateTime.fromISO(values.upper_date).toISODate(),
+          lower: values.lower_date.toISODate(),
+          upper: values.upper_date.toISODate(),
         };
       } else {
         sanitizedValues.validity_daterange = null;
@@ -422,13 +556,13 @@ export const PaymentPackForm: React.FC<Props> = ({
       // @ts-expect-error
       onSubmit(data, {
         onSuccess: () => {
-          formikHelpers.setSubmitting(false);
           trackFormSuccess(initial?.id);
+          setSubmitting(false);
           clearPaymentPackToEdit?.();
           closeForm?.();
         },
         onError: () => {
-          formikHelpers.setSubmitting(false);
+          setSubmitting(false);
           clearPaymentPackToEdit?.();
           closeForm?.();
         },
@@ -436,8 +570,6 @@ export const PaymentPackForm: React.FC<Props> = ({
     },
     [clearPaymentPackToEdit, closeForm, initial?.id, onSubmit],
   );
-
-  const notificationStepAvailable = notifications?.length > 0;
 
   const handleNext = useCallback(
     (values, formikHelpers) => {
@@ -461,148 +593,31 @@ export const PaymentPackForm: React.FC<Props> = ({
     ],
   );
 
-  const cancelText =
-    onCancelText ||
-    (currentStep === PaymentPackFormStep.DetailsAndRestrictions
-      ? t('form.paymentPack.actions.cancel')
-      : t('form.paymentPack.actions.back'));
+  const handleCancel = useCallback(() => {
+    currentStep === PaymentPackFormStep.Notification
+      ? setCurrentStep(PaymentPackFormStep.DetailsAndRestrictions)
+      : onCloseForm();
+  }, [currentStep, onCloseForm]);
 
-  const nextOrSubmitText =
-    currentStep === PaymentPackFormStep.DetailsAndRestrictions &&
-    notificationStepAvailable &&
-    enableNotificationStep
-      ? t('form.paymentPack.actions.next')
-      : t('form.paymentPack.actions.submit');
+  const formSteps = useMemo(
+    () => [
+      {
+        title: t('paymentPack:form.paymentPack.detailsAndRestrictions'),
+        icon: Settings,
+      },
+      {
+        title: t('paymentPack:form.paymentPack.notification'),
+        icon: NotificationsActive,
+      },
+    ],
+    [t],
+  );
 
   return (
     <div>
       <Formik
         enableReinitialize
-        initialValues={
-          initial
-            ? {
-                ...initial,
-                credit_number: initial?.unlimited ? 'unlimited' : 'limited',
-                credits: initial?.credits || 0,
-                penalty_active: !!initial?.penalty_active,
-                no_show_penalty_active: !!initial?.no_show_penalty_active,
-                validity: initial?.validity_daterange ? 'slot' : 'givenNumber',
-                lower_date: initial?.validity_daterange
-                  ? DateTime.fromISO(
-                      // @ts-expect-error
-                      JSON.parse(initial?.validity_daterange).lower,
-                    )
-                  : now,
-                upper_date: initial?.validity_daterange
-                  ? DateTime.fromISO(
-                      // @ts-expect-error
-                      JSON.parse(initial?.validity_daterange).upper,
-                    )
-                  : oneMonthLater,
-                validity_daterange: initial?.validity_daterange
-                  ? {
-                      lower: DateTime.fromISO(
-                        // @ts-expect-error
-                        JSON.parse(initial?.validity_daterange).lower,
-                      ),
-                      upper: DateTime.fromISO(
-                        // @ts-expect-error
-                        JSON.parse(initial?.validity_daterange).upper,
-                      ),
-                    }
-                  : {
-                      lower: now,
-                      upper: oneMonthLater,
-                    },
-                start_date_method: `${
-                  initial?.start_date_method ?? START_ON_PURCHASE
-                }`,
-                // @ts-expect-error
-                penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
-                no_show_penalty_kind:
-                  // @ts-expect-error
-                  penaltyKindDict[initial?.no_show_penalty_kind] || 'block',
-                categories:
-                  initial?.categories
-                    // @ts-expect-error
-                    ?.map((category) => category?.id)
-                    ?.filter((category_id) => !!category_id) ?? [],
-
-                is_universal_pass: !!initial?.linked_private_pass,
-                linked_private_pass_compatibility: getFormInitialValue,
-                apply_penalties:
-                  initial?.penalty_active || initial?.no_show_penalty_active,
-                applies_for_payroll: initial?.applies_for_payroll,
-                expiration_date_active: !!initial?.expiration_date,
-                off_peak_active: offPeakScheduleIsEmpty,
-                off_peak_schedule: offPeakGroupOnEdit,
-                unusable_by_staff: !initial.is_usable_by_staff,
-                expiration_date: initial.expiration_date
-                  ? DateTime.fromISO(initial.expiration_date)
-                  : null,
-              }
-            : {
-                id: null,
-                name: '',
-                category: null,
-                price: 0,
-                tax: 0,
-                credit_number: 'limited',
-                credits: 1,
-                penalty_active: false,
-                no_show_penalty_active: false,
-                validity: 'givenNumber',
-                lower_date: now,
-                upper_date: oneMonthLater,
-                validity_daterange: {
-                  lower: now,
-                  upper: oneMonthLater,
-                },
-                duration_days: 0,
-                duration_months: 1,
-                duration_years: 0,
-                start_date_method: `${START_ON_PURCHASE}`,
-                expiration_days_before_first_use: 365,
-                theorical_margin_value: 0,
-                penalty_nb_late_cancellations: 3,
-                penalty_nb_days: 7,
-                penalty_kind: 'block',
-                penalty_days_blocked: 7,
-                penalty_account_value: 10,
-                no_show_penalty_threshold: 3,
-                no_show_penalty_time_window_days: 7,
-                no_show_penalty_kind: 'block',
-                no_show_penalty_days_blocked: 7,
-                no_show_penalty_amount: 10,
-                max_bookings_per_day: null,
-                max_bookings_per_week: null,
-                max_bookings_per_month: null,
-                max_purchase_per_member: null,
-                new_member_only: false,
-                manager_only: false,
-                onsite_payment_available: false,
-                categories: [],
-                establishments: [],
-                metaActivities: [],
-                full_vod_access: false,
-                only_vod_access: false,
-                whitelist_tags: [],
-                blacklist_tags: [],
-                tags_on_consumer_item_creation: [],
-                linked_private_pass: null,
-                is_universal_pass: false,
-                linked_private_pass_compatibility: [],
-                allow_guest_pass: true,
-                unusable_by_staff: false,
-                applies_for_payroll: true,
-                expiration_date: null,
-                expiration_date_active: false,
-                description: null,
-                off_peak_schedule: offPeakGroupDefaultValue,
-                off_peak_active: false,
-                highlighted_as_recommended: false,
-              }
-        }
+        initialValues={initialValues}
         onSubmit={handleNext}
         validationSchema={paymentPackSchema}
       >
@@ -632,7 +647,6 @@ export const PaymentPackForm: React.FC<Props> = ({
                     bookkeepingAccounts={bookkeepingAccounts}
                     categoryList={categoryList}
                     compatibleServicePass={compatibleServicePass}
-                    disabledUniversalPassFields={disabledUniversalPassFields}
                     displayNewCheckoutFlow={displayNewCheckoutFlow}
                     initial={initial}
                     isInDrawer={isInDrawer}
@@ -640,9 +654,6 @@ export const PaymentPackForm: React.FC<Props> = ({
                     paymentPackCategories={paymentPackCategories}
                     privateServices={privateServices}
                     provincialTax={provincialTax}
-                    setDisableUniversalPassFields={
-                      setDisableUniversalPassFields
-                    }
                     tagList={tagList}
                     values={values}
                   />

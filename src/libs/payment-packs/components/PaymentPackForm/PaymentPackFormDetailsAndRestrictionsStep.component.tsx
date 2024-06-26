@@ -29,11 +29,9 @@ type Props = {
   isInDrawer: boolean;
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
   bookkeepingAccounts: BookkeepingAccount[];
-  disabledUniversalPassFields: boolean;
   displayNewCheckoutFlow: boolean;
   paymentPackCategories: PaymentPackCategory[];
   provincialTax: number;
-  setDisableUniversalPassFields: (value: boolean) => void;
   allowGuestMaster: boolean;
   availableEstablishmentList: Establishment[];
   categoryList: SCT[];
@@ -49,11 +47,9 @@ const PaymentPackFormDetailsAndRestrictionsStep = ({
   isInDrawer,
   bookkeepingAccountById,
   bookkeepingAccounts,
-  disabledUniversalPassFields,
   displayNewCheckoutFlow,
   paymentPackCategories,
   provincialTax,
-  setDisableUniversalPassFields,
   allowGuestMaster,
   availableEstablishmentList,
   categoryList,
@@ -63,6 +59,8 @@ const PaymentPackFormDetailsAndRestrictionsStep = ({
   privateServices,
   tagList,
 }: Props) => {
+  const [disabledUniversalPassFields, setDisableUniversalPassFields] =
+    React.useState<boolean>(false);
   const classes = useStyles();
   return (
     <>

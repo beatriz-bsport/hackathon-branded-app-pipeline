@@ -37,7 +37,7 @@ interface OwnProps {
   onClose: () => void;
   onSubmit: () => void;
   onSelectSpot: (index: number, spot?: number) => void;
-  selectedSpot?: number;
+  selectedSpot?: SpotType;
   forceFullScreen: boolean | null;
   fullScreen: boolean;
   spotTypesOfBlueprint: SpotType[];
@@ -309,14 +309,12 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                     {/* @ts-expect-error */}
                     {typeof this.props.selectedIndex === 'number'
                       ? t('spotSelectorDialog.book', {
-                          // @ts-expect-error
                           prefix: this.props.selectedSpot?.prefix,
                           indexType:
                             // @ts-expect-error
                             this.props?.selectedIndexType ||
                             // @ts-expect-error
                             this.props.selectedIndex,
-                          // @ts-expect-error
                           suffix: this.props.selectedSpot?.suffix,
                         })
                       : t('spotSelectorDialog.title')}
@@ -360,14 +358,12 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                   {/* @ts-expect-error */}
                   {typeof this.props.selectedIndex === 'number'
                     ? t('spotSelectorDialog.book', {
-                        // @ts-expect-error
                         prefix: this.props.selectedSpot?.prefix,
                         indexType:
                           // @ts-expect-error
                           this.props?.selectedIndexType ||
                           // @ts-expect-error
                           this.props.selectedIndex,
-                        // @ts-expect-error
                         suffix: this.props.selectedSpot?.suffix,
                       })
                     : t('spotSelectorDialog.title')}

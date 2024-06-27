@@ -38,6 +38,8 @@ interface OwnProps {
 
   roomBlueprintById: { [id: number]: RoomBlueprint };
   assetsForBlueprintById: { [id: number]: AssetForBlueprint };
+
+  spotTypes: SpotType[];
 }
 
 type Props = OwnProps;
@@ -152,7 +154,6 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
       return null;
     }
 
-    // @ts-expect-error
     const selectedSpotType = this.props.spotTypes.filter(
       (spotType: SpotType) => spotType.id === this.state.selectedSpotTypeId,
     )[0];
@@ -177,7 +178,6 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
         selectedIndex={this.state.selectedIndex}
         selectedIndexType={selectedIndexType}
         selectedSpot={selectedSpotType}
-        // @ts-expect-error
         spotTypesOfBlueprint={this.props.spotTypes.filter((spotType) =>
           spotTypesIdOfBlueprint?.includes(spotType.id),
         )}

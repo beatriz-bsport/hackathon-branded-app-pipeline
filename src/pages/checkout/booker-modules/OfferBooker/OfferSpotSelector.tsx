@@ -78,7 +78,6 @@ const OfferSpotSelector = (props: Props) => {
       roomBlueprint={roomBlueprint}
       selectedIndex={selectedIndex}
       selectedIndexType={selectedIndexType}
-      // @ts-expect-error
       selectedSpot={selectedSpotType}
       spotTypesOfBlueprint={props.spotTypes.filter((spotType) =>
         spotTypesIdOfBlueprint?.includes(spotType.id),

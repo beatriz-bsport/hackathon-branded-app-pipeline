@@ -118,10 +118,20 @@ exports.default = {
     personalized: 'Customized images',
     predefined: 'Predefined shapes',
     customization: 'Customization',
+    nameCustomization: {
+      title: 'Spot name format',
+      none: 'Only spot number',
+      prefix: 'Spot number with a prefix',
+      suffix: 'Spot number with a suffix',
+    },
     prefixError: 'The prefix must be a single letter',
     prefixExplain:
       'The character indicated here will appear as a prefix to the spot numbers',
     prefix: 'Prefix',
+    suffixError: 'The suffix must be a single letter',
+    suffixExplain:
+      'The character indicated here will appear as a suffix to the spot numbers',
+    suffix: 'Suffix',
     nameExplain: 'Place type name',
     name: 'Name',
     subtitle: 'Creation of a place type',

@@ -2,15 +2,24 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
-import { SpotType } from '#src/libs/spot-scheduling/types';
+import type {
+  SpotNameFormatCustomization,
+  SpotType,
+} from '#src/libs/spot-scheduling/types';
 import CanvasSpotCreatorForm from './CanvasSpotCreatorForm.component';
 
 type Props = {
   id: number;
   open: boolean;
   closeDialog: () => void;
-  onCreateSpot: (spotType: SpotType) => void;
-  onUpdateSpot: (spotType: SpotType) => void;
+  onCreateSpot: (
+    spotType: SpotType,
+    name_format_customization: SpotNameFormatCustomization,
+  ) => void;
+  onUpdateSpot: (
+    spotType: SpotType,
+    name_format_customization: SpotNameFormatCustomization,
+  ) => void;
   spotTypeToUpdate: boolean | SpotType;
 };
 

@@ -73,12 +73,19 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       : getTextColorFromRGB(chroma(spotFillColor)?.rgb());
   }
 
-  static getText(prefix: string, indexType: number, index: number) {
+  static getText(
+    prefix: string,
+    suffix: string,
+    indexType: number,
+    index: number,
+  ) {
     if (!indexType) {
       return index;
     }
 
     if (prefix) return `${prefix}${indexType}`;
+
+    if (suffix) return `${indexType}${suffix}`;
 
     return indexType;
   }
@@ -197,7 +204,12 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           y={(textOffsetY ?? 0) + textPositionY}
           {...(applicableFontColor ? { fill: applicableFontColor } : {})}
         >
-          {CanvasSpotComponent.getText(spotType?.prefix, indexType, index)}
+          {CanvasSpotComponent.getText(
+            spotType?.prefix,
+            spotType?.suffix,
+            indexType,
+            index,
+          )}
         </text>
         <rect
           fill="transparent"
@@ -301,7 +313,12 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           y={(textOffsetY ?? 0) + (height || LENGTH_REFERENCE) / 2}
           {...(fontWeight ? { fontWeight } : {})}
         >
-          {CanvasSpotComponent.getText(spotType?.prefix, indexType, index)}
+          {CanvasSpotComponent.getText(
+            spotType?.prefix,
+            spotType?.suffix,
+            indexType,
+            index,
+          )}
         </text>
         <rect
           fill="transparent"
@@ -403,7 +420,12 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           y={(textOffsetY ?? 0) + (height ?? TRIANGLE_LENGTH) / 2 + 13}
           {...(fontWeight ? { fontWeight } : {})}
         >
-          {CanvasSpotComponent.getText(spotType?.prefix, indexType, index)}
+          {CanvasSpotComponent.getText(
+            spotType?.prefix,
+            spotType?.suffix,
+            indexType,
+            index,
+          )}
         </text>
         <rect
           fill="transparent"
@@ -510,7 +532,12 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           y={(textOffsetY ?? 0) + (height || LENGTH_REFERENCE) / 2}
           {...(fontWeight ? { fontWeight } : {})}
         >
-          {CanvasSpotComponent.getText(spotType?.prefix, indexType, index)}
+          {CanvasSpotComponent.getText(
+            spotType?.prefix,
+            spotType?.suffix,
+            indexType,
+            index,
+          )}
         </text>
         <rect
           fill="transparent"
@@ -608,7 +635,12 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           y={(textOffsetY ?? 0) + (height || LENGTH_REFERENCE) / 2}
           {...(fontWeight ? { fontWeight } : {})}
         >
-          {CanvasSpotComponent.getText(spotType?.prefix, indexType, index)}
+          {CanvasSpotComponent.getText(
+            spotType?.prefix,
+            spotType?.suffix,
+            indexType,
+            index,
+          )}
         </text>
         <rect
           fill="transparent"

@@ -22,9 +22,11 @@ import {
   deleteSpotType,
   fetchUnboundAssetForBlueprintPaginated,
 } from '#src/libs/spot-scheduling/actions';
-import {
+import type {
   AssetForBlueprint,
   RoomBlueprint,
+  SpotNameFormatCustomization,
+  SpotToUpdate,
   SpotType,
 } from '#src/libs/spot-scheduling/types';
 import {
@@ -38,7 +40,11 @@ import { snackbar } from '#src/libs/snackbar/actions';
 import CanvasSpotCreatorDrawer from '#src/libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorDrawer.component';
 import CanvasAssetUploaderDialog from '#src/libs/spot-scheduling/component/SpotCreator/CanvasAssetUploaderDialog.component';
 import CanvasSpotDeleteModal from '#src/libs/spot-scheduling/CanvasSvg/CanvasSpotDeleteModal.component';
-import { PERSONALIZED_CUSTOMIZATION } from '#src/libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
+import {
+  NO_NAME_CUSTOMIZATION,
+  PREFIX_NAME_CUSTOMIZATION,
+  SUFFIX_NAME_CUSTOMIZATION,
+} from '#src/libs/spot-scheduling/constants';
 import SpiviConfirmationDialog from '#src/libs/spot-scheduling/component/SpiviConfirmationDialog.component';
 
 // @ts-expect-error
@@ -53,6 +59,7 @@ import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { MaterialStyleType } from '../../utils/types';
+import { PERSONALIZED_CUSTOMIZATION } from '#src/libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
 
 type OwnProps = {
   id: number;
@@ -108,11 +115,30 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     });
   };
 
-  onUpdateSpotType = async (spotType: SpotType, options: OptionCallback) => {
+  onUpdateSpotType = async (
+    spotType: SpotType,
+    options: OptionCallback,
+    name_format_customization: SpotNameFormatCustomization,
+  ) => {
     const spot = new FormData();
     spot.append('blueprint', this.props.id.toString());
     spot.append('name', spotType.name);
-    spot.append('prefix', spotType.prefix);
+    switch (name_format_customization) {
+      case NO_NAME_CUSTOMIZATION:
+        spot.append('prefix', '');
+        spot.append('suffix', '');
+        break;
+      case PREFIX_NAME_CUSTOMIZATION:
+        spot.append('prefix', spotType.prefix);
+        spot.append('suffix', '');
+        break;
+      case SUFFIX_NAME_CUSTOMIZATION:
+        spot.append('suffix', spotType.suffix);
+        spot.append('prefix', '');
+        break;
+      default:
+        break;
+    }
     spot.append('customization', spotType.customization);
     spot.append('shape', spotType.shape);
     spot.append('fill_color', spotType.fill_color);
@@ -208,6 +234,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     {
       name,
       prefix,
+      suffix,
       customization,
       shape,
       stroke_color,
@@ -218,11 +245,21 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     }: SpotType,
     options: OptionCallback,
     default_spot: boolean,
+    name_format_customization: SpotNameFormatCustomization,
   ) => {
     const spot = new FormData();
     spot.append('blueprint', this.props.id.toString());
     spot.append('name', name);
-    spot.append('prefix', prefix);
+    switch (name_format_customization) {
+      case PREFIX_NAME_CUSTOMIZATION:
+        spot.append('prefix', prefix);
+        break;
+      case SUFFIX_NAME_CUSTOMIZATION:
+        spot.append('suffix', suffix);
+        break;
+      default:
+        break;
+    }
     spot.append('customization', customization);
     spot.append('shape', shape);
     spot.append('fill_color', fill_color);
@@ -324,7 +361,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     this.setState({ defaultSpot });
   };
 
-  openSpotUpdateForm = (spotTypeToUpdate: SpotType) => {
+  openSpotUpdateForm = (spotTypeToUpdate: SpotToUpdate) => {
     this.setState({ creationFormIsOpen: true, spotTypeToUpdate });
   };
 
@@ -344,7 +381,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     });
   };
 
-  onDeleteSpotType = (spotTypeToDelete: SpotType) => {
+  onDeleteSpotType = (spotTypeToDelete: SpotToUpdate) => {
     this.setState({ deleteModalOpen: true, spotTypeToDelete });
   };
 

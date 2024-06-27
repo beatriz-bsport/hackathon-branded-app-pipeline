@@ -68,6 +68,7 @@ export type SpotType = {
   id: number;
   name: string;
   prefix: string;
+  suffix: string;
   customization: string;
   fill_color: string;
   stroke_color: string;
@@ -79,6 +80,17 @@ export type SpotType = {
   blueprint?: number;
 };
 
+export type SpotNameFormatCustomization = 'none' | 'prefix' | 'suffix';
+
+export type SpotNameFormatCustomizationChoices = Readonly<{
+  value: SpotNameFormatCustomization;
+  label: string;
+}>;
+
+export type SpotToUpdate = SpotType & {
+  name_format_customization: SpotNameFormatCustomization;
+};
+
 export type Spot_FULL = {
   spotType: SpotType;
   index: number;
@@ -88,6 +100,7 @@ export type Spot_FULL = {
 export type SpotInformation = {
   name: string;
   prefix: string;
+  suffix: string;
   shape: string;
   fill: string;
   stroke: string;

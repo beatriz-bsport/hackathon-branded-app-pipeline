@@ -12,22 +12,38 @@ import * as Yup from 'yup';
 
 import { Divider, Theme, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { SpotType } from '#src/libs/spot-scheduling/types';
+import type {
+  SpotType,
+  SpotToUpdate,
+  SpotNameFormatCustomization,
+  SpotNameFormatCustomizationChoices,
+} from '#src/libs/spot-scheduling/types';
 import { OptionCallback } from '../../../../state/types';
 import PersonalizedSpotCreator from './PersonalizedSpotCreator.component';
 import PredefinedSpotCreator from './PredefinedSpotCreator.component';
 
 // @ts-expect-error
 import { TextField, RadioGroupField } from '../../../../components/forms';
+import SpotNameCustomizationCreatorComponent from './SpotNameCustomizationCreator.component';
+import {
+  NO_NAME_CUSTOMIZATION,
+  PREFIX_NAME_CUSTOMIZATION,
+  SUFFIX_NAME_CUSTOMIZATION,
+} from '#src/libs/spot-scheduling/constants';
 
 type Props = {
   onCreateSpot: (
     spotType: SpotType,
     options: OptionCallback,
     default_spot: boolean,
+    name_format_customization: SpotNameFormatCustomization,
   ) => void;
-  onUpdateSpot: (spotType: SpotType, options: OptionCallback) => void;
-  spotTypeToUpdate: false | SpotType;
+  onUpdateSpot: (
+    spotType: SpotType,
+    options: OptionCallback,
+    name_format_customization: SpotNameFormatCustomization,
+  ) => void;
+  spotTypeToUpdate: false | SpotToUpdate;
   closeDialog: () => void;
   resetInitial: () => void;
   classes: any;
@@ -55,6 +71,23 @@ export const CanvasSpotCreatorForm = (props: Props) => {
     { value: 'rectangle', label: t('spotCreatorForm.rectangle') },
     { value: 'square', label: t('spotCreatorForm.square') },
   ];
+  const NO_NAME_CUSTOMIZATION_FORMAT: SpotNameFormatCustomizationChoices = {
+    value: NO_NAME_CUSTOMIZATION,
+    label: t('spotCreatorForm.nameCustomization.none'),
+  };
+  const PREFIX_NAME_CUSTOMIZATION_FORMAT: SpotNameFormatCustomizationChoices = {
+    value: PREFIX_NAME_CUSTOMIZATION,
+    label: t('spotCreatorForm.nameCustomization.prefix'),
+  };
+  const SUFFIX_NAME_CUSTOMIZATION_FORMAT: SpotNameFormatCustomizationChoices = {
+    value: SUFFIX_NAME_CUSTOMIZATION,
+    label: t('spotCreatorForm.nameCustomization.suffix'),
+  };
+  const SPOT_NAME_FORMAT_CUSTOMIZATION: SpotNameFormatCustomizationChoices[] = [
+    NO_NAME_CUSTOMIZATION_FORMAT,
+    PREFIX_NAME_CUSTOMIZATION_FORMAT,
+    SUFFIX_NAME_CUSTOMIZATION_FORMAT,
+  ];
   const SPOT_CUSTOMIZATION_CHOICE = [
     { label: t('spotCreatorForm.predefined'), value: PREDEFINED_CUSTOMIZATION },
     {
@@ -65,6 +98,7 @@ export const CanvasSpotCreatorForm = (props: Props) => {
   let initialValues = {
     name: '',
     prefix: '',
+    suffix: '',
     customization: PREDEFINED_CUSTOMIZATION,
     shape: 'circular',
     stroke_color: 'black',
@@ -72,9 +106,11 @@ export const CanvasSpotCreatorForm = (props: Props) => {
     free_image: '',
     taken_image: '',
     selected_image: '',
+    name_format_customization: NO_NAME_CUSTOMIZATION,
   };
   let updating = '';
   let initialShape = SPOT_SHAPE_CHOICE[0];
+  let initialNameFormat = NO_NAME_CUSTOMIZATION_FORMAT;
   if (spotTypeToUpdate) {
     updating = spotTypeToUpdate.free_image;
 
@@ -93,6 +129,19 @@ export const CanvasSpotCreatorForm = (props: Props) => {
       default:
         break;
     }
+
+    if (!spotTypeToUpdate.name_format_customization) {
+      // Happens when loading an existing spot, as long as name_format_customization isn't stored in the database,
+      // we need to infer it from the prefix and suffix
+      if (spotTypeToUpdate.prefix) {
+        initialNameFormat = PREFIX_NAME_CUSTOMIZATION_FORMAT;
+      } else if (spotTypeToUpdate.suffix) {
+        initialNameFormat = SUFFIX_NAME_CUSTOMIZATION_FORMAT;
+      } else {
+        initialNameFormat = NO_NAME_CUSTOMIZATION_FORMAT;
+      }
+    }
+
     initialValues = {
       ...spotTypeToUpdate,
       customization,
@@ -103,6 +152,9 @@ export const CanvasSpotCreatorForm = (props: Props) => {
         ? spotTypeToUpdate.stroke_color
         : 'black',
       prefix: spotTypeToUpdate.prefix ? spotTypeToUpdate.prefix : '',
+      suffix: spotTypeToUpdate.suffix ? spotTypeToUpdate.suffix : '',
+      name_format_customization:
+        spotTypeToUpdate.name_format_customization ?? initialNameFormat.value,
     };
   }
 
@@ -146,18 +198,22 @@ export const CanvasSpotCreatorForm = (props: Props) => {
       initialValues={initialValues}
       onSubmit={(values, actions) => {
         if (spotTypeToUpdate) {
-          onUpdateSpot(values, {
-            onSuccess: () => {
-              actions.setSubmitting(false);
-              closeDialog && closeDialog();
-              resetInitial && resetInitial();
+          onUpdateSpot(
+            values,
+            {
+              onSuccess: () => {
+                actions.setSubmitting(false);
+                closeDialog && closeDialog();
+                resetInitial && resetInitial();
+              },
+              onError: () => {
+                actions.setSubmitting(false);
+                closeDialog && closeDialog();
+                resetInitial && resetInitial();
+              },
             },
-            onError: () => {
-              actions.setSubmitting(false);
-              closeDialog && closeDialog();
-              resetInitial && resetInitial();
-            },
-          });
+            values.name_format_customization,
+          );
         } else {
           onCreateSpot(
             values,
@@ -175,6 +231,7 @@ export const CanvasSpotCreatorForm = (props: Props) => {
               },
             },
             defaultSpot,
+            values.name_format_customization,
           );
         }
       }}
@@ -208,25 +265,13 @@ export const CanvasSpotCreatorForm = (props: Props) => {
                 {t('spotCreatorForm.nameExplain')}
               </Typography>
             </div>
-            <div className={classes.field}>
-              <TextField
-                fullWidth
-                id="textfield_spot_prefix"
-                label={t('spotCreatorForm.prefix')}
-                name="prefix"
-              />
-              <Typography
-                className={classes.explain}
-                color="textSecondary"
-                variant="caption"
-              >
-                <div className={classes.nameExplain}>
-                  <div>{t('spotCreatorForm.prefixExplain')}</div>
-                  <div>{formikProps.values?.prefix ? '1/1' : '0/1'}</div>
-                </div>
-              </Typography>
-            </div>
-            {renderExample(classes.exampleTop, 'B1')}
+            <SpotNameCustomizationCreatorComponent
+              choices={SPOT_NAME_FORMAT_CUSTOMIZATION}
+              defaultValue={initialNameFormat}
+              renderExample={renderExample}
+              setFieldValue={formikProps.setFieldValue}
+              values={formikProps.values}
+            />
             <Divider className={classes.divider} />
             <div className={classes.field}>
               <div className={classes.headerWithIcon}>
@@ -394,6 +439,9 @@ const CanvasSpotCreatorSchema = Yup.object().shape({
   name: Yup.string().required(),
   prefix: Yup.string()
     .max(1, 'spotScheduling:spotCreatorForm.prefixError')
+    .nullable(false),
+  suffix: Yup.string()
+    .max(1, 'spotScheduling:spotCreatorForm.suffixError')
     .nullable(false),
   stroke_color: Yup.string(),
   fill_color: Yup.string(),

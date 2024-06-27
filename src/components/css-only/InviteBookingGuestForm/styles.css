@@ -1,0 +1,9 @@
+.bs-invite-booking-guest-modal__modal-dialog__form {
+}
+
+.bs-invite-booking-guest-modal__form__fields {
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--bs-space-size-4);
+  gap: var(--bs-space-size-2);
+}

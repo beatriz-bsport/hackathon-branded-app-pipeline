@@ -12,9 +12,9 @@ import ConsumerBookingOnlineWarningDrawer from '#src/libs/consumer-space/compone
 import ConsumerBookingCalendarDrawer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCalendarDrawer';
 import ConsumerBookingTabDrawer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabDrawer';
 import ConsumerBookingSpotSchedulingDrawer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingSpotSchedulingDrawer';
-import MarketplaceBookingAddGuestModal, {
-  AddGuestFormValues,
-} from '#src/libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
+import InviteBookingGuestModal from '#src/components/css-only/InviteBookingGuestModal';
+import InviteBookingGuestDrawer from '#src/components/css-only/InviteBookingGuestDrawer';
+import { InviteBookingGuestFormValues } from '#src/components/css-only/InviteBookingGuestForm';
 import type {
   ConsumerBooking,
   ConsumerPrivateBooking,
@@ -94,7 +94,7 @@ type Props = {
     guestFormValues,
     offerBookedId,
   }: {
-    guestFormValues: AddGuestFormValues;
+    guestFormValues: InviteBookingGuestFormValues;
     offerBookedId: number;
   }) => void;
 };
@@ -218,13 +218,25 @@ const ConsumerBookingModals: React.FC<Props> = ({
             spotTypes={spotTypes}
           />
         )}
-      {isBookingForAGuestModalOpen && (
-        <MarketplaceBookingAddGuestModal
+      {!isMobile && isBookingForAGuestModalOpen && (
+        <InviteBookingGuestModal
           bookingGuestFrequency={bookingGuestFrequency}
           bookingGuestRemainingCount={getOfferElligibleGuestNumber(
             selectedBookingForBookingForAGuest?.offer?.id,
           )}
-          onCancel={handleCloseBookingForAGuest}
+          onClose={handleCloseBookingForAGuest}
+          onSubmit={handleSubmitBookingForAGuest}
+          open={isBookingForAGuestModalOpen}
+        />
+      )}
+      {isMobile && isBookingForAGuestModalOpen && (
+        <InviteBookingGuestDrawer
+          bookingGuestFrequency={bookingGuestFrequency}
+          bookingGuestRemainingCount={getOfferElligibleGuestNumber(
+            selectedBookingForBookingForAGuest?.offer?.id,
+          )}
+          isOpen={isBookingForAGuestModalOpen}
+          onClose={handleCloseBookingForAGuest}
           onSubmit={handleSubmitBookingForAGuest}
         />
       )}

@@ -49,6 +49,7 @@ export type Props = {
   isRippleEnabled?: boolean;
   errorMessage?: string;
   readOnly?: boolean;
+  isFullWidth?: boolean;
 };
 
 const TextField: React.FC<Props> = ({
@@ -74,6 +75,7 @@ const TextField: React.FC<Props> = ({
   isRippleEnabled,
   errorMessage,
   readOnly,
+  isFullWidth,
 }) => {
   const [isInputFocused, setIsInputFocused] = React.useState(false);
 
@@ -142,6 +144,8 @@ const TextField: React.FC<Props> = ({
               'bs-fabrique-textfield__input__container--error': isError,
               'bs-fabrique-textfield__input__container--small': isSmall,
               'bs-fabrique-textfield__input__container--large': isLarge,
+              'bs-fabrique-textfield__input__container--full-width':
+                isFullWidth,
               'bs-fabrique-textfield__input__container--focused':
                 isInputFocused,
             },

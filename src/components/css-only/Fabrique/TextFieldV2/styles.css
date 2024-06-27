@@ -113,6 +113,10 @@
   padding: var(--bs-space-size-3) var(--bs-space-size-4);
 }
 
+.bs-fabrique-textfield__input__container--full-width {
+  width: 100%;
+}
+
 [class*='bs-fabrique-textfield__input']::placeholder {
   color: var(--bs-color-text-weakest);
 }

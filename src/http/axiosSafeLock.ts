@@ -13,7 +13,7 @@ export class AxiosSafeLock {
 
   private callCountStore: Map<string, number>;
 
-  private hasReported = false;
+  private reportingStore: Map<string, boolean>;
 
   private blockTimeStore: Map<string, number>;
 
@@ -21,6 +21,7 @@ export class AxiosSafeLock {
     this.callCountStore = new Map();
     this.statusStore = new Map();
     this.lastCalledStore = new Map();
+    this.reportingStore = new Map();
     this.blockTimeStore = new Map();
   }
 
@@ -89,11 +90,11 @@ export class AxiosSafeLock {
 
   private _block(url: string) {
     this.statusStore.set(url, 'BLOCKED');
-    if (!this.hasReported) {
+    if (!this.reportingStore.get(url)) {
       Sentry.captureException(
         new Error(`Blocked ${url} due to too many requests in a short time.`),
       );
-      this.hasReported = true;
+      this.reportingStore.set(url, true);
     }
   }
 }

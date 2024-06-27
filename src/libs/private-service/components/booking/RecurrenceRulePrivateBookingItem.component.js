@@ -38,8 +38,16 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const formatTime = () => {
+    const formattedHours =
+      props.recurrentPrivateBooking.hour < 10
+        ? `0${props.recurrentPrivateBooking.hour}`
+        : props.recurrentPrivateBooking.hour;
+    const formattedMinutes =
+      props.recurrentPrivateBooking.minute < 10
+        ? `0${props.recurrentPrivateBooking.minute}`
+        : props.recurrentPrivateBooking.minute;
     const time = DateTime.fromFormat(
-      `${props.recurrentPrivateBooking.hour}:${props.recurrentPrivateBooking.minute}`,
+      `${formattedHours}:${formattedMinutes}`,
       'HH:mm',
     );
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import get from 'lodash/get';
 
-import { DateTime } from 'luxon';
+import { DateTime, Info } from 'luxon';
 import { TFunction } from 'i18next';
 import { ClassNameMap } from '@material-ui/styles';
 import PeopleIcon from '@material-ui/icons/People';
@@ -102,7 +102,6 @@ import {
 } from '#src/libs/datatype-filtering/constants';
 import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import { checkIdentifierAlreadyExist } from '#src/libs/datatype-filtering/utils';
-import { getLocaleWeekdays } from '#src/utils/datetime';
 import {
   GREEN_GREY_BOOLEAN_CHIPS,
   RED_GREEN_BOOLEAN_CHIPS,
@@ -349,8 +348,7 @@ export const getConverter = (
 
     if (datatype === 'dow') {
       return {
-        value:
-          getLocaleWeekdays('long')[(Math.floor(Number(value)) + 1) % 7] || '',
+        value: Info.weekdays('long')[Math.floor(Number(value)) % 7] || '',
       };
     }
 

@@ -1,8 +1,8 @@
 import * as Sentry from '@sentry/react';
 
 const DANGER_THRESHOLD_IN_MS = 200;
-const MIN_BLOCK_TIME_IN_MS = 1000 * 5;
-const MAX_CONSECUTIVE_CALLS = 20;
+const MIN_BLOCK_TIME_IN_MS = 1000 * 10;
+const MAX_CONSECUTIVE_CALLS = 30;
 
 type Status = 'OK' | 'BLOCKED';
 

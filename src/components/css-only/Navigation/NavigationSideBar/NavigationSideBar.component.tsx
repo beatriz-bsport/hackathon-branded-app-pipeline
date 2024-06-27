@@ -5,6 +5,8 @@ import { PortalContainer } from '#src/components/css-only/Fabrique/PortalContain
 import BottomDrawer from '#src/components/css-only/Fabrique/BottomDrawer';
 import type { NavigationProps } from '#src/libs/consumer-space/components/reworked/@Navigation/types';
 
+import './styles.css';
+
 const NavigationSideBar: React.FC<NavigationProps> = ({
   isBottomDrawerOpen,
   isMobile,
@@ -49,4 +51,5 @@ export const NavigationSideBarStorybook =
   marketplaceCssHoc<React.ComponentProps<typeof NavigationSideBar>>()(
     NavigationSideBar,
   );
+
 export default React.memo(NavigationSideBar);

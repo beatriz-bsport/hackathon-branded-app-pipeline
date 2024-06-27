@@ -63,6 +63,7 @@ import { displayReworkedMemberProfile } from '../../libs/consumer-space/constant
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
 
+import ConsumerNavigation from '#src/libs/consumer-space/components/reworked/@Navigation/ConsumerNavigation';
 const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),
 );
@@ -223,7 +224,7 @@ export class ConsumerHome extends React.Component<Props> {
         <MemberShipValidationWrapper companyId={this.props.companyId}>
           <>
             {this.props.membership ? (
-              <ConsumerDrawer
+              <ConsumerNavigation
                 buildUrl={this.props.buildUrl}
                 companyTheme={this.props.theme}
                 controlableMemberList={this.props.controlableMemberList}
@@ -342,7 +343,7 @@ export class ConsumerHome extends React.Component<Props> {
                     />
                   </Switch>
                 </div>
-              </ConsumerDrawer>
+              </ConsumerNavigation>
             ) : (
               <ConsumerLoading />
             )}
@@ -356,6 +357,7 @@ export class ConsumerHome extends React.Component<Props> {
 const styles = (theme) => ({
   container: {
     paddingBottom: theme.spacing(8),
+    width: '100%',
   },
 });
 

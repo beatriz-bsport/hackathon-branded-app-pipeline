@@ -585,8 +585,8 @@ exports.default = {
       },
       shop: {
         title: 'Shop',
-        myPurchase: 'My purchases',
-        myGiftcards: 'My giftcards',
+        myPurchases: 'My purchases',
+        myGiftCards: 'My giftcards',
       },
       payments: {
         title: 'Payments',

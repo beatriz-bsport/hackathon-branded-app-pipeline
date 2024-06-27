@@ -1,0 +1,5 @@
+.bs-consumer-space-navigation-sidebar__root {
+  background-color: white;
+  min-width: 250px;
+  padding: var(--bs-space-size-4);
+}

@@ -59,7 +59,6 @@ export class DeleteOfferForm extends Component<Props, State> {
     notify: true,
     cashback: true,
     deleteAll: false,
-    force: false,
     cancelLinkedHybridOffer: true,
     similarOffersWithSelectedStatus: (this.props.similarOffers || []).map(
       (so) => ({
@@ -157,7 +156,7 @@ export class DeleteOfferForm extends Component<Props, State> {
         deleteAll,
         custom_selection,
         custom_selection_ids,
-        force: this.state.force,
+        force: true,
       });
     }
     deleteAll =
@@ -232,38 +231,13 @@ export class DeleteOfferForm extends Component<Props, State> {
                 unselectAll={this.unselectAll}
               />
             )}
-          <div className={classes.rowRight}>
-            <IconButton
-              onClick={() =>
-                this.setState((prevState) => ({
-                  showForce: !prevState.showForce,
-                }))
-              }
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-            <Typography variant="h6">
-              {t('form.offer.delete.advanced')}
+
+          <div className={classes.danger}>
+            <WarningIcon className={classes.iconLeft} />
+            <Typography variant="caption">
+              {t('form.offer.delete.explainForceDanger')}
             </Typography>
           </div>
-          <Divider />
-          <Collapse in={this.state.showForce}>
-            <div className={classes.rowPadded}>
-              <Switch
-                checked={this.state.force}
-                onChange={() =>
-                  this.setState((prevState) => ({ force: !prevState.force }))
-                }
-              />
-              <Typography>{t('form.offer.delete.force')}</Typography>
-            </div>
-            <div className={classes.danger}>
-              <WarningIcon className={classes.iconLeft} />
-              <Typography variant="caption">
-                {t('form.offer.delete.explainForceDanger')}
-              </Typography>
-            </div>
-          </Collapse>
         </div>
       );
     }
@@ -390,8 +364,7 @@ export class DeleteOfferForm extends Component<Props, State> {
                 if (
                   offerWasCancelled &&
                   (this.props.offer.nb_bookings > 0 ||
-                    this.props.offer.nb_option > 0) &&
-                  !this.state.force
+                    this.props.offer.nb_option > 0)
                 ) {
                   this.props.setOpenDeleteDialog(true);
                 } else this.onConfirm();

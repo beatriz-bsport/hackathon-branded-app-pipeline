@@ -42,11 +42,12 @@ import { getActiveCustomLevels } from '#src/libs/level/selectors';
 
 import themeSelectors from '#src/libs/theme/selectors';
 import { getMarketplaceRoute } from '#src/libs/marketplace/routing-utils';
-import { VideoStatusEnum } from '#src/libs/video/types';
+import { Video, VideoStatusEnum } from '#src/libs/video/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
 import { PLAYLIST_PAGE_SIZE } from '#src/libs/playlist/constant';
 import type { WithHandlerType } from '../../utils/types';
 import type { RootState } from '../../reducers';
+import { OptionCallback } from '#src/state/types';
 
 type OwnProps = {
   companyId: number;
@@ -228,19 +229,20 @@ const mapHandlers = {
       ...params,
     });
   },
-  fetchVideoList: (props: OwnAndConnectedProps) => (options: any) => {
-    const params = turnSearchParamsIntoQueryParams(props.searchParams);
-    props.fetchVideoList(
-      {
-        status: VideoStatusEnum.processed,
-        company: props.companyId,
-        is_marketplace: true,
-        ...params,
-      },
-      1,
-      options,
-    );
-  },
+  fetchVideoList:
+    (props: OwnAndConnectedProps) => (options: OptionCallback<Video[]>) => {
+      const params = turnSearchParamsIntoQueryParams(props.searchParams);
+      props.fetchVideoList(
+        {
+          status: VideoStatusEnum.processed,
+          company: props.companyId,
+          is_marketplace: true,
+          ...params,
+        },
+        1,
+        options,
+      );
+    },
   fetchPlaylistList: (props: OwnAndConnectedProps) => () => {
     props.fetchPlaylistList({
       company: props.companyId,

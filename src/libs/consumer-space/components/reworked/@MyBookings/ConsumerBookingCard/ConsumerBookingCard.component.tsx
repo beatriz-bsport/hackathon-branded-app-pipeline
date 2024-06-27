@@ -47,6 +47,7 @@ type Props = {
   isSelected?: boolean;
   displayWaitingListPosition?: boolean;
   waitingListPosition?: OfferStatusWaitingListPosition;
+  isMobile?: boolean;
 };
 
 const ConsumerBookingCard: React.FC<Props> = ({
@@ -82,6 +83,7 @@ const ConsumerBookingCard: React.FC<Props> = ({
   isSelected,
   displayWaitingListPosition,
   waitingListPosition,
+  isMobile,
 }) => {
   if (isLoading) {
     return <ConsumerCardSkeleton />;
@@ -131,6 +133,7 @@ const ConsumerBookingCard: React.FC<Props> = ({
             isCancellable={isCancellable}
             isJoinableOnline={isJoinableOnline}
             isJoinableOnlineDisabled={isJoinableOnlineDisabled}
+            isMobile={isMobile}
             menuId={menuId}
             onBookClick={onBookClick}
             onBookingCancelClick={onBookingCancelClick}

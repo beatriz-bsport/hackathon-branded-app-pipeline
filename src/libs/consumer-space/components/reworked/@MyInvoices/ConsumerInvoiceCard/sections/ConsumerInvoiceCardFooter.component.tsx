@@ -219,6 +219,7 @@ const ConsumerInvoiceCardFooter: React.FC<Props> = ({
 
   return (
     <ConsumerGenericCardFooter
+      bottomDrawerTitle={t('consumerSpace:reworked.myInvoices.card.downloads')}
       className="bs-consumer-invoice-card__footer"
       isMobile={isMobile}
       mainButtonsList={mainButtonsList}

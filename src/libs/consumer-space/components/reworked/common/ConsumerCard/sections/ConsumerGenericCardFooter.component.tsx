@@ -58,6 +58,8 @@ type Props = {
   menuId?: string;
   menuClassName?: string;
   menuButtonClassName?: string;
+  /** An optional title for the bottom drawer of extra actions in the card footer. Defaults to "More actions" */
+  bottomDrawerTitle?: string;
 };
 
 const ConsumerGenericCardFooter: React.FC<Props> = ({
@@ -72,6 +74,7 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
   className,
   menuId,
   menuClassName,
+  bottomDrawerTitle,
 }) => {
   const { t } = useTranslation(['consumerSpace', 'common']);
 
@@ -218,7 +221,8 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
               menuClassName,
             )}
             modalDialogProps={{
-              title: t('consumerSpace:reworked.myInvoices.card.downloads'),
+              title:
+                bottomDrawerTitle ?? t('consumerSpace:reworked.moreActions'),
               onClose: handleOnMenuClose,
               onCancel: handleOnMenuClose,
               cancelLabel: t('common:back'),

@@ -22,6 +22,7 @@ type Props = {
   sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
   item: ConsumerBooking;
   coachDisplay?: MarketPlaceCoachDisplay;
+  isMobile?: boolean;
   onBookingCardClick: (bookingId: number) => void;
   handleJoinOnlineBooking: (
     bookingBroadcastURL: string,
@@ -42,6 +43,7 @@ const ConsumerBookingListItem: React.FC<Props> = ({
   sessionTimeDisplay,
   coachDisplay,
   timezone,
+  isMobile,
   onBookingCardClick,
   handleJoinOnlineBooking,
   handleSelectBookingForCancelation,
@@ -126,6 +128,7 @@ const ConsumerBookingListItem: React.FC<Props> = ({
       isItemInThePast={offerIsInThePast}
       isJoinableOnline={bookingActionsMap.isJoinableOnline}
       isLoading={isLoading}
+      isMobile={isMobile}
       isNoShow={item.is_no_show}
       isOnline={item.meta_activity?.is_broadcast}
       isSelected={isSelected}

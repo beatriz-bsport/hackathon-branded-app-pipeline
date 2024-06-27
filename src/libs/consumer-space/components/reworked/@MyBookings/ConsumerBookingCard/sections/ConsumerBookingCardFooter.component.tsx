@@ -26,6 +26,7 @@ type Props = Required<
     | 'onJoinOnlineClick'
     | 'isJoinableOnline'
     | 'isJoinableOnlineDisabled'
+    | 'isMobile'
   >
 > & { menuId: string; isCancelDisabled: boolean };
 
@@ -42,6 +43,7 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
   onBookClick,
   onJoinOnlineClick,
   menuId,
+  isMobile,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -137,6 +139,7 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
     <ConsumerGenericCardFooter
       className="bs-consumer__booking-card__footer"
       isMenuButtonDisabled={isMoreDisabled}
+      isMobile={isMobile}
       mainButtonsList={mainButtonsList}
       menuButtonClassName="bs-consumer__booking-card__footer__menu-button"
       menuButtonLabel={t(

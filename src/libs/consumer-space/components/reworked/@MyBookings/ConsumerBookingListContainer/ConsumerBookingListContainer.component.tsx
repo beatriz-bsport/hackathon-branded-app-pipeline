@@ -286,6 +286,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                     }
                     handleShowSpotDetails={handleShowSpotDetails}
                     isLoading={isLoading}
+                    isMobile={isMobile}
                     isSelected={!isMobile && item.id === selectedBooking?.id}
                     item={item as ConsumerBooking}
                     onBookingCardClick={handleSetSelectedBooking}

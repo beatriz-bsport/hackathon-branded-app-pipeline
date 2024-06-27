@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { fakerEN as faker } from '@faker-js/faker';
 import { DateTime } from 'luxon';
 import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
@@ -176,7 +177,6 @@ const usePropsFromVariation = (
 ): VariationsProps => {
   const isDetailsDisabled =
     variationsSelected?.isDetailsDisabled?.value === 'true';
-  const isMoreDisabled = variationsSelected?.isMoreDisabled?.value === 'true';
   const isBookable = variationsSelected?.isBookable?.value === 'true';
   const isBookableDisabled =
     variationsSelected?.isBookableDisabled?.value === 'true';
@@ -199,11 +199,9 @@ const usePropsFromVariation = (
   const isCancellable = variationsSelected?.isCancellable?.value === 'true';
   const isBookableForAGuest =
     variationsSelected?.isBookableForAGuest?.value === 'true';
-  const isMoreDisplayed = variationsSelected?.isMoreDisplayed?.value === 'true';
 
   return {
     isDetailsDisabled,
-    isMoreDisabled,
     isBookableDisabled,
     isJoinableOnlineDisabled,
     isBookable,
@@ -215,10 +213,15 @@ const usePropsFromVariation = (
     isAtHome,
     isNoShow,
     spotSchedulingPosition: displayspotSchedulingPosition && '1',
-    waitingListPosition: displayWaitingListPosition && '1',
+    waitingListPosition: displayWaitingListPosition && {
+      id: faker.number.int(10000),
+      waiting_list_position: {
+        member_position: faker.number.int(10),
+        waiting_list_size: faker.number.int(10),
+      },
+    },
     isBookableForAGuest,
     isCancellable,
-    isMoreDisplayed,
   };
 };
 

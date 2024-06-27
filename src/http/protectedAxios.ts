@@ -32,8 +32,8 @@ export class ProtectedAxiosBuilder {
     ): Promise<AxiosResponse<T>> => {
       if (options?.bypassLock)
         return originalGet.call(this.axiosInstance, url, config);
-      this.AxiosLocker.updateRequestStatus(url);
       const isUrlBlocked = this.AxiosLocker.checkIsBlocked(url);
+      if (!isUrlBlocked) this.AxiosLocker.updateRequestStatus(url);
       if (isUrlBlocked && this.shouldBlockRequests) {
         console.error(`Could not reach ${url}. Please try again later`);
         return;
@@ -50,8 +50,8 @@ export class ProtectedAxiosBuilder {
     ): Promise<AxiosResponse<T>> => {
       if (options?.bypassLock)
         return originalPost.call(this.axiosInstance, url, data, config);
-      this.AxiosLocker.updateRequestStatus(url);
       const isUrlBlocked = this.AxiosLocker.checkIsBlocked(url);
+      if (!isUrlBlocked) this.AxiosLocker.updateRequestStatus(url);
       if (isUrlBlocked && this.shouldBlockRequests) {
         console.error(`Could not reach ${url}. Please try again later`);
         return;
@@ -68,8 +68,8 @@ export class ProtectedAxiosBuilder {
     ): Promise<AxiosResponse<T>> => {
       if (options?.bypassLock)
         return originalPut.call(this.axiosInstance, url, data, config);
-      this.AxiosLocker.updateRequestStatus(url);
       const isUrlBlocked = this.AxiosLocker.checkIsBlocked(url);
+      if (!isUrlBlocked) this.AxiosLocker.updateRequestStatus(url);
       if (isUrlBlocked && this.shouldBlockRequests) {
         console.error(`Could not reach ${url}. Please try again later`);
         return;
@@ -85,8 +85,8 @@ export class ProtectedAxiosBuilder {
     ): Promise<AxiosResponse> => {
       if (options?.bypassLock)
         return originalDelete.call(this.axiosInstance, url, config);
-      this.AxiosLocker.updateRequestStatus(url);
       const isUrlBlocked = this.AxiosLocker.checkIsBlocked(url);
+      if (!isUrlBlocked) this.AxiosLocker.updateRequestStatus(url);
       if (isUrlBlocked && this.shouldBlockRequests) {
         console.error(`Could not reach ${url}. Please try again later`);
         return;
@@ -103,8 +103,8 @@ export class ProtectedAxiosBuilder {
     ): Promise<AxiosResponse<T>> => {
       if (options?.bypassLock)
         return originalPatch.call(this.axiosInstance, url, data, config);
-      this.AxiosLocker.updateRequestStatus(url);
       const isUrlBlocked = this.AxiosLocker.checkIsBlocked(url);
+      if (!isUrlBlocked) this.AxiosLocker.updateRequestStatus(url);
       if (isUrlBlocked && this.shouldBlockRequests) {
         console.error(`Could not reach ${url}. Please try again later`);
         return;

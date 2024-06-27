@@ -55,7 +55,10 @@ export class AxiosSafeLock {
   }
 
   private _shouldBlock(url: string) {
-    return (this.callCountStore.get(url) ?? 0) > MAX_CONSECUTIVE_CALLS;
+    return (
+      (this.callCountStore.get(url) ?? 0) > MAX_CONSECUTIVE_CALLS &&
+      !this.checkIsBlocked(url)
+    );
   }
 
   private _unblock(url: string) {
@@ -77,8 +80,8 @@ export class AxiosSafeLock {
 
   private lockUrl(url: string) {
     this._block(url);
-    this.callCountStore.delete(url);
     setTimeout(() => {
+      this.callCountStore.delete(url);
       this.unlockUrl(url);
     }, this._getBlockedTime(url));
     this._incrementBlockTime(url);

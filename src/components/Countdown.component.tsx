@@ -1,18 +1,28 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography, { TypographyProps } from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 
 interface CountdownProps {
   timeToShow: number;
-  typography: TypographyProps;
+  color?:
+    | 'initial'
+    | 'inherit'
+    | 'primary'
+    | 'secondary'
+    | 'textPrimary'
+    | 'textSecondary'
+    | 'error';
 }
 
 const getHours = (s: number) => Math.floor(s / 3600);
 const getMinutes = (s: number) => Math.floor((s % 3600) / 60);
 const getSeconds = (s: number) => Math.floor((s % 3600) % 60);
 
-const Countdown: React.FC<CountdownProps> = ({ timeToShow, typography }) => {
+const Countdown: React.FC<CountdownProps> = ({
+  color = 'primary',
+  timeToShow,
+}) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -26,7 +36,7 @@ const Countdown: React.FC<CountdownProps> = ({ timeToShow, typography }) => {
     <div className={classes.countdownWrapper}>
       {hours !== null && (
         <div className={classes.countdownItem}>
-          <Typography color={typography.color} variant="h5">
+          <Typography color={color} variant="h5">
             {hours}
           </Typography>
           <Typography color="textSecondary" variant="body1">
@@ -36,7 +46,7 @@ const Countdown: React.FC<CountdownProps> = ({ timeToShow, typography }) => {
       )}
       {minutes !== null && (
         <div className={classes.countdownItem}>
-          <Typography color={typography.color} variant="h5">
+          <Typography color={color} variant="h5">
             {minutes}
           </Typography>
           <Typography color="textSecondary" variant="body1">

@@ -498,6 +498,7 @@
       "bookingsTitleFor": "Booking for {{name}}",
       "bookingFor": "Booking for",
       "bookingForAGuest": {
+        "sendInvitation": "Send invitation",
         "addGuest": "Add a guest",
         "warningLeveledSession": "This session is reserved for people with the following level: {{level}}. Make sure the person you invite has the expected level.",
         "addGuestLimit": "You have reached the invitation limit for",
@@ -543,12 +544,14 @@
           "description": "Bringing a friend or companion along to share the experience? Simply fill in the name and email of your guest, and we will make sure they receive all the necessary details.",
           "emailWarning": {
             "title": "No email entered",
-            "description": "You haven't provided an email address for your guest. As a result, they won't receive information about this session. Are you sure?",
-            "actions": { "continueWithoutEmail": "Continue without email", "saveAndContinue": "Save and continue" }
+            "description": "You haven't provided an email address for your guest.",
+            "alert": "They won't receive information about this session.",
+            "fieldLabel": "Want to include the email?",
+            "submitLabel": "Continue without"
           }
         },
         "errors": { "requiredField": "Please fill in this field", "email": "Please enter a valid email address" },
-        "firstname": { "label": "First name" },
+        "firstname": { "label": "First Name" },
         "email": { "label": "Email" },
         "actions": {
           "addGuest": "Add guest",
@@ -556,7 +559,7 @@
           "submit": "Confirm",
           "limitGuest": "(None of the available passes can be used to add guests)"
         },
-        "lastname": { "label": "Last name" }
+        "lastname": { "label": "Last Name" }
       }
     },
     "asGuest": "Guest",
@@ -1129,7 +1132,8 @@
     "no": "No",
     "none": "None",
     "seeLess": "See less",
-    "seeMore": "See more"
+    "seeMore": "See more",
+    "send": "Send"
   },
   "communication": {
     "table": { "columns": { "member": "Member", "title": "Preview", "date_created": "Date", "status": "Status" } },

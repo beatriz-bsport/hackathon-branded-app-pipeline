@@ -397,6 +397,7 @@ const getTranslations = async () => {
       bookingsTitleFor: 'Booking for {{name}}',
       bookingFor: 'Booking for',
       bookingForAGuest: {
+        sendInvitation: 'Send invitation',
         addGuest: 'Add a guest',
         warningLeveledSession:
           'This session is reserved for people with the following level: {{level}}. Make sure the person you invite has the expected level.',
@@ -452,18 +453,17 @@ const getTranslations = async () => {
           emailWarning: {
             title: 'No email entered',
             description:
-              "You haven't provided an email address for your guest. As a result, they won't receive information about this session. Are you sure?",
-            actions: {
-              continueWithoutEmail: 'Continue without email',
-              saveAndContinue: 'Save and continue',
-            },
+              "You haven't provided an email address for your guest.",
+            alert: "They won't receive information about this session.",
+            fieldLabel: 'Want to include the email?',
+            submitLabel: 'Continue without',
           },
         },
         errors: {
           requiredField: 'Please fill in this field',
           email: 'Please enter a valid email address',
         },
-        firstname: { label: 'First name' },
+        firstname: { label: 'First Name' },
         email: { label: 'Email' },
         actions: {
           addGuest: 'Add guest',
@@ -472,7 +472,7 @@ const getTranslations = async () => {
           limitGuest:
             '(None of the available passes can be used to add guests)',
         },
-        lastname: { label: 'Last name' },
+        lastname: { label: 'Last Name' },
       },
     },
     asGuest: 'Guest',

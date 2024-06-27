@@ -726,7 +726,10 @@ export default compose(
   })),
   withFormik({
     mapPropsToValues: ({ initial }) =>
-      (initial && { ...initial }) || {
+      (initial && {
+        ...initial,
+        birthday: initial?.birthday ? DateTime.fromISO(initial.birthday) : null,
+      }) || {
         avatar: '',
         firstname: '',
         lastname: '',
@@ -781,10 +784,7 @@ export default compose(
         email: values.email?.toLowerCase() || '',
         emergency_contact: values.emergency_contact || undefined,
         gender: values.gender || 'X',
-        birthday:
-          values &&
-          values.birthday &&
-          DateTime.fromISO(values.birthday).toISODate(),
+        birthday: values?.birthday && values.birthday.toISODate(),
       };
       onSubmit(data, {
         onSuccess: () => {

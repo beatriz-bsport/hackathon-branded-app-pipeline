@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import {
+  PAYPAL_ISSUE_REPEAT_ONBOARDING,
   PAYPAL_SIGNIN_URL,
   PAYPAL_STATUS_PRODUCTION_URL,
 } from '#src/libs/company/constants';
@@ -44,6 +45,7 @@ export const PayPalConnectionIssueAlert: React.FC<Props> = (props: Props) => {
   const href = isStatusUnknown
     ? PAYPAL_STATUS_PRODUCTION_URL
     : PAYPAL_SIGNIN_URL;
+  const showGoToPayPalAccount = status !== PAYPAL_ISSUE_REPEAT_ONBOARDING;
 
   const { t } = useTranslation(['settings']);
   const classes = useStyles();
@@ -54,14 +56,16 @@ export const PayPalConnectionIssueAlert: React.FC<Props> = (props: Props) => {
       </AlertTitle>
       <div className={classes.column}>
         {t(`company.paypal.alert.error.${translationKey}.content`)}
-        <a
-          className={classes.link}
-          href={href}
-          rel="noreferrer"
-          target="_blank"
-        >
-          {t(`company.paypal.alert.error.${translationKey}.goToPayPal`)}
-        </a>
+        {showGoToPayPalAccount && (
+          <a
+            className={classes.link}
+            href={href}
+            rel="noreferrer"
+            target="_blank"
+          >
+            {t(`company.paypal.alert.error.${translationKey}.goToPayPal`)}
+          </a>
+        )}
       </div>
     </Alert>
   );

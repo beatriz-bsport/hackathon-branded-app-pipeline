@@ -4,7 +4,6 @@ import type { AxiosResponse } from 'axios';
 
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
 
-import MarketplacePageContent from '#src/components/css-only/MarketplacePageContent';
 import ConsumerSummaryCard from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard';
 import TermsAndConditionsCard from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/TermsAndConditionsCard';
 import SavedPaymentMethodCard from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/SavedPaymentMethodCard';
@@ -177,7 +176,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
   } = member;
 
   return (
-    <MarketplacePageContent className="bs-consumer-profile-page__root">
+    <div className="bs-consumer-profile-page__root">
       <ConsumerProfileHeader isLoading={isLoading} />
       <div
         className={
@@ -312,7 +311,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
           />
         </PaymentModal>
       )}
-    </MarketplacePageContent>
+    </div>
   );
 };
 

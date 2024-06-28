@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import type { AxiosResponse } from 'axios';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import MarketplacePageContent from '#src/components/css-only/MarketplacePageContent';
 import ConsumerSubscriptionHeader from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionHeader';
 import ConsumerSubscriptionsTabs from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionTabs';
 import ConsumerSubscriptionsListContainer from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
@@ -215,86 +214,79 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   );
 
   return (
-    <MarketplacePageContent
-      buttonsData={!selectedSubscription?.id && buttonsData}
-      isMobile={isMobile}
+    <div
+      className={classNames('bs-consumer__subscription-page__root', {
+        'bs-consumer__subscription-page__root--mobile':
+          isMobile && !!selectedSubscription?.id,
+      })}
     >
-      <div
-        className={classNames('bs-consumer__subscription-page__root', {
-          'bs-consumer__subscription-page__root--mobile':
-            isMobile && !!selectedSubscription?.id,
-        })}
-      >
-        <ConsumerSubscriptionHeader
-          buttonsData={buttonsData}
-          handleGoBack={handleGoBack}
-          isMobile={isMobile}
-          selectedSubscription={selectedSubscription}
-        />
-        {mobileDetailsDisplay(
-          isMobile,
-          selectedSubscription,
-          null,
-          <ConsumerSubscriptionsTabs
-            activeSubscriptionsCount={activeSubscriptionsState.count}
-            expiredSubscriptionsCount={expiredSubscriptionsState.count}
-            futureSubscriptionsCount={futureSubscriptionsState.count}
-            onChangeSubscriptionTab={handleSetSelectedTab}
-            selectedTab={selectedTab}
-          />,
-        )}
-        <ConsumerSubscriptionsListContainer
-          areDetailsLoading={areDetailsLoading}
-          handleInvoiceDetailsPaginationFetchMore={
-            handleInvoiceDetailsPaginationFetchMore
-          }
-          handlePaginationFetchMore={handlePaginationFetchMore}
-          handlePaymentModalOpen={handlePaymentModalOpen}
-          handleSetSelectedSubscriptions={handleSetSelectedSubscriptions}
-          hasDetailsNextPage={!!detailsNextPage}
-          hasNextPage={!!nextPage}
-          invoiceRetryNumber={invoiceRetryNumber}
-          isLoading={isLoading}
-          isMobile={isMobile}
-          onSeeTermsClick={handleTermsModalOpen}
-          paymentMethodUsed={paymentMethodUsed}
-          selectedSubscription={selectedSubscription}
-          selectedSubscriptionInvoiceDetails={
-            selectedSubscriptionInvoiceDetails
-          }
+      <ConsumerSubscriptionHeader
+        buttonsData={buttonsData}
+        handleGoBack={handleGoBack}
+        isMobile={isMobile}
+        selectedSubscription={selectedSubscription}
+      />
+      {mobileDetailsDisplay(
+        isMobile,
+        selectedSubscription,
+        null,
+        <ConsumerSubscriptionsTabs
+          activeSubscriptionsCount={activeSubscriptionsState.count}
+          expiredSubscriptionsCount={expiredSubscriptionsState.count}
+          futureSubscriptionsCount={futureSubscriptionsState.count}
+          onChangeSubscriptionTab={handleSetSelectedTab}
           selectedTab={selectedTab}
-          subscriptionsList={subscriptionsList}
-        />
-        {selectedSubscription && (
-          <ConsumerSubscriptionTermsPortal
-            contractTermsLink={selectedSubscription.contract_terms_pdf_link}
-            displayBottomDrawer={isMobile}
-            downloadContractTerms={downloadBillingPlanTerms}
-            isOpen={isTermsModalOpen}
-            onClose={handleTermsModalClose}
-            termsContent={selectedSubscription.contract_terms}
-          />
-        )}
-        <ConsumerSubscriptionPaymentPortal
-          detachPaymentMethod={detachPaymentMethod}
+        />,
+      )}
+      <ConsumerSubscriptionsListContainer
+        areDetailsLoading={areDetailsLoading}
+        handleInvoiceDetailsPaginationFetchMore={
+          handleInvoiceDetailsPaginationFetchMore
+        }
+        handlePaginationFetchMore={handlePaginationFetchMore}
+        handlePaymentModalOpen={handlePaymentModalOpen}
+        handleSetSelectedSubscriptions={handleSetSelectedSubscriptions}
+        hasDetailsNextPage={!!detailsNextPage}
+        hasNextPage={!!nextPage}
+        invoiceRetryNumber={invoiceRetryNumber}
+        isLoading={isLoading}
+        isMobile={isMobile}
+        onSeeTermsClick={handleTermsModalOpen}
+        paymentMethodUsed={paymentMethodUsed}
+        selectedSubscription={selectedSubscription}
+        selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
+        selectedTab={selectedTab}
+        subscriptionsList={subscriptionsList}
+      />
+      {selectedSubscription && (
+        <ConsumerSubscriptionTermsPortal
+          contractTermsLink={selectedSubscription.contract_terms_pdf_link}
           displayBottomDrawer={isMobile}
-          enabledPaymentGroupMethodIdentifierIds={
-            enabledPaymentGroupMethodIdentifierIds
-          }
-          isOpen={isPaymentModalOpen}
-          memberMail={memberMail}
-          memberName={memberName}
-          onClose={handlePaymentModalClose}
-          paymentMethodList={paymentMethodList}
-          paymentMethodLoading={paymentMethodLoading}
-          paymentMethodUsed={paymentMethodUsed}
-          refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
-          requestSetupIntentSecret={requestSetupIntentSecret}
-          selectedSubscription={selectedSubscription}
-          switchPaymentMethod={handleSwitchPaymentMethod}
+          downloadContractTerms={downloadBillingPlanTerms}
+          isOpen={isTermsModalOpen}
+          onClose={handleTermsModalClose}
+          termsContent={selectedSubscription.contract_terms}
         />
-      </div>
-    </MarketplacePageContent>
+      )}
+      <ConsumerSubscriptionPaymentPortal
+        detachPaymentMethod={detachPaymentMethod}
+        displayBottomDrawer={isMobile}
+        enabledPaymentGroupMethodIdentifierIds={
+          enabledPaymentGroupMethodIdentifierIds
+        }
+        isOpen={isPaymentModalOpen}
+        memberMail={memberMail}
+        memberName={memberName}
+        onClose={handlePaymentModalClose}
+        paymentMethodList={paymentMethodList}
+        paymentMethodLoading={paymentMethodLoading}
+        paymentMethodUsed={paymentMethodUsed}
+        refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
+        requestSetupIntentSecret={requestSetupIntentSecret}
+        selectedSubscription={selectedSubscription}
+        switchPaymentMethod={handleSwitchPaymentMethod}
+      />
+    </div>
   );
 };
 export default React.memo(ConsumerSubscriptionPageReworked);

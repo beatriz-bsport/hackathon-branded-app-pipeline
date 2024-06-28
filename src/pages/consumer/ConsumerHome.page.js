@@ -14,6 +14,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import Analytics from '../../components/analytics/Analytics.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { parseQueryString, buildUrlParams } from '../../http';
+import { withTranslation } from 'react-i18next';
 
 import asyncComponent from '../../AsyncComponent';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
@@ -59,10 +60,15 @@ import {
   navigateBackToMasterRelation as navigateBackToMasterRelationAction,
 } from '../../actions/auth.actions';
 import { displayReworkedMemberProfile } from '../../libs/consumer-space/constants';
+import WidgetUtils from '../../libs/widget/WidgetUtils';
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
+import { ChevronRight } from '#src/components/untitledui';
 
 import ConsumerNavigation from '#src/libs/consumer-space/components/reworked/@Navigation/ConsumerNavigation';
+
+const isWidget = WidgetUtils.isWidget();
+
 const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),
 );
@@ -150,7 +156,8 @@ type Props = {
   navigateToRelationAccount: (memberId: number) => void,
 
   navigateBackToMasterRelation: () => void,
-};
+  marketplaceSettings: MarketplaceSettings,
+} & WithTranslation;
 
 export class ConsumerHome extends React.Component<Props> {
   UNSAFE_componentWillMount() {
@@ -212,6 +219,89 @@ export class ConsumerHome extends React.Component<Props> {
       />
     );
 
+  handleBookASessionClick = () => {
+    const marketplaceTabPath = urlToMarketplaceSessionTab(
+      this.props.marketplaceSettings?.config,
+      this.props.theme.company_name,
+      this.props.theme.company.toString(),
+    );
+    if (WidgetUtils.isWidget()) {
+      WidgetUtils.closeModal();
+      window?.close();
+    } else {
+      this.props.push(marketplaceTabPath);
+    }
+  };
+
+  handleGetASubscriptionClick = () => {
+    const marketplaceTabPath = urlToMarketplaceSubscriptionTab(
+      this.props.marketplaceSettings?.config,
+      this.props.companyTheme.company_name,
+      this.props.companyTheme.company.toString(),
+    );
+    if (WidgetUtils.isWidget()) {
+      WidgetUtils.closeModal();
+      window?.close();
+    } else {
+      this.props.push(marketplaceTabPath);
+    }
+  };
+
+  handleBuyPassClick = () => {
+    const marketplaceTabPath = urlToMarketplacePassTab(
+      this.props.marketplaceSettings?.config,
+      this.props.theme.company_name,
+      this.props.theme.company.toString(),
+    );
+    if (WidgetUtils.isWidget()) {
+      WidgetUtils.closeModal();
+      window?.close();
+    } else {
+      this.props.push(marketplaceTabPath);
+    }
+  };
+
+  /** A list of buttons shown in the footer on mobile */
+  getConsumerMobileNavigationButtonsData = () => {
+    const location = this.props.location;
+    const isSubscriptionRoute = location.pathname.includes('/subscription');
+    const isPassRoute = location.pathname.includes('/pack');
+
+    return isWidget
+      ? []
+      : [
+          {
+            label: this.props.t('reworked.myBookings.bookASession'),
+            onClick: this.handleBookASessionClick,
+            rightIcon: <ChevronRight stroke="currentColor" />,
+            ...((isSubscriptionRoute || isPassRoute) && {
+              variant: 'outlined',
+            }),
+            ...((isSubscriptionRoute || isPassRoute) && { color: 'grey' }),
+          },
+          ...(isSubscriptionRoute
+            ? [
+                {
+                  label: this.props.t(
+                    'reworked.mySubscriptions.headerButtonsLabel.getSubscription',
+                  ),
+                  onClick: this.handleGetASubscriptionClick,
+                  rightIcon: <ChevronRight stroke="currentColor" />,
+                },
+              ]
+            : []),
+          ...(isPassRoute
+            ? [
+                {
+                  label: this.props.t('reworked.myPasses.buyANewPass'),
+                  onClick: this.handleBuyPassClick,
+                  rightIcon: <ChevronRight stroke="currentColor" />,
+                },
+              ]
+            : []),
+        ];
+  };
+
   render() {
     const isRelationNavigation = !!getItemInStorage(
       'local',
@@ -225,6 +315,7 @@ export class ConsumerHome extends React.Component<Props> {
             {this.props.membership ? (
               <ConsumerNavigation
                 buildUrl={this.props.buildUrl}
+                buttonsData={this.getConsumerMobileNavigationButtonsData()}
                 companyTheme={this.props.theme}
                 controlableMemberList={this.props.controlableMemberList}
                 disconnect={this.props.disconnect}
@@ -376,6 +467,7 @@ export default compose(
       offerBooked: from_direct_booking
         ? getOfferWithRelated(state, parseInt(from_direct_booking, 10))
         : null,
+      marketplaceSettings: state.marketplace.settings,
     }),
     {
       linkMeToCompany,
@@ -493,4 +585,5 @@ export default compose(
       },
   }),
   withTitle(({ membership }) => (membership ? membership.company_name : '')),
+  withTranslation('consumerSpace'),
 )(ConsumerHome);

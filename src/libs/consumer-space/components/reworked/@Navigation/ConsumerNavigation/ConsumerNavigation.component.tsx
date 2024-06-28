@@ -11,6 +11,10 @@ import LanguageButton from '#src/components/button/LanguageButton.component';
 import { ButtonData } from '#src/components/css-only/Navigation/types';
 import { DotsVertical } from '#src/components/untitledui';
 import Menu from '#src/components/css-only/Fabrique/Menu';
+import ConsumerGenericFooter from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericFooter';
+
+import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
+
 import './styles.css';
 
 type Props = {
@@ -22,6 +26,7 @@ type Props = {
   isNewCheckoutFlow: boolean;
   isRelationNavigation: boolean;
   memberName: string;
+  buttonsData?: HeaderButton[];
 };
 
 const ConsumerNavigation: React.FC<Props> = ({
@@ -33,6 +38,7 @@ const ConsumerNavigation: React.FC<Props> = ({
   isRelationNavigation,
   memberName,
   children,
+  buttonsData,
   buildUrl,
 }) => {
   const { width } = useViewport();
@@ -115,6 +121,9 @@ const ConsumerNavigation: React.FC<Props> = ({
           })}
         >
           {children}
+          {isMobile && !!buttonsData.length && (
+            <ConsumerGenericFooter buttons={buttonsData} />
+          )}
         </main>
       </div>
     </div>

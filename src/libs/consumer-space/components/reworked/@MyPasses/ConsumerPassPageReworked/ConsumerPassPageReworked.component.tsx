@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
-import MarketplacePageContent from '#src/components/css-only/MarketplacePageContent';
 import ConsumerPassHeader from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassHeader';
 import ConsumerPaymentPackListContainer from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackListContainer';
 import PrivateConsumerPassListContainer from '#src/libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassListContainer';
@@ -184,81 +183,79 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
   );
 
   return (
-    <MarketplacePageContent buttonsData={buttonsData} isMobile={isMobile}>
-      <div className="bs-consumer-pass-page__root">
-        <ConsumerPassModals
-          consumerPassesTabDisplay={consumerPassesTabDisplay}
-          handleSetSelectedTab={handleSetSelectedTab}
-          handleTogglePassDetailsDrawer={handleTogglePassDetailsDrawer}
-          handleTogglePassTabDrawer={handleTogglePassTabDrawer}
-          isConsumerPaymentPackDetailsDrawerOpen={
-            isConsumerPaymentPackDetailsDrawerOpen
-          }
+    <div className="bs-consumer-pass-page__root">
+      <ConsumerPassModals
+        consumerPassesTabDisplay={consumerPassesTabDisplay}
+        handleSetSelectedTab={handleSetSelectedTab}
+        handleTogglePassDetailsDrawer={handleTogglePassDetailsDrawer}
+        handleTogglePassTabDrawer={handleTogglePassTabDrawer}
+        isConsumerPaymentPackDetailsDrawerOpen={
+          isConsumerPaymentPackDetailsDrawerOpen
+        }
+        isLoading={isLoading}
+        isMetadataLoading={isMetadataLoading}
+        isMobile={isMobile}
+        isPassTabDrawerOpen={isPassTabDrawerOpen}
+        isPrivateConsumerPassDetailsDrawerOpen={
+          isPrivateConsumerPassDetailsDrawerOpen
+        }
+        isUniversalPassDetailsDrawerOpen={isUniversalPassDetailsDrawerOpen}
+        selectedPass={selectedPass}
+        selectedPassTab={selectedTab}
+      />
+      <ConsumerPassHeader
+        activeItemsCount={activeItemsCount}
+        buttonsData={buttonsData}
+        consumerPassesTabDisplay={consumerPassesTabDisplay}
+        futureItemsCount={futureItemsCount}
+        handleSetSelectedFilterTab={handleSetSelectedFilterTab}
+        handleSetSelectedTab={handleSetSelectedTab}
+        handleTogglePassTabDrawer={handleTogglePassTabDrawer}
+        isLoading={isConsumerPassesTabDisplayLoading}
+        isMobile={isMobile}
+        selectedFilterTab={selectedFilterTab}
+        selectedTab={selectedTab}
+      />
+      {selectedTab === PassTabEnum.PRIVATE_CONSUMER_PASS && (
+        <PrivateConsumerPassListContainer
+          handlePaginationFetchMore={handlePaginationFetchMore}
+          hasNextPage={!!nextPage}
           isLoading={isLoading}
           isMetadataLoading={isMetadataLoading}
           isMobile={isMobile}
-          isPassTabDrawerOpen={isPassTabDrawerOpen}
-          isPrivateConsumerPassDetailsDrawerOpen={
-            isPrivateConsumerPassDetailsDrawerOpen
-          }
-          isUniversalPassDetailsDrawerOpen={isUniversalPassDetailsDrawerOpen}
-          selectedPass={selectedPass}
-          selectedPassTab={selectedTab}
-        />
-        <ConsumerPassHeader
-          activeItemsCount={activeItemsCount}
-          buttonsData={buttonsData}
-          consumerPassesTabDisplay={consumerPassesTabDisplay}
-          futureItemsCount={futureItemsCount}
-          handleSetSelectedFilterTab={handleSetSelectedFilterTab}
-          handleSetSelectedTab={handleSetSelectedTab}
-          handleTogglePassTabDrawer={handleTogglePassTabDrawer}
-          isLoading={isConsumerPassesTabDisplayLoading}
-          isMobile={isMobile}
+          onPassCardClick={handleSetSelectedPass}
+          passList={passList as PrivateConsumerPassReworked[]}
           selectedFilterTab={selectedFilterTab}
-          selectedTab={selectedTab}
+          selectedPass={selectedPass as PrivateConsumerPassReworked}
         />
-        {selectedTab === PassTabEnum.PRIVATE_CONSUMER_PASS && (
-          <PrivateConsumerPassListContainer
-            handlePaginationFetchMore={handlePaginationFetchMore}
-            hasNextPage={!!nextPage}
-            isLoading={isLoading}
-            isMetadataLoading={isMetadataLoading}
-            isMobile={isMobile}
-            onPassCardClick={handleSetSelectedPass}
-            passList={passList as PrivateConsumerPassReworked[]}
-            selectedFilterTab={selectedFilterTab}
-            selectedPass={selectedPass as PrivateConsumerPassReworked}
-          />
-        )}
-        {selectedTab === PassTabEnum.CONSUMER_PAYMENT_PACK && (
-          <ConsumerPaymentPackListContainer
-            handlePaginationFetchMore={handlePaginationFetchMore}
-            hasNextPage={!!nextPage}
-            isLoading={isLoading}
-            isMetadataLoading={isMetadataLoading}
-            isMobile={isMobile}
-            onPassCardClick={handleSetSelectedPass}
-            passList={passList as ConsumerPaymentPackReworked[]}
-            selectedFilterTab={selectedFilterTab}
-            selectedPass={selectedPass as ConsumerPaymentPackReworked}
-          />
-        )}
-        {selectedTab === PassTabEnum.UNIVERSAL_PASS && (
-          <UniversalPassListContainer
-            handlePaginationFetchMore={handlePaginationFetchMore}
-            hasNextPage={!!nextPage}
-            isLoading={isLoading}
-            isMetadataLoading={isMetadataLoading}
-            isMobile={isMobile}
-            onPassCardClick={handleSetSelectedPass}
-            passList={passList as UniversalPassReworked[]}
-            selectedFilterTab={selectedFilterTab}
-            selectedPass={selectedPass as UniversalPassReworked}
-          />
-        )}
-      </div>
-    </MarketplacePageContent>
+      )}
+      {selectedTab === PassTabEnum.CONSUMER_PAYMENT_PACK && (
+        <ConsumerPaymentPackListContainer
+          handlePaginationFetchMore={handlePaginationFetchMore}
+          hasNextPage={!!nextPage}
+          isLoading={isLoading}
+          isMetadataLoading={isMetadataLoading}
+          isMobile={isMobile}
+          onPassCardClick={handleSetSelectedPass}
+          passList={passList as ConsumerPaymentPackReworked[]}
+          selectedFilterTab={selectedFilterTab}
+          selectedPass={selectedPass as ConsumerPaymentPackReworked}
+        />
+      )}
+      {selectedTab === PassTabEnum.UNIVERSAL_PASS && (
+        <UniversalPassListContainer
+          handlePaginationFetchMore={handlePaginationFetchMore}
+          hasNextPage={!!nextPage}
+          isLoading={isLoading}
+          isMetadataLoading={isMetadataLoading}
+          isMobile={isMobile}
+          onPassCardClick={handleSetSelectedPass}
+          passList={passList as UniversalPassReworked[]}
+          selectedFilterTab={selectedFilterTab}
+          selectedPass={selectedPass as UniversalPassReworked}
+        />
+      )}
+    </div>
   );
 };
 

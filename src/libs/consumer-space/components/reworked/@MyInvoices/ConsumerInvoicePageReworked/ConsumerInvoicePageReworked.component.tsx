@@ -10,7 +10,6 @@ import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworke
 import ConsumerInvoiceBodyContainer from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceBodyContainer';
 import ConsumerInvoiceHeader from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceHeader';
 import ConsumerInvoicePaymentPortal from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePaymentPortal';
-import MarketplacePageContent from '#src/components/css-only/MarketplacePageContent';
 import useViewport from '#Fabrique/hooks/useViewport';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
@@ -167,10 +166,7 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   );
 
   return (
-    <MarketplacePageContent
-      buttonsData={!selectedConsumerInvoice && buttonsData}
-      isMobile={isMobile}
-    >
+    <>
       <div
         className={
           isMobile && !!selectedConsumerInvoice
@@ -228,7 +224,7 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
           requestClientSecret={requestClientSecret}
         />
       )}
-    </MarketplacePageContent>
+    </>
   );
 };
 

@@ -14,6 +14,7 @@ const NavigationSideBar: React.FC<NavigationProps> = ({
   navigationMenu,
   buildUrl,
   memberName,
+  onBottomDrawerClose,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -23,7 +24,10 @@ const NavigationSideBar: React.FC<NavigationProps> = ({
     return (
       <PortalContainer wrapperId="bs-consumer-space-navigation__portal-container">
         <BottomDrawer
-          blanketProps={{ isOpen: isBottomDrawerOpen }}
+          blanketProps={{
+            isOpen: isBottomDrawerOpen,
+            onClick: onBottomDrawerClose,
+          }}
           modalDialogProps={{
             title: `${memberName},`,
             subtitle: t('reworked.exploreYourProfile'),

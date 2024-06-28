@@ -66,6 +66,7 @@ import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants
 import { ChevronRight } from '#src/components/untitledui';
 
 import ConsumerNavigation from '#src/libs/consumer-space/components/reworked/@Navigation/ConsumerNavigation';
+import { getCheckoutUrl } from '../../libs/marketplace/routing-utils';
 
 const isWidget = WidgetUtils.isWidget();
 
@@ -316,6 +317,8 @@ export class ConsumerHome extends React.Component<Props> {
               <ConsumerNavigation
                 buildUrl={this.props.buildUrl}
                 buttonsData={this.getConsumerNavigationButtonsData()}
+                companyId={this.props.companyId}
+                companyLogo={this.props.theme ? this.props.theme.cover : null}
                 companyTheme={this.props.theme}
                 controlableMemberList={this.props.controlableMemberList}
                 disconnect={this.props.disconnect}
@@ -325,7 +328,6 @@ export class ConsumerHome extends React.Component<Props> {
                 }
                 infosOfMember={this.props.infosOfMember}
                 isRelationNavigation={isRelationNavigation}
-                logo={this.props.theme ? this.props.theme.cover : null}
                 memberName={this.props.userFullName}
                 membership={this.props.membership}
                 name={this.props.name}
@@ -334,6 +336,8 @@ export class ConsumerHome extends React.Component<Props> {
                 }
                 navigateToRelationAccount={this.props.navigateToRelationAccount}
                 programList={this.props.programList}
+                redirectToCart={this.props.redirectToCart}
+                redirectToMyProfile={this.props.redirectToMyProfile}
                 showCredit={
                   this.props.theme && this.props.theme.consumer_regularize_debt
                 }
@@ -497,6 +501,17 @@ export default compose(
     },
   ),
   withHandlers({
+    redirectToCart:
+      ({ companyId, push, isNewCheckoutFlow }) =>
+      () => {
+        const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
+        push(checkoutUrl);
+      },
+    redirectToMyProfile:
+      ({ companyId, push }) =>
+      () => {
+        push(`/c/${companyId}/profile/`);
+      },
     disconnect:
       ({ companyId, push }) =>
       () => {

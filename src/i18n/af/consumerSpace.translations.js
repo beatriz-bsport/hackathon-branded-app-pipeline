@@ -103,6 +103,10 @@ exports.default = {
     settingsTitle: 'Spinning data',
   },
   reworked: {
+    appbar: {
+      cart: 'Cart',
+      myAccount: 'My account',
+    },
     exploreYourProfile: 'Explore your profile.',
     moreActions: 'More actions',
     showMore: 'Show more',

@@ -1,5 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
+
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import AppBar from '#src/components/css-only/Navigation/AppBar';
 import useViewport from '#Fabrique/hooks/useViewport';
@@ -9,7 +11,11 @@ import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/const
 //@ts-expect-error
 import LanguageButton from '#src/components/button/LanguageButton.component';
 import { ButtonData } from '#src/components/css-only/Navigation/types';
-import { DotsVertical } from '#src/components/untitledui';
+import {
+  DotsVertical,
+  ShoppingCart01,
+  UserCircle,
+} from '#src/components/untitledui';
 import Menu from '#src/components/css-only/Fabrique/Menu';
 import ConsumerGenericFooter from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericFooter';
 
@@ -27,6 +33,8 @@ type Props = {
   isRelationNavigation: boolean;
   memberName: string;
   buttonsData?: HeaderButton[];
+  redirectToCart: () => void;
+  redirectToMyProfile: () => void;
 };
 
 const ConsumerNavigation: React.FC<Props> = ({
@@ -40,7 +48,10 @@ const ConsumerNavigation: React.FC<Props> = ({
   children,
   buttonsData,
   buildUrl,
+  redirectToCart,
+  redirectToMyProfile,
 }) => {
+  const { t } = useTranslation('consumerSpace');
   const { width } = useViewport();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
@@ -71,6 +82,22 @@ const ConsumerNavigation: React.FC<Props> = ({
   const rightButtonData: ButtonData[] = useMemo(
     () => [
       {
+        label: t('reworked.appbar.cart'),
+        color: 'grey',
+        leftIcon: <ShoppingCart01 />,
+        onClick: redirectToCart,
+        variant: isMobile ? 'text' : 'outlined',
+        isIconButton: isMobile,
+      },
+      {
+        label: t('reworked.appbar.myAccount'),
+        color: 'grey',
+        leftIcon: <UserCircle />,
+        onClick: redirectToMyProfile,
+        variant: isMobile ? 'text' : 'outlined',
+        isIconButton: isMobile,
+      },
+      {
         label: 'changeLanguageButton',
         color: 'grey',
         isIconButton: true,
@@ -79,7 +106,7 @@ const ConsumerNavigation: React.FC<Props> = ({
         variant: 'text',
       },
     ],
-    [openFlagMenu],
+    [isMobile, openFlagMenu, redirectToCart, redirectToMyProfile, t],
   );
 
   const navigationMenu = useNavigationData(
@@ -115,6 +142,7 @@ const ConsumerNavigation: React.FC<Props> = ({
           isMobile={isMobile}
           memberName={memberName}
           navigationMenu={navigationMenu}
+          onBottomDrawerClose={toggleBottomDrawer}
         />
         <main
           className={classNames('bs-consumer-navigation__content', {

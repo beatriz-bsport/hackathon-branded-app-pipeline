@@ -20,7 +20,7 @@ const AppBarRightButtons: React.FC<Props> = ({ rightButtons }) => {
               color={button.color}
               onClick={button.onClick}
               size="md"
-              variant="text"
+              variant={button.variant}
             >
               {button.leftIcon}
             </IconButton>
@@ -32,7 +32,7 @@ const AppBarRightButtons: React.FC<Props> = ({ rightButtons }) => {
             leftIcon={button.leftIcon}
             onClick={button.onClick}
             size="md"
-            variant="text"
+            variant={button.variant}
           >
             {button.label}
           </Button>

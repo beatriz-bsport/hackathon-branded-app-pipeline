@@ -1,12 +1,12 @@
 .bs-app-bar__root {
   display: flex;
   height: 72px;
-  padding: var(--bs-space-size-4, 16px) var(--bs-space-size-8, 32px);
+  padding: var(--bs-space-size-4) var(--bs-space-size-8);
   justify-content: space-between;
   align-items: flex-start;
-  gap: var(--bs-space-size-4, 16px);
+  gap: var(--bs-space-size-4);
   flex: 1 0 0;
-  background: var(--bs-color-action-light, #fff);
+  background: var(--bs-color-action-light);
   /* shadow-sm */
   box-shadow: var(--bs-shadow-s);
 }
@@ -21,6 +21,9 @@
 
 /*Right buttons*/
 .bs-app-bar-right-buttons__root {
+  display: flex;
+  align-items: center;
+  gap: var(--bs-space-size-2);
 }
 
 /*Menu button */

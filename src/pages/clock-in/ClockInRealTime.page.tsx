@@ -41,6 +41,8 @@ const ClockInRealTime: React.FC<Props> = ({
         onSuccess: (payload) => {
           getStaffsAttendanceRealTime({
             user_id__in: payload.results.map((u) => u.id),
+            page: 1,
+            page_size: 15,
           });
         },
       },

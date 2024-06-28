@@ -1,6 +1,5 @@
 .bs-consumer-profile-page__root {
   container: bsConsumerInvoicePage / inline-size;
-  padding: var(--bs-space-size-4) var(--bs-space-size-4) 0;
   height: unset;
 }
 

@@ -1,25 +1,29 @@
 import React from 'react';
+import classNames from 'classnames';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import MenuItem from '#src/components/css-only/Fabrique/MenuItem';
 import { Link } from 'react-router-dom';
+
 import type { NavigationItem as NavigationItemType } from '#src/libs/consumer-space/components/reworked/@Navigation/types';
 
 import './styles.css';
 
 const NavigationItem: React.FC<NavigationItemType> = ({
-  className,
   title,
   goTo,
   icon,
   rightSlot,
   onClick,
   buildUrl,
+  isCurrentRoute,
 }) => {
   if (!goTo)
     return (
       <MenuItem
-        className={className}
+        className={classNames('bs-navigation__navigation-item', {
+          'bs-navigation__navigation-item--selected': isCurrentRoute,
+        })}
         label={title}
         leftIcon={icon}
         onClick={onClick}
@@ -27,10 +31,13 @@ const NavigationItem: React.FC<NavigationItemType> = ({
         type="text"
       />
     );
+
   return (
     <Link className="bs-navigation-list-root__link" to={buildUrl(goTo)}>
       <MenuItem
-        className={className}
+        className={classNames('bs-navigation__navigation-item', {
+          'bs-navigation__navigation-item--selected': isCurrentRoute,
+        })}
         label={title}
         leftIcon={icon}
         onClick={onClick}

@@ -97,14 +97,15 @@ const MenuItem: React.FC<MenuItemProps> = ({
           >
             {label}
           </Typography>
+
+          <div
+            className={classNames('bs-fabrique-menu-item__right-slot', {
+              'bs-fabrique-menu-item__right-slot--hidden': !rightSlot,
+            })}
+          >
+            {rightSlot}
+          </div>
         </ButtonBase>
-        <div
-          className={classNames('bs-fabrique-menu-item__right-slot', {
-            'bs-fabrique-menu-item__right-slot--hidden': !rightSlot,
-          })}
-        >
-          {rightSlot}
-        </div>
       </li>
     );
   }

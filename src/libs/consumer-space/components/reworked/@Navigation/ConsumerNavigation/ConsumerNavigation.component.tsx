@@ -113,6 +113,7 @@ const ConsumerNavigation: React.FC<Props> = ({
           buildUrl={buildUrl}
           isBottomDrawerOpen={isBottomDrawerOpen}
           isMobile={isMobile}
+          memberName={memberName}
           navigationMenu={navigationMenu}
         />
         <main

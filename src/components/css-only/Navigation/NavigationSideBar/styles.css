@@ -11,6 +11,10 @@
   padding: var(--bs-space-size-2) 0;
 }
 
+.bs-consumer-space-navigation__bottom-drawer__content {
+  padding: 0;
+}
+
 @container bsConsumerNavigation (width < 660px) {
   .bs-consumer-space-navigation-sidebar__root {
     padding: 0;

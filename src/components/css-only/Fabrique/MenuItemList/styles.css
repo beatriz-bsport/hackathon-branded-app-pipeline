@@ -31,6 +31,7 @@
 
   /* Custom */
   border-top: 1px solid var(--bs-color-border-weak);
+  margin: var(--bs-space-size-2) var(--bs-space-size-4);
 }
 
 .bs-fabrique-menu-item-list__divider--hidden {

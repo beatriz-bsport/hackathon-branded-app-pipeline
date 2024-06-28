@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import NavigationList from '#src/components/css-only/Navigation/NavigationList';
 import { PortalContainer } from '#src/components/css-only/Fabrique/PortalContainer';
@@ -12,20 +13,30 @@ const NavigationSideBar: React.FC<NavigationProps> = ({
   isMobile,
   navigationMenu,
   buildUrl,
+  memberName,
 }) => {
+  const { t } = useTranslation('consumerSpace');
+
   if (!navigationMenu) return null;
 
-  if (isMobile && isBottomDrawerOpen)
+  if (isMobile)
     return (
       <PortalContainer wrapperId="bs-consumer-space-navigation__portal-container">
-        <BottomDrawer>
+        <BottomDrawer
+          blanketProps={{ isOpen: isBottomDrawerOpen }}
+          modalDialogProps={{
+            title: `${memberName},`,
+            subtitle: t('reworked.exploreYourProfile'),
+            classes: {
+              content: 'bs-consumer-space-navigation__bottom-drawer__content',
+            },
+          }}
+        >
           {navigationMenu.map((navigationSection) => (
             <NavigationList
               key={navigationSection.title}
               buildUrl={buildUrl}
-              isCollapsable={navigationSection.isCollapsable}
-              navigationItems={navigationSection.navigationItems}
-              title={navigationSection.title}
+              {...navigationSection}
             />
           ))}
         </BottomDrawer>
@@ -39,9 +50,7 @@ const NavigationSideBar: React.FC<NavigationProps> = ({
             <NavigationList
               key={navigationSection.title}
               buildUrl={buildUrl}
-              isCollapsable={navigationSection.isCollapsable}
-              navigationItems={navigationSection.navigationItems}
-              title={navigationSection.title}
+              {...navigationSection}
             />
           ))}
         </nav>

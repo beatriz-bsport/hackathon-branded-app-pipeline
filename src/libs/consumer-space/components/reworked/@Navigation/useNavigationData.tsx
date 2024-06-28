@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import {
   Calendar,
-  ChevronDown,
   FileAttachment02,
   Gift02,
   NotificationText,
@@ -13,7 +12,10 @@ import {
   UserEdit,
 } from '#src/components/untitledui';
 
-import type { NavigationMenu } from '#src/libs/consumer-space/components/reworked/@Navigation/types';
+import type {
+  NavigationMenu,
+  NavigationSection,
+} from '#src/libs/consumer-space/components/reworked/@Navigation/types';
 import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { useLocation } from 'react-router';
@@ -43,7 +45,7 @@ const useNavigationData = (
 
   const canChangeFranchisee = hasFranchise && !isRelationNavigation;
 
-  const navigationData = React.useMemo(
+  const navigationData: NavigationSection[] = React.useMemo(
     () => [
       {
         title: t('reworked.navigation.account.title'),
@@ -98,6 +100,7 @@ const useNavigationData = (
       },
       {
         title: t('reworked.navigation.payments.title'),
+        hasDivider: true,
         navigationItems: [
           {
             title: t('reworked.navigation.payments.myInvoices'),
@@ -111,14 +114,14 @@ const useNavigationData = (
         isCollapsable: !isMobile,
         navigationItems: [
           ...(isMobile
-            ? [
+            ? []
+            : [
                 {
                   title: memberName,
                   icon: <UserEdit />,
-                  rightSlot: <ChevronDown />,
                 },
-              ]
-            : []),
+              ]),
+
           ...(canChangeStudio
             ? [
                 {
@@ -135,9 +138,6 @@ const useNavigationData = (
                 },
               ]
             : []),
-          {
-            title: t('reworked.navigation.myAccount.changeLanguage'),
-          },
           {
             title: t('reworked.navigation.myAccount.logOut'),
           },

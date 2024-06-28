@@ -3,13 +3,16 @@ import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import MenuItemList from '#src/components/css-only/Fabrique/MenuItemList';
 import NavigationItem from '#src/components/css-only/Navigation/NavigationItem';
 import Collapse from '#src/components/css-only/Fabrique/Collapse';
+
+import { ChevronDown, ChevronUp } from '#src/components/untitledui';
+
 import type { NavigationSection } from '#src/libs/consumer-space/components/reworked/@Navigation/types';
-import classNames from 'classnames';
 
 const NavigationList: React.FC<NavigationSection> = ({
   navigationItems,
   isCollapsable,
   title,
+  hasDivider,
   buildUrl,
 }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
@@ -24,16 +27,14 @@ const NavigationList: React.FC<NavigationSection> = ({
   if (isCollapsable) {
     const firstNavigationItem = navigationItems[0];
     const filteredList = navigationItems.filter((_, index) => index !== 0);
+
     return (
-      <MenuItemList
-        className="bs-navigation-list__list-group"
-        groupTitle={title}
-      >
+      <MenuItemList groupTitle={title} hasDivider={hasDivider}>
         <NavigationItem
           buildUrl={buildUrl}
           icon={firstNavigationItem.icon}
           onClick={onClickExpand}
-          rightSlot={firstNavigationItem.rightSlot}
+          rightSlot={isExpanded ? <ChevronUp /> : <ChevronDown />}
           title={firstNavigationItem.title}
         />
         <Collapse collapsedHeight={0} isExpanded={isExpanded}>
@@ -41,15 +42,7 @@ const NavigationList: React.FC<NavigationSection> = ({
             <NavigationItem
               key={navigationItem.title}
               buildUrl={buildUrl}
-              className={classNames('bs-navigation-list__list-group__item', {
-                'bs-navigation-list__list-group__item--selected':
-                  navigationItem.isCurrentRoute,
-              })}
-              goTo={navigationItem.goTo}
-              icon={navigationItem.icon}
-              isCollapsable={navigationItem.isCollapsable}
-              rightSlot={navigationItem.rightSlot}
-              title={navigationItem.title}
+              {...navigationItem}
             />
           ))}
         </Collapse>
@@ -58,20 +51,12 @@ const NavigationList: React.FC<NavigationSection> = ({
   }
 
   return (
-    <MenuItemList className="bs-navigation-list__list-group" groupTitle={title}>
+    <MenuItemList groupTitle={title} hasDivider={hasDivider}>
       {(navigationItems ?? []).map((navigationItem) => (
         <NavigationItem
           key={navigationItem.title}
           buildUrl={buildUrl}
-          className={classNames('bs-navigation-list__list-group__item', {
-            'bs-navigation-list__list-group__item--selected':
-              navigationItem.isCurrentRoute,
-          })}
-          goTo={navigationItem.goTo}
-          icon={navigationItem.icon}
-          isCollapsable={navigationItem.isCollapsable}
-          rightSlot={navigationItem.rightSlot}
-          title={navigationItem.title}
+          {...navigationItem}
         />
       ))}
     </MenuItemList>

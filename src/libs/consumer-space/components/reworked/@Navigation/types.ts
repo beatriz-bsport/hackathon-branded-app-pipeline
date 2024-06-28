@@ -16,6 +16,7 @@ export type NavigationSection = {
   title?: string;
   isCollapsable?: boolean;
   navigationItems: NavigationItem[];
+  hasDivider?: boolean;
   buildUrl?: (string: any) => string;
 };
 
@@ -25,5 +26,7 @@ export type NavigationProps = {
   isBottomDrawerOpen?: boolean;
   isMobile: boolean;
   navigationMenu: NavigationMenu;
+  memberName?: string;
+  onBottomDrawerClose: () => void;
   buildUrl: (string: any) => string;
 };

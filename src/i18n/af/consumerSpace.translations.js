@@ -103,6 +103,7 @@ exports.default = {
     settingsTitle: 'Spinning data',
   },
   reworked: {
+    exploreYourProfile: 'Explore your profile.',
     moreActions: 'More actions',
     showMore: 'Show more',
     showLess: 'Show less',

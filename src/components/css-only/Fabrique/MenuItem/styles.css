@@ -50,9 +50,13 @@
   padding-left: var(--bs-space-size-1);
 }
 
-.bs-fabrique-menu-item__right-slot {
+.bs-fabrique-menu-item__right-slot svg {
+  stroke: currentColor;
+  display: inline-flex;
+  width: var(--bs-icon-size-md);
+  height: var(--bs-icon-size-md);
 }
 
-.bs-fabrique-listitem__root__right-slot--hidden {
+.bs-fabrique-menu-item__right-slot--hidden {
   display: none;
 }

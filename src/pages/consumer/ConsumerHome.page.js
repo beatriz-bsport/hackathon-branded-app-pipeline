@@ -326,6 +326,7 @@ export class ConsumerHome extends React.Component<Props> {
                 infosOfMember={this.props.infosOfMember}
                 isRelationNavigation={isRelationNavigation}
                 logo={this.props.theme ? this.props.theme.cover : null}
+                memberName={this.props.userFullName}
                 membership={this.props.membership}
                 name={this.props.name}
                 navigateBackToMasterRelation={
@@ -460,6 +461,7 @@ export default compose(
       infosOfMember: state.member.count.data,
       membershipList: getConsumerMembershipList(state),
       username: state.auth.username,
+      userFullName: state.auth.name,
       name: state.auth.name,
       basketGeneratedObjects: getBasketGeneratedObjects(state),
       subscriptionPendingActionCount:

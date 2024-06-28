@@ -6,7 +6,9 @@ export const PAUSE_NAME_MAX_LENGTH = 150;
 export const CONTRACT_MAX_NB_INTERVAL_ALLOWED = 90;
 export const CONTRACT_TEMPLATE_PAGE_SIZE = 10;
 export const SUBSCRIBED_MEMBER_LIST_PAGE_SIZE = 10;
-
+export const SHARED_PASSES_SELECTOR_ICON_COLOR = '#0B79D0';
+export const SHARED_PASSES_SELECTOR_ICON_TOOLTIP_SHADOW =
+  '0px 0px 0px 2px #006EC6, 0px 0px 12px 0px rgba(122, 122, 122, 0.35)';
 export const PLANNED_INVOICE_TIME_CONFIGURATION = {
   hour: 12,
   minute: 0,

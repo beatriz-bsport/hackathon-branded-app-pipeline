@@ -18,6 +18,7 @@ import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import type {
   ContractAvailability,
   PassType,
+  SubscriptionInvoicingType,
 } from '#src/libs/subscription/enums';
 import type {
   SelectOption,
@@ -495,3 +496,23 @@ export type PassTypeOptionProps = SelectOption<PassType>;
 export type CompanyOptionProps = SelectOption<number>;
 export type PrivatePassTemplateOptionProps = SelectOption<number>;
 export type PaymentPackTemplateOptionProps = SelectOption<number>;
+
+export type ContractTemplateFormValues = {
+  id?: number;
+  name: string;
+  description: string;
+  productType: PassType;
+  privatePassTemplate: number;
+  paymentPackTemplate: number;
+  contract: string;
+  recurrentPrice: number;
+  flatFee: number;
+  invoicingType: SubscriptionInvoicingType;
+  interval: SubscriptionInterval;
+  recurrenceBasis: number;
+  numberOfIntervals: number;
+  monthBillingDay: number | null;
+  managerOnly: boolean;
+  autoRenewal: boolean;
+  unusableByStaff: boolean;
+};

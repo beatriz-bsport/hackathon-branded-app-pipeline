@@ -18,6 +18,10 @@ export enum ContractTemplateFilterOpenMenu {
   CONTRACT_AVAIALABILITY = '3',
   COMPANIES = '4',
 }
+export enum SubscriptionInvoicingType {
+  SAME_DAY_AS_SUBSCRIPTION = 'same_day_as_subscription',
+  FIXED_DAY = 'fixed_day',
+}
 
 export const PassTypeMapper: {
   [key in PassType]: boolean;

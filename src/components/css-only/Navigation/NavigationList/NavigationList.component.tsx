@@ -4,6 +4,7 @@ import MenuItemList from '#src/components/css-only/Fabrique/MenuItemList';
 import NavigationItem from '#src/components/css-only/Navigation/NavigationItem';
 import Collapse from '#src/components/css-only/Fabrique/Collapse';
 import type { NavigationSection } from '#src/libs/consumer-space/components/reworked/@Navigation/types';
+import classNames from 'classnames';
 
 const NavigationList: React.FC<NavigationSection> = ({
   navigationItems,
@@ -40,7 +41,10 @@ const NavigationList: React.FC<NavigationSection> = ({
             <NavigationItem
               key={navigationItem.title}
               buildUrl={buildUrl}
-              className="bs-navigation-list__list-group__item"
+              className={classNames('bs-navigation-list__list-group__item', {
+                'bs-navigation-list__list-group__item--selected':
+                  navigationItem.isCurrentRoute,
+              })}
               goTo={navigationItem.goTo}
               icon={navigationItem.icon}
               isCollapsable={navigationItem.isCollapsable}
@@ -59,7 +63,10 @@ const NavigationList: React.FC<NavigationSection> = ({
         <NavigationItem
           key={navigationItem.title}
           buildUrl={buildUrl}
-          className="bs-navigation-list__list-group__item"
+          className={classNames('bs-navigation-list__list-group__item', {
+            'bs-navigation-list__list-group__item--selected':
+              navigationItem.isCurrentRoute,
+          })}
           goTo={navigationItem.goTo}
           icon={navigationItem.icon}
           isCollapsable={navigationItem.isCollapsable}

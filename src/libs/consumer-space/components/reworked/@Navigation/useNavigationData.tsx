@@ -16,6 +16,7 @@ import {
 import type { NavigationMenu } from '#src/libs/consumer-space/components/reworked/@Navigation/types';
 import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { useLocation } from 'react-router';
 
 const useNavigationData = (
   companyId: number,
@@ -27,6 +28,8 @@ const useNavigationData = (
   memberName: string,
 ): NavigationMenu => {
   const { t } = useTranslation('consumerSpace');
+
+  const location = useLocation();
 
   const isWidget = WidgetUtils.isWidget();
 
@@ -49,26 +52,31 @@ const useNavigationData = (
             title: t('reworked.navigation.account.summary'),
             icon: <Calendar />,
             goTo: '/home/',
+            isCurrentRoute: location.pathname.includes('/home/'),
           },
           {
             title: t('reworked.navigation.account.myBookings'),
             icon: <NotificationText />,
             goTo: '/booking/',
+            isCurrentRoute: location.pathname.includes('/booking/'),
           },
           {
             title: t('reworked.navigation.account.myPasses'),
             icon: <Ticket01 />,
             goTo: '/pack/',
+            isCurrentRoute: location.pathname.includes('/pack/'),
           },
           {
             title: t('reworked.navigation.account.mySubscriptions'),
             icon: <Star01 />,
             goTo: '/subscription/',
+            isCurrentRoute: location.pathname.includes('/subscription/'),
           },
           {
             title: t('reworked.navigation.account.myProfile'),
             icon: <UserEdit />,
             goTo: '/profile/',
+            isCurrentRoute: location.pathname.includes('/profile/'),
           },
         ],
       },
@@ -84,6 +92,7 @@ const useNavigationData = (
             title: t('reworked.navigation.shop.myGiftCards'),
             icon: <Gift02 />,
             goTo: '/giftcard/',
+            isCurrentRoute: location.pathname.includes('/giftcard/'),
           },
         ],
       },
@@ -94,6 +103,7 @@ const useNavigationData = (
             title: t('reworked.navigation.payments.myInvoices'),
             icon: <FileAttachment02 />,
             goTo: '/invoice/',
+            isCurrentRoute: location.pathname.includes('/invoice/'),
           },
         ],
       },
@@ -140,6 +150,7 @@ const useNavigationData = (
       checkoutUrl,
       hasFranchise,
       isMobile,
+      location.pathname,
       memberName,
       t,
     ],

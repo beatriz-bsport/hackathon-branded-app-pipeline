@@ -40,6 +40,7 @@
 
 .bs-fabrique-menu-item__left-icon,
 .bs-fabrique-menu-item__left-icon svg {
+  stroke: currentColor;
   display: inline-flex;
   width: var(--bs-icon-size-md);
   height: var(--bs-icon-size-md);

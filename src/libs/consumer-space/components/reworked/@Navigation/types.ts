@@ -6,6 +6,7 @@ export type NavigationItem = {
   goTo?: string;
   isCollapsable?: boolean;
   className?: string;
+  isCurrentRoute?: boolean;
   onClick?: () => void;
   rightSlot?: React.ReactElement;
   buildUrl?: (string: any) => string;

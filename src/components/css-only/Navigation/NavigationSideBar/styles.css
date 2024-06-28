@@ -1,5 +1,18 @@
 .bs-consumer-space-navigation-sidebar__root {
-  background-color: white;
   min-width: 250px;
-  padding: var(--bs-space-size-4);
+  padding: var(--bs-space-size-8) 0 var(--bs-space-size-8)
+    var(--bs-space-size-8);
+}
+
+.bs-consumer-space-navigation-sidebar__navigation {
+  background-color: var(--bs-color-background-light);
+  border-radius: var(--bs-border-radius-lg);
+  overflow: hidden;
+  padding: var(--bs-space-size-2) 0;
+}
+
+@container bsConsumerNavigation (width < 660px) {
+  .bs-consumer-space-navigation-sidebar__root {
+    padding: 0;
+  }
 }

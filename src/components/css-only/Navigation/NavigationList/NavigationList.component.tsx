@@ -24,7 +24,10 @@ const NavigationList: React.FC<NavigationSection> = ({
     const firstNavigationItem = navigationItems[0];
     const filteredList = navigationItems.filter((_, index) => index !== 0);
     return (
-      <MenuItemList groupTitle={title}>
+      <MenuItemList
+        className="bs-navigation-list__list-group"
+        groupTitle={title}
+      >
         <NavigationItem
           buildUrl={buildUrl}
           icon={firstNavigationItem.icon}
@@ -37,6 +40,7 @@ const NavigationList: React.FC<NavigationSection> = ({
             <NavigationItem
               key={navigationItem.title}
               buildUrl={buildUrl}
+              className="bs-navigation-list__list-group__item"
               goTo={navigationItem.goTo}
               icon={navigationItem.icon}
               isCollapsable={navigationItem.isCollapsable}
@@ -50,11 +54,12 @@ const NavigationList: React.FC<NavigationSection> = ({
   }
 
   return (
-    <MenuItemList groupTitle={title}>
+    <MenuItemList className="bs-navigation-list__list-group" groupTitle={title}>
       {(navigationItems ?? []).map((navigationItem) => (
         <NavigationItem
           key={navigationItem.title}
           buildUrl={buildUrl}
+          className="bs-navigation-list__list-group__item"
           goTo={navigationItem.goTo}
           icon={navigationItem.icon}
           isCollapsable={navigationItem.isCollapsable}

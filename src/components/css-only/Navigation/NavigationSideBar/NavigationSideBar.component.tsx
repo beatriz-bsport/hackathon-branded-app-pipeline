@@ -33,17 +33,19 @@ const NavigationSideBar: React.FC<NavigationProps> = ({
     );
   if (!isMobile)
     return (
-      <div className="bs-consumer-space-navigation-sidebar__root">
-        {navigationMenu.map((navigationSection) => (
-          <NavigationList
-            key={navigationSection.title}
-            buildUrl={buildUrl}
-            isCollapsable={navigationSection.isCollapsable}
-            navigationItems={navigationSection.navigationItems}
-            title={navigationSection.title}
-          />
-        ))}
-      </div>
+      <aside className="bs-consumer-space-navigation-sidebar__root">
+        <nav className="bs-consumer-space-navigation-sidebar__navigation">
+          {navigationMenu.map((navigationSection) => (
+            <NavigationList
+              key={navigationSection.title}
+              buildUrl={buildUrl}
+              isCollapsable={navigationSection.isCollapsable}
+              navigationItems={navigationSection.navigationItems}
+              title={navigationSection.title}
+            />
+          ))}
+        </nav>
+      </aside>
     );
 };
 

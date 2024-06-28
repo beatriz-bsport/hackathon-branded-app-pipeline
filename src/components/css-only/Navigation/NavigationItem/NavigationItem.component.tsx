@@ -5,7 +5,10 @@ import MenuItem from '#src/components/css-only/Fabrique/MenuItem';
 import { Link, useLocation } from 'react-router-dom';
 import type { NavigationItem as NavigationItemType } from '#src/libs/consumer-space/components/reworked/@Navigation/types';
 
+import './styles.css';
+
 const NavigationItem: React.FC<NavigationItemType> = ({
+  className,
   title,
   goTo,
   icon,
@@ -22,6 +25,7 @@ const NavigationItem: React.FC<NavigationItemType> = ({
   if (!goTo)
     return (
       <MenuItem
+        className={className}
         label={title}
         leftIcon={icon}
         onClick={onClick}
@@ -30,8 +34,9 @@ const NavigationItem: React.FC<NavigationItemType> = ({
       />
     );
   return (
-    <Link to={buildUrl(goTo)}>
+    <Link className="bs-navigation-list-root__link" to={buildUrl(goTo)}>
       <MenuItem
+        className="bs-navigation-list-root__item"
         label={title}
         leftIcon={icon}
         onClick={onClick}

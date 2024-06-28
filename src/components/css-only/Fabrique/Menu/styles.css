@@ -47,3 +47,7 @@
   list-style: none;
   width: 100%;
 }
+
+.bs-fabrique-menu--below {
+  z-index: 999;
+}

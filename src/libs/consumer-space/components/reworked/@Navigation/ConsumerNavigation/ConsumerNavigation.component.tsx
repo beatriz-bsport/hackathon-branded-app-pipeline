@@ -102,11 +102,19 @@ const ConsumerNavigation: React.FC<Props> = ({
         color: 'grey',
         isIconButton: true,
         leftIcon: <DotsVertical />,
-        onClick: openFlagMenu,
+        onClick: isFlagMenuOpen ? closeFlagMenu : openFlagMenu,
         variant: 'text',
       },
     ],
-    [isMobile, openFlagMenu, redirectToCart, redirectToMyProfile, t],
+    [
+      closeFlagMenu,
+      isFlagMenuOpen,
+      isMobile,
+      openFlagMenu,
+      redirectToCart,
+      redirectToMyProfile,
+      t,
+    ],
   );
 
   const navigationMenu = useNavigationData(
@@ -127,13 +135,8 @@ const ConsumerNavigation: React.FC<Props> = ({
         onClickMenuButton={toggleBottomDrawer}
         rightButtons={rightButtonData}
       />
-      <Menu
-        anchorEl={anchorEl}
-        id="flag-menu"
-        isOpen={isFlagMenuOpen}
-        onClose={closeFlagMenu}
-      >
-        <LanguageButton closeMenu={closeFlagMenu} />
+      <Menu anchorEl={anchorEl} id="flag-menu" isOpen={isFlagMenuOpen}>
+        <LanguageButton onLocaleChange={closeFlagMenu} />
       </Menu>
       <div className="bs-consumer-navigation__layout">
         <NavigationSideBar

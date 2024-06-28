@@ -31,6 +31,11 @@ type Props = {
   noLabel?: boolean,
 };
 
+type UserLanguagePickerProps = {
+  /** Extra action fired after the user selected a language option (language changed) */
+  onLocaleChange?: () => void,
+};
+
 const countryFlag = {
   [LANGUAGES.FRENCH]: FR_FLAG,
   [LANGUAGES.GERMAN]: DE_FLAG,
@@ -99,11 +104,12 @@ export const LanguageSelect = withStyles(styles)(
   withTranslation(['consumerSpace'])(LanguageSelectBase),
 );
 
-const UserLanguagePicker = (props) => {
+const UserLanguagePicker = (props: UserLanguagePickerProps) => {
   const language = useCurrentLanguageIsoCode();
 
   const handleChange = (event) => {
     i18n.changeLanguage(event.target.value);
+    props.onLocaleChange?.();
   };
 
   return (

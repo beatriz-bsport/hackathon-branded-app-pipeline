@@ -70,7 +70,6 @@ const ClockInForOtherTable: React.FC<Props> = ({
         onSuccess: (payload) => {
           fetchAttendance({
             user_id__in: payload.results.map((u) => u.id),
-            page,
             page_size,
           });
         },
@@ -140,7 +139,6 @@ const ClockInForOtherTable: React.FC<Props> = ({
               onSuccess: (payload) => {
                 fetchAttendance({
                   user_id__in: payload.results.map((u) => u.id),
-                  page,
                   page_size,
                 });
                 setProcessingAttendance(
@@ -186,7 +184,6 @@ const ClockInForOtherTable: React.FC<Props> = ({
                 );
                 fetchAttendance({
                   user_id__in: payload.results.map((u) => u.id),
-                  page,
                   page_size,
                 });
               },

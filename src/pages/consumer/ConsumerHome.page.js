@@ -315,7 +315,7 @@ export class ConsumerHome extends React.Component<Props> {
             {this.props.membership ? (
               <ConsumerNavigation
                 buildUrl={this.props.buildUrl}
-                buttonsData={this.getConsumerMobileNavigationButtonsData()}
+                buttonsData={this.getConsumerNavigationButtonsData()}
                 companyTheme={this.props.theme}
                 controlableMemberList={this.props.controlableMemberList}
                 disconnect={this.props.disconnect}

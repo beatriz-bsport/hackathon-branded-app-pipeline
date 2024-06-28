@@ -102,19 +102,21 @@ const ConsumerNavigation: React.FC<Props> = ({
       >
         <LanguageButton closeMenu={closeFlagMenu} />
       </Menu>
-      <main
-        className={classNames('bs-consumer-space__content', {
-          'bs-consumer-space__content--mobile': isMobile,
-        })}
-      >
+      <div className="bs-consumer-navigation__layout">
         <NavigationSideBar
           buildUrl={buildUrl}
           isBottomDrawerOpen={isBottomDrawerOpen}
           isMobile={isMobile}
           navigationMenu={navigationMenu}
         />
-        {children}
-      </main>
+        <main
+          className={classNames('bs-consumer-navigation__content', {
+            'bs-consumer-navigation__content--mobile': isMobile,
+          })}
+        >
+          {children}
+        </main>
+      </div>
     </div>
   );
 };

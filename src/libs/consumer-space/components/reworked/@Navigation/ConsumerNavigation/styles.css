@@ -1,15 +1,25 @@
 .bs-consumer-navigation__root {
+  container: bsConsumerNavigation / inline-size;
 }
 
-.bs-consumer-space__content {
+.bs-consumer-navigation__layout {
   display: flex;
-  padding: var(--bs-space-size-6) var(--bs-space-size-4);
-  gap: 32px;
-  align-self: stretch;
-  align-items: flex-start;
-  justify-content: center;
+  height: calc(100cqh - 72px);
+  margin: 0 auto;
 }
 
-.bs-consumer-space__content--mobile {
+.bs-consumer-navigation__content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--bs-space-size-8) var(--bs-space-size-8) 0;
+}
+
+.bs-consumer-navigation__content--mobile {
   gap: unset;
+}
+
+@container bsConsumerNavigation (width < 660px) {
+  .bs-consumer-navigation__content {
+    padding: var(--bs-space-size-6) var(--bs-space-size-4);
+  }
 }

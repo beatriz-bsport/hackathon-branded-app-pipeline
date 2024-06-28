@@ -356,7 +356,6 @@ export class ConsumerHome extends React.Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing(8),
     width: '100%',
   },
 });

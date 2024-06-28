@@ -4,7 +4,6 @@ import { compose, withHandlers, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import withStyles from '@material-ui/core/styles/withStyles';
 import {
   push as pushRouter,
   replace as replaceRouter,
@@ -268,81 +267,77 @@ export class ConsumerHome extends React.Component<Props> {
                   theme={this.props.theme}
                   username={this.props.username}
                 />
-                <div className={this.props.classes.container}>
-                  <Switch>
-                    <Route
-                      path="/c/:companyId/booking/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerBookingReworked
-                          : ConsumerBooking,
-                      )}
-                    />
-                    <Route
-                      path="/c/:companyId/subscription/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerSubscriptionReworked
-                          : ConsumerSubscription,
-                      )}
-                    />
-                    <Route
-                      path="/c/:companyId/pack/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerPassReworked
-                          : ConsumerPack,
-                      )}
-                    />
-                    <Route
-                      path="/c/:companyId/vod/"
-                      render={this.attachConsumerProps(ConsumerVOD)}
-                    />
-                    <Route
-                      path="/c/:companyId/broadcast/:bookingId/"
-                      render={this.attachConsumerProps(
-                        ConsumerBookingBroadcast,
-                      )}
-                    />
-                    <Route
-                      path="/c/:companyId/invoice/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerInvoiceReworked
-                          : ConsumerInvoice,
-                      )}
-                    />
-                    <Route
-                      path="/c/:companyId/profile/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerProfileReworked
-                          : ConsumerProfile,
-                      )}
-                    />
-                    <Route
-                      path="/c/:companyId/giftcard/"
-                      render={this.attachConsumerProps(ConsumerGiftcard)}
-                    />
-                    <Route
-                      path="/c/:companyId/program/:memberProgramId/"
-                      render={this.attachConsumerProps(ConsumerProgram)}
-                    />
-                    <Route
-                      path="/c/:companyId/program/"
-                      render={this.attachConsumerProps(ConsumerProgram)}
-                    />
-                    <Route
-                      path="/c/:companyId/home/"
-                      render={this.attachConsumerProps(ConsumerDashboard)}
-                    />
+                <Switch>
+                  <Route
+                    path="/c/:companyId/booking/"
+                    render={this.attachConsumerProps(
+                      displayReworkedMemberProfile
+                        ? ConsumerBookingReworked
+                        : ConsumerBooking,
+                    )}
+                  />
+                  <Route
+                    path="/c/:companyId/subscription/"
+                    render={this.attachConsumerProps(
+                      displayReworkedMemberProfile
+                        ? ConsumerSubscriptionReworked
+                        : ConsumerSubscription,
+                    )}
+                  />
+                  <Route
+                    path="/c/:companyId/pack/"
+                    render={this.attachConsumerProps(
+                      displayReworkedMemberProfile
+                        ? ConsumerPassReworked
+                        : ConsumerPack,
+                    )}
+                  />
+                  <Route
+                    path="/c/:companyId/vod/"
+                    render={this.attachConsumerProps(ConsumerVOD)}
+                  />
+                  <Route
+                    path="/c/:companyId/broadcast/:bookingId/"
+                    render={this.attachConsumerProps(ConsumerBookingBroadcast)}
+                  />
+                  <Route
+                    path="/c/:companyId/invoice/"
+                    render={this.attachConsumerProps(
+                      displayReworkedMemberProfile
+                        ? ConsumerInvoiceReworked
+                        : ConsumerInvoice,
+                    )}
+                  />
+                  <Route
+                    path="/c/:companyId/profile/"
+                    render={this.attachConsumerProps(
+                      displayReworkedMemberProfile
+                        ? ConsumerProfileReworked
+                        : ConsumerProfile,
+                    )}
+                  />
+                  <Route
+                    path="/c/:companyId/giftcard/"
+                    render={this.attachConsumerProps(ConsumerGiftcard)}
+                  />
+                  <Route
+                    path="/c/:companyId/program/:memberProgramId/"
+                    render={this.attachConsumerProps(ConsumerProgram)}
+                  />
+                  <Route
+                    path="/c/:companyId/program/"
+                    render={this.attachConsumerProps(ConsumerProgram)}
+                  />
+                  <Route
+                    path="/c/:companyId/home/"
+                    render={this.attachConsumerProps(ConsumerDashboard)}
+                  />
 
-                    <Route
-                      path="/c/:companyId/"
-                      render={this.attachConsumerProps(ConsumerDashboard)}
-                    />
-                  </Switch>
-                </div>
+                  <Route
+                    path="/c/:companyId/"
+                    render={this.attachConsumerProps(ConsumerDashboard)}
+                  />
+                </Switch>
               </ConsumerNavigation>
             ) : (
               <ConsumerLoading />
@@ -354,15 +349,8 @@ export class ConsumerHome extends React.Component<Props> {
   }
 }
 
-const styles = (theme) => ({
-  container: {
-    width: '100%',
-  },
-});
-
 export default compose(
   routerParamsToProps({ companyId: 'companyId:number' }),
-  withStyles(styles),
   withRouter,
   withProps(({ location }) => ({
     from_basket: parseQueryString(location.search).from_basket,

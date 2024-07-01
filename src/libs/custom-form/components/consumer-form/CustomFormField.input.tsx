@@ -200,7 +200,7 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <div className={classes.spacedField}>
           <RadioGroupField
-            choices={props.field.choices.map((choice: string) => ({
+            choices={(props.field.choices ?? []).map((choice: string) => ({
               label: choice,
               value: choice,
             }))}
@@ -235,7 +235,7 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <div className={classes.spacedField}>
           <MultipleCheckboxField
-            choices={props.field.choices.map((choice: string) => ({
+            choices={(props.field.choices ?? []).map((choice: string) => ({
               optionLabel: choice,
               id: choice,
             }))}

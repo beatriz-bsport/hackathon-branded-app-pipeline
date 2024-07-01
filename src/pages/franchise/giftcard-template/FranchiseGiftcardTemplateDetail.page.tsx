@@ -223,8 +223,8 @@ export class GiftcardDetailPage extends Component<Props> {
                     ((consumerGiftcardId: number, memberId: number) =>
                       this.goToMemberGiftcard(
                         cgc.giftcard_company,
-                        consumerGiftcardId,
                         memberId,
+                        consumerGiftcardId,
                       ))
                   }
                   onClickSender={(
@@ -233,8 +233,8 @@ export class GiftcardDetailPage extends Component<Props> {
                   ) =>
                     this.goToMemberGiftcard(
                       cgc.giftcard_company,
-                      consumerGiftcardId,
                       memberId,
+                      consumerGiftcardId,
                     )
                   }
                 />

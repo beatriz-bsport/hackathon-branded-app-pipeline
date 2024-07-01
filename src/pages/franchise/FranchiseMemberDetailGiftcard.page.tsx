@@ -28,8 +28,6 @@ import {
   fetchSentSharedConsumerGiftcards as fetchSentSharedConsumerGiftcardsAction,
   fetchFranchise as fetchFranchiseAction,
 } from '#src/libs/franchise/actions';
-// @ts-expect-error
-import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '#src/actions/auth.actions';
 import { fetchGiftcardBulk as fetchGiftcardBulkAction } from '#src/libs/giftcard/actions';
 
 import {
@@ -49,6 +47,8 @@ import {
 } from '#src/libs/franchise/selectors';
 
 import { getInvoiceData } from '#src/libs/invoice/selectors';
+
+import { openNewWindowToImpersonate } from '#src/utils/windows';
 
 import ConsumerGiftcardListItem from '#src/libs/giftcard/components/ConsumerGiftcardListItem.component';
 // @ts-expect-error
@@ -73,7 +73,6 @@ const FranchiseMemberDetailGiftcard: React.FC<Props> = ({
   allDistinctMemberIds,
   selectedConsumerGiftcard,
   companiesById,
-  navigateAsCompanyAdmin,
   invoiceData,
   allowedCompanyIds,
   push,
@@ -124,35 +123,24 @@ const FranchiseMemberDetailGiftcard: React.FC<Props> = ({
     )
       ? selectedConsumerGiftcard?.dst_member
       : selectedConsumerGiftcard?.src_member;
-    navigateAsCompanyAdmin(companyId, `/member/${memberId}/giftcard`, {
-      onSuccess: () => {
-        setIsRedirectLoading(false);
-      },
-      onError: () => {
-        setIsRedirectLoading(false);
-      },
-    });
-  }, [
-    navigateAsCompanyAdmin,
-    selectedConsumerGiftcard,
-    receivedState,
-    selectedConsumerGiftcardId,
-  ]);
+    openNewWindowToImpersonate(companyId, `/member/${memberId}/giftcard`);
+    setIsRedirectLoading(false);
+  }, [selectedConsumerGiftcard, receivedState, selectedConsumerGiftcardId]);
 
   const goToGiftcardHandler = useCallback(
     (giftcardId: number) => {
       const companyId = selectedConsumerGiftcard?.giftcard?.company;
-      navigateAsCompanyAdmin(companyId, `/giftcard/${giftcardId}`);
+      openNewWindowToImpersonate(companyId, `/giftcard/${giftcardId}`);
     },
-    [navigateAsCompanyAdmin, selectedConsumerGiftcard],
+    [selectedConsumerGiftcard],
   );
 
   const goToInvoiceHandler = useCallback(
     (uuid: string) => {
       const companyId = selectedConsumerGiftcard?.giftcard?.company;
-      navigateAsCompanyAdmin(companyId, `/invoice/${uuid}`);
+      openNewWindowToImpersonate(companyId, `/invoice/${uuid}`);
     },
-    [navigateAsCompanyAdmin, selectedConsumerGiftcard],
+    [selectedConsumerGiftcard],
   );
 
   const fetchReceivedSharedConsumerGiftcardsOnPageRequest = useCallback(
@@ -414,7 +402,6 @@ const mapDispatchToProps = {
   fetchSentSharedConsumerGiftcards: fetchSentSharedConsumerGiftcardsAction,
   fetchSpecificInvoice: fetchSpecificInvoiceAction,
   push: pushAction,
-  navigateAsCompanyAdmin: navigateAsCompanyAdminAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

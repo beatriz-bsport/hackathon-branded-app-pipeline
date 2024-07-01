@@ -51,9 +51,10 @@ const PopoverCoachPaymentRuleForm: React.FC<Props> = ({
         bonusCoachPaymentRuleConstructor(id, {
           applicability: bonusCreationApplicability,
           kind,
-          lower_interval: getLowerIntervalFilter
-            ? parseInt(getLowerIntervalFilter.upper_interval.toString()) + 1
-            : 0,
+          lower_interval:
+            getLowerIntervalFilter && getLowerIntervalFilter.upper_interval
+              ? parseInt(getLowerIntervalFilter.upper_interval.toString()) + 1
+              : 0,
         }),
       );
 

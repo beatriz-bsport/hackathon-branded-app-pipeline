@@ -93,7 +93,7 @@ const MarketingRulePassNotificationItem: React.FC<Props> = ({
         {getNotificationTriggerDescription(notification, t)}
       </Typography>
       <div className={classes.componentContainer}>
-        {!!email_design && (
+        {!!email_design && emailSummariesById[email_design] !== undefined && (
           <CustomChip
             blackText
             displayedValue={emailSummariesById[email_design]?.title || ''}

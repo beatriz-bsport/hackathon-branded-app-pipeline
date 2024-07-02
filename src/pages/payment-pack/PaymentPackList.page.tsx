@@ -70,7 +70,10 @@ import type {
   PaymentPackFormValues,
 } from '#src/libs/payment-packs/types';
 import withTitle from '#src/hocs/with-title.hoc';
-import { fetchMarketingNotificationList } from '#src/libs/marketing/actions';
+import {
+  fetchMarketingNotificationList,
+  updateMarketingNotification,
+} from '#src/libs/marketing/actions';
 import {
   getPaymentPackNotifications,
   withPaymentPackNotification,
@@ -140,7 +143,6 @@ import {
 import { fetchSmartListBulk } from '#src/libs/smart-list/actions';
 import { getSmartListDict } from '#src/libs/smart-list/selectors';
 import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
-import { updateMarketingNotification } from '#src/libs/marketing/api';
 import type { MarketingNotification } from '#src/libs/marketing/types';
 
 type PaymentPackOption = {

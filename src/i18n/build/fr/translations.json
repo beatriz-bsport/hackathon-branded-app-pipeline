@@ -475,7 +475,8 @@
                     "every_year": "Vous avez atteint la limite d'invitations pour cette année.",
                     "every_month": "Vous avez atteint la limite d'invitations pour ce mois.",
                     "every_week": "Vous avez atteint la limite d'invitations pour cette semaine."
-                }
+                },
+                "sendInvitation": "Envoyer l'invitation"
             },
             "bookingFor": "Réservation pour"
         },
@@ -506,8 +507,11 @@
                             "saveAndContinue": "Sauvegarder et continuer",
                             "continueWithoutEmail": "Continuer sans email"
                         },
-                        "description": "Vous n'avez pas fourni d'adresse électronique pour votre invité(e). Par conséquent, il/elle ne recevra pas d'informations sur cette séance. En êtes-vous sûr(e) ?",
-                        "title": "Aucun courriel n'a été saisi"
+                        "description": "Vous n'avez pas fourni d'adresse électronique pour votre invité(e).",
+                        "title": "Aucun courriel n'a été saisi",
+                        "submitLabel": "Continuer sans",
+                        "fieldLabel": "Vous souhaitez inclure l'email ?",
+                        "alert": "Il/elle ne recevra pas d'informations sur cette séance."
                     },
                     "description": "Vous amenez un(e) ami(e) ou un(e) accompagnant(e) pour partager l'expérience ? Il vous suffit d'indiquer le nom et l'adresse électronique de votre invité(e), et nous nous assurerons qu'il/elle reçoive tous les détails nécessaires.",
                     "title": "Inviter une personne"
@@ -1160,7 +1164,8 @@
         "seeMore": "Voir plus",
         "seeLess": "Voir moins",
         "discardChanges": "Abandonner les modifications",
-        "rename": "Renommer"
+        "rename": "Renommer",
+        "send": "Envoyer"
     },
     "communication": {
         "table": {
@@ -2216,7 +2221,8 @@
                         "editProfile": "Modifier"
                     }
                 }
-            }
+            },
+            "moreActions": "Autres actions"
         }
     },
     "coupon": {
@@ -2341,7 +2347,8 @@
                 },
                 "choicesFranchise": {
                     "1": "Cartes de cours partagées",
-                    "9": "Cartes de RDV partagées"
+                    "9": "Cartes de RDV partagées",
+                    "2": "Articles partagés de la boutique en ligne"
                 }
             },
             "actions": {
@@ -3368,7 +3375,8 @@
             "establishment": "Etablissements",
             "establishmentEmptyState": "Aucun établissement dans cette compagnie",
             "membersEmptyState": "Aucun membre dans cette compagnie",
-            "navigateToCompany": "Connexion au compte franchisé"
+            "navigateToCompany": "Connexion au compte franchisé",
+            "manageOnStudio": "Gérer sur {{studio_name}}"
         },
         "emails": {
             "emptyStateTitle": "Aperçu du mail",
@@ -3444,7 +3452,12 @@
         "userProfile": {
             "numberBrands": "{{ number }} catégories",
             "numberStudios": "{{ number }} studio d'achats",
-            "goToMemberProfile": "Gérer sur {{ purchasing_studio }}"
+            "goToMemberProfile": "Gérer sur {{ purchasing_studio }}",
+            "tagModalPlaceholcer": "Sélectionner les tags",
+            "tagModalHelperText": "Tags",
+            "tagModalText": "Les mesures prises sur les tags seront appliquées au membre pour chaque franchisés.",
+            "manageTags": "Gérer les tags",
+            "tagsListTitle": "Tags partagés"
         }
     },
     "giftcard": {
@@ -4446,6 +4459,10 @@
         },
         "referral": {
             "signUpNow": "Merci d'avoir utilisé le lien de parrainage de {{ referringMemberFirstName }}. Inscrivez-vous dès maintenant pour bénéficier d'un bon d'achat sur votre premier panier !"
+        },
+        "disconnectedStatus": {
+            "subtitle": "Vous devez être connecté pour accéder à votre profil.",
+            "title": "Il semble que vous n'êtes pas connecté"
         }
     },
     "marketing": {
@@ -4487,8 +4504,8 @@
                 "meta_activity": "Sélectionnez une activité",
                 "workshop": "Sélectionnez un atelier",
                 "establishment": "Sélectionnez une salle",
-                "private_service": "Sélectionnez un rendez-vous",
-                "payment_pack": "Sélectionnez une carte de cours",
+                "private_service": "Sélectionnez des cartes de rendez-vous",
+                "payment_pack": "Sélectionnez des carte de cours",
                 "private_pass": "Sélectionnez une carte de rendez-vous",
                 "contract": "Sélectionnez un abonnement"
             },
@@ -4522,8 +4539,8 @@
             "notificationDetails": "Détails de la notification",
             "statisticDetails": "Statistiques",
             "notificationPreview": "Apercu de la notification",
-            "editRule": "Modifier la règle",
-            "removeRule": "Supprimer la règle",
+            "editRule": "Modifier",
+            "removeRule": "Supprimer",
             "deleteDialogTitle": "Supprimer la règle",
             "deleteDialogText": "Etes vous sûr de vouloir supprimer cette règle ? Cette opération est définitive",
             "notificationsEmpty": "Aucune notification existante pour ce groupe",
@@ -4538,6 +4555,116 @@
             "contractKind": {
                 "contractStart": "Début de l’abonnement",
                 "contractEnd": "Fin de l’abonnement"
+            },
+            "editPasses": "Modifier",
+            "addPasses": "Ajouter",
+            "sendingDelay": {
+                "onSession": "{{hours}}h après la séance",
+                "justOnSession": "Juste après la séance",
+                "onBooking": "{{hours}}h après la réservation",
+                "justOnBooking": "Juste après la réservation"
+            },
+            "triggerDescription": {
+                "expiredValidity": "Expiré depuis {{count}} jour",
+                "expiredValidity_plural": "Expiré depuis {{count}} jours",
+                "todayValidity": "Le jour de l'expiration",
+                "remainingValidity": "{{count}} jour restant avant expiration",
+                "remainingValidity_plural": "{{count}} jours restant avant expiration",
+                "remainingCredit": "{{count}} crédit restant",
+                "remainingCredit_plural": "{{count}} crédits restants"
+            },
+            "passSelectionPlaceholder": {
+                "payment_pack": "Cartes de cours",
+                "private_pass": "Cartes de rendez-vous"
+            },
+            "selectAllPassesToggle": {
+                "private_pass": "S'applique à toutes les cartes de cours existantes et futures",
+                "payment_pack": "S'applique à toutes les cartes de cours existantes et futures"
+            },
+            "allPassSelected": {
+                "private_pass": "Toutes les cartes de rendez-vous sont incluses",
+                "payment_pack": "Toutes les cartes de cours sont incluses"
+            },
+            "allOptionsPlaceholder": {
+                "payment_pack": "Toutes les cartes de cours",
+                "private_pass": "Toutes les cartes de rendez-vous"
+            },
+            "notificationTitle": {
+                "expiredValidity": "Notifications d'expiration",
+                "remainingValidity": "Notifications de validité restante",
+                "remainingCredit": "Notifications de crédits restants"
+            },
+            "passNotificationDeleteDialog": {
+                "warning": {
+                    "irreversible": "Cette opération ne peut être annulée.",
+                    "sure": "Êtes-vous sûr de vouloir supprimer cette notification ?",
+                    "attachedPrivatePasses": "Vous avez encore une ou plusieurs cartes de rendez-vous liées à cette notification",
+                    "attachedPaymentPacks": "Vous avez encore une ou plusieurs cartes de cours liées à cette notification"
+                },
+                "title": "Supprimer cette notification"
+            },
+            "optionalStepInfo": "Cette étape est facultative. Vous pouvez toujours configurer des notifications ultérieurement. Seules les notifications que vous avez déjà créées sont répertoriées ici. Pour en créer de nouvelles, allez dans Marketing > Notifications.",
+            "select": "Sélectionner",
+            "excluded": "Exclus",
+            "included": "Inclus",
+            "smartListTitle": "Smartlist",
+            "pushNotificationTitle": "Notification push",
+            "preview": "Aperçu",
+            "viewPreview": "Voir l'aperçu",
+            "delete": "Supprimer",
+            "save": "Sauvegarder",
+            "primaryText": {
+                "privatePass": {
+                    "creditsLeft": {
+                        "credits": "pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de rendez-vous",
+                        "credits_plural": "pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de rendez-vous",
+                        "noCredits": "pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de rendez-vous"
+                    }
+                },
+                "paymentPack": {
+                    "creditsLeftOnSessionEnd": {
+                        "creditsHours": "1 heure après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
+                        "creditsHours_plural": "{{hours}} heures après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
+                        "creditsNoHours": "après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
+                        "oneCreditHours": "1 heure après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
+                        "oneCreditHours_plural": "{{hours}} heures après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
+                        "oneCreditNoHours": "après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
+                        "noCreditsHours": "1 heure après la fin de la séance pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
+                        "noCreditsHours_plural": "{{hours}} heures après la fin de la séance pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
+                        "noCreditsNoHours": "après la fin de la séance pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours"
+                    },
+                    "creditsLeftOnBooking": {
+                        "creditsHours": "1 heure après une réservation pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
+                        "creditsHours_plural": "{{hours}} heures après une réservation pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
+                        "creditsNoHours": "après une réservation pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
+                        "oneCreditHours": "1 heure après une réservation pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
+                        "oneCreditHours_plural": "{{hours}} heures après une réservation pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
+                        "oneCreditNoHours": "après une réservation pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
+                        "noCreditsHours": "1 heure après une réservation pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
+                        "noCreditsHours_plural": "{{hours}} heures après une réservation pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
+                        "noCreditsNoHours": "après une réservation pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours"
+                    }
+                },
+                "expires": {
+                    "days": "1 jour avant l'expiration",
+                    "days_plural": "{{days}} jours avant l'expiration",
+                    "noDays": "le jour de l'expiration"
+                },
+                "expired": {
+                    "days": "après 1 jour d'expiration",
+                    "days_plural": "après {{days}} d'expiration"
+                },
+                "smartlist": {
+                    "smartListExclude": "Cette notification n'est pas destinée à cette smartlist: {{smartlist_names}}.",
+                    "smartListExclude_plural": "Cette notification n'est pas destinée à ces smartlists: {{smartlist_names}}.",
+                    "smartListInclude": "Cette notification est destinée à cette smartlist: {{smartlist_names}}.",
+                    "smartListInclude_plural": "Cette notification est destinée à ces smartlists: {{smartlist_names}}."
+                },
+                "send": {
+                    "emailAndPush": "Un courriel et une notification push seront envoyés",
+                    "push": "Une notification push sera envoyée",
+                    "email": "Un e-mail sera envoyé"
+                }
             }
         },
         "customForm": {
@@ -6282,7 +6409,8 @@
             "audience": "{{ audienceCamelCase }}",
             "backToWebshop": "Revenir au magasin",
             "accessMonitoring": "Accès",
-            "closeTab": "Fermer la fenêtre"
+            "closeTab": "Fermer la fenêtre",
+            "feedbackBoard": "Tableau de retour d'expérience"
         },
         "multiSession": {
             "title": " Vous semblez utiliser plusieurs onglets simultanément",
@@ -6434,7 +6562,8 @@
             }
         },
         "logout": "Déconnexion",
-        "login": "Connexion"
+        "login": "Connexion",
+        "featureBaseButton": "Suggérer une fonctionnalité ou une amélioration"
     },
     "notificationRule": {
         "pageTitle": "Emails transactionnels",
@@ -7229,7 +7358,9 @@
                 "title": "Modifications non sauvegardées",
                 "description": "Vous avez des notes non enregistrées. Voulez-vous les enregistrer avant de quitter cette page ?"
             }
-        }
+        },
+        "numberOfCredits": "{{count}} crédit",
+        "numberOfCredits_plural": "{{count}} crédits"
     },
     "order": {
         "pageTitle": "Magasin",
@@ -7970,7 +8101,9 @@
                 "creditNotificationType": {
                     "onBooking": "Réservation faisant passer le nombre de crédits sous le seuil défini ci-dessus",
                     "onOfferStart": "Fin de la séance dont la réservation avait fait passer le nombre de crédits sous le seuil défini ci-dessus"
-                }
+                },
+                "notificationNamePlaceholder": "Nom de la notification",
+                "generalTitle": "Général"
             },
             "creditsLeft": {
                 "first": "Notifier lorsqu'il reste",
@@ -8112,7 +8245,10 @@
                     "skip": "Passer",
                     "cancel": "Annuler",
                     "edit": "Modifier",
-                    "create": "Enregistrer"
+                    "create": "Enregistrer",
+                    "back": "Retour",
+                    "next": "Suivant",
+                    "submit": "Enregistrer"
                 },
                 "sports": "Catégorie",
                 "activities": "Activité",
@@ -8217,7 +8353,10 @@
                 "highlightedAsRecommended": {
                     "label": "Marquer comme recommandé",
                     "helperText": "Permet à vos clients de voir d'un coup d'oeil quelles cartes de cours sont actuellement recommandées."
-                }
+                },
+                "notification": "Notifications",
+                "detailsAndRestrictions": "Détails et restrictions",
+                "noNotificationsWarning": "Vous n'avez pas encore de notifications. Pour créer des nouvelles notification, allez dans <strong>Marketing > Notifications.</strong>"
             }
         },
         "details": {
@@ -9687,7 +9826,9 @@
                 },
                 "actions": {
                     "submit": "Enregistrer",
-                    "cancel": "Annuler"
+                    "cancel": "Annuler",
+                    "next": "Suivant",
+                    "back": "Retour"
                 },
                 "selector": {
                     "privateService": "Ajouter un rendez-vous compatible"
@@ -9715,12 +9856,15 @@
                         "tagsOnAcquisition": "Tag après achat"
                     },
                     "header": "Avancé"
-                }
+                },
+                "notification": "Notifications",
+                "detailsAndRestrictions": "Détails et restrictions"
             },
             "disabledTitle": "Cartes de RDV archivées",
             "listItem": {
                 "unusableByStaff": "Invisible pour le staff"
-            }
+            },
+            "noNotificationsWarning": "Vous n'avez pas encore de notifications. Pour créer des nouvelles notification, allez dans <strong>Marketing > Notifications.</strong>"
         },
         "openCalendar": "Voir le calendrier",
         "service": {
@@ -13020,7 +13164,7 @@
                     "daysBeforeSecondNotification": "Deuxième rappel (jours avant la date d'expiration)",
                     "daysBeforeFirstNotification": "Premier rappel (jours avant la date d'expiration)"
                 },
-                "helpText": "Si les emails transactionnels correspondants sont activées pour les abonnements, vous pouvez décider du nombre de jours avant l'expiration de la méthode de paiement pour envoyer un rappel",
+                "helpText": "Si les emails transactionnels correspondants sont activées pour les abonnements et les paiements échelonnés, vous pouvez décider du nombre de jours avant l'expiration de la méthode de paiement pour envoyer un rappel",
                 "title": "Rappels d'expiration des modes de paiement"
             }
         },
@@ -13215,7 +13359,7 @@
                     "helper": "Pour vous connecter, utilisez votre compte professionnel, passez d'un compte personnel à un compte professionnel, ou créez un nouveau compte professionnel.",
                     "title": "Connectez votre compte professionnel PayPal"
                 },
-                "linkHelper": "Liez votre compte PayPal professionnel pour permettre à vos membres de payer avec PayPal",
+                "linkHelper": "Liez votre compte PayPal professionnel pour permettre à vos membres d'effectuer des paiements uniques avec PayPal",
                 "connect": "Connecter un compte PayPal",
                 "accountEmail": "Email du compte",
                 "accountName": "Nom du compte",
@@ -13282,6 +13426,13 @@
                 "colors": {
                     "helperText": "Ajouter une couleur en appuyant sur la touche Entrée",
                     "title": "Couleurs"
+                },
+                "barcodes": {
+                    "option": {
+                        "generate": "Générer de nouveaux codes-barres",
+                        "inherit": "Hérite du produit de base"
+                    },
+                    "title": "code-barres"
                 }
             },
             "noDescription": "Aucune description",
@@ -13384,7 +13535,12 @@
                         "add": "Ajouter une variante"
                     },
                     "placeholder": "Ce produit n'a pas encore de variantes",
-                    "formError": "Les valeurs du champ Prix doivent être des nombres positifs valides"
+                    "formError": {
+                        "price": "Les valeurs du champ Prix doivent être des nombres positifs valides"
+                    },
+                    "formWarning": {
+                        "barcode": "Certaines valeurs du champ de codes-barres sont déjà utilisées"
+                    }
                 }
             },
             "tab": {
@@ -13400,7 +13556,8 @@
                 "genericTitle": "Confirmer la suppression",
                 "title": "Suppression - {{- name }}"
             },
-            "coverAlt": "Image du produit {{ product }}"
+            "coverAlt": "Image du produit {{ product }}",
+            "barcodeUnicityWarning": "Le code-barres fourni est déjà utilisé"
         },
         "shopList": {
             "tab": {
@@ -16825,7 +16982,8 @@
                         "showMemberAccountBalance": "Afficher le solde du compte du membre",
                         "title": "Mon profil"
                     }
-                }
+                },
+                "displayActivityPrice": "Afficher le nombre de crédits"
             },
             "cover": {
                 "label": "Logo",
@@ -17265,7 +17423,7 @@
             "amount": "Montant",
             "continue": "Continuer",
             "credit_s": "Crédit(s)",
-            "NA": "Non renseigné",
+            "NA": "Non précisé",
             "price": "Prix",
             "priceIncludingTax": "Prix TTC",
             "sports": "Catégories",
@@ -18831,7 +18989,8 @@
                 "fabrique_tooltip": "Bulle d'aide",
                 "consumer_summary_card": "Carte récapitulative du membre",
                 "consumer_saved_payment_methods_card": "Carte des méthodes de paiements sauvegardées",
-                "consumer_terms_and_conditions": "Carte de conditions générales de vente pour les consommateurs"
+                "consumer_terms_and_conditions": "Carte de conditions générales de vente pour les consommateurs",
+                "authentication_disconnected_status": "Etat déconnecté"
             },
             "page": {
                 "common": "Commun",
@@ -19122,7 +19281,9 @@
                 "successText": "Texte de confirmation",
                 "showSuccessTitle": "Montrer le titre de la confirmation",
                 "successTitle": "Titre de la confirmation"
-            }
+            },
+            "hideWidgets": "Cacher tous les widgets pour les utilisateurs non connectés",
+            "disconnectedStatusConfigTitle": "Configuration de l'état déconnecté"
         },
         "create": "Général",
         "customize": "Personnalisation",

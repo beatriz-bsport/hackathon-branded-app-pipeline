@@ -2011,6 +2011,10 @@
         },
         "referral": {
             "signUpNow": "Gracias por utilizar el enlace de recomendación de {{ referringMemberFirstName }}. Regístrate ahora para canjear un vale especial en tu primera compra."
+        },
+        "disconnectedStatus": {
+            "subtitle": "Debes iniciar sesión para acceder a su perfil.",
+            "title": "Parece que no has iniciado sesión"
         }
     },
     "establishment": {
@@ -2484,7 +2488,7 @@
             "methodPaymentCardBillingDetails": "Solicitar datos de facturación para pagos con tarjeta.",
             "methodPaymentCardBillingDetailsHelper": "Al activar esta función, reducirá el número de pagos con tarjeta que requieren 3D Secure (validación por SMS, aplicaciones bancarias, etc.) Tenga en cuenta que estos campos son obligatorios.",
             "DaysBeforeNotificationInputs": {
-                "helpText": "Si tiene activada la opción \"Recordatorios de caducidad del método de pago\" para las notificaciones transaccionales en las suscripciones, puede personalizar aquí el número de días.",
+                "helpText": "Si las notificaciones transaccionales correspondientes están activadas para las suscripciones y los pagos a plazos, puede decidir cuántos días antes de que caduque el método de pago desea enviar un recordatorio.",
                 "title": "Recordatorios de caducidad de los métodos de pago",
                 "errors": {
                     "max": "El número de días no puede ser superior a {{maxDays}}",
@@ -2692,7 +2696,7 @@
                 "accountName": "Nombre de la cuenta",
                 "oneTimePayments": "Realizar pagos únicos",
                 "titleWithPayPal": "Con PayPal, sus miembros pueden",
-                "linkHelper": "Vincule su cuenta PayPal Business para que sus usuarios puedan pagar con PayPal",
+                "linkHelper": "Vincule su cuenta PayPal Business para que sus usuarios puedan realizar pagos únicos con PayPal.",
                 "status": {
                     "unknown": "Estado desconocido",
                     "hasIssues": "Problemas de conexión",
@@ -2862,6 +2866,13 @@
                 "colors": {
                     "helperText": "Añade un color pulsando Intro",
                     "title": "Colores"
+                },
+                "barcodes": {
+                    "option": {
+                        "generate": "Generar nuevos códigos de barras",
+                        "inherit": "Heredar del producto base"
+                    },
+                    "title": "Códigos de barras"
                 }
             }
         },
@@ -2921,7 +2932,12 @@
                         "add": "Añadir una variante"
                     },
                     "placeholder": "Este producto aún no tiene variantes",
-                    "formError": "Los valores del campo Precio deben ser números positivos válidos"
+                    "formError": {
+                        "price": "Los valores del campo Precio deben ser números positivos válidos"
+                    },
+                    "formWarning": {
+                        "barcode": "Algunos valores de campos de códigos de barras ya están en uso"
+                    }
                 },
                 "inventory": {
                     "seeInvoice": "Ver factura",
@@ -2965,7 +2981,8 @@
             "showMore": "Ver más",
             "startingAt": "A partir de",
             "title": "Detalles del producto",
-            "coverAlt": "Foto del producto {{ product }}"
+            "coverAlt": "Foto del producto {{ product }}",
+            "barcodeUnicityWarning": "El código de barras proporcionado ya está en uso"
         },
         "shopList": {
             "tab": {
@@ -6113,7 +6130,9 @@
                 "title": "Cambios no guardados",
                 "description": "Tienes notas sin guardar en esta página. ¿Quieres guardarlas antes de salir?"
             }
-        }
+        },
+        "numberOfCredits": "{{count}} crédito",
+        "numberOfCredits_plural": "{{count}} créditos"
     },
     "member": {
         "date_joined": "Fecha de registro",
@@ -6924,7 +6943,8 @@
                     "every_year": "Ha alcanzado el límite de invitaciones para este año.",
                     "every_month": "Ha alcanzado el límite de invitaciones para este mes.",
                     "every_week": "Ha alcanzado el límite de invitaciones para esta semana."
-                }
+                },
+                "sendInvitation": "Enviar invitación"
             },
             "bookingFor": "Reserva para"
         },
@@ -6963,8 +6983,11 @@
                             "saveAndContinue": "Guardar y continuar",
                             "continueWithoutEmail": "Continuar sin correo electrónico"
                         },
-                        "description": "No ha proporcionado una dirección de correo electrónico para su invitado. Por lo tanto, no recibirá información sobre esta sesión. ¿Está usted seguro?",
-                        "title": "No se ha introducido correo electrónico"
+                        "description": "No has proporcionado una dirección de correo electrónico para tu invitado.",
+                        "title": "No se ha introducido correo electrónico",
+                        "submitLabel": "Continuar sin",
+                        "fieldLabel": "¿Quieres incluir el correo electrónico?",
+                        "alert": "No recibirán información sobre esta sesión."
                     },
                     "description": "¿Trae a un amigo o acompañante para compartir la experiencia? Sólo tiene que indicar el nombre y la dirección de correo electrónico de su invitado, y nos aseguraremos de que reciba toda la información necesaria.",
                     "title": "Invitar a un invitado"
@@ -8343,7 +8366,8 @@
                         "editProfile": "Editar"
                     }
                 }
-            }
+            },
+            "moreActions": "Más acciones"
         }
     },
     "coupon": {
@@ -8378,7 +8402,8 @@
                 },
                 "choicesFranchise": {
                     "9": "Tarjeta de cita compartido",
-                    "1": "Tarjeta de curso compartido"
+                    "1": "Tarjeta de curso compartido",
+                    "2": "Artículos compartidos de la tienda virtual"
                 }
             },
             "minimum_amount": {
@@ -8811,7 +8836,9 @@
                 },
                 "actions": {
                     "cancel": "Cancelar",
-                    "submit": "Guardar"
+                    "submit": "Guardar",
+                    "next": "Siguiente",
+                    "back": "Atrás"
                 },
                 "available_payment_method_identifiers": {
                     "helperText": "Seleccione al menos un método de pago. Si la cesta del miembro contiene artículos para los cuales los medios de pago son incompatibles, se ofrecerá el pago por tarjeta.",
@@ -8911,7 +8938,9 @@
                         "tagsOnAcquisition": "Etiqueta tras la compra"
                     },
                     "header": "Avanzado"
-                }
+                },
+                "notification": "Notificaciones",
+                "detailsAndRestrictions": "Detalles y restricciones"
             },
             "compatibleServices": {
                 "title": "Citas compatibles",
@@ -8963,7 +8992,8 @@
             },
             "listItem": {
                 "unusableByStaff": "Invisible para el personal"
-            }
+            },
+            "noNotificationsWarning": "Aún no tienes notificaciones configuradas. Para crear nuevas notificaciones, vaya a <strong>Marketing > Notificaciones.</strong>"
         },
         "privateBooking": {
             "managerAdd": {
@@ -10604,7 +10634,8 @@
                         "showMemberAccountBalance": "Mostrar saldo de cuenta de miembro",
                         "title": "Mi perfil"
                     }
-                }
+                },
+                "displayActivityPrice": "Mostrar el número de créditos"
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -13158,7 +13189,8 @@
         "seeMore": "Ver más",
         "seeLess": "Ver menos",
         "discardChanges": "Descartar cambios",
-        "rename": "Renombrar"
+        "rename": "Renombrar",
+        "send": "Enviar"
     },
     "snackbar": {
         "invoice": {
@@ -14362,7 +14394,10 @@
                     "create": "Guardar",
                     "edit": "Modificar",
                     "cancel": "Cancelar",
-                    "skip": "Pasar"
+                    "skip": "Pasar",
+                    "back": "Atrás",
+                    "next": "Siguiente",
+                    "submit": "Guardar"
                 },
                 "durationYears": {
                     "helperText": "Se suma a la cantidad de días y de meses",
@@ -14524,7 +14559,10 @@
                 "highlightedAsRecommended": {
                     "label": "Marcar como recomendado",
                     "helperText": "Permite a sus clientes ver rápidamente qué pases se recomiendan actualmente."
-                }
+                },
+                "notification": "Notificaciones",
+                "detailsAndRestrictions": "Detalles y restricciones",
+                "noNotificationsWarning": "Aún no tienes notificaciones configuradas. Para crear nuevas notificaciones, vaya a <strong>Marketing > Notificaciones.</strong>"
             }
         },
         "extension": {
@@ -14597,7 +14635,9 @@
                 },
                 "contractTitle": "Suscripción",
                 "dontSendIfInContract": "No enviar cuando la tarjeta está en una suscripción",
-                "infoContract": "Los miembros que hayan obtenido esta tarjeta como parte de una suscripción sólo recibirán notificaciones sobre la suscripción y no sobre la tarjeta. Desactivando esta opción, recibirán ambos."
+                "infoContract": "Los miembros que hayan obtenido esta tarjeta como parte de una suscripción sólo recibirán notificaciones sobre la suscripción y no sobre la tarjeta. Desactivando esta opción, recibirán ambos.",
+                "notificationNamePlaceholder": "Nombre de la notificación",
+                "generalTitle": "General"
             },
             "addButton": "Añadir una notificación",
             "listItem": {
@@ -15571,7 +15611,8 @@
             "audience": "{{ audienceCamelCase }}",
             "backToWebshop": "Volver a la tienda",
             "accessMonitoring": "Acceso",
-            "closeTab": "Cerrar pestaña"
+            "closeTab": "Cerrar pestaña",
+            "feedbackBoard": "Tablón de comentarios"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -15731,7 +15772,8 @@
             }
         },
         "logout": "Cerrar sesión",
-        "login": "Iniciar sesión"
+        "login": "Iniciar sesión",
+        "featureBaseButton": "Sugerir una función o mejora"
     },
     "video": {
         "video": {
@@ -17523,7 +17565,8 @@
                 "fabrique_tooltip": "Información sobre herramientas",
                 "consumer_summary_card": "Tarjeta resumen del consumidor",
                 "consumer_saved_payment_methods_card": "Tarjeta de medios de pago ahorrados por el consumidor",
-                "consumer_terms_and_conditions": "Tarjeta de términos y condiciones del consumidor"
+                "consumer_terms_and_conditions": "Tarjeta de términos y condiciones del consumidor",
+                "authentication_disconnected_status": "Estado de desconexión"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -17564,7 +17607,9 @@
                 "successText": "Texto de confirmación",
                 "showSuccessTitle": "Mostrar título de confirmación",
                 "successTitle": "Título de confirmación"
-            }
+            },
+            "hideWidgets": "Ocultar todos los widgets para los usuarios no registrados",
+            "disconnectedStatusConfigTitle": "Configuración del estado de desconexión"
         },
         "customize": "Personalización",
         "create": "General",
@@ -17685,8 +17730,8 @@
             "notificationsEmpty": "No existe ninguna notificación para este grupo",
             "deleteDialogText": "Está seguro de que quiere eliminar esta regla? Esta operación es definitiva",
             "deleteDialogTitle": "Eliminar la regla",
-            "removeRule": "Eliminar la regla",
-            "editRule": "Editar regla",
+            "removeRule": "Eliminar",
+            "editRule": "Editar",
             "paymentPackKind": {
                 "credit": "Número de créditos",
                 "validity": "Validez del pase"
@@ -17714,8 +17759,8 @@
             "next": "Siguiente",
             "paymentPackPlaceholder": "Bono",
             "selectIdentifierLabel": {
-                "payment_pack": "Seleccione un bono",
-                "private_service": "Seleccione una cita privada",
+                "payment_pack": "Seleccionar bonos",
+                "private_service": "Seleccione tarjetas de citas",
                 "establishment": "Seleccione una ubicación",
                 "meta_activity": "Seleccione una actividad",
                 "workshop": "Seleccione un taller",
@@ -17730,11 +17775,11 @@
                 "opened_rate": "Tasa de apertura",
                 "total_mail_send": "Número de correos electrónicos enviados"
             },
-            "mailTitle": "Vista previa del correo",
+            "mailTitle": "Vista previa del correo electrónico",
             "mail": "Correo ",
             "statisticDetails": "Estadísticas",
             "notificationDetails": "Detalles de la notificación",
-            "notificationPreview": "Resumen de la notificación",
+            "notificationPreview": "Vista previa de las notificaciones push",
             "privatePassPlaceholder": "Tarjeta de citas",
             "dialogTitle": "Crear una notificación",
             "listTitle": "Notificaciones",
@@ -17744,6 +17789,116 @@
             "contractKind": {
                 "contractStart": "Inicio de la suscripción",
                 "contractEnd": "Fin de la suscripción"
+            },
+            "editPasses": "Editar",
+            "addPasses": "Añadir",
+            "sendingDelay": {
+                "onSession": "{{hours}}h después de la sesión",
+                "justOnSession": "Justo después de la sesión",
+                "onBooking": "{{hours}}h después de la reserva",
+                "justOnBooking": "Justo después de la reserva"
+            },
+            "triggerDescription": {
+                "expiredValidity": "Expirado por {{count}} día",
+                "expiredValidity_plural": "Expirado durante {{count}} días",
+                "todayValidity": "El día de vencimiento",
+                "remainingValidity": "{{count}} día restante antes de la expiración",
+                "remainingValidity_plural": "{{count}} días restantes antes de la expiración",
+                "remainingCredit": "{{count}} crédito restante",
+                "remainingCredit_plural": "{{count}} créditos restantes"
+            },
+            "passSelectionPlaceholder": {
+                "payment_pack": "Bonos",
+                "private_pass": "Tarjetas de citas"
+            },
+            "selectAllPassesToggle": {
+                "private_pass": "Aplicable a todos los pases de cita existentes y futuros",
+                "payment_pack": "Aplicable a todos los bonos existentes y futuros"
+            },
+            "allPassSelected": {
+                "private_pass": "Todas las tarjetas de citas están incluidas",
+                "payment_pack": "Todos los bonos están incluidos"
+            },
+            "allOptionsPlaceholder": {
+                "payment_pack": "Todos los bonos",
+                "private_pass": "Todas las tarjetas de citas"
+            },
+            "notificationTitle": {
+                "expiredValidity": "Notificaciones de caducidad",
+                "remainingValidity": "Notificaciones de validez restante",
+                "remainingCredit": "Notificaciones de crédito restantes"
+            },
+            "passNotificationDeleteDialog": {
+                "warning": {
+                    "irreversible": "Esta operación no se puede deshacer.",
+                    "sure": "¿Estás seguro de que quieres borrar esta notificación?",
+                    "attachedPrivatePasses": "Todavía tiene uno o más pases de cita vinculados a esta notificación",
+                    "attachedPaymentPacks": "Todavía tiene uno o más pases vinculados a esta notificación"
+                },
+                "title": "Borrar esta notificación"
+            },
+            "optionalStepInfo": "Este paso es opcional. Puede configurar las notificaciones más adelante. Aquí sólo aparecen las notificaciones que ya ha creado. Para crear nuevas, vaya a Marketing > Notificaciones.",
+            "select": "Seleccionar",
+            "excluded": "Excluído",
+            "included": "Incluído",
+            "smartListTitle": "Smartlist",
+            "pushNotificationTitle": "Notificación push",
+            "preview": "Vista previa",
+            "viewPreview": "Vista previa",
+            "delete": "Eliminar",
+            "save": "Guardar",
+            "primaryText": {
+                "privatePass": {
+                    "creditsLeft": {
+                        "credits": "para recordar al usuario que le queda 1 crédito en su pase de cita",
+                        "credits_plural": "para recordar al usuario que le queda crédito {{credits}} en su pase de cita",
+                        "noCredits": "para recordar al usuario que no le queda crédito en su pase de cita"
+                    }
+                },
+                "paymentPack": {
+                    "creditsLeftOnSessionEnd": {
+                        "creditsHours": "1 hora después del final de la sesión para recordar al usuario que le quedan {{credits}} créditos en su pase",
+                        "creditsHours_plural": "{{hours}} horas después del final de la sesión para recordar al usuario que le quedan {{credits}} créditos en su pase",
+                        "creditsNoHours": "después del final de la sesión para recordar al usuario que le quedan {{credits}} créditos en su pase",
+                        "oneCreditHours": "1 hora después del final de la sesión para recordar al usuario que le queda 1 crédito en su pase.",
+                        "oneCreditHours_plural": "{{hours}} horas después del final de la sesión para recordar al usuario que le queda 1 crédito en su pase",
+                        "oneCreditNoHours": "al final de la sesión para recordar al usuario que le queda 1 crédito en su pase",
+                        "noCreditsHours": "1 hora después del final de la sesión para recordar al usuario que no le queda crédito en su pase.",
+                        "noCreditsHours_plural": "{{hours}} horas después del final de la sesión para recordar al usuario que no le queda crédito en su pase",
+                        "noCreditsNoHours": "al final de la sesión para recordar al usuario que no le queda crédito en su pase"
+                    },
+                    "creditsLeftOnBooking": {
+                        "creditsHours": "1 hora después de una reserva para recordar al usuario que le quedan {{credits}} créditos en su pase",
+                        "creditsHours_plural": "{{hours}} horas después de una reserva para recordar al usuario que le quedan {{credits}} créditos en su pase",
+                        "creditsNoHours": "después de una reserva para recordar al usuario que le quedan {{credits}} créditos en su pase",
+                        "oneCreditHours": "1 hora después de una reserva para recordar al usuario que le queda 1 crédito en su pase",
+                        "oneCreditHours_plural": "{{hours}} horas después de una reserva para recordar al usuario que le queda 1 crédito en su pase",
+                        "oneCreditNoHours": "después de una reserva para recordar al usuario que le queda 1 crédito en su pase",
+                        "noCreditsHours": "1 hora después de una reserva para recordar al usuario que no le queda crédito en su pase",
+                        "noCreditsHours_plural": "{{hours}} horas después de una reserva para recordar al usuario que no le queda crédito en su pase",
+                        "noCreditsNoHours": "después de una reserva para recordar al usuario que no le queda crédito en su pase"
+                    }
+                },
+                "expires": {
+                    "days": "1 día antes de la expiración",
+                    "days_plural": "{{días}} días antes de la expiración",
+                    "noDays": "el día de expiración"
+                },
+                "expired": {
+                    "days": "después de 1 día de caducidad",
+                    "days_plural": "después de {{días}} días de caducidad"
+                },
+                "smartlist": {
+                    "smartListExclude": "Esta notificación no está destinada a esta smartlist: {{smartlist_names}}.",
+                    "smartListExclude_plural": "Esta notificación no está destinada a estas smartlists: {{smartlist_names}}.",
+                    "smartListInclude": "Esta notificación está destinada a esta smartlist: {{smartlist_names}}.",
+                    "smartListInclude_plural": "Esta notificación está destinada a estas smartlists: {{smartlist_names}}."
+                },
+                "send": {
+                    "emailAndPush": "Se enviará un correo electrónico y una notificación push",
+                    "push": "Se enviará una notificación push",
+                    "email": "Se enviará un correo electrónico"
+                }
             }
         },
         "customForm": {
@@ -18680,7 +18835,8 @@
             "establishment": "Establecimientos",
             "members": "miembros",
             "emptySelect": "Seleccione una franquicia para ver los detalles.",
-            "searchPlaceholder": "Buscar un franquiciado"
+            "searchPlaceholder": "Buscar un franquiciado",
+            "manageOnStudio": "Gestionar en {{studio_name}}"
         },
         "member": {
             "pageTitle": "Miembro",
@@ -18787,7 +18943,12 @@
         "userProfile": {
             "numberBrands": "{{ number }} categorías",
             "numberStudios": "{{ number }} estudios de compra",
-            "goToMemberProfile": "Gestionar en {{ purchasing_studio }}"
+            "goToMemberProfile": "Gestionar en {{ purchasing_studio }}",
+            "tagModalPlaceholcer": "Selecciona las etiquetas",
+            "tagModalHelperText": "Etiquetas",
+            "tagModalText": "Las medidas adoptadas sobre las etiquetas se aplicarán al miembro en cada franquiciado",
+            "manageTags": "Gestionar etiquetas",
+            "tagsListTitle": "Etiquetas compartidas"
         }
     },
     "giftcard": {

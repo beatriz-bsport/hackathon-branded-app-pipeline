@@ -3174,7 +3174,8 @@
                         "showMemberAccountBalance": "Kontostand des Mitglieds anzeigen",
                         "title": "Mein Profil"
                     }
-                }
+                },
+                "displayActivityPrice": "Anzeige der Anzahl der Kredite"
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -5095,7 +5096,9 @@
                 "creditNotificationType": {
                     "onBooking": "Benachrichtigung nach der Buchung senden",
                     "onOfferStart": "Benachrichtigung nach Ende des Kurses senden"
-                }
+                },
+                "notificationNamePlaceholder": "Benachrichtigungsname",
+                "generalTitle": "Allgemein"
             },
             "1": {
                 "second": "Credits",
@@ -5180,7 +5183,10 @@
                     "create": "Speichern",
                     "edit": "Ändern",
                     "skip": "Überspringen",
-                    "cancel": "Abbrechen"
+                    "cancel": "Abbrechen",
+                    "back": "Zurück",
+                    "next": "Weiter",
+                    "submit": "Speichern"
                 },
                 "from": "Von dem ",
                 "notEditable": "Dieser Kurspass ist das Ergebnis einer Migration, einige Felder können nicht geändert werden, um den Verlauf zu beachten. Kompatible Aktivitäten/Kategorien können weiterhin geändert werden.",
@@ -5335,7 +5341,10 @@
                 "highlightedAsRecommended": {
                     "label": "Als empfohlen markieren",
                     "helperText": "Ermöglicht es Ihren Kunden, auf einen Blick zu sehen, welche Kurspässe derzeit empfohlen werden."
-                }
+                },
+                "notification": "Benachrichtigungen",
+                "detailsAndRestrictions": "Details und Einschränkungen",
+                "noNotificationsWarning": "Sie haben noch keine Benachrichtigungen eingerichtet. Um eine Benachrichtigung zu erstellen, gehen sie bitte zu <strong>Marketing > Benachrichtigungen</strong>"
             }
         },
         "boughtConsumerPaymentPacks": "Abonnenten",
@@ -8932,6 +8941,13 @@
                 "colors": {
                     "helperText": "Mit der Eingabetaste eine Farbe hinzufügen",
                     "title": "Farben"
+                },
+                "barcodes": {
+                    "option": {
+                        "generate": "Neuen Barcode generieren",
+                        "inherit": "Vom Basisprodukt übernehmen"
+                    },
+                    "title": "Barcodes"
                 }
             }
         },
@@ -9003,7 +9019,12 @@
                         "add": "Hinzufügen einer Variante"
                     },
                     "placeholder": "Dieses Produkt hat noch keine Varianten",
-                    "formError": "Please repeat the connection process using the same account to resolve this issue"
+                    "formError": {
+                        "price": "Preisfeldwerte müssen gültige positive Zahlen sein"
+                    },
+                    "formWarning": {
+                        "barcode": "Einige Barcode-Feldwerte sind bereits in Gebrauch"
+                    }
                 },
                 "history": {
                     "invoice": {
@@ -9063,7 +9084,8 @@
             "showMore": "Mehr anzeigen",
             "startingAt": "Ab",
             "title": "Details zum Produkt",
-            "coverAlt": "Bild zum Produkt {{ product }}"
+            "coverAlt": "Bild zum Produkt {{ product }}",
+            "barcodeUnicityWarning": "Der angegebene Barcode ist bereits in Gebrauch"
         },
         "shopList": {
             "tab": {
@@ -9782,7 +9804,8 @@
                     "every_year": "Sie haben das Einladungslimit für dieses Jahr erreicht.",
                     "every_month": "Sie haben das Einladungslimit für diesen Monat erreicht.",
                     "every_week": "Sie haben das Einladungslimit für diese Woche erreicht."
-                }
+                },
+                "sendInvitation": "Einladung versenden"
             },
             "bookingFor": "Buchung für"
         },
@@ -9822,8 +9845,11 @@
                             "saveAndContinue": "Speichern und fortfahren",
                             "continueWithoutEmail": "Ohne E-Mail fortfahren"
                         },
-                        "description": "Sie haben keine E-Mail für Ihren Gast angegeben. Aus diesem Grund wird er keine Informationen bezüglich dieses Kurses erhalten. Sind Sie sich sicher?",
-                        "title": "Keine E-Mail angegeben"
+                        "description": "Sie haben keine E-Mail für Ihren Gast angegeben.",
+                        "title": "Keine E-Mail angegeben",
+                        "submitLabel": "Fortfahren ohne",
+                        "fieldLabel": "Möchten Sie die E-Mail hinzufügen?",
+                        "alert": "Sie werden keine Informationen über diese Sitzung erhalten."
                     },
                     "description": "Sie bringen einen Freund oder Partner mit, um das Erlebnis zu teilen? Geben Sie einfach den Namen und die E-Mail-Adresse Ihres Gastes an und wir werden dafür sorgen, dass er alle notwendigen Informationen erhält.",
                     "title": "Laden Sie einen Gast ein"
@@ -10417,7 +10443,8 @@
         "seeMore": "Mehr sehen",
         "seeLess": "Weniger sehen",
         "discardChanges": "Änderungen verwerfen",
-        "rename": "Umbenennen"
+        "rename": "Umbenennen",
+        "send": "Versenden"
     },
     "coupon": {
         "detail": {
@@ -10465,7 +10492,8 @@
                 },
                 "choicesFranchise": {
                     "9": "Geteilte Terminpässe",
-                    "1": "Geteilte Kurspässe"
+                    "1": "Geteilte Kurspässe",
+                    "2": "Geteilte Webshop-Artikel"
                 }
             },
             "minimum_amount": {
@@ -11190,7 +11218,9 @@
                 },
                 "actions": {
                     "cancel": "Abbrechen",
-                    "submit": "Speichern"
+                    "submit": "Speichern",
+                    "next": "Weiter",
+                    "back": "Zurück"
                 },
                 "available_payment_method_identifiers": {
                     "helperText": "Wähle mindestens eine Zahlungsmethode aus. Wenn der Warenkorb des Mitglieds Produkte mit inkompatiblen Zahlungsmethoden enthält, wird eine Zahlung per Kreditkarte vorgeschlagen.",
@@ -11297,7 +11327,9 @@
                         "tagsOnAcquisition": "Tag nach dem Kauf"
                     },
                     "header": "Erweitert"
-                }
+                },
+                "notification": "Benachrichtigungen",
+                "detailsAndRestrictions": "Details und Einschränkungen"
             },
             "parameters": {
                 "nbCredits": "{{ credits }} Credit",
@@ -11349,7 +11381,8 @@
             },
             "listItem": {
                 "unusableByStaff": "Unsichtbar für Mitarbeiter"
-            }
+            },
+            "noNotificationsWarning": "Sie haben noch keine Benachrichtigungen eingerichtet. Um eine Benachrichtigung zu erstellen, gehen sie bitte zu <strong>Marketing > Benachrichtigungen</strong>"
         },
         "consumerPass": {
             "current_credits": "{{ current_credits }}/{{credits}} Credits",
@@ -12858,7 +12891,8 @@
                         "editProfile": "Bearbeiten"
                     }
                 }
-            }
+            },
+            "moreActions": "Weitere Aktionen"
         }
     },
     "metaActivity": {
@@ -14608,7 +14642,8 @@
             "audience": "{{ audienceCamelCase }}",
             "backToWebshop": "Zurück zum Webshop",
             "accessMonitoring": "Zugang",
-            "closeTab": "Tab schließen"
+            "closeTab": "Tab schließen",
+            "feedbackBoard": "Feedback-Board"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -14768,7 +14803,8 @@
             }
         },
         "logout": "Abmelden",
-        "login": "Anmelden"
+        "login": "Anmelden",
+        "featureBaseButton": "Eine Funktion oder Verbesserung vorschlagen"
     },
     "emailTemplate": {
         "editor": {
@@ -15154,6 +15190,10 @@
         },
         "referral": {
             "signUpNow": "Vielen Dank, dass Sie den Empfehlungslink von {{ referringMemberFirstName }} verwendet haben. Melden Sie sich jetzt an und lösen Sie einen speziellen Gutschein für Ihren ersten Warenkorb ein!"
+        },
+        "disconnectedStatus": {
+            "subtitle": "Sie müssen eingeloggt sein, um auf Ihr Profil zugreifen zu können.",
+            "title": "Sie scheinen nicht eingeloggt zu sein"
         }
     },
     "marketplace": {
@@ -15858,7 +15898,9 @@
                 "title": "Ungespeicherte Änderungen",
                 "description": "Sie haben ungespeicherte Notizen auf dieser Seite. Möchten Sie sie vor dem Verlassen der Seite speichern?"
             }
-        }
+        },
+        "numberOfCredits": "{{count}} Kredit",
+        "numberOfCredits_plural": "{{count}} Kredite"
     },
     "settings": {
         "active_campaign": {
@@ -16047,7 +16089,7 @@
             "methodPaymentCardBillingDetailsTitle": "Vollständige Rechnungsdetails anfordern",
             "methodPaymentCardBillingDetailsHelper": "Wenn Sie diese Funktion aktivieren, reduzieren Sie die Anzahl der Kartenzahlungen, die 3D Secure erfordern (SMS-Validierung, Bankanwendungen usw.).Achtung, diese Felder sind Pflichtfelder.",
             "DaysBeforeNotificationInputs": {
-                "helpText": "Wenn die entsprechenden Transaktionsbenachrichtigungen für Abonnements aktiviert sind, können Sie entscheiden, wie viele Tage vor Ablauf der Zahlungsmethode eine Erinnerung gesendet werden soll",
+                "helpText": "Wenn die entsprechenden Transaktionsbenachrichtigungen für Abonnements und Ratenzahlungen aktiviert sind, können Sie entscheiden, wie viele Tage vor Ablauf der Zahlungsmethode eine Erinnerung gesendet werden soll",
                 "title": "Erinnerungen an das Auslaufen von Zahlungsmitteln",
                 "errors": {
                     "max": "Die Anzahl der Tage kann nicht länger sein als 1{{maxDays}}",
@@ -16255,7 +16297,7 @@
                 "accountName": "Kontoname",
                 "oneTimePayments": "Einmalige Zahlungen tätigen",
                 "titleWithPayPal": "Mit PayPal können Ihre Mitglieder",
-                "linkHelper": "Verknüpfen Sie Ihr PayPal-Geschäftskonto, damit Ihre Mitglieder mit PayPal bezahlen können",
+                "linkHelper": "Verknüpfen Sie Ihr PayPal-Geschäftskonto, damit Ihre Mitglieder mit PayPal einmalige Zahlungen leisten  können",
                 "status": {
                     "unknown": "Unbekannter Status",
                     "hasIssues": "Verbindungsprobleme",
@@ -17209,7 +17251,8 @@
                 "fabrique_tooltip": "Werkzeugsinformation",
                 "consumer_summary_card": "Übersichtskarte für Verbraucher",
                 "consumer_saved_payment_methods_card": "Gespeicherte Verbraucherzahlungsmethoden Karte",
-                "consumer_terms_and_conditions": "Karte mit den allgemeinen Geschäftsbedingungen für Verbraucher"
+                "consumer_terms_and_conditions": "Karte mit den allgemeinen Geschäftsbedingungen für Verbraucher",
+                "authentication_disconnected_status": "Offline-Zustand"
             },
             "page": {
                 "calendar": "Kalender",
@@ -17499,7 +17542,9 @@
                 "successText": "Bestätigungstext",
                 "showSuccessTitle": "Bestätigungstitel anzeigen",
                 "successTitle": "Bestätigungstitel"
-            }
+            },
+            "hideWidgets": "Alle Widgets für nicht angemeldete Benutzer ausblenden",
+            "disconnectedStatusConfigTitle": "Konfiguration des Offline-Zustands"
         },
         "create": "Allgemein",
         "customize": "Personalisierung",
@@ -17536,8 +17581,8 @@
             "notificationsEmpty": "Keine automatischen Benachrichtigungen für diese Gruppe vorhanden.",
             "deleteDialogText": "Möchten Sie diese Regel wirklich löschen? Dieser Vorgang ist unwiderruflich.",
             "deleteDialogTitle": "Regel löschen",
-            "removeRule": "Regel löschen",
-            "editRule": "Regel anpassen",
+            "removeRule": "Löschen",
+            "editRule": "Bearbeiten",
             "paymentPackKind": {
                 "credit": "Anzahl der Credits",
                 "validity": "Gültigkeit der Karte"
@@ -17565,8 +17610,8 @@
             "next": "Weiter",
             "paymentPackPlaceholder": "Kurspass",
             "selectIdentifierLabel": {
-                "payment_pack": "Terminpass auswählen",
-                "private_service": "Termin auswählen",
+                "payment_pack": "Pässe auswählen",
+                "private_service": "Terminpässe auswählen",
                 "establishment": "Einrichtung auswählen",
                 "meta_activity": "Aktivität auswählen",
                 "workshop": "Workshop auswählen",
@@ -17581,11 +17626,11 @@
                 "opened_rate": "Öffnungsrate",
                 "total_mail_send": "Anzahl der gesendeten E-Mails"
             },
-            "mailTitle": "Vorschau der E-Mail",
+            "mailTitle": "E-Mail Vorschau",
             "mail": "E-Mail ",
             "statisticDetails": "Statistiken",
             "notificationDetails": "Details der Benachrichtigung",
-            "notificationPreview": "Übersicht über die Benachrichtigung",
+            "notificationPreview": "Vorschau über die Benachrichtigung",
             "privatePassPlaceholder": "Terminpass",
             "dialogTitle": "Benachrichtigung erstellen",
             "listTitle": "Benachrichtigungen",
@@ -17595,6 +17640,116 @@
             "contractKind": {
                 "contractEnd": "Ende des Abonnements",
                 "contractStart": "Start des Abonnements"
+            },
+            "editPasses": "Bearbeiten",
+            "addPasses": "Hinzufügen",
+            "sendingDelay": {
+                "onSession": "{{hours}} Std. nach der Sitzung",
+                "justOnSession": "Kurz nach der Sitzung",
+                "onBooking": "{{hours}} Std. nach der Buchung",
+                "justOnBooking": "Direkt nach der Buchung"
+            },
+            "triggerDescription": {
+                "expiredValidity": "Abgelaufen seit {{count}} Tag",
+                "expiredValidity_plural": "Abgelaufen seit {{count}} Tagen",
+                "todayValidity": "Am Verfallstag",
+                "remainingValidity": "{{count}} verbleibender Tag vor Ablauf",
+                "remainingValidity_plural": "{{count}} verbleibende Tage vor Ablauf",
+                "remainingCredit": "{{count}} Kredit übrig",
+                "remainingCredit_plural": "{{count}} Kredite übrig"
+            },
+            "passSelectionPlaceholder": {
+                "payment_pack": "Pässe",
+                "private_pass": "Terminpässe"
+            },
+            "selectAllPassesToggle": {
+                "private_pass": "Anwendung auf alle bestehenden und zukünftigen Terminpässe",
+                "payment_pack": "Gilt für alle bestehenden und zukünftigen Pässe"
+            },
+            "allPassSelected": {
+                "private_pass": "Alle Terminpässe sind inbegriffen",
+                "payment_pack": "Alle Pässe sind inbegriffen"
+            },
+            "allOptionsPlaceholder": {
+                "payment_pack": "Alle Pässe",
+                "private_pass": "Alle Terminpässe"
+            },
+            "notificationTitle": {
+                "expiredValidity": "Verfallsmitteilungen",
+                "remainingValidity": "Benachrichtigung über die Restlaufzeit",
+                "remainingCredit": "Verbleibende Kreditmitteilungen"
+            },
+            "passNotificationDeleteDialog": {
+                "warning": {
+                    "irreversible": "Dieser Vorgang kann nicht rückgängig gemacht werden.",
+                    "sure": "Sind Sie sicher, dass Sie diese Benachrichtigung löschen möchten?",
+                    "attachedPrivatePasses": "Sie haben noch einen oder mehrere Terminpässe, die mit dieser Meldung verknüpft sind",
+                    "attachedPaymentPacks": "Sie haben noch einen oder mehrere Pässe, die mit dieser Meldung verknüpft sind"
+                },
+                "title": "Diese Benachrichtigung löschen"
+            },
+            "optionalStepInfo": "Dieser Schritt ist optional. Sie können auch später noch Benachrichtigungen einrichten. Hier werden nur Benachrichtigungen aufgeführt, die Sie bereits erstellt haben. Um neue Benachrichtigungen zu erstellen, gehen Sie zu Marketing > Benachrichtigungen.",
+            "select": "Aussuchen",
+            "included": "Einschließlich",
+            "excluded": "Ausgenommen",
+            "smartListTitle": "Smartlist",
+            "pushNotificationTitle": "Push-Benachrichtigung",
+            "preview": "Vorschau",
+            "viewPreview": "Vorschau anzeigen",
+            "delete": "Löschen",
+            "save": "Speichern",
+            "primaryText": {
+                "privatePass": {
+                    "creditsLeft": {
+                        "credits": "Um den Benutzer daran zu erinnern, dass er noch 1 Guthaben auf seinem Terminkalender hat",
+                        "credits_plural": "Um den Benutzer daran zu erinnern, dass er noch {{credits}} auf seinem Terminkonto hat",
+                        "noCredits": "Um den Nutzer daran zu erinnern, dass er kein Guthaben mehr auf seinem Terminkalender hat"
+                    }
+                },
+                "paymentPack": {
+                    "creditsLeftOnSessionEnd": {
+                        "creditsHours": "1 Stunde nach dem Ende der Sitzung, um den Benutzer daran zu erinnern, dass er noch {{credits}} auf seinem Pass hat",
+                        "creditsHours_plural": "{{hours}} Stunden nach dem Ende der Sitzung, um den Benutzer daran zu erinnern, dass er noch {{credits}} auf seinem Pass hat",
+                        "oneCreditHours": "1 Stunde nach Ende der Sitzung, um den Benutzer daran zu erinnern, dass er noch 1 Guthaben auf seinem Pass hat",
+                        "oneCreditHours_plural": "{{hours}} Stunden nach Ende der Sitzung, um den Benutzer daran zu erinnern, dass er noch 1 Guthaben auf seinem Pass hat",
+                        "oneCreditNoHours": "Nach dem Ende der Sitzung, um den Benutzer daran zu erinnern, dass er noch 1 Guthaben auf seinem Pass hat",
+                        "noCreditsHours": "1 Stunde nach Ende der Sitzung, um den Benutzer daran zu erinnern, dass er keinen Guthaben mehr auf seinem Pass hat",
+                        "noCreditsHours_plural": "{{hours}} Stunden nach Ende der Sitzung, um den Benutzer daran zu erinnern, dass er keinen Guthaben mehr auf seinem Pass hat",
+                        "noCreditsNoHours": "Nach dem Ende einer Sitzung, um den Benutzer daran zu erinnern, dass er kein Guthaben mehr auf seinem Pass hat",
+                        "creditsNoHours": "Nach dem Ende der Sitzung, um den Benutzer daran zu erinnern, dass er noch {{credits}} auf seinem Pass hat"
+                    },
+                    "creditsLeftOnBooking": {
+                        "noCreditsNoHours": "Nach einer Buchung, um den Benutzer daran zu erinnern, dass er kein Guthaben mehr auf seinem Pass hat",
+                        "noCreditsHours": "1 Stunde nach einer Buchung, um den Benutzer daran zu erinnern, dass er kein Guthaben mehr auf seinem Pass hat",
+                        "noCreditsHours_plural": "{{hours}} Stunden nach einer Buchung, um den Benutzer daran zu erinnern, dass er kein Guthaben mehr auf seinem Pass hat",
+                        "oneCreditNoHours": "Nach einer Buchung, um den Benutzer daran zu erinnern, dass er noch 1 Guthaben auf seinem Pass hat",
+                        "oneCreditHours": "1 Stunde nach einer Buchung, um den Benutzer daran zu erinnern, dass er noch 1 Guthaben auf seinem Pass hat",
+                        "oneCreditHours_plural": "{{hours}} Stunden nach einer Buchung, um den Benutzer daran zu erinnern, dass er noch 1 Guthaben auf seinem Pass hat",
+                        "creditsHours": "1 Stunde nach einer Buchung, um den Benutzer daran zu erinnern, dass er noch {{credits}} Credits auf seinem Pass hat",
+                        "creditsHours_plural": "{{hours}} Stunden nach einer Buchung, um den Benutzer daran zu erinnern, dass er noch {{credits}} Credits auf seinem Pass hat",
+                        "creditsNoHours": "Nach einer Buchung, um den Benutzer daran zu erinnern, dass er noch {{credits}} auf seinem Pass hat"
+                    }
+                },
+                "expires": {
+                    "days": "1 Tag vor Ablauf der Frist",
+                    "days_plural": "{{days}} Tage vor Ablauf der Frist",
+                    "noDays": "am Tag des Ablaufs"
+                },
+                "expired": {
+                    "days": "1 Tag nach Ablauf der Gültigkeit",
+                    "days_plural": "{{days}} Tage nach Ablauf der Frist"
+                },
+                "smartlist": {
+                    "smartListExclude": "Diese Meldung ist nicht für diese Smartlist bestimmt: {{smartlist_names}}.",
+                    "smartListExclude_plural": "Diese Meldung ist nicht für diese Smartlisten bestimmt: {{smartlist_names}}.",
+                    "smartListInclude": "Diese Meldung ist für diese Smartlist bestimmt: {{smartlist_names}}.",
+                    "smartListInclude_plural": "Diese Meldung ist für diese Smartlisten bestimmt: {{smartlist_names}}."
+                },
+                "send": {
+                    "emailAndPush": "Eine E-Mail und Push-Benachrichtigung werden gesendet",
+                    "email": "Eine E-Mail wird gesendet",
+                    "push": "Eine Push-Benachrichtigung wird gesendet"
+                }
             }
         },
         "customForm": {
@@ -18531,7 +18686,8 @@
             "establishment": "Einrichtungen",
             "members": "Mitglieder",
             "emptySelect": "Wählen Sie ein Studio, um mehr Informationen anzuzeigen.",
-            "searchPlaceholder": "Suche nach einem Studio"
+            "searchPlaceholder": "Suche nach einem Studio",
+            "manageOnStudio": "Verwalten von {{studio_name}}"
         },
         "member": {
             "pageTitle": "Mitglied",
@@ -18638,7 +18794,12 @@
         "userProfile": {
             "numberBrands": "{{ number }} Kategorien",
             "numberStudios": "{{ number }} zahlende Studios",
-            "goToMemberProfile": "Verwalten auf {{ purchasing_studio }}"
+            "goToMemberProfile": "Verwalten auf {{ purchasing_studio }}",
+            "tagModalPlaceholcer": "Tags auswählen",
+            "tagModalHelperText": "Tags",
+            "tagModalText": "Die an den Tags vorgenommenen Maßnahmen werden auf die Mitglied in jedem Franchisenehmer angewendet",
+            "manageTags": "Tags verwalten",
+            "tagsListTitle": "Geteilte Tags"
         }
     },
     "giftcard": {

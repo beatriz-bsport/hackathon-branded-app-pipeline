@@ -631,7 +631,8 @@
                         "editProfile": "Bewerk"
                     }
                 }
-            }
+            },
+            "moreActions": "Meer acties"
         }
     },
     "notificationRule": {
@@ -3119,6 +3120,10 @@
         },
         "referral": {
             "signUpNow": "Bedankt voor het gebruiken van de referral-link can {{ referringMemberFirstName }}. Registreer je om deze voucher voor je eerste aankoop te gebruiken!"
+        },
+        "disconnectedStatus": {
+            "subtitle": "Je moet ingelogd zijn om toegang te krijgen tot je profiel.",
+            "title": "Het lijkt erop dat je niet bent ingelogd"
         }
     },
     "reporting": {
@@ -4078,7 +4083,9 @@
                 },
                 "infoContract": "Leden die deze kaart als onderdeel van een abonnement hebben gekregen, ontvangen alleen notificaties over het abonnement en niet over de kaart. Door deze optie te deactiveren zullen zij beide ontvangen.",
                 "contractTitle": "Abonnement",
-                "dontSendIfInContract": "Niet versturen als de kaart deel uitmaakt van een abonnement"
+                "dontSendIfInContract": "Niet versturen als de kaart deel uitmaakt van een abonnement",
+                "notificationNamePlaceholder": "Naam melding",
+                "generalTitle": "Algemeen"
             },
             "daysPast": {
                 "second": "dag(en) verlopen is.",
@@ -4189,7 +4196,10 @@
                     "skip": "Overslaan",
                     "edit": "Bewerken",
                     "create": "Opslaan",
-                    "cancel": "Annuleren"
+                    "cancel": "Annuleren",
+                    "back": "Terug",
+                    "next": "Volgende",
+                    "submit": "Opslaan"
                 },
                 "activities": "Activiteit",
                 "restrictionsTitle": "Beperkingen",
@@ -4325,7 +4335,10 @@
                 "highlightedAsRecommended": {
                     "label": "Als aanrader markeren",
                     "helperText": "Dit geeft klanten een overzicht van de leskaarten die momenteel worden aangeraden."
-                }
+                },
+                "notification": "Meldingen",
+                "detailsAndRestrictions": "Details en beperkingen",
+                "noNotificationsWarning": "Je hebt nog geen meldingen ingesteld. Ga naar <strong>Marketing > Meldingen</strong> om nieuwe meldingen te maken"
             }
         },
         "details": {
@@ -6394,7 +6407,9 @@
                 "title": "Niet opgeslagen veranderingen",
                 "description": "Je hebt niet-opgeslagen notities op deze pagina. Wil je ze opslaan voordat je weggaat?"
             }
-        }
+        },
+        "numberOfCredits": "{{count}} credit",
+        "numberOfCredits_plural": "{{count}} credits"
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",
@@ -7254,7 +7269,8 @@
                     "every_year": "Je hebt het maximaal aantal gasten uitgenodigd voor dit jaar.",
                     "every_month": "Je hebt het maximaal aantal gasten uitgenodigd voor deze maand.",
                     "every_week": "Je hebt het maximaal aantal gasten uitgenodigd voor deze week."
-                }
+                },
+                "sendInvitation": "Uitnodiging versturen"
             },
             "bookingFor": "Boeken voor"
         },
@@ -7294,8 +7310,11 @@
                             "saveAndContinue": "Opslaan en doorgaan",
                             "continueWithoutEmail": "Doorgaan zonder e-mail"
                         },
-                        "description": "Je hebt geen e-mailadres opgegeven voor je gast. Hierdoor zullen ze geen informatie ontvangen over deze sessie. Weet je dit zeker?",
-                        "title": "Geen e-mail ingevoerd"
+                        "description": "Je hebt geen e-mailadres opgegeven voor je gast.",
+                        "title": "Geen e-mail ingevoerd",
+                        "submitLabel": "Doorgaan zonder",
+                        "fieldLabel": "Wil je de e-mail toevoegen?",
+                        "alert": "Ze ontvangen geen informatie over deze sessie."
                     },
                     "description": "Neem je een vriend of metgezel mee om de ervaring te delen? Vul gewoon de naam en het e-mailadres van je gast in en wij zorgen ervoor dat hij of zij alle benodigde informatie ontvangt.",
                     "title": "Nodig een gast uit"
@@ -9890,7 +9909,9 @@
                 },
                 "actions": {
                     "submit": "Opslaan",
-                    "cancel": "Annuleren"
+                    "cancel": "Annuleren",
+                    "next": "Volgende",
+                    "back": "Terug"
                 },
                 "price": {
                     "label": "Prijs (incl. btw)",
@@ -9969,7 +9990,9 @@
                         "tagsOnAcquisitionHelper": "Gebruik tags om te identificeren welk lid de afspraakkaart heeft gekocht."
                     },
                     "header": "Geavanceerd"
-                }
+                },
+                "notification": "Meldingen",
+                "detailsAndRestrictions": "Details en beperkingen"
             },
             "delete": {
                 "title": "Afspraakkaart verwijderen",
@@ -10015,7 +10038,8 @@
             },
             "listItem": {
                 "unusableByStaff": "Onzichtbaar voor het personeel"
-            }
+            },
+            "noNotificationsWarning": "Je hebt nog geen meldingen ingesteld. Ga naar <strong>Marketing > Meldingen</strong> om nieuwe meldingen te maken"
         },
         "service": {
             "form": {
@@ -10701,6 +10725,13 @@
                 "colors": {
                     "helperText": "Voeg een kleur toe door op enter te drukken",
                     "title": "Kleuren"
+                },
+                "barcodes": {
+                    "option": {
+                        "generate": "Genereer nieuwe barcodes",
+                        "inherit": "Erven van het basisproduct"
+                    },
+                    "title": "Barcodes"
                 }
             }
         },
@@ -10759,7 +10790,12 @@
                         "add": "Een variant toevoegen"
                     },
                     "placeholder": "Dit product heeft geen varianten om weer te geven.",
-                    "formError": "De waarden in het prijsveld moeten geldige positieve getallen zijn"
+                    "formError": {
+                        "price": "Prijsveldwaarden moeten geldige positieve getallen zijn"
+                    },
+                    "formWarning": {
+                        "barcode": "Sommige streepjescodeveldwaarden zijn al in gebruik"
+                    }
                 },
                 "inventory": {
                     "seeInvoice": "Toon factuur",
@@ -10819,7 +10855,8 @@
             "title": "Productdetails",
             "deleteVariant": "Verwijderd variant",
             "startingAt": "Startend op",
-            "coverAlt": "Afbeelding voor het product {{ product }}"
+            "coverAlt": "Afbeelding voor het product {{ product }}",
+            "barcodeUnicityWarning": "De opgegeven barcode is al in gebruik"
         },
         "shopList": {
             "tab": {
@@ -12745,7 +12782,8 @@
                 },
                 "choicesFranchise": {
                     "9": "Gedeelde afspraakkaarten",
-                    "1": "Gedeelde leskaarten"
+                    "1": "Gedeelde leskaarten",
+                    "2": "Gedeelde webshopitems"
                 }
             },
             "selectorPlaceholder": {
@@ -13487,7 +13525,8 @@
         "seeMore": "Zie meer",
         "seeLess": "Zie minder",
         "discardChanges": "Wijzigingen weggooien",
-        "rename": "Hernoem"
+        "rename": "Hernoem",
+        "send": "Verstuur"
     },
     "workshop": {
         "modal": {
@@ -13909,7 +13948,8 @@
                         "showMemberAccountBalance": "Saldo ledenrekening tonen",
                         "title": "Mijn profiel"
                     }
-                }
+                },
+                "displayActivityPrice": "Geef het aantal studiepunten weer"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -16827,7 +16867,8 @@
             "audience": "{{ audienceCamelCase }}",
             "backToWebshop": "Terug naar Webshop",
             "accessMonitoring": "Toegang",
-            "closeTab": "Sluit tabblad"
+            "closeTab": "Sluit tabblad",
+            "feedbackBoard": "Feedbackbord"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -16987,7 +17028,8 @@
             }
         },
         "logout": "Loguit",
-        "login": "Login"
+        "login": "Login",
+        "featureBaseButton": "Een functie of verbetering voorstellen"
     },
     "widget": {
         "widget": {
@@ -17488,7 +17530,8 @@
                 "fabrique_tooltip": "Tooltip",
                 "consumer_summary_card": "Overzichtskaart voor consumenten",
                 "consumer_saved_payment_methods_card": "Door consumenten opgeslagen betaalmethoden kaart",
-                "consumer_terms_and_conditions": "Consumentenvoorwaardenkaart"
+                "consumer_terms_and_conditions": "Consumentenvoorwaardenkaart",
+                "authentication_disconnected_status": "Niet-verbonden status"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -17529,7 +17572,9 @@
                 "successText": "Bevestigingstekst",
                 "showSuccessTitle": "Toon bevestigingstitel",
                 "successTitle": "Bevestigingstitel"
-            }
+            },
+            "hideWidgets": "Verberg alle widgets voor niet-ingelogde gebruikers",
+            "disconnectedStatusConfigTitle": "Configuratie van de verbindingsstatus"
         },
         "customize": "Personalisering",
         "create": "Algemeen",
@@ -17650,8 +17695,8 @@
             "createNotificationFabLabel": "Een melding toevoegen",
             "notificationsEmpty": "Er zijn nog geen meldingen aan deze groep toegevoegd.",
             "deleteDialogTitle": "Regel verwijderen",
-            "removeRule": "Regel verwijderen",
-            "editRule": "Regel wijzigen",
+            "removeRule": "verwijderen",
+            "editRule": "Wijzigen",
             "paymentPackKind": {
                 "credit": "Credits",
                 "validity": "Geldigheid"
@@ -17680,7 +17725,7 @@
             "paymentPackPlaceholder": "Leskaarten",
             "selectIdentifierLabel": {
                 "payment_pack": "Selecteer een leskaart",
-                "private_service": "Selecteer een afspraak",
+                "private_service": "Selecteer een afspraakkaart",
                 "establishment": "Selecteer een vestiging",
                 "meta_activity": "Selecteer een activiteit",
                 "workshop": "Selecteer een workshop",
@@ -17695,11 +17740,11 @@
                 "total_mail_opened": "Klikpercentage",
                 "total_mail_send": "Aantal verzonden e-mails"
             },
-            "mailTitle": "Voorvertoning",
+            "mailTitle": "Voorbeeld",
             "mail": "E-mail ",
             "statisticDetails": "Statistieken",
             "notificationDetails": "Overzicht",
-            "notificationPreview": "Overzicht",
+            "notificationPreview": "Voorbeeld van pushberichten",
             "privatePassPlaceholder": "Afspraakkaarten",
             "dialogTitle": "Een melding toevoegen",
             "listTitle": "Meldingen",
@@ -17709,6 +17754,116 @@
             "contractKind": {
                 "contractStart": "Start",
                 "contractEnd": "Einde"
+            },
+            "editPasses": "Bewerk",
+            "addPasses": "Voeg toe",
+            "sendingDelay": {
+                "onSession": "{{hours}} na de sessie",
+                "justOnSession": "Net na de sessie",
+                "onBooking": "{{hours}} na de boeking",
+                "justOnBooking": "Net na de boeking"
+            },
+            "triggerDescription": {
+                "expiredValidity": "Verlopen voor {{count}} dag",
+                "expiredValidity_plural": "Verlopen voor {{count}} dagen",
+                "todayValidity": "Op de vervaldag",
+                "remainingValidity": "{{count}} resterende dag voor vervaldatum",
+                "remainingValidity_plural": "{{count}} resterende dagen voor vervaldatum",
+                "remainingCredit": "{{count}} credit over",
+                "remainingCredit_plural": "{{count}} credits over"
+            },
+            "passSelectionPlaceholder": {
+                "payment_pack": "Kaarten",
+                "private_pass": "Afspraakkaarten"
+            },
+            "selectAllPassesToggle": {
+                "private_pass": "Van toepassing op alle bestaande en toekomstige afspraakkaarten",
+                "payment_pack": "Van toepassing op alle bestaande en toekomstige passen"
+            },
+            "allPassSelected": {
+                "private_pass": "Alle afspraakkaarten zijn inbegrepen",
+                "payment_pack": "Alle passen zijn inbegrepen"
+            },
+            "allOptionsPlaceholder": {
+                "payment_pack": "Alle passen",
+                "private_pass": "Alle afspraakpassen"
+            },
+            "notificationTitle": {
+                "expiredValidity": "Kennisgevingen bij afloop",
+                "remainingValidity": "Resterende geldigheidsmeldingen",
+                "remainingCredit": "Resterende kredietmeldingen"
+            },
+            "passNotificationDeleteDialog": {
+                "warning": {
+                    "irreversible": "Deze bewerking kan niet ongedaan worden gemaakt.",
+                    "sure": "Weet je zeker dat je deze melding wilt verwijderen?",
+                    "attachedPrivatePasses": "Je hebt nog steeds een of meer afspraakpassen gekoppeld aan deze melding",
+                    "attachedPaymentPacks": "Je hebt nog een of meer passen gekoppeld aan deze melding"
+                },
+                "title": "Deze melding verwijderen"
+            },
+            "optionalStepInfo": "Deze stap is optioneel. Je kunt later nog steeds meldingen instellen. Alleen meldingen die je al hebt aangemaakt worden hier weergegeven. Ga naar Marketing > Meldingen om nieuwe meldingen te maken.",
+            "select": "Selecteer",
+            "excluded": "Uitgesloten",
+            "included": "Inbegrepen",
+            "smartListTitle": "Smartlist",
+            "pushNotificationTitle": "Pushmelding",
+            "preview": "Voorbeeld",
+            "viewPreview": "Voorbeeld bekijken",
+            "delete": "Verwijder",
+            "save": "Bewaar",
+            "primaryText": {
+                "privatePass": {
+                    "creditsLeft": {
+                        "credits": "om de gebruiker eraan te herinneren dat hij nog 1 tegoed heeft op zijn afspraakkaart",
+                        "credits_plural": "om de gebruiker eraan te herinneren dat hij {{credits}} tegoed over heeft op zijn afspraakkaart",
+                        "noCredits": "om de gebruiker eraan te herinneren dat hij geen tegoed meer heeft op zijn afspraakkaart"
+                    }
+                },
+                "paymentPack": {
+                    "creditsLeftOnSessionEnd": {
+                        "creditsHours": "1 uur na het einde van de sessie om de gebruiker eraan te herinneren dat hij {{credits}} credits over heeft op zijn pas",
+                        "creditsHours_plural": "{{hours}} uren na het einde van de sessie om de gebruiker eraan te herinneren dat hij {{credits}} credits over heeft op zijn pas",
+                        "creditsNoHours": "na het einde van de sessie om de gebruiker eraan te herinneren dat hij {{credits}} credits over heeft op zijn pas",
+                        "oneCreditHours": "1 uur na het einde van de sessie om de gebruiker eraan te herinneren dat ze nog 1 tegoed op hun pas hebben",
+                        "oneCreditHours_plural": "{{hours}} uur na het einde van de sessie om de gebruiker eraan te herinneren dat ze nog 1 tegoed op hun pas hebben",
+                        "oneCreditNoHours": "na het einde van de sessie om de gebruiker eraan te herinneren dat er nog 1 tegoed op zijn pas staat",
+                        "noCreditsHours": "1 uur na het einde van de sessie om de gebruiker eraan te herinneren dat er geen tegoed meer op zijn pas staat",
+                        "noCreditsHours_plural": "{{hours}} uur na het einde van de sessie om de gebruiker eraan te herinneren dat er geen tegoed meer op zijn pas staat",
+                        "noCreditsNoHours": "na het einde van de sessie om de gebruiker eraan te herinneren dat er geen tegoed meer op zijn pas staat"
+                    },
+                    "creditsLeftOnBooking": {
+                        "creditsHours": "1 uur na een boeking om de gebruiker eraan te herinneren dat ze {{credits}} credits over hebben op hun pas",
+                        "creditsHours_plural": "{{hours}} uur na een boeking om de gebruiker eraan te herinneren dat hij {{credits}} credits over heeft op zijn pas",
+                        "creditsNoHours": "na een boeking om de gebruiker eraan te herinneren dat hij {{credits}} credits over heeft op zijn pas",
+                        "oneCreditHours": "1 uur na een boeking om de gebruiker eraan te herinneren dat er nog 1 tegoed op zijn pas staat",
+                        "oneCreditHours_plural": "{{hours}} uur na een boeking om de gebruiker eraan te herinneren dat ze nog 1 tegoed op hun pas hebben",
+                        "oneCreditNoHours": "na een boeking om de gebruiker eraan te herinneren dat hij nog 1 tegoed op zijn pas heeft",
+                        "noCreditsHours": "1 uur na een boeking om de gebruiker eraan te herinneren dat er geen tegoed meer op zijn pas staat",
+                        "noCreditsHours_plural": "{{hours}} uur na een boeking om de gebruiker eraan te herinneren dat er geen tegoed meer op zijn pas staat",
+                        "noCreditsNoHours": "na een boeking om de gebruiker eraan te herinneren dat er geen tegoed meer op zijn pas staat"
+                    }
+                },
+                "expires": {
+                    "days": "1 dag voor vervaldatum",
+                    "days_plural": "{{days}} dagen voor vervaldatum",
+                    "noDays": "op de vervaldag"
+                },
+                "expired": {
+                    "days": "na 1 dag na vervaldatum",
+                    "days_plural": "na {{days}} dagen van verlopen"
+                },
+                "smartlist": {
+                    "smartListExclude": "Deze melding is niet bedoeld voor deze smartlist: {{smartlist_names}}.",
+                    "smartListExclude_plural": "Deze melding is niet bedoeld voor deze smartlists: {{smartlist_names}}.",
+                    "smartListInclude": "Deze melding is bedoeld voor deze smartlist: {{smartlist_names}}.",
+                    "smartListInclude_plural": "Deze melding is bedoeld voor deze smartlists: {{smartlist_names}}."
+                },
+                "send": {
+                    "emailAndPush": "Er wordt een e-mail en een pushmelding verzonden",
+                    "push": "Er wordt een pushmelding verzonden",
+                    "email": "Er wordt een e-mail verzonden"
+                }
             }
         },
         "customForm": {
@@ -18652,7 +18807,8 @@
             "establishment": "Vestigingen",
             "members": "Leden",
             "emptySelect": "Selecteer een studio om meer informatie te zien.",
-            "searchPlaceholder": "Zoek een studio"
+            "searchPlaceholder": "Zoek een studio",
+            "manageOnStudio": "Beheer op {{studio_name}}"
         },
         "pagination": {
             "outOf": "{{from}} - {{to}} / {{count}}",
@@ -18752,7 +18908,12 @@
         "userProfile": {
             "numberBrands": "{{ number }} categorieën",
             "numberStudios": "{{ number }} betalende studio's",
-            "goToMemberProfile": "Beheer op {{ purchasing_studio }}"
+            "goToMemberProfile": "Beheer op {{ purchasing_studio }}",
+            "tagModalPlaceholcer": "Selecteer tags",
+            "tagModalHelperText": "Tags",
+            "tagModalText": "Acties op tags worden toegepast op het lid in elke franchisenemer",
+            "manageTags": "Beheer tags",
+            "tagsListTitle": "Gedeelde tags"
         }
     },
     "giftcard": {

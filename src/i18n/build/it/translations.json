@@ -2149,7 +2149,8 @@
                         "editProfile": "Modifica"
                     }
                 }
-            }
+            },
+            "moreActions": "Più azioni"
         }
     },
     "search": {
@@ -3416,7 +3417,9 @@
                 },
                 "actions": {
                     "submit": "Salva",
-                    "cancel": "Annulla"
+                    "cancel": "Annulla",
+                    "next": "Seguente",
+                    "back": "Indietro"
                 },
                 "price": {
                     "label": "Prezzo IVA inclusa",
@@ -3510,7 +3513,9 @@
                         "tagsOnAcquisition": "Tag dopo l'acquisto"
                     },
                     "header": "Avanzate"
-                }
+                },
+                "notification": "Notifiche",
+                "detailsAndRestrictions": "Dettagli e restrizioni"
             },
             "delete": {
                 "explain": "Sei sicuro di voler eliminare questo pacchetto? Le persone che hanno ancora dei crediti possono ancora usarli.",
@@ -3550,7 +3555,8 @@
             },
             "listItem": {
                 "unusableByStaff": "Non visibile per lo staff"
-            }
+            },
+            "noNotificationsWarning": "Non hai notifiche impostate ancora. Per creare delle nuove notifiche, si prega di andare in <strong>Marketing > Notifiche</strong>"
         },
         "openCalendar": "Vedi il calendario",
         "service": {
@@ -4368,7 +4374,8 @@
             "audience": "{{ audienceCamelCase }}",
             "backToWebshop": "Torna allo shop",
             "accessMonitoring": "Accesso",
-            "closeTab": "Chiudi la scheda"
+            "closeTab": "Chiudi la scheda",
+            "feedbackBoard": "Scheda di feedback"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -4528,7 +4535,8 @@
             }
         },
         "logout": "Logout",
-        "login": "Login"
+        "login": "Login",
+        "featureBaseButton": "Suggerire una funzionalità o un miglioramento"
     },
     "stripe": {
         "errors": {
@@ -4846,7 +4854,8 @@
                         "showMemberAccountBalance": "Mostra il saldo del conto del membro",
                         "title": "Il mio profilo"
                     }
-                }
+                },
+                "displayActivityPrice": "Visualizza il numero di crediti"
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -6476,7 +6485,7 @@
                     "daysBeforeSecondNotification": "Secondo promemoria (giorni prima della data di scadenza)",
                     "daysBeforeFirstNotification": "Primo promemoria (giorni prima della data di scadenza)"
                 },
-                "helpText": "Se le notifiche transazionali corrispondenti sono attivate per gli abbonamenti, è possibile decidere quanti giorni prima della scadenza del metodo di pagamento inviare un promemoria.",
+                "helpText": "Se è stata attivata l'opzione \"Promemoria scadenza metodo di pagamento\" per le notifiche transazionali sugli abbonamenti, è possibile personalizzare il numero di giorni.",
                 "title": "Promemoria per la scadenza dei metodi di pagamento"
             }
         },
@@ -6676,7 +6685,7 @@
                 "accountName": "Nome del conto",
                 "oneTimePayments": "Effettuare pagamenti una tantum",
                 "titleWithPayPal": "Con PayPal, i membri possono",
-                "linkHelper": "Collega il conto aziendale PayPal per consentire ai membri di pagare con PayPal",
+                "linkHelper": "Collega il conto aziendale PayPal per consentire ai membri di effettuare pagamenti una tantum con PayPal",
                 "status": {
                     "unknown": "Status sconosciuto",
                     "hasIssues": "Problemi nel collegamento",
@@ -9114,7 +9123,9 @@
                 },
                 "infoContract": "I membri che hanno ottenuto questo pacchetto in un abbonamento ricorrente riceveranno notifiche solo sull'abbonamento e non sul pacchetto. Disabilitando questa opzione ne riceveranno entrambe.",
                 "dontSendIfInContract": "Non inviare quando il pacchetto fa parte di un abbonamento ricorrente",
-                "contractTitle": "Abbonamento ricorrente"
+                "contractTitle": "Abbonamento ricorrente",
+                "notificationNamePlaceholder": "Nome della notifica",
+                "generalTitle": "Generale"
             },
             "listItem": {
                 "smartList": "Elenchi esclusi",
@@ -9255,7 +9266,10 @@
                     "edit": "Modifica",
                     "skip": "Salta",
                     "create": "Salva",
-                    "cancel": "Annulla"
+                    "cancel": "Annulla",
+                    "back": "Indietro",
+                    "next": "Seguente",
+                    "submit": "Salva"
                 },
                 "name": {
                     "helperText": "Nome del pacchetto",
@@ -9405,7 +9419,10 @@
                 "highlightedAsRecommended": {
                     "label": "Contrassegna come suggerito",
                     "helperText": "Consente ai clienti di vedere rapidamente quali sono i pacchetti attualmente consigliati."
-                }
+                },
+                "notification": "Notifiche",
+                "detailsAndRestrictions": "Dettagli e restrizioni",
+                "noNotificationsWarning": "Non hai notifiche impostate ancora. Per creare delle nuove notifiche, si prega di andare in <strong>Marketing > Notifiche</strong>"
             }
         },
         "details": {
@@ -10925,7 +10942,8 @@
                     "every_year": "Hai raggiunto il limite di inviti per quest'anno.",
                     "every_month": "Hai raggiunto il limite di inviti per questo mese.",
                     "every_week": "Hai raggiunto il limite di inviti per questa settimana."
-                }
+                },
+                "sendInvitation": "Invia invito"
             },
             "bookingFor": "Prenota per"
         },
@@ -10960,11 +10978,14 @@
                     "description": "Vuoi portare un amico o un compagno per condividere l'esperienza? Basta inserire il nome e l'email del tuo ospite, e ci assicureremo che ricevano tutti i dettagli necessari.",
                     "emailWarning": {
                         "title": "Nessuna email inserita",
-                        "description": "Non hai fornito un indirizzo email per il tuo ospite. Di conseguenza, non riceveranno informazioni su questa sessione. Sei sicuro?",
+                        "description": "Non hai fornito un indirizzo email per il tuo ospite.",
                         "actions": {
                             "continueWithoutEmail": "Continua senza email",
                             "saveAndContinue": "Salva e continua"
-                        }
+                        },
+                        "submitLabel": "Continua senza",
+                        "fieldLabel": "Vuoi includere l'e-mail?",
+                        "alert": "Non riceveranno informazioni su questa sessione."
                     }
                 },
                 "errors": {
@@ -12052,7 +12073,8 @@
                 },
                 "choicesFranchise": {
                     "9": "Pacchetti per appuntamenti condivisi",
-                    "1": "Pacchetti condivisi"
+                    "1": "Pacchetti condivisi",
+                    "2": "Articoli dello shop condivisi"
                 }
             },
             "actions": {
@@ -13319,6 +13341,10 @@
         },
         "referral": {
             "signUpNow": "Grazie per aver utilizzato il referral link di {{ referringMemberFirstName }}. Iscriviti ora per riscattare un buono speciale sul tuo primo acquisto!"
+        },
+        "disconnectedStatus": {
+            "subtitle": "Per accedere al proprio profilo è necessario aver effettuato il login.",
+            "title": "Sembra che tu non abbia effettuato l'accesso"
         }
     },
     "waitingList": {
@@ -13498,6 +13524,13 @@
                 "colors": {
                     "helperText": "Aggiungi un colore premendo Invio",
                     "title": "Colori"
+                },
+                "barcodes": {
+                    "option": {
+                        "generate": "Genera nuovi codici a barre",
+                        "inherit": "Eredita dal prodotto base"
+                    },
+                    "title": "Codici a barre"
                 }
             }
         },
@@ -13569,7 +13602,12 @@
                         "add": "Aggiungi una variante"
                     },
                     "placeholder": "Questo prodotto non ha ancora varianti",
-                    "formError": "I valori del campo Prezzo devono essere numeri positivi validi"
+                    "formError": {
+                        "price": "I valori del campo Prezzo devono essere numeri positivi validi"
+                    },
+                    "formWarning": {
+                        "barcode": "Alcuni valori dei campi dei codici a barre sono già in uso"
+                    }
                 },
                 "inventory": {
                     "seeInvoice": "Vedi ricevuta",
@@ -13613,7 +13651,8 @@
             "showMore": "Mostra più",
             "startingAt": "A partire da",
             "title": "Dettagli del prodotto",
-            "coverAlt": "Immagine del prodotto {{ product }}"
+            "coverAlt": "Immagine del prodotto {{ product }}",
+            "barcodeUnicityWarning": "Il codice a barre fornito è già in uso"
         },
         "shopList": {
             "tab": {
@@ -13956,7 +13995,8 @@
         "seeMore": "Vedi più",
         "seeLess": "Vedi meno",
         "discardChanges": "Scarta le modifiche",
-        "rename": "Rinomina"
+        "rename": "Rinomina",
+        "send": "Invia"
     },
     "titles": {
         "metaActivity": {
@@ -15307,7 +15347,9 @@
                 "title": "Modifiche non salvate",
                 "description": "Ci sono note non salvate in questa pagina. Salvarle prima di uscire?"
             }
-        }
+        },
+        "numberOfCredits": "{{count}} credito",
+        "numberOfCredits_plural": "{{count}} crediti"
     },
     "role": {
         "userRoles": "Contabilità del personale",
@@ -17217,7 +17259,8 @@
                 "fabrique_tooltip": "Tooltip",
                 "consumer_summary_card": "Card riepilogo cliente",
                 "consumer_saved_payment_methods_card": "Card dei metodi di pagamento salvati dai clienti",
-                "consumer_terms_and_conditions": "Card dei termini e delle condizioni per i clienti"
+                "consumer_terms_and_conditions": "Card dei termini e delle condizioni per i clienti",
+                "authentication_disconnected_status": "Stato di disconnessione"
             },
             "cssConfig": {
                 "title": {
@@ -17508,7 +17551,9 @@
                 "successText": "Testo di conferma",
                 "showSuccessTitle": "Mostra il titolo di conferma",
                 "successTitle": "Titolo di conferma"
-            }
+            },
+            "hideWidgets": "Nascondi tutti i widget per gli utenti non loggati",
+            "disconnectedStatusConfigTitle": "Configurazione dello stato di disconnessione"
         },
         "create": "Generale",
         "customize": "Personalizzazione",
@@ -17647,8 +17692,8 @@
             "selectIdentifierLabel": {
                 "establishment": "Seleziona uno stabilimento",
                 "meta_activity": "Seleziona un'attività",
-                "private_service": "Seleziona un appuntamento",
-                "payment_pack": "Seleziona un pacchetto",
+                "private_service": "Seleziona dei pacchetti per appuntamento",
+                "payment_pack": "Seleziona dei pacchetti",
                 "workshop": "Seleziona un workshop",
                 "private_pass": "Seleziona un pacchetto per appuntamenti",
                 "establishment_group": "Selezionare una sede",
@@ -17663,9 +17708,9 @@
             "createNotification": "Formulario di notifiche",
             "next": "Seguente",
             "cancel": "Cancella",
-            "editRule": "Modificare la regola",
+            "editRule": "Modifica",
             "deleteDialogTitle": "Rimuovere la regola",
-            "removeRule": "Rimuovere la regola",
+            "removeRule": "Rimuovi",
             "deleteDialogText": "È sicuro di voler rimuovere questa regola? Questa operazione è definitiva",
             "notificationsEmpty": "Nessuna notifica esistente per questo gruppo",
             "createNotificationFabLabel": "Creare una notifica",
@@ -17678,7 +17723,7 @@
             "mail": "Email ",
             "statisticDetails": "Statistiche",
             "notificationDetails": "Dettagli della notifica",
-            "notificationPreview": "Panoramica della notifica",
+            "notificationPreview": "Anteprima delle notifiche push",
             "privatePassPlaceholder": "Pacchetti per appuntamenti",
             "dialogTitle": "Creare una notifica",
             "listTitle": "Notificazioni",
@@ -17688,6 +17733,116 @@
             "contractKind": {
                 "contractEnd": "Fine dell'abbonamento ricorrente",
                 "contractStart": "Inizio dell'abbonamento ricorrente"
+            },
+            "editPasses": "Modifica",
+            "addPasses": "Aggiungi",
+            "sendingDelay": {
+                "onSession": "{{hours}}h dopo la sessione",
+                "justOnSession": "Subito dopo la sessione",
+                "onBooking": "{{hours}}h dopo la prenotazione",
+                "justOnBooking": "Subito dopo la prenotazione"
+            },
+            "triggerDescription": {
+                "expiredValidity": "Scaduto da {{count}} giorno",
+                "expiredValidity_plural": "Scaduto da {{count}} giorni",
+                "todayValidity": "Nel giorno della scadenza",
+                "remainingValidity": "Manca {{count}} giorno alla scadenza",
+                "remainingValidity_plural": "Mancano {{count}} giorni alla scadenza",
+                "remainingCredit": "{{count}} credito rimanente",
+                "remainingCredit_plural": "{{count}} crediti rimanenti"
+            },
+            "passSelectionPlaceholder": {
+                "payment_pack": "Pacchetti",
+                "private_pass": "Pacchetti per appuntamenti"
+            },
+            "selectAllPassesToggle": {
+                "private_pass": "Si applica a tutti i pacchetti per appuntamenti esistenti e futuri",
+                "payment_pack": "Si applica a tutti i pacchetti esistenti e futuri"
+            },
+            "allPassSelected": {
+                "private_pass": "Tutti i pacchetti appuntamento sono inclusi",
+                "payment_pack": "Tutti i pacchetti inclusi"
+            },
+            "allOptionsPlaceholder": {
+                "payment_pack": "Tutti i pacchetti",
+                "private_pass": "Tutti i pacchetti appuntamenti"
+            },
+            "notificationTitle": {
+                "expiredValidity": "Notifiche di scadenza",
+                "remainingValidity": "Notifiche di validità residua",
+                "remainingCredit": "Notifiche di credito residue"
+            },
+            "passNotificationDeleteDialog": {
+                "warning": {
+                    "irreversible": "Questa operazione non può essere annullata.",
+                    "sure": "Sei sicuro di voler eliminare questa notifica?",
+                    "attachedPrivatePasses": "Sono ancora presenti uno o più pacchetti per appuntamenti collegati a questa notifica",
+                    "attachedPaymentPacks": "Sono ancora presenti uno o più pacchetti collegati a questa notifica"
+                },
+                "title": "Rimuovi questa notifica"
+            },
+            "optionalStepInfo": "Questa fase è facoltativa. È comunque possibile impostare le notifiche in un secondo momento. Qui sono elencate solo le notifiche già create. Per crearne di nuove, andate su Marketing > Notifiche.",
+            "select": "Seleziona",
+            "excluded": "Non incluso",
+            "included": "Incluso",
+            "smartListTitle": "Smartlist",
+            "pushNotificationTitle": "Notifica push",
+            "preview": "Anteprima",
+            "viewPreview": "Vedi anteprima",
+            "delete": "Rimuovi",
+            "save": "Salva",
+            "primaryText": {
+                "privatePass": {
+                    "creditsLeft": {
+                        "credits": "per ricordare all'utente che ha ancora 1 credito sul pacchetto per gli appuntamenti",
+                        "credits_plural": "per ricordare all'utente che ha ancora {{credits}} crediti sul pacchetto per gli appuntamenti",
+                        "noCredits": "per ricordare all'utente che non ha più credito sul suo pacchetto per appuntamenti"
+                    }
+                },
+                "paymentPack": {
+                    "creditsLeftOnSessionEnd": {
+                        "creditsHours": "1 ora dopo la fine della sessione per ricordare all'utente che ha ancora {{credits}} crediti sul pacchetto",
+                        "creditsHours_plural": "{{hours}} ore dopo la fine della sessione per ricordare all'utente che ha ancora {{credits}} crediti sul pacchetto",
+                        "creditsNoHours": "dopo la fine della sessione per ricordare all'utente che ha ancora {{credits}} crediti sul suo pacchetto",
+                        "oneCreditHours": "1 ora dopo la fine della sessione per ricordare all'utente che ha ancora 1 credito sul pacchetto",
+                        "oneCreditHours_plural": "{{hours}} ore dopo la fine della sessione per ricordare all'utente che ha ancora 1 credito sul pacchetto",
+                        "oneCreditNoHours": "dopo la fine della sessione per ricordare all'utente che ha ancora 1 credito sul suo pacchetto",
+                        "noCreditsHours": "1 ora dopo la fine della sessione, per ricordare all'utente che non ha più credito sul pacchetto",
+                        "noCreditsHours_plural": "{{hours}} ore dopo la fine della sessione, per ricordare all'utente che non ha più credito sul pacchetto",
+                        "noCreditsNoHours": "al termine della sessione per ricordare all'utente che non ha più credito sul pacchetto"
+                    },
+                    "creditsLeftOnBooking": {
+                        "creditsHours": "1 ora dopo una prenotazione per ricordare all'utente che ha ancora {{credits}} crediti sul pacchetto",
+                        "creditsHours_plural": "{{hours}} ore dopo una prenotazione per ricordare all'utente che ha ancora {{credits}} crediti sul pacchetto",
+                        "creditsNoHours": "dopo una prenotazione, per ricordare all'utente che ha ancora {{credits}} crediti sul suo pacchetto",
+                        "oneCreditHours": "1 ora dopo una prenotazione per ricordare all'utente che ha ancora 1 credito sul pacchetto",
+                        "oneCreditHours_plural": "{{hours}} ore dopo una prenotazione per ricordare all'utente che ha ancora 1 credito sul pacchetto",
+                        "oneCreditNoHours": "dopo una prenotazione per ricordare all'utente che ha ancora 1 credito sul pacchetto",
+                        "noCreditsHours": "1 ora dopo una prenotazione per ricordare all'utente che non ha più credito sul pacchetto",
+                        "noCreditsHours_plural": "{{hours}} ore dopo una prenotazione per ricordare all'utente che non ha più credito sul pacchetto",
+                        "noCreditsNoHours": "dopo una prenotazione per ricordare all'utente che non ha più credito sul suo pacchetto"
+                    }
+                },
+                "expires": {
+                    "days": "1 giorno prima della scadenza",
+                    "days_plural": "{{days}} giorni prima della scadenza",
+                    "noDays": "il giorno della scadenza"
+                },
+                "expired": {
+                    "days": "dopo 1 giorno dalla scadenza",
+                    "days_plural": "dopo {{days}} giorni dalla scadenza"
+                },
+                "smartlist": {
+                    "smartListExclude": "Questa notifica non è destinata a questa smartlist: {{smartlist_names}}.",
+                    "smartListExclude_plural": "Questa notifica non è destinata a queste smartlist: {{smartlist_names}}.",
+                    "smartListInclude": "Questa notifica è destinata a questa smartlist: {{smartlist_names}}.",
+                    "smartListInclude_plural": "Questa notifica è destinata a queste smartlist: {{smartlist_names}}."
+                },
+                "send": {
+                    "emailAndPush": "Verranno inviate un'e-mail e una notifica push",
+                    "push": "Verrà inviata una notifica push",
+                    "email": "Verrà inviata un'e-mail"
+                }
             }
         },
         "customForm": {
@@ -18624,7 +18779,8 @@
             "establishment": "Stabilimenti",
             "members": "Membri",
             "emptySelect": "Seleziona un franchising per vedere i dettagli.",
-            "searchPlaceholder": "Ricerca di un franchisee"
+            "searchPlaceholder": "Ricerca di un franchisee",
+            "manageOnStudio": "Gestisci in {{studio_name}}"
         },
         "member": {
             "pageTitle": "Membro",
@@ -18731,7 +18887,12 @@
         "userProfile": {
             "numberBrands": "{{ number }} categorie",
             "numberStudios": "{{ number }} studi di acquisto",
-            "goToMemberProfile": "Gestisci su {{ purchasing_studio }}"
+            "goToMemberProfile": "Gestisci su {{ purchasing_studio }}",
+            "tagModalPlaceholcer": "Seleziona tag",
+            "tagModalHelperText": "Tag",
+            "tagModalText": "Le azioni intraprese sui tag saranno applicate al membro in ogni franchisee",
+            "manageTags": "Gestisci tag",
+            "tagsListTitle": "Tag condivisi"
         }
     },
     "giftcard": {

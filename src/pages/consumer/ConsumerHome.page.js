@@ -322,7 +322,7 @@ export class ConsumerHome extends React.Component<Props> {
               isLocalOrDev ? (
                 <ConsumerNavigation
                   buildUrl={this.props.buildUrl}
-                  buttonsData={this.getConsumerNavigationButtonsData()}
+                  buttonsData={this.getConsumerMobileNavigationButtonsData()}
                   companyId={this.props.companyId}
                   companyLogo={this.props.theme ? this.props.theme.cover : null}
                   companyTheme={this.props.theme}
@@ -450,7 +450,7 @@ export class ConsumerHome extends React.Component<Props> {
               ) : (
                 <ConsumerDrawer
                   buildUrl={this.props.buildUrl}
-                  buttonsData={this.getConsumerNavigationButtonsData()}
+                  buttonsData={this.getConsumerMobileNavigationButtonsData()}
                   companyId={this.props.companyId}
                   companyLogo={this.props.theme ? this.props.theme.cover : null}
                   companyTheme={this.props.theme}

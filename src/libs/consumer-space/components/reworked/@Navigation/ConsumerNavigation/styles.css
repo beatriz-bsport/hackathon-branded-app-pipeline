@@ -9,9 +9,12 @@
 }
 
 .bs-consumer-navigation__content {
-  flex: 1;
   overflow-y: auto;
   padding: var(--bs-space-size-8) var(--bs-space-size-8) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .bs-consumer-navigation__content--mobile {

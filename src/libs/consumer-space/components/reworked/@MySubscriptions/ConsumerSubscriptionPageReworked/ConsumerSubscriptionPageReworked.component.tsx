@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import ConsumerSubscriptionHeader from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionHeader';
 import ConsumerSubscriptionsTabs from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionTabs';
 import ConsumerSubscriptionsListContainer from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
+import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 import {
   ConsumerSubscriptionTermsPortal,
   ConsumerSubscriptionPaymentPortal,
@@ -214,8 +215,8 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   );
 
   return (
-    <div
-      className={classNames('bs-consumer__subscription-page__root', {
+    <PageContentContainer
+      contentClassName={classNames('bs-consumer__subscription-page__root', {
         'bs-consumer__subscription-page__root--mobile':
           isMobile && !!selectedSubscription?.id,
       })}
@@ -286,7 +287,8 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         selectedSubscription={selectedSubscription}
         switchPaymentMethod={handleSwitchPaymentMethod}
       />
-    </div>
+    </PageContentContainer>
   );
 };
+
 export default React.memo(ConsumerSubscriptionPageReworked);

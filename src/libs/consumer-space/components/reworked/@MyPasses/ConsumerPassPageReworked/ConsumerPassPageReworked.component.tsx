@@ -3,15 +3,20 @@ import { useTranslation } from 'react-i18next';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
-import ConsumerPassHeader from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassHeader';
+import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
 import ConsumerPaymentPackListContainer from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackListContainer';
 import PrivateConsumerPassListContainer from '#src/libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassListContainer';
 import UniversalPassListContainer from '#src/libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassListContainer';
 import ConsumerPassModals from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassModals';
-import { useConsumerPassesDataManager } from '#src/libs/consumer-space/components/reworked/@MyPasses/hooks';
-import { PassTabEnum } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
-import { Calendar, ChevronRight } from '#src/components/untitledui';
+import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 
+import { useConsumerPassesDataManager } from '#src/libs/consumer-space/components/reworked/@MyPasses/hooks';
+import {
+  PassTabEnum,
+  PassFilterTabEnum,
+} from '#src/libs/consumer-space/components/reworked/@MyPasses/constants';
+
+import { Calendar, ChevronRight } from '#src/components/untitledui';
 import type {
   ConsumerPaymentPackREST,
   ConsumerPaymentPackReworked,
@@ -182,8 +187,110 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
     [handleBookASessionClick, handleBuyPassClick, t, isWidget],
   );
 
+  const handleSetActivityPassTab = React.useCallback(
+    () => handleSetSelectedTab(PassTabEnum.CONSUMER_PAYMENT_PACK),
+    [handleSetSelectedTab],
+  );
+
+  const handleSetAppointmentPassTab = React.useCallback(
+    () => handleSetSelectedTab(PassTabEnum.PRIVATE_CONSUMER_PASS),
+    [handleSetSelectedTab],
+  );
+
+  const handleSetUniversalPassTab = React.useCallback(
+    () => handleSetSelectedTab(PassTabEnum.UNIVERSAL_PASS),
+    [handleSetSelectedTab],
+  );
+
+  const {
+    consumer_payment_pack: showConsumerPaymentPackTab,
+    private_consumer_pass: showPrivateConsumerPassTab,
+    universal_pass: showUniversalPassTab,
+  } = consumerPassesTabDisplay;
+
+  const tabs = useMemo(
+    () =>
+      [
+        {
+          type: PassTabEnum.CONSUMER_PAYMENT_PACK,
+          label: t('reworked.myPasses.tab.activity'),
+          onClick: handleSetActivityPassTab,
+          hidden: !showConsumerPaymentPackTab,
+        },
+        {
+          type: PassTabEnum.PRIVATE_CONSUMER_PASS,
+          label: t('reworked.myPasses.tab.appointment'),
+          onClick: handleSetAppointmentPassTab,
+          hidden: !showPrivateConsumerPassTab,
+        },
+        {
+          type: PassTabEnum.UNIVERSAL_PASS,
+          label: t('reworked.myPasses.tab.universal'),
+          onClick: handleSetUniversalPassTab,
+          hidden: !showUniversalPassTab,
+        },
+      ].filter((tab) => !!tab),
+    [
+      handleSetActivityPassTab,
+      handleSetAppointmentPassTab,
+      handleSetUniversalPassTab,
+      showConsumerPaymentPackTab,
+      showPrivateConsumerPassTab,
+      showUniversalPassTab,
+      t,
+    ],
+  );
+
+  const handleSetActiveFilterTab = React.useCallback(
+    () => handleSetSelectedFilterTab(PassFilterTabEnum.ACTIVE),
+    [handleSetSelectedFilterTab],
+  );
+
+  const handleSetFutureFilterTab = React.useCallback(
+    () => handleSetSelectedFilterTab(PassFilterTabEnum.FUTURE),
+    [handleSetSelectedFilterTab],
+  );
+
+  const handleSetExpiredFilterTab = React.useCallback(
+    () => handleSetSelectedFilterTab(PassFilterTabEnum.EXPIRED),
+    [handleSetSelectedFilterTab],
+  );
+
+  const filters = useMemo(
+    () => [
+      {
+        hasBadge: activeItemsCount > 0,
+        type: PassFilterTabEnum.ACTIVE,
+        label: t('reworked.myPasses.filters.active'),
+        onClick: handleSetActiveFilterTab,
+        value: activeItemsCount,
+      },
+      {
+        hasBadge: futureItemsCount > 0,
+        type: PassFilterTabEnum.FUTURE,
+        label: t('reworked.myPasses.filters.future'),
+        onClick: handleSetFutureFilterTab,
+        value: futureItemsCount,
+      },
+      {
+        hasBadge: false,
+        type: PassFilterTabEnum.EXPIRED,
+        label: t('reworked.myPasses.filters.expired'),
+        onClick: handleSetExpiredFilterTab,
+      },
+    ],
+    [
+      t,
+      handleSetActiveFilterTab,
+      handleSetFutureFilterTab,
+      handleSetExpiredFilterTab,
+      activeItemsCount,
+      futureItemsCount,
+    ],
+  );
+
   return (
-    <div className="bs-consumer-pass-page__root">
+    <PageContentContainer contentClassName="bs-consumer-pass-page__root">
       <ConsumerPassModals
         consumerPassesTabDisplay={consumerPassesTabDisplay}
         handleSetSelectedTab={handleSetSelectedTab}
@@ -203,19 +310,18 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
         selectedPass={selectedPass}
         selectedPassTab={selectedTab}
       />
-      <ConsumerPassHeader
-        activeItemsCount={activeItemsCount}
-        buttonsData={buttonsData}
-        consumerPassesTabDisplay={consumerPassesTabDisplay}
-        futureItemsCount={futureItemsCount}
-        handleSetSelectedFilterTab={handleSetSelectedFilterTab}
-        handleSetSelectedTab={handleSetSelectedTab}
-        handleTogglePassTabDrawer={handleTogglePassTabDrawer}
+      <ConsumerPageHeader
+        FilterProps={{ filters, selectedFilter: selectedFilterTab }}
         isLoading={isConsumerPassesTabDisplayLoading}
         isMobile={isMobile}
-        selectedFilterTab={selectedFilterTab}
-        selectedTab={selectedTab}
+        TabsProps={{
+          selectedTab,
+          tabs,
+          handleToggleTabDrawer: handleTogglePassTabDrawer,
+        }}
+        TitleProps={{ buttons: buttonsData }}
       />
+
       {selectedTab === PassTabEnum.PRIVATE_CONSUMER_PASS && (
         <PrivateConsumerPassListContainer
           handlePaginationFetchMore={handlePaginationFetchMore}
@@ -255,7 +361,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
           selectedPass={selectedPass as UniversalPassReworked}
         />
       )}
-    </div>
+    </PageContentContainer>
   );
 };
 

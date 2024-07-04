@@ -5,7 +5,7 @@ import type { RouteComponentProps } from 'react-router-dom';
 import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import {
   getMyActiveSubscriptionsState,
   getMyActiveSubscriptionsList,
@@ -36,6 +36,7 @@ import type { SubscriptionREST } from '#src/libs/subscription/types';
 import type { PaymentMethod } from '#src/libs/payment/types';
 
 import ConsumerSubscriptionPageReworked from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPageReworked';
+
 import {
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction,
   downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAction,
@@ -282,8 +283,12 @@ const mapWithHandlers = {
     },
 };
 
+export const ConsumerSubscriptionWidget = compose(
+  marketplaceCssHoc(),
+  WithCustomCssProvider,
+)(ConsumerSubscription);
+
 export default compose(
   connector,
   withHandlers(mapWithHandlers),
-  marketplaceCssHoc(),
 )(ConsumerSubscription);

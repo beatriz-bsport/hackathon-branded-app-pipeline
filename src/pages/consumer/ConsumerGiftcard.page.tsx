@@ -16,6 +16,9 @@ import themeSelectors from '#src/libs/theme/selectors';
 import ConsumerGiftcardListItem from '#src/libs/giftcard/components/ConsumerGiftcardListItem.component';
 // @ts-expect-error
 import PaginatedListBase from '#src/components/PaginatedListBase.component';
+
+import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
+
 import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
 
 import {
@@ -93,116 +96,118 @@ export const ConsumerGiftcardPage = (props: Props) => {
   };
 
   return (
-    <Grid container spacing={2}>
-      {!WidgetUtils.isWidget() && (
-        <div className={classes.iconButton}>
-          <Button
-            color="primary"
-            onClick={() =>
-              props.goToGiftcard(
-                props.companyTheme.company_name,
-                props.companyTheme.company,
-              )
-            }
-            variant="contained"
-          >
-            <CardGiftcardIcon className={classes.iconLeft} />
-            {t('list.actions.goToGiftcard')}
-          </Button>
-        </div>
-      )}
-      <Grid item md={6} sm={12} style={{ width: '100%' }}>
-        <Typography className={props.classes.title} variant="h5">
-          {t('consumerGiftcard.list.myPurchases')}
-        </Typography>
-        <Paper className={classes.listConsumerGiftcard}>
-          <PaginatedListBase
-            itemPerPage={PAGE_SIZE}
-            items={props.sentState.consumerGiftcardList}
-            listProps={{
-              disablePadding: 'true',
-              dense: 'true',
-            }}
-            loading={props.sentState.consumerGiftcardLoading}
-            nbItems={props.sentState.consumerGiftcardCount}
-            onPageRequested={(page: number, pageSize: number) =>
-              props.fetchConsumerGiftcardSentList(null, page, pageSize)
-            }
-            page={props.sentState.consumerGiftcardPage}
-            renderEmpty={() => (
-              <div className={classes.emptyContainer}>
-                <Typography color="textSecondary" variant="caption">
-                  {t('consumerGiftcard.isEmpty')}
-                </Typography>
-                <Divider />
-              </div>
-            )}
-            renderItem={(cgc: WithGiftcard<ConsumerGiftcard>) => (
-              <ConsumerGiftcardListItem
-                key={cgc.id}
-                divider
-                consumerGiftcard={cgc}
-                giftcard={cgc.giftcard}
-                onClickSendInvitation={
-                  cgc.date_activated
-                    ? null
-                    : () => selectConsumerGiftcardToInvite(cgc)
-                }
-                selected={cgc.id === consumerGiftcardToInvite}
-              />
-            )}
+    <PageContentContainer contentClassName="bs-consumer-pass-page__root">
+      <Grid container spacing={2}>
+        {!WidgetUtils.isWidget() && (
+          <div className={classes.iconButton}>
+            <Button
+              color="primary"
+              onClick={() =>
+                props.goToGiftcard(
+                  props.companyTheme.company_name,
+                  props.companyTheme.company,
+                )
+              }
+              variant="contained"
+            >
+              <CardGiftcardIcon className={classes.iconLeft} />
+              {t('list.actions.goToGiftcard')}
+            </Button>
+          </div>
+        )}
+        <Grid item md={6} sm={12} style={{ width: '100%' }}>
+          <Typography className={props.classes.title} variant="h5">
+            {t('consumerGiftcard.list.myPurchases')}
+          </Typography>
+          <Paper className={classes.listConsumerGiftcard}>
+            <PaginatedListBase
+              itemPerPage={PAGE_SIZE}
+              items={props.sentState.consumerGiftcardList}
+              listProps={{
+                disablePadding: 'true',
+                dense: 'true',
+              }}
+              loading={props.sentState.consumerGiftcardLoading}
+              nbItems={props.sentState.consumerGiftcardCount}
+              onPageRequested={(page: number, pageSize: number) =>
+                props.fetchConsumerGiftcardSentList(null, page, pageSize)
+              }
+              page={props.sentState.consumerGiftcardPage}
+              renderEmpty={() => (
+                <div className={classes.emptyContainer}>
+                  <Typography color="textSecondary" variant="caption">
+                    {t('consumerGiftcard.isEmpty')}
+                  </Typography>
+                  <Divider />
+                </div>
+              )}
+              renderItem={(cgc: WithGiftcard<ConsumerGiftcard>) => (
+                <ConsumerGiftcardListItem
+                  key={cgc.id}
+                  divider
+                  consumerGiftcard={cgc}
+                  giftcard={cgc.giftcard}
+                  onClickSendInvitation={
+                    cgc.date_activated
+                      ? null
+                      : () => selectConsumerGiftcardToInvite(cgc)
+                  }
+                  selected={cgc.id === consumerGiftcardToInvite}
+                />
+              )}
+            />
+          </Paper>
+        </Grid>
+        <Grid item md={6} sm={12} style={{ width: '100%' }}>
+          <Typography className={props.classes.title} variant="h5">
+            {t('consumerGiftcard.list.myGifted')}
+          </Typography>
+          <Paper className={classes.listConsumerGiftcard}>
+            <PaginatedListBase
+              itemPerPage={PAGE_SIZE}
+              items={props.receivedState.consumerGiftcardList}
+              listProps={{
+                disablePadding: 'true',
+                dense: 'true',
+              }}
+              loading={props.receivedState.consumerGiftcardLoading}
+              nbItems={props.receivedState.consumerGiftcardCount}
+              onPageRequested={(page: number, pageSize: number) =>
+                props.fetchConsumerGiftcardReceivedList(null, page, pageSize)
+              }
+              page={props.receivedState.consumerGiftcardPage}
+              renderEmpty={() => (
+                <div className={classes.emptyContainer}>
+                  <Typography color="textSecondary" variant="caption">
+                    {t('consumerGiftcard.isEmpty')}
+                  </Typography>
+                  <Divider />
+                </div>
+              )}
+              renderItem={(cgc: WithGiftcard<ConsumerGiftcard>) => (
+                <ConsumerGiftcardListItem
+                  key={cgc.id}
+                  divider
+                  showAsRecipient
+                  consumerGiftcard={cgc}
+                  giftcard={cgc.giftcard}
+                />
+              )}
+            />
+          </Paper>
+        </Grid>
+        {!!consumerGiftcardToInvite && (
+          <ConsumerGiftcardInvitationModal
+            companyId={consumerGiftcardToInvite.source_company_id}
+            consumerGiftcard={consumerGiftcardToInvite}
+            onClose={() => selectConsumerGiftcardToInvite(null)}
+            // @ts-expect-error
+            onSubmit={sendInvitations}
+            snackbarSuccess={props.snackbarSuccess}
           />
-        </Paper>
+        )}
       </Grid>
-      <Grid item md={6} sm={12} style={{ width: '100%' }}>
-        <Typography className={props.classes.title} variant="h5">
-          {t('consumerGiftcard.list.myGifted')}
-        </Typography>
-        <Paper className={classes.listConsumerGiftcard}>
-          <PaginatedListBase
-            itemPerPage={PAGE_SIZE}
-            items={props.receivedState.consumerGiftcardList}
-            listProps={{
-              disablePadding: 'true',
-              dense: 'true',
-            }}
-            loading={props.receivedState.consumerGiftcardLoading}
-            nbItems={props.receivedState.consumerGiftcardCount}
-            onPageRequested={(page: number, pageSize: number) =>
-              props.fetchConsumerGiftcardReceivedList(null, page, pageSize)
-            }
-            page={props.receivedState.consumerGiftcardPage}
-            renderEmpty={() => (
-              <div className={classes.emptyContainer}>
-                <Typography color="textSecondary" variant="caption">
-                  {t('consumerGiftcard.isEmpty')}
-                </Typography>
-                <Divider />
-              </div>
-            )}
-            renderItem={(cgc: WithGiftcard<ConsumerGiftcard>) => (
-              <ConsumerGiftcardListItem
-                key={cgc.id}
-                divider
-                showAsRecipient
-                consumerGiftcard={cgc}
-                giftcard={cgc.giftcard}
-              />
-            )}
-          />
-        </Paper>
-      </Grid>
-      {!!consumerGiftcardToInvite && (
-        <ConsumerGiftcardInvitationModal
-          companyId={consumerGiftcardToInvite.source_company_id}
-          consumerGiftcard={consumerGiftcardToInvite}
-          onClose={() => selectConsumerGiftcardToInvite(null)}
-          // @ts-expect-error
-          onSubmit={sendInvitations}
-          snackbarSuccess={props.snackbarSuccess}
-        />
-      )}
-    </Grid>
+    </PageContentContainer>
   );
 };
 

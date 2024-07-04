@@ -10,6 +10,7 @@ import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworke
 import ConsumerInvoiceBodyContainer from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceBodyContainer';
 import ConsumerInvoiceHeader from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceHeader';
 import ConsumerInvoicePaymentPortal from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePaymentPortal';
+import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 import useViewport from '#Fabrique/hooks/useViewport';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
@@ -166,39 +167,37 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   );
 
   return (
-    <>
-      <div
-        className={
-          isMobile && !!selectedConsumerInvoice
-            ? 'bs-consumer-invoice-page__root__details--mobile'
-            : 'bs-consumer-invoice-page__root'
-        }
-      >
-        <ConsumerInvoiceHeader
-          buttonsData={buttonsData}
-          handleGoBack={clearSelectedConsumerInvoice}
-          isLoading={isLoading}
-          isMobile={isMobile}
-          onChangeFilter={handleChangeFilter}
-          selectedConsumerInvoice={selectedConsumerInvoice}
-          selectedFilter={selectedFilter}
-          totalUnpaid={totalUnpaid}
-        />
-        <ConsumerInvoiceBodyContainer
-          clearSelectedConsumerInvoice={clearSelectedConsumerInvoice}
-          consumerInvoiceList={consumerInvoices}
-          fetchMoreInvoices={fetchMoreInvoices}
-          getInvoice={getInvoice}
-          hasMoreInvoicesToFetch={hasMoreInvoicesToFetch}
-          isLoading={isBodyLoading}
-          isMobile={isMobile}
-          isMultilocationEnabled={isMultilocationEnabled}
-          payConsumerInvoice={payConsumerInvoice}
-          seeInvoiceDetails={seeInvoiceDetails}
-          selectedConsumerInvoice={selectedConsumerInvoice}
-          selectedFilter={selectedFilter}
-        />
-      </div>
+    <PageContentContainer
+      contentClassName={
+        isMobile && !!selectedConsumerInvoice
+          ? 'bs-consumer-invoice-page__root__details--mobile'
+          : 'bs-consumer-invoice-page__root'
+      }
+    >
+      <ConsumerInvoiceHeader
+        buttonsData={buttonsData}
+        handleGoBack={clearSelectedConsumerInvoice}
+        isLoading={isLoading}
+        isMobile={isMobile}
+        onChangeFilter={handleChangeFilter}
+        selectedConsumerInvoice={selectedConsumerInvoice}
+        selectedFilter={selectedFilter}
+        totalUnpaid={totalUnpaid}
+      />
+      <ConsumerInvoiceBodyContainer
+        clearSelectedConsumerInvoice={clearSelectedConsumerInvoice}
+        consumerInvoiceList={consumerInvoices}
+        fetchMoreInvoices={fetchMoreInvoices}
+        getInvoice={getInvoice}
+        hasMoreInvoicesToFetch={hasMoreInvoicesToFetch}
+        isLoading={isBodyLoading}
+        isMobile={isMobile}
+        isMultilocationEnabled={isMultilocationEnabled}
+        payConsumerInvoice={payConsumerInvoice}
+        seeInvoiceDetails={seeInvoiceDetails}
+        selectedConsumerInvoice={selectedConsumerInvoice}
+        selectedFilter={selectedFilter}
+      />
       {!!consumerInvoiceToPay && (
         <ConsumerInvoicePaymentPortal
           applyBalanceToInvoice={handleApplyBalanceToInvoice}
@@ -224,7 +223,7 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
           requestClientSecret={requestClientSecret}
         />
       )}
-    </>
+    </PageContentContainer>
   );
 };
 

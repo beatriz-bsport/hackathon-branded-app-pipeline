@@ -9,7 +9,7 @@ import ConsumerBookingTabs from '#src/libs/consumer-space/components/reworked/@M
 import ConsumerBookingFilters from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters';
 import ConsumerBookingListContainer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListContainer';
 import ConsumerBookingModals from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingModals';
-
+import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 import { ChevronRight } from '#src/components/untitledui';
 
 import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
@@ -257,7 +257,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
       ];
 
   return (
-    <div className="bs-consumer-booking-page__root">
+    <PageContentContainer contentClassName="bs-consumer-booking-page__root">
       <ConsumerBookingModals
         bookingGuestFrequency={bookingGuestFrequency}
         calendarBookingDate={calendarBookingDate}
@@ -357,7 +357,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
         timezone={timezone}
         waitingListConfiguration={waitingListConfiguration}
       />
-    </div>
+    </PageContentContainer>
   );
 };
 

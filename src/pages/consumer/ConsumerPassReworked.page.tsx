@@ -514,4 +514,4 @@ export const ConsumerPassWidget = compose(
   WithCustomCssProvider,
 )(ConsumerPassReworked);
 
-export default compose(connector, marketplaceCssHoc())(ConsumerPassReworked);
+export default connector(ConsumerPassReworked);

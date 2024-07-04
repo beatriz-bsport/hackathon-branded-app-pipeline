@@ -25,6 +25,9 @@ import ConsumerDashboardHeader from '#src/libs/consumer-space/components/Consume
 import ConsumerDashboardPassPanel from '#src/libs/consumer-space/components/ConsumerDashboardPassPanel.component';
 // @ts-expect-error
 import ConsumerDashboardBookingOptionPanel from '#src/libs/consumer-space/components/ConsumerDashboardBookingOptionPanel.component';
+
+import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
+
 import { fetchMembership as fetchMembershipAction } from '#src/libs/membership/actions';
 import { fetchMyUserProfile } from '#src/libs/member/actions';
 
@@ -287,7 +290,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
 
   render() {
     return (
-      <div className={this.props.classes.container}>
+      <PageContentContainer contentClassName="bs-consumer-pass-page__root">
         {!WidgetUtils.isWidget() && (
           <div className={this.props.classes.header}>
             <div>
@@ -435,7 +438,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             spotTypes={this.props.spotTypes}
           />
         )}
-      </div>
+      </PageContentContainer>
     );
   }
 }

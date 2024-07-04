@@ -15,6 +15,7 @@ import DetachPaymentPortal from '#src/components/css-only/Portals/DetachPaymentP
 import TermsAndConditions from '#src/components/css-only/Portals/TermsAndConditions';
 import PaymentModal from '#src/libs/payment/components/PaymentModal.component';
 import { AddPaymentMethod } from '#src/libs/payment/components/AddPaymentMethod.component';
+import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 
 import type {
   CustomForm,
@@ -176,7 +177,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
   } = member;
 
   return (
-    <div className="bs-consumer-profile-page__root">
+    <PageContentContainer contentClassName="bs-consumer-profile-page__root">
       <ConsumerProfileHeader isLoading={isLoading} />
       <div
         className={
@@ -311,7 +312,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
           />
         </PaymentModal>
       )}
-    </div>
+    </PageContentContainer>
   );
 };
 

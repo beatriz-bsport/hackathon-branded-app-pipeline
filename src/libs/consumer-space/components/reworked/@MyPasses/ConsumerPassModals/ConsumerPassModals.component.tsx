@@ -10,9 +10,9 @@ import ConsumerPassTabsDrawer from '#src/libs/consumer-space/components/reworked
 import type { ConsumerPaymentPackReworked } from '#src/libs/consumer-payment-pack/types';
 import type { PrivateConsumerPassReworked } from '#src/libs/private-service/types';
 import type { UniversalPassReworked } from '#src/libs/universal-pass/types';
-import type { PassTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
+import type { PassTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/types';
 import type { ConsumerPassesTabDisplay } from '#src/libs/consumer-space/types';
-import { PassTabEnum } from '../ConsumerPassTabs/constants';
+import { PassTabEnum } from '../constants';
 
 type Props = {
   consumerPassesTabDisplay?: ConsumerPassesTabDisplay;

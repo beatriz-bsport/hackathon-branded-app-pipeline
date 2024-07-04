@@ -1,7 +1,8 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
-
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import {
   fetchMember as fetchMemberAction,
   fetchMyUserProfile as fetchMyUserProfileAction,
@@ -166,4 +167,9 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default compose<Props, OwnProps>(connector)(ConsumerProfileReworked);
+export const ConsumerProfileWidget = compose(
+  marketplaceCssHoc(),
+  WithCustomCssProvider,
+)(ConsumerProfileReworked);
+
+export default connector(ConsumerProfileReworked);

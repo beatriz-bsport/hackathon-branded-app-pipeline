@@ -10,10 +10,7 @@ type Props = {
   buttonsData: HeaderButton[];
 };
 
-export const ConsumerPassTitleAndButtons: React.FC<Props> = ({
-  isMobile,
-  buttonsData,
-}) => {
+export const PageHeaderTitle: React.FC<Props> = ({ isMobile, buttonsData }) => {
   const { t } = useTranslation('consumerSpace');
 
   const buttons = useMemo(
@@ -29,4 +26,4 @@ export const ConsumerPassTitleAndButtons: React.FC<Props> = ({
   );
 };
 
-export default React.memo(ConsumerPassTitleAndButtons);
+export default React.memo(PageHeaderTitle);

@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { PassTabEnum } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
-import { PassFilterTabEnum } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/constants';
+import {
+  PassTabEnum,
+  PassFilterTabEnum,
+} from '#src/libs/consumer-space/components/reworked/@MyPasses/constants';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 import useViewport from '#Fabrique/hooks/useViewport';
 
 import type { PrivateConsumerPassReworked } from '#src/libs/private-service/types';
-import type { PassTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
+import type { PassTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/types';
 import type { UniversalPassReworked } from '#src/libs/universal-pass/types';
 import type { ConsumerPaymentPackReworked } from '#src/libs/consumer-payment-pack/types';
 import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';

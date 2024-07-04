@@ -7,6 +7,7 @@ import type { RootState } from 'src/reducers';
 import { getTheme } from '#src/libs/theme/selectors';
 import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import { urlToMarketplaceSessionTab } from '#src/libs/marketplace/utils/navigation';
 import ConsumerInvoicePageReworked from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePageReworked';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
@@ -305,8 +306,12 @@ const mapWithHandlers = {
     },
 };
 
+export const ConsumerInvoiceReworkedWidget = compose(
+  marketplaceCssHoc(),
+  WithCustomCssProvider,
+)(ConsumerInvoiceReworked);
+
 export default compose(
   connector,
   withHandlers(mapWithHandlers),
-  marketplaceCssHoc(),
 )(ConsumerInvoiceReworked);

@@ -42,8 +42,10 @@ import {
   getServiceCompatibilityPassesByPrivatePassAndPrivateService,
 } from '#src/libs/private-service/selectors/private-pass';
 
-import { BookingFilterTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
-import { BookingTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
+import {
+  BookingFilterTabEnum,
+  BookingTabEnum,
+} from '#src/libs/consumer-space/components/reworked/@MyBookings/constants';
 
 import type {
   Booking,
@@ -63,8 +65,11 @@ import type {
   ConsumerPaymentPackREST,
   ConsumerPaymentPackReworked,
 } from '#src/libs/consumer-payment-pack/types';
-import type { BookingFilterTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
-import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+import type {
+  BookingFilterTab,
+  BookingTab,
+} from '#src/libs/consumer-space/components/reworked/@MyBookings/types';
+
 import type { WaitingListBookingOption } from '#src/libs/waiting-list/types';
 import type {
   UniversalPassREST,

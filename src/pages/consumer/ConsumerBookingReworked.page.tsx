@@ -76,8 +76,10 @@ import {
 import ConsumerBookingPageReworked from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingPageReworked';
 
 import type { BookingREST } from '#src/libs/booking/types';
-import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
-import type { BookingFilterTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
+import type {
+  BookingFilterTab,
+  BookingTab,
+} from '#src/libs/consumer-space/components/reworked/@MyBookings/types';
 import type { PrivateBooking } from '#src/libs/private-service/types';
 import type { WaitingListBookingOption } from '#src/libs/waiting-list/types';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';

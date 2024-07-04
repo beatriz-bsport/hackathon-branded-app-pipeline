@@ -13,7 +13,7 @@ import { getExpirationDate } from '#src/libs/private-service/utils';
 import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 import type { PrivateConsumerPassReworked } from '#src/libs/private-service/types';
-import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
+import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/types';
 
 import {
   MY_PASSES_LIST_CONTAINER_HEIGHT,

@@ -17,17 +17,18 @@ type Props = {
   classes?: {
     container?: string;
   };
-  isLoading: boolean;
+  isLoading?: boolean;
   isMobile: boolean;
-  TitleProps: {
+  TitleProps?: {
     buttons: HeaderButton[];
+    title: string;
   };
-  TabsProps: {
+  TabsProps?: {
     selectedTab: keyof PageHeaderTabsType;
     tabs: TabData<PageHeaderTabsType>[];
-    handleToggleTabDrawer: () => void;
+    handleToggleTabDrawer?: () => void;
   };
-  FilterProps: {
+  FilterProps?: {
     filters: TabFilter[];
     selectedFilter: string;
   };
@@ -56,6 +57,7 @@ const PageHeader: React.FC<Props> = ({
       <PageHeaderTitle
         buttonsData={TitleProps?.buttons ?? []}
         isMobile={!!isMobile}
+        title={TitleProps.title}
       />
       <PageHeaderTabs
         handleToggleTabDrawer={TabsProps?.handleToggleTabDrawer}

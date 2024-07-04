@@ -4,15 +4,17 @@ import { useTranslation } from 'react-i18next';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import useConsumerBookingsDataManager from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingsDataManager';
-import ConsumerBookingHeader from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingHeader';
-import ConsumerBookingTabs from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs';
-import ConsumerBookingFilters from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters';
 import ConsumerBookingListContainer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListContainer';
 import ConsumerBookingModals from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingModals';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
+import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
+
 import { ChevronRight } from '#src/components/untitledui';
 
-import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+import type {
+  BookingTab,
+  BookingFilterTab,
+} from '#src/libs/consumer-space/components/reworked/@MyBookings/types';
 import type {
   ConsumerBookingReworked,
   ConsumerPrivateBookingReworked,
@@ -26,7 +28,6 @@ import type {
   ConsumerBookingOption,
   CancelPrivateBookingParams,
 } from '#src/libs/booking/types';
-import type { BookingFilterTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { SpotType } from '#src/libs/spot-scheduling/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
 import type { PrivateBooking } from '#src/libs/private-service/types';
@@ -37,13 +38,17 @@ import type {
 } from '#src/libs/waiting-list/types';
 import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
-import { BookingTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 import type { OptionCallback } from '#src/state/types';
 import {
   BOOKING_FOR_GUEST_FREQUENCY,
   OfferStatusWaitingListPosition,
 } from '#src/libs/offer/types';
 import type { AddGuestFormValues } from '#src/libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
+import {
+  BookingFilterTabEnum,
+  BookingTabEnum,
+} from '#src/libs/consumer-space/components/reworked/@MyBookings/constants';
+
 import './styles.css';
 
 type Props = {
@@ -255,7 +260,86 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           rightIcon: <ChevronRight stroke="currentColor" />,
         },
       ];
+  const handleSetFutureFilterTab = React.useCallback(
+    () => handleSetSelectedFilterTab?.(BookingFilterTabEnum.FUTURE),
+    [handleSetSelectedFilterTab],
+  );
 
+  const handleSetPastBookingClick = React.useCallback(
+    () => handleSetSelectedFilterTab?.(BookingFilterTabEnum.PAST),
+    [handleSetSelectedFilterTab],
+  );
+
+  const handleSetWaitlistBookingClick = React.useCallback(
+    () => handleSetSelectedFilterTab?.(BookingFilterTabEnum.WAITLIST),
+    [handleSetSelectedFilterTab],
+  );
+
+  const filters = [
+    {
+      hasBadge: futureItemsCount > 0,
+      type: BookingFilterTabEnum.FUTURE,
+      label: t('consumerSpace:reworked.myBookings.filter.upcoming'),
+      onClick: handleSetFutureFilterTab,
+      value: futureItemsCount,
+    },
+    {
+      hasBadge: false,
+      type: BookingFilterTabEnum.PAST,
+      label: t('consumerSpace:reworked.myBookings.filter.past'),
+      onClick: handleSetPastBookingClick,
+    },
+    !(selectedTab === BookingTabEnum.APPOINTMENT) && {
+      hasBadge: waitlistItemsCount > 0,
+      type: BookingFilterTabEnum.WAITLIST,
+      label: t('consumerSpace:reworked.myBookings.filter.onWaitlist'),
+      onClick: handleSetWaitlistBookingClick,
+      value: waitlistItemsCount,
+    },
+  ];
+  const handleSetActivityBookingTab = React.useCallback(
+    () => handleSetSelectedTab?.(BookingTabEnum.ACTIVITY),
+    [handleSetSelectedTab],
+  );
+
+  const handleSetAppointmentBookingTab = React.useCallback(
+    () => handleSetSelectedTab(BookingTabEnum.APPOINTMENT),
+    [handleSetSelectedTab],
+  );
+
+  const handleSetWorkshopBookingTab = React.useCallback(
+    () => handleSetSelectedTab?.(BookingTabEnum.WORKSHOP),
+    [handleSetSelectedTab],
+  );
+
+  const consumerBookingTabs = React.useMemo(
+    () => [
+      {
+        hidden: false,
+        type: BookingTabEnum.ACTIVITY,
+        label: t('reworked.myBookings.tab.activities'),
+        onClick: handleSetActivityBookingTab,
+      },
+      {
+        hidden: false,
+        type: BookingTabEnum.APPOINTMENT,
+        label: t('reworked.myBookings.tab.appointments'),
+        onClick: handleSetAppointmentBookingTab,
+      },
+      {
+        hidden: false,
+        type: BookingTabEnum.WORKSHOP,
+        label: t('reworked.myBookings.tab.workshops'),
+        onClick: handleSetWorkshopBookingTab,
+      },
+    ],
+    [
+      handleSetActivityBookingTab,
+      handleSetAppointmentBookingTab,
+      handleSetWorkshopBookingTab,
+      t,
+    ],
+  );
   return (
     <PageContentContainer contentClassName="bs-consumer-booking-page__root">
       <ConsumerBookingModals
@@ -309,23 +393,19 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
         spotTypes={spotTypes}
         timezone={timezone}
       />
-
-      <ConsumerBookingHeader buttonsData={buttonsData} isMobile={isMobile} />
-
-      <ConsumerBookingTabs
-        handleToggleTabDrawer={handleToggleBookingTabDrawer}
+      <ConsumerPageHeader
+        FilterProps={{ filters, selectedFilter: selectedFilterTab }}
+        isLoading={false}
         isMobile={isMobile}
-        onChangeBookingTab={handleSetSelectedTab}
-        selectedTab={selectedTab}
-      />
-
-      <ConsumerBookingFilters
-        futureBookingsCount={futureItemsCount}
-        isMobile={isMobile}
-        isWaitlistFilterHidden={selectedTab === BookingTabEnum.APPOINTMENT}
-        onChangeFilterTab={handleSetSelectedFilterTab}
-        selectedTab={selectedFilterTab}
-        waitlistBookingsCount={waitlistItemsCount}
+        TabsProps={{
+          selectedTab,
+          tabs: consumerBookingTabs,
+          handleToggleTabDrawer: handleToggleBookingTabDrawer,
+        }}
+        TitleProps={{
+          buttons: buttonsData,
+          title: t('reworked.myBookings.title'),
+        }}
       />
 
       <ConsumerBookingListContainer

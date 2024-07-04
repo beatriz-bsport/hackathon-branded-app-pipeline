@@ -11,7 +11,7 @@ import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 import { parseConsumerPaymentPackData } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/utils';
 
-import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
+import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/types';
 import type { ConsumerPaymentPackReworked } from '#src/libs/consumer-payment-pack/types';
 
 import {

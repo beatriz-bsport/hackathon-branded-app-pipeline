@@ -15,7 +15,7 @@ import {
 } from '#src/libs/consumer-space/components/reworked/@MyPasses/constants';
 
 import type { UniversalPassReworked } from '#src/libs/universal-pass/types';
-import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
+import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/types';
 
 // Common stylesheet
 import '#src/libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';

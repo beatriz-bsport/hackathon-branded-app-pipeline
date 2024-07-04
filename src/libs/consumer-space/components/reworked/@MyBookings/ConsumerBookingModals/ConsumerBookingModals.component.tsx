@@ -28,7 +28,7 @@ import type {
 } from '#src/libs/spot-scheduling/types';
 import type { Establishment } from '#src/libs/establishment/types';
 import type { MetaActivity } from '#src/libs/meta-activity/types';
-import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/types';
 import { BOOKING_FOR_GUEST_FREQUENCY } from '#src/libs/offer/types';
 type Props = {
   isMobile: boolean;

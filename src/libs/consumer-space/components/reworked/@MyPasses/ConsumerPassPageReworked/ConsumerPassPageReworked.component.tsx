@@ -319,7 +319,10 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
           tabs,
           handleToggleTabDrawer: handleTogglePassTabDrawer,
         }}
-        TitleProps={{ buttons: buttonsData }}
+        TitleProps={{
+          buttons: buttonsData,
+          title: t('reworked.myPasses.title'),
+        }}
       />
 
       {selectedTab === PassTabEnum.PRIVATE_CONSUMER_PASS && (

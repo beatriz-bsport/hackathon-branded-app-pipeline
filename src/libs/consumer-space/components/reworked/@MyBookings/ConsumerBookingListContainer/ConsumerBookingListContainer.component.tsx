@@ -30,15 +30,18 @@ import type {
   ConsumerBookingOption,
   ConsumerPrivateBooking,
 } from '#src/libs/booking/types';
-import type { BookingTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
-import type { BookingFilterTab } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
+import type {
+  BookingTab,
+  BookingFilterTab,
+} from '#src/libs/consumer-space/components/reworked/@MyBookings/types';
 
-import { BookingTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
-import { BookingFilterTabEnum } from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
 import {
+  BookingFilterTabEnum,
+  BookingTabEnum,
   MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
   MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
 } from '#src/libs/consumer-space/components/reworked/@MyBookings/constants';
+
 import type { WaitingListConfiguration } from '#src/libs/waiting-list/types';
 import type { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import './styles.css';

@@ -2,15 +2,19 @@ import React, { useMemo } from 'react';
 import type { AxiosResponse } from 'axios';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import ConsumerSubscriptionHeader from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionHeader';
-import ConsumerSubscriptionsTabs from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionTabs';
+import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
 import ConsumerSubscriptionsListContainer from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 import {
   ConsumerSubscriptionTermsPortal,
   ConsumerSubscriptionPaymentPortal,
 } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPortals';
-import { Calendar, ChevronRight } from '#src/components/untitledui';
+import {
+  Calendar,
+  ChevronRight,
+  ChevronLeft,
+} from '#src/components/untitledui';
+import Button from '#src/components/css-only/Fabrique/ButtonV2';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import type {
@@ -27,7 +31,8 @@ import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/
 
 import useConsumerSubscriptionsModalManager from '#src/libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsModalManager';
 import useConsumerSubscriptionsDataManager from '#src/libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
-import { mobileDetailsDisplay } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/utils';
+import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+
 import type { OptionCallback } from '../../../../../../state/types';
 
 import './styles.css';
@@ -213,7 +218,57 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
           ],
     [isWidget, onGetASubscriptionClick, onBookSessionClick, t],
   );
+  const handleSetActiveTab = React.useCallback(
+    () => handleSetSelectedTab?.(SubscriptionTabEnum.ACTIVE),
+    [handleSetSelectedTab],
+  );
 
+  const handleSetFutureTab = React.useCallback(
+    () => handleSetSelectedTab?.(SubscriptionTabEnum.FUTURE),
+    [handleSetSelectedTab],
+  );
+
+  const handleSetExpiredTab = React.useCallback(
+    () => handleSetSelectedTab?.(SubscriptionTabEnum.EXPIRED),
+    [handleSetSelectedTab],
+  );
+
+  const tabs = useMemo(
+    () => [
+      {
+        hidden: false,
+        hasBadge: activeSubscriptionsState.count > 0,
+        type: SubscriptionTabEnum.ACTIVE,
+        label: t('reworked.mySubscriptions.tab.active'),
+        onClick: handleSetActiveTab,
+        value: activeSubscriptionsState.count,
+      },
+      {
+        hidden: false,
+        hasBadge: futureSubscriptionsState.count > 0,
+        type: SubscriptionTabEnum.FUTURE,
+        label: t('reworked.mySubscriptions.tab.future'),
+        onClick: handleSetFutureTab,
+        value: futureSubscriptionsState.count,
+      },
+      {
+        hidden: false,
+        type: SubscriptionTabEnum.EXPIRED,
+        label: t('reworked.mySubscriptions.tab.expired'),
+        onClick: handleSetExpiredTab,
+        value: expiredSubscriptionsState.count,
+      },
+    ],
+    [
+      expiredSubscriptionsState.count,
+      futureSubscriptionsState.count,
+      activeSubscriptionsState.count,
+      handleSetActiveTab,
+      handleSetFutureTab,
+      handleSetExpiredTab,
+      t,
+    ],
+  );
   return (
     <PageContentContainer
       contentClassName={classNames('bs-consumer__subscription-page__root', {
@@ -221,24 +276,30 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
           isMobile && !!selectedSubscription?.id,
       })}
     >
-      <ConsumerSubscriptionHeader
-        buttonsData={buttonsData}
-        handleGoBack={handleGoBack}
-        isMobile={isMobile}
-        selectedSubscription={selectedSubscription}
-      />
-      {mobileDetailsDisplay(
-        isMobile,
-        selectedSubscription,
-        null,
-        <ConsumerSubscriptionsTabs
-          activeSubscriptionsCount={activeSubscriptionsState.count}
-          expiredSubscriptionsCount={expiredSubscriptionsState.count}
-          futureSubscriptionsCount={futureSubscriptionsState.count}
-          onChangeSubscriptionTab={handleSetSelectedTab}
-          selectedTab={selectedTab}
-        />,
+      {isMobile && !!selectedSubscription?.id ? (
+        <Button
+          className="bs-consumer__subscription-header__button--mobile"
+          color="grey"
+          leftIcon={<ChevronLeft />}
+          onClick={handleGoBack}
+          variant="text"
+        >
+          {t('reworked.mySubscriptions.headerButtonsLabel.backToSubscriptions')}
+        </Button>
+      ) : (
+        <ConsumerPageHeader
+          isMobile={isMobile}
+          TabsProps={{
+            tabs,
+            selectedTab,
+          }}
+          TitleProps={{
+            buttons: buttonsData,
+            title: t('reworked.mySubscriptions.title'),
+          }}
+        />
       )}
+
       <ConsumerSubscriptionsListContainer
         areDetailsLoading={areDetailsLoading}
         handleInvoiceDetailsPaginationFetchMore={

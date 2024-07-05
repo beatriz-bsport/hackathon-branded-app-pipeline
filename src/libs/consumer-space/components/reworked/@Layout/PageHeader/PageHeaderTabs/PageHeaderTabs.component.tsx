@@ -49,7 +49,7 @@ export const PageHeaderTabs = <T extends PageHeaderTabsType>({
     return null;
   }
 
-  return isMobile ? (
+  return isMobile && handleToggleTabDrawer ? (
     <div className="bs-consumer-pass-tabs__root--mobile">
       <Selector
         noAnimate

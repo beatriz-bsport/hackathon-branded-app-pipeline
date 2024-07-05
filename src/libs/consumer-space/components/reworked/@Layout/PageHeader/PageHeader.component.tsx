@@ -26,7 +26,7 @@ type Props = {
   TabsProps?: {
     selectedTab: keyof PageHeaderTabsType;
     tabs: TabData<PageHeaderTabsType>[];
-    handleToggleTabDrawer: () => void;
+    handleToggleTabDrawer?: () => void;
   };
   FilterProps?: {
     filters: TabFilter[];

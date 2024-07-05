@@ -4,7 +4,10 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
 import ConsumerSubscriptionsListContainer from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
+import ConsumerSubscriptionTabDrawer from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionTabDrawer';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
+import { PortalContainer } from '#Fabrique/PortalContainer';
+
 import {
   ConsumerSubscriptionTermsPortal,
   ConsumerSubscriptionPaymentPortal,
@@ -153,6 +156,8 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     handleTermsModalClose,
     handlePaymentModalOpen,
     handlePaymentModalClose,
+    handleToggleSubscriptionTabDrawer,
+    isSubscriptionTabDrawerOpen,
   } = useConsumerSubscriptionsModalManager();
 
   const downloadBillingPlanTerms = React.useCallback(
@@ -292,6 +297,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
           TabsProps={{
             tabs,
             selectedTab,
+            handleToggleTabDrawer: handleToggleSubscriptionTabDrawer,
           }}
           TitleProps={{
             buttons: buttonsData,
@@ -299,6 +305,14 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
           }}
         />
       )}
+      <PortalContainer wrapperId="bs-consumer-booking-modals-portal-container">
+        <ConsumerSubscriptionTabDrawer
+          handleClose={handleToggleSubscriptionTabDrawer}
+          handleSetSelectedTab={handleSetSelectedTab}
+          isOpen={isSubscriptionTabDrawerOpen}
+          selectedTab={selectedTab}
+        />
+      </PortalContainer>
 
       <ConsumerSubscriptionsListContainer
         areDetailsLoading={areDetailsLoading}

@@ -8,14 +8,17 @@ import { useTranslation } from 'react-i18next';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 import ConsumerInvoiceBodyContainer from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceBodyContainer';
-import ConsumerInvoiceHeader from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceHeader';
+import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
+import Button from '#Fabrique/ButtonV2';
+
+import Typography from '#Fabrique/Typography';
 import ConsumerInvoicePaymentPortal from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePaymentPortal';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 import useViewport from '#Fabrique/hooks/useViewport';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
-import { ChevronRight } from '#src/components/untitledui';
+import { ChevronRight, ChevronLeft } from '#src/components/untitledui';
 
 import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 
@@ -165,7 +168,51 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
           ],
     [goToBookSession, t, isWidget],
   );
+  const filterUnpaidInvoices = React.useCallback(
+    () => handleChangeFilter(InvoicesFiltersEnum.UNPAID),
+    [handleChangeFilter],
+  );
 
+  const filterPaidInvoices = React.useCallback(
+    () => handleChangeFilter(InvoicesFiltersEnum.PAID),
+    [handleChangeFilter],
+  );
+
+  const filterRefundedInvoices = React.useCallback(
+    () => handleChangeFilter(InvoicesFiltersEnum.REFUNDED),
+    [handleChangeFilter],
+  );
+
+  const filters = React.useMemo(
+    () => [
+      {
+        hasBadge: totalUnpaid > 0,
+        type: InvoicesFiltersEnum.UNPAID,
+        label: t('reworked.myInvoices.header.filters.unpaid'),
+        onClick: filterUnpaidInvoices,
+        value: totalUnpaid,
+      },
+      {
+        hasBadge: false,
+        type: InvoicesFiltersEnum.PAID,
+        label: t('reworked.myInvoices.header.filters.paid'),
+        onClick: filterPaidInvoices,
+      },
+      {
+        hasBadge: false,
+        type: InvoicesFiltersEnum.REFUNDED,
+        label: t('reworked.myInvoices.header.filters.refunded'),
+        onClick: filterRefundedInvoices,
+      },
+    ],
+    [
+      totalUnpaid,
+      t,
+      filterUnpaidInvoices,
+      filterPaidInvoices,
+      filterRefundedInvoices,
+    ],
+  );
   return (
     <PageContentContainer
       contentClassName={
@@ -174,16 +221,39 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
           : 'bs-consumer-invoice-page__root'
       }
     >
-      <ConsumerInvoiceHeader
-        buttonsData={buttonsData}
-        handleGoBack={clearSelectedConsumerInvoice}
-        isLoading={isLoading}
-        isMobile={isMobile}
-        onChangeFilter={handleChangeFilter}
-        selectedConsumerInvoice={selectedConsumerInvoice}
-        selectedFilter={selectedFilter}
-        totalUnpaid={totalUnpaid}
-      />
+      {isMobile && !!selectedConsumerInvoice ? (
+        <div className="bs-consumer-invoice-page__header__go-back-button__container--mobile">
+          <Button
+            className="bs-consumer-invoice-page__header__go-back-button--mobile"
+            color="grey"
+            leftIcon={
+              <ChevronLeft className="bs-consumer-invoice-page__header__go-back-button__icon--mobile" />
+            }
+            onClick={clearSelectedConsumerInvoice}
+            size="md"
+            variant="text"
+          >
+            <Typography
+              align="center"
+              className="bs-consumer-invoice-page__header__go-back-button__label--mobile"
+              variant="body-lg"
+            >
+              {t('reworked.myInvoices.header.buttons.goBack')}
+            </Typography>
+          </Button>
+        </div>
+      ) : (
+        <ConsumerPageHeader
+          FilterProps={{ filters, selectedFilter: selectedFilter }}
+          isLoading={isLoading}
+          isMobile={isMobile}
+          TitleProps={{
+            buttons: buttonsData,
+            title: t('reworked.myInvoices.header.title'),
+          }}
+        />
+      )}
+
       <ConsumerInvoiceBodyContainer
         clearSelectedConsumerInvoice={clearSelectedConsumerInvoice}
         consumerInvoiceList={consumerInvoices}

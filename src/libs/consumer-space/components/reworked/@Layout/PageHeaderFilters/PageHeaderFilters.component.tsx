@@ -13,6 +13,9 @@ export const PageHeaderFilters: React.FC<Props> = ({
   selectedFilter,
   filters,
 }) => {
+  if (!filters?.length) {
+    return null;
+  }
   return (
     <ConsumerGenericFilters filters={filters} selectedTab={selectedFilter} />
   );

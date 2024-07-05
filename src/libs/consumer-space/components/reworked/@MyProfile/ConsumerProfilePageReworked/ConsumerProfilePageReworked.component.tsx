@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import type { AxiosResponse } from 'axios';
 
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
+import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
 
 import ConsumerSummaryCard from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard';
 import TermsAndConditionsCard from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/TermsAndConditionsCard';
 import SavedPaymentMethodCard from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/SavedPaymentMethodCard';
-import ConsumerProfileHeader from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileHeader';
 import { ConsumerProfileContext } from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 import CustomFormPortal from '#Fabrique/Temporary/CustomFormPortal';
 import BarcodePortal from '#src/components/css-only/Portals/BarcodePortal';
@@ -16,7 +16,7 @@ import TermsAndConditions from '#src/components/css-only/Portals/TermsAndConditi
 import PaymentModal from '#src/libs/payment/components/PaymentModal.component';
 import { AddPaymentMethod } from '#src/libs/payment/components/AddPaymentMethod.component';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
-
+import { Edit03 } from '#src/components/untitledui';
 import type {
   CustomForm,
   CustomFormFieldAnswer,
@@ -99,6 +99,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     toggleTermsAndConditionPortal,
     toggleTermsOfUsePortal,
     closeDetachPaymentMethodPortal,
+    openEditProfilePortal,
   } = useContext(ConsumerProfileContext);
 
   const { general_terms_of_use, waiver } = companyTheme ?? {};
@@ -146,7 +147,16 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     },
     [detachPaymentMethod, closeDetachPaymentMethodPortal],
   );
-
+  const buttonsData = React.useMemo(
+    () => [
+      {
+        label: t('reworked.myProfile.header.buttons.editProfile'),
+        onClick: openEditProfilePortal,
+        leftIcon: <Edit03 stroke="currentColor" />,
+      },
+    ],
+    [t, openEditProfilePortal],
+  );
   if (!member) return null;
 
   const {
@@ -178,7 +188,14 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
 
   return (
     <PageContentContainer contentClassName="bs-consumer-profile-page__root">
-      <ConsumerProfileHeader isLoading={isLoading} />
+      <ConsumerPageHeader
+        isLoading={isLoading}
+        isMobile={isMobile}
+        TitleProps={{
+          buttons: buttonsData,
+          title: t('reworked.myProfile.header.title'),
+        }}
+      />
       <div
         className={
           isMobile

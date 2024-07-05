@@ -46,20 +46,19 @@ const NavigationSideBar: React.FC<NavigationProps> = ({
         </BottomDrawer>
       </PortalContainer>
     );
-  if (!isMobile)
-    return (
-      <aside className="bs-consumer-space-navigation-sidebar__root">
-        <nav className="bs-consumer-space-navigation-sidebar__navigation">
-          {navigationMenu.map((navigationSection) => (
-            <NavigationList
-              key={navigationSection.title}
-              buildUrl={buildUrl}
-              {...navigationSection}
-            />
-          ))}
-        </nav>
-      </aside>
-    );
+  return (
+    <aside className="bs-consumer-space-navigation-sidebar__root">
+      <nav className="bs-consumer-space-navigation-sidebar__navigation">
+        {navigationMenu.map((navigationSection) => (
+          <NavigationList
+            key={navigationSection.title}
+            buildUrl={buildUrl}
+            {...navigationSection}
+          />
+        ))}
+      </nav>
+    </aside>
+  );
 };
 
 export const NavigationSideBarStorybook =

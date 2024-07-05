@@ -5887,7 +5887,7 @@
                 "title": "Changement d'email",
                 "titleMerge": " Fusion de membre",
                 "simpleChange": {
-                    "warning": "Attention, vous allez modifié l'email de connexion de ce membre :",
+                    "warning": "Attention, vous allez modifier l'email de connexion de ce membre :",
                     "unchangedEmail": "En attendant il conservera son ancien email.",
                     "informativeHelperText": "A titre informatif nous allons lui envoyer un email pour l'informer ce changement."
                 },

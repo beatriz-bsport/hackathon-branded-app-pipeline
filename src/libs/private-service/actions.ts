@@ -11,6 +11,7 @@ import type {
   PrivateConsumerPassREST,
   PrivatePassMassExtensionCreate,
   PrivatePassMassExtensionParams,
+  PrivatePassTemplate,
 } from '#src/libs/private-service/types';
 import type { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
 // @ts-expect-error
@@ -1938,7 +1939,7 @@ export const privateConsumerPassRetrieveActions = {
 
 export function fetchPrivateConsumerPass(
   private_consumer_pass: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateConsumerPassRetrieveActions.isLoading(true));
@@ -2909,7 +2910,7 @@ export const listPrivatePassTemplateActions = {
 
 export function fetchPrivatePassTemplateList(
   params?: FranchiseProductTemplateQueryParams,
-  options?: OptionCallback,
+  options?: OptionCallback<PrivatePassTemplate[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listPrivatePassTemplateActions.error(null));

@@ -15,7 +15,6 @@ import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
 import type { RootState } from '#src/reducers';
 // @ts-expect-error
 import asyncComponent from '#src/AsyncComponent';
-import Config from '#src/config';
 import { fetchFranchiseUserInfo as fetchFranchiseUserInfoAction } from '#src/libs/franchise/actions';
 
 const FranchiseMemberDetailInfo = asyncComponent(
@@ -30,6 +29,9 @@ const FranchiseMemberDetailPrivateConsumerPass = asyncComponent(
 const FranchiseMemberDetailGiftcard = asyncComponent(
   () => import('./FranchiseMemberDetailGiftcard.page'),
 );
+const FranchiseMemberDetailBillingPlan = asyncComponent(
+  () => import('./FranchiseMemberDetailBillingPlan.page'),
+);
 
 type ParamsProps = {
   userId: number;
@@ -42,37 +44,19 @@ type WithPageHeightHOC = {
 
 type Props = ParamsProps & WithPageHeightHOC & ConnectedProps<typeof connector>;
 
-// Hide empty tabs on production
-const isEnvironnementProduction =
-  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production';
-
-const tabsData = Immutable(
-  isEnvironnementProduction
-    ? [
-        { label: 'tab.member.info', value: 'info' },
-        {
-          label: 'tab.member.paymentPack',
-          value: 'pass',
-        },
-        {
-          label: 'tab.member.privateConsumerPass',
-          value: 'private-consumer-pass',
-        },
-        { label: 'tab.member.giftcard', value: 'giftcard' },
-      ]
-    : [
-        { label: 'tab.member.info', value: 'info' },
-        {
-          label: 'tab.member.paymentPack',
-          value: 'pass',
-        },
-        {
-          label: 'tab.member.privateConsumerPass',
-          value: 'private-consumer-pass',
-        },
-        { label: 'tab.member.giftcard', value: 'giftcard' },
-      ],
-);
+const tabsData = Immutable([
+  { label: 'tab.member.info', value: 'info' },
+  {
+    label: 'tab.member.paymentPack',
+    value: 'pass',
+  },
+  {
+    label: 'tab.member.privateConsumerPass',
+    value: 'private-consumer-pass',
+  },
+  { label: 'tab.member.giftcard', value: 'giftcard' },
+  { label: 'tab.member.subscription', value: 'subscription' },
+]);
 
 const FranchiseMemberDetails: React.FC<Props> = ({
   userId,
@@ -138,6 +122,16 @@ const FranchiseMemberDetails: React.FC<Props> = ({
           exact
           component={FranchiseMemberDetailGiftcard}
           path="/f/members/:userId/member/giftcard"
+        />
+        <Route
+          exact
+          component={FranchiseMemberDetailBillingPlan}
+          path="/f/members/:userId/member/subscription/:selectedBillingPlanId"
+        />
+        <Route
+          exact
+          component={FranchiseMemberDetailBillingPlan}
+          path="/f/members/:userId/member/subscription"
         />
       </Switch>
     </ContentWithAppBar>

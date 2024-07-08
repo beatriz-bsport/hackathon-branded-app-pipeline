@@ -1,0 +1,5 @@
+.bs-consumer-page__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-4);
+}

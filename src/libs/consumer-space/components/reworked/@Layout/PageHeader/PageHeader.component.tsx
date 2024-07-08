@@ -44,7 +44,7 @@ const PageHeader: React.FC<Props> = ({
 }) => {
   if (isLoading) {
     return (
-      <PageHeaderSkeleton classes={{ root: 'bs-consumer-pass-page__header' }} />
+      <PageHeaderSkeleton classes={{ root: 'bs-consumer-page__header' }} />
     );
   }
   return (

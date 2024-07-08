@@ -1,7 +1,6 @@
 .bs-consumer-generic-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: var(--bs-space-size-4);
 }
 
 .bs-consumer-generic-header__actions {

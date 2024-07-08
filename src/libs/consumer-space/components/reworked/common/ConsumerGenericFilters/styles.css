@@ -11,10 +11,11 @@
   background-color: var(--bs-color-action-light);
   border-radius: var(--bs-border-radius-sm);
   padding: var(--bs-space-size-2);
+  display: flex;
+  gap: var(--bs-space-size-1);
 }
 
 .bs-consumer-generic-filters__tabs__tab {
-  margin-right: var(--bs-space-size-1);
   width: max-content;
 }
 

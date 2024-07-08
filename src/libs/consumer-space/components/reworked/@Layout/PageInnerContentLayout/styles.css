@@ -1,0 +1,56 @@
+:root {
+  --app-bar-component-height: 64px;
+  --header-component-height: 40px;
+  --tabs-component-height: 42px;
+  --mobile-tabs-component-height: 48px;
+  --filters-component-height: 44px;
+  --spacing-height: calc(16px + 16px + 8px + 24px);
+  --footer-component-height: 38px;
+
+  --list-container-height: calc(
+    100vh - var(--app-bar-component-height) - var(--header-component-height) -
+      var(--tabs-component-height) - var(--filters-component-height) -
+      var(--spacing-height)
+  );
+  --mobile-list-container-height: calc(
+    100vh - var(--app-bar-component-height) - var(--header-component-height) -
+      var(--mobile-tabs-component-height) - var(--filters-component-height) -
+      var(--spacing-height) - var(--footer-component-height)
+  );
+}
+
+.bs-consumer-page-inner-content__root-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--bs-space-size-4);
+  width: 100%;
+}
+
+.bs-consumer-page-inner-content__root-layout__empty {
+  height: var(--list-container-height);
+}
+
+.bs-consumer-page-inner-content__root--left-component {
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.bs-consumer-page-inner-content__root--left-component
+  > .infinite-scroll-component__outerdiv
+  > .infinite-scroll-component {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-4);
+}
+
+@container bsConsumerPageContentContainer (width < 400px) {
+  .bs-consumer-page-root__bookings {
+    grid-template-columns: 1fr;
+    gap: var(--bs-space-size-4);
+  }
+  .bs-consumer-page-root__bookings--empty {
+    height: var(--mobile-list-container-height);
+    align-items: center;
+  }
+}

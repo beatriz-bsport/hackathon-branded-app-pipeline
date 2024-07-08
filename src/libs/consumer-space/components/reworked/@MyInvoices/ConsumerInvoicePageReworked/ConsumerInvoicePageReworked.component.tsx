@@ -11,7 +11,6 @@ import ConsumerInvoiceBodyContainer from '#src/libs/consumer-space/components/re
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
 import Button from '#Fabrique/ButtonV2';
 
-import Typography from '#Fabrique/Typography';
 import ConsumerInvoicePaymentPortal from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePaymentPortal';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 import useViewport from '#Fabrique/hooks/useViewport';
@@ -222,26 +221,15 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
       }
     >
       {isMobile && !!selectedConsumerInvoice ? (
-        <div className="bs-consumer-invoice-page__header__go-back-button__container--mobile">
-          <Button
-            className="bs-consumer-invoice-page__header__go-back-button--mobile"
-            color="grey"
-            leftIcon={
-              <ChevronLeft className="bs-consumer-invoice-page__header__go-back-button__icon--mobile" />
-            }
-            onClick={clearSelectedConsumerInvoice}
-            size="md"
-            variant="text"
-          >
-            <Typography
-              align="center"
-              className="bs-consumer-invoice-page__header__go-back-button__label--mobile"
-              variant="body-lg"
-            >
-              {t('reworked.myInvoices.header.buttons.goBack')}
-            </Typography>
-          </Button>
-        </div>
+        <Button
+          className="bs-consumer__invoice-header__button--mobile"
+          color="grey"
+          leftIcon={<ChevronLeft />}
+          onClick={clearSelectedConsumerInvoice}
+          variant="text"
+        >
+          {t('reworked.myInvoices.header.buttons.goBack')}
+        </Button>
       ) : (
         <ConsumerPageHeader
           FilterProps={{ filters, selectedFilter: selectedFilter }}

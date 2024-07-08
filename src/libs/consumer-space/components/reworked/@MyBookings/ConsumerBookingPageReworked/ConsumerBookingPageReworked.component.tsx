@@ -8,7 +8,6 @@ import ConsumerBookingListContainer from '#src/libs/consumer-space/components/re
 import ConsumerBookingModals from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingModals';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
-
 import { ChevronRight } from '#src/components/untitledui';
 
 import type {

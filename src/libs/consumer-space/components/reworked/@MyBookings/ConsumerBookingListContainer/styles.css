@@ -1,72 +1,7 @@
-:root {
-  --my-bookings-app-bar-component-height: 64px;
-  --my-bookings-header-component-height: 40px;
-  --my-bookings-tabs-component-height: 42px;
-  --my-bookings-mobile-tabs-component-height: 48px;
-  --my-bookings-filters-component-height: 44px;
-  --my-bookings-spacing-height: calc(16px + 16px + 8px + 24px);
-  --my-bookings-footer-component-height: 38px;
-
-  --my-bookings-list-container-height: calc(
-    100vh - var(--my-bookings-app-bar-component-height) -
-      var(--my-bookings-header-component-height) -
-      var(--my-bookings-tabs-component-height) -
-      var(--my-bookings-filters-component-height) -
-      var(--my-bookings-spacing-height)
-  );
-  --my-bookings-mobile-list-container-height: calc(
-    100vh - var(--my-bookings-app-bar-component-height) -
-      var(--my-bookings-header-component-height) -
-      var(--my-bookings-mobile-tabs-component-height) -
-      var(--my-bookings-filters-component-height) -
-      var(--my-bookings-spacing-height) -
-      var(--my-bookings-footer-component-height)
-  );
-}
-
-.bs-consumer-page-root__bookings {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--bs-space-size-4);
-  width: 100%;
-}
-
-.bs-consumer-page-root__bookings--empty {
-  text-align: center;
-  height: var(--my-bookings-list-container-height);
-}
-
-.bs-consumer-page-root__bookings__list {
-  padding: 0;
-  margin: 0;
-  flex: 1;
-}
-
-.bs-consumer-page-root__bookings__list__infinite-scroll {
-  padding-top: var(--bs-space-size-6);
-}
-
 .bs-consumer-page-root__bookings__list__item {
   width: 100%;
-  margin-bottom: var(--bs-space-size-4);
-}
-
-.bs-consumer-page-root__bookings__details-card {
-  margin-top: var(--bs-space-size-6);
-  margin-bottom: var(--bs-space-size-6);
 }
 
 .bs-consumer-page-root__bookings__details-card--hidden {
   display: none;
-}
-
-@container bsConsumerBookingPage (width < 400px) {
-  .bs-consumer-page-root__bookings {
-    grid-template-columns: 1fr;
-    gap: var(--bs-space-size-4);
-  }
-  .bs-consumer-page-root__bookings--empty {
-    height: var(--my-bookings-mobile-list-container-height);
-    align-items: center;
-  }
 }

@@ -23,7 +23,7 @@ import ConsumerBookingDetailsCard from '#src/libs/consumer-space/components/rewo
 import ConsumerBookingListItem from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListItem';
 import ConsumerPrivateBookingListItem from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerPrivateBookingListItem';
 import ConsumerBookingOptionListItem from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOptionListItem';
-import Typography from '#Fabrique/Typography';
+import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
 
 import type {
   ConsumerBooking,
@@ -159,7 +159,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
     selectedBooking?.offer?.date_start || selectedPrivateBooking?.date_start,
   );
 
-  const currentBookingList = (() => {
+  const currentBookingList = React.useMemo(() => {
     if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
       return bookingOptionList;
     }
@@ -167,9 +167,15 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
       return privateBookingList;
     }
     return bookingList;
-  })();
+  }, [
+    selectedTab,
+    selectedFilterTab,
+    bookingList,
+    privateBookingList,
+    bookingOptionList,
+  ]);
 
-  const showPlaceholder = (() => {
+  const isCurrentTabContentEmpty = React.useMemo(() => {
     if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
       return (
         !isLoading && (!bookingOptionList || bookingOptionList?.length === 0)
@@ -181,7 +187,14 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
       );
     }
     return !isLoading && (!bookingList || bookingList?.length === 0);
-  })();
+  }, [
+    isLoading,
+    selectedFilterTab,
+    bookingOptionList,
+    privateBookingList,
+    bookingList,
+    selectedTab,
+  ]);
 
   const selectedBookingCoachName = getCoachDisplayName(
     coachDisplay,
@@ -207,240 +220,216 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   );
 
   return (
-    <div
-      className={classNames('bs-consumer-page-root__bookings', {
-        'bs-consumer-page-root__bookings--empty': showPlaceholder,
-      })}
-    >
-      {showPlaceholder && (
-        <Typography variant="body-lg">
-          {t(
-            `consumerSpace:reworked.myBookings.listContainer.placeholder.${selectedTab}.${selectedFilterTab}`,
+    <PageInnerContentLayout
+      DetailComponent={
+        <ConsumerBookingDetailsCard
+          cancellationDate={formatAsDate(
+            selectedBooking?.date_canceled ||
+              selectedPrivateBooking?.date_canceled,
           )}
-        </Typography>
-      )}
-
-      {(isLoading || currentBookingList?.length > 0) && (
-        <>
-          <ul className="bs-consumer-page-root__bookings__list">
-            <GenericInfiniteScrollEnhancedCssOnly<
-              ConsumerBooking | ConsumerPrivateBooking | ConsumerBookingOption
-            >
-              className="bs-consumer-page-root__bookings__list__infinite-scroll"
-              fetchMoreData={handlePaginationFetchMore}
-              hasMore={hasNextPage}
-              height={
-                isMobile
-                  ? MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT
-                  : MY_BOOKINGS_LIST_CONTAINER_HEIGHT
-              }
-              items={currentBookingList}
-              loader={<ConsumerBookingCard isLoading />}
-              renderItem={({ item }) => {
-                if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
-                  return (
-                    <ConsumerBookingOptionListItem
-                      key={item.id}
-                      coachDisplay={coachDisplay}
-                      getOfferWaitingListPosition={getOfferWaitingListPosition}
-                      handleBookSession={handleBookSession}
-                      handleSelectBookingForCancelation={
-                        handleSelectBookingForCancelation
-                      }
-                      isLoading={isLoading}
-                      isSelected={
-                        !isMobile && selectedBookingOption?.id === item.id
-                      }
-                      item={item as ConsumerBookingOption}
-                      onBookingCardClick={handleSetSelectedBookingOption}
-                      sessionTimeDisplay={sessionTimeDisplay}
-                      timezone={timezone}
-                      waitingListConfiguration={waitingListConfiguration}
-                    />
-                  );
-                }
-                if (selectedTab === BookingTabEnum.APPOINTMENT) {
-                  return (
-                    <ConsumerPrivateBookingListItem
-                      key={item.id}
-                      coachDisplay={coachDisplay}
-                      handleSelectBookingForCancelation={
-                        handleSelectBookingForCancelation
-                      }
-                      isLoading={isLoading}
-                      isSelected={
-                        !isMobile && selectedPrivateBooking?.id === item.id
-                      }
-                      item={item as ConsumerPrivateBooking}
-                      onBookingCardClick={handleSetSelectedPrivateBooking}
-                      sessionTimeDisplay={sessionTimeDisplay}
-                      timezone={timezone}
-                    />
-                  );
-                }
-                return (
-                  <ConsumerBookingListItem
-                    key={item.id}
-                    coachDisplay={coachDisplay}
-                    getOfferElligibleGuestNumber={getOfferElligibleGuestNumber}
-                    handleJoinOnlineBooking={handleJoinOnlineBooking}
-                    handleSelectBookingForCancelation={
-                      handleSelectBookingForCancelation
-                    }
-                    handleShowSpotDetails={handleShowSpotDetails}
-                    isLoading={isLoading}
-                    isMobile={isMobile}
-                    isSelected={!isMobile && item.id === selectedBooking?.id}
-                    item={item as ConsumerBooking}
-                    onBookingCardClick={handleSetSelectedBooking}
-                    sessionTimeDisplay={sessionTimeDisplay}
-                    setSelectedBookingForBookingForAGuest={
-                      setSelectedBookingForBookingForAGuest
-                    }
-                    timezone={timezone}
-                  />
-                );
-              }}
-            />
-          </ul>
-
-          <ConsumerBookingDetailsCard
-            cancellationDate={formatAsDate(
-              selectedBooking?.date_canceled ||
-                selectedPrivateBooking?.date_canceled,
-            )}
-            className={classNames(
-              'bs-consumer-page-root__bookings__details-card',
-              {
-                'bs-consumer-page-root__bookings__details-card--hidden':
-                  isMobile,
-              },
-            )}
-            coachDescription={
-              selectedBooking?.coach?.description ||
-              selectedPrivateBooking?.coach?.description ||
-              selectedBookingOption?.coach?.description
-            }
-            coachFacebookURL={
-              selectedBooking?.coach?.facebook_url ||
-              selectedPrivateBooking?.coach?.facebook_url ||
-              selectedBookingOption?.coach?.facebook_url
-            }
-            coachInstagramURL={
-              selectedBooking?.coach?.instagram_url ||
-              selectedPrivateBooking?.coach?.instagram_url ||
-              selectedBookingOption?.coach?.instagram_url
-            }
-            coachName={selectedBookingCoachName}
-            coachOverrideDescription={
-              selectedBooking?.coach_override?.description
-            }
-            coachOverrideName={selectedBookingCoachOverrideName}
-            coachOverridePicture={selectedBooking?.coach_override?.photo}
-            coachPicture={selectedBookingCoachPicture}
-            consumerPaymentPackAvailableCredits={
-              selectedBooking?.consumer_payment_pack?.available_credits ??
-              selectedPrivateBooking?.private_consumer_pass?.private_pass
-                ?.credits -
-                selectedPrivateBooking?.private_consumer_pass?.used_credits
-            }
-            consumerPaymentPackPenaltyDisabledFrom={
-              selectedBooking?.consumer_payment_pack?.penalty_disabled_from
-            }
-            consumerPaymentPackPenaltyDisabledUntil={
-              selectedBooking?.consumer_payment_pack?.penalty_disabled_until
-            }
-            consumerPaymentPackUsedCredits={
-              selectedBooking?.consumer_payment_pack?.used_credits ??
+          className={classNames({
+            'bs-consumer-page-root__bookings__details-card--hidden': isMobile,
+          })}
+          coachDescription={
+            selectedBooking?.coach?.description ||
+            selectedPrivateBooking?.coach?.description ||
+            selectedBookingOption?.coach?.description
+          }
+          coachFacebookURL={
+            selectedBooking?.coach?.facebook_url ||
+            selectedPrivateBooking?.coach?.facebook_url ||
+            selectedBookingOption?.coach?.facebook_url
+          }
+          coachInstagramURL={
+            selectedBooking?.coach?.instagram_url ||
+            selectedPrivateBooking?.coach?.instagram_url ||
+            selectedBookingOption?.coach?.instagram_url
+          }
+          coachName={selectedBookingCoachName}
+          coachOverrideDescription={
+            selectedBooking?.coach_override?.description
+          }
+          coachOverrideName={selectedBookingCoachOverrideName}
+          coachOverridePicture={selectedBooking?.coach_override?.photo}
+          coachPicture={selectedBookingCoachPicture}
+          consumerPaymentPackAvailableCredits={
+            selectedBooking?.consumer_payment_pack?.available_credits ??
+            selectedPrivateBooking?.private_consumer_pass?.private_pass
+              ?.credits -
               selectedPrivateBooking?.private_consumer_pass?.used_credits
-            }
-            creditsToRefund={
-              selectedBooking?.offer?.credit_price ??
-              selectedPrivateBooking?.private_slot?.credit
-            }
-            date={selectedBookingDate}
-            description={
-              selectedBooking?.meta_activity?.description ||
-              selectedPrivateBooking?.private_service?.description ||
-              selectedBookingOption?.meta_activity?.description
-            }
-            establishmentAddress={
-              (
-                selectedBooking ||
-                selectedPrivateBooking ||
-                selectedBookingOption
-              )?.establishment?.location?.address
-            }
-            establishmentTitle={
-              (
-                selectedBooking ||
-                selectedPrivateBooking ||
-                selectedBookingOption
-              )?.establishment?.title
-            }
-            isCancelled={
-              !!(selectedBooking || selectedPrivateBooking)?.date_canceled ||
-              !!selectedBookingOption?.cancelled
-            }
-            isCancelledFromManager={
-              (selectedBooking || selectedPrivateBooking)
-                ?.booking_status_code === BOOKING_STATUS_CANCELLED_BY_MANAGER.id
-            }
-            isConsumerPaymentPackDisabled={
-              selectedBooking?.consumer_payment_pack?.disabled ||
-              selectedPrivateBooking?.private_consumer_pass?.disabled
-            }
-            isLateCancellation={isLateCancellation}
-            isLoading={isLoading}
-            isPaymentPackUnlimited={
-              selectedBooking?.consumer_payment_pack?.payment_pack?.unlimited
-            }
-            levelName={
-              selectedBooking?.level?.name ||
-              selectedPrivateBooking?.private_slot?.name ||
-              selectedBookingOption?.level?.name
-            }
-            metaActivityLastDiscardMinutes={
-              selectedBooking?.meta_activity?.last_discard_minutes ??
-              selectedPrivateBooking?.private_service?.last_discard_minutes ??
-              selectedBookingOption?.meta_activity?.last_discard_minutes
-            }
-            metaActivityName={
-              selectedBooking?.offer?.name_override ||
-              selectedBooking?.meta_activity?.name ||
-              selectedPrivateBooking?.private_service?.name ||
-              selectedBookingOption?.meta_activity?.name
-            }
-            metaActivityPicture={
-              selectedBooking?.meta_activity?.cover_main ||
-              selectedPrivateBooking?.private_service?.cover_main ||
-              selectedBookingOption?.meta_activity?.cover_main
-            }
-            paymentPackName={
-              selectedBooking?.consumer_payment_pack?.payment_pack?.name ||
-              (!selectedPrivateBooking?.is_unpaid &&
-                selectedPrivateBooking?.private_consumer_pass?.private_pass
-                  ?.name)
-            }
-            paymentPackTotalCredits={
-              selectedBooking?.consumer_payment_pack?.payment_pack?.credits ??
-              selectedPrivateBooking?.private_consumer_pass?.private_pass
-                ?.credits
-            }
-            sessionTimeDisplay={sessionTimeDisplay}
-            showPlaceholder={
-              !(
-                selectedBooking ||
-                selectedPrivateBooking ||
-                selectedBookingOption
-              )
-            }
-            timezoneName={timezone}
-            workshopLinkedOffers={relatedBookingsInGroup}
-          />
-        </>
+          }
+          consumerPaymentPackPenaltyDisabledFrom={
+            selectedBooking?.consumer_payment_pack?.penalty_disabled_from
+          }
+          consumerPaymentPackPenaltyDisabledUntil={
+            selectedBooking?.consumer_payment_pack?.penalty_disabled_until
+          }
+          consumerPaymentPackUsedCredits={
+            selectedBooking?.consumer_payment_pack?.used_credits ??
+            selectedPrivateBooking?.private_consumer_pass?.used_credits
+          }
+          creditsToRefund={
+            selectedBooking?.offer?.credit_price ??
+            selectedPrivateBooking?.private_slot?.credit
+          }
+          date={selectedBookingDate}
+          description={
+            selectedBooking?.meta_activity?.description ||
+            selectedPrivateBooking?.private_service?.description ||
+            selectedBookingOption?.meta_activity?.description
+          }
+          establishmentAddress={
+            (selectedBooking || selectedPrivateBooking || selectedBookingOption)
+              ?.establishment?.location?.address
+          }
+          establishmentTitle={
+            (selectedBooking || selectedPrivateBooking || selectedBookingOption)
+              ?.establishment?.title
+          }
+          isCancelled={
+            !!(selectedBooking || selectedPrivateBooking)?.date_canceled ||
+            !!selectedBookingOption?.cancelled
+          }
+          isCancelledFromManager={
+            (selectedBooking || selectedPrivateBooking)?.booking_status_code ===
+            BOOKING_STATUS_CANCELLED_BY_MANAGER.id
+          }
+          isConsumerPaymentPackDisabled={
+            selectedBooking?.consumer_payment_pack?.disabled ||
+            selectedPrivateBooking?.private_consumer_pass?.disabled
+          }
+          isLateCancellation={isLateCancellation}
+          isLoading={isLoading}
+          isPaymentPackUnlimited={
+            selectedBooking?.consumer_payment_pack?.payment_pack?.unlimited
+          }
+          levelName={
+            selectedBooking?.level?.name ||
+            selectedPrivateBooking?.private_slot?.name ||
+            selectedBookingOption?.level?.name
+          }
+          metaActivityLastDiscardMinutes={
+            selectedBooking?.meta_activity?.last_discard_minutes ??
+            selectedPrivateBooking?.private_service?.last_discard_minutes ??
+            selectedBookingOption?.meta_activity?.last_discard_minutes
+          }
+          metaActivityName={
+            selectedBooking?.offer?.name_override ||
+            selectedBooking?.meta_activity?.name ||
+            selectedPrivateBooking?.private_service?.name ||
+            selectedBookingOption?.meta_activity?.name
+          }
+          metaActivityPicture={
+            selectedBooking?.meta_activity?.cover_main ||
+            selectedPrivateBooking?.private_service?.cover_main ||
+            selectedBookingOption?.meta_activity?.cover_main
+          }
+          paymentPackName={
+            selectedBooking?.consumer_payment_pack?.payment_pack?.name ||
+            (!selectedPrivateBooking?.is_unpaid &&
+              selectedPrivateBooking?.private_consumer_pass?.private_pass?.name)
+          }
+          paymentPackTotalCredits={
+            selectedBooking?.consumer_payment_pack?.payment_pack?.credits ??
+            selectedPrivateBooking?.private_consumer_pass?.private_pass?.credits
+          }
+          sessionTimeDisplay={sessionTimeDisplay}
+          showPlaceholder={
+            !(
+              selectedBooking ||
+              selectedPrivateBooking ||
+              selectedBookingOption
+            )
+          }
+          timezoneName={timezone}
+          workshopLinkedOffers={relatedBookingsInGroup}
+        />
+      }
+      emptyPlaceholder={t(
+        `consumerSpace:reworked.myBookings.listContainer.placeholder.${selectedTab}.${selectedFilterTab}`,
       )}
-    </div>
+      InfiniteScrollComponent={
+        <GenericInfiniteScrollEnhancedCssOnly<
+          ConsumerBooking | ConsumerPrivateBooking | ConsumerBookingOption
+        >
+          fetchMoreData={handlePaginationFetchMore}
+          hasMore={hasNextPage}
+          height={
+            isMobile
+              ? MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT
+              : MY_BOOKINGS_LIST_CONTAINER_HEIGHT
+          }
+          items={currentBookingList}
+          loader={<ConsumerBookingCard isLoading />}
+          renderItem={({ item }) => {
+            if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
+              return (
+                <ConsumerBookingOptionListItem
+                  key={item.id}
+                  coachDisplay={coachDisplay}
+                  getOfferWaitingListPosition={getOfferWaitingListPosition}
+                  handleBookSession={handleBookSession}
+                  handleSelectBookingForCancelation={
+                    handleSelectBookingForCancelation
+                  }
+                  isLoading={isLoading}
+                  isSelected={
+                    !isMobile && selectedBookingOption?.id === item.id
+                  }
+                  item={item as ConsumerBookingOption}
+                  onBookingCardClick={handleSetSelectedBookingOption}
+                  sessionTimeDisplay={sessionTimeDisplay}
+                  timezone={timezone}
+                  waitingListConfiguration={waitingListConfiguration}
+                />
+              );
+            }
+            if (selectedTab === BookingTabEnum.APPOINTMENT) {
+              return (
+                <ConsumerPrivateBookingListItem
+                  key={item.id}
+                  coachDisplay={coachDisplay}
+                  handleSelectBookingForCancelation={
+                    handleSelectBookingForCancelation
+                  }
+                  isLoading={isLoading}
+                  isSelected={
+                    !isMobile && selectedPrivateBooking?.id === item.id
+                  }
+                  item={item as ConsumerPrivateBooking}
+                  onBookingCardClick={handleSetSelectedPrivateBooking}
+                  sessionTimeDisplay={sessionTimeDisplay}
+                  timezone={timezone}
+                />
+              );
+            }
+            return (
+              <ConsumerBookingListItem
+                key={item.id}
+                coachDisplay={coachDisplay}
+                getOfferElligibleGuestNumber={getOfferElligibleGuestNumber}
+                handleJoinOnlineBooking={handleJoinOnlineBooking}
+                handleSelectBookingForCancelation={
+                  handleSelectBookingForCancelation
+                }
+                handleShowSpotDetails={handleShowSpotDetails}
+                isLoading={isLoading}
+                isMobile={isMobile}
+                isSelected={!isMobile && item.id === selectedBooking?.id}
+                item={item as ConsumerBooking}
+                onBookingCardClick={handleSetSelectedBooking}
+                sessionTimeDisplay={sessionTimeDisplay}
+                setSelectedBookingForBookingForAGuest={
+                  setSelectedBookingForBookingForAGuest
+                }
+                timezone={timezone}
+              />
+            );
+          }}
+        />
+      }
+      isEmpty={isCurrentTabContentEmpty}
+    />
   );
 };
 

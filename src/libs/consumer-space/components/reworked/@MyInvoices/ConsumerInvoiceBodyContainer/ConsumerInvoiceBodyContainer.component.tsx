@@ -1,15 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
 
 import { GenericInfiniteScrollEnhancedCssOnly } from '#src/components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import { getReceiptUrl as getReceiptUrlAPI } from '#src/libs/invoice/api';
 import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
-import ConsumerDetailsCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 import ConsumerInvoiceCard from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceCard';
 import ConsumerInvoiceDetailsCard from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceDetailsCard';
-import Typography from '#Fabrique/Typography';
+import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
 
 import type { ConsumerInvoice, Invoice } from '#src/libs/invoice/types';
 import {
@@ -90,83 +88,50 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
     [isMobile],
   );
 
-  const showPlaceholder =
-    !consumerInvoiceList || consumerInvoiceList.length === 0;
+  const isCurrentTabContentEmpty =
+    !isLoading && consumerInvoiceList?.length === 0;
 
   React.useEffect(
     () => clearSelectedConsumerInvoice(),
     [clearSelectedConsumerInvoice, selectedFilter],
   );
 
-  if (isLoading && !(consumerInvoiceList?.length > 0)) {
-    return (
-      <div className="bs-consumer-invoice-page__body">
-        <div className="bs-consumer-invoice-page__body-list__loading">
-          <div className="bs-consumer-invoice-page__body-list-container">
-            <ConsumerCardSkeleton className="bs-consumer-invoice-page__card-skeleton" />
-            <ConsumerCardSkeleton className="bs-consumer-invoice-page__card-skeleton" />
-          </div>
-          {!isMobile && (
-            <ConsumerDetailsCardSkeleton className="bs-consumer-invoice-page__details-card-skeleton" />
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  if (isMobile && !!selectedConsumerInvoice) {
-    return (
-      <div className="bs-consumer-invoice-page__body">
-        <div className="bs-consumer-invoice-page__body-details--mobile">
-          <ConsumerInvoiceDetailsCard
-            isMobile
-            consumerInvoice={selectedConsumerInvoice}
-            downloadInvoice={
-              isInvoiceDownloadable(selectedConsumerInvoice)
-                ? handleDownloadInvoice
-                : null
-            }
-            downloadReceipt={
-              selectedConsumerInvoice?.payments?.length
-                ? handleDownloadReceipt
-                : null
-            }
-            getInvoice={getInvoice}
-            isMultilocationEnabled={isMultilocationEnabled}
-            payInvoice={payConsumerInvoice}
-            selectedFilter={selectedFilter}
-          />
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div
-      className={classNames('bs-consumer-invoice-page__body', {
-        'bs-consumer-invoice-page__body--empty': showPlaceholder,
-      })}
-    >
-      {showPlaceholder ? (
-        <Typography align="center" variant="body-lg">
-          {t(`reworked.myInvoices.placeholder.${selectedFilter}`)}
-        </Typography>
-      ) : (
-        <div className="bs-consumer-invoice-page__body-list">
+    <PageInnerContentLayout
+      DetailComponent={
+        <ConsumerInvoiceDetailsCard
+          className={
+            ((isMobile && !selectedConsumerInvoice) ||
+              isCurrentTabContentEmpty) &&
+            'bs-consumer-page-root__invoices__details-card--hidden'
+          }
+          consumerInvoice={selectedConsumerInvoice}
+          downloadInvoice={
+            isInvoiceDownloadable(selectedConsumerInvoice)
+              ? handleDownloadInvoice
+              : null
+          }
+          downloadReceipt={
+            selectedConsumerInvoice?.payments?.length
+              ? handleDownloadReceipt
+              : null
+          }
+          getInvoice={getInvoice}
+          isMobile={isMobile}
+          isMultilocationEnabled={isMultilocationEnabled}
+          payInvoice={payConsumerInvoice}
+          selectedFilter={selectedFilter}
+        />
+      }
+      emptyPlaceholder={t(`reworked.myInvoices.placeholder.${selectedFilter}`)}
+      InfiniteScrollComponent={
+        isMobile && !!selectedConsumerInvoice ? null : (
           <GenericInfiniteScrollEnhancedCssOnly<ConsumerInvoice>
-            className="bs-consumer-invoice-page__body-list-container"
             fetchMoreData={fetchMoreInvoices}
             hasMore={hasMoreInvoicesToFetch}
             height={myInvoicesListHeight}
             items={consumerInvoiceList}
-            loader={
-              <ConsumerInvoiceCard
-                isLoading
-                consumerInvoice={null}
-                getInvoice={null}
-                selectedFilter={null}
-              />
-            }
+            loader={<ConsumerCardSkeleton />}
             renderItem={({ item }) => (
               <ConsumerInvoiceCard
                 key={`ConsumerInvoiceCard-${item.uuid}`}
@@ -189,30 +154,10 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
               />
             )}
           />
-          {!isMobile && (
-            <div className="bs-consumer-invoice-page__body-details">
-              <ConsumerInvoiceDetailsCard
-                consumerInvoice={selectedConsumerInvoice}
-                downloadInvoice={
-                  isInvoiceDownloadable(selectedConsumerInvoice)
-                    ? handleDownloadInvoice
-                    : null
-                }
-                downloadReceipt={
-                  selectedConsumerInvoice?.payments?.length
-                    ? handleDownloadReceipt
-                    : null
-                }
-                getInvoice={getInvoice}
-                isMultilocationEnabled={isMultilocationEnabled}
-                payInvoice={payConsumerInvoice}
-                selectedFilter={selectedFilter}
-              />
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+        )
+      }
+      isEmpty={isCurrentTabContentEmpty}
+    />
   );
 };
 

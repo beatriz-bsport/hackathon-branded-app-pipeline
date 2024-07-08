@@ -122,13 +122,13 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
 
   getInvoiceRESTList = (selectedFilter: InvoicesFiltersEnum) => {
     switch (selectedFilter) {
-      case InvoicesFiltersEnum.UNPAID:
-      default:
-        return this.props.unpaidInvoiceList;
       case InvoicesFiltersEnum.PAID:
         return this.props.paidInvoiceList;
       case InvoicesFiltersEnum.REFUNDED:
         return this.props.refundedInvoiceList;
+      case InvoicesFiltersEnum.UNPAID:
+      default:
+        return this.props.unpaidInvoiceList;
     }
   };
 

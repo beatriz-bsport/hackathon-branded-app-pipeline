@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-
+import classNames from 'classnames';
 import {
   ConsumerInvoiceDetailsCardBody,
   ConsumerInvoiceDetailsCardFooter,
@@ -35,6 +35,7 @@ type Props = {
   getInvoice: (uuid: string) => Invoice;
   /** Opens the payment portal. */
   payInvoice?: (consumerInvoice: ConsumerInvoice) => void;
+  className?: string;
 };
 
 const ConsumerInvoiceDetailsCard: React.FC<Props> = ({
@@ -47,6 +48,7 @@ const ConsumerInvoiceDetailsCard: React.FC<Props> = ({
   downloadReceipt,
   getInvoice,
   payInvoice,
+  className,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -85,19 +87,25 @@ const ConsumerInvoiceDetailsCard: React.FC<Props> = ({
     (!!downloadInvoice && !!reverseInvoice);
 
   if (isLoading) {
-    return <ConsumerDetailsCardSkeleton />;
+    return <ConsumerDetailsCardSkeleton className={className} />;
   }
 
   if (!consumerInvoice) {
     return (
       <ConsumerCardPlaceholder
+        className={className}
         message={t('reworked.myInvoices.detailsCard.placeholder')}
       />
     );
   }
 
   return (
-    <Card className="bs-consumer-invoice-details-card__root">
+    <Card
+      className={classNames(
+        'bs-consumer-invoice-details-card__root',
+        className,
+      )}
+    >
       <ConsumerInvoiceDetailsCardHeader
         consumerInvoice={consumerInvoice}
         isMultilocationEnabled={isMultilocationEnabled}

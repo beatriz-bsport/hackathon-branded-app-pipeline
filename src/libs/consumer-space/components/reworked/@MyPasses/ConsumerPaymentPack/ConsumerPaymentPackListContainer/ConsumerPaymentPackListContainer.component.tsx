@@ -1,13 +1,12 @@
 import React, { useCallback } from 'react';
-import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-import Typography from '#Fabrique/Typography';
 import { GenericInfiniteScrollEnhancedCssOnly } from '#src/components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import ConsumerPassCard from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
 import ConsumerPaymentPackDetailsCard from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackDetailsCard';
 import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
+import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
 
 import { parseConsumerPaymentPackData } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/utils';
 
@@ -23,15 +22,15 @@ import {
 import '#src/libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
 
 type Props = {
-  isMobile?: boolean;
+  handlePaginationFetchMore: () => void;
+  hasNextPage?: boolean;
   isLoading?: boolean;
   isMetadataLoading?: boolean;
-  selectedPass?: ConsumerPaymentPackReworked;
-  passList: ConsumerPaymentPackReworked[];
-  hasNextPage?: boolean;
+  isMobile?: boolean;
   onPassCardClick: (passId: number) => void;
-  handlePaginationFetchMore: () => void;
+  passList: ConsumerPaymentPackReworked[];
   selectedFilterTab: PassFilterTab;
+  selectedPass?: ConsumerPaymentPackReworked;
 };
 
 export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
@@ -48,7 +47,7 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
   const { t } = useTranslation('consumerSpace');
 
   const showPlaceholder = !isLoading && !passList?.length;
-
+  const isCurrentTabContentEmpty = !isLoading && !passList?.length;
   const {
     activityCompatibilities,
     creditsLeft,
@@ -73,30 +72,40 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
   );
 
   return (
-    <div
-      className={classNames('bs-consumer-pass-page__content__list-container', {
-        'bs-consumer-pass-page__content__list-container--empty':
-          showPlaceholder,
-      })}
-    >
-      {showPlaceholder && (
-        <Typography align="center" variant="body-lg">
-          {t(
-            `consumerSpace:reworked.myBookings.listContainer.placeholder.pass.${selectedFilterTab}`,
-          )}
-        </Typography>
+    <PageInnerContentLayout
+      DetailComponent={
+        <ConsumerPaymentPackDetailsCard
+          activityCompatibilities={activityCompatibilities}
+          className={
+            (isMobile || showPlaceholder) &&
+            'bs-consumer-payment-pack-details-card__root--hidden'
+          }
+          // TODO: Out of scope, needs product specs
+          compatibleEstablishments={null}
+          creditsLeft={creditsLeft}
+          description={description}
+          expirationDate={expirationDate}
+          isCompatibleWithBookingForGuest={isCompatibleWithBookingForGuest}
+          isCompatibleWithVod={isCompatibleWithVod}
+          isLoading={isLoading || isMetadataLoading}
+          isMobile={isMobile}
+          isSuspended={isSuspended}
+          isUnlimited={isUnlimited}
+          name={name}
+          restrictions={restrictions}
+          sharedBy={sharedBy}
+          sharedWith={sharedWith}
+          showPlaceholder={!selectedPass}
+          startDate={startDate}
+          timeSlots={timeSlots}
+          totalCredits={totalCredits}
+        />
+      }
+      emptyPlaceholder={t(
+        `consumerSpace:reworked.myBookings.listContainer.placeholder.pass.${selectedFilterTab}`,
       )}
-      <ul
-        className={classNames(
-          'bs-consumer-pass-page__content__list-container__list',
-          {
-            'bs-consumer-pass-page__content__list-container__list--hidden':
-              showPlaceholder,
-          },
-        )}
-      >
+      InfiniteScrollComponent={
         <GenericInfiniteScrollEnhancedCssOnly<ConsumerPaymentPackReworked>
-          className="bs-consumer-pass-page__content__list-container__list__container"
           fetchMoreData={handlePaginationFetchMore}
           hasMore={hasNextPage}
           height={
@@ -129,35 +138,9 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
             />
           )}
         />
-      </ul>
-
-      <ConsumerPaymentPackDetailsCard
-        activityCompatibilities={activityCompatibilities}
-        className={
-          (isMobile || showPlaceholder) &&
-          'bs-consumer-payment-pack-details-card__root--hidden'
-        }
-        // TODO: Out of scope, needs product specs
-        compatibleEstablishments={null}
-        creditsLeft={creditsLeft}
-        description={description}
-        expirationDate={expirationDate}
-        isCompatibleWithBookingForGuest={isCompatibleWithBookingForGuest}
-        isCompatibleWithVod={isCompatibleWithVod}
-        isLoading={isLoading || isMetadataLoading}
-        isMobile={isMobile}
-        isSuspended={isSuspended}
-        isUnlimited={isUnlimited}
-        name={name}
-        restrictions={restrictions}
-        sharedBy={sharedBy}
-        sharedWith={sharedWith}
-        showPlaceholder={!selectedPass}
-        startDate={startDate}
-        timeSlots={timeSlots}
-        totalCredits={totalCredits}
-      />
-    </div>
+      }
+      isEmpty={isCurrentTabContentEmpty}
+    />
   );
 };
 

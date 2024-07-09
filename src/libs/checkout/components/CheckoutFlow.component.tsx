@@ -8,6 +8,8 @@ import { Coupon } from '#src/libs/coupon/types';
 import { CouponErrorCodes } from '#src/libs/coupon/constants';
 import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import BasketConsumer from './BasketConsumer.component';
+import CouponPartiallyAppliedWarning from '#src/libs/coupon/components/CouponPartiallyAppliedWarning.component';
+import { basketHasPartiallyAppliedCoupon } from '#src/libs/checkout/utils';
 
 // @ts-expect-error
 import BasketFinalizer from './BasketFinalizer.component';
@@ -41,6 +43,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
+  },
+  warningContainer: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -111,6 +117,11 @@ export const CheckoutFlow: React.FC<Props> = (props) => {
     [props.loading, props.basket],
   );
 
+  const displayCouponPartiallyAppliedWarning = React.useMemo(
+    () => basketHasPartiallyAppliedCoupon(props.basket as unknown as Basket),
+    [props.basket],
+  );
+
   return (
     <div className={classes.container}>
       <Typography className={classes.title} variant="h4">
@@ -134,6 +145,11 @@ export const CheckoutFlow: React.FC<Props> = (props) => {
           }
         />
       </Paper>
+      {displayCouponPartiallyAppliedWarning && (
+        <div className={classes.warningContainer}>
+          <CouponPartiallyAppliedWarning />
+        </div>
+      )}
       {props.shopItemList.length ? (
         <div className={classes.featureBanner}>
           <ShopItemFeaturedBanner

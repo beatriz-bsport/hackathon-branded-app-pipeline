@@ -1,5 +1,8 @@
 import { TFunction } from 'i18next';
-import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
+import {
+  BUYABLE_ITEM_FEE,
+  BUYABLE_ITEM_COUPON,
+} from '@bsport/common/lib/master-data/buyable-items';
 import {
   OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
   OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE,
@@ -391,3 +394,13 @@ export const hasRedirectionFailed = (queryParams: {
     queryParams.redirect_status === 'failed'
   );
 };
+
+export const basketHasPartiallyAppliedCoupon = (basket: Basket) =>
+  basket?.checkout_items?.some(
+    (checkoutItem) =>
+      checkoutItem.buyable_item_identifier === BUYABLE_ITEM_COUPON &&
+      getIsCheckoutItemApplied(checkoutItem.extra_data) &&
+      Math.abs(checkoutItem.unit_price) > 0 &&
+      Math.abs(checkoutItem.unit_price) * 100 <
+        checkoutItem.extra_data?.theoretical_voucher_cts,
+  );

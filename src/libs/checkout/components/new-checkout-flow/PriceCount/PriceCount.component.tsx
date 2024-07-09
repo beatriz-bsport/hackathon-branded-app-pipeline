@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
@@ -18,9 +18,14 @@ import type {
 
 import BasketTaxInfo from '#src/libs/checkout/components/BasketTaxInfo.component';
 
-import { getSubTotal, getCheckoutItemPrice } from '#src/libs/checkout/utils';
+import {
+  getSubTotal,
+  getCheckoutItemPrice,
+  basketHasPartiallyAppliedCoupon,
+} from '#src/libs/checkout/utils';
 
 import { BillItem } from '#src/libs/checkout/components/new-checkout-flow/BilllItem.component';
+import CouponPartiallyAppliedWarning from '#src/libs/coupon/components/CouponPartiallyAppliedWarning.component';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -120,6 +125,11 @@ export const PriceCount: React.FC<PriceCountProps> = ({
     !internalAccountItem &&
     hideTotal;
 
+  const displayCouponPartiallyAppliedWarning = useMemo(
+    () => basketHasPartiallyAppliedCoupon(basket as unknown as Basket),
+    [basket],
+  );
+
   if (hasNothingToDisplay) {
     return null;
   }
@@ -167,6 +177,9 @@ export const PriceCount: React.FC<PriceCountProps> = ({
                 onRemoveBillItem={handleRemoveDiscountItem(discountItem)}
               />
             ))}
+            {displayCouponPartiallyAppliedWarning && (
+              <CouponPartiallyAppliedWarning />
+            )}
           </div>
           <Divider className={classes.divider} variant="middle" />
         </>

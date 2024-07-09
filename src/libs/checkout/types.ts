@@ -107,6 +107,7 @@ export type CheckoutItemExtraData = {
   referral_coupon_type?: string;
   has_reached_max_uses?: boolean;
   missing_amount_before_application?: number;
+  theoretical_voucher_cts?: number;
 };
 
 export type CheckoutItemOfferData = {

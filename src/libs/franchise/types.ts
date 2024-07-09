@@ -10,8 +10,9 @@ import type {
   ConsumerGiftcard,
   GiftcardTemplate,
 } from '#src/libs/giftcard/types';
-import type { ConsumerInvoiceREST } from '#src/libs/invoice/types';
+import type { ConsumerInvoiceREST, Invoice } from '#src/libs/invoice/types';
 import type { TagGroup, TagTemplate } from '#src/libs/tag/types';
+import type { SubscriptionInterval } from '#src/libs/subscription/types';
 
 export type FranchiseState = {
   error: null | boolean;
@@ -91,6 +92,22 @@ export type FranchiseState = {
         page: number;
         count: number;
       };
+    };
+    billingPlans: {
+      page: number;
+      next_page: number;
+      count: number;
+      allIds: number[];
+      byId: Record<number, FranchiseUserBillingPlan>;
+      loading: boolean;
+      error: Error | null;
+      invoices: {
+        page: number;
+        next_page: number;
+        count: number;
+        allIds: string[];
+        byId: Record<string, Invoice>;
+      } & ErrorAndLoading;
     };
   };
 };
@@ -194,9 +211,22 @@ export type PassesPaginatedQueryParams = PaginationFilterParams & {
   filters?: FranchisePassFilters;
 };
 
+export type BillingPlansPaginatedQueryParams = PaginationFilterParams & {
+  filters?: FranchiseBillingPlanFilters;
+};
+
 export type FranchiseUserPassesQueryParams = {
   user_id: number;
 } & PassesPaginatedQueryParams;
+
+export type FranchiseUserBillingPlansQueryParams = {
+  user_id: number;
+} & BillingPlansPaginatedQueryParams;
+
+export type FranchiseUserBillingPlanInvoicesQueryParams = {
+  user_id: number;
+  billing_plan_id: number;
+} & PaginationFilterParams;
 
 export type FranchiseUserPass = {
   id: number;
@@ -247,12 +277,27 @@ export type FranchisePassFilters = {
   company_group__in?: number[];
 };
 
+export type FranchiseBillingPlanFilters = {
+  company__in?: number[];
+  company_group__in?: number[];
+  is_canceled?: boolean;
+  is_expired?: boolean;
+  is_paused?: boolean;
+  is_valid?: boolean;
+};
+
 export type FranchisePassFiltersOpener = {
   expiration?: boolean;
   reverted?: boolean;
   credit_left?: boolean;
   companies?: boolean;
   company_groups?: boolean;
+};
+
+export type FranchiseBillingPlanFiltersOpener = {
+  companies?: boolean;
+  company_groups?: boolean;
+  status?: boolean;
 };
 
 export type CompanyOptionTypeBase = { label: string; value: string };
@@ -351,4 +396,34 @@ export type FranchiseUserTagOption = {
   label: string;
   value: number;
   tag: TagTemplate<TagGroup>;
+};
+
+export type FranchiseUserBillingPlanPause = {
+  from_date: string;
+  id: number;
+  until_date: string;
+};
+
+export type FranchiseUserBillingPlan = {
+  canceled_at: string | null;
+  company_group_id: number;
+  company_id: number;
+  company_name: string;
+  company_primary_color: string;
+  contract_name: string;
+  contract_template_id: number;
+  date_start: string;
+  first_billing_date: string;
+  has_ended: boolean;
+  id: number;
+  interval: SubscriptionInterval;
+  member: number;
+  name: string;
+  nb_interval: number;
+  pauses: FranchiseUserBillingPlanPause[];
+  payment_pack_template?: number;
+  private_pass_template?: number;
+  recurrence_basis: number;
+  recurrent_price: string;
+  status: number;
 };

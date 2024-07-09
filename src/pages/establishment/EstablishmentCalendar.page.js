@@ -19,7 +19,7 @@ import {
   getPrivateBookingListFiltered,
   withRelatedFields,
 } from '../../libs/private-service/selectors/private-booking';
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../../libs/member/actions';
+import { fetchMemberBulkByIdBatched as fetchMemberBulkByIdBatchedAction } from '../../libs/member/actions';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import PrivateCalendarWithControls from '../../libs/private-service/components/PrivateCalendarWithControls.component';
@@ -304,7 +304,7 @@ export default compose(
       enableEstablishmentAvailabilitySlot,
       fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
       fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
-      fetchMemberBulkById: fetchMemberBulkByIdAction,
+      fetchMemberBulkByIdBatched: fetchMemberBulkByIdBatchedAction,
       setEstablishmentScheduleFilter: setEstablishmentScheduleFilterAction,
       fetchAssociatedEstablishments,
     },
@@ -340,7 +340,7 @@ export default compose(
         periodFilter,
         fetchPrivateServiceBulk,
         fetchPrivateSlotBulk,
-        fetchMemberBulkById,
+        fetchMemberBulkByIdBatched,
         id,
       }) =>
       () => {
@@ -357,7 +357,9 @@ export default compose(
                 bookingList.map((b) => b.private_service),
               );
               fetchPrivateSlotBulk(bookingList.map((b) => b.private_slot));
-              fetchMemberBulkById(uniq(bookingList.map((b) => b.member)));
+              fetchMemberBulkByIdBatched(
+                uniq(bookingList.map((b) => b.member)),
+              );
             },
           },
         );

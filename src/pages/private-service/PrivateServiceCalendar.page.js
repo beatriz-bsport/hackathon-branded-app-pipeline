@@ -18,10 +18,7 @@ import { getTheme } from '#src/libs/theme/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import withTitle from '../../hocs/with-title.hoc';
-import {
-  fetchFilteredMembers,
-  fetchMemberBulkById as fetchMemberBulkByIdAction,
-} from '../../libs/member/actions';
+import { fetchMemberBulkByIdBatched as fetchMemberBulkByIdBatchedAction } from '../../libs/member/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { getPrivateServiceById } from '../../libs/private-service/selectors/private-service';
 import {
@@ -391,8 +388,7 @@ export default compose(
       fetchCustomEventList: fetchCustomEventListAction,
       resetCustomEvent,
       createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
-      fetchFilteredMembers,
-      fetchMemberBulkById: fetchMemberBulkByIdAction,
+      fetchMemberBulkByIdBatched: fetchMemberBulkByIdBatchedAction,
       disableAvailabilitySlotMultipleResource,
       enableAvailabilitySlotMultipleResource,
       fetchEstablishments: fetchEstablishmentsAction,
@@ -431,7 +427,12 @@ export default compose(
         });
       },
     fetchPrivateBookingList:
-      ({ fetchPrivateBookings, periodFilter, id, fetchMemberBulkById }) =>
+      ({
+        fetchPrivateBookings,
+        periodFilter,
+        id,
+        fetchMemberBulkByIdBatched,
+      }) =>
       () => {
         fetchPrivateBookings(
           {
@@ -443,7 +444,7 @@ export default compose(
           {
             onSuccess: (bookings) => {
               if (bookings.length) {
-                fetchMemberBulkById(uniq(bookings.map((b) => b.member)));
+                fetchMemberBulkByIdBatched(uniq(bookings.map((b) => b.member)));
               }
             },
           },

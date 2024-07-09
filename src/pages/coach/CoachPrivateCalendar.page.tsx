@@ -54,7 +54,7 @@ import CustomEvenFormDialog from '#src/libs/private-service/components/custom-ev
 import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
 import type { PrivateBooking } from '#src/libs/private-service/types';
 
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
+import { fetchMemberBulkByIdBatched as fetchMemberBulkByIdBatchedAction } from '#src/libs/member/actions';
 
 import {
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
@@ -400,7 +400,7 @@ const connector = connect(
   {
     fetchCoach: (id: number) => fetchCoachBulk([id]),
     fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
-    fetchMemberBulkById: fetchMemberBulkByIdAction,
+    fetchMemberBulkByIdBatched: fetchMemberBulkByIdBatchedAction,
     fetchCustomEventList: fetchCustomEventListAction,
     fetchPrivateBookings: fetchPrivateBookingsAction,
     fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
@@ -503,7 +503,7 @@ export default compose(
         fetchPrivateBookings,
         fetchPrivateSlotBulk,
         fetchPrivateServiceBulk,
-        fetchMemberBulkById,
+        fetchMemberBulkByIdBatched,
         periodFilter,
         id,
       }) =>
@@ -519,7 +519,9 @@ export default compose(
           {
             onSuccess: (bookingList: PrivateBooking[]) => {
               if (bookingList.length) {
-                fetchMemberBulkById(uniq(bookingList.map((b) => b.member)));
+                fetchMemberBulkByIdBatched(
+                  uniq(bookingList.map((b) => b.member)),
+                );
 
                 fetchPrivateServiceBulk(
                   bookingList.map((b) => b.private_service),

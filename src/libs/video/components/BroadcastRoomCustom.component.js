@@ -58,18 +58,16 @@ export class BroadcastRoomWhereby extends React.Component<Props> {
   openLink = () => {
     const url = this.getRoomLink();
     if (url) {
-      openNewBackOfficeWindow(url);
+      window.open(this.getRoomLink(), '_blank');
     }
   };
 
   getRoomLink = () => {
-    if (
-      this.props.broadcast_info.room &&
-      !this.props.broadcast_info.room.toLowerCase().includes('http')
-    ) {
+    if (!this.props.broadcast_info.room) return null;
+    if (!this.props.broadcast_info.room.toLowerCase().includes('http')) {
       return `http://${this.props.broadcast_info.room}`;
     }
-    return null;
+    return this.props.broadcast_info.room;
   };
 
   componentDidMount() {
@@ -78,6 +76,7 @@ export class BroadcastRoomWhereby extends React.Component<Props> {
 
   render() {
     const link = this.getRoomLink();
+
     return (
       <div>
         <a href={link} rel="noopener noreferrer" target="_blank">

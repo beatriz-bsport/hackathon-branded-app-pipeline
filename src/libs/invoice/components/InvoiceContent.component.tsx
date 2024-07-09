@@ -25,6 +25,7 @@ import CouponCodeForm from '#src/libs/coupon/components/CouponCodeForm.component
 import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import EstablishmentBillingGroupSelector from '#src/libs/establishment/components/EstablishmentBillingGroupSelector';
+import CouponPartiallyAppliedWarning from '#src/libs/coupon/components/CouponPartiallyAppliedWarning.component';
 // @ts-expect-error
 import InvoiceItem from './InvoiceItem.component';
 // @ts-expect-error
@@ -65,6 +66,7 @@ type Props = {
     establishmentBillingGroup: EstablishmentBillingGroup | null,
   ) => void;
   updatePaymentMethod: (uuid: string, paymentMethodId: number) => void;
+  displayCouponNotFullyAppliedWarning?: boolean;
 };
 
 export const InvoiceContent: React.FC<Props> = ({
@@ -94,6 +96,7 @@ export const InvoiceContent: React.FC<Props> = ({
   returnPayment,
   setEstablishmentBillingGroup,
   updatePaymentMethod,
+  displayCouponNotFullyAppliedWarning,
 }) => {
   const classes = useStyles({
     amountPaymentItem,
@@ -338,6 +341,12 @@ export const InvoiceContent: React.FC<Props> = ({
                   </ListItem>
                 </>
               ))}
+
+            {displayCouponNotFullyAppliedWarning && (
+              <ListItem>
+                <CouponPartiallyAppliedWarning />
+              </ListItem>
+            )}
           </List>
         </div>
 
@@ -525,6 +534,9 @@ const useStyles = makeStyles<
   },
   sectionEstablishmentBilling: {
     padding: theme.spacing(2),
+  },
+  alert: {
+    alignItems: 'center',
   },
 }));
 

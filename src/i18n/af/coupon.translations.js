@@ -318,6 +318,8 @@ const getTranslations = async () => {
       [CouponKind.COUPON_VIA_CODE]: 'Discount code',
       [CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE]: 'Single-use voucher',
     },
+    couponNotFullyAppliedWarning:
+      "Some discounts were not fully applied since they exceeded the items' initial prices. The unused discount amounts will be lost.",
   };
 };
 

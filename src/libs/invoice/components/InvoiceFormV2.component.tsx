@@ -22,11 +22,11 @@ import InvoiceContent from './InvoiceContent.component';
 // @ts-expect-error
 import InvoiceEditorV2 from './InvoiceEditorV2.component';
 import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
-import {
+import type {
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
 } from '../../../state/types';
-import { InvoiceItem } from '../invoice-item/types';
+import type { InvoiceItem } from '../invoice-item/types';
 
 type OwnProps = {
   invoiceItemList: InvoiceItem[];
@@ -59,9 +59,11 @@ type Props = OwnProps & WithStyles & WithTranslation;
 
 type State = {
   invoiceItemList: Array<InvoiceItem>;
-  coupon_list: Array<{
-    coupon_code: string;
-    coupon_voucher: number;
+  appliedCoupons: Array<{
+    voucher: number;
+    coupon_partially_applied: boolean;
+    id: number;
+    code: string;
   }>;
   couponLoading: boolean;
   selectedEstablishmentBillingGroup?: EstablishmentBillingGroup | null;
@@ -82,7 +84,7 @@ export class InvoiceForm extends React.Component<Props, State> {
     super(props);
     this.state = {
       invoiceItemList: [],
-      coupon_list: [],
+      appliedCoupons: [],
       couponLoading: false,
       selectedEstablishmentBillingGroup: null,
       giftcardToConfigureList: [],
@@ -122,7 +124,7 @@ export class InvoiceForm extends React.Component<Props, State> {
       this.state.invoiceItemList &&
       prevState.invoiceItemList !== this.state.invoiceItemList
     ) {
-      this.checkCouponApplicability();
+      this.refreshCouponsCompatibilityAndVoucher();
     }
   }
 
@@ -164,8 +166,8 @@ export class InvoiceForm extends React.Component<Props, State> {
           acc +
           parseFloat(invoiceItem.price) -
           parseFloat(invoiceItem.voucher || '0'),
-        -this.state.coupon_list.reduce(
-          (acc, appliedCoupon) => acc + appliedCoupon.coupon_voucher,
+        -this.state.appliedCoupons.reduce(
+          (acc, appliedCoupon) => acc + appliedCoupon.voucher,
           0,
         ),
       );
@@ -185,24 +187,22 @@ export class InvoiceForm extends React.Component<Props, State> {
   ) => {
     try {
       const { data } = await appliesToInvoice({
-        coupon_code: couponCode,
-        memberId: this.props.member.id,
+        codes: [couponCode],
+        member: this.props.member.id,
         invoice: {
           invoice_items: this.state.invoiceItemList,
         },
+        already_applied_coupons: this.state.appliedCoupons.map(
+          (appliedCoupon) => ({
+            coupon_id: appliedCoupon.id,
+            code: appliedCoupon.code,
+          }),
+        ),
       });
 
       if (data.can_be_applied) {
-        this.setState((prevState) => {
-          return {
-            coupon_list: [
-              ...prevState.coupon_list,
-              {
-                coupon_code: couponCode,
-                coupon_voucher: data.voucher,
-              },
-            ],
-          };
+        this.setState({
+          appliedCoupons: data.applied_coupons,
         });
         if (options && options.onSuccess) options.onSuccess();
       } else if (options && options.onNotFound) {
@@ -223,24 +223,39 @@ export class InvoiceForm extends React.Component<Props, State> {
 
   deleteCoupon = (index: number) => {
     this.setState((prevState) => {
-      const coupon_list = [
-        ...prevState.coupon_list.slice(0, index),
-        ...prevState.coupon_list.slice(index + 1),
+      const appliedCoupons = [
+        ...prevState.appliedCoupons.slice(0, index),
+        ...prevState.appliedCoupons.slice(index + 1),
       ];
       return {
         ...prevState,
-        coupon_list,
+        appliedCoupons,
       };
-    });
+    }, this.refreshCouponsCompatibilityAndVoucher);
   };
 
-  checkCouponApplicability = async () => {
-    this.setState({ coupon_list: [], couponLoading: true });
-    const promises = this.state.coupon_list.map((coupon) => {
-      return this.applyCoupon(coupon.coupon_code);
-    });
-    await Promise.all(promises);
-    this.setState({ couponLoading: false });
+  refreshCouponsCompatibilityAndVoucher = async () => {
+    if (this.state.appliedCoupons.length === 0) return;
+    this.setState({ appliedCoupons: [], couponLoading: true });
+
+    try {
+      const { data } = await appliesToInvoice({
+        codes: this.state.appliedCoupons.map(
+          (appliedCoupon) => appliedCoupon.code,
+        ),
+        member: this.props.member.id,
+        invoice: {
+          invoice_items: this.state.invoiceItemList,
+        },
+        already_applied_coupons: [],
+      });
+
+      this.setState({
+        appliedCoupons: data.applied_coupons,
+      });
+    } finally {
+      this.setState({ couponLoading: false });
+    }
   };
 
   finalizeInvoiceItems = () => {
@@ -267,8 +282,8 @@ export class InvoiceForm extends React.Component<Props, State> {
     } else {
       this.props.onSubmit({
         buyable_items: this.state.invoiceItemList,
-        coupon_codes: this.state.coupon_list.map(
-          (coupon) => coupon.coupon_code,
+        coupon_codes: this.state.appliedCoupons.map(
+          (appliedCoupon) => appliedCoupon.code,
         ),
         establishment_billing_group:
           this.state.selectedEstablishmentBillingGroup?.id,
@@ -299,6 +314,11 @@ export class InvoiceForm extends React.Component<Props, State> {
           (bi) => bi.id === this.state.giftcardToConfigureList[0],
         )
       : null;
+
+    const displayCouponNotFullyAppliedWarning = this.state.appliedCoupons.some(
+      (appliedCoupon) => appliedCoupon.coupon_partially_applied,
+    );
+
     return (
       <Grid container className={classes.container} spacing={1}>
         <Grid item md={6} xs={12}>
@@ -321,10 +341,16 @@ export class InvoiceForm extends React.Component<Props, State> {
             withEstablishment
             amountInvoiceItem={invoiceItemAmount}
             applyCoupon={this.applyCoupon}
-            couponList={this.state.coupon_list}
+            couponList={this.state.appliedCoupons.map((appliedCoupon) => ({
+              coupon_code: appliedCoupon.code,
+              coupon_voucher: appliedCoupon.voucher,
+            }))}
             couponLoading={this.state.couponLoading}
             deleteCoupon={this.deleteCoupon}
             disableCoupon={this.invoiceItemIsEmpty()}
+            displayCouponNotFullyAppliedWarning={
+              displayCouponNotFullyAppliedWarning
+            }
             enableMultiLocalization={this.props.enableMultiLocalization}
             establishmentBillingGroups={this.props.establishmentBillingGroups}
             establishmentLoading={this.props.establishmentLoading}

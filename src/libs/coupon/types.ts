@@ -157,8 +157,9 @@ export type FetchCouponsParams = {
 };
 
 export type AppliesToInvoiceBody = {
-  memberId: number;
-  coupon_code: string;
+  codes: string[];
+  member: number;
+  already_applied_coupons: Array<{ coupon_id: number; code: string }>;
   invoice: {
     invoice_items: InvoiceItem[];
   };
@@ -166,7 +167,12 @@ export type AppliesToInvoiceBody = {
 
 export type AppliesToInvoiceResponse = {
   can_be_applied: boolean;
-  voucher: number;
+  applied_coupons: Array<{
+    voucher: number;
+    coupon_partially_applied: boolean;
+    id: number;
+    code: string;
+  }>;
 };
 
 export type ApplyToContractAPI = {

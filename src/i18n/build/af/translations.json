@@ -2249,7 +2249,8 @@
     },
     "couponFilter": { "allType": "All types of promotion", "title": "Promotion type" },
     "fabLabels": { "discountCode": "Discount code", "voucherCodes": "Vouchers" },
-    "couponType": { "0": "Discount code", "3": "Single-use voucher" }
+    "couponType": { "0": "Discount code", "3": "Single-use voucher" },
+    "couponNotFullyAppliedWarning": "Some discounts were not fully applied since they exceeded the items' initial prices. The unused discount amounts will be lost."
   },
   "dashboard": {
     "placeholderEmptyValues": { "coach": "No teacher", "establishment": "No establishment" },

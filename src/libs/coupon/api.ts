@@ -119,7 +119,10 @@ export const untagCoupon: (
 };
 
 export const appliesToInvoice = (payload: AppliesToInvoiceBody) =>
-  post<AppliesToInvoiceResponse>(`${COUPON_URI}applies_to_invoice/`, payload);
+  postAuth<AppliesToInvoiceResponse>(
+    `${COUPON_URI}applies_to_invoice_new/`,
+    payload,
+  );
 
 export const fetchCouponTemplateList: (
   params?: FranchiseProductTemplateQueryParams,

@@ -295,7 +295,7 @@ export const ZoomEstablishmentTable: React.FC<Props> = ({
                     <span className={classes.textSecondary}>
                       {t(
                         `broadcast.zoom.memberType.${
-                          zoomMembersById[entry.zoom_user_id].type
+                          zoomMembersById[entry.zoom_user_id]?.type ?? ' - '
                         }`,
                       )}
                     </span>

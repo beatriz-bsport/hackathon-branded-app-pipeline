@@ -415,9 +415,6 @@ export class ConsumerPassReworked extends React.Component<
         futureUniversalPassesState={this.props.myFutureUniversalPassesState}
         handleBookASessionClick={this.handleBookASessionClick}
         handleBuyPassClick={this.handleBuyPassClick}
-        isConsumerPassesTabDisplayLoading={
-          this.props.consumerPassesTabDisplayLoading
-        }
         isLoading={this.getIsLoading()}
         isMetadataLoading={this.props.consumerPassesMetadataLoading}
         resetConsumerState={this.props.resetConsumerState}

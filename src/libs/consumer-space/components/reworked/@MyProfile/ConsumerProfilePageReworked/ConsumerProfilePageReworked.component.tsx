@@ -189,7 +189,6 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
   return (
     <PageContentContainer contentClassName="bs-consumer-profile-page__root">
       <ConsumerPageHeader
-        isLoading={isLoading}
         isMobile={isMobile}
         TitleProps={{
           buttons: buttonsData,

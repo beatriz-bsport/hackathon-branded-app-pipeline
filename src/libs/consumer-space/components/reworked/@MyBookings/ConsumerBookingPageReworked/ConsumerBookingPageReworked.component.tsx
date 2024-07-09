@@ -394,7 +394,6 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
       />
       <ConsumerPageHeader
         FilterProps={{ filters, selectedFilter: selectedFilterTab }}
-        isLoading={false}
         isMobile={isMobile}
         TabsProps={{
           selectedTab,

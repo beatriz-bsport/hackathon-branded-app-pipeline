@@ -2,8 +2,6 @@ import React, { memo } from 'react';
 
 import classNames from 'classnames';
 
-import PageHeaderSkeleton from './PageHeaderSkeleton/PageHeaderSkeleton.component';
-
 import PageHeaderTitle from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader/PageHeaderTitle';
 import PageHeaderTabs from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader/PageHeaderTabs';
 import PageHeaderFilters from '#src/libs/consumer-space/components/reworked/@Layout/PageHeaderFilters';
@@ -17,7 +15,7 @@ type Props = {
   classes?: {
     container?: string;
   };
-  isLoading?: boolean;
+
   isMobile: boolean;
   TitleProps?: {
     buttons: HeaderButton[];
@@ -36,17 +34,11 @@ type Props = {
 
 const PageHeader: React.FC<Props> = ({
   classes,
-  isLoading,
   isMobile,
   TabsProps,
   TitleProps,
   FilterProps,
 }) => {
-  if (isLoading) {
-    return (
-      <PageHeaderSkeleton classes={{ root: 'bs-consumer-page__header' }} />
-    );
-  }
   return (
     <div
       className={classNames(

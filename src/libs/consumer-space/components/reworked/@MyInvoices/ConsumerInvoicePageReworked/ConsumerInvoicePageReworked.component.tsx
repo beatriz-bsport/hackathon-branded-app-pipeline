@@ -33,7 +33,6 @@ type Props = {
   hasMoreInvoicesToFetch: boolean;
   isBodyLoading?: boolean;
   isConsumerAllowedToUseInternalAccount: boolean;
-  isLoading?: boolean;
   isMultilocationEnabled: boolean;
   membership: Membership;
   selectedFilter: InvoicesFiltersEnum;
@@ -55,7 +54,6 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   hasMoreInvoicesToFetch,
   isBodyLoading,
   isConsumerAllowedToUseInternalAccount,
-  isLoading,
   isMultilocationEnabled,
   membership,
   selectedFilter,
@@ -233,7 +231,6 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
       ) : (
         <ConsumerPageHeader
           FilterProps={{ filters, selectedFilter: selectedFilter }}
-          isLoading={isLoading}
           isMobile={isMobile}
           TitleProps={{
             buttons: buttonsData,

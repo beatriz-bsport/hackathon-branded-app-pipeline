@@ -190,7 +190,6 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
         isConsumerAllowedToUseInternalAccount={
           this.props.theme.allow_consumer_to_use_internal_account
         }
-        isLoading={this.props.loading}
         isMultilocationEnabled={this.props.theme.enable_multi_localization}
         membership={this.props.membership}
         refreshConsumerInvoices={this.refreshConsumerInvoices}

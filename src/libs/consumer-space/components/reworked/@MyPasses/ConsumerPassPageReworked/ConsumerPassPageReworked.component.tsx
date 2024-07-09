@@ -69,7 +69,6 @@ type Props = {
   futureUniversalPassesState: ConsumerPassReworked<UniversalPassREST>;
   handleBookASessionClick: () => void;
   handleBuyPassClick: () => void;
-  isConsumerPassesTabDisplayLoading: boolean;
   isLoading: boolean;
   isMetadataLoading: boolean;
   resetConsumerState: () => void;
@@ -106,7 +105,6 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
   futureUniversalPassesState,
   handleBookASessionClick,
   handleBuyPassClick,
-  isConsumerPassesTabDisplayLoading,
   isLoading,
   isMetadataLoading,
   resetConsumerState,
@@ -312,7 +310,6 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
       />
       <ConsumerPageHeader
         FilterProps={{ filters, selectedFilter: selectedFilterTab }}
-        isLoading={isConsumerPassesTabDisplayLoading}
         isMobile={isMobile}
         TabsProps={{
           selectedTab,

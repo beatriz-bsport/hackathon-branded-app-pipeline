@@ -18,6 +18,8 @@ const NavigationItem: React.FC<NavigationItemType> = ({
   buildUrl,
   isCurrentRoute,
 }) => {
+  const handleClick = React.useCallback(() => onClick?.(), [onClick]);
+
   if (!goTo)
     return (
       <MenuItem
@@ -26,7 +28,7 @@ const NavigationItem: React.FC<NavigationItemType> = ({
         })}
         label={title}
         leftIcon={icon}
-        onClick={onClick}
+        onClick={handleClick}
         rightSlot={rightSlot}
         type="text"
       />
@@ -40,7 +42,7 @@ const NavigationItem: React.FC<NavigationItemType> = ({
         })}
         label={title}
         leftIcon={icon}
-        onClick={onClick}
+        onClick={handleClick}
         rightSlot={rightSlot}
         type="text"
       />

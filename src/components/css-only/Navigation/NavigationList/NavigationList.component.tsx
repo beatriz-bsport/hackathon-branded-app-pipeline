@@ -14,6 +14,7 @@ const NavigationList: React.FC<NavigationSection> = ({
   title,
   hasDivider,
   buildUrl,
+  onBottomDrawerClose,
 }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
 
@@ -57,6 +58,7 @@ const NavigationList: React.FC<NavigationSection> = ({
           key={navigationItem.title}
           buildUrl={buildUrl}
           {...navigationItem}
+          onClick={onBottomDrawerClose}
         />
       ))}
     </MenuItemList>

@@ -41,6 +41,7 @@ const NavigationSideBar: React.FC<NavigationProps> = ({
               key={navigationSection.title}
               buildUrl={buildUrl}
               {...navigationSection}
+              onBottomDrawerClose={onBottomDrawerClose}
             />
           ))}
         </BottomDrawer>

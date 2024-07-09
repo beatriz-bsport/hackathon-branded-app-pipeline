@@ -18,6 +18,7 @@ export type NavigationSection = {
   navigationItems: NavigationItem[];
   hasDivider?: boolean;
   buildUrl?: (string: any) => string;
+  onBottomDrawerClose?: () => void;
 };
 
 export type NavigationMenu = NavigationSection[];

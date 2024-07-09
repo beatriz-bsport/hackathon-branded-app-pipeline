@@ -48,7 +48,7 @@ import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-ut
 import { workshopActivityGroupConnector } from './WorkshopActivityGroup.page';
 import usePagination from '../../hooks/usePagination';
 
-const PAGE_SIZE_OPTIONS = [5, 10, 25, 50];
+const PAGE_SIZE_OPTIONS = [5, 10];
 
 type Props = ConnectedProps<typeof workshopActivityGroupConnector> & {
   width: Breakpoint;

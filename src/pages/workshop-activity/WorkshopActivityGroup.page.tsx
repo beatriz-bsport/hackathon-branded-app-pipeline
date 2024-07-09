@@ -36,7 +36,7 @@ import {
 } from '#src/libs/level/actions';
 import {
   fetchBookedGenderBulk as fetchBookedGenderBulkAction,
-  fetchOfferBulk as fetchOfferBulkAction,
+  fetchOfferBulkBatched as fetchOfferBulkBatchedAction,
   restoreOffer as restoreOfferActtion,
   editOffers as editOffersAction,
   deleteOffer as deleteOfferAction,
@@ -161,7 +161,7 @@ export const workshopActivityGroupConnector = connect(
     fetchGroupsOfferList: fetchGroupsOfferListAction,
     createGroupOffers: createGroupOffersAction,
     generateGroupOffersPreview: generateGroupOffersPreviewAction,
-    fetchOfferBulk: fetchOfferBulkAction,
+    fetchOfferBulk: fetchOfferBulkBatchedAction,
     editGroupOffer: editGroupOfferAction,
     fetchSimilarGroupOffers: fetchSimilarGroupOffersAction,
     deleteGroupOffer: deleteGroupOfferAction,

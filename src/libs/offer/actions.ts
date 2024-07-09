@@ -62,6 +62,8 @@ import type {
   OfferStatusParams,
 } from './types';
 
+import chunk from 'lodash/chunk';
+
 export const similarOffers = {
   isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),
   error: createAction('OFFERS/SIMILAR/ERROR'),
@@ -534,6 +536,56 @@ export const offerBulkActions = {
   error: createAction('OFFER/BULK/ERROR'),
   success: createAction('OFFER/BULK/SUCCESS'),
 };
+
+/**
+ * To be used only in cases where the length of the batch could be
+ * critical.
+ */
+export function fetchOfferBulkBatched(
+  ids: Array<number>,
+  options?: OptionCallback<Offer[]> & { onCacheUsed?: () => void },
+  useCache?: boolean,
+  ignoreManagerOnly?: boolean,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    let ids_uniq = uniq((ids || []).filter((id) => !!id));
+    if (useCache) {
+      ids_uniq = ids_uniq.filter((id) => !getState().offer.byId[id]);
+    }
+
+    if (ids_uniq.length === 0) {
+      if (useCache) options?.onCacheUsed?.();
+      return;
+    }
+
+    const BATCH_SIZE = 100;
+
+    const ids_batched = chunk(ids_uniq, BATCH_SIZE);
+    const boundActionList = ids_batched.map(
+      (bacth_ids) => () =>
+        dispatch(
+          fetchOfferBulk(bacth_ids, options, useCache, ignoreManagerOnly),
+        ),
+    );
+
+    try {
+      // /!\ Async reduce below to await for batch to be resolved before sending the next ones
+      boundActionList.reduce(
+        async (previousPromise, nextBoundedAction, index) => {
+          if (index === 0) return previousPromise;
+          await previousPromise;
+          return nextBoundedAction();
+        },
+        boundActionList[0](),
+      );
+
+      options?.onSuccess?.();
+    } catch (err) {
+      console.error(err);
+      options?.onError?.();
+    }
+  };
+}
 
 export function fetchOfferBulk(
   ids: Array<number>,

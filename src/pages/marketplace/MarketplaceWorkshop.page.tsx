@@ -75,7 +75,7 @@ import Analytics from '#src/components/analytics/Analytics.component';
 import withTitle from '#src/hocs/with-title.hoc';
 import {
   fetchMarketplaceOfferByMetaActivityList as fetchMarketplaceOfferByMetaActivityListAction,
-  fetchOfferBulk as fetchOfferBulkAction,
+  fetchOfferBulkBatched as fetchOfferBulkBatchedAction,
   resetMarketplaceOfferByMetaActivityList as resetMarketplaceOfferByMetaActivityListAction,
   fetchOfferRegisteredIds as fetchOfferRegisteredIdsAction,
 } from '#src/libs/offer/actions';
@@ -159,7 +159,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   fetchGroupsOfferBulk,
   getGroup,
   getOffersListByGroup,
-  fetchOfferBulk,
+  fetchOfferBulkBatched,
   coachLoading,
   establishmentLoading,
   goToBook: bookWidget,
@@ -229,7 +229,9 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
                 offers.results.map((o) => o.group).filter((o) => !!o),
                 {
                   onSuccess: (groups) => {
-                    fetchOfferBulk(groups.flatMap((group) => group.offers));
+                    fetchOfferBulkBatched(
+                      groups.flatMap((group) => group.offers),
+                    );
                   },
                 },
               );
@@ -256,7 +258,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
       fetchAdditionalAssociatedCoachesList,
       fetchGroupsOfferBulk,
       fetchMarketplaceOfferByMetaActivityList,
-      fetchOfferBulk,
+      fetchOfferBulkBatched,
       filters,
       theme,
       username,
@@ -446,7 +448,7 @@ const connector = connect(
       resetMarketplaceOfferByMetaActivityListAction,
 
     fetchGroupsOfferBulk: fetchGroupsOfferBulkAction,
-    fetchOfferBulk: fetchOfferBulkAction,
+    fetchOfferBulkBatched: fetchOfferBulkBatchedAction,
     snackbarSuccess: snackbarSuccessAction,
     snackbarError: snackbarErrorAction,
     fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,

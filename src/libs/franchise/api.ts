@@ -21,9 +21,12 @@ import type {
   SharedConsumerGiftcard,
   GiftcardsPaginatedQueryParams,
   FranchiseUserTag,
+  FranchiseUserBillingPlan,
+  BillingPlansPaginatedQueryParams,
 } from '#src/libs/franchise/types';
 import type { PaginatedResponse } from '#src/state/types';
 import { cleanParams } from '#src/utils/createUrlHandlers';
+import type { Invoice } from '#src/libs/invoice/types';
 
 export const fetchFranchise = async () => {
   return getAuth<FranchiseDetails>(`${API_V1_URI}/franchisor/franchisor/me/`);
@@ -149,5 +152,28 @@ export const updateFranchiseUserTags = (
   return postAuth<number[]>(
     `${API_URI}/franchise_user_profile/${user_id}/member_tag/update_user_member_tags/`,
     data,
+  );
+};
+
+export const fetchFranchiseUserBillingPlans = (
+  user_id: number,
+  paginated_params: BillingPlansPaginatedQueryParams,
+) => {
+  return getAuth<PaginatedResponse<FranchiseUserBillingPlan>>(
+    `${API_URI}/subscription/franchise_user_profile/${user_id}/billing_plan/${buildUrlParams(
+      paginated_params,
+    )}`,
+  );
+};
+
+export const fetchFranchiseUserBillingPlanInvoices = (
+  user_id: number,
+  billingPlanId: number,
+  paginated_params: PaginationFilterParams,
+) => {
+  return getAuth<PaginatedResponse<Invoice>>(
+    `${API_URI}/subscription/franchise_user_profile/${user_id}/billing_plan/${billingPlanId}/get_invoices/${buildUrlParams(
+      paginated_params,
+    )}`,
   );
 };

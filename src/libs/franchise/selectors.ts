@@ -290,6 +290,7 @@ export const getFranchiseUserPassesList = createSelector(
       .map((passId) => passesData[passId])
       .filter((pass) => !!pass),
 );
+
 const _getSentSharedConsumerGiftcardsById = (state: RootState) =>
   getState(state).userProfile.sharedConsumerGiftcards.asSender.byId;
 
@@ -416,3 +417,17 @@ export const getSharedConsumerGiftcardById = (state: RootState, id: number) => {
     getState(state).userProfile.sharedConsumerGiftcards.asReceiver.byId[id]
   );
 };
+
+export const _getFranchiseUserBillingPlansById = (state: RootState) =>
+  getState(state).userProfile.billingPlans.byId;
+
+export const _getFranchiseUserBillingPlansAllIds = (state: RootState) =>
+  getState(state).userProfile.billingPlans.allIds;
+
+export const getFranchiseUserBillingPlansList = createSelector(
+  [_getFranchiseUserBillingPlansAllIds, _getFranchiseUserBillingPlansById],
+  (billingPlansIds, billingPlansData) =>
+    (billingPlansIds ?? [])
+      .map((billingPlanId) => billingPlansData[billingPlanId])
+      .filter((billingPlan) => !!billingPlan),
+);

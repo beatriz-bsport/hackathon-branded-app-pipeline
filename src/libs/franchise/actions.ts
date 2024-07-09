@@ -23,6 +23,8 @@ import {
   fetchFranchiseUserMembers as fetchFranchiseUserMembersAPI,
   fetchFranchiseUserTags as fetchFranchiseUserTagsAPI,
   updateFranchiseUserTags as updateFranchiseUserTagsAPI,
+  fetchFranchiseUserBillingPlans as fetchFranchiseUserBillingPlansAPI,
+  fetchFranchiseUserBillingPlanInvoices as fetchFranchiseUserBillingPlanInvoicesAPI,
 } from '#src/libs/franchise/api';
 import type {
   CompanyGroup,
@@ -38,14 +40,19 @@ import type {
   FranchiseDetails,
   FranchiseUserTag,
   FranchiseUserTagsUpdate,
+  FranchiseUserBillingPlan,
+  FranchiseUserBillingPlansQueryParams,
+  FranchiseUserBillingPlanInvoicesQueryParams,
 } from '#src/libs/franchise/types';
 import {
+  FRANCHISE_BILLING_PLAN_PAGE_DEFAULT_SIZE,
   FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE,
   FRANCHISE_MEMBER_TAG_PAGE_DEFAULT_SIZE,
   FRANCHISE_USER_MEMBERS_PAGE_DEFAULT_SIZE,
 } from '#src/libs/franchise/constants';
 import type { RootState } from '#src/reducers';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
+import type { Invoice } from '#src/libs/invoice/types';
 
 export const fetchFranchiseActions = {
   error: createAction<Error | null>('FRANCHISE/ME/ERROR'),
@@ -578,5 +585,89 @@ export function updateFranchiseUserTags(
       options?.onError?.(error);
     }
     dispatch(updateFranchiseUserTagsActions.isLoading(false));
+  };
+}
+
+export const fetchFranchiseUserBillingPlansActions = {
+  isLoading: createAction<boolean>('FRANCHISE/USER/BILLING_PLANS/IS_LOADING'),
+  error: createAction<Error | null>('FRANCHISE/USER/BILLING_PLANS/ERROR'),
+  success: createAction<PaginatedResponse<FranchiseUserBillingPlan>>(
+    'FRANCHISE/USER/BILLING_PLANS/SUCCESS',
+  ),
+};
+
+export function fetchFranchiseUserBillingPlans(
+  params: FranchiseUserBillingPlansQueryParams,
+  options?: OptionCallback<FranchiseUserBillingPlan[]>,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(fetchFranchiseUserBillingPlansActions.isLoading(true));
+    dispatch(fetchFranchiseUserBillingPlansActions.error(null));
+    try {
+      const currentState = getState().franchise.userProfile.tags;
+      const page = currentState.page;
+
+      const paginated_params = {
+        page: params.page ?? page,
+        page_size: params.page_size ?? FRANCHISE_BILLING_PLAN_PAGE_DEFAULT_SIZE,
+        ...params.filters,
+      };
+      const response = await fetchFranchiseUserBillingPlansAPI(
+        params.user_id,
+        paginated_params,
+      );
+      dispatch(fetchFranchiseUserBillingPlansActions.success(response.data));
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchFranchiseUserBillingPlansActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(fetchFranchiseUserBillingPlansActions.isLoading(false));
+  };
+}
+
+export const fetchFranchiseUserBillingPlanInvoicesActions = {
+  isLoading: createAction<boolean>(
+    'FRANCHISE/USER/BILLING_PLAN/INVOICES/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'FRANCHISE/USER/BILLING_PLAN/INVOICES/ERROR',
+  ),
+  success: createAction<PaginatedResponse<Invoice>>(
+    'FRANCHISE/USER/BILLING_PLAN/INVOICES/SUCCESS',
+  ),
+};
+
+export function fetchFranchiseUserBillingPlanInvoices(
+  params: FranchiseUserBillingPlanInvoicesQueryParams,
+  options?: OptionCallback<Invoice[]>,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(fetchFranchiseUserBillingPlanInvoicesActions.isLoading(true));
+    dispatch(fetchFranchiseUserBillingPlanInvoicesActions.error(null));
+    try {
+      const currentState = getState().franchise.userProfile.tags;
+      const page = currentState.page;
+
+      const paginated_params = {
+        page: params.page ?? page,
+        page_size: params.page_size ?? FRANCHISE_BILLING_PLAN_PAGE_DEFAULT_SIZE,
+      };
+      const response = await fetchFranchiseUserBillingPlanInvoicesAPI(
+        params.user_id,
+        params.billing_plan_id,
+        paginated_params,
+      );
+      dispatch(
+        fetchFranchiseUserBillingPlanInvoicesActions.success(response.data),
+      );
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchFranchiseUserBillingPlanInvoicesActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(fetchFranchiseUserBillingPlanInvoicesActions.isLoading(false));
   };
 }

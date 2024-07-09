@@ -19,6 +19,8 @@ import {
   fetchSentSharedConsumerGiftcardsActions,
   fetchFranchiseUserTagsActions,
   updateFranchiseUserTagsActions,
+  fetchFranchiseUserBillingPlansActions,
+  fetchFranchiseUserBillingPlanInvoicesActions,
 } from '#src/libs/franchise/actions';
 
 import type {
@@ -31,7 +33,9 @@ import type {
   FranchiseUserMember,
   SharedConsumerGiftcard,
   FranchiseUserTag,
+  FranchiseUserBillingPlan,
 } from '#src/libs/franchise/types';
+import type { Invoice } from '#src/libs/invoice/types';
 
 const initialState: Immutable.Immutable<FranchiseState> =
   Immutable<FranchiseState>({
@@ -122,6 +126,24 @@ const initialState: Immutable.Immutable<FranchiseState> =
           error: null,
           count: 0,
           page: 1,
+        },
+      },
+      billingPlans: {
+        page: 1,
+        next_page: null,
+        count: 0,
+        allIds: [],
+        byId: {},
+        loading: false,
+        error: null,
+        invoices: {
+          page: 1,
+          next_page: null,
+          count: 0,
+          allIds: [],
+          byId: {},
+          loading: false,
+          error: null,
         },
       },
     },
@@ -581,6 +603,7 @@ export default handleActions<Immutable.Immutable<FranchiseState>, any>(
           },
         });
     },
+
     // Consumer Giftcards
     [fetchReceivedSharedConsumerGiftcardsActions.isLoading.toString()]: (
       state: Immutable.Immutable<FranchiseState>,
@@ -693,6 +716,107 @@ export default handleActions<Immutable.Immutable<FranchiseState>, any>(
                       consumerGiftcard: SharedConsumerGiftcard,
                     ) => {
                       acc[consumerGiftcard.id] = consumerGiftcard;
+                      return acc;
+                    },
+                    {},
+                  ),
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+
+    // User  billing plans
+    [fetchFranchiseUserBillingPlansActions.isLoading.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['userProfile', 'billingPlans', 'loading'], payload);
+    },
+    [fetchFranchiseUserBillingPlansActions.error.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['userProfile', 'billingPlans', 'error'], payload);
+    },
+    [fetchFranchiseUserBillingPlansActions.success.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: PaginatedResponse<FranchiseUserBillingPlan> },
+    ) => {
+      const { page, next_page, count, results } = payload;
+
+      return state
+        .setIn(['userProfile', 'billingPlans', 'page'], page)
+        .setIn(['userProfile', 'billingPlans', 'next_page'], next_page)
+        .setIn(['userProfile', 'billingPlans', 'count'], count)
+        .setIn(
+          ['userProfile', 'billingPlans', 'allIds'],
+          uniq((results || []).map((billingPlan) => billingPlan.id)),
+        )
+        .merge(
+          {
+            userProfile: {
+              billingPlans: {
+                byId: results.reduce<Record<number, FranchiseUserBillingPlan>>(
+                  (acc, billingPlan) => {
+                    acc[billingPlan.id] = billingPlan;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+
+    // User  billing plan invoices
+    [fetchFranchiseUserBillingPlanInvoicesActions.isLoading.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['userProfile', 'billingPlans', 'invoices', 'loading'],
+        payload,
+      );
+    },
+    [fetchFranchiseUserBillingPlanInvoicesActions.error.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['userProfile', 'billingPlans', 'invoices', 'error'],
+        payload,
+      );
+    },
+    [fetchFranchiseUserBillingPlanInvoicesActions.success.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: PaginatedResponse<Invoice> },
+    ) => {
+      const { page, next_page, count, results } = payload;
+
+      return state
+        .setIn(['userProfile', 'billingPlans', 'invoices', 'page'], page)
+        .setIn(
+          ['userProfile', 'billingPlans', 'invoices', 'next_page'],
+          next_page,
+        )
+        .setIn(['userProfile', 'billingPlans', 'invoices', 'count'], count)
+        .setIn(
+          ['userProfile', 'billingPlans', 'invoices', 'allIds'],
+          uniq((results || []).map((invoice) => invoice.uuid)),
+        )
+        .merge(
+          {
+            userProfile: {
+              billingPlans: {
+                invoices: {
+                  byId: results.reduce<Record<string, Invoice>>(
+                    (acc, invoice) => {
+                      acc[invoice.uuid] = invoice;
                       return acc;
                     },
                     {},

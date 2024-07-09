@@ -2339,7 +2339,9 @@
                 },
                 "credits": {
                     "second": "und",
-                    "first": "Credits:"
+                    "first": "Credits:",
+                    "helperText": "Gefiltert nach {{count}} Kredit",
+                    "helperText_plural": "Gefiltert nach {{count}} Krediten"
                 },
                 "second": "und",
                 "has_not": "Besitzt nicht",
@@ -2474,7 +2476,9 @@
                 },
                 "credits": {
                     "first": "Credits:",
-                    "second": "und"
+                    "second": "und",
+                    "helperText": "Gefiltert nach {{count}} Kredit",
+                    "helperText_plural": "Gefiltert nach {{count}} Krediten"
                 },
                 "expiration": {
                     "first_has_expire": "ist abgelaufen",
@@ -5134,7 +5138,9 @@
             },
             "creditsLeft": {
                 "second": "Credits verbleiben",
-                "first": "Benachrichtigen, wenn es"
+                "first": "Benachrichtigen, wenn es",
+                "helperText": "Diese Benachrichtigung wird ausgelöst, wenn noch {{count}} Kredit vorhanden ist",
+                "helperText_plural": "Diese Benachrichtigung wird ausgelöst, wenn noch {{count}} Kredite vorhanden sind"
             },
             "daysPastLabel": "Benachrichtigen, wenn die Karte seit {{day}} Tag abgelaufen ist",
             "daysPastLabel_plural": "Benachrichtigen, wenn die Karte seit {{day}} Tage abgelaufen ist",
@@ -5401,7 +5407,11 @@
                     "label": "Gutzuschreibender Betrag"
                 },
                 "credits": {
-                    "label": "Abzuziehender Kredit"
+                    "label": "Abzuziehender Kredit",
+                    "decimalCredit": {
+                        "helperText": "{{count}} Kredit wird abgezogen",
+                        "helperText_plural": "{{count}} Kredite werden abgezogen"
+                    }
                 },
                 "warningSecond": "Wenn Du den Kunden per Banküberweisung mit dem verwendeten Zahlungsmittel entschädigen möchtest, storniere die Rechnung und erstatten keine Guthaben-Rückerstattung!",
                 "warningFirst": "Achtung! Dieser Vorgang ist unwiderruflich (Erstellung einer Rechnung).",
@@ -5762,7 +5772,11 @@
                 "label": "Buchungen für bestimmte Zeitfenster möglich"
             },
             "atLeastOneDay": "Es muss mindestens ein Tag ausgewählt werden",
-            "startAfterEnd": "Die Startzeit muss niedriger sein als die Endzeit"
+            "startAfterEnd": "Die Startzeit muss niedriger sein als die Endzeit",
+            "decimalCredit": {
+                "helperText": "Dieser Pass enthält {{count}} Kredit",
+                "helperText_plural": "Dieser pass enthält {{count}} Kredite"
+            }
         },
         "paymentPackTemplate": {
             "actions": {
@@ -6500,7 +6514,11 @@
                 "isFalse": "Falsch",
                 "submit": "Speichern",
                 "edit": "Bearbeiten",
-                "shortColumnError": "Die entsprechende Spalte wird nicht angezeigt"
+                "shortColumnError": "Die entsprechende Spalte wird nicht angezeigt",
+                "decimalCredit": {
+                    "helperText": "Sie müssen hier einen numerischen Wert eingeben. Bitte denk daran, dass die in den Berichten angezeigten Kredite nicht durch {{creditFactor}} geteilt werden",
+                    "filterViewHelperText": "Für kreditbezogene Filter müssen Sie einen numerischen Wert eingeben. Bitte denk daran, dass der in den Berichten angezeigte Kreditwert nicht durch {{creditFactor}} geteilt wird"
+                }
             },
             "deleteModal": {
                 "content": "SInd Sie sicher, dass Sie die gefilterte Ansicht löschen möchten? Diese Einstellung kann nicht rückgängig gemacht werden.",
@@ -6661,7 +6679,8 @@
             "referral_grant": "Empfehlungslinks werden nach dem Erstellungsdatum des gesponserten Mitglieds gefiltert",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
             "invoicesAccrualMethod": "In diesem Bericht werden die Einkäufe nach der Methode der periodengerechten Buchführung ausgewiesen. Das heißt, Überweisungen auf den internen Kontostand und Käufe von Geschenkkarten sind nicht enthalten. <0>Weitere Informationen finden Sie in unserem Hilfe-Zentrum.</0> Um den Kauf von Gutscheinen zu verfolgen, verwenden Sie den Bericht {{ purchasedGiftcardReport }}.",
-            "access_monitoring": "Die Besuche werden nach Datum und Uhrzeit gefiltert, zu der sie stattgefunden haben."
+            "access_monitoring": "Die Besuche werden nach Datum und Uhrzeit gefiltert, zu der sie stattgefunden haben.",
+            "decimalCredit": "Die in den Berichten angezeigten Kreditwerte sind nicht durch {{creditFactor}} geteilt, bitte vergessen Sie nicht, diese Spalten für weitere Analysen zu teilen."
         },
         "franchiseWarning": {
             "part1": "Aufgrund der großen Datenmenge kann es einige Minuten dauern, bis der Bericht erstellt wird.",
@@ -9307,7 +9326,11 @@
                 "title": "Video ändern",
                 "creditPrice": {
                     "helperText": "Bei Null belassen, damit das Video für alle Mitglieder zugänglich ist",
-                    "label": "Creditkosten"
+                    "label": "Creditkosten",
+                    "decimalCredit": {
+                        "helperText": "Dieses Video kostet {{count}} Kredit. Belassen Sie es bei 0, wenn das Video für alle Ihre Mitglieder zugänglich sein soll",
+                        "helperText_plural": "Dieses Video kostet {{count}} Kredite. Belassen Sie es bei 0, wenn das Video für alle Ihre Mitglieder zugänglich sein soll"
+                    }
                 },
                 "video_label": "Video",
                 "video_source": {
@@ -11163,7 +11186,11 @@
                 },
                 "credit": {
                     "helperText": "Anzahl der erforderlichen Credit(s) für eine Buchung",
-                    "label": "Anzahl der Credit(s)"
+                    "label": "Anzahl der Credit(s)",
+                    "decimalCredit": {
+                        "helperText": "Dieser Termin wird {{count}} Kredit kosten",
+                        "helperText_plural": "Dieser Termin wird {{count}} Kredite kosten"
+                    }
                 },
                 "submit": "Speichern",
                 "cancel": "Abbrechen",
@@ -11214,7 +11241,11 @@
             "form": {
                 "credits": {
                     "helperText": "Jeder Kurs kostet eine bestimmte Anzahl von Credits",
-                    "label": "Anzahl der eingeschlossenen Credits"
+                    "label": "Anzahl der eingeschlossenen Credits",
+                    "decimalCredit": {
+                        "helperText": "Dieser Pass enthält {{count}} Kredit.",
+                        "helperText_plural": "Dieser Pass enthält {{count}} Kredite."
+                    }
                 },
                 "actions": {
                     "cancel": "Abbrechen",
@@ -15850,7 +15881,11 @@
                         "hybridSection": "Hybrid-Kurs",
                         "hybridEditHelper": "Sie bearbeiten einen Online-Kurs, die mit einem Vor-Ort-Kurs verknüpft ist. Um manche Informationen zu ändern, müssen Sie den Vor-Ort-Kurs bearbeiten.",
                         "hybridManagementHelper": "Sie können die Buchungen, die mit dieser Partnerschaftssitzung verbunden sind, sowohl im Raum als auch online verwalten, indem Sie auf das Symbol unten klicken, um eine neue Verwaltungsseite zu öffnen.",
-                        "metaActivity": "Aktivität"
+                        "metaActivity": "Aktivität",
+                        "decimalCredit": {
+                            "helperText": "Dieser Termin wird {{count}} Kredit kosten.",
+                            "helperText_plural": "Dieser Termin wird {{count}} Kredite kosten."
+                        }
                     },
                     "title": "Eigenschaften"
                 },

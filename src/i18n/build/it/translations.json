@@ -3297,7 +3297,11 @@
                 "submit": "Salva",
                 "credit": {
                     "label": "Credito/i",
-                    "helperText": "Selezionare il numero di crediti richiesti per prenotare un appuntamento."
+                    "helperText": "Selezionare il numero di crediti richiesti per prenotare un appuntamento.",
+                    "decimalCredit": {
+                        "helperText": "Questa sessione costerà {{count}} credito",
+                        "helperText_plural": "Questa sessione costerà {{count}} crediti"
+                    }
                 },
                 "title": "Allenamento",
                 "pre_selected_choices": "Durate predefinite",
@@ -3438,7 +3442,11 @@
                 },
                 "credits": {
                     "label": "Numero di crediti inclusi",
-                    "helperText": "Ogni sessione costa un certo numero di crediti."
+                    "helperText": "Ogni sessione costa un certo numero di crediti.",
+                    "decimalCredit": {
+                        "helperText": "Questo pacchetto conterrà {{count}} credito.",
+                        "helperText_plural": "Questo pacchetto conterrà {{count}} crediti."
+                    }
                 },
                 "full_vod_access": {
                     "label": "Fornisce l'accesso al VOD"
@@ -4027,7 +4035,11 @@
                 },
                 "creditPrice": {
                     "helperText": "Lascia a 0 se vuoi che il video sia accessibile a tutti i tuoi membri",
-                    "label": "Costo in credito"
+                    "label": "Costo in credito",
+                    "decimalCredit": {
+                        "helperText": "Questo video costerà {{count}} credito. Lasciare a 0 se si desidera che il video sia accessibile a tutti i membri",
+                        "helperText_plural": "Questo video costerà {{count}} crediti. Lasciare a 0 se si desidera che il video sia accessibile a tutti i membri"
+                    }
                 },
                 "video_label": "Video",
                 "video_source": {
@@ -8859,7 +8871,11 @@
                 "cancel": "Cancella",
                 "edit": "Modifica",
                 "columnError": "Attenzione, la colonna filtrata qui è stata rimossa dal report. Tuttavia, il filtro su questa colonna è ancora applicato.",
-                "shortColumnError": "La colonna corrispondente non viene mostrata"
+                "shortColumnError": "La colonna corrispondente non viene mostrata",
+                "decimalCredit": {
+                    "filterViewHelperText": "Per i filtri relativi ai crediti, è necessario inserire un valore intero, ricordando che il valore dei crediti visualizzato nei report non è diviso per {{creditFactor}}",
+                    "helperText": "È necessario inserire un valore intero, ricordando che il valore dei crediti visualizzato nei report non è diviso per {{creditFactor}}"
+                }
             },
             "title": "Vista filtrata",
             "emptyFilter": "Tutti i dati",
@@ -8911,7 +8927,8 @@
             "referral_grant": "I link di sponsorizzazione sono filtrati in base alla data di creazione del membro sponsorizzato",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
             "invoicesAccrualMethod": "Questo report visualizza gli acquisti in base al metodo di contabilità per competenza. Non sono quindi inclusi i trasferimenti di denaro al saldo del conto interno e gli acquisti di gift card. <0>Per monitorare gli acquisti di gift card, utilizzare il report {{ purchasedGiftcardReport }}.",
-            "access_monitoring": "Le visite vengono filtrate in base alla data e all'ora in cui si sono verificate."
+            "access_monitoring": "Le visite vengono filtrate in base alla data e all'ora in cui si sono verificate.",
+            "decimalCredit": "I valori dei crediti visualizzati nei report non sono divisi per {{creditFactor}}, non dimenticare di dividere queste colonne per ulteriori analisi."
         },
         "last_invoice_status": {
             "": [
@@ -9067,7 +9084,11 @@
                     "label": "Importo riaccreditato"
                 },
                 "credits": {
-                    "label": "Credito da detrarre"
+                    "label": "Credito da detrarre",
+                    "decimalCredit": {
+                        "helperText": "{{count}} credito verrà detratto",
+                        "helperText_plural": "{{count}} crediti verranno detratti"
+                    }
                 },
                 "explain": "Scegli il numero di crediti da rimborsare e il valore totale che verrà accreditato sul deposito del socio",
                 "warningSecond": "Se vuoi rimborsare il cliente tramite bonifico con il metodo di pagamento usato, annulla la contabilizzazione e non rimborsare il credito!",
@@ -9161,7 +9182,9 @@
             },
             "creditsLeft": {
                 "second": "crediti/o restante/i",
-                "first": "Invia un a e-mail quando c'è"
+                "first": "Invia un a e-mail quando c'è",
+                "helperText": "Questa notifica viene attivata quando c'è {{count}} credito rimanente",
+                "helperText_plural": "Questa notifica viene attivata quando ci sono {{count}} crediti rimanenti"
             },
             "daysPastLabel": "Questa notifica viene inviata quando il pacchetto è scaduto da {{day}} giorno.",
             "daysPastLabel_plural": "Questa notifica viene inviata quando il pacchetto è scaduto da {{day}} giorni.",
@@ -9782,7 +9805,11 @@
                 "label": "Prenotazioni possibili solamente in alcune fasce orarie"
             },
             "atLeastOneDay": "Seleziona almeno un giorno",
-            "startAfterEnd": "L'ora di inizio deve essere inferiore all'ora di fine"
+            "startAfterEnd": "L'ora di inizio deve essere inferiore all'ora di fine",
+            "decimalCredit": {
+                "helperText": "Questo pacchetto conterrà {{count}} credito",
+                "helperText_plural": "Questo pacchetto conterrà {{count}} crediti"
+            }
         },
         "paymentPackTemplate": {
             "actions": {
@@ -11166,7 +11193,9 @@
                 "explanation": "Visualizzare tutti i membri che hanno acquistato il pacchetto X alla data Y con Z crediti residui",
                 "credits": {
                     "first": "crediti:",
-                    "second": "e"
+                    "second": "e",
+                    "helperText": "Filtrato su {{count}} credito",
+                    "helperText_plural": "Filtrato su {{count}} crediti"
                 },
                 "infoIcon": "I pacchetti illimitati saranno sempre inclusi",
                 "name": "Pacchetti",
@@ -11449,7 +11478,9 @@
                 },
                 "credits": {
                     "second": "e",
-                    "first": "crediti:"
+                    "first": "crediti:",
+                    "helperText": "Filtrato su {{count}} credito",
+                    "helperText_plural": "Filtrato su {{count}} crediti"
                 },
                 "third": "a",
                 "second": "e",
@@ -15299,7 +15330,11 @@
                         "hybridLabel": "Questa sessione è sia in presenza che online.",
                         "hybridEditHelper": "Stai modificando una sessione online collegata a una sessione in presenza. Per modificare alcune informazioni è necessario modificare quest'ultima.",
                         "hybridSection": "Sessione ibrida",
-                        "metaActivity": "Attività"
+                        "metaActivity": "Attività",
+                        "decimalCredit": {
+                            "helperText": "La sessione costerà {{count}} credito.",
+                            "helperText_plural": "La sessione costerà {{count}} crediti."
+                        }
                     },
                     "title": "Specifiche"
                 },

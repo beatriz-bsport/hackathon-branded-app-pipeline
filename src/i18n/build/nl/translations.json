@@ -3677,7 +3677,11 @@
                 "information": "Algemeen",
                 "addFilter": "Een filter toevoegen",
                 "emptyState": "Er zijn geen filterbare kolommen om weer te geven.",
-                "shortColumnError": "De bijbehorende kolom wordt niet weergegeven"
+                "shortColumnError": "De bijbehorende kolom wordt niet weergegeven",
+                "decimalCredit": {
+                    "filterViewHelperText": "Voor credits-gerelateerde filters moet je een geheel getal invoeren. Denk eraan dat de credits-waarde die in de rapporten wordt weergegeven niet wordt gedeeld door {{creditFactor}}",
+                    "helperText": "Je moet hier een geheel getal invoeren. Denk eraan dat de credits die in de rapporten worden weergegeven niet worden gedeeld door {{creditFactor}}"
+                }
             },
             "title": "Gefilterde weergave"
         },
@@ -3836,7 +3840,8 @@
             "referral_grant": "Doorverwijzingslinks worden gefilterd aan de hand van de inschrijfdatum van de ontvanger",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
             "invoicesAccrualMethod": "Dit rapport geeft aankopen weer op basis van de boekhoudmethode op transactiebasis. Dat wil zeggen dat overschrijvingen van geld naar het interne rekeningsaldo en aankopen van cadeaubonnen niet worden meegenomen. <0>Zie onze hulppagina voor meer informatie.</0> Gebruik het rapport {{ purchasedGiftcardReport }} om aankopen van cadeaubonnen bij te houden.",
-            "access_monitoring": "Bezoeken worden gefilterd op datum en tijd."
+            "access_monitoring": "Bezoeken worden gefilterd op datum en tijd.",
+            "decimalCredit": "De kredietwaarden die worden weergegeven in de rapporten zijn niet gedeeld door {{creditFactor}}, vergeet niet om deze kolommen te verdelen voor verdere analyse."
         },
         "franchiseWarning": {
             "part2": "U kunt het rapport nu exporteren en daarna in Excel verwerken. Bij de export wordt rekening gehouden met de aangegeven data en de toegepaste gefilterde weergave.",
@@ -3996,7 +4001,11 @@
                 "warning": "Let op, deze bewerking is onomkeerbaar (genereren van factuur).",
                 "explain": "Selecteer eerst het aantal credits dat moet worden terugbetaald en selecteer vervolgens ook de totale waarde dat moet worden bijgeschreven",
                 "credits": {
-                    "label": "Af te trekken credits"
+                    "label": "Af te trekken credits",
+                    "decimalCredit": {
+                        "helperText": "{{count}} krediet zal worden afgetrokken",
+                        "helperText_plural": "{{count}} krediet zal worden afgetrokken"
+                    }
                 },
                 "note": {
                     "label": "Notitie"
@@ -4097,7 +4106,9 @@
             },
             "creditsLeft": {
                 "second": "credit(s) heeft.",
-                "first": "Stuur een melding wanneer deze kaart nog"
+                "first": "Stuur een melding wanneer deze kaart nog",
+                "helperText": "Deze melding wordt geactiveerd als er {{count}} krediet over is",
+                "helperText_plural": "Deze melding wordt geactiveerd als er {{count}} kredieten over is"
             },
             "daysLeftLabel": "Een melding versturen wanneer deze kaart nog {{day}} dag geldig is.",
             "daysLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{day}} dagen geldig is.",
@@ -4771,7 +4782,11 @@
                 "label": "Reserveringen zijn alleen tussen bepaalde tijden mogelijk"
             },
             "atLeastOneDay": "Selecteer ten minste één dag",
-            "startAfterEnd": "De starttijd moet vóór de eindtijd zijn"
+            "startAfterEnd": "De starttijd moet vóór de eindtijd zijn",
+            "decimalCredit": {
+                "helperText": "Deze pas bevat {{count}} krediet",
+                "helperText_plural": "Deze pas bevat {{count}} kredieten"
+            }
         },
         "unlimitedPlural": "Onbeperkt",
         "universalPass": {
@@ -5239,7 +5254,9 @@
                 "third": "in",
                 "credits": {
                     "first": "credits(s):",
-                    "second": "en"
+                    "second": "en",
+                    "helperText": "Gefilterd op {{count}} krediet",
+                    "helperText_plural": "Gefilterd op {{count}} kredieten"
                 },
                 "expiration": {
                     "first_will_expire": "Vervaldatum:",
@@ -5521,7 +5538,9 @@
                 },
                 "credits": {
                     "second": "en",
-                    "first": "credit(s):"
+                    "first": "credit(s):",
+                    "helperText": "Gefilterd op {{count}} krediet",
+                    "helperText_plural": "Gefilterd op {{count}} kredieten"
                 },
                 "second": "en",
                 "has_not": "Bezit niet",
@@ -6359,7 +6378,11 @@
                         "hybridSection": "Hybride sessie",
                         "hybridManagementHelper": "Klik op het onderstaande icoontje om de reserveringen die aan deze hybride sessies gekoppeld zijn te beheren.",
                         "hybridLabel": "Maak dit een Hybride Sessie dat zowel online als in de vestiging te volgen is",
-                        "metaActivity": "Activiteit"
+                        "metaActivity": "Activiteit",
+                        "decimalCredit": {
+                            "helperText": "Deze sessie kost {{count}} credit.",
+                            "helperText_plural": "Deze sessie kost {{count}} credits."
+                        }
                     },
                     "title": "Kenmerken"
                 },
@@ -8930,7 +8953,11 @@
                 },
                 "creditPrice": {
                     "label": "Prijs (in credits)",
-                    "helperText": "Laat dit veld op 0 om de video beschikbaar voor al je leden te maken."
+                    "helperText": "Laat dit veld op 0 om de video beschikbaar voor al je leden te maken.",
+                    "decimalCredit": {
+                        "helperText": "Deze video kost {{count}} credit. Laat op 0 staan als je wilt dat de video toegankelijk is voor al je leden",
+                        "helperText_plural": "Deze video kost {{count}} credits. Laat op 0 staan als je wilt dat de video toegankelijk is voor al je leden"
+                    }
                 },
                 "video_label": "Video",
                 "video_source": {
@@ -9726,7 +9753,11 @@
                 },
                 "credit": {
                     "label": "credit(s)",
-                    "helperText": "Dit is het benodigd aantal credits voor een reservering."
+                    "helperText": "Dit is het benodigd aantal credits voor een reservering.",
+                    "decimalCredit": {
+                        "helperText": "Deze sessie kost {{count}} credit",
+                        "helperText_plural": "Deze sessie kost {{count}} credits"
+                    }
                 },
                 "duration_minutes": {
                     "label": "Duur",
@@ -9877,7 +9908,11 @@
             "form": {
                 "credits": {
                     "label": "Credits",
-                    "helperText": "Geef aan wat het aantal inbegrepen credits is."
+                    "helperText": "Geef aan wat het aantal inbegrepen credits is.",
+                    "decimalCredit": {
+                        "helperText": "Deze pas zal {{count}} krediet bevatten.",
+                        "helperText_plural": "Deze pas zal {{count}} kredieten bevatten."
+                    }
                 },
                 "durationDays": {
                     "helperText": "Geldigheidsduur (in dagen) ",

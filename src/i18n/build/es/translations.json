@@ -5490,7 +5490,11 @@
                 "information": "Informaciones generales",
                 "name": "Nombre",
                 "title": "Vista filtrada",
-                "shortColumnError": "La columna correspondiente no se visualiza"
+                "shortColumnError": "La columna correspondiente no se visualiza",
+                "decimalCredit": {
+                    "filterViewHelperText": "Para los filtros relacionados con los créditos, debes introducir un valor entero. Recuerda que el valor de los créditos que se muestra en los informes no se divide por {{creditFactor}}",
+                    "helperText": "Debe introducir aquí un valor entero, por favor, recuerde que el valor de los créditos que aparecen en los informes no se dividen por {{creditFactor}}"
+                }
             },
             "deleteModal": {
                 "content": "¿Estás seguro de que quieres eliminar esta vista filtrada? Esta acción es irreversible.",
@@ -5614,7 +5618,8 @@
             "referral_grant": "Los enlaces de referencia se filtran en función de la fecha de registro del miembro referido",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
             "invoicesAccrualMethod": "Este informe muestra las compras basadas en el método contable de devengo. Es decir, no se incluyen las transferencias de dinero al saldo de la cuenta interna ni las compras de tarjetas regalo. <0>Consulte nuestra hoja de ayuda para obtener más información.</0> Para realizar un seguimiento de las compras de tarjetas regalo, utilice el informe {{ purchasedGiftcardReport }}.",
-            "access_monitoring": "Las visitas se filtran en función de la fecha y hora en que se produjeron."
+            "access_monitoring": "Las visitas se filtran en función de la fecha y hora en que se produjeron.",
+            "decimalCredit": "Los valores de los créditos mostrados en los informes no están divididos por {{creditFactor}}, por favor, no olvides dividir estas columnas para su posterior análisis."
         },
         "franchiseWarning": {
             "part2": "Ahora puedes exportar el informe y procesarlo posteriormente en Excel. Las fechas indicadas y la vista filtrada aplicada se tendrán en cuenta en la exportación.",
@@ -6082,7 +6087,11 @@
                         "hybridHelper": "Al elegir esta opción se creará una sesión online con una afiliación por defecto de {{ onlineOfferDefaultEffectif }}. Podrá editar la información de la oferta en línea una vez creada (Enlace de difusión, afiliación, precio, etc.).",
                         "hybridLabel": "Esta sesión es presencial y en línea.",
                         "hybridSection": "Sesión híbrida",
-                        "metaActivity": "Actividad"
+                        "metaActivity": "Actividad",
+                        "decimalCredit": {
+                            "helperText": "Esta sesión costará {{count}} créditos.",
+                            "helperText_plural": "Estas sesiones costarán {{count}} créditos."
+                        }
                     },
                     "title": "Características"
                 },
@@ -7917,7 +7926,7 @@
                     "availability": {
                         "expiresToday": "Último día",
                         "expiresIn": "{{ daysRemaining }} día restante",
-                        "expiresIn_plural": "{{ daysRemaining }} días restantes",
+                        "expiresIn_plural": "días restantes",
                         "future": "Inicio: {{ startDate }}",
                         "expired": "Caducado: {{ expirationDate }}",
                         "active": "Caduca: {{ expirationDate }}"
@@ -8855,7 +8864,11 @@
                 },
                 "credits": {
                     "helperText": "Cada sesión cuesta un número determinado de créditos",
-                    "label": "Número de créditos incluidos"
+                    "label": "Número de créditos incluidos",
+                    "decimalCredit": {
+                        "helperText": "Este pase contendrá {{count}} crédito.",
+                        "helperText_plural": "Este pase contendrá {{count}} créditos."
+                    }
                 },
                 "name": {
                     "label": "Nombre",
@@ -9240,7 +9253,11 @@
                 "cancel": "Cancelar",
                 "credit": {
                     "helperText": "Número de crédito(s) necesario(s) para una reserva",
-                    "label": "Número de crédito(s)"
+                    "label": "Número de crédito(s)",
+                    "decimalCredit": {
+                        "helperText": "Esta sesión costará {{count}} crédito",
+                        "helperText_plural": "Esta sesión costará {{count}} créditos"
+                    }
                 },
                 "pre_selected_choices": "Duraciones predefinidas",
                 "durationError": "Duración no válida (entre 10min y 1d)"
@@ -14673,7 +14690,9 @@
             },
             "creditsLeft": {
                 "second": "créditos restantes",
-                "first": "Envía un email cuando haya"
+                "first": "Envía un email cuando haya",
+                "helperText": "Esta notificación se activa cuando queda {{count}} crédito",
+                "helperText_plural": "Esta notificación se activa cuando quedan {{count}} créditos"
             },
             "daysPastLabel": "Notificar cuando el pase ha caducado el {{day}} día",
             "daysPastLabel_plural": "Notificar cuando el pase ha caducado el {{day}} días",
@@ -14701,7 +14720,11 @@
                 "warning": "Tienes en cuenta que esta operación es irreversible (generación de factura).",
                 "explain": "Elige la cantidad de créditos que se reembolsarán, así como el valor total que se acreditará en el anticipo del miembro",
                 "credits": {
-                    "label": "Crédito para deducir"
+                    "label": "Crédito para deducir",
+                    "decimalCredit": {
+                        "helperText": "{{count}} crédito será deducido",
+                        "helperText_plural": "{{count}} créditos serán deducidos"
+                    }
                 },
                 "note": {
                     "label": "Nota"
@@ -15066,7 +15089,11 @@
                 "label": "Limitar las reservas a determinadas franjas horarias"
             },
             "atLeastOneDay": "Debe seleccionarse al menos un día",
-            "startAfterEnd": "La hora de inicio debe ser inferior a la hora de finalización"
+            "startAfterEnd": "La hora de inicio debe ser inferior a la hora de finalización",
+            "decimalCredit": {
+                "helperText": "Este pase contendrá {{count}} crédito",
+                "helperText_plural": "Este pase contendrá {{count}} créditos"
+            }
         },
         "paymentPackTemplate": {
             "actions": {
@@ -15787,7 +15814,11 @@
                 "edit": "Modificar",
                 "creditPrice": {
                     "helperText": "Se deja en cero para que el video sea accesible para todos sus miembros",
-                    "label": "Costo en crédito"
+                    "label": "Costo en crédito",
+                    "decimalCredit": {
+                        "helperText": "Este vídeo costará {{count}} crédito. Déjalo en 0 si deseas que el vídeo sea accesible para todos tus miembros",
+                        "helperText_plural": "Este vídeo costará {{count}} créditos. Déjalo en 0 si deseas que el vídeo sea accesible para todos tus miembros"
+                    }
                 },
                 "video_label": "Vídeo",
                 "video_source": {
@@ -16303,7 +16334,9 @@
                 },
                 "credits": {
                     "second": "y",
-                    "first": "créditos:"
+                    "first": "créditos:",
+                    "helperText": "Filtrado en {{count}} crédito",
+                    "helperText_plural": "Filtrado en {{count}} créditos"
                 },
                 "third": "a",
                 "second": "y",
@@ -16383,7 +16416,9 @@
                 },
                 "credits": {
                     "second": "y",
-                    "first": "créditos:"
+                    "first": "créditos:",
+                    "helperText": "Filtrado en {{count}} crédito",
+                    "helperText_plural": "Filtrado en {{count}} créditos"
                 },
                 "third": "en",
                 "second": "y",

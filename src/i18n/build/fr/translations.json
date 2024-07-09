@@ -7207,7 +7207,11 @@
                             "title": "Spot scheduling",
                             "placeholder": "Sélectionner un plan"
                         },
-                        "metaActivity": "Activité"
+                        "metaActivity": "Activité",
+                        "decimalCredit": {
+                            "helperText": "Cette séance coûtera {{count}} crédit.",
+                            "helperText_plural": "Cette séance coûtera {{count}} crédits."
+                        }
                     },
                     "tooltip": {
                         "broadcastLink": "Le lien sera généré automatiquement pour ZOOM par bsport",
@@ -8017,7 +8021,11 @@
                     "label": "Note"
                 },
                 "credits": {
-                    "label": "Crédit à déduire"
+                    "label": "Crédit à déduire",
+                    "decimalCredit": {
+                        "helperText": "{{count}} crédit sera déduit",
+                        "helperText_plural": "{{count}} crédits seront déduits"
+                    }
                 },
                 "explain": "Choisissez le nombre de crédit à rembourser ainsi que la valeur totale qui sera créditée sur l'acompte du membre",
                 "warningFirst": "Attention, cette opération est irréversible (génération facture).",
@@ -8107,7 +8115,9 @@
             },
             "creditsLeft": {
                 "first": "Notifier lorsqu'il reste",
-                "second": "crédits"
+                "second": "crédits",
+                "helperText": "Cette notification sera déclenchée lorsqu'il restera {{count}} crédit",
+                "helperText_plural": "Cette notification sera déclenchée lorsqu'il restera {{count}} crédits"
             },
             "creditsLeftLabel": "Notifier lorsqu'il reste {{count}} crédit",
             "creditsLeftLabel_plural": "Notifier lorsqu'il reste {{credit}} crédits",
@@ -8494,6 +8504,10 @@
                 },
                 "addTimeSlot": "Ajouter un créneau horaire",
                 "addGroupTimeSlot": "Ajouter un groupe de créneaux horaires"
+            },
+            "decimalCredit": {
+                "helperText": "Cette carte de cours possédera {{count}} crédit",
+                "helperText_plural": "Cette carte de cours possédera {{count}} crédits"
             }
         },
         "disabled": "Désactivé",
@@ -9551,7 +9565,11 @@
                 },
                 "credit": {
                     "label": "Nombre de crédit(s)",
-                    "helperText": "Nombre de crédit(s) nécessaire(s) pour une réservation"
+                    "helperText": "Nombre de crédit(s) nécessaire(s) pour une réservation",
+                    "decimalCredit": {
+                        "helperText": "Cette séance coûtera {{count}} crédit",
+                        "helperText_plural": "Cette séance coûtera {{count}} crédits"
+                    }
                 },
                 "duration_minutes": {
                     "label": "Durée",
@@ -9773,7 +9791,11 @@
                 "category": "Nom de la catégorie",
                 "credits": {
                     "label": "Nombre de crédits inclus",
-                    "helperText": "Chaque séance coûte un certain nombre de crédits"
+                    "helperText": "Chaque séance coûte un certain nombre de crédits",
+                    "decimalCredit": {
+                        "helperText": "Cette carte de RDV possédera {{count}} crédit.",
+                        "helperText_plural": "Cette carte de RDV possédera {{count}} crédits."
+                    }
                 },
                 "price": {
                     "label": "Prix TTC",
@@ -11056,7 +11078,11 @@
                 "cancel": "Annuler",
                 "edit": "Modifier",
                 "columnError": "Attention la colonne filtrée ici a été enlevée du rapport. Le filtre sur cette colonne est cependant encore appliqué.",
-                "shortColumnError": "La colonne correspondante n'est pas affichée"
+                "shortColumnError": "La colonne correspondante n'est pas affichée",
+                "decimalCredit": {
+                    "filterViewHelperText": "Pour les filtres relatifs aux crédits, vous devez saisir une valeur entière, veuillez vous rappeler que la valeur des crédits affichée dans les rapports n'est pas divisée par {{creditFactor}}",
+                    "helperText": "Vous devez entrer une valeur entière ici, veuillez vous rappeler que la valeur des crédits affichée dans les rapports n'est pas divisée par {{creditFactor}}"
+                }
             },
             "title": "Vue filtrée",
             "emptyFilter": "Toutes les données",
@@ -11234,7 +11260,8 @@
             "invoices": "Les achats sont filtrés sur la date d'émission de la facture associée.",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
             "invoicesAccrualMethod": "Ce rapport affiche les achats sur la base de la méthode de comptabilité d'exercice. En d'autres termes, les transferts d'argent vers le solde client et les achats de cartes-cadeaux ne sont pas inclus. <0> Voir notre fiche d'aide pour plus d'informations.</0> Pour suivre les achats de carte cadeaux, utilisez le rapport {{ purchasedGiftcardReport }}.",
-            "access_monitoring": "Les visites sont filtrées en fonction de la date et de l'heure auxquelles elles ont eu lieu."
+            "access_monitoring": "Les visites sont filtrées en fonction de la date et de l'heure auxquelles elles ont eu lieu.",
+            "decimalCredit": "Les valeurs des crédits affichées dans les rapports ne sont pas divisées par {{creditFactor}}, n'oubliez pas de diviser ces colonnes pour une analyse plus approfondie."
         },
         "readPermissionDenied": "Accès refusé"
     },
@@ -13852,7 +13879,9 @@
                 "third": "à",
                 "credits": {
                     "first": "crédits :",
-                    "second": "et"
+                    "second": "et",
+                    "helperText": "Filtré sur {{count}} crédit",
+                    "helperText_plural": "Filtré sur {{count}} crédits"
                 },
                 "date_bought": {
                     "first": "date d'achat"
@@ -13968,7 +13997,9 @@
                 "third": "à",
                 "credits": {
                     "first": "crédits :",
-                    "second": "et"
+                    "second": "et",
+                    "helperText": "Filtré sur {{count}} crédit",
+                    "helperText_plural": "Filtré sur {{count}} crédits"
                 },
                 "date_bought": {
                     "first": "date d'achat"
@@ -18591,7 +18622,11 @@
                 },
                 "creditPrice": {
                     "label": "Coût en crédit",
-                    "helperText": "Laissé à zéro pour que la vidéo soit accessible à tous vos adhérents"
+                    "helperText": "Laissé à zéro pour que la vidéo soit accessible à tous vos adhérents",
+                    "decimalCredit": {
+                        "helperText": "Cette vidéo coûtera {{count}} crédit. Laissez à 0 si vous souhaitez que la vidéo soit accessible à tous vos membres",
+                        "helperText_plural": "Cette vidéo coûtera {{count}} crédits. Laissez à 0 si vous souhaitez que la vidéo soit accessible à tous vos membres"
+                    }
                 },
                 "video_source": {
                     "title": "Vidéo",

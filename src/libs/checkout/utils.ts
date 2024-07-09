@@ -333,12 +333,20 @@ export const getCheckoutItemPrice = ({
     checkoutItem.extra_data,
   );
 
-  if (!isReferralCouponItem)
-    return `${getCurrencyDisplayWithPrice(
+  if (!isReferralCouponItem) {
+    const shouldDisplayQuantity =
+      checkoutItem.buyable_item_identifier !== BUYABLE_ITEM_COUPON;
+
+    const priceString = getCurrencyDisplayWithPrice(
       checkoutItem.unit_price,
       isExcludingTax,
       checkoutItem.tax,
-    )} x ${checkoutItem.quantity}`;
+    );
+
+    return `${priceString}${
+      shouldDisplayQuantity ? `x ${checkoutItem.quantity}` : ''
+    }`;
+  }
 
   // If the coupon is applicable, we want to display the amount actually retrieved from the
   // basket price, even though it is less than the available amount off.

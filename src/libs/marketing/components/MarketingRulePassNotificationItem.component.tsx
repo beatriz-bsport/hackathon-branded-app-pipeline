@@ -9,6 +9,7 @@ import { CustomChip } from '#src/components/chip/CustomChip.component';
 import type { MarketingNotification } from '../types';
 import { EmailTemplateSummary } from '#src/libs/email-editor/types';
 import { CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING } from '#src/libs/payment-packs/utils';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 const getNotificationTriggerDescription = (
   notification: ImmutableObject<MarketingNotification>,
@@ -20,7 +21,7 @@ const getNotificationTriggerDescription = (
     notificationKind === NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT
   ) {
     const trigger = t('notifications.triggerDescription.remainingCredit', {
-      count: event_rules.credits_left,
+      count: Number(getCreditsDividedDisplay(event_rules.credits_left)),
     });
 
     const creditNotificationTtype =

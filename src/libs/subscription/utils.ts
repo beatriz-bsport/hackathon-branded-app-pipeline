@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { DateTime, Duration, DurationLikeObject } from 'luxon';
 import type {
+  SubscriptionInterval,
   SubscriptionPause,
   ContractTemplate,
   ContractTemplateFormValues,
@@ -12,6 +13,7 @@ import {
 } from '#src/libs/subscription/enums';
 import type { FranchiseUserBillingPlanPause } from '#src/libs/franchise/types';
 import { TFunction } from 'i18next';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
 import type { PrivatePassTemplate } from '#src/libs/private-service/types';
 
@@ -161,3 +163,17 @@ export const getAssociatedPassValidityInfo = (
     'subscription:franchiseUserProfile.associatedPassValidity',
   )} ${validityDuration.toHuman()}`;
 };
+
+export const getSubscriptionPriceAndRecurrence = (
+  interval: SubscriptionInterval,
+  nbInterval: number,
+  recurrenceBasis: number,
+  price: string,
+  t: TFunction,
+) =>
+  `${getCurrencyDisplayWithPrice(price)} - ${t(
+    `subscription:contract.durationInfo.${interval}`,
+    {
+      count: recurrenceBasis * nbInterval,
+    },
+  )}`;

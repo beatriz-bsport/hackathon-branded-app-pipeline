@@ -10,8 +10,11 @@ import {
   PassType,
   SubscriptionInvoicingType,
 } from '#src/libs/subscription/enums';
+import type { FranchiseUserBillingPlanPause } from '#src/libs/franchise/types';
 
-export function isPaused(pausesArray?: Array<SubscriptionPause>) {
+export function isPaused(
+  pausesArray?: (SubscriptionPause | FranchiseUserBillingPlanPause)[],
+) {
   if (!pausesArray?.length) return false;
   return pausesArray.reduce(
     (acc, p) =>

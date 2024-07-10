@@ -229,6 +229,7 @@ exports.default = {
       info_plural: 'General ({{number}})',
       programs: 'Program',
       programs_plural: 'Programs ({{number}})',
+      subscription: 'Subscriptions',
     },
     clockIn: { history: 'History', realTime: 'Real time' },
     service: { calendar: 'Calendar', general: 'General' },

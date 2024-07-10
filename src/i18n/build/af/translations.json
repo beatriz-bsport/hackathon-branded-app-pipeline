@@ -5607,7 +5607,8 @@
         "info": "General",
         "info_plural": "General ({{number}})",
         "programs": "Program",
-        "programs_plural": "Programs ({{number}})"
+        "programs_plural": "Programs ({{number}})",
+        "subscription": "Subscriptions"
       },
       "clockIn": { "history": "History", "realTime": "Real time" },
       "service": { "calendar": "Calendar", "general": "General" },
@@ -13385,6 +13386,13 @@
       "hasStarted": "Active",
       "isPaused": "Paused"
     },
+    "franchiseUserProfile": {
+      "pleaseSelectASubscription": "Select a subscription for a more detailed overview.",
+      "associatedInvoices": "Associated invoices",
+      "associatedPassValidity": "Valid for "
+    },
+    "filters": { "all": "All subscriptions" },
+    "billingPlanStatus": { "canceled": "Terminated", "expired": "Expired", "paused": "Paused", "valid": "Valid" },
     "scheduledStop": { "label": "Terminated", "unscheduleStop": "Unschedule the stop" },
     "end": { "renew": "Auto-renew", "noRenew": "End the subscription" },
     "seeMore": "Show more",

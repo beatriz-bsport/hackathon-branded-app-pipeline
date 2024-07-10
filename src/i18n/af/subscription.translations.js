@@ -613,6 +613,21 @@ const getTranslations = async () => {
       hasStarted: 'Active',
       isPaused: 'Paused',
     },
+    franchiseUserProfile: {
+      pleaseSelectASubscription:
+        'Select a subscription for a more detailed overview.',
+      associatedInvoices: 'Associated invoices',
+      associatedPassValidity: 'Valid for ',
+    },
+    filters: {
+      all: 'All subscriptions',
+    },
+    billingPlanStatus: {
+      canceled: 'Terminated',
+      expired: 'Expired',
+      paused: 'Paused',
+      valid: 'Valid',
+    },
     scheduledStop: {
       label: 'Terminated',
       unscheduleStop: 'Unschedule the stop',

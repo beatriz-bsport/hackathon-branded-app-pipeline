@@ -119,7 +119,7 @@ export const useCompatibilityForm = ({
       paymentPackValues?.SCTs?.map((category) => ({
         label: category.name,
         value: category.id,
-        parentCategory: category.id,
+        parentCategory: category.SCS.id,
       })),
     [paymentPackValues?.SCTs],
   );

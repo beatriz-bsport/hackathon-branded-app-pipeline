@@ -1,7 +1,10 @@
 import React, { memo } from 'react';
-
 import classNames from 'classnames';
+
 import Typography from '#Fabrique/Typography';
+import useViewport from '#src/components/css-only/Fabrique/hooks/useViewport';
+import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
+
 import './styles.css';
 
 type Props = {
@@ -49,6 +52,10 @@ export const PageInnerContentLayout: React.FC<Props> = ({
   InfiniteScrollComponent,
   DetailComponent,
 }) => {
+  const { width } = useViewport();
+
+  const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
+
   if (isEmpty) {
     return (
       <EmptyInnerContentPlaceholder
@@ -69,7 +76,7 @@ export const PageInnerContentLayout: React.FC<Props> = ({
         {InfiniteScrollComponent}
       </ul>
 
-      {DetailComponent}
+      {!isMobile && DetailComponent}
     </div>
   );
 };

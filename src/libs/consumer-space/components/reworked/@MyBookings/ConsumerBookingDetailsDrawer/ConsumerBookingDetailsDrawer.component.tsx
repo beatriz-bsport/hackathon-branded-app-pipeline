@@ -38,7 +38,7 @@ const ConsumerBookingDetailsDrawer: React.FC<Props> = ({
   selectedBookingOption,
   handleClose,
 }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['consumerSpace', 'common']);
 
   const selectedBookingDate = useConsumerBookingDateTime({
     dateStart:
@@ -70,10 +70,10 @@ const ConsumerBookingDetailsDrawer: React.FC<Props> = ({
       blanketProps={{ isOpen, onClick: handleClose }}
       className="bs-consumer-booking-details-drawer__root"
       modalDialogProps={{
-        title: 'Activity',
+        title: t('consumerSpace:reworked.myBookings.detailsCard.drawerTitle'),
         onClose: handleClose,
         onCancel: handleClose,
-        cancelLabel: t('back'),
+        cancelLabel: t('common:back'),
       }}
     >
       <ConsumerBookingDetailsCard

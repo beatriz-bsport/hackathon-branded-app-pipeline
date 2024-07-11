@@ -179,6 +179,7 @@ exports.default = {
         },
       },
       detailsCard: {
+        drawerTitle: 'Activity',
         cancelled: {
           title: 'Cancelled',
           cancelledFromMember: 'Cancelled by you',

@@ -230,7 +230,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     }
   };
 
-  onCreateSpot = async (
+  onCreateSpot = (
     {
       name,
       prefix,
@@ -275,32 +275,21 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     }
     spot.append('establishment', '2286');
 
-    let error = false;
-
-    const promise = [
-      this.props.createSpotForBlueprint(spot, {
-        onSuccess: (response) => {
-          this.setState({
-            // @ts-expect-error
-            spotToSelect: response.data.id,
-            selectedTool: 'spot',
-          });
-        },
-        onError: () => {
-          error = true;
-        },
-      }),
-    ];
-
-    await Promise.all(promise);
-
-    if (error) {
-      this.props.error('spotScheduling:saveError');
-      options && options.onError && options.onError();
-    } else {
-      this.props.success('spotScheduling:spotCreatorForm.saved');
-      options && options.onSuccess && options.onSuccess();
-    }
+    this.props.createSpotForBlueprint(spot, {
+      onSuccess: (response) => {
+        this.setState({
+          // @ts-expect-error
+          spotToSelect: response.data.id,
+          selectedTool: 'spot',
+        });
+        this.props.success('spotScheduling:spotCreatorForm.saved');
+        options && options.onSuccess && options.onSuccess();
+      },
+      onError: () => {
+        this.props.error('spotScheduling:saveError');
+        options && options.onError && options.onError();
+      },
+    });
   };
 
   onUnboundCreateAsset = (
@@ -328,26 +317,17 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     });
   };
 
-  newOnDeleteSpot = async (id: number, options: OptionCallback) => {
-    let error = false;
-
-    const promise = [
-      this.props.deleteSpotType(id, {
-        onError: () => {
-          error = true;
-        },
-      }),
-    ];
-
-    await Promise.all(promise);
-
-    if (error) {
-      this.props.error('spotScheduling:saveError');
-      options && options.onError && options.onError();
-    } else {
-      this.props.success('spotScheduling:spotCreatorForm.deleted');
-      options && options.onSuccess && options.onSuccess();
-    }
+  newOnDeleteSpot = (id: number, options: OptionCallback) => {
+    this.props.deleteSpotType(id, {
+      onError: () => {
+        this.props.error('spotScheduling:saveError');
+        options && options.onError && options.onError();
+      },
+      onSuccess: () => {
+        this.props.success('spotScheduling:spotCreatorForm.deleted');
+        options && options.onSuccess && options.onSuccess();
+      },
+    });
   };
 
   onExit = () => {

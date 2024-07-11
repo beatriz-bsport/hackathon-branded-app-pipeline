@@ -68,6 +68,11 @@ import { ChevronRight } from '#src/components/untitledui';
 import ConsumerNavigation from '#src/libs/consumer-space/components/reworked/@Navigation/ConsumerNavigation';
 import { getCheckoutUrl } from '../../libs/marketplace/routing-utils';
 import Config from '../../config';
+import {
+  urlToMarketplacePassTab,
+  urlToMarketplaceSessionTab,
+  urlToMarketplaceSubscriptionTab,
+} from '../../libs/marketplace/utils/navigation';
 
 const isWidget = WidgetUtils.isWidget();
 
@@ -175,8 +180,6 @@ export class ConsumerHome extends React.Component<Props> {
     }
     // this.props.linkMeToCompany({ company: this.props.companyId });
 
-    this.props.fetchCompanyTheme(this.props.companyId);
-
     this.props.fetchMembershipByCompany(this.props.companyId);
     this.props.setActiveActions(this.props.companyId);
   }
@@ -197,6 +200,7 @@ export class ConsumerHome extends React.Component<Props> {
       });
     }
     this.props.fetchMembershipListAsConsumer({ page_size: 1 });
+    this.props.fetchCompanyTheme(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -242,8 +246,8 @@ export class ConsumerHome extends React.Component<Props> {
   handleGetASubscriptionClick = () => {
     const marketplaceTabPath = urlToMarketplaceSubscriptionTab(
       this.props.marketplaceSettings?.config,
-      this.props.companyTheme.company_name,
-      this.props.companyTheme.company.toString(),
+      this.props.theme.company_name,
+      this.props.theme.company.toString(),
     );
     if (WidgetUtils.isWidget()) {
       WidgetUtils.closeModal();

@@ -5,17 +5,13 @@ import classNames from 'classnames';
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
 import ConsumerSubscriptionsListContainer from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
+import ConsumerSubscriptionModals from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionModals';
 
 import {
   ConsumerSubscriptionTermsPortal,
   ConsumerSubscriptionPaymentPortal,
 } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPortals';
-import {
-  Calendar,
-  ChevronRight,
-  ChevronLeft,
-} from '#src/components/untitledui';
-import Button from '#src/components/css-only/Fabrique/ButtonV2';
+import { Calendar, ChevronRight } from '#src/components/untitledui';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import type {
@@ -30,7 +26,6 @@ import type { PaymentMethod } from '#src/libs/payment/types';
 import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
-import useConsumerSubscriptionsModalManager from '#src/libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsModalManager';
 import useConsumerSubscriptionsDataManager from '#src/libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
 import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 
@@ -133,6 +128,14 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     selectedSubscriptionInvoiceDetails,
     selectedTab,
     subscriptionsList,
+    isPaymentModalOpen,
+    isTermsModalOpen,
+    isSubscriptionDetailsDrawerOpen,
+    handleTermsModalOpen,
+    handleTermsModalClose,
+    handlePaymentModalOpen,
+    handlePaymentModalClose,
+    handleCloseSubscriptionDetailsDrawer,
   } = useConsumerSubscriptionsDataManager({
     activeSubscriptionsState,
     activeSubscriptionsList,
@@ -146,15 +149,6 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     fetchConsumerSubscriptionInvoicesDetails,
     subscriptionsInvoicesDetailsState,
   });
-
-  const {
-    isPaymentModalOpen,
-    isTermsModalOpen,
-    handleTermsModalOpen,
-    handleTermsModalClose,
-    handlePaymentModalOpen,
-    handlePaymentModalClose,
-  } = useConsumerSubscriptionsModalManager();
 
   const downloadBillingPlanTerms = React.useCallback(
     (options: OptionCallback) =>
@@ -181,11 +175,6 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
       );
     },
     [selectedTab, switchPaymentMethod],
-  );
-
-  const handleGoBack = React.useCallback(
-    () => handleSetSelectedSubscriptions(null),
-    [handleSetSelectedSubscriptions],
   );
 
   const { t } = useTranslation('consumerSpace');
@@ -277,29 +266,38 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
           isMobile && !!selectedSubscription?.id,
       })}
     >
-      {isMobile && !!selectedSubscription?.id ? (
-        <Button
-          className="bs-consumer__subscription-header__button--mobile"
-          color="grey"
-          leftIcon={<ChevronLeft />}
-          onClick={handleGoBack}
-          variant="text"
-        >
-          {t('reworked.mySubscriptions.headerButtonsLabel.backToSubscriptions')}
-        </Button>
-      ) : (
-        <ConsumerPageHeader
-          isMobile={isMobile}
-          TabsProps={{
-            tabs,
-            selectedTab,
-          }}
-          TitleProps={{
-            buttons: buttonsData,
-            title: t('reworked.mySubscriptions.title'),
-          }}
-        />
-      )}
+      <ConsumerSubscriptionModals
+        areDetailsLoading={areDetailsLoading}
+        handleCloseSubscriptionDetailsDrawer={
+          handleCloseSubscriptionDetailsDrawer
+        }
+        handleInvoiceDetailsPaginationFetchMore={
+          handleInvoiceDetailsPaginationFetchMore
+        }
+        handlePaymentModalOpen={handlePaymentModalOpen}
+        hasDetailsNextPage={!!detailsNextPage}
+        invoiceRetryNumber={invoiceRetryNumber}
+        isLoading={isLoading}
+        isMobile={isMobile}
+        isSubscriptionDetailsDrawerOpen={isSubscriptionDetailsDrawerOpen}
+        onSeeTermsClick={handleTermsModalOpen}
+        paymentMethodUsed={paymentMethodUsed}
+        selectedSubscription={selectedSubscription}
+        selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
+        selectedTab={selectedTab}
+      />
+
+      <ConsumerPageHeader
+        isMobile={isMobile}
+        TabsProps={{
+          tabs,
+          selectedTab,
+        }}
+        TitleProps={{
+          buttons: buttonsData,
+          title: t('reworked.mySubscriptions.title'),
+        }}
+      />
 
       <ConsumerSubscriptionsListContainer
         areDetailsLoading={areDetailsLoading}

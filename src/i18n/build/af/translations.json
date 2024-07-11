@@ -1846,6 +1846,7 @@
           }
         },
         "consumerSubscriptionCardDetails": {
+          "drawerTitle": "Subscription",
           "beforeRenewalContractPricePer": "Then {{ price }}/{{ interval }} after {{- date }}",
           "beforeRenewalContractPriceEvery": "Then {{ price }} every {{ recurrence }} {{ interval }} after {{- date }}",
           "description": "Description",

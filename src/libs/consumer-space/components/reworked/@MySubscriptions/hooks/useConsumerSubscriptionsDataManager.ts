@@ -122,6 +122,40 @@ const useConsumerSubscriptionsDataManager = ({
       selectedSubscription?.id
     ]?.next_page || null;
 
+  // MODALS STATE
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [isSubscriptionDetailsDrawerOpen, setIsSubscriptionDetailsDrawerOpen] =
+    useState(false);
+
+  // MODALS HANDLERS
+  const handleTermsModalClose = useCallback(
+    () => setIsTermsModalOpen(false),
+    [],
+  );
+
+  const handleTermsModalOpen = useCallback(() => setIsTermsModalOpen(true), []);
+
+  const handlePaymentModalOpen = useCallback(
+    () => setIsPaymentModalOpen(true),
+    [],
+  );
+
+  const handlePaymentModalClose = useCallback(
+    () => setIsPaymentModalOpen(false),
+    [],
+  );
+
+  const handleOpenSubscriptionDetailsDrawer = useCallback(
+    () => setIsSubscriptionDetailsDrawerOpen(true),
+    [],
+  );
+
+  const handleCloseSubscriptionDetailsDrawer = useCallback(
+    () => setIsSubscriptionDetailsDrawerOpen(false),
+    [],
+  );
+
   const handlePaginationFetchMore = useCallback(
     () => fetchDataHandlerMap[`${selectedTab}`](),
     [fetchDataHandlerMap, selectedTab],
@@ -149,11 +183,15 @@ const useConsumerSubscriptionsDataManager = ({
       !subscriptionsInvoicesDetailsState.bySubscriptionId[subscription?.id] &&
         subscription?.id &&
         fetchConsumerSubscriptionInvoicesDetails({ id: subscription.id });
+
+      !!isMobile && handleOpenSubscriptionDetailsDrawer();
     },
     [
       subscriptionsList,
+      subscriptionsInvoicesDetailsState.bySubscriptionId,
       fetchConsumerSubscriptionInvoicesDetails,
-      subscriptionsInvoicesDetailsState,
+      isMobile,
+      handleOpenSubscriptionDetailsDrawer,
     ],
   );
 
@@ -171,6 +209,17 @@ const useConsumerSubscriptionsDataManager = ({
     selectedSubscriptionInvoiceDetails,
     selectedTab,
     subscriptionsList,
+    // MODAL STATE
+    isTermsModalOpen,
+    isPaymentModalOpen,
+    isSubscriptionDetailsDrawerOpen,
+    // MODAL HANDLERS
+    handleTermsModalClose,
+    handleTermsModalOpen,
+    handlePaymentModalOpen,
+    handlePaymentModalClose,
+    handleOpenSubscriptionDetailsDrawer,
+    handleCloseSubscriptionDetailsDrawer,
   };
 };
 

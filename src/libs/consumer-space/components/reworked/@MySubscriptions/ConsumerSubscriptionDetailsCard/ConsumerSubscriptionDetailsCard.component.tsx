@@ -136,7 +136,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('consumerSpace');
 
-  if (isMobile && !selected) {
+  if (!selected) {
     return null;
   }
 

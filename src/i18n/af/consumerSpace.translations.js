@@ -394,6 +394,7 @@ exports.default = {
         },
       },
       consumerSubscriptionCardDetails: {
+        drawerTitle: 'Subscription',
         beforeRenewalContractPricePer:
           'Then {{ price }}/{{ interval }} after {{- date }}',
         beforeRenewalContractPriceEvery:

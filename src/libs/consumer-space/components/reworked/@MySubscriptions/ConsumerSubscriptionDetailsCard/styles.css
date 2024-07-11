@@ -9,6 +9,10 @@
   margin-top: 0;
 }
 
+.bs-consumer__subscription-details-card__root--hidden {
+  display: none;
+}
+
 /* HEADER SECTION */
 .bs-consumer__subscription-details-card__header__section {
   padding-bottom: var(--bs-space-size-4);
@@ -136,4 +140,11 @@
 
 .bs-consumer__subscription-details-card__terms__button {
   margin-left: var(--bs-space-size-2);
+}
+
+/* MODAL DIALOG INTEGRATION */
+.bs-fabrique-modal-dialog__content
+  .bs-consumer__subscription-details-card__root {
+  padding: 0;
+  border: none;
 }

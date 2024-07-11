@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import classNames from 'classnames';
 
 import { DateTime, Interval } from 'luxon';
 import { useTranslation } from 'react-i18next';
@@ -117,6 +118,9 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
           autoRenewalDate={formatAsDate(
             selectedSubscription?.last_billing_date,
           )}
+          className={classNames({
+            'bs-consumer__subscription-details-card__root--hidden': isMobile,
+          })}
           description={selectedSubscription?.description}
           failedInvoices={selectedSubscription?.failed_payments_invoices}
           handleInvoiceDetailsPaginationFetchMore={
@@ -185,44 +189,42 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         /* For this specific page content, on mobile, the infinite scroll component doesn't appear to leave space
             for the detail component, which has its own infinite scroll component to handle payments and invoices display.
           */
-        isMobile && !!selectedSubscription?.id ? null : (
-          <GenericInfiniteScrollEnhancedCssOnly<SubscriptionREST>
-            fetchMoreData={handlePaginationFetchMore}
-            hasMore={hasNextPage}
-            height={
-              isMobile
-                ? MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_MOBILE
-                : MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_DESKTOP
-            }
-            items={subscriptionsList}
-            // @ts-expect-error
-            loader={<ConsumerSubscriptionCard isLoading />}
-            renderItem={({ item }) => (
-              <ConsumerSubscriptionCard
-                key={item.id}
-                addPaymentMethodDisabled={isLoading}
-                hasFailedPayments={!!item?.failed_payments_invoices?.length}
-                hasMissingPaymentMethod={!item?.stripe_payment_method_id}
-                isDetailsDisabled={isLoading}
-                isLoading={isLoading}
-                isPaused={isPaused(item?.pauses)}
-                isSelected={item.id === selectedSubscription?.id}
-                onAddPaymentMethodClick={onAddPaymentMethodClick(item.id)}
-                onDetailsClick={onCardDetailsClick(item.id)}
-                price={(item?.price_to_display_cts / 100).toFixed(2)}
-                recurrenceBasis={item?.recurrence_basis}
-                subscriptionDate={getSubtitleCardDate(selectedTab, item, t)}
-                subscriptionInterval={item?.interval}
-                subscriptionName={item?.name_without_member_name}
-                subscriptionNextPaymentDate={
-                  selectedTab !== SubscriptionTabEnum.EXPIRED &&
-                  item?.next_billing_date &&
-                  formatAsDate(item?.next_billing_date)
-                }
-              />
-            )}
-          />
-        )
+        <GenericInfiniteScrollEnhancedCssOnly<SubscriptionREST>
+          fetchMoreData={handlePaginationFetchMore}
+          hasMore={hasNextPage}
+          height={
+            isMobile
+              ? MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_MOBILE
+              : MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_DESKTOP
+          }
+          items={subscriptionsList}
+          // @ts-expect-error
+          loader={<ConsumerSubscriptionCard isLoading />}
+          renderItem={({ item }) => (
+            <ConsumerSubscriptionCard
+              key={item.id}
+              addPaymentMethodDisabled={isLoading}
+              hasFailedPayments={!!item?.failed_payments_invoices?.length}
+              hasMissingPaymentMethod={!item?.stripe_payment_method_id}
+              isDetailsDisabled={isLoading}
+              isLoading={isLoading}
+              isPaused={isPaused(item?.pauses)}
+              isSelected={!isMobile && item.id === selectedSubscription?.id}
+              onAddPaymentMethodClick={onAddPaymentMethodClick(item.id)}
+              onDetailsClick={onCardDetailsClick(item.id)}
+              price={(item?.price_to_display_cts / 100).toFixed(2)}
+              recurrenceBasis={item?.recurrence_basis}
+              subscriptionDate={getSubtitleCardDate(selectedTab, item, t)}
+              subscriptionInterval={item?.interval}
+              subscriptionName={item?.name_without_member_name}
+              subscriptionNextPaymentDate={
+                selectedTab !== SubscriptionTabEnum.EXPIRED &&
+                item?.next_billing_date &&
+                formatAsDate(item?.next_billing_date)
+              }
+            />
+          )}
+        />
       }
       isEmpty={isCurrentTabContentEmpty}
     />

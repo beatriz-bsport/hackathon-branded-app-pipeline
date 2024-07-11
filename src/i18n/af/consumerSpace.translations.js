@@ -486,6 +486,7 @@ exports.default = {
         amountDue: 'Amount due: {{- amount}}',
       },
       detailsCard: {
+        drawerTitle: 'Invoice',
         dispute: {
           processing: 'Processing',
           won: 'Won',

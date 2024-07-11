@@ -9,7 +9,6 @@ import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/const
 import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 import ConsumerInvoiceBodyContainer from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceBodyContainer';
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
-import Button from '#Fabrique/ButtonV2';
 
 import ConsumerInvoicePaymentPortal from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePaymentPortal';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
@@ -17,7 +16,8 @@ import useViewport from '#Fabrique/hooks/useViewport';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
-import { ChevronRight, ChevronLeft } from '#src/components/untitledui';
+import ConsumerInvoiceModals from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceModals';
+import { ChevronRight } from '#src/components/untitledui';
 
 import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 
@@ -88,10 +88,27 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   const [selectedConsumerInvoice, setSelectedConsumerInvoice] =
     React.useState<ConsumerInvoice | null>(null);
 
-  const seeInvoiceDetails = React.useCallback(
-    (consumerInvoice: ConsumerInvoice) =>
-      setSelectedConsumerInvoice(consumerInvoice),
+  const [
+    isConsumerInvoiceDetailsDrawerOpen,
+    setIsConsumerInvoiceDetailsDrawerOpen,
+  ] = React.useState(false);
+
+  const handleOpenConsumerInvoiceDetailsDrawer = React.useCallback(
+    () => setIsConsumerInvoiceDetailsDrawerOpen(true),
     [],
+  );
+
+  const handleCloseConsumerInvoiceDetailsDrawer = React.useCallback(
+    () => setIsConsumerInvoiceDetailsDrawerOpen(false),
+    [],
+  );
+
+  const seeInvoiceDetails = React.useCallback(
+    (consumerInvoice: ConsumerInvoice) => {
+      setSelectedConsumerInvoice(consumerInvoice);
+      isMobile && handleOpenConsumerInvoiceDetailsDrawer();
+    },
+    [handleOpenConsumerInvoiceDetailsDrawer, isMobile],
   );
 
   const clearSelectedConsumerInvoice = React.useCallback(
@@ -218,26 +235,27 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
           : 'bs-consumer-invoice-page__root'
       }
     >
-      {isMobile && !!selectedConsumerInvoice ? (
-        <Button
-          className="bs-consumer__invoice-header__button--mobile"
-          color="grey"
-          leftIcon={<ChevronLeft />}
-          onClick={clearSelectedConsumerInvoice}
-          variant="text"
-        >
-          {t('reworked.myInvoices.header.buttons.goBack')}
-        </Button>
-      ) : (
-        <ConsumerPageHeader
-          FilterProps={{ filters, selectedFilter: selectedFilter }}
-          isMobile={isMobile}
-          TitleProps={{
-            buttons: buttonsData,
-            title: t('reworked.myInvoices.header.title'),
-          }}
-        />
-      )}
+      <ConsumerInvoiceModals
+        getInvoice={getInvoice}
+        handleCloseConsumerInvoiceDetailsDrawer={
+          handleCloseConsumerInvoiceDetailsDrawer
+        }
+        isConsumerInvoiceDetailsDrawerOpen={isConsumerInvoiceDetailsDrawerOpen}
+        isMobile={isMobile}
+        isMultilocationEnabled={isMultilocationEnabled}
+        payConsumerInvoice={payConsumerInvoice}
+        selectedConsumerInvoice={selectedConsumerInvoice}
+        selectedFilter={selectedFilter}
+      />
+
+      <ConsumerPageHeader
+        FilterProps={{ filters, selectedFilter: selectedFilter }}
+        isMobile={isMobile}
+        TitleProps={{
+          buttons: buttonsData,
+          title: t('reworked.myInvoices.header.title'),
+        }}
+      />
 
       <ConsumerInvoiceBodyContainer
         clearSelectedConsumerInvoice={clearSelectedConsumerInvoice}

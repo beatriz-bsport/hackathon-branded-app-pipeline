@@ -1920,6 +1920,7 @@
           "amountDue": "Amount due: {{- amount}}"
         },
         "detailsCard": {
+          "drawerTitle": "Invoice",
           "dispute": { "processing": "Processing", "won": "Won", "lost": "Lost" },
           "download": "Download invoice",
           "downloadOriginalInvoice": "Download original invoice",

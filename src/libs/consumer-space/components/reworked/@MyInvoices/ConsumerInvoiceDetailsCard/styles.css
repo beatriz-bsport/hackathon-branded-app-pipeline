@@ -265,3 +265,9 @@
 
 .bs-consumer-invoice-details-card__footer__button-download-refunded-invoice {
 }
+
+/* MODAL DIALOG INTEGRATION */
+.bs-fabrique-modal-dialog__content .bs-consumer-invoice-details-card__root {
+  padding: 0;
+  border: none;
+}

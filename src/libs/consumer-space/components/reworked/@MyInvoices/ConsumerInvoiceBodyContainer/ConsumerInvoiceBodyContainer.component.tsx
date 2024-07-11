@@ -125,36 +125,35 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
       }
       emptyPlaceholder={t(`reworked.myInvoices.placeholder.${selectedFilter}`)}
       InfiniteScrollComponent={
-        isMobile && !!selectedConsumerInvoice ? null : (
-          <GenericInfiniteScrollEnhancedCssOnly<ConsumerInvoice>
-            fetchMoreData={fetchMoreInvoices}
-            hasMore={hasMoreInvoicesToFetch}
-            height={myInvoicesListHeight}
-            items={consumerInvoiceList}
-            loader={<ConsumerCardSkeleton />}
-            renderItem={({ item }) => (
-              <ConsumerInvoiceCard
-                key={`ConsumerInvoiceCard-${item.uuid}`}
-                consumerInvoice={item}
-                downloadInvoice={
-                  isInvoiceDownloadable(item) ? handleDownloadInvoice : null
-                }
-                downloadReceipt={
-                  item?.payments?.length ? handleDownloadReceipt : null
-                }
-                getInvoice={getInvoice}
-                isMobile={isMobile}
-                isSelected={
-                  !!selectedConsumerInvoice &&
-                  selectedConsumerInvoice.uuid === item.uuid
-                }
-                payInvoice={payConsumerInvoice}
-                seeDetails={handleSeeInvoiceDetails(item)}
-                selectedFilter={selectedFilter}
-              />
-            )}
-          />
-        )
+        <GenericInfiniteScrollEnhancedCssOnly<ConsumerInvoice>
+          fetchMoreData={fetchMoreInvoices}
+          hasMore={hasMoreInvoicesToFetch}
+          height={myInvoicesListHeight}
+          items={consumerInvoiceList}
+          loader={<ConsumerCardSkeleton />}
+          renderItem={({ item }) => (
+            <ConsumerInvoiceCard
+              key={`ConsumerInvoiceCard-${item.uuid}`}
+              consumerInvoice={item}
+              downloadInvoice={
+                isInvoiceDownloadable(item) ? handleDownloadInvoice : null
+              }
+              downloadReceipt={
+                item?.payments?.length ? handleDownloadReceipt : null
+              }
+              getInvoice={getInvoice}
+              isMobile={isMobile}
+              isSelected={
+                !isMobile &&
+                !!selectedConsumerInvoice &&
+                selectedConsumerInvoice.uuid === item.uuid
+              }
+              payInvoice={payConsumerInvoice}
+              seeDetails={handleSeeInvoiceDetails(item)}
+              selectedFilter={selectedFilter}
+            />
+          )}
+        />
       }
       isEmpty={isCurrentTabContentEmpty}
     />

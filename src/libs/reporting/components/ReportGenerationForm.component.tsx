@@ -324,7 +324,7 @@ const ReportGenerationForm: React.FC<Props> = ({
             )}
             {reportConfiguration.date_type === 'single' && (
               <DatePickerSelector
-                date={DateTime.fromISO(values.dateEnd).toUnixInteger()}
+                date={DateTime.fromISO(values.dateStart).toUnixInteger()}
                 isDisabled={!!isDisabled}
                 // @ts-expect-error
                 onSubmit={(_values) => {

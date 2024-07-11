@@ -20,6 +20,7 @@ import CanvasScreenComponent from './tools/Screen/CanvasScreen.component';
 import CanvasTeacherComponent from './tools/Teacher/CanvasTeacher.component';
 import CanvasZoomButtons from './CanvasZoomButtons.component';
 import BeautifierForm from './tools/Beautifier/BeautifierForm.component';
+import PreferentialBsportSpotForm from './tools/PreferentialBsportSpot/PreferentialBsportSpotForm.component';
 import { SpotType } from '../types';
 import { DEFAULT_SPOT_TYPE_ID } from '../utils';
 
@@ -80,6 +81,7 @@ class CanvasViewController extends React.PureComponent<Props> {
       openBeautifyPopover: false,
       anchorEl: null,
       clickedElement: null,
+      openBsportPreferentialPopover: false,
     };
 
     // @ts-expect-error
@@ -235,6 +237,13 @@ class CanvasViewController extends React.PureComponent<Props> {
     this.setState({ openBeautifyPopover: false, anchorEl: null });
   };
 
+  handleCloseTierSpotTierIndexorPopover = () => {
+    this.setState({
+      openBsportPreferentialPopover: false,
+      anchorEl: null,
+    });
+  };
+
   onMouseClickElement = (
     mouseEvent: any,
     clickedElement: CanvasElement<any>,
@@ -248,6 +257,20 @@ class CanvasViewController extends React.PureComponent<Props> {
       this.setState((prevState) => ({
         // @ts-expect-error
         openBeautifyPopover: !prevState.openBeautifyPopover,
+        anchorEl: mouseEvent.target,
+        clickedElement,
+      }));
+      return;
+    }
+    if (
+      this.props.selectedTool ===
+      CANVAS_SELECTABLE_TOOLS.preferential_bsport_spot_tool
+    ) {
+      mouseEvent.persist();
+      this.setState((prevState) => ({
+        openBsportPreferentialPopover:
+          // @ts-expect-error
+          !prevState.openBsportPreferentialPopover,
         anchorEl: mouseEvent.target,
         clickedElement,
       }));
@@ -282,6 +305,28 @@ class CanvasViewController extends React.PureComponent<Props> {
     this.props.onElementsChange(newElements);
     this.setState(() => ({
       openBeautifyPopover: false,
+      anchorEl: null,
+      clickedElement: null,
+    }));
+  };
+
+  onSubmitBsportPreferentialFlagging = (values: any) => {
+    // @ts-expect-error
+    const canvasElement = this.state.clickedElement;
+
+    const newElements = [
+      ...this.props.elements.filter((ele) => ele.id !== canvasElement.id),
+      {
+        ...canvasElement,
+        data: {
+          ...canvasElement.data,
+          ...values,
+        },
+      },
+    ];
+    this.props.onElementsChange(newElements);
+    this.setState(() => ({
+      openBsportPreferentialPopover: false,
       anchorEl: null,
       clickedElement: null,
     }));
@@ -470,6 +515,17 @@ class CanvasViewController extends React.PureComponent<Props> {
 
   render() {
     const { classes } = this.props;
+
+    const shouldBsportPreferentialSpotForm =
+      // @ts-expect-error
+      !!this.state.anchorEl &&
+      // @ts-expect-error
+      this.state.openBsportPreferentialPopover &&
+      // @ts-expect-error
+      !!this.state.clickedElement &&
+      // @ts-expect-error
+      this.state.clickedElement?.type === CANVAS_SELECTABLE_TOOLS.spot;
+
     return (
       <div
         className={clx(classes.relativeContainer, {
@@ -534,10 +590,25 @@ class CanvasViewController extends React.PureComponent<Props> {
             spotTypes={this.props.spotTypes}
           />
         </Popover>
+        <Popover
+          // @ts-expect-error
+          anchorEl={this.state.anchorEl}
+          // @ts-expect-error
+          anchorOrigin="right"
+          onClose={this.handleCloseTierSpotTierIndexorPopover}
+          open={shouldBsportPreferentialSpotForm}
+        >
+          <PreferentialBsportSpotForm
+            // @ts-expect-error
+            canvasElement={this.state.clickedElement}
+            loading={false}
+            onSubmit={this.onSubmitBsportPreferentialFlagging}
+          />
+        </Popover>
+
         <div className={classes.cursor} id={this.cursorId}>
           {this.renderCursor()}
         </div>
-
         {!this.props.isBoutiqueDisplay && (
           <CanvasZoomButtons
             onClickCenter={

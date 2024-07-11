@@ -26,6 +26,7 @@ import DoorDOMController from './Door/CanvasDoor.controller';
 import CanvasDoorTool from './Door/CanvasDoor.tool';
 import CanvasResizer from './Resizer/CanvasResizer.tool';
 import CanvasBeautifier from './Beautifier/Beautifier.tool';
+import PreferentialBsportSpotTool from './PreferentialBsportSpot/PreferentialBsportSpot.tool';
 import CanvasCopierTool from './Copier/Copier.tool';
 
 export type CanvasSelectableToolsEnum =
@@ -42,7 +43,8 @@ export type CanvasSelectableToolsEnum =
   | 'spot_selector'
   | 'resizer'
   | 'beautifier'
-  | 'copier';
+  | 'copier'
+  | 'preferential_bsport_spot_tool';
 
 export const CANVAS_SELECTABLE_TOOLS = {
   eraser: 'eraser' as const,
@@ -60,6 +62,7 @@ export const CANVAS_SELECTABLE_TOOLS = {
   resizer: 'resizer' as const,
   beautifier: 'beautifier' as const,
   copier: 'copier' as const,
+  preferential_bsport_spot_tool: 'preferential_bsport_spot_tool' as const,
 };
 
 export const CanvasComponentClasses: { [key: string]: any } = {
@@ -99,4 +102,6 @@ export const CanvasSelectableToolStrategy = {
   [CANVAS_SELECTABLE_TOOLS.resizer]: new CanvasResizer(),
   [CANVAS_SELECTABLE_TOOLS.beautifier]: new CanvasBeautifier(),
   [CANVAS_SELECTABLE_TOOLS.copier]: new CanvasCopierTool(),
+  [CANVAS_SELECTABLE_TOOLS.preferential_bsport_spot_tool]:
+    new PreferentialBsportSpotTool(),
 };

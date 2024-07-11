@@ -30,7 +30,7 @@ import AutorenewIcon from '@material-ui/icons/Autorenew';
 import CodeIcon from '@material-ui/icons/Code';
 import BuildIcon from '@material-ui/icons/Build';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
-
+import PollIcon from '@material-ui/icons/Poll';
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
 // @ts-expect-error
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
@@ -52,6 +52,7 @@ import PointerIcon from './tools/Pointer/Pointer.icon';
 import HandIcon from './tools/Hand/Hand.icon';
 import { SpotType } from '../types';
 
+import { Config } from '../../../config';
 type OwnProps = {
   selectedTool: CanvasSelectableToolsEnum;
   onSelectTool: (tool: CanvasSelectableToolsEnum, spotId?: number) => void;
@@ -533,7 +534,39 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
             </div>
           )}
         </FeatureListProvider>
+        {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+          !!this.props.companyTheme?.has_partnership) && (
+          <>
+            <Typography className={classes.sectionTitle} variant="h6">
+              {t('toolsMenu.sections.marketplaces')}
+            </Typography>
 
+            <Grid container className={classes.sectionContainer} spacing={4}>
+              <Grid item xs={12}>
+                <div className={classes.itemContainer}>
+                  <ButtonBase
+                    className={clx({
+                      [classes.item]: true,
+                      [classes.itemSelected]:
+                        this.props.selectedTool ===
+                        CANVAS_SELECTABLE_TOOLS.preferential_bsport_spot_tool,
+                    })}
+                    onClick={() => {
+                      this.props.onSelectTool(
+                        CANVAS_SELECTABLE_TOOLS.preferential_bsport_spot_tool,
+                      );
+                    }}
+                  >
+                    <PollIcon fontSize="large" />
+                  </ButtonBase>
+                  <Typography>
+                    {t('toolsMenu.bsportPreferentialSpots')}
+                  </Typography>
+                </div>
+              </Grid>
+            </Grid>
+          </>
+        )}
         <div className={classes.spacer} />
       </div>
     );

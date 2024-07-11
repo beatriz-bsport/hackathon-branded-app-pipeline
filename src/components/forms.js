@@ -1045,6 +1045,7 @@ type SwitchFieldProps = {
 };
 export const SwitchField = (props: SwitchFieldProps) => {
   const { name, disabled, label, inverse, className, helperText } = props;
+
   return (
     <div>
       <Field name={name}>

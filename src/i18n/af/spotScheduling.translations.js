@@ -9,6 +9,7 @@ exports.default = {
     advancedTool: 'HTML',
     cssEditor: 'CSS',
     copier: 'Duplicator',
+    bsportPreferentialSpots: 'Spots for members',
     sections: {
       custom: 'Custom',
       elements: 'Elements',
@@ -19,6 +20,7 @@ exports.default = {
       editionAdvanced: 'Advanced edition',
       spivi: 'Spivi integration',
       assets: 'Assets',
+      marketplaces: 'Marketplaces',
     },
     title: 'Toolbox',
     customFill: 'Filling',
@@ -130,6 +132,11 @@ exports.default = {
       'You can upload and use images directly from here. Once new images are uploaded they will be available to insert within your map.',
     submit: 'Submit',
     loadMore: 'Load more',
+  },
+  bsportPreferentialGroupForm: {
+    submit: 'Submit',
+    isPreferentialBsportSpotLabel:
+      'Spot reserved for members in priority. Marketplaces bookings (Classpass, OneFit, etc.) will come last.',
   },
   errorAvailableOffersScheduled:
     'Cannot be saved. This layout cannot be edited since it is used in future sessions.',

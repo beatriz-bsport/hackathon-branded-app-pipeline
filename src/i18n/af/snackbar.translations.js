@@ -296,6 +296,10 @@ const getTranslations = async () => {
         deleteError: 'Failed to archive subscription',
         restoreSuccess: 'Subscription successfully restored',
         restoreError: 'Failed to restore subscription',
+        editSuccess: 'Subscription successfully saved',
+        editError: 'Failed to save subscription',
+        createSuccess: 'Subscription successfully created',
+        createError: 'Failed to create subscription',
       },
     },
     smartlist: {

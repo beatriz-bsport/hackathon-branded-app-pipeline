@@ -32,6 +32,7 @@ import api, {
   fetchMemberSubscriptionsInAllFranchise as fetchMemberSubscriptionsInAllFranchiseAPI,
   fetchContractTemplateDetail as fetchContractTemplateDetailAPI,
   fetchContractTemplateRelatedBillingPlans as fetchContractTemplateRelatedBillingPlansAPI,
+  createOrUpdateContractTemplate as createOrUpdateContractTemplateAPI,
 } from './api';
 
 import type {
@@ -57,6 +58,7 @@ import type {
   ContractTemplate,
   Contract,
   ContractTemplatePaginatedQueryParams,
+  ContractTemplatePayload,
   SubscriptionREST,
 } from './types';
 import type { PaginationFilterParams } from '#src/libs/types';
@@ -1314,10 +1316,10 @@ export const fetchContractTemplateDetailActions = {
   isLoading: createAction<boolean>(
     'FRANCHISE/CONTRACT_TEMPLATE/DETAIL/IS_LOADING',
   ),
-  success: createAction<ContractTemplate>(
-    'FRANCHISE/CONTRACT_TEMPLATE/DETAIL/SUCCESS',
-  ),
 };
+export const storeContractTemplateDetailAction = createAction<ContractTemplate>(
+  'FRANCHISE/CONTRACT_TEMPLATE/DETAIL/SUCCESS',
+);
 
 export const fetchContractTemplateDetail =
   (id: number, options?: OptionCallback<ContractTemplate>) =>
@@ -1327,7 +1329,7 @@ export const fetchContractTemplateDetail =
 
     try {
       const response = await fetchContractTemplateDetailAPI(id);
-      dispatch(fetchContractTemplateDetailActions.success(response.data));
+      dispatch(storeContractTemplateDetailAction(response.data));
 
       options?.onSuccess?.(response.data);
     } catch (error) {
@@ -1382,3 +1384,40 @@ export const fetchContractTemplateRelatedBillingPlans =
 
     dispatch(fetchContractTemplateRelatedBillingPlansActions.isLoading(false));
   };
+
+export const createOrUpdateContractTemplateActions = {
+  error: createAction<Error | null>(
+    'FRANCHISE/CONTRACT_TEMPLATE/CREATE_OR_UPDATE/ERROR',
+  ),
+  isLoading: createAction<boolean>(
+    'FRANCHISE/CONTRACT_TEMPLATE/CREATE_OR_UPDATE/IS_LOADING',
+  ),
+};
+
+export function createOrUpdateContractTemplate(
+  data: ContractTemplatePayload,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOrUpdateContractTemplateActions.error(null));
+    dispatch(createOrUpdateContractTemplateActions.isLoading(true));
+    try {
+      const response = await createOrUpdateContractTemplateAPI(data);
+      dispatch(storeContractTemplateDetailAction(response.data));
+      options.onSuccess?.();
+      data.id
+        ? dispatch(snackbarSuccess('subscription.contractTemplate.editSuccess'))
+        : dispatch(
+            snackbarSuccess('subscription.contractTemplate.createSuccess'),
+          );
+    } catch (err) {
+      console.error(err);
+      dispatch(createOrUpdateContractTemplateActions.error(err));
+      options.onError?.(err);
+      data.id
+        ? dispatch(snackbarError('subscription.contractTemplate.editError'))
+        : dispatch(snackbarError('subscription.contractTemplate.createError'));
+    }
+    dispatch(createOrUpdateContractTemplateActions.isLoading(false));
+  };
+}

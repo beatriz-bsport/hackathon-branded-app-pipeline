@@ -34,6 +34,8 @@ import {
   restoreContractTemplateActions,
   fetchContractTemplateDetailActions,
   fetchContractTemplateRelatedBillingPlansActions,
+  createOrUpdateContractTemplateActions,
+  storeContractTemplateDetailAction,
 } from './actions';
 
 import type {
@@ -637,15 +639,6 @@ export default handleActions<Immutable.Immutable<SubscriptionState>>(
     ) => {
       return state.setIn(['contractTemplate', 'detail', 'error'], payload);
     },
-    [fetchContractTemplateDetailActions.success.toString()]: (
-      state,
-      { payload }: { payload: ContractTemplate },
-    ) => {
-      return state.merge(
-        { contractTemplate: { active: { byId: { [payload.id]: payload } } } },
-        { deep: true },
-      );
-    },
     [fetchContractTemplateRelatedBillingPlansActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
@@ -700,6 +693,33 @@ export default handleActions<Immutable.Immutable<SubscriptionState>>(
           },
           { deep: true },
         );
+    },
+    [createOrUpdateContractTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['contractTemplate', 'createOrUpdate', 'error'],
+        payload,
+      );
+    },
+    [createOrUpdateContractTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['contractTemplate', 'createOrUpdate', 'loading'],
+        payload,
+      );
+    },
+    [storeContractTemplateDetailAction.toString()]: (
+      state,
+      { payload }: { payload: ContractTemplate },
+    ) => {
+      return state.merge(
+        { contractTemplate: { active: { byId: { [payload.id]: payload } } } },
+        { deep: true },
+      );
     },
   },
   initialState,

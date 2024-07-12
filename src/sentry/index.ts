@@ -38,7 +38,7 @@ const exceptionMessageRegexpToIgnore = [
    */
   /Request failed with status code 500/,
   /Network Error/,
-  /Maximum call stack size exceeded./,
+  /Maximum call stack size exceeded/,
 ];
 
 Sentry.init({

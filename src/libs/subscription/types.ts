@@ -313,6 +313,7 @@ export type SubscriptionState = {
       nextPage: number | null;
       count: number;
     };
+    createOrUpdate: ErrorAndLoading;
   };
   contractTermsDownload: ErrorAndLoading;
   tags_on_first_billing: number[];
@@ -473,6 +474,10 @@ export type ContractTemplate = {
   companies: number[];
 };
 
+export type ContractTemplatePayload = Omit<
+  ContractTemplate,
+  'franchisor' | 'companies' | 'children_contracts' | 'disabled'
+>;
 export type ContractTemplatePaginatedQueryParams = PaginationFilterParams & {
   id__in?: number[];
   companies?: number[];

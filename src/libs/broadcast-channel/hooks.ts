@@ -29,6 +29,12 @@ export const useBroadcastChannel = <PayloadType = any>(
   onMessageCallback?: (data: BroadcastChannelMessage<PayloadType>) => void,
   { listenSelf }: { listenSelf?: boolean } = {},
 ) => {
+  /**
+   * BroadcastChannel is not available for some older browsers
+   * Sentry - https://bsport-cg.sentry.io/issues/5487093653/
+   */
+  const isBroadcastChannelAvailable = 'BroadcastChannel' in (global ?? {});
+
   const dispatch = useDispatch();
   const senderLocalId = useSelector(
     (state: RootState) => state.broadcastChannel.senderLocalId,
@@ -36,38 +42,44 @@ export const useBroadcastChannel = <PayloadType = any>(
 
   // Create a BroadcastChannel instance
   const channelRef = useRef(
-    new BroadcastChannel(getAccessControlBroadcastsChannelId()),
+    isBroadcastChannelAvailable
+      ? new BroadcastChannel(getAccessControlBroadcastsChannelId())
+      : null,
   );
-  const channel = channelRef.current;
+  const channel = channelRef?.current;
 
   // Update the channel id when the storage event is triggered
   useEffect(() => {
     const updateBroadcastChannelId = (event: StorageEvent) => {
       if (event.key === STORAGE_KEY_BSPORT_ACCM_CHANNEL_ID) {
-        channel.close();
-        channelRef.current = new BroadcastChannel(
-          getAccessControlBroadcastsChannelId(),
-        );
+        channel?.close?.();
+        if (isBroadcastChannelAvailable) {
+          channelRef.current = new BroadcastChannel(
+            getAccessControlBroadcastsChannelId(),
+          );
+        }
       }
     };
     document.addEventListener('storage', updateBroadcastChannelId);
     return () =>
       document.removeEventListener('storage', updateBroadcastChannelId);
-  }, [channel]);
+  }, [channel, isBroadcastChannelAvailable]);
 
   // Add a listener to the channel
-  channel.onmessage = (
-    event: MessageEvent<
-      BroadcastChannelMessage<PayloadType> & {
-        senderLocalId: string;
+  if (channel?.onmessage) {
+    channel.onmessage = (
+      event: MessageEvent<
+        BroadcastChannelMessage<PayloadType> & {
+          senderLocalId: string;
+        }
+      >,
+    ) => {
+      if (!listenSelf && event.data.senderLocalId === senderLocalId) {
+        return;
       }
-    >,
-  ) => {
-    if (!listenSelf && event.data.senderLocalId === senderLocalId) {
-      return;
-    }
-    onMessageCallback?.(event.data);
-  };
+      onMessageCallback?.(event.data);
+    };
+  }
 
   useEffect(() => {
     if (!senderLocalId) {
@@ -80,7 +92,7 @@ export const useBroadcastChannel = <PayloadType = any>(
   useEffect(() => {
     // Close the channel when the component unmounts
     return () => {
-      channel.close();
+      channel?.close?.();
     };
   }, [channel]);
 
@@ -90,7 +102,7 @@ export const useBroadcastChannel = <PayloadType = any>(
       if (!senderLocalId) {
         return;
       }
-      channel.postMessage({
+      channel?.postMessage?.({
         ...message,
         senderLocalId,
       });

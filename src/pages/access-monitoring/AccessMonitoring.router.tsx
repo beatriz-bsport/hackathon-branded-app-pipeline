@@ -2,11 +2,16 @@ import React, { useCallback, useEffect } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import {
+  useTranslation,
+  withTranslation,
+  WithTranslation,
+} from 'react-i18next';
 import { compose } from 'recompose';
 import { push as pushFunc } from 'connected-react-router';
 import Immutable from 'seamless-immutable';
 import { makeStyles } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
 import withPageHeightHOC, {
   WithPageHeight,
@@ -105,6 +110,7 @@ const AccessMonitoringRouter: React.FC<Props> = ({
   tab,
   theme,
 }) => {
+  const { t } = useTranslation('accessControl');
   const classes = useStyles();
 
   // Fetch data on component mount
@@ -142,6 +148,12 @@ const AccessMonitoringRouter: React.FC<Props> = ({
 
   const hideAppBar = tabsData.length <= 1;
 
+  /**
+   * BroadcastChannel is not available for some older browsers
+   * Sentry - https://bsport-cg.sentry.io/issues/5487093653/
+   */
+  const isBroadcastChannelAvailable = 'BroadcastChannel' in (global ?? {});
+
   return (
     <div className={classes.fullHeightRelative}>
       <ContentWithAppBar
@@ -154,18 +166,32 @@ const AccessMonitoringRouter: React.FC<Props> = ({
         tab={tab}
         tabsData={hideAppBar ? Immutable([]) : tabsData}
       >
-        <div className={classes.container}>
-          <AccessMonitoringSwitcher
-            location={location}
-            permissions={permissions}
-          />
-        </div>
+        <>
+          {!isBroadcastChannelAvailable && (
+            <Alert
+              className={classes.broadcastChannelWarningAlert}
+              severity="warning"
+            >
+              {t('broadcastChannelWarning')}
+            </Alert>
+          )}
+
+          <div className={classes.container}>
+            <AccessMonitoringSwitcher
+              location={location}
+              permissions={permissions}
+            />
+          </div>
+        </>
       </ContentWithAppBar>
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
+  broadcastChannelWarningAlert: {
+    marginBottom: theme.spacing(1),
+  },
   container: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),

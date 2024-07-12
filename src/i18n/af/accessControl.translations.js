@@ -1,4 +1,6 @@
 exports.default = {
+  broadcastChannelWarning:
+    'Your browser version prevents us from running this feature correctly. Please upgrade your browser.',
   accessMonitoringTitle: 'Access monitoring',
   memberEntry: 'Member entry',
   snackbar: {

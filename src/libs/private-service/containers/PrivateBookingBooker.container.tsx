@@ -345,10 +345,14 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
     );
     const privateServiceList =
       coachIdToFilterList?.length > 0
-        ? this.props.private_services.filter((ps: any) =>
-            ps.coaches?.some((coach: Coach) =>
-              coachIdToFilterList.includes(coach.id),
-            ),
+        ? this.props.private_services.filter(
+            (ps: any) =>
+              ps.coaches &&
+              ps.coaches.length > 0 &&
+              ps.coaches.some(
+                (coach: Coach) =>
+                  coach && coach.id && coachIdToFilterList.includes(coach.id),
+              ),
           )
         : this.props.private_services;
     return (

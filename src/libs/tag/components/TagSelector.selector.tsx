@@ -151,7 +151,7 @@ const TagSelector: React.FC<Props> = ({
   );
 
   const tagGroupedByTagGroup = React.useMemo(() => {
-    const tagGroupByGroup = [...allTagsWithTagGroup]?.reduce(
+    const tagGroupByGroup = [...(allTagsWithTagGroup ?? [])].reduce(
       (accumulator, tagItem) => {
         const temp = accumulator.findIndex(
           (group) => group.id === tagItem.group.id,
@@ -180,7 +180,7 @@ const TagSelector: React.FC<Props> = ({
       },
       [],
     );
-    return tagGroupByGroup;
+    return tagGroupByGroup ?? [];
   }, [allTagsWithTagGroup]);
 
   const onChangeExclusive = React.useCallback(
@@ -315,14 +315,16 @@ const TagSelector: React.FC<Props> = ({
 
   React.useEffect(() => {
     if (variant === 'exclusive') {
-      setSelectedTagsByTagGroup(
-        [...allTagsWithTagGroup]?.reduce<FranchiseUserTagDict>((acc, tag) => {
-          if ([...selectedTags]?.includes(tag.id)) {
-            acc[tag.group.id] = tag.id;
-          }
-          return acc;
-        }, {}),
-      );
+      !!allTagsWithTagGroup &&
+        !!selectedTags &&
+        setSelectedTagsByTagGroup(
+          [...allTagsWithTagGroup]?.reduce<FranchiseUserTagDict>((acc, tag) => {
+            if ([...selectedTags]?.includes(tag.id)) {
+              acc[tag.group.id] = tag.id;
+            }
+            return acc;
+          }, {}),
+        );
     }
   }, [selectedTags, allTagsWithTagGroup, setSelectedTagsByTagGroup, variant]);
 
@@ -359,7 +361,7 @@ const TagSelector: React.FC<Props> = ({
               left: '0px',
             }),
           }}
-          tagList={allTagsWithTagGroup}
+          tagList={allTagsWithTagGroup ?? []}
           value={
             variant === 'exclusive'
               ? exclusiveTagsOptionsSelected
@@ -389,7 +391,7 @@ const TagSelector: React.FC<Props> = ({
       options={tagGroupedByTagGroup}
       placeholder={placeholder || t('select')}
       styles={tagGroupStyles}
-      tagList={allTagsWithTagGroup}
+      tagList={allTagsWithTagGroup ?? []}
       value={
         variant === 'exclusive'
           ? exclusiveTagsOptionsSelected

@@ -9,7 +9,10 @@ import {
   SubscriptionInvoicingType,
   PassType,
 } from '#src/libs/subscription/enums';
-import { CONTRACT_MAX_NB_INTERVAL_ALLOWED } from '#src/libs/subscription/constants';
+import {
+  CONTRACT_MAX_NB_INTERVAL_ALLOWED,
+  DEFAULT_CONTRACT_TEMPLATE_FORM_INITIAL_VALUES,
+} from '#src/libs/subscription/constants';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 
 import ContractTemplateForm from '#src/libs/subscription/franchise-components/form/ContractTemplateForm.component';
@@ -149,25 +152,6 @@ const ContractTemplateFormDrawer: React.FC<Props> = ({
   const { t } = useTranslation('subscription');
   const classes = useStyles();
 
-  const defaultInitialValues: ContractTemplateFormValues = {
-    name: '',
-    description: '',
-    productType: PassType.PASSES,
-    paymentPackTemplate: null,
-    privatePassTemplate: null,
-    recurrentPrice: 0,
-    flatFee: 0,
-    invoicingType: SubscriptionInvoicingType.FIXED_DAY,
-    interval: 'month',
-    recurrenceBasis: 1,
-    numberOfIntervals: 12,
-    contract: '',
-    monthBillingDay: 1,
-    managerOnly: false,
-    autoRenewal: false,
-    unusableByStaff: false,
-  };
-
   return (
     <GenericResponsiveDrawer
       withoutPadding
@@ -177,7 +161,9 @@ const ContractTemplateFormDrawer: React.FC<Props> = ({
       title={t('contractTemplate.form.title')}
     >
       <Formik
-        initialValues={initialValues ?? defaultInitialValues}
+        initialValues={
+          initialValues ?? DEFAULT_CONTRACT_TEMPLATE_FORM_INITIAL_VALUES
+        }
         onSubmit={handleSubmit}
         validationSchema={franchiseContractTemplateFormValidationSchema}
       >

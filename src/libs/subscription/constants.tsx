@@ -1,4 +1,6 @@
 import { getCompanyCountry } from '../theme/selectors';
+import { PassType, SubscriptionInvoicingType } from './enums';
+import type { ContractTemplateFormValues } from '#src/libs/subscription/types';
 
 export const PAUSE_RESULT_SUCCESS = 1;
 export const CONTRACT_PAUSE_RESULT_SUCCESS = 2;
@@ -18,3 +20,23 @@ export const PLANNED_INVOICE_TIME_CONFIGURATION = {
 
 export const SHOULD_DISPLAY_AUTO_RENEWAL_WARNING_MESSAGE =
   getCompanyCountry() === 'DE';
+
+export const DEFAULT_CONTRACT_TEMPLATE_FORM_INITIAL_VALUES: ContractTemplateFormValues =
+  {
+    name: '',
+    description: '',
+    productType: PassType.PASSES,
+    paymentPackTemplate: null,
+    privatePassTemplate: null,
+    recurrentPrice: 0,
+    flatFee: 0,
+    invoicingType: SubscriptionInvoicingType.FIXED_DAY,
+    interval: 'month',
+    recurrenceBasis: 1,
+    numberOfIntervals: 12,
+    contract: '',
+    monthBillingDay: 1,
+    managerOnly: false,
+    autoRenewal: false,
+    unusableByStaff: false,
+  };

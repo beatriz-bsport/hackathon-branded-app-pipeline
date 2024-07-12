@@ -21,6 +21,7 @@ import {
   fetchDisabledContractTemplateList as fetchDisabledContractTemplateListAction,
   deleteContractTemplate as deleteContractTemplateAction,
   restoreContractTemplate as restoreContractTemplateAction,
+  createOrUpdateContractTemplate as createOrUpdateContractTemplateAction,
 } from '#src/libs/subscription/actions';
 import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#src/libs/payment-packs/actions';
 import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#src/libs/private-service/actions';
@@ -29,13 +30,16 @@ import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/acti
 import {
   getActiveContractTemplateList,
   getDisabledContractTemplateList,
+  getActiveContractTemplateById as getActiveContractTemplateByIdSelector,
 } from '#src/libs/subscription/selectors';
 import {
   getPaymentPackTemplateById as getPaymentPackTemplateByIdSelector,
+  getPaymentPackTemplateList as getPaymentPackTemplateListSelector,
   getPaymentPackTemplateIdList,
 } from '#src/libs/payment-packs/selectors';
 import {
   getPrivatePassTemplateById as getPrivatePassTemplateByIdSelector,
+  getPrivatePassTemplateList as getPrivatePassTemplateListSelector,
   getPrivatePassTemplateIdList,
 } from '#src/libs/private-service/selectors/private-pass';
 import {
@@ -47,12 +51,16 @@ import {
 import ContractTemplateList from '#src/libs/subscription/franchise-components/ContractTemplateList.component';
 import ContractTemplateListItem from '#src/libs/subscription/franchise-components/ContractTemplateListItem.component';
 import ContractTemplateDeleteDialog from '#src/libs/subscription/franchise-components/ContractTemplateDeleteDialog.component';
-import { CONTRACT_TEMPLATE_PAGE_SIZE } from '#src/libs/subscription/constants';
+import {
+  CONTRACT_TEMPLATE_PAGE_SIZE,
+  DEFAULT_CONTRACT_TEMPLATE_FORM_INITIAL_VALUES,
+} from '#src/libs/subscription/constants';
 
 import ObjectSearch from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import type {
   ContractTemplate,
+  ContractTemplateFormValues,
   ContractAvailabilityOptionProps,
   CompanyOptionProps,
   ContractTemplatePaginatedQueryParams,
@@ -64,7 +72,15 @@ import {
   ContractAvailabilityMapper,
   PassTypeMapper,
 } from '#src/libs/subscription/enums';
+
+import {
+  initializeContractTemplateFormValues,
+  mapContractTemplateFormValuesToApi,
+} from '#src/libs/subscription/utils';
+
 import ContractTemplateFilterHeaderComponent from '#src/libs/subscription/franchise-components/ContractTemplateFilterHeader.component';
+import ContractTemplateFormDrawer from '#src/libs/subscription/franchise-components/form/ContractTemplateFormDrawer.component';
+import BottomActionsButton from '#src/components/button/BottomActionsButton.component';
 
 const useContractTemplateFilters = (
   fetchActiveContractTemplateList: (
@@ -249,8 +265,11 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
   privatePassTemplateIdList,
   companiesIdList,
   push,
+  getPaymentPackTemplateList,
+  getPrivatePassTemplateList,
   getPaymentPackTemplateById,
   getPrivatePassTemplateById,
+  getActiveContractTemplateById,
   getFranchiseCompanyNameById,
   getFranchiseCompanyListById,
   fetchActiveContractTemplateList,
@@ -260,6 +279,7 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
   fetchPaymentPackTemplateList,
   fetchPrivatePassTemplateList,
   fetchFranchise,
+  createOrUpdateContractTemplate,
   t,
 }) => {
   const classes = useStyles();
@@ -271,6 +291,9 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
     setSelectedContractTemplateIdToDelete,
   ] = React.useState<number | null>(null);
 
+  const [editFormInitialValues, setEditFormInitialValues] = useState<
+    ContractTemplateFormValues | undefined
+  >(undefined);
   const {
     selectedPassType,
     selectedCompanies,
@@ -386,7 +409,37 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
     ],
   );
 
-  const handleEditContractTemplate = () => {};
+  const handleOpenEditDrawer = useCallback(
+    (id: number) => {
+      const contractTemplate = getActiveContractTemplateById(id);
+      initializeContractTemplateFormValues(
+        contractTemplate,
+        setEditFormInitialValues,
+      );
+    },
+    [getActiveContractTemplateById],
+  );
+
+  const handleOpenAddDrawer = useCallback(() => {
+    setEditFormInitialValues(DEFAULT_CONTRACT_TEMPLATE_FORM_INITIAL_VALUES);
+  }, []);
+
+  const handleSubmitEditOrAddContractTemplateDrawer = useCallback(
+    (formValues: ContractTemplateFormValues) => {
+      const payload = mapContractTemplateFormValuesToApi(formValues);
+      createOrUpdateContractTemplate(payload, {
+        onSuccess: () => {
+          setEditFormInitialValues(undefined);
+          fetchActiveContractTemplateListHandler();
+        },
+      });
+    },
+    [createOrUpdateContractTemplate, fetchActiveContractTemplateListHandler],
+  );
+
+  const handleCloseEditOrAddDrawer = useCallback(() => {
+    setEditFormInitialValues(undefined);
+  }, []);
 
   const getPaymentPackTemplateNameById = useCallback(
     (id: number) => {
@@ -453,7 +506,7 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
         loading={activeContractTemplateState.loading}
         onClick={goToContractTemplateDetailPage}
         onDelete={handleOpenDeleteDialog}
-        onEdit={handleEditContractTemplate}
+        onEdit={handleOpenEditDrawer}
         page={activeContractTemplateState.page}
       />
       <div>
@@ -484,10 +537,22 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
           />
         )}
       </div>
+      <BottomActionsButton
+        onCreate={handleOpenAddDrawer}
+        onCreateLabel={t('subscription:contract.actions.create')}
+      />
       <ContractTemplateDeleteDialog
         onClose={handleCloseDeleteDialog}
         onSubmit={handleDeleteContractTemplate}
         open={!!selectedContractTemplateIdToDelete}
+      />
+      <ContractTemplateFormDrawer
+        getPaymentPackTemplateList={getPaymentPackTemplateList}
+        getPrivatePassTemplateList={getPrivatePassTemplateList}
+        handleClose={handleCloseEditOrAddDrawer}
+        handleSubmit={handleSubmitEditOrAddContractTemplateDrawer}
+        initialValues={editFormInitialValues}
+        open={!!editFormInitialValues}
       />
     </div>
   );
@@ -539,6 +604,10 @@ const mapStateToProps = (state: RootState) => ({
     getFranchiseCompanyNameByIdSelector(state, id),
   getFranchiseCompanyListById: (id__in: number[]) =>
     getFranchiseCompanyListByIdSelector(state, id__in),
+  getPrivatePassTemplateList: () => getPrivatePassTemplateListSelector(state),
+  getPaymentPackTemplateList: () => getPaymentPackTemplateListSelector(state),
+  getActiveContractTemplateById: (id: number) =>
+    getActiveContractTemplateByIdSelector(state, id),
 });
 const mapDispatchToProps = {
   fetchActiveContractTemplateList: fetchActiveContractTemplateListAction,
@@ -548,6 +617,7 @@ const mapDispatchToProps = {
   fetchPaymentPackTemplateList: fetchPaymentPackTemplateListAction,
   fetchPrivatePassTemplateList: fetchPrivatePassTemplateListAction,
   fetchFranchise: fetchFranchiseAction,
+  createOrUpdateContractTemplate: createOrUpdateContractTemplateAction,
   push: pushAction,
 };
 

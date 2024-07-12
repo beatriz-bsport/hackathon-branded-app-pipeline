@@ -27,7 +27,7 @@ type Props = {
   getFranchiseCompanyListById: (id__in: number[]) => FranchiseCompany[];
   onClick?: (id: number) => void;
   onDelete?: (id: number) => void;
-  onEdit?: () => void;
+  onEdit?: (id: number) => void;
   onRestore?: (id: number) => void;
 };
 

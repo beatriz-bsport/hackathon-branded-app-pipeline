@@ -25,7 +25,7 @@ type Props = {
   getPrivatePassTemplateById: (id: number) => PrivatePassTemplate;
   getFranchiseCompanyListById: (id__in: number[]) => FranchiseCompany[];
   onDelete?: (id: number) => void;
-  onEdit?: () => void;
+  onEdit?: (id: number) => void;
   onClick?: (id: number) => void;
   onRestore?: (id: number) => void;
   selected?: boolean;
@@ -107,6 +107,14 @@ const ContractTemplateListItem: React.FC<Props> = ({
     [onRestore, contractTemplate.id],
   );
 
+  const editHandler = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      event.stopPropagation();
+      onEdit(contractTemplate.id);
+    },
+    [onEdit, contractTemplate.id],
+  );
+
   const clickHandler = useCallback(() => {
     onClick?.(contractTemplate.id);
   }, [onClick, contractTemplate.id]);
@@ -145,7 +153,7 @@ const ContractTemplateListItem: React.FC<Props> = ({
       )}
       {!!onEdit && (
         <Tooltip classes={tooltipClasses} title={t('subscription.edit')}>
-          <IconButton color="primary" onClick={onEdit}>
+          <IconButton color="primary" onClick={editHandler}>
             <EditIcon />
           </IconButton>
         </Tooltip>

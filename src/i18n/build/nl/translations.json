@@ -6184,7 +6184,7 @@
             "deleteModal": {
                 "content2": "Bestaande sessies die aan dit niveau gekoppeld zijn worden niet gewijzigd. Toekomstige sessies worden wel bewerkt.",
                 "content": "Weet je zeker dat je dit niveau wilt verwijderen?",
-                "title": "Verwijderen"
+                "title": "Bevestigen"
             },
             "modal": {
                 "submit": "Opslaan",

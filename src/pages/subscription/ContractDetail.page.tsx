@@ -375,7 +375,11 @@ export class ContractDetailPage extends Component<Props> {
                 buttonsProperties={
                   hasPausePermission ? this.getBottomActionsProperties(t) : null
                 }
-                onDelete={hasDeletePermission && this.openDeleteContractModal}
+                onDelete={
+                  hasDeletePermission &&
+                  !this.props.contract?.contract_template &&
+                  this.openDeleteContractModal
+                }
                 onEdit={hasEditPermission && this.onContractEdit}
               />
               <ContractDeleteDialog

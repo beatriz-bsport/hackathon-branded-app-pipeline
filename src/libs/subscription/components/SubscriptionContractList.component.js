@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useCallback } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withState, compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
@@ -37,12 +37,12 @@ type Props = {
   processing: boolean,
   displayNewCheckoutFlow: boolean,
 
-  onDelete: (id: number, options: OptionCallback) => void,
+  onDelete: (id: number, options?: OptionCallback) => void,
   paymentPackList: Array<PaymentPack>,
   privatePassList: Array<PrivatePass>,
   onEdit?: (data: any, options: OptionCallback) => void,
   onCreate: ?(data: any, options: OptionCallback) => void,
-  onRestore?: (id: number, options: OptionCallback) => void,
+  onRestore?: (id: number, options?: OptionCallback) => void,
   tagList?: Array<Tag<number>>,
 };
 export const SubscriptionContractList = (props: Props) => {
@@ -63,10 +63,10 @@ export const SubscriptionContractList = (props: Props) => {
               dense={props.dense}
               divider={props.divider}
               onClick={props.onClick ? () => props.onClick(c.id) : null}
-              onDelete={props.onDelete ? () => props.onDelete(c.id) : null}
+              onDelete={!c.contract_template && props.onDelete}
               onEdit={props.onEdit ? () => props.setContractToEdit(c) : null}
               onRegister={props.onRegister ? () => props.onRegister(c) : null}
-              onRestore={props.onRestore ? () => props.onRestore(c.id) : null}
+              onRestore={!c.contract_template && props.onRestore}
               selected={c.id === props.selectedContract}
               snackbar={props.snackbar}
             />

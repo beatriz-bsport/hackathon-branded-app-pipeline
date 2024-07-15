@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -22,12 +22,12 @@ type Props = {
   t: TFunction,
   company?: { id: number, name: string },
   contract: ContractWithPaymentPack,
-  onDelete: () => void,
+  onDelete: (contractId: number) => void,
   onEdit: () => void,
   onClick?: () => void,
   onRegister?: () => void,
   onBook?: () => void,
-  onRestore?: () => void,
+  onRestore?: (contractId: number) => void,
   selected?: boolean,
   dense?: boolean,
   divider?: boolean,
@@ -44,6 +44,14 @@ export const SubscriptionContractListItem = (props: Props) => {
     }
     // eslint-disable-next-line
   }, []);
+
+  const handleRestore = useCallback(() => {
+    props.onRestore(props.contract.id);
+  }, [props]);
+
+  const handleDelete = useCallback(() => {
+    props.onDelete(props.contract.id);
+  }, [props]);
 
   return (
     <ListItem
@@ -77,7 +85,7 @@ export const SubscriptionContractListItem = (props: Props) => {
             : ''
         }`}
       />
-      {props.onDelete && !props.contract.is_usable_by_staff && (
+      {!!props.onDelete && !props.contract.is_usable_by_staff && (
         <Tooltip title={props.t('invisibleForStaffToolTip')}>
           <IconButton>
             <RemoveShoppingCartIcon />
@@ -100,7 +108,7 @@ export const SubscriptionContractListItem = (props: Props) => {
       )}
       <ListItemResponsiveAction
         actions={[
-          props.onRegister && {
+          !!props.onRegister && {
             icon: AddPersonIcon,
             label: props.t('subscription.register'),
             color: 'primary',
@@ -109,33 +117,29 @@ export const SubscriptionContractListItem = (props: Props) => {
             },
             disabled: !props.contract.is_usable_by_staff,
           },
-          props.onEdit && {
+          !!props.onEdit && {
             icon: EditIcon,
             label: props.t('subscription.edit'),
             onClick: () => {
               props.onEdit();
             },
           },
-          props.onDelete && {
+          !!props.onDelete && {
             icon: DeleteIcon,
             label: props.t('subscription.delete'),
-            onClick: () => {
-              props.onDelete();
-            },
+            onClick: handleDelete,
           },
-          props.onBook && {
+          !!props.onBook && {
             icon: AddShoppingCartIcon,
             label: props.t(''),
             onClick: () => {
               props.onBook();
             },
           },
-          props.onRestore && {
+          !!props.onRestore && {
             icon: RestoreFromTrashIcon,
             label: props.t('subscription.restore'),
-            onClick: () => {
-              props.onRestore();
-            },
+            onClick: handleRestore,
           },
         ]}
       />

@@ -28,7 +28,11 @@ type Props = ReturnType<typeof mapStateToProps> &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 class PaymentMethodSettings extends React.PureComponent<Props> {
-  onSubmit = (values: PaymentMethodsFormValues) => {
+  onSubmit = (
+    values: Omit<PaymentMethodsFormValues, 'cardBillingDetailsMandatory'> & {
+      force_billing_details_on_cards: boolean;
+    },
+  ) => {
     this.props.updateCompanyTheme(this.props.theme.company, values, {
       onSuccess: () => this.props.snackbarSuccess('dashboard.save.success'),
       onError: () => this.props.snackbarError('dashboard.save.error'),

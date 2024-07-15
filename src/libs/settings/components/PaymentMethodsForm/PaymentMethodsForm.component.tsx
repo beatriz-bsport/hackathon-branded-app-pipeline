@@ -14,6 +14,7 @@ import { addOrRemove } from './utils';
 
 import { validationSchema } from './validationSchema';
 import { MAX_DAYS_FIRST_WARNING_PAYMENT_METHOD_EXPIRATION } from './constants';
+import omit from 'lodash/omit';
 
 export type PaymentMethodsFormValues = {
   payment_method_available: number[];
@@ -30,7 +31,11 @@ type AdditionalProps = {
   disablePaymentExpiredFirstWarning: boolean;
   disablePaymentExpiredSecondWarning: boolean;
   // eslint-disable-next-line react/no-unused-prop-types
-  onSubmit: (values: PaymentMethodsFormValues) => void;
+  onSubmit: (
+    values: Omit<PaymentMethodsFormValues, 'cardBillingDetailsMandatory'> & {
+      force_billing_details_on_cards: boolean;
+    },
+  ) => void;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -326,7 +331,11 @@ const formikFormWrapper = withFormik<
     };
   },
   handleSubmit: (data, { props: { onSubmit } }) => {
-    onSubmit(data);
+    const sanitizedData = {
+      ...omit(data, 'cardBillingDetailsMandatory'),
+      force_billing_details_on_cards: data.cardBillingDetailsMandatory,
+    };
+    onSubmit(sanitizedData);
   },
   validationSchema,
 });

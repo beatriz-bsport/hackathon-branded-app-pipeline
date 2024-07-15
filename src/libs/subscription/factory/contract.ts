@@ -54,6 +54,9 @@ export const contractFactory = (options?: ContractFactoryOptions) => {
     highlighted_as_recommended: options?.isHighlightedAsRecommended ?? false,
     tags_on_first_billing: [1, 2],
     nb_interval_after_auto_renewal: faker.number.int({ min: 2, max: 12 }),
+    contract_template: options?.hasContractTemplate
+      ? faker.number.int(10000)
+      : null,
   };
 };
 

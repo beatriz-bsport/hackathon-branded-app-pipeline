@@ -13,6 +13,7 @@ import KeyIcon from '@material-ui/icons/VpnKey';
 import TuneIcon from '@material-ui/icons/Tune';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Alert from '@material-ui/lab/Alert';
+import WarningIcon from '@material-ui/icons/Warning';
 import * as Yup from 'yup';
 import { FormikProps, useFormikContext, withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
@@ -209,6 +210,11 @@ export function SubscriptionContractFields(
     setFieldValue,
   );
 
+  const isFromContractTemplate = React.useMemo(
+    () => !!props.initial?.contract_template,
+    [props.initial?.contract_template],
+  );
+
   const updateShowNbIntervalAfterAutoRenewalInput = () =>
     setShowNbIntervalAfterAutoRenewalInput((prevState) => !prevState);
 
@@ -261,6 +267,16 @@ export function SubscriptionContractFields(
   });
   return (
     <div>
+      {isFromContractTemplate && (
+        <FormSection>
+          <div className={classes.row}>
+            <WarningIcon color="error" />
+            <Typography color="error" variant="body1">
+              {t('contractTemplate.backofficeEditWarning')}
+            </Typography>
+          </div>
+        </FormSection>
+      )}
       <FormSection
         sectionIcon={InfoIcon}
         sectionTitle={t('contract.form.general_info.title')}
@@ -269,6 +285,7 @@ export function SubscriptionContractFields(
           fullWidth
           required
           className={classes.field}
+          disabled={isFromContractTemplate}
           label={t('contract.form.name.label')}
           name="name"
         />
@@ -277,6 +294,7 @@ export function SubscriptionContractFields(
           multiline
           required
           className={classes.field}
+          disabled={isFromContractTemplate}
           label={t('contract.form.description.label')}
           name="description"
           placeholder={t('contract.form.description.placeholder')}
@@ -304,6 +322,7 @@ export function SubscriptionContractFields(
               value: ObjectType.paymentCombo,
             },
           ]}
+          disabled={isFromContractTemplate}
           name="object_type"
         />
         <div>
@@ -312,6 +331,7 @@ export function SubscriptionContractFields(
               fullWidth
               choices={props.paymentPackList}
               classes={classes}
+              disabled={isFromContractTemplate}
               name="payment_pack"
             />
           </Collapse>
@@ -320,6 +340,7 @@ export function SubscriptionContractFields(
               fullWidth
               choices={props.privatePassList}
               classes={classes}
+              disabled={isFromContractTemplate}
               name="private_pass"
             />
           </Collapse>
@@ -328,6 +349,7 @@ export function SubscriptionContractFields(
               fullWidth
               choices={props.paymentComboList}
               classes={classes}
+              disabled={isFromContractTemplate}
               name="payment_combo"
             />
           </Collapse>
@@ -342,6 +364,7 @@ export function SubscriptionContractFields(
           fullWidth
           required
           className={classes.fieldMargin2}
+          disabled={isFromContractTemplate}
           label={t('contract.form.recurrent_price.label')}
           name="recurrent_price"
         />
@@ -357,6 +380,7 @@ export function SubscriptionContractFields(
           fullWidth
           required
           className={classes.field}
+          disabled={isFromContractTemplate}
           helperText={t('contract.form.flat_fee.helperText')}
           label={t('contract.form.flat_fee.label')}
           name="flat_fee"
@@ -405,12 +429,14 @@ export function SubscriptionContractFields(
             <IntegerField
               required
               className={classes.intervalIntegerField}
+              disabled={isFromContractTemplate}
               name="recurrence_basis"
             />
             <IntervalRecurrenceSelectField
               displayPeriod
               required
               className={classes.intervalSelectorField}
+              disabled={isFromContractTemplate}
               name="interval"
               variant="outlined"
             />
@@ -420,6 +446,7 @@ export function SubscriptionContractFields(
           fullWidth
           required
           className={classes.field}
+          disabled={isFromContractTemplate}
           helperText={t(errors.nb_interval)}
           label={t('contract.form.nb_interval.label', {
             interval: t(`contract.interval.${props.values.interval}`, {
@@ -463,6 +490,7 @@ export function SubscriptionContractFields(
               select
               choices={monthBillingDayChoice}
               className={classes.monthBillingDaySelect}
+              disabled={isFromContractTemplate}
               id="select-month-billing-day"
               name="month_billing_day"
               variant="outlined"
@@ -510,6 +538,7 @@ export function SubscriptionContractFields(
           </Alert>
         </Collapse>
         <SwitchField
+          disabled={isFromContractTemplate}
           label={t('contract.form.autoRenewal.label')}
           name="auto_renewal"
         />
@@ -567,6 +596,7 @@ export function SubscriptionContractFields(
           multiline
           required
           className={classes.field}
+          disabled={isFromContractTemplate}
           label={t('contract.form.contract.label')}
           name="contract"
           placeholder={t('contract.form.contract.placeholder')}
@@ -580,10 +610,12 @@ export function SubscriptionContractFields(
         sectionTitle={t('contract.form.settings.title')}
       >
         <SwitchField
+          disabled={isFromContractTemplate}
           label={t('contract.form.managerOnly.label')}
           name="manager_only"
         />
         <SwitchField
+          disabled={isFromContractTemplate}
           label={t('contract.form.unusableByStaff.label')}
           name="unusable_by_staff"
         />
@@ -892,6 +924,7 @@ export const SubscriptionContractFormHoc = withFormik<
       highlighted_as_recommended: false,
       tags_on_first_billing: [],
       nb_interval_after_auto_renewal: null,
+      contract_template: null,
     };
   },
   enableReinitialize: true,

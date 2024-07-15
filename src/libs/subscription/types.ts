@@ -145,6 +145,7 @@ export type Contract = {
   highlighted_as_recommended: boolean;
   tags_on_first_billing: number[];
   nb_interval_after_auto_renewal: number | null;
+  contract_template: number;
 };
 
 export type ContractWithPaymentPack<
@@ -173,6 +174,7 @@ export type ContractWithPaymentPack<
   highlighted_as_recommended: boolean;
   tags_on_first_billing: Array<number>;
   nb_interval_after_auto_renewal: number | null;
+  contract_template: number;
 };
 
 export type ContractInterval = 'month' | 'week';
@@ -329,6 +331,7 @@ export type ContractFactoryOptions = {
   hasPaymentCombo?: boolean;
   hasPaymentPack?: boolean;
   hasPrivatePass?: boolean;
+  hasContractTemplate?: boolean;
   isManagerOnly?: boolean;
   isAutoRenewal?: boolean;
   isDisabled?: boolean;

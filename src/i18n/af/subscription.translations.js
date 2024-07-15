@@ -409,6 +409,8 @@ const getTranslations = async () => {
         'To comply with the German Fair Consumers Contract Act, after 2 years of subscription, the new subscription cycles must be for less than a year. Are you sure you want to continue?',
     },
     contractTemplate: {
+      backofficeEditWarning:
+        "The subscription is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified.",
       list: {
         isEmpty: 'No shared contracts',
       },

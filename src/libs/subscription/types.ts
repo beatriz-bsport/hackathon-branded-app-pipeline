@@ -90,6 +90,10 @@ export type Subscription<
   has_discount: boolean;
   nb_interval_after_auto_renewal: number | null;
   has_changed_after_renewal: boolean;
+  is_shared_from_franchisor?: boolean;
+  source_company_id?: number;
+  source_company_name?: string;
+  source_company_primary_color?: string;
 };
 
 export type SubscriptionInterval = 'month' | 'week' | 'day' | 'year';
@@ -404,6 +408,10 @@ export type SubscriptionREST = {
   stop_note: string;
   stripe_payment_method_id: string;
   voucher: string;
+  is_shared_from_franchisor?: boolean;
+  source_company_id?: number;
+  source_company_name?: string;
+  source_company_primary_color?: string;
 };
 
 export type SubscriptionsFailedInvoicesREST = {

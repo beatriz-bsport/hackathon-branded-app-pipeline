@@ -22,6 +22,7 @@ import ContractTermsDialog from './contract/ContractTermsDialog.component';
 import { isPaused } from '../utils';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 import GermanMarketSetSubscriptionAutoRenewalAlert from '../GermanMarketSetSubscriptionAutoRenewalAlert.component';
+import classNames from 'classnames';
 
 type Props = {
   canEditPassBillingPlan: boolean;
@@ -145,6 +146,8 @@ export const SubscriptionSummary = (props: Props) => {
     ],
   );
 
+  const isSharedFromFranchisor = subscription.is_shared_from_franchisor;
+
   const onOpenContractTermsDialog = () => setOpenContractTermsDialog(true);
   const onCloseContractTermsDialog = () => setOpenContractTermsDialog(false);
   if (!subscription) {
@@ -207,12 +210,16 @@ export const SubscriptionSummary = (props: Props) => {
           />
         </div>
         {!!subscription.payment_pack && (
-          <div className={classes.fieldNotPadded}>
+          <div
+            className={classNames(classes.fieldNotPadded, {
+              [classes.noEditAllowed]: isSharedFromFranchisor,
+            })}
+          >
             <Typography variant="body2">
               {t('parameters.payment_pack')}
             </Typography>
             <div className={classes.rowRight}>
-              {props.canEditPassBillingPlan && (
+              {props.canEditPassBillingPlan && !isSharedFromFranchisor && (
                 <IconButton
                   color="primary"
                   disabled={!subscription.editable}
@@ -230,12 +237,16 @@ export const SubscriptionSummary = (props: Props) => {
           </div>
         )}
         {!!subscription.private_pass && (
-          <div className={classes.fieldNotPadded}>
+          <div
+            className={classNames(classes.fieldNotPadded, {
+              [classes.noEditAllowed]: isSharedFromFranchisor,
+            })}
+          >
             <Typography variant="body2">
               {t('parameters.private_pass')}
             </Typography>
             <div className={classes.rowRight}>
-              {props.canEditPassBillingPlan && (
+              {props.canEditPassBillingPlan && !isSharedFromFranchisor && (
                 <IconButton
                   color="primary"
                   disabled={!subscription.editable}
@@ -390,6 +401,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   contractTermsButton: {
     marginLeft: theme.spacing(0.5),
     marginRight: theme.spacing(0.5),
+  },
+  noEditAllowed: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
 }));
 

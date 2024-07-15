@@ -11829,7 +11829,7 @@
         "name": "Last booking"
       },
       "600": {
-        "expiryDateLabel": "Expiration date",
+        "expiryDateLabel": "with an expiration date",
         "owns": "Select at least one payment method",
         "does_not_own": "There are no saved payment methods to display",
         "labelFirst": "Only filter on members",

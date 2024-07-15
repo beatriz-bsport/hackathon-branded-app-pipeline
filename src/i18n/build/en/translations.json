@@ -14610,7 +14610,7 @@
                 "explain": "Display all members that have accepted your liability waiver"
             },
             "600": {
-                "expiryDateLabel": "Expiration date",
+                "expiryDateLabel": "with an expiration date",
                 "owns": "With at least one saved payment method",
                 "does_not_own": "Without any saved payment method",
                 "labelFirst": "Only filter on members",

@@ -397,7 +397,7 @@ const getTranslations = async () => {
         explain: 'Display all members that have accepted your liability waiver',
       },
       [PAYMENT_METHOD_FILTER_IDENTIFIER]: {
-        expiryDateLabel: 'Expiration date',
+        expiryDateLabel: 'with an expiration date',
         owns: 'Select at least one payment method',
         does_not_own: 'There are no saved payment methods to display',
         labelFirst: 'Only filter on members',

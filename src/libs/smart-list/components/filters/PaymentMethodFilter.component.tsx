@@ -11,6 +11,8 @@ import { createStyles } from '@material-ui/styles';
 
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Switch from '@material-ui/core/Switch';
+
 import { DateTime } from 'luxon';
 
 import { Theme } from '@material-ui/core';
@@ -32,12 +34,18 @@ export class PaymentMethodFilter extends Component<Props> {
         owns_payment_method: 0,
         date: DateTime.now().toISODate(),
         date_second: DateTime.now().toISODate(),
+        date_filter_active: false,
         date_filter_type: 0,
         duration: 0,
         duration_second: 0,
       });
     }
   }
+
+  handleIsDateFilterActiveChange = () =>
+    this.props.onChange({
+      date_filter_active: !this.props.filter_data.date_filter_active,
+    });
 
   render() {
     const { filter_data, t, classes, onChange } = this.props;
@@ -76,18 +84,31 @@ export class PaymentMethodFilter extends Component<Props> {
 
         {valueAsString === '1' && (
           <div className={classes.row}>
-            {t(`filters.${filter_data.filter_identifier}.expiryDateLabel`)}
-            <CalendarPicker
-              // @ts-expect-error
-              blockValidateOnClickAway
-              filter_data={filter_data}
-              // waiting for stripe migration to be done to enable this feature on prod
-              hideDurationTab={
-                Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
-              }
-              onChange={onChange}
-              overrideDateList={[DATE_BETWEEN, DATE_BEFORE, DATE_AFTER]}
+            <Switch
+              checked={filter_data.date_filter_active}
+              inputProps={{ 'aria-label': 'secondary checkbox' }}
+              onChange={this.handleIsDateFilterActiveChange}
             />
+            <div
+              className={
+                filter_data.date_filter_active
+                  ? classes.inlineContainer
+                  : classes.disabled
+              }
+            >
+              {t(`filters.${filter_data.filter_identifier}.expiryDateLabel`)}
+              <CalendarPicker
+                // @ts-expect-error
+                blockValidateOnClickAway
+                filter_data={filter_data}
+                // waiting for stripe migration to be done to enable this feature on prod
+                hideDurationTab={
+                  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
+                }
+                onChange={onChange}
+                overrideDateList={[DATE_BETWEEN, DATE_BEFORE, DATE_AFTER]}
+              />
+            </div>
           </div>
         )}
       </div>
@@ -111,6 +132,15 @@ const styles = (theme: Theme) =>
       flexDirection: 'row',
       alignItems: 'center',
     },
+    disabled: {
+      display: 'flex',
+      alignItems: 'center',
+      pointerEvents: 'none',
+      background: '#f1f1f1',
+      borderRadius: '7px',
+      paddingLeft: theme.spacing(1),
+    },
+    inlineContainer: { display: 'flex', alignItems: 'center' },
   });
 
 export default compose(

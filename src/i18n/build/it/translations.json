@@ -18717,7 +18717,8 @@
                 "spivi": "Integrazione Spivi",
                 "assets": "Attività",
                 "editionAdvanced": "Modifica avanzata",
-                "editionHistory": "Cronologia modifiche"
+                "editionHistory": "Cronologia modifiche",
+                "marketplaces": "Marketplace"
             },
             "title": "Cassetta degli attrezzi",
             "helperText": "La dimensione del docente deve essere strettamente positiva",
@@ -18728,7 +18729,8 @@
             "openAssetModal": "Gestione delle attività",
             "copier": "Duplicare",
             "cssEditor": "CSS",
-            "advancedTool": "HTML"
+            "advancedTool": "HTML",
+            "bsportPreferentialSpots": "Posto per i membri"
         },
         "spotCreatorForm": {
             "alertDefaultSpot": "Modificando lo spot di default, tutti gli altri presenti su tutte le planimetrie verranno poi modificati in modo identico",
@@ -18803,6 +18805,10 @@
             "loadMore": "Leggi di più",
             "submit": "Salva",
             "description": "È possibile caricare e utilizzare le immagini direttamente da qui. Una volta caricate, le nuove immagini saranno disponibili per essere inserite nella mappa."
+        },
+        "bsportPreferentialGroupForm": {
+            "isPreferentialBsportSpotLabel": "Posti riservati ai membri in maniera prioritaria. Le prenotazioni sui marketplace (Classpass, OneFit, ecc.) avranno minore priorità.",
+            "submit": "Invia"
         }
     },
     "franchise": {

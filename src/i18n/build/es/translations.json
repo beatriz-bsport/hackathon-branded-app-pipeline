@@ -7926,7 +7926,7 @@
                     "availability": {
                         "expiresToday": "Último día",
                         "expiresIn": "{{ daysRemaining }} día restante",
-                        "expiresIn_plural": "días restantes",
+                        "expiresIn_plural": "{{ daysRemaining }} días restantes",
                         "future": "Inicio: {{ startDate }}",
                         "expired": "Caducado: {{ expirationDate }}",
                         "active": "Caduca: {{ expirationDate }}"
@@ -18728,7 +18728,8 @@
                 "spivi": "Integración de Spivi",
                 "assets": "Activos",
                 "editionAdvanced": "Edición avanzada",
-                "editionHistory": "Historia de edición"
+                "editionHistory": "Historia de edición",
+                "marketplaces": "Marketplaces"
             },
             "title": "Caja de herramientas",
             "customIconLabel": "Iconos de ubicación",
@@ -18744,7 +18745,8 @@
             "openAssetModal": "Gestor de activos abiertos",
             "copier": "Duplicador",
             "cssEditor": "CSS",
-            "advancedTool": "HTML"
+            "advancedTool": "HTML",
+            "bsportPreferentialSpots": "Plazas para miembros"
         },
         "spotImageDialog": {
             "helper": "Puede personalizar la forma de las ranuras importando sus propias imágenes. Para ello necesitamos 2 iconos diferentes. Uno para indicar que el lugar está disponible, otro cuando está reservado. Asegúrese de que son del mismo tamaño y no incluya ningún número en sus iconos.",
@@ -18859,6 +18861,10 @@
             "loadMore": "Cargar más",
             "submit": "Enviar",
             "description": "Puede cargar y utilizar imágenes directamente desde aquí. Una vez cargadas las nuevas imágenes, estarán disponibles para insertarlas en el mapa."
+        },
+        "bsportPreferentialGroupForm": {
+            "isPreferentialBsportSpotLabel": "Plaza reservada prioritariamente a los miembros. Las reservas de Marketplaces (Classpass, OneFit, etc.) serán las últimas.",
+            "submit": "Enviar"
         }
     },
     "franchise": {

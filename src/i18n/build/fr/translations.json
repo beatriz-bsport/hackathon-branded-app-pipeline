@@ -15582,7 +15582,8 @@
                 "spivi": "Intégration Spivi",
                 "assets": "Actifs",
                 "editionAdvanced": "Édition avancée",
-                "editionHistory": "Historique de l'édition"
+                "editionHistory": "Historique de l'édition",
+                "marketplaces": "Marketplaces"
             },
             "eraser": "Gomme",
             "undo": "Précédent",
@@ -15609,7 +15610,8 @@
             "openAssetModal": "Ouvrir le gestionnaire d'actifs",
             "copier": "Duplicateur",
             "cssEditor": "CSS",
-            "advancedTool": "HTML"
+            "advancedTool": "HTML",
+            "bsportPreferentialSpots": "Emplacements pour les membres"
         },
         "spotImageDialog": {
             "title": "Personnaliser vos emplacements",
@@ -15724,6 +15726,10 @@
             "loadMore": "Plus d'informations",
             "submit": "Soumettre",
             "description": "Vous pouvez télécharger et utiliser des images directement à partir d'ici. Une fois les nouvelles images téléchargées, elles seront disponibles pour être insérées dans votre carte."
+        },
+        "bsportPreferentialGroupForm": {
+            "isPreferentialBsportSpotLabel": "Les emplacements sont réservés en priorité aux membres. Les réservations sur les marketplaces (Classpass, OneFit, etc.) seront effectuées en dernier.",
+            "submit": "Soumettre"
         }
     },
     "stripe": {

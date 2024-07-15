@@ -18693,7 +18693,8 @@
                 "spivi": "Spivi-integratie",
                 "assets": "Middelen",
                 "editionAdvanced": "Geavanceerde versie",
-                "editionHistory": "Versie geschiedenis"
+                "editionHistory": "Versie geschiedenis",
+                "marketplaces": "Marketplace"
             },
             "title": "Hulpmiddelen",
             "showGrid": "Toon raster",
@@ -18709,7 +18710,8 @@
             "openAssetModal": "Open middelen afhandelen",
             "copier": "Duplicator",
             "cssEditor": "CSS",
-            "advancedTool": "HTML"
+            "advancedTool": "HTML",
+            "bsportPreferentialSpots": "Plekken voor leden"
         },
         "placeCount": "{{count}} plaats(en)",
         "roomBlueprints": "Plattegrond",
@@ -18824,6 +18826,10 @@
             "loadMore": "Lees meer",
             "submit": "Verzenden",
             "description": "U kunt afbeeldingen rechtstreeks vanaf hier uploaden en gebruiken. Zodra nieuwe afbeeldingen zijn geüpload, zijn ze beschikbaar om in uw kaart in te voegen."
+        },
+        "bsportPreferentialGroupForm": {
+            "isPreferentialBsportSpotLabel": "Plek gereserveerd voor leden met voorrang. Boekingen via marktplaatsen (Classpass, OneFit, enz.) komen als laatste aan de beurt.",
+            "submit": "Stuur  in"
         }
     },
     "franchise": {

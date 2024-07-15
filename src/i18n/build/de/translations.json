@@ -13060,7 +13060,7 @@
                     "back": "Vorherige",
                     "allowGuest": "Kompatibel mit der Gastbuchungs-Funktion",
                     "allowGuestUnavailable": "Diese Funktion ist für geschlossene Kurse nicht verfügbar.",
-                    "allowBookingAfterStart": "Erlauben Sie die Einschreibung unterwegs",
+                    "allowBookingAfterStart": "Erlaube den Einstieg während des laufenden Kurses",
                     "recurrenceUntilHelper2": "Nach diesem Datum ist es nicht mehr möglich, Kurse hinzuzufügen.",
                     "fullBookingOnly": "Alle Kurse der Gruppe auf einmal buchen",
                     "syncOnSpivi": "An Spivi senden",
@@ -18579,7 +18579,8 @@
                 "spivi": "Spivi-Integration",
                 "assets": "Ressourcen",
                 "editionAdvanced": "Fortgeschrittene Edition",
-                "editionHistory": "Historie der Edition"
+                "editionHistory": "Historie der Edition",
+                "marketplaces": "Marktplätze"
             },
             "title": "Werkzeugkasten",
             "customIconLabel": "Standort-Symbole",
@@ -18595,7 +18596,8 @@
             "openAssetModal": "Umgang mit offenen Ressourcen",
             "copier": "Duplikator",
             "cssEditor": "CSS",
-            "advancedTool": "HTML"
+            "advancedTool": "HTML",
+            "bsportPreferentialSpots": "Plätze für Mitglieder"
         },
         "errorLessSpotThanEffectif": "Sparen ist nicht möglich. Der Platzplan muss mehr Platz bieten als die Anzahl der Teilnehmer des Kurses, zu der er gehört",
         "saveError": "Fehler",
@@ -18710,6 +18712,10 @@
             "loadMore": "Mehr laden",
             "submit": "Einreichen",
             "description": "Sie können Bilder direkt von hier aus hochladen und verwenden. Sobald neue Bilder hochgeladen sind, können Sie sie in Ihre Karte einfügen."
+        },
+        "bsportPreferentialGroupForm": {
+            "isPreferentialBsportSpotLabel": "Platz reserviert für Prioritätsmitglieder. Marktplatzbuchungen (Classpass, OneFit, etc.) kommen zuletzt.",
+            "submit": "Absenden"
         }
     },
     "franchise": {

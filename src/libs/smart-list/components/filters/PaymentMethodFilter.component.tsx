@@ -6,7 +6,8 @@ import {
 } from 'react-i18next';
 import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import { createStyles } from '@material-ui/styles';
 
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -20,10 +21,9 @@ import Config from '#src/config';
 type Props = {
   filter_data: any;
   t: TFunction;
-  classes: Object;
   onChange: (foo: any) => void;
   isNew: boolean;
-};
+} & WithStyles<typeof styles>;
 
 export class PaymentMethodFilter extends Component<Props> {
   componentDidMount() {
@@ -62,7 +62,6 @@ export class PaymentMethodFilter extends Component<Props> {
         </div>
         {t(`filters.${filter_data.filter_identifier}.labelFirst`)}
         <Select
-          // @ts-expect-error
           className={classes.input}
           onChange={(ev) => onChange({ owns_payment_method: ev.target.value })}
           value={valueAsString}
@@ -76,7 +75,6 @@ export class PaymentMethodFilter extends Component<Props> {
         </Select>
 
         {valueAsString === '1' && (
-          // @ts-expect-error
           <div className={classes.row}>
             {t(`filters.${filter_data.filter_identifier}.expiryDateLabel`)}
             <CalendarPicker
@@ -97,25 +95,25 @@ export class PaymentMethodFilter extends Component<Props> {
   }
 }
 
-const styles = (theme: Theme) => ({
-  input: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  textInput: {
-    width: '70px',
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    input: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
+    textInput: {
+      width: '70px',
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+  });
 
 export default compose(
   withTranslation(['smartList']),
-  // @ts-expect-error
   withStyles(styles),
 )(PaymentMethodFilter);

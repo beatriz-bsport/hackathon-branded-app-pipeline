@@ -321,21 +321,16 @@ export class PaymentPackCard extends Component<Props, State> {
     return null;
   };
 
-  renderVODInfo = () => {
-    const { t, pack, classes } = this.props;
-    const { only_vod_access, full_vod_access } = pack;
-    if (only_vod_access || full_vod_access) {
-      return (
-        <>
-          {full_vod_access && !only_vod_access && (
-            <p className={classes.detailContent}>{t('full_vod')}</p>
-          )}
-          {only_vod_access && (
-            <p className={classes.detailContent}>{t('only_vod_access')}</p>
-          )}
-        </>
-      );
+  getVODAccessType = () => {
+    const { only_vod_access, full_vod_access } = this.props.pack;
+    if (full_vod_access && !only_vod_access) {
+      return 'full_vod';
     }
+
+    if (only_vod_access) {
+      return 'only_vod_access';
+    }
+
     return null;
   };
 
@@ -467,7 +462,7 @@ export class PaymentPackCard extends Component<Props, State> {
     const accessibility = this.renderAccessibilityInfo();
     const restrictions = this.renderRestrictions();
     const tags = getTagInfo(pack, t);
-    const VOD = this.renderVODInfo();
+    const VOD = this.getVODAccessType();
     const off_peak_schedule = JSON.parse(
       JSON.stringify(pack?.off_peak_schedule ?? {}),
     );
@@ -567,9 +562,7 @@ export class PaymentPackCard extends Component<Props, State> {
               color="textSecondary"
               variant="caption"
             >
-              <p className={classes.detailContent}>
-                {t('cardDetails.universalPass')}
-              </p>
+              {t('cardDetails.universalPass')}
             </Typography>
           </div>
         )}
@@ -586,7 +579,7 @@ export class PaymentPackCard extends Component<Props, State> {
               color="textSecondary"
               variant="caption"
             >
-              {VOD}
+              {t(VOD)}
             </Typography>
           </div>
         )}

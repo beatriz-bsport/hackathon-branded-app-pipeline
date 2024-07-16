@@ -131,6 +131,10 @@ export type ReportMetadataValue = {
   columns: ReportMetadataColumn[];
 };
 
+export type ReportMetadataValueWithLabel = ReportMetadataValue & {
+  label: string;
+};
+
 export type ReportMetadata = {
   results: ReportMetadataValue[];
   loading: boolean;
@@ -169,4 +173,9 @@ export type ReportObjectPermissions = {
   edit: boolean;
   delete: boolean;
   create: boolean;
+};
+
+export type GlobalCategoryData = {
+  globalCategory: string;
+  reportCategories: ReportMetadataValueWithLabel[];
 };

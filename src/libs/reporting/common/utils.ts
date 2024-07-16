@@ -114,6 +114,7 @@ import type {
   ReportConfiguration,
   CellConverter,
   ReportObjectPermissions,
+  ReportMetadataValueWithLabel,
 } from './types';
 
 export const CATEGORIES: ReportCategory[] = [
@@ -1244,3 +1245,15 @@ export const getReportObjectPermissions = (
     { read: true, edit: true, delete: true, create: true },
   );
 };
+// This function is helpful when using Fuse. The result of fuse.search has the type
+// ```
+// X[] | Fuse.FuseResultWithMatches<X>[] | Fuse.FuseResultWithScore<X>[] |
+// (Fuse.FuseResultWithMatches<...> & Fuse.FuseResultWithScore<...>)[]
+// ```
+// according to TS (where X is the type of the items you give to the search),
+// but it's actually never X[] directly, so this is used to make TS understand that.
+export function isNotReportMetadataValueWithLabel<T extends Object[]>(
+  fuseSearchResults: T,
+): fuseSearchResults is Exclude<T, ReportMetadataValueWithLabel[]> {
+  return fuseSearchResults.length > 0 && 'item' in fuseSearchResults[0];
+}

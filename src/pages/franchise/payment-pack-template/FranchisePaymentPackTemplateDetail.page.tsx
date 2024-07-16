@@ -143,7 +143,7 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
           />
         )}
         <PaymentPackTemplateDeleteDialog
-          onClose={this.props.closeDeleteDialog}
+          onClose={this.props.closePaymentPackTemplateDeleteDialog}
           onSubmit={this.props.deletePaymentPackTemplate}
           open={this.props.isDeletePaymentPackDialogOpen}
         />
@@ -202,6 +202,9 @@ const stateHandlersSetter = {
   }),
   closeDeleteDialog: () => () => ({
     companyTemplateInstanceIdToDelete: null as number,
+  }),
+  closePaymentPackTemplateDeleteDialog: () => () => ({
+    isDeletePaymentPackDialogOpen: false,
   }),
   openPaymentPackDeleteDialog: () => () => ({
     isDeletePaymentPackDialogOpen: true,

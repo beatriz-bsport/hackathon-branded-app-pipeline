@@ -104,6 +104,15 @@ const getTranslations = async () => {
     doNotAttend: 'Absent',
     loading: 'Loading',
     wasRefunded: 'Refunded',
+    refund: 'Refund',
+    refundDialog: {
+      title: 'Late Cancellation Refund',
+      content:
+        'This booking was cancelled too late to be automatically refunded. Click "Refund" to process a one-time credit refund for this booking.',
+      titleUnlimitedPaymentPack: 'Reset Late Cancellation Count',
+      contentUnlimitedPaymentPack:
+        'This booking was made with an unlimited pass and was cancelled late. Excessive late cancellations may incur penalties. Click "Reset" to remove the late cancellation from the pass records. Note that if a penalty has already been applied, it cannot be removed.',
+    },
     statusCode: {
       cancelledByManager: 'Cancelled by manager ({{- cancelled_by }})',
       cancelledByConsumer: 'Cancelled by customer',

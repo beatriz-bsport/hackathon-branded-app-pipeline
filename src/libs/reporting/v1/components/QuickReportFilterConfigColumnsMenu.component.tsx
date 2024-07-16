@@ -27,15 +27,18 @@ import {
   generateNewGroup,
 } from '#src/libs/datatype-filtering/utils';
 import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
-import { authorIdentifiers } from '#src/libs/reporting/constants';
+import { authorIdentifiers } from '#src/libs/reporting/common/constants';
 import QuickReportFilterConfigFilter, {
   QuickFiltersColumnsData,
 } from './QuickReportFilterConfigFilter.component';
 import {
   getFilterableColumns,
   getReportGlobalCategoryFromCategory,
-} from '../utils';
-import { ReportFilterConfig, ReportMetadataColumn } from '../types';
+} from '#src/libs/reporting/common/utils';
+import {
+  ReportFilterConfig,
+  ReportMetadataColumn,
+} from '#src/libs/reporting/common/types';
 
 type QuickFilterConfigSearchColumnOptions = {
   label: string;

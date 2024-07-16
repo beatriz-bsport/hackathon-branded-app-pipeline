@@ -64,7 +64,7 @@ import relationship from '#src/libs/relationship/reducers';
 // @ts-expect-error
 import reminder from '#src/libs/reminder/reducers';
 import replacementRequestReducer from '#src/libs/replacement-request/reducers';
-import reportingReducer from '#src/libs/reporting/reducers';
+import reportingReducer from '#src/libs/reporting/v1/reducers';
 import roleReducers from '#src/libs/role/reducers';
 import settingsReducer from '#src/libs/settings/reducers';
 import shopReducer from '#src/libs/shop/reducers';
@@ -142,7 +142,7 @@ import type { PluginState } from '#src/libs/plugin/types';
 import type { PollState } from '#src/libs/sign-up-form/types';
 import type { PrivateServiceState } from '#src/libs/private-service/types';
 import type { QuickbooksState } from '#src/libs/quickbooks/types';
-import type { ReportingState } from '#src/libs/reporting/types';
+import type { ReportingState } from '#src/libs/reporting/common/types';
 import type { RoleState } from '#src/libs/role/types';
 import type { SettingsState } from '#src/libs/settings/types';
 import type { SmartListState } from '#src/libs/smart-list/types';

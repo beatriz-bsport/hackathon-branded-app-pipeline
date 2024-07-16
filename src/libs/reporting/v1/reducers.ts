@@ -16,7 +16,7 @@ import {
   fetchReportFilterConfigListActions,
   deleteReportFilterConfigActions,
 } from './actions';
-import { ReportingState } from './types';
+import type { ReportingState } from '#src/libs/reporting/common/types';
 
 const initialState: Immutable.Immutable<ReportingState> =
   Immutable<ReportingState>({

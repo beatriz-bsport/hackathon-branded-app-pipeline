@@ -36,12 +36,12 @@ import type {
   DynamicFilterDataType,
 } from '#src/libs/datatype-filtering/types';
 import { ReportFilterableDataType } from '#src/libs/datatype-filtering/constants';
-import { ReportFilterConfig } from '#src/libs/reporting/types';
+import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
 import {
   getComparatorLabel,
   getMultipleValuesLabel,
   getSingleValueLabel,
-} from '#src/libs/reporting/utils';
+} from '#src/libs/reporting/common/utils';
 import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 
 type ReportFilterChipProps = {

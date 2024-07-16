@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 
-import { ReportConfiguration } from '../types';
+import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 
 import ReportListItem from './ReportListItem.component';
 

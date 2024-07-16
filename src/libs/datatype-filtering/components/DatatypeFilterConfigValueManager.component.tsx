@@ -79,7 +79,7 @@ import {
 } from '#src/libs/custom-form/components/GenericFormik.input';
 import MaterialUISelectorConsumers from '#src/components/Selector/MaterialUISelectorConsumers.container';
 import MaterialUISelectorPayout from '#src/components/Selector/MaterialUISelectorPayout.container';
-import ReportChipsRenderer from '#src/libs/reporting/components/ReportChips/ReportChipsRenderer.component';
+import ReportChipsRenderer from '#src/libs/reporting/common/components/ReportChips/ReportChipsRenderer.component';
 import { AccessStatus, EntryStatus } from '#src/libs/access-control/constants';
 import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
 import NestedAlertError from './NestedAlertError.component';

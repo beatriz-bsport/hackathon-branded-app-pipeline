@@ -26,8 +26,8 @@ import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/
 import DatatypeFilterConfigValueManager from '#src/libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
 import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
-import { ReportFilterConfig } from '../types';
-import { CREDIT_COLUMNS } from '../constants';
+import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
+import { CREDIT_COLUMNS } from '#src/libs/reporting/common/constants';
 import { getCreditFactor } from '#src/libs/theme/selectors';
 
 export type QuickFiltersColumnsData = {

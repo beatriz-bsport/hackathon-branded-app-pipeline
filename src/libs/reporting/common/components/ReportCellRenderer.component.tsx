@@ -2,9 +2,9 @@ import React from 'react';
 import chroma from 'chroma-js';
 import BooleanChip from '#src/components/chip/BooleanChip.component';
 import CustomChip from '#src/components/chip/CustomChip.component';
-import ReportStatusChip from './ReportChips/ReportStatusChip.component';
-import ReportConditionChip from './ReportChips/ReportConditionChip.component';
-import { isColumnChipsable } from '../utils';
+import ReportStatusChip from '#src/libs/reporting/common/components/ReportChips/ReportStatusChip.component';
+import ReportConditionChip from '#src/libs/reporting/common/components/ReportChips/ReportConditionChip.component';
+import { isColumnChipsable } from '#src/libs/reporting/common/utils';
 
 type ReportCellRendererProps = {
   reportCategory: string;

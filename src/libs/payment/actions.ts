@@ -9,7 +9,7 @@ import type {
   OptionBackgroundCallback,
 } from '../../state/types';
 import type { RootState } from '../../reducers';
-import type { ReportConfiguration } from '../reporting/types';
+import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
 import {

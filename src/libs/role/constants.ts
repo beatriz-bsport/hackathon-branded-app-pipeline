@@ -13,7 +13,7 @@ import {
   UPSELL_IDENTIFIER_CUSTOM_APP,
   UPSELL_PERFORMANCE_TRACKING_IDENTIFIER,
 } from '#src/libs/platform-billing/upsell-identifiers';
-import { COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY } from '#src/libs/reporting/constants';
+import { COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY } from '#src/libs/reporting/common/constants';
 import {
   FranchiseProtectedUrls,
   ProtectedUrls,

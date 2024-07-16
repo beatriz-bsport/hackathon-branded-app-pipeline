@@ -4,15 +4,15 @@ import { TableRow } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import { generateRowLink } from '#src/libs/reporting/utils';
+import { generateRowLink } from '#src/libs/reporting/common/utils';
 import { hasAccessToUrl } from '#src/libs/role/utils';
-import ReportTableCell from '#src/libs/reporting/components/ReportTableCell';
+import ReportTableCell from '#src/libs/reporting/common/components/ReportTableCell';
 
 import type {
   CellConverter,
   ReportMetadataColumn,
   SerializedRow,
-} from '#src/libs/reporting/types';
+} from '#src/libs/reporting/common/types';
 import type {
   RolePermission,
   ObjectLevelPermissions,

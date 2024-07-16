@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { ButtonBase, makeStyles, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-import { ReportMetadataColumn } from '#src/libs/reporting/types';
+import type { ReportMetadataColumn } from '#src/libs/reporting/common/types';
 
 import {
   DataSourceFieldMetadata,

@@ -10,7 +10,7 @@ import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '#src/components/Tooltip.component';
-import { ReportMetadataColumn } from '../types';
+import type { ReportMetadataColumn } from '#src/libs/reporting/common/types';
 
 type Props = {
   value: string[];

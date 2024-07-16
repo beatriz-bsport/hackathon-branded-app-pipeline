@@ -9,12 +9,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
-import { ReportConfiguration } from '../types';
+import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 import {
   getIconFromCategory,
   getReportGlobalCategoryFromCategory,
-} from '../utils';
-import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
+} from '#src/libs/reporting/common/utils';
+import ListItemResponsiveAction from '#src/components/button/ListItemResponsiveAction.component';
 
 type Props = {
   report: ReportConfiguration;

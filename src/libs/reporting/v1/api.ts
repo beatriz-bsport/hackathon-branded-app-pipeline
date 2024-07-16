@@ -5,7 +5,7 @@ import {
   ReportFilterConfigParams,
   ReportMetadataValue,
   ReportSerializerParams,
-} from '#src/libs/reporting/types';
+} from '#src/libs/reporting/common/types';
 import {
   API_URI,
   getAuth,
@@ -14,7 +14,7 @@ import {
   putAuth,
   postAuth,
   patchAuth,
-} from '../../http';
+} from '#src/http';
 
 export const fetchReportGeneration = async (reportId: number, params: any) => {
   return getAuth(

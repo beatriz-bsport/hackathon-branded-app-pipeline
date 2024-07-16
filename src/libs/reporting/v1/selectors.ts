@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
-import { RootState } from '../../reducers';
-import { ReportConfiguration } from './types';
+import { RootState } from '#src/reducers';
+import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 
 export const getReportRows = (state: RootState, reportId: number) => {
   const rows = Object.keys(state.reports.reportResponse).includes(

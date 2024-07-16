@@ -29,7 +29,7 @@ import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import EditIcon from '@material-ui/icons/Edit';
 import { DatatypeFilterConfigSchemaWithRequiredGroups } from '#src/libs/datatype-filtering/validation_schema';
 
-import {
+import type {
   DynamicFilterDataType,
   DatatypeFilterConfigGroupOperand,
   DatatypeFilterConfigGroup,
@@ -50,12 +50,15 @@ import {
 import OperandSelect from '#src/libs/datatype-filtering/components/OperandSelect.component';
 import DatatypeFilterConfigGroupRow from '#src/libs/datatype-filtering/components/DatatypeFilterConfigGroupRow.component';
 import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
-import { getFilterableColumns } from '#src/libs/reporting/utils';
-import { OptionCallback } from '../../../../state/types';
+import { getFilterableColumns } from '#src/libs/reporting/common/utils';
+import type { OptionCallback } from '#src/state/types';
 import NestedAlertError from './NestedAlertError.component';
-import { ReportFilterConfig, ReportMetadataColumn } from '../../types';
+import type {
+  ReportFilterConfig,
+  ReportMetadataColumn,
+} from '#src/libs/reporting/common/types';
 import { getCreditFactor } from '#src/libs/theme/selectors';
-import { CREDIT_COLUMNS } from '../../constants';
+import { CREDIT_COLUMNS } from '#src/libs/reporting/common/constants';
 
 type Values = {
   name: string;

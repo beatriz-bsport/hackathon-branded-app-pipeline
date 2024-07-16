@@ -8,7 +8,8 @@ import { makeStyles, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { ReportMetadataColumn } from '#src/libs/reporting/types';
+import type { ReportMetadataColumn } from '#src/libs/reporting/common/types';
+
 import {
   AllComparator,
   DynamicFilterDataType,
@@ -29,7 +30,7 @@ import {
 
 import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 import HoverableWarning from '#src/components/HoverableWarning.component';
-import { authorIdentifiers } from '#src/libs/reporting/constants';
+import { authorIdentifiers } from '#src/libs/reporting/common/constants';
 import DatatypeFilterConfigValueManager from './DatatypeFilterConfigValueManager.component';
 import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
 

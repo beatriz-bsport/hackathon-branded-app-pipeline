@@ -1,17 +1,17 @@
 import { createAction } from 'redux-actions';
-import {
+import type {
   ReportConfiguration,
   ReportFilterConfig,
   ReportFilterConfigParams,
   ReportSerializerParams,
-} from '#src/libs/reporting/types';
-import {
+} from '#src/libs/reporting/common/types';
+import type {
   OptionCallback,
   Dispatch,
   OptionPaginatedCallback,
-} from '../../state/types';
-import { monitorBackgroundTask } from '../background-task/actions';
-import { displayBackgroundDialog } from '../background-dialog/actions';
+} from '#src/state/types';
+import { monitorBackgroundTask } from '#src/libs/background-task/actions';
+import { displayBackgroundDialog } from '#src/libs/background-dialog/actions';
 import {
   fetchSerializedReport as fetchSerializedReportAPI,
   fetchReportHeaders as fetchReportHeadersAPI,

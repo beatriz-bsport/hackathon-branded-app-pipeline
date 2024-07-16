@@ -99,7 +99,7 @@ import {
   getActiveCustomLevels,
   getAllCustomLevels,
 } from '#src/libs/level/selectors';
-import { fetchReportOfferManagement as fetchReportOfferManagementActions } from '#src/libs/reporting/actions';
+import { fetchReportOfferManagement as fetchReportOfferManagementActions } from '#src/libs/reporting/v1/actions';
 import {
   setCalendarFilter as setCalendarFilterAction,
   setReplacementRequestManagerFilter as setReplacementRequestManagerFilterAction,

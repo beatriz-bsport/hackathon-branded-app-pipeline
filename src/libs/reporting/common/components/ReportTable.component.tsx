@@ -19,9 +19,9 @@ import {
   getConverter,
   getColumn,
   ReportColumnPermissions,
-} from '#src/libs/reporting/utils';
+} from '#src/libs/reporting/common/utils';
 import { hasObjectLevelPermission } from '#src/libs/role/permission-utils/utils';
-import ReportTableRow from '#src/libs/reporting/components/ReportTableRow';
+import ReportTableRow from '#src/libs/reporting/common/components/ReportTableRow';
 
 import type {
   ObjectLevelPermissions,
@@ -31,7 +31,7 @@ import type {
   ReportConfiguration,
   ReportMetadata,
   SerializedRow,
-} from '#src/libs/reporting/types';
+} from '#src/libs/reporting/common/types';
 
 type TableProps = {
   reportStoreRowsLoading: boolean;

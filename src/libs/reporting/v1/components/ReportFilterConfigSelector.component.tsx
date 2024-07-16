@@ -27,10 +27,10 @@ import type {
 } from '#src/libs/datatype-filtering/types';
 import HoverableWarning from '#src/components/HoverableWarning.component';
 import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
-import { authorIdentifiers } from '#src/libs/reporting/constants';
+import { authorIdentifiers } from '#src/libs/reporting/common/constants';
 import ReportFilterConfigFormDrawer from './ReportFilterConfigDrawer';
-import type { OptionCallback } from '../../../state/types';
-import type { ReportFilterConfig } from '../types';
+import type { OptionCallback } from '#src/state/types';
+import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
 import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
 import QuickReportFilterConfigColumnsMenu from './QuickReportFilterConfigColumnsMenu.component';
 

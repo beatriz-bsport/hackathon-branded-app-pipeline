@@ -23,18 +23,18 @@ import { Submit, defaultHandleSubmit } from '#src/components/forms';
 import DateRangeSelector from '#src/components/date/DateRangeSelector.component';
 import TimeRangeSelector from '#src/components/time/TimeRangeSelector.component';
 import DatePickerSelector from '#src/components/date/DatePickerSelector.component';
-import { getReportGlobalCategoryFromCategory } from '#src/libs/reporting/utils';
+import { getReportGlobalCategoryFromCategory } from '#src/libs/reporting/common/utils';
 
 import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
-import { OptionCallback } from '../../../state/types';
-import {
+import type { OptionCallback } from '#src/state/types';
+import type {
   ReportConfiguration as ReportConfigurationType,
   ReportFilterConfig,
   ReportFilterConfigParams,
   ReportMetadataValue,
-} from '../types';
+} from '#src/libs/reporting/common/types';
 import ReportFilterConfigSelector from './ReportFilterConfigSelector.component';
 
 type Props = {

@@ -6,7 +6,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import { getCategory } from '../utils';
+import { getCategory } from '#src/libs/reporting/common/utils';
 
 type Props = {
   selected: ReportCategoryEnum;

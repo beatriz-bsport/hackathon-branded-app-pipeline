@@ -19,14 +19,17 @@ import ModalConfirm from '#src/components/ModalConfirm.component';
 import FuzzySearch from '#src/components/search/FuzzySearch.component';
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
-import { getReportGlobalCategoryFromCategory } from '#src/libs/reporting/utils';
+import { getReportGlobalCategoryFromCategory } from '#src/libs/reporting/common/utils';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import ReportCategorySelector from './ReportCategorySelector.component';
 import ReportList from './ReportList.component';
 import ReportListItem from './ReportListItem.component';
 import ReportConfigurationForm from './ReportConfigurationForm.component';
-import { OptionCallback } from '../../../state/types';
-import { ReportConfiguration, ReportMetadataValue } from '../types';
+import type { OptionCallback } from '#src/state/types';
+import type {
+  ReportConfiguration,
+  ReportMetadataValue,
+} from '#src/libs/reporting/common/types';
 
 const {
   trackFormAdd,

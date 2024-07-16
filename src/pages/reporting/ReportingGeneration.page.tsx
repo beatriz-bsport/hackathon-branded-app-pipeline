@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 
-import ReportGeneration from '#src/libs/reporting/components/ReportGeneration.component';
+import ReportGeneration from '#src/libs/reporting/v1/components/ReportGeneration.component';
 
 import {
   fetchSerializedReport,
@@ -16,9 +16,9 @@ import {
   editReportFilterConfig as editReportFilterConfigAction,
   fetchReportFilterConfigList as fetchReportFilterConfigListAction,
   deleteReportFilterConfig as deleteReportFilterConfigAction,
-} from '#src/libs/reporting/actions';
+} from '#src/libs/reporting/v1/actions';
 
-import { ReportConfiguration } from '#src/libs/reporting/types';
+import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 import {
   getReportRows,
   getReportRowsLoading,
@@ -31,7 +31,7 @@ import {
   getReports,
   getReport,
   getReportFilterConfigList,
-} from '#src/libs/reporting/selectors';
+} from '#src/libs/reporting/v1/selectors';
 
 import withDatatypeDynamicData, {
   withDatatypeDynamicDataProps,

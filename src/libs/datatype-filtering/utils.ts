@@ -33,7 +33,7 @@ import {
 } from '#src/libs/datatype-filtering/types';
 import { TIME_PERIODS_RANGE } from '#src/components/date/DateRangeSelector.component';
 import { TIME_PERIODS_SINGLE } from '#src/components/date/DatePickerSelector.component';
-import { ReportMetadataColumn } from '#src/libs/reporting/types';
+import type { ReportMetadataColumn } from '#src/libs/reporting/common/types';
 
 //
 // Getters

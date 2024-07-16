@@ -6,12 +6,12 @@ import { TFunction } from 'i18next';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
-import { filter_reports_by_upsells } from '#src/libs/reporting/permissions';
+import { filter_reports_by_upsells } from '#src/libs/reporting/common/permissions';
 import { getCompanyUpsellData } from '#src/libs/company/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import ReportDashboard from '../../libs/reporting/components/ReportDashboard.component';
+import ReportDashboard from '#src/libs/reporting/v1/components/ReportDashboard.component';
 
 import {
   fetchReports as fetchReportsAction,
@@ -19,10 +19,13 @@ import {
   deleteReport as deleteReportAction,
   updateReport as updateReportAction,
   createReport as createReportAction,
-} from '../../libs/reporting/actions';
-import { ReportConfiguration } from '../../libs/reporting/types';
+} from '#src/libs/reporting/v1/actions';
+import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 import { RootState } from '../../reducers';
-import { getReportMetadata, getReports } from '../../libs/reporting/selectors';
+import {
+  getReportMetadata,
+  getReports,
+} from '#src/libs/reporting/v1/selectors';
 import { OptionCallback } from '../../state/types';
 import { OwnProps } from '../../components/HighlightedText/HighlightedText.component';
 

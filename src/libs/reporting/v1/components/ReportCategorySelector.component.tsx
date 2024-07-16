@@ -6,7 +6,7 @@ import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import { getCategory } from '../utils';
+import { getCategory } from '#src/libs/reporting/common/utils';
 
 type Props = {
   selected: ReportCategoryEnum;

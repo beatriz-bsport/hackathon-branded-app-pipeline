@@ -14,20 +14,20 @@ import type {
   ReportFilterConfigParams,
   ReportMetadata,
   SerializedRow,
-} from '#src/libs/reporting/types';
+} from '#src/libs/reporting/common/types';
 import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 import {
   getColumn,
   getReportObjectPermissions,
-} from '#src/libs/reporting/utils';
+} from '#src/libs/reporting/common/utils';
 import { ObjectLevelPermissions, RolePermission } from '#src/libs/role/types';
 import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
-import { OptionCallback } from '../../../state/types';
-import ReportTableHeaders from './ReportTableHeaders.component';
-import ReportTable from './ReportTable.component';
+import type { OptionCallback } from '#src/state/types';
+import ReportTableHeaders from '#src/libs/reporting/common/components/ReportTableHeaders.component';
+import ReportTable from '#src/libs/reporting/common/components/ReportTable.component';
 import ReportGenerationForm from './ReportGenerationForm.component';
 import { getCreditFactor } from '#src/libs/theme/selectors';
-import { CREDIT_COLUMNS } from '../constants';
+import { CREDIT_COLUMNS } from '#src/libs/reporting/common/constants';
 
 type Props = {
   resultLoading?: boolean;

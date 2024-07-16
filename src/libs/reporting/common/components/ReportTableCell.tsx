@@ -4,9 +4,13 @@ import { TableCell } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import { CellConverter, CellData, ReportMetadataColumn } from '../types';
+import type {
+  CellConverter,
+  CellData,
+  ReportMetadataColumn,
+} from '#src/libs/reporting/common/types';
 
-import ReportCellRenderer from './ReportCellRenderer.component';
+import ReportCellRenderer from '#src/libs/reporting/common/components/ReportCellRenderer.component';
 
 type ReportTableCellProps = {
   reportCategory: ReportCategoryEnum;

@@ -10,24 +10,24 @@ import RedButton from '../../../../components/button/RedButton.component';
 
 type Props = { open?: boolean; onClose: () => void; onSubmit: () => void };
 
-const PaymentPackTemplateDeleteDialog = (props: Props) => {
-  const { t } = useTranslation(['paymentPack']);
+const PrivatePassTemplateDeleteDialog = (props: Props) => {
+  const { t } = useTranslation('privateService');
   return (
     <Dialog open={props.open}>
-      <DialogTitle>{t('paymentPackTemplate.deleteForm.title')}</DialogTitle>
+      <DialogTitle>{t('privatePassTemplate.deleteForm.title')}</DialogTitle>
       <DialogContent>
-        {t('paymentPackTemplate.deleteForm.content')}
+        {t('privatePassTemplate.deleteForm.content')}
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>
-          {t('paymentPackTemplate.deleteForm.actions.close')}
+          {t('privatePassTemplate.deleteForm.actions.close')}
         </Button>
         <RedButton delayBeforeActivation={5} onClick={props.onSubmit}>
-          {t('paymentPackTemplate.deleteForm.actions.submit')}
+          {t('privatePassTemplate.deleteForm.actions.submit')}
         </RedButton>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default PaymentPackTemplateDeleteDialog;
+export default PrivatePassTemplateDeleteDialog;

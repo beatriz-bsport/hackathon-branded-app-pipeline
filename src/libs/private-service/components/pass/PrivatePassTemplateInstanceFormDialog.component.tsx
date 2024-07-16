@@ -37,7 +37,7 @@ const PrivatePassTemplateInstanceFormDialog = (props: Props) => {
           <Button disabled={isSubmitting} onClick={props.onClose}>
             {t('privatePassTemplateInstance.form.actions.close')}
           </Button>
-          <Submit disabled={isSubmitting}>
+          <Submit disabled={isSubmitting} variant="text">
             {isSubmitting && (
               <CircularProgress
                 className={classes.progress}

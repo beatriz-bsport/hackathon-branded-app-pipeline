@@ -1005,16 +1005,16 @@ const getTranslations = async () => {
     privatePassTemplateInstance: {
       deleteForm: {
         content:
-          "Members that've bought a pass at this studio will still be able to use this pass at other compatible studios, even after this specific studio has been deactivated. Other shared passes will no longer be useable at the deactivated studio.",
-        actions: { submit: 'Disable sharing', close: 'Close' },
-        title: 'Deactivation',
+          'If you stop sharing with this studio, appointment passes purchased at that studio will still be valid, but only within that specific studio. Appointment passes from other studios will no longer be valid there. This also applies to linked subscriptions.',
+        actions: { submit: 'Stop sharing', close: 'Close' },
+        title: 'Stop sharing with a studio',
       },
       form: {
         explain2:
-          'Members that have bought this pass may use the pass at any of the compatible studios.',
+          'Members who have purchased this appointment pass or a linked subscription will be able to use it at any of the newly compatible studios.',
         actions: { submit: 'Save', close: 'Close' },
         explain1:
-          "The following studios will automatically offer this pass, but won't be able to modify the price or the number of credits.",
+          "The following studios will automatically offer this appointment pass, but won't be able to change its price or credit number.",
         title: 'Availability',
       },
       privateConsumerPassSharedFromOtherFranchisee: 'Shared from a franchisee',
@@ -1025,16 +1025,23 @@ const getTranslations = async () => {
     privatePassTemplate: {
       actions: { create: 'Add a shared pass' },
       deleteForm: {
-        actions: { submit: 'Disable sharing', close: 'Close' },
+        actions: { submit: 'Delete', close: 'Close' },
         content:
-          'Members will still be able to use a pass, of which the sharing has been deactivated, at the studio of purchase.',
-        title: 'Deactivation',
+          'Members will still be able to use the appointment pass at the studio where they bought it. Any subscription linked to this appointment pass will also only work at that same studio.',
+        title: 'Delete shared appointment pass',
       },
       form: {
         actions: { submit: 'Save', close: 'Close' },
         submit: 'Confirm',
         close: 'Close',
         title: '[Form] Shared appointment pass',
+        editConfirmation: {
+          title: 'Edit confirmation',
+          content:
+            'Your changes will also be applied to subscriptions linked to this shared appointment pass. Are you sure you want to proceed and save your edits?',
+          cancel: 'Cancel',
+          confirm: 'Save anyway',
+        },
       },
       section: {
         titleManagerOnly: 'Not available for purchase',

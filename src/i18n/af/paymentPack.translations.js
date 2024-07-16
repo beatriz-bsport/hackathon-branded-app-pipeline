@@ -604,16 +604,23 @@ const getTranslations = async () => {
       },
       actions: { create: 'Add a shared pass' },
       deleteForm: {
-        actions: { submit: 'Disable sharing', close: 'Close' },
+        actions: { submit: 'Delete', close: 'Close' },
         content:
-          'Members will still be able to use a pass, of which the sharing has been deactivated, at the studio of purchase.',
-        title: 'Deactivation',
+          'Members will still be able to use the pass at the studio where they bought it. Any subscription linked to this pass will remain valid at that same studio.',
+        title: 'Delete shared pass',
       },
       form: {
         actions: { submit: 'Save', close: 'Close' },
         submit: 'Save',
         close: 'Close',
         title: '[Form] Shared pass',
+        editConfirmation: {
+          title: 'Edit confirmation',
+          content:
+            'Your changes will also be applied to subscriptions linked to this shared pass. Are you sure you want to proceed and save your edits?',
+          cancel: 'Cancel',
+          confirm: 'Save anyway',
+        },
       },
       section: {
         titleManagerOnly: 'Not available for purchase',
@@ -628,17 +635,17 @@ const getTranslations = async () => {
       actions: { addCompany: 'Add a studio', buy: 'Purchase' },
       companyEmpty: 'No studios have been configured with this pass',
       deleteForm: {
-        actions: { submit: 'Disable sharing', close: 'Close' },
+        actions: { submit: 'Stop sharing', close: 'Close' },
         content:
-          "Members that've bought a pass at this studio will still be able to use this pass at other compatible studios, even after this specific studio has been deactivated. Other shared passes will no longer be useable at the deactivated studio.",
-        title: 'Deactivation',
+          'If you stop sharing with this studio, passes purchased at that studio will still be valid, but only within that specific studio. Passes from other studios will no longer be valid there. This also applies to linked subscriptions.',
+        title: 'Stop sharing with a studio',
       },
       form: {
         actions: { submit: 'Save', close: 'Close' },
         explain2:
-          'Members that have bought this pass may use the pass at any of the compatible studios.',
+          'Members who have purchased this pass or a linked subscription will be able to use it at any of the newly compatible studios.',
         explain1:
-          "The following studios will automatically offer this pass, but won't be able to modify the price or the number of credits.",
+          "The following studios will automatically offer this pass, but won't be able to change its price or credit number.",
         title: 'Availability',
       },
       consumerPaymentPackSharedFromOtherFranchisee: 'Shared with a studio',

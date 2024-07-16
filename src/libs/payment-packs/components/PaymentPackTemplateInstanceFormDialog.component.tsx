@@ -38,7 +38,7 @@ const PaymentPackTemplateInstanceFormDialog = (props: Props) => {
           <Button disabled={isSubmitting} onClick={props.onClose}>
             {t('paymentPackTemplateInstance.form.actions.close')}
           </Button>
-          <Submit disabled={isSubmitting}>
+          <Submit disabled={isSubmitting} variant="text">
             {isSubmitting && (
               <CircularProgress
                 className={classes.progress}

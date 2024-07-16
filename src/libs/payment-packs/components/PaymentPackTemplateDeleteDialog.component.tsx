@@ -10,7 +10,7 @@ import RedButton from '../../../components/button/RedButton.component';
 type Props = { open?: boolean; onClose: () => void; onSubmit: () => void };
 
 const PaymentPackTemplateDeleteDialog = (props: Props) => {
-  const { t } = useTranslation(['paymentPack']);
+  const { t } = useTranslation('paymentPack');
   return (
     <Dialog onClose={props.onClose} open={props.open}>
       <DialogTitle>{t('paymentPackTemplate.deleteForm.title')}</DialogTitle>

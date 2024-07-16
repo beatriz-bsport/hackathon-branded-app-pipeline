@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useCallback } from 'react';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -23,6 +23,7 @@ import {
 } from '@bsport/common/lib/master-data/payment-pack';
 
 import ToolTip from '#src/components/Tooltip.component';
+import PrivatePassTemplateEditConfirmationDialog from '#src/libs/private-service/components/pass/PrivatePassTemplateEditConfirmationDialog.component';
 import {
   IntegerField,
   TextField,
@@ -78,6 +79,28 @@ export const PrivatePassTemplateForm = (props: Props) => {
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
   const { isSubmitting } = props;
+  const [editConfirmationDialogOpen, setEditConfirmationDialogOpen] =
+    React.useState<boolean>(false);
+
+  const handleAddOrEdit = useCallback(() => {
+    if (!props.initial) {
+      trackFormSubmitIntent(props.initial?.id);
+      props.handleSubmit();
+    } else {
+      setEditConfirmationDialogOpen(true);
+    }
+  }, [props]);
+
+  const submitEditConfirmation = useCallback(() => {
+    setEditConfirmationDialogOpen(false);
+
+    trackFormSubmitIntent(props.initial?.id);
+    props.handleSubmit();
+  }, [props]);
+
+  const handleCloseEditConfirmationDialog = useCallback(() => {
+    setEditConfirmationDialogOpen(false);
+  }, []);
 
   return (
     <Form className={classes.container}>
@@ -259,15 +282,17 @@ export const PrivatePassTemplateForm = (props: Props) => {
         <Button
           color="primary"
           disabled={isSubmitting}
-          onClick={() => {
-            trackFormSubmitIntent(props.initial?.id);
-            props.handleSubmit();
-          }}
+          onClick={handleAddOrEdit}
           variant="contained"
         >
           {t('privatePass.form.actions.submit')}
         </Button>
       </div>
+      <PrivatePassTemplateEditConfirmationDialog
+        onClose={handleCloseEditConfirmationDialog}
+        onSubmit={submitEditConfirmation}
+        open={editConfirmationDialogOpen}
+      />
     </Form>
   );
 };

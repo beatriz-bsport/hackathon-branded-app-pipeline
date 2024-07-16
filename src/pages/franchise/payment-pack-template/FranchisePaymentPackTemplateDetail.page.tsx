@@ -135,8 +135,8 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
         />
         {!!this.props.isEditDialogOpen && (
           <PaymentPackTemplateFormDrawer
-            initial={this.props.paymentPackTemplate}
             // @ts-expect-error
+            initial={this.props.paymentPackTemplate}
             onClose={this.props.closeEditDialog}
             onSubmit={this.props.createOrUpdatePaymentPackTemplate}
             open={this.props.isEditDialogOpen}

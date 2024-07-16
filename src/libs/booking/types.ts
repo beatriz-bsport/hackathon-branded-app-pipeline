@@ -166,6 +166,7 @@ export type BookingsState = {
   byConsumerPack: ErrorAndLoading & WithPagination & { allIds: number[] };
   byOffer: ErrorAndLoading & { allIds: [] };
   createOrUpdate: ErrorAndLoading;
+  refund: ErrorAndLoading;
   bulkRetrieve: ErrorAndLoading;
   recurrenceRule: ErrorAndLoading &
     WithPagination & {

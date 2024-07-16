@@ -31,6 +31,7 @@ import {
   retrieveOfferWithCancelledBookings as retrieveOfferWithCancelledBookingsAPI,
   updateOfferWithCancelledBookingsToRetry as updateOfferWithCancelledBookingsToRetryAPI,
   setSpotForMember,
+  refundBooking as refundBookingAPI,
 } from './api';
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
@@ -253,6 +254,41 @@ export function cancelBooking(id: number, data: any, options?: OptionCallback) {
     dispatch(updateActions.isLoading(false));
   };
 }
+
+export const refundBookingActions = {
+  isLoading: createAction<boolean>('BOOKING/REFUND/IS_LOADING'),
+  error: createAction<Error | null>('BOOKING/REFUND/ERROR'),
+};
+
+/**
+ * Manually trigger a booking refund as a manager.
+ * The refund will always occur even if the booking is late cancelled.
+ * If the booking has been made with an unlimited pass, the strike count for penalty
+ * is removed.
+ *
+ * Note that this is a **manager only** action.
+ * @param id The ID of the booking to refund
+ */
+export const refundBookingAsManager = (
+  id: number,
+  options: OptionCallback<BookingREST>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(refundBookingActions.isLoading(true));
+    dispatch(refundBookingActions.error(null));
+
+    try {
+      const response = await refundBookingAPI(id);
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(refundBookingActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(refundBookingActions.isLoading(false));
+    }
+  };
+};
 
 export const asConsumerActions = {
   success: createAction('BOOKING/AS_CONSUMER/SUCCESS'),

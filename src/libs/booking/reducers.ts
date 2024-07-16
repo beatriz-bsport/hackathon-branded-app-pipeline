@@ -19,6 +19,7 @@ import {
   fetchFutureBookingsByMemberActions,
   retrieveOfferWithCancelledBookingsActions,
   updateOfferWithCancelledBookingsToRetryActions,
+  refundBookingActions,
 } from './actions';
 import type { Booking, BookingsState, RecurrenceRuleBooking } from './types';
 
@@ -68,6 +69,10 @@ export const initialState: Immutable.Immutable<BookingsState> =
       error: null,
       loading: false,
     },
+    refund: {
+      error: null,
+      loading: false,
+    },
     bulkRetrieve: {
       loading: false,
       error: null,
@@ -111,8 +116,20 @@ export const initialState: Immutable.Immutable<BookingsState> =
     },
   });
 
-export default handleActions<Immutable.Immutable<BookingsState>>(
+export default handleActions<Immutable.Immutable<BookingsState>, any>(
   {
+    [refundBookingActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['refund', 'loading'], payload);
+    },
+    [refundBookingActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['refund', 'error'], payload);
+    },
     [retrieveBookingBroadcastRoom.isLoading.toString()]: (
       state,
       { payload }: any,

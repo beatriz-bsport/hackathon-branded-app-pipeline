@@ -208,3 +208,6 @@ export const getOffersDataList = createSelector(
   // @ts-expect-error
   (data, ids) => ids.map((id) => data[id]),
 );
+
+export const getIsRefundBookingLoading = (state: State) =>
+  state.booking.refund.loading;

@@ -137,3 +137,12 @@ export function updateOfferWithCancelledBookingsToRetry(
     { offer_ids },
   );
 }
+
+/**
+ * Refund endpoint for a specific booking. Note that this is a **manager only** action.
+ * @param id The ID of the booking to refund
+ * @see {@link refundBookingAsManager}
+ */
+export const refundBooking = (id: number) => {
+  return patchAuth<BookingREST>(`${API_V1_URI}/booking/${id}/refund/`, {});
+};

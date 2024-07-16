@@ -58,6 +58,7 @@ import {
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
   retrieveOfferWithCancelledBookings as retrieveOfferWithCancelledBookingsAction,
   updateOfferWithCancelledBookingsToRetry as updateOfferWithCancelledBookingsToRetryAction,
+  refundBooking as refundBookingAction,
 } from '#src/libs/booking/actions';
 import {
   fetchEstablishments as fetchEstablishmentList,
@@ -130,6 +131,7 @@ import BookingDetail from '#src/libs/booking/components/BookingDetail.component'
 import RecurrenceRuleBookingFormDialog from '#src/libs/booking/components/RecurrenceRuleBookingFormDialog.component';
 import RecurrenceRuleOfferFormDialog from '#src/libs/booking/components/RecurrenceRuleOfferFormDialog.component';
 import RevertBookingDialog from '#src/libs/booking/components/RevertBookingDialog.component';
+import RefundBookingDialog from '#src/libs/booking/components/RefundBookingDialog.component';
 import BookingFilters from '#src/libs/booking/components/BookingFilters.component';
 import RecurrenceRuleBookingListItem from '#src/libs/booking/components/RecurrenceRuleBookingListItem.component';
 import TemporalBarChart from '#src/components/graph/TemporalBarChart.component';
@@ -146,6 +148,7 @@ import {
   getOffersIds,
   getUpdateOffersToRetryLoading,
   getOffersWithCancelledBookingsLoading,
+  getIsRefundBookingLoading,
 } from '#src/libs/booking/selectors';
 import { getMember } from '#src/libs/member/selectors';
 import paymentPackSelectors, {
@@ -308,6 +311,14 @@ type Props = {
   offersWithCancelledBookingsIdsList: number[],
   offersWithCancelledBookingsLoading: boolean,
   updateOffersToRetryLoading: boolean,
+  getBookingOffer?: (offerId: number) => Offer,
+  isRefundBookingLoading: boolean,
+  refundBookingAsManager: (
+    id: number,
+    options?: OptionCallback<BookingREST>,
+  ) => void,
+  selectedBookingForRefund: number | null,
+  setSelectedBookingForRefund: () => void,
 };
 
 type State = {
@@ -361,20 +372,7 @@ export class MemberDetailBooking extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (!isEqual(prevProps.filters, this.props.filters)) {
-      this.props.fetchMemberBookings({
-        member: this.props.id,
-        page: this.props.bookingId ? undefined : 1,
-        current_booking_id: this.props.bookingId,
-        page_size: BOOKING_PAGE_SIZE,
-        filters: this.props.filters,
-        options: {
-          onSuccess: (bookings) => {
-            this.props.retrieveConsumerPackBulk(
-              bookings.map((b) => b.consumer_payment_pack),
-            );
-          },
-        },
-      });
+      this.fetchMemberBookings();
       this.props.fetchMemberBookingStatistics();
     }
     if (prevProps.chartRange !== this.props.chartRange) {
@@ -400,6 +398,23 @@ export class MemberDetailBooking extends Component<Props, State> {
       });
     }
   }
+
+  fetchMemberBookings = () => {
+    this.props.fetchMemberBookings({
+      member: this.props.id,
+      page: this.props.bookingId ? undefined : 1,
+      current_booking_id: this.props.bookingId,
+      page_size: BOOKING_PAGE_SIZE,
+      filters: this.props.filters,
+      options: {
+        onSuccess: (bookings) => {
+          this.props.retrieveConsumerPackBulk(
+            bookings.map((b) => b.consumer_payment_pack),
+          );
+        },
+      },
+    });
+  };
 
   fetchBookingDetails = () => {
     this.props.retrieveBooking(this.props.bookingId, {
@@ -469,6 +484,33 @@ export class MemberDetailBooking extends Component<Props, State> {
 
   closeWarningDialog = () => {
     this.setState({ warningDialogIsOpen: false });
+  };
+
+  handleCloseRefundBookingDialog = () => {
+    this.props.setSelectedBookingForRefund(null);
+  };
+
+  handleOpenRefundBookingDialog = (
+    id: number,
+    isConsumerPaymentPackUnlimited: boolean,
+  ) => {
+    this.props.setSelectedBookingForRefund({
+      id,
+      isUnlimited: isConsumerPaymentPackUnlimited,
+    });
+  };
+
+  handleRefundBooking = () => {
+    !!this.props.selectedBookingForRefund?.id &&
+      this.props.refundBookingAsManager(
+        this.props.selectedBookingForRefund?.id,
+        {
+          onSuccess: () => {
+            this.props.setSelectedBookingForRefund(null);
+            this.fetchMemberBookings();
+          },
+        },
+      );
   };
 
   renderDetails = () => {
@@ -825,6 +867,9 @@ export class MemberDetailBooking extends Component<Props, State> {
                       }
                       getBookingOffer={this.props.getBookingOffer}
                       getOfferMetaActivity={this.props.getOfferMetaActivity}
+                      handleOpenRefundBookingDialog={
+                        this.handleOpenRefundBookingDialog
+                      }
                       handleRevert={() => {
                         this.props.fetchOffer(booking.offer, {
                           onSuccess: (offer: Offer) => {
@@ -1057,6 +1102,15 @@ export class MemberDetailBooking extends Component<Props, State> {
             similarBookings={this.props.similarBookingList}
           />
         )}
+        <RefundBookingDialog
+          isConsumerPaymentPackUnlimited={
+            this.props.selectedBookingForRefund?.isUnlimited
+          }
+          isLoading={this.props.isRefundBookingLoading}
+          isOpen={!!this.props.selectedBookingForRefund?.id}
+          onClose={this.handleCloseRefundBookingDialog}
+          onSubmit={this.handleRefundBooking}
+        />
 
         <AsyncSpotSelector
           assetsForBlueprintById={this.props.assetsForBlueprintById}
@@ -1128,6 +1182,7 @@ export default compose(
   withState('selectedRecurrentBooking', 'setSelectedRecurrentBooking', null),
   withState('selectedBookingOption', 'setSelectedBookingOption', null),
   withState('discardBookingOption', 'setDiscardBookingOption', null),
+  withState('selectedBookingForRefund', 'setSelectedBookingForRefund', null),
   withState('chartRange', 'setChartRange', {
     start: DateTime.now().minus({ years: 1 }).toISODate(),
     end: DateTime.now().toISODate(),
@@ -1146,6 +1201,7 @@ export default compose(
             bookingId,
           )
         : null,
+      isRefundBookingLoading: getIsRefundBookingLoading(state),
       bookingCurrentPage: state.booking.byMember.page,
       bookingsLoading: state.booking.byMember.loading,
       bookingCount: state.booking.byMember.count,
@@ -1265,6 +1321,7 @@ export default compose(
         updateOfferWithCancelledBookingsToRetryAction,
       fetchLevelList: fetchLevelListAction,
       fetchSpotForBlueprint: fetchSpotForBlueprintAction,
+      refundBookingAsManager: refundBookingAsManagerAction,
     },
   ),
   withProps(({ userFilters }) => ({

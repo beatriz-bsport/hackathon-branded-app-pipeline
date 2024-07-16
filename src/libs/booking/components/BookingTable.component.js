@@ -44,6 +44,9 @@ type Props = {
   onClickWarningIcon: () => void,
   onClickNoShowChip: () => void,
   isRollCallMandatory: boolean,
+  getBookingOffer?: (offerId: number) => Offer,
+  getOfferMetaActivity: (metaActivityId: number) => MetaActivity,
+  handleOpenRefundBookingDialog?: (id: number) => void,
 };
 
 export class BookingTable extends PureComponent<Props> {
@@ -66,6 +69,9 @@ export class BookingTable extends PureComponent<Props> {
       members,
       onClickChangeSpot,
       onProgramDetailsClick,
+      getBookingOffer,
+      getOfferMetaActivity,
+      handleOpenRefundBookingDialog,
     } = this.props;
 
     if (loading || !bookings) {
@@ -106,6 +112,11 @@ export class BookingTable extends PureComponent<Props> {
                 confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
                 dateRollCallLastModified={this.props.dateRollCallLastModified}
                 discardBookingAttendance={() => discardBookingAttendance(b.id)}
+                getBookingOffer={getBookingOffer}
+                getOfferMetaActivity={getOfferMetaActivity}
+                handleOpenRefundBookingDialog={
+                  this.props.handleOpenRefundBookingDialog
+                }
                 handleRevert={() => {
                   handleRevert(b);
                   this.props.refresh();

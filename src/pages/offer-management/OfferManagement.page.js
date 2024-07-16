@@ -57,6 +57,7 @@ import {
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
   retrieveOfferWithCancelledBookings as retrieveOfferWithCancelledBookingsAction,
   updateOfferWithCancelledBookingsToRetry as updateOfferWithCancelledBookingsToRetryAction,
+  refundBookingAsManager as refundBookingAsManagerAction,
 } from '#src/libs/booking/actions';
 import {
   fetchSpotForBlueprint as fetchSpotForBlueprintAction,
@@ -89,6 +90,7 @@ import {
   getOffersIds,
   getUpdateOffersToRetryLoading,
   getOffersWithCancelledBookingsLoading,
+  getIsRefundBookingLoading,
 } from '#src/libs/booking/selectors';
 import { getAllCustomLevels, withCustomLevel } from '#src/libs/level/selectors';
 import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
@@ -214,6 +216,7 @@ export default compose(
       offer: withCustomLevel(withGroup(withSpecificCoach(getDetailedOffer)))(
         state,
       ),
+      getBookingOffer: () => getDetailedOffer(state),
       offerLoading: state.offer.retrieve.loading,
       getOfferMetaActivity: (metaActivityId: number) =>
         getMetaActivity(state, metaActivityId),
@@ -241,6 +244,7 @@ export default compose(
       recurrentBookingNextPage: state.booking.recurrenceRule.next_page,
       recurrentBookingCount: state.booking.recurrenceRule.count,
       email_templates_list: getAllEmailTemplatesSummaries(state),
+      isRefundBookingLoading: getIsRefundBookingLoading(state),
 
       email_templates_details: getEmailTemplatesDetail(state),
       resolvedGenericTags: getResolvedGenericTags(state),
@@ -331,6 +335,7 @@ export default compose(
       fetchBookingsByConsumerPack,
 
       // modify booking
+      refundBookingAsManager: refundBookingAsManagerAction,
       registerBooking: registerBookingAction,
       registerMultipleOptionsBackground:
         registerMultipleOptionsBackgroundAction,

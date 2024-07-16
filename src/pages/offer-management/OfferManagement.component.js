@@ -18,6 +18,7 @@ import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/wai
 import RecurrenceRuleOfferFormDialog from '#src/libs/booking/components/RecurrenceRuleOfferFormDialog.component';
 
 import RevertBookingDialog from '#src/libs/booking/components/RevertBookingDialog.component';
+import RefundBookingDialog from '#src/libs/booking/components/RefundBookingDialog.component';
 
 import MemberForm from '#src/libs/member/MemberForm.component';
 import { getLatest as getLatestMember } from '#src/libs/member/api';
@@ -35,7 +36,11 @@ import type {
   PaymentPack,
   ConsumerPaymentPack,
 } from '#src/libs/payment-packs/types';
-import type { Booking, BookingOption } from '#src/libs/booking/types';
+import type {
+  Booking,
+  BookingOption,
+  BookingREST,
+} from '#src/libs/booking/types';
 import type { Member } from '#src/libs/member/types';
 import type { Invoice } from '#src/libs/invoice/types';
 import type {
@@ -338,6 +343,18 @@ type Props = {
     options: OptionCallback<number>,
   ) => void,
   updateOffersToRetryLoading: boolean,
+  retrieveConsumerPackBulk: (
+    ids: Array<number>,
+    options: OptionCallback<ConsumerPaymentPack[]>,
+  ) => (dispatch: Dispatch) => Promise<void>,
+  getBookingOffer?: (offerId: number) => Offer,
+  isRefundBookingLoading: boolean,
+  refundBookingAsManager: (
+    id: number,
+    options?: OptionCallback<BookingREST>,
+  ) => void,
+  selectedBookingForRefund: number | null,
+  setSelectedBookingForRefund: () => void,
 };
 
 type State = {
@@ -875,6 +892,33 @@ export class OfferManagement extends Component<Props, State> {
     );
   };
 
+  handleCloseRefundBookingDialog = () => {
+    this.props.setSelectedBookingForRefund(null);
+  };
+
+  handleOpenRefundBookingDialog = (
+    id: number,
+    isConsumerPaymentPackUnlimited: boolean,
+  ) => {
+    this.props.setSelectedBookingForRefund({
+      id,
+      isUnlimited: isConsumerPaymentPackUnlimited,
+    });
+  };
+
+  handleRefundBooking = () => {
+    !!this.props.selectedBookingForRefund?.id &&
+      this.props.refundBookingAsManager(
+        this.props.selectedBookingForRefund?.id,
+        {
+          onSuccess: () => {
+            this.props.setSelectedBookingForRefund(null);
+            this.props.fetchOfferData(this.props.booking_ordering);
+          },
+        },
+      );
+  };
+
   render() {
     const {
       offer,
@@ -1117,10 +1161,12 @@ export class OfferManagement extends Component<Props, State> {
               this.props.fetchPerformanceTrackingData
             }
             fetchVideoPurchase={this.props.fetchVideoPurchase}
+            getBookingOffer={this.props.getBookingOffer}
             getOfferMetaActivity={this.props.getOfferMetaActivity}
             goToMemberBooking={this.props.goToMemberBooking}
             handleCheckBookingOption={this.handleCheckBookingOption}
             handleMemberToRegister={this.props.setMemberToRegister}
+            handleOpenRefundBookingDialog={this.handleOpenRefundBookingDialog}
             handleRevertBooking={this.props.handleRevertBooking}
             handleSelectAllBookingOptions={this.handleSelectAllBookingOptions}
             handleUncheckBookingOption={this.handleUncheckBookingOption}
@@ -1293,6 +1339,15 @@ export class OfferManagement extends Component<Props, State> {
           offer={this.props.offer}
           offerIsAvailable={this.props.offer.available}
         />
+        <RefundBookingDialog
+          isConsumerPaymentPackUnlimited={
+            this.props.selectedBookingForRefund?.isUnlimited
+          }
+          isLoading={this.props.isRefundBookingLoading}
+          isOpen={!!this.props.selectedBookingForRefund}
+          onClose={this.handleCloseRefundBookingDialog}
+          onSubmit={this.handleRefundBooking}
+        />
         <DiscardBookingOptionDialog
           onClose={this.props.cancelDiscardOption}
           onSubmit={this.discardBookingOptionDialogOnSubmit}
@@ -1415,6 +1470,7 @@ export default compose(
   withState('voucher', 'setVoucher', 0),
   withState('isAutoBookingLoading', 'setIsAutoBookingLoading', false),
   withState('isAutoBookingError', 'setIsAutoBookingError', false),
+  withState('selectedBookingForRefund', 'setSelectedBookingForRefund', null),
   withState(
     'unregisteredSelectedBookingOptions',
     'setUnregisteredSelectedBookingOptions',

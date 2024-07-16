@@ -153,6 +153,8 @@ type Props = {
   handleUncheckBookingOption: (bookingOptionId: number) => void,
   onClickAutoBook: () => void,
   getOfferMetaActivity: (metaActivityId: number) => MetaActivity,
+  getBookingOffer?: (offerId: number) => Offer,
+  handleOpenRefundBookingDialog?: (id: number) => void,
 };
 
 type State = {
@@ -805,6 +807,11 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       }
                       discardBookingAttendance={
                         this.props.discardBookingAttendance
+                      }
+                      getBookingOffer={this.props.getBookingOffer}
+                      getOfferMetaActivity={this.props.getOfferMetaActivity}
+                      handleOpenRefundBookingDialog={
+                        this.props.handleOpenRefundBookingDialog
                       }
                       handleRevert={this.handleBookingRevert}
                       isRollCallMandatory={this.props.isRollCallMandatory}

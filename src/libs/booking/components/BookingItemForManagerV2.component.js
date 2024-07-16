@@ -21,6 +21,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import CachedIcon from '@material-ui/icons/Cached';
 import CancelIcon from '@material-ui/icons/Cancel';
+import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import UpdateIcon from '@material-ui/icons/Update';
@@ -66,6 +67,7 @@ import { getActivityWorkshopPermission } from '#src/libs/role/permission-utils/u
 import NoShowChip from './NoShowChip.component';
 import { BookingStatusCodeText } from '../utils';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
+import { getIsLateBookingCancellation } from '../../../utils/datetime';
 
 type Props = {
   t: TFunction,
@@ -108,6 +110,10 @@ type Props = {
   dateRollCallLastModified?: string,
   getOfferMetaActivity: (metaActivityId: number) => MetaActivity,
   getBookingOffer: (offerId: number) => Offer,
+  handleOpenRefundBookingDialog?: (
+    id: number,
+    isConsumerPaymentPackUnlimited: boolean,
+  ) => void,
 };
 
 const getPackDate = (consumerPack) => {
@@ -262,7 +268,12 @@ export class BookingItemForManager extends Component<Props, State> {
     const attendText = booking.attendance ? t('attend') : t('doNotAttend');
     const bookingOffer = getBookingOffer?.(booking.offer);
     const bookingOfferMetaActivity = getOfferMetaActivity?.(
-      bookingOffer?.meta_activity,
+      bookingOffer?.meta_activity ?? bookingOffer?.meta_activity_id,
+    );
+    const isLateBookingCancellation = getIsLateBookingCancellation(
+      booking.date_canceled,
+      bookingOfferMetaActivity?.last_discard_minutes,
+      booking.date,
     );
     const switchAttendance = booking.attendance
       ? discardBookingAttendance
@@ -318,6 +329,13 @@ export class BookingItemForManager extends Component<Props, State> {
               <CancelIcon className={classes.icon} />
 
               <Typography>{t('actions.unregister')}</Typography>
+            </MenuItem>
+          )}
+          {booking.date_canceled && isLateBookingCancellation && (
+            <MenuItem className={classes.menuItem} onClick={closeAndAction()}>
+              <MonetizationOnOutlinedIcon className={classes.icon} />
+
+              <Typography>{t('actions.refund')}</Typography>
             </MenuItem>
           )}
           <ObjectLevelPermissionProvider
@@ -390,6 +408,7 @@ export class BookingItemForManager extends Component<Props, State> {
       programList,
       getBookingOffer,
       getOfferMetaActivity,
+      handleOpenRefundBookingDialog,
     } = this.props;
     const { closeAndAction } = this;
 
@@ -400,7 +419,12 @@ export class BookingItemForManager extends Component<Props, State> {
 
     const bookingOffer = getBookingOffer?.(booking.offer);
     const bookingOfferMetaActivity = getOfferMetaActivity?.(
-      bookingOffer?.meta_activity,
+      bookingOffer?.meta_activity ?? bookingOffer?.meta_activity_id,
+    );
+    const isLateBookingCancellation = getIsLateBookingCancellation(
+      booking.date_canceled,
+      bookingOfferMetaActivity?.last_discard_minutes,
+      booking.date,
     );
 
     return (
@@ -545,7 +569,26 @@ export class BookingItemForManager extends Component<Props, State> {
                 }
               </ObjectLevelPermissionProvider>
             ) : null}
-
+            {isLateBookingCancellation &&
+              !booking.was_refunded &&
+              [
+                BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
+                BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
+              ].includes(booking.booking_status_code) && (
+                <Tooltip title={t('booking:refund')}>
+                  <IconButton
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      this.props.handleOpenRefundBookingDialog?.(
+                        booking.id,
+                        booking.consumer_payment_pack?.payment_pack?.unlimited,
+                      );
+                    }}
+                  >
+                    <MonetizationOnOutlinedIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
             {booking.booking_status_code === BOOKING_STATUS_OK.id &&
               ((this.props.spotSchedulingEnabled &&
                 this.props.onClickChangeSpot) ||

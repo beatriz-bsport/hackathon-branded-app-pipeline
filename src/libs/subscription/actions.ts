@@ -29,6 +29,7 @@ import api, {
   fetchContractTemplateList as fetchContractTemplateListAPI,
   deleteContractTemplate as deleteContractTemplateAPI,
   restoreContractTemplate as restoreContractTemplateAPI,
+  fetchMemberSubscriptionsInAllFranchise as fetchMemberSubscriptionsInAllFranchiseAPI,
 } from './api';
 
 import type {
@@ -54,6 +55,7 @@ import type {
   ContractTemplate,
   Contract,
   ContractTemplatePaginatedQueryParams,
+  SubscriptionREST,
 } from './types';
 import { CONTRACT_TEMPLATE_PAGE_SIZE } from './constants';
 import { fetchEventList } from '../event/actions';
@@ -209,6 +211,30 @@ export function fetchSubscriptionListByMember(
     dispatch(byMemberSubscriptionActions.isLoading(false));
   };
 }
+
+export const fetchMemberSubscriptionsInAllFranchise = (
+  memberId: number,
+  params: SubscriptionQueryParams,
+  options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(byMemberSubscriptionActions.isLoading(true));
+    dispatch(byMemberSubscriptionActions.error(null));
+    try {
+      const response = await fetchMemberSubscriptionsInAllFranchiseAPI(
+        memberId,
+        params,
+      );
+      dispatch(byMemberSubscriptionActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(byMemberSubscriptionActions.error(error));
+      console.error(error);
+      options?.onError?.(error);
+    }
+    dispatch(byMemberSubscriptionActions.isLoading(false));
+  };
+};
 
 export const detailActions = {
   error: createAction('SUBSCRIPTION/LOAD/ERROR'),

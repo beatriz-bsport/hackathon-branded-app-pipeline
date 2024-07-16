@@ -13,6 +13,7 @@ import RedButton from '../../../components/button/RedButton.component';
 
 import { formatAsDate } from '../../../utils/datetime';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import ConsumerPassSourceChip from '#src/components/chip/ConsumerPassSourceChip/ConsumerPassSourceChip.component';
 import type { Subscription, SubscriptionQueryParams } from '../types';
 
 const ITEMS_PER_PAGE = 10;
@@ -49,6 +50,10 @@ const renderRows = (subscriptions: Array<Subscription>, t: TFunction) => {
       is_v2: sub.is_v2,
       payment_method_identifier: sub.payment_method_identifier,
     },
+    source_company: {
+      companyName: sub.source_company_name,
+      companyTheme: sub.source_company_primary_color,
+    },
   }));
 };
 
@@ -73,10 +78,23 @@ const renderMemberName = (
     </div>
   );
 };
-
+const checkIfSomeSusbscriptionsComeFromDifferentCompany = (
+  subscriptionList: Array<Subscription>,
+  companyId: number,
+) => {
+  const hasDifferentSourceCompany = subscriptionList.some((subscription) => {
+    return (
+      Number(subscription.source_company_id) !== Number(companyId) &&
+      subscription.is_shared_from_franchisor
+    );
+  });
+  return hasDifferentSourceCompany;
+};
 const getColumnData = (
   t: TFunction,
   showOnlyCoreColumns: boolean,
+  subscriptionList: Array<Subscription>,
+  companyId: number,
   addPayment: (id: number) => void,
 ) => {
   const coreColumns = [
@@ -143,6 +161,30 @@ const getColumnData = (
         },
       },
     },
+    ...(checkIfSomeSusbscriptionsComeFromDifferentCompany(
+      subscriptionList,
+      companyId,
+    )
+      ? [
+          {
+            name: 'source_company',
+            label: t('parameters.source_company'),
+            options: {
+              customBodyRender: (value: {
+                companyName: string;
+                companyTheme: string;
+              }) => {
+                return (
+                  <ConsumerPassSourceChip
+                    companySourceName={value.companyName}
+                    companySourcePrimaryColor={value.companyTheme}
+                  />
+                );
+              },
+            },
+          },
+        ]
+      : []),
   ];
 
   if (showOnlyCoreColumns) {
@@ -165,7 +207,7 @@ type OwnProps = {
   goToSubscription: (id: number) => void;
   subscriptionList: Array<Subscription>;
   loading: boolean;
-
+  companyId: number;
   addPayment?: (id: number) => void;
   count: number;
 };
@@ -178,7 +220,11 @@ type State = {
 
 export class SubscriptionTable extends Component<Props, State> {
   onRowClick = (rowData: Array<any>, { rowIndex }: { rowIndex: number }) => {
-    if (this.props.goToSubscription) {
+    if (
+      this.props.goToSubscription &&
+      Number(this.props.companyId) ===
+        Number(this.props.subscriptionList[rowIndex].source_company_id)
+    ) {
       return this.props.goToSubscription(
         this.props.subscriptionList[rowIndex].id,
       );
@@ -257,6 +303,8 @@ export class SubscriptionTable extends Component<Props, State> {
             columns={getColumnData(
               this.props.t,
               !!this.props.showOnlyCore,
+              this.props.subscriptionList,
+              this.props.companyId,
               this.props.addPayment,
             )}
             data={

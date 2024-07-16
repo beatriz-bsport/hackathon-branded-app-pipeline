@@ -509,6 +509,7 @@ const getTranslations = async () => {
         label: 'Payment method',
         paymentOnline: 'Online payment',
       },
+      source_company: 'Bought at',
       private_pass: 'Appointment pass',
       privatePass: 'Appointment pass',
       note: 'Note',

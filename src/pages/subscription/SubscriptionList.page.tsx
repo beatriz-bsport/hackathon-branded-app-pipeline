@@ -48,7 +48,7 @@ type OwnProps = {
   subscriptionList: Array<Subscription>;
   subscriptionLoading: boolean;
   subscriptionCount: number;
-
+  companyId: number;
   eventLoading: boolean;
   eventPage: number;
   eventList: Array<SubscriptionEvent>;
@@ -113,6 +113,7 @@ export class SubscriptionList extends React.Component<Props> {
         <Divider className={this.props.classes.divider} />
         {/* @ts-expect-error */}
         <SubscriptionTable
+          companyId={this.props.companyId}
           count={this.props.subscriptionCount}
           goToSubscription={this.props.goToSubscription}
           loading={this.props.subscriptionLoading}
@@ -157,6 +158,7 @@ export default compose(
       plannedInvoiceLoading: state.subscription.plannedInvoice.loading,
       plannedInvoiceList: getPlannedInvoiceList(state),
       plannedInvoicePage: state.subscription.plannedInvoice.page,
+      companyId: state.theme.theme.company,
     }),
     {
       fetchSubscriptionList: fetchSubscriptionListAction,

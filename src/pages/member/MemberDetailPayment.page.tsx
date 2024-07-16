@@ -30,7 +30,7 @@ import {
   withInvoiceItem,
   withPayment,
 } from '../../libs/invoice/selectors';
-import { fetchSubscriptionListByMember } from '../../libs/subscription/actions';
+import { fetchMemberSubscriptionsInAllFranchise as fetchSubscriptionListByMember } from '../../libs/subscription/actions';
 import { OptionCallback } from '../../state/types';
 import { MaterialStyleType } from '../../utils/types';
 import { RootState } from '../../reducers';
@@ -42,12 +42,12 @@ type OwnProps = {
   goToSubscription: (id: number) => void;
   subscriptionList: Array<Subscription>;
   subscriptionLoading: boolean;
-  fetchSubscriptionListByMember: (page: number, params: any) => void;
+  fetchSubscriptionListByMember: (memberId: number, params: any) => void;
   subscriptionCount: number;
 
   t: TFunction;
   classes: Object;
-
+  companyId: number;
   count: number;
   invoiceList: Array<Invoice>;
   loading: boolean;
@@ -103,6 +103,7 @@ export class MemberDetailPayment extends Component<Props> {
           {/* @ts-expect-error */}
           <SubscriptionTable
             showOnlyCore
+            companyId={this.props.companyId}
             count={this.props.subscriptionCount}
             goToSubscription={this.props.goToSubscription}
             loading={this.props.subscriptionLoading}
@@ -137,6 +138,7 @@ export default compose(
       count: state.invoice.list.count,
       page: state.invoice.list.page,
       loading: state.invoice.list.loading,
+      companyId: state.theme.theme.company,
     }),
     {
       goToInvoice: (uuid: string) => push(`/invoice/${uuid}`),

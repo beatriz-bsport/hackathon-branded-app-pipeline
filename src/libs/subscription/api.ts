@@ -32,6 +32,17 @@ const fetchAll = async (params: SubscriptionQueryParams) => {
   );
 };
 
+export const fetchMemberSubscriptionsInAllFranchise = (
+  memberId: number,
+  params: SubscriptionQueryParams,
+) => {
+  return getAuth<PaginatedResponse<SubscriptionREST>>(
+    `${API_URI}/subscription/billing-plan/member/${memberId}/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
 export const fetchSubscriptionsList = (params: SubscriptionQueryParams) => {
   return getAuth<PaginatedResponse<SubscriptionREST>>(
     `${API_URI}/subscription/billing-plan/${buildUrlParams(params)}`,

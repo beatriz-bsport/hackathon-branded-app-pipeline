@@ -199,10 +199,7 @@ export const getIsLateBookingCancellation = (
   const isLateCancellation =
     DateTime.fromISO(canceledDate) > maxCancellationDate;
 
-  if (isLateCancellation) {
-    return true;
-  }
-  return false;
+  return isLateCancellation;
 };
 
 /**

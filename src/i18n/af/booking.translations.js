@@ -374,6 +374,10 @@ const getTranslations = async () => {
             'Unbalanced male / female ratio',
           [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_FEMALE]:
             'Unbalanced male / female ratio',
+          displayPosition:
+            'Your position in the waitlist is: {{waitlistPosition}}',
+          displayWaitlistSize:
+            'Your current position in the waitlist is: {{waitlistPosition}}',
           // This is broken, keys were overriden, check the diff
         },
         bookable_status: {

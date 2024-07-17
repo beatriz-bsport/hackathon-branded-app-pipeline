@@ -30,6 +30,7 @@ export type Props = {
   offerStatusById: {
     [id: number]: OfferStatus;
   };
+  positionInWaitingList: number;
   isLoading: boolean;
   companyTheme: CompanyTheme;
   isNoPassCompatibleForBooking: boolean;
@@ -46,6 +47,7 @@ export type Props = {
 const OfferBookingWaitingList: React.FC<Props> = ({
   offer,
   offerStatusById,
+  positionInWaitingList,
   isLoading,
   companyTheme,
   isNoPassCompatibleForBooking,
@@ -142,6 +144,7 @@ const OfferBookingWaitingList: React.FC<Props> = ({
             offer={offer}
             offerStatus={offerStatusById[offer?.id]}
             onConfirm={onRegisterToWaitList}
+            positionInWaitingList={positionInWaitingList}
             price={offerSummaryPrice}
             spotId={bookingSpotId}
             tax={offer.tax}

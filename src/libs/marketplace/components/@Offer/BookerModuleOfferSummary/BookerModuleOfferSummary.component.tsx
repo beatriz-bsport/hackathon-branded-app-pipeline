@@ -2,8 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
-import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
-import { HourglassFull } from '@material-ui/icons';
+import {
+  OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
+  OFFER_WAITING_LIST_STATUS_FULL,
+} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -38,6 +40,7 @@ import {
 import { BookerModuleOfferSummarySkeleton } from '.';
 
 import './styles.css';
+import WaitlistPositionChip from '#src/libs/marketplace/components/@Offer/Waitlist/WaitlistPositionChip.component';
 
 export type Props = {
   coach?: Coach;
@@ -62,6 +65,7 @@ export type Props = {
   expirationDatetime?: string;
   goToCheckout?: () => void;
   fromSpotSelector?: boolean;
+  positionInWaitingList?: number;
 };
 
 const BookerModuleOfferSummary: React.FC<Props> = ({
@@ -86,6 +90,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
   fromSpotSelector,
   isGuestBooking,
   guestName,
+  positionInWaitingList,
 }) => {
   const { t } = useTranslation([
     'datetime',
@@ -103,7 +108,12 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
   const isWaitlistFull =
     offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL;
 
-  const waitlistExists = isWaitlistOpen || isWaitlistFull;
+  const isRegisteredToWaitlist =
+    offerStatus?.waiting_list_status ===
+      OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED && !offerStatus?.is_registered;
+
+  const waitlistExists =
+    isWaitlistOpen || isWaitlistFull || isRegisteredToWaitlist;
 
   const displayTax = companyTheme?.is_tax_excluded_in_marketplace === false;
 
@@ -121,6 +131,9 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
   const date = formatOfferDateWithTime(formattedDate, formattedOfferHours);
 
   const spotName = spotId ? `${t(`booking:place`)} ${spotId}` : null;
+
+  const displayWaitlistChip =
+    (waitlistExists && offer.full) || isRegisteredToWaitlist;
 
   const shouldDisplayFooter =
     (!isWaitlistFull || isBookable) && !isBookingButtonHidden && !!onConfirm;
@@ -226,33 +239,16 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
               icon={<VideocamIcon fontSize="medium" />}
               label={t('marketplace:calendar.broadcast')}
             />
-            <Chip
-              classes={{
-                'bs-booker-module-offer-summary-item__chip': true,
-                ...(isWaitlistFull
-                  ? {
-                      'bs-booker-module-offer-summary-item__status-chips__waitlist--full':
-                        true,
-                    }
-                  : {
-                      'bs-booker-module-offer-summary-item__status-chips__waitlist':
-                        true,
-                    }),
-
-                'bs-booker-module-offer-summary-item__status-chips__waitlist--hidden':
-                  !waitlistExists && !offer.full,
-              }}
-              icon={<HourglassFull fontSize="medium" />}
-              label={
-                isWaitlistFull
-                  ? t(
-                      `booking:offer.offerStatus.waiting_list_status.${OFFER_WAITING_LIST_STATUS_FULL}`,
-                    )
-                  : t(
-                      `booking:offer.offerStatus.waiting_list_status.${OFFER_WAITING_LIST_STATUS_OPEN}`,
-                    )
-              }
-            />
+            {displayWaitlistChip && positionInWaitingList && (
+              <WaitlistPositionChip
+                classesNames={{
+                  'bs-booker-module-offer-summary-item__chip': true,
+                }}
+                isRegisteredInWaitlist={isRegisteredToWaitlist}
+                isWaitlistFull={isWaitlistFull}
+                positionInWaitingList={positionInWaitingList}
+              />
+            )}
           </GridItem>
           <GridItem
             alignment={Alignment.CENTER}

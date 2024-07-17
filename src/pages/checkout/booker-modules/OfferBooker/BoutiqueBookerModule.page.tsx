@@ -64,6 +64,7 @@ import {
   fetchOfferStatus as fetchOfferStatusAction,
   offerUserRegistration,
   fetchBookingGuestNumber as fetchBookingGuestNumberAction,
+  fetchOfferWaitingListPosition as fetchOfferWaitingListPositionAction,
 } from '#src/libs/offer/actions';
 import { getMemberTagsIdsList } from '#src/libs/tag/selectors';
 
@@ -114,6 +115,7 @@ import {
   withMetaActivity,
   getOfferById,
   getBookingGuestNumberLeft,
+  getOfferStatusWaitingListPositionById,
 } from '#src/libs/offer/selectors';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import { fetchMemberTagList } from '#src/libs/tag/actions';
@@ -249,6 +251,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     this.props.fetchOffer(this.props.offerId, {
       onSuccess: (offer: Offer) => {
         this.props.fetchBookingGuestNumber(this.props.offerId);
+        this.props.fetchOfferWaitingListPosition(this.props.offerId);
         this.props.fetchCompanyTheme(offer.company);
         this.setState({ offerWasRetrieved: true });
         this.props.fetchMarketplaceSettings(offer.company.toString());
@@ -949,6 +952,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     }
 
     if (!isRegistered && isWaitingList) {
+      const positionInWaitingList =
+        this.props.offerStatusWaitingListById[this.props.offerId]
+          ?.waiting_list_position?.member_position || 0;
       return (
         <div ref={containerRef} className="bs-new-offer-booking-page">
           <OfferBookingWaitingList
@@ -964,6 +970,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
             onRedirectToCalendar={this.goBackToCalendar}
             onRedirectToPass={this.handleRedirectToPass}
             onRegisterToWaitList={this.onConfirm}
+            positionInWaitingList={positionInWaitingList}
           />
         </div>
       );
@@ -1188,6 +1195,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     basket: getCurrentBasket(state),
     basketIsLoading: state.checkout.basket.current.loading,
     bookingGuestRemainingCount: getBookingGuestNumberLeft(state),
+    offerStatusWaitingListById: getOfferStatusWaitingListPositionById(state),
   };
 };
 
@@ -1228,6 +1236,7 @@ const mapDispatchToProps = {
   retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
   fetchCurrentBasket: fetchCurrentBasketAction,
   fetchBookingGuestNumber: fetchBookingGuestNumberAction,
+  fetchOfferWaitingListPosition: fetchOfferWaitingListPositionAction,
 };
 
 const mapHandlers = {

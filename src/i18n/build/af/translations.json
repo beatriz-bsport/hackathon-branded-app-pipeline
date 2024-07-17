@@ -477,7 +477,9 @@
           "9": "It's not allowed to exceed the maximum amount of future bookings",
           "6002": "Waitlist: full",
           "6003": "Waitlist: joined",
-          "6005": "Waiting list"
+          "6005": "Waiting list",
+          "displayPosition": "Your position in the waitlist is: {{waitlistPosition}}",
+          "displayWaitlistSize": "Your current position in the waitlist is: {{waitlistPosition}}"
         },
         "bookable_status": {
           "0": "Bookings open",

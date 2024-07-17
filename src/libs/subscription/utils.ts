@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { DateTime } from 'luxon';
+import { DateTime, Duration, DurationLikeObject } from 'luxon';
 import type {
   SubscriptionPause,
   ContractTemplate,
@@ -11,6 +11,9 @@ import {
   SubscriptionInvoicingType,
 } from '#src/libs/subscription/enums';
 import type { FranchiseUserBillingPlanPause } from '#src/libs/franchise/types';
+import { TFunction } from 'i18next';
+import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
+import type { PrivatePassTemplate } from '#src/libs/private-service/types';
 
 export function isPaused(
   pausesArray?: (SubscriptionPause | FranchiseUserBillingPlanPause)[],
@@ -133,4 +136,28 @@ export const mapContractTemplateFormValuesToApi = (
     auto_renewal: contractTemplate.autoRenewal,
     is_usable_by_staff: !contractTemplate.unusableByStaff,
   };
+};
+
+export const getAssociatedPassValidityInfo = (
+  passTemplate: PaymentPackTemplate | PrivatePassTemplate,
+  t: TFunction,
+) => {
+  let durationObject = {} as DurationLikeObject;
+
+  // Conditionally add fields
+  if (passTemplate.duration_years) {
+    durationObject.years = passTemplate.duration_years;
+  }
+  if (passTemplate.duration_months) {
+    durationObject.months = passTemplate.duration_months;
+  }
+  if (passTemplate.duration_days) {
+    durationObject.days = passTemplate.duration_days;
+  }
+
+  const validityDuration = Duration.fromObject(durationObject);
+
+  return `${t(
+    'subscription:franchiseUserProfile.associatedPassValidity',
+  )} ${validityDuration.toHuman()}`;
 };

@@ -32,12 +32,14 @@ const shopItemFormProductStepValidationSchema = Yup.object().shape({
 /** Exclusively reserved for franchise when creating a shop item template */
 export const franchiseCompanyListFieldSchemaValidation = Yup.object()
   .shape({
-    franchiseCompanyList: Yup.array().of(
-      Yup.object().shape({
-        label: Yup.string(),
-        value: Yup.string(),
-      }),
-    ),
+    franchiseCompanyList: Yup.array()
+      .of(
+        Yup.object().shape({
+          label: Yup.string(),
+          value: Yup.string(),
+        }),
+      )
+      .min(1, 'common:requiredField'),
   })
   .required('common:requiredField');
 

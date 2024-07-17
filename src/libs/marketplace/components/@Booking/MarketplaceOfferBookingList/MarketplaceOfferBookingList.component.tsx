@@ -7,6 +7,7 @@ import { getGuestBookingName } from '#src/libs/marketplace/utils/booking';
 
 import {
   BOOKING_FOR_GUEST_FREQUENCY,
+  OfferStatusWaitingListPosition,
   type OfferStatus,
   type OfferWithSpotInformation,
 } from '#src/libs/offer/types';
@@ -27,6 +28,9 @@ export type Props = {
   onOpenAddGuestModal: () => void;
   getBookableStatus: (offerId: number) => OfferStatus['bookable_status'];
   getIsAddGuestDisabled: (offerId: number) => boolean;
+  getOfferWaitListPosition: (
+    offerId: number,
+  ) => OfferStatusWaitingListPosition | {};
 };
 
 const MarketplaceOfferBookingList: React.FC<Props> = ({
@@ -41,6 +45,7 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
   onOpenAddGuestModal,
   getBookableStatus,
   getIsAddGuestDisabled,
+  getOfferWaitListPosition,
 }) => {
   const filteredOffers = offers.filter((offer) => !!offer);
 
@@ -58,6 +63,7 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
             bookingGuestFrequency={bookingGuestFrequency}
             bookingGuestNumberLeft={bookingGuestNumberLeft}
             companyTheme={companyTheme}
+            getOfferWaitListPosition={getOfferWaitListPosition}
             guestName={getGuestBookingName(checkoutItems, offer.id)}
             hideCoach={hideCoach}
             isAddGuestDisabled={getIsAddGuestDisabled(offer.id)}

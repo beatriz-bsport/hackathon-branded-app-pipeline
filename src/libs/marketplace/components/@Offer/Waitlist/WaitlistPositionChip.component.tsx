@@ -28,23 +28,27 @@ const WaitlistPositionChip: React.FC<Props> = ({
       );
     }
     if (isRegisteredInWaitlist) {
-      return t(`booking:offer.offerStatus.waiting_list_status.displayPosition`, {
-        waitlistPosition: positionInWaitingList,
-      });
+      return t(
+        `booking:offer.offerStatus.waiting_list_status.displayPosition`,
+        {
+          waitlistPosition: positionInWaitingList,
+        },
+      );
     }
     return t(
       `booking:offer.offerStatus.waiting_list_status.displayWaitlistSize`,
       {
         waitlistPosition: positionInWaitingList,
-      });
-    }, [isWaitlistFull, isRegisteredInWaitlist, positionInWaitingList, t]);
+      },
+    );
+  }, [isWaitlistFull, isRegisteredInWaitlist, positionInWaitingList, t]);
 
   const waitlistText = getTextTranslationsPath();
 
   return (
     <Chip
       classes={{
-        classNames(
+        'waitlist-position': classNames(
           classes,
           {
             'bs-booker-module-offer-summary-item__status-chips__waitlist': true,

@@ -27,6 +27,7 @@ import {
   withEstablishment,
   getBookingGuestNumberLeft,
   getOfferBookableStatus,
+  getOfferStatusWaitingListPosition,
 } from '#src/libs/offer/selectors';
 import { withCustomLevel } from '#src/libs/level/selectors';
 // @ts-expect-error
@@ -37,6 +38,7 @@ import {
   fetchOfferBulk as fetchOfferBulkAction,
   fetchOfferStatusList as fetchOfferStatusListAction,
   fetchBookingGuestNumber as fetchBookingGuestNumberAction,
+  fetchOfferWaitingListPosition as fetchOfferWaitingListPositionAction,
 } from '#src/libs/offer/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '#src/libs/associated-coach/actions';
@@ -160,6 +162,9 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
     ) {
       this.props.fetchBookingGuestNumber(this.props.offerBookedIdList?.[0]);
       this.props.fetchOfferStatusList(this.props.offerBookedIdList);
+      this.props.offerBookedIdList.forEach((id) => {
+        this.props.fetchOfferWaitingListPosition(id);
+      });
     }
     this.props.retrieveCompanyCssConfiguration(this.props.companyId);
     if (this.props.queryParams.user_registration_response) {
@@ -480,6 +485,9 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                 companyTheme={companyTheme}
                 getBookableStatus={this.props.getOfferBookableStatus}
                 getIsAddGuestDisabled={this.getIsAddGuestDisabled}
+                getOfferWaitListPosition={
+                  this.props.getOfferStatusWaitingListPosition
+                }
                 hideCoach={hideCoach}
                 isLoading={isLoading}
                 offers={sortedOfferList}
@@ -806,6 +814,9 @@ const mapStateToProps = (
   customConfiguration: state.exportableComponents.customCss,
   getOfferBookableStatus: (offerId: number) =>
     getOfferBookableStatus(state, offerId),
+  getOfferStatusWaitingListPosition: (offerId: number) => {
+    return getOfferStatusWaitingListPosition(state, offerId);
+  },
 });
 
 const mapDispatchToProps = {
@@ -819,6 +830,7 @@ const mapDispatchToProps = {
   fetchOfferBulk: fetchOfferBulkAction,
   fetchOfferStatusList: fetchOfferStatusListAction,
   fetchBookingGuestNumber: fetchBookingGuestNumberAction,
+  fetchOfferWaitingListPosition: fetchOfferWaitingListPositionAction,
   fetchLevelList: fetchLevelListAction,
   replace: replaceRouter,
   push: pushRouter,

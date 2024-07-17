@@ -181,6 +181,7 @@ const usePropsFromVariation = (
     variationsSelected?.showEstablishmentAddress?.value === 'true';
 
   const offerStatus = offerStatuses[variationsSelected?.offerStatus?.value];
+  const positionInWaitingList = 1;
 
   return {
     coach,
@@ -196,6 +197,7 @@ const usePropsFromVariation = (
     showCredits,
     noStyledContainer,
     onConfirm: () => {},
+    positionInWaitingList,
   };
 };
 

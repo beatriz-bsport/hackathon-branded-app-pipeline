@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import {
   BOOKING_FOR_GUEST_FREQUENCY,
   OfferStatus,
+  OfferStatusWaitingListPosition,
   OfferWithSpotInformation,
 } from '#src/libs/offer/types';
 import {
@@ -31,6 +32,9 @@ export type Props = {
   bookingGuestFrequency?: BOOKING_FOR_GUEST_FREQUENCY;
   bookingGuestNumberLeft?: number;
   onOpenAddGuestModal?: () => void;
+  getOfferWaitListPosition: (
+    offerId: number,
+  ) => OfferStatusWaitingListPosition | {};
 };
 
 const MarketplaceOfferBookingItem: React.FC<Props> = ({
@@ -44,6 +48,7 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
   bookingGuestFrequency,
   bookingGuestNumberLeft,
   onOpenAddGuestModal,
+  getOfferWaitListPosition,
 }) => {
   const formattedDate = useOfferFormattedDate(offer, companyTheme);
   const { t } = useTranslation('booking');
@@ -58,6 +63,17 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
   const formattedOfferHours = formatOfferHours(offerHours);
 
   const date = formatOfferDateWithTime(formattedDate, formattedOfferHours);
+
+  const getPositionInWaitlist = (offerId: number): number => {
+    const offerWaitlistPositionData = getOfferWaitListPosition(offerId);
+
+    if ('waiting_list_position' in offerWaitlistPositionData) {
+      return offerWaitlistPositionData.waiting_list_position.member_position;
+    }
+    return 0;
+  };
+
+  const positionInWaitingList = getPositionInWaitlist(offer.id);
 
   if (isLoading) {
     return <MarketplaceOfferBookingItemSkeleton />;
@@ -82,6 +98,7 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
       isWaitingList={offer.full}
       level={offer.customLevel}
       onOpenAddGuestModal={onOpenAddGuestModal}
+      positionInWaitingList={positionInWaitingList}
       shouldDisplayAddGuestButton={
         companyTheme.allow_guest && companyTheme.allow_guest_activatable
       }

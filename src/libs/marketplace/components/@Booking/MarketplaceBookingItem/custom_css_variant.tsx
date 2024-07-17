@@ -136,6 +136,7 @@ const usePropsFromVariation = (
   const displayGuestName =
     variationsSelected?.displayGuestName?.value === 'true';
   const withLevel = variationsSelected?.withLevel?.value === 'true';
+  const positionInWaitingList = 1;
 
   return {
     hideCoach,
@@ -148,6 +149,7 @@ const usePropsFromVariation = (
     title,
     date,
     guestName: displayGuestName && guestName,
+    positionInWaitingList: positionInWaitingList,
   };
 };
 

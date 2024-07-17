@@ -1,5 +1,4 @@
 import React from 'react';
-import HourglassFullIcon from '@material-ui/icons/HourglassFull';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -16,7 +15,7 @@ import GridItem, {
 } from '#src/components/css-only/Grid/GridItem';
 import ActivitySummary from '#src/libs/marketplace/components/@Activity/ActivitySummary';
 import { CompanyTheme } from '#src/libs/theme/types';
-import Chip from '#src/components/css-only/Chip';
+import WaitlistPositionChip from '#src/libs/marketplace/components/@Offer/Waitlist/WaitlistPositionChip.component';
 import MarketplaceLevelCSSOnly from '#src/libs/marketplace/components/@Offer/MarketplaceLevelCSSOnly';
 import Button, { ButtonVariant } from '#Fabrique/Button';
 import Tooltip from '#Fabrique/Tooltip';
@@ -39,6 +38,7 @@ export type Props = {
   guestName?: string;
   onOpenAddGuestModal?: () => void;
   spotId?: string | number;
+  positionInWaitingList: number;
 };
 
 const MarketplaceBookingItem: React.FC<Props> = ({
@@ -49,6 +49,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
   hideCoach,
   level,
   isWaitingList,
+  positionInWaitingList,
   spotName,
   companyTheme,
   shouldDisplayAddGuestButton,
@@ -139,13 +140,13 @@ const MarketplaceBookingItem: React.FC<Props> = ({
             direction={Direction.ROW}
             rowStart={2}
           >
-            <Chip
+            <WaitlistPositionChip
               classes={{
-                'bs-booking-item-status-chip__waiting-list':
-                  'bs-booking-item-status-chip__waiting-list',
+                'bs-booker-module-offer-summary-item__chip': true,
               }}
-              icon={<HourglassFullIcon />}
-              label={t('validation.bookingItem.bookingItemStatus.waitingList')}
+              isRegisteredInWaitlist={true}
+              isWaitlistFull={false}
+              positionInWaitingList={positionInWaitingList}
             />
           </GridItem>
           <GridItem

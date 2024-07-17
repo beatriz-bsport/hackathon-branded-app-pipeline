@@ -116,6 +116,16 @@ const usePropsFromVariation = (
   const isLoading = variationsSelected?.loading?.value === 'true';
   const hideCoach = variationsSelected?.hideCoach?.value === 'true';
   const mockedGetIsAddGuestDisabled = (offerId: number) => offerId && false;
+  const getOfferWaitListPosition = (offerId: number) =>
+    offerId && {
+      id: faker.number.int(1000),
+      waiting_list_position: {
+        member_position: faker.number.int(10),
+        waiting_list_size: 10,
+        dynamic: 0,
+      },
+    };
+
   return {
     isLoading,
     offers,
@@ -124,6 +134,7 @@ const usePropsFromVariation = (
     getIsAddGuestDisabled: mockedGetIsAddGuestDisabled,
     onOpenAddGuestModal: () => {},
     companyTheme: fakeCompanyTheme,
+    getOfferWaitListPosition,
   };
 };
 

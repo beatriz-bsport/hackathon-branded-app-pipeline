@@ -241,7 +241,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
             />
             {displayWaitlistChip && positionInWaitingList && (
               <WaitlistPositionChip
-                classesNames={{
+                classes={{
                   'bs-booker-module-offer-summary-item__chip': true,
                 }}
                 isRegisteredInWaitlist={isRegisteredToWaitlist}

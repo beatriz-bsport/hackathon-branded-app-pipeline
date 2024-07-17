@@ -10225,7 +10225,8 @@
             "addToWaitlist": { "_label": "Add members to the waiting list" },
             "rollcall": { "_label": "Validate roll call" },
             "editPerformance": { "_label": "Edit program performances" },
-            "editSpot": { "_label": "Edit member spots" }
+            "editSpot": { "_label": "Edit member spots" },
+            "refund": { "_label": "Refund" }
           },
           "_label": "Workshop management"
         },
@@ -10238,7 +10239,8 @@
             "delete": { "_label": "Cancel bookings" },
             "create": { "_label": "Create bookings" },
             "addToWaitlist": { "_label": "Add members to the waiting list" },
-            "rollcall": { "_label": "Validate roll call" }
+            "rollcall": { "_label": "Validate roll call" },
+            "refund": { "_label": "Refund" }
           },
           "_label": "Group activities management"
         },

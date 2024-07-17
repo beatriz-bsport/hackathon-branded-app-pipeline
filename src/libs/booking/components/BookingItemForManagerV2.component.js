@@ -590,19 +590,38 @@ export class BookingItemForManager extends Component<Props, State> {
                 BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
                 BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
               ].includes(booking.booking_status_code) && (
-                <Tooltip title={t('booking:refund')}>
-                  <IconButton
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      this.props.handleOpenRefundBookingDialog?.(
-                        booking.id,
-                        booking.consumer_payment_pack?.payment_pack?.unlimited,
-                      );
-                    }}
-                  >
-                    <MonetizationOnOutlinedIcon />
-                  </IconButton>
-                </Tooltip>
+                <ObjectLevelPermissionProvider
+                  requiredPermission={[
+                    'reservation.activity.allowed_actions.refund',
+                    'reservation.workshop.allowed_actions.refund',
+                  ]}
+                >
+                  {([
+                    hasActivityRefundPermission,
+                    hasWorkshopRefundPermission,
+                  ]) =>
+                    getActivityWorkshopPermission(
+                      bookingOfferMetaActivity?.is_workshop,
+                      hasActivityRefundPermission,
+                      hasWorkshopRefundPermission,
+                    ) && (
+                      <Tooltip title={t('booking:refund')}>
+                        <IconButton
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            this.props.handleOpenRefundBookingDialog?.(
+                              booking.id,
+                              booking.consumer_payment_pack?.payment_pack
+                                ?.unlimited,
+                            );
+                          }}
+                        >
+                          <MonetizationOnOutlinedIcon />
+                        </IconButton>
+                      </Tooltip>
+                    )
+                  }
+                </ObjectLevelPermissionProvider>
               )}
             {booking.booking_status_code === BOOKING_STATUS_OK.id &&
               ((this.props.spotSchedulingEnabled &&

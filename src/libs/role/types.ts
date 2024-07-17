@@ -198,6 +198,7 @@ export type ObjectLevelPermissions = {
         attendance: boolean;
         editSpot: boolean;
         editPerformance: boolean;
+        refund: boolean;
       };
     };
     workshop: {
@@ -210,6 +211,7 @@ export type ObjectLevelPermissions = {
         attendance: boolean;
         editSpot: boolean;
         editPerformance: boolean;
+        refund: boolean;
       };
     };
     privateBooking: {

@@ -253,6 +253,7 @@ export const DEFAULT_OBJECT_LEVEL_PERMISSIONS: ObjectLevelPermissions = {
         attendance: true,
         editSpot: true,
         editPerformance: true,
+        refund: true,
       },
     },
     workshop: {
@@ -265,6 +266,7 @@ export const DEFAULT_OBJECT_LEVEL_PERMISSIONS: ObjectLevelPermissions = {
         attendance: true,
         editSpot: true,
         editPerformance: true,
+        refund: true,
       },
     },
     privateBooking: {

@@ -93,7 +93,7 @@ const BookingCreationNotification = (props: Props) => {
                 forcedBehavior="hidden"
                 requiredPermission="member.allowed_actions.manageNotification"
               >
-                <>
+                <ListItemSecondaryAction>
                   <Switch
                     checked={notif.active}
                     onChange={() =>
@@ -102,29 +102,27 @@ const BookingCreationNotification = (props: Props) => {
                       })
                     }
                   />
-                  <ListItemSecondaryAction>
-                    <IconButton
-                      aria-label="Edit"
-                      color="primary"
-                      edge="end"
-                      onClick={() => {
-                        props.setSelectedNotification(notif);
-                        props.setIsFormOpen(true);
-                      }}
-                    >
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton
-                      color="secondary"
-                      onClick={() => {
-                        props.setSelectedNotification(notif);
-                        props.setIsDeleteModalOpen(true);
-                      }}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </>
+                  <IconButton
+                    aria-label="Edit"
+                    color="primary"
+                    edge="end"
+                    onClick={() => {
+                      props.setSelectedNotification(notif);
+                      props.setIsFormOpen(true);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    color="secondary"
+                    onClick={() => {
+                      props.setSelectedNotification(notif);
+                      props.setIsDeleteModalOpen(true);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
               </ObjectLevelPermissionWrapper>
             </ListItem>
           ))}

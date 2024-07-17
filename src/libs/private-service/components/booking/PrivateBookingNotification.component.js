@@ -77,7 +77,7 @@ const PrivateBookingNotification = (props: Props) => {
               forcedBehavior="hidden"
               requiredPermission="member.allowed_actions.manageNotification"
             >
-              <>
+              <ListItemSecondaryAction>
                 <Switch
                   checked={notif.active}
                   onChange={() =>
@@ -86,28 +86,26 @@ const PrivateBookingNotification = (props: Props) => {
                     })
                   }
                 />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    color="primary"
-                    edge="end"
-                    onClick={() => {
-                      props.setSelectedNotification(notif);
-                      props.setIsFormOpen(true);
-                    }}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    color="secondary"
-                    onClick={() => {
-                      props.setSelectedNotification(notif);
-                      props.setIsDeleteModalOpen(true);
-                    }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </>
+                <IconButton
+                  color="primary"
+                  edge="end"
+                  onClick={() => {
+                    props.setSelectedNotification(notif);
+                    props.setIsFormOpen(true);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  color="secondary"
+                  onClick={() => {
+                    props.setSelectedNotification(notif);
+                    props.setIsDeleteModalOpen(true);
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
             </ObjectLevelPermissionWrapper>
           </ListItem>
         ))}

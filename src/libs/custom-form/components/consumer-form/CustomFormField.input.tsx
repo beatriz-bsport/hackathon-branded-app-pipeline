@@ -81,29 +81,30 @@ export const CustomFormConsumerInput = (props: Props) => {
       ImageDataUrl || null,
     );
   };
+
   const memoizedChoices = useMemo(
     () => [
-      ...(props.field.choices?.map((choice: string) => ({
+      ...(props.field?.choices?.map((choice: string) => ({
         optionLabel: choice,
         value: choice,
       })) ?? []),
     ],
-    [props.field.choices],
+    [props.field?.choices],
   );
 
   const memoizedSuggestions = useMemo(
     () => [
-      ...(props.field.choices?.map((choice: string) => ({
+      ...(props.field?.choices?.map((choice: string) => ({
         label: choice,
         value: choice,
       })) ?? []),
     ],
-    [props.field.choices],
+    [props.field?.choices],
   );
   const uniqueCustomFormFieldIdentifier =
-    generateUniqueCustomFormFieldIdentifier(props.field, props.field.label);
+    generateUniqueCustomFormFieldIdentifier(props.field, props.field?.label);
 
-  switch (props.field.kind) {
+  switch (props.field?.kind) {
     case CUSTOM_FORM_FIELD_TITLE_OPTION:
       if (isCssVariantActivated) {
         return <FabriqueTitle label={props.field.label} />;

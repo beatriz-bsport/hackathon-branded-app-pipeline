@@ -55,4 +55,6 @@ export type UserPreference = {
   doNotDisplayPauseDialogCadenceIds: number[];
   doNotDisplayCadenceWelcomeDialog: boolean;
   isCheckInFilterLocked: boolean;
+  isReportV2Displayed: boolean;
+  isReportAlertDisplayedInV2: boolean;
 };

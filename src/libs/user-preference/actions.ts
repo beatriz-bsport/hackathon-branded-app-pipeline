@@ -79,6 +79,10 @@ export const userPreferenceActions = {
   ),
   lockCheckInFilter: createAction('USER_PREFERENCE/LOCK_CHECK_IN_FILTER'),
   unlockCheckInFilter: createAction('USER_PREFERENCE/UNLOCK_CHECK_IN_FILTER'),
+  setIsReportV2Displayed: createAction('USER_PREFERENCE/REPORT_V2_DISPLAY'),
+  setIsReportAlertDisplayedInV2: createAction(
+    'USER_PREFERENCE/REPORT_ALERT_DISPLAY',
+  ),
 };
 
 export function setPaymentPackSort(sortOption: SortOption) {
@@ -303,5 +307,17 @@ export function lockCheckInFilter() {
 export function unlockCheckInFilter() {
   return (dispatch: Dispatch) => {
     dispatch(userPreferenceActions.unlockCheckInFilter());
+  };
+}
+
+export function setIsReportV2Displayed(bool: boolean) {
+  return (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.setIsReportV2Displayed(bool));
+  };
+}
+
+export function setIsReportAlertDisplayedInV2(bool: boolean) {
+  return (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.setIsReportAlertDisplayedInV2(bool));
   };
 }

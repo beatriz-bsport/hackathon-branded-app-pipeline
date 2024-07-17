@@ -51,6 +51,8 @@ const initialState: Immutable.Immutable<UserPreference> =
     doNotDisplayPauseDialogCadenceIds: [],
     doNotDisplayCadenceWelcomeDialog: false,
     isCheckInFilterLocked: true,
+    isReportV2Displayed: true,
+    isReportAlertDisplayedInV2: true,
   });
 
 export default handleActions<Immutable.Immutable<UserPreference>, any>(
@@ -235,6 +237,18 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
     },
     [userPreferenceActions.unlockCheckInFilter.toString()]: (state) => {
       return state.set('isCheckInFilterLocked', false);
+    },
+    [userPreferenceActions.setIsReportV2Displayed.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.set('isReportV2Displayed', payload);
+    },
+    [userPreferenceActions.setIsReportAlertDisplayedInV2.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.set('isReportAlertDisplayedInV2', payload);
     },
   },
   initialState,

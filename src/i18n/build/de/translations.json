@@ -9586,7 +9586,8 @@
                         "notRefunded": "Für jede Stornierung nach Ablauf der Frist",
                         "refunded": "Für jede rückerstattete Stornierung",
                         "absence": "Bei jeder Abwesenheit",
-                        "attendance": "Bei jeder Anwesenheit"
+                        "attendance": "Bei jeder Anwesenheit",
+                        "bookingDeprecated": "Bei jeder Buchungsnummer"
                     },
                     "birthday": "Am Geburtstag senden",
                     "day_after": "Diese Benachrichtigung wird {{days}} Tag nach Anfang des Kurses versendet.",

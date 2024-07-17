@@ -312,7 +312,8 @@
                         "refunded": "Por cada cancelamento reembolsado",
                         "notRefunded": "Por cada cancelamento tardio",
                         "attendance": "Por cada presença",
-                        "absence": "Por cada ausência"
+                        "absence": "Por cada ausência",
+                        "bookingDeprecated": "Por cada reserva"
                     },
                     "birthday": "Enviar nos aniversários",
                     "before": "Notificar {{hours}}h antes da sessão",

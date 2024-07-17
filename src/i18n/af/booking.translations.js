@@ -175,6 +175,7 @@ const getTranslations = async () => {
             refunded: 'For every refunded cancellation',
             absence: 'For every absence',
             attendance: 'For every attendance',
+            bookingDeprecated: 'For every booking',
           },
           birthday: 'Send on birthdays',
         },

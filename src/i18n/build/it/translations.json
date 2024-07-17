@@ -10720,7 +10720,8 @@
                         "notRefunded": "a ogni cancellazione oltre il termine limite",
                         "refunded": "a ogni cancellazione rimborsata",
                         "absence": "a ogni assenza",
-                        "attendance": "a ogni presenza"
+                        "attendance": "a ogni presenza",
+                        "bookingDeprecated": "a ogni prenotazione"
                     },
                     "birthday": "Invia il giorno del compleanno",
                     "day_after": "Questa notifica sarà inviata {{days}} giorno dopo l'inizio della sessione.",

@@ -6695,7 +6695,6 @@
                     "after": "Notificación {{hours}}h después de la sesión",
                     "before": "Notificación {{hours}}h antes de la sesión",
                     "cancelledDeprecated": "Cancelación n° {{notify_booking_nb}}",
-                    "bookingDeprecated": "Booking n° {{notify_booking_nb}}",
                     "notRefunded": "Cancelación después de la fecha límite n° {{notify_booking_nb}}",
                     "refunded": "Cancelación reembolsada n° {{notify_booking_nb}}",
                     "absence": "Ausencia n° {{notify_booking_nb}}",
@@ -6703,7 +6702,8 @@
                         "notRefunded": "En cada cancelación tardía",
                         "refunded": "En cada cancelación reembolsada",
                         "absence": "En cada ausencia",
-                        "attendance": "En cada asistencia"
+                        "attendance": "En cada asistencia",
+                        "bookingDeprecated": "En cada reserva"
                     },
                     "birthday": "Enviar el día del cumpleaños",
                     "day_after": "Esta notificación se enviará {{days}} día después del inicio de la sesión.",

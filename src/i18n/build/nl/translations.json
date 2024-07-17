@@ -7043,7 +7043,8 @@
                         "notRefunded": "Bij iedere te late annulering",
                         "refunded": "Bij iedere terugbetaalde annulering",
                         "attendance": "Bij iedere aanwezigheid",
-                        "absence": "Bij iedere afwezigheid"
+                        "absence": "Bij iedere afwezigheid",
+                        "bookingDeprecated": "Bij iedere reservering"
                     },
                     "birthday": "Op verjaardagen versturen",
                     "day_after": "Deze melding wordt {{days}} dag na de start van de sessie verstuurd.",

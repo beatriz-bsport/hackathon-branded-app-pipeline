@@ -367,7 +367,8 @@
                         "attendance": "À chaque présence",
                         "absence": "À chaque absence",
                         "refunded": "À chaque annulation remboursée",
-                        "notRefunded": "À chaque annulation hors délai"
+                        "notRefunded": "À chaque annulation hors délai",
+                        "bookingDeprecated": "À chaque réservation"
                     },
                     "birthday": "Envoyer à la date d'anniversaire",
                     "day_after": "Cette notification sera envoyée {{days}} jour après la fin de la séance.",

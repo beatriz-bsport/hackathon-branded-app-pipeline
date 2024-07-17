@@ -264,6 +264,7 @@ export class BookingItemForManager extends Component<Props, State> {
       programList,
       getBookingOffer,
       getOfferMetaActivity,
+      handleOpenRefundBookingDialog,
     } = this.props;
     const attendText = booking.attendance ? t('attend') : t('doNotAttend');
     const bookingOffer = getBookingOffer?.(booking.offer);
@@ -273,7 +274,7 @@ export class BookingItemForManager extends Component<Props, State> {
     const isLateBookingCancellation = getIsLateBookingCancellation(
       booking.date_canceled,
       bookingOfferMetaActivity?.last_discard_minutes,
-      booking.date,
+      bookingOffer?.date_start,
     );
     const switchAttendance = booking.attendance
       ? discardBookingAttendance
@@ -331,13 +332,23 @@ export class BookingItemForManager extends Component<Props, State> {
               <Typography>{t('actions.unregister')}</Typography>
             </MenuItem>
           )}
-          {booking.date_canceled && isLateBookingCancellation && (
-            <MenuItem className={classes.menuItem} onClick={closeAndAction()}>
-              <MonetizationOnOutlinedIcon className={classes.icon} />
-
-              <Typography>{t('actions.refund')}</Typography>
-            </MenuItem>
-          )}
+          {booking.date_canceled &&
+            isLateBookingCancellation &&
+            !booking.was_refunded &&
+            [
+              BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
+              BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
+            ].includes(booking.booking_status_code) && (
+              <MenuItem
+                className={classes.menuItem}
+                onClick={closeAndAction(() =>
+                  this.props.handleOpenRefundBookingDialog?.(booking.id),
+                )}
+              >
+                <MonetizationOnOutlinedIcon className={classes.icon} />
+                <Typography>{t('booking:refund')}</Typography>
+              </MenuItem>
+            )}
           <ObjectLevelPermissionProvider
             requiredPermission={[
               'reservation.activity.allowed_actions.editSpot',
@@ -408,7 +419,6 @@ export class BookingItemForManager extends Component<Props, State> {
       programList,
       getBookingOffer,
       getOfferMetaActivity,
-      handleOpenRefundBookingDialog,
     } = this.props;
     const { closeAndAction } = this;
 
@@ -424,7 +434,7 @@ export class BookingItemForManager extends Component<Props, State> {
     const isLateBookingCancellation = getIsLateBookingCancellation(
       booking.date_canceled,
       bookingOfferMetaActivity?.last_discard_minutes,
-      booking.date,
+      bookingOffer?.date_start,
     );
 
     return (
@@ -533,6 +543,11 @@ export class BookingItemForManager extends Component<Props, State> {
               </Button>
             ) : null}
             {showRevertBookingButton &&
+            !isLateBookingCancellation &&
+            !(
+              booking.booking_status_code ===
+                BOOKING_STATUS_CANCELLED_BY_CONSUMER.id && booking.was_refunded
+            ) &&
             [
               BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
               BOOKING_STATUS_OK.id,

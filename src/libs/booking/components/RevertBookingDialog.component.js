@@ -34,6 +34,10 @@ type Props = {
   force_refund: boolean,
   toogleForceNotify: (boolean) => void,
   toggleForceRefund: () => void,
+  /** For already cancelled booking, it makes no sense for us to resend an email */
+  hideEmailOption?: boolean,
+  /** For already refunded booking, it makes no sense for us to show the option */
+  hideRefundOption?: boolean,
 
   t: TFunction,
 };
@@ -49,10 +53,12 @@ export function RevertBookingDialog(props: Props) {
     force_refund,
     toogleForceNotify,
     toggleForceRefund,
+    hideEmailOption,
+    hideRefundOption,
   } = props;
   const classes = useStyles();
 
-  if (!bookingToRevert) {
+  if (!bookingToRevert || (hideEmailOption && hideRefundOption)) {
     return null;
   }
   if (bookingToRevert.consumer_payment_pack) {
@@ -77,22 +83,32 @@ export function RevertBookingDialog(props: Props) {
               }`,
             )}
           </DialogContentText>
-          <div>
-            <FormControlLabel
-              control={
-                <Checkbox checked={force_refund} onChange={toggleForceRefund} />
-              }
-              label={t('booking.refundRevert')}
-            />
-          </div>
-          <div>
-            <FormControlLabel
-              control={
-                <Checkbox checked={force_notify} onChange={toogleForceNotify} />
-              }
-              label={t('booking.notifyRevert')}
-            />
-          </div>
+          {!hideRefundOption && (
+            <div>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={force_refund}
+                    onChange={toggleForceRefund}
+                  />
+                }
+                label={t('booking.refundRevert')}
+              />
+            </div>
+          )}
+          {!hideEmailOption && (
+            <div>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={force_notify}
+                    onChange={toogleForceNotify}
+                  />
+                }
+                label={t('booking.notifyRevert')}
+              />
+            </div>
+          )}
           {offer?.group && (
             <>
               <Alert

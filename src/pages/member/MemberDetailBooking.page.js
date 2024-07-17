@@ -24,6 +24,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
+import { BOOKING_STATUS_CANCELLED_BY_CONSUMER } from '@bsport/common/lib/master-data/booking_status_code';
 import {
   getAssetByBlueprintByIdentifier,
   getSpotTypesOfCompany,
@@ -1090,7 +1091,7 @@ export class MemberDetailBooking extends Component<Props, State> {
           open={!!this.props.discardBookingOption}
         />
 
-        {this.state.bookingToRevert && (
+        {!!this.state.bookingToRevert && (
           <RevertBookingDialog
             offerIsAvailable
             bookingToRevert={this.state.bookingToRevert}
@@ -1098,6 +1099,11 @@ export class MemberDetailBooking extends Component<Props, State> {
               this.setState({ bookingToRevert: null })
             }
             handleBookingDeletion={this.handleBookingDeletion}
+            hideEmailOption={
+              this.state.bookingToRevert?.booking_status_code ===
+              BOOKING_STATUS_CANCELLED_BY_CONSUMER.id
+            }
+            hideRefundOption={this.state.bookingToRevert?.was_refunded}
             offer={this.props.offer}
             similarBookings={this.props.similarBookingList}
           />

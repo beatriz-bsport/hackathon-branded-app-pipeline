@@ -13,7 +13,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 import { withTranslation, TFunction } from 'react-i18next';
 
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import {
+  BOOKING_STATUS_CANCELLED_BY_CONSUMER,
+  BOOKING_STATUS_OK,
+} from '@bsport/common/lib/master-data/booking_status_code';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import RecurrenceRuleOfferFormDialog from '#src/libs/booking/components/RecurrenceRuleOfferFormDialog.component';
 
@@ -1336,6 +1339,11 @@ export class OfferManagement extends Component<Props, State> {
           bookingToRevert={this.props.bookingToRevert}
           closeRevertBookingDialog={this.props.closeRevertBookingDialog}
           handleBookingDeletion={this.handleBookingDeletion}
+          hideEmailOption={
+            this.props.bookingToRevert?.booking_status_code ===
+            BOOKING_STATUS_CANCELLED_BY_CONSUMER.id
+          }
+          hideRefundOption={this.props.bookingToRevert?.was_refunded}
           offer={this.props.offer}
           offerIsAvailable={this.props.offer.available}
         />

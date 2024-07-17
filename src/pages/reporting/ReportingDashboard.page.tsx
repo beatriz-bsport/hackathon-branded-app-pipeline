@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import { TFunction } from 'i18next';
-import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
 import { filter_reports_by_upsells } from '#src/libs/reporting/common/permissions';
 import { getCompanyUpsellData } from '#src/libs/company/selectors';
-import withTitle from '../../hocs/with-title.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
 
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import ReportDashboard from '#src/libs/reporting/v1/components/ReportDashboard.component';
 
 import {
@@ -20,29 +20,29 @@ import {
   updateReport as updateReportAction,
   createReport as createReportAction,
 } from '#src/libs/reporting/v1/actions';
+
 import type { ReportConfiguration } from '#src/libs/reporting/common/types';
-import { RootState } from '../../reducers';
+import type { RootState } from '#src/reducers';
 import {
   getReportMetadata,
   getReports,
 } from '#src/libs/reporting/v1/selectors';
-import { OptionCallback } from '../../state/types';
-import { OwnProps } from '../../components/HighlightedText/HighlightedText.component';
+import type { OptionCallback } from '#src/state/types';
+import type { OwnProps } from '#src/components/HighlightedText/HighlightedText.component';
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
-const ReportingDashboard = (props: Props) => {
-  const {
-    reports,
-    createReport,
-    updateReport,
-    goToReport,
-    subscribedUpsells,
-    metadata,
-    deleteReport,
-    fetchReports,
-    fetchReportMetadata,
-  } = props;
 
+const ReportingDashboard: React.FC<Props> = ({
+  reports,
+  createReport,
+  updateReport,
+  goToReport,
+  subscribedUpsells,
+  metadata,
+  deleteReport,
+  fetchReports,
+  fetchReportMetadata,
+}) => {
   useEffect(() => {
     fetchReports();
     fetchReportMetadata();
@@ -117,4 +117,4 @@ export default compose<any, OwnProps>(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:dashboard.reportingDashboard'),
   ),
-)(ReportingDashboard);
+)(React.memo(ReportingDashboard));

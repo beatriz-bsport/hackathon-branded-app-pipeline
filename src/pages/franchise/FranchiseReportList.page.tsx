@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import { TFunction } from 'i18next';
-import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
-import withTitle from '../../hocs/with-title.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
 
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import ReportDashboard from '#src/libs/reporting/v1/components/ReportDashboard.component';
 
 import {
@@ -19,27 +19,26 @@ import {
   createReport as createReportAction,
 } from '#src/libs/reporting/v1/actions';
 import type { ReportConfiguration } from '#src/libs/reporting/common/types';
-import { RootState } from '../../reducers';
+import { RootState } from '#src/reducers';
 import {
   getReportMetadata,
   getReports,
 } from '#src/libs/reporting/v1/selectors';
-import { OptionCallback } from '../../state/types';
-import { OwnProps } from '../../components/HighlightedText/HighlightedText.component';
+import { OptionCallback } from '#src/state/types';
+import { OwnProps } from '#src/components/HighlightedText/HighlightedText.component';
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
-const FranchiseReportList = (props: Props) => {
-  const {
-    reports,
-    createReport,
-    updateReport,
-    goToReport,
-    metadata,
-    deleteReport,
-    fetchReports,
-    fetchReportMetadata,
-  } = props;
 
+const FranchiseReportList: React.FC<Props> = ({
+  reports,
+  createReport,
+  updateReport,
+  goToReport,
+  metadata,
+  deleteReport,
+  fetchReports,
+  fetchReportMetadata,
+}) => {
   useEffect(() => {
     fetchReports();
     fetchReportMetadata();
@@ -106,4 +105,4 @@ export default compose<any, OwnProps>(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:dashboard.reportingDashboard'),
   ),
-)(FranchiseReportList);
+)(React.memo(FranchiseReportList));

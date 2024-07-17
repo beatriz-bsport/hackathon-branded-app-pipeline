@@ -900,6 +900,20 @@ const getTranslations = async () => {
     pageTitle: 'All reports',
     pageSearchPlaceholder: 'Search report name',
     pageSearchEmpty: "We can't find any reports from this search",
+    versionSwitcher: {
+      title: 'We are changing your experience with the Reporting tool.',
+      content:
+        'We have updated the report organisation. Now, you can filter each report within its category as different <1>Views</1>. This change will become permanent for everyone in three months. If you have any feedback, please leave any feedback on the <2>Feedback board</2>.',
+      fromOldToNew: 'Switch to new version',
+      fromNewToOld: 'Back to old version',
+      dialog: {
+        title: 'Switch to the old version',
+        firstContentText:
+          'Reporting tool will be updated for everyone in 3 months. All the future changes in the old version won’t be applied to the new version.',
+        secondContentText: 'Are you sure you want to switch back?',
+        confirm: 'Switch to Old version',
+      },
+    },
   };
 };
 

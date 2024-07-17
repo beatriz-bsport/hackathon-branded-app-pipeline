@@ -14,12 +14,13 @@ import {
 type Props = {
   open: boolean;
   title: string;
-  content: string | string[];
+  content?: string | string[];
   onCancel?: () => void;
   onConfirm?: () => void;
   cancelText?: string;
   confirmText?: string;
   children?: React.ReactNode;
+  confirmButtonVariant?: 'text' | 'outlined' | 'contained';
 };
 
 const GenericMuiDialog: React.FC<Props> = ({
@@ -31,6 +32,7 @@ const GenericMuiDialog: React.FC<Props> = ({
   cancelText,
   confirmText,
   children,
+  confirmButtonVariant,
 }) => {
   const { t } = useTranslation('common');
   const finalContent = useMemo(() => {
@@ -51,7 +53,7 @@ const GenericMuiDialog: React.FC<Props> = ({
 
   return (
     <>
-      <Dialog maxWidth="sm" open={open}>
+      <Dialog maxWidth="sm" onClose={onCancel} open={open}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <DialogContentText>{finalContent}</DialogContentText>
@@ -64,7 +66,11 @@ const GenericMuiDialog: React.FC<Props> = ({
             </Button>
           )}
           {(!!onConfirm || !!confirmText) && (
-            <Button color="primary" onClick={handleConfirm} variant="contained">
+            <Button
+              color="primary"
+              onClick={handleConfirm}
+              variant={confirmButtonVariant || 'contained'}
+            >
               {confirmText || t('selector.validate')}
             </Button>
           )}

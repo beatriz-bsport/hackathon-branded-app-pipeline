@@ -2,7 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import SecondaryActionButton from '#src/components/button/SecondaryActionButton.component';
 import Typography from '@material-ui/core/Typography/Typography';
+
 import Fuse, { FuseOptions } from 'fuse.js';
 
 import ReportCategorySection from '#src/libs/reporting/v2/components/ReportCategorySection.component';
@@ -12,12 +14,19 @@ import type {
   ReportMetadataValue,
   ReportMetadataValueWithLabel,
 } from '#src/libs/reporting/common/types';
+
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 import { isNotReportMetadataValueWithLabel } from '#src/libs/reporting/common/utils';
 
-type Props = { metadata: ReportMetadataValue[] };
-const ReportDashboardReworked: React.FC<Props> = ({ metadata }) => {
+type Props = {
+  metadata: ReportMetadataValue[];
+  handleConfirmationDialogState: (bool: boolean) => () => void;
+};
+const ReportDashboardReworked: React.FC<Props> = ({
+  metadata,
+  handleConfirmationDialogState,
+}) => {
   const { t } = useTranslation('reporting');
 
   const [search, setSearch] = React.useState('');
@@ -84,7 +93,12 @@ const ReportDashboardReworked: React.FC<Props> = ({ metadata }) => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h5">{t('pageTitle')}</Typography>
+      <div className={classes.titleContainer}>
+        <Typography variant="h5">{t('pageTitle')}</Typography>
+        <SecondaryActionButton onClick={handleConfirmationDialogState(true)}>
+          {t('versionSwitcher.fromNewToOld')}
+        </SecondaryActionButton>
+      </div>
       <FuzeSearch
         changeSearch={changeSearch}
         clearSearch={clearSearch}
@@ -111,6 +125,7 @@ const ReportDashboardReworked: React.FC<Props> = ({ metadata }) => {
 
 const useStyles = makeStyles((theme) => ({
   root: { display: 'flex', flexDirection: 'column', gap: theme.spacing(2) },
+  titleContainer: { display: 'flex', justifyContent: 'space-between' },
 }));
 
 export default React.memo(ReportDashboardReworked);

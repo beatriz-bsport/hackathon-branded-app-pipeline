@@ -31,7 +31,11 @@ type Props = {
   handleOpenBarcodeModal: (barcode: string) => void;
   handleOpenVariantDrawer: () => void;
   onDeleteShopItemVariant: (id: number) => void;
-  updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
+  updateShopItemVariantBulk: (
+    lowestVariantPrice: number,
+    data: FormData,
+    options?: OptionCallback,
+  ) => void;
   setIsVariantEditMode: (value: boolean) => void;
   setQueryParam: (queryParam: string) => (value: string) => void;
   checkBarcodeUnicity: (
@@ -87,6 +91,10 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
   const handleSubmit = useCallback(
     (values: ShopItemVariantBulkUpdateFormValues) => {
       const formData = new FormData();
+      const lowestVariantPrice = values.variants.reduce(
+        (acc, variant) => Math.min(acc, variant.price),
+        Number.MAX_SAFE_INTEGER,
+      );
 
       for (let index = 0; index < values.variants.length; index += 1) {
         const variantValues = values.variants[index];
@@ -114,7 +122,7 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
           }),
         );
       }
-      updateShopItemVariantBulk(formData, {
+      updateShopItemVariantBulk(lowestVariantPrice, formData, {
         onSuccess: () => handleDisableEditMode(),
       });
     },

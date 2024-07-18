@@ -216,15 +216,20 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
   };
 
   handleUpdateShopItemVariantBulk = (
+    lowestVariantPrice: number,
     data: FormData,
     options?: OptionCallback,
   ) => {
+    const needToRefetchShopItemDetails =
+      lowestVariantPrice !== this.props.shopItem?.lowest_variant_price;
     this.props.updateShopItemVariantBulk({
       data,
       id: this.props.id,
       options: {
         onSuccess: () => {
           this.fetchShopItemVariantList();
+          if (needToRefetchShopItemDetails)
+            this.props.retrieveShopItemDetails(this.props.id);
           options?.onSuccess?.();
         },
         onError: options?.onError,

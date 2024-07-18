@@ -118,7 +118,9 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
   }, [handleCloseMenu, onDeleteShopItem]);
 
   const shopItemPrice = getCurrencyDisplayWithPrice(
-    lowestVariantPrice ?? price,
+    lowestVariantPrice && lowestVariantPrice <= Number(price)
+      ? lowestVariantPrice
+      : price,
   );
 
   if (isLoading) {

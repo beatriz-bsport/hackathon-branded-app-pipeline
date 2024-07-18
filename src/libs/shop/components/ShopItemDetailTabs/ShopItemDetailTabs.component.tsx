@@ -59,7 +59,11 @@ type Props = {
   isSupplierPriceHidden?: boolean;
   handleOpenBarcodeModal: (barcode: string) => void;
   handleOpenVariantDrawer: () => void;
-  updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
+  updateShopItemVariantBulk: (
+    lowestVariantPrice: number,
+    data: FormData,
+    options?: OptionCallback,
+  ) => void;
   onDeleteShopItemVariant: (id: number) => void;
   createShopItemProvision: (
     data: ProvisionCreate,

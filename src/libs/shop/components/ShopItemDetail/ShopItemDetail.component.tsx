@@ -71,7 +71,11 @@ type Props = {
     formData: Partial<ShopItemEdit>,
     options?: OptionCallback<ShopItem>,
   ) => void;
-  updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
+  updateShopItemVariantBulk: (
+    lowestVariantPrice: number,
+    data: FormData,
+    options?: OptionCallback,
+  ) => void;
   deleteShopItem: () => void;
   createShopItemVariants: (
     baseItemId: number,

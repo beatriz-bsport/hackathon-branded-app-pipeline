@@ -111,13 +111,13 @@ export const useDeleteEstablishmentWarningMessages: WarningMessagesHook =
 
     // ------- STAFF LOCATIONS --------
 
-    if (checkData.staff_location.has_related_staff_configurations) {
+    if (checkData.staff_location.has_exclusive_staff_configurations) {
       warningMessages.push(
-        t('deleteObject.warnings.hasRelatedStaffConfigurations'),
+        t('deleteObject.warnings.hasExclusiveStaffConfigurations'),
       );
-    } else if (checkData.staff_location.has_exclusive_staff_configurations) {
+    } else if (checkData.staff_location.has_related_staff_configurations) {
       warningMessages.push(
-        t('deleteObject.errors.hasExclusiveStaffConfigurations'),
+        t('deleteObject.errors.hasRelatedStaffConfigurations'),
       );
     }
 

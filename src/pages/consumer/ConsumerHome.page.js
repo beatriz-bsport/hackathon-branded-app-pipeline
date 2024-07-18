@@ -331,7 +331,6 @@ export class ConsumerHome extends React.Component<Props> {
                   companyLogo={this.props.theme ? this.props.theme.cover : null}
                   companyTheme={this.props.theme}
                   controlableMemberList={this.props.controlableMemberList}
-                  disconnect={this.props.disconnect}
                   hasFranchise={this.props.theme.franchisor}
                   hasMultipleMembership={
                     this.props.membershipCount && this.props.membershipCount > 1

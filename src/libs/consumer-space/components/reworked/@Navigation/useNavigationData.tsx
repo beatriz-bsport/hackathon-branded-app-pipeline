@@ -140,6 +140,7 @@ const useNavigationData = (
             : []),
           {
             title: t('reworked.navigation.myAccount.logOut'),
+            goTo: `/login/signout?membership=${companyId}`,
           },
         ],
       },
@@ -148,6 +149,7 @@ const useNavigationData = (
       canChangeFranchisee,
       canChangeStudio,
       checkoutUrl,
+      companyId,
       hasFranchise,
       isMobile,
       location.pathname,

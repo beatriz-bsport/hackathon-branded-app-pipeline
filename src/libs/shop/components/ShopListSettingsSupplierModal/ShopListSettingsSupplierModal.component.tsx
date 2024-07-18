@@ -17,6 +17,7 @@ import type { ShopSupplier } from '#src/libs/shop/types';
 import type { ShopListSettingsSupplierValues } from './types';
 
 import shopListSettingsSupplierSchema from './shopListSettingsSupplierSchema';
+import { MAX_DESCRIPTION_LENGTH } from '#src/libs/shop/constants';
 
 type Props = {
   open?: boolean;
@@ -97,6 +98,7 @@ const ShopListSettingsSupplierModal: React.FC<Props> = ({
                       className={classes.field}
                       error={!!errors.description}
                       helperText={!!errors.description && t(errors.description)}
+                      inputProps={{ maxLength: MAX_DESCRIPTION_LENGTH }}
                       label={t(
                         'shop:shopList.tab.settings.section.suppliers.modal.field.description',
                       )}

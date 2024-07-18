@@ -49,7 +49,8 @@ import type { SelectOption } from '#src/libs/types';
 import type { Tag, TagGroup, TagGroupAPI } from '#src/libs/tag/types';
 import type { OptionCallback } from '#src/state/types';
 
-import { ALMOST_100 } from '../../../../constants';
+import { ALMOST_100 } from '#src/constants';
+import { MAX_DESCRIPTION_LENGTH } from '#src/libs/shop/constants';
 
 const SHOP_ITEM_SUPPLIER_FIELD_LABEL = 'shop-item-supplier-selector-label';
 const FRANCHISOR_SHOP_ITEM_COMPANY_FIELD_LABEL =
@@ -245,6 +246,7 @@ const ShopItemFormProductStep: React.FC<Props> = ({
               color="secondary"
               error={!!errors.description}
               helperText={t(errors.description)}
+              inputProps={{ maxLength: MAX_DESCRIPTION_LENGTH }}
               label={t('translation:form.shop.item.description')}
               minRows={5}
               name="description"

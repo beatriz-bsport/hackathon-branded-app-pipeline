@@ -160,13 +160,9 @@ const ShopItemFormReworked: React.FC<Props> = ({
         );
 
         // only on MA (spread the shop item to x studios only)
-        const companyIdListPayload = getFormDataFieldsFromArray(
-          'company_ids',
-          (values.franchiseCompanyList ?? []).map((option) =>
-            option.value.toString(),
-          ),
-        );
-
+        const franchiseCompanyIds = (values.franchiseCompanyList ?? [])
+          .map((option) => option?.value?.toString())
+          .filter((_id) => !!_id);
         const payload = {
           name: values.name,
           subtitle: values.subtitle || '',
@@ -203,7 +199,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
           ...(!!values.colors?.length && { ...variantColorListPayload }),
           ...(!!values.sizes?.length && { ...variantSizeListPayload }),
           ...(!!values.franchiseCompanyList.length && {
-            ...companyIdListPayload,
+            company_ids: franchiseCompanyIds,
           }),
         };
 

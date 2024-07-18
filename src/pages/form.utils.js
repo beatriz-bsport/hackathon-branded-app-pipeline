@@ -46,7 +46,12 @@ export function mapFormDataWithObject(base, map, keyExceptionList) {
     const isFranchiseCompanyKey = key.includes('company_ids');
     // Retail variant creation
     if (isVariantKey || isFranchiseCompanyKey) {
-      formData.append(key, value);
+      if (isFranchiseCompanyKey && Array.isArray(value)) {
+        // Retail MA companyIds conformity to FormData
+        value.forEach((item) => formData.append(key, item));
+      } else {
+        formData.append(key, value);
+      }
     }
     // directly skip a key if its in the key exception list
     if (keyExceptionList?.includes(key)) {

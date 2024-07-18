@@ -34,7 +34,7 @@ import {
 import InputAdornment from '@material-ui/core/InputAdornment';
 import List from '@material-ui/core/List';
 import { useFormikContext, type FormikProps, FieldArray } from 'formik';
-import type { PaymentPack } from '@bsport/common/lib/master-data/available-payment.type';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
 import { DateTime } from 'luxon';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import { FormikValues } from './PrivatePassForm.component';

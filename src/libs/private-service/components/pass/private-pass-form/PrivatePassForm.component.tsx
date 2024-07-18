@@ -311,6 +311,7 @@ export const PrivatePassForm = (props: Props) => {
               categoryList={props.categoryList}
               compatibleServicePass={props.compatibleServicePass}
               establishmentList={props.establishmentList}
+              initial={props.initial}
               metaActivityList={props.metaActivityList}
               privatePassCategories={props.privatePassCategories}
               privateServices={props.privateServices}

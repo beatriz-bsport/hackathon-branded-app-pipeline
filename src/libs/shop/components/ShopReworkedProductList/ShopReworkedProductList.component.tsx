@@ -296,18 +296,20 @@ const ShopReworkedProductList: React.FC<Props> = ({
                           </Tooltip>
                         )}
                       </IconButton>
-                      <ObjectLevelPermissionWrapper
-                        forcedBehavior="hidden"
-                        requiredPermission="product.shopReworked.allowed_actions.create"
-                      >
-                        <Tooltip title={t('common:duplicate')}>
-                          <IconButton
-                            onClick={handleDuplicateShopItem(shopItem.id)}
-                          >
-                            <FileCopyIcon />
-                          </IconButton>
-                        </Tooltip>
-                      </ObjectLevelPermissionWrapper>
+                      {shopItem.is_standalone_item && (
+                        <ObjectLevelPermissionWrapper
+                          forcedBehavior="hidden"
+                          requiredPermission="product.shopReworked.allowed_actions.create"
+                        >
+                          <Tooltip title={t('common:duplicate')}>
+                            <IconButton
+                              onClick={handleDuplicateShopItem(shopItem.id)}
+                            >
+                              <FileCopyIcon />
+                            </IconButton>
+                          </Tooltip>
+                        </ObjectLevelPermissionWrapper>
+                      )}
                       <ObjectLevelPermissionWrapper
                         forcedBehavior="hidden"
                         requiredPermission="product.shopReworked.allowed_actions.delete"

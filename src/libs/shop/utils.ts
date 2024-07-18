@@ -1,4 +1,9 @@
-import type { ShopItemVariantCombination } from './types';
+import type {
+  ShopItem,
+  ShopItemCreate,
+  ShopItemTemplate,
+  ShopItemVariantCombination,
+} from '#src/libs/shop/types';
 
 type ShopItemVariantComputedCombination = { color: string; size: string };
 
@@ -148,4 +153,28 @@ export const getFormDataFieldsFromArray: (
   );
 
   return parsedValues;
+};
+
+/**
+ * Returns a boolean indicating if the shop item or shop item template should be refetched depending on the form data by comparing its fields with the shop item or shop item template
+ * @param shopItemFormData The form data from the shop item form
+ * @param shopItemOrShopItemTemplate The shop item or shop item template to compare with
+ * @example
+ * const doesBaseItemMutationAffectsVariants = doesBaseItemMutationAffectsVariants({ barcode: '1234' }, { ...barcode: '1235' }) -> true
+ *
+ */
+export const doesBaseItemMutationAffectsVariants = (
+  shopItemFormData: Partial<ShopItemCreate>,
+  shopItemOrShopItemTemplate: ShopItem | ShopItemTemplate,
+): boolean => {
+  return (
+    shopItemFormData?.barcode !== shopItemOrShopItemTemplate?.barcode ||
+    shopItemFormData?.price !== Number(shopItemOrShopItemTemplate?.price) ||
+    Number(shopItemFormData?.supplier_price) !==
+      Number(shopItemOrShopItemTemplate?.supplier_price) ||
+    shopItemFormData?.stock_keeping_unit !==
+      shopItemOrShopItemTemplate?.stock_keeping_unit ||
+    shopItemFormData?.marketplace_enabled !==
+      shopItemOrShopItemTemplate?.marketplace_enabled
+  );
 };

@@ -84,6 +84,7 @@ import type { RootState } from '../../reducers';
 // @ts-expect-error
 import { mapFormDataWithObject } from '../form.utils';
 import withTitle from '../../hocs/with-title.hoc';
+import { doesBaseItemMutationAffectsVariants } from '#src/libs/shop/utils';
 
 type OwnProps = {
   id: number;
@@ -185,6 +186,15 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
     formData: ShopItemEdit,
     options?: OptionCallback<ShopItem>,
   ) => {
+    /*
+      Whenever the ShopItem is updated, some infos may have also changed for variants
+      Then, we want to refetch the variant list too
+    */
+    const needToRefetchVariants = doesBaseItemMutationAffectsVariants(
+      formData,
+      this.props.shopItem,
+    );
+
     const finalShopItemData = mapFormDataWithObject(
       formData,
       SHOPITEM_FORMDATA_KEYS_MAPPER,
@@ -195,7 +205,13 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
     this.props.updateShopItem({
       formData: finalShopItemData,
       id: this.props.id,
-      options,
+      options: {
+        onSuccess: () => {
+          if (needToRefetchVariants) this.fetchShopItemVariantList();
+          options?.onSuccess?.();
+        },
+        onError: options?.onError,
+      },
     });
   };
 

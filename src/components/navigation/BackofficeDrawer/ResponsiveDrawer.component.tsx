@@ -680,7 +680,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
             } as DrawerItemDefault,
           ]
         : []),
-      ...(Config.REACT_APP_SEGMENT_API_KEY === 'production' &&
+      ...(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
         FEATUREBASE_PRODUCTION_COMPANY_IDS_ACTIVATION.includes(companyId) && [
           {
             to: '/feature-base',

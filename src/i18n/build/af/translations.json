@@ -2184,7 +2184,7 @@
           "5005": "This code has already been used or is currently attached to a basket.",
           "5006": "This unique code is already linked to an open basket",
           "required": "This field is mandatory",
-          "positiveNumber": "Value must be greater than 0",
+          "positiveOrZeroNumber": "The value must be greater than or equal to 0",
           "expirationDate": {
             "dateBeforeNow": "The expiration date can not be earlier than the current date.",
             "format": "Error while formatting the date"

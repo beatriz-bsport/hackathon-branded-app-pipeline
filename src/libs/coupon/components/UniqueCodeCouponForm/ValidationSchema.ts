@@ -73,7 +73,7 @@ const ValidationSchema = Yup.object().shape({
     }),
   coupon_cost_for_company: Yup.number()
     .typeError('coupon:uniqueCodeCoupon.form.errors.required')
-    .positive('coupon:uniqueCodeCoupon.form.errors.positiveNumber')
+    .min(0, 'coupon:uniqueCodeCoupon.form.errors.positiveOrZeroNumber')
     .required('coupon:uniqueCodeCoupon.form.errors.required')
     .test(
       'is-float-with-max-two-digits',

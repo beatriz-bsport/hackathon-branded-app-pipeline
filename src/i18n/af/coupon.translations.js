@@ -251,7 +251,7 @@ const getTranslations = async () => {
           [UNIQUE_CODE_LOCKED]:
             'This unique code is already linked to an open basket',
           required: 'This field is mandatory',
-          positiveNumber: 'Value must be greater than 0',
+          positiveOrZeroNumber: 'The value must be greater than or equal to 0',
           expirationDate: {
             dateBeforeNow:
               'The expiration date can not be earlier than the current date.',

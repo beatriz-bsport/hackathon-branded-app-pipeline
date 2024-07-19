@@ -3,8 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core';
 import FormSection from '#src/components/forms/FormSection';
-// @ts-expect-error
-import { TextFieldEnhancedLabelWithError } from '../../../../../components/forms';
+import {
+  TextFieldEnhancedLabelWithError,
+  PriceField, // @ts-expect-error
+} from '../../../../../components/forms';
 
 type Props = {
   isProcessing: boolean;
@@ -39,7 +41,7 @@ const UniqueCodeCouponFormGeneral: React.FC<Props> = ({ isProcessing }) => {
         label={t('form.name.label')}
         name="name"
       />
-      <TextFieldEnhancedLabelWithError
+      <PriceField
         fullWidth
         required
         disabled={isProcessing}
@@ -47,7 +49,6 @@ const UniqueCodeCouponFormGeneral: React.FC<Props> = ({ isProcessing }) => {
         id="unique-code-coupon-form-price-input"
         label={t('uniqueCodeCoupon.form.couponCostForCompany.label')}
         name="coupon_cost_for_company"
-        type="number"
       />
     </FormSection>
   );

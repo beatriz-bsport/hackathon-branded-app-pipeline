@@ -403,6 +403,25 @@ const getTranslations = async () => {
         success: 'Successfully saved',
         errorLackRequiredVariables: 'This template could not be registered',
       },
+      create: {
+        error: 'Failed to create notification',
+        success: 'Notification successfully created',
+        errorLackRequiredVariables: '',
+      },
+      delete: {
+        error: 'Failed to delete notification',
+        success: 'Notification successfully deleted',
+      },
+      editOrAddPass: {
+        error: 'Failed to save notification',
+        success: 'Notification successfully saved',
+      },
+      active: {
+        errorDisable: 'Failed to disable notification',
+        errorEnable: 'Failed to enable notification',
+        disable: 'Notification successfully disabled',
+        enable: 'Notification successfully enabled',
+      },
     },
     activity: {
       update: {

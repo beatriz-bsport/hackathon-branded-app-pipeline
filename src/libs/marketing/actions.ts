@@ -98,6 +98,7 @@ export function deleteMarketingNotification(
     try {
       await deleteMarketingNotificationAPI(id);
       dispatch(deleteMarketingNotificationActions.success(id));
+      dispatch(snackbarSuccess('notificationRule.delete.success'));
       if (options && options.onSuccess) {
         // @ts-expect-error
         options.onSuccess(id);
@@ -105,6 +106,7 @@ export function deleteMarketingNotification(
     } catch (error) {
       console.error(error);
       dispatch(deleteMarketingNotificationActions.error(error));
+      dispatch(snackbarError('notificationRule.delete.error'));
       if (options && options.onError) {
         options.onError(error);
       }
@@ -171,7 +173,7 @@ export function createMarketingNotification(
       const response = await createMarketingNotificationAPI(data);
       dispatch(marketingNotificationCreateActions.success(response.data));
       dispatch(marketingNotificationCreateActions.error(null));
-      dispatch(snackbarSuccess('notificationRule.createOrUpdate.success'));
+      dispatch(snackbarSuccess('notificationRule.create.success'));
       if (options && options.onSuccess) {
         // @ts-expect-error
         options.onSuccess(response.data);
@@ -179,7 +181,7 @@ export function createMarketingNotification(
     } catch (error) {
       console.error(error);
       dispatch(marketingNotificationCreateActions.error(error));
-      dispatch(snackbarError('notificationRule.createOrUpdate.error'));
+      dispatch(snackbarError('notificationRule.create.error'));
       if (options && options.onError) {
         options.onError(error);
       }
@@ -207,7 +209,7 @@ export function updateMarketingNotification(
       const response = await updateMarketingNotificationAPI(id, data);
       dispatch(marketingNotificationUpdateActions.success(response.data));
       dispatch(marketingNotificationUpdateActions.error(null));
-      dispatch(snackbarSuccess('notificationRule.createOrUpdate.success'));
+      dispatch(snackbarSuccess('notificationRule.editOrAddPass.success'));
       if (options && options.onSuccess) {
         // @ts-expect-error
         options.onSuccess(response.data);
@@ -215,9 +217,39 @@ export function updateMarketingNotification(
     } catch (error) {
       console.error(error);
       dispatch(marketingNotificationUpdateActions.error(error));
-      dispatch(snackbarError('notificationRule.createOrUpdate.error'));
+      dispatch(snackbarError('notificationRule.editOrAddPass.error'));
       if (options && options.onError) {
         options.onError(error);
+      }
+    }
+
+    dispatch(marketingNotificationUpdateActions.isLoading(false));
+  };
+}
+
+export function toggleActiveMarketingNotification(id: number, active: boolean) {
+  return async (dispatch: Dispatch) => {
+    dispatch(marketingNotificationUpdateActions.isLoading(true));
+    dispatch(marketingNotificationUpdateActions.error(null));
+
+    try {
+      const payload = {
+        active,
+      };
+      const response = await updateMarketingNotificationAPI(id, payload);
+      dispatch(marketingNotificationUpdateActions.success(response.data));
+      if (active) {
+        dispatch(snackbarSuccess('notificationRule.active.enable'));
+      } else {
+        dispatch(snackbarSuccess('notificationRule.active.disable'));
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(marketingNotificationUpdateActions.error(error));
+      if (active) {
+        dispatch(snackbarError('notificationRule.active.errorEnable'));
+      } else {
+        dispatch(snackbarError('notificationRule.active.errorDisable'));
       }
     }
 

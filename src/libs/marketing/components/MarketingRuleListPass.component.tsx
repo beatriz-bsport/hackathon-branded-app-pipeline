@@ -21,10 +21,7 @@ type Props = {
   onClickNotification: (
     notification: ImmutableObject<MarketingNotification>,
   ) => void;
-  onUpdateNotification: (
-    id: number,
-    notification: MarketingNotification,
-  ) => void;
+  onToggleActiveNotification: (id: number, active: boolean) => void;
   emailSummariesById: { [key: string]: EmailTemplateSummary };
 };
 
@@ -82,7 +79,7 @@ const MarketingRuleListPass: React.FC<Props> = (props: Props) => {
             in={showSection}
             notifications={notifications}
             onClickNotification={props.onClickNotification}
-            onUpdateNotification={props.onUpdateNotification}
+            onToggleActiveNotification={props.onToggleActiveNotification}
             triggerTitle={title}
           />
         ))}

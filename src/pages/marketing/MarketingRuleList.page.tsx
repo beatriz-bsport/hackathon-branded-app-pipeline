@@ -19,6 +19,7 @@ import {
   fetchMarketingNotification,
   fetchMarketingNotificationList,
   createMarketingNotification,
+  toggleActiveMarketingNotification,
   updateMarketingNotification,
   deleteMarketingNotification,
 } from '#src/libs/marketing/actions';
@@ -396,14 +397,18 @@ export class MarketingRuleListPage extends Component<Props, State> {
           <MarketingRuleListPass
             emailSummariesById={this.props.emailSummariesById}
             onClickNotification={this.onClickNotification}
-            onUpdateNotification={this.props.updateMarketingNotification}
+            onToggleActiveNotification={
+              this.props.toggleActiveMarketingNotification
+            }
             passNotifications={this.props.notifications.paymentPacks}
             sectionTitleKey="notifications.groupTitle.paymentPack"
           />
           <MarketingRuleListPass
             emailSummariesById={this.props.emailSummariesById}
             onClickNotification={this.onClickNotification}
-            onUpdateNotification={this.props.updateMarketingNotification}
+            onToggleActiveNotification={
+              this.props.toggleActiveMarketingNotification
+            }
             passNotifications={this.props.notifications.privatePasses}
             sectionTitleKey="notifications.groupTitle.privatePass"
           />
@@ -593,6 +598,7 @@ const mapDispatchToProps = {
   goToSmartlist: () => push('/smart-list'),
   getSmartLists: fetchAllSmartLists,
   updateMarketingNotification,
+  toggleActiveMarketingNotification,
   createMarketingNotification,
   deleteMarketingNotification,
   fetchActivitiesCompany,

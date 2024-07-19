@@ -8,6 +8,7 @@ import {
   API_V1_URI,
   post,
 } from '../../http';
+import type { MarketingNotification } from '#src/libs/marketing/types';
 
 const MARKETING_ENDPOINT = `${API_V1_URI}/marketing`;
 
@@ -40,7 +41,10 @@ export const createMarketingNotification = (data: any) => {
 };
 
 export const updateMarketingNotification = (id: number, data: any) => {
-  return patchAuth(`${MARKETING_ENDPOINT}/marketing_notification/${id}/`, data);
+  return patchAuth<MarketingNotification>(
+    `${MARKETING_ENDPOINT}/marketing_notification/${id}/`,
+    data,
+  );
 };
 
 export const createNewsletterMember = (data: {

@@ -19,10 +19,7 @@ type Props = {
   onClickNotification: (
     notification: ImmutableObject<MarketingNotification>,
   ) => void;
-  onUpdateNotification: (
-    id: number,
-    notification: MarketingNotification,
-  ) => void;
+  onToggleActiveNotification: (id: number, active: boolean) => void;
   emailSummariesById: { [key: string]: EmailTemplateSummary };
   notifications: ImmutableArray<MarketingNotification>;
   triggerTitle: string;
@@ -34,10 +31,7 @@ const MarketingRuleListPassByTrigger: React.FC<Props> = (props) => {
 
   const changeNotificationStatus = useCallback(
     (notification: ImmutableObject<MarketingNotification>) => {
-      props.onUpdateNotification(notification.id, {
-        ...notification.asMutable({ deep: true }),
-        active: !notification.active,
-      });
+      props.onToggleActiveNotification(notification.id, !notification.active);
     },
     [props],
   );

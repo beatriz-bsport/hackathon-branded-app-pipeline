@@ -681,14 +681,15 @@ const ResponsiveDrawer: React.FC<Props> = ({
           ]
         : []),
       ...(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-        FEATUREBASE_PRODUCTION_COMPANY_IDS_ACTIVATION.includes(companyId) && [
-          {
-            to: '/feature-base',
-            icon: () => <MessageHeartSquare stroke="currentColor" />,
-            text: t('backofficeMenu.feedbackBoard'),
-          } as DrawerItemDefault,
-        ],
-      []),
+      FEATUREBASE_PRODUCTION_COMPANY_IDS_ACTIVATION.includes(companyId)
+        ? [
+            {
+              to: '/feature-base',
+              icon: () => <MessageHeartSquare stroke="currentColor" />,
+              text: t('backofficeMenu.feedbackBoard'),
+            } as DrawerItemDefault,
+          ]
+        : []),
       isTabImpersonated
         ? ({
             action: closeTab,

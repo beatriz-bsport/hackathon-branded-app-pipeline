@@ -825,7 +825,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                         </Grid>
                       </ObjectLevelPermissionWrapper>
 
-                      {Config.REACT_APP_SEGMENT_API_KEY === 'production' &&
+                      {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
                         FEATUREBASE_PRODUCTION_COMPANY_IDS_ACTIVATION.includes(
                           companyId,
                         ) && (

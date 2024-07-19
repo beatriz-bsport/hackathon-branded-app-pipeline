@@ -273,12 +273,19 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
     data: ShopItemVariantAttributes,
     options?: OptionCallback<ShopItem[]>,
   ) => {
+    /*
+      This boolean checks that the shopItem goes from a standalone item to a base item
+      That way, we trigger a refetch of the variant list and the ShopItem Details
+      to update both the variant tab and the inventory tab
+    */
+    const isShopItemMutated = !!this.props.shopItem?.is_standalone_item;
     this.props.createShopItemVariants({
       id: baseItemId,
       data,
       options: {
         onSuccess: () => {
-          this.fetchShopItemVariantList();
+          if (isShopItemMutated) this.retrieveShopItemDetails();
+          if (!isShopItemMutated) this.fetchShopItemVariantList();
           this.props.fetchShopItemVariantCombinationList(this.props.id);
           options?.onSuccess?.();
         },
@@ -292,6 +299,13 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
     const isLastItemInPage =
       this.props.shopItemVariantState.variants.length === 1;
 
+    /*
+      This boolean checks that the shopItem goes from a base item to a standalone item
+      That way, we trigger a refetch of the ShopItem Details to update the inventory tab
+    */
+    const isShopItemMutated =
+      isLastItemInPage && (currentPage === 1 || !currentPage);
+
     this.props.deleteShopItemVariant(id, {
       onSuccess: () => {
         /**
@@ -303,6 +317,8 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
           currentPage &&
           this.props.setQueryParam('page')((currentPage - 1).toString());
         this.fetchShopItemVariantList();
+        if (isShopItemMutated)
+          this.props.retrieveShopItemDetails(this.props.id);
       },
     });
   };

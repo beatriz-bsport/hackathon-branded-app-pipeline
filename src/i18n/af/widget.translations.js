@@ -44,6 +44,9 @@ exports.default = {
       successText: 'Confirmation text',
       showSuccessText: 'Show confirmation text',
     },
+    loginButton: {
+      openMemberProfile: 'Open member profile when the user logs in',
+    },
     hideWidgets: 'Hide all widgets for unlogged users',
     dialogModeLabel: 'Popup type',
     widgetPreviewError: 'Please finish the settings',

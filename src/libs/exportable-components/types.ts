@@ -47,6 +47,10 @@ export type MarketplacePlaylistData = {
   playlistId?: number;
 };
 
+export type MarketplaceLoginButtonWidgetConfig = {
+  openMemberProfile?: boolean;
+};
+
 export type MarketplaceComponentConfig = {
   calendar?: MarketplaceCalendarData;
   workshop?: MarketplaceWorkshopData;
@@ -56,6 +60,7 @@ export type MarketplaceComponentConfig = {
   subscription?: {};
   shop?: {};
   playlist?: MarketplacePlaylistData;
+  loginButton?: MarketplaceLoginButtonWidgetConfig;
 };
 
 export type MarketplaceTabConfig = {

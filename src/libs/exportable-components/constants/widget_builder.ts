@@ -157,5 +157,8 @@ export const EXPORTABLE_COMPONENTS = [
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON,
     label: 'loginButton',
+    defaultConfig: {
+      openMemberProfile: true,
+    },
   },
 ];

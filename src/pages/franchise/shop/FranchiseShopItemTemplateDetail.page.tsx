@@ -145,18 +145,36 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     });
   };
 
+  retrieveShopItemVariantCombinationListInventory = () => {
+    this.retrieveShopItemTemplateDetails({
+      onSuccess: () => {
+        this.fetchShopItemTemplateInstanceList();
+        this.props.fetchShopItemTemplateVariantCombinationList(this.props.id);
+      },
+    });
+  };
+
   handleCreateShopItemTemplateVariants = (
     baseItemId: number,
     data: ShopItemVariantAttributes,
     options?: OptionCallback,
   ) => {
+    /*
+      This boolean checks that the shopItemTemplate goes from a standalone item to a base item
+      That way, we trigger a refetch of the ShopItemTemplate Details to update the inventory tab
+    */
+    const isShopItemTemplateMutated =
+      !!this.props.shopItemTemplate?.is_standalone_item;
     this.props.createShopItemTemplateVariants({
       id: baseItemId,
       data,
       options: {
         onSuccess: () => {
           this.fetchShopItemTemplateVariantList();
-          this.fetchShopItemTemplateInstanceList();
+          if (!isShopItemTemplateMutated)
+            this.fetchShopItemTemplateInstanceList();
+          if (isShopItemTemplateMutated)
+            this.retrieveShopItemVariantCombinationListInventory();
           options?.onSuccess?.();
         },
         onError: options?.onError,
@@ -244,10 +262,40 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   };
 
   handleDeleteShopItemTemplateVariant = (id: number) => {
+    const currentPage = Number(this.props.queryParams.variantspage);
+    const isLastItemInPage =
+      (this.props.shopItemTemplateVariantState.variants ?? []).length === 1;
+
+    /*
+      This boolean checks that the shopItemTemplate goes from a base item to a standalone item
+      That way, we trigger a refetch of the ShopItemTemplate Details to update the inventory tab
+    */
+    const isShopItemTemplateMutated =
+      isLastItemInPage && (currentPage === 1 || !currentPage);
+
     this.props.deleteShopItemTemplate(id, {
       onSuccess: () => {
+        /**
+         * When performing a variant deletion, we want to fetch the previous page
+         * if we did delete the last remaining variant in the page. This avoid pagination
+         * number issues (e.g refetching a page that doesnt exist anymore).
+         */
+        if (isLastItemInPage && currentPage > 1) {
+          this.props.setQueryParam('variantspage')(`${currentPage - 1}`);
+          this.props.setQueryParam('inventorypage')(`${currentPage - 1}`);
+        }
         this.fetchShopItemTemplateVariantList();
-        this.fetchShopItemTemplateInstanceList();
+
+        if (!isShopItemTemplateMutated)
+          this.fetchShopItemTemplateInstanceList();
+
+        if (isShopItemTemplateMutated) {
+          this.retrieveShopItemTemplateDetails({
+            onSuccess: () => {
+              this.fetchShopItemTemplateInstanceList();
+            },
+          });
+        }
       },
     });
   };

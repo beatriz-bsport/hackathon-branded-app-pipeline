@@ -460,19 +460,13 @@ export function createUniqueCodeCoupon(
       const response = await createUniqueCodeCouponAPI(data);
       dispatch(couponCreateOrUpdate.success(response.data));
       dispatch(snackbarSuccess('coupon.create.success'));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(couponCreateOrUpdate.error(error));
       if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
-        if (options && options[error.response.data.error_code]) {
-          options[error.response.data.error_code]?.();
-        }
+        options?.[error.response.data.error_code]?.();
       }
-      if (options && options.onError) {
-        options.onError();
-      }
+      options?.onError?.();
     }
     dispatch(couponCreateOrUpdate.isLoading(false));
   };

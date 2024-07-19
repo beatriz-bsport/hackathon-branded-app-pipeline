@@ -262,10 +262,10 @@ export class CouponList extends React.PureComponent<Props, State> {
             initial: null,
           },
         });
-        if (options && options.onSuccess) options.onSuccess();
+        options?.onSuccess?.();
       },
       onError: () => {
-        if (options && options.onError) options.onError();
+        options?.onError?.();
       },
       [CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS]: () => {
         if (
@@ -559,11 +559,11 @@ const mapWithHandlers = {
     ) => {
       props.createUniqueCodeCouponAction(data, {
         onSuccess: (couponCreated: Coupon) => {
-          if (options && options.onSuccess) options.onSuccess(couponCreated);
+          options?.onSuccess?.(couponCreated);
           props.goToCoupon(couponCreated.id?.toString());
         },
         onError: () => {
-          if (options && options.onError) options.onError();
+          options?.onError?.();
         },
         [CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS]: () => {
           if (

@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 
@@ -75,14 +74,11 @@ const CouponDetail: React.FC<Props> = ({
 
   const renderEmpty = useCallback(
     () => (
-      <React.Fragment>
-        <div className={classes.emptyContainer}>
-          <Typography color="textSecondary" variant="caption">
-            {t('noDiscount')}
-          </Typography>
-        </div>
-        <Divider />
-      </React.Fragment>
+      <div className={classes.emptyContainer}>
+        <Typography color="textSecondary" variant="caption">
+          {t('noDiscount')}
+        </Typography>
+      </div>
     ),
     [classes.emptyContainer, t],
   );

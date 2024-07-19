@@ -75,6 +75,14 @@ export type ReportingState = {
   } & ErrorAndLoading;
 };
 
+export type ReportingStateV2 = {
+  reports: {
+    byId: Record<number, ReportConfiguration>;
+    allIds: number[];
+  } & ErrorAndLoading;
+  columnsMetadata: { results: ReportMetadataValue[] } & ErrorAndLoading;
+};
+
 export type ReportConfiguration = {
   id: number;
   name: string;

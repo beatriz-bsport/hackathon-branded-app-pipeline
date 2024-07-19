@@ -14,6 +14,12 @@ export default function Reporting() {
         component={ReportingGeneration}
         path="/reporting/:reportId"
       />
+      <Route
+        exact
+        // Will be defined in later commit
+        component={null}
+        path="/reporting/:categoryName/:reportId"
+      />
     </Switch>
   );
 }

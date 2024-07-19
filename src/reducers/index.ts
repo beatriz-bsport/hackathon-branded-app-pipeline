@@ -65,6 +65,7 @@ import relationship from '#src/libs/relationship/reducers';
 import reminder from '#src/libs/reminder/reducers';
 import replacementRequestReducer from '#src/libs/replacement-request/reducers';
 import reportingReducer from '#src/libs/reporting/v1/reducers';
+import reportingReducerV2 from '#src/libs/reporting/v2/reducers';
 import roleReducers from '#src/libs/role/reducers';
 import settingsReducer from '#src/libs/settings/reducers';
 import shopReducer from '#src/libs/shop/reducers';
@@ -142,7 +143,10 @@ import type { PluginState } from '#src/libs/plugin/types';
 import type { PollState } from '#src/libs/sign-up-form/types';
 import type { PrivateServiceState } from '#src/libs/private-service/types';
 import type { QuickbooksState } from '#src/libs/quickbooks/types';
-import type { ReportingState } from '#src/libs/reporting/common/types';
+import type {
+  ReportingState,
+  ReportingStateV2,
+} from '#src/libs/reporting/common/types';
 import type { RoleState } from '#src/libs/role/types';
 import type { SettingsState } from '#src/libs/settings/types';
 import type { SmartListState } from '#src/libs/smart-list/types';
@@ -183,6 +187,7 @@ import type { DeleteObjectState } from '#src/libs/delete-object/types';
 const rootReducer = (history: any) =>
   combineReducers({
     reports: reportingReducer,
+    reportsV2: reportingReducerV2,
     router: connectRouter(history),
     communication: communicationReducers,
     communicationV2: communicationV2Reducers,
@@ -338,6 +343,7 @@ export type RootState = {
   reminder: any;
   replacementRequest: ReplacementRequestState;
   reports: ReportingState;
+  reportsV2: ReportingStateV2;
   role: RoleState;
   search: any;
   settings: SettingsState;

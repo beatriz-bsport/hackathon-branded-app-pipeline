@@ -20,12 +20,14 @@ import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-catego
 import { isNotReportMetadataValueWithLabel } from '#src/libs/reporting/common/utils';
 
 type Props = {
-  metadata: ReportMetadataValue[];
   handleConfirmationDialogState: (bool: boolean) => () => void;
+  handleGoToReportV2: (categoryName: ReportCategoryEnum) => () => void;
+  metadata: ReportMetadataValue[];
 };
 const ReportDashboardReworked: React.FC<Props> = ({
-  metadata,
   handleConfirmationDialogState,
+  handleGoToReportV2,
+  metadata,
 }) => {
   const { t } = useTranslation('reporting');
 
@@ -112,6 +114,7 @@ const ReportDashboardReworked: React.FC<Props> = ({
           <ReportCategorySection
             key={globalCategoryData.globalCategory}
             globalCategoryData={globalCategoryData}
+            handleGoToReportV2={handleGoToReportV2}
           />
         ))
       ) : (

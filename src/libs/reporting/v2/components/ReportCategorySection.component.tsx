@@ -6,10 +6,17 @@ import Typography from '@material-ui/core/Typography/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import CardSectionItem from '#src/components/CardSectionItem.component';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
-type Props = { globalCategoryData: GlobalCategoryData };
+type Props = {
+  globalCategoryData: GlobalCategoryData;
+  handleGoToReportV2: (categoryName: ReportCategoryEnum) => () => void;
+};
 
-const ReportCategorySection: React.FC<Props> = ({ globalCategoryData }) => {
+const ReportCategorySection: React.FC<Props> = ({
+  globalCategoryData,
+  handleGoToReportV2,
+}) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
   return (
@@ -22,6 +29,7 @@ const ReportCategorySection: React.FC<Props> = ({ globalCategoryData }) => {
           <CardSectionItem
             key={reportCategory.category}
             description={t(`descriptions.${reportCategory.category}`)}
+            onCardClick={handleGoToReportV2(reportCategory.category)}
             title={t(`categories.${reportCategory.category}`)}
           />
         ))}

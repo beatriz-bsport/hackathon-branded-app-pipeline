@@ -119,6 +119,7 @@ const FranchiseReportList: React.FC<Props> = ({
         isV2Displayed={isV2Displayed}
       />
       {isV2Displayed ? (
+        // @ts-expect-error TODO: franchise case
         <ReportDashboardReworked
           handleConfirmationDialogState={handleConfirmationDialogState}
           metadata={metadata.results}

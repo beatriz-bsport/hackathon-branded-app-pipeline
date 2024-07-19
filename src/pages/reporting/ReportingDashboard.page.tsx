@@ -18,11 +18,15 @@ import ReportVersionSwitcher from '#src/libs/reporting/v2/components/ReportVersi
 
 import {
   fetchReports as fetchReportsAction,
-  fetchReportMetadata as fetchReportMetadataAction,
   deleteReport as deleteReportAction,
   updateReport as updateReportAction,
   createReport as createReportAction,
 } from '#src/libs/reporting/v1/actions';
+
+import {
+  fetchDefaultReports as fetchDefaultReportsAction,
+  fetchReportMetadata as fetchReportMetadataAction,
+} from '#src/libs/reporting/v2/actions';
 
 import {
   getIsReportV2Displayed,
@@ -34,12 +38,16 @@ import {
 } from '#src/libs/user-preference/actions';
 import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 import type { RootState } from '#src/reducers';
-import {
-  getReportMetadata,
-  getReports,
-} from '#src/libs/reporting/v1/selectors';
+import { getReports } from '#src/libs/reporting/v1/selectors';
 import type { OptionCallback } from '#src/state/types';
 import type { OwnProps } from '#src/components/HighlightedText/HighlightedText.component';
+
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import {
+  getReportsV2,
+  getReportV2Loading,
+  getReportCategoriesMetadata,
+} from '#src/libs/reporting/v2/selectors';
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
 
@@ -48,11 +56,14 @@ const ReportingDashboard: React.FC<Props> = ({
   deleteReport,
   fetchReportMetadata,
   fetchReports,
-  goToReport,
+  fetchDefaultReports,
+  pushRouter,
   IsReportAlertDisplayedInV2,
   isV2Displayed,
   metadata,
   reports,
+  reportsV2,
+  reportsV2Loading,
   setIsReportAlertDisplayedInV2,
   setIsReportV2Displayed,
   subscribedUpsells,
@@ -61,7 +72,9 @@ const ReportingDashboard: React.FC<Props> = ({
   useEffect(() => {
     fetchReports();
     fetchReportMetadata();
-  }, [fetchReports, fetchReportMetadata]);
+    fetchDefaultReports();
+  }, [fetchReports, fetchReportMetadata, fetchDefaultReports]);
+
   const classes = useStyles();
 
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =
@@ -82,11 +95,34 @@ const ReportingDashboard: React.FC<Props> = ({
     [setIsReportV2Displayed, isV2Displayed],
   );
 
+  const handleGoToReportV1 = React.useCallback(
+    (id: number) => pushRouter(`/reporting/${id}`),
+    [pushRouter],
+  );
+
+  const handleGoToReportV2 = React.useCallback(
+    (categoryName: ReportCategoryEnum) => () => {
+      const reportId = reportsV2?.find(
+        (result) => result.category === categoryName,
+      )?.id;
+
+      reportId
+        ? pushRouter(`/reporting/${categoryName}/${reportId}`)
+        : pushRouter('/reporting');
+    },
+    [pushRouter, reportsV2],
+  );
+
   const handleRemoveReportAlertDisplay = React.useCallback(() => {
     setIsReportAlertDisplayedInV2(false);
   }, [setIsReportAlertDisplayedInV2]);
 
-  if (metadata.loading || !metadata.results || reports.loading) {
+  if (
+    metadata.loading ||
+    !metadata.results ||
+    (!isV2Displayed && reports.loading) ||
+    (isV2Displayed && reportsV2Loading)
+  ) {
     return <LinearProgress />;
   }
 
@@ -134,13 +170,14 @@ const ReportingDashboard: React.FC<Props> = ({
       {isV2Displayed ? (
         <ReportDashboardReworked
           handleConfirmationDialogState={handleConfirmationDialogState}
+          handleGoToReportV2={handleGoToReportV2}
           metadata={filteredMetadata}
         />
       ) : (
         <ReportDashboard
           metadata={filteredMetadata}
           onDeleteReport={deleteReport}
-          onReportDetail={goToReport}
+          onReportDetail={handleGoToReportV1}
           reportConfigurations={filteredReportConfigurations}
           upsertReportConfiguration={handleUpsert}
         />
@@ -151,8 +188,10 @@ const ReportingDashboard: React.FC<Props> = ({
 
 const connector = connect(
   (state: RootState) => ({
-    metadata: getReportMetadata(state),
+    metadata: getReportCategoriesMetadata(state),
     reports: getReports(state),
+    reportsV2: getReportsV2(state),
+    reportsV2Loading: getReportV2Loading(state),
     subscribedUpsells: getCompanyUpsellData(state),
     isV2Displayed: getIsReportV2Displayed(state),
     IsReportAlertDisplayedInV2: getIsReportAlertDisplayedInV2(state),
@@ -163,9 +202,10 @@ const connector = connect(
     updateReport: updateReportAction,
     createReport: createReportAction,
     deleteReport: deleteReportAction,
-    goToReport: (id: number) => push(`/reporting/${id}`),
+    pushRouter: push,
     setIsReportAlertDisplayedInV2: setIsReportAlertDisplayedAction,
     setIsReportV2Displayed: setIsReportV2DisplayedAction,
+    fetchDefaultReports: fetchDefaultReportsAction,
   },
 );
 

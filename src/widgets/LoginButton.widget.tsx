@@ -14,6 +14,9 @@ import {
   bridgeRequestAuthenticationStatus,
   bridgeRequestLogout,
 } from '../libs/bridge/actions';
+import { closeUserInteractionPortal as closeUserInteractionPortalAction } from '../libs/modal/actions';
+
+import type { MarketplaceLoginButtonWidgetConfig } from 'bsport-saas/src/libs/exportable-components/types';
 
 // const MarketplaceShopStyled = themify(MarketplaceShopBase);
 
@@ -22,6 +25,7 @@ type OwnProps = {
   companyId: number,
   franchiseId: number,
   uniqueWidgetId: string,
+  config?: MarketplaceLoginButtonWidgetConfig,
 };
 
 type Props = OwnProps &
@@ -33,6 +37,20 @@ class LoginButton extends Component<Props> {
   componentDidMount() {
     this.props.bridgeRequestAuthenticationStatus();
     window?.addEventListener('message', this.handleOpenViaPostMessage);
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    /**
+     * Here we want to hide the member profile modal
+     * only when the value of openMemberProfile is explicitely set to false
+     */
+    if (
+      this.props.config?.openMemberProfile === false &&
+      prevProps.authenticated !== this.props.authenticated &&
+      !!this.props.authenticated
+    ) {
+      this.props.closeUserInteractionPortal();
+    }
   }
 
   componentWillUnmount() {
@@ -117,6 +135,7 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = {
   bridgeRequestAuthenticationStatus,
   bridgeRequestLogout,
+  closeUserInteractionPortal: closeUserInteractionPortalAction,
 };
 
 export default compose<Props, OwnProps>(

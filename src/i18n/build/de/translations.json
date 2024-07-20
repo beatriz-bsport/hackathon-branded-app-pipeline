@@ -12403,7 +12403,7 @@
             "myVideos": "Meine Videos",
             "pick_a_language": "Wählen Sie eine Sprache",
             "automaticLanguage": "Automatische Spracherkennung",
-            "giftcard": "Gutscheine",
+            "giftcard": "Geschenkgutscheine",
             "statistic": "Statistiken",
             "connectedAs": "Anmelden als",
             "backToRelationMasterSpace": "Zu meinem Konto zurückkehren",
@@ -13613,14 +13613,14 @@
                 }
             },
             "GiftCard": {
-                "name": "Gutschein",
+                "name": "Geschenkgutschein",
                 "tags": {
-                    "giftcard_message": "Gutschein-Nachricht",
-                    "activate_giftcard_url": "Link zur Aktivierung des Gutscheins",
+                    "giftcard_message": "Geschenkgutschein-Nachricht",
+                    "activate_giftcard_url": "Link zur Aktivierung des Geschenkgutscheins",
                     "message_is_from": "Mitglied, das den Gutschein versendet",
-                    "message_is_for": "Empfänger des Gutscheins",
-                    "giftcard_value": "Gutscheinwert",
-                    "giftcard_name": "Gutscheinname"
+                    "message_is_for": "Empfänger des Geschenkgutscheins",
+                    "giftcard_value": "Geschenkgutscheinwert",
+                    "giftcard_name": "Geschenkgutscheinname"
                 }
             },
             "EmailChange": {
@@ -13633,14 +13633,14 @@
                 "name": "Account bearbeiten"
             },
             "requiredTags": {
-                "message_is_from": "Mitglied, das den Gutschein versendet",
+                "message_is_from": "Mitglied, das den Geschenkgutschein versendet",
                 "reset_password_url": "Link zum Zurücksetzen des Passworts",
                 "email_confirmation_url": "Link zur Bestätigung der E-Mail-Adresse",
                 "new_email": "Neue Anmelde-E-Mail",
                 "old_email": "Alte Anmelde-E-Mail",
-                "activate_giftcard_url": "Aktivierungslink für den Gutschein",
-                "giftcard_message": "Gutschein-Nachricht",
-                "giftcard_value": "Gutscheinwert",
+                "activate_giftcard_url": "Aktivierungslink für den Geschenkgutschein",
+                "giftcard_message": "Geschenkgutschein-Nachricht",
+                "giftcard_value": "Geschenkgutscheinwert",
                 "manage_changing_email_link": "Link zur Verwaltung von E-Mail-Änderungen"
             },
             "SpiviPerformance": {
@@ -13702,7 +13702,7 @@
             "payment_pack": "Strafen",
             "recurrent_private_booking": "Wiederkehrende Termine",
             "replacement_request": "Vertretung",
-            "giftcard": "Gutscheine",
+            "giftcard": "Geschenkgutscheine",
             "performance": "Performance",
             "referral": "Verweis"
         },
@@ -14746,8 +14746,8 @@
                 "relation_plural": "Beziehungen ({{number}})",
                 "bookings": "Buchung",
                 "bookings_plural": "Buchungen ({{number}})",
-                "giftcard": "Gutschein",
-                "giftcard_plural": "Gutschein ({{number}})",
+                "giftcard": "Geschenkgutschein",
+                "giftcard_plural": "Geschenkgutscheine ({{number}})",
                 "paymentPack": "Kurspass",
                 "paymentPack_plural": "Kurspässe ({{number}})",
                 "contact": "Kontakt",
@@ -16689,8 +16689,8 @@
                 "error": "Fehler",
                 "recap": "Zusammenfassung",
                 "explain": "Ihre Kauf wurde bearbeitet. In Kürze werden Sie auch eine Bestätigungs-E-Mail erhalten.",
-                "myGiftcard": "Mein Gutschein",
-                "myGiftcard_plural": "Meine Gutscheine",
+                "myGiftcard": "Mein Geschenkgutschein",
+                "myGiftcard_plural": "Meine Geschenkgutscheine",
                 "myProduct": "Mein Produkt",
                 "myProduct_plural": "Meine Produkte",
                 "mySubscription": "Mein Abonnement",
@@ -16730,7 +16730,7 @@
                 "confirmPriceNull": "Bestätigen",
                 "payNow": "Bezahlen",
                 "myPasses": "Meine Kurspässe",
-                "myGiftcards": "Meine Gutscheine",
+                "myGiftcards": "Meine Geschenkgutschein",
                 "myProducts": "Meine Produkte",
                 "mySubscription": "Mein Abonnement",
                 "retryBookingSession": "Buchung erneut versuchen",
@@ -18884,7 +18884,7 @@
                 "name": {
                     "label": "Name"
                 },
-                "title": "Gutschein",
+                "title": "Geschenkgutschein",
                 "actions": {
                     "submit": "Bestätigen",
                     "cancel": "Schließen"
@@ -18916,7 +18916,7 @@
                 "availablePaymentMethods": "Verfügbare Zahlungsmethoden",
                 "expirationDate": "Gültigkeitsdauer vor Ablauf: {{ expiration_days }} Tag(e)"
             },
-            "configurationTitle": "Gutschein"
+            "configurationTitle": "Geschenkgutschein"
         },
         "link": {
             "copyLink": "Kopieren Sie den Kauflink",
@@ -18924,7 +18924,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "Der Gutschein wird um {{- hour_send }} an den Empfänger gesendet. Er ist für {{ expiration_days }} Tag(e) nach der Aktivierung gültig und das Konto des Empfängers wird mit {{- price }} aufgeladen.",
+                "footer": "Der Geschenkgutschein wird um {{- hour_send }} an den Empfänger gesendet. Er ist für {{ expiration_days }} Tag(e) nach der Aktivierung gültig und das Konto des Empfängers wird mit {{- price }} aufgeladen.",
                 "actions": {
                     "submit": "Zum Warenkorb hinzufügen",
                     "cancel": "Abbrechen"
@@ -18945,9 +18945,9 @@
                     "label": "Zu Händen von "
                 },
                 "name": {
-                    "label": "Name des Gutscheins"
+                    "label": "Name des Geschenkgutscheins"
                 },
-                "footerUnlimited": "Der Gutschein wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Er enthält kein Verfallsdatum. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschrieben.",
+                "footerUnlimited": "Der Geschenkgutschein wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Er enthält kein Verfallsdatum. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschrieben.",
                 "select_image": "Wählen Sie Ihr Hintergrundbild",
                 "hour_send": "Uhrzeit des Versands"
             },
@@ -18969,8 +18969,8 @@
             "isEmpty": "Keine Gutscheine verfügbar.",
             "linkedInvoice": "Verknüpfte Rechnung",
             "list": {
-                "myGifted": "Erhaltene Gutscheine",
-                "myPurchases": "Gekaufte Gutscheine"
+                "myGifted": "Erhaltene Geschenkgutscheine",
+                "myPurchases": "Gekaufte Geschenkgutscheine"
             },
             "invitationForm": {
                 "actions": {
@@ -18982,8 +18982,8 @@
                 "activationCodeLink": "Die Einladungs-E-Mail wurde versandt und kann nicht mehr geändert werden. Sollte sie nicht den richtigen Empfänger erreicht haben, können Sie diesen Aktivierungslink weiterleiten, um die Geschenkkarte anzubieten: "
             },
             "activation": {
-                "alreadyActivated": "Dieser Gutschein wurde bereits von einem anderen Benutzer verwendet.",
-                "activate": "Aktiviere meinen Gutschein",
+                "alreadyActivated": "Dieser Geschenkgutschein wurde bereits von einem anderen Benutzer verwendet.",
+                "activate": "Aktiviere meinen Geschenkgutschein",
                 "content3": "Wenn Sie nicht mit dem richtigen Konto angemeldet sind, melden Sie sich bitte ab und melden Sie sich mit dem richtigen Konto an. Wenn dieser Gutscheinn nicht für Sie bestimmt ist, lösen Sie ihn bitte nicht ein.",
                 "content2": "Der Gutschein wird automatisch als Zahlungsmethode zu Ihrem Warenkorb hinzugefügt. Alle Informationen zu Ihrem Gutschein finden Sie in Ihrem Profil.",
                 "content1": "Ihr Gutschein im Wert von {{price}} ist mit allen Produkten unseres Shops kompatibel und hat kein Verfallsdatum. Viel Spaß!",
@@ -18994,12 +18994,12 @@
         },
         "list": {
             "actions": {
-                "create": "Gutschein hinzufügen",
-                "goToGiftcard": "Alle Gutscheine anzeigen"
+                "create": "Geschenkgutschein hinzufügen",
+                "goToGiftcard": "Alle Geschenkgutscheine anzeigen"
             },
             "addBackgroundImage": "Bild hinzufügen",
-            "isEmpty": "Keine Gutscheine verfügbar.",
-            "archivedTitle": "Archivierte Gutscheine",
+            "isEmpty": "Keine Geschenkgutscheine verfügbar.",
+            "archivedTitle": "Archivierte Geschenkgutscheine",
             "explainIfEmpty": "Gutscheine ermöglichen es Ihren Mitgliedern, Angebote mit ihren Gästen zu teilen und die potenzielle Reichweite Ihres Studios zu erhöhen.",
             "unavailableForSaleTitle": "Nicht zum Verkauf verfügbar",
             "activeTitle": "Zum Verkauf verfügbar",

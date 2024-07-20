@@ -14414,7 +14414,7 @@
                         "second": "last days"
                     },
                     "9": {
-                        "first": "before those",
+                        "first": "there is more than",
                         "second": "last days"
                     },
                     "10": {
@@ -16670,54 +16670,57 @@
         },
         "notifications": {
             "primaryText": {
-              "send": {
-                "email": "An email will be sent",
-                "push": "A push notification will be sent",
-                "emailAndPush": "An email and a push notification will be sent"
-              },
-              "smartlist": {
-                "smartListInclude": "This notification is intended for this smartlist: {{smartlist_names}}.",
-                "smartListInclude_plural": "This notification is intended for these smartlists: {{smartlist_names}}.",
-                "smartListExclude": "This notification is not intended for this smartlist: {{smartlist_names}}.",
-                "smartListExclude_plural": "This notification is not intended for these smartlists: {{smartlist_names}}."
-              },
-              "expired": { "days": "after 1 day of expiration", "days_plural": "after {{days}} days of expiration" },
-              "expires": {
-                "noDays": "on the day of expiration",
-                "days": "1 day before expiration",
-                "days_plural": "{{days}} days before expiration"
-              },
-              "paymentPack": {
-                "creditsLeftOnBooking": {
-                  "noCreditsNoHours": "after a booking to remind the user that they have no credit left on their pass",
-                  "noCreditsHours": "1 hour after a booking to remind the user that they have no credit left on their pass",
-                  "noCreditsHours_plural": "{{hours}} hours after a booking to remind the user that they have no credit left on their pass",
-                  "oneCreditNoHours": "after a booking to remind the user that they have 1 credit left on their pass",
-                  "oneCreditHours": "1 hour after a booking to remind the user that they have 1 credit left on their pass",
-                  "oneCreditHours_plural": "{{hours}} hours after a booking to remind the user that they have 1 credit left on their pass",
-                  "creditsNoHours": "after a booking to remind the user that they have {{credits}} credits left on their pass",
-                  "creditsHours": "1 hour after a booking to remind the user that they have {{credits}} credits left on their pass",
-                  "creditsHours_plural": "{{hours}} hours after a booking to remind the user that they have {{credits}} credits left on their pass"
+                "send": {
+                    "email": "An email will be sent",
+                    "push": "A push notification will be sent",
+                    "emailAndPush": "An email and a push notification will be sent"
                 },
-                "creditsLeftOnSessionEnd": {
-                  "noCreditsNoHours": "after the end of the session to remind the user that they have no credit left on their pass",
-                  "noCreditsHours": "1 hour after the end of the session to remind the user that they have no credit left on their pass",
-                  "noCreditsHours_plural": "{{hours}} hours after the end of the session to remind the user that they have no credit left on their pass",
-                  "oneCreditNoHours": "after the end of the session to remind the user that they have 1 credit left on their pass",
-                  "oneCreditHours": "1 hour after the end of the session to remind the user that they have 1 credit left on their pass",
-                  "oneCreditHours_plural": "{{hours}} hours after the end of the session to remind the user that they have 1 credit left on their pass",
-                  "creditsNoHours": "after the end of the session to remind the user that they have {{credits}} credits left on their pass",
-                  "creditsHours": "1 hour after the end of the session to remind the user that they have {{credits}} credits left on their pass",
-                  "creditsHours_plural": "{{hours}} hours after the end of the session to remind the user that they have {{credits}} credits left on their pass"
+                "smartlist": {
+                    "smartListInclude": "This notification is intended for this smartlist: {{smartlist_names}}.",
+                    "smartListInclude_plural": "This notification is intended for these smartlists: {{smartlist_names}}.",
+                    "smartListExclude": "This notification is not intended for this smartlist: {{smartlist_names}}.",
+                    "smartListExclude_plural": "This notification is not intended for these smartlists: {{smartlist_names}}."
+                },
+                "expired": {
+                    "days": "after 1 day of expiration",
+                    "days_plural": "after {{days}} days of expiration"
+                },
+                "expires": {
+                    "noDays": "on the day of expiration",
+                    "days": "1 day before expiration",
+                    "days_plural": "{{days}} days before expiration"
+                },
+                "paymentPack": {
+                    "creditsLeftOnBooking": {
+                        "noCreditsNoHours": "after a booking to remind the user that they have no credit left on their pass",
+                        "noCreditsHours": "1 hour after a booking to remind the user that they have no credit left on their pass",
+                        "noCreditsHours_plural": "{{hours}} hours after a booking to remind the user that they have no credit left on their pass",
+                        "oneCreditNoHours": "after a booking to remind the user that they have 1 credit left on their pass",
+                        "oneCreditHours": "1 hour after a booking to remind the user that they have 1 credit left on their pass",
+                        "oneCreditHours_plural": "{{hours}} hours after a booking to remind the user that they have 1 credit left on their pass",
+                        "creditsNoHours": "after a booking to remind the user that they have {{credits}} credits left on their pass",
+                        "creditsHours": "1 hour after a booking to remind the user that they have {{credits}} credits left on their pass",
+                        "creditsHours_plural": "{{hours}} hours after a booking to remind the user that they have {{credits}} credits left on their pass"
+                    },
+                    "creditsLeftOnSessionEnd": {
+                        "noCreditsNoHours": "after the end of the session to remind the user that they have no credit left on their pass",
+                        "noCreditsHours": "1 hour after the end of the session to remind the user that they have no credit left on their pass",
+                        "noCreditsHours_plural": "{{hours}} hours after the end of the session to remind the user that they have no credit left on their pass",
+                        "oneCreditNoHours": "after the end of the session to remind the user that they have 1 credit left on their pass",
+                        "oneCreditHours": "1 hour after the end of the session to remind the user that they have 1 credit left on their pass",
+                        "oneCreditHours_plural": "{{hours}} hours after the end of the session to remind the user that they have 1 credit left on their pass",
+                        "creditsNoHours": "after the end of the session to remind the user that they have {{credits}} credits left on their pass",
+                        "creditsHours": "1 hour after the end of the session to remind the user that they have {{credits}} credits left on their pass",
+                        "creditsHours_plural": "{{hours}} hours after the end of the session to remind the user that they have {{credits}} credits left on their pass"
+                    }
+                },
+                "privatePass": {
+                    "creditsLeft": {
+                        "noCredits": "to remind the user that they have no credit left on their appointment pass",
+                        "credits": "to remind the user that they have 1 credit left on their appointment pass",
+                        "credits_plural": "to remind the user that they have {{credits}} credit left on their appointment pass"
+                    }
                 }
-              },
-              "privatePass": {
-                "creditsLeft": {
-                  "noCredits": "to remind the user that they have no credit left on their appointment pass",
-                  "credits": "to remind the user that they have 1 credit left on their appointment pass",
-                  "credits_plural": "to remind the user that they have {{credits}} credit left on their appointment pass"
-                }
-              }
             },
             "selectNotificationRules": "Select a notification to display more information.",
             "createNotificationFabLabel": "Add a notification",
@@ -16760,13 +16763,13 @@
             "included": "Included",
             "excluded": "Excluded",
             "passNotificationDeleteDialog": {
-              "title": "Delete this notification",
-              "warning": {
-                "attachedPaymentPacks": "You still have one or more passes linked to this notification",
-                "attachedPrivatePasses": "You still have one or more appointment passes linked to this notification",
-                "sure": "Are you sure you want to delete this notification?",
-                "irreversible": "This operation can't be undone."
-              }
+                "title": "Delete this notification",
+                "warning": {
+                    "attachedPaymentPacks": "You still have one or more passes linked to this notification",
+                    "attachedPrivatePasses": "You still have one or more appointment passes linked to this notification",
+                    "sure": "Are you sure you want to delete this notification?",
+                    "irreversible": "This operation can't be undone."
+                }
             },
             "selectIdentifierLabel": {
                 "payment_pack": "Select passes",
@@ -16787,33 +16790,42 @@
             "mail": "Email ",
             "notificationDetails": "Overview",
             "notificationTitle": {
-              "remainingCredit": "Remaining credit notifications",
-              "remainingValidity": "Remaining validity notifications",
-              "expiredValidity": "Expiration notifications"
+                "remainingCredit": "Remaining credit notifications",
+                "remainingValidity": "Remaining validity notifications",
+                "expiredValidity": "Expiration notifications"
             },
             "triggerDescription": {
-              "remainingCredit": "{{count}} credit left",
-              "remainingCredit_plural": "{{count}} credits left",
-              "remainingValidity": "{{count}} day left before expiration",
-              "remainingValidity_plural": "{{count}} days left before expiration"
+                "remainingCredit": "{{count}} credit left",
+                "remainingCredit_plural": "{{count}} credits left",
+                "remainingValidity": "{{count}} day left before expiration",
+                "remainingValidity_plural": "{{count}} days left before expiration"
             },
             "sendingDelay": {
-              "onBooking": "{{hours}}h after booking",
-              "onSession": "{{hours}}h after the session"
+                "onBooking": "{{hours}}h after booking",
+                "onSession": "{{hours}}h after the session"
             },
             "selectAllPassesToggle": {
-              "payment_pack": "Apply to all existing and future passes",
-              "private_pass": "Apply to all existing and future appointment passes"
+                "payment_pack": "Apply to all existing and future passes",
+                "private_pass": "Apply to all existing and future appointment passes"
             },
-            "allPassSelected": { "payment_pack": "All passes are included", "private_pass": "All appointment passes are included" },
+            "allPassSelected": {
+                "payment_pack": "All passes are included",
+                "private_pass": "All appointment passes are included"
+            },
             "dialogTitle": "Add a notification",
             "addPasses": "Add",
             "editPasses": "Edit",
             "mailTitle": "Email Preview",
             "statisticDetails": "Statistics",
             "notificationPreview": "Push notification preview",
-            "allOptionsPlaceholder": { "private_pass": "All appointment passes", "payment_pack": "All passes" },
-            "passSelectionPlaceholder": { "private_pass": "Appointment passes", "payment_pack": "Passes" },
+            "allOptionsPlaceholder": {
+                "private_pass": "All appointment passes",
+                "payment_pack": "All passes"
+            },
+            "passSelectionPlaceholder": {
+                "private_pass": "Appointment passes",
+                "payment_pack": "Passes"
+            },
             "listTitle": "Notifications",
             "create": "Add a notification",
             "handleNotification": "Notification",

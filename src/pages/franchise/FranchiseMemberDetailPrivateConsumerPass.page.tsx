@@ -246,7 +246,7 @@ const FranchiseMemberDetailPrivateConsumerPass: React.FC<Props> = ({
             searchedObjectType="franchise_user_private_pass"
             variant="underlined"
           />
-          <Paper className={classes.passesListContainer}>
+          <Paper>
             <FranchiseConsumerPassFilters
               companies={companies as Company[]}
               companyGroups={companyGroups}
@@ -338,9 +338,6 @@ const FranchiseMemberDetailPrivateConsumerPass: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
-  passesListContainer: {
-    marginTop: theme.spacing(2),
-  },
   loadingContainer: {
     display: 'flex',
     justifyContent: 'center',

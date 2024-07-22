@@ -168,26 +168,24 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
       leftChildren={
         <FranchiseMemberSectionLayout>
           <FranchiseMemberDetailsCard user={user} />
-          <div className={classes.detailAndTagsContainer}>
-            <Paper>
-              <FranchiseMemberTagList
-                fetchTagsList={fetchTagsList}
-                setIsModalOpen={setIsModalOpen}
-                tags={tags}
-                tagsCount={tagsCount}
-                tagsLoading={tagsLoading}
-                tagsPage={tagsPage}
-              />
-              <FranchiseMemberTagManagementModal
-                onSave={onModalSave}
-                open={isModalOpen}
-                setOpen={setIsModalOpen}
-                tagsByTagGroup={tagsByTagGroup}
-                tagTemplates={tagTemplates}
-                userTags={tags}
-              />
-            </Paper>
-          </div>
+          <Paper>
+            <FranchiseMemberTagList
+              fetchTagsList={fetchTagsList}
+              setIsModalOpen={setIsModalOpen}
+              tags={tags}
+              tagsCount={tagsCount}
+              tagsLoading={tagsLoading}
+              tagsPage={tagsPage}
+            />
+            <FranchiseMemberTagManagementModal
+              onSave={onModalSave}
+              open={isModalOpen}
+              setOpen={setIsModalOpen}
+              tagsByTagGroup={tagsByTagGroup}
+              tagTemplates={tagTemplates}
+              userTags={tags}
+            />
+          </Paper>
         </FranchiseMemberSectionLayout>
       }
       rightChildren={
@@ -222,9 +220,6 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(2),
     paddingTop: 0,
     paddingBottom: 0,
-  },
-  detailAndTagsContainer: {
-    marginTop: theme.spacing(2),
   },
 }));
 

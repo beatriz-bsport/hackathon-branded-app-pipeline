@@ -17,7 +17,7 @@ const FranchiseMemberSectionLayout: React.FC<Props> = ({ title, children }) => {
           {title}
         </Typography>
       )}
-      {children}
+      <div className={classes.children}>{children}</div>
     </div>
   );
 };
@@ -27,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+  },
+  children: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
   },
   title: { marginBottom: theme.spacing(1) },
 }));

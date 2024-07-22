@@ -194,6 +194,10 @@ const FranchiseMemberDetailPass: React.FC<Props> = ({
     [replaceRouter, userId],
   );
 
+  React.useEffect(() => {
+    if (filters) onPageRequestHandler(1);
+  }, [onPageRequestHandler, filters]);
+
   const goToPassInCompany = React.useCallback(() => {
     if (
       selectedConsumerPass &&

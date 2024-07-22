@@ -101,7 +101,7 @@ import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 import { setAuthToken } from '#src/http';
 import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '#src/actions/constants';
 import { clearStorage, getItemInStorage } from '#src/utils/storage';
-import { FEATUREBASE_PRODUCTION_COMPANY_IDS_ACTIVATION } from '#src/components/feature-base/constants';
+
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;
 const usePrevious = (value: Location) => {
@@ -825,14 +825,11 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                         </Grid>
                       </ObjectLevelPermissionWrapper>
 
-                      {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                        FEATUREBASE_PRODUCTION_COMPANY_IDS_ACTIVATION.includes(
-                          companyId,
-                        ) && (
-                          <Grid item>
-                            <FeatureBaseBoardButton />
-                          </Grid>
-                        )}
+                      {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' && (
+                        <Grid item>
+                          <FeatureBaseBoardButton />
+                        </Grid>
+                      )}
 
                       {renderAdditionalButtons()}
                     </Hidden>

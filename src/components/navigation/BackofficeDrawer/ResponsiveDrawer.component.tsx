@@ -80,7 +80,7 @@ import { getItemInStorage } from '#src/utils/storage';
 import VersionVisualizer from '../../VersionVisualizer.component';
 import LOGO_ASSET from '../../../public/images/banner_lowres.png';
 import { getCurrencyDisplay } from '../../../libs/theme/selectors';
-import { FEATUREBASE_PRODUCTION_COMPANY_IDS_ACTIVATION } from '#src/components/feature-base/constants';
+
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {
   const previousIconOnlyState = React.useRef<boolean>();
@@ -680,8 +680,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
             } as DrawerItemDefault,
           ]
         : []),
-      ...(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-      FEATUREBASE_PRODUCTION_COMPANY_IDS_ACTIVATION.includes(companyId)
+      ...(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
         ? [
             {
               to: '/feature-base',

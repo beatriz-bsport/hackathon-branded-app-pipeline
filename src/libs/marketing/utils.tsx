@@ -52,6 +52,78 @@ export const getSendingTimeNotification = (
   return [daysSubmit, hoursSubmit];
 };
 
+const compareValues = (
+  a: number | undefined,
+  b: number | undefined,
+): number => {
+  const valueA = a ?? 0;
+  const valueB = b ?? 0;
+  return valueA - valueB;
+};
+
+const sortNotifications = (
+  notifications: MarketingNotification[],
+  type: 'remainingCredit' | 'remainingValidity' | 'expiredValidity',
+) => {
+  switch (type) {
+    case 'remainingCredit':
+      notifications.sort((a, b) => {
+        const creditComparison = compareValues(
+          a.event_rules.credits_left,
+          b.event_rules.credits_left,
+        );
+        if (creditComparison !== 0) {
+          return creditComparison;
+        }
+        const kindComparison = compareValues(
+          a.event_rules.kind,
+          b.event_rules.kind,
+        );
+        if (kindComparison !== 0) {
+          return kindComparison;
+        }
+        const hoursComparison = compareValues(
+          a.event_rules.hours,
+          b.event_rules.hours,
+        );
+        if (hoursComparison !== 0) {
+          return hoursComparison;
+        }
+        return compareValues(a.id, b.id);
+      });
+      break;
+
+    case 'remainingValidity':
+      notifications.sort((a, b) => {
+        const daysComparison = compareValues(
+          a.event_rules.days_left,
+          b.event_rules.days_left,
+        );
+        if (daysComparison !== 0) {
+          return daysComparison;
+        }
+        return compareValues(a.id, b.id);
+      });
+      break;
+
+    case 'expiredValidity':
+      notifications.sort((a, b) => {
+        const expiredDaysComparison = compareValues(
+          -(a.event_rules.days_left ?? 0),
+          -(b.event_rules.days_left ?? 0),
+        );
+        if (expiredDaysComparison !== 0) {
+          return expiredDaysComparison;
+        }
+        return compareValues(a.id, b.id);
+      });
+      break;
+
+    default:
+      break;
+  }
+};
+
 export const splitPassNotificationsByTrigger = (
   notifications: MarketingNotification[],
 ) => {
@@ -77,6 +149,10 @@ export const splitPassNotificationsByTrigger = (
         break;
     }
   }
+
+  sortNotifications(remainingCreditNotifications, 'remainingCredit');
+  sortNotifications(remainingValidityNotifications, 'remainingValidity');
+  sortNotifications(expiredValidityNotifications, 'expiredValidity');
 
   return {
     remainingCreditNotifications,

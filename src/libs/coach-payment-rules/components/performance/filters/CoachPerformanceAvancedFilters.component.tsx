@@ -348,7 +348,7 @@ export default compose<any, OwnProps & FormProps>(
       let coachesFiltered = coaches;
       if (values.coaches_selected.length !== 0) {
         coachesFiltered = coachesFiltered.filter((coach) =>
-          values.coaches_selected.includes(coach.associated_coach_id),
+          values.coaches_selected.includes(coach.id),
         );
       }
       if (values.by_coach_payment_rule_group) {

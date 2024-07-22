@@ -13,6 +13,7 @@ import type {
   CustomFormDisplayRule,
   ResponsiveLayouts,
   SignUpCustomFormPayload,
+  CustomFormFilledAPI,
 } from './types';
 
 export async function fetchAllCustomForm(companyId?: number) {
@@ -129,7 +130,7 @@ export async function submitCustomForm(
   form_filled: CustomFormFieldAnswer,
   companyId: number,
 ) {
-  return postBaseAuth(
+  return postBaseAuth<CustomFormFilledAPI>(
     `${API_V1_URI}/custom_form/custom_form_filled/${buildUrlParams({
       companyId,
     })}`,

@@ -43,7 +43,10 @@ import {
   getMemberCustomFormWithEnabledField,
 } from '../../libs/custom-form/selectors';
 import CustomFormStepper from '../../libs/custom-form/components/CustomFormStepper.component';
-import type { CustomForm } from '../../libs/custom-form/types';
+import type {
+  CustomForm,
+  CustomFormFieldAnswer,
+} from '../../libs/custom-form/types';
 import { WithHandlerType } from '../../utils/types';
 import { OptionCallback } from '../../state/types';
 import MemberGreetingBanner from '../../libs/custom-form/components/consumer-form/CustomFormMemberGreetingBanner.component';
@@ -395,34 +398,40 @@ export default compose<any, OwnProps>(
         linkMeToCompany,
         fetchCurrentBasket,
       }) =>
-      (formdata: FormData, options?: OptionCallback) => {
+      (formdata: CustomFormFieldAnswer, options?: OptionCallback) => {
         if (!membership) {
           linkMeToCompany(
             { company: companyId },
             {
               onSuccess: (payload: Member) => {
-                submitCustomFormAction(formdata, companyId, {
-                  ...options,
-                  onSuccess: () => {
-                    fetchMember(payload.id);
-                    options.onSuccess();
-                    requestMembershipValidation({ company: companyId });
-                    fetchCurrentBasket(companyId);
+                submitCustomFormAction(
+                  { form_filled: formdata, companyId },
+                  {
+                    ...options,
+                    onSuccess: () => {
+                      fetchMember(payload.id);
+                      options.onSuccess();
+                      requestMembershipValidation({ company: companyId });
+                      fetchCurrentBasket(companyId);
+                    },
                   },
-                });
+                );
               },
             },
           );
         } else {
-          submitCustomFormAction(formdata, companyId, {
-            ...(options || {}),
-            onSuccess: () => {
-              fetchMember(membership.id);
-              if (options && options.onSuccess) options.onSuccess();
-              requestMembershipValidation({ company: companyId });
-              fetchCurrentBasket(companyId);
+          submitCustomFormAction(
+            { form_filled: formdata, companyId },
+            {
+              ...(options || {}),
+              onSuccess: () => {
+                fetchMember(membership.id);
+                if (options && options.onSuccess) options.onSuccess();
+                requestMembershipValidation({ company: companyId });
+                fetchCurrentBasket(companyId);
+              },
             },
-          });
+          );
         }
       },
   }),
@@ -461,8 +470,7 @@ export default compose<any, OwnProps>(
                 );
               } else {
                 await submitCustomFormAction(
-                  request_data.completed,
-                  companyId,
+                  { form_filled: request_data.completed, companyId },
                   callBacks,
                 );
               }
@@ -499,7 +507,10 @@ export default compose<any, OwnProps>(
             options,
           );
         } else {
-          await submitCustomFormAction(formData, companyId, options);
+          await submitCustomFormAction(
+            { form_filled: formData, companyId },
+            options,
+          );
         }
         setCustomFormListIsSubmitting(false);
       },

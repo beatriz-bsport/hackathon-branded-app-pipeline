@@ -32,7 +32,10 @@ import ConsumerProfileContextProvider from '#src/libs/consumer-space/components/
 
 import type { RootState } from '#src/reducers';
 import type { Membership } from '#src/libs/membership/types';
-import type { CustomFormFieldAnswer } from '#src/libs/custom-form/types';
+import type {
+  CustomFormFieldAnswer,
+  CustomFormFilledAPI,
+} from '#src/libs/custom-form/types';
 import type { OptionCallback } from '#src/state/types';
 
 type OwnProps = {
@@ -79,16 +82,19 @@ class ConsumerProfileReworked extends React.Component<Props> {
 
   submitCustomForm = (
     formData: CustomFormFieldAnswer,
-    options?: OptionCallback,
+    options?: OptionCallback<CustomFormFilledAPI>,
   ) => {
-    this.props.submitCustomForm(formData, this.props.membership.company, {
-      onSuccess: () => {
-        this.props.fetchMember(this.props.membership.id, {}, { me: true });
-        this.props.fetchMyUserProfile();
-        options?.onSuccess?.();
+    this.props.submitCustomForm(
+      { form_filled: formData, companyId: this.props.membership.company },
+      {
+        onSuccess: () => {
+          this.props.fetchMember(this.props.membership.id, {}, { me: true });
+          this.props.fetchMyUserProfile();
+          options?.onSuccess?.();
+        },
+        onError: options?.onError,
       },
-      onError: options?.onError,
-    });
+    );
   };
 
   requestSetupIntentSecret = () => {
@@ -144,6 +150,7 @@ const mapStateToProps = (
   state: RootState,
   { membership }: { membership: Membership },
 ) => ({
+  authenticated: state.auth.authenticated,
   companyThemeLoading: state.theme.loading,
   memberLoading: state.member.loading,
   member: getMemberDetail(state, membership && membership.id),

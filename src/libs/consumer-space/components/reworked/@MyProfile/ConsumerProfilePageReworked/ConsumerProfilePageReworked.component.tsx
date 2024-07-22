@@ -20,6 +20,7 @@ import { Edit03 } from '#src/components/untitledui';
 import type {
   CustomForm,
   CustomFormFieldAnswer,
+  CustomFormFilledAPI,
 } from '#src/libs/custom-form/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
 import type { Member } from '#src/libs/member/types';
@@ -53,8 +54,8 @@ type Props = {
   spiviPrivacySettingsLoading: boolean;
   stripeRegion: string;
   submitCustomForm: (
-    formdata: CustomFormFieldAnswer,
-    options?: OptionCallback,
+    formData: CustomFormFieldAnswer,
+    options?: OptionCallback<CustomFormFilledAPI>,
   ) => void;
   updateSpiviPrivacySettings: (
     memberId: number,

@@ -254,15 +254,18 @@ const mapWithHandlers = {
   submitCustomForm:
     (props: OwnAndConnectedProps) =>
     (form_filled: CustomFormFieldAnswer, options?: OptionCallback) => {
-      props.submitCustomFormAction(form_filled, props.companyId, {
-        onSuccess: () => {
-          if (options && options.onSuccess) options.onSuccess();
-          props.setSubmitSuccess(true);
+      props.submitCustomFormAction(
+        { form_filled: form_filled, companyId: props.companyId },
+        {
+          onSuccess: () => {
+            if (options && options.onSuccess) options.onSuccess();
+            props.setSubmitSuccess(true);
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
         },
-        onError: () => {
-          if (options && options.onError) options.onError();
-        },
-      });
+      );
     },
 };
 const withStateHandlersInit: StateHandlerInit = {

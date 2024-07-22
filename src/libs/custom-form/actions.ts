@@ -35,6 +35,7 @@ import type {
   CustomFormDisplayRule,
   ResponsiveLayouts,
   SignUpSuccessResponse,
+  CustomFormFilledAPI,
 } from './types';
 
 export const fetchAllCustomFormActions = {
@@ -346,15 +347,17 @@ export function fetchMemberCustomFormFilled(memberId?: number) {
 }
 
 export const submitCustomFormActions = {
-  isLoading: createAction('CUSTOM_FORM/SUBMIT/IS_LOADING'),
-  error: createAction('CUSTOM_FORM/SUBMIT/ERROR'),
-  success: createAction('CUSTOM_FORM/SUBMIT/SUCCESS'),
+  isLoading: createAction<boolean>('CUSTOM_FORM/SUBMIT/IS_LOADING'),
+  error: createAction<Error | null>('CUSTOM_FORM/SUBMIT/ERROR'),
+  success: createAction<CustomFormFilledAPI>('CUSTOM_FORM/SUBMIT/SUCCESS'),
 };
 
 export function submitCustomForm(
-  form_filled: CustomFormFieldAnswer,
-  companyId: number,
-  options?: OptionCallback<CustomFormFieldAnswer>,
+  {
+    form_filled,
+    companyId,
+  }: { form_filled: CustomFormFieldAnswer; companyId: number },
+  options?: OptionCallback<CustomFormFilledAPI>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(submitCustomFormActions.isLoading(true));
@@ -363,10 +366,9 @@ export function submitCustomForm(
       const response = await submitCustomFormAPI(form_filled, companyId);
 
       dispatch(submitCustomFormActions.success(response.data));
-      // @ts-expect-error
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (error) {
-      if (options && options.onError) options.onError();
+      options?.onError?.();
       if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
@@ -377,10 +379,10 @@ export function submitCustomForm(
       } else {
         dispatch(snackbarError(`customForm.customFormStepper.error`));
       }
-
       dispatch(submitCustomFormActions.error(error?.response?.data));
+    } finally {
+      dispatch(submitCustomFormActions.isLoading(false));
     }
-    dispatch(submitCustomFormActions.isLoading(false));
   };
 }
 

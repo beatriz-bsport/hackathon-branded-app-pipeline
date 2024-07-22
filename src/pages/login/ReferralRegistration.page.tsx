@@ -133,14 +133,17 @@ export class ReferralRegistration extends Component<Props, State> {
       { company, referral_uuid },
       {
         onSuccess: (payload: any) => {
-          this.props.submitCustomFormAction(formdata, company, {
-            ...options,
-            onSuccess: () => {
-              this.props.fetchMember(payload.member.id);
-              options.onSuccess();
-              this.props.requestMembershipValidation({ company });
+          this.props.submitCustomFormAction(
+            { form_filled: formdata, companyId: company },
+            {
+              ...options,
+              onSuccess: () => {
+                this.props.fetchMember(payload.member.id);
+                options.onSuccess();
+                this.props.requestMembershipValidation({ company });
+              },
             },
-          });
+          );
         },
       },
     );

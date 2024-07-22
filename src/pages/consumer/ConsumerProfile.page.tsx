@@ -70,6 +70,7 @@ import { disconnect } from '../../actions/auth.actions';
 import type { OptionCallback } from '../../state/types';
 // @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
+import type { CustomFormFieldAnswer } from '#src/libs/custom-form/types';
 
 type RouterProps = {
   membership: Membership;
@@ -131,19 +132,24 @@ export class ConsumerProfile extends React.Component<Props, State> {
     );
   };
 
-  submitCustomForm = (formdata: FormData, options?: OptionCallback) => {
-    // @ts-expect-error
-    this.props.submitCustomForm(formdata, this.props.membership.company, {
-      onSuccess: () => {
-        this.props.setEditMember(false);
-        this.props.fetchMember(this.props.membership.id);
-        this.props.fetchMyUserProfile();
-        if (options && options.onSuccess) options.onSuccess();
+  submitCustomForm = (
+    formdata: CustomFormFieldAnswer,
+    options?: OptionCallback,
+  ) => {
+    this.props.submitCustomForm(
+      { form_filled: formdata, companyId: this.props.membership.company },
+      {
+        onSuccess: () => {
+          this.props.setEditMember(false);
+          this.props.fetchMember(this.props.membership.id);
+          this.props.fetchMyUserProfile();
+          options?.onSuccess?.();
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
       },
-      onError: () => {
-        if (options && options.onError) options.onError();
-      },
-    });
+    );
   };
 
   requestSetupIntentSecret = () => {
@@ -208,7 +214,6 @@ export class ConsumerProfile extends React.Component<Props, State> {
                 // @ts-expect-error
                 layouts={this.props.memberCustomForm.layout}
                 onCancel={() => this.props.setEditMember(false)}
-                // @ts-expect-error
                 onSubmit={this.submitCustomForm}
                 waiver={this.props.theme.waiver}
               />

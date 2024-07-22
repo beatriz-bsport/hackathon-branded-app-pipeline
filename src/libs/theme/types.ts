@@ -139,6 +139,7 @@ export type Theme = {
   show_member_account_balance: boolean;
   show_barcode_button: boolean;
   show_membership_number: boolean;
+  display_new_webshop: boolean;
 };
 
 export type ThemeState = {

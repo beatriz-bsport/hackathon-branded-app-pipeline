@@ -240,10 +240,6 @@ export const BackOfficeDrawer: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('navigation');
 
-  const isLocalOrDev = !['production', 'staging'].includes(
-    Config.REACT_APP_SENTRY_ENVIRONMENT,
-  );
-
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElMini, setAnchorElMini] = React.useState(null);
@@ -1033,7 +1029,8 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                 location.pathname.includes('/spot-scheduling') ||
                 location.pathname.includes('/audience') ||
                 location.pathname.includes('/inbox/') ||
-                (isLocalOrDev && location.pathname.includes('/shop')) ||
+                (theme?.display_new_webshop &&
+                  location.pathname.includes('/shop')) ||
                 location.pathname.includes('/feature-base')
               ),
               [classes.unscrollableContent]:
@@ -1042,7 +1039,8 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                 location.pathname.includes('/feature-base'),
               [classes.contentWithoutPadding]:
                 location.pathname.includes('/inbox/') ||
-                (isLocalOrDev && location.pathname.includes('/shop')) ||
+                (theme?.display_new_webshop &&
+                  location.pathname.includes('/shop')) ||
                 location.pathname.includes('/feature-base'),
             })}
           >
@@ -1051,18 +1049,19 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             <StripeOnboardingBanner
               stripeOnboardingPending={stripeOnboardingPending}
             />
-            {(location?.pathname ?? '').includes('/shop/') && isLocalOrDev && (
-              <div className={classes.backToWebshop}>
-                <Button
-                  classes={{ label: classes.webshopBannerButtonLabel }}
-                  onClick={handleGoToWebshop}
-                  size="small"
-                  startIcon={<ChevronLeft />}
-                >
-                  {t('backofficeMenu.backToWebshop')}
-                </Button>
-              </div>
-            )}
+            {(location?.pathname ?? '').includes('/shop/') &&
+              theme?.display_new_webshop && (
+                <div className={classes.backToWebshop}>
+                  <Button
+                    classes={{ label: classes.webshopBannerButtonLabel }}
+                    onClick={handleGoToWebshop}
+                    size="small"
+                    startIcon={<ChevronLeft />}
+                  >
+                    {t('backofficeMenu.backToWebshop')}
+                  </Button>
+                </div>
+              )}
             <ProtectedRoutes>{children}</ProtectedRoutes>
           </main>
         </div>

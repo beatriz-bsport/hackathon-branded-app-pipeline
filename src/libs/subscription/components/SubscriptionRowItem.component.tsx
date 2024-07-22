@@ -3,60 +3,14 @@ import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import ClearIcon from '@material-ui/icons/Clear';
-import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
-import PauseIcon from '@material-ui/icons/Pause';
-import DoneIcon from '@material-ui/icons/Done';
+import SubscriptionStatus from './SubscriptionStatus.component';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import {
-  BILLING_PLAN_STATUS_ENDED,
-  BILLING_PLAN_STATUS_PAUSED,
-} from '@bsport/common/lib/master-data/subscription-status';
 import { formatAsDate, isDateInThePast } from '#src/utils/datetime';
 import type { Subscription } from '../types';
 import type { FranchiseCompany } from '#src/libs/franchise/types';
 import CompanyChip from '#src/components/franchise/CompanyChip.component';
-
-const SubscriptionStatus = (props: { subscription: Subscription }) => {
-  const classes = useStyles();
-  const { t } = useTranslation('subscription');
-  const { subscription } = props;
-  if (subscription.canceled_at) {
-    return (
-      <div className={classes.subscriptionStatus}>
-        <Typography variant="caption">{t('listItem.canceled')}</Typography>
-        <ClearIcon className={classes.icon} />
-      </div>
-    );
-  }
-  if (
-    subscription.has_ended ||
-    subscription.status === BILLING_PLAN_STATUS_ENDED
-  ) {
-    return (
-      <div className={classes.subscriptionStatus}>
-        <Typography variant="caption">{t('listItem.expired')}</Typography>
-        <HourglassEmptyIcon className={classes.icon} />
-      </div>
-    );
-  }
-  if (subscription.status === BILLING_PLAN_STATUS_PAUSED) {
-    return (
-      <div className={classes.subscriptionStatus}>
-        <Typography variant="caption">{t('listItem.paused')}</Typography>
-        <PauseIcon className={classes.icon} />
-      </div>
-    );
-  }
-  return (
-    <div className={classes.subscriptionStatus}>
-      <Typography variant="caption">{t('listItem.valid')}</Typography>
-      <DoneIcon className={classes.icon} />
-    </div>
-  );
-};
 
 type Props = {
   company?: FranchiseCompany;
@@ -129,7 +83,12 @@ const SubscriptionRowItem = (props: Props) => {
           </div>
         )}
         {!props.withoutSubscriptionStatus && (
-          <SubscriptionStatus subscription={props.subscription} />
+          <SubscriptionStatus
+            canceledAt={props.subscription.canceled_at}
+            hasEnded={props.subscription.has_ended}
+            pauses={props.subscription.pauses}
+            status={props.subscription.status}
+          />
         )}
       </ListItem>
     </div>

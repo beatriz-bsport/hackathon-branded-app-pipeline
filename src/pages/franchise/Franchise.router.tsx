@@ -168,6 +168,9 @@ const FranchiseRouter = (props: Props) => {
         <FranchiseDrawer
           cover={franchisor.cover}
           disconnect={disconnect}
+          displayNewWebshopForFranchisees={
+            franchisor.display_new_webshop_for_franchisees
+          }
           fetchTempPassword={fetchTempPassword}
           franchisePermissions={franchisePermissions}
           generateTempPassword={generateTempPassword}

@@ -105,6 +105,7 @@ export type Franchise = {
   sync_members_across_companies: boolean;
   marketing_custom_domain: string | null;
   hide_shop_supplier_price_for_franchisees: boolean;
+  display_new_webshop_for_franchisees: boolean;
 };
 
 export type CompanyGroup = {

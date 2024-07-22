@@ -67,18 +67,17 @@ import FranchiseUserSearchBarComponent from '#src/libs/franchise/components/Fran
 import Payment from '@material-ui/icons/Payment';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
-import { DrawerContext, DrawerContextValue } from '../../context';
-import { openIntercomHelp } from '../../intercom';
+import { DrawerContext, DrawerContextValue } from '#src/context';
+import { openIntercomHelp } from '#src/intercom';
 // @ts-expect-error
-import TempPasswordDialog from '../../libs/login/components/TempPasswordDialog.component';
+import TempPasswordDialog from '#src/libs/login/components/TempPasswordDialog.component';
 // @ts-expect-error
-import LanguageButton from '../button/LanguageButton.component';
+import LanguageButton from '#src/components/button/LanguageButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
-import { windowTitleToProps } from '../../hocs/with-title.hoc';
-import type { TempPasswordState } from '../../libs/login/types';
-import { BannerContext, BannerContextValue } from '../../hocs/banner.hoc';
-import VersionVisualizer from '../VersionVisualizer.component';
-import Config from '../../config';
+import { windowTitleToProps } from '#src/hocs/with-title.hoc';
+import type { TempPasswordState } from '#src/libs/login/types';
+import { BannerContext, BannerContextValue } from '#src/hocs/banner.hoc';
+import VersionVisualizer from '#src/components/VersionVisualizer.component';
 
 // import SearchBar from '../SearchBar.component';
 
@@ -109,16 +108,13 @@ type OwnProps = {
   fetchTempPassword: () => void;
   franchisePermissions: FranchiseRolePermission;
   syncMembersAcrossCompanies: boolean;
+  displayNewWebshopForFranchisees: boolean;
 };
 
 type Props = OwnProps &
   WithStyles<typeof styles> &
   WithTranslation &
   ConnectedProps<typeof connector>;
-
-const isLocalOrDev = !['production', 'staging'].includes(
-  Config.REACT_APP_SENTRY_ENVIRONMENT,
-);
 
 export const FranchiseDrawer = (props: Props) => {
   const {
@@ -133,6 +129,7 @@ export const FranchiseDrawer = (props: Props) => {
     generateTempPassword,
     franchisePermissions,
     syncMembersAcrossCompanies,
+    displayNewWebshopForFranchisees,
   } = props;
 
   const [open, setOpen] = useState<Record<number, boolean>>({});
@@ -414,6 +411,7 @@ export const FranchiseDrawer = (props: Props) => {
     classes,
     disconnect,
     syncMembersAcrossCompanies,
+    displayNewWebshopForFranchisees,
   }).map((item, i) => renderMenuItem(item, i, false));
 
   const drawer = (
@@ -513,11 +511,12 @@ export const FranchiseDrawer = (props: Props) => {
                 className={classNames({
                   [classes.content]: !location.pathname.includes('/shop'),
                   [classes.contentWithoutPadding]:
-                    isLocalOrDev && location.pathname.includes('/shop'),
+                    displayNewWebshopForFranchisees &&
+                    location.pathname.includes('/shop'),
                 })}
               >
                 {(location?.pathname ?? '').includes('/shop/') &&
-                  isLocalOrDev && (
+                  displayNewWebshopForFranchisees && (
                     <div className={classes.backToWebshop}>
                       <Button
                         classes={{ label: classes.webshopBannerButtonLabel }}
@@ -544,8 +543,13 @@ const getNavigationItems = (props: {
   classes: Record<string, string>;
   disconnect: () => void;
   syncMembersAcrossCompanies: boolean;
+  displayNewWebshopForFranchisees: boolean;
 }): NavigationItem[] => {
-  const { disconnect, syncMembersAcrossCompanies } = props;
+  const {
+    disconnect,
+    syncMembersAcrossCompanies,
+    displayNewWebshopForFranchisees,
+  } = props;
   return [
     {
       to: '/f/franchises',
@@ -576,7 +580,7 @@ const getNavigationItems = (props: {
               text: 'franchiseMenu.products.privatePassTemplates',
               icon: ScheduleIcon,
             },
-            isLocalOrDev && {
+            displayNewWebshopForFranchisees && {
               to: '/f/shop',
               text: 'franchiseMenu.products.shop',
               icon: ShoppingCartIcon,
@@ -610,7 +614,7 @@ const getNavigationItems = (props: {
               text: 'franchiseMenu.products.privatePassTemplates',
               icon: ScheduleIcon,
             },
-            isLocalOrDev && {
+            displayNewWebshopForFranchisees && {
               to: '/f/shop',
               text: 'franchiseMenu.products.shopTemplates',
               icon: ShoppingCartIcon,

@@ -40,6 +40,8 @@ import {
   withCachedCoachPerformance,
   getCoachPaymentRuleGroups,
   getCoachPerformanceCachedDataList,
+  getFetchedCoachPrivateServicePerformanceIds,
+  getFetchedCoachSessionPerformanceIds,
 } from '#src/libs/coach-payment-rules/selectors';
 
 import CoachPerformanceDateFilter from '#src/libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
@@ -404,6 +406,9 @@ const connector = connect(
     )(state, coachesPaginated[coachPaginationState.page]),
 
     coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),
+    fetchedCoachPrivatePassIds:
+      getFetchedCoachPrivateServicePerformanceIds(state),
+    fetchedCoachSessionIds: getFetchedCoachSessionPerformanceIds(state),
     coachPaymentRuleGroupsDict: state.coachPaymentRules.groups.byId,
     coachPerformanceCachedDataList: getCoachPerformanceCachedDataList(state),
     associatedCoachWithCoachPaymentRuleAndPerformanceFromCachedData:
@@ -560,12 +565,65 @@ const mapWithHandlers = {
       setCoachPagination,
       setCoachesFilter,
       setSubmitLoading,
+      fetchBulkPrivateServicePerformanceAction,
+      fetchBulkCoachSessionPerformanceAction,
       allActiveAssociatedCoaches,
       coachesFilter,
+      fetchedCoachSessionIds,
+      fetchedCoachPrivatePassIds,
+      formDates,
     }: OwnAndConnectedProps) =>
-    (data: { coaches: Array<number> }, options: OptionCallback) => {
+    async (data: { coaches: Array<number> }, options: OptionCallback) => {
       const { coaches } = data;
+
       setSubmitLoading(true);
+      const isResettingFilters =
+        coaches.length === allActiveAssociatedCoaches.length;
+      const coachesToFetchPrivatePassPerformance = coaches.filter(
+        (coachId) => !fetchedCoachPrivatePassIds.includes(coachId),
+      );
+      const coachesToFetchSessionPerformance = coaches.filter(
+        (coachId) => !fetchedCoachSessionIds.includes(coachId),
+      );
+
+      if (
+        !isResettingFilters &&
+        coachesToFetchPrivatePassPerformance.length > 0
+      ) {
+        await fetchBulkPrivateServicePerformanceAction(
+          {
+            associated_coach_ids: coachesToFetchPrivatePassPerformance,
+            start_timestamp: formDates.dateStart,
+            end_timestamp: formDates.dateEnd,
+          },
+          {
+            onSuccess: () => {
+              options?.onSuccess?.();
+            },
+            onError: () => {
+              options?.onError?.();
+            },
+          },
+        );
+      }
+
+      if (!isResettingFilters && coachesToFetchSessionPerformance.length > 0) {
+        await fetchBulkCoachSessionPerformanceAction(
+          {
+            associated_coach_ids: coachesToFetchSessionPerformance,
+            start_timestamp: formDates.dateStart,
+            end_timestamp: formDates.dateEnd,
+          },
+          {
+            onSuccess: () => {
+              options?.onSuccess?.();
+            },
+            onError: () => {
+              options?.onError?.();
+            },
+          },
+        );
+      }
 
       if (!isEqual(coaches, coachesFilter)) {
         setCoachesFilter(coaches);

@@ -10,6 +10,10 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
 
   // MEMBER
   bridgeAPIActionsRegistry.register('FETCH_MEMBER_BY_ID', actions.fetchMember);
+  bridgeAPIActionsRegistry.register(
+    'RETRIEVE_MY_USER_PROFILE',
+    actions.fetchMyUserProfile,
+  );
 
   // REFERRAL
   bridgeAPIActionsRegistry.register(
@@ -146,6 +150,16 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
   bridgeAPIActionsRegistry.register(
     'FETCH_CONSUMER_PACK_BULK',
     actions.retrieveConsumerPackBulk,
+  );
+
+  // CUSTOM FORM
+  bridgeAPIActionsRegistry.register(
+    'FETCH_COMPANY_CUSTOM_MEMBER_FORM',
+    actions.fetchCompanyCustomMemberForm,
+  );
+  bridgeAPIActionsRegistry.register(
+    'SUBMIT_CUSTOM_FORM',
+    actions.submitCustomForm,
   );
 
   // PAYMENT PACK

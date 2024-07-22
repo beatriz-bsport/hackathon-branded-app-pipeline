@@ -61,7 +61,10 @@ import {
   retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
 } from '#src/libs/referral/actions';
-import { fetchMember } from '#src/libs/member/actions';
+import {
+  fetchMember,
+  fetchMyUserProfile as fetchMyUserProfileAction,
+} from '#src/libs/member/actions';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod as detachPaymentMethodAction,
@@ -71,6 +74,7 @@ import {
   fetchSpecificInvoice as fetchSpecificInvoiceAction,
   applyBalanceToInvoice as applyBalanceToInvoiceAction,
 } from '#src/libs/invoice/actions';
+
 import { bridgeAPIActionsRegistry } from '#src/libs/widget/actionsRegistry';
 import { fetchMetaActivityBulkWidget } from '#src/libs/meta-activity/actions';
 import { fetchGroupOffer as fetchGroupOfferAction } from '#src/libs/group-offer/actions';
@@ -79,6 +83,10 @@ import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#src
 import { fetchCoachBulk as fetchCoachBulkAction } from '#src/libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#src/libs/establishment/actions';
 import { fetchPaymentPackBulkWidget } from '#src/libs/payment-packs/actions';
+import {
+  fetchCompanyCustomMemberForm as fetchCompanyCustomMemberFormAction,
+  submitCustomForm as submitCustomFormAction,
+} from '#src/libs/custom-form/actions';
 import {
   fetchAssetForBlueprintWidget,
   fetchRoomBlueprintsWidget,
@@ -477,6 +485,9 @@ const mapDispatchToProps = {
   fetchInvoiceList: fetchInvoiceListAction,
   fetchSpecificInvoice: fetchSpecificInvoiceAction,
   applyBalanceToInvoice: applyBalanceToInvoiceAction,
+  fetchMyUserProfile: fetchMyUserProfileAction,
+  fetchCompanyCustomMemberForm: fetchCompanyCustomMemberFormAction,
+  submitCustomForm: submitCustomFormAction,
 };
 
 export default compose(

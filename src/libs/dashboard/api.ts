@@ -24,7 +24,7 @@ export function updateManagerFiltersSettings(data: any) {
  */
 export function fetchManagerScheduleResourceFilters() {
   return getAuth<MyResourceFilters>(
-    `${API_V1_URI}/dashboard/filters_resources/me/`,
+    `${API_V1_URI}/dashboard/filters_ressources/me/`,
   );
 }
 
@@ -38,7 +38,7 @@ export function updateManagerScheduleResourcesFilters(data: {
   filters: [MyRessourceScheduleFilters];
 }) {
   return patchAuth<MyResourceFilters>(
-    `${API_V1_URI}/dashboard/filters_resources/me/`,
+    `${API_V1_URI}/dashboard/filters_ressources/me/`,
     data,
   );
 }

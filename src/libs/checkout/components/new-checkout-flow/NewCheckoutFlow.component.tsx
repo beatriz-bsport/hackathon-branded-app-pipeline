@@ -467,6 +467,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
                 !isMobile || basketSummaryCheckoutItems.length > 0
               }
               handleCheckoutItemExpiration={handleCheckoutItemExpiration}
+              handleRemoveCheckoutItem={handleRemoveCheckoutItem}
             />
             <Collapse in={!isMobile || isBasketDisplayed}>
               <BasketSummary

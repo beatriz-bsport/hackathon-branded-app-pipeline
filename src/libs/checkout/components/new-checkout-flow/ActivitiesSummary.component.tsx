@@ -1,7 +1,11 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  createTheme,
+  makeStyles,
+  MuiThemeProvider,
+} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import Divider from '@material-ui/core/Divider';
@@ -9,12 +13,18 @@ import { Theme } from '@material-ui/core';
 import { MetaActivity } from '#src/libs/meta-activity/types';
 import { Establishment } from '#src/libs/establishment/types';
 import { Offer, OfferSummaryVariant } from '#src/libs/offer/types';
-import { CheckoutItem } from '#src/libs/checkout/types';
+import type {
+  CheckoutItem,
+  OnRemoveCheckoutItemData,
+} from '#src/libs/checkout/types';
 import { CompanyTheme } from '#src/libs/theme/types';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import OfferSummary from '#src/libs/offer/OfferSummary';
 import SavedSpotCounddown from '#src/libs/checkout/components/new-checkout-flow/SavedSpotCountdown';
 import { getGuestBookingName } from '#src/libs/marketplace/utils/booking';
+
+import DeleteFromBasketDialogContent from '#src/libs/checkout/components/new-checkout-flow/ManageBasket/DeleteFromBasketDialogContent.component';
+import ModalToDrawerSwitcher from '#src/components/Modal/ModalToDrawerSwitcher.component';
 
 type ActivitiesSummaryProps = {
   activitySummaryCheckoutItems: CheckoutItem[];
@@ -23,7 +33,18 @@ type ActivitiesSummaryProps = {
   connectedToOtherComponents: boolean;
   basketLoading: boolean;
   handleCheckoutItemExpiration?: (checkoutItemId: string) => void;
+  handleRemoveCheckoutItem?: (
+    checkoutItemToRemoveData: OnRemoveCheckoutItemData,
+  ) => void;
 };
+
+const drawerCustomTheme = createTheme({
+  overrides: {
+    MuiDrawer: {
+      paperAnchorBottom: { borderRadius: '12px 12px 0px 0px' },
+    },
+  },
+});
 
 export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
   activitySummaryCheckoutItems,
@@ -32,7 +53,11 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
   connectedToOtherComponents,
   basketLoading,
   handleCheckoutItemExpiration,
+  handleRemoveCheckoutItem,
 }) => {
+  const [passToRemove, setPassToRemove] = React.useState<CheckoutItem | null>(
+    null,
+  );
   const classes = useStyles({ connectedToOtherComponents });
 
   const checkoutItemsWithDetails = React.useMemo(
@@ -51,10 +76,67 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
     [activitySummaryCheckoutItems, basketOffers],
   );
 
+  const handlePassDeletion = React.useCallback(
+    (offerId: number) => {
+      const itemToRemove = activitySummaryCheckoutItems.find((checkoutItem) =>
+        checkoutItem.extra_data.offers_data.find(
+          (checkoutItemExtraDataIterator) =>
+            checkoutItemExtraDataIterator.offer_id === offerId,
+        ),
+      );
+
+      if (!itemToRemove) {
+        throw new Error(
+          'Could not found pass to remove linked to the offer ' + offerId,
+        );
+      }
+
+      setPassToRemove(itemToRemove);
+    },
+    [setPassToRemove, activitySummaryCheckoutItems],
+  );
+
+  const handleCloseModal = React.useCallback(() => {
+    setPassToRemove(null);
+  }, [setPassToRemove]);
+
+  const onRemovePassFromBasket = React.useCallback(() => {
+    if (!passToRemove) {
+      throw new Error(
+        'Cannot find item to remove in basket. OfferId = ' + passToRemove.id,
+      );
+    }
+    const checkoutItemToRemoveData: OnRemoveCheckoutItemData = {
+      checkout_item: passToRemove.id,
+      quantity: passToRemove.quantity,
+    };
+    handleRemoveCheckoutItem(checkoutItemToRemoveData);
+    handleCloseModal();
+  }, [passToRemove, handleRemoveCheckoutItem, handleCloseModal]);
+
+  const isOpen = React.useMemo(() => {
+    return passToRemove?.name !== null;
+  }, [passToRemove]);
+
   if (activitySummaryCheckoutItems.length === 0) return null;
 
   return (
     <div className={classes.activityContainer}>
+      {passToRemove !== null && (
+        <MuiThemeProvider theme={drawerCustomTheme}>
+          <ModalToDrawerSwitcher
+            drawerAnchor="bottom"
+            isOpen={isOpen}
+            onClose={handleCloseModal}
+          >
+            <DeleteFromBasketDialogContent
+              onClose={handleCloseModal}
+              onConfirm={onRemovePassFromBasket}
+              passName={passToRemove.name}
+            />
+          </ModalToDrawerSwitcher>
+        </MuiThemeProvider>
+      )}
       {checkoutItemsWithDetails?.map((checkoutItem, index) => (
         <React.Fragment key={`checkout-item-details-${checkoutItem.id}`}>
           {checkoutItem.details.map((offerDetail) => (
@@ -68,6 +150,7 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
               }
               metaActivity={offerDetail.offer?.meta_activity}
               offer={offerDetail.offer}
+              onDelete={handlePassDeletion}
               spotId={offerDetail.spotName}
               theme={companyTheme}
               variant={OfferSummaryVariant.BASKET}

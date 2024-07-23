@@ -575,6 +575,15 @@ const getTranslations = async () => {
       seeAllProducts: 'See all products',
       recommended: 'Recommended',
       reviewAndConfirm: 'Review and confirm',
+      removeFromBasket: {
+        title: 'Remove',
+        message:
+          'If you remove the pass from the basket, the related bookings will also be removed.',
+        buttons: {
+          cancel: 'CANCEL',
+          confirm: 'REMOVE',
+        },
+      },
     },
   };
 };

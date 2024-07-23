@@ -2,9 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-import { Theme, lighten, makeStyles } from '@material-ui/core';
+import { ButtonBase, Theme, lighten, makeStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import Adjust from '@material-ui/icons/Adjust';
 import CreditCard from '@material-ui/icons/CreditCard';
@@ -71,6 +72,7 @@ export type Props = {
   spotId?: string;
   price?: string;
   onConfirm?: () => void;
+  onDelete?: (offerId: number) => void;
   disableButton?: boolean;
   confirmLoading?: boolean;
   offerStatus?: OfferStatus;
@@ -92,6 +94,7 @@ const OfferSummary: React.FC<Props> = ({
   establishment,
   spotId,
   price,
+  onDelete,
   onConfirm,
   disableButton,
   confirmLoading,
@@ -139,6 +142,12 @@ const OfferSummary: React.FC<Props> = ({
       break;
   }
 
+  const handleDelete = () => {
+    if (offer && offer.id) {
+      onDelete(offer.id);
+    }
+  };
+
   if (loading) {
     return <OfferSummarySkeleton classes={classes} />;
   }
@@ -161,9 +170,20 @@ const OfferSummary: React.FC<Props> = ({
           </div>
         )}
         <div className={classes.columnGap1}>
-          <Typography variant="h6">
-            {offer?.name_override || metaActivity?.name}
-          </Typography>
+          <div className={classes.titleContainer}>
+            <Typography variant="h6">
+              {offer?.name_override || metaActivity?.name}
+            </Typography>
+
+            {onDelete && (
+              <ButtonBase
+                className={classes.deleteButtonBase}
+                onClick={handleDelete}
+              >
+                <DeleteIcon />
+              </ButtonBase>
+            )}
+          </div>
 
           {dateStart && dateStart.isValid && (
             <Typography className={classes.grey}>
@@ -351,6 +371,9 @@ const useStyles = makeStyles<
   grey: {
     color: '#687586',
   },
+  deleteButtonBase: {
+    color: '#757575',
+  },
   waitlistChip: ({ offerStatus }) => ({
     borderRadius: '4px',
     color:
@@ -398,6 +421,13 @@ const useStyles = makeStyles<
   },
   bookingGuestName: {
     color: '#2D3748',
+  },
+  titleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBlockEnd: theme.spacing(1) * -1,
   },
 }));
 

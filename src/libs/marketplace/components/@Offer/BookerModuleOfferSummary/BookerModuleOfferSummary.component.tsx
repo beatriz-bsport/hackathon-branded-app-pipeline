@@ -217,14 +217,14 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
             {date}
           </GridItem>
           <GridItem
-            alignment={Alignment.CENTER}
+            alignment={Alignment.FLEX_START}
             classes={{
               'bs-booker-module-offer-summary-item': true,
               'bs-booker-module-offer-summary-item__status-chips': true,
               'bs-booker-module-offer-summary-item__status-chips--hidden':
                 !metaActivity?.is_broadcast && !waitlistExists,
             }}
-            direction={Direction.ROW}
+            direction={Direction.COLUMN}
             justification={Justification.FLEX_START}
             rowStart={4}
           >
@@ -243,6 +243,8 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
               <WaitlistPositionChip
                 classes={{
                   'bs-booker-module-offer-summary-item__chip': true,
+                  'bs-booker-module-offer-summary-item__status-chips__waitlist':
+                    true,
                 }}
                 isRegisteredInWaitlist={isRegisteredToWaitlist}
                 isWaitlistFull={isWaitlistFull}

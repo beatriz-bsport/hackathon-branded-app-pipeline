@@ -4,7 +4,6 @@ import HourglassEmptyOutlined from '@material-ui/icons/HourglassEmptyOutlined';
 import HourglassFullOutlined from '@material-ui/icons/HourglassFullOutlined';
 import { useTranslation } from 'react-i18next';
 import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
-import classNames from 'classnames';
 
 type Props = {
   classes?: { [key: string]: string | boolean };
@@ -48,21 +47,10 @@ const WaitlistPositionChip: React.FC<Props> = ({
   return (
     <Chip
       classes={{
-        'waitlist-position': classNames(
-          classes,
-          {
-            'bs-booker-module-offer-summary-item__status-chips__waitlist': true,
-          },
-          isWaitlistFull
-            ? {
-                'bs-booker-module-offer-summary-item__status-chips__waitlist--full':
-                  true,
-              }
-            : {
-                'bs-booker-module-offer-summary-item__status-chips__waitlist':
-                  true,
-              },
-        ),
+        ...classes,
+        'bs-booker-module-offer-summary-item__status-chips__waitlist': true,
+        'bs-booker-module-offer-summary-item__status-chips__waitlist--full':
+          isWaitlistFull,
       }}
       icon={
         isRegisteredInWaitlist ? (

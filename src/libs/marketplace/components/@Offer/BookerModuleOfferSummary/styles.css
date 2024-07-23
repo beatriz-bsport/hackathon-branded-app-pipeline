@@ -88,7 +88,7 @@
 
 .bs-booker-module-offer-summary-item__status-chips__waitlist {
   color: var(--color-grey-dark);
-  background-color: var(--color-grey-light);
+  background-color: var(--color-primary-main-background);
 }
 
 .bs-booker-module-offer-summary-item__status-chips__waitlist--hidden {

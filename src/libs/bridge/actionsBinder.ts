@@ -56,13 +56,20 @@ import {
   retrieveReferralMemberStatusActions,
   retrieveReferralProgramForCompanyActions,
 } from '../../actions/referral';
-import { retrieveMemberAction } from '../../actions/member';
+import {
+  retrieveMemberAction,
+  retrieveUserProfileActions,
+} from '../../actions/member';
 import { retrieveMembershipByCompanyAction } from '../../actions/membership';
 import {
   fetchRelatedMembersNamesByConsumerPaymentPackLinksActions,
   fetchRelatedMembersNamesByPrivateConsumerPassLinksActions,
 } from '../../actions/relationship';
 import { configurationDetailActions } from '../../actions/company';
+import {
+  fetchCompanyCustomMemberFormActions,
+  submitCustomFormActions,
+} from '../../actions/customForm';
 import {
   fetchPaymentMethodListActions,
   detachPaymentMethodActions,
@@ -318,6 +325,13 @@ export const actionsBinder = () => {
   apiCallHandler.bindActions('RESET_CONSUMER_STATE', resetConsumerStateActions);
 
   apiCallHandler.bindActions(
+    'FETCH_COMPANY_CUSTOM_MEMBER_FORM',
+    fetchCompanyCustomMemberFormActions,
+  );
+
+  apiCallHandler.bindActions('SUBMIT_CUSTOM_FORM', submitCustomFormActions);
+
+  apiCallHandler.bindActions(
     'FETCH_PAYMENT_METHOD_LIST',
     fetchPaymentMethodListActions,
   );
@@ -334,5 +348,10 @@ export const actionsBinder = () => {
   apiCallHandler.bindActions(
     'APPLY_BALANCE_TO_INVOICE',
     applyBalanceToInvoiceActions,
+  );
+
+  apiCallHandler.bindActions(
+    'RETRIEVE_MY_USER_PROFILE',
+    retrieveUserProfileActions,
   );
 };

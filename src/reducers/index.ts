@@ -34,6 +34,8 @@ import relationship from 'bsport-saas/src/libs/relationship/reducers';
 import waitingList from 'bsport-saas/src/libs/waiting-list/reducers';
 import invoice from 'bsport-saas/src/libs/invoice/reducers';
 import paymentBackend from 'bsport-saas/src/libs/payment/reducers';
+import member from 'bsport-saas/src/libs/member/reducers';
+import customForm from 'bsport-saas/src/libs/custom-form/reducers';
 
 import type { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types';
 import type { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
@@ -48,15 +50,17 @@ import type { SpotSchedulingState } from 'bsport-saas/src/libs/spot-scheduling/t
 import type { RelationshipState } from 'bsport-saas/src/libs/relationship/types';
 import type { WaitingListState } from 'bsport-saas/src/libs/waiting-list/types';
 import type { InvoiceState } from 'bsport-saas/src/libs/invoice/types';
-import type { PaymentBackendState } from 'bsport-saas/src/libs/payment/types';
-
+import type { FranchiseState } from '../../../bsport-saas/src/libs/franchise/types';
+import type { PaymentBackendState } from '../../../bsport-saas/src/libs/payment/types';
+import type { MemberState } from 'bsport-saas/src/libs/member/types';
+import type { CustomFormState } from 'bsport-saas/src/libs/custom-form/types';
 //  -----------------------------------------
 
 // FROM WIDGET ONLY
 //  -----------------------------------------
 import modal, { ModalState } from '../libs/modal/reducers';
 import bridge, { BridgeState } from '../libs/bridge/reducers';
-import { FranchiseState } from '../../../bsport-saas/src/libs/franchise/types';
+
 //  -----------------------------------------
 
 const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
@@ -94,6 +98,8 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     waitingList,
     invoice,
     paymentBackend,
+    member,
+    customForm,
   });
 
 export interface RootState {
@@ -128,6 +134,8 @@ export interface RootState {
   waitingList: WaitingListState;
   paymentBackend: PaymentBackendState;
   invoice: InvoiceState;
+  member: MemberState;
+  customForm: CustomFormState;
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) =>

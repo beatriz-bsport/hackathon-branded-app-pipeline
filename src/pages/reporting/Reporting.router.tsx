@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import ReportingDashboard from './ReportingDashboard.page';
 import ReportingGeneration from './ReportingGeneration.page';
+import ReportDetail from './ReportDetail.page';
 
 export default function Reporting() {
   return (
@@ -16,8 +17,7 @@ export default function Reporting() {
       />
       <Route
         exact
-        // Will be defined in later commit
-        component={null}
+        component={ReportDetail}
         path="/reporting/:categoryName/:reportId"
       />
     </Switch>

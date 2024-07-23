@@ -30,3 +30,13 @@ export const reportSwitcherTheme = createTheme({
     },
   },
 });
+
+export const reportDetailHeaderTheme = createTheme({
+  overrides: {
+    MuiIconButton: {
+      root: {
+        padding: defaultTheme.spacing(0.5),
+      },
+    },
+  },
+});

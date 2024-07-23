@@ -920,6 +920,11 @@ const getTranslations = async () => {
       updateSuccess: 'Your view has been updated',
       updateError: 'An error has occured while updating your view',
     },
+    reportDetailHeader: {
+      currentView: 'Current view:',
+      addView: 'Add view',
+      emptyAdvancedFilters: 'No advanced filters applied to this view.',
+    },
   };
 };
 

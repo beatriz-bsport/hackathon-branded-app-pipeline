@@ -121,12 +121,19 @@ const ShopItemFormReworked: React.FC<Props> = ({
         (initial as ShopItemTemplate)?.synced_companies?.map((company) => ({
           label: company.name,
           value: company.id,
-        })) ?? [],
+        })) ??
+        franchiseCompanyListOptions?.map((companyOption) => {
+          return {
+            label: companyOption.label,
+            value: Number(companyOption.value),
+          };
+        }) ??
+        [],
       tagsOnPurchase: [],
       generateBarcodesForVariants:
         GenerateBarcodesForVariantsEnum.GENERATE_NEW_BARCODES,
     }),
-    [initial],
+    [franchiseCompanyListOptions, initial],
   );
 
   const [formStep, setFormStep] = useState<ShopItemFormStep>(

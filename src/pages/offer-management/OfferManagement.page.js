@@ -140,6 +140,7 @@ import { fetchGroupOffer as fetchGroupOfferAction } from '#src/libs/group-offer/
 import {
   getEnabledMetaActivities,
   getMetaActivity,
+  getMetaActivityLoading,
 } from '#src/libs/meta-activity/selectors';
 import { getGroupListCount, withGroup } from '#src/libs/group-offer/selectors';
 
@@ -220,6 +221,7 @@ export default compose(
       offerLoading: state.offer.retrieve.loading,
       getOfferMetaActivity: (metaActivityId: number) =>
         getMetaActivity(state, metaActivityId),
+      isMetaActivityLoading: getMetaActivityLoading(state),
       // member
       membersloading: state.member.loading,
       members: withMemberProgram(withTags(getAllMembers))(state),

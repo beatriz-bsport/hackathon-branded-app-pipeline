@@ -76,6 +76,9 @@ type Props = {
   booking: Booking,
   member: Member,
 
+  /** Hides action buttons if the loading is set to true */
+  isLoading?: boolean,
+
   disabled?: boolean,
   showQuickInvoiceButton: ?boolean,
   button: ?boolean,
@@ -265,6 +268,7 @@ export class BookingItemForManager extends Component<Props, State> {
       getBookingOffer,
       getOfferMetaActivity,
       handleOpenRefundBookingDialog,
+      isLoading,
     } = this.props;
     const attendText = booking.attendance ? t('attend') : t('doNotAttend');
     const bookingOffer = getBookingOffer?.(booking.offer);
@@ -280,6 +284,8 @@ export class BookingItemForManager extends Component<Props, State> {
       ? discardBookingAttendance
       : confirmBookingAttendance;
     const { closeAndAction } = this;
+
+    if (isLoading) return null;
 
     return (
       <ListItemSecondaryAction>
@@ -419,6 +425,7 @@ export class BookingItemForManager extends Component<Props, State> {
       programList,
       getBookingOffer,
       getOfferMetaActivity,
+      isLoading,
     } = this.props;
     const { closeAndAction } = this;
 
@@ -436,6 +443,8 @@ export class BookingItemForManager extends Component<Props, State> {
       bookingOfferMetaActivity?.last_discard_minutes,
       bookingOffer?.date_start,
     );
+
+    if (isLoading) return null;
 
     return (
       <div>

@@ -27,6 +27,7 @@ import { fetchLevelList as fetchLevelListAction } from '../../libs/level/actions
 import { withCustomLevel } from '../../libs/level/selectors';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
+import { getMetaActivityLoading } from '../../libs/meta-activity/selectors';
 import {
   resetGroupOffer as resetGroupOfferAction,
   fetchGroupOffer as fetchGroupOfferAction,
@@ -54,6 +55,7 @@ import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 type Props = {
   timezone: string,
   membership: Membership,
+  isMetaActivityLoading: boolean,
 
   bookings: Array<Booking>,
   bookingCount: number,
@@ -117,6 +119,7 @@ export class ConsumerBooking extends React.Component<Props> {
         }
         goToCalendar={this.props.goToCalendar}
         group={this.props.group}
+        isMetaActivityLoading={this.props.isMetaActivityLoading}
         membership={this.props.membership}
         private_booking_list={this.props.private_booking_list}
         privateBookingsLoading={this.props.privateBookingsLoading}
@@ -151,6 +154,7 @@ export default compose(
         withMetaActivity(withCoach(withOffer(getSimilarBookingList))),
       )(state),
       similarBookingsLoading: state.booking.similar.loading,
+      isMetaActivityLoading: getMetaActivityLoading(),
     }),
     {
       fetchBookingsAsConsumer: fetchBookingsAsConsumerAction,

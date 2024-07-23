@@ -86,6 +86,7 @@ type Props = {
   booking_ordering: string,
   handleRevertBooking: (Booking) => void,
   offerLoading: boolean,
+  isMetaActivityLoading?: boolean,
 
   memberHistory: Array<Member>,
   searchedText: string,
@@ -814,6 +815,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         this.props.handleOpenRefundBookingDialog
                       }
                       handleRevert={this.handleBookingRevert}
+                      isMetaActivityLoading={this.props.isMetaActivityLoading}
                       isRollCallMandatory={this.props.isRollCallMandatory}
                       loading={this.props.loading}
                       members={this.props.members}

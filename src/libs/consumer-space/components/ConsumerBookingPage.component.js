@@ -39,6 +39,7 @@ type Props = {
   bookings: Array<Booking>,
   bookingCount: number,
   bookingsLoading: boolean,
+  isMetaActivityLoading?: boolean,
   bookingCurrentPage: number,
   fetchBookingList: (member: number, page: number, page_size: number) => void,
   cancelBooking: (number, OptionCallback) => void,
@@ -127,6 +128,7 @@ export const ConsumerBookingPage = (props: Props) => {
                   disabled={b.booking_status_code !== BOOKING_STATUS_OK.id}
                   handleRevert={handleCancelBooking(b)}
                   heading="date_start"
+                  isLoading={props.isMetaActivityLoading}
                   member={props.membership.id}
                   noShowChipMessage={props.t('booking.noShow')}
                   showRevertBookingButton={

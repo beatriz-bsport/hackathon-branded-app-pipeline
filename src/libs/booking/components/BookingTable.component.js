@@ -26,6 +26,7 @@ type Props = {
   showQuickInvoiceButton: boolean,
   heading: ?string,
   newTab: ?boolean, // how to open member
+  isMetaActivityLoading?: boolean,
 
   bookings: Array<Object>,
   members: Array<Member<Tag<TagGroup>>>,
@@ -122,6 +123,7 @@ export class BookingTable extends PureComponent<Props> {
                   this.props.refresh();
                 }}
                 heading={heading}
+                isLoading={this.props.isMetaActivityLoading}
                 isRollCallMandatory={this.props.isRollCallMandatory}
                 member={this.props.members.find((m) => m.id === b.member)}
                 membersWithStatusOk={membersWithStatusOk}

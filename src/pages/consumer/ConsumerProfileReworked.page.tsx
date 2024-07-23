@@ -40,17 +40,22 @@ import type { OptionCallback } from '#src/state/types';
 
 type OwnProps = {
   membership: Membership;
+  /**
+   * In the widget case, the membership is not available right away.
+   * For that reason we pass companyId
+   */
+  companyId?: number;
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
 class ConsumerProfileReworked extends React.Component<Props> {
   componentDidMount() {
-    if (this.props.membership) {
+    if (this.props.membership?.id) {
       this.props.fetchMember(this.props.membership.id, {}, { me: true });
       this.fetchMemberPaymentMethod();
       this.props.fetchCompanyCustomMemberForm({
-        company: this.props.membership.company,
+        company: this.props.companyId ?? this.props.membership.company,
       });
       this.props.fetchMyUserProfile();
     }
@@ -131,7 +136,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
           member={member}
           memberCustomForm={memberCustomForm}
           memberLoading={memberLoading}
-          membershipCompany={membership.company}
+          membershipCompany={this.props.companyId ?? membership.company}
           membershipId={membership.id}
           paymentMethodLoading={paymentMethodLoading}
           paymentMethods={paymentMethods}
@@ -153,7 +158,7 @@ const mapStateToProps = (
   authenticated: state.auth.authenticated,
   companyThemeLoading: state.theme.loading,
   memberLoading: state.member.loading,
-  member: getMemberDetail(state, membership && membership.id),
+  member: getMemberDetail(state, membership?.id),
   companyTheme: getTheme(state),
   paymentMethods: state.paymentBackend.paymentMethod.items,
   paymentMethodLoading: state.paymentBackend.paymentMethod.loading,

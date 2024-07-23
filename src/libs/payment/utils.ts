@@ -86,7 +86,7 @@ export const getBackofficeBillingPlanEnabledPaymentMethods = ({
     throw new Error('Company country or Stripe region not provided');
   return [
     BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-    ...(currency.toLowerCase() === 'eur'
+    ...((currency ?? '').toLowerCase() === 'eur'
       ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
       : []),
     ...(stripeRegion === 'Europe' && companyCountry === 'GB'

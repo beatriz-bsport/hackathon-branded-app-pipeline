@@ -201,54 +201,6 @@ const ShopReworkedSettings: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <Grid container className={classes.sectionContainer}>
-        {isSupplierListLoading && <LinearProgress />}
-        <Grid item>
-          <Typography className={classes.sectionTitle} variant="h5">
-            {t('shop:shopList.tab.settings.section.suppliers.title')}
-          </Typography>
-        </Grid>
-
-        <Grid item>
-          <Divider className={classes.divider} />
-        </Grid>
-
-        <Grid item>
-          <Card>
-            <ShopSupplierTable
-              handleEditSupplier={handleEditSupplier}
-              handleSelectSupplierForDeletion={handleSelectSupplierForDeletion}
-              supplierList={supplierList}
-            />
-
-            <div className={classes.tableFooter}>
-              <ObjectLevelPermissionWrapper
-                forcedBehavior="hidden"
-                requiredPermission="product.shopReworked.allowed_actions.editSettings"
-              >
-                <Button
-                  color="primary"
-                  onClick={handleOpenSupplierModal}
-                  startIcon={<AddIcon />}
-                  variant="outlined"
-                >
-                  {t(
-                    'shop:shopList.tab.settings.section.suppliers.table.addSupplier',
-                  )}
-                </Button>
-              </ObjectLevelPermissionWrapper>
-
-              <Pagination
-                className={classes.paginationContainer}
-                count={Math.ceil(supplierListCount / SHOP_SUPPLIER_PAGE_SIZE)}
-                onChange={handlePageChange}
-                page={supplierListPage}
-              />
-            </div>
-          </Card>
-        </Grid>
-      </Grid>
-
-      <Grid container className={classes.sectionContainer}>
         <Grid item>
           <Typography className={classes.sectionTitle} variant="h5">
             {t('order:configuration.deliveryFee')}
@@ -297,6 +249,54 @@ const ShopReworkedSettings: React.FC<Props> = ({
             </div>
           </ObjectLevelPermissionWrapper>
         </Paper>
+      </Grid>
+
+      <Grid container className={classes.sectionContainer}>
+        {isSupplierListLoading && <LinearProgress />}
+        <Grid item>
+          <Typography className={classes.sectionTitle} variant="h5">
+            {t('shop:shopList.tab.settings.section.suppliers.title')}
+          </Typography>
+        </Grid>
+
+        <Grid item>
+          <Divider className={classes.divider} />
+        </Grid>
+
+        <Grid item>
+          <Card>
+            <ShopSupplierTable
+              handleEditSupplier={handleEditSupplier}
+              handleSelectSupplierForDeletion={handleSelectSupplierForDeletion}
+              supplierList={supplierList}
+            />
+
+            <div className={classes.tableFooter}>
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="product.shopReworked.allowed_actions.editSettings"
+              >
+                <Button
+                  color="primary"
+                  onClick={handleOpenSupplierModal}
+                  startIcon={<AddIcon />}
+                  variant="outlined"
+                >
+                  {t(
+                    'shop:shopList.tab.settings.section.suppliers.table.addSupplier',
+                  )}
+                </Button>
+              </ObjectLevelPermissionWrapper>
+
+              <Pagination
+                className={classes.paginationContainer}
+                count={Math.ceil(supplierListCount / SHOP_SUPPLIER_PAGE_SIZE)}
+                onChange={handlePageChange}
+                page={supplierListPage}
+              />
+            </div>
+          </Card>
+        </Grid>
       </Grid>
 
       <ShopListSettingsSupplierModal

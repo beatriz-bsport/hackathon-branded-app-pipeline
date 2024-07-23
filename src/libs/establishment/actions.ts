@@ -499,22 +499,19 @@ export function upsertEstablishmentGroup(
 export const deleteEstablishmentGroupActions = {
   isLoading: createAction<boolean>('ESTABLISHMENT_GROUP/DELETE/IS_LOADING'),
   error: createAction<Error | null>('ESTABLISHMENT_GROUP/DELETE/ERROR'),
-  success: createAction<EstablishmentBillingGroup[]>(
-    'ESTABLISHMENT_GROUP/DELETE/SUCCESS',
-  ),
+  success: createAction<number>('ESTABLISHMENT_GROUP/DELETE/SUCCESS'),
 };
 
 export function deleteEstablishmentGroup(
-  establishmentGroup: EstablishmentGroup,
+  establishmentGroupId: number,
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteEstablishmentGroupActions.isLoading(true));
     dispatch(deleteEstablishmentGroupActions.error(null));
     try {
-      await deleteEstablishmentGroupAPI(establishmentGroup.id);
-      // @ts-expect-error
-      dispatch(deleteEstablishmentGroupActions.success(establishmentGroup));
+      await deleteEstablishmentGroupAPI(establishmentGroupId);
+      dispatch(deleteEstablishmentGroupActions.success(establishmentGroupId));
       dispatch(snackbarSuccess(`establishmentGroup.delete.success`));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {

@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
 import { Theme } from '@material-ui/core/styles';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -18,14 +17,13 @@ import { IconButton } from '@material-ui/core';
 import { MarketingNotification } from '#src/libs/marketing/types';
 import NotificationBellWithBadge from '#src/components/marketing/NotificationBell.component';
 import { MaterialStyleType } from '../../../utils/types';
-// @ts-expect-error
-import withConfirm from '../../../hocs/with-confirm.hoc';
 import type { EstablishmentGroup } from '../types';
+import DeleteObjectModal from '#src/libs/delete-object/components/DeleteObjectModal.component';
+import { DeleteObjectVariant } from '#src/libs/delete-object/types';
 
 type OwnProps = {
   establishmentGroupList: Array<EstablishmentGroup>;
   onEditEstablishmentGroup: (group: EstablishmentGroup) => void;
-  onDeleteEstablishmentGroup: (group: EstablishmentGroup) => void;
   setEstablishmentGroupNotificationsToEdit: (
     EstablishmentGroup: number,
   ) => void;
@@ -33,83 +31,98 @@ type OwnProps = {
     [key: string]: Array<MarketingNotification>;
   };
 };
+
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
-const ButtonWithConfirm = withConfirm(IconButton, 'onClick', {
-  title: 'establishment:group.modal.delete.title',
-  cancel: 'establishment:group.modal.delete.cancel',
-  confirm: 'establishment:group.modal.delete.confirm',
-  Content: ({ t }: { t: TFunction }) => (
-    <p>{t('establishment:group.modal.delete.content')}</p>
-  ),
-});
+
 export const EstablishmentGroupTable = (props: Props) => {
   const { t, classes } = props;
   const {
     establishmentGroupList,
     onEditEstablishmentGroup,
-    onDeleteEstablishmentGroup,
     marketingNotificationByEstablishmentGroup,
     setEstablishmentGroupNotificationsToEdit,
   } = props;
 
+  const [establishmentGroupIdToDelete, setEstablishmentGroupIdToDelete] =
+    useState(null);
+
+  const handleSelectEstablishmentGroupIdToDelete = useCallback((id: number) => {
+    setEstablishmentGroupIdToDelete(id);
+  }, []);
+
+  const handleClearEstablishmentGroupIdToDelete = useCallback(
+    () => setEstablishmentGroupIdToDelete(null),
+    [],
+  );
+
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>{t('group.table.name')}</TableCell>
-          <TableCell>{t('group.table.establishment')}</TableCell>
-          <TableCell align="center">{t('group.table.actions')}</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {establishmentGroupList &&
-          establishmentGroupList.map((group: EstablishmentGroup) => (
-            <TableRow key={group.id}>
-              <TableCell> {group.name}</TableCell>
-              <TableCell>
-                {group.establishment &&
-                  group.establishment.map((est) => (
-                    <Chip
-                      avatar={
-                        <Avatar alt={`${est.title}`} src={`${est.cover}`} />
-                      }
-                      className={classes.chip}
-                      color="primary"
-                      label={`${est.title}`}
-                      variant="outlined"
-                    />
-                  ))}
-              </TableCell>
-              <TableCell align="right">
-                <NotificationBellWithBadge
-                  badgeContent={
-                    marketingNotificationByEstablishmentGroup[group.id]
-                      ?.length || 0
-                  }
-                  isDisabled={
-                    !marketingNotificationByEstablishmentGroup[
-                      group.id
-                    ]?.filter((m) => !!m?.active)?.length
-                  }
-                  onClick={() =>
-                    setEstablishmentGroupNotificationsToEdit(group.id)
-                  }
-                />
-                <IconButton onClick={() => onEditEstablishmentGroup(group)}>
-                  <EditIcon color="primary" />
-                </IconButton>
-                <ButtonWithConfirm
-                  onClick={() => onDeleteEstablishmentGroup(group)}
-                >
-                  <DeleteIcon className={classes.greyIcon} />
-                </ButtonWithConfirm>
-              </TableCell>
-            </TableRow>
-          ))}
-      </TableBody>
-    </Table>
+    <>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>{t('group.table.name')}</TableCell>
+            <TableCell>{t('group.table.establishment')}</TableCell>
+            <TableCell align="center">{t('group.table.actions')}</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {establishmentGroupList &&
+            establishmentGroupList.map((group: EstablishmentGroup) => (
+              <TableRow key={group.id}>
+                <TableCell> {group.name}</TableCell>
+                <TableCell>
+                  {group.establishment &&
+                    group.establishment.map((est) => (
+                      <Chip
+                        key={`establishment-${est.id}`}
+                        avatar={
+                          <Avatar alt={`${est.title}`} src={`${est.cover}`} />
+                        }
+                        className={classes.chip}
+                        color="primary"
+                        label={`${est.title}`}
+                        variant="outlined"
+                      />
+                    ))}
+                </TableCell>
+                <TableCell align="right">
+                  <NotificationBellWithBadge
+                    badgeContent={
+                      marketingNotificationByEstablishmentGroup[group.id]
+                        ?.length || 0
+                    }
+                    isDisabled={
+                      !marketingNotificationByEstablishmentGroup[
+                        group.id
+                      ]?.filter((m) => !!m?.active)?.length
+                    }
+                    onClick={() =>
+                      setEstablishmentGroupNotificationsToEdit(group.id)
+                    }
+                  />
+                  <IconButton onClick={() => onEditEstablishmentGroup(group)}>
+                    <EditIcon color="primary" />
+                  </IconButton>
+                  <IconButton
+                    onClick={() =>
+                      handleSelectEstablishmentGroupIdToDelete(group.id)
+                    }
+                  >
+                    <DeleteIcon className={classes.greyIcon} />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+      <DeleteObjectModal
+        idToCheckAndDelete={establishmentGroupIdToDelete}
+        onClose={handleClearEstablishmentGroupIdToDelete}
+        variant={DeleteObjectVariant.ESTABLISHMENT_GROUP}
+      />
+    </>
   );
 };
 const styles = (theme: Theme) => ({

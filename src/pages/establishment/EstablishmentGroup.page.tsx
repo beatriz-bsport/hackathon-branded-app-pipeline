@@ -35,7 +35,6 @@ import {
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
   fetchEstablishments as fetchEstablishmentsAction,
   upsertEstablishmentGroup as upsertEstablishmentGroupAction,
-  deleteEstablishmentGroup as deleteEstablishmentGroupAction,
 } from '../../libs/establishment/actions';
 import {
   getAssociatedEstablishmentGroup,
@@ -162,9 +161,6 @@ export class EstablishmentGroup extends React.Component<Props> {
                 establishmentGroupList={this.props.establishmentGroupList}
                 marketingNotificationByEstablishmentGroup={
                   this.props.marketingNotificationByEstablishmentGroup
-                }
-                onDeleteEstablishmentGroup={(group: EstablishmentGroupType) =>
-                  this.props.deleteEstablishmentGroupAction(group)
                 }
                 onEditEstablishmentGroup={(group: EstablishmentGroupType) => {
                   // @ts-expect-error
@@ -331,7 +327,6 @@ const mapDispatchToProps = {
   fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
   fetchEstablishments: fetchEstablishmentsAction,
   upsertEstablishmentGroupAction,
-  deleteEstablishmentGroupAction,
   fetchMarketingNotificationByEstablishmentGroup:
     fetchMarketingNotificationByEstablishmentGroupAction,
   updateMarketingNotification: updateMarketingNotificationAction,

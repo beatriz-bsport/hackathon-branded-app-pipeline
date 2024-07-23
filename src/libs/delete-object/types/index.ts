@@ -3,9 +3,14 @@ import type {
   CheckDeleteEstablishmentData,
   DeleteEstablishmentSection,
 } from './establishment';
+import type {
+  CheckDeleteEstablishmentGroupData,
+  DeleteEstablishmentGroupSection,
+} from './establishmentGroup';
 
 export enum DeleteObjectVariant {
   ESTABLISHMENT = 'establishment',
+  ESTABLISHMENT_GROUP = 'establishmentGroup',
 }
 
 interface CheckDeleteObjectData {
@@ -14,6 +19,7 @@ interface CheckDeleteObjectData {
 
 export type CheckDeleteObjectDataMap = {
   [DeleteObjectVariant.ESTABLISHMENT]: CheckDeleteEstablishmentData;
+  [DeleteObjectVariant.ESTABLISHMENT_GROUP]: CheckDeleteEstablishmentGroupData;
 };
 
 export type DeleteObjectSection<T extends CheckDeleteObjectData> = {
@@ -26,6 +32,7 @@ export type DeleteObjectSection<T extends CheckDeleteObjectData> = {
 
 export type DeleteObjectState = {
   establishment: DeleteEstablishmentSection;
+  establishmentGroup: DeleteEstablishmentGroupSection;
 };
 
 export type CheckDeleteObjectActions<T extends CheckDeleteObjectData> = {

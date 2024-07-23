@@ -303,14 +303,11 @@ export default handleActions(
     },
     [deleteEstablishmentGroupActions.success.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: number },
     ) => {
       return state.setIn(
         ['establishmentGroup', 'allIds'],
-        state.establishmentGroup.allIds.filter(
-          // @ts-expect-error
-          (id: number) => id !== payload.id,
-        ),
+        state.establishmentGroup.allIds.filter((id: number) => id !== payload),
       );
     },
     [fetchAllEstablishmentBillingGroupActions.isLoading.toString()]: (

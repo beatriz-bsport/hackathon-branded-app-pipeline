@@ -3,7 +3,10 @@ import { handleActions } from 'redux-actions';
 
 import type { DeleteObjectState, DeleteObjectSection } from './types';
 import type { CheckDeleteEstablishmentData } from './types/establishment';
-import { checkDeleteEstablishmentActions } from './actions';
+import {
+  checkDeleteEstablishmentActions,
+  checkDeleteEstablishmentGroupActions,
+} from './actions';
 
 const getDefaultDeleteObjectSection = (): DeleteObjectSection<null> => ({
   canDestroy: false,
@@ -16,10 +19,13 @@ const getDefaultDeleteObjectSection = (): DeleteObjectSection<null> => ({
 export const initialState: Immutable.Immutable<DeleteObjectState> =
   Immutable<DeleteObjectState>({
     establishment: getDefaultDeleteObjectSection(),
+    establishmentGroup: getDefaultDeleteObjectSection(),
   });
 
 export default handleActions<Immutable.Immutable<DeleteObjectState>, any>(
   {
+    // ------ Establishment ------
+
     [checkDeleteEstablishmentActions.loading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -43,6 +49,36 @@ export default handleActions<Immutable.Immutable<DeleteObjectState>, any>(
     },
     [checkDeleteEstablishmentActions.clear.toString()]: (state) => {
       return state.setIn(['establishment'], getDefaultDeleteObjectSection());
+    },
+
+    // ------ Establishment group ------
+
+    [checkDeleteEstablishmentGroupActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['establishmentGroup', 'isLoading'], payload);
+    },
+    [checkDeleteEstablishmentGroupActions.success.toString()]: (
+      state,
+      { payload }: { payload: CheckDeleteEstablishmentData & { id: number } },
+    ) => {
+      return state
+        .setIn(['establishmentGroup', 'id'], payload.id)
+        .setIn(['establishmentGroup', 'canDestroy'], payload.can_destroy)
+        .setIn(['establishmentGroup', 'checkData'], payload);
+    },
+    [checkDeleteEstablishmentGroupActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['establishmentGroup', 'error'], payload);
+    },
+    [checkDeleteEstablishmentGroupActions.clear.toString()]: (state) => {
+      return state.setIn(
+        ['establishmentGroup'],
+        getDefaultDeleteObjectSection(),
+      );
     },
   },
   initialState,

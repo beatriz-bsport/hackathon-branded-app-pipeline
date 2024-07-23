@@ -2820,7 +2820,7 @@
         "exclusivePaymentPacks": "The following pass {{- pass_name }} is only usable in this establishment. Please update its restrictions before deleting the establishment.",
         "exclusiveEstablishmentGroups_plural": "The locations {{- establishment_group_name }} only contain the establishment that you want to delete, please update or delete these locations.",
         "exclusiveEstablishmentGroups": "The location {{- establishment_group_name }} only contains the establishment that you want to delete, please update or delete this location.",
-        "hasExclusiveMarketplaceComponentConfigs": "One or several tabs in the marketplace are set to only display this establishment's calendar and workshops, please update them before deleting the establishment",
+        "hasExclusiveMarketplaceComponentConfigs": "One or several tabs in the marketplace are set to only display this establishment's calendar and workshops, please update them before deleting the establishment.",
         "isIntegratedInPartnership": "One or several integrations are using this establishment."
       },
       "infos": {
@@ -2847,6 +2847,26 @@
         "hasRelatedZoomEstablishment": "This establishment will be removed from the list of establishments used for live streaming with the Zoom integration.",
         "hasRelatedMarketplaceComponentConfigs": "The calendar and workshop tabs configured for your marketplace will not display this establishment's calendar anymore.",
         "hasRelatedMarketingNotifications": "Notifications related to this establishment will be deleted."
+      }
+    },
+    "establishmentGroup": {
+      "forms": { "delete": { "title": "Delete a location" } },
+      "deleteObject": {
+        "errors": {
+          "hasExclusiveMarketplaceComponentConfigs": "One or several tabs in the marketplace are set to only display this location's calendar and workshops, please update them before deleting the location."
+        },
+        "warnings": {
+          "hasRelatedStaffConfigurations": "This location is used for access monitoring by one or several staff members. By deleting the location without selecting a new one, they will not be able to perform access monitoring anymore.",
+          "hasRelatedAssociatedCoaches": "Some teachers are notified when a substitution request is made for a session in this location. By deleting the location, they will stop receiving the notification for it.",
+          "exclusiveAssociatedCoaches_plural": "Your teachers {{- coach_name }} are only notified when a substitution request is made for a session in this location. By deleting the location, they will therefore receive substitution requests from every location.",
+          "exclusiveAssociatedCoaches": "Your teacher {{- coach_name }} is only notified when a substitution request is made for a session in this location. By deleting the location, they will therefore receive substitution requests from every location.",
+          "hasRelatedMarketingNotifications": "Notifications linked to this location will be deleted.",
+          "hasRelatedMarketplaceComponentConfigs": "The calendar and workshop tabs configured for your marketplace will not display this location calendar anymore."
+        },
+        "infos": {
+          "reportsDefault": "The location will be deleted from past reports.",
+          "widgetsDefault": "Calendar and Workshops widgets may be configured with this location, please do not forget to update them."
+        }
       }
     }
   },

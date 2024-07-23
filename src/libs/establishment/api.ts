@@ -95,7 +95,7 @@ export async function updateEstablishmentGroup(
 }
 export async function deleteEstablishmentGroup(establishmentGroupId: number) {
   return deleteAuth(
-    `${API_V1_URI}/establishment-group/${establishmentGroupId}`,
+    `${API_V1_URI}/establishment-group/${establishmentGroupId}/perform_destroy_with_side_effects/`,
   );
 }
 export function fetchAllEstablishmentBillingGroup(params: { company: number }) {

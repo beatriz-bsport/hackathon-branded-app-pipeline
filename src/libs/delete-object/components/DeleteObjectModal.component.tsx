@@ -14,8 +14,9 @@ import Button from '@material-ui/core/Button';
 import RedButton from '#src/components/button/RedButton.component';
 import DeleteObjectWarnings from './DeleteObjectWarnings.component';
 
+import { DeleteObjectVariant } from '../types';
+
 import type { RootState } from '#src/reducers';
-import type { DeleteObjectVariant } from '../types';
 
 import {
   CHECK_CAN_DELETE_OBJECT_ACTIONS,
@@ -44,6 +45,12 @@ const DeleteObjectModal: React.FC<Props> = ({
   onClose,
 }) => {
   const { t } = useTranslation(DELETE_OBJECT_TRANSLATIONS[variant]);
+
+  // Since establishmentGroups and establishments correspond to the same translation file, we use a specific prefix for establishment groups
+  const translationPrefix =
+    variant === DeleteObjectVariant.ESTABLISHMENT_GROUP
+      ? 'establishmentGroup.'
+      : '';
 
   const { canDestroy, id, isLoading } = useSelector(
     (state: RootState) => state.deleteObject[variant],
@@ -74,7 +81,7 @@ const DeleteObjectModal: React.FC<Props> = ({
   if (isLoading) {
     return (
       <Dialog open={!!idToCheckAndDelete}>
-        <DialogTitle>{t(`${variant}:forms.delete.title`)}</DialogTitle>
+        <DialogTitle>{t(`${translationPrefix}forms.delete.title`)}</DialogTitle>
         <DialogContent>
           <CircularProgress />
         </DialogContent>
@@ -84,16 +91,14 @@ const DeleteObjectModal: React.FC<Props> = ({
 
   return (
     <Dialog open={!!idToCheckAndDelete}>
-      <DialogTitle>{t(`${variant}:forms.delete.title`)}</DialogTitle>
+      <DialogTitle>{t(`${translationPrefix}forms.delete.title`)}</DialogTitle>
       <DialogContent>
         <DeleteObjectWarnings variant={variant} />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>
-          {t(`${variant}:forms.delete.actions.cancel`)}
-        </Button>
+        <Button onClick={handleClose}>{t('common:cancel')}</Button>
         <RedButton disabled={!canDestroy} onClick={performDelete}>
-          {t(`${variant}:forms.delete.actions.confirm`)}
+          {t('common:confirm')}
         </RedButton>
       </DialogActions>
     </Dialog>

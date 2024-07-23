@@ -543,6 +543,7 @@ export class CouponForm extends React.Component<Props, State> {
               ? this.state.only_on_objects.map((id, i) => (
                   <PaymentPackListItem
                     key={`${id}-${i}`}
+                    asStandardPass
                     disabled={!!initial?.coupon_template_instance}
                     onDelete={() => {
                       const newObjects = this.state.only_on_objects.filter(

@@ -190,6 +190,7 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({ isProcessing }) => {
               ? values?.only_on_objects?.map((paymentPackId, index) => (
                   <PaymentPackListItem
                     key={`${paymentPackId}-${index}`}
+                    asStandardPass
                     disabled={isProcessing}
                     onDelete={handleUnselectItem(paymentPackId)}
                     pack={getResultsById('payment_pack')[paymentPackId]}

@@ -338,6 +338,7 @@ export const CouponTemplateForm = (props: Props) => {
                   ? values.only_on_objects.map((id, i) => (
                       <PaymentPackListItem
                         key={`${id}-${i}`}
+                        asStandardPass
                         onDelete={() => onDeletePackOrPass(id)}
                         // @ts-expect-error
                         pack={props.paymentPackTemplateList.find(

@@ -46,6 +46,8 @@ type OwnProps = {
   disabled?: boolean;
   onClick?: () => void;
   onEdit?: () => void;
+  // Use this prop to disable all shared pass' specific behaviors.
+  asStandardPass?: boolean;
   onDelete?: () => void;
   hidePacksNumber?: boolean;
   selected?: boolean;
@@ -107,6 +109,9 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
       );
     }
     const dateInfo = getValidityInfo(this.props.pack, this.props.t);
+
+    const hideModificationButton =
+      !this.props.asStandardPass && this.props.pack.template_instance;
 
     return (
       <ConditionalWrapper
@@ -195,7 +200,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             {!this.props.disabled &&
             this.props.onEdit &&
             this.props.onDelete &&
-            !this.props.pack.template_instance ? (
+            !hideModificationButton ? (
               <div style={{ display: 'flex', flexDirection: 'row' }}>
                 {/* @ts-expect-error */}
                 {this.props.pack.hasActiveNotification && (
@@ -225,7 +230,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
                       },
                     },
                     this.props.onDelete &&
-                      !this.props.pack.template_instance && {
+                      !hideModificationButton && {
                         icon: DeleteIcon,
                         label: this.props.t('actions.delete'),
                         onClick: () => {
@@ -239,7 +244,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
 
             {!this.props.disabled &&
             this.props.onDelete &&
-            !this.props.pack.template_instance &&
+            !hideModificationButton &&
             !this.props.onEdit ? (
               <ListItemResponsiveAction
                 actions={[
@@ -254,7 +259,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
               />
             ) : null}
 
-            {(!this.props.onDelete || !!this.props.pack.template_instance) &&
+            {(!this.props.onDelete || !!hideModificationButton) &&
             this.props.onEdit ? (
               <ListItemResponsiveAction
                 actions={[

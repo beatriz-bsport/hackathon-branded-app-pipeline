@@ -103,6 +103,8 @@ type Props = {
   isPreview?: boolean;
   getDataByType: (
     datatype: DynamicFilterDataType,
+    valueId: number[],
+    columnName: string,
   ) => handleGetDynamicDataForFiltersReturn;
   inScrollBar?: boolean;
   reportCategory?: string;

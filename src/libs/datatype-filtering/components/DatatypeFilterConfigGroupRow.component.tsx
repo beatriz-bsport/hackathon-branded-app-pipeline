@@ -32,6 +32,8 @@ type Props = {
   addFilter: () => void;
   getDataByType: (
     datatype: DynamicFilterDataType,
+    valueId: number[],
+    columnName: string,
   ) => handleGetDynamicDataForFiltersReturn;
   noHideDelete?: boolean;
   dashboardTranslationNamespace?: boolean;

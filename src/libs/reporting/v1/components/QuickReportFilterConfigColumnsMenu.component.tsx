@@ -65,6 +65,8 @@ type Props = {
   isFranchisor: boolean;
   getDataByType: (
     datatype: DynamicFilterDataType,
+    valueId: number[],
+    columnName: string,
   ) => handleGetDynamicDataForFiltersReturn;
   columnsDataSelectedQuickFilter: QuickFiltersColumnsData;
   selectedColumn: DatatypeFilterConfigItem;

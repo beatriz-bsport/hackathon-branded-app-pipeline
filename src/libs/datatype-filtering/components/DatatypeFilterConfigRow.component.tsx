@@ -48,6 +48,8 @@ type Props = {
   onDelete?: () => void;
   getDataByType: (
     datatype: DynamicFilterDataType,
+    valueId: number[],
+    columnName: string,
   ) => handleGetDynamicDataForFiltersReturn;
   dashboardTranslationNamespace?: boolean;
 };

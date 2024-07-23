@@ -821,8 +821,9 @@ export const getSingleValueLabel = (
   value: boolean | number[] | number,
   subDataType: 0 | 1 | null,
   getDataByTypeAndId: (
-    type: DynamicFilterDataType,
-    valueId?: number[],
+    datatype: DynamicFilterDataType,
+    valueId: number[],
+    columnName: string,
   ) => handleGetDynamicDataForFiltersReturn,
   t: TFunction,
 ) => {

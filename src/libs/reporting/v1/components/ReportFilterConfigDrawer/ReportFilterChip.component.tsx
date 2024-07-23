@@ -66,8 +66,9 @@ type ReportFilterChipProps = {
   onlyDisplay?: boolean;
   value?: boolean | number[] | number;
   getDataByTypeAndId?: (
-    type: DynamicFilterDataType,
-    valueId?: number[],
+    datatype: DynamicFilterDataType,
+    valueId: number[],
+    columnName: string,
   ) => handleGetDynamicDataForFiltersReturn;
   columnIdentifiers?: string[];
   ref?: React.Ref<HTMLDivElement | null>;

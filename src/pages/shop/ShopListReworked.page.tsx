@@ -90,7 +90,7 @@ import type { DeliveryFee } from '#src/libs/order/types';
 
 import {
   ShopListTab,
-  SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
+  FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED,
 } from '#src/libs/shop/components/ShopListTabs/constants';
 
 import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
@@ -186,7 +186,7 @@ export class ShopListReworkedPage extends PureComponent<Props> {
         this.handleFetchStandaloneBaseItemList();
         this.props.refreshOptions(
           'shop_item',
-          SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
+          FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED,
         );
         options?.onSuccess?.();
       },

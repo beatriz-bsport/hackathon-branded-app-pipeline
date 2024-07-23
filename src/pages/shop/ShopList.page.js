@@ -73,7 +73,7 @@ import {
   getBookkeepingAccountById,
 } from '../../libs/payment/selectors';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '../../libs/payment/constants';
-import { SEARCH_BAR_PAGE_ADDITIONAL_PARAMS } from '../../libs/shop/components/ShopListTabs/constants';
+import { FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_OLD_WEBSHOP } from '../../libs/shop/components/ShopListTabs/constants';
 import ObjectSearchComponent from '../../libs/fuzzy-search/components/ObjectSearch.component';
 import {
   withObjectSearch,
@@ -353,7 +353,7 @@ export class ShopItemList extends Component<Props, State> {
     return (
       <div className={this.props.classes.container}>
         <ObjectSearchComponent
-          additionalParams={SEARCH_BAR_PAGE_ADDITIONAL_PARAMS}
+          additionalParams={FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_OLD_WEBSHOP}
           components={{
             Option,
           }}

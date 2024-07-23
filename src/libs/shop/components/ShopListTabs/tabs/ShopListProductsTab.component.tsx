@@ -34,7 +34,7 @@ import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearc
 import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
 import {
   ShopListTab,
-  SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
+  FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED,
 } from '#src/libs/shop/components/ShopListTabs/constants';
 import type { OptionCallback } from '#src/state/types';
 
@@ -171,7 +171,9 @@ const ShopListProductsTab: React.FC<Props> = ({
   return (
     <TabPanel className={classes.contentContainer} value={ShopListTab.PRODUCTS}>
       <ObjectSearchComponent
-        additionalParams={SEARCH_BAR_PAGE_ADDITIONAL_PARAMS}
+        additionalParams={
+          FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED
+        }
         components={{
           Option,
         }}

@@ -41,7 +41,9 @@ export type ShopItemFilterParams = ShopAPIFilter & {
   company__in?: number[];
   id__not_in?: number[];
   is_base_item?: boolean;
-  is_standalone_item?: boolean;
+  // As long as the new webshop isn't released, the backend has a protection to prevent fetching variants
+  // and baseItems, this can be bypassed by setting is_standalone_item to null
+  is_standalone_item?: boolean | null;
   is_variant?: boolean;
   size?: string;
 };

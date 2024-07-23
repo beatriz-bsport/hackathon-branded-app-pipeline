@@ -71,11 +71,15 @@ import type {
 } from '#src/libs/custom-form/types';
 import type { PaginationFilterParams, SelectOption } from '#src/libs/types';
 import type { OptionsType } from 'react-select/lib/types';
-import {
+import type {
   FranchiseUserPass,
   FranchiseUserPrivatePass,
   PassesSearchPaginatedQueryParams,
 } from '#src/libs/franchise/types';
+import type {
+  ReportConfiguration,
+  ReportQueryParams,
+} from '#src/libs/reporting/common/types';
 
 export type SearchIdentifier = {
   searchedObjectType: SearchObjectType;
@@ -149,6 +153,7 @@ export const searchObjectIdentifiers = [
   'establishment_group',
   'custom_form',
   'coach_payment_rule_groups',
+  'reportV2',
 ] as const;
 
 export type SearchObjectType = (typeof searchObjectIdentifiers)[number];
@@ -193,6 +198,7 @@ type ResultsTypes = {
   establishment_group: EstablishmentGroupAPI;
   custom_form: CustomForm;
   coach_payment_rule_groups: CoachPaymentRuleGroupAPI;
+  reportV2: ReportConfiguration;
 };
 
 const variantType = ['default', 'mui-selector', 'underlined'] as const;
@@ -296,6 +302,7 @@ type APIParamsMap = {
   establishment_group: EstablishmentGroupAPIParams;
   custom_form: CustomFormAPIParams;
   coach_payment_rule_groups: CoachPaymentRuleGroupAPIParams;
+  reportV2: ReportAPIParams;
 };
 
 export type FuzzySearchFilterParams<T extends SearchObjectType> =
@@ -376,7 +383,7 @@ type TagAPIParams = PaginationFilterParams;
 
 type VideoAPIParams = PaginationFilterParams & VideoQueryParams;
 
-type ReportAPIParams = PaginationFilterParams;
+type ReportAPIParams = PaginationFilterParams & ReportQueryParams;
 
 type EstablishmentGroupAPIParams = PaginationFilterParams & {
   id__in?: number[];

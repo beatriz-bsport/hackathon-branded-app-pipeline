@@ -26,3 +26,11 @@ export const getResultsById = (
 ) => {
   return getSearchState(state)[searchedObjectType].byId;
 };
+
+export const getResultsBySelectorId = (
+  state: RootState,
+  searchedObjectType: SearchObjectType,
+  selectorId: string,
+) => {
+  return getSearchState(state)[searchedObjectType].bySelectorId[selectorId];
+};

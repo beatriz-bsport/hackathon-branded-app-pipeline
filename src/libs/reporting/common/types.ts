@@ -187,3 +187,8 @@ export type GlobalCategoryData = {
   globalCategory: string;
   reportCategories: ReportMetadataValueWithLabel[];
 };
+
+export type ReportQueryParams = {
+  id__in?: number[];
+  category?: ReportCategoryEnum;
+};

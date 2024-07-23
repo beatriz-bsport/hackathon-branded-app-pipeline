@@ -40,6 +40,7 @@ import type {
   FranchiseUserPass,
   FranchiseUserPrivatePass,
 } from '#src/libs/franchise/types';
+import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 
 const labelExtractorMap: Record<
   SearchObjectType,
@@ -85,6 +86,7 @@ const labelExtractorMap: Record<
   associated_coach: (coach: Coach) => `${coach.firstname} ${coach.lastname}`,
   establishment_group: (group: EstablishmentGroupAPI) => group.name,
   coach_payment_rule_groups: (group: CoachPaymentRuleGroupAPI) => group.name,
+  reportV2: (reportV2: ReportConfiguration) => reportV2.name,
 };
 
 /**

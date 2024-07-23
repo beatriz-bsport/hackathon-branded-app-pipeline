@@ -37,12 +37,14 @@ const typeToURIMap: Record<SearchObjectType, string> = {
   establishment_group: 'establishment-group',
   custom_form: 'custom_form/custom_form',
   coach_payment_rule_groups: 'coach_payment_rule_group',
+  reportV2: 'reporting/reports-v2',
 };
 
 const typeToV0URIMap: { [key in SearchObjectType]?: string } = {
   tag: 'tagging/tag',
   contract: 'subscription/contract',
   contract_template: 'subscription/contract-template',
+  reportV2: 'reporting/reports-v2',
 };
 
 /**

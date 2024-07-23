@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -15,7 +15,7 @@ import {
   BILLING_PLAN_STATUS_PAUSED,
 } from '@bsport/common/lib/master-data/subscription-status';
 import { formatAsDate, isDateInThePast } from '#src/utils/datetime';
-import type { Subscription, Contract } from '../types';
+import type { Subscription } from '../types';
 import type { FranchiseCompany } from '#src/libs/franchise/types';
 import CompanyChip from '#src/components/franchise/CompanyChip.component';
 
@@ -59,10 +59,9 @@ const SubscriptionStatus = (props: { subscription: Subscription }) => {
 };
 
 type Props = {
-  getFranchiseCompanyById?: (id: number) => FranchiseCompany;
+  company?: FranchiseCompany;
   subscription: Subscription;
-  getContractById: (id: number) => Contract;
-  onClick: (subscriptionId: number, companyId?: number) => void;
+  onClick: (subscriptionId: number) => void;
   withoutSubscriptionStatus?: boolean;
 };
 
@@ -73,16 +72,6 @@ const SubscriptionRowItem = (props: Props) => {
   const formattedFirstBillingDate = useMemo(
     () => formatAsDate(props.subscription.first_billing_date),
     [props.subscription.first_billing_date],
-  );
-
-  const companyId = useMemo(
-    () => props.getContractById?.(props.subscription.contract)?.company,
-    [props],
-  );
-
-  const franchiseCompany = useMemo(
-    () => props.getFranchiseCompanyById?.(companyId),
-    [companyId, props],
   );
 
   const subscriptionRowSecondaryText = useMemo(
@@ -96,13 +85,18 @@ const SubscriptionRowItem = (props: Props) => {
           }),
     [formattedFirstBillingDate, props.subscription.first_billing_date, t],
   );
+
+  const clickHandler = useCallback(() => {
+    props.onClick(props.subscription.id);
+  }, [props]);
+
   return (
     <div>
       <ListItem
         dense
         // @ts-expect-error
         button={!!props.onClick}
-        onClick={() => props.onClick?.(props.subscription.id, companyId)}
+        onClick={clickHandler}
       >
         <ListItemAvatar>
           <Avatar
@@ -129,9 +123,11 @@ const SubscriptionRowItem = (props: Props) => {
           secondary={subscriptionRowSecondaryText}
           secondaryTypographyProps={{ variant: 'caption' }}
         />
-        <div className={classes.chip}>
-          {!!franchiseCompany && <CompanyChip company={franchiseCompany} />}
-        </div>
+        {!!props.company && (
+          <div className={classes.chip}>
+            <CompanyChip company={props.company} />
+          </div>
+        )}
         {!props.withoutSubscriptionStatus && (
           <SubscriptionStatus subscription={props.subscription} />
         )}

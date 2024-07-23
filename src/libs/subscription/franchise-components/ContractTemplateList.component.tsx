@@ -25,10 +25,10 @@ type Props = {
   getPaymentPackTemplateById: (id: number) => PaymentPackTemplate;
   getPrivatePassTemplateById: (id: number) => PrivatePassTemplate;
   getFranchiseCompanyListById: (id__in: number[]) => FranchiseCompany[];
-  onClick?: (id: number) => void;
-  onDelete?: (id: number) => void;
-  onEdit?: (id: number) => void;
-  onRestore?: (id: number) => void;
+  goToContractTemplateDetailPage?: (id: number) => void;
+  onDeleteItem?: (id: number) => void;
+  onEditItem?: (id: number) => void;
+  onRestoreItem?: (id: number) => void;
 };
 
 const ContractTemplateList: React.FC<Props> = ({
@@ -40,10 +40,10 @@ const ContractTemplateList: React.FC<Props> = ({
   getPaymentPackTemplateById,
   getPrivatePassTemplateById,
   getFranchiseCompanyListById,
-  onClick,
-  onDelete,
-  onEdit,
-  onRestore,
+  goToContractTemplateDetailPage,
+  onDeleteItem,
+  onEditItem,
+  onRestoreItem,
 }) => {
   const { t } = useTranslation('subscription');
   const classes = useStyles();
@@ -70,12 +70,41 @@ const ContractTemplateList: React.FC<Props> = ({
                 key={contractTemplate.id}
                 contractTemplate={contractTemplate}
                 getFranchiseCompanyListById={getFranchiseCompanyListById}
-                getPaymentPackTemplateById={getPaymentPackTemplateById}
-                getPrivatePassTemplateById={getPrivatePassTemplateById}
-                onClick={onClick}
-                onDelete={onDelete}
-                onEdit={onEdit}
-                onRestore={onRestore}
+                onClick={
+                  !!goToContractTemplateDetailPage &&
+                  (() => goToContractTemplateDetailPage(contractTemplate.id))
+                }
+                onDelete={
+                  !!onDeleteItem &&
+                  ((event) => {
+                    event.stopPropagation();
+                    onDeleteItem(contractTemplate.id);
+                  })
+                }
+                onEdit={
+                  !!onEditItem &&
+                  ((event) => {
+                    event.stopPropagation();
+                    onEditItem(contractTemplate.id);
+                  })
+                }
+                onRestore={
+                  !!onRestoreItem &&
+                  ((event) => {
+                    event.stopPropagation();
+                    onRestoreItem(contractTemplate.id);
+                  })
+                }
+                paymentPackTemplateName={
+                  getPaymentPackTemplateById(
+                    contractTemplate.payment_pack_template,
+                  )?.name
+                }
+                privatePassTemplateName={
+                  getPrivatePassTemplateById(
+                    contractTemplate.private_pass_template,
+                  )?.name
+                }
               />
             ))}
           </List>

@@ -503,10 +503,10 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
         getFranchiseCompanyListById={getFranchiseCompanyListById}
         getPaymentPackTemplateById={getPaymentPackTemplateById}
         getPrivatePassTemplateById={getPrivatePassTemplateById}
+        goToContractTemplateDetailPage={goToContractTemplateDetailPage}
         loading={activeContractTemplateState.loading}
-        onClick={goToContractTemplateDetailPage}
-        onDelete={handleOpenDeleteDialog}
-        onEdit={handleOpenEditDrawer}
+        onDeleteItem={handleOpenDeleteDialog}
+        onEditItem={handleOpenEditDrawer}
         page={activeContractTemplateState.page}
       />
       <div>
@@ -532,7 +532,7 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
             getPaymentPackTemplateById={getPaymentPackTemplateById}
             getPrivatePassTemplateById={getPrivatePassTemplateById}
             loading={disabledContractTemplateState.loading}
-            onRestore={handleRestoreContractTemplate}
+            onRestoreItem={handleRestoreContractTemplate}
             page={disabledContractTemplateState.page}
           />
         )}

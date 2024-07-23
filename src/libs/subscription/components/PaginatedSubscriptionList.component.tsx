@@ -48,14 +48,23 @@ export const PaginatedSubscriptionList = (props: Props) => {
           <Divider />
         </div>
       )}
-      renderItem={(sub: Subscription) =>
-        sub ? (
+      renderItem={(subscription: Subscription) =>
+        subscription ? (
           <SubscriptionRowItem
-            key={sub.id}
-            getContractById={props.getContractById}
-            getFranchiseCompanyById={props.getFranchiseCompanyById}
-            onClick={props.onClick ?? null}
-            subscription={sub}
+            key={subscription.id}
+            company={props.getFranchiseCompanyById?.(
+              props.getContractById?.(subscription.contract)?.company,
+            )}
+            onClick={
+              (!!props.onClick &&
+                ((subscriptionId: number) =>
+                  props.onClick(
+                    subscriptionId,
+                    props.getContractById?.(subscription.contract)?.company,
+                  ))) ??
+              null
+            }
+            subscription={subscription}
             withoutSubscriptionStatus={props.withoutSubscriptionStatus}
           />
         ) : null
@@ -69,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
+    paddingTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',

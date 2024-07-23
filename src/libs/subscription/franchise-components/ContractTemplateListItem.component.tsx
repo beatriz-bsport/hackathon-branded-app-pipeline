@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,8 +12,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import type { ContractTemplate } from '#src/libs/subscription/types';
-import type { PaymentPackTemplateAPI as PaymentPackTemplate } from '#src/libs/payment-packs/types';
-import type { PrivatePassTemplateAPI as PrivatePassTemplate } from '#src/libs/private-service/types';
 import type { FranchiseCompany } from '#src/libs/franchise/types';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
@@ -21,21 +19,21 @@ import FranchiseCompanyChipList from '#src/components/franchise/FranchiseCompany
 
 type Props = {
   contractTemplate: ContractTemplate;
-  getPaymentPackTemplateById: (id: number) => PaymentPackTemplate;
-  getPrivatePassTemplateById: (id: number) => PrivatePassTemplate;
+  paymentPackTemplateName: string;
+  privatePassTemplateName: string;
   getFranchiseCompanyListById: (id__in: number[]) => FranchiseCompany[];
-  onDelete?: (id: number) => void;
-  onEdit?: (id: number) => void;
-  onClick?: (id: number) => void;
-  onRestore?: (id: number) => void;
+  onDelete?: (event: React.MouseEvent<HTMLElement>) => void;
+  onEdit?: (event: React.MouseEvent<HTMLElement>) => void;
+  onClick?: () => void;
+  onRestore?: (event: React.MouseEvent<HTMLElement>) => void;
   selected?: boolean;
   dense?: boolean;
 };
 
 const ContractTemplateListItem: React.FC<Props> = ({
   contractTemplate,
-  getPaymentPackTemplateById,
-  getPrivatePassTemplateById,
+  paymentPackTemplateName,
+  privatePassTemplateName,
   getFranchiseCompanyListById,
   onDelete,
   onEdit,
@@ -46,14 +44,6 @@ const ContractTemplateListItem: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('subscription');
   const tooltipClasses = useTooltipStyles();
-
-  const paymentPackTemplateName = getPaymentPackTemplateById(
-    contractTemplate.payment_pack_template,
-  )?.name;
-
-  const privatePassTemplateName = getPrivatePassTemplateById(
-    contractTemplate.private_pass_template,
-  )?.name;
 
   const franchiseCompanies = getFranchiseCompanyListById(
     contractTemplate.companies,
@@ -91,41 +81,13 @@ const ContractTemplateListItem: React.FC<Props> = ({
     t,
   ]);
 
-  const deleteHandler = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      event.stopPropagation();
-      onDelete(contractTemplate.id);
-    },
-    [onDelete, contractTemplate.id],
-  );
-
-  const restoreHandler = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      event.stopPropagation();
-      onRestore(contractTemplate.id);
-    },
-    [onRestore, contractTemplate.id],
-  );
-
-  const editHandler = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      event.stopPropagation();
-      onEdit(contractTemplate.id);
-    },
-    [onEdit, contractTemplate.id],
-  );
-
-  const clickHandler = useCallback(() => {
-    onClick?.(contractTemplate.id);
-  }, [onClick, contractTemplate.id]);
-
   return (
     <ListItem
       // @ts-expect-error
       button={!!onClick}
       dense={dense}
       id={`contract-template#${contractTemplate.id}`}
-      onClick={!!onClick && clickHandler}
+      onClick={!!onClick && onClick}
       selected={selected}
     >
       <ListItemText
@@ -153,14 +115,14 @@ const ContractTemplateListItem: React.FC<Props> = ({
       )}
       {!!onEdit && (
         <Tooltip classes={tooltipClasses} title={t('subscription.edit')}>
-          <IconButton color="primary" onClick={editHandler}>
+          <IconButton color="primary" onClick={onEdit}>
             <EditIcon />
           </IconButton>
         </Tooltip>
       )}
       {!!onDelete && (
         <Tooltip classes={tooltipClasses} title={t('subscription.delete')}>
-          <IconButton onClick={deleteHandler}>
+          <IconButton onClick={onDelete}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -170,7 +132,7 @@ const ContractTemplateListItem: React.FC<Props> = ({
           classes={tooltipClasses}
           title={t('contractTemplate.icons.restore')}
         >
-          <IconButton onClick={restoreHandler}>
+          <IconButton onClick={onRestore}>
             <RestoreFromTrashIcon />
           </IconButton>
         </Tooltip>

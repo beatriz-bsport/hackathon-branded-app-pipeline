@@ -78,7 +78,8 @@ export const getPaymentPackNotifications = createSelector(
           NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME,
           NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT,
         ].includes(notif.kind),
-      );
+      )
+      .filter((notif) => notif.active);
   },
 );
 
@@ -125,7 +126,8 @@ export const getPrivatePassNotifications = createSelector(
           NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME,
           NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT,
         ].includes(notif.kind),
-      );
+      )
+      .filter((notif) => notif.active);
   },
 );
 

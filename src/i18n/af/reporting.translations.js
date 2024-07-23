@@ -914,6 +914,12 @@ const getTranslations = async () => {
         confirm: 'Switch to Old version',
       },
     },
+    snackbar: {
+      createSuccess: 'Your view has been created',
+      createError: 'An error has occured while creating your view',
+      updateSuccess: 'Your view has been updated',
+      updateError: 'An error has occured while updating your view',
+    },
   };
 };
 

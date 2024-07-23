@@ -6,8 +6,8 @@ import type {
   DateFilterRangeEnum,
   DateFilterEnum,
   DynamicFilterDataType,
-  DatatypeFilterConfigItemComparatorById,
   DatatypeFilterConfigGroup,
+  DatatypeFilterConfigGroupOperand,
 } from '#src/libs/datatype-filtering/types';
 
 enum ReportGlobalCategoryEnum {
@@ -81,6 +81,11 @@ export type ReportingStateV2 = {
     allIds: number[];
   } & ErrorAndLoading;
   columnsMetadata: { results: ReportMetadataValue[] } & ErrorAndLoading;
+  reportFilterConfigs: {
+    byId: Record<number, ReportFilterConfig>;
+    allIds: number[];
+    edit: ErrorAndLoading;
+  } & ErrorAndLoading;
 };
 
 export type ReportConfiguration = {
@@ -103,6 +108,8 @@ export type ReportConfiguration = {
   time_end?: string;
   time_window_period?: string;
 };
+
+export type ReportUpdateAPI = Partial<Omit<ReportConfiguration, 'id'>>;
 
 export type ReportCategory = {
   id: string;
@@ -149,14 +156,22 @@ export type ReportMetadata = {
   error?: boolean;
 };
 
+export type ReportFilterConfigConfig = {
+  group_operand?: DatatypeFilterConfigGroupOperand;
+  groups?: DatatypeFilterConfigGroup[];
+};
+
 export type ReportFilterConfig = {
   id: number;
   report: number;
   name: string;
-  config: {
-    group_operand?: DatatypeFilterConfigItemComparatorById;
-    groups?: DatatypeFilterConfigGroup[];
-  };
+  config: ReportFilterConfigConfig;
+  is_quick_report_filter: boolean;
+};
+
+export type ReportFilterConfigCreateData = {
+  report: number;
+  config: ReportFilterConfigConfig;
   is_quick_report_filter: boolean;
 };
 

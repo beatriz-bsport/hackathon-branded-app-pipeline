@@ -289,10 +289,9 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
   };
 
   const handleDeleteFilter = useCallback(
-    (uuid: number) => () => {
+    (uuid: string) => () => {
       const groupsWithoutFilter = values.filter_config.groups.map((g) => ({
         ...g,
-        // @ts-expect-error
         filters_data: g.filters_data.filter((d) => d.uuid !== uuid),
       }));
 

@@ -58,7 +58,10 @@ import type {
   ReportMetadataColumn,
 } from '#src/libs/reporting/common/types';
 import { getCreditFactor } from '#src/libs/theme/selectors';
-import { CREDIT_COLUMNS } from '#src/libs/reporting/common/constants';
+import {
+  CREDIT_COLUMNS,
+  REPORT_RIGHT_DRAWER_WIDTH,
+} from '#src/libs/reporting/common/constants';
 
 type Values = {
   name: string;
@@ -190,10 +193,9 @@ const ReportFilterConfigFormDrawer: React.FC<
   };
 
   const handleDeleteFilter = useCallback(
-    (uuid: number) => () => {
+    (uuid: string) => () => {
       const groupsWithoutFilter = values.config.groups.map((g) => ({
         ...g,
-        // @ts-expect-error
         filters_data: g.filters_data.filter((d) => d.uuid !== uuid),
       }));
 
@@ -229,7 +231,7 @@ const ReportFilterConfigFormDrawer: React.FC<
       onClose={onClose}
       open={open}
       title={t('filter.form.title')}
-      width="1000px"
+      width={REPORT_RIGHT_DRAWER_WIDTH}
     >
       <div className={classes.main}>
         <Form className={classes.form}>

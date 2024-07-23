@@ -107,6 +107,8 @@ export type ReportConfiguration = {
   time_start?: string;
   time_end?: string;
   time_window_period?: string;
+  is_category_default?: boolean;
+  version?: 1 | 2;
 };
 
 export type ReportUpdateAPI = Partial<Omit<ReportConfiguration, 'id'>>;

@@ -26,9 +26,9 @@ type Props = {
   prefix: string;
   hidePrefix?: boolean;
   isPreview?: boolean;
-  checkOtherRowExist: (uuid: number) => boolean;
+  checkOtherRowExist: (uuid: string) => boolean;
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
-  onDelete?: (uuid: number) => () => void;
+  onDelete?: (uuid: string) => () => void;
   addFilter: () => void;
   getDataByType: (
     datatype: DynamicFilterDataType,
@@ -90,11 +90,9 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
               filterItem={filterItem}
               getDataByType={getDataByType}
               groupOperand={filterGroup.inner_operand}
-              // @ts-expect-error
               hideDelete={!noHideDelete && !checkOtherRowExist(filterItem.uuid)}
               hidePrefix={indexFilter === 0}
               isPreview={isPreview}
-              // @ts-expect-error
               onDelete={onDelete(filterItem.uuid)}
               prefix={`${prefix}.filters_data[${indexFilter}]`}
               reportColumns={reportColumns}

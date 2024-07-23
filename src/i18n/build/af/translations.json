@@ -9824,7 +9824,8 @@
       "category": "Category",
       "save": "Save",
       "cancel": "Cancel",
-      "columns": "Columns"
+      "columns": "Columns",
+      "saveAndGenerate": "Save and generate"
     },
     "list": { "empty": "Add customized reports to get a detailed overview of your studio.", "button_new": "Add a report" },
     "subheader": { "average": "Averages", "total": "Totals" },
@@ -10167,7 +10168,26 @@
     "reportDetailHeader": {
       "currentView": "Current view:",
       "addView": "Add view",
-      "emptyAdvancedFilters": "No advanced filters applied to this view."
+      "emptyAdvancedFilters": "No advanced filters applied to this view.",
+      "advancedFiltersApplied": "{{ count }} advanced filter applied",
+      "advancedFiltersApplied_plural": "{{ count }} advanced filters applied"
+    },
+    "reportEditLabel": "Edit view",
+    "reportNameLabel": "View name",
+    "reportDetailDrawer": {
+      "advancedFilterTitle": "Advanced filters",
+      "advancedFilterSubtitle": "Filter the data shown on this view for the report table.",
+      "emptyAdvancedFilters": "No filters applied to this view yet.",
+      "displayedColumnsTitle": "Displayed columns",
+      "displayedColumnsSubtitle": "Choose what columns you want to display in this view for your report table.",
+      "columnIdentifiersError": "You need to select at least 1 column"
+    },
+    "reportCreateModal": {
+      "title": "Add a view",
+      "content": "You can adjust filters and columns for each view after its creation.",
+      "inputLabel": "View name",
+      "error": "A name is required for the view",
+      "maxLength": "A name can have a maximum of 200 characters."
     }
   },
   "role": {

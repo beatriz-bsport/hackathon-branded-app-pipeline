@@ -124,3 +124,7 @@ export const authorIdentifiers = [
   InvoiceMetadataIdentifierEnum.AUTHOR,
   UnpaidInvoiceMetadataIdentifierEnum.AUTHOR_NAME,
 ] as string[];
+
+export const REPORT_RIGHT_DRAWER_WIDTH = '1000px';
+
+export const REPORT_NAME_MAX_LENGTH = 200;

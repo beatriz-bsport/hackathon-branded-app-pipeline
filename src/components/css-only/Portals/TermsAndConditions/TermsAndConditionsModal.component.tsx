@@ -27,7 +27,12 @@ const TermsAndConditionsModal: React.FC<TermsModalsAndDrawersProps> = ({
           subtitle={subtitle}
           title={title}
         >
-          <Typography variant="body-md">{terms}</Typography>
+          <Typography
+            className="bs-terms-and-conditions-modal__content"
+            variant="body-md"
+          >
+            {terms}
+          </Typography>
         </ModalDialog>
       </Blanket>
     </PortalContainer>

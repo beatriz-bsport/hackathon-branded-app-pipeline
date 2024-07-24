@@ -34,3 +34,7 @@
 
 .bs-terms-and-conditions-modal {
 }
+
+.bs-terms-and-conditions-modal__content {
+  white-space: pre-line;
+}

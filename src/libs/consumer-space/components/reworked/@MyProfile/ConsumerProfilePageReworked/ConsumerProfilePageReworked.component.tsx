@@ -172,9 +172,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     emergency_contact,
     firstname,
     gender,
-    general_terms_and_conditions_accepted,
     general_terms_and_conditions_date_accepted,
-    general_terms_of_use_accepted,
     general_terms_of_use_date_accepted,
     id,
     lastname,
@@ -290,8 +288,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
         isMobile={isMobile}
         isOpen={isTermsAndConditionPortalOpen}
         onClose={toggleTermsAndConditionPortal}
-        // @ts-expect-error bad typing, it should be a string and not a boolean
-        terms={general_terms_and_conditions_accepted}
+        terms={companyTheme?.general_terms_and_conditions}
         title={t('consumerSpace:reworked.myProfile.termsAndConditions.title')}
       />
 
@@ -299,7 +296,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
         isMobile={isMobile}
         isOpen={isTermsOfUsePortalOpen}
         onClose={toggleTermsOfUsePortal}
-        terms={general_terms_of_use_accepted}
+        terms={companyTheme?.general_terms_of_use}
         title={t(
           'consumerSpace:reworked.myProfile.termsAndConditions.termOfuse',
         )}

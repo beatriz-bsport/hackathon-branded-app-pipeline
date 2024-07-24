@@ -8,10 +8,12 @@ import { Form } from 'formik';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import PaymentPackTemplateEditConfirmationDialog from '#src/libs/payment-packs/components/PaymentPackTemplateEditConfirmationDialog.component';
 // @ts-expect-error
-import { Submit } from '../../../../components/forms';
+import { Submit } from '#src/components/forms';
 import PaymentPackTemplateForm, {
   PaymentPackTemplateFormikHOC,
 } from './PaymentPackTemplateForm.component';
+import type { PaymentPackTemplateAPI } from '#src/libs/payment-packs/types';
+import type { OptionCallback } from '#src/state/types';
 
 type Props = {
   open?: boolean;
@@ -24,6 +26,7 @@ type Props = {
   setIsEditConfirmationDialogOpen?: (
     isEditConfirmationDialogOpen: boolean,
   ) => void;
+  isUniversal?: boolean;
 };
 
 const PaymentPackTemplateFormDrawer: React.FC<Props> = (props: Props) => {
@@ -39,10 +42,13 @@ const PaymentPackTemplateFormDrawer: React.FC<Props> = (props: Props) => {
     <GenericResponsiveDrawer
       onClose={props.onClose}
       open={props.open}
-      title={t('paymentPackTemplate.form.title')}
+      title={
+        props.isUniversal
+          ? t('paymentPackTemplate.form.universalPassTitle')
+          : t('paymentPackTemplate.form.title')
+      }
     >
       <Form>
-        {/* @ts-expect-error */}
         <PaymentPackTemplateForm {...props} />
         <DialogActions className={classes.actions}>
           <Button disabled={isSubmitting} onClick={props.onClose}>
@@ -78,4 +84,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default PaymentPackTemplateFormikHOC(PaymentPackTemplateFormDrawer);
+export default React.memo(
+  PaymentPackTemplateFormikHOC(PaymentPackTemplateFormDrawer),
+);

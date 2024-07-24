@@ -1,10 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
 import { FormikProps, useFormikContext } from 'formik';
-import { FormControlLabel, FormLabel, Grid, Radio } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import FormLabel from '@material-ui/core/FormLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import { Add } from '@material-ui/icons';
@@ -18,14 +20,18 @@ import {
   DateField,
   // @ts-expect-error
 } from '#src/components/forms';
-import { PaymentPackFormValues } from '../../types';
-import { getValidityString } from '../../utils';
+import type { PaymentPackFormValues } from '#src/libs/payment-packs/types';
+import { getValidityString } from '#src/libs/payment-packs/utils';
 import {
-  VALID_BY_DURATION,
   VALID_BY_DATERANGE,
+  VALID_BY_DURATION,
 } from '#src/libs/payment-packs/components/PaymentPackTemplateForm/constants';
 
-export const PaymentPackFormValidity: React.FC = () => {
+type Props = {
+  isUniversal?: boolean;
+};
+
+export const PaymentPackFormValidity: React.FC<Props> = ({ isUniversal }) => {
   const { t } = useTranslation('paymentPack');
   const { values, setFieldValue }: FormikProps<PaymentPackFormValues> =
     useFormikContext();
@@ -63,27 +69,29 @@ export const PaymentPackFormValidity: React.FC = () => {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={12}>
-          <RadioGroup
-            name="timeType"
-            onChange={(_, value) => {
-              setFieldValue('timeType', value);
-            }}
-          >
-            {VALIDITY_CARD_CHOICE.map(({ value, label: l }) => (
-              <div key={value}>
-                <FormControlLabel
-                  key={value}
-                  control={
-                    <Radio checked={`${values.timeType}` === `${value}`} />
-                  }
-                  label={l}
-                  value={value}
-                />
-              </div>
-            ))}
-          </RadioGroup>
-        </Grid>
+        {!isUniversal && (
+          <Grid item xs={12}>
+            <RadioGroup
+              name="timeType"
+              onChange={(_, value) => {
+                setFieldValue('timeType', value);
+              }}
+            >
+              {VALIDITY_CARD_CHOICE.map(({ value, label: l }) => (
+                <div key={value}>
+                  <FormControlLabel
+                    key={value}
+                    control={
+                      <Radio checked={`${values.timeType}` === `${value}`} />
+                    }
+                    label={l}
+                    value={value}
+                  />
+                </div>
+              ))}
+            </RadioGroup>
+          </Grid>
+        )}
         {values.timeType === VALID_BY_DATERANGE ? (
           <>
             <Grid item xs={3}>
@@ -106,6 +114,13 @@ export const PaymentPackFormValidity: React.FC = () => {
           </>
         ) : (
           <>
+            {!!isUniversal && (
+              <Grid item xs={12}>
+                <Typography color="textSecondary" variant="body1">
+                  {t('universalPass.add.availabilityGivenNumber')}
+                </Typography>
+              </Grid>
+            )}
             <Grid item xs={12}>
               <div className={classes.row}>
                 <TextFieldEnhancedLabelWithError
@@ -199,7 +214,8 @@ export const PaymentPackFormValidity: React.FC = () => {
     </>
   );
 };
-const useStyles = makeStyles<Theme>((theme) => ({
+
+const useStyles = makeStyles((theme) => ({
   infoText: {
     display: 'flex',
     flexDirection: 'row',
@@ -216,4 +232,5 @@ const useStyles = makeStyles<Theme>((theme) => ({
     color: '#868686',
   },
 }));
-export default PaymentPackFormValidity;
+
+export default React.memo(PaymentPackFormValidity);

@@ -1,8 +1,10 @@
 import React, { useState, useCallback, memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { ButtonBase, Collapse, Grid, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Collapse from '@material-ui/core/Collapse';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import { useFormikContext, FormikProps } from 'formik';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
@@ -23,13 +25,20 @@ import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 import ToolTip from '#src/components/Tooltip.component';
 import { offPeakGroupDefault } from '#src/libs/payment-packs/utils';
 import OffPeakTimeSlotGroup from '#src/libs/payment-packs/components/PaymentPackForm/PaymentPackOffPeak.component';
-import { PaymentPackFormValues, PaymentPackTemplate } from '../../types';
+import type {
+  PaymentPackFormValues,
+  PaymentPackTemplate,
+} from '#src/libs/payment-packs/types';
 
 type Props = {
-  initial: PaymentPackTemplate;
+  initial?: PaymentPackTemplate;
+  isUniversal?: boolean;
 };
-export const PaymentPackFormRestrictions = (props: Props) => {
-  const { initial } = props;
+
+const PaymentPackFormRestrictions: React.FC<Props> = ({
+  initial,
+  isUniversal,
+}) => {
   const { t } = useTranslation('paymentPack');
   const [openVodOptions, setOpenVodOptions] = useState<boolean>(
     !!initial?.full_vod_access,
@@ -68,37 +77,41 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={6}>
-          <TextFieldEnhancedLabelWithError
-            fullWidth
-            helperText={t('addPaymentPack.maxUseHelper')}
-            id="max_bookings_per_day"
-            label={t('addPaymentPack.maxUseDay')}
-            name="max_bookings_per_day"
-            type="number"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextFieldEnhancedLabelWithError
-            fullWidth
-            helperText={t('addPaymentPack.maxUseHelper')}
-            id="max_bookings_per_week"
-            label={t('addPaymentPack.maxUseWeek')}
-            name="max_bookings_per_week"
-            type="number"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextFieldEnhancedLabelWithError
-            fullWidth
-            helperText={t('addPaymentPack.maxUseHelper')}
-            id="max_bookings_per_month"
-            label={t('addPaymentPack.maxUseMonth')}
-            name="max_bookings_per_month"
-            type="number"
-          />
-        </Grid>
-        <Grid item xs={6}>
+        {!isUniversal && (
+          <>
+            <Grid item xs={6}>
+              <TextFieldEnhancedLabelWithError
+                fullWidth
+                helperText={t('addPaymentPack.maxUseHelper')}
+                id="max_bookings_per_day"
+                label={t('addPaymentPack.maxUseDay')}
+                name="max_bookings_per_day"
+                type="number"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextFieldEnhancedLabelWithError
+                fullWidth
+                helperText={t('addPaymentPack.maxUseHelper')}
+                id="max_bookings_per_week"
+                label={t('addPaymentPack.maxUseWeek')}
+                name="max_bookings_per_week"
+                type="number"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextFieldEnhancedLabelWithError
+                fullWidth
+                helperText={t('addPaymentPack.maxUseHelper')}
+                id="max_bookings_per_month"
+                label={t('addPaymentPack.maxUseMonth')}
+                name="max_bookings_per_month"
+                type="number"
+              />
+            </Grid>
+          </>
+        )}
+        <Grid item xs={isUniversal ? 12 : 6}>
           <TextFieldEnhancedLabelWithError
             fullWidth
             helperText={t('addPaymentPack.maxUseHelper')}
@@ -162,36 +175,40 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 name="expiration_date"
               />
             </Collapse>
-            <div className={classes.row}>
-              <SwitchField
-                label={t('addPaymentPack.offPeak.label')}
-                name="off_peak_active"
-              />
-            </div>
-            <div>
-              <Collapse in={values.off_peak_active}>
-                {values.off_peak_schedule.map((group, index) => (
-                  <OffPeakTimeSlotGroup
-                    key={`${index}`}
-                    group={group}
-                    hasMultipleGroups={hasMultipleGroups}
-                    index={index}
-                    onGroupDelete={handleDeleteGroup(index)}
-                    setFieldValue={setFieldValue}
+            {!isUniversal && (
+              <>
+                <div className={classes.row}>
+                  <SwitchField
+                    label={t('addPaymentPack.offPeak.label')}
+                    name="off_peak_active"
                   />
-                ))}
-                <ButtonBase
-                  className={classes.buttonAdd}
-                  color="primary"
-                  onClick={handleAddGroupTimeSlot}
-                >
-                  <AddIcon color="primary" />
-                  <Typography className={classes.bold}>
-                    {addGroupTimeSlotLabel}
-                  </Typography>
-                </ButtonBase>
-              </Collapse>
-            </div>
+                </div>
+                <div>
+                  <Collapse in={values.off_peak_active}>
+                    {values.off_peak_schedule.map((group, index) => (
+                      <OffPeakTimeSlotGroup
+                        key={`${index}`}
+                        group={group}
+                        hasMultipleGroups={hasMultipleGroups}
+                        index={index}
+                        onGroupDelete={handleDeleteGroup(index)}
+                        setFieldValue={setFieldValue}
+                      />
+                    ))}
+                    <ButtonBase
+                      className={classes.buttonAdd}
+                      color="primary"
+                      onClick={handleAddGroupTimeSlot}
+                    >
+                      <AddIcon color="primary" />
+                      <Typography className={classes.bold}>
+                        {addGroupTimeSlotLabel}
+                      </Typography>
+                    </ButtonBase>
+                  </Collapse>
+                </div>
+              </>
+            )}
           </div>
         </Grid>
         <Grid item xs={12}>
@@ -210,12 +227,14 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                   label={t('addPaymentPack.vodAccessCard')}
                   name="full_vod_access"
                 />
-                <Collapse in={values.full_vod_access}>
-                  <CheckboxField
-                    label={t('addPaymentPack.only_vod_access')}
-                    name="only_vod_access"
-                  />
-                </Collapse>
+                {!isUniversal && (
+                  <Collapse in={values.full_vod_access}>
+                    <CheckboxField
+                      label={t('addPaymentPack.only_vod_access')}
+                      name="only_vod_access"
+                    />
+                  </Collapse>
+                )}
               </div>
             </div>
           </Collapse>
@@ -224,7 +243,8 @@ export const PaymentPackFormRestrictions = (props: Props) => {
     </>
   );
 };
-const useStyles = makeStyles<Theme>((theme) => ({
+
+const useStyles = makeStyles((theme) => ({
   infoText: {
     display: 'flex',
     flexDirection: 'row',
@@ -261,4 +281,5 @@ const useStyles = makeStyles<Theme>((theme) => ({
     fontSize: theme.spacing(1.75),
   },
 }));
+
 export default memo(PaymentPackFormRestrictions);

@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import pick from 'lodash/pick';
 import { compose, withState } from 'recompose';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { withFormik } from 'formik';
 import Divider from '@material-ui/core/Divider';
 import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
@@ -21,8 +21,8 @@ import {
   PENALTY_KIND_BLOCK_CPP,
   PENALTY_KIND_NEGATIVE_ACCOUNT,
   PENALTY_MODE_FRANCHISOR_PRORATA,
-} from '../../constants';
-import type { PaymentPackTemplate } from '../../types';
+} from '#src/libs/payment-packs/constants';
+import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
 import {
   VALID_BY_DATERANGE,
   VALID_BY_DURATION,
@@ -42,32 +42,39 @@ type WithState = {
 };
 
 type Props = {
-  initial: PaymentPackTemplate;
+  initial?: PaymentPackTemplate;
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (data: PaymentPackTemplate, options: OptionCallback) => void;
+  isUniversal?: boolean;
 };
 
 const offPeakGroupDefaultValue = [offPeakGroupDefault()];
 
-const PaymentPackTemplateForm = (props: Props) => {
+const PaymentPackTemplateForm: React.FC<Props> = ({ initial, isUniversal }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.container}>
-      <PaymentPackTemplateFormGeneral initial={props.initial} />
+      <PaymentPackTemplateFormGeneral
+        initial={initial}
+        isUniversal={isUniversal}
+      />
       <Divider className={classes.divider} />
       <div className={classes.section}>
-        <PaymentPackTemplateFormValidity />
+        <PaymentPackTemplateFormValidity isUniversal={isUniversal} />
       </div>
       <Divider className={classes.divider} />
       <div className={classes.section}>
-        <PaymentPackTemplateFormRestrictions initial={props.initial} />
+        <PaymentPackTemplateFormRestrictions
+          initial={initial}
+          isUniversal={isUniversal}
+        />
       </div>
     </div>
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     paddingBottom: theme.spacing(2),
   },

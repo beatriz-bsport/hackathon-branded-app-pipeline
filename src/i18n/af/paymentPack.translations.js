@@ -602,7 +602,10 @@ const getTranslations = async () => {
       specification: {
         companySharedWithTitle: 'Shared with the following studios:',
       },
-      actions: { create: 'Add a shared pass' },
+      actions: {
+        create: 'Add a shared pass',
+        createUniversalPass: 'Add a shared universal pass',
+      },
       deleteForm: {
         actions: { submit: 'Delete', close: 'Close' },
         content:
@@ -614,6 +617,9 @@ const getTranslations = async () => {
         submit: 'Save',
         close: 'Close',
         title: '[Form] Shared pass',
+        universalPassTitle: 'Shared universal pass',
+        universalPassTooltip:
+          'Universal passes may be used for group activities and appointments. Twin appointment passes are created for every universal pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.',
         editConfirmation: {
           title: 'Edit confirmation',
           content:
@@ -871,6 +877,11 @@ const getTranslations = async () => {
             'Attention! Deleting a universal pass will also delete its twin passes.',
           title: 'Delete pass',
         },
+      },
+      add: {
+        credit: 'Number of credits',
+        helperText: 'Number of credits is set to linited',
+        availabilityGivenNumber: 'Valid for a set number of days post-purchase',
       },
     },
     previous: 'Previous',

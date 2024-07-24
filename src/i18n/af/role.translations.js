@@ -304,6 +304,7 @@ const getTranslations = async () => {
           couponTemplates: { _label: 'Promotions' },
           privatePassTemplates: { _label: 'Appointment pass' },
           paymentPackTemplates: { _label: 'Pass' },
+          universalPassTemplates: { _label: 'Universal pass' },
           contractTemplates: { _label: 'Subscriptions' },
           shopTemplates: { _label: 'Webshop' },
           _label: 'Products',

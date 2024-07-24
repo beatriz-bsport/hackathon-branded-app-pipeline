@@ -5616,6 +5616,7 @@
         "couponTemplates": "Promotions",
         "privatePassTemplates": "Appointment passes",
         "paymentPackTemplates": "Passes",
+        "universalPassTemplates": "Universal passes",
         "shopTemplates": "Webshop",
         "label": "Products",
         "giftcardTemplates": "Gift cards",
@@ -7299,7 +7300,7 @@
     },
     "paymentPackTemplate": {
       "specification": { "companySharedWithTitle": "Shared with the following studios:" },
-      "actions": { "create": "Add a shared pass" },
+      "actions": { "create": "Add a shared pass", "createUniversalPass": "Add a shared universal pass" },
       "deleteForm": {
         "actions": { "submit": "Delete", "close": "Close" },
         "content": "Members will still be able to use the pass at the studio where they bought it. Any subscription linked to this pass will remain valid at that same studio.",
@@ -7310,6 +7311,8 @@
         "submit": "Save",
         "close": "Close",
         "title": "[Form] Shared pass",
+        "universalPassTitle": "Shared universal pass",
+        "universalPassTooltip": "Universal passes may be used for group activities and appointments. Twin appointment passes are created for every universal pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.",
         "editConfirmation": {
           "title": "Edit confirmation",
           "content": "Your changes will also be applied to subscriptions linked to this shared pass. Are you sure you want to proceed and save your edits?",
@@ -7536,6 +7539,11 @@
           "warningText": "Attention! Deleting a universal pass will also delete its twin passes.",
           "title": "Delete pass"
         }
+      },
+      "add": {
+        "credit": "Number of credits",
+        "helperText": "Number of credits is set to linited",
+        "availabilityGivenNumber": "Valid for a set number of days post-purchase"
       }
     },
     "previous": "Previous",
@@ -10348,6 +10356,7 @@
           "couponTemplates": { "_label": "Promotions" },
           "privatePassTemplates": { "_label": "Appointment pass" },
           "paymentPackTemplates": { "_label": "Pass" },
+          "universalPassTemplates": { "_label": "Universal pass" },
           "contractTemplates": { "_label": "Subscriptions" },
           "shopTemplates": { "_label": "Webshop" },
           "_label": "Products",

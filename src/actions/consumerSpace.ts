@@ -6,6 +6,10 @@ import type { ConsumerPaymentPackREST } from 'bsport-saas/src/libs/consumer-paym
 import type { ConsumerPassesTabDisplay } from 'bsport-saas/src/libs/consumer-space/types';
 import type { OfferStatusWaitingListPosition } from 'bsport-saas/src/libs/offer/types';
 import type { WaitingListBookingOption } from 'bsport-saas/src/libs/waiting-list/types';
+import type {
+  ConsumerInvoiceComplementary,
+  ConsumerInvoiceREST,
+} from 'bsport-saas/src/libs/invoice/types';
 
 export const fetchMyPastBookingAsMemberActions = {
   success: createAction('BOOKING/PAST/AS_MEMBER/SUCCESS'),
@@ -221,4 +225,40 @@ export const fetchMyBookingOptionsPositionAsMemberByOfferIdsActions = {
     'BOOKING_OPTION_POSITION/AS_MEMBER/IS_LOADING',
   ),
   error: createAction<Error | null>('BOOKING_OPTION_POSITION/AS_MEMBER/ERROR'),
+};
+
+export const fetchConsumerInvoicesComplementaryActions = {
+  isLoading: createAction<boolean>(
+    'CONSUMER_INVOICE/COMPLEMENTARY_LIST/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'CONSUMER_INVOICE/COMPLEMENTARY_LIST/ERROR',
+  ),
+  success: createAction<ConsumerInvoiceComplementary[]>(
+    'CONSUMER_INVOICE/COMPLEMENTARY_LIST/SUCCESS',
+  ),
+};
+
+export const fetchConsumerPaidInvoicesActions = {
+  isLoading: createAction<boolean>('CONSUMER_INVOICE/PAID/LIST/LOADING'),
+  error: createAction<Error | null>('CONSUMER_INVOICE/PAID/LIST/ERROR'),
+  success: createAction<PaginatedResponse<ConsumerInvoiceREST>>(
+    'CONSUMER_INVOICE/PAID/LIST/SUCCESS',
+  ),
+};
+
+export const fetchConsumerRefundedInvoicesActions = {
+  isLoading: createAction<boolean>('CONSUMER_INVOICE/REFUNDED/LIST/LOADING'),
+  error: createAction<Error | null>('CONSUMER_INVOICE/REFUNDED/LIST/ERROR'),
+  success: createAction<PaginatedResponse<ConsumerInvoiceREST>>(
+    'CONSUMER_INVOICE/REFUNDED/LIST/SUCCESS',
+  ),
+};
+
+export const fetchConsumerUnpaidInvoicesActions = {
+  isLoading: createAction<boolean>('CONSUMER_INVOICE/UNPAID/LIST/LOADING'),
+  error: createAction<Error | null>('CONSUMER_INVOICE/UNPAID/LIST/ERROR'),
+  success: createAction<PaginatedResponse<ConsumerInvoiceREST>>(
+    'CONSUMER_INVOICE/UNPAID/LIST/SUCCESS',
+  ),
 };

@@ -64,6 +64,7 @@ export const ExtensionListItem: React.FC<Props> = ({
         >
           {t('extension.nbDaysAdded', {
             count: extension.nb_days,
+            nb_days: extension.nb_days,
           })}
         </Typography>
 

@@ -41,4 +41,28 @@ exports.default = {
       label: 'Advanced',
     },
   },
+  wellhub: {
+    title: 'Wellhub',
+    configuration: {
+      panel: {
+        header: {
+          subtitle: 'Link your sessions on bsport account with Wellhub',
+        },
+        content: {
+          title: 'Unit ID connection',
+          helperText:
+            "First request the integration with bsport on Wellhub's Partners Portal, for each Unit",
+          table: {
+            column: {
+              unit: 'Unit ID',
+              establishments: 'Establishments',
+            },
+          },
+        },
+        footer: {
+          addUnitButton: 'Add Unit ID',
+        },
+      },
+    },
+  },
 };

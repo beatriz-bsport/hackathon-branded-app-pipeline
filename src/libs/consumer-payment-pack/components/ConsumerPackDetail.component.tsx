@@ -314,19 +314,19 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
           </Paper>
         </React.Fragment>
       ) : null}
-      {(props.onCreateExtension && 
-        !props.consumerPack?.dst_consumer_payment_pack
-        && !!props.consumerPack && (
-        <div className={classes.addButtonContainer}>
-          <Button
-            color="primary"
-            onClick={props.onCreateExtension}
-            variant="outlined"
-          >
-            {t('consumerPaymentPack.addExtension')}
-          </Button>
-        </div>
-      )}
+      {props.onCreateExtension &&
+        !props.consumerPack?.dst_consumer_payment_pack &&
+        !!props.consumerPack && (
+          <div className={classes.addButtonContainer}>
+            <Button
+              color="primary"
+              onClick={props.onCreateExtension}
+              variant="outlined"
+            >
+              {t('consumerPaymentPack.addExtension')}
+            </Button>
+          </div>
+        )}
     </div>
   );
 };

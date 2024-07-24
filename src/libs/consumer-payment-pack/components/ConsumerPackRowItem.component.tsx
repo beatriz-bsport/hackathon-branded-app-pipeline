@@ -576,28 +576,27 @@ export class ConsumerPackRowItem extends Component<Props, State> {
               />
               {button || this.renderButton()}
             </ListItem>
-            {!!isFromShare ||
-              (!!consumerPack.isSharedActive && (
-                <React.Fragment>
-                  <Typography
-                    color="textSecondary"
-                    style={{ paddingLeft: 16 }}
-                    variant="caption"
-                  >
-                    {' '}
-                    {consumerPack.isSharedActive
-                      ? t('consumer.isOwnerOfShares')
-                      : ''}
-                    {isFromShare && consumerPack.disabled
-                      ? t('consumer.isFromDisabledShare')
-                      : ''}
-                    {isFromShare && !consumerPack.disabled
-                      ? t('consumer.isFromShare')
-                      : ''}
-                  </Typography>
-                  <Divider />
-                </React.Fragment>
-              ))}
+            {(!!isFromShare || !!consumerPack.isSharedActive) && (
+              <React.Fragment>
+                <Typography
+                  color="textSecondary"
+                  style={{ paddingLeft: 16 }}
+                  variant="caption"
+                >
+                  {' '}
+                  {consumerPack.isSharedActive
+                    ? t('consumer.isOwnerOfShares')
+                    : ''}
+                  {isFromShare && consumerPack.disabled
+                    ? t('consumer.isFromDisabledShare')
+                    : ''}
+                  {isFromShare && !consumerPack.disabled
+                    ? t('consumer.isFromShare')
+                    : ''}
+                </Typography>
+                <Divider />
+              </React.Fragment>
+            )}
           </div>
         )}
       </ObjectLevelPermissionProvider>

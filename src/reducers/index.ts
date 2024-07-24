@@ -32,6 +32,8 @@ import consumerSpace from 'bsport-saas/src/libs/consumer-space/reducersReworked'
 import spotScheduling from 'bsport-saas/src/libs/spot-scheduling/reducers';
 import relationship from 'bsport-saas/src/libs/relationship/reducers';
 import waitingList from 'bsport-saas/src/libs/waiting-list/reducers';
+import invoice from 'bsport-saas/src/libs/invoice/reducers';
+import paymentBackend from 'bsport-saas/src/libs/payment/reducers';
 
 import type { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types';
 import type { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
@@ -45,6 +47,8 @@ import type { ConsumerStateReworked } from 'bsport-saas/src/libs/consumer-space/
 import type { SpotSchedulingState } from 'bsport-saas/src/libs/spot-scheduling/types';
 import type { RelationshipState } from 'bsport-saas/src/libs/relationship/types';
 import type { WaitingListState } from 'bsport-saas/src/libs/waiting-list/types';
+import type { InvoiceState } from 'bsport-saas/src/libs/invoice/types';
+import type { PaymentBackendState } from 'bsport-saas/src/libs/payment/types';
 
 //  -----------------------------------------
 
@@ -88,6 +92,8 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     spotScheduling,
     relationship,
     waitingList,
+    invoice,
+    paymentBackend,
   });
 
 export interface RootState {
@@ -120,9 +126,10 @@ export interface RootState {
   spotScheduling: SpotSchedulingState;
   relationship: RelationshipState;
   waitingList: WaitingListState;
+  paymentBackend: PaymentBackendState;
+  invoice: InvoiceState;
 }
 
-export default (history: ReturnType<typeof createBrowserHistory>) => (
-  state: any,
-  action: any,
-) => reducer(history)(state, action);
+export default (history: ReturnType<typeof createBrowserHistory>) =>
+  (state: any, action: any) =>
+    reducer(history)(state, action);

@@ -5,11 +5,17 @@ import {
   cancelBookingAsMemberActions,
   cancelBookingOptionAsMemberActions,
   cancelPrivateBookingAsMemberActions,
+  fetchConsumerGuestNumberEligibleLeftByOfferBulkActions,
+  fetchConsumerInvoicesComplementaryActions,
+  fetchConsumerPaidInvoicesActions,
   fetchConsumerPassesTabDisplayActions,
+  fetchConsumerRefundedInvoicesActions,
+  fetchConsumerUnpaidInvoicesActions,
   fetchMyActiveConsumerPaymentPacksAsMemberActions,
   fetchMyActivePrivateConsumerPassesAsMemberActions,
   fetchMyActiveUniversalPassesAsMemberActions,
   fetchMyBookingOptionAsMemberActions,
+  fetchMyBookingOptionsPositionAsMemberByOfferIdsActions,
   fetchMyBookingOptionWorkshopAsMemberActions,
   fetchMyExpiredConsumerPaymentPacksAsMemberActions,
   fetchMyExpiredPrivateConsumerPassesAsMemberActions,
@@ -23,8 +29,7 @@ import {
   fetchMyPastBookingAsMemberActions,
   fetchMyPastBookingWorkshopAsMemberActions,
   fetchMyPastPrivateBookingAsMemberActions,
-  fetchConsumerGuestNumberEligibleLeftByOfferBulkActions,
-  fetchMyBookingOptionsPositionAsMemberByOfferIdsActions,
+  resetConsumerStateActions,
 } from '../../actions/consumerSpace';
 import { establishmentBulkRetrieveActions } from '../../actions/establishment';
 import { fetchLevelListActions } from '../../actions/level';
@@ -57,9 +62,16 @@ import {
   fetchRelatedMembersNamesByConsumerPaymentPackLinksActions,
   fetchRelatedMembersNamesByPrivateConsumerPassLinksActions,
 } from '../../actions/relationship';
+import { configurationDetailActions } from '../../actions/company';
 import {
-  configurationDetailActions
-} from '../../actions/company';
+  fetchPaymentMethodListActions,
+  detachPaymentMethodActions,
+} from '../../actions/payment';
+import {
+  listInvoiceActions,
+  retrieveInvoiceActions,
+  applyBalanceToInvoiceActions,
+} from '../../actions/invoice';
 
 export const actionsBinder = () => {
   apiCallHandler.bindActions(
@@ -269,16 +281,58 @@ export const actionsBinder = () => {
 
   apiCallHandler.bindActions(
     'FETCH_COMPANY_WAITLIST_CONFIGURATION',
-    configurationDetailActions
-  )
+    configurationDetailActions,
+  );
 
   apiCallHandler.bindActions(
     'FETCH_CONSUMER_GUEST_NUMBER_ELIGIBLE_LEFT_BY_OFFER_BULK',
-    fetchConsumerGuestNumberEligibleLeftByOfferBulkActions
-  )
+    fetchConsumerGuestNumberEligibleLeftByOfferBulkActions,
+  );
 
   apiCallHandler.bindActions(
     'FETCH_BOOKING_POSITION_AS_MEMBER_BY_OFFER_IDS',
-    fetchMyBookingOptionsPositionAsMemberByOfferIdsActions
-  )
+    fetchMyBookingOptionsPositionAsMemberByOfferIdsActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_CONSUMER_INVOICES_COMPLEMENTARY',
+    fetchConsumerInvoicesComplementaryActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_CONSUMER_UNPAID_INVOICES',
+    fetchConsumerUnpaidInvoicesActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_CONSUMER_PAID_INVOICES',
+    fetchConsumerPaidInvoicesActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_CONSUMER_REFUNDED_INVOICES',
+    fetchConsumerRefundedInvoicesActions,
+  );
+
+  // @ts-expect-error This action is custom made for consumer space
+  apiCallHandler.bindActions('RESET_CONSUMER_STATE', resetConsumerStateActions);
+
+  apiCallHandler.bindActions(
+    'FETCH_PAYMENT_METHOD_LIST',
+    fetchPaymentMethodListActions,
+  );
+
+  apiCallHandler.bindActions(
+    'DETACH_PAYMENT_METHOD',
+    detachPaymentMethodActions,
+  );
+
+  apiCallHandler.bindActions('FETCH_INVOICE_LIST', listInvoiceActions);
+
+  apiCallHandler.bindActions('FETCH_SPECIFIC_INVOICE', retrieveInvoiceActions);
+
+  apiCallHandler.bindActions(
+    'APPLY_BALANCE_TO_INVOICE',
+    applyBalanceToInvoiceActions,
+  );
 };

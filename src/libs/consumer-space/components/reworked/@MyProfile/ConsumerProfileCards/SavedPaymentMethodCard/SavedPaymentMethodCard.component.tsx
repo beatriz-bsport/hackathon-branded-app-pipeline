@@ -81,6 +81,7 @@ const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
         <List className="bs-consumer-payment-methods-card__list">
           {cards.map((card) => (
             <ListItem
+              key={card.id}
               captionText={t(
                 'reworked.myProfile.paymentMethods.cardItemCaptionText',
                 {
@@ -142,6 +143,7 @@ const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
         <List className="bs-consumer-payment-methods-card__list">
           {directPayments.map((directPayment) => (
             <ListItem
+              key={directPayment.id}
               captionText={directPayment.additional_info}
               classes={{
                 captionText:

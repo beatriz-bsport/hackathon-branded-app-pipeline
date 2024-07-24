@@ -1454,12 +1454,26 @@ export class Planning extends PureComponent<Props, State> {
                       this.props.retrieveNumberOfMassDisabledOffer({
                         start,
                         end,
-                        options: massDisableOptions,
+                        options: {
+                          ...massDisableOptions,
+                          // Since the grouped cancelation takes the calendar filters into account, we also pass them here.
+                          ...omit(
+                            this.props.offerFilters || {},
+                            omit_list(this.props.offerFilters, true),
+                          ),
+                        },
                       });
                       this.props.retrieveNumberOfMassDisabledOfferInGroup({
                         start,
                         end,
-                        options: massDisableOptions,
+                        options: {
+                          ...massDisableOptions,
+                          // Since the grouped cancelation takes the calendar filters into account, we also pass them here.
+                          ...omit(
+                            this.props.offerFilters || {},
+                            omit_list(this.props.offerFilters, true),
+                          ),
+                        },
                       });
                     }}
                     startDate={this.props.massDisablerStartDate}

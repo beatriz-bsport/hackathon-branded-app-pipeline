@@ -1,12 +1,13 @@
 import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import StyleIcon from '@material-ui/icons/Style';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import classnames from 'classnames';
@@ -18,10 +19,10 @@ import {
   PENALTY_KIND_BLOCK_CPP,
   PENALTY_KIND_NEGATIVE_ACCOUNT,
 } from '#src/libs/payment-packs/constants';
-import { getCreditInfo, getValidityInfo } from '../utils';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import { PaymentPackTemplate } from '../types';
-import CompanyChip from '../../../components/franchise/CompanyChip.component';
+import { getCreditInfo, getValidityInfo } from '#src/libs/payment-packs/utils';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
+import CompanyChip from '#src/components/franchise/CompanyChip.component';
 import OffPeakDisplayByDay from './OffPeakDisplayByDay.component';
 
 type Props = {
@@ -39,9 +40,11 @@ const RestrictionsSection: React.FC<{
 }> = memo(({ paymentPackTemplate }) => {
   const { t } = useTranslation('paymentPack');
   const classes = useStyles();
+
   if (!paymentPackTemplate) {
     return null;
   }
+
   const {
     max_bookings_per_day,
     max_bookings_per_week,
@@ -58,6 +61,7 @@ const RestrictionsSection: React.FC<{
     // @ts-expect-error
     penalty_nb_days,
   } = paymentPackTemplate;
+
   if (
     max_bookings_per_day ||
     max_bookings_per_week ||
@@ -136,9 +140,11 @@ const VODSection: React.FC<{ paymentPackTemplate: PaymentPackTemplate }> = memo(
   ({ paymentPackTemplate }) => {
     const { t } = useTranslation('paymentPack');
     const classes = useStyles();
+
     if (!paymentPackTemplate) {
       return null;
     }
+
     const { only_vod_access, full_vod_access } = paymentPackTemplate;
 
     if (only_vod_access || full_vod_access) {
@@ -214,19 +220,19 @@ const OffPeakSection: React.FC<{
   return null;
 });
 
-const PaymentPackTemplateCard = (props: Props) => {
+const PaymentPackTemplateCard: React.FC<Props> = ({
+  paymentPackTemplate,
+  onCreatePaymentPackTemplateInstance,
+  buyPaymentPackTemplateInstance,
+  onDeleteCompany,
+  isManager,
+  editPaymentPackTemplate,
+  deletePaymentPackTemplate,
+}) => {
   const { t } = useTranslation(['paymentPack']);
   const classes = useStyles();
-  const {
-    paymentPackTemplate: template,
-    onCreatePaymentPackTemplateInstance,
-    buyPaymentPackTemplateInstance,
-    onDeleteCompany,
-    isManager,
-    editPaymentPackTemplate,
-    deletePaymentPackTemplate,
-  } = props;
-  if (!template) {
+
+  if (!paymentPackTemplate) {
     return null;
   }
 
@@ -234,12 +240,12 @@ const PaymentPackTemplateCard = (props: Props) => {
     <Paper
       className={classnames(
         classes.paper,
-        template.disabled ? classes.disabled : null,
+        paymentPackTemplate.disabled ? classes.disabled : null,
       )}
     >
       <div className={classes.container}>
         <div className={classes.horizontalBlock}>
-          {template.disabled ? (
+          {paymentPackTemplate.disabled ? (
             <div className={classes.disabledLabel}>
               <Typography color="error" variant="h6">
                 {t('disabled')}
@@ -255,18 +261,18 @@ const PaymentPackTemplateCard = (props: Props) => {
             <Grid item xs={8}>
               <div>
                 <Typography className={classes.title} variant="h4">
-                  {template.name}
+                  {paymentPackTemplate.name}
                 </Typography>
               </div>
               {/* @ts-expect-error */}
-              {template.description && (
+              {paymentPackTemplate.description && (
                 <div>
                   <TypographyMultilineComponent
                     className={classes.description}
                     variant="caption"
                   >
                     {/* @ts-expect-error */}
-                    {template.description}
+                    {paymentPackTemplate.description}
                   </TypographyMultilineComponent>
                 </div>
               )}
@@ -279,9 +285,9 @@ const PaymentPackTemplateCard = (props: Props) => {
                   variant="h3"
                 >
                   {getCurrencyDisplayWithPrice(
-                    template.price,
+                    paymentPackTemplate.price,
                     false,
-                    template.tax,
+                    paymentPackTemplate.tax,
                   )}
                 </Typography>
                 <Typography
@@ -289,9 +295,9 @@ const PaymentPackTemplateCard = (props: Props) => {
                   variant="caption"
                 >
                   {getCurrencyDisplayWithPrice(
-                    template.price,
+                    paymentPackTemplate.price,
                     true,
-                    template.tax,
+                    paymentPackTemplate.tax,
                   )}
                   {t('ht')}
                 </Typography>
@@ -310,7 +316,7 @@ const PaymentPackTemplateCard = (props: Props) => {
                   </Typography>
                 </div>
                 <Typography className={classes.packInfo} variant="body1">
-                  {getCreditInfo(template, t, isManager)}
+                  {getCreditInfo(paymentPackTemplate, t, isManager)}
                 </Typography>
               </div>
               <div className={classes.detailInfo}>
@@ -321,7 +327,7 @@ const PaymentPackTemplateCard = (props: Props) => {
                   </Typography>
                 </div>
                 <Typography className={classes.packInfo} variant="body1">
-                  {getValidityInfo(template, t, true)}
+                  {getValidityInfo(paymentPackTemplate, t, true)}
                 </Typography>
               </div>
             </div>
@@ -341,11 +347,9 @@ const PaymentPackTemplateCard = (props: Props) => {
               )}
             </div>
           </div>
-          <RestrictionsSection
-            paymentPackTemplate={props.paymentPackTemplate}
-          />
-          <VODSection paymentPackTemplate={props.paymentPackTemplate} />
-          <OffPeakSection paymentPackTemplate={props.paymentPackTemplate} />
+          <RestrictionsSection paymentPackTemplate={paymentPackTemplate} />
+          <VODSection paymentPackTemplate={paymentPackTemplate} />
+          <OffPeakSection paymentPackTemplate={paymentPackTemplate} />
 
           <div className={classes.restrictionBlock}>
             <div className={classes.detailInfo}>
@@ -358,7 +362,7 @@ const PaymentPackTemplateCard = (props: Props) => {
                 </Typography>
               </div>
               <div className={classes.companyInnerContainer}>
-                {!template.companies.length && (
+                {!paymentPackTemplate.companies.length && (
                   <div className={classes.emptyExplain}>
                     <InfoOutlinedIcon className={classes.iconLeft} />
                     <Typography color="textSecondary">
@@ -367,7 +371,7 @@ const PaymentPackTemplateCard = (props: Props) => {
                   </div>
                 )}
                 <div className={classes.chipListContainer}>
-                  {template.companies.map((c) => (
+                  {paymentPackTemplate.companies.map((c) => (
                     <div className={classes.chipContainer}>
                       <CompanyChip
                         key={c.id}
@@ -395,6 +399,19 @@ const PaymentPackTemplateCard = (props: Props) => {
                 </div>
               )}
             </div>
+            {paymentPackTemplate.is_universal_template && (
+              <div className={classes.detailInfo}>
+                <div className={classes.detailCategory}>
+                  <StyleIcon className={classes.leftIcon} />
+                  <Typography variant="subtitle2">
+                    {t('detailTitles.universalPass')}
+                  </Typography>
+                </div>
+                <Typography className={classes.packInfo} variant="body1">
+                  {t('cardDetails.universalPass')}
+                </Typography>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -414,7 +431,7 @@ const PaymentPackTemplateCard = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   leftPart: { width: '80%' },
   rightPart: {
     width: '20%',

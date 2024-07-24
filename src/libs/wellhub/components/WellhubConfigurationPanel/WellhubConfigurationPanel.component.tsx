@@ -3,9 +3,12 @@ import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Paper } from '@material-ui/core';
 
-import WellhubConfigurationHeader from './WellhubConfigurationHeader.component';
-import WellhubConfigurationContent from './WellhubConfigurationContent.component';
-import WellhubConfigurationFooter from './WellhubConfigurationFooter.component';
+import {
+  WellhubConfigurationHeader,
+  WellhubConfigurationContent,
+  WellhubConfigurationFooter,
+} from './subcomponents';
+
 import { WELLHUB_GYMS } from './constants';
 
 type Props = {};

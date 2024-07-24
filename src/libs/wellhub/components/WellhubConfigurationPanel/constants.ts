@@ -1,4 +1,4 @@
-import type { WellhubGym } from '../types';
+import type { WellhubGym } from '#src/libs/wellhub/types';
 
 /**
  * Array of mock WellhubGym data for testing purposes.

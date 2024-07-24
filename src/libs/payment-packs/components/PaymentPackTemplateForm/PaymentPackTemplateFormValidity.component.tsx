@@ -23,7 +23,7 @@ import { getValidityString } from '../../utils';
 import {
   VALID_BY_DURATION,
   VALID_BY_DATERANGE,
-} from './PaymentPackTemplateForm.component';
+} from '#src/libs/payment-packs/components/PaymentPackTemplateForm/constants';
 
 export const PaymentPackFormValidity: React.FC = () => {
   const { t } = useTranslation('paymentPack');

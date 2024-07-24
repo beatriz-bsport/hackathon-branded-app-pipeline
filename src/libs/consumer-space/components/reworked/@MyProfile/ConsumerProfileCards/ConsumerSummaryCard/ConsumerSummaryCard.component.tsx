@@ -5,14 +5,12 @@ import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
 import Title from '#Fabrique/Title';
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
-import useFeaturesProvider from '#src/libs/company/hooks/feature-list-provider.hook';
 import type { ConsumerSummaryCardProps } from '#src/libs/consumer-space/components/reworked/@MyProfile/types';
 import {
   ConsumerSummaryCardHeader,
   ConsumerAddressSection,
   ConsumerInfoSection,
   ConsumerNotificationsSection,
-  ConsumerSpiviSection,
 } from './sections';
 import { ConsumerProfileContext } from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 import ConsumerDetailsCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton/ConsumerDetailsCardSkeleton.component';
@@ -30,7 +28,6 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
   gender,
   isLoading,
   lastName,
-  memberId,
   membershipId,
   officialDocumentId,
   phoneNumber,
@@ -38,13 +35,9 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
   showAccountBalance,
   showBarcodeButton,
   showMembershipNumber,
-  spiviPrivacySettingsAccepted,
-  spiviPrivacySettingsLoading,
   totalUnpaidAmount,
-  updateSpiviPrivacySettings,
 }) => {
   const { t } = useTranslation('consumerSpace');
-  const { spiviEnabled } = useFeaturesProvider();
   const { toggleBarcodeModal, isMobile } =
     useContext(ConsumerProfileContext) ?? {};
 
@@ -90,15 +83,6 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
               variant="xs"
             />
           </ConsumerCardSection>
-        )}
-        {spiviEnabled && (
-          <ConsumerSpiviSection
-            isMobile={isMobile}
-            memberId={memberId}
-            spiviPrivacySettingsAccepted={spiviPrivacySettingsAccepted}
-            spiviPrivacySettingsLoading={spiviPrivacySettingsLoading}
-            updateSpiviPrivacySettings={updateSpiviPrivacySettings}
-          />
         )}
       </Card>
     </div>

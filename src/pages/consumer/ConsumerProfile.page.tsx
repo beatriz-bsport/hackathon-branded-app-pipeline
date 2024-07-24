@@ -13,7 +13,6 @@ import AddPaymentMethod from '#src/libs/payment/components/AddPaymentMethod.comp
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 import PaymentModal from '#src/libs/payment/components/PaymentModal.component';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
-import SpiviPrivacySettingsPanel from '#src/libs/spivi/components/SpiviPrivacySettingsPanel.component';
 import ReferralMemberSumup from '#src/libs/referral/components/referral-member-sumup';
 import {
   retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
@@ -37,7 +36,6 @@ import CustomFormViewDialog from '../../libs/custom-form/components/consumer-for
 import {
   fetchMember as fetchMemberAction,
   fetchMyUserProfile,
-  updateSpiviPrivacySettings as updateSpiviPrivacySettingsAction,
 } from '../../libs/member/actions';
 
 import {
@@ -231,21 +229,6 @@ export class ConsumerProfile extends React.Component<Props, State> {
               paymentMethodLoading={this.props.paymentMethodLoading}
             />
           </Paper>
-          {this.props.member?.spivi_privacy_settings_accepted !== null &&
-            this.props.member?.spivi_privacy_settings_accepted !==
-              undefined && (
-              <Paper className={classes.gridItemContainer}>
-                <SpiviPrivacySettingsPanel
-                  member={this.props.member}
-                  spiviPrivacySettingsLoading={
-                    this.props.spiviPrivacySettingsLoading
-                  }
-                  updateSpiviPrivacySettings={
-                    this.props.updateSpiviPrivacySettings
-                  }
-                />
-              </Paper>
-            )}
           {this.props.theme.is_referral_program_activated && (
             <Paper className={classes.gridItemContainer}>
               <ReferralMemberSumup
@@ -309,7 +292,6 @@ const connector = connect(
       getMemberCustomFormWithEnabledField,
     )(state, membership?.id),
     showVaccinationStatus: showVaccinationStatus(state),
-    spiviPrivacySettingsLoading: state.member.spivi_privacy_settings.loading,
     referralProgram: getTheReferralProgram(state),
     referralProgramLoading: getReferralProgramsLoading(state),
     referralMemberStatus: getReferralMemberStatusWithMemberId(
@@ -330,7 +312,6 @@ const connector = connect(
     submitCustomForm,
     disconnect,
     fetchMyUserProfile,
-    updateSpiviPrivacySettings: updateSpiviPrivacySettingsAction,
     retrieveReferralProgramForCompany: retrieveReferralProgramForCompanyAction,
     retrieveReferralMemberStatus: retrieveReferralMemberStatusAction,
   },

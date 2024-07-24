@@ -52,6 +52,8 @@ import {
 
 import CLASSPASS_LOGO from './classpass.png';
 
+import WellhubConfigurationPanel from '#src/libs/wellhub/components/WellhubConfigurationPanel';
+
 type Props = {
   t: TFunction;
   classpass: PartnershipCompany | null;
@@ -130,7 +132,8 @@ export class Partnership extends React.Component<Props> {
           </Dialog>
         ) : null}
         {this.props.isSubmitting ? <LinearProgress /> : null}
-        <>
+        <WellhubConfigurationPanel />
+        <div className={this.props.classes.classpassContainer}>
           <div
             style={{ display: 'flex', alignItems: 'row', flexDirection: 'row' }}
           >
@@ -189,7 +192,7 @@ export class Partnership extends React.Component<Props> {
               </div>
             )}
           </Paper>
-        </>
+        </div>
       </div>
     );
   }
@@ -197,6 +200,9 @@ export class Partnership extends React.Component<Props> {
 
 const styles = createStyles((theme: Theme) => ({
   container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(4),
     margin: theme.spacing(2),
   },
   paper: {
@@ -207,6 +213,10 @@ const styles = createStyles((theme: Theme) => ({
     marginBottom: theme.spacing(2),
   },
   column: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  classpassContainer: {
     display: 'flex',
     flexDirection: 'column',
   },

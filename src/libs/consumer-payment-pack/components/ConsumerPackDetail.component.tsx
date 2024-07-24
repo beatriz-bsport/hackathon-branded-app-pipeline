@@ -302,6 +302,7 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
                   extension={extension}
                   onDelete={
                     props.consumerPack &&
+                    !props.consumerPack?.dst_consumer_payment_pack &&
                     !props.consumerPack.consumer_payment_pack_source
                       ? () => props.deleteExtension(extension.id)
                       : null
@@ -313,7 +314,9 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
           </Paper>
         </React.Fragment>
       ) : null}
-      {props.onCreateExtension && !!props.consumerPack && (
+      {(props.onCreateExtension && 
+        !props.consumerPack?.dst_consumer_payment_pack
+        && !!props.consumerPack && (
         <div className={classes.addButtonContainer}>
           <Button
             color="primary"

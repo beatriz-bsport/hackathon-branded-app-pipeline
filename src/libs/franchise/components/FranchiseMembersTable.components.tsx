@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+
 import {
   createStyles,
   Table,
@@ -70,6 +71,13 @@ const FranchiseMembersTable = (props: Props) => {
     });
   };
 
+  const handlePageChange = useCallback(
+    (_, newPage: number): void => {
+      handleChangePage(_, newPage + 1);
+    },
+    [handleChangePage],
+  );
+
   return (
     <div className={classes.table}>
       {!!loading && <LinearProgress />}
@@ -113,7 +121,6 @@ const FranchiseMembersTable = (props: Props) => {
           })}
         </TableBody>
       </Table>
-      {/* @ts-expect-error */}
       <TablePagination
         backIconButtonProps={{
           'aria-label': t('pagination.previousPage'),
@@ -125,9 +132,9 @@ const FranchiseMembersTable = (props: Props) => {
         nextIconButtonProps={{
           'aria-label': t('pagination.nextPage'),
         }}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-        page={page}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        page={page - 1}
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25, 50, 100]}
       />

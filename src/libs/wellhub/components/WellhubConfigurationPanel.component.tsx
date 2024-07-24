@@ -6,6 +6,7 @@ import { Paper } from '@material-ui/core';
 import WellhubConfigurationHeader from './WellhubConfigurationHeader.component';
 import WellhubConfigurationContent from './WellhubConfigurationContent.component';
 import WellhubConfigurationFooter from './WellhubConfigurationFooter.component';
+import { WELLHUB_GYMS } from './constants';
 
 type Props = {};
 
@@ -14,7 +15,7 @@ const WellhubConfigurationPanel: React.FC<Props> = () => {
   return (
     <Paper className={classes.configurationPanel}>
       <WellhubConfigurationHeader />
-      <WellhubConfigurationContent />
+      <WellhubConfigurationContent wellhubGyms={WELLHUB_GYMS} />
       <WellhubConfigurationFooter
         addUnitDisabled={false} //TODO: build constant to test if all establishments are already linked to a wellhub Unit
         handleAddUnit={() => {}}

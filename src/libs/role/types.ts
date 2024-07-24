@@ -332,6 +332,7 @@ export type FranchiseRolePermission = {
     products: {
       paymentPackTemplates: boolean;
       privatePassTemplates: boolean;
+      universalPassTemplates: boolean;
       shopTemplates: boolean;
       giftcardTemplates: boolean;
       couponTemplates: boolean;
@@ -541,6 +542,7 @@ export type FranchiseProtectedUrls =
   | '/f/settings/notification-rule'
   | '/f/payment-pack-template'
   | '/f/private-pass-template'
+  | '/f/universal-pass-template'
   | '/f/giftcard-template'
   | '/f/reporting'
   | '/f/settings/staff'

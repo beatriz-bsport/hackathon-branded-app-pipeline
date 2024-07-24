@@ -71,6 +71,10 @@ const FranchisePaymentPackTemplateRouter = asyncComponent(
 const FranchisePrivatePassTemplateRouter = asyncComponent(
   () => import('./private-pass-template/FranchisePrivatePassTemplate.router'),
 );
+const FranchiseUniversalPassTemplateRouter = asyncComponent(
+  () =>
+    import('./universal-pass-template/FranchiseUniversalPassTemplate.router'),
+);
 const FranchiseShopRouter = asyncComponent(
   () => import('./shop/FranchiseShop.router'),
 );
@@ -224,6 +228,10 @@ const FranchiseRouter = (props: Props) => {
             <Route
               component={FranchisePrivatePassTemplateRouter}
               path="/f/private-pass-template"
+            />
+            <Route
+              component={FranchiseUniversalPassTemplateRouter}
+              path="/f/universal-pass-template"
             />
             <Route component={FranchiseShopRouter} path="/f/shop" />
             <Route

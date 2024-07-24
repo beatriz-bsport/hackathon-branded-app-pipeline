@@ -53,6 +53,7 @@ import {
 } from '@material-ui/icons';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ScheduleIcon from '@material-ui/icons/Schedule';
+import StyleIcon from '@material-ui/icons/Style';
 import StarIcon from '@material-ui/icons/Star';
 import Email from '@material-ui/icons/Email';
 import Settings from '@material-ui/icons/Settings';
@@ -580,6 +581,11 @@ const getNavigationItems = (props: {
               text: 'franchiseMenu.products.privatePassTemplates',
               icon: ScheduleIcon,
             },
+            {
+              to: '/f/universal-pass-template',
+              text: 'franchiseMenu.products.universalPassTemplates',
+              icon: StyleIcon,
+            },
             displayNewWebshopForFranchisees && {
               to: '/f/shop',
               text: 'franchiseMenu.products.shop',
@@ -613,6 +619,11 @@ const getNavigationItems = (props: {
               to: '/f/private-pass-template',
               text: 'franchiseMenu.products.privatePassTemplates',
               icon: ScheduleIcon,
+            },
+            {
+              to: '/f/universal-pass-template',
+              text: 'franchiseMenu.products.universalPassTemplates',
+              icon: StyleIcon,
             },
             displayNewWebshopForFranchisees && {
               to: '/f/shop',

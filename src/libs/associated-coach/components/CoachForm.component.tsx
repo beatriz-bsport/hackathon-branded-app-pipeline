@@ -299,8 +299,15 @@ const CoachSchema = (props: Props) =>
     lastname: Yup.string().nullable(false).required(),
     email:
       props.initial?.email || !props.initial
-        ? Yup.string().nullable(false).required().email()
-        : Yup.string().nullable(true).email(),
+        ? Yup.string()
+            .transform((value) => value.trim())
+            .nullable(false)
+            .required()
+            .email()
+        : Yup.string()
+            .transform((value) => value.trim())
+            .nullable(true)
+            .email(),
     phone: Yup.string().nullable(true),
     gender: Yup.string().nullable(false).required(),
     color: Yup.string().nullable(false),
@@ -374,7 +381,7 @@ const CoachFormHOC = withFormik<Props & HOCProps, InitialValues>({
       birthday:
         (values && birthday && DateTime.fromISO(birthday).toISODate()) || '',
       phone: phone || undefined,
-      email: (email && email.toLowerCase()) ?? '',
+      email: email?.trim()?.toLowerCase() ?? '',
       notes: notes ?? '',
       date_joined_company: date_joined_company
         ? DateTime.fromISO(date_joined_company).toISODate()

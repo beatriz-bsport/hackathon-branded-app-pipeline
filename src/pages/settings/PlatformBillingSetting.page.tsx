@@ -67,6 +67,7 @@ import { getTheme } from '#src/libs/theme/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -120,7 +121,7 @@ type Props = {
 
   subscribedUpsellPackages: UpsellPackage[];
   nonSubscribedUpsellPackages: UpsellPackage[];
-  hasLimitedAccessToAudience: boolean;
+  theme: CompanyTheme;
   fetchFeatureList: (options?: OptionCallback<FeatureList>) => void;
 };
 
@@ -200,30 +201,39 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
 
   render() {
     const { loading, classes } = this.props;
+
+    const hasLimitedAccessToAudience: boolean =
+      this.props.theme.has_limited_access_to_sequential_marketing;
+
+    const isOnlinePaymentEnabled: boolean =
+      this.props.theme.online_payment_enabled;
+
     if (loading) {
       return <BackofficeLinearProgress />;
     }
 
     return (
       <div className={classes.container}>
-        <Grid container direction="row">
-          <Grid item className={classes.leftColumn} md={6} xs={12}>
-            <PayoutList
-              fetchMorePayoutList={this.props.fetchStripePayoutList}
-              hasMorePayout={this.props.hasMorePayout}
-              loading={this.props.payoutLoading}
-              openInvoice={this.props.onOpenInvoice}
-              stripePayoutList={this.props.stripePayoutList}
-            />
-          </Grid>
-          {/* <Grid item xs={12} md={6} className={classes.leftColumn}>
+        {isOnlinePaymentEnabled && (
+          <Grid container direction="row">
+            <Grid item className={classes.leftColumn} md={6} xs={12}>
+              <PayoutList
+                fetchMorePayoutList={this.props.fetchStripePayoutList}
+                hasMorePayout={this.props.hasMorePayout}
+                loading={this.props.payoutLoading}
+                openInvoice={this.props.onOpenInvoice}
+                stripePayoutList={this.props.stripePayoutList}
+              />
+            </Grid>
+            {/* <Grid item xs={12} md={6} className={classes.leftColumn}>
             <StripeBalance
               stripeBalanceAvailable={this.props.stripeBalanceAvailable}
               stripeBalancePending={this.props.stripeBalancePending}
               stripeBalanceLoading={this.props.stripeBalanceLoading}
             />
           </Grid> */}
-        </Grid>
+          </Grid>
+        )}
         <CompanyPlatformBillingPaymentDetail
           defaultCurrencyDisplay={
             this.props.platformSubscription?.default_currency_display
@@ -238,7 +248,7 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
         />
         <CompanyPlatformBillinGroupDetail
           handleSubscribe={this.handleOpenSubscriptionForm}
-          hasLimitedAccessToAudience={this.props.hasLimitedAccessToAudience}
+          hasLimitedAccessToAudience={hasLimitedAccessToAudience}
           nonSubscribedUpsellPackages={this.props.nonSubscribedUpsellPackages}
           onKnowMore={this.props.onRequestUpsell}
           platformSubscription={this.props.platformSubscription}
@@ -301,8 +311,7 @@ export default compose(
       // stripeBalanceLoading: state.paymentBackend.balance.isLoading,
       subscribedUpsellPackages: getSubscribedUpsellPackages(state),
       nonSubscribedUpsellPackages: getNonSubscribedUpsellPackages(state),
-      hasLimitedAccessToAudience:
-        getTheme(state).has_limited_access_to_sequential_marketing,
+      theme: getTheme(state),
     }),
     {
       fetchPlatformInvoiceList: fetchPlatformInvoiceListAction,

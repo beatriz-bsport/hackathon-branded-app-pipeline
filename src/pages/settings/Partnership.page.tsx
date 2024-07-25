@@ -1,87 +1,91 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
+import { connect } from 'react-redux';
+import { compose, withState, withHandlers } from 'recompose';
+import flatten from 'lodash/flatten';
+
+// MUI
 import {
   withStyles,
   WithStyles,
   Theme,
   createStyles,
 } from '@material-ui/core/styles';
-import { compose, withState, withHandlers } from 'recompose';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import { withTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
-import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import flatten from 'lodash/flatten';
+import DialogContent from '@material-ui/core/DialogContent';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
+// GLOBAL
+import withTitle from '#src/hocs/with-title.hoc';
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
-import themeSelector from '../../libs/theme/selectors';
-import {
+import themeSelector from '#src/libs/theme/selectors';
+import type { RootState } from '#src/reducers';
+
+// UPSELL
+import { getCompanyUpsellData } from '#src/libs/company/selectors';
+import { hasUpsellIdentifier } from '#src/libs/role/utils';
+import { UPSELL_IDENTIFIER_WELLHUB } from '#src/libs/platform-billing/upsell-identifiers';
+import type { UpsellSumup } from '#src/libs/company/types';
+
+// CLASSPASS
+import type {
   PartnershipCompany,
   PartnershipEstablishmentMerge,
-} from '../../libs/partnership/types';
+} from '#src/libs/partnership/types';
 import {
   getPartnershipByIdentifier,
   getPartnershipEstablishmentMergeList,
-} from '../../libs/partnership/selectors';
+} from '#src/libs/partnership/selectors';
 import {
   fetchPartnershipList,
   requestPartnership as requestPartnershipAction,
   updatePartnership,
   fetchPartnershipEstablishmentMergeList,
-} from '../../libs/partnership/actions';
+} from '#src/libs/partnership/actions';
+import PartnershipConfigurationForm from '#src/libs/partnership/components/PartnershipConfigurationForm.component';
+
 import {
   getAllPageEstablishments,
   getAllAssociatedEstablishment,
-} from '../../libs/establishment/selectors';
+} from '#src/libs/establishment/selectors';
 import {
   fetchEstablishments,
   fetchAssociatedEstablishments,
-} from '../../libs/establishment/actions';
-import PartnershipConfigurationForm from '../../libs/partnership/components/PartnershipConfigurationForm.component';
-import withTitle from '../../hocs/with-title.hoc';
-import { RootState } from '../../reducers';
-import {
+} from '#src/libs/establishment/actions';
+import type {
   Establishment,
   AssociatedEstablishment,
-} from '../../libs/establishment/types';
+} from '#src/libs/establishment/types';
 
 import CLASSPASS_LOGO from './classpass.png';
 
-import { getCompanyUpsellData } from '#src/libs/company/selectors';
-import { hasUpsellIdentifier } from '#src/libs/role/utils';
-import { UPSELL_IDENTIFIER_WELLHUB } from '#src/libs/platform-billing/upsell-identifiers';
+// WELLHUB
 import WellhubConfigurationPanel from '#src/libs/wellhub/components/WellhubConfigurationPanel';
-import type { UpsellSumup } from '#src/libs/company/types';
 
 type Props = {
-  t: TFunction;
+  associatedEstablishmentList: AssociatedEstablishment[];
   classpass: PartnershipCompany | null;
-
-  requestClasspassPartnership: () => void;
-  fetchPartnershipList: () => void;
-  updatePartnership: (id: number, data: any) => void;
-
-  fetchEstablishments: () => void;
-  establishmentList: Array<Establishment>;
   company: number;
-
+  establishmentList: Establishment[];
+  featureList: UpsellSumup[];
   hasRequested: boolean;
-  setHasRequested: (b: boolean) => void;
-
   isSubmitting: boolean;
   loading: boolean;
+  partnershipEstablishmentMergeList: PartnershipEstablishmentMerge[];
 
-  associatedEstablishmentList: Array<AssociatedEstablishment>;
-  partnershipEstablishmentMergeList: Array<PartnershipEstablishmentMerge>;
-
-  featureList: UpsellSumup[];
-
+  fetchEstablishments: () => void;
   fetchPartnershipEstablishmentMergeList: () => void;
+  fetchPartnershipList: () => void;
+  requestClasspassPartnership: () => void;
+  setHasRequested: (b: boolean) => void;
+  updatePartnership: (id: number, data: any) => void;
+
+  t: TFunction;
 } & WithStyles;
 
 export class Partnership extends React.Component<Props> {
@@ -99,7 +103,7 @@ export class Partnership extends React.Component<Props> {
 
   render() {
     const { classpass, company, establishmentList } = this.props;
-    let establishmentIdList: Array<number> = [];
+    let establishmentIdList: number[] = [];
     if (establishmentList && establishmentList.length) {
       if (classpass && classpass.associated_establishment_ids.length) {
         establishmentIdList = classpass.associated_establishment_ids;

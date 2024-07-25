@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -43,6 +43,7 @@ type ShopSupplierListItemProps = {
   handleShowSupplierDetails: (
     supplier: ShopSupplier | ShopSupplierTemplate,
   ) => void;
+  isMobile: boolean;
 };
 
 const ShopSupplierListItem: React.FC<ShopSupplierListItemProps> = React.memo(
@@ -51,10 +52,12 @@ const ShopSupplierListItem: React.FC<ShopSupplierListItemProps> = React.memo(
     handleEditSupplier,
     handleSelectSupplierForDeletion,
     handleShowSupplierDetails,
+    isMobile,
   }) => {
     const { t } = useTranslation('shop');
     const classes = useStyles();
     const descriptionText = useIsTextExpandable(false);
+    const shouldShowDescriptionOnMobile = isMobile && supplier.description;
 
     const onShowSupplierDetails = useCallback(
       () => handleShowSupplierDetails(supplier),
@@ -76,15 +79,19 @@ const ShopSupplierListItem: React.FC<ShopSupplierListItemProps> = React.memo(
         <TableCell className={classes.noWrap} scope="row">
           {supplier.name}
         </TableCell>
-        <TableCell scope="row">
-          <p ref={descriptionText.ref} className={classes.description}>
-            {supplier.description}
-          </p>
-        </TableCell>
+        {!isMobile && (
+          <TableCell scope="row">
+            <p ref={descriptionText.ref} className={classes.description}>
+              {supplier.description}
+            </p>
+          </TableCell>
+        )}
         <TableCell className={classes.rowActions} scope="row">
           <Tooltip
             className={
-              descriptionText.isExpandable ? classes.visible : classes.hidden
+              descriptionText.isExpandable || shouldShowDescriptionOnMobile
+                ? classes.visible
+                : classes.hidden
             }
             title={t(
               'shopList.tab.settings.section.suppliers.table.action.showInfos',
@@ -136,6 +143,8 @@ const ShopSupplierTable: React.FC<Props> = ({
   const [isSupplierDetailsModalOpen, setIsSupplierDetailsModalOpen] =
     useState(false);
   const { t } = useTranslation(['common', 'shop']);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   const handleShowSupplierDetails = useCallback((supplier: ShopSupplier) => {
     setSelectedSupplier(supplier);
@@ -174,9 +183,11 @@ const ShopSupplierTable: React.FC<Props> = ({
           <TableCell>
             {t('shop:shopList.tab.settings.section.suppliers.table.name')}
           </TableCell>
-          <TableCell>
-            {t('shop:shopList.tab.settings.section.suppliers.table.notes')}
-          </TableCell>
+          {!isMobile && (
+            <TableCell>
+              {t('shop:shopList.tab.settings.section.suppliers.table.notes')}
+            </TableCell>
+          )}
           <TableCell>
             {t('shop:shopList.tab.settings.section.suppliers.table.actions')}
           </TableCell>
@@ -189,6 +200,7 @@ const ShopSupplierTable: React.FC<Props> = ({
             handleEditSupplier={handleEditSupplier}
             handleSelectSupplierForDeletion={handleSelectSupplierForDeletion}
             handleShowSupplierDetails={handleShowSupplierDetails}
+            isMobile={isMobile}
             supplier={supplier}
           />
         ))}

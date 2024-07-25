@@ -419,7 +419,9 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route component={Expense} path="/expense" />
       <Route component={Subscription} path="/subscription" />
       <Route component={Tutorial} path="/tutorial" />
-      <Route component={FeatureBaseRouter} path="/feature-base" />
+      {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' && (
+        <Route component={FeatureBaseRouter} path="/feature-base" />
+      )}
       <Route component={Member} path="/member" />
       <Route component={MetaActivity} path="/activity" />
       <Route component={WorkshopActivity} path="/workshop-activity" />

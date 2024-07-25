@@ -40,8 +40,8 @@ import {
   withCachedCoachPerformance,
   getCoachPaymentRuleGroups,
   getCoachPerformanceCachedDataList,
-  getFetchedCoachPrivateServicePerformanceIds,
-  getFetchedCoachSessionPerformanceIds,
+  getFetchedCoachPrivateServicePerformanceAllIds,
+  getFetchedCoachSessionPerformanceAllIds,
 } from '#src/libs/coach-payment-rules/selectors';
 
 import CoachPerformanceDateFilter from '#src/libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
@@ -407,8 +407,8 @@ const connector = connect(
 
     coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),
     fetchedCoachPrivatePassIds:
-      getFetchedCoachPrivateServicePerformanceIds(state),
-    fetchedCoachSessionIds: getFetchedCoachSessionPerformanceIds(state),
+      getFetchedCoachPrivateServicePerformanceAllIds(state),
+    fetchedCoachSessionIds: getFetchedCoachSessionPerformanceAllIds(state),
     coachPaymentRuleGroupsDict: state.coachPaymentRules.groups.byId,
     coachPerformanceCachedDataList: getCoachPerformanceCachedDataList(state),
     associatedCoachWithCoachPaymentRuleAndPerformanceFromCachedData:

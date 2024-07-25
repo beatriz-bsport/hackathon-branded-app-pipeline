@@ -104,6 +104,7 @@ export type CoachPaymentRuleState = {
   } & ErrorAndLoading;
   performance: {
     session: {
+      allIds: Array<number>;
       byAssociatedCoachId:
         | {
             [id: number]: {
@@ -114,6 +115,7 @@ export type CoachPaymentRuleState = {
         | {};
     };
     private_service: {
+      allIds: Array<number>;
       byAssociatedCoachId:
         | {
             [id: number]: Array<CoachPerformance>;

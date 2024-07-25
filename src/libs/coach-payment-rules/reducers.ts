@@ -42,9 +42,11 @@ const initialState: Immutable.Immutable<CoachPaymentRuleState> =
     },
     performance: {
       session: {
+        allIds: [],
         byAssociatedCoachId: {},
       },
       private_service: {
+        allIds: [],
         byAssociatedCoachId: {},
       },
 
@@ -125,6 +127,13 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      const allIds = [
+        ...new Set([
+          ...state.performance.session.allIds,
+          // @ts-expect-error
+          Number(payload.associatedCoachId),
+        ]),
+      ];
       // @ts-expect-error
       if (payload.sessionId) {
         // @ts-expect-error
@@ -135,7 +144,7 @@ export default handleActions(
           // @ts-expect-error
           (sessionperf) => sessionperf.session_id === payload.sessionId,
         );
-        return state.setIn(
+        return state.setIn(['performance', 'session', 'allIds'], allIds).setIn(
           [
             'performance',
             'session',
@@ -149,7 +158,7 @@ export default handleActions(
           payload.data[0],
         );
       }
-      return state.setIn(
+      return state.setIn(['performance', 'session', 'allIds'], allIds).setIn(
         [
           'performance',
           'session',
@@ -202,10 +211,17 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      const allIds = [
+        ...new Set([
+          ...state.performance.session.allIds,
+          ...Object.keys(payload).map((coachId) => Number(coachId)),
+        ]),
+      ];
       return state.merge(
         {
           performance: {
             session: {
+              allIds: allIds,
               byAssociatedCoachId: payload,
             },
           },
@@ -217,6 +233,13 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      const allIds = [
+        ...new Set([
+          ...state.performance.private_service.allIds,
+          // @ts-expect-error
+          Number(payload.associatedCoachId),
+        ]),
+      ];
       // @ts-expect-error
       if (payload.privateBookingId) {
         // @ts-expect-error
@@ -229,32 +252,36 @@ export default handleActions(
             // @ts-expect-error
             privateperf.private_booking_id === payload.privateBookingId,
         );
-        return state.setIn(
+        return state
+          .setIn(['performance', 'private_service', 'allIds'], allIds)
+          .setIn(
+            [
+              'performance',
+              'private_service',
+              'byAssociatedCoachId',
+              // @ts-expect-error
+              payload.associatedCoachId,
+              'data',
+              index,
+            ],
+            // @ts-expect-error
+            payload.data[0],
+          );
+      }
+      return state
+        .setIn(['performance', 'private_service', 'allIds'], allIds)
+        .setIn(
           [
             'performance',
             'private_service',
             'byAssociatedCoachId',
             // @ts-expect-error
-            payload.associatedCoachId,
+            [payload.associatedCoachId],
             'data',
-            index,
           ],
           // @ts-expect-error
-          payload.data[0],
+          payload.data,
         );
-      }
-      return state.setIn(
-        [
-          'performance',
-          'private_service',
-          'byAssociatedCoachId',
-          // @ts-expect-error
-          [payload.associatedCoachId],
-          'data',
-        ],
-        // @ts-expect-error
-        payload.data,
-      );
     },
     [coachPrivateServicePerformanceActions.isLoading.toString()]: (
       state,
@@ -299,10 +326,17 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      const allIds = [
+        ...new Set([
+          ...state.performance.private_service.allIds,
+          ...Object.keys(payload).map((coachId) => Number(coachId)),
+        ]),
+      ];
       return state.merge(
         {
           performance: {
             private_service: {
+              allIds: allIds,
               byAssociatedCoachId: payload,
             },
           },

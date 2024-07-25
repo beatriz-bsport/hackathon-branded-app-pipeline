@@ -27,7 +27,6 @@ import type {
   CoachPaymentRuleGroupAPI,
 } from '#src/libs/associated-coach/types';
 import { RootState } from '../../reducers';
-import type { CoachPerformance } from '#src/libs/coach-payment-rules/types';
 
 export const CoachPaymentSelector = (state: RootState, id: number) =>
   // @ts-expect-error
@@ -337,30 +336,9 @@ export const getCoachPaymentRuleListCoaches = createSelector(
   },
 );
 
-const _getFetchedCoachPrivateServiceIds = (state: RootState) =>
-  state.coachPaymentRules.performance.private_service.byAssociatedCoachId;
+export const getFetchedCoachSessionPerformanceAllIds = (state: RootState) =>
+  state.coachPaymentRules.performance.session.allIds;
 
-/**
- * Get the list of all coach IDs whose data on private services performance was already fetched and is on Redux
- */
-export const getFetchedCoachPrivateServicePerformanceIds = createSelector(
-  [_getFetchedCoachPrivateServiceIds],
-  (fetchedCoachPrivateServiceIds: {
-    [coach_id: number]: Array<CoachPerformance>;
-  }) => {
-    return Object.keys(fetchedCoachPrivateServiceIds).map((id) => Number(id));
-  },
-);
-
-const _getFetchedCoachSessionIds = (state: RootState) =>
-  state.coachPaymentRules.performance.session.byAssociatedCoachId;
-
-/**
- * Get the list of all coach IDs whose data on session performance was already fetched and is on Redux
- */
-export const getFetchedCoachSessionPerformanceIds = createSelector(
-  [_getFetchedCoachSessionIds],
-  (fetchedCoachSessionIds: { [coach_id: number]: Array<CoachPerformance> }) => {
-    return Object.keys(fetchedCoachSessionIds).map((id) => Number(id));
-  },
-);
+export const getFetchedCoachPrivateServicePerformanceAllIds = (
+  state: RootState,
+) => state.coachPaymentRules.performance.private_service.allIds;

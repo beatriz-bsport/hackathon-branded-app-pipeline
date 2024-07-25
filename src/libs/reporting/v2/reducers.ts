@@ -9,11 +9,13 @@ import {
   fetchReportFilterConfigListActionsV2,
   fetchReportMetadataActionsV2,
   fetchReportsActionsV2,
+  reportHeadersDetailV2,
 } from '#src/libs/reporting/v2/actions';
 
 import type {
   ReportConfiguration,
   ReportFilterConfig,
+  ReportHeader,
   ReportingStateV2,
   ReportMetadataValue,
 } from '#src/libs/reporting/common/types';
@@ -25,6 +27,11 @@ const initialState: Immutable.Immutable<ReportingStateV2> =
       error: null,
       byId: {},
       allIds: [],
+    },
+    reportHeaders: {
+      loading: false,
+      error: null,
+      results: {},
     },
     columnsMetadata: {
       loading: false,
@@ -177,6 +184,24 @@ export default handleActions<Immutable.Immutable<ReportingStateV2>, any>(
           ...payload,
         }),
       ),
+    [reportHeadersDetailV2.success.toString()]: (
+      state,
+      { payload }: { payload: ReportHeader },
+    ) => {
+      return state.setIn(['reportHeaders', 'results'], payload);
+    },
+    [reportHeadersDetailV2.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['reportHeaders', 'loading'], payload);
+    },
+    [reportHeadersDetailV2.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['reportHeaders', 'error'], payload);
+    },
   },
   initialState,
 );

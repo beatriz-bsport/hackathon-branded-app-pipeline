@@ -47,3 +47,6 @@ export const getReportFilterConfigs = createSelector(
           !!reportFilterConfig && reportFilterConfig.report === reportId,
       ),
 );
+
+export const getReportHeader = (state: RootState) =>
+  _getReportV2State(state).reportHeaders;

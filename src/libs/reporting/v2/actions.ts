@@ -1,5 +1,7 @@
 import { createAction } from 'redux-actions';
 import type {
+  ReportHeader,
+  ReportHeaderQueryParams,
   ReportMetadataValue,
   ReportConfiguration,
   ReportFilterConfigParams,
@@ -13,6 +15,7 @@ import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 
 import {
   fetchDefaultReports as fetchDefaultReportsAPI,
+  fetchReportHeadersV2 as fetchReportHeadersV2API,
   fetchReportMetadataV2 as fetchReportMetadataV2API,
   fetchReportFilterConfigList as fetchReportFilterConfigListAPI,
   createReportFilterConfig as createReportFilterConfigAPI,
@@ -200,5 +203,27 @@ export function editReportFilterConfig(
       dispatch(editReportFilterConfigActionsV2.error(error));
     }
     dispatch(editReportFilterConfigActionsV2.isLoading(false));
+  };
+}
+export const reportHeadersDetailV2 = {
+  error: createAction<Error | null>('REPORT-V2/HEADERS/ERROR'),
+  isLoading: createAction<boolean>('REPORT-V2/HEADERS/IS_LOADING'),
+  success: createAction<ReportHeader>('REPORT-V2/HEADERS/SUCCESS'),
+};
+
+export function fetchReportHeaders(
+  reportId: number,
+  params: ReportHeaderQueryParams,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(reportHeadersDetailV2.isLoading(true));
+    dispatch(reportHeadersDetailV2.error(null));
+    try {
+      const response = await fetchReportHeadersV2API(reportId, params);
+      dispatch(reportHeadersDetailV2.success(response.data));
+    } catch (err) {
+      dispatch(reportHeadersDetailV2.error(err));
+    }
+    dispatch(reportHeadersDetailV2.isLoading(false));
   };
 }

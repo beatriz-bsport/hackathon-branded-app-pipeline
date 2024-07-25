@@ -81,6 +81,7 @@ export type ReportingStateV2 = {
     allIds: number[];
   } & ErrorAndLoading;
   columnsMetadata: { results: ReportMetadataValue[] } & ErrorAndLoading;
+  reportHeaders: { results: ReportHeader } & ErrorAndLoading;
   reportFilterConfigs: {
     byId: Record<number, ReportFilterConfig>;
     allIds: number[];
@@ -130,6 +131,16 @@ export type ReportHeader = {
     datatype: string;
     column_value: null | number;
   }[];
+};
+
+export type ReportHeaderQueryParams = {
+  date_start?: string;
+  date_end?: string;
+  report_filter_config_id?: number;
+  page_size?: number;
+  page?: number;
+  time_window_start?: string;
+  time_window_end?: string;
 };
 
 export type ReportMetadataColumn = {

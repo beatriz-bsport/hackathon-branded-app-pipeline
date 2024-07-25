@@ -1,5 +1,7 @@
 import type {
   ReportConfiguration,
+  ReportHeader,
+  ReportHeaderQueryParams,
   ReportMetadataValue,
   ReportFilterConfigParams,
   ReportFilterConfig,
@@ -57,3 +59,14 @@ export const editReportFilterConfig = (
     `${API_URI}/reporting/report-filter-config/${reportFilterConfigId}/`,
     data,
   );
+
+export const fetchReportHeadersV2 = (
+  reportId: number,
+  params: ReportHeaderQueryParams,
+) => {
+  return getAuth<ReportHeader>(
+    `${API_URI}/reporting/reports-v2/${reportId}/generate_headers/${buildUrlParams(
+      params,
+    )}`,
+  );
+};

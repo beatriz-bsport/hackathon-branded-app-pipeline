@@ -122,7 +122,7 @@ const TagSelector: React.FC<Props> = ({
 
   const tagListOptions = React.useMemo(
     () =>
-      [...allTagsWithTagGroup]?.map((tag) => ({
+      (allTagsWithTagGroup ?? []).map((tag) => ({
         label: tag.name,
         value: tag.id,
         tag: tag,
@@ -151,7 +151,7 @@ const TagSelector: React.FC<Props> = ({
   );
 
   const tagGroupedByTagGroup = React.useMemo(() => {
-    const tagGroupByGroup = [...(allTagsWithTagGroup ?? [])].reduce(
+    const tagGroupByGroup = (allTagsWithTagGroup ?? []).reduce(
       (accumulator, tagItem) => {
         const temp = accumulator.findIndex(
           (group) => group.id === tagItem.group.id,
@@ -184,7 +184,7 @@ const TagSelector: React.FC<Props> = ({
   }, [allTagsWithTagGroup]);
 
   const onChangeExclusive = React.useCallback(
-    (selectedOptions: TagOption[]) => {
+    (selectedOptions: TagOption[] = []) => {
       if (!selectedOptions.length) {
         onChange(selectedOptions);
       } else {
@@ -315,16 +315,14 @@ const TagSelector: React.FC<Props> = ({
 
   React.useEffect(() => {
     if (variant === 'exclusive') {
-      !!allTagsWithTagGroup &&
-        !!selectedTags &&
-        setSelectedTagsByTagGroup(
-          [...allTagsWithTagGroup]?.reduce<FranchiseUserTagDict>((acc, tag) => {
-            if ([...selectedTags]?.includes(tag.id)) {
-              acc[tag.group.id] = tag.id;
-            }
-            return acc;
-          }, {}),
-        );
+      setSelectedTagsByTagGroup(
+        (allTagsWithTagGroup ?? []).reduce<FranchiseUserTagDict>((acc, tag) => {
+          if ((selectedTags ?? []).includes(tag.id)) {
+            acc[tag.group.id] = tag.id;
+          }
+          return acc;
+        }, {}),
+      );
     }
   }, [selectedTags, allTagsWithTagGroup, setSelectedTagsByTagGroup, variant]);
 

@@ -13,6 +13,7 @@ import { getResultsBySelectorId } from '#src/libs/fuzzy-search/selectors';
 
 import {
   getReportCategoriesMetadata,
+  getReportHeader,
   getReportFilterConfigs,
   getReportFilterConfigLoading,
 } from '#src/libs/reporting/v2/selectors';
@@ -20,6 +21,7 @@ import {
 import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress';
 
 import {
+  fetchReportHeaders as fetchReportHeadersAction,
   fetchReportMetadata as fetchReportMetadataAction,
   fetchReportFilterConfigList as fetchReportFilterConfigListAction,
   editReportFilterConfig as editReportFilterConfigAction,
@@ -46,6 +48,7 @@ const ReportingDetail: React.FC<Props> = ({
   dynamicDataHasBeenLoaded,
   editReportFilterConfig,
   fetchReportFilterConfigList,
+  fetchReportHeaders,
   fetchReportMetadata,
   getReportSearchResults,
   handleGetDynamicDataForFilters,
@@ -53,6 +56,7 @@ const ReportingDetail: React.FC<Props> = ({
   reportCategoriesMetadata,
   reportFilterConfigLoading,
   reportFilterConfigs,
+  reportHeaders,
   reportId,
   resetDynamicDataHasBeenLoaded,
   updateReport,
@@ -74,6 +78,17 @@ const ReportingDetail: React.FC<Props> = ({
     [categoryName, reportCategoriesMetadata],
   );
 
+  const handleGeneration = React.useCallback(() => {
+    fetchReportHeaders(reportId, {
+      // ARGS TO CHANGE WITH DATE SELECTORS IMPLEMENTATION
+      date_start: '2024-07-12',
+      date_end: '2024-07-19',
+      time_window_start: '00:00',
+      time_window_end: '23:59',
+      time_period: 'custom',
+    });
+  }, [fetchReportHeaders, reportId]);
+
   if (reportFilterConfigLoading || reportCategoriesMetadata.loading) {
     return <LinearProgress />;
   }
@@ -89,12 +104,16 @@ const ReportingDetail: React.FC<Props> = ({
       createReportFilterConfig={createReportFilterConfig}
       dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
       editReportFilterConfig={editReportFilterConfig}
+      // TODO: add export action
+      handleExport={() => {}}
+      handleGeneration={handleGeneration}
       handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
       pushRouter={pushRouter}
       report={report}
       reportCategoriesMetadata={reportCategoriesMetadata}
       reportCategoryMetadata={reportCategoryMetadata}
       reportFilterConfigs={reportFilterConfigs}
+      reportHeaders={reportHeaders.results}
       reportId={reportId}
       updateReport={updateReport}
     />
@@ -105,6 +124,7 @@ const connector = connect(
   (state: RootState, { reportId }: { reportId: number }) => ({
     getReportSearchResults: getResultsBySelectorId(state, 'reportV2', 'default')
       .results,
+    reportHeaders: getReportHeader(state),
     reportFilterConfigs: getReportFilterConfigs(state, reportId),
     reportFilterConfigLoading: getReportFilterConfigLoading(state),
     reportCategoriesMetadata: getReportCategoriesMetadata(state),
@@ -114,6 +134,7 @@ const connector = connect(
     createReportFilterConfig: createReportFilterConfigAction,
     editReportFilterConfig: editReportFilterConfigAction,
     fetchReportFilterConfigList: fetchReportFilterConfigListAction,
+    fetchReportHeaders: fetchReportHeadersAction,
     fetchReportMetadata: fetchReportMetadataAction,
     pushRouter: push,
     updateReport: updateReportAction,

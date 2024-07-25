@@ -15,13 +15,44 @@ const CardHeaders: React.FC<{
     datatype: string;
     column_value: null | number;
   }[];
-}> = React.memo(({ headerDetails, headerTitle }) => {
+  v2?: boolean;
+}> = React.memo(({ headerDetails, headerTitle, v2 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
 
   const converters = (headerDetails || []).map((detail) =>
     getConverter(detail, classes, t),
   );
+
+  if (v2) {
+    return (
+      <div>
+        <Typography className={classes.headerSectionTitle} variant="h6">
+          {t(`header.${(headerTitle || '').toLowerCase()}`)}
+        </Typography>
+        <Grid container direction="row" spacing={2}>
+          {headerDetails.map((detail, index) => {
+            return (
+              <Grid key={index} item alignItems="stretch" lg={2} md={4} xs={6}>
+                <Card elevation={0}>
+                  <Typography color="textSecondary" variant="subtitle2">
+                    {t(`columns.${detail.column_identifier}`)}
+                  </Typography>
+                  <Typography
+                    variant="h5"
+                    {...(converters[index](detail.column_value).cellProps ||
+                      {})}
+                  >
+                    {converters[index](detail.column_value).value}
+                  </Typography>
+                </Card>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -33,26 +64,15 @@ const CardHeaders: React.FC<{
           return (
             <Grid key={index} item alignItems="stretch" lg={2} md={4} xs={6}>
               <Card className={classes.cardStyle} elevation={1}>
-                <Typography variant="body2">
+                <Typography color="textPrimary" variant="body2">
                   {t(`columns.${detail.column_identifier}`)}
                 </Typography>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                    width: '100%',
-                    paddingLeft: '2',
-                  }}
+                <Typography
+                  variant="h5"
+                  {...(converters[index](detail.column_value).cellProps || {})}
                 >
-                  <Typography
-                    variant="h5"
-                    {...(converters[index](detail.column_value).cellProps ||
-                      {})}
-                  >
-                    {converters[index](detail.column_value).value}
-                  </Typography>
-                </div>
+                  {converters[index](detail.column_value).value}
+                </Typography>
               </Card>
             </Grid>
           );
@@ -64,8 +84,32 @@ const CardHeaders: React.FC<{
 
 const ReportTableHeaders: React.FC<{
   reportHeaders: ReportHeader;
-}> = ({ reportHeaders }) => {
+  v2?: boolean;
+}> = ({ reportHeaders, v2 = false }) => {
   const classes = useStyles();
+
+  if (v2) {
+    return (
+      <div>
+        {!!reportHeaders?.averageable?.length &&
+          reportHeaders.averageable.length > 0 && (
+            <CardHeaders
+              headerDetails={reportHeaders.averageable}
+              headerTitle="average"
+              v2={v2}
+            />
+          )}
+        {!!reportHeaders?.averageable?.length &&
+          reportHeaders.averageable.length > 0 && (
+            <CardHeaders
+              headerDetails={reportHeaders.summable}
+              headerTitle="sum"
+              v2={v2}
+            />
+          )}
+      </div>
+    );
+  }
 
   return (
     <div className={classes.container}>

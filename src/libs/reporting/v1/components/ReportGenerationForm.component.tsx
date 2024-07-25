@@ -17,7 +17,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+
 // @ts-expect-error
 import { Submit, defaultHandleSubmit } from '#src/components/forms';
 import DateRangeSelector from '#src/components/date/DateRangeSelector.component';
@@ -36,6 +36,7 @@ import type {
   ReportMetadataValue,
 } from '#src/libs/reporting/common/types';
 import ReportFilterConfigSelector from './ReportFilterConfigSelector.component';
+import { CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES } from '#src/libs/reporting/common/constants';
 
 type Props = {
   columnsMetadata: ReportMetadataValue[];
@@ -75,44 +76,6 @@ type DownloadButtonProps = {
   timeWindowFilteringEnabled: boolean;
   values: any;
 };
-
-const CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES = [
-  ReportCategoryEnum.ACTIVITIES,
-  ReportCategoryEnum.ACTIVITY_BY_COACH,
-  ReportCategoryEnum.ACTIVITY_BY_ESTABLISHMENT,
-  ReportCategoryEnum.BILLING_PLAN,
-  ReportCategoryEnum.BOOKINGS,
-  ReportCategoryEnum.CASHBOOK,
-  ReportCategoryEnum.CONSUMER_GIFTCARD,
-  ReportCategoryEnum.DAY_BOOKINGS,
-  ReportCategoryEnum.DISCOUNT,
-  ReportCategoryEnum.DISPUTE,
-  ReportCategoryEnum.EXPENSE,
-  ReportCategoryEnum.EXPIRED_PASS,
-  ReportCategoryEnum.FIRST_ATTENDANCE,
-  ReportCategoryEnum.FIRST_BOOKING,
-  ReportCategoryEnum.FIRST_PRIVATE_BOOKING,
-  ReportCategoryEnum.INVOICES,
-  ReportCategoryEnum.MEMBERS,
-  ReportCategoryEnum.MEMBERSHIPS,
-  ReportCategoryEnum.OFFERS,
-  ReportCategoryEnum.ON_SPOT_PAYMENTS,
-  ReportCategoryEnum.PAYMENT_INSTALMENTS,
-  ReportCategoryEnum.PAYMENT_SUMUP,
-  ReportCategoryEnum.PAYMENTS,
-  ReportCategoryEnum.PRIVATE_BOOKINGS,
-  ReportCategoryEnum.PRIVATE_CONSUMER_PASS_EXPIRED,
-  ReportCategoryEnum.PRIVATE_CONSUMER_PASS,
-  ReportCategoryEnum.PRIVATE_SERVICE,
-  ReportCategoryEnum.REFERRAL_GRANT,
-  ReportCategoryEnum.SHOP,
-  ReportCategoryEnum.SUBSCRIPTION,
-  ReportCategoryEnum.UNIVERSAL_PASSES,
-  ReportCategoryEnum.UNPAID_PRIVATE_BOOKINGS,
-  ReportCategoryEnum.VIDEO_PURCHASE,
-  ReportCategoryEnum.WORKSHOP,
-  ReportCategoryEnum.ACCESS_MONITORING,
-];
 
 const ReportGenerationSchema = Yup.object().shape({
   dateStart: Yup.string().required('required'),

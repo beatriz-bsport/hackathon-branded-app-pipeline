@@ -40,3 +40,32 @@ export const reportDetailHeaderTheme = createTheme({
     },
   },
 });
+
+export const reportDetailContentTheme = createTheme({
+  overrides: {
+    MuiPaper: {
+      root: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: defaultTheme.spacing(3),
+      },
+    },
+  },
+});
+
+export const cardHeaderStatsTheme = createTheme({
+  overrides: {
+    MuiTypography: {
+      subtitle2: { textAlign: 'center' },
+      h5: { textAlign: 'center' },
+    },
+    MuiCard: {
+      root: { borderLeft: 0, padding: defaultTheme.spacing(1, 0) },
+    },
+    MuiPaper: {
+      root: {
+        backgroundColor: '#F8F8F8',
+      },
+    },
+  },
+});

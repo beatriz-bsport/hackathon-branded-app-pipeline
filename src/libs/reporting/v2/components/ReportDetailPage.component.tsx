@@ -6,12 +6,14 @@ import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/
 import ReportDetailHeader from '#src/libs/reporting/v2/components/ReportDetailHeader.component';
 import ReportDetailDrawer from '#src/libs/reporting/v2/components/ReportDetailDrawer.component';
 import ReportDetailCreateModal from '#src/libs/reporting/v2/components/ReportDetailCreateModal.component';
+import ReportDetailContent from '#src/libs/reporting/v2/components/ReportDetailContent';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 import type {
   ReportConfiguration,
   ReportFilterConfig,
+  ReportHeader,
   ReportMetadataValue,
   ReportFilterConfigCreateData,
   ReportFilterConfigConfig,
@@ -39,6 +41,8 @@ type Props = {
     data: Partial<ReportFilterConfig>,
     options?: OptionCallback<ReportFilterConfig>,
   ) => void;
+  handleExport: () => void;
+  handleGeneration: () => void;
   pushRouter: (path: string) => CallHistoryMethodAction<[string, unknown?]>;
   report: ReportConfiguration;
   reportCategoriesMetadata: {
@@ -46,6 +50,7 @@ type Props = {
   } & ErrorAndLoading;
   reportCategoryMetadata: ReportMetadataValue;
   reportFilterConfigs: ReportFilterConfig[];
+  reportHeaders: ReportHeader;
   reportId: number;
   updateReport: (
     reportId: number,
@@ -60,12 +65,15 @@ const ReportDetailPage: React.FC<Props> = ({
   createReportFilterConfig,
   dynamicDataHasBeenLoaded,
   editReportFilterConfig,
+  handleExport,
+  handleGeneration,
   handleGetDynamicDataForFilters,
   pushRouter,
   report,
   reportCategoriesMetadata,
   reportCategoryMetadata,
   reportFilterConfigs,
+  reportHeaders,
   reportId,
   updateReport,
 }) => {
@@ -193,6 +201,14 @@ const ReportDetailPage: React.FC<Props> = ({
           pushRouter={pushRouter}
           reportId={reportId}
           upsertActionsDisabled={reportCategoriesMetadata.loading}
+        />
+        <ReportDetailContent
+          categoryName={categoryName}
+          handleExport={handleExport}
+          handleGeneration={handleGeneration}
+          loading={reportCategoriesMetadata.loading || !report}
+          report={report}
+          reportHeaders={reportHeaders}
         />
       </div>
     </>

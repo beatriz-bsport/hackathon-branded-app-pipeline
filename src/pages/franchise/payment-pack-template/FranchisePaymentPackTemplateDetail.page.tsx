@@ -43,10 +43,9 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import withTitle from '../../../hocs/with-title.hoc';
 
 import { openNewWindowToImpersonate } from '#src/utils/windows';
+import { TEMPLATE_CONSUMER_PACK_PAGINATION_SIZE } from '#src/libs/payment-packs/constants';
 
 type OwnProps = { paymentPackTemplateId: number };
-
-const CONSUMER_PACK_PAGINATION_SIZE = 30;
 
 type Props = OwnProps &
   WithTranslation &
@@ -101,7 +100,7 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
             {/* @ts-expect-error */}
             <PaginatedConsumerPackList
               allowedFranchisees={this.props.allowedFranchisees}
-              itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
+              itemPerPage={TEMPLATE_CONSUMER_PACK_PAGINATION_SIZE}
               items={this.props.consumerPaymentPack.items}
               loading={this.props.consumerPaymentPack.loading}
               nbItems={this.props.consumerPaymentPack.count}

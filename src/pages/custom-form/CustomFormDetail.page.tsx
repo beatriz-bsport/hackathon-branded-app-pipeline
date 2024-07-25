@@ -87,9 +87,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
     this.props.fetchTags();
     this.props.fetchAllCustomFormDisplayRule();
     this.props.fetchCompanyCustomSignUp({ company: this.props.theme.company });
-    this.props.fetchCompanyCustomMemberForm({
-      company: this.props.theme.company,
-    });
+    this.props.fetchCompanyCustomMemberForm(this.props.theme.company);
   }
 
   handleUpdateView = async (customFormRefresh: CustomForm) => {

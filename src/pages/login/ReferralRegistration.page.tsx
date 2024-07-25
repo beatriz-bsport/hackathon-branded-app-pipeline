@@ -103,13 +103,13 @@ export class ReferralRegistration extends Component<Props, State> {
         this.props.fetchCompanyTheme(referralLinkStatus.company_id);
         if (this.props.authenticated) {
           this.props.fetchMyUserProfile();
-          this.props.fetchCompanyCustomMemberForm({
-            company: this.props.referralLinkStatus.company_id,
-            options: {
+          this.props.fetchCompanyCustomMemberForm(
+            this.props.referralLinkStatus.company_id,
+            {
               onSuccess: () => this.setState({ initialLoading: false }),
               onError: () => this.setState({ initialLoading: false }),
             },
-          });
+          );
         } else {
           this.props.fetchCompanyCustomSignUp({
             company: referralLinkStatus.company_id,

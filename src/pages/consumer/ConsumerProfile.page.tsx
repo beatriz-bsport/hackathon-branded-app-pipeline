@@ -106,9 +106,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
   fetchData = () => {
     this.props.fetchMember(this.props.membership.id);
     this.props.fetchMemberPaymentMethod();
-    this.props.fetchCompanyCustomMemberForm({
-      company: this.props.membership.company,
-    });
+    this.props.fetchCompanyCustomMemberForm(this.props.membership.company);
     this.props.fetchMyUserProfile();
     if (this.props.theme.is_referral_program_activated) {
       this.props.retrieveReferralProgramForCompany(

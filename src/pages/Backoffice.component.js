@@ -521,9 +521,7 @@ export class Backoffice extends Component<Props, State> {
       this.props.fetchCompanyCustomSignUp({
         company: this.props.theme.company,
       });
-      this.props.fetchCompanyCustomMemberForm({
-        company: this.props.theme.company,
-      });
+      this.props.fetchCompanyCustomMemberForm(this.props.theme.company);
     }
     this.props.retrieveStripeCompany();
     this.props.retrievePlatformSubscriptionPaymentStatus({

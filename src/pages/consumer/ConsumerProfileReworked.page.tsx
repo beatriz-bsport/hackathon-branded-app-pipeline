@@ -54,9 +54,9 @@ class ConsumerProfileReworked extends React.Component<Props> {
     if (this.props.membership?.id) {
       this.props.fetchMember(this.props.membership.id, {}, { me: true });
       this.fetchMemberPaymentMethod();
-      this.props.fetchCompanyCustomMemberForm({
-        company: this.props.companyId ?? this.props.membership.company,
-      });
+      this.props.fetchCompanyCustomMemberForm(
+        this.props.companyId ?? this.props.membership.company,
+      );
       this.props.fetchMyUserProfile();
     }
   }

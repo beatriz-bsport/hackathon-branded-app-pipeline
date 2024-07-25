@@ -46,7 +46,7 @@ export async function fetchCompanyCustomFormSignUp(company?: number) {
 }
 
 export async function fetchCompanyCustomMemberForm(company: number) {
-  return getAuth(
+  return getAuth<CustomForm>(
     `${API_V1_URI}/custom_form/custom_form/get_company_custom_member_form/${buildUrlParams(
       {
         company,

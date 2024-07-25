@@ -620,30 +620,28 @@ export function fetchCompanyCustomSignUp({
 }
 
 export const fetchCompanyCustomMemberFormActions = {
-  isLoading: createAction('CUSTOM_FORM_MEMBER/RETRIEVE/IS_LOADING'),
-  error: createAction('CUSTOM_FORM_MEMBER/RETRIEVE/ERROR'),
-  success: createAction('CUSTOM_FORM_MEMBER/RETRIEVE/SUCCESS'),
+  isLoading: createAction<boolean>('CUSTOM_FORM_MEMBER/RETRIEVE/IS_LOADING'),
+  error: createAction<Error | null>('CUSTOM_FORM_MEMBER/RETRIEVE/ERROR'),
+  success: createAction<CustomForm>('CUSTOM_FORM_MEMBER/RETRIEVE/SUCCESS'),
 };
-export function fetchCompanyCustomMemberForm({
-  company,
-  options,
-}: {
-  company?: number;
-  options?: OptionCallback;
-}) {
+export function fetchCompanyCustomMemberForm(
+  companyId: number,
+  options?: OptionCallback<CustomForm>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchCompanyCustomMemberFormActions.isLoading(true));
     dispatch(fetchCompanyCustomMemberFormActions.error(null));
     try {
-      const response = await fetchCompanyCustomMemberFormAPI(company);
+      const response = await fetchCompanyCustomMemberFormAPI(companyId);
       dispatch(fetchCompanyCustomMemberFormActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(fetchCompanyCustomMemberFormActions.error(err));
-      if (options && options.onError) options.onError();
+      options?.onError?.();
+    } finally {
+      dispatch(fetchCompanyCustomMemberFormActions.isLoading(false));
     }
-    dispatch(fetchCompanyCustomMemberFormActions.isLoading(false));
   };
 }
 

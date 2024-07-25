@@ -50,9 +50,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
   componentDidMount() {
     if (this.props.companyId) {
       this.props.fetchMembershipByCompany(this.props.companyId);
-      this.props.fetchCompanyCustomMemberForm({
-        company: this.props.companyId,
-      });
+      this.props.fetchCompanyCustomMemberForm(this.props.companyId);
       this.props.retrieveCompanyCssConfiguration(this.props.companyId);
       if (this.props.authenticated) {
         this.props.requestMembershipValidation({
@@ -113,9 +111,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
   componentDidUpdate(prevProps: Props) {
     if (this.props.companyId !== prevProps.companyId && this.props.companyId) {
       this.props.fetchMembershipByCompany(this.props.companyId);
-      this.props.fetchCompanyCustomMemberForm({
-        company: this.props.companyId,
-      });
+      this.props.fetchCompanyCustomMemberForm(this.props.companyId);
     }
     if (
       this.props.authenticated &&

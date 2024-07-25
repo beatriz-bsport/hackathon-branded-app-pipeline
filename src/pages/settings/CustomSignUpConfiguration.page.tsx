@@ -64,9 +64,7 @@ type Props = OwnAndConnectedProps &
 export class FormsConfiguration extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchCompanyCustomSignUp({ company: this.props.theme.company });
-    this.props.fetchCompanyCustomMemberForm({
-      company: this.props.theme.company,
-    });
+    this.props.fetchCompanyCustomMemberForm(this.props.theme.company);
     this.props.fetchTags();
   }
 
@@ -301,7 +299,7 @@ const mapWithHandlers = {
       onSuccess: () => {
         props.setSubmitting(false);
         props.fetchCompanyCustomSignUp({ company: props.theme.company });
-        props.fetchCompanyCustomMemberForm({ company: props.theme.company });
+        props.fetchCompanyCustomMemberForm(props.theme.company);
       },
       onError: () => props.setSubmitting(false),
     });

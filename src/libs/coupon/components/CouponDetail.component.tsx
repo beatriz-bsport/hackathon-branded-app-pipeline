@@ -60,15 +60,21 @@ const CouponDetail: React.FC<Props> = ({
   const classes = useStyles();
 
   const getListItemRenderer = useCallback(
-    (hasReadInvoicePermission: boolean) => (discount: Discount) =>
+    (hasReadInvoicePermission: boolean) =>
       (
-        <DiscountListItem
-          divider
-          discount={discount}
-          goToBillingPlan={goToBillingPlan}
-          goToInvoice={hasReadInvoicePermission && goToInvoice}
-        />
-      ),
+        discount: Discount,
+        index: number,
+        page: number,
+        isLastItemOfTheList: boolean,
+      ) =>
+        (
+          <DiscountListItem
+            discount={discount}
+            divider={!isLastItemOfTheList}
+            goToBillingPlan={goToBillingPlan}
+            goToInvoice={hasReadInvoicePermission && goToInvoice}
+          />
+        ),
     [goToBillingPlan, goToInvoice],
   );
 

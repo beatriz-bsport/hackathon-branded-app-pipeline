@@ -16,21 +16,25 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import { withTranslation, TFunction } from 'react-i18next';
 
 type Props = {
-  items: Array<any>,
-  renderItem: (any, number, number) => HTMLElement,
-  renderEmpty?: () => void,
-  listProps: any,
-  nbItems: number,
-  itemPerPage: number,
   additionalFilters: ?any,
-  unknownNbItems?: boolean,
-  page: number,
-  loading: ?boolean,
-  onPageRequested: (page: number | null, page_size?: number) => void,
-  renderCustomPageFirst?: boolean,
-
-  t: TFunction,
   classes: any,
+  itemPerPage: number,
+  items: any[],
+  listProps: any,
+  loading: ?boolean,
+  nbItems: number,
+  page: number,
+  renderCustomPageFirst?: boolean,
+  t: TFunction,
+  unknownNbItems?: boolean,
+  onPageRequested: (page: number | null, page_size?: number) => void,
+  renderEmpty?: () => void,
+  renderItem: (
+    item: any,
+    index: number,
+    page: number,
+    isLastItemOfTheList: boolean,
+  ) => HTMLElement,
 };
 
 type State = {
@@ -108,7 +112,12 @@ export class PaginatedList extends PureComponent<Props, State> {
       <div style={{ width: '100%' }}>
         <List {...this.props.listProps}>
           {this.props.items.map((i, idx) =>
-            this.props.renderItem(i, idx, this.props.page),
+            this.props.renderItem(
+              i,
+              idx,
+              this.props.page,
+              this.props.items.length - 1 == idx,
+            ),
           )}
           {!this.props.loading && this.props.items.length === 0
             ? this.renderEmpty()

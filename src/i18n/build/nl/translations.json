@@ -5374,7 +5374,7 @@
                         "second": "dagen"
                     },
                     "9": {
-                        "first": "voor",
+                        "first": "voordat deze",
                         "second": "dagen"
                     },
                     "10": {
@@ -6184,7 +6184,7 @@
             "deleteModal": {
                 "content2": "Bestaande sessies die aan dit niveau gekoppeld zijn worden niet gewijzigd. Toekomstige sessies worden wel bewerkt.",
                 "content": "Weet je zeker dat je dit niveau wilt verwijderen?",
-                "title": "Bevestigen"
+                "title": "Verwijderen"
             },
             "modal": {
                 "submit": "Opslaan",

@@ -7044,7 +7044,7 @@
         },
         "massDisabler": {
             "success": "Annulation confirmée",
-            "confirmationExplain": "Veuillez écrire ci-dessous en lettre capitale \"JE CONFIRME\".",
+            "confirmationExplain": "Veuillez écrire ci-dessous en lettres capitales \"JE CONFIRME\".",
             "iConfirm": "JE CONFIRME",
             "successInfo": "La suppression de toutes les séances entre le {{start_date}} et le {{end_date}} a bien été prise en compte.",
             "confirm": "Confirmer",

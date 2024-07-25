@@ -1981,7 +1981,7 @@
                     "min_bookings_nb": "Anzahl der Buchung(en):",
                     "emailRecipients": "Diese E-Mail wird an Mitarbeiter mit der Rolle \"Leiter\" oder \"Administrator\" sowie an die Lehrkraft (oder Vertretungslehrkraft) des betroffenen Kurses gesendet.",
                     "checkbox": "Storniere den Kurs automatisch, wenn zu wenige Buchungen vorliegen",
-                    "explain": "Der Kurs wird storniert, wenn weniger als {{bookings_nb}} Reservierung(en) {{hours}} Stunde(n) vor Beginn der Session vorliegen. Alle Mitglieder, die sich in diesen Kurs eingebucht haben, werden über die Absage des Kurses informiert."
+                    "explain": "Der Kurs wird storniert, wenn ≤ als{{bookings_nb}} Reservierung(en) {{hours}} Stunde(n) vor Beginn der Session vorliegen. Alle Mitglieder, die sich in diesen Kurs eingebucht haben, werden über die Absage des Kurses informiert."
                 }
             }
         },
@@ -2200,7 +2200,7 @@
                     },
                     "9": {
                         "second": "Tagen",
-                        "first": "vor mehr als"
+                        "first": "es gibt mehr als"
                     },
                     "8": {
                         "second": "Tagen",
@@ -5860,7 +5860,7 @@
         },
         "noShowPenalty": {
             "block": "{{days_blocked}} Blockierungstage nach {{treshold}} Abwesenheiten in einem Zeitraum von {{time_window_days}} Tagen",
-            "account": "Eine Anzahlung von {{amount}} wird für {{treshold}} Abwesenheiten über einen Zeitraum von {{time_window_days}} Tagen erhoben."
+            "account": "Eine Zahlung von {{amount}} wird für {{treshold}} Abwesenheiten über einen Zeitraum von {{time_window_days}} Tagen erhoben."
         },
         "maxoutInfo": {
             "day": "Karte beschränkt auf {{count}} maximale Nutzung pro Tag",
@@ -17873,7 +17873,7 @@
                 "isMandatoryOnSignUp": "Dieses Feld ist bei der Anmeldung obligatorisch",
                 "waiver": "Haftungsverzichtserklärung",
                 "repeatPassword": "Bestätigen",
-                "general_terms_and_conditions": "Ich akzeptiere die Allgemeine Geschäftsbedingungen.",
+                "general_terms_and_conditions": "Ich akzeptiere die Allgemeinen Geschäftsbedingungen.",
                 "country": "Land",
                 "city": "Stadt",
                 "additional_adress": "Zusätzliche Adressinformationen",

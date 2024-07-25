@@ -52,7 +52,11 @@ import {
 
 import CLASSPASS_LOGO from './classpass.png';
 
+import { getCompanyUpsellData } from '#src/libs/company/selectors';
+import { hasUpsellIdentifier } from '#src/libs/role/utils';
+import { UPSELL_IDENTIFIER_WELLHUB } from '#src/libs/platform-billing/upsell-identifiers';
 import WellhubConfigurationPanel from '#src/libs/wellhub/components/WellhubConfigurationPanel';
+import type { UpsellSumup } from '#src/libs/company/types';
 
 type Props = {
   t: TFunction;
@@ -74,6 +78,8 @@ type Props = {
 
   associatedEstablishmentList: Array<AssociatedEstablishment>;
   partnershipEstablishmentMergeList: Array<PartnershipEstablishmentMerge>;
+
+  featureList: UpsellSumup[];
 
   fetchPartnershipEstablishmentMergeList: () => void;
 } & WithStyles;
@@ -117,6 +123,11 @@ export class Partnership extends React.Component<Props> {
       venueIds = `${this.props.classpass?.override_establishment_pk}`;
     }
 
+    const hasWellhubUpsell = hasUpsellIdentifier(
+      UPSELL_IDENTIFIER_WELLHUB,
+      this.props.featureList,
+    );
+
     return (
       <div className={this.props.classes.container}>
         {this.props.hasRequested ? (
@@ -132,7 +143,7 @@ export class Partnership extends React.Component<Props> {
           </Dialog>
         ) : null}
         {this.props.isSubmitting ? <LinearProgress /> : null}
-        <WellhubConfigurationPanel />
+        {hasWellhubUpsell && <WellhubConfigurationPanel />}
         <div className={this.props.classes.classpassContainer}>
           <div
             style={{ display: 'flex', alignItems: 'row', flexDirection: 'row' }}
@@ -241,6 +252,7 @@ export default compose(
         state.partnership.partnershipEstablishmentMerge.loading ||
         state.establishment.loading ||
         state.establishment.associatedEstablishment.loading,
+      featureList: getCompanyUpsellData(state),
     }),
     {
       fetchPartnershipList,

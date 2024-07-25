@@ -4,6 +4,7 @@ import {
   UPSELL_IDENTIFIER_QUICKBOOKS,
   UPSELL_IDENTIFIER_QUICKSALE,
   UPSELL_IDENTIFIER_VOD,
+  UPSELL_IDENTIFIER_WELLHUB,
   UPSELL_IDENTIFIER_WHEREBY,
 } from '#src/libs/platform-billing/upsell-identifiers';
 
@@ -19,9 +20,10 @@ export const DISPUTED_PAYMENT = 1;
  * that are in the beta testing phase and should not be visible in the 'available add-ons' section.
  */
 export const BETA_UPSELL_IDS = [
-  UPSELL_IDENTIFIER_QUICKSALE,
-  UPSELL_IDENTIFIER_CADENCE,
   UPSELL_IDENTIFIER_ACCESS_MONITORING,
+  UPSELL_IDENTIFIER_CADENCE,
+  UPSELL_IDENTIFIER_QUICKSALE,
+  UPSELL_IDENTIFIER_WELLHUB,
 ];
 
 /**
@@ -29,9 +31,9 @@ export const BETA_UPSELL_IDS = [
  * but should no longer be available for purchase anymore.
  */
 export const UNSUBSCRIBABLE_UPSELL_IDS = [
+  UPSELL_IDENTIFIER_QUICKBOOKS,
   UPSELL_IDENTIFIER_VOD,
   UPSELL_IDENTIFIER_WHEREBY,
-  UPSELL_IDENTIFIER_QUICKBOOKS,
 ];
 
 export const BLOCKER_FRAME_ID = 'blocker-frame';

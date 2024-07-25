@@ -736,7 +736,7 @@ export const listConsumerPaymentPackActions = {
 
 export function fetchConsumerPaymentPackList(
   params: any,
-  options: OptionCallback,
+  options: OptionCallback<ConsumerPaymentPackREST[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listConsumerPaymentPackActions.isLoading(true));
@@ -750,7 +750,6 @@ export function fetchConsumerPaymentPackList(
         }),
       );
       if (options && options.onSuccess) {
-        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {

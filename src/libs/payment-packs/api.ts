@@ -24,6 +24,7 @@ import type {
   PaymentPackMassExtensionCreate,
   PaymentPackMassExtensionParams,
   PaymentPackQueryParams,
+  PaymentPackTemplateAPI,
 } from './types';
 
 export async function fetchAllPaymentPacks() {
@@ -136,7 +137,9 @@ export async function retrievePaymentPackTemplate(id: number) {
   );
 }
 
-export async function createOrUpdatePaymentPackTemplate(data: any) {
+export async function createOrUpdatePaymentPackTemplate(
+  data: PaymentPackTemplateAPI,
+) {
   if (!data.id) {
     return postAuthDeprecated(
       `${API_V1_URI}/payment-pack/payment-pack-template/`,

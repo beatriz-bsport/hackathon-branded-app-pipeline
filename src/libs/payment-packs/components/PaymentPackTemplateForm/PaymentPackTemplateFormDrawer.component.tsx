@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -18,7 +18,10 @@ import type { OptionCallback } from '#src/state/types';
 type Props = {
   open?: boolean;
   onClose: () => void;
-  onSubmit: (data: any) => void;
+  onSubmit: (
+    data: PaymentPackTemplateAPI,
+    options: OptionCallback<PaymentPackTemplateAPI>,
+  ) => Promise<void>;
   handleSubmit: () => void;
   isSubmitting?: boolean;
   setSubmitting: (isSubmitting: boolean) => void;
@@ -75,7 +78,7 @@ const PaymentPackTemplateFormDrawer: React.FC<Props> = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   progress: {
     marginRight: theme.spacing(1),
   },

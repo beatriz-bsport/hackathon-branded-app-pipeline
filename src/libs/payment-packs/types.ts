@@ -188,6 +188,10 @@ export type PaymentPackTemplate = PaymentPackTemplateAPI & {
   companies: Array<Company>;
 };
 
+export type PaymentPackTemplateInstanceParams = {
+  companies: number[];
+};
+
 export type PaymentPackCategory = {
   id: number;
   name: string;

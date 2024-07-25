@@ -44,6 +44,7 @@ import {
   PaymentPackMassExtension,
   PaymentPackMassExtensionCreate,
   PaymentPackMassExtensionParams,
+  PaymentPackTemplateAPI,
 } from './types';
 // @ts-expect-error
 import { createDictionnaryById, createIdList } from '../../actions/utils';
@@ -775,8 +776,8 @@ export const createOrUpdatePaymentPackTemplateActions = {
 };
 
 export function createOrUpdatePaymentPackTemplate(
-  data: any = {},
-  options?: OptionCallback,
+  data: PaymentPackTemplateAPI,
+  options?: OptionCallback<PaymentPackTemplateAPI>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(createOrUpdatePaymentPackTemplateActions.error(null));

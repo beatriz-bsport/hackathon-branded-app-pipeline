@@ -22,7 +22,10 @@ import {
   PENALTY_KIND_NEGATIVE_ACCOUNT,
   PENALTY_MODE_FRANCHISOR_PRORATA,
 } from '#src/libs/payment-packs/constants';
-import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
+import type {
+  PaymentPackTemplate,
+  PaymentPackTemplateAPI,
+} from '#src/libs/payment-packs/types';
 import {
   VALID_BY_DATERANGE,
   VALID_BY_DURATION,
@@ -44,7 +47,10 @@ type WithState = {
 type Props = {
   initial?: PaymentPackTemplate;
   // eslint-disable-next-line react/no-unused-prop-types
-  onSubmit: (data: PaymentPackTemplate, options: OptionCallback) => void;
+  onSubmit: (
+    data: PaymentPackTemplateAPI,
+    options: OptionCallback<PaymentPackTemplateAPI>,
+  ) => Promise<void>;
   isUniversal?: boolean;
 };
 

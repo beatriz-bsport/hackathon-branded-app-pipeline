@@ -242,7 +242,6 @@ const mapWithHandlers = {
     (data: any, options: OptionCallback<PaymentPackTemplateAPI>) =>
       createOrUpdatePaymentPackTemplate(data, {
         onError: options && options.onError,
-        // @ts-expect-error
         onSuccess: (template: PaymentPackTemplateAPI) => {
           closeEditDialog();
           if (options && options.onSuccess) {
@@ -302,11 +301,9 @@ const mapWithHandlers = {
         {
           onSuccess: (consumerPackList) => {
             fetchPaymentPackBulk(
-              // @ts-expect-error
               consumerPackList.map((cpp) => cpp.payment_pack),
             );
             fetchFilteredMembers({
-              // @ts-expect-error
               id__in: consumerPackList.map((b: any) => b.member_id),
             });
           },

@@ -29,6 +29,8 @@ type Props = {
   memberName: string;
   /** A list of action buttons to display in the header */
   buttonsData?: HeaderButton[];
+  /** The number of products in the current member basket */
+  basketProductListCount?: number;
   redirectToCart: () => void;
   redirectToMyProfile: () => void;
 };
@@ -44,6 +46,7 @@ const ConsumerNavigation: React.FC<Props> = ({
   memberName,
   children,
   buttonsData,
+  basketProductListCount,
   buildUrl,
   redirectToCart,
   redirectToMyProfile,
@@ -67,6 +70,7 @@ const ConsumerNavigation: React.FC<Props> = ({
         onClick: redirectToCart,
         variant: isMobile ? 'text' : 'outlined',
         isIconButton: isMobile,
+        badgeValue: basketProductListCount,
       },
       {
         label: t('reworked.appbar.myAccount'),
@@ -77,7 +81,7 @@ const ConsumerNavigation: React.FC<Props> = ({
         isIconButton: isMobile,
       },
     ],
-    [isMobile, redirectToCart, redirectToMyProfile, t],
+    [basketProductListCount, isMobile, redirectToCart, redirectToMyProfile, t],
   );
 
   const navigationMenu = useNavigationData({

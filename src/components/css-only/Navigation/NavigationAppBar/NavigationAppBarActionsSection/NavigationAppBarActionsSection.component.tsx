@@ -36,6 +36,7 @@ const NavigationAppBarActionsSection: React.FC<
         return (
           <Button
             key={button.label}
+            badgeValue={button.badgeValue}
             color={button.color}
             leftIcon={button.leftIcon}
             onClick={button.onClick}

@@ -31,9 +31,15 @@ import {
 } from '../../libs/membership/actions';
 import { getOfferWithRelated } from '../../libs/offer/selectors';
 
-import { fetchBasketGeneratedObjects as fetchBasketGeneratedObjectsAction } from '../../libs/checkout/actions';
+import {
+  fetchBasketGeneratedObjects as fetchBasketGeneratedObjectsAction,
+  fetchCurrentBasket as fetchCurrentBasketAction,
+} from '../../libs/checkout/actions';
 import { fetchOfferBulk as fetchOfferBulkAction } from '../../libs/offer/actions';
-import { getBasketGeneratedObjects } from '../../libs/checkout/selectors';
+import {
+  getBasketGeneratedObjects,
+  getCurrentBasket,
+} from '../../libs/checkout/selectors';
 
 import { getTheme } from '../../theme';
 import themeSelectors from '../../libs/theme/selectors';
@@ -73,6 +79,7 @@ import {
   urlToMarketplaceSessionTab,
   urlToMarketplaceSubscriptionTab,
 } from '../../libs/marketplace/utils/navigation';
+import { getBasketBuyableItemsCount } from '../../libs/checkout/utils';
 
 const isWidget = WidgetUtils.isWidget();
 
@@ -196,6 +203,7 @@ export class ConsumerHome extends React.Component<Props> {
     }
     this.props.fetchMembershipListAsConsumer({ page_size: 1 });
     this.props.fetchCompanyTheme(this.props.companyId);
+    this.props.fetchCurrentBasket();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -320,6 +328,9 @@ export class ConsumerHome extends React.Component<Props> {
             {this.props.membership ? (
               displayReworkedMemberProfile ? (
                 <ConsumerNavigation
+                  basketProductListCount={getBasketBuyableItemsCount(
+                    this.props.currentBasket?.checkout_items ?? [],
+                  )}
                   buildUrl={this.props.buildUrl}
                   buttonsData={this.getConsumerMobileNavigationButtonsData()}
                   companyId={this.props.companyId}
@@ -577,6 +588,7 @@ export default compose(
         ? getOfferWithRelated(state, parseInt(from_direct_booking, 10))
         : null,
       marketplaceSettings: state.marketplace.settings,
+      currentBasket: getCurrentBasket(state),
     }),
     {
       linkMeToCompany,
@@ -601,6 +613,7 @@ export default compose(
       fetchMyControlableMemberList,
       navigateToRelationAccount: navigateToRelationAccountAction,
       navigateBackToMasterRelation: navigateBackToMasterRelationAction,
+      fetchCurrentBasket: fetchCurrentBasketAction,
     },
   ),
   withHandlers({

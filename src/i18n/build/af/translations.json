@@ -6511,11 +6511,34 @@
     "wellhub": {
       "title": "Wellhub",
       "configuration": {
+        "dialog": {
+          "title": {
+            "creation": "Add and link Unit ID with establishment(s)",
+            "edition": "Edit Unit ID",
+            "deletion": "Delete Unit ID"
+          },
+          "field": {
+            "unitId": {
+              "placeholder": "Unit ID number",
+              "error": { "required": "Unit ID is required", "positive": "Unit ID must be a positive number" }
+            },
+            "establishmentIds": {
+              "placeholder": "Link your bsport establishment(s)",
+              "title": "Establishments",
+              "error": { "required": "Please select at least one establishment" }
+            }
+          },
+          "action": { "back": "Back", "cancel": "Cancel", "confirm": "Confirm", "save": "Save" },
+          "unlink": {
+            "title": "You are about to unlink one or several establishments from Wellhub",
+            "text": "Upcoming sessions linked to those establishments will be deleted on Wellhub, and any Wellhub bookings will be lost"
+          }
+        },
         "panel": {
           "header": { "subtitle": "Link your sessions on bsport account with Wellhub" },
           "content": {
             "title": "Unit ID connection",
-            "helperText": "First request the integration with bsport on Wellhub's Partners Portal, for each Unit",
+            "helperText": "First, request the integration with bsport on Wellhub's Partners Portal, for each Unit",
             "table": { "column": { "unit": "Unit ID", "establishments": "Establishments" } }
           },
           "footer": { "addUnitButton": "Add Unit ID" }

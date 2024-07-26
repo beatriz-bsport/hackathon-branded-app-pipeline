@@ -119,6 +119,12 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
   const html =
     !emailDetailListLoading && emailDetailList?.[selectedTemplate]?.html;
 
+  React.useEffect(() => {
+    if (selectedTemplate) {
+      getEmailDetail(selectedTemplate);
+    }
+  }, [getEmailDetail, selectedTemplate]);
+
   return (
     <div className={classes.contentContainer}>
       <TextField

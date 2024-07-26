@@ -964,6 +964,7 @@ const getTranslations = async () => {
     },
     reportDetailContent: {
       title: 'Date and quick filters',
+      tableTitle: 'Detailed report',
     },
   };
 };

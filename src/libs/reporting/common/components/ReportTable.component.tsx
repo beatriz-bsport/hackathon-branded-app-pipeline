@@ -2,10 +2,12 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -34,6 +36,7 @@ import type {
 } from '#src/libs/reporting/common/types';
 
 type TableProps = {
+  className?: string;
   reportStoreRowsLoading: boolean;
   report: ReportConfiguration;
   result: SerializedRow[];
@@ -45,6 +48,7 @@ type TableProps = {
   handleGenerateNextPage: (data: any) => void;
   userPermissions: RolePermission;
   objectLevelPermissions: ObjectLevelPermissions;
+  v2?: boolean;
 };
 
 type PaginationProps = {
@@ -56,6 +60,55 @@ type PaginationProps = {
   handleGenerateNextPage: (data: any) => void;
   columnSpan: number;
 };
+
+const TablePaginationContent: React.FC<
+  Omit<PaginationProps, 'columnSpan'> & { isHeader?: boolean; v2?: boolean }
+> = React.memo(
+  ({
+    handleGenerateNextPage,
+    handleGeneratePreviousPage,
+    isHeader,
+    nextPage,
+    otherPages,
+    previousPage,
+    reportStoreRowsLoading,
+    v2,
+  }) => {
+    const { t } = useTranslation('reporting');
+    const classes = useTablePaginationActionsStyles({ isHeader });
+
+    return (
+      <div className={v2 ? classes.tableHeader : ''}>
+        {v2 && isHeader && (
+          <Typography variant="h6">
+            {t('reportDetailContent.tableTitle')}
+          </Typography>
+        )}
+        <div>
+          <IconButton
+            aria-label="previous page"
+            disabled={!previousPage || reportStoreRowsLoading}
+            onClick={handleGeneratePreviousPage}
+          >
+            <KeyboardArrowLeft />
+          </IconButton>
+          <Typography variant="caption">
+            {`Page ${nextPage ? nextPage - 1 : previousPage + 1}/${
+              otherPages ? Math.max(otherPages.length, 1) : 1
+            }`}
+          </Typography>
+          <IconButton
+            aria-label="next page"
+            disabled={!nextPage || reportStoreRowsLoading}
+            onClick={handleGenerateNextPage}
+          >
+            <KeyboardArrowRight />
+          </IconButton>
+        </div>
+      </div>
+    );
+  },
+);
 
 const TablePaginationActions: React.FC<PaginationProps> = ({
   reportStoreRowsLoading,
@@ -69,31 +122,21 @@ const TablePaginationActions: React.FC<PaginationProps> = ({
   return (
     <TableRow>
       <TableCell colSpan={columnSpan}>
-        <IconButton
-          aria-label="previous page"
-          disabled={!previousPage || reportStoreRowsLoading}
-          onClick={handleGeneratePreviousPage}
-        >
-          <KeyboardArrowLeft />
-        </IconButton>
-        <Typography variant="caption">
-          {`Page ${nextPage ? nextPage - 1 : previousPage + 1}/${
-            otherPages ? Math.max(otherPages.length, 1) : 1
-          }`}
-        </Typography>
-        <IconButton
-          aria-label="next page"
-          disabled={!nextPage || reportStoreRowsLoading}
-          onClick={handleGenerateNextPage}
-        >
-          <KeyboardArrowRight />
-        </IconButton>
+        <TablePaginationContent
+          handleGenerateNextPage={handleGenerateNextPage}
+          handleGeneratePreviousPage={handleGeneratePreviousPage}
+          nextPage={nextPage}
+          otherPages={otherPages}
+          previousPage={previousPage}
+          reportStoreRowsLoading={reportStoreRowsLoading}
+        />
       </TableCell>
     </TableRow>
   );
 };
 
 const ReportTable: React.FC<TableProps> = ({
+  className,
   reportStoreRowsLoading,
   report,
   result,
@@ -105,6 +148,7 @@ const ReportTable: React.FC<TableProps> = ({
   handleGenerateNextPage,
   userPermissions,
   objectLevelPermissions,
+  v2,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
@@ -163,64 +207,90 @@ const ReportTable: React.FC<TableProps> = ({
   }, [columns, report, objectLevelPermissions, result]);
 
   return (
-    <div className={classes.responsive}>
-      <Table>
-        <TableHead>
-          <TablePaginationActions
-            columnSpan={columns.length}
-            handleGenerateNextPage={handleGenerateNextPage}
-            handleGeneratePreviousPage={handleGeneratePreviousPage}
-            nextPage={nextPage}
-            otherPages={otherPages}
-            previousPage={previousPage}
-            reportStoreRowsLoading={reportStoreRowsLoading}
-          />
-          <TableRow>
-            {columns.map((column) => (
-              <TableCell key={column}>{t(`columns.${column}`)}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {result &&
-            resultsWithPermissions.map((serializedRow, index) => (
-              <ReportTableRow
-                key={index}
-                classes={classes}
-                columns={columns}
-                columnsConfigs={columnsConfigs}
-                converters={converters}
-                index={index}
-                objectLevelPermissions={objectLevelPermissions}
-                reportCategory={report.category}
+    <div className={className}>
+      {v2 && (
+        <TablePaginationContent
+          isHeader
+          handleGenerateNextPage={handleGenerateNextPage}
+          handleGeneratePreviousPage={handleGeneratePreviousPage}
+          nextPage={nextPage}
+          otherPages={otherPages}
+          previousPage={previousPage}
+          reportStoreRowsLoading={reportStoreRowsLoading}
+          v2={v2}
+        />
+      )}
+
+      <TableContainer>
+        <Table>
+          <TableHead>
+            {!v2 && (
+              <TablePaginationActions
+                columnSpan={columns.length}
+                handleGenerateNextPage={handleGenerateNextPage}
+                handleGeneratePreviousPage={handleGeneratePreviousPage}
+                nextPage={nextPage}
+                otherPages={otherPages}
+                previousPage={previousPage}
                 reportStoreRowsLoading={reportStoreRowsLoading}
-                serializedRow={serializedRow}
-                userPermissions={userPermissions}
               />
-            ))}
-        </TableBody>
-        {result && (
-          <TableFooter>
-            <TablePaginationActions
-              columnSpan={columns.length}
-              handleGenerateNextPage={handleGenerateNextPage}
-              handleGeneratePreviousPage={handleGeneratePreviousPage}
-              nextPage={nextPage}
-              otherPages={otherPages}
-              previousPage={previousPage}
-              reportStoreRowsLoading={reportStoreRowsLoading}
-            />
-          </TableFooter>
-        )}
-      </Table>
+            )}
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell key={column}>{t(`columns.${column}`)}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {result &&
+              resultsWithPermissions.map((serializedRow, index) => (
+                <ReportTableRow
+                  key={index}
+                  classes={classes}
+                  columns={columns}
+                  columnsConfigs={columnsConfigs}
+                  converters={converters}
+                  index={index}
+                  objectLevelPermissions={objectLevelPermissions}
+                  reportCategory={report.category}
+                  reportStoreRowsLoading={reportStoreRowsLoading}
+                  serializedRow={serializedRow}
+                  userPermissions={userPermissions}
+                />
+              ))}
+          </TableBody>
+          {!v2 && result && (
+            <TableFooter>
+              <TablePaginationActions
+                columnSpan={columns.length}
+                handleGenerateNextPage={handleGenerateNextPage}
+                handleGeneratePreviousPage={handleGeneratePreviousPage}
+                nextPage={nextPage}
+                otherPages={otherPages}
+                previousPage={previousPage}
+                reportStoreRowsLoading={reportStoreRowsLoading}
+              />
+            </TableFooter>
+          )}
+        </Table>
+      </TableContainer>
+
+      {v2 && result?.length && (
+        <TablePaginationContent
+          handleGenerateNextPage={handleGenerateNextPage}
+          handleGeneratePreviousPage={handleGeneratePreviousPage}
+          nextPage={nextPage}
+          otherPages={otherPages}
+          previousPage={previousPage}
+          reportStoreRowsLoading={reportStoreRowsLoading}
+          v2={v2}
+        />
+      )}
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  responsive: {
-    overflowX: 'auto',
-  },
   right: {
     textAlign: 'right',
   },
@@ -244,14 +314,20 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#EFEFEF',
     position: 'relative',
   },
-  tableFooter: {
-    width: '100%',
-    flexShrink: 0,
-    marginLeft: theme.spacing(2.5),
-  },
   cell: { whiteSpace: 'pre-line' },
   chipClickable: { cursor: 'pointer' },
   chipDefault: { cursor: 'default' },
+}));
+
+const useTablePaginationActionsStyles = makeStyles<
+  Theme,
+  { isHeader: boolean }
+>(() => ({
+  tableHeader: ({ isHeader }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: isHeader ? 'space-between' : 'flex-end',
+  }),
 }));
 
 export default React.memo(ReportTable);

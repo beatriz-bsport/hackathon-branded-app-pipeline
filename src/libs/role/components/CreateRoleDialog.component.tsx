@@ -31,16 +31,20 @@ import {
 import type { FeatureList } from '#src/libs/company/types';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
 import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#src/libs/platform-billing/upsell-identifiers';
-import { RolePermission, Role, ObjectLevelPermissions } from '../types';
-import { MaterialStyleType } from '../../../utils/types';
+import type {
+  RolePermission,
+  Role,
+  ObjectLevelPermissions,
+} from '#src/libs/role/types';
+import type { MaterialStyleType } from '#src/utils/types';
 import {
   deepMerge,
   deepMergeAndTrackMissingKeys,
   getRoleDescription,
   getRoleName,
   setAllValuesInObject,
-} from '../utils';
-import RecursiveCheckBoxComponent from './RecursiveCheckBox.component';
+} from '#src/libs/role/utils';
+import RecursiveCheckBoxComponent from '#src/libs/role/components/RecursiveCheckBox.component';
 
 type OwnProps = {
   featureList: FeatureList;
@@ -130,6 +134,10 @@ const getDefaultPermissions = (
       paymentPack: true,
       privatePass: true,
       shop: true,
+      shopReworked: {
+        products: true,
+        settings: true,
+      },
       packs: true,
       giftcards: true,
       promotions: true,
@@ -550,7 +558,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                 <div className={classes.marginTop1} />
                 {this.state.permissions.restrictedPaths.map((path, i) => {
                   return (
-                    <div className={classes.restrictedPathContainer}>
+                    <div key={path} className={classes.restrictedPathContainer}>
                       <TextField
                         fullWidth
                         disabled={disabled}

@@ -66,6 +66,10 @@ export type RolePermission = {
       paymentPack: boolean;
       privatePass: boolean;
       shop: boolean;
+      shopReworked: {
+        products: boolean;
+        settings: boolean;
+      };
       packs: boolean;
       giftcards: boolean;
       promotions: boolean;
@@ -302,6 +306,15 @@ export type ObjectLevelPermissions = {
         endAfterInvoiceBillingPlan: boolean;
       };
     };
+    shopReworked: {
+      allowed_actions: {
+        create: boolean;
+        edit: boolean;
+        delete: boolean;
+        editInventory: boolean;
+        editSettings: boolean;
+      };
+    };
   };
   management: {
     activity: {
@@ -520,6 +533,8 @@ export type ProtectedUrls =
   | '/settings/widget/customize-css'
   | '/settings/widget/customize'
   | '/shop'
+  | '/shop/products'
+  | '/shop/settings'
   | '/smart-list'
   | '/spot-scheduling'
   | '/subscription'

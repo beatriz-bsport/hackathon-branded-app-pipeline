@@ -43,6 +43,10 @@ const permissionA: RolePermission = {
       paymentPack: true,
       privatePass: true,
       shop: true,
+      shopReworked: {
+        products: true,
+        settings: true,
+      },
       packs: true,
       giftcards: true,
       promotions: true,
@@ -219,6 +223,10 @@ describe('TEST setAllValuesInObject', () => {
           paymentPack: false,
           privatePass: false,
           shop: false,
+          shopReworked: {
+            products: false,
+            settings: false,
+          },
           packs: false,
           giftcards: false,
           promotions: false,
@@ -522,6 +530,10 @@ describe('TEST deepMerge', () => {
           paymentPack: true,
           privatePass: true,
           shop: true,
+          shopReworked: {
+            products: true,
+            settings: true,
+          },
           packs: true,
           giftcards: true,
           promotions: true,

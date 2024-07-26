@@ -44,6 +44,21 @@ const SPOT_NOT_AVAILABLE = 8001;
 const OFFER_BOOKABLE_STATUS_FULL = 3;
 
 /**
+ * Computes the current number of buyable items in the current member basket
+ * @param basketCheckoutItems The list of checkout items from the current basket
+ * @returns {number}
+ */
+export const getBasketBuyableItemsCount = (
+  basketCheckoutItems: CheckoutItem[],
+): number => {
+  const excludedCheckoutItemTypes = [BUYABLE_ITEM_FEE, BUYABLE_ITEM_COUPON];
+  const checkoutProductList = basketCheckoutItems.filter(
+    (item) => !excludedCheckoutItemTypes.includes(item.buyable_item_identifier),
+  );
+  return (checkoutProductList ?? []).length ?? 0;
+};
+
+/**
  * Calculates the sub total basket price excluding the tax
  *
  * @export

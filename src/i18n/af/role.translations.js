@@ -248,6 +248,11 @@ const getTranslations = async () => {
           giftcards: { _label: 'Gift cards' },
           promotions: { _label: 'Promotions' },
           contracts: { _label: 'Subscriptions' },
+          shopReworked: {
+            _label: 'Webshop',
+            products: { _label: 'Products' },
+            settings: { _label: 'Settings' },
+          },
         },
         myClub: {
           _label: 'My studio',
@@ -894,6 +899,16 @@ const getTranslations = async () => {
             editInvoicePriceBillingPlan: { _label: 'Edit invoice amounts' },
           },
           _label: 'Subscriptions',
+        },
+        shopReworked: {
+          allowed_actions: {
+            create: { _label: 'Create products' },
+            edit: { _label: 'Edit products' },
+            delete: { _label: 'Delete products' },
+            editInventory: { _label: 'Update inventory' },
+            editSettings: { _label: 'Edit settings' },
+          },
+          _label: 'Webshop',
         },
       },
       management: {

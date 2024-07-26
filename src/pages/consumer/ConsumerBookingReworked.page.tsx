@@ -91,6 +91,7 @@ import { buildUrlParams } from '#src/http';
 
 import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#src/libs/waiting-list/actions';
 import { getWaitingListConfigurationData } from '#src/libs/waiting-list/selectors';
+import type { PaginatedResponse } from '#src/state/types';
 type OwnProps = {};
 type ParamsProps = {
   companyId: number;
@@ -191,23 +192,23 @@ export class ConsumerBooking extends React.Component<Props, State> {
   };
 
   fetchAssociatedBookingOptionsObjects = (
-    bookingOptions: WaitingListBookingOption[],
+    waitlist: PaginatedResponse<WaitingListBookingOption>,
   ) => {
     const bookingOptionsEstablishmentList = uniq(
-      bookingOptions.map((bookingOption) => bookingOption.establishment),
+      waitlist.results.map((bookingOption) => bookingOption.establishment),
     );
     const bookingOptionsLevelList = uniq(
-      bookingOptions.map((bookingOption) => bookingOption.level),
+      waitlist.results.map((bookingOption) => bookingOption.level),
     );
     const bookingOptionsCoachList = uniq(
-      bookingOptions.map((bookingOption) => bookingOption.coach),
+      waitlist.results.map((bookingOption) => bookingOption.coach),
     );
     const bookingOptionsMetaActivityList = uniq(
-      bookingOptions.map((bookingOption) => bookingOption.meta_activity),
+      waitlist.results.map((bookingOption) => bookingOption.meta_activity),
     );
 
     const offerIds = uniq(
-      bookingOptions.map((bookingOption) => bookingOption.offer.id),
+      waitlist.results.map((bookingOption) => bookingOption.offer.id),
     );
 
     this.props.fetchEstablishmentBulk(bookingOptionsEstablishmentList);

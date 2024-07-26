@@ -203,6 +203,21 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
     'FETCH_PRIVATE_SERVICE_COMPATIBLE_PASS_LIST',
     actions.fetchPrivateServiceCompatiblePassList,
   );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_COMPANY_WAITLIST_CONFIGURATION',
+    actions.fetchCompanyWaitlistConfiguration,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_CONSUMER_GUEST_NUMBER_ELIGIBLE_LEFT_BY_OFFER_BULK',
+    actions.fetchConsumerGuestNumberEligibleLeftByOfferBulk,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_BOOKING_POSITION_AS_MEMBER_BY_OFFER_IDS',
+    actions.fetchMyBookingOptionsPositionAsMemberByOfferIds,
+  );
 };
 
 export default actionsBinder;

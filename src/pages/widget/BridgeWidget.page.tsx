@@ -36,6 +36,8 @@ import {
   fetchMyFutureConsumerPaymentPacksAsMember as fetchMyFutureConsumerPaymentPacksAsMemberAction,
   fetchMyFuturePrivateConsumerPassesAsMember as fetchMyFuturePrivateConsumerPassesAsMemberAction,
   fetchMyFutureUniversalPassesAsMember as fetchMyFutureUniversalPassesAsMemberAction,
+  fetchConsumerGuestNumberEligibleLeftByOfferBulk as fetchConsumerGuestNumberEligibleLeftByOfferBulkAction,
+  fetchMyBookingOptionsPositionAsMemberByOfferIds as fetchMyBookingOptionsPositionAsMemberByOfferIdsAction,
 } from '#src/libs/consumer-space/actions';
 
 import {
@@ -100,6 +102,7 @@ import { disconnect, fetchAccessLevel } from '../../actions/auth.actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getAuthToken } from '../../http';
 import { RootState } from '../../reducers';
+import { fetchCompanyConfiguration as fetchCompanyConfigurationAction } from '#src/libs/waiting-list/actions';
 
 type OwnProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -447,6 +450,11 @@ const mapDispatchToProps = {
   fetchRelatedMembersNamesByPrivateConsumerPassLinks,
   fetchPrivatePassBulk,
   fetchPrivateServiceCompatiblePassList,
+  fetchCompanyWaitlistConfiguration: fetchCompanyConfigurationAction,
+  fetchConsumerGuestNumberEligibleLeftByOfferBulk:
+    fetchConsumerGuestNumberEligibleLeftByOfferBulkAction,
+  fetchMyBookingOptionsPositionAsMemberByOfferIds:
+    fetchMyBookingOptionsPositionAsMemberByOfferIdsAction,
 };
 
 export default compose(

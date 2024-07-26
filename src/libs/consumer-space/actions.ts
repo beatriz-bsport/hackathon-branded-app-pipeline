@@ -949,7 +949,7 @@ export function fetchMyBookingOptionAsMember(
     company,
     consumer,
   }: WaitingListBookingOptionPaginatedQueryParams,
-  options?: OptionCallback<WaitingListBookingOption[]>,
+  options?: OptionCallback<PaginatedResponse<WaitingListBookingOption>>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(fetchMyBookingOptionAsMemberActions.isLoading(true));
@@ -968,7 +968,7 @@ export function fetchMyBookingOptionAsMember(
         offer_is_workshop: false,
       });
       dispatch(fetchMyBookingOptionAsMemberActions.success(response.data));
-      options?.onSuccess?.(response.data.results);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       dispatch(fetchMyBookingOptionAsMemberActions.error(err));
       options?.onError?.(err);
@@ -1035,7 +1035,7 @@ export function fetchMyBookingOptionWorkshopAsMember(
     company,
     consumer,
   }: WaitingListBookingOptionPaginatedQueryParams,
-  options?: OptionCallback<WaitingListBookingOption[]>,
+  options?: OptionCallback<PaginatedResponse<WaitingListBookingOption>>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(fetchMyBookingOptionWorkshopAsMemberActions.isLoading(true));
@@ -1056,7 +1056,7 @@ export function fetchMyBookingOptionWorkshopAsMember(
       dispatch(
         fetchMyBookingOptionWorkshopAsMemberActions.success(response.data),
       );
-      options?.onSuccess?.(response.data.results);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       dispatch(fetchMyBookingOptionWorkshopAsMemberActions.error(err));
       options?.onError?.(err);

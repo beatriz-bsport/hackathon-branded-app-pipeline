@@ -208,6 +208,7 @@ const ReportDetailPage: React.FC<Props> = ({
           handleGeneration={handleGeneration}
           loading={reportCategoriesMetadata.loading || !report}
           report={report}
+          reportCategoryMetadata={reportCategoryMetadata}
           reportHeaders={reportHeaders}
         />
       </div>

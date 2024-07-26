@@ -624,6 +624,7 @@ const getTranslations = async () => {
       helper: {
         allDay: 'All day',
         today: 'Today',
+        yesterday: 'Yesterday',
         week: 'Last week',
         month: 'Last month',
         trimester: 'Last 3 months',

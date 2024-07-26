@@ -11,7 +11,11 @@ import { cardHeaderStatsTheme } from '#src/libs/reporting/v2/mui-theme-providers
 import ReportDetailContentHeader from './ReportDetailContentHeader.component';
 import ReportTableHeaders from '#src/libs/reporting/common/components/ReportTableHeaders.component';
 
-import type { ReportHeader } from '#src/libs/reporting/common/types';
+import type {
+  ReportHeader,
+  ReportConfiguration,
+  ReportMetadataValue,
+} from '#src/libs/reporting/common/types';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 type Props = {
@@ -19,6 +23,8 @@ type Props = {
   handleExport: () => void;
   handleGeneration: () => void;
   loading: boolean;
+  report: ReportConfiguration;
+  reportCategoryMetadata: ReportMetadataValue;
   reportHeaders: ReportHeader;
 };
 
@@ -27,6 +33,8 @@ const ReportDetailContent: React.FC<Props> = ({
   handleExport,
   handleGeneration,
   loading,
+  report,
+  reportCategoryMetadata,
   reportHeaders,
 }) => {
   const classes = useStyles();
@@ -40,6 +48,8 @@ const ReportDetailContent: React.FC<Props> = ({
         categoryName={categoryName}
         handleExport={handleExport}
         handleGeneration={handleGeneration}
+        report={report}
+        reportCategoryMetadata={reportCategoryMetadata}
       />
       <Divider />
       <MuiThemeProvider theme={cardHeaderStatsTheme}>

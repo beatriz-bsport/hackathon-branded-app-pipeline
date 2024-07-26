@@ -31,7 +31,7 @@ const ReportDetailDateSelectors: React.FC<Props> = ({
   timeWindowFilteringEnabled,
 }) => {
   const classes = useStyles();
-  const { values, setValues, setFieldValue } = useFormikContext<FormikValues>();
+  const { values, setValues } = useFormikContext<FormikValues>();
 
   const handleRangeDatePickerSubmit = useCallback(
     (_values) => {
@@ -82,6 +82,7 @@ const ReportDetailDateSelectors: React.FC<Props> = ({
           ...prev,
           dateStart: DateTime.fromSeconds(dateStart).toISODate(),
           dateEnd: DateTime.fromSeconds(dateEnd).toISODate(),
+          timePeriod: periodSelected.timePeriod,
         }));
       }
     },
@@ -95,10 +96,14 @@ const ReportDetailDateSelectors: React.FC<Props> = ({
       );
       if (periodSelected) {
         const dateStart = periodSelected.getTimeStamp();
-        setFieldValue('dateStart', DateTime.fromSeconds(dateStart).toISODate());
+        setValues((prev) => ({
+          ...prev,
+          dateStart: DateTime.fromSeconds(dateStart).toISODate(),
+          timePeriod: periodSelected.timePeriod,
+        }));
       }
     },
-    [setFieldValue],
+    [setValues],
   );
 
   return (

@@ -180,5 +180,10 @@ export const QUICK_DATE_SELECTIONS: {
   {
     timePeriod: 'yesterday',
     type: 'single',
+    withBottomDivider: true,
+  },
+  {
+    timePeriod: 'custom',
+    type: 'single',
   },
 ];

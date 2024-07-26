@@ -2,6 +2,8 @@ import type {
   ReportConfiguration,
   ReportHeader,
   ReportHeaderQueryParams,
+  ReportSerializerParams,
+  SerializedReport,
   ReportMetadataValue,
   ReportFilterConfigParams,
   ReportFilterConfig,
@@ -16,6 +18,7 @@ import {
   postAuth,
 } from '#src/http';
 import type { PaginatedResponse } from '#src/state/types';
+import { cleanParams } from '#src/utils/createUrlHandlers';
 
 export const fetchDefaultReports = () => {
   return getAuth<ReportConfiguration[]>(
@@ -27,7 +30,9 @@ export const fetchReportMetadataV2 = () => {
   return getAuth<ReportMetadataValue[]>(`${API_URI}/reporting/`);
 };
 
-export const createReportV2 = (data: Omit<ReportConfiguration, 'id'>) => {
+export const createReportV2 = (
+  data: Partial<Omit<ReportConfiguration, 'id'>>,
+) => {
   return postAuth<ReportConfiguration>(
     `${API_URI}/reporting/reports-v2/`,
     data,
@@ -64,9 +69,23 @@ export const fetchReportHeadersV2 = (
   reportId: number,
   params: ReportHeaderQueryParams,
 ) => {
+  const cleanedParams = cleanParams(params);
+
   return getAuth<ReportHeader>(
     `${API_URI}/reporting/reports-v2/${reportId}/generate_headers/${buildUrlParams(
-      params,
+      cleanedParams,
+    )}`,
+  );
+};
+
+export const fetchSerializedReportV2 = (
+  reportId: number,
+  params: ReportSerializerParams,
+) => {
+  const cleanedParams = cleanParams(params);
+  return getAuth<SerializedReport>(
+    `${API_URI}/reporting/reports-v2/${reportId}/serialized_report/${buildUrlParams(
+      cleanedParams,
     )}`,
   );
 };

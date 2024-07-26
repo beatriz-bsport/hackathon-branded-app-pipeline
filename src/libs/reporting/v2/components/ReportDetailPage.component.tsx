@@ -15,17 +15,24 @@ import type {
   ReportFilterConfig,
   ReportHeader,
   ReportMetadataValue,
+  SerializedReport,
   ReportFilterConfigCreateData,
   ReportFilterConfigConfig,
   ReportUpdateAPI,
+  ReportGenerationParams,
 } from '#src/libs/reporting/common/types';
 import type { ErrorAndLoading } from '#src/libs/types';
 import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 import type { OptionCallback } from '#src/state/types';
+import type {
+  ObjectLevelPermissions,
+  RolePermission,
+} from '#src/libs/role/types';
 
 import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
 
 type Props = {
+  advancedReportFilterConfig: ReportFilterConfig | null;
   categoryName: ReportCategoryEnum;
   createReport: (
     data: Partial<Omit<ReportConfiguration, 'id'>>,
@@ -42,14 +49,15 @@ type Props = {
     options?: OptionCallback<ReportFilterConfig>,
   ) => void;
   handleExport: () => void;
-  handleGeneration: () => void;
+  handleGeneration: (values: ReportGenerationParams) => void;
+  objectLevelPermissions: ObjectLevelPermissions;
   pushRouter: (path: string) => CallHistoryMethodAction<[string, unknown?]>;
   report: ReportConfiguration;
   reportCategoriesMetadata: {
     results: ReportMetadataValue[];
   } & ErrorAndLoading;
   reportCategoryMetadata: ReportMetadataValue;
-  reportFilterConfigs: ReportFilterConfig[];
+  reportGeneratedRows: SerializedReport & ErrorAndLoading;
   reportHeaders: ReportHeader;
   reportId: number;
   updateReport: (
@@ -57,9 +65,11 @@ type Props = {
     data: ReportUpdateAPI,
     options?: OptionCallback<ReportConfiguration>,
   ) => Promise<void>;
+  userPermissions: RolePermission;
 } & Pick<withDatatypeDynamicDataProps, 'handleGetDynamicDataForFilters'>;
 
 const ReportDetailPage: React.FC<Props> = ({
+  advancedReportFilterConfig,
   categoryName,
   createReport,
   createReportFilterConfig,
@@ -68,14 +78,16 @@ const ReportDetailPage: React.FC<Props> = ({
   handleExport,
   handleGeneration,
   handleGetDynamicDataForFilters,
+  objectLevelPermissions,
   pushRouter,
   report,
   reportCategoriesMetadata,
   reportCategoryMetadata,
-  reportFilterConfigs,
+  reportGeneratedRows,
   reportHeaders,
   reportId,
   updateReport,
+  userPermissions,
 }) => {
   const classes = useStyles();
   const [isEditDrawerOpen, setIsEditDrawerOpen] = React.useState(false);
@@ -96,14 +108,6 @@ const ReportDetailPage: React.FC<Props> = ({
     [setIsAddModalOpen],
   );
 
-  const advancedReportFilterConfig = React.useMemo(
-    () =>
-      reportFilterConfigs.find(
-        (reportFilterConfig) => !reportFilterConfig.is_quick_report_filter,
-      ) || null,
-    [reportFilterConfigs],
-  );
-
   const editDrawerSubmit = React.useCallback(
     (data: {
       config: ReportFilterConfigConfig;
@@ -119,15 +123,15 @@ const ReportDetailPage: React.FC<Props> = ({
           advancedReportFilterConfig?.id,
           { config: data.config },
           {
-            onSuccess: () => {
+            onSuccess: (reportFilterConfigEdited) => {
               setIsEditDrawerOpen(false);
+              handleGeneration({
+                reportFilterConfigId: reportFilterConfigEdited.id,
+              });
             },
           },
         );
-      } else if (
-        !advancedReportFilterConfig &&
-        data.config.groups?.length > 0
-      ) {
+      } else {
         createReportFilterConfig(
           {
             config: data.config,
@@ -135,21 +139,25 @@ const ReportDetailPage: React.FC<Props> = ({
             report: reportId,
           },
           {
-            onSuccess: () => {
+            onSuccess: (reportFilterConfigCreated) => {
               setIsEditDrawerOpen(false);
+              handleGeneration({
+                reportFilterConfigId: reportFilterConfigCreated.id,
+              });
             },
           },
         );
       }
     },
     [
-      updateReport,
-      categoryName,
-      reportId,
       advancedReportFilterConfig,
-      editReportFilterConfig,
+      categoryName,
       createReportFilterConfig,
+      editReportFilterConfig,
+      handleGeneration,
       refreshOptions,
+      reportId,
+      updateReport,
     ],
   );
 
@@ -207,9 +215,13 @@ const ReportDetailPage: React.FC<Props> = ({
           handleExport={handleExport}
           handleGeneration={handleGeneration}
           loading={reportCategoriesMetadata.loading || !report}
+          objectLevelPermissions={objectLevelPermissions}
           report={report}
+          reportCategoriesMetadata={reportCategoriesMetadata}
           reportCategoryMetadata={reportCategoryMetadata}
+          reportGeneratedRows={reportGeneratedRows}
           reportHeaders={reportHeaders}
+          userPermissions={userPermissions}
         />
       </div>
     </>

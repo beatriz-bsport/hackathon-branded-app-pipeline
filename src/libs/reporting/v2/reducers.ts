@@ -9,6 +9,7 @@ import {
   fetchReportFilterConfigListActionsV2,
   fetchReportMetadataActionsV2,
   fetchReportsActionsV2,
+  reportGenerationDetailV2,
   reportHeadersDetailV2,
 } from '#src/libs/reporting/v2/actions';
 
@@ -17,6 +18,7 @@ import type {
   ReportFilterConfig,
   ReportHeader,
   ReportingStateV2,
+  SerializedReport,
   ReportMetadataValue,
 } from '#src/libs/reporting/common/types';
 
@@ -32,6 +34,14 @@ const initialState: Immutable.Immutable<ReportingStateV2> =
       loading: false,
       error: null,
       results: {},
+    },
+    reportGeneration: {
+      loading: false,
+      error: null,
+      result: [],
+      next_page: 1,
+      previous_page: null,
+      other_pages: [],
     },
     columnsMetadata: {
       loading: false,
@@ -201,6 +211,24 @@ export default handleActions<Immutable.Immutable<ReportingStateV2>, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['reportHeaders', 'error'], payload);
+    },
+    [reportGenerationDetailV2.success.toString()]: (
+      state,
+      { payload }: { payload: SerializedReport },
+    ) => {
+      return state.setIn(['reportGeneration'], payload);
+    },
+    [reportGenerationDetailV2.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['reportGeneration', 'loading'], payload);
+    },
+    [reportGenerationDetailV2.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['reportGeneration', 'error'], payload);
     },
   },
   initialState,

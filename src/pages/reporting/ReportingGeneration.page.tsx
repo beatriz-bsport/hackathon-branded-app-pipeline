@@ -171,7 +171,6 @@ export class ReportingGeneration extends Component<Props, State> {
         ? {
             date_start,
             date_end,
-            // @ts-expect-error
             time_window_start,
             time_window_end,
             page_size: this.props.pageSize,

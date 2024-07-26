@@ -3,8 +3,6 @@ import { ErrorAndLoading } from '#src/libs/types';
 
 import type {
   DataSourceMedadataDataType,
-  DateFilterRangeEnum,
-  DateFilterEnum,
   DynamicFilterDataType,
   DatatypeFilterConfigGroup,
   DatatypeFilterConfigGroupOperand,
@@ -84,6 +82,7 @@ export type ReportingStateV2 = {
   } & ErrorAndLoading;
   columnsMetadata: { results: ReportMetadataValue[] } & ErrorAndLoading;
   reportHeaders: { results: ReportHeader } & ErrorAndLoading;
+  reportGeneration: SerializedReport & ErrorAndLoading;
   reportFilterConfigs: {
     byId: Record<number, ReportFilterConfig>;
     allIds: number[];
@@ -165,9 +164,7 @@ export type ReportMetadataValueWithLabel = ReportMetadataValue & {
 
 export type ReportMetadata = {
   results: ReportMetadataValue[];
-  loading: boolean;
-  error?: boolean;
-};
+} & ErrorAndLoading;
 
 export type ReportFilterConfigConfig = {
   group_operand?: DatatypeFilterConfigGroupOperand;
@@ -196,12 +193,13 @@ export type ReportFilterConfigParams = {
 };
 
 export type ReportSerializerParams = {
-  date_start: Date;
-  date_end?: Date;
-  page_size: number;
+  date_start?: string;
+  date_end?: string;
+  page_size?: number;
   page: number;
-  report_filter_config_id: number;
-  time_period: DateFilterRangeEnum | DateFilterEnum | null;
+  report_filter_config_id?: number;
+  time_window_start?: string;
+  time_window_end?: string;
 };
 
 export type ReportObjectPermissions = {
@@ -219,4 +217,13 @@ export type GlobalCategoryData = {
 export type ReportQueryParams = {
   id__in?: number[];
   category?: ReportCategoryEnum;
+};
+
+export type ReportGenerationParams = {
+  timeStart?: string;
+  timeEnd?: string;
+  dateStart?: string;
+  dateEnd?: string;
+  page?: number;
+  reportFilterConfigId?: number;
 };

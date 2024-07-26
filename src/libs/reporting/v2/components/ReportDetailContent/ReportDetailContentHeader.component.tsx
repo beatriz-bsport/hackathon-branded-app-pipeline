@@ -19,6 +19,7 @@ import { mapTimePeriodToDateValues } from '#src/components/date/utils';
 import type {
   ReportConfiguration,
   ReportMetadataValue,
+  ReportGenerationParams,
 } from '#src/libs/reporting/common/types';
 import type {
   DateFilterEnum,
@@ -28,6 +29,7 @@ import ReportDetailDateSelectors from '#src/libs/reporting/v2/components/ReportD
 
 type Props = {
   categoryName: ReportCategoryEnum;
+  generationLoading: boolean;
   handleExport: () => void;
   reportCategoryMetadata: ReportMetadataValue;
 };
@@ -43,13 +45,19 @@ export type FormikValues = {
 };
 
 type FormikHOCProps = {
-  handleGeneration: () => void;
+  handleGeneration: (values: ReportGenerationParams) => void;
   report: ReportConfiguration;
 };
 
 const ReportDetailContentHeader: React.FC<
   Props & FormikProps<FormikValues>
-> = ({ categoryName, handleExport, handleSubmit, reportCategoryMetadata }) => {
+> = ({
+  categoryName,
+  generationLoading,
+  handleExport,
+  handleSubmit,
+  reportCategoryMetadata,
+}) => {
   const { t } = useTranslation(['reporting', 'smartList']);
   const classes = useStyles();
 
@@ -75,7 +83,12 @@ const ReportDetailContentHeader: React.FC<
           Add a quick filter
         </Button>
         <div className={classes.actionButtonsWrapper}>
-          <Button color="primary" type="submit" variant="contained">
+          <Button
+            color="primary"
+            disabled={generationLoading}
+            type="submit"
+            variant="contained"
+          >
             {t('smartList:generateReport')}
           </Button>
           <Button color="primary" onClick={handleExport} variant="outlined">
@@ -123,8 +136,14 @@ const FormikHOC = withFormik<Props & FormikHOCProps, FormikValues>({
     }
   },
   handleSubmit: (values, { props: { handleGeneration } }) => {
-    // Generation handled in next commits
-    handleGeneration();
+    const { dateEnd, dateStart, timeEnd, timeStart } = values;
+
+    handleGeneration({
+      dateEnd,
+      dateStart,
+      timeEnd,
+      timeStart,
+    });
   },
 });
 

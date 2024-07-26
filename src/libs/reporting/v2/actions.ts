@@ -4,10 +4,12 @@ import type {
   ReportHeaderQueryParams,
   ReportMetadataValue,
   ReportConfiguration,
+  ReportSerializerParams,
   ReportFilterConfigParams,
   ReportFilterConfig,
   ReportFilterConfigCreateData,
   ReportUpdateAPI,
+  SerializedReport,
 } from '#src/libs/reporting/common/types';
 import type { OptionCallback, Dispatch } from '#src/state/types';
 
@@ -15,6 +17,7 @@ import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 
 import {
   fetchDefaultReports as fetchDefaultReportsAPI,
+  fetchSerializedReportV2 as fetchSerializedReportV2API,
   fetchReportHeadersV2 as fetchReportHeadersV2API,
   fetchReportMetadataV2 as fetchReportMetadataV2API,
   fetchReportFilterConfigList as fetchReportFilterConfigListAPI,
@@ -80,7 +83,7 @@ export const createReportActions = {
 };
 
 export function createReport(
-  data: Omit<ReportConfiguration, 'id'>,
+  data: Partial<Omit<ReportConfiguration, 'id'>>,
   options?: OptionCallback<ReportConfiguration>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -225,5 +228,33 @@ export function fetchReportHeaders(
       dispatch(reportHeadersDetailV2.error(err));
     }
     dispatch(reportHeadersDetailV2.isLoading(false));
+  };
+}
+
+export const reportGenerationDetailV2 = {
+  error: createAction<Error | null>('REPORT-V2/GENERATE/ERROR'),
+  isLoading: createAction<boolean>('REPORT-V2/GENERATE/IS_LOADING'),
+  success: createAction<SerializedReport>('REPORT-V2/GENERATE/SUCCESS'),
+};
+
+export function fetchSerializedReport(
+  reportId: number,
+  params: ReportSerializerParams,
+  options?: OptionCallback<SerializedReport>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(reportGenerationDetailV2.isLoading(true));
+    dispatch(reportGenerationDetailV2.error(null));
+
+    try {
+      const response = await fetchSerializedReportV2API(reportId, params);
+      dispatch(reportGenerationDetailV2.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(reportGenerationDetailV2.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(reportGenerationDetailV2.isLoading(false));
   };
 }

@@ -50,3 +50,6 @@ export const getReportFilterConfigs = createSelector(
 
 export const getReportHeader = (state: RootState) =>
   _getReportV2State(state).reportHeaders;
+
+export const getReportGenerateredRows = (state: RootState) =>
+  _getReportV2State(state).reportGeneration;

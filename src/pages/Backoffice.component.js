@@ -408,7 +408,13 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
   }
   return (
     <Switch>
-      <Route component={Shop} path="/shop" />
+      <Route
+        component={Shop}
+        path={props.theme.display_new_webshop ? '/shop/:tab' : '/shop'}
+      />
+      {props.theme.display_new_webshop && (
+        <Redirect from="/shop" to="/shop/products" />
+      )}
       <Route component={OfferManagement} path="/offer/:id" />
       <Route exact component={PlanningRouter} path="/calendar" />
       <Route component={Schedule} path="/schedule" />
@@ -893,6 +899,7 @@ export class Backoffice extends Component<Props, State> {
                       this.props.platformSubscriptionPaymentStatus?.action ===
                       BLOCK_BACKOFFICE
                     }
+                    theme={this.props.theme}
                     vodEnabled={this.props.theme?.vod ?? null}
                   />
                 </main>

@@ -80,6 +80,7 @@ import { getItemInStorage } from '#src/utils/storage';
 import VersionVisualizer from '../../VersionVisualizer.component';
 import LOGO_ASSET from '../../../public/images/banner_lowres.png';
 import { getCurrencyDisplay } from '../../../libs/theme/selectors';
+import { CompanyTheme } from '#src/libs/theme/types';
 
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {
@@ -95,6 +96,7 @@ type Props = {
   logo?: string;
   location: Location;
   companyId: number;
+  companyTheme: CompanyTheme;
   featureList: {
     upsell_identifier: number;
     readable_identifier: string;
@@ -160,6 +162,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
   location,
   featureList,
   companyId,
+  companyTheme,
   permissions,
   objectLevelPermissions,
   disconnect,
@@ -236,6 +239,39 @@ const ResponsiveDrawer: React.FC<Props> = ({
       null
     );
   }, []);
+
+  const oldWebshopItem = Immutable([
+    {
+      to: '/shop',
+      icon: ShoppingCartIcon,
+      text: t('backofficeMenu.myShop'),
+    } as DrawerItemDefault,
+  ]);
+
+  const newWebshopItem = React.useMemo(() => {
+    let drawerRoute = '';
+    // Permissions are checked here and not in the drawer item because the new webshop is
+    // composed of two routes that need to be checked for permissions
+    if (permissions.navigationMenu?.products?.shopReworked?.products) {
+      drawerRoute = '/shop/products';
+    } else if (permissions.navigationMenu?.products?.shopReworked?.settings) {
+      drawerRoute = '/shop/settings';
+    } else {
+      return Immutable([]);
+    }
+
+    return Immutable([
+      {
+        to: drawerRoute,
+        icon: ShoppingCartIcon,
+        text: t('backofficeMenu.myShop'),
+      } as DrawerItemDefault,
+    ]);
+  }, [
+    permissions.navigationMenu?.products?.shopReworked?.products,
+    permissions.navigationMenu?.products?.shopReworked?.settings,
+    t,
+  ]);
 
   const items: DrawerItem[] = React.useMemo(() => {
     return [
@@ -343,11 +379,9 @@ const ResponsiveDrawer: React.FC<Props> = ({
             icon: ScheduleIcon,
             text: t('backofficeMenu.privateService.pass'),
           } as DrawerItemDefault,
-          {
-            to: '/shop',
-            icon: ShoppingCartIcon,
-            text: t('backofficeMenu.myShop'),
-          } as DrawerItemDefault,
+          ...(companyTheme?.display_new_webshop
+            ? newWebshopItem
+            : oldWebshopItem),
           {
             to: '/combo',
             icon: GroupWorkIcon,
@@ -704,18 +738,21 @@ const ResponsiveDrawer: React.FC<Props> = ({
           } as DrawerItemDefault),
     ];
   }, [
+    t,
+    classes.menuMobile,
     accessMonitoringItem,
-    classes,
     companyId,
+    featureList,
+    objectLevelPermissions,
+    companyTheme?.display_new_webshop,
+    newWebshopItem,
+    oldWebshopItem,
+    permissions,
+    hasLimitedAccesToAudience,
+    isTabImpersonated,
     disconnect,
     iconsOnly,
-    isTabImpersonated,
-    permissions,
     setDrawerIconsOnly,
-    objectLevelPermissions,
-    hasLimitedAccesToAudience,
-    featureList,
-    t,
   ]);
 
   React.useEffect(() => {

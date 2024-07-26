@@ -49,7 +49,6 @@ import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import InboxIcon from '@material-ui/icons/Inbox';
 
 import Tooltip from '@material-ui/core/Tooltip';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import { getAllUnreadAnswersCount } from '#src/libs/communication-v2/selectors';
 import FeatureBaseBoardButton from '#src/components/feature-base/FeatureBase.component';
 // @ts-expect-error
@@ -236,7 +235,6 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   shrinkResponsiveDrawer,
   setShrinkResponsiveDrawer,
   inboxUnreadAnswersCount,
-  handleGoToWebshop,
 }) => {
   const { t } = useTranslation('navigation');
 
@@ -903,6 +901,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                   <ResponsiveDrawer
                     userAcknowlegdePlatformTutorial
                     companyId={companyId}
+                    companyTheme={theme}
                     disconnect={disconnect}
                     featureList={featureList}
                     hasLimitedAccesToAudience={
@@ -930,6 +929,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                 >
                   <ResponsiveDrawer
                     companyId={companyId}
+                    companyTheme={theme}
                     disconnect={disconnect}
                     featureList={featureList}
                     handleUserSetDrawerIconsOnly={handleUserSetDrawerIconsOnly}
@@ -972,6 +972,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             >
               <ResponsiveDrawer
                 companyId={companyId}
+                companyTheme={theme}
                 disconnect={disconnect}
                 featureList={featureList}
                 hasLimitedAccesToAudience={
@@ -1029,8 +1030,6 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                 location.pathname.includes('/spot-scheduling') ||
                 location.pathname.includes('/audience') ||
                 location.pathname.includes('/inbox/') ||
-                (theme?.display_new_webshop &&
-                  location.pathname.includes('/shop')) ||
                 location.pathname.includes('/feature-base') ||
                 /^\/reporting\/[^/]+\/[^/]+$/.test(location.pathname)
               ),
@@ -1040,8 +1039,6 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                 location.pathname.includes('/feature-base'),
               [classes.contentWithoutPadding]:
                 location.pathname.includes('/inbox/') ||
-                (theme?.display_new_webshop &&
-                  location.pathname.includes('/shop')) ||
                 location.pathname.includes('/feature-base') ||
                 /^\/reporting\/[^/]+\/[^/]+$/.test(location.pathname),
             })}
@@ -1051,19 +1048,6 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             <StripeOnboardingBanner
               stripeOnboardingPending={stripeOnboardingPending}
             />
-            {(location?.pathname ?? '').includes('/shop/') &&
-              theme?.display_new_webshop && (
-                <div className={classes.backToWebshop}>
-                  <Button
-                    classes={{ label: classes.webshopBannerButtonLabel }}
-                    onClick={handleGoToWebshop}
-                    size="small"
-                    startIcon={<ChevronLeft />}
-                  >
-                    {t('backofficeMenu.backToWebshop')}
-                  </Button>
-                </div>
-              )}
             <ProtectedRoutes>{children}</ProtectedRoutes>
           </main>
         </div>
@@ -1230,15 +1214,6 @@ const useStyles = makeStyles<Theme, { drawerIconsOnly: boolean }>((theme) => ({
     height: 10,
     width: 10,
   },
-  backToWebshop: {
-    display: 'flex',
-    gap: theme.spacing(1),
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    background: theme.palette.background.paper,
-  },
   webshopBannerButtonLabel: {
     textTransform: 'initial',
   },
@@ -1256,7 +1231,6 @@ const connector = connect(
       pushRouter(`/reporting/${id}`),
     handleGoToTutorial: () => pushRouter('/tutorial'),
     handleGoToInbox: () => pushRouter('/inbox/thread'),
-    handleGoToWebshop: () => pushRouter('/shop'),
     setShrinkResponsiveDrawer: setShrinkResponsiveDrawerAction,
   },
 );

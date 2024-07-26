@@ -29,6 +29,7 @@ export type OwnProps = {
   isDisabled?: boolean;
   keepHours?: boolean;
   singleDate?: boolean;
+  isRapidSelectionDisplayed?: boolean;
 } & Values &
   StylesProps;
 
@@ -59,6 +60,7 @@ const DatePickerSelector: React.FC<Props> = ({
   singleDate = false,
   setFieldValue,
   handleSubmit,
+  isRapidSelectionDisplayed = true,
 }) => {
   const classes = useStyles({ isFullWidth });
   const { t } = useTranslation('reporting');
@@ -101,7 +103,7 @@ const DatePickerSelector: React.FC<Props> = ({
       (s) => s.timePeriod === values.timePeriod,
     );
 
-    if (selection)
+    if (selection && isRapidSelectionDisplayed)
       return (
         <Typography display="inline">
           {t(`header.helper.${selection.timePeriod}`)}
@@ -176,22 +178,24 @@ const DatePickerSelector: React.FC<Props> = ({
               />
               <AlertError name="date" />
             </div>
-            <div className={classes.rapidSelection}>
-              <Typography color="textSecondary">
-                {t('header.rapidChoice')}
-              </Typography>
-              {SINGLE_RAPID_SELECTIONS.map((selection) => (
-                <ButtonBase
-                  key={selection.timePeriod}
-                  className={classes.button}
-                  onClick={handleSelection(selection)}
-                >
-                  <Typography>
-                    {t(`header.helper.${selection.timePeriod}`)}
-                  </Typography>
-                </ButtonBase>
-              ))}
-            </div>
+            {isRapidSelectionDisplayed && (
+              <div className={classes.rapidSelection}>
+                <Typography color="textSecondary">
+                  {t('header.rapidChoice')}
+                </Typography>
+                {SINGLE_RAPID_SELECTIONS.map((selection) => (
+                  <ButtonBase
+                    key={selection.timePeriod}
+                    className={classes.button}
+                    onClick={handleSelection(selection)}
+                  >
+                    <Typography>
+                      {t(`header.helper.${selection.timePeriod}`)}
+                    </Typography>
+                  </ButtonBase>
+                ))}
+              </div>
+            )}
             <Button
               className={classes.submit}
               color="primary"

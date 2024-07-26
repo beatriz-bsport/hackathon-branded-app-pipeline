@@ -192,7 +192,6 @@ const ReportGeneration: React.FC<Props> = ({
           setShowDialog={setShowDialog}
           showDialog={showDialog}
           timeWindowFilteringEnabled={
-            // @ts-expect-error
             !!reportMetadata?.time_window_filtering_enabled
           }
         />

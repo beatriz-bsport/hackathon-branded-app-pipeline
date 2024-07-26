@@ -10,6 +10,8 @@ import type {
   DatatypeFilterConfigGroupOperand,
 } from '#src/libs/datatype-filtering/types';
 
+import { ReportDateType } from '#src/libs/reporting/common/constants';
+
 enum ReportGlobalCategoryEnum {
   PAYMENTS = 'Payments',
   CLUB = 'Club',
@@ -104,7 +106,7 @@ export type ReportConfiguration = {
   time_period: DateFilterRangeEnum | DateFilterEnum | null;
   time_window_end?: string;
   time_window_start?: string;
-  date_type?: string;
+  date_type?: ReportDateType;
   time_start?: string;
   time_end?: string;
   time_window_period?: string;
@@ -157,6 +159,8 @@ export type ReportMetadataValue = {
   global_category: ReportCategoryEnum;
   category: ReportCategoryEnum;
   columns: ReportMetadataColumn[];
+  date_type: ReportDateType;
+  time_window_filtering_enabled: boolean;
 };
 
 export type ReportMetadataValueWithLabel = ReportMetadataValue & {

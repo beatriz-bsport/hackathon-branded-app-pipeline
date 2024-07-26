@@ -13,12 +13,16 @@ export const SINGLE_RAPID_SELECTIONS: {
     timePeriod: 'today',
     getTimeStamp: () => DateTime.now().toUnixInteger(),
   },
+  {
+    timePeriod: 'yesterday',
+    getTimeStamp: () => DateTime.now().minus({ days: 1 }).toUnixInteger(),
+  },
 ];
 
 export const RANGED_RAPID_SELECTIONS: {
   timePeriod: DateFilterRangeEnum;
   getStartEndTimestamps: () => { dateStart: number; dateEnd: number };
-  displayPast?: boolean;
+  isPastDisplayed?: boolean;
   futureOnly?: boolean;
 }[] = [
   {
@@ -62,6 +66,45 @@ export const RANGED_RAPID_SELECTIONS: {
     }),
   },
   {
+    timePeriod: 'last_week',
+    getStartEndTimestamps: () => ({
+      dateStart: DateTime.now()
+        .minus({ days: 7 })
+        .startOf('week', { useLocaleWeeks: true })
+        .toUnixInteger(),
+      dateEnd: DateTime.now()
+        .minus({ days: 7 })
+        .endOf('week', { useLocaleWeeks: true })
+        .toUnixInteger(),
+    }),
+    isPastDisplayed: true,
+  },
+  {
+    timePeriod: 'last_month',
+    getStartEndTimestamps: () => ({
+      dateStart: DateTime.now()
+        .minus({ month: 1 })
+        .startOf('month')
+        .toUnixInteger(),
+      dateEnd: DateTime.now()
+        .minus({ month: 1 })
+        .endOf('month')
+        .toUnixInteger(),
+    }),
+    isPastDisplayed: true,
+  },
+  {
+    timePeriod: 'last_year',
+    getStartEndTimestamps: () => ({
+      dateStart: DateTime.now()
+        .minus({ year: 1 })
+        .startOf('year')
+        .toUnixInteger(),
+      dateEnd: DateTime.now().minus({ year: 1 }).endOf('year').toUnixInteger(),
+    }),
+    isPastDisplayed: true,
+  },
+  {
     timePeriod: 'next_week',
     getStartEndTimestamps: () => ({
       dateStart: DateTime.now().startOf('day').toUnixInteger(),
@@ -92,5 +135,50 @@ export const RANGED_RAPID_SELECTIONS: {
       dateEnd: DateTime.now().plus({ years: 1 }).endOf('day').toUnixInteger(),
     }),
     futureOnly: true,
+  },
+];
+
+export const QUICK_DATE_SELECTIONS: {
+  timePeriod: DateFilterRangeEnum | DateFilterEnum;
+  withBottomDivider?: boolean;
+  type: 'single' | 'range';
+}[] = [
+  {
+    timePeriod: 'week',
+    type: 'range',
+  },
+  {
+    timePeriod: 'month',
+    type: 'range',
+  },
+  {
+    timePeriod: 'year',
+    withBottomDivider: true,
+    type: 'range',
+  },
+  {
+    timePeriod: 'last_week',
+    type: 'range',
+  },
+  {
+    timePeriod: 'last_month',
+    type: 'range',
+  },
+  {
+    timePeriod: 'last_year',
+    withBottomDivider: true,
+    type: 'range',
+  },
+  {
+    timePeriod: 'custom',
+    type: 'range',
+  },
+  {
+    timePeriod: 'today',
+    type: 'single',
+  },
+  {
+    timePeriod: 'yesterday',
+    type: 'single',
   },
 ];

@@ -72,6 +72,9 @@ export type DataSourceMetadata = {
 };
 
 export type DateFilterRangeEnum =
+  | 'last_week'
+  | 'last_month'
+  | 'last_year'
   | 'week'
   | 'month'
   | 'trimester'
@@ -82,7 +85,7 @@ export type DateFilterRangeEnum =
   | 'next_year'
   | 'custom';
 
-export type DateFilterEnum = 'today' | 'custom';
+export type DateFilterEnum = 'today' | 'yesterday' | 'custom';
 
 export type DatatypeFilterConfigGroupOperand =
   | typeof GROUP_OR_OPERAND

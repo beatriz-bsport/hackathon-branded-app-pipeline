@@ -166,3 +166,9 @@ export const CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES = [
   ReportCategoryEnum.WORKSHOP,
   ReportCategoryEnum.ACCESS_MONITORING,
 ];
+
+export enum ReportDateType {
+  NONE = 'none',
+  RANGE = 'range',
+  SINGLE = 'single',
+}

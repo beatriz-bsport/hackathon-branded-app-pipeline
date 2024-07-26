@@ -61,6 +61,8 @@ export type Props = {
   isEndDateBeforeCurrentDate?: boolean;
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (values: Values) => void;
+  isRapidSelectionDisplayed?: boolean;
+  isPastDisplayed?: boolean;
 };
 
 export type Values = {
@@ -111,6 +113,8 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
   futureOnly = false,
   setFieldValue,
   handleSubmit,
+  isRapidSelectionDisplayed = true,
+  isPastDisplayed = false,
 }) => {
   const classes = useStyles();
 
@@ -157,7 +161,7 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
       (s) => s.timePeriod === values.timePeriod,
     );
 
-    if (selection)
+    if (selection && isRapidSelectionDisplayed)
       return (
         <Typography display="inline">
           {t(`header.helper.${selection.timePeriod}`)}
@@ -238,35 +242,42 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                 <AlertError name="dateEnd" />
               </div>
             </div>
-            <div className={classes.rapidSelection}>
-              <Typography color="textSecondary">
-                {t('header.rapidChoice')}
-              </Typography>
-              {RANGED_RAPID_SELECTIONS.filter((selection) =>
-                futureOnly ? !!selection.futureOnly : !selection.futureOnly,
-              )
-              .map((selection) => (
-                <ButtonBase
-                  key={selection.timePeriod}
-                  className={classes.button}
-                  onClick={handleSelection(selection)}
-                >
-                  <Typography>
-                    {t(`header.helper.${selection.timePeriod}`)}
-                  </Typography>
-                  <Typography color="textSecondary" variant="caption">
-                    {t('header.fromToInDateContext', {
-                      to: DateTime.fromSeconds(
-                        selection.getStartEndTimestamps().dateEnd,
-                      ).toFormat('D'),
-                      from: DateTime.fromSeconds(
-                        selection.getStartEndTimestamps().dateStart,
-                      ).toFormat('D'),
-                    })}
-                  </Typography>
-                </ButtonBase>
-              ))}
-            </div>
+            {isRapidSelectionDisplayed && (
+              <div className={classes.rapidSelection}>
+                <Typography color="textSecondary">
+                  {t('header.rapidChoice')}
+                </Typography>
+                {RANGED_RAPID_SELECTIONS.filter((selection) =>
+                  futureOnly ? !!selection.futureOnly : !selection.futureOnly,
+                )
+                  .filter((selection) =>
+                    isPastDisplayed
+                      ? !!selection.isPastDisplayed
+                      : !selection.isPastDisplayed,
+                  )
+                  .map((selection) => (
+                    <ButtonBase
+                      key={selection.timePeriod}
+                      className={classes.button}
+                      onClick={handleSelection(selection)}
+                    >
+                      <Typography>
+                        {t(`header.helper.${selection.timePeriod}`)}
+                      </Typography>
+                      <Typography color="textSecondary" variant="caption">
+                        {t('header.fromToInDateContext', {
+                          to: DateTime.fromSeconds(
+                            selection.getStartEndTimestamps().dateEnd,
+                          ).toFormat('D'),
+                          from: DateTime.fromSeconds(
+                            selection.getStartEndTimestamps().dateStart,
+                          ).toFormat('D'),
+                        })}
+                      </Typography>
+                    </ButtonBase>
+                  ))}
+              </div>
+            )}
             <Button
               className={classes.submit}
               color="primary"
@@ -329,6 +340,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default compose<any, Props>(
   withFormik<Props, Values>({
+    enableReinitialize: true,
     mapPropsToValues: ({
       date_start,
       date_end,

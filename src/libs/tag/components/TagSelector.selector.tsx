@@ -120,15 +120,17 @@ const TagSelector: React.FC<Props> = ({
   const [selectedTagsByTagGroup, setSelectedTagsByTagGroup] =
     React.useState<FranchiseUserTagDict>({});
 
-  const tagListOptions = React.useMemo(
-    () =>
-      (allTagsWithTagGroup ?? []).map((tag) => ({
-        label: tag.name,
-        value: tag.id,
-        tag: tag,
-      })),
-    [allTagsWithTagGroup],
-  );
+  const tagList = React.useMemo(() => {
+    return [...(allTagsWithTagGroup ?? [])];
+  }, [allTagsWithTagGroup]);
+
+  const tagListOptions = React.useMemo(() => {
+    return tagList.map((tag) => ({
+      label: tag.name,
+      value: tag.id,
+      tag: tag,
+    }));
+  }, [tagList]);
 
   const tagsOptionsSelected = React.useMemo(
     () =>
@@ -151,37 +153,26 @@ const TagSelector: React.FC<Props> = ({
   );
 
   const tagGroupedByTagGroup = React.useMemo(() => {
-    const tagGroupByGroup = (allTagsWithTagGroup ?? []).reduce(
-      (accumulator, tagItem) => {
-        const temp = accumulator.findIndex(
-          (group) => group.id === tagItem.group.id,
-        );
-        if (temp === -1) {
-          accumulator.push({
-            label: tagItem.group.name,
-            id: tagItem.group.id,
-            options: [
-              {
-                value: tagItem.id,
-                label: tagItem.name,
-                tag: tagItem,
-              },
-            ],
-          });
-        } else {
-          accumulator[temp].options.push({
-            value: tagItem.id,
-            id: tagItem.group.id,
-            label: tagItem.name,
-            tag: tagItem,
-          });
-        }
-        return accumulator;
-      },
-      [],
-    );
-    return tagGroupByGroup ?? [];
-  }, [allTagsWithTagGroup]);
+    return tagList.reduce((accumulator, tagItem) => {
+      const groupIndex = accumulator.findIndex(
+        (group) => group.label === tagItem.group.name,
+      );
+      const tagOption = {
+        value: tagItem.id,
+        label: tagItem.name,
+        tag: tagItem,
+      };
+      if (groupIndex === -1) {
+        accumulator.push({
+          label: tagItem.group.name,
+          options: [tagOption],
+        });
+      } else {
+        accumulator[groupIndex].options.push(tagOption);
+      }
+      return accumulator;
+    }, [] as { label: string; options: TagOption[] }[]);
+  }, [tagList]);
 
   const onChangeExclusive = React.useCallback(
     (selectedOptions: TagOption[] = []) => {
@@ -316,7 +307,7 @@ const TagSelector: React.FC<Props> = ({
   React.useEffect(() => {
     if (variant === 'exclusive') {
       setSelectedTagsByTagGroup(
-        (allTagsWithTagGroup ?? []).reduce<FranchiseUserTagDict>((acc, tag) => {
+        tagList.reduce<FranchiseUserTagDict>((acc, tag) => {
           if ((selectedTags ?? []).includes(tag.id)) {
             acc[tag.group.id] = tag.id;
           }
@@ -324,7 +315,7 @@ const TagSelector: React.FC<Props> = ({
         }, {}),
       );
     }
-  }, [selectedTags, allTagsWithTagGroup, setSelectedTagsByTagGroup, variant]);
+  }, [selectedTags, setSelectedTagsByTagGroup, tagList, variant]);
 
   if (inScrollBar) {
     return (

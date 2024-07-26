@@ -30,6 +30,15 @@
   stroke: currentColor;
 }
 
+.bs-fabrique-button-root__badge {
+  display: inline-flex;
+  padding-left: var(--bs-space-size-2);
+}
+
+.bs-fabrique-button-root__badge--hidden {
+  display: none;
+}
+
 /* BUTTON SIZES */
 .bs-fabrique-button-root-lg {
   padding: var(--bs-space-size-3) var(--bs-space-size-4);

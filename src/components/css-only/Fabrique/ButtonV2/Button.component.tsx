@@ -3,16 +3,21 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import { joinWithSeparator } from '#Fabrique/utils/joinStringWithSpreadOperator';
-import ButtonBase from '../ButtonBaseV2';
+import ButtonBase from '#src/components/css-only/Fabrique/ButtonBaseV2';
+import Badge from '#src/components/css-only/Fabrique/Badge';
 
-import type { ButtonHTMLType } from '../ButtonBaseV2/types';
+import type { ButtonHTMLType } from '#src/components/css-only/Fabrique/ButtonBaseV2/types';
 import type {
   ButtonColor as ButtonColorType,
   ButtonVariant as ButtonVariantType,
   ButtonSize as ButtonSizeType,
-} from './types';
+} from '#src/components/css-only/Fabrique/ButtonV2/types';
 
-import { ButtonSize, ButtonVariant, ButtonColor } from './constants';
+import {
+  ButtonSize,
+  ButtonVariant,
+  ButtonColor,
+} from '#src/components/css-only/Fabrique/ButtonV2/constants';
 
 import './styles.css';
 
@@ -38,6 +43,8 @@ type Props = {
   rightIcon?: React.ReactNode;
   /** Optional href to set the button as an anchor */
   href?: string;
+  /** Display number inside a badge. Will replace the `rightIcon` if provided */
+  badgeValue?: number;
   /** Anchor target passed when `href` prop is defined */
   target?: string;
   children: React.ReactNode;
@@ -156,6 +163,7 @@ export const Button: React.FC<Props> = ({
   leftIcon,
   rightIcon,
   href,
+  badgeValue,
   target,
   children,
 }) => {
@@ -180,15 +188,28 @@ export const Button: React.FC<Props> = ({
       >
         {leftIcon}
       </div>
+
       {children}
+
       <div
         className={classNames(
           'bs-fabrique-button-root__right-icon',
-          { 'bs-fabrique-button-root__right-icon--hidden': !rightIcon },
+          {
+            'bs-fabrique-button-root__right-icon--hidden':
+              !rightIcon || !!badgeValue,
+          },
           classes?.rightIcon,
         )}
       >
         {rightIcon}
+      </div>
+
+      <div
+        className={classNames('bs-fabrique-button-root__badge', {
+          'bs-fabrique-button-root__badge--hidden': !badgeValue,
+        })}
+      >
+        <Badge color="grey" value={badgeValue} />
       </div>
     </ButtonBase>
   );

@@ -3,7 +3,7 @@ import type { MarketplaceTabConfig } from '#src/libs/marketplace/types';
 
 export type AppBarButton = Pick<
   ButtonProps,
-  'color' | 'leftIcon' | 'rightIcon' | 'variant' | 'onClick'
+  'color' | 'leftIcon' | 'rightIcon' | 'variant' | 'onClick' | 'badgeValue'
 > & {
   isIconButton?: boolean;
   label: string;

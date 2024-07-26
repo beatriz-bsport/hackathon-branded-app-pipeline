@@ -9960,6 +9960,17 @@
         "next_month": "Upcoming month",
         "next_week": "Upcoming week"
       },
+      "quickDateSelector": {
+        "week": "Week-to-date",
+        "month": "Month-to-date",
+        "year": "Year-to-date",
+        "last_week": "Last week",
+        "last_month": "Last month",
+        "last_year": "Last year ",
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "custom": "Custom"
+      },
       "fromToInDateContext": "From {{-from}} to {{-to}}",
       "fromToInTimeContext": "From {{-from}} to {{-to}}",
       "save": "Save"

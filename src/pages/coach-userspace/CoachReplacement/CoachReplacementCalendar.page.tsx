@@ -249,7 +249,6 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
             date_end={DateTime.fromISO(periodFilter.max_date).toUnixInteger()}
             date_start={DateTime.fromISO(periodFilter.min_date).toUnixInteger()}
             onSubmit={handlePeriodChange}
-            // @ts-expect-error
             timePeriod="next_month"
           />
         </div>

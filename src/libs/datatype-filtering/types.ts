@@ -76,6 +76,10 @@ export type DateFilterRangeEnum =
   | 'month'
   | 'trimester'
   | 'year'
+  | 'next_week'
+  | 'next_month'
+  | 'next_trimester'
+  | 'next_year'
   | 'custom';
 
 export type DateFilterEnum = 'today' | 'custom';

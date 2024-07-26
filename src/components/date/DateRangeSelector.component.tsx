@@ -22,81 +22,7 @@ import {
   defaultHandleSubmit,
   // @ts-expect-error
 } from '#src/components/forms';
-
-const RAPID_SELECTIONS = [
-  {
-    timePeriod: 'week',
-    getStartEndTimestamps: () => ({
-      dateStart: DateTime.now()
-        .minus({ days: 7 })
-        .startOf('day')
-        .toUnixInteger(),
-      dateEnd: DateTime.now().endOf('day').toUnixInteger(),
-    }),
-  },
-  {
-    timePeriod: 'month',
-    getStartEndTimestamps: () => ({
-      dateStart: DateTime.now()
-        .minus({ months: 1 })
-        .startOf('day')
-        .toUnixInteger(),
-      dateEnd: DateTime.now().endOf('day').toUnixInteger(),
-    }),
-  },
-  {
-    timePeriod: 'trimester',
-    getStartEndTimestamps: () => ({
-      dateStart: DateTime.now()
-        .minus({ months: 3 })
-        .startOf('day')
-        .toUnixInteger(),
-      dateEnd: DateTime.now().endOf('day').toUnixInteger(),
-    }),
-  },
-  {
-    timePeriod: 'year',
-    getStartEndTimestamps: () => ({
-      dateStart: DateTime.now()
-        .minus({ years: 1 })
-        .startOf('day')
-        .toUnixInteger(),
-      dateEnd: DateTime.now().endOf('day').toUnixInteger(),
-    }),
-  },
-  {
-    timePeriod: 'next_week',
-    getStartEndTimestamps: () => ({
-      dateStart: DateTime.now().startOf('day').toUnixInteger(),
-      dateEnd: DateTime.now().plus({ days: 7 }).endOf('day').toUnixInteger(),
-    }),
-    futureOnly: true,
-  },
-  {
-    timePeriod: 'next_month',
-    getStartEndTimestamps: () => ({
-      dateStart: DateTime.now().startOf('day').toUnixInteger(),
-      dateEnd: DateTime.now().plus({ months: 1 }).endOf('day').toUnixInteger(),
-    }),
-    futureOnly: true,
-  },
-  {
-    timePeriod: 'next_trimester',
-    getStartEndTimestamps: () => ({
-      dateStart: DateTime.now().startOf('day').toUnixInteger(),
-      dateEnd: DateTime.now().plus({ months: 3 }).endOf('day').toUnixInteger(),
-    }),
-    futureOnly: true,
-  },
-  {
-    timePeriod: 'next_year',
-    getStartEndTimestamps: () => ({
-      dateStart: DateTime.now().startOf('day').toUnixInteger(),
-      dateEnd: DateTime.now().plus({ years: 1 }).endOf('day').toUnixInteger(),
-    }),
-    futureOnly: true,
-  },
-];
+import { RANGED_RAPID_SELECTIONS } from '#src/components/date/constants';
 
 const getStartEndDates: (
   timePeriod: DateFilterRangeEnum,
@@ -107,7 +33,7 @@ const getStartEndDates: (
   dateEnd: DateTime;
   timePeriod: DateFilterRangeEnum;
 } = (timePeriod, date_start, date_end) => {
-  const matchingRapidSelection = RAPID_SELECTIONS.find(
+  const matchingRapidSelection = RANGED_RAPID_SELECTIONS.find(
     (selection) => selection.timePeriod === timePeriod,
   );
   if (matchingRapidSelection) {
@@ -227,14 +153,13 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
     };
 
   const getDisplayDate = () => {
-    const selection = RAPID_SELECTIONS.find(
+    const selection = RANGED_RAPID_SELECTIONS.find(
       (s) => s.timePeriod === values.timePeriod,
     );
 
     if (selection)
       return (
         <Typography display="inline">
-          {' '}
           {t(`header.helper.${selection.timePeriod}`)}
         </Typography>
       );
@@ -317,13 +242,13 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
               <Typography color="textSecondary">
                 {t('header.rapidChoice')}
               </Typography>
-              {RAPID_SELECTIONS.filter((selection) =>
+              {RANGED_RAPID_SELECTIONS.filter((selection) =>
                 futureOnly ? !!selection.futureOnly : !selection.futureOnly,
-              ).map((selection) => (
+              )
+              .map((selection) => (
                 <ButtonBase
                   key={selection.timePeriod}
                   className={classes.button}
-                  // @ts-expect-error
                   onClick={handleSelection(selection)}
                 >
                   <Typography>

@@ -23,8 +23,9 @@ import {
   // @ts-expect-error
 } from '#src/components/forms';
 import { DateFilterEnum } from '#src/libs/datatype-filtering/types';
+import { SINGLE_RAPID_SELECTIONS } from '#src/components/date/constants';
 
-export type Props = {
+export type OwnProps = {
   isDisabled?: boolean;
   keepHours?: boolean;
   singleDate?: boolean;
@@ -36,7 +37,9 @@ export type Values = {
   timePeriod: DateFilterEnum;
 };
 
-type HOCProps = Props & FormikProps<Values>;
+type FormikHOCProps = { onSubmit: (values: Values) => void };
+
+export type Props = OwnProps & FormikProps<Values>;
 
 const DatePickerSelectorSchema = Yup.object().shape({
   date: Yup.date().required('required'),
@@ -45,7 +48,7 @@ const DatePickerSelectorSchema = Yup.object().shape({
 
 export const TIME_PERIODS_SINGLE = ['today'];
 
-const DatePickerSelector: React.FC<HOCProps> = ({
+const DatePickerSelector: React.FC<Props> = ({
   date,
   isFullWidth,
   isValid,
@@ -94,7 +97,7 @@ const DatePickerSelector: React.FC<HOCProps> = ({
     };
 
   const getDisplayDate = () => {
-    const selection = RAPID_SELECTIONS.find(
+    const selection = SINGLE_RAPID_SELECTIONS.find(
       (s) => s.timePeriod === values.timePeriod,
     );
 
@@ -112,7 +115,7 @@ const DatePickerSelector: React.FC<HOCProps> = ({
             <Typography color="textSecondary" display="inline">
               {t('header.fromInDateContext')}
             </Typography>
-          )}{' '}
+          )}
           <Typography display="inline">
             {(typeof date === 'number'
               ? DateTime.fromSeconds(date)
@@ -177,7 +180,7 @@ const DatePickerSelector: React.FC<HOCProps> = ({
               <Typography color="textSecondary">
                 {t('header.rapidChoice')}
               </Typography>
-              {RAPID_SELECTIONS.map((selection) => (
+              {SINGLE_RAPID_SELECTIONS.map((selection) => (
                 <ButtonBase
                   key={selection.timePeriod}
                   className={classes.button}
@@ -205,14 +208,7 @@ const DatePickerSelector: React.FC<HOCProps> = ({
   );
 };
 
-const RAPID_SELECTIONS = [
-  {
-    timePeriod: 'today' as DateFilterEnum,
-    getTimeStamp: () => DateTime.now().toUnixInteger(),
-  },
-];
-
-type StylesProps = { isFullWidth: boolean };
+type StylesProps = { isFullWidth?: boolean };
 
 const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   formContainer: {
@@ -265,8 +261,8 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   },
 }));
 
-export default compose<any, Props>(
-  withFormik<HOCProps, Values>({
+export default compose<Props, OwnProps & FormikHOCProps>(
+  withFormik<Props & FormikHOCProps, Values>({
     enableReinitialize: true,
     mapPropsToValues: ({ date, timePeriod }) => {
       return {

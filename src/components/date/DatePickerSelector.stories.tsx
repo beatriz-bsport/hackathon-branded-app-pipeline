@@ -2,7 +2,9 @@ import React from 'react';
 
 import DatePickerSelector, { Props } from './DatePickerSelector.component';
 
-const CustomTemplate = (args: Props) => <DatePickerSelector {...args} />;
+const CustomTemplate = (args: Props) => (
+  <DatePickerSelector {...args} onSubmit={() => {}} />
+);
 
 export const Default = CustomTemplate.bind({});
 

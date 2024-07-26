@@ -289,7 +289,6 @@ const ReportGenerationForm: React.FC<Props> = ({
               <DatePickerSelector
                 date={DateTime.fromISO(values.dateStart).toUnixInteger()}
                 isDisabled={!!isDisabled}
-                // @ts-expect-error
                 onSubmit={(_values) => {
                   setFieldValue(
                     'dateStart',

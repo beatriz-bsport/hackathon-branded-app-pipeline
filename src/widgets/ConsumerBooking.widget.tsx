@@ -21,7 +21,13 @@ import {
   getMyFutureBookingsWorkshopList,
   getMyWaitlistBookingsWorkshopState,
   getMyWaitlistBookingsWorkshopList,
+  getConsumerOfferElligibleGuestNumber,
+  getConsumerOfferBookingOptionPosition,
 } from 'bsport-saas/src/libs/consumer-space/selectors';
+
+import {
+  getWaitingListConfigurationData
+} from 'bsport-saas/src/libs/waiting-list/selectors';
 
 import {
   getAssetByBlueprintByIdentifier,
@@ -125,8 +131,12 @@ const mapStateToWidgetProps = (
     myPastBookingsList: adaptSelector(getMyPastBookingsList)(state),
     myFutureBookingsState: adaptSelector(getMyFutureBookingsState)(state),
     myFutureBookingsList: adaptSelector(getMyFutureBookingsList)(state),
-    myBookingOptionsState: adaptSelector(getMyWaitlistBookingsState)(state),
-    myBookingOptionsList: adaptSelector(getMyWaitlistBookingsList)(state),
+    myBookingOptionsState: adaptSelector(getMyWaitlistBookingsState)(
+      state,
+    ),
+    myBookingOptionsList: adaptSelector(getMyWaitlistBookingsList)(
+      state,
+    ),
     myPastPrivateBookingsState: adaptSelector(getMyPastPrivateBookingsState)(
       state,
     ),
@@ -157,7 +167,26 @@ const mapStateToWidgetProps = (
     myBookingOptionsWorkshopList: adaptSelector(
       getMyWaitlistBookingsWorkshopList,
     )(state),
-  };
+    waitingListConfiguration: adaptSelector(
+      getWaitingListConfigurationData,
+    )(state),
+    getOfferElligibleGuestNumber: (
+      offerId: number,
+    ) =>
+      adaptSelector(
+        getConsumerOfferElligibleGuestNumber)(
+        state,
+        offerId,
+      ),
+    getOfferWaitingListPosition: (
+      offerId: number,
+    ) =>
+      adaptSelector(
+        getConsumerOfferBookingOptionPosition)(
+          state,
+          offerId
+        ),
+    };
 };
 
 const mapDispatchToWidgetProps = {
@@ -231,6 +260,15 @@ const mapDispatchToWidgetProps = {
   cancelBookingOptionAsMember: createAuthenticatedBridgeAction(
     'CANCEL_BOOKING_OPTION_AS_MEMBER',
   ),
+  fetchCompanyWaitlistConfiguration: createAuthenticatedBridgeAction(
+    'FETCH_COMPANY_WAITLIST_CONFIGURATION'
+  ),
+  fetchConsumerGuestNumberEligibleLeftByOfferBulk: createAuthenticatedBridgeAction(
+    'FETCH_CONSUMER_GUEST_NUMBER_ELIGIBLE_LEFT_BY_OFFER_BULK'
+  ),
+  fetchMyBookingOptionsPositionAsMemberByOfferIds: createAuthenticatedBridgeAction(
+    'FETCH_BOOKING_POSITION_AS_MEMBER_BY_OFFER_IDS'
+  ),  
 };
 
 export default compose<any, OwnProps>(

@@ -23,6 +23,8 @@ import {
   fetchMyPastBookingAsMemberActions,
   fetchMyPastBookingWorkshopAsMemberActions,
   fetchMyPastPrivateBookingAsMemberActions,
+  fetchConsumerGuestNumberEligibleLeftByOfferBulkActions,
+  fetchMyBookingOptionsPositionAsMemberByOfferIdsActions,
 } from '../../actions/consumerSpace';
 import { establishmentBulkRetrieveActions } from '../../actions/establishment';
 import { fetchLevelListActions } from '../../actions/level';
@@ -55,6 +57,9 @@ import {
   fetchRelatedMembersNamesByConsumerPaymentPackLinksActions,
   fetchRelatedMembersNamesByPrivateConsumerPassLinksActions,
 } from '../../actions/relationship';
+import {
+  configurationDetailActions
+} from '../../actions/company';
 
 export const actionsBinder = () => {
   apiCallHandler.bindActions(
@@ -261,4 +266,19 @@ export const actionsBinder = () => {
     'FETCH_PRIVATE_SERVICE_COMPATIBLE_PASS_LIST',
     privateServiceCompatiblePassListActions,
   );
+
+  apiCallHandler.bindActions(
+    'FETCH_COMPANY_WAITLIST_CONFIGURATION',
+    configurationDetailActions
+  )
+
+  apiCallHandler.bindActions(
+    'FETCH_CONSUMER_GUEST_NUMBER_ELIGIBLE_LEFT_BY_OFFER_BULK',
+    fetchConsumerGuestNumberEligibleLeftByOfferBulkActions
+  )
+
+  apiCallHandler.bindActions(
+    'FETCH_BOOKING_POSITION_AS_MEMBER_BY_OFFER_IDS',
+    fetchMyBookingOptionsPositionAsMemberByOfferIdsActions
+  )
 };

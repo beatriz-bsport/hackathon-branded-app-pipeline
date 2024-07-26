@@ -4,6 +4,8 @@ import type { UniversalPassREST } from 'bsport-saas/src/libs/universal-pass/type
 import type { PrivateConsumerPassREST } from 'bsport-saas/src/libs/private-service/types';
 import type { ConsumerPaymentPackREST } from 'bsport-saas/src/libs/consumer-payment-pack/types';
 import type { ConsumerPassesTabDisplay } from 'bsport-saas/src/libs/consumer-space/types';
+import type { OfferStatusWaitingListPosition } from 'bsport-saas/src/libs/offer/types';
+import type { WaitingListBookingOption } from 'bsport-saas/src/libs/waiting-list/types';
 
 export const fetchMyPastBookingAsMemberActions = {
   success: createAction('BOOKING/PAST/AS_MEMBER/SUCCESS'),
@@ -18,7 +20,9 @@ export const fetchMyFutureBookingAsMemberActions = {
 };
 
 export const fetchMyBookingOptionAsMemberActions = {
-  success: createAction('BOOKING_OPTION/AS_MEMBER/SUCCESS'),
+  success: createAction<PaginatedResponse<WaitingListBookingOption>>(
+    'BOOKING_OPTION/AS_MEMBER/SUCCESS',
+  ),
   isLoading: createAction<boolean>('BOOKING_OPTION/AS_MEMBER/IS_LOADING'),
   error: createAction<Error | null>('BOOKING_OPTION/AS_MEMBER/ERROR'),
 };
@@ -195,4 +199,26 @@ export const fetchMyFutureUniversalPassesAsMemberActions = {
   error: createAction<Error | null>(
     'REWORKED/UNIVERSAL_PASS/FUTURE/AS_MEMBER/ERROR',
   ),
+};
+
+export const fetchConsumerGuestNumberEligibleLeftByOfferBulkActions = {
+  isLoading: createAction<boolean>(
+    'CONSUMER_BOOKING/GUEST_NUMBER_ELIGIBLE_LEFT/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'CONSUMER_BOOKING/GUEST_NUMBER_ELIGIBLE_LEFT/ERROR',
+  ),
+  success: createAction<Record<number, number>>(
+    'CONSUMER_BOOKING/GUEST_NUMBER_ELIGIBLE_LEFT/SUCCESS',
+  ),
+};
+
+export const fetchMyBookingOptionsPositionAsMemberByOfferIdsActions = {
+  success: createAction<OfferStatusWaitingListPosition[]>(
+    'BOOKING_OPTION_POSITION/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'BOOKING_OPTION_POSITION/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>('BOOKING_OPTION_POSITION/AS_MEMBER/ERROR'),
 };

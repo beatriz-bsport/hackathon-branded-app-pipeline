@@ -70,19 +70,32 @@ export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
     !!props.private_consumer_pass?.private_pass
       ?.is_unpaid_private_booking_integration;
 
-  // Check if the pass is original, meaning:
-  // - It is not shared from another company in a franchise and is the one billed and purchased by the consumer
-  // - It is not shared from a relationship pass
-  const isPassOriginal =
-    !props.private_consumer_pass?.dst_private_consumer_pass?.length;
+  // Check if the pass is shared from a relationship pass
+  const isPassSharedFromRelation =
+    !!props.private_consumer_pass?.dst_private_consumer_pass?.length;
 
-  // Determine if a validity extension can be added to the pass
-  // This can be done if:
-  // - The pass has not been reverted
-  // - The pass is original
-  // - The pass is not associated with an unpaid private booking integration
-  const canValidityExtensionBeAdded =
-    !isPassReverted && isPassOriginal && !isUnpaidPrivateBookingIntegration;
+  // Check if the private consumer pass is a universal pass
+  const isUniversalPass =
+    !!props.private_consumer_pass?.linked_consumer_payment_pack;
+
+  // Determine if the creation of a validity extension is forbidden
+  // It is forbidden if one of these conditions is true:
+  // - The pass is a universal pass
+  // - The pass is shared from a relationship pass
+  // - The pass has been reverted
+  // - The pass is associated with an unpaid private booking integration
+  const isValidityExtensionCreationForbidden =
+    isUniversalPass ||
+    isPassSharedFromRelation ||
+    isPassReverted ||
+    isUnpaidPrivateBookingIntegration;
+
+  // Determine if the deletion of a validity extension is forbidden
+  // It is forbidden if one of these conditions is true:
+  // - The pass is a universal pass
+  // - The pass is shared from a relationship pass
+  const isValidityExtensionsDeletionForbidden =
+    isUniversalPass || isPassSharedFromRelation;
 
   return (
     <div>
@@ -225,9 +238,7 @@ export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
                     key={extension.id}
                     extension={extension}
                     onDelete={
-                      props.private_consumer_pass &&
-                      !props.private_consumer_pass.dst_private_consumer_pass
-                        .length
+                      !isValidityExtensionsDeletionForbidden
                         ? () => props.deleteExtension(extension.id)
                         : null
                     }
@@ -238,7 +249,7 @@ export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
             </Paper>
           </>
         ) : null}
-        {canValidityExtensionBeAdded && (
+        {!isValidityExtensionCreationForbidden && (
           <div className={classes.addButtonContainer}>
             <Button
               color="primary"

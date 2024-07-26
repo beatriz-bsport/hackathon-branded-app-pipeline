@@ -5,11 +5,14 @@ import {
   buildUrlParams,
   get,
   getAuth,
-  getAuthDeprecated,
   patchAuth,
   patchAuthDeprecated,
 } from '../../http';
-import { BookingFunnelConfiguration, PricingOptionOrdering } from './types';
+import type {
+  BookingFunnelConfiguration,
+  MarketplaceSettings,
+  PricingOptionOrdering,
+} from './types';
 
 const fetchCompanyMetaActivities = async ({
   companyId,
@@ -88,8 +91,8 @@ const fetchCompany = async (companyId: string) => {
   return get(`${API_URI}/marketplace/company/${companyId}/summary`);
 };
 
-export const fetchMarketplaceSettings = async (companyId: string) => {
-  return getAuthDeprecated(
+export const fetchMarketplaceSettings = (companyId: string) => {
+  return getAuth<MarketplaceSettings>(
     `${API_V1_URI}/marketplace_settings/configuration/${companyId}/`,
   );
 };

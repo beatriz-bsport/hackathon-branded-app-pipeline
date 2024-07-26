@@ -5,7 +5,11 @@ import {
   marketplaceSettingsAction,
   bookingFunnelConfigurationAction,
 } from './actions';
-import { MarketplaceSettingState, BookingFunnelConfiguration } from './types';
+import type {
+  MarketplaceSettingState,
+  BookingFunnelConfiguration,
+  MarketplaceSettings,
+} from './types';
 
 const initialState: Immutable.Immutable<MarketplaceSettingState> =
   Immutable<MarketplaceSettingState>({
@@ -21,14 +25,23 @@ const initialState: Immutable.Immutable<MarketplaceSettingState> =
 
 export default handleActions<Immutable.Immutable<MarketplaceSettingState>, any>(
   {
-    [marketplaceSettingsAction.success.toString()]: (state, { payload }) => {
+    [marketplaceSettingsAction.success.toString()]: (
+      state,
+      { payload }: { payload: MarketplaceSettings },
+    ) => {
       return state.setIn(['settings'], payload);
     },
-    [marketplaceSettingsAction.isLoading.toString()]: (state, { payload }) => {
-      return state.set('loading', payload);
+    [marketplaceSettingsAction.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['loading'], payload);
     },
-    [marketplaceSettingsAction.error.toString()]: (state, { payload }) => {
-      return state.set('error', payload);
+    [marketplaceSettingsAction.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['error'], payload);
     },
     [bookingFunnelConfigurationAction.success.toString()]: (
       state,

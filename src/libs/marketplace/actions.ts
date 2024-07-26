@@ -17,9 +17,9 @@ import {
 import { getMarketplaceDefaultConfig } from './constants';
 
 export const marketplaceSettingsAction = {
-  error: createAction('MARKETPLACE_SETTINGS/ERROR'),
-  isLoading: createAction('MARKETPLACE_SETTINGS/IS_LOADING'),
-  success: createAction('MARKETPLACE_SETTINGS/SUCCESS'),
+  error: createAction<Error | null>('MARKETPLACE_SETTINGS/ERROR'),
+  isLoading: createAction<boolean>('MARKETPLACE_SETTINGS/IS_LOADING'),
+  success: createAction<MarketplaceSettings>('MARKETPLACE_SETTINGS/SUCCESS'),
 };
 
 const MARKETPLACE_DEFAULT_CONFIG = getMarketplaceDefaultConfig();
@@ -33,25 +33,26 @@ export function fetchMarketplaceSettings(
     dispatch(marketplaceSettingsAction.error(null));
 
     try {
-      const res = await fetchMarketplaceSettingsAPI(companyId);
-      const { data }: { data: MarketplaceSettings } = res;
-      if (!data.is_custom) {
-        data.config = MARKETPLACE_DEFAULT_CONFIG;
-      }
-      dispatch(marketplaceSettingsAction.success(data));
+      const response = await fetchMarketplaceSettingsAPI(companyId);
+
+      // If the manager didnt config the marketplace tabs, we return the default config
+      const marketplaceSettings: MarketplaceSettings = {
+        ...response.data,
+        config: response.data.is_custom
+          ? response.data.config
+          : MARKETPLACE_DEFAULT_CONFIG,
+      };
+
+      dispatch(marketplaceSettingsAction.success(marketplaceSettings));
       dispatch(marketplaceSettingsAction.error(null));
-      if (options && options.onSuccess) {
-        options.onSuccess(data);
-      }
+      options?.onSuccess?.(marketplaceSettings);
     } catch (error) {
       console.error(error);
       dispatch(marketplaceSettingsAction.error(error));
-      if (options && options.onError) {
-        options.onError(error);
-      }
+      options?.onError?.(error);
+    } finally {
+      dispatch(marketplaceSettingsAction.isLoading(false));
     }
-
-    dispatch(marketplaceSettingsAction.isLoading(false));
   };
 }
 

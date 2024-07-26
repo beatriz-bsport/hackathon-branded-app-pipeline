@@ -91,7 +91,10 @@ import { buildUrlParams } from '#src/http';
 
 import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#src/libs/waiting-list/actions';
 import { getWaitingListConfigurationData } from '#src/libs/waiting-list/selectors';
+import { getMarketplaceSettingsConfig } from '#src/libs/marketplace/selectors';
+
 import type { PaginatedResponse } from '#src/state/types';
+
 type OwnProps = {};
 type ParamsProps = {
   companyId: number;
@@ -258,7 +261,7 @@ export class ConsumerBooking extends React.Component<Props, State> {
 
   handleBookASessionClick = () => {
     const marketplaceTabPath = urlToMarketplaceSessionTab(
-      this.props.marketplaceSettings?.config,
+      this.props.marketplaceSettingsConfig,
       this.props.theme.company_name,
       this.props.theme.company.toString(),
     );
@@ -435,7 +438,7 @@ const connector = connect(
     membership: getMembership(state, companyId),
     timezone: state.theme.theme.timezone_name,
     theme: getTheme(state),
-    marketplaceSettings: state.marketplace.settings,
+    marketplaceSettingsConfig: getMarketplaceSettingsConfig(state),
     sessionTimeDisplay: state.theme.theme.session_time_display,
     bookingGuestFrequency: state.theme.theme.allow_guest_frequency,
     spotTypes: getSpotTypesOfCompany(state),

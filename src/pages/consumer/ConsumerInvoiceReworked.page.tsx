@@ -46,6 +46,7 @@ import {
   getUnpaidInvoicesPage,
 } from '#src/libs/consumer-space/selectors';
 import { getInvoice } from '#src/libs/invoice/selectors';
+import { getMarketplaceSettingsConfig } from '#src/libs/marketplace/selectors';
 
 import type {
   ConsumerInvoice,
@@ -112,7 +113,7 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
       window?.close();
     } else {
       const marketplaceTabPath = urlToMarketplaceSessionTab(
-        this.props.marketplaceSettings?.config,
+        this.props.marketplaceSettingsConfig,
         this.props.theme.company_name,
         this.props.theme.company.toString(),
       );
@@ -218,7 +219,7 @@ const connector = connect(
     unpaidInvoicesPage: getUnpaidInvoicesPage(state),
     detachPaymentMethodLoading:
       state.paymentBackend.detachPaymentMethod.loading,
-    marketplaceSettings: state.marketplace.settings,
+    marketplaceSettingsConfig: getMarketplaceSettingsConfig(state),
     getInvoice: (uuid: string) => getInvoice(state, uuid),
     getInvoiceComplementary: (uuid: string) =>
       getInvoiceComplementaryInformation(state, uuid),

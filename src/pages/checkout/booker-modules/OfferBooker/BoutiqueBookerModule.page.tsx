@@ -119,6 +119,7 @@ import {
   getBookingGuestNumberLeft,
   getOfferStatusWaitingListPositionById,
 } from '#src/libs/offer/selectors';
+import { getMarketplaceSettingsConfig } from '#src/libs/marketplace/selectors';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import { fetchMemberTagList } from '#src/libs/tag/actions';
 import {
@@ -792,7 +793,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   getMarketplaceSettingsPassTab = () => {
-    return !!this.props.marketplaceSettings?.config?.find(
+    return !!this.props.marketplaceSettingsConfig?.find(
       (tabConfig) => tabConfig?.component_type === MARKETPLACE_PATH_TAB_PASS,
     );
   };
@@ -1255,7 +1256,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     consumerPacksForBooking: state.consumerPaymentPack.forBooking.allIds,
     consumerPacksForBookingLoading:
       state.consumerPaymentPack.forBooking.loading,
-    marketplaceSettings: state.marketplace.settings,
+    marketplaceSettingsConfig: getMarketplaceSettingsConfig(state),
     marketplaceSettingsLoading: state.marketplace.loading,
     customConfiguration: state.exportableComponents.customCss,
     basket: getCurrentBasket(state),

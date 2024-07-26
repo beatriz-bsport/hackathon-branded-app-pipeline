@@ -51,6 +51,7 @@ import {
   getMarketplaceRoute,
 } from '../../libs/marketplace/routing-utils';
 import { showVaccinationStatus } from '../../libs/custom-form/selectors';
+import { getMarketplaceSettingsConfig } from '../../libs/marketplace/selectors';
 
 type Props = {
   timezone: string,
@@ -147,7 +148,7 @@ export default compose(
 
       private_booking_list: getPrivateBookingListBase(state),
       privateBookingsLoading: state.privateService.privateBooking.loading,
-      marketplaceSettings: state.marketplace.settings,
+      marketplaceSettingsConfig: getMarketplaceSettingsConfig(state),
       showVaccinationStatus: showVaccinationStatus(state),
       group: retrieveGroupOffer(state),
       similarBookings: withCustomLevel(
@@ -202,15 +203,12 @@ export default compose(
         }),
     goToCalendar:
       (props: Props) => (companyName: string, companyId: string) => {
-        const index =
-          props.marketplaceSettings && props.marketplaceSettings.config
-            ? props.marketplaceSettings.config.findIndex(
-                (tab) => tab.component_type === 'calendar',
-              )
-            : -1;
-        if (index > -1) {
+        const index: number = (marketplaceSettingsConfig ?? {}).findIndex(
+          (tab) => tab.component_type === 'calendar',
+        );
+        if (index) {
           const tabConfig: MarketplaceTabConfig =
-            props.marketplaceSettings.config[index];
+            props.marketplaceSettingsConfig[index];
           const path = fromConfigToUrl(tabConfig, { tabSelected: index });
 
           props.push(getMarketplaceRoute(companyName, props.companyId, path));

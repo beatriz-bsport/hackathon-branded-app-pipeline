@@ -15,6 +15,7 @@ import {
   getMyExpiredSubscriptionsList,
   getMySubscriptionsInvoicesDetailsState,
 } from '#src/libs/consumer-space/selectors';
+import { getMarketplaceSettingsConfig } from '#src/libs/marketplace/selectors';
 
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
@@ -79,7 +80,7 @@ export class ConsumerSubscription extends React.Component<Props> {
 
   handleBookASessionClick = () => {
     const marketplaceTabPath = urlToMarketplaceSessionTab(
-      this.props.marketplaceSettings?.config,
+      this.props.marketplaceSettingsConfig,
       this.props.companyTheme.company_name,
       this.props.companyTheme.company.toString(),
     );
@@ -89,7 +90,7 @@ export class ConsumerSubscription extends React.Component<Props> {
 
   handleGetASubscription = () => {
     const marketplaceTabPath = urlToMarketplaceSubscriptionTab(
-      this.props.marketplaceSettings?.config,
+      this.props.marketplaceSettingsConfig,
       this.props.companyTheme.company_name,
       this.props.companyTheme.company.toString(),
     );
@@ -176,7 +177,7 @@ const connector = connect(
       getMySubscriptionsInvoicesDetailsState(state),
     invoiceConfiguration: state.invoice.configuration.result,
     companyTheme: getTheme(state),
-    marketplaceSettings: state.marketplace.settings,
+    marketplaceSettingsConfig: getMarketplaceSettingsConfig(state),
     paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
     auth: state.auth,
   }),

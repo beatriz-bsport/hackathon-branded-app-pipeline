@@ -48,6 +48,7 @@ import {
 } from '#src/libs/consumer-space/selectors';
 import { getTheme } from '#src/libs/theme/selectors';
 import { getMembership } from '#src/libs/membership/selectors';
+import { getMarketplaceSettingsConfig } from '#src/libs/marketplace/selectors';
 
 /** ACTIONS */
 
@@ -326,7 +327,7 @@ export class ConsumerPassReworked extends React.Component<
 
   handleBuyPassClick = () => {
     const marketplaceTabPath = urlToMarketplacePassTab(
-      this.props.marketplaceSettings?.config,
+      this.props.marketplaceSettingsConfig,
       this.props.theme.company_name,
       this.props.theme.company.toString(),
     );
@@ -340,7 +341,7 @@ export class ConsumerPassReworked extends React.Component<
 
   handleBookASessionClick = () => {
     const marketplaceTabPath = urlToMarketplaceSessionTab(
-      this.props.marketplaceSettings?.config,
+      this.props.marketplaceSettingsConfig,
       this.props.theme.company_name,
       this.props.theme.company.toString(),
     );
@@ -429,7 +430,7 @@ const connector = connect(
     membership: getMembership(state, companyId),
     companyId,
     theme: getTheme(state),
-    marketplaceSettings: state.marketplace.settings,
+    marketplaceSettingsConfig: getMarketplaceSettingsConfig(state),
 
     /** REWORKED */
     consumerPassesTabDisplayLoading: getConsumerPassesTabDisplayLoading(state),

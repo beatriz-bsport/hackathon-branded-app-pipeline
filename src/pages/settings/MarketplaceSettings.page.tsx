@@ -60,6 +60,7 @@ import { fetchVideoList as fetchVideoListAction } from '../../libs/video/actions
 import MarketplaceBuilder from '../../libs/marketplace/components/builder/MarketplaceBuilder.component';
 import MarketplaceTabPreview from '../../libs/marketplace/components/builder/MarketplaceTabPreview.component';
 import MarketplaceTabBuilder from '../../libs/marketplace/components/builder/MarketplaceTabBuilder.component';
+import { getMarketplaceSettings } from '#src/libs/marketplace/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
@@ -321,7 +322,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const mapStateToProps = (state: RootState) => ({
-  settings: state.marketplace.settings,
+  settings: getMarketplaceSettings(state),
   loading: state.marketplace.loading,
   privateServices: getAvailablePrivateServices(state),
   coaches: getActiveCoaches(state),

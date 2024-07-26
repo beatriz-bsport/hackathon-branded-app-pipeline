@@ -72,6 +72,7 @@ import { CustomFormTitle } from '#src/libs/custom-form/components/CustomFormTitl
 import { getMyControlableMemberList } from '#src/libs/relationship/selectors';
 import { fetchMyControlableMemberList } from '#src/libs/relationship/actions';
 import { getFranchisor } from '#src/libs/franchise/selectors';
+import { getMarketplaceSettings } from '#src/libs/marketplace/selectors';
 import {
   MARKETPLACE_PATH_TAB_CALENDAR,
   MARKETPLACE_PATH_TAB_PASS,
@@ -817,7 +818,7 @@ export default compose(
       consumerProfile: state.consumer.profile,
       theme: state.theme.theme,
       companyThemeLoading: state.theme.loading,
-      settings: state.marketplace.settings,
+      settings: getMarketplaceSettings(state),
       settingsLoading: state.marketplace.loading,
       errorFields: state.auth.invalidFields,
       checkEmailExistsLoading: state.auth.emailExists.loading,

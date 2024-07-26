@@ -234,7 +234,7 @@ export class ConsumerHome extends React.Component<Props> {
 
   handleBookASessionClick = () => {
     const marketplaceTabPath = urlToMarketplaceSessionTab(
-      this.props.marketplaceSettings?.config,
+      this.props.marketplaceSettingsConfig,
       this.props.theme.company_name,
       this.props.theme.company.toString(),
     );
@@ -248,7 +248,7 @@ export class ConsumerHome extends React.Component<Props> {
 
   handleGetASubscriptionClick = () => {
     const marketplaceTabPath = urlToMarketplaceSubscriptionTab(
-      this.props.marketplaceSettings?.config,
+      this.props.marketplaceSettingsConfig,
       this.props.theme.company_name,
       this.props.theme.company.toString(),
     );
@@ -262,7 +262,7 @@ export class ConsumerHome extends React.Component<Props> {
 
   handleBuyPassClick = () => {
     const marketplaceTabPath = urlToMarketplacePassTab(
-      this.props.marketplaceSettings?.config,
+      this.props.marketplaceSettingsConfig,
       this.props.theme.company_name,
       this.props.theme.company.toString(),
     );

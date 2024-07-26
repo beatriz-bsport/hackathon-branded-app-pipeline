@@ -6,14 +6,21 @@ S3BUCKETLOCATION=/scripts
 
 S3DESTINATION=$S3BUCKETNAME$S3BUCKETLOCATION
 
-echo $ENVIRONMENT
+echo "ENVIRONMENT: $ENVIRONMENT"
+
+echo "FEATURE_BRANCH_IDENTIFIER: $FEATURE_BRANCH_IDENTIFIER"
+
 if [[ "$ENVIRONMENT" != "production" ]]
 then
   if [ -z $FEATURE_BRANCH_IDENTIFIER ]
   then
     cp ./config.$ENVIRONMENT.js ./config.production.js
   else
-    cp ./config.dev.js ./config.production.js
+    # For feature branches, template-feature-branch is used,
+    # within which the FEATURE_BRANCH_IDENTIFIER string is replaced by the actual current feature branch identifier.
+    CONFIG_TEMPLATE_FILE=template-feature-branch
+    sed -i "s/FEATURE_BRANCH_IDENTIFIER/${FEATURE_BRANCH_IDENTIFIER}/g" ./config.${CONFIG_TEMPLATE_FILE}.js
+    cp ./config.${CONFIG_TEMPLATE_FILE}.js ./config.production.js
   fi
 fi
 

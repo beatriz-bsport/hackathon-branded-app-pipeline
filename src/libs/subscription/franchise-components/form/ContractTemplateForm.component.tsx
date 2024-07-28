@@ -42,7 +42,7 @@ import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 
 import {
   CONTRACT_MAX_NB_INTERVAL_ALLOWED,
-  SHARED_PASSES_SELECTOR_ICON_COLOR,
+  PRIMARY_BLUE_CONTRACT_DETAIL,
   SHARED_PASSES_SELECTOR_ICON_TOOLTIP_SHADOW,
 } from '#src/libs/subscription/constants';
 import type { ContractTemplateFormValues } from '#src/libs/subscription/types';
@@ -558,7 +558,7 @@ const useStyles = makeStyles((theme) => ({
     columnGap: theme.spacing(1),
   },
   sharedPassesSelectorIcon: {
-    color: SHARED_PASSES_SELECTOR_ICON_COLOR,
+    color: PRIMARY_BLUE_CONTRACT_DETAIL,
   },
   dialogActions: {
     padding: theme.spacing(4),

@@ -22,7 +22,12 @@ import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { getContractCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import { ContractWithPaymentPack } from '../../types';
-
+import {
+  BORDER_RADIUS_CONTRACT_DETAIL,
+  FONT_WEIGHT_CONTRACT_DETAIL,
+  FONT_SIZE_CONTRACT_DETAIL,
+  PRIMARY_BLUE_CONTRACT_DETAIL,
+} from '#src/libs/subscription/constants';
 type Props = {
   contract: ContractWithPaymentPack;
   goToPack: (id: number) => void;
@@ -273,7 +278,7 @@ const useStyles = makeStyles((theme) => ({
   },
   secondaryHelperText: {
     color: theme.palette.text.secondary,
-    fontSize: '0.875rem',
+    fontSize: FONT_SIZE_CONTRACT_DETAIL,
   },
   recurrence: {
     marginLeft: theme.spacing(2),
@@ -285,7 +290,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey[300],
     paddingBlock: theme.spacing(0.5),
     paddingInline: theme.spacing(1),
-    borderRadius: 4,
+    borderRadius: BORDER_RADIUS_CONTRACT_DETAIL,
     display: 'flex',
     flexDirection: 'row',
   },
@@ -294,7 +299,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey[300],
     paddingBlock: theme.spacing(0.5),
     paddingInline: theme.spacing(1),
-    borderRadius: 4,
+    borderRadius: BORDER_RADIUS_CONTRACT_DETAIL,
     display: 'flex',
     flexDirection: 'row',
   },
@@ -311,10 +316,10 @@ const useStyles = makeStyles((theme) => ({
   autoRenewalInfoContainer: {
     paddingBlock: theme.spacing(0.2),
     padding: theme.spacing(0.5),
-    color: '#0B79D0',
+    color: PRIMARY_BLUE_CONTRACT_DETAIL,
   },
   contractName: {
-    fontWeight: 500,
+    fontWeight: FONT_WEIGHT_CONTRACT_DETAIL,
   },
   noPadding: {
     padding: 0,

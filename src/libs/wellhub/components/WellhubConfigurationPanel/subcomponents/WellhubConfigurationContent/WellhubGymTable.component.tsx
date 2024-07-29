@@ -20,12 +20,23 @@ import {
 import type { WellhubGym } from '#src/libs/wellhub/types';
 
 type Props = {
-  wellhubGyms?: WellhubGym[];
+  wellhubGyms: WellhubGym[];
+  editWellhubGym: (wellhubGym: WellhubGym) => void;
 };
 
-const WellhubGymTable: React.FC<Props> = ({ wellhubGyms }) => {
+const WellhubGymTable: React.FC<Props> = ({ wellhubGyms, editWellhubGym }) => {
   const classes = useStyles();
   const { t } = useTranslation('partnership');
+
+  const handleEditWellhubGym = React.useCallback(
+    (wellhubGym: WellhubGym) =>
+      (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.stopPropagation();
+        event.preventDefault();
+        editWellhubGym(wellhubGym);
+      },
+    [editWellhubGym],
+  );
 
   return (
     <Table>
@@ -80,7 +91,7 @@ const WellhubGymTable: React.FC<Props> = ({ wellhubGyms }) => {
             </TableCell>
             <TableCell>
               <div className={classes.actionsRow}>
-                <IconButton onClick={() => {}}>
+                <IconButton onClick={handleEditWellhubGym(wellhubGym)}>
                   <EditIcon color="primary" />
                 </IconButton>
                 <IconButton onClick={() => {}}>

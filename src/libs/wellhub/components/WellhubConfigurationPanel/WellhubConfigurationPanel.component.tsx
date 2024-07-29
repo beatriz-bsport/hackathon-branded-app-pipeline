@@ -11,17 +11,28 @@ import {
 
 import { WELLHUB_GYMS } from './constants';
 
-type Props = {};
+import type { WellhubGym } from '#src/libs/wellhub/types';
 
-const WellhubConfigurationPanel: React.FC<Props> = () => {
+type Props = {
+  editWellhubGym: (wellhubGym: WellhubGym) => void;
+  handleAddUnit: () => void;
+};
+
+const WellhubConfigurationPanel: React.FC<Props> = ({
+  editWellhubGym,
+  handleAddUnit,
+}) => {
   const classes = useStyles();
   return (
     <Paper className={classes.configurationPanel}>
       <WellhubConfigurationHeader />
-      <WellhubConfigurationContent wellhubGyms={WELLHUB_GYMS} />
+      <WellhubConfigurationContent
+        editWellhubGym={editWellhubGym}
+        wellhubGyms={WELLHUB_GYMS}
+      />
       <WellhubConfigurationFooter
         addUnitDisabled={false} //TODO: build constant to test if all establishments are already linked to a wellhub Unit
-        handleAddUnit={() => {}}
+        handleAddUnit={handleAddUnit}
       />
     </Paper>
   );

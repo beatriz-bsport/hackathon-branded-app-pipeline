@@ -8,9 +8,15 @@ import InformationIcon from '#src/components/InformationIcon';
 import WellhubGymTable from './WellhubGymTable.component';
 import type { WellhubGym } from '#src/libs/wellhub/types';
 
-type Props = { wellhubGyms: WellhubGym[] };
+type Props = {
+  wellhubGyms: WellhubGym[];
+  editWellhubGym: (wellhubGym: WellhubGym) => void;
+};
 
-const WellhubConfigurationContent: React.FC<Props> = ({ wellhubGyms }) => {
+const WellhubConfigurationContent: React.FC<Props> = ({
+  wellhubGyms,
+  editWellhubGym,
+}) => {
   const { t } = useTranslation('partnership');
   const classes = useStyles();
   return (
@@ -23,7 +29,10 @@ const WellhubConfigurationContent: React.FC<Props> = ({ wellhubGyms }) => {
           text={t('wellhub.configuration.panel.content.helperText')}
         />
       </div>
-      <WellhubGymTable wellhubGyms={wellhubGyms} />
+      <WellhubGymTable
+        editWellhubGym={editWellhubGym}
+        wellhubGyms={wellhubGyms}
+      />
     </div>
   );
 };

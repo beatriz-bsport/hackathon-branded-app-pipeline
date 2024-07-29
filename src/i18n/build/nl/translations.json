@@ -336,7 +336,8 @@
                         "cancelledFromManager": "Geannuleerd door de studio",
                         "cancelledFromMember": "Geannuleerd door mijzelf",
                         "title": "Geannuleerd"
-                    }
+                    },
+                    "drawerTitle": "Activiteit"
                 },
                 "consumerBookingCard": {
                     "listItemLabels": {
@@ -453,7 +454,8 @@
                     "failedPaymentReasonWithRetry": "Reden: {{- note }}. De betaling wordt opnieuw geprobeerd op {{- nextRetryDate}}",
                     "beforeRenewalContractPriceEvery": "Dan {{ price }} iedere {{ recurrence }}{{ interval }} na {{- date }}",
                     "beforeRenewalContractPricePer": "Dan {{ price }}/{{ interval }} na {{- date }}",
-                    "loadMore": "Laad meer"
+                    "loadMore": "Laad meer",
+                    "drawerTitle": "Abonnement"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
@@ -530,7 +532,8 @@
                         "lost": "Verloren",
                         "won": "Gewonnen",
                         "processing": "Verwerking"
-                    }
+                    },
+                    "drawerTitle": "Factuur"
                 },
                 "card": {
                     "chip": {
@@ -632,7 +635,37 @@
                     }
                 }
             },
-            "moreActions": "Meer acties"
+            "moreActions": "Meer acties",
+            "navigation": {
+                "myAccount": {
+                    "logOut": "Log uit",
+                    "changeLanguage": "Kies taal",
+                    "changeStudio": "Verander studio"
+                },
+                "payments": {
+                    "paymentMethods": "Betalingsmethoden",
+                    "myInvoices": "Mijn facturen",
+                    "title": "Betalingen"
+                },
+                "shop": {
+                    "myGiftCards": "Mijn kadokaarten",
+                    "myPurchases": "Mijn aankopen",
+                    "title": "Winkel"
+                },
+                "account": {
+                    "myProfile": "Mijn profiel",
+                    "mySubscriptions": "Mijn abonnementen",
+                    "myPasses": "Mijn leskaarten",
+                    "myBookings": "Mijn boekingen",
+                    "summary": "Samenvatting",
+                    "title": "Account"
+                }
+            },
+            "exploreYourProfile": "Verken je profiel.",
+            "appbar": {
+                "myAccount": "Mijn account",
+                "cart": "Winkelwagen"
+            }
         }
     },
     "notificationRule": {
@@ -3501,7 +3534,8 @@
             "member_first_name": "Voornaam",
             "studio_address_franchise_only": "Locatie/Adres",
             "payment_method_paypal_wallet": "PayPal Wallet",
-            "on_the_fly_bsport_fee": "PayPal transactiekosten"
+            "on_the_fly_bsport_fee": "PayPal transactiekosten",
+            "second_billing_plan": "Tweede factureringsplan"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -5587,7 +5621,7 @@
                 "explain": "Toon een overzicht van alle leden Waiver / Vrijstelling hebben geaccepteerd"
             },
             "600": {
-                "expiryDateLabel": "Vervaldatum:",
+                "expiryDateLabel": "met een vervaldatum",
                 "owns": "Selecteer tenminste één opgeslagen betaalmethode",
                 "does_not_own": "Er zijn geen opgeslagen betaalmethoden om weer te geven",
                 "labelFirst": "Alleen op leden filteren",
@@ -7241,7 +7275,9 @@
                     "5": "Heeft",
                     "4": "Gesloten",
                     "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden.",
-                    "6005": "Wachtlijst"
+                    "6005": "Wachtlijst",
+                    "displayWaitlistSize": "Je huidige positie op de wachtlijst is: {{waitlistPosition}}",
+                    "displayPosition": "Je positie op de wachtlijst is: {{waitlistPosition}}"
                 },
                 "bookable_status": {
                     "4": "Deze sessie is niet beschikbaar",
@@ -7914,7 +7950,8 @@
                     "label": "Onbeschikbaar voor leden"
                 },
                 "autoRenewal": {
-                    "label": "Automatisch verlengen activeren"
+                    "label": "Automatisch verlengen activeren",
+                    "germanMarketWarning": "Om te voldoen aan de Duitse wet op eerlijke consumentencontracten moeten nieuwe abonnementen na 2 jaar korter zijn dan een jaar. Zorg ervoor dat u zich aan deze voorwaarden houdt."
                 },
                 "recurrent_price": {
                     "label": "Doorlopende betaling",
@@ -8012,6 +8049,10 @@
                         "tagsOnAcquisitionHelper": "Gebruik tags om te identificeren welk lid de eerste factuur heeft betaald"
                     },
                     "title": "Geavanceerd"
+                },
+                "nbIntervalAfterAutoRenewal": {
+                    "secondLabel": "Aantal rekeningen *",
+                    "firstLabel": "Abonnementsfacturering voor volgende cycli wijzigen"
                 }
             },
             "registerManager": {
@@ -8106,7 +8147,38 @@
                 "validate": "Bevestigen"
             },
             "monthBillingDay": "Gefactureerd elke {{ month_billing_day }} van de maand",
-            "autoRenewal": "Automatische vernieuwing"
+            "autoRenewal": "Automatische vernieuwing",
+            "nbIntervalAfterAutoRenewal": {
+                "details": {
+                    "year": "Na verlenging wordt het abonnement gewijzigd in een {{durationAfterAutoRenewal}}-jaarabonnement.",
+                    "month": "Na verlenging wordt het abonnement gewijzigd in een {{durationAfterAutoRenewal}}-maandenplan.",
+                    "week": "Na verlenging wordt het abonnement gewijzigd in een {{durationAfterAutoRenewal}}-weekplan.",
+                    "day": "Na verlenging wordt het abonnement gewijzigd in een {{durationAfterAutoRenewal}} dagenabonnement."
+                },
+                "title": "Tweede factureringsplan"
+            },
+            "durationInfo": {
+                "year": "{{count}} jaar",
+                "year_plural": "{{count}} jaren",
+                "month": "{{count}} maand",
+                "month_plural": "{{count}} maanden",
+                "week": "{{count}} week",
+                "week_plural": "{{count}} weken",
+                "day": "{{count}} dag",
+                "day_plural": "{{count}} dagen"
+            },
+            "autoRenewalInfo": "Automatische verlenging",
+            "recurrenceInfoFixedDay": "elke {{day}} van de maand",
+            "recurrenceInfo": {
+                "year": "per jaar",
+                "year_plural": "om de {{count}} jaren",
+                "month": "per maand",
+                "month_plural": "om de {{count}} maanden",
+                "week": "per week",
+                "week_plural": "om de {{count}} weken",
+                "day": "per dag",
+                "day_plural": "om de {{count}} dagen"
+            }
         },
         "action": {
             "revertCurrentExplain": "Annuleer de laatste factuur en blokkeer de leskaart",
@@ -8382,7 +8454,8 @@
             "paymentCombo": "Pakket",
             "payment_combo": "Pakket",
             "contractTermsAccepted": "<0>Voorwaarden</0> zijn geaccepteerd op {{- dateAccepted}}.",
-            "stopNote": "Annulering"
+            "stopNote": "Annulering",
+            "secondBillingPlanEnabled": "Tweede factureringsplan ingeschakeld"
         },
         "cancel": "annuleren",
         "plannedInvoiceStatus": {
@@ -8753,7 +8826,12 @@
                 "title": "Betaling in uitvoering"
             },
             "title": "Abonnement"
-        }
+        },
+        "GermanMarketSetSubscriptionAutoRenewalAlert": {
+            "content": "Om te voldoen aan de Duitse wet op eerlijke consumentencontracten moeten nieuwe abonnementscycli na 2 jaar korter zijn dan een jaar. Weet je zeker dat je door wilt gaan?",
+            "title": "Automatische verlenging"
+        },
+        "germanNbIntervalAlert": "Om te voldoen aan de Duitse Fair Consumers Contract Act moet het aantal facturen minder dan 24 zijn."
     },
     "coachPerformance": {
         "dateTitle": "Datumbereik",
@@ -11832,6 +11910,24 @@
                 "success": "Succesvol gewijzigd",
                 "error": "Kan niet opslaan",
                 "errorLackRequiredVariables": "Deze sjabloon kon niet worden geregistreerd"
+            },
+            "active": {
+                "enable": "Melding succesvol ingeschakeld",
+                "disable": "Melding succesvol uitgeschakeld",
+                "errorEnable": "Notificatie niet ingeschakeld",
+                "errorDisable": "Mislukte melding uitschakelen"
+            },
+            "editOrAddPass": {
+                "success": "Melding succesvol opgeslagen",
+                "error": "Melding niet opgeslagen"
+            },
+            "delete": {
+                "success": "Melding succesvol verwijderd",
+                "error": "Melding niet verwijderd"
+            },
+            "create": {
+                "success": "Melding succesvol aangemaakt",
+                "error": "Kennisgeving niet aangemaakt"
             }
         },
         "role": {
@@ -13005,7 +13101,8 @@
                     "codes": {
                         "updateMode": "Voeg nieuwe promotiecodes toe of vervang bestaande promotiecodes",
                         "emptyArray": "Er moet ten minste één promotiecode toegevoegd worden"
-                    }
+                    },
+                    "positiveOrZeroNumber": "De waarde moet groter dan of gelijk aan 0 zijn"
                 },
                 "alertInfo": "Vouchers zijn unieke codes waarmee het lid 100% korting krijgt op een specifiek product. Deze codes worden niet gegenereerd door het platform zelf, maar moeten hier worden geüpload als een CSV-bestand. Deze functie is vooral handig als je samenwerkt met een externe entiteit zoals Groupon om een promotiecampagne te voeren. In dit geval genereert en verkoopt Groupon (of een vergelijkbare entiteit) de vouchers namens je studio.",
                 "alertWarning": "Niet van toepassing op abonnementen",
@@ -13490,7 +13587,10 @@
                 "minute": "Duur in minuten:",
                 "minute_plural": "Duur in minuten:"
             },
-            "requiredField": "Dit veld is verplicht."
+            "requiredField": "Dit veld is verplicht.",
+            "validation": {
+                "number": "Dit veld moet een getal zijn."
+            }
         },
         "text": {
             "showLessText": "Toon minder",
@@ -20531,6 +20631,7 @@
                 "orange": "Waarschuwing",
                 "green": "Geldig"
             }
-        }
+        },
+        "broadcastChannelWarning": "Door uw browserversie kunnen we deze functie niet correct uitvoeren. Upgrade uw browser."
     }
 }

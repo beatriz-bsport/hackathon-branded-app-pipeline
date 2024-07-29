@@ -162,7 +162,8 @@
             "paymentCombo": "Pack",
             "payment_combo": "Paket",
             "contractTermsAccepted": "Die <0>Nutzungsbedingungen</0> wurden am {{- dateAccepted}} akzeptiert.",
-            "stopNote": "Hinweis zur Stornierung"
+            "stopNote": "Hinweis zur Stornierung",
+            "secondBillingPlanEnabled": "Zweiter Abrechnungsplan aktiviert"
         },
         "paymentMethod": {
             "card": "Kreditkarte",
@@ -206,7 +207,8 @@
                     "label": "Allgemeine Geschäftsbedingungen"
                 },
                 "autoRenewal": {
-                    "label": "Automatische Verlängerung aktivieren"
+                    "label": "Automatische Verlängerung aktivieren",
+                    "germanMarketWarning": "Um dem deutschen Gesetz über faire Verbraucherverträge zu entsprechen, müssen die neuen Abonnement-Zyklen nach 2 Jahren Laufzeit weniger als ein Jahr betragen. Bitte stellen Sie sicher, dass Sie diese Bedingungen einhalten."
                 },
                 "object_type": {
                     "paymentPack": "Kurspässe",
@@ -300,6 +302,10 @@
                         "tagsOnAcquisition": "Tag nach dem Kauf"
                     },
                     "title": "Erweitert"
+                },
+                "nbIntervalAfterAutoRenewal": {
+                    "secondLabel": "Anzahl der Rechnungen *",
+                    "firstLabel": "Abonnementabrechnung für die nächsten Zyklen ändern"
                 }
             },
             "description": "Beschreibung",
@@ -394,7 +400,38 @@
                 "cancel": "Stornieren"
             },
             "monthBillingDay": "Wird jeden {{ month_billing_day }} des Monats in Rechnung gestellt",
-            "autoRenewal": "Automatische Verlängerung"
+            "autoRenewal": "Automatische Verlängerung",
+            "nbIntervalAfterAutoRenewal": {
+                "details": {
+                    "year": "Nach der Erneuerung wird das Abonnement in einen {{durationAfterAutoRenewal}}-Jahresplan geändert.",
+                    "month": "Nach der Erneuerung wird das Abonnement in einen {{durationAfterAutoRenewal}}-Monatsplan geändert.",
+                    "week": "Nach der Erneuerung wird das Abonnement in einen {{durationAfterAutoRenewal}}-Wochenplan geändert.",
+                    "day": "Nach der Erneuerung wird das Abonnement in einen {{durationAfterAutoRenewal}}-Tagesplan geändert."
+                },
+                "title": "Zweiter Abrechnungsplan"
+            },
+            "durationInfo": {
+                "year": "{{count}} Jahr",
+                "year_plural": "{{count}} Jahre",
+                "month": "{{count}} Monat",
+                "month_plural": "{{count}} Monate",
+                "week": "{{count}} Woche",
+                "week_plural": "{{count}} Wochen",
+                "day": "{{count}} Tag",
+                "day_plural": "{{count}} Tage"
+            },
+            "autoRenewalInfo": "Automatische Erneuerung",
+            "recurrenceInfoFixedDay": "jeden {{day}} des Monats",
+            "recurrenceInfo": {
+                "year": "jährlich",
+                "year_plural": "alle {{count}} Jahre",
+                "month": "monatlich",
+                "month_plural": "alle {{count}} Monate",
+                "week": "wöchentlich",
+                "week_plural": "alle {{count}} Wochen",
+                "day": "täglich",
+                "day_plural": "alle {{count}} Tage"
+            }
         },
         "subscription": {
             "actions": {
@@ -940,7 +977,12 @@
                 "title": "Laufende Zahlung"
             },
             "title": "Abonnement"
-        }
+        },
+        "GermanMarketSetSubscriptionAutoRenewalAlert": {
+            "content": "Um dem deutschen Gesetz über faire Verbraucherverträge zu entsprechen, müssen die neuen Abonnement-Zyklen nach 2 Jahren Laufzeit kürzer als ein Jahr sein. Sind Sie sicher, dass Sie fortfahren möchten?",
+            "title": "Automatisch erneuern"
+        },
+        "germanNbIntervalAlert": "Um dem deutschen Gesetz über faire Verbraucherverträge zu entsprechen, muss die Anzahl der Abrechnungen weniger als 24 betragen."
     },
     "translation": {
         "appbar": {
@@ -2499,7 +2541,7 @@
                 "explain": "nach Annahme der Haftungsfreistellung"
             },
             "600": {
-                "expiryDateLabel": "Ablaufdatum",
+                "expiryDateLabel": "mit einem Ablaufdatum",
                 "owns": "Mit mindestens einer gespeicherten Zahlungsmethode",
                 "does_not_own": "Keine gesicherte Zahlungsmethode vorhanden",
                 "labelFirst": "Nur Teile filtern",
@@ -6337,7 +6379,8 @@
             "member_first_name": "Vorname",
             "studio_address_franchise_only": "Ort/Adresse",
             "payment_method_paypal_wallet": "PayPal-Wallet",
-            "on_the_fly_bsport_fee": "PayPal Transaktionsgebühren"
+            "on_the_fly_bsport_fee": "PayPal Transaktionsgebühren",
+            "second_billing_plan": "Zweiter Rechnungsplan"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -7262,6 +7305,24 @@
                 "success": "Erfolgreich geändert",
                 "error": "Es ist unmöglich, das zu speichern",
                 "errorLackRequiredVariables": "Diese Vorlage konnte nicht gespeichert werden"
+            },
+            "active": {
+                "enable": "Benachrichtigung erfolgreich aktiviert",
+                "disable": "Benachrichtigung erfolgreich deaktiviert",
+                "errorEnable": "Benachrichtigung konnte nicht aktiviert werden",
+                "errorDisable": "Deaktivierung der Benachrichtigung fehlgeschlagen"
+            },
+            "editOrAddPass": {
+                "success": "Benachrichtigung erfolgreich gespeichert",
+                "error": "Benachrichtigung konnte nicht gespeichert werden"
+            },
+            "delete": {
+                "success": "Benachrichtigung erfolgreich gelöscht",
+                "error": "Benachrichtigung konnte nicht gelöscht werden"
+            },
+            "create": {
+                "success": "Benachrichtigung erfolgreich erstellt",
+                "error": "Benachrichtigung konnte nicht erstellt werden"
             }
         },
         "shop": {
@@ -9776,7 +9837,9 @@
                     "6002": "Warteliste: voll",
                     "6003": "Warteliste: beigetreten",
                     "9": "Sie versuchen, mehr zukünftige Kurse zu buchen, als Ihr Studio erlaubt",
-                    "6005": "Warteliste"
+                    "6005": "Warteliste",
+                    "displayWaitlistSize": "Dein momentaner Platz in der Warteliste ist: {{waitlistPosition}}",
+                    "displayPosition": "Dein Platz in der Warteliste ist: {{waitlistPosition}}"
                 },
                 "bookable_status": {
                     "4": "Kurs nicht verfügbar",
@@ -10401,7 +10464,10 @@
                 "minute": "Dauer in Minuten:",
                 "minute_plural": "Minuten:"
             },
-            "requiredField": "Dieses Feld ist erforderlich."
+            "requiredField": "Dieses Feld ist erforderlich.",
+            "validation": {
+                "number": "Dieses Feld muss eine Zahl sein."
+            }
         },
         "selector": {
             "validate": "Bestätigen",
@@ -10700,7 +10766,8 @@
                     "codes": {
                         "updateMode": "Sie müssen sich entscheiden, ob Sie die Codes zu den bestehenden hinzufügen oder sie ersetzen wollen",
                         "emptyArray": "Sie müssen mindestens einen Code hinzufügen"
-                    }
+                    },
+                    "positiveOrZeroNumber": "Der Wert muss größer als oder gleich 0 sein"
                 },
                 "update": {
                     "replace": "Bestehende Codes ersetzen",
@@ -12628,7 +12695,8 @@
                         "cancelledFromManager": "Vom Studiomanager abgesagt",
                         "cancelledFromMember": "Von Ihnen storniert",
                         "title": "Storniert"
-                    }
+                    },
+                    "drawerTitle": "Aktivität"
                 },
                 "consumerBookingCard": {
                     "listItemLabels": {
@@ -12745,7 +12813,8 @@
                     "failedPaymentReasonWithRetry": "Grund: {{- note }}. Die Zahlung wird am {{- nextRetryDate}} erneut versucht.",
                     "beforeRenewalContractPriceEvery": "Dann {{ price }} every {{ recurrence }} {{ interval }} nach  {{- date }}",
                     "beforeRenewalContractPricePer": "Dann{{ price }}/{{ interval }} nach {{- date }}",
-                    "loadMore": "Mehr laden"
+                    "loadMore": "Mehr laden",
+                    "drawerTitle": "Abonnement"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
@@ -12822,7 +12891,8 @@
                         "lost": "Verloren",
                         "won": "Gewonnen",
                         "processing": "Wird bearbeitet"
-                    }
+                    },
+                    "drawerTitle": "Rechnung"
                 },
                 "card": {
                     "chip": {
@@ -12924,7 +12994,37 @@
                     }
                 }
             },
-            "moreActions": "Weitere Aktionen"
+            "moreActions": "Weitere Aktionen",
+            "navigation": {
+                "myAccount": {
+                    "logOut": "Abmelden",
+                    "changeLanguage": "Sprache ändern",
+                    "changeStudio": "Studio wechseln"
+                },
+                "payments": {
+                    "paymentMethods": "Zahlungsmöglichkeiten",
+                    "myInvoices": "Meine Rechnungen",
+                    "title": "Zahlungen"
+                },
+                "shop": {
+                    "myGiftCards": "Meine Geschenkgutscheine",
+                    "myPurchases": "Meine Einkäufe",
+                    "title": "Shop"
+                },
+                "account": {
+                    "myProfile": "Mein Profil",
+                    "mySubscriptions": "Meine Abonnements",
+                    "myPasses": "Meine Pässe",
+                    "myBookings": "Meine Buchungen",
+                    "summary": "Zusammenfassung",
+                    "title": "Konto"
+                }
+            },
+            "exploreYourProfile": "Erkunden Sie Ihr Profil.",
+            "appbar": {
+                "myAccount": "Mein Konto",
+                "cart": "Warenkorb"
+            }
         }
     },
     "metaActivity": {
@@ -20416,6 +20516,7 @@
                 "orange": "Warnung",
                 "green": "Gültig"
             }
-        }
+        },
+        "broadcastChannelWarning": "Die Browserversion verhindert, dass diese Funktion korrekt ausführen werden kann. Bitte aktualisieren Sie Ihren Browser."
     }
 }

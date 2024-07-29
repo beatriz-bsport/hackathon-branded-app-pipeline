@@ -1759,7 +1759,8 @@
                         "cancelledFromManager": "Cancellata dallo studio manager",
                         "cancelledFromMember": "Cancellata da te",
                         "title": "Cancellata"
-                    }
+                    },
+                    "drawerTitle": "Attività"
                 },
                 "consumerBookingCard": {
                     "listItemLabels": {
@@ -1985,7 +1986,8 @@
                     "failedPaymentReasonWithRetry": "Motivo: {{- note }}. Il pagamento verrà ritentato il {{- nextRetryDate}}",
                     "beforeRenewalContractPriceEvery": "Poi {{ price }} ogni {{ recurrence }} {{ interval }} dopo {{- date }}",
                     "beforeRenewalContractPricePer": "Poi {{ price }}/{{ interval }} dopo {{- date }}",
-                    "loadMore": "Carica di più"
+                    "loadMore": "Carica di più",
+                    "drawerTitle": "Abbonamento ricorrente"
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Ottieni un abbonamento ricorrente",
@@ -2090,7 +2092,8 @@
                         "lost": "Persa",
                         "won": "Vinta",
                         "processing": "In elaborazione"
-                    }
+                    },
+                    "drawerTitle": "Ricevuta"
                 }
             },
             "myProfile": {
@@ -2150,7 +2153,37 @@
                     }
                 }
             },
-            "moreActions": "Più azioni"
+            "moreActions": "Più azioni",
+            "navigation": {
+                "myAccount": {
+                    "logOut": "Esci",
+                    "changeLanguage": "Cambia lingua",
+                    "changeStudio": "Cambia studio"
+                },
+                "payments": {
+                    "paymentMethods": "Metodi di pagamento",
+                    "myInvoices": "Le mie Ricevute",
+                    "title": "Pagamenti"
+                },
+                "shop": {
+                    "myGiftCards": "Le mie Giftcard",
+                    "myPurchases": "I miei Acquisti",
+                    "title": "Negozio"
+                },
+                "account": {
+                    "mySubscriptions": "I miei Abbonamenti Ricorrenti",
+                    "myProfile": "Il mio Profilo",
+                    "myPasses": "I miei Pacchetti",
+                    "myBookings": "Le mie prenotazioni",
+                    "summary": "Panoramica",
+                    "title": "Account"
+                }
+            },
+            "exploreYourProfile": "Esplora il tuo profilo.",
+            "appbar": {
+                "myAccount": "Il Mio Account",
+                "cart": "Carrello"
+            }
         }
     },
     "search": {
@@ -5743,6 +5776,24 @@
                 "success": "Modificato con successo",
                 "error": "Impossibile salvare",
                 "errorLackRequiredVariables": "Questo modello non può essere salvato"
+            },
+            "active": {
+                "enable": "Notifica attivata con successo",
+                "disable": "Notifica disattivata con successo",
+                "errorEnable": "Impossibile abilitare la notifica",
+                "errorDisable": "Impossibile disattivare la notifica"
+            },
+            "editOrAddPass": {
+                "success": "Notifica salvata con successo",
+                "error": "Impossibile salvare la notifica"
+            },
+            "delete": {
+                "success": "Notifica eliminata con successo",
+                "error": "Non è stato possible eliminare la notifica"
+            },
+            "create": {
+                "success": "Notifica creata con successo",
+                "error": "Impossibile creare una notifica"
             }
         },
         "privatePass": {
@@ -7535,7 +7586,8 @@
             "paymentCombo": "Pacchetto combinato",
             "payment_combo": "Confezione",
             "contractTermsAccepted": "I <0>termini legali</0> sono stati accettati in data {{-dateAccepted}}.",
-            "stopNote": "Nota di cancellazione"
+            "stopNote": "Nota di cancellazione",
+            "secondBillingPlanEnabled": "Secondo piano di pagamento abilitato"
         },
         "contract": {
             "registerManager": {
@@ -7599,7 +7651,8 @@
                     "label": "Quote d'iscrizione"
                 },
                 "autoRenewal": {
-                    "label": "Rinnovo tacito"
+                    "label": "Rinnovo tacito",
+                    "germanMarketWarning": "Per rispettare la legge tedesca sui contratti equi per i consumatori, dopo 2 anni di abbonamento, i nuovi cicli di abbonamento devono avere una durata inferiore a un anno. Assicuratevi di rispettare queste condizioni."
                 },
                 "object_type": {
                     "paymentPack": "Pacchetti",
@@ -7693,6 +7746,10 @@
                     },
                     "selectTags": "Seleziona i tag",
                     "title": "Avanzate"
+                },
+                "nbIntervalAfterAutoRenewal": {
+                    "secondLabel": "Numero di ricevute *",
+                    "firstLabel": "Modificare la tariffazione dell'abbonamento per i prossimi cicli"
                 }
             },
             "legal": "Informazioni legali",
@@ -7758,7 +7815,38 @@
                 "cancel": "Annulla"
             },
             "monthBillingDay": "Addebitato ogni {{ month_billing_day }} del mese",
-            "autoRenewal": "Rinnovo automatico"
+            "autoRenewal": "Rinnovo automatico",
+            "nbIntervalAfterAutoRenewal": {
+                "details": {
+                    "year": "Dopo il rinnovo, l'abbonamento sarà modificato in un piano di {{durationAfterAutoRenewal}} anni.",
+                    "month": "Dopo il rinnovo, l'abbonamento sarà modificato in un piano di {{durationAfterAutoRenewal}} mesi.",
+                    "week": "Dopo il rinnovo, l'abbonamento sarà modificato in un piano di {{durationAfterAutoRenewal}} settimane.",
+                    "day": "Dopo il rinnovo, l'abbonamento sarà modificato in un piano di {{durationAfterAutoRenewal}} giorni."
+                },
+                "title": "Secondo piano di pagamento"
+            },
+            "durationInfo": {
+                "year": "{{count}} anno",
+                "year_plural": "{{count}} anni",
+                "month": "{{count}} mese",
+                "month_plural": "{{count}} mesi",
+                "week": "{{count}} settimana",
+                "week_plural": "{{count}} settimane",
+                "day": "{{count}} giorno",
+                "day_plural": "{{count}} giorni"
+            },
+            "autoRenewalInfo": "Rinnovo automatico",
+            "recurrenceInfoFixedDay": "ogni {{day}} del mese",
+            "recurrenceInfo": {
+                "year": "all'anno",
+                "year_plural": "ogni {{count}} anni",
+                "month": "al mese",
+                "month_plural": "ogni {{count}} mesi",
+                "week": "a settimana",
+                "week_plural": "ogni {{count}} settimane",
+                "day": "al giorno",
+                "day_plural": "ogni {{count}} giorni"
+            }
         },
         "form": {
             "cancel": "Annulla",
@@ -8207,7 +8295,12 @@
                 "title": "Pagamento in corso"
             },
             "title": "Abbonamento ricorrente"
-        }
+        },
+        "GermanMarketSetSubscriptionAutoRenewalAlert": {
+            "content": "Per rispettare la legge tedesca sui contratti equi per i consumatori, dopo 2 anni di abbonamento, i nuovi cicli di abbonamento devono avere una durata inferiore a un anno. Sei sicuro di voler continuare?",
+            "title": "Rinnovo automatico"
+        },
+        "germanNbIntervalAlert": "Per conformarsi alla legge tedesca sui contratti equi per i consumatori, il numero di fatture deve essere inferiore a 24."
     },
     "reporting": {
         "columns": {
@@ -8534,7 +8627,8 @@
             "member_first_name": "Nome",
             "studio_address_franchise_only": "Sede/Indirizzo",
             "payment_method_paypal_wallet": "Portafoglio PayPal",
-            "on_the_fly_bsport_fee": "Spese di transazione PayPal"
+            "on_the_fly_bsport_fee": "Spese di transazione PayPal",
+            "second_billing_plan": "Secondo piano di pagamento"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -10915,7 +11009,9 @@
                     "5": "Già registrato",
                     "4": "Registrazioni chiuse",
                     "9": "Cerchi di prenotare più sessioni future di quelle consentite dal tuo club",
-                    "6005": "Lista d'attesa"
+                    "6005": "Lista d'attesa",
+                    "displayWaitlistSize": "La tua posizione nella lista d'attesa è: {{waitlistPosition}}",
+                    "displayPosition": "La tua posizione nella lista d'attesa è: {{waitlistPosition}}"
                 },
                 "blockedByTags": "Registrazione non autorizzata"
             },
@@ -11500,7 +11596,7 @@
                 "explain": "avendo accettato il rilascio di responsabilità"
             },
             "600": {
-                "expiryDateLabel": "Data di scadenza",
+                "expiryDateLabel": "con una data di scadenza",
                 "owns": "Ha almeno un metodo di pagamento salvato",
                 "does_not_own": "Non ha un metodo di pagamento salvato",
                 "labelFirst": "Filtra solo i membri",
@@ -12226,7 +12322,8 @@
                     "codes": {
                         "updateMode": "È necessario scegliere se aggiungere i codici a quelli esistenti o sostituirli",
                         "emptyArray": "È necessario aggiungere almeno un codice"
-                    }
+                    },
+                    "positiveOrZeroNumber": "Il valore deve essere maggiore o uguale a 0"
                 },
                 "fileUploader": {
                     "title": "Carica i voucher una tantum",
@@ -13951,7 +14048,10 @@
                 "day": "Durata in giorni",
                 "day_plural": "Giorni:"
             },
-            "requiredField": "questo campo è richiesto"
+            "requiredField": "questo campo è richiesto",
+            "validation": {
+                "number": "Questo campo deve essere un numero."
+            }
         },
         "colorPicker": {
             "noColor": "Nessun colore",
@@ -20509,6 +20609,7 @@
                 "orange": "Attenzione",
                 "green": "Valido"
             }
-        }
+        },
+        "broadcastChannelWarning": "La versione del browser non ci consente di eseguire correttamente questa funzione. Si prega di aggiornare il browser."
     }
 }

@@ -427,7 +427,9 @@
                     "9": "Vous essayez de réserver plus de séances futures que ce qui est permis par votre club",
                     "6002": "Liste d'attente pleine",
                     "6003": "Déjà inscrit sur liste",
-                    "6005": "Liste d'attente"
+                    "6005": "Liste d'attente",
+                    "displayPosition": "Votre position sur la liste d'attente est: {{waitlistPosition}}",
+                    "displayWaitlistSize": "Votre position actuelle sur la liste d'attente est la suivante : {{waitlistPosition}}"
                 },
                 "blockedByTags": "Inscription non autorisée"
             },
@@ -1089,6 +1091,9 @@
                 "hour_plural": "Heures :",
                 "day": "Durée en jours",
                 "day_plural": "Jours :"
+            },
+            "validation": {
+                "number": "Ce champ doit être un nombre."
             }
         },
         "colorPicker": {
@@ -1927,7 +1932,8 @@
                         "cancelledFromManager": "Annulé par le responsable du studio",
                         "cancelledFromMember": "Annulation de votre part",
                         "title": "Annulé"
-                    }
+                    },
+                    "drawerTitle": "Activité"
                 },
                 "consumerBookingCard": {
                     "listItemLabels": {
@@ -2044,7 +2050,8 @@
                     "failedPaymentReasonWithRetry": "Motif : {{- note }}. La tentative de paiement sera réitérée le {{- nextRetryDate}}",
                     "beforeRenewalContractPriceEvery": "Puis {{ price }} tous les {{ recurrence }}{{ interval }} après le {{- date }}",
                     "beforeRenewalContractPricePer": "Puis {{ price }}/{{ interval }} après le {{- date }}",
-                    "loadMore": "En savoir plus"
+                    "loadMore": "En savoir plus",
+                    "drawerTitle": "Abonnement"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
@@ -2163,7 +2170,8 @@
                         "lost": "Litige perdu",
                         "won": "Litige gagné",
                         "processing": "En cours"
-                    }
+                    },
+                    "drawerTitle": "Facture"
                 }
             },
             "myProfile": {
@@ -2223,7 +2231,37 @@
                     }
                 }
             },
-            "moreActions": "Autres actions"
+            "moreActions": "Autres actions",
+            "navigation": {
+                "account": {
+                    "mySubscriptions": "Mes abonnements",
+                    "myProfile": "Mon profil",
+                    "myPasses": "Mes cartes",
+                    "myBookings": "Mes réservations",
+                    "summary": "Récapitulatif",
+                    "title": "Compte"
+                },
+                "myAccount": {
+                    "logOut": "Se déconnecter",
+                    "changeLanguage": "Changer la langue",
+                    "changeStudio": "Changer de club"
+                },
+                "payments": {
+                    "paymentMethods": "Moyens de paiement",
+                    "myInvoices": "Mes factures",
+                    "title": "Paiements"
+                },
+                "shop": {
+                    "myGiftCards": "Mes cartes cadeaux",
+                    "myPurchases": "Mes achats",
+                    "title": "Magasin"
+                }
+            },
+            "exploreYourProfile": "Consultez votre profil.",
+            "appbar": {
+                "myAccount": "Mon compte",
+                "cart": "Panier"
+            }
         }
     },
     "coupon": {
@@ -2469,7 +2507,8 @@
                     "codes": {
                         "updateMode": "Vous devez choisir entre ajouter les codes aux existants ou les remplacer",
                         "emptyArray": "Vous devez ajouter au moins un code"
-                    }
+                    },
+                    "positiveOrZeroNumber": "La valeur doit être supérieure ou égale à 0"
                 }
             },
             "voucherCodesDialog": {
@@ -10945,7 +10984,8 @@
             "member_first_name": "Prénom",
             "studio_address_franchise_only": "Localisation/Adresse",
             "payment_method_paypal_wallet": "Portefeuille PayPal",
-            "on_the_fly_bsport_fee": "Frais de transaction PayPal"
+            "on_the_fly_bsport_fee": "Frais de transaction PayPal",
+            "second_billing_plan": "Second plan de facturation"
         },
         "yes": "Oui",
         "no": "Non",
@@ -14176,7 +14216,7 @@
                 "labelFirst": "Filtrer uniquement les membres",
                 "does_not_own": "Ne possédant pas de méthode de paiement sauvegardée",
                 "owns": "Possédant au moins une méthode de paiement sauvegardée",
-                "expiryDateLabel": "Date d'expiration"
+                "expiryDateLabel": "avec une date d'expiration"
             },
             "isEmpty": "Aucun filtre n'est configuré, cette smartliste représente donc l'ensemble de la base membre",
             "attendanceTrue": "présent",
@@ -14893,6 +14933,24 @@
                 "success": "Modifié avec succès",
                 "error": "Impossible d'enregistrer",
                 "errorLackRequiredVariables": "Ce template n'a pas pu être enregistré"
+            },
+            "active": {
+                "disable": "Notification désactivée avec succès",
+                "enable": "Notification activée avec succès",
+                "errorEnable": "Échec de l'activation de la notification",
+                "errorDisable": "Échec de la désactivation de la notification"
+            },
+            "editOrAddPass": {
+                "success": "Notification sauvegardée avec succès",
+                "error": "Échec de l'enregistrement de la notification"
+            },
+            "delete": {
+                "success": "Notification supprimée avec succès",
+                "error": "Échec de la suppression de la notification"
+            },
+            "create": {
+                "success": "Notification créée avec succès",
+                "error": "Échec de la création de la notification"
             }
         },
         "role": {
@@ -16093,7 +16151,8 @@
                     "label": "Invisible pour les clients"
                 },
                 "autoRenewal": {
-                    "label": "Renouvellement tacite"
+                    "label": "Renouvellement tacite",
+                    "germanMarketWarning": "Pour se conformer à la loi allemande (FCCA), après deux ans d'abonnement, les nouveaux renouvellements d'abonnement doivent être d'une durée inférieure à un an. Veillez à respecter ces conditions."
                 },
                 "flat_fee": {
                     "label": "Frais d'engagement/dossier",
@@ -16161,6 +16220,10 @@
                     },
                     "selectTags": "Sélectionnez les tags",
                     "title": "Avancé"
+                },
+                "nbIntervalAfterAutoRenewal": {
+                    "firstLabel": "Modifier la facturation de l'abonnement pour les prochains renouvellements",
+                    "secondLabel": "Nombre de factures *"
                 }
             },
             "deleteForm": {
@@ -16190,7 +16253,38 @@
                 "validate": "Confirmer",
                 "cancel": "Annuler"
             },
-            "autoRenewal": "Renouvellement automatique"
+            "autoRenewal": "Renouvellement automatique",
+            "nbIntervalAfterAutoRenewal": {
+                "details": {
+                    "year": "Après renouvellement, l'abonnement durera {{durationAfterAutoRenewal}} ans.",
+                    "month": "Après renouvellement, l'abonnement durera {{durationAfterAutoRenewal}} mois.",
+                    "week": "Après renouvellement, l'abonnement durera {{durationAfterAutoRenewal}} semaines.",
+                    "day": "Après renouvellement, l'abonnement durera {{durationAfterAutoRenewal}} jours."
+                },
+                "title": "Second plan de facturation"
+            },
+            "durationInfo": {
+                "year": "{{count}} an",
+                "year_plural": "{{count}} ans",
+                "month": "{{count}} mois",
+                "month_plural": "{{count}} mois",
+                "week": "{{count}} semaine",
+                "week_plural": "{{count}} semaines",
+                "day": "{{count}} jour",
+                "day_plural": "{{count}} jours"
+            },
+            "autoRenewalInfo": "Renouvellement automatique",
+            "recurrenceInfoFixedDay": "chaque {{day}} du mois",
+            "recurrenceInfo": {
+                "year": "par an",
+                "year_plural": "tous les {{count}} ans",
+                "month": "par mois",
+                "month_plural": "tous les {{count}} mois",
+                "week": "par semaine",
+                "week_plural": "toutes les {{count}} semaines",
+                "day": "par jour",
+                "day_plural": "Tous les {{count}} jours"
+            }
         },
         "recap": {
             "willBecharged": " sera facturé ",
@@ -16275,7 +16369,8 @@
             "private_pass": "Carte RDV",
             "payment_combo": "Pack",
             "stopNote": "Note d'annulation",
-            "contractTermsAccepted": "Les <0>mentions légales</0> ont été acceptées le {{- dateAccepted}}."
+            "contractTermsAccepted": "Les <0>mentions légales</0> ont été acceptées le {{- dateAccepted}}.",
+            "secondBillingPlanEnabled": "Deuxième plan de facturation activé"
         },
         "schedule": {
             "provisionalTitle": "Echéancier prévisionnel",
@@ -16621,7 +16716,12 @@
                     "userRegistration": "Voir mon abonnement"
                 }
             }
-        }
+        },
+        "GermanMarketSetSubscriptionAutoRenewalAlert": {
+            "content": "Pour se conformer à la loi allemande (FCCA), après 2 ans d'abonnement, le renouvellement doit être d'une durée inférieure à un an. Êtes-vous sûr de vouloir continuer?",
+            "title": "Renouvellement automatique"
+        },
+        "germanNbIntervalAlert": "Pour se conformer à la loi allemande (FCCA), le nombre de factures doit être inférieur à 24."
     },
     "tag": {
         "memberStatus": "Statut du membre : ",
@@ -20272,6 +20372,7 @@
                 "orange": "Avertissement",
                 "green": "Valide"
             }
-        }
+        },
+        "broadcastChannelWarning": "La version de votre navigateur ne nous permet pas d'exécuter cette fonctionnalité correctement. Veuillez mettre à jour votre navigateur."
     }
 }

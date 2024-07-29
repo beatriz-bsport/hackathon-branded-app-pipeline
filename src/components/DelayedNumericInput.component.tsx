@@ -6,22 +6,19 @@ import type { NumericInputProps } from './input/NumericInput.component';
 
 const DELAY = 350;
 
-type InputProps = Omit<NumericInputProps, 'value' | 'onChange'>;
-
 export type Props = {
   value: string | null | number;
+  classes?: Record<string, string>;
   onChange: (data: any) => void;
-  InputProps?: InputProps;
-  isPositive?: boolean;
-  onBlur?: (e: React.SyntheticEvent<HTMLInputElement>) => void;
-};
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+} & Omit<NumericInputProps, 'value' | 'onChange' | 'onBlur'>;
 
 type State = {
   value: string | null | number;
   writingSince: number | null;
 };
 
-export default class DelayedNumericInput extends Component<Props, State> {
+export class DelayedNumericInput extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -46,7 +43,8 @@ export default class DelayedNumericInput extends Component<Props, State> {
     setTimeout(this.sendChange(e), DELAY + 10);
   };
 
-  handleBlur: () => void = () => {
+  handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    this.props.onBlur?.(e);
     if (
       this.props.isPositive &&
       (this.state.value === null || this.state.value === '')
@@ -55,7 +53,6 @@ export default class DelayedNumericInput extends Component<Props, State> {
         value: 0,
       });
     }
-    return undefined;
   };
 
   sendChange = (e: React.ChangeEvent<HTMLInputElement>) => () => {
@@ -83,3 +80,5 @@ export default class DelayedNumericInput extends Component<Props, State> {
     );
   }
 }
+
+export default React.memo(DelayedNumericInput);

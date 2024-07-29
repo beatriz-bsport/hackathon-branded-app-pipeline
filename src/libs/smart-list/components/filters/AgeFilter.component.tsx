@@ -13,7 +13,7 @@ import {
   GTE_COMPARATOR,
 } from '@bsport/common/lib/master-data/smart-list';
 
-import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
+import DelayedNumericInput from '#src/components/DelayedNumericInput.component';
 
 type OwnProps = {
   filter_data: any;
@@ -59,7 +59,6 @@ export class AgeFilter extends Component<Props> {
           : t(`filters.${filter_data?.filter_identifier}.to`)}
         <DelayedNumericInput
           classes={classes}
-          // @ts-expect-error
           InputProps={{ inputProps: { min: 0 } }}
           onChange={(ev) =>
             onChange({
@@ -74,7 +73,6 @@ export class AgeFilter extends Component<Props> {
         {filter_data?.comparator === BETWEEN_COMPARATOR ? (
           <DelayedNumericInput
             classes={classes}
-            // @ts-expect-error
             InputProps={{ inputProps: { min: 0 } }}
             onChange={(ev) =>
               onChange({

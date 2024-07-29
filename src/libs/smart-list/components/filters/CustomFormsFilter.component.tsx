@@ -211,10 +211,7 @@ export class CustomFormsFilter extends Component<Props> {
               : null}
             <DelayedNumericInput
               classes={classes}
-              InputProps={
-                // @ts-expect-error
-                { inputProps: { min: 0, max: 100 } }
-              }
+              InputProps={{ inputProps: { min: 0, max: 100 } }}
               onChange={(ev) =>
                 onChange({
                   completion_percentage_value:
@@ -232,7 +229,6 @@ export class CustomFormsFilter extends Component<Props> {
             <DelayedNumericInput
               classes={classes}
               InputProps={{
-                // @ts-expect-error
                 inputProps: { min: 0, max: 100 },
               }}
               onChange={(ev) =>

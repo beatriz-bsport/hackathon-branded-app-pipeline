@@ -111,7 +111,6 @@ export class ActivePassesFilter extends Component<Props> {
           <DelayedNumericInput
             isPositive
             classes={classes}
-            // @ts-expect-error
             InputProps={{ inputProps: { min: 0 } }}
             onChange={(ev) =>
               onChange({
@@ -128,7 +127,6 @@ export class ActivePassesFilter extends Component<Props> {
             <DelayedNumericInput
               isPositive
               classes={classes}
-              // @ts-expect-error
               InputProps={{ inputProps: { min: 0 } }}
               onChange={(ev) =>
                 onChange({

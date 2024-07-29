@@ -234,10 +234,7 @@ export class RelationsFilter extends Component<Props> {
               : null}
             <DelayedNumericInput
               classes={classes}
-              InputProps={
-                // @ts-expect-error
-                { inputProps: { min: 0 } }
-              }
+              InputProps={{ inputProps: { min: 0 } }}
               onChange={(ev) =>
                 onChange({ value_number_relations: ev.target.value })
               }
@@ -249,10 +246,7 @@ export class RelationsFilter extends Component<Props> {
             {filter_data?.comparator_number_relations === BETWEEN_COMPARATOR ? (
               <DelayedNumericInput
                 classes={classes}
-                InputProps={
-                  // @ts-expect-error
-                  { inputProps: { min: 0 } }
-                }
+                InputProps={{ inputProps: { min: 0 } }}
                 onChange={(ev) =>
                   onChange({ value_number_relations_second: ev.target.value })
                 }
@@ -335,10 +329,7 @@ export class RelationsFilter extends Component<Props> {
                     : null}
                   <DelayedNumericInput
                     classes={classes}
-                    InputProps={
-                      // @ts-expect-error
-                      { inputProps: { min: 0 } }
-                    }
+                    InputProps={{ inputProps: { min: 0 } }}
                     onChange={(ev: React.ChangeEvent<{ value: number }>) =>
                       onChange(
                         this.getValueRelationDictList(ev.target.value)[index],
@@ -352,10 +343,7 @@ export class RelationsFilter extends Component<Props> {
                   {comparatorList[index] === BETWEEN_COMPARATOR ? (
                     <DelayedNumericInput
                       classes={classes}
-                      InputProps={
-                        // @ts-expect-error
-                        { inputProps: { min: 0 } }
-                      }
+                      InputProps={{ inputProps: { min: 0 } }}
                       onChange={(ev: React.ChangeEvent<{ value: number }>) =>
                         onChange(
                           this.getValueSecondRelationDictList(ev.target.value)[

@@ -65,7 +65,7 @@ import type {
 import CLASSPASS_LOGO from './classpass.png';
 
 // WELLHUB
-import WellhubConfigurationPanel from '#src/libs/wellhub/components/WellhubConfigurationPanel';
+import WellhubConfiguration from '#src/libs/wellhub/components/WellhubConfiguration';
 
 type Props = {
   associatedEstablishmentList: AssociatedEstablishment[];
@@ -147,7 +147,7 @@ export class Partnership extends React.Component<Props> {
           </Dialog>
         ) : null}
         {this.props.isSubmitting ? <LinearProgress /> : null}
-        {hasWellhubUpsell && <WellhubConfigurationPanel />}
+        {hasWellhubUpsell && <WellhubConfiguration />}
         <div className={this.props.classes.classpassContainer}>
           <div
             style={{ display: 'flex', alignItems: 'row', flexDirection: 'row' }}

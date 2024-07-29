@@ -3,6 +3,12 @@ const getTranslations = async () => {
     '@bsport/common/lib/master-data/events.js'
   );
 
+  const {
+    LEAD_MANAGEMENT_IMPORT_LOCK_ACQUISITION_ERROR,
+    LEAD_MANAGEMENT_IMPORT_WRONG_NUMBER_OF_COLUMNS_ERROR,
+    LEAD_MANAGEMENT_IMPORT_MAXIMUM_NUMBER_OF_ROWS_ERROR,
+  } = await import('@bsport/common/lib/master-data/error-codes/member.js');
+
   return {
     date_joined: 'Sign up date',
     email: 'Email',
@@ -16,11 +22,43 @@ const getTranslations = async () => {
     showPreviousBooking: 'Show past bookings',
     engagement: 'Commitment',
     addMember: 'Add a member',
+
     creditAccountBalance: 'Client account balance',
     showPaymentPack: 'Show pass',
     showInvoices: 'Show invoices',
     showSubscriptions: 'Show subscriptions',
     memberList: 'Overview',
+    leads: {
+      import: 'Import leads',
+      notACSV: {
+        title: 'Unsopported file format',
+        message:
+          'The file is not a CSV. Please check the helpsheet for more information.',
+        goToIntercom: ' Open helpsheet',
+      },
+      dialogs: {
+        success: 'Members were successfully imported',
+        partialSuccess: {
+          title:
+            'Some rows in the file contained errors and could not be processed',
+          lineOneMessage:
+            'However, accounts for members with correct data have been successfully created.',
+          lineTwoMessage: 'Please find the 2 files detailing the situation:',
+          fileName: 'fileMembers.csv',
+          failedImportSubtext: 'Incorrect rows',
+          successImportSubtext: 'Created members',
+        },
+        errors: {
+          title: 'Unfortunately, the import process has failed because:',
+          [LEAD_MANAGEMENT_IMPORT_LOCK_ACQUISITION_ERROR]:
+            'Please wait for the ongoing import to finalize',
+          [LEAD_MANAGEMENT_IMPORT_WRONG_NUMBER_OF_COLUMNS_ERROR]:
+            'This file does not have the required number of columns',
+          [LEAD_MANAGEMENT_IMPORT_MAXIMUM_NUMBER_OF_ROWS_ERROR]:
+            'This file exceeds the maximum size limit',
+        },
+      },
+    },
     note: {
       addNote: 'Add a note',
       myNotes: 'Notes',

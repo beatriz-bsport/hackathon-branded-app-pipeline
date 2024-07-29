@@ -1,3 +1,4 @@
+import DelayedNumberInputField from './DelayedNumberInputField';
 import PhoneFieldV2, { EnhancedPhoneInput } from './PhoneField';
 
-export { PhoneFieldV2, EnhancedPhoneInput };
+export { DelayedNumberInputField, PhoneFieldV2, EnhancedPhoneInput };

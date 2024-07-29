@@ -1,3 +1,3 @@
-import PhoneFieldV2, { EnhancedPhoneInput } from './PhoneField.component';
+import PhoneFieldV2, { EnhancedPhoneInput } from './PhoneField';
 
 export { PhoneFieldV2, EnhancedPhoneInput };

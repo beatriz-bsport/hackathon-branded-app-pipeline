@@ -104,6 +104,7 @@ exports.default = {
   },
   reworked: {
     appbar: {
+      companyLogo: 'Company logo',
       cart: 'Cart',
       myAccount: 'My account',
     },

@@ -1,19 +1,26 @@
 import React from 'react';
+import classNames from 'classnames';
+
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Button from '#src/components/css-only/Fabrique/ButtonV2';
 import IconButton from '#src/components/css-only/Fabrique/IconButton';
-import type { AppBarRightButtons as RightButtons } from '#src/components/css-only/Navigation/types';
 
-type Props = {
-  rightButtons: RightButtons;
-};
+import type { NavigationAppBarProps } from '#src/components/css-only/Navigation/NavigationAppBar/types';
 
-const AppBarRightButtons: React.FC<Props> = ({ rightButtons }) => {
-  if (!rightButtons?.length) return null;
+import './styles.css';
+
+const NavigationAppBarActionsSection: React.FC<
+  Pick<NavigationAppBarProps, 'actions' | 'isMobile'>
+> = ({ actions, isMobile }) => {
   return (
-    <div className="bs-app-bar-right-buttons__root">
-      {rightButtons.map((button) => {
-        if (button.isIconButton)
+    <div
+      className={classNames('bs-navigation-app-bar__actions-section__root', {
+        'bs-navigation-app-bar__actions-section__root--hidden':
+          !actions?.length,
+      })}
+    >
+      {(actions ?? []).map((button) => {
+        if (isMobile) {
           return (
             <IconButton
               key={button.label}
@@ -25,6 +32,7 @@ const AppBarRightButtons: React.FC<Props> = ({ rightButtons }) => {
               {button.leftIcon}
             </IconButton>
           );
+        }
         return (
           <Button
             key={button.label}
@@ -42,8 +50,7 @@ const AppBarRightButtons: React.FC<Props> = ({ rightButtons }) => {
   );
 };
 
-export const AppBarRightButtonsStorybook =
-  marketplaceCssHoc<React.ComponentProps<typeof AppBarRightButtons>>()(
-    AppBarRightButtons,
-  );
-export default React.memo(AppBarRightButtons);
+export const NavigationAppBarActionsSectionStorybook = marketplaceCssHoc<
+  React.ComponentProps<typeof NavigationAppBarActionsSection>
+>()(NavigationAppBarActionsSection);
+export default React.memo(NavigationAppBarActionsSection);

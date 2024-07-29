@@ -2,6 +2,9 @@ import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { CallHistoryMethodAction } from 'connected-react-router';
 import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import type { Theme } from '@material-ui/core/styles';
+
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import ReportDetailHeader from '#src/libs/reporting/v2/components/ReportDetailHeader.component';
 import ReportDetailDrawer from '#src/libs/reporting/v2/components/ReportDetailDrawer.component';
@@ -30,6 +33,10 @@ import type {
 } from '#src/libs/role/types';
 
 import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
+import {
+  drawerSmallWidth,
+  drawerWidth,
+} from '#src/libs/reporting/common/constants';
 
 type Props = {
   advancedReportFilterConfig: ReportFilterConfig | null;
@@ -50,6 +57,7 @@ type Props = {
   ) => void;
   handleExport: () => void;
   handleGeneration: (values: ReportGenerationParams) => void;
+  isNavigationDrawerExpanded: boolean;
   objectLevelPermissions: ObjectLevelPermissions;
   pushRouter: (path: string) => CallHistoryMethodAction<[string, unknown?]>;
   quickReportFilterConfig: ReportFilterConfig;
@@ -58,6 +66,7 @@ type Props = {
     results: ReportMetadataValue[];
   } & ErrorAndLoading;
   reportCategoryMetadata: ReportMetadataValue;
+  reportFilterConfigLoading: boolean;
   reportGeneratedRows: SerializedReport & ErrorAndLoading;
   reportHeaders: ReportHeader;
   reportId: number;
@@ -79,19 +88,21 @@ const ReportDetailPage: React.FC<Props> = ({
   handleExport,
   handleGeneration,
   handleGetDynamicDataForFilters,
+  isNavigationDrawerExpanded,
   objectLevelPermissions,
   pushRouter,
   quickReportFilterConfig,
   report,
   reportCategoriesMetadata,
   reportCategoryMetadata,
+  reportFilterConfigLoading,
   reportGeneratedRows,
   reportHeaders,
   reportId,
   updateReport,
   userPermissions,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ isNavigationDrawerExpanded });
   const [isEditDrawerOpen, setIsEditDrawerOpen] = React.useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = React.useState(false);
   const { refreshOptions } = useObjectSearch();
@@ -185,6 +196,10 @@ const ReportDetailPage: React.FC<Props> = ({
     [createReport, categoryName, reportCategoryMetadata, pushRouter],
   );
 
+  if (reportFilterConfigLoading) {
+    return <LinearProgress />;
+  }
+
   return (
     <>
       <ReportDetailDrawer
@@ -233,8 +248,26 @@ const ReportDetailPage: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme) => ({
-  content: { display: 'flex', flexDirection: 'column', gap: theme.spacing(2) },
-}));
+const useStyles = makeStyles<Theme, { isNavigationDrawerExpanded: boolean }>(
+  (theme) => ({
+    content: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(2),
+      padding: theme.spacing(2),
+      flex: '1 0 0',
+      overflowX: 'auto',
+      [theme.breakpoints.down('sm')]: {
+        paddingLeft: theme.spacing(2),
+      },
+      [theme.breakpoints.between('md', 'xl')]: {
+        paddingLeft: ({ isNavigationDrawerExpanded }) =>
+          isNavigationDrawerExpanded
+            ? `calc(${drawerWidth}px + ${theme.spacing(2)}px)`
+            : `calc(${drawerSmallWidth}px + ${theme.spacing(2)}px)`,
+      },
+    },
+  }),
+);
 
 export default React.memo(ReportDetailPage);

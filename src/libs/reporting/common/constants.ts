@@ -172,3 +172,6 @@ export enum ReportDateType {
   RANGE = 'range',
   SINGLE = 'single',
 }
+
+export const drawerWidth = 220;
+export const drawerSmallWidth = 44;

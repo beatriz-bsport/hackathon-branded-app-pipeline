@@ -18,6 +18,7 @@ import {
   getReportGenerateredRows,
   getReportFilterConfigs,
   getReportFilterConfigLoading,
+  getReportsV2,
 } from '#src/libs/reporting/v2/selectors';
 
 import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress';
@@ -31,9 +32,11 @@ import {
   createReportFilterConfig as createReportFilterConfigAction,
   updateReport as updateReportAction,
   createReport as createReportAction,
+  fetchDefaultReports as fetchDefaultReportsAction,
 } from '#src/libs/reporting/v2/actions';
 
 import ReportDetailPage from '#src/libs/reporting/v2/components/ReportDetailPage.component';
+import ReportDetailNavigationDrawer from '#src/libs/reporting/v2/components/ReportDetailNavigationDrawer.component';
 
 import type { RootState } from '#src/reducers';
 import type {
@@ -52,8 +55,10 @@ const ReportingDetail: React.FC<Props> = ({
   categoryName,
   createReport,
   createReportFilterConfig,
+  defaultReports,
   dynamicDataHasBeenLoaded,
   editReportFilterConfig,
+  fetchDefaultReports,
   fetchReportFilterConfigList,
   fetchReportHeaders,
   fetchReportMetadata,
@@ -75,7 +80,8 @@ const ReportingDetail: React.FC<Props> = ({
   React.useEffect(() => {
     resetDynamicDataHasBeenLoaded();
     fetchReportMetadata();
-  }, [fetchReportMetadata, resetDynamicDataHasBeenLoaded]);
+    fetchDefaultReports();
+  }, [fetchReportMetadata, resetDynamicDataHasBeenLoaded, fetchDefaultReports]);
 
   React.useEffect(() => {
     fetchReportFilterConfigList(
@@ -105,6 +111,9 @@ const ReportingDetail: React.FC<Props> = ({
     fetchSerializedReport,
     fetchReportHeaders,
   ]);
+
+  const [isNavigationDrawerExpanded, setIsNavigationDrawerExpanded] =
+    React.useState(true);
 
   const reportCategoryMetadata = React.useMemo(
     () =>
@@ -180,35 +189,66 @@ const ReportingDetail: React.FC<Props> = ({
   const report = getReportSearchResults.currentResults.find(
     (reportResult) => reportResult.id == reportId,
   ) as ReportConfiguration;
+  const metadataGroupedByGlobalCategory = React.useMemo(
+    () =>
+      Object.entries(
+        Object.groupBy(
+          reportCategoriesMetadata.results,
+          ({ global_category }) => global_category,
+        ),
+      ).map(([globalCategory, reportCategories]) => ({
+        title: globalCategory,
+        categories: reportCategories.map((reportCategory) => ({
+          ...reportCategory,
+          reportId:
+            defaultReports.find(
+              (defaultReport) =>
+                defaultReport.category === reportCategory.category,
+            )?.id || null,
+        })),
+      })),
+    [reportCategoriesMetadata.results, defaultReports],
+  );
 
-  if (reportFilterConfigLoading || reportCategoriesMetadata.loading) {
+  if (reportCategoriesMetadata.loading) {
     return <LinearProgress />;
   }
 
   return (
-    <ReportDetailPage
-      advancedReportFilterConfig={advancedReportFilterConfig}
-      categoryName={categoryName}
-      createReport={createReport}
-      createReportFilterConfig={createReportFilterConfig}
-      dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
-      editReportFilterConfig={editReportFilterConfig}
-      // TODO: add export action
-      handleExport={() => {}}
-      handleGeneration={handleGeneration}
-      handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
-      objectLevelPermissions={objectLevelPermissions}
-      pushRouter={pushRouter}
-      quickReportFilterConfig={quickReportFilterConfig}
-      report={report}
-      reportCategoriesMetadata={reportCategoriesMetadata}
-      reportCategoryMetadata={reportCategoryMetadata}
-      reportGeneratedRows={reportGeneratedRows}
-      reportHeaders={reportHeaders.results}
-      reportId={reportId}
-      updateReport={updateReport}
-      userPermissions={userPermissions}
-    />
+    <>
+      <ReportDetailNavigationDrawer
+        categoryName={categoryName}
+        isNavigationDrawerExpanded={isNavigationDrawerExpanded}
+        items={metadataGroupedByGlobalCategory}
+        pushRouter={pushRouter}
+        setIsNavigationDrawerExpanded={setIsNavigationDrawerExpanded}
+      />
+      <ReportDetailPage
+        advancedReportFilterConfig={advancedReportFilterConfig}
+        categoryName={categoryName}
+        createReport={createReport}
+        createReportFilterConfig={createReportFilterConfig}
+        dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
+        editReportFilterConfig={editReportFilterConfig}
+        // TODO: add export action
+        handleExport={() => {}}
+        handleGeneration={handleGeneration}
+        handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
+        isNavigationDrawerExpanded={isNavigationDrawerExpanded}
+        objectLevelPermissions={objectLevelPermissions}
+        pushRouter={pushRouter}
+        quickReportFilterConfig={quickReportFilterConfig}
+        report={report}
+        reportCategoriesMetadata={reportCategoriesMetadata}
+        reportCategoryMetadata={reportCategoryMetadata}
+        reportFilterConfigLoading={reportFilterConfigLoading}
+        reportGeneratedRows={reportGeneratedRows}
+        reportHeaders={reportHeaders.results}
+        reportId={reportId}
+        updateReport={updateReport}
+        userPermissions={userPermissions}
+      />
+    </>
   );
 };
 
@@ -217,6 +257,7 @@ const connector = connect(
     getReportSearchResults: getResultsBySelectorId(state, 'reportV2', 'default')
       .results,
     objectLevelPermissions: getObjectPermissions(state),
+    defaultReports: getReportsV2(state),
     reportCategoriesMetadata: getReportCategoriesMetadata(state),
     reportFilterConfigLoading: getReportFilterConfigLoading(state),
     reportFilterConfigs: getReportFilterConfigs(state, reportId),
@@ -228,6 +269,7 @@ const connector = connect(
     createReport: createReportAction,
     createReportFilterConfig: createReportFilterConfigAction,
     editReportFilterConfig: editReportFilterConfigAction,
+    fetchDefaultReports: fetchDefaultReportsAction,
     fetchReportFilterConfigList: fetchReportFilterConfigListAction,
     fetchReportHeaders: fetchReportHeadersAction,
     fetchReportMetadata: fetchReportMetadataAction,

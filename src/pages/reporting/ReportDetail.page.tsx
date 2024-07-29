@@ -122,6 +122,14 @@ const ReportingDetail: React.FC<Props> = ({
     [reportFilterConfigs],
   );
 
+  const quickReportFilterConfig = React.useMemo(
+    () =>
+      reportFilterConfigs.find(
+        (reportFilterConfig) => reportFilterConfig.is_quick_report_filter,
+      ) || null,
+    [reportFilterConfigs],
+  );
+
   const handleGeneration = React.useCallback(
     (values: ReportGenerationParams) => {
       // remove seconds as per product requirement
@@ -191,6 +199,7 @@ const ReportingDetail: React.FC<Props> = ({
       handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
       objectLevelPermissions={objectLevelPermissions}
       pushRouter={pushRouter}
+      quickReportFilterConfig={quickReportFilterConfig}
       report={report}
       reportCategoriesMetadata={reportCategoriesMetadata}
       reportCategoryMetadata={reportCategoryMetadata}

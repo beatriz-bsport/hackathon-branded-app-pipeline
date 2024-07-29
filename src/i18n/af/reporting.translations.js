@@ -965,6 +965,7 @@ const getTranslations = async () => {
     reportDetailContent: {
       title: 'Date and quick filters',
       tableTitle: 'Detailed report',
+      addQuickFilter: 'Add a quick filter',
     },
     reportHasNotBeenGenerated: 'Generate report to see data',
   };

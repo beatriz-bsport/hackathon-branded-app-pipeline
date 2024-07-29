@@ -60,7 +60,7 @@ type ReportFilterChipProps = {
   >;
   editReportFilterConfig?: (
     reportFilterConfigId: number,
-    data: Omit<ReportFilterConfig, 'id'> | ReportFilterConfig,
+    data: Partial<ReportFilterConfig>,
   ) => void;
   reportQuickFilter?: ReportFilterConfig;
   onlyDisplay?: boolean;
@@ -222,8 +222,8 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
       editReportFilterConfig(
         reportQuickFilter?.id,
         deepCopyQuickReportFilter.config.groups[0].filters_data.length > 0
-          ? deepCopyQuickReportFilter
-          : { ...reportQuickFilter, config: {} },
+          ? { config: deepCopyQuickReportFilter.config }
+          : { config: {} },
       );
     }, [
       setFieldValue,

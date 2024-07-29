@@ -47,7 +47,6 @@ export const reportDetailContentTheme = createTheme({
       root: {
         display: 'flex',
         flexDirection: 'column',
-        gap: defaultTheme.spacing(3),
       },
     },
   },

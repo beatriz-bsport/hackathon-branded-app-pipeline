@@ -52,6 +52,7 @@ type Props = {
   handleGeneration: (values: ReportGenerationParams) => void;
   objectLevelPermissions: ObjectLevelPermissions;
   pushRouter: (path: string) => CallHistoryMethodAction<[string, unknown?]>;
+  quickReportFilterConfig: ReportFilterConfig;
   report: ReportConfiguration;
   reportCategoriesMetadata: {
     results: ReportMetadataValue[];
@@ -80,6 +81,7 @@ const ReportDetailPage: React.FC<Props> = ({
   handleGetDynamicDataForFilters,
   objectLevelPermissions,
   pushRouter,
+  quickReportFilterConfig,
   report,
   reportCategoriesMetadata,
   reportCategoryMetadata,
@@ -212,10 +214,13 @@ const ReportDetailPage: React.FC<Props> = ({
         />
         <ReportDetailContent
           categoryName={categoryName}
+          editReportFilterConfig={editReportFilterConfig}
           handleExport={handleExport}
           handleGeneration={handleGeneration}
+          handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
           loading={reportCategoriesMetadata.loading || !report}
           objectLevelPermissions={objectLevelPermissions}
+          quickReportFilterConfig={quickReportFilterConfig}
           report={report}
           reportCategoriesMetadata={reportCategoriesMetadata}
           reportCategoryMetadata={reportCategoryMetadata}

@@ -59,7 +59,7 @@ type Props = {
     React.SetStateAction<boolean>
   >;
   handleQuickFilterModalClose: () => void;
-  handleOpenModal: () => void;
+  handleOpenModal?: () => void;
   anchorEl: (EventTarget & HTMLButtonElement) | HTMLDivElement | null;
   columns: DataSourceFieldMetadata[];
   isFranchisor: boolean;
@@ -212,7 +212,7 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
   ]);
 
   return (
-    <div className={classes.row}>
+    <>
       <Popover
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -249,19 +249,21 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
         )}
         <Divider />
 
-        <ObjectLevelPermissionWrapper
-          requiredPermission={[
-            `${reportObjectPermissionPrefix}.read`,
-            `${reportObjectPermissionPrefix}.create`,
-          ]}
-        >
-          <MenuItem>
-            <ListItem disableGutters onClick={handleOpenModal}>
-              <FilterIcon />
-              <ListItemText primary={t('filter.createFilter')} />
-            </ListItem>
-          </MenuItem>
-        </ObjectLevelPermissionWrapper>
+        {handleOpenModal && (
+          <ObjectLevelPermissionWrapper
+            requiredPermission={[
+              `${reportObjectPermissionPrefix}.read`,
+              `${reportObjectPermissionPrefix}.create`,
+            ]}
+          >
+            <MenuItem>
+              <ListItem disableGutters onClick={handleOpenModal}>
+                <FilterIcon />
+                <ListItemText primary={t('filter.createFilter')} />
+              </ListItem>
+            </MenuItem>
+          </ObjectLevelPermissionWrapper>
+        )}
       </Popover>
 
       {selectedColumn && (
@@ -276,7 +278,7 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
           selectedColumn={selectedColumn}
         />
       )}
-    </div>
+    </>
   );
 };
 

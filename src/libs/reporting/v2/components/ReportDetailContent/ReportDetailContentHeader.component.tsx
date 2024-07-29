@@ -2,6 +2,7 @@ import React from 'react';
 import { withFormik, Form, FormikProps } from 'formik';
 import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import cloneDeep from 'lodash/cloneDeep';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -11,6 +12,7 @@ import InformationIcon from '#src/components/InformationIcon';
 import {
   CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES,
   ReportDateType,
+  authorIdentifiers,
 } from '#src/libs/reporting/common/constants';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
@@ -18,23 +20,40 @@ import { mapTimePeriodToDateValues } from '#src/components/date/utils';
 
 import type {
   ReportConfiguration,
-  ReportMetadataValue,
+  ReportFilterConfig,
+  ReportFilterConfigConfig,
   ReportGenerationParams,
+  ReportMetadataValue,
 } from '#src/libs/reporting/common/types';
 import type {
+  DatatypeFilterConfigGroup,
+  DatatypeFilterConfigItem,
   DateFilterEnum,
   DateFilterRangeEnum,
 } from '#src/libs/datatype-filtering/types';
+import type { OptionCallback } from '#src/state/types';
+import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+
+import ReportFilterChip from '#src/libs/reporting/common/components/ReportFilterChip.component';
 import ReportDetailDateSelectors from '#src/libs/reporting/v2/components/ReportDetailContent/ReportDetailDateSelectors.component';
+import QuickReportFilterConfigColumnsMenu from '#src/libs/reporting/common/components/QuickReportFilterConfigColumnsMenu.component';
 
 type Props = {
   categoryName: ReportCategoryEnum;
   generationLoading: boolean;
+  editReportFilterConfig: (
+    reportFilterConfigId: number,
+    data: Partial<ReportFilterConfig>,
+    options?: OptionCallback<ReportFilterConfig>,
+  ) => void;
   handleExport: () => void;
+  quickReportFilterConfig: ReportFilterConfig;
   reportCategoryMetadata: ReportMetadataValue;
-};
+  report: ReportConfiguration;
+} & Pick<withDatatypeDynamicDataProps, 'handleGetDynamicDataForFilters'>;
 
 export type FormikValues = {
+  config: ReportFilterConfigConfig;
   dateEnd: string;
   dateStart: string;
   dateType: ReportDateType;
@@ -46,20 +65,98 @@ export type FormikValues = {
 
 type FormikHOCProps = {
   handleGeneration: (values: ReportGenerationParams) => void;
-  report: ReportConfiguration;
 };
 
 const ReportDetailContentHeader: React.FC<
   Props & FormikProps<FormikValues>
 > = ({
   categoryName,
+  editReportFilterConfig,
   generationLoading,
   handleExport,
+  handleGetDynamicDataForFilters,
   handleSubmit,
+  quickReportFilterConfig,
+  report,
   reportCategoryMetadata,
+  values,
 }) => {
   const { t } = useTranslation(['reporting', 'smartList']);
   const classes = useStyles();
+  const [isQuickFilterModalOpen, setIsQuickFilterModalOpen] =
+    React.useState(false);
+  const [
+    isQuickFilterConfigColumnModalOpen,
+    setIsQuickFilterConfigColumnModalOpen,
+  ] = React.useState(false);
+  const [isQuickFilterConfigRowModalOpen, setIsQuickFilterConfigRowModalOpen] =
+    React.useState(false);
+  const [selectedColumn, setSelectedColumn] =
+    React.useState<DatatypeFilterConfigItem>();
+
+  const [anchorEl, setAnchorEl] = React.useState<
+    (EventTarget & HTMLButtonElement) | HTMLDivElement | null
+  >(null);
+  const chipRef = React.useRef<HTMLDivElement | null>(null);
+
+  const handleQuickFilterModalOpen = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      setIsQuickFilterModalOpen(true);
+      setIsQuickFilterConfigColumnModalOpen(true);
+      setAnchorEl(event.currentTarget);
+    },
+    [],
+  );
+
+  const handleQuickFilterModalClose = React.useCallback(() => {
+    setIsQuickFilterModalOpen(false);
+    setIsQuickFilterConfigColumnModalOpen(false);
+    setAnchorEl(null);
+
+    const newFiltersData = values.config?.groups?.length
+      ? values.config.groups?.[0]?.filters_data
+      : [];
+
+    // values from formik ar immutable so I have to create a deep copy hence deepCopyQuickReportFilter
+    const deepCopyQuickReportFilterConfig = cloneDeep(values.config);
+    if (deepCopyQuickReportFilterConfig.groups) {
+      deepCopyQuickReportFilterConfig.groups[0].filters_data = newFiltersData;
+    }
+
+    // If there is no filters data in the quickfilters, return empty config
+    editReportFilterConfig(
+      quickReportFilterConfig?.id,
+      newFiltersData.length > 0
+        ? { config: deepCopyQuickReportFilterConfig }
+        : { config: {} },
+    );
+  }, [editReportFilterConfig, quickReportFilterConfig, values]);
+
+  const columnsDataSelectedQuickFilter = React.useMemo(() => {
+    return values.config?.groups?.length
+      ? values.config.groups.flatMap((group: DatatypeFilterConfigGroup) =>
+          group.filters_data?.map((row: DatatypeFilterConfigItem) => ({
+            identifier:
+              row.datatype === 'user' &&
+              !authorIdentifiers.includes(row.identifier)
+                ? 'member'
+                : row.identifier,
+            value: row.value,
+            comparator: row.comparator,
+            datatype: row.datatype,
+            sub_datatype: row.sub_datatype,
+          })),
+        )
+      : [];
+  }, [values.config?.groups]);
+
+  const reportColumnsMetadata = React.useMemo(
+    () =>
+      reportCategoryMetadata.columns.filter((column) =>
+        report.columns.includes(column.identifier),
+      ),
+    [reportCategoryMetadata, report],
+  );
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -78,10 +175,64 @@ const ReportDetailContentHeader: React.FC<
             reportCategoryMetadata.time_window_filtering_enabled
           }
         />
-        <Button color="primary" startIcon={<AddIcon />} variant="text">
-          {/* Quick filter logic to be added here and no translation needed*/}
-          Add a quick filter
-        </Button>
+        <div className={classes.chipList}>
+          {columnsDataSelectedQuickFilter.map((filterItem) => (
+            <ReportFilterChip
+              key={filterItem.identifier}
+              ref={chipRef}
+              columnIdentifiers={report.columns}
+              comparator={filterItem.comparator}
+              datatype={filterItem.datatype}
+              editReportFilterConfig={editReportFilterConfig}
+              getDataByTypeAndId={handleGetDynamicDataForFilters}
+              label={filterItem.identifier}
+              reportQuickFilter={quickReportFilterConfig}
+              setAnchorEl={setAnchorEl}
+              setIsQuickFilterConfigRowModalOpen={
+                setIsQuickFilterConfigRowModalOpen
+              }
+              setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
+              setSelectedColumn={setSelectedColumn}
+              subDataType={filterItem.sub_datatype}
+              value={filterItem.value}
+            />
+          ))}
+          <Button
+            color="primary"
+            onClick={handleQuickFilterModalOpen}
+            startIcon={<AddIcon />}
+          >
+            {t('reportDetailContent.addQuickFilter').toUpperCase()}
+          </Button>
+        </div>
+        {isQuickFilterModalOpen && (
+          <QuickReportFilterConfigColumnsMenu
+            anchorEl={anchorEl}
+            chipRef={chipRef}
+            // @ts-expect-error TODO: harmonize DataSourceFieldMetadata and  ReportMetadataColumn
+            columns={reportColumnsMetadata}
+            columnsDataSelectedQuickFilter={columnsDataSelectedQuickFilter}
+            getDataByType={handleGetDynamicDataForFilters}
+            handleQuickFilterModalClose={handleQuickFilterModalClose}
+            isFranchisor={false}
+            isQuickFilterConfigColumnModalOpen={
+              isQuickFilterConfigColumnModalOpen
+            }
+            isQuickFilterConfigRowModalOpen={isQuickFilterConfigRowModalOpen}
+            isQuickFilterModalOpen={isQuickFilterModalOpen}
+            reportCategory={categoryName}
+            selectedColumn={selectedColumn}
+            setAnchorEl={setAnchorEl}
+            setIsQuickFilterConfigColumnModalOpen={
+              setIsQuickFilterConfigColumnModalOpen
+            }
+            setIsQuickFilterConfigRowModalOpen={
+              setIsQuickFilterConfigRowModalOpen
+            }
+            setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
+            setSelectedColumn={setSelectedColumn}
+          />
+        )}
         <div className={classes.actionButtonsWrapper}>
           <Button
             color="primary"
@@ -116,10 +267,21 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     gap: theme.spacing(1),
   },
+  chipList: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    borderRadius: theme.spacing(2),
+    '&:hover': {
+      backgroundColor: '#efefef',
+    },
+  },
 }));
 
 const FormikHOC = withFormik<Props & FormikHOCProps, FormikValues>({
-  mapPropsToValues: ({ report }) => {
+  mapPropsToValues: ({ report, quickReportFilterConfig }) => {
     if (report) {
       return {
         dateEnd: report.date_end,
@@ -132,6 +294,9 @@ const FormikHOC = withFormik<Props & FormikHOCProps, FormikValues>({
         ),
         timeStart: report.time_window_start,
         timeWindowPeriod: 'custom',
+        ...(quickReportFilterConfig
+          ? { config: quickReportFilterConfig.config }
+          : { config: {} }),
       };
     }
   },

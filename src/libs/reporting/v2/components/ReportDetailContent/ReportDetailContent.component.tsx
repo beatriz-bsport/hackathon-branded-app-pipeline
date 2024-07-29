@@ -18,20 +18,29 @@ import type {
   SerializedReport,
   ReportMetadataValue,
   ReportGenerationParams,
+  ReportFilterConfig,
 } from '#src/libs/reporting/common/types';
 import type { ErrorAndLoading } from '#src/libs/types';
 import type {
   ObjectLevelPermissions,
   RolePermission,
 } from '#src/libs/role/types';
+import type { OptionCallback } from '#src/state/types';
+import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 type Props = {
   categoryName: ReportCategoryEnum;
+  editReportFilterConfig: (
+    reportFilterConfigId: number,
+    data: Partial<ReportFilterConfig>,
+    options?: OptionCallback<ReportFilterConfig>,
+  ) => void;
   handleExport: () => void;
   handleGeneration: (values: ReportGenerationParams) => void;
   objectLevelPermissions: ObjectLevelPermissions;
+  quickReportFilterConfig: ReportFilterConfig;
   loading: boolean;
   report: ReportConfiguration;
   reportCategoriesMetadata: {
@@ -41,14 +50,17 @@ type Props = {
   reportGeneratedRows: SerializedReport & ErrorAndLoading;
   reportHeaders: ReportHeader;
   userPermissions: RolePermission;
-};
+} & Pick<withDatatypeDynamicDataProps, 'handleGetDynamicDataForFilters'>;
 
 const ReportDetailContent: React.FC<Props> = ({
   categoryName,
+  editReportFilterConfig,
   handleExport,
   handleGeneration,
+  handleGetDynamicDataForFilters,
   loading,
   objectLevelPermissions,
+  quickReportFilterConfig,
   report,
   reportCategoriesMetadata,
   reportCategoryMetadata,
@@ -83,9 +95,12 @@ const ReportDetailContent: React.FC<Props> = ({
     <Paper className={classes.contentPaper}>
       <ReportDetailContentHeader
         categoryName={categoryName}
+        editReportFilterConfig={editReportFilterConfig}
         generationLoading={reportGeneratedRows.loading}
         handleExport={handleExport}
         handleGeneration={handleGeneration}
+        handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
+        quickReportFilterConfig={quickReportFilterConfig}
         report={report}
         reportCategoryMetadata={reportCategoryMetadata}
       />

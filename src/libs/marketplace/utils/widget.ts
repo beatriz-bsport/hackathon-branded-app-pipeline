@@ -99,7 +99,7 @@ export class WidgetCodeStringGenerator {
                 }  
             })
     </script>
-<div><div id="bsport-widget${args.uuid || ''}"/></div>`;
+<div id="bsport-widget${args.uuid || ''}"></div>`;
 
     if (args.useIframe) {
       if (args.responsiveIframe) {

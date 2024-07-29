@@ -323,15 +323,17 @@ export class ConsumerHome extends React.Component<Props> {
                   buildUrl={this.props.buildUrl}
                   buttonsData={this.getConsumerMobileNavigationButtonsData()}
                   companyId={this.props.companyId}
-                  companyLogo={this.props.theme ? this.props.theme.cover : null}
-                  companyTheme={this.props.theme}
+                  companyLogo={this.props.theme?.cover}
+                  companyWebsiteUrl={this.props.theme.websiteURL}
                   controlableMemberList={this.props.controlableMemberList}
                   hasFranchise={this.props.theme.franchisor}
                   hasMultipleMembership={
                     this.props.membershipCount && this.props.membershipCount > 1
                   }
                   infosOfMember={this.props.infosOfMember}
-                  isRelationNavigation={isRelationNavigation}
+                  isNewCheckoutFlow={
+                    !!this.props.theme?.display_new_checkout_flow
+                  }
                   memberName={this.props.userFullName}
                   membership={this.props.membership}
                   name={this.props.name}

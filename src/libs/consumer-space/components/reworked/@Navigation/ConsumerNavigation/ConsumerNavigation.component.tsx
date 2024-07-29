@@ -3,35 +3,31 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-import AppBar from '#src/components/css-only/Navigation/AppBar';
+import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppBar';
 import useViewport from '#Fabrique/hooks/useViewport';
 import NavigationSideBar from '#src/components/css-only/Navigation/NavigationSideBar';
 import useNavigationData from '../useNavigationData';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
-//@ts-expect-error
-import LanguageButton from '#src/components/button/LanguageButton.component';
-import { ButtonData } from '#src/components/css-only/Navigation/types';
-import {
-  DotsVertical,
-  ShoppingCart01,
-  UserCircle,
-} from '#src/components/untitledui';
-import Menu from '#src/components/css-only/Fabrique/Menu';
+
+import { ShoppingCart01, UserCircle } from '#src/components/untitledui';
 import ConsumerGenericFooter from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericFooter';
 
 import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
+import type { AppBarButton } from '#src/components/css-only/Navigation/NavigationAppBar/types';
 
 import './styles.css';
 
 type Props = {
   buildUrl: (string: any) => string;
   companyLogo: string;
+  companyWebsiteUrl?: string;
   companyId: number;
   hasMultipleMembership: boolean;
   hasFranchise: boolean;
   isNewCheckoutFlow: boolean;
   isRelationNavigation: boolean;
   memberName: string;
+  /** A list of action buttons to display in the header */
   buttonsData?: HeaderButton[];
   redirectToCart: () => void;
   redirectToMyProfile: () => void;
@@ -39,6 +35,7 @@ type Props = {
 
 const ConsumerNavigation: React.FC<Props> = ({
   companyLogo,
+  companyWebsiteUrl,
   companyId,
   hasMultipleMembership,
   hasFranchise,
@@ -61,25 +58,7 @@ const ConsumerNavigation: React.FC<Props> = ({
     setIsBottomDrawerOpen((prevState) => !prevState);
   }, [setIsBottomDrawerOpen]);
 
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement>(null);
-
-  const [isFlagMenuOpen, setIsFlagMenuOpen] = useState(false);
-
-  const openFlagMenu = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      const currentTarget = event.currentTarget;
-      setAnchorEl(currentTarget);
-      setIsFlagMenuOpen(true);
-    },
-    [],
-  );
-
-  const closeFlagMenu = useCallback(() => {
-    setAnchorEl(null);
-    setIsFlagMenuOpen(false);
-  }, []);
-
-  const rightButtonData: ButtonData[] = useMemo(
+  const actionsList: AppBarButton[] = useMemo(
     () => [
       {
         label: t('reworked.appbar.cart'),
@@ -97,24 +76,8 @@ const ConsumerNavigation: React.FC<Props> = ({
         variant: isMobile ? 'text' : 'outlined',
         isIconButton: isMobile,
       },
-      {
-        label: 'changeLanguageButton',
-        color: 'grey',
-        isIconButton: true,
-        leftIcon: <DotsVertical />,
-        onClick: isFlagMenuOpen ? closeFlagMenu : openFlagMenu,
-        variant: 'text',
-      },
     ],
-    [
-      closeFlagMenu,
-      isFlagMenuOpen,
-      isMobile,
-      openFlagMenu,
-      redirectToCart,
-      redirectToMyProfile,
-      t,
-    ],
+    [isMobile, redirectToCart, redirectToMyProfile, t],
   );
 
   const navigationMenu = useNavigationData({
@@ -129,15 +92,13 @@ const ConsumerNavigation: React.FC<Props> = ({
 
   return (
     <div className="bs-consumer-navigation__root">
-      <AppBar
+      <NavigationAppBar
+        actions={actionsList}
         isMobile={isMobile}
         logo={companyLogo}
-        onClickMenuButton={toggleBottomDrawer}
-        rightButtons={rightButtonData}
+        websiteUrl={companyWebsiteUrl}
       />
-      <Menu anchorEl={anchorEl} id="flag-menu" isOpen={isFlagMenuOpen}>
-        <LanguageButton onLocaleChange={closeFlagMenu} />
-      </Menu>
+
       <div className="bs-consumer-navigation__layout">
         <NavigationSideBar
           buildUrl={buildUrl}

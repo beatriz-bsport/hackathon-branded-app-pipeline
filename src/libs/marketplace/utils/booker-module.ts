@@ -302,6 +302,7 @@ export const buildDataForUserRegistration = (
   selectedSpotId: number | null,
   bookingForGuestValues?: AddGuestFormValues,
   selectedSpot?: string | null,
+  memberBookingId?: number,
 ) => {
   const data: {
     consumer_payment_pack?: number;
@@ -344,12 +345,12 @@ export const buildDataForUserRegistration = (
                     spot_name: selectedSpot ?? null,
                   },
                 ],
-                booking_for_member: null,
                 booking_for_invitee_only: true,
               }
             : {
                 spot_id: selectedSpotId ?? null,
                 spot_name: selectedSpot ?? null,
+                booking_for_member: memberBookingId || null,
               }),
         },
       },
@@ -358,7 +359,7 @@ export const buildDataForUserRegistration = (
     data.offers = [];
   }
 
-  if (offerFeature.isWaitingList) {
+  if (offerFeature.isWaitingList && !memberBookingId) {
     data.waiting_list = [
       {
         offer_id: offerId,

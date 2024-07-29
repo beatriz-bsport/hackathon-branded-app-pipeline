@@ -99,6 +99,9 @@ import {
   fetchAllPaymentPackCategory,
   resetPaymentPackForBooking,
 } from '#src/libs/payment-packs/actions';
+import { fetchMyRelatedMemberList as fetchMyRelatedMemberListAction } from '#src/libs/relationship/actions';
+import { getMyRelatedMemberList } from '#src/libs/relationship/selectors';
+import { getConsumerProfile } from '#src/libs/consumer-space/selectors';
 import {
   excludeUnaccessiblePacks,
   getPaymentPackForBooking,
@@ -168,6 +171,9 @@ import { RootState } from '../../../../reducers';
 import { buildUrlParams } from '../../../../http';
 import type { OptionCallback } from '../../../../state/types';
 import type { WithHandlerType } from '../../../../utils/types';
+import type { MemberMinimal } from '#src/libs/member/types';
+import BookingForAnotherSelector from '#src/libs/booker-module/components/BookingForAnotherSelector.component';
+
 import './BoutiqueBookerModule.css';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
@@ -193,6 +199,7 @@ type State = {
     isWaitingListOpenMainReason: boolean;
   };
   offerWasRetrieved: boolean;
+  memberBookingId: number;
 };
 
 type OwnProps = {
@@ -212,6 +219,7 @@ type OwnProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   goBack: () => void;
   containerRef: React.MutableRefObject<any>;
+  relatedMembersList: MemberMinimal[];
 };
 
 type Props = OwnProps &
@@ -239,6 +247,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       isWaitingList: false,
       bookingBlockedReason: null,
       offerWasRetrieved: false,
+      memberBookingId: -1,
     };
   }
 
@@ -246,6 +255,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     if (this.props.companyId) {
       this.props.retrieveCompanyCssConfiguration(this.props.companyId);
       this.props.fetchCurrentBasket(this.props.companyId);
+      this.props.fetchMyRelatedMemberList(this.props.companyId);
     }
     this.props.fetchOffer(this.props.offerId, {
       onSuccess: (offer: Offer) => {
@@ -499,6 +509,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         this.props.offer?.id,
         {
           booking_for_invitee_only: this.getIsGuestBooking(),
+          ...(this.state.memberBookingId && this.state.memberBookingId !== -1
+            ? { booking_for_member: this.state.memberBookingId }
+            : {}),
         },
         {
           onSuccess: this.updateOfferConstraints,
@@ -596,6 +609,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       offerFeature.isBookable = true;
     }
 
+    const memberBookingId =
+      this.state.memberBookingId !== -1 ? this.state.memberBookingId : null;
+
     const data = buildDataForUserRegistration(
       offerFeature,
       this.state.selectedItem,
@@ -607,6 +623,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         email: this.props.queryParams.guest_email ?? '',
       },
       this.state.selectedSpot,
+      memberBookingId,
     );
 
     if (
@@ -821,6 +838,38 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     return spotId?.toString();
   };
 
+  handleBookingForAnotherChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    const newMemberBookingId = event.target.value;
+
+    if (!newMemberBookingId) return;
+
+    this.setState(
+      {
+        // TODO on multi session : reset similar session choosen when you switch member booking
+        memberBookingId: parseInt(newMemberBookingId, 10),
+      },
+      () => {
+        // TODO on multi session: update this function to work with an array of offerIds
+        this.fetchOfferStatus();
+      },
+    );
+  };
+
+  handleMemberUpdateinDrawer = (newMemberBookingId: number) => {
+    this.setState(
+      {
+        // TODO on multi session : reset similar session choosen when you switch member booking
+        memberBookingId: newMemberBookingId,
+      },
+      () => {
+        // TODO on multi session: update this function to work with an array of offerIds
+        this.fetchOfferStatus();
+      },
+    );
+  };
+
   render() {
     const { t, containerRef } = this.props;
 
@@ -1001,6 +1050,16 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               </>
             )}
           </div>
+          {!isWaitingList &&
+            this.props.relatedMembersList &&
+            this.props.relatedMembersList.length > 0 && (
+              <BookingForAnotherSelector
+                handleMemberUpdate={this.handleBookingForAnotherChange}
+                handleMemberUpdateinDrawer={this.handleMemberUpdateinDrawer}
+                memberBookingId={this.state.memberBookingId}
+                relatedMembersList={this.props.relatedMembersList}
+              />
+            )}
           <div className="bs-new-offer-booking">
             {this.state.isBookingBlocked && !this.getIsLoading() ? (
               <MarketplaceBookingBlockedReason
@@ -1203,6 +1262,8 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     basketIsLoading: state.checkout.basket.current.loading,
     bookingGuestRemainingCount: getBookingGuestNumberLeft(state),
     offerStatusWaitingListById: getOfferStatusWaitingListPositionById(state),
+    relatedMembersList: getMyRelatedMemberList(state) as MemberMinimal[],
+    consumerProfile: getConsumerProfile(state),
   };
 };
 
@@ -1244,6 +1305,7 @@ const mapDispatchToProps = {
   fetchCurrentBasket: fetchCurrentBasketAction,
   fetchBookingGuestNumber: fetchBookingGuestNumberAction,
   fetchOfferWaitingListPosition: fetchOfferWaitingListPositionAction,
+  fetchMyRelatedMemberList: fetchMyRelatedMemberListAction,
 };
 
 const mapHandlers = {

@@ -130,7 +130,6 @@ const OfferBookingWaitingList: React.FC<Props> = ({
             title={title}
           />
         </div>
-
         <div className="bs-offer-booking-waiting-list__summary__container">
           <BookerModuleOfferSummary
             noStyledContainer

@@ -35,6 +35,13 @@
   flex: 1;
 }
 
+.bs-offer-booking-waiting-list__booking_container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--spacing-2);
+}
+
 .bs-offer-booking-waiting-list__summary__container {
   width: 375px;
   padding: var(--spacing-2);

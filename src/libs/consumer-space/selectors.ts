@@ -77,6 +77,10 @@ import type {
 } from '#src/libs/universal-pass/types';
 import type { ConsumerInvoiceREST } from '#src/libs/invoice/types';
 
+export const getConsumerProfile = (state: RootState) => {
+  return state.consumer.profile;
+};
+
 const getAllBookingAndPrivateBookingWithIds = (state: RootState) => {
   return state.consumer.bookingAndPrivateBooking.allObj;
 };

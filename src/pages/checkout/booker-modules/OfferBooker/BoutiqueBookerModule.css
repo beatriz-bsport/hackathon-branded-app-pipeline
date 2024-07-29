@@ -57,6 +57,139 @@
   background-color: white;
 }
 
+.bs-new-offer-booking__booking-for-another {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--bs-space-size-3);
+  align-self: stretch;
+  width: 100%;
+}
+
+.bs-new-offer-booking__booking-for-another-title {
+  font-size: var(--bs-font-size-title-sm);
+  font-style: normal;
+  line-height: calc(var(--bs-fabrique-line-height-action-sm) * 1.6);
+}
+
+.bs-new-offer-booking__booking-for-another-select {
+  height: var(--bs-component-height-textfield-sm);
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: var(--bs-grey-0);
+  padding: var(--bs-space-size-3) var(--bs-space-size-4) var(--bs-space-size-3)
+    var(--bs-space-size-4);
+  color: rgba(0, 0, 0, 0.54);
+  font-size: var(--bs-font-size-body-sm);
+  font-weight: var(--bs-font-weight-weak);
+  line-height: 140%;
+  flex-grow: 1;
+  text-transform: none;
+}
+
+@media screen and (max-width: 660px) {
+  .bs-new-offer-booking__booking-for-another {
+    flex-direction: column;
+    padding: var(--spacing-2);
+    gap: var(--bs-space-size-3);
+    align-items: self-start;
+  }
+
+  .bs-new-offer-booking__booking-for-another-select {
+    width: inherit;
+    justify-content: space-between;
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-header-container {
+    padding: var(--bs-space-size-6) var(--bs-space-size-4)
+      var(--bs-space-size-4) var(--bs-space-size-4);
+    gap: var(--bs-space-size-3);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-title {
+    font-size: var(--bs-font-size-title-md);
+    font-weight: var(--bs-font-weight-strong);
+    line-height: var(--bs-fabrique-line-height-action-md);
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-subtitle {
+    color: var(--bs-color-text-weak);
+    font-size: var(----bs-font-size-body-md);
+    font-weight: var(--bs-font-weight-weak);
+    line-height: var(----bs-line-height-sm); /* 150% */
+  }
+
+  .bs-new-offer-booking__booking-for-another-mobile-relationship-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bs-space-size-4);
+    padding: var(--bs-space-size-4);
+    color: var(--color-grey-dark);
+  }
+
+  .bs-new-offer-booking__booking-for-another-mobile-relationship-card {
+    padding: var(--bs-space-size-4);
+    border-radius: var(--bs-border-radius-md);
+    border-color: var(--color-grey-light);
+    border-width: var(--bs-border-width-regular);
+    border-style: solid;
+    justify-content: flex-start;
+  }
+
+  .bs-new-offer-booking__booking-for-another-mobile-relationship-card-active {
+    padding: var(--bs-space-size-4);
+    border-radius: var(--bs-border-radius-md);
+    border-color: var(--bs-color-action-brand-main);
+    border-width: var(--bs-border-width-regular);
+    border-style: solid;
+    background-color: var(--bs-color-action-brand-weak-main-hovered);
+    justify-content: flex-start;
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bs-space-size-2);
+    padding: var(--bs-space-size-4);
+    font-size: var(--bs-font-size-body-md);
+    line-height: calc(var(--bs-fabrique-line-height-action-sm) * 1.625);
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-button-confirm {
+    width: inherit;
+    color: var(--bs-grey-0);
+    background-color: var(--bs-color-action-brand-main);
+    border-radius: calc(var(--bs-border-radius-lg) * 2);
+    padding: var(--bs-space-size-2) calc(var(--bs-space-size-1) * 5.5);
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-button-back {
+    width: inherit;
+    border-color: var(--bs-grey-700);
+    color: var(--bs-grey-700);
+    background-color: var(--bs-grey-0);
+    border-radius: calc(var(--bs-border-radius-lg) * 2);
+    border-style: solid;
+    border-width: var(--bs-border-width-thin);
+    padding: var(--bs-space-size-2) calc(var(--bs-space-size-1) * 5.5);
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-divider {
+    width: 90%;
+    border: var(--bs-border-width-thin) solid rgba(224, 224, 224, 0.4);
+    align-self: center;
+  }
+}
+
 /* SPOT SCHEDULING */
 
 .bs-new-offer-booking-page--spot-selector {

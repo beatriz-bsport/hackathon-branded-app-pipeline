@@ -15,8 +15,6 @@ import type { Theme, WithStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core';
 import createTheme from '@material-ui/core/styles/createTheme';
 import useTheme from '@material-ui/core/styles/useTheme';
-import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -28,6 +26,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import MemberActions from '#src/libs/member/MemberActions.component';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type { MemberMinimal } from '#src/libs/member/types';
@@ -392,14 +391,7 @@ export class MemberTable extends PureComponent<Props, State> {
                     forcedBehavior="hidden"
                     requiredPermission="member.allowed_actions.create"
                   >
-                    <Button
-                      color="primary"
-                      onClick={this.props.addMember}
-                      variant="contained"
-                    >
-                      <AddIcon className={this.props.classes.leftIcon} />
-                      {t('addMember')}
-                    </Button>
+                    <MemberActions addMember={this.props.addMember} />
                   </ObjectLevelPermissionWrapper>
                 ) : (
                   <div />
@@ -451,9 +443,6 @@ export class MemberTable extends PureComponent<Props, State> {
 }
 
 const styles = (theme: Theme) => ({
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
   footerContainer: {
     justifyContent: 'space-between',
     display: 'flex',

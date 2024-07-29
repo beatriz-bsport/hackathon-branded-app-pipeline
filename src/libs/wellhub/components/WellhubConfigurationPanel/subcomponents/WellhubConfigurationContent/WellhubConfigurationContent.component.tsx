@@ -10,11 +10,13 @@ import type { WellhubGym } from '#src/libs/wellhub/types';
 
 type Props = {
   wellhubGyms: WellhubGym[];
+  deleteWellhubGym: (wellhubGym: WellhubGym) => void;
   editWellhubGym: (wellhubGym: WellhubGym) => void;
 };
 
 const WellhubConfigurationContent: React.FC<Props> = ({
   wellhubGyms,
+  deleteWellhubGym,
   editWellhubGym,
 }) => {
   const { t } = useTranslation('partnership');
@@ -30,6 +32,7 @@ const WellhubConfigurationContent: React.FC<Props> = ({
         />
       </div>
       <WellhubGymTable
+        deleteWellhubGym={deleteWellhubGym}
         editWellhubGym={editWellhubGym}
         wellhubGyms={wellhubGyms}
       />

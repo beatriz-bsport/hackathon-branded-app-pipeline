@@ -21,10 +21,15 @@ import type { WellhubGym } from '#src/libs/wellhub/types';
 
 type Props = {
   wellhubGyms: WellhubGym[];
+  deleteWellhubGym: (wellhubGym: WellhubGym) => void;
   editWellhubGym: (wellhubGym: WellhubGym) => void;
 };
 
-const WellhubGymTable: React.FC<Props> = ({ wellhubGyms, editWellhubGym }) => {
+const WellhubGymTable: React.FC<Props> = ({
+  wellhubGyms,
+  deleteWellhubGym,
+  editWellhubGym,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation('partnership');
 
@@ -36,6 +41,16 @@ const WellhubGymTable: React.FC<Props> = ({ wellhubGyms, editWellhubGym }) => {
         editWellhubGym(wellhubGym);
       },
     [editWellhubGym],
+  );
+
+  const handleDeleteWellhubGym = React.useCallback(
+    (wellhubGym: WellhubGym) =>
+      (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.stopPropagation();
+        event.preventDefault();
+        deleteWellhubGym(wellhubGym);
+      },
+    [deleteWellhubGym],
   );
 
   return (
@@ -94,7 +109,7 @@ const WellhubGymTable: React.FC<Props> = ({ wellhubGyms, editWellhubGym }) => {
                 <IconButton onClick={handleEditWellhubGym(wellhubGym)}>
                   <EditIcon color="primary" />
                 </IconButton>
-                <IconButton onClick={() => {}}>
+                <IconButton onClick={handleDeleteWellhubGym(wellhubGym)}>
                   <DeleteIcon className={classes.greyIcon} />
                 </IconButton>
               </div>

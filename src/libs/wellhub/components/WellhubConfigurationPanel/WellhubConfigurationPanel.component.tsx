@@ -14,11 +14,13 @@ import { WELLHUB_GYMS } from './constants';
 import type { WellhubGym } from '#src/libs/wellhub/types';
 
 type Props = {
+  deleteWellhubGym: (wellhubGym: WellhubGym) => void;
   editWellhubGym: (wellhubGym: WellhubGym) => void;
   handleAddUnit: () => void;
 };
 
 const WellhubConfigurationPanel: React.FC<Props> = ({
+  deleteWellhubGym,
   editWellhubGym,
   handleAddUnit,
 }) => {
@@ -27,6 +29,7 @@ const WellhubConfigurationPanel: React.FC<Props> = ({
     <Paper className={classes.configurationPanel}>
       <WellhubConfigurationHeader />
       <WellhubConfigurationContent
+        deleteWellhubGym={deleteWellhubGym}
         editWellhubGym={editWellhubGym}
         wellhubGyms={WELLHUB_GYMS}
       />

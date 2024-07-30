@@ -37,7 +37,8 @@ type Props = {
     data: Partial<ReportFilterConfig>,
     options?: OptionCallback<ReportFilterConfig>,
   ) => void;
-  handleExport: () => void;
+  excelExportLoading: boolean;
+  handleExport: (values: ReportGenerationParams) => () => void;
   handleGeneration: (values: ReportGenerationParams) => void;
   objectLevelPermissions: ObjectLevelPermissions;
   quickReportFilterConfig: ReportFilterConfig;
@@ -55,6 +56,7 @@ type Props = {
 const ReportDetailContent: React.FC<Props> = ({
   categoryName,
   editReportFilterConfig,
+  excelExportLoading,
   handleExport,
   handleGeneration,
   handleGetDynamicDataForFilters,
@@ -96,6 +98,7 @@ const ReportDetailContent: React.FC<Props> = ({
       <ReportDetailContentHeader
         categoryName={categoryName}
         editReportFilterConfig={editReportFilterConfig}
+        excelExportLoading={excelExportLoading}
         generationLoading={reportGeneratedRows.loading}
         handleExport={handleExport}
         handleGeneration={handleGeneration}

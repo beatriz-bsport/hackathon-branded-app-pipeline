@@ -9,6 +9,7 @@ export type BackgroundDialog = {
     displayMode: BackgroundDialogDisplayMode;
     actionMode: BackgroundDialogActionMode;
     customDialogComponent?: CustomDialogComponent;
+    continueMessage?: string;
   }>;
 };
 

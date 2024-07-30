@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import InformationIcon from '#src/components/InformationIcon';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {
   CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES,
@@ -46,7 +48,8 @@ type Props = {
     data: Partial<ReportFilterConfig>,
     options?: OptionCallback<ReportFilterConfig>,
   ) => void;
-  handleExport: () => void;
+  excelExportLoading: boolean;
+  handleExport: (values: ReportGenerationParams) => () => void;
   quickReportFilterConfig: ReportFilterConfig;
   reportCategoryMetadata: ReportMetadataValue;
   report: ReportConfiguration;
@@ -72,6 +75,7 @@ const ReportDetailContentHeader: React.FC<
 > = ({
   categoryName,
   editReportFilterConfig,
+  excelExportLoading,
   generationLoading,
   handleExport,
   handleGetDynamicDataForFilters,
@@ -242,8 +246,18 @@ const ReportDetailContentHeader: React.FC<
           >
             {t('smartList:generateReport')}
           </Button>
-          <Button color="primary" onClick={handleExport} variant="outlined">
+          <Button
+            color="primary"
+            disabled={excelExportLoading}
+            onClick={handleExport(values)}
+            variant="outlined"
+          >
             {t('smartList:downloadReport')}
+            {excelExportLoading ? (
+              <CircularProgress className={classes.rightIcon} size={24} />
+            ) : (
+              <CloudDownloadIcon className={classes.rightIcon} />
+            )}
           </Button>
         </div>
       </div>
@@ -277,6 +291,9 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: '#efefef',
     },
+  },
+  rightIcon: {
+    marginLeft: theme.spacing(1),
   },
 }));
 

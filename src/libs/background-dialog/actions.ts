@@ -21,6 +21,7 @@ export function displayBackgroundDialog(
   link: string,
   actionMode: BackgroundDialogActionMode = BackgroundDialogActionMode.DOWNLOAD,
   displayMode: BackgroundDialogDisplayMode = BackgroundDialogDisplayMode.INFORMATION,
+  continueMessage?: string,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(
@@ -31,6 +32,7 @@ export function displayBackgroundDialog(
         link,
         actionMode,
         displayMode,
+        continueMessage,
       }),
     );
   };

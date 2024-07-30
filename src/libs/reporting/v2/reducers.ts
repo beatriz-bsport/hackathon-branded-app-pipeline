@@ -12,6 +12,7 @@ import {
   reportGenerationDetailV2,
   reportHeadersDetailV2,
   deleteReportActionsV2,
+  exportingExcelReportActionsV2,
 } from '#src/libs/reporting/v2/actions';
 
 import type {
@@ -55,6 +56,10 @@ const initialState: Immutable.Immutable<ReportingStateV2> =
       loading: false,
       error: null,
       edit: { loading: false, error: null },
+    },
+    excelExport: {
+      loading: false,
+      error: null,
     },
   });
 
@@ -243,6 +248,18 @@ export default handleActions<Immutable.Immutable<ReportingStateV2>, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['reportGeneration', 'error'], payload);
+    },
+    [exportingExcelReportActionsV2.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['excelExport', 'loading'], payload);
+    },
+    [exportingExcelReportActionsV2.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['excelExport', 'error'], payload);
     },
   },
   initialState,

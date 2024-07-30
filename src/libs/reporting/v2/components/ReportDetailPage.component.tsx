@@ -60,7 +60,8 @@ type Props = {
     data: Partial<ReportFilterConfig>,
     options?: OptionCallback<ReportFilterConfig>,
   ) => void;
-  handleExport: () => void;
+  excelExportLoading: boolean;
+  handleExport: (values: ReportGenerationParams) => () => void;
   handleGeneration: (values: ReportGenerationParams) => void;
   isNavigationDrawerExpanded: boolean;
   objectLevelPermissions: ObjectLevelPermissions;
@@ -90,6 +91,7 @@ const ReportDetailPage: React.FC<Props> = ({
   createReportFilterConfig,
   dynamicDataHasBeenLoaded,
   editReportFilterConfig,
+  excelExportLoading,
   defaultCategoryReportId,
   deleteReport,
   handleExport,
@@ -279,6 +281,7 @@ const ReportDetailPage: React.FC<Props> = ({
         <ReportDetailContent
           categoryName={categoryName}
           editReportFilterConfig={editReportFilterConfig}
+          excelExportLoading={excelExportLoading}
           handleExport={handleExport}
           handleGeneration={handleGeneration}
           handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}

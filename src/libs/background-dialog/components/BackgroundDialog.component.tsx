@@ -168,7 +168,9 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
                     disabled={downloadDisable}
                     onClick={() => deletebackgroundDialog(dialog.id)}
                   >
-                    {t('common.continue')}
+                    {(dialog?.continueMessage &&
+                      t(`${dialog.continueMessage}`)) ||
+                      t('common.continue')}
                   </Button>
                 </>
               )}

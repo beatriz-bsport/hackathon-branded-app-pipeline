@@ -11,9 +11,15 @@ import type {
   ReportUpdateAPI,
   SerializedReport,
 } from '#src/libs/reporting/common/types';
-import type { OptionCallback, Dispatch } from '#src/state/types';
+import type {
+  OptionCallback,
+  OptionBackgroundCallback,
+  Dispatch,
+} from '#src/state/types';
 
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
+import { monitorBackgroundTask } from '#src/libs/background-task/actions';
+import { displayBackgroundDialog } from '#src/libs/background-dialog/actions';
 
 import {
   fetchDefaultReports as fetchDefaultReportsAPI,
@@ -26,7 +32,12 @@ import {
   updateReportV2 as updateReportAPI,
   createReportV2 as createReportAPI,
   deleteReportV2 as deleteReportAPI,
+  fetchExcelReporting as fetchExcelReportingAPI,
 } from '#src/libs/reporting/v2/api';
+import {
+  BackgroundDialogActionMode,
+  BackgroundDialogDisplayMode,
+} from '#src/libs/background-dialog/types';
 
 export const fetchReportsActionsV2 = {
   error: createAction<Error | null>('REPORT_V2/LIST/ERROR'),
@@ -281,5 +292,59 @@ export function fetchSerializedReport(
       options?.onError?.(err);
     }
     dispatch(reportGenerationDetailV2.isLoading(false));
+  };
+}
+
+export const exportingExcelReportActionsV2 = {
+  isLoading: createAction('REPORT_V2/EXPORT_EXCEL/IS_LOADING'),
+  error: createAction('REPORT_V2/EXPORT_EXCEL/ERROR'),
+};
+
+export function exportExcelReport(
+  id: number,
+  params: any,
+  options?: OptionBackgroundCallback<string> & {
+    backgroundDialog?: {
+      message: string;
+      title: string;
+    };
+  },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(exportingExcelReportActionsV2.isLoading(true));
+    dispatch(exportingExcelReportActionsV2.error(null));
+    try {
+      const response = await fetchExcelReportingAPI(id, params);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            options?.onBackgroundSuccess?.();
+            dispatch(exportingExcelReportActionsV2.isLoading(false));
+            dispatch(
+              displayBackgroundDialog(
+                backgroundTaskUuid,
+                options?.backgroundDialog?.title,
+                options?.backgroundDialog?.message,
+                response.data,
+                BackgroundDialogActionMode.DOWNLOAD,
+                BackgroundDialogDisplayMode.INFORMATION,
+                'common:close',
+              ),
+            );
+          },
+          onError: (error) => {
+            dispatch(exportingExcelReportActionsV2.error(error));
+            dispatch(exportingExcelReportActionsV2.isLoading(false));
+            options?.onBackgroundError?.();
+          },
+        }),
+      );
+    } catch (error) {
+      dispatch(exportingExcelReportActionsV2.error(error));
+      dispatch(exportingExcelReportActionsV2.isLoading(false));
+      options?.onError?.();
+    }
   };
 }

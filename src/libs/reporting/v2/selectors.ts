@@ -53,3 +53,6 @@ export const getReportHeader = (state: RootState) =>
 
 export const getReportGenerateredRows = (state: RootState) =>
   _getReportV2State(state).reportGeneration;
+
+export const getReportExcelState = (state: RootState) =>
+  _getReportV2State(state).excelExport;

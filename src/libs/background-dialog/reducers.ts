@@ -27,6 +27,8 @@ export default handleActions(
         actionMode: payload.actionMode,
         // @ts-expect-error
         customDialogComponent: payload.customDialogComponent,
+        // @ts-expect-error
+        continueMessage: payload.continueMessage,
       });
       return state.merge({ messages });
     },

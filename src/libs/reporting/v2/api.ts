@@ -94,3 +94,11 @@ export const fetchSerializedReportV2 = (
     )}`,
   );
 };
+
+export const fetchExcelReporting = (reportId: number, params: any) => {
+  return getAuth<string>(
+    `${API_URI}/reporting/reports-v2/${reportId}/export_async/${buildUrlParams(
+      params,
+    )}`,
+  );
+};

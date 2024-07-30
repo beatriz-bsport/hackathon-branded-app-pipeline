@@ -88,6 +88,7 @@ export type ReportingStateV2 = {
     allIds: number[];
     edit: ErrorAndLoading;
   } & ErrorAndLoading;
+  excelExport: ErrorAndLoading;
 };
 
 export type ReportConfiguration = {

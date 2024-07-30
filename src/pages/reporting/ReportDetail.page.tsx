@@ -7,6 +7,7 @@ import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import withDatatypeDynamicData, {
   withDatatypeDynamicDataProps,
 } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import { useTranslation } from 'react-i18next';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
@@ -19,6 +20,7 @@ import {
   getReportFilterConfigs,
   getReportFilterConfigLoading,
   getReportsV2,
+  getReportExcelState,
 } from '#src/libs/reporting/v2/selectors';
 
 import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress';
@@ -34,6 +36,7 @@ import {
   createReport as createReportAction,
   fetchDefaultReports as fetchDefaultReportsAction,
   deleteReport as deleteReportAction,
+  exportExcelReport as exportExcelReportAction,
 } from '#src/libs/reporting/v2/actions';
 
 import ReportDetailPage from '#src/libs/reporting/v2/components/ReportDetailPage.component';
@@ -61,6 +64,8 @@ const ReportingDetail: React.FC<Props> = ({
   defaultReports,
   dynamicDataHasBeenLoaded,
   editReportFilterConfig,
+  exportExcelReport,
+  excelExportLoading,
   fetchDefaultReports,
   fetchReportFilterConfigList,
   fetchReportHeaders,
@@ -114,6 +119,8 @@ const ReportingDetail: React.FC<Props> = ({
     fetchSerializedReport,
     fetchReportHeaders,
   ]);
+
+  const { t } = useTranslation('reporting');
 
   const [isNavigationDrawerExpanded, setIsNavigationDrawerExpanded] =
     React.useState(true);
@@ -196,6 +203,43 @@ const ReportingDetail: React.FC<Props> = ({
   const report = getReportSearchResults.currentResults.find(
     (reportResult) => reportResult.id == reportId,
   ) as ReportConfiguration;
+
+  const handleExcelExportation = React.useCallback(
+    (values: ReportGenerationParams) => () => {
+      const backgroundDialog = {
+        message: t('reporting:export.ready', {
+          name: report.name,
+        }),
+        title: t('reporting:export.category', {
+          category: t(`reporting:categories.${categoryName}`),
+        }),
+      };
+
+      const params = {
+        fileformat: 'xlsx',
+        date_start: values.dateStart,
+        date_end: values.dateEnd,
+        time_window_start: values?.timeStart ?? '',
+        time_window_end: values?.timeEnd ?? '',
+        ...(advancedReportFilterConfig
+          ? { report_filter_config_id: advancedReportFilterConfig.id }
+          : {}),
+      };
+
+      exportExcelReport(reportId, params, {
+        backgroundDialog,
+      });
+    },
+    [
+      exportExcelReport,
+      advancedReportFilterConfig,
+      t,
+      reportId,
+      report,
+      categoryName,
+    ],
+  );
+
   const metadataGroupedByGlobalCategory = React.useMemo(
     () =>
       Object.entries(
@@ -239,8 +283,8 @@ const ReportingDetail: React.FC<Props> = ({
         deleteReport={deleteReport}
         dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
         editReportFilterConfig={editReportFilterConfig}
-        // TODO: add export action
-        handleExport={() => {}}
+        excelExportLoading={excelExportLoading}
+        handleExport={handleExcelExportation}
         handleGeneration={handleGeneration}
         handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
         isNavigationDrawerExpanded={isNavigationDrawerExpanded}
@@ -263,6 +307,7 @@ const ReportingDetail: React.FC<Props> = ({
 
 const connector = connect(
   (state: RootState, { reportId }: { reportId: number }) => ({
+    excelExportLoading: getReportExcelState(state).loading,
     getReportSearchResults: getResultsBySelectorId(state, 'reportV2', 'default')
       .results,
     objectLevelPermissions: getObjectPermissions(state),
@@ -279,6 +324,7 @@ const connector = connect(
     createReportFilterConfig: createReportFilterConfigAction,
     deleteReport: deleteReportAction,
     editReportFilterConfig: editReportFilterConfigAction,
+    exportExcelReport: exportExcelReportAction,
     fetchDefaultReports: fetchDefaultReportsAction,
     fetchReportFilterConfigList: fetchReportFilterConfigListAction,
     fetchReportHeaders: fetchReportHeadersAction,

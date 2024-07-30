@@ -1,5 +1,6 @@
-import type { Establishment } from '#src/libs/establishment/types';
 import { GymAvailabilityReasonCodes } from '#src/libs/wellhub/constants';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { ErrorAndLoading } from '#src/libs/types';
 
 export type WellhubGym = {
   uuid: string;
@@ -36,3 +37,11 @@ export type WellhubGymUpsertPayload = {
   gym_id: number;
   establishments: number[];
 };
+
+export type WellhubState = {
+  allUuids: string[];
+  byUuid: { [uuid: string]: WellhubGym };
+  gymAvailability: ErrorAndLoading & {
+    record: { [gym_id: number]: GymAvailabilityResponse };
+  };
+} & ErrorAndLoading;

@@ -95,6 +95,7 @@ import video from '#src/libs/video/reducers';
 import waitingListReducers from '#src/libs/waiting-list/reducers';
 // @ts-expect-error
 import webhook from '#src/libs/webhook/reducers';
+import wellhubReducers from '#src/libs/wellhub/reducers';
 import zoomAppReducers from '#src/libs/zoom-app/reducers';
 
 import type { AccessControlState } from '#src/libs/access-control/types';
@@ -176,6 +177,7 @@ import type { TutorialState } from '#src/libs/platform-tutorial/types';
 import type { UserPreference } from '#src/libs/user-preference/types';
 import type { VideoState } from '#src/libs/video/types';
 import type { WaitingListState } from '#src/libs/waiting-list/types';
+import type { WellhubState } from '#src/libs/wellhub/types';
 import type { ZoomAppState } from '#src/libs/zoom-app/types';
 // @ts-expect-error
 import actionTypes from '../actions/auth.types';
@@ -273,6 +275,7 @@ const rootReducer = (history: any) =>
     video,
     waitingList: waitingListReducers,
     webhook,
+    wellhub: wellhubReducers,
     zoomApp: zoomAppReducers,
   });
 
@@ -368,6 +371,7 @@ export type RootState = {
   video: VideoState;
   waitingList: WaitingListState;
   webhook: any;
+  wellhub: WellhubState;
   zoomApp: ZoomAppState;
 };
 

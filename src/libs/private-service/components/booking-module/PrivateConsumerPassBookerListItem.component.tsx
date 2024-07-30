@@ -255,20 +255,19 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = ({
       return <CircularProgress />;
     }
 
-    if (private_consumer_pass.private_consumer_pass_source) {
-      return (
-        <ConsumerPassSourceChip
-          companySourceName={private_consumer_pass.company_source_name}
-          companySourcePrimaryColor={
-            private_consumer_pass.company_source_primary_color
-          }
-          tooltipText={t('consumerPass.isFromShareTooltip')}
-        />
-      );
-    }
-
     return (
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div
+        style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}
+      >
+        {!!private_consumer_pass.private_consumer_pass_source && (
+          <ConsumerPassSourceChip
+            companySourceName={private_consumer_pass.company_source_name}
+            companySourcePrimaryColor={
+              private_consumer_pass.company_source_primary_color
+            }
+            tooltipText={t('consumerPass.isFromShareTooltip')}
+          />
+        )}
         <IconButton
           color="primary"
           disabled={private_consumer_pass.used_credits === 0}

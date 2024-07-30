@@ -349,17 +349,17 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       );
     }
 
-    if (consumerPack.consumer_payment_pack_source) {
-      return this.renderCompanySourceChip();
-    }
-
     return (
       <div
         style={{
           display: 'flex',
           flexDirection: 'row',
+          alignItems: 'center',
         }}
       >
+        {!!consumerPack.consumer_payment_pack_source &&
+          this.renderCompanySourceChip()}
+
         {updating ? (
           <CircularProgress size={24} />
         ) : (

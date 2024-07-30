@@ -74,7 +74,6 @@ export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
   // - It is not shared from another company in a franchise and is the one billed and purchased by the consumer
   // - It is not shared from a relationship pass
   const isPassOriginal =
-    !props.private_consumer_pass?.private_consumer_pass_source &&
     !props.private_consumer_pass?.dst_private_consumer_pass?.length;
 
   // Determine if a validity extension can be added to the pass

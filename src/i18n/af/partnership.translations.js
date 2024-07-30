@@ -56,6 +56,7 @@ exports.default = {
             error: {
               required: 'Unit ID is required',
               positive: 'Unit ID must be a positive number',
+              unavailable: 'Unit ID not available',
             },
           },
           establishmentIds: {

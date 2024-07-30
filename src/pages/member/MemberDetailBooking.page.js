@@ -59,7 +59,7 @@ import {
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
   retrieveOfferWithCancelledBookings as retrieveOfferWithCancelledBookingsAction,
   updateOfferWithCancelledBookingsToRetry as updateOfferWithCancelledBookingsToRetryAction,
-  refundBooking as refundBookingAction,
+  refundBookingAsManager as refundBookingAsManagerAction,
 } from '#src/libs/booking/actions';
 import {
   fetchEstablishments as fetchEstablishmentList,

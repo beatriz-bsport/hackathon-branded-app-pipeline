@@ -154,7 +154,7 @@ export default compose(
         withMetaActivity(withCoach(withOffer(getSimilarBookingList))),
       )(state),
       similarBookingsLoading: state.booking.similar.loading,
-      isMetaActivityLoading: getMetaActivityLoading(),
+      isMetaActivityLoading: getMetaActivityLoading(state),
     }),
     {
       fetchBookingsAsConsumer: fetchBookingsAsConsumerAction,

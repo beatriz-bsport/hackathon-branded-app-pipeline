@@ -12,18 +12,18 @@ import { CompanyTheme } from '#src/libs/theme/types';
 import Button, { ButtonVariant } from '#Fabrique/Button';
 import LoginForm from '#src/components/css-only/LoginForm';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
-import { Franchise } from '#src/libs/franchise/types';
+import type { Franchise } from '#src/libs/franchise/types';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-import { openIntercomHelp } from '../../../intercom';
-import getCalendlyLinkFromCountry from '../../../i18n/utils/calendly-link-language';
-import Config from '../../../config';
-import { buildUrlParams } from '../../../http';
+import { openIntercomHelp } from '#src/intercom';
+import getCalendlyLinkFromCountry from '#src/i18n/utils/calendly-link-language';
+import { buildUrlParams } from '#src/http';
 import './LoginBackground.css';
 import './styles.css';
 
 export type Props = {
   doEmailLogin: (Obj: { email: string; password: string }) => void;
   requestSignUp?: () => void;
+  onRequestResetPassword: (url: string) => void;
   loading: boolean;
   error?: boolean;
   errorFields?: {
@@ -38,11 +38,11 @@ export type Props = {
   franchisor?: Franchise;
   hideRegister?: boolean;
   emailChoices?: Array<string>;
+  context?: string;
   /*
    ** To not disrup login flow when going on the reset password page (in URI)
    */
   originalLoginNextLink?: string;
-  context?: string;
   bookingFlowIsNext?: boolean;
 } & WithTranslation;
 
@@ -69,8 +69,8 @@ export class ConsumerLogin extends Component<Props, State> {
 
   handleOpenIntercomHelp = () => openIntercomHelp('login');
 
-  getHrefLink = () => {
-    return `${Config.PUBLIC_URL}/login/reset_password${buildUrlParams({
+  requestResetPassword = () => {
+    const url = `/login/reset_password${buildUrlParams({
       ...(this.props.theme ? { membership: this.props.theme.company } : {}),
       ...(this.props.franchisor
         ? { franchisor: this.props.franchisor.id }
@@ -80,6 +80,7 @@ export class ConsumerLogin extends Component<Props, State> {
         : {}),
       ...(this.props.context ? { context: this.props.context } : {}),
     })}`;
+    this.props.onRequestResetPassword(url);
   };
 
   doEmailLogin = (event: React.FormEvent<HTMLFormElement>) => {
@@ -185,12 +186,12 @@ export class ConsumerLogin extends Component<Props, State> {
             hasCompany={!!this.props.company}
             hasError={error}
             hasFranchisor={!!this.props.franchisor}
-            hrefLink={this.getHrefLink()}
             isLoading={loading}
             onChangeField={this.onFormFieldChange}
             onOpenIntercomHelp={this.handleOpenIntercomHelp}
             onSubmit={this.doEmailLogin}
             password={this.state.password}
+            requestResetPassword={this.requestResetPassword}
             simplifyUI={this.props.simplifyUI}
           />
         </div>

@@ -111,9 +111,6 @@ export class ResetPassword extends Component<Props, State> {
 
   render() {
     if (this.state.redirectLogin) {
-      if (this.props.context && this.props.context === 'widget') {
-        this.props.history.goBack();
-      }
       return <Redirect to={this.getRedirectUrlWithParams()} />;
     }
 

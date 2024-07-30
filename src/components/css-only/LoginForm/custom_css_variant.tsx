@@ -60,10 +60,10 @@ const usePropsFromVariation = (
     isLoading: isLoadingSelected,
     hasError: isErrorSelected,
     errorMessage: faker.lorem.sentence(),
-    hrefLink: null,
     hasCompany: !!theme.company,
     simplifyUI:
       theme?.display_new_checkout_flow || !theme?.display_bubble_background,
+    requestResetPassword: () => {},
     onOpenIntercomHelp: () => {},
     onSubmit: () => {},
   };

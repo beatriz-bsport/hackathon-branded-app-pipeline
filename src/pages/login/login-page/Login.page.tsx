@@ -3,8 +3,8 @@ import { compose, withHandlers, withProps, withState } from 'recompose';
 
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
-import { connect, ConnectedProps } from 'react-redux';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { connect, type ConnectedProps } from 'react-redux';
+import { withTranslation, type WithTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
@@ -16,7 +16,7 @@ import { withQueryParamsUndecoded } from '#src/hocs/with-query-params.hoc';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import FranchiseCompanyLogin from '#src/libs/franchise/components/FranchiseCompanyLogin.component';
-import { FranchiseDetails } from '#src/libs/franchise/types';
+import type { FranchiseDetails } from '#src/libs/franchise/types';
 import { fetchFranchiseTheme } from '#src/libs/franchise/actions';
 import {
   getFranchiseThemeLoading,
@@ -30,13 +30,13 @@ import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationActio
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import { isBookingFlowNext } from '#src/libs/marketplace/routing-utils';
 import { COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE } from '#src/libs/sign-up-form/utils';
-import type { RootState } from '../../../reducers';
-import { WithHandlerType } from '../../../utils/types';
+import type { RootState } from '#src/reducers';
+import type { WithHandlerType } from '#src/utils/types';
 import { buildSignUpUrl } from '../utils';
 // @ts-expect-error
-import { requestLogin, disconnect } from '../../../actions/auth.actions';
-import { parseQueryString } from '../../../http';
-import type { Dispatch } from '../../../state/types';
+import { requestLogin, disconnect } from '#src/actions/auth.actions';
+import { parseQueryString } from '#src/http';
+import type { Dispatch } from '#src/state/types';
 
 type OwnProps = {
   location: {
@@ -50,7 +50,6 @@ type OwnProps = {
     step: string;
   };
   step: number;
-  setQueryParams: (queryParam: string) => (value: string) => void;
   membership: string;
   franchisorId?: number;
   franchisor: FranchiseDetails;
@@ -68,8 +67,14 @@ type ConnectedPropsType = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
   ConnectedProps<typeof connector>;
 
+type RouterProps = {
+  setQueryParams: (queryParam: string) => (value: string | number) => void;
+  replace: (url: string) => void;
+};
+
 type Props = OwnProps &
   ConnectedPropsType &
+  RouterProps &
   WithTranslation &
   WithHandlerType<typeof mapWithHandlers>;
 
@@ -94,12 +99,14 @@ export class ConsumerLoginPage extends Component<Props> {
 
   onRequestSignup = () => {
     if (this.props.franchisorId) {
-      // @ts-expect-error
       return this.props.setQueryParams('step')(STEPS.franchiseeSelection);
     }
 
-    // @ts-expect-error
     return this.props.replace(`/login/signup${window.location.search}`);
+  };
+
+  onRequestResetPassword = (url: string) => {
+    return this.props.replace(url);
   };
 
   render() {
@@ -179,6 +186,7 @@ export class ConsumerLoginPage extends Component<Props> {
               franchisor={franchisor}
               isPremium={this.props.is_premium}
               loading={this.props.loginProcessing}
+              onRequestResetPassword={this.onRequestResetPassword}
               originalLoginNextLink={goNext}
               requestSignUp={this.onRequestSignup}
               simplifyUI={simplifyUI}
@@ -200,7 +208,6 @@ export class ConsumerLoginPage extends Component<Props> {
               goToSignup={goToSignup}
               selectedFranchisee={this.props.selectedFranchisee}
               setSelectedFranchisee={this.props.setSelectedFranchisee}
-              // @ts-expect-error
               setStep={this.props.setQueryParams('step')}
             />
           )}

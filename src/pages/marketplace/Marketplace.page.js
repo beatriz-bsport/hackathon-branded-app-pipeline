@@ -473,6 +473,10 @@ export class MarketPlace extends Component<Props, State> {
     this.setState({ signupDialogOpen: false });
   };
 
+  onRequestResetPassword = (url) => {
+    return this.props.push(url);
+  };
+
   render() {
     const { companyThemeLoading, classes, t } = this.props;
 
@@ -640,6 +644,7 @@ export class MarketPlace extends Component<Props, State> {
                     errorFields={this.props.errorFields}
                     franchisor={this.props.franchisor}
                     loading={this.props.auth.loading}
+                    onRequestResetPassword={this.onRequestResetPassword}
                     requestSignUp={() => this.toggleSignUp(true)}
                     theme={this.props.theme}
                   />

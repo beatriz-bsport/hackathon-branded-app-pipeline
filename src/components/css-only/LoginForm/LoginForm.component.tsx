@@ -5,6 +5,7 @@ import HelpIcon from '@material-ui/icons/Help';
 
 import TextField from '#Fabrique/TextField';
 import Button, { ButtonType, ButtonVariant } from '#Fabrique/Button';
+import ButtonBase from '#Fabrique/ButtonBaseV2';
 import CircularProgress from '#src/components/css-only/CircularProgress';
 import Radio from '#src/components/css-only/Radio';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -21,9 +22,9 @@ export type Props = {
   hasCompany?: boolean;
   hasFranchisor?: boolean;
   simplifyUI?: boolean;
-  hrefLink: string;
   onOpenIntercomHelp: () => void;
   onChangeField: (id: 'email' | 'password') => (value: string) => void;
+  requestResetPassword: () => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 };
 
@@ -34,12 +35,12 @@ const LoginForm: React.FC<Props> = ({
   password,
   hasError,
   errorMessage,
-  hrefLink,
   hasCompany,
   hasFranchisor,
   simplifyUI,
   onOpenIntercomHelp,
   onChangeField,
+  requestResetPassword,
   onSubmit,
 }) => {
   const { t } = useTranslation('login');
@@ -215,9 +216,9 @@ const LoginForm: React.FC<Props> = ({
           'bs-login-container__forgotten-password',
         )}
       >
-        <a
+        <ButtonBase
           className="bs-login-container__forgotten-password__link"
-          href={hrefLink}
+          onClick={requestResetPassword}
         >
           <p
             className={classNames(
@@ -227,7 +228,7 @@ const LoginForm: React.FC<Props> = ({
           >
             {t('actions.forgottenPassword')}
           </p>
-        </a>
+        </ButtonBase>
       </div>
     </form>
   );

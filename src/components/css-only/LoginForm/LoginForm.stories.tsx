@@ -46,10 +46,10 @@ const baseArgs: Omit<Props, 'onChangeField'> = {
   hasError: false,
   isLoading: false,
   errorMessage: faker.lorem.sentence(),
-  hrefLink: undefined,
   hasFranchisor: false,
   hasCompany: false,
   simplifyUI: false,
+  requestResetPassword: () => {},
   onOpenIntercomHelp: () => {},
   onSubmit: () => {},
 };

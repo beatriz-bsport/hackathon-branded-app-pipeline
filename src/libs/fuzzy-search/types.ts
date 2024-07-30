@@ -375,6 +375,7 @@ type ReportAPIParams = PaginationFilterParams;
 
 type EstablishmentGroupAPIParams = PaginationFilterParams & {
   id__in?: number[];
+  companyId?: number;
 };
 
 type CustomFormAPIParams = PaginationFilterParams & CustomFormQueryParams;

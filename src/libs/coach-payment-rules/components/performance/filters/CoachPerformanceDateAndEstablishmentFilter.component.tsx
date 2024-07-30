@@ -22,6 +22,8 @@ import CoachPerformanceDateFilter from '#src/libs/coach-payment-rules/components
 
 import type { OptionCallback } from '#src/state/types';
 import type { Establishment } from '#src/libs/establishment/types';
+import type { AllOrNothing } from '#src/libs/types';
+import type { CoachProfilePerformanceFilterParams } from '#src/libs/associated-coach/types';
 
 import CoachPerformanceLocationEstablishmentFilter from './CoachPerformanceLocationEstablishmentFilter.component';
 
@@ -56,7 +58,8 @@ type Props = {
     selectedEstablishments: number[],
     selectedLocations: number[],
   ) => void;
-} & Partial<FormikProps<FormikValues>>;
+} & Partial<FormikProps<FormikValues>> &
+  AllOrNothing<CoachProfilePerformanceFilterParams>;
 
 type FormProps = {
   selectedEstablishments: number[];
@@ -75,6 +78,8 @@ export const CoachPerformanceDateAndEstablishmentFilter: React.FC<Props> = ({
   isSubmitting,
   establishmentsLoading,
   establishmentGroupListLoading,
+  isCoachSpace,
+  companyId,
 }) => {
   const [openSection, setOptionSection] = React.useState(false);
   const { t } = useTranslation('coachPerformance');
@@ -132,8 +137,10 @@ export const CoachPerformanceDateAndEstablishmentFilter: React.FC<Props> = ({
             </ButtonBase>
             <Collapse in={openSection}>
               <CoachPerformanceLocationEstablishmentFilter
+                companyId={companyId}
                 establishmentGroupListLoading={establishmentGroupListLoading}
                 establishmentsLoading={establishmentsLoading}
+                isCoachSpace={isCoachSpace}
                 isMultiLocalizationEnabled={isMultiLocalizationEnabled}
               />
               <div className={classes.bottomActions}>

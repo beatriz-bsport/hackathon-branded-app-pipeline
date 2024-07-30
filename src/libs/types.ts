@@ -25,6 +25,16 @@ export type PaginationFilterParams = {
   page?: number;
 };
 
+/**
+ * A generic type to link properties between them
+ * Use this type if you always want to define all-or-nothing passed props
+ * @example
+ * const noProps: AllOrNothing<{ a: number, b: number }> = {} // valid
+ * const withProps: AllOrNothing<{ a: number, b: number }> = { a: 1, b: 2} // valid
+ * const withPartialProps: AllOrNothing<{ a: number, b: number }> = { a: 1 } // invalid
+ */
+export type AllOrNothing<T> = T | { [K in keyof T]?: never };
+
 export type ModelReducerI<M = unknown> = {
   byId: { [key: string]: M };
   /**

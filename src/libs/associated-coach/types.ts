@@ -139,3 +139,8 @@ export type AssociatedCoachFilters = {
   id__in?: number[];
   associated_coach__in?: number[];
 };
+
+export type CoachProfilePerformanceFilterParams = {
+  isCoachSpace: boolean;
+  companyId: number;
+};

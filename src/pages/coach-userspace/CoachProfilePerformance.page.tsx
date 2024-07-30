@@ -82,6 +82,7 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
     establishmentsLoading,
     fetchAllEstablishmentGroup,
     fetchEstablishments,
+    companyId,
   } = props;
   const [selectedEstablishments, setSelectedEstablishments] = React.useState<
     number[]
@@ -150,6 +151,8 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
   return (
     <div className={classes.container}>
       <CoachPerformanceDateAndEstablishmentFilter
+        isCoachSpace
+        companyId={companyId}
         establishmentGroupListLoading={establishmentGroupListLoading}
         establishments={establishments}
         establishmentsLoading={establishmentsLoading}

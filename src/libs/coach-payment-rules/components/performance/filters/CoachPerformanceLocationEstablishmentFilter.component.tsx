@@ -13,12 +13,16 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 import { ObjectSearchField } from '#src/libs/custom-form/components/GenericFormik.input';
 
+import type { AllOrNothing } from '#src/libs/types';
+import type { CoachProfilePerformanceFilterParams } from '#src/libs/associated-coach/types';
+
 type Props = {
   isMultiLocalizationEnabled: boolean;
   areFiltersDisabled?: boolean;
   establishmentsLoading: boolean;
   establishmentGroupListLoading: boolean;
-};
+  isCoachSpace?: boolean;
+} & AllOrNothing<CoachProfilePerformanceFilterParams>;
 
 type Values = {
   byLocation: boolean;
@@ -31,6 +35,8 @@ const CoachPerformanceLocationEstablishmentFilter: React.FC<Props> = ({
   areFiltersDisabled,
   establishmentsLoading,
   establishmentGroupListLoading,
+  isCoachSpace,
+  companyId,
 }) => {
   const { t } = useTranslation('coachPerformance');
   const classes = useStyles();
@@ -84,6 +90,9 @@ const CoachPerformanceLocationEstablishmentFilter: React.FC<Props> = ({
             ) : (
               <ObjectSearchField
                 isMulti
+                additionalParams={
+                  isCoachSpace && companyId ? { companyId } : undefined
+                }
                 isDisabled={areFiltersDisabled}
                 name="locationsSelected"
                 placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
@@ -104,6 +113,9 @@ const CoachPerformanceLocationEstablishmentFilter: React.FC<Props> = ({
           ) : (
             <ObjectSearchField
               isMulti
+              additionalParams={
+                isCoachSpace && companyId ? { company: companyId } : undefined
+              }
               isDisabled={areFiltersDisabled}
               name="establishmentsSelected"
               placeholder={t('coachPerformance:form.ifEmptyAllowAll')}

@@ -939,6 +939,8 @@ const getTranslations = async () => {
       displayedColumnsSubtitle:
         'Choose what columns you want to display in this view for your report table.',
       columnIdentifiersError: 'You need to select at least 1 column',
+      filterNotApplied:
+        'Marked filters won’t be applied because corresponding columns are disabled.',
     },
     reportCreateModal: {
       title: 'Add a view',

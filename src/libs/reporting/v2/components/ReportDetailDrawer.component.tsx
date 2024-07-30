@@ -16,6 +16,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
+import Alert from '@material-ui/lab/Alert';
 
 import FilterListIcon from '@material-ui/icons/FilterList';
 import ViewColumnIcon from '@material-ui/icons/ViewColumn';
@@ -209,6 +210,18 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
     [t],
   );
 
+  // This warning is displayed when a filter is applied on a view where the column is not present.
+  const displayFilterWarning = React.useMemo(
+    () =>
+      values.config.groups?.find((group) =>
+        group.filters_data.find(
+          (filterItem) =>
+            !values.columnIdentifiers.includes(filterItem.identifier),
+        ),
+      ),
+    [values.config.groups, values.columnIdentifiers],
+  );
+
   return (
     <GenericResponsiveDrawer
       withoutPadding
@@ -262,6 +275,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
                     addFilter={handleAddFilterInGroup(indexGroup)}
                     checkOtherRowExist={checkOtherRowExist}
                     consumableColumns={filterableColumns}
+                    displayPopperWarning={false}
                     filterGroup={filterGroup}
                     getDataByType={handleGetDynamicDataForFilters}
                     groupOperand={values.config.group_operand}
@@ -290,6 +304,11 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
                   <AddIcon color="primary" />
                   {t('filter.form.add')?.toUpperCase()}
                 </Button>
+                {displayFilterWarning && (
+                  <Alert severity="warning">
+                    {t('reportDetailDrawer.filterNotApplied')}
+                  </Alert>
+                )}
               </div>
             )}
 

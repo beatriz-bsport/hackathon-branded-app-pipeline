@@ -8,7 +8,14 @@ const HoverableWarning: React.FC<{
   text: string;
   disablePortal?: boolean;
   containerPortal?: React.ReactInstance;
-}> = ({ id, text, disablePortal = false, containerPortal = null }) => {
+  displayPopperWarning?: boolean;
+}> = ({
+  id,
+  text,
+  disablePortal = false,
+  containerPortal = null,
+  displayPopperWarning = true,
+}) => {
   const containerRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const classes = useStyles();
@@ -33,7 +40,7 @@ const HoverableWarning: React.FC<{
         container={containerPortal}
         disablePortal={disablePortal}
         id={id}
-        open={isOpen}
+        open={displayPopperWarning ? isOpen : false}
         placement="bottom-start"
       >
         <div className={classes.warningPaper}>

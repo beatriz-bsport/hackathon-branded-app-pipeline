@@ -37,6 +37,7 @@ type Props = {
   ) => handleGetDynamicDataForFiltersReturn;
   noHideDelete?: boolean;
   dashboardTranslationNamespace?: boolean;
+  displayPopperWarning?: boolean;
 };
 
 const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
@@ -54,6 +55,7 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
   getDataByType,
   noHideDelete,
   dashboardTranslationNamespace,
+  displayPopperWarning = true,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -87,6 +89,7 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
               consumableColumns={consumableColumns}
               dashboardTranslationNamespace={dashboardTranslationNamespace}
               displayAsFirstOrderRow={filterGroup.display_has_single}
+              displayPopperWarning={displayPopperWarning}
               filterItem={filterItem}
               getDataByType={getDataByType}
               groupOperand={filterGroup.inner_operand}

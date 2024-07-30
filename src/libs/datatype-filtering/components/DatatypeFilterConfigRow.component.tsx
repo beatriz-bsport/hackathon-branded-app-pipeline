@@ -52,6 +52,7 @@ type Props = {
     columnName: string,
   ) => handleGetDynamicDataForFiltersReturn;
   dashboardTranslationNamespace?: boolean;
+  displayPopperWarning?: boolean;
 };
 
 const DatatypeFilterConfigRow: React.FC<Props> = ({
@@ -68,6 +69,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
   onDelete,
   getDataByType,
   dashboardTranslationNamespace,
+  displayPopperWarning = true,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -263,6 +265,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
               {!reportColumns.includes(filterItem.identifier) && (
                 <HoverableWarning
                   containerPortal={rowRef?.current}
+                  displayPopperWarning={displayPopperWarning}
                   id={`${prefix}.identifier`}
                   text={t('filter.form.columnError')}
                 />

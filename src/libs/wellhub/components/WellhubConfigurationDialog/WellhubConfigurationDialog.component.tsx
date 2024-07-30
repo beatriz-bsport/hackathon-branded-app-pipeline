@@ -30,14 +30,20 @@ import type {
   EstablishmentListGroupByAddress,
   EstablishmentSelectOption,
 } from '#src/libs/establishment/types';
+import type { GymAvailabilityResponse } from '#src/libs/wellhub/types';
 
 // @ts-expect-error
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 
 type Props = {
+  establishmentIdsLinked: number[];
+  establishments: Establishment[];
   isCreation: boolean;
   isOpen: boolean;
-  establishments?: Establishment[];
+  wellhubGymAvailabilityError: Error | null;
+  wellhubGymAvailabilityLoading: boolean;
+  checkAvailability: (gymId: number) => void;
+  getWellhubGymAvailability: (gymId: number) => GymAvailabilityResponse;
   onClose: () => void;
   onSubmit: (values: FormValues) => void;
 };
@@ -50,9 +56,14 @@ export type FormValues = {
 type HOCProps = Props & FormValues;
 
 const WellhubConfigurationDialog: React.FC<Props> = ({
+  establishmentIdsLinked,
+  establishments,
   isCreation,
   isOpen,
-  establishments,
+  wellhubGymAvailabilityError,
+  wellhubGymAvailabilityLoading,
+  checkAvailability,
+  getWellhubGymAvailability,
   onClose,
   onSubmit,
 }) => {
@@ -69,6 +80,7 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
     setFieldTouched,
     setFieldValue,
   } = useFormikContext<FormValues>();
+  const previousUnitId = React.useRef<number>(values.unitId);
 
   const title = React.useMemo(
     () =>
@@ -115,6 +127,53 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
   const { error: establishmentIdsError, touched: establishmentIdsTouched } =
     getFieldMeta('establishmentIds');
 
+  const isGymIdAvailable = React.useMemo(() => {
+    if (!isCreation) return true;
+
+    const valueHasChanged = previousUnitId.current != values.unitId;
+    if (
+      !values.unitId ||
+      wellhubGymAvailabilityLoading ||
+      (wellhubGymAvailabilityError && !valueHasChanged)
+    ) {
+      return false;
+    }
+
+    valueHasChanged && checkAvailability(values.unitId);
+
+    const gymAvailability = getWellhubGymAvailability(values.unitId);
+    if (gymAvailability) {
+      return gymAvailability.is_available;
+    }
+    checkAvailability(values.unitId);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getWellhubGymAvailability, values.unitId]);
+
+  const unitIdErrorMessage = React.useMemo(() => {
+    if (values?.unitId) {
+      return (
+        // @ts-expect-error: Error must be better typed
+        wellhubGymAvailabilityError?.response?.data?.error_message ??
+        (!isGymIdAvailable
+          ? t('wellhub.configuration.dialog.field.unitId.error.unavailable')
+          : undefined)
+      );
+    }
+    return undefined;
+  }, [
+    isGymIdAvailable,
+    t,
+    values?.unitId,
+    // @ts-expect-error: Error must be better typed
+    wellhubGymAvailabilityError?.response?.data?.error_message,
+  ]);
+
+  const selectedEstablishments = React.useMemo(
+    () => uniq([...establishmentIdsLinked, ...values.establishmentIds]),
+    [establishmentIdsLinked, values.establishmentIds],
+  );
+
   const handleEstablishmentFieldTouched = React.useCallback(
     () => setFieldTouched('establishmentIds'),
     [setFieldTouched],
@@ -156,6 +215,12 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
     onSubmit(values);
   }, [onSubmit, values]);
 
+  React.useEffect(() => {
+    if (previousUnitId.current !== values.unitId) {
+      previousUnitId.current = values.unitId;
+    }
+  }, [values]);
+
   return (
     <GenericResponsiveDialog
       maxWidth="sm"
@@ -166,9 +231,11 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
       <DialogContent className={classes.content}>
         <DelayedNumberInputField
           fullWidth
-          isValid
           required
-          isLoading={isValidating}
+          disabled={!isCreation}
+          errorMessage={unitIdErrorMessage}
+          isLoading={isValidating || wellhubGymAvailabilityLoading}
+          isValid={isGymIdAvailable}
           label={t('wellhub.configuration.dialog.field.unitId.placeholder')}
           name="unitId"
           withValidationIcon={!!values?.unitId}
@@ -190,7 +257,7 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
               placeholder={t(
                 'wellhub.configuration.dialog.field.establishmentIds.placeholder',
               )}
-              selectedEstablishments={values.establishmentIds}
+              selectedEstablishments={selectedEstablishments}
               selectOption={handleSelectEstablishment}
             />
             {!!establishmentIdsError && establishmentIdsTouched && (
@@ -240,7 +307,13 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
         </Button>
         <Button
           color="primary"
-          disabled={isSubmitting || !isValid}
+          disabled={
+            !isGymIdAvailable ||
+            !isValid ||
+            isSubmitting ||
+            isValidating ||
+            wellhubGymAvailabilityLoading
+          }
           onClick={handleSubmitForm}
         >
           {isSubmitting ? (

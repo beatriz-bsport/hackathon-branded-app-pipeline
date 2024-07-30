@@ -11857,7 +11857,7 @@
                             "_label": "Editer les performances du programme"
                         },
                         "refund": {
-                            "_label": "Rembourser"
+                            "_label": "Rembourser les annulations tardives"
                         }
                     }
                 },
@@ -11889,7 +11889,7 @@
                             "_label": "Editer les performances du programme"
                         },
                         "refund": {
-                            "_label": "Rembourser"
+                            "_label": "Rembourser les annulations tardives"
                         }
                     }
                 }

@@ -5534,6 +5534,9 @@
                         },
                         "editSpot": {
                             "_label": "Edit member spots"
+                        },
+                        "refund": {
+                            "_label": "Refund late cancelations"
                         }
                     },
                     "_label": "Workshop management"
@@ -5563,6 +5566,9 @@
                         },
                         "rollcall": {
                             "_label": "Validate roll call"
+                        },
+                        "refund": {
+                            "_label": "Refund late cancelations"
                         }
                     }
                 },
@@ -15045,8 +15051,14 @@
                 "success": "Notification successfully created",
                 "errorLackRequiredVariables": ""
             },
-            "delete": { "error": "Failed to delete notification", "success": "Notification successfully deleted" },
-            "editOrAddPass": { "error": "Failed to save notification", "success": "Notification successfully saved" },
+            "delete": {
+                "error": "Failed to delete notification",
+                "success": "Notification successfully deleted"
+            },
+            "editOrAddPass": {
+                "error": "Failed to save notification",
+                "success": "Notification successfully saved"
+            },
             "active": {
                 "errorDisable": "Failed to disable notification",
                 "errorEnable": "Failed to enable notification",

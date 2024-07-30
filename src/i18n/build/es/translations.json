@@ -11599,7 +11599,7 @@
                             "_label": "Editar el rendimiento del programa"
                         },
                         "refund": {
-                            "_label": "Reembolso"
+                            "_label": "Reembolso de las anulaciones tardías"
                         }
                     }
                 },
@@ -11648,7 +11648,7 @@
                             "_label": "Cancelar reservas"
                         },
                         "refund": {
-                            "_label": "Reembolso"
+                            "_label": "Reembolso de las anulaciones tardías"
                         }
                     },
                     "_label": "Gestión de talleres"

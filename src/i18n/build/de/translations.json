@@ -4090,7 +4090,7 @@
                             "_label": "Mitglieder von der Warteliste entfernen"
                         },
                         "refund": {
-                            "_label": "Erstattung"
+                            "_label": "Erstattung verspäteter Stornierungen"
                         }
                     },
                     "_label": "Verwaltung der Gruppenaktivitäten"
@@ -4123,7 +4123,7 @@
                             "_label": "Mitgliederplätze bearbeiten"
                         },
                         "refund": {
-                            "_label": "Erstattung"
+                            "_label": "Erstattung verspäteter Stornierungen"
                         }
                     }
                 },

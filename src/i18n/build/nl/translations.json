@@ -16721,7 +16721,7 @@
                             "_label": "Aanwezigheidsregistraties beheren"
                         },
                         "refund": {
-                            "_label": "Refund"
+                            "_label": "Restitutie late annuleringen"
                         }
                     },
                     "_label": "Workshopbeheer"
@@ -16753,7 +16753,7 @@
                             "_label": "Aanwezigheidsregistraties"
                         },
                         "refund": {
-                            "_label": "Refund"
+                            "_label": "Restitutie late annuleringen"
                         }
                     },
                     "_label": "Groepsactiviteiten beheren"

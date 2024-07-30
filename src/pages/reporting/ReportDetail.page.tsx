@@ -33,6 +33,7 @@ import {
   updateReport as updateReportAction,
   createReport as createReportAction,
   fetchDefaultReports as fetchDefaultReportsAction,
+  deleteReport as deleteReportAction,
 } from '#src/libs/reporting/v2/actions';
 
 import ReportDetailPage from '#src/libs/reporting/v2/components/ReportDetailPage.component';
@@ -43,6 +44,7 @@ import type {
   ReportConfiguration,
   ReportGenerationParams,
 } from '#src/libs/reporting/common/types';
+
 import { getObjectPermissions, getPermissions } from '#src/libs/role/selectors';
 
 type RouterProps = { categoryName: ReportCategoryEnum; reportId: number };
@@ -55,6 +57,7 @@ const ReportingDetail: React.FC<Props> = ({
   categoryName,
   createReport,
   createReportFilterConfig,
+  deleteReport,
   defaultReports,
   dynamicDataHasBeenLoaded,
   editReportFilterConfig,
@@ -186,6 +189,10 @@ const ReportingDetail: React.FC<Props> = ({
     ],
   );
 
+  const defaultCategoryReportId = defaultReports.find(
+    (defaultReport) => defaultReport.category === categoryName,
+  )?.id;
+
   const report = getReportSearchResults.currentResults.find(
     (reportResult) => reportResult.id == reportId,
   ) as ReportConfiguration;
@@ -228,6 +235,8 @@ const ReportingDetail: React.FC<Props> = ({
         categoryName={categoryName}
         createReport={createReport}
         createReportFilterConfig={createReportFilterConfig}
+        defaultCategoryReportId={defaultCategoryReportId}
+        deleteReport={deleteReport}
         dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
         editReportFilterConfig={editReportFilterConfig}
         // TODO: add export action
@@ -268,6 +277,7 @@ const connector = connect(
   {
     createReport: createReportAction,
     createReportFilterConfig: createReportFilterConfigAction,
+    deleteReport: deleteReportAction,
     editReportFilterConfig: editReportFilterConfigAction,
     fetchDefaultReports: fetchDefaultReportsAction,
     fetchReportFilterConfigList: fetchReportFilterConfigListAction,

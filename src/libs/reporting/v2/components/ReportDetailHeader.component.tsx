@@ -11,6 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import SecondaryActionButton from '#src/components/button/SecondaryActionButton.component';
 
@@ -22,21 +23,27 @@ import { reportDetailHeaderTheme } from '#src/libs/reporting/v2/mui-theme-provid
 type Props = {
   advancedReportFilterConfig: ReportFilterConfig;
   categoryName: ReportCategoryEnum;
+  deleteDisabled: boolean;
+  handleAddModalOpening: () => void;
+  handleDeleteModalOpening: () => void;
+  handleEditDrawerOpening: () => void;
+  isCategoryDefault: boolean;
   pushRouter: (path: string) => CallHistoryMethodAction<[string, unknown?]>;
   reportId: number;
-  handleEditDrawerOpening: () => void;
-  handleAddModalOpening: () => void;
   upsertActionsDisabled: boolean;
 };
 
 const ReportDetailHeader: React.FC<Props> = ({
   advancedReportFilterConfig,
   categoryName,
+  handleDeleteModalOpening,
   handleEditDrawerOpening,
   handleAddModalOpening,
+  isCategoryDefault,
   pushRouter,
   reportId,
   upsertActionsDisabled,
+  deleteDisabled,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -79,9 +86,22 @@ const ReportDetailHeader: React.FC<Props> = ({
                 <EditIcon />
               </IconButton>
             </Badge>
-            <IconButton>
-              <DeleteIcon />
-            </IconButton>
+            <Tooltip
+              title={
+                isCategoryDefault
+                  ? t('reportDetailHeader.cannotDeleteDefaultView')
+                  : ''
+              }
+            >
+              <span>
+                <IconButton
+                  disabled={deleteDisabled}
+                  onClick={handleDeleteModalOpening}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </span>
+            </Tooltip>
           </div>
           <div>
             <SecondaryActionButton

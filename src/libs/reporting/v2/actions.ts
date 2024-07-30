@@ -25,7 +25,8 @@ import {
   editReportFilterConfig as editReportFilterConfigAPI,
   updateReportV2 as updateReportAPI,
   createReportV2 as createReportAPI,
-} from './api';
+  deleteReportV2 as deleteReportAPI,
+} from '#src/libs/reporting/v2/api';
 
 export const fetchReportsActionsV2 = {
   error: createAction<Error | null>('REPORT_V2/LIST/ERROR'),
@@ -206,6 +207,30 @@ export function editReportFilterConfig(
       dispatch(editReportFilterConfigActionsV2.error(error));
     }
     dispatch(editReportFilterConfigActionsV2.isLoading(false));
+  };
+}
+
+export const deleteReportActionsV2 = {
+  error: createAction<Error | null>('REPORT-V2/DELETE/ERROR'),
+  isLoading: createAction<boolean>('REPORT-V2/DELETE/IS_LOADING'),
+  success: createAction('REPORT-V2/DELETE/SUCCESS'),
+};
+
+export function deleteReport(reportId: number, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteReportActionsV2.isLoading(true));
+
+    try {
+      await deleteReportAPI(reportId);
+      dispatch(snackbarSuccess('reporting:snackbar.deleteSuccess'));
+      dispatch(deleteReportActionsV2.success());
+      options?.onSuccess?.();
+    } catch (error) {
+      dispatch(deleteReportActionsV2.error(error));
+      dispatch(snackbarError('reporting:snackbar.deleteError'));
+      options?.onError?.(error);
+    }
+    dispatch(deleteReportActionsV2.isLoading(false));
   };
 }
 export const reportHeadersDetailV2 = {

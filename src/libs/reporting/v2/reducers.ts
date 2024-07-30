@@ -11,6 +11,7 @@ import {
   fetchReportsActionsV2,
   reportGenerationDetailV2,
   reportHeadersDetailV2,
+  deleteReportActionsV2,
 } from '#src/libs/reporting/v2/actions';
 
 import type {
@@ -194,6 +195,19 @@ export default handleActions<Immutable.Immutable<ReportingStateV2>, any>(
           ...payload,
         }),
       ),
+
+    [deleteReportActionsV2.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['reports', 'loading'], payload);
+    },
+    [deleteReportActionsV2.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['reports', 'error'], payload);
+    },
     [reportHeadersDetailV2.success.toString()]: (
       state,
       { payload }: { payload: ReportHeader },

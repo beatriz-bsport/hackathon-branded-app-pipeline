@@ -932,6 +932,8 @@ const getTranslations = async () => {
       createError: 'An error has occured while creating your view',
       updateSuccess: 'Your view has been updated',
       updateError: 'An error has occured while updating your view',
+      deleteSuccess: 'Your view has been deleted',
+      deleteError: 'An error has occured while deleting your view',
     },
     reportDetailHeader: {
       currentView: 'Current view:',
@@ -939,6 +941,7 @@ const getTranslations = async () => {
       emptyAdvancedFilters: 'No advanced filters applied to this view.',
       advancedFiltersApplied: '{{ count }} advanced filter applied',
       advancedFiltersApplied_plural: '{{ count }} advanced filters applied',
+      cannotDeleteDefaultView: 'Default view can’t be deleted.',
     },
     reportEditLabel: 'Edit view',
     reportNameLabel: 'View name',
@@ -961,6 +964,11 @@ const getTranslations = async () => {
       inputLabel: 'View name',
       error: 'A name is required for the view',
       maxLength: 'A name can have a maximum of 200 characters.',
+    },
+    reportDeleteModal: {
+      title: 'Are you sure you want to delete this view',
+      confirm: 'Delete view',
+      content: 'The filter set-up will be lost.',
     },
     reportDetailContent: {
       title: 'Date and quick filters',

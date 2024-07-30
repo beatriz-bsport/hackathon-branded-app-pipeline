@@ -13,6 +13,7 @@ import type {
 import {
   API_URI,
   buildUrlParams,
+  deleteAuth,
   getAuth,
   patchAuth,
   postAuth,
@@ -64,6 +65,10 @@ export const editReportFilterConfig = (
     `${API_URI}/reporting/report-filter-config/${reportFilterConfigId}/`,
     data,
   );
+
+export const deleteReportV2 = (reportId: number) => {
+  return deleteAuth(`${API_URI}/reporting/reports-v2/${reportId}/`);
+};
 
 export const fetchReportHeadersV2 = (
   reportId: number,

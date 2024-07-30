@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { CallHistoryMethodAction } from 'connected-react-router';
 import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/dynamic-data-hoc';
@@ -10,6 +12,7 @@ import ReportDetailHeader from '#src/libs/reporting/v2/components/ReportDetailHe
 import ReportDetailDrawer from '#src/libs/reporting/v2/components/ReportDetailDrawer.component';
 import ReportDetailCreateModal from '#src/libs/reporting/v2/components/ReportDetailCreateModal.component';
 import ReportDetailContent from '#src/libs/reporting/v2/components/ReportDetailContent';
+import ModalConfirm from '#src/components/ModalConfirm.component';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
@@ -49,6 +52,8 @@ type Props = {
     data: ReportFilterConfigCreateData,
     options?: OptionCallback<ReportFilterConfig>,
   ) => void;
+  defaultCategoryReportId: number;
+  deleteReport: (reportId: number, options?: OptionCallback) => Promise<void>;
   dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
   editReportFilterConfig: (
     reportFilterConfigId: number,
@@ -85,6 +90,8 @@ const ReportDetailPage: React.FC<Props> = ({
   createReportFilterConfig,
   dynamicDataHasBeenLoaded,
   editReportFilterConfig,
+  defaultCategoryReportId,
+  deleteReport,
   handleExport,
   handleGeneration,
   handleGetDynamicDataForFilters,
@@ -103,9 +110,19 @@ const ReportDetailPage: React.FC<Props> = ({
   userPermissions,
 }) => {
   const classes = useStyles({ isNavigationDrawerExpanded });
+  const { t } = useTranslation('reporting');
   const [isEditDrawerOpen, setIsEditDrawerOpen] = React.useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = React.useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
+
   const { refreshOptions } = useObjectSearch();
+
+  const handleDeleteModalState = React.useCallback(
+    (bool: boolean) => () => {
+      setIsDeleteModalOpen(bool);
+    },
+    [setIsDeleteModalOpen],
+  );
 
   const handleEditDrawerState = React.useCallback(
     (bool: boolean) => () => {
@@ -196,6 +213,24 @@ const ReportDetailPage: React.FC<Props> = ({
     [createReport, categoryName, reportCategoryMetadata, pushRouter],
   );
 
+  const handleDeleteReport = React.useCallback(() => {
+    deleteReport(reportId, {
+      onSuccess: () => {
+        pushRouter(`/reporting/${categoryName}/${defaultCategoryReportId}`);
+        setIsDeleteModalOpen(false);
+      },
+      onError: () => {
+        setIsDeleteModalOpen(false);
+      },
+    });
+  }, [
+    pushRouter,
+    reportId,
+    deleteReport,
+    defaultCategoryReportId,
+    categoryName,
+  ]);
+
   if (reportFilterConfigLoading) {
     return <LinearProgress />;
   }
@@ -217,12 +252,26 @@ const ReportDetailPage: React.FC<Props> = ({
         onSubmit={handleCreateReport}
         open={isAddModalOpen}
       />
+      <ModalConfirm
+        handleCancel={handleDeleteModalState(false)}
+        handleConfirm={handleDeleteReport}
+        open={isDeleteModalOpen}
+        options={{
+          title: t('reportDeleteModal.title'),
+          confirm: t('reportDeleteModal.confirm'),
+        }}
+      >
+        {t('reportDeleteModal.content')}
+      </ModalConfirm>
       <div className={classes.content}>
         <ReportDetailHeader
           advancedReportFilterConfig={advancedReportFilterConfig}
           categoryName={categoryName}
+          deleteDisabled={report?.is_category_default}
           handleAddModalOpening={handleAddModalState(true)}
+          handleDeleteModalOpening={handleDeleteModalState(true)}
           handleEditDrawerOpening={handleEditDrawerState(true)}
+          isCategoryDefault={report?.is_category_default}
           pushRouter={pushRouter}
           reportId={reportId}
           upsertActionsDisabled={reportCategoriesMetadata.loading}

@@ -66,7 +66,7 @@ export const useBroadcastChannel = <PayloadType = any>(
   }, [channel, isBroadcastChannelAvailable]);
 
   // Add a listener to the channel
-  if (channel?.onmessage) {
+  if (channel) {
     channel.onmessage = (
       event: MessageEvent<
         BroadcastChannelMessage<PayloadType> & {

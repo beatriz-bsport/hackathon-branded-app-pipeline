@@ -74,7 +74,7 @@ export class ReportingGeneration extends Component<Props, State> {
       dateStart: props.report.date_start || DateTime.now().toISODate(),
       dateEnd: props.report.date_end || DateTime.now().toISODate(),
       reportFilterConfigId: props.report.report_filter_config_id,
-      timePeriod: props.report.time_period,
+      timePeriod: 'custom',
     };
   }
 
@@ -94,7 +94,7 @@ export class ReportingGeneration extends Component<Props, State> {
         dateStart: this.props.report.date_start,
         dateEnd: this.props.report.date_end,
         reportFilterConfigId: this.props.report.report_filter_config_id,
-        timePeriod: this.props.report.time_period,
+        timePeriod: 'custom',
       });
     }
   }
@@ -112,7 +112,7 @@ export class ReportingGeneration extends Component<Props, State> {
         dateStart: this.props.report.date_start,
         dateEnd: this.props.report.date_end,
         reportFilterConfigId: this.props.report.report_filter_config_id,
-        timePeriod: this.props.report.time_period || 'custom',
+        timePeriod: 'custom',
       });
       this.props.fetchReports();
       this.props.fetchReportMetadata();
@@ -177,14 +177,12 @@ export class ReportingGeneration extends Component<Props, State> {
             page_size: this.props.pageSize,
             page: values.page || 1,
             report_filter_config_id: values.reportFilterConfigId,
-            time_period: values.timePeriod || 'custom',
           }
         : {
             date_start,
             page_size: this.props.pageSize,
             page: values.page || 1,
             report_filter_config_id: values.reportFilterConfigId,
-            time_period: values.timePeriod || 'custom',
           },
     );
   };
@@ -200,32 +198,28 @@ export class ReportingGeneration extends Component<Props, State> {
 
   handleGeneratePreviousPage = () => {
     this.handleGenerate({
-      timeStart: this.state.timeStart || this.props.report.time_start,
-      timeEnd: this.state.timeEnd || this.props.report.time_end,
-      timeWindowPeriod:
-        this.state.timeWindowPeriod || this.props.report.time_window_period,
+      timeStart: this.state.timeStart || this.props.report.time_window_start,
+      timeEnd: this.state.timeEnd || this.props.report.time_window_end,
       dateStart: this.state.dateStart || this.props.report.date_start,
       dateEnd: this.state.dateEnd || this.props.report.date_end,
       reportFilterConfigId:
         this.state.reportFilterConfigId ||
         this.props.report.report_filter_config_id,
-      timePeriod: this.state.timePeriod || this.props.report.time_period,
+      timePeriod: this.state.timePeriod,
       page: this.props.previousPage,
     });
   };
 
   handleGenerateNextPage = () => {
     this.handleGenerate({
-      timeStart: this.state.timeStart || this.props.report.time_start,
-      timeEnd: this.state.timeEnd || this.props.report.time_end,
-      timeWindowPeriod:
-        this.state.timeWindowPeriod || this.props.report.time_window_period,
+      timeStart: this.state.timeStart || this.props.report.time_window_start,
+      timeEnd: this.state.timeEnd || this.props.report.time_window_end,
       dateStart: this.state.dateStart || this.props.report.date_start,
       dateEnd: this.state.dateEnd || this.props.report.date_end,
       reportFilterConfigId:
         this.state.reportFilterConfigId ||
         this.props.report.report_filter_config_id,
-      timePeriod: this.state.timePeriod || this.props.report.time_period,
+      timePeriod: this.state.timePeriod,
       page: this.props.nextPage,
     });
   };

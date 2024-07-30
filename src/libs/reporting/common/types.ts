@@ -103,13 +103,9 @@ export type ReportConfiguration = {
   date_start: string;
   date_end: string;
   report_filter_config_id: number | null;
-  time_period: DateFilterRangeEnum | DateFilterEnum | null;
   time_window_end?: string;
   time_window_start?: string;
   date_type?: ReportDateType;
-  time_start?: string;
-  time_end?: string;
-  time_window_period?: string;
   is_category_default?: boolean;
   version?: 1 | 2;
 };

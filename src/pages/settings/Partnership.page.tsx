@@ -1,6 +1,6 @@
 import React from 'react';
+import type { WithT } from 'i18next';
 import { withTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
 import { connect } from 'react-redux';
 import { compose, withState, withHandlers } from 'recompose';
 import flatten from 'lodash/flatten';
@@ -25,6 +25,7 @@ import withTitle from '#src/hocs/with-title.hoc';
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import themeSelector from '#src/libs/theme/selectors';
 import type { RootState } from '#src/reducers';
+import type { OptionCallback } from '#src/state/types';
 
 // UPSELL
 import { getCompanyUpsellData } from '#src/libs/company/selectors';
@@ -64,16 +65,40 @@ import type {
 
 import CLASSPASS_LOGO from './classpass.png';
 
-// WELLHUB
+// Wellhub
 import WellhubConfiguration from '#src/libs/wellhub/components/WellhubConfiguration';
+import {
+  getGymAvailability as getGymAvailabilityAction,
+  createWellhubGym as createWellhubGymAction,
+  fetchWellhubGyms as fetchWellhubGymsAction,
+  updateWellhubGym as updateWellhubGymAction,
+  deleteWellhubGym as deleteWellhubGymAction,
+  configureWellhubGymWebhooks as configureWellhubGymWebhooksAction,
+} from '#src/libs/wellhub/actions';
+import {
+  getWellhubGymAvailability,
+  getWellhubGymAvailabilityError,
+  getWellhubGymAvailabilityLoading,
+  getWellhubGyms,
+  getWellhubLoading,
+} from '#src/libs/wellhub/selectors';
+import type {
+  GymAvailabilityResponse,
+  WellhubGym,
+  WellhubGymUpsert,
+} from '#src/libs/wellhub/types';
 
-type Props = {
+type StateProps = {
+  hasRequested: boolean;
+  setHasRequested: (b: boolean) => void;
+};
+
+type ConnectorProps = {
   associatedEstablishmentList: AssociatedEstablishment[];
   classpass: PartnershipCompany | null;
   company: number;
   establishmentList: Establishment[];
   featureList: UpsellSumup[];
-  hasRequested: boolean;
   isSubmitting: boolean;
   loading: boolean;
   partnershipEstablishmentMergeList: PartnershipEstablishmentMerge[];
@@ -81,12 +106,50 @@ type Props = {
   fetchEstablishments: () => void;
   fetchPartnershipEstablishmentMergeList: () => void;
   fetchPartnershipList: () => void;
-  requestClasspassPartnership: () => void;
-  setHasRequested: (b: boolean) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
+  requestPartnership: (identifier: string, options: OptionCallback) => void;
   updatePartnership: (id: number, data: any) => void;
 
-  t: TFunction;
-} & WithStyles;
+  // Wellhub
+  wellhubGyms: WellhubGym[];
+  wellhubLoading: boolean;
+  wellhubGymAvailabilityLoading: boolean;
+  wellhubGymAvailabilityError: Error | null;
+  getWellhubGymAvailability: (gymID: number) => GymAvailabilityResponse;
+
+  // eslint-disable-next-line react/no-unused-prop-types
+  configureWellhubGymWebhooksAction: (
+    wellhubGymUUID: string,
+    options?: OptionCallback<WellhubGym>,
+  ) => Promise<void>;
+  // eslint-disable-next-line react/no-unused-prop-types
+  createWellhubGymAction: (
+    gymID: number,
+    establishmentIDs: number[],
+    options?: OptionCallback<WellhubGymUpsert>,
+  ) => Promise<void>;
+  // eslint-disable-next-line react/no-unused-prop-types
+  updateWellhubGymAction: (
+    wellhubGym: WellhubGym,
+    establishmentIDs: number[],
+    options?: OptionCallback<WellhubGymUpsert>,
+  ) => void;
+
+  deleteWellhubGym: (wellhubGymUUID: string, options?: OptionCallback) => void;
+  fetchWellhubGyms: () => void;
+  checkAvailability: (gymID: number) => void;
+};
+
+type HandlerProps = {
+  requestClasspassPartnership: () => void;
+  createWellhubGym: (gymID: number, establishmentIDs: number[]) => void;
+  updateWellhubGym: (
+    wellhubGym: WellhubGym,
+    establishmentIDs: number[],
+  ) => void;
+};
+
+type Props = StateProps & ConnectorProps & HandlerProps & WithT & WithStyles;
 
 export class Partnership extends React.Component<Props> {
   componentDidMount() {
@@ -95,6 +158,8 @@ export class Partnership extends React.Component<Props> {
     this.props.fetchEstablishments();
     // @ts-expect-error
     this.props.fetchAssociatedEstablishments({ company: this.props.company });
+    // Wellhub
+    this.props.fetchWellhubGyms();
   }
 
   updatePartnership = (data: any) => {
@@ -147,7 +212,22 @@ export class Partnership extends React.Component<Props> {
           </Dialog>
         ) : null}
         {this.props.isSubmitting ? <LinearProgress /> : null}
-        {hasWellhubUpsell && <WellhubConfiguration />}
+        {hasWellhubUpsell && (
+          <WellhubConfiguration
+            checkAvailability={this.props.checkAvailability}
+            createWellhubGym={this.props.createWellhubGym}
+            deleteWellhubGym={this.props.deleteWellhubGym}
+            establishments={this.props.establishmentList}
+            getWellhubGymAvailability={this.props.getWellhubGymAvailability}
+            updateWellhubGym={this.props.updateWellhubGym}
+            wellhubGymAvailabilityError={this.props.wellhubGymAvailabilityError}
+            wellhubGymAvailabilityLoading={
+              this.props.wellhubGymAvailabilityLoading
+            }
+            wellhubGyms={this.props.wellhubGyms}
+            wellhubLoading={this.props.wellhubLoading}
+          />
+        )}
         <div className={this.props.classes.classpassContainer}>
           <div
             style={{ display: 'flex', alignItems: 'row', flexDirection: 'row' }}
@@ -237,6 +317,31 @@ const styles = createStyles((theme: Theme) => ({
   },
 }));
 
+const mapWithHandlers = {
+  requestClasspassPartnership: (props: ConnectorProps & StateProps) => () => {
+    props.requestPartnership('classpass', {
+      onSuccess: () => props.setHasRequested(true),
+    });
+  },
+  createWellhubGym:
+    (props: ConnectorProps & StateProps) =>
+    (gymID: number, establishmentIDs: number[]) => {
+      props.createWellhubGymAction(gymID, establishmentIDs, {
+        onSuccess: (wellhubGymCreated) => {
+          props.fetchWellhubGyms();
+          props.configureWellhubGymWebhooksAction(wellhubGymCreated.uuid);
+        },
+      });
+    },
+  updateWellhubGym:
+    (props: ConnectorProps & StateProps) =>
+    (wellhubGym: WellhubGym, establishmentIDs: number[]) => {
+      props.updateWellhubGymAction(wellhubGym, establishmentIDs, {
+        onSuccess: () => props.fetchWellhubGyms(),
+      });
+    },
+};
+
 export default compose(
   withTranslation(['partnership']),
   withTitle(({ t }) => t('pageTitle')),
@@ -244,36 +349,42 @@ export default compose(
   withState('hasRequested', 'setHasRequested', false),
   connect(
     (state: RootState) => ({
+      associatedEstablishmentList: getAllAssociatedEstablishment(state),
       classpass: getPartnershipByIdentifier(state, 'classpass'),
       company: themeSelector.getTheme(state).company,
       establishmentList: getAllPageEstablishments(state),
-      associatedEstablishmentList: getAllAssociatedEstablishment(state),
-      partnershipEstablishmentMergeList:
-        getPartnershipEstablishmentMergeList(state),
+      featureList: getCompanyUpsellData(state),
       isSubmitting: state.partnership.createOrUpdate.loading,
       loading:
         state.partnership.loading ||
         state.partnership.partnershipEstablishmentMerge.loading ||
         state.establishment.loading ||
         state.establishment.associatedEstablishment.loading,
-      featureList: getCompanyUpsellData(state),
+      partnershipEstablishmentMergeList:
+        getPartnershipEstablishmentMergeList(state),
+      // Wellhub
+      wellhubGyms: getWellhubGyms(state),
+      wellhubLoading: getWellhubLoading(state),
+      wellhubGymAvailabilityLoading: getWellhubGymAvailabilityLoading(state),
+      wellhubGymAvailabilityError: getWellhubGymAvailabilityError(state),
+      getWellhubGymAvailability: (gymID: number) =>
+        getWellhubGymAvailability(state, gymID),
     }),
     {
-      fetchPartnershipList,
-      fetchEstablishments,
       fetchAssociatedEstablishments,
+      fetchEstablishments,
       fetchPartnershipEstablishmentMergeList,
-      updatePartnership,
+      fetchPartnershipList,
       requestPartnership: requestPartnershipAction,
+      updatePartnership,
+      // Wellhub
+      checkAvailability: getGymAvailabilityAction,
+      configureWellhubGymWebhooksAction,
+      createWellhubGymAction,
+      deleteWellhubGym: deleteWellhubGymAction,
+      fetchWellhubGyms: fetchWellhubGymsAction,
+      updateWellhubGymAction,
     },
   ),
-  withHandlers({
-    requestClasspassPartnership:
-      ({ requestPartnership, setHasRequested }) =>
-      () => {
-        requestPartnership('classpass', {
-          onSuccess: () => setHasRequested(true),
-        });
-      },
-  }),
+  withHandlers(mapWithHandlers),
 )(Partnership);

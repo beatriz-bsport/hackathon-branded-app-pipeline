@@ -602,7 +602,14 @@
             "connectionImpossible": "Connexion à Spivi impossible",
             "errorText": "Le membre ne remplit pas les conditions de Spivi, par conséquent la réservation n'a pas été faite sur Spivi."
         },
-        "warning": "Attention"
+        "warning": "Attention",
+        "refundDialog": {
+            "contentUnlimitedPaymentPack": "Cette réservation a été effectuée avec une carte illimitée et a été annulée tardivement. Les annulations tardives excessives peuvent entraîner des pénalités. Cliquez sur « Réinitialiser » pour supprimer l'annulation tardive de l'historique de la carte. Notez que si une pénalité a déjà été appliquée, elle ne peut pas être supprimée.",
+            "titleUnlimitedPaymentPack": "Réinitialiser le compte des annulations tardives",
+            "content": "Cette réservation a été annulée trop tard pour être automatiquement remboursée. Cliquez sur « Rembourser » pour procéder à un remboursement unique de cette réservation.",
+            "title": "Remboursement en cas d'annulation tardive"
+        },
+        "refund": "Rembourser"
     },
     "category": {
         "sct": {
@@ -1171,7 +1178,8 @@
         "seeLess": "Voir moins",
         "discardChanges": "Abandonner les modifications",
         "rename": "Renommer",
-        "send": "Envoyer"
+        "send": "Envoyer",
+        "reset": "Réinitialiser"
     },
     "communication": {
         "table": {
@@ -11847,6 +11855,9 @@
                         },
                         "editPerformance": {
                             "_label": "Editer les performances du programme"
+                        },
+                        "refund": {
+                            "_label": "Rembourser"
                         }
                     }
                 },
@@ -11876,6 +11887,9 @@
                         },
                         "editPerformance": {
                             "_label": "Editer les performances du programme"
+                        },
+                        "refund": {
+                            "_label": "Rembourser"
                         }
                     }
                 }

@@ -2382,8 +2382,8 @@
                 "credits": {
                     "second": "und",
                     "first": "Credits:",
-                    "helperText": "Gefiltert nach {{count}} Kredit",
-                    "helperText_plural": "Gefiltert nach {{count}} Krediten"
+                    "helperText": "Gefiltert nach {{count}} Credit",
+                    "helperText_plural": "Gefiltert nach {{count}} Credits"
                 },
                 "second": "und",
                 "has_not": "Besitzt nicht",
@@ -2519,8 +2519,8 @@
                 "credits": {
                     "first": "Credits:",
                     "second": "und",
-                    "helperText": "Gefiltert nach {{count}} Kredit",
-                    "helperText_plural": "Gefiltert nach {{count}} Krediten"
+                    "helperText": "Gefiltert nach {{count}} Credit",
+                    "helperText_plural": "Gefiltert nach {{count}} Credits"
                 },
                 "expiration": {
                     "first_has_expire": "ist abgelaufen",
@@ -3221,7 +3221,7 @@
                         "title": "Mein Profil"
                     }
                 },
-                "displayActivityPrice": "Anzeige der Anzahl der Kredite"
+                "displayActivityPrice": "Anzeige der Anzahl der Credits"
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -4088,6 +4088,9 @@
                         },
                         "removeFromWaitlist": {
                             "_label": "Mitglieder von der Warteliste entfernen"
+                        },
+                        "refund": {
+                            "_label": "Erstattung"
                         }
                     },
                     "_label": "Verwaltung der Gruppenaktivitäten"
@@ -4118,6 +4121,9 @@
                         },
                         "editSpot": {
                             "_label": "Mitgliederplätze bearbeiten"
+                        },
+                        "refund": {
+                            "_label": "Erstattung"
                         }
                     }
                 },
@@ -5181,8 +5187,8 @@
             "creditsLeft": {
                 "second": "Credits verbleiben",
                 "first": "Benachrichtigen, wenn es",
-                "helperText": "Diese Benachrichtigung wird ausgelöst, wenn noch {{count}} Kredit vorhanden ist",
-                "helperText_plural": "Diese Benachrichtigung wird ausgelöst, wenn noch {{count}} Kredite vorhanden sind"
+                "helperText": "Diese Benachrichtigung wird ausgelöst, wenn noch {{count}} Credit vorhanden ist",
+                "helperText_plural": "Diese Benachrichtigung wird ausgelöst, wenn noch {{count}} Credits vorhanden sind"
             },
             "daysPastLabel": "Benachrichtigen, wenn die Karte seit {{day}} Tag abgelaufen ist",
             "daysPastLabel_plural": "Benachrichtigen, wenn die Karte seit {{day}} Tage abgelaufen ist",
@@ -5451,8 +5457,8 @@
                 "credits": {
                     "label": "Abzuziehender Kredit",
                     "decimalCredit": {
-                        "helperText": "{{count}} Kredit wird abgezogen",
-                        "helperText_plural": "{{count}} Kredite werden abgezogen"
+                        "helperText": "{{count}} Credit wird abgezogen",
+                        "helperText_plural": "{{count}} Credits werden abgezogen"
                     }
                 },
                 "warningSecond": "Wenn Du den Kunden per Banküberweisung mit dem verwendeten Zahlungsmittel entschädigen möchtest, storniere die Rechnung und erstatten keine Guthaben-Rückerstattung!",
@@ -5816,8 +5822,8 @@
             "atLeastOneDay": "Es muss mindestens ein Tag ausgewählt werden",
             "startAfterEnd": "Die Startzeit muss niedriger sein als die Endzeit",
             "decimalCredit": {
-                "helperText": "Dieser Pass enthält {{count}} Kredit",
-                "helperText_plural": "Dieser pass enthält {{count}} Kredite"
+                "helperText": "Dieser Pass enthält {{count}} Credit",
+                "helperText_plural": "Dieser pass enthält {{count}} Credits"
             }
         },
         "paymentPackTemplate": {
@@ -6559,7 +6565,7 @@
                 "edit": "Bearbeiten",
                 "shortColumnError": "Die entsprechende Spalte wird nicht angezeigt",
                 "decimalCredit": {
-                    "helperText": "Sie müssen hier einen numerischen Wert eingeben. Bitte denk daran, dass die in den Berichten angezeigten Kredite nicht durch {{creditFactor}} geteilt werden",
+                    "helperText": "Du musst hier einen numerischen Wert eingeben. Bitte denk daran, dass die in den Berichten angezeigten Credits nicht durch {{creditFactor}} geteilt werden",
                     "filterViewHelperText": "Für kreditbezogene Filter müssen Sie einen numerischen Wert eingeben. Bitte denk daran, dass der in den Berichten angezeigte Kreditwert nicht durch {{creditFactor}} geteilt wird"
                 }
             },
@@ -9389,8 +9395,8 @@
                     "helperText": "Bei Null belassen, damit das Video für alle Mitglieder zugänglich ist",
                     "label": "Creditkosten",
                     "decimalCredit": {
-                        "helperText": "Dieses Video kostet {{count}} Kredit. Belassen Sie es bei 0, wenn das Video für alle Ihre Mitglieder zugänglich sein soll",
-                        "helperText_plural": "Dieses Video kostet {{count}} Kredite. Belassen Sie es bei 0, wenn das Video für alle Ihre Mitglieder zugänglich sein soll"
+                        "helperText": "Dieses Video kostet {{count}} Credit. Belassen Sie es bei 0, wenn das Video für alle Ihre Mitglieder zugänglich sein soll",
+                        "helperText_plural": "Dieses Video kostet {{count}} Credits. Belassen Sie es bei 0, wenn das Video für alle Ihre Mitglieder zugänglich sein soll"
                     }
                 },
                 "video_label": "Video",
@@ -10023,7 +10029,14 @@
             "recommended": "Empfehlungen",
             "reviewAndConfirm": "Überprüfen und Bestätigen",
             "guestSpotSelectorTitle": "Wählen Sie einen Platz für Ihren Gast"
-        }
+        },
+        "refundDialog": {
+            "contentUnlimitedPaymentPack": "Diese Buchung wurde mit einem unbeschränkten Pass vorgenommen und zu spät storniert. Bei zu vielen verspäteten Stornierungen können Strafen fällig werden. Klicke auf „Zurücksetzen“, um die verspätete Stornierung aus den Passeinträgen zu entfernen. Beachte dass bereits verhängte Strafen nicht mehr entfernt werden können.",
+            "titleUnlimitedPaymentPack": "Zählung der zu spät erfolgten Stornierungen zurücksetzen",
+            "content": "Diese Buchung wurde zu spät storniert, um automatisch erstattet zu werden. Klicke auf „Erstattung“, um eine einmalige Rückerstattung für diese Buchung vorzunehmen.",
+            "title": "Erstattung bei verspäteter Stornierung"
+        },
+        "refund": "Erstattung"
     },
     "member": {
         "exists": {
@@ -10534,7 +10547,8 @@
         "seeLess": "Weniger sehen",
         "discardChanges": "Änderungen verwerfen",
         "rename": "Umbenennen",
-        "send": "Versenden"
+        "send": "Versenden",
+        "reset": "Zurücksetzen"
     },
     "coupon": {
         "detail": {
@@ -11256,8 +11270,8 @@
                     "helperText": "Anzahl der erforderlichen Credit(s) für eine Buchung",
                     "label": "Anzahl der Credit(s)",
                     "decimalCredit": {
-                        "helperText": "Dieser Termin wird {{count}} Kredit kosten",
-                        "helperText_plural": "Dieser Termin wird {{count}} Kredite kosten"
+                        "helperText": "Dieser Termin wird {{count}} Credit kosten",
+                        "helperText_plural": "Dieser Termin wird {{count}} Credits kosten"
                     }
                 },
                 "submit": "Speichern",
@@ -11311,8 +11325,8 @@
                     "helperText": "Jeder Kurs kostet eine bestimmte Anzahl von Credits",
                     "label": "Anzahl der eingeschlossenen Credits",
                     "decimalCredit": {
-                        "helperText": "Dieser Pass enthält {{count}} Kredit.",
-                        "helperText_plural": "Dieser Pass enthält {{count}} Kredite."
+                        "helperText": "Dieser Pass enthält {{count}} Credit .",
+                        "helperText_plural": "Dieser Pass enthält {{count}} Credits."
                     }
                 },
                 "actions": {
@@ -12541,7 +12555,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }} verbleibende Tage",
+                        "expiresIn_plural": "verbleibende Tage",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -15984,8 +15998,8 @@
                         "hybridManagementHelper": "Sie können die Buchungen, die mit dieser Partnerschaftssitzung verbunden sind, sowohl im Raum als auch online verwalten, indem Sie auf das Symbol unten klicken, um eine neue Verwaltungsseite zu öffnen.",
                         "metaActivity": "Aktivität",
                         "decimalCredit": {
-                            "helperText": "Dieser Termin wird {{count}} Kredit kosten.",
-                            "helperText_plural": "Dieser Termin wird {{count}} Kredite kosten."
+                            "helperText": "Dieser Termin wird {{count}} Credit kosten.",
+                            "helperText_plural": "Dieser Termin wird {{count}} Credits kosten."
                         }
                     },
                     "title": "Eigenschaften"
@@ -16035,8 +16049,8 @@
                 "description": "Sie haben ungespeicherte Notizen auf dieser Seite. Möchten Sie sie vor dem Verlassen der Seite speichern?"
             }
         },
-        "numberOfCredits": "{{count}} Kredit",
-        "numberOfCredits_plural": "{{count}} Kredite"
+        "numberOfCredits": "{{count}} Credit",
+        "numberOfCredits_plural": "{{count}} Credits"
     },
     "settings": {
         "active_campaign": {
@@ -17791,8 +17805,8 @@
                 "todayValidity": "Am Verfallstag",
                 "remainingValidity": "{{count}} verbleibender Tag vor Ablauf",
                 "remainingValidity_plural": "{{count}} verbleibende Tage vor Ablauf",
-                "remainingCredit": "{{count}} Kredit übrig",
-                "remainingCredit_plural": "{{count}} Kredite übrig"
+                "remainingCredit": "{{count}} Credit übrig",
+                "remainingCredit_plural": "{{count}} Credits übrig"
             },
             "passSelectionPlaceholder": {
                 "payment_pack": "Pässe",

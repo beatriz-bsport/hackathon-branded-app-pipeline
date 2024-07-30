@@ -7130,7 +7130,14 @@
             "recommended": "Recomendados",
             "reviewAndConfirm": "Revisar y confirmar",
             "guestSpotSelectorTitle": "Seleccione un lugar para su invitado"
-        }
+        },
+        "refundDialog": {
+            "contentUnlimitedPaymentPack": "Esta reserva se realizó con un pase ilimitado y se canceló fuera de plazo. Las cancelaciones tardías excesivas pueden conllevar penalizaciones. Haga clic en «Reiniciar» para eliminar la cancelación tardía de los registros de pases. Tenga en cuenta que si ya se ha aplicado una penalización, no se puede eliminar.",
+            "titleUnlimitedPaymentPack": "Reiniciar el recuento de cancelaciones tardías",
+            "content": "Esta reserva se canceló demasiado tarde para ser reembolsada automáticamente. Haga clic en «Reembolsar» para procesar un reembolso de crédito único para esta reserva.",
+            "title": "Reembolso por cancelación tardía"
+        },
+        "refund": "Reembolso"
     },
     "marketplace": {
         "selector": {
@@ -11590,6 +11597,9 @@
                         },
                         "editPerformance": {
                             "_label": "Editar el rendimiento del programa"
+                        },
+                        "refund": {
+                            "_label": "Reembolso"
                         }
                     }
                 },
@@ -11636,6 +11646,9 @@
                         },
                         "delete": {
                             "_label": "Cancelar reservas"
+                        },
+                        "refund": {
+                            "_label": "Reembolso"
                         }
                     },
                     "_label": "Gestión de talleres"
@@ -13290,7 +13303,8 @@
         "seeLess": "Ver menos",
         "discardChanges": "Descartar cambios",
         "rename": "Renombrar",
-        "send": "Enviar"
+        "send": "Enviar",
+        "reset": "Reiniciar"
     },
     "snackbar": {
         "invoice": {

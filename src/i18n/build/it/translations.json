@@ -11198,7 +11198,14 @@
             "seeAllProducts": "Vedi tutti i prodotti",
             "reviewAndConfirm": "RIvedi e conferma",
             "guestSpotSelectorTitle": "Seleziona un posto per il tuo ospite"
-        }
+        },
+        "refundDialog": {
+            "contentUnlimitedPaymentPack": "Questa prenotazione è stata effettuata con un pacchetto illimitato ed è stata cancellata in ritardo. Le cancellazioni tardive eccessive possono comportare delle penali. Fare clic su “Ripristina” per rimuovere la cancellazione tardiva dai record del pacchetto. Si noti che se è già stata applicata una penale, questa non può essere rimossa.",
+            "titleUnlimitedPaymentPack": "Azzeramento del conteggio delle cancellazioni tardive",
+            "content": "Questa prenotazione è stata cancellata troppo tardi per essere rimborsata automaticamente. Fare clic su “Rimborso” per elaborare un rimborso una tantum per questa prenotazione.",
+            "title": "Rimborso per cancellazione tardiva"
+        },
+        "refund": "Rimborso"
     },
     "smartList": {
         "mail": {
@@ -14128,7 +14135,8 @@
         "seeLess": "Vedi meno",
         "discardChanges": "Scarta le modifiche",
         "rename": "Rinomina",
-        "send": "Invia"
+        "send": "Invia",
+        "reset": "Ripristina"
     },
     "titles": {
         "metaActivity": {
@@ -16019,6 +16027,9 @@
                         },
                         "editPerformance": {
                             "_label": "Modifica delle prestazioni del programma"
+                        },
+                        "refund": {
+                            "_label": "RImborso"
                         }
                     }
                 },
@@ -16049,6 +16060,9 @@
                         },
                         "create": {
                             "_label": "Crea prenotazione"
+                        },
+                        "refund": {
+                            "_label": "RImborso"
                         }
                     }
                 },

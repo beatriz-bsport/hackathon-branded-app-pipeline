@@ -7461,7 +7461,14 @@
             "recommended": "Aanbevolen",
             "reviewAndConfirm": "Controleren en bevestigen",
             "guestSpotSelectorTitle": "Selecteer een plekje voor je gast"
-        }
+        },
+        "refundDialog": {
+            "contentUnlimitedPaymentPack": "Deze boeking is gemaakt met een onbeperkte pas en is te laat geannuleerd. Voor te late annuleringen kunnen boetes worden opgelegd. Klik op “Reset” om de late annulering uit de pasgegevens te verwijderen. Houd er rekening mee dat als er al een boete is opgelegd, deze niet kan worden verwijderd.",
+            "titleUnlimitedPaymentPack": "Aantal late annuleringen resetten",
+            "content": "Deze boeking is te laat geannuleerd om automatisch te worden terugbetaald. Klik op “Restitutie” om een eenmalige creditrestitutie voor deze boeking te verwerken.",
+            "title": "Restitutie bij te late annulering"
+        },
+        "refund": "Refund"
     },
     "marketplace": {
         "selector": {
@@ -13662,7 +13669,8 @@
         "seeLess": "Zie minder",
         "discardChanges": "Wijzigingen weggooien",
         "rename": "Hernoem",
-        "send": "Verstuur"
+        "send": "Verstuur",
+        "reset": "Reset"
     },
     "workshop": {
         "modal": {
@@ -16711,6 +16719,9 @@
                         },
                         "rollcall": {
                             "_label": "Aanwezigheidsregistraties beheren"
+                        },
+                        "refund": {
+                            "_label": "Refund"
                         }
                     },
                     "_label": "Workshopbeheer"
@@ -16740,6 +16751,9 @@
                         },
                         "rollcall": {
                             "_label": "Aanwezigheidsregistraties"
+                        },
+                        "refund": {
+                            "_label": "Refund"
                         }
                     },
                     "_label": "Groepsactiviteiten beheren"

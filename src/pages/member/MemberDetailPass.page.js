@@ -607,8 +607,6 @@ export class MemberDetailPass extends Component<Props, State> {
                   onCreateExtension={
                     hasManageExtensionPermission &&
                     this.props.selectedConsumerPass?.payment_pack &&
-                    !this.props.selectedConsumerPass
-                      .consumer_payment_pack_source &&
                     this.handleCreateExtension
                   }
                   onExtensionPageRequested={this.handleChangeExtensionPage}

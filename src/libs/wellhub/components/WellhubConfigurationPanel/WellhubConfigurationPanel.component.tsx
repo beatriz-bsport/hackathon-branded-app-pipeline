@@ -9,17 +9,22 @@ import {
   WellhubConfigurationFooter,
 } from './subcomponents';
 
-import { WELLHUB_GYMS } from './constants';
-
 import type { WellhubGym } from '#src/libs/wellhub/types';
+import type { Establishment } from '#src/libs/establishment/types';
 
 type Props = {
+  establishmentsNotLinked: Establishment[];
+  wellhubGyms: WellhubGym[];
+  wellhubLoading: boolean;
   deleteWellhubGym: (wellhubGym: WellhubGym) => void;
   editWellhubGym: (wellhubGym: WellhubGym) => void;
   handleAddUnit: () => void;
 };
 
 const WellhubConfigurationPanel: React.FC<Props> = ({
+  establishmentsNotLinked,
+  wellhubGyms,
+  wellhubLoading,
   deleteWellhubGym,
   editWellhubGym,
   handleAddUnit,
@@ -31,10 +36,11 @@ const WellhubConfigurationPanel: React.FC<Props> = ({
       <WellhubConfigurationContent
         deleteWellhubGym={deleteWellhubGym}
         editWellhubGym={editWellhubGym}
-        wellhubGyms={WELLHUB_GYMS}
+        wellhubGyms={wellhubGyms}
+        wellhubLoading={wellhubLoading}
       />
       <WellhubConfigurationFooter
-        addUnitDisabled={false} //TODO: build constant to test if all establishments are already linked to a wellhub Unit
+        addUnitDisabled={establishmentsNotLinked?.length == 0}
         handleAddUnit={handleAddUnit}
       />
     </Paper>

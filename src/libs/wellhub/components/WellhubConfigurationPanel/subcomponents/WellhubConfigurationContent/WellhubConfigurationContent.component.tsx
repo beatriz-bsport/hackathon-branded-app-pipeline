@@ -10,12 +10,14 @@ import type { WellhubGym } from '#src/libs/wellhub/types';
 
 type Props = {
   wellhubGyms: WellhubGym[];
+  wellhubLoading: boolean;
   deleteWellhubGym: (wellhubGym: WellhubGym) => void;
   editWellhubGym: (wellhubGym: WellhubGym) => void;
 };
 
 const WellhubConfigurationContent: React.FC<Props> = ({
   wellhubGyms,
+  wellhubLoading,
   deleteWellhubGym,
   editWellhubGym,
 }) => {
@@ -35,6 +37,7 @@ const WellhubConfigurationContent: React.FC<Props> = ({
         deleteWellhubGym={deleteWellhubGym}
         editWellhubGym={editWellhubGym}
         wellhubGyms={wellhubGyms}
+        wellhubLoading={wellhubLoading}
       />
     </div>
   );

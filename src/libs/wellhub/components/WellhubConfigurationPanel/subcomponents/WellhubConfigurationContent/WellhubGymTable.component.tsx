@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -9,6 +10,7 @@ import {
   Avatar,
   Chip,
   IconButton,
+  LinearProgress,
   Table,
   TableBody,
   TableCell,
@@ -19,14 +21,25 @@ import {
 
 import type { WellhubGym } from '#src/libs/wellhub/types';
 
+const CustomTableCell = React.memo(
+  withStyles(() => ({
+    root: {
+      borderBottom: 'none',
+      padding: 0,
+    },
+  }))(TableCell),
+);
+
 type Props = {
   wellhubGyms: WellhubGym[];
+  wellhubLoading: boolean;
   deleteWellhubGym: (wellhubGym: WellhubGym) => void;
   editWellhubGym: (wellhubGym: WellhubGym) => void;
 };
 
 const WellhubGymTable: React.FC<Props> = ({
   wellhubGyms,
+  wellhubLoading,
   deleteWellhubGym,
   editWellhubGym,
 }) => {
@@ -68,6 +81,13 @@ const WellhubGymTable: React.FC<Props> = ({
           <TableCell />
         </TableRow>
       </TableHead>
+      {wellhubLoading && (
+        <TableRow>
+          <CustomTableCell colSpan={3}>
+            <LinearProgress />
+          </CustomTableCell>
+        </TableRow>
+      )}
       <TableBody>
         {wellhubGyms?.map((wellhubGym) => (
           <TableRow key={wellhubGym.uuid}>

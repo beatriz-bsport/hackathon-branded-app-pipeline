@@ -20,8 +20,8 @@ import type { BookkeepingAccount } from '#src/libs/payment/types';
 import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
-import { FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED } from '#src/libs/shop/components/ShopListTabs/constants';
-import type { OptionCallback } from '../../../../state/types';
+import { FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED } from '#src/libs/shop/components/ShopReworkedProductList/constants';
+import type { OptionCallback } from '#src/state/types';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';

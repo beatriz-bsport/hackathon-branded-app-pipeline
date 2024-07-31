@@ -19,7 +19,7 @@ import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { ErrorAndLoading, SelectOption } from '#src/libs/types';
 import FranchiseSubshopTemplateList from '#src/libs/franchise/components/FranchiseSubshopTemplateList';
 
-import { ShopListTab } from '#src/libs/shop/components/ShopListTabs/constants';
+import { FranchiseShopRouteTab } from '#src/libs/franchise/constants';
 import { FranchiseSubshopTemplateDialogEnum } from '#src/libs/franchise/components/FranchiseSubshopTemplateDialog/constants';
 
 type Props = {
@@ -183,7 +183,10 @@ const FranchiseShopListProductsTab: React.FC<Props> = ({
   );
 
   return (
-    <TabPanel className={classes.contentContainer} value={ShopListTab.PRODUCTS}>
+    <TabPanel
+      className={classes.contentContainer}
+      value={FranchiseShopRouteTab.PRODUCTS}
+    >
       <div className={classes.searchContainer}>
         <ObjectSearch
           additionalParams={{ is_variant: false }}

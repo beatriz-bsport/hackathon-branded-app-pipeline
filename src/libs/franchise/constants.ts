@@ -9,3 +9,8 @@ export const FRANCHISE_MEMBER_TAG_PAGE_DEFAULT_SIZE = 10;
 export const FRANCHISE_BILLING_PLAN_PAGE_DEFAULT_SIZE = 5;
 
 export const MEMBER_ARCHIVED_CHIP_COLOR = '#FFB547';
+
+export enum FranchiseShopRouteTab {
+  PRODUCTS = 'products',
+  SETTINGS = 'settings',
+}

@@ -1,8 +1,3 @@
-export enum ShopListTab {
-  PRODUCTS = 'products',
-  SETTINGS = 'settings',
-}
-
 // For the new webshop, we want to fetch both the base Items and the standalone Items
 export const FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED = {
   disabled: false,

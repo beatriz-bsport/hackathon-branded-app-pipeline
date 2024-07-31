@@ -71,7 +71,7 @@ import type { Dispatch } from 'src/state/types';
 
 // --- CONSTANTS ---
 
-import { FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED } from '#src/libs/shop/components/ShopListTabs/constants';
+import { FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED } from '#src/libs/shop/components/ShopReworkedProductList/constants';
 
 import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
 

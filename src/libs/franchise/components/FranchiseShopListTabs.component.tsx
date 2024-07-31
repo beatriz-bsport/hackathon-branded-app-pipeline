@@ -15,7 +15,7 @@ import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
 import type { ErrorAndLoading } from '#src/libs/types';
 
-import { ShopListTab } from '#src/libs/shop/components/ShopListTabs/constants';
+import { FranchiseShopRouteTab } from '#src/libs/franchise/constants';
 import FranchiseShopListSettingsTab from './FranchiseShopListSettingsTab.component';
 import FranchiseShopListProductsTab from './FranchiseShopListProductsTab.component';
 
@@ -88,12 +88,12 @@ const FranchiseShopListTabs: React.FC<Props> = ({
 
   const classes = useStyles();
 
-  const [selectedTab, setSelectedTab] = useState<ShopListTab>(
-    ShopListTab.PRODUCTS,
+  const [selectedTab, setSelectedTab] = useState<FranchiseShopRouteTab>(
+    FranchiseShopRouteTab.PRODUCTS,
   );
 
   const onChangeTab = useCallback(
-    (_: React.ChangeEvent, value: ShopListTab) => {
+    (_: React.ChangeEvent, value: FranchiseShopRouteTab) => {
       setSelectedTab(value);
     },
     [],
@@ -108,11 +108,11 @@ const FranchiseShopListTabs: React.FC<Props> = ({
       >
         <Tab
           label={t('shopList.tab.products.title')}
-          value={ShopListTab.PRODUCTS}
+          value={FranchiseShopRouteTab.PRODUCTS}
         />
         <Tab
           label={t('shopList.tab.settings.title')}
-          value={ShopListTab.SETTINGS}
+          value={FranchiseShopRouteTab.SETTINGS}
         />
       </Tabs>
 

@@ -19,7 +19,7 @@ import ShopSupplierTable from '#src/libs/shop/components/ShopSupplierTable';
 
 import type { ShopSupplierTemplate } from '#src/libs/shop/types';
 
-import { ShopListTab } from '#src/libs/shop/components/ShopListTabs/constants';
+import { FranchiseShopRouteTab } from '#src/libs/franchise/constants';
 import { SHOP_SUPPLIER_PAGE_SIZE } from '#src/libs/shop/constants';
 
 type Props = {
@@ -65,7 +65,10 @@ const FranchiseShopListSettingsTab: React.FC<Props> = ({
   );
 
   return (
-    <TabPanel className={classes.contentContainer} value={ShopListTab.SETTINGS}>
+    <TabPanel
+      className={classes.contentContainer}
+      value={FranchiseShopRouteTab.SETTINGS}
+    >
       <Grid container className={classes.sectionContainer}>
         {isSupplierTemplateListLoading && <LinearProgress />}
         <Grid item>

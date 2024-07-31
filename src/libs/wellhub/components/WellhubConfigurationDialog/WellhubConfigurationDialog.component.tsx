@@ -252,6 +252,7 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
               noMulti
               nullCurrentValue
               disabled={isSubmitting}
+              error={!!establishmentIdsError && establishmentIdsTouched}
               establishments={establishmentList}
               onBlur={handleEstablishmentFieldTouched}
               placeholder={t(

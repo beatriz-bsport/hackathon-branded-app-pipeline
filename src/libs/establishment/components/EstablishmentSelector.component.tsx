@@ -238,10 +238,27 @@ const establishmentStyles = {
 };
 
 export type OwnProps = {
-  id?: string;
+  closeMenuOnSelect?: boolean;
+  disabled?: boolean;
+  error?: boolean;
   establishments?:
     | Array<Establishment>
     | Immutable.ImmutableArray<Establishment>;
+  hideError?: boolean;
+  id?: string;
+  isClearable?: boolean;
+  isLoading?: boolean;
+  isOptionDisabled?: boolean;
+  isRequired?: boolean;
+  name?: string;
+  noMulti?: boolean;
+  nullCurrentValue?: boolean;
+  placeholder?: string;
+  requiredValueIsMissing?: boolean;
+  selectComponents?: Partial<SelectComponents<any>>;
+  selectedEstablishments: Array<number> | null;
+  selectorClass?: string;
+  targetParentElement?: boolean;
   selectOption: (
     suggestion:
       | EstablishmentSelectOption[]
@@ -250,49 +267,34 @@ export type OwnProps = {
   ) => void;
   selectMultipleOptions?: (itemsValueList: Array<number>) => void;
   onBlur?: FocusEventHandler<HTMLSelectElement>;
-  selectedEstablishments: Array<number> | null;
-  disabled?: boolean;
-  noMulti?: boolean;
-  closeMenuOnSelect?: boolean;
-  isClearable?: boolean;
-  nullCurrentValue?: boolean;
-  isLoading?: boolean;
-  isOptionDisabled?: boolean;
-  targetParentElement?: boolean;
-  placeholder?: string;
-  isRequired?: boolean;
-  requiredValueIsMissing?: boolean;
-  name?: string;
-  selectorClass?: string;
-  hideError?: boolean;
-  selectComponents?: Partial<SelectComponents<any>>;
 };
 
 type Props = OwnProps & WithTranslation;
 export function EstablishmentSelector(props: Props) {
   const {
-    t,
-    establishments,
-    selectOption,
-    selectMultipleOptions,
-    selectedEstablishments,
     closeMenuOnSelect,
-    nullCurrentValue,
     disabled,
-    noMulti,
+    error,
+    establishments,
+    hideError,
+    id,
     isClearable,
     isLoading,
     isOptionDisabled,
-    targetParentElement,
-    placeholder,
     isRequired,
-    requiredValueIsMissing,
     name,
-    selectorClass,
-    hideError,
-    id,
-    selectComponents,
+    noMulti,
+    nullCurrentValue,
     onBlur,
+    placeholder,
+    requiredValueIsMissing,
+    selectComponents,
+    selectedEstablishments,
+    selectMultipleOptions,
+    selectOption,
+    selectorClass,
+    t,
+    targetParentElement,
   } = props;
   const roomsSelected =
     selectedEstablishments && !nullCurrentValue
@@ -334,7 +336,7 @@ export function EstablishmentSelector(props: Props) {
         styles={{
           ...establishmentStyles,
           ...controlStyle(
-            isRequired && requiredValueIsMissing,
+            (isRequired && requiredValueIsMissing) || error,
             theme.palette.error.main,
           ),
         }}

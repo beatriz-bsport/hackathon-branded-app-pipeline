@@ -419,7 +419,7 @@ const connector = connect(
     fetchShopItemVariantCombinationList:
       fetchShopItemVariantCombinationListAction,
     fetchTags: fetchTagsAction,
-    backToShopPage: () => push('/shop'),
+    backToShopPage: () => push('/shop/products'),
     fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
     retrieveFranchise: retrieveFranchiseAction,
   },

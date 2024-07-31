@@ -5,7 +5,7 @@ import ShopItem from '#src/pages/shop/ShopItem.page';
 import ShopItemDetail from '#src/pages/shop/ShopItemDetail.page';
 // @ts-expect-error
 import ShopList from '#src/pages/shop/ShopList.page';
-import ShopListReworkedPage from '#src/pages/shop/ShopListReworked.page';
+import ShopReworkedProductListPage from '#src/pages/shop/ShopReworkedProductList.page';
 import { useSelector } from 'react-redux';
 import { RootState } from '#src/reducers';
 import themeSelectors from '#src/libs/theme/selectors';
@@ -21,13 +21,13 @@ const ShopRouter: React.FC = () => {
         key="/shop/:id"
         exact
         component={displayNewWebshop ? ShopItemDetail : ShopItem}
-        path="/shop/:id/"
+        path={displayNewWebshop ? '/shop/products/:id' : '/shop/:id'}
       />
       ,
       <Route
         key="/shop"
-        component={displayNewWebshop ? ShopListReworkedPage : ShopList}
-        path="/shop"
+        component={displayNewWebshop ? ShopReworkedProductListPage : ShopList}
+        path={displayNewWebshop ? '/shop/products' : '/shop'}
       />
       ,
     </Switch>

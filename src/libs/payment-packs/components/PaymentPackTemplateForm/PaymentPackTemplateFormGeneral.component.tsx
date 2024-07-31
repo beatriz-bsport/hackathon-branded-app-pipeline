@@ -148,30 +148,33 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
           variant="outlined"
         />
       </Grid>
-
-      <Grid item md={6} xs={12}>
-        <PriceField
-          fullWidth
-          required
-          helperText={t('form.paymentPack.priceIncludingTax.helperText')}
-          id="textfield_template_price"
-          label={t('form.paymentPack.priceIncludingTax.label')}
-          name="price"
-        />
-      </Grid>
-      <Grid item md={6} xs={12}>
-        <TextField
-          fullWidth
-          required
-          InputProps={{
-            inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
-            startAdornment: <InputAdornment position="start">%</InputAdornment>,
-          }}
-          label={t('form.paymentPack.tax.label')}
-          max={ALMOST_100}
-          name="tax"
-          type="number"
-        />
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <PriceField
+            fullWidth
+            required
+            helperText={t('form.paymentPack.priceIncludingTax.helperText')}
+            id="textfield_template_price"
+            label={t('form.paymentPack.priceIncludingTax.label')}
+            name="price"
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            fullWidth
+            required
+            InputProps={{
+              inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
+              startAdornment: (
+                <InputAdornment position="start">%</InputAdornment>
+              ),
+            }}
+            label={t('form.paymentPack.tax.label')}
+            max={ALMOST_100}
+            name="tax"
+            type="number"
+          />
+        </Grid>
       </Grid>
       <Grid item xs={12}>
         {!isUniversal && (

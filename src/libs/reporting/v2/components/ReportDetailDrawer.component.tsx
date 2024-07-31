@@ -60,6 +60,7 @@ type Props = {
   dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
   handleDrawerClosing: () => void;
   isDrawerOpen: boolean;
+  isFranchisor?: boolean;
   report: ReportConfiguration;
   reportCategoryMetadata: ReportMetadataValue;
 } & Pick<withDatatypeDynamicDataProps, 'handleGetDynamicDataForFilters'>;
@@ -84,6 +85,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
   handleGetDynamicDataForFilters,
   handleSubmit,
   isDrawerOpen,
+  isFranchisor,
   report,
   reportCategoryMetadata,
   setFieldValue,
@@ -149,10 +151,9 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
         values.config.groups,
         // @ts-expect-error TODO: harmonize ReportMetadataColumn,DataSourceFieldMetadata,DataSourceMetadata
         reportCategoryMetadata?.columns,
-        // TODO: tackle on franchisor implementation
-        false,
+        isFranchisor,
       ),
-    [values.config.groups, reportCategoryMetadata?.columns],
+    [values.config.groups, reportCategoryMetadata?.columns, isFranchisor],
   );
 
   const handleAddFilter = React.useCallback(() => {

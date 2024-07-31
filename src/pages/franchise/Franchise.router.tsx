@@ -62,6 +62,10 @@ const FranchiseReportDetail = asyncComponent(
   () => import('./FranchiseReportDetail.page'),
 );
 
+const FranchiseReportDetailV2 = asyncComponent(
+  () => import('./FranchiseReportDetailV2.page'),
+);
+
 const FranchiseReportList = asyncComponent(
   () => import('./FranchiseReportList.page'),
 );
@@ -219,6 +223,11 @@ const FranchiseRouter = (props: Props) => {
               exact
               component={FranchiseReportDetail}
               path="/f/reporting/:reportId"
+            />
+            <Route
+              exact
+              component={FranchiseReportDetailV2}
+              path="/f/reporting/:categoryName/:reportId"
             />
             <Route component={FranchiseReportList} path="/f/reporting" />
             <Route

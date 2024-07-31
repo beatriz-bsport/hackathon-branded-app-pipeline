@@ -50,11 +50,17 @@ import type {
 
 import { getObjectPermissions, getPermissions } from '#src/libs/role/selectors';
 
+type OwnProps = {
+  isFranchisor?: boolean;
+};
+
 type RouterProps = { categoryName: ReportCategoryEnum; reportId: number };
 
 type Props = RouterProps &
   ConnectedProps<typeof connector> &
-  withDatatypeDynamicDataProps;
+  withDatatypeDynamicDataProps &
+  RouterProps &
+  OwnProps;
 
 const ReportingDetail: React.FC<Props> = ({
   categoryName,
@@ -73,6 +79,7 @@ const ReportingDetail: React.FC<Props> = ({
   fetchSerializedReport,
   getReportSearchResults,
   handleGetDynamicDataForFilters,
+  isFranchisor,
   objectLevelPermissions,
   pushRouter,
   reportCategoriesMetadata,
@@ -101,15 +108,19 @@ const ReportingDetail: React.FC<Props> = ({
               (reportFilterConfig) =>
                 !reportFilterConfig.is_quick_report_filter,
             ) || null;
-          // Fetching data based on Report dates values in database column
-          fetchReportHeaders(reportId, {
-            report_filter_config_id: fetchedAdvancedReportFilterConfigs?.id,
-          });
+          // Fetching data based on Report dates values in database column if not franchisor
+          {
+            !isFranchisor &&
+              fetchReportHeaders(reportId, {
+                report_filter_config_id: fetchedAdvancedReportFilterConfigs?.id,
+              });
 
-          fetchSerializedReport(reportId, {
-            page: 1,
-            report_filter_config_id: fetchedAdvancedReportFilterConfigs?.id,
-          });
+            !isFranchisor &&
+              fetchSerializedReport(reportId, {
+                page: 1,
+                report_filter_config_id: fetchedAdvancedReportFilterConfigs?.id,
+              });
+          }
         },
       },
     );
@@ -118,6 +129,7 @@ const ReportingDetail: React.FC<Props> = ({
     reportId,
     fetchSerializedReport,
     fetchReportHeaders,
+    isFranchisor,
   ]);
 
   const { t } = useTranslation('reporting');
@@ -269,6 +281,7 @@ const ReportingDetail: React.FC<Props> = ({
     <>
       <ReportDetailNavigationDrawer
         categoryName={categoryName}
+        isFranchisor={isFranchisor}
         isNavigationDrawerExpanded={isNavigationDrawerExpanded}
         items={metadataGroupedByGlobalCategory}
         pushRouter={pushRouter}
@@ -287,6 +300,7 @@ const ReportingDetail: React.FC<Props> = ({
         handleExport={handleExcelExportation}
         handleGeneration={handleGeneration}
         handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
+        isFranchisor={isFranchisor}
         isNavigationDrawerExpanded={isNavigationDrawerExpanded}
         objectLevelPermissions={objectLevelPermissions}
         pushRouter={pushRouter}
@@ -335,7 +349,7 @@ const connector = connect(
   },
 );
 
-export default compose<Props, {}>(
+export default compose<Props, OwnProps>(
   routerParamsToProps({
     categoryName: 'categoryName:string',
     reportId: 'reportId:number',

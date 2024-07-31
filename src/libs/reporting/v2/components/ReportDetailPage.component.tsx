@@ -63,6 +63,7 @@ type Props = {
   excelExportLoading: boolean;
   handleExport: (values: ReportGenerationParams) => () => void;
   handleGeneration: (values: ReportGenerationParams) => void;
+  isFranchisor?: boolean;
   isNavigationDrawerExpanded: boolean;
   objectLevelPermissions: ObjectLevelPermissions;
   pushRouter: (path: string) => CallHistoryMethodAction<[string, unknown?]>;
@@ -97,6 +98,7 @@ const ReportDetailPage: React.FC<Props> = ({
   handleExport,
   handleGeneration,
   handleGetDynamicDataForFilters,
+  isFranchisor,
   isNavigationDrawerExpanded,
   objectLevelPermissions,
   pushRouter,
@@ -218,7 +220,11 @@ const ReportDetailPage: React.FC<Props> = ({
   const handleDeleteReport = React.useCallback(() => {
     deleteReport(reportId, {
       onSuccess: () => {
-        pushRouter(`/reporting/${categoryName}/${defaultCategoryReportId}`);
+        isFranchisor
+          ? pushRouter(
+              `/f/reporting/${categoryName}/${defaultCategoryReportId}`,
+            )
+          : pushRouter(`/reporting/${categoryName}/${defaultCategoryReportId}`);
         setIsDeleteModalOpen(false);
       },
       onError: () => {
@@ -231,6 +237,7 @@ const ReportDetailPage: React.FC<Props> = ({
     deleteReport,
     defaultCategoryReportId,
     categoryName,
+    isFranchisor,
   ]);
 
   if (reportFilterConfigLoading) {
@@ -246,6 +253,7 @@ const ReportDetailPage: React.FC<Props> = ({
         handleDrawerClosing={handleEditDrawerState(false)}
         handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
         isDrawerOpen={isEditDrawerOpen}
+        isFranchisor={isFranchisor}
         onSubmit={editDrawerSubmit}
         report={report}
         reportCategoryMetadata={reportCategoryMetadata}
@@ -287,6 +295,7 @@ const ReportDetailPage: React.FC<Props> = ({
           handleExport={handleExport}
           handleGeneration={handleGeneration}
           handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
+          isFranchisor={isFranchisor}
           loading={reportCategoriesMetadata.loading || !report}
           objectLevelPermissions={objectLevelPermissions}
           quickReportFilterConfig={quickReportFilterConfig}

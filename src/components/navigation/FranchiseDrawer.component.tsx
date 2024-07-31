@@ -510,10 +510,14 @@ export const FranchiseDrawer = (props: Props) => {
               />
               <main
                 className={classNames({
-                  [classes.content]: !location.pathname.includes('/shop'),
+                  [classes.content]: !(
+                    location.pathname.includes('/shop') ||
+                    /^\/f\/reporting\/[^/]+\/[^/]+$/.test(location.pathname)
+                  ),
                   [classes.contentWithoutPadding]:
-                    displayNewWebshopForFranchisees &&
-                    location.pathname.includes('/shop'),
+                    (displayNewWebshopForFranchisees &&
+                      location.pathname.includes('/shop')) ||
+                    /^\/f\/reporting\/[^/]+\/[^/]+$/.test(location.pathname),
                 })}
               >
                 {(location?.pathname ?? '').includes('/shop/') &&

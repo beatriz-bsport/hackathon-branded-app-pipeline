@@ -44,9 +44,10 @@ type Props = {
   excelExportLoading: boolean;
   handleExport: (values: ReportGenerationParams) => () => void;
   handleGeneration: (values: ReportGenerationParams) => void;
+  isFranchisor?: boolean;
+  loading: boolean;
   objectLevelPermissions: ObjectLevelPermissions;
   quickReportFilterConfig: ReportFilterConfig;
-  loading: boolean;
   report: ReportConfiguration;
   reportCategoriesMetadata: {
     results: ReportMetadataValue[];
@@ -64,6 +65,7 @@ const ReportDetailContent: React.FC<Props> = ({
   handleExport,
   handleGeneration,
   handleGetDynamicDataForFilters,
+  isFranchisor,
   loading,
   objectLevelPermissions,
   quickReportFilterConfig,
@@ -116,6 +118,7 @@ const ReportDetailContent: React.FC<Props> = ({
         handleExport={handleExport}
         handleGeneration={handleGeneration}
         handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
+        isFranchisor={isFranchisor}
         quickReportFilterConfig={quickReportFilterConfig}
         report={report}
         reportCategoryMetadata={reportCategoryMetadata}

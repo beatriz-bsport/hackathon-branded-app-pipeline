@@ -16,6 +16,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import { getItemInStorage } from '#src/utils/storage';
+
 import type { Theme } from '@material-ui/core/styles';
 import type { CallHistoryMethodAction } from 'connected-react-router';
 import type { ReportMetadataValue } from '#src/libs/reporting/common/types';
@@ -24,10 +26,12 @@ import {
   drawerSmallWidth,
   drawerWidth,
 } from '#src/libs/reporting/common/constants';
+import { STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN } from '#src/actions/constants';
 
 type Props = {
   categoryName: ReportCategoryEnum;
   isNavigationDrawerExpanded: boolean;
+  isFranchisor?: boolean;
   items: {
     title: string;
     categories: (ReportMetadataValue & {
@@ -43,6 +47,7 @@ type Props = {
 const ReportDetailNavigationDrawer: React.FC<Props> = ({
   items,
   isNavigationDrawerExpanded,
+  isFranchisor,
   categoryName,
   pushRouter,
   setIsNavigationDrawerExpanded,
@@ -73,14 +78,16 @@ const ReportDetailNavigationDrawer: React.FC<Props> = ({
 
   const handleClickCategory = React.useCallback(
     (categoryNameSelected: ReportCategoryEnum, reportId: number) => () => {
-      pushRouter(`/reporting/${categoryNameSelected}/${reportId}`);
+      isFranchisor
+        ? pushRouter(`/f/reporting/${categoryNameSelected}/${reportId}`)
+        : pushRouter(`/reporting/${categoryNameSelected}/${reportId}`);
     },
-    [pushRouter],
+    [pushRouter, isFranchisor],
   );
 
   const handleAllReportsClick = React.useCallback(() => {
-    pushRouter('/reporting');
-  }, [pushRouter]);
+    isFranchisor ? pushRouter('/f/reporting') : pushRouter('/reporting');
+  }, [pushRouter, isFranchisor]);
 
   const handleDrawerExpanded = React.useCallback(() => {
     setIsNavigationDrawerExpanded((prevState) => !prevState);
@@ -193,8 +200,15 @@ const useStyles = makeStyles<Theme, { isNavigationDrawerExpanded: boolean }>(
       overflowY: 'auto',
       position: 'fixed',
       top: 0,
-      // 64px being top banner
-      paddingTop: `calc(64px + ${theme.spacing(2)}px)`,
+      // 64px being top banner, 24px being franchisor banner
+      paddingTop: `calc(64px + ${theme.spacing(2)}px ${
+        getItemInStorage(
+          'session',
+          STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
+        )
+          ? `+ ${theme.spacing(3)}px`
+          : ''
+      })`,
       width: ({ isNavigationDrawerExpanded }) =>
         isNavigationDrawerExpanded ? drawerWidth : drawerSmallWidth,
       alignItems: ({ isNavigationDrawerExpanded }) =>

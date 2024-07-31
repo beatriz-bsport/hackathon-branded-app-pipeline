@@ -50,6 +50,7 @@ type Props = {
   ) => void;
   excelExportLoading: boolean;
   handleExport: (values: ReportGenerationParams) => () => void;
+  isFranchisor?: boolean;
   quickReportFilterConfig: ReportFilterConfig;
   reportCategoryMetadata: ReportMetadataValue;
   report: ReportConfiguration;
@@ -78,6 +79,7 @@ const ReportDetailContentHeader: React.FC<
   excelExportLoading,
   generationLoading,
   handleExport,
+  isFranchisor,
   handleGetDynamicDataForFilters,
   handleSubmit,
   quickReportFilterConfig,
@@ -218,7 +220,7 @@ const ReportDetailContentHeader: React.FC<
             columnsDataSelectedQuickFilter={columnsDataSelectedQuickFilter}
             getDataByType={handleGetDynamicDataForFilters}
             handleQuickFilterModalClose={handleQuickFilterModalClose}
-            isFranchisor={false}
+            isFranchisor={isFranchisor}
             isQuickFilterConfigColumnModalOpen={
               isQuickFilterConfigColumnModalOpen
             }

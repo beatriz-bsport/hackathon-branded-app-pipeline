@@ -18,6 +18,14 @@ import {
   updateReport as updateReportAction,
   createReport as createReportAction,
 } from '#src/libs/reporting/v1/actions';
+
+import { fetchDefaultReports as fetchDefaultReportsAction } from '#src/libs/reporting/v2/actions';
+
+import {
+  getReportsV2,
+  getReportV2Loading,
+} from '#src/libs/reporting/v2/selectors';
+
 import {
   getIsReportV2Displayed,
   getIsReportAlertDisplayedInV2,
@@ -36,19 +44,23 @@ import { OptionCallback } from '#src/state/types';
 import { OwnProps } from '#src/components/HighlightedText/HighlightedText.component';
 import ReportDashboardReworked from '#src/libs/reporting/v2/components/ReportDashboardReworked.component';
 import ReportVersionSwitcher from '#src/libs/reporting/v2/components/ReportVersionSwitcher.component';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
 
 const FranchiseReportList: React.FC<Props> = ({
   createReport,
   deleteReport,
+  fetchDefaultReports,
   fetchReportMetadata,
   fetchReports,
-  goToReport,
   IsReportAlertDisplayedInV2,
   isV2Displayed,
   metadata,
+  pushRouter,
   reports,
+  reportsV2,
+  reportsV2Loading,
   setIsReportAlertDisplayedInV2,
   setIsReportV2Displayed,
   updateReport,
@@ -56,7 +68,8 @@ const FranchiseReportList: React.FC<Props> = ({
   useEffect(() => {
     fetchReports();
     fetchReportMetadata();
-  }, [fetchReports, fetchReportMetadata]);
+    fetchDefaultReports();
+  }, [fetchReports, fetchReportMetadata, fetchDefaultReports]);
   const classes = useStyles();
 
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =
@@ -81,7 +94,30 @@ const FranchiseReportList: React.FC<Props> = ({
     setIsReportAlertDisplayedInV2(false);
   }, [setIsReportAlertDisplayedInV2]);
 
-  if (metadata.loading || !metadata.results || reports.loading) {
+  const handleGoToReportV1 = React.useCallback(
+    (id: number) => pushRouter(`/f/reporting/${id}`),
+    [pushRouter],
+  );
+
+  const handleGoToReportV2 = React.useCallback(
+    (categoryName: ReportCategoryEnum) => () => {
+      const reportId = reportsV2?.find(
+        (result) => result.category === categoryName,
+      )?.id;
+
+      reportId
+        ? pushRouter(`/f/reporting/${categoryName}/${reportId}`)
+        : pushRouter('/f/reporting');
+    },
+    [pushRouter, reportsV2],
+  );
+
+  if (
+    metadata.loading ||
+    !metadata.results ||
+    (!isV2Displayed && reports.loading) ||
+    (isV2Displayed && reportsV2Loading)
+  ) {
     return <LinearProgress />;
   }
 
@@ -119,16 +155,16 @@ const FranchiseReportList: React.FC<Props> = ({
         isV2Displayed={isV2Displayed}
       />
       {isV2Displayed ? (
-        // @ts-expect-error TODO: franchise case
         <ReportDashboardReworked
           handleConfirmationDialogState={handleConfirmationDialogState}
+          handleGoToReportV2={handleGoToReportV2}
           metadata={metadata.results}
         />
       ) : (
         <ReportDashboard
           metadata={metadata.results}
           onDeleteReport={deleteReport}
-          onReportDetail={goToReport}
+          onReportDetail={handleGoToReportV1}
           reportConfigurations={reports.results ?? []}
           upsertReportConfiguration={handleUpsert}
         />
@@ -141,6 +177,8 @@ const connector = connect(
   (state: RootState) => ({
     metadata: getReportMetadata(state),
     reports: getReports(state),
+    reportsV2: getReportsV2(state),
+    reportsV2Loading: getReportV2Loading(state),
     isV2Displayed: getIsReportV2Displayed(state),
     IsReportAlertDisplayedInV2: getIsReportAlertDisplayedInV2(state),
   }),
@@ -150,9 +188,10 @@ const connector = connect(
     updateReport: updateReportAction,
     createReport: createReportAction,
     deleteReport: deleteReportAction,
-    goToReport: (id: number) => push(`reporting/${id}`),
+    pushRouter: push,
     setIsReportAlertDisplayedInV2: setIsReportAlertDisplayedAction,
     setIsReportV2Displayed: setIsReportV2DisplayedAction,
+    fetchDefaultReports: fetchDefaultReportsAction,
   },
 );
 

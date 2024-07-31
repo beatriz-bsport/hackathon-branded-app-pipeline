@@ -1152,7 +1152,8 @@
     "seeLess": "See less",
     "seeMore": "See more",
     "send": "Send",
-    "reset": "Reset"
+    "reset": "Reset",
+    "more": "More"
   },
   "communication": {
     "table": { "columns": { "member": "Member", "title": "Preview", "date_created": "Date", "status": "Status" } },

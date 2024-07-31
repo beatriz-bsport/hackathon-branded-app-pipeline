@@ -3,7 +3,7 @@
   height: var(--bs-navigation-app-bar-height);
   padding: var(--bs-space-size-4) var(--bs-space-size-8);
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--bs-space-size-4);
   background: var(--bs-color-action-light);
   box-shadow: var(--bs-shadow-s);

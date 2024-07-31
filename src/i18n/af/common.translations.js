@@ -83,4 +83,5 @@ exports.default = {
   seeMore: 'See more',
   send: 'Send',
   reset: 'Reset',
+  more: 'More',
 };

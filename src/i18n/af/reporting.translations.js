@@ -964,6 +964,7 @@ const getTranslations = async () => {
       inputLabel: 'View name',
       error: 'A name is required for the view',
       maxLength: 'A name can have a maximum of 200 characters.',
+      nameAlreadyUsed: 'Name is already used',
     },
     reportDeleteModal: {
       title: 'Are you sure you want to delete this view',

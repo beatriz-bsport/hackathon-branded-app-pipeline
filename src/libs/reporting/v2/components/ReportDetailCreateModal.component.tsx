@@ -5,12 +5,15 @@ import { withFormik, FormikProps, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import ModalConfirm from '#src/components/ModalConfirm.component';
-// @ts-expect-error js file
-import { TextField } from '#src/components/forms';
-import Typography from '@material-ui/core/Typography/Typography';
+
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import { REPORT_NAME_MAX_LENGTH } from '#src/libs/reporting/common/constants';
+import { useCheckIsNameAlreadyUsed } from '#src/libs/reporting/v2/hooks';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 type Props = {
+  categoryName: ReportCategoryEnum;
   handleCancel: () => void;
   open: boolean;
 };
@@ -28,13 +31,14 @@ const ReportDetailCreateModalSchema = Yup.object().shape({
 });
 
 const ReportDetailCreateModal: React.FC<Props & FormikProps<InitialValues>> = ({
+  categoryName,
+  errors,
   handleCancel,
   handleSubmit,
   open,
-  errors,
+  values,
 }) => {
   const { t } = useTranslation('reporting');
-
   const handleMessageRendering = React.useCallback(
     (message: string) => (
       <Typography color="error" variant="body2">
@@ -44,12 +48,18 @@ const ReportDetailCreateModal: React.FC<Props & FormikProps<InitialValues>> = ({
     [t],
   );
 
+  const { isNameChecking, handleOnChange } = useCheckIsNameAlreadyUsed(
+    'reportName',
+    categoryName,
+  );
+
   const handleConfirm = React.useCallback(() => {
     handleSubmit();
   }, [handleSubmit]);
 
   return (
     <ModalConfirm
+      disableConfirm={!!errors?.reportName || isNameChecking}
       handleCancel={handleCancel}
       handleConfirm={handleConfirm}
       open={open}
@@ -61,6 +71,8 @@ const ReportDetailCreateModal: React.FC<Props & FormikProps<InitialValues>> = ({
         error={!!errors?.reportName}
         label={t('reportCreateModal.inputLabel')}
         name="reportName"
+        onChange={handleOnChange}
+        value={values.reportName}
         variant="outlined"
       />
       <ErrorMessage name="reportName" render={handleMessageRendering} />

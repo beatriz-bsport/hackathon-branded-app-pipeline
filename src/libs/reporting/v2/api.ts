@@ -9,6 +9,7 @@ import type {
   ReportFilterConfig,
   ReportFilterConfigCreateData,
   ReportUpdateAPI,
+  IsReportNameUsedParams,
 } from '#src/libs/reporting/common/types';
 import {
   API_URI,
@@ -98,6 +99,14 @@ export const fetchSerializedReportV2 = (
 export const fetchExcelReporting = (reportId: number, params: any) => {
   return getAuth<string>(
     `${API_URI}/reporting/reports-v2/${reportId}/export_async/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
+export const checkIsReportNameUsedAPI = (params: IsReportNameUsedParams) => {
+  return getAuth<{ is_used: boolean }>(
+    `${API_URI}/reporting/reports-v2/is_report_name_used/${buildUrlParams(
       params,
     )}`,
   );

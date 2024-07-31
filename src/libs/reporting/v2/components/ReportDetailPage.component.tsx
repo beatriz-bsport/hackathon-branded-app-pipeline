@@ -241,6 +241,7 @@ const ReportDetailPage: React.FC<Props> = ({
     <>
       <ReportDetailDrawer
         advancedReportFilterConfig={advancedReportFilterConfig}
+        categoryName={categoryName}
         dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
         handleDrawerClosing={handleEditDrawerState(false)}
         handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
@@ -250,6 +251,7 @@ const ReportDetailPage: React.FC<Props> = ({
         reportCategoryMetadata={reportCategoryMetadata}
       />
       <ReportDetailCreateModal
+        categoryName={categoryName}
         handleCancel={handleAddModalState(false)}
         onSubmit={handleCreateReport}
         open={isAddModalOpen}

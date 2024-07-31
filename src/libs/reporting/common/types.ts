@@ -228,3 +228,9 @@ export type ReportGenerationParams = {
   page?: number;
   reportFilterConfigId?: number;
 };
+
+export type IsReportNameUsedParams = {
+  name: string;
+  category: ReportCategoryEnum;
+  reportIdToIgnore?: number;
+};

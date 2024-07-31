@@ -6,11 +6,12 @@ import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
+import { useCheckIsNameAlreadyUsed } from '#src/libs/reporting/v2/hooks';
+
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-// @ts-expect-error js file
-import { TextField } from '#src/components/forms';
+import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -50,8 +51,10 @@ import type {
   ReportMetadataValue,
 } from '#src/libs/reporting/common/types';
 import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 type Props = {
+  categoryName: ReportCategoryEnum;
   // dynamicDataHasBeenLoaded unused: just to rerender component when data has been loaded
   // eslint-disable-next-line react/no-unused-prop-types
   dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
@@ -76,6 +79,7 @@ type InitialValues = {
 };
 
 const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
+  categoryName,
   handleDrawerClosing,
   handleGetDynamicDataForFilters,
   handleSubmit,
@@ -84,6 +88,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
   reportCategoryMetadata,
   setFieldValue,
   values,
+  isValid,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
@@ -222,6 +227,12 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
     [values.config.groups, values.columnIdentifiers],
   );
 
+  const { isNameChecking, handleOnChange } = useCheckIsNameAlreadyUsed(
+    'name',
+    categoryName,
+    report?.id,
+  );
+
   return (
     <GenericResponsiveDrawer
       withoutPadding
@@ -240,7 +251,9 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
               disabled={report?.is_category_default}
               label={t('reportNameLabel')}
               name="name"
+              onChange={handleOnChange}
               placeholder={t('reportNameLabel')}
+              value={values.name}
               variant="outlined"
             />
             <ErrorMessage name="name" render={handleMessageRendering} />
@@ -385,7 +398,12 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
           <SecondaryActionButton onClick={handleDrawerClosing} variant="text">
             {t('form.cancel')}
           </SecondaryActionButton>
-          <Button color="primary" type="submit" variant="contained">
+          <Button
+            color="primary"
+            disabled={!isValid || isNameChecking}
+            type="submit"
+            variant="contained"
+          >
             {t('form.saveAndGenerate')}
           </Button>
         </div>

@@ -1,9 +1,11 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { useTranslation } from 'react-i18next';
 
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Alert from '@material-ui/lab/Alert';
 
 import { MuiThemeProvider } from '@material-ui/core';
 import { cardHeaderStatsTheme } from '#src/libs/reporting/v2/mui-theme-providers';
@@ -29,6 +31,8 @@ import type { OptionCallback } from '#src/state/types';
 import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { CREDIT_COLUMNS } from '#src/libs/reporting/common/constants';
+import { getCreditFactor } from '#src/libs/theme/selectors';
 
 type Props = {
   categoryName: ReportCategoryEnum;
@@ -71,7 +75,7 @@ const ReportDetailContent: React.FC<Props> = ({
   userPermissions,
 }) => {
   const classes = useStyles();
-
+  const { t } = useTranslation('reporting');
   const handleGenerateNextPage = React.useCallback(() => {
     handleGeneration({
       page: reportGeneratedRows.next_page,
@@ -87,6 +91,15 @@ const ReportDetailContent: React.FC<Props> = ({
   const hasReportBeenGenerated = React.useMemo(
     () => !!reportHeaders?.averageable,
     [reportHeaders],
+  );
+
+  const showCreditFactorWarning = React.useMemo(
+    () =>
+      getCreditFactor() !== 1 &&
+      report?.columns.some((columnIdentifier) =>
+        CREDIT_COLUMNS.includes(columnIdentifier),
+      ),
+    [report?.columns],
   );
 
   if (loading) {
@@ -116,6 +129,13 @@ const ReportDetailContent: React.FC<Props> = ({
         />
       </MuiThemeProvider>
       <Divider />
+      {showCreditFactorWarning && (
+        <Alert severity="warning">
+          {t('helperText.decimalCredit', {
+            creditFactor: getCreditFactor(),
+          })}
+        </Alert>
+      )}
       <ReportTable
         v2
         className={classes.reportTable}

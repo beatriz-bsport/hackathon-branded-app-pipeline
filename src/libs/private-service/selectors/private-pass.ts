@@ -5,13 +5,12 @@ import { getAllPaymentPacks } from '#src/libs/payment-packs/selectors';
 import { FranchiseCompany } from '#src/libs/franchise/types';
 import type {
   PrivatePass,
-  // @ts-expect-error
-  PrivatePassWithService,
   PrivatePassTemplate,
   PrivatePassTemplateAPI,
   PrivatePassTemplateInstance,
   ServiceCompatibilityPass,
   PrivateServiceCompatibilityPass,
+  PrivatePassWithDetailedPrivateServices,
 } from '../types';
 import { _getPrivateServiceDict } from './private-service';
 import { getAllPrivateSlotsDict } from './private-slot';
@@ -38,12 +37,10 @@ const _getPrivatePassListIds = (state: RootState) =>
 export const getPrivatePassById = (
   state: RootState,
   // @ts-expect-error
-): Array<PrivatePassWithService> => state.privateService.privatePass.byId;
+): Array<PrivatePass> => state.privateService.privatePass.byId;
 
-export const getPrivatePass = (
-  state: RootState,
-  id: number,
-): PrivatePassWithService => getPrivatePassById(state)[id];
+export const getPrivatePass = (state: RootState, id: number): PrivatePass =>
+  getPrivatePassById(state)[id];
 
 export const getPrivatePassListBase: (State: RootState) => Array<PrivatePass> =
   createSelector([_getPrivatePassData, _getPrivatePassListIds], (data, ids) =>
@@ -70,9 +67,10 @@ export const getPrivatePassAsConsumer = createSelector(
   (data, ids) => ids.map((id) => data[id]).filter((p) => p.available),
 );
 
+//@ts-expect-error
 export const getPrivatePassListWithPrivateService: (
   State: RootState,
-) => Array<PrivatePassWithService> = createSelector(
+) => Array<PrivatePassWithDetailedPrivateServices> = createSelector(
   [_getPrivateServiceDict, getPrivatePassListBase],
   (servicesById, passesList) =>
     passesList.map((pass) => ({
@@ -83,47 +81,41 @@ export const getPrivatePassListWithPrivateService: (
 
 export const getPrivatePassAvailableListWithPrivateService: (
   State: RootState,
-) => Array<PrivatePassWithService> = createSelector(
+) => Array<PrivatePassWithDetailedPrivateServices> = createSelector(
   getPrivatePassListWithPrivateService,
   (passList) => passList.filter((p) => p.available),
 );
 
 export const getPrivatePassManagerOnlyList: (
   State: RootState,
-) => Array<PrivatePassWithService> = createSelector(
-  getPrivatePassListBase,
-  (passList) => passList.filter((p) => p.available && p.manager_only),
+) => Array<PrivatePass> = createSelector(getPrivatePassListBase, (passList) =>
+  passList.filter((p) => p.available && p.manager_only),
 );
 
 export const getPrivatePassListCompatibleWithVideo: (
   State: RootState,
-) => Array<PrivatePassWithService> = createSelector(
-  getPrivatePassListBase,
-  (passList) => passList.filter((p) => p.full_vod_access),
+) => Array<PrivatePass> = createSelector(getPrivatePassListBase, (passList) =>
+  passList.filter((p) => p.full_vod_access),
 );
 
 export const getPrivatePassCustomerEnabled: (
   State: RootState,
-) => Array<PrivatePassWithService> = createSelector(
-  getPrivatePassListBase,
-  (passList) => passList.filter((p) => p.available && !p.manager_only),
+) => Array<PrivatePass> = createSelector(getPrivatePassListBase, (passList) =>
+  passList.filter((p) => p.available && !p.manager_only),
 );
 
 export const getAvailablePrivatePasses: (
   State: RootState,
-) => Array<PrivatePassWithService> = createSelector(
-  getPrivatePassListBase,
-  (passList) =>
-    passList.filter(
-      (p) => p.available && !p.is_unpaid_private_booking_integration,
-    ),
+) => Array<PrivatePass> = createSelector(getPrivatePassListBase, (passList) =>
+  passList.filter(
+    (p) => p.available && !p.is_unpaid_private_booking_integration,
+  ),
 );
 
 export const getUnavailablePrivatePasses: (
   State: RootState,
-) => Array<PrivatePassWithService> = createSelector(
-  getPrivatePassListBase,
-  (passList) => passList.filter((p) => !p.available),
+) => Array<PrivatePass> = createSelector(getPrivatePassListBase, (passList) =>
+  passList.filter((p) => !p.available),
 );
 
 export const withServices = memoize((selector) =>
@@ -165,7 +157,7 @@ export const withAvailable = memoize((selector) =>
 
 export const getDisabledPrivatePassAvailableListWithPrivateService: (
   State: RootState,
-) => Array<PrivatePassWithService> = createSelector(
+) => Array<PrivatePassWithDetailedPrivateServices> = createSelector(
   getPrivatePassListWithPrivateService,
   (passList) => passList.filter((p) => !p.available),
 );
@@ -212,7 +204,7 @@ export const getCompatibleServicePassLoading = (state: RootState) =>
 
 export const getCompatibilityPassWithService: (
   State: RootState,
-) => Array<PrivatePassWithService> = createSelector(
+) => Array<ServiceCompatibilityPass> = createSelector(
   [
     _getPrivateServiceDict,
     getAllPrivateSlotsDict,

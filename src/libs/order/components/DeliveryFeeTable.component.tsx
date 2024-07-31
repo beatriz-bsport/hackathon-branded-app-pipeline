@@ -44,7 +44,7 @@ export function PaymentRuleTable(props: Props) {
         </TableRow>
       </TableHead>
       <TableBody>
-        {props.deliveryFees.map((df) => (
+        {props.deliveryFees?.map((df) => (
           <TableRow key={df.id}>
             <TableCell>{df.name}</TableCell>
             <TableCell>{df.fee}</TableCell>

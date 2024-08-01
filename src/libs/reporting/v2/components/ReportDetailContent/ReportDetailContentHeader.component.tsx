@@ -42,7 +42,7 @@ import QuickReportFilterConfigColumnsMenu from '#src/libs/reporting/common/compo
 
 type Props = {
   categoryName: ReportCategoryEnum;
-  generationLoading: boolean;
+  generationDisabled: boolean;
   editReportFilterConfig: (
     reportFilterConfigId: number,
     data: Partial<ReportFilterConfig>,
@@ -77,7 +77,7 @@ const ReportDetailContentHeader: React.FC<
   categoryName,
   editReportFilterConfig,
   excelExportLoading,
-  generationLoading,
+  generationDisabled,
   handleExport,
   isFranchisor,
   handleGetDynamicDataForFilters,
@@ -176,6 +176,7 @@ const ReportDetailContentHeader: React.FC<
           )}
         </div>
         <ReportDetailDateSelectors
+          dateInputDisabled={generationDisabled}
           dateType={reportCategoryMetadata.date_type}
           timeWindowFilteringEnabled={
             reportCategoryMetadata.time_window_filtering_enabled
@@ -242,7 +243,7 @@ const ReportDetailContentHeader: React.FC<
         <div className={classes.actionButtonsWrapper}>
           <Button
             color="primary"
-            disabled={generationLoading}
+            disabled={generationDisabled}
             type="submit"
             variant="contained"
           >

@@ -279,7 +279,9 @@ const ReportDetailPage: React.FC<Props> = ({
         <ReportDetailHeader
           advancedReportFilterConfig={advancedReportFilterConfig}
           categoryName={categoryName}
-          deleteDisabled={report?.is_category_default}
+          deleteDisabled={
+            report?.is_category_default || reportGeneratedRows.loading
+          }
           handleAddModalOpening={handleAddModalState(true)}
           handleDeleteModalOpening={handleDeleteModalState(true)}
           handleEditDrawerOpening={handleEditDrawerState(true)}

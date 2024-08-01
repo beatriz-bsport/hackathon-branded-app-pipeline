@@ -10,12 +10,14 @@ import { QUICK_DATE_SELECTIONS } from '#src/components/date/constants';
 
 type Props = {
   initialTimePeriod: string;
+  isDisabled?: boolean;
   onChange: (timePeriod: string) => void;
   type: 'single' | 'range';
 };
 
 const QuickDateSelector: React.FC<Props> = ({
   initialTimePeriod,
+  isDisabled,
   onChange,
   type,
 }) => {
@@ -49,6 +51,7 @@ const QuickDateSelector: React.FC<Props> = ({
     <MuiThemeProvider theme={QuickDateSelectorTheme}>
       <Select
         autoWidth
+        disabled={isDisabled}
         MenuProps={{
           anchorOrigin: {
             vertical: 'bottom',

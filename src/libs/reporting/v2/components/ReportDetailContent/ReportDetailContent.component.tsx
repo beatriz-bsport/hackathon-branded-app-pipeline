@@ -113,8 +113,9 @@ const ReportDetailContent: React.FC<Props> = ({
       <ReportDetailContentHeader
         categoryName={categoryName}
         editReportFilterConfig={editReportFilterConfig}
+        excelExportDisabled={excelExportLoading || reportGeneratedRows.loading}
         excelExportLoading={excelExportLoading}
-        generationLoading={reportGeneratedRows.loading}
+        generationDisabled={reportGeneratedRows.loading}
         handleExport={handleExport}
         handleGeneration={handleGeneration}
         handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}

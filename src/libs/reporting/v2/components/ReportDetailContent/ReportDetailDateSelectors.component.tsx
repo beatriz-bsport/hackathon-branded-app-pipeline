@@ -23,11 +23,13 @@ import {
 
 type Props = {
   dateType: ReportDateType;
+  dateInputDisabled: boolean;
   timeWindowFilteringEnabled: boolean;
 };
 
 const ReportDetailDateSelectors: React.FC<Props> = ({
   dateType,
+  dateInputDisabled,
   timeWindowFilteringEnabled,
 }) => {
   const classes = useStyles();
@@ -112,12 +114,14 @@ const ReportDetailDateSelectors: React.FC<Props> = ({
         <>
           <QuickDateSelector
             initialTimePeriod={values.timePeriod}
+            isDisabled={dateInputDisabled}
             onChange={handleQuickRangeDateSelectorChange}
             type="range"
           />
           <DateRangeSelector
             date_end={DateTime.fromISO(values.dateEnd).toUnixInteger()}
             date_start={DateTime.fromISO(values.dateStart).toUnixInteger()}
+            isDisabled={dateInputDisabled}
             isRapidSelectionDisplayed={false}
             onSubmit={handleRangeDatePickerSubmit}
             timePeriod={values.timePeriod as DateFilterRangeEnum}
@@ -128,11 +132,13 @@ const ReportDetailDateSelectors: React.FC<Props> = ({
         <>
           <QuickDateSelector
             initialTimePeriod={values.timePeriod}
+            isDisabled={dateInputDisabled}
             onChange={handleQuickSingleDateSelectorChange}
             type="single"
           />
           <DatePickerSelector
             date={DateTime.fromISO(values.dateStart).toUnixInteger()}
+            isDisabled={dateInputDisabled}
             isRapidSelectionDisplayed={false}
             onSubmit={handleSingleDatePickerSubmit}
             timePeriod={values.timePeriod as DateFilterEnum}
@@ -141,6 +147,7 @@ const ReportDetailDateSelectors: React.FC<Props> = ({
       )}
       {timeWindowFilteringEnabled && (
         <TimeRangeSelector
+          isDisabled={dateInputDisabled}
           onSubmit={handleTimeSelectorSubmit}
           originalTimeEnd={values.timeEnd}
           originalTimeStart={values.timeStart}

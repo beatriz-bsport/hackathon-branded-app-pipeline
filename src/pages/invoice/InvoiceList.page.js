@@ -30,6 +30,7 @@ import {
   fetchPaymentList,
   sendInvoiceToQuickbooks,
   fetchSpecificInvoice,
+  generateInvoiceXml as generateInvoiceXmlAction,
 } from '../../libs/invoice/actions';
 
 import type { Invoice } from '../../libs/invoice/types';
@@ -49,6 +50,7 @@ type Props = {
   fetchInvoiceList: (params: any, options: OptionCallback) => void,
   fetchPaymentList: (params: any) => void,
   finalizeInvoice: (uuid: string) => void,
+  generateInvoiceXml: (uuid: string, options: OptionCallback) => void,
   invoiceList: Array<Invoice>,
   loading: boolean,
   nestedDataLoading: boolean,
@@ -166,6 +168,10 @@ export class InvoiceList extends Component<Props, State> {
           containerComponent={Paper}
           count={this.props.count}
           finalizeInvoice={this.props.finalizeInvoice}
+          generateInvoiceXml={
+            this.props.companyTheme?.invoice_exporter_id &&
+            this.props.generateInvoiceXml
+          }
           invoiceList={this.props.invoiceList}
           loading={this.props.loading}
           nestedDataLoading={this.props.nestedDataLoading}
@@ -235,6 +241,7 @@ export default compose(
       sendInvoiceToQuickbooksAction: sendInvoiceToQuickbooks,
       fetchSpecificInvoiceAction: fetchSpecificInvoice,
       retrieveQuickbooksApp: retrieveQuickbooksAppAction,
+      generateInvoiceXml: generateInvoiceXmlAction,
     },
   ),
   withHandlers({

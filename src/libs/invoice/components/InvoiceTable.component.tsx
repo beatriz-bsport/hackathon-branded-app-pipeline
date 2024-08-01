@@ -46,7 +46,7 @@ import { DateTime } from 'luxon';
 import type { ConsumerGiftcard, Giftcard } from '#src/libs/giftcard/types';
 import UseConsumerGiftcardForm from '#src/libs/payment/components/UseConsumerGiftcardForm.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import type { Invoice } from '#src/libs/invoice/types';
+import type { Invoice, InvoiceV1Serializer } from '#src/libs/invoice/types';
 import type { Member } from '#src/libs/member/types';
 import RedButton from '../../../components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -71,6 +71,10 @@ type Props = {
   companyId?: number;
   consumerGiftcardList: Array<ConsumerGiftcard<Giftcard, Member, Member>>;
   finalizeInvoice: (uuid: string, callback: OptionCallback<Invoice>) => void;
+  generateInvoiceXml?: (
+    uuid: string,
+    options: OptionCallback<InvoiceV1Serializer>,
+  ) => void;
   getInvoicePaymentGroupIsProcessing?: (invoiceUuid: string) => boolean;
   hideMemberName: boolean;
   hidePayButton?: boolean;
@@ -287,6 +291,27 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                       >
                         {t('actions.download')}
                       </MenuItem>
+                      {!!props?.generateInvoiceXml && (
+                        <MenuItem
+                          onClick={(ev) => {
+                            ev.stopPropagation();
+                            setProcessing(true);
+                            props.generateInvoiceXml(invoice.uuid, {
+                              onError: () => setProcessing(false),
+                              onSuccess: (inv: InvoiceV1Serializer) => {
+                                setDownloadMenuOpen(null);
+                                window.open(
+                                  inv.exported_invoice_file_path,
+                                  '_blank',
+                                );
+                                setProcessing(false);
+                              },
+                            });
+                          }}
+                        >
+                          {t('actions.downloadXml')}
+                        </MenuItem>
+                      )}
                       <MenuItem
                         disabled={!invoice.is_v2 || !invoice.payments.length}
                         onClick={(ev) => {
@@ -657,6 +682,10 @@ export const InvoiceTable = (props: {
     options?: OptionCallback,
   ) => void;
   getInvoicePaymentGroupIsProcessing?: (invoiceUuid: string) => boolean;
+  generateInvoiceXml?: (
+    uuid: string,
+    options: OptionCallback<InvoiceV1Serializer>,
+  ) => void;
 }) => {
   const { t } = useTranslation(['invoice']);
 
@@ -714,6 +743,7 @@ export const InvoiceTable = (props: {
                         // @ts-expect-error
                         consumerGiftcardList={props.consumerGiftcardList}
                         finalizeInvoice={props.finalizeInvoice}
+                        generateInvoiceXml={props.generateInvoiceXml}
                         getInvoicePaymentGroupIsProcessing={
                           props.getInvoicePaymentGroupIsProcessing
                         }

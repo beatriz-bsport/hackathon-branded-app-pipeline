@@ -51,6 +51,7 @@ export function invoiceFactory(options?: Partial<Invoice>): Invoice {
     source_invoice: options?.source_invoice ?? null,
     source: options?.source ?? faker.number.int(),
     stripe_invoice_pdf: options?.stripe_invoice_pdf ?? null,
+    exported_invoice_file_path: options?.exported_invoice_file_path ?? null,
     uuid: options?.uuid ?? faker.string.uuid(),
     voucher: options?.voucher ?? '',
   };
@@ -99,6 +100,7 @@ export function consumerInvoiceFactory(
     reverse_invoices: options?.reverse_invoices ?? [],
     reverted: options?.reverted ?? false,
     stripe_invoice_pdf: options?.stripe_invoice_pdf ?? null,
+    exported_invoice_file_path: options?.exported_invoice_file_path ?? null,
     uuid: options?.uuid ?? faker.string.uuid(),
     voucher: options?.voucher ?? '',
   };

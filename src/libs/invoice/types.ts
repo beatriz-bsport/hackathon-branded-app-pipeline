@@ -56,6 +56,7 @@ export type Invoice<M = number, PI = number, II = number> = {
   uuid: string;
   is_finalized: boolean;
   stripe_invoice_pdf: string | null;
+  exported_invoice_file_path: string | null;
   fully_payed: string;
   price_due: string;
   price_payed: string;
@@ -87,6 +88,7 @@ export type ConsumerInvoiceREST = {
   invoice_items: InvoiceItem[];
   invoice_legal_identifier: string | null;
   invoice_type: InvoiceType;
+  exported_invoice_file_path: string | null;
   is_draft: boolean;
   is_finalized: boolean;
   is_quick_invoice: boolean | null;

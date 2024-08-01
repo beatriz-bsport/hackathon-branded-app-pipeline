@@ -24,6 +24,8 @@ import useIsTextExpandable from '#src/hooks/useIsTextExpandable';
 
 import type { ShopSupplier, ShopSupplierTemplate } from '#src/libs/shop/types';
 
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+
 type Props = {
   supplierList: ShopSupplier[] | ShopSupplierTemplate[];
   handleEditSupplier: (supplier: ShopSupplier | ShopSupplierTemplate) => void;
@@ -92,24 +94,29 @@ const ShopSupplierListItem: React.FC<ShopSupplierListItemProps> = React.memo(
               <VisibilityIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip
-            title={t(
-              'shopList.tab.settings.section.suppliers.table.action.edit',
-            )}
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="product.shopReworked.allowed_actions.editSettings"
           >
-            <IconButton color="primary" onClick={onEditSupplier}>
-              <EditIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip
-            title={t(
-              'shopList.tab.settings.section.suppliers.table.action.delete',
-            )}
-          >
-            <IconButton onClick={onDeleteSupplier}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
+            <Tooltip
+              title={t(
+                'shopList.tab.settings.section.suppliers.table.action.edit',
+              )}
+            >
+              <IconButton color="primary" onClick={onEditSupplier}>
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip
+              title={t(
+                'shopList.tab.settings.section.suppliers.table.action.delete',
+              )}
+            >
+              <IconButton onClick={onDeleteSupplier}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </ObjectLevelPermissionWrapper>
         </TableCell>
       </TableRow>
     );

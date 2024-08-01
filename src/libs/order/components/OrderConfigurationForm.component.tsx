@@ -10,6 +10,8 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { compose } from 'recompose';
 import { Theme, WithStyles, createStyles } from '@material-ui/core';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+
 import type { DeliveryConfiguration, DeliveryFee } from '#src/libs/order/types';
 
 type Props = {
@@ -57,31 +59,38 @@ export class OrderConfigrationForm extends Component<Props, State> {
             <InputLabel htmlFor="default-delivery-fee">
               {t('configuration.defaultDeliveryFee')}
             </InputLabel>
-            <Select
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                this.handleChange(parseInt(event.target.value, 10))
-              }
-              value={this.state.configuration?.default_delivery_fee ?? -1}
-            >
-              <MenuItem value={-1}>
-                {t('configuration.noDefaultDeliveryFee')}
-              </MenuItem>
-              {(deliveryFees || []).map((deliveryFee) => (
-                <MenuItem key={deliveryFee.id} value={deliveryFee.id}>
-                  {deliveryFee.name}
+            <ObjectLevelPermissionWrapper requiredPermission="product.shopReworked.allowed_actions.editSettings">
+              <Select
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  this.handleChange(parseInt(event.target.value, 10))
+                }
+                value={this.state.configuration?.default_delivery_fee ?? -1}
+              >
+                <MenuItem value={-1}>
+                  {t('configuration.noDefaultDeliveryFee')}
                 </MenuItem>
-              ))}
-            </Select>
+                {(deliveryFees || []).map((deliveryFee) => (
+                  <MenuItem key={deliveryFee.id} value={deliveryFee.id}>
+                    {deliveryFee.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </ObjectLevelPermissionWrapper>
           </FormControl>
         </div>
-        <Button
-          color="primary"
-          disabled={this.compareStateAndProps()}
-          onClick={this.submit}
-          variant="contained"
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="product.shopReworked.allowed_actions.editSettings"
         >
-          {t('configuration.forms.onSubmit')}
-        </Button>
+          <Button
+            color="primary"
+            disabled={this.compareStateAndProps()}
+            onClick={this.submit}
+            variant="contained"
+          >
+            {t('configuration.forms.onSubmit')}
+          </Button>
+        </ObjectLevelPermissionWrapper>
       </div>
     );
   }

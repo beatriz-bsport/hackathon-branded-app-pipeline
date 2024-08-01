@@ -34,6 +34,7 @@ import DeliveryFeeTable from '#src/libs/order/components/DeliveryFeeTable.compon
 import OrderConfigurationForm from '#src/libs/order/components/OrderConfigurationForm.component';
 import ShopSupplierTable from '#src/libs/shop/components/ShopSupplierTable';
 import { SHOP_SUPPLIER_PAGE_SIZE } from '#src/libs/shop/constants';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   supplierList: ShopSupplier[];
@@ -220,16 +221,21 @@ const ShopReworkedSettings: React.FC<Props> = ({
             />
 
             <div className={classes.tableFooter}>
-              <Button
-                color="primary"
-                onClick={handleOpenSupplierModal}
-                startIcon={<AddIcon />}
-                variant="outlined"
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="product.shopReworked.allowed_actions.editSettings"
               >
-                {t(
-                  'shop:shopList.tab.settings.section.suppliers.table.addSupplier',
-                )}
-              </Button>
+                <Button
+                  color="primary"
+                  onClick={handleOpenSupplierModal}
+                  startIcon={<AddIcon />}
+                  variant="outlined"
+                >
+                  {t(
+                    'shop:shopList.tab.settings.section.suppliers.table.addSupplier',
+                  )}
+                </Button>
+              </ObjectLevelPermissionWrapper>
 
               <Pagination
                 className={classes.paginationContainer}
@@ -275,16 +281,21 @@ const ShopReworkedSettings: React.FC<Props> = ({
             onDelete={disableDeliveryFee}
             onEdit={handleEditDeliveryFee}
           />
-          <div className={classes.paperInner}>
-            <Button
-              color="primary"
-              onClick={handleOpenDeliveryFeeModal}
-              variant="outlined"
-            >
-              <AddIcon className={classes.leftIcon} />
-              {t('order:deliveryFee.forms.create')}
-            </Button>
-          </div>
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="product.shopReworked.allowed_actions.editSettings"
+          >
+            <div className={classes.paperInner}>
+              <Button
+                color="primary"
+                onClick={handleOpenDeliveryFeeModal}
+                variant="outlined"
+              >
+                <AddIcon className={classes.leftIcon} />
+                {t('order:deliveryFee.forms.create')}
+              </Button>
+            </div>
+          </ObjectLevelPermissionWrapper>
         </Paper>
       </Grid>
 

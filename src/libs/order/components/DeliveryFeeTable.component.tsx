@@ -15,6 +15,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import type { DeliveryFee } from '#src/libs/order/types';
 // @ts-expect-error
 import withConfirm from '#src/hocs/with-confirm.hoc';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   deliveryFees: DeliveryFee[];
@@ -40,7 +41,12 @@ export function PaymentRuleTable(props: Props) {
           <TableCell>{t('deliveryFee.name')}</TableCell>
           <TableCell>{t('deliveryFee.fee')}</TableCell>
           <TableCell>{t('deliveryFee.free_threshold')}</TableCell>
-          <TableCell>{t('table.actions')}</TableCell>
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="product.shopReworked.allowed_actions.editSettings"
+          >
+            <TableCell>{t('table.actions')}</TableCell>
+          </ObjectLevelPermissionWrapper>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -49,14 +55,22 @@ export function PaymentRuleTable(props: Props) {
             <TableCell>{df.name}</TableCell>
             <TableCell>{df.fee}</TableCell>
             <TableCell>{df.free_threshold}</TableCell>
-            <TableCell>
-              <Button onClick={() => props.onEdit(df)}>
-                <EditIcon />
-              </Button>
-              <DeleteButtonWithConfirm onClick={() => props.onDelete(df)} t={t}>
-                <DeleteIcon />
-              </DeleteButtonWithConfirm>
-            </TableCell>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="product.shopReworked.allowed_actions.editSettings"
+            >
+              <TableCell>
+                <Button onClick={() => props.onEdit(df)}>
+                  <EditIcon />
+                </Button>
+                <DeleteButtonWithConfirm
+                  onClick={() => props.onDelete(df)}
+                  t={t}
+                >
+                  <DeleteIcon />
+                </DeleteButtonWithConfirm>
+              </TableCell>
+            </ObjectLevelPermissionWrapper>
           </TableRow>
         ))}
       </TableBody>

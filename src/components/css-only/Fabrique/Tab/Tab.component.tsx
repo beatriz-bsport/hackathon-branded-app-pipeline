@@ -17,7 +17,7 @@ type Props = {
   isSelected?: boolean;
   hasSelect?: boolean;
   color: TabColor;
-  onClick: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 const tabColorClassNamesMap = {

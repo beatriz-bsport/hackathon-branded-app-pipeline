@@ -25,7 +25,7 @@ import {
 import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 import DatatypeFilterConfigValueManager from '#src/libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
 import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
-import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
+import ReportFilterChip from '#src/libs/reporting/common/components/ReportFilterChip.component';
 import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
 import { CREDIT_COLUMNS } from '#src/libs/reporting/common/constants';
 import { getCreditFactor } from '#src/libs/theme/selectors';

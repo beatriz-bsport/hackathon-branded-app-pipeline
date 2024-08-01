@@ -31,8 +31,8 @@ import { authorIdentifiers } from '#src/libs/reporting/common/constants';
 import ReportFilterConfigFormDrawer from './ReportFilterConfigDrawer';
 import type { OptionCallback } from '#src/state/types';
 import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
-import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
-import QuickReportFilterConfigColumnsMenu from './QuickReportFilterConfigColumnsMenu.component';
+import ReportFilterChip from '#src/libs/reporting/common/components/ReportFilterChip.component';
+import QuickReportFilterConfigColumnsMenu from '#src/libs/reporting/common/components/QuickReportFilterConfigColumnsMenu.component';
 
 export type Props = {
   reportFilterConfigs: ReportFilterConfig[];

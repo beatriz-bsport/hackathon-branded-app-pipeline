@@ -51,6 +51,7 @@ export type Theme = {
   provincial_tax_value?: number;
   stripe_id: string | null;
   is_paypal_available_in_country: boolean;
+  invoice_exporter_id: number | null;
   // Config
   is_whereby_integration_allowed: boolean;
   is_whereby_integration_enabled: boolean;

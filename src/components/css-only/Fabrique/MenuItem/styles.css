@@ -46,10 +46,6 @@
   height: var(--bs-icon-size-md);
 }
 
-.bs-fabrique-menu-item__label {
-  padding-left: var(--bs-space-size-1);
-}
-
 .bs-fabrique-menu-item__right-slot svg {
   stroke: currentColor;
   display: inline-flex;

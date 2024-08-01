@@ -3168,7 +3168,7 @@
                     "fullWord": "Ganzes Wort",
                     "label": "Format des Tages anzeigen"
                 },
-                "showActivityColor": "Farbe der AKtivität anzeigen",
+                "showActivityColor": "Farbe der Aktivität anzeigen",
                 "sessionDatesDisplayOptions": {
                     "onlyShowStartingTime": "Nur Startzeit anzeigen",
                     "showDuration": "Dauer anzeigen",
@@ -3178,7 +3178,7 @@
                 "showLevel": "Anzeige des Levels",
                 "showEstablishment": "Anzeige der Einrichtung",
                 "coachDisplayOptions": {
-                    "showCoachFirstNameWithPicture": "Vornahme und Bild",
+                    "showCoachFirstNameWithPicture": "Vorname und Bild",
                     "showCoachFullNameWithoutPicture": "Vollständiger Name ohne Bild",
                     "onlyShowCoachFirstName": "Nur Vorname der Lehrkraft",
                     "showCoachFullNameWithPicture": "Vollständiger Name und Bild",

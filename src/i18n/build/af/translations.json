@@ -5685,6 +5685,7 @@
       "quicksale": { "access": "Access creation", "configuration": "Personalising categories" },
       "appSettings": { "links": "External links", "popups": "Startup pop-up", "customize": "Personalisation" },
       "communicationSentGroupConfig": { "general": "General", "campaigns": "Campaigns" },
+      "shop": { "products": "Products", "settings": "Settings" },
       "settings": { "theme": { "general": "General", "memberProfile": "Member Profile" } }
     },
     "featureBaseButton": "Suggest a feature or improvement"

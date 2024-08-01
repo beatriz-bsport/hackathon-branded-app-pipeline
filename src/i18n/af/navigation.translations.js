@@ -258,6 +258,10 @@ exports.default = {
       general: 'General',
       campaigns: 'Campaigns',
     },
+    shop: {
+      products: 'Products',
+      settings: 'Settings',
+    },
     settings: {
       theme: {
         general: 'General',

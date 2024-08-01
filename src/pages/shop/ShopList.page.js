@@ -152,7 +152,7 @@ export class ShopItemList extends Component<Props, State> {
       onSuccess: () => {
         this.props.refreshOptions(
           'shop_item',
-          SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
+          FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_OLD_WEBSHOP,
         );
         this.setState({
           createItemFromSubShop: null,
@@ -393,7 +393,7 @@ export class ShopItemList extends Component<Props, State> {
               this.props.deleteItem(this.state.shopitemToDelete.id, () =>
                 this.props.refreshOptions(
                   'shop_item',
-                  SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
+                  FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_OLD_WEBSHOP,
                 ),
               );
               this.setState({ shopitemToDelete: null });

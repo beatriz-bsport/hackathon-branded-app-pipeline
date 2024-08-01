@@ -18,6 +18,7 @@ import type {
 import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
 import type { BookkeepingAccount } from '#src/libs/payment/types';
 import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED } from '#src/libs/shop/components/ShopReworkedProductList/constants';
@@ -46,7 +47,7 @@ import ShopItemListItem from '#src/libs/shop/components/ShopItemListItem.compone
 // @ts-expect-error
 import SubShopList from '#src/pages/shop/SubShopList.component';
 import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
-import { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   isLoading?: boolean;
@@ -290,13 +291,18 @@ const ShopReworkedProductList: React.FC<Props> = ({
                           </Tooltip>
                         )}
                       </IconButton>
-                      <Tooltip title={t('common:duplicate')}>
-                        <IconButton
-                          onClick={handleDuplicateShopItem(shopItem.id)}
-                        >
-                          <FileCopyIcon />
-                        </IconButton>
-                      </Tooltip>
+                      <ObjectLevelPermissionWrapper
+                        forcedBehavior="hidden"
+                        requiredPermission="product.shopReworked.allowed_actions.create"
+                      >
+                        <Tooltip title={t('common:duplicate')}>
+                          <IconButton
+                            onClick={handleDuplicateShopItem(shopItem.id)}
+                          >
+                            <FileCopyIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </ObjectLevelPermissionWrapper>
                       <IconButton
                         onClick={handleOpenDeleteShopItemDialog(shopItem)}
                       >
@@ -308,43 +314,53 @@ const ShopReworkedProductList: React.FC<Props> = ({
                   shopitem={shopItem}
                 />
               ))}
-              <ListItem
-                button
-                onClick={handleOpenShopItemCreationDrawer(subshop.id)}
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="product.shopReworked.allowed_actions.create"
               >
-                <ListItemAvatar>
-                  <Avatar>
-                    <AddIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={t('translation:form.shop.item.create')}
-                />
-              </ListItem>
+                <ListItem
+                  button
+                  onClick={handleOpenShopItemCreationDrawer(subshop.id)}
+                >
+                  <ListItemAvatar>
+                    <Avatar>
+                      <AddIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={t('translation:form.shop.item.create')}
+                  />
+                </ListItem>
+              </ObjectLevelPermissionWrapper>
             </List>
           </Paper>
         </SubShopList>
       ))}
 
-      {showSubshopForm ? (
-        <ShopListSubshopForm
-          onCancel={handleHideSubshopForm}
-          onSubmit={handleSubshopSubmit}
-        />
-      ) : (
-        <div className={classes.title}>
-          <ButtonBase onClick={handleShowSubshopForm}>
-            <Grid container alignItems="center" direction="row">
-              <Grid item>
-                <Typography className={classes.sectionTitle} variant="h5">
-                  {`+ ${t('shopList.tab.products.subshopForm.title')}`}
-                </Typography>
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="product.shopReworked.allowed_actions.create"
+      >
+        {showSubshopForm ? (
+          <ShopListSubshopForm
+            onCancel={handleHideSubshopForm}
+            onSubmit={handleSubshopSubmit}
+          />
+        ) : (
+          <div className={classes.title}>
+            <ButtonBase onClick={handleShowSubshopForm}>
+              <Grid container alignItems="center" direction="row">
+                <Grid item>
+                  <Typography className={classes.sectionTitle} variant="h5">
+                    {`+ ${t('shopList.tab.products.subshopForm.title')}`}
+                  </Typography>
+                </Grid>
               </Grid>
-            </Grid>
-          </ButtonBase>
-          <Divider />
-        </div>
-      )}
+            </ButtonBase>
+            <Divider />
+          </div>
+        )}
+      </ObjectLevelPermissionWrapper>
 
       <GenericResponsiveDrawer
         onClose={handleCloseItemCreationDrawer}

@@ -24,14 +24,14 @@ import type {
   ShopItemBarcodeUnicity,
 } from '#src/libs/shop/types';
 import type { SelectOption } from '#src/libs/types';
-import ShopItemDetailInventoryTab from './tabs/ShopItemDetailInventoryTab.component';
-import ShopItemDetailVariantsTab from './tabs/ShopItemDetailVariantsTab.component';
-import ShopItemDetailSettingsTab from './tabs/ShopItemDetailSettingsTab.component';
-import ShopItemDetailHistoryTab from './tabs/ShopItemDetailHistoryTab.component';
+import ShopItemDetailInventoryTab from '#src/libs/shop/components/ShopItemDetailTabs/tabs/ShopItemDetailInventoryTab.component';
+import ShopItemDetailVariantsTab from '#src/libs/shop/components/ShopItemDetailTabs/tabs/ShopItemDetailVariantsTab.component';
+import ShopItemDetailSettingsTab from '#src/libs/shop/components/ShopItemDetailTabs/tabs/ShopItemDetailSettingsTab.component';
+import ShopItemDetailHistoryTab from '#src/libs/shop/components/ShopItemDetailTabs/tabs/ShopItemDetailHistoryTab.component';
 
-import type { OptionCallback } from '../../../../state/types';
+import type { OptionCallback } from '#src/state/types';
 
-import { ShopItemDetailTab } from '../ShopItemDetail/constants';
+import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
 
 type Props = {
   companyId?: number;

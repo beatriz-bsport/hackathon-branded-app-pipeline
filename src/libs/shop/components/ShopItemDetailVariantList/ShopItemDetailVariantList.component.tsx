@@ -39,6 +39,7 @@ import type { OptionCallback } from '#src/state/types';
 
 import Config from '../../../../config';
 import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#src/libs/shop/constants';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   companyId: number;
@@ -289,13 +290,18 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
             )}
             {!isVariantEditMode && (
               <div className={classes.tableEditActions}>
-                <Button
-                  color="secondary"
-                  onClick={handleOpenVariantDrawer}
-                  variant="outlined"
+                <ObjectLevelPermissionWrapper
+                  forcedBehavior="hidden"
+                  requiredPermission="product.shopReworked.allowed_actions.create"
                 >
-                  {t('shop:shopItemDetail.table.variants.action.add')}
-                </Button>
+                  <Button
+                    color="secondary"
+                    onClick={handleOpenVariantDrawer}
+                    variant="outlined"
+                  >
+                    {t('shop:shopItemDetail.table.variants.action.add')}
+                  </Button>
+                </ObjectLevelPermissionWrapper>
                 <Button
                   color="primary"
                   onClick={handleEnableEditMode}

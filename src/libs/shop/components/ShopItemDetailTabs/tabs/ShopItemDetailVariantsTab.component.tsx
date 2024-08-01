@@ -17,7 +17,8 @@ import type { ShopItemVariantBulkUpdateFormValues } from '#src/libs/shop/compone
 
 import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '#src/libs/shop/constants';
 import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
-import type { OptionCallback } from '../../../../../state/types';
+import type { OptionCallback } from '#src/state/types';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   companyId?: number;
@@ -130,14 +131,20 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
           <Typography>
             {t('shop:shopItemDetail.table.variants.placeholder')}
           </Typography>
-          <Button
-            color="primary"
-            onClick={handleOpenVariantDrawer}
-            startIcon={<AddIcon />}
-            variant="outlined"
+
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="product.shopReworked.allowed_actions.create"
           >
-            {t('shop:shopItemDetail.table.variants.action.add')}
-          </Button>
+            <Button
+              color="primary"
+              onClick={handleOpenVariantDrawer}
+              startIcon={<AddIcon />}
+              variant="outlined"
+            >
+              {t('shop:shopItemDetail.table.variants.action.add')}
+            </Button>
+          </ObjectLevelPermissionWrapper>
         </div>
       </TabPanel>
     );

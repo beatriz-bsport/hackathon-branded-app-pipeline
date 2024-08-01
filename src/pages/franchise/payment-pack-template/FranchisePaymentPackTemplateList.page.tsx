@@ -316,6 +316,7 @@ export default compose(
     createOrUpdatePaymentPackTemplate:
       ({
         createOrUpdatePaymentPackTemplate,
+        createModalOpen,
         closeCreateDialog,
         closeEditDialog,
         goToTemplateDetail,
@@ -324,10 +325,12 @@ export default compose(
         createOrUpdatePaymentPackTemplate(data, {
           onError: options && options.onError,
           onSuccess: (template: PaymentPackTemplateAPI) => {
-            if (!template.payment_pack_template_instances.length) {
+            if (createModalOpen) {
               goToTemplateDetail(template.id, {
                 openTemplateInstanceForm: true,
               });
+            } else {
+              goToTemplateDetail(template.id);
             }
             closeCreateDialog();
             closeEditDialog();

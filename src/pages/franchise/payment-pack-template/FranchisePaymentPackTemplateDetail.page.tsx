@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
-import { push as pushAction } from 'connected-react-router';
+import {
+  push as pushAction,
+  replace as replaceAction,
+} from 'connected-react-router';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -17,7 +20,10 @@ import PaginatedConsumerPackList from '#src/libs/consumer-payment-pack/component
 import PaymentPackTemplateInstanceFormDialog from '#src/libs/payment-packs/components/PaymentPackTemplateInstanceFormDialog.component';
 import PaymentPackTemplateInstanceDeleteDialog from '#src/libs/payment-packs/components/PaymentPackTemplateInstanceDeleteDialog.component';
 import PaymentPackTemplateFormDrawer from '#src/libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
-import { PaymentPackTemplateAPI } from '#src/libs/payment-packs/types';
+import {
+  PaymentPackTemplateAPI,
+  PaymentPackTemplateInstanceParams,
+} from '#src/libs/payment-packs/types';
 import PaymentPackTemplateDeleteDialog from '#src/libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
 import { WithHandlerType } from '../../../utils/types';
 import { OptionCallback } from '../../../state/types';
@@ -77,6 +83,32 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
     );
   };
 
+  handleCloseCreateForm = () => {
+    this.props.closeCreateForm();
+    if (parseQueryString(location.search || '').openTemplateInstanceForm) {
+      this.props.replace(location.pathname);
+    }
+  };
+
+  handleCreatePaymentPackTemplateInstance = (
+    data: PaymentPackTemplateInstanceParams,
+    options: OptionCallback,
+  ) => {
+    this.props.createPaymentPackTemplateInstance(
+      { ...data, payment_pack_template: this.props.paymentPackTemplateId },
+      {
+        onSuccess: (...args) => {
+          this.props.retrievePaymentPackTemplate(
+            this.props.paymentPackTemplateId,
+          );
+          this.handleCloseCreateForm();
+          if (options && options.onSuccess) options.onSuccess(...args);
+        },
+        onError: options?.onError,
+      },
+    );
+  };
+
   render() {
     if (!this.props.paymentPackTemplate) {
       return <LinearProgress />;
@@ -121,8 +153,8 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
         <PaymentPackTemplateInstanceFormDialog
           // @ts-expect-error
           companies={this.props.companies}
-          onClose={this.props.closeCreateForm}
-          onSubmit={this.props.createPaymentPackTemplateInstance}
+          onClose={this.handleCloseCreateForm}
+          onSubmit={this.handleCreatePaymentPackTemplateInstance}
           open={this.props.createFormOpen}
         />
         <PaymentPackTemplateInstanceDeleteDialog
@@ -170,6 +202,7 @@ const connector = connect(
   }),
   {
     pushRouter: pushAction,
+    replace: replaceAction,
     retrievePaymentPackTemplate: retrievePaymentPackTemplateAction,
     createPaymentPackTemplateInstance: createPaymentPackTemplateInstanceAction,
     deletePaymentPackTemplateInstance: deletePaymentPackTemplateInstanceAction,
@@ -265,27 +298,6 @@ const mapWithHandlers = {
         },
         onError: options?.onError,
       });
-    },
-  createPaymentPackTemplateInstance:
-    ({
-      createPaymentPackTemplateInstance,
-      paymentPackTemplateId,
-      retrievePaymentPackTemplate,
-      closeCreateForm,
-    }: BeforeHandlerProps) =>
-    // @ts-expect-error
-    (data, options) => {
-      createPaymentPackTemplateInstance(
-        { ...data, payment_pack_template: paymentPackTemplateId },
-        {
-          onSuccess: (...args) => {
-            retrievePaymentPackTemplate(paymentPackTemplateId);
-            closeCreateForm();
-            if (options && options.onSuccess) options.onSuccess(...args);
-          },
-          onError: options?.onError,
-        },
-      );
     },
   fetchConsumerPaymentPackList:
     ({

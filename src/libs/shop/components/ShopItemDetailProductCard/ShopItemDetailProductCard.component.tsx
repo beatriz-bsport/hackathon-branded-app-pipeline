@@ -23,6 +23,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+
 type Props = {
   isLoading?: boolean;
   isDeleting?: boolean;
@@ -158,9 +160,14 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
                   {t('shop:shopItemDetail.copyPaymentPageLink')}
                 </MenuItem>
               )}
-              <MenuItem onClick={handleClickDeleteShopItem}>
-                {t('common:delete')}
-              </MenuItem>
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="product.shopReworked.allowed_actions.delete"
+              >
+                <MenuItem onClick={handleClickDeleteShopItem}>
+                  {t('common:delete')}
+                </MenuItem>
+              </ObjectLevelPermissionWrapper>
             </Menu>
           </div>
         </div>

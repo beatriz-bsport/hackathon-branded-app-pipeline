@@ -205,9 +205,14 @@ const ShopReworkedProductList: React.FC<Props> = ({
                   <VisibilityOffIcon />
                 )}
               </IconButton>
-              <IconButton onClick={handleOpenDeleteShopItemDialog(shopItem)}>
-                <DeleteIcon />
-              </IconButton>
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="product.shopReworked.allowed_actions.delete"
+              >
+                <IconButton onClick={handleOpenDeleteShopItemDialog(shopItem)}>
+                  <DeleteIcon />
+                </IconButton>
+              </ObjectLevelPermissionWrapper>
             </ListItemSecondaryAction>
           ),
         };
@@ -303,11 +308,16 @@ const ShopReworkedProductList: React.FC<Props> = ({
                           </IconButton>
                         </Tooltip>
                       </ObjectLevelPermissionWrapper>
-                      <IconButton
-                        onClick={handleOpenDeleteShopItemDialog(shopItem)}
+                      <ObjectLevelPermissionWrapper
+                        forcedBehavior="hidden"
+                        requiredPermission="product.shopReworked.allowed_actions.delete"
                       >
-                        <DeleteIcon />
-                      </IconButton>
+                        <IconButton
+                          onClick={handleOpenDeleteShopItemDialog(shopItem)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </ObjectLevelPermissionWrapper>
                     </ListItemSecondaryAction>
                   }
                   onClick={handleGoToShopItem(shopItem.id)}

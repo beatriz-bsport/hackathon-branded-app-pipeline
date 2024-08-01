@@ -21,6 +21,8 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 import RedButton from '../../components/button/RedButton.component';
 
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+
 type Props = {
   t: TFunction,
   classes: Object,
@@ -114,11 +116,16 @@ export class SubShopList extends Component<Props, State> {
                 <EditIcon />
               </IconButton>
             </Grid>
-            <Grid item>
-              <IconButton onClick={this.showSubShopDeleteDialog}>
-                <DeleteIcon />
-              </IconButton>
-            </Grid>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="product.shopReworked.allowed_actions.delete"
+            >
+              <Grid item>
+                <IconButton onClick={this.showSubShopDeleteDialog}>
+                  <DeleteIcon />
+                </IconButton>
+              </Grid>
+            </ObjectLevelPermissionWrapper>
           </Grid>
         </Grid>
       </Grid>

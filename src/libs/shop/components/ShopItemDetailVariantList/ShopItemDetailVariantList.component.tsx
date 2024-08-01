@@ -37,7 +37,7 @@ import type {
 } from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/types';
 import type { OptionCallback } from '#src/state/types';
 
-import Config from '../../../../config';
+import Config from '#src/config';
 import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#src/libs/shop/constants';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
@@ -181,14 +181,19 @@ const TableRowItem: React.FC<TableRowItemProps> = React.memo(
                 {t('shopItemDetail.viewBarcode')}
               </Typography>
             </MenuItem>
-            <MenuItem disabled={isDeletingVariant} onClick={onDeleteVariant}>
-              <ListItemIcon>
-                <DeleteIcon fontSize="small" />
-              </ListItemIcon>
-              <Typography variant="inherit">
-                {t('shopItemDetail.deleteVariant')}
-              </Typography>
-            </MenuItem>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="product.shopReworked.allowed_actions.delete"
+            >
+              <MenuItem disabled={isDeletingVariant} onClick={onDeleteVariant}>
+                <ListItemIcon>
+                  <DeleteIcon fontSize="small" />
+                </ListItemIcon>
+                <Typography variant="inherit">
+                  {t('shopItemDetail.deleteVariant')}
+                </Typography>
+              </MenuItem>
+            </ObjectLevelPermissionWrapper>
           </Menu>
         </TableCell>
       </TableRow>

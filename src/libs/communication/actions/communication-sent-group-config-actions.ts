@@ -58,13 +58,13 @@ export function createCommunicationSentGroupConfig(
       const response = await createCommunicationSentGroupConfigAPI(data);
       dispatch(createCommunicationSentGroupConfigAction.success(response.data));
       dispatch(snackbarSuccess('communicationSentGroupConfig.create.success'));
-      options?.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       console.error(error);
       dispatch(createCommunicationSentGroupConfigAction.error(error));
       dispatch(snackbarError('communicationSentGroupConfig.create.error'));
 
-      options?.onError();
+      options?.onError?.();
     }
     dispatch(createCommunicationSentGroupConfigAction.isLoading(false));
   };
@@ -94,11 +94,11 @@ export function updateCommunicationSentGroupConfig(
       const response = await updateCommunicationSentGroupConfigAPI(id, data);
       dispatch(updateCommunicationSentGroupConfigAction.success(response.data));
 
-      options?.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(updateCommunicationSentGroupConfigAction.error(error));
 
-      options?.onError();
+      options?.onError?.();
     }
     dispatch(updateCommunicationSentGroupConfigAction.isLoading(false));
   };
@@ -128,12 +128,12 @@ export function deleteCommunicationSentGroupConfig(
       dispatch(snackbarSuccess('communicationSentGroupConfig.delete.success'));
       dispatch(deleteCommunicationSentGroupConfigAction.success(id));
 
-      options?.onSuccess();
+      options?.onSuccess?.();
     } catch (error) {
       dispatch(snackbarError('communicationSentGroupConfig.delete.error'));
       dispatch(deleteCommunicationSentGroupConfigAction.error(error));
 
-      options?.onError();
+      options?.onError?.();
     }
     dispatch(deleteCommunicationSentGroupConfigAction.isLoading(false));
   };
@@ -165,7 +165,7 @@ export function duplicateCommunicationSentGroupConfig(
       );
       dispatch(snackbarSuccess('communicationSentGroupConfig.create.success'));
 
-      options?.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       console.error(error);
       dispatch(duplicateCommunicationSentGroupConfigAction.error(error));
@@ -203,7 +203,7 @@ export function fetchCommunicationSentGroupConfigsList(
         ),
       );
 
-      options?.onSuccess(response.data.results);
+      options?.onSuccess?.(response.data.results);
     } catch (error) {
       console.error(error);
       dispatch(fetchCommunicationSentGroupConfigsListAction.error(error));
@@ -235,13 +235,13 @@ export function sendGroupedCommunication(
       await sendGroupedCommunicationAPI(data);
       dispatch(snackbarSuccess('communication.success'));
 
-      options?.onSuccess();
+      options?.onSuccess?.();
     } catch (error) {
       console.error(error);
       dispatch(snackbarError('communication:mail.error'));
       dispatch(sendGroupedCommunicationAction.error(error));
 
-      options?.onError();
+      options?.onError?.();
     }
     dispatch(sendGroupedCommunicationAction.isLoading(false));
   };
@@ -270,12 +270,12 @@ export function fetchCommunicationSentGroupConfigDetail(
       const response = await fetchCommunicationSentGroupConfigDetailAPI(id);
 
       dispatch(communicationSentGroupConfigDetailAction.success(response.data));
-      options?.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       console.error(error);
       dispatch(communicationSentGroupConfigDetailAction.error(error));
 
-      options?.onError();
+      options?.onError?.();
     }
     dispatch(communicationSentGroupConfigDetailAction.isLoading(false));
   };
@@ -307,12 +307,12 @@ export function fetchCommunicationSentGroupConfigCommunicationSentGroupList(
         );
       dispatch(fetchCommunicationSentGroupList.success(response.data));
 
-      options?.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       console.error(error);
       dispatch(fetchCommunicationSentGroupList.error(error));
 
-      options?.onError();
+      options?.onError?.();
     }
     dispatch(fetchCommunicationSentGroupList.isLoading(false));
   };
@@ -340,12 +340,12 @@ export function fetchCommunicationSentGroupDetails(
     try {
       const response = await fetchCommunicationSentGroupDetailsAPI(id);
       dispatch(communicationSentGroupDetailsAction.success(response.data));
-      options?.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       console.error(error);
       dispatch(communicationSentGroupDetailsAction.error(error));
 
-      options?.onError();
+      options?.onError?.();
     }
     dispatch(communicationSentGroupDetailsAction.isLoading(false));
   };
@@ -388,12 +388,12 @@ export function fetchRecipientListByCommunicationSentGroup(
         }),
       );
 
-      options?.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       console.error(error);
       dispatch(recipientListByCommunicationSentGroupAction.error(error));
 
-      options?.onError();
+      options?.onError?.();
     }
     dispatch(recipientListByCommunicationSentGroupAction.isLoading(false));
   };
@@ -422,12 +422,12 @@ export function fetchReportByCommunicationSentGroup(
       const response = await fetchCommunicationSentGroupReportAPI(id);
 
       dispatch(reportByCommunicationSentGroupAction.success(response.data));
-      options?.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       console.error(error);
       dispatch(reportByCommunicationSentGroupAction.error(error));
 
-      options?.onError();
+      options?.onError?.();
     }
     dispatch(reportByCommunicationSentGroupAction.isLoading(false));
   };
@@ -465,14 +465,10 @@ export function fetchMembersDataTableListExport(
           },
         }),
       );
-      if (options && options.onSuccess) {
-        options.onSuccess();
-      }
+      options?.onSuccess?.();
     } catch (err) {
       dispatch(fetchMembersDataTableListExportActions.error(err));
-      if (options && options.onError) {
-        options.onError();
-      }
+      options?.onError?.();
       dispatch(snackbarError('communication:campaign.report.exportError'));
     }
     dispatch(fetchMembersDataTableListExportActions.isLoading(false));
@@ -503,14 +499,10 @@ export function fetchMembersDataTableListExportLink(
       dispatch(
         fetchMembersDataTableListExportLinkActions.success(response.data),
       );
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(fetchMembersDataTableListExportLinkActions.error(error));
-      if (options && options.onError) {
-        options.onError();
-      }
+      options?.onError?.();
     }
     dispatch(fetchMembersDataTableListExportLinkActions.isLoading(false));
   };
@@ -597,16 +589,12 @@ export function fetchCommunicationSentGroupRecipientListExportLink(
           response.data,
         ),
       );
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(
         fetchCommunicationSentGroupRecipientListExportLinkActions.error(error),
       );
-      if (options && options.onError) {
-        options?.onError?.();
-      }
+      options?.onError?.();
     }
     dispatch(
       fetchCommunicationSentGroupRecipientListExportLinkActions.isLoading(

@@ -56,6 +56,7 @@ import {
   fetchConfiguration as fetchConfigurationAPI,
   fetchInvoiceConfigurationAsMember as fetchInvoiceConfigurationAsMemberAPI,
   finalize as finalizeAPI,
+  generateInvoiceXml as generateInvoiceXmlAPI,
   fetchInvoiceItemList as fetchInvoiceItemListAPI,
   fetchPaymentList as fetchPaymentListAPI,
   checkInvoiceInfo as checkInvoiceInfoAPI,
@@ -174,6 +175,31 @@ export function finalizeInvoice(
       options?.onError?.(err);
     }
     dispatch(finalizeInvoiceActions.isLoading({ uuid, loading: false }));
+  };
+}
+
+export const generateInvoiceXmlActions = {
+  isLoading: createAction<boolean>('INVOICE/GENERATE_XML/IS_LOADING'),
+  error: createAction<Error | null>('INVOICE/GENERATE_XML/ERROR'),
+  success: createAction<InvoiceV1Serializer>('INVOICE/GENERATE_XML/SUCCESS'),
+};
+
+export function generateInvoiceXml(
+  uuid: string,
+  options?: OptionCallback<InvoiceV1Serializer>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(generateInvoiceXmlActions.isLoading(true));
+    dispatch(generateInvoiceXmlActions.error(null));
+    try {
+      const response = await generateInvoiceXmlAPI(uuid);
+      dispatch(generateInvoiceXmlActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      dispatch(generateInvoiceXmlActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(generateInvoiceXmlActions.isLoading(false));
   };
 }
 

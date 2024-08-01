@@ -27,6 +27,7 @@ import {
   sendInvoiceToQuickbooksActions,
   applyBalanceToInvoiceActions,
   applyGiftcardOnInvoiceActions,
+  generateInvoiceXmlActions,
 } from '#src/libs/invoice/actions';
 
 import type {
@@ -90,6 +91,10 @@ const initialState: Immutable.Immutable<InvoiceState> = Immutable<InvoiceState>(
       updating: false,
     },
     finalize: {
+      loading: false,
+      error: null,
+    },
+    generateXml: {
       loading: false,
       error: null,
     },
@@ -308,6 +313,25 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
     ) => {
       return state.setIn(['byId', payload.uuid], payload);
     },
+    [generateInvoiceXmlActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['finalize', 'loading'], payload);
+    },
+    [generateInvoiceXmlActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['finalize', 'error'], payload);
+    },
+    [generateInvoiceXmlActions.success.toString()]: (
+      state,
+      { payload }: { payload: InvoiceV1Serializer },
+    ) => {
+      return state.setIn(['byId', payload.uuid], payload);
+    },
+
     [quickInvoiceActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },

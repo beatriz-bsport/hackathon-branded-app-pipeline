@@ -95,6 +95,12 @@ export async function finalize(
   });
 }
 
+export async function generateInvoiceXml(
+  uuid: string,
+): Promise<AxiosResponse<InvoiceV1Serializer>> {
+  return patchAuth(`${API_V1_URI}/payment/invoices/${uuid}/generate_xml/`, {});
+}
+
 export async function fetchConfiguration(): Promise<
   AxiosResponse<InvoiceConfigurationSerializer>
 > {

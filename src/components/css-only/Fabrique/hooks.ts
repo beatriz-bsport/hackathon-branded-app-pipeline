@@ -11,23 +11,24 @@ import { VerticalEnum } from './constants';
  * Custom React hook for handling menu modal closure.
  *
  * @param {() => void} onClose - Function to be called to close the modal.
- * @param {React.MutableRefObject<HTMLDivElement | null>} [openMenuRef] - The ref used to identify the div element wrapping the menu.
+ * @param {React.MutableRefObject<HTMLElement | null>} [openMenuRef] - The ref used to identify the div element wrapping the menu.
  *
  *   This allows the selector to flicker for example(when clicking on selector, it closes the menu instead of reopening it).
  * @param {() => void} [setPositionedToFalse] - Function to set the position-related state to false.
  *
  *   This is triggered when clicking on the div wrapping the menu.
  */
-export const useCloseModal = ({
+export function useCloseModal<ModalRefHTMLElement = HTMLDivElement>({
   onClose,
   openMenuRef,
   setPositionedToFalse,
 }: {
   onClose: () => void;
-  openMenuRef?: React.MutableRefObject<HTMLDivElement | null>;
+  openMenuRef?: React.MutableRefObject<HTMLElement | null>;
   setPositionedToFalse?: () => void;
-}) => {
-  const modalRef = React.useRef<HTMLDivElement | null>(null);
+}) {
+  const modalRef = React.useRef<ModalRefHTMLElement | null>(null);
+
   React.useEffect(() => {
     const handleOnClickAway = (event: Event) => {
       const hasBeenClickedFromSelector =
@@ -38,7 +39,7 @@ export const useCloseModal = ({
       if (
         !!modalRef.current &&
         event?.target &&
-        !modalRef.current.contains(event.target as Node) &&
+        !(modalRef.current as HTMLElement).contains(event.target as Node) &&
         !hasBeenClickedFromSelector
       ) {
         event?.stopPropagation();
@@ -62,7 +63,7 @@ export const useCloseModal = ({
   }, [modalRef, onClose, openMenuRef, setPositionedToFalse]);
 
   return { modalRef };
-};
+}
 
 export const usePopoverPositioning = ({
   margin = 0,
@@ -75,9 +76,9 @@ export const usePopoverPositioning = ({
   transformOriginHorizontal,
   transformOriginVertical,
 }: {
-  margin: number;
-  margin_threshold: number;
-  ref: React.MutableRefObject<HTMLDivElement>;
+  margin?: number;
+  margin_threshold?: number;
+  ref: React.MutableRefObject<HTMLElement>;
   isOpen: boolean;
   anchorEl?: HTMLElement;
   anchorOriginHorizontal?: Horizontal;
@@ -121,7 +122,14 @@ export const usePopoverPositioning = ({
   );
 
   const getPositioningStyle = React.useCallback(
-    (element: HTMLDivElement) => {
+    (element: HTMLElement) => {
+      if (!element) {
+        return {
+          top: 0,
+          left: 0,
+          transformOrigin: '',
+        };
+      }
       const elemRect = {
         width: element.offsetWidth,
         height: element.offsetHeight,
@@ -220,10 +228,10 @@ export const usePopoverPositioning = ({
     const positioning = getPositioningStyle(element);
 
     if (positioning.top !== null) {
-      element.style.top = positioning.top;
+      element.style.top = `${positioning.top}`;
     }
     if (positioning.left !== null) {
-      element.style.left = positioning.left;
+      element.style.left = `${positioning.left}`;
     }
     element.style.transformOrigin = positioning.transformOrigin;
     setIsPositioned(true);

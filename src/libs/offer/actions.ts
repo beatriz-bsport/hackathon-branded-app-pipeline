@@ -1594,6 +1594,7 @@ export function fetchOfferWaitingListPosition(
   options?: OptionCallback<OfferStatus>,
 ) {
   return async (dispatch: Dispatch) => {
+    if (!id) return;
     dispatch(offerStatusWaitingListPositionActions.error(null));
     dispatch(offerStatusWaitingListPositionActions.isLoading(true));
 

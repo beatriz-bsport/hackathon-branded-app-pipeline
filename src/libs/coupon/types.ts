@@ -6,7 +6,7 @@ import {
 import { Invoice } from '#src/libs/invoice/types';
 import type { LuxonDateTime } from '#src/types';
 import { ErrorAndLoading } from '../types';
-import { Company } from '../company/types';
+import type { Company } from '#src/libs/company/types';
 
 export type Discount = {
   id: string;
@@ -140,6 +140,11 @@ export type UniqueCodeCouponUpdatePayload = UniqueCodeCouponCreationPayload & {
 
 export type CouponTemplate = CouponTemplateAPI & {
   companies: Array<Company>;
+};
+
+export type CouponTemplateParams = {
+  companies: Company[];
+  coupon_template: number;
 };
 
 export type FetchCouponsParams = {

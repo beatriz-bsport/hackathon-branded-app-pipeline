@@ -6,6 +6,7 @@ import {
   Coupon,
   CouponTemplate,
   CouponTemplateInstance,
+  CouponTemplateParams,
   Discount,
   FetchCouponsParams,
   FetchDiscountParams,
@@ -365,7 +366,7 @@ export const createCouponTemplateInstanceActions = {
 };
 
 export function createCouponTemplateInstance(
-  data: CouponTemplate,
+  data: CouponTemplateParams,
   options?: OptionCallback<CouponTemplateInstance>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {

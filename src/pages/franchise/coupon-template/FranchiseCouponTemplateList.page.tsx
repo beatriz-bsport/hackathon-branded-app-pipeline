@@ -220,6 +220,7 @@ export default compose(
     createOrUpdateCouponTemplate:
       ({
         createOrUpdateCouponTemplate,
+        createModalOpen,
         closeCreateDialog,
         closeEditDialog,
         goToTemplateDetail,
@@ -228,14 +229,12 @@ export default compose(
         createOrUpdateCouponTemplate(data, {
           onError: options && options.onError,
           onSuccess: (couponTemplate: CouponTemplateAPI) => {
-            if (
-              !couponTemplate.coupon_template_instances.filter(
-                (i) => !i.disabled,
-              ).length
-            ) {
+            if (createModalOpen) {
               goToTemplateDetail(couponTemplate.id, {
                 openTemplateInstanceForm: true,
               });
+            } else {
+              goToTemplateDetail(couponTemplate.id);
             }
             closeCreateDialog();
             closeEditDialog();

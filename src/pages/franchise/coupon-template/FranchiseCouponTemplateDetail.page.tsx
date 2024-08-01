@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
-import { push as pushAction } from 'connected-react-router';
+import {
+  push as pushAction,
+  replace as replaceAction,
+} from 'connected-react-router';
 import Grid from '@material-ui/core/Grid';
 import CouponTemplateCard from '#src/libs/coupon/components/CouponTemplateCard.component';
 import PaginatedDiscountList from '#src/libs/coupon/components/PaginatedDiscountList.component';
@@ -39,6 +42,7 @@ import { OptionCallback } from '../../../state/types';
 import { WithHandlerType } from '../../../utils/types';
 
 import { RootState } from '../../../reducers';
+import { Company } from '#src/libs/company/types';
 
 const CONSUMER_PACK_PAGINATION_SIZE = 5;
 
@@ -68,6 +72,32 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
 
   goToBillingPlan = (companyId: number, id: number) => {
     openNewWindowToImpersonate(companyId, `/subscription/${id}`);
+  };
+
+  handleCloseCreateForm = () => {
+    this.props.closeCreateInstanceDialog();
+    if (parseQueryString(location.search || '').openTemplateInstanceForm) {
+      this.props.replace(location.pathname);
+    }
+  };
+
+  handleCreateCouponTemplateInstance = (
+    data: { companies: Company[] },
+    options: OptionCallback<Array<CouponTemplateInstance>>,
+  ) => {
+    this.props.createCouponTemplateInstance(
+      { ...data, coupon_template: this.props.couponTemplateId },
+      {
+        // @ts-expect-error
+        onSuccess: (couponTemplateInstances: Array<CouponTemplateInstance>) => {
+          this.props.retrieveCouponTemplate(this.props.couponTemplateId);
+          this.handleCloseCreateForm();
+          if (options && options.onSuccess)
+            options.onSuccess(couponTemplateInstances);
+        },
+        onError: options?.onError,
+      },
+    );
   };
 
   render() {
@@ -129,9 +159,9 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
               // @ts-expect-error
               companies={this.props.companies}
               couponTemplate={this.props.couponTemplate}
-              onClose={this.props.closeCreateInstanceDialog}
+              onClose={this.handleCloseCreateForm}
               // @ts-expect-error
-              onSubmit={this.props.createCouponTemplateInstance}
+              onSubmit={this.handleCreateCouponTemplateInstance}
               paymentPackTemplateList={this.props.paymentPackTemplateList}
               privatePassTemplateList={this.props.privatePassTemplateList}
             />
@@ -177,6 +207,7 @@ const connector = connect(
     fetchPrivatePassTemplateList: fetchPrivatePassTemplateListAction,
     fetchDiscountList: fetchDiscountListAction,
     goToTemplateList: () => pushAction('/f/coupon-template'),
+    replace: replaceAction,
   },
 );
 
@@ -253,29 +284,6 @@ export default compose(
             }
           },
         });
-      },
-    createCouponTemplateInstance:
-      ({
-        createCouponTemplateInstance,
-        couponTemplateId,
-        retrieveCouponTemplate,
-        closeCreateInstanceDialog,
-      }) =>
-      (data: any, options: OptionCallback<Array<CouponTemplateInstance>>) => {
-        createCouponTemplateInstance(
-          { ...data, coupon_template: couponTemplateId },
-          {
-            onSuccess: (
-              couponTemplateInstances: Array<CouponTemplateInstance>,
-            ) => {
-              retrieveCouponTemplate(couponTemplateId);
-              closeCreateInstanceDialog();
-              if (options && options.onSuccess)
-                options.onSuccess(couponTemplateInstances);
-            },
-            onError: options?.onError,
-          },
-        );
       },
     deleteCouponTemplateInstance:
       ({

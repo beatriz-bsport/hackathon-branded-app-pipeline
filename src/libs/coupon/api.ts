@@ -23,6 +23,7 @@ import {
   UniqueCodeCouponCreationPayload,
   CheckCouponCodePayload,
   CheckCouponCodeResponsePayload,
+  CouponTemplateParams,
 } from './types';
 
 const COUPON_URI = `${API_V1_URI}/coupon/`;
@@ -162,7 +163,7 @@ export const deleteCouponTemplate: (
 };
 
 export const createCouponTemplateInstance: (
-  data: CouponTemplate,
+  data: CouponTemplateParams,
 ) => Promise<AxiosResponse<CouponTemplateInstance>> = async (data) => {
   return postAuth(
     `${API_V1_URI}/coupon/coupon_template_instance/multi_create/`,

@@ -204,7 +204,7 @@ export type ReportSerializerParams = {
 };
 
 export type ReportObjectPermissions = {
-  read: true;
+  read: boolean;
   edit: boolean;
   delete: boolean;
   create: boolean;

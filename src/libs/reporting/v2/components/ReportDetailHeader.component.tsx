@@ -13,7 +13,10 @@ import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import Tooltip from '@material-ui/core/Tooltip';
 
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import SecondaryActionButton from '#src/components/button/SecondaryActionButton.component';
+
+import { getReportGlobalCategoryFromCategory } from '#src/libs/reporting/common/utils';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import type { SelectOption } from '#src/libs/types';
@@ -36,14 +39,14 @@ type Props = {
 const ReportDetailHeader: React.FC<Props> = ({
   advancedReportFilterConfig,
   categoryName,
+  deleteDisabled,
+  handleAddModalOpening,
   handleDeleteModalOpening,
   handleEditDrawerOpening,
-  handleAddModalOpening,
   isCategoryDefault,
   pushRouter,
   reportId,
   upsertActionsDisabled,
-  deleteDisabled,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -55,83 +58,118 @@ const ReportDetailHeader: React.FC<Props> = ({
     [pushRouter],
   );
 
+  const reportObjectPermissions = React.useMemo(() => {
+    const reportObjectPermissionPrefix = `report.${getReportGlobalCategoryFromCategory(
+      categoryName as ReportCategoryEnum,
+    )}.${categoryName}.allowed_actions`;
+
+    return [
+      `${reportObjectPermissionPrefix}.edit`,
+      `${reportObjectPermissionPrefix}.delete`,
+      `${reportObjectPermissionPrefix}.create`,
+      `${reportObjectPermissionPrefix}.read`,
+    ];
+  }, [categoryName]);
+
   return (
-    <MuiThemeProvider theme={reportDetailHeaderTheme}>
-      <div className={classes.root}>
-        <div className={classes.viewSelectorContainer}>
-          <Typography className={classes.noTextWrap} variant="h6">
-            {t('reportDetailHeader.currentView')}
-          </Typography>
-          <ObjectSearchComponent
-            additionalParams={{ category: categoryName }}
-            className={classes.search}
-            initialValues={[reportId]}
-            onChange={handleSelectOnChange}
-            searchedObjectType="reportV2"
-          />
-          <div className={classes.groupedButtons}>
-            <Badge
-              color="error"
-              invisible={
-                advancedReportFilterConfig
-                  ? !advancedReportFilterConfig.config.groups?.length
-                  : true
-              }
-              variant="dot"
-            >
-              <IconButton
-                disabled={upsertActionsDisabled}
-                onClick={handleEditDrawerOpening}
-              >
-                <EditIcon />
-              </IconButton>
-            </Badge>
-            <Tooltip
-              title={
-                isCategoryDefault
-                  ? t('reportDetailHeader.cannotDeleteDefaultView')
-                  : ''
-              }
-            >
-              <span>
-                <IconButton
-                  disabled={deleteDisabled}
-                  onClick={handleDeleteModalOpening}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </span>
-            </Tooltip>
-          </div>
-          <div>
-            <SecondaryActionButton
-              className={classes.addViewButton}
-              disabled={upsertActionsDisabled}
-              onClick={handleAddModalOpening}
-              size="small"
-              startIcon={<AddIcon />}
-              variant="outlined"
-            >
-              <Typography className={classes.addViewLabel}>
-                {t('reportDetailHeader.addView')}
-              </Typography>
-            </SecondaryActionButton>
-          </div>
-        </div>
-        {advancedReportFilterConfig &&
-        advancedReportFilterConfig.config.groups?.length > 0 ? (
-          <Typography color="textSecondary" variant="body1">
-            {t('reportDetailHeader.advancedFiltersApplied', {
-              count: advancedReportFilterConfig.config.groups.length,
-            })}
-          </Typography>
-        ) : (
-          <Typography color="textSecondary" variant="body1">
-            {t('reportDetailHeader.emptyAdvancedFilters')}
-          </Typography>
-        )}
-      </div>
-    </MuiThemeProvider>
+    <ObjectLevelPermissionProvider requiredPermission={reportObjectPermissions}>
+      {([
+        hasEditPermission,
+        hasDeletePermission,
+        hasCreatePermission,
+        hasReadPermission,
+      ]: boolean[]) => {
+        return (
+          <MuiThemeProvider theme={reportDetailHeaderTheme}>
+            <div className={classes.root}>
+              <div className={classes.viewSelectorContainer}>
+                <Typography className={classes.noTextWrap} variant="h6">
+                  {t('reportDetailHeader.currentView')}
+                </Typography>
+                <ObjectSearchComponent
+                  additionalParams={{ category: categoryName }}
+                  className={classes.search}
+                  initialValues={[reportId]}
+                  isDisabled={!hasReadPermission}
+                  onChange={handleSelectOnChange}
+                  searchedObjectType="reportV2"
+                />
+                {(hasEditPermission || hasDeletePermission) &&
+                  hasReadPermission && (
+                    <div className={classes.groupedButtons}>
+                      {hasEditPermission && (
+                        <Badge
+                          color="error"
+                          invisible={
+                            advancedReportFilterConfig
+                              ? !advancedReportFilterConfig.config.groups
+                                  ?.length
+                              : true
+                          }
+                          variant="dot"
+                        >
+                          <IconButton
+                            disabled={upsertActionsDisabled}
+                            onClick={handleEditDrawerOpening}
+                          >
+                            <EditIcon />
+                          </IconButton>
+                        </Badge>
+                      )}
+                      {hasDeletePermission && (
+                        <Tooltip
+                          title={
+                            isCategoryDefault
+                              ? t('reportDetailHeader.cannotDeleteDefaultView')
+                              : ''
+                          }
+                        >
+                          <span>
+                            <IconButton
+                              disabled={deleteDisabled}
+                              onClick={handleDeleteModalOpening}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </span>
+                        </Tooltip>
+                      )}
+                    </div>
+                  )}
+                {hasCreatePermission && hasReadPermission && (
+                  <div>
+                    <SecondaryActionButton
+                      className={classes.addViewButton}
+                      disabled={upsertActionsDisabled}
+                      onClick={handleAddModalOpening}
+                      size="small"
+                      startIcon={<AddIcon />}
+                      variant="outlined"
+                    >
+                      <Typography className={classes.addViewLabel}>
+                        {t('reportDetailHeader.addView')}
+                      </Typography>
+                    </SecondaryActionButton>
+                  </div>
+                )}
+              </div>
+              {advancedReportFilterConfig &&
+              advancedReportFilterConfig.config.groups?.length > 0 ? (
+                <Typography color="textSecondary" variant="body1">
+                  {t('reportDetailHeader.advancedFiltersApplied', {
+                    count: advancedReportFilterConfig.config.groups.length,
+                  })}
+                </Typography>
+              ) : (
+                <Typography color="textSecondary" variant="body1">
+                  {t('reportDetailHeader.emptyAdvancedFilters')}
+                </Typography>
+              )}
+            </div>
+          </MuiThemeProvider>
+        );
+      }}
+    </ObjectLevelPermissionProvider>
   );
 };
 

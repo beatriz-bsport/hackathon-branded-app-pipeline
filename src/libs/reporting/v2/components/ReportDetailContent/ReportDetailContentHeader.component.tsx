@@ -36,6 +36,9 @@ import type {
 import type { OptionCallback } from '#src/state/types';
 import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 
+import { getReportGlobalCategoryFromCategory } from '#src/libs/reporting/common/utils';
+
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import ReportFilterChip from '#src/libs/reporting/common/components/ReportFilterChip.component';
 import ReportDetailDateSelectors from '#src/libs/reporting/v2/components/ReportDetailContent/ReportDetailDateSelectors.component';
 import QuickReportFilterConfigColumnsMenu from '#src/libs/reporting/common/components/QuickReportFilterConfigColumnsMenu.component';
@@ -48,6 +51,7 @@ type Props = {
     data: Partial<ReportFilterConfig>,
     options?: OptionCallback<ReportFilterConfig>,
   ) => void;
+  excelExportDisabled: boolean;
   excelExportLoading: boolean;
   handleExport: (values: ReportGenerationParams) => () => void;
   isFranchisor?: boolean;
@@ -76,6 +80,7 @@ const ReportDetailContentHeader: React.FC<
 > = ({
   categoryName,
   editReportFilterConfig,
+  excelExportDisabled,
   excelExportLoading,
   generationDisabled,
   handleExport,
@@ -164,107 +169,150 @@ const ReportDetailContentHeader: React.FC<
     [reportCategoryMetadata, report],
   );
 
+  const reportObjectPermissions: string[] = React.useMemo(() => {
+    const reportObjectPermissionPrefix = `report.${getReportGlobalCategoryFromCategory(
+      categoryName as ReportCategoryEnum,
+    )}.${categoryName}.allowed_actions`;
+
+    return [
+      `${reportObjectPermissionPrefix}.read`,
+      `${reportObjectPermissionPrefix}.edit`,
+      'export.allowed_actions.report',
+    ];
+  }, [categoryName]);
+
+  const CATEGORY_NEEDS_DATE_HELPER_TEXT = React.useMemo(
+    () => CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES.includes(categoryName),
+    [categoryName],
+  );
+
   return (
-    <Form onSubmit={handleSubmit}>
-      <div className={classes.root}>
-        <div className={classes.titleWrapper}>
-          <Typography variant="h6">
-            {t('reporting:reportDetailContent.title')}
-          </Typography>
-          {CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES.includes(categoryName) && (
-            <InformationIcon text={t(`helperText.${categoryName}`)} />
-          )}
-        </div>
-        <ReportDetailDateSelectors
-          dateInputDisabled={generationDisabled}
-          dateType={reportCategoryMetadata.date_type}
-          timeWindowFilteringEnabled={
-            reportCategoryMetadata.time_window_filtering_enabled
-          }
-        />
-        <div className={classes.chipList}>
-          {columnsDataSelectedQuickFilter.map((filterItem) => (
-            <ReportFilterChip
-              key={filterItem.identifier}
-              ref={chipRef}
-              columnIdentifiers={report.columns}
-              comparator={filterItem.comparator}
-              datatype={filterItem.datatype}
-              editReportFilterConfig={editReportFilterConfig}
-              getDataByTypeAndId={handleGetDynamicDataForFilters}
-              label={filterItem.identifier}
-              reportQuickFilter={quickReportFilterConfig}
-              setAnchorEl={setAnchorEl}
-              setIsQuickFilterConfigRowModalOpen={
-                setIsQuickFilterConfigRowModalOpen
-              }
-              setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
-              setSelectedColumn={setSelectedColumn}
-              subDataType={filterItem.sub_datatype}
-              value={filterItem.value}
-            />
-          ))}
-          <Button
-            color="primary"
-            onClick={handleQuickFilterModalOpen}
-            startIcon={<AddIcon />}
-          >
-            {t('reportDetailContent.addQuickFilter').toUpperCase()}
-          </Button>
-        </div>
-        {isQuickFilterModalOpen && (
-          <QuickReportFilterConfigColumnsMenu
-            anchorEl={anchorEl}
-            chipRef={chipRef}
-            // @ts-expect-error TODO: harmonize DataSourceFieldMetadata and  ReportMetadataColumn
-            columns={reportColumnsMetadata}
-            columnsDataSelectedQuickFilter={columnsDataSelectedQuickFilter}
-            getDataByType={handleGetDynamicDataForFilters}
-            handleQuickFilterModalClose={handleQuickFilterModalClose}
-            isFranchisor={isFranchisor}
-            isQuickFilterConfigColumnModalOpen={
-              isQuickFilterConfigColumnModalOpen
-            }
-            isQuickFilterConfigRowModalOpen={isQuickFilterConfigRowModalOpen}
-            isQuickFilterModalOpen={isQuickFilterModalOpen}
-            reportCategory={categoryName}
-            selectedColumn={selectedColumn}
-            setAnchorEl={setAnchorEl}
-            setIsQuickFilterConfigColumnModalOpen={
-              setIsQuickFilterConfigColumnModalOpen
-            }
-            setIsQuickFilterConfigRowModalOpen={
-              setIsQuickFilterConfigRowModalOpen
-            }
-            setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
-            setSelectedColumn={setSelectedColumn}
-          />
-        )}
-        <div className={classes.actionButtonsWrapper}>
-          <Button
-            color="primary"
-            disabled={generationDisabled}
-            type="submit"
-            variant="contained"
-          >
-            {t('smartList:generateReport')}
-          </Button>
-          <Button
-            color="primary"
-            disabled={excelExportLoading}
-            onClick={handleExport(values)}
-            variant="outlined"
-          >
-            {t('smartList:downloadReport')}
-            {excelExportLoading ? (
-              <CircularProgress className={classes.rightIcon} size={24} />
-            ) : (
-              <CloudDownloadIcon className={classes.rightIcon} />
-            )}
-          </Button>
-        </div>
-      </div>
-    </Form>
+    <ObjectLevelPermissionProvider requiredPermission={reportObjectPermissions}>
+      {([
+        hasReadPermission,
+        hasEditPermission,
+        hasExportPermission,
+      ]: boolean[]) => {
+        return (
+          <Form onSubmit={handleSubmit}>
+            <div className={classes.root}>
+              <div className={classes.titleWrapper}>
+                <Typography variant="h6">
+                  {t('reporting:reportDetailContent.title')}
+                </Typography>
+                {CATEGORY_NEEDS_DATE_HELPER_TEXT && (
+                  <InformationIcon text={t(`helperText.${categoryName}`)} />
+                )}
+              </div>
+              {hasEditPermission && (
+                <ReportDetailDateSelectors
+                  dateInputDisabled={generationDisabled}
+                  dateType={reportCategoryMetadata.date_type}
+                  timeWindowFilteringEnabled={
+                    reportCategoryMetadata.time_window_filtering_enabled
+                  }
+                />
+              )}
+              <div className={classes.chipList}>
+                {columnsDataSelectedQuickFilter.map((filterItem) => (
+                  <ReportFilterChip
+                    key={filterItem.identifier}
+                    ref={chipRef}
+                    columnIdentifiers={report.columns}
+                    comparator={filterItem.comparator}
+                    datatype={filterItem.datatype}
+                    editReportFilterConfig={editReportFilterConfig}
+                    getDataByTypeAndId={handleGetDynamicDataForFilters}
+                    label={filterItem.identifier}
+                    reportQuickFilter={quickReportFilterConfig}
+                    setAnchorEl={setAnchorEl}
+                    setIsQuickFilterConfigRowModalOpen={
+                      setIsQuickFilterConfigRowModalOpen
+                    }
+                    setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
+                    setSelectedColumn={setSelectedColumn}
+                    subDataType={filterItem.sub_datatype}
+                    value={filterItem.value}
+                  />
+                ))}
+                <Button
+                  color="primary"
+                  onClick={handleQuickFilterModalOpen}
+                  startIcon={<AddIcon />}
+                >
+                  {t('reportDetailContent.addQuickFilter').toUpperCase()}
+                </Button>
+              </div>
+              {isQuickFilterModalOpen && (
+                <QuickReportFilterConfigColumnsMenu
+                  anchorEl={anchorEl}
+                  chipRef={chipRef}
+                  // @ts-expect-error TODO: harmonize DataSourceFieldMetadata and  ReportMetadataColumn
+                  columns={reportColumnsMetadata}
+                  columnsDataSelectedQuickFilter={
+                    columnsDataSelectedQuickFilter
+                  }
+                  getDataByType={handleGetDynamicDataForFilters}
+                  handleQuickFilterModalClose={handleQuickFilterModalClose}
+                  isFranchisor={isFranchisor}
+                  isQuickFilterConfigColumnModalOpen={
+                    isQuickFilterConfigColumnModalOpen
+                  }
+                  isQuickFilterConfigRowModalOpen={
+                    isQuickFilterConfigRowModalOpen
+                  }
+                  isQuickFilterModalOpen={isQuickFilterModalOpen}
+                  reportCategory={categoryName}
+                  selectedColumn={selectedColumn}
+                  setAnchorEl={setAnchorEl}
+                  setIsQuickFilterConfigColumnModalOpen={
+                    setIsQuickFilterConfigColumnModalOpen
+                  }
+                  setIsQuickFilterConfigRowModalOpen={
+                    setIsQuickFilterConfigRowModalOpen
+                  }
+                  setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
+                  setSelectedColumn={setSelectedColumn}
+                />
+              )}
+
+              {(hasReadPermission || hasExportPermission) && (
+                <div className={classes.actionButtonsWrapper}>
+                  {hasReadPermission && (
+                    <Button
+                      color="primary"
+                      disabled={generationDisabled}
+                      type="submit"
+                      variant="contained"
+                    >
+                      {t('smartList:generateReport')}
+                    </Button>
+                  )}
+                  {hasExportPermission && (
+                    <Button
+                      color="primary"
+                      disabled={excelExportDisabled}
+                      onClick={handleExport(values)}
+                      variant="outlined"
+                    >
+                      {t('smartList:downloadReport')}
+                      {excelExportLoading ? (
+                        <CircularProgress
+                          className={classes.rightIcon}
+                          size={24}
+                        />
+                      ) : (
+                        <CloudDownloadIcon className={classes.rightIcon} />
+                      )}
+                    </Button>
+                  )}
+                </div>
+              )}
+            </div>
+          </Form>
+        );
+      }}
+    </ObjectLevelPermissionProvider>
   );
 };
 

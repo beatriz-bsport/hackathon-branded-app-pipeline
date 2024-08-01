@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 
 import { MuiThemeProvider } from '@material-ui/core';
@@ -13,6 +14,8 @@ import { cardHeaderStatsTheme } from '#src/libs/reporting/v2/mui-theme-providers
 import ReportDetailContentHeader from './ReportDetailContentHeader.component';
 import ReportTableHeaders from '#src/libs/reporting/common/components/ReportTableHeaders.component';
 import ReportTable from '#src/libs/reporting/common/components/ReportTable.component';
+
+import { getReportObjectPermissionsBasedOnCategory } from '#src/libs/reporting/common/utils';
 
 import type {
   ReportHeader,
@@ -108,6 +111,11 @@ const ReportDetailContent: React.FC<Props> = ({
     return <LinearProgress />;
   }
 
+  const { read: hasReadPermission } = getReportObjectPermissionsBasedOnCategory(
+    objectLevelPermissions,
+    categoryName,
+  );
+
   return (
     <Paper className={classes.contentPaper}>
       <ReportDetailContentHeader
@@ -125,37 +133,45 @@ const ReportDetailContent: React.FC<Props> = ({
         reportCategoryMetadata={reportCategoryMetadata}
       />
       <Divider />
-      <MuiThemeProvider theme={cardHeaderStatsTheme}>
-        <ReportTableHeaders
-          v2
-          hasReportBeenGenerated={hasReportBeenGenerated}
-          reportHeaders={reportHeaders}
-        />
-      </MuiThemeProvider>
-      <Divider />
-      {showCreditFactorWarning && (
-        <Alert severity="warning">
-          {t('helperText.decimalCredit', {
-            creditFactor: getCreditFactor(),
-          })}
-        </Alert>
+      {hasReadPermission ? (
+        <>
+          <MuiThemeProvider theme={cardHeaderStatsTheme}>
+            <ReportTableHeaders
+              v2
+              hasReportBeenGenerated={hasReportBeenGenerated}
+              reportHeaders={reportHeaders}
+            />
+          </MuiThemeProvider>
+          <Divider />
+          {showCreditFactorWarning && (
+            <Alert severity="warning">
+              {t('helperText.decimalCredit', {
+                creditFactor: getCreditFactor(),
+              })}
+            </Alert>
+          )}
+          <ReportTable
+            v2
+            className={classes.reportTable}
+            handleGenerateNextPage={handleGenerateNextPage}
+            handleGeneratePreviousPage={handleGeneratePreviousPage}
+            hasReportBeenGenerated={hasReportBeenGenerated}
+            metadata={reportCategoriesMetadata}
+            nextPage={reportGeneratedRows.next_page}
+            objectLevelPermissions={objectLevelPermissions}
+            otherPages={reportGeneratedRows.other_pages}
+            previousPage={reportGeneratedRows.previous_page}
+            report={report}
+            reportStoreRowsLoading={reportGeneratedRows.loading}
+            result={reportGeneratedRows.result}
+            userPermissions={userPermissions}
+          />
+        </>
+      ) : (
+        <Typography align="center" variant="h5">
+          {t('readPermissionDenied')}
+        </Typography>
       )}
-      <ReportTable
-        v2
-        className={classes.reportTable}
-        handleGenerateNextPage={handleGenerateNextPage}
-        handleGeneratePreviousPage={handleGeneratePreviousPage}
-        hasReportBeenGenerated={hasReportBeenGenerated}
-        metadata={reportCategoriesMetadata}
-        nextPage={reportGeneratedRows.next_page}
-        objectLevelPermissions={objectLevelPermissions}
-        otherPages={reportGeneratedRows.other_pages}
-        previousPage={reportGeneratedRows.previous_page}
-        report={report}
-        reportStoreRowsLoading={reportGeneratedRows.loading}
-        result={reportGeneratedRows.result}
-        userPermissions={userPermissions}
-      />
     </Paper>
   );
 };

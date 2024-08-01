@@ -1239,13 +1239,26 @@ export const getReportObjectPermissions = (
 ): ReportObjectPermissions => {
   const globalCategory = getReportGlobalCategoryFromCategory(report.category);
 
-  // @ts-expect-error
   return get(
     objectLevelPermissions,
     ['report', globalCategory, report.category, 'allowed_actions'],
     { read: true, edit: true, delete: true, create: true },
   );
 };
+
+export const getReportObjectPermissionsBasedOnCategory = (
+  objectLevelPermissions: ObjectLevelPermissions,
+  category: ReportCategoryEnum,
+): ReportObjectPermissions => {
+  const globalCategory = getReportGlobalCategoryFromCategory(category);
+
+  return get(
+    objectLevelPermissions,
+    ['report', globalCategory, category, 'allowed_actions'],
+    { read: true, edit: true, delete: true, create: true },
+  );
+};
+
 // This function is helpful when using Fuse. The result of fuse.search has the type
 // ```
 // X[] | Fuse.FuseResultWithMatches<X>[] | Fuse.FuseResultWithScore<X>[] |

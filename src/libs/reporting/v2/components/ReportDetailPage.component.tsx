@@ -16,6 +16,8 @@ import ModalConfirm from '#src/components/ModalConfirm.component';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
+import { getReportObjectPermissionsBasedOnCategory } from '#src/libs/reporting/common/utils';
+
 import type {
   ReportConfiguration,
   ReportFilterConfig,
@@ -244,6 +246,12 @@ const ReportDetailPage: React.FC<Props> = ({
     return <LinearProgress />;
   }
 
+  const { delete: hasDeletePermission } =
+    getReportObjectPermissionsBasedOnCategory(
+      objectLevelPermissions,
+      categoryName,
+    );
+
   return (
     <>
       <ReportDetailDrawer
@@ -280,7 +288,9 @@ const ReportDetailPage: React.FC<Props> = ({
           advancedReportFilterConfig={advancedReportFilterConfig}
           categoryName={categoryName}
           deleteDisabled={
-            report?.is_category_default || reportGeneratedRows.loading
+            report?.is_category_default ||
+            !hasDeletePermission ||
+            reportGeneratedRows.loading
           }
           handleAddModalOpening={handleAddModalState(true)}
           handleDeleteModalOpening={handleDeleteModalState(true)}

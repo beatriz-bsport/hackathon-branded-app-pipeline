@@ -111,11 +111,16 @@ export class SubShopList extends Component<Props, State> {
         </Grid>
         <Grid item>
           <Grid container direction="row" spacing={2}>
-            <Grid item>
-              <IconButton onClick={this.toogleEditMode}>
-                <EditIcon />
-              </IconButton>
-            </Grid>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="product.shopReworked.allowed_actions.edit"
+            >
+              <Grid item>
+                <IconButton onClick={this.toogleEditMode}>
+                  <EditIcon />
+                </IconButton>
+              </Grid>
+            </ObjectLevelPermissionWrapper>
             <ObjectLevelPermissionWrapper
               forcedBehavior="hidden"
               requiredPermission="product.shopReworked.allowed_actions.delete"

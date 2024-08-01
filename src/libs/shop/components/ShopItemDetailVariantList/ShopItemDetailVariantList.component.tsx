@@ -307,13 +307,18 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
                     {t('shop:shopItemDetail.table.variants.action.add')}
                   </Button>
                 </ObjectLevelPermissionWrapper>
-                <Button
-                  color="primary"
-                  onClick={handleEnableEditMode}
-                  variant="contained"
+                <ObjectLevelPermissionWrapper
+                  forcedBehavior="hidden"
+                  requiredPermission="product.shopReworked.allowed_actions.edit"
                 >
-                  {t('shop:shopItemDetail.table.variants.action.edit')}
-                </Button>
+                  <Button
+                    color="primary"
+                    onClick={handleEnableEditMode}
+                    variant="contained"
+                  >
+                    {t('shop:shopItemDetail.table.variants.action.edit')}
+                  </Button>
+                </ObjectLevelPermissionWrapper>
               </div>
             )}
             <Table>

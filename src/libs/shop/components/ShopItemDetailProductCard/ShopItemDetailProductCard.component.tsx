@@ -133,14 +133,19 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
         <div className={classes.cardHeader}>
           <Typography variant="h6">{t('shop:shopItemDetail.title')}</Typography>
           <div>
-            <Button
-              color="primary"
-              onClick={onEditShopItem}
-              startIcon={<EditIcon />}
-              variant="contained"
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="product.shopReworked.allowed_actions.edit"
             >
-              {t('shop:shopitem.action.edit')}
-            </Button>
+              <Button
+                color="primary"
+                onClick={onEditShopItem}
+                startIcon={<EditIcon />}
+                variant="contained"
+              >
+                {t('shop:shopitem.action.edit')}
+              </Button>
+            </ObjectLevelPermissionWrapper>
             <IconButton
               className={classes.cardHeaderMoreActionsButton}
               color="secondary"

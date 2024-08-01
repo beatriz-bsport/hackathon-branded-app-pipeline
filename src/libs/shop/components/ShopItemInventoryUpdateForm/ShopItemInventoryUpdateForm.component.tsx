@@ -16,7 +16,9 @@ import TextField from '@material-ui/core/TextField';
 import { useShopDetailTabsModalPrompt } from '#src/hocs/shop-modal-prompt.hoc';
 
 import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#src/libs/shop/constants';
-import type { ShopItemInventoryFormValues } from './types';
+import type { ShopItemInventoryFormValues } from '#src/libs/shop/components/ShopItemInventoryUpdateForm/types';
+
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 const ShopItemInventoryUpdateForm: React.FC = () => {
   const { t } = useTranslation('shop');
@@ -59,22 +61,27 @@ const ShopItemInventoryUpdateForm: React.FC = () => {
   return (
     <Form noValidate>
       <TableContainer className={classes.tableContainer}>
-        <div className={classes.tableActionContainer}>
-          {!isValid && (
-            <Alert className={classes.tableErrorContainer} severity="error">
-              {t('shopItemDetail.table.inventory.formError')}
-            </Alert>
-          )}
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="product.shopReworked.allowed_actions.editInventory"
+        >
+          <div className={classes.tableActionContainer}>
+            {!isValid && (
+              <Alert className={classes.tableErrorContainer} severity="error">
+                {t('shopItemDetail.table.inventory.formError')}
+              </Alert>
+            )}
 
-          <Button
-            color="primary"
-            disabled={!isValid || !dirty}
-            type="submit"
-            variant="contained"
-          >
-            {t('shopItemDetail.table.inventory.action.update')}
-          </Button>
-        </div>
+            <Button
+              color="primary"
+              disabled={!isValid || !dirty}
+              type="submit"
+              variant="contained"
+            >
+              {t('shopItemDetail.table.inventory.action.update')}
+            </Button>
+          </div>
+        </ObjectLevelPermissionWrapper>
 
         <Table>
           <TableHead>
@@ -82,9 +89,14 @@ const ShopItemInventoryUpdateForm: React.FC = () => {
               <TableCell>
                 {t('shopItemDetail.table.inventory.currentStock')}
               </TableCell>
-              <TableCell>
-                {t('shopItemDetail.table.inventory.stockAdjustment')}
-              </TableCell>
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="product.shopReworked.allowed_actions.editInventory"
+              >
+                <TableCell>
+                  {t('shopItemDetail.table.inventory.stockAdjustment')}
+                </TableCell>
+              </ObjectLevelPermissionWrapper>
               <TableCell>
                 {t('shopItemDetail.table.inventory.totalSales')}
               </TableCell>
@@ -93,15 +105,20 @@ const ShopItemInventoryUpdateForm: React.FC = () => {
           <TableBody>
             <TableRow>
               <TableCell>{values.currentStock}</TableCell>
-              <TableCell>
-                <TextField
-                  error={!!errors.stockAdjustment}
-                  name="stockAdjustment"
-                  onChange={handleChange}
-                  placeholder="0"
-                  value={values.stockAdjustment}
-                />
-              </TableCell>
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="product.shopReworked.allowed_actions.editInventory"
+              >
+                <TableCell>
+                  <TextField
+                    error={!!errors.stockAdjustment}
+                    name="stockAdjustment"
+                    onChange={handleChange}
+                    placeholder="0"
+                    value={values.stockAdjustment}
+                  />
+                </TableCell>
+              </ObjectLevelPermissionWrapper>
               <TableCell>{values.totalSales}</TableCell>
             </TableRow>
           </TableBody>

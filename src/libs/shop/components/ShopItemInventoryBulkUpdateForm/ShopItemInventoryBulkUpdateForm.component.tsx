@@ -28,7 +28,8 @@ import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#src/libs/shop/constants';
 import type {
   ShopItemInventoryBulkUpdateFormRow,
   ShopItemInventoryBulkUpdateFormValues,
-} from './types';
+} from '#src/libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type ShopItemBulkFieldArray = {
   form: Pick<
@@ -81,22 +82,27 @@ const ShopItemInventoryBulkUpdateForm: React.FC<Props> = ({
   return (
     <Form noValidate>
       <TableContainer className={classes.tableContainer}>
-        <div className={classes.tableActionContainer}>
-          {!!errors.variants && (
-            <Alert className={classes.tableErrorContainer} severity="error">
-              {t('shopItemDetail.table.inventory.formError')}
-            </Alert>
-          )}
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="product.shopReworked.allowed_actions.editInventory"
+        >
+          <div className={classes.tableActionContainer}>
+            {!!errors.variants && (
+              <Alert className={classes.tableErrorContainer} severity="error">
+                {t('shopItemDetail.table.inventory.formError')}
+              </Alert>
+            )}
 
-          <Button
-            color="primary"
-            disabled={isUpdatingVariant || !isValid || !dirty}
-            type="submit"
-            variant="contained"
-          >
-            {t('shopItemDetail.table.inventory.action.update')}
-          </Button>
-        </div>
+            <Button
+              color="primary"
+              disabled={isUpdatingVariant || !isValid || !dirty}
+              type="submit"
+              variant="contained"
+            >
+              {t('shopItemDetail.table.inventory.action.update')}
+            </Button>
+          </div>
+        </ObjectLevelPermissionWrapper>
 
         <Table>
           <TableHead>
@@ -107,9 +113,14 @@ const ShopItemInventoryBulkUpdateForm: React.FC<Props> = ({
               <TableCell>
                 {t('shopItemDetail.table.inventory.currentStock')}
               </TableCell>
-              <TableCell>
-                {t('shopItemDetail.table.inventory.stockAdjustment')}
-              </TableCell>
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="product.shopReworked.allowed_actions.editInventory"
+              >
+                <TableCell>
+                  {t('shopItemDetail.table.inventory.stockAdjustment')}
+                </TableCell>
+              </ObjectLevelPermissionWrapper>
               <TableCell>
                 {t('shopItemDetail.table.inventory.totalSales')}
               </TableCell>
@@ -141,24 +152,33 @@ const ShopItemInventoryBulkUpdateForm: React.FC<Props> = ({
                           }
                         </FastField>
                       </TableCell>
-                      <TableCell>
-                        <FastField
-                          key={index.toString()}
-                          name={`variants.${index}.stockAdjustment`}
-                        >
-                          {({ field }: { field: FieldInputProps<number> }) => (
-                            <TextField
-                              {...field}
-                              error={
-                                !!(
-                                  errors.variants as FormikErrors<ShopItemInventoryBulkUpdateFormRow>[]
-                                )?.[index]?.stockAdjustment
-                              }
-                              placeholder="0"
-                            />
-                          )}
-                        </FastField>
-                      </TableCell>
+                      <ObjectLevelPermissionWrapper
+                        forcedBehavior="hidden"
+                        requiredPermission="product.shopReworked.allowed_actions.editInventory"
+                      >
+                        <TableCell>
+                          <FastField
+                            key={index.toString()}
+                            name={`variants.${index}.stockAdjustment`}
+                          >
+                            {({
+                              field,
+                            }: {
+                              field: FieldInputProps<number>;
+                            }) => (
+                              <TextField
+                                {...field}
+                                error={
+                                  !!(
+                                    errors.variants as FormikErrors<ShopItemInventoryBulkUpdateFormRow>[]
+                                  )?.[index]?.stockAdjustment
+                                }
+                                placeholder="0"
+                              />
+                            )}
+                          </FastField>
+                        </TableCell>
+                      </ObjectLevelPermissionWrapper>
                       <TableCell>
                         <FastField
                           key={index.toString()}

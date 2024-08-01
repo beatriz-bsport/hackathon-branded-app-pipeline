@@ -182,6 +182,7 @@ export type PaymentPackTemplateAPI = {
   no_show_penalty_active: boolean;
   expiration_date: string;
   off_peak_schedule: Record<string, string[][]>;
+  is_universal_template: boolean;
 };
 
 export type PaymentPackTemplate = PaymentPackTemplateAPI & {
@@ -209,10 +210,16 @@ export type PaymentPackState = Immutable.Immutable<{
   archivationWarning: { [id: number]: { used_in_combo: boolean } };
   paymentPackTemplate: {
     allIds: Array<number>;
+    allIdsManagerOnly: number[];
     byId: { [id: number]: PaymentPackTemplateAPI };
     loading: boolean;
     error: null | Error;
   };
+  universalPaymentPackTemplate: {
+    allIds: number[];
+    allIdsManagerOnly: number[];
+    byId: Record<number, PaymentPackTemplateAPI>;
+  } & ErrorAndLoading;
   byActivity: ErrorAndLoading & {
     allIds: Array<number>;
     page: number;

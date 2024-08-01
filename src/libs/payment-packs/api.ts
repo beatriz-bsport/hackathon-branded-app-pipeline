@@ -25,6 +25,7 @@ import type {
   PaymentPackMassExtensionParams,
   PaymentPackQueryParams,
   PaymentPackTemplateAPI,
+  PaymentPackTemplate,
 } from './types';
 
 export async function fetchAllPaymentPacks() {
@@ -126,6 +127,18 @@ export async function fetchPaymentPackTemplateList(
 ) {
   return getAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack-template/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
+
+export function fetchUniversalPaymentPackTemplateList(
+  params?: FranchiseProductTemplateQueryParams,
+) {
+  return getAuth<
+    PaginatedResponse<PaymentPackTemplate> | PaymentPackTemplate[]
+  >(
+    `${API_V1_URI}/payment-pack/universal-pass-template/${buildUrlParams(
       params,
     )}`,
   );

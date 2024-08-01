@@ -23,6 +23,7 @@ import { RootState } from '../../reducers';
 import {
   getAllowedFranchisees,
   getFranchiseCompanyById,
+  getSortedFranchiseesWithAllowed,
   withAllowed,
 } from '../franchise/selectors';
 
@@ -391,6 +392,74 @@ export const getPaymentPackTemplateManagerOnlyList: (
           // @ts-expect-error
         )?.filter((c: FranchiseCompany) => !!c),
       })),
+);
+
+// ---------- FOR UNIVERSAL PASSES ON MASTER ACCOUNT ----------
+
+export const getUniversalPaymentPackTemplateData = (state: RootState) =>
+  state.paymentPack.universalPaymentPackTemplate.byId;
+
+export const getUniversalPaymentPackTemplateIds = (state: RootState) =>
+  state.paymentPack.universalPaymentPackTemplate.allIds;
+
+const getUniversalPaymentPackTemplateManagerOnlyIds = (state: RootState) =>
+  state.paymentPack.universalPaymentPackTemplate.allIdsManagerOnly;
+
+export const getUniversalPaymentPackTemplateListAvailableForSale =
+  createSelector(
+    [
+      getUniversalPaymentPackTemplateData,
+      getUniversalPaymentPackTemplateIds,
+      getSortedFranchiseesWithAllowed,
+    ],
+    (data, ids, sortedFranchisees) =>
+      ids
+        .map((id: number) => ({
+          ...data[id],
+          companies: sortedFranchisees.filter(
+            (company) =>
+              company.id in
+              data[id].payment_pack_template_instances.map(
+                (paymentPackTemplateInstance) =>
+                  !paymentPackTemplateInstance.disabled &&
+                  paymentPackTemplateInstance.company,
+              ),
+          ),
+        }))
+        .filter(
+          (paymentPackTemplate) =>
+            !paymentPackTemplate.disabled &&
+            !paymentPackTemplate.manager_only &&
+            paymentPackTemplate.is_usable_by_staff,
+        ),
+  );
+
+export const getUniversalPaymentPackTemplateListManagerOnly = createSelector(
+  [
+    getUniversalPaymentPackTemplateData,
+    getUniversalPaymentPackTemplateManagerOnlyIds,
+    getSortedFranchiseesWithAllowed,
+  ],
+  (data, ids, sortedFranchisees) =>
+    ids
+      .map((id: number) => ({
+        ...data[id],
+        companies: sortedFranchisees.filter(
+          (company) =>
+            company.id in
+            data[id].payment_pack_template_instances.map(
+              (paymentPackTemplateInstance) =>
+                !paymentPackTemplateInstance.disabled &&
+                paymentPackTemplateInstance.company,
+            ),
+        ),
+      }))
+      .filter(
+        (paymentPackTemplate) =>
+          !paymentPackTemplate.disabled &&
+          (paymentPackTemplate.manager_only ||
+            !paymentPackTemplate.is_usable_by_staff),
+      ),
 );
 
 // @ts-expect-error

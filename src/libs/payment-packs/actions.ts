@@ -21,6 +21,7 @@ import {
   deletePaymentPackCategory as deletePaymentPackCategoryAPI,
   editOrder,
   fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAPI,
+  fetchUniversalPaymentPackTemplateList as fetchUniversalPaymentPackTemplateListAPI,
   retrievePaymentPackTemplate as retrievePaymentPackTemplateAPI,
   createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAPI,
   deletePaymentPackTemplate as deletePaymentPackTemplateAPI,
@@ -766,6 +767,95 @@ export function fetchPaymentPackTemplateListManagerOnly(
       if (options && options.onError) options.onError(err);
     }
     dispatch(listPaymentPackTemplateActions.isLoading(false));
+  };
+}
+
+/**
+ * Type guard to check if the given object is of type PaginatedResponse<PaymentPackTemplate>.
+ *
+ * This function helps TypeScript narrow down the type of the provided object to PaginatedResponse<PaymentPackTemplate>
+ * by checking for the presence of a property specific to this type: `results`
+ *
+ * @param data - The object to check, which can be either a PaginatedResponse<PaymentPackTemplate> or a PaymentPackTemplate[].
+ * @returns A boolean indicating whether the object is of type PaginatedResponse<PaymentPackTemplate>.
+ */
+function isPaginatedPaymentPackTemplate(
+  data: PaginatedResponse<PaymentPackTemplate> | PaymentPackTemplate[],
+): data is PaginatedResponse<PaymentPackTemplate> {
+  return (data as any).results !== undefined;
+}
+
+export const listUniversalPaymentPackTemplateActions = {
+  isLoading: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/LIST/IS_LOADING'),
+  error: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/LIST/ERROR'),
+  success: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/LIST/SUCCESS'),
+  successManagerOnly: createAction(
+    'UNIVERSAL_PAYMENT_PACK_TEMPLATE/LIST/SUCCESS_MANAGER_ONLY',
+  ),
+  reset: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/LIST/RESET'),
+};
+
+export function fetchUniversalPassTemplateList(
+  options?: OptionCallback<PaymentPackTemplate[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listUniversalPaymentPackTemplateActions.error(null));
+    dispatch(listUniversalPaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await fetchUniversalPaymentPackTemplateListAPI({
+        available_for_sale: true,
+      });
+      dispatch(
+        listUniversalPaymentPackTemplateActions.success(
+          isPaginatedPaymentPackTemplate(response.data)
+            ? response.data.results
+            : response.data,
+        ),
+      );
+
+      options?.onSuccess?.(
+        isPaginatedPaymentPackTemplate(response.data)
+          ? response.data.results
+          : response.data,
+      );
+    } catch (err) {
+      console.error(err);
+      dispatch(listUniversalPaymentPackTemplateActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(listUniversalPaymentPackTemplateActions.isLoading(false));
+  };
+}
+
+export function fetchUniversalPassTemplateListManagerOnly(
+  options?: OptionCallback<PaymentPackTemplate[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listUniversalPaymentPackTemplateActions.error(null));
+    dispatch(listUniversalPaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await fetchUniversalPaymentPackTemplateListAPI({
+        available_for_sale: false,
+      });
+      dispatch(
+        listUniversalPaymentPackTemplateActions.successManagerOnly(
+          isPaginatedPaymentPackTemplate(response.data)
+            ? response.data.results
+            : response.data,
+        ),
+      );
+
+      options?.onSuccess?.(
+        isPaginatedPaymentPackTemplate(response.data)
+          ? response.data.results
+          : response.data,
+      );
+    } catch (err) {
+      console.error(err);
+      dispatch(listUniversalPaymentPackTemplateActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(listUniversalPaymentPackTemplateActions.isLoading(false));
   };
 }
 

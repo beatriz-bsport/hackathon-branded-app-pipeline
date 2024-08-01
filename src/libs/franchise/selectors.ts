@@ -229,6 +229,19 @@ export const getCompanyGroupList = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
+export const getSortedFranchiseesWithAllowed = createSelector(
+  [getAllFranchiseCompanyIds, getFranchiseCompanyById, getAllowedFranchisees],
+  (allIds, companies, allowed_franchisee_ids) =>
+    sortCompanyListByIsAllowedAndName(
+      allIds.map((id) => ({
+        ...companies[id],
+        isAllowed:
+          allowed_franchisee_ids?.length === 0 ||
+          allowed_franchisee_ids.includes(id),
+      })),
+    ),
+);
+
 export const getFranchiseUserInfo = (state: RootState) =>
   getState(state).userProfile.generalInformation.franchiseUser;
 

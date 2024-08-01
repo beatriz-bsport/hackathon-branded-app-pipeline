@@ -8,6 +8,7 @@ import {
   PaymentPackMassExtension,
   PaymentPack,
   PaymentPackState,
+  PaymentPackTemplateAPI,
 } from './types';
 import {
   fetchActivityCompatibleAction,
@@ -35,6 +36,7 @@ import {
   fetchPaymentPackMassExtensionListActions,
   createPaymentPackMassExtensionActions,
   deletePaymentPackMassExtensionActions,
+  listUniversalPaymentPackTemplateActions,
 } from './actions';
 
 // @ts-expect-error
@@ -69,6 +71,17 @@ const initialState: PaymentPackState = Immutable({
     error: null,
   },
   paymentPackTemplate: {
+    byId: {},
+    allIds: [],
+    allIdsManagerOnly: [],
+    loading: false,
+    error: null,
+    upsert: {
+      loading: false,
+      error: null,
+    },
+  },
+  universalPaymentPackTemplate: {
     byId: {},
     allIds: [],
     allIdsManagerOnly: [],
@@ -359,6 +372,72 @@ export const newPaymentPackReducer = handleActions(
           { deep: true },
         );
     },
+    [listUniversalPaymentPackTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['universalPaymentPackTemplate', 'loading'], payload);
+    },
+    [listUniversalPaymentPackTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['universalPaymentPackTemplate', 'error'], payload);
+    },
+    [listUniversalPaymentPackTemplateActions.reset.toString()]: (state) => {
+      return state
+        .setIn(['universalPaymentPackTemplate', 'allIds'], [])
+        .setIn(['universalPaymentPackTemplate', 'allIdsManagerOnly'], [])
+        .setIn(['universalPaymentPackTemplate', 'byId'], {});
+    },
+    [listUniversalPaymentPackTemplateActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaymentPackTemplateAPI[] },
+    ) => {
+      return state
+        .setIn(
+          ['universalPaymentPackTemplate', 'allIds'],
+          payload.map((paymentPackTemplate) => paymentPackTemplate.id),
+        )
+        .merge(
+          {
+            universalPaymentPackTemplate: {
+              byId: payload.reduce(
+                (acc, paymentPackTemplate) => ({
+                  ...acc,
+                  [paymentPackTemplate.id]: paymentPackTemplate,
+                }),
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [listUniversalPaymentPackTemplateActions.successManagerOnly.toString()]: (
+      state,
+      { payload }: { payload: PaymentPackTemplateAPI[] },
+    ) => {
+      return state
+        .setIn(
+          ['universalPaymentPackTemplate', 'allIdsManagerOnly'],
+          payload.map((paymentPackTemplate) => paymentPackTemplate.id),
+        )
+        .merge(
+          {
+            universalPaymentPackTemplate: {
+              byId: payload.reduce(
+                (acc, paymentPackTemplate) => ({
+                  ...acc,
+                  [paymentPackTemplate.id]: paymentPackTemplate,
+                }),
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
     [deletePaymentPackTemplateActions.isLoading.toString()]: (
       state,
       { payload },
@@ -424,7 +503,6 @@ export const newPaymentPackReducer = handleActions(
           [
             // @ts-expect-error
             payload.id,
-            // @ts-expect-error
             ...state.paymentPackTemplate.allIdsManagerOnly.filter(
               // @ts-expect-error
               (id) => id !== payload.id,

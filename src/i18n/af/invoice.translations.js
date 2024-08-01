@@ -435,6 +435,8 @@ const getTranslations = async () => {
         revert: 'Cancel',
         pay: 'Pay invoice',
         bill: 'Take payment',
+        basketWasInconsistent:
+          'Your basket has changed. You have not been charged, please attempt the payment again.',
         basketInconsistent:
           'Your cart has been modified, please refresh your page before validating your payment.\n You have not been charged.',
         billByInstalment: 'Instalments',

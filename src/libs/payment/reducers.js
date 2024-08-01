@@ -44,6 +44,7 @@ const initialState = Immutable({
     error: null,
     loading: false,
     id: null,
+    amount: null,
   },
   paymentGroupStatus: {
     error: null,
@@ -187,7 +188,9 @@ export default handleActions(
       return state.setIn(['onSpotPaymentReport', 'error'], payload);
     },
     [createPaymentAttemptActions.success.toString()]: (state, { payload }) => {
-      return state.setIn(['paymentAttempt', 'id'], payload.payment_attempt_id);
+      return state
+        .setIn(['paymentAttempt', 'id'], payload.payment_attempt_id)
+        .setIn(['paymentAttempt', 'amount'], payload.payment_attempt_amount);
     },
     [createPaymentAttemptActions.isLoading]: (state, { payload }) => {
       return state.setIn(['paymentAttempt', 'loading'], payload);

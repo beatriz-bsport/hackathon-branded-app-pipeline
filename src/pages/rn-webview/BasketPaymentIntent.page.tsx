@@ -96,6 +96,7 @@ import {
   USER_REGISTRATION_RESPONSE_QUERY_PARAM,
   USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
 } from '#src/libs/payment/constants';
+import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
 
 const OnlinePayment = asyncComponent(
   () => import('../../libs/payment/components/OnlinePayment.component'),
@@ -198,6 +199,11 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         this.props.t(
           'validation.sections.confirmationStatusTitle.errors.generic',
         ),
+      );
+    }
+    if (this.props.queryParams.paypalError == BASKET_INCONSISTENT) {
+      this.props.snackbarError(
+        this.props.t('invoice:paymentPanel.actions.basketWasInconsistent'),
       );
     }
     this.props.fetchBasket(this.props.basketId, {
@@ -758,6 +764,7 @@ export default compose(
       'redirect_status',
       'get_user_registration_from_storage',
       'user_registration_response',
+      'paypalError',
     ],
     'queryParams',
     'setQueryParams',

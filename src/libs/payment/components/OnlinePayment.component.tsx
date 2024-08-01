@@ -349,6 +349,9 @@ const OnlinePayment: React.FC<Props> = forwardRef(
                 applyBalanceLoading={applyBalanceLoading}
                 applyBalanceToInvoice={applyBalanceToInvoice}
                 basketId={basketId}
+                basketPriceCts={
+                  basketTotalPriceCts - (basketTotalPricePrepaidLines || 0)
+                }
                 clientSecret={clientSecret}
                 clientSecretLoading={clientSecretLoading}
                 creditAccountBalance={creditAccountBalance}

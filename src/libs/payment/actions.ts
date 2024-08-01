@@ -336,7 +336,10 @@ export function createPaymentAttempt(
         options.onSuccess(response.data);
       }
       // Needed in the case of PayPal payments, since the PayPal SDK requires a callback returning a Promise<string> to retrieve the Order id
-      return response.data.payment_attempt_id;
+      return {
+        id: response.data.payment_attempt_id,
+        amount: response.data.payment_attempt_amount,
+      };
     } catch (err) {
       console.error(err);
       dispatch(createPaymentAttemptActions.error(err));

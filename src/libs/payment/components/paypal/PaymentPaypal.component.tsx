@@ -24,6 +24,7 @@ import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
 import { getCurrencyCode } from '#src/libs/theme/selectors';
 import PayPalPaymentButton from './PayPalPaymentButton.component';
+import { PaymentAttemptMinimal } from '#src/libs/payment/types';
 
 type Props = {
   acceptTermsAndConditionsElement?: React.ReactElement;
@@ -38,7 +39,7 @@ type Props = {
     paymentGroupId: number,
     fromApp: boolean,
     basketId?: string,
-  ) => Promise<string>;
+  ) => Promise<PaymentAttemptMinimal>;
   creditAccountBalance?: number | null;
   customClasses?: { [className: string]: string };
   executePaymentAttempt: (
@@ -65,6 +66,7 @@ type Props = {
   snackbarErrorMsg?: (message: string) => void;
   termsAndConditionsAccepted: boolean;
   useInternalAccount?: (amount: number) => void;
+  basketPriceCts?: number;
 };
 
 const PaymentPaypal: React.FC<Props> = ({
@@ -74,6 +76,7 @@ const PaymentPaypal: React.FC<Props> = ({
   applyBalanceToInvoice,
   basketId,
   children,
+  basketPriceCts,
   clientSecret,
   clientSecretLoading,
   creditAccountBalance,
@@ -101,9 +104,23 @@ const PaymentPaypal: React.FC<Props> = ({
 
   const { t } = useTranslation('invoice');
 
-  const createOrder = React.useCallback((): Promise<string> => {
-    return createPaymentAttempt(paymentGroupId, fromApp, basketId);
-  }, [basketId, fromApp, paymentGroupId, createPaymentAttempt]);
+  const createOrder = React.useCallback(async (): Promise<string> => {
+    const response = await createPaymentAttempt(
+      paymentGroupId,
+      fromApp,
+      basketId,
+    );
+    // Basket price might have changed since the customer got to the checkout page
+    // We need to make sure that the price the customer is trying to pay matches the one we'll be sending to PayPal.
+    // Otherwise, we force the customer to reload the page.
+    if (Math.round(response.amount * 100) !== basketPriceCts) {
+      const url = new URL(window.location.href);
+      url.searchParams.append('paypalError', 'basketInconsistent');
+      window.location.href = url.toString();
+      return;
+    }
+    return response.id;
+  }, [basketId, fromApp, paymentGroupId, basketPriceCts, createPaymentAttempt]);
 
   const onApprove = React.useCallback((): Promise<void> => {
     setPaymentProcessing(true);

@@ -114,6 +114,12 @@ export type Payment = {
 
 export type CreatePaymentAttemptResponsePayload = {
   payment_attempt_id: string;
+  payment_attempt_amount: number;
+};
+
+export type PaymentAttemptMinimal = {
+  id: string;
+  amount: number;
 };
 
 export enum TermsAndConditionType {

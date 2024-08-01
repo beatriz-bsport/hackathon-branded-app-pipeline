@@ -129,6 +129,7 @@ import {
 } from '../../../libs/payment/constants';
 
 import { type EstablishmentBillingGroup } from '../../../libs/establishment/types';
+import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
 
 type Props = {
   basket: ?Basket,
@@ -254,6 +255,11 @@ export class BasketPage extends React.Component<Props> {
           USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
         );
       }
+    }
+    if (this.props.queryParams.paypalError == BASKET_INCONSISTENT) {
+      this.props.snackbarError(
+        this.props.t('invoice:paymentPanel.actions.basketWasInconsistent'),
+      );
     }
     if (hasRedirectionFailed(this.props.queryParams)) {
       this.props.snackbarError(
@@ -825,6 +831,7 @@ export default compose(
       'onValidation',
       'get_user_registration_from_storage',
       'basket_redirection',
+      'paypalError',
     ],
     'queryParams',
     'setQueryParams',

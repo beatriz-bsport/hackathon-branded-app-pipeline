@@ -60,34 +60,34 @@ import type { OptionCallback } from '../../../state/types';
 import { getReceiptUrl as getReceiptUrlAPI } from '../api';
 
 type Props = {
-  compactMode?: boolean;
-  hideMemberName: boolean;
-  setOpen: (uuid?: string) => void;
-  open: boolean;
-  onInvoiceExpand: (uuid: string) => void;
-  invoice: Invoice<Member> & { memberArchived?: boolean };
-  onClickInvoice: (uuid: string) => void;
-  nestedDataLoading: boolean;
-  onBill: (uuid: string) => void;
-  finalizeInvoice: (uuid: string, callback: OptionCallback<Invoice>) => void;
-  showOpenInvoiceNested: boolean;
-  asConsumer: boolean;
-  showType?: boolean;
-  companyId?: number;
-  snackbarSuccess: (msg: string) => void;
-  quickbooksIntegrated: boolean;
-  sendInvoiceToQuickbooks: (uuid: string) => void;
-  quickbooksLoading: boolean;
-  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard, Member, Member>>;
-  hidePaymentLink?: boolean;
-  hidePayButton?: boolean;
   applyGiftcardOnInvoice: (
     invoiceUuid: string,
     consumergiftCardId: number,
     amount: number,
     options?: OptionCallback,
   ) => void;
+  asConsumer: boolean;
+  compactMode?: boolean;
+  companyId?: number;
+  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard, Member, Member>>;
+  finalizeInvoice: (uuid: string, callback: OptionCallback<Invoice>) => void;
   getInvoicePaymentGroupIsProcessing?: (invoiceUuid: string) => boolean;
+  hideMemberName: boolean;
+  hidePayButton?: boolean;
+  hidePaymentLink?: boolean;
+  invoice: Invoice<Member> & { memberArchived?: boolean };
+  nestedDataLoading: boolean;
+  onBill: (uuid: string) => void;
+  onClickInvoice: (uuid: string) => void;
+  onInvoiceExpand: (uuid: string) => void;
+  open: boolean;
+  quickbooksIntegrated: boolean;
+  quickbooksLoading: boolean;
+  sendInvoiceToQuickbooks: (uuid: string) => void;
+  setOpen: (uuid?: string) => void;
+  showOpenInvoiceNested: boolean;
+  showType?: boolean;
+  snackbarSuccess: (msg: string) => void;
 };
 
 const quickbooksLogo = require('./QB_logo.png');

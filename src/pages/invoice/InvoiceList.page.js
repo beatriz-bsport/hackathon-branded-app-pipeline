@@ -42,23 +42,23 @@ import type { OptionCallback } from '../../state/types';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 type Props = {
-  push: (path: string) => void,
+  classes: Object,
+  companyTheme: CompanyTheme,
+  count: number,
+  fetchInvoiceItemList: (params: any) => void,
+  fetchInvoiceList: (params: any, options: OptionCallback) => void,
+  fetchPaymentList: (params: any) => void,
   finalizeInvoice: (uuid: string) => void,
   invoiceList: Array<Invoice>,
   loading: boolean,
-  count: number,
-  classes: Object,
-  fetchInvoiceList: (params: any, options: OptionCallback) => void,
-  fetchPaymentList: (params: any) => void,
-  fetchInvoiceItemList: (params: any) => void,
   nestedDataLoading: boolean,
   page: number,
-  companyTheme: CompanyTheme,
-  quickbooksLoading: boolean,
-  sendInvoiceToQuickbooks: (uuid: string) => void,
-  retrieveQuickbooksApp: (companyId: number, options?: OptionCallback) => void,
+  push: (path: string) => void,
   quickbooksApp: QuickbooksApp,
   quickbooksAppLoading: boolean,
+  quickbooksLoading: boolean,
+  retrieveQuickbooksApp: (companyId: number, options?: OptionCallback) => void,
+  sendInvoiceToQuickbooks: (uuid: string) => void,
   t: TFunction,
 };
 type State = {

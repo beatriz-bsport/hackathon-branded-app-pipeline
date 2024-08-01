@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { compose, withStateHandlers, withHandlers } from 'recompose';
+import { compose, withHandlers } from 'recompose';
+import { replace as replaceAction } from 'connected-react-router';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -39,14 +40,43 @@ import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../../lib
 import { RootState } from '../../../reducers';
 import { parseQueryString } from '../../../http';
 import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
+import type { OptionCallback } from '#src/state/types';
+import type { PrivatePassTemplateInstanceParams } from '#src/libs/private-service/types';
 
 type OwnProps = { privatePassTemplateId: number };
 
 const PAGINATION_SIZE = 30;
 
+type State = {
+  createFormOpen: boolean;
+  companyTemplateInstanceIdToDelete: number | null;
+};
+
 type Props = OwnProps & ConnectedProps<typeof connector> & WithTranslation;
 
-export class FranchisePrivatePassTemplateDetail extends Component<Props> {
+export class FranchisePrivatePassTemplateDetail extends Component<
+  Props,
+  State
+> {
+  state: State = {
+    createFormOpen: false,
+    companyTemplateInstanceIdToDelete: null,
+  };
+
+  openCreateForm = () => this.setState({ createFormOpen: true });
+
+  closeCreateForm = () => this.setState({ createFormOpen: false });
+
+  openDeleteDialog = (companyTemplateInstanceIdToDelete: number) =>
+    this.setState({
+      companyTemplateInstanceIdToDelete: companyTemplateInstanceIdToDelete,
+    });
+
+  closeDeleteDialog = () =>
+    this.setState({
+      companyTemplateInstanceIdToDelete: null,
+    });
+
   componentDidMount() {
     this.props.retrievePrivatePassTemplate(this.props.privatePassTemplateId);
 
@@ -54,8 +84,7 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
       // eslint-disable-next-line
       parseQueryString(location.search || '').openTemplateInstanceForm
     ) {
-      // @ts-expect-error
-      this.props.openCreateForm();
+      this.openCreateForm();
     }
   }
 
@@ -70,6 +99,32 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
     );
   };
 
+  handleCloseCreateForm = () => {
+    this.closeCreateForm();
+    if (parseQueryString(location.search || '').openTemplateInstanceForm) {
+      this.props.replace(location.pathname);
+    }
+  };
+
+  handleCreatePrivatePassTemplateInstance = (
+    data: PrivatePassTemplateInstanceParams,
+    options: OptionCallback,
+  ) => {
+    this.props.createPrivatePassTemplateInstance(
+      { ...data, private_pass_template: this.props.privatePassTemplateId },
+      {
+        onSuccess: (...args) => {
+          this.props.retrievePrivatePassTemplate(
+            this.props.privatePassTemplateId,
+          );
+          this.handleCloseCreateForm();
+          if (options && options.onSuccess) options.onSuccess(...args);
+        },
+        onError: options?.onError,
+      },
+    );
+  };
+
   render() {
     if (!this.props.privatePassTemplate) {
       return <LinearProgress />;
@@ -79,9 +134,8 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
         <Grid item md={6} xs={12}>
           <PrivatePassTemplateCard
             // @ts-expect-error
-            onCreatePrivatePassTemplateInstance={this.props.openCreateForm}
-            // @ts-expect-error
-            onDeleteCompany={this.props.openDeleteDialog}
+            onCreatePrivatePassTemplateInstance={this.openCreateForm}
+            onDeleteCompany={this.openDeleteDialog}
             privatePassTemplate={this.props.privatePassTemplate}
           />
         </Grid>
@@ -128,20 +182,15 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
         <PrivatePassTemplateInstanceFormDialog
           // @ts-expect-error
           companies={this.props.companies}
-          // @ts-expect-error
-          onClose={this.props.closeCreateForm}
-          onSubmit={this.props.createPrivatePassTemplateInstance}
-          // @ts-expect-error
-          open={this.props.createFormOpen}
+          onClose={this.handleCloseCreateForm}
+          onSubmit={this.handleCreatePrivatePassTemplateInstance}
+          open={this.state.createFormOpen}
         />
         <PrivatePassTemplateInstanceDeleteDialog
-          // @ts-expect-error
-          companyId={this.props.companyTemplateInstanceIdToDelete}
-          // @ts-expect-error
-          onClose={this.props.closeDeleteDialog}
+          companyId={this.state.companyTemplateInstanceIdToDelete}
+          onClose={this.closeDeleteDialog}
           onSubmit={this.props.deletePrivatePassTemplateInstance}
-          // @ts-expect-error
-          open={!!this.props.companyTemplateInstanceIdToDelete}
+          open={!!this.state.companyTemplateInstanceIdToDelete}
           privatePassTemplate={this.props.privatePassTemplate}
         />
       </Grid>
@@ -173,6 +222,7 @@ const connector = connect(
     fetchPrivateConsumerPassList: fetchPrivateConsumerPassListAction,
     fetchPrivatePassBulk: fetchPrivatePassBulkAction,
     fetchFilteredMembers: fetchFilteredMembersAction,
+    replace: replaceAction,
   },
 );
 
@@ -208,22 +258,6 @@ export default compose(
       },
       }),
    */
-  withStateHandlers(
-    {
-      createFormOpen: false,
-      companyTemplateInstanceIdToDelete: null,
-    },
-    {
-      openCreateForm: () => () => ({ createFormOpen: true }),
-      closeCreateForm: () => () => ({ createFormOpen: false }),
-      openDeleteDialog: () => (companyTemplateInstanceIdToDelete) => ({
-        companyTemplateInstanceIdToDelete,
-      }),
-      closeDeleteDialog: () => () => ({
-        companyTemplateInstanceIdToDelete: null,
-      }),
-    },
-  ),
   connector,
   withHandlers({
     deletePrivatePassTemplateInstance:
@@ -244,28 +278,6 @@ export default compose(
           },
           onError: options?.onError,
         });
-      },
-    createPrivatePassTemplateInstance:
-      ({
-        createPrivatePassTemplateInstance,
-        privatePassTemplateId,
-        retrievePrivatePassTemplate,
-        closeCreateForm,
-      }) =>
-      // @ts-expect-error
-      (data, options) => {
-        createPrivatePassTemplateInstance(
-          { ...data, private_pass_template: privatePassTemplateId },
-          {
-            // @ts-expect-error
-            onSuccess: (...args) => {
-              retrievePrivatePassTemplate(privatePassTemplateId);
-              closeCreateForm();
-              if (options && options.onSuccess) options.onSuccess(...args);
-            },
-            onError: options?.onError,
-          },
-        );
       },
     fetchPrivateConsumerPassList:
       ({

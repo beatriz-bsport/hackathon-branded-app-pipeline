@@ -223,6 +223,7 @@ export default compose(
     createOrUpdatePrivatePassTemplate:
       ({
         createOrUpdatePrivatePassTemplate,
+        createModalOpen,
         closeCreateDialog,
         closeEditDialog,
         goToTemplateDetail,
@@ -231,10 +232,12 @@ export default compose(
         createOrUpdatePrivatePassTemplate(data, {
           onError: options && options.onError,
           onSuccess: (template: PrivatePassTemplateAPI) => {
-            if (!template.private_pass_template_instances.length) {
+            if (createModalOpen) {
               goToTemplateDetail(template.id, {
                 openTemplateInstanceForm: true,
               });
+            } else {
+              goToTemplateDetail(template.id);
             }
             closeCreateDialog();
             closeEditDialog();

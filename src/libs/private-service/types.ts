@@ -448,6 +448,10 @@ export type PrivatePassTemplate = PrivatePassTemplateAPI & {
   companies: Array<Company>;
 };
 
+export type PrivatePassTemplateInstanceParams = {
+  companies: number[];
+};
+
 export interface PrivateServiceState {
   customEvent: ErrorAndLoading & {
     byId: { [key: string]: CustomEvents };

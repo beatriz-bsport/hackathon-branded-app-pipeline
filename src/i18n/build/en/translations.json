@@ -5536,7 +5536,7 @@
                             "_label": "Edit member spots"
                         },
                         "refund": {
-                            "_label": "Refund late cancelations"
+                            "_label": "Refund"
                         }
                     },
                     "_label": "Workshop management"

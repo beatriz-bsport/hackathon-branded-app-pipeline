@@ -11648,7 +11648,7 @@
                             "_label": "Cancelar reservas"
                         },
                         "refund": {
-                            "_label": "Reembolso de las anulaciones tardías"
+                            "_label": "Reembolso"
                         }
                     },
                     "_label": "Gestión de talleres"

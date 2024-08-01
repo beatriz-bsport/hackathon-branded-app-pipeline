@@ -237,6 +237,7 @@ const getTranslations = async () => {
     actions: {
       equilibrate: 'Regularize (deposit)',
       download: 'Download invoice (PDF)',
+      downloadXml: 'Download invoice (XML)',
       addInvoiceItem: 'Add to invoice',
       save: 'Save',
       backToInvoiceItemEditor: 'Purchase',

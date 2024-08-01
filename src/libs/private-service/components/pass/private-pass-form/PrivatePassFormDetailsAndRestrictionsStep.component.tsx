@@ -182,6 +182,16 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
 
   const isCreatingPass = !props.initial?.id;
 
+  const is_shared_from_franchise = React.useMemo(
+    () =>
+      !!props.initial?.template_instance ||
+      !!props.initial?.linked_payment_pack_template_instance,
+    [
+      props.initial?.linked_payment_pack_template_instance,
+      props.initial?.template_instance,
+    ],
+  );
+
   const setServiceAndIndex = (ps: PrivateServiceWithSlots, index: number) => {
     setSelectedService(ps);
     setSelectedServiceIndex(index);
@@ -249,7 +259,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
 
   return (
     <>
-      {!!props.initial?.template_instance && (
+      {is_shared_from_franchise && (
         <div className={classes.row}>
           <WarningIcon color="error" />
           <Typography color="error" variant="body1">
@@ -278,7 +288,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
 
         <TextField
           fullWidth
-          disabled={!!props.initial?.template_instance}
+          disabled={is_shared_from_franchise}
           helperText={t('privatePass.form.name.helperText')}
           id="private-pass-name-field"
           label={`${t('privatePass.form.name.label')}*`}
@@ -287,7 +297,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
         <TextField
           fullWidth
           multiline
-          disabled={!!props.initial?.template_instance}
+          disabled={is_shared_from_franchise}
           id="private-pass-description-field"
           label={t('privatePass.form.description.label')}
           minRows={6}
@@ -320,7 +330,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
           <PriceField
             fullWidth
             className={classes.priceField}
-            disabled={!!props.initial?.template_instance}
+            disabled={is_shared_from_franchise}
             helperText={t('privatePass.form.price.helperText')}
             id="private-pass-price-field"
             label={t('privatePass.form.price.label')}
@@ -340,9 +350,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
             fullWidth
             required
             className={classes.taxField}
-            disabled={
-              !!props.initial?.template_instance || !!values.bookkeeping_account
-            }
+            disabled={is_shared_from_franchise || !!values.bookkeeping_account}
             FormHelperTextProps={{ classes: { root: classes.helperTextError } }}
             helperText={provincialTaxText}
             id="private-pass-tax-field"
@@ -374,7 +382,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
           id="private-pass-switch-fields-container"
         >
           <SwitchField
-            disabled={!!props.initial?.template_instance}
+            disabled={is_shared_from_franchise}
             label={t('privatePass.form.managerOnly.label')}
             name="manager_only"
           />
@@ -391,7 +399,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
             name="full_vod_access"
           />
           <SwitchField
-            disabled={!!props.initial?.template_instance}
+            disabled={is_shared_from_franchise}
             label={t('privatePass.listItem.unusableByStaff')}
             name="unusable_by_staff"
           />
@@ -407,7 +415,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
           />
           <div className={classes.rowExpirationDate}>
             <SwitchField
-              disabled={!!props.initial?.template_instance}
+              disabled={is_shared_from_franchise}
               label={t('privatePass.form.expiration_date.label')}
               name="expiration_date_active"
             />
@@ -421,7 +429,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
             </InputLabel>
             <DateField
               allowNullValue
-              disabled={!!props.initial?.template_instance}
+              disabled={is_shared_from_franchise}
               format="D"
               minDate={DateTime.now()}
               name="expiration_date"

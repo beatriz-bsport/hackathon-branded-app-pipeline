@@ -169,6 +169,7 @@ export type PrivatePass<LPP = number | null> = {
   template_instance: number;
   is_unpaid_private_booking_integration: boolean;
   linked_payment_pack?: LPP;
+  linked_payment_pack_template_instance?: number;
   description?: string;
   is_usable_by_staff: boolean;
   applies_for_payroll: boolean;
@@ -202,7 +203,8 @@ export type PrivatePassWithCompatibility<LPP = number | null> = {
   company: number;
   category: number;
   ordering_in_category: number;
-  template_instance: number;
+  template_instance: number | null;
+  linked_payment_pack_template_instance?: number;
   linked_payment_pack?: LPP;
   is_usable_by_staff: boolean;
   tags_on_consumer_item_creation?: Array<number>;

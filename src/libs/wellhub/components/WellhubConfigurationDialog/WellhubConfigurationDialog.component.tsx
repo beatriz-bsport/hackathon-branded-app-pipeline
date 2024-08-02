@@ -18,11 +18,9 @@ import {
 } from '@material-ui/core';
 
 import { DelayedNumberInputField } from '#src/components/form-fields';
+import { WellhubConfigurationValidationSchema } from '#src/libs/wellhub/components/WellhubConfigurationDialog/validationSchema';
 import EstablishmentSelector from '#src/libs/establishment/components/EstablishmentSelector.component';
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
-
-import { ESTABLISHMENT_LIST } from '#src/libs/wellhub/components/WellhubConfigurationDialog/constants';
-import { WellhubConfigurationValidationSchema } from '#src/libs/wellhub/components/WellhubConfigurationDialog/validationSchema';
 
 import type {
   Establishment,
@@ -90,13 +88,8 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
     [isCreation, t],
   );
 
-  const establishmentList = React.useMemo(
-    () => (establishments?.length > 0 ? establishments : ESTABLISHMENT_LIST),
-    [establishments],
-  );
-
   const establishmentSelectedGroupedByAddress = React.useMemo(() => {
-    const establishmentGourpByAddress = establishmentList
+    const establishmentGourpByAddress = establishments
       ?.filter((item: Establishment) =>
         values.establishmentIds.includes(item.id),
       )
@@ -122,7 +115,7 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
         [],
       );
     return establishmentGourpByAddress ?? [];
-  }, [establishmentList, values.establishmentIds]);
+  }, [establishments, values.establishmentIds]);
 
   const { error: establishmentIdsError, touched: establishmentIdsTouched } =
     getFieldMeta('establishmentIds');
@@ -253,7 +246,7 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
               nullCurrentValue
               disabled={isSubmitting}
               error={!!establishmentIdsError && establishmentIdsTouched}
-              establishments={establishmentList}
+              establishments={establishments}
               onBlur={handleEstablishmentFieldTouched}
               placeholder={t(
                 'wellhub.configuration.dialog.field.establishmentIds.placeholder',

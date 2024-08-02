@@ -300,12 +300,12 @@ const CoachSchema = (props: Props) =>
     email:
       props.initial?.email || !props.initial
         ? Yup.string()
-            .transform((value) => value.trim())
+            .transform((value) => value?.trim())
             .nullable(false)
             .required()
             .email()
         : Yup.string()
-            .transform((value) => value.trim())
+            .transform((value) => value?.trim())
             .nullable(true)
             .email(),
     phone: Yup.string().nullable(true),

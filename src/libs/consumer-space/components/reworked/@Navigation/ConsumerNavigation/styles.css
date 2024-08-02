@@ -21,6 +21,10 @@
   gap: unset;
 }
 
+.bs-navigation__logout-button__root {
+  color: var(--bs-color-text-error-strong);
+}
+
 @container bsConsumerNavigation (width < 660px) {
   .bs-consumer-navigation__content {
     padding: var(--bs-space-size-6) var(--bs-space-size-4);

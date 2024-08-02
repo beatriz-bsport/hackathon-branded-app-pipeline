@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from 'react';
 import { ImmutableArray } from 'seamless-immutable';
 import type { OptionProps } from 'react-select/lib/components/Option';
 
@@ -258,6 +259,7 @@ export type ObjectSearchProps = {
      */
     variant?: VariantType;
     objectId?: number;
+    setHydratedLoading?: Dispatch<SetStateAction<boolean>>;
   };
 }[SearchObjectType];
 

@@ -120,6 +120,7 @@ const ReportDetailPage: React.FC<Props> = ({
   const [isEditDrawerOpen, setIsEditDrawerOpen] = React.useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = React.useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
+  const [hydratedLoading, setHydratedLoading] = React.useState(true);
 
   const { refreshOptions } = useObjectSearch();
 
@@ -298,6 +299,7 @@ const ReportDetailPage: React.FC<Props> = ({
           isCategoryDefault={report?.is_category_default}
           pushRouter={pushRouter}
           reportId={reportId}
+          setHydratedLoading={setHydratedLoading}
           upsertActionsDisabled={reportCategoriesMetadata.loading}
         />
         <ReportDetailContent
@@ -307,9 +309,11 @@ const ReportDetailPage: React.FC<Props> = ({
           handleExport={handleExport}
           handleGeneration={handleGeneration}
           handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
+          hydratedLoading={hydratedLoading}
           isFranchisor={isFranchisor}
-          loading={reportCategoriesMetadata.loading || !report}
+          loading={reportCategoriesMetadata.loading}
           objectLevelPermissions={objectLevelPermissions}
+          pushRouter={pushRouter}
           quickReportFilterConfig={quickReportFilterConfig}
           report={report}
           reportCategoriesMetadata={reportCategoriesMetadata}

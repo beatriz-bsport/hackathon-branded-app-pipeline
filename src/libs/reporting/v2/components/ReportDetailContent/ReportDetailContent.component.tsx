@@ -8,7 +8,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 
-import { MuiThemeProvider } from '@material-ui/core';
+import { Button, MuiThemeProvider } from '@material-ui/core';
 import { cardHeaderStatsTheme } from '#src/libs/reporting/v2/mui-theme-providers';
 
 import ReportDetailContentHeader from './ReportDetailContentHeader.component';
@@ -26,6 +26,7 @@ import type {
   ReportFilterConfig,
 } from '#src/libs/reporting/common/types';
 import type { ErrorAndLoading } from '#src/libs/types';
+import type { CallHistoryMethodAction } from 'connected-react-router';
 import type {
   ObjectLevelPermissions,
   RolePermission,
@@ -47,9 +48,11 @@ type Props = {
   excelExportLoading: boolean;
   handleExport: (values: ReportGenerationParams) => () => void;
   handleGeneration: (values: ReportGenerationParams) => void;
+  hydratedLoading: boolean;
   isFranchisor?: boolean;
   loading: boolean;
   objectLevelPermissions: ObjectLevelPermissions;
+  pushRouter: (path: string) => CallHistoryMethodAction<[string, unknown?]>;
   quickReportFilterConfig: ReportFilterConfig;
   report: ReportConfiguration;
   reportCategoriesMetadata: {
@@ -71,6 +74,7 @@ const ReportDetailContent: React.FC<Props> = ({
   isFranchisor,
   loading,
   objectLevelPermissions,
+  pushRouter,
   quickReportFilterConfig,
   report,
   reportCategoriesMetadata,
@@ -78,6 +82,7 @@ const ReportDetailContent: React.FC<Props> = ({
   reportGeneratedRows,
   reportHeaders,
   userPermissions,
+  hydratedLoading,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
@@ -107,8 +112,29 @@ const ReportDetailContent: React.FC<Props> = ({
     [report?.columns],
   );
 
-  if (loading) {
+  const handleRoutingToWelcomePage = React.useCallback(() => {
+    isFranchisor ? pushRouter('/f/reporting') : pushRouter('/reporting');
+  }, [pushRouter, isFranchisor]);
+
+  if ((loading && !report) || hydratedLoading) {
     return <LinearProgress />;
+  }
+
+  // It means that the report has not been found (either old version, or report
+  // does not exist in database)
+  if (!hydratedLoading && !report) {
+    return (
+      <div className={classes.reportNotFound}>
+        <Typography align="center" color="textSecondary">
+          {t('reportDetailContent.notFound')}
+        </Typography>
+        <div>
+          <Button onClick={handleRoutingToWelcomePage}>
+            {t('reportDetailContent.goBack')}
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   const { read: hasReadPermission } = getReportObjectPermissionsBasedOnCategory(
@@ -133,7 +159,7 @@ const ReportDetailContent: React.FC<Props> = ({
         reportCategoryMetadata={reportCategoryMetadata}
       />
       <Divider />
-      {hasReadPermission ? (
+      {hasReadPermission && !!report ? (
         <>
           <MuiThemeProvider theme={cardHeaderStatsTheme}>
             <ReportTableHeaders
@@ -187,6 +213,11 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
+  },
+  reportNotFound: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 }));
 

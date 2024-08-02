@@ -34,6 +34,7 @@ type Props = {
   pushRouter: (path: string) => CallHistoryMethodAction<[string, unknown?]>;
   reportId: number;
   upsertActionsDisabled: boolean;
+  setHydratedLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ReportDetailHeader: React.FC<Props> = ({
@@ -47,6 +48,7 @@ const ReportDetailHeader: React.FC<Props> = ({
   pushRouter,
   reportId,
   upsertActionsDisabled,
+  setHydratedLoading,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -93,6 +95,7 @@ const ReportDetailHeader: React.FC<Props> = ({
                   isDisabled={!hasReadPermission}
                   onChange={handleSelectOnChange}
                   searchedObjectType="reportV2"
+                  setHydratedLoading={setHydratedLoading}
                 />
                 {(hasEditPermission || hasDeletePermission) &&
                   hasReadPermission && (

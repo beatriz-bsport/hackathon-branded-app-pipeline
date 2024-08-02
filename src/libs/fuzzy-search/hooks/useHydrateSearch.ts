@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getSearchObjectURI } from '#src/libs/fuzzy-search/utils/getURIFromObjectType';
 import { getLabelFromItem } from '#src/libs/fuzzy-search/utils/labelExtractor';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +13,7 @@ type HookProps = {
   valuesToHydrate?: number[];
   selectorId: string;
   objectId: number;
+  setHydratedLoading?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 /**
@@ -29,6 +30,7 @@ export const useHydrateSearch = ({
   selectorId,
   objectId,
   valuesToHydrate,
+  setHydratedLoading,
 }: HookProps) => {
   const dispatch = useDispatch();
   const { resultsById } = useSelector(
@@ -41,6 +43,7 @@ export const useHydrateSearch = ({
     !valuesToHydrate?.length,
   );
   const hydrateInitialValues = useCallback(() => {
+    setHydratedLoading?.(true);
     dispatch(
       searchObjectsAction(
         {
@@ -52,10 +55,22 @@ export const useHydrateSearch = ({
           searchedObjectType,
           selectorId,
         },
-        { onSuccess: () => setHasHydratedResults(true) },
+        {
+          onSuccess: () => {
+            setHasHydratedResults(true);
+            setHydratedLoading?.(false);
+          },
+        },
       ),
     );
-  }, [dispatch, objectId, searchedObjectType, selectorId, valuesToHydrate]);
+  }, [
+    dispatch,
+    objectId,
+    searchedObjectType,
+    selectorId,
+    valuesToHydrate,
+    setHydratedLoading,
+  ]);
 
   useEffect(() => {
     if (!hasHydratedResults) {

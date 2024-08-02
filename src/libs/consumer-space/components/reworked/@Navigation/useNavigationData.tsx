@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router';
 
+// @ts-expect-error JS
+import i18n, { AVAILABLE_LANGUAGES, getFullLanguage } from '#src/i18n';
 import {
   Calendar,
   FileAttachment02,
@@ -11,32 +14,34 @@ import {
   Ticket01,
   UserEdit,
 } from '#src/components/untitledui';
-
-import type {
-  NavigationMenu,
-  NavigationSection,
-} from '#src/libs/consumer-space/components/reworked/@Navigation/types';
-import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';
+import {
+  getCheckoutUrl,
+  getMarketplaceRoute,
+} from '#src/libs/marketplace/routing-utils';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
-import { useLocation } from 'react-router';
+
+import type { SubmenuItem } from '#src/components/css-only/Fabrique/Submenu/types';
+import type { NavigationSection } from '#src/libs/consumer-space/components/reworked/@Navigation/types';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
 
 const useNavigationData = ({
   companyId,
-  hasMultipleMembership,
-  hasFranchise,
   isMobile,
   isNewCheckoutFlow,
   isRelationNavigation,
   memberName,
+  franchisorCompanyList,
+  handleCloseSideDrawer,
 }: {
   companyId: number;
   hasMultipleMembership: boolean;
-  hasFranchise: boolean;
   isMobile: boolean;
   isNewCheckoutFlow: boolean;
   isRelationNavigation: boolean;
   memberName: string;
-}): NavigationMenu => {
+  franchisorCompanyList: FranchiseCompany[];
+  handleCloseSideDrawer: () => void;
+}) => {
   const { t } = useTranslation('consumerSpace');
 
   const location = useLocation();
@@ -45,13 +50,99 @@ const useNavigationData = ({
 
   const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
 
-  const canChangeStudio =
-    hasMultipleMembership &&
-    !hasFranchise &&
-    !isWidget &&
-    !isRelationNavigation;
+  const isAbleToChangeStudio =
+    !!franchisorCompanyList?.length && !isWidget && !isRelationNavigation;
 
-  const canChangeFranchisee = hasFranchise && !isRelationNavigation;
+  const handleChangeLocale = useCallback(
+    (locale: string) => () => {
+      i18n.changeLanguage(locale);
+      handleCloseSideDrawer();
+    },
+    [handleCloseSideDrawer],
+  );
+
+  const navigationDataMobile: SubmenuItem[] = React.useMemo(
+    () => [
+      {
+        title: t('reworked.navigation.myBookings'),
+        leftIcon: <Calendar />,
+        to: `/c/${companyId}/booking/`,
+        isSelected: location.pathname.includes('/booking/'),
+        onClick: handleCloseSideDrawer,
+      },
+      {
+        title: t('reworked.navigation.myPasses'),
+        leftIcon: <Ticket01 />,
+        to: `/c/${companyId}/pack/`,
+        isSelected: location.pathname.includes('/pack/'),
+        onClick: handleCloseSideDrawer,
+      },
+      {
+        title: t('reworked.navigation.mySubscriptions'),
+        leftIcon: <Star01 />,
+        to: `/c/${companyId}/subscription/`,
+        isSelected: location.pathname.includes('/subscription/'),
+        onClick: handleCloseSideDrawer,
+      },
+      {
+        title: t('reworked.navigation.myProfile'),
+        leftIcon: <UserEdit />,
+        to: `/c/${companyId}/profile/`,
+        isSelected: location.pathname.includes('/profile/'),
+        onClick: handleCloseSideDrawer,
+      },
+      {
+        title: t('reworked.navigation.myGiftCards'),
+        leftIcon: <Gift02 />,
+        to: `/c/${companyId}/giftcard/`,
+        isSelected: location.pathname.includes('/giftcard/'),
+        onClick: handleCloseSideDrawer,
+      },
+      {
+        title: t('reworked.navigation.myInvoices'),
+        leftIcon: <FileAttachment02 />,
+        to: `/c/${companyId}/invoice/`,
+        isSelected: location.pathname.includes('/invoice/'),
+        onClick: handleCloseSideDrawer,
+      },
+      { isDivider: true },
+      ...(isAbleToChangeStudio
+        ? [
+            {
+              title: t('reworked.navigation.changeStudio'),
+              items: (franchisorCompanyList ?? []).map((company) => ({
+                title: company.name,
+                isSelected: companyId === company.id,
+                to: getMarketplaceRoute(company.name, company.id),
+                onClick: handleCloseSideDrawer,
+              })),
+            },
+          ]
+        : []),
+      {
+        title: t('reworked.navigation.changeLanguage'),
+        items: (AVAILABLE_LANGUAGES ?? []).map((locale: string) => ({
+          title: t(`language.${locale}`),
+          isSelected: getFullLanguage() === locale,
+          onClick: handleChangeLocale(locale),
+        })),
+      },
+      {
+        title: t('reworked.navigation.logOut'),
+        className: 'bs-navigation__logout-button__root',
+        to: `/login/signout?membership=${companyId}`,
+      },
+    ],
+    [
+      isAbleToChangeStudio,
+      companyId,
+      franchisorCompanyList,
+      handleChangeLocale,
+      location.pathname,
+      handleCloseSideDrawer,
+      t,
+    ],
+  );
 
   const navigationData: NavigationSection[] = React.useMemo(
     () => [
@@ -129,23 +220,7 @@ const useNavigationData = ({
                   icon: <UserEdit />,
                 },
               ]),
-
-          ...(canChangeStudio
-            ? [
-                {
-                  title: t('reworked.navigation.myAccount.changeStudio'),
-                  goTo: '/c/membership-selector/',
-                },
-              ]
-            : []),
-          ...(canChangeFranchisee
-            ? [
-                {
-                  title: t('reworked.navigation.myAccount.changeStudio'),
-                  goTo: `/c/franchisee-selector/${hasFranchise}`,
-                },
-              ]
-            : []),
+          // TODO: REPLACE BY SUBMENU ITEMS
           {
             title: t('reworked.navigation.myAccount.logOut'),
             goTo: `/login/signout?membership=${companyId}`,
@@ -153,19 +228,9 @@ const useNavigationData = ({
         ],
       },
     ],
-    [
-      canChangeFranchisee,
-      canChangeStudio,
-      checkoutUrl,
-      companyId,
-      hasFranchise,
-      isMobile,
-      location.pathname,
-      memberName,
-      t,
-    ],
+    [checkoutUrl, companyId, isMobile, location.pathname, memberName, t],
   );
-  return navigationData;
+  return { navigationData, navigationDataMobile };
 };
 
 export default useNavigationData;

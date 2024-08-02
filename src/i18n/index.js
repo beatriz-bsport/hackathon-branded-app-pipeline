@@ -152,6 +152,15 @@ const getLanguage = () => {
   return language;
 };
 
+/**
+ * Retrieves the selected bsport locale without slice
+ */
+export const getFullLanguage = () => {
+  const language =
+    getItemInStorage('local', STORAGE_KEY_BSPORT_I18NEXTLNG) ?? 'en-GB';
+  return language;
+};
+
 export default i18n;
 export {
   AVAILABLE_LANGUAGES,

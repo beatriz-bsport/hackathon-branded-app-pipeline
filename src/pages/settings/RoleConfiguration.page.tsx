@@ -146,6 +146,7 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
         <Paper className={classes.rolePaper} id="text_staff_roles">
           <RoleList
             currentRole={this.state.currentRole}
+            displayNewWebshop={this.props.theme?.display_new_webshop}
             // @ts-expect-error
             featureList={this.props.featureList}
             hasOwnerPermission={hasOwnerPermission}

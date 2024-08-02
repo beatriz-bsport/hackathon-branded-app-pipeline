@@ -25,7 +25,10 @@ import ConditionalWrapper from '#src/components/ConditionnalWrapper.component';
 import { Actions } from '#src/components/forms';
 import {
   DEFAULT_OBJECT_LEVEL_PERMISSIONS,
+  NEW_WEBSHOP_OBJECT_LEVEL_PERMISSIONS,
+  NEW_WEBSHOP_ROLE_LEVEL_PERMISSIONS,
   OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP,
+  OLD_WEBSHOP_ROLE_LEVEL_PERMISSIONS,
 } from '#src/libs/role/constants';
 
 import type { FeatureList } from '#src/libs/company/types';
@@ -54,6 +57,7 @@ type OwnProps = {
   onClose: () => void;
   onPrevious?: (data: any) => void;
   isFranchisor?: boolean;
+  displayNewWebshop?: boolean;
 };
 
 type Props = OwnProps &
@@ -64,7 +68,7 @@ type State = {
   name: string;
   description: string;
   permissions: RolePermission;
-  unwantedKeyPermissions: Array<string>;
+  missingLevelRolePermissionKeys: Array<string>;
   objectLevelPermissions: ObjectLevelPermissions;
   restrictedPathNew: string;
   hasBookingOverrideControl: boolean;
@@ -246,7 +250,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
       name: '',
       description: '',
       permissions: getDefaultPermissions(props.featureList, props.isFranchisor),
-      unwantedKeyPermissions: [],
+      missingLevelRolePermissionKeys: [],
       objectLevelPermissions: getDefaultObjectLevelPermissions(
         props.featureList,
         props.isFranchisor,
@@ -274,7 +278,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
           ) as RolePermission,
         );
         state.permissions = result.mergedObject as RolePermission;
-        state.unwantedKeyPermissions = [...result.missingKeys];
+        state.missingLevelRolePermissionKeys = [...result.missingKeys];
       }
 
       // By default, if some keys are not found in props.role.object_level_permissions
@@ -351,7 +355,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
         this.props.featureList,
         this.props.isFranchisor,
       ),
-      unwantedKeyPermissions: [],
+      missingLevelRolePermissionKeys: [],
       objectLevelPermissions: getDefaultObjectLevelPermissions(
         this.props.featureList,
         this.props.isFranchisor,
@@ -433,6 +437,17 @@ export class CreateRoleDialog extends React.Component<Props, State> {
       this.state.showAdvanced ||
       this.state.permissions.restrictedPaths.length > 0;
 
+    const roleLevelPermissionUnwantedKeys = [
+      ...(this.props?.displayNewWebshop
+        ? OLD_WEBSHOP_ROLE_LEVEL_PERMISSIONS
+        : NEW_WEBSHOP_ROLE_LEVEL_PERMISSIONS),
+      ...this.state.missingLevelRolePermissionKeys,
+    ];
+
+    const objectLevelPermissionUnwantedKeys = this.props?.displayNewWebshop
+      ? []
+      : NEW_WEBSHOP_OBJECT_LEVEL_PERMISSIONS;
+
     return (
       <ConditionalWrapper
         condition={!this.props.isFranchisor}
@@ -499,7 +514,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                     keysAccumulator={[key]}
                     permissions={this.state.permissions}
                     rightKey={key}
-                    unwantedKeyPermissions={this.state.unwantedKeyPermissions}
+                    unwantedKeyPermissions={roleLevelPermissionUnwantedKeys}
                     updatePermission={(permissions) => {
                       this.setState({
                         // @ts-expect-error
@@ -522,6 +537,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                   permissions={this.state.objectLevelPermissions}
                   rightKey={key}
                   translationKeyPrefix="objectLevelPermissions"
+                  unwantedKeyPermissions={objectLevelPermissionUnwantedKeys}
                   updatePermission={this.updateObjectLevelPermissions}
                 />
               ))}

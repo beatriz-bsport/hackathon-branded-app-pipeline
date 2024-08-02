@@ -49,6 +49,7 @@ type OwnProps = {
   setOpenCreateRoleDialog: (v: boolean) => void;
   currentRole: null | Role | FranchiseRole;
   setCurrentRole: (value: null | Role | FranchiseRole) => void;
+  displayNewWebshop?: boolean;
 };
 
 type WithStateType = {
@@ -147,6 +148,7 @@ export class RoleList extends React.PureComponent<Props> {
           />
         ) : (
           <CreateRoleDialog
+            displayNewWebshop={this.props?.displayNewWebshop}
             // @ts-expect-error
             featureList={this.props.featureList}
             onClose={this.onCloseCreateRoleDialog}

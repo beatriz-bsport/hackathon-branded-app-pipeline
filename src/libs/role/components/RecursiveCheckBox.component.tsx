@@ -14,7 +14,10 @@ import IconButton from '@material-ui/core/IconButton';
 
 import { useTranslation } from 'react-i18next';
 
-import { RolePermission, ObjectLevelPermissions } from '../types';
+import type {
+  RolePermission,
+  ObjectLevelPermissions,
+} from '#src/libs/role/types';
 
 type DeepKeyBoolean = { [key: string]: boolean | DeepKeyBoolean };
 

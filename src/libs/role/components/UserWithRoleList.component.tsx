@@ -13,17 +13,17 @@ import {
   Establishment,
   EstablishmentGroup,
 } from '#src/libs/establishment/types';
-import UserWithRoleItem from './UserWithRoleItem.component';
-import CreateStaffUser from './CreateStaffUser.component';
-import {
+import UserWithRoleItem from '#src/libs/role/components/UserWithRoleItem.component';
+import CreateStaffUser from '#src/libs/role/components/CreateStaffUser.component';
+import type {
   UserRole,
   UserRoleData,
   Role,
   FranchiseRole,
   FranchiseUserRoleData,
-} from '../types';
-import { MaterialStyleType } from '../../../utils/types';
-import AdvancedRoleSettingsModal from './AdvancedRoleSettingsModal.component';
+} from '#src/libs/role/types';
+import type { MaterialStyleType } from '#src/utils/types';
+import AdvancedRoleSettingsModal from '#src/libs/role/components/AdvancedRoleSettingsModal.component';
 
 type OwnProps = {
   coachList?: Array<Coach>;

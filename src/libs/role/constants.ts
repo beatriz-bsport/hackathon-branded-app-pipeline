@@ -427,3 +427,15 @@ export const OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP = {
   direct: OBJECT_LEVEL_PERMISSIONS_DIRECT_MAP,
   reciproque: OBJECT_LEVEL_PERMISSIONS_RECIPROQUE_MAP,
 };
+
+// For the old and the new webshop, we want to properly hide from the UI the old and new permissions according to the one that is displayed
+export const NEW_WEBSHOP_OBJECT_LEVEL_PERMISSIONS = ['product.shopReworked'];
+
+export const NEW_WEBSHOP_ROLE_LEVEL_PERMISSIONS = [
+  'navigationMenu.products.shopReworked',
+];
+
+export const OLD_WEBSHOP_ROLE_LEVEL_PERMISSIONS = [
+  'navigationMenu.products.shop',
+  'navigationMenu.settings.webShop',
+];

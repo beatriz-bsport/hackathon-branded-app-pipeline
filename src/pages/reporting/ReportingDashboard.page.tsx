@@ -48,6 +48,7 @@ import {
   getReportV2Loading,
   getReportCategoriesMetadata,
 } from '#src/libs/reporting/v2/selectors';
+import { getObjectPermissions } from '#src/libs/role/selectors';
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
 
@@ -61,6 +62,7 @@ const ReportingDashboard: React.FC<Props> = ({
   IsReportAlertDisplayedInV2,
   isV2Displayed,
   metadata,
+  objectLevelPermissions,
   reports,
   reportsV2,
   reportsV2Loading,
@@ -172,6 +174,7 @@ const ReportingDashboard: React.FC<Props> = ({
           handleConfirmationDialogState={handleConfirmationDialogState}
           handleGoToReportV2={handleGoToReportV2}
           metadata={filteredMetadata}
+          objectLevelPermissions={objectLevelPermissions}
         />
       ) : (
         <ReportDashboard
@@ -189,6 +192,7 @@ const ReportingDashboard: React.FC<Props> = ({
 const connector = connect(
   (state: RootState) => ({
     metadata: getReportCategoriesMetadata(state),
+    objectLevelPermissions: getObjectPermissions(state),
     reports: getReports(state),
     reportsV2: getReportsV2(state),
     reportsV2Loading: getReportV2Loading(state),

@@ -1214,6 +1214,7 @@ const MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES = {
   [ReportCategoryEnum.FIRST_ATTENDANCE]: 'Bookings',
   [ReportCategoryEnum.FIRST_PRIVATE_BOOKING]: 'Bookings',
   [ReportCategoryEnum.PRIVATE_BOOKINGS]: 'Bookings',
+  [ReportCategoryEnum.UNPAID_PRIVATE_BOOKINGS]: 'Bookings',
   // ----------------
   [ReportCategoryEnum.PRIVATE_CONSUMER_PASS_EXPIRED]: 'Products',
   [ReportCategoryEnum.EXPIRED_PASS]: 'Products',

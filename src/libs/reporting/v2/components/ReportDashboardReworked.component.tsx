@@ -14,20 +14,28 @@ import type {
   ReportMetadataValue,
   ReportMetadataValueWithLabel,
 } from '#src/libs/reporting/common/types';
+import type { ObjectLevelPermissions } from '#src/libs/role/types';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
-import { isNotReportMetadataValueWithLabel } from '#src/libs/reporting/common/utils';
+import {
+  getReportObjectPermissionsBasedOnCategory,
+  isNotReportMetadataValueWithLabel,
+} from '#src/libs/reporting/common/utils';
 
 type Props = {
   handleConfirmationDialogState: (bool: boolean) => () => void;
   handleGoToReportV2: (categoryName: ReportCategoryEnum) => () => void;
   metadata: ReportMetadataValue[];
+  // optional for franchisor
+  objectLevelPermissions?: ObjectLevelPermissions;
 };
+
 const ReportDashboardReworked: React.FC<Props> = ({
   handleConfirmationDialogState,
   handleGoToReportV2,
   metadata,
+  objectLevelPermissions,
 }) => {
   const { t } = useTranslation('reporting');
 
@@ -40,11 +48,21 @@ const ReportDashboardReworked: React.FC<Props> = ({
 
   const metadataWithLabel: ReportMetadataValueWithLabel[] = React.useMemo(
     () =>
-      (metadata || []).map((reportCategory) => ({
-        ...reportCategory,
-        label: t(`categories.${reportCategory.category}`),
-      })),
-    [metadata, t],
+      (metadata || []).reduce((acc, reportCategory) => {
+        const { read: hasReadPermission } =
+          getReportObjectPermissionsBasedOnCategory(
+            objectLevelPermissions,
+            reportCategory.category,
+          );
+        if (hasReadPermission) {
+          acc.push({
+            ...reportCategory,
+            label: t(`categories.${reportCategory.category}`),
+          });
+        }
+        return acc;
+      }, []),
+    [metadata, t, objectLevelPermissions],
   );
 
   const filteredMetadataWithSearch = React.useMemo(

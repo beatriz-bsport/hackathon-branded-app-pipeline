@@ -22,6 +22,7 @@ import {
   getReportsV2,
   getReportExcelState,
 } from '#src/libs/reporting/v2/selectors';
+import { getCompanyUpsellData } from '#src/libs/company/selectors';
 
 import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress';
 
@@ -49,6 +50,8 @@ import type {
 } from '#src/libs/reporting/common/types';
 
 import { getObjectPermissions, getPermissions } from '#src/libs/role/selectors';
+import { getReportObjectPermissionsBasedOnCategory } from '#src/libs/reporting/common/utils';
+import { filter_reports_by_upsells } from '#src/libs/reporting/common/permissions';
 
 type OwnProps = {
   isFranchisor?: boolean;
@@ -89,6 +92,7 @@ const ReportingDetail: React.FC<Props> = ({
   reportHeaders,
   reportId,
   resetDynamicDataHasBeenLoaded,
+  subscribedUpsells,
   updateReport,
   userPermissions,
 }) => {
@@ -259,18 +263,51 @@ const ReportingDetail: React.FC<Props> = ({
           reportCategoriesMetadata.results,
           ({ global_category }) => global_category,
         ),
-      ).map(([globalCategory, reportCategories]) => ({
-        title: globalCategory,
-        categories: reportCategories.map((reportCategory) => ({
-          ...reportCategory,
-          reportId:
-            defaultReports.find(
-              (defaultReport) =>
-                defaultReport.category === reportCategory.category,
-            )?.id || null,
-        })),
-      })),
-    [reportCategoriesMetadata.results, defaultReports],
+      ).reduce((acc, [globalCategory, reportCategories]) => {
+        const categoriesWithPermissions = reportCategories.reduce(
+          (categoryAcc, reportCategory) => {
+            const { read: hasReadPermission } =
+              getReportObjectPermissionsBasedOnCategory(
+                objectLevelPermissions,
+                reportCategory.category,
+              );
+            if (
+              (hasReadPermission &&
+                filter_reports_by_upsells(
+                  reportCategory.category,
+                  subscribedUpsells,
+                )) ||
+              isFranchisor
+            ) {
+              categoryAcc.push({
+                ...reportCategory,
+                reportId:
+                  defaultReports.find(
+                    (defaultReport) =>
+                      defaultReport.category === reportCategory.category,
+                  )?.id || null,
+              });
+            }
+            return categoryAcc;
+          },
+          [],
+        );
+
+        if (categoriesWithPermissions.length > 0) {
+          acc.push({
+            title: globalCategory,
+            categories: categoriesWithPermissions,
+          });
+        }
+        return acc;
+      }, []),
+    [
+      reportCategoriesMetadata.results,
+      defaultReports,
+      objectLevelPermissions,
+      subscribedUpsells,
+      isFranchisor,
+    ],
   );
 
   if (reportCategoriesMetadata.loading) {
@@ -331,6 +368,7 @@ const connector = connect(
     reportFilterConfigs: getReportFilterConfigs(state, reportId),
     reportGeneratedRows: getReportGenerateredRows(state),
     reportHeaders: getReportHeader(state),
+    subscribedUpsells: getCompanyUpsellData(state),
     userPermissions: getPermissions(state),
   }),
   {

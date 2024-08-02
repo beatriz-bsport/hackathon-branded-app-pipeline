@@ -23,6 +23,7 @@ import {
   getReportExcelState,
 } from '#src/libs/reporting/v2/selectors';
 import { getCompanyUpsellData } from '#src/libs/company/selectors';
+import { getLastVisitedReportV2 } from '#src/libs/user-preference/selectors';
 
 import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress';
 
@@ -39,6 +40,7 @@ import {
   deleteReport as deleteReportAction,
   exportExcelReport as exportExcelReportAction,
 } from '#src/libs/reporting/v2/actions';
+import { setLastVisitedReportV2 as setLastVisitedReportV2Action } from '#src/libs/user-preference/actions';
 
 import ReportDetailPage from '#src/libs/reporting/v2/components/ReportDetailPage.component';
 import ReportDetailNavigationDrawer from '#src/libs/reporting/v2/components/ReportDetailNavigationDrawer.component';
@@ -83,6 +85,7 @@ const ReportingDetail: React.FC<Props> = ({
   getReportSearchResults,
   handleGetDynamicDataForFilters,
   isFranchisor,
+  lastVisitedReportV2,
   objectLevelPermissions,
   pushRouter,
   reportCategoriesMetadata,
@@ -95,12 +98,17 @@ const ReportingDetail: React.FC<Props> = ({
   subscribedUpsells,
   updateReport,
   userPermissions,
+  setLastVisitedReportV2,
 }) => {
   React.useEffect(() => {
     resetDynamicDataHasBeenLoaded();
     fetchReportMetadata();
     fetchDefaultReports();
   }, [fetchReportMetadata, resetDynamicDataHasBeenLoaded, fetchDefaultReports]);
+
+  React.useEffect(() => {
+    setLastVisitedReportV2(categoryName, reportId);
+  }, [reportId, categoryName, setLastVisitedReportV2]);
 
   React.useEffect(() => {
     fetchReportFilterConfigList(
@@ -271,6 +279,7 @@ const ReportingDetail: React.FC<Props> = ({
                 objectLevelPermissions,
                 reportCategory.category,
               );
+
             if (
               (hasReadPermission &&
                 filter_reports_by_upsells(
@@ -282,10 +291,12 @@ const ReportingDetail: React.FC<Props> = ({
               categoryAcc.push({
                 ...reportCategory,
                 reportId:
+                  lastVisitedReportV2?.[reportCategory.category] ||
                   defaultReports.find(
                     (defaultReport) =>
                       defaultReport.category === reportCategory.category,
-                  )?.id || null,
+                  )?.id ||
+                  null,
               });
             }
             return categoryAcc;
@@ -307,6 +318,7 @@ const ReportingDetail: React.FC<Props> = ({
       objectLevelPermissions,
       subscribedUpsells,
       isFranchisor,
+      lastVisitedReportV2,
     ],
   );
 
@@ -370,6 +382,7 @@ const connector = connect(
     reportHeaders: getReportHeader(state),
     subscribedUpsells: getCompanyUpsellData(state),
     userPermissions: getPermissions(state),
+    lastVisitedReportV2: getLastVisitedReportV2(state),
   }),
   {
     createReport: createReportAction,
@@ -384,6 +397,7 @@ const connector = connect(
     fetchSerializedReport: fetchSerializedReportAction,
     pushRouter: push,
     updateReport: updateReportAction,
+    setLastVisitedReportV2: setLastVisitedReportV2Action,
   },
 );
 

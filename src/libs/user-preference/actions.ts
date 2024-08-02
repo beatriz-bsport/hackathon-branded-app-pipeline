@@ -12,6 +12,7 @@ import {
   ManagerOnly,
   SortOption,
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 export const userPreferenceActions = {
   setPaymentPackSort: createAction('USER_PREFERENCE/PAYMENT_PACK_SORT'),
@@ -83,6 +84,10 @@ export const userPreferenceActions = {
   setIsReportAlertDisplayedInV2: createAction(
     'USER_PREFERENCE/REPORT_ALERT_DISPLAY',
   ),
+  setLastVisitedReportV2: createAction<{
+    categoryName: ReportCategoryEnum;
+    reportId: number;
+  }>('USER_PREFERENCE/LAST_VISITED_REPORT'),
 };
 
 export function setPaymentPackSort(sortOption: SortOption) {
@@ -319,5 +324,18 @@ export function setIsReportV2Displayed(bool: boolean) {
 export function setIsReportAlertDisplayedInV2(bool: boolean) {
   return (dispatch: Dispatch) => {
     dispatch(userPreferenceActions.setIsReportAlertDisplayedInV2(bool));
+  };
+}
+export function setLastVisitedReportV2(
+  categoryName: ReportCategoryEnum,
+  reportId: number,
+) {
+  return (dispatch: Dispatch) => {
+    dispatch(
+      userPreferenceActions.setLastVisitedReportV2({
+        categoryName,
+        reportId,
+      }),
+    );
   };
 }

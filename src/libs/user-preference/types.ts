@@ -57,4 +57,5 @@ export type UserPreference = {
   isCheckInFilterLocked: boolean;
   isReportV2Displayed: boolean;
   isReportAlertDisplayedInV2: boolean;
+  lastVisitedReportV2: { [categoryName: string]: number };
 };

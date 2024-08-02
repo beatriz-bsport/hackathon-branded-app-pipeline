@@ -31,6 +31,7 @@ import {
 import {
   getIsReportV2Displayed,
   getIsReportAlertDisplayedInV2,
+  getLastVisitedReportV2,
 } from '#src/libs/user-preference/selectors';
 import {
   setIsReportAlertDisplayedInV2 as setIsReportAlertDisplayedAction,
@@ -61,6 +62,7 @@ const ReportingDashboard: React.FC<Props> = ({
   pushRouter,
   IsReportAlertDisplayedInV2,
   isV2Displayed,
+  lastVisitedReportV2,
   metadata,
   objectLevelPermissions,
   reports,
@@ -104,15 +106,15 @@ const ReportingDashboard: React.FC<Props> = ({
 
   const handleGoToReportV2 = React.useCallback(
     (categoryName: ReportCategoryEnum) => () => {
-      const reportId = reportsV2?.find(
-        (result) => result.category === categoryName,
-      )?.id;
+      const reportId =
+        lastVisitedReportV2?.[categoryName] ||
+        reportsV2?.find((result) => result.category === categoryName)?.id;
 
       reportId
         ? pushRouter(`/reporting/${categoryName}/${reportId}`)
         : pushRouter('/reporting');
     },
-    [pushRouter, reportsV2],
+    [pushRouter, reportsV2, lastVisitedReportV2],
   );
 
   const handleRemoveReportAlertDisplay = React.useCallback(() => {
@@ -199,6 +201,7 @@ const connector = connect(
     subscribedUpsells: getCompanyUpsellData(state),
     isV2Displayed: getIsReportV2Displayed(state),
     IsReportAlertDisplayedInV2: getIsReportAlertDisplayedInV2(state),
+    lastVisitedReportV2: getLastVisitedReportV2(state),
   }),
   {
     fetchReportMetadata: fetchReportMetadataAction,

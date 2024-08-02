@@ -116,3 +116,6 @@ export const getIsReportV2Displayed = (state: RootState) =>
 
 export const getIsReportAlertDisplayedInV2 = (state: RootState) =>
   state.userPreference.isReportAlertDisplayedInV2;
+
+export const getLastVisitedReportV2 = (state: RootState) =>
+  state.userPreference.lastVisitedReportV2;

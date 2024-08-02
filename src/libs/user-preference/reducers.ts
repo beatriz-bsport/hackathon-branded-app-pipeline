@@ -8,6 +8,7 @@ import {
   SortOption,
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import { defaultFilters } from './selectors';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 const initialState: Immutable.Immutable<UserPreference> =
   Immutable<UserPreference>({
@@ -53,6 +54,7 @@ const initialState: Immutable.Immutable<UserPreference> =
     isCheckInFilterLocked: true,
     isReportV2Displayed: true,
     isReportAlertDisplayedInV2: true,
+    lastVisitedReportV2: {},
   });
 
 export default handleActions<Immutable.Immutable<UserPreference>, any>(
@@ -249,6 +251,17 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
       { payload }: { payload: boolean },
     ) => {
       return state.set('isReportAlertDisplayedInV2', payload);
+    },
+    [userPreferenceActions.setLastVisitedReportV2.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: { categoryName: ReportCategoryEnum; reportId: number } },
+    ) => {
+      return state.setIn(
+        ['lastVisitedReportV2', payload.categoryName],
+        payload.reportId,
+      );
     },
   },
   initialState,

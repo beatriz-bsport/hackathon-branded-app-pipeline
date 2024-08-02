@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
@@ -9,45 +9,50 @@ import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
 
 import { displayReworkedMemberProfile } from '#src/libs/consumer-space/constants';
-import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.page';
-import CompanyDetailPage from './CompanyDetailPage.page';
-import RoleConfigurationPage from './RoleConfiguration.page';
-import InvoiceConfigurationPage from './InvoiceConfigurationPage.page';
+import PaymentRuleSetsDashboard from '#src/pages/settings/PaymentRuleSetsDashboard.page';
+import CompanyDetailPage from '#src/pages/settings/CompanyDetailPage.page';
+import RoleConfigurationPage from '#src/pages/settings/RoleConfiguration.page';
+import InvoiceConfigurationPage from '#src/pages/settings/InvoiceConfigurationPage.page';
 // @ts-expect-error
-import WaitingListConfigurationPage from './WaitingListConfigurationPage.page';
-import BroadcastConfiguration from './BroadcastConfiguration.page';
+import WaitingListConfigurationPage from '#src/pages/settings/WaitingListConfigurationPage.page';
+import BroadcastConfiguration from '#src/pages/settings/BroadcastConfiguration.page';
 // @ts-expect-error
-import ShopConfigurationPage from './ShopConfigurationPage.page';
+import ShopConfigurationPage from '#src/pages/settings/ShopConfigurationPage.page';
 // @ts-expect-error
-import ThemeConfigurationPage from './ThemeConfiguration.page';
-import CoachPlaceSettingsPage from './CoachPlaceSettings.page';
+import ThemeConfigurationPage from '#src/pages/settings/ThemeConfiguration.page';
+import CoachPlaceSettingsPage from '#src/pages/settings/CoachPlaceSettings.page';
 // @ts-expect-error
-import SettingsPersonalizePage from './SettingsPersonalizePage.page';
+import SettingsPersonalizePage from '#src/pages/settings/SettingsPersonalizePage.page';
 // @ts-expect-error
-import WebhookConfigurationPage from './WebhookConfigurationPage.page';
-import NotificationRulePage from './NotificationRule.page';
-import NotificationRuleDetailPage from './NotificationRuleDetail.page';
-import PartnershipPage from './Partnership.page';
-import ActiveCampaignPage from './ActiveCampaignPage.page';
-import EditReferralProgramSettingsPage from './EditReferralProgramSettingsPage.page';
+import WebhookConfigurationPage from '#src/pages/settings/WebhookConfigurationPage.page';
+import NotificationRulePage from '#src/pages/settings/NotificationRule.page';
+import NotificationRuleDetailPage from '#src/pages/settings/NotificationRuleDetail.page';
+import PartnershipPage from '#src/pages/settings/Partnership.page';
+import ActiveCampaignPage from '#src/pages/settings/ActiveCampaignPage.page';
+import EditReferralProgramSettingsPage from '#src/pages/settings/EditReferralProgramSettingsPage.page';
 // @ts-expect-error
-import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
-import PlatformBillingSettingPage from './PlatformBillingSetting.page';
-import PaymentMethodSettings from './PaymentMethodSettings.page';
-import MarketplaceSettings from './MarketplaceSettings.page';
-import CustomSignUpConfiguration from './CustomSignUpConfiguration.page';
-import WidgetRouter from './SettingsWidget.router';
-import QuickBookPage from './QuickBooks.page';
-import Quicksale from './quicksale';
+import CompanyOnboardingSettingPage from '#src/pages/settings/CompanyOnboardingSetting.page';
+import PlatformBillingSettingPage from '#src/pages/settings/PlatformBillingSetting.page';
+import PaymentMethodSettings from '#src/pages/settings/PaymentMethodSettings.page';
+import MarketplaceSettings from '#src/pages/settings/MarketplaceSettings.page';
+import CustomSignUpConfiguration from '#src/pages/settings/CustomSignUpConfiguration.page';
+import WidgetRouter from '#src/pages/settings/SettingsWidget.router';
+import QuickBookPage from '#src/pages/settings/QuickBooks.page';
+import Quicksale from '#src/pages/settings/quicksale';
 
-import withTitle from '../../hocs/with-title.hoc';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import SettingsMobileRouter from './SettingsMobile.router';
-import SettingsPersonalization from './SettingsPersonalization.router';
+import withTitle from '#src/hocs/with-title.hoc';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import SettingsMobileRouter from '#src/pages/settings/SettingsMobile.router';
+import SettingsPersonalization from '#src/pages/settings/SettingsPersonalization.router';
+import themeSelectors from '#src/libs/theme/selectors';
+import { RootState } from '#src/reducers';
 
 type Props = {};
 
 export const Settings = () => {
+  const displayNewWebshop = useSelector(
+    (state: RootState) => themeSelectors.getTheme(state).display_new_webshop,
+  );
   return (
     <Switch>
       <Route
@@ -101,7 +106,9 @@ export const Settings = () => {
         component={WaitingListConfigurationPage}
         path="/settings/waiting-list"
       />
-      <Route exact component={ShopConfigurationPage} path="/settings/shop" />
+      {!displayNewWebshop && (
+        <Route exact component={ShopConfigurationPage} path="/settings/shop" />
+      )}
       <Route exact component={ThemeConfigurationPage} path="/settings/theme" />
       {displayReworkedMemberProfile ? (
         <Route

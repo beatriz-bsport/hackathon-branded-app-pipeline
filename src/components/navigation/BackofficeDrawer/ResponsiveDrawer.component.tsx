@@ -650,11 +650,15 @@ const ResponsiveDrawer: React.FC<Props> = ({
             dense: true,
             text: t('backofficeMenu.settings.waitingList'),
           } as DrawerItemDefault,
-          {
-            to: '/settings/shop',
-            dense: true,
-            text: t('backofficeMenu.settings.shop'),
-          } as DrawerItemDefault,
+          ...(companyTheme?.display_new_webshop
+            ? []
+            : [
+                {
+                  to: '/settings/shop',
+                  dense: true,
+                  text: t('backofficeMenu.settings.shop'),
+                } as DrawerItemDefault,
+              ]),
           {
             to: '/settings/webhook',
             dense: true,

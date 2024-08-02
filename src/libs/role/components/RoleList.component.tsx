@@ -50,6 +50,7 @@ type OwnProps = {
   currentRole: null | Role | FranchiseRole;
   setCurrentRole: (value: null | Role | FranchiseRole) => void;
   displayNewWebshop?: boolean;
+  displayNewWebshopForFranchisees?: boolean;
 };
 
 type WithStateType = {
@@ -97,7 +98,7 @@ export class RoleList extends React.PureComponent<Props> {
     return (
       <List disablePadding>
         {roles.map((role) => (
-          <ListItem divider className={classes.item}>
+          <ListItem key={role.id} divider className={classes.item}>
             <div key={role.id}>
               <Typography variant="subtitle2">
                 {getRoleName(role, t)}
@@ -140,6 +141,9 @@ export class RoleList extends React.PureComponent<Props> {
         ))}
         {isFranchisor ? (
           <CreateFranchiseRoleDialog
+            displayNewWebshopForFranchisees={
+              this.props?.displayNewWebshopForFranchisees
+            }
             // @ts-expect-error
             franchisorRole={this.props.currentRole}
             onClose={this.onCloseCreateRoleDialog}

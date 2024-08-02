@@ -27,6 +27,7 @@ import { FranchiseRole, Role } from '#src/libs/role/types';
 import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
 import { RootState } from '../../../reducers';
 import { MaterialStyleType } from '../../../utils/types';
+import { getFranchisor } from '#src/libs/franchise/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
@@ -85,6 +86,9 @@ export class RoleConfiguration extends React.Component<Props, State> {
           <RoleList
             isFranchisor
             currentRole={this.state.currentRole}
+            displayNewWebshopForFranchisees={
+              this.props.displayNewWebshopForFranchisees
+            }
             hasOwnerPermission={this.props.hasOwnerPermission}
             onCreateRole={this.createFranchiseRole}
             onDeleteRole={this.props.deleteFranchiseRole}
@@ -139,6 +143,8 @@ const mapStateToProps = (state: RootState) => ({
   users: getUsersWithRole(state),
   roles: withFranchiseeRoles(getAllFranchiseRoles)(state),
   updateLoading: state.role.role.createOrUpdate.loading,
+  displayNewWebshopForFranchisees:
+    getFranchisor(state)?.display_new_webshop_for_franchisees,
 });
 
 const mapDispatchToProps = {

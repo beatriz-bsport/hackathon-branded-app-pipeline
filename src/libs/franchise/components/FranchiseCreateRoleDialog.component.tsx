@@ -30,15 +30,16 @@ import {
   FranchiseRoleFranchiseeData,
   FranchiseRoleMasterAccountData,
 } from '#src/libs/role/types';
-import { MaterialStyleType } from '../../../utils/types';
+import type { MaterialStyleType } from '#src/utils/types';
 // @ts-expect-error
-import asyncComponent from '../../../AsyncComponent';
+import asyncComponent from '#src/AsyncComponent';
 
 type OwnProps = {
   open: boolean;
   onClose: () => void;
   onSubmit: (franchisorRole: FranchiseRole) => void;
   franchisorRole: FranchiseRole | null;
+  displayNewWebshopForFranchisees: boolean;
 };
 
 type State = {
@@ -231,6 +232,7 @@ class FranchiseCreateRoleDialog extends React.Component<Props, State> {
           <CreateRoleFranchisee
             isFranchisor
             open
+            displayNewWebshop={this.props?.displayNewWebshopForFranchisees}
             onClose={this.props.onClose}
             onPrevious={(data: FranchiseRoleFranchiseeData) => {
               this.setState({

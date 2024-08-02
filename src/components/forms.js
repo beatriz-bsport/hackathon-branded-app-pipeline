@@ -69,14 +69,13 @@ export const AlertError = withTranslation([])(
     const { classes, t } = props;
 
     return (
-      <ErrorMessage
-        {...props}
-        render={(message) => (
+      <ErrorMessage {...props}>
+        {(message) => (
           <Typography className={classes.alertError} variant="body2">
             {t(message)}
           </Typography>
         )}
-      />
+      </ErrorMessage>
     );
   }),
 );

@@ -527,7 +527,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         )?.prefix ?? '';
     }
 
-    const selectedSpot = prefix + spot.indexType.toString();
+    // indexType may be undefined for old layout
+    const selectedSpot = spot?.indexType
+      ? `${prefix}${spot.indexType}`
+      : `${prefix}${index}`;
 
     this.setState({
       selectedSpot,

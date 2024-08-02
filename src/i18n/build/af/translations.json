@@ -6548,6 +6548,12 @@
           },
           "footer": { "addUnitButton": "Add Unit ID" }
         }
+      },
+      "snackbar": {
+        "configureWebhooks": {
+          "error": "An error occurred during the configuration",
+          "success": "Your unit ID has been successfully linked"
+        }
       }
     }
   },

@@ -41,7 +41,11 @@ export const OfferNavigationHeader = (props: Props) => (
   <Paper className={props.classes.headerContainer}>
     <div className={props.classes.titleBanner}>
       <Button
-        disabled={!props.offer || props.offer.id !== props.offerId}
+        disabled={
+          !props.offer ||
+          props.offer.id !== props.offerId ||
+          !props.offer.previous_offer
+        }
         onClick={() => props.goToOffer(props.offer.previous_offer)}
       >
         <ChevronLeftIcon className={props.classes.leftIcon} />

@@ -3,6 +3,7 @@ import React from 'react';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import NavigationAppBarLogoSection from '#src/components/css-only/Navigation/NavigationAppBar/NavigationAppBarLogoSection';
+import NavigationAppBarLinksSection from '#src/components/css-only/Navigation/NavigationAppBar/NavigationAppBarLinksSection';
 import NavigationAppBarActionSection from '#src/components/css-only/Navigation/NavigationAppBar/NavigationAppBarActionsSection';
 
 import type { NavigationAppBarProps } from '#src/components/css-only/Navigation/NavigationAppBar/types';
@@ -13,6 +14,7 @@ const NavigationAppBar: React.FC<NavigationAppBarProps> = ({
   isMobile,
   logo,
   websiteUrl,
+  links,
   actions,
   onOpenAppBarMenuClick,
 }) => {
@@ -24,6 +26,8 @@ const NavigationAppBar: React.FC<NavigationAppBarProps> = ({
         onOpenAppBarMenuClick={onOpenAppBarMenuClick}
         websiteUrl={websiteUrl}
       />
+
+      <NavigationAppBarLinksSection isHidden={isMobile} links={links} />
 
       <NavigationAppBarActionSection actions={actions} isMobile={isMobile} />
     </div>

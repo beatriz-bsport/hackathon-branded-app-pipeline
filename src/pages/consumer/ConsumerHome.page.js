@@ -343,6 +343,7 @@ export class ConsumerHome extends React.Component<Props> {
                   buttonsData={this.getConsumerMobileNavigationButtonsData()}
                   companyId={this.props.companyId}
                   companyLogo={this.props.theme?.cover}
+                  companyName={this.props.theme?.company_name ?? ''}
                   companyWebsiteUrl={this.props.theme.websiteURL}
                   controlableMemberList={this.props.controlableMemberList}
                   franchisorCompanyList={this.props.franchisor?.companies ?? []}
@@ -373,6 +374,7 @@ export class ConsumerHome extends React.Component<Props> {
                   subscriptionPendingActionCount={
                     this.props.subscriptionPendingActionCount
                   }
+                  tabConfigList={this.props.marketplaceSettingsConfig}
                 >
                   <CongratulationDialog
                     basketGeneratedObjects={this.props.basketGeneratedObjects}

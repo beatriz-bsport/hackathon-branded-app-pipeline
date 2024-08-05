@@ -2,6 +2,9 @@ import React, { useCallback, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
+import { urlToMarketplace } from '#src/libs/marketplace/utils';
+import { getDefaultTitleForComponent } from '#src/libs/exportable-components/utils';
+import { fromConfigToUrl } from '#src/libs/marketplace/routing-utils';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppBar';
 import useViewport from '#Fabrique/hooks/useViewport';
@@ -19,15 +22,21 @@ import NavigationSideDrawer from '#src/components/css-only/Navigation/Navigation
 import useNavigationSideDrawerData from '#src/components/css-only/Navigation/NavigationSideDrawer/useNavigationSideDrawerData.hook';
 
 import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
-import type { AppBarButton } from '#src/components/css-only/Navigation/NavigationAppBar/types';
+import type {
+  AppBarButton,
+  AppBarTab,
+} from '#src/components/css-only/Navigation/NavigationAppBar/types';
 import type { FranchiseCompany } from '#src/libs/franchise/types';
+import type { MarketplaceTabConfig } from '#src/libs/marketplace/types';
 
 import './styles.css';
 
 type Props = {
+  push: (path: string) => void;
   buildUrl: (string: any) => string;
   companyLogo: string;
   companyWebsiteUrl?: string;
+  companyName: string;
   companyId: number;
   hasMultipleMembership: boolean;
   isNewCheckoutFlow: boolean;
@@ -38,6 +47,8 @@ type Props = {
   buttonsData?: HeaderButton[];
   /** The number of products in the current member basket */
   basketProductListCount?: number;
+  /** The current company's marketplace settings config */
+  tabConfigList: MarketplaceTabConfig[];
   redirectToCart: () => void;
   redirectToMyProfile: () => void;
 };
@@ -45,6 +56,7 @@ type Props = {
 const ConsumerNavigation: React.FC<Props> = ({
   companyLogo,
   companyWebsiteUrl,
+  companyName,
   companyId,
   hasMultipleMembership,
   isNewCheckoutFlow,
@@ -54,6 +66,8 @@ const ConsumerNavigation: React.FC<Props> = ({
   children,
   buttonsData,
   basketProductListCount,
+  tabConfigList,
+  push,
   buildUrl,
   redirectToCart,
   redirectToMyProfile,
@@ -67,6 +81,32 @@ const ConsumerNavigation: React.FC<Props> = ({
   const toggleBottomDrawer = useCallback(() => {
     setIsBottomDrawerOpen((prevState) => !prevState);
   }, [setIsBottomDrawerOpen]);
+
+  const linksList: AppBarTab[] = useMemo(
+    () =>
+      (tabConfigList ?? []).map((tabConfig) => ({
+        id: `bs-navigation-app-bar-link-${tabConfig.index}`,
+        label:
+          tabConfig.title ||
+          getDefaultTitleForComponent(tabConfig.component_type, t),
+        color: 'grey',
+        onClick: () =>
+          push(
+            `${urlToMarketplace(
+              companyName,
+              companyId.toString(),
+            )}/${fromConfigToUrl(
+              {
+                component_type: tabConfig.component_type,
+                config: tabConfig.config,
+                configIndex: tabConfig.index,
+              },
+              { tabSelected: tabConfig.index },
+            )}`,
+          ),
+      })),
+    [tabConfigList, t, push, companyName, companyId],
+  );
 
   const actionsList: AppBarButton[] = useMemo(
     () => [
@@ -95,7 +135,7 @@ const ConsumerNavigation: React.FC<Props> = ({
     stackNavigationState,
     isSideDrawerOpen,
     handleCloseSideDrawer,
-    handleOpenSideDrawer,
+    handleToggleSideDrawer,
     handleBackArrowClick,
     handleSetStackNavigationState,
   } = useNavigationSideDrawerData();
@@ -116,8 +156,9 @@ const ConsumerNavigation: React.FC<Props> = ({
       <NavigationAppBar
         actions={actionsList}
         isMobile={isMobile}
+        links={linksList}
         logo={companyLogo}
-        onOpenAppBarMenuClick={handleOpenSideDrawer}
+        onOpenAppBarMenuClick={handleToggleSideDrawer}
         websiteUrl={companyWebsiteUrl}
       />
 

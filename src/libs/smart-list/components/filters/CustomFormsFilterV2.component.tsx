@@ -27,6 +27,7 @@ import Selector from '../MultiSelector.component';
 
 import CalendarPicker from '../CalendarPicker.component';
 import { DATE_EXACT } from '../constants';
+import { checkPrimitiveArraysEqual } from '#src/libs/utils';
 
 type FilterData = {
   filter_identifier: number;
@@ -67,16 +68,36 @@ const CustomFormsFilterV2: React.FC<OwnProps> = ({
   renderSelectorWarning,
   setNotNullableData,
 }) => {
+  const [lastFormFilteredIds, setLastFormFilteredIds] = React.useState<
+    number[]
+  >([]);
   const { t } = useTranslation('smartList');
   const classes = useStyles();
 
   React.useEffect(() => {
-    if (filter_data.custom_forms && filter_data.custom_forms.length === 1) {
-      fetchBulkItems.custom_forms({
-        id__in: filter_data.custom_forms.map((customForm) => customForm.id),
-      });
+    if (filter_data.custom_forms && filter_data.custom_forms.length > 0) {
+      const newFormToFilterIds: number[] = filter_data.custom_forms.map(
+        (customForm) =>
+          typeof customForm === 'number' ? customForm : customForm.id,
+      );
+      if (
+        !checkPrimitiveArraysEqual<number>(
+          newFormToFilterIds,
+          lastFormFilteredIds,
+        )
+      ) {
+        setLastFormFilteredIds(newFormToFilterIds);
+        fetchBulkItems.custom_forms({
+          id__in: newFormToFilterIds,
+        });
+      }
     }
-  }, [fetchBulkItems, filter_data.custom_forms]);
+  }, [
+    fetchBulkItems,
+    filter_data.custom_forms,
+    setLastFormFilteredIds,
+    lastFormFilteredIds,
+  ]);
 
   React.useEffect(() => {
     setNotNullableData(['custom_forms']);

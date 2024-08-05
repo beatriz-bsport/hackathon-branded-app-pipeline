@@ -109,22 +109,22 @@ export default handleActions(
       return state.set('error', payload);
     },
     [fetchCustomFormBulkActions.success.toString()]: (state, { payload }) => {
-      return state
-        .set(
-          'allIds',
+      // @ts-expect-error
+      let newIds = payload.results.map((customForm) => customForm.id);
+      let allIds = state.allIds;
+
+      // @ts-expect-error
+      allIds = allIds.concat(newIds.filter((id) => !allIds.includes(id)));
+      return state.set('allIds', allIds).merge(
+        {
           // @ts-expect-error
-          payload.results.map((cus) => cus.id),
-        )
-        .merge(
-          {
-            // @ts-expect-error
-            byId: payload.results.reduce((acc: any, ps: any) => {
-              acc[ps.id] = ps;
-              return acc;
-            }, {}),
-          },
-          { deep: true },
-        );
+          byId: payload.results.reduce((acc: any, customForm: any) => {
+            acc[customForm.id] = customForm;
+            return acc;
+          }, {}),
+        },
+        { deep: true },
+      );
     },
     [fetchMissingCustomFormBulkActions.isLoading.toString()]: (
       state,

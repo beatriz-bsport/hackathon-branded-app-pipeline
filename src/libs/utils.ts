@@ -73,3 +73,44 @@ export const saveQueryParamInLocalStorage = (
     window.localStorage.setItem(localStorageKey, sanitizedParams);
   }
 };
+
+/**
+ * Takes two primitives (string, number, boolean) array and compare their value to check
+ * if they both have the same data even if its not ordered in the same way
+ * @param arr1 The first primitive array to compare
+ * @param arr2 The second primitive array to compare
+ * @example
+ * const arr1 = [1, 3, 5];
+ * const arr1 = [3, 5, 1];
+ * @returns isEqual true
+ * @example
+ * const arr1 = [1, 2, 5];
+ * const arr1 = [1, 3, 5];
+ * @returns isEqual false
+ *
+ */
+export function checkPrimitiveArraysEqual<T>(arr1: T[], arr2: T[]) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  // Create a frequency map for the first array so that we do not have to use a sort function
+  const frequencyMap = new Map<T, number>();
+  for (const item of arr1) {
+    frequencyMap.set(item, (frequencyMap.get(item) || 0) + 1);
+  }
+
+  for (const item of arr2) {
+    if (!frequencyMap.has(item)) {
+      return false;
+    }
+    const count = frequencyMap.get(item)!;
+    if (count === 1) {
+      frequencyMap.delete(item);
+    } else {
+      frequencyMap.set(item, count - 1);
+    }
+  }
+
+  return frequencyMap.size === 0;
+}

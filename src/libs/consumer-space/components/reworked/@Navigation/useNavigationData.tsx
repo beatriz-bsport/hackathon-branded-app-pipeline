@@ -20,15 +20,23 @@ import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { useLocation } from 'react-router';
 
-const useNavigationData = (
-  companyId: number,
-  hasMultipleMembership: boolean,
-  hasFranchise: boolean,
-  isMobile: boolean,
-  isNewCheckoutFlow: boolean,
-  isRelationNavigation: boolean,
-  memberName: string,
-): NavigationMenu => {
+const useNavigationData = ({
+  companyId,
+  hasMultipleMembership,
+  hasFranchise,
+  isMobile,
+  isNewCheckoutFlow,
+  isRelationNavigation,
+  memberName,
+}: {
+  companyId: number;
+  hasMultipleMembership: boolean;
+  hasFranchise: boolean;
+  isMobile: boolean;
+  isNewCheckoutFlow: boolean;
+  isRelationNavigation: boolean;
+  memberName: string;
+}): NavigationMenu => {
   const { t } = useTranslation('consumerSpace');
 
   const location = useLocation();

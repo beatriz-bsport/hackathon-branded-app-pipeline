@@ -117,7 +117,7 @@ const ConsumerNavigation: React.FC<Props> = ({
     ],
   );
 
-  const navigationMenu = useNavigationData(
+  const navigationMenu = useNavigationData({
     companyId,
     hasMultipleMembership,
     hasFranchise,
@@ -125,7 +125,7 @@ const ConsumerNavigation: React.FC<Props> = ({
     isNewCheckoutFlow,
     isRelationNavigation,
     memberName,
-  );
+  });
 
   return (
     <div className="bs-consumer-navigation__root">

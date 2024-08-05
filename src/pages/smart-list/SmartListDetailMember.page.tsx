@@ -168,7 +168,8 @@ import {
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import {
   showInformativeDialog,
-  showDeleteDialog,
+  showActionDialog,
+  DialogActionEnum,
 } from '#src/components/genericDialog/CustomDialogs';
 import FiltersPanel from '#src/libs/smart-list/components/FiltersPanel.component';
 // @ts-expect-error
@@ -1347,9 +1348,10 @@ const mapWithHandlers = {
   deleteAutomatedCampaign:
     (props: OwnAndConnectedProps) =>
     async (id: number, options?: OptionCallback) => {
-      const res = await showDeleteDialog(
+      const res = await showActionDialog(
         props.t('communication:campaign.automated.deleteDialog.title'),
         props.t('communication:campaign.automated.deleteDialog.content'),
+        DialogActionEnum.DELETE,
       );
       if (res) {
         props.deleteSmartListAutomatedCampaign(id, {

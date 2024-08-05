@@ -34,7 +34,10 @@ import { RootState } from '../../reducers/index';
 import Config from '../../config';
 import { buildUrlParams, parseQueryString } from '../../http';
 
-import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
+import {
+  DialogActionEnum,
+  showActionDialog,
+} from '#src/components/genericDialog/CustomDialogs';
 
 import { OptionCallback } from '../../state/types';
 
@@ -103,9 +106,10 @@ export class QuickBooks extends React.Component<Props, State> {
   };
 
   connectQuickBooks = async () => {
-    const res = await showDeleteDialog(
+    const res = await showActionDialog(
       this.props.t('quickbooks.confirmDialog.title'),
       this.props.t('quickbooks.confirmDialog.text'),
+      DialogActionEnum.DELETE,
     );
 
     if (res) {

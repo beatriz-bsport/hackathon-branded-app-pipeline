@@ -24,7 +24,10 @@ import ProgramList from '#src/libs/performance-tracking/components/program/Progr
 import MemberProgramDetail from '#src/libs/performance-tracking/components/member-program/MemberProgramDetail.component';
 import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 import ProgramMenuItem from '#src/libs/performance-tracking/components/program/ProgramMenuItem.component';
-import { showDeleteDialog } from '#src/components/genericDialog/CustomDialogs';
+import {
+  DialogActionEnum,
+  showActionDialog,
+} from '#src/components/genericDialog/CustomDialogs';
 import GenericDialog from '#src/components/genericDialog/GenericDialog';
 import {
   getMemberProgramByMemberList,
@@ -190,9 +193,10 @@ export class MemberProgramList extends Component<Props> {
                         isDisabled={itemProps.isDisabled}
                         isSelected={itemProps.isSelected}
                         onDelete={async (program) => {
-                          const shouldDelete = await showDeleteDialog(
+                          const shouldDelete = await showActionDialog(
                             t('memberProgram.deleteHeader'),
                             t('memberProgram.deleteContent'),
+                            DialogActionEnum.DELETE,
                           );
                           if (shouldDelete) {
                             const memberProgramToDelete = [

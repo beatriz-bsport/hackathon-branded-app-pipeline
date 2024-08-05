@@ -26,7 +26,10 @@ import type { Theme } from '@material-ui/core/styles';
 
 import { formatAsDate } from '#src/utils/datetime';
 import { getSpecificIncompatibilitiesReasons } from '#src/libs/consumer-payment-pack/utils';
-import { showDeleteDialog } from '#src/components/genericDialog/CustomDialogs';
+import {
+  DialogActionEnum,
+  showActionDialog,
+} from '#src/components/genericDialog/CustomDialogs';
 import { WithIsSharedActive } from '#src/libs/relationship/types';
 import ConsumerPassSourceChip from '#src/components/chip/ConsumerPassSourceChip';
 import CreditStatus from '#src/libs/consumer-payment-pack/components/CreditStatus.component';
@@ -120,12 +123,13 @@ export class ConsumerPackRowItem extends Component<Props, State> {
 
       const unit = this.props.t(`consumerPaymentPack.maxout.${maxoutStatus}`);
 
-      book = await showDeleteDialog(
+      book = await showActionDialog(
         t('consumerPaymentPack.maxout.dialogTitle'),
         t('consumerPaymentPack.maxout.dialog_message', {
           count: maxBooking,
           unit,
         }),
+        DialogActionEnum.DELETE,
       );
     }
 

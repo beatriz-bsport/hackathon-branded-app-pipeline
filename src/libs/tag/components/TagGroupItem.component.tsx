@@ -36,7 +36,10 @@ import { FormControl } from '@material-ui/core';
 import { withTheme } from '@material-ui/styles';
 import { Tag, TagGroup } from '../types';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
-import { showDeleteDialog } from '../../../components/genericDialog/CustomDialogs';
+import {
+  DialogActionEnum,
+  showActionDialog,
+} from '#src/components/genericDialog/CustomDialogs';
 import TagForm from './TagForm.component';
 import MuiIcon from '../../../components/MuiIcon.component';
 
@@ -108,9 +111,10 @@ class TagGroupItem extends React.PureComponent<Props, State> {
   onClickDeleteTagGroup = async () => {
     const { t } = this.props;
     this.closeShowMore();
-    const shouldDelete = await showDeleteDialog(
+    const shouldDelete = await showActionDialog(
       t('management.deleteTagGroupDialog.title'),
       t('management.deleteTagGroupDialog.text'),
+      DialogActionEnum.DELETE,
     );
 
     shouldDelete && this.props.onDeleteTagGroup(this.props.tagGroup);
@@ -137,9 +141,10 @@ class TagGroupItem extends React.PureComponent<Props, State> {
 
   onClickDeleteTag = async (tag: Tag) => {
     const { t } = this.props;
-    const shouldDelete = await showDeleteDialog(
+    const shouldDelete = await showActionDialog(
       t('management.deleteTagDialog.title'),
       t('management.deleteTagDialog.text'),
+      DialogActionEnum.DELETE,
     );
 
     shouldDelete && this.props.onDeleteTag(tag);

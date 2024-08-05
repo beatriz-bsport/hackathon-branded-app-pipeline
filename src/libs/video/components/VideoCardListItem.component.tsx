@@ -23,7 +23,10 @@ import SCT from '../../category/components/SCT.component';
 import { Video } from '../types';
 import { Coach } from '../../associated-coach/types';
 import { MaterialStyleType } from '../../../utils/types';
-import { showDeleteDialog } from '../../../components/genericDialog/CustomDialogs';
+import {
+  DialogActionEnum,
+  showActionDialog,
+} from '#src/components/genericDialog/CustomDialogs';
 
 const VIDEO_STATUS_CREATED = 100;
 
@@ -44,9 +47,10 @@ export class VideoCardListItem extends React.PureComponent<Props> {
   onClickDelete = async () => {
     const { t } = this.props;
 
-    const res = await showDeleteDialog(
+    const res = await showActionDialog(
       t('video:video.delete.title'),
       t('video:video.delete.content'),
+      DialogActionEnum.DELETE,
     );
 
     res && this.props.onDelete(this.props.video);

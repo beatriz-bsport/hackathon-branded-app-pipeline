@@ -88,7 +88,10 @@ import {
   withEstablishment,
 } from '#src/libs/establishment/selectors';
 import { _getAvailablePrivateServices } from '#src/libs/private-service/selectors/private-service';
-import { showDeleteDialog } from '#src/components/genericDialog/CustomDialogs';
+import {
+  DialogActionEnum,
+  showActionDialog,
+} from '#src/components/genericDialog/CustomDialogs';
 import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import { EstablishmentGroup } from '#src/libs/establishment/types';
 
@@ -271,9 +274,10 @@ export class MarketingRuleListPage extends Component<Props, State> {
       (n) => n.id === this.state.selectedNotification,
     );
     const parameters = getNotificationDeleteDialogParameters(t, notification);
-    const res = await showDeleteDialog(
+    const res = await showActionDialog(
       t('marketing:notifications.deleteDialogTitle'),
       parameters.warningText,
+      DialogActionEnum.DELETE,
       parameters.buttonActivationDelay,
     );
     if (res && this.state.selectedNotification) {

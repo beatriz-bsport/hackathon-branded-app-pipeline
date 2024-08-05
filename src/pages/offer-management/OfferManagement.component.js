@@ -67,7 +67,10 @@ import DiscardBookingOptionDialogV2 from '#src/libs/waiting-list/components/Disc
 import { MemberMap } from '#src/libs/member/utils';
 import type { Tag, TagGroup } from '#src/libs/tag/types';
 import GenericDialog from '#src/components/genericDialog/GenericDialog';
-import { showDeleteDialog } from '#src/components/genericDialog/CustomDialogs';
+import {
+  DialogActionEnum,
+  showActionDialog,
+} from '#src/components/genericDialog/CustomDialogs';
 
 import CommunicationDrawer from '#src/libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_OFFER } from '#src/libs/communication-v2/constants';
@@ -1657,11 +1660,12 @@ export default compose(
             offer?.nb_bookings >= offer?.effectif &&
             !registererObject.paymentPack
           ) {
-            fullOfferConfirmation = await showDeleteDialog(
+            fullOfferConfirmation = await showActionDialog(
               t('maximumNumber'),
               t('maximumNumberDescription', {
                 effectif: offer.effectif,
               }),
+              DialogActionEnum.CONFIRM,
             );
           }
           if (

@@ -67,7 +67,10 @@ import {
   getSpotTypesOfCompany,
 } from '../../libs/spot-scheduling/selector';
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
-import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
+import {
+  DialogActionEnum,
+  showActionDialog,
+} from '#src/components/genericDialog/CustomDialogs';
 import CanvasPreviewDialog from '../../libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 import {
   fetchTagList as fetchTagListAction,
@@ -425,9 +428,10 @@ export default compose(
     deleteRoomBlueprint:
       ({ t, deleteRoomBlueprint }) =>
       async (room: RoomBlueprint) => {
-        const confirm = await showDeleteDialog(
+        const confirm = await showActionDialog(
           t('spotScheduling.delete.title'),
           t('spotScheduling.delete.content'),
+          DialogActionEnum.DELETE,
         );
         if (confirm) deleteRoomBlueprint(room.id);
       },

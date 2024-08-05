@@ -57,7 +57,10 @@ import VideoStreamDialog from '../../libs/video/components/VideoStreamDialog.com
 import VideoSearchBar from '../../libs/video/components/VideoSearchBar.component';
 import themeSelectors from '../../libs/theme/selectors';
 import { Video } from '../../libs/video/types';
-import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
+import {
+  DialogActionEnum,
+  showActionDialog,
+} from '#src/components/genericDialog/CustomDialogs';
 import { OptionCallback } from '../../state/types';
 
 type Props = {
@@ -513,9 +516,10 @@ export default compose(
         });
       },
     removeVideoSource: (props) => async (video: Video) => {
-      const res = await showDeleteDialog(
+      const res = await showActionDialog(
         props.t('video.form.video_source.change_popup_title'),
         props.t('video.form.video_source.change_popup_text'),
+        DialogActionEnum.DELETE,
       );
       if (res) {
         props.closeEditForm();

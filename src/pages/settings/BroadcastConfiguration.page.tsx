@@ -28,7 +28,10 @@ import { fetchEstablishments as fetchEstablishmentsAction } from '#src/libs/esta
 import { getAllEstablishmentsDict } from '#src/libs/establishment/selectors';
 import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 import { requestZoomAccessToken as requestZoomAccessTokenAPI } from '#src/libs/zoom-app/api';
-import { showDeleteDialog } from '#src/components/genericDialog/CustomDialogs';
+import {
+  DialogActionEnum,
+  showActionDialog,
+} from '#src/components/genericDialog/CustomDialogs';
 import type { ZoomApp } from '#src/libs/zoom-app/types';
 import { buildUrlParams, parseQueryString } from '../../http';
 import Config from '../../config';
@@ -104,9 +107,10 @@ export class BroadcastConfiguration extends Component<Props> {
   };
 
   connectZoom = async () => {
-    const res = await showDeleteDialog(
+    const res = await showActionDialog(
       this.props.t('zoom.confirmDialog.title'),
       this.props.t('zoom.confirmDialog.text'),
+      DialogActionEnum.DELETE,
     );
     if (res) {
       window.location.href = `https://zoom.us/oauth/authorize${buildUrlParams({

@@ -603,9 +603,12 @@ export default compose(
   ),
   withHandlers({
     redirectToCart:
-      ({ companyId, push, isNewCheckoutFlow }) =>
+      ({ companyId, push, theme }) =>
       () => {
-        const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
+        const checkoutUrl = getCheckoutUrl(
+          companyId,
+          theme?.display_new_checkout_flow ?? false,
+        );
         push(checkoutUrl);
       },
     redirectToMyProfile:

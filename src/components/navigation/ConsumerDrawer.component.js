@@ -89,6 +89,7 @@ type Props = {
   hasFranchise: number | null,
   name: string,
   companyTheme: CompanyTheme,
+  companyLogo: string | null,
 };
 
 type State = {
@@ -535,7 +536,7 @@ class ConsumerDrawer extends React.Component<Props, State> {
             <img
               alt="bsport logo"
               height={40}
-              src={this.props.logo || LOGO_ASSET}
+              src={this.props.companyLogo || LOGO_ASSET}
             />
           </Grid>
         </div>

@@ -83,12 +83,12 @@ const ContractTemplateDetail: React.FC<Props> = ({
     [recurrence_basis, nb_interval],
   );
 
-  const priceWithCurrency = useMemo(
+  const recurrentPriceDisplayWithCurrency = useMemo(
     () => getCurrencyDisplayWithPrice(recurrent_price),
     [recurrent_price],
   );
 
-  const currencyDisplayWithPrice = useMemo(
+  const flatFeeDisplayWithCurrency = useMemo(
     () => getCurrencyDisplayWithPrice(flat_fee),
     [flat_fee],
   );
@@ -118,7 +118,7 @@ const ContractTemplateDetail: React.FC<Props> = ({
       </Box>
       <div className={classes.priceRow}>
         <Typography className={classes.priceDisplay} variant="h5">
-          {currencyDisplayWithPrice}
+          {recurrentPriceDisplayWithCurrency}
         </Typography>
         <Typography className={classes.recurrence}>
           {month_billing_day === null
@@ -140,7 +140,7 @@ const ContractTemplateDetail: React.FC<Props> = ({
             color="textSecondary"
           >
             {t('parameters.flat_fee', {
-              price_with_currency: priceWithCurrency,
+              price_with_currency: flatFeeDisplayWithCurrency,
             })}
           </Typography>
         </div>

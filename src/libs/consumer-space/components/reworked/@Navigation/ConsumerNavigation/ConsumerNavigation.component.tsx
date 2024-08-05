@@ -9,11 +9,18 @@ import NavigationSideBar from '#src/components/css-only/Navigation/NavigationSid
 import useNavigationData from '../useNavigationData';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 
-import { ShoppingCart01, UserCircle } from '#src/components/untitledui';
+import {
+  ArrowLeft,
+  ShoppingCart01,
+  UserCircle,
+} from '#src/components/untitledui';
 import ConsumerGenericFooter from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericFooter';
+import NavigationSideDrawer from '#src/components/css-only/Navigation/NavigationSideDrawer/NavigationSideDrawer.component';
+import useNavigationSideDrawerData from '#src/components/css-only/Navigation/NavigationSideDrawer/useNavigationSideDrawerData.hook';
 
 import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 import type { AppBarButton } from '#src/components/css-only/Navigation/NavigationAppBar/types';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
 
 import './styles.css';
 
@@ -23,10 +30,10 @@ type Props = {
   companyWebsiteUrl?: string;
   companyId: number;
   hasMultipleMembership: boolean;
-  hasFranchise: boolean;
   isNewCheckoutFlow: boolean;
   isRelationNavigation: boolean;
   memberName: string;
+  franchisorCompanyList?: FranchiseCompany[];
   /** A list of action buttons to display in the header */
   buttonsData?: HeaderButton[];
   /** The number of products in the current member basket */
@@ -40,10 +47,10 @@ const ConsumerNavigation: React.FC<Props> = ({
   companyWebsiteUrl,
   companyId,
   hasMultipleMembership,
-  hasFranchise,
   isNewCheckoutFlow,
   isRelationNavigation,
   memberName,
+  franchisorCompanyList,
   children,
   buttonsData,
   basketProductListCount,
@@ -84,14 +91,24 @@ const ConsumerNavigation: React.FC<Props> = ({
     [basketProductListCount, isMobile, redirectToCart, redirectToMyProfile, t],
   );
 
-  const navigationMenu = useNavigationData({
+  const {
+    stackNavigationState,
+    isSideDrawerOpen,
+    handleCloseSideDrawer,
+    handleOpenSideDrawer,
+    handleBackArrowClick,
+    handleSetStackNavigationState,
+  } = useNavigationSideDrawerData();
+
+  const { navigationData, navigationDataMobile } = useNavigationData({
     companyId,
     hasMultipleMembership,
-    hasFranchise,
     isMobile,
     isNewCheckoutFlow,
     isRelationNavigation,
     memberName,
+    franchisorCompanyList,
+    handleCloseSideDrawer,
   });
 
   return (
@@ -100,7 +117,19 @@ const ConsumerNavigation: React.FC<Props> = ({
         actions={actionsList}
         isMobile={isMobile}
         logo={companyLogo}
+        onOpenAppBarMenuClick={handleOpenSideDrawer}
         websiteUrl={companyWebsiteUrl}
+      />
+
+      <NavigationSideDrawer
+        handleBackArrowClick={handleBackArrowClick}
+        handleSetStackNavigationState={handleSetStackNavigationState}
+        isOpen={isSideDrawerOpen}
+        leftIcon={<ArrowLeft fill="currentColor" />}
+        stackNavigationState={stackNavigationState}
+        submenuItems={navigationDataMobile}
+        subtitle={t('reworked.navigation.exploreYourProfile')}
+        title={memberName && `${memberName},`}
       />
 
       <div className="bs-consumer-navigation__layout">
@@ -109,7 +138,7 @@ const ConsumerNavigation: React.FC<Props> = ({
           isBottomDrawerOpen={isBottomDrawerOpen}
           isMobile={isMobile}
           memberName={memberName}
-          navigationMenu={navigationMenu}
+          navigationMenu={navigationData}
           onBottomDrawerClose={toggleBottomDrawer}
         />
         <main

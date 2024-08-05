@@ -22,6 +22,8 @@ import {
   getConsumerMembershipList,
   getMembership,
 } from '../../libs/membership/selectors';
+import { retrieveFranchise as retrieveFranchiseAction } from '#src/libs/franchise/actions';
+import { getFranchisor } from '#src/libs/franchise/selectors';
 import {
   fetchMembershipByCompany,
   linkMeToCompany,
@@ -29,6 +31,8 @@ import {
   requestMembershipValidation,
   fetchMembershipListAsConsumer,
 } from '../../libs/membership/actions';
+import { fetchMarketplaceSettings as fetchMarketplaceSettingsAction } from '../../libs/marketplace/actions';
+import { getMarketplaceSettingsConfig } from '../../libs/marketplace/selectors';
 import { getOfferWithRelated } from '../../libs/offer/selectors';
 
 import {
@@ -202,7 +206,11 @@ export class ConsumerHome extends React.Component<Props> {
       });
     }
     this.props.fetchMembershipListAsConsumer({ page_size: 1 });
-    this.props.fetchCompanyTheme(this.props.companyId);
+    this.props.fetchCompanyTheme(this.props.companyId, {
+      onSuccess: (theme) => {
+        if (theme.franchisor) this.props.retrieveFranchise(theme.franchisor);
+      },
+    });
     this.props.fetchCurrentBasket();
   }
 
@@ -337,6 +345,7 @@ export class ConsumerHome extends React.Component<Props> {
                   companyLogo={this.props.theme?.cover}
                   companyWebsiteUrl={this.props.theme.websiteURL}
                   controlableMemberList={this.props.controlableMemberList}
+                  franchisorCompanyList={this.props.franchisor?.companies ?? []}
                   hasMultipleMembership={
                     this.props.membershipCount && this.props.membershipCount > 1
                   }
@@ -568,6 +577,10 @@ export default compose(
   })),
   connect(
     (state, { companyId, from_direct_booking }) => ({
+      franchisor: themeSelectors.getTheme(state)?.franchisor
+        ? getFranchisor(state)
+        : undefined,
+      marketplaceSettingsConfig: getMarketplaceSettingsConfig(state),
       controlableMemberList: getMyControlableMemberList(state),
       membership: getMembership(state, companyId),
       programList: getProgramList(state),
@@ -587,7 +600,6 @@ export default compose(
       offerBooked: from_direct_booking
         ? getOfferWithRelated(state, parseInt(from_direct_booking, 10))
         : null,
-      marketplaceSettings: state.marketplace.settings,
       currentBasket: getCurrentBasket(state),
     }),
     {
@@ -614,6 +626,8 @@ export default compose(
       navigateToRelationAccount: navigateToRelationAccountAction,
       navigateBackToMasterRelation: navigateBackToMasterRelationAction,
       fetchCurrentBasket: fetchCurrentBasketAction,
+      fetchMarketplaceSettings: fetchMarketplaceSettingsAction,
+      retrieveFranchise: retrieveFranchiseAction,
     },
   ),
   withHandlers({

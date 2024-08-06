@@ -981,6 +981,12 @@ const getTranslations = async () => {
     reportHasNotBeenGenerated: 'Generate report to see data',
     accessOldUIWithNewVersionEnabled:
       'You tried to access the old interface while the new version is enabled, please go back to change interface',
+    tooltips: {
+      addView:
+        'Create different versions of the report with new filters, dates and data columns',
+      editView: 'Advanced filters',
+      deleteView: 'Delete view',
+    },
   };
 };
 

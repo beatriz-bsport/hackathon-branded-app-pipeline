@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { withFormik, FormikProps, ErrorMessage } from 'formik';
+import { makeStyles } from '@material-ui/core';
 
 import * as Yup from 'yup';
 
@@ -39,6 +40,7 @@ const ReportDetailCreateModal: React.FC<Props & FormikProps<InitialValues>> = ({
   values,
 }) => {
   const { t } = useTranslation('reporting');
+  const classes = useStyles();
   const handleMessageRendering = React.useCallback(
     (message: string) => (
       <Typography color="error" variant="body2">
@@ -65,21 +67,35 @@ const ReportDetailCreateModal: React.FC<Props & FormikProps<InitialValues>> = ({
       open={open}
       options={{ title: t('reportCreateModal.title') }}
     >
-      <TextField
-        fullWidth
-        required
-        error={!!errors?.reportName}
-        label={t('reportCreateModal.inputLabel')}
-        name="reportName"
-        onChange={handleOnChange}
-        value={values.reportName}
-        variant="outlined"
-      />
-      <ErrorMessage name="reportName" render={handleMessageRendering} />
-      <Typography variant="body1">{t('reportCreateModal.content')}</Typography>
+      <div className={classes.modalContent}>
+        <div>
+          <TextField
+            fullWidth
+            required
+            error={!!errors?.reportName}
+            label={t('reportCreateModal.inputLabel')}
+            name="reportName"
+            onChange={handleOnChange}
+            value={values.reportName}
+            variant="outlined"
+          />
+          <ErrorMessage name="reportName" render={handleMessageRendering} />
+        </div>
+        <Typography variant="body1">
+          {t('reportCreateModal.content')}
+        </Typography>
+      </div>
     </ModalConfirm>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  modalContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+  },
+}));
 
 const ReportCreateModalHOC = withFormik<Props & FormikHOCProps, InitialValues>({
   mapPropsToValues: () => {

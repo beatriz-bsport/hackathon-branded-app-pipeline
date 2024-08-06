@@ -101,35 +101,43 @@ const ReportDetailHeader: React.FC<Props> = ({
                   hasReadPermission && (
                     <div className={classes.groupedButtons}>
                       {hasEditPermission && (
-                        <Badge
-                          color="error"
-                          invisible={
-                            advancedReportFilterConfig
-                              ? !advancedReportFilterConfig.config.groups
-                                  ?.length
-                              : true
+                        <Tooltip
+                          title={
+                            upsertActionsDisabled ? '' : t('tooltips.editView')
                           }
-                          variant="dot"
                         >
-                          <IconButton
-                            disabled={upsertActionsDisabled}
-                            onClick={handleEditDrawerOpening}
+                          <Badge
+                            color="error"
+                            invisible={
+                              advancedReportFilterConfig
+                                ? !advancedReportFilterConfig.config.groups
+                                    ?.length
+                                : true
+                            }
+                            variant="dot"
                           >
-                            <EditIcon />
-                          </IconButton>
-                        </Badge>
+                            <IconButton
+                              disabled={upsertActionsDisabled}
+                              onClick={handleEditDrawerOpening}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                          </Badge>
+                        </Tooltip>
                       )}
                       {hasDeletePermission && (
                         <Tooltip
                           title={
-                            isCategoryDefault
+                            deleteDisabled
+                              ? ''
+                              : isCategoryDefault
                               ? t('reportDetailHeader.cannotDeleteDefaultView')
-                              : ''
+                              : t('tooltips.deleteView')
                           }
                         >
                           <span>
                             <IconButton
-                              disabled={deleteDisabled}
+                              disabled={deleteDisabled || isCategoryDefault}
                               onClick={handleDeleteModalOpening}
                             >
                               <DeleteIcon />
@@ -141,18 +149,22 @@ const ReportDetailHeader: React.FC<Props> = ({
                   )}
                 {hasCreatePermission && hasReadPermission && (
                   <div>
-                    <SecondaryActionButton
-                      className={classes.addViewButton}
-                      disabled={upsertActionsDisabled}
-                      onClick={handleAddModalOpening}
-                      size="small"
-                      startIcon={<AddIcon />}
-                      variant="outlined"
+                    <Tooltip
+                      title={upsertActionsDisabled ? '' : t('tooltips.addView')}
                     >
-                      <Typography className={classes.addViewLabel}>
-                        {t('reportDetailHeader.addView')}
-                      </Typography>
-                    </SecondaryActionButton>
+                      <SecondaryActionButton
+                        className={classes.addViewButton}
+                        disabled={upsertActionsDisabled}
+                        onClick={handleAddModalOpening}
+                        size="small"
+                        startIcon={<AddIcon />}
+                        variant="outlined"
+                      >
+                        <Typography className={classes.addViewLabel}>
+                          {t('reportDetailHeader.addView')}
+                        </Typography>
+                      </SecondaryActionButton>
+                    </Tooltip>
                   </div>
                 )}
               </div>

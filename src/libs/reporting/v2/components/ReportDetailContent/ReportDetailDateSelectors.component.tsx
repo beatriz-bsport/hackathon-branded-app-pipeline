@@ -159,7 +159,7 @@ const ReportDetailDateSelectors: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
-  dateWrapper: { display: 'flex', gap: theme.spacing(1) },
+  dateWrapper: { display: 'flex', gap: theme.spacing(1), flexWrap: 'wrap' },
 }));
 
 export default React.memo(ReportDetailDateSelectors);

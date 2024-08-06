@@ -81,8 +81,17 @@ const ReportDetailNavigationDrawer: React.FC<Props> = ({
       isFranchisor
         ? pushRouter(`/f/reporting/${categoryNameSelected}/${reportId}`)
         : pushRouter(`/reporting/${categoryNameSelected}/${reportId}`);
+
+      setIsCategoryExpanded(
+        items.reduce((acc: Record<string, boolean>, item) => {
+          acc[item.title] = !!item.categories.find(
+            (category) => category.category === categoryNameSelected,
+          );
+          return acc;
+        }, {}),
+      );
     },
-    [pushRouter, isFranchisor],
+    [pushRouter, isFranchisor, items],
   );
 
   const handleAllReportsClick = React.useCallback(() => {

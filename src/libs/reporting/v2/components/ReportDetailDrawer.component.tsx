@@ -237,7 +237,11 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
   return (
     <GenericResponsiveDrawer
       withoutPadding
-      customClasses={{ header: classes.drawerHeader }}
+      customClasses={{
+        header: classes.drawerHeader,
+        topCancel: classes.topCancel,
+        cancelButton: classes.cancelButton,
+      }}
       onClose={handleDrawerClosing}
       open={isDrawerOpen}
       title={t('reportEditLabel')}
@@ -268,7 +272,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
           >
             <div>
               <div className={classes.sectionName}>
-                <FilterListIcon />
+                <FilterListIcon color="action" />
                 <Typography variant="h6">
                   {t('reportDetailDrawer.advancedFilterTitle')}
                 </Typography>
@@ -349,7 +353,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
           <div className={classNames(classes.section, classes.directionColumn)}>
             <div>
               <div className={classes.sectionName}>
-                <ViewColumnIcon />
+                <ViewColumnIcon color="action" />
                 <Typography variant="h6">
                   {t('reportDetailDrawer.displayedColumnsTitle')}
                 </Typography>
@@ -415,9 +419,12 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
-    padding: theme.spacing(2, 3),
+    padding: theme.spacing(3, 4),
     margin: 0,
+    gap: theme.spacing(2),
   },
+  cancelButton: { padding: 0 },
+  topCancel: { margin: 0 },
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -439,6 +446,7 @@ const useStyles = makeStyles((theme) => ({
   sectionName: {
     display: 'flex',
     alignItems: 'center',
+    gap: theme.spacing(1),
   },
   columnsContainer: {
     display: 'flex',

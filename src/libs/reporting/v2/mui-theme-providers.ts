@@ -59,7 +59,11 @@ export const cardHeaderStatsTheme = createTheme({
       h5: { textAlign: 'center' },
     },
     MuiCard: {
-      root: { borderLeft: 0, padding: defaultTheme.spacing(1, 0) },
+      root: {
+        borderLeft: 0,
+        padding: defaultTheme.spacing(1, 0),
+        height: '100%',
+      },
     },
     MuiPaper: {
       root: {

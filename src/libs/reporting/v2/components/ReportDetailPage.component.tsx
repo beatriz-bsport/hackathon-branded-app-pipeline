@@ -280,6 +280,7 @@ const ReportDetailPage: React.FC<Props> = ({
         options={{
           title: t('reportDeleteModal.title'),
           confirm: t('reportDeleteModal.confirm'),
+          isDeletion: true,
         }}
       >
         {t('reportDeleteModal.content')}
@@ -288,11 +289,7 @@ const ReportDetailPage: React.FC<Props> = ({
         <ReportDetailHeader
           advancedReportFilterConfig={advancedReportFilterConfig}
           categoryName={categoryName}
-          deleteDisabled={
-            report?.is_category_default ||
-            !hasDeletePermission ||
-            reportGeneratedRows.loading
-          }
+          deleteDisabled={!hasDeletePermission || reportGeneratedRows.loading}
           handleAddModalOpening={handleAddModalState(true)}
           handleDeleteModalOpening={handleDeleteModalState(true)}
           handleEditDrawerOpening={handleEditDrawerState(true)}

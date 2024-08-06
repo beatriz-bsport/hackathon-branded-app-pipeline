@@ -41,6 +41,8 @@ import { getObjectPermissions, getPermissions } from '#src/libs/role/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
+import { getIsReportV2Displayed } from '#src/libs/user-preference/selectors';
+import { push } from 'connected-react-router';
 
 type OwnProps = {
   id: number;
@@ -281,6 +283,8 @@ export class ReportingGeneration extends Component<Props, State> {
       nextPage,
       otherPages,
       pageSize,
+      isV2Displayed,
+      pushRouter,
     } = this.props;
 
     return (
@@ -301,6 +305,7 @@ export class ReportingGeneration extends Component<Props, State> {
             this.props.handleGetDynamicDataForFilters
           }
           isFranchisor={this.props.isFranchisor}
+          isV2Displayed={isV2Displayed}
           // @ts-expect-error
           metadata={metadata}
           nextPage={nextPage}
@@ -308,6 +313,7 @@ export class ReportingGeneration extends Component<Props, State> {
           otherPages={otherPages}
           pageSize={pageSize}
           previousPage={previousPage}
+          pushRouter={pushRouter}
           report={report}
           reportFilterConfigs={this.props.reportFilterConfigs}
           reportHeaders={reportHeaders}
@@ -343,6 +349,7 @@ const connector = connect(
     reportFilterConfigs: getReportFilterConfigList(state),
     userPermissions: getPermissions(state),
     objectLevelPermissions: getObjectPermissions(state),
+    isV2Displayed: getIsReportV2Displayed(state),
   }),
   {
     fetchReportMetadata: fetchReportMetadataAction,
@@ -355,6 +362,7 @@ const connector = connect(
     fetchReportFilterConfigList: fetchReportFilterConfigListAction,
     deleteReportFilterConfig: deleteReportFilterConfigAction,
     fetchCompanyRoles: fetchCompanyRolesAction,
+    pushRouter: push,
   },
 );
 

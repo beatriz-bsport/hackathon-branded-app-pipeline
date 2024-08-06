@@ -2,7 +2,7 @@ import React from 'react';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles, Theme } from '@material-ui/core';
+import { Button, makeStyles, Theme } from '@material-ui/core';
 
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
@@ -70,6 +70,8 @@ type Props = {
   fetchReportFilterConfigList: (params: ReportFilterConfigParams) => void;
   deleteReportFilterConfig: (reporFilterId: number) => void;
   objectLevelPermissions: ObjectLevelPermissions;
+  isV2Displayed: boolean;
+  pushRouter: (path: string) => void;
 };
 
 const CATEGORIES_NEEDING_HELPER_TEXT = ['franchise_shared_pass'];
@@ -88,6 +90,11 @@ const useStyles = makeStyles((theme: Theme) => ({
       color: 'inherit',
       textDecorationLine: 'underline',
     },
+  },
+  newVersionDisplayed: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 }));
 
@@ -123,9 +130,30 @@ const ReportGeneration: React.FC<Props> = ({
   allowedFranchisees,
   userPermissions,
   objectLevelPermissions,
+  isV2Displayed,
+  pushRouter,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
+
+  const handleReroutingToWelcomePage = React.useCallback(() => {
+    isFranchisor ? pushRouter('/f/reporting') : pushRouter('/reporting');
+  }, [isFranchisor, pushRouter]);
+
+  if (isV2Displayed) {
+    return (
+      <div className={classes.newVersionDisplayed}>
+        <Typography align="center" variant="body2">
+          {t('accessOldUIWithNewVersionEnabled')}
+        </Typography>
+        <div>
+          <Button onClick={handleReroutingToWelcomePage}>
+            {t('reportDetailContent.goBack')}
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   if (!report || metadata.loading) {
     return <LinearProgress />;

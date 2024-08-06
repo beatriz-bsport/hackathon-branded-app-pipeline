@@ -1,6 +1,6 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
@@ -176,6 +176,30 @@ const ReportDetailContent: React.FC<Props> = ({
               })}
             </Alert>
           )}
+          {categoryName === ReportCategoryEnum.INVOICES && (
+            <Alert severity="info">
+              <Trans
+                components={[
+                  <a
+                    key="invoices-report-warning"
+                    className={classes.infoLink}
+                    href={t('reporting:helperText.invoicesAccrualMethodLink')}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    .
+                  </a>,
+                ]}
+                i18nKey="reporting:helperText.invoicesAccrualMethod"
+                t={t}
+                values={{
+                  purchasedGiftcardReport: t(
+                    'reporting:categories.consumer_giftcard',
+                  ),
+                }}
+              />
+            </Alert>
+          )}
           <ReportTable
             v2
             className={classes.reportTable}
@@ -218,6 +242,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  infoLink: {
+    color: 'inherit',
+    textDecorationLine: 'underline',
+    '&:link, &:visited, &:hover, &:active, &:focus': {
+      color: 'inherit',
+      textDecorationLine: 'underline',
+    },
   },
 }));
 

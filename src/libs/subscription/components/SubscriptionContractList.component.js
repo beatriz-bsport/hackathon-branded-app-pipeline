@@ -63,10 +63,10 @@ export const SubscriptionContractList = (props: Props) => {
               dense={props.dense}
               divider={props.divider}
               onClick={props.onClick ? () => props.onClick(c.id) : null}
-              onDelete={!c.contract_template && props.onDelete}
+              onDelete={props.onDelete}
               onEdit={props.onEdit ? () => props.setContractToEdit(c) : null}
               onRegister={props.onRegister ? () => props.onRegister(c) : null}
-              onRestore={!c.contract_template && props.onRestore}
+              onRestore={props.onRestore}
               selected={c.id === props.selectedContract}
               snackbar={props.snackbar}
             />

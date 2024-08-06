@@ -53,6 +53,11 @@ export const SubscriptionContractListItem = (props: Props) => {
     props.onDelete(props.contract.id);
   }, [props]);
 
+  const isFromContractTemplate = React.useMemo(
+    () => !!props.contract.contract_template,
+    [props.contract.contract_template],
+  );
+
   return (
     <ListItem
       button={!!props.onClick}
@@ -124,11 +129,12 @@ export const SubscriptionContractListItem = (props: Props) => {
               props.onEdit();
             },
           },
-          !!props.onDelete && {
-            icon: DeleteIcon,
-            label: props.t('subscription.delete'),
-            onClick: handleDelete,
-          },
+          !!props.onDelete &&
+            !isFromContractTemplate && {
+              icon: DeleteIcon,
+              label: props.t('subscription.delete'),
+              onClick: handleDelete,
+            },
           !!props.onBook && {
             icon: AddShoppingCartIcon,
             label: props.t(''),
@@ -136,11 +142,12 @@ export const SubscriptionContractListItem = (props: Props) => {
               props.onBook();
             },
           },
-          !!props.onRestore && {
-            icon: RestoreFromTrashIcon,
-            label: props.t('subscription.restore'),
-            onClick: handleRestore,
-          },
+          !!props.onRestore &&
+            !isFromContractTemplate && {
+              icon: RestoreFromTrashIcon,
+              label: props.t('subscription.restore'),
+              onClick: handleRestore,
+            },
         ]}
       />
     </ListItem>

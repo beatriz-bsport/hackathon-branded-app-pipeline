@@ -14,6 +14,7 @@ import {
   archiveMember,
   fetchMember,
   interrogateMemberStatus,
+  uploadLeadManagementFile as uploadLeadManagementFileAction,
 } from '#src/libs/member/actions';
 import { fetchMemberList } from '#src/libs/member/api';
 import { fetchTags } from '#src/libs/tag/actions';
@@ -30,7 +31,6 @@ import TagFilterForm from '#src/libs/tag/components/TagFilterForm.component';
 import tagSelectors from '#src/libs/tag/selectors';
 import type { Tag } from '#src/libs/tag/types';
 import withTitle from '../../hocs/with-title.hoc';
-
 import type { RootState } from '../../reducers';
 
 type WithStateProps = {
@@ -165,7 +165,14 @@ export class Members extends Component<Props, State> {
                   goToMember={
                     hasMemberProfileAccessPermission ? goToMemberPage : null
                   }
+                  importZohoLeads={
+                    this.props.zohoMemberImportEnabled &&
+                    this.props.uploadLeadManagementFile
+                  }
                   interrogateMemberStatus={this.interrogateMemberStatus}
+                  isUploadingLeadManagementFile={
+                    this.props.isUploadingLeadManagementFile
+                  }
                   tagsExcluded={this.state.tagsExcluded}
                   tagsIncluded={this.state.tagsIncluded}
                 />
@@ -219,11 +226,14 @@ const connector = connect(
     memberArchiveLoading: state.member.archive.loading,
     memberToArchive: getMemberDetail(state, memberSelectedForArchive),
     permissions: getPermissions(state),
+    zohoMemberImportEnabled: state.theme.theme.zoho_member_import_enabled,
+    isUploadingLeadManagementFile: state.member.leadManagementUpload.loading,
   }),
   {
     fetchTags,
     goToMemberPage: (id: number) => push(`/member/${id}/`),
     addMember: () => push('/member/add'),
+    uploadLeadManagementFile: uploadLeadManagementFileAction,
     archiveMember,
     interrogateMemberStatus,
     fetchMember,

@@ -212,6 +212,8 @@ type OwnProps = {
   }) => Promise<AxiosResponse<GenericPaginationResults<MemberMinimal>>>;
   goToMember?: (id: number) => void;
   addMember?: () => void;
+  importZohoLeads?: (file: File) => void;
+  isUploadingLeadManagementFile?: boolean;
   tagsExcluded?: Array<Tag['id']>;
   tagsIncluded?: Array<Tag['id']>;
   customToolBar?: () => JSX.Element;
@@ -391,7 +393,13 @@ export class MemberTable extends PureComponent<Props, State> {
                     forcedBehavior="hidden"
                     requiredPermission="member.allowed_actions.create"
                   >
-                    <MemberActions addMember={this.props.addMember} />
+                    <MemberActions
+                      addMember={this.props.addMember}
+                      importZohoLeads={this.props.importZohoLeads}
+                      isUploadingLeadManagementFile={
+                        this.props.isUploadingLeadManagementFile
+                      }
+                    />
                   </ObjectLevelPermissionWrapper>
                 ) : (
                   <div />

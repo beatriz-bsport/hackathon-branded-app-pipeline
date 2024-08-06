@@ -24,8 +24,8 @@ const ExportableLoginButtonSettings: React.FC<Props> = ({
   config,
   onChange,
 }) => {
-  const classes = useStyles('widget');
-  const { t } = useTranslation();
+  const classes = useStyles();
+  const { t } = useTranslation('widget');
 
   const handleBooleanChange = useCallback(
     (key: keyof PickBooleans<MarketplaceLoginButtonWidgetConfig>) =>

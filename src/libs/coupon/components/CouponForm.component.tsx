@@ -648,6 +648,7 @@ export class CouponForm extends React.Component<Props, State> {
               ? this.state.only_on_objects.map((id, i) => (
                   <PrivatePassListItem
                     key={`${id}-${i}`}
+                    asStandardPass
                     dense
                     // @ts-expect-error
                     disabled={!!initial?.coupon_template_instance}

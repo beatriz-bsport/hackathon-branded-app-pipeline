@@ -281,6 +281,7 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({ isProcessing }) => {
               ? values?.only_on_objects?.map((privatePassId, index) => (
                   <PrivatePassListItem
                     key={`${privatePassId}-${index}`}
+                    asStandardPass
                     dense
                     removePaper
                     onDelete={handleUnselectItem(privatePassId)}

@@ -28,6 +28,8 @@ import {
 import { getValidityInfo } from '../../utils';
 
 type Props = {
+  // Use this prop to disable all shared pass' specific behaviors.
+  asStandardPass?: boolean;
   attributes?: any;
   dense?: boolean;
   divider?: boolean;
@@ -42,6 +44,7 @@ type Props = {
 };
 
 export const PrivatePassListItem: React.FC<Props> = ({
+  asStandardPass,
   attributes,
   dense,
   divider,
@@ -55,6 +58,8 @@ export const PrivatePassListItem: React.FC<Props> = ({
   removePaper,
 }) => {
   const { t } = useTranslation('privateService');
+
+  const hideModificationButton = !asStandardPass && pass.template_instance;
 
   if (!pass) {
     return (
@@ -120,14 +125,14 @@ export const PrivatePassListItem: React.FC<Props> = ({
               onClick: onEdit,
             },
             onDelete &&
-              !pass.template_instance && {
+              !hideModificationButton && {
                 icon: DeleteIcon,
                 label: t('privatePass.delete.delete'),
                 onClick: onDelete,
               },
             // @ts-expect-error
             onRestore &&
-              !pass.template_instance && {
+              !hideModificationButton && {
                 icon: RestoreFromTrashIcon,
                 color: 'secondary',
                 onClick: onRestore,

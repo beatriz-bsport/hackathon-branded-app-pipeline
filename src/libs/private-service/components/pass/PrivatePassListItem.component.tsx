@@ -1,91 +1,109 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { DraggableSyntheticListeners } from '@dnd-kit/core';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
-import { useTranslation } from 'react-i18next';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
 import Paper from '@material-ui/core/Paper';
-import { DraggableSyntheticListeners } from '@dnd-kit/core';
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import StyleIcon from '@material-ui/icons/Style';
-import Tooltip from '#src/components/Tooltip.component';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+
+import ListItemResponsiveAction from '#src/components/button/ListItemResponsiveAction.component';
 import ConditionalWrapper from '#src/components/ConditionnalWrapper.component';
+import Tooltip from '#src/components/Tooltip.component';
+
+import type { PrivatePass } from '#src/libs/private-service/types';
+
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
 } from '#src/libs/theme/utils';
-import type { PrivatePass } from '../../types';
 import { getValidityInfo } from '../../utils';
-import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 
 type Props = {
-  pass: PrivatePass;
-  onClick?: () => void;
-  onDelete?: () => void;
-  onRestore?: () => void;
-  divider?: boolean;
-  onEdit?: () => void;
-  draggable?: boolean;
-  listeners?: DraggableSyntheticListeners;
   attributes?: any;
   dense?: boolean;
+  divider?: boolean;
+  draggable?: boolean;
+  listeners?: DraggableSyntheticListeners;
+  onClick?: () => void;
+  onDelete?: () => void;
+  onEdit?: () => void;
+  onRestore?: () => void;
+  pass: PrivatePass;
   removePaper?: boolean;
 };
 
-export const PrivatePassListItem = (props: Props) => {
+export const PrivatePassListItem: React.FC<Props> = ({
+  attributes,
+  dense,
+  divider,
+  draggable,
+  listeners,
+  onClick,
+  onDelete,
+  onEdit,
+  onRestore,
+  pass,
+  removePaper,
+}) => {
   const { t } = useTranslation('privateService');
-  if (!props.pass) {
+
+  if (!pass) {
     return (
-      <ListItem divider={props.divider}>
+      <ListItem divider={divider}>
         <CircularProgress />
       </ListItem>
     );
   }
-  const dateInfo = getValidityInfo(props.pass, t);
+
+  const dateInfo = getValidityInfo(pass, t);
 
   return (
-    <ConditionalWrapper condition={!props.removePaper} WrapperComponent={Paper}>
+    <ConditionalWrapper condition={!removePaper} WrapperComponent={Paper}>
       <ListItem
         // @ts-expect-error
-        button={!!props.onClick}
-        dense={props.dense}
-        divider={props.divider}
-        onClick={props.onClick}
+        button={!!onClick}
+        dense={dense}
+        divider={divider}
+        onClick={onClick}
       >
-        {props.draggable && (
-          <IconButton {...props.listeners} {...props.attributes}>
+        {draggable && (
+          <IconButton {...listeners} {...attributes}>
             <DragHandleIcon />
           </IconButton>
         )}
         <ListItemText
-          primary={props.pass.name}
+          primary={pass.name}
           // @ts-expect-error
           secondary={`${t('privatePass.parameters.nbCredits', {
-            count: getCreditsDividedDisplay(props.pass.credits),
-            credits: getCreditsDividedValue(props.pass.credits),
+            count: getCreditsDividedDisplay(pass.credits),
+            credits: getCreditsDividedValue(pass.credits),
           })} - ${dateInfo}`}
           style={{ marginLeft: 10 }}
         />
-        {!props.pass.is_usable_by_staff && props.pass.available && (
+        {!pass.is_usable_by_staff && pass.available && (
           <Tooltip title={t('privatePass.listItem.unusableByStaff')}>
             <IconButton>
               <RemoveShoppingCartIcon />
             </IconButton>
           </Tooltip>
         )}
-        {!!props.pass.linked_payment_pack && (
+        {!!pass.linked_payment_pack && (
           <Tooltip title={t('privatePass.form.universalPass.label')}>
             <IconButton onClick={null}>
               <StyleIcon color="inherit" />
             </IconButton>
           </Tooltip>
         )}
-        {props.pass.manager_only && props.pass.available && (
+        {pass.manager_only && pass.available && (
           <Tooltip title={t('privatePass.form.managerOnly.label')}>
             <IconButton>
               <VisibilityOffIcon />
@@ -95,24 +113,24 @@ export const PrivatePassListItem = (props: Props) => {
 
         <ListItemResponsiveAction
           actions={[
-            props.onEdit && {
+            onEdit && {
               icon: EditIcon,
               label: t('privatePass.edit'),
               color: 'primary',
-              onClick: props.onEdit,
+              onClick: onEdit,
             },
-            props.onDelete &&
-              !props.pass.template_instance && {
+            onDelete &&
+              !pass.template_instance && {
                 icon: DeleteIcon,
                 label: t('privatePass.delete.delete'),
-                onClick: props.onDelete,
+                onClick: onDelete,
               },
             // @ts-expect-error
-            props.onRestore &&
-              !props.pass.template_instance && {
+            onRestore &&
+              !pass.template_instance && {
                 icon: RestoreFromTrashIcon,
                 color: 'secondary',
-                onClick: props.onRestore,
+                onClick: onRestore,
               },
           ]}
         />

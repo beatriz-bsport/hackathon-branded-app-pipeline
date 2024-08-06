@@ -40,7 +40,9 @@ import {
   getActivitiesByIdList,
   getMetaActivityCategories,
   getMetaActivity,
+  getIsMetaActivityPublishedOnUSC,
 } from '#src/libs/meta-activity/selectors';
+
 import {
   deleteMetaActivity as deleteMetaActivityAction,
   restoreMetaActivity,
@@ -55,6 +57,7 @@ import {
   fetchActivitiesCompany as fetchActivitiesCompanyAction,
   fetchMetaActivities as fetchMetactivitiesAction,
   fetchDisabledMetaActivityPaginatedList as fetchDisabledMetaActivityPaginatedListAction,
+  fetchIsMetaActivityPublishedOnUSC,
 } from '#src/libs/meta-activity/actions';
 import { PAGINATION_SIZE } from '#src/libs/meta-activity/constants';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '#src/libs/meta-activity/api/common';
@@ -591,6 +594,13 @@ export class MetaActivityListPage extends React.Component<Props, State> {
               onClose={() => this.props.setActivityToDelete(null)}
             />
             <MetaActivityEditDrawer
+              fetchIsMetaActivityPublishedOnUSC={
+                this.props.fetchIsMetaActivityPublishedOnUSC
+              }
+              getIsMetaActivityPublishedOnUSC={
+                this.props.getIsMetaActivityPublishedOnUSC
+              }
+              id={this.props.selectedMetaActivity?.id}
               initial={{
                 ...this.getSelectedMetaActivityInitialData(),
                 images: (selectedMetaActivity || {}).images || [],
@@ -727,6 +737,8 @@ const connector = connect(
     allCustomLevels: getAllCustomLevels(state),
     companyId: state.theme.theme.company,
     isRollCallMandatory: state.theme.theme.is_roll_call_mandatory,
+    getIsMetaActivityPublishedOnUSC: (metaActivityId: number) =>
+      getIsMetaActivityPublishedOnUSC(state, metaActivityId),
   }),
   {
     makeActivityCopy: makeActivityCopyAction,
@@ -766,6 +778,7 @@ const connector = connect(
     createOrUpdate: createOrUpdatePaymentPackAction,
     fetchCompanyTheme: refreshCompanyThemeAction,
     push,
+    fetchIsMetaActivityPublishedOnUSC,
   },
 );
 

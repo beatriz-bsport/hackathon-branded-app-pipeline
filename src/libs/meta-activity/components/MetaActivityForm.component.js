@@ -17,9 +17,14 @@ import InfoIcon from '@material-ui/icons/Info';
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import pick from 'lodash/pick';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+
 import ImageField from '../../../components/forms/ImageField.component';
 import {
   Submit,
@@ -74,6 +79,9 @@ type Props = {
   handleBlur: {
     (e: React.FocusEvent<HTMLInputElement>): void,
   },
+  warningUSCDialogOpen: boolean,
+  setWarningUSCDialogOpen: (value: boolean) => void,
+  handleSubmit: () => void,
 };
 
 export function MetaActivityForm(props: Props) {
@@ -103,6 +111,9 @@ export function MetaActivityForm(props: Props) {
     trackFormAdd(initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const closeWarningUSCDialog = () => props.setWarningUSCDialogOpen(false);
+
   return (
     <Form>
       <ImageField
@@ -356,6 +367,21 @@ export function MetaActivityForm(props: Props) {
           </Submit>
         </div>
       </div>
+
+      <Dialog open={props.warningUSCDialogOpen}>
+        <DialogTitle>{t('metaActivity:warningUSCDialog.title')}</DialogTitle>
+        <DialogContent>
+          {t('metaActivity:warningUSCDialog.content')}
+        </DialogContent>
+        <DialogActions>
+          <Button
+            className={classes.textSecondary}
+            onClick={props.handleSubmit}
+          >
+            {t('common:close')}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Form>
   );
 }
@@ -436,11 +462,15 @@ const styles = (theme) => ({
   alignCenter: {
     alignItems: 'center',
   },
+  textSecondary: {
+    color: theme.palette.text.secondary,
+  },
 });
 
 export default compose(
   withStyles(styles),
   withTranslation(),
+  withState('warningUSCDialogOpen', 'setWarningUSCDialogOpen', false),
   withFormik({
     mapPropsToValues: ({ initial }) =>
       Object.assign(
@@ -470,10 +500,32 @@ export default compose(
     handleSubmit: (
       values,
       {
-        props: { onSubmit, onSuccess, onError, initial, variant },
+        props: {
+          onSubmit,
+          onSuccess,
+          onError,
+          initial,
+          variant,
+          warningUSCDialogOpen,
+          setWarningUSCDialogOpen,
+          metaActivityIsPublishedOnUSC,
+        },
         setSubmitting,
       },
     ) => {
+      // If the metaActivity is published on USC and the last_discard_minutes value was updated
+      // we don't submit the form just yet, but we open a warning dialog to the user.
+      // When closed, the dialog will call handleSubmit a second time and, which will trigger the API call
+      if (
+        !warningUSCDialogOpen &&
+        metaActivityIsPublishedOnUSC &&
+        Math.min(values.last_discard_minutes, 12 * 60) !==
+          Math.min(initial.last_discard_minutes, 12 * 60)
+      ) {
+        setWarningUSCDialogOpen(true);
+        return;
+      }
+
       const keys = [
         'name',
         'description',

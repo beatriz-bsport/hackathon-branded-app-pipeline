@@ -210,4 +210,9 @@ exports.default = {
   workshopSelect: 'Search for a workshop',
   close: 'Close',
   edit: 'Edit',
+  warningUSCDialog: {
+    title: 'Cancellation policy on USC',
+    content:
+      'The new cancellation policy will apply to future events. However, events already published within the next two weeks cannot be updated.',
+  },
 };

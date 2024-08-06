@@ -94,6 +94,11 @@ export async function editCategoryOrder(data: any) {
   );
 }
 
+export const fetchIsMetaActivityPublishedOnUSC = (metaActivityId: number) =>
+  getAuth<boolean>(
+    `${API_V1_URI}/meta-activity/${metaActivityId}/is_published_on_usc/`,
+  );
+
 export default {
   fetchAllActivities,
   fetchMetaActivityDetails,

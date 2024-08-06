@@ -20,6 +20,7 @@ import {
   updateMetaActivityCategoryOrderActions,
   listAllMetaActivityCategoryActions,
   disabledMetaActivitiesActions,
+  fetchIsMetaActivityPublishedOnUSCActions,
 } from './actions';
 import { MetaActivity, MetaActivityState } from './types';
 import { PaginatedResponse } from '../../state/types';
@@ -66,6 +67,9 @@ const initialState: Immutable.Immutable<MetaActivityState> =
       count: 0,
       loading: false,
       error: null,
+    },
+    syncedOnPartnership: {
+      USC: {},
     },
   });
 
@@ -448,6 +452,15 @@ export default handleActions<Immutable.Immutable<MetaActivityState>, any>(
           ['disabledMetaActivities', 'count'],
           state.disabledMetaActivities.count - 1,
         );
+    },
+    [fetchIsMetaActivityPublishedOnUSCActions.success.toString()]: (
+      state,
+      { payload }: { payload: { id: number; isPublished: boolean } },
+    ) => {
+      return state.setIn(
+        ['syncedOnPartnership', 'USC', payload.id],
+        payload.isPublished,
+      );
     },
   },
   initialState,

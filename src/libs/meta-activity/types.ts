@@ -82,6 +82,9 @@ export type MetaActivityState = ErrorAndLoading & {
     };
   };
   disabledMetaActivities: GenericListReducerI;
+  syncedOnPartnership: {
+    USC: { [id: number]: boolean };
+  };
 };
 
 export type MetaActivityFilter = {

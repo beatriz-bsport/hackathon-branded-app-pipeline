@@ -4,6 +4,7 @@ import {
   UPSELL_IDENTIFIER_SPIVI,
   UPSELL_IDENTIFIER_STRIPE_TERMINAL,
   UPSELL_IDENTIFIER_ZOOM_APP,
+  UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER,
 } from '#src/libs/platform-billing/upsell-identifiers';
 import Config from '../../../config';
 
@@ -50,12 +51,19 @@ const useFeaturesProvider = () => {
     );
   }, [feature]);
 
+  const USCEnabled = React.useMemo(() => {
+    return feature.data.upsell.some(
+      (f) => f.upsell_identifier === UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER,
+    );
+  }, [feature]);
+
   return {
     pushNotificationEnabled,
     smsEnabled,
     zoomAppEnabled,
     stripeTerminalEnabled,
     spiviEnabled,
+    USCEnabled,
     featuresLoading: feature.loading,
   };
 };

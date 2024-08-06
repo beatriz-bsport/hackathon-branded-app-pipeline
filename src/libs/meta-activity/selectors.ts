@@ -288,3 +288,10 @@ export const getDisabledMetaActivitiesPaginationState = (state: RootState) => {
     remainingCount: count - allIds.length,
   };
 };
+
+export const getIsMetaActivityPublishedOnUSC = (
+  state: RootState,
+  metaActivityId: number,
+) => {
+  return state.metaActivity.syncedOnPartnership.USC[metaActivityId];
+};

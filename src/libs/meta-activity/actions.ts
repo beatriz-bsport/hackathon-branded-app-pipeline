@@ -28,6 +28,7 @@ import {
   deleteMetaActivityCategory as deleteMetaActivityCategoryAPI,
   editCategoryOrder as editCategoryOrderAPI,
   createMetaActivityCategory as createMetaActivityCategoryAPI,
+  fetchIsMetaActivityPublishedOnUSC as fetchIsMetaActivityPublishedOnUSCAPI,
 } from './api/common';
 
 import { fetchMetaActivities as fetchMetaActivitiesAPI } from './api/workshop-activity';
@@ -732,5 +733,36 @@ export function fetchDisabledMetaActivityPaginatedList(
       dispatch(disabledMetaActivitiesActions.error(err));
     }
     dispatch(disabledMetaActivitiesActions.isLoading(false));
+  };
+}
+
+export const fetchIsMetaActivityPublishedOnUSCActions = {
+  success: createAction<{ id: number; isPublished: boolean }>(
+    'META_ACTIVITY/IS_PUBLISHED_ON_USC/SUCCESS',
+  ),
+};
+
+export function fetchIsMetaActivityPublishedOnUSC(
+  metaActivityId: number,
+  options?: OptionCallback<boolean>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await fetchIsMetaActivityPublishedOnUSCAPI(
+        metaActivityId,
+      );
+      dispatch(
+        fetchIsMetaActivityPublishedOnUSCActions.success({
+          id: metaActivityId,
+          isPublished: response.data,
+        }),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      if (options && options.onError) {
+        options.onError(err);
+      }
+      console.error(err);
+    }
   };
 }

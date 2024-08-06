@@ -9,12 +9,17 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import MetaActivityDetail from '#src/libs/meta-activity/components/MetaActivityDetail.component';
 import MetaActivityDeleteDialog from '#src/libs/meta-activity/components/MetaActivityDeleteDialog.component';
-import { deleteMetaActivity, upsert } from '#src/libs/meta-activity/actions';
+import {
+  deleteMetaActivity,
+  upsert,
+  fetchIsMetaActivityPublishedOnUSC,
+} from '#src/libs/meta-activity/actions';
 import { getAllSmartList } from '#src/libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#src/libs/smart-list/actions';
 import {
   getMetaActivity,
   withCustomRestrictionsTags,
+  getIsMetaActivityPublishedOnUSC,
 } from '#src/libs/meta-activity/selectors';
 import {
   getEventsByMetaActivity,
@@ -119,6 +124,8 @@ type Props = {
   fetchResolvedGenericTags: () => void,
   tagCategories: { [tag_name: string]: string[] },
   resolvedGenericTags: ResolvedGenericTags,
+  fetchIsMetaActivityPublishedOnUSC?: (metaActivityId: number) => void,
+  getIsMetaActivityPublishedOnUSC?: (metaActivityId) => boolean,
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -267,6 +274,13 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
               open={this.props.openWidgetDialog}
             />
             <MetaActivityEditDrawer
+              fetchIsMetaActivityPublishedOnUSC={
+                this.props.fetchIsMetaActivityPublishedOnUSC
+              }
+              getIsMetaActivityPublishedOnUSC={
+                this.props.getIsMetaActivityPublishedOnUSC
+              }
+              id={this.props.id}
               initial={{
                 ...initialData,
                 images: (metaActivity || {}).images || [],
@@ -316,6 +330,8 @@ export default compose(
       smartListLoading: state.smartList.loading,
       tagCategories: getTagCategories(state),
       resolvedGenericTags: getResolvedGenericTags(state),
+      getIsMetaActivityPublishedOnUSC: (metaActivityId: number) =>
+        getIsMetaActivityPublishedOnUSC(state, metaActivityId),
     }),
     {
       fetchOffersByDay: fetchOffersByDayActions,
@@ -338,6 +354,7 @@ export default compose(
       getSmartLists: fetchAllSmartLists,
       fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
       fetchTagList: fetchTagListAction,
+      fetchIsMetaActivityPublishedOnUSC,
     },
   ),
   withProps(

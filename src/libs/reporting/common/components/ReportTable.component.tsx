@@ -49,6 +49,7 @@ type TableProps = {
   userPermissions: RolePermission;
   objectLevelPermissions: ObjectLevelPermissions;
   v2?: boolean;
+  hasReportBeenGenerated?: boolean;
 };
 
 type PaginationProps = {
@@ -149,6 +150,7 @@ const ReportTable: React.FC<TableProps> = ({
   userPermissions,
   objectLevelPermissions,
   v2,
+  hasReportBeenGenerated,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
@@ -243,6 +245,25 @@ const ReportTable: React.FC<TableProps> = ({
           </TableHead>
           <TableBody>
             {result &&
+              !v2 &&
+              resultsWithPermissions.map((serializedRow, index) => (
+                <ReportTableRow
+                  key={index}
+                  classes={classes}
+                  columns={columns}
+                  columnsConfigs={columnsConfigs}
+                  converters={converters}
+                  index={index}
+                  objectLevelPermissions={objectLevelPermissions}
+                  reportCategory={report.category}
+                  reportStoreRowsLoading={reportStoreRowsLoading}
+                  serializedRow={serializedRow}
+                  userPermissions={userPermissions}
+                />
+              ))}
+            {hasReportBeenGenerated &&
+              v2 &&
+              result &&
               resultsWithPermissions.map((serializedRow, index) => (
                 <ReportTableRow
                   key={index}
@@ -274,8 +295,16 @@ const ReportTable: React.FC<TableProps> = ({
           )}
         </Table>
       </TableContainer>
-
-      {v2 && result?.length && (
+      {!hasReportBeenGenerated && v2 && !result?.length ? (
+        <Typography
+          align="center"
+          className={classes.reportNotGenerated}
+          color="textSecondary"
+        >
+          {t('reportHasNotBeenGenerated')}
+        </Typography>
+      ) : null}
+      {hasReportBeenGenerated && v2 && result?.length ? (
         <TablePaginationContent
           handleGenerateNextPage={handleGenerateNextPage}
           handleGeneratePreviousPage={handleGeneratePreviousPage}
@@ -285,12 +314,13 @@ const ReportTable: React.FC<TableProps> = ({
           reportStoreRowsLoading={reportStoreRowsLoading}
           v2={v2}
         />
-      )}
+      ) : null}
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
+  reportNotGenerated: { paddingTop: theme.spacing(2) },
   right: {
     textAlign: 'right',
   },

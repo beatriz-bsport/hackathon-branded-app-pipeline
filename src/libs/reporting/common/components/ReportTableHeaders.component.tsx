@@ -16,15 +16,61 @@ const CardHeaders: React.FC<{
     column_value: null | number;
   }[];
   v2?: boolean;
-}> = React.memo(({ headerDetails, headerTitle, v2 }) => {
-  const classes = useStyles();
-  const { t } = useTranslation('reporting');
+  hasReportBeenGenerated?: boolean;
+}> = React.memo(
+  ({ headerDetails, headerTitle, v2, hasReportBeenGenerated }) => {
+    const classes = useStyles();
+    const { t } = useTranslation('reporting');
 
-  const converters = (headerDetails || []).map((detail) =>
-    getConverter(detail, classes, t),
-  );
+    const converters = (headerDetails || []).map((detail) =>
+      getConverter(detail, classes, t),
+    );
 
-  if (v2) {
+    if (v2) {
+      return (
+        <div className={classes.containerV2}>
+          <Typography variant="h6">
+            {t(`header.${(headerTitle || '').toLowerCase()}`)}
+          </Typography>
+
+          {!hasReportBeenGenerated && (
+            <Typography color="textSecondary">
+              {t('reportHasNotBeenGenerated')}
+            </Typography>
+          )}
+          {hasReportBeenGenerated && (
+            <Grid container direction="row" spacing={2}>
+              {(headerDetails || []).map((detail, index) => {
+                return (
+                  <Grid
+                    key={index}
+                    item
+                    alignItems="stretch"
+                    lg={2}
+                    md={4}
+                    xs={6}
+                  >
+                    <Card elevation={0}>
+                      <Typography color="textSecondary" variant="subtitle2">
+                        {t(`columns.${detail.column_identifier}`)}
+                      </Typography>
+                      <Typography
+                        variant="h5"
+                        {...(converters[index](detail.column_value).cellProps ||
+                          {})}
+                      >
+                        {converters[index](detail.column_value).value}
+                      </Typography>
+                    </Card>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          )}
+        </div>
+      );
+    }
+
     return (
       <div>
         <Typography className={classes.headerSectionTitle} variant="h6">
@@ -34,8 +80,8 @@ const CardHeaders: React.FC<{
           {headerDetails.map((detail, index) => {
             return (
               <Grid key={index} item alignItems="stretch" lg={2} md={4} xs={6}>
-                <Card elevation={0}>
-                  <Typography color="textSecondary" variant="subtitle2">
+                <Card className={classes.cardStyle} elevation={1}>
+                  <Typography color="textPrimary" variant="body2">
                     {t(`columns.${detail.column_identifier}`)}
                   </Typography>
                   <Typography
@@ -52,62 +98,32 @@ const CardHeaders: React.FC<{
         </Grid>
       </div>
     );
-  }
-
-  return (
-    <div>
-      <Typography className={classes.headerSectionTitle} variant="h6">
-        {t(`header.${(headerTitle || '').toLowerCase()}`)}
-      </Typography>
-      <Grid container direction="row" spacing={2}>
-        {headerDetails.map((detail, index) => {
-          return (
-            <Grid key={index} item alignItems="stretch" lg={2} md={4} xs={6}>
-              <Card className={classes.cardStyle} elevation={1}>
-                <Typography color="textPrimary" variant="body2">
-                  {t(`columns.${detail.column_identifier}`)}
-                </Typography>
-                <Typography
-                  variant="h5"
-                  {...(converters[index](detail.column_value).cellProps || {})}
-                >
-                  {converters[index](detail.column_value).value}
-                </Typography>
-              </Card>
-            </Grid>
-          );
-        })}
-      </Grid>
-    </div>
-  );
-});
+  },
+);
 
 const ReportTableHeaders: React.FC<{
   reportHeaders: ReportHeader;
   v2?: boolean;
-}> = ({ reportHeaders, v2 = false }) => {
+  hasReportBeenGenerated?: boolean;
+}> = ({ reportHeaders, v2 = false, hasReportBeenGenerated }) => {
   const classes = useStyles();
 
   if (v2) {
     return (
-      <div>
-        {!!reportHeaders?.averageable?.length &&
-          reportHeaders.averageable.length > 0 && (
-            <CardHeaders
-              headerDetails={reportHeaders.averageable}
-              headerTitle="average"
-              v2={v2}
-            />
-          )}
-        {!!reportHeaders?.averageable?.length &&
-          reportHeaders.averageable.length > 0 && (
-            <CardHeaders
-              headerDetails={reportHeaders.summable}
-              headerTitle="sum"
-              v2={v2}
-            />
-          )}
-      </div>
+      <>
+        <CardHeaders
+          hasReportBeenGenerated={hasReportBeenGenerated}
+          headerDetails={reportHeaders.averageable}
+          headerTitle="average"
+          v2={v2}
+        />
+        <CardHeaders
+          hasReportBeenGenerated={hasReportBeenGenerated}
+          headerDetails={reportHeaders.summable}
+          headerTitle="sum"
+          v2={v2}
+        />
+      </>
     );
   }
 
@@ -135,6 +151,11 @@ const useStyles = makeStyles((theme) => ({
   container: {
     marginLeft: theme.spacing(1),
     marginBottom: theme.spacing(2),
+  },
+  containerV2: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
   },
   headerSectionTitle: {
     marginTop: theme.spacing(2),

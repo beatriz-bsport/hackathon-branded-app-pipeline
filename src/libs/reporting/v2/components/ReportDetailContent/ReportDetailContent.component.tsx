@@ -70,6 +70,11 @@ const ReportDetailContent: React.FC<Props> = ({
     });
   }, [reportGeneratedRows.previous_page, handleGeneration]);
 
+  const hasReportBeenGenerated = React.useMemo(
+    () => !!reportHeaders?.averageable,
+    [reportHeaders],
+  );
+
   if (loading) {
     return <LinearProgress />;
   }
@@ -86,7 +91,11 @@ const ReportDetailContent: React.FC<Props> = ({
       />
       <Divider />
       <MuiThemeProvider theme={cardHeaderStatsTheme}>
-        <ReportTableHeaders v2 reportHeaders={reportHeaders} />
+        <ReportTableHeaders
+          v2
+          hasReportBeenGenerated={hasReportBeenGenerated}
+          reportHeaders={reportHeaders}
+        />
       </MuiThemeProvider>
       <Divider />
       <ReportTable
@@ -94,6 +103,7 @@ const ReportDetailContent: React.FC<Props> = ({
         className={classes.reportTable}
         handleGenerateNextPage={handleGenerateNextPage}
         handleGeneratePreviousPage={handleGeneratePreviousPage}
+        hasReportBeenGenerated={hasReportBeenGenerated}
         metadata={reportCategoriesMetadata}
         nextPage={reportGeneratedRows.next_page}
         objectLevelPermissions={objectLevelPermissions}

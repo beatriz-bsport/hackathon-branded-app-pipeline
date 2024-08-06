@@ -13,6 +13,7 @@ import {
   reportHeadersDetailV2,
   deleteReportActionsV2,
   exportingExcelReportActionsV2,
+  resetReportGenerationAction,
 } from '#src/libs/reporting/v2/actions';
 
 import type {
@@ -260,6 +261,22 @@ export default handleActions<Immutable.Immutable<ReportingStateV2>, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['excelExport', 'error'], payload);
+    },
+    [resetReportGenerationAction.success.toString()]: (state) => {
+      return state
+        .set('reportHeaders', {
+          loading: false,
+          error: null,
+          results: {},
+        })
+        .set('reportGeneration', {
+          loading: false,
+          error: null,
+          result: [],
+          next_page: 1,
+          previous_page: null,
+          other_pages: [],
+        });
     },
   },
   initialState,

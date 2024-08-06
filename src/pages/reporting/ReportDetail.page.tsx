@@ -39,6 +39,7 @@ import {
   fetchDefaultReports as fetchDefaultReportsAction,
   deleteReport as deleteReportAction,
   exportExcelReport as exportExcelReportAction,
+  resetReportGenerationState as resetReportGenerationStateAction,
 } from '#src/libs/reporting/v2/actions';
 import { setLastVisitedReportV2 as setLastVisitedReportV2Action } from '#src/libs/user-preference/actions';
 
@@ -95,6 +96,7 @@ const ReportingDetail: React.FC<Props> = ({
   reportHeaders,
   reportId,
   resetDynamicDataHasBeenLoaded,
+  resetReportGenerationState,
   subscribedUpsells,
   updateReport,
   userPermissions,
@@ -104,11 +106,22 @@ const ReportingDetail: React.FC<Props> = ({
     resetDynamicDataHasBeenLoaded();
     fetchReportMetadata();
     fetchDefaultReports();
-  }, [fetchReportMetadata, resetDynamicDataHasBeenLoaded, fetchDefaultReports]);
+  }, [
+    fetchReportMetadata,
+    resetDynamicDataHasBeenLoaded,
+    fetchDefaultReports,
+    resetReportGenerationState,
+  ]);
 
   React.useEffect(() => {
     setLastVisitedReportV2(categoryName, reportId);
-  }, [reportId, categoryName, setLastVisitedReportV2]);
+    resetReportGenerationState();
+  }, [
+    reportId,
+    categoryName,
+    setLastVisitedReportV2,
+    resetReportGenerationState,
+  ]);
 
   React.useEffect(() => {
     fetchReportFilterConfigList(
@@ -398,6 +411,7 @@ const connector = connect(
     pushRouter: push,
     updateReport: updateReportAction,
     setLastVisitedReportV2: setLastVisitedReportV2Action,
+    resetReportGenerationState: resetReportGenerationStateAction,
   },
 );
 

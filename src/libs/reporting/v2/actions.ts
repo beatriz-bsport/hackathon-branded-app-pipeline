@@ -295,6 +295,16 @@ export function fetchSerializedReport(
   };
 }
 
+export const resetReportGenerationAction = {
+  success: createAction('REPORT_V2/RESET_GENERATION/SUCCESS'),
+};
+
+export const resetReportGenerationState = () => {
+  return (dispatch: Dispatch) => {
+    dispatch(resetReportGenerationAction.success());
+  };
+};
+
 export const exportingExcelReportActionsV2 = {
   isLoading: createAction('REPORT_V2/EXPORT_EXCEL/IS_LOADING'),
   error: createAction('REPORT_V2/EXPORT_EXCEL/ERROR'),

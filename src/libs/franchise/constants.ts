@@ -14,3 +14,7 @@ export enum FranchiseShopRouteTab {
   PRODUCTS = 'products',
   SETTINGS = 'settings',
 }
+
+export const NEW_WEBSHOP_ROLE_LEVEL_PERMISSIONS_MA = [
+  'franchiseMenu.products.shopTemplates',
+];

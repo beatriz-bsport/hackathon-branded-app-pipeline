@@ -24,13 +24,15 @@ import {
   setAllValuesInObject,
 } from '#src/libs/role/utils';
 import RecursiveCheckBoxComponent from '#src/libs/role/components/RecursiveCheckBox.component';
-import { MaterialStyleType } from '../../../utils/types';
-import Config, { DISPLAY_UNIVERSAL_SHARED_PASS_PAGES } from '../../../config';
+import type { MaterialStyleType } from '#src/utils/types';
+import Config, { DISPLAY_UNIVERSAL_SHARED_PASS_PAGES } from '#src/config';
+import { NEW_WEBSHOP_ROLE_LEVEL_PERMISSIONS_MA } from '#src/libs/franchise/constants';
 
 type OwnProps = {
   onNext: (data: FranchiseRoleMasterAccountData) => void;
   role?: FranchiseRoleMasterAccountData | null;
   onClose: () => void;
+  displayNewWebshopForFranchisees?: boolean;
 };
 
 type Props = OwnProps &
@@ -192,6 +194,11 @@ export class CreateRoleMasterAccountDialog extends React.Component<
                 // @ts-expect-error
                 permissions={this.state.permissions}
                 rightKey={key}
+                unwantedKeyPermissions={
+                  this.props?.displayNewWebshopForFranchisees
+                    ? []
+                    : NEW_WEBSHOP_ROLE_LEVEL_PERMISSIONS_MA
+                }
                 updatePermission={(permissions) => {
                   this.setState({
                     // @ts-expect-error

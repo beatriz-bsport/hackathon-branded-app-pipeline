@@ -218,6 +218,9 @@ class FranchiseCreateRoleDialog extends React.Component<Props, State> {
           <CreateRoleMasterAccount
             // @ts-expect-error
             open
+            displayNewWebshopForFranchisees={
+              this.props?.displayNewWebshopForFranchisees
+            }
             onClose={this.props.onClose}
             onNext={(data) => {
               this.setState({

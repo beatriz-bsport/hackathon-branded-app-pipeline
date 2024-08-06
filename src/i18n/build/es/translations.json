@@ -1789,7 +1789,7 @@
                 "label": "Contraseña"
             }
         },
-        "contactUs": "Gerente de estudio, ¿estás interesado en nuestra solución? Contáctanos.",
+        "contactUs": "Gerente de estudio, ¿estás interesado en nuestra solución? \nContáctanos.",
         "signup": {
             "title": "Inscripción",
             "titleAsResgisterBooking": "Registre su reserva"
@@ -3693,7 +3693,7 @@
                 "debt": "Quitar dinero",
                 "explainTopup": "Se registrará un aumento de {{ amount }} {{ currencyDisplay }} en el saldo del miembro.",
                 "title": "Ajuste del saldo",
-                "explainDecaissement": "Se registrará un desembolso de {{ amount }}  {{ currencyDisplay }}",
+                "explainDecaissement": "Se registrará un desembolso de {{ amount }} {{ currencyDisplay }}",
                 "balanceValueLabel": "Cantidad",
                 "typeLabel": "Tipo de ajuste",
                 "withoutPaymentNote": {
@@ -3731,7 +3731,8 @@
                 "billByInstalment": "Pago a plazos",
                 "paymentLink": "Enlace de pago",
                 "generatePaymentLink": "Generar un enlace de pago",
-                "paymentSecurityInformation": "Puede almacenar de forma segura sus datos de pago preferidos para futuras compras, su información será encriptada y almacenada de forma segura"
+                "paymentSecurityInformation": "Puede almacenar de forma segura sus datos de pago preferidos para futuras compras, su información será encriptada y almacenada de forma segura",
+                "basketWasInconsistent": "Su cesta ha cambiado. No se le ha cobrado, por favor intente el pago nuevamente"
             },
             "paymentList": {
                 "isEmpty": "No hay pago",
@@ -4117,7 +4118,8 @@
             "payment_combo": "Pack",
             "contractTermsAccepted": "<0>Términos</0> han sido aceptados en la {{- dateAccepted}}.",
             "stopNote": "Nota de cancelación",
-            "secondBillingPlanEnabled": "Segundo plan de facturación activado"
+            "secondBillingPlanEnabled": "Segundo plan de facturación activado",
+            "source_company": "Comprado en"
         },
         "schedule": {
             "provisionalTitle": "Calendario estimativo",
@@ -4187,7 +4189,8 @@
                     "missingObject": "Este campo es obligatorio",
                     "missingPaymentCombo": "Debe seleccionar un pack",
                     "missingPrivatePass": "Debe seleccionar un tarjeta de citas",
-                    "missingPaymentPack": "Debe seleccionar un bono"
+                    "missingPaymentPack": "Debe seleccionar un bono",
+                    "moreThanThreeDecimalPrice": "Parece que has introducido más de dos decimales. Por favor, ajuste el importe al céntimo más cercano."
                 },
                 "recurrence_basis": {
                     "intervalName": {
@@ -4335,9 +4338,9 @@
                     "day": "Cada día",
                     "day_plural": "Cada {{ count }} días",
                     "week": "Cada semana",
-                    "week_plural": "Cada {{ count }}  meses",
+                    "week_plural": "Cada {{ count }} meses",
                     "month": "Cada mes",
-                    "month_plural": "Cada  {{ count }} meses"
+                    "month_plural": "Cada {{ count }} meses"
                 },
                 "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
                 "identifier": "Membresía"
@@ -4605,7 +4608,8 @@
             "paused": "En pausa",
             "expired": "Expirada",
             "canceled": "Detenida",
-            "subscribedOn": "Suscripción comenzada el {{- date}}"
+            "subscribedOn": "Suscripción comenzada el {{- date}}",
+            "willSubscribeOn": "La suscripción comenzará el {{- date}}"
         },
         "noAssociatedSubscription": "Ninguna suscripción registrada",
         "associatedSubscriptions": "Cuotas asociadas a este contrato",
@@ -4944,7 +4948,60 @@
             "content": "Para cumplir con la Ley alemana de Contratos Justos de los Consumidores, después de 2 años de suscripción, los nuevos ciclos de suscripción deben ser inferiores a un año. ¿Está seguro de que desea continuar?",
             "title": "Renovación automática"
         },
-        "germanNbIntervalAlert": "Para cumplir la Ley alemana de Contratos Justos con los Consumidores, el número de facturaciones tiene que ser inferior a 24."
+        "germanNbIntervalAlert": "Para cumplir la Ley alemana de Contratos Justos con los Consumidores, el número de facturaciones tiene que ser inferior a 24.",
+        "billingPlanStatus": {
+            "valid": "Válido",
+            "paused": "Pausado",
+            "expired": "Expirado",
+            "canceled": "Terminado"
+        },
+        "filters": {
+            "all": "Todas las suscripciones"
+        },
+        "franchiseUserProfile": {
+            "associatedPassValidity": "Válido para ",
+            "associatedInvoices": "Facturas asociadas",
+            "pleaseSelectASubscription": "Seleccione una suscripción para obtener más detalles"
+        },
+        "contractTemplate": {
+            "form": {
+                "sharedAppointmentPassesSelectorTooltip": "Los estudios que tengan acceso a este pase de cita compartido también tendrán acceso a la suscripción",
+                "sharedPassesSelectorTooltip": "Los estudios que tengan acceso a este pase compartido también tendrán acceso a la suscripción",
+                "title": "Suscripción"
+            },
+            "detailPage": {
+                "sharedStudios": "Compartido con los siguientes estudios:"
+            },
+            "filter": {
+                "associatedPass": "Pase asociado",
+                "productType": "Producto",
+                "appointmentPasses": "Tarjetas de cita",
+                "passes": "Bonos",
+                "studios": "Estudios",
+                "searchPlaceholder": "Buscar una suscripción",
+                "availability": "Disponibilidad",
+                "unavailableForEveryone": "No disponible para todos",
+                "staffOnly": "Sólo staff",
+                "memberOnly": "Sólo miembros",
+                "availableForEveryone": "Disponible para todos",
+                "noFilters": "Todas las suscripciones"
+            },
+            "dialog": {
+                "delete": {
+                    "confirm": "Eliminar",
+                    "cancel": "Cancelar",
+                    "content": "¿Estás seguro de que quieres eliminar la suscripción compartida?",
+                    "title": "Eliminar confirmación"
+                }
+            },
+            "icons": {
+                "restore": "Restaurar"
+            },
+            "list": {
+                "isEmpty": "Sin suscripciones compartidas"
+            },
+            "backofficeEditWarning": "La suscripción se compartió a través de la Cuenta Maestra. Ciertos ajustes han sido predefinidos por la Cuenta Maestra y no pueden ser modificados."
+        }
     },
     "reporting": {
         "columns": {
@@ -6708,7 +6765,7 @@
             "attendance": "Presencia",
             "cancel": "Cancelación",
             "consumerCanceled": "Cancelación cliente",
-            "managerCanceled": "Cancelación  manager",
+            "managerCanceled": "Cancelado por el estudio",
             "canceled": "Sesión cancelada",
             "absent": "Ausente",
             "present": "Presente",
@@ -7129,7 +7186,15 @@
             "seeAllProducts": "Ver todos los productos",
             "recommended": "Recomendados",
             "reviewAndConfirm": "Revisar y confirmar",
-            "guestSpotSelectorTitle": "Seleccione un lugar para su invitado"
+            "guestSpotSelectorTitle": "Seleccione un sitio para su invitado",
+            "removeFromBasket": {
+                "message": "Si elimina el pase de la cesta, también se eliminarán las reservas relacionadas",
+                "title": "Eliminar",
+                "buttons": {
+                    "confirm": "Eliminar",
+                    "cancel": "Cancelar"
+                }
+            }
         },
         "refundDialog": {
             "contentUnlimitedPaymentPack": "Esta reserva se realizó con un pase ilimitado y se canceló fuera de plazo. Las cancelaciones tardías excesivas pueden conllevar penalizaciones. Haga clic en «Reiniciar» para eliminar la cancelación tardía de los registros de pases. Tenga en cuenta que si ya se ha aplicado una penalización, no se puede eliminar.",
@@ -7850,6 +7915,29 @@
                 "helperText": "Cada establecimiento aparecerá como un lugar independiente en ClassPass",
                 "label": "Establecimientos independientes"
             }
+        },
+        "wellhub": {
+            "configuration": {
+                "panel": {
+                    "footer": {
+                        "addUnitButton": "Agregar Unit ID"
+                    },
+                    "content": {
+                        "table": {
+                            "column": {
+                                "establishments": "Establecimientos",
+                                "unit": "Unit ID"
+                            }
+                        },
+                        "helperText": "Primero solicite la integración con bsport en el Portal de Socios de Wellhub, para cada Unit",
+                        "title": "Conexión Unit ID"
+                    },
+                    "header": {
+                        "subtitle": "Vincule sus sesiones en la cuenta de bsport con Wellhub"
+                    }
+                }
+            },
+            "title": "Wellhub"
         }
     },
     "membership": {
@@ -8851,7 +8939,7 @@
                         "allowed": "Autorizado",
                         "header": "Etiquetas",
                         "notAllowed": "No autorizado",
-                        "helper": "Utilice las etiquetas para que la reserva sin pagar esté disponible sólo para determinados miembros.  Todos los miembros con una de las etiquetas en \"Autorizado\" podrán reservar sin pagar. O todos los miembros con una etiqueta en \"No autorizado\" no podrán reservar sin pagar.",
+                        "helper": "Utilice las etiquetas para que la reserva sin pagar esté disponible sólo para determinados miembros. Todos los miembros con una de las etiquetas en \"Autorizado\" podrán reservar sin pagar. O todos los miembros con una etiqueta en \"No autorizado\" no podrán reservar sin pagar.",
                         "doNotSelectToAllowAllMembers": "Dejar vacío para permitir a todos los miembros"
                     },
                     "label": "Autorizar la reserva sin pagar",
@@ -9114,7 +9202,7 @@
                     "close": "Cerrar",
                     "privateService": "Tarjeta configurada como incompatible con la cita en cuestión:",
                     "11111": "Las fechas son incompatibles",
-                    "11110": "La tarjeta  ha expirado",
+                    "11110": "La tarjeta ha expirado",
                     "11108": "Número insuficiente de créditos",
                     "11107": "Cita no compatible"
                 },
@@ -9725,7 +9813,7 @@
                     },
                     "valid": {
                         "notifyAll": "Ayuda: la notificación se enviará al miembro por cada una de sus reservas válidas para este tipo de cita",
-                        "default": "Ayuda: la notificación será enviada al miembro cuando su reserva válida n °{{notifyNb}}  para este tipo de cita se haga"
+                        "default": "Los miembros reciben esta notificación una vez que han reservado {{notifyNb}} citas válidas."
                     }
                 },
                 "notifyAllEvents": "Notificar al miembro en cada evento",
@@ -9777,20 +9865,20 @@
         "privatePassTemplateInstance": {
             "privatePassSharedFromFranchisor": "Tarjeta de franquicia",
             "form": {
-                "explain1": "Los siguientes estudios tendrán automáticamente esta tarjeta a la venta. No podrán cambiar el precio ni el número de créditos.",
+                "explain1": "Los siguientes estudios ofrecerán automáticamente este pase de cita, pero no podrán cambiar su precio ni su número de créditos.",
                 "title": "Configurar mis estudios",
-                "explain2": "Si un socio compra esta tarjeta en uno de los estudios compatibles, también podrá utilizarla en los demás estudios que hayas definido.",
+                "explain2": "Los miembros que hayan adquirido este pase de citas o una suscripción vinculada podrán utilizarlo en cualquiera de los nuevos estudios compatibles.",
                 "actions": {
                     "close": "Cerrar",
                     "submit": "Registrar"
                 }
             },
             "deleteForm": {
-                "content": "Al desactivar el uso compartido con este estudio, los pases de cita ya adquiridos en este estudio seguirán siendo utilizables, sólo en este estudio. Los pases de cita ya adquiridos en otros estudios dejarán de ser utilizables en el estudio desactivado.",
-                "title": "Desactivación",
+                "content": "Si deja de compartir con este estudio, los pases de cita adquiridos en ese estudio seguirán siendo válidos, pero sólo dentro de ese estudio específico. Los pases de cita de otros estudios dejarán de ser válidos allí. Esto también se aplica a las suscripciones vinculadas.",
+                "title": "Dejar de compartir con un estudio",
                 "actions": {
                     "close": "Cerrar",
-                    "submit": "Desactivar el uso compartido"
+                    "submit": "Dejar de compartir"
                 }
             },
             "privateConsumerPassSharedFromOtherFranchisee": "Compartido por el franquiciado",
@@ -9805,11 +9893,11 @@
                 "titleManagerOnly": "No disponible para la venta"
             },
             "deleteForm": {
-                "content": "Al desactivar un bono compartido, los miembros que lo tengan sólo podrán utilizarlo en el estudio donde lo compraron.",
-                "title": "Desactivación",
+                "content": "Los miembros podrán seguir utilizando el pase de cita en el estudio donde lo compraron. Cualquier suscripción vinculada a este pase de cita también funcionará únicamente en ese mismo estudio.",
+                "title": "Eliminar pase de cita compartido",
                 "actions": {
                     "close": "Cerrar",
-                    "submit": "Desactivar el uso compartido"
+                    "submit": "Eliminar"
                 }
             },
             "specification": {
@@ -9823,6 +9911,12 @@
                 "actions": {
                     "close": "Cerrar",
                     "submit": "Registrar"
+                },
+                "editConfirmation": {
+                    "confirm": "Guardar de todos modos",
+                    "cancel": "Cancelar",
+                    "content": "Sus cambios también se aplicarán a las suscripciones vinculadas a este pase de cita compartido. ¿Está seguro de que desea continuar y guardar los cambios?",
+                    "title": "Editar confirmación"
                 }
             },
             "actions": {
@@ -11449,6 +11543,9 @@
                     },
                     "shopTemplates": {
                         "_label": "Tienda online"
+                    },
+                    "contractTemplates": {
+                        "_label": "Subscripciones"
                     }
                 },
                 "members": {
@@ -13528,6 +13625,16 @@
             "register": {
                 "error": "No se ha podido registrar la suscripción",
                 "success": "Suscripción registrada con éxito"
+            },
+            "contractTemplate": {
+                "createError": "No se ha podido crear la suscripción",
+                "createSuccess": "Suscripción creada correctamente",
+                "editError": "No se pudo guardar la suscripción",
+                "editSuccess": "Suscripción guardada correctamente",
+                "restoreError": "No se ha podido restaurar la suscripción",
+                "restoreSuccess": "Suscripción restaurada correctamente",
+                "deleteError": "No se pudo archivar la suscripción",
+                "deleteSuccess": "Suscripción archivada exitosamente"
             }
         },
         "smartlist": {
@@ -13634,7 +13741,7 @@
         "notificationRule": {
             "createOrUpdate": {
                 "error": "No es posible guardar",
-                "success": "Modificado exitosamente",
+                "success": "Guardado correctamente",
                 "errorLackRequiredVariables": "No se ha podido registrar esta plantilla"
             },
             "active": {
@@ -13653,7 +13760,7 @@
             },
             "create": {
                 "success": "Notificación creada correctamente",
-                "error": "Error al crear la notificación"
+                "error": "No se ha podido crear la notificación"
             }
         },
         "activity": {
@@ -14508,7 +14615,7 @@
                         "submit": "Suprimir",
                         "cancel": "Cancelar"
                     },
-                    "thereAreConsumers": "Atención ! Los miembros han comprado este bono, si lo borras aún podrán usar sus créditos restantes. Puedes reducirlos manualmente a cero aquí. \n\nEl bono ya no aparecerá en su tienda para nuevos compradores.",
+                    "thereAreConsumers": "Atención ! Los miembros han comprado este bono, si lo borras aún podrán usar sus créditos restantes. Puedes reducirlos manualmente a cero aquí. \nEl bono ya no aparecerá en su tienda para nuevos compradores.",
                     "askConfirmation": "Tiene en cuenta que esta operación es final. La tarjeta ya no estará visible y no estará disponible para la compra.",
                     "title": "Supresión de la tarjeta:",
                     "isUsedInCombo": "¡Atención! Esta tarjeta de curso se utiliza en un pack, que ya no estará disponible para la venta si se elimina esta tarjeta de curso."
@@ -15216,11 +15323,11 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Desactivar el uso compartido",
+                    "submit": "Eliminar",
                     "close": "Cerrar"
                 },
-                "content": "Al desactivar un bono compartido, los miembros que lo tengan sólo podrán utilizarla en el estudio donde lo compraron.",
-                "title": "Desactivación"
+                "content": "Los miembros podrán seguir utilizando el pase en el estudio donde lo compraron. Cualquier suscripción vinculada a este pase seguirá siendo válida en ese mismo estudio.",
+                "title": "Eliminar pase compartido"
             },
             "form": {
                 "actions": {
@@ -15229,7 +15336,13 @@
                 },
                 "submit": "Validar",
                 "close": "Cerrar",
-                "title": "Tarjeta de curso compartido"
+                "title": "Tarjeta de curso compartido",
+                "editConfirmation": {
+                    "confirm": "Guardar de todos modos",
+                    "cancel": "Cancelar",
+                    "content": "Sus cambios también se aplicarán a las suscripciones vinculadas a este pase compartido. ¿Está seguro de que desea continuar y guardar los cambios?",
+                    "title": "Editar confirmación"
+                }
             },
             "section": {
                 "titleManagerOnly": "No disponible para la venta",
@@ -15252,19 +15365,19 @@
             "companyEmpty": "Ningún estudio está configurado para aceptar esta tarjeta de curso",
             "deleteForm": {
                 "actions": {
-                    "submit": "Desactivar el uso compartido",
+                    "submit": "Dejar de compartir",
                     "close": "Cerrar"
                 },
-                "content": "Al desactivar el uso compartido con este estudio, los pases ya adquiridos en este estudio seguirán siendo utilizables, sólo en este estudio. Los pases ya comprados en otros estudios ya no se podrán utilizar en el estudio desactivado.",
-                "title": "Desactivación"
+                "content": "Si deja de compartir con este estudio, los pases comprados en ese estudio seguirán siendo válidos, pero sólo dentro de ese estudio específico. Los pases de otros estudios dejarán de ser válidos allí. Esto también se aplica a los suscripciones vinculadas.",
+                "title": "Dejar de compartir con un estudio"
             },
             "form": {
                 "actions": {
                     "submit": "Registrar",
                     "close": "Cerrar"
                 },
-                "explain2": "Si un socio compra esta tarjeta en uno de los estudios compatibles, también podrá utilizarla en los demás estudios que hayas definido.",
-                "explain1": "Los siguientes estudios tendrán automáticamente esta tarjeta a la venta. No podrán cambiar el precio ni el número de créditos.",
+                "explain2": "Los miembros que hayan adquirido este pase o una suscripción vinculada podrán utilizarlo en cualquiera de los nuevos estudios compatibles",
+                "explain1": "Los siguientes estudios ofrecerán automáticamente este pase, pero no podrán cambiar su precio ni su número de créditos.",
                 "title": "Preparar mis estudios"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Compartido por el franquiciado",
@@ -15784,7 +15897,8 @@
                 "paymentPackTemplates": "Bonos",
                 "label": "Productos",
                 "giftcardTemplates": "Tarjetas de regalo",
-                "shopTemplates": "Tienda online"
+                "shopTemplates": "Tienda online",
+                "contractTemplates": "Suscripciones"
             },
             "tag": "Etiquetas",
             "marketing": {
@@ -15867,7 +15981,8 @@
                 "info": "General",
                 "info_plural": "General ({{number}})",
                 "programs": "Programa",
-                "programs_plural": "Programas ({{number}})"
+                "programs_plural": "Programas ({{number}})",
+                "subscription": "Suscripciones"
             },
             "clockIn": {
                 "history": "Histórico",
@@ -17759,7 +17874,10 @@
                 "successTitle": "Título de confirmación"
             },
             "hideWidgets": "Ocultar todos los widgets para los usuarios no registrados",
-            "disconnectedStatusConfigTitle": "Configuración del estado de desconexión"
+            "disconnectedStatusConfigTitle": "Configuración del estado de desconexión",
+            "loginButton": {
+                "openMemberProfile": "Abrir el perfil del miembro cuando el usuario se conecta"
+            }
         },
         "customize": "Personalización",
         "create": "General",
@@ -18651,7 +18769,7 @@
             },
             "welcome": {
                 "dialog": {
-                    "helper": "¡Comencemos a configurar juntos su {{ workflowLowerCase }}! \nUn flujo de trabajo es un conjunto de desencadenantes y pasos conectados con sus respectivas acciones de marketing que le ayudarán a llevar a sus miembros hacia el objetivo que usted establezca.",
+                    "helper": "¡Comencemos a configurar juntos su {{ workflowLowerCase }}! \nEn primer lugar, vamos a definir las reglas para que sus miembros entren en el {{ workflowLowerCase }}. A continuación, decidiremos cuándo sus miembros se consideran 'Ganados' o 'Perdidos' en función de sus acciones.",
                     "title": "¡Bienvenido a {{ audienceCamelCase }}!",
                     "confirm": "Inicio",
                     "return": "Regresar"
@@ -18892,7 +19010,7 @@
             "submit": "Confirmar",
             "takeSpotError": "El sitio que ha seleccionado para este curso ya no está disponible. Por favor, seleccione uno nuevo.",
             "legend": "Leyenda",
-            "book": "Reservar el sitio {{prefix}}{{indexType}}"
+            "book": "Reservar el sitio: {{prefix}}{{indexType}}{{suffix}}"
         },
         "roomBlueprintSelectorTitle": "Elija un plan",
         "search": "Encuentre un plan para el spot scheduling",
@@ -18944,7 +19062,16 @@
             "nameExplain": "Nombre del tipo de sitio",
             "name": "Nombre",
             "subtitle": "Creación de un tipo de sitio",
-            "title": "Plano del establecimiento"
+            "title": "Plano del establecimiento",
+            "suffix": "Sufijo",
+            "suffixExplain": "El carácter indicado aquí aparecerá como sufijo de los números de sitio",
+            "suffixError": "El sufijo debe ser una sola letra",
+            "nameCustomization": {
+                "suffix": "Número de sitio con sufijo",
+                "prefix": "Número de sitio con prefijo",
+                "none": "Sólo número de sitio",
+                "title": "Formato del nombre del sitio"
+            }
         },
         "errorAvailableOffersScheduled": "No se puede guardar. Esta disposición no puede editarse, ya que se utiliza en futuras sesiones.",
         "spiviDialog": {
@@ -20365,7 +20492,7 @@
             "forYou": "para ti",
             "inviteFriend": "Invita a un amigo a inscribirse",
             "nbRemainingUses": "Número de usos restantes",
-            "referralLink": "Enlace  de referencia",
+            "referralLink": "Enlace de referencia",
             "loginToUseYourLink": "Inicie sesión para utilizar su enlace",
             "thanksForSharing": "Gracias por compartirlo con sus amigos y familiares.",
             "copyReferralLink": "Copiar enlace de referencia",

@@ -163,7 +163,8 @@
             "payment_combo": "Paket",
             "contractTermsAccepted": "Die <0>Nutzungsbedingungen</0> wurden am {{- dateAccepted}} akzeptiert.",
             "stopNote": "Hinweis zur Stornierung",
-            "secondBillingPlanEnabled": "Zweiter Abrechnungsplan aktiviert"
+            "secondBillingPlanEnabled": "Zweiter Abrechnungsplan aktiviert",
+            "source_company": "Gekauft bei"
         },
         "paymentMethod": {
             "card": "Kreditkarte",
@@ -220,7 +221,8 @@
                     "missingObject": "Pflichtfeld",
                     "missingPaymentCombo": "Sie müssen ein Paket auswählen",
                     "missingPrivatePass": "Sie müssen einen Terminpass auswählen",
-                    "missingPaymentPack": "Sie müssen einen Pass auswählen"
+                    "missingPaymentPack": "Sie müssen einen Pass auswählen",
+                    "moreThanThreeDecimalPrice": "Es sieht so aus, als hätten Sie mehr als zwei Dezimalstellen eingegeben. Bitte korrigieren Sie den Betrag auf den nächsten Cent."
                 },
                 "recurrence": {
                     "explain": "Das Abonnement wird alle {{ recurrence_basis }} {{ interval }} über eine Gesamtdauer von {{ total_interval_duration }} {{ interval }} n Rechnung gestellt und generiert {{nb_interval}} Rechnungen",
@@ -644,7 +646,8 @@
             "paused": "Pause",
             "expired": "Abgelaufen",
             "canceled": "Gestoppt",
-            "subscribedOn": "Das Abonnement begann am {{- date}}"
+            "subscribedOn": "Das Abonnement begann am {{- date}}",
+            "willSubscribeOn": "Das Abonnement beginnt am {{- date}}"
         },
         "noAssociatedSubscription": "Kein gespeichertes Abonnement",
         "associatedSubscriptions": "Mit diesem Vertrag verbundene Abonnements",
@@ -982,7 +985,60 @@
             "content": "Um dem deutschen Gesetz über faire Verbraucherverträge zu entsprechen, müssen die neuen Abonnement-Zyklen nach 2 Jahren Laufzeit kürzer als ein Jahr sein. Sind Sie sicher, dass Sie fortfahren möchten?",
             "title": "Automatisch erneuern"
         },
-        "germanNbIntervalAlert": "Um dem deutschen Gesetz über faire Verbraucherverträge zu entsprechen, muss die Anzahl der Abrechnungen weniger als 24 betragen."
+        "germanNbIntervalAlert": "Um dem deutschen Gesetz über faire Verbraucherverträge zu entsprechen, muss die Anzahl der Abrechnungen weniger als 24 betragen.",
+        "billingPlanStatus": {
+            "valid": "Gültig",
+            "paused": "Pausiert",
+            "expired": "Abgelaufen",
+            "canceled": "Beendet"
+        },
+        "filters": {
+            "all": "Alle Abonnements"
+        },
+        "franchiseUserProfile": {
+            "associatedPassValidity": "Gültig für ",
+            "associatedInvoices": "Assoziierte Rechnungen",
+            "pleaseSelectASubscription": "Wählen Sie ein Abonnement aus, um eine detailliertere Übersicht zu erhalten."
+        },
+        "contractTemplate": {
+            "form": {
+                "sharedAppointmentPassesSelectorTooltip": "Studios, die Zugriff auf diesen gemeinsamen Terminpass haben, haben auch Zugriff auf das Abonnement",
+                "sharedPassesSelectorTooltip": "Studios, die Zugang zu diesem gemeinsamen Pass haben, haben auch Zugang zum Abonnement",
+                "title": "Abonnement"
+            },
+            "detailPage": {
+                "sharedStudios": "Wird mit den folgenden Studios geteilt:"
+            },
+            "filter": {
+                "associatedPass": "Assoziierter Pass",
+                "productType": "Produkt",
+                "appointmentPasses": "Terminpässe",
+                "passes": "Pässe",
+                "studios": "Studios",
+                "searchPlaceholder": "Ein Abonnement suchen",
+                "availability": "Verfügbarkeit",
+                "unavailableForEveryone": "Nicht verfügbar für alle",
+                "staffOnly": "Nur Personal",
+                "memberOnly": "Nur für Mitglieder",
+                "availableForEveryone": "Verfügbar für alle",
+                "noFilters": "Alle Abonnements"
+            },
+            "dialog": {
+                "delete": {
+                    "confirm": "Löschen",
+                    "cancel": "Abbrechen",
+                    "content": "Sind Sie sicher, dass Sie das gemeinsame Abonnement löschen wollen?",
+                    "title": "Bestätigung löschen"
+                }
+            },
+            "icons": {
+                "restore": "Wiederherstellen"
+            },
+            "list": {
+                "isEmpty": "Keine gemeinsamen Verträge"
+            },
+            "backofficeEditWarning": "Das Abonnement wird über das Master-Konto geteilt. Bestimmte Einstellungen wurden von diesem Master-Konto vordefiniert und können nicht geändert werden."
+        }
     },
     "translation": {
         "appbar": {
@@ -3887,6 +3943,9 @@
                     },
                     "shopTemplates": {
                         "_label": "Webshop"
+                    },
+                    "contractTemplates": {
+                        "_label": "Abonnements"
                     }
                 },
                 "emailTemplates": {
@@ -5832,11 +5891,11 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Freigabe deaktivieren",
+                    "submit": "Löschen",
                     "close": "Schließen"
                 },
-                "content": "Wenn Sie eine geteilte Karte deaktivieren, können Mitglieder, die diese Karte besitzen, sie nur noch in dem Studio nutzen, in dem sie sie gekauft haben.",
-                "title": "Deaktivierung"
+                "content": "Die Mitglieder können den Pass weiterhin in dem Studio nutzen, in dem sie ihn gekauft haben. Jedes Abonnement, das mit diesem Pass verbunden ist, bleibt in demselben Studio gültig.",
+                "title": "Gemeinsamen Pass löschen"
             },
             "form": {
                 "actions": {
@@ -5845,7 +5904,13 @@
                 },
                 "submit": "Bestätigen",
                 "close": "Schließen",
-                "title": "Geteilter Kurspass"
+                "title": "Geteilter Kurspass",
+                "editConfirmation": {
+                    "confirm": "Trotzdem speichern",
+                    "cancel": "Abbrechen",
+                    "content": "Ihre Veränderungen werden auch auf die mit diesem Pass verbundenen Abonnements angewendet. Sind Sie sicher, dass Sie fortfahren und Ihre Änderungen speichern möchten?",
+                    "title": "Bestätigung bearbeiten"
+                }
             },
             "section": {
                 "titleManagerOnly": "Nicht zum Verkauf verfügbar",
@@ -5868,19 +5933,19 @@
             "companyEmpty": "Kein Studio ist so konfiguriert, dass es dieser Kurspass akzeptiert",
             "deleteForm": {
                 "actions": {
-                    "submit": "Freigabe deaktivieren",
+                    "submit": "Nicht mehr teilen",
                     "close": "Schließen"
                 },
-                "content": "Durch die Deaktivierung der gemeinsamen Nutzung mit diesem Studio bleiben die bereits in diesem Studio erworbenen Pässe nur in diesem Studio nutzbar. Bereits in anderen Studios gekaufte Pässe sind im deaktivierten Studio nicht mehr nutzbar.",
-                "title": "Deaktivierung"
+                "content": "Wenn Sie die gemeinsame Nutzung mit diesem Studio beenden, sind die in diesem Studio erworbenen Pässe weiterhin gültig, jedoch nur in diesem speziellen Studio. Pässe aus anderen Studios sind dort nicht mehr gültig. Dies gilt auch für verknüpfte Abonnements.",
+                "title": "Stoppen der gemeinsamen Nutzung mit einem Studio"
             },
             "form": {
                 "actions": {
                     "submit": "Registrieren",
                     "close": "Schließen"
                 },
-                "explain2": "Wenn ein Mitglied diese Karte in einem der kompatiblen Studios kauft, kann es sie auch in den anderen Studios verwenden, die Sie festgelegt haben.",
-                "explain1": "Die folgenden Studios haben diesen Pass automatisch zum Verkauf zur Verfügung. Sie können weder den Preis noch die Anzahl der Guthaben ändern.",
+                "explain2": "Mitglieder, die diesen Pass oder ein damit verbundenes Abonnement erworben haben, können ihn in jedem der neu kompatiblen Studios nutzen.",
+                "explain1": "Die folgenden Studios bieten diesen Pass automatisch an, können aber weder den Preis noch die Guthabenanzahl ändern.",
                 "title": "Meine Studios konfigurieren"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Geteilt mit einem Studio",
@@ -7304,6 +7369,16 @@
                 "paymentCombo": {
                     "63003": "Nicht möglich: Wechsel der geteilten Pakete zwischen Franchisenehmern ist nicht erlaubt"
                 }
+            },
+            "contractTemplate": {
+                "createError": "Abonnement konnte nicht erstellt werden",
+                "createSuccess": "Abonnement erfolgreich erstellt",
+                "editError": "Abonnement konnte nicht gespeichert werden",
+                "editSuccess": "Abonnement erfolgreich gespeichert",
+                "restoreError": "Wiederherstellung des Abonnements fehlgeschlagen",
+                "restoreSuccess": "Abonnement erfolgreich wiederhergestellt",
+                "deleteError": "Archivierung des Abonnements fehlgeschlagen",
+                "deleteSuccess": "Abonnement erfolgreich archiviert"
             }
         },
         "notificationRule": {
@@ -8367,7 +8442,8 @@
                 "billByInstalment": "Ratenzahlung",
                 "paymentLink": "Zahlungslink",
                 "generatePaymentLink": "Zahlungslink erstellen",
-                "paymentSecurityInformation": "Sie können Ihre Zahlungsdaten und -informationen für zukünftige Einkäufe sicher und verschlüsselt speichern."
+                "paymentSecurityInformation": "Sie können Ihre Zahlungsdaten und -informationen für zukünftige Einkäufe sicher und verschlüsselt speichern.",
+                "basketWasInconsistent": "Ihr Warenkorb hat sich geändert. Der Betrag wurde nicht abgebucht. Bitte versuchen Sie die Zahlung erneut."
             },
             "sumup": {
                 "amountRemaining": "Ausstehender Betrag",
@@ -10028,7 +10104,15 @@
             "seeAllProducts": "Alle Produkte ansehen",
             "recommended": "Empfehlungen",
             "reviewAndConfirm": "Überprüfen und Bestätigen",
-            "guestSpotSelectorTitle": "Wählen Sie einen Platz für Ihren Gast"
+            "guestSpotSelectorTitle": "Wählen Sie einen Platz für Ihren Gast",
+            "removeFromBasket": {
+                "buttons": {
+                    "confirm": "ENTFERNEN",
+                    "cancel": "ABBRECHEN"
+                },
+                "message": "Wenn Sie den Pass aus dem Korb entfernen, werden auch die zugehörigen Buchungen entfernt.",
+                "title": "Entfernen"
+            }
         },
         "refundDialog": {
             "contentUnlimitedPaymentPack": "Diese Buchung wurde mit einem unbeschränkten Pass vorgenommen und zu spät storniert. Bei zu vielen verspäteten Stornierungen können Strafen fällig werden. Klicke auf „Zurücksetzen“, um die verspätete Stornierung aus den Passeinträgen zu entfernen. Beachte dass bereits verhängte Strafen nicht mehr entfernt werden können.",
@@ -11864,20 +11948,20 @@
             "privateConsumerPassSharedFromOtherFranchisee": "Geteilt von einem Franchisenehmer",
             "form": {
                 "title": "Meine Studios einrichten",
-                "explain2": "Wenn ein Mitglied diese Karte in einem der kompatiblen Studios kauft, kann es sie auch in den anderen Studios verwenden, die Sie festgelegt haben.",
+                "explain2": "Mitglieder, die diesen Terminpass oder ein damit verbundenes Abonnement erworben haben, können ihn in jedem der neu kompatiblen Studios nutzen.",
                 "actions": {
                     "close": "Schließen",
                     "submit": "Registrieren"
                 },
-                "explain1": "Die folgenden Studios haben diese Karte automatisch zum Verkauf zur Verfügung. Sie können weder den Preis noch die Anzahl der Guthaben ändern."
+                "explain1": "Die folgenden Studios werden diesen Terminpass automatisch anbieten, können aber weder den Preis noch die Guthabenanzahl ändern."
             },
             "deleteForm": {
-                "title": "Deaktivierung",
+                "title": "Nicht mehr mit einem Studio teilen",
                 "actions": {
                     "close": "Schließen",
-                    "submit": "Freigabe deaktivieren"
+                    "submit": "Nicht mehr teilen"
                 },
-                "content": "Durch die Deaktivierung der gemeinsamen Nutzung mit diesem Studio bleiben die bereits in diesem Studio erworbenen Terminpässe nur in diesem Studio nutzbar. Terminpässe, die bereits in anderen Studios gekauft wurden, können in dem deaktivierten Studio nicht mehr genutzt werden."
+                "content": "Wenn Sie die gemeinsame Nutzung mit diesem Studio beenden, sind die in diesem Studio erworbenen Terminpässe weiterhin gültig, jedoch nur in diesem speziellen Studio. Terminpässe aus anderen Studios sind dort nicht mehr gültig. Dies gilt auch für verknüpfte Abonnements."
             },
             "companyEmpty": "Kein Studio ist so konfiguriert, dass es dieser Kurspass akzeptiert",
             "actions": {
@@ -11900,15 +11984,21 @@
                 "actions": {
                     "close": "Schließen",
                     "submit": "Registrieren"
+                },
+                "editConfirmation": {
+                    "confirm": "Trotzdem speichern",
+                    "cancel": "Abbrechen",
+                    "content": "Ihre Änderungen werden auch auf die mit diesem gemeinsamen Terminpass verbundenen Abonnements angewendet. Sind Sie sicher, dass Sie fortfahren und Ihre Änderungen speichern möchten?",
+                    "title": "Bestätigung bearbeiten"
                 }
             },
             "deleteForm": {
-                "title": "Deaktivierung",
+                "title": "Gemeinsamen Terminpass löschen",
                 "actions": {
                     "close": "Schließen",
-                    "submit": "Freigabe deaktivieren"
+                    "submit": "Löschen"
                 },
-                "content": "Wenn Sie eine geteilte Karte deaktivieren, können Mitglieder, die diese Karte besitzen, sie nur noch in dem Studio nutzen, in dem sie sie gekauft haben."
+                "content": "Die Mitglieder können den Terminpass weiterhin in dem Studio nutzen, in dem sie ihn gekauft haben. Jedes Abonnement, das mit diesem Terminpass verbunden ist, funktioniert ebenfalls nur in diesem Studio."
             },
             "actions": {
                 "create": "Erstellen eines geteilten Passes"
@@ -12555,7 +12645,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "verbleibende Tage",
+                        "expiresIn_plural": "{{ daysRemaining }} verbleibende Tage",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -14814,7 +14904,8 @@
                 "privatePassTemplates": "Terminpässe",
                 "giftcardTemplates": "Gutscheine",
                 "couponTemplates": "Angebote",
-                "shopTemplates": "Webshop"
+                "shopTemplates": "Webshop",
+                "contractTemplates": "Abonnements"
             },
             "emailTemplates": "E-Mails",
             "notificationRules": "Transaktions-Benachrichtigungen",
@@ -14872,7 +14963,8 @@
                 "payment": "Rechnung",
                 "payment_plural": "Rechnungen ({{number}})",
                 "privateBooking": "Termine",
-                "privateBooking_plural": "Termine ({{number}})"
+                "privateBooking_plural": "Termine ({{number}})",
+                "subscription": "Abonnements"
             },
             "widget": {
                 "create": "Allgemein",
@@ -15614,6 +15706,29 @@
                 "label": "Unabhängige Einrichtungen",
                 "helperText": "Jeder Standort wird in ClassPass als eigenständiger Ort angezeigt."
             }
+        },
+        "wellhub": {
+            "configuration": {
+                "panel": {
+                    "footer": {
+                        "addUnitButton": "Einheit ID hinzufügen"
+                    },
+                    "content": {
+                        "table": {
+                            "column": {
+                                "establishments": "Einrichtungen",
+                                "unit": "Einheit ID"
+                            }
+                        },
+                        "helperText": "Beantragen Sie zunächst die Integration mit bsport auf dem Wellhub-Partnerportal für jede Einheit",
+                        "title": "Einheiten ID verbindung"
+                    },
+                    "header": {
+                        "subtitle": "Verknüpfen Sie Ihre Kurse auf dem bsport-Konto mit Wellhub"
+                    }
+                }
+            },
+            "title": "Wellhub"
         }
     },
     "search": {
@@ -17694,7 +17809,10 @@
                 "successTitle": "Bestätigungstitel"
             },
             "hideWidgets": "Alle Widgets für nicht angemeldete Benutzer ausblenden",
-            "disconnectedStatusConfigTitle": "Konfiguration des Offline-Zustands"
+            "disconnectedStatusConfigTitle": "Konfiguration des Offline-Zustands",
+            "loginButton": {
+                "openMemberProfile": "Benutzerprofil öffnen, wenn sich der Benutzer anmeldet"
+            }
         },
         "create": "Allgemein",
         "customize": "Personalisierung",
@@ -18744,7 +18862,7 @@
             "cancel": "Abbrechen",
             "submit": "Bestätigen Sie",
             "takeSpotError": "Der Platz, den Sie für diesen Kurs ausgewählt haben, ist nicht mehr verfügbar. Bitte wählen Sie einen neuen aus.",
-            "book": "Buchung: {{prefix}}{{indexType}}",
+            "book": "Buchung: {{prefix}}{{indexType}}{{suffix}}",
             "legend": "Legende"
         },
         "searchHelper": "Hilfe: Ermöglicht es Ihren Schülern, den gewünschten Platz im Raum zu reservieren. Nicht obligatorische Felder",
@@ -18783,7 +18901,16 @@
             "missImageTaken": "Sie haben das Bild für den gebuchten Spot nicht geladen",
             "alertDefaultSpot": "Wenn Sie den Standard-spot ändern, werden alle Standard-spots auf allen Plänen identisch geändert",
             "personalizedExplain": "Sie können die Form der Slots anpassen, indem Sie Ihre eigenen Bilder importieren. Hierfür benötigen wir 3 verschiedene Symbole. Eines zeigt an, dass der Platz frei ist, ein anderes, dass er reserviert ist. Achten Sie darauf, dass sie die gleiche Größe haben, und fügen Sie bitte keine Zahlen in Ihre Icons ein.",
-            "free": "Spot verfügbar"
+            "free": "Spot verfügbar",
+            "suffixError": "Die Nachsilbe muss aus einem einzigen Buchstaben bestehen",
+            "nameCustomization": {
+                "suffix": "Platznummer mit einer Nachsilbe",
+                "prefix": "Platznummer mit einem Präfix",
+                "none": "Nur Platznummer",
+                "title": "Format des Platznamens"
+            },
+            "suffixExplain": "Das hier angegebene Zeichen wird als Nachsilbe an die Platznummern angehängt",
+            "suffix": "Nachsilbe"
         },
         "forms": {
             "delete": {

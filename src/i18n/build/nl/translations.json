@@ -1127,6 +1127,29 @@
                 "helperText": "Elke vestiging verschijnt als een onafhankelijke vestiging op ClassPass.",
                 "label": "Zelfstandige vestigingen"
             }
+        },
+        "wellhub": {
+            "configuration": {
+                "panel": {
+                    "footer": {
+                        "addUnitButton": "Voeg Unit ID toe"
+                    },
+                    "content": {
+                        "table": {
+                            "column": {
+                                "establishments": "Vestigingen",
+                                "unit": "Unit ID"
+                            }
+                        },
+                        "helperText": "Vraag eerst de integratie met bsport aan op Wellhub's Partners Portal, voor elke unit.",
+                        "title": "Eenheid ID verbinding"
+                    },
+                    "header": {
+                        "subtitle": "Koppel uw sessies op bsport account met Wellhub"
+                    }
+                }
+            },
+            "title": "Wellhub"
         }
     },
     "search": {
@@ -4583,7 +4606,7 @@
                     "submit": "Delen deactiveren",
                     "close": "Sluiten"
                 },
-                "title": "Deactivatie"
+                "title": "Stop met delen met een studio"
             },
             "actions": {
                 "addCompany": "Een studio toevoegen",
@@ -4595,8 +4618,8 @@
                     "submit": "Opslaan",
                     "close": "Sluiten"
                 },
-                "explain2": "Leden die deze kaarten kopen kunnen deze kaarten bij alle gekoppelde studio's gebruiken.",
-                "explain1": "Deze kaarten zijn bij de volgende studio's automatisch te koop. De prijzen en het aantal credits kunnen niet worden gewijzigd.",
+                "explain2": "Leden die deze pas of een daaraan gekoppeld abonnement hebben aangeschaft, kunnen deze gebruiken in elk van de nieuwe compatibele studio's.",
+                "explain1": "De volgende studio's bieden deze pas automatisch aan, maar kunnen de prijs of het tegoednummer niet wijzigen.",
                 "title": "Beschikbaarheid"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Gedeeld met een andere studio",
@@ -4627,11 +4650,11 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Delen uitschakelen",
+                    "submit": "Verwijder",
                     "close": "Sluiten"
                 },
-                "content": "Zodra een gedeelde kaart gedeactiveerd wordt, kunnen leden de kaart alleen nog bij de studio van aankoop gebruiken.",
-                "title": "Deactivatie"
+                "content": "Leden kunnen de pas nog steeds gebruiken in de studio waar ze hem gekocht hebben. Abonnementen die aan deze pas zijn gekoppeld, blijven geldig in dezelfde studio.",
+                "title": "Gedeelde pas verwijderen"
             },
             "form": {
                 "actions": {
@@ -4640,7 +4663,13 @@
                 },
                 "submit": "Bevestigen",
                 "close": "Sluiten",
-                "title": "[Formulier] Gedeelde leskaart"
+                "title": "[Formulier] Gedeelde leskaart",
+                "editConfirmation": {
+                    "confirm": "Toch opslaan",
+                    "cancel": "Annuleer",
+                    "content": "Je wijzigingen worden ook toegepast op abonnementen die aan deze gedeelde pas zijn gekoppeld. Weet je zeker dat je wilt doorgaan en je wijzigingen wilt opslaan?",
+                    "title": "Bevestiging bewerken"
+                }
             },
             "section": {
                 "titleManagerOnly": "Niet beschikbaar voor verkoop",
@@ -7460,7 +7489,15 @@
             "seeAllProducts": "Toon alle producten",
             "recommended": "Aanbevolen",
             "reviewAndConfirm": "Controleren en bevestigen",
-            "guestSpotSelectorTitle": "Selecteer een plekje voor je gast"
+            "guestSpotSelectorTitle": "Selecteer een plekje voor je gast",
+            "removeFromBasket": {
+                "buttons": {
+                    "confirm": "VERWIJDER",
+                    "cancel": "Annuleer"
+                },
+                "message": "Als je de pas uit het mandje verwijdert, worden de bijbehorende boekingen ook verwijderd.",
+                "title": "Verwijder"
+            }
         },
         "refundDialog": {
             "contentUnlimitedPaymentPack": "Deze boeking is gemaakt met een onbeperkte pas en is te laat geannuleerd. Voor te late annuleringen kunnen boetes worden opgelegd. Klik op “Reset” om de late annulering uit de pasgegevens te verwijderen. Houd er rekening mee dat als er al een boete is opgelegd, deze niet kan worden verwijderd.",
@@ -7974,7 +8011,8 @@
                     "missingObject": "Dit veld is verplicht",
                     "missingPaymentCombo": "Selecteer ten minste één pakket",
                     "missingPrivatePass": "Selecteer ten minste één afspraakkaart",
-                    "missingPaymentPack": "Selecteer ten minste één leskaart"
+                    "missingPaymentPack": "Selecteer ten minste één leskaart",
+                    "moreThanThreeDecimalPrice": "Het lijkt erop dat je meer dan twee cijfers achter de komma hebt ingevoerd. Pas het bedrag aan naar de dichtstbijzijnde cent."
                 },
                 "recurrence_basis": {
                     "helperText": " ",
@@ -8462,7 +8500,8 @@
             "payment_combo": "Pakket",
             "contractTermsAccepted": "<0>Voorwaarden</0> zijn geaccepteerd op {{- dateAccepted}}.",
             "stopNote": "Annulering",
-            "secondBillingPlanEnabled": "Tweede factureringsplan ingeschakeld"
+            "secondBillingPlanEnabled": "Tweede factureringsplan ingeschakeld",
+            "source_company": "Gekocht bij"
         },
         "cancel": "annuleren",
         "plannedInvoiceStatus": {
@@ -8499,7 +8538,8 @@
             "paused": "Gepauzeerd",
             "expired": "Verlopen",
             "canceled": "Beëindigd",
-            "subscribedOn": "Startdatum abonnement: {{- date}}"
+            "subscribedOn": "Startdatum abonnement: {{- date}}",
+            "willSubscribeOn": "Abonnement start op {{- date}}"
         },
         "noAssociatedSubscription": "Er zijn nog geen geabonneerde leden om weer te geven.",
         "associatedSubscriptions": "Geabonneerde leden",
@@ -8838,7 +8878,60 @@
             "content": "Om te voldoen aan de Duitse wet op eerlijke consumentencontracten moeten nieuwe abonnementscycli na 2 jaar korter zijn dan een jaar. Weet je zeker dat je door wilt gaan?",
             "title": "Automatische verlenging"
         },
-        "germanNbIntervalAlert": "Om te voldoen aan de Duitse Fair Consumers Contract Act moet het aantal facturen minder dan 24 zijn."
+        "germanNbIntervalAlert": "Om te voldoen aan de Duitse Fair Consumers Contract Act moet het aantal facturen minder dan 24 zijn.",
+        "billingPlanStatus": {
+            "valid": "Geldig",
+            "paused": "Gepauzeerd",
+            "expired": "Verlopen",
+            "canceled": "Beëindigd"
+        },
+        "filters": {
+            "all": "Alle abonnementen"
+        },
+        "franchiseUserProfile": {
+            "associatedPassValidity": "Geldig voor ",
+            "associatedInvoices": "Bijbehorende facturen",
+            "pleaseSelectASubscription": "Selecteer een abonnement voor een gedetailleerder overzicht."
+        },
+        "contractTemplate": {
+            "form": {
+                "sharedAppointmentPassesSelectorTooltip": "Studio's die toegang hebben tot deze gedeelde afsprakenkaart hebben ook toegang tot het abonnement",
+                "sharedPassesSelectorTooltip": "Studio's die toegang hebben tot deze gedeelde pas, hebben ook toegang tot het abonnement",
+                "title": "Abonnement"
+            },
+            "detailPage": {
+                "sharedStudios": "Gedeeld met de volgende studio's:"
+            },
+            "filter": {
+                "associatedPass": "Bijbehorende pas",
+                "productType": "Product",
+                "appointmentPasses": "Afspraakkaarten",
+                "passes": "Leskaarten",
+                "studios": "Studios",
+                "searchPlaceholder": "Een abonnement zoeken",
+                "availability": "Beschikbaarheid",
+                "unavailableForEveryone": "Niet voor iedereen beschikbaar",
+                "staffOnly": "Alleen voor personeel",
+                "memberOnly": "Leden alleen",
+                "availableForEveryone": "Beschikbaar voor iedereen",
+                "noFilters": "Alle abonnementen"
+            },
+            "dialog": {
+                "delete": {
+                    "confirm": "Verwijder",
+                    "cancel": "Annuleer",
+                    "content": "Weet je zeker dat je het gedeelde abonnement wilt verwijderen?",
+                    "title": "Bevestiging verwijderen"
+                }
+            },
+            "icons": {
+                "restore": "Herstel"
+            },
+            "list": {
+                "isEmpty": "Geen gedeelde contracten"
+            },
+            "backofficeEditWarning": "Het abonnement wordt gedeeld via de masteraccount. Bepaalde instellingen zijn vooraf gedefinieerd door de masteraccount en kunnen niet worden gewijzigd."
+        }
     },
     "coachPerformance": {
         "dateTitle": "Datumbereik",
@@ -10626,11 +10719,11 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Delen deactiveren",
+                    "submit": "Verwijder",
                     "close": "Sluiten"
                 },
-                "content": "Zodra een gedeelde afspraakkaart gedeactiveerd wordt, kunnen leden de kaart alleen nog bij de studio van aankoop gebruiken.",
-                "title": "Deactivering"
+                "content": "Leden kunnen de afsprakenpas nog steeds gebruiken in de studio waar ze hem gekocht hebben. Abonnementen die aan deze pas zijn gekoppeld, werken ook alleen in diezelfde studio.",
+                "title": "Gedeelde afsprakenpas verwijderen"
             },
             "form": {
                 "actions": {
@@ -10639,7 +10732,13 @@
                 },
                 "submit": "Bevestigen",
                 "close": "Sluiten",
-                "title": "[Formulier] Gedeelde afspraakkaart"
+                "title": "[Formulier] Gedeelde afspraakkaart",
+                "editConfirmation": {
+                    "confirm": "Sla toch op",
+                    "cancel": "Annuleer",
+                    "content": "Uw wijzigingen worden ook toegepast op abonnementen die aan deze gedeelde afsprakenpas zijn gekoppeld. Weet u zeker dat u wilt doorgaan en uw wijzigingen wilt opslaan?",
+                    "title": "Bevestiging bewerken"
+                }
             },
             "section": {
                 "titleManagerOnly": "Niet beschikbaar voor verkoop",
@@ -10660,16 +10759,16 @@
                     "submit": "Delen deactiveren",
                     "close": "Sluiten"
                 },
-                "content": "Door het delen met deze studio uit te schakelen, blijven de afspraakkaarten die al in deze studio zijn gekocht, bruikbaar, maar alleen in deze studio. Afspraakkaarten die al in andere studio's zijn gekocht, zijn niet langer bruikbaar in de gedeactiveerde studio.",
-                "title": "Deactivering"
+                "content": "Als je stopt met het delen met deze studio, zullen de afspraakkaarten die je bij die studio hebt gekocht nog steeds geldig zijn, maar alleen binnen die specifieke studio. Afspraken van andere studio's zullen daar niet langer geldig zijn. Dit geldt ook voor gekoppelde abonnementen.",
+                "title": "Stop met delen met een studio"
             },
             "form": {
                 "actions": {
                     "submit": "Opslaan",
                     "close": "Sluiten"
                 },
-                "explain2": "Leden die deze kaarten kopen kunnen deze kaarten bij alle gekoppelde studio's gebruiken.",
-                "explain1": "Deze kaarten zijn bij de volgende studio's automatisch te koop. De prijzen en het aantal credits kunnen niet worden gewijzigd.",
+                "explain2": "Leden die deze afsprakenpas of een daaraan gekoppeld abonnement hebben gekocht, kunnen deze gebruiken in elk van de nieuwe compatibele studio's.",
+                "explain1": "De volgende studio's bieden deze afspraakpas automatisch aan, maar kunnen de prijs of het tegoednummer niet wijzigen.",
                 "title": "Beschikbaarheid"
             },
             "privateConsumerPassSharedFromOtherFranchisee": "Gedeeld met een andere studio",
@@ -11742,6 +11841,16 @@
             "register": {
                 "error": "Onmogelijk om het abonnement te registreren",
                 "success": "Abonnement succesvol geregistreerd"
+            },
+            "contractTemplate": {
+                "createError": "Abonnement niet aangemaakt",
+                "createSuccess": "Abonnement succesvol aangemaakt",
+                "editError": "Abonnement niet opgeslagen",
+                "editSuccess": "Abonnement succesvol opgeslagen",
+                "restoreError": "Abonnement niet hersteld",
+                "restoreSuccess": "Abonnement succesvol hersteld",
+                "deleteError": "Abonnement niet gearchiveerd",
+                "deleteSuccess": "Abonnement succesvol gearchiveerd"
             }
         },
         "invoice": {
@@ -14824,7 +14933,8 @@
                 "billByInstalment": "Termijnbetaling",
                 "paymentLink": "Betaallink",
                 "generatePaymentLink": "Een betaallink genereren",
-                "paymentSecurityInformation": "Je kunt je betaalgegevens en -informatie veilig en versleuteld opslaan voor toekomstige aankopen."
+                "paymentSecurityInformation": "Je kunt je betaalgegevens en -informatie veilig en versleuteld opslaan voor toekomstige aankopen.",
+                "basketWasInconsistent": "Uw mandje is gewijzigd. Er is niets in rekening gebracht. Probeer de betaling opnieuw uit te voeren."
             },
             "sumup": {
                 "amountPaid": "Betaald",
@@ -15715,6 +15825,9 @@
                     },
                     "shopTemplates": {
                         "_label": "Webshop"
+                    },
+                    "contractTemplates": {
+                        "_label": "Abonnementen"
                     }
                 },
                 "members": {
@@ -17048,7 +17161,8 @@
                 "paymentPackTemplates": "Leskaarten",
                 "label": "Producten",
                 "giftcardTemplates": "Cadeaubonnen",
-                "shopTemplates": "Webshop"
+                "shopTemplates": "Webshop",
+                "contractTemplates": "Abonnementen"
             },
             "tag": "Tags",
             "marketing": {
@@ -17131,7 +17245,8 @@
                 "info": "Algemeen",
                 "info_plural": "Algemeen ({{number}})",
                 "programs": "Programma's",
-                "programs_plural": "Programma's ({{number}})"
+                "programs_plural": "Programma's ({{number}})",
+                "subscription": "Abonnementen"
             },
             "clockIn": {
                 "history": "Geschiedenis",
@@ -17724,7 +17839,10 @@
                 "successTitle": "Bevestigingstitel"
             },
             "hideWidgets": "Verberg alle widgets voor niet-ingelogde gebruikers",
-            "disconnectedStatusConfigTitle": "Configuratie van de verbindingsstatus"
+            "disconnectedStatusConfigTitle": "Configuratie van de verbindingsstatus",
+            "loginButton": {
+                "openMemberProfile": "Ledenprofiel openen wanneer de gebruiker inlogt"
+            }
         },
         "customize": "Personalisering",
         "create": "Algemeen",
@@ -18841,7 +18959,7 @@
             "cancel": "Annuleer",
             "spot": "Plaats {{count}}",
             "title": "Selecteer een plaats",
-            "book": "Reserveer plaats: {{prefix}}{{indexType}}",
+            "book": "Reserveer plaats: {{prefix}}{{indexType}}{{suffix}}",
             "legend": "Legenda"
         },
         "toolbar": {
@@ -18897,7 +19015,16 @@
             "nameExplain": "Naam van de plattegrond",
             "name": "Naam",
             "subtitle": "Ontwerp een gepersonaliseerde plattegrond",
-            "title": "Spot Scheduling"
+            "title": "Spot Scheduling",
+            "suffix": "Achtervoegsel",
+            "suffixExplain": "Het teken dat hier wordt aangegeven, verschijnt als achtervoegsel van de spotnummers",
+            "suffixError": "Het achtervoegsel moet één letter zijn",
+            "nameCustomization": {
+                "suffix": "Spot nummer met een achtervoegsel",
+                "prefix": "Spot nummer met een voorvoegsel",
+                "none": "Alleen spotnummer",
+                "title": "Formaat spotnaam"
+            }
         },
         "forms": {
             "delete": {

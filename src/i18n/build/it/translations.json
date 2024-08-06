@@ -2242,6 +2242,29 @@
                 "label": "Avanzato",
                 "helperText": "Raggruppa stabilimenti simili per indirizzo"
             }
+        },
+        "wellhub": {
+            "configuration": {
+                "panel": {
+                    "footer": {
+                        "addUnitButton": "Aggiungi Unità"
+                    },
+                    "content": {
+                        "table": {
+                            "column": {
+                                "establishments": "Stabilimenti",
+                                "unit": "Unità"
+                            }
+                        },
+                        "helperText": "Per prima cosa richiedere l'integrazione con bsport sul Portale Partner di Wellhub, per ogni Unità",
+                        "title": "Collegamento Unità"
+                    },
+                    "header": {
+                        "subtitle": "Collega le tue sessioni sull'account bsport con Wellhub"
+                    }
+                }
+            },
+            "title": "Wellhub"
         }
     },
     "authentication": {
@@ -3954,14 +3977,20 @@
                 "actions": {
                     "close": "Chiudere",
                     "submit": "Registra"
+                },
+                "editConfirmation": {
+                    "confirm": "Salva comunque",
+                    "cancel": "Cancella",
+                    "content": "Le modifiche saranno applicate anche agli abbonamenti collegati a questo pacchetto per appuntamenti condiviso. Sei sicuro di voler procedere e salvare le modifiche?",
+                    "title": "Conferma della modifica"
                 }
             },
             "deleteForm": {
-                "title": "Disattivazione",
-                "content": "Disattivando un pacchetto condiviso, i membri con quel pacchetto potranno utilizzarlo solo nello studio dove l'hanno acquistato.",
+                "title": "Elimina il pacchetto per appuntamenti condiviso",
+                "content": "I membri potranno comunque utilizzare il pacchetto per appuntamenti presso lo studio in cui lo hanno acquistato. Qualsiasi abbonamento collegato a questo pacchetto per appuntamenti funzionerà solo presso lo stesso studio.",
                 "actions": {
                     "close": "Chiudere",
-                    "submit": "Disattivare la condivisione"
+                    "submit": "Elimina"
                 }
             },
             "actions": {
@@ -3974,19 +4003,19 @@
             "privateConsumerPassSharedFromOtherFranchisee": "Condiviso dal franchisee",
             "form": {
                 "title": "Allestire i miei studi",
-                "explain1": "I seguenti studios offriranno automaticamente questo pacchetto, ma non potranno modificare il prezzo o il numero di crediti.",
-                "explain2": "Se un membro acquista questo pacchetto in uno degli studi compatibili, potrà utilizzarlo anche negli altri studi che hai definito.",
+                "explain1": "I seguenti studi offriranno automaticamente questo pacchetto per appuntamenti, ma non potranno modificarne il prezzo o il numero di crediti.",
+                "explain2": "I membri che hanno acquistato questo pacchetto per appuntamenti o un abbonamento collegato potranno utilizzarlo in tutti i nuovi studi compatibili.",
                 "actions": {
                     "close": "Chiudi",
                     "submit": "Salva"
                 }
             },
             "deleteForm": {
-                "title": "Disattivazione",
-                "content": "Disattivando la condivisione con questo studio, i pacchetti per appuntamenti già acquistati in questo studio rimarranno utilizzabili solo in esso. I pacchetti per appuntamenti già acquistate in altri studi non saranno più utilizzabili in quello disattivato.",
+                "title": "Interrompi la condivisione con uno studio",
+                "content": "Se si interrompe la condivisione con questo studio, i pacchetti per appuntamenti acquistati in quello studio saranno ancora validi, ma solo all'interno di quello studio specifico. I pacchetti per appuntamenti acquistati in altri studi non saranno più validi. Questo vale anche per gli abbonamenti collegati.",
                 "actions": {
                     "close": "Chiudere",
-                    "submit": "Disattivare la condivisione"
+                    "submit": "Interrompi la condivisione"
                 }
             },
             "companyEmpty": "Non ci sono studi che offrano questo pacchetto.",
@@ -4450,7 +4479,8 @@
                 "privatePassTemplates": "Pacchetto per appuntamenti",
                 "paymentPackTemplates": "Pacchetti",
                 "label": "Prodotti",
-                "shopTemplates": "Shop"
+                "shopTemplates": "Shop",
+                "contractTemplates": "Abbonamenti ricorrenti"
             },
             "tag": "Tag",
             "marketing": {
@@ -4507,7 +4537,8 @@
                 "relation": "Relazioni",
                 "relation_plural": "Relazioni ({{number}})",
                 "bookings": "Prenotazioni",
-                "bookings_plural": "Prenotazioni ({{number}})"
+                "bookings_plural": "Prenotazioni ({{number}})",
+                "subscription": "Abbonamenti ricorrenti"
             },
             "smartList": {
                 "member": "Generale",
@@ -5283,6 +5314,16 @@
             "register": {
                 "error": "Impossibile sottoscrivere l'abbonamento",
                 "success": "Abbonamento ricorrente sottoscritto con successo"
+            },
+            "contractTemplate": {
+                "createError": "Impossibile creare l'abbonamento",
+                "createSuccess": "Abbonamento creato con successo",
+                "editError": "Impossibile salvare l'abbonamento",
+                "editSuccess": "Abbonamento salvato con successo",
+                "restoreError": "Impossibile ripristinare l'abbonamento",
+                "restoreSuccess": "L'abbonamento è stato ripristinato con successo",
+                "deleteError": "Impossibile archiviare l'abbonamento",
+                "deleteSuccess": "L'abbonamento è stato archiviato con successo"
             }
         },
         "webhook": {
@@ -7147,7 +7188,8 @@
                 "billByInstalment": "Pagamento a rate",
                 "paymentLink": "Link di pagamento",
                 "generatePaymentLink": "Generare un link di pagamento",
-                "paymentSecurityInformation": "Puoi registrare il metodo di pagamento in tutta sicurezza per gli acquisti futuri, e i tuoi dati saranno criptati e conservati in modo sicuro."
+                "paymentSecurityInformation": "Puoi registrare il metodo di pagamento in tutta sicurezza per gli acquisti futuri, e i tuoi dati saranno criptati e conservati in modo sicuro.",
+                "basketWasInconsistent": "Il carrello è cambiato. Non è stato effettuato alcun addebito, si prega di tentare nuovamente il pagamento."
             },
             "sumup": {
                 "amountRemaining": "Resto da pagare",
@@ -7587,7 +7629,8 @@
             "payment_combo": "Confezione",
             "contractTermsAccepted": "I <0>termini legali</0> sono stati accettati in data {{-dateAccepted}}.",
             "stopNote": "Nota di cancellazione",
-            "secondBillingPlanEnabled": "Secondo piano di pagamento abilitato"
+            "secondBillingPlanEnabled": "Secondo piano di pagamento abilitato",
+            "source_company": "Comprato in"
         },
         "contract": {
             "registerManager": {
@@ -7664,7 +7707,8 @@
                     "missingObject": "Questo campo è obbligatorio",
                     "missingPaymentCombo": "È necessario selezionare un pacchetto combinato",
                     "missingPrivatePass": "È necessario selezionare un pacchetto per appuntamenti",
-                    "missingPaymentPack": "È necessario selezionare un pacchetto"
+                    "missingPaymentPack": "È necessario selezionare un pacchetto",
+                    "moreThanThreeDecimalPrice": "Sembra che siano state inserite più di due cifre decimali. Si prega di regolare l'importo al centesimo più vicino."
                 },
                 "recurrence_basis": {
                     "intervalName": {
@@ -7962,7 +8006,8 @@
             "paused": "In pausa",
             "expired": "Scaduto",
             "canceled": "Fermato",
-            "subscribedOn": "L'iscrizione è iniziata il {{- date}}"
+            "subscribedOn": "L'iscrizione è iniziata il {{- date}}",
+            "willSubscribeOn": "L'abbonamento inizierà il {{- date}}"
         },
         "noAssociatedSubscription": "Nessun abbonamento ricorrente registrato.",
         "associatedSubscriptions": "Abbonamenti ricorrenti associati a questo contratto",
@@ -8300,7 +8345,60 @@
             "content": "Per rispettare la legge tedesca sui contratti equi per i consumatori, dopo 2 anni di abbonamento, i nuovi cicli di abbonamento devono avere una durata inferiore a un anno. Sei sicuro di voler continuare?",
             "title": "Rinnovo automatico"
         },
-        "germanNbIntervalAlert": "Per conformarsi alla legge tedesca sui contratti equi per i consumatori, il numero di fatture deve essere inferiore a 24."
+        "germanNbIntervalAlert": "Per conformarsi alla legge tedesca sui contratti equi per i consumatori, il numero di fatture deve essere inferiore a 24.",
+        "billingPlanStatus": {
+            "valid": "Valido",
+            "paused": "In pausa",
+            "expired": "Scaduto",
+            "canceled": "Terminato"
+        },
+        "filters": {
+            "all": "Tutti gli abbonamenti"
+        },
+        "franchiseUserProfile": {
+            "associatedPassValidity": "Valido per ",
+            "associatedInvoices": "Ricevute associate",
+            "pleaseSelectASubscription": "Seleziona un abbonamento per avere una panoramica più dettagliata."
+        },
+        "contractTemplate": {
+            "form": {
+                "sharedAppointmentPassesSelectorTooltip": "Gli studi che hanno accesso a questo pacchetto per appuntamenti condiviso avranno accesso anche all'abbonamento",
+                "sharedPassesSelectorTooltip": "Gli studi che hanno accesso a questo pacchetto condiviso avranno accesso anche all'abbonamento",
+                "title": "Abbonamento ricorrente"
+            },
+            "detailPage": {
+                "sharedStudios": "Condiviso con i seguenti studi:"
+            },
+            "filter": {
+                "associatedPass": "Pacchetto associato",
+                "productType": "Prodotto",
+                "appointmentPasses": "Pacchetti per appuntamento",
+                "passes": "Pacchetti",
+                "studios": "Studio",
+                "searchPlaceholder": "Cerca un abbonamento",
+                "availability": "Disponibilità",
+                "unavailableForEveryone": "Non disponibile per nessuno",
+                "staffOnly": "Solo lo staff",
+                "memberOnly": "Solo i membri",
+                "availableForEveryone": "Disponibile per tutti",
+                "noFilters": "Tutti gli abbonamenti ricorrenti"
+            },
+            "dialog": {
+                "delete": {
+                    "confirm": "Elimina",
+                    "cancel": "Cancella",
+                    "content": "Sei sicuro di voler eliminare l'abbonamento condiviso?",
+                    "title": "Conferma di rimozione"
+                }
+            },
+            "icons": {
+                "restore": "Ripristina"
+            },
+            "list": {
+                "isEmpty": "Nessun contratto condiviso"
+            },
+            "backofficeEditWarning": "L'abbonamento è condiviso attraverso il Conto Principale. Alcune impostazioni sono state predefinite da tale Conto e non possono essere modificate."
+        }
     },
     "reporting": {
         "columns": {
@@ -9911,11 +10009,11 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Disattiva la condivisione",
+                    "submit": "Elimina",
                     "close": "Chiudi"
                 },
-                "content": "Disattivando un pacchetto condiviso, i membri con quel pacchetto potranno utilizzarlo solo nello studio dove l'hanno acquistato.",
-                "title": "Disattivazione"
+                "content": "I membri potranno comunque utilizzare il pacchetto presso lo studio in cui lo hanno acquistato. Qualsiasi abbonamento collegato a questo pacchetto rimarrà valido presso lo stesso studio.",
+                "title": "Elimina il pacchetto condiviso"
             },
             "form": {
                 "actions": {
@@ -9924,7 +10022,13 @@
                 },
                 "submit": "Convalidare",
                 "close": "Chiudere",
-                "title": "Pacchetto condiviso"
+                "title": "Pacchetto condiviso",
+                "editConfirmation": {
+                    "confirm": "Salva comunque",
+                    "cancel": "Cancella",
+                    "content": "Le modifiche saranno applicate anche agli abbonamenti collegati a questo pacchetto condiviso. Sei sicuro di voler procedere e salvare le modifiche?",
+                    "title": "Conferma della modifica"
+                }
             },
             "section": {
                 "titleManagerOnly": "Non disponibile per la vendita",
@@ -9947,19 +10051,19 @@
             "companyEmpty": "Nessuno studio è configurato per accettare questo pacchetto",
             "deleteForm": {
                 "actions": {
-                    "submit": "Disattivare la condivisione",
+                    "submit": "Interrompi la condivisione",
                     "close": "Chiudere"
                 },
-                "content": "Disattivando la condivisione con questo studio, i pacchetti già acquistati in questo studio rimarranno utilizzabili solo in esso. I pacchetti già acquistati in altri studi non saranno più utilizzabili in quello disattivato.",
-                "title": "Disattivazione"
+                "content": "Se si interrompe la condivisione con questo studio, i pacchetti acquistati in quello studio saranno ancora validi, ma solo all'interno di quello studio specifico. I pacchetti di altri studi non saranno più validi. Questo vale anche per gli abbonamenti collegati.",
+                "title": "Interrompi la condivisione con uno studio"
             },
             "form": {
                 "actions": {
                     "submit": "Registra",
                     "close": "Chiudere"
                 },
-                "explain2": "I seguenti studi avranno automaticamente questo pacchetto disponibile per la vendita. Non potranno cambiare il prezzo o il numero di crediti.",
-                "explain1": "I seguenti studi avranno automaticamente questo pacchetto disponibile per la vendita. Non potranno cambiare il prezzo o il numero di crediti.",
+                "explain2": "I membri che hanno acquistato questo pacchetto o un abbonamento collegato, potranno utilizzarlo in tutti i nuovi studi compatibili.",
+                "explain1": "I seguenti studio offriranno automaticamente questo pacchetto, ma non potranno modificarne il prezzo o il numero di crediti.",
                 "title": "Allestire i miei studi"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Condiviso dal franchisee",
@@ -11197,7 +11301,15 @@
             "recommended": "Consigliati",
             "seeAllProducts": "Vedi tutti i prodotti",
             "reviewAndConfirm": "RIvedi e conferma",
-            "guestSpotSelectorTitle": "Seleziona un posto per il tuo ospite"
+            "guestSpotSelectorTitle": "Seleziona un posto per il tuo ospite",
+            "removeFromBasket": {
+                "buttons": {
+                    "confirm": "RIMUOVI",
+                    "cancel": "CANCELLA"
+                },
+                "message": "Se si rimuove il pacchetto dal carrello, verranno rimosse anche le relative prenotazioni.",
+                "title": "Rimuovi"
+            }
         },
         "refundDialog": {
             "contentUnlimitedPaymentPack": "Questa prenotazione è stata effettuata con un pacchetto illimitato ed è stata cancellata in ritardo. Le cancellazioni tardive eccessive possono comportare delle penali. Fare clic su “Ripristina” per rimuovere la cancellazione tardiva dai record del pacchetto. Si noti che se è già stata applicata una penale, questa non può essere rimossa.",
@@ -15961,6 +16073,9 @@
                     },
                     "shopTemplates": {
                         "_label": "Shop"
+                    },
+                    "contractTemplates": {
+                        "_label": "Abbonamenti"
                     }
                 },
                 "settings": {
@@ -17703,7 +17818,10 @@
                 "successTitle": "Titolo di conferma"
             },
             "hideWidgets": "Nascondi tutti i widget per gli utenti non loggati",
-            "disconnectedStatusConfigTitle": "Configurazione dello stato di disconnessione"
+            "disconnectedStatusConfigTitle": "Configurazione dello stato di disconnessione",
+            "loginButton": {
+                "openMemberProfile": "Aprire il profilo del membro quando l'utente effettua il login"
+            }
         },
         "create": "Generale",
         "customize": "Personalizzazione",
@@ -18780,7 +18898,7 @@
             "cancel": "Cancella",
             "spot": "Posto {{count}}",
             "title": "Scegliere un posto",
-            "book": "Prenota il posto {{prefix}}{{indexType}}",
+            "book": "Iscriviti: {{prefix}}{{indexType}}{{suffix}}",
             "legend": "Legenda"
         },
         "toolbar": {
@@ -18876,7 +18994,16 @@
             "deleted": "Spot eliminato",
             "personalizedExplain": "Puoi personalizzare la forma degli slot importando le tue immagini. Per fare questo abbiamo bisogno di 3 icone diverse. Una per indicare che la posizione è disponibile e un'altra quando lo spot è prenotato. Assicurati che abbiano le stesse dimensioni e, per favore, non includere numeri sulle tue icone.",
             "free": "Spot disponibile",
-            "takenPersonalized": "{{- name }} prenotato"
+            "takenPersonalized": "{{- name }} prenotato",
+            "suffix": "Suffisso",
+            "suffixExplain": "Il carattere qui indicato apparirà come suffisso ai numeri dei posti",
+            "suffixError": "Il suffisso deve essere una singola lettera",
+            "nameCustomization": {
+                "suffix": "Numero del posto con un suffisso",
+                "prefix": "Numero del posto con un prefisso",
+                "none": "Solo il numero del posto",
+                "title": "Formato del nome del posto"
+            }
         },
         "forms": {
             "delete": {

@@ -590,7 +590,15 @@
             "otherPasses": "Autres cartes de cours",
             "recommended": "Recommandés",
             "spotSelectorTitle": "Choisissez votre place",
-            "guestSpotSelectorTitle": "Sélectionnez un emplacement pour votre invité"
+            "guestSpotSelectorTitle": "Sélectionnez un emplacement pour votre invité",
+            "removeFromBasket": {
+                "buttons": {
+                    "confirm": "SUPPRIMER",
+                    "cancel": "ANNULER"
+                },
+                "message": "Si vous retirez la carte du panier, les réservations correspondantes seront également supprimées.",
+                "title": "Supprimer"
+            }
         },
         "place": "Place",
         "noShowChip": {
@@ -3867,7 +3875,8 @@
                 "basketInconsistent": "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\n Vous n'avez pas été débité.",
                 "generatePaymentLink": "Générer un lien de paiement",
                 "paymentLink": "Lien de paiement",
-                "paymentSecurityInformation": "Vous pouvez enregistrer en toute securité votre moyen de paiement pour vos prochains achats, vos données seront chiffrées et stockées en sécurité."
+                "paymentSecurityInformation": "Vous pouvez enregistrer en toute securité votre moyen de paiement pour vos prochains achats, vos données seront chiffrées et stockées en sécurité.",
+                "basketWasInconsistent": "Votre panier a changé. Vous n'avez pas été débité, veuillez réessayer le paiement."
             },
             "paymentList": {
                 "title": "Paiements",
@@ -6484,7 +6493,8 @@
                 "privatePassTemplates": "Cartes de RDV",
                 "giftcardTemplates": "Cartes cadeaux",
                 "couponTemplates": "Promotions",
-                "shopTemplates": "Magasin"
+                "shopTemplates": "Magasin",
+                "contractTemplates": "Abonnements"
             },
             "emailTemplates": "Emails",
             "notificationRules": "Emails Transactionnels",
@@ -6556,7 +6566,8 @@
                 "form": "Formulaires",
                 "form_plural": "Formulaires ({{number}})",
                 "basket": "Panier",
-                "basket_plural": "Paniers ({{number}})"
+                "basket_plural": "Paniers ({{number}})",
+                "subscription": "Abonnements"
             },
             "smartList": {
                 "member": "Général",
@@ -7553,6 +7564,29 @@
         "actions": {
             "save": "Enregistrer",
             "requestPartnership": "Activer l'intégration"
+        },
+        "wellhub": {
+            "configuration": {
+                "panel": {
+                    "footer": {
+                        "addUnitButton": "Ajouter Unit ID"
+                    },
+                    "content": {
+                        "table": {
+                            "column": {
+                                "establishments": "Établissements",
+                                "unit": "Unit ID"
+                            }
+                        },
+                        "helperText": "Demandez d'abord l'intégration avec bsport sur le portail partenaires Wellhub, pour chaque Unit",
+                        "title": "Connexion Unit ID"
+                    },
+                    "header": {
+                        "subtitle": "Liez vos sessions sur le compte bsport avec Wellhub"
+                    }
+                }
+            },
+            "title": "Wellhub"
         }
     },
     "payment": {
@@ -7958,19 +7992,19 @@
             "consumerPaymentPackSharedFromOtherFranchisee": "Partagé depuis franchisé",
             "form": {
                 "title": "Configurer mes studios",
-                "explain1": "Les studios suivant auront automatiquement cette carte disponible à la vente. Ils ne pourront pas en modifier le prix ni le nombre de crédit.",
-                "explain2": "Si un membre achète cette carte dans l'un des studios compatible, il pourra également l'utiliser dans les autres studios que vous avez défini.",
+                "explain1": "Les studios suivants proposeront automatiquement cette carte de coyrs, mais ne pourront pas en modifier le prix ou le nombre de crédit.",
+                "explain2": "Les membres qui ont acheté cette carte ou un abonnement lié pourront l'utiliser dans n'importe quel studio devenu compatible.",
                 "actions": {
                     "close": "Fermer",
                     "submit": "Enregistrer"
                 }
             },
             "deleteForm": {
-                "title": "Désactivation",
-                "content": "En désactivant le partage avec ce studio, les cartes de cours déjà achetées dans ce studio resteront utilisables, dans ce studio uniquement. Les cartes de cours déjà achetées dans les autres studios ne seront plus utilisables dans le studio désactivé.",
+                "title": "Cesser de partager avec un studio",
+                "content": "Si vous cessez de partager avec ce studio, les cartes de cours achetées dans ce studio seront toujours valables, mais uniquement dans ce studio spécifique. Les cartes achetées dans d'autres studios ne seront plus valables dans ce studio. Ceci s'applique également aux abonnements liés.",
                 "actions": {
                     "close": "Fermer",
-                    "submit": "Désactiver le partage"
+                    "submit": "Ne plus partager"
                 }
             },
             "companyEmpty": "Aucun studio n'est configuré pour accepter cette carte de cours",
@@ -8000,14 +8034,20 @@
                 "actions": {
                     "close": "Fermer",
                     "submit": "Enregistrer"
+                },
+                "editConfirmation": {
+                    "confirm": "Sauvegarder",
+                    "cancel": "Annuler",
+                    "content": "Vos modifications seront également appliquées aux abonnements liés à cette carte de cours partagée. Êtes-vous sûr de vouloir continuer et enregistrer vos modifications ?",
+                    "title": "Confirmation de modification"
                 }
             },
             "deleteForm": {
-                "title": "Désactivation",
-                "content": "En désactivant une carte partagée, les membres possédant cette carte ne pourront plus l'utiliser que dans le studio dans lequel il l'ont acheté.",
+                "title": "Supprimer la carte partagée",
+                "content": "Les membres pourront toujours utiliser la carte dans le studio où ils l'ont achetée. Tout abonnement lié à cette carte restera valable dans ce même studio.",
                 "actions": {
                     "close": "Fermer",
-                    "submit": "Désactiver le partage"
+                    "submit": "Supprimer"
                 }
             },
             "actions": {
@@ -9176,19 +9216,19 @@
             "privateConsumerPassSharedFromOtherFranchisee": "Partagé depuis franchisé",
             "form": {
                 "title": "Configurer mes studios",
-                "explain1": "Les studios suivant auront automatiquement cette carte disponible à la vente. Ils ne pourront pas en modifier le prix ni le nombre de crédit.",
-                "explain2": "Si un membre achète cette carte dans l'un des studios compatible, il pourra également l'utiliser dans les autres studios que vous avez défini.",
+                "explain1": "Les studios suivant auront automatiquement cette carte de RDV disponible à la vente. Ils ne pourront pas en modifier le prix ni le nombre de crédit.",
+                "explain2": "Les membres qui ont acheté cette carte de rendez-vous ou un abonnement lié pourront l'utiliser dans n'importe quel studio devenu compatible.",
                 "actions": {
                     "close": "Fermer",
                     "submit": "Enregistrer"
                 }
             },
             "deleteForm": {
-                "title": "Désactivation",
-                "content": "En désactivant le partage avec ce studio, les cartes RDV déjà achetées dans ce studio resteront utilisables, dans ce studio uniquement. Les cartes RDV déjà achetées dans les autres studios ne seront plus utilisables dans le studio désactivé.",
+                "title": "Cesser de partager avec un studio",
+                "content": "En désactivant le partage avec ce studio, les cartes RDV déjà achetées dans ce studio resteront utilisables, dans ce studio uniquement. Les cartes RDV déjà achetées dans les autres studios ne seront plus utilisables dans le studio désactivé. Cela s'applique également aux abonnements liés.",
                 "actions": {
                     "close": "Fermer",
-                    "submit": "Désactiver le partage"
+                    "submit": "Ne plus partager"
                 }
             },
             "companyEmpty": "Aucun studio n'est configuré pour accepter cette carte de cours",
@@ -9212,14 +9252,20 @@
                 "actions": {
                     "close": "Fermer",
                     "submit": "Enregistrer"
+                },
+                "editConfirmation": {
+                    "confirm": "Sauvegarder",
+                    "cancel": "Annuler",
+                    "content": "Vos modifications seront également appliquées aux abonnements liés à cette carte de RDV partagée. Êtes-vous sûr de vouloir continuer et enregistrer vos modifications ?",
+                    "title": "Confirmation de modification"
                 }
             },
             "deleteForm": {
-                "title": "Désactivation",
-                "content": "En désactivant une carte partagée, les membres possédant cette carte ne pourront plus l'utiliser que dans le studio dans lequel il l'ont acheté.",
+                "title": "Supprimer la carte de RDV partagée",
+                "content": "Les membres pourront toujours utiliser la carte de RDV dans le studio où ils l'ont achetée. Tout abonnement lié à cette carte de RDV ne fonctionnera également que dans ce même studio.",
                 "actions": {
                     "close": "Fermer",
-                    "submit": "Désactiver le partage"
+                    "submit": "Supprimer"
                 }
             },
             "actions": {
@@ -11742,6 +11788,9 @@
                     },
                     "shopTemplates": {
                         "_label": "Magasin"
+                    },
+                    "contractTemplates": {
+                        "_label": "Abonnements"
                     }
                 },
                 "emailTemplates": {
@@ -14474,7 +14523,7 @@
             "title": "Liste des {{ workflowPluralLowerCase }}"
         },
         "audience": {
-            "content": "Utilisée dans le {{ workflowLowerCase }} :  {{- workflow_name }}",
+            "content": "Utilisée dans le {{ workflowLowerCase }} : {{- workflow_name }}",
             "content_plural": "Utilisée dans {{ count }} {{ workflowPluralLowerCase }}"
         },
         "downloadReport": "Télécharger le rapport",
@@ -15130,6 +15179,16 @@
             "register": {
                 "success": "Abonnement enregistré avec succès",
                 "error": "Impossible d'enregistrer l'abonnement"
+            },
+            "contractTemplate": {
+                "createError": "Échec de la création de l'abonnement",
+                "createSuccess": "Abonnement créé avec succès",
+                "editError": "Échec de la sauvegarde de l'abonnement",
+                "editSuccess": "Abonnement sauvegardé avec succès",
+                "restoreError": "Échec de la restauration de l'abonnement",
+                "restoreSuccess": "Abonnement restauré avec succès",
+                "deleteError": "Échec de l'archivage de l'abonnement",
+                "deleteSuccess": "Abonnement archivé avec succès"
             }
         },
         "webhook": {
@@ -15714,7 +15773,7 @@
             "cancel": "Annuler",
             "submit": "Confirmer",
             "takeSpotError": "La place que vous avez sélectionnée pour ce cours n’est plus disponible. Merci d’en sélectionner une nouvelle.",
-            "book": "Réserver la place {{prefix}}{{indexType}}",
+            "book": "Réserver la place {{prefix}}{{indexType}}{{suffix}}",
             "legend": "Légende"
         },
         "roomBlueprintSelectorTitle": "Choisir un plan",
@@ -15756,7 +15815,16 @@
             "missImageSelected": "Vous n'avez pas chargé l'image pour la place selectionnée",
             "saved": "Emplacement enregistré",
             "deleted": "Emplacement supprimé",
-            "alertDefaultSpot": "En modifiant le spot par défaut, tous les spots par défaut présents sur l'ensemble des plans seront alors identiquement modifiés"
+            "alertDefaultSpot": "En modifiant le spot par défaut, tous les spots par défaut présents sur l'ensemble des plans seront alors identiquement modifiés",
+            "suffix": "Suffixe",
+            "suffixExplain": "Le caractère indiqué ici apparaîtra comme suffixe aux numéros d'emplacement",
+            "suffixError": "Le suffixe doit être composé d'une seule lettre",
+            "nameCustomization": {
+                "suffix": "Numéro de l'emplacement avec un suffixe",
+                "prefix": "Numéro de l'emplacement avec un préfixe",
+                "none": "Numéro de l'emplacement seulement",
+                "title": "Format du nom de l'emplacement"
+            }
         },
         "forms": {
             "delete": {
@@ -16117,7 +16185,8 @@
                     "missingObject": "Ce champ est obligatoire",
                     "missingPaymentCombo": "Vous devez sélectionner un pack",
                     "missingPrivatePass": "Vous devez sélectionner une carte de RDV",
-                    "missingPaymentPack": "Vous devez sélectionner une carte de cours"
+                    "missingPaymentPack": "Vous devez sélectionner une carte de cours",
+                    "moreThanThreeDecimalPrice": "Il semble que vous ayez saisi plus de deux décimales. Veuillez ajuster le montant au centime le plus proche."
                 },
                 "object_type": {
                     "label": "Type d'abonnement",
@@ -16384,7 +16453,8 @@
             "payment_combo": "Pack",
             "stopNote": "Note d'annulation",
             "contractTermsAccepted": "Les <0>mentions légales</0> ont été acceptées le {{- dateAccepted}}.",
-            "secondBillingPlanEnabled": "Deuxième plan de facturation activé"
+            "secondBillingPlanEnabled": "Deuxième plan de facturation activé",
+            "source_company": "Achetée à"
         },
         "schedule": {
             "provisionalTitle": "Echéancier prévisionnel",
@@ -16415,7 +16485,8 @@
             "canceled": "Stoppée",
             "expired": "Expirée",
             "paused": "En pause",
-            "valid": "Valide"
+            "valid": "Valide",
+            "willSubscribeOn": "L'abonnement débutera le {{- date}}"
         },
         "copyLink": "Copier le lien vers la page de paiement",
         "contractPause": {
@@ -16735,7 +16806,60 @@
             "content": "Pour se conformer à la loi allemande (FCCA), après 2 ans d'abonnement, le renouvellement doit être d'une durée inférieure à un an. Êtes-vous sûr de vouloir continuer?",
             "title": "Renouvellement automatique"
         },
-        "germanNbIntervalAlert": "Pour se conformer à la loi allemande (FCCA), le nombre de factures doit être inférieur à 24."
+        "germanNbIntervalAlert": "Pour se conformer à la loi allemande (FCCA), le nombre de factures doit être inférieur à 24.",
+        "billingPlanStatus": {
+            "valid": "Valide",
+            "paused": "En pause",
+            "expired": "Expirée",
+            "canceled": "Arrêt programmé"
+        },
+        "filters": {
+            "all": "Tous les abonnements"
+        },
+        "franchiseUserProfile": {
+            "associatedPassValidity": "Valide ",
+            "associatedInvoices": "Factures associées",
+            "pleaseSelectASubscription": "Sélectionnez un abonnement pour obtenir une vue plus détaillée."
+        },
+        "contractTemplate": {
+            "form": {
+                "sharedPassesSelectorTooltip": "Les franchisés qui ont accès à cette carte de cours partagée auront également accès à l'abonnement",
+                "sharedAppointmentPassesSelectorTooltip": "Les franchisés qui ont accès à cette carte de RDV partagée auront également accès à l'abonnement",
+                "title": "Abonnement"
+            },
+            "detailPage": {
+                "sharedStudios": "Partagée avec les franchisés suivants :"
+            },
+            "filter": {
+                "associatedPass": "Carte de cours associée",
+                "productType": "Produit",
+                "appointmentPasses": "Cartes de RDV",
+                "passes": "Cartes de cours",
+                "studios": "Franchisés",
+                "searchPlaceholder": "Rechercher un abonnement",
+                "availability": "Disponibilité",
+                "unavailableForEveryone": "Indisponible pour tous",
+                "staffOnly": "Staff uniquement",
+                "memberOnly": "Membre uniquement",
+                "availableForEveryone": "Disponible pour tous",
+                "noFilters": "Tous les abonnements"
+            },
+            "dialog": {
+                "delete": {
+                    "confirm": "Supprimer",
+                    "cancel": "Annuler",
+                    "content": "Êtes-vous sûr de vouloir supprimer l'abonnement partagé ?",
+                    "title": "Confirmation de suppression"
+                }
+            },
+            "icons": {
+                "restore": "Restaurer"
+            },
+            "list": {
+                "isEmpty": "Pas d'abonnements partagés"
+            },
+            "backofficeEditWarning": "L'abonnement est partagé par le compte maître. Certains paramètres ont été prédéfinis par ce compte maître et ne peuvent pas être modifiés."
+        }
     },
     "tag": {
         "memberStatus": "Statut du membre : ",
@@ -19439,7 +19563,10 @@
                 "successTitle": "Titre de la confirmation"
             },
             "hideWidgets": "Cacher tous les widgets pour les utilisateurs non connectés",
-            "disconnectedStatusConfigTitle": "Configuration de l'état déconnecté"
+            "disconnectedStatusConfigTitle": "Configuration de l'état déconnecté",
+            "loginButton": {
+                "openMemberProfile": "Ouvrir le profil du membre lorsque l'utilisateur se connecte"
+            }
         },
         "create": "Général",
         "customize": "Personnalisation",

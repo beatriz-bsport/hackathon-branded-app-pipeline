@@ -10,6 +10,8 @@ import {
 import { Cancel, CheckCircle } from '@material-ui/icons';
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
+import { LIGHT_RED_BACKGROUND_COLOR } from '#src/libs/member/constants';
+
 type SuccessDialogProps = {
   closeDialog: () => void;
   onSeeClick: () => void;
@@ -106,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   errorIconOutline: {
-    backgroundColor: '#FFF0EF',
+    backgroundColor: LIGHT_RED_BACKGROUND_COLOR,
     height: 110,
     width: 110,
     borderRadius: '50%',

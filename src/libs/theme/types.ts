@@ -140,6 +140,7 @@ export type Theme = {
   show_barcode_button: boolean;
   show_membership_number: boolean;
   display_new_webshop: boolean;
+  zoho_member_import_enabled: boolean;
 };
 
 export type ThemeState = {

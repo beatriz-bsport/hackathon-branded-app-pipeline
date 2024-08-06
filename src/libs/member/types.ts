@@ -1,5 +1,6 @@
 import { BookingREST } from '#src/libs/booking/types';
 import type { ErrorAndLoading, ModelReducerI } from '#src/libs/types';
+import { ImmutableArray } from 'seamless-immutable';
 
 export type User = {
   id: number;
@@ -194,6 +195,7 @@ export type MemberState = ErrorAndLoading &
       minimal: ChangeEmailRequestMinimal | null;
     } & ErrorAndLoading;
     spivi_privacy_settings: ErrorAndLoading;
+    leadManagementUpload: ErrorAndLoading;
   };
 
 export type MemberUploadedFile = {
@@ -270,3 +272,6 @@ export type MemberSearchFilterParams = {
   hide_archived?: boolean;
   only_archived?: boolean;
 };
+
+export type LeadManagementImportBackgroundTaskReturnValue =
+  ImmutableArray<string> | null;

@@ -8,28 +8,19 @@ import {
   Calendar,
   FileAttachment02,
   Gift02,
-  NotificationText,
-  ShoppingCart01,
   Star01,
   Ticket01,
   UserEdit,
 } from '#src/components/untitledui';
-import {
-  getCheckoutUrl,
-  getMarketplaceRoute,
-} from '#src/libs/marketplace/routing-utils';
+import { getMarketplaceRoute } from '#src/libs/marketplace/routing-utils';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import type { SubmenuItem } from '#src/components/css-only/Fabrique/Submenu/types';
-import type { NavigationSection } from '#src/libs/consumer-space/components/reworked/@Navigation/types';
 import type { FranchiseCompany } from '#src/libs/franchise/types';
 
 const useNavigationData = ({
   companyId,
-  isMobile,
-  isNewCheckoutFlow,
   isRelationNavigation,
-  memberName,
   franchisorCompanyList,
   handleCloseSideDrawer,
 }: {
@@ -48,8 +39,6 @@ const useNavigationData = ({
 
   const isWidget = WidgetUtils.isWidget();
 
-  const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
-
   const isAbleToChangeStudio =
     !!franchisorCompanyList?.length && !isWidget && !isRelationNavigation;
 
@@ -61,7 +50,7 @@ const useNavigationData = ({
     [handleCloseSideDrawer],
   );
 
-  const navigationDataMobile: SubmenuItem[] = React.useMemo(
+  const navigationData: SubmenuItem[] = React.useMemo(
     () => [
       {
         title: t('reworked.navigation.myBookings'),
@@ -144,93 +133,7 @@ const useNavigationData = ({
     ],
   );
 
-  const navigationData: NavigationSection[] = React.useMemo(
-    () => [
-      {
-        title: t('reworked.navigation.account.title'),
-        navigationItems: [
-          {
-            title: t('reworked.navigation.account.summary'),
-            icon: <Calendar />,
-            goTo: '/home/',
-            isCurrentRoute: location.pathname.includes('/home/'),
-          },
-          {
-            title: t('reworked.navigation.account.myBookings'),
-            icon: <NotificationText />,
-            goTo: '/booking/',
-            isCurrentRoute: location.pathname.includes('/booking/'),
-          },
-          {
-            title: t('reworked.navigation.account.myPasses'),
-            icon: <Ticket01 />,
-            goTo: '/pack/',
-            isCurrentRoute: location.pathname.includes('/pack/'),
-          },
-          {
-            title: t('reworked.navigation.account.mySubscriptions'),
-            icon: <Star01 />,
-            goTo: '/subscription/',
-            isCurrentRoute: location.pathname.includes('/subscription/'),
-          },
-          {
-            title: t('reworked.navigation.account.myProfile'),
-            icon: <UserEdit />,
-            goTo: '/profile/',
-            isCurrentRoute: location.pathname.includes('/profile/'),
-          },
-        ],
-      },
-      {
-        title: t('reworked.navigation.shop.title'),
-        navigationItems: [
-          {
-            title: t('reworked.navigation.shop.myPurchases'),
-            icon: <ShoppingCart01 />,
-            goTo: checkoutUrl,
-          },
-          {
-            title: t('reworked.navigation.shop.myGiftCards'),
-            icon: <Gift02 />,
-            goTo: '/giftcard/',
-            isCurrentRoute: location.pathname.includes('/giftcard/'),
-          },
-        ],
-      },
-      {
-        title: t('reworked.navigation.payments.title'),
-        hasDivider: true,
-        navigationItems: [
-          {
-            title: t('reworked.navigation.payments.myInvoices'),
-            icon: <FileAttachment02 />,
-            goTo: '/invoice/',
-            isCurrentRoute: location.pathname.includes('/invoice/'),
-          },
-        ],
-      },
-      {
-        isCollapsable: !isMobile,
-        navigationItems: [
-          ...(isMobile
-            ? []
-            : [
-                {
-                  title: memberName,
-                  icon: <UserEdit />,
-                },
-              ]),
-          // TODO: REPLACE BY SUBMENU ITEMS
-          {
-            title: t('reworked.navigation.myAccount.logOut'),
-            goTo: `/login/signout?membership=${companyId}`,
-          },
-        ],
-      },
-    ],
-    [checkoutUrl, companyId, isMobile, location.pathname, memberName, t],
-  );
-  return { navigationData, navigationDataMobile };
+  return navigationData;
 };
 
 export default useNavigationData;

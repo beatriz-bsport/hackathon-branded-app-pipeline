@@ -6,6 +6,7 @@
   display: flex;
   height: calc(100cqh - 72px);
   margin: 0 auto;
+  background: var(--bs-grey-0);
 }
 
 .bs-consumer-navigation__content {

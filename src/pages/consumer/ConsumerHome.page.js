@@ -355,6 +355,7 @@ export class ConsumerHome extends React.Component<Props> {
                     this.props.navigateToRelationAccount
                   }
                   programList={this.props.programList}
+                  push={this.props.push}
                   redirectToCart={this.props.redirectToCart}
                   redirectToMyProfile={this.props.redirectToMyProfile}
                   showCredit={

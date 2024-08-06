@@ -3,7 +3,7 @@ import { Route, Switch, useLocation, useParams } from 'react-router';
 import Immutable from 'seamless-immutable';
 // @ts-expect-error
 import ShopItemPage from '#src/pages/shop/ShopItem.page';
-import ShopItemDetailPage from '#src/pages/shop/ShopItemDetail.page';
+import ShopReworkedProductDetailPage from '#src/pages/shop/ShopReworkedProductDetail.page';
 // @ts-expect-error
 import ShopListPage from '#src/pages/shop/ShopList.page';
 import ShopReworkedProductListPage from '#src/pages/shop/ShopReworkedProductList.page';
@@ -132,7 +132,7 @@ const ShopRouter: React.FC<Props> = ({ pageHeight }) => {
           ) && (
             <Route
               exact
-              component={ShopItemDetailPage}
+              component={ShopReworkedProductDetailPage}
               path="/shop/products/:id"
             />
           )}

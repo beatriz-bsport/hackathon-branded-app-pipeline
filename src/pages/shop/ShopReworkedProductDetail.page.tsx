@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose, withHandlers } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
-import { push } from 'connected-react-router';
+import { push as pushRouter } from 'connected-react-router';
 // @ts-expect-error
 import withQueryParams from '#src/hocs/with-query-params.hoc';
 
@@ -72,6 +72,7 @@ import type {
   ShopItemEdit,
   ShopItemVariantAttributes,
 } from '#src/libs/shop/types';
+import type { Dispatch } from 'src/state/types';
 
 // --- CONSTANTS ---
 import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
@@ -93,11 +94,12 @@ type OwnProps = {
     size?: string;
   };
   setQueryParam: (queryParam: string) => (value: string) => void;
+  backToShopPage: () => void;
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
-export class ShopItemDetailPage extends Component<Props> {
+export class ShopReworkedProductDetailPage extends Component<Props> {
   componentDidMount() {
     this.props.retrieveShopItemUsedInCombo(this.props.id);
     this.props.fetchShopSupplierList();
@@ -419,9 +421,9 @@ const connector = connect(
     fetchShopItemVariantCombinationList:
       fetchShopItemVariantCombinationListAction,
     fetchTags: fetchTagsAction,
-    backToShopPage: () => push('/shop/products'),
     fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
     retrieveFranchise: retrieveFranchiseAction,
+    push: (path: string) => (dispatch: Dispatch) => dispatch(pushRouter(path)),
   },
 );
 
@@ -438,6 +440,10 @@ export default compose<Props, OwnProps>(
       ({ fetchBookkeepingAccountList }) =>
       () =>
         fetchBookkeepingAccountList({ is_active: true }),
+    backToShopPage:
+      ({ push }) =>
+      () =>
+        push('/shop/products'),
   }),
   withTitle(({ shopItem }) => (shopItem ? shopItem.name : '')),
-)(ShopItemDetailPage);
+)(ShopReworkedProductDetailPage);

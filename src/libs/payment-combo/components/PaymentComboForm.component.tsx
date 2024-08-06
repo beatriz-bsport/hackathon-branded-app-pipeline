@@ -282,6 +282,7 @@ export const PaymentComboForm: React.FC<Props> = ({
               {f.form.values.payment_pack_ids.map((id: number, i: number) => (
                 <PaymentPackListItem
                   key={`${id}-${i}`}
+                  asStandardPass
                   dense
                   isPaperVariant
                   onDelete={() => f.remove(i)}
@@ -371,6 +372,7 @@ export const PaymentComboForm: React.FC<Props> = ({
                     return (
                       <PrivatePassListItem
                         key={`${id}-${i}`}
+                        asStandardPass
                         dense
                         onDelete={() => remove(i)}
                         pass={pass}

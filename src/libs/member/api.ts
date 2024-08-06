@@ -11,7 +11,7 @@ import {
   buildUrlParams,
 } from '../../http';
 import { GenericPaginationResults } from '../types';
-import {
+import type {
   MemberMinimal,
   MemberUploadedFile,
   FetchRecipientsParams,
@@ -256,6 +256,15 @@ export function updateDefaultEstablishmentBillingGroup(
   return patchAuth<Member>(
     `${API_V1_URI}/member/${memberId}/update_default_establishment_billing_group/`,
     payload,
+  );
+}
+
+export function uploadLeadManagementFile(file: File) {
+  const formData = new FormData();
+  formData.append('file', file);
+  return postAuth(
+    `${API_V1_URI}/member/upload_lead_management_file/`,
+    formData,
   );
 }
 

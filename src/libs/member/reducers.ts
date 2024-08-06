@@ -29,6 +29,7 @@ import {
   retrieveMemberPendingEmailRequestActions,
   updateSpiviPrivacySettingsActions,
   updateDefaultEstablishmentBillingGroupActions,
+  uploadLeadManagementFileActions,
 } from './actions';
 import { Member, MemberNote, MemberState } from './types';
 import {
@@ -130,6 +131,10 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
   },
   // @ts-expect-error
   updateDefaultEstablishmentBillingGroup: {
+    error: null,
+    loading: false,
+  },
+  leadManagementUpload: {
     error: null,
     loading: false,
   },
@@ -645,6 +650,18 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
         ['updateDefaultEstablishmentBillingGroup', 'loading'],
         action.payload,
       );
+    },
+    [uploadLeadManagementFileActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['leadManagementUpload', 'error'], payload);
+    },
+    [uploadLeadManagementFileActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['leadManagementUpload', 'loading'], payload);
     },
     ...GenericListReducer(membersListWithTagRepo),
     ...GenericListReducer(membersListWithoutTagRepo),

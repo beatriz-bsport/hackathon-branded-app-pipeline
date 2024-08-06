@@ -1,9 +1,12 @@
+import React from 'react';
+
 import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
 import chunk from 'lodash/chunk';
 import { createAction } from 'redux-actions';
 import type { AxiosResponse } from 'axios';
 import URI from 'urijs';
+import { v4 as uuid4 } from 'uuid';
 
 import * as Sentry from '@sentry/react';
 import { fetchEventList } from '#src/libs/event/actions';
@@ -47,6 +50,7 @@ import {
   retrievePendingEmail as retrievePendingEmailAPI,
   updateSpiviPrivacySettings as updateSpiviPrivacySettingsAPI,
   updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAPI,
+  uploadLeadManagementFile as uploadLeadManagementFileAPI,
 } from './api';
 import type {
   Member,
@@ -56,6 +60,7 @@ import type {
   ChangeEmailRequest,
   FetchRecipientsParams,
   MemberSearchFilterParams,
+  LeadManagementImportBackgroundTaskReturnValue,
 } from './types';
 import {
   areAllInCache,
@@ -67,8 +72,8 @@ import {
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import { COMPANY_EVENTS } from './events.utils';
-
 import MemberStatusMergeDialogComponent from './MemberStatusMergeDialog.component';
+import MemberActionsImportLeads from './MemberActionsImportLeads.component';
 
 export const actionTypes = {
   START_FETCH_MEMBER: 'START_FETCH_MEMBER',
@@ -1385,5 +1390,94 @@ export const updateDefaultEstablishmentBillingGroup = (
       }
     }
     dispatch(updateDefaultEstablishmentBillingGroupActions.loading(false));
+  };
+};
+
+export const uploadLeadManagementFileActions = {
+  isLoading: createAction<boolean>(
+    'MEMBER/UPLOAD_LEAD_MANAGEMENT_FILE/LOADING',
+  ),
+  error: createAction<Error | null>('MEMBER/UPLOAD_LEAD_MANAGEMENT_FILE/ERROR'),
+};
+
+export const uploadLeadManagementFile = (
+  file: File,
+  options?: OptionCallback,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(uploadLeadManagementFileActions.isLoading(true));
+    dispatch(uploadLeadManagementFileActions.error(null));
+    try {
+      const response = await uploadLeadManagementFileAPI(file);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask<LeadManagementImportBackgroundTaskReturnValue>(
+          backgroundTaskUuid,
+          {
+            onSuccess: (backgroundTask) => {
+              // The background task will return nothing if all the rows in the import succeeded,
+              // otherwise, it will return the paths of the files that were saved during the import process.
+              const isFullSuccess = !Array.isArray(backgroundTask.return_value);
+
+              const customDialogComponent = isFullSuccess
+                ? () => React.createElement(MemberActionsImportLeads.Success)
+                : () =>
+                    React.createElement(
+                      MemberActionsImportLeads.PartialSuccess,
+                      {
+                        errorFileDownloadUrl: backgroundTask.return_value[1],
+                        successFileDownloadUrl: backgroundTask.return_value[0],
+                      },
+                    );
+
+              options?.onSuccess?.();
+
+              dispatch(
+                displayCustomBackgroundDialog({
+                  uuid: backgroundTaskUuid,
+                  customDialogComponent,
+                }),
+              );
+            },
+            // This error occurs when the manager tries to upload two files at the same time
+            onError: () => {
+              dispatch(
+                displayCustomBackgroundDialog({
+                  uuid: backgroundTaskUuid,
+                  customDialogComponent: () =>
+                    React.createElement(MemberActionsImportLeads.Failure),
+                }),
+              );
+            },
+          },
+        ),
+      );
+    } catch (err) {
+      console.error(err);
+
+      dispatch(uploadLeadManagementFileActions.error(err));
+
+      const errorCodes = err.response.data?.map(
+        (error: { error_code: number }) => error.error_code,
+      );
+
+      const uuid = uuid4();
+
+      dispatch(
+        displayCustomBackgroundDialog({
+          uuid,
+          customDialogComponent: () =>
+            React.createElement(MemberActionsImportLeads.Failure, {
+              errorCodes: errorCodes,
+            }),
+        }),
+      );
+
+      options?.onError?.(err);
+    }
+    setTimeout(
+      () => dispatch(uploadLeadManagementFileActions.isLoading(false)),
+      5000,
+    );
   };
 };

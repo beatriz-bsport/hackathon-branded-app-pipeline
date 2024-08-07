@@ -30,6 +30,7 @@ import MarketplaceAppBar from '#src/libs/marketplace/components/@AppBar/Marketpl
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import Analytics from '#src/components/analytics/Analytics.component';
 import CustomFormPortal from '#Fabrique/Temporary/CustomFormPortal';
+import MarketplaceNavigation from '#src/libs/marketplace/components/@Navigation/MarketplaceNavigation';
 
 import {
   addItemToBasket,
@@ -51,6 +52,7 @@ import {
   getCheckoutUrl,
 } from '#src/libs/marketplace/routing-utils';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
+import { getBasketBuyableItemsCount } from '#src/libs/checkout/utils';
 
 import { fetchProfile } from '#src/libs/consumer-space/actions';
 
@@ -72,7 +74,10 @@ import { CustomFormTitle } from '#src/libs/custom-form/components/CustomFormTitl
 import { getMyControlableMemberList } from '#src/libs/relationship/selectors';
 import { fetchMyControlableMemberList } from '#src/libs/relationship/actions';
 import { getFranchisor } from '#src/libs/franchise/selectors';
-import { getMarketplaceSettings } from '#src/libs/marketplace/selectors';
+import {
+  getMarketplaceSettings,
+  getMarketplaceSettingsConfig,
+} from '#src/libs/marketplace/selectors';
 import {
   MARKETPLACE_PATH_TAB_CALENDAR,
   MARKETPLACE_PATH_TAB_PASS,
@@ -106,6 +111,7 @@ import { getTheme } from '../../theme';
 import MarketplaceBasketSummaryDialogCssOnly from '../../libs/marketplace/components/@Basket/MarketplaceBasketSummaryDialogCssOnly';
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
+import Config from '../../config';
 
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
@@ -199,6 +205,10 @@ type State = {
   loginDialogOpen: boolean,
 };
 
+const isLocalOrDev = !['production', 'staging'].includes(
+  Config.REACT_APP_SENTRY_ENVIRONMENT,
+);
+
 export class MarketPlace extends Component<Props, State> {
   state = {
     currentBasketOpen: false,
@@ -209,8 +219,9 @@ export class MarketPlace extends Component<Props, State> {
   fetchData = () => {
     this.props.retrieveCompanyCssConfiguration(this.props.companyId);
     this.props.fetchCompanyTheme(this.props.companyId, {
-      onSuccess: (theme) => {
-        if (theme.franchisor) this.props.retrieveFranchise(theme.franchisor);
+      onSuccess: (companyTheme) => {
+        if (companyTheme.franchisor)
+          this.props.retrieveFranchise(companyTheme.franchisor);
       },
     });
     this.props.fetchCompanyCustomSignUp({ company: this.props.companyId });
@@ -483,7 +494,7 @@ export class MarketPlace extends Component<Props, State> {
 
     if (
       companyThemeLoading ||
-      !this.props.theme ||
+      !this.props.companyTheme ||
       this.props.settingsLoading ||
       !(this.props.settings && this.props.settings.config)
     ) {
@@ -495,31 +506,66 @@ export class MarketPlace extends Component<Props, State> {
     }
 
     if (
-      !!this.props.theme.company_name &&
+      !!this.props.companyTheme.company_name &&
       this.props.companyName.toLowerCase() !==
-        this.props.theme.company_name.toLowerCase()
+        this.props.companyTheme.company_name.toLowerCase()
     ) {
       this.props.replace(
         `${urlToMarketplace(
-          this.props.theme.company_name,
+          this.props.companyTheme.company_name,
           this.props.companyId,
         )}/${this.props.subcomponent || ''}`,
       );
     }
 
+    if (isLocalOrDev) {
+      return (
+        <MarketplaceNavigation
+          authStateInvalidFields={this.props.errorFields}
+          authStateLoading={this.props.loginProcessing}
+          authUsername={this.props.auth.username || ''}
+          basketProductListCount={getBasketBuyableItemsCount(
+            this.props.currentBasket?.checkout_items ?? [],
+          )}
+          companyTheme={this.props.companyTheme}
+          customConfiguration={this.props.customConfiguration}
+          franchisor={this.props.franchisor}
+          handleCloseLoginDialog={this.closeLogin}
+          handleCloseSignUpDialog={this.closeSignup}
+          handleEmailLogin={this.doEmailLogin}
+          handleSubmitCustomForm={this.submitCustomForm}
+          handleSubmitDraftCustomForm={this.handleSubmitDraft}
+          isAuthenticated={this.props.auth.authenticated}
+          isAuthStateError={!!this.props.auth.error}
+          isLoginDialogOpen={this.state.loginDialogOpen}
+          isSettingsConfigLoading={false}
+          isSignUpDialogOpen={this.state.signupDialogOpen}
+          onRequestResetPassword={this.onRequestResetPassword}
+          onToggleSignUpDialog={this.toggleSignUp}
+          push={this.props.push}
+          signUpCustomForm={this.props.signUpCustomForm}
+          tabConfigList={this.props.marketplaceSettingsConfig}
+        >
+          {this.renderContent()}
+        </MarketplaceNavigation>
+      );
+    }
+
     return (
-      <MuiThemeProvider theme={getTheme(this.props.theme)}>
+      <MuiThemeProvider theme={getTheme(this.props.companyTheme)}>
         <MemberShipValidationWrapper companyId={this.props.companyId}>
           <Analytics
-            theme={this.props.theme}
+            theme={this.props.companyTheme}
             username={(this.props.auth && this.props.auth.username) || ''}
           />
 
           {!!this.props.customConfiguration &&
             !!this.props.customConfiguration.apply_on_marketplace && (
               <>
-                {!!this.props.theme?.widget_theme && (
-                  <ApplyCustomTheme styles={this.props.theme.widget_theme} />
+                {!!this.props.companyTheme?.widget_theme && (
+                  <ApplyCustomTheme
+                    styles={this.props.companyTheme.widget_theme}
+                  />
                 )}
                 <ApplyCustomCssStyles
                   customConfiguration={this.props.customConfiguration}
@@ -548,7 +594,7 @@ export class MarketPlace extends Component<Props, State> {
                   STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
                 )
               }
-              logo={this.props.theme.cover}
+              logo={this.props.companyTheme.cover}
               navigateBackToMasterRelation={
                 this.props.navigateBackToMasterRelation
               }
@@ -560,21 +606,23 @@ export class MarketPlace extends Component<Props, State> {
               requestSignUp={() => this.toggleSignUp(true)}
               settings={this.props.settings}
               tabSelected={this.props.tabSelected}
-              theme={this.props.theme}
-              websiteURL={this.props.theme.websiteURL}
+              theme={this.props.companyTheme}
+              websiteURL={this.props.companyTheme.websiteURL}
             />
             <div className={classes.content}>{this.renderContent()}</div>
 
-            {this.props.theme?.display_new_checkout_flow ? (
+            {this.props.companyTheme?.display_new_checkout_flow ? (
               <MarketplaceBasketSummaryDialogCssOnly
                 basket={this.props.currentBasket}
                 goToCheckout={() =>
                   this.props.goToCheckout(
                     this.props.currentBasket.company,
-                    this.props.theme?.display_new_checkout_flow,
+                    this.props.companyTheme?.display_new_checkout_flow,
                   )
                 }
-                isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
+                isExcludingTax={
+                  this.props.companyTheme.is_tax_excluded_in_marketplace
+                }
                 loading={this.props.currentBasketLoading}
                 onAddCheckoutItem={(data, options?) =>
                   this.props.addItemToBasket(
@@ -598,10 +646,12 @@ export class MarketPlace extends Component<Props, State> {
                 goToCheckout={() =>
                   this.props.goToCheckout(
                     this.props.currentBasket.company,
-                    this.props.theme?.display_new_checkout_flow,
+                    this.props.companyTheme?.display_new_checkout_flow,
                   )
                 }
-                isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
+                isExcludingTax={
+                  this.props.companyTheme.is_tax_excluded_in_marketplace
+                }
                 loading={this.props.currentBasketLoading}
                 onAddCheckoutItem={(data, options?) =>
                   this.props.addItemToBasket(
@@ -647,7 +697,7 @@ export class MarketPlace extends Component<Props, State> {
                     loading={this.props.auth.loading}
                     onRequestResetPassword={this.onRequestResetPassword}
                     requestSignUp={() => this.toggleSignUp(true)}
-                    theme={this.props.theme}
+                    theme={this.props.companyTheme}
                   />
                 </div>
               </DialogContent>
@@ -655,7 +705,7 @@ export class MarketPlace extends Component<Props, State> {
             {CUSTOM_FORM_CSS_VARIANT_ACTIVATED ? (
               <CustomFormPortal
                 generalTermsAndConditions={
-                  this.props.theme.general_terms_of_use
+                  this.props.companyTheme.general_terms_of_use
                 }
                 initial={this.props.signUpCustomForm}
                 isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
@@ -674,7 +724,7 @@ export class MarketPlace extends Component<Props, State> {
                 onSubmit={this.submitCustomForm}
                 onSubmitDraft={this.handleSubmitDraft}
                 title={t('form.signUpTitle')}
-                waiver={this.props.theme.waiver}
+                waiver={this.props.companyTheme.waiver}
               />
             ) : (
               <CustomFormViewDialogComponent
@@ -693,7 +743,7 @@ export class MarketPlace extends Component<Props, State> {
                 <div className={classes.customFormContainer}>
                   <CustomFormView
                     general_terms_and_conditions={
-                      this.props.theme.general_terms_of_use
+                      this.props.companyTheme.general_terms_of_use
                     }
                     initial={this.props.signUpCustomForm}
                     layouts={
@@ -704,7 +754,7 @@ export class MarketPlace extends Component<Props, State> {
                     onCancel={this.handlCancelCustomForm}
                     onSubmit={this.submitCustomForm}
                     onSubmitDraft={this.handleSubmitDraft}
-                    waiver={this.props.theme.waiver}
+                    waiver={this.props.companyTheme.waiver}
                   />
                 </div>
               </CustomFormViewDialogComponent>
@@ -816,7 +866,7 @@ export default compose(
       currentBasket: getCurrentBasket(state),
       currentBasketLoading: state.checkout.basket.current.loading,
       consumerProfile: state.consumer.profile,
-      theme: state.theme.theme,
+      companyTheme: state.theme.theme,
       companyThemeLoading: state.theme.loading,
       settings: getMarketplaceSettings(state),
       settingsLoading: state.marketplace.loading,
@@ -825,6 +875,7 @@ export default compose(
       emailExists: state.auth.emailExists.exists,
       signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
       customConfiguration: state.exportableComponents.customCss,
+      marketplaceSettingsConfig: getMarketplaceSettingsConfig(state),
     }),
     {
       // General information

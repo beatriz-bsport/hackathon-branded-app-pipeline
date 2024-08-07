@@ -31,6 +31,7 @@ type Props = {
   handleDeleteModalOpening: () => void;
   handleEditDrawerOpening: () => void;
   isCategoryDefault: boolean;
+  isSearchDisabled: boolean;
   pushRouter: (path: string) => CallHistoryMethodAction<[string, unknown?]>;
   reportId: number;
   upsertActionsDisabled: boolean;
@@ -45,10 +46,11 @@ const ReportDetailHeader: React.FC<Props> = ({
   handleDeleteModalOpening,
   handleEditDrawerOpening,
   isCategoryDefault,
+  isSearchDisabled,
   pushRouter,
   reportId,
-  upsertActionsDisabled,
   setHydratedLoading,
+  upsertActionsDisabled,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -92,7 +94,7 @@ const ReportDetailHeader: React.FC<Props> = ({
                   additionalParams={{ category: categoryName }}
                   className={classes.search}
                   initialValues={[reportId]}
-                  isDisabled={!hasReadPermission}
+                  isDisabled={!hasReadPermission || isSearchDisabled}
                   onChange={handleSelectOnChange}
                   searchedObjectType="reportV2"
                   setHydratedLoading={setHydratedLoading}

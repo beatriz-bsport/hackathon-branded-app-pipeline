@@ -41,6 +41,7 @@ type Props = {
   pushRouter: (
     selectedReportId: string,
   ) => CallHistoryMethodAction<[string, unknown?]>;
+  reportCategoriesDisabled: boolean;
   setIsNavigationDrawerExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -50,6 +51,7 @@ const ReportDetailNavigationDrawer: React.FC<Props> = ({
   isFranchisor,
   categoryName,
   pushRouter,
+  reportCategoriesDisabled,
   setIsNavigationDrawerExpanded,
 }) => {
   const { t } = useTranslation('reporting');
@@ -132,6 +134,7 @@ const ReportDetailNavigationDrawer: React.FC<Props> = ({
                   <ListItem
                     button
                     className={classes.globalCategory}
+                    disabled={reportCategoriesDisabled}
                     onClick={handleGlobalCategoryClick(globalCategory.title)}
                     selected={
                       !!globalCategory.categories.find(
@@ -159,6 +162,7 @@ const ReportDetailNavigationDrawer: React.FC<Props> = ({
                           key={category.category}
                           button
                           className={classes.category}
+                          disabled={reportCategoriesDisabled}
                           onClick={handleClickCategory(
                             category.category,
                             category.reportId,

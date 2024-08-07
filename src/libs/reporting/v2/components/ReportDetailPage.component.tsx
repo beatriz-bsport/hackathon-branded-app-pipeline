@@ -294,10 +294,13 @@ const ReportDetailPage: React.FC<Props> = ({
           handleDeleteModalOpening={handleDeleteModalState(true)}
           handleEditDrawerOpening={handleEditDrawerState(true)}
           isCategoryDefault={report?.is_category_default}
+          isSearchDisabled={reportGeneratedRows.loading}
           pushRouter={pushRouter}
           reportId={reportId}
           setHydratedLoading={setHydratedLoading}
-          upsertActionsDisabled={reportCategoriesMetadata.loading}
+          upsertActionsDisabled={
+            reportCategoriesMetadata.loading || reportGeneratedRows.loading
+          }
         />
         <ReportDetailContent
           categoryName={categoryName}

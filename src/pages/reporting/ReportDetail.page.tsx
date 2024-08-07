@@ -347,6 +347,7 @@ const ReportingDetail: React.FC<Props> = ({
         isNavigationDrawerExpanded={isNavigationDrawerExpanded}
         items={metadataGroupedByGlobalCategory}
         pushRouter={pushRouter}
+        reportCategoriesDisabled={reportGeneratedRows.loading}
         setIsNavigationDrawerExpanded={setIsNavigationDrawerExpanded}
       />
       <ReportDetailPage

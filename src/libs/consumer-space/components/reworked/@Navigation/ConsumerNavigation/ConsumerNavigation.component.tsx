@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
@@ -36,7 +36,6 @@ import './styles.css';
 
 type Props = {
   push: (path: string) => void;
-  buildUrl: (string: any) => string;
   companyLogo: string;
   companyWebsiteUrl?: string;
   companyName: string;
@@ -69,19 +68,12 @@ const ConsumerNavigation: React.FC<Props> = ({
   basketProductListCount,
   tabConfigList,
   push,
-  buildUrl,
 }) => {
   const { t } = useTranslation('consumerSpace');
   const { width } = useViewport();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
   const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
-
-  const [isBottomDrawerOpen, setIsBottomDrawerOpen] = useState(false);
-
-  const toggleBottomDrawer = useCallback(() => {
-    setIsBottomDrawerOpen((prevState) => !prevState);
-  }, [setIsBottomDrawerOpen]);
 
   const linksList: AppBarTab[] = useMemo(
     () =>
@@ -141,7 +133,7 @@ const ConsumerNavigation: React.FC<Props> = ({
     handleSetStackNavigationState,
   } = useNavigationSideDrawerData();
 
-  const { navigationData, navigationDataMobile } = useNavigationData({
+  const navigationData = useNavigationData({
     companyId,
     hasMultipleMembership,
     isMobile,
@@ -169,20 +161,13 @@ const ConsumerNavigation: React.FC<Props> = ({
         isOpen={isSideDrawerOpen}
         leftIcon={<ArrowLeft fill="currentColor" />}
         stackNavigationState={stackNavigationState}
-        submenuItems={navigationDataMobile}
+        submenuItems={navigationData}
         subtitle={t('reworked.navigation.exploreYourProfile')}
         title={memberName && `${memberName},`}
       />
 
       <div className="bs-consumer-navigation__layout">
-        <NavigationSideBar
-          buildUrl={buildUrl}
-          isBottomDrawerOpen={isBottomDrawerOpen}
-          isMobile={isMobile}
-          memberName={memberName}
-          navigationMenu={navigationData}
-          onBottomDrawerClose={toggleBottomDrawer}
-        />
+        <NavigationSideBar items={navigationData} memberName={memberName} />
         <main
           className={classNames('bs-consumer-navigation__content', {
             'bs-consumer-navigation__content--mobile': isMobile,

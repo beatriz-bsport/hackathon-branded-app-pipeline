@@ -1,63 +1,43 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-import NavigationList from '#src/components/css-only/Navigation/NavigationList';
-import { PortalContainer } from '#src/components/css-only/Fabrique/PortalContainer';
-import BottomDrawer from '#src/components/css-only/Fabrique/BottomDrawer';
-import type { NavigationProps } from '#src/libs/consumer-space/components/reworked/@Navigation/types';
+import Submenu from '#Fabrique/Submenu';
+import Title from '#Fabrique/Title';
+
+import type { SubmenuItem } from '#Fabrique/Submenu/types';
 
 import './styles.css';
 
-const NavigationSideBar: React.FC<NavigationProps> = ({
-  isBottomDrawerOpen,
-  isMobile,
-  navigationMenu,
-  buildUrl,
-  memberName,
-  onBottomDrawerClose,
-}) => {
+type Props = {
+  items?: SubmenuItem[];
+  memberName?: string;
+};
+
+const NavigationSideBar: React.FC<Props> = ({ items, memberName }) => {
   const { t } = useTranslation('consumerSpace');
 
-  if (!navigationMenu) return null;
-
-  if (isMobile)
-    return (
-      <PortalContainer wrapperId="bs-consumer-space-navigation__portal-container">
-        <BottomDrawer
-          blanketProps={{
-            isOpen: isBottomDrawerOpen,
-            onClick: onBottomDrawerClose,
-          }}
-          modalDialogProps={{
-            title: `${memberName},`,
-            subtitle: t('reworked.exploreYourProfile'),
-            classes: {
-              content: 'bs-consumer-space-navigation__bottom-drawer__content',
-            },
-          }}
-        >
-          {navigationMenu.map((navigationSection) => (
-            <NavigationList
-              key={navigationSection.title}
-              buildUrl={buildUrl}
-              {...navigationSection}
-              onBottomDrawerClose={onBottomDrawerClose}
-            />
-          ))}
-        </BottomDrawer>
-      </PortalContainer>
-    );
   return (
-    <aside className="bs-consumer-space-navigation-sidebar__root">
-      <nav className="bs-consumer-space-navigation-sidebar__navigation">
-        {navigationMenu.map((navigationSection) => (
-          <NavigationList
-            key={navigationSection.title}
-            buildUrl={buildUrl}
-            {...navigationSection}
+    <aside className="bs-consumer-navigation__layout__sidebar__root">
+      <div className="bs-consumer-navigation__layout__sidebar-container">
+        <Title
+          classes={{
+            title: 'bs-consumer-navigation__layout__sidebar__title',
+            subTitle: 'bs-consumer-navigation__layout__sidebar__subtitle',
+          }}
+          className="bs-consumer-navigation__layout__sidebar__text"
+          subtitle={t('reworked.navigation.exploreYourProfile')}
+          title={memberName && `${memberName},`}
+          variant="sm"
+        />
+
+        <nav className="bs-consumer-navigation__layout__sidebar__navigation">
+          <Submenu
+            className="bs-consumer-navigation__layout__sidebar__navigation__submenu"
+            items={items}
           />
-        ))}
-      </nav>
+        </nav>
+      </div>
     </aside>
   );
 };

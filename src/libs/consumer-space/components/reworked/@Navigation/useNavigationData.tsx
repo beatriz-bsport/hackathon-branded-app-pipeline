@@ -25,11 +25,7 @@ const useNavigationData = ({
   handleCloseSideDrawer,
 }: {
   companyId: number;
-  hasMultipleMembership: boolean;
-  isMobile: boolean;
-  isNewCheckoutFlow: boolean;
   isRelationNavigation: boolean;
-  memberName: string;
   franchisorCompanyList: FranchiseCompany[];
   handleCloseSideDrawer: () => void;
 }) => {

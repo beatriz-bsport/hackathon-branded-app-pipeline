@@ -40,7 +40,6 @@ type Props = {
   companyWebsiteUrl?: string;
   companyName: string;
   companyId: number;
-  hasMultipleMembership: boolean;
   isNewCheckoutFlow: boolean;
   isRelationNavigation: boolean;
   memberName: string;
@@ -58,7 +57,6 @@ const ConsumerNavigation: React.FC<Props> = ({
   companyWebsiteUrl,
   companyName,
   companyId,
-  hasMultipleMembership,
   isNewCheckoutFlow,
   isRelationNavigation,
   memberName,
@@ -135,11 +133,7 @@ const ConsumerNavigation: React.FC<Props> = ({
 
   const navigationData = useNavigationData({
     companyId,
-    hasMultipleMembership,
-    isMobile,
-    isNewCheckoutFlow,
     isRelationNavigation,
-    memberName,
     franchisorCompanyList,
     handleCloseSideDrawer,
   });

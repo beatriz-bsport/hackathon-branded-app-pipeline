@@ -1,0 +1,20 @@
+.bs-marketplace-navigation__root {
+  display: grid;
+  grid-template-rows: var(--bs-navigation-app-bar-height) calc(
+      100dvh - var(--bs-navigation-app-bar-height)
+    );
+  max-height: 100dvh;
+  container: bsMarketplaceNavigation / inline-size;
+}
+
+.bs-marketplace-navigation__content {
+  overflow-y: auto;
+}
+
+.bs-marketplace-navigation__content--mobile {
+}
+
+@container bsMarketplaceNavigation (width < 660px) {
+  .bs-marketplace-navigation__content {
+  }
+}

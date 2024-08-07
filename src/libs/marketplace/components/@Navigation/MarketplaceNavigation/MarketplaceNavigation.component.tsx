@@ -1,0 +1,323 @@
+import React, { useCallback, useMemo } from 'react';
+import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
+import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { DialogContent, DialogTitle } from '@material-ui/core';
+
+import {
+  ArrowLeft,
+  ShoppingCart01,
+  UserCircle,
+} from '#src/components/untitledui';
+import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
+import {
+  fromConfigToUrl,
+  getCheckoutUrl,
+} from '#src/libs/marketplace/routing-utils';
+import { getDefaultTitleForComponent } from '#src/libs/exportable-components/utils';
+import { urlToMarketplace } from '#src/libs/marketplace/utils';
+// @ts-expect-error JS
+import Analytics from '#src/components/analytics/Analytics.component';
+import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppBar';
+import NavigationSideDrawer from '#src/components/css-only/Navigation/NavigationSideDrawer/NavigationSideDrawer.component';
+import useNavigationData from '#src/libs/marketplace/components/@Navigation/useNavigationData';
+import useViewport from '#Fabrique/hooks/useViewport';
+import MemberShipValidationWrapper from '#src/pages/consumer/MemberShipValidationWrapper.component';
+import Login from '#src/components/css-only/Login/Login.component';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import ApplyCustomTheme from '#src/libs/exportable-components/ApplyCustomTheme.component';
+import ApplyCustomCssStyles from '#src/libs/widget/components/ApplyCustomCssStyles.component';
+// @ts-expect-error JS
+import { getTheme } from '#src/theme';
+import CustomFormView from '#src/libs/custom-form/components/consumer-form/CustomFormView.form';
+import CustomFormViewDialog from '#src/libs/custom-form/components/consumer-form/CustomFormViewDialog.component';
+import CustomFormPortal from '#Fabrique/Temporary/CustomFormPortal';
+import { CustomFormTitle } from '#src/libs/custom-form/components/CustomFormTitle.component';
+
+import useNavigationSideDrawerData from '#src/components/css-only/Navigation/NavigationSideDrawer/useNavigationSideDrawerData.hook';
+
+import type {
+  AppBarButton,
+  AppBarTab,
+} from '#src/components/css-only/Navigation/NavigationAppBar/types';
+import type { MarketplaceTabConfig } from '#src/libs/marketplace/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type { MarketplaceCSSConfiguration } from '#src/libs/exportable-components/types';
+import type { CustomForm } from '#src/libs/custom-form/types';
+import type { Franchise } from '#src/libs/franchise/types';
+
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
+
+import './styles.css';
+
+type Props = {
+  // Due to MUI provider we have to pass the whole company theme
+  companyTheme: CompanyTheme;
+  authUsername: string;
+  isAuthenticated: boolean;
+  isLoginDialogOpen: boolean;
+  isSignUpDialogOpen: boolean;
+  signUpCustomForm: CustomForm;
+  customConfiguration: MarketplaceCSSConfiguration;
+  /** The number of products in the current member basket */
+  basketProductListCount?: number;
+  /** The current company's marketplace settings config */
+  tabConfigList: MarketplaceTabConfig[];
+  isAuthStateError: boolean;
+  authStateInvalidFields: {
+    email?: string;
+    password?: string;
+  };
+  authStateLoading: boolean;
+  franchisor?: Franchise;
+  push: (path: string) => void;
+  onToggleSignUpDialog: (value: boolean) => void;
+  handleCloseLoginDialog: () => void;
+  handleCloseSignUpDialog: () => void;
+  handleSubmitCustomForm: () => void;
+  handleSubmitDraftCustomForm: () => void;
+  handleEmailLogin: ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => void;
+  onRequestResetPassword: (url: string) => void;
+};
+
+const MarketplaceNavigation: React.FC<Props> = ({
+  companyTheme,
+  authUsername,
+  isAuthenticated,
+  isLoginDialogOpen,
+  isSignUpDialogOpen,
+  signUpCustomForm,
+  customConfiguration,
+  basketProductListCount,
+  tabConfigList,
+  isAuthStateError,
+  authStateInvalidFields,
+  authStateLoading,
+  franchisor,
+  children,
+  push,
+  onToggleSignUpDialog,
+  handleCloseLoginDialog,
+  handleCloseSignUpDialog,
+  handleSubmitCustomForm,
+  handleSubmitDraftCustomForm,
+  handleEmailLogin,
+  onRequestResetPassword,
+}) => {
+  const { t } = useTranslation('consumerSpace');
+  const { width } = useViewport();
+  const classes = useStyles();
+  const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
+
+  const checkoutUrl = useMemo(
+    () =>
+      getCheckoutUrl(
+        companyTheme.company,
+        companyTheme.display_new_checkout_flow,
+      ),
+    [companyTheme.company, companyTheme.display_new_checkout_flow],
+  );
+
+  const linksList: AppBarTab[] = useMemo(
+    () =>
+      (tabConfigList ?? []).map((tabConfig) => ({
+        id: `bs-navigation-app-bar-link-${tabConfig.index}`,
+        label:
+          tabConfig.title ||
+          getDefaultTitleForComponent(tabConfig.component_type, t),
+        color: 'grey',
+        onClick: () => {
+          push(
+            `${urlToMarketplace(
+              companyTheme.company_name,
+              companyTheme.company.toString(),
+            )}/${fromConfigToUrl(
+              {
+                component_type: tabConfig.component_type,
+                config: tabConfig.config,
+                configIndex: tabConfig.index,
+              },
+              { tabSelected: tabConfig.index },
+            )}`,
+          );
+        },
+      })),
+    [tabConfigList, t, push, companyTheme.company_name, companyTheme.company],
+  );
+
+  const actionsList: AppBarButton[] = useMemo(
+    () => [
+      {
+        label: t('reworked.appbar.cart'),
+        color: 'grey',
+        leftIcon: <ShoppingCart01 />,
+        onClick: () => push(checkoutUrl),
+        variant: isMobile ? 'text' : 'outlined',
+        isIconButton: isMobile,
+        badgeValue: basketProductListCount,
+      },
+      {
+        label: t('reworked.appbar.myAccount'),
+        color: 'grey',
+        leftIcon: <UserCircle />,
+        onClick: () => push(`/c/${companyTheme.company}/profile/`),
+        variant: isMobile ? 'text' : 'outlined',
+        isIconButton: isMobile,
+      },
+    ],
+    [
+      basketProductListCount,
+      checkoutUrl,
+      companyTheme.company,
+      isMobile,
+      push,
+      t,
+    ],
+  );
+
+  const {
+    stackNavigationState,
+    isSideDrawerOpen,
+    handleCloseSideDrawer,
+    handleToggleSideDrawer,
+    handleBackArrowClick,
+    handleSetStackNavigationState,
+  } = useNavigationSideDrawerData();
+
+  const navigationData = useNavigationData({
+    companyId: companyTheme.company,
+    linksList,
+    handleCloseSideDrawer,
+  });
+
+  const handleToggleSignUpDialog = useCallback(
+    (value: boolean) => () => onToggleSignUpDialog(value),
+    [onToggleSignUpDialog],
+  );
+
+  return (
+    <MuiThemeProvider theme={getTheme(companyTheme)}>
+      <MemberShipValidationWrapper companyId={companyTheme.company}>
+        <div className="bs-marketplace-navigation__root">
+          <NavigationAppBar
+            actions={actionsList}
+            isMobile={isMobile}
+            links={linksList}
+            logo={companyTheme.cover}
+            onOpenAppBarMenuClick={handleToggleSideDrawer}
+            websiteUrl={companyTheme.websiteURL}
+          />
+
+          <NavigationSideDrawer
+            handleBackArrowClick={handleBackArrowClick}
+            handleSetStackNavigationState={handleSetStackNavigationState}
+            isOpen={isSideDrawerOpen}
+            leftIcon={<ArrowLeft fill="currentColor" />}
+            stackNavigationState={stackNavigationState}
+            submenuItems={navigationData}
+          />
+
+          <main
+            className={classNames('bs-marketplace-navigation__content', {
+              'bs-marketplace-navigation__content--mobile': isMobile,
+            })}
+          >
+            {children}
+          </main>
+
+          <Analytics theme={companyTheme} username={authUsername || ''} />
+          {!!customConfiguration?.apply_on_marketplace && (
+            <>
+              {!!companyTheme?.widget_theme && (
+                <ApplyCustomTheme styles={companyTheme.widget_theme} />
+              )}
+              <ApplyCustomCssStyles customConfiguration={customConfiguration} />
+            </>
+          )}
+
+          <GenericResponsiveDialog
+            maxWidth="sm"
+            onClose={handleCloseLoginDialog}
+            open={isLoginDialogOpen && !isAuthenticated && !isSignUpDialogOpen}
+          >
+            <DialogContent>
+              <div className="bs-setup-variable" id="bs-setup-derived-variable">
+                <Login
+                  company
+                  isPremium
+                  logoHidden
+                  doEmailLogin={handleEmailLogin}
+                  error={isAuthStateError}
+                  errorFields={authStateInvalidFields}
+                  franchisor={franchisor}
+                  loading={authStateLoading}
+                  onRequestResetPassword={onRequestResetPassword}
+                  requestSignUp={handleToggleSignUpDialog(true)}
+                  theme={companyTheme}
+                />
+              </div>
+            </DialogContent>
+          </GenericResponsiveDialog>
+
+          {CUSTOM_FORM_CSS_VARIANT_ACTIVATED ? (
+            <CustomFormPortal
+              generalTermsAndConditions={companyTheme.general_terms_of_use}
+              initial={signUpCustomForm}
+              isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
+              isOpen={
+                isSignUpDialogOpen && !isAuthenticated && !!signUpCustomForm
+              }
+              layouts={signUpCustomForm ? signUpCustomForm.layout : null}
+              onCancel={handleCloseSignUpDialog}
+              onClose={handleCloseSignUpDialog}
+              onSubmit={handleSubmitCustomForm}
+              onSubmitDraft={handleSubmitDraftCustomForm}
+              title={t('form.signUpTitle')}
+              waiver={companyTheme.waiver}
+            />
+          ) : (
+            // @ts-expect-error
+            <CustomFormViewDialog
+              fullWidth
+              maxWidth="md"
+              onClose={handleCloseSignUpDialog}
+              open={isSignUpDialogOpen && !isAuthenticated && signUpCustomForm}
+            >
+              <DialogTitle>
+                <CustomFormTitle isCompany title={t('form.signUpTitle')} />
+              </DialogTitle>
+              <div className={classes.customFormContainer}>
+                <CustomFormView
+                  general_terms_and_conditions={
+                    companyTheme.general_terms_of_use
+                  }
+                  initial={signUpCustomForm}
+                  layouts={signUpCustomForm ? signUpCustomForm.layout : null}
+                  onCancel={handleCloseSignUpDialog}
+                  onSubmit={handleSubmitCustomForm}
+                  onSubmitDraft={handleSubmitDraftCustomForm}
+                  waiver={companyTheme.waiver}
+                />
+              </div>
+            </CustomFormViewDialog>
+          )}
+        </div>
+      </MemberShipValidationWrapper>
+    </MuiThemeProvider>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  customFormContainer: {
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+}));
+
+export default React.memo(MarketplaceNavigation);

@@ -86,3 +86,13 @@
   background-color: var(--bs-color-border-weak);
   margin: var(--bs-space-size-2) 0;
 }
+
+.bs-fabrique-submenu-list-item__container__root {
+}
+
+.bs-fabrique-submenu-list-item__nested__root {
+}
+
+.bs-fabrique-submenu-list-item__nested__root--hidden {
+  display: none;
+}

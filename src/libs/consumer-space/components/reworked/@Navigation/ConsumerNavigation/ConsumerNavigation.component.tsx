@@ -3,13 +3,16 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
+import {
+  fromConfigToUrl,
+  getCheckoutUrl,
+} from '#src/libs/marketplace/routing-utils';
 import { getDefaultTitleForComponent } from '#src/libs/exportable-components/utils';
-import { fromConfigToUrl } from '#src/libs/marketplace/routing-utils';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppBar';
 import useViewport from '#Fabrique/hooks/useViewport';
 import NavigationSideBar from '#src/components/css-only/Navigation/NavigationSideBar';
-import useNavigationData from '../useNavigationData';
+import useNavigationData from '#src/libs/consumer-space/components/reworked/@Navigation/useNavigationData';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 
 import {
@@ -49,8 +52,6 @@ type Props = {
   basketProductListCount?: number;
   /** The current company's marketplace settings config */
   tabConfigList: MarketplaceTabConfig[];
-  redirectToCart: () => void;
-  redirectToMyProfile: () => void;
 };
 
 const ConsumerNavigation: React.FC<Props> = ({
@@ -69,12 +70,12 @@ const ConsumerNavigation: React.FC<Props> = ({
   tabConfigList,
   push,
   buildUrl,
-  redirectToCart,
-  redirectToMyProfile,
 }) => {
   const { t } = useTranslation('consumerSpace');
   const { width } = useViewport();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
+
+  const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
 
   const [isBottomDrawerOpen, setIsBottomDrawerOpen] = useState(false);
 
@@ -114,7 +115,7 @@ const ConsumerNavigation: React.FC<Props> = ({
         label: t('reworked.appbar.cart'),
         color: 'grey',
         leftIcon: <ShoppingCart01 />,
-        onClick: redirectToCart,
+        onClick: () => push(checkoutUrl),
         variant: isMobile ? 'text' : 'outlined',
         isIconButton: isMobile,
         badgeValue: basketProductListCount,
@@ -123,12 +124,12 @@ const ConsumerNavigation: React.FC<Props> = ({
         label: t('reworked.appbar.myAccount'),
         color: 'grey',
         leftIcon: <UserCircle />,
-        onClick: redirectToMyProfile,
+        onClick: () => push(`/c/${companyId}/profile/`),
         variant: isMobile ? 'text' : 'outlined',
         isIconButton: isMobile,
       },
     ],
-    [basketProductListCount, isMobile, redirectToCart, redirectToMyProfile, t],
+    [basketProductListCount, checkoutUrl, companyId, isMobile, push, t],
   );
 
   const {

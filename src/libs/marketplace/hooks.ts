@@ -24,8 +24,9 @@ import {
 import { PaymentCombo } from '#src/libs/payment-combo/types';
 import type { Establishment } from '#src/libs/establishment/types';
 import type { CompanyTheme, Theme } from '#src/libs/theme/types';
-import {
+import type {
   Offer,
+  OfferREST,
   OfferWithSpotInformation,
   Offer_FULL,
 } from '#src/libs/offer/types';
@@ -257,7 +258,7 @@ export const useMarketplacePassFlatLists = ({
 };
 
 export const useOfferHours = (
-  offer: Offer | OfferWithSpotInformation | Offer_FULL,
+  offer: Offer | OfferWithSpotInformation | Offer_FULL | OfferREST,
   establishment: Establishment,
   metaActivity: MetaActivity,
   theme: Theme,
@@ -480,14 +481,14 @@ export const useMarketplaceFixedDialog = (
 };
 
 export const useOfferFormattedDate = (
-  offer: Offer_FULL | OfferWithSpotInformation,
+  offer: Offer_FULL | OfferWithSpotInformation | OfferREST,
+  establishment: Establishment,
+  metaActivity: MetaActivity,
   companyTheme: CompanyTheme,
 ) => {
-  const timezoneName = offer?.meta_activity?.is_broadcast
+  const timezoneName = metaActivity?.is_broadcast
     ? getUserZone()
-    : offer?.establishment?.tzname ||
-      companyTheme?.timezone_name ||
-      'Europe/Paris';
+    : establishment?.tzname || companyTheme?.timezone_name || 'Europe/Paris';
   const dateStart = offer?.date_start
     ? DateTime.fromISO(offer.date_start).setZone(timezoneName)
     : null;

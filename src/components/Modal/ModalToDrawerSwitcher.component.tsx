@@ -1,51 +1,50 @@
 import React from 'react';
 
-import Modal from '@material-ui/core/Modal';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 
 import useViewport from '#src/components/css-only/Fabrique/hooks/useViewport';
-import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
-
-type DrawerAnchor = 'top' | 'bottom' | 'left' | 'right';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import BottomDrawer from '#Fabrique/BottomDrawer';
+import { CONSUMER_SPACE_MODAL_TO_DRAWER_BREAKPOINT } from '#src/libs/consumer-space/constants';
 
 type Props = {
   /** Content to display inside the mobile drawer / modal window */
   children: React.ReactElement;
-  /** custom string to tell from which side the drawer should open */
-  drawerAnchor: DrawerAnchor;
   /** Name of the pass being removed */
   isOpen: boolean;
   /** Handler function fired when closing the modal / drawer */
   onClose: () => void;
   /** Handler function fired when opening the modal / drawer*/
   onOpen?: () => void;
+  maxWidth: Breakpoint;
 };
 
 const ModalToDrawerSwitcher: React.FC<Props> = ({
   children,
-  drawerAnchor = 'bottom',
   isOpen,
   onClose,
-  onOpen,
+  maxWidth,
 }) => {
   const { width } = useViewport();
 
-  const isMobile: boolean = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
+  const isMobile: boolean = width < CONSUMER_SPACE_MODAL_TO_DRAWER_BREAKPOINT;
 
   return isMobile ? (
-    <SwipeableDrawer
-      disablePortal
-      anchor={drawerAnchor}
+    <BottomDrawer
+      blanketProps={{ isOpen, onClick: onClose }}
+      className="bs-consumer-booking-spot-scheduling-drawer__root"
+    >
+      <div className="bs-setup-variable">{children}</div>
+    </BottomDrawer>
+  ) : (
+    <GenericResponsiveDialog
+      fullScreenBreakpoint="xs"
+      maxWidth={maxWidth}
       onClose={onClose}
-      onOpen={onOpen}
       open={isOpen}
     >
-      {children}
-    </SwipeableDrawer>
-  ) : (
-    <Modal disablePortal onClose={onClose} open={isOpen}>
-      {children}
-    </Modal>
+      <div className="bs-setup-variable">{children}</div>
+    </GenericResponsiveDialog>
   );
 };
 

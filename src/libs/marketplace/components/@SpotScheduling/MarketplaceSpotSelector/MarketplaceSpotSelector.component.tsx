@@ -193,7 +193,6 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
           goToCheckout={props.goToCheckout}
           // @ts-expect-error
           metaActivity={props.metaActivity || props.offer?.meta_activity}
-          // @ts-expect-error
           offer={props.offer}
           spotId={props.spotCurrentlyInBasket}
         />

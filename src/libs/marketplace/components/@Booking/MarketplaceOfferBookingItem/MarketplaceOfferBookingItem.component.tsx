@@ -50,7 +50,12 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
   onOpenAddGuestModal,
   getOfferWaitListPosition,
 }) => {
-  const formattedDate = useOfferFormattedDate(offer, companyTheme);
+  const formattedDate = useOfferFormattedDate(
+    offer,
+    offer.establishment,
+    offer.meta_activity,
+    companyTheme,
+  );
   const { t } = useTranslation('booking');
 
   const offerHours = useOfferHours(

@@ -165,11 +165,6 @@ type Props = {
   navigateBackToMasterRelation: () => void,
   marketplaceSettings: MarketplaceSettings,
 } & WithTranslation;
-
-const isLocalOrDev = !['production', 'staging'].includes(
-  Config.REACT_APP_SENTRY_ENVIRONMENT,
-);
-
 export class ConsumerHome extends React.Component<Props> {
   UNSAFE_componentWillMount() {
     if (this.props.from_basket) {
@@ -323,7 +318,7 @@ export class ConsumerHome extends React.Component<Props> {
         <MemberShipValidationWrapper companyId={this.props.companyId}>
           <>
             {this.props.membership ? (
-              isLocalOrDev ? (
+              displayReworkedMemberProfile ? (
                 <ConsumerNavigation
                   buildUrl={this.props.buildUrl}
                   buttonsData={this.getConsumerMobileNavigationButtonsData()}
@@ -379,27 +374,17 @@ export class ConsumerHome extends React.Component<Props> {
                   <Switch>
                     <Route
                       path="/c/:companyId/booking/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerBookingReworked
-                          : ConsumerBooking,
-                      )}
+                      render={this.attachConsumerProps(ConsumerBookingReworked)}
                     />
                     <Route
                       path="/c/:companyId/subscription/"
                       render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerSubscriptionReworked
-                          : ConsumerSubscription,
+                        ConsumerSubscriptionReworked,
                       )}
                     />
                     <Route
                       path="/c/:companyId/pack/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerPassReworked
-                          : ConsumerPack,
-                      )}
+                      render={this.attachConsumerProps(ConsumerPassReworked)}
                     />
                     <Route
                       path="/c/:companyId/vod/"
@@ -413,19 +398,11 @@ export class ConsumerHome extends React.Component<Props> {
                     />
                     <Route
                       path="/c/:companyId/invoice/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerInvoiceReworked
-                          : ConsumerInvoice,
-                      )}
+                      render={this.attachConsumerProps(ConsumerInvoiceReworked)}
                     />
                     <Route
                       path="/c/:companyId/profile/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerProfileReworked
-                          : ConsumerProfile,
-                      )}
+                      render={this.attachConsumerProps(ConsumerProfileReworked)}
                     />
                     <Route
                       path="/c/:companyId/giftcard/"
@@ -507,27 +484,15 @@ export class ConsumerHome extends React.Component<Props> {
                   <Switch>
                     <Route
                       path="/c/:companyId/booking/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerBookingReworked
-                          : ConsumerBooking,
-                      )}
+                      render={this.attachConsumerProps(ConsumerBooking)}
                     />
                     <Route
                       path="/c/:companyId/subscription/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerSubscriptionReworked
-                          : ConsumerSubscription,
-                      )}
+                      render={this.attachConsumerProps(ConsumerSubscription)}
                     />
                     <Route
                       path="/c/:companyId/pack/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerPassReworked
-                          : ConsumerPack,
-                      )}
+                      render={this.attachConsumerProps(ConsumerPack)}
                     />
                     <Route
                       path="/c/:companyId/vod/"
@@ -541,19 +506,11 @@ export class ConsumerHome extends React.Component<Props> {
                     />
                     <Route
                       path="/c/:companyId/invoice/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerInvoiceReworked
-                          : ConsumerInvoice,
-                      )}
+                      render={this.attachConsumerProps(ConsumerInvoice)}
                     />
                     <Route
                       path="/c/:companyId/profile/"
-                      render={this.attachConsumerProps(
-                        displayReworkedMemberProfile
-                          ? ConsumerProfileReworked
-                          : ConsumerProfile,
-                      )}
+                      render={this.attachConsumerProps(ConsumerProfile)}
                     />
                     <Route
                       path="/c/:companyId/giftcard/"

@@ -398,7 +398,6 @@ const ResponsiveDrawer: React.FC<Props> = ({
               getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
             text: t('backofficeMenu.coupon'),
           } as DrawerItemDefault,
-          { type: 'divider' } as DrawerItemDivider,
           {
             to: '/subscription/contract',
             icon: Payment,

@@ -51,6 +51,18 @@ const getTranslations = async () => {
         blockedByTags:
           "It's not possible to book this session without the correct tags.",
       },
+      multiSession: {
+        addSession: {
+          dialogTitle: 'Add a session',
+          dialogSubtitle: 'Select the session that you want to book',
+          fetchButton: 'Show more',
+        },
+        selectSpot: {
+          dialogTitle: 'Spot',
+          dialogSubtitle: 'Select your spot for the class',
+          validationButton: 'Add session',
+        },
+      },
       messages: {
         offerLocked: 'Error when booking',
         maleUnavailable:

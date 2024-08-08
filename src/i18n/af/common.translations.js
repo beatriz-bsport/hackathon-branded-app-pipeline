@@ -1,6 +1,7 @@
 exports.default = {
   text: { showLessText: 'Show less', showMoreText: 'Show more' },
   close: 'Close',
+  add: 'Add',
   colorPicker: { validate: 'Save', delete: 'Clear', noColor: 'No color' },
   positiveNumber: 'This field must be greater than 0.',
   form: {

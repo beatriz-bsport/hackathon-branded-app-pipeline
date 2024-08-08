@@ -226,6 +226,18 @@
         "isAlreadyRegistered": "You've already booked this session.",
         "blockedByTags": "It's not possible to book this session without the correct tags."
       },
+      "multiSession": {
+        "addSession": {
+          "dialogTitle": "Add a session",
+          "dialogSubtitle": "Select the session that you want to book",
+          "fetchButton": "Show more"
+        },
+        "selectSpot": {
+          "dialogTitle": "Spot",
+          "dialogSubtitle": "Select your spot for the class",
+          "validationButton": "Add session"
+        }
+      },
       "messages": {
         "offerLocked": "Error when booking",
         "maleUnavailable": "The session is no longer available for reservation for men.",
@@ -1073,6 +1085,7 @@
   "common": {
     "text": { "showLessText": "Show less", "showMoreText": "Show more" },
     "close": "Close",
+    "add": "Add",
     "colorPicker": { "validate": "Save", "delete": "Clear", "noColor": "No color" },
     "positiveNumber": "This field must be greater than 0.",
     "form": {

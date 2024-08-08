@@ -24,6 +24,7 @@ export type Props = {
   buttonLoading: boolean;
   onClick: () => void;
   OfferSummaryComponent?: () => React.ReactElement;
+  SimilarOfferButtonComponent?: () => React.ReactElement;
   price?: string;
   displayTax: boolean;
   // To investigate, taxes are decimal therefore strings.
@@ -71,6 +72,7 @@ const BookingConfirmButtonWithOfferSummary: React.FC<Props> = ({
   buttonLoading,
   onClick,
   OfferSummaryComponent,
+  SimilarOfferButtonComponent,
   price,
   displayTax,
   tax,
@@ -148,13 +150,13 @@ const BookingConfirmButtonWithOfferSummary: React.FC<Props> = ({
           {value}
         </Button>
       </div>
+      {SimilarOfferButtonComponent?.()}
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    backgroundColor: theme.palette.background.paper,
     display: 'flex',
     flexDirection: 'column',
   },

@@ -6,13 +6,18 @@ import type {
   CONSUMER_PAYMENT_PACK_IDENTIFIER,
   MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER,
 } from '#src/libs/marketplace/constants';
-import { ConsumerPaymentPack } from '../consumer-payment-pack/types';
-import type { Offer_FULL } from '../offer/types';
-import { PaymentCombo } from '../payment-combo/types';
-import { PaymentPack, MaxoutData } from '../payment-packs/types';
+import type { ConsumerPaymentPack } from '../consumer-payment-pack/types';
+import type { Offer_FULL, OfferREST } from '#src/libs/offer/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { PaymentPack, MaxoutData } from '#src/libs/payment-packs/types';
 
 export type OfferData = {
   offer: Offer_FULL;
+  extra_data: any;
+};
+
+export type MultipleOfferSelectedData = {
+  offer: OfferREST | Offer_FULL;
   extra_data: any;
 };
 

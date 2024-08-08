@@ -26,6 +26,7 @@ import type {
   BookerItem,
   BookerModuleBuyableItem,
   BuyableItemCategory,
+  MultipleOfferSelectedData,
   RecommendedBuyableItem,
 } from '#src/libs/booker-module/types';
 import type { PaymentCombo } from '#src/libs/payment-combo/types';
@@ -39,6 +40,8 @@ import type {
 } from '#src/libs/subscription/types';
 import { computeProrataPriceForSubscription } from '#src/libs/subscription/utils';
 import type { AddGuestFormValues } from '../components/@Booking/MarketplaceBookingAddGuestModal';
+import type { OfferStatus } from '#src/libs/offer/types';
+import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment';
 // pass page category filter - get all of the available categories
 export const getPassFilterAvailableCategories = (
   paymentPackByCategory: Immutable<PaymentPackCategoryWithPacks[]>,
@@ -368,6 +371,108 @@ export const buildDataForUserRegistration = (
   } else {
     data.waiting_list = [];
   }
+  return data;
+};
+
+export const buildDataForUserRegistrationWithMultiSessionsAllowed = (
+  selectedItem: BookerItem,
+  selectedSpotsIds: { [key: number]: number },
+  selectedOffers: MultipleOfferSelectedData[],
+  offerStatusById: { [key: number]: OfferStatus },
+  accept_double_booking: boolean,
+  accept_double_booking_workshop: boolean,
+  selectedSpots?: { [key: number]: string },
+  bookingForGuestValues?: AddGuestFormValues,
+  memberBookingId?: number,
+) => {
+  const data: {
+    consumer_payment_pack?: number;
+    payment_pack?: number;
+    payment_combo?: number;
+    email?: string;
+    offers: {
+      offer_id: number;
+      extra_data: any;
+    }[];
+    waiting_list?: { offer_id: number }[];
+  } = { offers: [] };
+
+  const selectedItemIdentifier = selectedItem?.itemIdentifier;
+  if (selectedItemIdentifier === CONSUMER_PAYMENT_PACK_IDENTIFIER) {
+    data.consumer_payment_pack = selectedItem.data.id;
+  } else if (
+    selectedItemIdentifier === PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER
+  ) {
+    data.payment_pack = selectedItem.data.id;
+  } else if (
+    selectedItemIdentifier === PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER
+  ) {
+    data.payment_combo = selectedItem.data.id;
+  }
+
+  data.offers = selectedOffers
+    .filter(
+      (offerData: MultipleOfferSelectedData) =>
+        getOfferFeature(
+          // @ts-expect-error
+          offerData.offer,
+          offerStatusById,
+          accept_double_booking,
+          accept_double_booking_workshop,
+        ).isBookable,
+    )
+    .map((offerData: MultipleOfferSelectedData) => {
+      const _data = {
+        offer_id: offerData.offer.id,
+        extra_data: {
+          ...(offerData.extra_data || {}),
+          ...(bookingForGuestValues
+            ? {
+                additional_guest_info: [
+                  {
+                    first_name: bookingForGuestValues.firstName,
+                    last_name: bookingForGuestValues.lastName,
+                    email: bookingForGuestValues.email,
+                    spot_id: selectedSpotsIds[offerData.offer.id] ?? null,
+                    spot_name: selectedSpots[offerData.offer.id] ?? null,
+                  },
+                ],
+                booking_for_member: null,
+                booking_for_invitee_only: true,
+              }
+            : {
+                spot_id: selectedSpotsIds[offerData.offer.id] ?? null,
+                spot_name: selectedSpots[offerData.offer.id] ?? null,
+                booking_for_member: memberBookingId || null,
+              }),
+          // booking_for_member: this.state.selectedMember
+          //   ? this.state.selectedMember.id
+          //   : null,
+        },
+      };
+      return _data;
+    });
+
+  data.waiting_list = selectedOffers
+    .filter(
+      (offerData: MultipleOfferSelectedData) =>
+        getOfferFeature(
+          // @ts-expect-error
+          offerData.offer,
+          offerStatusById,
+          accept_double_booking,
+          accept_double_booking_workshop,
+        ).isWaitingList,
+    )
+    .map((offerData: MultipleOfferSelectedData) => ({
+      offer_id: offerData.offer.id,
+      extra_data: {
+        ...(offerData.extra_data || {}),
+        // booking_for_member: this.state.selectedMember
+        //   ? this.state.selectedMember.id
+        //   : null,
+      },
+    }));
   return data;
 };
 

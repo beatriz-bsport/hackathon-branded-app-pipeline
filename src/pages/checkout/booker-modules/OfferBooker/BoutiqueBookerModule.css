@@ -20,6 +20,9 @@
   column-gap: var(--spacing-4);
   row-gap: var(--spacing-1);
   margin: 0;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .bs-new-offer-booking-header {
@@ -34,12 +37,9 @@
 
 .bs-new-offer-booking {
   grid-area: main-left;
-  overflow: auto;
   height: 100%;
   padding-bottom: var(--spacing-6);
   padding-right: var(--spacing-1);
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 
 .bs-new-offer-booking::-webkit-scrollbar {
@@ -350,4 +350,13 @@
   .bs-new-offer-booking__offer-summary {
     display: none;
   }
+}
+
+.bs-new-offer-booking__fetch-more-similar-offers-button {
+  padding: var(--bs-space-size-3);
+  background-color: var(--bs-grey-0);
+  border-radius: calc(var(--bs-border-radius-lg) * 2);
+  color: var(--bs-grey-700);
+  width: 100%;
+  border: 1px solid var(--bs-grey-700);
 }

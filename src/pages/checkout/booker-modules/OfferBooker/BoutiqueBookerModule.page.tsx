@@ -3,6 +3,8 @@ import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
 import { compose, withHandlers } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
+import { ButtonBase } from '@material-ui/core';
+
 import {
   replace as replaceAction,
   push as pushAction,
@@ -44,7 +46,6 @@ import { fetchCurrentBasket as fetchCurrentBasketAction } from '#src/libs/checko
 import { getCurrentBasket } from '#src/libs/checkout/selectors';
 import {
   buildBuyableItemCategories,
-  buildDataForUserRegistration,
   getBookingBlockedReasonIcon,
   getBookingDisplayPrice,
   urlToMarketplace,
@@ -61,12 +62,18 @@ import {
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import {
   retrieveOffer as fetchOffer,
+  fetchSimilarOffersReworked as fetchSimilarOffersReworkedAction,
+  resetSimilarOffersReworked as resetSimilarOffersReworkedAction,
   fetchOfferStatus as fetchOfferStatusAction,
+  fetchOfferStatusList as fetchOfferStatusListAction,
   offerUserRegistration,
   fetchBookingGuestNumber as fetchBookingGuestNumberAction,
   fetchOfferWaitingListPosition as fetchOfferWaitingListPositionAction,
 } from '#src/libs/offer/actions';
 import { getMemberTagsIdsList } from '#src/libs/tag/selectors';
+import { getMetaActivitiesDict } from '#src/libs/meta-activity/selectors';
+import { getAllEstablishmentsDict } from '#src/libs/establishment/selectors';
+import { getAllCoachesDict } from '#src/libs/associated-coach/selectors';
 
 import {
   getContractForBooking,
@@ -110,7 +117,12 @@ import {
 import { fetchCompanyConfiguration } from '#src/libs/waiting-list/actions';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
-import { type Offer, type OfferStatus } from '#src/libs/offer/types';
+import type {
+  Offer,
+  OfferStatus,
+  OfferREST,
+  Offer_FULL,
+} from '#src/libs/offer/types';
 import {
   withEstablishment,
   withCoach,
@@ -118,6 +130,10 @@ import {
   getOfferById,
   getBookingGuestNumberLeft,
   getOfferStatusWaitingListPositionById,
+  getSimilarOffersReworkedByIdList,
+  getSimilarOffersReworkedCount,
+  getSimilarOffersReworkedAllIds,
+  getOfferBookableStatus,
 } from '#src/libs/offer/selectors';
 import { getMarketplaceSettingsConfig } from '#src/libs/marketplace/selectors';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
@@ -136,6 +152,7 @@ import type {
   BookerModuleBuyableItem,
   BuyableItemCategory,
   BuyableItemIdentifier,
+  MultipleOfferSelectedData,
   OfferConstraint,
 } from '#src/libs/booker-module/types';
 import type { PaymentCombo } from '#src/libs/payment-combo/types';
@@ -166,6 +183,7 @@ import CountDown from '#src/components/time/CountDown.component';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import BookerModuleOfferSummary from '#src/libs/marketplace/components/@Offer/BookerModuleOfferSummary';
+import MultiSessionModalStepper from '#src/pages/checkout/booker-modules/SimilarOfferModal/MultiSessionModalStepper.component';
 
 import withScrollHeightListener from '#src/hocs/with-widget-scroll-height-listener.hoc';
 import { RootState } from '../../../../reducers';
@@ -175,17 +193,21 @@ import type { WithHandlerType } from '../../../../utils/types';
 import type { MemberMinimal } from '#src/libs/member/types';
 import BookingForAnotherSelector from '#src/libs/booker-module/components/BookingForAnotherSelector.component';
 
+import { buildDataForUserRegistrationWithMultiSessionsAllowed } from '#src/libs/marketplace/utils/booker-module';
+
 import './BoutiqueBookerModule.css';
 
+const SIMILAR_OFFER_PAGE_SIZE = 7;
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
 type State = {
   offersConstraint: OfferConstraint;
   selectedBuyableItemCategory: BuyableItemCategory | null;
+  selectedOffers: MultipleOfferSelectedData[];
   selectedItem: BookerItem;
   isSpotSelectorOpen: boolean;
-  selectedSpotId: number | null;
-  selectedSpot: string | undefined;
+  selectedSpotsIds: { [key: number]: number };
+  selectedSpots: { [key: number]: string };
   showBuyableItems: boolean;
   confirmLoading: boolean;
   availableConsumerPacks: (ConsumerPaymentPack<PaymentPack> & MaxoutData)[];
@@ -200,6 +222,7 @@ type State = {
     isWaitingListOpenMainReason: boolean;
   };
   offerWasRetrieved: boolean;
+  isSimilarOfferModalOpened: boolean;
   memberBookingId: number;
 };
 
@@ -220,6 +243,9 @@ type OwnProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   goBack: () => void;
   containerRef: React.MutableRefObject<any>;
+  metaActivities: { [key: number]: MetaActivity };
+  establishments: { [key: number]: Establishment };
+  coaches: { [key: number]: Coach };
   relatedMembersList: MemberMinimal[];
 };
 
@@ -236,10 +262,11 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         credit: 0,
       },
       selectedBuyableItemCategory: null,
+      selectedOffers: [],
       selectedItem: null,
       isSpotSelectorOpen: false,
-      selectedSpotId: null,
-      selectedSpot: undefined,
+      selectedSpotsIds: {},
+      selectedSpots: {},
       showBuyableItems: false,
       confirmLoading: false,
       availableConsumerPacks: [],
@@ -248,11 +275,88 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       isWaitingList: false,
       bookingBlockedReason: null,
       offerWasRetrieved: false,
+      isSimilarOfferModalOpened: false,
       memberBookingId: -1,
     };
   }
 
+  fetchSimilarOffers = () => {
+    if (
+      this.props.similarOffersTotalCount !== 0 &&
+      this.props.similarOffersAllIds.length ===
+        this.props.similarOffersTotalCount
+    ) {
+      return;
+    }
+    this.props.offer &&
+      this.props.fetchSimilarOffersReworked(
+        this.props.offer.id,
+        {
+          wide: true,
+          page_size: SIMILAR_OFFER_PAGE_SIZE,
+        },
+        {
+          onSuccess: (offers: OfferREST[]) => {
+            if (offers && offers.length) {
+              this.props.fetchMetaActivityBulk(
+                offers.map((offer) => offer.meta_activity),
+              );
+              this.props.fetchEstablishmentBulk(
+                offers.map((offer) => offer.establishment),
+              );
+
+              const coachesId = [
+                ...new Set(
+                  offers.flatMap((offer) => [
+                    offer.coach,
+                    ...(typeof offer.coach_override === 'number'
+                      ? [offer.coach_override]
+                      : []),
+                  ]),
+                ),
+              ];
+
+              this.props.fetchCoachBulkForCompany(
+                coachesId,
+                this.props.companyId,
+              );
+
+              const roomBlueprintIds = new Set();
+              offers.forEach((offer) => {
+                if (typeof offer.room_blueprint === 'number') {
+                  roomBlueprintIds.add(offer.room_blueprint);
+                }
+              });
+
+              roomBlueprintIds.forEach((blueprint: number) => {
+                this.props.fetchRoomBlueprintDetail(blueprint);
+                this.props.fetchAssetForBlueprint({ blueprint });
+              });
+
+              this.fetchOfferStatusList(offers.map((offer) => offer.id));
+            }
+          },
+        },
+      );
+  };
+
+  fetchOfferStatusList = (offerIds: number[]) => {
+    if (offerIds && offerIds.length) {
+      this.props.fetchOfferStatusList(
+        offerIds,
+        {
+          page_size: SIMILAR_OFFER_PAGE_SIZE,
+          // TODO : add booking for member id like in the OBF
+        },
+        { onSuccess: this.updateOfferConstraints },
+      );
+    } else {
+      this.updateOfferConstraints();
+    }
+  };
+
   componentDidMount() {
+    this.props.resetSimilarOffersReworked();
     if (this.props.companyId) {
       this.props.retrieveCompanyCssConfiguration(this.props.companyId);
       this.props.fetchCurrentBasket(this.props.companyId);
@@ -294,6 +398,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           });
         }
         this.fetchOfferStatus();
+        this.fetchSimilarOffers();
+        // @ts-expect-error
+        this.handleSelectOffer(offer);
       },
     });
   }
@@ -458,32 +565,36 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   updateOfferConstraints = () => {
-    this.setState(() => {
+    this.setState((prevState: State) => {
+      const newOfferConstraints = getOfferContraints(
+        // @ts-expect-error
+        this.props.offer,
+        prevState.selectedOffers,
+        this.props.offerStatusById,
+        /**
+         * For getOfferContraints logic:
+         * in old flow, we could book guest at the same time with member booking
+         * we now always book for 1 person at a time, so no need to provide
+         * the additional guest count anymore
+         */
+        0,
+        this.getIsGuestBooking(),
+      );
       return {
-        offersConstraint: getOfferContraints(
-          // @ts-expect-error
-          this.props.offer,
-          [],
-          this.props.offerStatusById,
-          /**
-           * For getOfferContraints logic:
-           * in old flow, we could book guest at the same time with member booking
-           * we now always book for 1 person at a time, so no need to provide
-           * the additional guest count anymore
-           */
-          0,
-          this.getIsGuestBooking(),
-        ),
+        offersConstraint: newOfferConstraints,
       };
     });
   };
 
   goBackToCalendar = () => {
-    if (this.state.selectedSpot) {
+    if (
+      this.state.selectedSpots &&
+      Object.entries(this.state.selectedSpots).length > 0
+    ) {
       this.setState({
         isSpotSelectorOpen: true,
-        selectedSpot: undefined,
-        selectedSpotId: null,
+        selectedSpots: {},
+        selectedSpotsIds: {},
       });
     } else {
       this.props.goToCalendar({
@@ -523,8 +634,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     }
   };
 
-  updateSpotForOffer = (_: number, index: number) => {
+  updateSpotForOffer = (offerId: number, index: number) => {
     /* This method gets the selected spot in the canvas of plan to build the spot name with the right prefix and suffix */
+
     const spot =
       this.props.roomBlueprintsById?.[
         this.props.offer?.room_blueprint
@@ -546,11 +658,16 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const selectedSpot = spot?.indexType
       ? `${prefix}${spot.indexType}${suffix}`
       : `${prefix}${index}${suffix}`;
-
-    this.setState({
-      selectedSpot,
-      selectedSpotId: index,
-    });
+    this.setState((prevState) => ({
+      selectedSpots: {
+        ...prevState.selectedSpots,
+        [offerId || this.props.offerId]: selectedSpot,
+      },
+      selectedSpotsIds: {
+        ...prevState.selectedSpotsIds,
+        [offerId || this.props.offerId]: index,
+      },
+    }));
   };
 
   closeSpotSelector = () => {
@@ -560,7 +677,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   closeSpotSelectorIfSpotSelected = () => {
-    if (this.state.selectedSpotId !== null) {
+    if (
+      this.state.selectedSpotsIds &&
+      Object.entries(this.state.selectedSpotsIds).length > 0
+    ) {
       this.closeSpotSelector();
     }
   };
@@ -569,7 +689,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     this.props.push(
       getBoutiqueContractCheckoutUrl(this.props.offer.company, contractId, {
         offerId: this.props.offerId,
-        selectedSpotId: this.state.selectedSpotId,
+        selectedSpotId: this.state.selectedSpotsIds[this.props.offerId],
         ...(this.props.queryParams.guest_first_name && {
           guest_first_name: this.props.queryParams.guest_first_name,
         }),
@@ -598,34 +718,28 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
     this.setState({ confirmLoading: true });
 
-    const offerFeature = getOfferFeature(
-      // @ts-expect-error
-      this.props.offer,
-      this.props.offerStatusById,
-      this.props.theme.accept_double_booking,
-      this.props.theme.accept_double_booking_workshop,
-    );
-
-    if (this.getIsGuestBooking() && !this.props.theme.accept_double_booking) {
-      offerFeature.isBookable = true;
-    }
 
     const memberBookingId =
       this.state.memberBookingId !== -1 ? this.state.memberBookingId : null;
 
-    const data = buildDataForUserRegistration(
-      offerFeature,
-      this.state.selectedItem,
-      this.props.offer.id,
-      this.state.selectedSpotId,
-      this.getIsGuestBooking() && {
-        firstName: this.props.queryParams.guest_first_name ?? '',
-        lastName: this.props.queryParams.guest_last_name ?? '',
-        email: this.props.queryParams.guest_email ?? '',
-      },
-      this.state.selectedSpot,
-      memberBookingId,
-    );
+
+  // TODO to refine - a bit awful especially because we kept the old functions
+  const data = buildDataForUserRegistrationWithMultiSessionsAllowed(
+    this.state.selectedItem,
+    this.state.selectedSpotsIds,
+    this.state.selectedOffers,
+    this.props.offerStatusById,
+    this.props.theme.accept_double_booking,
+    this.props.theme.accept_double_booking_workshop,
+    this.state.selectedSpots,
+    this.getIsGuestBooking() && {
+      firstName: this.props.queryParams.guest_first_name ?? '',
+      lastName: this.props.queryParams.guest_last_name ?? '',
+      email: this.props.queryParams.guest_email ?? '',
+    },
+    memberBookingId,
+  );
+
 
     if (
       this.state.selectedItem?.itemIdentifier ===
@@ -640,6 +754,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       data.payment_combo = this.state.selectedItem?.data.id;
       Analytics.addPackToCart(this.state.selectedItem?.data);
     }
+
+    const isBookingSingleSession = data.offers.length === 1;
 
     this.props.offerUserRegistration(
       data,
@@ -669,7 +785,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           this.setState({ confirmLoading: false });
         },
       },
-      { check_offer_unicity: true },
+      { check_offer_unicity: isBookingSingleSession },
     );
   };
 
@@ -737,7 +853,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     );
 
     let isBookingBlocked = !isBookable || blockedByTags;
-
     const { title, message, icon, color, isWaitingListOpenMainReason } =
       getMainOfferNotBookableReasonWithTitle(
         // @ts-expect-error
@@ -815,26 +930,24 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       : this.props.t('booking:newBookingModule.buyPass');
   };
 
-  getCheckoutItemRelatedToOfferSpot = () => {
+  getCheckoutItemRelatedToOfferSpot = (offerId: number) => {
     if (this.props.basketIsLoading) return null;
-
     const offerCheckoutItem = this.props.basket?.checkout_items?.find(
       (checkoutItem) =>
         !!checkoutItem?.extra_data?.offers_data?.[0]?.extra_data?.spot_id &&
-        checkoutItem?.extra_data?.offers_data?.[0]?.offer_id ===
-          this.props.offerId,
+        checkoutItem?.extra_data?.offers_data?.[0]?.offer_id === offerId,
     );
     return offerCheckoutItem;
   };
 
-  getSpotExpirationDatetime = () => {
-    return this.getCheckoutItemRelatedToOfferSpot()?.expiration_datetime;
+  getSpotExpirationDatetime = (offerId: number) => {
+    return this.getCheckoutItemRelatedToOfferSpot(offerId)?.expiration_datetime;
   };
 
-  getSpotCurrentlyInBasket = () => {
+  getSpotCurrentlyInBasket = (offerId: number) => {
     const spotId =
-      this.getCheckoutItemRelatedToOfferSpot()?.extra_data?.offers_data?.[0]
-        ?.extra_data?.spot_id;
+      this.getCheckoutItemRelatedToOfferSpot(offerId)?.extra_data
+        ?.offers_data?.[0]?.extra_data?.spot_id;
 
     return spotId?.toString();
   };
@@ -871,14 +984,156 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     );
   };
 
+  toggleSimilarOfferModal = () => {
+    this.setState((prevState) => ({
+      isSimilarOfferModalOpened: !prevState.isSimilarOfferModalOpened,
+    }));
+  };
+
+  handleSelectOffer = (offer: OfferREST | Offer_FULL) => {
+    if (
+      this.state.selectedOffers.findIndex(
+        (offerIterator) => offerIterator.offer.id === offer.id,
+      ) !== -1
+    ) {
+      return;
+    }
+    this.setState(
+      (prevState: State) => ({
+        selectedOffers: [
+          ...prevState.selectedOffers,
+          { offer, extra_data: {} },
+        ],
+      }),
+      () => {
+        this.fetchOfferStatusList(
+          this.state.selectedOffers.map(
+            (selectedOffer) => selectedOffer.offer.id,
+          ),
+        );
+        this.updateOfferConstraints();
+        if (this.state.isSimilarOfferModalOpened) {
+          this.toggleSimilarOfferModal();
+        }
+      },
+    );
+  };
+
+  handleRemoveOffer = (offerId: number) => {
+    this.setState(
+      (prevState) => {
+        const newSelectedSpots = Object.fromEntries(
+          Object.entries(prevState.selectedSpots).filter(
+            (key) => key && parseInt(key[0], 10) != offerId,
+          ),
+        );
+        const newSelectedSpotsIds = Object.fromEntries(
+          Object.entries(prevState.selectedSpotsIds).filter(
+            (key) => key && parseInt(key[0], 10) != offerId,
+          ),
+        );
+
+        return {
+          selectedOffers: prevState.selectedOffers.filter(
+            (offerIterator) => !(offerIterator.offer.id === offerId),
+          ),
+          selectedSpots: newSelectedSpots,
+          selectedSpotsIds: newSelectedSpotsIds,
+        };
+      },
+      () => {
+        this.updateOfferConstraints();
+        this.fetchOfferStatusList(
+          this.state.selectedOffers.map(
+            (selectedOffer) => selectedOffer.offer.id,
+          ),
+        );
+      },
+    );
+  };
+
+  getUnselectedSimilarOffers = () => {
+    const selectedOffersIds = this.state.selectedOffers.map(
+      ({ offer }) => offer.id,
+    );
+    const unselectedSimilarOffers = Object.values(
+      this.props.similarOffers,
+    ).filter((similarOffer) => !selectedOffersIds.includes(similarOffer.id));
+
+    return unselectedSimilarOffers;
+  };
+
+  getSimilarOfferButtonToDisplay = () => {
+    return (
+      <>
+        {this.props.similarOffers && this.props.similarOffers.length > 0 && (
+          <ButtonBase
+            className="bs-new-offer-booking__fetch-more-similar-offers-button"
+            onClick={this.toggleSimilarOfferModal}
+          >
+            ADD SESSIONS
+          </ButtonBase>
+        )}
+      </>
+    );
+  };
+
+  getOfferSummaryListToDisplay = () => {
+    return (
+      <div>
+        {this.state.selectedOffers.map(({ offer }) => {
+          const metaActivity =
+            typeof offer.meta_activity === 'number'
+              ? this.props.metaActivities[offer.meta_activity]
+              : offer.meta_activity;
+          const establishment =
+            typeof offer.establishment === 'number'
+              ? this.props.establishments[offer.establishment]
+              : offer.establishment;
+          const coach =
+            typeof offer.coach === 'number'
+              ? this.props.coaches[offer.coach]
+              : offer.coach;
+          const offerSummaryLoading =
+            !this.props.offer ||
+            !this.props.offer?.coach ||
+            !this.props.offer?.establishment ||
+            !this.props.offer?.meta_activity;
+
+          return (
+            <BookerModuleOfferSummary
+              key={offer.id}
+              isBookingButtonHidden
+              noStyledContainer
+              showCredits
+              showEstablishmentAddress
+              coach={coach}
+              companyTheme={this.props.theme}
+              doAllowDelete={offer.id !== this.props.offerId}
+              establishment={establishment}
+              expirationDatetime={this.getSpotExpirationDatetime(
+                this.props.offerId,
+              )}
+              goToCheckout={this.props.goTocheckout}
+              guestName={`${this.props.queryParams.guest_first_name} ${
+                this.props.queryParams.guest_last_name ?? ''
+              }`}
+              handleDelete={this.handleRemoveOffer}
+              isGuestBooking={this.getIsGuestBooking()}
+              loading={offerSummaryLoading}
+              metaActivity={metaActivity}
+              offer={offer}
+              spotId={this.state.selectedSpotsIds[offer.id]}
+              spotName={this.state.selectedSpots[offer.id]}
+            />
+          );
+        })}
+      </div>
+    );
+  };
+
   render() {
     const { t, containerRef } = this.props;
-
-    const offerSummaryLoading =
-      !this.props.offer ||
-      !this.props.offer?.coach ||
-      !this.props.offer?.establishment ||
-      !this.props.offer?.meta_activity;
 
     const displayPrice = this.state.selectedItem
       ? getBookingDisplayPrice(this.state.selectedItem)
@@ -905,6 +1160,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.state.selectedItem === null ||
       (this.state.isBookingBlocked &&
         !this.state.bookingBlockedReason.isWaitingListOpenMainReason);
+
+    const isAbleToFetchMoreSimilarSessions =
+      this.props.similarOffersAllIds.length <
+      this.props.similarOffersTotalCount;
 
     if (
       this.state.isSpotSelectorOpen &&
@@ -945,15 +1204,19 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                     this.props.assetByIdBlueprintByIdentifier
                   }
                   closeSpotSelector={this.closeSpotSelector}
-                  expirationDatetime={this.getSpotExpirationDatetime()}
+                  expirationDatetime={this.getSpotExpirationDatetime(
+                    this.props.offerId,
+                  )}
                   fetchOfferStatus={this.fetchOfferStatus}
                   fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
                   goToCheckout={this.props.goTocheckout}
                   offer={this.props.offer}
                   offerStatusById={this.props.offerStatusById}
                   roomBlueprintsById={this.props.roomBlueprintsById}
-                  selectedSpot={this.state.selectedSpotId}
-                  spotCurrentlyInBasket={this.getSpotCurrentlyInBasket()}
+                  selectedSpot={this.state.selectedSpotsIds[this.props.offerId]}
+                  spotCurrentlyInBasket={this.getSpotCurrentlyInBasket(
+                    this.props.offerId,
+                  )}
                   spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
                     this.props.spotTypes,
                   )}
@@ -969,18 +1232,18 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 root: 'bs-new-offer-booking__spot-selector__confirm-button',
               }}
               color={ButtonColor.PRIMARY}
-              isDisabled={this.state.selectedSpotId === null}
+              isDisabled={this.state.selectedSpotsIds === null}
               onClick={this.closeSpotSelectorIfSpotSelected}
             >
               {t('spotScheduling:spotSelector.confirm')}
             </Button>
 
-            {this.getSpotExpirationDatetime() && (
+            {this.getSpotExpirationDatetime(this.props.offerId) && (
               <CountDown
                 timestamp={
-                  this.getSpotExpirationDatetime()
+                  this.getSpotExpirationDatetime(this.props.offerId)
                     ? DateTime.fromISO(
-                        this.getSpotExpirationDatetime(),
+                        this.getSpotExpirationDatetime(this.props.offerId),
                       ).toUnixInteger()
                     : DateTime.fromISO('1970-01-01').toUnixInteger()
                 }
@@ -1013,7 +1276,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       return (
         <div ref={containerRef} className="bs-new-offer-booking-page">
           <OfferBookingWaitingList
-            bookingSpotId={this.state.selectedSpot}
+            bookingSpotId={this.state.selectedSpots[this.props.offerId]}
             companyTheme={this.props.theme}
             isLoading={this.getIsWaitingListLoading()}
             isNoPassCompatibleForBooking={isNoPassCompatibleForBooking}
@@ -1032,26 +1295,27 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     }
 
     return (
-      <div ref={containerRef} className="bs-new-offer-booking-page">
-        <div className="bs-new-offer-booking-page__pricing_container">
-          <div className="bs-new-offer-booking-header">
-            {this.getIsLoading() ? (
-              <Skeleton className="bs-new-offer-booking__header--loading" />
-            ) : (
-              <>
-                <Button
-                  onClick={this.goBackToCalendar}
-                  variant={ButtonVariant.ICON}
-                >
-                  <ArrowBack className="bs-new-offer-booking__consumer-payment-packs__arrow-icon" />
-                </Button>
-                <div className="bs-new-offer-booking__consumer-payment-packs__title">
-                  {this.getPageTitle()}
-                </div>
-              </>
-            )}
-          </div>
-          {!isWaitingList &&
+      <>
+        <div ref={containerRef} className="bs-new-offer-booking-page">
+          <div className="bs-new-offer-booking-page__pricing_container">
+            <div className="bs-new-offer-booking-header">
+              {this.getIsLoading() ? (
+                <Skeleton className="bs-new-offer-booking__header--loading" />
+              ) : (
+                <>
+                  <Button
+                    onClick={this.goBackToCalendar}
+                    variant={ButtonVariant.ICON}
+                  >
+                    <ArrowBack className="bs-new-offer-booking__consumer-payment-packs__arrow-icon" />
+                  </Button>
+                  <div className="bs-new-offer-booking__consumer-payment-packs__title">
+                    {this.getPageTitle()}
+                  </div>
+                </>
+              )}
+            </div>
+            {!isWaitingList &&
             this.props.relatedMembersList &&
             this.props.relatedMembersList.length > 0 && (
               <BookingForAnotherSelector
@@ -1062,144 +1326,142 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               />
             )}
           <div className="bs-new-offer-booking">
-            {this.state.isBookingBlocked && !this.getIsLoading() ? (
-              <MarketplaceBookingBlockedReason
-                bookingBlockedReason={this.state.bookingBlockedReason}
-                goBackToCalendar={this.goBackToCalendar}
-                isLoading={this.getIsLoading()}
-              />
-            ) : (
-              <>
-                {this.state.isWaitingList && (
-                  <Alert severity={AlertSeverity.WARNING}>
-                    {t('booking:newBookingModule.waitingListWarning')}
-                  </Alert>
-                )}
-                <MarketplaceBookerModuleBuyableItems
-                  availableConsumerPacks={this.state.availableConsumerPacks}
-                  bookingConfirmButtonComponent={
-                    <BookingConfirmButtonWithOfferSummary
-                      buttonLoading={this.state.confirmLoading}
-                      disabled={
-                        (offerStatus && !isBookable && !isWaitlistOpen) ||
-                        disableBookingButton ||
-                        this.state.confirmLoading ||
-                        this.getIsLoading()
-                      }
-                      displayTax={
-                        this.props.theme?.is_tax_excluded_in_marketplace
-                      }
-                      // @ts-expect-error
-                      isBookable={isBookable}
-                      OfferSummaryComponent={() => (
-                        <BookerModuleOfferSummary
-                          isBookingButtonHidden
-                          noStyledContainer
-                          showCredits
-                          showEstablishmentAddress
-                          coach={this.props.offer?.coach}
-                          // Must be change, these information can be fetch and display faster to reduce loadig time feelling.
-                          companyTheme={this.props.theme}
-                          establishment={this.props.offer?.establishment}
-                          expirationDatetime={this.getSpotExpirationDatetime()}
-                          goToCheckout={this.props.goTocheckout}
-                          guestName={`${
-                            this.props.queryParams.guest_first_name
-                          } ${this.props.queryParams.guest_last_name ?? ''}`}
-                          isGuestBooking={this.getIsGuestBooking()}
-                          loading={offerSummaryLoading}
-                          metaActivity={this.props.offer?.meta_activity}
-                          offer={this.props.offer}
-                          spotId={this.state.selectedSpotId}
-                          spotName={this.state.selectedSpot}
-                        />
-                      )}
-                      onClick={this.onConfirm}
-                      price={displayPrice}
-                      // @ts-expect-error
-                      tax={this.state.selectedItem?.data?.tax}
-                      value={
-                        !this.props.offer?.full
-                          ? t(`booking:notification.form.submit`)
-                          : t(`booking:offer.mainButton.registerWaitingList`)
-                      }
-                    />
-                  }
-                  buyableItemCategories={this.state.buyableItemCategories}
-                  // @ts-expect-error
-                  companyTheme={this.props.theme}
-                  hideCreditsForCustomers={
-                    this.props.theme.hide_credits_for_customers
-                  }
-                  hideUnnecessaryCompatiblePurchaseMethod={
-                    this.props.theme.hide_unnecessary_compatible_purchase_method
-                  }
-                  isExcludingTax={
-                    this.props.theme.is_tax_excluded_in_marketplace
-                  }
+              {this.state.isBookingBlocked && !this.getIsLoading() ? (
+                <MarketplaceBookingBlockedReason
+                  bookingBlockedReason={this.state.bookingBlockedReason}
+                  goBackToCalendar={this.goBackToCalendar}
                   isLoading={this.getIsLoading()}
-                  isShowBuyableItems={this.state.showBuyableItems}
-                  onClickAll={this.onClickAll}
-                  onClickBuyableItem={this.onClickBuyableItem}
-                  onClickCategory={this.onClickCategory}
-                  onClickShowBuyableItems={this.onClickShowBuyableItems}
-                  onSelectConsumerPaymentPack={this.onSelectConsumerPaymentPack}
-                  selectedBuyableItemCategory={
-                    this.state.selectedBuyableItemCategory
-                  }
-                  selectedItem={this.state.selectedItem}
                 />
-              </>
-            )}
-          </div>
-          <div className="bs-new-offer-booking__offer-summary">
-            <BookingConfirmButtonWithOfferSummary
-              buttonLoading={this.state.confirmLoading}
-              disabled={
-                (offerStatus && !isBookable && !isWaitlistOpen) ||
-                disableBookingButton ||
-                this.state.confirmLoading ||
-                this.getIsLoading()
-              }
-              displayTax={this.props.theme?.is_tax_excluded_in_marketplace}
-              // @ts-expect-error
-              isBookable={isBookable}
-              OfferSummaryComponent={() => (
-                <BookerModuleOfferSummary
-                  isBookingButtonHidden
-                  noStyledContainer
-                  showCredits
-                  showEstablishmentAddress
-                  coach={this.props.offer?.coach}
-                  // Must be change, these information can be fetch and display faster to reduce loadig time feelling.
-                  companyTheme={this.props.theme}
-                  establishment={this.props.offer?.establishment}
-                  expirationDatetime={this.getSpotExpirationDatetime()}
-                  goToCheckout={this.props.goTocheckout}
-                  guestName={`${this.props.queryParams.guest_first_name} ${
-                    this.props.queryParams.guest_last_name ?? ''
-                  }`}
-                  isGuestBooking={this.getIsGuestBooking()}
-                  loading={offerSummaryLoading}
-                  metaActivity={this.props.offer?.meta_activity}
-                  offer={this.props.offer}
-                  spotId={this.state.selectedSpotId}
-                  spotName={this.state.selectedSpot}
-                />
+              ) : (
+                <>
+                  {this.state.isWaitingList && (
+                    <Alert severity={AlertSeverity.WARNING}>
+                      {t('booking:newBookingModule.waitingListWarning')}
+                    </Alert>
+                  )}
+                  <MarketplaceBookerModuleBuyableItems
+                    availableConsumerPacks={this.state.availableConsumerPacks}
+                    bookingConfirmButtonComponent={
+                      <BookingConfirmButtonWithOfferSummary
+                        buttonLoading={this.state.confirmLoading}
+                        disabled={
+                          (offerStatus && !isBookable && !isWaitlistOpen) ||
+                          disableBookingButton ||
+                          this.state.confirmLoading ||
+                          this.getIsLoading()
+                        }
+                        displayTax={
+                          this.props.theme?.is_tax_excluded_in_marketplace
+                        }
+                        // @ts-expect-error
+                        isBookable={isBookable}
+                        OfferSummaryComponent={() =>
+                          this.getOfferSummaryListToDisplay()
+                        }
+                        onClick={this.onConfirm}
+                        price={displayPrice}
+                        SimilarOfferButtonComponent={() =>
+                          this.getSimilarOfferButtonToDisplay()
+                        }
+                        // @ts-expect-error
+                        tax={this.state.selectedItem?.data?.tax}
+                        value={
+                          !this.props.offer?.full
+                            ? t(`booking:notification.form.submit`)
+                            : t(`booking:offer.mainButton.registerWaitingList`)
+                        }
+                      />
+                    }
+                    buyableItemCategories={this.state.buyableItemCategories}
+                    // @ts-expect-error
+                    companyTheme={this.props.theme}
+                    hideCreditsForCustomers={
+                      this.props.theme.hide_credits_for_customers
+                    }
+                    hideUnnecessaryCompatiblePurchaseMethod={
+                      this.props.theme
+                        .hide_unnecessary_compatible_purchase_method
+                    }
+                    isExcludingTax={
+                      this.props.theme.is_tax_excluded_in_marketplace
+                    }
+                    isLoading={this.getIsLoading()}
+                    isShowBuyableItems={this.state.showBuyableItems}
+                    onClickAll={this.onClickAll}
+                    onClickBuyableItem={this.onClickBuyableItem}
+                    onClickCategory={this.onClickCategory}
+                    onClickShowBuyableItems={this.onClickShowBuyableItems}
+                    onSelectConsumerPaymentPack={
+                      this.onSelectConsumerPaymentPack
+                    }
+                    selectedBuyableItemCategory={
+                      this.state.selectedBuyableItemCategory
+                    }
+                    selectedItem={this.state.selectedItem}
+                  />
+                </>
               )}
-              onClick={this.onConfirm}
-              price={displayPrice}
-              // @ts-expect-error
-              tax={this.state.selectedItem?.data?.tax}
-              value={
-                !this.props.offer?.full
-                  ? t(`booking:notification.form.submit`)
-                  : t(`booking:offer.mainButton.registerWaitingList`)
-              }
-            />
+            </div>
+            <div className="bs-new-offer-booking__offer-summary">
+              <BookingConfirmButtonWithOfferSummary
+                buttonLoading={this.state.confirmLoading}
+                disabled={
+                  disableBookingButton ||
+                  this.state.confirmLoading ||
+                  this.getIsLoading()
+                }
+                displayTax={this.props.theme?.is_tax_excluded_in_marketplace}
+                // @ts-expect-error
+                isBookable={isBookable}
+                OfferSummaryComponent={() =>
+                  this.getOfferSummaryListToDisplay()
+                }
+                onClick={this.onConfirm}
+                price={displayPrice}
+                // @ts-expect-error
+                tax={this.state.selectedItem?.data?.tax}
+                value={
+                  !this.props.offer?.full
+                    ? t(`booking:notification.form.submit`)
+                    : t(`booking:offer.mainButton.registerWaitingList`)
+                }
+              />
+              {this.getSimilarOfferButtonToDisplay()}
+            </div>
           </div>
         </div>
-      </div>
+        {this.props.similarOffers && this.props.similarOffers.length > 0 && (
+          <>
+            <MultiSessionModalStepper
+              assetByIdBlueprintByIdentifier={
+                this.props.assetByIdBlueprintByIdentifier
+              }
+              establishments={this.props.establishments}
+              fetchMoreSessions={this.fetchSimilarOffers}
+              fetchOfferStatus={this.fetchOfferStatus}
+              fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+              getSpotCurrentlyInBasket={this.getSpotCurrentlyInBasket}
+              getSpotExpirationDatetime={this.getSpotExpirationDatetime}
+              isAbleToFetchMoreSimilarSessions={
+                isAbleToFetchMoreSimilarSessions
+              }
+              isOpen={this.state.isSimilarOfferModalOpened}
+              metaActivities={this.props.metaActivities}
+              offerStatusById={this.props.offerStatusById}
+              onClose={this.toggleSimilarOfferModal}
+              onConfirm={this.handleSelectOffer}
+              roomBlueprintsById={this.props.roomBlueprintsById}
+              selectedSpotsIds={this.state.selectedSpotsIds}
+              similarOffers={this.getUnselectedSimilarOffers()}
+              spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
+                this.props.spotTypes,
+              )}
+              theme={this.props.theme}
+              updateSpotForOffer={this.updateSpotForOffer}
+            />
+          </>
+        )}
+      </>
     );
   }
 }
@@ -1263,6 +1525,14 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     basketIsLoading: state.checkout.basket.current.loading,
     bookingGuestRemainingCount: getBookingGuestNumberLeft(state),
     offerStatusWaitingListById: getOfferStatusWaitingListPositionById(state),
+    similarOffersTotalCount: getSimilarOffersReworkedCount(state),
+    similarOffersAllIds: getSimilarOffersReworkedAllIds(state),
+    similarOffers: getSimilarOffersReworkedByIdList(state),
+    metaActivities: getMetaActivitiesDict(state),
+    establishments: getAllEstablishmentsDict(state),
+    coaches: getAllCoachesDict(state),
+    getOfferBookableStatus: (offerId: number) =>
+      getOfferBookableStatus(state, offerId),
     relatedMembersList: getMyRelatedMemberList(state) as MemberMinimal[],
     consumerProfile: getConsumerProfile(state),
   };
@@ -1286,6 +1556,9 @@ const mapDispatchToProps = {
   fetchAssetForBlueprint,
   fetchSpotForBlueprint,
   fetchOfferStatus: fetchOfferStatusAction,
+  fetchOfferStatusList: fetchOfferStatusListAction,
+  fetchSimilarOffersReworked: fetchSimilarOffersReworkedAction,
+  resetSimilarOffersReworked: resetSimilarOffersReworkedAction,
   push: pushAction,
   fetchConsumerPaymentPackMaxoutBooking,
   fetchPaymentPackBulk: fetchPaymentPackBulkAction,

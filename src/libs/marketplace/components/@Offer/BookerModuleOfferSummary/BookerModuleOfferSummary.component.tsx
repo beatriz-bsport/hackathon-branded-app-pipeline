@@ -6,6 +6,8 @@ import {
   OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
   OFFER_WAITING_LIST_STATUS_FULL,
 } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+import { ButtonBase } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -21,7 +23,7 @@ import { CardSize } from '#src/components/css-only/Card/types';
 import type { Coach } from '#src/libs/associated-coach/types';
 import type { Establishment } from '#src/libs/establishment/types';
 import type { MetaActivity } from '#src/libs/meta-activity/types';
-import type { OfferStatus, Offer_FULL } from '#src/libs/offer/types';
+import type { OfferREST, OfferStatus, Offer_FULL } from '#src/libs/offer/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
 import {
   useOfferFormattedDate,
@@ -29,6 +31,7 @@ import {
 } from '#src/libs/marketplace/hooks';
 import Chip from '#src/components/css-only/Chip';
 import ActivitySummary from '#src/libs/marketplace/components/@Activity/ActivitySummary';
+import WaitlistPositionChip from '#src/libs/marketplace/components/@Offer/Waitlist/WaitlistPositionChip.component';
 import Price from '#src/components/css-only/Price';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { getCreditsDividedDisplay, getTaxPrice } from '#src/libs/theme/utils';
@@ -40,14 +43,13 @@ import {
 import { BookerModuleOfferSummarySkeleton } from '.';
 
 import './styles.css';
-import WaitlistPositionChip from '#src/libs/marketplace/components/@Offer/Waitlist/WaitlistPositionChip.component';
 
 export type Props = {
   coach?: Coach;
   establishment: Establishment;
   loading?: boolean;
   metaActivity: MetaActivity;
-  offer: Offer_FULL;
+  offer: Offer_FULL | OfferREST;
   /** The spot name e.g `F4` */
   spotName?: string;
   spotId?: string | number;
@@ -67,10 +69,14 @@ export type Props = {
   goToCheckout?: () => void;
   fromSpotSelector?: boolean;
   positionInWaitingList?: number;
+  doAllowDelete?: boolean;
+  handleDelete?: (offerId: number) => void;
 };
 
 const BookerModuleOfferSummary: React.FC<Props> = ({
   coach,
+  doAllowDelete,
+  handleDelete,
   establishment,
   loading,
   metaActivity,
@@ -119,12 +125,17 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
 
   const displayTax = companyTheme?.is_tax_excluded_in_marketplace === false;
 
-  const formattedDate = useOfferFormattedDate(offer, companyTheme);
+  const formattedDate = useOfferFormattedDate(
+    offer,
+    establishment,
+    metaActivity,
+    companyTheme,
+  );
 
   const offerHours = useOfferHours(
     offer,
-    offer?.establishment,
-    offer?.meta_activity,
+    establishment,
+    metaActivity,
     companyTheme,
   );
 
@@ -154,6 +165,12 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
     });
 
   const taxes = getTaxPrice(price, tax);
+
+  const onRemoveOffer = () => {
+    if (offer && offer.id && handleDelete) {
+      handleDelete(offer.id);
+    }
+  };
 
   if (loading) {
     return <BookerModuleOfferSummarySkeleton />;
@@ -203,10 +220,18 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
               'bs-booker-module-offer-summary-item__activity-name': true,
             }}
             direction={Direction.ROW}
-            justification={Justification.FLEX_START}
+            justification={Justification.SPACE_BETWEEN}
             rowStart={2}
           >
             {offer?.name_override || metaActivity?.name}
+            {doAllowDelete && (
+              <ButtonBase
+                className="bs-booker-module-offer-summary-delete-icon"
+                onClick={onRemoveOffer}
+              >
+                <DeleteIcon />
+              </ButtonBase>
+            )}
           </GridItem>
           <GridItem
             alignment={Alignment.CENTER}
@@ -387,6 +412,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
           </GridItem>
         </Grid>
       </CardContent>
+      <div className="bs-booker-module-offer-summary-item-divider"></div>
     </Card>
   );
 };

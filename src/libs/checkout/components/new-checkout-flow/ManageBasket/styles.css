@@ -1,7 +1,7 @@
 .bs-marketplace-booker-item__remove_modal_text {
   padding-top: var(--bs-space-size-4);
-  padding-right: var(--bs-space-size-6);
-  padding-left: var(--bs-space-size-6);
+  padding-right: calc(var(--bs-space-size-1) * 6);
+  padding-left: calc(var(--bs-space-size-1) * 6);
   padding-bottom: var(--bs-space-size-2);
 }
 
@@ -21,14 +21,8 @@
   line-height: var(--bs-fabrique-line-height-action-lg);
 }
 
-@media (min-width: 661px) {
+@media (min-width: 950px) {
   .bs-marketplace-booker-item__remove_modal {
-    width: 600px;
-    height: 180px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-content: flex-start;
@@ -60,7 +54,7 @@
   }
 }
 
-@media (max-width: 660px) {
+@media (max-width: 949px) {
   .bs-marketplace-booker-item__remove_modal {
     display: flex;
     flex-direction: column;

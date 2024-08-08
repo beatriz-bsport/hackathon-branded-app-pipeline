@@ -43,6 +43,7 @@
   letter-spacing: var(--h6-letterSpacing);
   line-height: var(--h6-lineHeight);
   font-family: var(--fontFamily);
+  align-items: self-start;
 }
 
 .bs-booker-module-offer-summary-item__offer-date {
@@ -175,4 +176,17 @@
 
 .bs-booker-module-offer-summary-item__button--hidden {
   display: none;
+}
+
+.bs-booker-module-offer-summary-item-divider {
+  margin-top: var(--bs-spacing-2);
+  margin-bottom: var(--bs-spacing-2);
+  border: 1px solid #f1f3f4;
+  border-radius: var(--bs-spacing-3);
+  width: 94%;
+  align-self: center;
+}
+
+.bs-booker-module-offer-summary-delete-icon {
+  color: var(--color-grey-main);
 }

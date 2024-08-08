@@ -718,28 +718,25 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
     this.setState({ confirmLoading: true });
 
-
     const memberBookingId =
       this.state.memberBookingId !== -1 ? this.state.memberBookingId : null;
 
-
-  // TODO to refine - a bit awful especially because we kept the old functions
-  const data = buildDataForUserRegistrationWithMultiSessionsAllowed(
-    this.state.selectedItem,
-    this.state.selectedSpotsIds,
-    this.state.selectedOffers,
-    this.props.offerStatusById,
-    this.props.theme.accept_double_booking,
-    this.props.theme.accept_double_booking_workshop,
-    this.state.selectedSpots,
-    this.getIsGuestBooking() && {
-      firstName: this.props.queryParams.guest_first_name ?? '',
-      lastName: this.props.queryParams.guest_last_name ?? '',
-      email: this.props.queryParams.guest_email ?? '',
-    },
-    memberBookingId,
-  );
-
+    // TODO to refine - a bit awful especially because we kept the old functions
+    const data = buildDataForUserRegistrationWithMultiSessionsAllowed(
+      this.state.selectedItem,
+      this.state.selectedSpotsIds,
+      this.state.selectedOffers,
+      this.props.offerStatusById,
+      this.props.theme.accept_double_booking,
+      this.props.theme.accept_double_booking_workshop,
+      this.state.selectedSpots,
+      this.getIsGuestBooking() && {
+        firstName: this.props.queryParams.guest_first_name ?? '',
+        lastName: this.props.queryParams.guest_last_name ?? '',
+        email: this.props.queryParams.guest_email ?? '',
+      },
+      memberBookingId,
+    );
 
     if (
       this.state.selectedItem?.itemIdentifier ===
@@ -1316,16 +1313,16 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               )}
             </div>
             {!isWaitingList &&
-            this.props.relatedMembersList &&
-            this.props.relatedMembersList.length > 0 && (
-              <BookingForAnotherSelector
-                handleMemberUpdate={this.handleBookingForAnotherChange}
-                handleMemberUpdateinDrawer={this.handleMemberUpdateinDrawer}
-                memberBookingId={this.state.memberBookingId}
-                relatedMembersList={this.props.relatedMembersList}
-              />
-            )}
-          <div className="bs-new-offer-booking">
+              this.props.relatedMembersList &&
+              this.props.relatedMembersList.length > 0 && (
+                <BookingForAnotherSelector
+                  handleMemberUpdate={this.handleBookingForAnotherChange}
+                  handleMemberUpdateinDrawer={this.handleMemberUpdateinDrawer}
+                  memberBookingId={this.state.memberBookingId}
+                  relatedMembersList={this.props.relatedMembersList}
+                />
+              )}
+            <div className="bs-new-offer-booking">
               {this.state.isBookingBlocked && !this.getIsLoading() ? (
                 <MarketplaceBookingBlockedReason
                   bookingBlockedReason={this.state.bookingBlockedReason}

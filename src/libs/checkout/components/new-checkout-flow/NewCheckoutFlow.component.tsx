@@ -43,6 +43,7 @@ import CheckoutButtons from './CheckoutButtons.component';
 import { CheckoutSteps } from './CheckoutSteps.component';
 import CouponCodeInput from './CouponCodeInput.component';
 import BasketSummary from './BasketSummary.component';
+import { CheckoutItemList } from './CheckoutItemList.component';
 import ActivitiesSummary from './ActivitiesSummary.component';
 import type {
   OptionCallback,
@@ -465,15 +466,11 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
             />
           </div>
           <div className={classes.scrollableItems}>
-            <ActivitiesSummary
+            <CheckoutItemList
               activitySummaryCheckoutItems={activitySummaryCheckoutItems}
-              basketLoading={basketLoading}
-              basketOffers={basketOffers}
-              companyTheme={theme}
               connectedToOtherComponents={
                 !isMobile || basketSummaryCheckoutItems.length > 0
               }
-              handleCheckoutItemExpiration={handleCheckoutItemExpiration}
               handleRemoveCheckoutItem={handleRemoveCheckoutItem}
             />
             <Collapse in={!isMobile || isBasketDisplayed}>
@@ -496,30 +493,40 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               </Button>
             )}
           </div>
-          <div className={classes.validationContainer}>
-            <div className={classes.couponCodeInput}>
-              <CouponCodeInput
-                isBasketModificationDisabled={isBasketModificationDisabled}
-                onSubmit={attachCoupon}
+          <div className={classes.purchaseSummary}>
+            <div className={classes.validationContainer}>
+              <div className={classes.couponCodeInput}>
+                <CouponCodeInput
+                  isBasketModificationDisabled={isBasketModificationDisabled}
+                  onSubmit={attachCoupon}
+                />
+              </div>
+              <PriceCount
+                basket={basket}
+                isDeleteButtonDisabled={isBasketModificationDisabled}
+                isExcludingTax={isExcludingTax}
+                onRemoveCheckoutItem={handleRemoveCheckoutItem}
+                onRemoveInternalAccountPrepaidLine={
+                  onRemoveInternalAccountPrepaidLine
+                }
+                prepaidLines={basket.prepaid_lines}
+              />
+              <CheckoutButtons
+                handleSubmitButtonsCallbacks={handleSubmitButtonsCallbacks}
+                submitButtonsDisabledState={submitButtonsDisabledState}
+                submitButtonsDisplayableState={submitButtonsDisplayableState}
+                submitButtonsProcessingState={submitButtonsProcessingState}
               />
             </div>
-            <PriceCount
-              basket={basket}
-              isDeleteButtonDisabled={isBasketModificationDisabled}
-              isExcludingTax={isExcludingTax}
-              onRemoveCheckoutItem={handleRemoveCheckoutItem}
-              onRemoveInternalAccountPrepaidLine={
-                onRemoveInternalAccountPrepaidLine
+            <ActivitiesSummary
+              activitySummaryCheckoutItems={activitySummaryCheckoutItems}
+              basketLoading={basketLoading}
+              basketOffers={basketOffers}
+              companyTheme={theme}
+              connectedToOtherComponents={
+                !isMobile || basketSummaryCheckoutItems.length > 0
               }
-              prepaidLines={basket.prepaid_lines}
-            />
-            <CheckoutButtons
-              clientSecret={clientSecret}
-              clientSecretLoading={clientSecretLoading}
-              handleSubmitButtonsCallbacks={handleSubmitButtonsCallbacks}
-              submitButtonsDisabledState={submitButtonsDisabledState}
-              submitButtonsDisplayableState={submitButtonsDisplayableState}
-              submitButtonsProcessingState={submitButtonsProcessingState}
+              handleCheckoutItemExpiration={handleCheckoutItemExpiration}
             />
           </div>
         </div>
@@ -609,6 +616,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderColor: theme.palette.grey[100],
     [theme.breakpoints.down('sm')]: {
       borderWidth: '0px',
+    },
+  },
+  purchaseSummary: {
+    marginTop: '0',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(3),
+      gridColumnStart: '1',
+      gridColumnEnd: 'span 2',
+      gridRowStart: '3',
+      gridRowEnd: 'span 1',
     },
   },
 }));

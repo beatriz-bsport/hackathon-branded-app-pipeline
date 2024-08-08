@@ -2,10 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-import { ButtonBase, Theme, lighten, makeStyles } from '@material-ui/core';
+import { Theme, lighten, makeStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import Adjust from '@material-ui/icons/Adjust';
 import CreditCard from '@material-ui/icons/CreditCard';
@@ -72,7 +71,6 @@ export type Props = {
   spotId?: string;
   price?: string;
   onConfirm?: () => void;
-  onDelete?: (offerId: number) => void;
   disableButton?: boolean;
   confirmLoading?: boolean;
   offerStatus?: OfferStatus;
@@ -94,7 +92,6 @@ const OfferSummary: React.FC<Props> = ({
   establishment,
   spotId,
   price,
-  onDelete,
   onConfirm,
   disableButton,
   confirmLoading,
@@ -142,12 +139,6 @@ const OfferSummary: React.FC<Props> = ({
       break;
   }
 
-  const handleDelete = () => {
-    if (offer && offer.id) {
-      onDelete(offer.id);
-    }
-  };
-
   if (loading) {
     return <OfferSummarySkeleton classes={classes} />;
   }
@@ -174,15 +165,6 @@ const OfferSummary: React.FC<Props> = ({
             <Typography variant="h6">
               {offer?.name_override || metaActivity?.name}
             </Typography>
-
-            {onDelete && (
-              <ButtonBase
-                className={classes.deleteButtonBase}
-                onClick={handleDelete}
-              >
-                <DeleteIcon />
-              </ButtonBase>
-            )}
           </div>
 
           {dateStart && dateStart.isValid && (
@@ -365,7 +347,7 @@ const useStyles = makeStyles<
     flexDirection: 'column',
     gap: theme.spacing(1),
     [theme.breakpoints.down('xs')]: {
-      gap: 0,
+      gap: theme.spacing(2),
     },
   },
   grey: {

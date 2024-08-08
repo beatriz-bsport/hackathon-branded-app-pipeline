@@ -7681,7 +7681,7 @@
         },
         "payLater": {
             "submit": "Pay later",
-            "explain": "Your payment method will be asked in studio before your session starts. Until then, your invoice is considered as unpaid."
+            "explain": "Your invoice will be considered unpaid until you settle it from your member profile, or directly in the studio."
         },
         "or": "or",
         "validation": {

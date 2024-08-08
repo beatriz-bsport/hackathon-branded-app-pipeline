@@ -16892,8 +16892,8 @@
             }
         },
         "payLater": {
-            "submit": "Zahlen Sie vor Ort",
-            "explain": "Die Zahlung wird vor Ort abgewickelt. Davor gilt die Rechnung als unbezahlt."
+            "submit": "Später bezahlen",
+            "explain": "Sie werden vor Beginn der Kurse nach Ihrer Bezahlung gefragt. Bis dahin wird Ihre Rechnung als unbezahlt betrachtet."
         },
         "or": "oder",
         "validation": {

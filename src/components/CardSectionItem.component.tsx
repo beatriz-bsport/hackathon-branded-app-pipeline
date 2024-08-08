@@ -1,11 +1,13 @@
 import React from 'react';
-import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import Typography from '@material-ui/core/Typography/Typography';
-
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import classNames from 'classnames';
+
+import {
+  Card,
+  Typography,
+  CardActionArea,
+  makeStyles,
+} from '@material-ui/core';
 
 type Props = { title: string; description: string; onCardClick?: () => void };
 

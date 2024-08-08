@@ -1260,13 +1260,14 @@ export const getReportObjectPermissionsBasedOnCategory = (
   );
 };
 
-// This function is helpful when using Fuse. The result of fuse.search has the type
-// ```
-// X[] | Fuse.FuseResultWithMatches<X>[] | Fuse.FuseResultWithScore<X>[] |
-// (Fuse.FuseResultWithMatches<...> & Fuse.FuseResultWithScore<...>)[]
-// ```
-// according to TS (where X is the type of the items you give to the search),
-// but it's actually never X[] directly, so this is used to make TS understand that.
+/** This function is helpful when using Fuse. The result of fuse.search has the type
+ *```
+ *X[] | Fuse.FuseResultWithMatches<X>[] | Fuse.FuseResultWithScore<X>[] |
+ *(Fuse.FuseResultWithMatches<...> & Fuse.FuseResultWithScore<...>)[]
+ *```
+ *according to TS (where X is the type of the items you give to the search),
+ *but it's actually never X[] directly, so this is used to make TS understand that.
+ */
 export function isNotReportMetadataValueWithLabel<T extends Object[]>(
   fuseSearchResults: T,
 ): fuseSearchResults is Exclude<T, ReportMetadataValueWithLabel[]> {

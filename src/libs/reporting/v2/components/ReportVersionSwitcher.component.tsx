@@ -1,24 +1,24 @@
 import React from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 
-import Alert from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
-import Button from '@material-ui/core/Button/Button';
-import IconButton from '@material-ui/core/IconButton/IconButton';
-import { MuiThemeProvider } from '@material-ui/core/';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import {
+  MuiThemeProvider,
+  makeStyles,
+  DialogContentText,
+  IconButton,
+  Button,
+} from '@material-ui/core/';
 import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import CloseIcon from '@material-ui/icons/Close';
-
 import { reportSwitcherTheme } from '#src/libs/reporting/v2/mui-theme-providers';
 import Config from '#src/config';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 type Props = {
   handleConfirmationDialogState: (bool: boolean) => () => void;
   handleDisplayReworkedVersion: (shouldCloseDialog: boolean) => () => void;
   isConfirmationDialogOpen: boolean;
-  IsReportAlertDisplayedInV2: boolean;
+  isReportAlertDisplayedInV2: boolean;
   isV2Displayed: boolean;
   handleRemoveReportAlertDisplay: () => void;
 };
@@ -27,7 +27,7 @@ const ReportVersionSwitcher: React.FC<Props> = ({
   handleConfirmationDialogState,
   handleDisplayReworkedVersion,
   isConfirmationDialogOpen,
-  IsReportAlertDisplayedInV2,
+  isReportAlertDisplayedInV2,
   isV2Displayed,
   handleRemoveReportAlertDisplay,
 }) => {
@@ -52,7 +52,7 @@ const ReportVersionSwitcher: React.FC<Props> = ({
         </DialogContentText>
       </GenericMuiDialog>
       <MuiThemeProvider theme={reportSwitcherTheme}>
-        {isV2Displayed && IsReportAlertDisplayedInV2 ? (
+        {isV2Displayed && isReportAlertDisplayedInV2 ? (
           <Alert severity="warning">
             <div>
               <AlertTitle>{t('versionSwitcher.title')}</AlertTitle>

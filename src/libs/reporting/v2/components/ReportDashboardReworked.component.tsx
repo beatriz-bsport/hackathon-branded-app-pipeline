@@ -82,9 +82,9 @@ const ReportDashboardReworked: React.FC<Props> = ({
           FuseOptions<ReportMetadataValueWithLabel>
         >,
       ) =>
-      (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        setSearch(ev.target.value);
-        const results = fuse.search(ev.target.value);
+      (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setSearch(event.target.value);
+        const results = fuse.search(event.target.value);
         if (isNotReportMetadataValueWithLabel(results)) {
           setSearchResult(results.map((result) => result.item.category));
         } else setSearchResult(results.map((result) => result.category));

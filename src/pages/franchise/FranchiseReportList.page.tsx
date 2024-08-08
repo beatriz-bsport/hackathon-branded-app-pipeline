@@ -55,7 +55,7 @@ const FranchiseReportList: React.FC<Props> = ({
   fetchDefaultReports,
   fetchReportMetadata,
   fetchReports,
-  IsReportAlertDisplayedInV2,
+  isReportAlertDisplayedInV2,
   isV2Displayed,
   lastVisitedReportV2,
   metadata,
@@ -153,7 +153,7 @@ const FranchiseReportList: React.FC<Props> = ({
         handleDisplayReworkedVersion={handleDisplayReworkedVersion}
         handleRemoveReportAlertDisplay={handleRemoveReportAlertDisplay}
         isConfirmationDialogOpen={isConfirmationDialogOpen}
-        IsReportAlertDisplayedInV2={IsReportAlertDisplayedInV2}
+        isReportAlertDisplayedInV2={isReportAlertDisplayedInV2}
         isV2Displayed={isV2Displayed}
       />
       {isV2Displayed ? (
@@ -182,7 +182,7 @@ const connector = connect(
     reportsV2: getReportsV2(state),
     reportsV2Loading: getReportV2Loading(state),
     isV2Displayed: getIsReportV2Displayed(state),
-    IsReportAlertDisplayedInV2: getIsReportAlertDisplayedInV2(state),
+    isReportAlertDisplayedInV2: getIsReportAlertDisplayedInV2(state),
     lastVisitedReportV2: getLastVisitedReportV2(state),
   }),
   {

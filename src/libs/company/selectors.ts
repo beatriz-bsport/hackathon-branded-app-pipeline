@@ -50,3 +50,6 @@ export const getStripeOnboardingPending = createSelector(
 
 export const getCompanyUpsellData = (state: RootState) =>
   state.company.feature.data.upsell;
+
+export const getCompanyFeatureList = (state: RootState) =>
+  state.company.feature.data;

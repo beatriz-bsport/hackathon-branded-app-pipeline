@@ -28,10 +28,10 @@ import type { RootState } from '#src/reducers';
 import type { OptionCallback } from '#src/state/types';
 
 // UPSELL
-import { getCompanyUpsellData } from '#src/libs/company/selectors';
-import { hasUpsellIdentifier } from '#src/libs/role/utils';
+import { getCompanyFeatureList } from '#src/libs/company/selectors';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 import { UPSELL_IDENTIFIER_WELLHUB } from '#src/libs/platform-billing/upsell-identifiers';
-import type { UpsellSumup } from '#src/libs/company/types';
+import type { FeatureList } from '#src/libs/company/types';
 
 // CLASSPASS
 import type {
@@ -98,7 +98,7 @@ type ConnectorProps = {
   classpass: PartnershipCompany | null;
   company: number;
   establishmentList: Establishment[];
-  featureList: UpsellSumup[];
+  featureList: FeatureList;
   isSubmitting: boolean;
   loading: boolean;
   partnershipEstablishmentMergeList: PartnershipEstablishmentMerge[];
@@ -192,9 +192,9 @@ export class Partnership extends React.Component<Props> {
       venueIds = `${this.props.classpass?.override_establishment_pk}`;
     }
 
-    const hasWellhubUpsell = hasUpsellIdentifier(
-      UPSELL_IDENTIFIER_WELLHUB,
+    const hasWellhubUpsell = hasUpsell(
       this.props.featureList,
+      UPSELL_IDENTIFIER_WELLHUB,
     );
 
     return (
@@ -353,7 +353,7 @@ export default compose(
       classpass: getPartnershipByIdentifier(state, 'classpass'),
       company: themeSelector.getTheme(state).company,
       establishmentList: getAllPageEstablishments(state),
-      featureList: getCompanyUpsellData(state),
+      featureList: getCompanyFeatureList(state),
       isSubmitting: state.partnership.createOrUpdate.loading,
       loading:
         state.partnership.loading ||

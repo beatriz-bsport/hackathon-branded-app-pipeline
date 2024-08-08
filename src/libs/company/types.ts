@@ -42,7 +42,7 @@ export type UpsellSumup = {
 };
 
 export type FeatureList = {
-  upsell: Array<UpsellSumup>;
+  upsell: UpsellSumup[];
 };
 
 export type CompanySetup = {
@@ -182,9 +182,7 @@ export type CompanyState = {
     [id: number]: Company;
   };
   feature: {
-    data: {
-      upsell: UpsellSumup[];
-    };
+    data: FeatureList;
     loading: boolean;
     error: Error | null;
   };

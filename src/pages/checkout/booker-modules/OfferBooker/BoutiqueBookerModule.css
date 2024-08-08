@@ -402,3 +402,12 @@
     gap: var(--bs-space-size-2);
   }
 }
+
+.bs-new-offer-booking__fetch-more-similar-offers-button {
+  padding: var(--bs-space-size-3);
+  background-color: var(--bs-grey-0);
+  border-radius: calc(var(--bs-border-radius-lg) * 2);
+  color: var(--bs-grey-700);
+  width: 100%;
+  border: 1px solid var(--bs-grey-700);
+}

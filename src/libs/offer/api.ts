@@ -17,9 +17,12 @@ import type {
   OfferStatusWaitingListPosition,
   OfferStatusParams,
   OfferStatus,
+  OfferREST,
 } from './types';
 
 import { PaginatedResponse } from '../../state/types';
+import { FetchSimilarOffersParams } from './actions';
+import type { AxiosResponse } from 'axios';
 
 export async function createOffers(data: OfferCreate) {
   return postAuth(`${API_V1_URI}/offer/create_similar_offers/`, data);
@@ -65,7 +68,16 @@ export async function fetchOffersList(
   return getAuth(`${API_V1_URI}/offer/${buildUrlParams(params)}`);
 }
 
-export async function fetchSimilarOffers(offerId: number, params: any) {
+export async function fetchSimilarOffersUntyped(offerId: number, params: any) {
+  return getAuth(
+    `${API_V1_URI}/offer/${offerId}/similars/${buildUrlParams(params || {})}`,
+  );
+}
+
+export async function fetchSimilarOffers(
+  offerId: number,
+  params: FetchSimilarOffersParams,
+): Promise<AxiosResponse<PaginatedResponse<OfferREST>>> {
   return getAuth(
     `${API_V1_URI}/offer/${offerId}/similars/${buildUrlParams(params || {})}`,
   );
@@ -315,6 +327,7 @@ export default {
   disableOffer,
   delete: deleteOffer,
   fetchOffersByDay,
+  fetchSimilarOffersUntyped,
   fetchSimilarOffers,
   fetchById,
   toggleWaitingListFreeze,

@@ -42,8 +42,9 @@ import {
   postRollCallBulkActions,
   offerStatusWaitingListPositionActions,
   updateInternalNoteActions,
+  similarOffersReworked,
 } from './actions';
-import { OfferState } from './types';
+import type { OfferREST, OfferState } from './types';
 
 export const marketplaceByMetaActivityEmptyState = Immutable({
   allIds: [],
@@ -90,7 +91,7 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
   retrieve: { loading: false, error: null, data: null },
   bulk: { loading: false, error: null },
 
-  // for forms
+  // Only used on the old booking flow, looking to be deprecated
   similarOffers: {
     count: 0,
     items: [],
@@ -98,6 +99,19 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
     error: null,
     lastFetched: null,
     next_page: 1,
+  },
+
+  similarOffersReworked: {
+    page: 1,
+    next_page: null,
+    previous_page: null,
+    count: 0,
+    loading: false,
+    error: null,
+    offers: {
+      allIds: [],
+      byId: {},
+    },
   },
 
   // Compatible Packs
@@ -197,8 +211,59 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
   },
 });
 
+type PayloadReduceType<T> = { [id: number]: T };
 export default handleActions<Immutable.Immutable<OfferState>>(
   {
+    [similarOffersReworked.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['similarOffersReworked', 'loading'], payload);
+    },
+    [similarOffersReworked.error.toString()]: (state, { payload }) => {
+      return state.setIn(['similarOffersReworked', 'error'], payload);
+    },
+    [similarOffersReworked.reset.toString()]: (state) => {
+      return state
+        .setIn(['similarOffersReworked', 'offers', 'allIds'], [])
+        .setIn(['similarOffersReworked', 'offers', 'byId'], {})
+        .setIn(['similarOffersReworked', 'count'], 0)
+        .setIn(['similarOffersReworked', 'page'], 1)
+        .setIn(['similarOffersReworked', 'next_page'], null)
+        .setIn(['similarOffersReworked', 'previous_page'], null)
+        .setIn(['similarOffersReworked', 'loading'], false)
+        .setIn(['similarOffersReworked', 'error'], null);
+    },
+    [similarOffersReworked.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
+      const { next_page, results, count, page } = payload;
+
+      // @ts-expect-error
+      const newIds = results?.map((offer) => offer.id) || [];
+      const allIds = Array.from(
+        new Set([...state.similarOffersReworked.offers.allIds, ...newIds]),
+      );
+      return state
+        .setIn(['similarOffersReworked', 'page'], page)
+        .setIn(['similarOffersReworked', 'next_page'], next_page)
+        .setIn(['similarOffersReworked', 'count'], count)
+        .setIn(['similarOffersReworked', 'offers', 'allIds'], allIds)
+        .merge(
+          {
+            similarOffersReworked: {
+              offers: {
+                // @ts-expect-error
+                byId: (results || []).reduce<PayloadReduceType<OfferREST>>(
+                  // @ts-expect-error
+                  (acc, offer) => {
+                    acc[offer.id] = offer;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
     [createOffersActions.loading.toString()]: (state, { payload }) => {
       return state.setIn(['create', 'loading'], payload);
     },

@@ -357,6 +357,16 @@ export type OfferState = ErrorAndLoading & {
   } & ErrorAndLoading;
   rollCall: ErrorAndLoading;
   rollCallBulk: ErrorAndLoading;
+  similarOffersReworked: {
+    page: number;
+    next_page: number | null;
+    previous_page: number | null;
+    count: number;
+    offers: {
+      allIds: number[];
+      byId: { [key: number]: OfferREST };
+    };
+  } & ErrorAndLoading;
 };
 
 export type OfferFormValues = {

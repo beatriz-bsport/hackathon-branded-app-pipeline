@@ -16,6 +16,7 @@ import {
 import {
   retrieveOffer as retrieveOfferAPI,
   fetchSimilarOffers as fetchSimilarOffersAPI,
+  fetchSimilarOffersUntyped as fetchSimilarOffersUntypedAPI,
   fetchAllEvents as fetchAllEventsAPI,
   fetchCompatiblePacks as fetchCompatiblePacksAPI,
   fetchOffersByDay as fetchOffersByDayAPI,
@@ -60,6 +61,7 @@ import type {
   UserRegistrationParams,
   OfferStatusWaitingListPosition,
   OfferStatusParams,
+  OfferREST,
 } from './types';
 
 import chunk from 'lodash/chunk';
@@ -72,7 +74,16 @@ export const similarOffers = {
   reset: createAction('OFFERS/SIMILAR/RESET'),
 };
 
+export const similarOffersReworked = {
+  isLoading: createAction('OFFERS/SIMILAR_REWORKED/IS_LOADING'),
+  error: createAction('OFFERS/SIMILAR_REWORKED/ERROR'),
+  success: createAction('OFFERS/SIMILAR_REWORKED/SUCCESS'),
+  reset: createAction('OFFERS/SIMILAR_REWORKED/RESET'),
+};
+
 export const resetSimilarOffers = similarOffers.reset;
+
+export const resetSimilarOffersReworked = similarOffersReworked.reset;
 
 export function fetchSimilarOffers(
   offerId: number,
@@ -83,7 +94,7 @@ export function fetchSimilarOffers(
     dispatch(similarOffers.isLoading(true));
     dispatch(similarOffers.error(null));
     try {
-      const response = await fetchSimilarOffersAPI(offerId, params);
+      const response = await fetchSimilarOffersUntypedAPI(offerId, params);
       // @ts-expect-error
       if (!response.data.results && !params.page) {
         dispatch(similarOffers.success([]));
@@ -106,6 +117,42 @@ export function fetchSimilarOffers(
       }
     }
     dispatch(similarOffers.isLoading(false));
+  };
+}
+
+export type FetchSimilarOffersParams = {
+  wide: boolean;
+  page_size: number;
+  page?: number;
+};
+
+export function fetchSimilarOffersReworked(
+  offerId: number,
+  fetchSimilarOffersParams: FetchSimilarOffersParams,
+  options?: OptionCallback<OfferREST[]>,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(similarOffersReworked.isLoading(true));
+    dispatch(similarOffersReworked.error(null));
+
+    const currentState = getState().offer.similarOffersReworked;
+    const nextPage = currentState.next_page ?? 1;
+
+    const params: FetchSimilarOffersParams = {
+      page: nextPage,
+      page_size: fetchSimilarOffersParams.page_size,
+      wide: fetchSimilarOffersParams.wide,
+    };
+
+    try {
+      const response = await fetchSimilarOffersAPI(offerId, params);
+      dispatch(similarOffersReworked.success(response.data));
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      dispatch(similarOffersReworked.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(similarOffersReworked.isLoading(false));
   };
 }
 

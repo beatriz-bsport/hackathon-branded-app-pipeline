@@ -578,3 +578,34 @@ export const getOfferForAnalytics = createSelector(
     };
   },
 );
+
+const getSimilarOffersState = (state: RootState) =>
+  state.offer.similarOffersReworked;
+
+export const getSimilarOffersReworkedCount = (state: RootState) =>
+  getSimilarOffersState(state).count;
+
+export const getSimilarOffersReworkedIsLoading = (state: RootState) =>
+  getSimilarOffersState(state).loading;
+
+export const getSimilarOffersReworkedNextPage = (state: RootState) =>
+  getSimilarOffersState(state).next_page;
+
+export const getSimilarOffersReworkedCurrentPage = (state: RootState) =>
+  getSimilarOffersState(state).page;
+
+export const getSimilarOffersReworkedPreviousPage = (state: RootState) =>
+  getSimilarOffersState(state).previous_page;
+
+export const getSimilarOffersReworkedAllIds = (state: RootState) =>
+  getSimilarOffersState(state).offers.allIds;
+
+export const getSimilarOffersReworkedById = (state: RootState) =>
+  getSimilarOffersState(state).offers.byId;
+
+export const getSimilarOffersReworkedByIdList = createSelector(
+  [getSimilarOffersReworkedAllIds, getSimilarOffersReworkedById],
+  (ids, data) => {
+    return ids.map((id) => data[id]);
+  },
+);

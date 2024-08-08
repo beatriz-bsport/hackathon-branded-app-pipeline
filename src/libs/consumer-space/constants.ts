@@ -9,6 +9,6 @@ export const NEW_MEMBER_PROFILE_ROUTE_LIST = [
   'pack',
 ];
 
-export const displayReworkedMemberProfile = !['staging', 'production'].includes(
+export const displayReworkedMemberProfile = !['production'].includes(
   Config.REACT_APP_SENTRY_ENVIRONMENT,
 );

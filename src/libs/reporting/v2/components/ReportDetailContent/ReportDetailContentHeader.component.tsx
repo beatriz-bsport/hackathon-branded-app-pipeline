@@ -359,6 +359,7 @@ const FormikHOC = withFormik<Props & FormikHOCProps, FormikValues>({
         timePeriod: mapTimePeriodToDateValues(
           report.date_start,
           report.date_end,
+          report.date_type,
         ),
         timeStart: report.time_window_start,
         timeWindowPeriod: 'custom',

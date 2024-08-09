@@ -65,7 +65,8 @@ type OwnProps = {
 
 type PropsWithConnector = OwnProps & ConnectedProps<typeof connector>;
 
-type Props = PropsWithConnector & WithHandlerType<typeof mapWithHandlers>;
+type Props = PropsWithConnector &
+  WithHandlerType<typeof mapWithConsumerInvoiceReworkedHandlers>;
 
 type State = { selectedFilter: InvoicesFiltersEnum };
 
@@ -240,7 +241,7 @@ const connector = connect(
   },
 );
 
-const mapWithHandlers = {
+export const mapWithConsumerInvoiceReworkedHandlers = {
   fetchConsumerInvoices:
     (props: PropsWithConnector) =>
     (filter: InvoicesFiltersEnum, page?: number) => {
@@ -287,18 +288,20 @@ const mapWithHandlers = {
       }
     },
   fetchPaymentMethodList: (props: PropsWithConnector) => () =>
-    props.fetchPaymentMethodListAction({ company: props.membership.company }),
+    props.fetchPaymentMethodListAction({
+      company: props.companyId ?? props.membership?.company,
+    }),
   detachPaymentMethod:
     (props: PropsWithConnector) => (paymentMethodId: string) => {
       props.detachPaymentMethodAction(
         {
-          company: props.membership.company,
+          company: props.companyId ?? props.membership?.company,
           payment_method_id: paymentMethodId,
         },
         {
           onSuccess: () => {
             props.fetchPaymentMethodListAction({
-              company: props.membership.company,
+              company: props.companyId ?? props.membership?.company,
             });
           },
         },
@@ -313,5 +316,5 @@ export const UnconnectedConsumerInvoiceReworked = compose(
 
 export default compose(
   connector,
-  withHandlers(mapWithHandlers),
+  withHandlers(mapWithConsumerInvoiceReworkedHandlers),
 )(UnconnectedConsumerInvoiceReworked);

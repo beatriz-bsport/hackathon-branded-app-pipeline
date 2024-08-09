@@ -65,7 +65,7 @@ export const useDeleteEstablishmentWarningMessages: WarningMessagesHook =
         t('deleteObject.errors.exclusiveEstablishmentGroups', {
           count:
             checkData.establishment_group.exclusive_establishment_groups.length,
-          pass_name:
+          establishment_group_name:
             checkData.establishment_group.exclusive_establishment_groups
               .map(({ establishment_group_name }) => establishment_group_name)
               .join(', '),

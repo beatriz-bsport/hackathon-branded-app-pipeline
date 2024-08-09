@@ -196,6 +196,12 @@ export function generateInvoiceXml(
       dispatch(generateInvoiceXmlActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {
+      if (isErrorWithCustomCode(err)) {
+        const errorCode = err.response?.data?.error_code;
+        dispatch(
+          snackbarError(`invoice.generateXml.errors.${errorCode || 'default'}`),
+        );
+      }
       dispatch(generateInvoiceXmlActions.error(err));
       options?.onError?.(err);
     }

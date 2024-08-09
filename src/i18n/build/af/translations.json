@@ -12615,6 +12615,15 @@
         "error": "Error while transferring your invoice to QuickBooks",
         "success": "Your invoice has been transferred to QuickBooks"
       },
+      "generateXml": {
+        "errors": {
+          "14210": "The company is not set up for XML invoice export. Please contact support.",
+          "14211": "The member has no official document ID",
+          "14212": "The member's address is  missing or incomplete",
+          "14213": "The generated file is not compliant with the pre-validation check (provided in our code by the italian government)",
+          "default": "An error occured while generating the XML invoice"
+        }
+      },
       "applyGiftcard": {
         "errors": {
           "45000": "The activation code is wrong.",

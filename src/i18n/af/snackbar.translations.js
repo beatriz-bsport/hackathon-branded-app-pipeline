@@ -11,6 +11,13 @@ const {
   EXCEPTION_STAFF_ROLE_CANNOT_BE_DELETED,
 } = require('../../libs/role/errors.constants.ts');
 
+const {
+  INVOICE_EXPORT_INCOMPLETE_USER_ADDRESS,
+  MISSING_USER_OFFICIAL_DOCUMENT_ID,
+  NO_INVOICE_EXPORTER_ERROR_CODE,
+  INVOICE_EXPORT_SCHEMA_COMPLIANCE,
+} = require('../../libs/invoice/errors.ts');
+
 const getTranslations = async () => {
   const {
     OFFER_WAITING_LIST_STATUS_FULL,
@@ -687,6 +694,19 @@ const getTranslations = async () => {
         },
         error: 'Error while transferring your invoice to QuickBooks',
         success: 'Your invoice has been transferred to QuickBooks',
+      },
+      generateXml: {
+        errors: {
+          default: 'An error occured while generating the XML invoice',
+          [INVOICE_EXPORT_INCOMPLETE_USER_ADDRESS]:
+            "The member's address is  missing or incomplete",
+          [MISSING_USER_OFFICIAL_DOCUMENT_ID]:
+            'The member has no official document ID',
+          [NO_INVOICE_EXPORTER_ERROR_CODE]:
+            'The company is not set up for XML invoice export. Please contact support.',
+          [INVOICE_EXPORT_SCHEMA_COMPLIANCE]:
+            'The generated file is not compliant with the pre-validation check (provided in our code by the italian government)',
+        },
       },
       applyGiftcard: {
         errors: {

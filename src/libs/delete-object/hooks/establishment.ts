@@ -117,7 +117,7 @@ export const useDeleteEstablishmentWarningMessages: WarningMessagesHook =
       );
     } else if (checkData.staff_location.has_related_staff_configurations) {
       warningMessages.push(
-        t('deleteObject.errors.hasRelatedStaffConfigurations'),
+        t('deleteObject.warnings.hasRelatedStaffConfigurations'),
       );
     }
 

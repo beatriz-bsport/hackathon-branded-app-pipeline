@@ -38,7 +38,7 @@ export const useDeleteEstablishmentGroupWarningMessages: WarningMessagesHook =
     if (checkData.has_related_staff_configurations) {
       warningMessages.push(
         t(
-          'establishmentGroup.deleteObject.errors.hasRelatedStaffConfigurations',
+          'establishmentGroup.deleteObject.warnings.hasRelatedStaffConfigurations',
         ),
       );
     }

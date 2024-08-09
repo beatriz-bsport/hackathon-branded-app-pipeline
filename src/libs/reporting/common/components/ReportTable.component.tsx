@@ -16,6 +16,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import grey from '@material-ui/core/colors/grey';
+import { Skeleton } from '@material-ui/lab';
 
 import {
   getConverter,
@@ -61,6 +62,8 @@ type PaginationProps = {
   handleGenerateNextPage: (data: any) => void;
   columnSpan: number;
 };
+
+const SKELETON_NUMBERS = [1, 2, 3, 4, 5];
 
 const TablePaginationContent: React.FC<
   Omit<PaginationProps, 'columnSpan'> & { isHeader?: boolean; v2?: boolean }
@@ -261,7 +264,9 @@ const ReportTable: React.FC<TableProps> = ({
                   userPermissions={userPermissions}
                 />
               ))}
-            {hasReportBeenGenerated &&
+
+            {!reportStoreRowsLoading &&
+              hasReportBeenGenerated &&
               v2 &&
               result &&
               resultsWithPermissions.map((serializedRow, index) => (
@@ -295,7 +300,20 @@ const ReportTable: React.FC<TableProps> = ({
           )}
         </Table>
       </TableContainer>
-      {!hasReportBeenGenerated && v2 && !result?.length ? (
+      {v2 && reportStoreRowsLoading && (
+        <div className={classes.skeletonContainer}>
+          {SKELETON_NUMBERS.map((skeletonNumber) => (
+            <Skeleton
+              key={`report-row-skeleton-${skeletonNumber}`}
+              variant="rect"
+            />
+          ))}
+        </div>
+      )}
+      {!hasReportBeenGenerated &&
+      v2 &&
+      !result?.length &&
+      !reportStoreRowsLoading ? (
         <Typography
           align="center"
           className={classes.reportNotGenerated}
@@ -347,6 +365,12 @@ const useStyles = makeStyles((theme) => ({
   cell: { whiteSpace: 'pre-line' },
   chipClickable: { cursor: 'pointer' },
   chipDefault: { cursor: 'default' },
+  skeletonContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    paddingTop: theme.spacing(1),
+    gap: theme.spacing(1),
+  },
 }));
 
 const useTablePaginationActionsStyles = makeStyles<

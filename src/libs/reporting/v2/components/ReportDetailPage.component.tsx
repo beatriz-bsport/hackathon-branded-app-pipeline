@@ -77,7 +77,7 @@ type Props = {
   reportCategoryMetadata: ReportMetadataValue;
   reportFilterConfigLoading: boolean;
   reportGeneratedRows: SerializedReport & ErrorAndLoading;
-  reportHeaders: ReportHeader;
+  reportHeaders: { results: ReportHeader } & ErrorAndLoading;
   reportId: number;
   updateReport: (
     reportId: number,

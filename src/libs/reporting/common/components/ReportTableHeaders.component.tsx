@@ -4,9 +4,12 @@ import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
+import { Skeleton } from '@material-ui/lab';
 
 import { getConverter } from '#src/libs/reporting/common/utils';
 import type { ReportHeader } from '#src/libs/reporting/common/types';
+
+const SKELETON_NUMBERS = [1, 2, 3, 4];
 
 const CardHeaders: React.FC<{
   headerTitle?: 'average' | 'sum';
@@ -17,8 +20,9 @@ const CardHeaders: React.FC<{
   }[];
   v2?: boolean;
   hasReportBeenGenerated?: boolean;
+  isLoading?: boolean;
 }> = React.memo(
-  ({ headerDetails, headerTitle, v2, hasReportBeenGenerated }) => {
+  ({ headerDetails, headerTitle, v2, hasReportBeenGenerated, isLoading }) => {
     const classes = useStyles();
     const { t } = useTranslation('reporting');
 
@@ -33,12 +37,24 @@ const CardHeaders: React.FC<{
             {t(`header.${(headerTitle || '').toLowerCase()}`)}
           </Typography>
 
-          {!hasReportBeenGenerated && (
+          {!hasReportBeenGenerated && !isLoading && (
             <Typography color="textSecondary">
               {t('reportHasNotBeenGenerated')}
             </Typography>
           )}
-          {hasReportBeenGenerated && (
+          {isLoading && (
+            <div className={classes.skeletonContainer}>
+              {SKELETON_NUMBERS.map((skeletonNumber) => (
+                <Skeleton
+                  key={`report-skeleton-card${skeletonNumber}`}
+                  height={80}
+                  variant="rect"
+                  width={200}
+                />
+              ))}
+            </div>
+          )}
+          {hasReportBeenGenerated && !isLoading && (
             <Grid container direction="row" spacing={2}>
               {(headerDetails || []).map((detail, index) => {
                 return (
@@ -105,7 +121,8 @@ const ReportTableHeaders: React.FC<{
   reportHeaders: ReportHeader;
   v2?: boolean;
   hasReportBeenGenerated?: boolean;
-}> = ({ reportHeaders, v2 = false, hasReportBeenGenerated }) => {
+  isLoading: boolean;
+}> = ({ reportHeaders, v2 = false, hasReportBeenGenerated, isLoading }) => {
   const classes = useStyles();
 
   if (v2) {
@@ -115,12 +132,14 @@ const ReportTableHeaders: React.FC<{
           hasReportBeenGenerated={hasReportBeenGenerated}
           headerDetails={reportHeaders.averageable}
           headerTitle="average"
+          isLoading={isLoading}
           v2={v2}
         />
         <CardHeaders
           hasReportBeenGenerated={hasReportBeenGenerated}
           headerDetails={reportHeaders.summable}
           headerTitle="sum"
+          isLoading={isLoading}
           v2={v2}
         />
       </>
@@ -169,6 +188,11 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(2.0),
     borderLeft: '8px solid',
     borderColor: theme.palette.primary.main,
+  },
+  skeletonContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: theme.spacing(2),
   },
 }));
 

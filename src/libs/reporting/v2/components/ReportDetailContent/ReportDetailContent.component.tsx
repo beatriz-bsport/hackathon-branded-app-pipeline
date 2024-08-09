@@ -60,7 +60,7 @@ type Props = {
   } & ErrorAndLoading;
   reportCategoryMetadata: ReportMetadataValue;
   reportGeneratedRows: SerializedReport & ErrorAndLoading;
-  reportHeaders: ReportHeader;
+  reportHeaders: { results: ReportHeader } & ErrorAndLoading;
   userPermissions: RolePermission;
 } & Pick<withDatatypeDynamicDataProps, 'handleGetDynamicDataForFilters'>;
 
@@ -143,7 +143,7 @@ const ReportDetailContent: React.FC<Props> = ({
   );
 
   return (
-    <Paper className={classes.contentPaper}>
+    <Paper className={classes.contentPaper} variant="outlined">
       <ReportDetailContentHeader
         categoryName={categoryName}
         editReportFilterConfig={editReportFilterConfig}
@@ -165,7 +165,8 @@ const ReportDetailContent: React.FC<Props> = ({
             <ReportTableHeaders
               v2
               hasReportBeenGenerated={hasReportBeenGenerated}
-              reportHeaders={reportHeaders}
+              isLoading={reportHeaders.loading}
+              reportHeaders={reportHeaders.results}
             />
           </MuiThemeProvider>
           <Divider />

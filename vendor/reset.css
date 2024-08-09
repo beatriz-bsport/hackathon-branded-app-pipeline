@@ -8,87 +8,87 @@
     - The "symbol *" part is to solve Firefox SVG sprite bug
  */
 
-/* we need to use :where(.cleanslate) to select the cleanslate class 
+/* we need to use :where() to select the bsport-widget 
    without increasing the css specificity, avoiding the ovverride of other classes */ 
 
- :where(.cleanslate) *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
+:where([id^="bsport-widget"]) *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
     all: unset;
     display: revert;
 }
 
 /* Preferred box-sizing value */
-:where(.cleanslate) *,
-:where(.cleanslate) *::before,
-:where(.cleanslate) *::after {
+:where([id^="bsport-widget"]) *,
+:where([id^="bsport-widget"]) *::before,
+:where([id^="bsport-widget"]) *::after {
     box-sizing: border-box;
 }
 
 /* Reapply the pointer cursor for anchor tags */
-:where(.cleanslate) a, 
-:where(.cleanslate) button {
+:where([id^="bsport-widget"]) a, 
+:where([id^="bsport-widget"]) button {
     cursor: revert;
 }
 
 /* Remove list styles (bullets/numbers) */
-:where(.cleanslate) ol, 
-:where(.cleanslate) ul,
-:where(.cleanslate) menu {
+:where([id^="bsport-widget"]) ol, 
+:where([id^="bsport-widget"]) ul,
+:where([id^="bsport-widget"]) menu {
     list-style: none;
 }
 
 /* For images to not be able to exceed their container */
-:where(.cleanslate) img {
+:where([id^="bsport-widget"]) img {
     max-inline-size: 100%;
     max-block-size: 100%;
 }
 
 /* removes spacing between cells in tables */
-:where(.cleanslate) table {
+:where([id^="bsport-widget"]) table {
     border-collapse: collapse;
 }
 
 /* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
-:where(.cleanslate) input,
-:where(.cleanslate)  textarea {
+:where([id^="bsport-widget"]) input,
+:where([id^="bsport-widget"])  textarea {
     -webkit-user-select: auto;
 }
 
 /* revert the 'white-space' property for textarea elements on Safari */
-:where(.cleanslate) textarea {
+:where([id^="bsport-widget"]) textarea {
     white-space: revert;
 }
 
 /* minimum style to allow to style meter element */
-:where(.cleanslate) meter {
+:where([id^="bsport-widget"]) meter {
     -webkit-appearance: revert;
     appearance: revert;
 }
 
 /* preformatted text - use only for this feature */
-:where(.cleanslate) :where(pre) {
+:where([id^="bsport-widget"]) :where(pre) {
     all: revert;
 }
 
 /* reset default text opacity of input placeholder */
-:where(.cleanslate) ::placeholder {
+:where([id^="bsport-widget"]) ::placeholder {
     color: unset;
 }
 
 /* remove default dot (•) sign */
-:where(.cleanslate) ::marker {
+:where([id^="bsport-widget"]) ::marker {
     content: initial;
 }
 
 /* fix the feature of 'hidden' attribute.
    display:revert; revert to element instead of attribute */
-:where(.cleanslate) :where([hidden]) {
+:where([id^="bsport-widget"]) :where([hidden]) {
     display: none;
 }
 
 /* revert for bug in Chromium browsers
    - fix for the content editable attribute will work properly.
    - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element*/
-:where(.cleanslate) :where([contenteditable]:not([contenteditable="false"])) {
+:where([id^="bsport-widget"]) :where([contenteditable]:not([contenteditable="false"])) {
     -moz-user-modify: read-write;
     -webkit-user-modify: read-write;
     overflow-wrap: break-word;
@@ -97,11 +97,11 @@
 }
 
 /* apply back the draggable feature - exist only in Chromium and Safari */
-:where(.cleanslate) :where([draggable="true"]) {
+:where([id^="bsport-widget"]) :where([draggable="true"]) {
     -webkit-user-drag: element;
 }
 
 /* Revert Modal native behavior */
-:where(.cleanslate) :where(dialog:modal) {
+:where([id^="bsport-widget"]) :where(dialog:modal) {
     all: revert;
 }

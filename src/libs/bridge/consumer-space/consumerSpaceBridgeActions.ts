@@ -164,7 +164,33 @@ const consumerSubscriptionBridgeActions = {};
 const consumerProfileBridgeActions = {};
 
 /* MY INVOICES */
-const consumerInvoiceBridgeActions = {};
+const consumerInvoiceBridgeActions = {
+  fetchConsumerInvoicesComplementary: createAuthenticatedBridgeAction(
+    'FETCH_CONSUMER_INVOICES_COMPLEMENTARY',
+  ),
+  fetchConsumerPaidInvoices: createAuthenticatedBridgeAction(
+    'FETCH_CONSUMER_PAID_INVOICES',
+  ),
+  fetchConsumerRefundedInvoices: createAuthenticatedBridgeAction(
+    'FETCH_CONSUMER_REFUNDED_INVOICES',
+  ),
+  fetchConsumerUnpaidInvoices: createAuthenticatedBridgeAction(
+    'FETCH_CONSUMER_UNPAID_INVOICES',
+  ),
+  fetchInvoiceList: createAuthenticatedBridgeAction('FETCH_INVOICE_LIST'),
+  fetchSpecificInvoice: createAuthenticatedBridgeAction(
+    'FETCH_SPECIFIC_INVOICE',
+  ),
+  applyBalanceToInvoiceAction: createAuthenticatedBridgeAction(
+    'APPLY_BALANCE_TO_INVOICE',
+  ),
+  detachPaymentMethodAction: createAuthenticatedBridgeAction(
+    'DETACH_PAYMENT_METHOD',
+  ),
+  fetchPaymentMethodListAction: createAuthenticatedBridgeAction(
+    'FETCH_PAYMENT_METHOD_LIST',
+  ),
+};
 
 // TODO performance - isolate actions per page
 export const mapDispatchToWidgetProps = {

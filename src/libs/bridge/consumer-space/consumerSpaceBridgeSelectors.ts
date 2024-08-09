@@ -55,12 +55,29 @@ import {
   getMyFutureUniversalPassesList,
   getMyFutureUniversalPassesState,
 } from 'bsport-saas/src/libs/consumer-space/selectors';
-
 import {
   getAssetByBlueprintByIdentifier,
   getAssetByIdentifier,
   getSpotTypesOfCompany,
 } from 'bsport-saas/src/libs/spot-scheduling/selector';
+
+/* MY INVOICES */
+import {
+  getInvoiceComplementaryInformation,
+  getInvoicesLoading,
+  getPaidInvoices,
+  getPaidInvoicesLoading,
+  getPaidInvoicesNextPage,
+  getRefundedInvoices,
+  getRefundedInvoicesLoading,
+  getRefundedInvoicesNextPage,
+  getUnpaidInvoices,
+  getUnpaidInvoicesCount,
+  getUnpaidInvoicesLoading,
+  getUnpaidInvoicesNextPage,
+  getUnpaidInvoicesPage,
+} from 'bsport-saas/src/libs/consumer-space/selectors';
+import { getInvoice } from 'bsport-saas/src/libs/invoice/selectors';
 
 import type { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
 import type { RootState } from '../../../reducers';
@@ -211,11 +228,32 @@ const consumerPassBridgeSelectors = (state: RootState) => ({
   )(state),
 });
 
+/* MY SUBSCRIPTIONS */
 const consumerSubscriptionBridgeSelectors = (state: RootState) => ({});
 
+/* MY PROFILE */
 const consumerProfileBridgeSelectors = (state: RootState) => ({});
 
-const consumerInvoiceBridgeSelectors = (state: RootState) => ({});
+/* MY INVOICES */
+const consumerInvoiceBridgeSelectors = (state: RootState) => ({
+  loading: adaptSelector(getInvoicesLoading)(state),
+  paidInvoiceList: adaptSelector(getPaidInvoices)(state),
+  paidInvoicesLoading: getPaidInvoicesLoading(state),
+  paidInvoicesNextPage: getPaidInvoicesNextPage(state),
+  refundedInvoiceList: getRefundedInvoices(state),
+  refundedInvoicesLoading: getRefundedInvoicesLoading(state),
+  refundedInvoicesNextPage: getRefundedInvoicesNextPage(state),
+  unpaidInvoiceList: getUnpaidInvoices(state),
+  unpaidInvoicesCount: getUnpaidInvoicesCount(state),
+  unpaidInvoicesLoading: getUnpaidInvoicesLoading(state),
+  unpaidInvoicesNextPage: getUnpaidInvoicesNextPage(state),
+  unpaidInvoicesPage: getUnpaidInvoicesPage(state),
+  detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
+  marketplaceSettings: state.marketplace.settings,
+  getInvoice: (uuid: string) => adaptSelector(getInvoice)(state, uuid),
+  getInvoiceComplementary: (uuid: string) =>
+    getInvoiceComplementaryInformation(state, uuid),
+});
 
 // TODO performance - isolate selectors per page
 export const consumerSpaceMapStateToWidgetProps = (

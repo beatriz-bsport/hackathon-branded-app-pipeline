@@ -1,0 +1,177 @@
+/**
+ * THE COMPLETE LIST OF ACTIONS FOR THE CONSUMER SPACE WIDGET
+ * ONE SET OF ACTIONS PER PAGE/WIDGET
+ */
+import {
+  bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction,
+  createAuthenticatedBridgeAction,
+} from '../actions';
+
+import { resetConsumerState } from 'bsport-saas/src/libs/consumer-space/actions';
+import { fetchSCT } from 'bsport-saas/src/libs/category/actions';
+
+/* COMMON */
+const consumerSpaceCommonBridgeActions = {
+  bridgeRequestAuthenticationStatus: bridgeRequestAuthenticationStatusAction,
+  resetConsumerState,
+  fetchMembershipByCompany: createAuthenticatedBridgeAction(
+    'MEMBERSHIP_BY_COMPANY',
+  ),
+};
+
+/* MY BOOKINGS */
+const consumerBookingBridgeActions = {
+  fetchMyPastBookingAsMember: createAuthenticatedBridgeAction(
+    'FETCH_PAST_BOOKING_AS_MEMBER',
+  ),
+  fetchMyFutureBookingAsMember: createAuthenticatedBridgeAction(
+    'FETCH_FUTURE_BOOKING_AS_MEMBER',
+  ),
+  fetchMyBookingOptionAsMember: createAuthenticatedBridgeAction(
+    'FETCH_BOOKING_OPTION_AS_MEMBER',
+  ),
+  fetchMyBookingOptionWorkshopAsMember: createAuthenticatedBridgeAction(
+    'FETCH_BOOKING_OPTION_WORKSHOP_AS_MEMBER',
+  ),
+  fetchMyPastPrivateBookingAsMember: createAuthenticatedBridgeAction(
+    'FETCH_PAST_PRIVATE_BOOKING_AS_MEMBER',
+  ),
+  fetchMyFuturePrivateBookingAsMember: createAuthenticatedBridgeAction(
+    'FETCH_FUTURE_PRIVATE_BOOKING_AS_MEMBER',
+  ),
+  fetchMyPastBookingWorkshopAsMember: createAuthenticatedBridgeAction(
+    'FETCH_PAST_BOOKING_WORKSHOP_AS_MEMBER',
+  ),
+  fetchMyFutureBookingWorkshopAsMember: createAuthenticatedBridgeAction(
+    'FETCH_FUTURE_BOOKING_WORKSHOP_AS_MEMBER',
+  ),
+  fetchCoachBulk: createAuthenticatedBridgeAction('FETCH_COACH_BULK'),
+  fetchGroupOffer: createAuthenticatedBridgeAction('FETCH_GROUP_OFFER'),
+  fetchLevelList: createAuthenticatedBridgeAction('FETCH_LEVEL_LIST'),
+  fetchMetaActivityBulk: createAuthenticatedBridgeAction(
+    'FETCH_META_ACTIVITY_BULK',
+  ),
+  fetchOfferBulk: createAuthenticatedBridgeAction('FETCH_OFFER_BULK'),
+  fetchEstablishmentBulk: createAuthenticatedBridgeAction(
+    'FETCH_ESTABLISHMENT_BULK',
+  ),
+  retrieveConsumerPackBulk: createAuthenticatedBridgeAction(
+    'FETCH_CONSUMER_PACK_BULK',
+  ),
+  fetchPaymentPackBulk: createAuthenticatedBridgeAction(
+    'FETCH_PAYMENT_PACK_BULK',
+  ),
+  fetchRoomBlueprints: createAuthenticatedBridgeAction('FETCH_ROOM_BLUE_PRINT'),
+  fetchSpotForBlueprint: createAuthenticatedBridgeAction(
+    'FETCH_SPOT_FOR_BLUEPRINT',
+  ),
+  fetchAssetForBlueprint: createAuthenticatedBridgeAction(
+    'ASSETS_FOR_BLUE_PRINT',
+  ),
+  fetchPrivateConsumerPassBulk: createAuthenticatedBridgeAction(
+    'PRIVATE_CONSUMER_PASS_BULK',
+  ),
+  fetchPrivateSlotBulk: createAuthenticatedBridgeAction('PRIVATE_SLOT_BULK'),
+  fetchPrivateServiceBulk: createAuthenticatedBridgeAction(
+    'PRIVATE_SERVICE_BULK',
+  ),
+
+  cancelBookingAsMember: createAuthenticatedBridgeAction(
+    'CANCEL_BOOKING_AS_MEMBER',
+  ),
+  cancelPrivateBookingAsMember: createAuthenticatedBridgeAction(
+    'CANCEL_PRIVATE_BOOKING_AS_MEMBER',
+  ),
+  cancelBookingOptionAsMember: createAuthenticatedBridgeAction(
+    'CANCEL_BOOKING_OPTION_AS_MEMBER',
+  ),
+  fetchCompanyWaitlistConfiguration: createAuthenticatedBridgeAction(
+    'FETCH_COMPANY_WAITLIST_CONFIGURATION',
+  ),
+  fetchConsumerGuestNumberEligibleLeftByOfferBulk:
+    createAuthenticatedBridgeAction(
+      'FETCH_CONSUMER_GUEST_NUMBER_ELIGIBLE_LEFT_BY_OFFER_BULK',
+    ),
+  fetchMyBookingOptionsPositionAsMemberByOfferIds:
+    createAuthenticatedBridgeAction(
+      'FETCH_BOOKING_POSITION_AS_MEMBER_BY_OFFER_IDS',
+    ),
+};
+
+/* MY PASSES */
+const consumerPassBridgeActions = {
+  fetchSCTs: fetchSCT,
+  fetchPaymentPackBulk: createAuthenticatedBridgeAction(
+    'FETCH_PAYMENT_PACK_BULK',
+  ),
+  fetchEstablishmentBulk: createAuthenticatedBridgeAction(
+    'FETCH_ESTABLISHMENT_BULK',
+  ),
+  fetchMetaActivityBulk: createAuthenticatedBridgeAction(
+    'FETCH_META_ACTIVITY_BULK',
+  ),
+  fetchRelatedMembersNamesByConsumerPaymentPackLinks:
+    createAuthenticatedBridgeAction(
+      'FETCH_RELATED_MEMBERS_NAMES_BY_CONSUMER_PAYMENT_PACK_LINK',
+    ),
+  fetchRelatedMembersNamesByPrivateConsumerPassLinks:
+    createAuthenticatedBridgeAction(
+      'FETCH_RELATED_MEMBERS_NAMES_BY_PRIVATE_CONSUMER_PASS_LINK',
+    ),
+  fetchPrivatePassBulk: createAuthenticatedBridgeAction(
+    'FETCH_PRIVATE_PASS_BULK',
+  ),
+  fetchPrivateServiceBulk: createAuthenticatedBridgeAction(
+    'PRIVATE_SERVICE_BULK',
+  ),
+  fetchPrivateServiceCompatiblePassList: createAuthenticatedBridgeAction(
+    'FETCH_PRIVATE_SERVICE_COMPATIBLE_PASS_LIST',
+  ),
+  fetchMyPassesTabs: createAuthenticatedBridgeAction('FETCH_PASSES_TABS'),
+  fetchMyActiveConsumerPaymentPacksAsMember: createAuthenticatedBridgeAction(
+    'FETCH_ACTIVE_CONSUMER_PAYMENT_PACK_AS_MEMBER',
+  ),
+  fetchMyActivePrivateConsumerPassesAsMember: createAuthenticatedBridgeAction(
+    'FETCH_ACTIVE_PRIVATE_CONSUMER_PASS_AS_MEMBER',
+  ),
+  fetchMyActiveUniversalPassesAsMember: createAuthenticatedBridgeAction(
+    'FETCH_ACTIVE_UNIVERSAL_PASSES_AS_MEMBER',
+  ),
+  fetchMyExpiredConsumerPaymentPacksAsMember: createAuthenticatedBridgeAction(
+    'FETCH_EXPIRED_CONSUMER_PAYMENT_PACK_AS_MEMBER',
+  ),
+  fetchMyExpiredPrivateConsumerPassesAsMember: createAuthenticatedBridgeAction(
+    'FETCH_EXPIRED_PRIVATE_CONSUMER_PASS_AS_MEMBER',
+  ),
+  fetchMyExpiredUniversalPassesAsMember: createAuthenticatedBridgeAction(
+    'FETCH_EXPIRED_UNIVERSAL_PASS_AS_MEMBER',
+  ),
+  fetchMyFutureConsumerPaymentPacksAsMember: createAuthenticatedBridgeAction(
+    'FETCH_FUTURE_CONSUMER_PAYMENT_PACK_AS_MEMBER',
+  ),
+  fetchMyFuturePrivateConsumerPassesAsMember: createAuthenticatedBridgeAction(
+    'FETCH_FUTURE_PRIVATE_CONSUMER_PASS_AS_MEMBER',
+  ),
+  fetchMyFutureUniversalPassesAsMember: createAuthenticatedBridgeAction(
+    'FETCH_FUTURE_UNIVERSAL_PASS_AS_MEMBER',
+  ),
+};
+
+/* MY SUBSCRIPTIONS */
+const consumerSubscriptionBridgeActions = {};
+
+/* MY PROFILE */
+const consumerProfileBridgeActions = {};
+
+/* MY INVOICES */
+const consumerInvoiceBridgeActions = {};
+
+// TODO performance - isolate actions per page
+export const mapDispatchToWidgetProps = {
+  ...consumerSpaceCommonBridgeActions,
+  ...consumerBookingBridgeActions,
+  ...consumerPassBridgeActions,
+  ...consumerSubscriptionBridgeActions,
+  ...consumerProfileBridgeActions,
+  ...consumerInvoiceBridgeActions,
+};

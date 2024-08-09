@@ -51,6 +51,7 @@ import {
   EXPORTABLE_COMPONENT_TYPE_REFERRAL,
   EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING,
   EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS,
+  EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE,
 } from 'bsport-saas/src/libs/exportable-components/constants/widget_builder';
 
 import { RootState } from './reducers';
@@ -71,6 +72,10 @@ import { SafeURI } from './widgets/utils';
 
 const ConsumerBookingWidget = asyncComponent(
   () => import('./widgets/ConsumerBooking.widget'),
+);
+
+const ConsumerSpaceWidget = asyncComponent(
+  () => import('./widgets/ConsumerSpace.widget'),
 );
 
 const ConsumerPassWidget = asyncComponent(
@@ -141,6 +146,7 @@ const WidgetByType = {
   [EXPORTABLE_COMPONENT_TYPE_REFERRAL]: ReferralWidget,
   [EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING]: ConsumerBookingWidget,
   [EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS]: ConsumerPassWidget,
+  [EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE]: ConsumerSpaceWidget,
 };
 
 const WIDGET_ACCEPTING_NO_POPUP_MODE = [

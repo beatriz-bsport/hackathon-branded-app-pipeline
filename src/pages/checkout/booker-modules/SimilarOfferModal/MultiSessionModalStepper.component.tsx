@@ -4,9 +4,11 @@ import type { OfferREST } from '#src/libs/offer/types';
 
 import ModalToDrawerSwitcher from '#src/components/Modal/ModalToDrawerSwitcher.component';
 import MultiSessionsOfferSelector, {
+  MultiSessionOfferFinalProps,
   MultiSessionOfferSelectorProps,
 } from './MultiSessionOfferSelector.component';
 import MultiSessionSpotSelector, {
+  MultiSessionSpotFinalProps,
   MultiSessionSpotSelectorProps,
 } from './MultiSessionSpotSelector.component';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
@@ -16,13 +18,13 @@ import './styles.css';
 const ADD_SIMILAR_OFFER_STEPS = [
   {
     name: 'Select session',
-    Component: (props: MultiSessionOfferSelectorProps) => (
+    Component: (props: MultiSessionOfferFinalProps) => (
       <MultiSessionsOfferSelector {...props} />
     ),
   },
   {
     name: 'Select spot',
-    Component: (props: MultiSessionSpotSelectorProps) => (
+    Component: (props: MultiSessionSpotFinalProps) => (
       <MultiSessionSpotSelector {...props} />
     ),
   },
@@ -35,17 +37,7 @@ type Props = {
 } & MultiSessionOfferSelectorProps &
   MultiSessionSpotSelectorProps;
 
-const MultiSessionModalStepper: React.FC<
-  Omit<
-    Props,
-    | 'nextStep'
-    | 'preSelectedOffer'
-    | 'setPreSelectedOffer'
-    | 'offer'
-    | 'addSessionOffer'
-    | 'previousStep'
-  >
-> = ({
+const MultiSessionModalStepper: React.FC<Props> = ({
   metaActivities,
   establishments,
   similarOffers,
@@ -101,8 +93,8 @@ const MultiSessionModalStepper: React.FC<
   }, [currentStep, setCurrentStep]);
 
   const getStepProps = React.useCallback(():
-    | MultiSessionOfferSelectorProps
-    | MultiSessionSpotSelectorProps => {
+    | MultiSessionOfferFinalProps
+    | MultiSessionSpotFinalProps => {
     if (currentStep === 1) {
       const bookableSimilarOffers = similarOffers.filter(
         (similarOffer) =>

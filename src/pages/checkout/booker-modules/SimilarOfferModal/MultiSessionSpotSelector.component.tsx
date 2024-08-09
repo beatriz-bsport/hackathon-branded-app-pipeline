@@ -14,9 +14,9 @@ import { DEFAULT_SPOT_TYPE } from '#src/libs/spot-scheduling/utils';
 
 import { Button, ButtonBase } from '@material-ui/core';
 import MarketplaceSpotSelector from '#src/libs/marketplace/components/@SpotScheduling/MarketplaceSpotSelector';
+import { useTranslation } from 'react-i18next';
 
 import './styles.css';
-import { useTranslation } from 'react-i18next';
 
 export type MultiSessionSpotSelectorProps = {
   assetByIdBlueprintByIdentifier: {
@@ -24,7 +24,6 @@ export type MultiSessionSpotSelectorProps = {
       [key: string]: AssetForBlueprint;
     };
   };
-  addSessionOffer: (offer: OfferREST) => void;
   fetchOfferStatus: (offerId: number) => void;
   fetchSpotForBlueprint: (
     data: { company: number },
@@ -33,7 +32,6 @@ export type MultiSessionSpotSelectorProps = {
   getSpotExpirationDatetime: (offerId: number) => string;
   getSpotCurrentlyInBasket: (offerId: number) => string;
   updateSpotForOffer: (offer: number, index: number) => void;
-  offer: OfferREST;
   offerStatusById: {
     [key: string]: OfferStatus;
   };
@@ -41,10 +39,18 @@ export type MultiSessionSpotSelectorProps = {
   selectedSpotsIds: { [key: number]: number };
   spotTypes: SpotType[];
   theme: CompanyTheme;
-  previousStep: () => void;
 };
 
-const MultiSessionSpotSelector: React.FC<MultiSessionSpotSelectorProps> = ({
+type SpotStepperProps = {
+  addSessionOffer: (offer: OfferREST) => void;
+  previousStep: () => void;
+  offer: OfferREST;
+};
+
+export type MultiSessionSpotFinalProps = MultiSessionSpotSelectorProps &
+  SpotStepperProps;
+
+const MultiSessionSpotSelector: React.FC<MultiSessionSpotFinalProps> = ({
   assetByIdBlueprintByIdentifier,
   addSessionOffer,
   getSpotExpirationDatetime,

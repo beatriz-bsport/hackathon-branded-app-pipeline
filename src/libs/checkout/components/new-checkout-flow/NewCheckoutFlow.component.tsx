@@ -512,6 +512,8 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
                 prepaidLines={basket.prepaid_lines}
               />
               <CheckoutButtons
+                clientSecret={clientSecret}
+                clientSecretLoading={clientSecretLoading}
                 handleSubmitButtonsCallbacks={handleSubmitButtonsCallbacks}
                 submitButtonsDisabledState={submitButtonsDisabledState}
                 submitButtonsDisplayableState={submitButtonsDisplayableState}

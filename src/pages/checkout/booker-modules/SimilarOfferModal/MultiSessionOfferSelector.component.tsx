@@ -17,9 +17,9 @@ import {
   formatOfferHours,
 } from '#src/libs/marketplace/utils/offer';
 import { Close } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
 
 import './styles.css';
-import { useTranslation } from 'react-i18next';
 
 export type MultiSessionOfferSelectorProps = {
   theme: CompanyTheme;
@@ -28,11 +28,17 @@ export type MultiSessionOfferSelectorProps = {
   similarOffers: OfferREST[];
   fetchMoreSessions: () => void;
   onClose: () => void;
+  isAbleToFetchMoreSimilarSessions: boolean;
+};
+
+type OfferStepperProps = {
   nextStep: () => void;
   setPreSelectedOffer: (offer: OfferREST) => void;
   preSelectedOffer: OfferREST;
-  isAbleToFetchMoreSimilarSessions: boolean;
 };
+
+export type MultiSessionOfferFinalProps = MultiSessionOfferSelectorProps &
+  OfferStepperProps;
 
 type OfferSessionCardProps<T> = {
   metaActivity: MetaActivity;
@@ -84,7 +90,7 @@ const OfferSessionCard: React.FC<OfferSessionCardProps<OfferREST>> = ({
   );
 };
 
-const MultiSessionOfferSelector: React.FC<MultiSessionOfferSelectorProps> = ({
+const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
   theme,
   metaActivities,
   establishments,

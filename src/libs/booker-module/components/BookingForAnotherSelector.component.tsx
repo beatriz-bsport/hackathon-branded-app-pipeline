@@ -19,8 +19,7 @@ import useViewport from '#src/components/css-only/Fabrique/hooks/useViewport';
 type Props = {
   relatedMembersList: MemberMinimal[];
   memberBookingId: number;
-  handleMemberUpdate: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  handleMemberUpdateinDrawer: (newMemberBookingId: number) => void;
+  handleMemberUpdate: (newMemberBookingId: number) => void;
 };
 
 type DrawerRelationshipItemProps = {
@@ -138,9 +137,8 @@ const DrawerRelationshipSelector: React.FC<DrawerRelationshipSelectorProps> = ({
 
 const BookingForAnotherSelector: React.FC<Props> = ({
   memberBookingId,
-  handleMemberUpdate,
   relatedMembersList,
-  handleMemberUpdateinDrawer,
+  handleMemberUpdate,
 }) => {
   const { t } = useTranslation('booking');
   const { width } = useViewport();
@@ -162,10 +160,20 @@ const BookingForAnotherSelector: React.FC<Props> = ({
     memberBookingId,
   ]);
 
-  const onConfirm = React.useCallback(() => {
-    handleMemberUpdateinDrawer(drawerSelectedMemberId);
+  const handleMemberSelect = React.useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const newMemberBookingId = event.target.value;
+
+      if (!newMemberBookingId) return;
+      handleMemberUpdate(parseInt(newMemberBookingId, 10));
+    },
+    [handleMemberUpdate],
+  );
+
+  const onDrawerConfirm = React.useCallback(() => {
+    handleMemberUpdate(drawerSelectedMemberId);
     onToggleDrawer();
-  }, [handleMemberUpdateinDrawer, drawerSelectedMemberId, onToggleDrawer]);
+  }, [handleMemberUpdate, drawerSelectedMemberId, onToggleDrawer]);
 
   const handleChange = React.useCallback(
     (memberId: number) => {
@@ -184,7 +192,7 @@ const BookingForAnotherSelector: React.FC<Props> = ({
           <DrawerRelationshipSelector
             handleChange={handleChange}
             isOpen={isDrawerOpen}
-            onConfirm={onConfirm}
+            onConfirm={onDrawerConfirm}
             onToggleDrawer={onToggleDrawer}
             relatedMembersList={relatedMembersList}
             selectedMemberId={drawerSelectedMemberId}
@@ -217,7 +225,7 @@ const BookingForAnotherSelector: React.FC<Props> = ({
             },
             getContentAnchorEl: null,
           }}
-          onChange={handleMemberUpdate}
+          onChange={handleMemberSelect}
           value={memberBookingId}
         >
           <MenuItem key={-1} value={-1}>

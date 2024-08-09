@@ -192,6 +192,7 @@ import type { OptionCallback } from '../../../../state/types';
 import type { WithHandlerType } from '../../../../utils/types';
 import type { MemberMinimal } from '#src/libs/member/types';
 import BookingForAnotherSelector from '#src/libs/booker-module/components/BookingForAnotherSelector.component';
+import { filterObjectOnSingleKey } from '#src/libs/utils';
 
 import { buildDataForUserRegistrationWithMultiSessionsAllowed } from '#src/libs/marketplace/utils/booker-module';
 
@@ -200,14 +201,22 @@ import './BoutiqueBookerModule.css';
 const SIMILAR_OFFER_PAGE_SIZE = 7;
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
+type SelectedSpotsKeying = {
+  [key: number]: string;
+};
+
+type SelectedSpotsIdsKeying = {
+  [key: number]: number;
+};
+
 type State = {
   offersConstraint: OfferConstraint;
   selectedBuyableItemCategory: BuyableItemCategory | null;
   selectedOffers: MultipleOfferSelectedData[];
   selectedItem: BookerItem;
   isSpotSelectorOpen: boolean;
-  selectedSpotsIds: { [key: number]: number };
-  selectedSpots: { [key: number]: string };
+  selectedSpotsIds: SelectedSpotsIdsKeying;
+  selectedSpots: SelectedSpotsKeying;
   showBuyableItems: boolean;
   confirmLoading: boolean;
   availableConsumerPacks: (ConsumerPaymentPack<PaymentPack> & MaxoutData)[];
@@ -346,7 +355,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         offerIds,
         {
           page_size: SIMILAR_OFFER_PAGE_SIZE,
-          // TODO : add booking for member id like in the OBF
+          ...(this.state.memberBookingId && this.state.memberBookingId !== -1
+            ? { booking_for_member: this.state.memberBookingId }
+            : {}),
         },
         { onSuccess: this.updateOfferConstraints },
       );
@@ -949,34 +960,34 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     return spotId?.toString();
   };
 
-  handleBookingForAnotherChange = (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    const newMemberBookingId = event.target.value;
-
+  handleMemberBookingUpdate = (newMemberBookingId: number) => {
     if (!newMemberBookingId) return;
 
-    this.setState(
-      {
-        // TODO on multi session : reset similar session choosen when you switch member booking
-        memberBookingId: parseInt(newMemberBookingId, 10),
-      },
-      () => {
-        // TODO on multi session: update this function to work with an array of offerIds
-        this.fetchOfferStatus();
-      },
+    const newSelectedOffers = this.state.selectedOffers.filter(
+      (selectedOffer) => selectedOffer.offer.id === this.props.offerId,
     );
-  };
+    const newSelectedSpots = filterObjectOnSingleKey<string>(
+      this.state.selectedSpots,
+      this.props.offerId,
+    );
+    const newSelectedSpotsIds = filterObjectOnSingleKey<number>(
+      this.state.selectedSpotsIds,
+      this.props.offerId,
+    );
 
-  handleMemberUpdateinDrawer = (newMemberBookingId: number) => {
     this.setState(
       {
-        // TODO on multi session : reset similar session choosen when you switch member booking
+        selectedOffers: newSelectedOffers,
+        selectedSpots: newSelectedSpots || {},
+        selectedSpotsIds: newSelectedSpotsIds || {},
         memberBookingId: newMemberBookingId,
       },
       () => {
-        // TODO on multi session: update this function to work with an array of offerIds
-        this.fetchOfferStatus();
+        const offersIds = [
+          this.props.offerId,
+          ...this.props.similarOffers.map((similarOffer) => similarOffer.id),
+        ];
+        this.fetchOfferStatusList(offersIds);
       },
     );
   };
@@ -1316,8 +1327,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               this.props.relatedMembersList &&
               this.props.relatedMembersList.length > 0 && (
                 <BookingForAnotherSelector
-                  handleMemberUpdate={this.handleBookingForAnotherChange}
-                  handleMemberUpdateinDrawer={this.handleMemberUpdateinDrawer}
+                  handleMemberUpdate={this.handleMemberBookingUpdate}
                   memberBookingId={this.state.memberBookingId}
                   relatedMembersList={this.props.relatedMembersList}
                 />

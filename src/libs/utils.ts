@@ -114,3 +114,29 @@ export function checkPrimitiveArraysEqual<T>(arr1: T[], arr2: T[]) {
 
   return frequencyMap.size === 0;
 }
+
+export type ObjectWithKeys<T> = {
+  [key: number | string]: T;
+};
+
+/**
+ * Takes one objects that have primitives values such as string or number as a key to identify
+ * his values (for example ids) and filter the object on the exact key you provide him as a second argument
+ * return the Object with the wanted key if it find it or null
+ * @param arr1 The object to filter
+ * @param arr2 The key to find in the object to filter
+ *
+ */
+export function filterObjectOnSingleKey<T>(
+  obj: ObjectWithKeys<T>,
+  id: number,
+): ObjectWithKeys<T> | null {
+  const filteredObj: ObjectWithKeys<T> = {};
+
+  // Use the 'in' operator to check if the provided id exists in the object
+  if (id in obj) {
+    filteredObj[id] = obj[id];
+    return filteredObj;
+  }
+  return null;
+}

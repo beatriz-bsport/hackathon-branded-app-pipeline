@@ -89,6 +89,28 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
     actions.fetchConsumerUnpaidInvoices,
   );
 
+  // CONSUMER SUBSCRIPTIONS
+  bridgeAPIActionsRegistry.register(
+    'FETCH_MY_FUTURE_SUBSCRIPTIONS_AS_MEMBER',
+    actions.fetchMyFutureSubscriptionsAsMember,
+  );
+  bridgeAPIActionsRegistry.register(
+    'FETCH_MY_EXPIRED_SUBSCRIPTIONS_AS_MEMBER',
+    actions.fetchMyExpiredSubscriptionsAsMember,
+  );
+  bridgeAPIActionsRegistry.register(
+    'FETCH_MY_ACTIVE_SUBSCRIPTIONS_AS_MEMBER',
+    actions.fetchMyActiveSubscriptionsAsMember,
+  );
+  bridgeAPIActionsRegistry.register(
+    'FETCH_CONSUMER_SUBSCRIPTION_INVOICES_DETAILS',
+    actions.fetchConsumerSubscriptionInvoicesDetails,
+  );
+  bridgeAPIActionsRegistry.register(
+    'FETCH_MY_SUBSCRIPTION_AS_MEMBER',
+    actions.fetchMySubscriptionAsMember,
+  );
+
   // CONSUMER SPACE
   bridgeAPIActionsRegistry.register(
     'RESET_CONSUMER_STATE',
@@ -117,6 +139,10 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
   bridgeAPIActionsRegistry.register(
     'APPLY_BALANCE_TO_INVOICE',
     actions.applyBalanceToInvoice,
+  );
+  bridgeAPIActionsRegistry.register(
+    'FETCH_INVOICE_CONFIGURATION_AS_MEMBER',
+    actions.fetchInvoiceConfigurationAsMember,
   );
 
   // COACH
@@ -180,6 +206,17 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
   bridgeAPIActionsRegistry.register(
     'ASSETS_FOR_BLUE_PRINT',
     actions.fetchAssetForBlueprint,
+  );
+
+  // SUBSCRIPTION
+  bridgeAPIActionsRegistry.register(
+    'DOWNLOAD_PDF_CONTRACT_TERMS_FOR_BILLING_PLAN',
+    actions.downloadPDFContractTermsForBillingPlan,
+  );
+  bridgeAPIActionsRegistry.register(
+    'SWITCH_SUBSCRIPTION_PAYMENT_METHOD',
+    // @ts-expect-error TODO
+    () => {},
   );
 
   // PRIVATE SERVICE

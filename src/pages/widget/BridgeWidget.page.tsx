@@ -46,6 +46,19 @@ import {
 } from '#src/libs/consumer-space/actions';
 
 import {
+  fetchConsumerSubscriptionInvoicesDetails as fetchConsumerSubscriptionInvoicesDetailsAction,
+  fetchMySubscriptionAsMember as fetchMySubscriptionAsMemberAction,
+  fetchMyActiveSubscriptionsAsMember as fetchMyActiveSubscriptionsAsMemberAction,
+  fetchMyExpiredSubscriptionsAsMember as fetchMyExpiredSubscriptionsAsMemberAction,
+  fetchMyFutureSubscriptionsAsMember as fetchMyFutureSubscriptionsAsMemberAction,
+} from '#src/libs/consumer-space/actions/subscription-actions';
+
+import {
+  switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction,
+  downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAction,
+} from '#src/libs/subscription/actions';
+
+import {
   fetchOfferRegisteredIds,
   fetchOfferBulk as fetchOfferBulkAction,
 } from '#src/libs/offer/actions';
@@ -73,6 +86,7 @@ import {
   fetchInvoiceList as fetchInvoiceListAction,
   fetchSpecificInvoice as fetchSpecificInvoiceAction,
   applyBalanceToInvoice as applyBalanceToInvoiceAction,
+  fetchInvoiceConfigurationAsMember as fetchInvoiceConfigurationAsMemberAction,
 } from '#src/libs/invoice/actions';
 
 import { bridgeAPIActionsRegistry } from '#src/libs/widget/actionsRegistry';
@@ -488,6 +502,17 @@ const mapDispatchToProps = {
   fetchMyUserProfile: fetchMyUserProfileAction,
   fetchCompanyCustomMemberForm: fetchCompanyCustomMemberFormAction,
   submitCustomForm: submitCustomFormAction,
+  fetchMyFutureSubscriptionsAsMember: fetchMyFutureSubscriptionsAsMemberAction,
+  fetchMyExpiredSubscriptionsAsMember:
+    fetchMyExpiredSubscriptionsAsMemberAction,
+  fetchMyActiveSubscriptionsAsMember: fetchMyActiveSubscriptionsAsMemberAction,
+  fetchConsumerSubscriptionInvoicesDetails:
+    fetchConsumerSubscriptionInvoicesDetailsAction,
+  fetchInvoiceConfigurationAsMember: fetchInvoiceConfigurationAsMemberAction,
+  downloadPDFContractTermsForBillingPlan:
+    downloadPDFContractTermsForBillingPlanAction,
+  switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
+  fetchMySubscriptionAsMember: fetchMySubscriptionAsMemberAction,
 };
 
 export default compose(

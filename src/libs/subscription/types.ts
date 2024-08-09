@@ -25,6 +25,7 @@ import type {
   PaginationFilterParams,
   ErrorAndLoading,
 } from '#src/libs/types';
+import { PAUSE_RESULTS_ERROR_CODES } from '#src/libs/subscription/constants';
 
 export type PlannedInvoice = {
   date: string;
@@ -233,9 +234,16 @@ export type PauseRequestResults = {
   subscription: Subscription;
 };
 
-export type PauseBadRequestResults = {
-  from_date?: string;
-  days?: string;
+type PauseRequestErrorCodes = (typeof PAUSE_RESULTS_ERROR_CODES)[number];
+
+export type PauseRequestErrorData = {
+  pause_overlapped_from_date?: string;
+  days?: number;
+};
+
+export type PauseRequestErrorResults = {
+  error_code?: PauseRequestErrorCodes;
+  error_data?: PauseRequestErrorData;
 };
 
 export type PauseSubmitResults = {

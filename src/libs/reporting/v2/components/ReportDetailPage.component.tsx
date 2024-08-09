@@ -64,7 +64,10 @@ type Props = {
   ) => void;
   excelExportLoading: boolean;
   handleExport: (values: ReportGenerationParams) => () => void;
-  handleGeneration: (values: ReportGenerationParams) => void;
+  handleGeneration: (
+    values: ReportGenerationParams,
+    withReportHeadersFetch?: boolean,
+  ) => void;
   isFranchisor?: boolean;
   isNavigationDrawerExpanded: boolean;
   objectLevelPermissions: ObjectLevelPermissions;

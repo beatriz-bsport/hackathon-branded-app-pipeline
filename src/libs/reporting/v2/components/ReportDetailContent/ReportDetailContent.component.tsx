@@ -47,7 +47,10 @@ type Props = {
   ) => void;
   excelExportLoading: boolean;
   handleExport: (values: ReportGenerationParams) => () => void;
-  handleGeneration: (values: ReportGenerationParams) => void;
+  handleGeneration: (
+    values: ReportGenerationParams,
+    withReportHeadersFetch?: boolean,
+  ) => void;
   hydratedLoading: boolean;
   isFranchisor?: boolean;
   loading: boolean;
@@ -87,19 +90,25 @@ const ReportDetailContent: React.FC<Props> = ({
   const classes = useStyles();
   const { t } = useTranslation('reporting');
   const handleGenerateNextPage = React.useCallback(() => {
-    handleGeneration({
-      page: reportGeneratedRows.next_page,
-    });
+    handleGeneration(
+      {
+        page: reportGeneratedRows.next_page,
+      },
+      false,
+    );
   }, [reportGeneratedRows.next_page, handleGeneration]);
 
   const handleGeneratePreviousPage = React.useCallback(() => {
-    handleGeneration({
-      page: reportGeneratedRows.previous_page,
-    });
+    handleGeneration(
+      {
+        page: reportGeneratedRows.previous_page,
+      },
+      false,
+    );
   }, [reportGeneratedRows.previous_page, handleGeneration]);
 
   const hasReportBeenGenerated = React.useMemo(
-    () => !!reportHeaders?.averageable,
+    () => !!reportHeaders.results?.averageable,
     [reportHeaders],
   );
 

@@ -187,7 +187,7 @@ const ReportingDetail: React.FC<Props> = ({
   );
 
   const handleGeneration = React.useCallback(
-    (values: ReportGenerationParams) => {
+    (values: ReportGenerationParams, withReportHeadersFetch = true) => {
       // remove seconds as per product requirement
       const time_window_start = values.timeStart
         ? DateTime.fromISO(values.timeStart).toFormat('HH:mm')
@@ -221,7 +221,7 @@ const ReportingDetail: React.FC<Props> = ({
           : {}),
       };
 
-      fetchReportHeaders(reportId, sanitizedParams);
+      withReportHeadersFetch && fetchReportHeaders(reportId, sanitizedParams);
       fetchSerializedReport(reportId, sanitizedParams);
     },
     [

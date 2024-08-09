@@ -85,20 +85,24 @@ export type ErrorAndLoading = {
   error?: Error;
 };
 
-export type OptionCallback<T = void> = {
+export type OptionCallback<T = void, CustomError = Error> = {
   onSuccess?: (args?: T) => void;
-  onError?: (error?: Error) => void;
+  onError?: (error?: CustomError) => void;
 };
 
 export type CustomErrorActionCallback = {
   customErrorAction: () => void;
 };
 
-export type OptionBackgroundCallback<T = void, U = undefined> = {
+export type OptionBackgroundCallback<
+  T = void,
+  U = undefined,
+  CustomBackgroundError = Error,
+> = {
   onSuccess?: (args?: T) => void;
   onError?: (error?: Error) => void;
   onBackgroundSuccess?: (args?: U) => void;
-  onBackgroundError?: (error?: Error) => void;
+  onBackgroundError?: (error?: CustomBackgroundError) => void;
 };
 
 export type OptionPaginatedCallback<T = void> = {

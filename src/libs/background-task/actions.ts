@@ -52,9 +52,9 @@ export function fetchBackgroundTask(uuid: string) {
   };
 }
 
-export function monitorBackgroundTask<ReturnedValue>(
+export function monitorBackgroundTask<ReturnedValue, CustomError = Error>(
   uuid: string,
-  options?: OptionCallback<BackgroundTask<ReturnedValue>>,
+  options?: OptionCallback<BackgroundTask<ReturnedValue>, CustomError>,
   hideBackgroundTaskSnackbar: boolean = false,
 ) {
   return (dispatch: Dispatch, getState: () => State) => {
@@ -73,14 +73,17 @@ export function monitorBackgroundTask<ReturnedValue>(
   };
 }
 
-const checkFetchSetTimeoutRecursive = async (
+export async function checkFetchSetTimeoutRecursive<
+  ReturnedValue,
+  CustomError = Error,
+>(
   dispatch: Dispatch,
   getState: () => State,
   timeout_index: number,
   uuid: string,
-  options: OptionCallback<BackgroundTask>,
+  options: OptionCallback<BackgroundTask<ReturnedValue>, CustomError>,
   hideBackgroundTaskSnackbar: boolean = false,
-) => {
+) {
   if (timeout_index >= TIMEOUTS.length) {
     if (!hideBackgroundTaskSnackbar) {
       dispatch(deleteBackgroundSnackbar(uuid));
@@ -111,14 +114,14 @@ const checkFetchSetTimeoutRecursive = async (
     ) {
       !hideBackgroundTaskSnackbar &&
         dispatch(backgroundSnackbarSuccess(uuid, 'background.success'));
-      if (options && options.onSuccess) options.onSuccess(data);
+      options?.onSuccess?.(data as BackgroundTask<ReturnedValue>);
     } else if (
       getState().backgroundTask.byUuid[uuid].status ===
       BACKGROUND_TASK_STATUS_CODE_FAILED
     ) {
       !hideBackgroundTaskSnackbar &&
         dispatch(backgroundSnackbarError(uuid, 'background.error'));
-      if (options && options.onError) options.onError();
+      options?.onError?.(data as CustomError);
     }
   } else {
     setTimeout(
@@ -138,4 +141,4 @@ const checkFetchSetTimeoutRecursive = async (
     // If an error occurs during fetch, we retry every FETCH_RETRY_DELAY seconds
     // until the MAX_RETRY limit is reached
   }
-};
+}

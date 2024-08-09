@@ -30,6 +30,16 @@
     scrollbar-width: none;
   }
 
+  .bs-similar-offer-modal-container-body__no_content {
+    padding: var(--bs-space-size-4) 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--bs-grey-700);
+    font-size: var(--bs-fabrique-line-height-action-md);
+    line-height: 133.4%;
+  }
+
   .bs-similar-offer-modal-card {
     display: flex;
     flex-direction: column;

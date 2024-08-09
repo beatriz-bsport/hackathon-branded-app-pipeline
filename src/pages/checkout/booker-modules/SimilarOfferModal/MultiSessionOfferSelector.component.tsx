@@ -129,19 +129,25 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferSelectorProps> = ({
 
       <div className="bs-similar-offer-modal-container-body">
         <>
-          {similarOffers.map((offer) => {
-            return (
-              <OfferSessionCard
-                key={offer.id}
-                establishment={establishments?.[offer.establishment]}
-                isSelected={preSelectedOffer?.id === offer.id}
-                metaActivity={metaActivities?.[offer.meta_activity]}
-                offer={offer}
-                onClick={onSelectSession}
-                theme={theme}
-              />
-            );
-          })}
+          {similarOffers.length > 0 ? (
+            similarOffers.map((offer) => {
+              return (
+                <OfferSessionCard
+                  key={offer.id}
+                  establishment={establishments?.[offer.establishment]}
+                  isSelected={preSelectedOffer?.id === offer.id}
+                  metaActivity={metaActivities?.[offer.meta_activity]}
+                  offer={offer}
+                  onClick={onSelectSession}
+                  theme={theme}
+                />
+              );
+            })
+          ) : (
+            <div className="bs-similar-offer-modal-container-body__no_content">
+              {t('booking:bookingModule.multiSession.addSession.noContent')}
+            </div>
+          )}
           <ButtonBase
             className={
               isAbleToFetchMoreSimilarSessions

@@ -1072,9 +1072,24 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   getSimilarOfferButtonToDisplay = () => {
+    if (!this.props.similarOffers || this.props.similarOffers.length <= 0) {
+      return null;
+    }
+
+    const similarOffersToCheckIds = this.props.similarOffers.map(
+      (similarOffer) => similarOffer.id,
+    );
+
+    const doExistBookableSimilarOffers =
+      similarOffersToCheckIds.filter(
+        (similarOfferId) =>
+          this.props.offerStatusById[similarOfferId]?.bookable_status ===
+          OFFER_BOOKABLE_STATUS_BOOKABLE,
+      ).length > 1;
+
     return (
       <>
-        {this.props.similarOffers && this.props.similarOffers.length > 0 && (
+        {doExistBookableSimilarOffers && (
           <ButtonBase
             className="bs-new-offer-booking__fetch-more-similar-offers-button"
             onClick={this.toggleSimilarOfferModal}

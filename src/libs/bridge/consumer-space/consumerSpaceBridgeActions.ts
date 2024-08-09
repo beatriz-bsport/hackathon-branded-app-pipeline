@@ -161,7 +161,20 @@ const consumerPassBridgeActions = {
 const consumerSubscriptionBridgeActions = {};
 
 /* MY PROFILE */
-const consumerProfileBridgeActions = {};
+const consumerProfileBridgeActions = {
+  fetchMember: createAuthenticatedBridgeAction('FETCH_MEMBER_BY_ID'),
+  fetchPaymentMethodList: createAuthenticatedBridgeAction(
+    'FETCH_PAYMENT_METHOD_LIST',
+  ),
+  detachPaymentMethod: createAuthenticatedBridgeAction('DETACH_PAYMENT_METHOD'),
+  fetchCompanyCustomMemberForm: createAuthenticatedBridgeAction(
+    'FETCH_COMPANY_CUSTOM_MEMBER_FORM',
+  ),
+  submitCustomForm: createAuthenticatedBridgeAction('SUBMIT_CUSTOM_FORM'),
+  fetchMyUserProfile: createAuthenticatedBridgeAction(
+    'RETRIEVE_MY_USER_PROFILE',
+  ),
+};
 
 /* MY INVOICES */
 const consumerInvoiceBridgeActions = {

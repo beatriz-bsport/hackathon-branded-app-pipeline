@@ -2,7 +2,10 @@
  * THE COMPLETE LIST OF SELECTORS FOR THE CONSUMER SPACE WIDGET
  * ONE SET OF SELECTORS PER PAGE/WIDGET
  */
-import { getMembershipByCompanyId } from '../selectors';
+import {
+  getMembershipByCompanyId,
+  getMemberUsingCompanyId,
+} from '../selectors';
 import { adaptSelector } from '../../../utils/reduxHelpers';
 
 /* MY BOOKINGS */
@@ -79,14 +82,23 @@ import {
 } from 'bsport-saas/src/libs/consumer-space/selectors';
 import { getInvoice } from 'bsport-saas/src/libs/invoice/selectors';
 
+/* MY PROFILE */
+import { getSavedPaymentMethodList } from 'bsport-saas/src/libs/payment/selectors';
+import { getConsumerProfileCustomForm } from 'bsport-saas/src/libs/custom-form/selectors';
+
 import type { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
 import type { RootState } from '../../../reducers';
 // @ts-expect-error
 import type { BookingTab } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 // @ts-expect-error
 import type { BookingFilterTab } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
+import type { Membership } from 'bsport-saas/src/libs/membership/types';
 
-type ConsumerSpaceWidgetProps = { companyId: number, theme: CompanyTheme };
+type ConsumerSpaceWidgetProps = {
+  companyId: number,
+  theme: CompanyTheme,
+  membership: Membership,
+};
 
 /* COMMON */
 const consumerSpaceCommonBridgeSelectors = (
@@ -232,7 +244,22 @@ const consumerPassBridgeSelectors = (state: RootState) => ({
 const consumerSubscriptionBridgeSelectors = (state: RootState) => ({});
 
 /* MY PROFILE */
-const consumerProfileBridgeSelectors = (state: RootState) => ({});
+const consumerProfileBridgeSelectors = (
+  state: RootState,
+  { companyId }: ConsumerSpaceWidgetProps,
+) => ({
+  company: companyId,
+  companyThemeLoading: state.theme.loading,
+  memberLoading: state.member.loading,
+  member: getMemberUsingCompanyId(state, companyId),
+  paymentMethods: adaptSelector(getSavedPaymentMethodList)(state),
+  paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
+  detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
+  memberCustomForm: getConsumerProfileCustomForm(
+    state,
+    getMemberUsingCompanyId(state, companyId)?.id,
+  ),
+});
 
 /* MY INVOICES */
 const consumerInvoiceBridgeSelectors = (state: RootState) => ({
@@ -264,6 +291,6 @@ export const consumerSpaceMapStateToWidgetProps = (
   ...consumerBookingBridgeSelectors(state, props),
   ...consumerPassBridgeSelectors(state),
   ...consumerSubscriptionBridgeSelectors(state),
-  ...consumerProfileBridgeSelectors(state),
+  ...consumerProfileBridgeSelectors(state, props),
   ...consumerInvoiceBridgeSelectors(state),
 });

@@ -158,7 +158,35 @@ const consumerPassBridgeActions = {
 };
 
 /* MY SUBSCRIPTIONS */
-const consumerSubscriptionBridgeActions = {};
+const consumerSubscriptionBridgeActions = {
+  fetchPaymentMethodListAction: createAuthenticatedBridgeAction(
+    'FETCH_PAYMENT_METHOD_LIST',
+  ),
+  fetchMyFutureSubscriptionsAsMemberAction: createAuthenticatedBridgeAction(
+    'FETCH_MY_FUTURE_SUBSCRIPTIONS_AS_MEMBER',
+  ),
+  fetchMyExpiredSubscriptionsAsMemberAction: createAuthenticatedBridgeAction(
+    'FETCH_MY_EXPIRED_SUBSCRIPTIONS_AS_MEMBER',
+  ),
+  fetchMyActiveSubscriptionsAsMemberAction: createAuthenticatedBridgeAction(
+    'FETCH_MY_ACTIVE_SUBSCRIPTIONS_AS_MEMBER',
+  ),
+  fetchConsumerSubscriptionInvoicesDetails: createAuthenticatedBridgeAction(
+    'FETCH_CONSUMER_SUBSCRIPTION_INVOICES_DETAILS',
+  ),
+  fetchMySubscriptionAsMemberAction: createAuthenticatedBridgeAction(
+    'FETCH_MY_SUBSCRIPTION_AS_MEMBER',
+  ),
+  fetchInvoiceConfigurationAsMemberAction: createAuthenticatedBridgeAction(
+    'FETCH_INVOICE_CONFIGURATION_AS_MEMBER',
+  ),
+  downloadPDFContractTermsForBillingPlan: createAuthenticatedBridgeAction(
+    'DOWNLOAD_PDF_CONTRACT_TERMS_FOR_BILLING_PLAN',
+  ),
+  switchSubscriptionPaymentMethod: createAuthenticatedBridgeAction(
+    'SWITCH_SUBSCRIPTION_PAYMENT_METHOD',
+  ),
+};
 
 /* MY PROFILE */
 const consumerProfileBridgeActions = {

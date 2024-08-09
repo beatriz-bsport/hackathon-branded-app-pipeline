@@ -30,6 +30,13 @@ import {
   getMyWaitlistBookingsWorkshopList,
   getConsumerOfferElligibleGuestNumber,
   getConsumerOfferBookingOptionPosition,
+  getMyActiveSubscriptionsState,
+  getMyActiveSubscriptionsList,
+  getMyFutureSubscriptionsState,
+  getMyFutureSubscriptionsList,
+  getMyExpiredSubscriptionsState,
+  getMyExpiredSubscriptionsList,
+  getMySubscriptionsInvoicesDetailsState,
 } from 'bsport-saas/src/libs/consumer-space/selectors';
 import { getWaitingListConfigurationData } from 'bsport-saas/src/libs/waiting-list/selectors';
 
@@ -241,7 +248,28 @@ const consumerPassBridgeSelectors = (state: RootState) => ({
 });
 
 /* MY SUBSCRIPTIONS */
-const consumerSubscriptionBridgeSelectors = (state: RootState) => ({});
+const consumerSubscriptionBridgeSelectors = (
+  state: RootState,
+  { theme }: ConsumerSpaceWidgetProps,
+) => ({
+  activeSubscriptionsState: adaptSelector(getMyActiveSubscriptionsState)(state),
+  activeSubscriptionsList: adaptSelector(getMyActiveSubscriptionsList)(state),
+  futureSubscriptionsState: adaptSelector(getMyFutureSubscriptionsState)(state),
+  futureSubscriptionsList: adaptSelector(getMyFutureSubscriptionsList)(state),
+  expiredSubscriptionsState: adaptSelector(getMyExpiredSubscriptionsState)(
+    state,
+  ),
+  expiredSubscriptionsList: adaptSelector(getMyExpiredSubscriptionsList)(state),
+  paymentMethodList: adaptSelector(getSavedPaymentMethodList)(state),
+  subscriptionsInvoicesDetailsState: adaptSelector(
+    getMySubscriptionsInvoicesDetailsState,
+  )(state),
+  invoiceConfiguration: state.invoice.configuration.result,
+  companyTheme: theme,
+  marketplaceSettings: state.marketplace.settings,
+  paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
+  auth: state.auth,
+});
 
 /* MY PROFILE */
 const consumerProfileBridgeSelectors = (
@@ -290,7 +318,7 @@ export const consumerSpaceMapStateToWidgetProps = (
   ...consumerSpaceCommonBridgeSelectors(state, props),
   ...consumerBookingBridgeSelectors(state, props),
   ...consumerPassBridgeSelectors(state),
-  ...consumerSubscriptionBridgeSelectors(state),
+  ...consumerSubscriptionBridgeSelectors(state, props),
   ...consumerProfileBridgeSelectors(state, props),
   ...consumerInvoiceBridgeSelectors(state),
 });

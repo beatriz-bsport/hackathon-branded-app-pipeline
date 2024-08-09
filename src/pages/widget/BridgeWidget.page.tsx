@@ -14,6 +14,7 @@ import { getMembership } from '#src/libs/membership/selectors';
 // ACTIONS
 import { fetchCurrentBasket } from '#src/libs/checkout/actions';
 import {
+  resetConsumerState as resetConsumerStateAction,
   cancelBookingAsMember as cancelBookingAsMemberAction,
   cancelPrivateBookingAsMember as cancelPrivateBookingAsMemberAction,
   cancelBookingOptionAsMember as cancelBookingOptionAsMemberAction,
@@ -38,6 +39,10 @@ import {
   fetchMyFutureUniversalPassesAsMember as fetchMyFutureUniversalPassesAsMemberAction,
   fetchConsumerGuestNumberEligibleLeftByOfferBulk as fetchConsumerGuestNumberEligibleLeftByOfferBulkAction,
   fetchMyBookingOptionsPositionAsMemberByOfferIds as fetchMyBookingOptionsPositionAsMemberByOfferIdsAction,
+  fetchConsumerInvoicesComplementary as fetchConsumerInvoicesComplementaryAction,
+  fetchConsumerPaidInvoices as fetchConsumerPaidInvoicesAction,
+  fetchConsumerRefundedInvoices as fetchConsumerRefundedInvoicesAction,
+  fetchConsumerUnpaidInvoices as fetchConsumerUnpaidInvoicesAction,
 } from '#src/libs/consumer-space/actions';
 
 import {
@@ -57,6 +62,15 @@ import {
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
 } from '#src/libs/referral/actions';
 import { fetchMember } from '#src/libs/member/actions';
+import {
+  fetchPaymentMethodList as fetchPaymentMethodListAction,
+  detachPaymentMethod as detachPaymentMethodAction,
+} from '#src/libs/payment/actions';
+import {
+  fetchInvoiceList as fetchInvoiceListAction,
+  fetchSpecificInvoice as fetchSpecificInvoiceAction,
+  applyBalanceToInvoice as applyBalanceToInvoiceAction,
+} from '#src/libs/invoice/actions';
 import { bridgeAPIActionsRegistry } from '#src/libs/widget/actionsRegistry';
 import { fetchMetaActivityBulkWidget } from '#src/libs/meta-activity/actions';
 import { fetchGroupOffer as fetchGroupOfferAction } from '#src/libs/group-offer/actions';
@@ -380,8 +394,6 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   auth: state.auth,
   // eslint-disable-next-line react/no-unused-prop-types
   basket: getCurrentBasket(state),
-  bookingsCount: state.consumer.bookingAndPrivateBooking.count,
-  bookingsLoading: state.consumer.bookingAndPrivateBooking.loading,
   membership: getMembership(state, ownProps.companyId),
 });
 
@@ -455,6 +467,16 @@ const mapDispatchToProps = {
     fetchConsumerGuestNumberEligibleLeftByOfferBulkAction,
   fetchMyBookingOptionsPositionAsMemberByOfferIds:
     fetchMyBookingOptionsPositionAsMemberByOfferIdsAction,
+  fetchConsumerInvoicesComplementary: fetchConsumerInvoicesComplementaryAction,
+  resetConsumerState: resetConsumerStateAction,
+  fetchPaymentMethodList: fetchPaymentMethodListAction,
+  detachPaymentMethod: detachPaymentMethodAction,
+  fetchConsumerPaidInvoices: fetchConsumerPaidInvoicesAction,
+  fetchConsumerRefundedInvoices: fetchConsumerRefundedInvoicesAction,
+  fetchConsumerUnpaidInvoices: fetchConsumerUnpaidInvoicesAction,
+  fetchInvoiceList: fetchInvoiceListAction,
+  fetchSpecificInvoice: fetchSpecificInvoiceAction,
+  applyBalanceToInvoice: applyBalanceToInvoiceAction,
 };
 
 export default compose(

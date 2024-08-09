@@ -67,6 +67,54 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
     actions.cancelBookingOptionAsMember,
   );
 
+  // CONSUMER INVOICES
+  bridgeAPIActionsRegistry.register(
+    'FETCH_CONSUMER_INVOICES_COMPLEMENTARY',
+    actions.fetchConsumerInvoicesComplementary,
+  );
+  bridgeAPIActionsRegistry.register(
+    'FETCH_CONSUMER_PAID_INVOICES',
+    actions.fetchConsumerPaidInvoices,
+  );
+  bridgeAPIActionsRegistry.register(
+    'FETCH_CONSUMER_REFUNDED_INVOICES',
+    actions.fetchConsumerRefundedInvoices,
+  );
+  bridgeAPIActionsRegistry.register(
+    'FETCH_CONSUMER_UNPAID_INVOICES',
+    actions.fetchConsumerUnpaidInvoices,
+  );
+
+  // CONSUMER SPACE
+  bridgeAPIActionsRegistry.register(
+    'RESET_CONSUMER_STATE',
+    actions.resetConsumerState,
+  );
+
+  // PAYMENT
+  bridgeAPIActionsRegistry.register(
+    'FETCH_PAYMENT_METHOD_LIST',
+    actions.fetchPaymentMethodList,
+  );
+  bridgeAPIActionsRegistry.register(
+    'DETACH_PAYMENT_METHOD',
+    actions.detachPaymentMethod,
+  );
+
+  // INVOICE
+  bridgeAPIActionsRegistry.register(
+    'FETCH_INVOICE_LIST',
+    actions.fetchInvoiceList,
+  );
+  bridgeAPIActionsRegistry.register(
+    'FETCH_SPECIFIC_INVOICE',
+    actions.fetchSpecificInvoice,
+  );
+  bridgeAPIActionsRegistry.register(
+    'APPLY_BALANCE_TO_INVOICE',
+    actions.applyBalanceToInvoice,
+  );
+
   // COACH
   bridgeAPIActionsRegistry.register('FETCH_COACH_BULK', actions.fetchCoachBulk);
 

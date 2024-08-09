@@ -201,7 +201,10 @@ export const freezeSubscription = async (
   id: number,
   data: PauseRequestData,
 ) => {
-  return postAuth(`${API_URI}/subscription/billing-plan/${id}/pause/`, data);
+  return postAuth<void, PauseRequestData>(
+    `${API_URI}/subscription/billing-plan/${id}/pause/`,
+    data,
+  );
 };
 
 export const switchSubscriptionPaymentPack = async (

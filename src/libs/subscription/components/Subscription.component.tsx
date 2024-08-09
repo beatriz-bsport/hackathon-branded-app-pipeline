@@ -15,10 +15,18 @@ import PlannedInvoiceListDetail from './PlannedInvoiceListDetail.component';
 import PauseV1ListItem from './pause/PauseV1ListItem.component';
 import SubscriptionActionsV2 from './SubscriptionActionsV2.component';
 import SubscriptionPaymentMethod from './SubscriptionPaymentMethod.component';
-import { Subscription, PauseRequestData } from '../types';
+import {
+  Subscription,
+  PauseRequestData,
+  PauseRequestResults,
+  PauseRequestErrorResults,
+} from '#src/libs/subscription/types';
 
 import { COMPANY_EVENTS } from '../event.utils';
-import { OptionCallback } from '../../../state/types';
+import type {
+  OptionCallback,
+  OptionBackgroundCallback,
+} from '#src/state/types';
 
 type Props = {
   subscription: Subscription;
@@ -63,7 +71,14 @@ type Props = {
     options: OptionCallback,
   ) => void;
   cancelPause: (id: number, options?: OptionCallback<Subscription>) => void;
-  requestPause: (data: PauseRequestData, options: OptionCallback<any>) => void;
+  requestPause: (
+    data: PauseRequestData,
+    options: OptionBackgroundCallback<
+      void,
+      PauseRequestResults,
+      PauseRequestErrorResults
+    >,
+  ) => void;
   paymentMethodLoading?: boolean;
   downloadContractTerms: (options: OptionCallback) => void;
 };

@@ -60,6 +60,8 @@ import type {
   ContractTemplatePaginatedQueryParams,
   ContractTemplatePayload,
   SubscriptionREST,
+  PauseRequestResults,
+  PauseRequestErrorResults,
 } from './types';
 import type { PaginationFilterParams } from '#src/libs/types';
 import {
@@ -69,6 +71,7 @@ import {
 import { fetchEventList } from '../event/actions';
 import { downloadDocument } from '../../utils/downloader';
 import { RootState } from '#src/reducers';
+import type { BackgroundTask } from '#src/libs/background-task/types';
 
 export const fetchSubscriptionEventList = (
   params: { event_types?: any } = {},
@@ -555,29 +558,42 @@ export const freezeSubscriptionActions = {
 export function freezeSubscription(
   id: number,
   data: PauseRequestData,
-  options: OptionCallback,
+  options: OptionBackgroundCallback<
+    void,
+    PauseRequestResults,
+    PauseRequestErrorResults
+  >,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(freezeSubscriptionActions.error(null));
     dispatch(freezeSubscriptionActions.isLoading(true));
     try {
       const response = await freezeSubscriptionAPI(id, data);
-      // @ts-expect-error
-      if (response.data.subscription) {
-        // @ts-expect-error
-        dispatch(freezeSubscriptionActions.success(response.data.subscription));
-      }
-      if (options && options.onSuccess) {
-        // @ts-expect-error
-        options.onSuccess(response.data);
-      }
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      options?.onSuccess?.();
+      dispatch(
+        monitorBackgroundTask<
+          PauseRequestResults,
+          BackgroundTask<PauseRequestErrorResults>
+        >(backgroundTaskUuid, {
+          onSuccess: (backgroundTaskData) => {
+            dispatch(
+              freezeSubscriptionActions.success(
+                backgroundTaskData.return_value.subscription,
+              ),
+            );
+            options?.onBackgroundSuccess?.(backgroundTaskData.return_value);
+          },
+          onError: (backgroundTaskData) => {
+            options?.onBackgroundError?.(backgroundTaskData.return_value);
+          },
+        }),
+      );
     } catch (err) {
       console.error(err);
       dispatch(freezeSubscriptionActions.error(err));
-      if (err && err.response && err.response.status === 423) {
-        dispatch(snackbarWarning('subscription.freeze.locked'));
-      }
-      if (options && options.onError) options.onError(err);
+      dispatch(snackbarError('subscription.freeze.error'));
+      options?.onError?.();
     }
     dispatch(freezeSubscriptionActions.isLoading(false));
   };

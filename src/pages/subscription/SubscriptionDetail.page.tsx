@@ -64,9 +64,14 @@ import { getStripeReaders } from '#src/libs/terminal/selectors';
 import type {
   Subscription,
   PauseRequestData,
+  PauseRequestResults,
+  PauseRequestErrorResults,
 } from '#src/libs/subscription/types';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
-import type { OptionCallback } from '../../state/types';
+import type {
+  OptionCallback,
+  OptionBackgroundCallback,
+} from '#src/state/types';
 import type { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -464,20 +469,18 @@ const mapWithHandlers1 = {
     },
 
   freezeSubscription:
-    ({ id, freezeSubscription, setFreezeDialogOpen }: BeforeHandlerProps) =>
-    (data: PauseRequestData, options: OptionCallback<any>) => {
-      const options_ = {
-        onSuccess: (...args: any) => {
-          if (options && options.onSuccess) options.onSuccess(...args);
-          setFreezeDialogOpen(false);
-        },
-        onError: (err: any) => {
-          if (options && options.onError) options.onError(err);
-        },
-      };
-
-      freezeSubscription(id, data, options_);
+    ({ id, freezeSubscription }: BeforeHandlerProps) =>
+    (
+      data: PauseRequestData,
+      options: OptionBackgroundCallback<
+        void,
+        PauseRequestResults,
+        PauseRequestErrorResults
+      >,
+    ) => {
+      freezeSubscription(id, data, options);
     },
+
   updateSubscriptionRenewal:
     ({ id, updateSubscriptionRenewal }: BeforeHandlerProps) =>
     (data: any, options: OptionCallback<Subscription>) => {
@@ -589,7 +592,6 @@ const styles = (theme: Theme) =>
   });
 
 const stateHandlerInit = {
-  freezeDialogOpen: false,
   switchPackDialogOpen: false,
   switchPrivatePassDialogOpen: false,
   switchPaymentComboDialogOpen: false,
@@ -598,9 +600,6 @@ const stateHandlerInit = {
   scheduledStopDialogOpen: false,
 };
 const stateHandlerSetter = {
-  setFreezeDialogOpen: () => (freezeDialogOpen: boolean) => {
-    return { freezeDialogOpen };
-  },
   setSwitchPackDialogOpen: () => (switchPackDialogOpen: boolean) => {
     return { switchPackDialogOpen };
   },
@@ -625,7 +624,6 @@ const stateHandlerSetter = {
 };
 export default compose(
   withStyles(styles),
-  withState('freezeDialogOpen', 'setFreezeDialogOpen', false),
   withState('switchPackDialogOpen', 'setSwitchPackDialogOpen', false),
   withState(
     'switchPrivatePassDialogOpen',

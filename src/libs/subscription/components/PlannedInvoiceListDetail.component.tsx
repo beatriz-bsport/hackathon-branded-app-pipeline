@@ -45,13 +45,19 @@ import PlannedInvoicePriceUpdater from './PlannedInvoicePriceUpdater.component';
 import PlannedInvoiceDateUpdater from './PlannedInvoiceDateUpdater.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
-import {
+import type {
   PlannedInvoice,
   Subscription,
   PauseRequestData,
   SubscriptionPause,
-} from '../types';
-import { OptionCallback } from '../../../state/types';
+  PauseRequestResults,
+  PauseRequestErrorResults,
+} from '#src/libs/subscription/types';
+
+import type {
+  OptionBackgroundCallback,
+  OptionCallback,
+} from '#src/state/types';
 import PauseDetailListItem from './pause/PauseDetailListItem.component';
 import PauseFormDialog from './pause/PauseFormDialog.component';
 
@@ -521,7 +527,14 @@ type Props = {
   ) => void;
   pauseList: Array<SubscriptionPause>;
   cancelPause: (id: number, options?: OptionCallback<Subscription>) => void;
-  updatePause: (data: PauseRequestData, options: OptionCallback<any>) => void;
+  updatePause: (
+    data: PauseRequestData,
+    options: OptionBackgroundCallback<
+      void,
+      PauseRequestResults,
+      PauseRequestErrorResults
+    >,
+  ) => void;
   toogleAutoRenew: ({ auto_renewal }: { auto_renewal: boolean }) => void;
   subscription: Subscription;
   unflagPlannedInvoiceAsLast: (id: number) => void;

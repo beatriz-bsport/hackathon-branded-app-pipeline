@@ -15,23 +15,31 @@ import {
 import { DateTime } from 'luxon';
 import CustomMuiDialog from '#src/components/genericDialog/CustomMuiDialog.component';
 import InfoGenericBox from '#src/components/box/InfoGenericBox.component';
-import { isErrorWithCustomCode } from '#src/libs/utils';
-import { OptionCallback } from '../../../../state/types';
+import type { OptionBackgroundCallback } from '#src/state/types';
 import PauseResultDialog from './PauseResultDialog.component';
 import PauseFormDateRange from './PauseFormDateRange.component';
-import {
+import type {
   PauseSubmitResults,
   PauseRequestData,
   SubscriptionPause,
   Subscription,
-} from '../../types';
+  PauseRequestResults,
+  PauseRequestErrorResults,
+} from '#src/libs/subscription/types';
 import { PAUSE_RESULT_SUCCESS, PAUSE_NAME_MAX_LENGTH } from '../../constants';
 
 const PAUSE_RESULT_FAIL_UNKNOWN_ERROR = 63200;
 
 type OwnProps = {
   closeDialog: () => void;
-  onSubmit: (data: PauseRequestData, options: OptionCallback<any>) => void;
+  onSubmit: (
+    data: PauseRequestData,
+    options: OptionBackgroundCallback<
+      void,
+      PauseRequestResults,
+      PauseRequestErrorResults
+    >,
+  ) => void;
   openForm: boolean;
   subscription: Subscription;
   pauseBeingEdited?: SubscriptionPause;
@@ -116,11 +124,9 @@ class PauseFormDialog extends React.Component<Props, State> {
     this.setState({ untilDate: nextDate });
   };
 
-  onSubmitSuccess = (data?: {
-    subscription: Subscription;
-    pause: { from_date?: string; until_date?: string };
-  }) => {
+  onSubmitBackgroundSuccess = (data?: PauseRequestResults) => {
     const { from_date, until_date } = data?.pause;
+
     this.setState((prevState: State) => ({
       submitResults: {
         resultIdentifier: PAUSE_RESULT_SUCCESS,
@@ -139,26 +145,37 @@ class PauseFormDialog extends React.Component<Props, State> {
     setTimeout(this.props.updateEventList, 6000);
   };
 
-  onSubmitError = (error: any) => {
+  /**
+   * @description Handles the outcome of a BackgroundTask that has failed. If the failure is recognized as an
+   * identified error by the back-end, this function retrieves the corresponding error code and
+   * associates it with an appropriate error message.
+   *
+   * @param error - The error information stored in the `return_value` attribute of the BackgroundTask
+   *                in the database. This can be an identified error with a specific `error_code` and
+   *                potentially additional `error_data` provided by the back-end. Alternatively, it
+   *                may be an unknown or unrecognized error.
+   */
+  onSubmitBackgroundError = (error: Error | PauseRequestErrorResults) => {
     const params = {
       resultIdentifier: PAUSE_RESULT_FAIL_UNKNOWN_ERROR,
       fromDate: '',
       untilDate: '',
     };
-    if (isErrorWithCustomCode(error)) {
-      params.resultIdentifier =
-        error.response.data?.error_code || PAUSE_RESULT_FAIL_UNKNOWN_ERROR;
-      if (error.response.data?.error_data) {
-        const { pause_overlapped_from_date, days } =
-          error.response.data.error_data;
-        params.fromDate = DateTime.fromISO(pause_overlapped_from_date).toFormat(
-          'D',
-        );
-        DateTime.fromISO(pause_overlapped_from_date)
-          .plus({ days: days - 1 })
-          .toFormat('D');
-      }
+
+    if ('error_code' in error) {
+      params.resultIdentifier = error.error_code;
     }
+
+    if ('error_data' in error) {
+      const { pause_overlapped_from_date, days } = error.error_data;
+      params.fromDate = DateTime.fromISO(pause_overlapped_from_date).toFormat(
+        'D',
+      );
+      params.untilDate = DateTime.fromISO(pause_overlapped_from_date)
+        .plus({ days: days - 1 })
+        .toFormat('D');
+    }
+
     this.setState({
       submitResults: {
         subscriberName: this.props.subscription.memberName,
@@ -166,6 +183,12 @@ class PauseFormDialog extends React.Component<Props, State> {
         ...params,
       },
       openDialogResult: true,
+      loadingSubmitResponse: false,
+    });
+  };
+
+  onError = () => {
+    this.setState({
       loadingSubmitResponse: false,
     });
   };
@@ -188,8 +211,9 @@ class PauseFormDialog extends React.Component<Props, State> {
       };
     }
     this.props.onSubmit(data, {
-      onSuccess: this.onSubmitSuccess,
-      onError: this.onSubmitError,
+      onBackgroundSuccess: this.onSubmitBackgroundSuccess,
+      onBackgroundError: this.onSubmitBackgroundError,
+      onError: this.onError,
     });
   };
 

@@ -8,16 +8,25 @@ import AlarmAddIcon from '@material-ui/icons/AlarmAdd';
 import EventBusyIcon from '@material-ui/icons/EventBusy';
 import PopOver from '#src/components/Popover';
 
-import { OptionCallback } from '../../../state/types';
+import type { OptionBackgroundCallback } from '#src/state/types';
 import RedButton from '../../../components/button/RedButton.component';
 import PauseFormDialog from './pause/PauseFormDialog.component';
-import { PauseRequestData, PauseRequestResults, Subscription } from '../types';
+import {
+  PauseRequestData,
+  PauseRequestErrorResults,
+  PauseRequestResults,
+  Subscription,
+} from '../types';
 
 type Props = {
   subscription: Subscription;
   requestPause?: (
     data: PauseRequestData,
-    options: OptionCallback<PauseRequestResults>,
+    options: OptionBackgroundCallback<
+      void,
+      PauseRequestResults,
+      PauseRequestErrorResults
+    >,
   ) => void;
   requestScheduledStop?: (plannedInvoiceId: number) => void;
   updateEventList: () => void;

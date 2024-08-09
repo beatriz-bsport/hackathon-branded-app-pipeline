@@ -76,6 +76,9 @@ export type BookerModuleBuyableItem =
   | PaymentCombo
   | ContractWithPaymentPack;
 
+export type BookerModuleBuyableItemWithMaxout = BookerModuleBuyableItem &
+  MaxoutData;
+
 export type BookerItem = {
   data:
     | ConsumerPaymentPack<PaymentPack>

@@ -156,7 +156,10 @@ import type {
   OfferConstraint,
 } from '#src/libs/booker-module/types';
 import type { PaymentCombo } from '#src/libs/payment-combo/types';
-import type { Contract } from '#src/libs/subscription/types';
+import type {
+  Contract,
+  ContractWithPaymentPack,
+} from '#src/libs/subscription/types';
 import OfferBookingWaitingList from '#src/libs/offer/components/OfferBookingWaitingList';
 import MarketplaceBookingBlockedReason from '#src/libs/marketplace/components/@Booking/MarketplaceBookingBlockedReason';
 import MarketplaceSpotSelector from '#src/libs/marketplace/components/@SpotScheduling/MarketplaceSpotSelector';
@@ -419,41 +422,45 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   getIsGuestBooking = () => this.props.queryParams.guest_booking === 'true';
 
   getAvailableConsumerPack = () => {
+    const selectedOffers = this.state.selectedOffers
+      .map((selectedOffer) => selectedOffer.offer)
+      .filter((offer) => offer.id !== this.props.offerId);
     return getAvailableConsumerPack(
       this.state.offersConstraint,
       this.props.consumerPaymentPackList,
       this.props.cppMaxoutBookings,
-      [],
+      selectedOffers,
       this.props.offer,
       this.props.offer?.timezone_name,
     );
   };
 
-  getAvailablePaymentPacks = () => {
+  getAvailablePaymentPacks = (selectedOffers: OfferREST[]) => {
+    // Will need to update selectedOffers management for the grouped offer feature
     return getAvailablePaymentPacks(
       this.state.offersConstraint,
       this.props.paymentPackList,
-      [],
+      selectedOffers,
       this.props.offer,
       this.props.offer?.timezone_name,
     );
   };
 
-  getAvailableComboPacks = () => {
+  getAvailableComboPacks = (selectedOffers: OfferREST[]) => {
     return getAvailableComboPacks(
       this.state.offersConstraint,
       this.props.paymentComboList,
-      [],
+      selectedOffers,
       this.props.offer,
       this.props.offer?.timezone_name,
     );
   };
 
-  getAvailableContracts = () => {
+  getAvailableContracts = (selectedOffers: OfferREST[]) => {
     return getAvailableContracts(
       this.state.offersConstraint,
       this.props.contractList,
-      [],
+      selectedOffers,
       this.props.offer,
       this.props.offer?.timezone_name,
     );
@@ -511,11 +518,30 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   getBuyableItemCategories = () => {
-    const availablePaymentPacks = this.getAvailablePaymentPacks();
+    const selectedOffers = this.state.selectedOffers
+      .map((selectedOffer) => selectedOffer.offer as OfferREST)
+      .filter((offer) => offer.id !== this.props.offerId);
+    const availablePaymentPacks = this.getAvailablePaymentPacks(
+      selectedOffers,
+    ).filter(
+      (paymentPack: PaymentPack & MaxoutData) =>
+        paymentPack.exceedsBookingMaxout === false,
+    );
     const availablePaymentPackCategories =
       this.getAvailablePaymentPackCategories(availablePaymentPacks);
-    const availableComboPacks = this.getAvailableComboPacks();
-    const availableContracts = this.getAvailableContracts();
+    const availableComboPacks = this.getAvailableComboPacks(
+      selectedOffers,
+    ).filter(
+      (comboPack: PaymentCombo & MaxoutData) =>
+        comboPack.exceedsBookingMaxout === false,
+    );
+    const availableContracts = this.getAvailableContracts(
+      selectedOffers,
+    ).filter(
+      (contract: ContractWithPaymentPack & MaxoutData) =>
+        contract.exceedsBookingMaxout === false,
+    );
+
     const availablePaymentPacksWithoutCategory = availablePaymentPacks.filter(
       (paymentPack: PaymentPack) => paymentPack.category === null,
     );
@@ -531,17 +557,36 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         this.props.bookingFunnelConfiguration?.current_pricing_option_ordering,
         this.props.t,
       );
-
       const recommendedCategory = buyableItemCategories.find(
         (category) => category.id === RECOMMENDED_BUYABLE_CATEGORY_ID,
       );
 
+      const firstBuyableCategoryWithValues = buyableItemCategories.filter(
+        (category) => category.values.length > 0,
+      )?.[0];
+
+      const updatedCurrentCategory = buyableItemCategories.find(
+        (itemCategory) =>
+          itemCategory.id === this.state.selectedBuyableItemCategory?.id,
+      );
+
       // If there are any recommended items, then preselect the 'Recommended' category
-      this.setState((prevState) => ({
-        buyableItemCategories,
-        selectedBuyableItemCategory:
-          recommendedCategory ?? prevState.selectedBuyableItemCategory,
-      }));
+      this.setState((prevState: State) => {
+        const selectedCategoryBackupValue =
+          updatedCurrentCategory ||
+          firstBuyableCategoryWithValues ||
+          prevState.selectedBuyableItemCategory;
+        return {
+          buyableItemCategories,
+          selectedBuyableItemCategory:
+            recommendedCategory && recommendedCategory.values.length > 0
+              ? recommendedCategory
+              : selectedCategoryBackupValue &&
+                selectedCategoryBackupValue.id === 'RECOMMENDED'
+              ? firstBuyableCategoryWithValues
+              : selectedCategoryBackupValue,
+        };
+      });
     }
   };
 
@@ -576,24 +621,27 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   updateOfferConstraints = () => {
-    this.setState((prevState: State) => {
-      const newOfferConstraints = getOfferContraints(
-        // @ts-expect-error
-        this.props.offer,
-        prevState.selectedOffers,
-        this.props.offerStatusById,
-        /**
-         * For getOfferContraints logic:
-         * in old flow, we could book guest at the same time with member booking
-         * we now always book for 1 person at a time, so no need to provide
-         * the additional guest count anymore
-         */
-        0,
-        this.getIsGuestBooking(),
+    const selectedOffers = this.state.selectedOffers
+      .map((selectedOffer) => selectedOffer)
+      .filter(
+        (offerExtraData) => offerExtraData.offer.id !== this.props.offerId,
       );
-      return {
-        offersConstraint: newOfferConstraints,
-      };
+    const newOfferConstraints = getOfferContraints(
+      // @ts-expect-error
+      this.props.offer,
+      selectedOffers,
+      this.props.offerStatusById,
+      /**
+       * For getOfferContraints logic:
+       * in old flow, we could book guest at the same time with member booking
+       * we now always book for 1 person at a time, so no need to provide
+       * the additional guest count anymore
+       */
+      0,
+      this.getIsGuestBooking(),
+    );
+    this.setState({
+      offersConstraint: newOfferConstraints,
     });
   };
 
@@ -899,7 +947,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       },
     });
 
-    const availableConsumerPacks = this.getAvailableConsumerPack();
+    const availableConsumerPacks = this.getAvailableConsumerPack().filter(
+      (consumerPack: ConsumerPaymentPack & MaxoutData) =>
+        consumerPack.exceedsBookingMaxout === false,
+    );
 
     this.setState({
       availableConsumerPacks,

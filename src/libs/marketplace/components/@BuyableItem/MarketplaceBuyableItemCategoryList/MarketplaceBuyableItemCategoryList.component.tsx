@@ -137,11 +137,23 @@ const MarketplaceBuyableItemCategoryList: React.FC<Props> = ({
       // for regular categories, i.e. passes, subscriptions and packs.
 
       // Recommended products are already displayed in the recommended category above.
-      return (buyableItemCategory.values as BookerModuleBuyableItem[]).filter(
-        (item) => isRecommendedCategory || !item.highlighted_as_recommended,
+      return buyableItemCategory.values.filter(
+        (item) =>
+          // @ts-expect-error
+          (isRecommendedCategory || !item.highlighted_as_recommended) &&
+          // @ts-expect-error
+          (item.exceedsBookingMaxout === false ||
+            // @ts-expect-error
+            item.value.exceedsBookingMaxout === false),
       );
     }
-    return buyableItemCategory.values;
+    return buyableItemCategory.values.filter(
+      (item) =>
+        // @ts-expect-error
+        item.exceedsBookingMaxout === false ||
+        // @ts-expect-error
+        item.value.exceedsBookingMaxout === false,
+    );
   }, [
     buyableItemCategory,
     isRecommendedCategory,

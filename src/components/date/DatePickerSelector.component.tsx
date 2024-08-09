@@ -115,7 +115,8 @@ const DatePickerSelector: React.FC<Props> = ({
         <div>
           {!singleDate && (
             <Typography color="textSecondary" display="inline">
-              {t('header.fromInDateContext')}
+              {/* DO NOT REMOVE SPACE  */}
+              {`${t('header.fromInDateContext')}\u00A0`}
             </Typography>
           )}
           <Typography display="inline">

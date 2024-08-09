@@ -137,6 +137,7 @@ const ReportDetailDateSelectors: React.FC<Props> = ({
             type="single"
           />
           <DatePickerSelector
+            singleDate
             date={DateTime.fromISO(values.dateStart).toUnixInteger()}
             isDisabled={dateInputDisabled}
             isRapidSelectionDisplayed={false}

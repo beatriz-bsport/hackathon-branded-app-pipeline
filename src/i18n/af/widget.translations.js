@@ -495,6 +495,7 @@ exports.default = {
       fabrique_bottom_drawer: 'Bottom drawer',
       fabrique_textform: 'Text form',
       fabrique_big_icon: 'Big icon',
+      fabrique_submenu: 'Submenu',
       selector: 'Selector',
       selector_input: 'Selector Input',
       marketing_newsletter_form_v2: 'Newsletter form',

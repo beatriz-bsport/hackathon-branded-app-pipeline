@@ -468,6 +468,11 @@ import {
   AUTHENTICATION_DISCONNECTED_STATUS_CONFIGURATION,
   AUTHENTICATION_DISCONNECTED_STATUS_PREVIEW,
 } from '#src/libs/login/components/DisconnectedStatus';
+import {
+  FABRIQUE_SUBMENU_PREVIEW,
+  FABRIQUE_SUBMENU_CONFIGURATION,
+} from '#src/components/css-only/Fabrique/Submenu';
+
 import { CssComponentsVariantIdentifiers } from './constants';
 import Config from '../../config';
 /* TEMPLATE
@@ -581,6 +586,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_SELECTOR_INPUT_CONFIGURATION,
         FABRIQUE_BIGICON_CONFIGURATION,
         FABRIQUE_TOOLTIP_CONFIGURATION,
+        FABRIQUE_SUBMENU_CONFIGURATION,
         CONSUMER_BOOKING_CARD_CONFIGURATION,
         CONSUMER_BOOKING_DETAILS_CARD_CONFIGURATION,
         CONSUMER_PASS_CARD_CONFIGURATION,
@@ -786,6 +792,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         FABRIQUE_TEXTFORM_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_TOOLTIP]:
         FABRIQUE_TOOLTIP_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_SUBMENU]:
+        FABRIQUE_SUBMENU_PREVIEW,
       [CssComponentsVariantIdentifiers.SELECTOR]: FABRIQUE_SELECTOR_PREVIEW,
       [CssComponentsVariantIdentifiers.SELECTOR_INPUT]:
         FABRIQUE_SELECTOR_INPUT_PREVIEW,

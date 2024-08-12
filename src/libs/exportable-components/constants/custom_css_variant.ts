@@ -116,6 +116,7 @@ export enum CssComponentsVariantIdentifiers {
   FABRIQUE_TEXTFORM = 'fabrique_textform',
   FABRIQUE_TOOLTIP = 'fabrique_tooltip',
   FABRIQUE_BIGICON = 'fabrique_big_icon',
+  FABRIQUE_SUBMENU = 'fabrique_submenu',
   SELECTOR = 'selector',
   SELECTOR_INPUT = 'selector_input',
   MARKETING_NEWSLETTER_FORM_V2 = 'marketing_newsletter_form_v2',

@@ -7,6 +7,7 @@ const exec = promisify(execCb);
 
 /**
  * Returns all the monorepository projects' names with their dependencies.
+ * @todo fix because of breaking change in last NX version
  * @param projects The projects to get the dependencies for.
  */
 export async function getProjectsDependencies(projects?: string[]): Promise<{
@@ -26,7 +27,7 @@ export async function getProjectsDependencies(projects?: string[]): Promise<{
         ...acc,
         [projectName]: dependencies.map(({ target }) => target),
       }),
-      {} as { [projectName: string]: string[] }
+      {} as { [projectName: string]: string[] },
     );
     const dependenciesEntries = Object.entries(dependencies);
     return dependenciesEntries
@@ -41,7 +42,7 @@ export async function getProjectsDependencies(projects?: string[]): Promise<{
               .map(([projectName]) => projectName),
           },
         }),
-        {}
+        {},
       );
   } catch (e) {
     throw new Error(`Failed to parse output of "${commandToExecute}`);

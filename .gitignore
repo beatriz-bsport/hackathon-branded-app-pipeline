@@ -43,3 +43,10 @@ deployment-manifest
 
 # NX
 .nx/cache
+.nx/workspace-data
+
+# Storybook
+storybook-static
+
+# Rollup
+.rollup.cache

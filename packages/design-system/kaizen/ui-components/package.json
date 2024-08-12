@@ -1,0 +1,33 @@
+{
+  "name": "@bsport/ui-components",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "rollup -c --bundleConfigAsCjs",
+    "prettier": "prettier",
+    "storybook": "sb dev"
+  },
+  "keywords": [],
+  "author": "Marwan El Boussarghini<marwan@bsport.io>",
+  "license": "UNLICENSED",
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
+  "types": "build/index.d.ts",
+  "devDependencies": {
+    "@bsport/kaizen-tokens": "workspace:*",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/react": "^18",
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "react": "^18.3.1",
+    "rollup": "^4.20.0",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tailwindcss": "^3.4.7",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4"
+  }
+}

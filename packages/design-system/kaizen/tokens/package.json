@@ -1,0 +1,27 @@
+{
+  "name": "@bsport/kaizen-tokens",
+  "version": "0.0.0",
+  "description": "Back-office - Design tokens",
+  "author": "Marwan El Boussarghini <marwan@bsport.io>",
+  "private": true,
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "source": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "postinstall": "npm run build",
+    "pre-commit": "pnpm run tokens:import && git add .",
+    "tokens:import": "ts-node -r tsconfig-paths/register ./scripts/import-tokens.ts"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.4",
+    "@types/node": "^20",
+    "tsconfig-paths": "^4.2.0"
+  }
+}

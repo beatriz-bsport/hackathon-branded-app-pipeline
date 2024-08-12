@@ -318,6 +318,23 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       decrementCredit(consumerPack.id);
     };
 
+    if (
+      consumerPack.consumer_payment_pack_source &&
+      consumerPack.payment_pack_template_instance_disabled
+    ) {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          {this.renderCompanySourceChip()}
+        </div>
+      );
+    }
+
     if (unlimited && incrementCredit && decrementCredit) {
       if (consumerPack.disabled && !consumerPack.dst_consumer_payment_pack) {
         return (

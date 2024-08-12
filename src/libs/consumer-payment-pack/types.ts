@@ -34,6 +34,7 @@ export type ConsumerPaymentPack<PP = number> = {
   consumer: number;
   consumer_payment_pack_source: number | null;
   company_source_name: string;
+  payment_pack_template_instance_disabled: boolean | null;
   company_source_primary_color: string;
   date_bought: string;
   disabled: boolean;

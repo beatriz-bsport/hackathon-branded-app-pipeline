@@ -24,7 +24,34 @@ export const RANGED_RAPID_SELECTIONS: {
   getStartEndTimestamps: () => { dateStart: number; dateEnd: number };
   isPastDisplayed?: boolean;
   futureOnly?: boolean;
+  isToDateDisplayed?: boolean;
 }[] = [
+  {
+    timePeriod: 'week_to_date',
+    getStartEndTimestamps: () => ({
+      dateStart: DateTime.now()
+        .startOf('week', { useLocaleWeeks: true })
+        .toUnixInteger(),
+      dateEnd: DateTime.now().endOf('day').toUnixInteger(),
+    }),
+    isToDateDisplayed: true,
+  },
+  {
+    timePeriod: 'month_to_date',
+    getStartEndTimestamps: () => ({
+      dateStart: DateTime.now().startOf('month').toUnixInteger(),
+      dateEnd: DateTime.now().endOf('day').toUnixInteger(),
+    }),
+    isToDateDisplayed: true,
+  },
+  {
+    timePeriod: 'year_to_date',
+    getStartEndTimestamps: () => ({
+      dateStart: DateTime.now().startOf('year').toUnixInteger(),
+      dateEnd: DateTime.now().endOf('day').toUnixInteger(),
+    }),
+    isToDateDisplayed: true,
+  },
   {
     timePeriod: 'week',
     getStartEndTimestamps: () => ({
@@ -144,15 +171,15 @@ export const QUICK_DATE_SELECTIONS: {
   type: 'single' | 'range';
 }[] = [
   {
-    timePeriod: 'week',
+    timePeriod: 'week_to_date',
     type: 'range',
   },
   {
-    timePeriod: 'month',
+    timePeriod: 'month_to_date',
     type: 'range',
   },
   {
-    timePeriod: 'year',
+    timePeriod: 'year_to_date',
     withBottomDivider: true,
     type: 'range',
   },

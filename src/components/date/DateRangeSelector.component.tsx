@@ -63,6 +63,7 @@ export type Props = {
   onSubmit: (values: Values) => void;
   isRapidSelectionDisplayed?: boolean;
   isPastDisplayed?: boolean;
+  isToDateDisplayed?: boolean;
 };
 
 export type Values = {
@@ -115,6 +116,7 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
   handleSubmit,
   isRapidSelectionDisplayed = true,
   isPastDisplayed = false,
+  isToDateDisplayed = false,
 }) => {
   const classes = useStyles();
 
@@ -254,6 +256,11 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                     isPastDisplayed
                       ? !!selection.isPastDisplayed
                       : !selection.isPastDisplayed,
+                  )
+                  .filter((selection) =>
+                    isToDateDisplayed
+                      ? !!selection.isToDateDisplayed
+                      : !selection.isToDateDisplayed,
                   )
                   .map((selection) => (
                     <ButtonBase

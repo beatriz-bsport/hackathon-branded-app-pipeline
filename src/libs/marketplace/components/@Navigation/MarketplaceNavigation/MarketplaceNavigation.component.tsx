@@ -70,6 +70,7 @@ type Props = {
   };
   authStateLoading: boolean;
   franchisor?: Franchise;
+  memberName: string;
   push: (path: string) => void;
   onToggleSignUpDialog: (value: boolean) => void;
   handleCloseLoginDialog: () => void;
@@ -100,6 +101,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
   authStateInvalidFields,
   authStateLoading,
   franchisor,
+  memberName,
   children,
   push,
   onToggleSignUpDialog,
@@ -151,6 +153,27 @@ const MarketplaceNavigation: React.FC<Props> = ({
     [tabConfigList, t, push, companyTheme.company_name, companyTheme.company],
   );
 
+  const {
+    stackNavigationState,
+    isMarketplaceSideDrawerOpen,
+    isConsumerSideDrawerOpen,
+    handleCloseConsumerSideDrawer,
+    handleCloseMarketplaceSideDrawer,
+    handleToggleMarketplaceSideDrawer,
+    handleToggleConsumerSideDrawer,
+    handleBackArrowClick,
+    handleSetStackNavigationState,
+  } = useNavigationSideDrawerData();
+
+  const { marketplaceNavigationData, consumerNavigationData } =
+    useNavigationData({
+      franchisorCompanyList: franchisor?.companies ?? [],
+      companyId: companyTheme.company,
+      linksList,
+      handleCloseMarketplaceSideDrawer,
+      handleCloseConsumerSideDrawer,
+    });
+
   const actionsList: AppBarButton[] = useMemo(
     () => [
       {
@@ -166,7 +189,10 @@ const MarketplaceNavigation: React.FC<Props> = ({
         label: t('reworked.appbar.myAccount'),
         color: 'grey',
         leftIcon: <UserCircle />,
-        onClick: () => push(`/c/${companyTheme.company}/profile/`),
+        onClick:
+          isMobile && !!memberName
+            ? handleToggleConsumerSideDrawer
+            : () => push(`/c/${companyTheme.company}/booking/`),
         variant: isMobile ? 'text' : 'outlined',
         isIconButton: isMobile,
       },
@@ -175,26 +201,13 @@ const MarketplaceNavigation: React.FC<Props> = ({
       basketProductListCount,
       checkoutUrl,
       companyTheme.company,
+      handleToggleConsumerSideDrawer,
       isMobile,
+      memberName,
       push,
       t,
     ],
   );
-
-  const {
-    stackNavigationState,
-    isSideDrawerOpen,
-    handleCloseSideDrawer,
-    handleToggleSideDrawer,
-    handleBackArrowClick,
-    handleSetStackNavigationState,
-  } = useNavigationSideDrawerData();
-
-  const navigationData = useNavigationData({
-    companyId: companyTheme.company,
-    linksList,
-    handleCloseSideDrawer,
-  });
 
   const handleToggleSignUpDialog = useCallback(
     (value: boolean) => () => onToggleSignUpDialog(value),
@@ -210,17 +223,28 @@ const MarketplaceNavigation: React.FC<Props> = ({
             isMobile={isMobile}
             links={linksList}
             logo={companyTheme.cover}
-            onOpenAppBarMenuClick={handleToggleSideDrawer}
+            onSideDrawerOpenClick={handleToggleMarketplaceSideDrawer}
             websiteUrl={companyTheme.websiteURL}
           />
 
           <NavigationSideDrawer
             handleBackArrowClick={handleBackArrowClick}
             handleSetStackNavigationState={handleSetStackNavigationState}
-            isOpen={isSideDrawerOpen}
+            isOpen={isMarketplaceSideDrawerOpen}
             leftIcon={<ArrowLeft fill="currentColor" />}
             stackNavigationState={stackNavigationState}
-            submenuItems={navigationData}
+            submenuItems={marketplaceNavigationData}
+          />
+
+          <NavigationSideDrawer
+            handleBackArrowClick={handleBackArrowClick}
+            handleSetStackNavigationState={handleSetStackNavigationState}
+            isOpen={isConsumerSideDrawerOpen}
+            leftIcon={<ArrowLeft fill="currentColor" />}
+            stackNavigationState={stackNavigationState}
+            submenuItems={consumerNavigationData}
+            subtitle={t('reworked.navigation.exploreYourProfile')}
+            title={memberName && `${memberName},`}
           />
 
           <main

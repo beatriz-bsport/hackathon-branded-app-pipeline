@@ -32,6 +32,6 @@ export type NavigationAppBarProps = {
   links?: AppBarTab[];
   /** The list of extra actions shown on the right side */
   actions?: AppBarButton[];
-  /** Action fired once the mobile menu button is pressed */
-  onOpenAppBarMenuClick?: () => void;
+  /** Action fired once the menu button is pressed from the logo section */
+  onSideDrawerOpenClick?: () => void;
 };

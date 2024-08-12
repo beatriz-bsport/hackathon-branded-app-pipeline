@@ -12,7 +12,7 @@ import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppBar';
 import useViewport from '#Fabrique/hooks/useViewport';
 import NavigationSideBar from '#src/components/css-only/Navigation/NavigationSideBar';
-import useNavigationData from '#src/libs/consumer-space/components/reworked/@Navigation/useNavigationData';
+import useNavigationData from '#src/libs/marketplace/components/@Navigation/useNavigationData';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 
 import {
@@ -29,7 +29,7 @@ import type {
   AppBarButton,
   AppBarTab,
 } from '#src/components/css-only/Navigation/NavigationAppBar/types';
-import type { FranchiseCompany } from '#src/libs/franchise/types';
+import type { Company } from '#src/libs/company/types';
 import type { MarketplaceTabConfig } from '#src/libs/marketplace/types';
 
 import './styles.css';
@@ -41,9 +41,8 @@ type Props = {
   companyName: string;
   companyId: number;
   isNewCheckoutFlow: boolean;
-  isRelationNavigation: boolean;
   memberName: string;
-  franchisorCompanyList?: FranchiseCompany[];
+  franchisorCompanyList?: Company[];
   /** A list of action buttons to display in the header */
   buttonsData?: HeaderButton[];
   /** The number of products in the current member basket */
@@ -58,7 +57,6 @@ const ConsumerNavigation: React.FC<Props> = ({
   companyName,
   companyId,
   isNewCheckoutFlow,
-  isRelationNavigation,
   memberName,
   franchisorCompanyList,
   children,
@@ -99,6 +97,27 @@ const ConsumerNavigation: React.FC<Props> = ({
     [tabConfigList, t, push, companyName, companyId],
   );
 
+  const {
+    stackNavigationState,
+    isMarketplaceSideDrawerOpen,
+    isConsumerSideDrawerOpen,
+    handleCloseConsumerSideDrawer,
+    handleCloseMarketplaceSideDrawer,
+    handleToggleMarketplaceSideDrawer,
+    handleToggleConsumerSideDrawer,
+    handleBackArrowClick,
+    handleSetStackNavigationState,
+  } = useNavigationSideDrawerData();
+
+  const { marketplaceNavigationData, consumerNavigationData } =
+    useNavigationData({
+      franchisorCompanyList,
+      companyId: companyId,
+      linksList,
+      handleCloseMarketplaceSideDrawer,
+      handleCloseConsumerSideDrawer,
+    });
+
   const actionsList: AppBarButton[] = useMemo(
     () => [
       {
@@ -114,29 +133,25 @@ const ConsumerNavigation: React.FC<Props> = ({
         label: t('reworked.appbar.myAccount'),
         color: 'grey',
         leftIcon: <UserCircle />,
-        onClick: () => push(`/c/${companyId}/profile/`),
+        onClick:
+          isMobile && !!memberName
+            ? handleToggleConsumerSideDrawer
+            : () => push(`/c/${companyId}/booking/`),
         variant: isMobile ? 'text' : 'outlined',
         isIconButton: isMobile,
       },
     ],
-    [basketProductListCount, checkoutUrl, companyId, isMobile, push, t],
+    [
+      basketProductListCount,
+      checkoutUrl,
+      companyId,
+      handleToggleConsumerSideDrawer,
+      isMobile,
+      memberName,
+      push,
+      t,
+    ],
   );
-
-  const {
-    stackNavigationState,
-    isSideDrawerOpen,
-    handleCloseSideDrawer,
-    handleToggleSideDrawer,
-    handleBackArrowClick,
-    handleSetStackNavigationState,
-  } = useNavigationSideDrawerData();
-
-  const navigationData = useNavigationData({
-    companyId,
-    isRelationNavigation,
-    franchisorCompanyList,
-    handleCloseSideDrawer,
-  });
 
   return (
     <div className="bs-consumer-navigation__root">
@@ -145,23 +160,35 @@ const ConsumerNavigation: React.FC<Props> = ({
         isMobile={isMobile}
         links={linksList}
         logo={companyLogo}
-        onOpenAppBarMenuClick={handleToggleSideDrawer}
+        onSideDrawerOpenClick={handleToggleMarketplaceSideDrawer}
         websiteUrl={companyWebsiteUrl}
       />
 
       <NavigationSideDrawer
         handleBackArrowClick={handleBackArrowClick}
         handleSetStackNavigationState={handleSetStackNavigationState}
-        isOpen={isSideDrawerOpen}
+        isOpen={isMarketplaceSideDrawerOpen}
         leftIcon={<ArrowLeft fill="currentColor" />}
         stackNavigationState={stackNavigationState}
-        submenuItems={navigationData}
+        submenuItems={marketplaceNavigationData}
+      />
+
+      <NavigationSideDrawer
+        handleBackArrowClick={handleBackArrowClick}
+        handleSetStackNavigationState={handleSetStackNavigationState}
+        isOpen={isConsumerSideDrawerOpen}
+        leftIcon={<ArrowLeft fill="currentColor" />}
+        stackNavigationState={stackNavigationState}
+        submenuItems={consumerNavigationData}
         subtitle={t('reworked.navigation.exploreYourProfile')}
         title={memberName && `${memberName},`}
       />
 
       <div className="bs-consumer-navigation__layout">
-        <NavigationSideBar items={navigationData} memberName={memberName} />
+        <NavigationSideBar
+          items={consumerNavigationData}
+          memberName={memberName}
+        />
         <main
           className={classNames('bs-consumer-navigation__content', {
             'bs-consumer-navigation__content--mobile': isMobile,

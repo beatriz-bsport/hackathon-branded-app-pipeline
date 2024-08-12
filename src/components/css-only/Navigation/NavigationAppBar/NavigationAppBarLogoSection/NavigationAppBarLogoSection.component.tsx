@@ -14,7 +14,7 @@ import './styles.css';
 
 type Props = Pick<
   NavigationAppBarProps,
-  'logo' | 'websiteUrl' | 'isMobile' | 'onOpenAppBarMenuClick'
+  'logo' | 'websiteUrl' | 'isMobile' | 'onSideDrawerOpenClick'
 >;
 
 const NavigationAppBarLogoImage: React.FC<Pick<NavigationAppBarProps, 'logo'>> =
@@ -63,7 +63,7 @@ const NavigationAppBarLogoSection: React.FC<Props> = ({
   logo,
   websiteUrl,
   isMobile,
-  onOpenAppBarMenuClick,
+  onSideDrawerOpenClick,
 }) => {
   return (
     <div className="bs-navigation-app-bar__logo-section__root">
@@ -76,7 +76,7 @@ const NavigationAppBarLogoSection: React.FC<Props> = ({
           },
         )}
         color="grey"
-        onClick={onOpenAppBarMenuClick}
+        onClick={onSideDrawerOpenClick}
         size="md"
         variant="text"
       >

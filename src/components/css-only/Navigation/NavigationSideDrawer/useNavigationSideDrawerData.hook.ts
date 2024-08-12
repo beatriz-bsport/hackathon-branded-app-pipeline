@@ -16,22 +16,52 @@ export default function useNavigationSideDrawerData() {
   const [stackNavigationState, setStackNavigationState] =
     useState<StackNavigationState>([]);
 
-  const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false);
-
-  const handleToggleSideDrawer = useCallback(
-    () => setIsSideDrawerOpen((prevState) => !prevState),
-    [],
+  const resetNavigationState = useCallback(
+    () => setStackNavigationState([]),
+    [setStackNavigationState],
   );
 
-  const closeSideDrawer = useCallback(() => {
-    setIsSideDrawerOpen(false);
+  const [isMarketplaceSideDrawerOpen, setIsMarketplaceSideDrawerOpen] =
+    useState(false);
+  const [isConsumerSideDrawerOpen, setIsConsumerSideDrawerOpen] =
+    useState(false);
+
+  const closeConsumerSideDrawer = useCallback(() => {
+    setIsConsumerSideDrawerOpen(false);
   }, []);
 
+  const handleToggleMarketplaceSideDrawer = useCallback(() => {
+    isConsumerSideDrawerOpen && closeConsumerSideDrawer();
+    resetNavigationState();
+    setIsMarketplaceSideDrawerOpen((prevState) => !prevState);
+    closeConsumerSideDrawer();
+  }, [closeConsumerSideDrawer, isConsumerSideDrawerOpen, resetNavigationState]);
+
+  const closeMarketplaceSideDrawer = useCallback(() => {
+    setIsMarketplaceSideDrawerOpen(false);
+  }, []);
+
+  const handleToggleConsumerSideDrawer = useCallback(() => {
+    isMarketplaceSideDrawerOpen && closeMarketplaceSideDrawer();
+    resetNavigationState();
+    setIsConsumerSideDrawerOpen((prevState) => !prevState);
+  }, [
+    closeMarketplaceSideDrawer,
+    isMarketplaceSideDrawerOpen,
+    resetNavigationState,
+  ]);
+
   /** Reset the navigation state after closing the drawer */
-  const handleCloseSideDrawer = useCallback(() => {
-    closeSideDrawer();
-    setStackNavigationState([]);
-  }, [closeSideDrawer]);
+  const handleCloseMarketplaceSideDrawer = useCallback(() => {
+    closeMarketplaceSideDrawer();
+    resetNavigationState();
+  }, [closeMarketplaceSideDrawer, resetNavigationState]);
+
+  /** Reset the navigation state after closing the drawer */
+  const handleCloseConsumerSideDrawer = useCallback(() => {
+    closeConsumerSideDrawer();
+    resetNavigationState();
+  }, [closeConsumerSideDrawer, resetNavigationState]);
 
   /** Pushes a new set of submenu items into the navigation state */
   const handleSetStackNavigationState = useCallback((items: SubmenuItem[]) => {
@@ -49,15 +79,22 @@ export default function useNavigationSideDrawerData() {
     if (stackNavigationState.length > 0) {
       return handleGoBack();
     }
-    handleCloseSideDrawer();
-  }, [handleCloseSideDrawer, handleGoBack, stackNavigationState.length]);
+    handleCloseConsumerSideDrawer();
+  }, [
+    handleCloseConsumerSideDrawer,
+    handleGoBack,
+    stackNavigationState.length,
+  ]);
 
   return {
-    isSideDrawerOpen,
+    isMarketplaceSideDrawerOpen,
+    isConsumerSideDrawerOpen,
     stackNavigationState,
-    handleCloseSideDrawer,
+    handleCloseMarketplaceSideDrawer,
+    handleCloseConsumerSideDrawer,
     handleBackArrowClick,
     handleSetStackNavigationState,
-    handleToggleSideDrawer,
+    handleToggleMarketplaceSideDrawer,
+    handleToggleConsumerSideDrawer,
   };
 }

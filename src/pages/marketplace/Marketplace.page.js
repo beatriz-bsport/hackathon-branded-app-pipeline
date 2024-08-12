@@ -24,6 +24,7 @@ import {
 import chroma from 'chroma-js';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
+import themeSelectors from '#src/libs/theme/selectors';
 import ApplyCustomCssStyles from '#src/libs/widget/components/ApplyCustomCssStyles.component';
 import Login from '#src/components/css-only/Login/Login.component';
 import MarketplaceAppBar from '#src/libs/marketplace/components/@AppBar/MarketplaceAppBar';
@@ -68,7 +69,7 @@ import {
 import CustomFormView from '#src/libs/custom-form/components/consumer-form/CustomFormView.form';
 import CustomFormViewDialogComponent from '#src/libs/custom-form/components/consumer-form/CustomFormViewDialog.component';
 import { getSignUpCustomFormWithEnabledField } from '#src/libs/custom-form/selectors';
-import { retrieveFranchise } from '#src/libs/franchise/actions';
+import { retrieveFranchise as retrieveFranchiseAction } from '#src/libs/franchise/actions';
 import type { CustomFormFilled } from '#src/libs/custom-form/types';
 import { CustomFormTitle } from '#src/libs/custom-form/components/CustomFormTitle.component';
 import { getMyControlableMemberList } from '#src/libs/relationship/selectors';
@@ -540,6 +541,7 @@ export class MarketPlace extends Component<Props, State> {
           isLoginDialogOpen={this.state.loginDialogOpen}
           isSettingsConfigLoading={false}
           isSignUpDialogOpen={this.state.signupDialogOpen}
+          memberName={this.props.userFullName ?? ''}
           onRequestResetPassword={this.onRequestResetPassword}
           onToggleSignUpDialog={this.toggleSignUp}
           push={this.props.push}
@@ -861,7 +863,7 @@ export default compose(
     (state: RootState) => ({
       auth: state.auth,
       controlableMemberList: getMyControlableMemberList(state),
-
+      userFullName: state.auth.name,
       loginProcessing: state.auth.loading,
       currentBasket: getCurrentBasket(state),
       currentBasketLoading: state.checkout.basket.current.loading,
@@ -908,14 +910,16 @@ export default compose(
       navigateToRelationAccount: navigateToRelationAccountAction,
       navigateBackToMasterRelation: navigateBackToMasterRelationAction,
       fetchMyControlableMemberList,
-      retrieveFranchise,
+      retrieveFranchise: retrieveFranchiseAction,
       // navigation
       replace,
       retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
     },
   ),
-  connect((state: RootState, { theme }) => ({
-    franchisor: theme?.franchisor ? getFranchisor(state) : undefined,
+  connect((state: RootState) => ({
+    franchisor: themeSelectors.getTheme(state)?.franchisor
+      ? getFranchisor(state)
+      : undefined,
   })),
   withHandlers({
     navigateBackToMasterRelation:

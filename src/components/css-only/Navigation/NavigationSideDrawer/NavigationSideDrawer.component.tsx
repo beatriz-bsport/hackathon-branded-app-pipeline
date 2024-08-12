@@ -26,7 +26,7 @@ type Props = {
   /** @see {@link [useNavigationSideDrawerData](useNavigationSideDrawerData.hook.ts)} */
   stackNavigationState: StackNavigationState;
   /** @see {@link [useNavigationSideDrawerData](useNavigationSideDrawerData.hook.ts)} */
-  handleBackArrowClick: () => void;
+  handleBackArrowClick?: () => void;
   /** @see {@link [useNavigationSideDrawerData](useNavigationSideDrawerData.hook.ts)} */
   handleSetStackNavigationState: (items: SubmenuItem[]) => void;
 };

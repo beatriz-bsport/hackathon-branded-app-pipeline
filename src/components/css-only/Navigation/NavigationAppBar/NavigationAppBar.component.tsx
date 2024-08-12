@@ -16,14 +16,14 @@ const NavigationAppBar: React.FC<NavigationAppBarProps> = ({
   websiteUrl,
   links,
   actions,
-  onOpenAppBarMenuClick,
+  onSideDrawerOpenClick,
 }) => {
   return (
     <div className="bs-navigation-app-bar__root">
       <NavigationAppBarLogoSection
         isMobile={isMobile}
         logo={logo}
-        onOpenAppBarMenuClick={onOpenAppBarMenuClick}
+        onSideDrawerOpenClick={onSideDrawerOpenClick}
         websiteUrl={websiteUrl}
       />
 

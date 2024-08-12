@@ -129,7 +129,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
           count: maxBooking,
           unit,
         }),
-        DialogActionEnum.DELETE,
+        DialogActionEnum.CONFIRM,
       );
     }
 

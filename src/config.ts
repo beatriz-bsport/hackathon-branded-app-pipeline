@@ -41,3 +41,6 @@ export default Config;
 if (Config.NODE_ENV === 'production') {
   // checkConfigValue('REACT_APP_SENTRY_DSN', true);
 }
+
+export const DISPLAY_UNIVERSAL_SHARED_PASS_PAGES =
+  Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production';

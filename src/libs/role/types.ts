@@ -332,7 +332,7 @@ export type FranchiseRolePermission = {
     products: {
       paymentPackTemplates: boolean;
       privatePassTemplates: boolean;
-      universalPassTemplates: boolean;
+      universalPassTemplates?: boolean;
       shopTemplates: boolean;
       giftcardTemplates: boolean;
       couponTemplates: boolean;

@@ -30,6 +30,7 @@ import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 import FranchiseDrawer from '../../components/navigation/FranchiseDrawer.component';
 
 import FranchiseStaffRoleRouter from './staff/FranchiseStaffRole.router';
+import { DISPLAY_UNIVERSAL_SHARED_PASS_PAGES } from '#src/config';
 
 const FranchiseUserSearch = asyncComponent(
   () => import('./FranchiseUserSearch.page'),
@@ -238,10 +239,12 @@ const FranchiseRouter = (props: Props) => {
               component={FranchisePrivatePassTemplateRouter}
               path="/f/private-pass-template"
             />
-            <Route
-              component={FranchiseUniversalPassTemplateRouter}
-              path="/f/universal-pass-template"
-            />
+            {DISPLAY_UNIVERSAL_SHARED_PASS_PAGES && (
+              <Route
+                component={FranchiseUniversalPassTemplateRouter}
+                path="/f/universal-pass-template"
+              />
+            )}
             <Route component={FranchiseShopRouter} path="/f/shop" />
             <Route
               component={FranchiseCouponTemplateRouter}

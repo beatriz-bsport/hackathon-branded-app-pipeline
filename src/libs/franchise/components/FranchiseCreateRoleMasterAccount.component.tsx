@@ -25,7 +25,7 @@ import {
 } from '#src/libs/role/utils';
 import RecursiveCheckBoxComponent from '#src/libs/role/components/RecursiveCheckBox.component';
 import { MaterialStyleType } from '../../../utils/types';
-import Config from '../../../config';
+import Config, { DISPLAY_UNIVERSAL_SHARED_PASS_PAGES } from '../../../config';
 
 type OwnProps = {
   onNext: (data: FranchiseRoleMasterAccountData) => void;
@@ -50,7 +50,9 @@ const defaultPermissions: FranchiseRolePermission = {
     products: {
       paymentPackTemplates: true,
       privatePassTemplates: true,
-      universalPassTemplates: true,
+      ...(DISPLAY_UNIVERSAL_SHARED_PASS_PAGES
+        ? { universalPassTemplates: true }
+        : {}),
       shopTemplates: true,
       giftcardTemplates: true,
       couponTemplates: true,

@@ -5444,7 +5444,8 @@
             "category": "Categoría",
             "columns": "Columnas",
             "save": "Confirmar",
-            "cancel": "Cancelar"
+            "cancel": "Cancelar",
+            "saveAndGenerate": "Guardar y generar"
         },
         "list": {
             "empty": "¿Ningún informe? ¡Crea un primer informe!",
@@ -5536,7 +5537,11 @@
                 "next_week": "Próxima semana",
                 "next_month": "Próximo mes",
                 "next_trimester": "Próximos tres meses",
-                "allDay": "Todo el día"
+                "allDay": "Todo el día",
+                "yesterday": "Ayer",
+                "week_to_date": "Semana transcurrida",
+                "month_to_date": "Mes transcurrido",
+                "year_to_date": "Año transcurrido"
             },
             "rapidChoice": "Elección rápida",
             "end": "Final",
@@ -5552,7 +5557,18 @@
             "toInTimeContext": "Hasta",
             "fromInTimeContext": "Desde",
             "toInDateContext": "hasta",
-            "fromInDateContext": "Desde"
+            "fromInDateContext": "Desde",
+            "quickDateSelector": {
+                "week_to_date": "Semana transcurrida",
+                "month_to_date": "Mes transcurrido",
+                "year_to_date": "Año transcurrido",
+                "last_week": "Semana pasada",
+                "last_month": "El mes pasado",
+                "last_year": "El año pasado ",
+                "today": "Hoy",
+                "yesterday": "Ayer",
+                "custom": "Personalizado"
+            }
         },
         "search": "Buscar un informe",
         "datatype": {
@@ -5840,7 +5856,120 @@
             "0": "Tarjeta de pago",
             "70": "BACS Direct Debit"
         },
-        "readPermissionDenied": "Acceso denegado"
+        "readPermissionDenied": "Acceso denegado",
+        "reportDetailHeader": {
+            "currentView": "Vista actual:",
+            "addView": "Añadir vista",
+            "emptyAdvancedFilters": "No se han aplicado filtros avanzados a esta vista.",
+            "advancedFiltersApplied": "{{ count }} filtro avanzado aplicado",
+            "advancedFiltersApplied_plural": "{{ count }} filtros avanzados aplicados",
+            "cannotDeleteDefaultView": "La vista por defecto no se puede borrar."
+        },
+        "reportEditLabel": "Editar vista",
+        "reportNameLabel": "Ver nombre",
+        "reportDetailDrawer": {
+            "advancedFilterTitle": "Filtros avanzados",
+            "advancedFilterSubtitle": "Filtra los datos mostrados en esta vista para la tabla del informe.",
+            "emptyAdvancedFilters": "Aún no se han aplicado filtros a esta vista.",
+            "displayedColumnsTitle": "Columnas mostradas",
+            "displayedColumnsSubtitle": "Elija qué columnas desea mostrar en esta vista para la tabla de su informe.",
+            "columnIdentifiersError": "Debe seleccionar al menos 1 columna",
+            "filterNotApplied": "Los filtros marcados no se aplicarán porque las columnas correspondientes están desactivadas."
+        },
+        "reportDetailContent": {
+            "title": "Fecha y filtros rápidos",
+            "notFound": "No se ha encontrado el reporte",
+            "goBack": "Volver a todos los reportes",
+            "addQuickFilter": "Añadir un filtro rápido",
+            "tableTitle": "Reporte diario"
+        },
+        "reportDeleteModal": {
+            "content": "Se perderá la configuración de los filtros.",
+            "confirm": "Borrar vista",
+            "title": "¿Está seguro de que desea eliminar esta vista?"
+        },
+        "reportCreateModal": {
+            "title": "Añadir vista",
+            "content": "You can adjust filters and columns for each view after its creation.",
+            "inputLabel": "Ver nombre",
+            "error": "Se requiere un nombre para la vista",
+            "maxLength": "Un nombre puede tener un máximo de 200 caracteres.",
+            "nameAlreadyUsed": "Nombre ya utilizado"
+        },
+        "reportHasNotBeenGenerated": "Generar reporte para ver datos",
+        "tooltips": {
+            "editView": "Filtros avanzados",
+            "addView": "Cree diferentes versiones del informe con nuevos filtros, fechas y columnas de datos",
+            "deleteView": "Borrar vista"
+        },
+        "accessOldUIWithNewVersionEnabled": "Ha intentado acceder a la interfaz antigua mientras la nueva versión está activada, por favor, vuelva a cambiar de interfaz",
+        "descriptions": {
+            "dayBookings": "Analice las tendencias y los índices de participación haciendo un seguimiento de las reservas de actividades de grupo para cada día.",
+            "privateService": "Analice el rendimiento de las citas con el número de reservas y cancelaciones.",
+            "activityByEst": "Realice un seguimiento del rendimiento de las actividades y talleres por establecimiento. Mejore la asignación de recursos para cada establecimiento.",
+            "activityByCoach": "Realice un seguimiento del rendimiento de las actividades y talleres por profesor. Mejore la asignación de profesores y el éxito del programa.",
+            "workshop": "Evalúe el rendimiento de los talleres. Analizar los datos para mejorar la oferta y aumentar la participación.",
+            "activities": "Acceda a los detalles de cada actividad. Realice un seguimiento de la asistencia y el rendimiento para mejorar la oferta de programas.",
+            "first_privatebooking": "Realice un seguimiento de las primeras visitas y las citas con mejores resultados con una lista detallada de la primera reserva de cada miembro.",
+            "first_attendance": "Supervise la asistencia inicial a las actividades de grupo. Realice un seguimiento de la participación y optimice las estrategias de incorporación para mejorar la retención de miembros.",
+            "first_booking": "Realice un seguimiento de los primeros visitantes y de las clases con mejores resultados con una lista detallada de la reserva de la primera actividad de grupo de cada miembro.",
+            "subscription": "Realice un seguimiento de los detalles de facturación de las suscripciones para garantizar pagos precisos y puntuales.",
+            "discount": "Optimice las estrategias de marketing y aumente las ventas analizando el impacto de las promociones.",
+            "private_bookings": "Acceda a información detallada sobre la reserva de citas y mejore la eficacia de la programación.",
+            "shop": "Optimice las estrategias de inventario y ventas supervisando las ventas, los ingresos generados y los niveles de existencias.",
+            "private_cpasses": "Vea los pases de cita activos y su uso. Realice un seguimiento de las reservas y los créditos restantes para gestionar los pases de citas de forma eficiente.",
+            "payment_sumup": "Supervise todos los detalles y métodos de pago, tanto en línea como fuera de línea.",
+            "credit": "Consulte rápidamente los saldos de las cuentas de los miembros. Comuníquese eficazmente con los miembros sobre sus cuotas y créditos.",
+            "basket": "Ver una lista de los artículos de la cesta pendientes, lo que proporciona una visión de lo que los miembros están considerando comprar.",
+            "memberships": "Vea los pases activos y su uso. Realiza un seguimiento de las reservas y los créditos restantes para gestionar los pases de forma eficiente.",
+            "invoices": "Siga el historial de transacciones y analice los detalles de facturación.",
+            "payments": "Acceda a información detallada de cada transacción con el estado y los productos vendidos.",
+            "offers": "Optimice la programación y el uso de los recursos conociendo la dinámica de reservas de las sesiones.",
+            "members": "Acceda a los datos de los nuevos miembros para conocer sus preferencias y mejorar su experiencia y fidelidad.",
+            "cashbook": "Supervisar los saldos diarios para una gestión financiera precisa.",
+            "on_spot_payments": "Seguimiento de los pagos en el estudio con detalles de las transacciones y supervisión de las ventas para mejorar la oferta de productos.",
+            "video": "Analice el rendimiento de VOD, como las visitas, el precio y el estado del alquiler, para orientar su estrategia de contenidos.",
+            "unpaid_invoices": "Realice un seguimiento de las facturas impagadas para mejorar el cobro.",
+            "video_purchase": "Supervise las ventas haciendo un seguimiento de todos los vídeos comprados y sus detalles y optimice la oferta de vídeos.",
+            "giftcard": "Supervisar las ventas y los canjes para mejorar la oferta de tarjetas de regalo y maximizar los ingresos.",
+            "consumer_giftcard": "Gestione y realice un seguimiento de las compras con tarjeta de regalo, incluidos los datos de los compradores y los destinatarios.",
+            "payment_installments": "Siga el estado de los pagos a plazos y consulte los detalles, incluidos los vencimientos, los precios y los productos.",
+            "unpaid_private_bookings": "Realice un seguimiento de las citas impagadas para mejorar el cobro y el seguimiento de los miembros.",
+            "expense": "Haga un seguimiento de los gastos de la tienda web y de los proveedores. Conozca los patrones de gasto para mejorar la rentabilidad.",
+            "expired_pass": "Identificar los pases caducados con créditos no utilizados.",
+            "private_cpasses_expired": "Identificar los pases de cita caducados con créditos no utilizados.",
+            "universal_passes": "Vea los pases universales activos y su uso. Realiza un seguimiento de las reservas y los créditos restantes para gestionar los pases universales de forma eficiente.",
+            "franchise_shared_pass": "Vea y compare en cuál de sus estudios se compraron y utilizaron pases compartidos.",
+            "dispute": "Supervise el estado y los detalles de los litigios.",
+            "billing_plan": "Supervise el estado de las suscripciones, las fechas de renovación y los ingresos recurrentes.",
+            "members_purchase": "Realice un seguimiento de todas las compras y los detalles de los artículos adquiridos por los miembros. Obtenga información para optimizar la oferta de productos.",
+            "referral_grant": "Impulse la participación de los miembros mediante el seguimiento de los miembros referidos y recomendantes, incluidas las fechas de uso y los productos adquiridos.",
+            "access_monitoring": "Controle el acceso de los miembros a sus instalaciones con registros de entrada y alertas de estado.",
+            "bookings": "Optimice la programación analizando el estado de las reservas, la asistencia y el uso de los miembros."
+        },
+        "pageTitle": "Todos los reportes",
+        "pageSearchPlaceholder": "Buscar nombre de reporte",
+        "pageSearchEmpty": "No podemos encontrar ningún reporte de esta búsqueda",
+        "versionSwitcher": {
+            "title": "Estamos cambiando su experiencia con la herramienta de reportes.",
+            "content": "Hemos actualizado la organización de los reportes. Ahora, puede filtrar cada reporte dentro de su categoría como <1>Views</1> diferentes. Este cambio será permanente para todos el 1 de octubre. Si tiene algún comentario, por favor déjelo en el <2>Feedback board</2>.",
+            "fromOldToNew": "Cambiar a la nueva versión",
+            "fromNewToOld": "Volver a la versión anterior",
+            "dialog": {
+                "title": "Cambiar a la versión anterior",
+                "firstContentText": "La herramienta de reporte se actualizará para todos el 1 de octubre. Todos los cambios futuros en la versión antigua no se aplicarán a la nueva versión.",
+                "secondContentText": "¿Seguro que quieres volver a cambiar?",
+                "confirm": "Cambiar a la versión anterior"
+            }
+        },
+        "snackbar": {
+            "createSuccess": "Su vista ha sido creada",
+            "createError": "Se ha producido un error al crear la vista",
+            "updateSuccess": "Si vista ha sido actualizada",
+            "updateError": "Se ha producido un error al actualizar la vista",
+            "deleteSuccess": "Su vista ha sido eliminada",
+            "deleteError": "Se ha producido un error al eliminar la vista"
+        }
     },
     "alerting": {
         "list": {
@@ -9054,6 +9183,16 @@
                 },
                 "pad_before_booking": {
                     "label": "Activar para evitar que se solapen los tiempos de buffer de sesiones con horas de finalización e inicio próximas entre sí."
+                },
+                "advancedOptions": {
+                    "header": "Avanzado",
+                    "tag": {
+                        "header": "Etiquetas",
+                        "helperText": "Utilice etiquetas para que la cita sólo pueda ser reservada por un grupo de miembros: puede seleccionar etiquetas para que todas las sesiones de esta cita sólo puedan ser reservadas por miembros con una de las etiquetas seleccionadas, o puede seleccionar etiquetas para que las sesiones de la cita no puedan ser reservadas sólo por miembros con una de las etiquetas seleccionadas.",
+                        "allowed": "Autorizado",
+                        "doNotSelectToAllowAllMembers": "Deje este campo vacío para permitir a todos los miembros",
+                        "notAllowed": "No autorizado"
+                    }
                 }
             },
             "configuration": {
@@ -9109,6 +9248,13 @@
                 },
                 "last_booking_minutes": {
                     "explain": "Última reserva posible {{days}} día(s) {{hours}} hora(s) {{minutes}} minuto(s) antes de la cita"
+                },
+                "noTags": "No hay etiquetas autorizadas para mostrar.",
+                "whitelistTags": {
+                    "title": "Etiquetas aprobadas"
+                },
+                "blacklistTags": {
+                    "title": "Etiquetas rechazadas"
                 }
             }
         },
@@ -9400,7 +9546,9 @@
             "isCancelledByManager": "Cancelado por {{cancelled_by}}",
             "incompatibleTagsDialog": {
                 "description": "Tenga en cuenta que este miembro no tiene las etiquetas necesarias para esta cita. ¿Desea reservar su sitio de todos modos?",
-                "title": "Info"
+                "title": "Info",
+                "cancel": "Cancelar",
+                "confirm": "Confirmar"
             }
         },
         "consumerPass": {
@@ -9748,6 +9896,11 @@
                 "explain3": "SI ESTÁ ACTIVO: Permitirá reservar la siguiente cita a partir de las 14:10 (5 minutos después del final de la cita anterior + 5 minutos antes del inicio de la siguiente). Los tiempos de espera de las citas no pueden solaparse.",
                 "explain2": "Ejemplo: Se ha reservado una cita para las 13:00, dura 1 hora, y tiene un buffer de disponibilidad de 5 minutos establecido antes y después de la cita (por ejemplo, para la limpieza de la habitación).",
                 "explain1": "Si se activa, el búfer de disponibilidad después de la primera cita y el búfer de disponibilidad antes de la segunda cita no se solaparán (habrá un espacio mayor entre dos citas ya que se consideran dos búfers de disponibilidad). Si no se activa, se solapará el búfer de disponibilidad después de la primera cita con el búfer de disponibilidad antes de la segunda cita."
+            },
+            "ineligibleService": {
+                "title": "No es posible reservar esta cita",
+                "description": "Esta cita es sólo para un grupo específico de miembros.",
+                "backToAppointments": "Volver a las citas"
             }
         },
         "payment": {
@@ -11657,6 +11810,9 @@
                     },
                     "contractTemplates": {
                         "_label": "Subscripciones"
+                    },
+                    "universalPassTemplates": {
+                        "_label": "Pase universal"
                     }
                 },
                 "members": {

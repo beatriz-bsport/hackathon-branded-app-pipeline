@@ -50,7 +50,7 @@ import {
 import { getTheme } from '#src/libs/theme/selectors';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
-import type { OptionCallback } from '../../state/types';
+import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
 
@@ -63,7 +63,7 @@ type OwnProps = {
 };
 
 type Props = OwnAndConnectedAndRouteProps &
-  WithHandlerType<typeof mapWithHandlers>;
+  WithHandlerType<typeof consumerSubscriptionMapWithHandlers>;
 
 type OwnAndConnectedAndRouteProps = OwnProps &
   ConnectedProps<typeof connector> &
@@ -197,45 +197,63 @@ const connector = connect(
   },
 );
 
-const mapWithHandlers = {
+export const consumerSubscriptionMapWithHandlers = {
   fetchActiveSubscriptionsList:
     (props: OwnAndConnectedAndRouteProps) =>
-    (page_size?: number, options?: OptionCallback<SubscriptionREST[]>) =>
-      props.fetchMyActiveSubscriptionsAsMemberAction(
-        {
-          member: props.membership.id,
-          ...(page_size && { page_size }),
-        },
-        options,
-      ),
+    (
+      page_size?: number,
+      options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
+    ) => {
+      props.membership?.id &&
+        props.fetchMyActiveSubscriptionsAsMemberAction(
+          {
+            member: props.membership?.id,
+            ...(page_size && { page_size }),
+          },
+          options,
+        );
+    },
   fetchFutureSubscriptionsList:
     (props: OwnAndConnectedAndRouteProps) =>
-    (page_size?: number, options?: OptionCallback<SubscriptionREST[]>) =>
+    (
+      page_size?: number,
+      options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
+    ) =>
+      props.membership?.id &&
       props.fetchMyFutureSubscriptionsAsMemberAction(
         {
-          member: props.membership.id,
+          member: props.membership?.id,
           ...(page_size && { page_size }),
         },
         options,
       ),
   fetchExpiredSubscriptionsList:
     (props: OwnAndConnectedAndRouteProps) =>
-    (page_size?: number, options?: OptionCallback<SubscriptionREST[]>) =>
+    (
+      page_size?: number,
+      options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
+    ) =>
+      props.membership?.id &&
       props.fetchMyExpiredSubscriptionsAsMemberAction(
         {
-          member: props.membership.id,
+          member: props.membership?.id,
           ...(page_size && { page_size }),
         },
         options,
       ),
   fetchPaymentMethodList: (props: OwnAndConnectedAndRouteProps) => () =>
-    props.fetchPaymentMethodListAction({ company: props.membership.company }),
+    props.fetchPaymentMethodListAction({
+      company: props.companyId ?? props.membership?.company,
+    }),
   fetchInvoiceConfiguration: (props: OwnAndConnectedAndRouteProps) => () =>
     props.fetchInvoiceConfigurationAsMemberAction(
-      props.membership.company.toString(),
+      (props.companyId ?? props.membership?.company).toString(),
     ),
   requestSetupIntentSecret: (props: OwnAndConnectedAndRouteProps) => () =>
-    requestSetupIntentSecretAPI(props.membership.id, props.membership.company),
+    requestSetupIntentSecretAPI(
+      props.membership?.id,
+      props.companyId ?? props.membership?.company,
+    ),
   switchPaymentMethod:
     (props: OwnAndConnectedAndRouteProps) =>
     (
@@ -254,7 +272,7 @@ const mapWithHandlers = {
           onSuccess: (sub) => {
             props.fetchMySubscriptionAsMemberAction({
               id: subscriptionId,
-              member: props.membership.id,
+              member: props.membership?.id,
               status,
             });
             options?.onSuccess?.(sub);
@@ -268,13 +286,13 @@ const mapWithHandlers = {
     (pm_id: string, options?: OptionCallback) => {
       props.detachPaymentMethodAction(
         {
-          company: props.membership.company,
+          company: props.companyId ?? props.membership?.company,
           payment_method_id: pm_id,
         },
         {
           onSuccess: () => {
             props.fetchPaymentMethodListAction({
-              company: props.membership.company,
+              company: props.companyId ?? props.membership?.company,
             });
             options?.onSuccess?.();
           },
@@ -291,5 +309,5 @@ export const UnconnectedConsumerSubscription = compose(
 
 export default compose(
   connector,
-  withHandlers(mapWithHandlers),
+  withHandlers(consumerSubscriptionMapWithHandlers),
 )(UnconnectedConsumerSubscription);

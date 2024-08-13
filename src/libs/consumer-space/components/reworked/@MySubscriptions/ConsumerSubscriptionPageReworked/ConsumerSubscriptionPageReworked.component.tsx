@@ -29,7 +29,7 @@ import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/
 import useConsumerSubscriptionsDataManager from '#src/libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
 import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 
-import type { OptionCallback } from '../../../../../../state/types';
+import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 
 import './styles.css';
 import {
@@ -47,21 +47,24 @@ type Props = {
   paymentMethodList: PaymentMethod[];
   fetchActiveSubscriptionsList: (
     page_size?: number,
-    options?: OptionCallback<SubscriptionREST[]>,
+    options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
   fetchExpiredSubscriptionsList: (
     page_size?: number,
-    options?: OptionCallback<SubscriptionREST[]>,
+    options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
   fetchFutureSubscriptionsList: (
     page_size?: number,
-    options?: OptionCallback<SubscriptionREST[]>,
+    options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
   onBookSessionClick: () => void;
   onGetASubscriptionClick: () => void;
   fetchConsumerSubscriptionInvoicesDetails: (
     params: { id: number; page_size?: number },
-    options?: OptionCallback<SubscriptionsInvoicesDetailsREST[]>,
+    options?: OptionCallback<{
+      billing_plan_id: number;
+      data: PaginatedResponse<SubscriptionsInvoicesDetailsREST>;
+    }>,
   ) => void;
   subscriptionsInvoicesDetailsState: ConsumerSubscriptionInvoiceDetails;
   invoiceRetryNumber: number;

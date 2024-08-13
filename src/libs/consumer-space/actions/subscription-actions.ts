@@ -40,7 +40,7 @@ export function fetchMyActiveSubscriptionsAsMember(
     member: number;
     page_size?: number;
   },
-  options?: OptionCallback<SubscriptionREST[]>,
+  options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
 ): ThunkAction {
   return async (dispatch, getState) => {
     dispatch(fetchMyActiveSubscriptionsAsMemberActions.isLoading(true));
@@ -58,7 +58,7 @@ export function fetchMyActiveSubscriptionsAsMember(
         fetchMyActiveSubscriptionsAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyActiveSubscriptionsAsMemberActions.error(err));
@@ -152,8 +152,7 @@ export function fetchMyFutureSubscriptionsAsMember(
     member: number;
     page_size?: number;
   },
-
-  options?: OptionCallback<SubscriptionREST[]>,
+  options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
 ): ThunkAction {
   return async (dispatch, getState) => {
     dispatch(fetchMyFutureSubscriptionsAsMemberActions.isLoading(true));
@@ -171,7 +170,7 @@ export function fetchMyFutureSubscriptionsAsMember(
         fetchMyFutureSubscriptionsAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyFutureSubscriptionsAsMemberActions.error(err));
@@ -201,7 +200,7 @@ export function fetchMyExpiredSubscriptionsAsMember(
     member: number;
     page_size?: number;
   },
-  options?: OptionCallback<SubscriptionREST[]>,
+  options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
 ): ThunkAction {
   return async (dispatch, getState) => {
     dispatch(fetchMyExpiredSubscriptionsAsMemberActions.isLoading(true));
@@ -219,7 +218,7 @@ export function fetchMyExpiredSubscriptionsAsMember(
         fetchMyExpiredSubscriptionsAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyExpiredSubscriptionsAsMemberActions.error(err));
@@ -243,7 +242,10 @@ export const fetchConsumerSubscriptionInvoicesDetailsActions = {
 
 export function fetchConsumerSubscriptionInvoicesDetails(
   params: SubscriptionsInvoicesDetailsParams,
-  options?: OptionCallback<SubscriptionsInvoicesDetailsREST[]>,
+  options?: OptionCallback<{
+    billing_plan_id: number;
+    data: PaginatedResponse<SubscriptionsInvoicesDetailsREST>;
+  }>,
 ): ThunkAction {
   return async (dispatch, getState) => {
     dispatch(fetchConsumerSubscriptionInvoicesDetailsActions.isLoading(true));
@@ -267,7 +269,10 @@ export function fetchConsumerSubscriptionInvoicesDetails(
         }),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess({
+          billing_plan_id: id,
+          data: response.data,
+        });
       }
     } catch (err) {
       dispatch(fetchConsumerSubscriptionInvoicesDetailsActions.error(err));

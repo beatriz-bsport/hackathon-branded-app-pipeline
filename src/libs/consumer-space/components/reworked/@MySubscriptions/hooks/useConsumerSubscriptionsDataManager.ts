@@ -12,7 +12,7 @@ import type {
   ConsumerSubscriptionInvoiceDetails,
   ConsumerSubscriptionReworked,
 } from '#src/libs/consumer-space/types';
-import type { OptionCallback } from '../../../../../../state/types';
+import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 
 type Data = {
   activeSubscriptionsState: ConsumerSubscriptionReworked;
@@ -23,19 +23,22 @@ type Data = {
   futureSubscriptionsList: SubscriptionREST[];
   fetchActiveSubscriptionsList: (
     page_size?: number,
-    options?: OptionCallback<SubscriptionREST[]>,
+    options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
   fetchExpiredSubscriptionsList: (
     page_size?: number,
-    options?: OptionCallback<SubscriptionREST[]>,
+    options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
   fetchFutureSubscriptionsList: (
     page_size?: number,
-    options?: OptionCallback<SubscriptionREST[]>,
+    options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
   fetchConsumerSubscriptionInvoicesDetails: (
     params: { id: number; page_size?: number },
-    options?: OptionCallback<SubscriptionsInvoicesDetailsREST[]>,
+    options?: OptionCallback<{
+      billing_plan_id: number;
+      data: PaginatedResponse<SubscriptionsInvoicesDetailsREST>;
+    }>,
   ) => void;
   subscriptionsInvoicesDetailsState: ConsumerSubscriptionInvoiceDetails;
 };

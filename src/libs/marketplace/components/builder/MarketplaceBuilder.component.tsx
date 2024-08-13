@@ -59,23 +59,35 @@ const MarketplaceBuilder = (props: Props) => {
 
   const onSortEnd = React.useCallback(
     (e: { oldIndex: number; newIndex: number }) => {
+      let newConfig;
       if (e.oldIndex > e.newIndex) {
-        setConfig([
+        newConfig = [
           ...config.slice(0, e.newIndex),
           config[e.oldIndex],
           config[e.newIndex],
           ...config.slice(e.newIndex + 1, e.oldIndex),
           ...config.slice(e.oldIndex + 1),
-        ]);
+        ];
       } else if (e.oldIndex < e.newIndex) {
-        setConfig([
+        newConfig = [
           ...config.slice(0, e.oldIndex),
           ...config.slice(e.oldIndex + 1, e.newIndex),
           config[e.newIndex],
           config[e.oldIndex],
           ...config.slice(e.newIndex + 1),
-        ]);
+        ];
       }
+
+      /**
+       * Update config and assign unique indexes based on order
+       * to avoid index duplicates in marketplace
+       */
+      newConfig = newConfig.map((item, index) => ({
+        ...item,
+        index: index,
+      }));
+
+      setConfig(newConfig);
     },
     [config, setConfig],
   );

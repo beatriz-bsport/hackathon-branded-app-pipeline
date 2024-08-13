@@ -10,25 +10,30 @@ import {
   fetchConsumerPaidInvoicesActions,
   fetchConsumerPassesTabDisplayActions,
   fetchConsumerRefundedInvoicesActions,
+  fetchConsumerSubscriptionInvoicesDetailsActions,
   fetchConsumerUnpaidInvoicesActions,
   fetchMyActiveConsumerPaymentPacksAsMemberActions,
   fetchMyActivePrivateConsumerPassesAsMemberActions,
+  fetchMyActiveSubscriptionsAsMemberActions,
   fetchMyActiveUniversalPassesAsMemberActions,
   fetchMyBookingOptionAsMemberActions,
   fetchMyBookingOptionsPositionAsMemberByOfferIdsActions,
   fetchMyBookingOptionWorkshopAsMemberActions,
   fetchMyExpiredConsumerPaymentPacksAsMemberActions,
   fetchMyExpiredPrivateConsumerPassesAsMemberActions,
+  fetchMyExpiredSubscriptionsAsMemberActions,
   fetchMyExpiredUniversalPassesAsMemberActions,
   fetchMyFutureBookingAsMemberActions,
   fetchMyFutureBookingWorkshopAsMemberActions,
   fetchMyFutureConsumerPaymentPacksAsMemberActions,
   fetchMyFuturePrivateBookingAsMemberActions,
   fetchMyFuturePrivateConsumerPassesAsMemberActions,
+  fetchMyFutureSubscriptionsAsMemberActions,
   fetchMyFutureUniversalPassesAsMemberActions,
   fetchMyPastBookingAsMemberActions,
   fetchMyPastBookingWorkshopAsMemberActions,
   fetchMyPastPrivateBookingAsMemberActions,
+  fetchMySubscriptionAsMemberActions,
   resetConsumerStateActions,
 } from '../../actions/consumerSpace';
 import { establishmentBulkRetrieveActions } from '../../actions/establishment';
@@ -78,6 +83,7 @@ import {
   listInvoiceActions,
   retrieveInvoiceActions,
   applyBalanceToInvoiceActions,
+  invoiceConfigurationDetailActions,
 } from '../../actions/invoice';
 
 export const actionsBinder = () => {
@@ -353,5 +359,36 @@ export const actionsBinder = () => {
   apiCallHandler.bindActions(
     'RETRIEVE_MY_USER_PROFILE',
     retrieveUserProfileActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_MY_ACTIVE_SUBSCRIPTIONS_AS_MEMBER',
+    fetchMyActiveSubscriptionsAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_MY_FUTURE_SUBSCRIPTIONS_AS_MEMBER',
+    fetchMyFutureSubscriptionsAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_MY_EXPIRED_SUBSCRIPTIONS_AS_MEMBER',
+    fetchMyExpiredSubscriptionsAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_CONSUMER_SUBSCRIPTION_INVOICES_DETAILS',
+    fetchConsumerSubscriptionInvoicesDetailsActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_INVOICE_CONFIGURATION_AS_MEMBER',
+    invoiceConfigurationDetailActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_MY_SUBSCRIPTION_AS_MEMBER',
+    // @ts-expect-error TODO FIX WITH PAYMENT
+    fetchMySubscriptionAsMemberActions,
   );
 };

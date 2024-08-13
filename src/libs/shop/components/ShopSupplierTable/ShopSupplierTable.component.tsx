@@ -98,24 +98,26 @@ const ShopSupplierListItem: React.FC<ShopSupplierListItemProps> = React.memo(
             forcedBehavior="hidden"
             requiredPermission="product.shopReworked.allowed_actions.editSettings"
           >
-            <Tooltip
-              title={t(
-                'shopList.tab.settings.section.suppliers.table.action.edit',
-              )}
-            >
-              <IconButton color="primary" onClick={onEditSupplier}>
-                <EditIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip
-              title={t(
-                'shopList.tab.settings.section.suppliers.table.action.delete',
-              )}
-            >
-              <IconButton onClick={onDeleteSupplier}>
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
+            <>
+              <Tooltip
+                title={t(
+                  'shopList.tab.settings.section.suppliers.table.action.edit',
+                )}
+              >
+                <IconButton color="primary" onClick={onEditSupplier}>
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip
+                title={t(
+                  'shopList.tab.settings.section.suppliers.table.action.delete',
+                )}
+              >
+                <IconButton onClick={onDeleteSupplier}>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            </>
           </ObjectLevelPermissionWrapper>
         </TableCell>
       </TableRow>

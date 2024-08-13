@@ -2256,15 +2256,55 @@
                                 "unit": "Unità"
                             }
                         },
-                        "helperText": "Per prima cosa richiedere l'integrazione con bsport sul Portale Partner di Wellhub, per ogni Unità",
+                        "helperText": "Per prima cosa richiedere l'integrazione con bsport sul Partner Portal di Wellhub, per ogni Unità",
                         "title": "Collegamento Unità"
                     },
                     "header": {
                         "subtitle": "Collega le tue sessioni sull'account bsport con Wellhub"
                     }
+                },
+                "dialog": {
+                    "unlink": {
+                        "text": "Le prossime sessioni collegate a tali stabilimenti saranno eliminate su Wellhub e le prenotazioni effettuate tramite Wellhub andranno perse",
+                        "title": "Stai per scollegare uno o più stabilimenti da Wellhub"
+                    },
+                    "action": {
+                        "save": "Salva",
+                        "confirm": "Conferma",
+                        "cancel": "Annulla",
+                        "back": "Indietro"
+                    },
+                    "field": {
+                        "establishmentIds": {
+                            "error": {
+                                "required": "Si prega di selezionare almeno uno stabilimento"
+                            },
+                            "title": "Stabilimenti",
+                            "placeholder": "Collegate il/i vostro/i stabilimento/i bsport"
+                        },
+                        "unitId": {
+                            "error": {
+                                "unavailable": "ID dell'unità non disponibile",
+                                "positive": "L'ID dell'unità deve essere un numero positivo",
+                                "required": "È richiesto l'ID dell'unità"
+                            },
+                            "placeholder": "Numero identificativo dell'unità"
+                        }
+                    },
+                    "title": {
+                        "deletion": "Elimina l'ID dell'unità",
+                        "edition": "Modifica dell'ID unità",
+                        "creation": "Aggiungere e collegare l'ID dell'unità con lo stabilimento (o gli stabilimenti)"
+                    }
                 }
             },
-            "title": "Wellhub"
+            "title": "Wellhub",
+            "snackbar": {
+                "configureWebhooks": {
+                    "success": "L'ID dell'unità è stato associato con successo",
+                    "error": "Si è verificato un errore durante la configurazione"
+                }
+            }
         }
     },
     "authentication": {
@@ -3211,7 +3251,13 @@
             "isUnpaid": "Non pagato",
             "bookingIsUnpaid": "Prenotazioni non pagate",
             "isCancelledByManagerDate": "Annullato il {{-date}} alle {{time}} da {{cancelled_by}}",
-            "isCancelledByManager": "Annullato da {{cancelled_by}}"
+            "isCancelledByManager": "Annullato da {{cancelled_by}}",
+            "incompatibleTagsDialog": {
+                "confirm": "Conferma",
+                "description": "Si prega di notare che questo membro non ha i tag richiesti per questo appuntamento. Si desidera procedere con la prenotazione comunque?",
+                "cancel": "Annulla",
+                "title": "Informazioni"
+            }
         },
         "privateService": {
             "delete": {
@@ -3226,6 +3272,11 @@
                 "explain3": "ATTIVO: consente di prenotare l'appuntamento successivo a partire dalle 14:10 (5 minuti dopo la fine dell'appuntamento precedente + 5 minuti prima dell'inizio di quello successivo). I tempi di attesa degli appuntamenti non possono sovrapporsi.",
                 "explain2": "Esempio: Un appuntamento è stato prenotato per le 13:00, dura 1 ora e si dispone di un buffer di disponibilità di 5 minuti prima e dopo l'appuntamento (ad esempio per la pulizia della stanza).",
                 "explain1": "Se attivata, il buffer di disponibilità dopo il primo appuntamento e il buffer di disponibilità prima del secondo appuntamento non si sovrapporranno (ci sarà uno spazio maggiore tra due appuntamenti, poiché vengono considerati due buffer di disponibilità). Se non è attivata, il buffer di disponibilità dopo il primo appuntamento si sovrapporrà al buffer di disponibilità prima del secondo appuntamento."
+            },
+            "ineligibleService": {
+                "backToAppointments": "Torna agli appuntamenti",
+                "description": "Questo appuntamento è riservato a un gruppo specifico di membri.",
+                "title": "Non è possibile prenotare questo appuntamento"
             }
         },
         "privateCoach": {
@@ -3754,6 +3805,16 @@
                 },
                 "pad_before_booking": {
                     "label": "Attiva per evitare la sovrapposizione dei tempi di buffer di sessioni con orari di fine e inizio vicini"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "notAllowed": "Non consentito",
+                        "doNotSelectToAllowAllMembers": "Lasciare questo campo vuoto per consentire a tutti i membri",
+                        "allowed": "Consentito",
+                        "helperText": "Usare i tag per rendere l'appuntamento prenotabile solo a un gruppo desiderato di membri: si possono selezionare i tag per rendere tutte le sessioni di questo appuntamento prenotabili solo ai membri con uno dei tag selezionati, oppure si possono selezionare i tag per rendere le sessioni dell'appuntamento non prenotabili solo ai membri con uno dei tag selezionati.",
+                        "header": "Tag"
+                    },
+                    "header": "Avanzate"
                 }
             },
             "parameters": {
@@ -3777,7 +3838,14 @@
                 },
                 "last_booking_minutes": {
                     "explain": "Ultima prenotazione possibile {{days}} giorno(i) {{hours}} ora e) {{minutes}} minuto(i) prima dell'appuntamento"
-                }
+                },
+                "blacklistTags": {
+                    "title": "Tag rifiutati"
+                },
+                "whitelistTags": {
+                    "title": "Tag approvati"
+                },
+                "noTags": "Non ci sono tag autorizzati da visualizzare."
             },
             "detail": {
                 "tab": {
@@ -4480,7 +4548,8 @@
                 "paymentPackTemplates": "Pacchetti",
                 "label": "Prodotti",
                 "shopTemplates": "Shop",
-                "contractTemplates": "Abbonamenti ricorrenti"
+                "contractTemplates": "Abbonamenti ricorrenti",
+                "universalPassTemplates": "Pacchetto universale"
             },
             "tag": "Tag",
             "marketing": {
@@ -8776,7 +8845,8 @@
             "name": "Nome",
             "description": "Descrizione",
             "category": "Categoria",
-            "cancel": "Annulla"
+            "cancel": "Annulla",
+            "saveAndGenerate": "Salvataggio e generazione"
         },
         "report": {
             "delete_message": "Sei sicuro di voler eliminare \"{{- name }}\"?"
@@ -9179,7 +9249,39 @@
             "0": "Carta di credito",
             "70": "BACS Direct Debit"
         },
-        "readPermissionDenied": "Accesso negato"
+        "readPermissionDenied": "Accesso negato",
+        "descriptions": {
+            "consumer_giftcard": "Gestire e monitorare gli acquisti di carte regalo, compresi i dettagli degli acquirenti e dei destinatari.",
+            "giftcard": "Monitorare le vendite e i rimborsi per migliorare l'offerta di carte regalo e massimizzare le entrate.",
+            "video_purchase": "Monitorare le vendite attraverso il tracciamento di tutti i video acquistati e dei loro dettagli e ottimizzare l'offerta di video.",
+            "unpaid_invoices": "Monitorare le ricevute non pagate per migliorare la riscossione dei pagamenti.",
+            "video": "Analizzate le prestazioni del VOD, come le visualizzazioni, il prezzo e lo stato di noleggio, per informare la vostra strategia di contenuti.",
+            "on_spot_payments": "Monitorare i pagamenti in studio con i dettagli delle transazioni e monitorare le vendite per migliorare l'offerta dei prodotti.",
+            "cashbook": "Monitorare i saldi giornalieri per una gestione finanziaria accurata.",
+            "members": "Accedere ai dettagli dei nuovi membri per capire le loro preferenze e migliorare l'esperienza e la fedeltà.",
+            "offers": "Ottimizzare la programmazione e l'uso delle risorse comprendendo le dinamiche di prenotazione delle sessioni.",
+            "bookings": "Ottimizzare la programmazione analizzando lo stato delle prenotazioni, le presenze e l'utilizzo degli associati.",
+            "payments": "Accedere a informazioni dettagliate su ogni transazione con il relativo status e i prodotti venduti.",
+            "invoices": "Monitorare la cronologia delle transazioni e analizzare i dettagli della fatturazione.",
+            "memberships": "Vedere i pacchetti attivi e il loro utilizzo. Monitorate le prenotazioni e i crediti rimanenti per gestire i pacchetti in modo efficiente.",
+            "basket": "Visualizza l'elenco dei carrelli in sospeso, per capire cosa i membri stanno pensando di acquistare.",
+            "credit": "Visualizzare rapidamente i saldi dei conti dei membri. Comunicare efficacemente con i membri in merito al loro imputabile e ai loro crediti.",
+            "payment_sumup": "Monitorare tutti i metodi e i dettagli di pagamento, sia online che offline.",
+            "private_cpasses": "Vedere i pacchetti per appuntamento attivi e il loro utilizzo. Monitorate le prenotazioni e i crediti rimanenti per gestire in modo efficiente i pass pacchetti per appuntamento.",
+            "shop": "Ottimizzare le strategie di inventario e di vendita monitorando le vendite, il ricavo generato e i livelli delle scorte.",
+            "private_bookings": "Accedere a informazioni dettagliate sulla prenotazione degli appuntamenti e migliorare l'efficienza della programmazione.",
+            "discount": "Ottimizzare le strategie di marketing e aumentare le vendite analizzando l'impatto delle promozioni.",
+            "subscription": "Monitorare i dettagli di fatturazione degli abbonamenti ricorrenti per garantire pagamenti accurati e tempestivi.",
+            "first_booking": "Monitorate i primi visitatori e le classi più performanti con un elenco dettagliato delle prime prenotazioni di attività di gruppo per ogni membro.",
+            "first_attendance": "Monitorare la partecipazione iniziale alle attività di gruppo. Monitorare l'impegno e ottimizzare le strategie di coinvolgimento per migliorare la fidelizzazione dei membri.",
+            "first_privatebooking": "Monitorate i primi visitatori e gli appuntamenti più redditizi con un elenco dettagliato delle prime prenotazioni per ogni membro.",
+            "activities": "Accedere ai dettagli di ogni attività. Monitorare le presenze e le prestazioni per migliorare l'offerta dei programmi.",
+            "workshop": "Valutare le prestazioni degli workshop. Analizzare i dati per migliorare l'offerta e aumentare la partecipazione.",
+            "activityByEst": "Monitorare le prestazioni delle attività e degli workshop per stabilimento. Migliorare l'allocazione delle risorse per ogni stabilimento.",
+            "activityByCoach": "Monitorare le performance delle attività e degli workshop per insegnante. Migliorare le attività degli insegnanti e il successo del corso.",
+            "privateService": "Analizzare le performance degli appuntamenti tramite il numero di prenotazioni e cancellazioni.",
+            "dayBookings": "Analizza le tendenze e i tassi di partecipazione monitorando le prenotazioni delle attività di gruppo per ogni giorno."
+        }
     },
     "alerting": {
         "unevenInvoice": {
@@ -10005,7 +10107,8 @@
         },
         "paymentPackTemplate": {
             "actions": {
-                "create": "Aggiungi un pacchetto condiviso"
+                "create": "Aggiungi un pacchetto condiviso",
+                "createUniversalPass": "Aggiungi un pacchetto universale condiviso"
             },
             "deleteForm": {
                 "actions": {
@@ -10028,7 +10131,9 @@
                     "cancel": "Cancella",
                     "content": "Le modifiche saranno applicate anche agli abbonamenti collegati a questo pacchetto condiviso. Sei sicuro di voler procedere e salvare le modifiche?",
                     "title": "Conferma della modifica"
-                }
+                },
+                "universalPassTooltip": "I pacchetti universali possono essere utilizzati per attività di gruppo e appuntamenti. Per ogni pacchetto universale vengono creati due àcchetti per appuntamenti per collegare il numero di crediti. Una volta acquistato uno di questi pacchetti, l'altro verrà aggiunto automaticamente senza costi aggiuntivi.",
+                "universalPassTitle": "Pacchetto universale condiviso"
             },
             "section": {
                 "titleManagerOnly": "Non disponibile per la vendita",
@@ -10083,6 +10188,11 @@
                     "warningText": "Attenzione! Questo pacchetto è universale, se lo cancelli anche il suo pacchetto gemello sarà cancellato.",
                     "title": "Elimina il pacchetto"
                 }
+            },
+            "add": {
+                "availabilityGivenNumber": "Valido per un determinato numero di giorni dopo l'acquisto",
+                "helperText": "Il numero di crediti è impostato su limitato",
+                "credit": "Numero di crediti"
             }
         },
         "incompatibilities": {
@@ -10308,7 +10418,11 @@
             },
             "offerDescription": "{{ count }} sessioni da {{- firstSession }} a {{- lastSession }}"
         },
-        "cancelledOffers": "{{count}} cancellazioni"
+        "cancelledOffers": "{{count}} cancellazioni",
+        "warningUSCDialog": {
+            "content": "La nuova politica di cancellazione si applicherà agli eventi futuri. Tuttavia, gli eventi già pubblicati nelle prossime due settimane non potranno essere aggiornati.",
+            "title": "Politica di cancellazione per USC"
+        }
     },
     "emailTemplate": {
         "subject": "Oggetto della mail:",
@@ -11173,7 +11287,8 @@
                 },
                 "sendInvitation": "Invia invito"
             },
-            "bookingFor": "Prenota per"
+            "bookingFor": "Prenota per",
+            "bookingForSubtitle": "Seleziona la persona per cui vuoi prenotare"
         },
         "setSpot": "Assegnare un posto",
         "changeSpot": "Cambiare il posto",
@@ -12866,6 +12981,72 @@
             "account_name": "Nome dell'account",
             "account_number_required": "Numero dell'account *",
             "account_number": "Numero dell'account"
+        },
+        "establishmentGroup": {
+            "deleteObject": {
+                "infos": {
+                    "widgetsDefault": "I widget Calendario e Workshop possono essere configurati con questa sede, vi preghiamo di non dimenticare di aggiornarli.",
+                    "reportsDefault": "La sede verrà cancellata dai rapporti precedenti."
+                },
+                "warnings": {
+                    "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il vostro marketplace non visualizzeranno più il calendario della sede.",
+                    "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate.",
+                    "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceverà quindi le richieste di sostituzione da tutte le sedi.",
+                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceveranno quindi le richieste di sostituzione da ogni sede.",
+                    "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, non riceveranno più la relativa notifica.",
+                    "hasRelatedStaffConfigurations": "Questa sede è utilizzata per il monitoraggio degli accessi da parte di uno o più utenti staff. Eliminando la sede senza selezionarne una nuova, questi non potranno più effettuare il monitoraggio degli accessi."
+                },
+                "errors": {
+                    "hasExclusiveMarketplaceComponentConfigs": "Una o più schede del marketplace sono impostate per visualizzare solo il calendario e gli workshop di questa sede; aggiornarle prima di eliminare la sede."
+                }
+            },
+            "forms": {
+                "delete": {
+                    "title": "Elimina una delle sedi"
+                }
+            }
+        },
+        "deleteObject": {
+            "warnings": {
+                "hasRelatedMarketingNotifications": "Le notifiche relative a questo stabilimento saranno eliminate.",
+                "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il vostro marketplace non visualizzeranno più il calendario di questo stabilimento.",
+                "hasRelatedZoomEstablishment": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti utilizzati per lo streaming in diretta con l'integrazione di Zoom.",
+                "hasRelatedAvailabilitySlots": "Le fasce orarie disponibili dell'orario di questo stabilimento saranno cancellate.",
+                "relatedPaymentPacks": "Il seguente pass {{- pass_name }} non sarà più utilizzabile per questo stabilimento, assicuratevi di informare i vostri clienti.",
+                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
+                "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
+                "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
+                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati quando viene fatta una richiesta di sostituzione per una sessione solo in questo stabilimento. Eliminando lo stabilimento, riceveranno le richieste di sostituzione da tutti gli stabilimenti.",
+                "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
+                "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
+                "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Cancellando lo stabilimento , queste fasce orarie saranno eliminate.",
+                "hasRelatedStaffConfigurations": "Questo stabilimento sarà rimosso dagli stabilimenti utilizzati dgli utenti staff per il monitoraggio degli accessi.",
+                "hasExclusiveStaffConfigurations": "Alcuni utenti Staff sono configurati per monitorare l'accesso dei membri per questo stabilimento. Eliminando lo stabilimento senza selezionarne uno nuovo, non potranno più effettuare il monitoraggio degli accessi.",
+                "exclusivePrivateServices": "L'appuntamento {{- private_service_name }} è configurato per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, l'appuntamento potrà svolgersi ovunque.",
+                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, gli appuntamenti potranno svolgersi ovunque.",
+                "hasBillingGroup": "Questo stabilimento sarà anche rimosso dal gruppo di fatturazione {{- establishment_billing_group_name }}."
+            },
+            "infos": {
+                "privateBookingsDefault": "Le sessioni per appuntamenti precedenti non saranno modificate.",
+                "widgetsDefault": "I widget del Calendario e degli Workshop potrebbero essere stati configurati con questo stabilimento; non dimenticate di aggiornarli.",
+                "offersDefault": "Le sessioni, gli workshop e le prenotazioni pregresse non saranno modificate.",
+                "reportsDefault": "Lo stabilimento non verrà cancellato dai report passati."
+            },
+            "errors": {
+                "isIntegratedInPartnership": "Una o più integrazioni utilizzano questo stabilimento.",
+                "hasExclusiveMarketplaceComponentConfigs": "Una o più schede del marketplace sono impostate per visualizzare solo il calendario e gli workshop di questo stabilimento; si prega di aggiornarle prima di eliminare lo stabilimento.",
+                "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
+                "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare, si prega di aggiornare o eliminare queste sedi.",
+                "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
+                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
+                "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
+                "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
+                "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."
+            },
+            "title": {
+                "warning": "Eliminare questo stabilimento avrà la seguenti conseguenze:",
+                "error": "Lo stabilimento non può essere eliminato per le seguenti ragioni:"
+            }
         }
     },
     "datetime": {
@@ -14742,7 +14923,7 @@
         },
         "or": "o",
         "payLater": {
-            "explain": "Il vostro mezzo di pagamento vi sarà richiesto sul posto prima della seduta. Prima di questa, la ricevuta sarà considerata non pagata.",
+            "explain": "La tua ricevuta sarà considerata non pagata finchè non verrà saldata dal tuo profilo, o direttamente in sede.",
             "submit": "Pagare sul posto"
         },
         "validation": {

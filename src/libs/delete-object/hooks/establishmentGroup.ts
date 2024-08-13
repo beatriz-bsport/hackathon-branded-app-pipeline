@@ -47,12 +47,15 @@ export const useDeleteEstablishmentGroupWarningMessages: WarningMessagesHook =
 
     if (checkData.associated_coach.exclusive_coaches.length) {
       warningMessages.push(
-        t('establishmentGroup.deleteObject.errors.exclusiveAssociatedCoaches', {
-          count: checkData.associated_coach.exclusive_coaches.length,
-          coach_name: checkData.associated_coach.exclusive_coaches
-            .map(({ coach_name }) => coach_name)
-            .join(', '),
-        }),
+        t(
+          'establishmentGroup.deleteObject.warnings.exclusiveAssociatedCoaches',
+          {
+            count: checkData.associated_coach.exclusive_coaches.length,
+            coach_name: checkData.associated_coach.exclusive_coaches
+              .map(({ coach_name }) => coach_name)
+              .join(', '),
+          },
+        ),
       );
     } else if (checkData.associated_coach.has_related_associated_coaches) {
       warningMessages.push(

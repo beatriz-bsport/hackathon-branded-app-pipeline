@@ -142,7 +142,7 @@ export const useDeleteEstablishmentWarningMessages: WarningMessagesHook =
 
     if (checkData.associated_coach.exclusive_coaches.length) {
       warningMessages.push(
-        t('deleteObject.errors.exclusiveAssociatedCoaches', {
+        t('deleteObject.warnings.exclusiveAssociatedCoaches', {
           count: checkData.associated_coach.exclusive_coaches.length,
           coach_name: checkData.associated_coach.exclusive_coaches
             .map(({ coach_name }) => coach_name)

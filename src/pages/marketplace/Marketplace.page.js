@@ -547,6 +547,7 @@ export class MarketPlace extends Component<Props, State> {
           push={this.props.push}
           signUpCustomForm={this.props.signUpCustomForm}
           tabConfigList={this.props.marketplaceSettingsConfig}
+          tabSelected={this.props.tabSelected}
         >
           {this.renderContent()}
         </MarketplaceNavigation>

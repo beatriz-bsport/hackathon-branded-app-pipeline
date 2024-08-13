@@ -71,6 +71,7 @@ type Props = {
   authStateLoading: boolean;
   franchisor?: Franchise;
   memberName: string;
+  tabSelected: string;
   push: (path: string) => void;
   onToggleSignUpDialog: (value: boolean) => void;
   handleCloseLoginDialog: () => void;
@@ -102,6 +103,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
   authStateLoading,
   franchisor,
   memberName,
+  tabSelected,
   children,
   push,
   onToggleSignUpDialog,
@@ -134,6 +136,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
           tabConfig.title ||
           getDefaultTitleForComponent(tabConfig.component_type, t),
         color: 'grey',
+        isSelected: parseInt(tabSelected, 10) === tabConfig.index,
         onClick: () => {
           push(
             `${urlToMarketplace(
@@ -150,7 +153,14 @@ const MarketplaceNavigation: React.FC<Props> = ({
           );
         },
       })),
-    [tabConfigList, t, push, companyTheme.company_name, companyTheme.company],
+    [
+      tabConfigList,
+      t,
+      tabSelected,
+      push,
+      companyTheme.company_name,
+      companyTheme.company,
+    ],
   );
 
   const {

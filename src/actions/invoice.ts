@@ -5,6 +5,7 @@ import type {
   InvoiceV1Serializer,
   InvoiceConfigurationSerializer,
   InvoiceDetailsSerializer,
+  InvoiceConfigurationMemberSerializer,
 } from 'bsport-saas/src/libs/invoice/types';
 
 type ListInvoiceResponse =
@@ -16,6 +17,9 @@ type RetrieveInvoiceResponse =
   | InvoiceV1Serializer
   | InvoiceConfigurationSerializer
   | InvoiceDetailsSerializer;
+type InvoiceConfigurationDetailResponse =
+  | InvoiceConfigurationSerializer
+  | InvoiceConfigurationMemberSerializer;
 
 export const listInvoiceActions = {
   isLoading: createAction<boolean>('INVOICE/LIST/IS_LOADING'),
@@ -34,4 +38,12 @@ export const applyBalanceToInvoiceActions = {
   isLoading: createAction<boolean>('INVOICE/APPLY_BALANCE/LOADING'),
   error: createAction<Error | null>('INVOICE/APPLY_BALANCE/ERROR'),
   success: createAction<string>('INVOICE/APPLY_BALANCE/SUCCESS'),
+};
+
+export const invoiceConfigurationDetailActions = {
+  isLoading: createAction<boolean>('INVOICE-CONFIGURATION/DETAIL/IS_LOADING'),
+  error: createAction<Error | null>('INVOICE-CONFIGURATION/DETAIL/ERROR'),
+  success: createAction<InvoiceConfigurationDetailResponse>(
+    'INVOICE-CONFIGURATION/DETAIL/SUCCESS',
+  ),
 };

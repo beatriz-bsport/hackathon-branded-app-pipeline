@@ -10,6 +10,11 @@ import type {
   ConsumerInvoiceComplementary,
   ConsumerInvoiceREST,
 } from 'bsport-saas/src/libs/invoice/types';
+import type {
+  SubscriptionREST,
+  SubscriptionsInvoicesDetailsREST,
+} from 'bsport-saas/src/libs/subscription/types';
+import { SubscriptionTabEnum } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 
 export const fetchMyPastBookingAsMemberActions = {
   success: createAction('BOOKING/PAST/AS_MEMBER/SUCCESS'),
@@ -261,4 +266,83 @@ export const fetchConsumerUnpaidInvoicesActions = {
   success: createAction<PaginatedResponse<ConsumerInvoiceREST>>(
     'CONSUMER_INVOICE/UNPAID/LIST/SUCCESS',
   ),
+};
+export const fetchMyActiveSubscriptionsAsMemberActions = {
+  success: createAction<PaginatedResponse<SubscriptionREST>>(
+    'SUBSCRIPTIONS/ACTIVE/LIST/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'SUBSCRIPTIONS/ACTIVE/LIST/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'SUBSCRIPTIONS/ACTIVE/LIST/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchActiveSubscriptionDetailAsMemberActions = {
+  success: createAction<SubscriptionREST>(
+    'SUBSCRIPTIONS/ACTIVE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('SUBSCRIPTIONS/ACTIVE/AS_MEMBER/IS_LOADING'),
+  error: createAction<Error | null>('SUBSCRIPTIONS/ACTIVE/AS_MEMBER/ERROR'),
+};
+
+export const fetchFutureSubscriptionDetailAsMemberActions = {
+  success: createAction<SubscriptionREST>(
+    'SUBSCRIPTIONS/FUTURE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('SUBSCRIPTIONS/FUTURE/AS_MEMBER/IS_LOADING'),
+  error: createAction<Error | null>('SUBSCRIPTIONS/FUTURE/AS_MEMBER/ERROR'),
+};
+
+export const fetchExpiredSubscriptionDetailAsMemberActions = {
+  success: createAction<SubscriptionREST>(
+    'SUBSCRIPTIONS/EXPIRED/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'SUBSCRIPTIONS/EXPIRED/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>('SUBSCRIPTIONS/EXPIRED/AS_MEMBER/ERROR'),
+};
+
+export const fetchMyFutureSubscriptionsAsMemberActions = {
+  success: createAction<PaginatedResponse<SubscriptionREST>>(
+    'SUBSCRIPTIONS/FUTURE/LIST/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'SUBSCRIPTIONS/FUTURE/LIST/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'SUBSCRIPTIONS/FUTURE/LIST/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyExpiredSubscriptionsAsMemberActions = {
+  success: createAction<PaginatedResponse<SubscriptionREST>>(
+    'SUBSCRIPTIONS/EXPIRED/LIST/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'SUBSCRIPTIONS/EXPIRED/LIST/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'SUBSCRIPTIONS/EXPIRED/LIST/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchConsumerSubscriptionInvoicesDetailsActions = {
+  success: createAction<{
+    billing_plan_id: number,
+    data: PaginatedResponse<SubscriptionsInvoicesDetailsREST>,
+  }>('SUBSCRIPTIONS/INVOICES/AS_MEMBER/SUCCESS'),
+
+  isLoading: createAction<boolean>(
+    'SUBSCRIPTIONS/INVOICES/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>('SUBSCRIPTIONS/INVOICES/AS_MEMBER/ERROR'),
+};
+
+export const fetchMySubscriptionAsMemberActions = {
+  [SubscriptionTabEnum.ACTIVE]: fetchActiveSubscriptionDetailAsMemberActions,
+  [SubscriptionTabEnum.FUTURE]: fetchFutureSubscriptionDetailAsMemberActions,
+  [SubscriptionTabEnum.EXPIRED]: fetchExpiredSubscriptionDetailAsMemberActions,
 };

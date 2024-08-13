@@ -597,7 +597,7 @@ const getNavigationItems = (props: {
               : []),
             displayNewWebshopForFranchisees && {
               to: '/f/shop',
-              text: 'franchiseMenu.products.shop',
+              text: 'franchiseMenu.products.shopTemplates',
               icon: ShoppingCartIcon,
             },
             {

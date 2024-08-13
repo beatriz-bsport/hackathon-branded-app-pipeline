@@ -87,7 +87,7 @@ const useStyles = (id: number, color: string) =>
         padding: theme.spacing(2),
         paddingTop: 0,
         paddingBottom: 0,
-        borderRadius: 12,
+        borderRadius: theme.shape.borderRadius,
         height: 24,
       },
       removableChip: {

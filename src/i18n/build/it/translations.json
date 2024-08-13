@@ -9336,8 +9336,8 @@
             "currentView": "Visualizzazione corrente:",
             "addView": "Aggiungi visualizzazione",
             "emptyAdvancedFilters": "Nessun filtro avanzato applicato a questa visualizzazione.",
-            "advancedFiltersApplied": "",
-            "advancedFiltersApplied_plural": "",
+            "advancedFiltersApplied": "{{ count }} filtro avanzato applicato",
+            "advancedFiltersApplied_plural": "{{ count }} filtri avanzati applicati",
             "cannotDeleteDefaultView": "La visualizzazione predefinita non può essere eliminata."
         },
         "reportEditLabel": "Modifica visualizzazione",
@@ -9356,7 +9356,27 @@
             "content": "È possibile regolare i filtri e le colonne per ogni visualizzazione dopo la sua creazione.",
             "inputLabel": "Visualizza nome",
             "error": "È necessario un nome per la visualizzazione",
-            "maxLength": "Un nome può contenere un massimo di 200 caratteri."
+            "maxLength": "Un nome può contenere un massimo di 200 caratteri.",
+            "nameAlreadyUsed": "Il nome è già in uso"
+        },
+        "reportDeleteModal": {
+            "title": "Sei sicuro di voler eliminare questa visualizzazione",
+            "confirm": "Elimina visualizzazione",
+            "content": "L'impostazione del filtro andrà persa."
+        },
+        "reportDetailContent": {
+            "title": "Filtri di data e filtri rapidi",
+            "tableTitle": "Report dettagliato",
+            "addQuickFilter": "Aggiungi un filtro rapido",
+            "goBack": "Torna a tutti i report",
+            "notFound": "Il report non è stato trovato"
+        },
+        "reportHasNotBeenGenerated": "Genera il report per visualizzare i dati",
+        "accessOldUIWithNewVersionEnabled": "Hai provato ad accedere all'interfaccia precedente mentre è abilitata la nuova versione. Per favore, torna indietro per cambiare interfaccia",
+        "tooltips": {
+            "addView": "Crea diverse versioni del report con nuovi filtri, date e colonne di dati",
+            "editView": "Filtri avanzati",
+            "deleteView": "Elimina visualizzazione"
         }
     },
     "alerting": {
@@ -16333,6 +16353,9 @@
                     },
                     "contractTemplates": {
                         "_label": "Abbonamenti"
+                    },
+                    "universalPassTemplates": {
+                        "_label": "Pacchetti universali"
                     }
                 },
                 "settings": {

@@ -481,7 +481,8 @@
                 },
                 "sendInvitation": "Envoyer l'invitation"
             },
-            "bookingFor": "Réservation pour"
+            "bookingFor": "Réservation pour",
+            "bookingForSubtitle": "Sélectionnez la personne pour laquelle vous souhaitez faire une réservation"
         },
         "guest": {
             "form": {
@@ -717,7 +718,7 @@
         },
         "payLater": {
             "submit": "Payer sur place",
-            "explain": "Votre moyen de paiement vous sera demandé sur place avant votre séance. Avant cela, la facture sera considérée comme impayée."
+            "explain": "Votre facture sera considérée comme impayée jusqu'à ce que vous la régliez à partir de votre profil de membre, ou directement au studio."
         },
         "or": "ou",
         "expire_in": "Expire dans ",
@@ -3221,6 +3222,72 @@
             "account_name": "Nom du compte",
             "account_number_required": "Numéro de compte *",
             "account_number": "Numéro de compte"
+        },
+        "deleteObject": {
+            "errors": {
+                "exclusivePaymentPacks_plural": "Les cartes de cours suivantes {{- pass_name }} ne sont utilisables que dans cet établissement. Veuillez mettre à jour leurs restrictions avant de supprimer l'établissement.",
+                "exclusivePaymentPacks": "La carte de cours suivante {{- pass_name }} n'est utilisable que dans cet établissement. Veuillez mettre à jour ses restrictions avant de supprimer l'établissement.",
+                "hasUpcomingOffers": "Certaines séances à venir ont lieu dans cet établissement. Veuillez les annuler et les supprimer avant de supprimer cet établissement.",
+                "hasUpcomingPrivateBookings": "Certains rendez-vous à venir ont lieu dans cet établissement. Veuillez les annuler et les supprimer avant de supprimer cet établissement.",
+                "hasExclusiveBillingGroup": "Cet établissement est le dernier de son groupe de facturation. Veuillez supprimer ou mettre à jour ce groupe de facturation avant de supprimer cet établissement.",
+                "exclusiveEstablishmentGroups_plural": "Les localisations {{- establishment_group_name }} ne contiennent que l'établissement que vous souhaitez supprimer, veuillez mettre à jour ou supprimer ces localisations.",
+                "exclusiveEstablishmentGroups": "La localisation {{- establishment_group_name }} ne contient que l'établissement que vous souhaitez supprimer, veuillez mettre à jour ou supprimer cette localisation.",
+                "hasExclusiveMarketplaceComponentConfigs": "Un ou plusieurs onglets de la marketplace sont paramétrés pour n'afficher que le calendrier et les ateliers de cet établissement, veuillez les mettre à jour avant de supprimer l'établissement.",
+                "isIntegratedInPartnership": "Une ou plusieurs intégrations utilisent cet établissement."
+            },
+            "infos": {
+                "offersDefault": "Les séances, ateliers existants et les réservations passées ne seront pas modifiés.",
+                "reportsDefault": "L'établissement ne sera pas supprimé des anciens rapports.",
+                "widgetsDefault": "Les widgets Calendrier et Ateliers peuvent avoir été configurés avec cet établissement, n'oubliez pas de les mettre à jour.",
+                "privateBookingsDefault": "Les séances de rendez-vous passées ne seront pas modifiées."
+            },
+            "warnings": {
+                "exclusivePrivateServices_plural": "Les rendez-vous {{- private_service_name }} sont configurés pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ces rendez-vous pourront avoir lieu n'importe où.",
+                "exclusivePrivateServices": "Le rendez-vous {{- private_service_name }} est configuré pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ce rendez-vous pourra avoir lieu n'importe où.",
+                "exclusiveCoachAvailabilitySlots": "Le/la professeur(e) {{- coach_name }} est indiqué(e) comme étant disponible sur certaines plages horaires pour cet établissement uniquement. En supprimant l'établissement, ces plages horaires seront supprimées.",
+                "exclusiveCoachAvailabilitySlots_plural": "Les professeurs {{- coach_name }} sont indiqués comme étant disponibles sur certaines plages horaires pour cet établissement uniquement. En supprimant l'établissement, ces créneaux horaires seront supprimés.",
+                "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) lorsqu'une demande de substitution est faite pour une séance dans cet établissement uniquement. En supprimant l'établissement, il/elle recevra donc les demandes de substitution de tous les établissements.",
+                "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} sont avertis lorsqu'une demande de substitution est faite pour une séance dans cet établissement uniquement. En supprimant l'établissement, ils recevront donc les demandes de substitution de tous les établissements.",
+                "hasBillingGroup": "Cet établissement sera également retiré du groupe de facturation {{- establishment_billing_group_name }}.",
+                "hasExclusiveStaffConfigurations": "Certains membres du personnel sont configurés pour surveiller l'accès des membres pour cet établissement uniquement. En supprimant l'établissement sans en sélectionner un nouveau, ils ne pourront plus effectuer de contrôle d'accès.",
+                "hasRelatedStaffConfigurations": "Cet établissement sera retiré des établissements utilisés par les membres du personnel pour le contrôle d'accès.",
+                "hasRelatedCoachAvailabilitySlots": "Cet établissement sera supprimé de la liste des établissements disponibles utilisée dans le calendrier de vos professeurs.",
+                "hasRelatedAssociatedCoaches": "Certains professeurs reçoivent une notification lorsqu'une demande de remplacement est faite pour une séance dans cet établissement. En supprimant l'établissement, ils ne recevront plus de notification pour celui-ci.",
+                "relatedPaymentPacks_plural": "Les cartes de cours suivantes {{- pass_name }} ne seront plus utilisables pour cet établissement, veillez à en informer vos clients.",
+                "relatedPaymentPacks": "La carte de cours suivante {{- pass_name }} ne sera plus utilisable pour cet établissement, veillez à en informer vos clients.",
+                "hasRelatedAvailabilitySlots": "Les créneaux disponibles de cet établissement seront supprimés de son calendrier.",
+                "hasRelatedZoomEstablishment": "Cet établissement sera supprimé de la liste des établissements utilisés pour les visioconférences via l'intégration Zoom.",
+                "hasRelatedMarketplaceComponentConfigs": "Les onglets du calendrier et des ateliers configurés pour votre marketplace n'afficheront plus le calendrier de cet établissement.",
+                "hasRelatedMarketingNotifications": "Les notifications relatives à cet établissement seront supprimées."
+            },
+            "title": {
+                "error": "L'établissement ne peut pas être supprimé pour les raisons suivantes :",
+                "warning": "La suppression de cet établissement aura les conséquences suivantes :"
+            }
+        },
+        "establishmentGroup": {
+            "deleteObject": {
+                "errors": {
+                    "hasExclusiveMarketplaceComponentConfigs": "Un ou plusieurs onglets de la marketplace sont paramétrés pour n'afficher que le calendrier et les ateliers de cette localisation, veuillez les mettre à jour avant de supprimer la localisation."
+                },
+                "warnings": {
+                    "hasRelatedAssociatedCoaches": "Certains professeurs reçoivent une notification lorsqu'une demande de substitution est faite pour une séance dans cette localisation. En supprimant la localisation, ils ne recevront plus de notification à ce sujet.",
+                    "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation uniquement. En supprimant la localisation, il/elle recevra donc les demandes de remplacement de toutes les localisations.",
+                    "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} sont avertis que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation uniquement. En supprimant la localisation, ils recevront donc les demandes de remplacement de toutes les localisations.",
+                    "hasRelatedStaffConfigurations": "Cette localisation est utilisée pour la surveillance des accès par un ou plusieurs membres du personnel. En supprimant la localisation sans en sélectionner une nouvelle, ils ne pourront plus effectuer de surveillance des accès.",
+                    "hasRelatedMarketingNotifications": "Les notifications liées à cette localisation seront supprimées.",
+                    "hasRelatedMarketplaceComponentConfigs": "Les onglets du calendrier et des ateliers configurés pour votre marketplace n'afficheront plus le calendrier cette localisation."
+                },
+                "infos": {
+                    "reportsDefault": "La localisation sera supprimée des rapports antérieurs.",
+                    "widgetsDefault": "Les widgets Calendrier et Ateliers ont pu être configurés avec cette localisation, n'oubliez pas de les mettre à jour."
+                }
+            },
+            "forms": {
+                "delete": {
+                    "title": "Supprimer une localisation"
+                }
+            }
         }
     },
     "event": {
@@ -6337,7 +6404,11 @@
                 "groupsWithOutOfTheRangeOffers": "Les groupes de séances ci-dessous ne seront pas créés car\n        ils comportent des séances qui ont lieu dans plus de 3 ans"
             }
         },
-        "cancelledOffers": "{{count}} annulations"
+        "cancelledOffers": "{{count}} annulations",
+        "warningUSCDialog": {
+            "title": "Politique d'annulation sur USC",
+            "content": "La nouvelle politique d'annulation s'appliquera aux événements futurs. Toutefois, les événements déjà publiés au cours des deux prochaines semaines ne pourront pas être mis à jour."
+        }
     },
     "navigation": {
         "paymentMethodMissing": {
@@ -6494,7 +6565,8 @@
                 "giftcardTemplates": "Cartes cadeaux",
                 "couponTemplates": "Promotions",
                 "shopTemplates": "Magasin",
-                "contractTemplates": "Abonnements"
+                "contractTemplates": "Abonnements",
+                "universalPassTemplates": "Cartes universelles"
             },
             "emailTemplates": "Emails",
             "notificationRules": "Emails Transactionnels",
@@ -7584,9 +7656,49 @@
                     "header": {
                         "subtitle": "Liez vos sessions sur le compte bsport avec Wellhub"
                     }
+                },
+                "dialog": {
+                    "unlink": {
+                        "title": "Vous êtes sur le point de dissocier de Wellhub un ou plusieurs établissements",
+                        "text": "Les séances à venir liées à ces établissements seront supprimées sur Wellhub, et toute réservation sur Wellhub sera perdue"
+                    },
+                    "title": {
+                        "creation": "Ajouter et relier le Unit ID à un ou plusieurs l'établissement(s)",
+                        "edition": "Modifier le Unit ID",
+                        "deletion": "Supprimer le Unit ID"
+                    },
+                    "field": {
+                        "unitId": {
+                            "placeholder": "Numéro du Unit ID",
+                            "error": {
+                                "required": "Le Unit ID est requis",
+                                "positive": "Le Unit ID doit être un nombre positif",
+                                "unavailable": "Le Unit ID n'est pas disponible"
+                            }
+                        },
+                        "establishmentIds": {
+                            "placeholder": "Reliez un ou plusieurs établissement(s) bsport",
+                            "title": "Établissements",
+                            "error": {
+                                "required": "Veuillez sélectionner au moins un établissement"
+                            }
+                        }
+                    },
+                    "action": {
+                        "back": "Retour",
+                        "cancel": "Annuler",
+                        "confirm": "Confirmer",
+                        "save": "Enregistrer"
+                    }
                 }
             },
-            "title": "Wellhub"
+            "title": "Wellhub",
+            "snackbar": {
+                "configureWebhooks": {
+                    "error": "Une erreur s'est produite lors de la configuration",
+                    "success": "Votre Unit ID a été relié avec succès"
+                }
+            }
         }
     },
     "payment": {
@@ -8040,7 +8152,9 @@
                     "cancel": "Annuler",
                     "content": "Vos modifications seront également appliquées aux abonnements liés à cette carte de cours partagée. Êtes-vous sûr de vouloir continuer et enregistrer vos modifications ?",
                     "title": "Confirmation de modification"
-                }
+                },
+                "universalPassTitle": "Carte universelle partagée",
+                "universalPassTooltip": "Les cartes universelles peuvent être utilisées pour les activités collectives et les rendez-vous. Des cartes de rendez-vous jumelles sont créées pour chaque carte universelle afin d'y lier le nombre de crédits. Une fois l'une de ces cartes achetée, l'autre sera automatiquement ajoutée sans frais supplémentaires."
             },
             "deleteForm": {
                 "title": "Supprimer la carte partagée",
@@ -8051,7 +8165,8 @@
                 }
             },
             "actions": {
-                "create": "Créer une carte partagée"
+                "create": "Créer une carte partagée",
+                "createUniversalPass": "Ajouter une carte universelle partagée"
             }
         },
         "filters": {
@@ -8808,6 +8923,11 @@
                     "text": "Cette carte est une carte universelle, sa carte jumelle a elle aussi été désarchivée.",
                     "continue": "Continuer"
                 }
+            },
+            "add": {
+                "credit": "Nombre de crédits",
+                "helperText": "Le nombre de crédits est limité",
+                "availabilityGivenNumber": "Valable pour un nombre déterminé de jours après achat"
             }
         },
         "listItem": {
@@ -9521,7 +9641,13 @@
                 "explainMoreHardDeleteReccurentBooking": "Cette réservation est liée à une règle de rendez-vous récurrents. Si vous supprimez cette réservation le système cherchera à la créer de nouveau. Si vous ne souhaitez pas que cette réservation soit re-générée veuillez ne pas la supprimer et laisser son status en tant qu'annulée."
             },
             "isCancelledByManager": "Annulé par {{cancelled_by}}",
-            "isCancelledByManagerDate": "Annulé le {{-date}} à {{time}} par {{cancelled_by}}"
+            "isCancelledByManagerDate": "Annulé le {{-date}} à {{time}} par {{cancelled_by}}",
+            "incompatibleTagsDialog": {
+                "title": "Info",
+                "description": "Veuillez noter que ce membre n'a pas les tags requis pour ce rendez-vous. Voulez-vous quand même effectuer la réservation ?",
+                "cancel": "Annuler",
+                "confirm": "Confirmer"
+            }
         },
         "privateService": {
             "padBeforeBooking": {
@@ -9536,6 +9662,11 @@
                 "cancel": "Annuler",
                 "submit": "Supprimer",
                 "confirm": "Supprimer"
+            },
+            "ineligibleService": {
+                "title": "Vous ne pouvez pas réserver ce rendez-vous",
+                "description": "Ce rendez-vous est réservé à un groupe spécifique de membres.",
+                "backToAppointments": "Retourner aux rendez-vous"
             }
         },
         "privateCoach": {
@@ -10123,6 +10254,16 @@
                         "notAllowed": "Non-autorisé",
                         "doNotSelectToAllowAllMembers": "Laisser vide pour autoriser à tous les membres"
                     }
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "helperText": "Utilisez les tags pour rendre le rendez-vous réservable uniquement par un groupe de membres souhaité : vous pouvez sélectionner des tags pour rendre toutes les séances de ce rendez-vous réservables uniquement par les membres possédant l'un des tags sélectionnés, ou vous pouvez sélectionner des tags pour rendre les séances du rendez-vous non réservables uniquement par les membres possédant l'un des tags sélectionnés.",
+                        "header": "Tags",
+                        "allowed": "Autorisé",
+                        "doNotSelectToAllowAllMembers": "Laissez ce champ vide pour autoriser tous les membres",
+                        "notAllowed": "Non-Autorisé"
+                    },
+                    "header": "Avancé"
                 }
             },
             "parameters": {
@@ -10146,6 +10287,13 @@
                     "title": "Séance",
                     "isEmpty": "Aucune type de séance définie",
                     "explainIsEmpty": "Définissez des types de séances (durée, coût)"
+                },
+                "noTags": "Aucun tag autorisé.",
+                "whitelistTags": {
+                    "title": "Tags autorisés"
+                },
+                "blacklistTags": {
+                    "title": "Tags non-autorisés"
                 }
             }
         },
@@ -10701,7 +10849,11 @@
                 "next_month": "Mois à venir",
                 "next_trimester": "Trois prochains mois à venir",
                 "next_year": "Année à venir",
-                "allDay": "Toute la journée"
+                "allDay": "Toute la journée",
+                "yesterday": "Hier",
+                "week_to_date": "Semaine en cours",
+                "month_to_date": "Mois en cours",
+                "year_to_date": "Année en cours"
             },
             "from_to": "Du {{-from}} au {{-to}}",
             "save": "Sauvegarder",
@@ -10712,7 +10864,18 @@
             "toInTimeContext": "À",
             "fromInTimeContext": "De",
             "fromInDateContext": "Du",
-            "toInDateContext": "Au"
+            "toInDateContext": "Au",
+            "quickDateSelector": {
+                "week_to_date": "Semaine en cours",
+                "month_to_date": "Mois en cours",
+                "year_to_date": "Année en cours",
+                "last_week": "Semaine dernière",
+                "last_month": "Mois dernier",
+                "last_year": "Année dernière ",
+                "today": "Aujourd'hui",
+                "yesterday": "Hier",
+                "custom": "Personnalisé"
+            }
         },
         "columns": {
             "initial_price": "Prix d'achat",
@@ -11099,7 +11262,8 @@
             "category": "Catégorie",
             "columns": "Colonnes",
             "save": "Confirmer",
-            "cancel": "Annuler"
+            "cancel": "Annuler",
+            "saveAndGenerate": "Enregistrer et générer"
         },
         "list": {
             "empty": "Aucun rapport ? Créer un premier rapport !",
@@ -11358,7 +11522,120 @@
             "access_monitoring": "Les visites sont filtrées en fonction de la date et de l'heure auxquelles elles ont eu lieu.",
             "decimalCredit": "Les valeurs des crédits affichées dans les rapports ne sont pas divisées par {{creditFactor}}, n'oubliez pas de diviser ces colonnes pour une analyse plus approfondie."
         },
-        "readPermissionDenied": "Accès refusé"
+        "readPermissionDenied": "Accès refusé",
+        "descriptions": {
+            "first_privatebooking": "Suivez les premieres visites et les rendez-vous les plus performants grâce à une liste détaillée des premières réservations pour chaque membre.",
+            "first_booking": "Suivez les premières visites et les cours les plus performants grâce à une liste détaillée de la première réservation de cours collectifs pour chaque membre.",
+            "basket": "Visionnez la liste des panier en attente et de leurs articles, pour avoir une idée de ce que les membres envisagent d'acheter.",
+            "members": "Accédez aux données des nouveaux membres pour comprendre leurs préférences afin d'améliorer l'expérience et la fidélité des membres.",
+            "giftcard": "Contrôler les ventes et les utilisations afin d'améliorer l'offre de cartes-cadeaux et de maximiser les recettes.",
+            "payment_installments": "Suivez l'état des paiements échelonnés et consultez les détails, y compris les dates d'échéance, les prix et les produits.",
+            "dayBookings": "Analysez les tendances et les taux de participation en suivant les réservations de cours collectifs pour chaque jour.",
+            "privateService": "Analysez les performances des rendez-vous en fonction du nombre de réservations et d'annulations.",
+            "activityByCoach": "Suivez les performances des cours collectifs et des ateliers par professeur. Améliorer l'affectation des professeurs et la réussite du programme.",
+            "activityByEst": "Suivez la performance des cours collectifs et des ateliers par établissement. Améliorez l'allocation des ressources pour chaque établissement.",
+            "workshop": "Évaluez les performances des ateliers. Analysez les données afin d'améliorer les offres et d'augmenter la participation.",
+            "activities": "Accédez aux détails de chaque activité. Suivez la fréquentation et les performances pour améliorer l'offre de programmes.",
+            "first_attendance": "Contrôlez la participation initiale aux cours collectifs. Suivez l'engagement et optimisez les stratégies d'accueil pour améliorer la rétention des membres.",
+            "subscription": "Suivez les détails de la facturation des abonnements pour garantir des paiements exacts en temps voulu.",
+            "discount": "Optimisez les stratégies de marketing et augmentez les ventes en analysant l'impact des promotions.",
+            "private_bookings": "Accédez à des informations détaillées sur les rendez-vous et améliorez l'efficacité du calendrier.",
+            "shop": "Optimisez les stratégies d'inventaire et de vente en surveillant les ventes, les revenus générés et les niveaux de stock.",
+            "private_cpasses": "Visionnez les cartes de rendez-vous actives et leur utilisation. Suivez les réservations et les crédits restants pour gérer efficacement les cartes de rendez-vous.",
+            "payment_sumup": "Contrôlez tous les détails et méthodes de paiement, en ligne et hors ligne.",
+            "credit": "Consultez rapidement le solde des comptes des membres. Communiquez efficacement avec les membres au sujet de leurs redevances et de leurs crédits.",
+            "memberships": "Visionnez les cartes de cours actives et leur utilisation. Suivez les réservations et les crédits restants pour gérer efficacement les cartes de cours.",
+            "invoices": "Suivez l'historique des transactions et analysez les détails de la facturation.",
+            "payments": "Accédez aux informations détaillées de chaque transaction avec leur statut et les produits vendus.",
+            "bookings": "Optimisez la programmation en analysant l'état des réservations, la fréquentation et l'utilisation des membres.",
+            "offers": "Optimisez la programmation et l'utilisation des ressources en comprenant la dynamique des réservations des séances.",
+            "cashbook": "Contrôlez les soldes quotidiens pour une gestion financière précise.",
+            "on_spot_payments": "Suivez les paiements en studio avec les détails des transactions et contrôlez les ventes afin d'améliorer l'offre de produits.",
+            "video": "Analysez les performances de la vidéo à la demande, comme les vues, le prix et le statut de la location, afin d'améliorer votre stratégie de contenu.",
+            "unpaid_invoices": "Suivez les factures impayées pour améliorer le recouvrement des paiements.",
+            "video_purchase": "Contrôlez les ventes en suivant toutes les vidéos achetées et leurs détails, et optimisez les offres de vidéos.",
+            "consumer_giftcard": "Gérez et suivez les achats de cartes-cadeaux, avec les détails concernant les acheteurs et les bénéficiaires.",
+            "unpaid_private_bookings": "Suivez les rendez-vous non payés afin d'améliorer le recouvrement des paiements et le suivi des membres.",
+            "expense": "Suivez les dépenses associés à la boutique en ligne et aux fournisseurs. Découvrez les schémas de dépenses afin d'améliorer le rapport coût-efficacité.",
+            "private_cpasses_expired": "Identifier les cartes de rendez-vous expirées avec des crédits non utilisés.",
+            "expired_pass": "Identifiez les cartes de cours expirées avec des crédits non utilisés.",
+            "universal_passes": "Visionnez les cartes universelles actives et leur utilisation. Suivez les réservations et les crédits restants pour gérer efficacement les cartes universelles.",
+            "franchise_shared_pass": "Visualisez et comparez dans lesquels de vos studios les cartes partagées ont été achetées et ensuite utilisées.",
+            "dispute": "Suivez l'état et les détails des litiges.",
+            "billing_plan": "Contrôlez l'état des abonnements, les dates de renouvellement et les revenus récurrents.",
+            "members_purchase": "Suivez tous les achats et les détails des articles achetés par les membres. Obtenez des informations permettant d'optimiser les offres de produits.",
+            "referral_grant": "Stimulez l'engagement des membres en suivant les membres parrain et les parrainés, y compris les dates d'utilisation de la réduction et les produits achetés.",
+            "access_monitoring": "Suivez l'accès des membres à votre studio à l'aide de journaux d'entrée et d'alertes de statut."
+        },
+        "reportDeleteModal": {
+            "title": "Êtes-vous sûr de vouloir supprimer cette vue",
+            "confirm": "Supprimer la vue",
+            "content": "Le ou les filtres configurés seront perdus."
+        },
+        "accessOldUIWithNewVersionEnabled": "Vous avez essayé d'accéder à l'ancienne interface alors que la nouvelle version est activée, veuillez retourner en arrière pour changer d'interface",
+        "pageTitle": "Tous les rapports",
+        "pageSearchPlaceholder": "Cherchez un rapport",
+        "pageSearchEmpty": "Nous n'avons trouvé aucun rapport pour cette recherche",
+        "versionSwitcher": {
+            "title": "Nous sommes en train de modifier votre expérience avec l'outil de reporting.",
+            "content": "Nous avons mis à jour l'organisation des rapports. Désormais, vous pouvez filtrer chaque rapport dans sa catégorie sous la forme de différentes <1>Vues</1>. Ce changement deviendra permanent pour tout le monde le 1er octobre. Si vous avez des commentaires, veuillez les laisser sur le <2>Feedback board</2>.",
+            "fromOldToNew": "Passer à la nouvelle version",
+            "fromNewToOld": "Retourner à l'ancienne version",
+            "dialog": {
+                "title": "Retourner à l'ancienne version",
+                "firstContentText": "L'outil de reporting sera mis à jour pour tout le monde le 1er octobre. Toutes les modifications apportées à l'ancienne version ne seront pas appliquées à la nouvelle version.",
+                "secondContentText": "Êtes-vous sûr de vouloir revenir à l'ancienne version ?",
+                "confirm": "Retourner à l'ancienne version"
+            }
+        },
+        "snackbar": {
+            "createSuccess": "Votre vue a été créée",
+            "createError": "Une erreur s'est produite lors de la création de votre vue",
+            "updateSuccess": "Votre vue a été mise à jour",
+            "updateError": "Une erreur s'est produite lors de la mise à jour de votre vue",
+            "deleteSuccess": "Votre vue a été supprimée",
+            "deleteError": "Une erreur s'est produite lors de la suppression de votre vue"
+        },
+        "reportDetailHeader": {
+            "currentView": "Vue actuelle :",
+            "addView": "Ajouter une vue",
+            "emptyAdvancedFilters": "Aucun filtre avancé n'est appliqué à cette vue.",
+            "cannotDeleteDefaultView": "La vue par défaut ne peut pas être supprimée.",
+            "advancedFiltersApplied": "{{ count }} filtre avancé appliqué",
+            "advancedFiltersApplied_plural": "{{ count }} filtres avancés appliqués"
+        },
+        "reportEditLabel": "Modifier la vue",
+        "reportNameLabel": "Nom de la vue",
+        "reportDetailDrawer": {
+            "advancedFilterTitle": "Filtres avancés",
+            "advancedFilterSubtitle": "Filtrer les données affichées dans cette vue dans le tableau du rapport.",
+            "emptyAdvancedFilters": "Aucun filtre n'a encore été appliqué à cette vue.",
+            "displayedColumnsTitle": "Colonnes affichées",
+            "displayedColumnsSubtitle": "Choisissez les colonnes que vous souhaitez afficher dans cette vue dans le tableau du rapport.",
+            "columnIdentifiersError": "Vous devez sélectionner au moins une colonne",
+            "filterNotApplied": "Les filtres séléctionnés ne seront pas appliqués car les colonnes correspondantes sont désactivées."
+        },
+        "reportCreateModal": {
+            "title": "Ajouter une vue",
+            "content": "Vous pouvez ajuster les filtres et les colonnes de chaque vue après sa création.",
+            "inputLabel": "Nom de la vue",
+            "error": "Un nom est requis pour la vue",
+            "maxLength": "Un nom peut comporter un maximum de 200 caractères.",
+            "nameAlreadyUsed": "Ce nom est déjà utilisé"
+        },
+        "reportDetailContent": {
+            "tableTitle": "Rapport détaillé",
+            "title": "Date et filtres",
+            "addQuickFilter": "Ajouter un filtre rapide",
+            "goBack": "Retourner aux rapports",
+            "notFound": "Le rapport n'a pas été trouvé"
+        },
+        "reportHasNotBeenGenerated": "Générer le rapport pour voir les données",
+        "tooltips": {
+            "addView": "Créez différentes versions du rapport avec de nouveaux filtres, dates et colonnes de données",
+            "editView": "Filtres avancés",
+            "deleteView": "Supprimer la vue"
+        }
     },
     "role": {
         "pageTitle": "Staff",
@@ -11791,6 +12068,9 @@
                     },
                     "contractTemplates": {
                         "_label": "Abonnements"
+                    },
+                    "universalPassTemplates": {
+                        "_label": "Carte universelle"
                     }
                 },
                 "emailTemplates": {

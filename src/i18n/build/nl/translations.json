@@ -1147,9 +1147,49 @@
                     "header": {
                         "subtitle": "Koppel uw sessies op bsport account met Wellhub"
                     }
+                },
+                "dialog": {
+                    "unlink": {
+                        "title": "U staat op het punt een of meerdere vestigingen te ontkoppelen van Wellhub",
+                        "text": "Komende sessies gekoppeld aan deze vestigingen zullen worden verwijderd op Wellhub, en alle Wellhub boekingen zullen verloren gaan"
+                    },
+                    "title": {
+                        "creation": "Eenheid ID toevoegen en koppelen aan vestiging(en)",
+                        "edition": "Eenheid-ID bewerken",
+                        "deletion": "Eenheid ID verwijderen"
+                    },
+                    "field": {
+                        "unitId": {
+                            "placeholder": "Eenheid ID-nummer",
+                            "error": {
+                                "required": "Unit ID is vereist",
+                                "positive": "Unit ID moet een positief getal zijn",
+                                "unavailable": "Unit ID niet beschikbaar"
+                            }
+                        },
+                        "establishmentIds": {
+                            "placeholder": "Koppel uw bsportvestiging(en)",
+                            "title": "Vestigingen",
+                            "error": {
+                                "required": "Selecteer ten minste één vestiging"
+                            }
+                        }
+                    },
+                    "action": {
+                        "back": "Terug",
+                        "cancel": "Annuleer",
+                        "confirm": "Bevestig",
+                        "save": "Opslaan"
+                    }
                 }
             },
-            "title": "Wellhub"
+            "title": "Wellhub",
+            "snackbar": {
+                "configureWebhooks": {
+                    "error": "Er is een fout opgetreden tijdens de configuratie",
+                    "success": "Uw unit ID is succesvol gekoppeld"
+                }
+            }
         }
     },
     "search": {
@@ -3227,7 +3267,8 @@
             "columns": "Kolommen",
             "save": "Bevestigen",
             "cancel": "Annuleren",
-            "description": "Beschrijving"
+            "description": "Beschrijving",
+            "saveAndGenerate": "Opslaan en genereren"
         },
         "list": {
             "empty": "Gebruik rapportages om een gedetailleerd inzicht in de prestaties van je studio te krijgen.",
@@ -3653,7 +3694,11 @@
                 "next_trimester": "Komende drie maanden",
                 "next_week": "Komende week",
                 "next_month": "Komende maand",
-                "allDay": "Gehele dag"
+                "allDay": "Gehele dag",
+                "yesterday": "Gisteren",
+                "week_to_date": "Van week tot week",
+                "month_to_date": "Maand tot Maand",
+                "year_to_date": "Jaarlijks"
             },
             "from_to": "Van {{-from}} tot {{-to}}",
             "save": "Opslaan",
@@ -3665,7 +3710,18 @@
             "toInTimeContext": "Tot",
             "toInDateContext": "Tot",
             "fromInTimeContext": "Van",
-            "fromInDateContext": "Van"
+            "fromInDateContext": "Van",
+            "quickDateSelector": {
+                "year_to_date": "Year-to-date",
+                "week_to_date": "Van week tot week",
+                "month_to_date": "Maandelijks",
+                "last_week": "Vorige week",
+                "last_month": "Vorige maand",
+                "last_year": "Vorig jaar ",
+                "today": "Vandaag",
+                "yesterday": "Gisteren",
+                "custom": "Aangepast"
+            }
         },
         "search": "Zoek een rapportage",
         "filter": {
@@ -3961,7 +4017,120 @@
             "0": "Kaart",
             "70": "BACS Direct Debit"
         },
-        "readPermissionDenied": "Toegang geweigerd"
+        "readPermissionDenied": "Toegang geweigerd",
+        "descriptions": {
+            "dayBookings": "Analyseer trends en deelnamepercentages door de boekingen voor groepsactiviteiten voor elke dag bij te houden.",
+            "activityByEst": "De prestaties van activiteiten en workshops per vestiging volgen. De toewijzing van middelen voor elke vestiging verbeteren.",
+            "first_attendance": "Controleer de initiële aanwezigheid bij groepsactiviteiten. Betrokkenheid bijhouden en inwerkstrategieën optimaliseren om de ledenbinding te verbeteren.",
+            "discount": "Optimaliseer marketingstrategieën en verhoog de verkoop door de impact van promoties te analyseren.",
+            "private_cpasses": "Bekijk actieve afspraakkaarten en het gebruik ervan. Houd boekingen en resterende tegoeden bij om afsprakenpassen efficiënt te beheren.",
+            "invoices": "Transactiegeschiedenis bijhouden en factuurgegevens analyseren.",
+            "offers": "Optimaliseer de planning en het gebruik van resources door de boekingsdynamiek van sessies te begrijpen.",
+            "on_spot_payments": "Houd betalingen in de studio bij met details over transacties en monitor de verkoop om het productaanbod te verbeteren.",
+            "giftcard": "Controleer de verkoop en inwisselingen om het aanbod aan cadeaubonnen te verbeteren en de inkomsten te maximaliseren.",
+            "unpaid_private_bookings": "Onbetaalde afspraken bijhouden om het innen van betalingen en de follow-up met leden te verbeteren.",
+            "universal_passes": "Bekijk actieve universele passen en het gebruik ervan. Houd boekingen en resterende tegoeden bij om universele passen efficiënt te beheren.",
+            "members_purchase": "Volg alle aankopen en details van items die door leden zijn gekocht. Verkrijg inzichten om het productaanbod te optimaliseren.",
+            "privateService": "Analyseer de prestaties van afspraken met het aantal boekingen en annuleringen.",
+            "activityByCoach": "De prestaties van activiteiten en workshops per docent bijhouden. Verbeter de toewijzing van docenten en het succes van het programma.",
+            "workshop": "De prestaties van workshops evalueren. Gegevens analyseren om het aanbod te verbeteren en de deelname te verhogen.",
+            "activities": "Bekijk de details van elke activiteit. Bezoekers en prestaties bijhouden om het programma-aanbod te verbeteren.",
+            "first_privatebooking": "Volg eerste bezoekers en best presterende afspraken met een gedetailleerde lijst van de eerste boeking voor elk lid.",
+            "first_booking": "Volg de eerste bezoekers en best presterende klassen met een gedetailleerde lijst van de eerste groepsactiviteit die elk lid boekt.",
+            "subscription": "Factureringsgegevens van abonnementen bijhouden om te zorgen voor nauwkeurige en tijdige betalingen.",
+            "private_bookings": "Toegang tot gedetailleerde boekingsinformatie voor afspraken en een efficiëntere planning.",
+            "shop": "Optimaliseer voorraad- en verkoopstrategieën door de verkoop, gegenereerde inkomsten en voorraadniveaus te controleren.",
+            "payment_sumup": "Controleer alle betalingsgegevens en -methoden, zowel online als offline.",
+            "credit": "Snel rekeningsaldi van leden bekijken. Communiceer effectief met leden over hun contributies en tegoeden.",
+            "basket": "Bekijk een lijst met in behandeling zijnde manditems, die inzicht geeft in wat leden overwegen te kopen.",
+            "memberships": "Bekijk actieve passen en het gebruik ervan. Houd boekingen en resterende credits bij om passen efficiënt te beheren.",
+            "payments": "Gedetailleerde informatie over elke transactie met status en verkochte producten.",
+            "bookings": "Optimaliseer de planning door de boekingsstatus, aanwezigheid en het gebruik van het lidmaatschap te analyseren.",
+            "members": "Toegang tot gegevens van nieuwe leden om hun voorkeuren te begrijpen en zo de ledenervaring en loyaliteit te verbeteren.",
+            "cashbook": "Controleer dagelijkse balansen voor nauwkeurig financieel beheer.",
+            "video": "Analyseer VOD-prestaties zoals weergaven, prijs en verhuurstatus om je contentstrategie te informeren.",
+            "unpaid_invoices": "Traceer onbetaalde facturen om de inning van betalingen te verbeteren.",
+            "video_purchase": "Controleer de verkoop door alle gekochte video's en hun details bij te houden en optimaliseer het video-aanbod.",
+            "consumer_giftcard": "Beheer en volg cadeaubonaankopen, inclusief details van kopers en ontvangers.",
+            "payment_installments": "Volg de status van termijnbetalingen en bekijk details zoals vervaldatums, prijzen en producten.",
+            "expense": "Volg uitgaven van de webshop en leveranciers. Krijg inzicht in uitgavenpatronen om de kostenefficiëntie te verbeteren.",
+            "expired_pass": "Identificeer verlopen passen met ongebruikte credits.",
+            "private_cpasses_expired": "Identificeer verlopen afspraakpassen met ongebruikte credits.",
+            "franchise_shared_pass": "Bekijk en vergelijk in welke van je studio's gedeelde passen zijn gekocht en vervolgens zijn gebruikt.",
+            "dispute": "Controleer de status en details van geschillen.",
+            "billing_plan": "Controleer abonnementsstatussen, verlengdata en terugkerende inkomsten.",
+            "referral_grant": "Verhoog de betrokkenheid van leden door verwezen en doorverwijzende leden bij te houden, inclusief gebruiksdata en gekochte producten.",
+            "access_monitoring": "Volg de toegang van leden tot je faciliteit met toegangslogboeken en statuswaarschuwingen."
+        },
+        "versionSwitcher": {
+            "content": "We hebben de rapportorganisatie bijgewerkt. Je kunt nu elk rapport binnen zijn categorie filteren als verschillende <1>Views</1>. Deze wijziging wordt voor iedereen permanent op 1 oktober. Als je feedback hebt, laat die dan achter op het <2>Feedbackbord</2>.",
+            "dialog": {
+                "firstContentText": "De rapportagetool wordt op 1 oktober voor iedereen bijgewerkt. Alle toekomstige wijzigingen in de oude versie zullen niet worden toegepast op de nieuwe versie.",
+                "title": "Overschakelen naar de oude versie",
+                "secondContentText": "Weet je zeker dat je terug wilt?",
+                "confirm": "Overschakelen naar oude versie"
+            },
+            "title": "We veranderen uw ervaring met de rapportagetool.",
+            "fromOldToNew": "Overschakelen naar nieuwe versie",
+            "fromNewToOld": "Terug naar oude versie"
+        },
+        "reportDetailHeader": {
+            "advancedFiltersApplied": "{{ count }} geavanceerde filter toegepast",
+            "advancedFiltersApplied_plural": "{{ count }} geavanceerde filters toegepast",
+            "currentView": "Huidige weergave:",
+            "addView": "Weergave toevoegen",
+            "emptyAdvancedFilters": "Er zijn geen geavanceerde filters toegepast op deze weergave.",
+            "cannotDeleteDefaultView": "Standaardweergave kan niet worden verwijderd."
+        },
+        "reportDetailDrawer": {
+            "displayedColumnsSubtitle": "Kies welke kolommen je wilt weergeven in deze weergave voor je rapporttabel.",
+            "filterNotApplied": "Gemarkeerde filters worden niet toegepast omdat de corresponderende kolommen zijn uitgeschakeld.",
+            "advancedFilterTitle": "Geavanceerde filters",
+            "advancedFilterSubtitle": "Filter de gegevens die in deze weergave worden getoond voor de rapporttabel.",
+            "emptyAdvancedFilters": "Er zijn nog geen filters toegepast op deze weergave.",
+            "displayedColumnsTitle": "Weergegeven kolommen",
+            "columnIdentifiersError": "Je moet minstens 1 kolom selecteren"
+        },
+        "reportDetailContent": {
+            "addQuickFilter": "Een snelfilter toevoegen",
+            "title": "Datum- en snelfilters",
+            "tableTitle": "Gedetailleerd verslag",
+            "goBack": "Terug naar alle rapporten",
+            "notFound": "Rapport niet gevonden"
+        },
+        "accessOldUIWithNewVersionEnabled": "U probeerde toegang te krijgen tot de oude interface terwijl de nieuwe versie is ingeschakeld. Ga terug naar de interface wijzigen",
+        "pageTitle": "Alle rapporten",
+        "pageSearchPlaceholder": "Zoek rapport naam",
+        "pageSearchEmpty": "We kunnen geen rapporten vinden van deze zoekopdracht",
+        "snackbar": {
+            "createSuccess": "Je weergave is gemaakt",
+            "createError": "Er is een fout opgetreden tijdens het maken van je weergave",
+            "updateSuccess": "Je weergave is bijgewerkt",
+            "updateError": "Er is een fout opgetreden tijdens het bijwerken van je weergave",
+            "deleteSuccess": "Je mening is verwijderd",
+            "deleteError": "Er is een fout opgetreden bij het verwijderen van je weergave"
+        },
+        "reportEditLabel": "Weergave bewerken",
+        "reportNameLabel": "Naam bekijken",
+        "reportCreateModal": {
+            "title": "Een weergave toevoegen",
+            "content": "Je kunt filters en kolommen aanpassen voor elke weergave nadat deze is gemaakt.",
+            "inputLabel": "Naam bekijken",
+            "error": "Er is een naam nodig voor de weergave",
+            "maxLength": "Een naam mag maximaal 200 tekens hebben.",
+            "nameAlreadyUsed": "Naam wordt al gebruikt"
+        },
+        "reportDeleteModal": {
+            "title": "Weet je zeker dat je deze weergave wilt verwijderen",
+            "confirm": "Weergave verwijderen",
+            "content": "De filterinstelling gaat verloren."
+        },
+        "reportHasNotBeenGenerated": "Genereer rapport om gegevens te bekijken",
+        "tooltips": {
+            "addView": "Verschillende versies van het rapport maken met nieuwe filters, data en gegevenskolommen",
+            "editView": "Geavanceerde filters",
+            "deleteView": "Weergave verwijderen"
+        }
     },
     "alerting": {
         "list": {
@@ -4646,7 +4815,8 @@
         },
         "paymentPackTemplate": {
             "actions": {
-                "create": "Een gedeelde leskaart toevoegen"
+                "create": "Een gedeelde leskaart toevoegen",
+                "createUniversalPass": "Een gedeelde universele pas toevoegen"
             },
             "deleteForm": {
                 "actions": {
@@ -4669,7 +4839,9 @@
                     "cancel": "Annuleer",
                     "content": "Je wijzigingen worden ook toegepast op abonnementen die aan deze gedeelde pas zijn gekoppeld. Weet je zeker dat je wilt doorgaan en je wijzigingen wilt opslaan?",
                     "title": "Bevestiging bewerken"
-                }
+                },
+                "universalPassTooltip": "Universele passen kunnen worden gebruikt voor groepsactiviteiten en afspraken. Voor elke universele pas worden dubbele afsprakenpassen aangemaakt om het aantal credits te koppelen. Zodra een van deze passen is aangeschaft, wordt de andere automatisch toegevoegd zonder extra kosten.",
+                "universalPassTitle": "Gedeelde universele pas"
             },
             "section": {
                 "titleManagerOnly": "Niet beschikbaar voor verkoop",
@@ -4865,6 +5037,11 @@
                     "warningText": "Waarschuwing! De gekoppelde kaarten worden óók verwijderd.",
                     "title": "Verwijderen"
                 }
+            },
+            "add": {
+                "credit": "Aantal credits",
+                "helperText": "Aantal credits is ingesteld op gelinieerd",
+                "availabilityGivenNumber": "Geldig voor een bepaald aantal dagen na aankoop"
             }
         },
         "previous": "Terug",
@@ -5109,6 +5286,72 @@
             "account_name": "Account naam",
             "account_number_required": "Account nummer *",
             "account_number": "Account nummer"
+        },
+        "deleteObject": {
+            "errors": {
+                "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
+                "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
+                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen bruikbaar in deze vestiging. Pas hun beperkingen aan voordat u de vestiging verwijdert.",
+                "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
+                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die u wilt verwijderen. Werk deze locaties bij of verwijder ze.",
+                "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
+                "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
+                "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
+                "isIntegratedInPartnership": "Een of meerdere integraties gebruiken deze vestiging."
+            },
+            "warnings": {
+                "hasBillingGroup": "Deze vestiging wordt ook verwijderd uit de factureringsgroep {{- establishment_billing_group_name }}.",
+                "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
+                "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
+                "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
+                "exclusiveCoachAvailabilitySlots_plural": "De docenten {{- coach_name }} zijn aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
+                "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
+                "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
+                "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",
+                "hasRelatedStaffConfigurations": "Deze vestiging wordt verwijderd uit de vestigingen die door personeelsleden worden gebruikt voor toegangscontrole.",
+                "hasRelatedCoachAvailabilitySlots": "Deze vestiging zal verwijderd worden uit de lijst met beschikbare vestigingen die gebruikt worden in de agenda van je docenten.",
+                "hasRelatedAssociatedCoaches": "Sommige leraren krijgen een melding wanneer er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze geen meldingen meer.",
+                "relatedPaymentPacks_plural": "De volgende passen {{- pass_name }} zal niet langer bruikbaar zijn voor deze vestiging, zorg ervoor dat u uw klanten hierover informeert.",
+                "relatedPaymentPacks": "De volgende pas {{- pass_name }} zal niet langer bruikbaar zijn voor deze vestiging, zorg ervoor dat u uw klanten hierover informeert.",
+                "hasRelatedAvailabilitySlots": "De beschikbare slots van deze vestiging worden verwijderd.",
+                "hasRelatedZoomEstablishment": "Deze vestiging zal verwijderd worden uit de lijst van vestigingen die gebruikt worden voor live streaming met de Zoom-integratie.",
+                "hasRelatedMarketplaceComponentConfigs": "De kalender- en workshop-tabbladen die zijn geconfigureerd voor je marktplaats zullen de kalender van deze vestiging niet meer weergeven.",
+                "hasRelatedMarketingNotifications": "Meldingen met betrekking tot deze vestiging worden verwijderd."
+            },
+            "title": {
+                "error": "De vestiging kan niet worden verwijderd om de volgende redenen:",
+                "warning": "Het verwijderen van deze vestiging heeft de volgende gevolgen:"
+            },
+            "infos": {
+                "reportsDefault": "De vestiging wordt niet verwijderd uit eerdere rapporten.",
+                "offersDefault": "Bestaande sessies, workshops en eerdere boekingen worden niet gewijzigd.",
+                "widgetsDefault": "De widgets Agenda en Workshops zijn mogelijk geconfigureerd met deze instelling, vergeet deze niet bij te werken.",
+                "privateBookingsDefault": "Afspraken uit het verleden worden niet gewijzigd."
+            }
+        },
+        "establishmentGroup": {
+            "deleteObject": {
+                "warnings": {
+                    "hasRelatedStaffConfigurations": "Deze locatie wordt gebruikt voor toegangscontrole door één of meerdere medewerkers. Door de locatie te verwijderen zonder een nieuwe te selecteren, kunnen zij geen toegangscontrole meer uitvoeren.",
+                    "exclusiveAssociatedCoaches_plural": "Je instructerus {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze locatie. Door de locatie te verwijderen, zullen ze dus vervangingsverzoeken van elke locatie ontvangen.",
+                    "exclusiveAssociatedCoaches": "Je instructeur {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze locatie. Door de locatie te verwijderen, zullen ze dus vervangingsverzoeken van elke locatie ontvangen.",
+                    "hasRelatedAssociatedCoaches": "Sommige leerkrachten krijgen een melding wanneer er een vervangingsverzoek wordt ingediend voor een sessie op deze locatie. Door de locatie te verwijderen, ontvangen ze geen meldingen meer.",
+                    "hasRelatedMarketingNotifications": "Meldingen die aan deze locatie zijn gekoppeld, worden verwijderd.",
+                    "hasRelatedMarketplaceComponentConfigs": "De kalender- en workshop-tabbladen die zijn geconfigureerd voor je marktplaats zullen deze locatiekalender niet meer weergeven."
+                },
+                "errors": {
+                    "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze locatie weer te geven."
+                },
+                "infos": {
+                    "reportsDefault": "De locatie wordt verwijderd uit eerdere rapporten.",
+                    "widgetsDefault": "Kalender en Workshops widgets kunnen geconfigureerd zijn met deze locatie, vergeet niet om ze bij te werken."
+                }
+            },
+            "forms": {
+                "delete": {
+                    "title": "Een locatie verwijderen"
+                }
+            }
         }
     },
     "smartList": {
@@ -6105,7 +6348,11 @@
         "cancelledOffers": "{{count}} annuleringen",
         "workshopSelect": "Zoek een workshop",
         "close": "Sluiten",
-        "edit": "Bewerken"
+        "edit": "Bewerken",
+        "warningUSCDialog": {
+            "content": "De nieuwe annuleringsvoorwaarden gelden voor toekomstige evenementen. Evenementen die in de komende twee weken worden gepubliceerd, kunnen echter niet worden bijgewerkt.",
+            "title": "Annuleringsvoorwaarden voor USC"
+        }
     },
     "offer": {
         "video": {
@@ -7361,7 +7608,8 @@
                 },
                 "sendInvitation": "Uitnodiging versturen"
             },
-            "bookingFor": "Boeken voor"
+            "bookingFor": "Boeken voor",
+            "bookingForSubtitle": "Selecteer de persoon voor wie je wilt boeken"
         },
         "setSpot": "Een plaats toewijzen",
         "changeSpot": "Plaats wijzigen",
@@ -9813,7 +10061,13 @@
             "isUnpaid": "Openstaande betaling",
             "bookingIsUnpaid": "Onbetaalde reservering",
             "isCancelledByManagerDate": "Geannuleerd op {{-date}} om {{time}} door {{cancelled_by}}",
-            "isCancelledByManager": "Geannuleerd door {{cancelled_by}}"
+            "isCancelledByManager": "Geannuleerd door {{cancelled_by}}",
+            "incompatibleTagsDialog": {
+                "title": "Info",
+                "description": "Let op: dit lid heeft niet de vereiste tags voor deze afspraak. Wilt u deze toch inboeken?",
+                "cancel": "Annuleer",
+                "confirm": "Bevestig"
+            }
         },
         "privateService": {
             "delete": {
@@ -9828,6 +10082,11 @@
                 "explain3": "[GEACTIVEERD] Afspraak is niet mogelijk. De kamer moet beschikbaar zijn van 9:45 tot 11:15 uur. De volgende afspraak is pas mogelijk om 11:30 uur.",
                 "explain2": "Voorbeeld: de vestiging is van 10:00 tot 11:00 beschikbaar en de afspraak duurt 60 minuten voor de klant, alhoewel je een 15 min. buffer voor én na de afspraak nodig hebt i.v.m. schoonmaak/onderhoud.",
                 "explain1": "Indien geactiveerd, kunnen boekingen alleen worden gemaakt als de kalender beschikbaar is, inclusief de boeking"
+            },
+            "ineligibleService": {
+                "title": "U kunt deze afspraak niet boeken",
+                "description": "Deze afspraak is alleen voor een specifieke groep leden.",
+                "backToAppointments": "Terug naar de afspraken"
             }
         },
         "calendar": {
@@ -10363,6 +10622,16 @@
                 },
                 "pad_before_booking": {
                     "label": "Met terugwerkende kracht activeren voor deze boeking"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "helperText": "Gebruik tags om de afspraak alleen boekbaar te maken voor een gewenste groep leden: u kunt tags selecteren om alle sessies van deze afspraak alleen boekbaar te maken voor leden met een van de geselecteerde tags, of u kunt tags selecteren om de sessies van de afspraak alleen niet boekbaar te maken voor leden met een van de geselecteerde tags.",
+                        "header": "Tags",
+                        "allowed": "Toegestaan",
+                        "doNotSelectToAllowAllMembers": "Laat dit veld leeg om alle leden toe te staan",
+                        "notAllowed": "Niet toegestaan"
+                    },
+                    "header": "Geavanceerd"
                 }
             },
             "parameters": {
@@ -10386,6 +10655,13 @@
                 },
                 "last_booking_minutes": {
                     "explain": "Leden kunnen tot {{days}} dag(en), {{hours}} u. en {{minutes}} min. voor het begin van de afspraak reserveren."
+                },
+                "noTags": "Er zijn geen geautoriseerde tags om weer te geven.",
+                "whitelistTags": {
+                    "title": "Goedgekeurde tags"
+                },
+                "blacklistTags": {
+                    "title": "Geweigerde tags"
                 }
             },
             "selector": {
@@ -15828,6 +16104,9 @@
                     },
                     "contractTemplates": {
                         "_label": "Abonnementen"
+                    },
+                    "universalPassTemplates": {
+                        "_label": "Universele pas"
                     }
                 },
                 "members": {
@@ -17162,7 +17441,8 @@
                 "label": "Producten",
                 "giftcardTemplates": "Cadeaubonnen",
                 "shopTemplates": "Webshop",
-                "contractTemplates": "Abonnementen"
+                "contractTemplates": "Abonnementen",
+                "universalPassTemplates": "Universele passen"
             },
             "tag": "Tags",
             "marketing": {

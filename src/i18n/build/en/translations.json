@@ -11250,6 +11250,11 @@
             "9": "Internal account",
             "0": "Card",
             "70": "Bacs Direct Debit"
+        },
+        "versionSwitcher": {
+            "dialog": {
+                "confirm": "Switch to old version"
+            }
         }
     },
     "alerting": {
@@ -12123,6 +12128,9 @@
                     "warningText": "Attention! Deleting a universal pass will also delete its twin passes.",
                     "title": "Delete pass"
                 }
+            },
+            "add": {
+                "helperText": "Number of credits is set to limited"
             }
         },
         "previous": "Previous",

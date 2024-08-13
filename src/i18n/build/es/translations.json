@@ -2226,6 +2226,72 @@
             "account_name": "Nombre de la cuenta",
             "account_number_required": "Número de cuenta *",
             "account_number": "Número de la cuenta"
+        },
+        "establishmentGroup": {
+            "deleteObject": {
+                "infos": {
+                    "widgetsDefault": "Los widgets Calendario y Talleres pueden estar configurados con esta ubicación, por favor no olvide actualizarlos.",
+                    "reportsDefault": "La ubicación se eliminará de los informes anteriores."
+                },
+                "warnings": {
+                    "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
+                    "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
+                    "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
+                    "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
+                    "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
+                },
+                "errors": {
+                    "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del mercado están configuradas para mostrar únicamente el calendario y los talleres de esta ubicación, actualízalas antes de eliminar la ubicación."
+                }
+            },
+            "forms": {
+                "delete": {
+                    "title": "Eliminar una ubicación"
+                }
+            }
+        },
+        "deleteObject": {
+            "warnings": {
+                "hasRelatedMarketingNotifications": "Las notificaciones relacionadas con este establecimiento se eliminarán.",
+                "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán el calendario de este establecimiento.",
+                "hasRelatedZoomEstablishment": "Este establecimiento se eliminará de la lista de establecimientos utilizados para la retransmisión en directo con la integración de Zoom.",
+                "hasRelatedAvailabilitySlots": "Se borrarán las franjas horarias disponibles de este establecimiento.",
+                "relatedPaymentPacks": "El siguiente pase {{- pass_name }} ya no será utilizable para este establecimiento, asegúrese de informar a sus clientes al respecto.",
+                "relatedPaymentPacks_plural": "Los siguientes pases {{- pass_name }} ya no serán utilizables para este establecimiento, asegúrese de informar a sus clientes al respecto.",
+                "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se solicita una sustitución para una sesión en este establecimiento. Al eliminar el establecimiento, dejarán de recibir la notificación correspondiente.",
+                "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Por lo tanto, al eliminar el establecimiento, recibirán solicitudes de sustitución de todos los establecimientos.",
+                "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Al eliminar el establecimiento, recibirán por tanto solicitudes de sustitución de todos los establecimientos.",
+                "hasRelatedCoachAvailabilitySlots": "Este establecimiento se eliminará de la lista de establecimientos disponibles utilizada en el calendario de sus profesores.",
+                "exclusiveCoachAvailabilitySlots": "Se indica que el profesor {{- coach_name }} está disponible para este establecimiento sólo para algunas franjas horarias. Al eliminar el establecimiento, se eliminarán estas franjas horarias.",
+                "exclusiveCoachAvailabilitySlots_plural": "Los profesores {{- coach_name }} están indicados como disponibles para este establecimiento sólo para algunas franjas horarias. Al eliminar el establecimiento, se eliminarán estas franjas horarias.",
+                "hasRelatedStaffConfigurations": "Este establecimiento se eliminará de los establecimientos utilizados por los funcionarios para la supervisión del acceso.",
+                "hasExclusiveStaffConfigurations": "Algunos miembros del personal están configurados para supervisar el acceso de los miembros sólo para este establecimiento. Al eliminar el establecimiento sin seleccionar uno nuevo, ya no podrán realizar la supervisión del acceso.",
+                "exclusivePrivateServices": "La cita {{- private_service_name }} está configurada para tener lugar sólo en este establecimiento. Al eliminar este establecimiento, esta cita podrá tener lugar en cualquier lugar.",
+                "exclusivePrivateServices_plural": "Las citas {{- private_service_name }} están configuradas para tener lugar únicamente en este establecimiento. Al eliminar este establecimiento, estas citas podrán tener lugar en cualquier lugar.",
+                "hasBillingGroup": "Este establecimiento también se eliminará del grupo de facturación {{- establishment_billing_group_name }}."
+            },
+            "infos": {
+                "privateBookingsDefault": "Las sesiones de citas anteriores no se modificarán.",
+                "widgetsDefault": "Los widgets Calendario y Talleres pueden haber sido configurados con este establecimiento, no olvide actualizarlos.",
+                "offersDefault": "Las sesiones, talleres y reservas anteriores no se modificarán.",
+                "reportsDefault": "El establecimiento no se borrará de los informes anteriores."
+            },
+            "errors": {
+                "isIntegratedInPartnership": "Una o varias integraciones utilizan este establecimiento.",
+                "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del marketplace están configuradas para mostrar únicamente el calendario y los talleres de este establecimiento, actualízalas antes de eliminar el establecimiento.",
+                "exclusiveEstablishmentGroups": "La ubicación {{- establishment_group_name }} sólo contiene el establecimiento que desea eliminar, actualice o elimine esta ubicación.",
+                "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, actualice o elimine estas ubicaciones.",
+                "exclusivePaymentPacks": "El siguiente pase {{- pass_name }} sólo se puede utilizar en este establecimiento. Actualiza sus restricciones antes de eliminar el establecimiento.",
+                "exclusivePaymentPacks_plural": "Los siguientes pases {{- pass_name }} sólo se pueden utilizar en este establecimiento. Actualice sus restricciones antes de eliminar el establecimiento.",
+                "hasExclusiveBillingGroup": "Este establecimiento es el último de su grupo de facturación. Por favor, elimine o actualice este grupo de facturación antes de eliminar este establecimiento.",
+                "hasUpcomingPrivateBookings": "Algunas citas próximas tienen lugar en este establecimiento. Por favor, cancélelas y elimínelas antes de borrar este establecimiento.",
+                "hasUpcomingOffers": "Algunas sesiones próximas tienen lugar en este establecimiento. Cancélalas y elimínalas antes de borrar este establecimiento."
+            },
+            "title": {
+                "warning": "La eliminación de este establecimiento tendrá las siguientes consecuencias:",
+                "error": "El establecimiento no puede suprimirse por los siguientes motivos:"
+            }
         }
     },
     "order": {
@@ -7058,7 +7124,8 @@
                 },
                 "sendInvitation": "Enviar invitación"
             },
-            "bookingFor": "Reserva para"
+            "bookingFor": "Reserva para",
+            "bookingForSubtitle": "Seleccione la persona para la que desea reservar"
         },
         "placeNumber": "Sitios {{count}}",
         "noSpotAttributed": "No hay lugar asignado",
@@ -7929,15 +7996,55 @@
                                 "unit": "Unit ID"
                             }
                         },
-                        "helperText": "Primero solicite la integración con bsport en el Portal de Socios de Wellhub, para cada Unit",
+                        "helperText": "Primero, solicite la integración con bsport en el Portal de Socios de Wellhub, para cada Unit",
                         "title": "Conexión Unit ID"
                     },
                     "header": {
                         "subtitle": "Vincule sus sesiones en la cuenta de bsport con Wellhub"
                     }
+                },
+                "dialog": {
+                    "unlink": {
+                        "text": "Las próximas sesiones vinculadas a estos establecimientos se eliminarán de Wellhub y se perderán las reservas realizadas en Wellhub.",
+                        "title": "Está a punto de desvincular uno o varios establecimientos de Wellhub"
+                    },
+                    "action": {
+                        "save": "Guardar",
+                        "confirm": "Confirmar",
+                        "cancel": "Cancelar",
+                        "back": "Atrás"
+                    },
+                    "field": {
+                        "establishmentIds": {
+                            "error": {
+                                "required": "Seleccione al menos un establecimiento"
+                            },
+                            "title": "Establecimientos",
+                            "placeholder": "Vincule su(s) establecimiento(s) bsport"
+                        },
+                        "unitId": {
+                            "error": {
+                                "unavailable": "ID de unidad no disponible",
+                                "positive": "El ID de la unidad debe ser un número positivo",
+                                "required": "Se requiere el ID de la unidad"
+                            },
+                            "placeholder": "Número de ID de la unidad"
+                        }
+                    },
+                    "title": {
+                        "deletion": "Borrar ID de la unidad",
+                        "edition": "Editar ID de la unidad",
+                        "creation": "Añadir y vincular ID de unidad con establecimiento(s)"
+                    }
                 }
             },
-            "title": "Wellhub"
+            "title": "Wellhub",
+            "snackbar": {
+                "configureWebhooks": {
+                    "success": "Su ID de unidad se ha vinculado correctamente",
+                    "error": "Se ha producido un error durante la configuración"
+                }
+            }
         }
     },
     "membership": {
@@ -9290,7 +9397,11 @@
             "bookingIsUnpaid": "Reservas impagadas",
             "isUnpaid": "No pagado",
             "isCancelledByManagerDate": "Cancelado el {{-date}} a las {{time}} por {{cancelled_by}}",
-            "isCancelledByManager": "Cancelado por {{cancelled_by}}"
+            "isCancelledByManager": "Cancelado por {{cancelled_by}}",
+            "incompatibleTagsDialog": {
+                "description": "Tenga en cuenta que este miembro no tiene las etiquetas necesarias para esta cita. ¿Desea reservar su sitio de todos modos?",
+                "title": "Info"
+            }
         },
         "consumerPass": {
             "detail": {
@@ -13001,7 +13112,7 @@
         },
         "or": "o",
         "payLater": {
-            "explain": "Su método de pago se le pedirá en el sitio. Hasta entonces, su factura se considera como impagada.",
+            "explain": "Su factura se considerará impagada hasta que la liquide desde su perfil de miembro, o directamente en el estudio.",
             "submit": "Pague en el sitio"
         },
         "validation": {
@@ -15319,7 +15430,8 @@
         },
         "paymentPackTemplate": {
             "actions": {
-                "create": "Crear un bono compartido"
+                "create": "Crear un bono compartido",
+                "createUniversalPass": "Añadir un pase universal compartido"
             },
             "deleteForm": {
                 "actions": {
@@ -15342,7 +15454,9 @@
                     "cancel": "Cancelar",
                     "content": "Sus cambios también se aplicarán a las suscripciones vinculadas a este pase compartido. ¿Está seguro de que desea continuar y guardar los cambios?",
                     "title": "Editar confirmación"
-                }
+                },
+                "universalPassTooltip": "Los pases universales pueden utilizarse para actividades de grupo y citas. Por cada pase universal se crean pases de cita gemelos para enlazar el número de créditos. Una vez adquirido uno de estos pases, el otro se añadirá automáticamente sin costes adicionales.",
+                "universalPassTitle": "Pase universal compartido"
             },
             "section": {
                 "titleManagerOnly": "No disponible para la venta",
@@ -15397,6 +15511,11 @@
                     "warningText": "Tenga en cuenta. Esta tarjeta es una tarjeta universal, si la borras, su tarjeta gemela también se borrará.",
                     "title": "Eliminación de la tarjeta"
                 }
+            },
+            "add": {
+                "credit": "Número de créditos",
+                "availabilityGivenNumber": "Válido durante un número determinado de días después de la compra",
+                "helperText": "El número de créditos es limitado"
             }
         },
         "maxoutInfo": {
@@ -15745,7 +15864,11 @@
         "workshopSelect": "Buscar un taller",
         "close": "Cerrar",
         "edit": "Modificar",
-        "cancelledOffers": "{{count}} cancelaciones"
+        "cancelledOffers": "{{count}} cancelaciones",
+        "warningUSCDialog": {
+            "content": "La nueva política de cancelación se aplicará a los eventos futuros. Sin embargo, los eventos ya publicados en las próximas dos semanas no podrán actualizarse.",
+            "title": "Política de cancelación de USC"
+        }
     },
     "navigation": {
         "backofficeMenu": {
@@ -15898,7 +16021,8 @@
                 "label": "Productos",
                 "giftcardTemplates": "Tarjetas de regalo",
                 "shopTemplates": "Tienda online",
-                "contractTemplates": "Suscripciones"
+                "contractTemplates": "Suscripciones",
+                "universalPassTemplates": "Pases universales"
             },
             "tag": "Etiquetas",
             "marketing": {

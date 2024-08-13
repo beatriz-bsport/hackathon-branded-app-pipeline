@@ -26,8 +26,11 @@ import {
   listPaymentPackActions,
   listPaymentPackTemplateActions,
   createOrUpdatePaymentPackTemplateActions,
+  createOrUpdateUniversalPaymentPackTemplateActions,
   deletePaymentPackTemplateActions,
+  deleteUniversalPaymentPackTemplateActions,
   retrievePaymentPackTemplateActions,
+  retrieveUniversalPaymentPackTemplateActions,
   updatePaymentPackOrderActions,
   updatePaymentPackCategoryOrderActions,
   isPaymentPackUsedInComboActions,
@@ -460,6 +463,35 @@ export const newPaymentPackReducer = handleActions(
         true,
       );
     },
+    [deleteUniversalPaymentPackTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['universalPaymentPackTemplate', 'upsert', 'loading'],
+        payload,
+      );
+    },
+    [deleteUniversalPaymentPackTemplateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['universalPaymentPackTemplate', 'upsert', 'error'],
+        payload,
+      );
+    },
+    [deleteUniversalPaymentPackTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        // @ts-expect-error
+        ['universalPaymentPackTemplate', 'byId', payload, 'disabled'],
+        true,
+      );
+    },
+
     [retrievePaymentPackTemplateActions.isLoading.toString()]: (
       state,
       { payload },
@@ -479,6 +511,29 @@ export const newPaymentPackReducer = handleActions(
       // @ts-expect-error
       return state.setIn(['paymentPackTemplate', 'byId', payload.id], payload);
     },
+    [retrieveUniversalPaymentPackTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['universalPaymentPackTemplate', 'loading'], payload);
+    },
+    [retrieveUniversalPaymentPackTemplateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['universalPaymentPackTemplate', 'error'], payload);
+    },
+    [retrieveUniversalPaymentPackTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        // @ts-expect-error
+        ['universalPaymentPackTemplate', 'byId', payload.id],
+        payload,
+      );
+    },
+
     [createOrUpdatePaymentPackTemplateActions.isLoading.toString()]: (
       state,
       { payload },
@@ -524,6 +579,59 @@ export const newPaymentPackReducer = handleActions(
           )
           // @ts-expect-error
           .setIn(['paymentPackTemplate', 'byId', payload.id], payload)
+      );
+    },
+    [createOrUpdateUniversalPaymentPackTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['universalPaymentPackTemplate', 'upsert', 'loading'],
+        payload,
+      );
+    },
+    [createOrUpdateUniversalPaymentPackTemplateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['universalPaymentPackTemplate', 'upsert', 'error'],
+        payload,
+      );
+    },
+    [createOrUpdateUniversalPaymentPackTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      let newState = state;
+      // @ts-expect-error
+      if (payload.manager_only || !payload.is_usable_by_staff)
+        newState = state.setIn(
+          ['universalPaymentPackTemplate', 'allIdsManagerOnly'],
+          [
+            // @ts-expect-error
+            payload.id,
+            ...state.universalPaymentPackTemplate.allIdsManagerOnly.filter(
+              // @ts-expect-error
+              (id) => id !== payload.id,
+            ),
+          ],
+        );
+      return (
+        newState
+          .setIn(
+            ['universalPaymentPackTemplate', 'allIds'],
+            [
+              // @ts-expect-error
+              payload.id,
+              ...state.universalPaymentPackTemplate.allIds.filter(
+                // @ts-expect-error
+                (id) => id !== payload.id,
+              ),
+            ],
+          )
+          // @ts-expect-error
+          .setIn(['universalPaymentPackTemplate', 'byId', payload.id], payload)
       );
     },
     [paymentPackForBookingActions.error.toString()]: (state, { payload }) => {
@@ -662,7 +770,7 @@ export const newPaymentPackReducer = handleActions(
       const { results } = payload;
       return state.merge(
         {
-          // @ts-expect-error typed as any...
+          // @ts-expect-error
           byId: (results || []).reduce<{ [id: number]: PaymentPack }>(
             // @ts-expect-error
             (acc, paymentPack) => {

@@ -34,12 +34,12 @@ import {
 import { fetchConsumerPaymentPackList as fetchConsumerPaymentPackListAction } from '#src/libs/consumer-payment-pack/actions';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '#src/libs/member/actions';
 import {
-  createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAction,
+  createOrUpdateUniversalPaymentPackTemplate as createOrUpdateUniversalPaymentPackTemplateAction,
   createPaymentPackTemplateInstance as createPaymentPackTemplateInstanceAction,
-  deletePaymentPackTemplate as deletePaymentPackTemplateAction,
+  deleteUniversalPaymentPackTemplate as deleteUniversalPaymentPackTemplateAction,
   deletePaymentPackTemplateInstance as deletePaymentPackTemplateInstanceAction,
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
-  retrievePaymentPackTemplate as retrievePaymentPackTemplateAction,
+  retrieveUniversalPaymentPackTemplate as retrieveUniversalPaymentPackTemplateAction,
 } from '#src/libs/payment-packs/actions';
 import { openNewWindowToImpersonate } from '#src/utils/windows';
 
@@ -52,7 +52,7 @@ import {
   getAllowedFranchisees,
   getFranchiseCompanies,
 } from '#src/libs/franchise/selectors';
-import { getPaymentPackTemplate } from '#src/libs/payment-packs/selectors';
+import { getUniversalPaymentPackTemplate } from '#src/libs/payment-packs/selectors';
 
 type ParamsProps = { paymentPackTemplateId: number };
 
@@ -62,9 +62,9 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
   allowedFranchisees,
   companies,
   consumerPaymentPacks,
-  createOrUpdatePaymentPackTemplate,
+  createOrUpdateUniversalPaymentPackTemplate,
   createPaymentPackTemplateInstance,
-  deletePaymentPackTemplate,
+  deleteUniversalPaymentPackTemplate,
   deletePaymentPackTemplateInstance,
   fetchConsumerPaymentPackList,
   fetchFilteredMembers,
@@ -73,7 +73,7 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
   paymentPackTemplateId,
   pushRouter,
   replace,
-  retrievePaymentPackTemplate,
+  retrieveUniversalPaymentPackTemplate,
 }) => {
   const [isCreateFormOpen, setIsCreateFormOpen] = React.useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
@@ -94,8 +94,8 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
   const openCreateForm = React.useCallback(() => setIsCreateFormOpen(true), []);
 
   React.useEffect(() => {
-    retrievePaymentPackTemplate(paymentPackTemplateId);
-  }, [paymentPackTemplateId, retrievePaymentPackTemplate]);
+    retrieveUniversalPaymentPackTemplate(paymentPackTemplateId);
+  }, [paymentPackTemplateId, retrieveUniversalPaymentPackTemplate]);
 
   React.useEffect(() => {
     if (
@@ -135,7 +135,7 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
 
   const handleDeleteTemplate = React.useCallback(
     () =>
-      deletePaymentPackTemplate(paymentPackTemplateId, {
+      deleteUniversalPaymentPackTemplate(paymentPackTemplateId, {
         onSuccess: () => {
           closeTemplateDeleteDialog();
           pushRouter('/f/payment-pack-template');
@@ -143,7 +143,7 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
       }),
     [
       closeTemplateDeleteDialog,
-      deletePaymentPackTemplate,
+      deleteUniversalPaymentPackTemplate,
       paymentPackTemplateId,
       pushRouter,
     ],
@@ -154,7 +154,7 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
       data: PaymentPackTemplateAPI,
       options: OptionCallback<PaymentPackTemplateAPI>,
     ) =>
-      createOrUpdatePaymentPackTemplate(
+      createOrUpdateUniversalPaymentPackTemplate(
         { ...data, is_universal_template: true },
         {
           onError: options && options.onError,
@@ -166,14 +166,14 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
           },
         },
       ),
-    [closeEditDialog, createOrUpdatePaymentPackTemplate],
+    [closeEditDialog, createOrUpdateUniversalPaymentPackTemplate],
   );
 
   const handleDeleteTemplateInstance = React.useCallback(
     (id: number, options: OptionCallback) => {
       deletePaymentPackTemplateInstance(id, {
         onSuccess: (...args) => {
-          retrievePaymentPackTemplate(paymentPackTemplateId);
+          retrieveUniversalPaymentPackTemplate(paymentPackTemplateId);
           closeTemplateInstanceDeleteDialog();
           if (options && options.onSuccess) options.onSuccess(...args);
         },
@@ -184,7 +184,7 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
       closeTemplateInstanceDeleteDialog,
       deletePaymentPackTemplateInstance,
       paymentPackTemplateId,
-      retrievePaymentPackTemplate,
+      retrieveUniversalPaymentPackTemplate,
     ],
   );
 
@@ -194,7 +194,7 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
         { ...data, payment_pack_template: paymentPackTemplateId },
         {
           onSuccess: (...args) => {
-            retrievePaymentPackTemplate(paymentPackTemplateId);
+            retrieveUniversalPaymentPackTemplate(paymentPackTemplateId);
             closeCreateForm();
             options?.onSuccess?.(...args);
           },
@@ -206,7 +206,7 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
       closeCreateForm,
       createPaymentPackTemplateInstance,
       paymentPackTemplateId,
-      retrievePaymentPackTemplate,
+      retrieveUniversalPaymentPackTemplate,
     ],
   );
 
@@ -331,7 +331,10 @@ const connector = connect(
     { paymentPackTemplateId }: { paymentPackTemplateId: number },
   ) => ({
     allowedFranchisees: getAllowedFranchisees(state),
-    paymentPackTemplate: getPaymentPackTemplate(state, paymentPackTemplateId),
+    paymentPackTemplate: getUniversalPaymentPackTemplate(
+      state,
+      paymentPackTemplateId,
+    ),
     consumerPaymentPacks: {
       count: state.consumerPaymentPack.basePaginationState.count,
       loading: state.consumerPaymentPack.basePaginationState.loading,
@@ -343,16 +346,19 @@ const connector = connect(
     companies: getFranchiseCompanies(state),
   }),
   {
-    createOrUpdatePaymentPackTemplate: createOrUpdatePaymentPackTemplateAction,
+    createOrUpdateUniversalPaymentPackTemplate:
+      createOrUpdateUniversalPaymentPackTemplateAction,
     createPaymentPackTemplateInstance: createPaymentPackTemplateInstanceAction,
-    deletePaymentPackTemplate: deletePaymentPackTemplateAction,
+    deleteUniversalPaymentPackTemplate:
+      deleteUniversalPaymentPackTemplateAction,
     deletePaymentPackTemplateInstance: deletePaymentPackTemplateInstanceAction,
     fetchConsumerPaymentPackList: fetchConsumerPaymentPackListAction,
     fetchFilteredMembers: fetchFilteredMembersAction,
     fetchPaymentPackBulk: fetchPaymentPackBulkAction,
     pushRouter: pushAction,
     replace: replaceAction,
-    retrievePaymentPackTemplate: retrievePaymentPackTemplateAction,
+    retrieveUniversalPaymentPackTemplate:
+      retrieveUniversalPaymentPackTemplateAction,
   },
 );
 

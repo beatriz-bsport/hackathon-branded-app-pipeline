@@ -150,17 +150,38 @@ export async function retrievePaymentPackTemplate(id: number) {
   );
 }
 
+export function retrieveUniversalPaymentPackTemplate(id: number) {
+  return getAuthDeprecated(
+    `${API_V1_URI}/payment-pack/universal-pass-template/${id}/`,
+  );
+}
+
 export async function createOrUpdatePaymentPackTemplate(
   data: PaymentPackTemplateAPI,
 ) {
   if (!data.id) {
     return postAuthDeprecated(
-      `${API_V1_URI}/payment-pack/payment-pack-template/`,
+      `${API_V1_URI}/payment-pack/universal-pass-template/`,
       data,
     );
   }
   return putAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack-template/${data.id}/`,
+    data,
+  );
+}
+
+export async function createOrUpdateUniversalPaymentPackTemplate(
+  data: PaymentPackTemplateAPI,
+) {
+  if (!data.id) {
+    return postAuthDeprecated(
+      `${API_V1_URI}/payment-pack/universal-pass-template/`,
+      data,
+    );
+  }
+  return putAuthDeprecated(
+    `${API_V1_URI}/payment-pack/universal-pass-template/${data.id}/`,
     data,
   );
 }
@@ -180,6 +201,12 @@ export async function deletePaymentPackTemplateInstance(id: number) {
 
 export async function deletePaymentPackTemplate(id: number) {
   return deleteAuth(`${API_V1_URI}/payment-pack/payment-pack-template/${id}/`);
+}
+
+export function deleteUniversalPaymentPackTemplate(id: number) {
+  return deleteAuth(
+    `${API_V1_URI}/payment-pack/universal-pass-template/${id}/`,
+  );
 }
 
 export async function updatePaymentPackCategory(

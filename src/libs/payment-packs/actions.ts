@@ -23,8 +23,11 @@ import {
   fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAPI,
   fetchUniversalPaymentPackTemplateList as fetchUniversalPaymentPackTemplateListAPI,
   retrievePaymentPackTemplate as retrievePaymentPackTemplateAPI,
+  retrieveUniversalPaymentPackTemplate as retrieveUniversalPaymentPackTemplateAPI,
   createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAPI,
+  createOrUpdateUniversalPaymentPackTemplate as createOrUpdateUniversalPaymentPackTemplateAPI,
   deletePaymentPackTemplate as deletePaymentPackTemplateAPI,
+  deleteUniversalPaymentPackTemplate as deleteUniversalPaymentPackTemplateAPI,
   createPaymentPackTemplateInstance as createPaymentPackTemplateInstanceAPI,
   deletePaymentPackTemplateInstance as deletePaymentPackTemplateInstanceAPI,
   editCategoryOrder,
@@ -890,6 +893,48 @@ export function createOrUpdatePaymentPackTemplate(
   };
 }
 
+export const createOrUpdateUniversalPaymentPackTemplateActions = {
+  isLoading: createAction(
+    'UNIVERSAL_PAYMENT_PACK_TEMPLATE/CREATE_OR_UPDATE/IS_LOADING',
+  ),
+  error: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/CREATE_OR_UPDATE/ERROR'),
+  success: createAction(
+    'UNIVERSAL_PAYMENT_PACK_TEMPLATE/CREATE_OR_UPDATE/SUCCESS',
+  ),
+};
+
+export function createOrUpdateUniversalPaymentPackTemplate(
+  data: PaymentPackTemplateAPI,
+  options?: OptionCallback<PaymentPackTemplateAPI>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOrUpdateUniversalPaymentPackTemplateActions.error(null));
+    dispatch(createOrUpdateUniversalPaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await createOrUpdateUniversalPaymentPackTemplateAPI(
+        data,
+      );
+      dispatch(
+        createOrUpdateUniversalPaymentPackTemplateActions.success(
+          response.data,
+        ),
+      );
+
+      if (options && options.onSuccess) {
+        data?.id &&
+          dispatch(snackbarSuccess('paymentPack.createOrUpdate.success'));
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(createOrUpdateUniversalPaymentPackTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(
+      createOrUpdateUniversalPaymentPackTemplateActions.isLoading(false),
+    );
+  };
+}
 export const retrievePaymentPackTemplateActions = {
   isLoading: createAction('PAYMENT_PACK_TEMPLATE/RETRIEVE/IS_LOADING'),
   error: createAction('PAYMENT_PACK_TEMPLATE/RETRIEVE/ERROR'),
@@ -916,6 +961,39 @@ export function retrievePaymentPackTemplate(
       if (options && options.onError) options.onError(err);
     }
     dispatch(retrievePaymentPackTemplateActions.isLoading(false));
+  };
+}
+
+export const retrieveUniversalPaymentPackTemplateActions = {
+  isLoading: createAction(
+    'UNIVERSAL_PAYMENT_PACK_TEMPLATE/RETRIEVE/IS_LOADING',
+  ),
+  error: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/RETRIEVE/ERROR'),
+  success: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/RETRIEVE/SUCCESS'),
+};
+
+export function retrieveUniversalPaymentPackTemplate(
+  id: number,
+  options?: OptionCallback<PaymentPackTemplate>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveUniversalPaymentPackTemplateActions.error(null));
+    dispatch(retrieveUniversalPaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await retrieveUniversalPaymentPackTemplateAPI(id);
+      dispatch(
+        retrieveUniversalPaymentPackTemplateActions.success(response.data),
+      );
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(retrieveUniversalPaymentPackTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(retrieveUniversalPaymentPackTemplateActions.isLoading(false));
   };
 }
 
@@ -949,6 +1027,35 @@ export function deletePaymentPackTemplate(
   };
 }
 
+export const deleteUniversalPaymentPackTemplateActions = {
+  isLoading: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/DELETE/IS_LOADING'),
+  error: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/DELETE/ERROR'),
+  success: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/DELETE/SUCCESS'),
+};
+
+export function deleteUniversalPaymentPackTemplate(
+  id: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteUniversalPaymentPackTemplateActions.error(null));
+    dispatch(deleteUniversalPaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await deleteUniversalPaymentPackTemplateAPI(id);
+      dispatch(deleteUniversalPaymentPackTemplateActions.success(id));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+        dispatch(snackbarSuccess(`paymentPack.paymentPackDisabled.success`));
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(deleteUniversalPaymentPackTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(deleteUniversalPaymentPackTemplateActions.isLoading(false));
+  };
+}
 export const createPaymentPackTemplateInstanceActions = {
   isLoading: createAction('PAYMENT_PACK_TEMPLATE_INSTANCE/CREATE/IS_LOADING'),
   error: createAction('PAYMENT_PACK_TEMPLATE_INSTANCE/CREATE/ERROR'),

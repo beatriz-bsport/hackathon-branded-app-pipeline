@@ -464,6 +464,35 @@ export const getUniversalPaymentPackTemplateListManagerOnly = createSelector(
 
 // @ts-expect-error
 const _getId = (state, id) => id;
+// @ts-expect-error
+export const getUniversalPaymentPackTemplate: (
+  state: RootState,
+  id: number,
+) => PaymentPackTemplate = createSelector(
+  [
+    getUniversalPaymentPackTemplateData,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+    _getId,
+  ],
+  (data, allowed_franchisee_ids, companyById, id) => {
+    const template = data[id];
+
+    if (!template) return null;
+    return {
+      ...template,
+      companies: withAllowed(
+        // @ts-expect-error
+        template.payment_pack_template_instances?.map(
+          (ppti: PaymentPackTemplateInstance) => !ppti.disabled && ppti.company,
+        ),
+        allowed_franchisee_ids,
+        companyById,
+        // @ts-expect-error
+      )?.filter((c: FranchiseCompany) => !!c),
+    };
+  },
+);
 
 export const getPaymentPackTemplate: (
   state: RootState,

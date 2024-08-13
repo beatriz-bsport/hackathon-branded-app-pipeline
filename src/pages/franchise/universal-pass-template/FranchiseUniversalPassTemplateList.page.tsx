@@ -31,8 +31,8 @@ import type { RootState } from '#src/reducers';
 
 import { push as pushAction } from 'connected-react-router';
 import {
-  createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAction,
-  deletePaymentPackTemplate as deletePaymentPackTemplateAction,
+  createOrUpdateUniversalPaymentPackTemplate as createOrUpdateUniversalPaymentPackTemplateAction,
+  deleteUniversalPaymentPackTemplate as deleteUniversalPaymentPackTemplateAction,
   fetchUniversalPassTemplateList as fetchUniversalPassTemplateListAction,
   fetchUniversalPassTemplateListManagerOnly as fetchUniversalPassTemplateListManagerOnlyAction,
   resetPaymentPackTemplateData as resetPaymentPackTemplateDataAction,
@@ -47,8 +47,8 @@ import {
 type Props = ConnectedProps<typeof connector>;
 
 const FranchisePaymentPackTemplateListPage: React.FC<Props> = ({
-  createOrUpdatePaymentPackTemplate,
-  deletePaymentPackTemplate,
+  createOrUpdateUniversalPaymentPackTemplate,
+  deleteUniversalPaymentPackTemplate,
   fetchUniversalPassTemplateList,
   fetchUniversalPassTemplateListManagerOnly,
   loading,
@@ -128,7 +128,7 @@ const FranchisePaymentPackTemplateListPage: React.FC<Props> = ({
 
   const handleDeleteTemplate = React.useCallback(
     () =>
-      deletePaymentPackTemplate(templateIdToDelete, {
+      deleteUniversalPaymentPackTemplate(templateIdToDelete, {
         onSuccess: () => {
           handleFetchTemplateAvailable();
           closeDeleteDialog();
@@ -136,7 +136,7 @@ const FranchisePaymentPackTemplateListPage: React.FC<Props> = ({
       }),
     [
       closeDeleteDialog,
-      deletePaymentPackTemplate,
+      deleteUniversalPaymentPackTemplate,
       handleFetchTemplateAvailable,
       templateIdToDelete,
     ],
@@ -147,7 +147,7 @@ const FranchisePaymentPackTemplateListPage: React.FC<Props> = ({
       data: PaymentPackTemplateAPI,
       options: OptionCallback<PaymentPackTemplateAPI>,
     ) =>
-      createOrUpdatePaymentPackTemplate(
+      createOrUpdateUniversalPaymentPackTemplate(
         { ...data, is_universal_template: true },
         {
           onError: options && options.onError,
@@ -170,7 +170,7 @@ const FranchisePaymentPackTemplateListPage: React.FC<Props> = ({
     [
       closeCreateDialog,
       closeEditDialog,
-      createOrUpdatePaymentPackTemplate,
+      createOrUpdateUniversalPaymentPackTemplate,
       goToTemplateDetail,
       isCreateModalOpen,
     ],
@@ -302,8 +302,10 @@ const connector = connect(
     fetchUniversalPassTemplateListManagerOnly:
       fetchUniversalPassTemplateListManagerOnlyAction,
     pushRouter: pushAction,
-    createOrUpdatePaymentPackTemplate: createOrUpdatePaymentPackTemplateAction,
-    deletePaymentPackTemplate: deletePaymentPackTemplateAction,
+    createOrUpdateUniversalPaymentPackTemplate:
+      createOrUpdateUniversalPaymentPackTemplateAction,
+    deleteUniversalPaymentPackTemplate:
+      deleteUniversalPaymentPackTemplateAction,
     resetPaymentPackTemplateData: resetPaymentPackTemplateDataAction,
   },
 );

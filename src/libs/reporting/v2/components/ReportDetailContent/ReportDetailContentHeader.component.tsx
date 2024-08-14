@@ -200,18 +200,23 @@ const ReportDetailContentHeader: React.FC<
                 <Typography variant="h6">
                   {t('reporting:reportDetailContent.title')}
                 </Typography>
-                {CATEGORY_NEEDS_DATE_HELPER_TEXT && (
-                  <InformationIcon text={t(`helperText.${categoryName}`)} />
-                )}
               </div>
-              {hasEditPermission && (
-                <ReportDetailDateSelectors
-                  dateInputDisabled={generationDisabled}
-                  dateType={reportCategoryMetadata.date_type}
-                  timeWindowFilteringEnabled={
-                    reportCategoryMetadata.time_window_filtering_enabled
-                  }
-                />
+              {(reportCategoryMetadata.date_type !== 'none' ||
+                CATEGORY_NEEDS_DATE_HELPER_TEXT) && (
+                <div className={classes.datesSelectorRow}>
+                  {hasEditPermission && (
+                    <ReportDetailDateSelectors
+                      dateInputDisabled={generationDisabled}
+                      dateType={reportCategoryMetadata.date_type}
+                      timeWindowFilteringEnabled={
+                        reportCategoryMetadata.time_window_filtering_enabled
+                      }
+                    />
+                  )}
+                  {CATEGORY_NEEDS_DATE_HELPER_TEXT && (
+                    <InformationIcon text={t(`helperText.${categoryName}`)} />
+                  )}
+                </div>
               )}
               <div className={classes.chipList}>
                 {columnsDataSelectedQuickFilter.map((filterItem) => (
@@ -345,6 +350,11 @@ const useStyles = makeStyles((theme) => ({
   },
   rightIcon: {
     marginLeft: theme.spacing(1),
+  },
+  datesSelectorRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
   },
 }));
 

@@ -307,6 +307,7 @@ const ReportDetailPage: React.FC<Props> = ({
         />
         <ReportDetailContent
           categoryName={categoryName}
+          dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
           editReportFilterConfig={editReportFilterConfig}
           excelExportLoading={excelExportLoading}
           handleExport={handleExport}

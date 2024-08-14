@@ -32,6 +32,7 @@ import type {
   DatatypeFilterConfigItem,
   DateFilterEnum,
   DateFilterRangeEnum,
+  DynamicFilterDataType,
 } from '#src/libs/datatype-filtering/types';
 import type { OptionCallback } from '#src/state/types';
 import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/dynamic-data-hoc';
@@ -45,6 +46,9 @@ import QuickReportFilterConfigColumnsMenu from '#src/libs/reporting/common/compo
 
 type Props = {
   categoryName: ReportCategoryEnum;
+  // dynamicDataHasBeenLoaded unused: just to rerender component when data has been loaded for quick filters
+  // eslint-disable-next-line react/no-unused-prop-types
+  dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
   generationDisabled: boolean;
   editReportFilterConfig: (
     reportFilterConfigId: number,
@@ -84,9 +88,9 @@ const ReportDetailContentHeader: React.FC<
   excelExportLoading,
   generationDisabled,
   handleExport,
-  isFranchisor,
   handleGetDynamicDataForFilters,
   handleSubmit,
+  isFranchisor,
   quickReportFilterConfig,
   report,
   reportCategoryMetadata,

@@ -3,7 +3,7 @@ import isEqual from 'lodash/isEqual';
 import pick from 'lodash/pick';
 import omitBy from 'lodash/omitBy';
 import isUndefined from 'lodash/isUndefined';
-import { ObjectSchema } from 'yup';
+import { ObjectSchema, StringSchema } from 'yup';
 import { BsportControlledPropsMessageType } from './types';
 
 const omitUndefinedValues = (object: object) => {
@@ -17,7 +17,11 @@ const omitUndefinedValues = (object: object) => {
 type PropNameWithMessageType<T extends object> = {
   propName: keyof T;
   messageType: BsportControlledPropsMessageType;
-  validationSchema: ObjectSchema;
+  /**
+   * The validation schema for component Props can be
+   * either object-based (several props) or string-based (singular prop)
+   */
+  validationSchema: ObjectSchema | StringSchema;
 };
 
 /**

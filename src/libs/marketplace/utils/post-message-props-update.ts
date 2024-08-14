@@ -17,3 +17,11 @@ export const CalendarOnlineFilterValidationSchema = Yup.object().shape({
     is_online: Yup.boolean().nullable(),
   }),
 });
+
+export const ConsumerSpacePageValidationSchema = Yup.string().oneOf([
+  'consumerBooking',
+  'consumerPass',
+  'consumerInvoice',
+  'consumerProfile',
+  'consumerSubscription',
+]);

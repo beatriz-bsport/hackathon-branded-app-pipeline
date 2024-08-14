@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useImperativeHandle, forwardRef } from 'react';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
@@ -11,10 +11,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
-// @ts-expect-error
-import i18n from '#src/i18n/index';
-import { getLocaleFromLanguage } from '#src/utils/language';
-import Config from '#src/config';
 import { isErrorWithCustomCode } from '#src/libs/utils';
 import {
   createPaymentAttempt as createPaymentAttemptAction,
@@ -22,9 +18,9 @@ import {
 } from '#src/libs/payment/actions';
 import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
-import { getCurrencyCode } from '#src/libs/theme/selectors';
 import PayPalPaymentButton from './PayPalPaymentButton.component';
 import { PaymentAttemptMinimal } from '#src/libs/payment/types';
+import { getPayPalScriptProviderOptions } from '#src/libs/payment/utils';
 
 type Props = {
   acceptTermsAndConditionsElement?: React.ReactElement;
@@ -69,199 +65,209 @@ type Props = {
   basketPriceCts?: number;
 };
 
-const PaymentPaypal: React.FC<Props> = ({
-  acceptTermsAndConditionsElement,
-  allowConsumerToUseInternalAccount,
-  applyBalanceLoading,
-  applyBalanceToInvoice,
-  basketId,
-  children,
-  basketPriceCts,
-  clientSecret,
-  clientSecretLoading,
-  creditAccountBalance,
-  customClasses,
-  executePaymentAttempt,
-  forceButtonDisplay,
-  forceDisabled,
-  forceHideButton,
-  fromApp,
-  isEstablishmentBillingGroupSelected,
-  loading,
-  termsAndConditionsAccepted,
-  onCancel,
-  onError,
-  onSuccess,
-  createPaymentAttempt,
-  paymentGroupId,
-  paymentProcessing,
-  setPaymentProcessing,
-  snackbarErrorMsg,
-  useInternalAccount,
-}: Props) => {
-  const isNewCheckoutFlow = React.useContext(CheckoutContext);
-  const classes = useStyles();
-
-  const { t } = useTranslation('invoice');
-
-  const createOrder = React.useCallback(async (): Promise<string> => {
-    const response = await createPaymentAttempt(
-      paymentGroupId,
-      fromApp,
+const PaymentPaypal = forwardRef(
+  (
+    {
+      acceptTermsAndConditionsElement,
+      allowConsumerToUseInternalAccount,
+      applyBalanceLoading,
+      applyBalanceToInvoice,
       basketId,
+      basketPriceCts,
+      children,
+      clientSecret,
+      clientSecretLoading,
+      creditAccountBalance,
+      customClasses,
+      executePaymentAttempt,
+      forceButtonDisplay,
+      forceDisabled,
+      forceHideButton,
+      fromApp,
+      isEstablishmentBillingGroupSelected,
+      loading,
+      termsAndConditionsAccepted,
+      onCancel,
+      onError,
+      onSuccess,
+      createPaymentAttempt,
+      paymentGroupId,
+      paymentProcessing,
+      setPaymentProcessing,
+      snackbarErrorMsg,
+      useInternalAccount,
+    }: Props,
+    ref,
+  ) => {
+    const isNewCheckoutFlow = React.useContext(CheckoutContext);
+    const classes = useStyles();
+
+    const { t } = useTranslation('invoice');
+
+    const createOrder = React.useCallback(async (): Promise<string> => {
+      const response = await createPaymentAttempt(
+        paymentGroupId,
+        fromApp,
+        basketId,
+      );
+      // Basket price might have changed since the customer got to the checkout page
+      // We need to make sure that the price the customer is trying to pay matches the one we'll be sending to PayPal.
+      // Otherwise, we force the customer to reload the page.
+      if (Math.round(response.amount * 100) !== basketPriceCts) {
+        const url = new URL(window.location.href);
+        url.searchParams.append('paypalError', 'basketInconsistent');
+        window.location.href = url.toString();
+        return;
+      }
+      return response.id;
+    }, [
+      basketId,
+      fromApp,
+      paymentGroupId,
+      basketPriceCts,
+      createPaymentAttempt,
+    ]);
+
+    const onApprove = React.useCallback((): Promise<void> => {
+      setPaymentProcessing(true);
+
+      return executePaymentAttempt(paymentGroupId, fromApp, basketId, {
+        onError: (error: AxiosError) => {
+          setPaymentProcessing(false);
+          if (onError) onError();
+
+          if (
+            isErrorWithCustomCode(error) &&
+            error.response.data &&
+            snackbarErrorMsg
+          ) {
+            // Multiple exceptions could be returned in the response
+            const error_data = Array.isArray(error.response.data)
+              ? error.response.data
+              : [error.response.data];
+
+            error_data.forEach((exc: { error_code: number }) => {
+              const { error_code } = exc;
+
+              if (ALL_ERROR_CODES.includes(error_code)) {
+                snackbarErrorMsg(`canNotBuyErrorCode.${error_code}`);
+              } else if (PAYMENT_EXECUTION_ERROR_CODES.includes(error_code)) {
+                snackbarErrorMsg(`canNotExecutePaymentAttempt.${error_code}`);
+              } else {
+                snackbarErrorMsg('canNotExecutePaymentAttempt.generic');
+              }
+            });
+          }
+        },
+        onSuccess: () => {
+          onSuccess(() => setPaymentProcessing(false));
+        },
+      });
+    }, [
+      basketId,
+      fromApp,
+      paymentGroupId,
+      onSuccess,
+      onError,
+      snackbarErrorMsg,
+      setPaymentProcessing,
+      executePaymentAttempt,
+    ]);
+
+    const onPayPalError = React.useCallback(() => {
+      if (onError) onError();
+      if (snackbarErrorMsg)
+        snackbarErrorMsg('canNotExecutePaymentAttempt.generic');
+    }, [onError, snackbarErrorMsg]);
+
+    const onPayPalCancel = React.useCallback(() => {
+      if (snackbarErrorMsg) snackbarErrorMsg('cancelPayPalPaymentAttempt');
+    }, [snackbarErrorMsg]);
+
+    // This hook is required in the new checkout flow, in order to call the submit callback defined
+    // in the payment method component from the parent component.
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          onPayPalCreateOrder: createOrder,
+          onPayPalApprove: onApprove,
+          onPayPalCancel,
+          onPayPalError,
+        };
+      },
+      [createOrder, onApprove, onPayPalCancel, onPayPalError],
     );
-    // Basket price might have changed since the customer got to the checkout page
-    // We need to make sure that the price the customer is trying to pay matches the one we'll be sending to PayPal.
-    // Otherwise, we force the customer to reload the page.
-    if (Math.round(response.amount * 100) !== basketPriceCts) {
-      const url = new URL(window.location.href);
-      url.searchParams.append('paypalError', 'basketInconsistent');
-      window.location.href = url.toString();
-      return;
-    }
-    return response.id;
-  }, [basketId, fromApp, paymentGroupId, basketPriceCts, createPaymentAttempt]);
+    const isSubmitButtonDisabled =
+      paymentProcessing ||
+      forceDisabled ||
+      loading ||
+      !termsAndConditionsAccepted ||
+      !isEstablishmentBillingGroupSelected;
 
-  const onApprove = React.useCallback((): Promise<void> => {
-    setPaymentProcessing(true);
-
-    return executePaymentAttempt(paymentGroupId, fromApp, basketId, {
-      onError: (error: AxiosError) => {
-        setPaymentProcessing(false);
-        if (onError) onError();
-
-        if (
-          isErrorWithCustomCode(error) &&
-          error.response.data &&
-          snackbarErrorMsg
-        ) {
-          // Multiple exceptions could be returned in the response
-          const error_data = Array.isArray(error.response.data)
-            ? error.response.data
-            : [error.response.data];
-
-          error_data.forEach((exc: { error_code: number }) => {
-            const { error_code } = exc;
-
-            if (ALL_ERROR_CODES.includes(error_code)) {
-              snackbarErrorMsg(`canNotBuyErrorCode.${error_code}`);
-            } else if (PAYMENT_EXECUTION_ERROR_CODES.includes(error_code)) {
-              snackbarErrorMsg(`canNotExecutePaymentAttempt.${error_code}`);
-            } else {
-              snackbarErrorMsg('canNotExecutePaymentAttempt.generic');
-            }
-          });
-        }
-      },
-      onSuccess: () => {
-        onSuccess(() => setPaymentProcessing(false));
-      },
-    });
-  }, [
-    basketId,
-    fromApp,
-    paymentGroupId,
-    onSuccess,
-    onError,
-    snackbarErrorMsg,
-    setPaymentProcessing,
-    executePaymentAttempt,
-  ]);
-
-  const onPayPalError = React.useCallback(() => {
-    if (onError) onError();
-    if (snackbarErrorMsg)
-      snackbarErrorMsg('canNotExecutePaymentAttempt.generic');
-  }, [onError, snackbarErrorMsg]);
-
-  const onPayPalCancel = React.useCallback(() => {
-    if (snackbarErrorMsg) snackbarErrorMsg('cancelPayPalPaymentAttempt');
-  }, [snackbarErrorMsg]);
-
-  const isSubmitButtonDisabled =
-    paymentProcessing ||
-    forceDisabled ||
-    loading ||
-    !termsAndConditionsAccepted ||
-    !isEstablishmentBillingGroupSelected;
-
-  const { language } = i18n;
-  const buttonLocale = getLocaleFromLanguage(language);
-
-  return (
-    <>
-      {paymentGroupId && (
-        <>
-          {allowConsumerToUseInternalAccount && !!creditAccountBalance && (
-            <>
-              <div className={classes.paddingTop1} />
-              <UseInternalAccountForm
-                creditAccountBalance={creditAccountBalance}
-                loading={loading || applyBalanceLoading}
-                onBasketSubmit={useInternalAccount}
-                onInvoiceSubmit={applyBalanceToInvoice}
-              />
-            </>
-          )}
-          {children ?? null}
-          {(!isNewCheckoutFlow || forceButtonDisplay) && !forceHideButton && (
-            <>
-              {acceptTermsAndConditionsElement && (
-                <div
-                  className={classNames(
-                    classes.conditions,
-                    customClasses?.conditions,
-                  )}
-                >
-                  {acceptTermsAndConditionsElement}
-                </div>
-              )}
-              <div
-                className={classNames(
-                  classes.actionRow,
-                  customClasses?.actionRow,
-                )}
-              >
-                {clientSecretLoading ? (
-                  <CircularProgress />
-                ) : (
-                  <div className={classes.paypalButton}>
-                    <PayPalScriptProvider
-                      options={{
-                        clientId: Config.REACT_APP_PAYPAL_CLIENT_ID,
-                        merchantId: clientSecret,
-                        components: 'buttons,funding-eligibility,marks',
-                        currency: getCurrencyCode().toUpperCase(),
-                        integrationDate: '2020-07-01',
-                        debug: false,
-                        commit: true,
-                        intent: 'capture',
-                        dataPartnerAttributionId:
-                          Config.REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID,
-                        ...(buttonLocale ? { locale: buttonLocale } : {}),
-                      }}
-                    >
-                      <PayPalPaymentButton
-                        createOrder={createOrder}
-                        isDisabled={isSubmitButtonDisabled}
-                        onApprove={onApprove}
-                        onCancel={onPayPalCancel}
-                        onError={onPayPalError}
-                      />
-                    </PayPalScriptProvider>
+    return (
+      <>
+        {paymentGroupId && (
+          <>
+            {allowConsumerToUseInternalAccount && !!creditAccountBalance && (
+              <>
+                <div className={classes.paddingTop1} />
+                <UseInternalAccountForm
+                  creditAccountBalance={creditAccountBalance}
+                  loading={loading || applyBalanceLoading}
+                  onBasketSubmit={useInternalAccount}
+                  onInvoiceSubmit={applyBalanceToInvoice}
+                />
+              </>
+            )}
+            {children ?? null}
+            {(!isNewCheckoutFlow || forceButtonDisplay) && !forceHideButton && (
+              <>
+                {acceptTermsAndConditionsElement && (
+                  <div
+                    className={classNames(
+                      classes.conditions,
+                      customClasses?.conditions,
+                    )}
+                  >
+                    {acceptTermsAndConditionsElement}
                   </div>
                 )}
-                <Button disabled={loading} onClick={onCancel}>
-                  {t('paymentPanel.actions.cancel')}
-                </Button>
-              </div>
-            </>
-          )}
-        </>
-      )}
-    </>
-  );
-};
+                <div
+                  className={classNames(
+                    classes.actionRow,
+                    customClasses?.actionRow,
+                  )}
+                >
+                  {clientSecretLoading ? (
+                    <CircularProgress />
+                  ) : (
+                    <div className={classes.paypalButton}>
+                      <PayPalScriptProvider
+                        options={getPayPalScriptProviderOptions(clientSecret)}
+                      >
+                        <PayPalPaymentButton
+                          createOrder={createOrder}
+                          isDisabled={isSubmitButtonDisabled}
+                          onApprove={onApprove}
+                          onCancel={onPayPalCancel}
+                          onError={onPayPalError}
+                        />
+                      </PayPalScriptProvider>
+                    </div>
+                  )}
+                  <Button disabled={loading} onClick={onCancel}>
+                    {t('paymentPanel.actions.cancel')}
+                  </Button>
+                </div>
+              </>
+            )}
+          </>
+        )}
+      </>
+    );
+  },
+);
 
 const useStyles = makeStyles((theme) => ({
   paddingTop1: {
@@ -293,4 +299,6 @@ const mapDispatchToProps = {
   executePaymentAttempt: executePaymentAttemptAction,
 };
 
-export default connect(() => {}, mapDispatchToProps)(React.memo(PaymentPaypal));
+export default connect(() => ({}), mapDispatchToProps, null, {
+  forwardRef: true,
+})(React.memo(PaymentPaypal));

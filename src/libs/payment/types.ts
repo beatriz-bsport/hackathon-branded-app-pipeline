@@ -187,3 +187,16 @@ export type DetachPaymentMethodPayload = {
 export type DetachPaymentMethodResponse = {
   payment_backend_payment_method_id: string | null;
 };
+
+export type PayPalScriptProviderOptions = {
+  clientId: string;
+  merchantId: string;
+  components: string;
+  currency: string;
+  integrationDate: string;
+  debug: boolean;
+  commit: boolean;
+  intent: string;
+  dataPartnerAttributionId: string;
+  locale?: string;
+};

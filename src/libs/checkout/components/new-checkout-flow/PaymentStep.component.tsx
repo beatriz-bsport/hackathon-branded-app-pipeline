@@ -61,6 +61,9 @@ type PaymentStepProps = {
   ) => void;
   selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
   clientSecretLoading: boolean;
+  paymentEngine: number;
+  setPaymentEngine: (paymentEngine: number) => void;
+  refreshBasket: (options?: OptionCallback) => void;
 };
 
 export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
@@ -104,11 +107,14 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       setIsEstablishmentBillingGroupSelected,
       selectedEstablishmentBillingGroup,
       clientSecretLoading,
+      paymentEngine,
+      setPaymentEngine,
+      refreshBasket,
     },
     ref,
   ) => {
     const { t } = useTranslation('checkout');
-    const paymentStripeRef = React.useRef(null);
+    const onlinePaymentRef = React.useRef(null);
 
     useImperativeHandle(ref, () => {
       return {
@@ -116,10 +122,14 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
           if (isTotalPriceNull) {
             onSubmitUnpaid();
           } else {
-            paymentStripeRef.current.onPaymentConfirm(event);
+            onlinePaymentRef.current.onPaymentConfirm(event);
           }
         },
         onPayLaterSubmit: onSubmitUnpaid,
+        onPayPalCreateOrder: onlinePaymentRef.current?.onPayPalCreateOrder,
+        onPayPalApprove: onlinePaymentRef.current?.onPayPalApprove,
+        onPayPalCancel: onlinePaymentRef.current?.onPayPalCancel,
+        onPayPalError: onlinePaymentRef.current?.onPayPalError,
       };
     });
 
@@ -171,7 +181,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       <>
         {isOnlinePaymentAvailable && (
           <OnlinePayment
-            ref={paymentStripeRef}
+            ref={onlinePaymentRef}
             allowConsumerToUseInternalAccount={
               allowConsumerToUseInternalAccount
             }
@@ -198,8 +208,10 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
             }
             loading={loading}
             memberId={basket.member}
+            onError={refreshBasket}
             onSelectInstalmentPayment={onSelectInstalmentPayment}
             onSuccess={onPaymentSuccess}
+            paymentEngine={paymentEngine}
             paymentGroupId={paymentGroupId}
             paymentMethodChoices={paymentMethodChoices}
             paymentProcessing={paymentProcessing}
@@ -212,6 +224,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
               setIsEstablishmentBillingGroupSelected
             }
             setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
+            setPaymentEngine={setPaymentEngine}
             setPaymentProcessing={setPaymentProcessing}
             setSelectedEstablishmentBillingGroup={
               setSelectedEstablishmentBillingGroup

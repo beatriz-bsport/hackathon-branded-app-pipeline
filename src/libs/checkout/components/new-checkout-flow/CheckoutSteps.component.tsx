@@ -78,6 +78,9 @@ type CheckoutStepsProps = {
   setSelectedEstablishmentBillingGroup: (
     establishmentBillinggroup: EstablishmentBillingGroup,
   ) => void;
+  paymentEngine: number;
+  setPaymentEngine: (paymentEngine: number) => void;
+  refreshBasket: (options?: OptionCallback) => void;
 };
 
 export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
@@ -111,6 +114,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       paymentGroupId,
       paymentProcessing,
       paymentMethodChoices,
+      refreshBasket,
       setCurrentStep,
       setIsEstablishmentBillingGroupSelected,
       setIsOnlinePaymentDisabled,
@@ -119,6 +123,8 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       snackbarErrorMsg,
       steps,
       termsAndConditions,
+      setPaymentEngine,
+      paymentEngine,
       termsAndConditionsAccepted,
       useInternalAccount,
       validateUnpaid,
@@ -154,6 +160,10 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
           }
         },
         onPayLaterSubmit: paymentStepRef.current?.onPayLaterSubmit,
+        onPayPalPaymentCreateOrder: paymentStepRef.current?.onPayPalCreateOrder,
+        onPayPalPaymentApprove: paymentStepRef.current?.onPayPalApprove,
+        onPayPalPaymentCancel: paymentStepRef.current?.onPayPalCancel,
+        onPayPalPaymentError: paymentStepRef.current?.onPayPalError,
       };
     });
 
@@ -214,9 +224,11 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 loading={basketLoading || paymentProcessing}
                 onPaymentSuccess={onPaymentSuccess}
                 onSelectInstalmentPayment={onSelectInstalmentPayment}
+                paymentEngine={paymentEngine}
                 paymentGroupId={paymentGroupId}
                 paymentMethodChoices={paymentMethodChoices}
                 paymentProcessing={paymentProcessing}
+                refreshBasket={refreshBasket}
                 selectedEstablishmentBillingGroup={
                   selectedEstablishmentBillingGroup
                 }
@@ -226,6 +238,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                   setIsEstablishmentBillingGroupSelected
                 }
                 setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
+                setPaymentEngine={setPaymentEngine}
                 setPaymentProcessing={setPaymentProcessing}
                 setSelectedEstablishmentBillingGroup={
                   setSelectedEstablishmentBillingGroup
@@ -272,11 +285,13 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       isTotalPriceNull,
       onPaymentSuccess,
       onSelectInstalmentPayment,
+      paymentEngine,
       paymentGroupId,
       paymentMethodChoices,
       paymentProcessing,
       selectedEstablishmentBillingGroup,
       setIsOnlinePaymentDisabled,
+      setPaymentEngine,
       setPaymentProcessing,
       setTermsAndConditionsAccepted,
       snackbarErrorMsg,

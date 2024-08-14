@@ -9,16 +9,22 @@ import grey from '@material-ui/core/colors/grey';
 import UpdateIcon from '@material-ui/icons/Update';
 import { makeStyles, Theme, isWidthDown } from '@material-ui/core';
 import PopOver from '#src/components/Popover';
-import { SUBMIT_BUTTONS } from '#src/libs/checkout/types';
-import { useWidth } from '../../../../hooks/useWidth';
+import {
+  SubmitButtonsCallbacks,
+  SUBMIT_BUTTONS,
+} from '#src/libs/checkout/types';
+import { useWidth } from '#src/hooks/useWidth';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import PayPalPaymentButton from '#src/libs/payment/components/paypal/PayPalPaymentButton.component';
+import { getPayPalScriptProviderOptions } from '#src/libs/payment/utils';
 
 type CheckoutButtonsProps = {
-  handleSubmitButtonsCallbacks: {
-    [key: number]: (event: React.MouseEvent<any>) => Promise<void>;
-  };
+  handleSubmitButtonsCallbacks: SubmitButtonsCallbacks;
   submitButtonsDisabledState: { [key: number]: boolean };
   submitButtonsDisplayableState: { [key: number]: boolean };
   submitButtonsProcessingState: { [key: number]: boolean };
+  clientSecret: string;
+  clientSecretLoading: boolean;
 };
 
 export const CheckoutButtons: React.FC<CheckoutButtonsProps> = ({
@@ -26,6 +32,8 @@ export const CheckoutButtons: React.FC<CheckoutButtonsProps> = ({
   submitButtonsDisabledState,
   submitButtonsDisplayableState,
   submitButtonsProcessingState,
+  clientSecret,
+  clientSecretLoading,
 }) => {
   const width = useWidth();
   const isMobile = isWidthDown('sm', width);
@@ -56,7 +64,7 @@ export const CheckoutButtons: React.FC<CheckoutButtonsProps> = ({
                 submitButtonsDisabledState[button.id] ||
                 submitButtonsProcessingState[button.id]
               }
-              onClick={handleSubmitButtonsCallbacks[button.id]}
+              {...handleSubmitButtonsCallbacks[button.id]}
               variant={button.variant as 'text' | 'outlined' | 'contained'}
             >
               {submitButtonsProcessingState[button.id] && (
@@ -71,6 +79,37 @@ export const CheckoutButtons: React.FC<CheckoutButtonsProps> = ({
           )}
         </>
       ))}
+
+      {submitButtonsDisplayableState[SUBMIT_BUTTONS.PAYPAL_BUTTON.id] && (
+        <div className={classes.paypalButton}>
+          {/* if clientSecretLoading, we cannot display PayPalPaymentButton since it needs PayPalScriptProvider which itself needs the clientSecret  */}
+          {clientSecretLoading ? (
+            <CircularProgress />
+          ) : (
+            <PayPalScriptProvider
+              options={getPayPalScriptProviderOptions(clientSecret)}
+            >
+              {submitButtonsProcessingState[
+                SUBMIT_BUTTONS.PAYPAL_BUTTON.id
+              ] && (
+                <div className={classes.paypalButtonProcessing}>
+                  <CircularProgress />
+                </div>
+              )}
+              <PayPalPaymentButton
+                isDisabled={
+                  submitButtonsDisabledState[SUBMIT_BUTTONS.PAYPAL_BUTTON.id] ||
+                  submitButtonsProcessingState[SUBMIT_BUTTONS.PAYPAL_BUTTON.id]
+                }
+                {...handleSubmitButtonsCallbacks[
+                  SUBMIT_BUTTONS.PAYPAL_BUTTON.id
+                ]}
+              />
+            </PayPalScriptProvider>
+          )}
+        </div>
+      )}
+
       {submitButtonsDisplayableState[SUBMIT_BUTTONS.PAY_LATER_BUTTON.id] && (
         <div>
           <div className={classes.payLaterContainer}>
@@ -82,9 +121,9 @@ export const CheckoutButtons: React.FC<CheckoutButtonsProps> = ({
                 ] ||
                 submitButtonsProcessingState[SUBMIT_BUTTONS.PAY_LATER_BUTTON.id]
               }
-              onClick={
-                handleSubmitButtonsCallbacks[SUBMIT_BUTTONS.PAY_LATER_BUTTON.id]
-              }
+              {...handleSubmitButtonsCallbacks[
+                SUBMIT_BUTTONS.PAY_LATER_BUTTON.id
+              ]}
               variant="outlined"
             >
               {submitButtonsProcessingState[
@@ -158,6 +197,25 @@ const useStyles = makeStyles((theme: Theme) => {
       background: theme.palette.background.paper,
       flex: 1,
       color: theme.palette.primary.main,
+    },
+    paypalButtonProcessing: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 8,
+    },
+    paypalButton: {
+      display: 'flex',
+      flexDirection: 'row',
+      gap: theme.spacing(4),
+      alignItems: 'center',
+      margin: ` 0 ${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
+        2,
+      )}px`,
+      borderRadius: theme.spacing(3),
+      [theme.breakpoints.down('sm')]: {
+        margin: ` 0 0 ${theme.spacing(2)}px 0`,
+      },
     },
     payLaterContainer: {
       display: 'flex',

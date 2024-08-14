@@ -123,6 +123,8 @@ type NewCheckoutFlowProps = {
   goToCalendar: () => void;
   goToMyProfile: () => void;
   basketItemRemovalStatusLoading: boolean;
+  paymentEngine: number;
+  setPaymentEngine: (paymentEngine: number) => void;
   monitorExpiredItemRemoval: (
     companyId: number,
     checkoutItemId: string,
@@ -163,6 +165,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   onRemoveInternalAccountPrepaidLine,
   onSelectInstalmentPayment,
   patchBasket,
+  paymentEngine,
   paymentGroupId,
   paymentMethodChoices,
   paymentProcessing,
@@ -183,6 +186,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   refreshBasket,
   selectedEstablishmentBillingGroup,
   setSelectedEstablishmentBillingGroup,
+  setPaymentEngine,
 }) => {
   const { t } = useTranslation('checkout');
   const classes = useStyles();
@@ -286,11 +290,11 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
     termsAndConditionsAccepted,
     isEstablishmentBillingGroupSelected,
   });
-
   // Definition of the presence on the screen or not of each button
   const submitButtonsDisplayableState = useSubmitButtonsDisplayableState({
     currentStepId: currentStep.id,
     isOnlinePaymentAvailable,
+    paymentEngine,
     isPayLaterAvailable,
     isTotalPriceNull,
   });
@@ -432,9 +436,11 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               onPaymentSuccess={onPaymentSuccess}
               onSelectInstalmentPayment={onSelectInstalmentPayment}
               patchBasket={patchBasket}
+              paymentEngine={paymentEngine}
               paymentGroupId={paymentGroupId}
               paymentMethodChoices={paymentMethodChoices}
               paymentProcessing={paymentProcessing}
+              refreshBasket={refreshBasket}
               selectedEstablishmentBillingGroup={
                 selectedEstablishmentBillingGroup
               }
@@ -443,6 +449,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
                 setIsEstablishmentBillingGroupSelected
               }
               setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
+              setPaymentEngine={setPaymentEngine}
               setPaymentProcessing={setPaymentProcessing}
               setSelectedEstablishmentBillingGroup={
                 setSelectedEstablishmentBillingGroup
@@ -507,6 +514,8 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               prepaidLines={basket.prepaid_lines}
             />
             <CheckoutButtons
+              clientSecret={clientSecret}
+              clientSecretLoading={clientSecretLoading}
               handleSubmitButtonsCallbacks={handleSubmitButtonsCallbacks}
               submitButtonsDisabledState={submitButtonsDisabledState}
               submitButtonsDisplayableState={submitButtonsDisplayableState}

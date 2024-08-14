@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   BUYABLE_ITEM_PASS as PASS,
   BUYABLE_ITEM_SHOP_ITEM as SHOP_ITEM,
@@ -190,6 +191,26 @@ export const SUBMIT_BUTTONS = {
     textPath: 'validation.actions.confirmPriceNull',
     variant: 'contained',
   },
+  PAYPAL_BUTTON: {
+    id: 4,
+  },
+} as const;
+
+export type SubmitButtonsCallbacks = {
+  [key in
+    | typeof SUBMIT_BUTTONS.NEXT_BUTTON.id
+    | typeof SUBMIT_BUTTONS.PAY_NOW_BUTTON.id
+    | typeof SUBMIT_BUTTONS.CONFIRM_BUTTON.id
+    | typeof SUBMIT_BUTTONS.PAY_LATER_BUTTON.id]: {
+    onClick: (event: React.FormEvent<HTMLButtonElement>) => Promise<void>;
+  };
+} & {
+  [key in typeof SUBMIT_BUTTONS.PAYPAL_BUTTON.id]: {
+    createOrder: () => Promise<string>;
+    onApprove: () => Promise<void>;
+    onError: () => Promise<void>;
+    onCancel: () => Promise<void>;
+  };
 };
 
 export const STEPS = {

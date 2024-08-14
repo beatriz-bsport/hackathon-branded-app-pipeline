@@ -12,6 +12,12 @@ import {
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import { TFunction } from 'i18next';
 import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#src/libs/terminal/constants';
+import Config from '#src/config';
+import { getCurrencyCode } from '#src/libs/theme/selectors';
+// @ts-expect-error
+import i18n from '#src/i18n/index';
+import { getLocaleFromLanguage } from '#src/utils/language';
+import { PayPalScriptProviderOptions } from './types';
 
 export const fromPaymentGroupIdentifierToPaymentMethodIdentifier = (
   paymentGroupIdentifier: number,
@@ -137,3 +143,23 @@ export const getMarketplaceEnabledPaymentMethods = ({
     ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT]
     : []),
 ];
+
+export const getPayPalScriptProviderOptions = (
+  clientSecret: string,
+): PayPalScriptProviderOptions => {
+  const { language } = i18n;
+  const buttonLocale = getLocaleFromLanguage(language);
+
+  return {
+    clientId: Config.REACT_APP_PAYPAL_CLIENT_ID,
+    merchantId: clientSecret,
+    components: 'buttons,funding-eligibility,marks',
+    currency: getCurrencyCode().toUpperCase(),
+    integrationDate: '2020-07-01',
+    debug: false,
+    commit: true,
+    intent: 'capture',
+    dataPartnerAttributionId: Config.REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID,
+    ...(buttonLocale ? { locale: buttonLocale } : {}),
+  };
+};

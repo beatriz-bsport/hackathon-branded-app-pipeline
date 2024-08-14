@@ -746,14 +746,11 @@ export class BasketPage extends React.Component<Props> {
                   }
                   onSelectInstalmentPayment={this.onSelectInstalmentPayment}
                   patchBasket={this.props.patchCurrentBasket}
+                  paymentEngine={this.state.paymentEngine}
                   paymentGroupId={this.state.paymentGroupId}
-                  paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
-                    PAYMENT_ENGINE_STRIPE
-                  ].filter((pm) =>
-                    (
-                      this.props.theme.payment_method_available_basket || []
-                    ).includes(pm),
-                  )}
+                  paymentMethodChoices={
+                    this.props.theme.payment_method_available_basket || []
+                  }
                   paymentProcessing={this.props.paymentProcessing}
                   refreshBasket={this.props.refreshBasket}
                   removeItemFromBasket={this.props.removeItemFromBasket}
@@ -763,6 +760,7 @@ export class BasketPage extends React.Component<Props> {
                   setIsEstablishmentBillingGroupSelected={
                     this.setIsEstablishmentBillingGroupSelected
                   }
+                  setPaymentEngine={this.handlePaymentEngineUpdate}
                   setPaymentProcessing={this.props.setPaymentProcessing}
                   setSelectedEstablishmentBillingGroup={
                     this.setSelectedEstablishmentBillingGroup

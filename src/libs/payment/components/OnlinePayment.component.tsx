@@ -333,6 +333,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
             )}
             {paymentEngine === PAYMENT_ENGINE_PAYPAL && (
               <PaymentPaypal
+                ref={ref}
                 acceptTermsAndConditionsElement={
                   termsAndConditions ? (
                     <AcceptTermsAndConditions

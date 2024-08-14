@@ -37,12 +37,10 @@ import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import { CREDIT_COLUMNS } from '#src/libs/reporting/common/constants';
 import { getCreditFactor } from '#src/libs/theme/selectors';
-import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
+import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 
 type Props = {
   categoryName: ReportCategoryEnum;
-  // dynamicDataHasBeenLoaded unused: just to rerender component when data has been loaded for quick filters
-  // eslint-disable-next-line react/no-unused-prop-types
   dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
   editReportFilterConfig: (
     reportFilterConfigId: number,

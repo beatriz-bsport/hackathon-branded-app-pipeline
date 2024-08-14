@@ -2,7 +2,9 @@ import { DateTime } from 'luxon';
 import {
   RANGED_RAPID_SELECTIONS,
   SINGLE_RAPID_SELECTIONS,
+  QUICK_DATE_SELECTIONS,
 } from '#src/components/date/constants';
+
 import type {
   DateFilterEnum,
   DateFilterRangeEnum,
@@ -26,6 +28,19 @@ export const mapTimePeriodToDateValues = (
         return selection;
       return null;
     });
+
+    /**
+     * Filtering out dates defined in RANGED_RAPID_SELECTIONS but not in
+     * QUICK_DATE_SELECTIONS
+     */
+    if (
+      timePeriodMapping &&
+      !QUICK_DATE_SELECTIONS.find(
+        (quickDateSelection) =>
+          quickDateSelection.timePeriod == timePeriodMapping.timePeriod,
+      )
+    )
+      return 'custom';
     return timePeriodMapping?.timePeriod || 'custom';
   }
   if (dateType === 'single') {

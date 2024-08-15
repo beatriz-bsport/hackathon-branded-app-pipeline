@@ -29,8 +29,8 @@ import {
 
 const SOURCE_FOLDER = path.resolve(__dirname, "../export/supernova");
 
-// TODO to be replaced with a monorepo utils function giving programatically the path to the ui-components project
-const TARGET_FOLDER = path.resolve(__dirname, "../../ui-components");
+// TODO to be replaced with a monorepo utils function giving programatically the path to the primitive-components project
+const TARGET_FOLDER = path.resolve(__dirname, "../../primitive-components");
 
 /**
  * Import exported border width tokens from Supernova.

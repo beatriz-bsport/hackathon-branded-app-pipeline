@@ -1,11 +1,12 @@
 {
-  "name": "@bsport/ui-components",
+  "name": "@bsport/kaizen-primitive-components",
   "version": "1.0.0",
   "description": "",
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs",
     "prettier": "prettier",
-    "storybook": "sb dev"
+    "storybook:build": "sb build",
+    "storybook:dev": "sb dev"
   },
   "keywords": [],
   "author": "Marwan El Boussarghini<marwan@bsport.io>",

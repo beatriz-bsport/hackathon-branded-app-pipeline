@@ -17,6 +17,7 @@ import { getAuthToken } from '../../http';
 // @ts-expect-error
 import { getFranchiseTheme } from '../../theme';
 import { fetchFranchise as fetchFranchiseAction } from '../../libs/franchise/actions';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
 import {
   generateTempPassword as generateTempPasswordAction,
   fetchTempPassword as fetchTempPasswordAction,
@@ -124,14 +125,20 @@ const FranchiseRouter = (props: Props) => {
     fetchFranchiseRoles,
     pushRouter,
     franchisePermissions,
+    fetchCompanyTheme,
   } = props;
 
   useSaasRouterTracker(BsportRequestFromHeaderValue.SAAS_FRANCHISE_BACKOFFICE);
 
   useEffect(() => {
-    fetchFranchise();
+    fetchFranchise({
+      onSuccess: (franchiseDetails) => {
+        franchiseDetails?.companies?.length > 0 &&
+          fetchCompanyTheme(franchiseDetails?.companies[0].id);
+      },
+    });
     fetchFranchiseRoles();
-  }, [fetchFranchise, fetchFranchiseRoles]);
+  }, [fetchFranchise, fetchFranchiseRoles, fetchCompanyTheme]);
 
   const [displayLeftMenu, setDisplayLeftMenu] = useState(true);
 
@@ -309,6 +316,7 @@ const connector = connect(
     fetchFranchiseRoles: fetchFranchiseRolesAction,
     generateTempPassword: generateTempPasswordAction,
     fetchTempPassword: fetchTempPasswordAction,
+    fetchCompanyTheme: fetchCompanyThemeAction,
     pushRouter: push,
     signout: () => push(`/login/signout`),
   },

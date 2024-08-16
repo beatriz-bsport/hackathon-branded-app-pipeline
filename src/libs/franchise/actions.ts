@@ -62,7 +62,7 @@ export const fetchFranchiseActions = {
   ),
 };
 
-export function fetchFranchise(options?: OptionCallback) {
+export function fetchFranchise(options?: OptionCallback<FranchiseDetails>) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchFranchiseActions.isLoading(true));
     dispatch(fetchFranchiseActions.error(null));
@@ -71,7 +71,7 @@ export function fetchFranchise(options?: OptionCallback) {
       const response = await fetchFranchiseAPI();
       dispatch(fetchFranchiseActions.success({ franchisor: response.data }));
 
-      options?.onSuccess?.();
+      options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(fetchFranchiseActions.error(error));
       options?.onError?.(error);

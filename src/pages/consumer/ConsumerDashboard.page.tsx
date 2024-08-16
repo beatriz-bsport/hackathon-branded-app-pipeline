@@ -32,7 +32,10 @@ import { fetchMembership as fetchMembershipAction } from '#src/libs/membership/a
 import { fetchMyUserProfile } from '#src/libs/member/actions';
 
 import { getFavoriteEstablishment } from '#src/libs/establishment/selectors';
-import { getFavoriteMetaActivity } from '#src/libs/meta-activity/selectors';
+import {
+  getFavoriteMetaActivity,
+  getMetaActivity,
+} from '#src/libs/meta-activity/selectors';
 import { retrieveGroupOffer } from '#src/libs/group-offer/selectors';
 import { getMemberTagsIdsList } from '#src/libs/tag/selectors';
 import {
@@ -105,7 +108,7 @@ import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions'
 import { withCustomLevel } from '#src/libs/level/selectors';
 import { withInvoiceItem, getInvoiceList } from '#src/libs/invoice/selectors';
 import { Membership } from '#src/libs/membership/types';
-import type { Booking } from '#src/libs/booking/types';
+import type { Booking, BookingOption } from '#src/libs/booking/types';
 import { Invoice } from '#src/libs/invoice/types';
 import {
   fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsAction,
@@ -212,6 +215,11 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
                 new Set(options?.results?.map((option) => option.level) ?? []),
               ),
             });
+            this.props.fetchMetaActivityBulk(
+              options.map(
+                (bookingOption: BookingOption) => bookingOption.meta_activity,
+              ),
+            );
           }
         },
       },
@@ -380,6 +388,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
                   WAITING_LIST_DYNAMIC_ORDERED &&
                 this.props.waitingListConfiguration?.display_member_position
               }
+              getMetaActivity={this.props.getMetaActivity}
               offerStatusWaitinListPositionById={
                 this.props.offerStatusWaitinListPositionById
               }
@@ -515,6 +524,7 @@ const mapStateToProps = (state: RootState, props) => ({
   waitingListConfiguration: getWaitingListConfigurationData(state),
   offerStatusWaitinListPositionById:
     getOfferStatusWaitingListPositionById(state),
+  getMetaActivity: (id: number) => getMetaActivity(state, id),
 });
 
 const mapDispatchToProps = {

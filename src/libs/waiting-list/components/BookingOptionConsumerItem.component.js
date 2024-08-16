@@ -15,7 +15,7 @@ import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personal
 import { CustomChip } from '#src/components/chip/CustomChip.component';
 import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
 import RedButton from '../../../components/button/RedButton.component';
-import { formatAsDatetime } from '../../../utils/datetime';
+import { getUserZone, formatAsDatetimeAdapted } from '../../../utils/datetime';
 import type { BookingOption } from '../../../api/types';
 
 type OwnProps = {
@@ -28,6 +28,7 @@ type OwnProps = {
   waitingListPosition: { member_position: number, waiting_list_size: number },
   t: (x: string) => string,
   coachDisplay?: MarketPlaceCoachDisplay,
+  metaActivity: MetaActivity,
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -102,9 +103,15 @@ export class BookingOptionConsumerItem extends Component<Props> {
   };
 
   render() {
-    const { bookingOption, classes } = this.props;
+    const { bookingOption, classes, metaActivity } = this.props;
     const { offer, is_convertible } = bookingOption;
     const { activity } = offer;
+
+    const tzName = metaActivity?.is_broadcast
+      ? getUserZone()
+      : (activity.establishment || activity.etablissement)?.tzname ??
+        'Europe/Paris';
+
     return (
       <Paper>
         <Grid
@@ -119,11 +126,10 @@ export class BookingOptionConsumerItem extends Component<Props> {
                 noDivider
                 activity={activity}
                 coachDisplay={this.props.coachDisplay}
-                date={formatAsDatetime(
+                date={formatAsDatetimeAdapted(
                   offer.date_start,
-                  offer && offer.activity && offer.activity.establishment
-                    ? offer.activity.establishment.tzname
-                    : 'Europe/Paris',
+                  'D - t',
+                  tzName,
                 )}
                 offer={offer}
               />

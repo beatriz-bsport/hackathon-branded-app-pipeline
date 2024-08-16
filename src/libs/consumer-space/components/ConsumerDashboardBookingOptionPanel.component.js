@@ -21,6 +21,7 @@ type Props = {
   confirmBookingOption: (offerId: number, bookingOptionId: number) => void,
   cancelBookingOption: (optionId: number) => void,
   coachDisplay?: MarketPlaceCoachDisplay,
+  getMetaActivity: (id: number) => MetaActivity,
 };
 
 export class ConsumerDashboardBookingOptionPanel extends React.PureComponent<Props> {
@@ -54,6 +55,9 @@ export class ConsumerDashboardBookingOptionPanel extends React.PureComponent<Pro
                 displayPositionInWaitingList={
                   this.props.displayPositionInWaitingList
                 }
+                metaActivity={this.props.getMetaActivity(
+                  bookingOption.meta_activity,
+                )}
                 waitingListPosition={
                   this.props.offerStatusWaitinListPositionById?.[
                     bookingOption.offer.id

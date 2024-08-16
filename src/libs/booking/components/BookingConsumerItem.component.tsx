@@ -25,6 +25,7 @@ import PlaceNumber from '#src/libs/spot-scheduling/component/PlaceNumber.compone
 import {
   formatAsDatetimeAdapted,
   formatISOStringAsTime,
+  getUserZone,
 } from '../../../utils/datetime';
 import RedButton from '../../../components/button/RedButton.component';
 import { Booking } from '../types';
@@ -57,10 +58,9 @@ export const BookingConsumerItem = (props: Props) => {
   const { offer } = booking;
   if (!offer) return null;
   const { meta_activity, coach, establishment } = offer;
-  let timezone = '';
-  if (establishment && meta_activity && !offer.meta_activity.is_broadcast) {
-    timezone = establishment.tzname;
-  }
+  let timezone = offer.meta_activity.is_broadcast
+    ? getUserZone()
+    : establishment.tzname;
 
   const coachName = getCoachDisplayName(
     coachDisplay,
@@ -90,7 +90,9 @@ export const BookingConsumerItem = (props: Props) => {
               ? formatAsDatetimeAdapted(offer.date_start, 'DDD', timezone)
               : ' - '
           }
-          secondary={offer ? formatISOStringAsTime(offer.date_start) : ' - '}
+          secondary={
+            offer ? formatISOStringAsTime(offer.date_start, timezone) : ' - '
+          }
         />
       </ListItem>
       {/* @ts-expect-error */}

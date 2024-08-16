@@ -41,6 +41,34 @@
   --dimensionKaizenBaseUnitsUnit250: 1000px;
   --dimensionKaizenBaseUnitsUnit300: 1200px;
   --dimensionKaizenBaseUnitsUnit350: 1400px;
+  /* Applied to Margins, paddings and gaps. */
+  --dimensionKaizenSizingElement2xs: 4px;
+  /* Applied to Margins, paddings and gaps. */
+  --dimensionKaizenSizingElementXs: 8px;
+  --dimensionKaizenSizingElementSm: 16px;
+  --dimensionKaizenSizingElementMd: 24px;
+  --dimensionKaizenSizingElementLg: 32px;
+  --dimensionKaizenSizingElementXl: 72px;
+  --dimensionKaizenSizingElement2xl: 140px;
+  --dimensionKaizenSizingElement3xl: 200px;
+  --dimensionKaizenSizingSpacingXs: 4px;
+  --dimensionKaizenSizingSpacingSm: 8px;
+  --dimensionKaizenSizingSpacingMd: 16px;
+  --dimensionKaizenSizingSpacingLg: 24px;
+  --dimensionKaizenSizingSpacingXl: 32px;
+  --dimensionKaizenSizingSpacing2xl: 72px;
+  --dimensionKaizenSizingSpacing3xl: 140px;
+  --dimensionKaizenSizingIcon2xl: 48px;
+  --dimensionKaizenSizingActionLg: 48px;
+  --dimensionKaizenSizingActionMd: 36px;
+  --dimensionKaizenSizingActionSm: 24px;
+  --dimensionKaizenSizingIconXl: 40px;
+  --dimensionKaizenSizingIconLg: 32px;
+  --dimensionKaizenSizingIconMd: 24px;
+  --dimensionKaizenSizingIconSm: 16px;
+  --dimensionKaizenSizingIconXs: 12px;
+  --dimensionKaizenSizingIcon2xs: 8px;
+  --dimensionKaizenSizingComponentContentCentered: 1200px;
   --dimensionKaizenSizingCornerXl: 16px;
   --dimensionKaizenSizingStrokeThin: 1px;
   --dimensionKaizenSizingStrokeRegular: 2px;
@@ -51,6 +79,15 @@
   --dimensionKaizenSizingCornerXs: 4px;
   --dimensionKaizenSizingCornerSquare: 0px;
   --dimensionKaizenSizingCornerCircle: 999px;
+  --dimensionKaizenSizingComponentSelect: 320px;
+  --dimensionKaizenSizingComponentTooltip: 240px;
+  --dimensionKaizenSizingComponentPopverMin: 240px;
+  --dimensionKaizenSizingComponentPopverMax: 320px;
+  --dimensionKaizenSizingComponentListItemMin: 40px;
+  --dimensionKaizenSizingComponentToast: 380px;
+  --dimensionKaizenSizingComponentModalMinSm: 360px;
+  --dimensionKaizenSizingComponentModalMinMd: 600px;
+  --dimensionKaizenSizingComponentModalMinLg: 1000px;
   --dimensionKaizenFontSizeDisplayLg: 72px;
   --dimensionKaizenFontSizeDisplayMd: 40px;
   --dimensionKaizenFontSizeTitle2xl: 36px;
@@ -71,6 +108,20 @@
   --dimensionKaizenFontLineHeightSm: 20px;
   --dimensionKaizenFontLineHeightXs: 16px;
   --dimensionKaizenFontLineHeight2xs: 12px;
+  --dimensionKaizenElevationRest: 4px;
+  --dimensionKaizenContentBlurSm: 4px;
+  --dimensionKaizenContentBlurMd: 8px;
+  --dimensionKaizenContentBlurLg: 12px;
+  --dimensionKaizenContentBlurXl: 24px;
+  --dimensionKaizenElevationHovered: 8px;
+  --dimensionKaizenElevationPressed: 4px;
+  --dimensionKaizenSizingComponentModalMaxSm: 400px;
+  --dimensionKaizenSizingComponentModalMaxMd: 800px;
+  --dimensionKaizenSizingComponentModalMaxLg: 1200px;
+  --dimensionKaizenElevationBlurSm: 8px;
+  --dimensionKaizenElevationBlurMd: 16px;
+  --dimensionKaizenElevationBlurLg: 24px;
+  --dimensionKaizenElevationBlurXl: 32px;
   /* Mobile device breakpoint. */
   --dimensionKaizenSizingBreakpointXs: 480px;
   /* Mobile device breakpoint. */
@@ -79,55 +130,5 @@
   --dimensionKaizenSizingBreakpointLg: 1440px;
   /* Small laptops and tablets in landscape. */
   --dimensionKaizenSizingBreakpointTablet: 1024px;
-  /* Applied to Margins, paddings and gaps. */
-  --dimensionKaizenSizingElement2xs: var(--dimensionKaizenBaseUnitsUnit1);
-  /* Applied to Margins, paddings and gaps. */
-  --dimensionKaizenSizingElementXs: var(--dimensionKaizenBaseUnitsUnit2);
-  --dimensionKaizenSizingElementSm: var(--dimensionKaizenBaseUnitsUnit4);
-  --dimensionKaizenSizingElementMd: var(--dimensionKaizenBaseUnitsUnit6);
-  --dimensionKaizenSizingElementLg: var(--dimensionKaizenBaseUnitsUnit8);
-  --dimensionKaizenSizingElementXl: var(--dimensionKaizenBaseUnitsUnit18);
-  --dimensionKaizenSizingElement2xl: var(--dimensionKaizenBaseUnitsUnit35);
-  --dimensionKaizenSizingElement3xl: var(--dimensionKaizenBaseUnitsUnit50);
-  --dimensionKaizenSizingSpacingXs: var(--dimensionKaizenBaseUnitsUnit1);
-  --dimensionKaizenSizingSpacingSm: var(--dimensionKaizenBaseUnitsUnit2);
-  --dimensionKaizenSizingSpacingMd: var(--dimensionKaizenBaseUnitsUnit4);
-  --dimensionKaizenSizingSpacingLg: var(--dimensionKaizenBaseUnitsUnit6);
-  --dimensionKaizenSizingSpacingXl: var(--dimensionKaizenBaseUnitsUnit8);
-  --dimensionKaizenSizingSpacing2xl: var(--dimensionKaizenBaseUnitsUnit18);
-  --dimensionKaizenSizingSpacing3xl: var(--dimensionKaizenBaseUnitsUnit35);
-  --dimensionKaizenSizingIcon2xl: var(--dimensionKaizenBaseUnitsUnit12);
-  --dimensionKaizenSizingActionLg: var(--dimensionKaizenBaseUnitsUnit12);
-  --dimensionKaizenSizingActionMd: var(--dimensionKaizenBaseUnitsUnit9);
-  --dimensionKaizenSizingActionSm: var(--dimensionKaizenBaseUnitsUnit6);
-  --dimensionKaizenSizingIconXl: var(--dimensionKaizenBaseUnitsUnit10);
-  --dimensionKaizenSizingIconLg: var(--dimensionKaizenBaseUnitsUnit8);
-  --dimensionKaizenSizingIconMd: var(--dimensionKaizenBaseUnitsUnit6);
-  --dimensionKaizenSizingIconSm: var(--dimensionKaizenBaseUnitsUnit4);
-  --dimensionKaizenSizingIconXs: var(--dimensionKaizenBaseUnitsUnit3);
-  --dimensionKaizenSizingIcon2xs: var(--dimensionKaizenBaseUnitsUnit2);
-  --dimensionKaizenSizingComponentContentCentered: var(--dimensionKaizenBaseUnitsUnit300);
-  --dimensionKaizenSizingComponentSelect: var(--dimensionKaizenBaseUnitsUnit80);
-  --dimensionKaizenSizingComponentTooltip: var(--dimensionKaizenBaseUnitsUnit60);
-  --dimensionKaizenSizingComponentPopverMin: var(--dimensionKaizenBaseUnitsUnit60);
-  --dimensionKaizenSizingComponentPopverMax: var(--dimensionKaizenBaseUnitsUnit80);
-  --dimensionKaizenSizingComponentListItemMin: var(--dimensionKaizenBaseUnitsUnit10);
-  --dimensionKaizenSizingComponentToast: var(--dimensionKaizenBaseUnitsUnit95);
-  --dimensionKaizenSizingComponentModalMinSm: var(--dimensionKaizenBaseUnitsUnit90);
-  --dimensionKaizenSizingComponentModalMinMd: var(--dimensionKaizenBaseUnitsUnit150);
-  --dimensionKaizenSizingComponentModalMinLg: var(--dimensionKaizenBaseUnitsUnit250);
-  --dimensionKaizenElevationRest: var(--dimensionKaizenBaseUnitsUnit1);
-  --dimensionKaizenContentBlurSm: var(--dimensionKaizenBaseUnitsUnit1);
-  --dimensionKaizenContentBlurMd: var(--dimensionKaizenBaseUnitsUnit2);
-  --dimensionKaizenContentBlurLg: var(--dimensionKaizenBaseUnitsUnit3);
-  --dimensionKaizenContentBlurXl: var(--dimensionKaizenBaseUnitsUnit6);
-  --dimensionKaizenElevationHovered: var(--dimensionKaizenBaseUnitsUnit2);
-  --dimensionKaizenElevationPressed: var(--dimensionKaizenBaseUnitsUnit1);
-  --dimensionKaizenSizingComponentModalMaxSm: var(--dimensionKaizenBaseUnitsUnit100);
-  --dimensionKaizenSizingComponentModalMaxMd: var(--dimensionKaizenBaseUnitsUnit200);
-  --dimensionKaizenSizingComponentModalMaxLg: var(--dimensionKaizenBaseUnitsUnit300);
-  --dimensionKaizenElevationBlurSm: var(--dimensionKaizenBaseUnitsUnit2);
-  --dimensionKaizenElevationBlurMd: var(--dimensionKaizenBaseUnitsUnit4);
-  --dimensionKaizenElevationBlurLg: var(--dimensionKaizenBaseUnitsUnit6);
-  --dimensionKaizenElevationBlurXl: var(--dimensionKaizenBaseUnitsUnit8);
+  --dimensionKaizenSizingComponentBreadcrumb: 280px;
 }

@@ -31,7 +31,7 @@ const getTranslations = async () => {
     leads: {
       import: 'Import leads',
       notACSV: {
-        title: 'Unsopported file format',
+        title: 'Unsupported file format',
         message:
           'The file is not a CSV. Please check the helpsheet for more information.',
         goToIntercom: ' Open helpsheet',

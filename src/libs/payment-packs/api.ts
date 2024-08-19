@@ -161,7 +161,7 @@ export async function createOrUpdatePaymentPackTemplate(
 ) {
   if (!data.id) {
     return postAuthDeprecated(
-      `${API_V1_URI}/payment-pack/universal-pass-template/`,
+      `${API_V1_URI}/payment-pack/payment-pack-template/`,
       data,
     );
   }

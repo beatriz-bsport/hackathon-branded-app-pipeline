@@ -8,6 +8,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT } from '@bsport/common/lib/master-data/payment-group';
 
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 // @ts-expect-error
@@ -496,6 +497,9 @@ export class MemberDetailPage extends React.PureComponent<Props> {
                   this.props.payment_method_available_manager
                 }
                 balance={this.props.member.credit_account_balance}
+                bsportPaymentMethodsToDisable={[
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
+                ]}
                 cardBillingDetailsMandatory={
                   this.props.companyTheme.force_billing_details_on_cards
                 }

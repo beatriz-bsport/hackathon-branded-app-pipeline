@@ -79,6 +79,7 @@ type Props = {
   stripeId: string | null;
   stripeReaders: StripeReader[];
   unpaidInvoiceList: Array<Invoice>;
+  bsportPaymentMethodsToDisable?: number[];
 };
 
 const PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY = 100;
@@ -119,6 +120,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
   stripeId,
   stripeReaders,
   unpaidInvoiceList,
+  bsportPaymentMethodsToDisable,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['member', 'invoice']);
@@ -506,6 +508,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
                     ? availablePaymentMethodList
                     : [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]
                 }
+                bsportPaymentMethodsToDisable={bsportPaymentMethodsToDisable}
                 cardBillingDetailsMandatory={cardBillingDetailsMandatory}
                 clientSecret={clientSecretLoading ? null : clientSecret}
                 clientSecretError={clientSecretError}

@@ -83,6 +83,7 @@ type Props = {
       { paymentGroupId: number, invoiceUuid: string },
     >,
   ) => void,
+  bsportPaymentMethodsToDisable?: number[],
 };
 
 type State = {
@@ -158,6 +159,21 @@ export class PaymentDialog extends React.Component<Props, State> {
       }
       return true;
     });
+  };
+
+  /**
+   * Filters the bsport payment methods to disable based on the props
+   * This function is only useful for adjusting the member balance method since
+   * we want to remove the ability for the member to adjust his balance based on his
+   * own balance.
+   *
+   * @returns {number[]} The filtered bsport payment methods
+   */
+  getFilteredBsportPaymentMethodChoices = () => {
+    return PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT].filter(
+      (paymentMethod) =>
+        !this.props.bsportPaymentMethodsToDisable?.includes(paymentMethod),
+    );
   };
 
   render() {
@@ -356,9 +372,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                       onError={this.props.onError}
                       onSuccess={this.onSuccess}
                       paymentGroupId={this.props.paymentGroupId}
-                      paymentMethodChoices={
-                        PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT]
-                      }
+                      paymentMethodChoices={this.getFilteredBsportPaymentMethodChoices()}
                       submitInternalPaymentInBackground={
                         this.props.submitInternalPaymentInBackground
                       }

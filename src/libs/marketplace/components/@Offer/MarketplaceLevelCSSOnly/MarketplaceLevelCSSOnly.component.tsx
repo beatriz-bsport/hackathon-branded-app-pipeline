@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import chroma from 'chroma-js';
 import { useTheme } from '@material-ui/core';
 
-import { lighten } from '@material-ui/core/styles/colorManipulator';
 import { getLevelColor, getLevelTranslation } from '#src/libs/level/utils';
 import { Level } from '#src/libs/level/types';
 import { getTextColorFromRGB } from '../../../../../utils/color';
@@ -15,14 +14,12 @@ import './MarketplaceLevelCSSOnly.css';
 export type Props = {
   customLevel: Level;
   className?: string;
-  activityDialog?: boolean;
   hideLevel?: boolean;
 };
 
 const MarketplaceLevelCSSOnly: React.FC<Props> = ({
   customLevel,
   className,
-  activityDialog,
   hideLevel,
 }) => {
   const { t } = useTranslation(['offer', 'translation']);
@@ -43,12 +40,8 @@ const MarketplaceLevelCSSOnly: React.FC<Props> = ({
       style={
         {
           display: 'inline-block',
-          '--level-background-color': activityDialog
-            ? levelColor
-            : lighten(levelColor, 0.8),
-          '--level-color': activityDialog
-            ? getTextColorFromRGB(chroma(levelColor).rgb())
-            : levelColor,
+          '--level-background-color': levelColor,
+          '--level-color': getTextColorFromRGB(chroma(levelColor).rgb()),
         } as CSSProperties
       }
     >

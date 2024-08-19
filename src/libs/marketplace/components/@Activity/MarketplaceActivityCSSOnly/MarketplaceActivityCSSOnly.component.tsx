@@ -223,7 +223,6 @@ export const MarketplaceActivityV2 = (props: Props) => {
               isFreeLabelEnabled={companyTheme?.show_free_session_label}
             />
             <MarketplaceLevel
-              activityDialog
               className="bs-activity__top__content__status__level"
               customLevel={customLevel}
               hideLevel={hideLevel}

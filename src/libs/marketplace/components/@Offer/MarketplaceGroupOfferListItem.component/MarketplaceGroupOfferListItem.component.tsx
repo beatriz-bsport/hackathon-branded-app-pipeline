@@ -200,7 +200,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     if (offersToDisplay.some((o) => bookedOffers?.includes(o?.id))) {
       return true;
     }
-    return !offersToDisplay.some((o) => !o?.full);
+    return false;
   }, [group, offersToDisplay, bookedOffers]);
 
   const groupIsFull = React.useMemo(() => {

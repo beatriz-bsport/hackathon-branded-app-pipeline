@@ -101,6 +101,17 @@ export async function generateInvoiceXml(
   return patchAuth(`${API_V1_URI}/payment/invoices/${uuid}/generate_xml/`, {});
 }
 
+export function generateInvoiceXmlBulk(urlParams: {
+  unexported_yet: boolean;
+  from_last_month: boolean;
+}) {
+  return postAuth<string>(
+    `${API_V1_URI}/payment/invoices/generate_xml_bulk_async/${buildUrlParams(
+      urlParams,
+    )}`,
+  );
+}
+
 export async function fetchConfiguration(): Promise<
   AxiosResponse<InvoiceConfigurationSerializer>
 > {

@@ -28,6 +28,7 @@ import {
   applyBalanceToInvoiceActions,
   applyGiftcardOnInvoiceActions,
   generateInvoiceXmlActions,
+  generateInvoiceXmlBulkActions,
 } from '#src/libs/invoice/actions';
 
 import type {
@@ -95,6 +96,10 @@ const initialState: Immutable.Immutable<InvoiceState> = Immutable<InvoiceState>(
       error: null,
     },
     generateXml: {
+      loading: false,
+      error: null,
+    },
+    generateXmlBulk: {
       loading: false,
       error: null,
     },
@@ -257,6 +262,18 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
         },
         { deep: true },
       );
+    },
+    [generateInvoiceXmlBulkActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['generateXmlBulk', 'loading'], payload);
+    },
+    [generateInvoiceXmlBulkActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['generateXmlBulk', 'error'], payload);
     },
     [returnPaymentActions.isLoading.toString()]: (
       state,

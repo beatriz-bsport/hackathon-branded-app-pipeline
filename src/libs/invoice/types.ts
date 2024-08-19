@@ -37,6 +37,7 @@ export type InvoiceState = ErrorAndLoading & {
   };
   finalize: ErrorAndLoading;
   generateXml: ErrorAndLoading;
+  generateXmlBulk: ErrorAndLoading;
   invoiceInfo: ErrorAndLoading & {
     data: InvoiceInfoSerializer | null;
   };

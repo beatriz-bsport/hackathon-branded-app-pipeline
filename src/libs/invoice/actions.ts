@@ -39,9 +39,10 @@ import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 import type { Payment } from '#src/libs/payment/types';
 import type {
   Dispatch,
+  OptionBackgroundCallback,
   OptionCallback,
   PaginatedResponse,
-} from '../../state/types';
+} from '#src/state/types';
 import {
   revert as revertAPI,
   createQuick as createQuickAPI,
@@ -57,6 +58,7 @@ import {
   fetchInvoiceConfigurationAsMember as fetchInvoiceConfigurationAsMemberAPI,
   finalize as finalizeAPI,
   generateInvoiceXml as generateInvoiceXmlAPI,
+  generateInvoiceXmlBulk as generateInvoiceXmlBulkAPI,
   fetchInvoiceItemList as fetchInvoiceItemListAPI,
   fetchPaymentList as fetchPaymentListAPI,
   checkInvoiceInfo as checkInvoiceInfoAPI,
@@ -76,6 +78,12 @@ import {
   changePaymentMethodAndRegisterPlannedPaymentEvent as changePaymentMethodAndRegisterPlannedPaymentEventAPI,
 } from './api';
 import { ExportInvoiceStatus } from './constants';
+import { monitorBackgroundTask } from '#src/libs/background-task/actions';
+import { displayBackgroundDialog } from '#src/libs/background-dialog/actions';
+import {
+  BackgroundDialogActionMode,
+  BackgroundDialogDisplayMode,
+} from '#src/libs/background-dialog/types';
 
 export const invoiceConfigurationPatchActions = {
   isLoading: createAction<boolean>('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),
@@ -210,6 +218,65 @@ export function generateInvoiceXml(
       options?.onError?.(err);
     }
     dispatch(generateInvoiceXmlActions.isLoading(false));
+  };
+}
+
+export const generateInvoiceXmlBulkActions = {
+  isLoading: createAction<boolean>('INVOICE/GENERATE_XML_BULK/IS_LOADING'),
+  error: createAction<Error | null>('INVOICE/GENERATE_XML_BULK/ERROR'),
+};
+
+export function exportXmlBulk(
+  options?: OptionBackgroundCallback<string> & {
+    backgroundDialog?: {
+      message: string;
+      title: string;
+    };
+  },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(generateInvoiceXmlBulkActions.isLoading(true));
+    dispatch(generateInvoiceXmlBulkActions.error(null));
+    try {
+      const response = await generateInvoiceXmlBulkAPI({
+        unexported_yet: true,
+        from_last_month: true,
+      });
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            options?.onBackgroundSuccess?.();
+            dispatch(generateInvoiceXmlBulkActions.isLoading(false));
+            dispatch(
+              displayBackgroundDialog(
+                backgroundTaskUuid,
+                options?.backgroundDialog?.title,
+                options?.backgroundDialog?.message,
+                response.data,
+                BackgroundDialogActionMode.DOWNLOAD,
+                BackgroundDialogDisplayMode.INFORMATION,
+                'common:close',
+              ),
+            );
+          },
+          onError: (error) => {
+            dispatch(generateInvoiceXmlBulkActions.error(error));
+            dispatch(generateInvoiceXmlBulkActions.isLoading(false));
+            options?.onBackgroundError?.();
+          },
+        }),
+      );
+    } catch (error) {
+      const errorCode = error.response?.data?.error_code;
+      dispatch(
+        snackbarError(`invoice.generateXml.errors.${errorCode || 'default'}`),
+      );
+      dispatch(generateInvoiceXmlBulkActions.error(error));
+      dispatch(generateInvoiceXmlBulkActions.isLoading(false));
+      options?.onError?.();
+    }
   };
 }
 

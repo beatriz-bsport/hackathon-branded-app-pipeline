@@ -2237,7 +2237,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán las solicitudes de sustitución de todas las ubicaciones.",
                     "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
@@ -2281,7 +2281,7 @@
                 "isIntegratedInPartnership": "Una o varias integraciones utilizan este establecimiento.",
                 "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del marketplace están configuradas para mostrar únicamente el calendario y los talleres de este establecimiento, actualízalas antes de eliminar el establecimiento.",
                 "exclusiveEstablishmentGroups": "La ubicación {{- establishment_group_name }} sólo contiene el establecimiento que desea eliminar, actualice o elimine esta ubicación.",
-                "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, actualice o elimine estas ubicaciones.",
+                "exclusiveEstablishmentGroups_plural": "Las ubicaciones{{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, por favor, actualice o elimine estas ubicaciones.",
                 "exclusivePaymentPacks": "El siguiente pase {{- pass_name }} sólo se puede utilizar en este establecimiento. Actualiza sus restricciones antes de eliminar el establecimiento.",
                 "exclusivePaymentPacks_plural": "Los siguientes pases {{- pass_name }} sólo se pueden utilizar en este establecimiento. Actualice sus restricciones antes de eliminar el establecimiento.",
                 "hasExclusiveBillingGroup": "Este establecimiento es el último de su grupo de facturación. Por favor, elimine o actualice este grupo de facturación antes de eliminar este establecimiento.",
@@ -6858,7 +6858,32 @@
             "value": "Número {{id}}"
         },
         "signedUpWithReferral": "Miembro registrado con el enlace de referencia de <1>{{- name }}</1>",
-        "email": "Email"
+        "email": "Email",
+        "leads": {
+            "dialogs": {
+                "errors": {
+                    "title": "Lamentablemente, el proceso de importación ha fallado porque:",
+                    "71002": "Este archivo supera el límite de tamaño máximo",
+                    "71001": "Este fichero no tiene el número de columnas requerido",
+                    "71000": "Espere a que finalice la importación en curso"
+                },
+                "partialSuccess": {
+                    "successImportSubtext": "Miembros creados",
+                    "failedImportSubtext": "Filas incorrectas",
+                    "fileName": "fileMembers.csv",
+                    "lineTwoMessage": "A continuación encontrará los 2 archivos en los que se detalla la situación:",
+                    "lineOneMessage": "Sin embargo, las cuentas de los miembros con datos correctos se han creado correctamente.",
+                    "title": "Algunas filas del archivo contenían errores y no pudieron procesarse"
+                },
+                "success": "Los miembros se han importado correctamente"
+            },
+            "notACSV": {
+                "goToIntercom": " Abrir hoja de ayuda",
+                "message": "El archivo no es un CSV. Consulte la hoja de ayuda para obtener más información.",
+                "title": "Formato de archivo no compatible"
+            },
+            "import": "Importar clientes potenciales"
+        }
     },
     "booking": {
         "details": {
@@ -9072,7 +9097,8 @@
         "couponType": {
             "0": "Código de descuento",
             "3": "Cupón de un solo uso"
-        }
+        },
+        "couponNotFullyAppliedWarning": "Algunos descuentos no se aplicaron en su totalidad, ya que superaban los precios iniciales de los artículos. Los importes de descuento no utilizados se perderán."
     },
     "privateService": {
         "service": {
@@ -11667,6 +11693,15 @@
                     },
                     "privatePass": {
                         "_label": "Tarjetas de cita"
+                    },
+                    "shopReworked": {
+                        "settings": {
+                            "_label": "Ajustes"
+                        },
+                        "products": {
+                            "_label": "Productos"
+                        },
+                        "_label": "Tienda"
                     }
                 },
                 "myClub": {
@@ -11930,6 +11965,26 @@
                         },
                         "compatibility": {
                             "_label": "Gestión de la compatibilidad"
+                        }
+                    }
+                },
+                "shopReworked": {
+                    "_label": "Tienda",
+                    "allowed_actions": {
+                        "editSettings": {
+                            "_label": "Editar ajustes"
+                        },
+                        "editInventory": {
+                            "_label": "Actualizar inventario"
+                        },
+                        "delete": {
+                            "_label": "Borrar productos"
+                        },
+                        "edit": {
+                            "_label": "Editar productos"
+                        },
+                        "create": {
+                            "_label": "Crear productos"
                         }
                     }
                 }
@@ -16306,6 +16361,10 @@
                     "memberProfile": "Perfil de miembro",
                     "general": "General"
                 }
+            },
+            "shop": {
+                "settings": "Ajustes",
+                "products": "Productos"
             }
         },
         "logout": "Cerrar sesión",

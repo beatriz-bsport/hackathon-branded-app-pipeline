@@ -3814,6 +3814,15 @@
                     },
                     "contracts": {
                         "_label": "Anmeldungen"
+                    },
+                    "shopReworked": {
+                        "settings": {
+                            "_label": "Einstellungen"
+                        },
+                        "products": {
+                            "_label": "Produkte"
+                        },
+                        "_label": "Webshop"
                     }
                 },
                 "myClub": {
@@ -5074,6 +5083,26 @@
                         }
                     },
                     "_label": "Anmeldungen"
+                },
+                "shopReworked": {
+                    "_label": "Webshop",
+                    "allowed_actions": {
+                        "editSettings": {
+                            "_label": "Einstellungen bearbeiten"
+                        },
+                        "editInventory": {
+                            "_label": "Inventar aktualisieren"
+                        },
+                        "delete": {
+                            "_label": "Produkte löschen"
+                        },
+                        "edit": {
+                            "_label": "Produkte bearbeiten"
+                        },
+                        "create": {
+                            "_label": "Produkte erstellen"
+                        }
+                    }
                 }
             },
             "management": {
@@ -10680,7 +10709,32 @@
             "label": "Nummer des Ausweisdokuments"
         },
         "signedUpWithReferral": "Mitglied hat sich mit dem Empfehlungslink von <1>{{- name }}</1> angemeldet",
-        "email": "E-Mail"
+        "email": "E-Mail",
+        "leads": {
+            "dialogs": {
+                "errors": {
+                    "title": "Leider ist der Importvorgang fehlgeschlagen, da:",
+                    "71002": "Diese Datei überschreitet die maximale Größe",
+                    "71001": "Diese Datei hat nicht die erforderliche Anzahl von Spalten",
+                    "71000": "Bitte warten Sie, bis der laufende Import abgeschlossen ist"
+                },
+                "partialSuccess": {
+                    "successImportSubtext": "Erstellte Mitglieder",
+                    "failedImportSubtext": "Falsche Zeilen",
+                    "fileName": "dateiMitglieder.csv",
+                    "lineTwoMessage": "Hier finden Sie die 2 Dateien, in denen die Situation beschrieben wird:",
+                    "lineOneMessage": "Die Konten der Mitglieder mit korrekten Daten wurden jedoch korrekt erstellt.",
+                    "title": "Einige Zeilen in der Datei enthielten Fehler und konnten nicht verarbeitet werden"
+                },
+                "success": "Die Mitglieder wurden erfolgreich importiert"
+            },
+            "notACSV": {
+                "goToIntercom": " Hilfsblatt öffnen",
+                "message": "Bei der Datei handelt es sich nicht um eine CSV-Datei. Weitere Informationen finden Sie im Hilfeblatt.",
+                "title": "Nicht unterstütztes Dateiformat"
+            },
+            "import": "Potenzielle Kunden importieren"
+        }
     },
     "common": {
         "text": {
@@ -11058,7 +11112,8 @@
         "couponType": {
             "0": "Rabattcode",
             "3": "Einmaliger Gutschein"
-        }
+        },
+        "couponNotFullyAppliedWarning": "Einige Rabatte wurden nicht vollständig angewandt, da sie den ursprünglichen Preis der Artikel überstiegen. Die nicht genutzten Rabattbeträge gehen verloren."
     },
     "privateService": {
         "openCalendar": "Den Kalender ansehen",
@@ -15212,6 +15267,10 @@
                     "memberProfile": "Mitgliederprofil",
                     "general": "Allgemein"
                 }
+            },
+            "shop": {
+                "settings": "Einstellungen",
+                "products": "Produkte"
             }
         },
         "logout": "Abmelden",
@@ -17047,7 +17106,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Die Lehrkräfte {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhalten die Lehrkräfte daher Vertretungsanfragen von jeder Einrichtung.",
+                "exclusiveAssociatedCoaches_plural": "Ihre Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gestellt wird. Wenn Sie die Einrichtung löschen, erhalten sie daher Vertretungsanfragen von jeder Einrichtung.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",

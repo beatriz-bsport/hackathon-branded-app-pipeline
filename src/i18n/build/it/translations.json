@@ -4677,6 +4677,10 @@
                     "memberProfile": "Profilo del membro",
                     "general": "Generale"
                 }
+            },
+            "shop": {
+                "settings": "Impostazioni",
+                "products": "Prodotti"
             }
         },
         "logout": "Logout",
@@ -5903,7 +5907,8 @@
             },
             "create": {
                 "success": "Notifica creata con successo",
-                "error": "Impossibile creare una notifica"
+                "error": "Impossibile creare una notifica",
+                "errorLackRequiredVariables": "Aggiorna inventario"
             }
         },
         "privatePass": {
@@ -10988,7 +10993,32 @@
             "label": "Codice fiscale"
         },
         "signedUpWithReferral": "Il membro si è iscritto tramite il link di <1>{{- name }}</1>",
-        "email": "Email"
+        "email": "Email",
+        "leads": {
+            "dialogs": {
+                "errors": {
+                    "title": "Sfortunatamente, il processo di importazione è fallito perché:",
+                    "71002": "Questo file supera il limite massimo di dimensione",
+                    "71001": "Questo file non ha il numero di colonne richiesto",
+                    "71000": "Attendere la finalizzazione dell'importazione in corso"
+                },
+                "partialSuccess": {
+                    "successImportSubtext": "Membri creati",
+                    "failedImportSubtext": "Righe errate",
+                    "fileName": "fileMembri.csv",
+                    "lineTwoMessage": "Per cortesia, trova i 2 file che dettagliano la situazione:",
+                    "lineOneMessage": "Tuttavia, gli account per i membri con dati corretti sono stati creati con successo.",
+                    "title": "Alcune righe nel file contenevano errori e non sono state elaborate"
+                },
+                "success": "I membri sono stati importati con successo"
+            },
+            "notACSV": {
+                "goToIntercom": " Apri scheda di aiuto",
+                "message": "Il file non è in formato CSV. Per cortesia, consulta la scheda di aiuto per ulteriori informazioni.",
+                "title": "Formato file non supportato"
+            },
+            "import": "Importa contatti"
+        }
     },
     "booking": {
         "statusCode": {
@@ -12724,7 +12754,8 @@
         "couponType": {
             "0": "Codice sconto",
             "3": "Voucher monouso"
-        }
+        },
+        "couponNotFullyAppliedWarning": "Alcuni sconti non sono stati applicati completamente perché superavano il prezzo iniziale degli articoli. Gli importi degli sconti non utilizzati andranno persi."
     },
     "tag": {
         "form": {
@@ -13088,7 +13119,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il vostro marketplace non visualizzeranno più il calendario della sede.",
                     "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate.",
                     "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceverà quindi le richieste di sostituzione da tutte le sedi.",
-                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceveranno quindi le richieste di sostituzione da ogni sede.",
+                    "exclusiveAssociatedCoaches_plural": "I tuoi insegnanti {{- coach_name }} vengono notificati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceveranno quindi richieste di sostituzione da tutte le sedi.",
                     "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, non riceveranno più la relativa notifica.",
                     "hasRelatedStaffConfigurations": "Questa sede è utilizzata per il monitoraggio degli accessi da parte di uno o più utenti staff. Eliminando la sede senza selezionarne una nuova, questi non potranno più effettuare il monitoraggio degli accessi."
                 },
@@ -13109,17 +13140,17 @@
                 "hasRelatedZoomEstablishment": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti utilizzati per lo streaming in diretta con l'integrazione di Zoom.",
                 "hasRelatedAvailabilitySlots": "Le fasce orarie disponibili dell'orario di questo stabilimento saranno cancellate.",
                 "relatedPaymentPacks": "Il seguente pass {{- pass_name }} non sarà più utilizzabile per questo stabilimento, assicuratevi di informare i vostri clienti.",
-                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
+                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicurati di informare i tuoi clienti di questo cambiamento.",
                 "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
                 "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
-                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati quando viene fatta una richiesta di sostituzione per una sessione solo in questo stabilimento. Eliminando lo stabilimento, riceveranno le richieste di sostituzione da tutti gli stabilimenti.",
+                "exclusiveAssociatedCoaches_plural": "I tuoi insegnanti {{- coach_name }} vengono notificati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceveranno quindi richieste di sostituzione da tutti gli stabilimenti.",
                 "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
                 "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
-                "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Cancellando lo stabilimento , queste fasce orarie saranno eliminate.",
+                "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili solo per alcuni orari in questo stabilimento. Eliminando lo stabilimento, questi orari verranno cancellati.",
                 "hasRelatedStaffConfigurations": "Questo stabilimento sarà rimosso dagli stabilimenti utilizzati dgli utenti staff per il monitoraggio degli accessi.",
                 "hasExclusiveStaffConfigurations": "Alcuni utenti Staff sono configurati per monitorare l'accesso dei membri per questo stabilimento. Eliminando lo stabilimento senza selezionarne uno nuovo, non potranno più effettuare il monitoraggio degli accessi.",
                 "exclusivePrivateServices": "L'appuntamento {{- private_service_name }} è configurato per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, l'appuntamento potrà svolgersi ovunque.",
-                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, gli appuntamenti potranno svolgersi ovunque.",
+                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, questi appuntamenti potranno svolgersi ovunque.",
                 "hasBillingGroup": "Questo stabilimento sarà anche rimosso dal gruppo di fatturazione {{- establishment_billing_group_name }}."
             },
             "infos": {
@@ -13132,9 +13163,9 @@
                 "isIntegratedInPartnership": "Una o più integrazioni utilizzano questo stabilimento.",
                 "hasExclusiveMarketplaceComponentConfigs": "Una o più schede del marketplace sono impostate per visualizzare solo il calendario e gli workshop di questo stabilimento; si prega di aggiornarle prima di eliminare lo stabilimento.",
                 "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
-                "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare, si prega di aggiornare o eliminare queste sedi.",
+                "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo gli stabilimenti che desideri eliminare, ti preghiamo di aggiornare o eliminare queste sedi.",
                 "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
-                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
+                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questa struttura. Per cortesia, aggiornare le restrizioni prima di cancellare la struttura.",
                 "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
                 "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
                 "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."
@@ -16221,6 +16252,15 @@
                     },
                     "paymentPack": {
                         "_label": "Pacchetti"
+                    },
+                    "shopReworked": {
+                        "settings": {
+                            "_label": "Impostazioni"
+                        },
+                        "products": {
+                            "_label": "Prodotti"
+                        },
+                        "_label": "Shop"
                     }
                 },
                 "myClub": {
@@ -17481,7 +17521,27 @@
                     },
                     "_label": "Abbonamenti ricorrenti"
                 },
-                "_label": "Gestione dei prodotti"
+                "_label": "Gestione dei prodotti",
+                "shopReworked": {
+                    "_label": "Shop",
+                    "allowed_actions": {
+                        "editSettings": {
+                            "_label": "Modifica impostazioni"
+                        },
+                        "editInventory": {
+                            "_label": "Aggiorna inventario"
+                        },
+                        "delete": {
+                            "_label": "Elimina prodotti"
+                        },
+                        "edit": {
+                            "_label": "Modifica prodotti"
+                        },
+                        "create": {
+                            "_label": "Crea prodotti"
+                        }
+                    }
+                }
             },
             "management": {
                 "activity": {

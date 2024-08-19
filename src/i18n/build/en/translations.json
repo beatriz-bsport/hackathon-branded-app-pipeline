@@ -13169,6 +13169,11 @@
         "officialIdNumber": {
             "value": "Number {{id}}",
             "label": "Identity document number"
+        },
+        "leads": {
+            "notACSV": {
+                "title": "Unsupported file format"
+            }
         }
     },
     "booking": {

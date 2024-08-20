@@ -191,7 +191,10 @@ import MultiSessionModalStepper from '#src/pages/checkout/booker-modules/Similar
 import withScrollHeightListener from '#src/hocs/with-widget-scroll-height-listener.hoc';
 import { RootState } from '../../../../reducers';
 import { buildUrlParams } from '../../../../http';
-import type { OptionCallback } from '../../../../state/types';
+import type {
+  OptionCallback,
+  PaginatedResponse,
+} from '../../../../state/types';
 import type { WithHandlerType } from '../../../../utils/types';
 import type { MemberMinimal } from '#src/libs/member/types';
 import BookingForAnotherSelector from '#src/libs/booker-module/components/BookingForAnotherSelector.component';
@@ -308,7 +311,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           page_size: SIMILAR_OFFER_PAGE_SIZE,
         },
         {
-          onSuccess: (offers: OfferREST[]) => {
+          onSuccess: (data: PaginatedResponse<OfferREST>) => {
+            const offers = data.results;
             if (offers && offers.length) {
               this.props.fetchMetaActivityBulk(
                 offers.map((offer) => offer.meta_activity),
@@ -1515,6 +1519,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               assetByIdBlueprintByIdentifier={
                 this.props.assetByIdBlueprintByIdentifier
               }
+              companyTheme={this.props.theme}
               establishments={this.props.establishments}
               fetchMoreSessions={this.fetchSimilarOffers}
               fetchOfferStatus={this.fetchOfferStatus}
@@ -1535,7 +1540,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
                 this.props.spotTypes,
               )}
-              theme={this.props.theme}
               updateSpotForOffer={this.updateSpotForOffer}
             />
           </>

@@ -14,8 +14,6 @@ type Props = {
   isOpen: boolean;
   /** Handler function fired when closing the modal / drawer */
   onClose: () => void;
-  /** Handler function fired when opening the modal / drawer*/
-  onOpen?: () => void;
   maxWidth: Breakpoint;
 };
 

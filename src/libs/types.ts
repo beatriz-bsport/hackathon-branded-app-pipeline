@@ -103,3 +103,22 @@ export type SelectOption<T = string> = {
   label: string;
   value: T;
 };
+
+/**
+ * Used to type object that are used to store data with identifier as key
+ * for example when you want to store data by Id you want to use an Object with Keys
+ * Where the id of the data you fetched will be used as a key identifier
+ *
+ * The T generic type is used to allow you to use any data that you want with this type
+ *
+ * @example
+ *
+ * type OfferById = {
+ *  91020: OfferData,
+ *  56230: OfferData,
+ * }
+ *
+ */
+export type ObjectWithKeys<T> = {
+  [key: number | string]: T;
+};

@@ -181,7 +181,7 @@
 .bs-booker-module-offer-summary-item-divider {
   margin-top: var(--bs-spacing-2);
   margin-bottom: var(--bs-spacing-2);
-  border: 1px solid #f1f3f4;
+  border: 1px solid var(--border-color);
   border-radius: var(--bs-spacing-3);
   width: 94%;
   align-self: center;

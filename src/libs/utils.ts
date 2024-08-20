@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 import { CUSTOM_ERROR_CODE } from './constants';
+import { ObjectWithKeys } from './types';
 
 /**
  * @description Checks if the error given by the API is a custom error with CUSTOM_ERROR_CODE status
@@ -114,10 +115,6 @@ export function checkPrimitiveArraysEqual<T>(arr1: T[], arr2: T[]) {
 
   return frequencyMap.size === 0;
 }
-
-export type ObjectWithKeys<T> = {
-  [key: number | string]: T;
-};
 
 /**
  * Takes one objects that have primitives values such as string or number as a key to identify

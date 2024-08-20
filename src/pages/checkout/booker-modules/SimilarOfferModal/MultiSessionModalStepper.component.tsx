@@ -15,20 +15,10 @@ import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/b
 
 import './styles.css';
 
-const ADD_SIMILAR_OFFER_STEPS = [
-  {
-    name: 'Select session',
-    Component: (props: MultiSessionOfferFinalProps) => (
-      <MultiSessionsOfferSelector {...props} />
-    ),
-  },
-  {
-    name: 'Select spot',
-    Component: (props: MultiSessionSpotFinalProps) => (
-      <MultiSessionSpotSelector {...props} />
-    ),
-  },
-];
+enum MultiSessionModalStepperStater {
+  SESSION = 0,
+  SPOT = 1,
+}
 
 type Props = {
   isOpen: boolean;
@@ -54,11 +44,11 @@ const MultiSessionModalStepper: React.FC<Props> = ({
   roomBlueprintsById,
   selectedSpotsIds,
   spotTypes,
-  theme,
+  companyTheme,
   isOpen,
   isAbleToFetchMoreSimilarSessions,
 }) => {
-  const [currentStep, setCurrentStep] = React.useState<number>(1);
+  const [currentStep, setCurrentStep] = React.useState<number>(0);
   const [preSelectedOffer, setPreSelectedOffer] =
     React.useState<OfferREST | null>(null);
 
@@ -66,7 +56,7 @@ const MultiSessionModalStepper: React.FC<Props> = ({
     (offer: OfferREST) => {
       if (offer) {
         onConfirm(offer);
-        setCurrentStep(1);
+        setCurrentStep(0);
         setPreSelectedOffer(null);
       }
     },
@@ -77,7 +67,7 @@ const MultiSessionModalStepper: React.FC<Props> = ({
     const isSpotSchedulingActivated =
       preSelectedOffer && preSelectedOffer.room_blueprint;
     if (
-      currentStep < ADD_SIMILAR_OFFER_STEPS.length &&
+      currentStep < Object.values(MultiSessionModalStepperStater).length &&
       isSpotSchedulingActivated
     ) {
       setCurrentStep((current) => current + 1);
@@ -87,35 +77,38 @@ const MultiSessionModalStepper: React.FC<Props> = ({
   }, [currentStep, setCurrentStep, onConfirmSessionToAdd, preSelectedOffer]);
 
   const previousStep = React.useCallback(() => {
-    if (currentStep > 1) {
+    if (currentStep > 0) {
       setCurrentStep((current) => current - 1);
     }
   }, [currentStep, setCurrentStep]);
 
-  const getStepProps = React.useCallback(():
-    | MultiSessionOfferFinalProps
-    | MultiSessionSpotFinalProps => {
-    if (currentStep === 1) {
-      const bookableSimilarOffers = similarOffers.filter(
+  const bookableSimilarOffers = React.useMemo(
+    () =>
+      similarOffers.filter(
         (similarOffer) =>
           offerStatusById[similarOffer.id]?.bookable_status ===
           OFFER_BOOKABLE_STATUS_BOOKABLE,
-      );
+      ) ?? [],
+    [offerStatusById, similarOffers],
+  );
 
-      return {
-        setPreSelectedOffer,
-        metaActivities,
-        establishments,
-        similarOffers: bookableSimilarOffers,
-        fetchMoreSessions,
-        nextStep,
-        preSelectedOffer,
-        theme,
-        onClose,
-        isAbleToFetchMoreSimilarSessions,
-      };
-    }
-    return {
+  const currentProps: (
+    | MultiSessionOfferFinalProps
+    | MultiSessionSpotFinalProps
+  )[] = [
+    {
+      setPreSelectedOffer,
+      metaActivities,
+      establishments,
+      similarOffers: bookableSimilarOffers,
+      fetchMoreSessions,
+      nextStep,
+      preSelectedOffer,
+      companyTheme,
+      onClose,
+      isAbleToFetchMoreSimilarSessions,
+    },
+    {
       assetByIdBlueprintByIdentifier,
       addSessionOffer: onConfirmSessionToAdd,
       getSpotExpirationDatetime,
@@ -129,42 +122,25 @@ const MultiSessionModalStepper: React.FC<Props> = ({
       selectedSpotsIds,
       spotTypes,
       previousStep,
-      theme,
-    };
-  }, [
-    currentStep,
-    fetchSpotForBlueprint,
-    setPreSelectedOffer,
-    metaActivities,
-    establishments,
-    similarOffers,
-    fetchMoreSessions,
-    nextStep,
-    preSelectedOffer,
-    theme,
-    onClose,
-    assetByIdBlueprintByIdentifier,
-    onConfirmSessionToAdd,
-    getSpotExpirationDatetime,
-    fetchOfferStatus,
-    getSpotCurrentlyInBasket,
-    updateSpotForOffer,
-    offerStatusById,
-    roomBlueprintsById,
-    selectedSpotsIds,
-    spotTypes,
-    previousStep,
-    isAbleToFetchMoreSimilarSessions,
-  ]);
-
-  const ActiveComponent: React.FC<
-    MultiSessionOfferSelectorProps | MultiSessionSpotSelectorProps
-  > = ADD_SIMILAR_OFFER_STEPS[currentStep - 1]?.Component;
+      companyTheme,
+    },
+  ];
 
   return (
     <div className="bs-new-offer-booking-multi-session">
       <ModalToDrawerSwitcher isOpen={isOpen} maxWidth="md" onClose={onClose}>
-        <ActiveComponent {...getStepProps()} />
+        <>
+          {currentStep === MultiSessionModalStepperStater.SESSION && (
+            <MultiSessionsOfferSelector
+              {...(currentProps[currentStep] as MultiSessionOfferFinalProps)}
+            />
+          )}
+          {currentStep === MultiSessionModalStepperStater.SPOT && (
+            <MultiSessionSpotSelector
+              {...(currentProps[currentStep] as MultiSessionSpotFinalProps)}
+            />
+          )}
+        </>
       </ModalToDrawerSwitcher>
     </div>
   );

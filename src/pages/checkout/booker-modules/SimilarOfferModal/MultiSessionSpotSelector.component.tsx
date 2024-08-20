@@ -38,7 +38,7 @@ export type MultiSessionSpotSelectorProps = {
   roomBlueprintsById: { [key: number]: RoomBlueprint };
   selectedSpotsIds: { [key: number]: number };
   spotTypes: SpotType[];
-  theme: CompanyTheme;
+  companyTheme: CompanyTheme;
 };
 
 type SpotStepperProps = {
@@ -63,26 +63,26 @@ const MultiSessionSpotSelector: React.FC<MultiSessionSpotFinalProps> = ({
   roomBlueprintsById,
   selectedSpotsIds,
   spotTypes,
-  theme,
+  companyTheme,
   previousStep,
 }) => {
   const { t } = useTranslation(['common', 'booking']);
 
   const canvasContainerRef = React.useRef<HTMLDivElement | null>(null);
 
-  const validateSpot = () => {
+  const validateSpot = React.useCallback(() => {
     addSessionOffer(offer);
-  };
+  }, [addSessionOffer, offer]);
 
   return (
-    <div className="bs-new-offer-booking-page-multi-session--spot-selector">
-      <div className="bs-new-offer-booking-multi-session__spot-selector__container">
-        <div className="bs-new-offer-booking-multi-session__spot-selector__header">
-          <div className="bs-new-offer-booking-multi-session__spot-selector__header_text_container">
-            <div className="bs-new-offer-booking-multi-session__spot-selector__header_title">
+    <div className="bs-new-offer-booking-page-multi-session-spot-selector">
+      <div className="bs-new-offer-booking-multi-session-spot-selector__container">
+        <div className="bs-new-offer-booking-multi-session-spot-selector__header">
+          <div className="bs-new-offer-booking-multi-session-spot-selector__header__text__container">
+            <div className="bs-new-offer-booking-multi-session-spot-selector__header__title">
               {t('booking:bookingModule.multiSession.selectSpot.dialogTitle')}
             </div>
-            <div className="bs-new-offer-booking-multi-session__spot-selector__header_subtitle">
+            <div className="bs-new-offer-booking-multi-session-spot-selector__header__subtitle">
               {t(
                 'booking:bookingModule.multiSession.selectSpot.dialogSubtitle',
               )}
@@ -92,7 +92,7 @@ const MultiSessionSpotSelector: React.FC<MultiSessionSpotFinalProps> = ({
             <Close />
           </ButtonBase>
         </div>
-        <div className="bs-new-offer-booking-multi-session__spot-selector__blueprint">
+        <div className="bs-new-offer-booking-multi-session-spot-selector__blueprint">
           {offer &&
             roomBlueprintsById &&
             roomBlueprintsById[offer.room_blueprint] && (
@@ -111,26 +111,26 @@ const MultiSessionSpotSelector: React.FC<MultiSessionSpotFinalProps> = ({
                   selectedSpot={selectedSpotsIds[offer.id]}
                   spotCurrentlyInBasket={getSpotCurrentlyInBasket(offer.id)}
                   spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(spotTypes)}
-                  theme={theme}
+                  theme={companyTheme}
                   updateSpotForOffer={updateSpotForOffer}
                 />
               </div>
             )}
         </div>
-        <div className="bs-new-offer-booking-multi-session__spot-selector__footer">
+        <div className="bs-new-offer-booking-multi-session-spot-selector__footer">
           <Button
-            className="bs-new-offer-booking-multi-session__spot-selector__confirm_button"
+            className="bs-new-offer-booking-multi-session-spot-selector__confirm__button"
             onClick={validateSpot}
           >
             {t(
               'booking:bookingModule.multiSession.selectSpot.validationButton',
-            ).toUpperCase()}
+            )}
           </Button>
           <Button
-            className="bs-new-offer-booking-multi-session__spot-selector__cancel_button"
+            className="bs-new-offer-booking-multi-session-spot-selector__cancel__button"
             onClick={previousStep}
           >
-            {t('common:cancel').toUpperCase()}
+            {t('common:cancel')}
           </Button>
         </div>
       </div>

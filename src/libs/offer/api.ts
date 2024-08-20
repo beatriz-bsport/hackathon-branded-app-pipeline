@@ -18,10 +18,10 @@ import type {
   OfferStatusParams,
   OfferStatus,
   OfferREST,
+  FetchSimilarOffersParams,
 } from './types';
 
 import { PaginatedResponse } from '../../state/types';
-import { FetchSimilarOffersParams } from './actions';
 import type { AxiosResponse } from 'axios';
 
 export async function createOffers(data: OfferCreate) {

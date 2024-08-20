@@ -55,7 +55,6 @@ const getTranslations = async () => {
         addSession: {
           dialogTitle: 'Add a session',
           dialogSubtitle: 'Select the session that you want to book',
-          fetchButton: 'Show more',
           noContent: 'No similar sessions has been found.',
         },
         selectSpot: {

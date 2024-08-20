@@ -11,6 +11,7 @@ import {
   OptionBackgroundCallback,
   OptionCallback,
   OptionPaginatedCallback,
+  PaginatedResponse,
   ThunkAction,
 } from '../../state/types';
 import {
@@ -62,6 +63,7 @@ import type {
   OfferStatusWaitingListPosition,
   OfferStatusParams,
   OfferREST,
+  FetchSimilarOffersParams,
 } from './types';
 
 import chunk from 'lodash/chunk';
@@ -75,10 +77,12 @@ export const similarOffers = {
 };
 
 export const similarOffersReworked = {
-  isLoading: createAction('OFFERS/SIMILAR_REWORKED/IS_LOADING'),
-  error: createAction('OFFERS/SIMILAR_REWORKED/ERROR'),
-  success: createAction('OFFERS/SIMILAR_REWORKED/SUCCESS'),
-  reset: createAction('OFFERS/SIMILAR_REWORKED/RESET'),
+  isLoading: createAction<boolean>('OFFERS/SIMILAR_REWORKED/IS_LOADING'),
+  error: createAction<Error | null>('OFFERS/SIMILAR_REWORKED/ERROR'),
+  success: createAction<PaginatedResponse<OfferREST>>(
+    'OFFERS/SIMILAR_REWORKED/SUCCESS',
+  ),
+  reset: createAction<void>('OFFERS/SIMILAR_REWORKED/RESET'),
 };
 
 export const resetSimilarOffers = similarOffers.reset;
@@ -120,16 +124,10 @@ export function fetchSimilarOffers(
   };
 }
 
-export type FetchSimilarOffersParams = {
-  wide: boolean;
-  page_size: number;
-  page?: number;
-};
-
 export function fetchSimilarOffersReworked(
   offerId: number,
   fetchSimilarOffersParams: FetchSimilarOffersParams,
-  options?: OptionCallback<OfferREST[]>,
+  options?: OptionCallback<PaginatedResponse<OfferREST>>,
 ) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(similarOffersReworked.isLoading(true));
@@ -147,7 +145,7 @@ export function fetchSimilarOffersReworked(
     try {
       const response = await fetchSimilarOffersAPI(offerId, params);
       dispatch(similarOffersReworked.success(response.data));
-      options?.onSuccess?.(response.data.results);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(similarOffersReworked.error(error));
       options?.onError?.(error);

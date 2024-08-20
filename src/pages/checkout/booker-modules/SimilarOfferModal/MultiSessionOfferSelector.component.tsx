@@ -20,9 +20,10 @@ import { Close } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import './styles.css';
+import classNames from 'classnames';
 
 export type MultiSessionOfferSelectorProps = {
-  theme: CompanyTheme;
+  companyTheme: CompanyTheme;
   metaActivities: { [key: number]: MetaActivity };
   establishments: { [key: number]: Establishment };
   similarOffers: OfferREST[];
@@ -42,7 +43,7 @@ export type MultiSessionOfferFinalProps = MultiSessionOfferSelectorProps &
 
 type OfferSessionCardProps<T> = {
   metaActivity: MetaActivity;
-  theme: CompanyTheme;
+  companyTheme: CompanyTheme;
   establishment: Establishment;
   offer: OfferREST;
   isSelected: boolean;
@@ -51,7 +52,7 @@ type OfferSessionCardProps<T> = {
 
 const OfferSessionCard: React.FC<OfferSessionCardProps<OfferREST>> = ({
   metaActivity,
-  theme,
+  companyTheme,
   establishment,
   offer,
   isSelected,
@@ -61,29 +62,38 @@ const OfferSessionCard: React.FC<OfferSessionCardProps<OfferREST>> = ({
     offer,
     establishment,
     metaActivity,
-    theme,
+    companyTheme,
   );
 
-  const offerHours = useOfferHours(offer, establishment, metaActivity, theme);
+  const offerHours = useOfferHours(
+    offer,
+    establishment,
+    metaActivity,
+    companyTheme,
+  );
 
   const formattedOfferHours = formatOfferHours(offerHours);
 
   const date = formatOfferDateWithTime(formattedDate, formattedOfferHours);
+
+  const handleClick = React.useCallback(() => {
+    onClick(offer, isSelected);
+  }, [offer, isSelected, onClick]);
 
   return (
     <ButtonBase
       key={offer.id}
       className={
         isSelected
-          ? 'bs-similar-offer-modal-card-active'
-          : 'bs-similar-offer-modal-card'
+          ? 'bs-similar-offer-modal__card--active'
+          : 'bs-similar-offer-modal__card'
       }
-      onClick={() => onClick(offer, isSelected)}
+      onClick={handleClick}
     >
-      <Typography className="bs-similar-offer-modal-card-title">
+      <Typography className="bs-similar-offer-modal__card__title">
         {metaActivity.name}
       </Typography>
-      <Typography className="bs-similar-offer-modal-card-subtitle">
+      <Typography className="bs-similar-offer-modal__card__subtitle">
         {date}
       </Typography>
     </ButtonBase>
@@ -91,7 +101,7 @@ const OfferSessionCard: React.FC<OfferSessionCardProps<OfferREST>> = ({
 };
 
 const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
-  theme,
+  companyTheme,
   metaActivities,
   establishments,
   similarOffers,
@@ -103,28 +113,31 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
   setPreSelectedOffer,
 }) => {
   const { t } = useTranslation(['common', 'booking']);
-  const onSelectSession = (offer: OfferREST, isSelected: boolean) => {
-    if (isSelected) {
-      setPreSelectedOffer(null);
-    } else {
-      setPreSelectedOffer(offer);
-    }
-  };
+  const onSelectSession = React.useCallback(
+    (offer: OfferREST, isSelected: boolean) => {
+      if (isSelected) {
+        setPreSelectedOffer(null);
+      } else {
+        setPreSelectedOffer(offer);
+      }
+    },
+    [setPreSelectedOffer],
+  );
 
-  const handleAddOffer = () => {
+  const handleAddOffer = React.useCallback(() => {
     if (preSelectedOffer) {
       nextStep();
     }
-  };
+  }, [nextStep, preSelectedOffer]);
 
   return (
     <div className="bs-similar-offer-modal-container">
-      <div className="bs-similar-offer-modal-container-header_container">
-        <div className="bs-similar-offer-modal-container-header_text_container">
-          <div className="bs-similar-offer-modal-container-header-title">
+      <div className="bs-similar-offer-modal-container__header__container">
+        <div className="bs-similar-offer-modal-container__header__text__container">
+          <div className="bs-similar-offer-modal-container__header__title">
             {t('booking:bookingModule.multiSession.addSession.dialogTitle')}
           </div>
-          <div className="bs-similar-offer-modal-container-header-subtitle">
+          <div className="bs-similar-offer-modal-container__header__subtitle">
             {t('booking:bookingModule.multiSession.addSession.dialogSubtitle')}
           </div>
         </div>
@@ -133,49 +146,51 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
         </ButtonBase>
       </div>
 
-      <div className="bs-similar-offer-modal-container-body">
+      <div className="bs-similar-offer-modal-container__body">
         <>
-          {similarOffers.length > 0 ? (
+          {similarOffers && similarOffers.length > 0 ? (
             similarOffers.map((offer) => {
               return (
                 <OfferSessionCard
                   key={offer.id}
+                  companyTheme={companyTheme}
                   establishment={establishments?.[offer.establishment]}
                   isSelected={preSelectedOffer?.id === offer.id}
                   metaActivity={metaActivities?.[offer.meta_activity]}
                   offer={offer}
                   onClick={onSelectSession}
-                  theme={theme}
                 />
               );
             })
           ) : (
-            <div className="bs-similar-offer-modal-container-body__no_content">
+            <div className="bs-similar-offer-modal-container__body__no_content">
               {t('booking:bookingModule.multiSession.addSession.noContent')}
             </div>
           )}
           <ButtonBase
-            className={
-              isAbleToFetchMoreSimilarSessions
-                ? 'bs-similar-offer-modal-container-fetch-button'
-                : 'button__disabled bs-similar-offer-modal-container-fetch-button'
-            }
+            className={classNames(
+              'bs-similar-offer-modal-container__fetch__button',
+              {
+                'bs-similar-offer-modal__button--disabled':
+                  !isAbleToFetchMoreSimilarSessions,
+              },
+            )}
             disabled={!isAbleToFetchMoreSimilarSessions}
             onClick={fetchMoreSessions}
           >
-            {t('booking:bookingModule.multiSession.addSession.fetchButton')}
+            {t('common:text.showMoreText')}
           </ButtonBase>
         </>
       </div>
-      <div className="bs-similar-offer-modal-container-footer">
+      <div className="bs-similar-offer-modal-container__footer">
         <ButtonBase
-          className="bs-similar-offer-modal-container-close-button"
+          className="bs-similar-offer-modal-container__close__button"
           onClick={onClose}
         >
           {t('common:close').toUpperCase()}
         </ButtonBase>
         <ButtonBase
-          className="bs-similar-offer-modal-container-add-button"
+          className="bs-similar-offer-modal-container__add__button"
           disabled={preSelectedOffer === null}
           onClick={handleAddOffer}
         >

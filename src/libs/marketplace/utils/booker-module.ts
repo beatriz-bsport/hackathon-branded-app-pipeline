@@ -445,9 +445,6 @@ export const buildDataForUserRegistrationWithMultiSessionsAllowed = (
                 spot_name: selectedSpots[offerData.offer.id] ?? null,
                 booking_for_member: memberBookingId || null,
               }),
-          // booking_for_member: this.state.selectedMember
-          //   ? this.state.selectedMember.id
-          //   : null,
         },
       };
       return _data;

@@ -87,14 +87,7 @@ export const refreshUnpaidInvoiceAlerting = () =>
   refreshAlertingByKind(UNEVEN_INVOICE_ALERT);
 
 export function patchInvoiceConfiguration(
-  data: {
-    stripe_footer?: string;
-    nb_retries_subscription_payments?: number;
-    disable_pass_on_fail_subscription_payment?: boolean;
-    show_company_email_in_invoice?: boolean;
-    revert_bookings_on_fail_subscription_payment?: boolean;
-    advance_sepa_billing?: boolean;
-  },
+  data: Partial<InvoiceConfigurationSerializer>,
   options: OptionCallback<InvoiceConfigurationSerializer>,
 ) {
   return async (dispatch: Dispatch) => {

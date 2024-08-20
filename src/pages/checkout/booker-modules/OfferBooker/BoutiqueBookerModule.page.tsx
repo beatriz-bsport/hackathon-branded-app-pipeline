@@ -256,6 +256,7 @@ type State = {
   isSimilarOfferModalOpened: boolean;
   memberBookingId: number;
   offerGroupData: OffersGroup | null;
+  baseOffersWaitingForSpotSelection: (OfferREST | Offer_FULL)[];
 };
 
 type OwnProps = {
@@ -310,6 +311,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       isSimilarOfferModalOpened: false,
       memberBookingId: -1,
       offerGroupData: null,
+      baseOffersWaitingForSpotSelection: [],
     };
   }
 
@@ -814,10 +816,13 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
   updateSpotForOffer = (offerId: number, index: number) => {
     /* This method gets the selected spot in the canvas of plan to build the spot name with the right prefix and suffix */
-
+    const offer =
+      this.state.selectedOffers.find(
+        (selectedOffer) => selectedOffer.offer.id === offerId,
+      )?.offer || this.props.offer;
     const spot =
       this.props.roomBlueprintsById?.[
-        this.props.offer?.room_blueprint
+        offer?.room_blueprint
       ].canvas?.elements?.find((element) => element.data.index === index)
         ?.data ?? '';
 
@@ -836,16 +841,25 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const selectedSpot = spot?.indexType
       ? `${prefix}${spot.indexType}${suffix}`
       : `${prefix}${index}${suffix}`;
-    this.setState((prevState) => ({
-      selectedSpots: {
-        ...prevState.selectedSpots,
-        [offerId || this.props.offerId]: selectedSpot,
+    this.setState(
+      (prevState) => {
+        return {
+          selectedSpots: {
+            ...prevState.selectedSpots,
+            [offerId || this.props.offerId]: selectedSpot,
+          },
+          selectedSpotsIds: {
+            ...prevState.selectedSpotsIds,
+            [offerId || this.props.offerId]: index,
+          },
+        };
       },
-      selectedSpotsIds: {
-        ...prevState.selectedSpotsIds,
-        [offerId || this.props.offerId]: index,
+      () => {
+        if (!this.state.isSpotSelectorOpen) {
+          this.updateOfferSpotSelectorWaitingList();
+        }
       },
-    }));
+    );
   };
 
   closeSpotSelector = () => {
@@ -1183,11 +1197,32 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           ),
         );
         this.updateOfferConstraints();
+        this.updateOfferSpotSelectorWaitingList();
         if (this.state.isSimilarOfferModalOpened) {
           this.toggleSimilarOfferModal();
         }
       },
     );
+  };
+
+  updateOfferSpotSelectorWaitingList = () => {
+    const offersWithSelectedSpots = Object.keys(
+      this.state.selectedSpotsIds,
+    ).map((offerId) => Number(offerId));
+    const offersWaitingForSpotSelection: (OfferREST | Offer_FULL)[] =
+      this.state.selectedOffers
+        .filter(
+          (selectedOffer) =>
+            selectedOffer.offer.room_blueprint &&
+            !offersWithSelectedSpots.includes(selectedOffer.offer.id),
+        )
+        .map((selectedOffer) => selectedOffer.offer);
+    const isThereSpotToSelectLeft = offersWaitingForSpotSelection.length > 0;
+
+    this.setState({
+      baseOffersWaitingForSpotSelection: offersWaitingForSpotSelection,
+      isSpotSelectorOpen: isThereSpotToSelectLeft,
+    });
   };
 
   handleSelectOffer = (offer: OfferREST | Offer_FULL) => {
@@ -1334,6 +1369,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.similarOffersAllIds.length <
       this.props.similarOffersTotalCount;
 
+    const offerBeingSelected =
+      this.state.baseOffersWaitingForSpotSelection[0] || this.props.offer;
+    const offerIdBeingSelected = offerBeingSelected?.id || this.props.offerId;
     if (
       this.state.isSpotSelectorOpen &&
       !this.props.assetForBlueprintLoading &&
@@ -1366,33 +1404,36 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
             </div>
             <div className="bs-new-offer-booking__spot-selector__blueprint">
               {this.props.roomBlueprintsById[
-                this.props.offer.room_blueprint
-              ] && (
-                <MarketplaceSpotSelector
-                  assetByIdBlueprintByIdentifier={
-                    this.props.assetByIdBlueprintByIdentifier
-                  }
-                  closeSpotSelector={this.closeSpotSelector}
-                  expirationDatetime={this.getSpotExpirationDatetime(
-                    this.props.offerId,
-                  )}
-                  fetchOfferStatus={this.fetchOfferStatus}
-                  fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
-                  goToCheckout={this.props.goTocheckout}
-                  offer={this.props.offer}
-                  offerStatusById={this.props.offerStatusById}
-                  roomBlueprintsById={this.props.roomBlueprintsById}
-                  selectedSpot={this.state.selectedSpotsIds[this.props.offerId]}
-                  spotCurrentlyInBasket={this.getSpotCurrentlyInBasket(
-                    this.props.offerId,
-                  )}
-                  spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
-                    this.props.spotTypes,
-                  )}
-                  theme={this.props.theme}
-                  updateSpotForOffer={this.updateSpotForOffer}
-                />
-              )}
+                offerBeingSelected.room_blueprint
+              ] &&
+                this.props.assetByIdBlueprintByIdentifier && (
+                  <MarketplaceSpotSelector
+                    assetByIdBlueprintByIdentifier={
+                      this.props.assetByIdBlueprintByIdentifier
+                    }
+                    closeSpotSelector={this.closeSpotSelector}
+                    expirationDatetime={this.getSpotExpirationDatetime(
+                      offerIdBeingSelected,
+                    )}
+                    fetchOfferStatus={this.fetchOfferStatus}
+                    fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+                    goToCheckout={this.props.goTocheckout}
+                    offer={offerBeingSelected}
+                    offerStatusById={this.props.offerStatusById}
+                    roomBlueprintsById={this.props.roomBlueprintsById}
+                    selectedSpot={
+                      this.state.selectedSpotsIds[offerIdBeingSelected]
+                    }
+                    spotCurrentlyInBasket={this.getSpotCurrentlyInBasket(
+                      offerIdBeingSelected,
+                    )}
+                    spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
+                      this.props.spotTypes,
+                    )}
+                    theme={this.props.theme}
+                    updateSpotForOffer={this.updateSpotForOffer}
+                  />
+                )}
             </div>
           </div>
           <div className="bs-new-offer-booking__spot-selector__confirm">
@@ -1407,12 +1448,12 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               {t('spotScheduling:spotSelector.confirm')}
             </Button>
 
-            {this.getSpotExpirationDatetime(this.props.offerId) && (
+            {this.getSpotExpirationDatetime(offerIdBeingSelected) && (
               <CountDown
                 timestamp={
-                  this.getSpotExpirationDatetime(this.props.offerId)
+                  this.getSpotExpirationDatetime(offerIdBeingSelected)
                     ? DateTime.fromISO(
-                        this.getSpotExpirationDatetime(this.props.offerId),
+                        this.getSpotExpirationDatetime(offerIdBeingSelected),
                       ).toUnixInteger()
                     : DateTime.fromISO('1970-01-01').toUnixInteger()
                 }

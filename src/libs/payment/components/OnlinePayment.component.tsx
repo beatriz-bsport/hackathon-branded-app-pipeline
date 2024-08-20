@@ -293,6 +293,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
                 detachPaymentMethod={detachPaymentMethod}
                 detachPaymentMethodLoading={detachPaymentMethodLoading}
                 forceHideButton={forceHideButton}
+                instalmentPaymentSelectedId={instalmentPaymentSelectedId}
                 isEstablishmentBillingGroupSelected={
                   isEstablishmentBillingGroupSelected
                 }

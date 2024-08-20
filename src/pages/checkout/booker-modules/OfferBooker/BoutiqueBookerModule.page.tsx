@@ -535,12 +535,14 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       (comboPack: PaymentCombo & MaxoutData) =>
         comboPack.exceedsBookingMaxout === false,
     );
-    const availableContracts = this.getAvailableContracts(
-      selectedOffers,
-    ).filter(
-      (contract: ContractWithPaymentPack & MaxoutData) =>
-        contract.exceedsBookingMaxout === false,
-    );
+
+    let availableContracts = [];
+    if (this.state.selectedOffers.length <= 1) {
+      availableContracts = this.getAvailableContracts(selectedOffers).filter(
+        (contract: ContractWithPaymentPack & MaxoutData) =>
+          contract.exceedsBookingMaxout === false,
+      );
+    }
 
     const availablePaymentPacksWithoutCategory = availablePaymentPacks.filter(
       (paymentPack: PaymentPack) => paymentPack.category === null,

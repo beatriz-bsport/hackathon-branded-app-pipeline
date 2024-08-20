@@ -59,10 +59,16 @@ const getTranslations = async () => {
     },
     configuration: {
       stripe_footer: 'Invoice footer',
+      invoicePDFTitle: 'Invoice company name',
+      invoicePDFEmail: 'Invoice email address',
       explainStripeFooter:
         'This text will appear at the bottom of the invoices edited in PDF, please add any legal relevant information.',
+      explainInvoicePDFTitle:
+        "This name will appear as your studio's name on all generated invoices",
       submit_stripe_footer: 'Update',
       forms: {
+        invoicePDFTitlePlaceholder:
+          'Default company name from Stripe onboarding',
         stripe_footer_placeholder: 'No additional legal information',
         show_company_email_in_invoice:
           'Display the company email address on all invoices',

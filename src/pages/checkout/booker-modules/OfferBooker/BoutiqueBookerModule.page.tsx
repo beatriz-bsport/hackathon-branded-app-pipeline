@@ -1125,7 +1125,11 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   getSimilarOfferButtonToDisplay = () => {
-    if (!this.props.similarOffers || this.props.similarOffers.length <= 0) {
+    if (
+      !this.props.similarOffers ||
+      this.props.similarOffers.length <= 0 ||
+      this.getIsGuestBooking()
+    ) {
       return null;
     }
 

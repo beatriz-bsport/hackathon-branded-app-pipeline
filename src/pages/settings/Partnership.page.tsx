@@ -75,6 +75,7 @@ import {
   deleteWellhubGym as deleteWellhubGymAction,
   configureWellhubGymWebhooks as configureWellhubGymWebhooksAction,
 } from '#src/libs/wellhub/actions';
+import { GymAvailabilityReasonCode } from '#src/libs/wellhub/constants';
 import {
   getWellhubGymAvailability,
   getWellhubGymAvailabilityError,
@@ -130,7 +131,8 @@ type ConnectorProps = {
   ) => Promise<void>;
   // eslint-disable-next-line react/no-unused-prop-types
   updateWellhubGymAction: (
-    wellhubGym: WellhubGym,
+    wellhubGymUUID: string,
+    wellhubGymID: number,
     establishmentIDs: number[],
     options?: OptionCallback<WellhubGymUpsert>,
   ) => void;
@@ -326,19 +328,45 @@ const mapWithHandlers = {
   createWellhubGym:
     (props: ConnectorProps & StateProps) =>
     (gymID: number, establishmentIDs: number[]) => {
-      props.createWellhubGymAction(gymID, establishmentIDs, {
-        onSuccess: (wellhubGymCreated) => {
-          props.fetchWellhubGyms();
-          props.configureWellhubGymWebhooksAction(wellhubGymCreated.uuid);
-        },
-      });
+      const wellhubGymAvailability = props.getWellhubGymAvailability(gymID);
+      if (wellhubGymAvailability.is_available) {
+        if (
+          wellhubGymAvailability.reason_code ===
+            GymAvailabilityReasonCode.DISABLED_GYM_EXISTS &&
+          !!wellhubGymAvailability.wellhub_gym_uuid
+        ) {
+          props.updateWellhubGymAction(
+            wellhubGymAvailability.wellhub_gym_uuid,
+            gymID,
+            establishmentIDs,
+            {
+              onSuccess: (wellhubGymUpdated) => {
+                props.fetchWellhubGyms();
+                props.configureWellhubGymWebhooksAction(wellhubGymUpdated.uuid);
+              },
+            },
+          );
+        } else {
+          props.createWellhubGymAction(gymID, establishmentIDs, {
+            onSuccess: (wellhubGymCreated) => {
+              props.fetchWellhubGyms();
+              props.configureWellhubGymWebhooksAction(wellhubGymCreated.uuid);
+            },
+          });
+        }
+      }
     },
   updateWellhubGym:
     (props: ConnectorProps & StateProps) =>
     (wellhubGym: WellhubGym, establishmentIDs: number[]) => {
-      props.updateWellhubGymAction(wellhubGym, establishmentIDs, {
-        onSuccess: () => props.fetchWellhubGyms(),
-      });
+      props.updateWellhubGymAction(
+        wellhubGym.uuid,
+        wellhubGym.gym_id,
+        establishmentIDs,
+        {
+          onSuccess: () => props.fetchWellhubGyms(),
+        },
+      );
     },
 };
 

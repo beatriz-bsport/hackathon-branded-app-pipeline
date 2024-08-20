@@ -1,4 +1,4 @@
-import { GymAvailabilityReasonCodes } from '#src/libs/wellhub/constants';
+import { GymAvailabilityReasonCode } from '#src/libs/wellhub/constants';
 import type { Establishment } from '#src/libs/establishment/types';
 import type { ErrorAndLoading } from '#src/libs/types';
 
@@ -24,18 +24,18 @@ export type WellhubGymUpsert = {
 
 export type GymAvailabilityQueryParams = { gym_id: number };
 
-export type GymAvailabilityReason = (typeof GymAvailabilityReasonCodes)[number];
-
 export type GymAvailabilityResponse = {
   gym_id: number;
   is_available: boolean;
-  reason_code: GymAvailabilityReason;
+  reason_code: GymAvailabilityReasonCode;
   reason_text: string;
+  wellhub_gym_uuid: string | null;
 };
 
 export type WellhubGymUpsertPayload = {
   gym_id: number;
   establishments: number[];
+  disabled?: boolean;
 };
 
 export type WellhubState = {

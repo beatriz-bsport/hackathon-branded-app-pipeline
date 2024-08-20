@@ -150,7 +150,8 @@ export const updateWellhubGymActions = {
 };
 
 export function updateWellhubGym(
-  wellhubGym: WellhubGym,
+  wellhubGymUUID: string,
+  wellhubGymID: number,
   establishmentIds: number[],
   options?: OptionCallback<WellhubGymUpsert>,
 ) {
@@ -159,9 +160,10 @@ export function updateWellhubGym(
     dispatch(updateWellhubGymActions.error(null));
 
     try {
-      const response = await updateWellhubGymAPI(wellhubGym.uuid, {
-        gym_id: wellhubGym.gym_id,
+      const response = await updateWellhubGymAPI(wellhubGymUUID, {
+        gym_id: wellhubGymID,
         establishments: establishmentIds,
+        disabled: false,
       });
       dispatch(updateWellhubGymActions.success(response.data));
       options?.onSuccess?.(response.data);

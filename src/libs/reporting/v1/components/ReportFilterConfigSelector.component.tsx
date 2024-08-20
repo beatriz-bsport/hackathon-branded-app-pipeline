@@ -59,6 +59,7 @@ export type Props = {
   isFranchisor: boolean;
   reportQuickFilter: ReportFilterConfig;
   reportCategory?: string;
+  dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
 };
 
 type Values = {
@@ -81,6 +82,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
     values,
     reportQuickFilter,
     reportCategory,
+    dynamicDataHasBeenLoaded,
   }) => {
     const { t } = useTranslation(['reporting']);
     const classes = useStyles();
@@ -348,6 +350,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
                   columnIdentifiers={columnIdentifiers}
                   comparator={filterItem.comparator}
                   datatype={filterItem.datatype}
+                  dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
                   editReportFilterConfig={editReportFilterConfig}
                   getDataByTypeAndId={handleGetDynamicDataForReport}
                   label={filterItem.identifier}

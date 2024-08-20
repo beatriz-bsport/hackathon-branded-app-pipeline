@@ -285,6 +285,7 @@ export class ReportingGeneration extends Component<Props, State> {
       pageSize,
       isV2Displayed,
       pushRouter,
+      dynamicDataHasBeenLoaded,
     } = this.props;
 
     return (
@@ -293,6 +294,7 @@ export class ReportingGeneration extends Component<Props, State> {
           createReportFilterConfig={this.props.createReportFilterConfig}
           deleteReportFilterConfig={this.props.deleteReportFilterConfig}
           disableContinue={this.state.disableContinue}
+          dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
           editReportFilterConfig={this.props.editReportFilterConfig}
           fetchReportFilterConfigList={this.props.fetchReportFilterConfigList}
           // @ts-expect-error

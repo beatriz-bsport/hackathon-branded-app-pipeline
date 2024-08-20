@@ -47,6 +47,7 @@ type Props = {
   ) => void;
   deleteReportFilterConfig: (reporFilterConfigId: number) => void;
   disableContinue: boolean;
+  dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
   editReportFilterConfig: (
     reportFilterConfigId: number,
     data: Omit<ReportFilterConfig, 'id'>,
@@ -163,6 +164,7 @@ const ReportGenerationForm: React.FC<Props> = ({
   createReportFilterConfig,
   deleteReportFilterConfig,
   disableContinue,
+  dynamicDataHasBeenLoaded,
   editReportFilterConfig,
   fetchReportFilterConfigList,
   handleExcelExportation,
@@ -346,6 +348,7 @@ const ReportGenerationForm: React.FC<Props> = ({
           <ReportFilterConfigSelector
             // @ts-expect-error
             columnsMetadata={columnsMetadata}
+            dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
             editReportFilterConfig={editReportFilterConfig}
             error={null}
             fetchReportFilterConfigsList={handleFetchReportFilterConfigList}

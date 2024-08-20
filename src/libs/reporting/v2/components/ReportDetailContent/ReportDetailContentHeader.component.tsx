@@ -46,8 +46,6 @@ import QuickReportFilterConfigColumnsMenu from '#src/libs/reporting/common/compo
 
 type Props = {
   categoryName: ReportCategoryEnum;
-  // dynamicDataHasBeenLoaded unused: just to rerender component when data has been loaded for quick filters
-  // eslint-disable-next-line react/no-unused-prop-types
   dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
   generationDisabled: boolean;
   editReportFilterConfig: (
@@ -83,6 +81,7 @@ const ReportDetailContentHeader: React.FC<
   Props & FormikProps<FormikValues>
 > = ({
   categoryName,
+  dynamicDataHasBeenLoaded,
   editReportFilterConfig,
   excelExportDisabled,
   excelExportLoading,
@@ -230,6 +229,7 @@ const ReportDetailContentHeader: React.FC<
                     columnIdentifiers={report.columns}
                     comparator={filterItem.comparator}
                     datatype={filterItem.datatype}
+                    dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
                     editReportFilterConfig={editReportFilterConfig}
                     getDataByTypeAndId={handleGetDynamicDataForFilters}
                     label={filterItem.identifier}

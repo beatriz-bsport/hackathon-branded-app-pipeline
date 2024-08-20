@@ -72,6 +72,7 @@ type Props = {
   objectLevelPermissions: ObjectLevelPermissions;
   isV2Displayed: boolean;
   pushRouter: (path: string) => void;
+  dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
 };
 
 const CATEGORIES_NEEDING_HELPER_TEXT = ['franchise_shared_pass'];
@@ -132,6 +133,7 @@ const ReportGeneration: React.FC<Props> = ({
   objectLevelPermissions,
   isV2Displayed,
   pushRouter,
+  dynamicDataHasBeenLoaded,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -205,6 +207,7 @@ const ReportGeneration: React.FC<Props> = ({
           createReportFilterConfig={createReportFilterConfig}
           deleteReportFilterConfig={deleteReportFilterConfig}
           disableContinue={disableContinue}
+          dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
           editReportFilterConfig={editReportFilterConfig}
           fetchReportFilterConfigList={fetchReportFilterConfigList}
           handleExcelExportation={handleExcelExportation}

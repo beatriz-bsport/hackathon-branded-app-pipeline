@@ -68,11 +68,12 @@ type ReportFilterChipProps = {
   getDataByTypeAndId?: (
     datatype: DynamicFilterDataType,
     valueId: number[],
-    columnName: string,
+    columnName?: string,
   ) => handleGetDynamicDataForFiltersReturn;
   columnIdentifiers?: string[];
   ref?: React.Ref<HTMLDivElement | null>;
   subDataType?: 0 | 1 | null;
+  dynamicDataHasBeenLoaded?: Record<DynamicFilterDataType, boolean>;
 };
 
 const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
@@ -92,6 +93,7 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
       getDataByTypeAndId,
       columnIdentifiers,
       subDataType,
+      dynamicDataHasBeenLoaded,
     },
     ref,
   ) => {
@@ -104,12 +106,49 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
       return !columnIdentifiers?.includes(label);
     }, [columnIdentifiers, label]);
 
-    const valueLabel = () => {
+    /**
+     * Some filters are dynamic because they filter based on ids, hence the need for
+     * additional fetches defined in dynamic-data-hoc file
+     */
+    const hasDynamicDataHasBeenLoaded = React.useMemo(
+      () =>
+        !onlyDisplay && datatype in dynamicDataHasBeenLoaded
+          ? dynamicDataHasBeenLoaded[datatype as DynamicFilterDataType]
+          : true,
+      [onlyDisplay, datatype, dynamicDataHasBeenLoaded],
+    );
+
+    /**
+     * Dynamic datatype filters get their information from the same source as for filter selectors (dynamic-data-hoc file)
+     * We want to fetch the data only if needed : i.e when the filter only has 1 value and if the filter is
+     * dynamic and has not yet been fetched
+     */
+    React.useEffect(() => {
+      if (
+        !hasDynamicDataHasBeenLoaded &&
+        Array.isArray(value) &&
+        value?.length === 1
+      ) {
+        getDataByTypeAndId(datatype as DynamicFilterDataType, value);
+      }
+    }, [getDataByTypeAndId, hasDynamicDataHasBeenLoaded, value, datatype]);
+
+    /**
+     * This memoized string has different values depending on several factors:
+     * - comparator value
+     * - number of values AND datatype:
+     *   - if there is more than 1 value: it returns a specific value defined through getMultipleValuesLabel
+     *   - if there is 1 value: it returns a specific value defined through getSingleValueLabel
+     *   - if there is no value: it returns an empty string
+     */
+    const valueLabel = React.useMemo(() => {
+      if (onlyDisplay) return '';
       if (Array.isArray(value)) {
         if (value?.length > 1) {
           return getMultipleValuesLabel(datatype, subDataType, value);
         }
         if (value.length === 1) {
+          if (!hasDynamicDataHasBeenLoaded) return '';
           return `${getComparatorLabel(comparator) ?? ''} ${getSingleValueLabel(
             datatype,
             value,
@@ -128,7 +167,16 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
         getDataByTypeAndId,
         t,
       )}`;
-    };
+    }, [
+      datatype,
+      subDataType,
+      value,
+      comparator,
+      t,
+      getDataByTypeAndId,
+      onlyDisplay,
+      hasDynamicDataHasBeenLoaded,
+    ]);
 
     const getIcon = useCallback(() => {
       switch (datatype) {
@@ -234,55 +282,45 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
       editReportFilterConfig,
     ]);
 
-    if (
-      !onlyDisplay &&
-      getSingleValueLabel(
-        datatype,
-        value,
-        subDataType,
-        getDataByTypeAndId,
-        t,
-      ) === ''
-    ) {
-      return (
-        <div ref={ref}>
-          <CircularProgress />
-        </div>
-      );
-    }
+    const isSingleValueLoading =
+      !hasDynamicDataHasBeenLoaded &&
+      Array.isArray(value) &&
+      value?.length === 1;
 
     return (
       <div ref={ref} className={classes.column}>
-        <Tooltip
-          title={
-            isColumnRemoved && !onlyDisplay
-              ? t('filter.form.shortColumnError')
-              : ''
-          }
-        >
-          <Chip
-            key={label}
-            className={classNames({
-              [classes.columnRemoved]: isColumnRemoved && !onlyDisplay,
-              [classes.filterWithoutValues]:
-                !onlyDisplay && !isColumnRemoved && valueLabel() === '',
-            })}
-            icon={
-              isColumnRemoved && !onlyDisplay ? (
-                <Warning className={classes.columnRemoved} />
-              ) : (
-                getIcon()
-              )
+        {isSingleValueLoading ? (
+          <CircularProgress />
+        ) : (
+          <Tooltip
+            title={
+              isColumnRemoved && !onlyDisplay
+                ? t('filter.form.shortColumnError')
+                : ''
             }
-            label={`${t(`columns.${label}`)} ${
-              onlyDisplay ? '' : valueLabel()
-            }`}
-            onClick={
-              !onlyDisplay && !isColumnRemoved && handleQuickFilterEditFilter
-            }
-            onDelete={!onlyDisplay && handleQuickFilterDeleteFilter}
-          />
-        </Tooltip>
+          >
+            <Chip
+              key={label}
+              className={classNames({
+                [classes.columnRemoved]: isColumnRemoved && !onlyDisplay,
+                [classes.filterWithoutValues]:
+                  !onlyDisplay && !isColumnRemoved && valueLabel === '',
+              })}
+              icon={
+                isColumnRemoved && !onlyDisplay ? (
+                  <Warning className={classes.columnRemoved} />
+                ) : (
+                  getIcon()
+                )
+              }
+              label={`${t(`columns.label}`)} ${onlyDisplay ? '' : valueLabel}`}
+              onClick={
+                !onlyDisplay && !isColumnRemoved && handleQuickFilterEditFilter
+              }
+              onDelete={!onlyDisplay && handleQuickFilterDeleteFilter}
+            />
+          </Tooltip>
+        )}
       </div>
     );
   },

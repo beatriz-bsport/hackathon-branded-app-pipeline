@@ -38,6 +38,7 @@ type Props = {
   classes: any,
   t: TFunction,
   configuration: {
+    invoice_business_name: string,
     stripe_footer: string,
     show_company_email_in_invoice: boolean,
     nb_retries_subscription_payments: number,
@@ -62,6 +63,7 @@ type Props = {
 };
 
 type State = {
+  invoiceBusinessName: string,
   stripe_footer: string,
   activateSmartRetries: boolean,
   show_company_email_in_invoice: boolean,
@@ -79,6 +81,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      invoiceBusinessName: props.configuration.invoice_business_name,
       stripe_footer: props.configuration.stripe_footer,
       show_company_email_in_invoice:
         props.configuration.show_company_email_in_invoice,
@@ -96,6 +99,32 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
       selectedReaderToUpdate: null,
     };
   }
+
+  checkInvoicePDFConfigurationHasNotChanged = () => {
+    return (
+      this.props.configuration.show_company_email_in_invoice ===
+        this.state.show_company_email_in_invoice &&
+      this.props.configuration.stripe_footer === this.state.stripe_footer &&
+      this.props.configuration.invoice_business_name ===
+        this.state.invoiceBusinessName
+    );
+  };
+
+  onShowEmailInInvoicePDFCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    this.setState({
+      show_company_email_in_invoice: event.target.checked,
+    });
+  };
+
+  onStripeTitleInInvoicePDFChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => {
+    this.setState({
+      invoiceBusinessName: event.target.value,
+    });
+  };
 
   render() {
     const { classes, t } = this.props;
@@ -321,20 +350,41 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                 {t('configuration.invoiceGeneral')}
               </Typography>
             </div>
-            <div className={classes.inputContainer}>
-              <Checkbox
-                checked={this.state.show_company_email_in_invoice}
-                onChange={(ev) => {
-                  const c = ev.target.checked;
-                  this.setState({ show_company_email_in_invoice: c });
-                }}
-              />
-              <Typography>
-                {t('configuration.forms.show_company_email_in_invoice')}
+            <div>
+              <Typography
+                className={classes.invoicePdfCompanyNameHeader}
+                variant="subtitle1"
+              >
+                {t('configuration.invoicePDFTitle')}
               </Typography>
+              <TextField
+                fullWidth
+                helperText={t('configuration.explainInvoicePDFTitle')}
+                maxLength="100"
+                onChange={this.onStripeTitleInInvoicePDFChange}
+                placeholder={t(
+                  'configuration.forms.invoicePDFTitlePlaceholder',
+                )}
+                value={this.state.invoiceBusinessName}
+                variant="outlined"
+              />
+            </div>
+            <div className={classes.invoicePdfEmailContainer}>
+              <Typography className={classes.header} variant="subtitle1">
+                {t('configuration.invoicePDFEmail')}
+              </Typography>
+              <div className={classes.inputContainer}>
+                <Checkbox
+                  checked={this.state.show_company_email_in_invoice}
+                  onChange={this.onShowEmailInInvoicePDFCheckboxChange}
+                />
+                <Typography>
+                  {t('configuration.forms.show_company_email_in_invoice')}
+                </Typography>
+              </div>
             </div>
             <div className={classes.header}>
-              <Typography component="h3" variant="h6">
+              <Typography variant="subtitle1">
                 {t('configuration.stripe_footer')}
               </Typography>
             </div>
@@ -354,14 +404,12 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               <Button
                 color="primary"
                 disabled={
-                  (this.props.configuration.show_company_email_in_invoice ===
-                    this.state.show_company_email_in_invoice &&
-                    this.props.configuration.stripe_footer ===
-                      this.state.stripe_footer) ||
+                  this.checkInvoicePDFConfigurationHasNotChanged() ||
                   this.props.processing
                 }
                 onClick={() =>
                   this.props.onSubmit({
+                    invoice_business_name: this.state.invoiceBusinessName,
                     stripe_footer: this.state.stripe_footer,
                     show_company_email_in_invoice:
                       this.state.show_company_email_in_invoice,
@@ -656,6 +704,18 @@ const styles = (theme) => ({
   },
   redButtonLabel: {
     color: '#FFF',
+  },
+  invoicePdfEmailContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'left',
+    justifyContent: 'left',
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(3),
+  },
+  invoicePdfCompanyNameHeader: {
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
   },
 });
 

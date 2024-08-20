@@ -269,6 +269,7 @@ export type PlannedPaymentEventFilter = {
 };
 
 export type InvoiceConfigurationSerializer = {
+  invoice_business_name: string;
   stripe_footer: string;
   nb_retries_subscription_payments: number;
   disable_pass_on_fail_subscription_payment: boolean;

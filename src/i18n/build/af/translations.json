@@ -6611,12 +6611,6 @@
           },
           "footer": { "addUnitButton": "Add Unit ID" }
         }
-      },
-      "snackbar": {
-        "configureWebhooks": {
-          "error": "An error occurred during the configuration",
-          "success": "Your unit ID has been successfully linked"
-        }
       }
     }
   },
@@ -13005,6 +12999,12 @@
       "connectionAttemptSucceeded": "The PayPal account has been succesfully connected",
       "couldNotReachPayPal": "We could not reach PayPal. Please try again later.",
       "onboardingUrlFetchFailed": "An error occurred while trying to retrieve PayPal's onboarding link"
+    },
+    "wellhub": {
+      "configureWebhooks": {
+        "error": "An error occurred during the configuration",
+        "success": "Your unit ID has been successfully linked"
+      }
     }
   },
   "spotScheduling": {

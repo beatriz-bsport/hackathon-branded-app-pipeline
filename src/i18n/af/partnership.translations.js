@@ -99,11 +99,5 @@ exports.default = {
         },
       },
     },
-    snackbar: {
-      configureWebhooks: {
-        error: 'An error occurred during the configuration',
-        success: 'Your unit ID has been successfully linked',
-      },
-    },
   },
 };

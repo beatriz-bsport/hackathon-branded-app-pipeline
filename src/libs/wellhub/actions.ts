@@ -223,12 +223,12 @@ export function configureWellhubGymWebhooks(
       const response = await configureWellhubGymWebhooksAPI(wellhubGymUuid);
       dispatch(configureWellhubGymWebhooksActions.success(response.data));
       options?.onSuccess?.(response.data);
-      dispatch(snackbarSuccess('wellhub.snackbar.configureWebhooks.success'));
+      dispatch(snackbarSuccess('wellhub.configureWebhooks.success'));
     } catch (err) {
       console.error(err);
       dispatch(configureWellhubGymWebhooksActions.error(err));
       options?.onError?.();
-      dispatch(snackbarError('wellhub.snackbar.configureWebhooks.error'));
+      dispatch(snackbarError('wellhub.configureWebhooks.error'));
     }
 
     dispatch(configureWellhubGymWebhooksActions.isLoading(false));

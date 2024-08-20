@@ -1421,6 +1421,12 @@ const getTranslations = async () => {
       [PAYPAL_ACCOUNT_ALREADY_LINKED_TO_OTHER_COMPANY]:
         'You cannot use an account that is already linked to another company.',
     },
+    wellhub: {
+      configureWebhooks: {
+        error: 'An error occurred during the configuration',
+        success: 'Your unit ID has been successfully linked',
+      },
+    },
   };
 };
 

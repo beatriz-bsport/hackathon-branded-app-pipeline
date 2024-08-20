@@ -359,20 +359,17 @@ export class ConsumerHome extends React.Component<Props> {
                   hasMultipleMembership={
                     this.props.membershipCount && this.props.membershipCount > 1
                   }
-                  infosOfMember={this.props.infosOfMember}
                   isNewCheckoutFlow={
                     !!this.props.theme?.display_new_checkout_flow
                   }
                   memberName={this.props.userFullName}
                   membership={this.props.membership}
-                  name={this.props.name}
                   navigateBackToMasterRelation={
                     this.props.navigateBackToMasterRelation
                   }
                   navigateToRelationAccount={
                     this.props.navigateToRelationAccount
                   }
-                  programList={this.props.programList}
                   push={this.props.push}
                   showCredit={
                     this.props.theme &&

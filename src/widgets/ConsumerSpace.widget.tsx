@@ -23,6 +23,9 @@ import {
   UnconnectedConsumerInvoiceReworked,
   mapWithConsumerInvoiceReworkedHandlers,
 } from 'bsport-saas/src/pages/consumer/ConsumerInvoiceReworked.page';
+import ConsumerNavigation from 'bsport-saas/src/libs/consumer-space/components/reworked/@Navigation/ConsumerNavigation/ConsumerNavigation.component';
+import useViewport from 'bsport-saas/src/components/css-only/Fabrique/hooks/useViewport';
+import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from 'bsport-saas/src/libs/consumer-space/constants';
 
 import { consumerSpaceMapStateToWidgetProps } from '../libs/bridge/consumer-space/consumerSpaceBridgeSelectors';
 import { mapDispatchToWidgetProps } from '../libs/bridge/consumer-space/consumerSpaceBridgeActions';
@@ -43,14 +46,18 @@ type OwnProps = {
     | 'consumerSubscription',
 };
 
+type ConnectedProps = ReturnType<typeof consumerSpaceMapStateToWidgetProps> &
+  typeof mapDispatchToWidgetProps;
+
 type State = {
   selectedPage: OwnProps['page'],
 };
 
-type Props = OwnProps &
-  WithStyles<typeof styles> &
-  ReturnType<typeof consumerSpaceMapStateToWidgetProps> &
-  typeof mapDispatchToWidgetProps;
+type Props = OwnProps & WithStyles<ReturnType<typeof styles>> & ConnectedProps;
+
+type WidgetContentProps = {
+  selectedPage: OwnProps['page'],
+} & ConnectedProps;
 
 /* IMPORT CONSUMER SPACE WIDGETS */
 const ConsumerBookingWidgetStyled = themify(UnconnectedConsumerBookingPage);
@@ -60,6 +67,34 @@ const ConsumerSubscriptionWidgetStyled = themify(
 );
 const ConsumerProfileWidgetStyled = themify(UnconnectedConsumerProfile);
 const ConsumerInvoiceWidgetStyled = themify(UnconnectedConsumerInvoiceReworked);
+
+export const ConsumerSpaceWidgetContent: React.FC<WidgetContentProps> = (
+  props,
+) => {
+  const { width } = useViewport();
+  const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
+
+  // TODO performance - better rendering handling
+  return (
+    <>
+      {props.selectedPage === 'consumerBooking' && (
+        <ConsumerBookingWidgetStyled isMobile={isMobile} {...props} />
+      )}
+      {props.selectedPage === 'consumerPass' && (
+        <ConsumerPassWidgetStyled isMobile={isMobile} {...props} />
+      )}
+      {props.selectedPage === 'consumerInvoice' && (
+        <ConsumerInvoiceWidgetStyled isMobile={isMobile} {...props} />
+      )}
+      {props.selectedPage === 'consumerProfile' && (
+        <ConsumerProfileWidgetStyled isMobile={isMobile} {...props} />
+      )}
+      {props.selectedPage === 'consumerSubscription' && (
+        <ConsumerSubscriptionWidgetStyled isMobile={isMobile} {...props} />
+      )}
+    </>
+  );
+};
 
 class ConsumerSpace extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -81,32 +116,29 @@ class ConsumerSpace extends React.Component<Props, State> {
     }
 
     if (prevProps.page !== this.props.page) {
-      this.setState((prevState) => ({
-        ...prevState,
-        selectedPage: this.props.page,
-      }));
+      this.changePage(this.props.page);
     }
   }
 
+  /** Set the current member profile page */
+  changePage = (page: OwnProps['page']) =>
+    this.setState(() => ({
+      selectedPage: page,
+    }));
+
   render() {
     return (
-      <div className="bs-consumer-space-widget-root">
-        {this.state.selectedPage === 'consumerBooking' && (
-          <ConsumerBookingWidgetStyled {...this.props} />
-        )}
-        {this.state.selectedPage === 'consumerPass' && (
-          <ConsumerPassWidgetStyled {...this.props} />
-        )}
-        {this.state.selectedPage === 'consumerInvoice' && (
-          <ConsumerInvoiceWidgetStyled {...this.props} />
-        )}
-        {this.state.selectedPage === 'consumerProfile' && (
-          <ConsumerProfileWidgetStyled {...this.props} />
-        )}
-        {this.state.selectedPage === 'consumerSubscription' && (
-          <ConsumerSubscriptionWidgetStyled {...this.props} />
-        )}
-      </div>
+      <ConsumerNavigation
+        memberName={this.props.membership?.name}
+        changeWidgetPage={this.changePage}
+        selectedWidgetPage={this.state.selectedPage}
+      >
+        <ConsumerSpaceWidgetContent
+          selectedPage={this.state.selectedPage}
+          // TODO performance - restrict props to local page scope
+          {...this.props}
+        />
+      </ConsumerNavigation>
     );
   }
 }

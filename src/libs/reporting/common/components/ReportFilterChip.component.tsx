@@ -234,29 +234,6 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
       editReportFilterConfig,
     ]);
 
-    const displayedChips = (
-      <Chip
-        key={label}
-        className={classNames({
-          [classes.columnRemoved]: isColumnRemoved && !onlyDisplay,
-          [classes.filterWithoutValues]:
-            !onlyDisplay && !isColumnRemoved && valueLabel() === '',
-        })}
-        icon={
-          isColumnRemoved && !onlyDisplay ? (
-            <Warning className={classes.columnRemoved} />
-          ) : (
-            getIcon()
-          )
-        }
-        label={`${t(`columns.${label}`)} ${!onlyDisplay ? valueLabel() : ''}`}
-        onClick={
-          !onlyDisplay && !isColumnRemoved && handleQuickFilterEditFilter
-        }
-        onDelete={!onlyDisplay && handleQuickFilterDeleteFilter}
-      />
-    );
-
     if (
       !onlyDisplay &&
       getSingleValueLabel(
@@ -276,13 +253,36 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
 
     return (
       <div ref={ref} className={classes.column}>
-        {isColumnRemoved && !onlyDisplay ? (
-          <Tooltip title={t('filter.form.shortColumnError')}>
-            {displayedChips}
-          </Tooltip>
-        ) : (
-          displayedChips
-        )}
+        <Tooltip
+          title={
+            isColumnRemoved && !onlyDisplay
+              ? t('filter.form.shortColumnError')
+              : ''
+          }
+        >
+          <Chip
+            key={label}
+            className={classNames({
+              [classes.columnRemoved]: isColumnRemoved && !onlyDisplay,
+              [classes.filterWithoutValues]:
+                !onlyDisplay && !isColumnRemoved && valueLabel() === '',
+            })}
+            icon={
+              isColumnRemoved && !onlyDisplay ? (
+                <Warning className={classes.columnRemoved} />
+              ) : (
+                getIcon()
+              )
+            }
+            label={`${t(`columns.${label}`)} ${
+              onlyDisplay ? '' : valueLabel()
+            }`}
+            onClick={
+              !onlyDisplay && !isColumnRemoved && handleQuickFilterEditFilter
+            }
+            onDelete={!onlyDisplay && handleQuickFilterDeleteFilter}
+          />
+        </Tooltip>
       </div>
     );
   },

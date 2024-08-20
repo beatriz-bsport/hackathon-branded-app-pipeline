@@ -1,12 +1,16 @@
 .bs-consumer-navigation__root {
   container: bsConsumerNavigation / inline-size;
+  margin: 0 auto;
 }
 
 .bs-consumer-navigation__layout {
   display: flex;
-  height: calc(100cqh - 72px);
   margin: 0 auto;
   background: var(--bs-grey-0);
+}
+
+.bs-consumer-navigation__layout--computed-height {
+  height: calc(100cqh - 72px);
 }
 
 .bs-consumer-navigation__content {

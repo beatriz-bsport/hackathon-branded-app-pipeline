@@ -14,6 +14,7 @@ import useViewport from '#Fabrique/hooks/useViewport';
 import NavigationSideBar from '#src/components/css-only/Navigation/NavigationSideBar';
 import useNavigationData from '#src/libs/marketplace/components/@Navigation/useNavigationData';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
+import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
 
 import {
   ArrowLeft,
@@ -34,11 +35,24 @@ import type { MarketplaceTabConfig } from '#src/libs/marketplace/types';
 
 import './styles.css';
 
+type WidgetProps = {
+  selectedWidgetPage:
+    | 'consumerBooking'
+    | 'consumerPass'
+    | 'consumerInvoice'
+    | 'consumerProfile'
+    | 'consumerSubscription';
+  changeWidgetPage: (page: string) => void;
+};
+
+type CommonProps = {
+  companyName: string;
+};
+
 type Props = {
   push: (path: string) => void;
   companyLogo: string;
   companyWebsiteUrl?: string;
-  companyName: string;
   companyId: number;
   isNewCheckoutFlow: boolean;
   memberName: string;
@@ -51,7 +65,9 @@ type Props = {
   tabConfigList: MarketplaceTabConfig[];
 };
 
-const ConsumerNavigation: React.FC<Props> = ({
+type CombinedProps = Partial<WidgetProps & CommonProps & Props>;
+
+const ConsumerNavigation: React.FC<CombinedProps> = ({
   companyLogo,
   companyWebsiteUrl,
   companyName,
@@ -63,11 +79,14 @@ const ConsumerNavigation: React.FC<Props> = ({
   buttonsData,
   basketProductListCount,
   tabConfigList,
+  selectedWidgetPage,
   push,
+  changeWidgetPage,
 }) => {
   const { t } = useTranslation(['consumerSpace', 'marketplace']);
   const { width } = useViewport();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
+  const isWidget = WidgetUtils.isWidget();
 
   const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
 
@@ -109,14 +128,19 @@ const ConsumerNavigation: React.FC<Props> = ({
     handleSetStackNavigationState,
   } = useNavigationSideDrawerData();
 
-  const { marketplaceNavigationData, consumerNavigationData } =
-    useNavigationData({
-      franchisorCompanyList,
-      companyId: companyId,
-      linksList,
-      handleCloseMarketplaceSideDrawer,
-      handleCloseConsumerSideDrawer,
-    });
+  const {
+    marketplaceNavigationData,
+    consumerNavigationData,
+    consumerNavigationWidgetData,
+  } = useNavigationData({
+    franchisorCompanyList,
+    companyId: companyId,
+    linksList,
+    selectedWidgetPage,
+    handleCloseMarketplaceSideDrawer,
+    handleCloseConsumerSideDrawer,
+    changeWidgetPage,
+  });
 
   const actionsList: AppBarButton[] = useMemo(
     () => [
@@ -152,6 +176,35 @@ const ConsumerNavigation: React.FC<Props> = ({
       t,
     ],
   );
+
+  if (isWidget) {
+    return (
+      <div className="bs-consumer-navigation__root">
+        <div
+          className={classNames('bs-consumer-navigation__layout', {
+            'bs-consumer-navigation__layout--computed-height': !isWidget,
+          })}
+        >
+          <NavigationSideBar
+            items={
+              isWidget ? consumerNavigationWidgetData : consumerNavigationData
+            }
+            memberName={memberName}
+          />
+          <main
+            className={classNames('bs-consumer-navigation__content', {
+              'bs-consumer-navigation__content--mobile': isMobile,
+            })}
+          >
+            {children}
+            {isMobile && !!buttonsData?.length && (
+              <ConsumerGenericFooter buttons={buttonsData} />
+            )}
+          </main>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bs-consumer-navigation__root">
@@ -195,7 +248,7 @@ const ConsumerNavigation: React.FC<Props> = ({
           })}
         >
           {children}
-          {isMobile && !!buttonsData.length && (
+          {isMobile && !!buttonsData?.length && (
             <ConsumerGenericFooter buttons={buttonsData} />
           )}
         </main>

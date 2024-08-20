@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router';
 
 // @ts-expect-error JS
 import i18n, { AVAILABLE_LANGUAGES, getFullLanguage } from '#src/i18n';
@@ -24,20 +23,24 @@ const useNavigationData = ({
   companyId,
   linksList,
   franchisorCompanyList,
+  selectedWidgetPage,
   handleCloseMarketplaceSideDrawer,
   handleCloseConsumerSideDrawer,
+  changeWidgetPage,
 }: {
   companyId: number;
   linksList: AppBarTab[];
   franchisorCompanyList: Company[];
+  selectedWidgetPage?: string;
   handleCloseMarketplaceSideDrawer: () => void;
   handleCloseConsumerSideDrawer: () => void;
+  changeWidgetPage?: (page: string) => void;
 }) => {
   const { t } = useTranslation('consumerSpace');
 
-  const location = useLocation();
-
   const isWidget = WidgetUtils.isWidget();
+
+  const location = window.location.pathname;
 
   const isAbleToChangeStudio =
     (franchisorCompanyList ?? []).length > 0 && !isWidget;
@@ -50,48 +53,93 @@ const useNavigationData = ({
     [handleCloseConsumerSideDrawer],
   );
 
+  const handleChangeWidgetPage = useCallback(
+    (page: string) => () => changeWidgetPage?.(page),
+    [changeWidgetPage],
+  );
+
+  const consumerNavigationWidgetData: SubmenuItem[] = React.useMemo(
+    () => [
+      {
+        title: t('reworked.navigation.myBookings'),
+        leftIcon: <Calendar />,
+        isSelected: selectedWidgetPage === 'consumerBooking',
+        onClick: handleChangeWidgetPage('consumerBooking'),
+      },
+      {
+        title: t('reworked.navigation.myPasses'),
+        leftIcon: <Ticket01 />,
+        isSelected: selectedWidgetPage === 'consumerPass',
+
+        onClick: handleChangeWidgetPage('consumerPass'),
+      },
+      {
+        title: t('reworked.navigation.mySubscriptions'),
+        leftIcon: <Star01 />,
+        isSelected: selectedWidgetPage === 'consumerSubscription',
+
+        onClick: handleChangeWidgetPage('consumerSubscription'),
+      },
+      {
+        title: t('reworked.navigation.myProfile'),
+        leftIcon: <UserEdit />,
+        isSelected: selectedWidgetPage === 'consumerProfile',
+
+        onClick: handleChangeWidgetPage('consumerProfile'),
+      },
+      {
+        title: t('reworked.navigation.myInvoices'),
+        leftIcon: <FileAttachment02 />,
+        isSelected: selectedWidgetPage === 'consumerInvoice',
+
+        onClick: handleChangeWidgetPage('consumerInvoice'),
+      },
+    ],
+    [t, selectedWidgetPage, handleChangeWidgetPage],
+  );
+
   const consumerNavigationData: SubmenuItem[] = React.useMemo(
     () => [
       {
         title: t('reworked.navigation.myBookings'),
         leftIcon: <Calendar />,
         to: `/c/${companyId}/booking/`,
-        isSelected: location.pathname.includes('/booking/'),
+        isSelected: location.includes('/booking/'),
         onClick: handleCloseConsumerSideDrawer,
       },
       {
         title: t('reworked.navigation.myPasses'),
         leftIcon: <Ticket01 />,
         to: `/c/${companyId}/pack/`,
-        isSelected: location.pathname.includes('/pack/'),
+        isSelected: location.includes('/pack/'),
         onClick: handleCloseConsumerSideDrawer,
       },
       {
         title: t('reworked.navigation.mySubscriptions'),
         leftIcon: <Star01 />,
         to: `/c/${companyId}/subscription/`,
-        isSelected: location.pathname.includes('/subscription/'),
+        isSelected: location.includes('/subscription/'),
         onClick: handleCloseConsumerSideDrawer,
       },
       {
         title: t('reworked.navigation.myProfile'),
         leftIcon: <UserEdit />,
         to: `/c/${companyId}/profile/`,
-        isSelected: location.pathname.includes('/profile/'),
+        isSelected: location.includes('/profile/'),
         onClick: handleCloseConsumerSideDrawer,
       },
       {
         title: t('reworked.navigation.myGiftCards'),
         leftIcon: <Gift02 />,
         to: `/c/${companyId}/giftcard/`,
-        isSelected: location.pathname.includes('/giftcard/'),
+        isSelected: location.includes('/giftcard/'),
         onClick: handleCloseConsumerSideDrawer,
       },
       {
         title: t('reworked.navigation.myInvoices'),
         leftIcon: <FileAttachment02 />,
         to: `/c/${companyId}/invoice/`,
-        isSelected: location.pathname.includes('/invoice/'),
+        isSelected: location.includes('/invoice/'),
         onClick: handleCloseConsumerSideDrawer,
       },
       { isDivider: true },
@@ -125,7 +173,7 @@ const useNavigationData = ({
     [
       t,
       companyId,
-      location.pathname,
+      location,
       handleCloseConsumerSideDrawer,
       isAbleToChangeStudio,
       franchisorCompanyList,
@@ -154,7 +202,11 @@ const useNavigationData = ({
     [companyId, handleCloseMarketplaceSideDrawer, linksList, t],
   );
 
-  return { marketplaceNavigationData, consumerNavigationData };
+  return {
+    marketplaceNavigationData,
+    consumerNavigationData,
+    consumerNavigationWidgetData,
+  };
 };
 
 export default useNavigationData;

@@ -75,6 +75,7 @@ import {
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAPI,
   changePaymentMethodAndRegisterPlannedPaymentEvent as changePaymentMethodAndRegisterPlannedPaymentEventAPI,
 } from './api';
+import { ExportInvoiceStatus } from './constants';
 
 export const invoiceConfigurationPatchActions = {
   isLoading: createAction<boolean>('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),
@@ -193,15 +194,25 @@ export function generateInvoiceXml(
     dispatch(generateInvoiceXmlActions.error(null));
     try {
       const response = await generateInvoiceXmlAPI(uuid);
+      if (
+        response.data.exported_invoice_status === ExportInvoiceStatus.SUCCESS
+      ) {
+        dispatch(snackbarSuccess('invoice.generateXml.success'));
+      } else if (response.data.exported_invoice_error_code) {
+        // If there is an error code, even if the status is 200, the export failed and the returned invoice
+        // may have an error code.
+        dispatch(
+          snackbarError(
+            `invoice.generateXml.errors.${response.data.exported_invoice_error_code}`,
+          ),
+        );
+      } else {
+        snackbarError('invoice.generateXml.errors.default');
+      }
       dispatch(generateInvoiceXmlActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {
-      if (isErrorWithCustomCode(err)) {
-        const errorCode = err.response?.data?.error_code;
-        dispatch(
-          snackbarError(`invoice.generateXml.errors.${errorCode || 'default'}`),
-        );
-      }
+      dispatch(snackbarError(`invoice.generateXml.errors.'default'`));
       dispatch(generateInvoiceXmlActions.error(err));
       options?.onError?.(err);
     }

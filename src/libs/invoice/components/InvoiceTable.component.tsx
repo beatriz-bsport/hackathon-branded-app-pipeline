@@ -165,8 +165,9 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
           setProcessing(false);
         },
         onSuccess: (inv: InvoiceV1Serializer) => {
-          setDownloadMenuOpen(null);
-          window.open(inv.exported_invoice_file_path, '_blank');
+          if (inv?.exported_invoice_file_path) {
+            window.open(inv.exported_invoice_file_path, '_blank');
+          }
           setProcessing(false);
         },
       });

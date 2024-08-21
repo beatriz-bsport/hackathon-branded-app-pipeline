@@ -4,7 +4,7 @@ import {
   REVERSE_ON_NEW_PAYMENT_METHOD,
 } from '@bsport/common/lib/master-data/payment-group';
 import { PaymentEngine, PaymentItem } from '#src/libs/invoice/payment/types';
-import { ExportInvoiceStatus } from './constants';
+import { ExportInvoiceErrorCode, ExportInvoiceStatus } from './constants';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 import type { UserRoleData } from '#src/libs/role/types';
 import type { ErrorAndLoading } from '#src/libs/types';
@@ -61,6 +61,7 @@ export type Invoice<M = number, PI = number, II = number> = {
   exported_invoice_file_path: string | null;
   exported_invoice_status: ExportInvoiceStatus;
   exported_invoice_error_message: string | null;
+  exported_invoice_error_code: ExportInvoiceErrorCode | null;
   fully_payed: string;
   price_due: string;
   price_payed: string;
@@ -95,6 +96,7 @@ export type ConsumerInvoiceREST = {
   exported_invoice_file_path: string | null;
   exported_invoice_status: ExportInvoiceStatus;
   exported_invoice_error_message: string | null;
+  exported_invoice_error_code: ExportInvoiceErrorCode | null;
   is_draft: boolean;
   is_finalized: boolean;
   is_quick_invoice: boolean | null;

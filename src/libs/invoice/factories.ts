@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 import { InvoiceType, Invoice, ConsumerInvoice } from '#src/libs/invoice/types';
 import { PaymentEngine, PaymentItem } from '#src/libs/invoice/payment/types';
 import { PaymentMethodsChoices } from '#src/libs/invoice/payment/constants';
-import { ExportInvoiceStatus } from './constants';
+import { ExportInvoiceErrorCode, ExportInvoiceStatus } from './constants';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 
 /**
@@ -56,6 +56,9 @@ export function invoiceFactory(options?: Partial<Invoice>): Invoice {
     exported_invoice_status: faker.helpers.enumValue(ExportInvoiceStatus),
     exported_invoice_error_message:
       options?.exported_invoice_error_message ?? null,
+    exported_invoice_error_code: faker.helpers.enumValue(
+      ExportInvoiceErrorCode,
+    ),
     uuid: options?.uuid ?? faker.string.uuid(),
     voucher: options?.voucher ?? '',
   };
@@ -108,6 +111,9 @@ export function consumerInvoiceFactory(
     exported_invoice_status: faker.helpers.enumValue(ExportInvoiceStatus),
     exported_invoice_error_message:
       options?.exported_invoice_error_message ?? null,
+    exported_invoice_error_code: faker.helpers.enumValue(
+      ExportInvoiceErrorCode,
+    ),
     uuid: options?.uuid ?? faker.string.uuid(),
     voucher: options?.voucher ?? '',
   };

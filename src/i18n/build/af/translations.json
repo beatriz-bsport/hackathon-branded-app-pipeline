@@ -3514,8 +3514,13 @@
         },
         "export": {
           "title": "Electronic invoice (XML)",
-          "header": { "status": "Status" },
-          "status": { "success": "Generated successfully", "fail": "Generation failed", "notGenerated": "Not generated" }
+          "header": { "status": "Status", "errorMessage": "Error message" },
+          "status": {
+            "success": "Generated successfully",
+            "fail": "Generation failed",
+            "failWithMessage": "Generation failed: {{- errorMessage }}",
+            "notGenerated": "Not generated"
+          }
         }
       },
       "header": {

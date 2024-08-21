@@ -147,6 +147,11 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
         return t('table.nested.export.status.success');
 
       case ExportInvoiceStatus.FAIL:
+        if (invoice?.exported_invoice_error_message) {
+          return t('table.nested.export.status.failWithMessage', {
+            errorMessage: invoice.exported_invoice_error_message,
+          });
+        }
         return t('table.nested.export.status.fail');
 
       default:

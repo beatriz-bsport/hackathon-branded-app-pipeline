@@ -385,10 +385,12 @@ const getTranslations = async () => {
           title: 'Electronic invoice (XML)',
           header: {
             status: 'Status',
+            errorMessage: 'Error message',
           },
           status: {
             success: 'Generated successfully',
             fail: 'Generation failed',
+            failWithMessage: 'Generation failed: {{- errorMessage }}',
             notGenerated: 'Not generated',
           },
         },

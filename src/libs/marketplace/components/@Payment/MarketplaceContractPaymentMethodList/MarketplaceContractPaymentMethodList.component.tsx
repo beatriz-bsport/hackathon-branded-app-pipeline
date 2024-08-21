@@ -1,21 +1,22 @@
 import React, { MouseEvent, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import RadioButtonUncheckedOutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import RadioButtonCheckedOutlinedIcon from '@material-ui/icons/RadioButtonCheckedOutlined';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-import classNames from 'classnames';
-
-import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
-import CircularProgress from '#src/components/css-only/CircularProgress';
-import { PaymentMethod } from '#src/libs/payment/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
 
+import CircularProgress from '#src/components/css-only/CircularProgress';
 import Button, {
   ButtonVariant,
 } from '#src/components/css-only/Fabrique/Button';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { getPaymentMethodBrandName } from '#src/libs/payment/utils';
 
 import './styles.css';
 
@@ -54,6 +55,8 @@ const ContractPaymentMethod: React.FC<ContractPaymentMethodProps> = React.memo(
       },
       [onDetach, paymentMethod.id],
     );
+
+    const { t } = useTranslation('invoice');
 
     const handleSelectPaymentMethod = useCallback(
       (event: MouseEvent<HTMLButtonElement>) => {
@@ -105,9 +108,12 @@ const ContractPaymentMethod: React.FC<ContractPaymentMethodProps> = React.memo(
             </span>
             {paymentMethodType === MarketplacePaymentMethods.card && (
               <span className="bs-marketplace-contract-payment-method-list__item__subtitle">
-                {`${paymentMethod.additional_info || ' '} ${
-                  paymentMethod.brand
-                }`}
+                {`${
+                  paymentMethod.additional_info || ' '
+                } ${getPaymentMethodBrandName(
+                  paymentMethod.display_brand ?? paymentMethod.brand,
+                  t('paymentMethod.other'),
+                )}`}
               </span>
             )}
           </div>

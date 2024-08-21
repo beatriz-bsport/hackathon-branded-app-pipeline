@@ -1,25 +1,34 @@
-import { Button, ButtonBase, Divider, Typography } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+import {
+  Button,
+  ButtonBase,
+  Divider,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  IconButton,
+  CircularProgress,
+  LinearProgress,
+  ListItemSecondaryAction,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import PaymentIcon from '@material-ui/icons/Payment';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import Add from '@material-ui/icons/Add';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import LinkIcon from '@material-ui/icons/Link';
+
+import type { OptionCallback } from '#src/state/types';
+
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import { getAddPaymentLink } from '#src/libs/consumer-space/utils';
-import { OptionCallback } from '../../../state/types';
+import { getPaymentMethodBrandName } from '#src/libs/payment/utils';
 
 type Props = {
   paymentMethod?: Array<any>;
@@ -32,7 +41,7 @@ type Props = {
 };
 
 export const MemberPaymentMethodPanel = (props: Props) => {
-  const { t } = useTranslation(['invoice']);
+  const { t } = useTranslation('invoice');
   const classes = useStyles();
   const { openAddPaymentMethodDialog } = props;
 
@@ -80,7 +89,12 @@ export const MemberPaymentMethodPanel = (props: Props) => {
                     <ListItemText
                       primary={`**** **** **** ${method.readable_identifier}`}
                       secondary={`${
-                        method.type === 'card' ? method.brand : ''
+                        method.type === 'card'
+                          ? getPaymentMethodBrandName(
+                              method.display_brand ?? method.brand,
+                              t('paymentMethod.other'),
+                            )
+                          : ''
                       }   ${method.additional_info}`}
                     />
 

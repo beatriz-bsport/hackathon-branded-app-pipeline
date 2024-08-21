@@ -1,4 +1,6 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -6,15 +8,18 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
+import DeleteIcon from '@material-ui/icons/Delete';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+
+import type { PaymentMethod } from '#src/libs/payment/types';
+import type { OptionCallback } from '#src/state/types';
 import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
-import type { PaymentMethod } from '../types';
-import type { OptionCallback } from '../../../state/types';
+
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+
+import { getPaymentMethodBrandName } from '#src/libs/payment/utils';
 
 type Props = {
   paymentMethod?: PaymentMethod;
@@ -76,7 +81,7 @@ export const PaymentMethodListItem: FC<Props> = ({
 }) => {
   const classes = useStyles();
 
-  const { t } = useTranslation(['invoice']);
+  const { t } = useTranslation('invoice');
 
   const handleChangePaymentMethod = React.useCallback(() => {
     if (!onClick || !(withGeneralConditions || true)) return;
@@ -135,7 +140,12 @@ export const PaymentMethodListItem: FC<Props> = ({
         primary={`**** **** **** ${paymentMethod.readable_identifier}`}
         secondary={
           paymentMethod.type === MarketplacePaymentMethods.card
-            ? `${paymentMethod.additional_info || ' '} ${paymentMethod.brand}`
+            ? `${
+                paymentMethod.additional_info || ' '
+              } ${getPaymentMethodBrandName(
+                paymentMethod.display_brand ?? paymentMethod.brand,
+                t('paymentMethod.other'),
+              )}`
             : null
         }
       />

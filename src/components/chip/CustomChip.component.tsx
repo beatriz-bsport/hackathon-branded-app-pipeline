@@ -208,7 +208,9 @@ export const CustomChip: React.FC<CustomChipProps> = ({
           <Chip
             className={classnames(classes.chip, chipClass)}
             color="primary"
-            icon={!!icon && <MuiIcon className={classes.icon} icon={icon} />}
+            icon={
+              icon ? <MuiIcon className={classes.icon} icon={icon} /> : null
+            }
             label={displayedValue}
             onDelete={onDelete || null}
             size="small"

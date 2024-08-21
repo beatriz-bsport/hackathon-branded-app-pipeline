@@ -130,7 +130,7 @@ const ReportDetailNavigationDrawer: React.FC<Props> = ({
           <List className={classes.list}>
             {items.map((globalCategory) => {
               return (
-                <>
+                <React.Fragment key={globalCategory.title}>
                   <ListItem
                     button
                     className={classes.globalCategory}
@@ -180,7 +180,7 @@ const ReportDetailNavigationDrawer: React.FC<Props> = ({
                       ))}
                     </List>
                   </Collapse>
-                </>
+                </React.Fragment>
               );
             })}
           </List>

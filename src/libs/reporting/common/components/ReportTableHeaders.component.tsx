@@ -55,17 +55,10 @@ const CardHeaders: React.FC<{
             </div>
           )}
           {hasReportBeenGenerated && !isLoading && (
-            <Grid container direction="row" spacing={2}>
+            <Grid container alignItems="stretch" direction="row" spacing={2}>
               {(headerDetails || []).map((detail, index) => {
                 return (
-                  <Grid
-                    key={index}
-                    item
-                    alignItems="stretch"
-                    lg={2}
-                    md={4}
-                    xs={6}
-                  >
+                  <Grid key={index} item lg={2} md={4} xs={6}>
                     <Card elevation={0}>
                       <Typography color="textSecondary" variant="subtitle2">
                         {t(`columns.${detail.column_identifier}`)}
@@ -92,10 +85,10 @@ const CardHeaders: React.FC<{
         <Typography className={classes.headerSectionTitle} variant="h6">
           {t(`header.${(headerTitle || '').toLowerCase()}`)}
         </Typography>
-        <Grid container direction="row" spacing={2}>
+        <Grid container alignItems="stretch" direction="row" spacing={2}>
           {headerDetails.map((detail, index) => {
             return (
-              <Grid key={index} item alignItems="stretch" lg={2} md={4} xs={6}>
+              <Grid key={index} item lg={2} md={4} xs={6}>
                 <Card className={classes.cardStyle} elevation={1}>
                   <Typography color="textPrimary" variant="body2">
                     {t(`columns.${detail.column_identifier}`)}

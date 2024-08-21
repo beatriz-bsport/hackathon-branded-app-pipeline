@@ -315,9 +315,11 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
               }
               label={`${t(`columns.label}`)} ${onlyDisplay ? '' : valueLabel}`}
               onClick={
-                !onlyDisplay && !isColumnRemoved && handleQuickFilterEditFilter
+                onlyDisplay || isColumnRemoved
+                  ? null
+                  : handleQuickFilterEditFilter
               }
-              onDelete={!onlyDisplay && handleQuickFilterDeleteFilter}
+              onDelete={onlyDisplay ? null : handleQuickFilterDeleteFilter}
             />
           </Tooltip>
         )}

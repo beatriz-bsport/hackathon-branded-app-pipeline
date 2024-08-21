@@ -1,3 +1,9 @@
+import { type PayPalScriptProviderOptions } from 'src/libs/payment/types';
+
+// @ts-expect-error
+import i18n from '#src/i18n/index';
+import { TFunction } from 'i18next';
+
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
   PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
@@ -10,14 +16,15 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
-import { TFunction } from 'i18next';
-import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#src/libs/terminal/constants';
 import Config from '#src/config';
 import { getCurrencyCode } from '#src/libs/theme/selectors';
-// @ts-expect-error
-import i18n from '#src/i18n/index';
 import { getLocaleFromLanguage } from '#src/utils/language';
-import { PayPalScriptProviderOptions } from './types';
+import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#src/libs/terminal/constants';
+import {
+  PAYMENT_METHOD_BRAND_NAME_MAP,
+  PAYMENT_METHOD_PNG_MAP,
+  PaymentMethodBrands,
+} from '#src/libs/payment/constants';
 
 export const fromPaymentGroupIdentifierToPaymentMethodIdentifier = (
   paymentGroupIdentifier: number,
@@ -162,4 +169,21 @@ export const getPayPalScriptProviderOptions = (
     dataPartnerAttributionId: Config.REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID,
     ...(buttonLocale ? { locale: buttonLocale } : {}),
   };
+};
+
+export const getPaymentMethodPng = (brandName: string) => {
+  if (brandName in PAYMENT_METHOD_PNG_MAP) {
+    return PAYMENT_METHOD_PNG_MAP[brandName as PaymentMethodBrands];
+  }
+  return '';
+};
+
+export const getPaymentMethodBrandName = (
+  brandName: string,
+  defaultBrandName: string,
+) => {
+  if (brandName in PAYMENT_METHOD_BRAND_NAME_MAP) {
+    return PAYMENT_METHOD_BRAND_NAME_MAP[brandName as PaymentMethodBrands];
+  }
+  return defaultBrandName;
 };

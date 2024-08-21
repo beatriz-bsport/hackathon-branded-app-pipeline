@@ -29,6 +29,8 @@ export type PaymentMethod = {
   id: string;
   readable_identifier: string;
   brand: string;
+  display_brand: string;
+  is_cobranded_card: boolean;
   payment_backend_identifier: number;
   additional_info: string;
   is_default: boolean;

@@ -334,6 +334,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-shadow-xl: 0px 16px 24px -8px rgba(75, 83, 81, 0.32);
     --bs-footer-shadow:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px -4px 4px rgba(0, 0, 0, 0.04);
     --bs-border-shadow: inset 0px 0px 0px;
+    --bs-border-shadow-inset: 0px 0px 0px 1px var(--bs-color-border-weak) inset;
     
     --bs-shadow-input-field-focused: 0px 0px 2px 0px var(--bs-grey-alpha-500a);
     --bs-shadow-input-field-error: 0px 0px 3px 0px var(--bs-red-500);

@@ -1,6 +1,9 @@
 import React, { useContext, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+
+import type { PaymentMethodsCardProps } from '#src/libs/consumer-space/components/reworked/@MyProfile/types';
+
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import Card from '#Fabrique/Card';
@@ -9,19 +12,14 @@ import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 import IconButton from '#Fabrique/IconButton';
 import Button from '#Fabrique/ButtonV2';
-import {
-  Bank,
-  CreditCard01,
-  CreditCardPlus,
-  Trash03,
-} from '#src/components/untitledui';
+import { Bank, CreditCardPlus, Trash03 } from '#src/components/untitledui';
 
 import { ConsumerProfileContext } from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
-import type { PaymentMethodsCardProps } from '#src/libs/consumer-space/components/reworked/@MyProfile/types';
 import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import BrandCreditCardIconWithTooltip from '#src/components/BrandCreditCardIconWithTooltip';
 
-import './styles.css';
+import '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/SavedPaymentMethodCard/styles.css';
 
 const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
   detachPaymentMethodLoading,
@@ -94,7 +92,18 @@ const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
                   'bs-consumer-payment-methods-card__list-item__caption-text',
               }}
               className="bs-consumer-payment-methods-card__list-item"
-              icon={<CreditCard01 />}
+              icon={
+                <BrandCreditCardIconWithTooltip
+                  brandName={card.display_brand ?? card.brand}
+                  defaultBrandName={t(
+                    'reworked.myProfile.paymentMethods.tooltipText.other',
+                  )}
+                  isCobrandedCard={card.is_cobranded_card}
+                  tooltipDetailText={t(
+                    'reworked.myProfile.paymentMethods.tooltipText.more',
+                  )}
+                />
+              }
               label={
                 <Trans
                   i18nKey="reworked.myProfile.paymentMethods.paymentMethodLabel"

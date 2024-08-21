@@ -73,7 +73,7 @@
   overflow-y: auto;
 }
 
-@container bsNavigationSideDrawer (width < 660px) {
+@container bsNavigationSideDrawer (width < 930px) {
   .bs-fabrique-submenu-list-item__root .bs-fabrique-menu-item__button:hover {
     background-color: inherit;
     color: inherit;

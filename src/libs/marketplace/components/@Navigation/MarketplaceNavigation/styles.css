@@ -14,7 +14,7 @@
 .bs-marketplace-navigation__content--mobile {
 }
 
-@container bsMarketplaceNavigation (width < 660px) {
+@container bsMarketplaceNavigation (width < 930px) {
   .bs-marketplace-navigation__content {
   }
 }

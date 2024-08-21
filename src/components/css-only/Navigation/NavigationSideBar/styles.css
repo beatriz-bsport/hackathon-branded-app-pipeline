@@ -29,7 +29,7 @@
   padding: 0;
 }
 
-@container bsConsumerNavigation (width < 660px) {
+@container bsConsumerNavigation (width < 930px) {
   .bs-consumer-navigation__layout__sidebar__root {
     display: none;
   }

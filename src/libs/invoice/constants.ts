@@ -6,3 +6,11 @@ export enum ExportInvoiceStatus {
   FAIL = 'FAILURE',
   UNKNOWN = null,
 }
+
+// Be careful to always be consistend with error codes provided in ./errors.ts
+export enum ExportInvoiceErrorCode {
+  NO_INVOICE_EXPORTER = 14210,
+  NO_USER_OFFICIAL_DOCUMENT_ID = 14211,
+  INVOICE_EXPORT_INCOMPLETE_USER_ADDRESS = 14212,
+  INVOICE_EXPORT_SCHEMA_COMPLIANCE = 14213,
+}

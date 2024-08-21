@@ -14,7 +14,7 @@ const {
 const {
   INVOICE_EXPORT_INCOMPLETE_USER_ADDRESS,
   MISSING_USER_OFFICIAL_DOCUMENT_ID,
-  NO_INVOICE_EXPORTER_ERROR_CODE,
+  NO_INVOICE_EXPORTER,
   INVOICE_EXPORT_SCHEMA_COMPLIANCE,
 } = require('../../libs/invoice/errors.ts');
 
@@ -702,8 +702,8 @@ const getTranslations = async () => {
             "The member's address is  missing or incomplete",
           [MISSING_USER_OFFICIAL_DOCUMENT_ID]:
             'The member has no official document ID',
-          [NO_INVOICE_EXPORTER_ERROR_CODE]:
-            'The company is not set up for XML invoice export. Please contact support.',
+          [NO_INVOICE_EXPORTER]:
+            'The company is not set up for XML invoice export. Please contact your bsport Account manager.',
           [INVOICE_EXPORT_SCHEMA_COMPLIANCE]:
             'The generated file is not compliant with the pre-validation check (provided in our code by the italian government)',
         },

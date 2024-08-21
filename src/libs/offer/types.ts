@@ -520,7 +520,6 @@ export enum BOOKING_FOR_GUEST_FREQUENCY {
 }
 
 export type FetchSimilarOffersParams = {
-  wide: boolean;
   page_size: number;
   page?: number;
 };

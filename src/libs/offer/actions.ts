@@ -139,7 +139,6 @@ export function fetchSimilarOffersReworked(
     const params: FetchSimilarOffersParams = {
       page: nextPage,
       page_size: fetchSimilarOffersParams.page_size,
-      wide: fetchSimilarOffersParams.wide,
     };
 
     try {

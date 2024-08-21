@@ -308,7 +308,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.fetchSimilarOffersReworked(
         this.props.offer.id,
         {
-          wide: true,
           page_size: SIMILAR_OFFER_PAGE_SIZE,
         },
         {

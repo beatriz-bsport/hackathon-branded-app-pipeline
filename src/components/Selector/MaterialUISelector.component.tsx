@@ -179,6 +179,8 @@ function MaterialUISelector<T extends OptionTypeBase>(
     withoutPortal = false,
     withoutSelectAll,
     hideChips = false,
+    forceBlurOnSelect = false,
+    isOptionDisabled,
     ...restProps
   } = props;
 
@@ -211,6 +213,10 @@ function MaterialUISelector<T extends OptionTypeBase>(
     /* when clearing the values, the selected items gets updated properly (asynchronous behavior) and the
     menu reopens with empty values instead of closing the menu */
     if (openMenuOnClear && action === 'clear') {
+      selectRef.current.select.blur();
+    }
+
+    if (blurOnSelect && forceBlurOnSelect) {
       selectRef.current.select.blur();
     }
 
@@ -403,6 +409,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
           isMenuListPaddingDisabled={isMenuListPaddingDisabled}
           isMenuListVirtualized={isMenuListVirtualized}
           isMulti={isMulti}
+          isOptionDisabled={isOptionDisabled}
           isSearchable={isSearchable}
           menuIsOpen={menuIsOpen}
           menuPortalTarget={_menuPortalTarget}
@@ -603,15 +610,16 @@ function Option<T extends OptionTypeBase>(
           const isSelected = selected.some(
             (option) => option?.value === props.data?.value,
           );
-
           const handleClick = (
             ev: React.MouseEvent<HTMLDivElement, MouseEvent>,
           ) => {
-            if (props.isMulti) {
-              onSelect(props.data);
-              return;
+            if (!props.isDisabled) {
+              if (props.isMulti) {
+                onSelect(props.data);
+                return;
+              }
+              props.innerProps.onClick(ev);
             }
-            props.innerProps.onClick(ev);
           };
 
           return (

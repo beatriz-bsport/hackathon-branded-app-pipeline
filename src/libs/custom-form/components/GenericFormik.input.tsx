@@ -14,6 +14,7 @@ import MaterialUISelector, {
   chipsRendererProps,
   // @ts-expect-error
   Props as MaterialUISelectorProps,
+  OptionTypeBase,
 } from '#src/components/Selector/MaterialUISelector.component';
 import ObjectSearchComponent, {
   OwnProps as ObjectSearchComponentProps,
@@ -242,6 +243,67 @@ type MaterialUiMultiSelectorProps = {
   openMenuOnFocus?: boolean;
   openMenuOnClear?: boolean;
   closeMenuOnSelect?: boolean;
+  /**
+   * @description onInputChange props from React Select
+   *
+   * Function that is triggered when user types in the input
+   * @param text
+   * @returns
+   */
+  onInputChange?: (text: string) => void;
+  /**
+   * @description Boolean which decides if "Select all" button needs to be hidden
+   */
+  withoutSelectAll?: boolean;
+  /**
+   * @description filterOption props of React select.
+   *
+   * If overriden, it will filter options based on your function instead of the one built-in
+   */
+  filterOption?: (option: any) => boolean;
+  /**
+   * @description isLoading props of React select.
+   */
+  isLoading?: boolean;
+  /**
+   * @description isOptionDisabled props of React select.
+   *
+   * If given, 'isDisabled' props of option will be true based on your function return value
+   * for each option
+   */
+  isOptionDisabled?: (option: { label: string; value: number }) => boolean;
+  /**
+   * @description Boolean which decides if we want to force an empty selector
+   *
+   * If true and you still want to display selected values, it needs to be handled by another component !
+   */
+  forceEmptySelector?: boolean;
+  /**
+   * @description optionFormatter props of React select.
+   *
+   * Option default format is {value:string, label:string}, but you can format it the way you want it to
+   */
+  optionFormatter?: () => any;
+  /**
+   * @description Custom component props.
+   *
+   * If given, corresponds to onChange props of MaterialUISelector
+   * Else it will set the given formik field a list of value from options
+   */
+  onChange?: (option: any) => void;
+
+  /**
+   * @description MaterialUISelector props
+   *
+   * If given without forceBlurOnSelect, will focus out of the component depending on React Select action
+   */
+  blurOnSelect?: boolean;
+  /**
+   * @description MaterialUISelector props
+   *
+   * Coupled with blurOnSelect, it will focus out the component when selecting
+   */
+  forceBlurOnSelect?: boolean;
 };
 
 type Props = BaseFieldProps & MaterialUiMultiSelectorProps;
@@ -260,6 +322,22 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
     props.options.find((option) => option.value === val),
   );
   const classes = useMaterialUiMultiSelectStyles();
+
+  const { onChange } = props;
+
+  const handleOnChange = React.useCallback(
+    (optionList: any[] | OptionTypeBase[]) => {
+      if (onChange) {
+        onChange?.(optionList);
+      } else {
+        const valueList = (optionList || []).map((option) => option.value);
+        helpers.setValue(valueList);
+        helpers.setTouched(true, false);
+      }
+    },
+    [helpers, onChange],
+  );
+
   return (
     <div className={classNames(classes.container, props.className)}>
       {!!props.title && props.title}
@@ -267,26 +345,29 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
         {() => (
           <MaterialUISelector
             isMulti
+            blurOnSelect={props.blurOnSelect}
             chipsRenderer={props.chipsRenderer}
             closeMenuOnSelect={props.closeMenuOnSelect}
             defaultNumberShown={props.defaultNumberShown}
             error={!!(meta.touched && meta.error) || props.forceError}
+            filterOption={props.filterOption}
+            forceBlurOnSelect={props.forceBlurOnSelect}
             inScrollBar={props.inScrollBar}
             isDisabled={props.isDisabled}
+            isLoading={props.isLoading}
             isMenuListVirtualized={props.isMenuListVirtualized}
+            isOptionDisabled={props.isOptionDisabled}
             itemRenderer={props.itemRenderer}
-            onChange={(optionList) => {
-              // @ts-expect-error
-              const valueList = optionList.map((option) => option.value);
-              helpers.setValue(valueList);
-              helpers.setTouched(true, false);
-            }}
+            onChange={handleOnChange}
+            onInputChange={props.onInputChange}
             openMenuOnClear={props.openMenuOnClear}
             openMenuOnFocus={props.openMenuOnFocus}
+            optionFormatter={props.optionFormatter}
             options={props.options}
             placeholder={props.placeholder}
-            value={value}
+            value={props.forceEmptySelector ? [] : value}
             withoutConfirmButton={props.withoutConfirmButton}
+            withoutSelectAll={props.withoutSelectAll}
           />
         )}
       </Field>

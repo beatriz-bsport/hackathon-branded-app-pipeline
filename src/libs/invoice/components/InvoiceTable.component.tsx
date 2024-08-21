@@ -38,6 +38,7 @@ import {
   INVOICE_TYPE_MIGRATION,
   INVOICE_TYPE_REVERSE,
 } from '@bsport/common/lib/master-data/invoice-type';
+import { colors } from '@bsport/common/lib/colors';
 import SendIcon from '@material-ui/icons/Send';
 import Avatar from '@material-ui/core/Avatar';
 import { DISPUTE as PAYMENT_METHOD_DISPUTE } from '@bsport/common/lib/master-data/payment-methods';
@@ -503,7 +504,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                       </TableCell>
                     </TableRow>
                   </TableHead>
-                  <TableBody style={{ backgroundColor: '#f8F8F8' }}>
+                  <TableBody className={classes.tableBody}>
                     {
                       // eslint-disable-next-line
                       invoice.invoice_items
@@ -556,8 +557,8 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
               </Box>
               <Box margin={1}>
                 <Typography
+                  className={classes.tableTitle}
                   component="div"
-                  style={{ marginTop: 20 }}
                   variant="h6"
                 >
                   {t('table.nested.payment.title')}
@@ -579,7 +580,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                       </TableCell>
                     </TableRow>
                   </TableHead>
-                  <TableBody style={{ backgroundColor: '#f8F8F8' }}>
+                  <TableBody className={classes.tableBody}>
                     {invoice.payments.length === 0 && (
                       <TableRow>
                         <TableCell component="th" scope="row">
@@ -656,8 +657,8 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
               {!!props?.generateInvoiceXml && (
                 <Box margin={1}>
                   <Typography
+                    className={classes.tableTitle}
                     component="div"
-                    style={{ marginTop: 20 }}
                     variant="h6"
                   >
                     {t('table.nested.export.title')}
@@ -670,7 +671,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                         </TableCell>
                       </TableRow>
                     </TableHead>
-                    <TableBody style={{ backgroundColor: '#f8F8F8' }}>
+                    <TableBody className={classes.tableBody}>
                       <TableRow>
                         <TableCell component="th" scope="row">
                           {exportStatusMessage}
@@ -846,6 +847,12 @@ export const InvoiceTable = (props: {
 const useStyles = makeStyles((theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
+  },
+  tableBody: {
+    backgroundColor: colors.backgroundLightGray,
+  },
+  tableTitle: {
+    marginTop: theme.spacing(2.5),
   },
 }));
 

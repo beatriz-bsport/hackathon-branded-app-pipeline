@@ -277,3 +277,11 @@ export type MemberSearchFilterParams = {
 
 export type LeadManagementImportBackgroundTaskReturnValue =
   ImmutableArray<string> | null;
+
+export type MemberSearchBarOption = {
+  label: string;
+  value: number;
+  member: MemberMinimal;
+};
+
+export type MemberSearchBarOptions = MemberSearchBarOption[];

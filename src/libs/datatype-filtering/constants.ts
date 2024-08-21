@@ -237,3 +237,5 @@ export const defaultDynamicDataHasBeenLoaded = {
 
 export const DATE_SUBDATA_TYPE = 0;
 export const HOUR_SUBDATA_TYPE = 1;
+
+export const MAX_SELECTABLE_MEMBER = 10;

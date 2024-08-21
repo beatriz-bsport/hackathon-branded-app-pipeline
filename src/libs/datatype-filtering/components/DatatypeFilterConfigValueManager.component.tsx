@@ -84,7 +84,7 @@ import { AccessStatus, EntryStatus } from '#src/libs/access-control/constants';
 import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
 import NestedAlertError from './NestedAlertError.component';
 
-type ItemProps = {
+export type ItemProps = {
   children: string;
   data: { label: string; value: number; columnName: string };
   isSelected: boolean;

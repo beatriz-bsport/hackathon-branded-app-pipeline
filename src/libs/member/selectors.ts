@@ -33,6 +33,12 @@ export const getAllMembers = createSelector(
   },
 );
 
+export const getMembersBasedOnListData = createSelector(
+  [getMemberListData],
+  (memberListData) =>
+    Object.keys(memberListData).map((memberId) => memberListData[memberId]),
+);
+
 export const getSearchedMembers = createSelector(
   [_getSearchedMemberIds, getMemberListData],
   (ids, data) =>

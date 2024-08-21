@@ -47,6 +47,17 @@ exports.default = {
     loginButton: {
       openMemberProfile: 'Open member profile when the user logs in',
     },
+    consumerSpace: {
+      hideNavigation: 'Hide navigation elements',
+      defaultPage: 'Default page',
+      page: {
+        consumerBooking: 'My Bookings',
+        consumerPass: 'My Passes',
+        consumerInvoice: 'My Invoices',
+        consumerProfile: 'My Profile',
+        consumerSubscription: 'My Subscriptions',
+      },
+    },
     hideWidgets: 'Hide all widgets for unlogged users',
     dialogModeLabel: 'Popup type',
     widgetPreviewError: 'Please finish the settings',

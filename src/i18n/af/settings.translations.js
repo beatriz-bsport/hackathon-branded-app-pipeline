@@ -174,6 +174,7 @@ exports.default = {
       referral: 'Referral',
       consumerBooking: 'My bookings',
       consumerPass: 'My passes',
+      consumerSpace: 'Member profile',
     },
     preview: 'Preview',
     saveButton: 'Save',

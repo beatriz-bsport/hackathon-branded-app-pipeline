@@ -108,6 +108,7 @@ exports.default = {
       cart: 'Cart',
       myAccount: 'My account',
     },
+    menu: 'Menu',
     exploreYourProfile: 'Explore your profile.',
     moreActions: 'More actions',
     showMore: 'Show more',

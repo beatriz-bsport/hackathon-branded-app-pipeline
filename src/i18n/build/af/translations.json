@@ -1658,6 +1658,7 @@
     },
     "reworked": {
       "appbar": { "companyLogo": "Company logo", "cart": "Cart", "myAccount": "My account" },
+      "menu": "Menu",
       "exploreYourProfile": "Explore your profile.",
       "moreActions": "More actions",
       "showMore": "Show more",
@@ -11392,7 +11393,8 @@
         "calendarV2": "Calendar",
         "referral": "Referral",
         "consumerBooking": "My bookings",
-        "consumerPass": "My passes"
+        "consumerPass": "My passes",
+        "consumerSpace": "Member profile"
       },
       "preview": "Preview",
       "saveButton": "Save",
@@ -15942,6 +15944,17 @@
         "showSuccessText": "Show confirmation text"
       },
       "loginButton": { "openMemberProfile": "Open member profile when the user logs in" },
+      "consumerSpace": {
+        "hideNavigation": "Hide navigation elements",
+        "defaultPage": "Default page",
+        "page": {
+          "consumerBooking": "My Bookings",
+          "consumerPass": "My Passes",
+          "consumerInvoice": "My Invoices",
+          "consumerProfile": "My Profile",
+          "consumerSubscription": "My Subscriptions"
+        }
+      },
       "hideWidgets": "Hide all widgets for unlogged users",
       "dialogModeLabel": "Popup type",
       "widgetPreviewError": "Please finish the settings",

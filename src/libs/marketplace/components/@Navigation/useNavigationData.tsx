@@ -27,6 +27,7 @@ const useNavigationData = ({
   handleCloseMarketplaceSideDrawer,
   handleCloseConsumerSideDrawer,
   changeWidgetPage,
+  widgetSignOut,
 }: {
   companyId: number;
   linksList: AppBarTab[];
@@ -35,6 +36,7 @@ const useNavigationData = ({
   handleCloseMarketplaceSideDrawer: () => void;
   handleCloseConsumerSideDrawer: () => void;
   changeWidgetPage?: (page: string) => void;
+  widgetSignOut?: () => void;
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -54,8 +56,11 @@ const useNavigationData = ({
   );
 
   const handleChangeWidgetPage = useCallback(
-    (page: string) => () => changeWidgetPage?.(page),
-    [changeWidgetPage],
+    (page: string) => () => {
+      changeWidgetPage?.(page);
+      handleCloseConsumerSideDrawer();
+    },
+    [changeWidgetPage, handleCloseConsumerSideDrawer],
   );
 
   const consumerNavigationWidgetData: SubmenuItem[] = React.useMemo(
@@ -70,32 +75,34 @@ const useNavigationData = ({
         title: t('reworked.navigation.myPasses'),
         leftIcon: <Ticket01 />,
         isSelected: selectedWidgetPage === 'consumerPass',
-
         onClick: handleChangeWidgetPage('consumerPass'),
       },
       {
         title: t('reworked.navigation.mySubscriptions'),
         leftIcon: <Star01 />,
         isSelected: selectedWidgetPage === 'consumerSubscription',
-
         onClick: handleChangeWidgetPage('consumerSubscription'),
       },
       {
         title: t('reworked.navigation.myProfile'),
         leftIcon: <UserEdit />,
         isSelected: selectedWidgetPage === 'consumerProfile',
-
         onClick: handleChangeWidgetPage('consumerProfile'),
       },
       {
         title: t('reworked.navigation.myInvoices'),
         leftIcon: <FileAttachment02 />,
         isSelected: selectedWidgetPage === 'consumerInvoice',
-
         onClick: handleChangeWidgetPage('consumerInvoice'),
       },
+      { isDivider: true },
+      {
+        title: t('reworked.navigation.logOut'),
+        className: 'bs-navigation__logout-button__root',
+        onClick: widgetSignOut,
+      },
     ],
-    [t, selectedWidgetPage, handleChangeWidgetPage],
+    [t, selectedWidgetPage, handleChangeWidgetPage, widgetSignOut],
   );
 
   const consumerNavigationData: SubmenuItem[] = React.useMemo(

@@ -20,10 +20,12 @@ import {
   ArrowLeft,
   ShoppingCart01,
   UserCircle,
+  Menu01,
 } from '#src/components/untitledui';
 import ConsumerGenericFooter from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericFooter';
 import NavigationSideDrawer from '#src/components/css-only/Navigation/NavigationSideDrawer/NavigationSideDrawer.component';
 import useNavigationSideDrawerData from '#src/components/css-only/Navigation/NavigationSideDrawer/useNavigationSideDrawerData.hook';
+import Button from '#src/components/css-only/Fabrique/ButtonV2';
 
 import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 import type {
@@ -32,17 +34,15 @@ import type {
 } from '#src/components/css-only/Navigation/NavigationAppBar/types';
 import type { Company } from '#src/libs/company/types';
 import type { MarketplaceTabConfig } from '#src/libs/marketplace/types';
+import type { ConsumerSpaceWidgetPage } from '#src/libs/exportable-components/types';
 
 import './styles.css';
 
 type WidgetProps = {
-  selectedWidgetPage:
-    | 'consumerBooking'
-    | 'consumerPass'
-    | 'consumerInvoice'
-    | 'consumerProfile'
-    | 'consumerSubscription';
+  selectedWidgetPage: ConsumerSpaceWidgetPage;
+  widgetHideNavigation: boolean;
   changeWidgetPage: (page: string) => void;
+  widgetSignOut: () => void;
 };
 
 type CommonProps = {
@@ -80,8 +80,10 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   basketProductListCount,
   tabConfigList,
   selectedWidgetPage,
+  widgetHideNavigation,
   push,
   changeWidgetPage,
+  widgetSignOut,
 }) => {
   const { t } = useTranslation(['consumerSpace', 'marketplace']);
   const { width } = useViewport();
@@ -140,6 +142,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
     handleCloseMarketplaceSideDrawer,
     handleCloseConsumerSideDrawer,
     changeWidgetPage,
+    widgetSignOut,
   });
 
   const actionsList: AppBarButton[] = useMemo(
@@ -179,28 +182,47 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
 
   if (isWidget) {
     return (
-      <div className="bs-consumer-navigation__root">
-        <div
-          className={classNames('bs-consumer-navigation__layout', {
-            'bs-consumer-navigation__layout--computed-height': !isWidget,
-          })}
-        >
-          <NavigationSideBar
-            items={
-              isWidget ? consumerNavigationWidgetData : consumerNavigationData
-            }
-            memberName={memberName}
-          />
-          <main
-            className={classNames('bs-consumer-navigation__content', {
-              'bs-consumer-navigation__content--mobile': isMobile,
-            })}
+      <div className="bs-widget-consumer-navigation__root">
+        {isMobile && !widgetHideNavigation && (
+          <Button
+            color="grey"
+            leftIcon={<Menu01 stroke="currentColor" />}
+            onClick={handleToggleConsumerSideDrawer}
+            variant="text"
           >
-            {children}
-            {isMobile && !!buttonsData?.length && (
-              <ConsumerGenericFooter buttons={buttonsData} />
+            {t('reworked.menu')}
+          </Button>
+        )}
+
+        <div className="bs-consumer-navigation__root">
+          {!widgetHideNavigation && (
+            <NavigationSideDrawer
+              handleBackArrowClick={handleBackArrowClick}
+              handleSetStackNavigationState={handleSetStackNavigationState}
+              isOpen={isConsumerSideDrawerOpen}
+              leftIcon={<ArrowLeft fill="currentColor" />}
+              stackNavigationState={stackNavigationState}
+              submenuItems={consumerNavigationWidgetData}
+              subtitle={t('reworked.navigation.exploreYourProfile')}
+              title={memberName && `${memberName},`}
+            />
+          )}
+
+          <div className="bs-consumer-navigation__layout">
+            {!widgetHideNavigation && (
+              <NavigationSideBar
+                items={consumerNavigationWidgetData}
+                memberName={memberName}
+              />
             )}
-          </main>
+            <main
+              className={classNames('bs-consumer-navigation__content', {
+                'bs-consumer-navigation__content--mobile': isMobile,
+              })}
+            >
+              {children}
+            </main>
+          </div>
         </div>
       </div>
     );
@@ -237,7 +259,12 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
         title={memberName && `${memberName},`}
       />
 
-      <div className="bs-consumer-navigation__layout">
+      <div
+        className={classNames(
+          'bs-consumer-navigation__layout',
+          'bs-consumer-navigation__layout--computed-height',
+        )}
+      >
         <NavigationSideBar
           items={consumerNavigationData}
           memberName={memberName}

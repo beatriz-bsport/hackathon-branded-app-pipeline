@@ -16,6 +16,10 @@
   container: bsNavigationSideDrawer / inline-size;
 }
 
+.bs-navigation-side-drawer__root--widget {
+  height: 100%;
+}
+
 .bs-navigation-side-drawer__root--hidden {
   opacity: 0;
   z-index: -1;

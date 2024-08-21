@@ -6,6 +6,7 @@ import Submenu from '#Fabrique/Submenu';
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import Title from '#Fabrique/Title';
 import IconButton from '#Fabrique/IconButton';
+import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
 
 import type { SubmenuItem } from '#Fabrique/Submenu/types';
 
@@ -41,6 +42,7 @@ const NavigationSideDrawer: React.FC<Props> = ({
   handleBackArrowClick,
   handleSetStackNavigationState,
 }) => {
+  const isWidget = WidgetUtils.isWidget();
   const { t } = useTranslation('common');
 
   const headerTitle = stackNavigationState?.length > 0 ? t('back') : title;
@@ -55,6 +57,7 @@ const NavigationSideDrawer: React.FC<Props> = ({
     <PortalContainer wrapperId="bs-navigation-side-drawer-portal-container">
       <div
         className={classNames('bs-navigation-side-drawer__root', {
+          'bs-navigation-side-drawer__root--widget': isWidget,
           'bs-navigation-side-drawer__root--hidden': !isOpen,
         })}
       >

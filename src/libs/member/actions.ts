@@ -502,7 +502,7 @@ export function search(
   return async (dispatch: Dispatch) => {
     dispatch(startSearch(text));
     try {
-      if (text) {
+      if (text || params?.consumer_id__in) {
         const response = await searchApi(text, params);
         const members = response.data;
         // @ts-expect-error

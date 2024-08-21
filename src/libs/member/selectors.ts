@@ -39,6 +39,9 @@ export const getSearchedMembers = createSelector(
     ids.map((id) => data[id]).filter((member) => !!member && !member.is_pos),
 );
 
+export const getSearchMemberLoading = (state: RootState) =>
+  state.member.search.loading;
+
 export const getFilteredSearchedMembers = createSelector(
   [getSearchedMembers, (_state, id) => id],
   (searchedMembers, id) => searchedMembers.filter((m) => m.id !== id),

@@ -16,6 +16,7 @@ import type {
   MemberUploadedFile,
   FetchRecipientsParams,
   Member,
+  MemberSearchFilterParams,
 } from './types';
 
 const PAGE_SIZE = 300;
@@ -44,7 +45,7 @@ export const fetchFilteredMembers = fetchMemberList;
 
 export async function search(
   text: string,
-  params: { [key: string]: boolean | string | number },
+  params: MemberSearchFilterParams,
 ): Promise<AxiosResponse<MemberMinimal[]>> {
   return postAuth(`${API_V1_URI}/member/search/`, { text, params });
 }

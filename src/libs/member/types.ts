@@ -271,6 +271,8 @@ export type MemberFormData = {
 export type MemberSearchFilterParams = {
   hide_archived?: boolean;
   only_archived?: boolean;
+  consumer_id__in?: number[];
+  id__not_in?: number[];
 };
 
 export type LeadManagementImportBackgroundTaskReturnValue =

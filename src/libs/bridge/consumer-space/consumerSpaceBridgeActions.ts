@@ -6,6 +6,7 @@ import {
   bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction,
   createAuthenticatedBridgeAction,
 } from '../actions';
+import { bridgeRequestLogout } from '../actions';
 
 import { resetConsumerState } from 'bsport-saas/src/libs/consumer-space/actions';
 import { fetchSCT } from 'bsport-saas/src/libs/category/actions';
@@ -17,6 +18,7 @@ const consumerSpaceCommonBridgeActions = {
   fetchMembershipByCompany: createAuthenticatedBridgeAction(
     'MEMBERSHIP_BY_COMPANY',
   ),
+  bridgeRequestLogout,
 };
 
 /* MY BOOKINGS */

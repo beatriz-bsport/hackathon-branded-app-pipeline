@@ -381,6 +381,17 @@ const getTranslations = async () => {
           isEmpty: 'Please start by adding products to this invoice.',
           title: 'Purchases',
         },
+        export: {
+          title: 'Electronic invoice (XML)',
+          header: {
+            status: 'Status',
+          },
+          status: {
+            success: 'Generated successfully',
+            fail: 'Generation failed',
+            notGenerated: 'Not generated',
+          },
+        },
       },
       header: {
         pdf: 'PDF',

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Menu from '@material-ui/core/Menu';
@@ -58,6 +58,7 @@ import {
 } from '../../quickbooks/utils';
 import type { OptionCallback } from '../../../state/types';
 import { getReceiptUrl as getReceiptUrlAPI } from '../api';
+import { ExportInvoiceStatus } from '#src/libs/invoice/constants';
 
 type Props = {
   applyGiftcardOnInvoice: (
@@ -133,6 +134,25 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
       props.getInvoicePaymentGroupIsProcessing(invoice.uuid)) ??
     false;
 
+  // This state field helps updating the message in case of error
+  const [exportStatusOverride, setExportStatusOverride] =
+    useState<ExportInvoiceStatus>(ExportInvoiceStatus.UNKNOWN);
+
+  const exportStatusMessage = useMemo(() => {
+    const exportStatus =
+      exportStatusOverride || invoice?.exported_invoice_status;
+    switch (exportStatus) {
+      case ExportInvoiceStatus.SUCCESS:
+        return t('table.nested.export.status.success');
+
+      case ExportInvoiceStatus.FAIL:
+        return t('table.nested.export.status.fail');
+
+      default:
+        return t('table.nested.export.status.notGenerated');
+    }
+  }, [invoice, t, exportStatusOverride]);
+
   const handleGenerateXmlInvoice = useCallback(
     (event) => {
       event.stopPropagation();
@@ -140,6 +160,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
       generateInvoiceXml(invoice.uuid, {
         onError: (error) => {
           console.error('Failed to generate invoice XML:', error);
+          setExportStatusOverride(ExportInvoiceStatus.FAIL);
           setProcessing(false);
         },
         onSuccess: (inv: InvoiceV1Serializer) => {
@@ -632,6 +653,33 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                 </Table>
                 {!!props.nestedDataLoading && <LinearProgress />}
               </Box>
+              {!!props?.generateInvoiceXml && (
+                <Box margin={1}>
+                  <Typography
+                    component="div"
+                    style={{ marginTop: 20 }}
+                    variant="h6"
+                  >
+                    {t('table.nested.export.title')}
+                  </Typography>
+                  <Table aria-label="purchases" size="small">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>
+                          {t('table.nested.export.header.status')}
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody style={{ backgroundColor: '#f8F8F8' }}>
+                      <TableRow>
+                        <TableCell component="th" scope="row">
+                          {exportStatusMessage}
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </Box>
+              )}
               {!!props.onClickInvoice && (
                 <Box margin={1}>
                   <Button

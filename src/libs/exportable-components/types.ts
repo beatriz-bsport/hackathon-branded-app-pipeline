@@ -51,6 +51,23 @@ export type MarketplaceLoginButtonWidgetConfig = {
   openMemberProfile?: boolean;
 };
 
+export type ConsumerSpaceWidgetPage =
+  | 'consumerBooking'
+  | 'consumerPass'
+  | 'consumerInvoice'
+  | 'consumerProfile'
+  | 'consumerSubscription';
+
+export type ConsumerSpaceWidgetConfig = {
+  hideWhenNotLoggedIn?: boolean;
+  loginSubtitle?: string;
+  loginTitle?: string;
+  showSubtitle?: boolean;
+  showTitle?: boolean;
+  hideNavigation?: boolean;
+  defaultPage?: ConsumerSpaceWidgetPage;
+};
+
 export type MarketplaceComponentConfig = {
   calendar?: MarketplaceCalendarData;
   workshop?: MarketplaceWorkshopData;

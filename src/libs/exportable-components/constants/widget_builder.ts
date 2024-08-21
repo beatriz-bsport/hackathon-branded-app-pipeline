@@ -1,3 +1,5 @@
+import type { ConsumerSpaceWidgetConfig } from '#src/libs/exportable-components/types';
+
 export const EXPORTABLE_COMPONENT_TYPE_VOD = 'vod';
 export const EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2 = 'calendarV2';
 export const EXPORTABLE_COMPONENT_TYPE_CALENDAR = 'calendar';
@@ -18,13 +20,14 @@ export const EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING = 'consumerBooking';
 export const EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS = 'consumerPass';
 export const EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE = 'consumerSpace';
 
-const LOGIN_WITH_DISCONNECTED_STATUS_DEFAULT_CONFIG = {
-  hideWhenNotLoggedIn: false,
-  loginSubtitle: '',
-  loginTitle: '',
-  showSubtitle: true,
-  showTitle: true,
-};
+const LOGIN_WITH_DISCONNECTED_STATUS_DEFAULT_CONFIG: ConsumerSpaceWidgetConfig =
+  {
+    hideWhenNotLoggedIn: false,
+    loginSubtitle: '',
+    loginTitle: '',
+    showSubtitle: true,
+    showTitle: true,
+  };
 
 export const EXPORTABLE_COMPONENTS = [
   {
@@ -41,6 +44,15 @@ export const EXPORTABLE_COMPONENTS = [
     identifier: EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS,
     label: 'consumerPass',
     defaultConfig: LOGIN_WITH_DISCONNECTED_STATUS_DEFAULT_CONFIG,
+  },
+  {
+    identifier: EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE,
+    label: 'consumerSpace',
+    defaultConfig: {
+      ...LOGIN_WITH_DISCONNECTED_STATUS_DEFAULT_CONFIG,
+      hideNavigation: false,
+      defaultPage: 'consumerBooking',
+    },
   },
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,

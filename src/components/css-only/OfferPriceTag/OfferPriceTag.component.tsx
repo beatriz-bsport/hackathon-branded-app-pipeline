@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import FreeOfferChip from '#src/components/css-only/FreeOfferChip';
 
 import './styles.css';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 type ColorVariant = 'default' | 'in-details';
 
@@ -49,7 +50,9 @@ export const CreditsChip: React.FC<CreditsChipProps> = ({
         'bs-offer-price-tag__in-details': colorVariant === 'in-details',
       })}
     >
-      {t('numberOfCredits', { count: credits })}
+      {t('numberOfCredits', {
+        count: Number(getCreditsDividedDisplay(credits)),
+      })}
     </div>
   );
 };

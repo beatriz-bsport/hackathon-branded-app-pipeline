@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker';
 import { InvoiceType, Invoice, ConsumerInvoice } from '#src/libs/invoice/types';
 import { PaymentEngine, PaymentItem } from '#src/libs/invoice/payment/types';
 import { PaymentMethodsChoices } from '#src/libs/invoice/payment/constants';
+import { ExportInvoiceStatus } from './constants';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 
 /**
@@ -52,6 +53,9 @@ export function invoiceFactory(options?: Partial<Invoice>): Invoice {
     source: options?.source ?? faker.number.int(),
     stripe_invoice_pdf: options?.stripe_invoice_pdf ?? null,
     exported_invoice_file_path: options?.exported_invoice_file_path ?? null,
+    exported_invoice_status: faker.helpers.enumValue(ExportInvoiceStatus),
+    exported_invoice_error_message:
+      options?.exported_invoice_error_message ?? null,
     uuid: options?.uuid ?? faker.string.uuid(),
     voucher: options?.voucher ?? '',
   };
@@ -101,6 +105,9 @@ export function consumerInvoiceFactory(
     reverted: options?.reverted ?? false,
     stripe_invoice_pdf: options?.stripe_invoice_pdf ?? null,
     exported_invoice_file_path: options?.exported_invoice_file_path ?? null,
+    exported_invoice_status: faker.helpers.enumValue(ExportInvoiceStatus),
+    exported_invoice_error_message:
+      options?.exported_invoice_error_message ?? null,
     uuid: options?.uuid ?? faker.string.uuid(),
     voucher: options?.voucher ?? '',
   };

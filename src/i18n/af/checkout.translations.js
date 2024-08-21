@@ -200,6 +200,7 @@ const getTranslations = async () => {
       title: 'Payment',
       totalHiddingTax: 'Total to pay now',
       flatFeeSubscription: 'Application fee',
+      selectedSession: 'Your selected sessions',
     },
     expiredSpotDialog: {
       title: 'Your spot reservation has expired',

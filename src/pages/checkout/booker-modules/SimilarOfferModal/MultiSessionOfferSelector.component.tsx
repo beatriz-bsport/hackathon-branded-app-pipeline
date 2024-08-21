@@ -167,19 +167,21 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
               {t('booking:bookingModule.multiSession.addSession.noContent')}
             </div>
           )}
-          <ButtonBase
-            className={classNames(
-              'bs-similar-offer-modal-container__fetch__button',
-              {
-                'bs-similar-offer-modal__button--disabled':
-                  !isAbleToFetchMoreSimilarSessions,
-              },
-            )}
-            disabled={!isAbleToFetchMoreSimilarSessions}
-            onClick={fetchMoreSessions}
-          >
-            {t('common:text.showMoreText')}
-          </ButtonBase>
+          {isAbleToFetchMoreSimilarSessions ? (
+            <ButtonBase
+              className={classNames(
+                'bs-similar-offer-modal-container__fetch__button',
+                {
+                  'bs-similar-offer-modal__button--disabled':
+                    !isAbleToFetchMoreSimilarSessions,
+                },
+              )}
+              disabled={!isAbleToFetchMoreSimilarSessions}
+              onClick={fetchMoreSessions}
+            >
+              {t('common:text.showMoreText')}
+            </ButtonBase>
+          ) : null}
         </>
       </div>
       <div className="bs-similar-offer-modal-container__footer">

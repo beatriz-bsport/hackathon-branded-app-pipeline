@@ -18,6 +18,7 @@ import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 import DeleteFromBasketDialogContent from '#src/libs/checkout/components/new-checkout-flow/ManageBasket/DeleteFromBasketDialogContent.component';
 import ModalToDrawerSwitcher from '#src/components/Modal/ModalToDrawerSwitcher.component';
+import { useTranslation } from 'react-i18next';
 
 const drawerCustomTheme = createTheme({
   overrides: {
@@ -64,6 +65,7 @@ export const CheckoutItemList: React.FC<CheckoutItemListProps> = ({
   connectedToOtherComponents,
   handleRemoveCheckoutItem,
 }) => {
+  const { t } = useTranslation('navigation');
   const [itemToRemove, setItemToRemove] = React.useState<CheckoutItem | null>(
     null,
   );
@@ -108,11 +110,14 @@ export const CheckoutItemList: React.FC<CheckoutItemListProps> = ({
 
   return (
     <div className={classes.checkoutItemsContainer}>
+      <Typography className={classes.basketTitle} variant="subtitle2">
+        {t('navigation:tab.member.basket')}
+      </Typography>
       {itemToRemove !== null && (
         <MuiThemeProvider theme={drawerCustomTheme}>
           <ModalToDrawerSwitcher
             isOpen={isOpen}
-            maxWidth="xl"
+            maxWidth="md"
             onClose={handleCloseModal}
           >
             <DeleteFromBasketDialogContent
@@ -168,12 +173,16 @@ const useStyles = makeStyles<Theme, { connectedToOtherComponents: boolean }>(
       display: 'flex',
       flexDirection: 'column',
       padding: theme.spacing(2),
+      gap: theme.spacing(3),
     },
     itemContainer: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'baseline',
       gap: theme.spacing(1),
+    },
+    basketTitle: {
+      fontSize: '20px',
     },
     deleteButtonBase: {
       color: theme.palette.grey[700],

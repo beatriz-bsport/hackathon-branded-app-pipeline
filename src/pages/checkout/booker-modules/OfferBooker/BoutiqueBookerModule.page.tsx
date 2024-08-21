@@ -1063,11 +1063,27 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     ) {
       return;
     }
+
+    let formattedOffer = { ...offer };
+    if (typeof offer.coach === 'number') {
+      formattedOffer.coach = this.props.coaches[offer.coach] || offer.coach;
+    }
+
+    if (typeof offer.establishment === 'number') {
+      formattedOffer.establishment =
+        this.props.establishments[offer.establishment] || offer.establishment;
+    }
+
+    if (typeof offer.meta_activity === 'number') {
+      formattedOffer.meta_activity =
+        this.props.metaActivities[offer.meta_activity] || offer.meta_activity;
+    }
+
     this.setState(
       (prevState: State) => ({
         selectedOffers: [
           ...prevState.selectedOffers,
-          { offer, extra_data: {} },
+          { offer: formattedOffer, extra_data: {} },
         ],
       }),
       () => {

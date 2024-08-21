@@ -21,7 +21,7 @@ import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personal
 import { ImmutableObject } from 'seamless-immutable';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
-import { getTaxPrice } from '#src/libs/theme/utils';
+import { getCreditsDividedDisplay, getTaxPrice } from '#src/libs/theme/utils';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import type { MetaActivity } from '#src/libs/meta-activity/types';
 import type { Establishment } from '#src/libs/establishment/types';
@@ -120,6 +120,8 @@ const OfferSummary: React.FC<Props> = ({
   const displayTax = theme?.is_tax_excluded_in_marketplace === false;
 
   const relevantCoach = coachOverride ?? coach;
+
+  const formattedCredits = getCreditsDividedDisplay(offer?.credit_price);
 
   let coachName = relevantCoach?.name;
   let displayCoachPicture = true;
@@ -235,7 +237,7 @@ const OfferSummary: React.FC<Props> = ({
             </div>
           )}
 
-          {offer && variant === OfferSummaryVariant.DEFAULT && (
+          {offer && variant !== OfferSummaryVariant.BOOKING && (
             <div
               className={classNames(classes.itemWithIcon, {
                 [classes.hiddenOnMobile]:
@@ -244,11 +246,9 @@ const OfferSummary: React.FC<Props> = ({
             >
               <CreditCard className={classes.icon} />
               <Typography>
-                {offer?.credit_price > 1
-                  ? `${offer?.credit_price} ${t(
-                      `booking:creditConsumed_plural`,
-                    )}`
-                  : `${offer?.credit_price} ${t(`booking:creditConsumed`)}`}
+                {formattedCredits
+                  ? `${formattedCredits} ${t(`booking:creditConsumed_plural`)}`
+                  : `${formattedCredits} ${t(`booking:creditConsumed`)}`}
               </Typography>
             </div>
           )}

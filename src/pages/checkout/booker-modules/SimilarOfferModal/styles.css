@@ -91,6 +91,7 @@
     font-size: var(--bs-font-size-body-sm);
     font-weight: 500;
     line-height: var(--bs-fabrique-line-height-action-lg);
+    text-transform: uppercase;
   }
 
   .bs-similar-offer-modal-container__header_container {
@@ -252,6 +253,7 @@
     border: 1px solid var(--bs-color-text-weak);
     color: var(--bs-grey-700);
     width: 100%;
+    text-transform: uppercase;
   }
 
   .bs-similar-offer-modal-container__header {

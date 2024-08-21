@@ -2,7 +2,7 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Divider, Theme } from '@material-ui/core';
+import { Divider, Theme, Typography } from '@material-ui/core';
 import { MetaActivity } from '#src/libs/meta-activity/types';
 import { Establishment } from '#src/libs/establishment/types';
 import { Offer, OfferSummaryVariant } from '#src/libs/offer/types';
@@ -11,6 +11,7 @@ import { CompanyTheme } from '#src/libs/theme/types';
 import OfferSummary from '#src/libs/offer/OfferSummary';
 import SavedSpotCounddown from '#src/libs/checkout/components/new-checkout-flow/SavedSpotCountdown';
 import { getGuestBookingName } from '#src/libs/marketplace/utils/booking';
+import { useTranslation } from 'react-i18next';
 
 type ActivitiesSummaryProps = {
   activitySummaryCheckoutItems: CheckoutItem[];
@@ -29,6 +30,7 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
   basketLoading,
   handleCheckoutItemExpiration,
 }) => {
+  const { t } = useTranslation('checkout');
   const classes = useStyles({ connectedToOtherComponents });
 
   const checkoutItemsWithDetails = React.useMemo(
@@ -51,6 +53,9 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
 
   return (
     <div className={classes.activityContainer}>
+      <Typography className={classes.activityTitle} variant="h6">
+        {t(`checkout:payment.selectedSession`)}
+      </Typography>
       {checkoutItemsWithDetails?.map((checkoutItem) => (
         <React.Fragment key={`checkout-item-details-${checkoutItem.id}`}>
           {checkoutItem.details.map((offerDetail, index) => (
@@ -89,6 +94,10 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
 
 const useStyles = makeStyles<Theme, { connectedToOtherComponents: boolean }>(
   (theme: Theme) => ({
+    activityTitle: {
+      color: '#2D3748',
+      fontSize: '20px',
+    },
     activityContainer: {
       boxSizing: 'border-box',
       borderStyle: 'solid',

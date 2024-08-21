@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Menu from '@material-ui/core/Menu';
@@ -97,7 +97,7 @@ type Props = {
 const quickbooksLogo = require('./QB_logo.png');
 
 const InvoiceRow: React.FC<Props> = React.memo((props) => {
-  const { invoice } = props;
+  const { invoice, generateInvoiceXml } = props;
   const { t } = useTranslation(['invoice', 'payment']);
   const amount_remaining = parseFloat(
     // @ts-expect-error
@@ -132,6 +132,26 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
     (props.getInvoicePaymentGroupIsProcessing &&
       props.getInvoicePaymentGroupIsProcessing(invoice.uuid)) ??
     false;
+
+  const handleGenerateXmlInvoice = useCallback(
+    (event) => {
+      event.stopPropagation();
+      setProcessing(true);
+      generateInvoiceXml(invoice.uuid, {
+        onError: (error) => {
+          console.error('Failed to generate invoice XML:', error);
+          setProcessing(false);
+        },
+        onSuccess: (inv: InvoiceV1Serializer) => {
+          setDownloadMenuOpen(null);
+          window.open(inv.exported_invoice_file_path, '_blank');
+          setProcessing(false);
+        },
+      });
+      setDownloadMenuOpen(null);
+    },
+    [invoice.uuid, generateInvoiceXml],
+  );
 
   const renderQuickbooksRow = () => {
     if (
@@ -292,23 +312,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                         {t('actions.download')}
                       </MenuItem>
                       {!!props?.generateInvoiceXml && (
-                        <MenuItem
-                          onClick={(ev) => {
-                            ev.stopPropagation();
-                            setProcessing(true);
-                            props.generateInvoiceXml(invoice.uuid, {
-                              onError: () => setProcessing(false),
-                              onSuccess: (inv: InvoiceV1Serializer) => {
-                                setDownloadMenuOpen(null);
-                                window.open(
-                                  inv.exported_invoice_file_path,
-                                  '_blank',
-                                );
-                                setProcessing(false);
-                              },
-                            });
-                          }}
-                        >
+                        <MenuItem onClick={handleGenerateXmlInvoice}>
                           {t('actions.downloadXml')}
                         </MenuItem>
                       )}

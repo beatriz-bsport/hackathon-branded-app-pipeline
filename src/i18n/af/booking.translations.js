@@ -58,7 +58,7 @@ const getTranslations = async () => {
           noContent: 'No similar sessions has been found.',
         },
         selectSpot: {
-          dialogTitle: 'Spot',
+          dialogTitle: 'Select spot',
           dialogSubtitle: 'Select your spot for the class',
           validationButton: 'Add session',
         },

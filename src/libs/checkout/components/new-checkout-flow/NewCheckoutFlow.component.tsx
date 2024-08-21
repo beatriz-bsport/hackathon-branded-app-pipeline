@@ -494,32 +494,6 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
             )}
           </div>
           <div className={classes.purchaseSummary}>
-            <div className={classes.validationContainer}>
-              <div className={classes.couponCodeInput}>
-                <CouponCodeInput
-                  isBasketModificationDisabled={isBasketModificationDisabled}
-                  onSubmit={attachCoupon}
-                />
-              </div>
-              <PriceCount
-                basket={basket}
-                isDeleteButtonDisabled={isBasketModificationDisabled}
-                isExcludingTax={isExcludingTax}
-                onRemoveCheckoutItem={handleRemoveCheckoutItem}
-                onRemoveInternalAccountPrepaidLine={
-                  onRemoveInternalAccountPrepaidLine
-                }
-                prepaidLines={basket.prepaid_lines}
-              />
-              <CheckoutButtons
-                clientSecret={clientSecret}
-                clientSecretLoading={clientSecretLoading}
-                handleSubmitButtonsCallbacks={handleSubmitButtonsCallbacks}
-                submitButtonsDisabledState={submitButtonsDisabledState}
-                submitButtonsDisplayableState={submitButtonsDisplayableState}
-                submitButtonsProcessingState={submitButtonsProcessingState}
-              />
-            </div>
             <ActivitiesSummary
               activitySummaryCheckoutItems={activitySummaryCheckoutItems}
               basketLoading={basketLoading}
@@ -529,6 +503,32 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
                 !isMobile || basketSummaryCheckoutItems.length > 0
               }
               handleCheckoutItemExpiration={handleCheckoutItemExpiration}
+            />
+          </div>
+          <div className={classes.validationContainer}>
+            <div className={classes.couponCodeInput}>
+              <CouponCodeInput
+                isBasketModificationDisabled={isBasketModificationDisabled}
+                onSubmit={attachCoupon}
+              />
+            </div>
+            <PriceCount
+              basket={basket}
+              isDeleteButtonDisabled={isBasketModificationDisabled}
+              isExcludingTax={isExcludingTax}
+              onRemoveCheckoutItem={handleRemoveCheckoutItem}
+              onRemoveInternalAccountPrepaidLine={
+                onRemoveInternalAccountPrepaidLine
+              }
+              prepaidLines={basket.prepaid_lines}
+            />
+            <CheckoutButtons
+              clientSecret={clientSecret}
+              clientSecretLoading={clientSecretLoading}
+              handleSubmitButtonsCallbacks={handleSubmitButtonsCallbacks}
+              submitButtonsDisabledState={submitButtonsDisabledState}
+              submitButtonsDisplayableState={submitButtonsDisplayableState}
+              submitButtonsProcessingState={submitButtonsProcessingState}
             />
           </div>
         </div>
@@ -560,47 +560,51 @@ const useStyles = makeStyles((theme: Theme) => ({
   arrowIcon: { color: theme.palette.grey[600] },
   subContainer: {
     display: 'grid',
-    gridTemplateColumns: '2fr 1fr',
-    gridTemplateRows: 'auto 1fr auto',
+    gridTemplateAreas: `"payment basket"
+                        "payment confirm"
+                        "payment summary"
+                        "payment none"
+    `,
+    // gridTemplateColumns: '2fr 1fr',
+    // gridTemplateRows: 'auto 1fr auto',
     columnGap: theme.spacing(3),
+    rowGap: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      gridTemplateAreas: `"basket"
+                          "summary"
+                          "payment"
+                          "confirm"
+      `,
+    },
   },
   paymentContainer: {
+    gridArea: 'payment',
     marginTop: '0',
     gridColumnStart: '1',
     gridColumnEnd: 'span 1',
     gridRowStart: '1',
-    gridRowEnd: 'span 2',
     [theme.breakpoints.down('sm')]: {
-      marginTop: theme.spacing(3),
-      gridColumnStart: '1',
-      gridColumnEnd: 'span 2',
-      gridRowStart: '2',
-      gridRowEnd: 'span 1',
+      gridRowStart: '3',
     },
   },
   scrollableItems: {
+    gridArea: 'basket',
     gridColumnStart: '2',
-    gridColumnEnd: 'span 1',
-    gridRowStart: '1',
     overflowY: 'auto',
     maxHeight: '600px',
     [theme.breakpoints.down('sm')]: {
       gridColumnStart: '1',
-      gridColumnEnd: 'span 2',
       maxHeight: 'none',
       overflowY: 'none',
     },
   },
   validationContainer: {
+    gridArea: 'confirm',
     marginTop: '0',
     gridColumnStart: '2',
-    gridColumnEnd: 'span 1',
-    gridRowStart: '2',
     [theme.breakpoints.down('sm')]: {
-      marginTop: theme.spacing(3),
       gridColumnStart: '1',
-      gridColumnEnd: 'span 2',
-      gridRowStart: '3',
+      gridRowStart: '4',
     },
   },
   expandContainer: {
@@ -621,15 +625,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   purchaseSummary: {
-    marginTop: '0',
-    display: 'flex',
-    flexDirection: 'column',
+    gridArea: 'summary',
     gap: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
-      marginTop: theme.spacing(3),
       gridColumnStart: '1',
-      gridColumnEnd: 'span 2',
-      gridRowStart: '3',
+      gridRowStart: '2',
       gridRowEnd: 'span 1',
     },
   },

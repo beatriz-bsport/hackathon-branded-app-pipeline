@@ -4,6 +4,7 @@ import flatten from 'lodash/flatten';
 import { compose, withHandlers } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
 import { ButtonBase } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 
 import {
   replace as replaceAction,
@@ -1168,10 +1169,15 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       <>
         {doExistBookableSimilarOffers && (
           <ButtonBase
-            className="bs-new-offer-booking__fetch-more-similar-offers-button"
+            className="bs-new-offer-booking-fetch-more-similar-offers__button"
             onClick={this.toggleSimilarOfferModal}
           >
-            ADD SESSIONS
+            {
+              <div className="bs-new-offer-booking-fetch-more-similar-offers__button__text__container">
+                <AddIcon />
+                <div>{this.props.t('booking:offer.addSession')}</div>
+              </div>
+            }
           </ButtonBase>
         )}
       </>
@@ -1517,6 +1523,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 }
                 onClick={this.onConfirm}
                 price={displayPrice}
+                SimilarOfferButtonComponent={() =>
+                  this.getSimilarOfferButtonToDisplay()
+                }
                 // @ts-expect-error
                 tax={this.state.selectedItem?.data?.tax}
                 value={
@@ -1525,7 +1534,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                     : t(`booking:offer.mainButton.registerWaitingList`)
                 }
               />
-              {this.getSimilarOfferButtonToDisplay()}
             </div>
           </div>
         </div>

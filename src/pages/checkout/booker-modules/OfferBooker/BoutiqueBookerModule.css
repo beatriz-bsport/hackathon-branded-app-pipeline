@@ -350,13 +350,40 @@
   .bs-new-offer-booking__offer-summary {
     display: none;
   }
+
+  .bs-new-offer-booking-fetch-more-similar-offers__button {
+    padding: var(--bs-space-size-3);
+    color: var(--color-primary-main);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: uppercase;
+  }
+
+  .bs-new-offer-booking-fetch-more-similar-offers__button__text__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--bs-space-size-2);
+  }
 }
 
-.bs-new-offer-booking__fetch-more-similar-offers-button {
-  padding: var(--bs-space-size-3);
-  background-color: var(--bs-grey-0);
-  border-radius: calc(var(--bs-border-radius-lg) * 2);
-  color: var(--bs-grey-700);
-  width: 100%;
-  border: 1px solid var(--bs-grey-700);
+@container bsOfferBookingPage (width > 951px) {
+  .bs-new-offer-booking-fetch-more-similar-offers__button {
+    padding: var(--bs-space-size-3);
+    color: var(--color-primary-main);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-transform: uppercase;
+  }
+
+  .bs-new-offer-booking-fetch-more-similar-offers__button__text__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--bs-space-size-2);
+  }
 }

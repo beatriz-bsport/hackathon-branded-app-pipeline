@@ -189,14 +189,14 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
           className="bs-similar-offer-modal-container__close__button"
           onClick={onClose}
         >
-          {t('common:close').toUpperCase()}
+          {t('common:close')}
         </ButtonBase>
         <ButtonBase
           className="bs-similar-offer-modal-container__add__button"
           disabled={preSelectedOffer === null}
           onClick={handleAddOffer}
         >
-          {t('common:add').toUpperCase()}
+          {t('booking:bookingModule.multiSession.selectSpot.validationButton')}
         </ButtonBase>
       </div>
     </div>

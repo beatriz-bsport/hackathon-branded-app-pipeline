@@ -89,7 +89,11 @@ const BookingConfirmButtonWithOfferSummary: React.FC<Props> = ({
         isMobile={isMobile}
       >
         {OfferSummaryComponent?.()}
-        <div className={classes.spacer}> </div>
+        {!isMobile && (
+          <div className={classes.addSessionButtonDivider}>
+            {SimilarOfferButtonComponent?.()}
+          </div>
+        )}
         <Collapse in={!!price}>
           {displayTax && (
             <div className={classes.columnGap1}>
@@ -150,7 +154,7 @@ const BookingConfirmButtonWithOfferSummary: React.FC<Props> = ({
           {value}
         </Button>
       </div>
-      {SimilarOfferButtonComponent?.()}
+      {isMobile && SimilarOfferButtonComponent?.()}
     </div>
   );
 };
@@ -189,6 +193,9 @@ const useStyles = makeStyles((theme) => ({
   },
   spacer: {
     paddingTop: theme.spacing(2),
+  },
+  addSessionButtonDivider: {
+    paddingBottom: '16px',
   },
 }));
 

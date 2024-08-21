@@ -20,6 +20,8 @@ import DeleteFromBasketDialogContent from '#src/libs/checkout/components/new-che
 import ModalToDrawerSwitcher from '#src/components/Modal/ModalToDrawerSwitcher.component';
 import { useTranslation } from 'react-i18next';
 
+import './styles.css';
+
 const drawerCustomTheme = createTheme({
   overrides: {
     MuiDrawer: {
@@ -110,23 +112,25 @@ export const CheckoutItemList: React.FC<CheckoutItemListProps> = ({
 
   return (
     <div className={classes.checkoutItemsContainer}>
-      <Typography className={classes.basketTitle} variant="subtitle2">
+      <Typography className={classes.basketTitle} variant="h6">
         {t('navigation:tab.member.basket')}
       </Typography>
       {itemToRemove !== null && (
-        <MuiThemeProvider theme={drawerCustomTheme}>
-          <ModalToDrawerSwitcher
-            isOpen={isOpen}
-            maxWidth="md"
-            onClose={handleCloseModal}
-          >
-            <DeleteFromBasketDialogContent
+        <div className="bs-payment-page-checkout-item__remove__item__modal">
+          <MuiThemeProvider theme={drawerCustomTheme}>
+            <ModalToDrawerSwitcher
+              isOpen={isOpen}
+              maxWidth="md"
               onClose={handleCloseModal}
-              onConfirm={onRemoveItemFromBasket}
-              passName={itemToRemove.name}
-            />
-          </ModalToDrawerSwitcher>
-        </MuiThemeProvider>
+            >
+              <DeleteFromBasketDialogContent
+                onClose={handleCloseModal}
+                onConfirm={onRemoveItemFromBasket}
+                passName={itemToRemove.name}
+              />
+            </ModalToDrawerSwitcher>
+          </MuiThemeProvider>
+        </div>
       )}
       {activitySummaryCheckoutItems &&
         activitySummaryCheckoutItems.map((checkoutItem, index) => (
@@ -174,11 +178,13 @@ const useStyles = makeStyles<Theme, { connectedToOtherComponents: boolean }>(
       flexDirection: 'column',
       padding: theme.spacing(2),
       gap: theme.spacing(3),
+      '.bs-fabrique-modal-dialog__header': {
+        display: 'none',
+      },
     },
     itemContainer: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'baseline',
       gap: theme.spacing(1),
     },
     basketTitle: {
@@ -210,6 +216,7 @@ const useStyles = makeStyles<Theme, { connectedToOtherComponents: boolean }>(
     expirationWarning: {
       padding: theme.spacing(2),
     },
+    removeItemModal: {},
   }),
 );
 

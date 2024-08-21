@@ -12,7 +12,7 @@ import type { OptionCallback } from '#src/state/types';
 
 import { DEFAULT_SPOT_TYPE } from '#src/libs/spot-scheduling/utils';
 
-import { Button, ButtonBase } from '@material-ui/core';
+import { ButtonBase } from '@material-ui/core';
 import MarketplaceSpotSelector from '#src/libs/marketplace/components/@SpotScheduling/MarketplaceSpotSelector';
 import { useTranslation } from 'react-i18next';
 
@@ -118,20 +118,20 @@ const MultiSessionSpotSelector: React.FC<MultiSessionSpotFinalProps> = ({
             )}
         </div>
         <div className="bs-new-offer-booking-multi-session-spot-selector__footer">
-          <Button
+          <ButtonBase
             className="bs-new-offer-booking-multi-session-spot-selector__confirm__button"
             onClick={validateSpot}
           >
             {t(
               'booking:bookingModule.multiSession.selectSpot.validationButton',
             )}
-          </Button>
-          <Button
+          </ButtonBase>
+          <ButtonBase
             className="bs-new-offer-booking-multi-session-spot-selector__cancel__button"
             onClick={previousStep}
           >
             {t('common:cancel')}
-          </Button>
+          </ButtonBase>
         </div>
       </div>
     </div>

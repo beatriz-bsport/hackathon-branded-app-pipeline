@@ -22,8 +22,13 @@ import {
   fetchAllEstablishmentBillingGroupActions,
   upsertEstablishmentBillingGroupActions,
   deleteEstablishmentBillingGroupActions,
+  retrieveEstablishmentActions,
 } from './actions';
-import { EstablishmentBillingGroup, EstablishmentState } from './types';
+import type {
+  Establishment,
+  EstablishmentBillingGroup,
+  EstablishmentState,
+} from './types';
 
 const initialState: Immutable.Immutable<EstablishmentState> =
   Immutable<EstablishmentState>({
@@ -79,8 +84,33 @@ const initialState: Immutable.Immutable<EstablishmentState> =
     },
   });
 
-export default handleActions(
+export default handleActions<Immutable.Immutable<EstablishmentState, any>>(
   {
+    [retrieveEstablishmentActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['loading'], payload);
+    },
+    [retrieveEstablishmentActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['error'], payload);
+    },
+    [retrieveEstablishmentActions.success.toString()]: (
+      state,
+      { payload }: { payload: Establishment },
+    ) => {
+      return state.merge(
+        {
+          byId: {
+            [payload.id]: payload,
+          },
+        },
+        { deep: true },
+      );
+    },
     [favoriteActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['favorite', 'loading'], payload);
     },

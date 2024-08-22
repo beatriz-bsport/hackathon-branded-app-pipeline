@@ -10,11 +10,16 @@ import {
 } from '../../http';
 import type {
   AssociatedEstablishment,
+  Establishment,
   EstablishmentAddressInput,
   EstablishmentBillingGroup,
   EstablishmentGroup,
   FetchEstablishmentParams,
 } from './types';
+
+export async function retrieveEstablishment(id: number) {
+  return getAuth<Establishment>(`${API_V1_URI}/establishment/${id}/`);
+}
 
 export async function addEstablishment(data: any) {
   return postAuth(`${API_URI}/saas/establishments/add`, data);

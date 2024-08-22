@@ -6,6 +6,7 @@ import uniq from 'lodash/uniq';
 
 import { ThunkDispatch } from 'redux-thunk';
 import {
+  retrieveEstablishment as retrieveEstablishmentAPI,
   fetchEstablishmentList as fetchEstablishmentListAPI,
   fetchEstablishment as fetchEstablishmentAPI,
   fetchEstablishmentFavorite as fetchEstablishmentFavoriteAPI,
@@ -40,7 +41,35 @@ import type {
   EstablishmentBillingGroup,
   AssociatedEstablishment,
   FetchEstablishmentParams,
+  Establishment,
 } from './types';
+
+export const retrieveEstablishmentActions = {
+  isLoading: createAction<boolean>('ESTABLISHMENT/RETRIEVE/IS_LOADING'),
+  error: createAction<Error | null>('ESTABLISHMENT/RETRIEVE/ERROR'),
+  success: createAction<Establishment>('ESTABLISHMENT/RETRIEVE/SUCCESS'),
+};
+
+export const retrieveEstablishment = (
+  id: number,
+  options?: OptionCallback<Establishment>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveEstablishmentActions.isLoading(true));
+    dispatch(retrieveEstablishmentActions.error(null));
+    try {
+      const response = await retrieveEstablishmentAPI(id);
+      dispatch(retrieveEstablishmentActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(retrieveEstablishmentActions.error(err));
+      options?.onError?.();
+    } finally {
+      dispatch(retrieveEstablishmentActions.isLoading(false));
+    }
+  };
+};
 
 export const deleteActions = {
   isLoading: createAction('ESTABLISHMENT/DELETE/IS_LOADING'),

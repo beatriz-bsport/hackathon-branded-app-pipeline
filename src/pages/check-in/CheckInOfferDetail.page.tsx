@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import {
   compose,
@@ -9,57 +7,60 @@ import {
   withState,
 } from 'recompose';
 import { connect } from 'react-redux';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 
+import withStyles from '@material-ui/core/styles/withStyles';
+
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
-import { fetchLevel as fetchLevelAction } from '#src/libs/level/actions';
-import { withCustomLevel } from '#src/libs/level/selectors';
-import CheckInOfferDetail from '../../libs/check-in/components/CheckInOfferDetail.component';
+import CheckInOfferDetail from '#src/libs/check-in/components/CheckInOfferDetail.component';
+import CheckInConfirm from '#src/libs/check-in/components/CheckInConfirm.component';
+import RegistrationFlowDialog from '#src/libs/check-in/components/SearchAndRegisterMember.component';
+
 import {
   fetchFilteredMembers as fetchFilteredMembersAction,
   search as searchMembers,
   fetchMemberByBarcode as fetchMemberByBarcodeAction,
   createOrUpdateMember as upsertMemberAction,
-} from '../../libs/member/actions';
+} from '#src/libs/member/actions';
+import { fetchLevel as fetchLevelAction } from '#src/libs/level/actions';
 import {
   confirmAttendance as confirmBookingAttendanceAction,
   fetchBookingsByOffer as fetchBookingsByOfferAction,
   registerBooking as registerBookingAction,
   retrieveBooking,
-} from '../../libs/booking/actions';
-import CheckInConfirm from '../../libs/check-in/components/CheckInConfirm.component';
-import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions';
-import { getRetrieveOffer } from '../../libs/offer/selectors';
-import { getSearchedMembers, getAllMembers } from '../../libs/member/selectors';
-import {
-  getOfferBookingListWithConsumerPack,
-  getMemberBookingWithConsumerPack,
-} from '../../libs/booking/selectors';
-import RegistrationFlowDialog from '../../libs/check-in/components/SearchAndRegisterMember.component';
+} from '#src/libs/booking/actions';
+import { fetchOfferById as fetchOfferByIdAction } from '#src/libs/offer/actions';
 import {
   retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
   fetchByOfferByMember as fetchByOfferByMemberAction,
-} from '../../libs/consumer-payment-pack/actions';
-
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-
+} from '#src/libs/consumer-payment-pack/actions';
 import {
   fetchPaymentPackList as fetchPaymentPackListAction,
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
-} from '../../libs/payment-packs/actions';
+} from '#src/libs/payment-packs/actions';
+import { fetchSignFormUpConfiguration } from '#src/libs/sign-up-form/actions';
 
+import { withCustomLevel } from '#src/libs/level/selectors';
+import {
+  getOfferBookingListWithConsumerPack,
+  getMemberBookingWithConsumerPack,
+} from '#src/libs/booking/selectors';
+import { getRetrieveOffer } from '#src/libs/offer/selectors';
+import { getSearchedMembers, getAllMembers } from '#src/libs/member/selectors';
 import {
   getByOfferByMember,
   withPaymentPack as withPaymentPackForConsumer,
-} from '../../libs/consumer-payment-pack/selectors';
+} from '#src/libs/consumer-payment-pack/selectors';
+import { getSignUpFormConfigurationDict } from '#src/libs/sign-up-form/selectors';
 
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+
+import type { OptionCallback } from '#src/state/types';
+import type { MemberWithBooking } from '#src/libs/member/types';
+
+// @ts-expect-error audio file
 import boop from '../../sounds/boop.mp3';
-import type { OptionCallback } from '../../state/types';
-import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
-import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
-import type { MemberWithBooking } from '../../libs/member/types';
 
 const likeAudio = new Audio(boop);
 

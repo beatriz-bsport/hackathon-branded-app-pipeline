@@ -137,7 +137,6 @@ export const workshopActivityGroupConnector = connect(
       ),
       // @ts-expect-error
     )(state, routerProps.selectedOfferId),
-    // @ts-expect-error
     bookings: getOfferBookingList(state),
     bookingsLoading: state.booking.byOffer.loading,
     members: withMemberTag(getAllMembers)(state),

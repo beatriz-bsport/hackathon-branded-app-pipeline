@@ -1,40 +1,73 @@
-// @flow
 import React from 'react';
-
-import Dialog from '@material-ui/core/Dialog';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import List from '@material-ui/core/List';
-import { withTranslation, TFunction } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose, withState } from 'recompose';
-import Button from '@material-ui/core/Button';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import ConsumerPackCheckout from '../../consumer-payment-pack/components/ConsumerPaymentPackListItemCheckout.component';
-import MemberSearchModal from '../../member/components/MemberSearchModal.component';
-import { anonymizeEmail } from '../../member/utils';
-import CheckInOfferDetailMemberForm from './CheckInOfferDetailMemberForm.component';
 
-import type { OptionCallback } from '../../../state/types';
+import {
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  List,
+} from '@material-ui/core';
 
-type RegisterMemberProps = {
-  processing: boolean,
-  setProcessing: (boolean) => void,
+// @ts-expect-error JS
+import ConsumerPackCheckout from '#src/libs/consumer-payment-pack/components/ConsumerPaymentPackListItemCheckout.component';
+import MemberSearchModal from '#src/libs/member/components/MemberSearchModal.component';
+import CheckInOfferDetailMemberForm from '#src/libs/check-in/components/CheckInOfferDetailMemberForm.component';
+import { anonymizeEmail } from '#src/libs/member/utils';
 
-  consumerPaymentPacksLoading: boolean,
-  consumerPaymentPacks: Array<ConsumerPaymentPack>,
+import type { OptionCallback } from '#src/state/types';
+import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
+import type { Member } from '#src/libs/member/types';
+import type { OfferREST } from '#src/libs/offer/types';
+import type { SignUpFormConfigDict } from '#src/libs/sign-up-form/types';
+
+type RegisterMemberOwnProps = {
+  processing: boolean;
+  consumerPaymentPacksLoading: boolean;
+  consumerPaymentPacks: ConsumerPaymentPack[];
+  member: Member;
+  offer: OfferREST;
+  setProcessing: (value: boolean) => void;
   registerWithPass: (
     consumerPaymentPackId: number,
-    { onSuccess: () => void, onError: () => void },
-  ) => void,
-
-  member: ?Member,
-  setSearchedMember: (member: ?Member) => void,
-  offer: Offer,
-
-  onClose: () => void,
-  t: TFunction,
+    options: OptionCallback,
+  ) => void;
+  setSearchedMember: (member: Member) => void;
+  onClose: () => void;
 };
+
+type RegisterMemberProps = RegisterMemberOwnProps & WithTranslation;
+
+type SearchAndRegisterOwnProps = {
+  loading: boolean;
+  consumerPaymentPacksLoading: boolean;
+  consumerPaymentPacks: ConsumerPaymentPack[];
+  member: Member;
+  searchedMemberList: Member[];
+  offer: OfferREST;
+  managerFormConfig: SignUpFormConfigDict['poll_fields'];
+  waiver: string;
+  generalTermsAndConditions: string;
+  companyCountry: string;
+  setSearchedMember: (member: Member) => void;
+  registerWithPass: (
+    consumerPaymentPackId: number,
+    options: OptionCallback,
+  ) => void;
+  searchMembers: (text: string) => void;
+  onClose: () => void;
+  upsertMember: (
+    id: number,
+    FormData: FormData,
+    options: OptionCallback,
+  ) => void;
+  memberDataToComplete: (data: { avatar: string }) => void;
+};
+
+type SearchAndRegisterProps = SearchAndRegisterOwnProps & WithTranslation;
 
 const RegisterMemberBase = (props: RegisterMemberProps) => (
   <Dialog open onClose={props.onClose}>
@@ -86,39 +119,12 @@ const RegisterMemberBase = (props: RegisterMemberProps) => (
   </Dialog>
 );
 
-const RegisterMember = compose(
+const RegisterMember = compose<RegisterMemberOwnProps, RegisterMemberOwnProps>(
   withTranslation(['selfCheckIn']),
   withState('processing', 'setProcessing', false),
 )(RegisterMemberBase);
 
-type Props = {
-  loading: boolean,
-
-  consumerPaymentPacksLoading: boolean,
-  consumerPaymentPacks: Array<ConsumerPaymentPack>,
-  setSearchedMember: (member: ?Member) => void,
-  registerWithPass: (
-    consumerPaymentPackId: number,
-    opt: { onSuccess: () => void, onError: () => void },
-  ) => void,
-
-  member: ?Member,
-  searchedMemberList: Array<Member>,
-  searchMembers: (txt: string) => void,
-
-  setSearchedMember: (member: ?Member) => void,
-  offer: Offer,
-
-  onClose: () => void,
-  upsertMember: (id: ?number, FormData, options: OptionCallback) => void,
-  memberDataToComplete: (data: ?{ avatar: string }) => void,
-  managerFormConfig: SignUpFormConfigDict,
-  waiver: string,
-  generalTermsAndConditions: string,
-  companyCountry: string,
-};
-
-export const SearchAndRegister = (props: Props) => {
+export const SearchAndRegister = (props: SearchAndRegisterProps) => {
   if (props.loading) {
     return (
       <Dialog open>
@@ -133,6 +139,7 @@ export const SearchAndRegister = (props: Props) => {
     return (
       <Dialog open>
         <CheckInOfferDetailMemberForm
+          // @ts-expect-error TODO - typing
           companyCountry={props.companyCountry}
           generalTermsAndConditions={props.generalTermsAndConditions}
           initial={props.memberDataToComplete}
@@ -149,6 +156,7 @@ export const SearchAndRegister = (props: Props) => {
 
   if (props.member) {
     return (
+      // @ts-expect-error TODO - typing
       <RegisterMember
         consumerPaymentPacks={props.consumerPaymentPacks}
         consumerPaymentPacksLoading={props.consumerPaymentPacksLoading}
@@ -168,6 +176,7 @@ export const SearchAndRegister = (props: Props) => {
       handlMemberSelected={(memberId, member) => {
         props.setSearchedMember(member);
       }}
+      // @ts-expect-error TODO - typing
       managerFormConfig={props.managerFormConfig}
       onClose={props.onClose}
       searchedMembers={props.searchedMemberList.map((m) => ({
@@ -180,4 +189,6 @@ export const SearchAndRegister = (props: Props) => {
   );
 };
 
-export default compose(withTranslation(['selfCheckIn']))(SearchAndRegister);
+export default compose<SearchAndRegisterOwnProps, SearchAndRegisterProps>(
+  withTranslation(['selfCheckIn']),
+)(SearchAndRegister);

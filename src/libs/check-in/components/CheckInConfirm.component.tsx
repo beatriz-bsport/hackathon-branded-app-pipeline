@@ -1,23 +1,35 @@
-// @flow
-
 import React, { Component } from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation, TFunction } from 'react-i18next';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
-import { anonymizeName, anonymizeEmail } from '#src/libs/member/utils';
-import type { MemberWithBooking } from '../../member/types';
-import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
+import { compose } from 'recompose';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-type Props = {
-  t: TFunction,
-  classes: Object,
-  member: MemberWithBooking,
-  booking: any,
-  offer: any,
-  goBack: () => void,
+import {
+  createStyles,
+  withStyles,
+  WithStyles,
+  Paper,
+  Typography,
+  Avatar,
+  Theme,
+} from '@material-ui/core';
+
+import ConsumerPackRowItem from '#src/libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
+import { anonymizeName, anonymizeEmail } from '#src/libs/member/utils';
+
+import type { BookingWithConsumerPaymentPack } from '#src/libs/booking/types';
+import type { OfferREST } from '#src/libs/offer/types';
+import type { MemberMinimal } from '#src/libs/member/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { SpotInformation } from '#src/libs/spot-scheduling/types';
+
+type OwnProps = {
+  booking: BookingWithConsumerPaymentPack;
+  member: MemberMinimal;
+  offer: OfferREST;
+  establishment: Establishment;
+  goBack: () => void;
 };
+
+type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
 
 const DISMISS_TIMER = 1000 * 3; // this page dismiss in 3 seconds
 
@@ -38,7 +50,7 @@ class CheckInConfirm extends Component<Props> {
   }
 
   renderLeftPanel = () => {
-    const { classes, member, booking } = this.props;
+    const { classes, member } = this.props;
 
     return (
       <React.Fragment>
@@ -57,8 +69,11 @@ class CheckInConfirm extends Component<Props> {
             <ConsumerPackRowItem
               hideConsumer
               noDivider
-              consumerPack={booking?.consumer_payment_pack}
-              paymentPack={booking?.consumer_payment_pack?.payment_pack}
+              // @ts-expect-error TODO - typing
+              consumerPack={this.props.booking?.consumer_payment_pack}
+              paymentPack={
+                this.props.booking?.consumer_payment_pack?.payment_pack
+              }
             />
           </Paper>
         </div>
@@ -67,7 +82,7 @@ class CheckInConfirm extends Component<Props> {
   };
 
   renderRightPanel = () => {
-    const { classes, t, offer, member } = this.props;
+    const { classes, t, offer, booking } = this.props;
 
     return (
       <React.Fragment>
@@ -89,20 +104,29 @@ class CheckInConfirm extends Component<Props> {
             {t('confirmPage.classLocation')}
           </Typography>
           <Typography align="center" variant="h6">
-            {offer?.etablissement?.title ?? '-'}
+            {this.props.establishment?.title ?? '-'}
           </Typography>
           {!!offer?.room_blueprint && (
             <>
               <Typography align="center" color="textSecondary">
                 {t('confirmPage.spotInfo', {
-                  spotName: member?.booking?.spot_information?.name || 'Spot',
+                  spotName:
+                    (booking?.spot_information as SpotInformation)?.name ||
+                    'Spot',
                 })}
               </Typography>
               <Typography align="center" variant="h6">
-                {member?.booking?.spot_id
-                  ? `${member.booking.spot_information?.prefix || ''}${
-                      member.booking.spot_information?.indexType || ''
-                    }${member.booking.spot_information?.suffix || ''}`
+                {booking?.spot_id
+                  ? `${
+                      (booking?.spot_information as SpotInformation)?.prefix ||
+                      ''
+                    }${
+                      (booking?.spot_information as SpotInformation)
+                        ?.indexType || ''
+                    }${
+                      (booking?.spot_information as SpotInformation)?.suffix ||
+                      ''
+                    }`
                   : t('confirmPage.spotUnassigned')}
               </Typography>
             </>
@@ -126,8 +150,8 @@ class CheckInConfirm extends Component<Props> {
   }
 }
 
-const style = (theme) => {
-  return {
+const styles = (theme: Theme) =>
+  createStyles({
     paper: {
       borderRadius: 0,
       display: 'flex',
@@ -206,9 +230,9 @@ const style = (theme) => {
     buttonIcon: {
       marginRight: theme.spacing(1),
     },
-  };
-};
+  });
 
-export default withStyles(style)(
-  withTranslation(['selfCheckIn'])(CheckInConfirm),
-);
+export default compose<OwnProps, Props>(
+  withStyles(styles),
+  withTranslation(['selfCheckIn']),
+)(CheckInConfirm);

@@ -751,7 +751,7 @@ export const retrieveByIdActions = {
   isLoading: createAction('OFFER/RETRIEVE_BY_ID/IS_LOADING'),
 };
 
-export function retrieveOffer(id: number, options?: OptionCallback<Offer>) {
+export function retrieveOffer(id: number, options?: OptionCallback<OfferREST>) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveByIdActions.isLoading(true));
     dispatch(retrieveByIdActions.error(null));
@@ -760,7 +760,6 @@ export function retrieveOffer(id: number, options?: OptionCallback<Offer>) {
       const response = await retrieveOfferAPI(id);
       dispatch(retrieveByIdActions.success(response.data));
 
-      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(retrieveByIdActions.error(error));

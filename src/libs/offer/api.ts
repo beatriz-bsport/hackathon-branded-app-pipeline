@@ -194,7 +194,7 @@ export const userRegistration = async () => {
 };
 
 export async function retrieveOffer(offerId: number) {
-  return getAuth(
+  return getAuth<OfferREST>(
     `${API_V1_URI}/offer/${offerId}/?with_full=true&with_tags_status=true`,
   );
 }

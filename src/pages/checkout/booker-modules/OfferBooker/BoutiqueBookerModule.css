@@ -411,3 +411,7 @@
   width: 100%;
   border: 1px solid var(--bs-grey-700);
 }
+
+.bs-new-offer-booking__offer__card__summary--hidden {
+  display: none;
+}

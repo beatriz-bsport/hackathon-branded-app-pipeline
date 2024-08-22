@@ -51,6 +51,10 @@ const getTranslations = async () => {
         blockedByTags:
           "It's not possible to book this session without the correct tags.",
       },
+      groupedSession: {
+        showMoreButtonText: 'Show all sessions ({{totalSessions}})',
+        showLessButtonText: 'Show less',
+      },
       multiSession: {
         addSession: {
           dialogTitle: 'Add a session',

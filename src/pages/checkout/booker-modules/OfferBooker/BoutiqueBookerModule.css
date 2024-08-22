@@ -46,8 +46,14 @@
   display: none;
 }
 
-.bs-new-offer-booking__offer-summary {
+.bs-new-offer-booking__offer__summary__container {
   grid-area: main-right;
+  gap: var(--spacing-2);
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-new-offer-booking__offer-summary {
   align-self: start;
   padding: var(--spacing-2);
   border-style: solid;
@@ -87,7 +93,7 @@
   text-transform: none;
 }
 
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 1180px) {
   .bs-new-offer-booking__booking-for-another {
     flex-direction: column;
     padding: var(--spacing-2);
@@ -148,10 +154,10 @@
   .bs-new-offer-booking__booking-for-another-mobile-relationship-card-active {
     padding: var(--bs-space-size-4);
     border-radius: var(--bs-border-radius-md);
-    border-color: var(--bs-color-action-brand-main);
+    border-color: var(--color-primary-main);
     border-width: var(--bs-border-width-regular);
     border-style: solid;
-    background-color: var(--bs-color-action-brand-weak-main-hovered);
+    background-color: var(--color-primary-main-background);
     justify-content: flex-start;
   }
 
@@ -167,7 +173,7 @@
   .bs-new-offer-booking__booking-for-another-drawer-button-confirm {
     width: inherit;
     color: var(--bs-grey-0);
-    background-color: var(--bs-color-action-brand-main);
+    background-color: var(--color-primary-main);
     border-radius: calc(var(--bs-border-radius-lg) * 2);
     padding: var(--bs-space-size-2) calc(var(--bs-space-size-1) * 5.5);
   }
@@ -332,15 +338,20 @@
 @container bsOfferBookingPage (width < 950px) {
   .bs-new-offer-booking-page__pricing_container {
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template:
+      'header'
+      'bookingForAnother'
+      'passes';
   }
   .bs-new-offer-booking-header {
+    grid-area: header;
     align-self: center;
     padding: 0 var(--spacing-2);
   }
 
   .bs-new-offer-booking {
+    grid-area: passes;
     align-self: start;
     overflow: auto;
     height: 100%;
@@ -349,6 +360,10 @@
 
   .bs-new-offer-booking__offer-summary {
     display: none;
+  }
+
+  .bs-new-offer-booking__offer__summary__container {
+    grid-area: bookingForAnother;
   }
 
   .bs-new-offer-booking-fetch-more-similar-offers__button {

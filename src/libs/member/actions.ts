@@ -134,7 +134,7 @@ class NoMemberWithBarcode extends Error {
 
 export function fetchMemberByBarcode(
   barcode: string,
-  options?: OptionCallback,
+  options?: OptionCallback<Member>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(barcodeRetrieveAction.isLoading(true));

@@ -6,16 +6,17 @@ import {
   withHandlers,
   withState,
 } from 'recompose';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withStyles, WithStyles } from '@material-ui/styles';
+import { Theme } from '@material-ui/core';
 
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import CheckInOfferDetail from '#src/libs/check-in/components/CheckInOfferDetail.component';
 import CheckInConfirm from '#src/libs/check-in/components/CheckInConfirm.component';
-import RegistrationFlowDialog from '#src/libs/check-in/components/SearchAndRegisterMember.component';
+import SearchAndRegisterMember from '#src/libs/check-in/components/SearchAndRegisterMember.component';
 
 import {
   fetchFilteredMembers as fetchFilteredMembersAction,
@@ -28,7 +29,7 @@ import {
   confirmAttendance as confirmBookingAttendanceAction,
   fetchBookingsByOffer as fetchBookingsByOfferAction,
   registerBooking as registerBookingAction,
-  retrieveBooking,
+  retrieveBooking as retrieveBookingAction,
 } from '#src/libs/booking/actions';
 import { fetchOfferById as fetchOfferByIdAction } from '#src/libs/offer/actions';
 import {
@@ -41,7 +42,6 @@ import {
 } from '#src/libs/payment-packs/actions';
 import { fetchSignFormUpConfiguration } from '#src/libs/sign-up-form/actions';
 
-import { withCustomLevel } from '#src/libs/level/selectors';
 import {
   getOfferBookingListWithConsumerPack,
   getMemberBookingWithConsumerPack,
@@ -56,80 +56,54 @@ import { getSignUpFormConfigurationDict } from '#src/libs/sign-up-form/selectors
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
+import type { RootState } from '#src/reducers';
+import type { Member } from '#src/libs/member/types';
+import type { BookingWithConsumerPaymentPack } from '#src/libs/booking/types';
+import type { WithHandlerType } from '#src/utils/types';
 import type { OptionCallback } from '#src/state/types';
-import type { MemberWithBooking } from '#src/libs/member/types';
 
 // @ts-expect-error audio file
 import boop from '../../sounds/boop.mp3';
 
 const likeAudio = new Audio(boop);
 
-type Props = {
-  classes: Object,
-
-  offerId: number,
-  offer: Offer,
-  fetchOfferById: (offerId: number) => void,
-
-  members: Array<MemberWithBooking>,
-  searchMembers: (text: string) => void,
-
-  fetchOfferData: () => void,
-  fetchPaymentPackList: (params: any) => void,
-
-  compatibleConsumerPacks: Array<ConsumerPaymentPack>,
-  compatibleConsumerPacksLoading: boolean,
-  fetchByOfferByMember: (offerId: number, memberId: number) => void,
-
-  registerWithPass: (
-    consumerPaymentPackId: number,
-    options: OptionCallback,
-  ) => void,
-  confirmBookingAttendance: (bookingId: number) => void,
-  loading: boolean,
-
-  goBack: () => void,
-
-  fetchMemberByBarcode: (string, OptionCallback) => void,
-
-  searchedMember: ?Member,
-  barcodeDetectorEnabled: boolean,
-  toogleBarcodeDetector: () => void,
-  closeBarcode: () => void,
-  registrationFlowOpen: boolean,
-
-  executeOnMemberUnselectedCallback: () => void,
-  openSearchMemberModal: () => void,
-
-  setSearchedMember: (?Member) => void,
-  setOnMemberUnSelectedCallback: (?() => void) => void,
-
-  memberLoading: boolean,
-  closeRegistrationFlow: () => void,
-  searchedMemberList: Array<Member>,
-
-  memberDataToComplete: ?any,
-  setMemberDataToComplete: (any) => void,
-  upsertMember: (id: ?number, data: FormData, options: OptionCallback) => void,
-  fetchSignFormUpConfiguration: (membership: string) => void,
-  managerFormConfig: SignUpFormConfigDict,
-  theme: Theme,
-  companyCountry: string,
-
-  fetchLevel: (id: number) => void,
-  member: Member | null,
-  bookingShown: Booking | null,
-  setBookingShown: (booking: Booking | null) => void,
-
-  retrieveBooking: (id: number, options: OptionCallback) => void,
-  retrieveConsumerPackBulk: (Array<number>) => void,
+type OwnProps = {
+  offerId: number;
+  registrationFlowOpen: boolean;
+  searchedMember: Member | null;
+  bookingShown: BookingWithConsumerPaymentPack | null;
+  setBookingShown: (booking: BookingWithConsumerPaymentPack | null) => void;
 };
 
-const playSound = (audioFile) => {
+type StateHandlerInit = {
+  searchMemberModalOpen: boolean;
+  barcodeDetectorEnabled: boolean;
+  searchedMember: Member | null;
+  onMemberUnselectedCallback: () => void;
+  memberDataToComplete: any;
+};
+
+type StateHandlerType = typeof withStateHandlersInit &
+  WithHandlerType<typeof withStateHandlersSetter>;
+
+type Props = OwnProps &
+  WithHandlerType<typeof mapWithHandlers> &
+  ConnectedProps<typeof connector> &
+  WithStyles<typeof styles> &
+  StateHandlerType;
+
+type StateHanldersType = typeof withStateHandlersInit &
+  WithHandlerType<typeof withStateHandlersSetter>;
+
+type ConnectedPropsAndStateHandlers = ConnectedProps<typeof connector> &
+  StateHanldersType &
+  OwnProps;
+
+const playSound = (audioFile: HTMLAudioElement) => {
   audioFile.play();
 };
 
-export class CheckInOfferDetailPage extends React.Component<Props, State> {
+export class CheckInOfferDetailPage extends React.Component<Props> {
   handleSearchMembers = (text: string) => {
     this.props.searchMembers(text, { hide_archived: true });
   };
@@ -159,12 +133,34 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
       this.props.bookingShown &&
       this.props.bookingShown !== prevProps.bookingShown
     ) {
-      this.props.retrieveBooking(this.props.bookingShown, {
+      this.props.retrieveBooking(this.props.bookingShown.id, {
         onSuccess: (booking) =>
           this.props.retrieveConsumerPackBulk([booking.consumer_payment_pack]),
       });
     }
   }
+
+  registerWithPass = (
+    consumerPaymentPackId: number,
+    options: OptionCallback,
+  ) => {
+    this.props.registerBooking(
+      consumerPaymentPackId,
+      // @ts-expect-error TODO - typing
+      {
+        offer: this.props.offerId,
+        auto_assign_spot: true,
+      },
+      {
+        onError: options?.onError,
+        onSuccess: () => {
+          this.props.fetchOfferData?.();
+          this.props.closeRegistrationFlow();
+          options?.onSuccess?.();
+        },
+      },
+    );
+  };
 
   render() {
     return (
@@ -173,7 +169,9 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
           barcodeDetectorEnabled={this.props.barcodeDetectorEnabled}
           bookingLoading={this.props.loading}
           closeBarcode={this.props.closeBarcode}
-          confirmBookingAttendance={(booking) => {
+          confirmBookingAttendance={(
+            booking: BookingWithConsumerPaymentPack,
+          ) => {
             playSound(likeAudio);
             this.props.confirmBookingAttendance(booking.id);
             this.props.setBookingShown(booking);
@@ -183,7 +181,7 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
           members={this.props.members || []}
           offer={this.props.offer}
           onAddMember={this.props.openSearchMemberModal}
-          onMemberSearched={(member, callback) => {
+          onMemberSearched={(member: Member, callback?: OptionCallback) => {
             this.props.setSearchedMember(member);
             if (callback) this.props.setOnMemberUnSelectedCallback(callback);
           }}
@@ -192,7 +190,8 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
           toogleBarcodeDetector={this.props.toogleBarcodeDetector}
         />
         {this.props.registrationFlowOpen && (
-          <RegistrationFlowDialog
+          <SearchAndRegisterMember
+            // @ts-expect-error TODO - typing
             open
             companyCountry={this.props.companyCountry}
             consumerPaymentPacks={this.props.compatibleConsumerPacks}
@@ -202,13 +201,14 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions
             }
+            // @ts-expect-error TODO - typing
             loading={this.props.memberLoading}
             managerFormConfig={this.props.managerFormConfig?.poll_fields}
             member={this.props.searchedMember}
             memberDataToComplete={this.props.memberDataToComplete}
             offer={this.props.offer}
             onClose={this.props.closeRegistrationFlow}
-            registerWithPass={this.props.registerWithPass}
+            registerWithPass={this.registerWithPass}
             searchedMemberList={this.props.searchedMemberList}
             searchMembers={this.handleSearchMembers}
             setSearchedMember={this.props.setSearchedMember}
@@ -225,6 +225,7 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
           <CheckInConfirm
             booking={this.props.bookingShown}
             goBack={() => this.props.setBookingShown(null)}
+            // @ts-expect-error TODO - typing
             member={this.props.member || []}
             offer={this.props.offer}
             paymentPack={
@@ -237,61 +238,164 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     padding: theme.spacing(2),
     width: '100%',
   },
 });
 
-export default compose(
-  routerParamsToProps({ offerId: 'offerId:number' }),
-  withStateHandlers(
-    {
-      searchMemberModalOpen: false,
-      barcodeDetectorEnabled: false,
-      searchedMember: null,
-      onMemberUnselectedCallback: null,
-      memberDataToComplete: null,
+const mapWithHandlers = {
+  fetchByOfferByMember:
+    ({
+      fetchByOfferByMember,
+      offerId,
+      searchedMember,
+    }: ConnectedPropsAndStateHandlers) =>
+    () => {
+      fetchByOfferByMember(offerId, searchedMember.id);
     },
-    {
-      setMemberDataToComplete: () => (memberDataToComplete) => ({
-        memberDataToComplete,
-      }),
-      openSearchMemberModal: () => () => ({
-        searchMemberModalOpen: true,
-      }),
-      closeRegistrationFlow: () => () => ({
-        searchedMember: null,
-        searchMemberModalOpen: false,
-        memberDataToComplete: null,
-      }),
-      setSearchedMember: () => (searchedMember) => ({
-        searchedMember,
-      }),
-      closeBarcode: () => () => ({
-        barcodeDetectorEnabled: false,
-      }),
-      toogleBarcodeDetector:
-        ({ barcodeDetectorEnabled }) =>
-        () => ({
-          barcodeDetectorEnabled: !barcodeDetectorEnabled,
-        }),
-      setOnMemberUnSelectedCallback: () => (onMemberUnselectedCallback) => ({
-        onMemberUnselectedCallback,
-      }),
-      executeOnMemberUnselectedCallback:
-        ({ onMemberUnselectedCallback }) =>
-        () => {
-          if (typeof onMemberUnselectedCallback === 'function') {
-            onMemberUnselectedCallback();
-          }
-          return { onMemberUnselectedCallback: null };
+  fetchOfferData:
+    ({
+      offerId,
+      fetchFilteredMembers,
+      fetchBookingsByOffer,
+      retrieveConsumerPackBulk,
+      fetchPaymentPackBulk,
+    }: ConnectedPropsAndStateHandlers) =>
+    () => {
+      fetchBookingsByOffer(
+        offerId,
+        {
+          onSuccess: (bookings) => {
+            retrieveConsumerPackBulk(
+              bookings.map((booking) => booking.consumer_payment_pack),
+              {
+                onSuccess: (consumerPaymentPackList) =>
+                  fetchPaymentPackBulk(
+                    consumerPaymentPackList.map(
+                      (consumerPaymentPack) => consumerPaymentPack.payment_pack,
+                    ),
+                  ),
+              },
+            );
+          },
         },
+        null,
+        { booking_status_code: 0 },
+      );
+      fetchFilteredMembers({ offer: offerId });
     },
-  ),
+  upsertMember:
+    ({ upsertMember, closeRegistrationFlow }: ConnectedPropsAndStateHandlers) =>
+    (id: number, data: FormData, options?: OptionCallback) => {
+      upsertMember(id, data, {
+        onError: options?.onError,
+        onSuccess: (member) => {
+          options?.onSuccess?.(member);
+          closeRegistrationFlow();
+        },
+      });
+    },
+};
+
+const connector = connect(
+  (state: RootState) => ({
+    theme: state.theme.theme,
+    companyCountry: state.theme.theme.locale.split('_')[1],
+    offer: getRetrieveOffer(state),
+    members: getAllMembers(state),
+    searchedMemberList: getSearchedMembers(state),
+    memberBarcodeLoading: state.member.barcode.loading,
+    bookings: getOfferBookingListWithConsumerPack(state),
+    loading:
+      state.booking.byOffer.loading ||
+      state.member.loading ||
+      state.offer.byDay.loading,
+    compatibleConsumerPacks:
+      withPaymentPackForConsumer(getByOfferByMember)(state),
+    compatibleConsumerPacksLoading:
+      state.consumerPaymentPack.byOfferByMember.loading,
+    managerFormConfig: getSignUpFormConfigurationDict(state),
+    getBooking: (bookingId: number) =>
+      bookingId ? getMemberBookingWithConsumerPack(state, bookingId) : null,
+    bookingLoading: state.booking.byOffer.loading,
+  }),
+  {
+    fetchOfferById: fetchOfferByIdAction,
+    fetchFilteredMembers: fetchFilteredMembersAction,
+    fetchBookingsByOffer: fetchBookingsByOfferAction,
+    fetchByOfferByMember: fetchByOfferByMemberAction,
+    confirmBookingAttendance: confirmBookingAttendanceAction,
+    retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
+    retrieveBooking: retrieveBookingAction,
+    fetchPaymentPackList: () =>
+      fetchPaymentPackListAction({ disabled: false, page_size: 70000 }),
+    fetchPaymentPackBulk: fetchPaymentPackBulkAction,
+    upsertMember: upsertMemberAction,
+    searchMembers,
+    fetchMemberByBarcode: fetchMemberByBarcodeAction,
+    registerBooking: registerBookingAction,
+    goBack: () => pushRouter('/check-in'),
+    fetchSignFormUpConfiguration,
+    fetchLevel: fetchLevelAction,
+  },
+);
+
+const withStateHandlersInit: StateHandlerInit = {
+  searchMemberModalOpen: false,
+  barcodeDetectorEnabled: false,
+  searchedMember: null,
+  onMemberUnselectedCallback: null,
+  memberDataToComplete: null,
+};
+
+const withStateHandlersSetter = {
+  setMemberDataToComplete: () => (memberDataToComplete: any) => ({
+    memberDataToComplete,
+  }),
+  openSearchMemberModal: () => () => ({
+    searchMemberModalOpen: true,
+  }),
+  closeRegistrationFlow: () => () =>
+    ({
+      searchedMember: null,
+      searchMemberModalOpen: false,
+      memberDataToComplete: null,
+    } as StateHandlerInit),
+  setSearchedMember: () => (searchedMember: Member | null) => ({
+    searchedMember,
+  }),
+  closeBarcode: () => () => ({
+    barcodeDetectorEnabled: false,
+  }),
+  toogleBarcodeDetector:
+    ({ barcodeDetectorEnabled }: StateHandlerInit) =>
+    () => ({
+      barcodeDetectorEnabled: !barcodeDetectorEnabled,
+    }),
+  setOnMemberUnSelectedCallback: () => (onMemberUnselectedCallback: any) => ({
+    onMemberUnselectedCallback,
+  }),
+  executeOnMemberUnselectedCallback:
+    ({ onMemberUnselectedCallback }: StateHandlerInit) =>
+    () => {
+      if (typeof onMemberUnselectedCallback === 'function') {
+        onMemberUnselectedCallback();
+      }
+      return { onMemberUnselectedCallback: null } as StateHandlerInit;
+    },
+};
+
+export default compose<Props, OwnProps>(
+  routerParamsToProps({ offerId: 'offerId:number' }),
+  withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   withProps(
-    ({ searchMemberModalOpen, searchedMember, memberDataToComplete }) => ({
+    ({
+      searchMemberModalOpen,
+      searchedMember,
+      memberDataToComplete,
+    }: StateHandlerInit) => ({
       registrationFlowOpen: !!(
         searchedMember ||
         memberDataToComplete ||
@@ -299,130 +403,20 @@ export default compose(
       ),
     }),
   ),
-  withTranslation(['selfCheckIn']),
+  withTranslation('selfCheckIn'),
   withStyles(styles),
-  connect(
-    (state) => ({
-      theme: state.theme.theme,
-      companyCountry: state.theme.theme.locale.split('_')[1],
-      offer: withCustomLevel(getRetrieveOffer)(state),
-      members: getAllMembers(state),
-      searchedMemberList: getSearchedMembers(state),
-
-      memberBarcodeLoading: state.member.barcode.loading,
-
-      bookings: getOfferBookingListWithConsumerPack(state),
-      loading:
-        state.booking.loading ||
-        state.member.loading ||
-        state.offer.byDay.loading,
-      compatibleConsumerPacks:
-        withPaymentPackForConsumer(getByOfferByMember)(state),
-      compatibleConsumerPacksLoading:
-        state.consumerPaymentPack.byOfferByMember.loading,
-      managerFormConfig: getSignUpFormConfigurationDict(state),
-      getBooking: (bookingId) =>
-        bookingId ? getMemberBookingWithConsumerPack(state, bookingId) : null,
-      bookingLoading: state.booking.loading,
-    }),
-    {
-      fetchOfferById: fetchOfferByIdAction,
-      fetchFilteredMembers: fetchFilteredMembersAction,
-      fetchBookingsByOffer: fetchBookingsByOfferAction,
-      fetchByOfferByMember: fetchByOfferByMemberAction,
-      confirmBookingAttendance: confirmBookingAttendanceAction,
-      retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
-
-      retrieveBooking,
-      fetchPaymentPackList: () =>
-        fetchPaymentPackListAction({ disabled: false, page_size: 70000 }),
-      fetchPaymentPackBulk: fetchPaymentPackBulkAction,
-      upsertMember: upsertMemberAction,
-
-      searchMembers,
-      fetchMemberByBarcode: fetchMemberByBarcodeAction,
-
-      registerBooking: registerBookingAction,
-
-      goBack: () => pushRouter('/check-in'),
-      fetchSignFormUpConfiguration,
-      fetchLevel: fetchLevelAction,
-    },
-  ),
+  connector,
   withState('bookingShown', 'setBookingShown', null),
-  withHandlers({
-    fetchByOfferByMember:
-      ({ fetchByOfferByMember, offerId, searchedMember }) =>
-      () => {
-        fetchByOfferByMember(offerId, searchedMember.id);
-      },
-    fetchOfferData:
-      ({
-        offerId,
-        fetchFilteredMembers,
-        fetchBookingsByOffer,
-        retrieveConsumerPackBulk,
-        fetchPaymentPackBulk,
-      }) =>
-      () => {
-        fetchBookingsByOffer(
-          offerId,
-          {
-            onSuccess: (bs) => {
-              retrieveConsumerPackBulk(
-                bs.map((b) => b.consumer_payment_pack),
-                {
-                  onSuccess: (cppList) =>
-                    fetchPaymentPackBulk(
-                      cppList.map((cpp) => cpp.payment_pack),
-                    ),
-                },
-              );
-            },
-          },
-          null,
-          { booking_status_code: 0 },
-        );
-        fetchFilteredMembers({ offer: offerId });
-      },
-    upsertMember:
-      ({ upsertMember, closeRegistrationFlow }) =>
-      (id, data, options) => {
-        upsertMember(id, data, {
-          onError: options && options.onError,
-          onSuccess: (member) => {
-            if (options && options.onSuccess) options.onSuccess(member);
-            closeRegistrationFlow();
-          },
-        });
-      },
-  }),
+  withHandlers(mapWithHandlers),
   withProps(({ bookings, members }) => ({
     // ugly FIXME
-    members: bookings.map((booking) => ({
-      ...members.find((member) => member.id === booking.member),
+    members: bookings.map((booking: BookingWithConsumerPaymentPack) => ({
+      ...members.find((member: Member) => member.id === booking.member),
       booking,
     })),
   })),
-  withProps(({ members, bookingShown }) => ({
+  withProps(({ members, bookingShown }: Props) => ({
+    // @ts-expect-error TODO
     member: members.find((m) => m.booking.id === bookingShown?.id),
   })),
-  withHandlers({
-    registerWithPass:
-      ({ fetchOfferData, registerBooking, offerId, closeRegistrationFlow }) =>
-      (consumerPaymentPackId, options) => {
-        registerBooking(
-          consumerPaymentPackId,
-          { offer: offerId, auto_assign_spot: true },
-          {
-            onError: options && options.onError,
-            onSuccess: () => {
-              fetchOfferData();
-              closeRegistrationFlow();
-              if (options && options.onSuccess) options.onSuccess();
-            },
-          },
-        );
-      },
-  }),
 )(CheckInOfferDetailPage);

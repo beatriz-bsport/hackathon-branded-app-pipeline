@@ -47,7 +47,7 @@ export const byOfferByMember = {
 export function fetchByOfferByMember(
   offer: number,
   member: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(byOfferByMember.isLoading(true));
@@ -463,7 +463,7 @@ export const retrieveBulk = {
 
 export function retrieveConsumerPackBulk(
   ids: Array<number>,
-  options: OptionCallback<ConsumerPaymentPack[]>,
+  options?: OptionCallback<ConsumerPaymentPack[]>,
 ) {
   return async (dispatch: Dispatch) => {
     if (!ids || ids.length === 0) {

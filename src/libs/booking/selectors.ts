@@ -15,7 +15,7 @@ import { getAllEstablishmentsDict as getEstablishmentData } from '../establishme
 import { RootState } from '../../reducers';
 import { getRoleStateById as getUsersById } from '../role/selectors';
 
-const _getData = (state: State) => state.booking.byId;
+const _getData = (state: RootState) => state.booking.byId;
 
 const _getMemberBookingId = (state: RootState) => state.booking.byMember.allIds;
 const _getConsumerBookingIds = (state: RootState) =>

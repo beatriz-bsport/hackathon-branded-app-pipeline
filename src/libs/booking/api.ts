@@ -44,7 +44,7 @@ export const fetchOfferGroupRelatedBookings = (bookingId: number) => {
   );
 };
 export const retrieveBooking = (id: number) => {
-  return getAuth(`${API_V1_URI}/booking/${id}/`);
+  return getAuth<BookingREST>(`${API_V1_URI}/booking/${id}/`);
 };
 
 export const fetchBookingBroadcastRoom = (id: number) => {

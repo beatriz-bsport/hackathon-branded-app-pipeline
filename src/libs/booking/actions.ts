@@ -43,7 +43,10 @@ export const retrieveActions = {
   error: createAction('BOOKING/RETRIEVE/ERROR'),
 };
 
-export function retrieveBooking(id: number, options?: OptionCallback) {
+export function retrieveBooking(
+  id: number,
+  options?: OptionCallback<BookingREST>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveActions.isLoading(true));
     dispatch(retrieveActions.error(null));
@@ -52,7 +55,6 @@ export function retrieveBooking(id: number, options?: OptionCallback) {
       const response = await retrieveBookingAPI(id);
       dispatch(retrieveActions.success(response.data));
       if (options && options.onSuccess) {
-        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -534,7 +536,7 @@ export const byOfferActions = {
 
 export function fetchBookingsByOffer(
   offer: number,
-  options?: OptionCallback,
+  options?: OptionCallback<BookingREST[]>,
   ordering_field: any = null,
   params: any = {},
 ) {
@@ -546,7 +548,7 @@ export function fetchBookingsByOffer(
 
 export function refreshBookingsByOffer(
   offer: number,
-  options: OptionCallback,
+  options: OptionCallback<BookingREST[]>,
   ordering_field: any = null,
   params: any = {},
 ) {
@@ -566,7 +568,6 @@ export function refreshBookingsByOffer(
       });
       dispatch(byOfferActions.success(response.data));
       if (options && options.onSuccess) {
-        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (err) {

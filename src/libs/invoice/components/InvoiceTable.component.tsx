@@ -146,7 +146,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
       case ExportInvoiceStatus.SUCCESS:
         return t('table.nested.export.status.success');
 
-      case ExportInvoiceStatus.FAIL:
+      case ExportInvoiceStatus.FAILURE:
         if (invoice?.exported_invoice_error_message) {
           return t('table.nested.export.status.failWithMessage', {
             errorMessage: invoice.exported_invoice_error_message,
@@ -166,7 +166,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
       generateInvoiceXml(invoice.uuid, {
         onError: (error) => {
           console.error('Failed to generate invoice XML:', error);
-          setExportStatusOverride(ExportInvoiceStatus.FAIL);
+          setExportStatusOverride(ExportInvoiceStatus.FAILURE);
           setProcessing(false);
         },
         onSuccess: (inv: InvoiceV1Serializer) => {

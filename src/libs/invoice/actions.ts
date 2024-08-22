@@ -212,7 +212,7 @@ export function generateInvoiceXml(
       dispatch(generateInvoiceXmlActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {
-      dispatch(snackbarError(`invoice.generateXml.errors.'default'`));
+      dispatch(snackbarError(`invoice.generateXml.errors.default`));
       dispatch(generateInvoiceXmlActions.error(err));
       options?.onError?.(err);
     }

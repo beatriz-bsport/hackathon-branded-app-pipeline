@@ -12626,6 +12626,7 @@
         "success": "Your invoice has been transferred to QuickBooks"
       },
       "generateXml": {
+        "success": "XML invoice generated successfully",
         "errors": {
           "14210": "The company is not set up for XML invoice export. Please contact your bsport Account manager.",
           "14211": "The member has no official document ID",

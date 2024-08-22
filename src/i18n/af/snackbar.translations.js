@@ -696,6 +696,7 @@ const getTranslations = async () => {
         success: 'Your invoice has been transferred to QuickBooks',
       },
       generateXml: {
+        success: 'XML invoice generated successfully',
         errors: {
           default: 'An error occured while generating the XML invoice',
           [INVOICE_EXPORT_INCOMPLETE_USER_ADDRESS]:

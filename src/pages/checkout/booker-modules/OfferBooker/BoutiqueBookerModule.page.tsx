@@ -1349,6 +1349,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               )}
             </div>
             {!isWaitingList &&
+            !this.getIsGuestBooking() &&
               this.props.relatedMembersList &&
               this.props.relatedMembersList.length > 0 && (
                 <BookingForAnotherSelector

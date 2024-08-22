@@ -436,6 +436,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   onSuccess: (offers) => {
                     this.fetchOffersRelatedObject(offers);
                     this.retrieveFetchedGroupedOffer(group.id);
+                    this.filterGroupedOfferInSelectedOffer(group.offers);
                   },
                 });
               } else {
@@ -446,6 +447,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                         this.props.setStoredOffersInGroups(offer.group, ids);
                         this.fetchOffersRelatedObject(offers);
                         this.retrieveFetchedGroupedOffer(offer.group);
+                        this.filterGroupedOfferInSelectedOffer(ids);
                       },
                     });
                   },
@@ -472,8 +474,26 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     });
   }
 
+  filterGroupedOfferInSelectedOffer = (
+    offerAvailableForBookingIdsList: number[],
+  ) => {
+    const filteredGroupedSelectedOffersList = this.state.selectedOffers
+      .map((selectedOffer) => selectedOffer.offer)
+      .filter(
+        (offerData) =>
+          offerData && offerAvailableForBookingIdsList.includes(offerData.id),
+      )
+      .map((filteredOfferData) => {
+        return { offer: filteredOfferData, extra_data: {} };
+      });
+    this.setState({
+      selectedOffers: filteredGroupedSelectedOffersList,
+    });
+    this.updateOfferSpotSelectorWaitingList();
+  };
+
   retrieveFetchedGroupedOffer = (groupId: number) => {
-    const groupedOffer: OfferREST[] = this.props.getGroupedOffer(groupId);
+    const groupedOffersList: OfferREST[] = this.props.getGroupedOffer(groupId);
     const offerGroupData: OffersGroup = this.props.getOfferGroupData(groupId);
 
     if (offerGroupData.full_booking_only) {
@@ -494,7 +514,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       offerGroupData: offerGroupData,
     });
     this.addFetchedGroupedOfferToSelectedOffers(
-      groupedOffer.filter((offer) => offer && offer.id !== this.props.offerId),
+      groupedOffersList.filter(
+        (offer) => offer && offer.id !== this.props.offerId,
+      ),
     );
   };
 
@@ -1197,7 +1219,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           ),
         );
         this.updateOfferConstraints();
-        this.updateOfferSpotSelectorWaitingList();
         if (this.state.isSimilarOfferModalOpened) {
           this.toggleSimilarOfferModal();
         }

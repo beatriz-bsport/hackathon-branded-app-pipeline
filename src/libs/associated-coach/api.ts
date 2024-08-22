@@ -1,4 +1,5 @@
 import type {
+  Coach,
   CoachReplacementPreferencesData,
   UpdateCoachPrivateSlotsPaymentRuleData,
 } from '#src/libs/associated-coach/types';
@@ -45,7 +46,7 @@ export async function fetchPaginatedAssociatedCoaches(params?: {
 }
 
 export async function fetchAssociatedCoach(id: number) {
-  return getAuth(`${API_V1_URI}/associated_coach/${id}/`);
+  return getAuth<Coach>(`${API_V1_URI}/associated_coach/${id}/`);
 }
 
 // -----------------------
@@ -66,7 +67,7 @@ export async function deleteCoach(id: number) {
 }
 
 export async function restoreCoach(id: number) {
-  return putAuth(`${API_V1_URI}/associated_coach/${id}/restore/`); // set {disabled: false}
+  return putAuth<Coach>(`${API_V1_URI}/associated_coach/${id}/restore/`); // set {disabled: false}
 }
 
 export async function updateCoachPrivateSlotsPaymentRules(

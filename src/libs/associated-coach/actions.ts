@@ -113,9 +113,7 @@ export function restoreCoach(id: number, options?: OptionCallback) {
     dispatch(restoreActions.isLoading(true));
     try {
       const response = await restoreCoachAPI(id);
-      // @ts-expect-error
-      const payload = { [response.data.id]: response.data };
-      dispatch(coachDetailAction.success(payload));
+      dispatch(coachDetailAction.success(response.data));
       dispatch(snackbarSuccess('coach.restore.success'));
       // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
@@ -255,24 +253,28 @@ export function fetchAssociatedCoachesPaginatedList(
 }
 
 export const coachDetailAction = {
-  isLoading: createAction('COACH/DETAIL/IS_LOADING'),
-  error: createAction('COACH/DETAIL/ERROR'),
-  success: createAction('COACH/DETAIL/SUCCESS'),
+  isLoading: createAction<boolean>('COACH/DETAIL/IS_LOADING'),
+  error: createAction<Error | null>('COACH/DETAIL/ERROR'),
+  success: createAction<Coach>('COACH/DETAIL/SUCCESS'),
 };
 
-export function fetchAssociatedCoach(id: number) {
+export function fetchAssociatedCoach(
+  id: number,
+  options?: OptionCallback<Coach>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(coachDetailAction.isLoading(true));
     dispatch(coachDetailAction.error(null));
     try {
       const response = await fetchAssociatedCoachAPI(id);
-      // @ts-expect-error
-      const payload = { [response.data.id]: response.data };
-      dispatch(coachDetailAction.success(payload));
+      dispatch(coachDetailAction.success(response.data));
+      options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(coachDetailAction.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(coachDetailAction.isLoading(false));
     }
-    dispatch(coachDetailAction.isLoading(false));
   };
 }
 

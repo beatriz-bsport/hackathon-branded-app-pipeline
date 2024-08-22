@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import uniq from 'lodash/uniq';
-import { CoachState } from './types';
+import type { Coach, CoachState } from './types';
 
 import {
   coachListAction,
@@ -136,15 +136,22 @@ export default handleActions(
     [resetAction]: (state) => {
       return state.setIn(['allIds'], []);
     },
-
-    [coachDetailAction.success.toString()]: (state, { payload }) => {
-      // @ts-expect-error
-      return state.merge({ byId: payload }, { deep: true });
+    [coachDetailAction.success.toString()]: (
+      state,
+      { payload }: { payload: Coach },
+    ) => {
+      return state.merge({ byId: { [payload.id]: payload } }, { deep: true });
     },
-    [coachDetailAction.isLoading.toString()]: (state, { payload }) => {
+    [coachDetailAction.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.set('loading', payload);
     },
-    [coachDetailAction.error.toString()]: (state, { payload }) => {
+    [coachDetailAction.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.set('error', payload);
     },
     [performance.isLoading.toString()]: (state, { payload }) => {

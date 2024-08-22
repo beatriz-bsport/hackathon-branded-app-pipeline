@@ -32,7 +32,9 @@ const ModalToDrawerSwitcher: React.FC<Props> = ({
       blanketProps={{ isOpen, onClick: onClose }}
       className="bs-consumer-booking-spot-scheduling-drawer__root"
     >
-      <div className="bs-setup-variable">{children}</div>
+      <div className="bs-setup-variable" id="bs-setup-derived-variable">
+        {children}
+      </div>
     </BottomDrawer>
   ) : (
     <GenericResponsiveDialog
@@ -41,7 +43,9 @@ const ModalToDrawerSwitcher: React.FC<Props> = ({
       onClose={onClose}
       open={isOpen}
     >
-      <div className="bs-setup-variable">{children}</div>
+      <div className="bs-setup-variable" id="bs-setup-derived-variable">
+        {children}
+      </div>
     </GenericResponsiveDialog>
   );
 };

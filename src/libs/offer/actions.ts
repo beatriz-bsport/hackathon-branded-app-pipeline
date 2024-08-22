@@ -63,10 +63,10 @@ import type {
   OfferStatusWaitingListPosition,
   OfferStatusParams,
   OfferREST,
-  FetchSimilarOffersParams,
 } from './types';
 
 import chunk from 'lodash/chunk';
+import { PaginationFilterParams } from '../types';
 
 export const similarOffers = {
   isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),
@@ -126,7 +126,7 @@ export function fetchSimilarOffers(
 
 export function fetchSimilarOffersReworked(
   offerId: number,
-  fetchSimilarOffersParams: FetchSimilarOffersParams,
+  fetchSimilarOffersParams: PaginationFilterParams,
   options?: OptionCallback<PaginatedResponse<OfferREST>>,
 ) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
@@ -136,7 +136,7 @@ export function fetchSimilarOffersReworked(
     const currentState = getState().offer.similarOffersReworked;
     const nextPage = currentState.next_page ?? 1;
 
-    const params: FetchSimilarOffersParams = {
+    const params: PaginationFilterParams = {
       page: nextPage,
       page_size: fetchSimilarOffersParams.page_size,
     };

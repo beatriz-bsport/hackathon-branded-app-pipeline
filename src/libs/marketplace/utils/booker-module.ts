@@ -411,6 +411,7 @@ export const buildDataForUserRegistrationWithMultiSessionsAllowed = (
   }
 
   data.offers = selectedOffers
+    ?.filter((_selectedOffer) => !!_selectedOffer)
     .filter(
       (offerData: MultipleOfferSelectedData) =>
         getOfferFeature(
@@ -451,6 +452,7 @@ export const buildDataForUserRegistrationWithMultiSessionsAllowed = (
     });
 
   data.waiting_list = selectedOffers
+    ?.filter((_selectedOffer) => !!_selectedOffer)
     .filter(
       (offerData: MultipleOfferSelectedData) =>
         getOfferFeature(

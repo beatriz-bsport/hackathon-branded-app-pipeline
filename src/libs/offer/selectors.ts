@@ -606,6 +606,6 @@ export const getSimilarOffersReworkedById = (state: RootState) =>
 export const getSimilarOffersReworkedByIdList = createSelector(
   [getSimilarOffersReworkedAllIds, getSimilarOffersReworkedById],
   (ids, data) => {
-    return ids.map((id) => data[id]);
+    return ids.map((id) => data[id]).filter((_offer) => !!_offer);
   },
 );

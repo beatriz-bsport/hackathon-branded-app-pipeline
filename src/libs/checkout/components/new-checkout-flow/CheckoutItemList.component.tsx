@@ -172,8 +172,8 @@ const useStyles = makeStyles<Theme, { connectedToOtherComponents: boolean }>(
       borderStyle: 'solid',
       borderWidth: '1px',
       borderColor: theme.palette.grey[100],
-      borderRadius: (props) =>
-        props.connectedToOtherComponents ? '12px 12px 0 0' : '12px',
+      borderRadius: ({ connectedToOtherComponents }) =>
+        connectedToOtherComponents ? '12px 12px 0 0' : '12px',
       display: 'flex',
       flexDirection: 'column',
       padding: theme.spacing(2),

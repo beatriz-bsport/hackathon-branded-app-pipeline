@@ -18,11 +18,10 @@ import type {
   OfferStatusParams,
   OfferStatus,
   OfferREST,
-  FetchSimilarOffersParams,
 } from './types';
 
 import { PaginatedResponse } from '../../state/types';
-import type { AxiosResponse } from 'axios';
+import type { PaginationFilterParams } from '../types';
 
 export async function createOffers(data: OfferCreate) {
   return postAuth(`${API_V1_URI}/offer/create_similar_offers/`, data);
@@ -68,17 +67,17 @@ export async function fetchOffersList(
   return getAuth(`${API_V1_URI}/offer/${buildUrlParams(params)}`);
 }
 
-export async function fetchSimilarOffersUntyped(offerId: number, params: any) {
+export function fetchSimilarOffersUntyped(offerId: number, params: any) {
   return getAuth(
     `${API_V1_URI}/offer/${offerId}/similars/${buildUrlParams(params || {})}`,
   );
 }
 
-export async function fetchSimilarOffers(
+export function fetchSimilarOffers(
   offerId: number,
-  params: FetchSimilarOffersParams,
-): Promise<AxiosResponse<PaginatedResponse<OfferREST>>> {
-  return getAuth(
+  params: PaginationFilterParams,
+) {
+  return getAuth<PaginatedResponse<OfferREST>>(
     `${API_V1_URI}/offer/${offerId}/similars/${buildUrlParams(params || {})}`,
   );
 }

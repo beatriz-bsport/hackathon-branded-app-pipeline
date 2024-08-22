@@ -1,7 +1,7 @@
 .bs-marketplace-booker-item__remove_modal_text {
   padding-top: var(--bs-space-size-4);
-  padding-right: calc(var(--bs-space-size-1) * 6);
-  padding-left: calc(var(--bs-space-size-1) * 6);
+  padding-right: var(--spacing-3);
+  padding-left: var(--spacing-3);
   padding-bottom: var(--bs-space-size-2);
 }
 

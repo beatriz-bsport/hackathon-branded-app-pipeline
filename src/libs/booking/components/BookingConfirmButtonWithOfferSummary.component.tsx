@@ -23,8 +23,8 @@ export type Props = {
   disabled: boolean;
   buttonLoading: boolean;
   onClick: () => void;
-  OfferSummaryComponent?: () => React.ReactElement;
-  SimilarOfferButtonComponent?: () => React.ReactElement;
+  OfferSummaryComponent: React.ReactNode;
+  SimilarOfferButtonComponent: React.ReactNode;
   price?: string;
   displayTax: boolean;
   // To investigate, taxes are decimal therefore strings.
@@ -88,10 +88,10 @@ const BookingConfirmButtonWithOfferSummary: React.FC<Props> = ({
         disableCollapse={buttonLoading || disabled}
         isMobile={isMobile}
       >
-        {OfferSummaryComponent?.()}
+        {OfferSummaryComponent}
         {!isMobile && (
           <div className={classes.addSessionButtonDivider}>
-            {SimilarOfferButtonComponent?.()}
+            {SimilarOfferButtonComponent}
           </div>
         )}
         <Collapse in={!!price}>
@@ -154,7 +154,7 @@ const BookingConfirmButtonWithOfferSummary: React.FC<Props> = ({
           {value}
         </Button>
       </div>
-      {isMobile && SimilarOfferButtonComponent?.()}
+      {isMobile && SimilarOfferButtonComponent}
     </div>
   );
 };

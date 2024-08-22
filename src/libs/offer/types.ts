@@ -518,8 +518,3 @@ export enum BOOKING_FOR_GUEST_FREQUENCY {
   MONTH = 'every_month',
   YEAR = 'every_year',
 }
-
-export type FetchSimilarOffersParams = {
-  page_size: number;
-  page?: number;
-};

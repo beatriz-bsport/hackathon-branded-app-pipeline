@@ -565,6 +565,10 @@ exports.default = {
         paymentMethodLabel: 'Ends with <strong>{{- identifier}}</strong>',
         cardItemCaptionText: 'Expires: {{- additionalInfo}}',
         add: 'Add payment method',
+        tooltipText: {
+          other: 'Other',
+          more: 'Add a new payment method and delete this one if you want to change card network.',
+        },
       },
       termsAndConditions: {
         title: 'Terms and conditions',

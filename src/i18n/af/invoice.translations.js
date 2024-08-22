@@ -546,6 +546,7 @@ const getTranslations = async () => {
       addPaymentMethod: 'Add a payment method',
       copyLink: 'Copy the link to add a payment method',
       manual: 'Manual',
+      other: 'Other',
     },
     paymentEngine: {
       label: {

@@ -2020,7 +2020,11 @@
           "empty": "Once you save a payment, it will appear here.",
           "paymentMethodLabel": "Ends with <strong>{{- identifier}}</strong>",
           "cardItemCaptionText": "Expires: {{- additionalInfo}}",
-          "add": "Add payment method"
+          "add": "Add payment method",
+          "tooltipText": {
+            "other": "Other",
+            "more": "Add a new payment method and delete this one if you want to change card network."
+          }
         },
         "termsAndConditions": {
           "title": "Terms and conditions",
@@ -3638,7 +3642,8 @@
       "isInternalExplainFuturePayments": "The due date will be deducted automatically from the account balance. If this is not sufficient, a negative account will be created.",
       "addPaymentMethod": "Add a payment method",
       "copyLink": "Copy the link to add a payment method",
-      "manual": "Manual"
+      "manual": "Manual",
+      "other": "Other"
     },
     "paymentEngine": { "label": { "0": "Manual payment", "1": "Online payment" } },
     "invoiceType": {

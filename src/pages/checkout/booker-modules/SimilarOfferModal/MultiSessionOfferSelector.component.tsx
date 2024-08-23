@@ -5,7 +5,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 
 import type { MetaActivity } from '#src/libs/meta-activity/types';
 import type { Establishment } from '#src/libs/establishment/types';
-import type { OfferREST } from '#src/libs/offer/types';
+import type { Offer_FULL } from '#src/libs/offer/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
 
 import {
@@ -26,7 +26,7 @@ export type MultiSessionOfferSelectorProps = {
   companyTheme: CompanyTheme;
   metaActivities: { [key: number]: MetaActivity };
   establishments: { [key: number]: Establishment };
-  similarOffers: OfferREST[];
+  similarOffers: Offer_FULL[];
   fetchMoreSessions: () => void;
   onClose: () => void;
   isAbleToFetchMoreSimilarSessions: boolean;
@@ -34,8 +34,8 @@ export type MultiSessionOfferSelectorProps = {
 
 type OfferStepperProps = {
   nextStep: () => void;
-  setPreSelectedOffer: (offer: OfferREST) => void;
-  preSelectedOffer: OfferREST;
+  setPreSelectedOffer: (offer: Offer_FULL) => void;
+  preSelectedOffer: Offer_FULL;
 };
 
 export type MultiSessionOfferFinalProps = MultiSessionOfferSelectorProps &
@@ -45,12 +45,12 @@ type OfferSessionCardProps<T> = {
   metaActivity: MetaActivity;
   companyTheme: CompanyTheme;
   establishment: Establishment;
-  offer: OfferREST;
+  offer: Offer_FULL;
   isSelected: boolean;
   onClick: (content: T, isSelected: boolean) => void;
 };
 
-const OfferSessionCard: React.FC<OfferSessionCardProps<OfferREST>> = ({
+const OfferSessionCard: React.FC<OfferSessionCardProps<Offer_FULL>> = ({
   metaActivity,
   companyTheme,
   establishment,
@@ -114,7 +114,7 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
 }) => {
   const { t } = useTranslation(['common', 'booking']);
   const onSelectSession = React.useCallback(
-    (offer: OfferREST, isSelected: boolean) => {
+    (offer: Offer_FULL, isSelected: boolean) => {
       if (isSelected) {
         setPreSelectedOffer(null);
       } else {
@@ -150,13 +150,21 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
         <>
           {similarOffers && similarOffers.length > 0 ? (
             similarOffers.map((offer) => {
+              const offerMetaActiviy =
+                typeof offer.meta_activity === 'number'
+                  ? metaActivities?.[offer.meta_activity]
+                  : offer.meta_activity;
+              const offerEstablishments =
+                typeof offer.establishment === 'number'
+                  ? establishments?.[offer.establishment]
+                  : offer.establishment;
               return (
                 <OfferSessionCard
                   key={offer.id}
                   companyTheme={companyTheme}
-                  establishment={establishments?.[offer.establishment]}
+                  establishment={offerEstablishments}
                   isSelected={preSelectedOffer?.id === offer.id}
-                  metaActivity={metaActivities?.[offer.meta_activity]}
+                  metaActivity={offerMetaActiviy}
                   offer={offer}
                   onClick={onSelectSession}
                 />

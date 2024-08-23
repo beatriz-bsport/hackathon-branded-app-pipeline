@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { CompanyTheme } from '#src/libs/theme/types';
-import type { OfferREST, OfferStatus } from '#src/libs/offer/types';
+import type { Offer_FULL, OfferStatus } from '#src/libs/offer/types';
 import type {
   AssetForBlueprint,
   RoomBlueprint,
@@ -42,9 +42,9 @@ export type MultiSessionSpotSelectorProps = {
 };
 
 type SpotStepperProps = {
-  addSessionOffer: (offer: OfferREST) => void;
+  addSessionOffer: (offer: Offer_FULL) => void;
   previousStep: () => void;
-  offer: OfferREST;
+  offer: Offer_FULL;
 };
 
 export type MultiSessionSpotFinalProps = MultiSessionSpotSelectorProps &

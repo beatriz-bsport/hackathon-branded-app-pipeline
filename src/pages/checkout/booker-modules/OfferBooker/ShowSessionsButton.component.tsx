@@ -18,6 +18,8 @@ const ShowSessionButton: React.FC<ShowSessionButtonProps> = ({
 }) => {
   const { t } = useTranslation('booking');
 
+  if (sessionsCount <= 0) return null;
+
   return (
     <>
       <ButtonBase

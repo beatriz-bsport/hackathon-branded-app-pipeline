@@ -34,7 +34,7 @@ const AddMoreSessionsButton: React.FC<AddMoreSessionsButtonProps> = ({
         (similarOfferId) =>
           offerStatusById[similarOfferId]?.bookable_status ===
           OFFER_BOOKABLE_STATUS_BOOKABLE,
-      ).length > 1,
+      ).length > 0,
     [similarOffersToCheckIds, offerStatusById],
   );
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { OfferREST } from '#src/libs/offer/types';
+import type { Offer_FULL } from '#src/libs/offer/types';
 
 import ModalToDrawerSwitcher from '#src/components/Modal/ModalToDrawerSwitcher.component';
 import MultiSessionsOfferSelector, {
@@ -23,7 +23,7 @@ enum MultiSessionModalStepperStater {
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (offer: OfferREST) => void;
+  onConfirm: (offer: Offer_FULL) => void;
 } & MultiSessionOfferSelectorProps &
   MultiSessionSpotSelectorProps;
 
@@ -50,10 +50,10 @@ const MultiSessionModalStepper: React.FC<Props> = ({
 }) => {
   const [currentStep, setCurrentStep] = React.useState<number>(0);
   const [preSelectedOffer, setPreSelectedOffer] =
-    React.useState<OfferREST | null>(null);
+    React.useState<Offer_FULL | null>(null);
 
   const onConfirmSessionToAdd = React.useCallback(
-    (offer: OfferREST) => {
+    (offer: Offer_FULL) => {
       if (offer) {
         onConfirm(offer);
         setCurrentStep(0);

@@ -82,6 +82,7 @@ import { getMemberTagsIdsList } from '#src/libs/tag/selectors';
 import {
   getOffersListByGroup,
   getGroupDataById,
+  getGroupOffersDataLoading,
 } from '#src/libs/group-offer/selectors';
 import { getMetaActivitiesDict } from '#src/libs/meta-activity/selectors';
 import { getAllEstablishmentsDict } from '#src/libs/establishment/selectors';
@@ -236,6 +237,7 @@ type State = {
   offersConstraint: OfferConstraint;
   selectedBuyableItemCategory: BuyableItemCategory | null;
   selectedOffers: MultipleOfferSelectedData[];
+  removedSelectedGroupedOffers: (OfferREST | Offer_FULL)[];
   selectedItem: BookerItem;
   isSpotSelectorOpen: boolean;
   selectedSpotsIds: SelectedSpotsIdsKeying;
@@ -298,6 +300,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       },
       selectedBuyableItemCategory: null,
       selectedOffers: [],
+      removedSelectedGroupedOffers: [],
       selectedItem: null,
       isSpotSelectorOpen: false,
       selectedSpotsIds: {},
@@ -432,16 +435,32 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           this.props.fetchGroup(offer.group, {
             onSuccess: (group) => {
               if (!group.full_booking_only) {
-                this.props.fetchOfferStatusList(group.offers, {
-                  page_size: group.offers.length,
-                });
-                this.props.fetchOffersInGroup(group.id, {
+                this.props.fetchOfferBulk(group.offers, {
                   onSuccess: (offers) => {
                     this.fetchOffersRelatedObject(offers);
                     this.retrieveFetchedGroupedOffer(group.id);
-                    this.filterGroupedOfferInSelectedOffer(group.offers);
                   },
                 });
+                this.props.fetchOfferStatusList(
+                  group.offers,
+                  {
+                    page_size: group.offers.length,
+                  },
+                  {
+                    onSuccess: (offerStatusList) => {
+                      const offersWithAvailableStatusIdsList = offerStatusList
+                        .filter(
+                          (offerStatus) =>
+                            offerStatus.bookable_status ===
+                            OFFER_BOOKABLE_STATUS_BOOKABLE,
+                        )
+                        .map((filteredOfferStatus) => filteredOfferStatus.id);
+                      this.filterGroupedOfferInSelectedOffer(
+                        offersWithAvailableStatusIdsList,
+                      );
+                    },
+                  },
+                );
               } else {
                 this.props.listGroupOfferOffersIdsToBeBooked(offer.group, {
                   onSuccess: (ids) => {
@@ -1045,7 +1064,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.paymentComboLoading ||
       this.props.contractLoading ||
       this.props.paymentPackCategoryLoading ||
-      this.props.bookingFunnelLoading
+      this.props.bookingFunnelLoading ||
+      this.props.groupOffersDataLoading
     );
   };
 
@@ -1172,23 +1192,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   handleMemberBookingUpdate = (newMemberBookingId: number) => {
     if (!newMemberBookingId) return;
 
-    if (this.state.offerGroupData?.id) {
-      this.setState(
-        {
-          memberBookingId: newMemberBookingId,
-        },
-        () => {
-          const offersIds = [
-            ...this.state.selectedOffers.map(
-              (selectedOffers) => selectedOffers.offer.id,
-            ),
-          ];
-          this.fetchOfferStatusList(offersIds);
-        },
-      );
-      return;
-    }
-
     const newSelectedOffers = this.state.selectedOffers.filter(
       (selectedOffer) => selectedOffer.offer.id === this.props.offerId,
     );
@@ -1260,6 +1263,24 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     });
   };
 
+  refineOffers = (offer: OfferREST | Offer_FULL): Offer_FULL => {
+    let refinedOffer = { ...offer };
+    if (typeof offer.coach === 'number') {
+      refinedOffer.coach = this.props.coaches[offer.coach] || offer.coach;
+    }
+
+    if (typeof offer.establishment === 'number') {
+      refinedOffer.establishment =
+        this.props.establishments[offer.establishment] || offer.establishment;
+    }
+
+    if (typeof offer.meta_activity === 'number') {
+      refinedOffer.meta_activity =
+        this.props.metaActivities[offer.meta_activity] || offer.meta_activity;
+    }
+    return refinedOffer as Offer_FULL;
+  };
+
   handleSelectOffer = (offer: OfferREST | Offer_FULL) => {
     if (
       this.state.selectedOffers.findIndex(
@@ -1269,20 +1290,16 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       return;
     }
 
-    let formattedOffer = { ...offer };
-    if (typeof offer.coach === 'number') {
-      formattedOffer.coach = this.props.coaches[offer.coach] || offer.coach;
+    if (this.state.offerGroupData?.id) {
+      this.setState((prevState: State) => ({
+        removedSelectedGroupedOffers:
+          prevState.removedSelectedGroupedOffers.filter(
+            (removedOffer) => removedOffer.id !== offer.id,
+          ),
+      }));
     }
 
-    if (typeof offer.establishment === 'number') {
-      formattedOffer.establishment =
-        this.props.establishments[offer.establishment] || offer.establishment;
-    }
-
-    if (typeof offer.meta_activity === 'number') {
-      formattedOffer.meta_activity =
-        this.props.metaActivities[offer.meta_activity] || offer.meta_activity;
-    }
+    const formattedOffer = this.refineOffers(offer);
 
     this.setState(
       (prevState: State) => ({
@@ -1307,7 +1324,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
   handleRemoveOffer = (offerId: number) => {
     this.setState(
-      (prevState) => {
+      (prevState: State) => {
         const newSelectedSpots = Object.fromEntries(
           Object.entries(prevState.selectedSpots).filter(
             (key) => key && parseInt(key[0], 10) != offerId,
@@ -1318,10 +1335,17 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
             (key) => key && parseInt(key[0], 10) != offerId,
           ),
         );
-
+        const removedOfferData = prevState.selectedOffers.find(
+          (offerIterator) => offerIterator.offer.id === offerId,
+        )?.offer;
+        const formattedOffer = this.refineOffers(removedOfferData);
         return {
+          removedSelectedGroupedOffers: [
+            ...prevState.removedSelectedGroupedOffers,
+            formattedOffer,
+          ],
           selectedOffers: prevState.selectedOffers.filter(
-            (offerIterator) => !(offerIterator.offer.id === offerId),
+            (offerIterator) => offerIterator.offer.id !== offerId,
           ),
           selectedSpots: newSelectedSpots,
           selectedSpotsIds: newSelectedSpotsIds,
@@ -1350,15 +1374,22 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     }));
   };
 
-  getUnselectedSimilarOffers = () => {
+  getUnselectedSimilarOrGroupedOffers = (
+    similarOrGroupedOffers: (OfferREST | Offer_FULL)[],
+  ): Offer_FULL[] => {
     const selectedOffersIds = this.state.selectedOffers.map(
       ({ offer }) => offer.id,
     );
-    const unselectedSimilarOffers = Object.values(
-      this.props.similarOffers,
-    ).filter((similarOffer) => !selectedOffersIds.includes(similarOffer.id));
+    const unselectedSimilarOrGroupedOffers = Object.values(
+      similarOrGroupedOffers,
+    )
+      .filter(
+        (similarOrGroupedOffer) =>
+          !selectedOffersIds.includes(similarOrGroupedOffer.id),
+      )
+      .map((filteredOffer) => this.refineOffers(filteredOffer));
 
-    return unselectedSimilarOffers;
+    return unselectedSimilarOrGroupedOffers;
   };
 
   getOfferMissingData = (offer: OfferREST | Offer_FULL) => {
@@ -1420,8 +1451,13 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.state.baseOffersWaitingForSpotSelection[0] || this.props.offer;
     const offerIdBeingSelected = offerBeingSelected?.id || this.props.offerId;
 
+    const isGroupedOffer = this.state.offerGroupData?.id;
+
     const isFromGroupFullBookingOnly =
       this.state.offerGroupData?.full_booking_only;
+
+    const similarOrGrouppedOffers =
+      this.state.removedSelectedGroupedOffers || this.props.similarOffers || [];
 
     if (
       this.state.isSpotSelectorOpen &&
@@ -1614,6 +1650,16 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                                   new Date(a.offer.date_start).getTime() -
                                   new Date(b.offer.date_start).getTime(),
                               )
+                              .reduce((acc, selectedOffer) => {
+                                if (
+                                  selectedOffer.offer.id === this.props.offerId
+                                ) {
+                                  acc.unshift(selectedOffer);
+                                } else {
+                                  acc.push(selectedOffer);
+                                }
+                                return acc;
+                              }, [])
                               .map(({ offer }) => {
                                 const {
                                   coach,
@@ -1667,7 +1713,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                           <AddMoreSessionsButton
                             isGuestBooking={this.getIsGuestBooking()}
                             offerStatusById={this.props.offerStatusById}
-                            similarOffers={this.props.similarOffers}
+                            similarOffers={similarOrGrouppedOffers}
                             toggleSimilarOfferModal={
                               this.toggleSimilarOfferModal
                             }
@@ -1715,6 +1761,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
             <div className="bs-new-offer-booking__offer__summary__container">
               {!isWaitingList &&
                 !this.getIsGuestBooking() &&
+                !isGroupedOffer &&
                 this.props.relatedMembersList &&
                 this.props.relatedMembersList.length > 0 && (
                   <BookingForAnotherSelector
@@ -1742,6 +1789,14 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                             new Date(a.offer.date_start).getTime() -
                             new Date(b.offer.date_start).getTime(),
                         )
+                        .reduce((acc, selectedOffer) => {
+                          if (selectedOffer.offer.id === this.props.offerId) {
+                            acc.unshift(selectedOffer);
+                          } else {
+                            acc.push(selectedOffer);
+                          }
+                          return acc;
+                        }, [])
                         .map(({ offer }, index) => {
                           const {
                             coach,
@@ -1799,7 +1854,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                       {this.state.selectedOffers.length > 2 && (
                         <ShowSessionsButton
                           isToggle={this.state.showHiddenSessionsFromSummary}
-                          sessionsCount={this.state.selectedOffers.length}
+                          sessionsCount={this.state.selectedOffers.length - 2}
                           toggleSession={
                             this.toggleDisplayHiddenGroupedSessions
                           }
@@ -1813,7 +1868,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                     <AddMoreSessionsButton
                       isGuestBooking={this.getIsGuestBooking()}
                       offerStatusById={this.props.offerStatusById}
-                      similarOffers={this.props.similarOffers}
+                      similarOffers={similarOrGrouppedOffers}
                       toggleSimilarOfferModal={this.toggleSimilarOfferModal}
                     />
                   }
@@ -1829,7 +1884,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
             </div>
           </div>
         </div>
-        {this.props.similarOffers && this.props.similarOffers.length > 0 && (
+        {similarOrGrouppedOffers && similarOrGrouppedOffers.length > 0 && (
           <>
             <MultiSessionModalStepper
               assetByIdBlueprintByIdentifier={
@@ -1852,7 +1907,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               onConfirm={this.handleSelectOffer}
               roomBlueprintsById={this.props.roomBlueprintsById}
               selectedSpotsIds={this.state.selectedSpotsIds}
-              similarOffers={this.getUnselectedSimilarOffers()}
+              similarOffers={this.getUnselectedSimilarOrGroupedOffers(
+                similarOrGrouppedOffers,
+              )}
               spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
                 this.props.spotTypes,
               )}
@@ -1937,6 +1994,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     getGroupedOffer: (groupId: number) => getOffersListByGroup(state, groupId),
     getOfferGroupData: (groupId: number) =>
       getGroupDataById(state, groupId) as OffersGroup,
+    groupOffersDataLoading: getGroupOffersDataLoading(state),
   };
 };
 

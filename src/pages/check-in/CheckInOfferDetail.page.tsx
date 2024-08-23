@@ -31,7 +31,7 @@ import {
   registerBooking as registerBookingAction,
   retrieveBooking as retrieveBookingAction,
 } from '#src/libs/booking/actions';
-import { fetchOfferById as fetchOfferByIdAction } from '#src/libs/offer/actions';
+import { retrieveOffer as retrieveOfferAction } from '#src/libs/offer/actions';
 import {
   retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
   fetchByOfferByMember as fetchByOfferByMemberAction,
@@ -41,18 +41,23 @@ import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
 } from '#src/libs/payment-packs/actions';
 import { fetchSignFormUpConfiguration } from '#src/libs/sign-up-form/actions';
+import { retrieveEstablishment as retrieveEstablishmentAction } from '#src/libs/establishment/actions';
+import { fetchAssociatedCoach as fetchAssociatedCoachAction } from '#src/libs/associated-coach/actions';
 
 import {
   getOfferBookingListWithConsumerPack,
   getMemberBookingWithConsumerPack,
 } from '#src/libs/booking/selectors';
-import { getRetrieveOffer } from '#src/libs/offer/selectors';
+import { getOfferById } from '#src/libs/offer/selectors';
 import { getSearchedMembers, getAllMembers } from '#src/libs/member/selectors';
 import {
   getByOfferByMember,
   withPaymentPack as withPaymentPackForConsumer,
 } from '#src/libs/consumer-payment-pack/selectors';
 import { getSignUpFormConfigurationDict } from '#src/libs/sign-up-form/selectors';
+import { getLevel } from '#src/libs/level/selectors';
+import { getEstablishment } from '#src/libs/establishment/selectors';
+import { getCoach } from '#src/libs/associated-coach/selectors';
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
@@ -109,9 +114,17 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
   };
 
   componentDidMount() {
-    this.props.fetchOfferById(this.props.offerId, {
+    this.props.retrieveOffer(this.props.offerId, {
       onSuccess: (offer) => {
-        this.props.fetchLevel(offer.level_id);
+        !!(offer.custom_level || offer.level) &&
+          this.props.fetchLevel(offer.custom_level ?? offer.level);
+        this.props.retrieveEstablishment(
+          this.props.offer?.establishment_override ??
+            this.props.offer?.establishment,
+        );
+        this.props.fetchAssociatedCoach(
+          this.props.offer?.coach_override ?? this.props.offer?.coach,
+        );
       },
     });
     this.props.fetchOfferData();
@@ -162,6 +175,14 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
     );
   };
 
+  handleMemberSearched = (
+    member: Member,
+    callback?: OptionCallback<Member>,
+  ) => {
+    this.props.setSearchedMember(member);
+    if (callback) this.props.setOnMemberUnSelectedCallback(callback);
+  };
+
   render() {
     return (
       <div className={this.props.classes.container}>
@@ -169,6 +190,9 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
           barcodeDetectorEnabled={this.props.barcodeDetectorEnabled}
           bookingLoading={this.props.loading}
           closeBarcode={this.props.closeBarcode}
+          coach={this.props.getCoach(
+            this.props.offer?.coach_override ?? this.props.offer?.coach,
+          )}
           confirmBookingAttendance={(
             booking: BookingWithConsumerPaymentPack,
           ) => {
@@ -176,16 +200,19 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
             this.props.confirmBookingAttendance(booking.id);
             this.props.setBookingShown(booking);
           }}
+          establishment={this.props.getEstablishment(
+            this.props.offer?.establishment_override ??
+              this.props.offer?.establishment,
+          )}
           fetchMemberByBarcode={this.props.fetchMemberByBarcode}
           goBack={this.props.goBack}
+          level={this.props.getLevel(
+            this.props.offer?.custom_level ?? this.props.offer?.level,
+          )}
           members={this.props.members || []}
           offer={this.props.offer}
           onAddMember={this.props.openSearchMemberModal}
-          onMemberSearched={(member: Member, callback?: OptionCallback) => {
-            this.props.setSearchedMember(member);
-            if (callback) this.props.setOnMemberUnSelectedCallback(callback);
-          }}
-          openIncompleteMemberForm={this.props.setMemberDataToComplete}
+          onMemberSearched={this.handleMemberSearched}
           refreshData={this.props.fetchOfferData}
           toogleBarcodeDetector={this.props.toogleBarcodeDetector}
         />
@@ -224,10 +251,14 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
         >
           <CheckInConfirm
             booking={this.props.bookingShown}
+            establishment={this.props.getEstablishment(
+              this.props.bookingShown?.establishment,
+            )}
             goBack={() => this.props.setBookingShown(null)}
             // @ts-expect-error TODO - typing
             member={this.props.member || []}
             offer={this.props.offer}
+            // @ts-expect-error TODO - typing
             paymentPack={
               this.props.bookingShown?.consumer_payment_pack?.payment_pack
             }
@@ -300,10 +331,10 @@ const mapWithHandlers = {
 };
 
 const connector = connect(
-  (state: RootState) => ({
+  (state: RootState, { offerId }: OwnProps) => ({
     theme: state.theme.theme,
     companyCountry: state.theme.theme.locale.split('_')[1],
-    offer: getRetrieveOffer(state),
+    offer: getOfferById(state, offerId),
     members: getAllMembers(state),
     searchedMemberList: getSearchedMembers(state),
     memberBarcodeLoading: state.member.barcode.loading,
@@ -320,9 +351,12 @@ const connector = connect(
     getBooking: (bookingId: number) =>
       bookingId ? getMemberBookingWithConsumerPack(state, bookingId) : null,
     bookingLoading: state.booking.byOffer.loading,
+    getLevel: (id: number) => getLevel(state, id),
+    getEstablishment: (id: number) => getEstablishment(state, id),
+    getCoach: (id: number) => getCoach(state, id),
   }),
   {
-    fetchOfferById: fetchOfferByIdAction,
+    retrieveOffer: retrieveOfferAction,
     fetchFilteredMembers: fetchFilteredMembersAction,
     fetchBookingsByOffer: fetchBookingsByOfferAction,
     fetchByOfferByMember: fetchByOfferByMemberAction,
@@ -339,6 +373,8 @@ const connector = connect(
     goBack: () => pushRouter('/check-in'),
     fetchSignFormUpConfiguration,
     fetchLevel: fetchLevelAction,
+    retrieveEstablishment: retrieveEstablishmentAction,
+    fetchAssociatedCoach: fetchAssociatedCoachAction,
   },
 );
 

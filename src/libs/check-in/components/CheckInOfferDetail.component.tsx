@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import { withHandlers, compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { Dispatch } from 'redux';
 
 import { createStyles, WithStyles, withStyles } from '@material-ui/styles';
 import {
@@ -30,6 +29,9 @@ import type { OfferREST } from '#src/libs/offer/types';
 import type { OptionCallback } from '#src/state/types';
 import type { BookingWithConsumerPaymentPack } from '#src/libs/booking/types';
 import type { WithHandlerType } from '#src/utils/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { Level } from '#src/libs/level/types';
+import type { Coach } from '#src/libs/associated-coach/types';
 
 const MEMBER_LIST_REFRESH_DURATION = 1000 * 60 * 2;
 
@@ -40,9 +42,12 @@ type Props = OwnProps &
 
 type OwnProps = {
   offer: OfferREST;
+  establishment: Establishment;
+  level: Level;
+  coach: Coach;
   members: Member[];
   bookingLoading: boolean;
-  registrationDialogOpen: boolean;
+  registrationDialogOpen?: boolean;
   barcodeDetectorEnabled: boolean;
   goBack: () => void;
   confirmBookingAttendance: (booking: BookingWithConsumerPaymentPack) => void;
@@ -54,7 +59,7 @@ type OwnProps = {
   fetchMemberByBarcode: (
     barcode: string,
     options?: OptionCallback<Member>,
-  ) => (dispatch: Dispatch) => void;
+  ) => void;
   // eslint-disable-next-line
   onMemberSearched: (member: Member, callback?: OptionCallback<Member>) => void;
 };
@@ -76,33 +81,47 @@ export class CheckInOfferDetail extends React.Component<Props> {
   }
 
   render() {
-    if (!this.props.offer) {
+    if (
+      !this.props.offer ||
+      !this.props.establishment ||
+      !this.props.coach ||
+      !this.props.level
+    ) {
       return <CircularProgress />;
     }
-    const { classes, t } = this.props;
 
     const BookerFab: React.FC = this.props.offer.full ? RedFab : Fab;
 
     return (
-      <div className={classes.root}>
+      <div className={this.props.classes.root}>
         <div
-          className={classNames([classes.panelContainer, classes.offerSummary])}
+          className={classNames([
+            this.props.classes.panelContainer,
+            this.props.classes.offerSummary,
+          ])}
         >
           <CheckInOfferSummaryPanel
-            goBack={this.props.goBack}
+            coach={this.props.coach}
+            customLevel={this.props.level}
+            establishment={this.props.establishment}
             offer={this.props.offer}
           />
         </div>
         <div
-          className={classNames([classes.panelContainer, classes.memberList])}
+          className={classNames([
+            this.props.classes.panelContainer,
+            this.props.classes.memberList,
+          ])}
         >
-          <div className={classes.row}>
+          <div className={this.props.classes.row}>
             <Switch
               checked={!!this.props.barcodeDetectorEnabled}
               onChange={this.props.toogleBarcodeDetector}
             />
 
-            <Typography>{t('offerDetail.activateBarcode')}</Typography>
+            <Typography>
+              {this.props.t('offerDetail.activateBarcode')}
+            </Typography>
           </div>
 
           <BookingList
@@ -114,21 +133,21 @@ export class CheckInOfferDetail extends React.Component<Props> {
           />
         </div>
 
-        <div className={classes.backButton}>
+        <div className={this.props.classes.backButton}>
           <BookerFab
             // @ts-expect-error IDK
             color="primary"
             onClick={this.props.offer.full ? () => {} : this.props.onAddMember}
             variant="extended"
           >
-            <PersonAddIcon className={classes.leftIcon} />
+            <PersonAddIcon className={this.props.classes.leftIcon} />
             {this.props.offer.full
-              ? t('offerDetail.isFull')
-              : t('offerDetail.register')}
+              ? this.props.t('offerDetail.isFull')
+              : this.props.t('offerDetail.register')}
           </BookerFab>
           <Fab color="secondary" onClick={this.props.goBack} variant="extended">
-            <ChevronLeftIcon className={classes.leftIcon} />
-            {t('offerDetail.backToOfferList')}
+            <ChevronLeftIcon className={this.props.classes.leftIcon} />
+            {this.props.t('offerDetail.backToOfferList')}
           </Fab>
         </div>
         {!this.props.registrationDialogOpen &&
@@ -143,7 +162,7 @@ export class CheckInOfferDetail extends React.Component<Props> {
 
                 <DialogActions>
                   <Button onClick={this.props.closeBarcode}>
-                    {t('offerDetail.actions.close')}
+                    {this.props.t('offerDetail.actions.close')}
                   </Button>
                 </DialogActions>
               </div>

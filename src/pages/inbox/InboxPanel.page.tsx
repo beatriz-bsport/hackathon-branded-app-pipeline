@@ -39,7 +39,7 @@ import { fetchCoachBulk as fetchCoachBulkAction } from '#src/libs/associated-coa
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#src/libs/establishment/actions';
 import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
 import { fetchSmartListMembers as fetchSmartListMembersAPI } from '#src/libs/smart-list/api';
-import type { Offer } from '#src/libs/offer/types';
+import type { OfferREST } from '#src/libs/offer/types';
 import { getFilterTagsFromSmartlist } from '#src/libs/communication-v2/utils';
 import { getTheme } from '#src/libs/theme/selectors';
 import type { RootState } from '../../reducers';
@@ -249,7 +249,7 @@ export default compose<Props, OwnProps>(
       }: InboxPanelConnectedProps) =>
       (id: number) => {
         retrieveOffer(id, {
-          onSuccess: (offer: Offer) => {
+          onSuccess: (offer: OfferREST) => {
             fetchCoachBulk([offer.coach, offer.coach_override]);
             fetchMetaActivityBulk([offer.meta_activity]);
 

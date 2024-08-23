@@ -183,6 +183,7 @@ export type OfferREST = {
   coach_override: number | null;
   coach_payment_rule_id: number | null;
   coach: number;
+  company: number;
   credit_price_override: number;
   credit_price: number;
   custom_level: number;
@@ -202,8 +203,8 @@ export type OfferREST = {
   manager_only: boolean;
   meta_activity_color: string | null;
   meta_activity: number;
-  name: string;
   name_override: string | null;
+  name: string;
   nb_attendant: number;
   nb_bookings: number;
   nb_non_attendant: number;

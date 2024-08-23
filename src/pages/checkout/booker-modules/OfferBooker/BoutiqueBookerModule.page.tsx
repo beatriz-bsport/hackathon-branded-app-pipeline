@@ -380,7 +380,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.fetchMyRelatedMemberList(this.props.companyId);
     }
     this.props.fetchOffer(this.props.offerId, {
-      onSuccess: (offer: Offer) => {
+      onSuccess: (offer: OfferREST) => {
         this.props.fetchBookingGuestNumber(this.props.offerId);
         this.props.fetchOfferWaitingListPosition(this.props.offerId);
         this.props.fetchCompanyTheme(offer.company);
@@ -416,7 +416,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         }
         this.fetchOfferStatus();
         this.fetchSimilarOffers();
-        // @ts-expect-error
         this.handleSelectOffer(offer);
       },
     });

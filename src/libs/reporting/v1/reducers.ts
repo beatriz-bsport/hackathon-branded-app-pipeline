@@ -56,7 +56,6 @@ const initialState: Immutable.Immutable<ReportingState> =
       results: [],
     },
     reportFilterConfigs: {
-      // @ts-expect-error
       dynamicDataHasBeenLoaded: defaultDynamicDataHasBeenLoaded,
       byId: {},
       allIds: [],

@@ -1,6 +1,9 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import { DatatypeFilteringState } from './types';
+import type {
+  DatatypeFilteringState,
+  DynamicFilterDataType,
+} from '#src/libs/datatype-filtering/types';
 import {
   setDynamicDataHasBeenLoadedAction,
   resetDynamicDataHasBeenLoadedAction,
@@ -10,14 +13,15 @@ import { defaultDynamicDataHasBeenLoaded } from './constants';
 
 const initialState: Immutable.Immutable<DatatypeFilteringState> =
   Immutable<DatatypeFilteringState>({
-    // @ts-expect-error
     dynamicDataHasBeenLoaded: defaultDynamicDataHasBeenLoaded,
   });
 
-export default handleActions<Immutable.Immutable<DatatypeFilteringState>>(
+export default handleActions<
+  Immutable.Immutable<DatatypeFilteringState>,
+  DynamicFilterDataType
+>(
   {
     [setDynamicDataHasBeenLoadedAction.toString()]: (state, { payload }) => {
-      // @ts-expect-error
       return state.setIn(['dynamicDataHasBeenLoaded', payload], true);
     },
     [resetDynamicDataHasBeenLoadedAction.toString()]: (state) => {

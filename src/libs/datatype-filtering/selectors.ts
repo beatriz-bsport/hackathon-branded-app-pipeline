@@ -22,6 +22,5 @@ export const getDynamicDataLoading = memoize((state: RootState) => ({
   company: state.franchise.loading,
 }));
 
-export const getDynamicDataHasBeenLoaded = (state: RootState) => {
-  return state.datatypeFiltering.dynamicDataHasBeenLoaded;
-};
+export const getDynamicDataHasBeenLoaded = (state: RootState) =>
+  state.datatypeFiltering.dynamicDataHasBeenLoaded;

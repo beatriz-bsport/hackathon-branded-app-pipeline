@@ -481,7 +481,6 @@ const DatatypeFilterConfigValueList: React.FC<{
       case 'staff':
       case 'bookkeeping_account':
       case 'establishment_group':
-        // @ts-expect-error
         return getDataByType(datatype, [], columnName);
       case 'payout_status':
         return [

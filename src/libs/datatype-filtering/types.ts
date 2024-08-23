@@ -256,7 +256,8 @@ export type DynamicFilterDataType =
   | 'staff'
   | 'video'
   | 'bookkeeping_account'
-  | 'user';
+  | 'user'
+  | 'establishment_group';
 
 export type DataSourceFieldMetadata = {
   identifier: string;

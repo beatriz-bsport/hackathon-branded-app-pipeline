@@ -233,6 +233,9 @@ export const defaultDynamicDataHasBeenLoaded = {
   subshop: false,
   bookkeeping_account: false,
   establishment_group: false,
+  billing_group_address: false,
+  payment_pack_category: false,
+  private_pass_category: false,
 };
 
 export const DATE_SUBDATA_TYPE = 0;

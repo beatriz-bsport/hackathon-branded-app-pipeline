@@ -347,11 +347,9 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
-              // @ts-expect-error
               case ReportFilterableDataType.ESTABLISHMENT_GROUP:
                 props.fetchAllEstablishmentGroup(props.companyId, {
                   onSuccess: () => {
-                    // @ts-expect-error
                     props.setDynamicDataHasBeenLoaded('establishment_group');
                   },
                 });
@@ -411,7 +409,6 @@ export default function withDatatypeDynamicData(
                     establishment.id.toString() === stringifiedValue,
                 )?.title;
 
-              // @ts-expect-error
               case ReportFilterableDataType.ESTABLISHMENT_GROUP:
                 return props.establishmentGroups.find(
                   (establishmentGroup) =>
@@ -659,7 +656,6 @@ export default function withDatatypeDynamicData(
               }));
             default:
               return [];
-            // @ts-expect-error
             case ReportFilterableDataType.ESTABLISHMENT_GROUP:
               return props.establishmentGroups.map((establishment_group) => ({
                 label: establishment_group.name,

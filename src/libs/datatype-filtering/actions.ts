@@ -2,9 +2,8 @@ import { createAction } from 'redux-actions';
 import { Dispatch } from '../../state/types';
 import { DynamicFilterDataType } from './types';
 
-export const setDynamicDataHasBeenLoadedAction = createAction(
-  'DATA_SOURCE/FILTER/DYNAMIC/LOADED',
-);
+export const setDynamicDataHasBeenLoadedAction =
+  createAction<DynamicFilterDataType>('DATA_SOURCE/FILTER/DYNAMIC/LOADED');
 
 export function setDynamicDataHasBeenLoaded(type: DynamicFilterDataType) {
   return async (dispatch: Dispatch) => {

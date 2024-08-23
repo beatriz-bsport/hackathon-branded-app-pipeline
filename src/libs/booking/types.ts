@@ -124,6 +124,11 @@ export type BookingREST = {
   was_refunded: boolean;
 };
 
+/** Transformed type for check-in details page */
+export type BookingWithConsumerPaymentPack = BookingREST & {
+  consumer_payment_pack: ConsumerPaymentPack<PaymentPack>;
+};
+
 export type BookingOption<O = Offer> = {
   id: number;
   cancelled: boolean;

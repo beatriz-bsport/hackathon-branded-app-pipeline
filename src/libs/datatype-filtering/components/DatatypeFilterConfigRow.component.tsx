@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import uniqBy from 'lodash/uniqBy';
 import classNames from 'classnames';
 
-import { makeStyles, Typography } from '@material-ui/core';
+import { makeStyles, Theme, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -72,8 +72,18 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
   displayPopperWarning = true,
 }) => {
   const { t } = useTranslation('reporting');
-  const classes = useStyles();
+  const classes = useStyles({ displayAsFirstOrderRow });
   const rowRef = useRef(null);
+  const memberElementRef = React.useRef<HTMLDivElement>();
+  const [shouldForceUpdate, setShouldForceUpdate] = React.useState(true);
+
+  React.useEffect(() => {
+    if (shouldForceUpdate) {
+      // setTimeout here is necessary because when re-mounting the component,
+      // React takes some time to reassign the element to the ref
+      setTimeout(() => setShouldForceUpdate(false));
+    }
+  }, [shouldForceUpdate]);
 
   const translationPrefix = dashboardTranslationNamespace
     ? 'dashboard:dataSourceIdentifiers'
@@ -245,134 +255,144 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
   };
 
   return (
-    <div ref={rowRef} className={classes.filterRow}>
-      {!displayAsFirstOrderRow && (
-        <div className={classNames(classes.groupRule, classes.center)}>
-          {!hidePrefix && (
-            <Typography color="textSecondary">
-              {t(`filter.form.groupOperand.${groupOperand}`)}
-            </Typography>
-          )}
+    <div className={classes.maxWidth}>
+      <div ref={rowRef} className={classes.filterRow}>
+        {!displayAsFirstOrderRow && (
+          <div className={classNames(classes.groupRule, classes.center)}>
+            {!hidePrefix && (
+              <Typography color="textSecondary">
+                {t(`filter.form.groupOperand.${groupOperand}`)}
+              </Typography>
+            )}
+          </div>
+        )}
+        <div className={classNames(classes.flexOne, classes.relative)}>
+          <MaterialUiSingleSelectorField
+            inScrollBar
+            // @ts-expect-error
+            chipsRenderer={({ data }) => (
+              <div className={classes.warningSelect}>
+                <div>{data.label}</div>
+                {!reportColumns.includes(filterItem.identifier) && (
+                  <HoverableWarning
+                    containerPortal={rowRef?.current}
+                    displayPopperWarning={displayPopperWarning}
+                    id={`${prefix}.identifier`}
+                    text={t('filter.form.columnError')}
+                  />
+                )}
+              </div>
+            )}
+            classes={{ root: classes.select }}
+            isDisabled={isPreview}
+            name={`${prefix}.identifier`}
+            onChange={handleColumnChange}
+            // @ts-expect-error
+            options={columsOptions}
+          />
         </div>
-      )}
-      <div className={classNames(classes.flexOne, classes.relative)}>
-        <MaterialUiSingleSelectorField
-          inScrollBar
-          // @ts-expect-error
-          chipsRenderer={({ data }) => (
-            <div className={classes.warningSelect}>
-              <div>{data.label}</div>
-              {!reportColumns.includes(filterItem.identifier) && (
-                <HoverableWarning
-                  containerPortal={rowRef?.current}
-                  displayPopperWarning={displayPopperWarning}
-                  id={`${prefix}.identifier`}
-                  text={t('filter.form.columnError')}
-                />
-              )}
-            </div>
-          )}
-          classes={{ root: classes.select }}
-          isDisabled={isPreview}
-          name={`${prefix}.identifier`}
-          onChange={handleColumnChange}
-          // @ts-expect-error
-          options={columsOptions}
-        />
-      </div>
-      {filterItem.datatype === 'datetime' && (
+        {filterItem.datatype === 'datetime' && (
+          <div className={classes.flexOne}>
+            <MaterialUiSingleSelectorField
+              inScrollBar
+              // @ts-expect-error
+              classes={{ root: classes.select }}
+              isDisabled={isPreview}
+              name={`${prefix}.sub_datatype`}
+              options={subDataTypeOption}
+            />
+          </div>
+        )}
         <div className={classes.flexOne}>
           <MaterialUiSingleSelectorField
             inScrollBar
             // @ts-expect-error
             classes={{ root: classes.select }}
             isDisabled={isPreview}
-            name={`${prefix}.sub_datatype`}
-            options={subDataTypeOption}
+            name={`${prefix}.comparator`}
+            onChange={handleComparatorChange}
+            options={filterComparatorOptions}
           />
         </div>
-      )}
-      <div className={classes.flexOne}>
-        <MaterialUiSingleSelectorField
-          inScrollBar
-          // @ts-expect-error
-          classes={{ root: classes.select }}
-          isDisabled={isPreview}
-          name={`${prefix}.comparator`}
-          onChange={handleComparatorChange}
-          options={filterComparatorOptions}
-        />
+        <div
+          className={classNames(classes.row, classes.flexTwo, {
+            [classes.center]:
+              filterItem.datatype === 'date' ||
+              filterItem.sub_datatype === DATE_SUBDATA_TYPE,
+          })}
+        >
+          <DatatypeFilterConfigValueManager
+            inScrollBar
+            comparator={filterItem.comparator}
+            filterItem={filterItem}
+            getDataByType={getDataByType}
+            isPreview={isPreview}
+            memberDomElement={memberElementRef?.current}
+            prefix={prefix}
+          />
+        </div>
+        <div className={classes.deleteIcon}>
+          {!hideDelete && !isPreview && (
+            <IconButton onClick={onDelete}>
+              <CloseIcon />
+            </IconButton>
+          )}
+        </div>
       </div>
-      <div
-        className={classNames(classes.row, classes.flexTwo, {
-          [classes.center]:
-            filterItem.datatype === 'date' ||
-            filterItem.sub_datatype === DATE_SUBDATA_TYPE,
-        })}
-      >
-        <DatatypeFilterConfigValueManager
-          inScrollBar
-          comparator={filterItem.comparator}
-          filterItem={filterItem}
-          getDataByType={getDataByType}
-          isPreview={isPreview}
-          memberDomElement={memberDomElement}
-          prefix={prefix}
-        />
-      </div>
-      <div className={classes.deleteIcon}>
-        {!hideDelete && !isPreview && (
-          <IconButton onClick={onDelete}>
-            <CloseIcon />
-          </IconButton>
-        )}
-      </div>
+      <div ref={memberElementRef} className={classes.memberDiv} />
     </div>
   );
 };
 
-const useStyles = makeStyles((theme) => ({
-  row: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(2),
-  },
-  filterRow: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-start',
-    width: '100%',
-    gap: theme.spacing(1),
-  },
-  groupRule: {
-    width: 20,
-  },
-  center: {
-    alignSelf: 'center',
-  },
-  flexOne: {
-    flex: '1 1 120px',
-  },
-  flexTwo: {
-    flex: 2,
-  },
-  select: {
-    minWidth: 160,
-  },
-  relative: {
-    flex: '1 1 120px',
-    position: 'relative',
-  },
-  deleteIcon: {
-    width: 48,
-    alignSelf: 'flex-end',
-  },
-  warningSelect: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: theme.spacing(1),
-  },
-}));
+const useStyles = makeStyles<Theme, { displayAsFirstOrderRow: boolean }>(
+  (theme) => ({
+    row: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: theme.spacing(2),
+    },
+    filterRow: {
+      display: 'flex',
+      alignItems: 'flex-end',
+      justifyContent: 'flex-start',
+      width: '100%',
+      gap: theme.spacing(1),
+    },
+    groupRule: {
+      width: 20,
+    },
+    center: {
+      alignSelf: 'center',
+    },
+    flexOne: {
+      flex: '1 1 120px',
+    },
+    flexTwo: {
+      flex: 2,
+    },
+    select: {
+      minWidth: 160,
+    },
+    relative: {
+      flex: '1 1 120px',
+      position: 'relative',
+    },
+    deleteIcon: {
+      width: 48,
+      alignSelf: 'flex-end',
+    },
+    warningSelect: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: theme.spacing(1),
+    },
+    maxWidth: { width: '100%' },
+    memberDiv: ({ displayAsFirstOrderRow }) => ({
+      width: '100%',
+      paddingLeft: !displayAsFirstOrderRow ? '20px' : 0,
+    }),
+  }),
+);
 
 export default DatatypeFilterConfigRow;

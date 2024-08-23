@@ -221,7 +221,6 @@ import { buildDataForUserRegistrationWithMultiSessionsAllowed } from '#src/libs/
 
 import './BoutiqueBookerModule.css';
 
-
 const SIMILAR_OFFER_PAGE_SIZE = 7;
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
@@ -1173,6 +1172,23 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   handleMemberBookingUpdate = (newMemberBookingId: number) => {
     if (!newMemberBookingId) return;
 
+    if (this.state.offerGroupData?.id) {
+      this.setState(
+        {
+          memberBookingId: newMemberBookingId,
+        },
+        () => {
+          const offersIds = [
+            ...this.state.selectedOffers.map(
+              (selectedOffers) => selectedOffers.offer.id,
+            ),
+          ];
+          this.fetchOfferStatusList(offersIds);
+        },
+      );
+      return;
+    }
+
     const newSelectedOffers = this.state.selectedOffers.filter(
       (selectedOffer) => selectedOffer.offer.id === this.props.offerId,
     );
@@ -1332,7 +1348,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     this.setState((prevState) => ({
       showHiddenSessionsFromSummary: !prevState.showHiddenSessionsFromSummary,
     }));
-  }
+  };
 
   getUnselectedSimilarOffers = () => {
     const selectedOffersIds = this.state.selectedOffers.map(
@@ -1403,6 +1419,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const offerBeingSelected =
       this.state.baseOffersWaitingForSpotSelection[0] || this.props.offer;
     const offerIdBeingSelected = offerBeingSelected?.id || this.props.offerId;
+
+    const isFromGroupFullBookingOnly =
+      this.state.offerGroupData?.full_booking_only;
+
     if (
       this.state.isSpotSelectorOpen &&
       !this.props.assetForBlueprintLoading &&
@@ -1602,40 +1622,41 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                                   offerSummaryLoading,
                                 } = this.getOfferMissingData(offer);
                                 return (
-                                    <BookerModuleOfferSummary
-                                      key={offer.id}
-                                      isBookingButtonHidden
-                                      noStyledContainer
-                                      showCredits
-                                      showEstablishmentAddress
-                                      coach={coach}
-                                      companyTheme={this.props.theme}
-                                      doAllowDelete={
-                                        offer.id !== this.props.offerId
-                                      }
-                                      establishment={establishment}
-                                      expirationDatetime={this.getSpotExpirationDatetime(
-                                        this.props.offerId,
-                                      )}
-                                      goToCheckout={this.props.goTocheckout}
-                                      guestName={`${
-                                        this.props.queryParams.guest_first_name
-                                      } ${
-                                        this.props.queryParams.guest_last_name ??
-                                        ''
-                                      }`}
-                                      handleDelete={this.handleRemoveOffer}
-                                      isGuestBooking={this.getIsGuestBooking()}
-                                      loading={offerSummaryLoading}
-                                      metaActivity={metaActivity}
-                                      offer={offer}
-                                      spotId={
-                                        this.state.selectedSpotsIds[offer.id]
-                                      }
-                                      spotName={
-                                        this.state.selectedSpots[offer.id]
-                                      }
-                                    />
+                                  <BookerModuleOfferSummary
+                                    key={offer.id}
+                                    isBookingButtonHidden
+                                    noStyledContainer
+                                    showCredits
+                                    showEstablishmentAddress
+                                    coach={coach}
+                                    companyTheme={this.props.theme}
+                                    doAllowDelete={
+                                      offer.id !== this.props.offerId &&
+                                      !isFromGroupFullBookingOnly
+                                    }
+                                    establishment={establishment}
+                                    expirationDatetime={this.getSpotExpirationDatetime(
+                                      this.props.offerId,
+                                    )}
+                                    goToCheckout={this.props.goTocheckout}
+                                    guestName={`${
+                                      this.props.queryParams.guest_first_name
+                                    } ${
+                                      this.props.queryParams.guest_last_name ??
+                                      ''
+                                    }`}
+                                    handleDelete={this.handleRemoveOffer}
+                                    isGuestBooking={this.getIsGuestBooking()}
+                                    loading={offerSummaryLoading}
+                                    metaActivity={metaActivity}
+                                    offer={offer}
+                                    spotId={
+                                      this.state.selectedSpotsIds[offer.id]
+                                    }
+                                    spotName={
+                                      this.state.selectedSpots[offer.id]
+                                    }
+                                  />
                                 );
                               })}
                           </div>
@@ -1716,23 +1737,33 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   OfferSummaryComponent={
                     <div>
                       {this.state.selectedOffers
-                      .sort(
-                        (a, b) =>
-                          new Date(a.offer.date_start).getTime() -
-                          new Date(b.offer.date_start).getTime(),
-                      )
-                      .map(({ offer }, index) => {
+                        .sort(
+                          (a, b) =>
+                            new Date(a.offer.date_start).getTime() -
+                            new Date(b.offer.date_start).getTime(),
+                        )
+                        .map(({ offer }, index) => {
                           const {
                             coach,
                             metaActivity,
                             establishment,
                             offerSummaryLoading,
                           } = this.getOfferMissingData(offer);
-                          const isGroupedSessions = this.state.offerGroupData && this.state.offerGroupData.id;
-                        const activeOfferSummaryClass = isGroupedSessions && index > 1 && !this.state.showHiddenSessionsFromSummary ? 'bs-new-offer-booking__offer__card__summary--hidden' : '';
-                        return (
-                            <div key={offer.id} className={activeOfferSummaryClass}>
-                            <BookerModuleOfferSummary
+                          const isGroupedSessions =
+                            this.state.offerGroupData &&
+                            this.state.offerGroupData.id;
+                          const activeOfferSummaryClass =
+                            isGroupedSessions &&
+                            index > 1 &&
+                            !this.state.showHiddenSessionsFromSummary
+                              ? 'bs-new-offer-booking__offer__card__summary--hidden'
+                              : '';
+                          return (
+                            <div
+                              key={offer.id}
+                              className={activeOfferSummaryClass}
+                            >
+                              <BookerModuleOfferSummary
                                 key={offer.id}
                                 isBookingButtonHidden
                                 noStyledContainer
@@ -1740,7 +1771,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                                 showEstablishmentAddress
                                 coach={coach}
                                 companyTheme={this.props.theme}
-                                doAllowDelete={offer.id !== this.props.offerId}
+                                doAllowDelete={
+                                  offer.id !== this.props.offerId &&
+                                  !isFromGroupFullBookingOnly
+                                }
                                 establishment={establishment}
                                 expirationDatetime={this.getSpotExpirationDatetime(
                                   this.props.offerId,
@@ -1748,7 +1782,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                                 goToCheckout={this.props.goTocheckout}
                                 guestName={`${
                                   this.props.queryParams.guest_first_name
-                                } ${this.props.queryParams.guest_last_name ?? ''}`}
+                                } ${
+                                  this.props.queryParams.guest_last_name ?? ''
+                                }`}
                                 handleDelete={this.handleRemoveOffer}
                                 isGuestBooking={this.getIsGuestBooking()}
                                 loading={offerSummaryLoading}
@@ -1758,10 +1794,18 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                                 spotName={this.state.selectedSpots[offer.id]}
                               />
                             </div>
-                        );
+                          );
                         })}
-                      { this.state.selectedOffers.length > 2 && <ShowSessionsButton isToggle={this.state.showHiddenSessionsFromSummary} sessionsCount={this.state.selectedOffers.length} toggleSession={this.toggleDisplayHiddenGroupedSessions} />}
-                  </div>
+                      {this.state.selectedOffers.length > 2 && (
+                        <ShowSessionsButton
+                          isToggle={this.state.showHiddenSessionsFromSummary}
+                          sessionsCount={this.state.selectedOffers.length}
+                          toggleSession={
+                            this.toggleDisplayHiddenGroupedSessions
+                          }
+                        />
+                      )}
+                    </div>
                   }
                   onClick={this.onConfirm}
                   price={displayPrice}

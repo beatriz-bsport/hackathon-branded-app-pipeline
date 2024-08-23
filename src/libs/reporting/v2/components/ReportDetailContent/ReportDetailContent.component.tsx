@@ -212,7 +212,6 @@ const ReportDetailContent: React.FC<Props> = ({
           )}
           <ReportTable
             v2
-            className={classes.reportTable}
             handleGenerateNextPage={handleGenerateNextPage}
             handleGeneratePreviousPage={handleGeneratePreviousPage}
             hasReportBeenGenerated={hasReportBeenGenerated}
@@ -242,11 +241,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     padding: theme.spacing(2),
     gap: theme.spacing(3),
-  },
-  reportTable: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    },
   },
   reportNotFound: {
     display: 'flex',

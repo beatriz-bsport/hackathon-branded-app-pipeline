@@ -206,7 +206,7 @@ type State = {
   loginDialogOpen: boolean,
 };
 
-const isLocalOrDev = !['production', 'staging'].includes(
+const isMarketplaceNavigationDisplayed = !['production'].includes(
   Config.REACT_APP_SENTRY_ENVIRONMENT,
 );
 
@@ -519,7 +519,7 @@ export class MarketPlace extends Component<Props, State> {
       );
     }
 
-    if (isLocalOrDev) {
+    if (isMarketplaceNavigationDisplayed) {
       return (
         <MarketplaceNavigation
           authStateInvalidFields={this.props.errorFields}

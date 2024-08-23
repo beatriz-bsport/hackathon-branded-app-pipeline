@@ -175,3 +175,21 @@ export enum ReportDateType {
 
 export const drawerWidth = 220;
 export const drawerSmallWidth = 44;
+
+/**
+ * ------ Constants below needs to be kept in sync with django repo ------
+ * Filtering on member is only allowed when one of these column identifier is present in the report
+ * Furthermore, this member filtering is only possible once for these identifiers
+ */
+export const MEMBER_FILTERING_COLUMN_IDENTIFIERS = [
+  'first_name',
+  'last_name',
+  'email',
+  'phonenumber',
+  'name',
+  'member',
+];
+
+/**
+ * -------------------------------
+ */

@@ -77,12 +77,12 @@ import {
   MaterialUiSingleSelectorField,
   MaterialUiMultiSelectorField,
 } from '#src/libs/custom-form/components/GenericFormik.input';
-import MaterialUISelectorConsumers from '#src/components/Selector/MaterialUISelectorConsumers.container';
 import MaterialUISelectorPayout from '#src/components/Selector/MaterialUISelectorPayout.container';
 import ReportChipsRenderer from '#src/libs/reporting/common/components/ReportChips/ReportChipsRenderer.component';
 import { AccessStatus, EntryStatus } from '#src/libs/access-control/constants';
 import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
 import NestedAlertError from './NestedAlertError.component';
+import MaterialUISelectorConsumers from '#src/components/Selector/MaterialUISelectorConsumers.component';
 
 export type ItemProps = {
   children: string;
@@ -112,6 +112,7 @@ type Props = {
   closeMenuOnSelect?: boolean;
   openMenuOnClear?: boolean;
   openMenuOnFocus?: boolean;
+  memberDomElement?: HTMLDivElement;
 };
 const PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT = PAYMENT_METHODS.filter(
   (paymentMethod) => paymentMethod.id !== CREDIT_ACCOUNT.id,
@@ -129,6 +130,7 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
   closeMenuOnSelect,
   openMenuOnClear,
   openMenuOnFocus,
+  memberDomElement,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -237,6 +239,7 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
         inScrollBar={inScrollBar}
         isPreview={isPreview}
         itemRenderer={!!itemRenderer && itemRenderer}
+        memberDomElement={memberDomElement}
         name={`${prefix}.value`}
         openMenuOnClear={openMenuOnClear}
         openMenuOnFocus={openMenuOnFocus}
@@ -432,6 +435,7 @@ const DatatypeFilterConfigValueList: React.FC<{
   closeMenuOnSelect?: boolean;
   openMenuOnClear?: boolean;
   openMenuOnFocus?: boolean;
+  memberDomElement: HTMLDivElement;
 }> = ({
   name,
   datatype,
@@ -445,6 +449,7 @@ const DatatypeFilterConfigValueList: React.FC<{
   closeMenuOnSelect,
   openMenuOnClear,
   openMenuOnFocus,
+  memberDomElement,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -682,35 +687,19 @@ const DatatypeFilterConfigValueList: React.FC<{
     }
   }, [getDataByType, t, columnName, datatype]);
 
-  if (['email', 'user'].includes(datatype)) {
+  if (['user'].includes(datatype)) {
     return (
-      <Field name={name}>
-        {({
-          field: { value },
-          form: { setFieldValue, setFieldTouched },
-          meta,
-        }: FieldAttributes<any>) => {
-          return (
-            <MaterialUISelectorConsumers
-              isMenuListVirtualized
-              isMulti
-              defaultNumberShown={1}
-              error={!!(meta.touched && meta.error)}
-              inScrollBar={inScrollBar}
-              isDisabled={isPreview}
-              // @ts-expect-error
-              kind={datatype}
-              onChange={(optionList) => {
-                // @ts-expect-error
-                const valueList = optionList.map((option) => option.value);
-                setFieldTouched(name, true, false);
-                setFieldValue(name, valueList);
-              }}
-              value={value}
-            />
-          );
-        }}
-      </Field>
+      <MaterialUISelectorConsumers
+        chipsRenderer={chipsRenderer}
+        className={classes.flexOne}
+        inScrollBar={inScrollBar}
+        itemRenderer={itemRenderer}
+        memberDomElement={memberDomElement}
+        name={name}
+        openMenuOnClear={openMenuOnClear}
+        openMenuOnFocus={openMenuOnFocus}
+        withoutConfirmButton={withoutConfirmButton}
+      />
     );
   }
 

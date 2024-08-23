@@ -72,6 +72,16 @@ const QuickReportFilterConfigFilter: React.FC<
   const classes = useStyles();
   const { t } = useTranslation('reporting');
   const { values, setFieldValue } = useFormikContext<ReportFilterConfig>();
+  const memberElementRef = React.useRef<HTMLDivElement>();
+  const [shouldForceUpdate, setShouldForceUpdate] = React.useState(true);
+
+  React.useEffect(() => {
+    if (shouldForceUpdate) {
+      // setTimeout here is necessary because when re-mounting the component,
+      // React takes some time to reassign the element to the ref
+      setTimeout(() => setShouldForceUpdate(false));
+    }
+  }, [shouldForceUpdate]);
 
   const index: number = useMemo(() => {
     return columnsDataSelectedQuickFilter.findIndex(
@@ -214,12 +224,14 @@ const QuickReportFilterConfigFilter: React.FC<
                   }
                   filterItem={values.config.groups[0].filters_data[index]}
                   getDataByType={getDataByType}
+                  memberDomElement={memberElementRef?.current}
                   prefix={`config.groups[0].filters_data.${index}`}
                   reportCategory={reportCategory}
                 />
               )}
             </div>
           </div>
+          <div ref={memberElementRef} className={classes.memberDiv} />
         </div>
       )}
     </Popover>
@@ -234,7 +246,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     gap: theme.spacing(1),
-    width: 'fit-content',
   },
   quickReportFilterSelectorRows: {
     display: 'flex',
@@ -244,5 +255,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   subDataTypeSelector: { minWidth: '100px' },
   comparatorSelector: { minWidth: '200px' },
+  memberDiv: { width: '100%' },
 }));
 export default memo(QuickReportFilterConfigFilter);

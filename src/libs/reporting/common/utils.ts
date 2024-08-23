@@ -100,13 +100,17 @@ import {
   ReportFilterableDataType,
 } from '#src/libs/datatype-filtering/constants';
 import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
-import { checkIdentifierAlreadyExist } from '#src/libs/datatype-filtering/utils';
+import {
+  checkIdentifierAlreadyExist,
+  checkMemberFilterAlreadyExist,
+} from '#src/libs/datatype-filtering/utils';
 import {
   GREEN_GREY_BOOLEAN_CHIPS,
   RED_GREEN_BOOLEAN_CHIPS,
   RED_GREEN_INVERTED_BOOLEAN_CHIPS,
   STATUS_CHIPS,
   CONDITION_CHIPS,
+  MEMBER_FILTERING_COLUMN_IDENTIFIERS,
 } from './constants';
 import type {
   ReportCategory,
@@ -794,9 +798,18 @@ export const getFilterableColumns = (
         checkIdentifierAlreadyExist(d.identifier, filterGroups)
       )
         return false;
+      if (
+        filterGroups &&
+        checkMemberFilterAlreadyExist(d.datatype, d.identifier, filterGroups)
+      ) {
+        return false;
+      }
       return true;
     }),
-    (column) => [column.datatype, column.identifier],
+    (column) =>
+      column.datatype === ReportFilterableDataType.USER
+        ? column.datatype
+        : [column.datatype, column.identifier],
   );
 
 export const getComparatorLabel = (comparator: AllComparator) => {
@@ -848,6 +861,7 @@ export const getSingleValueLabel = (
     case ReportFilterableDataType.SUBSHOP:
     case ReportFilterableDataType.VIDEO:
     case ReportFilterableDataType.STAFF:
+    case ReportFilterableDataType.USER:
       // @ts-expect-error
       return `${getDataByTypeAndId(datatype, value) ?? ''}`;
     // Those above are the ones filterable by ID
@@ -1273,3 +1287,19 @@ export function isNotReportMetadataValueWithLabel<T extends Object[]>(
 ): fuseSearchResults is Exclude<T, ReportMetadataValueWithLabel[]> {
   return fuseSearchResults.length > 0 && 'item' in fuseSearchResults[0];
 }
+
+/**
+ * Method to know which column enables the member filtering
+ */
+export const isMemberColumn = (
+  datatype: DataSourceMedadataDataType,
+  identifier: string,
+) => {
+  if (
+    datatype === 'user' &&
+    MEMBER_FILTERING_COLUMN_IDENTIFIERS.includes(identifier)
+  ) {
+    return true;
+  }
+  return false;
+};

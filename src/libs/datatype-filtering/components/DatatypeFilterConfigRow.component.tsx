@@ -316,6 +316,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
           filterItem={filterItem}
           getDataByType={getDataByType}
           isPreview={isPreview}
+          memberDomElement={memberDomElement}
           prefix={prefix}
         />
       </div>

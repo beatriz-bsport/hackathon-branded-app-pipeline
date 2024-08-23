@@ -14,7 +14,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES,
   ReportDateType,
-  authorIdentifiers,
 } from '#src/libs/reporting/common/constants';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
@@ -150,11 +149,7 @@ const ReportDetailContentHeader: React.FC<
     return values.config?.groups?.length
       ? values.config.groups.flatMap((group: DatatypeFilterConfigGroup) =>
           group.filters_data?.map((row: DatatypeFilterConfigItem) => ({
-            identifier:
-              row.datatype === 'user' &&
-              !authorIdentifiers.includes(row.identifier)
-                ? 'member'
-                : row.identifier,
+            identifier: row.identifier,
             value: row.value,
             comparator: row.comparator,
             datatype: row.datatype,

@@ -41,6 +41,7 @@ import {
   getComparatorLabel,
   getMultipleValuesLabel,
   getSingleValueLabel,
+  isMemberColumn,
 } from '#src/libs/reporting/common/utils';
 import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 
@@ -313,7 +314,9 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
                   getIcon()
                 )
               }
-              label={`${t(`columns.label}`)} ${onlyDisplay ? '' : valueLabel}`}
+              label={`${t(
+                `columns.${isMemberColumn(datatype, label) ? 'member' : label}`,
+              )} ${onlyDisplay ? '' : valueLabel}`}
               onClick={
                 onlyDisplay || isColumnRemoved
                   ? null

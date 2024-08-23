@@ -12,7 +12,7 @@ import {
   getEstablishmentBillingroups,
   getEstablishmentGroups,
 } from '#src/libs/establishment/selectors';
-import { getAllMembers } from '#src/libs/member/selectors';
+import { getMembersBasedOnListData } from '#src/libs/member/selectors';
 import { getPrivatePassListBase } from '#src/libs/private-service/selectors/private-pass';
 import { _getPrivateServices as getPrivateServices } from '#src/libs/private-service/selectors/private-service';
 import { getPrivatePassCategories } from '#src/libs/private-service/selectors/private-pass-category';
@@ -33,7 +33,7 @@ import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 
 import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#src/libs/role/actions';
 import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#src/libs/meta-activity/actions';
-import { refreshFilteredMembers as refreshFilteredMembersAction } from '#src/libs/member/actions';
+import { fetchMemberBulk as fetchMemberBulkAction } from '#src/libs/member/actions';
 import {
   fetchPaymentPackList as fetchPaymentPackListAction,
   fetchAllPaymentPackCategory as fetchAllPaymentPackCategoryAction,
@@ -91,7 +91,7 @@ const connector = connect(
     paymentPacks: getAllPaymentPack(state),
     coaches: getAllCoaches(state),
     establishments: getAllEstablishments(state),
-    users: getAllMembers(state),
+    membersListData: getMembersBasedOnListData(state),
     privatePasses: getPrivatePassListBase(state),
     privateServices: getPrivateServices(state),
     privateSlots: getAllPrivateSlots(state),
@@ -116,7 +116,6 @@ const connector = connect(
     fetchActivitiesCompany: fetchActivitiesCompanyAction,
     fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
     fetchEstablishments: fetchEstablishmentsAction,
-    refreshFilteredMembers: refreshFilteredMembersAction,
     fetchAllPaymentPacks: fetchPaymentPackListAction,
     fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
     fetchAllPrivateServices: fetchAllPrivateServicesAction,
@@ -133,6 +132,7 @@ const connector = connect(
     fetchAllPrivatePassCategory: fetchAllPrivatePassCategoryAction,
     fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
     fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
+    fetchMemberBulk: fetchMemberBulkAction,
   },
 );
 
@@ -311,6 +311,25 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
+              case ReportFilterableDataType.USER:
+                /** Member filtering is different than other filters
+                 * Its value either comes from a searchable selector, or
+                 * by fetching member when arriving on page
+                 */
+                valueId[0] &&
+                !props.membersListData.find(
+                  (member) => member.consumer === valueId[0],
+                )
+                  ? props.fetchMemberBulk(
+                      { consumer_id__in: valueId[0] },
+                      {
+                        onSuccess: () => {
+                          props.setDynamicDataHasBeenLoaded('user');
+                        },
+                      },
+                    )
+                  : props.setDynamicDataHasBeenLoaded('user');
+                break;
               case ReportFilterableDataType.COMPANY:
                 props.fetchFranchise({
                   onSuccess: () => {
@@ -475,7 +494,17 @@ export default function withDatatypeDynamicData(
 
                 return null;
               }
+              case ReportFilterableDataType.USER: {
+                const member = props.membersListData.find(
+                  (memberListData) => memberListData.consumer === valueId[0],
+                );
 
+                if (member) {
+                  return `${member.name}`.trim() || null;
+                }
+
+                return null;
+              }
               case ReportFilterableDataType.COMPANY: {
                 const matchingFranchiseCompany = (
                   props.franchiseCompanies ?? []

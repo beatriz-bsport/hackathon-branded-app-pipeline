@@ -34,6 +34,7 @@ import {
 import { TIME_PERIODS_RANGE } from '#src/components/date/DateRangeSelector.component';
 import { TIME_PERIODS_SINGLE } from '#src/components/date/DatePickerSelector.component';
 import type { ReportMetadataColumn } from '#src/libs/reporting/common/types';
+import { MEMBER_FILTERING_COLUMN_IDENTIFIERS } from '#src/libs/reporting/common/constants';
 
 //
 // Getters
@@ -335,3 +336,22 @@ export const checkIdentifierAlreadyExist = memoize(
       }),
     ),
 );
+
+export const checkMemberFilterAlreadyExist = (
+  datatype: DataSourceMedadataDataType,
+  identifier: string,
+  groups: DatatypeFilterConfigGroup[],
+) => {
+  if (
+    datatype !== 'user' ||
+    !MEMBER_FILTERING_COLUMN_IDENTIFIERS.includes(identifier)
+  ) {
+    return false;
+  }
+
+  return groups.find((filterGroup) =>
+    filterGroup.filters_data.find((filterData) =>
+      MEMBER_FILTERING_COLUMN_IDENTIFIERS.includes(filterData.identifier),
+    ),
+  );
+};

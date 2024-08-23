@@ -860,10 +860,13 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
   updateSpotForOffer = (offerId: number, index: number) => {
     /* This method gets the selected spot in the canvas of plan to build the spot name with the right prefix and suffix */
+    const offersListToCheck = [
+      ...this.state.removedSelectedGroupedOffers,
+      ...this.state.selectedOffers.map((selectedOffer) => selectedOffer.offer),
+    ];
     const offer =
-      this.state.selectedOffers.find(
-        (selectedOffer) => selectedOffer.offer.id === offerId,
-      )?.offer || this.props.offer;
+      offersListToCheck.find((offerToCheck) => offerToCheck.id === offerId) ||
+      this.props.offer;
     const spot =
       this.props.roomBlueprintsById?.[
         offer?.room_blueprint
@@ -1323,6 +1326,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   handleRemoveOffer = (offerId: number) => {
+    const isGrouped = this.state.offerGroupData?.id;
     this.setState(
       (prevState: State) => {
         const newSelectedSpots = Object.fromEntries(
@@ -1335,21 +1339,31 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
             (key) => key && parseInt(key[0], 10) != offerId,
           ),
         );
-        const removedOfferData = prevState.selectedOffers.find(
-          (offerIterator) => offerIterator.offer.id === offerId,
-        )?.offer;
-        const formattedOffer = this.refineOffers(removedOfferData);
-        return {
-          removedSelectedGroupedOffers: [
-            ...prevState.removedSelectedGroupedOffers,
-            formattedOffer,
-          ],
+
+        let updatedState: Partial<State> = {
           selectedOffers: prevState.selectedOffers.filter(
             (offerIterator) => offerIterator.offer.id !== offerId,
           ),
           selectedSpots: newSelectedSpots,
           selectedSpotsIds: newSelectedSpotsIds,
         };
+
+        if (isGrouped) {
+          const removedGroupedOfferData = prevState.selectedOffers.find(
+            (offerIterator) => offerIterator.offer.id === offerId,
+          )?.offer;
+          const formattedOffer = this.refineOffers(removedGroupedOfferData);
+
+          updatedState = {
+            ...updatedState,
+            removedSelectedGroupedOffers: [
+              ...prevState.removedSelectedGroupedOffers,
+              formattedOffer,
+            ],
+          } as Partial<State>;
+        }
+
+        return updatedState as State;
       },
       () => {
         this.updateOfferConstraints();
@@ -1377,17 +1391,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   getUnselectedSimilarOrGroupedOffers = (
     similarOrGroupedOffers: (OfferREST | Offer_FULL)[],
   ): Offer_FULL[] => {
-    const selectedOffersIds = this.state.selectedOffers.map(
-      ({ offer }) => offer.id,
-    );
     const unselectedSimilarOrGroupedOffers = Object.values(
       similarOrGroupedOffers,
-    )
-      .filter(
-        (similarOrGroupedOffer) =>
-          !selectedOffersIds.includes(similarOrGroupedOffer.id),
-      )
-      .map((filteredOffer) => this.refineOffers(filteredOffer));
+    ).map((filteredOffer) => this.refineOffers(filteredOffer));
 
     return unselectedSimilarOrGroupedOffers;
   };
@@ -1451,13 +1457,27 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.state.baseOffersWaitingForSpotSelection[0] || this.props.offer;
     const offerIdBeingSelected = offerBeingSelected?.id || this.props.offerId;
 
-    const isGroupedOffer = this.state.offerGroupData?.id;
+    const isGroupedOffer =
+      this.state.offerGroupData && this.state.offerGroupData.id;
 
     const isFromGroupFullBookingOnly =
       this.state.offerGroupData?.full_booking_only;
 
-    const similarOrGrouppedOffers =
-      this.state.removedSelectedGroupedOffers || this.props.similarOffers || [];
+    const selectedOffersIds = this.state.selectedOffers
+      .filter((_selectedOffer) => !!_selectedOffer)
+      .map((selectedOffers) => selectedOffers.offer.id);
+
+    const offersToDisplayInAddMoreModal =
+      this.state.removedSelectedGroupedOffers.length > 0
+        ? this.state.removedSelectedGroupedOffers
+        : this.props.similarOffers.length > 0
+        ? this.props.similarOffers
+        : [];
+
+    const similarOrGrouppedOffers = offersToDisplayInAddMoreModal.filter(
+      (similarOrGroupedOffer) =>
+        !selectedOffersIds.includes(similarOrGroupedOffer.id),
+    );
 
     if (
       this.state.isSpotSelectorOpen &&
@@ -1667,6 +1687,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                                   establishment,
                                   offerSummaryLoading,
                                 } = this.getOfferMissingData(offer);
+                                const allowOfferDeletion =
+                                  isGroupedOffer &&
+                                  !isFromGroupFullBookingOnly &&
+                                  offer.id !== this.props.offerId;
                                 return (
                                   <BookerModuleOfferSummary
                                     key={offer.id}
@@ -1676,10 +1700,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                                     showEstablishmentAddress
                                     coach={coach}
                                     companyTheme={this.props.theme}
-                                    doAllowDelete={
-                                      offer.id !== this.props.offerId &&
-                                      !isFromGroupFullBookingOnly
-                                    }
+                                    doAllowDelete={allowOfferDeletion}
                                     establishment={establishment}
                                     expirationDatetime={this.getSpotExpirationDatetime(
                                       this.props.offerId,
@@ -1804,11 +1825,12 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                             establishment,
                             offerSummaryLoading,
                           } = this.getOfferMissingData(offer);
-                          const isGroupedSessions =
-                            this.state.offerGroupData &&
-                            this.state.offerGroupData.id;
+                          const allowOfferDeletion =
+                            isGroupedOffer &&
+                            !isFromGroupFullBookingOnly &&
+                            offer.id !== this.props.offerId;
                           const activeOfferSummaryClass =
-                            isGroupedSessions &&
+                            isGroupedOffer &&
                             index > 1 &&
                             !this.state.showHiddenSessionsFromSummary
                               ? 'bs-new-offer-booking__offer__card__summary--hidden'
@@ -1826,10 +1848,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                                 showEstablishmentAddress
                                 coach={coach}
                                 companyTheme={this.props.theme}
-                                doAllowDelete={
-                                  offer.id !== this.props.offerId &&
-                                  !isFromGroupFullBookingOnly
-                                }
+                                doAllowDelete={allowOfferDeletion}
                                 establishment={establishment}
                                 expirationDatetime={this.getSpotExpirationDatetime(
                                   this.props.offerId,
@@ -1851,15 +1870,16 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                             </div>
                           );
                         })}
-                      {this.state.selectedOffers.length > 2 && (
-                        <ShowSessionsButton
-                          isToggle={this.state.showHiddenSessionsFromSummary}
-                          sessionsCount={this.state.selectedOffers.length - 2}
-                          toggleSession={
-                            this.toggleDisplayHiddenGroupedSessions
-                          }
-                        />
-                      )}
+                      {isGroupedOffer &&
+                        this.state.selectedOffers.length > 2 && (
+                          <ShowSessionsButton
+                            isToggle={this.state.showHiddenSessionsFromSummary}
+                            sessionsCount={this.state.selectedOffers.length - 2}
+                            toggleSession={
+                              this.toggleDisplayHiddenGroupedSessions
+                            }
+                          />
+                        )}
                     </div>
                   }
                   onClick={this.onConfirm}

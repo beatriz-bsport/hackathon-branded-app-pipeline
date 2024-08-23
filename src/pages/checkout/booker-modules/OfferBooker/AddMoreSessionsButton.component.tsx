@@ -39,13 +39,17 @@ const AddMoreSessionsButton: React.FC<AddMoreSessionsButtonProps> = ({
   );
 
   const doHideButton = React.useMemo(
-    () => !similarOffers || similarOffers.length <= 0 || isGuestBooking,
-    [similarOffers, isGuestBooking],
+    () =>
+      !similarOffers ||
+      similarOffers.length <= 0 ||
+      isGuestBooking ||
+      !doExistBookableSimilarOffers,
+    [similarOffers, isGuestBooking, doExistBookableSimilarOffers],
   );
 
   return (
     <>
-      {!doHideButton && doExistBookableSimilarOffers && (
+      {!doHideButton && (
         <ButtonBase
           className="bs-new-offer-booking-fetch-more-similar-offers__button"
           onClick={toggleSimilarOfferModal}

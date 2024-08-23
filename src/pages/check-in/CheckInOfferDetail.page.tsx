@@ -49,7 +49,11 @@ import {
   getMemberBookingWithConsumerPack,
 } from '#src/libs/booking/selectors';
 import { getOfferById } from '#src/libs/offer/selectors';
-import { getSearchedMembers, getAllMembers } from '#src/libs/member/selectors';
+import {
+  getSearchedMembers,
+  getAllMembers,
+  getMember,
+} from '#src/libs/member/selectors';
 import {
   getByOfferByMember,
   withPaymentPack as withPaymentPackForConsumer,
@@ -71,6 +75,7 @@ import type { OptionCallback } from '#src/state/types';
 import boop from '../../sounds/boop.mp3';
 
 const likeAudio = new Audio(boop);
+likeAudio.loop = false;
 
 type OwnProps = {
   offerId: number;
@@ -183,28 +188,40 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
     if (callback) this.props.setOnMemberUnSelectedCallback(callback);
   };
 
+  handleConfirmBookingAttendance = (bookingId: number) => {
+    const confirmationBooking = (this.props.bookings ?? []).find(
+      (booking) => booking.id === bookingId,
+    );
+    if (confirmationBooking) {
+      this.props.confirmBookingAttendance(bookingId, {
+        onSuccess: () => {
+          playSound(likeAudio);
+          // @ts-expect-error TODO - typing
+          this.props.setBookingShown(confirmationBooking);
+        },
+      });
+    }
+  };
+
   render() {
     return (
       <div className={this.props.classes.container}>
         <CheckInOfferDetail
           barcodeDetectorEnabled={this.props.barcodeDetectorEnabled}
           bookingLoading={this.props.loading}
+          // @ts-expect-error TODO - typing
+          bookings={this.props.bookings}
           closeBarcode={this.props.closeBarcode}
           coach={this.props.getCoach(
             this.props.offer?.coach_override ?? this.props.offer?.coach,
           )}
-          confirmBookingAttendance={(
-            booking: BookingWithConsumerPaymentPack,
-          ) => {
-            playSound(likeAudio);
-            this.props.confirmBookingAttendance(booking.id);
-            this.props.setBookingShown(booking);
-          }}
+          confirmBookingAttendance={this.handleConfirmBookingAttendance}
           establishment={this.props.getEstablishment(
             this.props.offer?.establishment_override ??
               this.props.offer?.establishment,
           )}
           fetchMemberByBarcode={this.props.fetchMemberByBarcode}
+          getMember={this.props.getMember}
           goBack={this.props.goBack}
           level={this.props.getLevel(
             this.props.offer?.custom_level ?? this.props.offer?.level,
@@ -255,13 +272,9 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
               this.props.bookingShown?.establishment,
             )}
             goBack={() => this.props.setBookingShown(null)}
-            // @ts-expect-error TODO - typing
-            member={this.props.member || []}
+            // @ts-expect-error bad reducer typing
+            member={this.props.getMember(this.props.bookingShown?.member)}
             offer={this.props.offer}
-            // @ts-expect-error TODO - typing
-            paymentPack={
-              this.props.bookingShown?.consumer_payment_pack?.payment_pack
-            }
           />
         </GenericResponsiveDrawer>
       </div>
@@ -354,6 +367,7 @@ const connector = connect(
     getLevel: (id: number) => getLevel(state, id),
     getEstablishment: (id: number) => getEstablishment(state, id),
     getCoach: (id: number) => getCoach(state, id),
+    getMember: (id: number) => getMember(state, id),
   }),
   {
     retrieveOffer: retrieveOfferAction,
@@ -444,15 +458,4 @@ export default compose<Props, OwnProps>(
   connector,
   withState('bookingShown', 'setBookingShown', null),
   withHandlers(mapWithHandlers),
-  withProps(({ bookings, members }) => ({
-    // ugly FIXME
-    members: bookings.map((booking: BookingWithConsumerPaymentPack) => ({
-      ...members.find((member: Member) => member.id === booking.member),
-      booking,
-    })),
-  })),
-  withProps(({ members, bookingShown }: Props) => ({
-    // @ts-expect-error TODO
-    member: members.find((m) => m.booking.id === bookingShown?.id),
-  })),
 )(CheckInOfferDetailPage);

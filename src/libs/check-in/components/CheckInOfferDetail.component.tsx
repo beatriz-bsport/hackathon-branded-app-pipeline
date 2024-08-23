@@ -27,11 +27,11 @@ import BarcodeLiveReader from '#src/components/BarcodeLiveReader.component';
 import type { Member } from '#src/libs/member/types';
 import type { OfferREST } from '#src/libs/offer/types';
 import type { OptionCallback } from '#src/state/types';
-import type { BookingWithConsumerPaymentPack } from '#src/libs/booking/types';
 import type { WithHandlerType } from '#src/utils/types';
 import type { Establishment } from '#src/libs/establishment/types';
 import type { Level } from '#src/libs/level/types';
 import type { Coach } from '#src/libs/associated-coach/types';
+import type { BookingWithConsumerPaymentPack } from '#src/libs/booking/types';
 
 const MEMBER_LIST_REFRESH_DURATION = 1000 * 60 * 2;
 
@@ -45,12 +45,12 @@ type OwnProps = {
   establishment: Establishment;
   level: Level;
   coach: Coach;
-  members: Member[];
+  bookings: BookingWithConsumerPaymentPack[];
   bookingLoading: boolean;
   registrationDialogOpen?: boolean;
   barcodeDetectorEnabled: boolean;
   goBack: () => void;
-  confirmBookingAttendance: (booking: BookingWithConsumerPaymentPack) => void;
+  confirmBookingAttendance: (bookingId: number) => void;
   onAddMember: () => void;
   refreshData: () => void;
   toogleBarcodeDetector: () => void;
@@ -62,6 +62,7 @@ type OwnProps = {
   ) => void;
   // eslint-disable-next-line
   onMemberSearched: (member: Member, callback?: OptionCallback<Member>) => void;
+  getMember: (id: number) => Member;
 };
 
 export class CheckInOfferDetail extends React.Component<Props> {
@@ -126,8 +127,9 @@ export class CheckInOfferDetail extends React.Component<Props> {
 
           <BookingList
             bookingLoading={this.props.bookingLoading}
+            bookings={this.props.bookings}
             confirmBookingAttendance={this.props.confirmBookingAttendance}
-            members={this.props.members}
+            getMember={this.props.getMember}
             offer={this.props.offer}
             onAddMember={this.props.onAddMember}
           />

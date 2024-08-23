@@ -11,7 +11,7 @@ import DoneIcon from '@material-ui/icons/Done';
 
 import Avatar from '@material-ui/core/Avatar';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import type { MemberWithBooking } from '../../member/types';
+import type { Member } from '../../member/types';
 import type { Offer } from '../../offer/types';
 import { anonymizeEmail, anonymizeName } from '../../member/utils';
 import { getSpotDisplayText } from '../utils';
@@ -19,14 +19,14 @@ import { getSpotDisplayText } from '../utils';
 type Props = {
   t: TFunction,
   classes: Object,
-  member: MemberWithBooking,
+  member: Member,
+  bookingAttendance: boolean,
   offer: Offer,
   confirmAttendance: () => void,
 };
 
 export const CheckInBookingItem = (props: Props) => {
-  const { classes, member, t, confirmAttendance } = props;
-  const checkedIn = member.booking.attendance;
+  const { classes, member, t, bookingAttendance, confirmAttendance } = props;
 
   const secondaryTextEmail = member?.consumer
     ? anonymizeEmail(member.consumer.email)
@@ -46,7 +46,7 @@ export const CheckInBookingItem = (props: Props) => {
         secondary={`${secondaryTextEmail || ''} ${secondarytextSpot}`}
       />
       <ListItemSecondaryAction>
-        {checkedIn ? (
+        {bookingAttendance ? (
           <Button
             disabled
             className={classes.button}

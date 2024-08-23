@@ -13,7 +13,6 @@ import AddIcon from '@material-ui/icons/Add';
 import boop from '../../../sounds/boop.mp3';
 import CheckInBookingItem from './CheckInBookingItem.component';
 import type { Offer } from '../../offer/types';
-import type { MemberWithBooking } from '../../member/types';
 
 const likeAudio = new Audio(boop);
 
@@ -24,9 +23,10 @@ const playSound = (audioFile) => {
 type Props = {
   bookingLoading: boolean,
   offer: Offer,
+  bookings: BookingWithPaymentPack[],
   onAddMember: () => void,
-  members?: Array<MemberWithBooking>,
   confirmBookingAttendance: (bookingId: number) => void,
+  getMember: (id: number) => Member,
 };
 
 export const BookingList = (props: Props) => {
@@ -57,19 +57,20 @@ export const BookingList = (props: Props) => {
             />
           </ListItem>
         )}
-        {(props.members || []).map((member) => (
+        {(props.bookings || []).map((booking) => (
           <CheckInBookingItem
-            key={member.booking.id}
+            key={booking.id}
+            bookingAttendance={booking.attendance}
             confirmAttendance={() => {
               playSound(likeAudio);
-              props.confirmBookingAttendance(member.booking);
+              props.confirmBookingAttendance(booking.id);
             }}
-            member={member}
+            member={props.getMember(booking.member)}
             offer={props.offer}
           />
         ))}
       </List>
-      {(props.members || []).length === 0 && !props.bookingLoading ? (
+      {(props.bookings ?? []).length === 0 && !props.bookingLoading ? (
         <div className={classes.emptyTextContainer}>
           <Typography color="textSecondary" variant="body2">
             {t('offerDetail.emptyList')}

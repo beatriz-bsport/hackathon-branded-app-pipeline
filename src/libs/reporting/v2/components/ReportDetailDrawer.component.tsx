@@ -312,6 +312,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
                     isPreview={false}
                     onDelete={handleDeleteFilter}
                     prefix={`config.groups[${indexGroup}]`}
+                    reportCategory={categoryName}
                     reportColumns={values.columnIdentifiers}
                     setFieldValue={setFieldValue}
                   />

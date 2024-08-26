@@ -10,7 +10,10 @@ import {
   getSearchMemberLoading,
 } from '#src/libs/member/selectors';
 import { setDynamicDataHasBeenLoaded } from '#src/libs/datatype-filtering/actions';
-import type { MemberSearchBarOptions } from '#src/libs/member/types';
+import type {
+  MemberSearchBarOptions,
+  MemberSearchFilterParams,
+} from '#src/libs/member/types';
 
 const DEBOUNCE_TIME = 500;
 
@@ -23,6 +26,7 @@ const DEBOUNCE_TIME = 500;
 const useMemberSearch = (
   consumerIdsSelected: number[],
   defaultConsumerIds: number[],
+  params: MemberSearchFilterParams,
 ) => {
   const dispatch = useDispatch();
 
@@ -48,12 +52,15 @@ const useMemberSearch = (
   useEffect(() => {
     if (defaultConsumerIds?.length) {
       dispatch(
-        searchMembersAction('', { consumer_id__in: defaultConsumerIds }),
+        searchMembersAction('', {
+          consumer_id__in: defaultConsumerIds,
+          ...params,
+        }),
       );
     }
 
     dispatch(setDynamicDataHasBeenLoaded('user'));
-  }, [dispatch, defaultConsumerIds]);
+  }, [dispatch, defaultConsumerIds, params]);
 
   const handleInputChange = useMemo(
     () =>
@@ -67,11 +74,12 @@ const useMemberSearch = (
           dispatch(
             searchMembersAction(text, {
               id__not_in: membersSelected.map((member) => member.id),
+              ...params,
             }),
           );
         }
       }, DEBOUNCE_TIME),
-    [dispatch, membersSelected],
+    [dispatch, membersSelected, params],
   );
 
   // @ts-expect-error listData key in redux is typed as Member because being used by several actions

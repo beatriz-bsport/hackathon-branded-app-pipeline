@@ -82,6 +82,7 @@ import { AccessStatus, EntryStatus } from '#src/libs/access-control/constants';
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import NestedAlertError from './NestedAlertError.component';
 import MaterialUISelectorConsumers from '#src/components/Selector/MaterialUISelectorConsumers.component';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 export type ItemProps = {
   children: string;
@@ -102,7 +103,7 @@ type Props = {
   isPreview?: boolean;
   getDataByType: handleGetDynamicDataForFiltersType;
   inScrollBar?: boolean;
-  reportCategory?: string;
+  reportCategory?: ReportCategoryEnum;
   withoutConfirmButton?: boolean;
   closeMenuOnSelect?: boolean;
   openMenuOnClear?: boolean;
@@ -241,6 +242,7 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
         name={`${prefix}.value`}
         openMenuOnClear={openMenuOnClear}
         openMenuOnFocus={openMenuOnFocus}
+        reportCategory={reportCategory}
         uuid={filterItem.uuid}
         withoutConfirmButton={withoutConfirmButton}
       />
@@ -433,6 +435,7 @@ const DatatypeFilterConfigValueList: React.FC<{
   memberDomElement: HTMLDivElement;
   invalidAdvancedFilterItemsUUID?: string[];
   uuid: string;
+  reportCategory: ReportCategoryEnum;
 }> = ({
   name,
   datatype,
@@ -449,6 +452,7 @@ const DatatypeFilterConfigValueList: React.FC<{
   memberDomElement,
   invalidAdvancedFilterItemsUUID,
   uuid,
+  reportCategory,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -469,7 +473,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       case 'establishment':
       case 'giftcard':
       case 'payment_pack':
-        return getDataByType(datatype, [], columnName);
+        return getDataByType(datatype, [], columnName, reportCategory);
       case 'payment_pack_category':
       case 'private_pass':
       case 'private_pass_category':
@@ -480,7 +484,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       case 'staff':
       case 'bookkeeping_account':
       case 'establishment_group':
-        return getDataByType(datatype, [], columnName);
+        return getDataByType(datatype, [], columnName, reportCategory);
       case 'payout_status':
         return [
           PAYOUT_STATUS_CANCELED,
@@ -683,7 +687,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       default:
         return [];
     }
-  }, [getDataByType, t, columnName, datatype]);
+  }, [getDataByType, t, columnName, datatype, reportCategory]);
 
   if (['user'].includes(datatype)) {
     return (
@@ -697,6 +701,7 @@ const DatatypeFilterConfigValueList: React.FC<{
         name={name}
         openMenuOnClear={openMenuOnClear}
         openMenuOnFocus={openMenuOnFocus}
+        reportCategory={reportCategory}
         uuid={uuid}
         withoutConfirmButton={withoutConfirmButton}
       />

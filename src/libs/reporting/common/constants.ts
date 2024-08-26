@@ -193,3 +193,9 @@ export const MEMBER_FILTERING_COLUMN_IDENTIFIERS = [
 /**
  * -------------------------------
  */
+
+export const REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS = [
+  ReportCategoryEnum.MEMBERS,
+  ReportCategoryEnum.MEMBERS_PURCHASE,
+  ReportCategoryEnum.FIRST_BOOKING,
+];

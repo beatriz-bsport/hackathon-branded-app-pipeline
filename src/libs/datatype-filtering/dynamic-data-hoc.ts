@@ -65,6 +65,8 @@ import { OptionTypeBase } from '#src/components/Selector/MaterialUISelector.comp
 import { getFranchiseCompanies } from '../franchise/selectors';
 import { ReportFilterableDataType } from './constants';
 import type { RootState } from '../../reducers';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS } from '#src/libs/reporting/common/constants';
 
 type DynamicConnectedProps = ConnectedProps<typeof connector>;
 
@@ -77,6 +79,7 @@ export type handleGetDynamicDataForFiltersType = (
   type: DynamicFilterDataType,
   valueId?: number[],
   columnName?: string,
+  reportCategory?: ReportCategoryEnum,
 ) => handleGetDynamicDataForFiltersReturn;
 
 export type withDatatypeDynamicDataProps = DynamicConnectedProps & {
@@ -156,6 +159,7 @@ export default function withDatatypeDynamicData(
           type: DynamicFilterDataType,
           valueId?: number[],
           columnName?: string,
+          reportCategory?: ReportCategoryEnum,
         ) => {
           if (
             // @ts-expect-error
@@ -323,12 +327,23 @@ export default function withDatatypeDynamicData(
                  * Its value either comes from a searchable selector, or
                  * by fetching member when arriving on page
                  */
+
                 valueId[0] &&
                 !props.membersListData.find(
                   (member) => member.consumer === valueId[0],
                 )
                   ? props.fetchMemberBulk(
-                      { consumer_id__in: valueId[0] },
+                      {
+                        consumer_id__in: valueId[0],
+                        ...(REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS.includes(
+                          reportCategory,
+                        ) && {
+                          exclude_archived:
+                            REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS.includes(
+                              reportCategory,
+                            ),
+                        }),
+                      },
                       {
                         onSuccess: () => {
                           props.setDynamicDataHasBeenLoaded('user');

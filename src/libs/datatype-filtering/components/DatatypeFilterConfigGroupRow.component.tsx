@@ -16,6 +16,7 @@ import {
 import OperandSelect from '#src/libs/datatype-filtering/components/OperandSelect.component';
 import DatatypeFilterConfigRow from './DatatypeFilterConfigRow.component';
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 type Props = {
   filterGroup: DatatypeFilterConfigGroup;
@@ -34,6 +35,7 @@ type Props = {
   dashboardTranslationNamespace?: boolean;
   displayPopperWarning?: boolean;
   invalidAdvancedFilterItemsUUID?: string[];
+  reportCategory?: ReportCategoryEnum;
 };
 
 const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
@@ -53,6 +55,7 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
   dashboardTranslationNamespace,
   displayPopperWarning = true,
   invalidAdvancedFilterItemsUUID,
+  reportCategory,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -96,6 +99,7 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
               isPreview={isPreview}
               onDelete={onDelete(filterItem.uuid)}
               prefix={`${prefix}.filters_data[${indexFilter}]`}
+              reportCategory={reportCategory}
               reportColumns={reportColumns}
               setFieldValue={setFieldValue}
             />

@@ -25,6 +25,8 @@ import type {
 } from '#src/libs/member/types';
 import type { ItemProps } from '#src/libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
 import { Alert } from '@material-ui/lab';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS } from '#src/libs/reporting/common/constants';
 
 type Props = {
   chipsRenderer: (itemProps: ItemProps) => React.ReactNode;
@@ -36,8 +38,9 @@ type Props = {
   name: string;
   openMenuOnClear: boolean;
   openMenuOnFocus: boolean;
-  withoutConfirmButton: boolean;
+  reportCategory: ReportCategoryEnum;
   uuid: string;
+  withoutConfirmButton: boolean;
 };
 
 const MaterialUISelectorConsumers: React.FC<Props> = ({
@@ -50,8 +53,9 @@ const MaterialUISelectorConsumers: React.FC<Props> = ({
   name,
   openMenuOnClear,
   openMenuOnFocus,
-  withoutConfirmButton,
+  reportCategory,
   uuid,
+  withoutConfirmButton,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['search', 'reporting']);
@@ -99,8 +103,22 @@ const MaterialUISelectorConsumers: React.FC<Props> = ({
     [consumerIdsSelected, isDisabled],
   );
 
+  const memberSearchParams = React.useMemo(
+    () =>
+      REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS.includes(reportCategory)
+        ? {
+            hide_archived: true,
+          }
+        : {},
+    [reportCategory],
+  );
+
   const { handleInputChange, isSearchLoading, membersSelected, options } =
-    useMemberSearch(consumerIdsSelected, defaultConsumerIdsSelected.current);
+    useMemberSearch(
+      consumerIdsSelected,
+      defaultConsumerIdsSelected.current,
+      memberSearchParams,
+    );
 
   const handleRemoveMember = React.useCallback(
     (consumerIdToRemove: number) => () => {

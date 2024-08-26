@@ -403,6 +403,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
             isFranchisor={isFranchisor}
             onClose={handleCloseModal}
             onSubmit={handleModalSubmit}
+            reportCategory={reportCategory}
           />
         )}
         {deleteFilterId && (

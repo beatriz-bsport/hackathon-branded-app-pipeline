@@ -32,6 +32,7 @@ import HoverableWarning from '#src/components/HoverableWarning.component';
 import { authorIdentifiers } from '#src/libs/reporting/common/constants';
 import DatatypeFilterConfigValueManager from './DatatypeFilterConfigValueManager.component';
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 type Props = {
   filterItem: DatatypeFilterConfigItem;
@@ -49,6 +50,7 @@ type Props = {
   dashboardTranslationNamespace?: boolean;
   displayPopperWarning?: boolean;
   invalidAdvancedFilterItemsUUID?: string[];
+  reportCategory?: ReportCategoryEnum;
 };
 
 const DatatypeFilterConfigRow: React.FC<Props> = ({
@@ -67,6 +69,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
   dashboardTranslationNamespace,
   displayPopperWarning = true,
   invalidAdvancedFilterItemsUUID,
+  reportCategory,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles({ displayAsFirstOrderRow });
@@ -327,6 +330,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
             isPreview={isPreview}
             memberDomElement={memberElementRef?.current}
             prefix={prefix}
+            reportCategory={reportCategory}
           />
         </div>
         <div className={classes.deleteIcon}>

@@ -61,6 +61,7 @@ import {
   CREDIT_COLUMNS,
   REPORT_RIGHT_DRAWER_WIDTH,
 } from '#src/libs/reporting/common/constants';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 type Values = {
   name: string;
@@ -85,6 +86,7 @@ export type OuterProps = {
     options: OptionCallback<ReportFilterConfig>;
   }) => void;
   isFranchisor: boolean;
+  reportCategory: ReportCategoryEnum;
 };
 
 const ReportFilterConfigFormDrawerSchema = Yup.object().shape({
@@ -106,6 +108,7 @@ const ReportFilterConfigFormDrawer: React.FC<
   resetForm,
   handleGetDynamicDataForReport,
   isFranchisor,
+  reportCategory,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -290,6 +293,7 @@ const ReportFilterConfigFormDrawer: React.FC<
                         isPreview={isPreview}
                         onDelete={handleDeleteFilter}
                         prefix={`config.groups[${indexGroup}]`}
+                        reportCategory={reportCategory}
                         reportColumns={reportColumns}
                         setFieldValue={setFieldValue}
                       />

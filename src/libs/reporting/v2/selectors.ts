@@ -56,3 +56,6 @@ export const getReportGenerateredRows = (state: RootState) =>
 
 export const getReportExcelState = (state: RootState) =>
   _getReportV2State(state).excelExport;
+
+export const getInvalidFiltersV2 = (state: RootState) =>
+  _getReportV2State(state).invalidFilters;

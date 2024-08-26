@@ -10,6 +10,7 @@ import type {
   ReportFilterConfigCreateData,
   ReportUpdateAPI,
   SerializedReport,
+  InvalidFiltersAPI,
 } from '#src/libs/reporting/common/types';
 import type {
   OptionCallback,
@@ -33,6 +34,7 @@ import {
   createReportV2 as createReportAPI,
   deleteReportV2 as deleteReportAPI,
   fetchExcelReporting as fetchExcelReportingAPI,
+  getInvalidFilters as getInvalidFiltersAPI,
 } from '#src/libs/reporting/v2/api';
 import {
   BackgroundDialogActionMode,
@@ -355,6 +357,32 @@ export function exportExcelReport(
       dispatch(exportingExcelReportActionsV2.error(error));
       dispatch(exportingExcelReportActionsV2.isLoading(false));
       options?.onError?.();
+    }
+  };
+}
+
+export const reportGetInvalidFiltersV2 = {
+  error: createAction<Error | null>('REPORT-V2/INVALID_FILTERS/ERROR'),
+  isLoading: createAction<boolean>('REPORT-V2/INVALID_FILTERS/IS_LOADING'),
+  success: createAction<InvalidFiltersAPI>('REPORT-V2/INVALID_FILTERS/SUCCESS'),
+};
+
+export function getInvalidFilters(
+  reportId: number,
+  options?: OptionCallback<InvalidFiltersAPI>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(reportGetInvalidFiltersV2.isLoading(true));
+    try {
+      const response = await getInvalidFiltersAPI(reportId);
+      dispatch(reportGetInvalidFiltersV2.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(reportGetInvalidFiltersV2.error(err));
+      options?.onError?.(err);
+    } finally {
+      dispatch(reportGetInvalidFiltersV2.isLoading(false));
     }
   };
 }

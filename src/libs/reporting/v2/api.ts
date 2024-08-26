@@ -10,6 +10,7 @@ import type {
   ReportFilterConfigCreateData,
   ReportUpdateAPI,
   IsReportNameUsedParams,
+  InvalidFiltersAPI,
 } from '#src/libs/reporting/common/types';
 import {
   API_URI,
@@ -111,3 +112,8 @@ export const checkIsReportNameUsedAPI = (params: IsReportNameUsedParams) => {
     )}`,
   );
 };
+
+export const getInvalidFilters = (reportId: number) =>
+  getAuth<InvalidFiltersAPI>(
+    `${API_URI}/reporting/reports-v2/${reportId}/get_invalid_filters/`,
+  );

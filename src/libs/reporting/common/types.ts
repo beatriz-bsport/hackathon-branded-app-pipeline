@@ -89,6 +89,7 @@ export type ReportingStateV2 = {
     edit: ErrorAndLoading;
   } & ErrorAndLoading;
   excelExport: ErrorAndLoading;
+  invalidFilters: ErrorAndLoading & { results: InvalidFiltersAPI };
 };
 
 export type ReportConfiguration = {
@@ -234,3 +235,5 @@ export type IsReportNameUsedParams = {
   category: ReportCategoryEnum;
   reportIdToIgnore?: number;
 };
+
+export type InvalidFiltersAPI = { [reportFilterConfigId: number]: string[] };

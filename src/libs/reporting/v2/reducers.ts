@@ -14,6 +14,7 @@ import {
   deleteReportActionsV2,
   exportingExcelReportActionsV2,
   resetReportGenerationAction,
+  reportGetInvalidFiltersV2,
 } from '#src/libs/reporting/v2/actions';
 
 import type {
@@ -23,6 +24,7 @@ import type {
   ReportingStateV2,
   SerializedReport,
   ReportMetadataValue,
+  InvalidFiltersAPI,
 } from '#src/libs/reporting/common/types';
 
 const initialState: Immutable.Immutable<ReportingStateV2> =
@@ -62,6 +64,7 @@ const initialState: Immutable.Immutable<ReportingStateV2> =
       loading: false,
       error: null,
     },
+    invalidFilters: { error: null, loading: false, results: {} },
   });
 
 export default handleActions<Immutable.Immutable<ReportingStateV2>, any>(
@@ -277,6 +280,24 @@ export default handleActions<Immutable.Immutable<ReportingStateV2>, any>(
           previous_page: null,
           other_pages: [],
         });
+    },
+    [reportGetInvalidFiltersV2.success.toString()]: (
+      state,
+      { payload }: { payload: InvalidFiltersAPI },
+    ) => {
+      return state.setIn(['invalidFilters', 'results'], payload);
+    },
+    [reportGetInvalidFiltersV2.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['invalidFilters', 'loading'], payload);
+    },
+    [reportGetInvalidFiltersV2.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['invalidFilters', 'error'], payload);
     },
   },
   initialState,

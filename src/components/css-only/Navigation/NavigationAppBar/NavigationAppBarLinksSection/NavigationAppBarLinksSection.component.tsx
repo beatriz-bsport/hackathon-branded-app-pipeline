@@ -71,9 +71,9 @@ const NavigationAppBarLinksSection: React.FC<Props> = ({ links, isHidden }) => {
         ref={computedRef}
         className="bs-navigation-app-bar__links-section--computed"
       >
-        {links.map((link) => (
+        {links.map((link, index) => (
           <Tab
-            key={link.label}
+            key={index}
             classes={{
               text: 'bs-navigation-app-bar__links-section__visible-buttons__tab__text',
             }}
@@ -89,9 +89,9 @@ const NavigationAppBarLinksSection: React.FC<Props> = ({ links, isHidden }) => {
         ref={visibleLinksRef}
         className="bs-navigation-app-bar__links-section__visible-buttons"
       >
-        {visibleAppBarLinks.map((link) => (
+        {visibleAppBarLinks.map((link, index) => (
           <Tab
-            key={link.label}
+            key={index}
             classes={{
               text: 'bs-navigation-app-bar__links-section__visible-buttons__tab__text',
             }}

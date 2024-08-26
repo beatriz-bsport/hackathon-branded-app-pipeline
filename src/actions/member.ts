@@ -1,11 +1,11 @@
 import { createAction } from 'redux-actions';
 
-import type { UserProfile } from 'bsport-saas/src/libs/member/types';
+import type { Member, UserProfile } from 'bsport-saas/src/libs/member/types';
 
 export const retrieveMemberAction = {
-  success: createAction('REFERRAL/BRIDGE/MEMBER/SUCCESS'),
-  isLoading: createAction<boolean>('REFERRAL/BRIDGE/MEMBER/LOADING'),
-  error: createAction<Error | null>('REFERRAL/BRIDGE/MEMBER/ERROR'),
+  success: createAction<Member>('HAS_FETCHED_MEMBER'),
+  isLoading: createAction<boolean>('IS_FETCHING_MEMBER'),
+  error: createAction<Error | null>('ERROR_FETCHING_MEMBER'),
 };
 
 export const retrieveUserProfileActions = {

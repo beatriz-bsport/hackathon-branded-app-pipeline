@@ -167,9 +167,9 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export const ConsumerProfileWidget = compose(
+export const UnconnectedConsumerProfile = compose(
   marketplaceCssHoc(),
   WithCustomCssProvider,
 )(ConsumerProfileReworked);
 
-export default connector(ConsumerProfileReworked);
+export default connector(UnconnectedConsumerProfile);

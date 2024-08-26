@@ -542,7 +542,7 @@ const mapWithHandlers = {
     },
 };
 
-export const ConsumerBookingWidget = compose(
+export const UnconnectedConsumerBookingPage = compose(
   marketplaceCssHoc(),
   WithCustomCssProvider,
 )(ConsumerBooking);
@@ -551,4 +551,4 @@ export default compose(
   routerParamsToProps({ companyId: 'companyId:number' }),
   connector,
   withHandlers(mapWithHandlers),
-)(ConsumerBooking);
+)(UnconnectedConsumerBookingPage);

@@ -507,9 +507,9 @@ const connector = connect(
   },
 );
 
-export const ConsumerPassWidget = compose(
+export const UnconnectedConsumerPass = compose(
   marketplaceCssHoc(),
   WithCustomCssProvider,
 )(ConsumerPassReworked);
 
-export default connector(ConsumerPassReworked);
+export default connector(UnconnectedConsumerPass);

@@ -284,7 +284,7 @@ const mapWithHandlers = {
     },
 };
 
-export const ConsumerSubscriptionWidget = compose(
+export const UnconnectedConsumerSubscription = compose(
   marketplaceCssHoc(),
   WithCustomCssProvider,
 )(ConsumerSubscription);
@@ -292,4 +292,4 @@ export const ConsumerSubscriptionWidget = compose(
 export default compose(
   connector,
   withHandlers(mapWithHandlers),
-)(ConsumerSubscription);
+)(UnconnectedConsumerSubscription);

@@ -306,7 +306,7 @@ const mapWithHandlers = {
     },
 };
 
-export const ConsumerInvoiceReworkedWidget = compose(
+export const UnconnectedConsumerInvoiceReworked = compose(
   marketplaceCssHoc(),
   WithCustomCssProvider,
 )(ConsumerInvoiceReworked);
@@ -314,4 +314,4 @@ export const ConsumerInvoiceReworkedWidget = compose(
 export default compose(
   connector,
   withHandlers(mapWithHandlers),
-)(ConsumerInvoiceReworked);
+)(UnconnectedConsumerInvoiceReworked);

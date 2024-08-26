@@ -24,7 +24,6 @@ import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
 } from '@bsport/common/lib/master-data/payment-group';
-import { INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE } from '@bsport/common/lib/master-data/error-codes/payment';
 import {
   InvoiceAllowedReverseMethods,
   Invoice,
@@ -37,7 +36,8 @@ import type { Payment } from '#src/libs/payment/types';
 import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
-import { OptionCallback } from '../../../state/types';
+import { OptionCallback } from '#src/state/types';
+import InvoiceReverterMeansAlerting from '#src/libs/invoice/components/InvoiceReverterMeansAlerting.component';
 
 type Props = {
   open?: boolean;
@@ -125,8 +125,22 @@ export const InvoiceReverterDialog = ({
     [allowedReverseMethods],
   );
 
+  React.useEffect(() => {
+    // If the invoice has a price_payed of 0, we won't show the dialog to choose
+    // the payment method to revert the invoice on. Though, we might have non null payments on invoice
+    // We need to refund on same payment method for PayPal refunds proceeded from PayPal platform.
+    if (parseInt(invoice.price_payed) === 0 && reverseOnPaymentMethodAllowed) {
+      handleChangeReverseMethod(REVERSE_ON_PAYMENT_METHOD);
+    }
+  }, [reverseOnPaymentMethodAllowed, invoice.price_payed]);
+
   const reverseOnDebtAllowed = React.useMemo(
     () => allowedReverseMethods[REVERSE_ON_DEBT]?.allowed,
+    [allowedReverseMethods],
+  );
+
+  const reverseOnNewPaymentMethodAllowed = React.useMemo(
+    () => allowedReverseMethods[REVERSE_ON_NEW_PAYMENT_METHOD]?.allowed,
     [allowedReverseMethods],
   );
 
@@ -235,7 +249,9 @@ export const InvoiceReverterDialog = ({
       </Dialog>
     );
 
-  if (payments.length === 0)
+  // The invoice can have non null Payments but a price_payed of 0 if for instance
+  // a full refund has been made on PayPal platform. In this case, we can't refund the invoice again.
+  if (parseInt(invoice.price_payed) === 0) {
     return (
       <Dialog open={!!open}>
         <DialogTitle>{t('revert.dialog.title')}</DialogTitle>
@@ -247,19 +263,19 @@ export const InvoiceReverterDialog = ({
         {actionButtons}
       </Dialog>
     );
+  }
 
   return (
     <>
       <GenericResponsiveDialog open={!!open}>
         <DialogTitle>{t('revert.dialog.title')}</DialogTitle>
         <DialogContent>
-          {!reverseOnPaymentMethodAllowed &&
-            allowedReverseMethods[REVERSE_ON_PAYMENT_METHOD]?.error_code ===
-              INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE && (
-              <Alert className={classes.warning} severity="warning">
-                {t('revert.warning.interac')}
-              </Alert>
-            )}
+          <InvoiceReverterMeansAlerting
+            allowedReverseMethods={allowedReverseMethods}
+            reverseOnDebtAllowed={reverseOnDebtAllowed}
+            reverseOnNewPaymentMethodAllowed={reverseOnNewPaymentMethodAllowed}
+            reverseOnPaymentMethodAllowed={reverseOnPaymentMethodAllowed}
+          />
           <div
             className={classNames(classes.radioContainer, {
               [classes.disabledContainer]: !reverseOnPaymentMethodAllowed,
@@ -282,25 +298,31 @@ export const InvoiceReverterDialog = ({
               {t(`revert.content.explain.${REVERSE_ON_PAYMENT_METHOD}`)}
             </Typography>
           </div>
-          {reverseOnDebtAllowed && (
-            <div className={classes.radioContainer}>
-              <div className={classes.row}>
-                <Radio
-                  checked={reverseMethod === REVERSE_ON_DEBT}
-                  disabled={processing}
-                  onChange={() => handleChangeReverseMethod(REVERSE_ON_DEBT)}
-                  value={REVERSE_ON_DEBT}
-                />
-                <Typography>
-                  {t(`revert.content.label.${REVERSE_ON_DEBT}`)}
-                </Typography>
-              </div>
-              <Typography variant="caption">
-                {t(`revert.content.explain.${REVERSE_ON_DEBT}`)}
+          <div
+            className={classNames(classes.radioContainer, {
+              [classes.disabledContainer]: !reverseOnDebtAllowed,
+            })}
+          >
+            <div className={classes.row}>
+              <Radio
+                checked={reverseMethod === REVERSE_ON_DEBT}
+                disabled={processing}
+                onChange={() => handleChangeReverseMethod(REVERSE_ON_DEBT)}
+                value={REVERSE_ON_DEBT}
+              />
+              <Typography>
+                {t(`revert.content.label.${REVERSE_ON_DEBT}`)}
               </Typography>
             </div>
-          )}
-          <div className={classes.radioContainer}>
+            <Typography variant="caption">
+              {t(`revert.content.explain.${REVERSE_ON_DEBT}`)}
+            </Typography>
+          </div>
+          <div
+            className={classNames(classes.radioContainer, {
+              [classes.disabledContainer]: !reverseOnNewPaymentMethodAllowed,
+            })}
+          >
             <div className={classes.row}>
               <Radio
                 checked={reverseMethod === REVERSE_ON_NEW_PAYMENT_METHOD}

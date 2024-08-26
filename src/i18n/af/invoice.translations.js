@@ -4,6 +4,11 @@ const getTranslations = async () => {
   );
 
   const {
+    INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
+    INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER,
+    INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT,
+  } = await import('@bsport/common/lib/master-data/error-codes/payment');
+  const {
     BUYABLE_ITEM_PASS,
     BUYABLE_ITEM_SHOP_ITEM,
     BUYABLE_ITEM_PRIVATE_PASS,
@@ -343,8 +348,14 @@ const getTranslations = async () => {
         title: 'Invoice cancellation',
       },
       warning: {
-        interac:
+        [INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT]:
+          'Direct refunds are only available if at least one of the payments uses an online method.',
+        [INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE]:
           'At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards.',
+        [INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER]:
+          'Note: an adjustment to the account balance cannot be refunded with the account balance',
+        debtAndNewPaymentMethodNotAllowed:
+          'At least one payment is pending. Only a direct refund is available.',
       },
       blockedDialog: {
         helper:

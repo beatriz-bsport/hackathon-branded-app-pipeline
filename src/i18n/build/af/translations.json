@@ -3483,7 +3483,10 @@
       },
       "dialog": { "actions": { "confirm": "Confirm", "cancel": "Close" }, "title": "Invoice cancellation" },
       "warning": {
-        "interac": "At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards."
+        "14100": "At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards.",
+        "14101": "Note: an adjustment to the account balance cannot be refunded with the account balance",
+        "14103": "Direct refunds are only available if at least one of the payments uses an online method.",
+        "debtAndNewPaymentMethodNotAllowed": "At least one payment is pending. Only a direct refund is available."
       },
       "blockedDialog": {
         "helper": "Your Stripe balance is insufficient to process the refund. Please try again after a few days so that payments can be collected.",
@@ -5015,10 +5018,8 @@
           "successImportSubtext": "Created members"
         },
         "errors": {
-          "71000": "Please wait for the ongoing import to finalize",
-          "71001": "This file does not have the required number of columns",
-          "71002": "This file exceeds the maximum size limit",
-          "title": "Unfortunately, the import process has failed because:"
+          "title": "Unfortunately, the import process has failed because:",
+          "undefined": "This file exceeds the maximum size limit"
         }
       }
     },

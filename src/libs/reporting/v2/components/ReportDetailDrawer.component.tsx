@@ -89,6 +89,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
   report,
   reportCategoryMetadata,
   setFieldValue,
+  resetForm,
   values,
   isValid,
 }) => {
@@ -234,6 +235,11 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
     report?.id,
   );
 
+  const handleCancelEdit = React.useCallback(() => {
+    handleDrawerClosing();
+    resetForm();
+  }, [handleDrawerClosing, resetForm]);
+
   return (
     <GenericResponsiveDrawer
       withoutPadding
@@ -242,7 +248,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
         topCancel: classes.topCancel,
         cancelButton: classes.cancelButton,
       }}
-      onClose={handleDrawerClosing}
+      onClose={handleCancelEdit}
       open={isDrawerOpen}
       title={t('reportEditLabel')}
       width={REPORT_RIGHT_DRAWER_WIDTH}
@@ -400,7 +406,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
           </div>
         </div>
         <div className={classes.buttonSection}>
-          <SecondaryActionButton onClick={handleDrawerClosing} variant="text">
+          <SecondaryActionButton onClick={handleCancelEdit} variant="text">
             {t('form.cancel')}
           </SecondaryActionButton>
           <Button

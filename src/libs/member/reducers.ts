@@ -410,7 +410,10 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
     },
     [actionTypes.HAS_FETCHED_MEMBER.toString()]: (state, action) => {
       // @ts-expect-error
-      const { member } = action;
+      const member = action?.member ?? action?.payload;
+
+      if (!member) return state;
+
       return state
         .set('member', member.id)
         .setIn(['detailData', member.id], member)

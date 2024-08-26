@@ -565,15 +565,11 @@ export function fetchMember(
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchMember());
-
     try {
       const response = await fetchMemberApi(id, params);
       const member = response.data;
       dispatch(hasFetchedMember(member));
-      if (options && options.onSuccess) {
-        // @ts-expect-error
-        options.onSuccess(member);
-      }
+      options?.onSuccess?.(member);
     } catch (err) {
       console.error(err);
       dispatch(errorFetchingMember());
@@ -664,13 +660,13 @@ export const fetchMyUserProfileActions = {
   error: createAction('USER_PROFILE/ME/ERROR'),
   success: createAction('USER_PROFILE/ME/SUCCESS'),
 };
-export function fetchMyUserProfile(options?: OptionCallback) {
+export function fetchMyUserProfile(options?: OptionCallback<any>) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchMyUserProfileActions.isLoading(true));
     try {
       const response = await fetchMyUserProfileAPI();
       dispatch(fetchMyUserProfileActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(fetchMyUserProfileActions.error(err));

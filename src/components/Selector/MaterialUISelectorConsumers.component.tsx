@@ -24,32 +24,37 @@ import type {
   MemberSearchBarOptions,
 } from '#src/libs/member/types';
 import type { ItemProps } from '#src/libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
+import { Alert } from '@material-ui/lab';
 
 type Props = {
   chipsRenderer: (itemProps: ItemProps) => React.ReactNode;
   className: string;
   inScrollBar: boolean;
+  invalidAdvancedFilterItemsUUID: string[];
   itemRenderer: (itemProps: ItemProps) => React.ReactNode;
   memberDomElement: HTMLDivElement;
   name: string;
   openMenuOnClear: boolean;
   openMenuOnFocus: boolean;
   withoutConfirmButton: boolean;
+  uuid: string;
 };
 
 const MaterialUISelectorConsumers: React.FC<Props> = ({
   chipsRenderer,
   className,
   inScrollBar,
+  invalidAdvancedFilterItemsUUID,
   itemRenderer,
   memberDomElement,
   name,
   openMenuOnClear,
   openMenuOnFocus,
   withoutConfirmButton,
+  uuid,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation('search');
+  const { t } = useTranslation(['search', 'reporting']);
   const { values, setFieldValue } = useFormikContext();
   const consumerIdsSelected = get(values, name);
   /**
@@ -72,9 +77,21 @@ const MaterialUISelectorConsumers: React.FC<Props> = ({
     [consumerIdsSelected],
   );
 
+  const isMemberFilteringInvalid = React.useMemo(() => {
+    if (
+      invalidAdvancedFilterItemsUUID &&
+      invalidAdvancedFilterItemsUUID.length
+    ) {
+      return invalidAdvancedFilterItemsUUID.includes(uuid);
+    }
+    return false;
+  }, [invalidAdvancedFilterItemsUUID, uuid]);
+
   const isDisabled = React.useMemo(
-    () => consumerIdsSelected?.length >= MAX_SELECTABLE_MEMBER,
-    [consumerIdsSelected],
+    () =>
+      consumerIdsSelected?.length >= MAX_SELECTABLE_MEMBER ||
+      isMemberFilteringInvalid,
+    [consumerIdsSelected, isMemberFilteringInvalid],
   );
 
   const isOptionDisabled = React.useCallback(
@@ -136,37 +153,45 @@ const MaterialUISelectorConsumers: React.FC<Props> = ({
         openMenuOnClear={openMenuOnClear}
         openMenuOnFocus={openMenuOnFocus}
         options={options}
-        placeholder={t('input')}
+        placeholder={t('search:input')}
         withoutConfirmButton={withoutConfirmButton}
       />
       {memberDomElement &&
         ReactDOM.createPortal(
-          membersSelected?.length ? (
-            <List>
-              {membersSelected.map((member) => (
-                <ListItem key={member.id}>
-                  <ListItemText> {member.name}</ListItemText>
-                  <ListItemSecondaryAction>
-                    <IconButton
-                      color="secondary"
-                      onClick={handleRemoveMember(member.consumer)}
-                      size="small"
-                    >
-                      <CancelIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-            </List>
-          ) : null,
+          <>
+            {!!membersSelected?.length && !isMemberFilteringInvalid && (
+              <List>
+                {membersSelected.map((member) => (
+                  <ListItem key={member.id}>
+                    <ListItemText> {member.name}</ListItemText>
+                    <ListItemSecondaryAction>
+                      <IconButton
+                        color="secondary"
+                        onClick={handleRemoveMember(member.consumer)}
+                        size="small"
+                      >
+                        <CancelIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
+              </List>
+            )}
+            {isMemberFilteringInvalid && (
+              <Alert className={classes.memberAlert} severity="error">
+                {t('reporting:invalidFilter.user')}
+              </Alert>
+            )}
+          </>,
           memberDomElement,
         )}
     </div>
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   userSelector: { minWidth: '300px' },
+  memberAlert: { marginTop: theme.spacing(1) },
 }));
 
 export default MaterialUISelectorConsumers;

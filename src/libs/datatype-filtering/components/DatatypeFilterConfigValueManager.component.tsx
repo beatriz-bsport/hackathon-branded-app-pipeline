@@ -108,6 +108,7 @@ type Props = {
   openMenuOnClear?: boolean;
   openMenuOnFocus?: boolean;
   memberDomElement?: HTMLDivElement;
+  invalidAdvancedFilterItemsUUID?: string[];
 };
 const PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT = PAYMENT_METHODS.filter(
   (paymentMethod) => paymentMethod.id !== CREDIT_ACCOUNT.id,
@@ -126,6 +127,7 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
   openMenuOnClear,
   openMenuOnFocus,
   memberDomElement,
+  invalidAdvancedFilterItemsUUID,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -232,12 +234,14 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
         datatype={filterItem.datatype}
         getDataByType={getDataByType}
         inScrollBar={inScrollBar}
+        invalidAdvancedFilterItemsUUID={invalidAdvancedFilterItemsUUID}
         isPreview={isPreview}
         itemRenderer={!!itemRenderer && itemRenderer}
         memberDomElement={memberDomElement}
         name={`${prefix}.value`}
         openMenuOnClear={openMenuOnClear}
         openMenuOnFocus={openMenuOnFocus}
+        uuid={filterItem.uuid}
         withoutConfirmButton={withoutConfirmButton}
       />
     );
@@ -427,6 +431,8 @@ const DatatypeFilterConfigValueList: React.FC<{
   openMenuOnClear?: boolean;
   openMenuOnFocus?: boolean;
   memberDomElement: HTMLDivElement;
+  invalidAdvancedFilterItemsUUID?: string[];
+  uuid: string;
 }> = ({
   name,
   datatype,
@@ -441,6 +447,8 @@ const DatatypeFilterConfigValueList: React.FC<{
   openMenuOnClear,
   openMenuOnFocus,
   memberDomElement,
+  invalidAdvancedFilterItemsUUID,
+  uuid,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -683,11 +691,13 @@ const DatatypeFilterConfigValueList: React.FC<{
         chipsRenderer={chipsRenderer}
         className={classes.flexOne}
         inScrollBar={inScrollBar}
+        invalidAdvancedFilterItemsUUID={invalidAdvancedFilterItemsUUID}
         itemRenderer={itemRenderer}
         memberDomElement={memberDomElement}
         name={name}
         openMenuOnClear={openMenuOnClear}
         openMenuOnFocus={openMenuOnFocus}
+        uuid={uuid}
         withoutConfirmButton={withoutConfirmButton}
       />
     );

@@ -14,6 +14,7 @@ import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-catego
 import { getResultsBySelectorId } from '#src/libs/fuzzy-search/selectors';
 
 import {
+  getInvalidFiltersV2,
   getReportCategoriesMetadata,
   getReportHeader,
   getReportGenerateredRows,
@@ -40,6 +41,7 @@ import {
   deleteReport as deleteReportAction,
   exportExcelReport as exportExcelReportAction,
   resetReportGenerationState as resetReportGenerationStateAction,
+  getInvalidFilters as getInvalidFiltersAction,
 } from '#src/libs/reporting/v2/actions';
 import { setLastVisitedReportV2 as setLastVisitedReportV2Action } from '#src/libs/user-preference/actions';
 
@@ -83,8 +85,10 @@ const ReportingDetail: React.FC<Props> = ({
   fetchReportHeaders,
   fetchReportMetadata,
   fetchSerializedReport,
+  getInvalidFilters,
   getReportSearchResults,
   handleGetDynamicDataForFilters,
+  invalidFilters,
   isFranchisor,
   lastVisitedReportV2,
   objectLevelPermissions,
@@ -149,12 +153,14 @@ const ReportingDetail: React.FC<Props> = ({
         },
       },
     );
+    getInvalidFilters(reportId);
   }, [
     fetchReportFilterConfigList,
     reportId,
     fetchSerializedReport,
     fetchReportHeaders,
     isFranchisor,
+    getInvalidFilters,
   ]);
 
   const { t } = useTranslation('reporting');
@@ -360,9 +366,11 @@ const ReportingDetail: React.FC<Props> = ({
         dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
         editReportFilterConfig={editReportFilterConfig}
         excelExportLoading={excelExportLoading}
+        getInvalidFilters={getInvalidFilters}
         handleExport={handleExcelExportation}
         handleGeneration={handleGeneration}
         handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
+        invalidFilters={invalidFilters.results}
         isFranchisor={isFranchisor}
         isNavigationDrawerExpanded={isNavigationDrawerExpanded}
         objectLevelPermissions={objectLevelPermissions}
@@ -389,6 +397,7 @@ const connector = connect(
       .results,
     objectLevelPermissions: getObjectPermissions(state),
     defaultReports: getReportsV2(state),
+    invalidFilters: getInvalidFiltersV2(state),
     reportCategoriesMetadata: getReportCategoriesMetadata(state),
     reportFilterConfigLoading: getReportFilterConfigLoading(state),
     reportFilterConfigs: getReportFilterConfigs(state, reportId),
@@ -409,6 +418,7 @@ const connector = connect(
     fetchReportHeaders: fetchReportHeadersAction,
     fetchReportMetadata: fetchReportMetadataAction,
     fetchSerializedReport: fetchSerializedReportAction,
+    getInvalidFilters: getInvalidFiltersAction,
     pushRouter: push,
     updateReport: updateReportAction,
     setLastVisitedReportV2: setLastVisitedReportV2Action,

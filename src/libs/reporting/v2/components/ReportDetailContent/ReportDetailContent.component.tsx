@@ -54,6 +54,7 @@ type Props = {
     withReportHeadersFetch?: boolean,
   ) => void;
   hydratedLoading: boolean;
+  invalidQuickFilterItemsUUID: string[];
   isFranchisor?: boolean;
   loading: boolean;
   objectLevelPermissions: ObjectLevelPermissions;
@@ -77,6 +78,8 @@ const ReportDetailContent: React.FC<Props> = ({
   handleExport,
   handleGeneration,
   handleGetDynamicDataForFilters,
+  hydratedLoading,
+  invalidQuickFilterItemsUUID,
   isFranchisor,
   loading,
   objectLevelPermissions,
@@ -88,7 +91,6 @@ const ReportDetailContent: React.FC<Props> = ({
   reportGeneratedRows,
   reportHeaders,
   userPermissions,
-  hydratedLoading,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
@@ -166,6 +168,7 @@ const ReportDetailContent: React.FC<Props> = ({
         handleExport={handleExport}
         handleGeneration={handleGeneration}
         handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
+        invalidQuickFilterItemsUUID={invalidQuickFilterItemsUUID}
         isFranchisor={isFranchisor}
         quickReportFilterConfig={quickReportFilterConfig}
         report={report}

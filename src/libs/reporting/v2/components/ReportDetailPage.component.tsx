@@ -28,6 +28,7 @@ import type {
   ReportFilterConfigConfig,
   ReportUpdateAPI,
   ReportGenerationParams,
+  InvalidFiltersAPI,
 } from '#src/libs/reporting/common/types';
 import type { ErrorAndLoading } from '#src/libs/types';
 import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
@@ -63,11 +64,16 @@ type Props = {
     options?: OptionCallback<ReportFilterConfig>,
   ) => void;
   excelExportLoading: boolean;
+  getInvalidFilters: (
+    reportId: number,
+    options?: OptionCallback<InvalidFiltersAPI>,
+  ) => void;
   handleExport: (values: ReportGenerationParams) => () => void;
   handleGeneration: (
     values: ReportGenerationParams,
     withReportHeadersFetch?: boolean,
   ) => void;
+  invalidFilters: InvalidFiltersAPI;
   isFranchisor?: boolean;
   isNavigationDrawerExpanded: boolean;
   objectLevelPermissions: ObjectLevelPermissions;
@@ -101,8 +107,10 @@ const ReportDetailPage: React.FC<Props> = ({
   defaultCategoryReportId,
   deleteReport,
   handleExport,
+  getInvalidFilters,
   handleGeneration,
   handleGetDynamicDataForFilters,
+  invalidFilters,
   isFranchisor,
   isNavigationDrawerExpanded,
   objectLevelPermissions,
@@ -164,6 +172,7 @@ const ReportDetailPage: React.FC<Props> = ({
           { config: data.config },
           {
             onSuccess: (reportFilterConfigEdited) => {
+              getInvalidFilters(reportId);
               setIsEditDrawerOpen(false);
               handleGeneration({
                 reportFilterConfigId: reportFilterConfigEdited.id,
@@ -180,6 +189,7 @@ const ReportDetailPage: React.FC<Props> = ({
           },
           {
             onSuccess: (reportFilterConfigCreated) => {
+              getInvalidFilters(reportId);
               setIsEditDrawerOpen(false);
               handleGeneration({
                 reportFilterConfigId: reportFilterConfigCreated.id,
@@ -194,6 +204,7 @@ const ReportDetailPage: React.FC<Props> = ({
       categoryName,
       createReportFilterConfig,
       editReportFilterConfig,
+      getInvalidFilters,
       handleGeneration,
       refreshOptions,
       reportId,
@@ -246,6 +257,22 @@ const ReportDetailPage: React.FC<Props> = ({
     isFranchisor,
   ]);
 
+  const invalidAdvancedFilterItemsUUID = React.useMemo(
+    () =>
+      advancedReportFilterConfig
+        ? invalidFilters?.[advancedReportFilterConfig.id] || []
+        : [],
+    [advancedReportFilterConfig, invalidFilters],
+  );
+
+  const invalidQuickFilterItemsUUID = React.useMemo(
+    () =>
+      quickReportFilterConfig
+        ? invalidFilters?.[quickReportFilterConfig.id] || []
+        : [],
+    [quickReportFilterConfig, invalidFilters],
+  );
+
   if (reportFilterConfigLoading) {
     return <LinearProgress />;
   }
@@ -264,6 +291,7 @@ const ReportDetailPage: React.FC<Props> = ({
         dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
         handleDrawerClosing={handleEditDrawerState(false)}
         handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
+        invalidAdvancedFilterItemsUUID={invalidAdvancedFilterItemsUUID}
         isDrawerOpen={isEditDrawerOpen}
         isFranchisor={isFranchisor}
         onSubmit={editDrawerSubmit}
@@ -296,6 +324,9 @@ const ReportDetailPage: React.FC<Props> = ({
           handleAddModalOpening={handleAddModalState(true)}
           handleDeleteModalOpening={handleDeleteModalState(true)}
           handleEditDrawerOpening={handleEditDrawerState(true)}
+          invalidAdvancedFilterItemsCount={
+            invalidAdvancedFilterItemsUUID?.length || 0
+          }
           isCategoryDefault={report?.is_category_default}
           isSearchDisabled={reportGeneratedRows.loading}
           pushRouter={pushRouter}
@@ -314,6 +345,7 @@ const ReportDetailPage: React.FC<Props> = ({
           handleGeneration={handleGeneration}
           handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
           hydratedLoading={hydratedLoading}
+          invalidQuickFilterItemsUUID={invalidQuickFilterItemsUUID}
           isFranchisor={isFranchisor}
           loading={reportCategoriesMetadata.loading}
           objectLevelPermissions={objectLevelPermissions}

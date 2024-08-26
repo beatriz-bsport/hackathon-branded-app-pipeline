@@ -893,6 +893,9 @@ const getTranslations = async () => {
       decimalCredit:
         'The credits values displayed in the reports are not divided by {{creditFactor}}, please do not forget to divide these columns for further analysis.',
     },
+    invalidFilter: {
+      user: 'Can’t apply this filter because one of the selected members no longer exists. Reset filter to fix the error',
+    },
     franchiseWarning: {
       part2:
         'You can now export the report and process it in Excel afterwards. The dates indicated and the filtered view applied will be taken into account in the export.',
@@ -942,6 +945,10 @@ const getTranslations = async () => {
       currentView: 'Current view:',
       addView: 'Add view',
       emptyAdvancedFilters: 'No advanced filters applied to this view.',
+      invalidAdvancedFilter:
+        '{{ count }} advanced filter is invalid. Edit view to fix the error.',
+      invalidAdvancedFilter_plural:
+        '{{ count }} advanced filters are invalid. Edit view to fix the error.',
       advancedFiltersApplied: '{{ count }} advanced filter applied',
       advancedFiltersApplied_plural: '{{ count }} advanced filters applied',
       cannotDeleteDefaultView: 'Default view can’t be deleted.',

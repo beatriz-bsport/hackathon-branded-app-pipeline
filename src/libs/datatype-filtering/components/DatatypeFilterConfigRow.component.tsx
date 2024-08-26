@@ -48,6 +48,7 @@ type Props = {
   getDataByType: handleGetDynamicDataForFiltersType;
   dashboardTranslationNamespace?: boolean;
   displayPopperWarning?: boolean;
+  invalidAdvancedFilterItemsUUID?: string[];
 };
 
 const DatatypeFilterConfigRow: React.FC<Props> = ({
@@ -65,6 +66,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
   getDataByType,
   dashboardTranslationNamespace,
   displayPopperWarning = true,
+  invalidAdvancedFilterItemsUUID,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles({ displayAsFirstOrderRow });
@@ -321,6 +323,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
             comparator={filterItem.comparator}
             filterItem={filterItem}
             getDataByType={getDataByType}
+            invalidAdvancedFilterItemsUUID={invalidAdvancedFilterItemsUUID}
             isPreview={isPreview}
             memberDomElement={memberElementRef?.current}
             prefix={prefix}

@@ -59,6 +59,7 @@ type Props = {
   // eslint-disable-next-line react/no-unused-prop-types
   dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
   handleDrawerClosing: () => void;
+  invalidAdvancedFilterItemsUUID: string[];
   isDrawerOpen: boolean;
   isFranchisor?: boolean;
   report: ReportConfiguration;
@@ -84,6 +85,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
   handleDrawerClosing,
   handleGetDynamicDataForFilters,
   handleSubmit,
+  invalidAdvancedFilterItemsUUID,
   isDrawerOpen,
   isFranchisor,
   report,
@@ -304,6 +306,9 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
                     getDataByType={handleGetDynamicDataForFilters}
                     groupOperand={values.config.group_operand}
                     hidePrefix={indexGroup === 0}
+                    invalidAdvancedFilterItemsUUID={
+                      invalidAdvancedFilterItemsUUID
+                    }
                     isPreview={false}
                     onDelete={handleDeleteFilter}
                     prefix={`config.groups[${indexGroup}]`}

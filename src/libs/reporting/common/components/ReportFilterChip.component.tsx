@@ -26,7 +26,7 @@ import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
-import { Warning } from '@material-ui/icons';
+import { Error, Warning } from '@material-ui/icons';
 import chroma from 'chroma-js';
 import { useFormikContext } from 'formik';
 import type {
@@ -71,6 +71,7 @@ type ReportFilterChipProps = {
   ref?: React.Ref<HTMLDivElement | null>;
   subDataType?: 0 | 1 | null;
   dynamicDataHasBeenLoaded?: Record<DynamicFilterDataType, boolean>;
+  isInvalid?: boolean;
 };
 
 const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
@@ -91,6 +92,7 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
       columnIdentifiers,
       subDataType,
       dynamicDataHasBeenLoaded,
+      isInvalid,
     },
     ref,
   ) => {
@@ -176,6 +178,12 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
     ]);
 
     const getIcon = useCallback(() => {
+      if (!onlyDisplay && isColumnRemoved)
+        return <Warning className={classes.columnRemoved} />;
+
+      if (!onlyDisplay && isInvalid) {
+        return <Error className={classes.isInvalidIcon} />;
+      }
       switch (datatype) {
         case ReportFilterableDataType.PRICE:
         case ReportFilterableDataType.CTS:
@@ -229,7 +237,8 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
         default:
           return null;
       }
-    }, [datatype]);
+    }, [datatype, isInvalid, onlyDisplay, isColumnRemoved, classes]);
+
     const allFilters = values?.config?.groups[0].filters_data;
 
     const handleQuickFilterEditFilter = useCallback(
@@ -284,37 +293,40 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
       Array.isArray(value) &&
       value?.length === 1;
 
+    const tooltipTitle = React.useMemo(() => {
+      if (onlyDisplay) {
+        return '';
+      }
+      if (isColumnRemoved) {
+        return t('filter.form.shortColumnError');
+      }
+      if (isInvalid) {
+        return t('invalidFilter.user');
+      }
+      return '';
+    }, [onlyDisplay, isColumnRemoved, isInvalid, t]);
+
     return (
       <div ref={ref} className={classes.column}>
         {isSingleValueLoading ? (
           <CircularProgress />
         ) : (
-          <Tooltip
-            title={
-              isColumnRemoved && !onlyDisplay
-                ? t('filter.form.shortColumnError')
-                : ''
-            }
-          >
+          <Tooltip title={tooltipTitle}>
             <Chip
               key={label}
               className={classNames({
                 [classes.columnRemoved]: isColumnRemoved && !onlyDisplay,
+                [classes.isInvalid]:
+                  isInvalid && !onlyDisplay && !isColumnRemoved,
                 [classes.filterWithoutValues]:
                   !onlyDisplay && !isColumnRemoved && valueLabel === '',
               })}
-              icon={
-                isColumnRemoved && !onlyDisplay ? (
-                  <Warning className={classes.columnRemoved} />
-                ) : (
-                  getIcon()
-                )
-              }
+              icon={getIcon()}
               label={`${t(
                 `columns.${isMemberColumn(datatype, label) ? 'member' : label}`,
               )} ${onlyDisplay ? '' : valueLabel}`}
               onClick={
-                onlyDisplay || isColumnRemoved
+                onlyDisplay || isColumnRemoved || isInvalid
                   ? null
                   : handleQuickFilterEditFilter
               }
@@ -333,6 +345,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: '#FFF7EB',
     '&:hover': {
       backgroundColor: '#FFF7EB',
+    },
+  },
+  isInvalidIcon: {
+    color: 'inherit',
+    backgroundColor: 'inherit',
+  },
+  isInvalid: {
+    // Alert error colors
+    color: '#f44336',
+    backgroundColor: '#fdecea',
+    '&:hover': {
+      backgroundColor: '#ffccd5',
     },
   },
   column: {

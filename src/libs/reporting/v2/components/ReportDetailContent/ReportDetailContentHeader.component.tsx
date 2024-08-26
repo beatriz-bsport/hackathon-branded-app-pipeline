@@ -55,6 +55,7 @@ type Props = {
   excelExportDisabled: boolean;
   excelExportLoading: boolean;
   handleExport: (values: ReportGenerationParams) => () => void;
+  invalidQuickFilterItemsUUID: string[];
   isFranchisor?: boolean;
   quickReportFilterConfig: ReportFilterConfig;
   reportCategoryMetadata: ReportMetadataValue;
@@ -88,6 +89,7 @@ const ReportDetailContentHeader: React.FC<
   handleExport,
   handleGetDynamicDataForFilters,
   handleSubmit,
+  invalidQuickFilterItemsUUID,
   isFranchisor,
   quickReportFilterConfig,
   report,
@@ -149,6 +151,7 @@ const ReportDetailContentHeader: React.FC<
     return values.config?.groups?.length
       ? values.config.groups.flatMap((group: DatatypeFilterConfigGroup) =>
           group.filters_data?.map((row: DatatypeFilterConfigItem) => ({
+            uuid: row.uuid,
             identifier: row.identifier,
             value: row.value,
             comparator: row.comparator,
@@ -182,6 +185,11 @@ const ReportDetailContentHeader: React.FC<
   const CATEGORY_NEEDS_DATE_HELPER_TEXT = React.useMemo(
     () => CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES.includes(categoryName),
     [categoryName],
+  );
+
+  const isFilterInvalid = React.useCallback(
+    (uuid: string) => invalidQuickFilterItemsUUID.includes(uuid),
+    [invalidQuickFilterItemsUUID],
   );
 
   return (
@@ -227,6 +235,7 @@ const ReportDetailContentHeader: React.FC<
                     dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
                     editReportFilterConfig={editReportFilterConfig}
                     getDataByTypeAndId={handleGetDynamicDataForFilters}
+                    isInvalid={isFilterInvalid(filterItem.uuid)}
                     label={filterItem.identifier}
                     reportQuickFilter={quickReportFilterConfig}
                     setAnchorEl={setAnchorEl}

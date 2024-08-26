@@ -22,6 +22,7 @@ import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-catego
 import type { SelectOption } from '#src/libs/types';
 import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
 import { reportDetailHeaderTheme } from '#src/libs/reporting/v2/mui-theme-providers';
+import { Alert } from '@material-ui/lab';
 
 type Props = {
   advancedReportFilterConfig: ReportFilterConfig;
@@ -30,6 +31,7 @@ type Props = {
   handleAddModalOpening: () => void;
   handleDeleteModalOpening: () => void;
   handleEditDrawerOpening: () => void;
+  invalidAdvancedFilterItemsCount: number;
   isCategoryDefault: boolean;
   isSearchDisabled: boolean;
   pushRouter: (path: string) => CallHistoryMethodAction<[string, unknown?]>;
@@ -45,6 +47,7 @@ const ReportDetailHeader: React.FC<Props> = ({
   handleAddModalOpening,
   handleDeleteModalOpening,
   handleEditDrawerOpening,
+  invalidAdvancedFilterItemsCount,
   isCategoryDefault,
   isSearchDisabled,
   pushRouter,
@@ -74,6 +77,16 @@ const ReportDetailHeader: React.FC<Props> = ({
       `${reportObjectPermissionPrefix}.read`,
     ];
   }, [categoryName]);
+
+  const advancedFiltersAppliedCount = React.useMemo(() => {
+    if (advancedReportFilterConfig) {
+      return (
+        advancedReportFilterConfig.config.groups?.length -
+        invalidAdvancedFilterItemsCount
+      );
+    }
+    return 0;
+  }, [advancedReportFilterConfig, invalidAdvancedFilterItemsCount]);
 
   return (
     <ObjectLevelPermissionProvider requiredPermission={reportObjectPermissions}>
@@ -170,17 +183,23 @@ const ReportDetailHeader: React.FC<Props> = ({
                   </div>
                 )}
               </div>
-              {advancedReportFilterConfig &&
-              advancedReportFilterConfig.config.groups?.length > 0 ? (
+              {advancedFiltersAppliedCount > 0 ? (
                 <Typography color="textSecondary" variant="body1">
                   {t('reportDetailHeader.advancedFiltersApplied', {
-                    count: advancedReportFilterConfig.config.groups.length,
+                    count: advancedFiltersAppliedCount,
                   })}
                 </Typography>
               ) : (
                 <Typography color="textSecondary" variant="body1">
                   {t('reportDetailHeader.emptyAdvancedFilters')}
                 </Typography>
+              )}
+              {!!invalidAdvancedFilterItemsCount && (
+                <Alert severity="error">
+                  {t('reportDetailHeader.invalidAdvancedFilter', {
+                    count: invalidAdvancedFilterItemsCount,
+                  })}
+                </Alert>
               )}
             </div>
           </MuiThemeProvider>

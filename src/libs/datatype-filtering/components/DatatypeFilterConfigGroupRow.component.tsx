@@ -33,6 +33,7 @@ type Props = {
   noHideDelete?: boolean;
   dashboardTranslationNamespace?: boolean;
   displayPopperWarning?: boolean;
+  invalidAdvancedFilterItemsUUID?: string[];
 };
 
 const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
@@ -51,6 +52,7 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
   noHideDelete,
   dashboardTranslationNamespace,
   displayPopperWarning = true,
+  invalidAdvancedFilterItemsUUID,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -90,6 +92,7 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
               groupOperand={filterGroup.inner_operand}
               hideDelete={!noHideDelete && !checkOtherRowExist(filterItem.uuid)}
               hidePrefix={indexFilter === 0}
+              invalidAdvancedFilterItemsUUID={invalidAdvancedFilterItemsUUID}
               isPreview={isPreview}
               onDelete={onDelete(filterItem.uuid)}
               prefix={`${prefix}.filters_data[${indexFilter}]`}

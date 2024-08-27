@@ -3433,11 +3433,13 @@
         "author": "Created by : {{ name }}",
         "date": "Date: {{ date }}",
         "reverseInvoice": "Refunded via ",
+        "reverseInvoicePending": "Refund pending via ",
         "sourceInvoice": "Cancel invoice",
         "noEstablishment": "No establishment has been associated to this invoice",
         "noBillingGroup": "No billing group has been associated to this invoice"
       },
       "titleRevert": "Credit {{ uuid }}",
+      "titleRevertPending": "[Pending] Credit {{ uuid }}",
       "titleReceipt": "Payment receipt {{ uuid }}",
       "titleReverted": "Invoice (reverted) {{uuid}}"
     },
@@ -5018,10 +5020,8 @@
           "successImportSubtext": "Created members"
         },
         "errors": {
-          "71000": "Please wait for the ongoing import to finalize",
-          "71001": "This file does not have the required number of columns",
-          "71002": "This file exceeds the maximum size limit",
-          "title": "Unfortunately, the import process has failed because:"
+          "title": "Unfortunately, the import process has failed because:",
+          "undefined": "This file exceeds the maximum size limit"
         }
       }
     },

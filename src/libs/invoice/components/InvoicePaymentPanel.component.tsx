@@ -36,7 +36,7 @@ import PaymentListItemV2 from './PaymentListItemV2.component';
 import PlannedPaymentEventListItem from './PlannedPaymentEventListItem.component';
 import PlannedPaymentEventErrorListItem from './PlannedPaymentEventErrorListItem.component';
 
-import { PlannedPaymentEvent, Invoice } from '../types';
+import { PlannedPaymentEvent, Invoice, InvoiceV1Serializer } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { OptionCallback } from '../../../state/types';
 
@@ -47,6 +47,7 @@ const InvoicePaymentStatus = (props: {
   isDraft: boolean;
   invoice_type: number;
   hasPendingPlannedPaymentEvent: boolean;
+  hasPendingPayment: boolean;
   hasPendingDispute: boolean;
 }) => {
   const classes = useStyles();
@@ -60,7 +61,11 @@ const InvoicePaymentStatus = (props: {
   if (props.invoice_type === INVOICE_TYPE_REVERSE) {
     return (
       <div className={classes.statusContainer}>
-        <KeyboardReturnIcon className={classes.statusIcon} />
+        {props.hasPendingPayment ? (
+          <HourglassEmptyIcon className={classes.statusIcon} />
+        ) : (
+          <KeyboardReturnIcon className={classes.statusIcon} />
+        )}
       </div>
     );
   }
@@ -291,7 +296,7 @@ type Props = {
     method: number,
     options: OptionCallback,
   ) => void;
-  invoice: Invoice;
+  invoice: InvoiceV1Serializer;
   paymentLoading: boolean;
   onRevert: () => void;
   onPaymentIntent: () => void;
@@ -383,6 +388,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
                 (payment.is_processing || payment.payment_received === null),
             ).length
           }
+          hasPendingPayment={props.invoice.has_pending_payment}
           hasPendingPlannedPaymentEvent={
             plannedPaymentWithoutUnrecoverableErrorList &&
             plannedPaymentWithoutUnrecoverableErrorList.length > 0 &&

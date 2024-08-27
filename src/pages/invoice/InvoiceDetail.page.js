@@ -111,7 +111,10 @@ import type { Theme as CompanyThemeType } from '../../libs/theme/types';
 import type { Payment, PaymentMethod } from '../../libs/payment/types';
 import type { OptionCallback } from '../../state/types';
 import type { ConsumerGiftcard, Giftcard } from '#../../ibs/giftcard/types';
-import type { PlannedPaymentEvent } from '../../libs/invoice/types';
+import type {
+  PlannedPaymentEvent,
+  InvoiceV1Serializer,
+} from '#src/libs/invoice/types';
 import type { StripeReader } from '../../libs/terminal/types';
 import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '../../libs/invoice/constants';
 
@@ -127,7 +130,7 @@ type Props = {
   editCustomFooter: (footer: string, options?: OptionCallback) => void,
   fetchPaymentList: (params: any) => void,
   refreshCompanyTheme: () => void,
-  invoice: Invoice,
+  invoice: InvoiceV1Serializer,
   member: Member,
   openPaymentDialog: () => void,
   detachPaymentMethod: (pm_id: string) => void,

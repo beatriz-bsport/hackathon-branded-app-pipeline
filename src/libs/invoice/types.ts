@@ -163,6 +163,12 @@ export enum PaymentMethodIdentifier {
   CB_MANUAL = 15,
 }
 
+export enum PaymentRefundStatus {
+  PENDING = 'PENDING',
+  SUCCESS = 'SUCCESS',
+  FAILED = 'FAILED',
+}
+
 export enum PlannedPaymentEventStatus {
   PENDING = 0,
   REGISTERED = 1,
@@ -291,9 +297,11 @@ export type InvoiceInfoSerializer<PI = number, II = number> = {
   is_quick_invoice: boolean | null;
 };
 
-export type InvoiceV1Serializer = Invoice & {
+export type InvoiceV1Serializer<M = number> = Invoice<M> & {
   payment_methods: PaymentMethodSerializer;
   buyable_items: BuyableItemSerializer;
+  has_pending_payment: boolean | null;
+  reverse_invoices_payment_status: PaymentRefundStatus | null;
   source: Source;
   memberArchived: boolean;
   staff_history: [];

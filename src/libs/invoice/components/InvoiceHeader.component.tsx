@@ -30,7 +30,11 @@ import type {
 } from '#src/libs/establishment/types';
 import { getStaffName } from '#src/libs/booking/utils';
 import { Member } from '#src/libs/member/types';
-import type { Invoice, WithAuthor } from '../types';
+import {
+  InvoiceV1Serializer,
+  PaymentRefundStatus,
+  type WithAuthor,
+} from '#src/libs/invoice/types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
@@ -38,8 +42,8 @@ type Props = {
   establishmentBillingGroups: EstablishmentBillingGroup[];
   enableMultiLocalization: boolean;
   invoice?:
-    | WithAuthor<WithEstablishment<Invoice<Member>>>
-    | WithAuthor<WithEstablishmentBillingGroup<Invoice<Member>>>;
+    | WithAuthor<WithEstablishment<InvoiceV1Serializer<Member>>>
+    | WithAuthor<WithEstablishmentBillingGroup<InvoiceV1Serializer<Member>>>;
   editEstablishmentBillingGroup: (establishmentBillingGroupId: number) => void;
   onClickInvoice: (uuid: string) => void;
 };
@@ -118,11 +122,38 @@ export const InvoiceHeader = (props: Props) => {
     [setShowEstablishmentBillingGroupSelector],
   );
 
+  const getReverseInvoiceHeader = React.useCallback(
+    (invUUID) => {
+      if (
+        !invoice ||
+        !invoice.reverse_invoices ||
+        !invoice.reverse_invoices.length
+      ) {
+        return null;
+      }
+      if (
+        invoice.reverse_invoices_payment_status == PaymentRefundStatus.PENDING
+      ) {
+        return `${t('invoice.header.reverseInvoicePending')} ${invUUID.slice(
+          0,
+          8,
+        )}`;
+      }
+      // For now, if the refund is not pending, we consider it as done.
+      return `${t('invoice.header.reverseInvoice')} ${invUUID.slice(0, 8)}`;
+    },
+    [invoice, t],
+  );
   if (!invoice) {
     return null;
   }
   let invoiceHeaderType = 'title';
-  if (invoice.invoice_type === INVOICE_TYPE_REVERSE) {
+  if (
+    invoice.invoice_type === INVOICE_TYPE_REVERSE &&
+    invoice.has_pending_payment
+  ) {
+    invoiceHeaderType = 'titleRevertPending';
+  } else if (invoice.invoice_type == INVOICE_TYPE_REVERSE) {
     invoiceHeaderType = 'titleRevert';
   } else if (invoice.invoice_type === INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER) {
     invoiceHeaderType = 'titleReceipt';
@@ -231,7 +262,7 @@ export const InvoiceHeader = (props: Props) => {
             >
               <DoubleArrowIcon className={classes.leftIcon} fontSize="small" />
               <Typography color="error">
-                {`${t('invoice.header.reverseInvoice')} ${invUUID.slice(0, 8)}`}
+                {getReverseInvoiceHeader(invUUID)}
               </Typography>
             </ButtonBase>
           ))}

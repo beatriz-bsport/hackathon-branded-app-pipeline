@@ -2177,12 +2177,17 @@
                     "myBookings": "Le mie prenotazioni",
                     "summary": "Panoramica",
                     "title": "Account"
-                }
+                },
+                "mySubscriptions": "I miei abbonamenti ricorrenti",
+                "myPasses": "I miei pacchetti",
+                "myBookings": "Le mie prenotazioni",
+                "exploreYourProfile": "Esplora il tuo profilo"
             },
             "exploreYourProfile": "Esplora il tuo profilo.",
             "appbar": {
                 "myAccount": "Il Mio Account",
-                "cart": "Carrello"
+                "cart": "Carrello",
+                "companyLogo": "Logo dell'azienda"
             }
         }
     },
@@ -11083,7 +11088,7 @@
             "isBookingLimitReached": "Hai raggiunto il limite di prenotazioni",
             "multiSession": {
                 "selectSpot": {
-                    "validationButton": "Aggiungere una sessione",
+                    "validationButton": "Aggiungi una sessione",
                     "dialogSubtitle": "Seleziona il tuo posto per la classe",
                     "dialogTitle": "Seleziona un posto"
                 },
@@ -14568,7 +14573,8 @@
         "discardChanges": "Scarta le modifiche",
         "rename": "Rinomina",
         "send": "Invia",
-        "reset": "Ripristina"
+        "reset": "Ripristina",
+        "add": "Aggiungere"
     },
     "titles": {
         "metaActivity": {
@@ -15189,7 +15195,8 @@
             "totalHiddingTax": "Totale",
             "deliveryFee": "Spese di spedizione",
             "title": "Pagamento",
-            "flatFeeSubscription": "Tassa d'iscrizione"
+            "flatFeeSubscription": "Tassa d'iscrizione",
+            "selectedSession": "Le tue sessioni selezionate"
         },
         "expiredSpotDialog": {
             "refresh": "Ricarica",

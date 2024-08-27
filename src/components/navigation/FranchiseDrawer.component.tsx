@@ -79,7 +79,6 @@ import { windowTitleToProps } from '#src/hocs/with-title.hoc';
 import type { TempPasswordState } from '#src/libs/login/types';
 import { BannerContext, BannerContextValue } from '#src/hocs/banner.hoc';
 import VersionVisualizer from '#src/components/VersionVisualizer.component';
-import { DISPLAY_UNIVERSAL_SHARED_PASS_PAGES } from '#src/config';
 
 // import SearchBar from '../SearchBar.component';
 
@@ -586,15 +585,11 @@ const getNavigationItems = (props: {
               text: 'franchiseMenu.products.privatePassTemplates',
               icon: ScheduleIcon,
             },
-            ...(DISPLAY_UNIVERSAL_SHARED_PASS_PAGES
-              ? [
-                  {
-                    to: '/f/universal-pass-template',
-                    text: 'franchiseMenu.products.universalPassTemplates',
-                    icon: StyleIcon,
-                  },
-                ]
-              : []),
+            {
+              to: '/f/universal-pass-template',
+              text: 'franchiseMenu.products.universalPassTemplates',
+              icon: StyleIcon,
+            },
             displayNewWebshopForFranchisees && {
               to: '/f/shop',
               text: 'franchiseMenu.products.shopTemplates',
@@ -629,15 +624,11 @@ const getNavigationItems = (props: {
               text: 'franchiseMenu.products.privatePassTemplates',
               icon: ScheduleIcon,
             },
-            ...(DISPLAY_UNIVERSAL_SHARED_PASS_PAGES
-              ? [
-                  {
-                    to: '/f/universal-pass-template',
-                    text: 'franchiseMenu.products.universalPassTemplates',
-                    icon: StyleIcon,
-                  },
-                ]
-              : []),
+            {
+              to: '/f/universal-pass-template',
+              text: 'franchiseMenu.products.universalPassTemplates',
+              icon: StyleIcon,
+            },
             displayNewWebshopForFranchisees && {
               to: '/f/shop',
               text: 'franchiseMenu.products.shopTemplates',

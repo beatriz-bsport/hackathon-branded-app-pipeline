@@ -4,8 +4,6 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { withFormik, FieldArray, FastField } from 'formik';
 import {
-  CUSTOM_FORM_FIELD_FILE_OPTION,
-  CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
   CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
   CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
@@ -17,6 +15,7 @@ import {
 } from '@bsport/common/lib/master-data/custom-form';
 import {
   CUSTOM_FORM_FIELDS_WITH_CHOICES,
+  parseCustomFormAnswersToFormData,
   SIGNUP_CHECKBOX_FIELDS,
 } from '#src/libs/custom-form/utils';
 import { emailValidationRegExp } from '#src/libs/custom-form/constants';
@@ -27,9 +26,8 @@ import type {
   Layout,
   ResponsiveLayouts,
 } from '../../types';
-// @ts-expect-error
-import { mapFormDataWithObject } from '../../../../pages/form.utils';
 import GridLayoutWrapper from '../consumer-form-layout/GridLayoutWrapper.component';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 type OwnProps = {
   layouts?: ResponsiveLayouts;
@@ -44,10 +42,13 @@ type OwnProps = {
 };
 type Props = OwnProps & WithTranslation;
 
-const CustomFormFilledMap = {
+export const CustomFormFilledMap = {
   custom_form_id: 'custom_form_id',
   custom_form_field_filled: 'custom_form_field_filled',
 };
+
+const isWidget = WidgetUtils.isWidget();
+
 export const ConsumerFormFields = (props: Props) => {
   // Need to not pass classes in props otherwise
   // thousands of errors are raised by MUI
@@ -307,43 +308,37 @@ export const ConsumerFormFieldsHOC = withFormik({
         },
       ),
     };
-    const formData = mapFormDataWithObject(
-      cleaned_values,
-      CustomFormFilledMap,
-      [],
-    );
 
-    values.custom_form_field
-      .filter((_field: CustomFormFieldAnswer) =>
-        [
-          CUSTOM_FORM_FIELD_FILE_OPTION,
-          CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
-        ].includes(_field.kind),
-      )
-      .forEach(
-        (field: CustomFormFieldAnswer) =>
-          field.answer && formData.append(`file:${field.id}`, field.answer),
-      );
-    const initialPhotos = initial.custom_form_field
-      .filter(
-        (_field: CustomFormFieldAnswer) =>
-          _field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
-      )
-      .map((field: CustomFormFieldAnswer) => field.answer);
+    const customFormCleanedValues = {
+      ...values,
+      initialPhotos: initial.custom_form_field
+        .filter(
+          (_field: CustomFormFieldAnswer) =>
+            _field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
+        )
+        .map((field: CustomFormFieldAnswer) => field.answer),
+      custom_form_id: values.id,
+      custom_form_field_filled: values.custom_form_field.map(
+        (field: CustomFormFieldAnswer) => {
+          return { custom_form_field_id: field.id, answer: field.answer };
+        },
+      ),
+    };
 
-    // We add the photo file only if it is a new one (binary files are already handled)
-    // However, the customform saving could break due to the filename (that could have more than 100 characters, with the storage path)
-    // And it is a pain to handle that in the back (due to serializer check) => way more easier to pop it in the front
-    values.custom_form_field
-      .filter(
-        (_field: CustomFormFieldAnswer) =>
-          _field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
-      )
-      .forEach((field: CustomFormFieldAnswer) => {
-        if (field.answer && !initialPhotos.includes(field.answer)) {
-          formData.append(`file:${field.id}`, field.answer);
-        }
+    /**
+     * In widget case, we want to prevent to return a FormData instance since
+     * impossible to clone with postMessage() API
+     */
+    if (isWidget) {
+      return onSubmit(customFormCleanedValues, {
+        onSuccess: () => {
+          setSubmitting(false);
+        },
+        onError: () => setSubmitting(false),
       });
+    }
+
+    const formData = parseCustomFormAnswersToFormData(customFormCleanedValues);
 
     onSubmit(formData, {
       onSuccess: () => {

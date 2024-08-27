@@ -37,6 +37,7 @@ import type {
   SignUpSuccessResponse,
   CustomFormFilledAPI,
 } from './types';
+import { parseCustomFormAnswersToFormData } from '#src/libs/custom-form/utils';
 
 export const fetchAllCustomFormActions = {
   isLoading: createAction('CUSTOM_FORM/GET/IS_LOADING'),
@@ -360,8 +361,14 @@ export function submitCustomForm(
     dispatch(submitCustomFormActions.isLoading(true));
     dispatch(submitCustomFormActions.error(null));
 
+    let formDataPayload = form_filled;
+
+    if (!(formDataPayload instanceof FormData)) {
+      formDataPayload = parseCustomFormAnswersToFormData(form_filled);
+    }
+
     try {
-      const response = await submitCustomFormAPI(form_filled, companyId);
+      const response = await submitCustomFormAPI(formDataPayload, companyId);
 
       dispatch(submitCustomFormActions.success(response.data));
       options?.onSuccess?.(response.data);

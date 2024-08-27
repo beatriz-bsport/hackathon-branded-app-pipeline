@@ -20,6 +20,13 @@ export const getDefaultTitleForComponent = (
   );
 };
 
+export const getDefaultMarketplaceTabTitle = (
+  componentType: string,
+  t: TFunction,
+) => {
+  return t(`marketplace:defaultTabTitle.${componentType}`);
+};
+
 export const getDefaultConfigByIdentifier = (identifier: string) => {
   const component = EXPORTABLE_COMPONENTS.find(
     (ec) => ec.identifier === identifier,

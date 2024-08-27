@@ -1,4 +1,16 @@
 exports.default = {
+  defaultTabTitle: {
+    calendar: 'Calendar',
+    calendarV2: 'Calendar',
+    giftcard: 'Giftcards',
+    pass: 'Passes',
+    playlist: 'Playlists',
+    privateService: 'Appointments',
+    shop: 'Webshop',
+    subscription: 'Subscription',
+    vod: 'Video On Demand',
+    workshop: 'Workshops',
+  },
   selector: {
     coach: { placeholder: 'Teacher' },
     level: { placeholder: 'Level' },

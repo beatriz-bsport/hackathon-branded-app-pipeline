@@ -7,7 +7,7 @@ import {
   fromConfigToUrl,
   getCheckoutUrl,
 } from '#src/libs/marketplace/routing-utils';
-import { getDefaultTitleForComponent } from '#src/libs/exportable-components/utils';
+import { getDefaultMarketplaceTabTitle } from '#src/libs/exportable-components/utils';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppBar';
 import useViewport from '#Fabrique/hooks/useViewport';
@@ -65,7 +65,7 @@ const ConsumerNavigation: React.FC<Props> = ({
   tabConfigList,
   push,
 }) => {
-  const { t } = useTranslation('consumerSpace');
+  const { t } = useTranslation(['consumerSpace', 'marketplace']);
   const { width } = useViewport();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
@@ -77,7 +77,7 @@ const ConsumerNavigation: React.FC<Props> = ({
         id: `bs-navigation-app-bar-link-${tabConfig.index}`,
         label:
           tabConfig.title ||
-          getDefaultTitleForComponent(tabConfig.component_type, t),
+          getDefaultMarketplaceTabTitle(tabConfig.component_type, t),
         color: 'grey',
         onClick: () =>
           push(
@@ -121,7 +121,7 @@ const ConsumerNavigation: React.FC<Props> = ({
   const actionsList: AppBarButton[] = useMemo(
     () => [
       {
-        label: t('reworked.appbar.cart'),
+        label: t('consumerSpace:reworked.appbar.cart'),
         color: 'grey',
         leftIcon: <ShoppingCart01 />,
         onClick: () => push(checkoutUrl),
@@ -130,7 +130,7 @@ const ConsumerNavigation: React.FC<Props> = ({
         badgeValue: basketProductListCount,
       },
       {
-        label: t('reworked.appbar.myAccount'),
+        label: t('consumerSpace:reworked.appbar.myAccount'),
         color: 'grey',
         leftIcon: <UserCircle />,
         onClick:

@@ -14,7 +14,7 @@ import {
   fromConfigToUrl,
   getCheckoutUrl,
 } from '#src/libs/marketplace/routing-utils';
-import { getDefaultTitleForComponent } from '#src/libs/exportable-components/utils';
+import { getDefaultMarketplaceTabTitle } from '#src/libs/exportable-components/utils';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
 // @ts-expect-error JS
 import Analytics from '#src/components/analytics/Analytics.component';
@@ -134,7 +134,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
         id: `bs-navigation-app-bar-link-${tabConfig.index}`,
         label:
           tabConfig.title ||
-          getDefaultTitleForComponent(tabConfig.component_type, t),
+          getDefaultMarketplaceTabTitle(tabConfig.component_type, t),
         color: 'grey',
         isSelected: parseInt(tabSelected, 10) === tabConfig.index,
         onClick: () => {

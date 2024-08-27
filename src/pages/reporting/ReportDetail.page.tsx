@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
-import { getResultsBySelectorId } from '#src/libs/fuzzy-search/selectors';
+import { getResultsById } from '#src/libs/fuzzy-search/selectors';
 
 import {
   getInvalidFiltersV2,
@@ -243,9 +243,7 @@ const ReportingDetail: React.FC<Props> = ({
     (defaultReport) => defaultReport.category === categoryName,
   )?.id;
 
-  const report = getReportSearchResults.currentResults.find(
-    (reportResult) => reportResult.id == reportId,
-  ) as ReportConfiguration;
+  const report = getReportSearchResults?.[reportId] as ReportConfiguration;
 
   const handleExcelExportation = React.useCallback(
     (values: ReportGenerationParams) => () => {
@@ -393,8 +391,7 @@ const ReportingDetail: React.FC<Props> = ({
 const connector = connect(
   (state: RootState, { reportId }: { reportId: number }) => ({
     excelExportLoading: getReportExcelState(state).loading,
-    getReportSearchResults: getResultsBySelectorId(state, 'reportV2', 'default')
-      .results,
+    getReportSearchResults: getResultsById(state, 'reportV2'),
     objectLevelPermissions: getObjectPermissions(state),
     defaultReports: getReportsV2(state),
     invalidFilters: getInvalidFiltersV2(state),

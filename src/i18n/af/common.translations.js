@@ -88,4 +88,9 @@ exports.default = {
   send: 'Send',
   reset: 'Reset',
   more: 'More',
+  gender: {
+    ['F']: 'Female',
+    ['M']: 'Male',
+    ['X']: 'Non-binary',
+  },
 };

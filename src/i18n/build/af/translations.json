@@ -1182,7 +1182,8 @@
     "seeMore": "See more",
     "send": "Send",
     "reset": "Reset",
-    "more": "More"
+    "more": "More",
+    "gender": { "F": "Female", "M": "Male", "X": "Non-binary" }
   },
   "communication": {
     "table": { "columns": { "member": "Member", "title": "Preview", "date_created": "Date", "status": "Status" } },

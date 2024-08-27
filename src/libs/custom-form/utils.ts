@@ -32,14 +32,21 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
   CUSTOM_FORM_FIELD_LOCATION_OPTION,
 } from '@bsport/common/lib/master-data/custom-form';
+// @ts-expect-error JS
+import { mapFormDataWithObject } from '#src/pages/form.utils';
+
 import type {
   CustomFormField,
+  CustomFormFieldAnswer,
   CustomFormFilledAPI,
   FormikCustomFormFieldAnswerAPI,
   Layout,
 } from './types';
 import { Member, MemberAddress, UserProfile } from '../member/types';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from './constants';
+import {
+  CUSTOM_FORM_CSS_VARIANT_ACTIVATED,
+  CUSTOM_FORM_FILLED_MAP,
+} from './constants';
 
 export const MODEL_BASED_QUESTION_ANY = 0;
 export const MODEL_BASED_QUESTION_FAVORITE = 1;
@@ -405,3 +412,58 @@ export const generateUniqueCustomFormFieldIdentifier = (
 
 export const isCustomFormCssVariantActivated = (useCustomCssVariant: boolean) =>
   CUSTOM_FORM_CSS_VARIANT_ACTIVATED || useCustomCssVariant;
+
+/**
+ * Transform formik values from a custom form into a valid FormData instance
+ * @param formikValues The formik values when submitting the form
+ * @returns {FormData}
+ */
+export const parseCustomFormAnswersToFormData = (formikValues: {
+  [key: string]: any;
+}) => {
+  const formData: FormData = mapFormDataWithObject(
+    formikValues,
+    CUSTOM_FORM_FILLED_MAP,
+    [
+      'custom_form_field',
+      'date_created',
+      'disabled',
+      'id',
+      'initialPhotos',
+      'is_member_form',
+      'is_signup',
+      'layout_configuration',
+      'layout',
+      'name',
+    ],
+  );
+
+  // Handle file and signature fields
+  formikValues.custom_form_field
+    .filter((_field: CustomFormFieldAnswer) =>
+      [
+        CUSTOM_FORM_FIELD_FILE_OPTION,
+        CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
+      ].includes(_field.kind),
+    )
+    .forEach(
+      (field: CustomFormFieldAnswer) =>
+        field.answer && formData.append(`file:${field.id}`, field.answer),
+    );
+
+  // We add the photo file only if it is a new one (binary files are already handled)
+  // However, the customform saving could break due to the filename (that could have more than 100 characters, with the storage path)
+  // And it is a pain to handle that in the back (due to serializer check) => way more easier to pop it in the front
+  formikValues.custom_form_field
+    .filter(
+      (_field: CustomFormFieldAnswer) =>
+        _field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
+    )
+    .forEach((field: CustomFormFieldAnswer) => {
+      if (field.answer && !formikValues.initialPhotos.includes(field.answer)) {
+        formData.append(`file:${field.id}`, field.answer);
+      }
+    });
+
+  return formData;
+};

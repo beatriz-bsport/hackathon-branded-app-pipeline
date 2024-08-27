@@ -2237,7 +2237,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán las solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán por tanto solicitudes de sustitución de todas las ubicaciones.",
                     "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
@@ -2281,7 +2281,7 @@
                 "isIntegratedInPartnership": "Una o varias integraciones utilizan este establecimiento.",
                 "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del marketplace están configuradas para mostrar únicamente el calendario y los talleres de este establecimiento, actualízalas antes de eliminar el establecimiento.",
                 "exclusiveEstablishmentGroups": "La ubicación {{- establishment_group_name }} sólo contiene el establecimiento que desea eliminar, actualice o elimine esta ubicación.",
-                "exclusiveEstablishmentGroups_plural": "Las ubicaciones{{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, por favor, actualice o elimine estas ubicaciones.",
+                "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, actualice o elimine estas ubicaciones.",
                 "exclusivePaymentPacks": "El siguiente pase {{- pass_name }} sólo se puede utilizar en este establecimiento. Actualiza sus restricciones antes de eliminar el establecimiento.",
                 "exclusivePaymentPacks_plural": "Los siguientes pases {{- pass_name }} sólo se pueden utilizar en este establecimiento. Actualice sus restricciones antes de eliminar el establecimiento.",
                 "hasExclusiveBillingGroup": "Este establecimiento es el último de su grupo de facturación. Por favor, elimine o actualice este grupo de facturación antes de eliminar este establecimiento.",
@@ -3634,7 +3634,8 @@
             "explainPdfDraft": "La factura sigue siendo un borrador, el pdf no está disponible.",
             "addFooter": "Modificar la nota a pie de página de la factura",
             "addCoupon": "Añadir un código promocional",
-            "downloadReceipt": "Recibo del pago"
+            "downloadReceipt": "Recibo del pago",
+            "downloadXml": "Descargar factura (XML)"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "La factura se ha finalizado y, por lo tanto, ya no se puede editar",
@@ -3733,6 +3734,19 @@
                     },
                     "isEmpty": "No hay compras",
                     "title": "Compras"
+                },
+                "export": {
+                    "status": {
+                        "notGenerated": "No generado",
+                        "failWithMessage": "Generación fallida: {{- errorMessage }}",
+                        "fail": "Generación fallida",
+                        "success": "Generado con éxito"
+                    },
+                    "header": {
+                        "errorMessage": "Mensaje de error",
+                        "status": "Estado"
+                    },
+                    "title": "Factura electrónica (XML)"
                 }
             },
             "header": {
@@ -6973,7 +6987,19 @@
                 },
                 "unAuthorized": "No tienes los derechos necesarios para inscribirse en esta sesión."
             },
-            "isBookingLimitReached": "Ha alcanzado su límite de reservas"
+            "isBookingLimitReached": "Ha alcanzado su límite de reservas",
+            "multiSession": {
+                "selectSpot": {
+                    "validationButton": "Añadir sesión",
+                    "dialogSubtitle": "Seleccione su sitio para la clase",
+                    "dialogTitle": "Seleccionar sitio"
+                },
+                "addSession": {
+                    "noContent": "No se han encontrado sesiones similares.",
+                    "dialogSubtitle": "Seleccione la sesión que desea reservar",
+                    "dialogTitle": "Añadir una sesión"
+                }
+            }
         },
         "filters": {
             "notRefunded": "No reembolsada",
@@ -8805,12 +8831,26 @@
                     "myBookings": "Mis reservas",
                     "summary": "Resumen",
                     "title": "Cuenta"
-                }
+                },
+                "logOut": "Cerrar sesión",
+                "changeLanguage": "Cambiar idioma",
+                "changeStudio": "Cambiar estudio",
+                "myPurchases": "Mis compras",
+                "myDashboard": "Mi dashboard",
+                "myStatistics": "Mis estadísticas",
+                "myInvoices": "Mis facturas",
+                "myGiftCards": "Mis tarjetas de regalo",
+                "myProfile": "Mi perfil",
+                "mySubscriptions": "Mis suscripciones",
+                "myPasses": "Mis pases",
+                "myBookings": "Mis reservas",
+                "exploreYourProfile": "Explora tu perfil"
             },
             "exploreYourProfile": "Explora tu perfil.",
             "appbar": {
                 "myAccount": "Mi cuenta",
-                "cart": "Cesta"
+                "cart": "Cesta",
+                "companyLogo": "Logo de la empresa"
             }
         }
     },
@@ -13450,7 +13490,8 @@
             "totalHiddingTax": "Total",
             "deliveryFee": "Gastos de envío",
             "title": "Pago",
-            "flatFeeSubscription": "Tasa de matriculación"
+            "flatFeeSubscription": "Tasa de matriculación",
+            "selectedSession": "Sus sesiones seleccionadas"
         },
         "expiredSpotDialog": {
             "refresh": "Actualizar",
@@ -13723,7 +13764,9 @@
         "discardChanges": "Descartar cambios",
         "rename": "Renombrar",
         "send": "Enviar",
-        "reset": "Reiniciar"
+        "reset": "Reiniciar",
+        "more": "Más",
+        "add": "Añadir"
     },
     "snackbar": {
         "invoice": {
@@ -13792,6 +13835,16 @@
                     "14100": "No es posible anular una factura con los pagos de Interac.",
                     "14102": "Es imposible reembolsar esta factura."
                 }
+            },
+            "generateXml": {
+                "errors": {
+                    "default": "Se ha producido un error al generar la factura XML",
+                    "14213": "El archivo generado no cumple con la comprobación previa a la validación (proporcionada en nuestro código por el gobierno italiano)",
+                    "14212": "Falta la dirección del miembro o está incompleta",
+                    "14211": "El afiliado no tiene documento oficial de identidad",
+                    "14210": "La empresa no está configurada para la exportación de facturas XML. Póngase en contacto con su gestor de cuentas de bsport."
+                },
+                "success": "Factura XML generada correctamente"
             }
         },
         "playlist": {
@@ -18170,7 +18223,8 @@
                 "consumer_summary_card": "Tarjeta resumen del consumidor",
                 "consumer_saved_payment_methods_card": "Tarjeta de medios de pago ahorrados por el consumidor",
                 "consumer_terms_and_conditions": "Tarjeta de términos y condiciones del consumidor",
-                "authentication_disconnected_status": "Estado de desconexión"
+                "authentication_disconnected_status": "Estado de desconexión",
+                "fabrique_submenu": "Submenú"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",

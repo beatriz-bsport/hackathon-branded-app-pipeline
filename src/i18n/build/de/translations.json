@@ -7265,6 +7265,16 @@
                     "14100": "Es ist nicht möglich, eine Rechnung mit Interac-Zahlungen zu stornieren.",
                     "14102": "Diese Rechnung kann nicht erstattet werden."
                 }
+            },
+            "generateXml": {
+                "errors": {
+                    "default": "Beim Generieren der XML-Rechnung ist ein Fehler aufgetreten",
+                    "14213": "Die erzeugte Datei entspricht nicht der Vorvalidierungsprüfung (die von der italienischen Regierung in unserem Code bereitgestellt ist)",
+                    "14212": "Die Adresse des Mitglieds fehlt oder ist unvollständig",
+                    "14211": "Das Mitglied hat kein offizielles Ausweisdokument",
+                    "14210": "Das Unternehmen ist nicht für den Export von XML-Rechnungen konfiguriert. Bitte wenden Sie sich an Ihren bsport-Kundenbetreuer."
+                },
+                "success": "XML-Rechnung erfolgreich generiert"
             }
         },
         "member": {
@@ -8383,7 +8393,8 @@
             "explainPdfDraft": "Die Rechnung ist noch in Entwurfsform, das PDF ist nicht verfügbar.",
             "addFooter": "Fußnote dieser Rechnung anpassen",
             "addCoupon": "Promo-Code hinzufügen",
-            "downloadReceipt": "Quittung über die Zahlung"
+            "downloadReceipt": "Quittung über die Zahlung",
+            "downloadXml": "Rechnung herunterladen (XML)"
         },
         "invoice": {
             "editor": {
@@ -8561,6 +8572,19 @@
                     },
                     "isEmpty": "Bitte beginnen Sie damit Produkte zu dieser Rechnung hinzuzufügen.",
                     "title": "Käufe"
+                },
+                "export": {
+                    "status": {
+                        "notGenerated": "Nicht generiert",
+                        "failWithMessage": "Generation fehlgeschlagen: {{- errorMessage }}",
+                        "fail": "Generation fehlgeschlagen",
+                        "success": "Erfolgreich generiert"
+                    },
+                    "header": {
+                        "errorMessage": "Fehlermeldung",
+                        "status": "Status"
+                    },
+                    "title": "Elektronische Rechnung (XML)"
                 }
             },
             "header": {
@@ -9818,7 +9842,19 @@
                     "title": "Informationen"
                 }
             },
-            "isBookingLimitReached": "Sie haben Ihr Buchungslimit erreicht"
+            "isBookingLimitReached": "Sie haben Ihr Buchungslimit erreicht",
+            "multiSession": {
+                "selectSpot": {
+                    "validationButton": "Kurs hinzufügen",
+                    "dialogSubtitle": "Wählen Sie Ihren Platz für die Klasse",
+                    "dialogTitle": "Platz auswählen"
+                },
+                "addSession": {
+                    "noContent": "Es wurden keine ähnlichen Kurse gefunden.",
+                    "dialogSubtitle": "Wählen Sie den Kurs, den Sie buchen möchten",
+                    "dialogTitle": "Einen Kurs hinzufügen"
+                }
+            }
         },
         "statusCode": {
             "cancelledByOffer": "Kurs vom Studio abgesagt",
@@ -10827,7 +10863,9 @@
         "discardChanges": "Änderungen verwerfen",
         "rename": "Umbenennen",
         "send": "Versenden",
-        "reset": "Zurücksetzen"
+        "reset": "Zurücksetzen",
+        "more": "Mehr",
+        "add": "Hinzufügen"
     },
     "coupon": {
         "detail": {
@@ -13346,12 +13384,26 @@
                     "myBookings": "Meine Buchungen",
                     "summary": "Zusammenfassung",
                     "title": "Konto"
-                }
+                },
+                "logOut": "Abmelden",
+                "changeLanguage": "Sprache ändern",
+                "changeStudio": "Studio wechseln",
+                "myPurchases": "Meine Einkäufe",
+                "myDashboard": "Mein Dashboard",
+                "myStatistics": "Meine Statistiken",
+                "myInvoices": "Meine Rechnungen",
+                "myGiftCards": "Meine Geschenkgutscheine",
+                "myProfile": "Mein Profil",
+                "mySubscriptions": "Meine Abonnements",
+                "myPasses": "Meine Kurspässe",
+                "myBookings": "Meine Buchungen",
+                "exploreYourProfile": "Erkunden Sie Ihr Profil"
             },
             "exploreYourProfile": "Erkunden Sie Ihr Profil.",
             "appbar": {
                 "myAccount": "Mein Konto",
-                "cart": "Warenkorb"
+                "cart": "Warenkorb",
+                "companyLogo": "Firmenlogo"
             }
         }
     },
@@ -17359,7 +17411,8 @@
             "totalHiddingTax": "Gesamtbetrag",
             "deliveryFee": "Versandkosten",
             "title": "Zahlung",
-            "flatFeeSubscription": "Anmeldegebühren"
+            "flatFeeSubscription": "Anmeldegebühren",
+            "selectedSession": "Ihre ausgewählten Kurse"
         },
         "expiredSpotDialog": {
             "refresh": "Aktualisieren",
@@ -17856,7 +17909,8 @@
                 "consumer_summary_card": "Übersichtskarte für Verbraucher",
                 "consumer_saved_payment_methods_card": "Gespeicherte Verbraucherzahlungsmethoden Karte",
                 "consumer_terms_and_conditions": "Karte mit den allgemeinen Geschäftsbedingungen für Verbraucher",
-                "authentication_disconnected_status": "Offline-Zustand"
+                "authentication_disconnected_status": "Offline-Zustand",
+                "fabrique_submenu": "Untermenü"
             },
             "page": {
                 "calendar": "Kalender",

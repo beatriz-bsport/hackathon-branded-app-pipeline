@@ -6946,7 +6946,7 @@
             "broadcast": "Livestream"
         },
         "analytics": {
-            "showAnalyticsInformation": "Show retargeting events",
+            "showAnalyticsInformation": "Show tracked events",
             "eventDesc": "Events",
             "gtmEvent": "Google Tag Management",
             "fbPixelEvent": "Facebook Pixel",

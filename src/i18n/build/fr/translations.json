@@ -242,7 +242,19 @@
                 },
                 "unAuthorized": "Vous n’avez pas les droits nécessaires pour vous inscrire à cette séance."
             },
-            "isBookingLimitReached": "Vous avez atteint votre limite de réservation"
+            "isBookingLimitReached": "Vous avez atteint votre limite de réservation",
+            "multiSession": {
+                "selectSpot": {
+                    "validationButton": "Ajouter une séance",
+                    "dialogSubtitle": "Sélectionnez votre place pour la classe",
+                    "dialogTitle": "Sélectionnez une place"
+                },
+                "addSession": {
+                    "noContent": "Aucune séance similaire n'a été trouvée.",
+                    "dialogSubtitle": "Sélectionnez la séance que vous voulez réserver",
+                    "dialogTitle": "Ajouter une séance"
+                }
+            }
         },
         "details": {
             "pleaseSelectABooking": "Sélectionnez une réservation pour voir le détails",
@@ -639,7 +651,8 @@
             "flatFeeSubscription": "Frais de dossier",
             "globalTotal": "Total",
             "totalHiddingTax": "Total",
-            "internalAccount": "Compte interne"
+            "internalAccount": "Compte interne",
+            "selectedSession": "Vos séances sélectionnées"
         },
         "events": {
             "basket-created": "Panier créé",
@@ -1188,7 +1201,9 @@
         "discardChanges": "Abandonner les modifications",
         "rename": "Renommer",
         "send": "Envoyer",
-        "reset": "Réinitialiser"
+        "reset": "Réinitialiser",
+        "more": "Plus",
+        "add": "Ajouter"
     },
     "communication": {
         "table": {
@@ -2272,12 +2287,26 @@
                     "myGiftCards": "Mes cartes cadeaux",
                     "myPurchases": "Mes achats",
                     "title": "Magasin"
-                }
+                },
+                "logOut": "Se déconnecter",
+                "changeLanguage": "Changer de langue",
+                "changeStudio": "Changer de studio",
+                "myPurchases": "Mes achats",
+                "myDashboard": "Mon dashboard",
+                "myStatistics": "Mes statistiques",
+                "myInvoices": "Mes factures",
+                "myGiftCards": "Mes cartes cadeaux",
+                "myProfile": "Mon profil",
+                "mySubscriptions": "Mes souscriptions",
+                "myPasses": "Mes cartes",
+                "myBookings": "Mes réservations",
+                "exploreYourProfile": "Explorez votre profil"
             },
             "exploreYourProfile": "Consultez votre profil.",
             "appbar": {
                 "myAccount": "Mon compte",
-                "cart": "Panier"
+                "cart": "Panier",
+                "companyLogo": "Logo de la compagnie"
             }
         }
     },
@@ -3274,7 +3303,7 @@
                 "warnings": {
                     "hasRelatedAssociatedCoaches": "Certains professeurs reçoivent une notification lorsqu'une demande de substitution est faite pour une séance dans cette localisation. En supprimant la localisation, ils ne recevront plus de notification à ce sujet.",
                     "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation uniquement. En supprimant la localisation, il/elle recevra donc les demandes de remplacement de toutes les localisations.",
-                    "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une session dans cette localisation. En supprimant la localisation, ils recevront donc les demandes de remplacement de toutes les localisations.",
+                    "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une session dans ce lieu. En supprimant le lieu, ils recevront donc les demandes de remplacement de tous les lieux.",
                     "hasRelatedStaffConfigurations": "Cette localisation est utilisée pour la surveillance des accès par un ou plusieurs membres du personnel. En supprimant la localisation sans en sélectionner une nouvelle, ils ne pourront plus effectuer de surveillance des accès.",
                     "hasRelatedMarketingNotifications": "Les notifications liées à cette localisation seront supprimées.",
                     "hasRelatedMarketplaceComponentConfigs": "Les onglets du calendrier et des ateliers configurés pour votre marketplace n'afficheront plus le calendrier cette localisation."
@@ -4022,7 +4051,8 @@
             "finalize": "Finaliser (PDF)",
             "consumeBalance": "Payer via solde",
             "addCoupon": "Ajouter un code promo",
-            "downloadReceipt": "Reçu de paiement"
+            "downloadReceipt": "Reçu de paiement",
+            "downloadXml": "Télécharger la facture (XML)"
         },
         "returnPayment": {
             "modal": {
@@ -4259,6 +4289,19 @@
                         "date": "Date",
                         "paymentReceived": "Statut"
                     }
+                },
+                "export": {
+                    "status": {
+                        "notGenerated": "Non générée",
+                        "failWithMessage": "Échec de la génération : {{- errorMessage }}",
+                        "fail": "Échec de la génération",
+                        "success": "Générée avec succès"
+                    },
+                    "header": {
+                        "errorMessage": "Message d'erreur",
+                        "status": "Statut"
+                    },
+                    "title": "Facture électronique (XML)"
                 }
             }
         },
@@ -14996,6 +15039,16 @@
                     "14101": "Impossible de rembourser en avoir une facture d'ajustement de solde.",
                     "14102": "Impossible de rembourser cette facture."
                 }
+            },
+            "generateXml": {
+                "errors": {
+                    "default": "Une erreur s'est produite lors de la génération de la facture XML",
+                    "14213": "Le fichier généré n'est pas conforme au contrôle de pré-validation (fourni dans notre code par le gouvernement italien)",
+                    "14212": "L'adresse du membre est manquante ou incomplète",
+                    "14211": "Le membre n'a pas de document d'identité officiel",
+                    "14210": "L'entreprise n'est pas configurée pour l'exportation de factures XML. Veuillez contacter votre gestionnaire de compte bsport."
+                },
+                "success": "Facture XML générée avec succès"
             }
         },
         "zoom": {
@@ -19609,7 +19662,8 @@
                 "consumer_summary_card": "Carte récapitulative du membre",
                 "consumer_saved_payment_methods_card": "Carte des méthodes de paiements sauvegardées",
                 "consumer_terms_and_conditions": "Carte de conditions générales de vente pour les consommateurs",
-                "authentication_disconnected_status": "Etat déconnecté"
+                "authentication_disconnected_status": "Etat déconnecté",
+                "fabrique_submenu": "Sous-menu"
             },
             "page": {
                 "common": "Commun",

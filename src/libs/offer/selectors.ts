@@ -31,6 +31,9 @@ const getState = (state: RootState) => state.offer;
 // @ts-expect-error
 const getAll = (state: RootState) => getState(state).offers;
 
+export const getRetrieveOfferLoading = (state: RootState) =>
+  state.offer.retrieve.loading;
+
 export const getOfferCalendarState = (state: RootState) =>
   getState(state).paginatedCalendar;
 

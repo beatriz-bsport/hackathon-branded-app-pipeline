@@ -46,7 +46,11 @@ type OwnProps = {
   level: Level;
   coach: Coach;
   bookings: BookingWithConsumerPaymentPack[];
-  bookingLoading: boolean;
+  isBookingLoading: boolean;
+  isOfferLoading: boolean;
+  isEstablishmentLoading: boolean;
+  isCoachLoading: boolean;
+  isLevelLoading: boolean;
   registrationDialogOpen?: boolean;
   barcodeDetectorEnabled: boolean;
   goBack: () => void;
@@ -83,10 +87,10 @@ export class CheckInOfferDetail extends React.Component<Props> {
 
   render() {
     if (
-      !this.props.offer ||
-      !this.props.establishment ||
-      !this.props.coach ||
-      !this.props.level
+      this.props.isEstablishmentLoading ||
+      this.props.isOfferLoading ||
+      this.props.isCoachLoading ||
+      this.props.isLevelLoading
     ) {
       return <CircularProgress />;
     }
@@ -126,7 +130,7 @@ export class CheckInOfferDetail extends React.Component<Props> {
           </div>
 
           <BookingList
-            bookingLoading={this.props.bookingLoading}
+            bookingLoading={this.props.isBookingLoading}
             bookings={this.props.bookings}
             confirmBookingAttendance={this.props.confirmBookingAttendance}
             getMember={this.props.getMember}

@@ -764,8 +764,9 @@ export function retrieveOffer(id: number, options?: OptionCallback<OfferREST>) {
     } catch (error) {
       dispatch(retrieveByIdActions.error(error));
       if (options && options.onError) options.onError(error);
+    } finally {
+      dispatch(retrieveByIdActions.isLoading(false));
     }
-    dispatch(retrieveByIdActions.isLoading(false));
   };
 }
 

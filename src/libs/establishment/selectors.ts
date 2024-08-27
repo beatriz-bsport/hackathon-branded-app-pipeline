@@ -11,6 +11,9 @@ import {
   EstablishmentState,
 } from './types';
 
+export const getEstablishmentLoading = (state: RootState) =>
+  state.establishment.loading;
+
 export const getState = (state: RootState): EstablishmentState =>
   state.establishment;
 

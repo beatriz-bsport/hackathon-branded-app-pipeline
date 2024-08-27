@@ -48,7 +48,10 @@ import {
   getOfferBookingListWithConsumerPack,
   getMemberBookingWithConsumerPack,
 } from '#src/libs/booking/selectors';
-import { getOfferById } from '#src/libs/offer/selectors';
+import {
+  getOfferById,
+  getRetrieveOfferLoading,
+} from '#src/libs/offer/selectors';
 import {
   getSearchedMembers,
   getAllMembers,
@@ -59,9 +62,15 @@ import {
   withPaymentPack as withPaymentPackForConsumer,
 } from '#src/libs/consumer-payment-pack/selectors';
 import { getSignUpFormConfigurationDict } from '#src/libs/sign-up-form/selectors';
-import { getLevel } from '#src/libs/level/selectors';
-import { getEstablishment } from '#src/libs/establishment/selectors';
-import { getCoach } from '#src/libs/associated-coach/selectors';
+import { getLevel, getLevelsIsLoading } from '#src/libs/level/selectors';
+import {
+  getEstablishment,
+  getEstablishmentLoading,
+} from '#src/libs/establishment/selectors';
+import {
+  getCoach,
+  getCoachLoading,
+} from '#src/libs/associated-coach/selectors';
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
@@ -208,7 +217,6 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
       <div className={this.props.classes.container}>
         <CheckInOfferDetail
           barcodeDetectorEnabled={this.props.barcodeDetectorEnabled}
-          bookingLoading={this.props.loading}
           // @ts-expect-error TODO - typing
           bookings={this.props.bookings}
           closeBarcode={this.props.closeBarcode}
@@ -223,6 +231,11 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
           fetchMemberByBarcode={this.props.fetchMemberByBarcode}
           getMember={this.props.getMember}
           goBack={this.props.goBack}
+          isBookingLoading={this.props.isBookingLoading}
+          isCoachLoading={this.props.isCoachLoading}
+          isEstablishmentLoading={this.props.isEstablishmentLoading}
+          isLevelLoading={this.props.isLevelLoading}
+          isOfferLoading={this.props.isOfferLoading}
           level={this.props.getLevel(
             this.props.offer?.custom_level ?? this.props.offer?.level,
           )}
@@ -363,7 +376,11 @@ const connector = connect(
     managerFormConfig: getSignUpFormConfigurationDict(state),
     getBooking: (bookingId: number) =>
       bookingId ? getMemberBookingWithConsumerPack(state, bookingId) : null,
-    bookingLoading: state.booking.byOffer.loading,
+    isBookingLoading: state.booking.byOffer.loading,
+    isOfferLoading: getRetrieveOfferLoading(state),
+    isEstablishmentLoading: getEstablishmentLoading(state),
+    isCoachLoading: getCoachLoading(state),
+    isLevelLoading: getLevelsIsLoading(state),
     getLevel: (id: number) => getLevel(state, id),
     getEstablishment: (id: number) => getEstablishment(state, id),
     getCoach: (id: number) => getCoach(state, id),

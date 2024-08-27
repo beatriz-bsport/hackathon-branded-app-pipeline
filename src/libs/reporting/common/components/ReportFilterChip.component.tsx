@@ -41,7 +41,8 @@ import {
   getComparatorLabel,
   getMultipleValuesLabel,
   getSingleValueLabel,
-  isMemberColumn,
+  getColumnLabelTranslation,
+  isReportColumnRemoved,
 } from '#src/libs/reporting/common/utils';
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 
@@ -101,10 +102,10 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
 
     const { values, setFieldValue } = useFormikContext<ReportFilterConfig>();
 
-    const isColumnRemoved = useMemo(() => {
-      return !columnIdentifiers?.includes(label);
-    }, [columnIdentifiers, label]);
-
+    const isColumnRemoved = useMemo(
+      () => isReportColumnRemoved(datatype, columnIdentifiers, label),
+      [columnIdentifiers, label, datatype],
+    );
     /**
      * Some filters are dynamic because they filter based on ids, hence the need for
      * additional fetches defined in dynamic-data-hoc file
@@ -322,9 +323,9 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
                   !onlyDisplay && !isColumnRemoved && valueLabel === '',
               })}
               icon={getIcon()}
-              label={`${t(
-                `columns.${isMemberColumn(datatype, label) ? 'member' : label}`,
-              )} ${onlyDisplay ? '' : valueLabel}`}
+              label={`${t(`${getColumnLabelTranslation(datatype, label)}`)} ${
+                onlyDisplay ? '' : valueLabel
+              }`}
               onClick={
                 onlyDisplay || isColumnRemoved || isInvalid
                   ? null

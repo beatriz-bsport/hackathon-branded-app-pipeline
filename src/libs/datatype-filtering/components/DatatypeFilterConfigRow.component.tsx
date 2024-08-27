@@ -29,10 +29,13 @@ import {
 
 import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 import HoverableWarning from '#src/components/HoverableWarning.component';
-import { authorIdentifiers } from '#src/libs/reporting/common/constants';
 import DatatypeFilterConfigValueManager from './DatatypeFilterConfigValueManager.component';
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import {
+  getColumnLabelTranslation,
+  isReportColumnRemoved,
+} from '#src/libs/reporting/common/utils';
 
 type Props = {
   filterItem: DatatypeFilterConfigItem;
@@ -76,7 +79,15 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
   const rowRef = useRef(null);
   const memberElementRef = React.useRef<HTMLDivElement>();
   const [shouldForceUpdate, setShouldForceUpdate] = React.useState(true);
-
+  const isColumnRemoved = useMemo(
+    () =>
+      isReportColumnRemoved(
+        filterItem.datatype,
+        reportColumns,
+        filterItem.identifier,
+      ),
+    [filterItem, reportColumns],
+  );
   React.useEffect(() => {
     if (shouldForceUpdate) {
       // setTimeout here is necessary because when re-mounting the component,
@@ -85,9 +96,15 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
     }
   }, [shouldForceUpdate]);
 
-  const translationPrefix = dashboardTranslationNamespace
-    ? 'dashboard:dataSourceIdentifiers'
-    : 'columns';
+  const getColumnLabelNamespace = React.useCallback(
+    (datatype, identifier) => {
+      if (dashboardTranslationNamespace) {
+        return `dashboard:dataSourceIdentifiers.${identifier}`;
+      }
+      return getColumnLabelTranslation(datatype, identifier);
+    },
+    [dashboardTranslationNamespace],
+  );
 
   //
   // Options
@@ -98,37 +115,28 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
         [
           {
             label: t(
-              `${translationPrefix}.${
-                filterItem.datatype === 'user' &&
-                !authorIdentifiers.includes(filterItem.identifier)
-                  ? 'member'
-                  : filterItem.identifier
-              }`,
+              `${getColumnLabelNamespace(
+                filterItem.datatype,
+                filterItem.identifier,
+              )}`,
             ),
             value: filterItem.identifier,
             datatype: filterItem.datatype,
           },
           ...consumableColumns.map((c) => ({
-            label: t(
-              `${translationPrefix}.${
-                c.datatype === 'user' &&
-                !authorIdentifiers.includes(filterItem.identifier)
-                  ? 'member'
-                  : c.identifier
-              }`,
-            ),
+            label: t(`${getColumnLabelNamespace(c.datatype, c.identifier)}`),
             value: c.identifier,
             datatype: c.datatype,
           })),
         ],
-        'value',
+        'label',
       ),
     [
       consumableColumns,
       t,
       filterItem.identifier,
       filterItem.datatype,
-      translationPrefix,
+      getColumnLabelNamespace,
     ],
   );
 
@@ -273,7 +281,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
             chipsRenderer={({ data }) => (
               <div className={classes.warningSelect}>
                 <div>{data.label}</div>
-                {!reportColumns.includes(filterItem.identifier) && (
+                {isColumnRemoved && (
                   <HoverableWarning
                     containerPortal={rowRef?.current}
                     displayPopperWarning={displayPopperWarning}

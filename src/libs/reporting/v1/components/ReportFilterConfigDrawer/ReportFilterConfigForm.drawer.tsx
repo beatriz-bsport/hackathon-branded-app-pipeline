@@ -132,8 +132,8 @@ const ReportFilterConfigFormDrawer: React.FC<
   //
   const consumableColumns = useMemo(
     // @ts-expect-error
-    () => getFilterableColumns(values.config.groups, columns, isFranchisor),
-    [columns, values.config.groups, isFranchisor],
+    () => getFilterableColumns(values.config.groups, columns, isFranchisor, t),
+    [columns, values.config.groups, isFranchisor, t],
   );
 
   const reportColumns = useMemo(() => {

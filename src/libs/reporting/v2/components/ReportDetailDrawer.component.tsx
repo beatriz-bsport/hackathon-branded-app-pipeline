@@ -155,8 +155,9 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
         // @ts-expect-error TODO: harmonize ReportMetadataColumn,DataSourceFieldMetadata,DataSourceMetadata
         reportCategoryMetadata?.columns,
         isFranchisor,
+        t,
       ),
-    [values.config.groups, reportCategoryMetadata?.columns, isFranchisor],
+    [values.config.groups, reportCategoryMetadata?.columns, isFranchisor, t],
   );
 
   const handleAddFilter = React.useCallback(() => {

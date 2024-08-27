@@ -16,7 +16,7 @@ import uniqBy from 'lodash/uniqBy';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import FuzeSearch from '#src/components/FuzeSearch.component';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import {
+import type {
   DataSourceFieldMetadata,
   DataSourceMedadataDataType,
   DatatypeFilterConfigItem,
@@ -26,15 +26,15 @@ import {
   generateNewGroup,
 } from '#src/libs/datatype-filtering/utils';
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
-import { authorIdentifiers } from '#src/libs/reporting/common/constants';
 import QuickReportFilterConfigFilter, {
   QuickFiltersColumnsData,
 } from './QuickReportFilterConfigFilter.component';
 import {
+  getColumnLabelTranslation,
   getFilterableColumns,
   getReportGlobalCategoryFromCategory,
 } from '#src/libs/reporting/common/utils';
-import {
+import type {
   ReportFilterConfig,
   ReportMetadataColumn,
 } from '#src/libs/reporting/common/types';
@@ -124,8 +124,8 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
   };
 
   const filterableColumns = useMemo(
-    () => getFilterableColumns(values.config.groups, columns, isFranchisor),
-    [columns, values.config.groups, isFranchisor],
+    () => getFilterableColumns(values.config.groups, columns, isFranchisor, t),
+    [columns, values.config.groups, isFranchisor, t],
   );
 
   const columnsOptions: QuickFilterConfigSearchColumnOptions[] = useMemo(
@@ -133,14 +133,7 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
       uniqBy(
         [
           ...(filterableColumns || []).map((c) => ({
-            label: t(
-              `columns.${
-                c.datatype === 'user' &&
-                !authorIdentifiers.includes(c.identifier)
-                  ? 'member'
-                  : c.identifier
-              }`,
-            ),
+            label: t(`${getColumnLabelTranslation(c.datatype, c.identifier)}`),
             value: c.identifier,
             datatype: c.datatype,
             identifier: c.identifier,

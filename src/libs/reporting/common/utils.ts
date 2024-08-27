@@ -110,7 +110,13 @@ import {
   STATUS_CHIPS,
   CONDITION_CHIPS,
   MEMBER_FILTERING_COLUMN_IDENTIFIERS,
-} from './constants';
+  REFERRAL_GRANT_REFERRED_MEMBER_FILTERING_IDENTIFIERS,
+  REFERRAL_GRANT_REFERRING_MEMBER_FILTERING_IDENTIFIERS,
+  DESTINATION_MEMBER_FILTERING_IDENTIFIERS,
+  SOURCE_MEMBER_FILTERING_IDENTIFIERS,
+  ACCESS_MONITORING_MEMBER_FILTERING_IDENTIFIERS,
+  GROUPED_IDENTIFIERS_FILTER,
+} from '#src/libs/reporting/common/constants';
 import type {
   ReportCategory,
   ReportMetadata,
@@ -770,13 +776,14 @@ export const generateRowLink = ({
  * @param filterGroups Every filtersItem that are applied
  * @param columns All the columns of the report that were chosen
  * @param isFranchisor If report comes from franchisor side
- * @returns Unique filterable columns by identifiers and datatype
+ * @returns Unique filterable columns by identifiers
  */
 
 export const getFilterableColumns = (
   filterGroups: DatatypeFilterConfigGroup[],
   columns: DataSourceFieldMetadata[],
   isFranchisor: boolean,
+  t: TFunction,
 ) =>
   uniqBy(
     (columns || []).filter((d) => {
@@ -806,9 +813,7 @@ export const getFilterableColumns = (
       return true;
     }),
     (column) =>
-      column.datatype === ReportFilterableDataType.USER
-        ? column.datatype
-        : [column.datatype, column.identifier],
+      t(`${getColumnLabelTranslation(column.datatype, column.identifier)}`),
   );
 
 export const getComparatorLabel = (comparator: AllComparator) => {
@@ -1284,17 +1289,68 @@ export function isNotReportMetadataValueWithLabel<T extends Object[]>(
 }
 
 /**
- * Method to know which column enables the member filtering
+ * Get column label depending on identifier.
+ * MEMBER_FILTERING_COLUMN_IDENTIFIERS are identifiers pointing to 1 filtering
+ * instead of 1 identifier = 1 filter
  */
-export const isMemberColumn = (
+export const getColumnLabelTranslation = (
   datatype: DataSourceMedadataDataType,
   identifier: string,
 ) => {
-  if (
-    datatype === 'user' &&
-    MEMBER_FILTERING_COLUMN_IDENTIFIERS.includes(identifier)
-  ) {
-    return true;
+  if (datatype === 'user') {
+    if (
+      MEMBER_FILTERING_COLUMN_IDENTIFIERS.includes(identifier) ||
+      ACCESS_MONITORING_MEMBER_FILTERING_IDENTIFIERS.includes(identifier)
+    ) {
+      return 'groupedColumns.member';
+    }
+    if (
+      // @ts-expect-error string not assignable to enum
+      REFERRAL_GRANT_REFERRED_MEMBER_FILTERING_IDENTIFIERS.includes(identifier)
+    ) {
+      return 'groupedColumns.referred_member';
+    }
+    if (
+      // @ts-expect-error string not assignable to enum
+      REFERRAL_GRANT_REFERRING_MEMBER_FILTERING_IDENTIFIERS.includes(identifier)
+    ) {
+      return 'groupedColumns.referring_member';
+    }
+    if (DESTINATION_MEMBER_FILTERING_IDENTIFIERS.includes(identifier)) {
+      return 'groupedColumns.dst_member';
+    }
+    if (SOURCE_MEMBER_FILTERING_IDENTIFIERS.includes(identifier)) {
+      return 'groupedColumns.src_member';
+    }
   }
-  return false;
+  return `columns.${identifier}`;
+};
+
+/**
+ * @description Method used to check if a filter is still appliable because
+ * its corresponding column is displayed
+ *
+ * @param datatype Column's datatype
+ * @param reportColumnIdentifiers List of identifiers displayed by report
+ * @param columnIdentifier Column's identifier
+ * @returns Boolean which indicates if column has been removed from report
+ */
+export const isReportColumnRemoved = (
+  datatype: DataSourceMedadataDataType,
+  reportColumnIdentifiers: string[],
+  columnIdentifier: string,
+) => {
+  if (datatype !== 'user') {
+    return !reportColumnIdentifiers?.includes(columnIdentifier);
+  }
+
+  for (const group of GROUPED_IDENTIFIERS_FILTER) {
+    if (group.includes(columnIdentifier)) {
+      return !group.some((identifier) =>
+        reportColumnIdentifiers?.includes(identifier),
+      );
+    }
+  }
+
+  return !reportColumnIdentifiers?.includes(columnIdentifier);
 };

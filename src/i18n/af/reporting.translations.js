@@ -406,7 +406,13 @@ const getTranslations = async () => {
       updated_status: 'Updated status',
       admission: 'Admission',
     },
-
+    groupedColumns: {
+      member: 'Member',
+      referring_member: 'Referring member',
+      referred_member: 'Referred member',
+      src_member: 'Buyer',
+      dst_member: 'Recipient',
+    },
     yes: 'Yes',
     no: 'No',
     payment_method: {

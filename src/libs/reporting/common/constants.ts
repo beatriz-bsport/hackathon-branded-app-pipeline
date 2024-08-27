@@ -5,6 +5,7 @@ import {
   OnSpotPaymentMetadataIdentifierEnum,
   PaymentByInstalmentsMetadataIdentifierEnum,
   PaymentMetadataIdentifierEnum,
+  ReferralGrantMetadataIdentifierEnum,
   UnpaidInvoiceMetadataIdentifierEnum,
 } from '@bsport/common/lib/master-data/metadata-identifiers';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
@@ -179,8 +180,9 @@ export const drawerSmallWidth = 44;
 /**
  * ------ Constants below needs to be kept in sync with django repo ------
  * Filtering on member is only allowed when one of these column identifier is present in the report
- * Furthermore, this member filtering is only possible once for these identifiers
  */
+
+/** Member filtering is only possible once for identifiers in section below  */
 export const MEMBER_FILTERING_COLUMN_IDENTIFIERS = [
   'first_name',
   'last_name',
@@ -188,6 +190,51 @@ export const MEMBER_FILTERING_COLUMN_IDENTIFIERS = [
   'phonenumber',
   'name',
   'member',
+];
+
+export const ACCESS_MONITORING_MEMBER_FILTERING_IDENTIFIERS = [
+  'member_first_name',
+  'member_last_name',
+  'member_email',
+  'member_phonenumber',
+];
+
+/** Member filtering is possible once for each identifiers in section below
+ *  but possible twice per report containing both identifiers
+ */
+export const SOURCE_MEMBER_FILTERING_IDENTIFIERS = [
+  'src_firstname',
+  'src_lastname',
+  'src_email',
+  'src_phonenumber',
+];
+
+export const DESTINATION_MEMBER_FILTERING_IDENTIFIERS = [
+  'dst_firstname',
+  'dst_lastname',
+  'dst_email',
+  'dst_phonenumber',
+];
+
+export const REFERRAL_GRANT_REFERRING_MEMBER_FILTERING_IDENTIFIERS = [
+  ReferralGrantMetadataIdentifierEnum.REFERRING_MEMBER_EMAIL,
+  ReferralGrantMetadataIdentifierEnum.REFERRING_MEMBER_LAST_NAME,
+  ReferralGrantMetadataIdentifierEnum.REFERRING_MEMBER_FIRST_NAME,
+];
+
+export const REFERRAL_GRANT_REFERRED_MEMBER_FILTERING_IDENTIFIERS = [
+  ReferralGrantMetadataIdentifierEnum.REFERRED_MEMBER_EMAIL,
+  ReferralGrantMetadataIdentifierEnum.REFERRED_MEMBER_LAST_NAME,
+  ReferralGrantMetadataIdentifierEnum.REFERRED_MEMBER_FIRST_NAME,
+];
+
+export const GROUPED_IDENTIFIERS_FILTER = [
+  MEMBER_FILTERING_COLUMN_IDENTIFIERS,
+  REFERRAL_GRANT_REFERRING_MEMBER_FILTERING_IDENTIFIERS,
+  REFERRAL_GRANT_REFERRED_MEMBER_FILTERING_IDENTIFIERS,
+  SOURCE_MEMBER_FILTERING_IDENTIFIERS,
+  DESTINATION_MEMBER_FILTERING_IDENTIFIERS,
+  ACCESS_MONITORING_MEMBER_FILTERING_IDENTIFIERS,
 ];
 
 /**

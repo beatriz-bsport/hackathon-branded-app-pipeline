@@ -10,6 +10,8 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import { getShopItemName } from '../../shop/utils';
 
+import classNames from 'classnames';
+
 type Props = {
   invoiceItem: InvoiceItem,
   onDelete: () => void,
@@ -20,10 +22,17 @@ export const InvoiceItem = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
   let voucher = null;
+
+  const subtitle = React.useMemo(
+    () => invoiceItem.incremental_consumer_giftcard_identifier,
+    [invoiceItem.incremental_consumer_giftcard_identifier],
+  );
+
   if (parseFloat(invoiceItem.voucher) !== 0) {
     // eslint-disable-next-line
     voucher = invoiceItem.voucher;
   }
+
   return (
     <div className={classes.container}>
       <div className={classes.leftText}>
@@ -33,6 +42,17 @@ export const InvoiceItem = (props: Props) => {
             color: invoiceItem?.color ?? '',
             size: invoiceItem?.size ?? '',
           })}
+        </Typography>
+        {/*Show the sequential giftcard identifier if it exists, if the invoice item content is a ConsumerGiftcard*/}
+        <Typography
+          className={classNames({
+            [classes.subtitleNotDisplayed]: !subtitle,
+            [classes.revert]: invoiceItem.reverted,
+          })}
+          color="textSecondary"
+          variant="body2"
+        >
+          {subtitle}
         </Typography>
         <Typography
           className={invoiceItem.reverted ? classes.revert : null}
@@ -98,6 +118,9 @@ const useStyles = makeStyles((theme) => ({
   },
   revert: {
     textDecoration: 'line-through',
+  },
+  subtitleNotDisplayed: {
+    display: 'none',
   },
 }));
 

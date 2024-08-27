@@ -1089,7 +1089,15 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.theme.accept_double_booking_workshop,
     );
 
-    let isBookingBlocked = !isBookable || blockedByTags;
+    const isBlockedByGroup =
+      this.state.offerGroupData?.full_booking_only &&
+      this.state.selectedOffers.filter(
+        (selectedOffer) =>
+          this.props.offerStatusById[selectedOffer.offer.id]
+            ?.bookable_status !== OFFER_BOOKABLE_STATUS_BOOKABLE ||
+          this.props.offerStatusById[selectedOffer.offer.id]?.blocked_by_tags,
+      ).length > 0;
+    let isBookingBlocked = !isBookable || blockedByTags || isBlockedByGroup;
     const { title, message, icon, color, isWaitingListOpenMainReason } =
       getMainOfferNotBookableReasonWithTitle(
         // @ts-expect-error

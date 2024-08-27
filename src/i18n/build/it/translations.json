@@ -11080,7 +11080,19 @@
                     "title": "Informazioni"
                 }
             },
-            "isBookingLimitReached": "Hai raggiunto il limite di prenotazioni"
+            "isBookingLimitReached": "Hai raggiunto il limite di prenotazioni",
+            "multiSession": {
+                "selectSpot": {
+                    "validationButton": "Aggiungere una sessione",
+                    "dialogSubtitle": "Seleziona il tuo posto per la classe",
+                    "dialogTitle": "Seleziona un posto"
+                },
+                "addSession": {
+                    "noContent": "Non sono state trovate sessioni simili.",
+                    "dialogSubtitle": "Seleziona la sessione che vuoi prenotare",
+                    "dialogTitle": "Aggiungere una sessione"
+                }
+            }
         },
         "details": {
             "offerTitle": "Sessione collegata",

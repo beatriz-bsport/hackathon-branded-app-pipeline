@@ -2,6 +2,7 @@ import type {
   CustomForm,
   CustomFormFieldAnswer,
   CustomFormFilled,
+  CustomFormFilledAPI,
   ResponsiveLayouts,
 } from '#src/libs/custom-form/types';
 import type { ModalDialogSize } from '#Fabrique/ModalDialog/types';
@@ -25,7 +26,10 @@ export type CustomFormPortalProps = {
   onCancel?: (data?: CustomFormFilled) => void;
   onClose: () => void;
   onSubmit?: (data: CustomFormFilled, options: OptionCallback) => void;
-  onSubmitDraft?: (customFormwithAnswer: CustomFormFilled) => void;
+  onSubmitDraft?: (
+    customFormwithAnswer: CustomFormFilled,
+    options?: OptionCallback<CustomFormFilledAPI>,
+  ) => void;
   refreshLoading?: boolean;
   rowHeight?: number;
   shouldWrapLayerInCssHoc?: boolean;

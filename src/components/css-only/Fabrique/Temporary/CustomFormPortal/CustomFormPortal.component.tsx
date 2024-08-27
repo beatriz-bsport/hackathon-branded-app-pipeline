@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useFormikContext } from 'formik';
 import { compose } from 'recompose';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -23,7 +23,7 @@ const CustomFormPortal: React.FC<CustomFormPortalProps> = ({
   userStatus,
   ...restProps
 }) => {
-  const { values, handleSubmit, isSubmitting } =
+  const { values, handleSubmit, isSubmitting, setSubmitting } =
     useFormikContext<CustomFormFilled>();
 
   const handleCancel = useCallback(() => {
@@ -32,8 +32,11 @@ const CustomFormPortal: React.FC<CustomFormPortalProps> = ({
 
   const handleClickOnSubmit = useCallback(() => {
     handleSubmit();
-    onSubmitDraft?.(values);
-  }, [handleSubmit, onSubmitDraft, values]);
+    onSubmitDraft?.(values, {
+      onSuccess: () => setSubmitting(false),
+      onError: () => setSubmitting(false),
+    });
+  }, [handleSubmit, onSubmitDraft, setSubmitting, values]);
 
   const confirmButtonLabel = useCustomFormButtonLabel({
     buttonType: 'submit',
@@ -46,6 +49,12 @@ const CustomFormPortal: React.FC<CustomFormPortalProps> = ({
     buttonType: 'cancel',
     disconnectOnCancel,
   });
+
+  useEffect(() => {
+    if (!isOpen && isSubmitting) {
+      setSubmitting(false);
+    }
+  }, [isOpen, isSubmitting, setSubmitting]);
 
   if (isMobile)
     return (

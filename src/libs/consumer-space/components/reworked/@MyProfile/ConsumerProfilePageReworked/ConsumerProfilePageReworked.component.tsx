@@ -122,13 +122,18 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
   }, []);
 
   const handleSubmitCustomForm = useCallback(
-    (formdata: CustomFormFieldAnswer) => {
+    (
+      formdata: CustomFormFieldAnswer,
+      options?: OptionCallback<CustomFormFilledAPI>,
+    ) => {
       submitCustomForm(formdata, {
         onSuccess: () => {
           closeEditProfilePortal();
+          options?.onSuccess?.();
         },
         onError: () => {
           closeEditProfilePortal();
+          options?.onError?.();
         },
       });
     },

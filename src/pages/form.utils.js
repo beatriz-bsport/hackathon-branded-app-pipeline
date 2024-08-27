@@ -31,7 +31,15 @@ export function unmap(ob, map) {
   return newOb;
 }
 
-export function mapFormDataWithObject(base, map, keyExecptionsList) {
+/**
+ * Returns a Form Data instance from an object.
+ * Keys can be ignored with keyExceptionList param.
+ * @param base The source object
+ * @param map An object that maps final key names from source object
+ * @param keyExceptionList Any key that is in this array will be skipped and not within FormData instance
+ * @returns {FormData}
+ */
+export function mapFormDataWithObject(base, map, keyExceptionList) {
   const formData = new FormData();
   for (const [key, value] of Object.entries(base)) {
     const isVariantKey = key.includes('variants.');
@@ -39,6 +47,10 @@ export function mapFormDataWithObject(base, map, keyExecptionsList) {
     // Retail variant creation
     if (isVariantKey || isFranchiseCompanyKey) {
       formData.append(key, value);
+    }
+    // directly skip a key if its in the key exception list
+    if (keyExceptionList?.includes(key)) {
+      continue;
     }
     if (
       !isVariantKey &&
@@ -53,10 +65,7 @@ export function mapFormDataWithObject(base, map, keyExecptionsList) {
         formData.append(map[key], JSON.stringify(value));
       } else if (key === 'bookkeeping_account' && value === null) {
         formData.append(map[key], '');
-      } else if (
-        typeof value === 'object' &&
-        !keyExecptionsList.includes(key)
-      ) {
+      } else if (typeof value === 'object' && !keyExceptionList.includes(key)) {
         formData.append(map[key], JSON.stringify(value));
       } else {
         formData.append(map[key], value);

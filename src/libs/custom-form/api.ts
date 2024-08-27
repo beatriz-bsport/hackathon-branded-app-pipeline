@@ -9,7 +9,6 @@ import {
 } from '../../http';
 import type {
   CustomForm,
-  CustomFormFieldAnswer,
   CustomFormDisplayRule,
   ResponsiveLayouts,
   SignUpCustomFormPayload,
@@ -126,8 +125,13 @@ export async function fetchMemberCustomFormFilled(memberId?: number) {
   return getAuth(`${API_V1_URI}/custom_form/custom_form_filled/`);
 }
 
+/**
+ * Submit a custom form
+ * @param form_filled A FormData instance with keys custom_form_id and custom_form_field_filled
+ * @param companyId The required company id
+ */
 export async function submitCustomForm(
-  form_filled: CustomFormFieldAnswer,
+  form_filled: FormData,
   companyId: number,
 ) {
   return postBaseAuth<CustomFormFilledAPI>(

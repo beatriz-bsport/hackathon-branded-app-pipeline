@@ -32,10 +32,7 @@ import ConsumerProfileContextProvider from '#src/libs/consumer-space/components/
 
 import type { RootState } from '#src/reducers';
 import type { Membership } from '#src/libs/membership/types';
-import type {
-  CustomFormFieldAnswer,
-  CustomFormFilledAPI,
-} from '#src/libs/custom-form/types';
+import type { CustomFormFilledAPI } from '#src/libs/custom-form/types';
 import type { OptionCallback } from '#src/state/types';
 
 type OwnProps = {
@@ -87,7 +84,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
   };
 
   submitCustomForm = (
-    formData: CustomFormFieldAnswer,
+    formData: FormData,
     options?: OptionCallback<CustomFormFilledAPI>,
   ) => {
     this.props.submitCustomForm(

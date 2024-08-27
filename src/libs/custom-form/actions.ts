@@ -353,15 +353,13 @@ export const submitCustomFormActions = {
 };
 
 export function submitCustomForm(
-  {
-    form_filled,
-    companyId,
-  }: { form_filled: CustomFormFieldAnswer; companyId: number },
+  { form_filled, companyId }: { form_filled: FormData; companyId: number },
   options?: OptionCallback<CustomFormFilledAPI>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(submitCustomFormActions.isLoading(true));
     dispatch(submitCustomFormActions.error(null));
+
     try {
       const response = await submitCustomFormAPI(form_filled, companyId);
 

@@ -19,7 +19,6 @@ import PageContentContainer from '#src/libs/consumer-space/components/reworked/@
 import { Edit03 } from '#src/components/untitledui';
 import type {
   CustomForm,
-  CustomFormFieldAnswer,
   CustomFormFilledAPI,
 } from '#src/libs/custom-form/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
@@ -54,7 +53,7 @@ type Props = {
   spiviPrivacySettingsLoading: boolean;
   stripeRegion: string;
   submitCustomForm: (
-    formData: CustomFormFieldAnswer,
+    formData: FormData,
     options?: OptionCallback<CustomFormFilledAPI>,
   ) => void;
   updateSpiviPrivacySettings: (
@@ -122,10 +121,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
   }, []);
 
   const handleSubmitCustomForm = useCallback(
-    (
-      formdata: CustomFormFieldAnswer,
-      options?: OptionCallback<CustomFormFilledAPI>,
-    ) => {
+    (formdata: FormData, options?: OptionCallback<CustomFormFilledAPI>) => {
       submitCustomForm(formdata, {
         onSuccess: () => {
           closeEditProfilePortal();

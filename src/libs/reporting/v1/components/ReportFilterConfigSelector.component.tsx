@@ -32,6 +32,7 @@ import type { OptionCallback } from '#src/state/types';
 import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
 import ReportFilterChip from '#src/libs/reporting/common/components/ReportFilterChip.component';
 import QuickReportFilterConfigColumnsMenu from '#src/libs/reporting/common/components/QuickReportFilterConfigColumnsMenu.component';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 export type Props = {
   reportFilterConfigs: ReportFilterConfig[];
@@ -54,7 +55,7 @@ export type Props = {
   fetchReportFilterConfigList: () => void;
   isFranchisor: boolean;
   reportQuickFilter: ReportFilterConfig;
-  reportCategory?: string;
+  reportCategory?: ReportCategoryEnum;
   dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
 };
 

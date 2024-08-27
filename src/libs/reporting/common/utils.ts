@@ -419,7 +419,7 @@ const dateConverterToLink = (date: string): string => {
 };
 
 type GenerateRowLinkProps = {
-  reportCategory: string;
+  reportCategory: ReportCategoryEnum;
   rowExtraData: { [key: string]: string | number | null };
 };
 

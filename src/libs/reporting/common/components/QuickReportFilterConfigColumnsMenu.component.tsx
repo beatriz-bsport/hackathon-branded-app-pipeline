@@ -68,7 +68,7 @@ type Props = {
   setSelectedColumn: React.Dispatch<
     React.SetStateAction<DatatypeFilterConfigItem>
   >;
-  reportCategory: string;
+  reportCategory: ReportCategoryEnum;
   chipRef: React.MutableRefObject<HTMLDivElement | null>;
   setAnchorEl: React.Dispatch<
     (EventTarget & HTMLButtonElement) | HTMLDivElement | null

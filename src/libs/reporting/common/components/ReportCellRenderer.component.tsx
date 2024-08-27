@@ -5,9 +5,10 @@ import CustomChip from '#src/components/chip/CustomChip.component';
 import ReportStatusChip from '#src/libs/reporting/common/components/ReportChips/ReportStatusChip.component';
 import ReportConditionChip from '#src/libs/reporting/common/components/ReportChips/ReportConditionChip.component';
 import { isColumnChipsable } from '#src/libs/reporting/common/utils';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 type ReportCellRendererProps = {
-  reportCategory: string;
+  reportCategory: ReportCategoryEnum;
   value: number | string | boolean;
   columnName: string;
   extra_data?: { [key: string]: number | string };

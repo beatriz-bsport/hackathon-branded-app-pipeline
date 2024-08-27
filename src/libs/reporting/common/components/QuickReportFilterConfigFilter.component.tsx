@@ -28,6 +28,7 @@ import ReportFilterChip from '#src/libs/reporting/common/components/ReportFilter
 import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
 import { CREDIT_COLUMNS } from '#src/libs/reporting/common/constants';
 import { getCreditFactor } from '#src/libs/theme/selectors';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 export type QuickFiltersColumnsData = {
   identifier: string;
@@ -49,7 +50,7 @@ type QuickReportFilterConfigFilterProps = {
   columnsDataSelectedQuickFilter: QuickFiltersColumnsData;
   isQuickFilterModalOpen: boolean;
   onClose: () => void;
-  reportCategory: string;
+  reportCategory: ReportCategoryEnum;
 };
 
 const QuickReportFilterConfigFilter: React.FC<

@@ -120,11 +120,13 @@ const ReportingDetail: React.FC<Props> = ({
   React.useEffect(() => {
     setLastVisitedReportV2(categoryName, reportId);
     resetReportGenerationState();
+    resetDynamicDataHasBeenLoaded();
   }, [
     reportId,
     categoryName,
     setLastVisitedReportV2,
     resetReportGenerationState,
+    resetDynamicDataHasBeenLoaded,
   ]);
 
   React.useEffect(() => {

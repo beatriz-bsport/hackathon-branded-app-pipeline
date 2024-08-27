@@ -2,6 +2,8 @@ import React from 'react';
 
 import Selectfield from '#Fabrique/Temporary/Selectfield';
 import { Country } from './types';
+import { useField } from 'formik';
+
 import './styles.css';
 
 export type Props = {
@@ -25,6 +27,8 @@ const CountrySignUpField: React.FC<Props> = ({
   onChange,
   placeholder,
 }) => {
+  const [{ value }] = useField<string>(name);
+
   const countrySelection = React.useMemo(
     () =>
       [
@@ -50,6 +54,7 @@ const CountrySignUpField: React.FC<Props> = ({
         name={name}
         onChange={onChange}
         placeholder={placeholder}
+        selectedItem={value && { label: value, value }}
         suggestions={countrySelection}
       />
     </div>

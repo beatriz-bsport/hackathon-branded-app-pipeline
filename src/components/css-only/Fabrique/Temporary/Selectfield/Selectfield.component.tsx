@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useField } from 'formik';
 import Selector, { SelectorProps } from '#Fabrique/Selector';
 import MenuItem, { MenuItemType } from '#Fabrique/MenuItem';
 import MenuItemList from '#Fabrique/MenuItemList';
+import type { SelectOption } from '#src/libs/types';
 
-type Suggestion = {
-  label: string;
-  value: string | number;
-};
+type Suggestion = SelectOption<string | number>;
 
 type Props = {
   suggestions: Suggestion[];
   type?: MenuItemType;
+  selectedItem?: SelectOption;
 } & Omit<
   SelectorProps,
   | 'onClear'
@@ -20,8 +19,8 @@ type Props = {
   | 'errorMessage'
   | 'getSelectedItemLabel'
   | 'getSelectedItemValue'
-  | 'isError'
   | 'selectedItems'
+  | 'isError'
   | 'closeOnSelect'
   | 'setCloseOnSelect'
 >;
@@ -59,6 +58,12 @@ const SelectField: React.FC<Props> = (props: Props) => {
   const getSelectedItemValue = React.useCallback((item: Suggestion) => {
     return item?.value;
   }, []);
+
+  useEffect(() => {
+    if (!itemSelected && props.selectedItem) {
+      setItemSelected(props.selectedItem);
+    }
+  }, [itemSelected, props.selectedItem]);
 
   return (
     <Selector

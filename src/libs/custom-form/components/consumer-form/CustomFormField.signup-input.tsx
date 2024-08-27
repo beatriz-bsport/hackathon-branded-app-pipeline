@@ -133,11 +133,20 @@ export const CustomFormConsumerInput = (props: Props) => {
 
   const genderSuggestions = React.useMemo(
     () => [
-      { label: t('translation:common.female'), value: 'F' },
-      { label: t('translation:common.male'), value: 'M' },
-      { label: t('translation:common.otherGender'), value: 'X' },
+      { label: t('common:gender.F'), value: 'F' },
+      { label: t('common:gender.M'), value: 'M' },
+      { label: t('common:gender.X'), value: 'X' },
     ],
     [t],
+  );
+
+  const selectedGenderFieldValue = React.useMemo(
+    () =>
+      !!props.field.answer && {
+        label: t(`common:gender.${props.field.answer}`) as string,
+        value: props.field.answer as string,
+      },
+    [props.field.answer, t],
   );
 
   const now = DateTime.now().startOf('year').plus({ years: -1 }).toISODate();
@@ -363,6 +372,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             label={label}
             name={`custom_form_field.${props.index}.answer`}
             placeholder={label}
+            selectedItem={selectedGenderFieldValue}
             suggestions={genderSuggestions}
           />
         );

@@ -415,3 +415,149 @@
 .bs-new-offer-booking__offer__card__summary--hidden {
   display: none;
 }
+
+/* GROUPED OFFER MODAL */
+
+.bs-new-offer-booking-grouped-session__information__modal__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__header {
+  padding: var(--spacing-2) var(--spacing-3);
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__header__title {
+  color: var(--text-primary);
+  font-size: var(--bs-font-size-title-sm);
+  font-weight: 500;
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__body__content {
+  color: var(--text-primary);
+  font-size: var(--bs-font-size-body-md);
+  font-weight: var(--bs-font-weight-weak);
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__footer {
+  padding: var(--spacing-1);
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__footer__button__container {
+  display: flex;
+  padding: var(--bs-space-size-2);
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__footer__cancel__button {
+  padding: var(--spacing-1);
+  color: var(--color-grey-main);
+  font-size: var(--bs-font-size-body-sm);
+  line-height: var(--bs-fabrique-line-height-action-lg);
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__footer__confirm__button {
+  padding: var(--spacing-1);
+  color: var(--bs-color-text-brand-main);
+  font-size: var(--bs-font-size-body-sm);
+  font-weight: 500;
+  line-height: var(--bs-fabrique-line-height-action-lg);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+@media screen and (width >= 950px) {
+  .bs-new-offer-booking-grouped-session__information__modal__footer {
+    flex-direction: row;
+    align-self: flex-end;
+  }
+
+  .bs-new-offer-booking-grouped-session__information__modal__body {
+    padding: var(--spacing-1) var(--spacing-3);
+  }
+}
+
+@media screen and (width <= 949px) {
+  .bs-new-offer-booking-grouped-session__information__modal__container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bs-space-size-2);
+    width: 100%;
+  }
+
+  .bs-new-offer-booking-grouped-session__information__modal__header__title {
+    color: var(--bs-color-text-default);
+    font-size: var(--bs-font-size-title-sm);
+    font-weight: var(--bs-font-weight-strong);
+  }
+
+  .bs-new-offer-booking-grouped-session__information__modal__body {
+    padding: var(--spacing-3) var(--spacing-3);
+  }
+
+  .bs-new-offer-booking-grouped-session__information__modal__footer {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: var(--bs-space-size-2);
+    padding: var(--bs-space-size-4);
+    border-top: var(--bs-border-thin, 1px) solid
+      var(--bs-color-border-weak, rgba(224, 224, 224, 0.4));
+  }
+
+  .bs-new-offer-booking-grouped-session__information__modal__footer__confirm__button {
+    display: flex;
+    padding: var(--bs-space-size-2) 22px;
+
+    justify-content: center;
+    align-items: center;
+    gap: var(--bs-space-size-2);
+
+    flex: 1 0 0;
+    border-radius: calc(var(--bs-border-radius-lg) * 2);
+
+    background-color: var(--color-primary-main);
+    color: var(--bs-grey-0);
+    width: 100%;
+    text-transform: uppercase;
+  }
+
+  .bs-new-offer-booking-grouped-session__information__modal__footer__cancel__button {
+    display: flex;
+    padding: var(--bs-space-size-2) 22px;
+
+    justify-content: center;
+    align-items: center;
+    gap: var(--bs-space-size-2);
+
+    flex: 1 0 0;
+    border-radius: calc(var(--bs-border-radius-lg) * 2);
+    border: 1px solid var(--bs-color-text-weak);
+    color: var(--bs-grey-700);
+    width: 100%;
+    text-transform: uppercase;
+  }
+}
+
+.bs-new-offer-booking-grouped-session__information__modal
+  .bs-fabrique-modal-dialog__header {
+  display: none;
+}
+
+.bs-new-offer-booking-grouped-session__information__modal
+  .bs-fabrique-modal-dialog__footer {
+  display: none;
+}
+
+.bs-new-offer-booking-grouped-session__information__modal
+  .bs-fabrique-modal-dialog__content {
+  padding: 0px;
+  scrollbar-width: none;
+}

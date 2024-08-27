@@ -54,6 +54,15 @@ const getTranslations = async () => {
       groupedSession: {
         showMoreButtonText: 'Show all sessions ({{totalSessions}})',
         showLessButtonText: 'Show less',
+        warningModal: {
+          title: 'You are booking a group of sessions',
+          fullBookingOnly: {
+            text: 'You are booking a group of sessions. You will be enrolled for all {{sessionsTotal}} sessions in this group',
+          },
+          partialBooking: {
+            text: 'However, you are not required to attend all the sessions in that group. You will be able to select the sessions you wish to attend',
+          },
+        },
       },
       multiSession: {
         addSession: {
@@ -587,6 +596,8 @@ const getTranslations = async () => {
       combos: 'Packs',
       passes: 'Passes',
       otherPasses: 'Other passes',
+      multipleSpotSelectionSpotSelectorTitle:
+        'Select spot ({{currentSpot}}/{{totalSpot}})',
       spotSelectorTitle: 'Choose your spot',
       guestSpotSelectorTitle: 'Select a spot for your guest',
       seeAllProducts: 'See all products',

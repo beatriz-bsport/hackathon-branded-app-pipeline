@@ -26,6 +26,7 @@ exports.default = {
   },
   cancel: 'Cancel',
   confirm: 'Confirm',
+  continue: 'Continue',
   disconnectInfo: 'Return to Login Page',
   disconnect: 'Logout',
   activate: 'Activate',

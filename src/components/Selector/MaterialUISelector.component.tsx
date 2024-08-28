@@ -108,6 +108,15 @@ type BaseProps<T extends OptionTypeBase> = {
   withoutNullValues?: boolean;
   withoutPortal?: Boolean;
   withoutSelectAll?: boolean;
+  /**
+   * @description Max amount of options you can select before other options are disabled
+   */
+  maxSelectedItems?: number;
+  /**
+   * @description If this component only handles selected value in options and maxSelectedItems is given,
+   * selected count outside of component needs to be given
+   */
+  alreadySelectedCount?: number;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 export type ItemRendererProps<T extends OptionTypeBase> = {
@@ -181,6 +190,8 @@ function MaterialUISelector<T extends OptionTypeBase>(
     hideChips = false,
     forceBlurOnSelect = false,
     isOptionDisabled,
+    maxSelectedItems,
+    alreadySelectedCount,
     ...restProps
   } = props;
 
@@ -429,11 +440,13 @@ function MaterialUISelector<T extends OptionTypeBase>(
           // Mandatory for multi selection use
           ref={selectRef}
           allOptionsPlaceholder={allOptionsPlaceholder}
+          alreadySelectedCount={alreadySelectedCount}
           closeMenuOnSelect={closeMenuOnSelect}
           customConfirmButton={!!onConfirm}
           defaultNumberShown={defaultNumberShown}
           displayAllOptionsPlaceholder={displayAllOptionsPlaceholder}
           displaySearchPlaceholder={displaySearchPlaceholder}
+          maxSelectedItems={maxSelectedItems}
           onBlur={handleBlur}
           onConfirm={handleConfirm}
           onInputChange={onInputChange}
@@ -610,10 +623,21 @@ function Option<T extends OptionTypeBase>(
           const isSelected = selected.some(
             (option) => option?.value === props.data?.value,
           );
+
+          // alreadySelectedCount is necessary if items selected are outside of options
+          const isSelectedItemLimitReached = props.selectProps.maxSelectedItems
+            ? selected.length + (props.selectProps.alreadySelectedCount || 0) >=
+              props.selectProps.maxSelectedItems
+            : false;
+
+          const isDisabledBecauseOfMaxLimit = isSelectedItemLimitReached
+            ? !isSelected
+            : false;
+
           const handleClick = (
             ev: React.MouseEvent<HTMLDivElement, MouseEvent>,
           ) => {
-            if (!props.isDisabled) {
+            if (!props.isDisabled && !isDisabledBecauseOfMaxLimit) {
               if (props.isMulti) {
                 onSelect(props.data);
                 return;
@@ -636,12 +660,17 @@ function Option<T extends OptionTypeBase>(
                   data: props.data,
                   children: props.children,
                   isSelected,
-                  isDisabled: props.isDisabled,
+                  isDisabled:
+                    props.isDisabled ||
+                    (!isSelected && isDisabledBecauseOfMaxLimit),
                 })}
               {!itemRenderer && (
                 <MenuItem
                   dense
-                  disabled={props.isDisabled}
+                  disabled={
+                    props.isDisabled ||
+                    (!isSelected && isDisabledBecauseOfMaxLimit)
+                  }
                   selected={isSelected && !props.isMulti}
                 >
                   {props.isMulti && <Checkbox checked={isSelected} />}

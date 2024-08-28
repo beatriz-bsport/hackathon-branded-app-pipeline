@@ -156,6 +156,7 @@ const MaterialUISelectorConsumers: React.FC<Props> = ({
         forceEmptySelector
         isMenuListVirtualized
         withoutSelectAll
+        alreadySelectedCount={consumerIdsSelected?.length || 0}
         blurOnSelect={consumerIdsSelected?.length === MAX_SELECTABLE_MEMBER - 1}
         chipsRenderer={!!chipsRenderer && chipsRenderer}
         className={className}
@@ -165,6 +166,7 @@ const MaterialUISelectorConsumers: React.FC<Props> = ({
         isLoading={isSearchLoading}
         isOptionDisabled={isOptionDisabled}
         itemRenderer={!!itemRenderer && itemRenderer}
+        maxSelectedItems={MAX_SELECTABLE_MEMBER}
         name={name}
         onChange={handleOnChange}
         onInputChange={handleInputChange}

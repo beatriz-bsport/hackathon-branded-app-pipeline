@@ -304,6 +304,8 @@ type MaterialUiMultiSelectorProps = {
    * Coupled with blurOnSelect, it will focus out the component when selecting
    */
   forceBlurOnSelect?: boolean;
+  maxSelectedItems?: number;
+  alreadySelectedCount?: number;
 };
 
 type Props = BaseFieldProps & MaterialUiMultiSelectorProps;
@@ -345,6 +347,7 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
         {() => (
           <MaterialUISelector
             isMulti
+            alreadySelectedCount={props.alreadySelectedCount}
             blurOnSelect={props.blurOnSelect}
             chipsRenderer={props.chipsRenderer}
             closeMenuOnSelect={props.closeMenuOnSelect}
@@ -358,6 +361,7 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
             isMenuListVirtualized={props.isMenuListVirtualized}
             isOptionDisabled={props.isOptionDisabled}
             itemRenderer={props.itemRenderer}
+            maxSelectedItems={props.maxSelectedItems}
             onChange={handleOnChange}
             onInputChange={props.onInputChange}
             openMenuOnClear={props.openMenuOnClear}

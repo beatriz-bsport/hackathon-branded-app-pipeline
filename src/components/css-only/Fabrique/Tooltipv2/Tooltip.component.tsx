@@ -31,8 +31,11 @@ export type TooltipProps = {
   classes?: {
     targetedElement: string;
   };
-  /** The text that will appear in the tooltip */
-  text: string;
+  /**
+   * The content that will appear in the tooltip.
+   * Can be either a string or a React node, allowing for text, HTML, or React components.
+   */
+  text: string | React.ReactNode;
   /** The color of the tooltip. */
   color?: colorEnum;
   /**
@@ -151,6 +154,20 @@ const Tooltip: React.FC<TooltipProps> = ({
     }
   }, [isOpen, setPositioningStyles, setPositionedToFalse]);
 
+  const tooltipInput =
+    typeof text === 'string' ? (
+      <Typography
+        className={classNames('bs-fabrique-tooltip--weak-color-typography', {
+          'bs-fabrique-tooltip--strong-color-typography':
+            color === colorEnum.STRONG,
+        })}
+      >
+        {text}
+      </Typography>
+    ) : (
+      text
+    );
+
   return (
     <div
       id={id}
@@ -178,17 +195,7 @@ const Tooltip: React.FC<TooltipProps> = ({
               className,
             )}
           >
-            <Typography
-              className={classNames(
-                'bs-fabrique-tooltip--weak-color-typography',
-                {
-                  'bs-fabrique-tooltip--strong-color-typography':
-                    color === colorEnum.STRONG,
-                },
-              )}
-            >
-              {text}
-            </Typography>
+            {tooltipInput}
           </div>
         </PortalContainer>
       )}

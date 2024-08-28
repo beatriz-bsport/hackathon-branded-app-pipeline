@@ -203,7 +203,7 @@ export default compose(
         }),
     goToCalendar:
       (props: Props) => (companyName: string, companyId: string) => {
-        const index: number = (marketplaceSettingsConfig ?? {}).findIndex(
+        const index: number = (props.marketplaceSettingsConfig ?? []).findIndex(
           (tab) => tab.component_type === 'calendar',
         );
         if (index) {

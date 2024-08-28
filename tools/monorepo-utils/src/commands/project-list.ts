@@ -4,8 +4,8 @@ import { writeFileSync } from "fs";
 import {
   getAffectedProjectsPackageJsons,
   getProjectsPackageJsons,
-  MONOREPO_BASE_PATH,
-} from "../../../../packages/utils/monorepo/build";
+  getMonorepoBasePath,
+} from "@bsport/typescript-monorepo-utils";
 import fs from "fs-extra";
 
 enum FormatType {
@@ -63,17 +63,19 @@ async function action(options: {
       return;
     }
 
+    const monorepoBasePath = await getMonorepoBasePath();
+
     const githubActionsAbsPaths = GH_ACTIONS_PATHS.map((p) =>
-      path.resolve(MONOREPO_BASE_PATH, p)
+      path.resolve(monorepoBasePath, p),
     );
 
     githubActionsAbsPaths.forEach((p) => {
       const content = fs.readFileSync(p, "utf-8").split("\n");
       const startMarkerIndex = content.findIndex((line) =>
-        line.includes(GH_ACTION_START_MARKER)
+        line.includes(GH_ACTION_START_MARKER),
       );
       const endMarkerIndex = content.findIndex((line) =>
-        line.includes(GH_ACTION_END_MARKER)
+        line.includes(GH_ACTION_END_MARKER),
       );
 
       const numberOfSpacesForList =
@@ -81,7 +83,7 @@ async function action(options: {
       const list = output
         .split("\n")
         .map((line) =>
-          line ? " ".repeat(numberOfSpacesForList) + line : line
+          line ? " ".repeat(numberOfSpacesForList) + line : line,
         );
 
       const newContent = [
@@ -104,7 +106,7 @@ async function action(options: {
  */
 function formatProject(
   projects: Project[],
-  options: Parameters<typeof action>[0]
+  options: Parameters<typeof action>[0],
 ): string {
   if (options.format === FormatType.JSON) {
     return formatAsJsonString(projects);
@@ -131,21 +133,21 @@ function formatAsJsonString(projects: Project[]): string {
       }, []),
     },
     null,
-    2
+    2,
   );
 }
 
 function formatAsText(
   projects: Project[],
-  options: Parameters<typeof action>[0]
+  options: Parameters<typeof action>[0],
 ): string {
   const maxNameLength = projects.reduce(
     (acc, project) => Math.max(acc, project.name.length),
-    0
+    0,
   );
   const maxPathLength = projects.reduce(
     (acc, project) => Math.max(acc, project.path.length),
-    0
+    0,
   );
 
   let result = "";
@@ -161,7 +163,7 @@ function formatAsText(
 
 function formatAsMarkdown(
   projects: Project[],
-  options: Parameters<typeof action>[0]
+  options: Parameters<typeof action>[0],
 ): string {
   let result = "<details>";
   if (options.target === TargetType.PR) {
@@ -211,14 +213,14 @@ function validateInput(...args: Parameters<typeof action>) {
     throw new Error(
       `Invalid target option "${
         args[0].target
-      }".\nValid values: ${Object.values(TargetType).join(", ")}`
+      }".\nValid values: ${Object.values(TargetType).join(", ")}`,
     );
   }
   if (!Object.values(FormatType).includes(args[0].format)) {
     throw new Error(
       `Invalid format option "${
         args[0].format
-      }".\nValid values: ${Object.values(FormatType).join(", ")}`
+      }".\nValid values: ${Object.values(FormatType).join(", ")}`,
     );
   }
   if (
@@ -226,7 +228,7 @@ function validateInput(...args: Parameters<typeof action>) {
     args[0].format !== FormatType.MARKDOWN
   ) {
     throw new Error(
-      `Please set format to ${FormatType.MARKDOWN} if you want to target in PR`
+      `Please set format to ${FormatType.MARKDOWN} if you want to target in PR`,
     );
   }
   if (
@@ -234,12 +236,12 @@ function validateInput(...args: Parameters<typeof action>) {
     args[0].format !== FormatType.YAML
   ) {
     throw new Error(
-      `Please set format to ${FormatType.YAML} if you want to target in GitHub Actions`
+      `Please set format to ${FormatType.YAML} if you want to target in GitHub Actions`,
     );
   }
   if (args[0].target === TargetType.GH_ACTIONS && args[0].affected) {
     throw new Error(
-      "Please do not set affected option if you want to target in GitHub Actions"
+      "Please do not set affected option if you want to target in GitHub Actions",
     );
   }
 }
@@ -251,26 +253,26 @@ export default function projectAffectedList(program: Command) {
     .option(
       "-a, --affected",
       "only list projects that will be affected by the current changes (compared to base).",
-      false
+      false,
     )
     .option(
       "-b, --base <base>",
       "only available if --affected is specified - base branch / commit to compare to.",
-      "origin/main"
+      "origin/main",
     )
     .option(
       "-f, --format <format>",
       `format of the output. Available options: ${Object.values(
-        FormatType
+        FormatType,
       ).join(", ")}`,
-      FormatType.TEXT
+      FormatType.TEXT,
     )
     .option(
       "-t, --target <target>",
       `target where the output will be displayed. Available options: ${Object.values(
-        TargetType
+        TargetType,
       ).join(", ")}`,
-      TargetType.CLI
+      TargetType.CLI,
     )
     .action(action);
   return program;

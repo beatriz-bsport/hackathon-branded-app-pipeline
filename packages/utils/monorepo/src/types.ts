@@ -1,7 +1,7 @@
 export type NXPrintAffectedOutput = {
   projects: string[];
   projectGraph: {
-    nodes: {};
+    nodes: null;
     dependencies: {
       [projectName: string]: {
         source: string;

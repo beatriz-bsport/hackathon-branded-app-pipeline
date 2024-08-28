@@ -1,43 +1,31 @@
-import kebabCase from "lodash/kebabCase";
-
 /**
- * Converts a color from RGBA to an hexadecimal value (removes the alpha part).
- * @param rgb
- * @returns Equivalent in HEX code (#RRGGBB)
+ * Converts a color from an hexadecimal value to RGBA.
+ * @param hex Hexadecimal value of a color
+ * @returns An object containing the red, green, blue and alpha value of a color.
  */
-export const rgbToHex = ({
-  r,
-  g,
-  b,
-}: {
-  r: number;
-  g: number;
-  b: number;
-}): string =>
-  "#" +
-  [r, g, b]
-    .map((x) => Math.round(x * 255).toString(16))
-    .map((hex) => (hex.length === 1 ? `0${hex}` : hex))
-    .join("")
-    .toUpperCase();
-
-/**
- * Converts a color from RGBA to an hexadecimal value (removes the alpha part).
- * @param rgb
- * @returns Equivalent in HEX code (#RRGGBB)
- */
-export const hexToRGB = (
+export const hexToRGBA = (
   hex: string,
 ): {
-  r: number;
-  g: number;
-  b: number;
-} => {
-  const withoutHex = hex.replace("#", "");
-  const r = parseInt(withoutHex.substring(0, 2), 16);
-  const g = parseInt(withoutHex.substring(2, 4), 16);
-  const b = parseInt(withoutHex.substring(4, 6), 16);
-  return { r, g, b };
+  red: number;
+  green: number;
+  blue: number;
+  alpha: number;
+} | null => {
+  const match = hex
+    .trim()
+    .replace(
+      /^#?([a-f\d])([a-f\d])([a-f\d])$/i,
+      (m, r, g, b) => "#" + r + r + g + g + b + b,
+    )
+    .substring(1)
+    .match(/.{2}/g);
+  if (!match) return null;
+  return {
+    red: parseInt(match[0], 16),
+    green: parseInt(match[1], 16),
+    blue: parseInt(match[2], 16),
+    alpha: match[3] ? parseInt(match[3], 16) : 1,
+  };
 };
 
 /**
@@ -49,8 +37,7 @@ export const extractCSSVariables = (
 ): {
   [variableName: string]: string;
 } => {
-  const CSS_VARIABLE_REGEXP = /--([^\,\:\)]+):(.+)\;/g;
-
+  const CSS_VARIABLE_REGEXP = /--([^,:)]+):[\s|\n]*(([^;]|\n)*);/g;
   const result: Record<string, string> = {};
   let match;
 
@@ -59,7 +46,7 @@ export const extractCSSVariables = (
     if (match.index === CSS_VARIABLE_REGEXP.lastIndex) {
       CSS_VARIABLE_REGEXP.lastIndex++;
     }
-    result[match[1]] = match[2];
+    result[match[1]] = match[2].replace(/(\n|\s)+/g, " ");
   }
   return result;
 };

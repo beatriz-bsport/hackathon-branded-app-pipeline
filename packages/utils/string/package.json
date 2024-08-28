@@ -15,6 +15,7 @@
     "postinstall": "npm run build"
   },
   "dependencies": {
+    "@bsport/eslint-config-react": "workspace:*",
     "@types/lodash": "^4.17.4",
     "lodash": "^4.17.21"
   }

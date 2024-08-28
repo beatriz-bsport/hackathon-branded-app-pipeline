@@ -1,5 +1,5 @@
 import type { Command } from "commander";
-import { getProjectsDependencies } from "../../../../packages/utils/monorepo/build";
+import { getProjectsDependencies } from "@bsport/typescript-monorepo-utils";
 
 enum FormatType {
   JSON = "json",
@@ -17,7 +17,7 @@ async function action(options: {
   onlyUsedBy?: boolean;
 }) {
   const projects = await getProjectsDependencies(
-    options?.projects?.split(",")
+    options?.projects?.split(","),
   ).then((projects) => {
     if (options.onlyDependencies) {
       Object.entries(projects).forEach(([project, { dependencies }]) => {
@@ -37,7 +37,7 @@ async function action(options: {
 
 function formatOutput(
   projects: { [key: string]: { dependencies?: string[]; usedBy?: string[] } },
-  options: Parameters<typeof action>[0]
+  options: Parameters<typeof action>[0],
 ): string {
   switch (options.format) {
     case FormatType.JSON:
@@ -46,7 +46,7 @@ function formatOutput(
       let result = "";
       const maxNameLength = Object.keys(projects).reduce(
         (acc, project) => Math.max(acc, project.length),
-        0
+        0,
       );
       Object.entries(projects).forEach(
         ([project, { dependencies, usedBy }], index) => {
@@ -66,7 +66,7 @@ function formatOutput(
           if (index < Object.keys(projects).length - 1) {
             result += "\n" + "-".repeat(maxNameLength) + "\n\n";
           }
-        }
+        },
       );
       return result;
     }
@@ -80,7 +80,7 @@ function formatOutput(
             usedBy.forEach((project) => {
               result += `- \`${project}\`\n`;
             });
-            usedBy.length && (result += "\n");
+            if (usedBy.length) result += "\n";
           }
           if (dependencies) {
             result += `**Dependencies:**${
@@ -89,9 +89,9 @@ function formatOutput(
             dependencies.forEach((project) => {
               result += `- \`${project}\`\n`;
             });
-            dependencies.length && (result += "\n");
+            if (dependencies.length) result += "\n";
           }
-        }
+        },
       );
       return result;
     }
@@ -102,24 +102,24 @@ export default function projectDependenciesList(program: Command) {
   program
     .command("project:dependencies:list")
     .description(
-      "List for a list of projects their monorepo dependencies and which monorepo projects are using them."
+      "List for a list of projects their monorepo dependencies and which monorepo projects are using them.",
     )
     .option(
       "-p, --projects <project-names>",
-      "Project names to list dependencies for (as comma separated string). If empty, list all projects."
+      "Project names to list dependencies for (as comma separated string). If empty, list all projects.",
     )
     .option("-d, --only-dependencies", "Only list dependencies.", false)
     .option(
       "-u, --only-used-by",
       "Only list projects that use the project.",
-      false
+      false,
     )
     .option(
       "-f, --format <format>",
       `format of the output. Available options: ${Object.values(
-        FormatType
+        FormatType,
       ).join(", ")}`,
-      FormatType.TEXT
+      FormatType.TEXT,
     )
     .action(action);
   return program;

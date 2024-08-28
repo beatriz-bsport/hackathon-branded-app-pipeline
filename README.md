@@ -6,12 +6,12 @@ This project is a simple implementation of how a Monorepository can be configure
 
 ### Get started
 
-1. Install [pnpm](https://pnpm.io/). Current version: 9.1.4
+1. Install [pnpm](https://pnpm.io/). Current version: 9.7.1
 
 On MacOS,
 
 ```sh
-curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=9.1.4 sh -
+curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=9.7.1 sh -
 ```
 
 2. Install [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) and run
@@ -37,7 +37,7 @@ cd app/app-1 && pnpm run start
 or
 
 ```sh
-pnpm run -w nx start @bsport/app-1
+pnpm exec nx start @bsport/app-1
 ```
 
 ## Quick guide
@@ -81,6 +81,17 @@ If you need your project to include a "pre-commit" hook, you can add it to the `
 ```
 
 It will be executed just before committing (don't forget to use `git add` if you want your changes to be added) when your project has some changes compared to remote branch `origin/main`.
+
+### Maintainance
+
+To upgrade all your NX depedencies, run the following command
+
+```sh
+pnpm dlx nx migrate latest
+```
+
+You should do this regularly to ensure your dependencies are up-to-date.
+You can find more regarding upgrading NX here: https://nx.dev/features/automate-updating-dependencies/
 
 ## Structure
 

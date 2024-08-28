@@ -1,16 +1,9 @@
-import type { Example } from "@bsport/types";
+import "@bsport/kaizen-primitive/style.css";
 import Head from "next/head";
-import { Inter } from "next/font/google";
-import { wow } from "@bsport/constants";
 import styles from "@/styles/Home.module.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Button } from "@bsport/kaizen-primitive";
 
 export default function Home() {
-  const ex: Example = {
-    start: `Never ${wow.NEVER}`,
-    end: `Give ${wow.GIVE}`,
-  };
   return (
     <>
       <Head>
@@ -19,10 +12,18 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
+      <main>
         <div className={styles.description}>
-          <p>{ex.start}</p>
-          <p>{ex.end}</p>
+          <Button
+            label="Button"
+            loading={true}
+            onClick={() => {
+              console.log("clicked");
+            }}
+            intent="cta"
+            size="md"
+            color="onstrong"
+          />
         </div>
       </main>
     </>

@@ -1,7 +1,7 @@
 import type { NXPrintAffectedOutput } from "./types";
 import { promisify } from "node:util";
 import { exec as execCb } from "child_process";
-import { MONOREPO_BASE_PATH } from "./constants";
+import { getMonorepoBasePath } from "./constants";
 
 const exec = promisify(execCb);
 
@@ -16,10 +16,11 @@ export async function getProjectsDependencies(projects?: string[]): Promise<{
     usedBy: string[];
   };
 }> {
-  const commandToExecute = "pnpm run --silent nx print-affected --all";
+  const monorepoBasePath = await getMonorepoBasePath();
+  const commandToExecute = "pnpm exec --silent nx print-affected --all";
   try {
     const { stdout } = await exec(commandToExecute, {
-      cwd: MONOREPO_BASE_PATH,
+      cwd: monorepoBasePath,
     });
     const { projectGraph } = JSON.parse(stdout) as NXPrintAffectedOutput;
     const dependencies = Object.entries(projectGraph.dependencies).reduce(

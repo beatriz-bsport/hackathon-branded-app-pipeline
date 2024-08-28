@@ -1,9 +1,9 @@
-// const TOKENS = require("./src/tailwindcss/tailwind-variables.js");
-const THEME = require("./tailwind.theme.json");
+import THEME from "./tailwind.theme.json";
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
+  // Do not edit theme directly as it is auto-generated from tokens
   theme: THEME,
-  content: ["./src/components/**/*.{html,ts,tsx}"],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "selector",
 };

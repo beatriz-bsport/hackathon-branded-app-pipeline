@@ -7,6 +7,9 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "source": "src/index.ts",
+  "devDependencies": {
+    "@bsport/eslint-config-react": "workspace:*"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w",

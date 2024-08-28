@@ -6,7 +6,4 @@ packages:
   - "apps/**"
 
   # Tools
-  - "tools/monorepo-utils"
-
-  # Templates
-  - "tools/templates/**"
+  - "tools/**"

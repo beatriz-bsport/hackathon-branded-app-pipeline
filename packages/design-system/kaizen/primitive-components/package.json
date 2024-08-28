@@ -1,34 +1,52 @@
 {
-  "name": "@bsport/kaizen-primitive-components",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs",
-    "prettier": "prettier",
-    "storybook:build": "sb build",
-    "storybook:dev": "sb dev"
+  "name": "@bsport/kaizen-primitive",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./style.css": "./dist/style.css"
   },
-  "keywords": [],
-  "author": "Marwan El Boussarghini<marwan@bsport.io>",
-  "license": "UNLICENSED",
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
-  "types": "build/index.d.ts",
+  "dependencies": {
+    "class-variance-authority": "^0.7.0",
+    "lodash": "^4.17.21"
+  },
   "devDependencies": {
     "@bsport/kaizen-tokens": "workspace:*",
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@types/react": "^18",
-    "prettier-plugin-tailwindcss": "^0.6.5",
-    "react": "^18.3.1",
-    "rollup": "^4.20.0",
-    "rollup-plugin-dts": "^6.1.1",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.2",
+    "@bsport/eslint-config-react": "workspace:*",
+    "@storybook/addon-themes": "^8.2.7",
+    "@types/inquirer": "^9.0.3",
+    "@types/lodash": "^4.17.4",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^8.2.2",
+    "inquirer": "^8.2.4",
+    "postcss": "^8.4.41",
     "tailwindcss": "^3.4.7",
     "tslib": "^2.6.3",
-    "typescript": "^5.5.4"
+    "tsx": "^4.17.0",
+    "vite": "^5.4.1",
+    "vite-plugin-dts": "^4.0.3",
+    "vite-plugin-svgr": "^4.2.0"
+  },
+  "scripts": {
+    "dev": "pnpm run storybook:dev",
+    "build": "tsc && vite build",
+    "icon:add": "tsx ./scripts/create-icon.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "storybook:build": "sb build",
+    "storybook:dev": "sb dev"
   }
 }

@@ -1,3 +1,6 @@
 import convertExport from "../src";
 
-convertExport();
+convertExport().catch((err) => {
+  console.error(`❌  Error when importing kaizen-token:`);
+  throw err;
+});

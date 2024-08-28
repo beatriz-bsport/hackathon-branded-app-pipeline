@@ -2,7 +2,6 @@
 @import "./colors.css";
 @import "./typography.css";
 @import "./dimensions.css";
-@import "./sizes.css";
 @import "./opacities.css";
 @import "./font-sizes.css";
 @import "./line-heights.css";
@@ -12,3 +11,4 @@
 @import "./shadows.css";
 @import "./strings.css";
 @import "./font-weights.css";
+@import "./blurs.css";

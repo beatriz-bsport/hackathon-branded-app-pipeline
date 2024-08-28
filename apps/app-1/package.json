@@ -5,20 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.3",
-    "@bsport/constants": "workspace:*"
+    "@bsport/kaizen-primitive": "workspace:*",
+    "next": "14.2.3"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@bsport/types": "workspace:*",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18"
+    "@types/node": "^20"
   }
 }

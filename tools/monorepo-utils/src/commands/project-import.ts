@@ -4,11 +4,10 @@ import type { Command } from "commander";
 import path from "path";
 import util from "node:util";
 import fs from "fs-extra";
-import { MONOREPO_BASE_PATH } from "../../../../packages/utils/monorepo/build";
+import { getMonorepoBasePath } from "@bsport/typescript-monorepo-utils";
+import child_process from "child_process";
 
-const exec = util.promisify(require("child_process").exec);
-
-const MONOREPO_FULL_PATH = path.resolve(__dirname, "../../../");
+const exec = util.promisify(child_process.exec);
 
 /**
  * @param {string} targetPath
@@ -26,7 +25,7 @@ async function action(
     tempBranch,
     tempRemote,
     "no-clean-up": noCleanUp = false,
-  }
+  },
 ) {
   let error;
   const print = (...msgs) => !quiet && console.log(...msgs);
@@ -35,7 +34,7 @@ async function action(
 
   if (!fs.existsSync(repoAbsolutePath)) {
     throw new Error(
-      `Unresolved path "${repoAbsolutePath}", please provide a valid initial path`
+      `Unresolved path "${repoAbsolutePath}", please provide a valid initial path`,
     );
   }
 
@@ -77,7 +76,7 @@ async function action(
 
     if (error) {
       console.log(
-        `❌ ${error instanceof Error ? error.message : String(error)}`
+        `❌ ${error instanceof Error ? error.message : String(error)}`,
       );
       console.error(error);
     }
@@ -105,7 +104,7 @@ async function syncInitialRepository({
     ).stdout === "true\n";
   if (!isGitRepository) {
     throw new Error(
-      `Invalid path: ${repoAbsolutePath} is not a valid git repository`
+      `Invalid path: ${repoAbsolutePath} is not a valid git repository`,
     );
   }
   print(`> Git repository found at path ${repoAbsolutePath}`);
@@ -116,17 +115,19 @@ async function syncInitialRepository({
     print("Changes not staged for commit:");
     print(e.stdout);
     throw new Error(
-      "Some local changes have not been staged in the repository"
+      "Some local changes have not been staged in the repository",
     );
   }
   try {
     print("> git diff --name-only --exit-code");
-    await exec("git diff --name-only --exit-code", { cwd: MONOREPO_FULL_PATH });
+    await exec("git diff --name-only --exit-code", {
+      cwd: await getMonorepoBasePath(),
+    });
   } catch (e) {
     print("Changes not staged for commit:");
     print(e.stdout);
     throw new Error(
-      "Some local changes have not been staged in the monorepository"
+      "Some local changes have not been staged in the monorepository",
     );
   }
   print("No local change has been found.");
@@ -153,7 +154,7 @@ async function prepareRepoForMerge({
 }) {
   const print = (...msgs) => !quiet && console.log(...msgs);
 
-  const tempDirPath = path.resolve(MONOREPO_BASE_PATH, tempDir);
+  const tempDirPath = path.resolve(await getMonorepoBasePath(), tempDir);
   print("⏳ Preparing repository for merge");
   try {
     print(`> git checkout -b ${tempBranch}`);
@@ -205,7 +206,7 @@ async function prepareRepoForMerge({
     fs.writeFileSync(
       packageJsonPath,
       JSON.stringify(packageJson, null, 2),
-      "utf8"
+      "utf8",
     );
     print("✅ Update package.json with new name");
   }
@@ -213,11 +214,11 @@ async function prepareRepoForMerge({
   print("> git add -A");
   await exec("git add -A", { cwd: repoAbsolutePath });
   print(
-    `> git commit -m "feature: migration to monorepo project ${targetPath}"`
+    `> git commit -m "feature: migration to monorepo project ${targetPath}"`,
   );
   await exec(
     `git commit -m "feature: migration to monorepo project ${targetPath}"`,
-    { cwd: repoAbsolutePath }
+    { cwd: repoAbsolutePath },
   );
 
   print("✅ Repository ready to be merged");
@@ -235,18 +236,19 @@ async function mergeToMonorepo({
   tempBranch: string;
   tempRemote: string;
 }) {
+  const monorepoBasePath = await getMonorepoBasePath();
   const print = (...msgs) => !quiet && console.log(...msgs);
   print("⏳ Merging to monorepository");
   print(`> git remote add -f ${tempRemote} ${repoAbsolutePath}`);
   await exec(`git remote add -f ${tempRemote} ${repoAbsolutePath}`, {
-    cwd: MONOREPO_FULL_PATH,
+    cwd: monorepoBasePath,
   });
   print(
-    `> git merge -m "feature: imported ${targetPath}" ${tempRemote}/${tempBranch} --allow-unrelated-histories`
+    `> git merge -m "feature: imported ${targetPath}" ${tempRemote}/${tempBranch} --allow-unrelated-histories`,
   );
   await exec(
     `git merge -m "feature: imported ${targetPath}" ${tempRemote}/${tempBranch} --allow-unrelated-histories`,
-    { cwd: MONOREPO_FULL_PATH }
+    { cwd: monorepoBasePath },
   );
   print("✅ Merged to monorepository");
 }
@@ -271,7 +273,7 @@ async function cleanup({
 }) {
   const print = (...msgs) => !quiet && console.log(...msgs);
   print("⏳ Clearing temp branches and remotes");
-  !error && print("> Clear cache folder");
+  if (!error) print("> Clear cache folder");
   await exec(`rm -rf ${tempBranch}`);
 
   if (fs.existsSync(path.resolve(fsPath, targetPath))) {
@@ -280,71 +282,76 @@ async function cleanup({
   }
 
   try {
-    !error && print(`> git remote remove ${tempRemote}`);
-    await exec(`git remote remove ${tempRemote}`, { cwd: MONOREPO_FULL_PATH });
+    if (!error) print(`> git remote remove ${tempRemote}`);
+    await exec(`git remote remove ${tempRemote}`, {
+      cwd: await getMonorepoBasePath(),
+    });
   } catch (e) {
-    !error && print(`remote ${tempRemote} already removed`);
+    if (!error) print(`remote ${tempRemote} already removed`);
   }
-  !error && print(`> git checkout --force ${branch}`);
+  if (!error) print(`> git checkout --force ${branch}`);
   await exec(`git checkout --force ${branch}`, { cwd: repoAbsolutePath });
 
   try {
-    !error && print(`> git branch -D ${tempBranch}`);
+    if (!error) print(`> git branch -D ${tempBranch}`);
     await exec(`git branch -D ${tempBranch}`, { cwd: repoAbsolutePath });
   } catch (e) {
-    !error && print(`branch ${tempBranch} not found`);
+    if (!error) print(`branch ${tempBranch} not found`);
   }
   print("✅ Temp branches and remotes cleared");
 }
 
-export default function importProject(program: Command) {
+export default async function importProject(program: Command) {
   program
     .command("project:import")
     .description(
-      "Imports a local project structure with all git commits to a monorepo."
+      "Imports a local project structure with all git commits to a monorepo.",
     )
     .argument(
       "<target-path>",
-      "Monorepo path where the project will be imported (ex: apps/services/core/map)."
+      "Monorepo path where the project will be imported (ex: apps/services/core/map).",
     )
     .argument(
       "<filesystem-path>",
-      "Filesystem path where the repository is currently located."
+      "Filesystem path where the repository is currently located.",
     )
     .option(
       "-b, --branch <branch>",
       "branch from which the project will be imported.",
-      "master"
+      "master",
     )
     .option(
       "-r, --remote <remote>",
       "remote from which the project will be imported.",
-      "origin"
+      "origin",
     )
     .option(
       "--tempDir <tempDir>",
       "temporary cache directory that will be used to copy files",
-      path.relative(MONOREPO_BASE_PATH, path.resolve(__dirname, "__tmp__"))
+      path.relative(
+        await getMonorepoBasePath(),
+        path.resolve(__dirname, "__tmp__"),
+      ),
     )
     .option(
       "--tempBranch <tempBranch>",
       "temporary branch used in the project's repository to make the migration.",
-      "temp/prepare_monorepo"
+      "temp/prepare_monorepo",
     )
     .option(
       "--tempRemote <tempRemote>",
       "temporary remote added in the monorepo to import the project.",
-      "temp"
+      "temp",
     )
     .option(
       "--no-clean-up",
       "disables the post script clean-up that removes temporary folders, remotes and branches.",
-      false
+      false,
     )
     .option(
       "-q, --quiet",
       "suppress all output, unless an error occurs.",
-      false
+      false,
     )
     .action(action);
   return program;

@@ -9,7 +9,7 @@ import projectDependenciesList from "./project-dependencies-list";
 import dbSync from "./db-sync";
 // DO NOT REMOVE THIS LINE: IMPORTS
 
-const COMMANDS: ((program: Command) => Command)[] = [
+const COMMANDS: ((program: Command) => Promise<Command> | Command)[] = [
   commandCreate,
   projectImport,
   projectCreate,

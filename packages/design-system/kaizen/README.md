@@ -5,4 +5,4 @@ This folder contains all the projects serving the BO design system to the rest o
 ## Structure
 
 - [Design tokens](./tokens)
-- [Design Components](./design-components/)
+- [Primitive Components](./primitive-components/)

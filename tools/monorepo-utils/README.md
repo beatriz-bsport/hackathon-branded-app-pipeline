@@ -16,7 +16,7 @@ All commands are provided with a `--help` to describe the arguments / options th
 ### **tmp** folder
 
 The `__tmp__` folder is used to store temporary scripts that do not need to be versioned.
-You can run any script from this folder using the following command: `node monorepo-utils ts-node ./__tmp__/your-script.ts`.
+You can run any script from this folder using the following command: `pnpm exec ts-node ./__tmp__/your-script.ts`.
 
 ## Commands list
 
@@ -130,11 +130,6 @@ __Usage:__ `@bsport/monorepo-utils-tools project:import [options] <target-path> 
 |:----:|:----:|
 | `-b, --branch <branch>` | branch from which the project will be imported. (default: "master") |
 | `-r, --remote <remote>` | remote from which the project will be imported. (default: "origin") |
-| `--tempDir <tempDir>` | temporary cache directory that will be used to copy files (default: "tools/monorepo-utils/src/commands/__tmp__") |
-| `--tempBranch <tempBranch>` | temporary branch used in the project's repository to make the migration. (default: "temp/prepare_monorepo") |
-| `--tempRemote <tempRemote>` | temporary remote added in the monorepo to import the project. (default: "temp") |
-| `--no-clean-up` | disables the post script clean-up that removes temporary folders, remotes and branches. |
-| `-q, --quiet` | suppress all output, unless an error occurs. (default: false) |
 | `-h, --help` | display help for command |
 
 ### `project:list`

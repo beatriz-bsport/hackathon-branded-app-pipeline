@@ -1,15 +1,15 @@
 import type { Command } from "commander";
 import type { DistinctQuestion } from "inquirer";
-import type { PackageJson } from "../../../../packages/utils/monorepo/build/types";
+import type { PackageJson } from "@bsport/typescript-monorepo-utils";
 import { spawn } from "child_process";
 import path from "path";
 import fs from "fs-extra";
 import inquirer from "inquirer";
 import kebabCase from "lodash/kebabCase";
 import {
-  MONOREPO_BASE_PATH,
+  getMonorepoBasePath,
   getProjectsPackageJsons,
-} from "../../../../packages/utils/monorepo/build";
+} from "@bsport/typescript-monorepo-utils";
 
 /**
  * Main command parameters
@@ -22,7 +22,11 @@ type ActionParameters = {
 };
 
 const npmSetupCommand = "project:init";
-const templatesDirectoryPath = path.resolve(__dirname, "../../../templates");
+
+async function getTemplatesDirPath() {
+  const monorepoBasePath = await getMonorepoBasePath();
+  return path.resolve(monorepoBasePath, "tools/templates");
+}
 
 /**
  * Runs the command.
@@ -31,9 +35,12 @@ async function main(options: Partial<ActionParameters> & { quiet: boolean }) {
   const print: typeof console.log = (...args) =>
     !options.quiet && console.log(...args);
 
+  const monorepoBasePath = await getTemplatesDirPath();
+  const templatesDirectoryPath = await getTemplatesDirPath();
+
   const params = await promptMissingParameters(options, { print });
 
-  const projectAbsPath = path.resolve(MONOREPO_BASE_PATH, params.path);
+  const projectAbsPath = path.resolve(monorepoBasePath, params.path);
   const templateAbsPath = path.resolve(templatesDirectoryPath, params.template);
   fs.copySync(templateAbsPath, projectAbsPath);
   print(`✅ Project created at ${projectAbsPath}`);
@@ -83,7 +90,7 @@ async function writePackageJson({
     packageJSON.version = "0.0.0";
     const gitConfig = fs.readFileSync(
       path.resolve(process.env.HOME, ".gitconfig"),
-      "utf8"
+      "utf8",
     );
     const gitConfigLines = gitConfig.split("\n");
     const gitUserName = gitConfigLines
@@ -110,7 +117,7 @@ async function writePackageJson({
 ❌ Please fix:
 - the template's package.json at ${path.resolve(
       templateAbsPath,
-      "package.json"
+      "package.json",
     )}
 - the project's package.json at ${packageJSONPath}
 `);
@@ -153,7 +160,7 @@ async function runSetupCommand({
   params: ActionParameters;
   projectAbsPath: string;
   print: typeof console.log;
-  packageJSON: any;
+  packageJSON: PackageJson;
 }) {
   if (!packageJSON.scripts[npmSetupCommand]) {
     return;
@@ -172,8 +179,8 @@ async function runSetupCommand({
       if (code !== 0) {
         return reject(
           new Error(
-            `Setup script "${npmSetupCommand}" failed with code ${code}`
-          )
+            `Setup script "${npmSetupCommand}" failed with code ${code}`,
+          ),
         );
       }
       resolve();
@@ -186,15 +193,16 @@ async function runSetupCommand({
  */
 async function promptMissingParameters(
   options: Parameters<typeof main>[0],
-  { print }: { print: typeof console.log }
+  { print }: { print: typeof console.log },
 ): Promise<ActionParameters> {
+  const templatesDirectoryPath = await getTemplatesDirPath();
   const templates = fs
     .readdirSync(templatesDirectoryPath)
     .filter((template) => !template.startsWith("."))
     .map((template) => {
       try {
         const packageJson = fs.readJsonSync(
-          path.resolve(templatesDirectoryPath, template, "package.json")
+          path.resolve(templatesDirectoryPath, template, "package.json"),
         );
         const name = packageJson.name.replace("template-", "");
         return {
@@ -204,6 +212,7 @@ async function promptMissingParameters(
           value: template,
         };
       } catch (e) {
+        console.error(e);
         return {
           name: template,
           value: template,
@@ -243,11 +252,12 @@ async function promptMissingParameters(
     path: {
       type: "input",
       message: "Directory where to create the project: ",
-      validate: (value) => {
+      validate: async (value) => {
         if (!value) {
           return "Project path is required.";
         }
-        const projectFullPath = path.resolve(MONOREPO_BASE_PATH, value);
+        const monorepoBasePath = await getMonorepoBasePath();
+        const projectFullPath = path.resolve(monorepoBasePath, value);
         if (fs.existsSync(projectFullPath)) {
           return `${projectFullPath} already exists. Please select a different path to create your project.`;
         }
@@ -275,7 +285,7 @@ async function promptMissingParameters(
       return false;
     }
     const validation = parametersDescription[fieldName].validate(
-      options[fieldName]
+      options[fieldName],
     );
     if (validation !== true) {
       console.log("❌ " + (validation || `Invalid input: ${options.name}`));
@@ -288,7 +298,7 @@ async function promptMissingParameters(
       ...question,
       name: fieldName,
       when: when(fieldName),
-    }))
+    })),
   );
   Object.entries(parametersDescription).forEach(([paramName, description]) => {
     print(`ℹ️  ${description.message} ${options[paramName]}`);
@@ -308,10 +318,11 @@ async function checkIfProjectInMonorepo({
   const isInMonorepo = Object.keys(monorepoProjects).includes(projectName);
 
   if (!isInMonorepo) {
+    const monorepoBasePath = await getMonorepoBasePath();
     throw new Error(`❌ The package is not recognised by the monorepo.
 Please edit the following file to include it: ${path.resolve(
-      MONOREPO_BASE_PATH,
-      "pnpm-workspace.yaml"
+      monorepoBasePath,
+      "pnpm-workspace.yaml",
     )}`);
   }
 }
@@ -329,22 +340,22 @@ Creates a new project from a template and installs its dependencies and:
  - removes the prefix \`placeholder:\` from all scripts names in \`package.json\` (if any),
  - if the \`package.json\` file of the template includes a \`${npmSetupCommand}\` script, runs \`pnpm run ${npmSetupCommand} --name {params.name} --title {params.title}\`,
  - if the project is not recognised by the monorepo, prints a warning and suggests to add it to pnpm-workspace.yaml.
- `
+ `,
     )
     .option("--name <projectName>", "The name of the project to create.")
     .option("--title <projectTitle>", "Human readable title of the project.")
     .option(
       "--path <projectPath>",
-      "The path where the project should be created (relative from the monorepo root path). Ex: apps/applications/specialist/test-app"
+      "The path where the project should be created (relative from the monorepo root path). Ex: apps/applications/specialist/test-app",
     )
     .option(
       "--template <template>",
-      "Template that should be the base for the project."
+      "Template that should be the base for the project.",
     )
     .option(
       "-q, --quiet",
       "suppress all output, unless an error occurs.",
-      false
+      false,
     )
     .action(main);
   return program;

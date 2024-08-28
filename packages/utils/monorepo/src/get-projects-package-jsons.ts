@@ -3,7 +3,7 @@ import { promisify } from "node:util";
 import { exec as execCb } from "child_process";
 import { join as pathJoin, relative as pathRelative } from "path";
 import fs from "fs-extra";
-import { MONOREPO_BASE_PATH } from "./constants";
+import { getMonorepoBasePath } from "./constants";
 
 const exec = promisify(execCb);
 
@@ -15,7 +15,7 @@ const DEFAULT_OPTIONS = { isAbsolutePath: false };
  * @param options.isAbsolutePath If `true`, the path will be absolute. If `false`, the path will be relative to the monorepo base path.
  */
 export async function getProjectsPackageJsons(
-  options: { isAbsolutePath?: boolean } = DEFAULT_OPTIONS
+  options: { isAbsolutePath?: boolean } = DEFAULT_OPTIONS,
 ): Promise<{
   [projectName: string]: {
     path: string;
@@ -23,8 +23,9 @@ export async function getProjectsPackageJsons(
     packageJson: PackageJson;
   };
 }> {
+  const monorepoBasePath = await getMonorepoBasePath();
   const { stdout } = await exec("pnpm list -r --depth -1 --json", {
-    cwd: MONOREPO_BASE_PATH,
+    cwd: monorepoBasePath,
   });
   const projects = JSON.parse(stdout) as Array<{
     name: string;
@@ -34,13 +35,13 @@ export async function getProjectsPackageJsons(
   }>;
   const packageJSONs: PackageJson[] = await Promise.all(
     projects.map((project) =>
-      fs.readJSON(pathJoin(project.path, "package.json"))
-    )
+      fs.readJSON(pathJoin(project.path, "package.json")),
+    ),
   );
   return projects.reduce(
     (acc, project) => {
       const packageJson = packageJSONs.find(
-        ({ name }) => name === project.name
+        ({ name }) => name === project.name,
       );
       return !packageJson
         ? acc
@@ -51,7 +52,7 @@ export async function getProjectsPackageJsons(
               path:
                 options.isAbsolutePath || DEFAULT_OPTIONS.isAbsolutePath
                   ? project.path
-                  : pathRelative(MONOREPO_BASE_PATH, project.path),
+                  : pathRelative(monorepoBasePath, project.path),
               packageJson,
             },
           };
@@ -62,6 +63,6 @@ export async function getProjectsPackageJsons(
         name: string;
         packageJson: PackageJson;
       };
-    }
+    },
   );
 }

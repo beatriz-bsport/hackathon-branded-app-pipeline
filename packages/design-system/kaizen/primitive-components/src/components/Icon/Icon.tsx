@@ -1,0 +1,77 @@
+import React, { HTMLAttributes, useMemo, Suspense } from "react";
+import mapValues from "lodash/mapValues";
+import ICONS from "./icons";
+import { cva, type VariantProps } from "class-variance-authority";
+
+export type IconName = keyof typeof ICONS;
+
+const variants = {
+  size: {
+    xl: ["h-icon-xl", "w-icon-xl"],
+    lg: ["h-icon-lg", "w-icon-lg"],
+    md: ["h-icon-md", "w-icon-md"],
+    sm: ["h-icon-sm", "w-icon-sm"],
+    xs: ["h-icon-xs", "w-icon-xs"],
+    "action-lg": ["h-action-lg", "w-action-lg"],
+    "action-md": ["h-action-md", "w-action-md"],
+    "action-sm": ["h-action-sm", "w-action-sm"],
+  },
+} as const;
+
+const iconCva = cva("", {
+  variants,
+});
+
+export type IconProps = HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof iconCva> & {
+    icon: IconName;
+  };
+
+/**
+ * Generic Icon React component allowing to render any
+ * @param icon Name of the icon to use, as listed in the exported icons const.
+ * @param className Classe for style the container of your icon.
+ * @param size Size of the icon.
+ * @link Tutorial: https://medium.com/@mateuszpalka/creating-your-custom-svg-icon-library-in-react-a5ff1c4c704a
+ * @returns
+ */
+const Icon: React.FC<IconProps> = ({ icon, className, size, ...rest }) => {
+  const SvgIcon = useMemo(() => ICONS[icon], [icon]);
+  if (!SvgIcon) {
+    console.error(
+      `Invalid value for props icon: ${icon}. Available values: ${Object.keys(ICONS).join(", ")}`,
+    );
+    return null;
+  }
+
+  return (
+    <div
+      className={`${className} ${iconCva({ size })}`}
+      aria-label={icon}
+      role="img"
+      {...rest}
+    >
+      <Suspense fallback={null}>
+        <SvgIcon />
+      </Suspense>
+    </div>
+  );
+};
+
+Icon.displayName = "KaizenIcon";
+
+/**
+ * Maps all the available icons that are available for the Icon component.
+ */
+export const icons = mapValues(ICONS, (_, key) => key) as {
+  [key in keyof typeof ICONS]: key;
+};
+
+/**
+ * Maps all the available sizes that are available for the Icon component.
+ */
+export const sizes = mapValues(variants.size, (_, key) => key) as {
+  [key in keyof typeof variants.size]: key;
+};
+
+export default Icon;

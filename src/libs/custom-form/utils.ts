@@ -32,8 +32,12 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
   CUSTOM_FORM_FIELD_LOCATION_OPTION,
 } from '@bsport/common/lib/master-data/custom-form';
+import omit from 'lodash/omit';
+
 // @ts-expect-error JS
 import { mapFormDataWithObject } from '#src/pages/form.utils';
+import { convertBase64toFile } from '#src/libs/utils';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import type {
   CustomFormField,
@@ -421,8 +425,26 @@ export const isCustomFormCssVariantActivated = (useCustomCssVariant: boolean) =>
 export const parseCustomFormAnswersToFormData = (formikValues: {
   [key: string]: any;
 }) => {
-  const formData: FormData = mapFormDataWithObject(
-    formikValues,
+  /**
+   * Custom form submission - remove metaData field
+   * When converting custom form values from Formik to FormData, we have to ensure metaData
+   * properties are not included or else the payload will be too big.
+   */
+  let formDataFormikValues = formikValues;
+  if (WidgetUtils.isWidget()) {
+    formDataFormikValues = {
+      ...formikValues,
+      custom_form_field_filled: formikValues.custom_form_field_filled.reduce(
+        (acc: any, field: any) => {
+          return [...acc, omit(field, 'metaData')];
+        },
+        [],
+      ),
+    };
+  }
+
+  let formData: FormData = mapFormDataWithObject(
+    formDataFormikValues,
     CUSTOM_FORM_FILLED_MAP,
     [
       'custom_form_field',
@@ -439,17 +461,18 @@ export const parseCustomFormAnswersToFormData = (formikValues: {
   );
 
   // Handle file and signature fields
-  formikValues.custom_form_field
-    .filter((_field: CustomFormFieldAnswer) =>
-      [
-        CUSTOM_FORM_FIELD_FILE_OPTION,
-        CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
-      ].includes(_field.kind),
-    )
-    .forEach(
-      (field: CustomFormFieldAnswer) =>
-        field.answer && formData.append(`file:${field.id}`, field.answer),
-    );
+  !WidgetUtils.isWidget() &&
+    formikValues.custom_form_field
+      .filter((_field: CustomFormFieldAnswer) =>
+        [
+          CUSTOM_FORM_FIELD_FILE_OPTION,
+          CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
+        ].includes(_field.kind),
+      )
+      .forEach(
+        (field: CustomFormFieldAnswer) =>
+          field.answer && formData.append(`file:${field.id}`, field.answer),
+      );
 
   // We add the photo file only if it is a new one (binary files are already handled)
   // However, the customform saving could break due to the filename (that could have more than 100 characters, with the storage path)
@@ -459,11 +482,58 @@ export const parseCustomFormAnswersToFormData = (formikValues: {
       (_field: CustomFormFieldAnswer) =>
         _field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
     )
-    .forEach((field: CustomFormFieldAnswer) => {
-      if (field.answer && !formikValues.initialPhotos.includes(field.answer)) {
-        formData.append(`file:${field.id}`, field.answer);
-      }
-    });
+    .forEach(
+      (
+        field: CustomFormFieldAnswer & {
+          metaData?: { base64?: string; name?: string; type?: string };
+        },
+      ) => {
+        if (
+          field.answer &&
+          !formikValues.initialPhotos.includes(field.answer)
+        ) {
+          if (WidgetUtils.isWidget()) {
+            formData.append(
+              `file:${field.id}`,
+              convertBase64toFile(
+                field.metaData?.base64,
+                field.metaData?.name,
+                field.metaData?.type,
+              ),
+            );
+          } else {
+            formData.append(`file:${field.id}`, field.answer);
+          }
+        }
+      },
+    );
+
+  /**
+   * When submitting a custom form from the widget we append all files
+   * to the form data instance, converted before from base64 string
+   */
+  WidgetUtils.isWidget() &&
+    formikValues.custom_form_field_filled
+      .filter(
+        (_field: CustomFormFieldAnswer) =>
+          _field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
+      )
+      .forEach(
+        (
+          field: CustomFormFieldAnswer & {
+            metaData?: { base64?: string; name?: string; type?: string };
+          },
+        ) => {
+          formData.append(
+            `file:${field.id}`,
+            convertBase64toFile(
+              field.metaData?.base64,
+              field.metaData?.name,
+              field.metaData?.type,
+            ),
+          );
+        },
+      );
 
   return formData;
 };

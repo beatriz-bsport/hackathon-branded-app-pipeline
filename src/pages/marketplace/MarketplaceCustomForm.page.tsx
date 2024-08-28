@@ -255,6 +255,7 @@ const mapWithHandlers = {
     (props: OwnAndConnectedProps) =>
     (form_filled: CustomFormFieldAnswer, options?: OptionCallback) => {
       props.submitCustomFormAction(
+        // @ts-expect-error
         { form_filled: form_filled, companyId: props.companyId },
         {
           onSuccess: () => {

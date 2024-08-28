@@ -133,6 +133,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
     options?: OptionCallback,
   ) => {
     this.props.submitCustomForm(
+      // @ts-expect-error
       { form_filled: formdata, companyId: this.props.membership.company },
       {
         onSuccess: () => {

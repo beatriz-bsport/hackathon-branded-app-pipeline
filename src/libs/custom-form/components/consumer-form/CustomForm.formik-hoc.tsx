@@ -28,6 +28,7 @@ import type {
 } from '../../types';
 import GridLayoutWrapper from '../consumer-form-layout/GridLayoutWrapper.component';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { convertBlobToBase64 } from '#src/libs/utils';
 
 type OwnProps = {
   layouts?: ResponsiveLayouts;
@@ -273,8 +274,11 @@ export const ConsumerFormFieldsHOC = withFormik({
   },
   enableReinitialize: true,
   validationSchema: ValidationSchema,
-  // @ts-expect-error
-  handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
+  handleSubmit: async (
+    values,
+    // @ts-expect-error
+    { props: { onSubmit, initial }, setSubmitting },
+  ) => {
     const {
       /* eslint-disable */
       // @ts-expect-error
@@ -309,7 +313,78 @@ export const ConsumerFormFieldsHOC = withFormik({
       ),
     };
 
-    const customFormCleanedValues = {
+    /**
+     * The final object that will be converted into a FormData instance for API
+     * In the widget case, we want to prevent the conversion since not possible
+     * to clone through a postMessage() API
+     */
+    let customFormCleanedValues;
+
+    /**
+     * The widget case
+     * Convert any image into a base64 string to re-encode the image
+     * right before sending it to the API
+     */
+    if (isWidget) {
+      customFormCleanedValues = {
+        ...values,
+        initialPhotos: initial.custom_form_field
+          .filter(
+            (_field: CustomFormFieldAnswer) =>
+              _field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
+          )
+          .map((field: CustomFormFieldAnswer) => field.answer),
+        custom_form_id: values.id,
+        custom_form_field: await Promise.all(
+          values.custom_form_field.map(async (field: CustomFormFieldAnswer) => {
+            if (field.answer instanceof File) {
+              return {
+                ...field,
+                answer: {},
+                metaData: {
+                  name: field.answer.name,
+                  type: field.answer.type,
+                  base64: await convertBlobToBase64(field.answer),
+                },
+              };
+            }
+            return field;
+          }),
+        ),
+        custom_form_field_filled: await Promise.all(
+          values.custom_form_field.map(async (field: CustomFormFieldAnswer) => {
+            if (field.answer instanceof File) {
+              return {
+                custom_form_field_id: field.id,
+                answer: {},
+                metaData: {
+                  name: field.answer.name,
+                  type: field.answer.type,
+                  base64: await convertBlobToBase64(field.answer),
+                },
+              };
+            }
+            return {
+              custom_form_field_id: field.id,
+              answer: field.answer,
+            };
+          }),
+        ),
+      };
+
+      return onSubmit(customFormCleanedValues, {
+        onSuccess: () => {
+          setSubmitting(false);
+        },
+        onError: () => setSubmitting(false),
+      });
+    }
+
+    /**
+     * The web case
+     * Convert formik values into FormData instance with files included
+     */
+    customFormCleanedValues = {
       ...values,
       initialPhotos: initial.custom_form_field
         .filter(
@@ -319,24 +394,12 @@ export const ConsumerFormFieldsHOC = withFormik({
         .map((field: CustomFormFieldAnswer) => field.answer),
       custom_form_id: values.id,
       custom_form_field_filled: values.custom_form_field.map(
-        (field: CustomFormFieldAnswer) => {
-          return { custom_form_field_id: field.id, answer: field.answer };
-        },
+        (field: CustomFormFieldAnswer) => ({
+          custom_form_field_id: field.id,
+          answer: field.answer,
+        }),
       ),
     };
-
-    /**
-     * In widget case, we want to prevent to return a FormData instance since
-     * impossible to clone with postMessage() API
-     */
-    if (isWidget) {
-      return onSubmit(customFormCleanedValues, {
-        onSuccess: () => {
-          setSubmitting(false);
-        },
-        onError: () => setSubmitting(false),
-      });
-    }
 
     const formData = parseCustomFormAnswersToFormData(customFormCleanedValues);
 

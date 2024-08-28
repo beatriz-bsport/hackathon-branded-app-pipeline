@@ -134,6 +134,7 @@ export class ReferralRegistration extends Component<Props, State> {
       {
         onSuccess: (payload: any) => {
           this.props.submitCustomFormAction(
+            // @ts-expect-error
             { form_filled: formdata, companyId: company },
             {
               ...options,

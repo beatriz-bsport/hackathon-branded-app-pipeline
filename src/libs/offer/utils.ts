@@ -113,10 +113,12 @@ export function getEditPermission(
   hasEditActivityPermission: boolean,
   hasEditWorkshopPermission: boolean,
 ) {
-  if (offer.meta_activity.is_workshop) {
+  if (!offer.meta_activity) return false;
+
+  if (offer.meta_activity?.is_workshop) {
     return hasEditWorkshopPermission;
   }
-  if (offer.meta_activity.is_workshop === false) {
+  if (offer.meta_activity?.is_workshop === false) {
     return hasEditActivityPermission;
   }
   return false;

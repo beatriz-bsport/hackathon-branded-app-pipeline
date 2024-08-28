@@ -1,8 +1,12 @@
 import React from 'react';
-import ModalToDrawerSwitcherComponent from '#src/components/Modal/ModalToDrawerSwitcher.component';
+
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import { ButtonBase } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
+import ModalToDrawerSwitcherComponent from '#src/components/Modal/ModalToDrawerSwitcher.component';
+
+import './BoutiqueBookerModule.css';
 
 type GroupedOfferInformationModalProps = {
   isOpen: boolean;

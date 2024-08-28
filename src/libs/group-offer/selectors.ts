@@ -82,6 +82,3 @@ const getOffersIdsToBeBookedByGroupId = (state: RootState) =>
 
 export const getGroupOffersIdsToBeBooked = (state: RootState, id: number) =>
   getOffersIdsToBeBookedByGroupId(state)[id];
-
-export const getGroupOffersDataLoading = (state: RootState) =>
-  state.groupOffer.loading;

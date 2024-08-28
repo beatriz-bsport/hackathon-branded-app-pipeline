@@ -508,8 +508,7 @@
     align-items: flex-start;
     gap: var(--bs-space-size-2);
     padding: var(--bs-space-size-4);
-    border-top: var(--bs-border-thin, 1px) solid
-      var(--bs-color-border-weak, rgba(224, 224, 224, 0.4));
+    border-top: var(--bs-border-thin, 1px) solid var(--bs-color-border-weak);
   }
 
   .bs-new-offer-booking-grouped-session__information__modal__footer__confirm__button {

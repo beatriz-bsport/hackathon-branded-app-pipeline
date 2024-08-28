@@ -22,5 +22,8 @@
   align-items: center;
   height: fit-content;
   margin-right: var(--PhoneInputCountrySelect-marginRight);
-  padding-bottom: 8px;
+  padding-bottom: var(--bs-space-size-1);
+  max-width: var(
+    --bs-space-size-8
+  ); /* Display issue for custom forms on widget - international option */
 }

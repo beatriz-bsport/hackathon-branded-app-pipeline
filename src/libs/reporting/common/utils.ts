@@ -887,18 +887,21 @@ export const getSingleValueLabel = (
     case ReportFilterableDataType.DISPUTE_STATUS:
       return t(`payment:disputeStatus.${value}`);
     case ReportFilterableDataType.BOOKING_STATUS_CODE:
-      switch (value) {
-        case BOOKING_STATUS_OK.id:
-          return t('booking:filters.notCancelled');
-        case BOOKING_STATUS_CANCELLED_BY_MANAGER.id:
-          return t('booking:filters.managerCanceled');
-        case BOOKING_STATUS_CANCELLED_BY_CONSUMER.id:
-          return t('booking:filters.consumerCanceled');
-        case BOOKING_STATUS_CANCELLED_BY_OFFER.id:
-          return t('booking:filters.canceled');
-        default:
-          return value;
+      if (Array.isArray(value)) {
+        switch (value[0]) {
+          case BOOKING_STATUS_OK.id:
+            return t('booking:filters.notCancelled');
+          case BOOKING_STATUS_CANCELLED_BY_MANAGER.id:
+            return t('booking:filters.managerCanceled');
+          case BOOKING_STATUS_CANCELLED_BY_CONSUMER.id:
+            return t('booking:filters.consumerCanceled');
+          case BOOKING_STATUS_CANCELLED_BY_OFFER.id:
+            return t('booking:filters.canceled');
+          default:
+            return value[0];
+        }
       }
+      return value;
     case ReportFilterableDataType.SOURCE_DEVICE:
       return t(`reporting:presetValuesByDatatype.source_device.${value}`);
     case ReportFilterableDataType.PAYMENT_ENGINE:

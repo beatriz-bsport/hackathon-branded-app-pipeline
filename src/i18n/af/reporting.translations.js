@@ -137,6 +137,7 @@ const getTranslations = async () => {
       product_price: 'Product price',
       product: 'Product',
       product_type: 'Product type',
+      product_types: 'Product types',
       start_date: 'Start date',
       price: 'Price',
       membership_duration: 'Duration',

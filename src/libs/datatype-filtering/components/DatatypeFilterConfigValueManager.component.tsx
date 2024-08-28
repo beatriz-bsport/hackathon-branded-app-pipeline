@@ -83,6 +83,7 @@ import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filt
 import NestedAlertError from './NestedAlertError.component';
 import MaterialUISelectorConsumers from '#src/components/Selector/MaterialUISelectorConsumers.component';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { retrieveFilterableProductOptions } from '#src/libs/reporting/common/utils';
 
 export type ItemProps = {
   children: string;
@@ -497,6 +498,14 @@ const DatatypeFilterConfigValueList: React.FC<{
             columnName,
             reportCategory,
             withoutFetch,
+          );
+        case 'product_type':
+          return retrieveFilterableProductOptions(reportCategory).map(
+            (option) => ({
+              value: option.value,
+              label: t(`${option.translationKey}`),
+              columnName,
+            }),
           );
         case 'payout_status':
           return [

@@ -103,6 +103,7 @@ export enum ReportFilterableDataType {
   ACCESS_MONITORING_STATUS = 'access_monitoring_status',
   ACCESS_MONITORING_ADMISSION = 'access_monitoring_admission',
   ESTABLISHMENT_GROUP = 'establishment_group',
+  PRODUCT_TYPE = 'product_type',
 }
 
 export const DATATYPE_FILTERABLE_BY_FLOAT_RANGE = [
@@ -151,6 +152,7 @@ export const DATATYPE_FILTERABLE_BY_ID_IN = [
   'access_monitoring_status',
   'access_monitoring_admission',
   'establishment_group',
+  'product_type',
 ];
 
 export const DATATYPE_PRESET_INTEGER_VALUE = [
@@ -166,6 +168,7 @@ export const DATATYPE_PRESET_INTEGER_VALUE = [
   'coupon_type_excluding_referrals',
   'access_monitoring_status',
   'access_monitoring_admission',
+  'product_type',
 ];
 
 export const DATATYPE_FILTERABLE_BY_DATE = ['datetime', 'date', 'time'];

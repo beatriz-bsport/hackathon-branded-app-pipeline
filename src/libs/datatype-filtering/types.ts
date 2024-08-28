@@ -130,7 +130,8 @@ export type DatatypeFilterConfigItemTypeById =
   | 'bookkeeping_account'
   | 'access_monitoring_status'
   | 'access_monitoring_admission'
-  | 'establishment_group';
+  | 'establishment_group'
+  | 'product_type';
 
 export type DatatypeFilterConfigItemComparatorById =
   | typeof FILTER_IN_OPERAND

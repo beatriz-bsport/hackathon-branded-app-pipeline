@@ -9,6 +9,7 @@ import {
   UnpaidInvoiceMetadataIdentifierEnum,
 } from '@bsport/common/lib/master-data/metadata-identifiers';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { BuyableItemOptions } from '#src/libs/checkout/types';
 
 export const GREEN_GREY_BOOLEAN_CHIPS = [
   'new_member_only',
@@ -245,4 +246,23 @@ export const REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS = [
   ReportCategoryEnum.MEMBERS,
   ReportCategoryEnum.MEMBERS_PURCHASE,
   ReportCategoryEnum.FIRST_BOOKING,
+];
+
+export const FILTERABLE_PRODUCT_TYPE_OPTIONS = [
+  {
+    translationKey: 'product_type.payment_pack',
+    value: BuyableItemOptions.BUYABLE_ITEM_PASS,
+  },
+  {
+    translationKey: 'product_type.shop_item',
+    value: BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM,
+  },
+  {
+    translationKey: 'product_type.private_pass',
+    value: BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS,
+  },
+  {
+    translationKey: 'product_type.giftcard',
+    value: BuyableItemOptions.BUYABLE_ITEM_GIFTCARD,
+  },
 ];

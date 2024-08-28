@@ -116,6 +116,7 @@ import {
   SOURCE_MEMBER_FILTERING_IDENTIFIERS,
   ACCESS_MONITORING_MEMBER_FILTERING_IDENTIFIERS,
   GROUPED_IDENTIFIERS_FILTER,
+  FILTERABLE_PRODUCT_TYPE_OPTIONS,
 } from '#src/libs/reporting/common/constants';
 import type {
   ReportCategory,
@@ -125,6 +126,7 @@ import type {
   ReportObjectPermissions,
   ReportMetadataValueWithLabel,
 } from './types';
+import { BuyableItemOptions } from '#src/libs/checkout/types';
 
 export const CATEGORIES: ReportCategory[] = [
   {
@@ -375,7 +377,7 @@ export const getConverter = (
       };
     }
 
-    if (datatype === 'product_type') {
+    if (datatype === 'product_type' && column?.identifier === 'product_type') {
       return { value: t(`product_type.${value}`) as string };
     }
 
@@ -916,6 +918,18 @@ export const getSingleValueLabel = (
       return t(`accessControl:filters.accessStatus.${value}`);
     case ReportFilterableDataType.ACCESS_MONITORING_ADMISSION:
       return t(`accessControl:filters.entryStatus.${value}`);
+    case ReportFilterableDataType.PRODUCT_TYPE:
+      if (Array.isArray(value)) {
+        return t(
+          `${
+            FILTERABLE_PRODUCT_TYPE_OPTIONS.find(
+              (option) => option.value === value?.[0],
+            )?.translationKey || ''
+          }`,
+        );
+      }
+      return value;
+
     default:
       return value;
   }
@@ -1357,3 +1371,14 @@ export const isReportColumnRemoved = (
 
   return !reportColumnIdentifiers?.includes(columnIdentifier);
 };
+
+export const retrieveFilterableProductOptions = (
+  reportCategory: ReportCategoryEnum,
+) =>
+  FILTERABLE_PRODUCT_TYPE_OPTIONS.filter((option) => {
+    if (reportCategory === ReportCategoryEnum.INVOICES) {
+      return option.value !== BuyableItemOptions.BUYABLE_ITEM_GIFTCARD;
+    }
+
+    return option;
+  });

@@ -144,7 +144,7 @@ const MarketplaceBuyableItemCategoryList: React.FC<Props> = ({
           // @ts-expect-error
           (item.exceedsBookingMaxout === false ||
             // @ts-expect-error
-            item.value.exceedsBookingMaxout === false),
+            item.value?.exceedsBookingMaxout === false),
       );
     }
     return buyableItemCategory.values.filter(
@@ -152,7 +152,7 @@ const MarketplaceBuyableItemCategoryList: React.FC<Props> = ({
         // @ts-expect-error
         item.exceedsBookingMaxout === false ||
         // @ts-expect-error
-        item.value.exceedsBookingMaxout === false,
+        item.value?.exceedsBookingMaxout === false,
     );
   }, [
     buyableItemCategory,

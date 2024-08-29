@@ -285,6 +285,7 @@ const getTranslations = async () => {
       nb_activated: 'Number of activated cards',
       nb_purchase: 'Number of purchases',
       consumed_amount_gifted: 'Consumed amount',
+      incremental_identifier: 'Number',
       id: 'ID',
       dst_gender: "Recipient's sex",
       dst_phonenumber: "Recipient's telephone",

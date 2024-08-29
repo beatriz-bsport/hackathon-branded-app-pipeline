@@ -85,6 +85,7 @@ import type {
   DatatypeFilterConfigGroup,
   AllComparator,
   DataSourceMedadataDataType,
+  DatatypeFilterConfigItemValueProducts,
 } from '#src/libs/datatype-filtering/types';
 import {
   DATATYPE_FILTERABLE_BY_ID_IN,
@@ -835,9 +836,17 @@ export const getComparatorLabel = (comparator: AllComparator) => {
   }
 };
 
+export const isDatatypeFilterConfigItemValueProducts = (
+  value: number | boolean | number[] | DatatypeFilterConfigItemValueProducts,
+): value is DatatypeFilterConfigItemValueProducts =>
+  typeof value === 'object' &&
+  value !== null &&
+  'object_ids' in value &&
+  'buyable_item_identifier' in value;
+
 export const getSingleValueLabel = (
   datatype: DataSourceMedadataDataType,
-  value: boolean | number[] | number,
+  value: boolean | number[] | number | DatatypeFilterConfigItemValueProducts,
   subDataType: 0 | 1 | null,
   getDataByTypeAndId: handleGetDynamicDataForFiltersType,
   t: TFunction,
@@ -866,6 +875,16 @@ export const getSingleValueLabel = (
     case ReportFilterableDataType.USER:
       // @ts-expect-error
       return `${getDataByTypeAndId(datatype, value) ?? ''}`;
+    case ReportFilterableDataType.PRODUCTS:
+      if (isDatatypeFilterConfigItemValueProducts(value)) {
+        const datatypeFiltering = FILTERABLE_PRODUCT_TYPE_OPTIONS.find(
+          (option) => option.value === value.buyable_item_identifier,
+        )?.datatypeFiltering;
+        return `${
+          getDataByTypeAndId(datatypeFiltering, value.object_ids) ?? ''
+        }`;
+      }
+      return '';
     // Those above are the ones filterable by ID
     case ReportFilterableDataType.DATE:
     case ReportFilterableDataType.TIME:

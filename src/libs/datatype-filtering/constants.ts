@@ -105,6 +105,7 @@ export enum ReportFilterableDataType {
   ESTABLISHMENT_GROUP = 'establishment_group',
   PRODUCT_TYPE = 'product_type',
   SHOP_ITEM = 'shop_item',
+  PRODUCTS = 'products',
 }
 
 export const DATATYPE_FILTERABLE_BY_FLOAT_RANGE = [
@@ -153,6 +154,7 @@ export const DATATYPE_FILTERABLE_BY_ID_IN = [
   'access_monitoring_status',
   'access_monitoring_admission',
   'establishment_group',
+  'products',
   'product_type',
 ];
 

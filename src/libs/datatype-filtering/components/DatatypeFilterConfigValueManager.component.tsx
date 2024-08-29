@@ -83,7 +83,11 @@ import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filt
 import NestedAlertError from './NestedAlertError.component';
 import MaterialUISelectorConsumers from '#src/components/Selector/MaterialUISelectorConsumers.component';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import { retrieveFilterableProductOptions } from '#src/libs/reporting/common/utils';
+import {
+  isDatatypeFilterConfigItemValueProducts,
+  retrieveFilterableProductOptions,
+} from '#src/libs/reporting/common/utils';
+import { FILTERABLE_PRODUCT_TYPE_OPTIONS } from '#src/libs/reporting/common/constants';
 
 export type ItemProps = {
   children: string;
@@ -457,9 +461,10 @@ const DatatypeFilterConfigValueList: React.FC<{
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
-  const { errors, touched } = useFormikContext();
+  const { values, errors, touched } = useFormikContext();
   const error = get(errors, name);
   const isTouched = get(touched, name);
+  const valuesInConfig = get(values, name);
 
   const getOptions = useCallback(
     (withoutFetch) => {
@@ -499,6 +504,27 @@ const DatatypeFilterConfigValueList: React.FC<{
             reportCategory,
             withoutFetch,
           );
+        case 'products': {
+          const datatypeFiltering =
+            isDatatypeFilterConfigItemValueProducts(valuesInConfig) &&
+            valuesInConfig?.buyable_item_identifier
+              ? FILTERABLE_PRODUCT_TYPE_OPTIONS.find(
+                  (option) =>
+                    option.value === valuesInConfig.buyable_item_identifier,
+                )?.datatypeFiltering
+              : null;
+
+          if (datatypeFiltering) {
+            return getDataByType(
+              datatypeFiltering,
+              [],
+              columnName,
+              reportCategory,
+              withoutFetch,
+            );
+          }
+          return [];
+        }
         case 'product_type':
           return retrieveFilterableProductOptions(reportCategory).map(
             (option) => ({
@@ -710,7 +736,7 @@ const DatatypeFilterConfigValueList: React.FC<{
           return [];
       }
     },
-    [getDataByType, t, columnName, reportCategory, datatype],
+    [getDataByType, t, columnName, reportCategory, valuesInConfig, datatype],
   );
 
   if (['user'].includes(datatype)) {
@@ -784,6 +810,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       'company',
       'staff',
       'bookkeeping_account',
+      'products',
     ].includes(datatype) &&
     getOptions(false) === null
   ) {
@@ -802,7 +829,7 @@ const DatatypeFilterConfigValueList: React.FC<{
         inScrollBar={inScrollBar}
         isDisabled={isPreview}
         itemRenderer={!!itemRenderer && itemRenderer}
-        name={name}
+        name={datatype === 'products' ? `${name}.object_ids` : name}
         openMenuOnClear={openMenuOnClear}
         openMenuOnFocus={openMenuOnFocus}
         // @ts-expect-error

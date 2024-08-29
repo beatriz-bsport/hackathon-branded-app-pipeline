@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import type { BuyableItemOptions } from '#src/libs/checkout/types';
 
 import type { ReportMetadataColumn } from '#src/libs/reporting/common/types';
 
@@ -35,6 +36,7 @@ import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-catego
 import {
   getColumnLabelTranslation,
   isReportColumnRemoved,
+  retrieveFilterableProductOptions,
 } from '#src/libs/reporting/common/utils';
 
 type Props = {
@@ -173,9 +175,28 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
     [t],
   );
 
+  const productTypeOption = useMemo(
+    () =>
+      retrieveFilterableProductOptions(reportCategory).map((option) => ({
+        value: option.value,
+        label: t(`${option.translationKey}`),
+      })),
+    [t, reportCategory],
+  );
   //
   // Handlers
   //
+
+  const handleProductChange = React.useCallback(
+    (option: { label: string; value: BuyableItemOptions }) => {
+      setFieldValue(
+        `${prefix}.value`,
+        { buyable_item_identifier: option.value, object_ids: [] },
+        false,
+      );
+    },
+    [setFieldValue, prefix],
+  );
 
   const handleColumnChange = (option: {
     label?: string;
@@ -308,6 +329,19 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
               isDisabled={isPreview}
               name={`${prefix}.sub_datatype`}
               options={subDataTypeOption}
+            />
+          </div>
+        )}
+        {filterItem.datatype === 'products' && (
+          <div className={classes.flexOne}>
+            <MaterialUiSingleSelectorField
+              inScrollBar
+              // @ts-expect-error
+              classes={{ root: classes.select }}
+              isDisabled={isPreview}
+              name={`${prefix}.value.buyable_item_identifier`}
+              onChange={handleProductChange}
+              options={productTypeOption}
             />
           </div>
         )}

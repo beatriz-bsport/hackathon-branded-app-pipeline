@@ -1,3 +1,4 @@
+import type { BuyableItemOptions } from '#src/libs/checkout/types';
 import {
   GROUP_OR_OPERAND,
   GROUP_AND_OPERAND,
@@ -60,7 +61,8 @@ export type DataSourceMedadataDataType =
   | 'bookkeeping_account'
   | 'access_monitoring_status'
   | 'access_monitoring_admission'
-  | 'establishment_group';
+  | 'establishment_group'
+  | 'products';
 
 export type DataSourceMetadata = {
   identifier: string;
@@ -131,6 +133,7 @@ export type DatatypeFilterConfigItemTypeById =
   | 'access_monitoring_status'
   | 'access_monitoring_admission'
   | 'establishment_group'
+  | 'products'
   | 'product_type';
 
 export type DatatypeFilterConfigItemComparatorById =
@@ -166,6 +169,15 @@ export type DatatypeFilterConfigItemComparatorDateSingle =
 
 export type DatatypeFilterConfigItemComparatorDateMultiple =
   typeof FILTER_IN_OPERAND;
+
+export type DatatypeFilterConfigItemValueProducts = {
+  object_ids: number[];
+  buyable_item_identifier:
+    | BuyableItemOptions.BUYABLE_ITEM_PASS
+    | BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM
+    | BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS
+    | BuyableItemOptions.BUYABLE_ITEM_GIFTCARD;
+};
 
 export type DatatypeFilterConfigItem = {
   identifier: string;
@@ -226,6 +238,13 @@ export type DatatypeFilterConfigItem = {
       sub_datatype: null;
       comparator: DatatypeFilterConfigItemComparatorBoolean;
       value: boolean;
+    }
+  | {
+      datatype: 'products';
+      time_period: null;
+      sub_datatype: null;
+      comparator: DatatypeFilterConfigItemComparatorBoolean;
+      value: DatatypeFilterConfigItemValueProducts;
     }
 );
 

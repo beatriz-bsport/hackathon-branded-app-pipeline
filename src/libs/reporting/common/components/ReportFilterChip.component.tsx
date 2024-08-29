@@ -33,6 +33,7 @@ import type {
   AllComparator,
   DataSourceMedadataDataType,
   DatatypeFilterConfigItem,
+  DatatypeFilterConfigItemValueProducts,
   DynamicFilterDataType,
 } from '#src/libs/datatype-filtering/types';
 import { ReportFilterableDataType } from '#src/libs/datatype-filtering/constants';
@@ -66,7 +67,7 @@ type ReportFilterChipProps = {
   ) => void;
   reportQuickFilter?: ReportFilterConfig;
   onlyDisplay?: boolean;
-  value?: boolean | number[] | number;
+  value?: boolean | number[] | number | DatatypeFilterConfigItemValueProducts;
   getDataByTypeAndId?: handleGetDynamicDataForFiltersType;
   columnIdentifiers?: string[];
   ref?: React.Ref<HTMLDivElement | null>;
@@ -143,6 +144,29 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
      */
     const valueLabel = React.useMemo(() => {
       if (onlyDisplay) return '';
+      if (
+        typeof value === 'object' &&
+        !Array.isArray(value) &&
+        value !== null
+      ) {
+        if (value.object_ids?.length > 1)
+          return getMultipleValuesLabel(
+            datatype,
+            subDataType,
+            value.object_ids,
+          );
+        if (value.object_ids?.length === 1) {
+          if (!hasDynamicDataHasBeenLoaded) return '';
+          return `${getComparatorLabel(comparator) ?? ''} ${getSingleValueLabel(
+            datatype,
+            value,
+            subDataType,
+            getDataByTypeAndId,
+            t,
+          )}`;
+        }
+        return '';
+      }
       if (Array.isArray(value)) {
         if (value?.length > 1) {
           return getMultipleValuesLabel(datatype, subDataType, value);

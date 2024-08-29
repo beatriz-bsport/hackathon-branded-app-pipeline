@@ -35,6 +35,7 @@ import { TIME_PERIODS_RANGE } from '#src/components/date/DateRangeSelector.compo
 import { TIME_PERIODS_SINGLE } from '#src/components/date/DatePickerSelector.component';
 import type { ReportMetadataColumn } from '#src/libs/reporting/common/types';
 import { GROUPED_IDENTIFIERS_FILTER } from '#src/libs/reporting/common/constants';
+import { BuyableItemOptions } from '#src/libs/checkout/types';
 
 //
 // Getters
@@ -81,6 +82,7 @@ export const getDefaultValueForComparator = (details: {
   comparator: AllComparator;
   datatype:
     | 'boolean'
+    | 'products'
     | DatatypeFilterConfigItemTypeById
     | DatatypeFilterConfigItemTypeFloat
     | DatatypeFilterConfigItemTypeDate
@@ -97,6 +99,19 @@ export const getDefaultValueForComparator = (details: {
   if (datatype === 'boolean') {
     if (typeof currentValue === 'boolean') return currentValue;
     return true;
+  }
+  if (datatype === 'products') {
+    if (
+      typeof currentValue === 'object' &&
+      !Array.isArray(currentValue) &&
+      currentValue !== null
+    ) {
+      return currentValue;
+    }
+    return {
+      buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_PASS,
+      object_ids: [],
+    };
   }
 
   if (DATATYPE_FILTERABLE_BY_FLOAT_RANGE.includes(datatype)) {
@@ -169,6 +184,7 @@ export const getDefaultValueForTimePeriod = (details: {
   sub_datatype: 0 | 1 | null;
   datatype:
     | 'boolean'
+    | 'products'
     | DatatypeFilterConfigItemTypeById
     | DatatypeFilterConfigItemTypeFloat
     | DatatypeFilterConfigItemTypeDate

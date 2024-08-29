@@ -10,6 +10,7 @@ import {
 } from '@bsport/common/lib/master-data/metadata-identifiers';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import { BuyableItemOptions } from '#src/libs/checkout/types';
+import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 
 export const GREEN_GREY_BOOLEAN_CHIPS = [
   'new_member_only',
@@ -248,21 +249,29 @@ export const REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS = [
   ReportCategoryEnum.FIRST_BOOKING,
 ];
 
-export const FILTERABLE_PRODUCT_TYPE_OPTIONS = [
+export const FILTERABLE_PRODUCT_TYPE_OPTIONS: {
+  translationKey: string;
+  value: BuyableItemOptions;
+  datatypeFiltering: DynamicFilterDataType;
+}[] = [
   {
     translationKey: 'product_type.payment_pack',
     value: BuyableItemOptions.BUYABLE_ITEM_PASS,
+    datatypeFiltering: 'payment_pack',
   },
   {
     translationKey: 'product_type.shop_item',
     value: BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM,
+    datatypeFiltering: 'shop_item',
   },
   {
     translationKey: 'product_type.private_pass',
     value: BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS,
+    datatypeFiltering: 'private_pass',
   },
   {
     translationKey: 'product_type.giftcard',
     value: BuyableItemOptions.BUYABLE_ITEM_GIFTCARD,
+    datatypeFiltering: 'giftcard',
   },
 ];

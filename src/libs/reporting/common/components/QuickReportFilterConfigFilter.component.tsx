@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { FormHelperText, Popover, Theme, makeStyles } from '@material-ui/core';
 
 import { useFormikContext } from 'formik';
-import {
+import type {
   AllComparator,
   DatatypeFilterConfigItem,
   DatatypeFilterConfigItemTypeById,
   DatatypeFilterConfigItemTypeDate,
   DatatypeFilterConfigItemTypeFloat,
+  DatatypeFilterConfigItemValueProducts,
 } from '#src/libs/datatype-filtering/types';
 import {
   DATE_SUBDATA_TYPE,
@@ -29,13 +30,17 @@ import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
 import { CREDIT_COLUMNS } from '#src/libs/reporting/common/constants';
 import { getCreditFactor } from '#src/libs/theme/selectors';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import type { BuyableItemOptions } from '#src/libs/checkout/types';
+import { retrieveFilterableProductOptions } from '#src/libs/reporting/common/utils';
+import get from 'lodash/get';
 
 export type QuickFiltersColumnsData = {
   identifier: string;
-  value: number | boolean | number[] | [number, number];
+  value: number | boolean | number[] | DatatypeFilterConfigItemValueProducts;
   comparator: 0 | 1 | 2 | 3 | 4 | 5;
   datatype:
     | 'boolean'
+    | 'products'
     | DatatypeFilterConfigItemTypeById
     | DatatypeFilterConfigItemTypeFloat
     | DatatypeFilterConfigItemTypeDate
@@ -134,7 +139,9 @@ const QuickReportFilterConfigFilter: React.FC<
         getDefaultValueForComparator({
           comparator: comparatorValue,
           datatype: selectedColumn.datatype,
-          currentValue: selectedColumn.value,
+          currentValue: ['products'].includes(selectedColumn.datatype)
+            ? get(values, `config.groups[0].filters_data.${index}.value`)
+            : selectedColumn.value,
           isChangingComparator: true,
         }),
         false,
@@ -159,7 +166,27 @@ const QuickReportFilterConfigFilter: React.FC<
         );
       }, 0);
     },
-    [selectedColumn, index, setFieldValue],
+    [selectedColumn, index, setFieldValue, values],
+  );
+
+  const productTypeOption = useMemo(
+    () =>
+      retrieveFilterableProductOptions(reportCategory).map((option) => ({
+        value: option.value,
+        label: t(`${option.translationKey}`),
+      })),
+    [t, reportCategory],
+  );
+
+  const handleProductChange = React.useCallback(
+    (option: { label: string; value: BuyableItemOptions }) => {
+      setFieldValue(
+        `config.groups[0].filters_data.${index}.value`,
+        { buyable_item_identifier: option.value, object_ids: [] },
+        false,
+      );
+    },
+    [setFieldValue, index],
   );
 
   return (
@@ -198,6 +225,15 @@ const QuickReportFilterConfigFilter: React.FC<
                 <MaterialUiSingleSelectorField
                   name={`config.groups[0].filters_data.${index}.sub_datatype`}
                   options={subDataTypeOption}
+                />
+              </div>
+            )}
+            {selectedColumn.datatype === 'products' && (
+              <div className={classes.comparatorSelector}>
+                <MaterialUiSingleSelectorField
+                  name={`config.groups[0].filters_data.${index}.value.buyable_item_identifier`}
+                  onChange={handleProductChange}
+                  options={productTypeOption}
                 />
               </div>
             )}

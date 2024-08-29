@@ -113,6 +113,7 @@ import MarketplaceBasketSummaryDialogCssOnly from '../../libs/marketplace/compon
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
 import Config from '../../config';
+import { NEW_MEMBER_PROFILE_COMPANY_ID_LIST } from '../../libs/consumer-space/constants';
 
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
@@ -147,9 +148,7 @@ type Props = {
   companyThemeLoading: boolean,
   hideAppBar: ?boolean,
   errorFields: ?{ email: ?string, password: ?string },
-
   fetchSCT: () => void,
-
   fetchCurrentBasket: (companyId: number) => void,
   currentBasket: ?Basket,
   currentBasketLoading: boolean,
@@ -169,15 +168,10 @@ type Props = {
   subcomponent: string,
   replace: (path: string) => void,
   goToUserSpace: (companyId: number) => void,
-
   auth: any,
-
   t: TFunction,
   classes: Object,
-
   disconnect: () => void,
-  //  DEPRECATED
-  // signup: (formdata: any, callback: () => void) => void,
   fetchCompanyTheme: () => void,
   theme: any,
   settings: MarketplaceSettings,
@@ -191,12 +185,9 @@ type Props = {
     company: number,
     options: OptionCallback,
   ) => void,
-
   controlableMemberList: Array<Member>,
   fetchMyControlableMemberList: () => void,
-
   navigateToRelationAccount: (memberId: number) => void,
-
   navigateBackToMasterRelation: () => void,
 } & StateHandlerType;
 
@@ -205,10 +196,6 @@ type State = {
   currentBasketOpen: boolean,
   loginDialogOpen: boolean,
 };
-
-const isMarketplaceNavigationDisplayed = !['production'].includes(
-  Config.REACT_APP_SENTRY_ENVIRONMENT,
-);
 
 export class MarketPlace extends Component<Props, State> {
   state = {
@@ -425,16 +412,6 @@ export class MarketPlace extends Component<Props, State> {
   toggleCurrentBasketOpen = (currentBasketOpen: boolean) =>
     this.setState({ currentBasketOpen });
 
-  // DEPRECATED
-  // signup = (formdata: any, options) => {
-  //   if (this.props.companyId) {
-  //     formdata.append('membership', this.props.companyId);
-  //     this.props.signup(formdata, options);
-  //   } else {
-  //     this.props.signup(formdata, options);
-  //   }
-  // };
-
   toggleSignUp = (value: boolean) => {
     if (value) {
       Analytics.signupShow();
@@ -490,6 +467,15 @@ export class MarketPlace extends Component<Props, State> {
     return this.props.push(url);
   };
 
+  getIsNewMemberProfileDisplayed = () => {
+    const isProduction = ['production'].includes(
+      Config.REACT_APP_SENTRY_ENVIRONMENT,
+    );
+    return isProduction
+      ? NEW_MEMBER_PROFILE_COMPANY_ID_LIST.includes(this.props.companyId)
+      : true;
+  };
+
   render() {
     const { companyThemeLoading, classes, t } = this.props;
 
@@ -519,7 +505,7 @@ export class MarketPlace extends Component<Props, State> {
       );
     }
 
-    if (isMarketplaceNavigationDisplayed) {
+    if (this.getIsNewMemberProfileDisplayed()) {
       return (
         <MarketplaceNavigation
           authStateInvalidFields={this.props.errorFields}

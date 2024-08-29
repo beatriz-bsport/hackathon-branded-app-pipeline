@@ -151,16 +151,24 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
     [values.config.groups],
   );
 
+  const columnsDisplayed = React.useMemo(
+    () =>
+      (reportCategoryMetadata?.columns || []).filter((column) =>
+        values.columnIdentifiers.includes(column.identifier),
+      ),
+    [reportCategoryMetadata, values.columnIdentifiers],
+  );
+
   const filterableColumns = React.useMemo(
     () =>
       getFilterableColumns(
         values.config.groups,
         // @ts-expect-error TODO: harmonize ReportMetadataColumn,DataSourceFieldMetadata,DataSourceMetadata
-        reportCategoryMetadata?.columns,
+        columnsDisplayed,
         isFranchisor,
         t,
       ),
-    [values.config.groups, reportCategoryMetadata?.columns, isFranchisor, t],
+    [values.config.groups, columnsDisplayed, isFranchisor, t],
   );
 
   const handleAddFilter = React.useCallback(() => {

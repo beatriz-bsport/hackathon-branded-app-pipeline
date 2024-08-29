@@ -4,6 +4,7 @@ import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import { Props as ButtonProps } from '#Fabrique/ButtonV2';
+import Badge from '#src/components/css-only/Fabrique/Badge';
 
 import { joinWithSeparator } from '#Fabrique/utils/joinStringWithSpreadOperator';
 
@@ -132,6 +133,7 @@ export const IconButton: React.FC<ButtonProps> = ({
   size = ButtonSize.LG,
   href,
   target,
+  badgeValue,
   children,
 }) => {
   const iconButtonClassNames = useIconButtonClassNames(size, color, variant);
@@ -155,6 +157,14 @@ export const IconButton: React.FC<ButtonProps> = ({
       >
         {children}
       </span>
+
+      <div
+        className={classNames('bs-fabrique-icon-button-root__badge', {
+          'bs-fabrique-icon-button-root__badge--hidden': !badgeValue,
+        })}
+      >
+        <Badge color="grey" value={badgeValue} />
+      </div>
     </ButtonBase>
   );
 };

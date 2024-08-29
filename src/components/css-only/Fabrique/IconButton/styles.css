@@ -4,6 +4,16 @@
     border-color var(--bs-transition-duration-slow) ease-in-out;
 }
 
+.bs-fabrique-icon-button-root__badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.bs-fabrique-icon-button-root__badge--hidden {
+  display: none;
+}
+
 /* BUTTON SIZES */
 .bs-fabrique-icon-button-root-sm {
   padding: var(--bs-space-size-1);

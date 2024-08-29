@@ -12998,7 +12998,10 @@
       }
     },
     "giftCard": { "notFound": "This giftcard has not been found. It may have been archived." },
-    "modifyBasket": { "15004": "The basket is being processed. Please try again in a few minutes." },
+    "modifyBasket": {
+      "15004": "The basket is being processed. Please try again in a few minutes.",
+      "addItemSuccess": "Product added to cart"
+    },
     "quicksaleConfiguration": { "error": "An error has occurred during save", "updated": "Configuration saved" },
     "spivi": {
       "error": {

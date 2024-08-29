@@ -8,7 +8,7 @@ import {
 
 import { BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS } from '@bsport/common/lib/master-data/error-codes/basket';
 
-import { snackbarError } from '#src/libs/snackbar/actions';
+import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import { fetchEventList } from '#src/libs/event/actions';
 import type { EventListParams } from '#src/libs/event/types';
 import { isErrorWithCustomCode } from '#src/libs/utils';
@@ -230,6 +230,7 @@ export function addItemToBasket(
     try {
       const response = await addItemToBasketAPI(basketId, data, params);
       dispatch(currentBasket.success(response.data));
+      dispatch(snackbarSuccess('modifyBasket.addItemSuccess'));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(currentBasket.error(error));

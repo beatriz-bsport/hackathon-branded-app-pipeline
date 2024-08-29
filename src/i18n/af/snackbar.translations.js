@@ -1387,6 +1387,7 @@ const getTranslations = async () => {
     modifyBasket: {
       [BASKET_PROCESSING_PAYMENT_EXCEPTION]:
         'The basket is being processed. Please try again in a few minutes.',
+      addItemSuccess: 'Product added to cart',
     },
     quicksaleConfiguration: {
       error: 'An error has occurred during save',

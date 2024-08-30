@@ -25,9 +25,7 @@ import {
   getConsumerOfferBookingOptionPosition,
 } from 'bsport-saas/src/libs/consumer-space/selectors';
 
-import {
-  getWaitingListConfigurationData
-} from 'bsport-saas/src/libs/waiting-list/selectors';
+import { getWaitingListConfigurationData } from 'bsport-saas/src/libs/waiting-list/selectors';
 
 import {
   getAssetByBlueprintByIdentifier,
@@ -40,7 +38,7 @@ import {
   createStyles,
 } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { ConsumerBookingWidget } from 'bsport-saas/src/pages/consumer/ConsumerBookingReworked.page';
+import { UnconnectedConsumerBookingPage } from 'bsport-saas/src/pages/consumer/ConsumerBookingReworked.page';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { BookingTab } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { BookingFilterTab } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
@@ -63,7 +61,7 @@ type OwnProps = {
   timezone: string,
 };
 
-const ConsumerBookingWidgetStyled = themify(ConsumerBookingWidget);
+const ConsumerBookingWidgetStyled = themify(UnconnectedConsumerBookingPage);
 
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &

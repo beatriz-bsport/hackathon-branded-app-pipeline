@@ -2,7 +2,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
-import { ConsumerPassWidget } from 'bsport-saas/src/pages/consumer/ConsumerPassReworked.page';
+import { UnconnectedConsumerPass } from 'bsport-saas/src/pages/consumer/ConsumerPassReworked.page';
 
 import type { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
 import { withStyles, createStyles } from '@material-ui/core/styles';
@@ -44,7 +44,7 @@ import { RootState } from '../reducers/index';
 import { adaptSelector } from '../utils/reduxHelpers';
 import withLoginDisconnectedStatus from '../hocs/withLoginDisconnectedStatus.hoc';
 
-const ConsumerPassWidgetStyled = themify(ConsumerPassWidget);
+const ConsumerPassWidgetStyled = themify(UnconnectedConsumerPass);
 
 type OwnProps = {
   companyId: number,

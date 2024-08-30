@@ -87,6 +87,7 @@ export type ConsumerGiftcard<
   consumer_giftcard_source: number;
   giftcard_company: number;
   source_company_id: number;
+  incremental_identifier: string;
 };
 
 export type GiftcardState = {

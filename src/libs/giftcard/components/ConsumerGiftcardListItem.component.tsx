@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
@@ -70,9 +70,19 @@ const GiftcardSender: React.FC<SenderProps> = React.memo(
       ],
     );
 
-    const isClickable = React.useMemo(
+    const isClickable = useMemo(
       () => !!onClick && consumerGiftcard?.id && memberSender?.id,
       [consumerGiftcard?.id, memberSender?.id, onClick],
+    );
+
+    const priceAndDateCreatedDisplay = useMemo(
+      () =>
+        `${getCurrencyDisplayWithPrice(
+          consumerGiftcard.price_bought,
+        )} - ${DateTime.fromISO(consumerGiftcard.date_created).toLocaleString(
+          DateTime.DATE_SHORT,
+        )}`,
+      [consumerGiftcard.price_bought, consumerGiftcard.date_created],
     );
 
     return (
@@ -121,11 +131,16 @@ const GiftcardSender: React.FC<SenderProps> = React.memo(
                   )}
                 </div>
               }
-              secondary={`${getCurrencyDisplayWithPrice(
-                consumerGiftcard.price_bought,
-              )} - ${DateTime.fromISO(
-                consumerGiftcard.date_created,
-              ).toLocaleString(DateTime.DATE_SHORT)}`}
+              secondary={
+                <>
+                  <Typography variant="body2">
+                    {consumerGiftcard.incremental_identifier}
+                  </Typography>
+                  <Typography variant="body2">
+                    {priceAndDateCreatedDisplay}
+                  </Typography>
+                </>
+              }
             />
             <CompanyChip company={sourceFranchiseCompany} />
           </ListItem>
@@ -226,7 +241,7 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
       ],
     );
 
-    const isClickable = React.useMemo(
+    const isClickable = useMemo(
       () => !!onClick && consumerGiftcard?.id && memberReceiver?.id,
       [consumerGiftcard?.id, memberReceiver?.id, onClick],
     );

@@ -508,12 +508,12 @@
     align-items: flex-start;
     gap: var(--bs-space-size-2);
     padding: var(--bs-space-size-4);
-    border-top: var(--bs-border-thin, 1px) solid var(--bs-color-border-weak);
+    border-top: var(--bs-border-thin) solid var(--bs-color-border-weak);
   }
 
   .bs-new-offer-booking-grouped-session__information__modal__footer__confirm__button {
     display: flex;
-    padding: var(--bs-space-size-2) 22px;
+    padding: var(--bs-space-size-2) var(--bs-space-size-6);
 
     justify-content: center;
     align-items: center;
@@ -530,7 +530,7 @@
 
   .bs-new-offer-booking-grouped-session__information__modal__footer__cancel__button {
     display: flex;
-    padding: var(--bs-space-size-2) 22px;
+    padding: var(--bs-space-size-2) var(--bs-space-size-6);
 
     justify-content: center;
     align-items: center;
@@ -557,6 +557,6 @@
 
 .bs-new-offer-booking-grouped-session__information__modal
   .bs-fabrique-modal-dialog__content {
-  padding: 0px;
+  padding: 0;
   scrollbar-width: none;
 }

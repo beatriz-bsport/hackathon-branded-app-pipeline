@@ -55,12 +55,12 @@ const getTranslations = async () => {
         showMoreButtonText: 'Show all sessions ({{totalSessions}})',
         showLessButtonText: 'Show less',
         warningModal: {
-          title: 'You are booking a group of sessions',
+          title: 'Booking a group of sessions',
           fullBookingOnly: {
-            text: 'You are booking a group of sessions. You will be enrolled for all {{sessionsTotal}} sessions in this group',
+            text: 'You will be enrolled for all {{sessionsTotal}} sessions in this group',
           },
           partialBooking: {
-            text: 'However, you are not required to attend all the sessions in that group. You will be able to select the sessions you wish to attend',
+            text: 'This activity is part of a group of sessions. You are not required to attend every session in the group, and you can choose which sessions you want to join',
           },
         },
       },

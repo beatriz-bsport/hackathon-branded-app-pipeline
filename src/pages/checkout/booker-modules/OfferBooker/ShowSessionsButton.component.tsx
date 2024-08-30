@@ -8,11 +8,11 @@ import './BoutiqueBookerModule.css';
 type ShowSessionButtonProps = {
   sessionsCount: number;
   toggleSession: () => void;
-  isToggle: boolean;
+  isExpanded: boolean;
 };
 
 const ShowSessionButton: React.FC<ShowSessionButtonProps> = ({
-  isToggle,
+  isExpanded,
   sessionsCount,
   toggleSession,
 }) => {
@@ -21,24 +21,22 @@ const ShowSessionButton: React.FC<ShowSessionButtonProps> = ({
   if (sessionsCount <= 0) return null;
 
   return (
-    <>
-      <ButtonBase
-        className="bs-new-offer-booking-fetch-more-similar-offers__button"
-        onClick={toggleSession}
-      >
-        {
-          <div className="bs-new-offer-booking-fetch-more-similar-offers__button__text__container">
-            <div>
-              {isToggle
-                ? t('booking:bookingModule.groupedSession.showLessButtonText')
-                : t('booking:bookingModule.groupedSession.showMoreButtonText', {
-                    totalSessions: sessionsCount,
-                  })}
-            </div>
+    <ButtonBase
+      className="bs-new-offer-booking-fetch-more-similar-offers__button"
+      onClick={toggleSession}
+    >
+      {
+        <div className="bs-new-offer-booking-fetch-more-similar-offers__button__text__container">
+          <div>
+            {isExpanded
+              ? t('booking:bookingModule.groupedSession.showLessButtonText')
+              : t('booking:bookingModule.groupedSession.showMoreButtonText', {
+                  totalSessions: sessionsCount,
+                })}
           </div>
-        }
-      </ButtonBase>
-    </>
+        </div>
+      }
+    </ButtonBase>
   );
 };
 

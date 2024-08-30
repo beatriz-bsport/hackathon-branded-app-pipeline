@@ -220,6 +220,7 @@ import { buildDataForUserRegistrationWithMultiSessionsAllowed } from '#src/libs/
 
 import './BoutiqueBookerModule.css';
 
+const NUMBER_OF_OFFER_TO_ALWAYS_DISPLAY_IN_SUMMARY = 2;
 const SIMILAR_OFFER_PAGE_SIZE = 7;
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
@@ -525,7 +526,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     offerAvailableForBookingIdsList: number[],
   ) => {
     const filteredGroupedSelectedOffersList = this.state.selectedOffers
-      .map((selectedOffer) => selectedOffer.offer)
+      .map((selectedOffer) => selectedOffer?.offer)
       .filter(
         (offerData) =>
           offerData && offerAvailableForBookingIdsList.includes(offerData.id),
@@ -1457,6 +1458,23 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     return { metaActivity, establishment, coach, offerSummaryLoading };
   };
 
+  getSortedSelectedOffersToDisplay = () => {
+    return this.state.selectedOffers
+      .sort(
+        (a, b) =>
+          new Date(a.offer.date_start).getTime() -
+          new Date(b.offer.date_start).getTime(),
+      )
+      .reduce((acc, selectedOffer) => {
+        if (selectedOffer.offer.id === this.props.offerId) {
+          acc.unshift(selectedOffer);
+        } else {
+          acc.push(selectedOffer);
+        }
+        return acc;
+      }, []);
+  };
+
   render() {
     const { t, containerRef } = this.props;
 
@@ -1732,23 +1750,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                         isBookable={isBookable}
                         OfferSummaryComponent={
                           <div>
-                            {this.state.selectedOffers
-                              .sort(
-                                (a, b) =>
-                                  new Date(a.offer.date_start).getTime() -
-                                  new Date(b.offer.date_start).getTime(),
-                              )
-                              .reduce((acc, selectedOffer) => {
-                                if (
-                                  selectedOffer.offer.id === this.props.offerId
-                                ) {
-                                  acc.unshift(selectedOffer);
-                                } else {
-                                  acc.push(selectedOffer);
-                                }
-                                return acc;
-                              }, [])
-                              .map(({ offer }) => {
+                            {this.getSortedSelectedOffersToDisplay().map(
+                              ({ offer }) => {
                                 const {
                                   coach,
                                   metaActivity,
@@ -1795,7 +1798,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                                     }
                                   />
                                 );
-                              })}
+                              },
+                            )}
                           </div>
                         }
                         onClick={this.onConfirm}
@@ -1874,21 +1878,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   isBookable={isBookable}
                   OfferSummaryComponent={
                     <div>
-                      {this.state.selectedOffers
-                        .sort(
-                          (a, b) =>
-                            new Date(a.offer.date_start).getTime() -
-                            new Date(b.offer.date_start).getTime(),
-                        )
-                        .reduce((acc, selectedOffer) => {
-                          if (selectedOffer.offer.id === this.props.offerId) {
-                            acc.unshift(selectedOffer);
-                          } else {
-                            acc.push(selectedOffer);
-                          }
-                          return acc;
-                        }, [])
-                        .map(({ offer }, index) => {
+                      {this.getSortedSelectedOffersToDisplay().map(
+                        ({ offer }, index) => {
                           const {
                             coach,
                             metaActivity,
@@ -1941,12 +1932,19 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                               />
                             </div>
                           );
-                        })}
+                        },
+                      )}
                       {isGroupedOffer &&
-                        this.state.selectedOffers.length > 2 && (
+                        this.state.selectedOffers.length >
+                          NUMBER_OF_OFFER_TO_ALWAYS_DISPLAY_IN_SUMMARY && (
                           <ShowSessionsButton
-                            isToggle={this.state.showHiddenSessionsFromSummary}
-                            sessionsCount={this.state.selectedOffers.length - 2}
+                            isExpanded={
+                              this.state.showHiddenSessionsFromSummary
+                            }
+                            sessionsCount={
+                              this.state.selectedOffers.length -
+                              NUMBER_OF_OFFER_TO_ALWAYS_DISPLAY_IN_SUMMARY
+                            }
                             toggleSession={
                               this.toggleDisplayHiddenGroupedSessions
                             }

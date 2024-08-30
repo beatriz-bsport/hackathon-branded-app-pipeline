@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { icons } from "../Icon";
-import Button, { intents, colors, sizes } from "./Button";
+import Button, { intents, colorsByIntent, sizes } from "./Button";
+import { removeStorybookDocgens } from "./utils";
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -20,17 +21,17 @@ const meta: Meta<typeof Button> = {
       table: { defaultValue: { summary: "md" } },
     },
     iconLeft: {
-      options: [undefined, ...Object.keys(icons)],
+      options: [undefined, ...removeStorybookDocgens(Object.keys(icons))],
       control: { type: "select" },
       table: { defaultValue: { summary: "undefined" } },
     },
     iconRight: {
-      options: [undefined, ...Object.keys(icons)],
+      options: [undefined, ...removeStorybookDocgens(Object.keys(icons))],
       control: { type: "select" },
       table: { defaultValue: { summary: "undefined" } },
     },
     color: {
-      options: Object.keys(colors),
+      options: removeStorybookDocgens(Object.values(colorsByIntent).flat()),
       control: { type: "select" },
     },
     disabled: {
@@ -56,7 +57,7 @@ export const Primary: Story = {
   args: {
     label: "Add something",
     intent: "call-to-action",
-    color: "cta-main",
+    color: "main",
     size: "md",
     disabled: false,
     loading: false,

@@ -26,6 +26,6 @@ module.exports = [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ["dist/*", "build/*"],
+    ignores: ["dist/*", "build/*", "storybook-static/*"],
   },
 ];

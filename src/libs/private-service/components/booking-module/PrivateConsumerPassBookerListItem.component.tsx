@@ -81,17 +81,46 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = ({
   const classes = useStyles();
 
   const { private_pass } = private_consumer_pass;
+
+  // [RelationShip] Determines if the consumer pass is shared from relationships
+  // This checks if the private_consumer_pass object has a destination private consumer pass
+  // (dst_private_consumer_pass) indicating that this pass has been shared from another entity.
   const isFromShare =
     private_consumer_pass &&
     private_consumer_pass.dst_private_consumer_pass &&
     private_consumer_pass.dst_private_consumer_pass.length;
+
+  // [RelationShip] Determines if the consumer pass is shared with relationships
+  // This checks if the private_consumer_pass object has a source private consumer pass
+  // (src_private_consumer_pass) indicating that this pass is being shared with other entities.
   const isOwnerOfShares =
     private_consumer_pass &&
     private_consumer_pass.src_private_consumer_pass &&
     private_consumer_pass.src_private_consumer_pass.length;
 
+  // [UniversalPass] Determines if the pass is universal
+  // This checks if the private_consumer_pass object is linked to a consumer payment pack,
+  // indicating that it is a universal pass.
   const isUniversal =
     private_consumer_pass && private_consumer_pass.linked_consumer_payment_pack;
+
+  // [Franchise] Determines if the pass was billed in another company
+  // This checks if the private_consumer_pass object has been billed in another company by:
+  // 1. Checking if there is a private_consumer_pass_source, which directly indicates synchronization from another company.
+  // 2. Checking if the private pass is linked to a payment pack template instance that is from a franchise,
+  // and whether the linked consumer payment pack has a source pass.
+  const wasBoughtInAnotherCompany =
+    private_consumer_pass.private_consumer_pass_source ||
+    (private_consumer_pass.private_pass
+      ?.linked_payment_pack_template_instance &&
+      private_consumer_pass.private_pass?.linked_payment_pack &&
+      private_consumer_pass.linked_consumer_payment_pack_source);
+
+  // [Franchise] Source company name & color
+  // These retrieve the source company’s name and primary color from the private_consumer_pass object.
+  const sourceCompanyName = private_consumer_pass.company_source_name;
+  const sourceCompanyColor = private_consumer_pass.company_source_primary_color;
+
   const [processing, setProcessing] = useState(false);
   const [creditProcessing, setCreditProcessing] = useState(false);
 
@@ -259,12 +288,10 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = ({
       <div
         style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}
       >
-        {!!private_consumer_pass.private_consumer_pass_source && (
+        {!!wasBoughtInAnotherCompany && (
           <ConsumerPassSourceChip
-            companySourceName={private_consumer_pass.company_source_name}
-            companySourcePrimaryColor={
-              private_consumer_pass.company_source_primary_color
-            }
+            companySourceName={sourceCompanyName}
+            companySourcePrimaryColor={sourceCompanyColor}
             tooltipText={t('consumerPass.isFromShareTooltip')}
           />
         )}

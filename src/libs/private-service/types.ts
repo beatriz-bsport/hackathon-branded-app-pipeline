@@ -230,6 +230,7 @@ export type PrivateConsumerPass<AssociatedMember = number> = {
   company_source_name: string;
   company_source_primary_color: string;
   disabled?: boolean;
+  linked_consumer_payment_pack_source: number | null;
 };
 
 export type PrivateConsumerPassREST = Omit<

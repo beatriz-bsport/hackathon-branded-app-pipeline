@@ -44,8 +44,10 @@ import {
   getSingleValueLabel,
   getColumnLabelTranslation,
   isReportColumnRemoved,
+  isDatatypeFilterConfigItemValueProducts,
 } from '#src/libs/reporting/common/utils';
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import { FILTERABLE_PRODUCT_TYPE_OPTIONS } from '#src/libs/reporting/common/constants';
 
 type ReportFilterChipProps = {
   datatype: DataSourceMedadataDataType;
@@ -103,21 +105,49 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
 
     const { values, setFieldValue } = useFormikContext<ReportFilterConfig>();
 
+    /**
+     * "products" datatype is a dynamic datatype
+     */
+    const datatypeProductFiltering = React.useMemo(() => {
+      if (isDatatypeFilterConfigItemValueProducts(value)) {
+        return (
+          FILTERABLE_PRODUCT_TYPE_OPTIONS.find(
+            (option) => option.value === value.buyable_item_identifier,
+          )?.datatypeFiltering || datatype
+        );
+      }
+      return datatype;
+    }, [value, datatype]);
+
     const isColumnRemoved = useMemo(
       () => isReportColumnRemoved(datatype, columnIdentifiers, label),
       [columnIdentifiers, label, datatype],
     );
+
     /**
      * Some filters are dynamic because they filter based on ids, hence the need for
      * additional fetches defined in dynamic-data-hoc file
+     *
+     * "products" datatype redirect to another datatype to fetch data (see datatypeProductFiltering)
      */
-    const hasDynamicDataHasBeenLoaded = React.useMemo(
-      () =>
-        !onlyDisplay && datatype in dynamicDataHasBeenLoaded
-          ? dynamicDataHasBeenLoaded[datatype as DynamicFilterDataType]
-          : true,
-      [onlyDisplay, datatype, dynamicDataHasBeenLoaded],
-    );
+    const hasDynamicDataHasBeenLoaded = React.useMemo(() => {
+      if (onlyDisplay) {
+        return true;
+      }
+      if (datatype !== 'products' && datatype in dynamicDataHasBeenLoaded)
+        return dynamicDataHasBeenLoaded[datatype as DynamicFilterDataType];
+      if (datatype === 'products') {
+        return dynamicDataHasBeenLoaded[
+          datatypeProductFiltering as DynamicFilterDataType
+        ];
+      }
+      return true;
+    }, [
+      onlyDisplay,
+      datatype,
+      dynamicDataHasBeenLoaded,
+      datatypeProductFiltering,
+    ]);
 
     /**
      * Dynamic datatype filters get their information from the same source as for filter selectors (dynamic-data-hoc file)
@@ -132,7 +162,23 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
       ) {
         getDataByTypeAndId(datatype as DynamicFilterDataType, value);
       }
-    }, [getDataByTypeAndId, hasDynamicDataHasBeenLoaded, value, datatype]);
+      if (
+        !hasDynamicDataHasBeenLoaded &&
+        isDatatypeFilterConfigItemValueProducts(value) &&
+        value.object_ids.length === 1
+      ) {
+        getDataByTypeAndId(
+          datatypeProductFiltering as DynamicFilterDataType,
+          value.object_ids,
+        );
+      }
+    }, [
+      getDataByTypeAndId,
+      hasDynamicDataHasBeenLoaded,
+      value,
+      datatype,
+      datatypeProductFiltering,
+    ]);
 
     /**
      * This memoized string has different values depending on several factors:
@@ -144,11 +190,7 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
      */
     const valueLabel = React.useMemo(() => {
       if (onlyDisplay) return '';
-      if (
-        typeof value === 'object' &&
-        !Array.isArray(value) &&
-        value !== null
-      ) {
+      if (isDatatypeFilterConfigItemValueProducts(value)) {
         if (value.object_ids?.length > 1)
           return getMultipleValuesLabel(
             datatype,
@@ -315,8 +357,9 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
 
     const isSingleValueLoading =
       !hasDynamicDataHasBeenLoaded &&
-      Array.isArray(value) &&
-      value?.length === 1;
+      ((Array.isArray(value) && value?.length === 1) ||
+        (isDatatypeFilterConfigItemValueProducts(value) &&
+          value.object_ids.length === 1));
 
     const tooltipTitle = React.useMemo(() => {
       if (onlyDisplay) {

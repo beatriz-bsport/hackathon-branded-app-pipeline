@@ -30,6 +30,11 @@ import ListItemResponsiveAction from '../../../../components/button/ListItemResp
 import { Theme as CompanyTheme } from '../../../theme/types';
 import { WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS } from '../../../widget/constants';
 
+import type {
+  MarketplaceSettings,
+  MarketplaceTabConfig,
+} from '#src/libs/marketplace/types';
+
 const DragHandle = SortableHandle(() => <DragHandleIcon color="action" />);
 const SortableItem = SortableElement((props: any) => (
   <div style={{ display: 'flex', opacity: '1', zIndex: 99999, width: '100%' }}>
@@ -42,8 +47,8 @@ const Container = SortableContainer((props: any) => {
 
 type Props = {
   theme: CompanyTheme;
-  config: any;
-  settings: any;
+  config: MarketplaceTabConfig[];
+  settings: MarketplaceSettings;
   onEditTab: (idx: number) => void;
   onDeleteTab: (idx: number) => void;
   setOpenWidgetDialog: (open: boolean) => void;
@@ -59,7 +64,7 @@ const MarketplaceBuilder = (props: Props) => {
 
   const onSortEnd = React.useCallback(
     (e: { oldIndex: number; newIndex: number }) => {
-      let newConfig;
+      let newConfig: MarketplaceTabConfig[];
       if (e.oldIndex > e.newIndex) {
         newConfig = [
           ...config.slice(0, e.newIndex),
@@ -77,6 +82,8 @@ const MarketplaceBuilder = (props: Props) => {
           ...config.slice(e.newIndex + 1),
         ];
       }
+
+      if (!newConfig) return;
 
       /**
        * Update config and assign unique indexes based on order
@@ -116,7 +123,7 @@ const MarketplaceBuilder = (props: Props) => {
         </Link>
       </div>
       <Container useDragHandle onSortEnd={onSortEnd}>
-        {config.map((tab: any, i: number) => (
+        {(config ?? []).map((tab: MarketplaceTabConfig, i: number) => (
           <SortableItem key={i} index={i}>
             <Paper className={classes.paperItem}>
               <ListItem dense divider alignItems="center">
@@ -215,4 +222,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default MarketplaceBuilder;
+export default React.memo(MarketplaceBuilder);

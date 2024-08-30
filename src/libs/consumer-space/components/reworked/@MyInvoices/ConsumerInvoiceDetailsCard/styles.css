@@ -59,7 +59,20 @@
   align-items: center;
 }
 
+.bs-consumer-invoice-details-card__body__invoice-item-identifier {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+}
+
 .bs-consumer-invoice-details-card__body__invoice-item-name {
+}
+
+.bs-consumer-invoice-details-card__body__invoice-item-subtitle {
+  color: var(--bs-color-text-default);
+}
+.bs-consumer-invoice-details-card__body__invoice-item-subtitle--hidden {
+  display: none;
 }
 
 .bs-consumer-invoice-details-card__body__invoice-item-price {

@@ -33,6 +33,7 @@ const ConsumerInvoiceItemList: React.FC<Props> = ({ invoiceItems }) => {
           name={invoiceItem.name}
           price={invoiceItem.total_price}
           priceBeforeDiscount={invoiceItem.price}
+          subtitle={invoiceItem.incremental_consumer_giftcard_identifier}
         />
       ))}
     </div>

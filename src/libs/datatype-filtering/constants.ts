@@ -104,6 +104,7 @@ export enum ReportFilterableDataType {
   ACCESS_MONITORING_ADMISSION = 'access_monitoring_admission',
   ESTABLISHMENT_GROUP = 'establishment_group',
   PRODUCT_TYPE = 'product_type',
+  SHOP_ITEM = 'shop_item',
 }
 
 export const DATATYPE_FILTERABLE_BY_FLOAT_RANGE = [
@@ -239,6 +240,7 @@ export const defaultDynamicDataHasBeenLoaded = {
   billing_group_address: false,
   payment_pack_category: false,
   private_pass_category: false,
+  shop_item: false,
 };
 
 export const DATE_SUBDATA_TYPE = 0;

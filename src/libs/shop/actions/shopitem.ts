@@ -14,18 +14,13 @@ import {
   createItem,
 } from '../api';
 
+import type { Dispatch, OptionCallback, State } from '#src/state/types';
 import type {
-  Dispatch,
-  OptionCallback,
-  PaginatedResponse,
-  State,
-} from '../../../state/types';
-import {
   IsShopUsedInComboAPI,
   ShopItem,
   ShopItemCreate,
   ShopItemEdit,
-} from '../types';
+} from '#src/libs/shop/types';
 import { getFreshShopIds } from '../selectors';
 
 export const shopItemAsConsumerActions = {
@@ -141,7 +136,7 @@ export function fetchShopItemAsManager(
 export const shopItemBulkActions = {
   isLoading: createAction<boolean>('SHOPITEM/BULK/LOADING'),
   error: createAction<Error | null>('SHOPITEM/BULK/ERROR'),
-  success: createAction<PaginatedResponse<ShopItem>>('SHOPITEM/BULK/SUCCESS'),
+  success: createAction<ShopItem>('SHOPITEM/BULK/SUCCESS'),
 };
 
 export function fetchBulk(companyId: number | undefined, ids: number[]) {
@@ -170,6 +165,7 @@ export function fetchBulk(companyId: number | undefined, ids: number[]) {
 
 export function fetchAllShopItem(
   companyId?: number,
+  options?: OptionCallback<ShopItem>,
 ): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     dispatch(shopItemBulkActions.isLoading(true));
@@ -181,6 +177,7 @@ export function fetchAllShopItem(
           })
         : await fetchOld();
       dispatch(shopItemBulkActions.success(response.data));
+      options?.onSuccess?.(response.data);
     } catch (e) {
       dispatch(shopItemBulkActions.error(e));
     }

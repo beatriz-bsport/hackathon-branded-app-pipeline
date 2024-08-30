@@ -22,7 +22,10 @@ import { getAllCoupons } from '#src/libs/coupon/selectors';
 import { getVideoList } from '#src/libs/video/selectors';
 import { getAvailableContractList } from '#src/libs/subscription/selectors';
 import { getTheme } from '#src/libs/theme/selectors';
-import { getSubShopsByCompany } from '#src/libs/shop/selectors';
+import {
+  getShopItemStandaloneList,
+  getSubShopsByCompany,
+} from '#src/libs/shop/selectors';
 import { getUsersWithRole } from '#src/libs/role/selectors';
 import { getBookkeepingAccountList } from '#src/libs/payment/selectors';
 import {
@@ -64,9 +67,10 @@ import {
 import { OptionTypeBase } from '#src/components/Selector/MaterialUISelector.component';
 import { getFranchiseCompanies } from '../franchise/selectors';
 import { ReportFilterableDataType } from './constants';
-import type { RootState } from '../../reducers';
+import type { RootState } from '#src/reducers';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import { REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS } from '#src/libs/reporting/common/constants';
+import { fetchShopItemStandaloneList as fetchShopItemStandaloneListAction } from '#src/libs/shop/actions/shopItemReworked';
 
 type DynamicConnectedProps = ConnectedProps<typeof connector>;
 
@@ -114,6 +118,7 @@ const connector = connect(
     privatePassCategories: getPrivatePassCategories(state),
     bookkeepingAccounts: getBookkeepingAccountList(state),
     establishmentGroups: getEstablishmentGroups(state),
+    standAloneshopItems: getShopItemStandaloneList(state),
   }),
   {
     // Actions for dynamic data
@@ -139,6 +144,7 @@ const connector = connect(
     fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
     fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
     fetchMemberBulk: fetchMemberBulkAction,
+    fetchShopItemStandaloneList: fetchShopItemStandaloneListAction,
   },
 );
 
@@ -297,7 +303,13 @@ export default function withDatatypeDynamicData(
                   },
                 });
                 break;
-
+              case ReportFilterableDataType.SHOP_ITEM:
+                props.fetchShopItemStandaloneList(null, {
+                  onSuccess: () => {
+                    props.setDynamicDataHasBeenLoaded('shop_item');
+                  },
+                });
+                break;
               case ReportFilterableDataType.CONTRACT:
                 props.fetchContractList(
                   { page_size: null },
@@ -480,7 +492,10 @@ export default function withDatatypeDynamicData(
                 return props.videos.find(
                   (video) => video.id.toString() === stringifiedValue,
                 )?.name;
-
+              case ReportFilterableDataType.SHOP_ITEM:
+                return props.standAloneshopItems.find(
+                  (shopItem) => shopItem.id.toString() === stringifiedValue,
+                )?.name;
               case ReportFilterableDataType.BILLING_GROUP:
                 return props.billingGroups.find(
                   (billingGroup) =>
@@ -623,6 +638,12 @@ export default function withDatatypeDynamicData(
               return props.videos.map((v) => ({
                 label: v.name,
                 value: v.id,
+                columnName,
+              }));
+            case ReportFilterableDataType.SHOP_ITEM:
+              return props.standAloneshopItems.map((shopItem) => ({
+                label: shopItem.name,
+                value: shopItem.id,
                 columnName,
               }));
             case ReportFilterableDataType.BILLING_GROUP:

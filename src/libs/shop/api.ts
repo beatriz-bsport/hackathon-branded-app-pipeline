@@ -47,13 +47,16 @@ export async function fetchAll(params: ShopItemFilterParams) {
   );
 }
 
-/** @deprecated LEGACY endpoint with no pagination */
+/**
+ * @deprecated LEGACY endpoint with no pagination
+ * Do not delete because still in use for reports
+ */
 export async function fetchOld(
   params?: ShopItemFilterParams & {
     company: number;
     id__in?: number[];
   },
-): Promise<AxiosResponse<PaginatedResponse<ShopItem>>> {
+): Promise<AxiosResponse<ShopItem>> {
   return getAuth(
     `${API_V1_URI}/shop/item/get_all/${buildUrlParams({
       ...params,

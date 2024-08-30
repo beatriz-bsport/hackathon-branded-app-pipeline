@@ -69,7 +69,7 @@ import {
   navigateToRelationAccount as navigateToRelationAccountAction,
   navigateBackToMasterRelation as navigateBackToMasterRelationAction,
 } from '../../actions/auth.actions';
-import { displayReworkedMemberProfile } from '../../libs/consumer-space/constants';
+import { NEW_MEMBER_PROFILE_COMPANY_ID_LIST } from '../../libs/consumer-space/constants';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
@@ -323,6 +323,15 @@ export class ConsumerHome extends React.Component<Props> {
         ];
   };
 
+  getIsNewMemberProfileDisplayed = () => {
+    const isProduction = ['production'].includes(
+      Config.REACT_APP_SENTRY_ENVIRONMENT,
+    );
+    return isProduction
+      ? NEW_MEMBER_PROFILE_COMPANY_ID_LIST.includes(this.props.companyId)
+      : true;
+  };
+
   render() {
     const isRelationNavigation = !!getItemInStorage(
       'local',
@@ -334,7 +343,7 @@ export class ConsumerHome extends React.Component<Props> {
         <MemberShipValidationWrapper companyId={this.props.companyId}>
           <>
             {this.props.membership ? (
-              displayReworkedMemberProfile ? (
+              this.getIsNewMemberProfileDisplayed() ? (
                 <ConsumerNavigation
                   basketProductListCount={getBasketBuyableItemsCount(
                     this.props.currentBasket?.checkout_items ?? [],

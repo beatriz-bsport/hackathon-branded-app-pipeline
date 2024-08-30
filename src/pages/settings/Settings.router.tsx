@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
-import { connect, useSelector } from 'react-redux';
+import { connect, ConnectedProps, useSelector } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
@@ -8,7 +8,7 @@ import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
 
-import { displayReworkedMemberProfile } from '#src/libs/consumer-space/constants';
+import { NEW_MEMBER_PROFILE_COMPANY_ID_LIST } from '#src/libs/consumer-space/constants';
 import PaymentRuleSetsDashboard from '#src/pages/settings/PaymentRuleSetsDashboard.page';
 import CompanyDetailPage from '#src/pages/settings/CompanyDetailPage.page';
 import RoleConfigurationPage from '#src/pages/settings/RoleConfiguration.page';
@@ -46,13 +46,26 @@ import SettingsMobileRouter from '#src/pages/settings/SettingsMobile.router';
 import SettingsPersonalization from '#src/pages/settings/SettingsPersonalization.router';
 import themeSelectors from '#src/libs/theme/selectors';
 import { RootState } from '#src/reducers';
+import Config from '#src/config';
 
-type Props = {};
+type SettingsRouterConnectedProps = ConnectedProps<typeof connector>;
 
-export const Settings = () => {
+export const Settings: React.FC<SettingsRouterConnectedProps> = ({
+  companyId,
+}) => {
   const displayNewWebshop = useSelector(
     (state: RootState) => themeSelectors.getTheme(state).display_new_webshop,
   );
+
+  const isNewMemberProfileDisplayed = useMemo(() => {
+    const isProduction = ['production'].includes(
+      Config.REACT_APP_SENTRY_ENVIRONMENT,
+    );
+    return isProduction
+      ? NEW_MEMBER_PROFILE_COMPANY_ID_LIST.includes(companyId)
+      : true;
+  }, [companyId]);
+
   return (
     <Switch>
       <Route
@@ -110,7 +123,7 @@ export const Settings = () => {
         <Route exact component={ShopConfigurationPage} path="/settings/shop" />
       )}
       <Route exact component={ThemeConfigurationPage} path="/settings/theme" />
-      {displayReworkedMemberProfile ? (
+      {isNewMemberProfileDisplayed ? (
         <Route
           component={SettingsPersonalization}
           path={['/settings/personalization/:tab', '/settings/personalization']}
@@ -176,11 +189,18 @@ export const Settings = () => {
   );
 };
 
-export default compose<any, Props>(
+const connector = connect(
+  (state: RootState) => ({
+    companyId: state.theme.theme.company,
+  }),
+  { push },
+);
+
+export default compose(
   withTranslation(['settings']),
   // @ts-expect-error
   routerParamsToProps({ tab: 'tab' }),
   withRouter,
-  connect(null, { push }),
+  connector,
   withTitle(({ t }: { t: TFunction }) => t('titles:settings')),
 )(Settings);

@@ -275,3 +275,7 @@ export const FILTERABLE_PRODUCT_TYPE_OPTIONS: {
     datatypeFiltering: 'giftcard',
   },
 ];
+
+export const REPORT_CATEGORIES_WITH_DISABLED_PAYMENT_PACK = [
+  ReportCategoryEnum.INVOICES,
+];

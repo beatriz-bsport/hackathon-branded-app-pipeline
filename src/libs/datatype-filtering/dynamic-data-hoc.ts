@@ -69,7 +69,10 @@ import { getFranchiseCompanies } from '../franchise/selectors';
 import { ReportFilterableDataType } from './constants';
 import type { RootState } from '#src/reducers';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import { REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS } from '#src/libs/reporting/common/constants';
+import {
+  REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS,
+  REPORT_CATEGORIES_WITH_DISABLED_PAYMENT_PACK,
+} from '#src/libs/reporting/common/constants';
 import { fetchShopItemStandaloneList as fetchShopItemStandaloneListAction } from '#src/libs/shop/actions/shopItemReworked';
 
 type DynamicConnectedProps = ConnectedProps<typeof connector>;
@@ -189,7 +192,14 @@ export default function withDatatypeDynamicData(
                 break;
               case ReportFilterableDataType.PAYMENT_PACK:
                 props.fetchAllPaymentPacks(
-                  { page_size: 70000, disabled: false },
+                  {
+                    page_size: 70000,
+                    ...(!REPORT_CATEGORIES_WITH_DISABLED_PAYMENT_PACK.includes(
+                      reportCategory,
+                    ) && {
+                      disabled: false,
+                    }),
+                  },
                   {
                     onSuccess: () => {
                       props.setDynamicDataHasBeenLoaded('payment_pack');

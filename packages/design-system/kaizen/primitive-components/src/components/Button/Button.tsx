@@ -12,17 +12,28 @@ import {
 
 const button = cva(defaultClasses, {
   variants,
-  // TODO declare compoundVariants based
-  // compoundVariants: [
-  //   {
-  //     intent: "call-to-action",
-  //     colorByIntent: compoundVariantsColor["call-to-action"],
-  //   },
-  // ],
-  defaultVariants: {
-    intent: intents.default,
-    size: sizes.md,
-  },
+  compoundVariants: [
+    {
+      intent: "call-to-action",
+      colorByIntent: colorsByIntent["call-to-action"].map(
+        (c) =>
+          `call-to-action-${c}` as `call-to-action-${(typeof colorsByIntent)["call-to-action"][number]}`,
+      ),
+    },
+    {
+      intent: "default",
+      colorByIntent: colorsByIntent["default"].map(
+        (c) =>
+          `default-${c}` as `default-${(typeof colorsByIntent)["default"][number]}`,
+      ),
+    },
+    {
+      intent: "flat",
+      colorByIntent: colorsByIntent["flat"].map(
+        (c) => `flat-${c}` as `flat-${(typeof colorsByIntent)["flat"][number]}`,
+      ),
+    },
+  ],
 });
 
 type InternalVariants = "iconVariant" | "widthMode" | "colorByIntent";

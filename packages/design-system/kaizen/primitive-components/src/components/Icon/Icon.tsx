@@ -12,9 +12,6 @@ const variants = {
     md: ["h-icon-md", "w-icon-md"],
     sm: ["h-icon-sm", "w-icon-sm"],
     xs: ["h-icon-xs", "w-icon-xs"],
-    "action-lg": ["h-action-lg", "w-action-lg"],
-    "action-md": ["h-action-md", "w-action-md"],
-    "action-sm": ["h-action-sm", "w-action-sm"],
   },
 } as const;
 
@@ -46,7 +43,7 @@ const Icon: React.FC<IconProps> = ({ icon, className, size, ...rest }) => {
 
   return (
     <div
-      className={`${className} ${iconCva({ size })}`}
+      className={iconCva({ className, size })}
       aria-label={icon}
       role="img"
       {...rest}

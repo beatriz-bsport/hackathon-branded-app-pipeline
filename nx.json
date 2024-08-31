@@ -3,21 +3,14 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "dev",
-          "deploy",
-          "build-storybook"
-        ]
+        "cacheableOperations": ["build", "dev", "deploy", "build-storybook"]
       }
     }
   },
   "extends": "nx/presets/npm.json",
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "build-storybook": {
       "cache": true

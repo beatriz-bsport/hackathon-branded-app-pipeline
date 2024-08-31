@@ -2,7 +2,4 @@
 if [ "$ECOSYSTEM_SKIP_HOOKS" != "true" ] && [ -z "$CI" ]; then
     pnpm exec nx affected --target=pre-commit --base=HEAD
     pnpm exec nx affected --target=lint --base=HEAD
-    # pnpm run -w utils project:list --format=yaml --target=gh-actions
-    # pnpm run -w utils project:list --format=json --target=deployment
-    # git add .github/
 fi

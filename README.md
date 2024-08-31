@@ -2,6 +2,8 @@
 
 This project is a simple implementation of how a Monorepository can be configured with [pnpm workspaces](https://pnpm.io/fr/workspaces) and [NxJS](https://nx.dev/).
 
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
 ## How to use
 
 ### Get started
@@ -50,6 +52,23 @@ To administrate the monorepository you can use the [`monorepo-utils`](/tools/mon
 
 ```sh
 pnpm run utils --help
+```
+
+### Generators
+
+All generators are using [hygen.io](https://www.hygen.io/) to generate new components, projects (TO DO).
+
+When you identify a pattern in your code or your project, you should consider creating a a generator:
+
+1. (Optionnal) Run `pnpm exec hygen init self` if hygen isn't set up in your project.
+2. Create your new generator: `pnpm exec hygen generator new`
+3. Remember to add your generate command to the project `package.json` in the script
+
+```json
+  "scripts": {
+    // ...
+    "cool-component:add": "pnpm exec hygen cool-component new "
+  }
 ```
 
 ### Create project

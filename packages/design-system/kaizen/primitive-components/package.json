@@ -41,8 +41,9 @@
     "vite-plugin-svgr": "^4.2.0"
   },
   "scripts": {
-    "dev": "pnpm run storybook:dev",
     "build": "tsc && vite build",
+    "component:add": "pnpm exec hygen component new",
+    "dev": "pnpm run storybook:dev",
     "icon:add": "tsx ./scripts/create-icon.ts",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",

@@ -67,6 +67,7 @@ export type MemberMinimal<Tag = number, CA = number> = {
   date_joined: string;
   email: string;
   first_name: string;
+  has_bought_pack?: boolean;
   id: number;
   is_pos: boolean;
   last_name: string;
@@ -74,8 +75,8 @@ export type MemberMinimal<Tag = number, CA = number> = {
   phone: string;
   photo: string;
   tags: Array<Tag>;
-  user_id: number;
   total_unpaid_amount: string;
+  user_id: number;
   vaccination_status?: boolean;
 };
 

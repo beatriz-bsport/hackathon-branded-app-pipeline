@@ -276,6 +276,28 @@ export const FILTERABLE_PRODUCT_TYPE_OPTIONS: {
   },
 ];
 
+export const FILTERABLE_PRODUCT_CATEGORY_OPTIONS: {
+  translationKey: string;
+  value: BuyableItemOptions;
+  datatypeFiltering: DynamicFilterDataType;
+}[] = [
+  {
+    translationKey: 'product_type.payment_pack',
+    value: BuyableItemOptions.BUYABLE_ITEM_PASS,
+    datatypeFiltering: 'payment_pack_category',
+  },
+  {
+    translationKey: 'product_type.shop_item',
+    value: BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM,
+    datatypeFiltering: 'subshop',
+  },
+  {
+    translationKey: 'product_type.private_pass',
+    value: BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS,
+    datatypeFiltering: 'private_pass_category',
+  },
+];
+
 export const REPORT_CATEGORIES_WITH_DISABLED_PAYMENT_PACK = [
   ReportCategoryEnum.INVOICES,
 ];

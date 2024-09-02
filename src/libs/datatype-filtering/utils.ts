@@ -100,7 +100,7 @@ export const getDefaultValueForComparator = (details: {
     if (typeof currentValue === 'boolean') return currentValue;
     return true;
   }
-  if (datatype === 'products') {
+  if (['products', 'product_category'].includes(datatype)) {
     if (
       typeof currentValue === 'object' &&
       !Array.isArray(currentValue) &&

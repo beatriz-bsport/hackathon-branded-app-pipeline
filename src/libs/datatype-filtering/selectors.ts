@@ -20,6 +20,8 @@ export const getDynamicDataLoading = memoize((state: RootState) => ({
   contract: state.subscription.contract.loading,
   subshop: state.shop.loading,
   company: state.franchise.loading,
+  payment_pack_category: state.paymentPack.paymentPackCategory.loading,
+  private_pass_category: state.privateService.privatePassCategory.loading,
 }));
 
 export const getDynamicDataHasBeenLoaded = (state: RootState) =>

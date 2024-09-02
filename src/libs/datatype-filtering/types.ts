@@ -62,7 +62,8 @@ export type DataSourceMedadataDataType =
   | 'access_monitoring_status'
   | 'access_monitoring_admission'
   | 'establishment_group'
-  | 'products';
+  | 'products'
+  | 'product_category';
 
 export type DataSourceMetadata = {
   identifier: string;
@@ -134,7 +135,8 @@ export type DatatypeFilterConfigItemTypeById =
   | 'access_monitoring_admission'
   | 'establishment_group'
   | 'products'
-  | 'product_type';
+  | 'product_type'
+  | 'product_category';
 
 export type DatatypeFilterConfigItemComparatorById =
   | typeof FILTER_IN_OPERAND
@@ -240,7 +242,7 @@ export type DatatypeFilterConfigItem = {
       value: boolean;
     }
   | {
-      datatype: 'products';
+      datatype: 'products' | 'product_category';
       time_period: null;
       sub_datatype: null;
       comparator: DatatypeFilterConfigItemComparatorBoolean;

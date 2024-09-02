@@ -47,7 +47,10 @@ import {
   isDatatypeFilterConfigItemValueProducts,
 } from '#src/libs/reporting/common/utils';
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
-import { FILTERABLE_PRODUCT_TYPE_OPTIONS } from '#src/libs/reporting/common/constants';
+import {
+  FILTERABLE_PRODUCT_TYPE_OPTIONS,
+  FILTERABLE_PRODUCT_CATEGORY_OPTIONS,
+} from '#src/libs/reporting/common/constants';
 
 type ReportFilterChipProps = {
   datatype: DataSourceMedadataDataType;
@@ -110,11 +113,20 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
      */
     const datatypeProductFiltering = React.useMemo(() => {
       if (isDatatypeFilterConfigItemValueProducts(value)) {
-        return (
-          FILTERABLE_PRODUCT_TYPE_OPTIONS.find(
-            (option) => option.value === value.buyable_item_identifier,
-          )?.datatypeFiltering || datatype
-        );
+        if (datatype === 'products') {
+          return (
+            FILTERABLE_PRODUCT_TYPE_OPTIONS.find(
+              (option) => option.value === value.buyable_item_identifier,
+            )?.datatypeFiltering || datatype
+          );
+        }
+        if (datatype === 'product_category') {
+          return (
+            FILTERABLE_PRODUCT_CATEGORY_OPTIONS.find(
+              (option) => option.value === value.buyable_item_identifier,
+            )?.datatypeFiltering || datatype
+          );
+        }
       }
       return datatype;
     }, [value, datatype]);
@@ -134,9 +146,12 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
       if (onlyDisplay) {
         return true;
       }
-      if (datatype !== 'products' && datatype in dynamicDataHasBeenLoaded)
+      if (
+        !['products', 'product_category'].includes(datatype) &&
+        datatype in dynamicDataHasBeenLoaded
+      )
         return dynamicDataHasBeenLoaded[datatype as DynamicFilterDataType];
-      if (datatype === 'products') {
+      if (['products', 'product_category'].includes(datatype)) {
         return dynamicDataHasBeenLoaded[
           datatypeProductFiltering as DynamicFilterDataType
         ];

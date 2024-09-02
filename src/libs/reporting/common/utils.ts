@@ -118,6 +118,7 @@ import {
   ACCESS_MONITORING_MEMBER_FILTERING_IDENTIFIERS,
   GROUPED_IDENTIFIERS_FILTER,
   FILTERABLE_PRODUCT_TYPE_OPTIONS,
+  FILTERABLE_PRODUCT_CATEGORY_OPTIONS,
 } from '#src/libs/reporting/common/constants';
 import type {
   ReportCategory,
@@ -885,6 +886,16 @@ export const getSingleValueLabel = (
         }`;
       }
       return '';
+    case ReportFilterableDataType.PRODUCT_CATEGORY:
+      if (isDatatypeFilterConfigItemValueProducts(value)) {
+        const datatypeFiltering = FILTERABLE_PRODUCT_CATEGORY_OPTIONS.find(
+          (option) => option.value === value.buyable_item_identifier,
+        )?.datatypeFiltering;
+        return `${
+          getDataByTypeAndId(datatypeFiltering, value.object_ids) ?? ''
+        }`;
+      }
+      return '';
     // Those above are the ones filterable by ID
     case ReportFilterableDataType.DATE:
     case ReportFilterableDataType.TIME:
@@ -1393,9 +1404,13 @@ export const isReportColumnRemoved = (
 
 export const retrieveFilterableProductOptions = (
   reportCategory: ReportCategoryEnum,
+  datatype: string,
 ) =>
   FILTERABLE_PRODUCT_TYPE_OPTIONS.filter((option) => {
-    if (reportCategory === ReportCategoryEnum.INVOICES) {
+    if (
+      reportCategory === ReportCategoryEnum.INVOICES ||
+      datatype === 'product_category'
+    ) {
       return option.value !== BuyableItemOptions.BUYABLE_ITEM_GIFTCARD;
     }
 

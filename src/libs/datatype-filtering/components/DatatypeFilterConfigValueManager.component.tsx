@@ -87,7 +87,10 @@ import {
   isDatatypeFilterConfigItemValueProducts,
   retrieveFilterableProductOptions,
 } from '#src/libs/reporting/common/utils';
-import { FILTERABLE_PRODUCT_TYPE_OPTIONS } from '#src/libs/reporting/common/constants';
+import {
+  FILTERABLE_PRODUCT_CATEGORY_OPTIONS,
+  FILTERABLE_PRODUCT_TYPE_OPTIONS,
+} from '#src/libs/reporting/common/constants';
 
 export type ItemProps = {
   children: string;
@@ -525,8 +528,29 @@ const DatatypeFilterConfigValueList: React.FC<{
           }
           return [];
         }
+        case 'product_category': {
+          const datatypeFiltering =
+            isDatatypeFilterConfigItemValueProducts(valuesInConfig) &&
+            valuesInConfig?.buyable_item_identifier
+              ? FILTERABLE_PRODUCT_CATEGORY_OPTIONS.find(
+                  (option) =>
+                    option.value === valuesInConfig.buyable_item_identifier,
+                )?.datatypeFiltering
+              : null;
+
+          if (datatypeFiltering) {
+            return getDataByType(
+              datatypeFiltering,
+              [],
+              columnName,
+              reportCategory,
+              withoutFetch,
+            );
+          }
+          return [];
+        }
         case 'product_type':
-          return retrieveFilterableProductOptions(reportCategory).map(
+          return retrieveFilterableProductOptions(reportCategory, datatype).map(
             (option) => ({
               value: option.value,
               label: t(`${option.translationKey}`),
@@ -811,6 +835,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       'staff',
       'bookkeeping_account',
       'products',
+      'product_category',
     ].includes(datatype) &&
     getOptions(false) === null
   ) {
@@ -829,7 +854,11 @@ const DatatypeFilterConfigValueList: React.FC<{
         inScrollBar={inScrollBar}
         isDisabled={isPreview}
         itemRenderer={!!itemRenderer && itemRenderer}
-        name={datatype === 'products' ? `${name}.object_ids` : name}
+        name={
+          ['products', 'product_category'].includes(datatype)
+            ? `${name}.object_ids`
+            : name
+        }
         openMenuOnClear={openMenuOnClear}
         openMenuOnFocus={openMenuOnFocus}
         // @ts-expect-error

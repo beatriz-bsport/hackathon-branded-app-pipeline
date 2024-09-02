@@ -139,7 +139,9 @@ const QuickReportFilterConfigFilter: React.FC<
         getDefaultValueForComparator({
           comparator: comparatorValue,
           datatype: selectedColumn.datatype,
-          currentValue: ['products'].includes(selectedColumn.datatype)
+          currentValue: ['products', 'product_category'].includes(
+            selectedColumn.datatype,
+          )
             ? get(values, `config.groups[0].filters_data.${index}.value`)
             : selectedColumn.value,
           isChangingComparator: true,
@@ -171,11 +173,14 @@ const QuickReportFilterConfigFilter: React.FC<
 
   const productTypeOption = useMemo(
     () =>
-      retrieveFilterableProductOptions(reportCategory).map((option) => ({
+      retrieveFilterableProductOptions(
+        reportCategory,
+        selectedColumn.datatype,
+      ).map((option) => ({
         value: option.value,
         label: t(`${option.translationKey}`),
       })),
-    [t, reportCategory],
+    [t, reportCategory, selectedColumn.datatype],
   );
 
   const handleProductChange = React.useCallback(
@@ -228,7 +233,9 @@ const QuickReportFilterConfigFilter: React.FC<
                 />
               </div>
             )}
-            {selectedColumn.datatype === 'products' && (
+            {['products', 'product_category'].includes(
+              selectedColumn.datatype,
+            ) && (
               <div className={classes.comparatorSelector}>
                 <MaterialUiSingleSelectorField
                   name={`config.groups[0].filters_data.${index}.value.buyable_item_identifier`}

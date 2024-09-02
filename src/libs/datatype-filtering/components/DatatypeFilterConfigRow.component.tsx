@@ -177,11 +177,13 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
 
   const productTypeOption = useMemo(
     () =>
-      retrieveFilterableProductOptions(reportCategory).map((option) => ({
-        value: option.value,
-        label: t(`${option.translationKey}`),
-      })),
-    [t, reportCategory],
+      retrieveFilterableProductOptions(reportCategory, filterItem.datatype).map(
+        (option) => ({
+          value: option.value,
+          label: t(`${option.translationKey}`),
+        }),
+      ),
+    [t, reportCategory, filterItem.datatype],
   );
   //
   // Handlers
@@ -332,7 +334,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
             />
           </div>
         )}
-        {filterItem.datatype === 'products' && (
+        {['products', 'product_category'].includes(filterItem.datatype) && (
           <div className={classes.flexOne}>
             <MaterialUiSingleSelectorField
               inScrollBar

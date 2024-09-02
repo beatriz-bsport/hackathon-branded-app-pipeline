@@ -182,7 +182,8 @@ const Alert: React.FC<Props> = ({
         className={classNames(
           'bs-fabrique-alert__actions',
           {
-            'bs-fabrique-alert__actions--hidden': !title,
+            'bs-fabrique-alert__actions--hidden':
+              !actionText && !onActionClick && !onClose,
           },
           classes?.actions,
         )}

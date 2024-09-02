@@ -137,3 +137,48 @@ export function filterObjectOnSingleKey<T>(
   }
   return null;
 }
+
+/**
+ * Converts a base 64 string to a valid File instance
+ * @param base64 A valid, complete base64 encoded string
+ * @param name The complete name of the file with extension
+ * @param type A valid  {@link [mime-type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)}
+ * @returns {File}
+ */
+export const convertBase64toFile = (
+  base64: string,
+  name: string,
+  type: string,
+) => {
+  if (!base64 || !name || !type) return;
+
+  const base64Data = base64.split(',')[1]; // exclude the metadata infos (mime-type etc)
+  const byteCharacters = atob(base64Data); // decode the base64 data into bytes
+
+  // convert the binary string into an array of bytes, as the Blob constructor expects a byte array.
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+
+  const blob = new Blob([byteArray]);
+
+  return new File([blob], name, { type });
+};
+
+/**
+ * Converts a Blob instance (File..) into an encoded base64 string
+ * @async
+ * @param blob The blob instance
+ * @returns {File}
+ */
+export const convertBlobToBase64 = async (blob: Blob) => {
+  if (!blob) return;
+  return await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};

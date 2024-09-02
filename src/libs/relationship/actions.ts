@@ -28,6 +28,7 @@ import type {
   ConsumerPaymentPackLinkWithRelatedMemberNames,
   PrivateConsumerPassLink,
 } from './types';
+import type { MemberMinimal } from '#src/libs/member/types';
 
 export const memberRelationCreateOrUpdateActions = {
   isLoading: createAction('MEMBER_RELATION/CREATE_OR_UPDATE/LOADING'),
@@ -425,14 +426,18 @@ export function fetchMyRelatedMemberList(
 }
 
 export const listControlableMembersActions = {
-  isLoading: createAction('RELATIONSHIP/CONTROLABLE_MEMBER/IS_LOADING'),
-  error: createAction('RELATIONSHIP/CONTROLABLE_MEMBER/ERROR'),
-  success: createAction('RELATIONSHIP/CONTROLABLE_MEMBER/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'RELATIONSHIP/CONTROLABLE_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>('RELATIONSHIP/CONTROLABLE_MEMBER/ERROR'),
+  success: createAction<MemberMinimal[]>(
+    'RELATIONSHIP/CONTROLABLE_MEMBER/SUCCESS',
+  ),
 };
 
 export function fetchMyControlableMemberList(
   company: number,
-  options?: OptionCallback,
+  options?: OptionCallback<MemberMinimal[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listControlableMembersActions.isLoading(true));
@@ -440,16 +445,16 @@ export function fetchMyControlableMemberList(
     try {
       const response = await fetchControlableMemberListAPI(company);
       dispatch(listControlableMembersActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
+      options?.onSuccess?.();
     } catch (err) {
       err?.response?.data?.error_code === MEISUNDEFINED &&
         dispatch(snackbarError(`relationship.error.${String(MEISUNDEFINED)}`));
 
       dispatch(listControlableMembersActions.error(err));
-
-      if (options && options.onSuccess) options.onSuccess();
+      options?.onSuccess?.();
+    } finally {
+      dispatch(listControlableMembersActions.isLoading(false));
     }
-    dispatch(listControlableMembersActions.isLoading(false));
   };
 }
 

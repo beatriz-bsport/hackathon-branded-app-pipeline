@@ -6,6 +6,7 @@ import {
   postAuth,
   deleteAuth,
 } from '../../http';
+import type { MemberMinimal } from '#src/libs/member/types';
 import type {
   ConsumerPaymentPackLinkWithRelatedMemberNames,
   PrivateConsumerPassLink,
@@ -102,7 +103,7 @@ export async function fetchRelatedMemberList(company: number) {
 }
 
 export async function fetchControlableMemberList(company: number) {
-  return getAuth(
+  return getAuth<MemberMinimal[]>(
     `${API_V1_URI}/relationship/member/my_controlable_members/${buildUrlParams({
       company,
     })}`,

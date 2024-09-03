@@ -2237,7 +2237,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán por tanto solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
                     "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
@@ -3423,7 +3423,8 @@
             "submit_stripe_footer": "Actualizar",
             "forms": {
                 "stripe_footer_placeholder": "No hay informaciones adiconal",
-                "show_company_email_in_invoice": "Mostrar el correo electrónico de contacto de su estudio en las facturas"
+                "show_company_email_in_invoice": "Mostrar el correo electrónico de contacto de su estudio en las facturas",
+                "invoicePDFTitlePlaceholder": "Nombre de la empresa por defecto de Stripe onboarding"
             },
             "nf525Button": "Descargar",
             "nf525Explain": "Bsport sigue los procedimientos de cumplimiento de NF525, puedes descargar nuestro certificado oficial aquí.",
@@ -3575,7 +3576,10 @@
                         }
                     }
                 }
-            }
+            },
+            "explainInvoicePDFTitle": "Este nombre aparecerá como nombre de su estudio en todas las facturas generadas",
+            "invoicePDFEmail": "Dirección de correo electrónico para la factura",
+            "invoicePDFTitle": "Nombre de la empresa de facturación"
         },
         "section": {
             "paymentList": {
@@ -3657,7 +3661,8 @@
                 "reverseInvoice": "Reembolsado vía ",
                 "sourceInvoice": "Cancelar la factura",
                 "noEstablishment": "Sin establecimiento",
-                "noBillingGroup": "No se ha asociado ningún grupo de facturación a esta factura"
+                "noBillingGroup": "No se ha asociado ningún grupo de facturación a esta factura",
+                "reverseInvoicePending": "Reembolso pendiente a través de "
             },
             "editor": {
                 "title": "Edición de la factura",
@@ -3667,7 +3672,8 @@
             "title": "Factura {{ uuid }}",
             "titleRevert": "Crédito {{ uuid }}",
             "titleReceipt": "Recibo de pago {{ uuid }}",
-            "titleReverted": "Factura ( revertida) {{uuid}}"
+            "titleReverted": "Factura ( revertida) {{uuid}}",
+            "titleRevertPending": "[Pendiente] Crédito {{ uuid }}"
         },
         "creditAccountBalance": {
             "current": "Saldo actual"
@@ -3701,7 +3707,11 @@
                 }
             },
             "warning": {
-                "interac": "Se ha realizado al menos un pago con una tarjeta Interac en esta factura. No se admiten reembolsos directos para tarjetas Interac."
+                "interac": "Se ha realizado al menos un pago con una tarjeta Interac en esta factura. No se admiten reembolsos directos para tarjetas Interac.",
+                "debtAndNewPaymentMethodNotAllowed": "Hay al menos un pago pendiente. Solo está disponible un reembolso directo.",
+                "14103": "Los reembolsos directos sólo están disponibles si al menos uno de los pagos utiliza un método en línea.",
+                "14101": "Nota: un ajuste del saldo de la cuenta no puede reembolsarse con el saldo de la cuenta",
+                "14100": "Se ha realizado al menos un pago con una tarjeta Interac en esta factura. No se admiten reembolsos directos para tarjetas Interac."
             },
             "blockedDialog": {
                 "helper": "Tu saldo de Stripe es insuficiente para procesar el reembolso. Vuelve a intentarlo pasados unos días para poder cobrar los pagos.",
@@ -7709,6 +7719,18 @@
                 },
                 "noCategory": "Sin categoría"
             }
+        },
+        "defaultTabTitle": {
+            "workshop": "Talleres",
+            "vod": "Videos & ebooks",
+            "subscription": "Suscripción",
+            "shop": "Tienda",
+            "privateService": "Citas",
+            "playlist": "Playlists",
+            "pass": "Pases",
+            "giftcard": "Tarjetas de regalo",
+            "calendarV2": "Calendario",
+            "calendar": "Calendario"
         }
     },
     "notificationRule": {
@@ -14945,7 +14967,13 @@
             "12107": "Su pago ha fallado, por favor inténtelo de nuevo.",
             "12102": "Su pago ya se está procesando, por favor espere"
         },
-        "cancelPayPalPaymentAttempt": "Su intento de pago ha sido cancelado. Por favor, proceda de nuevo."
+        "cancelPayPalPaymentAttempt": "Su intento de pago ha sido cancelado. Por favor, proceda de nuevo.",
+        "wellhub": {
+            "configureWebhooks": {
+                "success": "Su ID de unidad se ha vinculado correctamente",
+                "error": "Se ha producido un error durante la configuración"
+            }
+        }
     },
     "paymentPack": {
         "consumer": {

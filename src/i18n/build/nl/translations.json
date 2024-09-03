@@ -3229,7 +3229,7 @@
             "title": "Uw registratie is geregistreerd"
         },
         "referral": {
-            "signUpNow": "Bedankt voor het gebruiken van de referral-link can {{ referringMemberFirstName }}. Registreer je om deze voucher voor je eerste aankoop te gebruiken!"
+            "signUpNow": "Bedankt voor het gebruiken van de referral-link van {{ referringMemberFirstName }}. Registreer je om deze voucher voor je eerste aankoop te gebruiken!"
         },
         "disconnectedStatus": {
             "subtitle": "Je moet ingelogd zijn om toegang te krijgen tot je profiel.",
@@ -8064,6 +8064,18 @@
                 },
                 "noCategory": "Zonder categorie"
             }
+        },
+        "defaultTabTitle": {
+            "workshop": "Workshops",
+            "vod": "Video On Demand",
+            "subscription": "Abonnement",
+            "shop": "Webshop",
+            "privateService": "Afspraken",
+            "playlist": "Afspeellijsten",
+            "pass": "Leskaarten",
+            "giftcard": "Cadeaubonnen",
+            "calendarV2": "Kalender",
+            "calendar": "Kalender"
         }
     },
     "selfCheckIn": {
@@ -13130,6 +13142,12 @@
             "connectionAttemptSucceeded": "De PayPal-rekening is succesvol aangesloten",
             "connectionAttemptFailed": "Er is een fout opgetreden tijdens het verbinden met PayPal",
             "35009": "Je kunt geen account gebruiken dat al gekoppeld is aan een ander bedrijf."
+        },
+        "wellhub": {
+            "configureWebhooks": {
+                "success": "Uw eenheids-ID is succesvol gekoppeld",
+                "error": "Er is een fout opgetreden tijdens de configuratie"
+            }
         }
     },
     "coach": {
@@ -14998,7 +15016,8 @@
             "submit_stripe_footer": "Bijwerken",
             "forms": {
                 "stripe_footer_placeholder": "Geen aanvullende informatie",
-                "show_company_email_in_invoice": "Toon het zakelijke e-mailadres op alle facturen"
+                "show_company_email_in_invoice": "Toon het zakelijke e-mailadres op alle facturen",
+                "invoicePDFTitlePlaceholder": "Standaard bedrijfsnaam van Stripe onboarding"
             },
             "nf525Button": "Downloaden",
             "nf525Explain": "BSPORT volgt de NF252-nalevingsprocedures. Download hier het officiële bestand.",
@@ -15150,7 +15169,10 @@
                 "addReader": "Een pinapparaat verbinden",
                 "addCard": "Pinapparaat (Stripe Terminal) toevoegen",
                 "helperText": "Gebruik pinapparaten om betalingen direct vanuit de Back Office te verwerken en bespaar tijd door al het handmatige werk omtrent fysieke betalingen te vermijden. Gelieve contact opnement met je accountmanager voor meer informatie."
-            }
+            },
+            "explainInvoicePDFTitle": "Deze naam verschijnt als de naam van je studio op alle gegenereerde facturen",
+            "invoicePDFEmail": "Factuur e-mailadres",
+            "invoicePDFTitle": "Factuur bedrijfsnaam"
         },
         "section": {
             "paymentList": {
@@ -15224,7 +15246,8 @@
                 "reverseInvoice": "Terugbetaald via ",
                 "sourceInvoice": "Factuur annuleren",
                 "noEstablishment": "Zonder vestiging",
-                "noBillingGroup": "Er is geen factureringsgroep gekoppeld aan deze factuur"
+                "noBillingGroup": "Er is geen factureringsgroep gekoppeld aan deze factuur",
+                "reverseInvoicePending": "Restitutie in behandeling via "
             },
             "editor": {
                 "title": "Facturatie",
@@ -15234,7 +15257,8 @@
             "title": "Factuur {{ uuid }}",
             "titleRevert": "Bemachtigen {{ uuid }}",
             "titleReceipt": "Betalingsbewijs: {{ uuid }}",
-            "titleReverted": "Factuur (geannuleerd) {{ uuid }}"
+            "titleReverted": "Factuur (geannuleerd) {{ uuid }}",
+            "titleRevertPending": "[Pending] Credit {{ uuid }}"
         },
         "creditAccountBalance": {
             "current": "Huidig saldo"
@@ -15350,7 +15374,11 @@
                 }
             },
             "warning": {
-                "interac": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten."
+                "interac": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten.",
+                "debtAndNewPaymentMethodNotAllowed": "Er is ten minste één betaling in behandeling. Alleen een directe terugbetaling is beschikbaar.",
+                "14103": "Directe terugbetalingen zijn alleen beschikbaar als ten minste één van de betalingen via een online methode verloopt.",
+                "14101": "Opmerking: een aanpassing aan het rekeningsaldo kan niet worden terugbetaald met het rekeningsaldo",
+                "14100": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten."
             },
             "autoDebitDialog": {
                 "helper": "Je studio is momenteel bezig met het sluiten van hun bsport-account\n\nDe factuur wordt terugbetaald als je op bevestigen klikt. Het resterende saldo op Stripe ter waarde van {{ currencyDisplay }}{{refundAmount}} zal worden teruggestort. Indien je je Stripe-saldo op {{ currencyDisplay }}0 wilt zetten zal het verschil rechtstreeks en automatisch van je betaalgegevens die onder Instellingen > Onderneming staan.\n\nAls je het limiet niet wilt overschrijden, kun je wachten tot je Stripe-saldo weer stijgt. Je kunt je Stripe-saldo live volgen via Instellingen > Abonnement.",
@@ -20911,7 +20939,7 @@
             "copyLink": "Kopieer mijn doorverwijslink",
             "forYourFriend": "voor je vriend",
             "forYou": "voor jou",
-            "inviteFriend": "Nodig een vriend uit om je aan te melden",
+            "inviteFriend": "Nodig een vriend uit om zich aan te melden",
             "nbRemainingUses": "Aantal resterende toepassingen",
             "referralLink": "Doorverwijslink",
             "loginToUseYourLink": "Log in om je link te gebruiken",

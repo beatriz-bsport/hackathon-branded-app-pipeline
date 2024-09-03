@@ -1409,7 +1409,7 @@
             "noncompatibleConsumerPaymentPacksAre": "DU besitzt die folgenden Pass, der nicht mit diesem Kurs kompatibel sind:",
             "broadcast_link": "Link zur Videokonferenz",
             "disabled": "storniert",
-            "noConsumerPackAvailableForPurchase": "Dieses Mitglied besitzt keine kompatible Kurkarte !",
+            "noConsumerPackAvailableForPurchase": "Dieses Mitglied besitzt keine kompatible Kurskarte !",
             "createBooking": "Anmelden",
             "hasntBooked": "Nicht angemeldet",
             "noCompatiblePacks": "Kein Kurspass ist mit diesem Kurs kompatibel",
@@ -8191,14 +8191,21 @@
             "12107": "Ihre Zahlung ist fehlgeschlagen, bitte versuchen Sie es erneut.",
             "12102": "Ihre Zahlung wird bereits bearbeitet, bitte warten Sie"
         },
-        "cancelPayPalPaymentAttempt": "Ihr Zahlungsversuch wurde abgebrochen. Bitte versuchen Sie es erneut."
+        "cancelPayPalPaymentAttempt": "Ihr Zahlungsversuch wurde abgebrochen. Bitte versuchen Sie es erneut.",
+        "wellhub": {
+            "configureWebhooks": {
+                "success": "Ihre ID der Einheit wurde erfolgreich verknüpft",
+                "error": "Während der Konfiguration ist ein Fehler aufgetreten"
+            }
+        }
     },
     "invoice": {
         "configuration": {
             "submit_stripe_footer": "Aktualisieren",
             "forms": {
                 "stripe_footer_placeholder": "Keine weitere rechtliche Angabe",
-                "show_company_email_in_invoice": "Anzeige der Kontakt-E-Mail Ihres Unternehmens auf Rechnungen"
+                "show_company_email_in_invoice": "Anzeige der Kontakt-E-Mail Ihres Unternehmens auf Rechnungen",
+                "invoicePDFTitlePlaceholder": "Standard Firmenname aus dem Stripe Onboarding"
             },
             "stripe_footer": "Fußzeile der Rechnung",
             "explainStripeFooter": "Dieser Text wird am Ende Ihrer als PDF bearbeiteten Rechnungen angezeigt. Fügen Sie alle erforderlichen rechtlichen Hinweise hinzu.",
@@ -8352,7 +8359,10 @@
                 "addReader": "Terminal verbinden",
                 "helperText": "Nutzen Sie Terminals, um Transaktionen direkt vom Back Office aus durchzuführen und Zeit zu sparen, indem Sie die manuelle Arbeit für physische Zahlungen einsparen. Bitte kontaktieren Sie Ihren Kundenbetreuer für weitere Informationen.",
                 "addCard": "Stripe-Terminal hinzufügen"
-            }
+            },
+            "explainInvoicePDFTitle": "Dieser Name wird als Name Ihres Studios auf allen erstellten Rechnungen erscheinen",
+            "invoicePDFEmail": "E-Mail Adresse der Rechnung",
+            "invoicePDFTitle": "Name des Abrechnungsunternehmens"
         },
         "returnPayment": {
             "modal": {
@@ -8416,12 +8426,14 @@
                 "reverseInvoice": "Rückerstattung über ",
                 "sourceInvoice": "Rechnung stornieren",
                 "noEstablishment": "Keine Einrichtung mit dieser Rechnung verbunden",
-                "noBillingGroup": "Keine Rechnungsgruppe wurde dieser Rechnung zugeordnet"
+                "noBillingGroup": "Keine Rechnungsgruppe wurde dieser Rechnung zugeordnet",
+                "reverseInvoicePending": "Rückerstattung ausstehend über "
             },
             "title": "Rechnung {{ uuid }}",
             "titleRevert": "Credit {{uuid}}",
             "titleReceipt": "Erhalten {{uuid}}",
-            "titleReverted": "Rechnung (zurückgeschickt) {{uuid}}"
+            "titleReverted": "Rechnung (zurückgeschickt) {{uuid}}",
+            "titleRevertPending": "[Ausstehend] Credit {{ uuid }}"
         },
         "invoiceItem": {
             "voucher": "Rabatt: {{ voucher }}",
@@ -8478,7 +8490,11 @@
                 "title": "Rechnungsstornierung"
             },
             "warning": {
-                "interac": "Mindestens eine Zahlung auf dieser Rechnung wurde mit einer Interac Karte vorgenommen. Direkte Rückerstattungen werden für Interac Karten nicht unterstützt."
+                "interac": "Mindestens eine Zahlung auf dieser Rechnung wurde mit einer Interac Karte vorgenommen. Direkte Rückerstattungen werden für Interac Karten nicht unterstützt.",
+                "debtAndNewPaymentMethodNotAllowed": "Mindestens eine Zahlung ist noch nicht erfolgt. Es ist nur eine direkte Erstattung möglich.",
+                "14103": "Direkte Erstattungen sind nur möglich, wenn mindestens eine der Zahlungen über ein Online Verfahren erfolgt.",
+                "14101": "Hinweis: Eine Anpassung des Kontosaldos kann nicht mit dem Kontosaldo erstattet werden",
+                "14100": "Mindestens eine Zahlung dieser Rechnung wurde mit einer Interac-Karte getätigt. Direkte Erstattungen sind für Interac-Karten nicht möglich."
             },
             "autoDebitDialog": {
                 "helper": "Ihr Studio ist gerade dabei, Ihr Bsport-Konto zu schließen.\n\nWenn Sie auf Bestätigen klicken, wird die Rechnung zurückerstattet. Ihr Stripe-Guthaben wird mit {{refundAmount}} belastet. {{ currencyDisplay }}. Um Ihr Stripe-Guthaben jedoch auf 0 {{ currencyDisplay }} zurückzusetzen, wird der Differenzbetrag automatisch direkt von Ihrem unter Einstellungen > Unternehmen angegebenen Bankkonto abgebucht.\n\nWenn Sie Ihr Überziehungslimit nicht überschreiten wollen, können Sie warten, bis Ihr Stripe-Saldo wieder steigt.",
@@ -8687,7 +8703,7 @@
                 "delete": "Abbrechen",
                 "registerNow": "Jetzt einziehen",
                 "enable": "Termin verschieben",
-                "disable": "Deprogrammieren",
+                "disable": "stornieren",
                 "changeMethod": "Zahlungsmethode wechseln",
                 "solveInvalidPaymentAttempt": "Regulieren"
             },
@@ -15951,6 +15967,18 @@
                 },
                 "noCategory": "Keine Kategorie"
             }
+        },
+        "defaultTabTitle": {
+            "workshop": "Workshops",
+            "vod": "Video On Demand",
+            "subscription": "Abonnement",
+            "shop": "Webshop",
+            "privateService": "Termine",
+            "playlist": "Playlists",
+            "pass": "Kurspässe",
+            "giftcard": "Geschenkgutscheine",
+            "calendarV2": "Kalender",
+            "calendar": "Kalender"
         }
     },
     "partnership": {

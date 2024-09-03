@@ -3275,9 +3275,9 @@
                 "exclusivePrivateServices_plural": "Les rendez-vous {{- private_service_name }} sont configurés pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ces rendez-vous pourront avoir lieu n'importe où.",
                 "exclusivePrivateServices": "Le rendez-vous {{- private_service_name }} est configuré pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ce rendez-vous pourra avoir lieu n'importe où.",
                 "exclusiveCoachAvailabilitySlots": "Le/la professeur(e) {{- coach_name }} est indiqué(e) comme étant disponible sur certaines plages horaires pour cet établissement uniquement. En supprimant l'établissement, ces plages horaires seront supprimées.",
-                "exclusiveCoachAvailabilitySlots_plural": "Les enseignants {{- coach_name }} sont indiqués comme étant disponibles pour cet établissement uniquement pour certaines plages horaires. En supprimant l'établissement, ces plages horaires seront supprimées.",
+                "exclusiveCoachAvailabilitySlots_plural": "Le(s) professeur(s) {{- coach_name }} sont indiqués comme étant disponibles pour cet établissement uniquement pour certaines plages horaires. En supprimant l'établissement, ces plages horaires seront supprimées.",
                 "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) lorsqu'une demande de substitution est faite pour une séance dans cet établissement uniquement. En supprimant l'établissement, il/elle recevra donc les demandes de substitution de tous les établissements.",
-                "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une session dans cet établissement. En supprimant l'établissement, ils recevront donc les demandes de remplacement de tous les établissements.",
+                "exclusiveAssociatedCoaches_plural": "Le(s) professeur(s) {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une séance dans cet établissement. En supprimant l'établissement, ils recevront donc les demandes de remplacement de tous les établissements.",
                 "hasBillingGroup": "Cet établissement sera également retiré du groupe de facturation {{- establishment_billing_group_name }}.",
                 "hasExclusiveStaffConfigurations": "Certains membres du personnel sont configurés pour surveiller l'accès des membres pour cet établissement uniquement. En supprimant l'établissement sans en sélectionner un nouveau, ils ne pourront plus effectuer de contrôle d'accès.",
                 "hasRelatedStaffConfigurations": "Cet établissement sera retiré des établissements utilisés par les membres du personnel pour le contrôle d'accès.",
@@ -3303,7 +3303,7 @@
                 "warnings": {
                     "hasRelatedAssociatedCoaches": "Certains professeurs reçoivent une notification lorsqu'une demande de substitution est faite pour une séance dans cette localisation. En supprimant la localisation, ils ne recevront plus de notification à ce sujet.",
                     "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation uniquement. En supprimant la localisation, il/elle recevra donc les demandes de remplacement de toutes les localisations.",
-                    "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une session dans ce lieu. En supprimant le lieu, ils recevront donc les demandes de remplacement de tous les lieux.",
+                    "exclusiveAssociatedCoaches_plural": "Le(s) professeur(s) {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation. En supprimant la localisation, ils recevront donc les demandes de remplacement de toutes les localisations.",
                     "hasRelatedStaffConfigurations": "Cette localisation est utilisée pour la surveillance des accès par un ou plusieurs membres du personnel. En supprimant la localisation sans en sélectionner une nouvelle, ils ne pourront plus effectuer de surveillance des accès.",
                     "hasRelatedMarketingNotifications": "Les notifications liées à cette localisation seront supprimées.",
                     "hasRelatedMarketplaceComponentConfigs": "Les onglets du calendrier et des ateliers configurés pour votre marketplace n'afficheront plus le calendrier cette localisation."
@@ -3862,8 +3862,10 @@
                     "3": "Autre",
                     "label": "Canal : {{ source }}"
                 },
-                "noBillingGroup": "Aucun groupe de facturation n'a été associé à cette facture"
-            }
+                "noBillingGroup": "Aucun groupe de facturation n'a été associé à cette facture",
+                "reverseInvoicePending": "Remboursement en cours via "
+            },
+            "titleRevertPending": "[En attente] Crédit {{ uuid }}"
         },
         "paymentEngine": {
             "label": {
@@ -4095,7 +4097,8 @@
             "submit_stripe_footer": "Mettre à jour",
             "forms": {
                 "stripe_footer_placeholder": "Aucune mention supplémentaire",
-                "show_company_email_in_invoice": "Afficher l'email de contact de votre entreprise sur les factures"
+                "show_company_email_in_invoice": "Afficher l'email de contact de votre entreprise sur les factures",
+                "invoicePDFTitlePlaceholder": "Nom de l'entreprise par défaut provenant de l'onboarding Stripe"
             },
             "nf525": "Certification",
             "nf525Explain": "Bsport suit les procédures de mise en conformité NF525, vous pouvez ici télécharger notre attestation officielle.",
@@ -4220,7 +4223,10 @@
                         }
                     }
                 }
-            }
+            },
+            "explainInvoicePDFTitle": "Ce nom apparaîtra en tant que nom de votre studio sur toutes les factures générées",
+            "invoicePDFEmail": "Adresse électronique pour la facture",
+            "invoicePDFTitle": "Nom de la société facturante"
         },
         "invoiceItem": {
             "buyableItemIdentifier": {
@@ -4336,7 +4342,11 @@
                 "helper": "Votre solde Stripe est insuffisant pour pouvoir procéder au remboursement. Merci de réessayer après quelques jours afin que des paiements soient encaissés."
             },
             "warning": {
-                "interac": "Au moins un paiement a été effectué avec une carte Interac sur cette facture. Les remboursements directs ne sont pas supportés pour les cartes Interac."
+                "interac": "Au moins un paiement a été effectué avec une carte Interac sur cette facture. Les remboursements directs ne sont pas supportés pour les cartes Interac.",
+                "debtAndNewPaymentMethodNotAllowed": "Au moins un paiement est en attente. Seul un remboursement direct est possible.",
+                "14103": "Les remboursements directs ne sont possibles que si au moins un des paiements utilise une méthode en ligne.",
+                "14101": "Note : un ajustement au solde du compte ne peut pas être remboursé avec le solde du compte",
+                "14100": "Au moins un paiement a été effectué avec une carte Interac sur cette facture. Les remboursements directs ne sont pas pris en charge pour les cartes Interac."
             }
         },
         "quickbooks": {
@@ -5836,6 +5846,18 @@
             "legalContract": "Mentions légales",
             "autoRenewal": "Renouvellement tacite",
             "chooseButton": "Choisir"
+        },
+        "defaultTabTitle": {
+            "workshop": "Ateliers",
+            "vod": "Videos & ebooks",
+            "subscription": "Abonnement",
+            "shop": "Boutique en ligne",
+            "privateService": "Rendez-vous",
+            "playlist": "Playlists",
+            "pass": "Cartes de cours",
+            "giftcard": "Cartes-cadeaux",
+            "calendarV2": "Calendrier",
+            "calendar": "Calendrier"
         }
     },
     "member": {
@@ -6508,7 +6530,7 @@
                 "save": "Enregister"
             },
             "video": "Bibliothèque vidéo",
-            "playlist": "Parcours",
+            "playlist": "Playlists",
             "podcast": "Podcasts",
             "digital": "Offre digitale",
             "marketing_automation": "Marketing Auto",
@@ -16092,6 +16114,12 @@
             "connectionAttemptSucceeded": "Le compte PayPal a été connecté avec succès",
             "connectionAttemptFailed": "Une erreur s'est produite lors de la connexion à PayPal",
             "35009": "Vous ne pouvez pas utiliser un compte qui est déjà lié à une autre entreprise."
+        },
+        "wellhub": {
+            "configureWebhooks": {
+                "success": "Votre unit ID a été associé avec succès",
+                "error": "Une erreur s'est produite lors de la configuration"
+            }
         }
     },
     "spotScheduling": {
@@ -17952,7 +17980,7 @@
             "audience": "{{ audienceCamelCase }}"
         },
         "settings": "Paramètres",
-        "planning": "Planning",
+        "planning": "Calendrier",
         "shop": "Mon magasin",
         "offerManagement": "Réservations",
         "offerFormPage": "Création de séance",
@@ -18617,7 +18645,7 @@
         },
         "navigation": {
             "video": "Bibliothèque vidéo",
-            "playlist": "Parcours",
+            "playlist": "Playlists",
             "podcast": "Podcasts",
             "digital": "Offre digitale",
             "marketing_automation": "Marketing Auto",

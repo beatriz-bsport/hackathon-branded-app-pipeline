@@ -86,6 +86,7 @@ import type {
   AllComparator,
   DataSourceMedadataDataType,
   DatatypeFilterConfigItemValueProducts,
+  DatatypeFilterConfigItem,
 } from '#src/libs/datatype-filtering/types';
 import {
   DATATYPE_FILTERABLE_BY_ID_IN,
@@ -1416,3 +1417,144 @@ export const retrieveFilterableProductOptions = (
 
     return option;
   });
+
+/**
+ * @description This method checks that a filterItem of datatype "products" and "product_category"
+ * are compatible with each other if existing
+ *
+ * Only the case where both comparator is "IN" are taken into account
+ * @param productFilterItem filterItem with datatype === "products"
+ * @param productCategoryFilterItem filterItem with datatype === "product_category"
+ * @returns True if they are incompatible
+ */
+const __areComplexProductFiltersIncompatible = (
+  productFilterItem: DatatypeFilterConfigItem,
+  productCategoryFilterItem: DatatypeFilterConfigItem,
+) => {
+  if (!productFilterItem || !productCategoryFilterItem) {
+    return false;
+  }
+
+  if (
+    isDatatypeFilterConfigItemValueProducts(productFilterItem.value) &&
+    productFilterItem.value.object_ids.length &&
+    !!productFilterItem.value.buyable_item_identifier &&
+    isDatatypeFilterConfigItemValueProducts(productCategoryFilterItem.value) &&
+    !!productCategoryFilterItem.value.object_ids.length &&
+    !!productCategoryFilterItem.value.buyable_item_identifier
+  ) {
+    // If both have "in" comparators, if their buyable_item_identifier are equal, they are incompatible
+    if (
+      productCategoryFilterItem.comparator === FILTER_IN_OPERAND &&
+      productFilterItem.comparator === FILTER_IN_OPERAND
+    )
+      if (
+        productCategoryFilterItem.value.buyable_item_identifier !==
+        productFilterItem.value.buyable_item_identifier
+      )
+        return true;
+  }
+  return false;
+};
+
+/**
+ * @description This method checks that a filterItem of datatype ("products" or "product_category") and "product_type"
+ * are compatible with each other if existing
+ *
+ * Only 2 cases are handled here.
+ * @param productFilterItem filterItem with datatype === "products"
+ * @param productCategoryFilterItem filterItem with datatype === "product_category"
+ * @returns True if they are incompatible
+ */
+const __isProductFilterIncompatibleWithProductTypeFilter = (
+  productFilterItem: DatatypeFilterConfigItem,
+  productTypeFilterItem: DatatypeFilterConfigItem,
+) => {
+  if (!productFilterItem || !productTypeFilterItem) {
+    return false;
+  }
+
+  if (
+    isDatatypeFilterConfigItemValueProducts(productFilterItem.value) &&
+    productFilterItem.value.object_ids.length &&
+    Array.isArray(productTypeFilterItem.value) &&
+    productTypeFilterItem.value.length
+  ) {
+    if (
+      productTypeFilterItem.comparator === FILTER_IN_OPERAND &&
+      productFilterItem.comparator === FILTER_IN_OPERAND
+    )
+      if (
+        !productTypeFilterItem.value.includes(
+          productFilterItem.value.buyable_item_identifier,
+        )
+      )
+        return true;
+
+    if (
+      productTypeFilterItem.comparator === FILTER_OUT_OPERAND &&
+      productFilterItem.comparator === FILTER_IN_OPERAND
+    )
+      if (
+        productTypeFilterItem.value.includes(
+          productFilterItem.value.buyable_item_identifier,
+        )
+      )
+        return true;
+  }
+  return false;
+};
+
+/**
+ * This returns a boolean which checks if product filters have the same product type (i.e buyable_item_identifier in value)
+ * within a group.
+ *
+ * For quick filters, groups key only have 1 group with multiple filters_data
+ */
+export const areProductFiltersInGroupIncompatible = (
+  filtersData: DatatypeFilterConfigItem[],
+) => {
+  if (!filtersData) {
+    return false;
+  }
+
+  const getFilterItem = (datatype: string) =>
+    filtersData.find((filterItem) => filterItem.datatype === datatype) || null;
+
+  const [productFilterItem, productCategoryFilterItem, productTypeFilterItem] =
+    [
+      getFilterItem('products'),
+      getFilterItem('product_category'),
+      getFilterItem('product_type'),
+    ];
+
+  const notNullFiltersCount = [
+    productFilterItem,
+    productCategoryFilterItem,
+    productTypeFilterItem,
+  ].filter(Boolean).length;
+
+  if (notNullFiltersCount < 2) return false;
+
+  if (
+    __areComplexProductFiltersIncompatible(
+      productFilterItem,
+      productCategoryFilterItem,
+    )
+  ) {
+    return true;
+  }
+
+  if (
+    __isProductFilterIncompatibleWithProductTypeFilter(
+      productFilterItem,
+      productTypeFilterItem,
+    ) ||
+    __isProductFilterIncompatibleWithProductTypeFilter(
+      productCategoryFilterItem,
+      productTypeFilterItem,
+    )
+  ) {
+    return true;
+  }
+};

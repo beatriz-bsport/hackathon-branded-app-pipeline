@@ -11,6 +11,8 @@ import InformationIcon from '#src/components/InformationIcon';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { Alert } from '@material-ui/lab';
+
 import {
   CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES,
   ReportDateType,
@@ -36,7 +38,10 @@ import type {
 import type { OptionCallback } from '#src/state/types';
 import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 
-import { getReportGlobalCategoryFromCategory } from '#src/libs/reporting/common/utils';
+import {
+  areProductFiltersInGroupIncompatible,
+  getReportGlobalCategoryFromCategory,
+} from '#src/libs/reporting/common/utils';
 
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import ReportFilterChip from '#src/libs/reporting/common/components/ReportFilterChip.component';
@@ -121,6 +126,14 @@ const ReportDetailContentHeader: React.FC<
       setAnchorEl(event.currentTarget);
     },
     [],
+  );
+
+  const areProductFiltersIncompatible = React.useMemo(
+    () =>
+      areProductFiltersInGroupIncompatible(
+        values.config?.groups?.[0]?.filters_data,
+      ),
+    [values.config],
   );
 
   const handleQuickFilterModalClose = React.useCallback(() => {
@@ -256,6 +269,11 @@ const ReportDetailContentHeader: React.FC<
                   {t('reportDetailContent.addQuickFilter').toUpperCase()}
                 </Button>
               </div>
+              {areProductFiltersIncompatible && (
+                <Alert severity="warning">
+                  {t('incompatibleFilter.product')}
+                </Alert>
+              )}
               {isQuickFilterModalOpen && (
                 <QuickReportFilterConfigColumnsMenu
                   anchorEl={anchorEl}

@@ -905,6 +905,9 @@ const getTranslations = async () => {
     invalidFilter: {
       user: 'Can’t apply this filter because one of the selected members no longer exists. Reset filter to fix the error',
     },
+    incompatibleFilter: {
+      product: 'Product filters are not compatible with each other',
+    },
     franchiseWarning: {
       part2:
         'You can now export the report and process it in Excel afterwards. The dates indicated and the filtered view applied will be taken into account in the export.',

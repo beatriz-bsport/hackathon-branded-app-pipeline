@@ -352,3 +352,6 @@ export const getAllQuickCreatedInvoices = createSelector(
           (!inv.fully_payed || inv.price_due === '0.00'),
       ),
 );
+
+export const getInvoiceXmlBulkLoading = (state: RootState) =>
+  getState(state).generateXmlBulk.loading;

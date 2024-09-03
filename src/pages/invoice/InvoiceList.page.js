@@ -31,16 +31,22 @@ import {
   sendInvoiceToQuickbooks,
   fetchSpecificInvoice,
   generateInvoiceXml as generateInvoiceXmlAction,
-} from '../../libs/invoice/actions';
+  exportXmlBulk as exportXmlBulkAction,
+} from '#src/libs/invoice/actions';
 
 import type { Invoice } from '../../libs/invoice/types';
 import withTitle from '../../hocs/with-title.hoc';
 
 import InvoiceTable from '../../libs/invoice/components/InvoiceTable.component';
 import themeSelectors from '../../libs/theme/selectors';
-import type { Theme as CompanyTheme } from '../../libs/theme/types';
-import type { OptionCallback } from '../../state/types';
+import { getInvoiceXmlBulkLoading } from '#src/libs/invoice/selectors';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
+import type {
+  OptionCallback,
+  OptionBackgroundCallback,
+} from '#src/state/types';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
+import InvoiceBulkExportSection from '#src/libs/invoice/components/InvoiceBulkExportSection.component';
 
 type Props = {
   classes: Object,
@@ -51,6 +57,14 @@ type Props = {
   fetchPaymentList: (params: any) => void,
   finalizeInvoice: (uuid: string) => void,
   generateInvoiceXml: (uuid: string, options: OptionCallback) => void,
+  exportXmlBulk: (
+    options?: OptionBackgroundCallback<string> & {
+      backgroundDialog?: {
+        message: string,
+        title: string,
+      },
+    },
+  ) => void,
   invoiceList: Array<Invoice>,
   loading: boolean,
   nestedDataLoading: boolean,
@@ -58,6 +72,7 @@ type Props = {
   push: (path: string) => void,
   quickbooksApp: QuickbooksApp,
   quickbooksAppLoading: boolean,
+  isGenerateXmlBulkLoading: boolean,
   quickbooksLoading: boolean,
   retrieveQuickbooksApp: (companyId: number, options?: OptionCallback) => void,
   sendInvoiceToQuickbooks: (uuid: string) => void,
@@ -103,6 +118,15 @@ export class InvoiceList extends Component<Props, State> {
       onSuccess: () => this.setState({ proposeRefreshQBA: false }),
       onError: () => this.setState({ proposeRefreshQBA: false }),
     });
+  };
+
+  handleDownloadXmlBulk = () => {
+    const backgroundDialog = {
+      message: this.props.t('invoice:actions.downloadXmlBulkState.ready'),
+      title: this.props.t('invoice:actions.downloadXmlBulkState.title'),
+    };
+
+    this.props.exportXmlBulk({ backgroundDialog });
   };
 
   render() {
@@ -163,6 +187,13 @@ export class InvoiceList extends Component<Props, State> {
             </Alert>
           </div>
         )}
+        {this.props.companyTheme.invoice_exporter_id && (
+          <InvoiceBulkExportSection
+            handleDownloadXmlBulk={this.handleDownloadXmlBulk}
+            isGenerateXmlBulkLoading={this.props.isGenerateXmlBulkLoading}
+            t={t}
+          />
+        )}
         <InvoiceTable
           showType
           containerComponent={Paper}
@@ -193,6 +224,10 @@ export class InvoiceList extends Component<Props, State> {
 const styles = (theme) => ({
   container: {
     maxWidth: '100vw',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: theme.spacing(2),
   },
   alert: {
     alignItems: 'center',
@@ -231,6 +266,7 @@ export default compose(
       companyTheme: themeSelectors.getTheme(state),
       quickbooksApp: getQuickbooksApp(state),
       quickbooksAppLoading: state.quickbooks.loading,
+      isGenerateXmlBulkLoading: getInvoiceXmlBulkLoading(state),
     }),
     {
       push: routerPush,
@@ -242,6 +278,7 @@ export default compose(
       fetchSpecificInvoiceAction: fetchSpecificInvoice,
       retrieveQuickbooksApp: retrieveQuickbooksAppAction,
       generateInvoiceXml: generateInvoiceXmlAction,
+      exportXmlBulk: exportXmlBulkAction,
     },
   ),
   withHandlers({

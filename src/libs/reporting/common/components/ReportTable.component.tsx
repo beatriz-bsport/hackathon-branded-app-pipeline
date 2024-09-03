@@ -333,6 +333,18 @@ const ReportTable: React.FC<TableProps> = ({
           v2={v2}
         />
       ) : null}
+      {hasReportBeenGenerated &&
+        v2 &&
+        !result?.length &&
+        !reportStoreRowsLoading && (
+          <Typography
+            align="center"
+            className={classes.reportNotGenerated}
+            color="textSecondary"
+          >
+            {t('reportNoResults')}
+          </Typography>
+        )}
     </div>
   );
 };

@@ -1001,6 +1001,7 @@ const getTranslations = async () => {
       notFound: 'Report has not been found',
     },
     reportHasNotBeenGenerated: 'Generate report to see data',
+    reportNoResults: 'No results',
     accessOldUIWithNewVersionEnabled:
       'You tried to access the old interface while the new version is enabled, please go back to change interface',
     tooltips: {

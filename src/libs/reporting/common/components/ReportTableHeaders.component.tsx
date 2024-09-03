@@ -21,8 +21,16 @@ const CardHeaders: React.FC<{
   v2?: boolean;
   hasReportBeenGenerated?: boolean;
   isLoading?: boolean;
+  reportWithoutResults?: boolean;
 }> = React.memo(
-  ({ headerDetails, headerTitle, v2, hasReportBeenGenerated, isLoading }) => {
+  ({
+    headerDetails,
+    headerTitle,
+    v2,
+    hasReportBeenGenerated,
+    isLoading,
+    reportWithoutResults,
+  }) => {
     const classes = useStyles();
     const { t } = useTranslation('reporting');
 
@@ -54,7 +62,12 @@ const CardHeaders: React.FC<{
               ))}
             </div>
           )}
-          {hasReportBeenGenerated && !isLoading && (
+          {hasReportBeenGenerated && !isLoading && reportWithoutResults && (
+            <Typography color="textSecondary">
+              {t('reportNoResults')}
+            </Typography>
+          )}
+          {hasReportBeenGenerated && !isLoading && !reportWithoutResults && (
             <Grid container alignItems="stretch" direction="row" spacing={2}>
               {(headerDetails || []).map((detail, index) => {
                 return (
@@ -115,7 +128,14 @@ const ReportTableHeaders: React.FC<{
   v2?: boolean;
   hasReportBeenGenerated?: boolean;
   isLoading: boolean;
-}> = ({ reportHeaders, v2 = false, hasReportBeenGenerated, isLoading }) => {
+  reportWithoutResults?: boolean;
+}> = ({
+  reportHeaders,
+  v2 = false,
+  hasReportBeenGenerated,
+  isLoading,
+  reportWithoutResults,
+}) => {
   const classes = useStyles();
 
   if (v2) {
@@ -126,6 +146,7 @@ const ReportTableHeaders: React.FC<{
           headerDetails={reportHeaders.averageable}
           headerTitle="average"
           isLoading={isLoading}
+          reportWithoutResults={reportWithoutResults}
           v2={v2}
         />
         <CardHeaders
@@ -133,6 +154,7 @@ const ReportTableHeaders: React.FC<{
           headerDetails={reportHeaders.summable}
           headerTitle="sum"
           isLoading={isLoading}
+          reportWithoutResults={reportWithoutResults}
           v2={v2}
         />
       </>

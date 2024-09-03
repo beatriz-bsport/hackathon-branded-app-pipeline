@@ -117,6 +117,11 @@ const ReportDetailContent: React.FC<Props> = ({
     [reportHeaders],
   );
 
+  const reportWithoutResults = React.useMemo(
+    () => !reportGeneratedRows?.result?.length,
+    [reportGeneratedRows],
+  );
+
   const showCreditFactorWarning = React.useMemo(
     () =>
       getCreditFactor() !== 1 &&
@@ -183,6 +188,7 @@ const ReportDetailContent: React.FC<Props> = ({
               hasReportBeenGenerated={hasReportBeenGenerated}
               isLoading={reportHeaders.loading}
               reportHeaders={reportHeaders.results}
+              reportWithoutResults={reportWithoutResults}
             />
           </MuiThemeProvider>
           <Divider />

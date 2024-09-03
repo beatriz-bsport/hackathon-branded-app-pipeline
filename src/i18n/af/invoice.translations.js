@@ -249,6 +249,16 @@ const getTranslations = async () => {
       equilibrate: 'Regularize (deposit)',
       download: 'Download invoice (PDF)',
       downloadXml: 'Download invoice (XML)',
+      downloadXmlBulk: 'Generate invoices (XML)',
+      downloadXmlBulkTooltip:
+        'Invoices will be generated from the last month. If any invoice has already been generated, it must be downloaded individually.',
+      downloadXmlBulkState: {
+        title: 'Zip file',
+        ready: 'Your invoices are ready to be downloaded.',
+        generate: 'Generate',
+        processing:
+          "We're processing your Zip file. You'll be notified when it has been finished.",
+      },
       addInvoiceItem: 'Add to invoice',
       save: 'Save',
       backToInvoiceItemEditor: 'Purchase',

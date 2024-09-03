@@ -3437,6 +3437,14 @@
       "equilibrate": "Regularize (deposit)",
       "download": "Download invoice (PDF)",
       "downloadXml": "Download invoice (XML)",
+      "downloadXmlBulk": "Generate invoices (XML)",
+      "downloadXmlBulkTooltip": "Invoices will be generated from the last month. If any invoice has already been generated, it must be downloaded individually.",
+      "downloadXmlBulkState": {
+        "title": "Zip file",
+        "ready": "Your invoices are ready to be downloaded.",
+        "generate": "Generate",
+        "processing": "We're processing your Zip file. You'll be notified when it has been finished."
+      },
       "addInvoiceItem": "Add to invoice",
       "save": "Save",
       "backToInvoiceItemEditor": "Purchase",
@@ -12681,10 +12689,10 @@
       "generateXml": {
         "success": "XML invoice generated successfully",
         "errors": {
-          "14210": "The company is not set up for XML invoice export. Please contact your bsport Account manager.",
-          "14211": "The member has no official document ID",
+          "14210": "Your settings are not configured for .XML invoice export. Please contact your bsport Account manager.",
+          "14211": "The member's official document ID is  missing or incomplete",
           "14212": "The member's address is  missing or incomplete",
-          "14213": "The generated file is not compliant with the pre-validation check (provided in our code by the italian government)",
+          "14213": "Failed to generate the .XML document due to legal requirements. For more information or any questions, contact your bsport Account manager.",
           "default": "An error occured while generating the XML invoice"
         }
       },

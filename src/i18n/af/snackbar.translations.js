@@ -702,11 +702,11 @@ const getTranslations = async () => {
           [INVOICE_EXPORT_INCOMPLETE_USER_ADDRESS]:
             "The member's address is  missing or incomplete",
           [MISSING_USER_OFFICIAL_DOCUMENT_ID]:
-            'The member has no official document ID',
+            "The member's official document ID is  missing or incomplete",
           [NO_INVOICE_EXPORTER]:
-            'The company is not set up for XML invoice export. Please contact your bsport Account manager.',
+            'Your settings are not configured for .XML invoice export. Please contact your bsport Account manager.',
           [INVOICE_EXPORT_SCHEMA_COMPLIANCE]:
-            'The generated file is not compliant with the pre-validation check (provided in our code by the italian government)',
+            'Failed to generate the .XML document due to legal requirements. For more information or any questions, contact your bsport Account manager.',
         },
       },
       applyGiftcard: {

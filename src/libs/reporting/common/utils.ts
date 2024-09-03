@@ -85,7 +85,6 @@ import type {
   DatatypeFilterConfigGroup,
   AllComparator,
   DataSourceMedadataDataType,
-  DynamicFilterDataType,
 } from '#src/libs/datatype-filtering/types';
 import {
   DATATYPE_FILTERABLE_BY_ID_IN,
@@ -99,7 +98,7 @@ import {
   HOUR_SUBDATA_TYPE,
   ReportFilterableDataType,
 } from '#src/libs/datatype-filtering/constants';
-import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import {
   checkIdentifierAlreadyExist,
   checkMemberFilterAlreadyExist,
@@ -833,11 +832,7 @@ export const getSingleValueLabel = (
   datatype: DataSourceMedadataDataType,
   value: boolean | number[] | number,
   subDataType: 0 | 1 | null,
-  getDataByTypeAndId: (
-    datatype: DynamicFilterDataType,
-    valueId: number[],
-    columnName: string,
-  ) => handleGetDynamicDataForFiltersReturn,
+  getDataByTypeAndId: handleGetDynamicDataForFiltersType,
   t: TFunction,
 ) => {
   switch (datatype) {

@@ -56,7 +56,6 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 import {
   AllComparator,
-  DynamicFilterDataType,
   DatatypeFilterConfigItem,
   DatatypeFilterConfigItemTypeById,
 } from '#src/libs/datatype-filtering/types';
@@ -80,7 +79,7 @@ import {
 import MaterialUISelectorPayout from '#src/components/Selector/MaterialUISelectorPayout.container';
 import ReportChipsRenderer from '#src/libs/reporting/common/components/ReportChips/ReportChipsRenderer.component';
 import { AccessStatus, EntryStatus } from '#src/libs/access-control/constants';
-import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
+import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import NestedAlertError from './NestedAlertError.component';
 import MaterialUISelectorConsumers from '#src/components/Selector/MaterialUISelectorConsumers.component';
 
@@ -101,11 +100,7 @@ type Props = {
   prefix: string;
   filterItem: DatatypeFilterConfigItem;
   isPreview?: boolean;
-  getDataByType: (
-    datatype: DynamicFilterDataType,
-    valueId: number[],
-    columnName: string,
-  ) => handleGetDynamicDataForFiltersReturn;
+  getDataByType: handleGetDynamicDataForFiltersType;
   inScrollBar?: boolean;
   reportCategory?: string;
   withoutConfirmButton?: boolean;
@@ -422,11 +417,7 @@ const DatatypeFilterConfigValueList: React.FC<{
   name: string;
   datatype: DatatypeFilterConfigItemTypeById;
   isPreview?: boolean;
-  getDataByType: (
-    datatype: DynamicFilterDataType,
-    valueId: number[],
-    columnName: string,
-  ) => handleGetDynamicDataForFiltersReturn;
+  getDataByType: handleGetDynamicDataForFiltersType;
   inScrollBar: boolean;
   columnName: string;
   itemRenderer: (itemProps: ItemProps) => React.ReactNode;

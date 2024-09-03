@@ -30,7 +30,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import { DatatypeFilterConfigSchemaWithRequiredGroups } from '#src/libs/datatype-filtering/validation_schema';
 
 import type {
-  DynamicFilterDataType,
   DatatypeFilterConfigGroupOperand,
   DatatypeFilterConfigGroup,
 } from '#src/libs/datatype-filtering/types';
@@ -49,7 +48,7 @@ import {
 
 import OperandSelect from '#src/libs/datatype-filtering/components/OperandSelect.component';
 import DatatypeFilterConfigGroupRow from '#src/libs/datatype-filtering/components/DatatypeFilterConfigGroupRow.component';
-import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import { getFilterableColumns } from '#src/libs/reporting/common/utils';
 import type { OptionCallback } from '#src/state/types';
 import NestedAlertError from './NestedAlertError.component';
@@ -78,9 +77,7 @@ export type OuterProps = {
   initial?: ReportFilterConfig;
   isPreview?: boolean;
   onClose?: () => void;
-  handleGetDynamicDataForReport: (
-    datatype: DynamicFilterDataType,
-  ) => handleGetDynamicDataForFiltersReturn;
+  handleGetDynamicDataForReport: handleGetDynamicDataForFiltersType;
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (props: {
     id: number;

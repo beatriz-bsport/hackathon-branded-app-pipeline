@@ -20,13 +20,12 @@ import {
   DataSourceFieldMetadata,
   DataSourceMedadataDataType,
   DatatypeFilterConfigItem,
-  DynamicFilterDataType,
 } from '#src/libs/datatype-filtering/types';
 import {
   generateNewFilterItem,
   generateNewGroup,
 } from '#src/libs/datatype-filtering/utils';
-import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import { authorIdentifiers } from '#src/libs/reporting/common/constants';
 import QuickReportFilterConfigFilter, {
   QuickFiltersColumnsData,
@@ -63,11 +62,7 @@ type Props = {
   anchorEl: (EventTarget & HTMLButtonElement) | HTMLDivElement | null;
   columns: DataSourceFieldMetadata[];
   isFranchisor: boolean;
-  getDataByType: (
-    datatype: DynamicFilterDataType,
-    valueId: number[],
-    columnName: string,
-  ) => handleGetDynamicDataForFiltersReturn;
+  getDataByType: handleGetDynamicDataForFiltersType;
   columnsDataSelectedQuickFilter: QuickFiltersColumnsData;
   selectedColumn: DatatypeFilterConfigItem;
   setSelectedColumn: React.Dispatch<

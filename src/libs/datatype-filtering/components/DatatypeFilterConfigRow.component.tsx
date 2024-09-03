@@ -12,7 +12,6 @@ import type { ReportMetadataColumn } from '#src/libs/reporting/common/types';
 
 import {
   AllComparator,
-  DynamicFilterDataType,
   DatatypeFilterConfigGroupOperand,
   DatatypeFilterConfigItem,
 } from '#src/libs/datatype-filtering/types';
@@ -32,7 +31,7 @@ import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/
 import HoverableWarning from '#src/components/HoverableWarning.component';
 import { authorIdentifiers } from '#src/libs/reporting/common/constants';
 import DatatypeFilterConfigValueManager from './DatatypeFilterConfigValueManager.component';
-import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
+import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 
 type Props = {
   filterItem: DatatypeFilterConfigItem;
@@ -46,11 +45,7 @@ type Props = {
   isPreview?: boolean;
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
   onDelete?: () => void;
-  getDataByType: (
-    datatype: DynamicFilterDataType,
-    valueId: number[],
-    columnName: string,
-  ) => handleGetDynamicDataForFiltersReturn;
+  getDataByType: handleGetDynamicDataForFiltersType;
   dashboardTranslationNamespace?: boolean;
   displayPopperWarning?: boolean;
 };

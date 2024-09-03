@@ -21,7 +21,7 @@ import {
   getReportObjectPermissions,
 } from '#src/libs/reporting/common/utils';
 import { ObjectLevelPermissions, RolePermission } from '#src/libs/role/types';
-import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import type { OptionCallback } from '#src/state/types';
 import ReportTableHeaders from '#src/libs/reporting/common/components/ReportTableHeaders.component';
 import ReportTable from '#src/libs/reporting/common/components/ReportTable.component';
@@ -52,10 +52,7 @@ type Props = {
   setShowDialog: (boolean: boolean) => void;
   disableContinue: boolean;
   setDisableContinue: (boolean: boolean) => void;
-  handleGetDynamicDataForReport: (
-    type: DynamicFilterDataType,
-    valueId?: number,
-  ) => handleGetDynamicDataForFiltersReturn;
+  handleGetDynamicDataForReport: handleGetDynamicDataForFiltersType;
   reportFilterConfigs: ReportFilterConfig[];
   createReportFilterConfig: (
     reportId: number,

@@ -43,7 +43,7 @@ import {
   getSingleValueLabel,
   isMemberColumn,
 } from '#src/libs/reporting/common/utils';
-import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 
 type ReportFilterChipProps = {
   datatype: DataSourceMedadataDataType;
@@ -66,11 +66,7 @@ type ReportFilterChipProps = {
   reportQuickFilter?: ReportFilterConfig;
   onlyDisplay?: boolean;
   value?: boolean | number[] | number;
-  getDataByTypeAndId?: (
-    datatype: DynamicFilterDataType,
-    valueId: number[],
-    columnName?: string,
-  ) => handleGetDynamicDataForFiltersReturn;
+  getDataByTypeAndId?: handleGetDynamicDataForFiltersType;
   columnIdentifiers?: string[];
   ref?: React.Ref<HTMLDivElement | null>;
   subDataType?: 0 | 1 | null;

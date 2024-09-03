@@ -73,12 +73,14 @@ export type handleGetDynamicDataForFiltersReturn =
   | string
   | null;
 
+export type handleGetDynamicDataForFiltersType = (
+  type: DynamicFilterDataType,
+  valueId?: number[],
+  columnName?: string,
+) => handleGetDynamicDataForFiltersReturn;
+
 export type withDatatypeDynamicDataProps = DynamicConnectedProps & {
-  handleGetDynamicDataForFilters: (
-    type: DynamicFilterDataType,
-    valueId: number[],
-    columnName: string,
-  ) => handleGetDynamicDataForFiltersReturn;
+  handleGetDynamicDataForFilters: handleGetDynamicDataForFiltersType;
 };
 
 const connector = connect(
@@ -136,6 +138,12 @@ const connector = connect(
   },
 );
 
+/**
+ * This hoc only contains 1 handler which has 3 different purposes:
+ *    - Calling method defined in actions files
+ *    - Retrieve options through redux, to be used in Select component from React Select
+ *    - Retrieve 1 value if valueId argument is given
+ */
 export default function withDatatypeDynamicData(
   WrappedComponent: React.ComponentType,
 ) {
@@ -147,8 +155,7 @@ export default function withDatatypeDynamicData(
         (
           type: DynamicFilterDataType,
           valueId?: number[],
-          // @ts-expect-error
-          columnName: string,
+          columnName?: string,
         ) => {
           if (
             // @ts-expect-error

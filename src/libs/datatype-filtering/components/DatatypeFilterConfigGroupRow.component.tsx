@@ -9,14 +9,13 @@ import type { ReportMetadataColumn } from '#src/libs/reporting/common/types';
 
 import {
   DataSourceFieldMetadata,
-  DynamicFilterDataType,
   DatatypeFilterConfigGroupOperand,
   DatatypeFilterConfigGroup,
 } from '#src/libs/datatype-filtering/types';
 
 import OperandSelect from '#src/libs/datatype-filtering/components/OperandSelect.component';
 import DatatypeFilterConfigRow from './DatatypeFilterConfigRow.component';
-import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
+import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 
 type Props = {
   filterGroup: DatatypeFilterConfigGroup;
@@ -30,11 +29,7 @@ type Props = {
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
   onDelete?: (uuid: string) => () => void;
   addFilter: () => void;
-  getDataByType: (
-    datatype: DynamicFilterDataType,
-    valueId: number[],
-    columnName: string,
-  ) => handleGetDynamicDataForFiltersReturn;
+  getDataByType: handleGetDynamicDataForFiltersType;
   noHideDelete?: boolean;
   dashboardTranslationNamespace?: boolean;
   displayPopperWarning?: boolean;

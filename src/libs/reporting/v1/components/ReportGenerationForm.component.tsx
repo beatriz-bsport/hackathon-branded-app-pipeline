@@ -27,7 +27,7 @@ import { getReportGlobalCategoryFromCategory } from '#src/libs/reporting/common/
 
 import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import type { OptionCallback } from '#src/state/types';
 import type {
   ReportConfiguration as ReportConfigurationType,
@@ -55,10 +55,7 @@ type Props = {
   ) => void;
   fetchReportFilterConfigList: (params: ReportFilterConfigParams) => void;
   handleExcelExportation: () => void;
-  handleGetDynamicDataForReport: (
-    type: DynamicFilterDataType,
-    valueId?: number,
-  ) => handleGetDynamicDataForFiltersReturn;
+  handleGetDynamicDataForReport: handleGetDynamicDataForFiltersType;
   isDisabled?: boolean;
   isFranchisor: boolean;
   isSubmitting_: boolean;
@@ -352,7 +349,6 @@ const ReportGenerationForm: React.FC<Props> = ({
             editReportFilterConfig={editReportFilterConfig}
             error={null}
             fetchReportFilterConfigsList={handleFetchReportFilterConfigList}
-            // @ts-expect-error
             handleGetDynamicDataForReport={handleGetDynamicDataForReport}
             isFranchisor={isFranchisor}
             onCreateReportFilterConfigs={handleCreateFilter}

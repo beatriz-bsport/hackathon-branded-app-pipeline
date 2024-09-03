@@ -302,7 +302,6 @@ export class ReportingGeneration extends Component<Props, State> {
           handleGenerate={this.handleGenerate}
           handleGenerateNextPage={this.handleGenerateNextPage}
           handleGeneratePreviousPage={this.handleGeneratePreviousPage}
-          // @ts-expect-error
           handleGetDynamicDataForReport={
             this.props.handleGetDynamicDataForFilters
           }

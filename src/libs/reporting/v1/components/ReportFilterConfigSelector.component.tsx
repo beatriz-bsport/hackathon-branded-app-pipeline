@@ -26,7 +26,7 @@ import type {
   DynamicFilterDataType,
 } from '#src/libs/datatype-filtering/types';
 import HoverableWarning from '#src/components/HoverableWarning.component';
-import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import ReportFilterConfigFormDrawer from './ReportFilterConfigDrawer';
 import type { OptionCallback } from '#src/state/types';
 import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
@@ -50,10 +50,7 @@ export type Props = {
   ) => void;
   onDeleteReportFilterConfigs: (reportFilterConfigsId: number) => void;
   onSelect: (reportFilterConfigsId: number | null) => void;
-  handleGetDynamicDataForReport: (
-    type: DynamicFilterDataType,
-    valueId?: number[],
-  ) => handleGetDynamicDataForFiltersReturn;
+  handleGetDynamicDataForReport: handleGetDynamicDataForFiltersType;
   fetchReportFilterConfigList: () => void;
   isFranchisor: boolean;
   reportQuickFilter: ReportFilterConfig;

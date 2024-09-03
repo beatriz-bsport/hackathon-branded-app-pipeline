@@ -10,7 +10,6 @@ import {
   DatatypeFilterConfigItemTypeById,
   DatatypeFilterConfigItemTypeDate,
   DatatypeFilterConfigItemTypeFloat,
-  DynamicFilterDataType,
 } from '#src/libs/datatype-filtering/types';
 import {
   DATE_SUBDATA_TYPE,
@@ -24,7 +23,7 @@ import {
 } from '#src/libs/datatype-filtering/utils';
 import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 import DatatypeFilterConfigValueManager from '#src/libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
-import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import ReportFilterChip from '#src/libs/reporting/common/components/ReportFilterChip.component';
 import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
 import { CREDIT_COLUMNS } from '#src/libs/reporting/common/constants';
@@ -45,11 +44,7 @@ export type QuickFiltersColumnsData = {
 type QuickReportFilterConfigFilterProps = {
   isQuickFilterConfigRowModalOpen: boolean;
   selectedColumn: DatatypeFilterConfigItem;
-  getDataByType: (
-    datatype: DynamicFilterDataType,
-    valueId: number[],
-    columnName: string,
-  ) => handleGetDynamicDataForFiltersReturn;
+  getDataByType: handleGetDynamicDataForFiltersType;
   anchorEl: (EventTarget & HTMLButtonElement) | HTMLDivElement | null;
   columnsDataSelectedQuickFilter: QuickFiltersColumnsData;
   isQuickFilterModalOpen: boolean;

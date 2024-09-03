@@ -1,7 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
+import Alert from '#Fabrique/Alert';
+import { Users02 } from '#src/components/untitledui';
 import NavigationAppBarLogoSection from '#src/components/css-only/Navigation/NavigationAppBar/NavigationAppBarLogoSection';
 import NavigationAppBarLinksSection from '#src/components/css-only/Navigation/NavigationAppBar/NavigationAppBarLinksSection';
 import NavigationAppBarActionSection from '#src/components/css-only/Navigation/NavigationAppBar/NavigationAppBarActionsSection';
@@ -16,20 +19,40 @@ const NavigationAppBar: React.FC<NavigationAppBarProps> = ({
   websiteUrl,
   links,
   actions,
+  relationshipAuthMemberName,
   onSideDrawerOpenClick,
+  navigateBackToMasterRelation,
 }) => {
+  const { t } = useTranslation('consumerSpace');
   return (
     <div className="bs-navigation-app-bar__root">
-      <NavigationAppBarLogoSection
-        isMobile={isMobile}
-        logo={logo}
-        onSideDrawerOpenClick={onSideDrawerOpenClick}
-        websiteUrl={websiteUrl}
-      />
+      <div className="flex">
+        <NavigationAppBarLogoSection
+          isMobile={isMobile}
+          logo={logo}
+          onSideDrawerOpenClick={onSideDrawerOpenClick}
+          websiteUrl={websiteUrl}
+        />
+        <NavigationAppBarLinksSection isHidden={isMobile} links={links} />
+        <NavigationAppBarActionSection actions={actions} isMobile={isMobile} />
+      </div>
 
-      <NavigationAppBarLinksSection isHidden={isMobile} links={links} />
-
-      <NavigationAppBarActionSection actions={actions} isMobile={isMobile} />
+      {!!relationshipAuthMemberName && (
+        <div className="bs-navigation-app-bar__relationship-alert">
+          <Alert
+            actionText={t('navigation.backToRelationMasterSpace')}
+            className=""
+            color="info"
+            leftIcon={<Users02 stroke="currentColor" />}
+            onActionClick={navigateBackToMasterRelation}
+            variant="strong"
+          >
+            {t('reworked.navigation.loggedInAs', {
+              name: relationshipAuthMemberName,
+            })}
+          </Alert>
+        </div>
+      )}
     </div>
   );
 };

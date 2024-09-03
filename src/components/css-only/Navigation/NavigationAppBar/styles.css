@@ -1,12 +1,32 @@
 .bs-navigation-app-bar__root {
   display: flex;
+  flex-direction: column;
   height: var(--bs-navigation-app-bar-height);
-  padding: var(--bs-space-size-4) var(--bs-space-size-8);
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--bs-space-size-4);
   background: var(--bs-color-action-light);
   box-shadow: var(--bs-shadow-s);
   border-bottom: 1px solid var(--bs-grey-100);
   container: bsNavigationAppBar / inline-size;
+}
+
+.bs-navigation-app-bar__relationship-alert .bs-fabrique-alert__root {
+  padding: var(--bs-space-size-1) var(--bs-space-size-2);
+  min-height: var(--bs-navigation-app-bar-banner-height);
+  border-radius: 0;
+}
+
+.bs-navigation-app-bar__relationship-alert {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--bs-space-size-4);
+  width: 100%;
+  padding: var(--bs-space-size-4) var(--bs-space-size-8);
+}
+
+[class*='bs-fabrique-alert__root--strong'] .bs-fabrique-alert__left-icon {
+  max-width: 20px;
 }

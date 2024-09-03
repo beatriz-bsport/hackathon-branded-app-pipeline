@@ -32,6 +32,10 @@ export type NavigationAppBarProps = {
   links?: AppBarTab[];
   /** The list of extra actions shown on the right side */
   actions?: AppBarButton[];
+  /** When logged in from a relationship, this is set to the member full name */
+  relationshipAuthMemberName?: string;
+  /** When logged in from a relationship, this action redirect to the origin account */
+  navigateBackToMasterRelation?: () => void;
   /** Action fired once the menu button is pressed from the logo section */
   onSideDrawerOpenClick?: () => void;
 };

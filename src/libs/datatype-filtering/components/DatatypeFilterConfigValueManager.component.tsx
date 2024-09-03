@@ -460,234 +460,249 @@ const DatatypeFilterConfigValueList: React.FC<{
   const error = get(errors, name);
   const isTouched = get(touched, name);
 
-  const getOptions = useCallback(() => {
-    switch (datatype) {
-      case 'activity':
-      case 'billing_establishment':
-      case 'billing_group':
-      case 'billing_group_address':
-      case 'coach':
-      case 'company':
-      case 'contract':
-      case 'coupon':
-      case 'establishment':
-      case 'giftcard':
-      case 'payment_pack':
-        return getDataByType(datatype, [], columnName, reportCategory);
-      case 'payment_pack_category':
-      case 'private_pass':
-      case 'private_pass_category':
-      case 'private_service':
-      case 'private_slot':
-      case 'subshop':
-      case 'video':
-      case 'staff':
-      case 'bookkeeping_account':
-      case 'establishment_group':
-        return getDataByType(datatype, [], columnName, reportCategory);
-      case 'payout_status':
-        return [
-          PAYOUT_STATUS_CANCELED,
-          PAYOUT_STATUS_PENDING,
-          PAYOUT_STATUS_TRANSIT,
-          PAYOUT_STATUS_SUCCESS,
-          PAYOUT_STATUS_FAILED,
-        ].map((value) => ({
-          label: t(`payment:payout.status.${value}`),
-          value,
-          columnName,
-        }));
-      case 'invoice_status':
-        return PLANNED_INVOICE_STATUS.map((status) => ({
-          label: t(`invoice:status.${status.id}`),
-          value: status.id,
-          columnName,
-        }));
-      case 'billing_plan_status':
-        return [
-          BILLING_PLAN_STATUS_NOT_STARTED,
-          BILLING_PLAN_STATUS_STARTED,
-          BILLING_PLAN_STATUS_STOPPED,
-          BILLING_PLAN_STATUS_PAUSED,
-          BILLING_PLAN_STATUS_ENDED,
-        ].map((value) => ({
-          label: t(`subscription:billing_plan_status.${value}`),
-          value,
-          columnName,
-        }));
-      case 'dispute_status':
-        return [
-          {
-            value: DISPUTE_STATUS_PENDING,
-            label: t(`payment:disputeStatus.${DISPUTE_STATUS_PENDING}`),
+  const getOptions = useCallback(
+    (withoutFetch) => {
+      switch (datatype) {
+        case 'activity':
+        case 'billing_establishment':
+        case 'billing_group':
+        case 'billing_group_address':
+        case 'coach':
+        case 'company':
+        case 'contract':
+        case 'coupon':
+        case 'establishment':
+        case 'giftcard':
+        case 'payment_pack':
+          return getDataByType(
+            datatype,
+            [],
             columnName,
-          },
-          {
-            value: DISPUTE_STATUS_LOST,
-            label: t(`payment:disputeStatus.${DISPUTE_STATUS_LOST}`),
+            reportCategory,
+            withoutFetch,
+          );
+        case 'payment_pack_category':
+        case 'private_pass':
+        case 'private_pass_category':
+        case 'private_service':
+        case 'private_slot':
+        case 'subshop':
+        case 'video':
+        case 'staff':
+        case 'bookkeeping_account':
+        case 'establishment_group':
+          return getDataByType(
+            datatype,
+            [],
             columnName,
-          },
-          {
-            value: DISPUTE_STATUS_WON,
-            label: t(`payment:disputeStatus.${DISPUTE_STATUS_WON}`),
+            reportCategory,
+            withoutFetch,
+          );
+        case 'payout_status':
+          return [
+            PAYOUT_STATUS_CANCELED,
+            PAYOUT_STATUS_PENDING,
+            PAYOUT_STATUS_TRANSIT,
+            PAYOUT_STATUS_SUCCESS,
+            PAYOUT_STATUS_FAILED,
+          ].map((value) => ({
+            label: t(`payment:payout.status.${value}`),
+            value,
             columnName,
-          },
-        ];
-      case 'booking_status_code':
-        return [
-          {
-            value: BOOKING_STATUS_OK.id,
-            label: t('booking:filters.notCancelled'),
+          }));
+        case 'invoice_status':
+          return PLANNED_INVOICE_STATUS.map((status) => ({
+            label: t(`invoice:status.${status.id}`),
+            value: status.id,
             columnName,
-          },
-          {
-            value: BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
-            label: t('booking:filters.managerCanceled'),
+          }));
+        case 'billing_plan_status':
+          return [
+            BILLING_PLAN_STATUS_NOT_STARTED,
+            BILLING_PLAN_STATUS_STARTED,
+            BILLING_PLAN_STATUS_STOPPED,
+            BILLING_PLAN_STATUS_PAUSED,
+            BILLING_PLAN_STATUS_ENDED,
+          ].map((value) => ({
+            label: t(`subscription:billing_plan_status.${value}`),
+            value,
             columnName,
-          },
-          {
-            value: BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
-            label: t('booking:filters.consumerCanceled'),
-            columnName,
-          },
-          {
-            value: BOOKING_STATUS_CANCELLED_BY_OFFER.id,
-            label: t('booking:filters.canceled'),
-            columnName,
-          },
-        ];
-      case 'source_device':
-        return [
-          {
-            value: BOOKING_SOURCE_APP.id,
-            label: t(
-              `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_APP.id.toString()}`,
-            ),
-            columnName,
-          },
-          {
-            value: BOOKING_SOURCE_SAAS.id,
-            label: t(
-              `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_SAAS.id.toString()}`,
-            ),
-            columnName,
-          },
-          {
-            value: BOOKING_SOURCE_WEB.id,
-            label: t(
-              `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_WEB.id.toString()}`,
-            ),
-            columnName,
-          },
-          {
-            value: BOOKING_SOURCE_OTHER.id,
-            label: t(
-              `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_OTHER.id.toString()}`,
-            ),
-            columnName,
-          },
-          {
-            value: BOOKING_SOURCE_MIGRATION.id,
-            label: t(
-              `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_MIGRATION.id.toString()}`,
-            ),
-            columnName,
-          },
-        ];
-      case 'payment_engine':
-        return [
-          {
-            value: PAYMENT_ENGINE_BSPORT,
-            label: t(`invoice:paymentEngine.label.${PAYMENT_ENGINE_BSPORT}`),
-            columnName,
-          },
-          {
-            value: PAYMENT_ENGINE_STRIPE,
-            label: t(`invoice:paymentEngine.label.${PAYMENT_ENGINE_STRIPE}`),
-            columnName,
-          },
-        ];
+          }));
+        case 'dispute_status':
+          return [
+            {
+              value: DISPUTE_STATUS_PENDING,
+              label: t(`payment:disputeStatus.${DISPUTE_STATUS_PENDING}`),
+              columnName,
+            },
+            {
+              value: DISPUTE_STATUS_LOST,
+              label: t(`payment:disputeStatus.${DISPUTE_STATUS_LOST}`),
+              columnName,
+            },
+            {
+              value: DISPUTE_STATUS_WON,
+              label: t(`payment:disputeStatus.${DISPUTE_STATUS_WON}`),
+              columnName,
+            },
+          ];
+        case 'booking_status_code':
+          return [
+            {
+              value: BOOKING_STATUS_OK.id,
+              label: t('booking:filters.notCancelled'),
+              columnName,
+            },
+            {
+              value: BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
+              label: t('booking:filters.managerCanceled'),
+              columnName,
+            },
+            {
+              value: BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
+              label: t('booking:filters.consumerCanceled'),
+              columnName,
+            },
+            {
+              value: BOOKING_STATUS_CANCELLED_BY_OFFER.id,
+              label: t('booking:filters.canceled'),
+              columnName,
+            },
+          ];
+        case 'source_device':
+          return [
+            {
+              value: BOOKING_SOURCE_APP.id,
+              label: t(
+                `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_APP.id.toString()}`,
+              ),
+              columnName,
+            },
+            {
+              value: BOOKING_SOURCE_SAAS.id,
+              label: t(
+                `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_SAAS.id.toString()}`,
+              ),
+              columnName,
+            },
+            {
+              value: BOOKING_SOURCE_WEB.id,
+              label: t(
+                `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_WEB.id.toString()}`,
+              ),
+              columnName,
+            },
+            {
+              value: BOOKING_SOURCE_OTHER.id,
+              label: t(
+                `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_OTHER.id.toString()}`,
+              ),
+              columnName,
+            },
+            {
+              value: BOOKING_SOURCE_MIGRATION.id,
+              label: t(
+                `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_MIGRATION.id.toString()}`,
+              ),
+              columnName,
+            },
+          ];
+        case 'payment_engine':
+          return [
+            {
+              value: PAYMENT_ENGINE_BSPORT,
+              label: t(`invoice:paymentEngine.label.${PAYMENT_ENGINE_BSPORT}`),
+              columnName,
+            },
+            {
+              value: PAYMENT_ENGINE_STRIPE,
+              label: t(`invoice:paymentEngine.label.${PAYMENT_ENGINE_STRIPE}`),
+              columnName,
+            },
+          ];
 
-      // @ts-expect-error
-      case 'coupon_type_excluding_referrals':
-        return [
-          {
-            value: CouponKind.COUPON_VIA_CODE,
-            label: t(`coupon:couponType.${CouponKind.COUPON_VIA_CODE}`),
-          },
-          {
-            value: CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE,
-            label: t(
-              `coupon:couponType.${CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE}`,
-            ),
-          },
-        ];
+        // @ts-expect-error
+        case 'coupon_type_excluding_referrals':
+          return [
+            {
+              value: CouponKind.COUPON_VIA_CODE,
+              label: t(`coupon:couponType.${CouponKind.COUPON_VIA_CODE}`),
+            },
+            {
+              value: CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE,
+              label: t(
+                `coupon:couponType.${CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE}`,
+              ),
+            },
+          ];
 
-      case 'payment_method':
-        return [...PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT].map(({ id }) => ({
-          value: id ?? 0,
-          label: t(`payment:method.${id}`),
-          columnName,
-        }));
-      case 'payment_method_with_credit_account':
-        return [...PAYMENT_METHODS].map(({ id }) => {
-          return {
+        case 'payment_method':
+          return [...PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT].map(({ id }) => ({
             value: id ?? 0,
             label: t(`payment:method.${id}`),
             columnName,
-          };
-        });
-      case 'dow':
-        return Array(7)
-          .fill(0)
-          .map((_, i) => ({
-            label: DateTime.now()
-              // @ts-expect-error
-              .set({ weekday: i + 1 })
-              .toFormat('cccc'),
-            value: i + 1,
-            columnName,
           }));
-      case 'access_monitoring_status':
-        return [
-          {
-            value: AccessStatus.RED,
-            label: t('accessControl:filters.accessStatus.red'),
-            columnName,
-          },
-          {
-            value: AccessStatus.ORANGE,
-            label: t('accessControl:filters.accessStatus.orange'),
-            columnName,
-          },
-          {
-            value: AccessStatus.GREEN,
-            label: t('accessControl:filters.accessStatus.green'),
-            columnName,
-          },
-        ];
-      case 'access_monitoring_admission':
-        return [
-          {
-            value: EntryStatus.ENTERED,
-            label: t('accessControl:filters.entryStatus.entered'),
-            columnName,
-          },
-          {
-            value: EntryStatus.NOT_ENTERED,
-            label: t('accessControl:filters.entryStatus.notEntered'),
-            columnName,
-          },
-          {
-            value: EntryStatus.UNKNOWN,
-            label: t('accessControl:filters.entryStatus.unknown'),
-            columnName,
-          },
-        ];
-      default:
-        return [];
-    }
-  }, [getDataByType, t, columnName, datatype, reportCategory]);
+        case 'payment_method_with_credit_account':
+          return [...PAYMENT_METHODS].map(({ id }) => {
+            return {
+              value: id ?? 0,
+              label: t(`payment:method.${id}`),
+              columnName,
+            };
+          });
+        case 'dow':
+          return Array(7)
+            .fill(0)
+            .map((_, i) => ({
+              label: DateTime.now()
+                // @ts-expect-error
+                .set({ weekday: i + 1 })
+                .toFormat('cccc'),
+              value: i + 1,
+              columnName,
+            }));
+        case 'access_monitoring_status':
+          return [
+            {
+              value: AccessStatus.RED,
+              label: t('accessControl:filters.accessStatus.red'),
+              columnName,
+            },
+            {
+              value: AccessStatus.ORANGE,
+              label: t('accessControl:filters.accessStatus.orange'),
+              columnName,
+            },
+            {
+              value: AccessStatus.GREEN,
+              label: t('accessControl:filters.accessStatus.green'),
+              columnName,
+            },
+          ];
+        case 'access_monitoring_admission':
+          return [
+            {
+              value: EntryStatus.ENTERED,
+              label: t('accessControl:filters.entryStatus.entered'),
+              columnName,
+            },
+            {
+              value: EntryStatus.NOT_ENTERED,
+              label: t('accessControl:filters.entryStatus.notEntered'),
+              columnName,
+            },
+            {
+              value: EntryStatus.UNKNOWN,
+              label: t('accessControl:filters.entryStatus.unknown'),
+              columnName,
+            },
+          ];
+        default:
+          return [];
+      }
+    },
+    [getDataByType, t, columnName, reportCategory, datatype],
+  );
 
   if (['user'].includes(datatype)) {
     return (
@@ -761,7 +776,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       'staff',
       'bookkeeping_account',
     ].includes(datatype) &&
-    getOptions() === null
+    getOptions(false) === null
   ) {
     return <CircularProgress />;
   }
@@ -782,7 +797,7 @@ const DatatypeFilterConfigValueList: React.FC<{
         openMenuOnClear={openMenuOnClear}
         openMenuOnFocus={openMenuOnFocus}
         // @ts-expect-error
-        options={[...getOptions()]}
+        options={[...getOptions(true)]}
         placeholder={t('filter.form.placeholderList')}
         withoutConfirmButton={withoutConfirmButton}
       />

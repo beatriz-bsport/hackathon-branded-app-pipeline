@@ -80,6 +80,7 @@ export type handleGetDynamicDataForFiltersType = (
   valueId?: number[],
   columnName?: string,
   reportCategory?: ReportCategoryEnum,
+  withoutFetch?: boolean,
 ) => handleGetDynamicDataForFiltersReturn;
 
 export type withDatatypeDynamicDataProps = DynamicConnectedProps & {
@@ -160,11 +161,13 @@ export default function withDatatypeDynamicData(
           valueId?: number[],
           columnName?: string,
           reportCategory?: ReportCategoryEnum,
+          withoutFetch?: boolean,
         ) => {
           if (
             // @ts-expect-error
             !props.dynamicDataLoading[type] &&
-            !props.dynamicDataHasBeenLoaded[type]
+            !props.dynamicDataHasBeenLoaded[type] &&
+            !withoutFetch
           ) {
             switch (type) {
               case ReportFilterableDataType.ACTIVITY:

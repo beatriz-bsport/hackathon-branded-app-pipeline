@@ -12693,6 +12693,7 @@
           "14211": "The member's official document ID is  missing or incomplete",
           "14212": "The member's address is  missing or incomplete",
           "14213": "Failed to generate the .XML document due to legal requirements. For more information or any questions, contact your bsport Account manager.",
+          "14214": "The generated Zip file is empty because no invoices to be exported from last month were found",
           "default": "An error occured while generating the XML invoice"
         }
       },

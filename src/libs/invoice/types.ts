@@ -336,3 +336,7 @@ export type RequestClientSecretPayload = {
   client_secret: string;
   payment_group: number;
 };
+
+export type BulkExportRequestErrorResults = {
+  error_code: ExportInvoiceErrorCode;
+};

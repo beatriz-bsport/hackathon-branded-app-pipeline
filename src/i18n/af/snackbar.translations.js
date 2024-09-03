@@ -16,6 +16,7 @@ const {
   MISSING_USER_OFFICIAL_DOCUMENT_ID,
   NO_INVOICE_EXPORTER,
   INVOICE_EXPORT_SCHEMA_COMPLIANCE,
+  INVOICE_EXPORT_EMPTY_ZIP,
 } = require('../../libs/invoice/errors.ts');
 
 const getTranslations = async () => {
@@ -707,6 +708,8 @@ const getTranslations = async () => {
             'Your settings are not configured for .XML invoice export. Please contact your bsport Account manager.',
           [INVOICE_EXPORT_SCHEMA_COMPLIANCE]:
             'Failed to generate the .XML document due to legal requirements. For more information or any questions, contact your bsport Account manager.',
+          [INVOICE_EXPORT_EMPTY_ZIP]:
+            'The generated Zip file is empty because no invoices to be exported from last month were found',
         },
       },
       applyGiftcard: {

@@ -33,6 +33,7 @@ import type {
   PlannedPaymentEvent,
   PlannedPaymentEventFilter,
   PlannedPaymentEventSerializer,
+  BulkExportRequestErrorResults,
 } from '#src/libs/invoice/types';
 import type { PaymentItem } from '#src/libs/invoice/payment/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
@@ -84,6 +85,7 @@ import {
   BackgroundDialogActionMode,
   BackgroundDialogDisplayMode,
 } from '#src/libs/background-dialog/types';
+import type { BackgroundTask } from '#src/libs/background-task/types';
 
 export const invoiceConfigurationPatchActions = {
   isLoading: createAction<boolean>('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),
@@ -223,7 +225,9 @@ export function generateInvoiceXml(
 
 export const generateInvoiceXmlBulkActions = {
   isLoading: createAction<boolean>('INVOICE/GENERATE_XML_BULK/IS_LOADING'),
-  error: createAction<Error | null>('INVOICE/GENERATE_XML_BULK/ERROR'),
+  error: createAction<BackgroundTask<BulkExportRequestErrorResults> | null>(
+    'INVOICE/GENERATE_XML_BULK/ERROR',
+  ),
 };
 
 export function exportXmlBulk(
@@ -245,7 +249,10 @@ export function exportXmlBulk(
       const backgroundTaskUuid = response.headers['x-background-task-uuid'];
 
       dispatch(
-        monitorBackgroundTask(backgroundTaskUuid, {
+        monitorBackgroundTask<
+          void,
+          BackgroundTask<BulkExportRequestErrorResults>
+        >(backgroundTaskUuid, {
           onSuccess: () => {
             options?.onBackgroundSuccess?.();
             dispatch(generateInvoiceXmlBulkActions.isLoading(false));
@@ -262,6 +269,12 @@ export function exportXmlBulk(
             );
           },
           onError: (error) => {
+            const errorCode = error?.return_value?.error_code;
+            dispatch(
+              snackbarError(
+                `invoice.generateXml.errors.${errorCode || 'default'}`,
+              ),
+            );
             dispatch(generateInvoiceXmlBulkActions.error(error));
             dispatch(generateInvoiceXmlBulkActions.isLoading(false));
             options?.onBackgroundError?.();

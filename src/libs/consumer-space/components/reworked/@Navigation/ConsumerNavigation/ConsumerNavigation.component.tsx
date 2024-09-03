@@ -29,6 +29,8 @@ import ConsumerGenericFooter from '#src/libs/consumer-space/components/reworked/
 import NavigationSideDrawer from '#src/components/css-only/Navigation/NavigationSideDrawer/NavigationSideDrawer.component';
 import useNavigationSideDrawerData from '#src/components/css-only/Navigation/NavigationSideDrawer/useNavigationSideDrawerData.hook';
 import Button from '#src/components/css-only/Fabrique/ButtonV2';
+import { getItemInStorage } from '#src/utils/storage';
+import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '#src/actions/constants';
 
 import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 import type {
@@ -38,6 +40,7 @@ import type {
 import type { Company } from '#src/libs/company/types';
 import type { MarketplaceTabConfig } from '#src/libs/marketplace/types';
 import type { ConsumerSpaceWidgetPage } from '#src/libs/exportable-components/types';
+import type { MemberMinimal } from '#src/libs/member/types';
 
 import './styles.css';
 
@@ -67,6 +70,9 @@ type Props = {
   /** The current company's marketplace settings config */
   tabConfigList: MarketplaceTabConfig[];
   context: ConsumerSpaceContextEnum;
+  memberRelationshipList: MemberMinimal[];
+  navigateToRelationAccount: (relatedMemberId: number) => void;
+  navigateBackToMasterRelation: () => void;
 };
 
 type CombinedProps = Partial<WidgetProps & CommonProps & Props>;
@@ -89,6 +95,9 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   push,
   changeWidgetPage,
   widgetSignOut,
+  memberRelationshipList,
+  navigateToRelationAccount,
+  navigateBackToMasterRelation,
 }) => {
   /** Using a local state to keep context - web, login button... - stored */
   const [consumerSpaceContext, setConsumerSpaceContext] =
@@ -99,6 +108,11 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
   const isIframe = WidgetUtils.getDialogMode() === DIALOG_MODE_IFRAME;
+
+  const isRelationshipAuth = !!getItemInStorage(
+    'local',
+    STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
+  );
 
   const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
 
@@ -166,11 +180,14 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
     linksList,
     selectedWidgetPage,
     context: consumerSpaceContext,
+    isRelationshipAuth,
+    memberRelationshipList,
     handleCloseMarketplaceSideDrawer,
     handleCloseConsumerSideDrawer,
     changeWidgetPage,
     widgetSignOut,
     pushRouter: push,
+    navigateToRelationAccount,
   });
 
   const actionsList: AppBarButton[] = useMemo(
@@ -277,7 +294,9 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
           isMobile={isMobile}
           links={linksList}
           logo={companyLogo}
+          navigateBackToMasterRelation={navigateBackToMasterRelation}
           onSideDrawerOpenClick={handleToggleMarketplaceSideDrawer}
+          relationshipAuthMemberName={isRelationshipAuth && memberName}
           websiteUrl={companyWebsiteUrl}
         />
       )}

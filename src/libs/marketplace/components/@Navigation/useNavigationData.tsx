@@ -19,6 +19,7 @@ import type { SubmenuItem } from '#src/components/css-only/Fabrique/Submenu/type
 import type { AppBarTab } from '#src/components/css-only/Navigation/NavigationAppBar/types';
 import type { Company } from '#src/libs/company/types';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
+import type { MemberMinimal } from '#src/libs/member/types';
 
 const useNavigationData = ({
   companyId,
@@ -31,6 +32,9 @@ const useNavigationData = ({
   changeWidgetPage,
   widgetSignOut,
   pushRouter,
+  memberRelationshipList,
+  isRelationshipAuth,
+  navigateToRelationAccount,
 }: {
   companyId: number;
   linksList: AppBarTab[];
@@ -42,6 +46,9 @@ const useNavigationData = ({
   changeWidgetPage?: (page: string) => void;
   widgetSignOut?: () => void;
   pushRouter?: (route: string) => void;
+  memberRelationshipList?: MemberMinimal[];
+  isRelationshipAuth: boolean;
+  navigateToRelationAccount?: (relatedMemberId: number) => void;
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -89,6 +96,13 @@ const useNavigationData = ({
     },
     [context, handleChangeWidgetPage, pushRouter],
   );
+  const handleSwitchAccount = useCallback(
+    (memberId: number) => () => {
+      navigateToRelationAccount(memberId);
+    },
+    [navigateToRelationAccount],
+  );
+
   const consumerNavigationWidgetData: SubmenuItem[] = React.useMemo(
     () => [
       {
@@ -216,6 +230,17 @@ const useNavigationData = ({
           onClick: handleChangeLocale(locale),
         })),
       },
+      ...(memberRelationshipList?.length > 0 && !isRelationshipAuth
+        ? [
+            {
+              title: t('reworked.navigation.switchAccount'),
+              items: (memberRelationshipList ?? []).map((member) => ({
+                title: member.name,
+                onClick: handleSwitchAccount(member.id),
+              })),
+            },
+          ]
+        : []),
       {
         title: t('reworked.navigation.logOut'),
         className: 'bs-navigation__logout-button__root',
@@ -229,7 +254,10 @@ const useNavigationData = ({
       handleCloseConsumerSideDrawer,
       isAbleToChangeStudio,
       franchisorCompanyList,
+      memberRelationshipList,
+      isRelationshipAuth,
       handleChangeLocale,
+      handleSwitchAccount,
     ],
   );
 

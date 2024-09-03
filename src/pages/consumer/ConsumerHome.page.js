@@ -397,6 +397,7 @@ export class ConsumerHome extends React.Component<Props> {
                     this.props.getMemberFirstName(this.props.membership?.id) ??
                     ''
                   }
+                  memberRelationshipList={this.props.controlableMemberList}
                   membership={this.props.membership}
                   navigateBackToMasterRelation={
                     this.props.navigateBackToMasterRelation

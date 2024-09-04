@@ -17,7 +17,7 @@ type PrivateBookingAlertingData = {
   date_start: string;
   name: string;
   private_booking: number;
-  member: MemberMinimalNoPhoto;
+  member_id: number | null;
 };
 
 export type PrivateBookingAlerting = Alerting<PrivateBookingAlertingData>;

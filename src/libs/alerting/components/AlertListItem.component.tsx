@@ -131,15 +131,15 @@ const PrivateBookingIncompleteListItem: React.FC<{
   const { alerting, pushRouter } = props;
   const { t } = useTranslation('alerting');
   const classes = useStyles();
-  const { date_start, member, name, private_booking, user_name } =
+  const { date_start, member_id, name, private_booking, user_name } =
     alerting.data;
 
   const goToMemberAppointmentsPage = React.useCallback(
     () =>
-      member?.id &&
+      member_id &&
       private_booking &&
-      pushRouter(`/member/${member.id}/private-booking/${private_booking}`),
-    [member.id, private_booking, pushRouter],
+      pushRouter(`/member/${member_id}/private-booking/${private_booking}`),
+    [member_id, private_booking, pushRouter],
   );
 
   return (
@@ -402,15 +402,15 @@ const UnpaidPrivateBookingIncompleteListItem: React.FC<{
   const { alerting, pushRouter } = props;
   const { t } = useTranslation('alerting');
   const classes = useStyles();
-  const { user_name, date_start, credits_due, member, private_booking } =
+  const { user_name, date_start, credits_due, member_id, private_booking } =
     alerting.data;
 
   const goToMemberAppointmentsPage = React.useCallback(
     () =>
-      member?.id &&
+      member_id &&
       private_booking &&
-      pushRouter(`/member/${member.id}/private-booking/${private_booking}`),
-    [member?.id, private_booking, pushRouter],
+      pushRouter(`/member/${member_id}/private-booking/${private_booking}`),
+    [member_id, private_booking, pushRouter],
   );
 
   return (

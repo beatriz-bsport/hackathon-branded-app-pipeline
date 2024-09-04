@@ -1,3 +1,4 @@
+/** @deprecated use WithStyles from MUI */
 export type MaterialStyleType<S> = {
   classes: Record<keyof S, string>;
 };

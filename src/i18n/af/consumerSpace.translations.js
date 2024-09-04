@@ -591,6 +591,8 @@ exports.default = {
       },
     },
     navigation: {
+      loggedInAs: 'You are currently logged in as {{ name }}',
+      switchAccount: 'Switch account',
       exploreYourProfile: 'Explore your profile',
       myBookings: 'My bookings',
       myPasses: 'My passes',

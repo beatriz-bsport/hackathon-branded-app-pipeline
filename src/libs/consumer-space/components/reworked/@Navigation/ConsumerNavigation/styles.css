@@ -13,6 +13,13 @@
   height: calc(100cqh - var(--bs-navigation-app-bar-height));
 }
 
+.bs-consumer-navigation__layout--relationship {
+  height: calc(
+    100cqh - var(--bs-navigation-app-bar-height) -
+      var(--bs-navigation-app-bar-banner-height)
+  );
+}
+
 .bs-consumer-navigation__content {
   overflow-y: auto;
   padding: var(--bs-space-size-8) var(--bs-space-size-8) 0;

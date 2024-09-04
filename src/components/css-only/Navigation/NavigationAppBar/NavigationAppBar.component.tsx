@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -37,22 +38,25 @@ const NavigationAppBar: React.FC<NavigationAppBarProps> = ({
         <NavigationAppBarActionSection actions={actions} isMobile={isMobile} />
       </div>
 
-      {!!relationshipAuthMemberName && (
-        <div className="bs-navigation-app-bar__relationship-alert">
-          <Alert
-            actionText={t('navigation.backToRelationMasterSpace')}
-            className=""
-            color="info"
-            leftIcon={<Users02 stroke="currentColor" />}
-            onActionClick={navigateBackToMasterRelation}
-            variant="strong"
-          >
-            {t('reworked.navigation.loggedInAs', {
-              name: relationshipAuthMemberName,
-            })}
-          </Alert>
-        </div>
-      )}
+      <div
+        className={classNames('bs-navigation-app-bar__relationship-alert', {
+          'bs-navigation-app-bar__relationship-alert--hidden':
+            !relationshipAuthMemberName || isMobile,
+        })}
+      >
+        <Alert
+          actionText={t('navigation.backToRelationMasterSpace')}
+          className=""
+          color="info"
+          leftIcon={<Users02 stroke="currentColor" />}
+          onActionClick={navigateBackToMasterRelation}
+          variant="strong"
+        >
+          {t('reworked.navigation.loggedInAs', {
+            name: relationshipAuthMemberName,
+          })}
+        </Alert>
+      </div>
     </div>
   );
 };

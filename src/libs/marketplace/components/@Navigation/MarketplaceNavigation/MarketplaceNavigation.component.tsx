@@ -46,6 +46,7 @@ import type { CompanyTheme } from '#src/libs/theme/types';
 import type { MarketplaceCSSConfiguration } from '#src/libs/exportable-components/types';
 import type { CustomForm } from '#src/libs/custom-form/types';
 import type { Franchise } from '#src/libs/franchise/types';
+import type { MemberMinimal } from '#src/libs/member/types';
 
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '#src/actions/constants';
@@ -65,6 +66,7 @@ type Props = {
   basketProductListCount?: number;
   /** The current company's marketplace settings config */
   tabConfigList: MarketplaceTabConfig[];
+  memberRelationshipList: MemberMinimal[];
   isAuthStateError: boolean;
   authStateInvalidFields: {
     email?: string;
@@ -88,6 +90,7 @@ type Props = {
     password: string;
   }) => void;
   onRequestResetPassword: (url: string) => void;
+  navigateToRelationAccount: (relatedMemberId: number) => void;
   navigateBackToMasterRelation: () => void;
 };
 
@@ -107,6 +110,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
   franchisor,
   memberName,
   tabSelected,
+  memberRelationshipList,
   children,
   push,
   onToggleSignUpDialog,
@@ -116,6 +120,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
   handleSubmitDraftCustomForm,
   handleEmailLogin,
   onRequestResetPassword,
+  navigateToRelationAccount,
   navigateBackToMasterRelation,
 }) => {
   const { t } = useTranslation('consumerSpace');
@@ -189,9 +194,11 @@ const MarketplaceNavigation: React.FC<Props> = ({
       franchisorCompanyList: franchisor?.companies ?? [],
       companyId: companyTheme.company,
       linksList,
-      isRelationshipAuth,
+      memberRelationshipList,
       handleCloseMarketplaceSideDrawer,
       handleCloseConsumerSideDrawer,
+      navigateToRelationAccount,
+      navigateBackToMasterRelation,
     });
 
   const actionsList: AppBarButton[] = useMemo(
@@ -237,7 +244,11 @@ const MarketplaceNavigation: React.FC<Props> = ({
   return (
     <MuiThemeProvider theme={getTheme(companyTheme)}>
       <MemberShipValidationWrapper companyId={companyTheme.company}>
-        <div className="bs-marketplace-navigation__root">
+        <div
+          className={classNames('bs-marketplace-navigation__root', {
+            'bs-marketplace-navigation__root--relationship': isRelationshipAuth,
+          })}
+        >
           <NavigationAppBar
             actions={actionsList}
             isMobile={isMobile}

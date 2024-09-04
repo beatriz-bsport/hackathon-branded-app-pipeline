@@ -715,8 +715,10 @@ export function navigateToRelationAccount(
           params.companyName,
           params.company,
         );
+        dispatch(push('/c/'));
         dispatch(push(marketplaceUrl));
       } else {
+        dispatch(push('/c/'));
         dispatch(push(`/c/${params.company}/`));
       }
     } catch (err) {
@@ -792,8 +794,10 @@ export function navigateBackToMasterRelation(params: {
           params.companyName,
           params.company,
         );
+        dispatch(push('/c/'));
         dispatch(push(marketplaceUrl));
       } else {
+        dispatch(push('/c/'));
         dispatch(push(`/c/${params.company}/`));
       }
     } catch (err) {

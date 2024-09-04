@@ -518,7 +518,9 @@ export class MarketPlace extends Component<Props, State> {
           isSettingsConfigLoading={false}
           isSignUpDialogOpen={this.state.signupDialogOpen}
           memberName={this.props.userFullName ?? ''}
+          memberRelationshipList={this.props.controlableMemberList}
           navigateBackToMasterRelation={this.props.navigateBackToMasterRelation}
+          navigateToRelationAccount={this.props.navigateToRelationAccount}
           onRequestResetPassword={this.onRequestResetPassword}
           onToggleSignUpDialog={this.toggleSignUp}
           push={this.props.push}

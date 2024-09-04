@@ -188,6 +188,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
     widgetSignOut,
     pushRouter: push,
     navigateToRelationAccount,
+    navigateBackToMasterRelation,
   });
 
   const actionsList: AppBarButton[] = useMemo(
@@ -322,6 +323,9 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
         className={classNames(
           'bs-consumer-navigation__layout',
           'bs-consumer-navigation__layout--computed-height',
+          {
+            'bs-consumer-navigation__layout--relationship': isRelationshipAuth,
+          },
         )}
       >
         <NavigationSideBar

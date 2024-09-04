@@ -14,11 +14,15 @@ import {
   PlaySquare,
 } from '#src/components/untitledui';
 import { getMarketplaceRoute } from '#src/libs/marketplace/routing-utils';
+import useViewport from '#src/components/css-only/Fabrique/hooks/useViewport';
+import {
+  CONSUMER_SPACE_MOBILE_BREAKPOINT,
+  ConsumerSpaceContextEnum,
+} from '#src/libs/consumer-space/constants';
 
 import type { SubmenuItem } from '#src/components/css-only/Fabrique/Submenu/types';
 import type { AppBarTab } from '#src/components/css-only/Navigation/NavigationAppBar/types';
 import type { Company } from '#src/libs/company/types';
-import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 import type { MemberMinimal } from '#src/libs/member/types';
 
 const useNavigationData = ({
@@ -35,6 +39,7 @@ const useNavigationData = ({
   memberRelationshipList,
   isRelationshipAuth,
   navigateToRelationAccount,
+  navigateBackToMasterRelation,
 }: {
   companyId: number;
   linksList: AppBarTab[];
@@ -49,10 +54,14 @@ const useNavigationData = ({
   memberRelationshipList?: MemberMinimal[];
   isRelationshipAuth: boolean;
   navigateToRelationAccount?: (relatedMemberId: number) => void;
+  navigateBackToMasterRelation?: () => void;
 }) => {
   const { t } = useTranslation('consumerSpace');
 
   const location = window.location.pathname;
+  const { width } = useViewport();
+
+  const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
   const isAbleToChangeStudio =
     (franchisorCompanyList ?? []).length > 0 &&
@@ -241,6 +250,14 @@ const useNavigationData = ({
             },
           ]
         : []),
+      ...(isRelationshipAuth && isMobile
+        ? [
+            {
+              title: t('navigation.backToRelationMasterSpace'),
+              onClick: navigateBackToMasterRelation,
+            },
+          ]
+        : []),
       {
         title: t('reworked.navigation.logOut'),
         className: 'bs-navigation__logout-button__root',
@@ -255,7 +272,9 @@ const useNavigationData = ({
       isAbleToChangeStudio,
       franchisorCompanyList,
       memberRelationshipList,
+      isMobile,
       isRelationshipAuth,
+      navigateBackToMasterRelation,
       handleChangeLocale,
       handleSwitchAccount,
     ],

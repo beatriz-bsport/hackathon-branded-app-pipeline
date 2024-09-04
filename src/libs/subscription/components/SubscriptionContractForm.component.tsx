@@ -837,7 +837,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
     .nullable()
     .test(
       'Must-be-less-than-twelve-for-fixed-billing-day',
-      'contract.form.nb_interval.restrictionForFixedBillingDay',
+      'contract.form.nb_interval.errorForFixedBillingDay',
       function checkNbIntervalForFixedBillingDay(
         nb_interval_after_auto_renewal,
       ) {
@@ -845,19 +845,6 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
           this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
           !nb_interval_after_auto_renewal ||
           nb_interval_after_auto_renewal <= 12
-        );
-      },
-    )
-    .test(
-      'Must-be-more-than-one-for-fixed-billing-day',
-      'contract.form.nb_interval.restrictionForFixedBillingDay',
-      function checkNbIntervalForFixedBillingDay(
-        nb_interval_after_auto_renewal,
-      ) {
-        return (
-          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
-          !nb_interval_after_auto_renewal ||
-          nb_interval_after_auto_renewal > 1
         );
       },
     )

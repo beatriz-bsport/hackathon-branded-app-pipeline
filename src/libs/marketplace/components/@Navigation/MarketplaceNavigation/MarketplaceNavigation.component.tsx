@@ -16,6 +16,7 @@ import {
 } from '#src/libs/marketplace/routing-utils';
 import { getDefaultMarketplaceTabTitle } from '#src/libs/exportable-components/utils';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
+import { getItemInStorage } from '#src/utils/storage';
 // @ts-expect-error JS
 import Analytics from '#src/components/analytics/Analytics.component';
 import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppBar';
@@ -47,6 +48,7 @@ import type { CustomForm } from '#src/libs/custom-form/types';
 import type { Franchise } from '#src/libs/franchise/types';
 
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
+import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '#src/actions/constants';
 
 import './styles.css';
 
@@ -86,6 +88,7 @@ type Props = {
     password: string;
   }) => void;
   onRequestResetPassword: (url: string) => void;
+  navigateBackToMasterRelation: () => void;
 };
 
 const MarketplaceNavigation: React.FC<Props> = ({
@@ -113,11 +116,17 @@ const MarketplaceNavigation: React.FC<Props> = ({
   handleSubmitDraftCustomForm,
   handleEmailLogin,
   onRequestResetPassword,
+  navigateBackToMasterRelation,
 }) => {
   const { t } = useTranslation('consumerSpace');
   const { width } = useViewport();
   const classes = useStyles();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
+
+  const isRelationshipAuth = !!getItemInStorage(
+    'local',
+    STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
+  );
 
   const checkoutUrl = useMemo(
     () =>
@@ -180,6 +189,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
       franchisorCompanyList: franchisor?.companies ?? [],
       companyId: companyTheme.company,
       linksList,
+      isRelationshipAuth,
       handleCloseMarketplaceSideDrawer,
       handleCloseConsumerSideDrawer,
     });
@@ -233,7 +243,9 @@ const MarketplaceNavigation: React.FC<Props> = ({
             isMobile={isMobile}
             links={linksList}
             logo={companyTheme.cover}
+            navigateBackToMasterRelation={navigateBackToMasterRelation}
             onSideDrawerOpenClick={handleToggleMarketplaceSideDrawer}
+            relationshipAuthMemberName={isRelationshipAuth && memberName}
             websiteUrl={companyTheme.websiteURL}
           />
 

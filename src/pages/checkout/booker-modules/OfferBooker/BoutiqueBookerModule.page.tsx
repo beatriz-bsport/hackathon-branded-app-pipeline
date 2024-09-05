@@ -73,6 +73,7 @@ import {
 } from '#src/libs/offer/actions';
 import {
   fetchGroupOffer as fetchGroupOfferAction,
+  getGroupOfferBookableStatus as getGroupOfferBookableStatusAction,
   listGroupOfferOffersIdsToBeBooked as listGroupOfferOffersIdsToBeBookedAction,
   getGroupOfferFirstOfferIdToBeBooked as getGroupOfferFirstOfferIdToBeBookedAction,
 } from '#src/libs/group-offer/actions';
@@ -80,6 +81,8 @@ import { getMemberTagsIdsList } from '#src/libs/tag/selectors';
 import {
   getOffersListByGroup,
   getGroupDataById,
+  withGroup,
+  getGroupOffersStatus,
 } from '#src/libs/group-offer/selectors';
 import { getMetaActivitiesDict } from '#src/libs/meta-activity/selectors';
 import { getAllEstablishmentsDict } from '#src/libs/establishment/selectors';
@@ -435,6 +438,11 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         this.props.fetchEstablishmentBulk([offer.establishment]);
         if (offer.group !== null && typeof offer.group === 'number') {
           this.setState({ showGroupedOfferInformationModal: true });
+          this.props.getGroupOfferBookableStatus(offer.group, {
+            onSuccess: () => {
+              this.updateOfferConstraints();
+            },
+          });
           this.props.fetchGroup(offer.group, {
             onSuccess: (group) => {
               if (!group.full_booking_only) {
@@ -442,29 +450,21 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   onSuccess: (offers) => {
                     this.fetchOffersRelatedObject(offers);
                     this.retrieveFetchedGroupedOffer(group.id);
+                    const offersWithAvailableStatusIdsList = Object.values(
+                      this.props.offerStatusById,
+                    )
+                      .filter(
+                        (offerStatus) =>
+                          offerStatus.bookable_status ===
+                          OFFER_BOOKABLE_STATUS_BOOKABLE,
+                      )
+                      .map((filteredOfferStatus) => filteredOfferStatus.id);
+                    this.filterGroupedOfferInSelectedOffer([
+                      this.props.offerId,
+                      ...offersWithAvailableStatusIdsList,
+                    ]);
                   },
                 });
-                this.props.fetchOfferStatusList(
-                  group.offers,
-                  {
-                    page_size: group.offers.length,
-                  },
-                  {
-                    onSuccess: (offerStatusList) => {
-                      const offersWithAvailableStatusIdsList = offerStatusList
-                        .filter(
-                          (offerStatus) =>
-                            offerStatus.bookable_status ===
-                            OFFER_BOOKABLE_STATUS_BOOKABLE,
-                        )
-                        .map((filteredOfferStatus) => filteredOfferStatus.id);
-                      this.filterGroupedOfferInSelectedOffer([
-                        this.props.offerId,
-                        ...offersWithAvailableStatusIdsList,
-                      ]);
-                    },
-                  },
-                );
               } else {
                 this.props.listGroupOfferOffersIdsToBeBooked(offer.group, {
                   onSuccess: (ids) => {
@@ -472,30 +472,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                       onSuccess: (offers) => {
                         this.fetchOffersRelatedObject(offers);
                         this.retrieveFetchedGroupedOffer(offer.group);
-                        this.props.fetchOfferStatusList(
-                          ids,
-                          {
-                            page_size: group.offers.length,
-                          },
-                          {
-                            onSuccess: (offerStatusList) => {
-                              const offersWithAvailableStatusIdsList =
-                                offerStatusList
-                                  .filter(
-                                    (offerStatus) =>
-                                      offerStatus.bookable_status ===
-                                      OFFER_BOOKABLE_STATUS_BOOKABLE,
-                                  )
-                                  .map(
-                                    (filteredOfferStatus) =>
-                                      filteredOfferStatus.id,
-                                  );
-                              this.filterGroupedOfferInSelectedOffer(
-                                offersWithAvailableStatusIdsList,
-                              );
-                            },
-                          },
-                        );
                       },
                     });
                   },
@@ -525,24 +501,25 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   filterGroupedOfferInSelectedOffer = (
     offerAvailableForBookingIdsList: number[],
   ) => {
-    const filteredGroupedSelectedOffersList = this.state.selectedOffers
-      .map((selectedOffer) => selectedOffer?.offer)
-      .filter(
-        (offerData) =>
-          offerData && offerAvailableForBookingIdsList.includes(offerData.id),
-      )
-      .map((filteredOfferData) => {
-        return { offer: filteredOfferData, extra_data: {} };
-      });
+    const filteredGroupedSelectedOffersList = this.state.selectedOffers.filter(
+      (selectedOffer) =>
+        offerAvailableForBookingIdsList.includes(selectedOffer?.offer.id),
+    );
     const totalNumberOfOfferNeedingSpotSelection =
       filteredGroupedSelectedOffersList.filter(
         (selectedOffer) => selectedOffer.offer.room_blueprint,
       ).length;
-    this.setState({
-      selectedOffers: filteredGroupedSelectedOffersList,
-      totalNumberOfOfferInSpotSelection: totalNumberOfOfferNeedingSpotSelection,
-    });
-    this.updateOfferSpotSelectorWaitingList();
+    this.setState(
+      {
+        selectedOffers: filteredGroupedSelectedOffersList,
+        totalNumberOfOfferInSpotSelection:
+          totalNumberOfOfferNeedingSpotSelection,
+      },
+      () => {
+        this.updateOfferConstraints();
+        this.updateOfferSpotSelectorWaitingList();
+      },
+    );
   };
 
   retrieveFetchedGroupedOffer = (groupId: number) => {
@@ -563,13 +540,17 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         },
       });
     }
-    this.setState({
-      offerGroupData: offerGroupData,
-    });
-    this.addFetchedGroupedOfferToSelectedOffers(
-      groupedOffersList.filter(
-        (offer) => offer && offer.id !== this.props.offerId,
-      ),
+    this.setState(
+      {
+        offerGroupData: offerGroupData,
+      },
+      () => {
+        this.addFetchedGroupedOfferToSelectedOffers(
+          groupedOffersList.filter(
+            (offer) => offer && offer.id !== this.props.offerId,
+          ),
+        );
+      },
     );
   };
 
@@ -1128,7 +1109,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
     const isBlockedByGroup =
       this.state.offerGroupData &&
-      this.state.offerGroupData.full_booking_only &&
+      !this.state.offerGroupData.full_booking_only &&
       this.state.selectedOffers.filter(
         (selectedOffer) =>
           this.props.offerStatusById[selectedOffer.offer.id]
@@ -1270,12 +1251,24 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   addFetchedGroupedOfferToSelectedOffers = (offersList: OfferREST[]) => {
-    const newOffers = offersList.map((offer) => {
-      return { offer, extra_data: {} };
-    });
-    this.setState((prevState: State) => ({
-      selectedOffers: [...prevState.selectedOffers, ...newOffers],
+    const isFullBookingOnly = this.state.offerGroupData?.full_booking_only;
+    const newOffers = offersList.map((offer) => ({
+      offer,
+      extra_data: {
+        protected: isFullBookingOnly,
+      },
     }));
+    this.setState(
+      (prevState: State) => ({
+        selectedOffers: [...prevState.selectedOffers, ...newOffers],
+      }),
+      () => {
+        const groupedOfferIds = this.state.selectedOffers.map(
+          (selectedOffer) => selectedOffer.offer.id,
+        );
+        this.filterGroupedOfferInSelectedOffer(groupedOfferIds);
+      },
+    );
   };
 
   updateOfferSpotSelectorWaitingList = () => {
@@ -2020,15 +2013,18 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     number,
     number,
     OffersGroup
-  > = withMetaActivity(withCoach(withEstablishment(getOfferById)))(
+  > = withMetaActivity(withGroup(withCoach(withEstablishment(getOfferById))))(
     state,
     props.offerId,
   );
   const memberTagList = props.memberTagList || getMemberTagsIdsList(state);
   const authenticated = props.authenticated || state.auth.authenticated;
+  const isGroupedOfferFullBookingOnly = offer?.group?.full_booking_only;
   return {
     offer,
-    offerStatusById: state.offer.offerStatus.byId,
+    offerStatusById: isGroupedOfferFullBookingOnly
+      ? getGroupOffersStatus(state, offer?.group.id)
+      : state.offer.offerStatus.byId,
     offerStatusLoading: state.offer.offerStatus.loading,
     consumerPaymentPackList: withPaymentPackForConsumer(
       getConsumerPaymentPackForBooking,
@@ -2135,6 +2131,7 @@ const mapDispatchToProps = {
   listGroupOfferOffersIdsToBeBooked: listGroupOfferOffersIdsToBeBookedAction,
   getGroupOfferFirstOfferIdToBeBooked:
     getGroupOfferFirstOfferIdToBeBookedAction,
+  getGroupOfferBookableStatus: getGroupOfferBookableStatusAction,
   fetchOfferBulk: fetchOfferBulkAction,
   fetchCoachBulk: fetchCoachBulkAction,
 };

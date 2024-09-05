@@ -256,7 +256,9 @@ export const getOfferBookerUrl = (
   isNewCheckoutFlow: boolean,
   locationSearch?: string,
 ) => {
-  const pricingPageUrl = `/booker-module-s/${companyId}/${offerId}`;
+  const pricingPageUrl = isNewCheckoutFlow
+    ? `/booker-module-s/${companyId}/${offerId}`
+    : `/checkout/${companyId}/offer-booker/${offerId}`;
   if (locationSearch) {
     return `${pricingPageUrl}${locationSearch}`;
   }

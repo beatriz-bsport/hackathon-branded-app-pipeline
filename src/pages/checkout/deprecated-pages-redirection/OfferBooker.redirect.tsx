@@ -61,7 +61,7 @@ export class OfferBookerRedirect extends React.Component<Props> {
             getOfferBookerUrl(
               offer.company,
               offer.id,
-              this.props.theme?.display_new_checkout_flow && !offer.group,
+              this.props.theme?.display_new_checkout_flow,
               window.location.search,
             ),
           );
@@ -84,7 +84,7 @@ export class OfferBookerRedirect extends React.Component<Props> {
             getOfferBookerUrl(
               offer.company,
               offer.id,
-              this.props.theme?.display_new_checkout_flow && !offer.group,
+              this.props.theme?.display_new_checkout_flow,
               window.location.search,
             ),
           );

@@ -2,10 +2,29 @@ import TagManager from 'react-gtm-module';
 import { DateTime } from 'luxon';
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE } from '../../libs/theme/constants';
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_SHOP_ITEM,
+  BUYABLE_ITEM_FEE,
+  BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_COMBO_ITEM,
+  BUYABLE_ITEM_COUPON,
+  BUYABLE_ITEM_GIFTCARD,
+} from '@bsport/common/lib/master-data/buyable-items';
 
 const currencyCode = (
   getItemInStorage('local', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE) || 'EUR'
 ).toUpperCase();
+
+const itemType = {
+  [BUYABLE_ITEM_PASS.toString()]: 'payment_combo',
+  [BUYABLE_ITEM_SHOP_ITEM.toString()]: 'shop_item',
+  [BUYABLE_ITEM_PRIVATE_PASS.toString()]: 'private_pass',
+  [BUYABLE_ITEM_FEE.toString()]: 'delivery_fee',
+  [BUYABLE_ITEM_COMBO_ITEM.toString()]: 'payment_pack',
+  [BUYABLE_ITEM_GIFTCARD.toString()]: 'gift_card',
+  [BUYABLE_ITEM_COUPON.toString()]: 'discount',
+};
 
 export default class GoogleAnalytics {
   static methods = [];
@@ -45,7 +64,7 @@ GoogleAnalytics.addMethod(
       totalPrice: basket.total_price,
       memberId: basket.member,
       basketId: basket.id,
-      currency: basket.currency,
+      currency: currencyCode,
     },
   }),
   [
@@ -87,7 +106,7 @@ GoogleAnalytics.addMethod(
       name: pp.name,
       price: pp.price,
       currency: currencyCode,
-      type,
+      type: 'payment_pack',
     },
   }),
   [
@@ -174,6 +193,8 @@ GoogleAnalytics.addMethod(
       totalPrice: basket.total_price,
       memberId: basket.member,
       basketId: basket.id,
+      currency: currencyCode,
+      // checkout_items is only kept for retro-compatibility
       checkout_items:
         basket.checkout_items?.map((ci) => ({
           buyable_item_id: ci.buyable_item_id,
@@ -181,6 +202,14 @@ GoogleAnalytics.addMethod(
           name: ci.name,
           quantity: ci.quantity,
           unit_price: ci.unit_price,
+        })) || [],
+      items:
+        basket.checkout_items?.map((ci) => ({
+          item_id: String(ci.buyable_item_id),
+          item_name: String(ci.name),
+          item_category: itemType[ci.buyable_item_identifier] || 'other',
+          price: Number(ci.unit_price),
+          quantity: Number(ci.quantity),
         })) || [],
     },
   }),

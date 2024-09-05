@@ -17,11 +17,11 @@ const currencyCode = (
 ).toUpperCase();
 
 const itemType = {
-  [BUYABLE_ITEM_PASS.toString()]: 'payment_combo',
-  [BUYABLE_ITEM_SHOP_ITEM.toString()]: 'shop_item',
-  [BUYABLE_ITEM_PRIVATE_PASS.toString()]: 'private_pass',
+  [BUYABLE_ITEM_PASS.toString()]: 'pass',
+  [BUYABLE_ITEM_SHOP_ITEM.toString()]: 'webshop_item',
+  [BUYABLE_ITEM_PRIVATE_PASS.toString()]: 'appointment_pass',
   [BUYABLE_ITEM_FEE.toString()]: 'delivery_fee',
-  [BUYABLE_ITEM_COMBO_ITEM.toString()]: 'payment_pack',
+  [BUYABLE_ITEM_COMBO_ITEM.toString()]: 'pack',
   [BUYABLE_ITEM_GIFTCARD.toString()]: 'gift_card',
   [BUYABLE_ITEM_COUPON.toString()]: 'discount',
 };

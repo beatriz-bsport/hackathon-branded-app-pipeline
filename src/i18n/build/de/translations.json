@@ -10052,7 +10052,7 @@
                 "title": "Wiederholungsregel löschen",
                 "success": "Die wiederkehrende Buchung wurde gelöscht"
             },
-            "explain": "Das Mitglied wird immer {{delayWeek}} Wochen im Voraus für Kurse von {{dayOfWeek}} bis {{hour}}: {{minute}} registriert. Sie wirst nur registriert, wenn sie einen gültigen Kurspass haben.",
+            "explain": "Das Mitglied wird immer {{delayWeek}} Wochen im Voraus für Kurse von {{dayOfWeek}} bis {{hour}}: {{minute}} registriert. Das Mitglied wird nur angemeldet, falls es einen gültigen Terminpass besitzt.",
             "actions": {
                 "save": "Speichern",
                 "close": "Schließen"
@@ -12091,7 +12091,7 @@
         },
         "recurrenceRule": {
             "item": {
-                "explain": "Alle {{dayOfWeek}} - {{time}}, {{delayWeek}} Wochen zuvor",
+                "explain": "Jeden {{dayOfWeek}} - {{time}}, {{delayWeek}} Wochen zuvor",
                 "startFrom": "Ab {{ date }}",
                 "allowUnpaid": "Erlaubt unbezahlte Buchungen"
             },
@@ -12110,12 +12110,12 @@
                 }
             },
             "form": {
-                "notify_member": "Sende eine Bestätigungs-E-Mail, wenn Du das Mitglied registrierst",
+                "notify_member": "Versand einer Bestätigungs-E-Mail, wenn das Mitglied registriert wird",
                 "timeGroup": "Datum des Termins",
                 "configuration": "Buchungen",
                 "title": "Planen Sie eine Wiederholung",
                 "override_availabilities": "Die Buchung vornehmen, auch wenn die Lehrkraft, der Raum oder der Termin nicht verfügbar sind",
-                "allow_unpaid": "Unbezahlte Buchungen zulassen (keine kompatible Karte besessen)"
+                "allow_unpaid": "Unbezahlte Buchungen zulassen (wenn das Mitglied keinen kompatiblen Terminpass besitzt)"
             },
             "actions": {
                 "save": "Speichern",

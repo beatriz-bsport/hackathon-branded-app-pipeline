@@ -294,9 +294,6 @@ export const NotificationRuleListItem = (props: Props) => {
                   hasNotificationUpsell ? classes.boxSeventy : classes.boxThirty
                 }
               >
-                <Typography className={classes.subtitle}>
-                  {t('listItem.transactionnalEmail')}
-                </Typography>
                 <Tooltip
                   hide={!franchisedOwned}
                   title={<>{t('franchiseOwned')}</>}

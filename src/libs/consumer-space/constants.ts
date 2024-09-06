@@ -193,6 +193,8 @@ export const NEW_MEMBER_PROFILE_COMPANY_ID_LIST = [
   2056,
   // Le Studio Rouen Beauvoisine
   2069,
+  // Decibel
+  2073,
   // Vinyasa Krama Mandiram
   2083,
   // I Hate Jim

@@ -211,7 +211,7 @@ export class ConsumerHome extends React.Component<Props> {
         if (theme.franchisor) this.props.retrieveFranchise(theme.franchisor);
       },
     });
-    this.props.fetchCurrentBasket();
+    this.props.fetchCurrentBasket(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -627,7 +627,7 @@ export default compose(
       fetchSubscriptionListByMember,
       fetchProgram: fetchProgramAction,
       fetchCountObjects: (memberId: number) =>
-        fetchCountObjectsAction(memberId),
+        fetchCountObjectsAction(memberId, { me: true }),
 
       fetchMyControlableMemberList,
       navigateToRelationAccount: navigateToRelationAccountAction,

@@ -76,7 +76,9 @@ export const fetchUniversalPasses = (params: {
 
 export const fetchMyPassesTabs = (memberId: number) =>
   getAuth<ConsumerPassesTabDisplay>(
-    `${API_V1_URI}/member/${memberId}/get_my_passes_tabs/`,
+    `${API_V1_URI}/member/${memberId}/get_my_passes_tabs/${buildUrlParams({
+      me: true,
+    })}`,
   );
 
 export const fetchConsumerInvoices = (params: ConsumerInvoiceQueryParams) => {

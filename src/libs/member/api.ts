@@ -91,8 +91,13 @@ export async function fetchMember(memberId: number, params?: { me: boolean }) {
   return getAuth(`${API_V1_URI}/member/${memberId}/${buildUrlParams(params)}`);
 }
 
-export async function fetchCountObject(memberId: number) {
-  return getAuth(`${API_V1_URI}/member/${memberId}/count_objects/`);
+export async function fetchCountObject(
+  memberId: number,
+  params?: { me: boolean },
+) {
+  return getAuth(
+    `${API_V1_URI}/member/${memberId}/count_objects/${buildUrlParams(params)}`,
+  );
 }
 
 export async function getLatest(): Promise<AxiosResponse<number>> {

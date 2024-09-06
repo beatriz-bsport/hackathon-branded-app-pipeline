@@ -200,11 +200,11 @@ export const memberCountObject = {
   success: createAction('MEMBER/COUNT/SUCCESS'),
 };
 
-export function fetchCountObjects(id: number) {
+export function fetchCountObjects(id: number, params?: { me: boolean }) {
   return async (dispatch: Dispatch) => {
     dispatch(memberCountObject.isLoading(true));
     try {
-      const response = await fetchCountObjectAPI(id);
+      const response = await fetchCountObjectAPI(id, params);
       dispatch(memberCountObject.success(response.data));
     } catch (err) {
       console.error(err);

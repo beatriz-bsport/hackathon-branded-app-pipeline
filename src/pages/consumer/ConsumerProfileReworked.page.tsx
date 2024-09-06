@@ -44,7 +44,7 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 class ConsumerProfileReworked extends React.Component<Props> {
   componentDidMount() {
     if (this.props.membership) {
-      this.props.fetchMember(this.props.membership.id);
+      this.props.fetchMember(this.props.membership.id, {}, { me: true });
       this.fetchMemberPaymentMethod();
       this.props.fetchCompanyCustomMemberForm({
         company: this.props.membership.company,
@@ -83,7 +83,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
   ) => {
     this.props.submitCustomForm(formData, this.props.membership.company, {
       onSuccess: () => {
-        this.props.fetchMember(this.props.membership.id);
+        this.props.fetchMember(this.props.membership.id, {}, { me: true });
         this.props.fetchMyUserProfile();
         options?.onSuccess?.();
       },

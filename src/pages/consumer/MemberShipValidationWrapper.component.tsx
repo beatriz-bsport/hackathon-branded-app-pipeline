@@ -95,6 +95,8 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
         typeof this.props.membership === 'number'
           ? this.props.membership
           : this.props.membership.id,
+        {},
+        { me: true },
       );
       this.props.fetchMyUserProfile();
     } else {
@@ -132,6 +134,8 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
         typeof this.props.membership === 'number'
           ? this.props.membership
           : this.props.membership.id,
+        {},
+        { me: true },
       );
       this.fetchBasket();
     }

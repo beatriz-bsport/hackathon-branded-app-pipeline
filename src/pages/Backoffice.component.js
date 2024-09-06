@@ -38,6 +38,7 @@ import {
   BsportRequestFromHeaderValue,
 } from '../constants';
 import FeatureBase from '#src/components/feature-base/FeatureBase.component';
+import FeatureBaseSurvey from '#src/components/feature-base/FeatureBaseSurvey.component';
 import i18n, { setLuxonLocale } from '../i18n/index';
 import GenericResponsiveDialog from '../components/genericDialog/GenericResponsiveDialog';
 import Analytics from '../components/analytics/Analytics.component';
@@ -953,6 +954,9 @@ export class Backoffice extends Component<Props, State> {
               goNext={this.redirectToCompanySettings}
             />
           </GenericResponsiveDialog>
+        )}
+        {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' && (
+          <FeatureBaseSurvey />
         )}
       </MuiThemeProvider>
     );

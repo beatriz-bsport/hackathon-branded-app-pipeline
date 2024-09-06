@@ -918,31 +918,31 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const selectedSpot = spot?.indexType
       ? `${prefix}${spot.indexType}${suffix}`
       : `${prefix}${index}${suffix}`;
+    this.setState((prevState) => {
+      return {
+        selectedSpots: {
+          ...prevState.selectedSpots,
+          [offerId || this.props.offerId]: selectedSpot,
+        },
+        selectedSpotsIds: {
+          ...prevState.selectedSpotsIds,
+          [offerId || this.props.offerId]: index,
+        },
+      };
+    });
+  };
+
+  closeSpotSelector = () => {
     this.setState(
-      (prevState) => {
-        return {
-          selectedSpots: {
-            ...prevState.selectedSpots,
-            [offerId || this.props.offerId]: selectedSpot,
-          },
-          selectedSpotsIds: {
-            ...prevState.selectedSpotsIds,
-            [offerId || this.props.offerId]: index,
-          },
-        };
+      {
+        isSpotSelectorOpen: false,
       },
       () => {
-        if (!this.state.isSpotSelectorOpen) {
+        if (this.state.baseOffersWaitingForSpotSelection.length > 0) {
           this.updateOfferSpotSelectorWaitingList();
         }
       },
     );
-  };
-
-  closeSpotSelector = () => {
-    this.setState({
-      isSpotSelectorOpen: false,
-    });
   };
 
   closeSpotSelectorIfSpotSelected = () => {

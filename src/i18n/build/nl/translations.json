@@ -182,7 +182,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }} dagen over",
+                        "expiresIn_plural": "{{ daysRemaining }} dag(en) over",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -593,7 +593,10 @@
                     "empty": "Zodra je een betaling hebt opgeslagen, wordt deze hier weergegeven.",
                     "directPayments": "Directe betalingen",
                     "cards": "Kaarten",
-                    "title": "Opgeslagen betalingsmethoden"
+                    "title": "Opgeslagen betalingsmethoden",
+                    "tooltipText": {
+                        "more": "Voeg een nieuwe betaalmethode toe en verwijder deze optie als je van netwerk wilt veranderen."
+                    }
                 },
                 "membershipId": "Lidmaatschapsnummer",
                 "accountBalance": "Saldo rekening",
@@ -679,7 +682,8 @@
                 "myAccount": "Mijn account",
                 "cart": "Winkelwagen",
                 "companyLogo": "Bedrijfslogo"
-            }
+            },
+            "menu": "Menu"
         }
     },
     "notificationRule": {
@@ -7316,6 +7320,10 @@
                     "dialogSubtitle": "Selecteer de sessie die je wilt boeken",
                     "dialogTitle": "Voeg een sessie toe"
                 }
+            },
+            "groupedSession": {
+                "showLessButtonText": "Toon minder",
+                "showMoreButtonText": "Toon alle sessies ({{totalSessions}})"
             }
         },
         "details": {
@@ -9755,7 +9763,8 @@
                 "newsletterV2": "Lead-acquisitie",
                 "referral": "Referral",
                 "consumerBooking": "Mijn boekingen",
-                "consumerPass": "Mijn leskaarten"
+                "consumerPass": "Mijn leskaarten",
+                "consumerSpace": "Ledenprofiel"
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
@@ -13040,7 +13049,8 @@
             "notFound": "Deze cadeaubon is niet gevonden en is mogelijk gearchiveerd."
         },
         "modifyBasket": {
-            "15004": "Het mandje wordt verwerkt, probeer het over een paar minuten nog eens"
+            "15004": "Het mandje wordt verwerkt, probeer het over een paar minuten nog eens",
+            "addItemSuccess": "Toegevoegd aan winkelmandje"
         },
         "quicksaleConfiguration": {
             "error": "Fout bij het opslaan van de wijzigingen.",
@@ -14137,7 +14147,8 @@
         "send": "Verstuur",
         "reset": "Reset",
         "more": "Meer",
-        "add": "Voeg toe"
+        "add": "Voeg toe",
+        "continue": "Verder"
     },
     "workshop": {
         "modal": {
@@ -15480,7 +15491,8 @@
             "isInternalExplainFuturePayments": "De interne rekening (Wallet) van leden wordt automatisch geïncasseerd voor betalingen. De interne rekening (Wallet) wordt negatief, indien er onvoldoende saldo opstaat.",
             "addPaymentMethod": "Een betaalmethode toevoegen",
             "copyLink": "Kopieer de directe link naar de betaalmethode",
-            "manual": "Handmatig"
+            "manual": "Handmatig",
+            "other": "Overig"
         },
         "paymentEngine": {
             "label": {
@@ -18263,6 +18275,16 @@
             "disconnectedStatusConfigTitle": "Configuratie van de verbindingsstatus",
             "loginButton": {
                 "openMemberProfile": "Ledenprofiel openen wanneer de gebruiker inlogt"
+            },
+            "consumerSpace": {
+                "page": {
+                    "consumerSubscription": "Mijn abonnementen",
+                    "consumerProfile": "Mijn profiel",
+                    "consumerInvoice": "Mijn facturen",
+                    "consumerPass": "Mijn kaarten",
+                    "consumerBooking": "Mijn reserveringen"
+                },
+                "defaultPage": "Standaardpagina"
             }
         },
         "customize": "Personalisering",

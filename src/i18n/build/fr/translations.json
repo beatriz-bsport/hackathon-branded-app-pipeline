@@ -11432,7 +11432,7 @@
                 "cancel": "Annuler",
                 "edit": "Modifier",
                 "columnError": "Attention la colonne filtrée ici a été enlevée du rapport. Le filtre sur cette colonne est cependant encore appliqué.",
-                "shortColumnError": "La colonne correspondante n'est pas affichée",
+                "shortColumnError": "Ce filtre ne peut pas être appliqué car la colonne correspondante n'est pas affichée",
                 "decimalCredit": {
                     "filterViewHelperText": "Pour les filtres relatifs aux crédits, vous devez saisir une valeur entière, veuillez vous rappeler que la valeur des crédits affichée dans les rapports n'est pas divisée par {{creditFactor}}",
                     "helperText": "Vous devez entrer une valeur entière ici, veuillez vous rappeler que la valeur des crédits affichée dans les rapports n'est pas divisée par {{creditFactor}}"

@@ -483,6 +483,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                       onSuccess: (offers) => {
                         this.fetchOffersRelatedObject(offers);
                         this.retrieveFetchedGroupedOffer(offer.group);
+                        this.filterGroupedOfferInSelectedOffer(ids);
                       },
                     });
                   },

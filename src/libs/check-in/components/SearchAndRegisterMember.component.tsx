@@ -154,7 +154,7 @@ export const SearchAndRegister = (props: SearchAndRegisterProps) => {
     );
   }
 
-  if (props.member) {
+  if (props.offer && props.member) {
     return (
       // @ts-expect-error TODO - typing
       <RegisterMember

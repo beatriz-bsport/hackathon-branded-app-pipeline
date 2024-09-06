@@ -29,48 +29,59 @@ type Props = {
   getMember: (id: number) => Member,
 };
 
-export const BookingList = (props: Props) => {
+export const BookingList: React.FC<Props> = ({
+  bookingLoading,
+  offer,
+  bookings,
+  onAddMember,
+  confirmBookingAttendance,
+  getMember,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation(['selfCheckIn']);
+
+  const isOfferFull = React.useMemo(() => {
+    return offer?.is_full;
+  }, [offer]);
 
   return (
     <div>
       <List disablePadding>
-        {props.bookingLoading ? (
+        {bookingLoading ? (
           <LinearProgress />
         ) : (
           <ListItem
             button
             className={classes.registerListItem}
-            disabled={props.offer.is_full}
-            onClick={() => props.onAddMember()}
+            disabled={isOfferFull}
+            onClick={() => onAddMember()}
           >
             <ListItemAvatar>
               <AddIcon />
             </ListItemAvatar>
             <ListItemText
               primary={
-                props.offer.is_full
+                isOfferFull
                   ? t('offerDetail.isFull')
                   : t('offerDetail.register')
               }
             />
           </ListItem>
         )}
-        {(props.bookings || []).map((booking) => (
+        {(bookings || []).map((booking) => (
           <CheckInBookingItem
             key={booking.id}
             bookingAttendance={booking.attendance}
             confirmAttendance={() => {
               playSound(likeAudio);
-              props.confirmBookingAttendance(booking.id);
+              confirmBookingAttendance(booking.id);
             }}
-            member={props.getMember(booking.member)}
-            offer={props.offer}
+            member={getMember(booking.member)}
+            offer={offer}
           />
         ))}
       </List>
-      {(props.bookings ?? []).length === 0 && !props.bookingLoading ? (
+      {(bookings ?? []).length === 0 && !bookingLoading ? (
         <div className={classes.emptyTextContainer}>
           <Typography color="textSecondary" variant="body2">
             {t('offerDetail.emptyList')}

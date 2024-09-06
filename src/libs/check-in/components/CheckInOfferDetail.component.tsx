@@ -95,7 +95,9 @@ export class CheckInOfferDetail extends React.Component<Props> {
       return <CircularProgress />;
     }
 
-    const BookerFab: React.FC = this.props.offer.full ? RedFab : Fab;
+    const isOfferFull = this.props.offer?.full;
+
+    const BookerFab: React.FC = isOfferFull ? RedFab : Fab;
 
     return (
       <div className={this.props.classes.root}>
@@ -143,11 +145,11 @@ export class CheckInOfferDetail extends React.Component<Props> {
           <BookerFab
             // @ts-expect-error IDK
             color="primary"
-            onClick={this.props.offer.full ? () => {} : this.props.onAddMember}
+            onClick={isOfferFull ? () => {} : this.props.onAddMember}
             variant="extended"
           >
             <PersonAddIcon className={this.props.classes.leftIcon} />
-            {this.props.offer.full
+            {isOfferFull
               ? this.props.t('offerDetail.isFull')
               : this.props.t('offerDetail.register')}
           </BookerFab>

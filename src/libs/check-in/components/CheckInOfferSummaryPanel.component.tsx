@@ -33,9 +33,9 @@ class CheckInOfferSummaryPanel extends Component<Props> {
 
   render() {
     const { classes, offer, establishment, coach, customLevel } = this.props;
-    const date_end = DateTime.fromISO(offer.date_start)
+    const date_end = DateTime.fromISO(offer?.date_start)
       .plus({
-        minute: offer.duration_minute,
+        minute: offer?.duration_minute,
       })
       .toISO();
 

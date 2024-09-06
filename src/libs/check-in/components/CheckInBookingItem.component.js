@@ -32,9 +32,12 @@ export const CheckInBookingItem = (props: Props) => {
     ? anonymizeEmail(member.consumer.email)
     : ' - ';
 
-  const secondarytextSpot = props?.offer?.room_blueprint
-    ? getSpotDisplayText(member, t)
-    : '';
+  const secondarytextSpot =
+    props?.offer?.room_blueprint && member ? getSpotDisplayText(member, t) : '';
+
+  if (!member) {
+    return null;
+  }
 
   return (
     <ListItem dense className={classes.listItem}>

@@ -124,7 +124,7 @@ export const ModalDialog: React.FC<Props> = ({
   const isLeftIconHidden =
     !(leftIcon || defaultLeftIcon) || size === ModalDialogSizeEnum.XS;
 
-  const isThereOnlyOneFooterButton = !onConfirm || !oncancel;
+  const isThereOnlyOneFooterButton = !onConfirm || !onCancel;
 
   return (
     <div

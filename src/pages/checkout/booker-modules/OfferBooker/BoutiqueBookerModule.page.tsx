@@ -450,19 +450,30 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   onSuccess: (offers) => {
                     this.fetchOffersRelatedObject(offers);
                     this.retrieveFetchedGroupedOffer(group.id);
-                    const offersWithAvailableStatusIdsList = Object.values(
-                      this.props.offerStatusById,
-                    )
-                      .filter(
-                        (offerStatus) =>
-                          offerStatus.bookable_status ===
-                          OFFER_BOOKABLE_STATUS_BOOKABLE,
-                      )
-                      .map((filteredOfferStatus) => filteredOfferStatus.id);
-                    this.filterGroupedOfferInSelectedOffer([
-                      this.props.offerId,
-                      ...offersWithAvailableStatusIdsList,
-                    ]);
+                    this.props.fetchOfferStatusList(
+                      group.offers,
+                      {
+                        page_size: group.offers.length,
+                      },
+                      {
+                        onSuccess: (offersStatusList) => {
+                          const offersWithAvailableStatusIdsList =
+                            offersStatusList
+                              .filter(
+                                (offerStatus) =>
+                                  offerStatus.bookable_status ===
+                                  OFFER_BOOKABLE_STATUS_BOOKABLE,
+                              )
+                              .map(
+                                (filteredOfferStatus) => filteredOfferStatus.id,
+                              );
+                          this.filterGroupedOfferInSelectedOffer([
+                            this.props.offerId,
+                            ...offersWithAvailableStatusIdsList,
+                          ]);
+                        },
+                      },
+                    );
                   },
                 });
               } else {

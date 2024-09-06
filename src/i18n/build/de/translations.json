@@ -492,7 +492,7 @@
                 "title": "Dieses Abonnement kündigen",
                 "explain": "Wähle die letzte Zahlung für das Abonnement.",
                 "listItem": "Geplante Kündigung des Abonnements",
-                "summary": "Die letzte Zahlung wird am {{-date}} verarbeitet, das dem letzten gültigen Ausweis entspricht.",
+                "summary": "Die letzte Zahlung wird am {{-date}} verarbeitet, was dem letzten gültigen Pass entspricht.",
                 "notePlaceholder": "Grund"
             },
             "invoice": {
@@ -2770,8 +2770,8 @@
                     "before": "Nach Datum filtern"
                 },
                 "booleanChoice": {
-                    "is_not": "noch nicht fertig",
-                    "is": "fertig",
+                    "is_not": "noch nicht abgeschlossen",
+                    "is": "abgeschlossen",
                     "before": "Der erste Kauf ist"
                 },
                 "explanation": "Filtert die Mitglieder mit einem ersten abgeschlossenen/bezahlten Warenkorb",
@@ -10024,7 +10024,7 @@
                 "bookingNumberSecond": "2. Reservierung",
                 "bookingNumberFirst": "1. Reservierung",
                 "bookingNumberAll": "Alle Buchungen",
-                "addVariable": "Tag hinzufügen",
+                "addVariable": "Variable hinzufügen",
                 "pushHelper": "Achtung, Push-Benachrichtigungen sollten sparsam eingesetzt werden. Zu viele Push-Benachrichtigungen können dazu führen, dass einige Mitglieder die App deinstallieren.",
                 "needPushUpsell": "Bitte aktivieren Sie das Push-Benachrichtigungs-Add-On, um diese Funktion zu nutzen.",
                 "push": "Push-Benachrichtigung",

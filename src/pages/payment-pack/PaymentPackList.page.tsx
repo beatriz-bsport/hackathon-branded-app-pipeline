@@ -267,7 +267,11 @@ export class PaymentPackList extends React.Component<Props, State> {
       customer_enabled: true,
     });
     this.props.fetchMetaActivities();
-    this.props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
+    this.props.fetchPaymentPackList({
+      count_consumer_payment_packs: true,
+      disabled: false,
+      page_size: 70000,
+    });
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchVideoFilterableParams({
       company: this.props.companyId,
@@ -423,7 +427,7 @@ export class PaymentPackList extends React.Component<Props, State> {
     this.setState((prevState: State) => {
       if (!prevState.showDisabled) {
         this.props.fetchPaymentPackList(
-          { page_size: 70000 },
+          { page_size: 70000, count_consumer_payment_packs: true },
           { onSuccess: () => this.setState({ disabledLoading: false }) },
         );
         return { showDisabled: !prevState.showDisabled, disabledLoading: true };
@@ -576,6 +580,7 @@ export class PaymentPackList extends React.Component<Props, State> {
             }
             this.props.fetchPaymentPackList({
               disabled: false,
+              count_consumer_payment_packs: true,
               page_size: 70000,
             });
             if (res.linked_private_pass) {

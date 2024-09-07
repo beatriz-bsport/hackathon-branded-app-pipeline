@@ -141,8 +141,8 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
               <span>
                 <Typography component="span">{this.props.pack.name}</Typography>
                 {this.props.hidePacksNumber ||
-                this.props.pack.nb_consumer_payment_packs ===
-                  undefined ? null : (
+                this.props.pack.nb_consumer_payment_packs === undefined ||
+                this.props.pack.nb_consumer_payment_packs === -1 ? null : (
                   <Typography
                     color="primary"
                     component="span"

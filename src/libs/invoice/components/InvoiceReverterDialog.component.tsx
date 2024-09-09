@@ -32,6 +32,8 @@ import {
 
 import { fetchInvoiceAllowedReverseTypes as fetchInvoiceAllowedReverseTypesAPI } from '#src/libs/invoice/api';
 
+import { SEPA as PAYMENT_METHOD_SEPA } from '@bsport/common/lib/master-data/payment-methods';
+
 import type { Payment } from '#src/libs/payment/types';
 import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 
@@ -86,6 +88,9 @@ export const InvoiceReverterDialog = ({
   ] = React.useState<boolean>(false);
 
   const [isBlockedModalOpened, setIsBlockedModalOpened] =
+    React.useState<boolean>(false);
+
+  const [isSEPARefundModalOpened, setIsSEPARefundModalOpened] =
     React.useState<boolean>(false);
 
   const [allowedReverseMethods, setAllowedReverseMethods] =
@@ -159,6 +164,14 @@ export const InvoiceReverterDialog = ({
     [payments],
   );
 
+  const hasAtLeastOneSEPAPayment = React.useMemo(
+    () =>
+      payments.some(
+        (payment) => payment.payment_method === PAYMENT_METHOD_SEPA.id,
+      ),
+    [payments],
+  );
+
   const isReachingRefundLimit = isInChurn
     ? stripeBalanceSum - stripeAmountPaid < 0
     : stripeBalanceSum - stripeAmountPaid < -refundBlockingLimit;
@@ -186,6 +199,15 @@ export const InvoiceReverterDialog = ({
     setIsBlockedModalOpened(false);
   }, [onOpen]);
 
+  const handleCloseSEPARefundModal = React.useCallback(() => {
+    setIsSEPARefundModalOpened(false);
+  }, []);
+
+  const handleConfirmSEPARefund = React.useCallback(() => {
+    submitReverseInvoice();
+    setIsSEPARefundModalOpened(false);
+  }, [submitReverseInvoice]);
+
   const onClickConfirm = React.useCallback(() => {
     if (
       !allowedReverseMethodsLoading &&
@@ -200,9 +222,19 @@ export const InvoiceReverterDialog = ({
         // In this case the client is going to reach the refund limit if the invoice is refunded, so the refund is blocked.
         setIsBlockedModalOpened(true);
       }
-    } else {
-      submitReverseInvoice();
+      return;
     }
+    // Display a disclaimer about the time needed for a SEPA refund, to prevent double SEPA refund issue
+    if (
+      reverseMethod === REVERSE_ON_PAYMENT_METHOD &&
+      hasAtLeastOneSEPAPayment
+    ) {
+      onClose();
+      setIsSEPARefundModalOpened(true);
+      return;
+    }
+
+    submitReverseInvoice();
   }, [
     allowedReverseMethodsLoading,
     isAutoDebitActivated,
@@ -211,6 +243,7 @@ export const InvoiceReverterDialog = ({
     payments.length,
     reverseMethod,
     submitReverseInvoice,
+    hasAtLeastOneSEPAPayment,
   ]);
 
   const actionButtons = (
@@ -424,6 +457,31 @@ export const InvoiceReverterDialog = ({
           </Button>
         </DialogActions>
       </GenericResponsiveDialog>
+      <GenericResponsiveDialog
+        maxWidth="sm"
+        onClose={handleCloseSEPARefundModal}
+        open={isSEPARefundModalOpened}
+      >
+        <DialogTitle id="form-dialog-title">
+          {t('revert.SEPARefundDialog.title')}
+        </DialogTitle>
+        <DialogContent className={classes.helperText}>
+          <Alert className={classes.alert} severity="warning">
+            {t('revert.SEPARefundDialog.alert')}
+          </Alert>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            className={classes.textSecondary}
+            onClick={handleCloseSEPARefundModal}
+          >
+            {t('revert.SEPARefundDialog.actions.cancel')}
+          </Button>
+          <Button color="primary" onClick={handleConfirmSEPARefund}>
+            {t('revert.SEPARefundDialog.actions.confirm')}
+          </Button>
+        </DialogActions>
+      </GenericResponsiveDialog>
     </>
   );
 };
@@ -459,6 +517,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   alert: {
+    alignItems: 'center',
     marginBottom: theme.spacing(3),
   },
   helperText: {

@@ -375,6 +375,12 @@ const getTranslations = async () => {
         debtAndNewPaymentMethodNotAllowed:
           'At least one payment is pending. Only a direct refund is available.',
       },
+      SEPARefundDialog: {
+        title: 'SEPA refund processing',
+        alert:
+          'A refund on a SEPA payment may take up to 5 business days to process. Please make sure your customer is informed that their refund is in progress. Be aware that even after a SEPA payment has been refunded, the customer can still dispute the transaction.',
+        actions: { confirm: 'Issue refund', cancel: 'Cancel action' },
+      },
       blockedDialog: {
         helper:
           'Your Stripe balance is insufficient to process the refund. Please try again after a few days so that payments can be collected.',

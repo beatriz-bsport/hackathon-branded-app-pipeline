@@ -599,6 +599,7 @@ exports.default = {
       myStatistics: 'My statistics',
       myDashboard: 'My dashboard',
       myPurchases: 'My purchases',
+      myVideosAndEbooks: 'My videos & eBooks',
       changeStudio: 'Change studio',
       changeLanguage: 'Change language',
       logOut: 'Log out',

@@ -198,7 +198,8 @@
 
 .bs-offer-dialog {
   position: relative;
-  max-height: 100vh;
+  height: 100vh;
+  max-height: 100%;
   min-width: 100vw;
 }
 

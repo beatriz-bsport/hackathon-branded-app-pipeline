@@ -22,7 +22,7 @@ type Props = {
 };
 
 const RoomBlueprintListItem = (props: Props) => {
-  const { t } = useTranslation(['spotScheduling']);
+  const { t } = useTranslation(['spotScheduling', 'common']);
   return (
     <ListItem
       // @ts-expect-error
@@ -32,7 +32,7 @@ const RoomBlueprintListItem = (props: Props) => {
     >
       <ListItemText
         primary={props.roomBlueprint.name}
-        secondary={t('placeCount', {
+        secondary={t('spotScheduling:placeCount', {
           count: SpotSchedulingHelper.getSpotCount(props.roomBlueprint),
         })}
       />
@@ -40,23 +40,23 @@ const RoomBlueprintListItem = (props: Props) => {
         actions={[
           props.onClickPreview && {
             icon: VisibilityIcon,
-            label: t('common.preview'),
+            label: t('common:preview'),
             onClick: () => props.onClickPreview(props.roomBlueprint),
           },
           props.onClickCancel && {
             icon: ClearIcon,
-            label: t('common.delete'),
+            label: t('common:delete'),
             onClick: () => props.onClickCancel(props.roomBlueprint),
           },
           props.onClickEdit && {
             icon: EditIcon,
-            label: t('common.edit'),
+            label: t('common:edit'),
             color: 'secondary',
             onClick: () => props.onClickEdit(props.roomBlueprint),
           },
           props.onClickDelete && {
             icon: DeleteIcon,
-            label: t('common.delete'),
+            label: t('common:delete'),
             onClick: () => props.onClickDelete(props.roomBlueprint),
           },
         ]}

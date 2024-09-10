@@ -61,6 +61,8 @@ exports.default = {
   saveChanges: 'Save changes',
   rename: 'Rename',
   delete: 'Delete',
+  preview: 'Preview',
+  edit: 'Edit',
   duration: {
     minute: '{{ count }} minute',
     minute_plural: '{{ count }} minutes',

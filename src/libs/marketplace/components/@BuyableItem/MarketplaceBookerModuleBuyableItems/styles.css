@@ -26,6 +26,7 @@
 .bs-new-offer-booking__buyable_items__header__title {
   font-size: var(--h5-fontSize);
   font-family: var(--h5-fontFamily);
+  color: var(--color-grey-dark);
 }
 
 .bs-new-offer-booking__consumer-payment-packs__subtitle {

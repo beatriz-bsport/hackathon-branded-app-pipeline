@@ -64,9 +64,25 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('booking');
 
-  const isDisplayBuyableItems =
-    (!hideUnnecessaryCompatiblePurchaseMethod && isShowBuyableItems) ||
-    (availableConsumerPacks ?? [])?.length === 0;
+  const isDisplayBuyableItems = React.useMemo(() => {
+    return (
+      (!hideUnnecessaryCompatiblePurchaseMethod && isShowBuyableItems) ||
+      (availableConsumerPacks ?? [])?.length === 0
+    );
+  }, [
+    hideUnnecessaryCompatiblePurchaseMethod,
+    isShowBuyableItems,
+    availableConsumerPacks,
+  ]);
+
+  const collapseClasses = React.useMemo(() => {
+    return {
+      content: '',
+      container: isDisplayBuyableItems
+        ? 'bs-marketplace-filter-buyable-item-category--displayed'
+        : 'bs-marketplace-filter-buyable-item-category--hidden ',
+    };
+  }, [isDisplayBuyableItems]);
 
   if (isLoading) {
     return <MarketplaceBookerModuleBuyableItemsSkeleton />;
@@ -113,7 +129,11 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
             )}
           </>
         )}
-        <Collapse collapsedHeight={0} isExpanded={isDisplayBuyableItems}>
+        <Collapse
+          classes={collapseClasses}
+          collapsedHeight={0}
+          isExpanded={isDisplayBuyableItems}
+        >
           <MarketplaceFilterBuyableItemCategory
             buyableItemCategories={buyableItemCategories}
             onClickCategory={onClickCategory}

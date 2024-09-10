@@ -2111,7 +2111,11 @@
                     "empty": "Una volta salvato un pagamento, questo apparirà qui.",
                     "directPayments": "Pagamenti diretti",
                     "cards": "Carte",
-                    "title": "Metodi di pagamento salvati"
+                    "title": "Metodi di pagamento salvati",
+                    "tooltipText": {
+                        "more": "Aggiungi un nuovo metodo di pagamento ed elimina questo se vuoi cambiare il circuito della carta.",
+                        "other": "Altro"
+                    }
                 },
                 "membershipId": "Numero di adesione",
                 "accountBalance": "Saldo del conto",
@@ -2197,7 +2201,8 @@
                 "myAccount": "Il Mio Account",
                 "cart": "Carrello",
                 "companyLogo": "Logo dell'azienda"
-            }
+            },
+            "menu": "Menù"
         }
     },
     "search": {
@@ -6388,7 +6393,8 @@
             "notFound": "Questa gift card non è stata trovata, è possibile che sia stata archiviata."
         },
         "modifyBasket": {
-            "15004": "Il carrello è in fase di elaborazione, riprova tra qualche minuto"
+            "15004": "Il carrello è in fase di elaborazione, riprova tra qualche minuto",
+            "addItemSuccess": "Prodotto aggiunto al carrello"
         },
         "quicksaleConfiguration": {
             "updated": "Configurazione salvata",
@@ -6660,7 +6666,8 @@
                 "newsletterV2": "Acquisizione contatti",
                 "referral": "Referral",
                 "consumerBooking": "Le mie prenotazioni",
-                "consumerPass": "I miei pacchetti"
+                "consumerPass": "I miei pacchetti",
+                "consumerSpace": "Profilo del membro"
             },
             "preview": "Anteprima",
             "saveButton": "Salva",
@@ -7385,7 +7392,8 @@
             "isInternalExplainFuturePayments": "La data di scadenza sarà dedotta automaticamente dall'acconto del cliente. Se questo non è sufficiente, verrà creato un acconto negativo.",
             "addPaymentMethod": "Aggiungere un metodo di pagamento",
             "copyLink": "Copia il link per aggiungere un metodo di pagamento",
-            "manual": "Manuale"
+            "manual": "Manuale",
+            "other": "Altro"
         },
         "paymentEngine": {
             "label": {
@@ -9207,7 +9215,7 @@
                 "cancel": "Cancella",
                 "edit": "Modifica",
                 "columnError": "Attenzione, la colonna filtrata qui è stata rimossa dal report. Tuttavia, il filtro su questa colonna è ancora applicato.",
-                "shortColumnError": "La colonna corrispondente non viene mostrata",
+                "shortColumnError": "Questo filtro non può essere applicato perché la colonna corrispondente non è visualizzata",
                 "decimalCredit": {
                     "filterViewHelperText": "Per i filtri relativi ai crediti, è necessario inserire un valore intero, ricordando che il valore dei crediti visualizzato nei report non è diviso per {{creditFactor}}",
                     "helperText": "È necessario inserire un valore intero, ricordando che il valore dei crediti visualizzato nei report non è diviso per {{creditFactor}}"
@@ -9397,7 +9405,9 @@
             "emptyAdvancedFilters": "Nessun filtro avanzato applicato a questa visualizzazione.",
             "advancedFiltersApplied": "{{ count }} filtro avanzato applicato",
             "advancedFiltersApplied_plural": "{{ count }} filtri avanzati applicati",
-            "cannotDeleteDefaultView": "La visualizzazione predefinita non può essere eliminata."
+            "cannotDeleteDefaultView": "La visualizzazione predefinita non può essere eliminata.",
+            "invalidAdvancedFilter": "{{ count }} filtro avanzato non è valido. Modificare la vista per correggere l'errore.",
+            "invalidAdvancedFilter_plural": "{{ count }} filtri avanzati non sono validi. Modificare la vista per correggere l'errore."
         },
         "reportEditLabel": "Modifica visualizzazione",
         "reportNameLabel": "Visualizza nome",
@@ -9436,6 +9446,16 @@
             "addView": "Crea diverse versioni del report con nuovi filtri, date e colonne di dati",
             "editView": "Filtri avanzati",
             "deleteView": "Elimina visualizzazione"
+        },
+        "invalidFilter": {
+            "user": "Non è possibile applicare questo filtro perché uno dei membri selezionati non esiste più. Reimpostare il filtro per risolvere l'errore"
+        },
+        "groupedColumns": {
+            "dst_member": "Destinatario",
+            "src_member": "Acquirente",
+            "referred_member": "Membro raccomandato",
+            "referring_member": "Membro referente",
+            "member": "Membro"
         }
     },
     "alerting": {
@@ -11146,6 +11166,19 @@
                     "dialogSubtitle": "Seleziona la sessione che vuoi prenotare",
                     "dialogTitle": "Aggiungere una sessione"
                 }
+            },
+            "groupedSession": {
+                "warningModal": {
+                    "partialBooking": {
+                        "text": "Questa attività fa parte di un gruppo di sessioni. Non è obbligatorio partecipare a tutte le sessioni del gruppo e si può scegliere a quali sessioni partecipare"
+                    },
+                    "fullBookingOnly": {
+                        "text": "Sarai iscritto a tutte le {{sessionsTotal}} sessioni di questo gruppo"
+                    },
+                    "title": "Prenota un gruppo di sessioni"
+                },
+                "showLessButtonText": "Mostra meno",
+                "showMoreButtonText": "Mostra tutte le sessioni ({{totalSessions}})"
             }
         },
         "details": {
@@ -11616,7 +11649,8 @@
                 },
                 "message": "Se si rimuove il pacchetto dal carrello, verranno rimosse anche le relative prenotazioni.",
                 "title": "Rimuovi"
-            }
+            },
+            "multipleSpotSelectionSpotSelectorTitle": "Scegli il posto ({{currentSpot}}/{{totalSpot}})"
         },
         "refundDialog": {
             "contentUnlimitedPaymentPack": "Questa prenotazione è stata effettuata con un pacchetto illimitato ed è stata cancellata in ritardo. Le cancellazioni tardive eccessive possono comportare delle penali. Fare clic su “Ripristina” per rimuovere la cancellazione tardiva dai record del pacchetto. Si noti che se è già stata applicata una penale, questa non può essere rimossa.",
@@ -13185,7 +13219,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il vostro marketplace non visualizzeranno più il calendario della sede.",
                     "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate.",
                     "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceverà quindi le richieste di sostituzione da tutte le sedi.",
-                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceveranno quindi le richieste di sostituzione da tutte le sedi.",
+                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminandola, riceveranno quindi le richieste di sostituzione da tutte le sedi.",
                     "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, non riceveranno più la relativa notifica.",
                     "hasRelatedStaffConfigurations": "Questa sede è utilizzata per il monitoraggio degli accessi da parte di uno o più utenti staff. Eliminando la sede senza selezionarne una nuova, questi non potranno più effettuare il monitoraggio degli accessi."
                 },
@@ -13206,17 +13240,17 @@
                 "hasRelatedZoomEstablishment": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti utilizzati per lo streaming in diretta con l'integrazione di Zoom.",
                 "hasRelatedAvailabilitySlots": "Le fasce orarie disponibili dell'orario di questo stabilimento saranno cancellate.",
                 "relatedPaymentPacks": "Il seguente pass {{- pass_name }} non sarà più utilizzabile per questo stabilimento, assicuratevi di informare i vostri clienti.",
-                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
+                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicurati di informare i clienti.",
                 "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
                 "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
-                "exclusiveAssociatedCoaches_plural": "I vostri insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
+                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminandolo, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
                 "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
                 "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
-                "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questa struttura solo per alcune fasce orarie. Eliminando la struttura, queste fasce orarie saranno eliminate.",
+                "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento, queste fasce orarie saranno eliminate.",
                 "hasRelatedStaffConfigurations": "Questo stabilimento sarà rimosso dagli stabilimenti utilizzati dgli utenti staff per il monitoraggio degli accessi.",
                 "hasExclusiveStaffConfigurations": "Alcuni utenti Staff sono configurati per monitorare l'accesso dei membri per questo stabilimento. Eliminando lo stabilimento senza selezionarne uno nuovo, non potranno più effettuare il monitoraggio degli accessi.",
                 "exclusivePrivateServices": "L'appuntamento {{- private_service_name }} è configurato per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, l'appuntamento potrà svolgersi ovunque.",
-                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per essere svolti solo in questo stabilimento. Eliminando questo stabilimento, gli appuntamenti potranno svolgersi ovunque.",
+                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per essere svolti solo in questo stabilimento. Eliminandolo, gli appuntamenti potranno svolgersi ovunque.",
                 "hasBillingGroup": "Questo stabilimento sarà anche rimosso dal gruppo di fatturazione {{- establishment_billing_group_name }}."
             },
             "infos": {
@@ -13229,9 +13263,9 @@
                 "isIntegratedInPartnership": "Una o più integrazioni utilizzano questo stabilimento.",
                 "hasExclusiveMarketplaceComponentConfigs": "Una o più schede del marketplace sono impostate per visualizzare solo il calendario e gli workshop di questo stabilimento; si prega di aggiornarle prima di eliminare lo stabilimento.",
                 "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
-                "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; aggiornare o eliminare queste sedi.",
+                "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo la sede che si desidera eliminare; aggiorna o elimina queste sedi.",
                 "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
-                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questa struttura. Aggiornare le restrizioni prima di cancellare la struttura.",
+                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiorna le restrizioni prima di cancellare lo stabilimento.",
                 "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
                 "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
                 "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."
@@ -14624,7 +14658,8 @@
         "send": "Invia",
         "reset": "Ripristina",
         "add": "Aggiungi",
-        "more": "Più"
+        "more": "Più",
+        "continue": "Continua"
     },
     "titles": {
         "metaActivity": {
@@ -18243,6 +18278,17 @@
             "disconnectedStatusConfigTitle": "Configurazione dello stato di disconnessione",
             "loginButton": {
                 "openMemberProfile": "Aprire il profilo del membro quando l'utente effettua il login"
+            },
+            "consumerSpace": {
+                "page": {
+                    "consumerSubscription": "I miei abbonamenti ricorrenti",
+                    "consumerProfile": "Il mio profilo",
+                    "consumerInvoice": "Le mie ricevute",
+                    "consumerPass": "I miei pacchetti",
+                    "consumerBooking": "Le mie prenotazioni"
+                },
+                "defaultPage": "Pagina predefinita",
+                "hideNavigation": "Nascondi gli elementi di navigazione"
             }
         },
         "create": "Generale",

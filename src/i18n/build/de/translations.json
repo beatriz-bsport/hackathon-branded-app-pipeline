@@ -6684,7 +6684,7 @@
                 "isFalse": "Falsch",
                 "submit": "Speichern",
                 "edit": "Bearbeiten",
-                "shortColumnError": "Die entsprechende Spalte wird nicht angezeigt",
+                "shortColumnError": "Dieser Filter kann nicht angewendet werden, da die entsprechende Spalte nicht angezeigt wird",
                 "decimalCredit": {
                     "helperText": "Du musst hier einen numerischen Wert eingeben. Bitte denk daran, dass die in den Berichten angezeigten Credits nicht durch {{creditFactor}} geteilt werden",
                     "filterViewHelperText": "Für kreditbezogene Filter müssen Sie einen numerischen Wert eingeben. Bitte denk daran, dass der in den Berichten angezeigte Kreditwert nicht durch {{creditFactor}} geteilt wird"
@@ -6975,7 +6975,9 @@
             "emptyAdvancedFilters": "Auf diese Ansicht werden keine erweiterten Filter angewendet.",
             "advancedFiltersApplied": "{{ count }} erweiterter Filter angewendet",
             "advancedFiltersApplied_plural": "{{ count }} erweiterte Filter angewendet",
-            "cannotDeleteDefaultView": "Die Standardansicht kann nicht gelöscht werden."
+            "cannotDeleteDefaultView": "Die Standardansicht kann nicht gelöscht werden.",
+            "invalidAdvancedFilter": "{{ count }} Der erweiterte Filter ist ungültig. Bearbeiten Sie die Ansicht, um den Fehler zu beheben.",
+            "invalidAdvancedFilter_plural": "{{ count }} erweiterte Filter sind ungültig. Bearbeiten Sie die Ansicht, um den Fehler zu beheben."
         },
         "reportEditLabel": "Ansicht bearbeiten",
         "reportNameLabel": "Name anzeigen",
@@ -7014,6 +7016,16 @@
             "addView": "Erstellen verschiedene Versionen des Berichts mit neuen Filtern, Daten und Datenspalten",
             "editView": "Erweiterte Filter",
             "deleteView": "Ansicht löschen"
+        },
+        "invalidFilter": {
+            "user": "Dieser Filter kann nicht angewendet werden, da eines der ausgewählten Mitglieder nicht mehr existiert. Filter zurücksetzen, um den Fehler zu beheben"
+        },
+        "groupedColumns": {
+            "dst_member": "Empfänger",
+            "src_member": "Käufer",
+            "referred_member": "Geworbenes Mitglied",
+            "referring_member": "Empfehlendes Mitglied",
+            "member": "Mitglied"
         }
     },
     "snackbar": {
@@ -8089,7 +8101,8 @@
             "notFound": "Dieser Gutscheine wurde nicht gefunden. Er wurde möglicherweise archiviert."
         },
         "modifyBasket": {
-            "15004": "Der Warenkorb wird gerade bearbeitet, bitte versuchen Sie es in ein paar Minuten erneut"
+            "15004": "Der Warenkorb wird gerade bearbeitet, bitte versuchen Sie es in ein paar Minuten erneut",
+            "addItemSuccess": "Produkt zum Warenkorb hinzugefügt"
         },
         "quicksaleConfiguration": {
             "updated": "Gespeicherte Konfiguration",
@@ -8565,7 +8578,8 @@
             "isInternalExplainFuturePayments": "Das Fälligkeitsdatum wird automatisch von der Kundenanzahlung abgezogen. Wenn diese nicht ausreichend ist, wird eine negative Anzahlung erstellt.",
             "addPaymentMethod": "Eine Zahlungsmethode hinzufügen",
             "copyLink": "Link zum Hinzufügen einer Zahlungsmethode kopieren",
-            "manual": "Manuell"
+            "manual": "Manuell",
+            "other": "Andere"
         },
         "table": {
             "nested": {
@@ -9870,6 +9884,19 @@
                     "dialogSubtitle": "Wählen Sie den Kurs, den Sie buchen möchten",
                     "dialogTitle": "Einen Kurs hinzufügen"
                 }
+            },
+            "groupedSession": {
+                "warningModal": {
+                    "partialBooking": {
+                        "text": "Diese Aktivität ist Teil einer Gruppe von Kursen. Sie sind nicht verpflichtet, an allen Kursen der Gruppe teilzunehmen, und Sie können wählen, an welchen Kursen Sie teilnehmen möchten"
+                    },
+                    "fullBookingOnly": {
+                        "text": "Sie werden für alle {{sessionsTotal}} Kurse dieser Gruppe eingeschrieben"
+                    },
+                    "title": "Buchung einer Gruppe von Kursen"
+                },
+                "showLessButtonText": "Weniger anzeigen",
+                "showMoreButtonText": "Alle Kurse anzeigen {{totalSessions}}"
             }
         },
         "statusCode": {
@@ -10334,7 +10361,8 @@
                 },
                 "message": "Wenn Sie den Pass aus dem Korb entfernen, werden auch die zugehörigen Buchungen entfernt.",
                 "title": "Entfernen"
-            }
+            },
+            "multipleSpotSelectionSpotSelectorTitle": "Spot auswählen ({{currentSpot}}/{{totalSpot}})"
         },
         "refundDialog": {
             "contentUnlimitedPaymentPack": "Diese Buchung wurde mit einem unbeschränkten Pass vorgenommen und zu spät storniert. Bei zu vielen verspäteten Stornierungen können Strafen fällig werden. Klicke auf „Zurücksetzen“, um die verspätete Stornierung aus den Passeinträgen zu entfernen. Beachte dass bereits verhängte Strafen nicht mehr entfernt werden können.",
@@ -10881,7 +10909,8 @@
         "send": "Versenden",
         "reset": "Zurücksetzen",
         "more": "Mehr",
-        "add": "Hinzufügen"
+        "add": "Hinzufügen",
+        "continue": "Fortfahren"
     },
     "coupon": {
         "detail": {
@@ -13334,7 +13363,11 @@
                     "empty": "Sobald Sie eine Zahlung gespeichert haben, wird sie hier angezeigt.",
                     "directPayments": "Direkte Zahlungen",
                     "cards": "Karten",
-                    "title": "Gespeicherte Zahlungsarten"
+                    "title": "Gespeicherte Zahlungsarten",
+                    "tooltipText": {
+                        "more": "Fügen Sie eine neue Zahlungsmethode hinzu und löschen Sie diese, wenn Sie das Kartensystem ändern möchten.",
+                        "other": "Andere"
+                    }
                 },
                 "membershipId": "Mitgliedsnummer",
                 "accountBalance": "Kontostand",
@@ -13420,7 +13453,8 @@
                 "myAccount": "Mein Konto",
                 "cart": "Warenkorb",
                 "companyLogo": "Firmenlogo"
-            }
+            },
+            "menu": "Menü"
         }
     },
     "metaActivity": {
@@ -16682,7 +16716,8 @@
                 "newsletterV2": "Lead-Akquise",
                 "referral": "Empfehlung",
                 "consumerBooking": "Meine Buchungen",
-                "consumerPass": "Meine Karten"
+                "consumerPass": "Meine Karten",
+                "consumerSpace": "Mitgliederprofil"
             },
             "preview": "Vorschau",
             "saveButton": "Speichern",
@@ -17186,7 +17221,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Ihre Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gestellt wird. Wenn Sie die Einrichtung löschen, erhalten sie daher Vertretungsanfragen von jeder Einrichtung.",
+                "exclusiveAssociatedCoaches_plural": "Ihre Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gestellt wird. Durch die Löschung der Einrichtung erhalten sie daher von jeder Einrichtung Vertretungsanfragen.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
@@ -18233,6 +18268,17 @@
             "disconnectedStatusConfigTitle": "Konfiguration des Offline-Zustands",
             "loginButton": {
                 "openMemberProfile": "Benutzerprofil öffnen, wenn sich der Benutzer anmeldet"
+            },
+            "consumerSpace": {
+                "page": {
+                    "consumerSubscription": "Meine Abonnements",
+                    "consumerProfile": "Mein Profil",
+                    "consumerInvoice": "Meine Rechnungen",
+                    "consumerPass": "Meine Kurspässe",
+                    "consumerBooking": "Meine Buchungen"
+                },
+                "defaultPage": "Standard Seite",
+                "hideNavigation": "Navigationselemente ausblenden"
             }
         },
         "create": "Allgemein",

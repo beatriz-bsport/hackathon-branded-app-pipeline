@@ -2529,7 +2529,8 @@
                 "newsletterV2": "Adquisición de clientes potenciales",
                 "referral": "Referencia",
                 "consumerBooking": "Mis reservas",
-                "consumerPass": "Mis bonos"
+                "consumerPass": "Mis bonos",
+                "consumerSpace": "Perfil de miembro"
             },
             "preview": "Vista previa",
             "saveButton": "Guardar",
@@ -3895,7 +3896,8 @@
             "isInternalExplainFuturePayments": "La fecha de vencimiento se deducirá automáticamente del anticipo del cliente. Si no es suficiente, se creará un anticipo negativo.",
             "addPaymentMethod": "Añadir un método de pago",
             "copyLink": "Copie el enlace para añadir un método de pago",
-            "manual": "Manual"
+            "manual": "Manual",
+            "other": "Otros"
         },
         "paymentEngine": {
             "label": {
@@ -5696,7 +5698,7 @@
                 "information": "Informaciones generales",
                 "name": "Nombre",
                 "title": "Vista filtrada",
-                "shortColumnError": "La columna correspondiente no se visualiza",
+                "shortColumnError": "No se muestra la columna correspondiente",
                 "decimalCredit": {
                     "filterViewHelperText": "Para los filtros relacionados con los créditos, debes introducir un valor entero. Recuerda que el valor de los créditos que se muestra en los informes no se divide por {{creditFactor}}",
                     "helperText": "Debe introducir aquí un valor entero, por favor, recuerde que el valor de los créditos que aparecen en los informes no se dividen por {{creditFactor}}"
@@ -5887,7 +5889,9 @@
             "emptyAdvancedFilters": "No se han aplicado filtros avanzados a esta vista.",
             "advancedFiltersApplied": "{{ count }} filtro avanzado aplicado",
             "advancedFiltersApplied_plural": "{{ count }} filtros avanzados aplicados",
-            "cannotDeleteDefaultView": "La vista por defecto no se puede borrar."
+            "cannotDeleteDefaultView": "La vista por defecto no se puede borrar.",
+            "invalidAdvancedFilter": "{{ count }} filtro avanzado no es válido. Edite la vista para corregir el error.",
+            "invalidAdvancedFilter_plural": "{{ count }} filtros avanzados no son válidos. Edite la vista para corregir el error."
         },
         "reportEditLabel": "Editar vista",
         "reportNameLabel": "Ver nombre",
@@ -5993,6 +5997,16 @@
             "updateError": "Se ha producido un error al actualizar la vista",
             "deleteSuccess": "Su vista ha sido eliminada",
             "deleteError": "Se ha producido un error al eliminar la vista"
+        },
+        "invalidFilter": {
+            "user": "No se puede aplicar este filtro porque uno de los miembros seleccionados ya no existe. Restablecer filtro para corregir el error"
+        },
+        "groupedColumns": {
+            "dst_member": "Destinatario",
+            "src_member": "Comprador",
+            "referred_member": "Miembro referido",
+            "referring_member": "Miembro referente",
+            "member": "Miembro"
         }
     },
     "alerting": {
@@ -7009,6 +7023,19 @@
                     "dialogSubtitle": "Seleccione la sesión que desea reservar",
                     "dialogTitle": "Añadir una sesión"
                 }
+            },
+            "groupedSession": {
+                "warningModal": {
+                    "partialBooking": {
+                        "text": "Esta actividad forma parte de un grupo de sesiones. No está obligado a asistir a todas las sesiones del grupo, y puede elegir a qué sesiones desea unirse."
+                    },
+                    "fullBookingOnly": {
+                        "text": "Estará inscrito en todas las sesiones {{sessionsTotal}} de este grupo"
+                    },
+                    "title": "Reservar un grupo de sesiones"
+                },
+                "showLessButtonText": "Mostrar menos",
+                "showMoreButtonText": "Mostrar todas las sesiones ({{totalSessions}})"
             }
         },
         "filters": {
@@ -7451,7 +7478,8 @@
                     "confirm": "Eliminar",
                     "cancel": "Cancelar"
                 }
-            }
+            },
+            "multipleSpotSelectionSpotSelectorTitle": "Seleccionar sitio ({{currentSpot}}/{{totalSpot}})"
         },
         "refundDialog": {
             "contentUnlimitedPaymentPack": "Esta reserva se realizó con un pase ilimitado y se canceló fuera de plazo. Las cancelaciones tardías excesivas pueden conllevar penalizaciones. Haga clic en «Reiniciar» para eliminar la cancelación tardía de los registros de pases. Tenga en cuenta que si ya se ha aplicado una penalización, no se puede eliminar.",
@@ -8787,7 +8815,11 @@
                     "empty": "Una vez que guarde un pago, aparecerá aquí.",
                     "directPayments": "Pagos directos",
                     "cards": "Tarjetas",
-                    "title": "Métodos de pago guardados"
+                    "title": "Métodos de pago guardados",
+                    "tooltipText": {
+                        "more": "Añada un nuevo método de pago y elimine éste si desea cambiar de red de tarjetas.",
+                        "other": "Otros"
+                    }
                 },
                 "membershipId": "Número de miembro",
                 "accountBalance": "Saldo de la cuenta",
@@ -8873,7 +8905,8 @@
                 "myAccount": "Mi cuenta",
                 "cart": "Cesta",
                 "companyLogo": "Logo de la empresa"
-            }
+            },
+            "menu": "Menú"
         }
     },
     "coupon": {
@@ -13788,7 +13821,8 @@
         "send": "Enviar",
         "reset": "Reiniciar",
         "more": "Más",
-        "add": "Añadir"
+        "add": "Añadir",
+        "continue": "Continuar"
     },
     "snackbar": {
         "invoice": {
@@ -14869,7 +14903,8 @@
             "notFound": "No se ha encontrado esta tarjeta regalo. Es posible que se haya archivado."
         },
         "modifyBasket": {
-            "15004": "La cesta se está procesando. Por favor, inténtelo de nuevo en unos minutos."
+            "15004": "La cesta se está procesando. Por favor, inténtelo de nuevo en unos minutos.",
+            "addItemSuccess": "Producto añadido a la cesta"
         },
         "spivi": {
             "error": {
@@ -18298,6 +18333,17 @@
             "disconnectedStatusConfigTitle": "Configuración del estado de desconexión",
             "loginButton": {
                 "openMemberProfile": "Abrir el perfil del miembro cuando el usuario se conecta"
+            },
+            "consumerSpace": {
+                "page": {
+                    "consumerSubscription": "Mis Suscripciones",
+                    "consumerProfile": "Mi Perfil",
+                    "consumerInvoice": "Mis Facturas",
+                    "consumerPass": "Mis Pases",
+                    "consumerBooking": "Mis Reservas"
+                },
+                "defaultPage": "Página predeterminada",
+                "hideNavigation": "Ocultar elementos de navegación"
             }
         },
         "customize": "Personalización",

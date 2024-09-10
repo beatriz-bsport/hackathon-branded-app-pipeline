@@ -254,6 +254,19 @@
                     "dialogSubtitle": "Sélectionnez la séance que vous voulez réserver",
                     "dialogTitle": "Ajouter une séance"
                 }
+            },
+            "groupedSession": {
+                "warningModal": {
+                    "partialBooking": {
+                        "text": "Cette activité fait partie d'un groupe de séances. Vous n'êtes pas tenu(e) d'assister à toutes les séances du groupe et vous pouvez choisir les séances auxquelles vous souhaitez participer"
+                    },
+                    "fullBookingOnly": {
+                        "text": "Vous serez inscrit(e) à toutes les {{sessionsTotal}} séances de ce groupe"
+                    },
+                    "title": "Réservation d'un groupe de séances"
+                },
+                "showLessButtonText": "Voir moins",
+                "showMoreButtonText": "Afficher toutes les séances ({{totalSessions}})"
             }
         },
         "details": {
@@ -611,7 +624,8 @@
                 },
                 "message": "Si vous retirez la carte du panier, les réservations correspondantes seront également supprimées.",
                 "title": "Supprimer"
-            }
+            },
+            "multipleSpotSelectionSpotSelectorTitle": "Sélectionner l'emplacement ({{currentSpot}}/{{totalSpot}})"
         },
         "place": "Place",
         "noShowChip": {
@@ -1203,7 +1217,8 @@
         "send": "Envoyer",
         "reset": "Réinitialiser",
         "more": "Plus",
-        "add": "Ajouter"
+        "add": "Ajouter",
+        "continue": "Continuer"
     },
     "communication": {
         "table": {
@@ -2221,7 +2236,11 @@
                     "empty": "Une fois que vous aurez enregistré un paiement, il apparaîtra ici.",
                     "directPayments": "Paiements directs",
                     "cards": "Cartes",
-                    "title": "Modes de paiement enregistrés"
+                    "title": "Modes de paiement enregistrés",
+                    "tooltipText": {
+                        "more": "Ajoutez un nouveau mode de paiement et supprimez celui-ci si vous souhaitez changer de réseau de cartes.",
+                        "other": "Autre"
+                    }
                 },
                 "membershipId": "Numéro d'adhérent",
                 "accountBalance": "Solde du compte",
@@ -2307,7 +2326,8 @@
                 "myAccount": "Mon compte",
                 "cart": "Panier",
                 "companyLogo": "Logo de la compagnie"
-            }
+            },
+            "menu": "Menu"
         }
     },
     "coupon": {
@@ -3914,7 +3934,8 @@
             "copyLink": "Copier le lien d'ajout d'un moyen de paiement",
             "addPaymentMethod": "Ajouter un moyen de paiement",
             "isInternalExplainFuturePayments": "L'échéance sera prélevée automatiquement sur l'acompte client. Si celui-ci n'est pas suffisant, un acompte négatif sera créé.",
-            "manual": "Manuel"
+            "manual": "Manuel",
+            "other": "Autre"
         },
         "plannedPaymentEvent": {
             "actions": {
@@ -11697,7 +11718,9 @@
             "emptyAdvancedFilters": "Aucun filtre avancé n'est appliqué à cette vue.",
             "cannotDeleteDefaultView": "La vue par défaut ne peut pas être supprimée.",
             "advancedFiltersApplied": "{{ count }} filtre avancé appliqué",
-            "advancedFiltersApplied_plural": "{{ count }} filtres avancés appliqués"
+            "advancedFiltersApplied_plural": "{{ count }} filtres avancés appliqués",
+            "invalidAdvancedFilter": "{{ count }} filtre avancé n'est pas valide. Modifiez la vue pour corriger l'erreur.",
+            "invalidAdvancedFilter_plural": "{{ count }} filtres avancés ne sont pas valides. Modifiez la vue pour corriger l'erreur."
         },
         "reportEditLabel": "Modifier la vue",
         "reportNameLabel": "Nom de la vue",
@@ -11730,6 +11753,16 @@
             "addView": "Créez différentes versions du rapport avec de nouveaux filtres, dates et colonnes de données",
             "editView": "Filtres avancés",
             "deleteView": "Supprimer la vue"
+        },
+        "invalidFilter": {
+            "user": "Impossible d'appliquer ce filtre car l'un des membres sélectionnés n'existe plus. Réinitialiser le filtre pour corriger l'erreur"
+        },
+        "groupedColumns": {
+            "dst_member": "Destinataire",
+            "src_member": "Acheteur",
+            "referred_member": "Membre parrainé",
+            "referring_member": "Membre parrain",
+            "member": "Membre"
         }
     },
     "role": {
@@ -13646,7 +13679,8 @@
                 "newsletterV2": "Acquisition de prospects",
                 "referral": "Parrainage",
                 "consumerBooking": "Mes réservations",
-                "consumerPass": "Mes cartes de cours"
+                "consumerPass": "Mes cartes de cours",
+                "consumerSpace": "Profile du membre"
             },
             "createDialog": {
                 "showAdvanced": "Voir plus d'options",
@@ -15902,7 +15936,8 @@
             "15009": "Impossible de supprimer cet article : votre panier est en cours de traitement"
         },
         "modifyBasket": {
-            "15004": "Le panier est en cours de traitement, veuillez recommencer d'ici quelques minutes"
+            "15004": "Le panier est en cours de traitement, veuillez recommencer d'ici quelques minutes",
+            "addItemSuccess": "Produit ajouté au panier"
         },
         "giftCard": {
             "notFound": "Cette carte cadeau n'a pas été trouvée, il est possible qu'elle ait été archivée."
@@ -19987,6 +20022,17 @@
             "disconnectedStatusConfigTitle": "Configuration de l'état déconnecté",
             "loginButton": {
                 "openMemberProfile": "Ouvrir le profil du membre lorsque l'utilisateur se connecte"
+            },
+            "consumerSpace": {
+                "page": {
+                    "consumerSubscription": "Mes Abonnements",
+                    "consumerProfile": "Mon Profil",
+                    "consumerInvoice": "Mes Factures",
+                    "consumerPass": "Mes Cartes",
+                    "consumerBooking": "Mes Réservations"
+                },
+                "defaultPage": "Page par défaut",
+                "hideNavigation": "Masquer les éléments de navigation"
             }
         },
         "create": "Général",

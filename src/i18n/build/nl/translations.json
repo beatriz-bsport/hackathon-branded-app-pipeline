@@ -182,7 +182,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }} dag(en) over",
+                        "expiresIn_plural": "{{ daysRemaining }} dagen over",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -595,7 +595,8 @@
                     "cards": "Kaarten",
                     "title": "Opgeslagen betalingsmethoden",
                     "tooltipText": {
-                        "more": "Voeg een nieuwe betaalmethode toe en verwijder deze optie als je van netwerk wilt veranderen."
+                        "more": "Voeg een nieuwe betaalmethode toe en verwijder deze optie als je van netwerk wilt veranderen.",
+                        "other": "Anders"
                     }
                 },
                 "membershipId": "Lidmaatschapsnummer",
@@ -4098,7 +4099,9 @@
             "currentView": "Huidige weergave:",
             "addView": "Weergave toevoegen",
             "emptyAdvancedFilters": "Er zijn geen geavanceerde filters toegepast op deze weergave.",
-            "cannotDeleteDefaultView": "Standaardweergave kan niet worden verwijderd."
+            "cannotDeleteDefaultView": "Standaardweergave kan niet worden verwijderd.",
+            "invalidAdvancedFilter": "{{ count }} geavanceerde filter is ongeldig. Bewerk weergave om de fout te herstellen.",
+            "invalidAdvancedFilter_plural": "{{ count }} geavanceerde filters zijn ongeldig. Bewerk weergave om de fout te herstellen."
         },
         "reportDetailDrawer": {
             "displayedColumnsSubtitle": "Kies welke kolommen je wilt weergeven in deze weergave voor je rapporttabel.",
@@ -4148,6 +4151,16 @@
             "addView": "Verschillende versies van het rapport maken met nieuwe filters, data en gegevenskolommen",
             "editView": "Geavanceerde filters",
             "deleteView": "Weergave verwijderen"
+        },
+        "invalidFilter": {
+            "user": "Kan dit filter niet toepassen omdat een van de geselecteerde leden niet meer bestaat. Filter resetten om de fout te herstellen"
+        },
+        "groupedColumns": {
+            "dst_member": "Ontvanger",
+            "src_member": "Koper",
+            "referred_member": "Doorverwezen lid",
+            "referring_member": "Verwijzend lid",
+            "member": "Lid"
         }
     },
     "alerting": {
@@ -7323,7 +7336,16 @@
             },
             "groupedSession": {
                 "showLessButtonText": "Toon minder",
-                "showMoreButtonText": "Toon alle sessies ({{totalSessions}})"
+                "showMoreButtonText": "Toon alle sessies ({{totalSessions}})",
+                "warningModal": {
+                    "partialBooking": {
+                        "text": "Deze activiteit maakt deel uit van een groep sessies. Je bent niet verplicht om elke sessie in de groep bij te wonen en je kunt kiezen aan welke sessies je wilt deelnemen"
+                    },
+                    "fullBookingOnly": {
+                        "text": "Je wordt ingeschreven voor alle {{sessionsTotal}} sessies in deze groep"
+                    },
+                    "title": "Een groep sessies boeken"
+                }
             }
         },
         "details": {
@@ -7804,7 +7826,8 @@
                 },
                 "message": "Als je de pas uit het mandje verwijdert, worden de bijbehorende boekingen ook verwijderd.",
                 "title": "Verwijder"
-            }
+            },
+            "multipleSpotSelectionSpotSelectorTitle": "Selecteer spot ({{currentSpot}}/{{totalSpot}})"
         },
         "refundDialog": {
             "contentUnlimitedPaymentPack": "Deze boeking is gemaakt met een onbeperkte pas en is te laat geannuleerd. Voor te late annuleringen kunnen boetes worden opgelegd. Klik op “Reset” om de late annulering uit de pasgegevens te verwijderen. Houd er rekening mee dat als er al een boete is opgelegd, deze niet kan worden verwijderd.",
@@ -18284,7 +18307,8 @@
                     "consumerPass": "Mijn kaarten",
                     "consumerBooking": "Mijn reserveringen"
                 },
-                "defaultPage": "Standaardpagina"
+                "defaultPage": "Standaardpagina",
+                "hideNavigation": "Verberg navigatie-elementen"
             }
         },
         "customize": "Personalisering",

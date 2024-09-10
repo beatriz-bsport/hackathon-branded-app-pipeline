@@ -37,7 +37,10 @@ import {
   generateNewGroup,
   generateNewFilterItem,
 } from '#src/libs/datatype-filtering/utils';
-import { getFilterableColumns } from '#src/libs/reporting/common/utils';
+import {
+  getFilterableColumns,
+  isReportColumnRemoved,
+} from '#src/libs/reporting/common/utils';
 
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import OperandSelect from '#src/libs/datatype-filtering/components/OperandSelect.component';
@@ -224,9 +227,12 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
   const displayFilterWarning = React.useMemo(
     () =>
       values.config.groups?.find((group) =>
-        group.filters_data.find(
-          (filterItem) =>
-            !values.columnIdentifiers.includes(filterItem.identifier),
+        group.filters_data.find((filterItem) =>
+          isReportColumnRemoved(
+            filterItem.datatype,
+            values.columnIdentifiers,
+            filterItem.identifier,
+          ),
         ),
       ),
     [values.config.groups, values.columnIdentifiers],

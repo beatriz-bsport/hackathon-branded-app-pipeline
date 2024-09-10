@@ -15,7 +15,6 @@ import {
   fetchAssociatedCoach as fetchAssociatedCoachAPI,
   deleteCoach as deleteCoachAPI,
   restoreCoach as restoreCoachAPI,
-  fetchAssociatedCoachPerformance as fetchAssociatedCoachPerformanceAPI,
   updateCoachPrivateSlotsPaymentRules as updateCoachPrivateSlotsPaymentRulesAPI,
   editAccessToCoachSpaceAPI,
   retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAPI,
@@ -337,40 +336,6 @@ export function createOrUpdateCoach(
 export function startUpdate(coach: { id: number }) {
   return async (dispatch: Dispatch) => {
     dispatch(push(`/coach/edit/${coach.id}`));
-  };
-}
-
-export const performance = {
-  isLoading: createAction('COACH/PERFORMANCE/IS_LOADING'),
-  error: createAction('COACH/PERFORMANCE/ERROR'),
-  success: createAction('COACH/PERFORMANCE/SUCCESS'),
-};
-
-export function fetchAssociatedCoachPerformance(
-  associatedCoachId: number,
-  start: number,
-  end: number,
-  options: any = {},
-) {
-  return async (dispatch: Dispatch) => {
-    dispatch(performance.isLoading({ loading: true, associatedCoachId }));
-    dispatch(performance.error({ error: null, associatedCoachId }));
-
-    try {
-      const response = await fetchAssociatedCoachPerformanceAPI(
-        associatedCoachId,
-        start,
-        end,
-      );
-      dispatch(
-        performance.success({ result: response.data, associatedCoachId }),
-      );
-      if (options.onSuccess) options.onSuccess();
-    } catch (error) {
-      dispatch(performance.error({ error, associatedCoachId }));
-      if (options.onError) options.onError();
-    }
-    dispatch(performance.isLoading({ associatedCoachId, loading: false }));
   };
 }
 

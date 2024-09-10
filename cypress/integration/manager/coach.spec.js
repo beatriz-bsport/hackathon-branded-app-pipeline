@@ -42,9 +42,6 @@ context('Manager - Coach', () => {
     cy.window().then((win) => {
       const coachId = win.location.pathname.replace(/^\D+/g, '');
       cy.server();
-      cy.route('PUT', `${REACT_APP_URI}/saas/coach/${coachId}`).as(
-        'updateCoachRequest',
-      );
     });
     // get the form data, this will be used to make sure it with the response data
     cy.get('[name=firstname]')

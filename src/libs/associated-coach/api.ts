@@ -18,16 +18,6 @@ import {
 // -----------------------
 //
 
-export async function fetchAssociatedCoachPerformance(
-  associatedCoachId: number,
-  start_timestamp: number,
-  end_timestamp: number,
-) {
-  return getAuth(
-    `${API_URI}/saas/associated-coach/${associatedCoachId}/performance/${start_timestamp}/${end_timestamp}`,
-  );
-}
-
 export async function fetchAssociatedCoaches(params?: {
   [key: string]: boolean;
 }) {
@@ -115,6 +105,5 @@ export default {
   fetchAssociated: fetchAssociatedCoaches,
   addCoach,
   updateCoach,
-  fetchAssociatedCoachPerformance,
   linkByEmail,
 };

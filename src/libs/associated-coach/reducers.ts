@@ -8,7 +8,6 @@ import {
   additionalCoachListActions,
   coachPaginatedListActions,
   coachDetailAction,
-  performance,
   upsert,
   resetAction,
   setCoachPaymentRuleActions,
@@ -31,8 +30,6 @@ const initialState: Immutable.Immutable<CoachState> = Immutable<CoachState>({
   byId: {},
   allIds: [],
   companyAssociated: [],
-  // Performance
-  performance: {},
   // Upsert
   upsert: {
     loading: false,
@@ -153,28 +150,6 @@ export default handleActions(
       { payload }: { payload: Error | null },
     ) => {
       return state.set('error', payload);
-    },
-    [performance.isLoading.toString()]: (state, { payload }) => {
-      return state.setIn(
-        // @ts-expect-error
-        ['performance', payload.associatedCoachId, 'loading'],
-        payload.loading,
-      );
-    },
-    [performance.error.toString()]: (state, { payload }) => {
-      return state.setIn(
-        // @ts-expect-error
-        ['performance', payload.associatedCoachId, 'error'],
-        payload.error.toString(),
-      );
-    },
-    [performance.success.toString()]: (state, { payload }) => {
-      return state.setIn(
-        // @ts-expect-error
-        ['performance', payload.associatedCoachId, 'result'],
-        // @ts-expect-error
-        payload.result,
-      );
     },
     [upsert.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);

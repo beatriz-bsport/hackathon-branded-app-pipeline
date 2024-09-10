@@ -11,6 +11,7 @@ import {
   Ticket01,
   UserEdit,
   UserCircle,
+  PlaySquare,
 } from '#src/components/untitledui';
 import { getMarketplaceRoute } from '#src/libs/marketplace/routing-utils';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
@@ -140,6 +141,13 @@ const useNavigationData = ({
         leftIcon: <Gift02 />,
         to: `/c/${companyId}/giftcard/`,
         isSelected: location.includes('/giftcard/'),
+        onClick: handleCloseConsumerSideDrawer,
+      },
+      {
+        title: t('reworked.navigation.myVideosAndEbooks'),
+        leftIcon: <PlaySquare />,
+        to: `/c/${companyId}/vod/`,
+        isSelected: location.includes('/vod/'),
         onClick: handleCloseConsumerSideDrawer,
       },
       {

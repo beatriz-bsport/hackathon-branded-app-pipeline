@@ -1544,26 +1544,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     );
 
     if (
-      !this.getIsFromWorkshopTab() &&
-      this.state.offerGroupData &&
-      this.state.offerGroupData.id &&
-      this.state.showGroupedOfferInformationModal
-    ) {
-      return (
-        <div className="bs-new-offer-booking-grouped-session__information__modal">
-          <GroupedOfferInformationModal
-            isFullBookingOnly={isFromGroupFullBookingOnly}
-            isOpen={this.state.showGroupedOfferInformationModal}
-            maxWidth="sm"
-            onClose={this.closeGroupedOfferInformationModal}
-            onGoBack={this.goBackToCalendar}
-            sessionsTotal={this.state.selectedOffers.length}
-          />
-        </div>
-      );
-    }
-
-    if (
       this.state.isSpotSelectorOpen &&
       !this.props.assetForBlueprintLoading &&
       !this.props.roomBlueprintLoading &&
@@ -1811,6 +1791,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                         price={displayPrice}
                         SimilarOfferButtonComponent={
                           <AddMoreSessionsButton
+                            canFetchMoreSimilarOffers={
+                              isAbleToFetchMoreSimilarSessions
+                            }
                             isGuestBooking={this.getIsGuestBooking()}
                             offerStatusById={this.props.offerStatusById}
                             similarOffers={similarOrGrouppedOffers}
@@ -1961,6 +1944,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   price={displayPrice}
                   SimilarOfferButtonComponent={
                     <AddMoreSessionsButton
+                      canFetchMoreSimilarOffers={
+                        isAbleToFetchMoreSimilarSessions
+                      }
                       isGuestBooking={this.getIsGuestBooking()}
                       offerStatusById={this.props.offerStatusById}
                       similarOffers={similarOrGrouppedOffers}
@@ -1979,7 +1965,22 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
             </div>
           </div>
         </div>
-        {similarOrGrouppedOffers && similarOrGrouppedOffers.length > 0 && (
+        {!this.getIsFromWorkshopTab() &&
+          this.state.offerGroupData &&
+          this.state.offerGroupData.id && (
+            <div className="bs-new-offer-booking-grouped-session__information__modal">
+              <GroupedOfferInformationModal
+                isFullBookingOnly={isFromGroupFullBookingOnly}
+                isOpen={this.state.showGroupedOfferInformationModal}
+                maxWidth="sm"
+                onClose={this.closeGroupedOfferInformationModal}
+                onGoBack={this.goBackToCalendar}
+                sessionsTotal={this.state.selectedOffers.length}
+              />
+            </div>
+          )}
+        {((similarOrGrouppedOffers && similarOrGrouppedOffers.length > 0) ||
+          isAbleToFetchMoreSimilarSessions) && (
           <>
             <MultiSessionModalStepper
               assetByIdBlueprintByIdentifier={

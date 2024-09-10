@@ -35,39 +35,41 @@ const GroupedOfferInformationModal: React.FC<
       maxWidth={maxWidth}
       onClose={onClose}
     >
-      <div className="bs-new-offer-booking-grouped-session__information__modal__container">
-        <div className="bs-new-offer-booking-grouped-session__information__modal__header">
-          <div className="bs-new-offer-booking-grouped-session__information__modal__header__title">
-            {t('booking:bookingModule.groupedSession.warningModal.title')}
+      <>
+        <div className="bs-new-offer-booking-grouped-session__information__modal__container">
+          <div className="bs-new-offer-booking-grouped-session__information__modal__header">
+            <div className="bs-new-offer-booking-grouped-session__information__modal__header__title">
+              {t('booking:bookingModule.groupedSession.warningModal.title')}
+            </div>
+          </div>
+          <div className="bs-new-offer-booking-grouped-session__information__modal__body">
+            <div className="bs-new-offer-booking-grouped-session__information__modal__body__content">
+              {t(
+                isFullBookingOnly
+                  ? 'booking:bookingModule.groupedSession.warningModal.fullBookingOnly.text'
+                  : 'booking:bookingModule.groupedSession.warningModal.partialBooking.text',
+                {
+                  sessionsTotal: sessionsTotal,
+                },
+              )}
+            </div>
+          </div>
+          <div className="bs-new-offer-booking-grouped-session__information__modal__footer">
+            <ButtonBase
+              className="bs-new-offer-booking-grouped-session__information__modal__footer__cancel__button"
+              onClick={onGoBack}
+            >
+              {t('common:cancel')}
+            </ButtonBase>
+            <ButtonBase
+              className="bs-new-offer-booking-grouped-session__information__modal__footer__confirm__button"
+              onClick={onClose}
+            >
+              {t('common:continue')}
+            </ButtonBase>
           </div>
         </div>
-        <div className="bs-new-offer-booking-grouped-session__information__modal__body">
-          <div className="bs-new-offer-booking-grouped-session__information__modal__body__content">
-            {t(
-              isFullBookingOnly
-                ? 'booking:bookingModule.groupedSession.warningModal.fullBookingOnly.text'
-                : 'booking:bookingModule.groupedSession.warningModal.partialBooking.text',
-              {
-                sessionsTotal: sessionsTotal,
-              },
-            )}
-          </div>
-        </div>
-        <div className="bs-new-offer-booking-grouped-session__information__modal__footer">
-          <ButtonBase
-            className="bs-new-offer-booking-grouped-session__information__modal__footer__cancel__button"
-            onClick={onGoBack}
-          >
-            {t('common:cancel')}
-          </ButtonBase>
-          <ButtonBase
-            className="bs-new-offer-booking-grouped-session__information__modal__footer__confirm__button"
-            onClick={onClose}
-          >
-            {t('common:continue')}
-          </ButtonBase>
-        </div>
-      </div>
+      </>
     </ModalToDrawerSwitcherComponent>
   );
 };

@@ -489,6 +489,9 @@
     flex-direction: column;
     gap: var(--bs-space-size-2);
     width: 100%;
+    align-content: flex-start;
+    background-color: var(--bs-grey-0);
+    max-height: 650px;
   }
 
   .bs-new-offer-booking-grouped-session__information__modal__header__title {

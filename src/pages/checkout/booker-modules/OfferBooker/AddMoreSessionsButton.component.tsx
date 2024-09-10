@@ -13,9 +13,12 @@ type AddMoreSessionsButtonProps = {
   isGuestBooking: boolean;
   offerStatusById: { [key: number]: OfferStatus };
   toggleSimilarOfferModal: () => void;
+  // only true when you can fetch other similar sessions from a multi session offer, does not intervein with grouped session feature
+  canFetchMoreSimilarOffers: boolean;
 };
 
 const AddMoreSessionsButton: React.FC<AddMoreSessionsButtonProps> = ({
+  canFetchMoreSimilarOffers,
   similarOffers,
   isGuestBooking,
   offerStatusById,
@@ -49,7 +52,7 @@ const AddMoreSessionsButton: React.FC<AddMoreSessionsButtonProps> = ({
 
   return (
     <>
-      {!doHideButton && (
+      {(!doHideButton || canFetchMoreSimilarOffers) && (
         <ButtonBase
           className="bs-new-offer-booking-fetch-more-similar-offers__button"
           onClick={toggleSimilarOfferModal}

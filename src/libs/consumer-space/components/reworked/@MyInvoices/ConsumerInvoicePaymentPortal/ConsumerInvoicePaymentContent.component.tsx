@@ -136,7 +136,7 @@ const ConsumerInvoicePaymentContent: React.FC<Props> = React.forwardRef(
 
     return (
       <>
-        {clientSecretLoading ? (
+        {clientSecretLoading || detachPaymentMethodLoading ? (
           <div className="bs-consumer-invoice-page__payment-portal__loading">
             <CircularProgress />
           </div>
@@ -160,6 +160,7 @@ const ConsumerInvoicePaymentContent: React.FC<Props> = React.forwardRef(
             loading={
               paymentProcessing ||
               clientSecretLoading ||
+              detachPaymentMethodLoading ||
               !paymentGroupId ||
               !clientSecret
             }

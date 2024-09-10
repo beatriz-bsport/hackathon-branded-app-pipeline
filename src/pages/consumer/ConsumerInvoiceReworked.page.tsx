@@ -54,7 +54,7 @@ import type {
 } from '#src/libs/invoice/types';
 import type { Membership } from '#src/libs/membership/types';
 import type { WithHandlerType } from '#src/utils/types';
-import { PaginatedResponse } from '#src/state/types';
+import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 
 type OwnProps = {
   membership: Membership;
@@ -292,7 +292,8 @@ export const mapWithConsumerInvoiceReworkedHandlers = {
       company: props.companyId ?? props.membership?.company,
     }),
   detachPaymentMethod:
-    (props: PropsWithConnector) => (paymentMethodId: string) => {
+    (props: PropsWithConnector) =>
+    (paymentMethodId: string, options?: OptionCallback) => {
       props.detachPaymentMethodAction(
         {
           company: props.companyId ?? props.membership?.company,
@@ -303,6 +304,7 @@ export const mapWithConsumerInvoiceReworkedHandlers = {
             props.fetchPaymentMethodListAction({
               company: props.companyId ?? props.membership?.company,
             });
+            options?.onSuccess?.();
           },
         },
       );

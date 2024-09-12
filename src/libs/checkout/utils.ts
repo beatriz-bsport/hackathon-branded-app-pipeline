@@ -55,7 +55,13 @@ export const getBasketBuyableItemsCount = (
   const checkoutProductList = basketCheckoutItems.filter(
     (item) => !excludedCheckoutItemTypes.includes(item.buyable_item_identifier),
   );
-  return (checkoutProductList ?? []).length ?? 0;
+  return (checkoutProductList ?? []).length
+    ? checkoutProductList.reduce(
+        (sum, current) =>
+          current?.quantity ? sum + current.quantity : sum + 0,
+        0,
+      )
+    : 0;
 };
 
 /**

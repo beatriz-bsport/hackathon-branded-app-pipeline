@@ -51,8 +51,9 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 
 class ConsumerProfileReworked extends React.Component<Props> {
   componentDidMount() {
-    if (this.props.membership?.id) {
-      this.props.fetchMember(this.props.membership.id, {}, { me: true });
+    if (!!this.props.membership?.id || !!this.props.companyId) {
+      this.props.membership?.id &&
+        this.props.fetchMember(this.props.membership.id, {}, { me: true });
       this.fetchMemberPaymentMethod();
       this.props.fetchCompanyCustomMemberForm(
         this.props.companyId ?? this.props.membership.company,

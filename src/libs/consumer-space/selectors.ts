@@ -148,7 +148,7 @@ const _getConsumerBookingsList = createSelector(
         state,
         bookingOffer?.establishment,
       );
-      const level = getLevel(state, bookingOffer?.level);
+      const level = getLevel(state, bookingOffer?.custom_level);
       const consumerPaymentPack: ConsumerPaymentPack = getConsumerPack(
         state,
         booking?.consumer_payment_pack,

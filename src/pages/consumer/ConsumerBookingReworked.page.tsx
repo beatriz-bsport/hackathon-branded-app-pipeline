@@ -166,7 +166,9 @@ export class ConsumerBooking extends React.Component<Props, State> {
     const bookingsCoachOverrideList = uniq(
       bookings.map((booking) => booking.coach_override),
     );
-    const bookingsLevelList = uniq(bookings.map((booking) => booking.level));
+    const bookingsLevelList = uniq(
+      bookings.map((booking) => booking.custom_level),
+    );
     const bookingsMetaActivityList = uniq(
       bookings.map((booking) => booking.meta_activity),
     );

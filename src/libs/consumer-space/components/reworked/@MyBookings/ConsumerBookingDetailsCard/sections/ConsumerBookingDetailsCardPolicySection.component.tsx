@@ -15,7 +15,12 @@ const ConsumerBookingDetailsCardPolicySection: React.FC<Props> = ({
   const { t } = useTranslation('consumerSpace');
 
   const cancellationPolicyDuration = useMemo(
-    () => Duration.fromObject({ minutes: metaActivityLastDiscardMinutes }),
+    () =>
+      Duration.fromObject({ minutes: metaActivityLastDiscardMinutes }).shiftTo(
+        'days',
+        'hours',
+        'minutes',
+      ),
     [metaActivityLastDiscardMinutes],
   );
 

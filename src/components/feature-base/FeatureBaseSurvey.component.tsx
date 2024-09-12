@@ -14,7 +14,8 @@ const FeatureBaseComponent: React.FC<Props> = ({
   useEffect(() => {
     const win = window as any;
     const { language } = i18n;
-    const isoLanguage = getCurrentLanguageIsoCode(language);
+    const isoLanguage =
+      getCurrentLanguageIsoCode(language)?.split('-')?.[0] ?? 'en';
     if (userAuthState) {
       win.Featurebase(
         'initialize_survey_widget',

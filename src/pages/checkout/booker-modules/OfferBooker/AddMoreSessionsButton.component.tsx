@@ -41,18 +41,24 @@ const AddMoreSessionsButton: React.FC<AddMoreSessionsButtonProps> = ({
     [similarOffersToCheckIds, offerStatusById],
   );
 
-  const doHideButton = React.useMemo(
+  const doShowButton = React.useMemo(
     () =>
-      !similarOffers ||
-      similarOffers.length <= 0 ||
-      isGuestBooking ||
-      !doExistBookableSimilarOffers,
-    [similarOffers, isGuestBooking, doExistBookableSimilarOffers],
+      (similarOffers &&
+        similarOffers.length > 0 &&
+        !isGuestBooking &&
+        doExistBookableSimilarOffers) ||
+      canFetchMoreSimilarOffers,
+    [
+      similarOffers,
+      isGuestBooking,
+      doExistBookableSimilarOffers,
+      canFetchMoreSimilarOffers,
+    ],
   );
 
   return (
     <>
-      {(!doHideButton || canFetchMoreSimilarOffers) && (
+      {doShowButton && (
         <ButtonBase
           className="bs-new-offer-booking-fetch-more-similar-offers__button"
           onClick={toggleSimilarOfferModal}

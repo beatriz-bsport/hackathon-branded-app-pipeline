@@ -18,6 +18,7 @@ import type {
   ConsumerBookingOption,
   ConsumerPrivateBooking,
 } from '#src/libs/booking/types';
+import { getLevelTranslation } from '#src/libs/level/utils';
 
 type Props = {
   isOpen: boolean;
@@ -38,7 +39,7 @@ const ConsumerBookingDetailsDrawer: React.FC<Props> = ({
   selectedBookingOption,
   handleClose,
 }) => {
-  const { t } = useTranslation(['consumerSpace', 'common']);
+  const { t } = useTranslation(['consumerSpace', 'common', 'translation']);
 
   const selectedBookingDate = useConsumerBookingDateTime({
     dateStart:
@@ -57,6 +58,16 @@ const ConsumerBookingDetailsDrawer: React.FC<Props> = ({
     sessionTimeDisplay,
     timezoneName: timezone,
   });
+
+  const levelName = getLevelTranslation(
+    selectedBooking?.level?.id ||
+      selectedPrivateBooking?.private_slot?.id ||
+      selectedBookingOption?.level?.id,
+    selectedBooking?.level?.name ||
+      selectedPrivateBooking?.private_slot?.name ||
+      selectedBookingOption?.level?.name,
+    t,
+  );
 
   const isLateCancellation = getIsLateBookingCancellation(
     selectedBooking?.date_canceled || selectedPrivateBooking?.date_canceled,
@@ -156,11 +167,7 @@ const ConsumerBookingDetailsDrawer: React.FC<Props> = ({
           selectedPrivateBooking?.private_consumer_pass?.disabled
         }
         isLateCancellation={isLateCancellation}
-        levelName={
-          selectedBooking?.level?.name ||
-          selectedPrivateBooking?.private_slot?.name ||
-          selectedBookingOption?.level?.name
-        }
+        levelName={levelName}
         metaActivityLastDiscardMinutes={
           selectedBooking?.meta_activity?.last_discard_minutes ??
           selectedPrivateBooking?.private_service?.last_discard_minutes ??

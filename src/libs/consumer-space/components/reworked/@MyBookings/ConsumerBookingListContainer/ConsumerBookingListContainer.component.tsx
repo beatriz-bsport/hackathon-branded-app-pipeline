@@ -45,6 +45,7 @@ import {
 import type { WaitingListConfiguration } from '#src/libs/waiting-list/types';
 import type { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import './styles.css';
+import { getLevelTranslation } from '#src/libs/level/utils';
 
 type Props = {
   isMobile?: boolean;
@@ -111,7 +112,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   getOfferWaitingListPosition,
   waitingListConfiguration,
 }) => {
-  const { t } = useTranslation('consumerSpace');
+  const { t } = useTranslation(['consumerSpace', 'translation']);
 
   const handleSetSelectedBooking = useCallback(
     (bookingId: number) => {
@@ -151,6 +152,16 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
     sessionTimeDisplay,
     timezoneName: timezone,
   });
+
+  const levelName = getLevelTranslation(
+    selectedBooking?.level?.id ||
+      selectedPrivateBooking?.private_slot?.id ||
+      selectedBookingOption?.level?.id,
+    selectedBooking?.level?.name ||
+      selectedPrivateBooking?.private_slot?.name ||
+      selectedBookingOption?.level?.name,
+    t,
+  );
 
   const isLateCancellation = getIsLateBookingCancellation(
     selectedBooking?.date_canceled || selectedPrivateBooking?.date_canceled,
@@ -303,11 +314,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
           isPaymentPackUnlimited={
             selectedBooking?.consumer_payment_pack?.payment_pack?.unlimited
           }
-          levelName={
-            selectedBooking?.level?.name ||
-            selectedPrivateBooking?.private_slot?.name ||
-            selectedBookingOption?.level?.name
-          }
+          levelName={levelName}
           metaActivityLastDiscardMinutes={
             selectedBooking?.meta_activity?.last_discard_minutes ??
             selectedPrivateBooking?.private_service?.last_discard_minutes ??

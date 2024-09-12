@@ -317,12 +317,15 @@ export default handleActions<Immutable.Immutable<FranchiseState>, any>(
       state,
       { payload }: { payload: CompanyGroup },
     ) => {
+      const isIdAlreadyInStore =
+        state.companyGroup.allIds.indexOf(payload.id) !== -1;
+      const nonDuplicatedAllIds = isIdAlreadyInStore
+        ? [...state.companyGroup.allIds]
+        : [...state.companyGroup.allIds, payload.id];
+
       return state
         .setIn(['companyGroup', 'byId', payload.id], payload)
-        .setIn(
-          ['companyGroup', 'allIds'],
-          [payload.id, ...state.companyGroup.allIds],
-        );
+        .setIn(['companyGroup', 'allIds'], nonDuplicatedAllIds);
     },
     [listCompanyGroupActions.isLoading.toString()]: (
       state,

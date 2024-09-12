@@ -243,8 +243,8 @@ export class ConsumerHome extends React.Component<Props> {
   handleBookASessionClick = () => {
     const marketplaceTabPath = urlToMarketplaceSessionTab(
       this.props.marketplaceSettingsConfig,
-      this.props.theme.company_name,
-      this.props.theme.company.toString(),
+      this.props.theme?.company_name,
+      this.props.theme?.company?.toString(),
     );
     if (WidgetUtils.isWidget()) {
       WidgetUtils.closeModal();
@@ -257,8 +257,8 @@ export class ConsumerHome extends React.Component<Props> {
   handleGetASubscriptionClick = () => {
     const marketplaceTabPath = urlToMarketplaceSubscriptionTab(
       this.props.marketplaceSettingsConfig,
-      this.props.theme.company_name,
-      this.props.theme.company.toString(),
+      this.props.theme?.company_name,
+      this.props.theme?.company?.toString(),
     );
     if (WidgetUtils.isWidget()) {
       WidgetUtils.closeModal();
@@ -271,8 +271,8 @@ export class ConsumerHome extends React.Component<Props> {
   handleBuyPassClick = () => {
     const marketplaceTabPath = urlToMarketplacePassTab(
       this.props.marketplaceSettingsConfig,
-      this.props.theme.company_name,
-      this.props.theme.company.toString(),
+      this.props.theme?.company_name,
+      this.props.theme?.company?.toString(),
     );
     if (WidgetUtils.isWidget()) {
       WidgetUtils.closeModal();
@@ -353,7 +353,7 @@ export class ConsumerHome extends React.Component<Props> {
                   companyId={this.props.companyId}
                   companyLogo={this.props.theme?.cover}
                   companyName={this.props.theme?.company_name ?? ''}
-                  companyWebsiteUrl={this.props.theme.websiteURL}
+                  companyWebsiteUrl={this.props.theme?.websiteURL}
                   controlableMemberList={this.props.controlableMemberList}
                   franchisorCompanyList={this.props.franchisor?.companies ?? []}
                   hasMultipleMembership={
@@ -460,11 +460,13 @@ export class ConsumerHome extends React.Component<Props> {
                   buildUrl={this.props.buildUrl}
                   buttonsData={this.getConsumerMobileNavigationButtonsData()}
                   companyId={this.props.companyId}
-                  companyLogo={this.props.theme ? this.props.theme.cover : null}
+                  companyLogo={
+                    this.props.theme ? this.props.theme?.cover : null
+                  }
                   companyTheme={this.props.theme}
                   controlableMemberList={this.props.controlableMemberList}
                   disconnect={this.props.disconnect}
-                  hasFranchise={this.props.theme.franchisor}
+                  hasFranchise={this.props.theme?.franchisor}
                   hasMultipleMembership={
                     this.props.membershipCount && this.props.membershipCount > 1
                   }

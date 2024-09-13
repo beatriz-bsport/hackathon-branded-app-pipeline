@@ -71,13 +71,11 @@ import {
   navigateToRelationAccount as navigateToRelationAccountAction,
   navigateBackToMasterRelation as navigateBackToMasterRelationAction,
 } from '../../actions/auth.actions';
-import WidgetUtils from '../../libs/widget/WidgetUtils';
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
 import { ChevronRight, Edit03 } from '#src/components/untitledui';
 
 import ConsumerNavigation from '#src/libs/consumer-space/components/reworked/@Navigation/ConsumerNavigation';
-import { getCheckoutUrl } from '../../libs/marketplace/routing-utils';
 import {
   urlToMarketplacePassTab,
   urlToMarketplaceSessionTab,

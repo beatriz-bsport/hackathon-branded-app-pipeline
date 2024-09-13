@@ -20,6 +20,7 @@ import type {
   PaymentComboPurchase,
   PaymentComboState,
 } from './types';
+import uniq from 'lodash/uniq';
 
 type ImmutablePaymentComboState = Immutable.Immutable<PaymentComboState>;
 type PayloadReduceType<T> = { [id: number]: T };
@@ -138,15 +139,23 @@ export default handleActions<ImmutablePaymentComboState, any>(
       state,
       { payload }: { payload: PaymentCombo[] },
     ) => {
-      return state.merge(
-        {
-          byId: payload.reduce<PayloadReduceType<PaymentCombo>>((acc, cV) => {
-            acc[cV.id] = cV;
-            return acc;
-          }, {}),
-        },
-        { deep: true },
-      );
+      return state
+        .merge(
+          {
+            byId: payload.reduce<PayloadReduceType<PaymentCombo>>((acc, cV) => {
+              acc[cV.id] = cV;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        )
+        .update(
+          'allIds',
+          (existingAllIds, newIds: number[]) => {
+            return uniq(existingAllIds.concat(newIds));
+          },
+          payload.map((paymentCombo) => paymentCombo.id),
+        );
     },
 
     [paymentComboCreateOrUpdateActions.isLoading.toString()]: (

@@ -13,6 +13,14 @@ export const getPaymentComboDataDict = (state: RootState) =>
 export const getPaymentCombo = (state: RootState, id: number) =>
   state.paymentCombo.byId[id];
 
+/**
+ * This selector retrieves available and non-available payment combos
+ */
+export const getAllPaymentComboList = createSelector(
+  [_getPaymentComboIdList, getPaymentComboDataDict],
+  (ids, data) => ids.map((id) => data[id]).filter((pc) => !!pc),
+);
+
 export const getAvailablePaymentComboList = createSelector(
   [_getPaymentComboIdList, getPaymentComboDataDict],
   (ids, data) =>

@@ -280,7 +280,8 @@ export type DynamicFilterDataType =
   | 'bookkeeping_account'
   | 'user'
   | 'establishment_group'
-  | 'shop_item';
+  | 'shop_item'
+  | 'payment_combo';
 
 export type DataSourceFieldMetadata = {
   identifier: string;

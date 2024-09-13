@@ -107,6 +107,8 @@ export enum ReportFilterableDataType {
   SHOP_ITEM = 'shop_item',
   PRODUCTS = 'products',
   PRODUCT_CATEGORY = 'product_category',
+  PAYMENT_COMBO = 'payment_combo',
+  BILLING_PLAN_PRODUCT = 'billing_plan_product',
 }
 
 export const DATATYPE_FILTERABLE_BY_FLOAT_RANGE = [
@@ -245,6 +247,7 @@ export const defaultDynamicDataHasBeenLoaded = {
   payment_pack_category: false,
   private_pass_category: false,
   shop_item: false,
+  payment_combo: false,
 };
 
 export const DATE_SUBDATA_TYPE = 0;

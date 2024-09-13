@@ -74,6 +74,8 @@ import {
   REPORT_CATEGORIES_WITH_DISABLED_PAYMENT_PACK,
 } from '#src/libs/reporting/common/constants';
 import { fetchShopItemStandaloneList as fetchShopItemStandaloneListAction } from '#src/libs/shop/actions/shopItemReworked';
+import { fetchPaymentComboBulk as fetchPaymentComboBulkAction } from '#src/libs/payment-combo/actions';
+import { getAllPaymentComboList } from '#src/libs/payment-combo/selectors';
 
 type DynamicConnectedProps = ConnectedProps<typeof connector>;
 
@@ -122,6 +124,7 @@ const connector = connect(
     bookkeepingAccounts: getBookkeepingAccountList(state),
     establishmentGroups: getEstablishmentGroups(state),
     standAloneshopItems: getShopItemStandaloneList(state),
+    paymentCombos: getAllPaymentComboList(state),
   }),
   {
     // Actions for dynamic data
@@ -148,6 +151,7 @@ const connector = connect(
     fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
     fetchMemberBulk: fetchMemberBulkAction,
     fetchShopItemStandaloneList: fetchShopItemStandaloneListAction,
+    fetchPaymentComboBulk: fetchPaymentComboBulkAction,
   },
 );
 
@@ -283,6 +287,13 @@ export default function withDatatypeDynamicData(
                 props.fetchAllPrivatePassCategory(props.companyId, {
                   onSuccess: () => {
                     props.setDynamicDataHasBeenLoaded('private_pass_category');
+                  },
+                });
+                break;
+              case ReportFilterableDataType.PAYMENT_COMBO:
+                props.fetchPaymentComboBulk(null, {
+                  onSuccess: () => {
+                    props.setDynamicDataHasBeenLoaded('payment_combo');
                   },
                 });
                 break;
@@ -488,6 +499,12 @@ export default function withDatatypeDynamicData(
                     privatePassCategory.id.toString() === stringifiedValue,
                 )?.name;
 
+              case ReportFilterableDataType.PAYMENT_COMBO:
+                return props.paymentCombos.find(
+                  (paymentCombo) =>
+                    paymentCombo.id.toString() === stringifiedValue,
+                )?.name;
+
               case ReportFilterableDataType.GIFTCARD:
                 return props.giftCards.find(
                   (giftCard) => giftCard.id.toString() === stringifiedValue,
@@ -632,6 +649,14 @@ export default function withDatatypeDynamicData(
                 value: privatePassCategory.id,
                 columnName,
               }));
+
+            case ReportFilterableDataType.PAYMENT_COMBO:
+              return props.paymentCombos.map((paymentCombo) => ({
+                label: paymentCombo.name,
+                value: paymentCombo.id,
+                columnName,
+              }));
+
             case ReportFilterableDataType.GIFTCARD:
               return props.giftCards.map((gc) => ({
                 label: gc.name,

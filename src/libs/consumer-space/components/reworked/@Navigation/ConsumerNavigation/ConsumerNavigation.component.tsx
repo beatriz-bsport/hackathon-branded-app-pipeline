@@ -249,6 +249,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
               handleBackArrowClick={handleBackArrowClick}
               handleSetStackNavigationState={handleSetStackNavigationState}
               isOpen={isConsumerSideDrawerOpen}
+              isRelationshipAuth={isRelationshipAuth}
               leftIcon={<ArrowLeft fill="currentColor" />}
               stackNavigationState={stackNavigationState}
               submenuItems={consumerNavigationWidgetData}
@@ -316,6 +317,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
         handleBackArrowClick={handleBackArrowClick}
         handleSetStackNavigationState={handleSetStackNavigationState}
         isOpen={isConsumerSideDrawerOpen}
+        isRelationshipAuth={isRelationshipAuth}
         leftIcon={<ArrowLeft fill="currentColor" />}
         stackNavigationState={stackNavigationState}
         submenuItems={consumerNavigationData}

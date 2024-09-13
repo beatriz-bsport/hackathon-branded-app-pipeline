@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import Submenu from '#Fabrique/Submenu';
+import Alert from '#Fabrique/Alert';
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import Title from '#Fabrique/Title';
 import IconButton from '#Fabrique/IconButton';
@@ -16,6 +17,8 @@ type StackNavigationState = SubmenuItem[][];
 
 type Props = {
   isOpen: boolean;
+  /** If true  */
+  isRelationshipAuth?: boolean;
   /** The element of the untitled icon shown in the header */
   leftIcon?: React.ReactElement;
   /** The title displayed in the drawer header */
@@ -34,6 +37,7 @@ type Props = {
 
 const NavigationSideDrawer: React.FC<Props> = ({
   isOpen,
+  isRelationshipAuth,
   leftIcon,
   submenuItems,
   stackNavigationState,
@@ -43,9 +47,10 @@ const NavigationSideDrawer: React.FC<Props> = ({
   handleSetStackNavigationState,
 }) => {
   const isWidget = WidgetUtils.isWidget();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common', 'consumerSpace']);
 
-  const headerTitle = stackNavigationState?.length > 0 ? t('back') : title;
+  const headerTitle =
+    stackNavigationState?.length > 0 ? t('common:back') : title;
 
   const headerSubtitle = stackNavigationState?.length > 0 ? null : subtitle;
 
@@ -61,6 +66,20 @@ const NavigationSideDrawer: React.FC<Props> = ({
           'bs-navigation-side-drawer__root--hidden': !isOpen,
         })}
       >
+        <Alert
+          hideLeftIcon
+          className={classNames(
+            'bs-navigation-side-drawer__relationship-alert',
+            {
+              'bs-navigation-side-drawer__relationship-alert--hidden':
+                !isRelationshipAuth,
+            },
+          )}
+          color="info"
+          variant="strong"
+        >
+          {t('consumerSpace:reworked.navigation.loggedInAs')}
+        </Alert>
         <div
           className={classNames('bs-navigation-side-drawer__header', {
             'bs-navigation-side-drawer__header--hidden':

@@ -32,6 +32,15 @@
   padding: 0;
 }
 
+.bs-navigation-side-drawer__relationship-alert {
+  min-height: auto;
+  width: 100%;
+}
+
+.bs-navigation-side-drawer__relationship-alert--hidden {
+  display: none;
+}
+
 .bs-navigation-side-drawer__header {
   display: flex;
   align-items: center;

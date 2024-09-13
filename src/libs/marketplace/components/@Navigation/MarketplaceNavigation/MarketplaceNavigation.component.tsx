@@ -277,6 +277,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
             handleBackArrowClick={handleBackArrowClick}
             handleSetStackNavigationState={handleSetStackNavigationState}
             isOpen={isConsumerSideDrawerOpen}
+            isRelationshipAuth={isRelationshipAuth}
             leftIcon={<ArrowLeft fill="currentColor" />}
             stackNavigationState={stackNavigationState}
             submenuItems={consumerNavigationData}

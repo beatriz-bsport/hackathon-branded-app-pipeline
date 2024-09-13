@@ -65,7 +65,8 @@ const useNavigationData = ({
 
   const isAbleToChangeStudio =
     (franchisorCompanyList ?? []).length > 0 &&
-    context === ConsumerSpaceContextEnum.WEB;
+    context === ConsumerSpaceContextEnum.WEB &&
+    !isRelationshipAuth;
 
   const handleChangeLocale = useCallback(
     (locale: string) => () => {

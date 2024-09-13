@@ -401,6 +401,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-navigation-app-bar-height: 72px;
     --bs-navigation-app-bar-logo-height: 40px;
     --bs-navigation-app-bar-logo-height-mobile: 32px;
+    --bs-navigation-app-bar-banner-height: 40px;
   `;
 
   // Inside the 'id' section, we define styles that will be applied to the 'div' element with the id 'bs-setup-derived-variable'.

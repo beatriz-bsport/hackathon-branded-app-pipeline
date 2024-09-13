@@ -48,6 +48,7 @@ import {
   SwitchField,
   // @ts-expect-error
 } from '../../../../components/forms';
+
 // @ts-expect-error
 import ImageField from '../../../../components/forms/ImageField.component';
 import PrivateServiceFormTag from './PrivateServiceFormTag.component';
@@ -88,8 +89,10 @@ export interface FormikValues {
   pad_before_booking: boolean;
   member_whitelist_tags: Array<number>;
   member_blacklist_tags: Array<number>;
+  available_on_partnership: boolean;
 }
 type OwnProps = {
+  isIntegratedWithClassPass: boolean;
   availableEstablishments: Array<Establishment>;
   allEstablishments: Array<Establishment>;
   coaches: Array<Coach>;
@@ -253,6 +256,14 @@ export const PrivateServiceForm = (props: Props) => {
         name="description"
         variant="outlined"
       />
+      {props.isIntegratedWithClassPass && (
+        <div id="private-pass-available_on_partnership-switch-field-container">
+          <SwitchField
+            label={t('service.form.availableOnPartnership.label')}
+            name="available_on_partnership"
+          />
+        </div>
+      )}
       <fieldset className={classes.resourceGroup}>
         <legend className={classes.legend}>
           {t('service.form.resourceGroup.establishment')}

@@ -88,6 +88,7 @@ export type PrivateService<C = number, E = number, S = number> = {
   pad_before_stop: boolean;
   member_whitelist_tags: Array<number>;
   member_blacklist_tags: Array<number>;
+  available_on_partnership: boolean;
 };
 export type PrivateServiceWithSlots<C = number, E = number> = {
   id: number;

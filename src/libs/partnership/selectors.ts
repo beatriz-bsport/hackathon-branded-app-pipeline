@@ -7,3 +7,8 @@ export const getPartnershipByIdentifier = (
 
 export const getPartnershipEstablishmentMergeList = (state: RootState) =>
   state.partnership.partnershipEstablishmentMerge.items;
+
+export const hasPartnershipByIdentifier = (
+  state: RootState,
+  identifier: string,
+) => !!getPartnershipByIdentifier(state, identifier);

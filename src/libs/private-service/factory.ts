@@ -83,6 +83,7 @@ export const privateServiceFactory = (
     availability_padding_start_minutes: faker.helpers.arrayElement([5, 10, 15]),
     availability_padding_end_minutes: faker.helpers.arrayElement([5, 10, 15]),
     pad_before_stop: faker.datatype.boolean(),
+    available_on_partnership: faker.datatype.boolean(),
     member_whitelist_tags: [],
     member_blacklist_tags: [],
   };

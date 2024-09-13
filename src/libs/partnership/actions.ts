@@ -15,7 +15,7 @@ export const listPartnershipActions = {
   success: createAction('PARTNERSHIP/LIST/SUCCESS'),
 };
 
-export function fetchPartnershipList(options: OptionCallback) {
+export function fetchPartnershipList(options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(listPartnershipActions.isLoading(true));
     dispatch(listPartnershipActions.error(null));

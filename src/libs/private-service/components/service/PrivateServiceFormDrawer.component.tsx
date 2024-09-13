@@ -24,6 +24,7 @@ const { trackFormSubmitIntent, trackFormAdd, trackFormCancel } =
     SegmentAnalyticsFormObjectIdentifier.PrivateService,
   );
 type OwnProps = {
+  isIntegratedWithClassPass: boolean;
   fullScreen: boolean;
   open: boolean;
   availableCoaches: Array<Coach>;

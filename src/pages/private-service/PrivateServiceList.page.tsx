@@ -11,7 +11,6 @@ import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import PrivateServiceListItem from '#src/libs/private-service/components/service/PrivateServiceListItem.component';
 import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
-
 import PrivateServiceFormDrawer from '#src/libs/private-service/components/service/PrivateServiceFormDrawer.component';
 import PrivateServiceListWithGroup from '#src/libs/private-service/components/service/PrivateServiceListWithGroup.component';
 import PrivateServiceGroupFormDialog from '#src/libs/private-service/components/service-group/PrivateServiceGroupFormDialog.component';
@@ -34,11 +33,13 @@ import {
   getActiveCoaches,
   getAllCoaches,
 } from '#src/libs/associated-coach/selectors';
+import { hasPartnershipByIdentifier } from '#src/libs/partnership/selectors';
 import { fetchAssociatedCoachesList } from '#src/libs/associated-coach/actions';
 import {
   fetchEstablishments,
   fetchAssociatedEstablishments,
 } from '#src/libs/establishment/actions';
+import { fetchPartnershipList as fetchPartnershipListAction } from '#src/libs/partnership/actions';
 import {
   fetchAllPrivateServices as fetchAllPrivateServicesAction,
   fetchPrivateServiceGroupList as fetchPrivateServiceGroupListAction,
@@ -66,6 +67,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
+import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/partnership/constants';
 import {
   withObjectSearch,
   WithObjectSearch,
@@ -123,6 +125,7 @@ export class PrivateServiceList extends React.Component<Props, State> {
       active: true,
       kind: PRIVATE_BOOKING_CREATION_NOTIFICATION,
     });
+    this.props.fetchPartnershipList();
   }
 
   closeForm = () => {
@@ -255,6 +258,7 @@ export class PrivateServiceList extends React.Component<Props, State> {
             availableEstablishments={this.props.availableEstablishments}
             coaches={this.props.availableCoaches}
             initial={this.props.openEditForm}
+            isIntegratedWithClassPass={this.props.isIntegratedWithClassPass}
             onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
             onCancel={this.closeForm}
             onSubmit={this.createOrUpdatePrivateService}
@@ -406,6 +410,10 @@ const connector = connect(
     privateServiceAvailableByGroup: getPrivateServiceListByGroup(state),
     allCoaches: getAllCoaches(state),
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+    isIntegratedWithClassPass: hasPartnershipByIdentifier(
+      state,
+      CLASSPASS_INTEGRATION_IDENTIFIER,
+    ),
   }),
   {
     fetchAllPrivateServices: () =>
@@ -423,6 +431,7 @@ const connector = connect(
       push(`/private-service/service/${id}/general`),
     deletePrivateService,
     fetchMarketingNotificationList,
+    fetchPartnershipList: fetchPartnershipListAction,
   },
 );
 

@@ -41,6 +41,8 @@ import {
   fetchEstablishments,
   fetchAssociatedEstablishments,
 } from '../../libs/establishment/actions';
+import { fetchPartnershipList as fetchPartnershipListAction } from '#src/libs/partnership/actions';
+import { hasPartnershipByIdentifier } from '#src/libs/partnership/selectors';
 import {
   fetchAllPrivateServices,
   fetchAllPrivateSlots,
@@ -71,6 +73,7 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
+import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/partnership/constants';
 
 const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 
@@ -97,6 +100,7 @@ type Props = {
   isEditFormOpen: boolean,
   shouldRenderForm: boolean,
   availableCoaches: Array<AssociatedCoach>,
+  isIntegratedWithClassPass: boolean,
   goToCoachCalendar: (id: number) => void,
 
   availableEstablishments: Array<Establishment>,
@@ -122,7 +126,7 @@ type Props = {
     options: OptionCallback,
   ) => void,
   closeServiceGroupForm: () => void,
-
+  fetchPartnershipList: () => void,
   fetchNotificationsAndTemplates: () => void,
   notifications: { items: Array<any>, loading: boolean },
   createNotification: (data: any) => void,
@@ -147,6 +151,7 @@ export class PrivateServiceList extends React.Component<Props> {
     this.fetchData();
     this.props.fetchPrivateServiceGroupList({ mine: true });
     this.props.fetchNotificationsAndTemplates();
+    this.props.fetchPartnershipList();
   }
 
   fetchData = () => {
@@ -249,6 +254,7 @@ export class PrivateServiceList extends React.Component<Props> {
             availableEstablishments={this.props.availableEstablishments}
             coaches={this.props.availableCoaches}
             initial={this.props.privateService}
+            isIntegratedWithClassPass={this.props.isIntegratedWithClassPass}
             onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
             onCancel={this.closeForm}
             onSubmit={this.createOrUpdatePrivateService}
@@ -310,8 +316,13 @@ export default compose(
       emailDetailLoading: state.emailTemplate.detail.isLoading,
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       smartLists: getAllSmartList(state),
+      isIntegratedWithClassPass: hasPartnershipByIdentifier(
+        state,
+        CLASSPASS_INTEGRATION_IDENTIFIER,
+      ),
     }),
     {
+      fetchPartnershipList: fetchPartnershipListAction,
       fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
       createOrUpdateServiceGroup: createOrUpdateServiceGroupAction,
       fetchPrivateService: fetchPrivateServiceAction,

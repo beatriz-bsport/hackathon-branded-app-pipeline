@@ -10,6 +10,8 @@ exports.default = {
     allEstablishment: 'All establishments',
     add: 'Add',
     configurationTitle: 'Configure your integration',
+    configurationDescription:
+      'Select how you want your establishments to appear on the ClassPass app. This only changes how group activities are displayed.',
     establishment: 'Establishment',
     pleaseChoseEstablishmentMany: 'Please select at least one establishment.',
     pleaseChoseEstablishment: 'Please select an establishment.',

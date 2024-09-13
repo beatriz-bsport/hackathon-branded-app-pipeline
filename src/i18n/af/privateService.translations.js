@@ -359,6 +359,12 @@ const getTranslations = async () => {
         },
         pre_selected_choices: 'Predefined durations',
         durationError: 'The duration must be between 10 min. and 1 day',
+        error: {
+          peopleCapacityUsed:
+            'To add more than one person, disallow ClassPass bookings.',
+          bookingInterval:
+            'Add an interval allowed by ClassPass: 5, 10, 15, 30, or 60 minutes.',
+        },
       },
     },
     bookerModule: {
@@ -682,8 +688,22 @@ const getTranslations = async () => {
         isAlwaysAvailable:
           '{{resourceName}} can be booked, once the establishment(s) and/or teacher(s) are available.',
         changeIsAlwaysAvailable: 'Edit',
+        partnership: {
+          anySlotNotCompatible:
+            'Update the session settings to ensure each has a booking interval and capacity compatible with ClassPass.',
+          removeAvailabilities:
+            'To display appointments correctly on ClassPass, you must disable specific availabilities.',
+        },
       },
       form: {
+        editConfirmation: {
+          title: 'ClassPass integration issue',
+          content:
+            "When ClassPass is activated, specific appointment slots will be disabled. Only the teacher's and establishment's availability will be considered.",
+          alert: 'Click confirm to disable the availability option.',
+          cancel: 'Do it later',
+          confirm: 'Confirm',
+        },
         establishmentResourceType: {
           isHomeService: {
             label: 'At home',
@@ -755,6 +775,10 @@ const getTranslations = async () => {
           label:
             'Select until when members can cancel for free (late cancellations)',
         },
+        coachSelectorTitle: 'Select the teacher(s) for this appointment:',
+        establishmentSelectorTitle:
+          'Select the establishment(s) for this appointment:',
+        settingsTitle: 'Settings',
         managerOnly: { label: 'Unavailable for purchase' },
         last_booking_minutes: {
           label:
@@ -804,6 +828,28 @@ const getTranslations = async () => {
               'Leave this field empty to allow all members',
             notAllowed: 'Not allowed',
           },
+        },
+        tooltip: {
+          noTeacher:
+            'Must assign a teacher when ClassPass bookings are allowed.',
+          oneBookingPerTeacher:
+            'Can only add one booking per teacher while ClassPass bookings are allowed.',
+        },
+        validation: {
+          oneOption: 'Select at least one option.',
+          coachCapacityUsed:
+            'To add more than one appointment at the same time for a teacher, disallow ClassPass bookings.',
+          availabilityBuffers:
+            'To add buffers to this booking, disallow ClassPass bookings.',
+          zeroValueError: 'You must schedule one appointment',
+        },
+        availableOnPartnership: {
+          label: 'Available on ClassPass',
+          alert:
+            'To display this booking correctly on ClassPass, some settings need to be configured. We have automatically updated some fields. Please review and fill in the required details below.',
+          buffersAlert:
+            'To add buffers to this booking, disallow ClassPass bookings.',
+          tagsAlert: 'Not applicable for ClassPass bookings.',
         },
       },
       parameters: {

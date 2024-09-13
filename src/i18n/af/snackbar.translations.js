@@ -653,6 +653,10 @@ const getTranslations = async () => {
       },
     },
     link: { copied: 'Link copied to clipboard' },
+    privateService: {
+      notCompatibleWithPartnership:
+        'The appointment was not saved. Please try again.',
+    },
     invoice: {
       error: 'Error while saving - Cancelled',
       create: { success: 'Invoice saved' },
@@ -1413,6 +1417,8 @@ const getTranslations = async () => {
       error: 'An error has occurred: members cannot be retrieved',
     },
     privateSlot: {
+      notCompatibleWithPartnership:
+        'The session was not saved. Please try again.',
       notAvailableForBookingAnymore: 'This slot is not availablle anymore.',
     },
     paypal: {

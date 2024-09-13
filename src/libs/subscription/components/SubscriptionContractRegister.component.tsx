@@ -279,7 +279,7 @@ export const SubscriptionContractRegister = (props: Props) => {
               format="D"
               minDate={DateTime.now().minus({ years: 1 }).toISODate()}
               onChange={handleSetDate}
-              value={props.date}
+              value={DateTime.fromISO(props.date)}
             />
           </MuiPickersUtilsProvider>
         </div>

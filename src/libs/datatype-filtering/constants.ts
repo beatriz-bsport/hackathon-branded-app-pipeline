@@ -160,6 +160,7 @@ export const DATATYPE_FILTERABLE_BY_ID_IN = [
   'products',
   'product_type',
   'product_category',
+  'billing_plan_product',
 ];
 
 export const DATATYPE_PRESET_INTEGER_VALUE = [
@@ -254,3 +255,7 @@ export const DATE_SUBDATA_TYPE = 0;
 export const HOUR_SUBDATA_TYPE = 1;
 
 export const MAX_SELECTABLE_MEMBER = 10;
+
+export const PAYMENT_PACK_DYNAMIC_FILTER = 1;
+export const PRIVATE_PASS_DYNAMIC_FILTER = 2;
+export const PAYMENT_COMBO_DYNAMIC_FILTER = 3;

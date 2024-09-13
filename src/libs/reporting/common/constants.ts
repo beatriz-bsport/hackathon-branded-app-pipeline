@@ -10,7 +10,15 @@ import {
 } from '@bsport/common/lib/master-data/metadata-identifiers';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import { BuyableItemOptions } from '#src/libs/checkout/types';
-import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
+import type {
+  DynamicFilterDataType,
+  BillingPlanDynamicForeignKeyType,
+} from '#src/libs/datatype-filtering/types';
+import {
+  PAYMENT_COMBO_DYNAMIC_FILTER,
+  PAYMENT_PACK_DYNAMIC_FILTER,
+  PRIVATE_PASS_DYNAMIC_FILTER,
+} from '#src/libs/datatype-filtering/constants';
 
 export const GREEN_GREY_BOOLEAN_CHIPS = [
   'new_member_only',
@@ -300,4 +308,26 @@ export const FILTERABLE_PRODUCT_CATEGORY_OPTIONS: {
 
 export const REPORT_CATEGORIES_WITH_DISABLED_PAYMENT_PACK = [
   ReportCategoryEnum.INVOICES,
+];
+
+export const FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS: {
+  translationKey: string;
+  value: BillingPlanDynamicForeignKeyType;
+  datatypeFiltering: DynamicFilterDataType;
+}[] = [
+  {
+    translationKey: 'product_type.payment_pack',
+    value: PAYMENT_PACK_DYNAMIC_FILTER,
+    datatypeFiltering: 'payment_pack',
+  },
+  {
+    translationKey: 'product_type.private_pass',
+    value: PRIVATE_PASS_DYNAMIC_FILTER,
+    datatypeFiltering: 'private_pass',
+  },
+  {
+    translationKey: 'product_type.payment_combo',
+    value: PAYMENT_COMBO_DYNAMIC_FILTER,
+    datatypeFiltering: 'payment_combo',
+  },
 ];

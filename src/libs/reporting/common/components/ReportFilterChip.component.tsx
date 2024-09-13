@@ -45,11 +45,13 @@ import {
   getColumnLabelTranslation,
   isReportColumnRemoved,
   isDatatypeFilterConfigItemValueProducts,
+  isDatatypeFilterConfigItemValueDynamic,
 } from '#src/libs/reporting/common/utils';
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import {
   FILTERABLE_PRODUCT_TYPE_OPTIONS,
   FILTERABLE_PRODUCT_CATEGORY_OPTIONS,
+  FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS,
 } from '#src/libs/reporting/common/constants';
 
 type ReportFilterChipProps = {
@@ -128,6 +130,14 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
           );
         }
       }
+      if (isDatatypeFilterConfigItemValueDynamic(value)) {
+        if (datatype === 'billing_plan_product')
+          return (
+            FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS.find(
+              (option) => option.value === value.dynamic_foreign_key,
+            )?.datatypeFiltering || datatype
+          );
+      }
       return datatype;
     }, [value, datatype]);
 
@@ -147,11 +157,17 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
         return true;
       }
       if (
-        !['products', 'product_category'].includes(datatype) &&
+        !['products', 'product_category', 'billing_plan_product'].includes(
+          datatype,
+        ) &&
         datatype in dynamicDataHasBeenLoaded
       )
         return dynamicDataHasBeenLoaded[datatype as DynamicFilterDataType];
-      if (['products', 'product_category'].includes(datatype)) {
+      if (
+        ['products', 'product_category', 'billing_plan_product'].includes(
+          datatype,
+        )
+      ) {
         return dynamicDataHasBeenLoaded[
           datatypeProductFiltering as DynamicFilterDataType
         ];
@@ -179,7 +195,8 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
       }
       if (
         !hasDynamicDataHasBeenLoaded &&
-        isDatatypeFilterConfigItemValueProducts(value) &&
+        (isDatatypeFilterConfigItemValueProducts(value) ||
+          isDatatypeFilterConfigItemValueDynamic(value)) &&
         value.object_ids.length === 1
       ) {
         getDataByTypeAndId(
@@ -205,7 +222,10 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
      */
     const valueLabel = React.useMemo(() => {
       if (onlyDisplay) return '';
-      if (isDatatypeFilterConfigItemValueProducts(value)) {
+      if (
+        isDatatypeFilterConfigItemValueProducts(value) ||
+        isDatatypeFilterConfigItemValueDynamic(value)
+      ) {
         if (value.object_ids?.length > 1)
           return getMultipleValuesLabel(
             datatype,
@@ -373,7 +393,8 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
     const isSingleValueLoading =
       !hasDynamicDataHasBeenLoaded &&
       ((Array.isArray(value) && value?.length === 1) ||
-        (isDatatypeFilterConfigItemValueProducts(value) &&
+        ((isDatatypeFilterConfigItemValueProducts(value) ||
+          isDatatypeFilterConfigItemValueDynamic(value)) &&
           value.object_ids.length === 1));
 
     const tooltipTitle = React.useMemo(() => {

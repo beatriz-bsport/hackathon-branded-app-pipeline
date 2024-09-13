@@ -38,6 +38,7 @@ import {
   isReportColumnRemoved,
   retrieveFilterableProductOptions,
 } from '#src/libs/reporting/common/utils';
+import { FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS } from '#src/libs/reporting/common/constants';
 
 type Props = {
   filterItem: DatatypeFilterConfigItem;
@@ -200,6 +201,26 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
     [setFieldValue, prefix],
   );
 
+  const handleBillingPlanProductChange = React.useCallback(
+    (option: { label: string; value: BuyableItemOptions }) => {
+      setFieldValue(
+        `${prefix}.value`,
+        { dynamic_foreign_key: option.value, object_ids: [] },
+        false,
+      );
+    },
+    [setFieldValue, prefix],
+  );
+
+  const billingPlanProductTypeOption = useMemo(
+    () =>
+      FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS.map((option) => ({
+        value: option.value,
+        label: t(`${option.translationKey}`),
+      })),
+    [t],
+  );
+
   const handleColumnChange = (option: {
     label?: string;
     value: AllComparator;
@@ -344,6 +365,19 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
               name={`${prefix}.value.buyable_item_identifier`}
               onChange={handleProductChange}
               options={productTypeOption}
+            />
+          </div>
+        )}
+        {filterItem.datatype === 'billing_plan_product' && (
+          <div className={classes.flexOne}>
+            <MaterialUiSingleSelectorField
+              inScrollBar
+              // @ts-expect-error
+              classes={{ root: classes.select }}
+              isDisabled={isPreview}
+              name={`${prefix}.value.dynamic_foreign_key`}
+              onChange={handleBillingPlanProductChange}
+              options={billingPlanProductTypeOption}
             />
           </div>
         )}

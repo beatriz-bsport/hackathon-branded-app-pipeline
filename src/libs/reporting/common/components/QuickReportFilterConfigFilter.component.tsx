@@ -6,6 +6,7 @@ import { FormHelperText, Popover, Theme, makeStyles } from '@material-ui/core';
 import { useFormikContext } from 'formik';
 import type {
   AllComparator,
+  BillingPlanDynamicForeignKeyType,
   DatatypeFilterConfigItem,
   DatatypeFilterConfigItemTypeById,
   DatatypeFilterConfigItemTypeDate,
@@ -27,7 +28,10 @@ import DatatypeFilterConfigValueManager from '#src/libs/datatype-filtering/compo
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import ReportFilterChip from '#src/libs/reporting/common/components/ReportFilterChip.component';
 import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
-import { CREDIT_COLUMNS } from '#src/libs/reporting/common/constants';
+import {
+  CREDIT_COLUMNS,
+  FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS,
+} from '#src/libs/reporting/common/constants';
 import { getCreditFactor } from '#src/libs/theme/selectors';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import type { BuyableItemOptions } from '#src/libs/checkout/types';
@@ -139,9 +143,11 @@ const QuickReportFilterConfigFilter: React.FC<
         getDefaultValueForComparator({
           comparator: comparatorValue,
           datatype: selectedColumn.datatype,
-          currentValue: ['products', 'product_category'].includes(
-            selectedColumn.datatype,
-          )
+          currentValue: [
+            'products',
+            'product_category',
+            'billing_plan_product',
+          ].includes(selectedColumn.datatype)
             ? get(values, `config.groups[0].filters_data.${index}.value`)
             : selectedColumn.value,
           isChangingComparator: true,
@@ -183,11 +189,31 @@ const QuickReportFilterConfigFilter: React.FC<
     [t, reportCategory, selectedColumn.datatype],
   );
 
+  const billingPlanProductTypeOption = useMemo(
+    () =>
+      FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS.map((option) => ({
+        value: option.value,
+        label: t(`${option.translationKey}`),
+      })),
+    [t],
+  );
+
   const handleProductChange = React.useCallback(
     (option: { label: string; value: BuyableItemOptions }) => {
       setFieldValue(
         `config.groups[0].filters_data.${index}.value`,
         { buyable_item_identifier: option.value, object_ids: [] },
+        false,
+      );
+    },
+    [setFieldValue, index],
+  );
+
+  const handleBillingPlanProductChange = React.useCallback(
+    (option: { label: string; value: BillingPlanDynamicForeignKeyType }) => {
+      setFieldValue(
+        `config.groups[0].filters_data.${index}.value`,
+        { dynamic_foreign_key: option.value, object_ids: [] },
         false,
       );
     },
@@ -241,6 +267,15 @@ const QuickReportFilterConfigFilter: React.FC<
                   name={`config.groups[0].filters_data.${index}.value.buyable_item_identifier`}
                   onChange={handleProductChange}
                   options={productTypeOption}
+                />
+              </div>
+            )}
+            {selectedColumn.datatype === 'billing_plan_product' && (
+              <div className={classes.comparatorSelector}>
+                <MaterialUiSingleSelectorField
+                  name={`config.groups[0].filters_data.${index}.value.dynamic_foreign_key`}
+                  onChange={handleBillingPlanProductChange}
+                  options={billingPlanProductTypeOption}
                 />
               </div>
             )}

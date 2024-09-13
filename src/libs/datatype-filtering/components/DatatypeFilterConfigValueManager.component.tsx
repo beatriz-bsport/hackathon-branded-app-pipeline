@@ -84,10 +84,12 @@ import NestedAlertError from './NestedAlertError.component';
 import MaterialUISelectorConsumers from '#src/components/Selector/MaterialUISelectorConsumers.component';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import {
+  isDatatypeFilterConfigItemValueDynamic,
   isDatatypeFilterConfigItemValueProducts,
   retrieveFilterableProductOptions,
 } from '#src/libs/reporting/common/utils';
 import {
+  FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS,
   FILTERABLE_PRODUCT_CATEGORY_OPTIONS,
   FILTERABLE_PRODUCT_TYPE_OPTIONS,
 } from '#src/libs/reporting/common/constants';
@@ -557,6 +559,27 @@ const DatatypeFilterConfigValueList: React.FC<{
               columnName,
             }),
           );
+        case 'billing_plan_product': {
+          const datatypeFiltering =
+            isDatatypeFilterConfigItemValueDynamic(valuesInConfig) &&
+            valuesInConfig?.dynamic_foreign_key
+              ? FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS.find(
+                  (option) =>
+                    option.value === valuesInConfig.dynamic_foreign_key,
+                )?.datatypeFiltering
+              : null;
+
+          if (datatypeFiltering)
+            return getDataByType(
+              datatypeFiltering,
+              [],
+              columnName,
+              reportCategory,
+              withoutFetch,
+            );
+
+          return [];
+        }
         case 'payout_status':
           return [
             PAYOUT_STATUS_CANCELED,
@@ -836,6 +859,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       'bookkeeping_account',
       'products',
       'product_category',
+      'billing_plan_product',
     ].includes(datatype) &&
     getOptions(false) === null
   ) {
@@ -855,7 +879,9 @@ const DatatypeFilterConfigValueList: React.FC<{
         isDisabled={isPreview}
         itemRenderer={!!itemRenderer && itemRenderer}
         name={
-          ['products', 'product_category'].includes(datatype)
+          ['products', 'product_category', 'billing_plan_product'].includes(
+            datatype,
+          )
             ? `${name}.object_ids`
             : name
         }

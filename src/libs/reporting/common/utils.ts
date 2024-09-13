@@ -86,6 +86,7 @@ import type {
   AllComparator,
   DataSourceMedadataDataType,
   DatatypeFilterConfigItemValueProducts,
+  DatatypeFilterConfigItemValueDynamic,
   DatatypeFilterConfigItem,
 } from '#src/libs/datatype-filtering/types';
 import {
@@ -120,6 +121,7 @@ import {
   GROUPED_IDENTIFIERS_FILTER,
   FILTERABLE_PRODUCT_TYPE_OPTIONS,
   FILTERABLE_PRODUCT_CATEGORY_OPTIONS,
+  FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS,
 } from '#src/libs/reporting/common/constants';
 import type {
   ReportCategory,
@@ -839,16 +841,39 @@ export const getComparatorLabel = (comparator: AllComparator) => {
 };
 
 export const isDatatypeFilterConfigItemValueProducts = (
-  value: number | boolean | number[] | DatatypeFilterConfigItemValueProducts,
+  value:
+    | number
+    | boolean
+    | number[]
+    | DatatypeFilterConfigItemValueProducts
+    | DatatypeFilterConfigItemValueDynamic,
 ): value is DatatypeFilterConfigItemValueProducts =>
   typeof value === 'object' &&
   value !== null &&
   'object_ids' in value &&
   'buyable_item_identifier' in value;
 
+export const isDatatypeFilterConfigItemValueDynamic = (
+  value:
+    | number
+    | boolean
+    | number[]
+    | DatatypeFilterConfigItemValueProducts
+    | DatatypeFilterConfigItemValueDynamic,
+): value is DatatypeFilterConfigItemValueDynamic =>
+  typeof value === 'object' &&
+  value !== null &&
+  'object_ids' in value &&
+  'dynamic_foreign_key' in value;
+
 export const getSingleValueLabel = (
   datatype: DataSourceMedadataDataType,
-  value: boolean | number[] | number | DatatypeFilterConfigItemValueProducts,
+  value:
+    | boolean
+    | number[]
+    | number
+    | DatatypeFilterConfigItemValueProducts
+    | DatatypeFilterConfigItemValueDynamic,
   subDataType: 0 | 1 | null,
   getDataByTypeAndId: handleGetDynamicDataForFiltersType,
   t: TFunction,
@@ -892,6 +917,17 @@ export const getSingleValueLabel = (
         const datatypeFiltering = FILTERABLE_PRODUCT_CATEGORY_OPTIONS.find(
           (option) => option.value === value.buyable_item_identifier,
         )?.datatypeFiltering;
+        return `${
+          getDataByTypeAndId(datatypeFiltering, value.object_ids) ?? ''
+        }`;
+      }
+      return '';
+    case ReportFilterableDataType.BILLING_PLAN_PRODUCT:
+      if (isDatatypeFilterConfigItemValueDynamic(value)) {
+        const datatypeFiltering =
+          FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS.find(
+            (option) => option.value === value.dynamic_foreign_key,
+          )?.datatypeFiltering;
         return `${
           getDataByTypeAndId(datatypeFiltering, value.object_ids) ?? ''
         }`;

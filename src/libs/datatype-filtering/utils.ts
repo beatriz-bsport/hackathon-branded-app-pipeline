@@ -18,6 +18,7 @@ import {
   FILTER_IN_OPERAND,
   GROUP_AND_OPERAND,
   HOUR_SUBDATA_TYPE,
+  PAYMENT_PACK_DYNAMIC_FILTER,
 } from '#src/libs/datatype-filtering/constants';
 
 import {
@@ -36,6 +37,7 @@ import { TIME_PERIODS_SINGLE } from '#src/components/date/DatePickerSelector.com
 import type { ReportMetadataColumn } from '#src/libs/reporting/common/types';
 import { GROUPED_IDENTIFIERS_FILTER } from '#src/libs/reporting/common/constants';
 import { BuyableItemOptions } from '#src/libs/checkout/types';
+import { isDatatypeFilterConfigItemValueDynamic } from '#src/libs/reporting/common/utils';
 
 //
 // Getters
@@ -110,6 +112,16 @@ export const getDefaultValueForComparator = (details: {
     }
     return {
       buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_PASS,
+      object_ids: [],
+    };
+  }
+
+  if (datatype === 'billing_plan_product') {
+    if (isDatatypeFilterConfigItemValueDynamic(currentValue)) {
+      return currentValue;
+    }
+    return {
+      dynamic_foreign_key: PAYMENT_PACK_DYNAMIC_FILTER,
       object_ids: [],
     };
   }

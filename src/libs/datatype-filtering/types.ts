@@ -8,6 +8,9 @@ import {
   FILTER_GTE_OPERAND,
   FILTER_IN_OPERAND,
   FILTER_OUT_OPERAND,
+  PAYMENT_PACK_DYNAMIC_FILTER,
+  PRIVATE_PASS_DYNAMIC_FILTER,
+  PAYMENT_COMBO_DYNAMIC_FILTER,
 } from './constants';
 
 export type DatatypeFilteringState = {
@@ -63,7 +66,8 @@ export type DataSourceMedadataDataType =
   | 'access_monitoring_admission'
   | 'establishment_group'
   | 'products'
-  | 'product_category';
+  | 'product_category'
+  | 'billing_plan_product';
 
 export type DataSourceMetadata = {
   identifier: string;
@@ -136,7 +140,8 @@ export type DatatypeFilterConfigItemTypeById =
   | 'establishment_group'
   | 'products'
   | 'product_type'
-  | 'product_category';
+  | 'product_category'
+  | 'billing_plan_product';
 
 export type DatatypeFilterConfigItemComparatorById =
   | typeof FILTER_IN_OPERAND
@@ -179,6 +184,20 @@ export type DatatypeFilterConfigItemValueProducts = {
     | BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM
     | BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS
     | BuyableItemOptions.BUYABLE_ITEM_GIFTCARD;
+};
+
+const BillingPlanDynamicForeignKey = [
+  PAYMENT_PACK_DYNAMIC_FILTER,
+  PRIVATE_PASS_DYNAMIC_FILTER,
+  PAYMENT_COMBO_DYNAMIC_FILTER,
+] as const;
+
+export type BillingPlanDynamicForeignKeyType =
+  (typeof BillingPlanDynamicForeignKey)[number];
+
+export type DatatypeFilterConfigItemValueDynamic = {
+  object_ids: number[];
+  dynamic_foreign_key: BillingPlanDynamicForeignKeyType;
 };
 
 export type DatatypeFilterConfigItem = {

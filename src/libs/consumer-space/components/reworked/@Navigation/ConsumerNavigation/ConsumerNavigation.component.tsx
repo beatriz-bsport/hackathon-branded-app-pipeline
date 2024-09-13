@@ -62,6 +62,7 @@ type Props = {
   companyId: number;
   isNewCheckoutFlow: boolean;
   memberName: string;
+  memberFirstName: string;
   franchisorCompanyList?: Company[];
   /** A list of action buttons to display in the header */
   buttonsData?: HeaderButton[];
@@ -83,6 +84,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   companyName,
   companyId,
   isNewCheckoutFlow,
+  memberFirstName,
   memberName,
   franchisorCompanyList,
   children,
@@ -203,7 +205,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
         badgeValue: basketProductListCount,
       },
       {
-        label: t('consumerSpace:reworked.appbar.myAccount'),
+        label: memberFirstName ?? t('reworked.appbar.myAccount'),
         color: 'grey',
         leftIcon: <UserCircle />,
         onClick:
@@ -220,6 +222,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
       companyId,
       handleToggleConsumerSideDrawer,
       isMobile,
+      memberFirstName,
       memberName,
       push,
       t,

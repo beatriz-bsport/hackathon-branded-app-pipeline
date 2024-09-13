@@ -74,6 +74,7 @@ type Props = {
   };
   authStateLoading: boolean;
   franchisor?: Franchise;
+  memberFirstName: string;
   memberName: string;
   tabSelected: string;
   push: (path: string) => void;
@@ -108,6 +109,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
   authStateInvalidFields,
   authStateLoading,
   franchisor,
+  memberFirstName,
   memberName,
   tabSelected,
   memberRelationshipList,
@@ -199,6 +201,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
       handleCloseConsumerSideDrawer,
       navigateToRelationAccount,
       navigateBackToMasterRelation,
+      isRelationshipAuth,
     });
 
   const actionsList: AppBarButton[] = useMemo(
@@ -213,7 +216,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
         badgeValue: basketProductListCount,
       },
       {
-        label: t('reworked.appbar.myAccount'),
+        label: memberFirstName ?? t('reworked.appbar.myAccount'),
         color: 'grey',
         leftIcon: <UserCircle />,
         onClick:
@@ -228,6 +231,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
       basketProductListCount,
       checkoutUrl,
       companyTheme.company,
+      memberFirstName,
       handleToggleConsumerSideDrawer,
       isMobile,
       memberName,

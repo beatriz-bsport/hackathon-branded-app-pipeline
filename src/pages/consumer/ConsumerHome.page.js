@@ -393,6 +393,7 @@ export class ConsumerHome extends React.Component<Props> {
                   isNewCheckoutFlow={
                     !!this.props.theme?.display_new_checkout_flow
                   }
+                  memberFirstName={this.props.member?.firstname}
                   memberName={
                     this.props.getMemberFirstName(this.props.membership?.id) ??
                     ''
@@ -657,7 +658,6 @@ export default compose(
       replace: replaceRouter,
       setActiveActions,
       fetchBasketGeneratedObjects: fetchBasketGeneratedObjectsAction,
-
       fetchOfferBulk: fetchOfferBulkAction,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchCoachBulk: fetchCoachBulkAction,

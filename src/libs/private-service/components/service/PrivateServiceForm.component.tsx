@@ -1,14 +1,13 @@
 import React from 'react';
 import * as Yup from 'yup';
 import omit from 'lodash/omit';
-import { withFormik, FieldArray, FormikProps } from 'formik';
+import { withFormik, FieldArray, FormikProps, ErrorMessage } from 'formik';
 
 import { WithTranslation, useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Slide from '@material-ui/core/Collapse';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import WarningIcon from '@material-ui/icons/Warning';
 import IconButton from '@material-ui/core/IconButton';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import Typography from '@material-ui/core/Typography';
@@ -245,11 +244,20 @@ export const PrivateServiceForm = (props: Props) => {
         label={t('service.form.color')}
         name="color"
       />
+      <TextField
+        fullWidth
+        multiline
+        required
+        className={classes.field}
+        label={t('service.form.description.label')}
+        name="description"
+        variant="outlined"
+      />
       <fieldset className={classes.resourceGroup}>
         <legend className={classes.legend}>
           {t('service.form.resourceGroup.establishment')}
         </legend>
-        <div className={classes.field}>
+        <div className={classes.establishmentRadioGroup}>
           <RadioGroupField
             choices={[
               {
@@ -297,19 +305,15 @@ export const PrivateServiceForm = (props: Props) => {
                   },
                 }) => (
                   <div>
-                    {props.availableEstablishments.length === 0 ? (
-                      <div className={classes.row}>
-                        <WarningIcon
-                          className={classes.leftIcon}
-                          color="error"
-                        />
-                        <Typography>
-                          {t(
-                            'service.form.establishmentResourceType.isWithEstablishment.isEmpty',
-                          )}
-                        </Typography>
-                      </div>
-                    ) : null}
+                    {establishments.length === 0 && (
+                      <Typography
+                        className={classes.selectorTitle}
+                        variant="caption"
+                      >
+                        {t('service.form.establishmentSelectorTitle')}
+                      </Typography>
+                    )}
+
                     {establishments.map((id: number, i: number) => (
                       <EstablishmentListItem
                         key={`${id}-${i}`}
@@ -336,6 +340,18 @@ export const PrivateServiceForm = (props: Props) => {
                         if (ev.length) push(ev[0].value);
                       }}
                     />
+                    <ErrorMessage component="div" name="establishments">
+                      {(errorMessage) => (
+                        <div className={classes.errorMessageContainer}>
+                          <Typography
+                            className={classes.errorMessageText}
+                            variant="caption"
+                          >
+                            {t(errorMessage)}
+                          </Typography>
+                        </div>
+                      )}
+                    </ErrorMessage>
                   </div>
                 )}
               </FieldArray>
@@ -375,17 +391,14 @@ export const PrivateServiceForm = (props: Props) => {
                   },
                 }) => (
                   <div>
-                    {coaches.length === 0 ? (
-                      <div className={classes.row}>
-                        <WarningIcon
-                          className={classes.leftIcon}
-                          color="error"
-                        />
-                        <Typography>
-                          {t('service.form.coach.isEmpty')}
-                        </Typography>
-                      </div>
-                    ) : null}
+                    {coaches.length === 0 && (
+                      <Typography
+                        className={classes.selectorTitle}
+                        variant="caption"
+                      >
+                        {t('service.form.coachSelectorTitle')}
+                      </Typography>
+                    )}
                     {coaches.map((id: number, i: number) => (
                       <CoachListItemBasic
                         key={`${id}-${i}`}
@@ -406,6 +419,18 @@ export const PrivateServiceForm = (props: Props) => {
                         if (ev.length) push(ev[0].value);
                       }}
                     />
+                    <ErrorMessage name="coaches">
+                      {(errorMessage) => (
+                        <div className={classes.errorMessageContainer}>
+                          <Typography
+                            className={classes.errorMessageText}
+                            variant="caption"
+                          >
+                            {t(errorMessage)}
+                          </Typography>
+                        </div>
+                      )}
+                    </ErrorMessage>
                   </div>
                 )}
               </FieldArray>
@@ -430,37 +455,31 @@ export const PrivateServiceForm = (props: Props) => {
           </div>
         </Slide>
       </fieldset>
-      <TextField
-        fullWidth
-        multiline
-        required
-        className={classes.field}
-        label={t('service.form.description.label')}
-        name="description"
-        rows={12}
-        variant="outlined"
-      />
-      <SwitchField
-        label={t('service.form.managerOnly.label')}
-        name="manager_only"
-      />
-      <div className={classes.row}>
-        <DurationField
-          fullWidth
-          className={classes.field}
-          helperText={t('service.form.last_discard_minutes.helperText')}
-          label={t('service.form.last_discard_minutes.label')}
-          name="last_discard_minutes"
+
+      <fieldset className={classes.field}>
+        <legend>{t('service.form.settingsTitle')}</legend>
+        <SwitchField
+          label={t('service.form.managerOnly.label')}
+          name="manager_only"
         />
-      </div>
-      <div className={classes.row}>
-        <DurationField
-          fullWidth
-          className={classes.field}
-          label={t('service.form.last_booking_minutes.label')}
-          name="last_booking_minutes"
-        />
-      </div>
+        <div className={classes.row}>
+          <DurationField
+            fullWidth
+            className={classes.field}
+            helperText={t('service.form.last_discard_minutes.helperText')}
+            label={t('service.form.last_discard_minutes.label')}
+            name="last_discard_minutes"
+          />
+        </div>
+        <div className={classes.row}>
+          <DurationField
+            fullWidth
+            className={classes.field}
+            label={t('service.form.last_booking_minutes.label')}
+            name="last_booking_minutes"
+          />
+        </div>
+      </fieldset>
       <fieldset className={classes.unpaidBookingsection}>
         <legend className={classes.legend}>
           {t('service.form.paddingTitle')}
@@ -601,6 +620,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(3),
     marginTop: theme.spacing(2),
   },
+  establishmentRadioGroup: {
+    marginTop: theme.spacing(2),
+  },
   sectionTitle: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
@@ -688,6 +710,22 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     paddingBottom: theme.spacing(2),
   },
+  selectorTitle: {
+    display: 'flex',
+    flexGrow: 1,
+    color: theme.palette.text.secondary,
+    background: theme.palette.common.white,
+    paddingBottom: theme.spacing(1),
+    paddingTop: theme.spacing(2),
+  },
+  errorMessageContainer: {
+    background: theme.palette.common.white,
+    paddingTop: theme.spacing(2),
+    flexGrow: 1,
+  },
+  errorMessageText: {
+    color: theme.palette.error.dark,
+  },
 }));
 
 export const PrivateServiceSchema = Yup.object().shape({
@@ -699,8 +737,26 @@ export const PrivateServiceSchema = Yup.object().shape({
   color: Yup.string(),
   use_full_establishment_capacity: Yup.boolean(),
   coach_capacity_used: Yup.number().oneOf([1, 2, 3, 4, 6, 12]),
-  coaches: Yup.array().of(Yup.number()),
-  establishments: Yup.array().of(Yup.number()),
+  coaches: Yup.array()
+    .of(Yup.number())
+    .when('is_without_coach', {
+      is: false,
+      then: Yup.array()
+        .of(Yup.number())
+        .required('service.form.validation.oneOption')
+        .min(1),
+      otherwise: Yup.array().of(Yup.number()),
+    }),
+  establishments: Yup.array()
+    .of(Yup.number())
+    .when('establishment_resource_type', {
+      is: IS_WITH_ESTABLISHMENT,
+      then: Yup.array()
+        .of(Yup.number())
+        .required('service.form.validation.oneOption')
+        .min(1),
+      otherwise: Yup.array().of(Yup.number()),
+    }),
   availability_padding_start_minutes: Yup.number(),
   availability_padding_end_minutes: Yup.number(),
   allow_unpaid_booking: Yup.boolean(),

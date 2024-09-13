@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(2),
   },
+  description: {
+    marginBottom: theme.spacing(2),
+  },
   radioGroup: {
     marginBottom: theme.spacing(2),
   },
@@ -66,6 +69,9 @@ export const PartnershipConfigurationForm = (props: Props) => {
     <div>
       <Typography className={classes.title} variant="h4">
         {t('parameters.configurationTitle')}
+      </Typography>
+      <Typography className={classes.description} variant="body1">
+        {t('parameters.configurationDescription')}
       </Typography>
       <RadioGroup
         className={classes.radioGroup}

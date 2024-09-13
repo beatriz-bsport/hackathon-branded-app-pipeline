@@ -2508,7 +2508,6 @@
             "regularize": "Complete payment"
         },
         "unsubscriber": {
-            "success": "You've unsubscribed.",
             "error": "Error while unsubscribing",
             "doUnsubscribe": "Unsubscribe",
             "explain": "Are you sure you want to unsubscribe from this studio's newsletters?"

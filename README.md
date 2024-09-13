@@ -37,7 +37,7 @@ cp envs/staging public/env.js
 
 # GENERATE TRANSLATIONS
 
-When developping with frontend you will often create new string that must be translated with react-i18next (the `t(...)` function)
+When developing with frontend you will often create new string that must be translated with react-i18next (the `t(...)` function)
 
 Add your key (argument of `t`) in the right i18n/af/ file (file ~ t namespace, see the doc of react-i18next for more info of what is a namespace).
 
@@ -48,6 +48,11 @@ yarn updateTranslation
 ```
 
 It will add uncommited changes to some "built" files
+
+### Important Note on Key Updates
+
+When changing a translation key's type (for example, from a string to an object or vice versa), it’s essential to also change the key name. If you keep the same key name, translations will be generated for other languages, but the original English version will remain unchanged. This can lead to inconsistencies and confusion in your translations.
+
 
 # Use the backoffice
 

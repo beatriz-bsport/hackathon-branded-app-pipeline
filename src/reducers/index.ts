@@ -60,6 +60,7 @@ import paymentBackend from '#src/libs/payment/reducers';
 import paymentModule from '#src/libs/payment/payment-module-revamped/reducers';
 import paymentCombo from '#src/libs/payment-combo/reducers';
 import paymentPack from '#src/libs/payment-packs/reducers';
+import paymentPackReworked from '#src/libs/payment-packs/reducersReworked';
 import performanceTracking from '#src/libs/performance-tracking/reducers';
 // @ts-expect-error
 import platformBilling from '#src/libs/platform-billing/reducers';
@@ -149,7 +150,10 @@ import type { PartnershipState } from '#src/libs/partnership/types';
 import type { PaymentBackendState } from '#src/libs/payment/types';
 import type { PaymentComboState } from '#src/libs/payment-combo/types';
 import type { PaymentModuleState } from '#src/libs/payment/payment-module-revamped/types';
-import type { PaymentPackState } from '#src/libs/payment-packs/types';
+import type {
+  PaymentPackState,
+  PaymentPackStateReworked,
+} from '#src/libs/payment-packs/types';
 import type { PerformanceTrackingState } from '#src/libs/performance-tracking/types';
 import type { PlaylistState } from '#src/libs/playlist/types';
 import type { PluginState } from '#src/libs/plugin/types';
@@ -246,6 +250,7 @@ const rootReducer = (history: any) =>
     paymentModule,
     paymentCombo,
     paymentPack,
+    paymentPackReworked,
     performanceTracking,
     platformBilling,
     playlist,
@@ -341,8 +346,8 @@ export type RootState = {
     [key: string]: any;
     massExtension: PaymentPackState['massExtension'];
     universalPaymentPackTemplate: PaymentPackState['universalPaymentPackTemplate'];
-    paymentPackTemplatePaginated: PaymentPackState['paymentPackTemplatePaginated'];
   };
+  paymentPackReworked: PaymentPackStateReworked;
   paymentRules: any;
   performanceTracking: PerformanceTrackingState;
   platformBilling: any;

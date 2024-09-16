@@ -236,7 +236,6 @@ export type PaymentPackState = Immutable.Immutable<{
     loading: boolean;
     error: null | Error;
   };
-  paymentPackTemplatePaginated: PaymentPackTemptatePaginatedReducer;
   universalPaymentPackTemplate: {
     allIds: number[];
     allIdsManagerOnly: number[];
@@ -272,6 +271,9 @@ export type PaymentPackState = Immutable.Immutable<{
   };
 }>;
 
+export type PaymentPackStateReworked = {
+  paymentPackTemplatePaginated: PaymentPackTemptatePaginatedReducer;
+};
 export const actionTypes = {
   HAS_FETCHED_ALL_PAYMENT_PACKS: 'HAS_FETCHED_ALL_PAYMENT_PACKS_SUCCESS',
   START_FETCH_ALL_PAYMENT_PACKS: 'START_FETCH_ALL_PAYMENT_PACKS',

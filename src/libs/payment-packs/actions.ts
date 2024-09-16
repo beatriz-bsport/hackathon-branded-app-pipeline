@@ -765,7 +765,9 @@ export const listPaymentPackTemplatePaginatedActions = {
   success: createAction<PaginatedResponse<PaymentPackTemplateAPI>>(
     'PAYMENT_PACK_TEMPLATE/AVAILABLE_FOR_SALE/PAGINATED_LIST/SUCCESS',
   ),
-
+  reset: createAction(
+    'PAYMENT_PACK_TEMPLATE/AVAILABLE_FOR_SALE/PAGINATED_LIST/RESET',
+  ),
   isLoadingManagerOnly: createAction<boolean>(
     'PAYMENT_PACK_TEMPLATE/MANAGER_ONLY/PAGINATED_LIST/IS_LOADING',
   ),
@@ -774,6 +776,9 @@ export const listPaymentPackTemplatePaginatedActions = {
   ),
   successManagerOnly: createAction<PaginatedResponse<PaymentPackTemplateAPI>>(
     'PAYMENT_PACK_TEMPLATE/MANAGER_ONLY/PAGINATED_LIST/SUCCESS',
+  ),
+  resetManagerOnly: createAction(
+    'PAYMENT_PACK_TEMPLATE/MANAGER_ONLY/PAGINATED_LIST/RESET',
   ),
 };
 
@@ -788,14 +793,15 @@ export function fetchPaymentPackTemplatePaginatedListAvailableForSale(
   params?: FranchiseProductTemplatePaginatedQueryParams,
   options?: OptionCallback<PaginatedResponse<PaymentPackTemplateAPI>>,
 ): ThunkAction {
-  return async (dispatch, getState) => {
+  return async (dispatch, getState: () => RootState) => {
     dispatch(listPaymentPackTemplatePaginatedActions.error(null));
     dispatch(listPaymentPackTemplatePaginatedActions.isLoading(true));
 
     const currentState =
-      getState().paymentPack.paymentPackTemplatePaginated.availablePasses;
+      getState().paymentPackReworked.paymentPackTemplatePaginated
+        .availablePasses;
 
-    const nextPage = currentState.page ?? 1;
+    const nextPage = currentState.next_page ?? 1;
 
     try {
       const response = await fetchPaymentPackTemplateListPaginatedAPI({
@@ -865,8 +871,10 @@ export function fetchPaymentPackTemplatePaginatedListManagerOnly(
       listPaymentPackTemplatePaginatedActions.isLoadingManagerOnly(true),
     );
     const currentState =
-      getState().paymentPack.paymentPackTemplatePaginated.managerOnlyPasses;
-    const nextPage = currentState.page ?? 1;
+      getState().paymentPackReworked.paymentPackTemplatePaginated
+        .managerOnlyPasses;
+
+    const nextPage = currentState.next_page ?? 1;
 
     try {
       const response = await fetchPaymentPackTemplateListPaginatedAPI({

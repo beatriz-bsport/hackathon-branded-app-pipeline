@@ -540,7 +540,7 @@ export const getPaymentPackTemplateListAvailableForSale = createSelector(
 
 const getPaymentPackTemplateAvailableForSalePaginatedState = (
   state: RootState,
-) => state.paymentPack.paymentPackTemplatePaginated.availablePasses;
+) => state.paymentPackReworked.paymentPackTemplatePaginated.availablePasses;
 
 export const getPaymentPackTemplatePaginatedAvailableForSale = createSelector(
   [
@@ -588,7 +588,7 @@ export const getPaymentPackTemplateListManagerOnly = createSelector(
 );
 
 const getPaymentPackTemplateManagerOnlyPaginatedState = (state: RootState) =>
-  state.paymentPack.paymentPackTemplatePaginated.managerOnlyPasses;
+  state.paymentPackReworked.paymentPackTemplatePaginated.managerOnlyPasses;
 
 export const getPaymentPackTemplatePaginatedManagerOnly = createSelector(
   [

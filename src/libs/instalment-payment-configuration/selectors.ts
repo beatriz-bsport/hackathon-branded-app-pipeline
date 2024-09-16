@@ -3,7 +3,7 @@ import memoize from 'lodash/memoize';
 import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
 import { getGiftcardData } from '#src/libs/giftcard/selectors';
 import { _getPrivatePassData } from '#src/libs/private-service/selectors/private-pass';
-import { getPaymenComboDataDict } from '../payment-combo/selectors';
+import { getPaymentComboDataDict } from '../payment-combo/selectors';
 import { RootState } from '../../reducers';
 import {
   getShopItemStandaloneById,
@@ -89,7 +89,7 @@ export const withGiftcard = memoize(
 export const withCombo = memoize(
   (selector: (state: RootState, id?: number) => any) =>
     createSelector(
-      [selector, getPaymenComboDataDict],
+      [selector, getPaymentComboDataDict],
       (instalmentPaymentList, paymentComboById) => {
         if (!instalmentPaymentList) {
           return instalmentPaymentList;

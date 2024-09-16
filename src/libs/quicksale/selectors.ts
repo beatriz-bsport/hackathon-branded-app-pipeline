@@ -11,7 +11,7 @@ import {
 } from '#src/libs/payment-packs/selectors';
 import { getPrivatePassByCategoryWithPasses } from '#src/libs/private-service/selectors/private-pass-category';
 import { getPrivatePassById } from '#src/libs/private-service/selectors/private-pass';
-import { getPaymenComboDataDict } from '#src/libs/payment-combo/selectors';
+import { getPaymentComboDataDict } from '#src/libs/payment-combo/selectors';
 import { getGiftcardData } from '#src/libs/giftcard/selectors';
 import {
   QuicksaleObjectsByItemIdentifierByCategory,
@@ -59,7 +59,7 @@ export const getItemsInQuicksaleConfig = createSelector(
     _getItemByItemIdentifierById,
     getPaymentPackById,
     getPrivatePassById,
-    getPaymenComboDataDict,
+    getPaymentComboDataDict,
     getAllShopItemData,
     getGiftcardData,
     // @ts-expect-error

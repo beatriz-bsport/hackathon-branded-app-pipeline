@@ -42,7 +42,7 @@ import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
 
 import { _getPrivatePassData } from '#src/libs/private-service/selectors/private-pass';
 
-import { getPaymenComboDataDict } from '#src/libs/payment-combo/selectors';
+import { getPaymentComboDataDict } from '#src/libs/payment-combo/selectors';
 import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
 
 import { getAllShopItemData } from '#src/libs/shop/selectors';
@@ -564,7 +564,7 @@ const connector = connect(
       state.subscription.contract.loading,
     paymentPackById: getPaymentPackById(state),
     privatePassById: _getPrivatePassData(state),
-    paymentComboById: getPaymenComboDataDict(state),
+    paymentComboById: getPaymentComboDataDict(state),
     // @ts-expect-error
     shopItemById: getAllShopItemData(state),
     giftcardById: getGiftcardData(state),

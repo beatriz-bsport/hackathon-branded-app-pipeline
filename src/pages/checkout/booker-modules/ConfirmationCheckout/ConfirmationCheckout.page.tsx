@@ -69,7 +69,7 @@ import {
 } from '#src/libs/checkout/utils';
 import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
 import { getPrivatePassById } from '#src/libs/private-service/selectors/private-pass';
-import { getPaymenComboDataDict } from '#src/libs/payment-combo/selectors';
+import { getPaymentComboDataDict } from '#src/libs/payment-combo/selectors';
 import MarketplaceCheckoutItemsWithPaymentPackList from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentPackList';
 import MarketplaceCheckoutItemsWithPrivatePassList from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceCheckoutItemsWithPrivatePassList';
 import MarketplaceCheckoutItemsWithPaymentComboList from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentComboList';
@@ -806,7 +806,7 @@ const mapStateToProps = (
   ),
   paymentPackById: getPaymentPackById(state),
   privatePassById: getPrivatePassById(state),
-  paymentComboById: getPaymenComboDataDict(state),
+  paymentComboById: getPaymentComboDataDict(state),
   billingPlan:
     queryParams.billingPlanId &&
     // @ts-expect-error

@@ -5,16 +5,16 @@ import { getPaymentPackById } from '../payment-packs/selectors';
 
 import { RootState } from '../../reducers';
 
-const _getPaymenComboIdList = (state: RootState) => state.paymentCombo.allIds;
+const _getPaymentComboIdList = (state: RootState) => state.paymentCombo.allIds;
 
-export const getPaymenComboDataDict = (state: RootState) =>
+export const getPaymentComboDataDict = (state: RootState) =>
   state.paymentCombo.byId;
 
 export const getPaymentCombo = (state: RootState, id: number) =>
   state.paymentCombo.byId[id];
 
 export const getPaymentComboList = createSelector(
-  [_getPaymenComboIdList, getPaymenComboDataDict],
+  [_getPaymentComboIdList, getPaymentComboDataDict],
   (ids, data) =>
     ids
       .map((id) => data[id])
@@ -56,7 +56,7 @@ const _getPaymentComboPurchaseList = (state: RootState) =>
   state.paymentCombo.purchase.items;
 
 const getPaymentComboPurchaseList = createSelector(
-  [_getPaymentComboPurchaseList, getPaymenComboDataDict],
+  [_getPaymentComboPurchaseList, getPaymentComboDataDict],
   (purchases, combos) => {
     return purchases.map((p) => ({
       ...p,
@@ -78,7 +78,7 @@ const _getPaymentComboIdsForDirectBooking = (state: RootState) =>
   state.paymentCombo.forBooking.allIds;
 
 export const getPaymentComboForBooking = createSelector(
-  [_getPaymentComboIdsForDirectBooking, getPaymenComboDataDict],
+  [_getPaymentComboIdsForDirectBooking, getPaymentComboDataDict],
   (paymentComboIds, data) => {
     return paymentComboIds
       .map((id) => data[id])

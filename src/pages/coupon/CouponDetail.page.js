@@ -39,7 +39,7 @@ import {
   getPrivatePassAvailable as getPrivatePass,
 } from '#src/libs/private-service/selectors/private-pass';
 import {
-  getPaymenComboDataDict,
+  getPaymentComboDataDict,
   getPaymentComboList,
 } from '#src/libs/payment-combo/selectors';
 import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
@@ -488,7 +488,7 @@ const connector = connect(
     privatePasses: getPrivatePass(state),
     allPrivatePassesById: getPrivatePassById(state),
     paymentCombos: getPaymentComboList(state),
-    allPaymentCombosById: getPaymenComboDataDict(state),
+    allPaymentCombosById: getPaymentComboDataDict(state),
     tagList: getAllTagsWithTagGroup(state),
     shopItemBaseAndStandaloneById: getShopItemBaseAndStandaloneById(state),
     shopItemBaseAndStandaloneList: getShopItemBaseAndStandaloneList(state),

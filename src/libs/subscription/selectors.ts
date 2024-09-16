@@ -11,7 +11,7 @@ import {
   getAllPaymentPacks as getPaymentPackList,
 } from '#src/libs/payment-packs/selectors';
 import { getPrivatePassById } from '../private-service/selectors/private-pass';
-import { getPaymenComboDataDict as getPaymentComboById } from '../payment-combo/selectors';
+import { getPaymentComboDataDict as getPaymentComboById } from '../payment-combo/selectors';
 import { withMember } from '../order/selectors';
 
 import type { ContractWithPaymentPack, Subscription } from './types';

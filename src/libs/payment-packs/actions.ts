@@ -21,6 +21,7 @@ import {
   deletePaymentPackCategory as deletePaymentPackCategoryAPI,
   editOrder,
   fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAPI,
+  fetchPaymentPackTemplateListPaginated as fetchPaymentPackTemplateListPaginatedAPI,
   fetchUniversalPaymentPackTemplateList as fetchUniversalPaymentPackTemplateListAPI,
   retrievePaymentPackTemplate as retrievePaymentPackTemplateAPI,
   retrieveUniversalPaymentPackTemplate as retrieveUniversalPaymentPackTemplateAPI,
@@ -705,6 +706,9 @@ export function fetchPaymentPackList(
   };
 }
 
+/**
+ * @deprecated This actions does not force any pagination and shall not be used anymore.
+ */
 export const listPaymentPackTemplateActions = {
   isLoading: createAction('PAYMENT_PACK_TEMPLATE/LIST/IS_LOADING'),
   error: createAction('PAYMENT_PACK_TEMPLATE/LIST/ERROR'),
@@ -718,6 +722,9 @@ export const listPaymentPackTemplateActions = {
 export const resetPaymentPackTemplateData =
   listPaymentPackTemplateActions.reset;
 
+/**
+ * @deprecated This method does not force any pagination and shall not be used anymore.
+ */
 export function fetchPaymentPackTemplateList(
   params?: FranchiseProductTemplateQueryParams,
   options?: OptionCallback<Array<PaymentPackTemplate>>,
@@ -745,6 +752,9 @@ export function fetchPaymentPackTemplateList(
   };
 }
 
+/**
+ * @deprecated This method does not force any pagination and shall not be used anymore.
+ */
 export function fetchPaymentPackTemplateListManagerOnly(
   options?: OptionCallback<Array<PaymentPackTemplate>>,
 ) {
@@ -788,6 +798,9 @@ function isPaginatedPaymentPackTemplate(
   return (data as any).results !== undefined;
 }
 
+/**
+ * @deprecated This actions does not force any pagination and shall not be used anymore.
+ */
 export const listUniversalPaymentPackTemplateActions = {
   isLoading: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/LIST/IS_LOADING'),
   error: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/LIST/ERROR'),
@@ -798,6 +811,9 @@ export const listUniversalPaymentPackTemplateActions = {
   reset: createAction('UNIVERSAL_PAYMENT_PACK_TEMPLATE/LIST/RESET'),
 };
 
+/**
+ * @deprecated This method does not force any pagination and shall not be used anymore.
+ */
 export function fetchUniversalPassTemplateList(
   options?: OptionCallback<PaymentPackTemplate[]>,
 ) {
@@ -830,6 +846,9 @@ export function fetchUniversalPassTemplateList(
   };
 }
 
+/**
+ * @deprecated This method does not force any pagination and shall not be used anymore.
+ */
 export function fetchUniversalPassTemplateListManagerOnly(
   options?: OptionCallback<PaymentPackTemplate[]>,
 ) {

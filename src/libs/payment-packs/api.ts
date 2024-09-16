@@ -1,4 +1,7 @@
-import { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
+import {
+  FranchiseProductTemplateQueryParams,
+  FranchiseProductTemplatePaginatedQueryParams,
+} from '#src/libs/franchise/types';
 import {
   API_URI,
   getAuth,
@@ -132,6 +135,15 @@ export async function fetchPaymentPackTemplateList(
   );
 }
 
+export async function fetchPaymentPackTemplateListPaginated(
+  params?: FranchiseProductTemplatePaginatedQueryParams,
+) {
+  return getAuth<PaginatedResponse<PaymentPackTemplateAPI>>(
+    `${API_V1_URI}/payment-pack/payment-pack-template/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
 export function fetchUniversalPaymentPackTemplateList(
   params?: FranchiseProductTemplateQueryParams,
 ) {

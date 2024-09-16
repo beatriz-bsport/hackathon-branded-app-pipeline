@@ -71,12 +71,22 @@ export const getAllowedFranchisees = (state: RootState) => {
 
 export const withAllowed = memoize(
   (
-    companies: number | number[],
+    companies: number | number[] | Immutable.ImmutableArray<number>,
     allowed_franchisee_ids: number[],
     companyById: Record<number, FranchiseCompany>,
   ): FranchiseCompanyWithAllowed => {
     if (!companies) return null;
-    if (Array.isArray(companies)) {
+
+    if (typeof companies == 'number') {
+      if (!companyById?.[companies]) return null;
+      return {
+        ...companyById?.[companies],
+        isAllowed:
+          !allowed_franchisee_ids?.length ||
+          allowed_franchisee_ids.includes(companies),
+      };
+    }
+    if (Array.isArray(companies) || Immutable.isImmutable(companies)) {
       return sortCompanyListByIsAllowedAndName(
         companies
           .filter((id: number) => !!companyById?.[id])
@@ -89,14 +99,32 @@ export const withAllowed = memoize(
       );
     }
 
-    if (!companyById?.[companies]) return null;
+    return null;
+  },
+);
 
-    return {
-      ...companyById?.[companies],
-      isAllowed:
-        !allowed_franchisee_ids?.length ||
-        allowed_franchisee_ids.includes(companies),
-    };
+export const withAllowedOnArray = memoize(
+  (
+    companies: number[] | Immutable.ImmutableArray<number>,
+    allowed_franchisee_ids: number[],
+    companyById: Record<number, FranchiseCompany>,
+  ): Immutable.ImmutableArray<FranchiseCompanyWithAllowed> => {
+    if (!companies || typeof companies == 'number') return Immutable([]);
+
+    if (Array.isArray(companies) || Immutable.isImmutable(companies)) {
+      return sortCompanyListByIsAllowedAndName(
+        companies
+          .filter((id: number) => !!companyById?.[id])
+          .map((id: number) => ({
+            ...companyById?.[id],
+            isAllowed:
+              allowed_franchisee_ids?.length === 0 ||
+              allowed_franchisee_ids.includes(id),
+          })),
+      );
+    }
+
+    return Immutable([]);
   },
 );
 

@@ -58,7 +58,11 @@ export const addressToReadableAddress = (address?: {
 };
 
 export const sortCompanyListByIsAllowedAndName = memoize(
-  (companyList: FranchiseCompany[]) => {
+  (
+    companyList:
+      | FranchiseCompany[]
+      | Immutable.ImmutableArray<FranchiseCompany>,
+  ) => {
     return Immutable(
       [...companyList].sort((fc, _fc) => {
         if (fc.isAllowed === _fc.isAllowed) {

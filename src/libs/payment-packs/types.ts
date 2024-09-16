@@ -200,6 +200,27 @@ export type PaymentPackCategory = {
   category_ordering: number;
 };
 
+type PaymentPackTemptatePaginatedReducer = {
+  availablePasses: {
+    page: number;
+    next_page: number | null;
+    previous_page: number | null;
+    count: number;
+    page_size: number;
+    allIds: number[];
+    byId: Record<number, PaymentPackTemplateAPI>;
+  } & ErrorAndLoading;
+  managerOnlyPasses: {
+    page: number;
+    next_page: number | null;
+    previous_page: number | null;
+    count: number;
+    page_size: number;
+    allIds: number[];
+    byId: Record<number, PaymentPackTemplateAPI>;
+  } & ErrorAndLoading;
+};
+
 export type PaymentPackState = Immutable.Immutable<{
   updatingConsumerPacks: Array<ConsumerPaymentPack>;
   updatingPaymentPacks: Array<number>;
@@ -215,6 +236,7 @@ export type PaymentPackState = Immutable.Immutable<{
     loading: boolean;
     error: null | Error;
   };
+  paymentPackTemplatePaginated: PaymentPackTemptatePaginatedReducer;
   universalPaymentPackTemplate: {
     allIds: number[];
     allIdsManagerOnly: number[];

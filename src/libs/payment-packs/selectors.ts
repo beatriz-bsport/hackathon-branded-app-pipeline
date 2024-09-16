@@ -25,6 +25,7 @@ import {
   getFranchiseCompanyById,
   getSortedFranchiseesWithAllowed,
   withAllowed,
+  withAllowedOnArray,
 } from '../franchise/selectors';
 
 type PaymentPackSelector<LPP = number | null> = (
@@ -360,6 +361,9 @@ export const getPaymentPackTemplateList: (
             (ppti: PaymentPackTemplateInstance) =>
               !ppti.disabled && ppti.company,
           ),
+          // TODO : this is higly dangerous, ?.filter((ppt_id) => !!ppt_id) : should be added
+          // at the end of expression since the current code is returning a array of boolean and number
+          // for example [1,false, 3, false,5 .. etc]
           allowed_franchisee_ids,
           companyById,
           // @ts-expect-error
@@ -482,7 +486,6 @@ export const getUniversalPaymentPackTemplate: (
     return {
       ...template,
       companies: withAllowed(
-        // @ts-expect-error
         template.payment_pack_template_instances?.map(
           (ppti: PaymentPackTemplateInstance) => !ppti.disabled && ppti.company,
         ),
@@ -521,6 +524,59 @@ export const getPaymentPackTemplate: (
   },
 );
 
+/**
+ * @description Used in master account.
+ * @deprecated Using an unpaginated reducer.
+ */
+export const getPaymentPackTemplateListAvailableForSale = createSelector(
+  getPaymentPackTemplateList,
+  (paymentPackTemplateList) =>
+    paymentPackTemplateList.filter(
+      (paymentPackTemplate) =>
+        !paymentPackTemplate.manager_only &&
+        paymentPackTemplate.is_usable_by_staff,
+    ),
+);
+
+const getPaymentPackTemplateAvailableForSalePaginatedState = (
+  state: RootState,
+) => state.paymentPack.paymentPackTemplatePaginated.availablePasses;
+
+export const getPaymentPackTemplatePaginatedAvailableForSale = createSelector(
+  [
+    getPaymentPackTemplateAvailableForSalePaginatedState,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+  ],
+  (paginatedState, allowed_franchisee_ids, companyById) => {
+    const { allIds, byId } = paginatedState;
+    return {
+      ...paginatedState,
+      passes: allIds
+        .map((id) => byId[id])
+        .map((paymentPackTemplate) => ({
+          ...paymentPackTemplate,
+          companies: withAllowedOnArray(
+            paymentPackTemplate.payment_pack_template_instances
+              .map(
+                (ppti: PaymentPackTemplateInstance) =>
+                  !ppti.disabled && ppti.company,
+              )
+              .filter(
+                (payment_pack_template_intance_id) =>
+                  !!payment_pack_template_intance_id,
+              ),
+            allowed_franchisee_ids,
+            companyById,
+          )?.filter((c) => !!c),
+        })),
+    };
+  },
+);
+/**
+ * @description Used in master account.
+ * @deprecated Using an unpaginated reducer.
+ */
 export const getPaymentPackTemplateListManagerOnly = createSelector(
   getPaymentPackTemplateManagerOnlyList,
   (paymentPackTemplateList) =>
@@ -531,21 +587,49 @@ export const getPaymentPackTemplateListManagerOnly = createSelector(
     ),
 );
 
+const getPaymentPackTemplateManagerOnlyPaginatedState = (state: RootState) =>
+  state.paymentPack.paymentPackTemplatePaginated.managerOnlyPasses;
+
+export const getPaymentPackTemplatePaginatedManagerOnly = createSelector(
+  [
+    getPaymentPackTemplateManagerOnlyPaginatedState,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+  ],
+  (paginatedState, allowed_franchisee_ids, companyById) => {
+    const { allIds, byId } = paginatedState;
+
+    return {
+      ...paginatedState,
+      passes: allIds
+        .map((id) => byId[id])
+        .map((paymentPackTemplate) => ({
+          ...paymentPackTemplate,
+          companies: withAllowedOnArray(
+            paymentPackTemplate.payment_pack_template_instances
+              .map(
+                (ppti: PaymentPackTemplateInstance) =>
+                  !ppti.disabled && ppti.company,
+              )
+              .filter(
+                (payment_pack_template_intance_id) =>
+                  !!payment_pack_template_intance_id,
+              ),
+            allowed_franchisee_ids,
+            companyById,
+          )?.filter((c) => !!c),
+        })),
+    };
+  },
+);
+/**
+ * @description Used in marketplace.
+ */
 export const getPaymentPackTemplateListAvailable = createSelector(
   getPaymentPackTemplateList,
   (paymentPackTemplateList) =>
     paymentPackTemplateList.filter(
       (paymentPackTemplate) => !paymentPackTemplate.manager_only,
-    ),
-);
-
-export const getPaymentPackTemplateListAvailableForSale = createSelector(
-  getPaymentPackTemplateList,
-  (paymentPackTemplateList) =>
-    paymentPackTemplateList.filter(
-      (paymentPackTemplate) =>
-        !paymentPackTemplate.manager_only &&
-        paymentPackTemplate.is_usable_by_staff,
     ),
 );
 

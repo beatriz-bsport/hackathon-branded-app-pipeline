@@ -161,12 +161,13 @@ export type FranchiseProductTemplateQueryParams = {
 
 export type FranchiseProductTemplatePaginatedQueryParams = {
   franchisor?: number;
+  disabled?: boolean;
   id__in?: number[];
   manager_only?: boolean;
   is_usable_by_staff?: boolean;
   available_for_sale?: boolean;
   page: number;
-  page_size: number;
+  page_size?: number;
 };
 
 export type FranchiseCompany = {

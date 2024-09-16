@@ -5,7 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import RedButton from '../../../components/button/RedButton.component';
+import RedButton from '#src/components/button/RedButton.component';
 
 type Props = { open?: boolean; onClose: () => void; onSubmit: () => void };
 

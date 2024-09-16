@@ -341,6 +341,7 @@ export type RootState = {
     [key: string]: any;
     massExtension: PaymentPackState['massExtension'];
     universalPaymentPackTemplate: PaymentPackState['universalPaymentPackTemplate'];
+    paymentPackTemplatePaginated: PaymentPackState['paymentPackTemplatePaginated'];
   };
   paymentRules: any;
   performanceTracking: PerformanceTrackingState;

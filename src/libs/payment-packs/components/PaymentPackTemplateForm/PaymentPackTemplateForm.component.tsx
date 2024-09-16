@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const PaymentPackTemplateFormikHOC = compose(
+export const PaymentPackTemplateFormikHOC = compose<Props, any>(
   withState(
     'isEditConfirmationDialogOpen',
     'setIsEditConfirmationDialogOpen',

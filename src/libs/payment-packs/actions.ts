@@ -2,7 +2,10 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
-import { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
+import {
+  FranchiseProductTemplateQueryParams,
+  FranchiseProductTemplatePaginatedQueryParams,
+} from '#src/libs/franchise/types';
 import {
   // Payment-Pack
   // -----------------
@@ -752,6 +755,68 @@ export function fetchPaymentPackTemplateList(
   };
 }
 
+export const listPaymentPackTemplatePaginatedActions = {
+  isLoading: createAction<boolean>(
+    'PAYMENT_PACK_TEMPLATE/AVAILABLE_FOR_SALE/PAGINATED_LIST/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PAYMENT_PACK_TEMPLATE/AVAILABLE_FOR_SALE/PAGINATED_LIST/ERROR',
+  ),
+  success: createAction<PaginatedResponse<PaymentPackTemplateAPI>>(
+    'PAYMENT_PACK_TEMPLATE/AVAILABLE_FOR_SALE/PAGINATED_LIST/SUCCESS',
+  ),
+
+  isLoadingManagerOnly: createAction<boolean>(
+    'PAYMENT_PACK_TEMPLATE/MANAGER_ONLY/PAGINATED_LIST/IS_LOADING',
+  ),
+  errorManagerOnly: createAction<Error | null>(
+    'PAYMENT_PACK_TEMPLATE/MANAGER_ONLY/PAGINATED_LIST/ERROR',
+  ),
+  successManagerOnly: createAction<PaginatedResponse<PaymentPackTemplateAPI>>(
+    'PAYMENT_PACK_TEMPLATE/MANAGER_ONLY/PAGINATED_LIST/SUCCESS',
+  ),
+};
+
+/**
+ * @description This action fetches with pagination the PaymentPackTemplates of a master account being available for sale.
+ * By forcing the available_for_sale parameter to true, only passes having manager_only=false AND is_usable_by_staff=true
+ * will be send back via the API.
+ * By forcing disabled parameter to false, we ensure that archived passes are not fetched keeping coherence
+ * with the client side (pages do not use them anyway). This also prevent fetched execise data that is never use
+ */
+export function fetchPaymentPackTemplatePaginatedListAvailableForSale(
+  params?: FranchiseProductTemplatePaginatedQueryParams,
+  options?: OptionCallback<PaginatedResponse<PaymentPackTemplateAPI>>,
+): ThunkAction {
+  return async (dispatch, getState) => {
+    dispatch(listPaymentPackTemplatePaginatedActions.error(null));
+    dispatch(listPaymentPackTemplatePaginatedActions.isLoading(true));
+
+    const currentState =
+      getState().paymentPack.paymentPackTemplatePaginated.availablePasses;
+
+    const nextPage = currentState.page ?? 1;
+
+    try {
+      const response = await fetchPaymentPackTemplateListPaginatedAPI({
+        ...params,
+        available_for_sale: true,
+        disabled: false,
+        page: nextPage,
+        page_size: 50,
+      });
+      dispatch(listPaymentPackTemplatePaginatedActions.success(response.data));
+
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(listPaymentPackTemplatePaginatedActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(listPaymentPackTemplatePaginatedActions.isLoading(false));
+  };
+}
+
 /**
  * @deprecated This method does not force any pagination and shall not be used anymore.
  */
@@ -783,6 +848,51 @@ export function fetchPaymentPackTemplateListManagerOnly(
   };
 }
 
+/**
+ * @description This action fetches with pagination the PaymentPackTemplates of a master account being for manager only usage.
+ * By forcing the available_for_sale parameter to false, only passes having either manager_only=true OR is_usable_by_staff=false
+ * will be send back via the API
+ * By forcing disabled parameter to false, we ensure that archived passes are not fetched keeping coherence
+ * with the client side (pages do not use them anyway). This also prevent fetched execise data that is never used.
+ */
+export function fetchPaymentPackTemplatePaginatedListManagerOnly(
+  params?: FranchiseProductTemplatePaginatedQueryParams,
+  options?: OptionCallback<PaginatedResponse<PaymentPackTemplateAPI>>,
+): ThunkAction {
+  return async (dispatch, getState) => {
+    dispatch(listPaymentPackTemplatePaginatedActions.errorManagerOnly(null));
+    dispatch(
+      listPaymentPackTemplatePaginatedActions.isLoadingManagerOnly(true),
+    );
+    const currentState =
+      getState().paymentPack.paymentPackTemplatePaginated.managerOnlyPasses;
+    const nextPage = currentState.page ?? 1;
+
+    try {
+      const response = await fetchPaymentPackTemplateListPaginatedAPI({
+        ...params,
+        available_for_sale: false,
+        disabled: false,
+        page: nextPage,
+        page_size: 50,
+      });
+      dispatch(
+        listPaymentPackTemplatePaginatedActions.successManagerOnly(
+          response.data,
+        ),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(listPaymentPackTemplatePaginatedActions.errorManagerOnly(err));
+      options?.onError?.(err);
+    }
+    dispatch(
+      listPaymentPackTemplatePaginatedActions.isLoadingManagerOnly(false),
+    );
+  };
+}
 /**
  * Type guard to check if the given object is of type PaginatedResponse<PaymentPackTemplate>.
  *

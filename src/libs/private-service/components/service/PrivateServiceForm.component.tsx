@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import * as Yup from 'yup';
 import omit from 'lodash/omit';
 import { withFormik, FieldArray, FormikProps, ErrorMessage } from 'formik';
@@ -16,6 +16,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
+import TooltipInfo from '#src/components/TooltipInfo.component';
 
 import {
   RESOURCE_ATTRIBUTION_CONSUMER,
@@ -27,7 +28,10 @@ import type {
   Establishment,
 } from '#src/libs/establishment/types';
 import type { Tag, TagGroup, TagOption } from '#src/libs/tag/types';
-import type { PrivateServiceGroup } from '#src/libs/private-service/types';
+import type {
+  PrivateService,
+  PrivateServiceGroup,
+} from '#src/libs/private-service/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { getCoachCorrespondingCapacity } from '#src/libs/private-service/utils';
@@ -41,15 +45,21 @@ import CoachListItemBasic from '../../../associated-coach/components/CoachListIt
 import PrivateServiceGroupField from '../service-group/PrivateServiceGroupField.component';
 
 import {
+  CLASSPASS_MAXIMUM_CONCURRENT_APPOINTMENT_PER_COACH,
+  CLASSPASS_AVAILABILITY_PADDING,
+  MAXIMUM_CONCURRENT_APPOINTMENT_PER_COACH_OPTIONS,
+} from '#src/libs/private-service/constants';
+
+import {
   TextField,
   ColorField,
   CheckboxField,
   IntegerField,
   RadioGroupField,
   DurationField,
-  SwitchField,
   // @ts-expect-error
 } from '../../../../components/forms';
+import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
 
 // @ts-expect-error
 import ImageField from '../../../../components/forms/ImageField.component';
@@ -102,8 +112,11 @@ type OwnProps = {
   onAddServiceGroup?: () => void;
   serviceGroupList: Array<PrivateServiceGroup>;
   tagList: Array<Tag<TagGroup>>;
+  initial?: PrivateService<Coach, AssociatedEstablishment>;
 };
+
 type Props = OwnProps & WithTranslation & FormikProps<FormikValues>;
+
 const IS_HOME_SERVICE = '0';
 const IS_WITHOUT_ESTABLISHMENT = '1';
 const IS_WITH_ESTABLISHMENT = '2';
@@ -141,15 +154,38 @@ const HelpPaddingDialog = ({
 };
 
 export const PrivateServiceForm = (props: Props) => {
-  const { values, setValues } = props;
+  const { values, setValues, setFieldValue, initial } = props;
   const { t } = useTranslation('privateService');
   const classes = useStyles();
+
   const [isOpenPadDialog, setIsOpenPadDialog] = React.useState<boolean>(false);
   const [openPaddingDialog, closePaddingDialog] = [
     () => setIsOpenPadDialog(true),
     () => setIsOpenPadDialog(false),
   ];
   const [openAdvancedOptions, setOpenAdvancedOptions] = React.useState(false);
+
+  const [
+    isMaximumAppointmentPerCoachDisabled,
+    setIsMaximumAppointmentPerCoachDisabled,
+  ] = React.useState(false);
+
+  const [
+    isAvailabilityStartBufferDisabled,
+    setIsAvailabilityStartBufferDisabled,
+  ] = React.useState(false);
+
+  const [isAvailabilityEndBufferDisabled, setIsAvailabilityEndBufferDisabled] =
+    React.useState(false);
+
+  React.useEffect(() => {
+    if (values.available_on_partnership) {
+      setIsMaximumAppointmentPerCoachDisabled(true);
+      setIsAvailabilityStartBufferDisabled(true);
+      setIsAvailabilityEndBufferDisabled(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const allWhitelistTagsWithTagGroup = React.useMemo(() => {
     return (
@@ -219,6 +255,73 @@ export const PrivateServiceForm = (props: Props) => {
     [setValues, values],
   );
 
+  const changeAvailableOnPartnership = React.useCallback(() => {
+    if (values.available_on_partnership) {
+      setFieldValue('available_on_partnership', false);
+      setIsMaximumAppointmentPerCoachDisabled(false);
+      setIsAvailabilityStartBufferDisabled(false);
+      setIsAvailabilityEndBufferDisabled(false);
+    } else {
+      setValues({
+        ...values,
+        pad_before_booking: false,
+        is_without_coach: false,
+        use_full_establishment_capacity: true,
+        establishment_resource_type: IS_WITH_ESTABLISHMENT,
+        available_on_partnership: !values.available_on_partnership,
+      });
+
+      if (!initial) {
+        setFieldValue(
+          'maxConcurrentAppointmentsPerCoach',
+          CLASSPASS_MAXIMUM_CONCURRENT_APPOINTMENT_PER_COACH,
+        );
+        setFieldValue(
+          'availability_padding_start_minutes',
+          CLASSPASS_AVAILABILITY_PADDING,
+        );
+        setFieldValue(
+          'availability_padding_end_minutes',
+          CLASSPASS_AVAILABILITY_PADDING,
+        );
+      }
+
+      if (
+        values.maxConcurrentAppointmentsPerCoach ===
+        CLASSPASS_MAXIMUM_CONCURRENT_APPOINTMENT_PER_COACH
+      )
+        setIsMaximumAppointmentPerCoachDisabled(true);
+      if (
+        values.availability_padding_start_minutes ===
+        CLASSPASS_AVAILABILITY_PADDING
+      )
+        setIsAvailabilityStartBufferDisabled(true);
+
+      if (
+        values.availability_padding_end_minutes ===
+        CLASSPASS_AVAILABILITY_PADDING
+      )
+        setIsAvailabilityEndBufferDisabled(true);
+    }
+  }, [setValues, setFieldValue, values, initial]);
+
+  const showClassPassAvailabilityStartPaddingError = useMemo(
+    () =>
+      values.availability_padding_start_minutes !==
+        CLASSPASS_AVAILABILITY_PADDING && values.available_on_partnership,
+    [
+      values.availability_padding_start_minutes,
+      values.available_on_partnership,
+    ],
+  );
+
+  const showClassPassAvailabilityEndPaddingError = useMemo(
+    () =>
+      values.availability_padding_end_minutes !==
+        CLASSPASS_AVAILABILITY_PADDING && values.available_on_partnership,
+    [values.availability_padding_end_minutes, values.available_on_partnership],
+  );
+
   return (
     <div className={classes.container}>
       <ImageField id="button_private_service_image" name="cover_main" />
@@ -263,14 +366,22 @@ export const PrivateServiceForm = (props: Props) => {
           <SwitchField
             label={t('service.form.availableOnPartnership.label')}
             name="available_on_partnership"
+            onChange={changeAvailableOnPartnership}
           />
         </div>
       )}
+
+      <Slide in={values.available_on_partnership}>
+        <Alert className={classes.alertPadding} severity="info">
+          {t('service.form.availableOnPartnership.alert')}
+        </Alert>
+      </Slide>
+
       <fieldset className={classes.resourceGroup}>
         <legend className={classes.legend}>
           {t('service.form.resourceGroup.establishment')}
         </legend>
-        <div className={classes.establishmentRadioGroup}>
+        <div className={classes.fieldTopMargin}>
           <RadioGroupField
             choices={[
               {
@@ -281,6 +392,7 @@ export const PrivateServiceForm = (props: Props) => {
                 helperText: t(
                   'service.form.establishmentResourceType.isHomeService.helperText',
                 ),
+                disabled: values.available_on_partnership,
               },
               {
                 label: t(
@@ -290,6 +402,7 @@ export const PrivateServiceForm = (props: Props) => {
                 helperText: t(
                   'service.form.establishmentResourceType.isWithoutEstablishment.helperText',
                 ),
+                disabled: values.available_on_partnership,
               },
               {
                 label: t(
@@ -370,6 +483,7 @@ export const PrivateServiceForm = (props: Props) => {
               </FieldArray>
             </div>
             <CheckboxField
+              disabled={values.available_on_partnership}
               helperText={t(
                 'service.form.use_full_establishment_capacity.helperText',
               )}
@@ -387,11 +501,23 @@ export const PrivateServiceForm = (props: Props) => {
         </Slide>
       </fieldset>
       <fieldset className={classes.resourceGroup}>
-        <legend>{t('service.form.resourceGroup.coach')}</legend>
-        <CheckboxField
-          label={t('service.form.is_without_coach')}
-          name="is_without_coach"
-        />
+        <legend className={classes.legendCoach}>
+          {t('service.form.resourceGroup.coach')}
+        </legend>
+        <div className={classes.tooltipRow}>
+          <div className={classes.paddingBottom}>
+            <CheckboxField
+              disabled={values.available_on_partnership}
+              label={t('service.form.is_without_coach')}
+              name="is_without_coach"
+            />
+          </div>
+          {values.available_on_partnership && (
+            <div className={classes.noTeacher}>
+              <TooltipInfo helpText={t('service.form.tooltip.noTeacher')} />
+            </div>
+          )}
+        </div>
         <Slide in={!values.is_without_coach}>
           <div>
             <div className={classes.selectorWrapper}>
@@ -448,16 +574,47 @@ export const PrivateServiceForm = (props: Props) => {
                 )}
               </FieldArray>
             </div>
-            <IntegerField
-              fullWidth
-              className={classes.field}
-              helperText={t('service.form.coach_capacity_used.helperText')}
-              label={t('service.form.coach_capacity_used.label')}
-              name="coach_capacity_used"
-            />
-            <Alert className={classes.alignCenter} severity="info">
-              {t('service.form.coach_capacity_used.alertText')}
-            </Alert>
+            <div className={classes.row}>
+              <IntegerField
+                fullWidth
+                className={classes.fieldTopMargin}
+                disabled={isMaximumAppointmentPerCoachDisabled}
+                helperText={
+                  !values.available_on_partnership &&
+                  t('service.form.coach_capacity_used.helperText')
+                }
+                label={t('service.form.coach_capacity_used.label')}
+                min={1}
+                name="maxConcurrentAppointmentsPerCoach"
+              />
+              {isMaximumAppointmentPerCoachDisabled && (
+                <div className={classes.maxConcurrentAppointmentPerCoachAlert}>
+                  <TooltipInfo
+                    helpText={t('service.form.tooltip.oneBookingPerTeacher')}
+                  />
+                </div>
+              )}
+            </div>
+            <ErrorMessage
+              component="div"
+              name="maxConcurrentAppointmentsPerCoach"
+            >
+              {(errorMessage) => (
+                <div className={classes.paddingContainer}>
+                  <Typography
+                    className={classes.errorMessageText}
+                    variant="caption"
+                  >
+                    {t(errorMessage)}
+                  </Typography>
+                </div>
+              )}
+            </ErrorMessage>
+            <Slide in={!values.available_on_partnership}>
+              <Alert className={classes.alignCenter} severity="info">
+                {t('service.form.coach_capacity_used.alertText')}
+              </Alert>
+            </Slide>
             <CheckboxField
               helperText={t(
                 'service.form.coach_consumer_attribution.helperText',
@@ -497,36 +654,80 @@ export const PrivateServiceForm = (props: Props) => {
         <legend className={classes.legend}>
           {t('service.form.paddingTitle')}
         </legend>
+        <Slide
+          in={
+            isAvailabilityEndBufferDisabled && isAvailabilityStartBufferDisabled
+          }
+        >
+          <Alert className={classes.alertPadding} severity="info">
+            {t('service.form.availableOnPartnership.buffersAlert')}
+          </Alert>
+        </Slide>
         <IntegerField
           fullWidth
           required
           className={classes.integerField}
+          // Different behaviour between editing and creating a new appointment
+          disabled={isAvailabilityStartBufferDisabled}
           helperText={
-            props.values.availability_padding_start_minutes
+            !values.available_on_partnership &&
+            (props.values.availability_padding_start_minutes
               ? t('service.form.paddingStart.helperText', {
                   minutes: props.values.availability_padding_start_minutes,
                 })
-              : t('service.form.paddingStart.helperText0')
+              : t('service.form.paddingStart.helperText0'))
           }
           label={t('service.form.paddingStart.label')}
           name="availability_padding_start_minutes"
         />
+        {showClassPassAvailabilityStartPaddingError && (
+          <ErrorMessage
+            component="div"
+            name="availability_padding_start_minutes"
+          >
+            {(errorMessage) => (
+              <Typography
+                className={classes.errorMessageText}
+                variant="caption"
+              >
+                {t(errorMessage)}
+              </Typography>
+            )}
+          </ErrorMessage>
+        )}
+
         <IntegerField
           fullWidth
           required
           className={classes.integerField}
+          // Different behaviour between editing and creating a new appointment
+          disabled={isAvailabilityEndBufferDisabled}
           helperText={
-            props.values.availability_padding_end_minutes
+            !values.available_on_partnership &&
+            (props.values.availability_padding_end_minutes
               ? t('service.form.paddingEnd.helperText', {
                   minutes: props.values.availability_padding_end_minutes,
                 })
-              : t('service.form.paddingEnd.helperText0')
+              : t('service.form.paddingEnd.helperText0'))
           }
           label={t('service.form.paddingEnd.label')}
           name="availability_padding_end_minutes"
         />
+        {showClassPassAvailabilityEndPaddingError && (
+          <ErrorMessage component="div" name="availability_padding_end_minutes">
+            {(errorMessage) => (
+              <Typography
+                className={classes.errorMessageText}
+                variant="caption"
+              >
+                {t(errorMessage)}
+              </Typography>
+            )}
+          </ErrorMessage>
+        )}
         <div className={classes.row}>
           <SwitchField
+            disabled={values.available_on_partnership}
             label={t('service.form.pad_before_booking.label')}
             name="pad_before_booking"
           />
@@ -571,6 +772,11 @@ export const PrivateServiceForm = (props: Props) => {
               <Typography className={classes.title}>
                 {t('service.form.advancedOptions.tag.header')}
               </Typography>
+              <Slide in={values.available_on_partnership}>
+                <Alert className={classes.alertPadding} severity="info">
+                  {t('service.form.availableOnPartnership.tagsAlert')}
+                </Alert>
+              </Slide>
               <Typography variant="caption">
                 {t('service.form.advancedOptions.tag.helperText')}
               </Typography>
@@ -633,7 +839,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(3),
     marginTop: theme.spacing(2),
   },
-  establishmentRadioGroup: {
+  fieldTopMargin: {
     marginTop: theme.spacing(2),
   },
   sectionTitle: {
@@ -736,8 +942,42 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     flexGrow: 1,
   },
+  paddingContainer: {
+    padding: theme.spacing(1),
+  },
+  legendCoach: {
+    paddingBottom: 0,
+    marginBottom: theme.spacing(0.5),
+  },
+  maxConcurrentAppointmentPerCoachAlert: {
+    marginTop: theme.spacing(4),
+    marginLeft: theme.spacing(1),
+  },
+  noTeacher: {
+    paddingBottom: theme.spacing(0.8),
+    marginLeft: 0,
+  },
   errorMessageText: {
-    color: theme.palette.error.dark,
+    color: '#E31B0C',
+  },
+  alertPadding: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  tooltipRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  paddingBottom: {
+    paddingBottom: theme.spacing(1),
+    paddingRight: 0,
+  },
+  oneBookingPerTeacherTooltipIcon: {
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
   },
 }));
 
@@ -749,7 +989,38 @@ export const PrivateServiceSchema = Yup.object().shape({
   private_service_group: Yup.number().nullable(),
   color: Yup.string(),
   use_full_establishment_capacity: Yup.boolean(),
-  coach_capacity_used: Yup.number().oneOf([1, 2, 3, 4, 6, 12]),
+  maxConcurrentAppointmentsPerCoach: Yup.number()
+    .min(1, 'service.form.validation.zeroValueError')
+    .test(
+      'maxConcurrentAppointmentsPerCoach-validation',
+      'error-maxConcurrentAppointmentsPerCoach',
+      function checkMaxConcurrentAppointmentsPerCoach(value) {
+        const { available_on_partnership, is_without_coach } = this.parent;
+
+        // Priority: available_on_partnership validation
+        if (available_on_partnership) {
+          return (
+            value === CLASSPASS_MAXIMUM_CONCURRENT_APPOINTMENT_PER_COACH ||
+            this.createError({
+              message: 'service.form.validation.coachCapacityUsed',
+            })
+          );
+        }
+
+        // If available_on_partnership is false, check is_without_coach condition
+        if (!is_without_coach) {
+          return (
+            MAXIMUM_CONCURRENT_APPOINTMENT_PER_COACH_OPTIONS.includes(value) ||
+            this.createError({
+              message: 'service.form.coach_capacity_used.alertText',
+            })
+          );
+        }
+
+        // If no other conditions apply, the value is valid
+        return true;
+      },
+    ),
   coaches: Yup.array()
     .of(Yup.number())
     .when('is_without_coach', {
@@ -770,8 +1041,26 @@ export const PrivateServiceSchema = Yup.object().shape({
         .min(1),
       otherwise: Yup.array().of(Yup.number()),
     }),
-  availability_padding_start_minutes: Yup.number(),
-  availability_padding_end_minutes: Yup.number(),
+  availability_padding_start_minutes: Yup.number()
+    .nullable()
+    .when('available_on_partnership', {
+      is: true,
+      then: Yup.number().test(
+        'is-zero',
+        'service.form.validation.availabilityBuffers',
+        (value) => value === CLASSPASS_AVAILABILITY_PADDING,
+      ),
+    }),
+  availability_padding_end_minutes: Yup.number()
+    .nullable()
+    .when('available_on_partnership', {
+      is: true,
+      then: Yup.number().test(
+        'is-zero',
+        'service.form.validation.availabilityBuffers',
+        (value) => value === CLASSPASS_AVAILABILITY_PADDING,
+      ),
+    }),
   allow_unpaid_booking: Yup.boolean(),
 });
 
@@ -830,6 +1119,7 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
       availability_padding_start_minutes: 0,
       availability_padding_end_minutes: 0,
       allow_unpaid_booking: false,
+      available_on_partnership: false,
       unpaid_whitelist_tags: [],
       unpaid_blacklist_tags: [],
       member_blacklist_tags: [],

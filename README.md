@@ -13,7 +13,7 @@ This project is a simple implementation of how a Monorepository can be configure
 On MacOS,
 
 ```sh
-curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=9.7.1 sh -
+curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=9.10.0 sh -
 ```
 
 2. Install [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) and run

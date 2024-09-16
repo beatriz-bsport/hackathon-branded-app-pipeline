@@ -1,7 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import omit from 'lodash/omit';
-import uniq from 'lodash/uniq';
 import type { PaginatedResponse } from '../../state/types';
 import {
   actionTypes,

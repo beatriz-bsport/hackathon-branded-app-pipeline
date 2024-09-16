@@ -1096,13 +1096,19 @@ export const RadioGroupField = (props: RadioFieldProps) => {
         >
           <FormLabel className={labelClass}>{label}</FormLabel>
           {choices.map(
-            ({ value, label: l, helperText, helperTextInformationIcon }) => (
+            ({
+              value,
+              label: l,
+              helperText,
+              helperTextInformationIcon,
+              disabled,
+            }) => (
               <div key={value} className={divContainerClass}>
                 <FormControlLabel
                   key={value}
                   classes={props.classes}
                   control={<Radio checked={`${field.value}` === `${value}`} />}
-                  disabled={props.disabled}
+                  disabled={props.disabled || disabled}
                   label={l}
                   value={value}
                 />

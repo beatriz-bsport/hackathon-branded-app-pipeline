@@ -86,14 +86,16 @@ type Props = {
   deletePrivateService: (id: number) => void,
   id: number,
   fetchAssociatedCoachesList: () => void,
-  setOpenEditForm: (data: any) => void,
+  setIsEditFormOpen: (isEditFormOpen: boolean) => void,
+  setShouldRenderForm: (shouldRenderForm: boolean) => void,
 
   fetchPrivateService: (id: number) => void,
   goToPrivateServiceCalendar: (number) => void,
 
   switchServiceHasOwnAvailabilitySlots: (id: number) => void,
 
-  openEditForm: any,
+  isEditFormOpen: boolean,
+  shouldRenderForm: boolean,
   availableCoaches: Array<AssociatedCoach>,
   goToCoachCalendar: (id: number) => void,
 
@@ -175,14 +177,28 @@ export class PrivateServiceList extends React.Component<Props> {
   };
 
   closeForm = () => {
-    this.props.setOpenEditForm(null);
+    this.props.setIsEditFormOpen(false);
+  };
+
+  handleTransitionEnd = () => {
+    if (!this.props.isEditFormOpen) {
+      this.props.setShouldRenderForm(false);
+    }
+  };
+
+  handleFormEdit = () => {
+    this.props.fetchAssociatedCoachesList();
+    this.props.fetchEstablishments();
+    this.props.fetchAssociatedEstablishments();
+    this.props.setIsEditFormOpen(true);
+    this.props.setShouldRenderForm(true);
   };
 
   createOrUpdatePrivateService = (data: *, options: OptionCallback) => {
     this.props.createOrUpdatePrivateService(data, {
       onSuccess: () => {
         this.fetchData();
-        this.props.setOpenEditForm(null);
+        this.props.setIsEditFormOpen(false);
         if (options && options.onSuccess) options.onSuccess();
       },
       onError: () => {
@@ -226,7 +242,7 @@ export class PrivateServiceList extends React.Component<Props> {
             updateNotification={this.props.updateMarketingNotification}
           />
         ) : null}
-        {this.props.privateService && (
+        {this.props.privateService && this.props.shouldRenderForm ? (
           <PrivateServiceFormDrawer
             allCoaches={this.props.allCoaches}
             allEstablishments={this.props.allEstablishments}
@@ -236,11 +252,12 @@ export class PrivateServiceList extends React.Component<Props> {
             onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
             onCancel={this.closeForm}
             onSubmit={this.createOrUpdatePrivateService}
-            open={this.props.openEditForm}
+            onTransitionEnd={this.handleTransitionEnd}
+            open={this.props.isEditFormOpen}
             serviceGroupList={this.props.serviceGroupList}
             tagList={this.props.allTagsWithTagGroup ?? []}
           />
-        )}
+        ) : null}
         {this.props.serviceGroupCreateOpen && (
           <PrivateServiceGroupFormDialog
             open
@@ -253,14 +270,7 @@ export class PrivateServiceList extends React.Component<Props> {
           forcedBehavior="hidden"
           requiredPermission="management.privateService.allowed_actions.edit"
         >
-          <BottomActionButtons
-            onEdit={() => {
-              this.props.fetchAssociatedCoachesList();
-              this.props.fetchEstablishments();
-              this.props.fetchAssociatedEstablishments();
-              this.props.setOpenEditForm(true);
-            }}
-          />
+          <BottomActionButtons onEdit={this.handleFormEdit} />
         </ObjectLevelPermissionWrapper>
       </div>
     );
@@ -368,7 +378,8 @@ export default compose(
         );
       },
   }),
-  withState('openEditForm', 'setOpenEditForm', null),
+  withState('isEditFormOpen', 'setIsEditFormOpen', false),
+  withState('shouldRenderForm', 'setShouldRenderForm', false),
   withStateHandlers(
     { serviceGroupToEdit: null, serviceGroupCreateOpen: false },
     {

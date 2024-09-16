@@ -17,6 +17,7 @@ type OwnProps = {
   open: boolean;
   anchor?: 'top' | 'bottom' | 'left' | 'right' | undefined;
   onClose?: () => void;
+  onTransitionEnd?: () => void;
   title?: string;
   withoutPadding?: boolean;
   subtitle?: string;
@@ -44,6 +45,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
   mobileMinWidth,
   withoutHeaderContainer,
   onClose,
+  onTransitionEnd,
   trackingObjectIdentifier,
   trackingObjectId,
   forwardedContainerRef,
@@ -70,6 +72,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
         disableEnforceFocus: true,
       }}
       onClose={close}
+      onTransitionEnd={onTransitionEnd}
       open={open}
     >
       <div

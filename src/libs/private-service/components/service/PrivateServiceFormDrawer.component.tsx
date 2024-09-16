@@ -32,13 +32,14 @@ type OwnProps = {
   isSubmitting: boolean;
   initial?: PrivateService | PrivateService<Coach, AssociatedEstablishment>;
   onCancel: () => void;
+  onTransitionEnd?: () => void;
 };
 type Props = OwnProps & WithTranslation;
 export const PrivateServiceFormDrawer = (props: Props) => {
   const { t } = useTranslation('privateService');
   const classes = useStyles();
-  const { onCancel, initial } = props;
-  const cancel = React.useCallback(() => {
+  const { onCancel, initial, onTransitionEnd } = props;
+  const handleClose = React.useCallback(() => {
     onCancel();
     trackFormCancel(initial?.id);
   }, [onCancel, initial?.id]);
@@ -50,7 +51,8 @@ export const PrivateServiceFormDrawer = (props: Props) => {
   }, [props.initial?.id, props.open]);
   return (
     <GenericResponsiveDrawer
-      onClose={cancel}
+      onClose={handleClose}
+      onTransitionEnd={onTransitionEnd}
       open={props.open}
       subtitle={props.initial?.name}
       title={t('service.form.title')}
@@ -60,7 +62,9 @@ export const PrivateServiceFormDrawer = (props: Props) => {
           {/* @ts-expect-error */}
           <PrivateServiceFields {...props} />
           <DialogActions>
-            <Button onClick={cancel}>{t('service.form.actions.cancel')}</Button>
+            <Button onClick={handleClose}>
+              {t('service.form.actions.cancel')}
+            </Button>
             <Submit
               disabled={props.isSubmitting}
               onClick={() => {

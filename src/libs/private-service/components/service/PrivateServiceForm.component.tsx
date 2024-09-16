@@ -714,6 +714,7 @@ const getIds = <T extends { id: number }>(list: T[]) =>
     .filter((_value) => !!_value);
 
 export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
+  enableReinitialize: true,
   // @ts-expect-error
   mapPropsToValues: ({ initial }) => {
     if (initial) {

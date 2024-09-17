@@ -1,6 +1,6 @@
 import React from 'react';
 import { WithTranslation, useTranslation } from 'react-i18next';
-import { Form } from 'formik';
+import { Form, FormikProps } from 'formik';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
@@ -15,14 +15,16 @@ import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import PrivateServiceFields, {
   PrivateServiceFormikHOC,
+  type FormikValues,
 } from './PrivateServiceForm.component';
-// @ts-expect-error
-import { Submit } from '../../../../components/forms';
+
+import DisableAvailableSlotsDialog from '#src/libs/private-service/components/service/DisableAvailableSlotsDialog.component';
 
 const { trackFormSubmitIntent, trackFormAdd, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
     SegmentAnalyticsFormObjectIdentifier.PrivateService,
   );
+
 type OwnProps = {
   isIntegratedWithClassPass: boolean;
   fullScreen: boolean;
@@ -35,21 +37,69 @@ type OwnProps = {
   onCancel: () => void;
   onTransitionEnd?: () => void;
 };
-type Props = OwnProps & WithTranslation;
+
+type Props = OwnProps & WithTranslation & FormikProps<FormikValues>;
+
 export const PrivateServiceFormDrawer = (props: Props) => {
   const { t } = useTranslation('privateService');
   const classes = useStyles();
-  const { onCancel, initial, onTransitionEnd } = props;
+  const {
+    onCancel,
+    initial,
+    onTransitionEnd,
+    values,
+    handleSubmit,
+    setFieldValue,
+    errors,
+  } = props;
+
+  const [
+    isConfirmDisableAvailableSlotsDialogOpen,
+    setIsConfirmDisableAvailableSlotsDialogOpen,
+  ] = React.useState(false);
+
   const handleClose = React.useCallback(() => {
     onCancel();
     trackFormCancel(initial?.id);
   }, [onCancel, initial?.id]);
+
+  const onClickDialogDoItLater = React.useCallback(() => {
+    handleSubmit();
+    setIsConfirmDisableAvailableSlotsDialogOpen(false);
+  }, [handleSubmit]);
+
+  const onClickSave = React.useCallback(() => {
+    trackFormSubmitIntent(initial?.id);
+    if (
+      // Adding the erros check to not open the dialog if the fields are not valid
+      Object.keys(errors).length === 0 &&
+      values.available_on_partnership &&
+      values.has_own_availability_slots
+    ) {
+      setIsConfirmDisableAvailableSlotsDialogOpen(true);
+    } else {
+      handleSubmit();
+    }
+  }, [
+    values.available_on_partnership,
+    values.has_own_availability_slots,
+    initial?.id,
+    handleSubmit,
+    errors,
+  ]);
+
+  const handleConfirmDisableAvailabilitySlots = React.useCallback(async () => {
+    setFieldValue('has_own_availability_slots', false);
+    handleSubmit();
+    setIsConfirmDisableAvailableSlotsDialogOpen(false);
+  }, [setFieldValue, handleSubmit]);
 
   React.useEffect(() => {
     if (props.open) {
       trackFormAdd(props.initial?.id);
     }
   }, [props.initial?.id, props.open]);
+
   return (
     <GenericResponsiveDrawer
       onClose={handleClose}
@@ -66,16 +116,22 @@ export const PrivateServiceFormDrawer = (props: Props) => {
             <Button onClick={handleClose}>
               {t('service.form.actions.cancel')}
             </Button>
-            <Submit
+            <Button
+              color="primary"
               disabled={props.isSubmitting}
-              onClick={() => {
-                trackFormSubmitIntent(props.initial?.id);
-              }}
+              onClick={onClickSave}
+              variant="contained"
             >
               {t('service.form.actions.submit')}
-            </Submit>
+            </Button>
           </DialogActions>
         </Form>
+        <DisableAvailableSlotsDialog
+          isOpen={isConfirmDisableAvailableSlotsDialogOpen}
+          isSubmitting={props.isSubmitting}
+          onDoItLater={onClickDialogDoItLater}
+          onSubmit={handleConfirmDisableAvailabilitySlots}
+        />
       </div>
     </GenericResponsiveDrawer>
   );
@@ -87,6 +143,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(20),
   },
 }));
+
 export default compose<any, OwnProps>(PrivateServiceFormikHOC)(
   PrivateServiceFormDrawer,
 );

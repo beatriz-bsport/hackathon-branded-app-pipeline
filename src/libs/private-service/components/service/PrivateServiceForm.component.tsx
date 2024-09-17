@@ -32,6 +32,8 @@ import type {
   PrivateService,
   PrivateServiceGroup,
 } from '#src/libs/private-service/types';
+import type { OptionCallback } from '#src/state/types';
+
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { getCoachCorrespondingCapacity } from '#src/libs/private-service/utils';
@@ -41,6 +43,7 @@ import EstablishmentListItem from '../../../establishment/components/Establishme
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
 import CoachSelector from '../../../associated-coach/components/coach-selector/CoachSelector.component';
 import CoachListItemBasic from '../../../associated-coach/components/CoachListItemBasic.component';
+
 // @ts-expect-error
 import PrivateServiceGroupField from '../service-group/PrivateServiceGroupField.component';
 
@@ -102,7 +105,16 @@ export interface FormikValues {
   member_whitelist_tags: Array<number>;
   member_blacklist_tags: Array<number>;
   available_on_partnership: boolean;
+  has_own_availability_slots: boolean;
 }
+
+type FormProps = {
+  onSubmit: (
+    data: Partial<FormikValues>,
+    options?: OptionCallback<PrivateService>,
+  ) => void;
+};
+
 type OwnProps = {
   isIntegratedWithClassPass: boolean;
   availableEstablishments: Array<Establishment>;
@@ -1071,7 +1083,10 @@ const getIds = <T extends { id: number }>(list: T[]) =>
     .map((value) => (isNumber<T>(value) ? value : value.id))
     .filter((_value) => !!_value);
 
-export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
+export const PrivateServiceFormikHOC = withFormik<
+  Props & FormProps,
+  FormikValues
+>({
   enableReinitialize: true,
   // @ts-expect-error
   mapPropsToValues: ({ initial }) => {
@@ -1120,6 +1135,7 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
       availability_padding_end_minutes: 0,
       allow_unpaid_booking: false,
       available_on_partnership: false,
+      has_own_availability_slots: false,
       unpaid_whitelist_tags: [],
       unpaid_blacklist_tags: [],
       member_blacklist_tags: [],
@@ -1127,7 +1143,6 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
     };
   },
   validationSchema: PrivateServiceSchema,
-  // @ts-expect-error
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(
       omit(
@@ -1159,7 +1174,6 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
           'cover_thumbnail',
           'company',
           'slots_duration_minute',
-          'has_own_availability_slots',
           // @ts-expect-error
           ...(!values.private_service_group ? ['private_service_group'] : []),
         ],

@@ -23,15 +23,19 @@ const NavigationAppBar: React.FC<NavigationAppBarProps> = ({
   relationshipAuthMemberName,
   onSideDrawerOpenClick,
   navigateBackToMasterRelation,
+  showGoBackButton,
+  goBackNavigation,
 }) => {
   const { t } = useTranslation('consumerSpace');
   return (
     <div className="bs-navigation-app-bar__root">
       <div className="flex">
         <NavigationAppBarLogoSection
+          goBackNavigation={goBackNavigation}
           isMobile={isMobile}
           logo={logo}
           onSideDrawerOpenClick={onSideDrawerOpenClick}
+          showGoBackButton={showGoBackButton}
           websiteUrl={websiteUrl}
         />
         <NavigationAppBarLinksSection isHidden={isMobile} links={links} />

@@ -5,7 +5,7 @@ import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { httpParser } from '#src/libs/marketplace/utils';
 import ButtonBase from '#src/components/css-only/Fabrique/ButtonBaseV2';
 import IconButton from '#src/components/css-only/Fabrique/IconButton';
-import { Menu03 } from '#src/components/untitledui';
+import { ArrowLeft, Menu03 } from '#src/components/untitledui';
 import classNames from 'classnames';
 
 import type { NavigationAppBarProps } from '#src/components/css-only/Navigation/NavigationAppBar/types';
@@ -14,7 +14,12 @@ import './styles.css';
 
 type Props = Pick<
   NavigationAppBarProps,
-  'logo' | 'websiteUrl' | 'isMobile' | 'onSideDrawerOpenClick'
+  | 'logo'
+  | 'websiteUrl'
+  | 'isMobile'
+  | 'onSideDrawerOpenClick'
+  | 'showGoBackButton'
+  | 'goBackNavigation'
 >;
 
 const NavigationAppBarLogoImage: React.FC<Pick<NavigationAppBarProps, 'logo'>> =
@@ -64,7 +69,26 @@ const NavigationAppBarLogoSection: React.FC<Props> = ({
   websiteUrl,
   isMobile,
   onSideDrawerOpenClick,
+  showGoBackButton,
+  goBackNavigation,
 }) => {
+  if (showGoBackButton && !!goBackNavigation) {
+    return (
+      <div className="bs-navigation-app-bar__logo-section__root">
+        <IconButton
+          className={classNames(
+            'bs-navigation-app-bar__logo-section__menu-button',
+          )}
+          color="grey"
+          onClick={goBackNavigation}
+          size="md"
+          variant="text"
+        >
+          <ArrowLeft />
+        </IconButton>
+      </div>
+    );
+  }
   return (
     <div className="bs-navigation-app-bar__logo-section__root">
       <IconButton

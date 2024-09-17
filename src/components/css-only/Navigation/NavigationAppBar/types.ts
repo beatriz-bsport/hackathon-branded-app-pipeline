@@ -38,4 +38,10 @@ export type NavigationAppBarProps = {
   navigateBackToMasterRelation?: () => void;
   /** Action fired once the menu button is pressed from the logo section */
   onSideDrawerOpenClick?: () => void;
+  /**
+   * If true, we should display the "go back" button on the logo section.
+   */
+  showGoBackButton?: boolean;
+  /** Action fired once the go back button is pressed. */
+  goBackNavigation?: () => void;
 };

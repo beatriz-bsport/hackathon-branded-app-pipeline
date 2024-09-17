@@ -93,7 +93,6 @@ type Props = {
   periodFilter: { start: string, end: string },
 
   fetchPrivateServiceResourceData: (id: number, OptionCallback) => void,
-  setResourceFiltersArray: (ressources: Array<string>) => void,
   fetchPrivateBookingList: () => void,
   fetchCustomEventList: () => void,
   resetCustomEvent: () => void,

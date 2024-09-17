@@ -1025,9 +1025,7 @@ export const switchServiceHasOwnAvailabilitySlotsActions = {
   isLoading: createAction(
     'PRIVATE_SERVICE/SWITCH_HAS_OWN_AVAILABILITY_SLOT/IS_LOADING',
   ),
-  success: createAction(
-    'PRIVATE_SERVICE/SWITCH_HAS_OWN_AVAILABILITY_SLOT/SUCCESS',
-  ),
+  reset: createAction('PRIVATE_SERVICE/SWITCH_HAS_OWN_AVAILABILITY_SLOT/RESET'),
 };
 
 export function switchServiceHasOwnAvailabilitySlots(
@@ -1038,11 +1036,19 @@ export function switchServiceHasOwnAvailabilitySlots(
     dispatch(switchServiceHasOwnAvailabilitySlotsActions.isLoading(true));
     dispatch(switchServiceHasOwnAvailabilitySlotsActions.error(null));
     try {
-      await switchServiceHasOwnAvailabilitySlotsAPI(privateServiceId);
-      dispatch(fetchPrivateService(privateServiceId, options));
+      const response = await switchServiceHasOwnAvailabilitySlotsAPI(
+        privateServiceId,
+      );
+      dispatch(
+        switchServiceHasOwnAvailabilitySlotsActions.reset(privateServiceId),
+      );
+      dispatch(fetchPrivateService(privateServiceId));
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(switchServiceHasOwnAvailabilitySlotsActions.error(null));
+      options?.onError?.();
     }
     dispatch(switchServiceHasOwnAvailabilitySlotsActions.isLoading(false));
   };

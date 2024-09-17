@@ -42,8 +42,8 @@ const useNavigationData = ({
   navigateBackToMasterRelation,
 }: {
   companyId: number;
-  linksList: AppBarTab[];
-  franchisorCompanyList: Company[];
+  linksList?: AppBarTab[];
+  franchisorCompanyList?: Company[];
   selectedWidgetPage?: string;
   context?: ConsumerSpaceContextEnum;
   handleCloseMarketplaceSideDrawer: () => void;

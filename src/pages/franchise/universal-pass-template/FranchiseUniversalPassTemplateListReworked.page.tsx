@@ -16,15 +16,15 @@ import {
   PaymentPackTemplate,
 } from '#src/libs/payment-packs/types';
 import {
-  fetchPaymentPackTemplatePaginatedListAvailableForSale as fetchPaymentPackTemplatePaginatedListAvailableForSaleAction,
-  fetchPaymentPackTemplatePaginatedListManagerOnly as fetchPaymentPackTemplatePaginatedListManagerOnlyAction,
-  createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAction,
-  deletePaymentPackTemplate as deletePaymentPackTemplateAction,
+  fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale as fetchUniversalPaymentPackTemplatePaginatedListAvailableForSaleAction,
+  fetchUniversalPaymentPackTemplatePaginatedListManagerOnly as fetchUniversalPaymentPackTemplatePaginatedListManagerOnlyAction,
+  createOrUpdateUniversalPaymentPackTemplate as createOrUpdateUniversalPaymentPackTemplateAction,
+  deleteUniversalPaymentPackTemplate as deleteUniversalPaymentPackTemplateAction,
 } from '#src/libs/payment-packs/actions';
 
 import {
-  getPaymentPackTemplatePaginatedManagerOnly,
-  getPaymentPackTemplatePaginatedAvailableForSale,
+  getUniverslPaymentPackTemplatePaginatedManagerOnly,
+  getUniversalPaymentPackTemplatePaginatedAvailableForSale,
 } from '#src/libs/payment-packs/selectors';
 import { OptionCallback } from '#src/state/types';
 import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
@@ -49,20 +49,22 @@ const useStyles = makeStyles((theme) => ({
 
 type Props = ConnectedProps<typeof connector> & WithStyles & WithTranslation;
 
-type deletePaymentPackTemplateState = {
+type deleteUniversalPaymentPackTemplateState = {
   paymentPackTemplateId: number;
 } & {
   isManagerOnly: boolean;
 };
 
-const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
-  paymentPackTemplateListPaginatedAvailableForSale,
-  paymentPackTemplateListPaginatedManagerOnly,
-  fetchPaymentPackTemplatePaginatedListAvailableForSale,
-  fetchPaymentPackTemplatePaginatedListManagerOnly,
-  deletePaymentPackTemplate,
+const FranchiseUniversalPaymentPackTemplateListPageReworked: React.FC<
+  Props
+> = ({
+  universalPaymentPackTemplateListPaginatedAvailableForSale,
+  univerlPaymentPackTemplateListPaginatedManagerOnly,
+  fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale,
+  fetchUniversalPaymentPackTemplatePaginatedListManagerOnly,
+  deleteUniversalPaymentPackTemplate,
   goToTemplateDetail,
-  createOrUpdatePaymentPackTemplate,
+  createOrUpdateUniversalPaymentPackTemplate,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('paymentPack');
@@ -73,12 +75,12 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
   const [openCreationDrawer, setOpenCreationDialog] = React.useState(false);
 
   const [paymentPackTemplateToDelete, setPaymentPackTemplateToDelete] =
-    React.useState<deletePaymentPackTemplateState | null>(null);
+    React.useState<deleteUniversalPaymentPackTemplateState | null>(null);
   // CDM
   React.useEffect(() => {
     // Fetching the first page for both available for purchase and manager only passes.
-    fetchPaymentPackTemplatePaginatedListAvailableForSale({ page: 1 });
-    fetchPaymentPackTemplatePaginatedListManagerOnly({ page: 1 });
+    fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale({ page: 1 });
+    fetchUniversalPaymentPackTemplatePaginatedListManagerOnly({ page: 1 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -93,16 +95,16 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
   const handleSetPaymentPackTemplateForEdit = React.useCallback(
     (id: number) => {
       const paymentPackTemplate =
-        paymentPackTemplateListPaginatedAvailableForSale.byId[id] ||
-        paymentPackTemplateListPaginatedManagerOnly.byId[id];
+        universalPaymentPackTemplateListPaginatedAvailableForSale.byId[id] ||
+        univerlPaymentPackTemplateListPaginatedManagerOnly.byId[id];
       paymentPackTemplate &&
         //@ts-expect-error : This is an mandatory spreading since specific package dealing badly with immutable could break
         // on underlying components
         setPaymentPackTemplateForEdit({ ...paymentPackTemplate });
     },
     [
-      paymentPackTemplateListPaginatedAvailableForSale,
-      paymentPackTemplateListPaginatedManagerOnly,
+      universalPaymentPackTemplateListPaginatedAvailableForSale,
+      univerlPaymentPackTemplateListPaginatedManagerOnly,
       setPaymentPackTemplateForEdit,
     ],
   );
@@ -113,7 +115,7 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
 
   const handleSubmitPaymentPackTemplateForm = React.useCallback(
     (data: any, options: OptionCallback<PaymentPackTemplateAPI>) => {
-      createOrUpdatePaymentPackTemplate(data, {
+      createOrUpdateUniversalPaymentPackTemplate(data, {
         onError: options?.onError,
         onSuccess: (template: PaymentPackTemplateAPI) => {
           if (openCreationDrawer) {
@@ -133,7 +135,7 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
     },
     [
       openCreationDrawer,
-      createOrUpdatePaymentPackTemplate,
+      createOrUpdateUniversalPaymentPackTemplate,
       goToTemplateDetail,
       handleOpenCreationDialog,
       handleResetEditionState,
@@ -147,18 +149,20 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
     [],
   );
 
-  const handleDeletePaymentPackTemplate = React.useCallback(() => {
+  const handleDeleteUniversalPaymentPackTemplate = React.useCallback(() => {
     !!paymentPackTemplateToDelete?.paymentPackTemplateId &&
-      deletePaymentPackTemplate(
+      deleteUniversalPaymentPackTemplate(
         paymentPackTemplateToDelete?.paymentPackTemplateId,
         {
           onSuccess: () => {
             setPaymentPackTemplateToDelete(null);
             paymentPackTemplateToDelete.isManagerOnly &&
-              fetchPaymentPackTemplatePaginatedListManagerOnly({ page: 1 });
+              fetchUniversalPaymentPackTemplatePaginatedListManagerOnly({
+                page: 1,
+              });
 
             !paymentPackTemplateToDelete.isManagerOnly &&
-              fetchPaymentPackTemplatePaginatedListAvailableForSale({
+              fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale({
                 page: 1,
               });
           },
@@ -166,9 +170,9 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
       );
   }, [
     paymentPackTemplateToDelete,
-    deletePaymentPackTemplate,
-    fetchPaymentPackTemplatePaginatedListManagerOnly,
-    fetchPaymentPackTemplatePaginatedListAvailableForSale,
+    deleteUniversalPaymentPackTemplate,
+    fetchUniversalPaymentPackTemplatePaginatedListManagerOnly,
+    fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale,
   ]);
 
   const handleResetDeltionState = React.useCallback(() => {
@@ -182,39 +186,47 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
   );
 
   const noExistingPasses =
-    !paymentPackTemplateListPaginatedAvailableForSale.loading &&
-    !paymentPackTemplateListPaginatedManagerOnly.loading &&
-    !paymentPackTemplateListPaginatedAvailableForSale.count &&
-    !paymentPackTemplateListPaginatedManagerOnly.count;
+    !universalPaymentPackTemplateListPaginatedAvailableForSale.loading &&
+    !univerlPaymentPackTemplateListPaginatedManagerOnly.loading &&
+    !universalPaymentPackTemplateListPaginatedAvailableForSale.count &&
+    !univerlPaymentPackTemplateListPaginatedManagerOnly.count;
 
   return (
     <>
       <IsEmptyList
-        button={t('paymentPackTemplate.actions.create')}
+        button={t('paymentPackTemplate.actions.createUniversalPass')}
         hideEmptyText={!noExistingPasses}
         onCreate={handleOpenCreationDialog}
-        onCreateLabel={t('paymentPackTemplate.actions.create')}
+        onCreateLabel={t('paymentPackTemplate.actions.createUniversalPass')}
         text={t('paymentPackTemplate.isEmptyExplain')}
       />
 
       <div className={classes.container}>
         <Typography variant="h4">
           {`${t('paymentPackTemplate.section.titleAvailable')} (${
-            paymentPackTemplateListPaginatedAvailableForSale.count || 0
+            universalPaymentPackTemplateListPaginatedAvailableForSale.count || 0
           })`}
         </Typography>
         <Divider className={classes.divider} />
         <Paper>
           <PaginatedListBase
             itemPerPage={50}
-            items={paymentPackTemplateListPaginatedAvailableForSale.passes}
-            listProps={{ disablePadding: true }}
-            loading={paymentPackTemplateListPaginatedAvailableForSale.loading}
-            nbItems={paymentPackTemplateListPaginatedAvailableForSale.count}
-            onPageRequested={
-              fetchPaymentPackTemplatePaginatedListAvailableForSale
+            items={
+              universalPaymentPackTemplateListPaginatedAvailableForSale.passes
             }
-            page={paymentPackTemplateListPaginatedAvailableForSale.page}
+            listProps={{ disablePadding: true }}
+            loading={
+              universalPaymentPackTemplateListPaginatedAvailableForSale.loading
+            }
+            nbItems={
+              universalPaymentPackTemplateListPaginatedAvailableForSale.count
+            }
+            onPageRequested={
+              fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale
+            }
+            page={
+              universalPaymentPackTemplateListPaginatedAvailableForSale.page
+            }
             renderItem={(paymentPackTemplate: PaymentPackTemplate) => (
               <PaymentPackTemplateListItem
                 key={paymentPackTemplate.id}
@@ -230,19 +242,21 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
         </Paper>
         <Typography className={classes.title} variant="h4">
           {`${t('paymentPackTemplate.section.titleManagerOnly')} (${
-            paymentPackTemplateListPaginatedManagerOnly.count || 0
+            univerlPaymentPackTemplateListPaginatedManagerOnly.count || 0
           })`}
         </Typography>
         <Divider className={classes.divider} />
         <Paper>
           <PaginatedListBase
             itemPerPage={50}
-            items={paymentPackTemplateListPaginatedManagerOnly.passes}
+            items={univerlPaymentPackTemplateListPaginatedManagerOnly.passes}
             listProps={{ disablePadding: true }}
-            loading={paymentPackTemplateListPaginatedManagerOnly.loading}
-            nbItems={paymentPackTemplateListPaginatedManagerOnly.count}
-            onPageRequested={fetchPaymentPackTemplatePaginatedListManagerOnly}
-            page={paymentPackTemplateListPaginatedManagerOnly.page}
+            loading={univerlPaymentPackTemplateListPaginatedManagerOnly.loading}
+            nbItems={univerlPaymentPackTemplateListPaginatedManagerOnly.count}
+            onPageRequested={
+              fetchUniversalPaymentPackTemplatePaginatedListManagerOnly
+            }
+            page={univerlPaymentPackTemplateListPaginatedManagerOnly.page}
             renderItem={(paymentPackTemplate: PaymentPackTemplate) => (
               <PaymentPackTemplateListItem
                 key={paymentPackTemplate.id}
@@ -260,7 +274,7 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
 
       <PaymentPackTemplateDeleteDialog
         onClose={handleResetDeltionState}
-        onSubmit={handleDeletePaymentPackTemplate}
+        onSubmit={handleDeleteUniversalPaymentPackTemplate}
         open={!!paymentPackTemplateToDelete}
       />
 
@@ -270,6 +284,7 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
       */}
       {!!paymentPackTemplateForEdit && (
         <PaymentPackTemplateFormDrawer
+          isUniversal
           initial={paymentPackTemplateForEdit}
           onClose={handleResetEditionState}
           onSubmit={handleSubmitPaymentPackTemplateForm}
@@ -279,6 +294,7 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
 
       {openCreationDrawer && (
         <PaymentPackTemplateFormDrawer
+          isUniversal
           onClose={handleCloseCreationDialog}
           onSubmit={handleSubmitPaymentPackTemplateForm}
           open={openCreationDrawer}
@@ -290,24 +306,28 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
 
 const connector = connect(
   (state: RootState) => ({
-    paymentPackTemplateListPaginatedManagerOnly:
-      getPaymentPackTemplatePaginatedManagerOnly(state),
-    paymentPackTemplateListPaginatedAvailableForSale:
-      getPaymentPackTemplatePaginatedAvailableForSale(state),
+    univerlPaymentPackTemplateListPaginatedManagerOnly:
+      getUniverslPaymentPackTemplatePaginatedManagerOnly(state),
+    universalPaymentPackTemplateListPaginatedAvailableForSale:
+      getUniversalPaymentPackTemplatePaginatedAvailableForSale(state),
   }),
   {
-    fetchPaymentPackTemplatePaginatedListAvailableForSale:
-      fetchPaymentPackTemplatePaginatedListAvailableForSaleAction,
-    fetchPaymentPackTemplatePaginatedListManagerOnly:
-      fetchPaymentPackTemplatePaginatedListManagerOnlyAction,
+    fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale:
+      fetchUniversalPaymentPackTemplatePaginatedListAvailableForSaleAction,
+    fetchUniversalPaymentPackTemplatePaginatedListManagerOnly:
+      fetchUniversalPaymentPackTemplatePaginatedListManagerOnlyAction,
     goToTemplateDetail: (
       id: number,
       urlParams: { openTemplateInstanceForm: boolean } | {} = {},
     ) =>
-      pushAction(`/f/payment-pack-template/${id}/${buildUrlParams(urlParams)}`),
-    createOrUpdatePaymentPackTemplate: createOrUpdatePaymentPackTemplateAction,
-    deletePaymentPackTemplate: deletePaymentPackTemplateAction,
+      pushAction(
+        `/f/universal-pass-template/${id}/${buildUrlParams(urlParams)}`,
+      ),
+    createOrUpdateUniversalPaymentPackTemplate:
+      createOrUpdateUniversalPaymentPackTemplateAction,
+    deleteUniversalPaymentPackTemplate:
+      deleteUniversalPaymentPackTemplateAction,
   },
 );
 
-export default connector(FranchisePaymentPackTemplateListPageReworked);
+export default connector(FranchiseUniversalPaymentPackTemplateListPageReworked);

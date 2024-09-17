@@ -408,7 +408,9 @@ export const getUniversalPaymentPackTemplateIds = (state: RootState) =>
 
 const getUniversalPaymentPackTemplateManagerOnlyIds = (state: RootState) =>
   state.paymentPack.universalPaymentPackTemplate.allIdsManagerOnly;
-
+/**
+ *@deprecated
+ * */
 export const getUniversalPaymentPackTemplateListAvailableForSale =
   createSelector(
     [
@@ -438,6 +440,88 @@ export const getUniversalPaymentPackTemplateListAvailableForSale =
         ),
   );
 
+const getUniversalPaymentPackTemplateManagerOnlyPaginatedState = (
+  state: RootState,
+) =>
+  state.paymentPackReworked.universalPaymentPackTemplatePaginated
+    .managerOnlyPasses;
+
+export const getUniverslPaymentPackTemplatePaginatedManagerOnly =
+  createSelector(
+    [
+      getUniversalPaymentPackTemplateManagerOnlyPaginatedState,
+      getAllowedFranchisees,
+      getFranchiseCompanyById,
+    ],
+    (paginatedState, allowed_franchisee_ids, companyById) => {
+      const { allIds, byId } = paginatedState;
+      return {
+        ...paginatedState,
+        passes: allIds
+          .map((id) => byId[id])
+          .map((paymentPackTemplate) => ({
+            ...paymentPackTemplate,
+            companies: withAllowedOnArray(
+              paymentPackTemplate.payment_pack_template_instances
+                .map(
+                  (ppti: PaymentPackTemplateInstance) =>
+                    !ppti.disabled && ppti.company,
+                )
+                .filter(
+                  (payment_pack_template_intance_id) =>
+                    !!payment_pack_template_intance_id,
+                ),
+              allowed_franchisee_ids,
+              companyById,
+            )?.filter((c) => !!c),
+          })),
+      };
+    },
+  );
+
+const getUniversalPaymentPackTemplateAvailableForSalePaginatedState = (
+  state: RootState,
+) =>
+  state.paymentPackReworked.universalPaymentPackTemplatePaginated
+    .availablePasses;
+
+export const getUniversalPaymentPackTemplatePaginatedAvailableForSale =
+  createSelector(
+    [
+      getUniversalPaymentPackTemplateAvailableForSalePaginatedState,
+      getAllowedFranchisees,
+      getFranchiseCompanyById,
+    ],
+    (paginatedState, allowed_franchisee_ids, companyById) => {
+      const { allIds, byId } = paginatedState;
+
+      return {
+        ...paginatedState,
+        passes: allIds
+          .map((id) => byId[id])
+          .map((paymentPackTemplate) => ({
+            ...paymentPackTemplate,
+            companies: withAllowedOnArray(
+              paymentPackTemplate.payment_pack_template_instances
+                .map(
+                  (ppti: PaymentPackTemplateInstance) =>
+                    !ppti.disabled && ppti.company,
+                )
+                .filter(
+                  (payment_pack_template_intance_id) =>
+                    !!payment_pack_template_intance_id,
+                ),
+              allowed_franchisee_ids,
+              companyById,
+            )?.filter((c) => !!c),
+          })),
+      };
+    },
+  );
+
+/**
+ *@deprecated
+ * */
 export const getUniversalPaymentPackTemplateListManagerOnly = createSelector(
   [
     getUniversalPaymentPackTemplateData,

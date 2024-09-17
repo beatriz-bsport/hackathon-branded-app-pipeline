@@ -273,6 +273,7 @@ export type PaymentPackState = Immutable.Immutable<{
 
 export type PaymentPackStateReworked = {
   paymentPackTemplatePaginated: PaymentPackTemptatePaginatedReducer;
+  universalPaymentPackTemplatePaginated: PaymentPackTemptatePaginatedReducer;
 };
 export const actionTypes = {
   HAS_FETCHED_ALL_PAYMENT_PACKS: 'HAS_FETCHED_ALL_PAYMENT_PACKS_SUCCESS',

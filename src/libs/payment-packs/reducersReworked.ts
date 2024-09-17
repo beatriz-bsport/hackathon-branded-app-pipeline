@@ -1,12 +1,42 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import type { PaginatedResponse } from '../../state/types';
-import { PaymentPackStateReworked, PaymentPackTemplateAPI } from './types';
-import { listPaymentPackTemplatePaginatedActions } from './actions';
+import type { PaginatedResponse } from '#src/state/types';
+import {
+  PaymentPackStateReworked,
+  PaymentPackTemplateAPI,
+} from '#src/libs/payment-packs/types';
+import {
+  listPaymentPackTemplatePaginatedActions,
+  listUniversalPaymentPackTemplatePaginatedActions,
+} from '#src/libs/payment-packs/actions';
 
 const initialState: Immutable.Immutable<PaymentPackStateReworked> =
   Immutable<PaymentPackStateReworked>({
     paymentPackTemplatePaginated: {
+      availablePasses: {
+        page: 1,
+        next_page: null,
+        previous_page: null,
+        count: 0,
+        page_size: 50,
+        allIds: [],
+        byId: {},
+        loading: false,
+        error: null,
+      },
+      managerOnlyPasses: {
+        page: 1,
+        next_page: null,
+        previous_page: null,
+        count: 0,
+        page_size: 50,
+        allIds: [],
+        byId: {},
+        loading: false,
+        error: null,
+      },
+    },
+    universalPaymentPackTemplatePaginated: {
       availablePasses: {
         page: 1,
         next_page: null,
@@ -149,6 +179,148 @@ export default handleActions<
           { deep: true },
         );
     },
+    // =====
+    // =====
+    // ===== PAGINATED UNIVERSAL PAYMENTPACKTEMPLATE ACTIONS
+    // AVAILABLE PASSES
+    [listUniversalPaymentPackTemplatePaginatedActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['universalPaymentPackTemplatePaginated', 'availablePasses', 'loading'],
+        payload,
+      );
+    },
+    [listUniversalPaymentPackTemplatePaginatedActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['universalPaymentPackTemplatePaginated', 'availablePasses', 'error'],
+        payload,
+      );
+    },
+    [listUniversalPaymentPackTemplatePaginatedActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<PaymentPackTemplateAPI> },
+    ) => {
+      const { next_page, results, count, page } = payload;
+      return state
+        .setIn(
+          ['universalPaymentPackTemplatePaginated', 'availablePasses', 'page'],
+          page,
+        )
+        .setIn(
+          [
+            'universalPaymentPackTemplatePaginated',
+            'availablePasses',
+            'next_page',
+          ],
+          next_page,
+        )
+        .setIn(
+          ['universalPaymentPackTemplatePaginated', 'availablePasses', 'count'],
+          count,
+        )
+        .setIn(
+          [
+            'universalPaymentPackTemplatePaginated',
+            'availablePasses',
+            'allIds',
+          ],
+          (results || []).map((template) => template.id),
+        )
+        .merge(
+          {
+            universalPaymentPackTemplatePaginated: {
+              availablePasses: {
+                byId: (results || []).reduce(
+                  (acc, v) => ({ ...acc, [v.id]: v }),
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    // MANAGER ONLY PASSES
+    [listUniversalPaymentPackTemplatePaginatedActions.isLoadingManagerOnly.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(
+          [
+            'universalPaymentPackTemplatePaginated',
+            'managerOnlyPasses',
+            'loading',
+          ],
+          payload,
+        );
+      },
+    [listUniversalPaymentPackTemplatePaginatedActions.errorManagerOnly.toString()]:
+      (state, { payload }: { payload: Error | null }) => {
+        return state.setIn(
+          [
+            'universalPaymentPackTemplatePaginated',
+            'managerOnlyPasses',
+            'error',
+          ],
+          payload,
+        );
+      },
+    [listUniversalPaymentPackTemplatePaginatedActions.successManagerOnly.toString()]:
+      (
+        state,
+        { payload }: { payload: PaginatedResponse<PaymentPackTemplateAPI> },
+      ) => {
+        const { next_page, results, count, page } = payload;
+        return state
+          .setIn(
+            [
+              'universalPaymentPackTemplatePaginated',
+              'managerOnlyPasses',
+              'page',
+            ],
+            page,
+          )
+          .setIn(
+            [
+              'universalPaymentPackTemplatePaginated',
+              'managerOnlyPasses',
+              'next_page',
+            ],
+            next_page,
+          )
+          .setIn(
+            [
+              'universalPaymentPackTemplatePaginated',
+              'managerOnlyPasses',
+              'count',
+            ],
+            count,
+          )
+          .setIn(
+            [
+              'universalPaymentPackTemplatePaginated',
+              'managerOnlyPasses',
+              'allIds',
+            ],
+            (results || []).map((template) => template.id),
+          )
+          .merge(
+            {
+              universalPaymentPackTemplatePaginated: {
+                managerOnlyPasses: {
+                  byId: (results || []).reduce(
+                    (acc, v) => ({ ...acc, [v.id]: v }),
+                    {},
+                  ),
+                },
+              },
+            },
+            { deep: true },
+          );
+      },
     // =====
   },
   initialState,

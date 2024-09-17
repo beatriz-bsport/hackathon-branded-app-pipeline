@@ -144,12 +144,23 @@ export async function fetchPaymentPackTemplateListPaginated(
     )}`,
   );
 }
+
 export function fetchUniversalPaymentPackTemplateList(
   params?: FranchiseProductTemplateQueryParams,
 ) {
   return getAuth<
     PaginatedResponse<PaymentPackTemplate> | PaymentPackTemplate[]
   >(
+    `${API_V1_URI}/payment-pack/universal-pass-template/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
+
+export function fetchUniversalPaymentPackTemplatePaginatedList(
+  params?: FranchiseProductTemplatePaginatedQueryParams,
+) {
+  return getAuth<PaginatedResponse<PaymentPackTemplateAPI>>(
     `${API_V1_URI}/payment-pack/universal-pass-template/${buildUrlParams(
       params,
     )}`,

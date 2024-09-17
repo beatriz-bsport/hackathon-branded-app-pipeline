@@ -792,7 +792,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         this.props.paymentComboLoading ||
         this.props.contractLoading ||
         this.props.paymentPackCategoryLoading ||
-        this.props.bookingFunnelLoading) !==
+        this.props.bookingFunnelLoading ||
+        this.props.groupOfferLoading) !==
         (!prevProps.offer ||
           prevProps.offerStatusLoading ||
           prevProps.consumerPaymentPackLoading ||
@@ -801,7 +802,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           prevProps.paymentComboLoading ||
           prevProps.contractLoading ||
           prevProps.paymentPackCategoryLoading ||
-          prevProps.bookingFunnelLoading)
+          prevProps.bookingFunnelLoading ||
+          prevProps.groupOfferLoading)
     ) {
       this.setBuyableItemsAndOfferFeature();
     }
@@ -2070,6 +2072,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     assetForBlueprintLoading: state.spotScheduling.assetForBlueprint.loading,
     waitingListConfiguration: state.waitingList.configuration.data,
     waitingListConfigurationLoading: state.waitingList.configuration.loading,
+    groupOfferLoading: state.groupOffer.loading,
     consumerPacksForBooking: state.consumerPaymentPack.forBooking.allIds,
     consumerPacksForBookingLoading:
       state.consumerPaymentPack.forBooking.loading,

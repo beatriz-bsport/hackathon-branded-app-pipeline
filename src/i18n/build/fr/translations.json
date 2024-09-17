@@ -2319,7 +2319,8 @@
                 "mySubscriptions": "Mes souscriptions",
                 "myPasses": "Mes cartes",
                 "myBookings": "Mes réservations",
-                "exploreYourProfile": "Explorez votre profil"
+                "exploreYourProfile": "Explorez votre profil",
+                "myVideosAndEbooks": "Mes vidéos & ebooks"
             },
             "exploreYourProfile": "Consultez votre profil.",
             "appbar": {

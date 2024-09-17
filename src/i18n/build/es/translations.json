@@ -2281,7 +2281,7 @@
                 "isIntegratedInPartnership": "Una o varias integraciones utilizan este establecimiento.",
                 "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del marketplace están configuradas para mostrar únicamente el calendario y los talleres de este establecimiento, actualízalas antes de eliminar el establecimiento.",
                 "exclusiveEstablishmentGroups": "La ubicación {{- establishment_group_name }} sólo contiene el establecimiento que desea eliminar, actualice o elimine esta ubicación.",
-                "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, actualice o elimine estas ubicaciones.",
+                "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, por favor, actualice o elimine estas ubicaciones.",
                 "exclusivePaymentPacks": "El siguiente pase {{- pass_name }} sólo se puede utilizar en este establecimiento. Actualiza sus restricciones antes de eliminar el establecimiento.",
                 "exclusivePaymentPacks_plural": "Los siguientes pases {{- pass_name }} sólo se pueden utilizar en este establecimiento. Actualice sus restricciones antes de eliminar el establecimiento.",
                 "hasExclusiveBillingGroup": "Este establecimiento es el último de su grupo de facturación. Por favor, elimine o actualice este grupo de facturación antes de eliminar este establecimiento.",
@@ -8898,7 +8898,8 @@
                 "mySubscriptions": "Mis suscripciones",
                 "myPasses": "Mis pases",
                 "myBookings": "Mis reservas",
-                "exploreYourProfile": "Explora tu perfil"
+                "exploreYourProfile": "Explora tu perfil",
+                "myVideosAndEbooks": "Mis videos & eBooks"
             },
             "exploreYourProfile": "Explora tu perfil.",
             "appbar": {

@@ -18,6 +18,12 @@ export type AppBarTab = Pick<
 
 export type NavigationAppBarProps = {
   /**
+   * If true we hide the button responsible for opening the side drawer containing the marketplace tabs.
+   * This value is computed based on the length of the marketplace tabs.
+   * If no link is provided (link.length === 0) then hideMarketplaceMenuButton will be true.
+   */
+  hideMarketplaceMenuButton?: boolean;
+  /**
    * If true, the following will apply for the app bar:
    * - The list of links will be hidden
    * - A menu button will be shown for navigation

@@ -27,11 +27,15 @@ const NavigationAppBar: React.FC<NavigationAppBarProps> = ({
   goBackNavigation,
 }) => {
   const { t } = useTranslation('consumerSpace');
+
+  const hideMarketplaceMenuButton = (links ?? []).length === 0;
+
   return (
     <div className="bs-navigation-app-bar__root">
       <div className="flex">
         <NavigationAppBarLogoSection
           goBackNavigation={goBackNavigation}
+          hideMarketplaceMenuButton={hideMarketplaceMenuButton}
           isMobile={isMobile}
           logo={logo}
           onSideDrawerOpenClick={onSideDrawerOpenClick}

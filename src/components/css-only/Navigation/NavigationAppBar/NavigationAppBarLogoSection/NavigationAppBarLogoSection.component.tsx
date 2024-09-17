@@ -20,6 +20,7 @@ type Props = Pick<
   | 'onSideDrawerOpenClick'
   | 'showGoBackButton'
   | 'goBackNavigation'
+  | 'hideMarketplaceMenuButton'
 >;
 
 const NavigationAppBarLogoImage: React.FC<Pick<NavigationAppBarProps, 'logo'>> =
@@ -68,6 +69,7 @@ const NavigationAppBarLogoSection: React.FC<Props> = ({
   logo,
   websiteUrl,
   isMobile,
+  hideMarketplaceMenuButton,
   onSideDrawerOpenClick,
   showGoBackButton,
   goBackNavigation,
@@ -96,7 +98,7 @@ const NavigationAppBarLogoSection: React.FC<Props> = ({
           'bs-navigation-app-bar__logo-section__menu-button',
           {
             'bs-navigation-app-bar__logo-section__menu-button--hidden':
-              !isMobile,
+              !isMobile || hideMarketplaceMenuButton,
           },
         )}
         color="grey"

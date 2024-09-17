@@ -471,6 +471,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                             this.props.offerId,
                             ...offersWithAvailableStatusIdsList,
                           ]);
+                          this.setBuyableItemsAndOfferFeature();
                         },
                       },
                     );
@@ -793,7 +794,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         this.props.contractLoading ||
         this.props.paymentPackCategoryLoading ||
         this.props.bookingFunnelLoading ||
-        this.props.groupOfferLoading) !==
+        this.props.groupOfferLoading ||
+        this.props.partialGroupedOffersBulkLoading ||
+        this.props.groupedOffersStatusLoading) !==
         (!prevProps.offer ||
           prevProps.offerStatusLoading ||
           prevProps.consumerPaymentPackLoading ||
@@ -803,7 +806,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           prevProps.contractLoading ||
           prevProps.paymentPackCategoryLoading ||
           prevProps.bookingFunnelLoading ||
-          prevProps.groupOfferLoading)
+          prevProps.groupOfferLoading ||
+          prevProps.partialGroupedOffersBulkLoading ||
+          prevProps.groupedOffersStatusLoading)
     ) {
       this.setBuyableItemsAndOfferFeature();
     }
@@ -1126,6 +1131,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       !this.state.offerGroupData.full_booking_only &&
       this.state.selectedOffers.filter(
         (selectedOffer) =>
+          this.props.offerStatusById[selectedOffer.offer.id] &&
           this.props.offerStatusById[selectedOffer.offer.id]
             ?.bookable_status !== OFFER_BOOKABLE_STATUS_BOOKABLE,
       ).length > 0;
@@ -2073,6 +2079,8 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     waitingListConfiguration: state.waitingList.configuration.data,
     waitingListConfigurationLoading: state.waitingList.configuration.loading,
     groupOfferLoading: state.groupOffer.loading,
+    partialGroupedOffersBulkLoading: state.offer.bulk.loading,
+    groupedOffersStatusLoading: state.offer.offerStatus.loading,
     consumerPacksForBooking: state.consumerPaymentPack.forBooking.allIds,
     consumerPacksForBookingLoading:
       state.consumerPaymentPack.forBooking.loading,

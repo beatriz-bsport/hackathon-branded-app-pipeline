@@ -18,7 +18,7 @@ import PrivateServiceFields, {
   type FormikValues,
 } from './PrivateServiceForm.component';
 
-import DisableAvailableSlotsDialog from '#src/libs/private-service/components/service/DisableAvailableSlotsDialog.component';
+import DisablePrivateServiceOwnSlotsDialog from '#src/libs/private-service/components/service/DisablePrivateServiceOwnSlotsDialog';
 
 const { trackFormSubmitIntent, trackFormAdd, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -54,8 +54,8 @@ export const PrivateServiceFormDrawer = (props: Props) => {
   } = props;
 
   const [
-    isConfirmDisableAvailableSlotsDialogOpen,
-    setIsConfirmDisableAvailableSlotsDialogOpen,
+    isConfirmDisablePrivateServiceOwnSlots,
+    setIsConfirmDisablePrivateServiceOwnSlots,
   ] = React.useState(false);
 
   const handleClose = React.useCallback(() => {
@@ -65,7 +65,7 @@ export const PrivateServiceFormDrawer = (props: Props) => {
 
   const onClickDialogDoItLater = React.useCallback(() => {
     handleSubmit();
-    setIsConfirmDisableAvailableSlotsDialogOpen(false);
+    setIsConfirmDisablePrivateServiceOwnSlots(false);
   }, [handleSubmit]);
 
   const onClickSave = React.useCallback(() => {
@@ -76,7 +76,7 @@ export const PrivateServiceFormDrawer = (props: Props) => {
       values.available_on_partnership &&
       values.has_own_availability_slots
     ) {
-      setIsConfirmDisableAvailableSlotsDialogOpen(true);
+      setIsConfirmDisablePrivateServiceOwnSlots(true);
     } else {
       handleSubmit();
     }
@@ -91,7 +91,7 @@ export const PrivateServiceFormDrawer = (props: Props) => {
   const handleConfirmDisableAvailabilitySlots = React.useCallback(async () => {
     setFieldValue('has_own_availability_slots', false);
     handleSubmit();
-    setIsConfirmDisableAvailableSlotsDialogOpen(false);
+    setIsConfirmDisablePrivateServiceOwnSlots(false);
   }, [setFieldValue, handleSubmit]);
 
   React.useEffect(() => {
@@ -126,8 +126,8 @@ export const PrivateServiceFormDrawer = (props: Props) => {
             </Button>
           </DialogActions>
         </Form>
-        <DisableAvailableSlotsDialog
-          isOpen={isConfirmDisableAvailableSlotsDialogOpen}
+        <DisablePrivateServiceOwnSlotsDialog
+          isOpen={isConfirmDisablePrivateServiceOwnSlots}
           isSubmitting={props.isSubmitting}
           onDoItLater={onClickDialogDoItLater}
           onSubmit={handleConfirmDisableAvailabilitySlots}

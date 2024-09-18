@@ -115,7 +115,6 @@ type Props = {
     resourceDatatype: string,
     resourceId: number,
   ) => void,
-
   loading: boolean,
   fetchPrivateServiceGroupList: () => void,
   serviceGroupList: Array<PrivateGroup>,

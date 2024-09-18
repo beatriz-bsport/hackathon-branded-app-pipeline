@@ -12,8 +12,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import Paper from '@material-ui/core/Paper';
 import TodayIcon from '@material-ui/icons/Today';
 import CheckIcon from '@material-ui/icons/Check';
-
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Alert from '@material-ui/lab/Alert';
 
 import type { PrivateService } from '../../types';
 
@@ -22,7 +22,12 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  alertTitleContainer: {
     marginBottom: theme.spacing(2),
+  },
+  alert: {
+    marginTop: theme.spacing(1),
   },
   leftIcon: {
     marginRight: theme.spacing(2),
@@ -122,15 +127,31 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
     'private_service',
     privateService.id,
   );
+
   return (
     <div>
-      <div className={classes.titleRow}>
-        <TodayIcon className={classes.leftIcon} fontSize="large" />
-        <Typography variant="h4">{t('service.configuration.title')}</Typography>
+      <div className={classes.alertTitleContainer}>
+        <div className={classes.titleRow}>
+          <TodayIcon className={classes.leftIcon} fontSize="large" />
+          <Typography variant="h4">
+            {t('service.configuration.title')}
+          </Typography>
+        </div>
+        {props.privateService.available_on_partnership &&
+          props.privateService.has_own_availability_slots && (
+            <Alert className={classes.alert} severity="error">
+              {t('service.configuration.partnership.removeAvailabilities')}
+            </Alert>
+          )}
       </div>
+
       <Paper>
         <ButtonBase
           className={classes.row}
+          disabled={
+            props.privateService.available_on_partnership &&
+            !props.privateService.has_own_availability_slots
+          }
           onClick={
             privateService.has_own_availability_slots
               ? () => props.goToPrivateServiceCalendar(privateService.id)

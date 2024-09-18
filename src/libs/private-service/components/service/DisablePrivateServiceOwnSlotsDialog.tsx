@@ -17,7 +17,7 @@ type Props = {
   onSubmit: () => void;
 };
 
-const DisableAvailableSlotsDialog: React.FC<Props> = (props) => {
+const DisablePrivateServiceOwnSlotsDialog: React.FC<Props> = (props) => {
   const { t } = useTranslation('privateService');
 
   const classes = useStyles();
@@ -58,4 +58,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(DisableAvailableSlotsDialog);
+export default React.memo(DisablePrivateServiceOwnSlotsDialog);

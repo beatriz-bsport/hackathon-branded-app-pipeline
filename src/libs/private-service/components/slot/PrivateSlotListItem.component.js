@@ -11,6 +11,9 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 import { formatMinutes } from '../../../../utils/datetime';
 import withConfirm from '../../../../hocs/with-confirm.hoc';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { CLASSPASS_COMPATIBLE_BOOKING_INTERVALS } from '#src/libs/private-service/constants';
 
 import type { PrivateSlot } from '../../types';
 
@@ -22,6 +25,7 @@ type Props = {
   t: TFunction,
   divider?: boolean,
   hideCredits?: boolean,
+  availableOnPartnership?: boolean,
 };
 
 const DeleteButton = (props: { onClick: () => void }) => (
@@ -47,7 +51,10 @@ export const PrivateSlotListItem: React.FC<Props> = ({
   t,
   divider,
   hideCredits,
+  availableOnPartnership,
 }) => {
+  const classes = useStyles();
+
   const handleDeleteSlot = React.useCallback(() => {
     if (onDelete && slot?.id) {
       onDelete(slot.id);
@@ -59,8 +66,25 @@ export const PrivateSlotListItem: React.FC<Props> = ({
     }
   }, [onEdit, slot]);
 
+  const showNotCompatibleWithPartnershipAlert = React.useMemo(
+    () =>
+      (slot.people_capacity_used === 1 &&
+        CLASSPASS_COMPATIBLE_BOOKING_INTERVALS.includes(
+          slot.booking_interval_minutes,
+        )) ||
+      !availableOnPartnership,
+    [
+      slot.booking_interval_minutes,
+      slot.people_capacity_used,
+      availableOnPartnership,
+    ],
+  );
+
   return (
     <ListItem button={!!onClick} divider={divider} onClick={onClick}>
+      {!showNotCompatibleWithPartnershipAlert && (
+        <ErrorOutlineIcon className={classes.alertIcon} />
+      )}
       <ListItemText
         primary={slot.name}
         secondary={`${formatMinutes(slot.duration_minutes, t)}${
@@ -86,6 +110,12 @@ export const PrivateSlotListItem: React.FC<Props> = ({
     </ListItem>
   );
 };
+const useStyles = makeStyles((theme) => ({
+  alertIcon: {
+    marginRight: theme.spacing(2),
+    color: theme.palette.error.main,
+  },
+}));
 
 export default withTranslation(['privateService', 'datetime'])(
   PrivateSlotListItem,

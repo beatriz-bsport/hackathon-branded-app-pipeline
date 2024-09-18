@@ -3,6 +3,7 @@ import { handleActions } from 'redux-actions';
 
 import omit from 'lodash/omit';
 import uniq from 'lodash/uniq';
+
 import type { PaginatedResponse } from '../../state/types';
 import {
   availabilitySlotExistsActions,
@@ -1202,10 +1203,15 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       state,
       { payload },
     ) => {
-      return state.merge(
-        { privateSlot: { byId: { [payload.id.toString()]: payload } } },
-        { deep: true },
-      );
+      return state
+        .setIn(
+          ['privateSlot', 'allIds'],
+          uniq([...state.privateSlot.allIds, payload.id]),
+        )
+        .merge(
+          { privateSlot: { byId: { [payload.id.toString()]: payload } } },
+          { deep: true },
+        );
     },
 
     [privatePassListActions.isLoading.toString()]: (state, { payload }) => {

@@ -13,12 +13,14 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Alert from '@material-ui/lab/Alert';
 
 import { withTranslation, TFunction } from 'react-i18next';
 
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import PrivateSlotForm from './PrivateSlotForm.component';
 import PrivateSlotListItem from './PrivateSlotListItem.component';
+import { CLASSPASS_COMPATIBLE_BOOKING_INTERVALS } from '#src/libs/private-service/constants';
 
 import type { PrivateService } from '../../types';
 
@@ -28,7 +30,6 @@ type Props = {
   openSlotForm: boolean,
   editSlotForm: PrivatSlotData,
   setEditSlotForm: (privateSlot: ?PrivateSlotData) => void,
-
   createPrivateSlot: (
     privateServiceId: number,
     data: PrivateSlotData,
@@ -49,7 +50,20 @@ type Props = {
 
 export const PrivateSlotEditableList: React.FC<Props> = (props) => {
   const slots = props.privateService.slots.filter((s) => s.available);
-  const { deletePrivateSlot, setEditSlotForm } = props;
+
+  const { deletePrivateSlot, setEditSlotForm, privateService } = props;
+
+  const showSessionsNotCompatibleWithPartnershipAlert = React.useMemo(
+    () =>
+      slots.some(
+        (slot) =>
+          slot.people_capacity_used !== 1 ||
+          !CLASSPASS_COMPATIBLE_BOOKING_INTERVALS.includes(
+            slot.booking_interval_minutes,
+          ),
+      ) && privateService.available_on_partnership,
+    [slots, privateService.available_on_partnership],
+  );
 
   return (
     <ObjectLevelPermissionProvider
@@ -65,14 +79,23 @@ export const PrivateSlotEditableList: React.FC<Props> = (props) => {
         hasDeletePermission,
       ]: boolean[]) => (
         <div className={props.classes.container}>
-          <div className={props.classes.titleRow}>
-            <AccessTimeIcon
-              className={props.classes.leftIcon}
-              fontSize="large"
-            />
-            <Typography variant="h4">
-              {props.t('service.configuration.slot')}
-            </Typography>
+          <div className={props.classes.titleAlertContainer}>
+            <div className={props.classes.titleRow}>
+              <AccessTimeIcon
+                className={props.classes.leftIcon}
+                fontSize="large"
+              />
+              <Typography variant="h4">
+                {props.t('service.configuration.slot')}
+              </Typography>
+            </div>
+            {showSessionsNotCompatibleWithPartnershipAlert && (
+              <Alert className={props.classes.alertContainer} severity="error">
+                {props.t(
+                  'service.configuration.partnership.anySlotNotCompatible',
+                )}
+              </Alert>
+            )}
           </div>
           <List>
             <Paper>
@@ -98,6 +121,9 @@ export const PrivateSlotEditableList: React.FC<Props> = (props) => {
                     <PrivateSlotListItem
                       key={slot.id}
                       divider
+                      availableOnPartnership={
+                        privateService.available_on_partnership
+                      }
                       onDelete={hasDeletePermission && deletePrivateSlot}
                       onEdit={hasEditPermission && setEditSlotForm}
                       slot={slot}
@@ -184,7 +210,12 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  titleAlertContainer: {
     marginBottom: theme.spacing(2),
+  },
+  alertContainer: {
+    marginTop: theme.spacing(1),
   },
   button: { marginTop: theme.spacing(1) },
   row: {

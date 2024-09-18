@@ -29,6 +29,7 @@ const useNavigationData = ({
   handleCloseConsumerSideDrawer,
   changeWidgetPage,
   widgetSignOut,
+  pushRouter,
 }: {
   companyId: number;
   linksList: AppBarTab[];
@@ -38,10 +39,19 @@ const useNavigationData = ({
   handleCloseConsumerSideDrawer: () => void;
   changeWidgetPage?: (page: string) => void;
   widgetSignOut?: () => void;
+  pushRouter?: (route: string) => void;
 }) => {
   const { t } = useTranslation('consumerSpace');
 
   const isWidget = WidgetUtils.isWidget();
+
+  /**
+   *@deprecated The distinction between being in a widget context and being on a context open from
+   * a widget must be handled in a better way.
+   */
+  const isAnActualWebPage =
+    window.location.href.includes('https://backoffice') ||
+    window.location.href.includes('localhost');
 
   const location = window.location.pathname;
 
@@ -64,37 +74,65 @@ const useNavigationData = ({
     [changeWidgetPage, handleCloseConsumerSideDrawer],
   );
 
+  /**
+   * @description FIXEME
+   * @deprecated
+   */
+  const handleChangeWidgetPageAdapted = React.useCallback(
+    (TabType: string, to: string) => () => {
+      if (isWidget && isAnActualWebPage) {
+        return pushRouter?.(to);
+      }
+      handleChangeWidgetPage(TabType);
+    },
+    [handleChangeWidgetPage, pushRouter, isWidget, isAnActualWebPage],
+  );
   const consumerNavigationWidgetData: SubmenuItem[] = React.useMemo(
     () => [
       {
         title: t('reworked.navigation.myBookings'),
         leftIcon: <Calendar />,
         isSelected: selectedWidgetPage === 'consumerBooking',
-        onClick: handleChangeWidgetPage('consumerBooking'),
+        onClick: handleChangeWidgetPageAdapted(
+          'consumerBooking',
+          `/c/${companyId}/booking/`,
+        ),
       },
       {
         title: t('reworked.navigation.myPasses'),
         leftIcon: <Ticket01 />,
         isSelected: selectedWidgetPage === 'consumerPass',
-        onClick: handleChangeWidgetPage('consumerPass'),
+        onClick: handleChangeWidgetPageAdapted(
+          'consumerPass',
+          `/c/${companyId}/pack/`,
+        ),
       },
       {
         title: t('reworked.navigation.mySubscriptions'),
         leftIcon: <Star01 />,
         isSelected: selectedWidgetPage === 'consumerSubscription',
-        onClick: handleChangeWidgetPage('consumerSubscription'),
+        onClick: handleChangeWidgetPageAdapted(
+          'consumerSubscription',
+          `/c/${companyId}/subscription/`,
+        ),
       },
       {
         title: t('reworked.navigation.myProfile'),
         leftIcon: <UserEdit />,
         isSelected: selectedWidgetPage === 'consumerProfile',
-        onClick: handleChangeWidgetPage('consumerProfile'),
+        onClick: handleChangeWidgetPageAdapted(
+          'consumerProfile',
+          `/c/${companyId}/profile/`,
+        ),
       },
       {
         title: t('reworked.navigation.myInvoices'),
         leftIcon: <FileAttachment02 />,
         isSelected: selectedWidgetPage === 'consumerInvoice',
-        onClick: handleChangeWidgetPage('consumerInvoice'),
+        onClick: handleChangeWidgetPageAdapted(
+          'consumerInvoice',
+          `/c/${companyId}/invoice/`,
+        ),
       },
       { isDivider: true },
       {
@@ -103,7 +141,13 @@ const useNavigationData = ({
         onClick: widgetSignOut,
       },
     ],
-    [t, selectedWidgetPage, handleChangeWidgetPage, widgetSignOut],
+    [
+      t,
+      selectedWidgetPage,
+      handleChangeWidgetPageAdapted,
+      widgetSignOut,
+      companyId,
+    ],
   );
 
   const consumerNavigationData: SubmenuItem[] = React.useMemo(

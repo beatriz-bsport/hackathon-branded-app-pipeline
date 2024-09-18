@@ -15,7 +15,7 @@ import NavigationSideBar from '#src/components/css-only/Navigation/NavigationSid
 import useNavigationData from '#src/libs/marketplace/components/@Navigation/useNavigationData';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
-
+import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import {
   ArrowLeft,
   ShoppingCart01,
@@ -88,7 +88,10 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   const { t } = useTranslation(['consumerSpace', 'marketplace']);
   const { width } = useViewport();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
+
   const isWidget = WidgetUtils.isWidget();
+
+  const isIframe = WidgetUtils.getDialogMode() === DIALOG_MODE_IFRAME;
 
   const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
 
@@ -143,6 +146,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
     handleCloseConsumerSideDrawer,
     changeWidgetPage,
     widgetSignOut,
+    pushRouter: push,
   });
 
   const actionsList: AppBarButton[] = useMemo(
@@ -180,7 +184,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
     ],
   );
 
-  if (isWidget) {
+  if (isWidget && !isIframe) {
     return (
       <div className="bs-widget-consumer-navigation__root">
         {isMobile && !widgetHideNavigation && (
@@ -230,14 +234,16 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
 
   return (
     <div className="bs-consumer-navigation__root">
-      <NavigationAppBar
-        actions={actionsList}
-        isMobile={isMobile}
-        links={linksList}
-        logo={companyLogo}
-        onSideDrawerOpenClick={handleToggleMarketplaceSideDrawer}
-        websiteUrl={companyWebsiteUrl}
-      />
+      {!isIframe && (
+        <NavigationAppBar
+          actions={actionsList}
+          isMobile={isMobile}
+          links={linksList}
+          logo={companyLogo}
+          onSideDrawerOpenClick={handleToggleMarketplaceSideDrawer}
+          websiteUrl={companyWebsiteUrl}
+        />
+      )}
 
       <NavigationSideDrawer
         handleBackArrowClick={handleBackArrowClick}

@@ -129,10 +129,10 @@ export function getDeletePermission(
   hasDeleteActivityPermission: boolean,
   hasDeleteWorkshopPermission: boolean,
 ) {
-  if (offer.meta_activity.is_workshop) {
+  if (offer.meta_activity?.is_workshop) {
     return hasDeleteWorkshopPermission;
   }
-  if (offer.meta_activity.is_workshop === false) {
+  if (offer.meta_activity?.is_workshop === false) {
     return hasDeleteActivityPermission;
   }
   return false;

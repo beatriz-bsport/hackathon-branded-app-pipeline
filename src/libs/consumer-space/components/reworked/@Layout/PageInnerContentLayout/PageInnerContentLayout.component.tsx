@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Typography from '#Fabrique/Typography';
 import useViewport from '#src/components/css-only/Fabrique/hooks/useViewport';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
-
+import useParentSize from '#src/hooks/useParentSize';
 import './styles.css';
 
 type Props = {
@@ -53,9 +53,10 @@ export const PageInnerContentLayout: React.FC<Props> = ({
   DetailComponent,
 }) => {
   const { width } = useViewport();
-
+  const computedRef = React.useRef<HTMLDivElement>(null);
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
+  const { height } = useParentSize(computedRef);
   if (isEmpty) {
     return (
       <EmptyInnerContentPlaceholder
@@ -67,6 +68,7 @@ export const PageInnerContentLayout: React.FC<Props> = ({
 
   return (
     <div
+      ref={computedRef}
       className={classNames(
         'bs-consumer-page-inner-content__root-layout',
         classes?.root,
@@ -75,8 +77,12 @@ export const PageInnerContentLayout: React.FC<Props> = ({
       <ul className="bs-consumer-page-inner-content__root--left-component">
         {InfiniteScrollComponent}
       </ul>
-
-      {!isMobile && DetailComponent}
+      <div
+        className="bs-consumer-page-inner-content__root--right-component"
+        style={{ height }}
+      >
+        {!isMobile && DetailComponent}
+      </div>
     </div>
   );
 };

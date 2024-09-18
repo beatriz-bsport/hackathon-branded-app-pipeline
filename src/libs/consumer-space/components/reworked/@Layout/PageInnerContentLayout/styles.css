@@ -44,6 +44,10 @@
   gap: var(--bs-space-size-4);
 }
 
+.bs-consumer-page-inner-content__root--right-component {
+  overflow: auto;
+}
+
 @container bsConsumerPageContentContainer (width < 400px) {
   .bs-consumer-page-root__bookings {
     grid-template-columns: 1fr;

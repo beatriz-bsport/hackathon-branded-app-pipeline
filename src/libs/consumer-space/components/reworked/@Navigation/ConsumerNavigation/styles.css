@@ -1,5 +1,6 @@
 .bs-consumer-navigation__root {
   container: bsConsumerNavigation / inline-size;
+  overflow: auto;
 }
 
 .bs-consumer-navigation__layout {

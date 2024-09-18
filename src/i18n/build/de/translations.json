@@ -15888,13 +15888,13 @@
                 "onlyVodAccess": "Nur für VOD verfügbar",
                 "compatibleWithEverything": "Kompatibel mit Allem",
                 "see": "Siehe",
-                "cancellation": "{{count}} Kündigung",
-                "cancellation_plural": "{{count}} Kündigungen",
+                "cancellation": "{{count}} Stornierung",
+                "cancellation_plural": "{{count}} Stornierungen",
                 "penaltyNoShow": {
                     "threshold": "{{count}} Abwesenheit",
                     "threshold_plural": "{{count}} Abwesenheiten",
                     "block": "{{days_blocked}} der Sperrung nach {{threshold}} über einen Zeitraum von {{time_window_days}}.",
-                    "account": "Eine Anzahlung von {{amount}} wird für {{threshold}} über einen Zeitraum von {{time_window_days}} erhoben.",
+                    "account": "Eine Zahlung von {{amount}} wird für {{threshold}} über einen Zeitraum von {{time_window_days}} erhoben.",
                     "penaltyDay": "{{count}} Tag",
                     "penaltyDay_plural": "{{count}} Tage"
                 },

@@ -77,13 +77,13 @@ class LoginButton extends Component<Props> {
       if (this.props.franchiseId) {
         this.openUrl(`c/franchisee-selector/${this.props.franchiseId}/`);
       } else {
-        this.openUrl(`c/${this.props.companyId}/profile`);
+        this.openUrl(`c/${this.props.companyId}/booking/`);
       }
     } else if (this.props.franchiseId) {
       this.openUrl(`login?franchisor=${this.props.franchiseId}`);
     } else {
       this.openUrl(
-        `login?membership=${this.props.companyId}&next=/c/${this.props.companyId}/`,
+        `login?membership=${this.props.companyId}&next=/c/${this.props.companyId}/booking/`,
       );
     }
   };

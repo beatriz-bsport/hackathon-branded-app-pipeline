@@ -184,6 +184,54 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
     ],
   );
 
+  if (isWidget && isIframe) {
+    return (
+      <div className="bs-widget-consumer-navigation__root">
+        {isMobile && (
+          <Button
+            color="grey"
+            leftIcon={<Menu01 stroke="currentColor" />}
+            onClick={handleToggleConsumerSideDrawer}
+            variant="text"
+          >
+            {t('reworked.menu')}
+          </Button>
+        )}
+
+        <div className="bs-consumer-navigation__root">
+          <NavigationSideDrawer
+            handleBackArrowClick={handleBackArrowClick}
+            handleSetStackNavigationState={handleSetStackNavigationState}
+            isOpen={isConsumerSideDrawerOpen}
+            leftIcon={<ArrowLeft fill="currentColor" />}
+            stackNavigationState={stackNavigationState}
+            submenuItems={consumerNavigationData}
+            subtitle={t('reworked.navigation.exploreYourProfile')}
+            title={memberName && `${memberName},`}
+          />
+
+          <div className="bs-consumer-navigation__layout">
+            <NavigationSideBar
+              items={consumerNavigationData}
+              memberName={memberName}
+            />
+            <main
+              className={classNames(
+                'bs-consumer-navigation__content',
+                'bs-consumer-navigation__layout--computed-height',
+                {
+                  'bs-consumer-navigation__content--mobile': isMobile,
+                },
+              )}
+            >
+              {children}
+            </main>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (isWidget && !isIframe) {
     return (
       <div className="bs-widget-consumer-navigation__root">
@@ -244,7 +292,6 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
           websiteUrl={companyWebsiteUrl}
         />
       )}
-
       <NavigationSideDrawer
         handleBackArrowClick={handleBackArrowClick}
         handleSetStackNavigationState={handleSetStackNavigationState}
@@ -253,7 +300,6 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
         stackNavigationState={stackNavigationState}
         submenuItems={marketplaceNavigationData}
       />
-
       <NavigationSideDrawer
         handleBackArrowClick={handleBackArrowClick}
         handleSetStackNavigationState={handleSetStackNavigationState}
@@ -264,7 +310,6 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
         subtitle={t('reworked.navigation.exploreYourProfile')}
         title={memberName && `${memberName},`}
       />
-
       <div
         className={classNames(
           'bs-consumer-navigation__layout',

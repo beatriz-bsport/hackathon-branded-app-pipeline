@@ -29,6 +29,10 @@
   color: var(--bs-color-text-error-strong);
 }
 
+.bs-widget-consumer-navigation__root {
+  background-color: var(--bs-grey-0);
+}
+
 @container bsConsumerNavigation (width < 930px) {
   .bs-consumer-navigation__content {
     padding: var(--bs-space-size-6) var(--bs-space-size-4);

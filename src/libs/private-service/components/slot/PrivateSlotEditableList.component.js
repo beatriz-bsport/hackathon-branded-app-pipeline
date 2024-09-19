@@ -146,8 +146,11 @@ export const PrivateSlotEditableList: React.FC<Props> = (props) => {
             </Button>
           )}
           <Dialog open={!!props.editSlotForm}>
-            <DialogContent>
+            <DialogContent className={props.classes.dialogContent}>
               <PrivateSlotForm
+                availableOnPartnership={
+                  props.privateService.available_on_partnership
+                }
                 initial={props.editSlotForm}
                 onCancel={() => props.setEditSlotForm(null)}
                 onSubmit={(data, options) => {
@@ -173,8 +176,11 @@ export const PrivateSlotEditableList: React.FC<Props> = (props) => {
             </DialogContent>
           </Dialog>
           <Dialog open={props.openSlotForm}>
-            <DialogContent>
+            <DialogContent className={props.classes.dialogContent}>
               <PrivateSlotForm
+                availableOnPartnership={
+                  props.privateService.available_on_partnership
+                }
                 onCancel={() => props.setOpenSlotForm(false)}
                 onSubmit={(data, options) =>
                   props.createPrivateSlot(
@@ -205,6 +211,14 @@ const styles = (theme) => ({
   },
   leftIcon: {
     marginRight: theme.spacing(1),
+  },
+  dialogContent: {
+    minWidth: '600px',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      minWidth: '100%',
+      padding: theme.spacing(1),
+    },
   },
   titleRow: {
     display: 'flex',

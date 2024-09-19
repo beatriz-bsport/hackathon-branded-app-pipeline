@@ -13,10 +13,12 @@ import NumericInput from '../../../../components/input/NumericInput.component';
 import { DURATION_CHOICES_SHORT, Submit } from '../../../../components/forms';
 import { getCreditFactor } from '../../../theme/selectors';
 import { getDecimalCreditHelperText } from '#src/libs/theme/utils';
+import { WidthProvider } from 'react-grid-layout';
 
 type PrivateSlotData = any;
 
 type Props = {
+  availableOnPartnership: boolean,
   initial: ?PrivateSlotData,
   onSubmit: (PrivateSlotData) => void,
   onCancel: () => void,
@@ -63,10 +65,24 @@ export class PrivateSlotForm extends React.Component<Props, State> {
   }
 
   get isBookingIntervalError() {
+    if (this.props.availableOnPartnership) {
+      return [5, 10, 15, 30, 60].includes(
+        parseInt(this.state.booking_interval_minutes),
+      )
+        ? false
+        : true;
+    }
     return (
       parseInt(this.state.booking_interval_minutes) < MIN_DURATION_MINUTES ||
       this.state.booking_interval_minutes === ''
     );
+  }
+
+  get isPeopleCapacityError() {
+    if (this.props.availableOnPartnership) {
+      return parseInt(this.state.people_capacity_used) !== 1;
+    }
+    return this.state.people_capacity_used < 0;
   }
 
   get isFormError() {
@@ -75,10 +91,46 @@ export class PrivateSlotForm extends React.Component<Props, State> {
       this.isBookingIntervalError ||
       !this.state.name ||
       this.state.credit < 0 ||
-      this.state.people_capacity_used < 0 ||
+      this.isPeopleCapacityError ||
       this.state.isSubmitting
     );
   }
+
+  get showPeopleCapacityInput() {
+    // We use the initial value of people_capacity_used so that the input doesn't disappear while
+    // user is writing
+    const isInitialPeopleCapacityError =
+      parseInt(this.props.initial?.people_capacity_used) !== 1;
+
+    // Hide the people capacity input in certain scenarios when the appointment is
+    // integrated with classpass
+    const showPeopleCapacityInputWhenCreatingNewSession =
+      !this.props.availableOnPartnership || !!this.props.initial;
+
+    const showPeopleCapacityInputWhenEditingCompatibleSession =
+      !this.props.availableOnPartnership ||
+      !this.props.initial ||
+      isInitialPeopleCapacityError;
+
+    return (
+      showPeopleCapacityInputWhenCreatingNewSession &&
+      showPeopleCapacityInputWhenEditingCompatibleSession
+    );
+  }
+
+  getPeopleCapacityHelperText = () => {
+    if (this.props.availableOnPartnership && this.isPeopleCapacityError) {
+      return this.props.t('slot.form.error.peopleCapacityUsed');
+    }
+    return this.props.t('slot.form.people_capacity_used.helperText');
+  };
+
+  getBookingIntervalHelperText = () => {
+    if (this.props.availableOnPartnership && this.isBookingIntervalError) {
+      return this.props.t('slot.form.error.bookingInterval');
+    }
+    return this.props.t('slot.form.booking_interval_minutes.helperText');
+  };
 
   handleBlur = () => {
     this.setState((prevState) =>
@@ -152,18 +204,20 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             value={this.state.credit}
           />
         </div>
-        <div className={classes.field} id="people-capacity-input">
-          <NumericInput
-            fullWidth
-            error={this.state.people_capacity_used < 0}
-            helperText={t('slot.form.people_capacity_used.helperText')}
-            label={t('slot.form.people_capacity_used.label')}
-            onChange={(ev) =>
-              this.setState({ people_capacity_used: ev.target.value })
-            }
-            value={this.state.people_capacity_used}
-          />
-        </div>
+        {this.showPeopleCapacityInput && (
+          <div className={classes.field} id="people-capacity-input">
+            <NumericInput
+              fullWidth
+              error={this.isPeopleCapacityError}
+              helperText={this.getPeopleCapacityHelperText()}
+              label={t('slot.form.people_capacity_used.label')}
+              onChange={(ev) =>
+                this.setState({ people_capacity_used: ev.target.value })
+              }
+              value={this.state.people_capacity_used}
+            />
+          </div>
+        )}
         <div className={classes.field} id="duration-input">
           <FormControl className={classes.flexField}>
             <InputLabel>{t('slot.form.duration_minutes.label')}</InputLabel>
@@ -184,7 +238,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             fullWidth
             isPositive
             error={this.isBookingIntervalError}
-            helperText={t('slot.form.booking_interval_minutes.helperText')}
+            helperText={this.getBookingIntervalHelperText()}
             InputProps={{ step: 15, max: MAX_DURATION_MINUTES }}
             label={t('slot.form.booking_interval_minutes.label')}
             onBlur={this.handleBlur}
@@ -214,7 +268,12 @@ export class PrivateSlotForm extends React.Component<Props, State> {
 }
 
 const styles = (theme) => ({
-  container: {},
+  container: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      padding: theme.spacing(1),
+    },
+  },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'row',

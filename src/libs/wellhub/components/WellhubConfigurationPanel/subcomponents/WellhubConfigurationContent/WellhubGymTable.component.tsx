@@ -113,13 +113,13 @@ const WellhubGymTable: React.FC<Props> = ({
                       key={establishment.id}
                       avatar={
                         <Avatar
-                          alt={`${establishment.title}`}
-                          src={`${establishment.cover}`}
+                          alt={establishment.title}
+                          src={establishment.cover}
                         />
                       }
                       color="default"
                       label={establishment.title}
-                      variant="outlined"
+                      variant={establishment.disabled ? 'default' : 'outlined'}
                     />
                   ))}
               </div>

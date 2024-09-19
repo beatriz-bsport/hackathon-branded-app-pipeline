@@ -90,8 +90,8 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
 
   const establishmentSelectedGroupedByAddress = React.useMemo(() => {
     const establishmentGourpByAddress = establishments
-      ?.filter((item: Establishment) =>
-        values.establishmentIds.includes(item.id),
+      ?.filter((establishment: Establishment) =>
+        values.establishmentIds.includes(establishment.id),
       )
       ?.reduce<EstablishmentListGroupByAddress>(
         (accumulator, establishment) => {
@@ -162,9 +162,17 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
     wellhubGymAvailabilityError?.response?.data?.error_message,
   ]);
 
-  const selectedEstablishments = React.useMemo(
+  const selectedEstablishmentIds = React.useMemo(
     () => uniq([...establishmentIdsLinked, ...values.establishmentIds]),
     [establishmentIdsLinked, values.establishmentIds],
+  );
+
+  const enabledEstablishments = React.useMemo(
+    () =>
+      establishments.filter(
+        (establishment) => !!establishment && !establishment.disabled,
+      ),
+    [establishments],
   );
 
   const handleEstablishmentFieldTouched = React.useCallback(
@@ -246,12 +254,12 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
               nullCurrentValue
               disabled={isSubmitting}
               error={!!establishmentIdsError && establishmentIdsTouched}
-              establishments={establishments}
+              establishments={enabledEstablishments}
               onBlur={handleEstablishmentFieldTouched}
               placeholder={t(
                 'wellhub.configuration.dialog.field.establishmentIds.placeholder',
               )}
-              selectedEstablishments={selectedEstablishments}
+              selectedEstablishments={selectedEstablishmentIds}
               selectOption={handleSelectEstablishment}
             />
             {!!establishmentIdsError && establishmentIdsTouched && (

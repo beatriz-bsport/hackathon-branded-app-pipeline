@@ -25,6 +25,7 @@ import { fetchProfile as fetchProfileAction } from '../../libs/consumer-space/ac
 import { RootState } from '../../reducers';
 import { getItemInStorage } from '#src/utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '#src/actions/constants';
+import { getUserSpaceUrl } from '#src/libs/marketplace/routing-utils';
 
 type OwnProps = {
   companyId?: number;
@@ -120,7 +121,8 @@ const connector = connect(
   {
     fetchProfile: fetchProfileAction,
     disconnect: authActions.disconnect,
-    goToUserSpace: (id: number) => push(`/c/${id}`),
+    goToUserSpace: (id: number) => push(getUserSpaceUrl(id)),
+
     navigateBackToMasterRelation: navigateBackToMasterRelationAction,
   },
 );

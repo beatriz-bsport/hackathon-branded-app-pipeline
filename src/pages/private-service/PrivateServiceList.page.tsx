@@ -148,6 +148,7 @@ export class PrivateServiceList extends React.Component<Props, State> {
         this.props.fetchAllPrivateServices();
         this.props.goToPrivateService(service.id);
       },
+      onError: option.onError,
     });
   };
 

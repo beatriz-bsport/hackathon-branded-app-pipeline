@@ -1,5 +1,8 @@
 import { createAction } from 'redux-actions';
 import { PRIVATE_BOOKING_INCOMPLETE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
+import { PRIVATE_SERVICE_NOT_COMPATIBLE_WITH_PARTNERSHIP } from '@bsport/common/lib/master-data/error-codes/private-service';
+import { PRIVATE_SLOT_NOT_COMPATIBLE_WITH_PARTNERSHIP } from '@bsport/common/lib/master-data/error-codes/private-slot';
+
 import { DateTime } from 'luxon';
 import uniq from 'lodash/uniq';
 import axios from 'axios';
@@ -768,9 +771,16 @@ export function createOrUpdatePrivateService(
       // @ts-expect-error
       options?.onSuccess?.(response.data);
     } catch (err) {
+      if (
+        err.response?.data?.error_code ===
+        PRIVATE_SERVICE_NOT_COMPATIBLE_WITH_PARTNERSHIP
+      ) {
+        dispatch(snackbarError('privateService.notCompatibleWithPartnership'));
+      }
+
       console.error(err);
       dispatch(privateServiceCreateOrUpdateActions.error(null));
-      if (options && options.onError) options.onError();
+      options?.onError?.(err);
     }
     dispatch(privateServiceCreateOrUpdateActions.isLoading(false));
   };
@@ -984,6 +994,12 @@ export function createOrUpdatePrivateSlot(
       dispatch(fetchPrivateService(privateServiceId));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
+      if (
+        err.response?.data?.error_code ===
+        PRIVATE_SLOT_NOT_COMPATIBLE_WITH_PARTNERSHIP
+      ) {
+        dispatch(snackbarError('privateSlot.notCompatibleWithPartnership'));
+      }
       console.error(err);
       dispatch(privateSlotCreateOrUpdateActions.error(null));
       if (options && options.onError) options.onError();

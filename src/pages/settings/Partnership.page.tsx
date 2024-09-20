@@ -62,6 +62,7 @@ import type {
   Establishment,
   AssociatedEstablishment,
 } from '#src/libs/establishment/types';
+import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/partnership/constants';
 
 import CLASSPASS_LOGO from './classpass.png';
 
@@ -321,7 +322,7 @@ const styles = createStyles((theme: Theme) => ({
 
 const mapWithHandlers = {
   requestClasspassPartnership: (props: ConnectorProps & StateProps) => () => {
-    props.requestPartnership('classpass', {
+    props.requestPartnership(CLASSPASS_INTEGRATION_IDENTIFIER, {
       onSuccess: () => props.setHasRequested(true),
     });
   },
@@ -378,7 +379,10 @@ export default compose(
   connect(
     (state: RootState) => ({
       associatedEstablishmentList: getAllAssociatedEstablishment(state),
-      classpass: getPartnershipByIdentifier(state, 'classpass'),
+      classpass: getPartnershipByIdentifier(
+        state,
+        CLASSPASS_INTEGRATION_IDENTIFIER,
+      ),
       company: themeSelector.getTheme(state).company,
       establishmentList: getAllPageEstablishments(state),
       featureList: getCompanyFeatureList(state),

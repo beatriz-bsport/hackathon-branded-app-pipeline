@@ -11,6 +11,7 @@ import {
   MARKETPLACE_PATH_TAB_SHOP,
   MARKETPLACE_PATH_TAB_GIFTCARD,
 } from './constants';
+import { getIsNewMemberProfileDisplayed } from '../consumer-space/utils';
 
 export const getMarketplaceRoute = (
   companyName: string,
@@ -179,9 +180,13 @@ export const generateMarketPlaceCustomFormLink = (
   )}form/${customFormId}`;
 };
 
-export const getUserSpaceUrl = (id: number) => {
-  return `/c/${id}/`;
-};
+/**
+ * TODO : FIX ME.
+ * The usage of getIsNewMemberProfileDisplayed is temporary and should
+ * be removed once the new member profile is activated for everyone.
+ */
+export const getUserSpaceUrl = (id: number) =>
+  getIsNewMemberProfileDisplayed(id) ? `/c/${id}/booking/` : `/c/${id}/`;
 
 export const getLoginUrl = (
   companyId: number,

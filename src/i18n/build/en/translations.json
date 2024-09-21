@@ -3495,7 +3495,7 @@
                 "cancel": "Cancel",
                 "submit": "Save",
                 "booking_interval_minutes": {
-                    "helperText": "(Recommended) Example: by inserting 15, it means that members can book for 12:00, 12:15. 12:50, etc.",
+                    "helperText": "(Recommended) Example: by inserting 15, it means that members can book for 12:00, 12:15. 12:30, etc.",
                     "label": "Advanced: booking interval"
                 },
                 "pre_selected_choices": "Predefined durations",

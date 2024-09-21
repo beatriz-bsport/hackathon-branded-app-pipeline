@@ -19089,7 +19089,7 @@
             "welcome": {
                 "dialog": {
                     "title": "Willkommen bei {{ audienceCamelCase }}!",
-                    "helper": "Lassen Sie uns gemeinsam mit der Einrichtung des {{ workflowLowerCase }} beginnen! Ein Workflow ist eine Reihe miteinander verbundener Trigger und Schritte mit respektiven Marketingaktionen, die helfen, Mitglieder auf ein definiertes Ziel hinzuführen.",
+                    "helper": "Lass uns gemeinsam deinen {{ workflowLowerCase }} einrichten! Zuerst legen wir die Regeln fest, nach denen deine Mitglieder in den {{workflowLowerCase }} eintreten. Danach entscheiden wir, wann ein Mitglied  – basierend auf seinen Aktionen als \"Gewonnen\" oder \"Verloren\" gilt.",
                     "confirm": "Start",
                     "return": "Zurück"
                 }
@@ -19244,12 +19244,12 @@
                 "labels": {
                     "edit": " {{ workflowLowerCase }}-Einstellungen bearbeiten",
                     "archive": "{{ workflowLowerCase }} archivieren",
-                    "open": "Offen",
-                    "notLaunched": "Nicht eingeleitet",
+                    "open": "Öffnen",
+                    "notLaunched": "Noch nicht aktiviert",
                     "paused": "Pausiert",
                     "active": "Aktiv",
                     "unarchive": "Archivieren rückgängig machen",
-                    "metrics": "Messgrößen"
+                    "metrics": "Statistik"
                 },
                 "tooltip": {
                     "moreActions": "Mehr {{ workflowLowerCase }}-Aktionen"

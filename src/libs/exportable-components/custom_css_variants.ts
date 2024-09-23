@@ -473,6 +473,11 @@ import {
   FABRIQUE_SUBMENU_CONFIGURATION,
 } from '#src/components/css-only/Fabrique/Submenu';
 
+import {
+  REFERRAL_CARD_CONFIGURATION,
+  REFERRAL_CARD_PREVIEW,
+} from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ReferralCard';
+
 import { CssComponentsVariantIdentifiers } from './constants';
 import Config from '../../config';
 /* TEMPLATE
@@ -600,6 +605,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         CONSUMER_TERMS_AND_CONDITIONS_CARD_CONFIGURATION,
         CONSUMER_SAVED_PAYMENT_METHODS_CARD_CONFIGURATION,
         CONSUMER_SUMMARY_CARD_CONFIGURATION,
+        REFERRAL_CARD_CONFIGURATION,
       ]
     : []),
 ];
@@ -825,6 +831,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         CONSUMER_SAVED_PAYMENT_METHODS_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_SUMMARY_CARD]:
         CONSUMER_SUMMARY_CARD_PREVIEW,
+      [CssComponentsVariantIdentifiers.CONSUMER_REFERRAL_CARD]:
+        REFERRAL_CARD_PREVIEW,
     }),
   });
 

@@ -135,4 +135,5 @@ export enum CssComponentsVariantIdentifiers {
   CONSUMER_TERMS_AND_CONDITIONS = 'consumer_terms_and_conditions',
   CONSUMER_SAVED_PAYMENT_METHODS_CARD = 'consumer_saved_payment_methods_card',
   CONSUMER_SUMMARY_CARD = 'consumer_summary_card',
+  CONSUMER_REFERRAL_CARD = 'consumer_referral_card',
 }

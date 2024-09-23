@@ -11,7 +11,7 @@ export const generateRecurrencyString = (
     case WEEKLY:
       return t('form.recurrency.week', { count: frequency });
     case MONTHLY:
-      return t('form.recurrency.month');
+      return t('form.recurrency.month', { count: frequency });
     case DAILY:
       return t('form.recurrency.day', { count: frequency });
     default:
@@ -74,7 +74,7 @@ export const generateInstalmentPaymentSecondaryText = (
   return `${t('menu.secondary.numberOfBilling', {
     number_of_billing,
     count: number_of_billing,
-  })} - ${allThe} ${generateRecurrencyString(t, recurrency, 2)}`;
+  })} - ${allThe} ${generateRecurrencyString(t, recurrency, frequency)}`;
 };
 
 export const generateDuration = (

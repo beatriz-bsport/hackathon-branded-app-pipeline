@@ -112,6 +112,7 @@ exports.default = {
       week: 'week',
       week_plural: 'weeks',
       month: 'month',
+      month_plural: 'months',
       year: 'year',
       year_plural: 'years',
       day: 'day',

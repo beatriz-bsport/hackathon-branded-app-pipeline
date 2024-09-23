@@ -6492,7 +6492,8 @@
             "studio_address_franchise_only": "Ort/Adresse",
             "payment_method_paypal_wallet": "PayPal-Wallet",
             "on_the_fly_bsport_fee": "PayPal Transaktionsgebühren",
-            "second_billing_plan": "Zweiter Rechnungsplan"
+            "second_billing_plan": "Zweiter Rechnungsplan",
+            "incremental_identifier": "Nummer"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -10910,7 +10911,9 @@
         "reset": "Zurücksetzen",
         "more": "Mehr",
         "add": "Hinzufügen",
-        "continue": "Fortfahren"
+        "continue": "Fortfahren",
+        "edit": "Bearbeiten",
+        "preview": "Vorschau"
     },
     "coupon": {
         "detail": {
@@ -17222,7 +17225,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Ihre Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gestellt wird. Durch die Löschung der Einrichtung erhalten sie daher von jeder Einrichtung Vertretungsanfragen.",
+                "exclusiveAssociatedCoaches_plural": "Ihre Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gestellt wird. Wenn Sie die Einrichtung löschen, erhalten sie daher Vertretungsanfragen von jeder Einrichtung.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",

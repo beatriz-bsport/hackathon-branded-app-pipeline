@@ -380,6 +380,8 @@ exports.default = {
         'This component composed by a label and input, and a caption text. For customizing the {{component_name}} appearance, we recommand utilizing its root component',
       authenticationTextField:
         'This component uses a textfield component. To fine-tune individual {{component_name}}, you can use the dedicated section located in {{page}} within the editor.',
+      consumerReferralCard:
+        'This component uses a Referral details component. To fine-tune individual {{component_name}}, you can use the dedicated section located in {{page}} within the editor.',
     },
     page: {
       calendar: 'Calendar',
@@ -527,6 +529,7 @@ exports.default = {
       consumer_saved_payment_methods_card:
         'Consumer saved payment methods card',
       consumer_summary_card: 'Consumer summary card',
+      consumer_referral_card: 'Consumer referral card',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

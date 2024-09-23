@@ -1,0 +1,12 @@
+.bs-referral-conditions-blanket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bs-referral-conditions-content__bulletList > * > li {
+  list-style-type: disc;
+}
+
+.bs-referral-conditions-content__italic {
+  font-style: italic;
+}

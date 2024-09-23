@@ -9,7 +9,6 @@ import type { ReferralProgram } from '#src/libs/referral/types';
 import { getReferredReduction } from '#src/libs/referral/utils';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { ReferredVoucherTypeChoices } from '#src/libs/referral/constants';
-import ReferralMemberSumupDialog from '#src/libs/referral/components/referral-member-sumup/ReferralMemberSumupDialog.component';
 
 import Typography from '#Fabrique/Typography';
 import Button from '#Fabrique/ButtonV2';
@@ -17,6 +16,7 @@ import Card from '#Fabrique/Card';
 import { Copy06, InfoCircle, UserRight02 } from '#src/components/untitledui';
 import LinearProgress from '#Fabrique/LinearProgress';
 import Alert from '#Fabrique/Alert';
+import ReferralConditionsModal from '#src/libs/referral/components/ReferralConditionsModal';
 
 import './styles.css';
 
@@ -44,6 +44,11 @@ const ReferralWidget: React.FC<Props> = ({
 
   const handleOpenConditionsDialog = useCallback(
     () => setShowConditions(true),
+    [setShowConditions],
+  );
+
+  const handleCloseConditionsDialog = useCallback(
+    () => setShowConditions(false),
     [setShowConditions],
   );
 
@@ -229,16 +234,16 @@ const ReferralWidget: React.FC<Props> = ({
         </div>
       </div>
 
-      <ReferralMemberSumupDialog
+      <ReferralConditionsModal
         applicationTimeLimitIntervals={application_time_limit_intervals}
         applicationTimeLimitUnit={application_time_limit_unit}
+        closeConditionsModal={handleCloseConditionsDialog}
         hideReferredReduction={hideReferredReduction}
         hideReferringReward={hideReferringReduction}
         maxReferralUses={maximum_referral_uses}
         minBasketAmount={minimum_basket_amount}
         referredReduction={referredReduction}
         referringReward={amount_reward_referring}
-        setShowConditions={setShowConditions}
         showConditions={showConditions}
       />
     </>

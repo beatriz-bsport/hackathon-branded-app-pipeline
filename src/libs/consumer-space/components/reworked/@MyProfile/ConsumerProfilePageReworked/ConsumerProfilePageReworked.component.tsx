@@ -17,6 +17,8 @@ import PaymentModal from '#src/libs/payment/components/PaymentModal.component';
 import { AddPaymentMethod } from '#src/libs/payment/components/AddPaymentMethod.component';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 import { Edit03 } from '#src/components/untitledui';
+import ReferralCard from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ReferralCard';
+
 import type {
   CustomForm,
   CustomFormFilledAPI,
@@ -26,6 +28,12 @@ import type { Member } from '#src/libs/member/types';
 import type { PaymentMethod } from '#src/libs/payment/types';
 import type { OptionCallback } from '#src/state/types';
 
+import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
+import Config from '#src/config';
+import type {
+  ReferralMemberStatus,
+  ReferralProgram,
+} from '#src/libs/referral/types';
 import './styles.css';
 
 type Props = {
@@ -37,12 +45,17 @@ type Props = {
     options?: OptionCallback,
   ) => void;
   detachPaymentMethodLoading: boolean;
+
   fetchMemberPaymentMethod: () => void;
+  isAuthenticated: boolean;
   member: Member;
   memberCustomForm: CustomForm;
+  memberError: Error;
   memberLoading: boolean;
   membershipId: number;
   membershipCompany: number;
+  membershipLoading: boolean;
+  membershipError: Error;
   paymentMethodLoading: boolean;
   paymentMethods: PaymentMethod[];
   requestSetupIntentSecret: () => Promise<
@@ -50,6 +63,12 @@ type Props = {
       client_secret: string;
     }>
   >;
+  referralMemberStatus: ReferralMemberStatus;
+  referralMemberStatusError: Error;
+  referralMemberStatusLoading: boolean;
+  referralProgram: ReferralProgram;
+  referralProgramError: Error;
+  referralProgramLoading: boolean;
   spiviPrivacySettingsLoading: boolean;
   stripeRegion: string;
   submitCustomForm: (
@@ -63,22 +82,32 @@ type Props = {
 };
 
 const ConsumerProfilePageReworked: React.FC<Props> = ({
+  companyCountry,
   companyTheme,
   companyThemeLoading,
   detachPaymentMethod,
   detachPaymentMethodLoading,
   fetchMemberPaymentMethod,
+  isAuthenticated,
   member,
   memberCustomForm,
+  memberError,
   memberLoading,
-  membershipId,
   membershipCompany,
+  membershipError,
+  membershipId,
+  membershipLoading,
   paymentMethodLoading,
   paymentMethods,
-  spiviPrivacySettingsLoading,
-  companyCountry,
-  stripeRegion,
+  referralMemberStatus,
+  referralMemberStatusError,
+  referralMemberStatusLoading,
+  referralProgram,
+  referralProgramError,
+  referralProgramLoading,
   requestSetupIntentSecret,
+  spiviPrivacySettingsLoading,
+  stripeRegion,
   submitCustomForm,
   updateSpiviPrivacySettings,
 }) => {
@@ -102,13 +131,17 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     openEditProfilePortal,
   } = useContext(ConsumerProfileContext);
 
-  const { general_terms_of_use, waiver } = companyTheme ?? {};
+  const { general_terms_of_use, waiver, is_referral_program_activated } =
+    companyTheme ?? {};
 
   const isLoading =
     companyThemeLoading ||
     memberLoading ||
     paymentMethodLoading ||
-    spiviPrivacySettingsLoading;
+    spiviPrivacySettingsLoading ||
+    referralProgramLoading ||
+    referralMemberStatusLoading ||
+    membershipLoading;
 
   const defaultPaymentMethod =
     companyTheme?.currency === 'eur' ? 'sepa_debit' : 'card';
@@ -160,6 +193,19 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     [t, openEditProfilePortal],
   );
   if (!member) return null;
+
+  const referralLink = is_referral_program_activated
+    ? `${Config.PUBLIC_URL}${buildMemberReferralLink(
+        membershipCompany,
+        member?.referral_uuid,
+      )}`
+    : '';
+
+  const referralCardHasUnknownError =
+    !!referralProgramError ||
+    !!memberError ||
+    !!membershipError ||
+    !!referralMemberStatusError;
 
   const {
     accept_email,
@@ -235,6 +281,17 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
             isLoading={isLoading}
             paymentMethodLoading={paymentMethodLoading}
             paymentMethods={paymentMethods}
+          />
+
+          <ReferralCard
+            hasUnknownError={referralCardHasUnknownError}
+            isAuthenticated={isAuthenticated}
+            isLoading={isLoading}
+            nbRemainingReferralUses={
+              referralMemberStatus?.nb_remaining_referral_uses
+            }
+            referralLink={referralLink}
+            referralProgram={referralProgram}
           />
 
           <TermsAndConditionsCard

@@ -16,6 +16,10 @@ import {
   fetchCompanyCustomMemberForm as fetchCompanyCustomMemberFormAction,
   submitCustomForm as submitCustomFormAction,
 } from '#src/libs/custom-form/actions';
+import {
+  retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
+  retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
+} from '#src/libs/referral/actions';
 
 import {
   getCompanyCountry,
@@ -34,6 +38,14 @@ import type { RootState } from '#src/reducers';
 import type { Membership } from '#src/libs/membership/types';
 import type { CustomFormFilledAPI } from '#src/libs/custom-form/types';
 import type { OptionCallback } from '#src/state/types';
+import {
+  getReferralMemberStatusError,
+  getReferralMemberStatusLoading,
+  getReferralMemberStatusWithMemberId,
+  getReferralProgramsError,
+  getReferralProgramsLoading,
+  getTheReferralProgram,
+} from '#src/libs/referral/selectors';
 
 type OwnProps = {
   membership: Membership;
@@ -56,6 +68,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
         this.props.companyId ?? this.props.membership.company,
       );
       this.props.fetchMyUserProfile();
+      this.fetchReferralData();
     }
   }
 
@@ -104,17 +117,45 @@ class ConsumerProfileReworked extends React.Component<Props> {
     return requestSetupIntentSecretAPI(this.props.membership.id, null);
   };
 
+  fetchReferralData = () => {
+    if (!this.props.referralProgram) {
+      this.props.retrieveReferralProgramForCompany(
+        this.props.companyId ?? this.props.membership.company,
+        {
+          onSuccess: () => {
+            if (
+              this.props.authenticated &&
+              this.props.companyTheme?.is_referral_program_activated
+            ) {
+              this.props.retrieveReferralMemberStatus(this.props.membership.id);
+            }
+          },
+        },
+      );
+    }
+  };
+
   render() {
     const {
+      authenticated,
       companyTheme,
       companyThemeLoading,
       detachPaymentMethodLoading,
       member,
       memberCustomForm,
+      memberError,
       memberLoading,
       membership,
+      membershipError,
+      membershipLoading,
       paymentMethodLoading,
       paymentMethods,
+      referralMemberStatus,
+      referralMemberStatusError,
+      referralMemberStatusLoading,
+      referralProgram,
+      referralProgramError,
+      referralProgramLoading,
       spiviPrivacySettingsLoading,
       updateSpiviPrivacySettings,
     } = this.props;
@@ -131,13 +172,23 @@ class ConsumerProfileReworked extends React.Component<Props> {
           detachPaymentMethod={this.detachPaymentMethod}
           detachPaymentMethodLoading={detachPaymentMethodLoading}
           fetchMemberPaymentMethod={this.fetchMemberPaymentMethod}
+          isAuthenticated={authenticated}
           member={member}
           memberCustomForm={memberCustomForm}
+          memberError={memberError}
           memberLoading={memberLoading}
           membershipCompany={this.props.companyId ?? membership.company}
+          membershipError={membershipError}
           membershipId={membership.id}
+          membershipLoading={membershipLoading}
           paymentMethodLoading={paymentMethodLoading}
           paymentMethods={paymentMethods}
+          referralMemberStatus={referralMemberStatus}
+          referralMemberStatusError={referralMemberStatusError}
+          referralMemberStatusLoading={referralMemberStatusLoading}
+          referralProgram={referralProgram}
+          referralProgramError={referralProgramError}
+          referralProgramLoading={referralProgramLoading}
           requestSetupIntentSecret={this.requestSetupIntentSecret}
           spiviPrivacySettingsLoading={spiviPrivacySettingsLoading}
           stripeRegion={stripeRegion}
@@ -157,12 +208,24 @@ const mapStateToProps = (
   companyThemeLoading: state.theme.loading,
   memberLoading: state.member.loading,
   member: getMemberDetail(state, membership?.id),
+  memberError: state.member.error,
   companyTheme: getTheme(state),
   paymentMethods: state.paymentBackend.paymentMethod.items,
   paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
   detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
   memberCustomForm: getConsumerProfileCustomForm(state, membership?.id),
   spiviPrivacySettingsLoading: state.member.spivi_privacy_settings.loading,
+  referralProgram: getTheReferralProgram(state),
+  referralProgramLoading: getReferralProgramsLoading(state),
+  referralProgramError: getReferralProgramsError(state),
+  referralMemberStatus: getReferralMemberStatusWithMemberId(
+    state,
+    membership?.id,
+  ),
+  referralMemberStatusLoading: getReferralMemberStatusLoading(state),
+  referralMemberStatusError: getReferralMemberStatusError(state),
+  membershipLoading: state.membership.retrieve.loading,
+  membershipError: state.membership.retrieve.error,
 });
 
 const mapDispatchToProps = {
@@ -173,6 +236,8 @@ const mapDispatchToProps = {
   submitCustomForm: submitCustomFormAction,
   fetchMyUserProfile: fetchMyUserProfileAction,
   updateSpiviPrivacySettings: updateSpiviPrivacySettingsAction,
+  retrieveReferralProgramForCompany: retrieveReferralProgramForCompanyAction,
+  retrieveReferralMemberStatus: retrieveReferralMemberStatusAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

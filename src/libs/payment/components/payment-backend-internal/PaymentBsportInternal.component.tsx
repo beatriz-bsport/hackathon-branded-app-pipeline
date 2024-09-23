@@ -64,6 +64,12 @@ export const PaymentStripe: React.FC<Props> = ({
     parseInt(amountToPay, 10) / 100,
   );
 
+  React.useEffect(
+    () => setModifiedAmountToPay(parseInt(amountToPay, 10) / 100),
+    [amountToPay],
+  );
+  console.log(modifiedAmountToPay);
+
   const [date, setDate] = React.useState(DateTime.now());
 
   const [paymentMethodSelected, setPaymentMethodSelected] = React.useState(

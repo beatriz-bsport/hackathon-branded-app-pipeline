@@ -176,6 +176,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
           setClientSecretLoading(false);
           setClientSecret(r.data.client_secret);
           setPaymentGroupPriceCts(r.data.price_cts);
+          setAmountToBill((r.data.price_cts / 100).toFixed(2));
           setPaymentGroupId(r.data.payment_group);
           setClientSecretError(false);
         })
@@ -267,6 +268,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
     setInvoiceToBill(null);
     // @ts-expect-error
     setAmountToBill(0);
+    setPaymentGroupPriceCts(0);
     setRegularizeFullDebt(false);
     if (onInvoicePaymentDialogClose) onInvoicePaymentDialogClose();
   }, [

@@ -2281,7 +2281,7 @@
                 "isIntegratedInPartnership": "Una o varias integraciones utilizan este establecimiento.",
                 "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del marketplace están configuradas para mostrar únicamente el calendario y los talleres de este establecimiento, actualízalas antes de eliminar el establecimiento.",
                 "exclusiveEstablishmentGroups": "La ubicación {{- establishment_group_name }} sólo contiene el establecimiento que desea eliminar, actualice o elimine esta ubicación.",
-                "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, por favor, actualice o elimine estas ubicaciones.",
+                "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, actualice o elimine estas ubicaciones.",
                 "exclusivePaymentPacks": "El siguiente pase {{- pass_name }} sólo se puede utilizar en este establecimiento. Actualiza sus restricciones antes de eliminar el establecimiento.",
                 "exclusivePaymentPacks_plural": "Los siguientes pases {{- pass_name }} sólo se pueden utilizar en este establecimiento. Actualice sus restricciones antes de eliminar el establecimiento.",
                 "hasExclusiveBillingGroup": "Este establecimiento es el último de su grupo de facturación. Por favor, elimine o actualice este grupo de facturación antes de eliminar este establecimiento.",
@@ -5421,7 +5421,8 @@
             "studio_address_franchise_only": "Ubicación/Dirección",
             "payment_method_paypal_wallet": "Cartera PayPal",
             "on_the_fly_bsport_fee": "Comisiones de transacción de PayPal",
-            "second_billing_plan": "Segundo plan de facturación"
+            "second_billing_plan": "Segundo plan de facturación",
+            "incremental_identifier": "Número"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -13823,7 +13824,9 @@
         "reset": "Reiniciar",
         "more": "Más",
         "add": "Añadir",
-        "continue": "Continuar"
+        "continue": "Continuar",
+        "edit": "Editar",
+        "preview": "Vista previa"
     },
     "snackbar": {
         "invoice": {

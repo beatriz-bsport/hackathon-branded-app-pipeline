@@ -624,3 +624,27 @@ export const getMarketplaceSearchItemIndicator = (
         credits: getCreditsDividedDisplay(privatePass.credits),
       });
 };
+
+/**
+ * Calculates the corresponding capacity for a coach.
+ *
+ * This function is created due to the difference of how we handle coach_capacity_used field in
+ * the private_service model in the backend and what we show to the user in the formik form.
+ *
+ * In the backend, coach_capacity_used symbolizes how much of the coach's capacity is used for each session,
+ * considering that the coach has a total capacity of 12.
+ * Thus a coach_capacity_used of 12 means the coach can attend to only 1 session like this one at a time.
+ * A coach_capacity_used of 4 means the coach still has 8 coach_capacities left to attend for other sessions.
+ *
+ * In the form, maxConcurrentAppointmentsPerCoach means how many sessions the coach can attend to simultaneously. So
+ * basically a value of 1 means the coach can attend to only 1 session at a time and doesn't have any other
+ * capacity left.
+ *
+ * @param coachCapacity - Could either be the coach capacity used or the maximum number of appointments
+ * the coach can attend to simultaneously
+ * @returns - If input is coach capacity used, it returns the maximum number of appointments the coach can attend
+ * to simultaneously. The opposite is true
+ */
+export const getCoachCorrespondingCapacity = (coachCapacity: number) =>
+  //@ts-expect-error
+  parseInt(12 / coachCapacity, 10);

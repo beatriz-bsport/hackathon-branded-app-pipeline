@@ -30,6 +30,8 @@ import type { Tag, TagGroup, TagOption } from '#src/libs/tag/types';
 import type { PrivateServiceGroup } from '#src/libs/private-service/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { getCoachCorrespondingCapacity } from '#src/libs/private-service/utils';
+
 // @ts-expect-error
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
@@ -73,7 +75,7 @@ export interface FormikValues {
   manager_only: boolean;
   is_without_coach: boolean;
   use_full_establishment_capacity: boolean;
-  coach_capacity_used: 1;
+  maxConcurrentAppointmentsPerCoach: 1;
   establishments: [];
   coaches: [];
   establishment_resource_type: string;
@@ -798,8 +800,9 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
           ...getIds<AssociatedEstablishment>(initial.establishments),
         ],
         coaches: [...getIds<Coach>(initial.coaches)],
-        // @ts-expect-error
-        coach_capacity_used: parseInt(12 / initial.coach_capacity_used, 10),
+        maxConcurrentAppointmentsPerCoach: getCoachCorrespondingCapacity(
+          initial.coach_capacity_used,
+        ),
         coach_consumer_attribution:
           initial.coach_attribution === RESOURCE_ATTRIBUTION_CONSUMER,
         establishment_consumer_attribution:
@@ -815,7 +818,7 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
       manager_only: false,
       is_without_coach: true,
       use_full_establishment_capacity: true,
-      coach_capacity_used: 1,
+      maxConcurrentAppointmentsPerCoach: 1,
       establishments: [],
       coaches: [],
       establishment_resource_type: IS_HOME_SERVICE,
@@ -841,8 +844,9 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
         {
           ...values,
           coaches: values.is_without_coach ? [] : values.coaches,
-          // @ts-expect-error
-          coach_capacity_used: parseInt(12 / values.coach_capacity_used, 10),
+          coach_capacity_used: getCoachCorrespondingCapacity(
+            values.maxConcurrentAppointmentsPerCoach,
+          ),
           coach_attribution: values.coach_consumer_attribution
             ? RESOURCE_ATTRIBUTION_CONSUMER
             : RESOURCE_ATTRIBUTION_AUTO,

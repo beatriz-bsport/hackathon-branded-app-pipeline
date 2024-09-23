@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useCallback } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -31,7 +32,7 @@ import InvoiceItem from './InvoiceItem.component';
 // @ts-expect-error
 import PaymentItem from './PaymentItem.component';
 import { getReceiptUrl as getReceiptUrlAPI } from '../api';
-import type { OptionCallback } from '../../../state/types';
+import type { OptionCallback } from '#src/state/types';
 import type { Invoice } from '../types';
 
 type Props = {
@@ -200,8 +201,9 @@ export const InvoiceContent: React.FC<Props> = ({
             <Divider className={classes.divider} />
           )}
           {invoiceItemList.map((ii: InvoiceItem) => (
+            /* hotfix: key can't be unique, the same Invoice Item can be rendered multiple times */
             <InvoiceItem
-              key={`${ii.buyable_item_identifier}:${ii.id}:${ii.voucher}`}
+              key={`${ii.id}:${uuidv4()}`}
               invoiceItem={ii}
               onDelete={handleRemoveInvoiceItem(ii)}
             />

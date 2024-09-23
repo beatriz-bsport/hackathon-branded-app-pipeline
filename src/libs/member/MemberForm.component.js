@@ -384,7 +384,7 @@ export function MemberForm(props: Props) {
 
             {!asManager ? null : (
               <Grid item md={mdSize} xs={12}>
-                <TextField
+                <TextFieldEnhancedLabelWithError
                   fullWidth
                   shrink
                   disabled={disabled || !!props.fromConsumerAccess}
@@ -396,7 +396,7 @@ export function MemberForm(props: Props) {
             )}
             {!asManager ? null : (
               <Grid item md={mdSize} xs={12}>
-                <TextField
+                <TextFieldEnhancedLabelWithError
                   fullWidth
                   shrink
                   disabled={disabled || !!props.fromConsumerAccess}
@@ -798,6 +798,14 @@ export default compose(
       official_document_id: Yup.string().matches(
         /^[A-Za-z0-9]+$/,
         'marketing:customForm.submit.errors.invalidOfficialDocumentId',
+      ),
+      barcode: Yup.string().max(
+        16,
+        'marketing:customForm.submit.errors.barcodeMaximumLength',
+      ),
+      membership_ID: Yup.string().max(
+        24,
+        'marketing:customForm.submit.errors.membershipIdMaximumLength',
       ),
     }),
   }),

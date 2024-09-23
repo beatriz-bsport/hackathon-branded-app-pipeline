@@ -383,6 +383,9 @@ exports.default = {
           'Your password must contain at least 6 characters.',
         invalidOfficialDocumentId:
           'This field can only contain numbers and letters',
+        barcodeMaximumLength: 'A barcode cannot exceed 16 characters',
+        membershipIdMaximumLength:
+          'A membership ID cannot exceed 24 characters',
       },
     },
     statistics: {

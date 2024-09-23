@@ -25,7 +25,7 @@ export type Props = {
   isAuthenticated: boolean;
   isLoading: boolean;
   nbRemainingReferralUses: number;
-  onLoginClick: () => void;
+  onLoginClick?: () => void;
   referralLink: string;
   referralProgram: ReferralProgram;
 };

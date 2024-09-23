@@ -1,0 +1,7 @@
+.bs-consumer-referral-card__root {
+  display: inline-block;
+}
+
+.bs-consumer-referral-card__root--hidden {
+  display: none;
+}

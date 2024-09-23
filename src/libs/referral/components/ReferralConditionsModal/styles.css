@@ -3,6 +3,16 @@
   justify-content: center;
   align-items: center;
 }
+
+.bs-referral-conditions-modal {
+}
+
+.bs-referral-conditions__content {
+}
+
+.bs-referral-conditions-bottom-drawer {
+}
+
 .bs-referral-conditions-content__bulletList > * > li {
   list-style-type: disc;
 }

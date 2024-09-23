@@ -28,7 +28,7 @@ import { getMemberDetail } from '#src/libs/member/selectors';
 import type { Membership } from '#src/libs/membership/types';
 import { getMembership } from '#src/libs/membership/selectors';
 
-import ReferralWidget from '#src/components/ReferralWidget';
+import ReferralLinkAndTerms from '#src/libs/referral/components/ReferralLinkAndTerms';
 
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -106,7 +106,7 @@ export class ConsumerReferralDetail extends Component<Props> {
       this.props.memberLoading;
 
     return (
-      <ReferralWidget
+      <ReferralLinkAndTerms
         hasUnknownError={hasUnknownError}
         isAuthenticated={this.props.authenticated}
         isLoading={isLoading}

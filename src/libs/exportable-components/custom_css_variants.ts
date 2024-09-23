@@ -426,7 +426,7 @@ import {
 import {
   REFERRAL_DETAILS_CONFIGURATION,
   REFERRAL_DETAILS_PREVIEW,
-} from '#src/components/ReferralWidget';
+} from '#src/libs/referral/components/ReferralLinkAndTerms';
 import {
   FABRIQUE_BIGICON_CONFIGURATION,
   FABRIQUE_BIGICON_PREVIEW,

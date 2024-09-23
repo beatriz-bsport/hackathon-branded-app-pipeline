@@ -8,8 +8,8 @@ import {
 } from '#src/libs/exportable-components/types';
 import { referralProgramFactory } from '#src/libs/referral/factories/ReferralProgram';
 // @ts-expect-error
-import ReferralWidgetCss from './styles.css?raw';
-import ReferralWidget, { Props as ReferralWidgetProps } from '.';
+import ReferralLinkAndTermsCss from './styles.css?raw';
+import ReferralLinkAndTerms, { Props as ReferralLinkAndTermsProps } from '.';
 
 const referralProgramMock = referralProgramFactory();
 
@@ -43,7 +43,7 @@ const referralDetailsVariationRegistry = [
 ];
 const usePropsFromVariation = (
   variationsSelected: Record<string, VariationConfigurationChoice>,
-): ReferralWidgetProps => {
+): ReferralLinkAndTermsProps => {
   const hasUnknownError = variationsSelected?.state?.value === 'unknownError';
   const isLoading = variationsSelected?.state?.value === 'loading';
   const isAuthenticated = variationsSelected?.state?.value === 'authenticated';
@@ -69,7 +69,7 @@ const usePropsFromVariation = (
 
 export const REFERRAL_DETAILS_CONFIGURATION: MarketplaceCSSComponentConfig = {
   label: CssComponentsVariantIdentifiers.REFERRAL_DETAILS,
-  css: ReferralWidgetCss,
+  css: ReferralLinkAndTermsCss,
   pages: [MarketplacePage.REFERRAL_DETAILS],
   defaultState: {},
   variations: referralDetailsVariationRegistry,
@@ -90,7 +90,7 @@ export const REFERRAL_DETAILS_PREVIEW: React.FC<{
         width: '100%',
       }}
     >
-      <ReferralWidget {...componentProps} />
+      <ReferralLinkAndTerms {...componentProps} />
     </div>
   );
 });

@@ -1,7 +1,7 @@
-import ReferralWidget, {
+import ReferralLinkAndTerms, {
   Props,
-  ReferralWidgetForStorybook,
-} from './ReferralWidget.component';
+  ReferralLinkAndTermsForStorybook,
+} from './ReferralLinkAndTerms.component';
 
 import {
   REFERRAL_DETAILS_CONFIGURATION,
@@ -12,6 +12,6 @@ export { REFERRAL_DETAILS_CONFIGURATION, REFERRAL_DETAILS_PREVIEW };
 
 export type { Props };
 
-export { ReferralWidgetForStorybook };
+export { ReferralLinkAndTermsForStorybook };
 
-export default ReferralWidget;
+export default ReferralLinkAndTerms;

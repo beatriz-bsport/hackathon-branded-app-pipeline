@@ -30,7 +30,7 @@ export type Props = {
   referralProgram: ReferralProgram;
 };
 
-const ReferralWidget: React.FC<Props> = ({
+const ReferralLinkAndTerms: React.FC<Props> = ({
   hasUnknownError,
   isAuthenticated,
   isLoading,
@@ -339,9 +339,9 @@ const RewardsColumn = React.memo(
   },
 );
 
-export const ReferralWidgetForStorybook =
-  marketplaceCssHoc<React.ComponentProps<typeof ReferralWidget>>()(
-    ReferralWidget,
+export const ReferralLinkAndTermsForStorybook =
+  marketplaceCssHoc<React.ComponentProps<typeof ReferralLinkAndTerms>>()(
+    ReferralLinkAndTerms,
   );
 
-export default React.memo(ReferralWidget);
+export default React.memo(ReferralLinkAndTerms);

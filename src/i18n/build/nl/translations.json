@@ -3619,7 +3619,8 @@
             "studio_address_franchise_only": "Locatie/Adres",
             "payment_method_paypal_wallet": "PayPal Wallet",
             "on_the_fly_bsport_fee": "PayPal transactiekosten",
-            "second_billing_plan": "Tweede factureringsplan"
+            "second_billing_plan": "Tweede factureringsplan",
+            "incremental_identifier": "Nummer"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -14172,7 +14173,9 @@
         "reset": "Reset",
         "more": "Meer",
         "add": "Voeg toe",
-        "continue": "Verder"
+        "continue": "Verder",
+        "edit": "Bewerk",
+        "preview": "Voorbeeld"
     },
     "workshop": {
         "modal": {

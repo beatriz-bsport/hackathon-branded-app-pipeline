@@ -1218,7 +1218,9 @@
         "reset": "Réinitialiser",
         "more": "Plus",
         "add": "Ajouter",
-        "continue": "Continuer"
+        "continue": "Continuer",
+        "edit": "Éditer",
+        "preview": "Aperçu"
     },
     "communication": {
         "table": {
@@ -7199,8 +7201,8 @@
         },
         "listItem": {
             "transactionnalEmail": "Email transactionnel",
-            "sendTransactionnalEmail": "Envoyer un email transactionnel",
-            "copyCarbon": "Recevoir une copie du mail",
+            "sendTransactionnalEmail": "Activer les communications disponibles",
+            "copyCarbon": "Recevoir une copie de l'email",
             "mailToSend": "Mail à envoyer",
             "transactionnalNotification": "Notification push",
             "sendTransactionnalNotification": "Envoyer une notification push",
@@ -11319,7 +11321,8 @@
             "studio_address_franchise_only": "Localisation/Adresse",
             "payment_method_paypal_wallet": "Portefeuille PayPal",
             "on_the_fly_bsport_fee": "Frais de transaction PayPal",
-            "second_billing_plan": "Second plan de facturation"
+            "second_billing_plan": "Second plan de facturation",
+            "incremental_identifier": "Nombre"
         },
         "yes": "Oui",
         "no": "Non",

@@ -8142,7 +8142,7 @@
             "transactionnalNotification": "Notificación push",
             "mailToSend": "Correo a enviar",
             "copyCarbon": "Recibir una copia del email",
-            "sendTransactionnalEmail": "Enviar un email transaccional",
+            "sendTransactionnalEmail": "Activar las comunicaciones disponibles",
             "transactionnalEmail": "Email transaccional",
             "infoBoxErrorMessageFirstLine": "Este correo debe contener las siguientes variables:",
             "infoBoxErrorMessageLastLine": "Asegúrate de añadirlas a tu plantilla para poder guardarla"

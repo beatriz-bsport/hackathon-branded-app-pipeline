@@ -14303,7 +14303,7 @@
             "transactionnalNotification": "Push-Benachrichtigung",
             "mailToSend": "Wählen Sie die E-Mail aus, die gesendet werden soll",
             "copyCarbon": "Eine Kopie der E-Mail erhalten",
-            "sendTransactionnalEmail": "Transaktions-E-Mail senden",
+            "sendTransactionnalEmail": "Verfügbare Kommunikationen aktivieren",
             "transactionnalEmail": "Transaktions-E-Mail",
             "infoBoxErrorMessageLastLine": "Stellen Sie sicher, dass Sie sie zu Ihrer Vorlage hinzufügen, damit sie gespeichert werden können",
             "infoBoxErrorMessageFirstLine": "Diese E-Mail muss die folgenden Variablen enthalten:"

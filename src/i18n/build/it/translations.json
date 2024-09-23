@@ -1547,8 +1547,8 @@
             "sendTransactionnalNotification": "Inviare una notifica push",
             "transactionnalNotification": "Notifica push",
             "mailToSend": "Posta da inviare",
-            "copyCarbon": "Ricevere una copia dell'e-mail",
-            "sendTransactionnalEmail": "Inviare un'email transazionale",
+            "copyCarbon": "Ricevi una copia dell'e-mail",
+            "sendTransactionnalEmail": "Abilita le comunicazioni disponibili",
             "transactionnalEmail": "Email transazionali",
             "infoBoxErrorMessageFirstLine": "Questa email deve contenere le seguenti variabili:",
             "infoBoxErrorMessageLastLine": "Assicurati di aggiungerli al tuo modello in modo da poterlo salvare"

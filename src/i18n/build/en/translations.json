@@ -2418,8 +2418,8 @@
             "sendTransactionnalNotification": "Send a push notification",
             "transactionnalNotification": "Push notification",
             "mailToSend": "Select the email that will be sent",
-            "copyCarbon": "Receive a copy of this email",
-            "sendTransactionnalEmail": "Send a transactional email",
+            "copyCarbon": "Receive a copy of the email",
+            "sendTransactionnalEmail": "Enable available communications",
             "transactionnalEmail": "Transactional email",
             "infoBoxErrorMessageFirstLine": "This mail must contain the following variables:",
             "infoBoxErrorMessageLastLine": "Make sure you add them to your template so you can save it"

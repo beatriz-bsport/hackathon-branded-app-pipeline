@@ -56,7 +56,7 @@ export const variants = {
       // Shadow
       "shadow-action-call-to-action-rest",
       "active:shadow-action-call-to-action-pressed",
-      "hover:shadow-action-call-to-action-hover",
+      "hover:shadow-action-call-to-action-hovered",
     ],
     "call-to-action-critical": [
       // Background
@@ -78,7 +78,7 @@ export const variants = {
       // Shadow
       "shadow-action-default-rest",
       "active:shadow-action-default-pressed",
-      "hover:shadow-action-default-hover",
+      "hover:shadow-action-default-hovered",
       // Text
       "text-onsurface-action-main-rest",
       "fill-onsurface-action-main-rest",

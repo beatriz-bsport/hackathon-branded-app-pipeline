@@ -86,7 +86,7 @@ const importBorderWidths = async (folderPath: string): Promise<Output> => {
  * Convert exported colors from Supernova into a dictionary of colors and their associated Tailwind CSS value.
  * @param folderPath Path of the folder containing the Supernova export.
  */
-const importCSSColors = async (folderPath: string): Promise<Output> => {
+const importColors = async (folderPath: string): Promise<Output> => {
   const cssContent = await importFileContent(folderPath, "styles/colors.css");
 
   const formatCSSVariable = (name: string) => `kz-color-${name}`;
@@ -400,7 +400,11 @@ const importShadows = async (folderPath: string): Promise<Output> => {
   const cssContent = await importFileContent(folderPath, "styles/shadows.css");
 
   const formatCSSVariable = (name: string) => `kz-shadow-${name}`;
-  const formatName = formatVariableName(["shadowKaizenElevation", "shadow"]);
+  const formatName = formatVariableName([
+    "shadowKaizen",
+    "elevation",
+    "shadow",
+  ]);
   const formatValue = formatVariableValue(formatName, {
     formatCSSVariable,
   });
@@ -431,7 +435,7 @@ const importShadows = async (folderPath: string): Promise<Output> => {
 const adapters: ((folderPath: string) => Promise<Output>)[] = [
   importBorderWidths,
   importRadii,
-  importCSSColors,
+  importColors,
   importDimension,
   importFontWeigths,
   importFontSizes,

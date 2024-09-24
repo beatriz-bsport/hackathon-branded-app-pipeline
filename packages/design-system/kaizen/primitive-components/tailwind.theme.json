@@ -372,7 +372,7 @@
     "action-default-pressed": "var(--kz-shadow-action-default-pressed)",
     "action-default-selected": "var(--kz-shadow-action-default-selected)",
     "action-call-to-action-rest": "var(--kz-shadow-action-call-to-action-rest)",
-    "action-call-to-action-hover": "var(--kz-shadow-action-call-to-action-hover)",
+    "action-call-to-action-hovered": "var(--kz-shadow-action-call-to-action-hovered)",
     "action-call-to-action-pressed": "var(--kz-shadow-action-call-to-action-pressed)",
     "focused": "var(--kz-shadow-focused)",
     "action-status-success": "var(--kz-shadow-action-status-success)",

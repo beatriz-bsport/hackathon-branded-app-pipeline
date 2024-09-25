@@ -452,6 +452,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                     <MarketplaceOfferListItem
                       key={offer.id}
                       isWorkshop
+                      showDate
                       coach={getCoach(offer.coach_override || offer.coach)}
                       establishment={getEstablishment(offer.establishment)}
                       getLevel={getLevel}

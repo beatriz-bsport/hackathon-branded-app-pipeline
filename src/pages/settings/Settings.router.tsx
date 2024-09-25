@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { connect, ConnectedProps, useSelector } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
@@ -8,7 +8,6 @@ import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
 
-import { NEW_MEMBER_PROFILE_COMPANY_ID_LIST } from '#src/libs/consumer-space/constants';
 import PaymentRuleSetsDashboard from '#src/pages/settings/PaymentRuleSetsDashboard.page';
 import CompanyDetailPage from '#src/pages/settings/CompanyDetailPage.page';
 import RoleConfigurationPage from '#src/pages/settings/RoleConfiguration.page';
@@ -46,7 +45,7 @@ import SettingsMobileRouter from '#src/pages/settings/SettingsMobile.router';
 import SettingsPersonalization from '#src/pages/settings/SettingsPersonalization.router';
 import themeSelectors from '#src/libs/theme/selectors';
 import { RootState } from '#src/reducers';
-import Config from '#src/config';
+import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
 
 type SettingsRouterConnectedProps = ConnectedProps<typeof connector>;
 
@@ -57,14 +56,7 @@ export const Settings: React.FC<SettingsRouterConnectedProps> = ({
     (state: RootState) => themeSelectors.getTheme(state).display_new_webshop,
   );
 
-  const isNewMemberProfileDisplayed = useMemo(() => {
-    const isProduction = ['production'].includes(
-      Config.REACT_APP_SENTRY_ENVIRONMENT,
-    );
-    return isProduction
-      ? NEW_MEMBER_PROFILE_COMPANY_ID_LIST.includes(companyId)
-      : true;
-  }, [companyId]);
+  const isNewMemberProfileDisplayed = getIsNewMemberProfileDisplayed(companyId);
 
   return (
     <Switch>

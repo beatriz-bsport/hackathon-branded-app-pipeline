@@ -9379,7 +9379,7 @@
             "access_monitoring": "Traccia l'accesso dei membri nella vostra struttura con registri di ingresso e avvisi."
         },
         "versionSwitcher": {
-            "content": "Abbiamo aggiornato l'organizzazione dei report. Ora è possibile filtrare ogni report all'interno della sua categoria come diverse <1>Views</1>. Questa modifica diventerà permanente per tutti il 1° ottobre. Se avete dei commenti, per cortesia lasciateli sul <2>Feedback board</2>.",
+            "content": "Abbiamo aggiornato l'organizzazione dei report. Ora è possibile filtrare ogni report all'interno della sua categoria come diverse <1>Views</1>. Questa modifica diventerà permanente, il 30 di ottobre, per tutti. Se avete dei commenti, per cortesia lasciateli sul <2>Feedback board</2>.",
             "title": "Stiamo cambiando la tua esperienza con lo strumento di reporting.",
             "fromOldToNew": "Passare alla nuova versione",
             "fromNewToOld": "Torna alla vecchia precedente",

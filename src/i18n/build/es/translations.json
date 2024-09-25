@@ -5981,7 +5981,7 @@
         "pageSearchEmpty": "No podemos encontrar ningún reporte de esta búsqueda",
         "versionSwitcher": {
             "title": "Estamos cambiando su experiencia con la herramienta de reportes.",
-            "content": "Hemos actualizado la organización de los reportes. Ahora, puede filtrar cada reporte dentro de su categoría como <1>Views</1> diferentes. Este cambio será permanente para todos el 1 de octubre. Si tiene algún comentario, por favor déjelo en el <2>Feedback board</2>.",
+            "content": "Hemos actualizado la organización de los reportes. Ahora, puede filtrar cada reporte dentro de su categoría como <1>Views</1> diferentes. Este cambio será permanente para todos el 30 de octubre. Si tiene algún comentario, por favor déjelo en el <2>Feedback board</2>.",
             "fromOldToNew": "Cambiar a la nueva versión",
             "fromNewToOld": "Volver a la versión anterior",
             "dialog": {

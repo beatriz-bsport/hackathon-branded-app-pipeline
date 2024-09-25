@@ -11698,7 +11698,7 @@
         "pageSearchEmpty": "Nous n'avons trouvé aucun rapport pour cette recherche",
         "versionSwitcher": {
             "title": "Nous sommes en train de modifier votre expérience avec l'outil de reporting.",
-            "content": "Nous avons mis à jour l'organisation des rapports. Désormais, vous pouvez filtrer chaque rapport dans sa catégorie sous la forme de différentes <1>Vues</1>. Ce changement deviendra permanent pour tout le monde le 1er octobre. Si vous avez des commentaires, veuillez les laisser sur le <2>Feedback board</2>.",
+            "content": "Nous avons mis à jour l'organisation des rapports. Désormais, vous pouvez filtrer chaque rapport dans sa catégorie sous la forme de différentes <1>Vues</1>. Ce changement deviendra permanent pour tout le monde le 30 octobre. Si vous avez des commentaires, veuillez les laisser sur le <2>Feedback board</2>.",
             "fromOldToNew": "Passer à la nouvelle version",
             "fromNewToOld": "Retourner à l'ancienne version",
             "dialog": {

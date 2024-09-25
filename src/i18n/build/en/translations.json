@@ -11255,7 +11255,8 @@
         "versionSwitcher": {
             "dialog": {
                 "confirm": "Switch to old version"
-            }
+            },
+            "content": "We have updated the report organisation. Now, you can filter each report within its category as different <1>Views</1>. This change will become permanent for everyone on the 30th of October. If you have any feedback, please leave any feedback on the <2>Feedback board</2>."
         }
     },
     "alerting": {

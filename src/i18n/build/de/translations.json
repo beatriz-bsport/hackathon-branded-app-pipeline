@@ -6952,7 +6952,7 @@
         "pageSearchEmpty": "Wir können keine Berichte mit dieser Suche finden",
         "versionSwitcher": {
             "title": "Wir verändern die Nutzung des Reporting-Tools für Sie.",
-            "content": "Wir haben die Organisation der Berichte aktualisiert. Ab sofort können alle Berichte innerhalb ihrer Kategorie nach verschiedenen <1>Ansichten</1> gefiltert werden. Diese Änderung tritt ab dem 1. Oktober für alle Benutzer in Kraft. Wenn Sie Feedback haben, hinterlassen Sie dieses bitte auf dem <2>Feedback-Board</2>.",
+            "content": "Wir haben die Organisation der Berichte aktualisiert. Ab sofort können alle Berichte innerhalb ihrer Kategorie nach verschiedenen <1>Ansichten</1> gefiltert werden. Diese Änderung tritt ab dem 30. Oktober für alle Benutzer in Kraft. Wenn Sie Feedback haben, hinterlassen Sie dieses bitte auf dem <2>Feedback-Board</2>.",
             "fromOldToNew": "Zur neuen Version wechseln",
             "fromNewToOld": "Zurück zur alten Version",
             "dialog": {

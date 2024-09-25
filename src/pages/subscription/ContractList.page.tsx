@@ -51,7 +51,7 @@ import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchEstablishments,
 } from '../../libs/establishment/actions';
-import { getPaymentComboList } from '../../libs/payment-combo/selectors';
+import { getAvailablePaymentComboList } from '#src/libs/payment-combo/selectors';
 import { getEnabledEstablishmentBillingGroups } from '../../libs/establishment/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -589,7 +589,7 @@ const mapStateToProps = (state: RootState) => ({
   contractLoading: state.subscription.contract.loading,
   paymentPackList: getPaymentPackEnabled(state),
   privatePassList: getPrivatePassAvailable(state),
-  paymentComboList: getPaymentComboList(state),
+  paymentComboList: getAvailablePaymentComboList(state),
   searchedMembers: getSearchedMembers(state),
   savedPaymentMethodList: getSavedPaymentMethodList(state),
   stripeReaders: getStripeReaders(state),

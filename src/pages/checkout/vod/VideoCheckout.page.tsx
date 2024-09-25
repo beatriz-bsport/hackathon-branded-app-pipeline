@@ -41,7 +41,7 @@ import {
   withPaymentPack,
   getConsumerPaymentPackCompatibleList,
 } from '../../../libs/consumer-payment-pack/selectors';
-import { getPaymentComboList } from '../../../libs/payment-combo/selectors';
+import { getAvailablePaymentComboList } from '#src/libs/payment-combo/selectors';
 
 import {
   fetchPrivatePassList,
@@ -432,7 +432,7 @@ const connector = connect(
       getConsumerPaymentPackCompatibleList,
     )(state),
     privateConsumerPassList: getPrivateConsumerPassCompatibleList(state),
-    paymentComboList: getPaymentComboList(state),
+    paymentComboList: getAvailablePaymentComboList(state),
     loading:
       state.paymentPack.loading ||
       state.paymentCombo.loading ||

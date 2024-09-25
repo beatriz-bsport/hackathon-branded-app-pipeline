@@ -24,7 +24,7 @@ import {
 } from '#src/libs/payment-combo/actions';
 import { getPrivatePassAvailable } from '#src/libs/private-service/selectors/private-pass';
 import { getEnabled as getEnabledPaymentPackList } from '#src/libs/payment-packs/selectors';
-import { getPaymentComboList } from '#src/libs/payment-combo/selectors';
+import { getAvailablePaymentComboList } from '#src/libs/payment-combo/selectors';
 import {
   fetch as fetchSubscriptionAction,
   cancelPause as cancelPauseAction,
@@ -271,7 +271,7 @@ const connector = connect(
       state.subscription.switchSubscriptionItem.loading,
     availablePaymentPackList: getEnabledPaymentPackList(state),
     availablePrivatePassList: getPrivatePassAvailable(state),
-    availablePaymentComboList: getPaymentComboList(state),
+    availablePaymentComboList: getAvailablePaymentComboList(state),
     eventList: getSubscriptionEventList(state),
     // @ts-expect-error
     eventPage: getSubscriptionEventState(state).page,

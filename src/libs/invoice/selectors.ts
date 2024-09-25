@@ -15,7 +15,7 @@ import {
   getMemberListData,
   getMemberDetailData,
 } from '#src/libs/member/selectors';
-import { getPaymentComboList } from '#src/libs/payment-combo/selectors';
+import { getAvailablePaymentComboList } from '#src/libs/payment-combo/selectors';
 import { getPrivatePassAvailable } from '#src/libs/private-service/selectors/private-pass';
 import { getShopItemsAvailable } from '#src/libs/shop/selectors';
 import { getUsers as getStaff } from '#src/libs/role/selectors';
@@ -46,7 +46,7 @@ export const getBuyableItem = createSelector(
     getPaymentPackEnabled,
     getShopItemsAvailable,
     getPrivatePassAvailable,
-    getPaymentComboList,
+    getAvailablePaymentComboList,
     getGiftcardListEnabled,
   ],
   (

@@ -34,7 +34,7 @@ import {
 } from '#src/libs/payment-packs/actions';
 import { PaymentPackCategory } from '#src/libs/payment-packs/types';
 import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
-import { getPaymentComboList } from '#src/libs/payment-combo/selectors';
+import { getAvailablePaymentComboList } from '#src/libs/payment-combo/selectors';
 import { fetchContractList as fetchContractListAction } from '#src/libs/subscription/actions';
 import { getAvailableContractListCustomer } from '#src/libs/subscription/selectors';
 import CheckInTabletSettingsForm from '#src/libs/theme/components/CheckInTabletSettingsForm.component';
@@ -237,7 +237,7 @@ export default compose(
       bookingFunnelConfiguration: state.marketplace.bookingFunnel.configuration,
       paymentPackCategories: getPaymentPackCategoryById(state),
       paymentPackByCategorySummary: getPaymentPackCategoryWithNbItems(state),
-      paymentComboNumberItems: getPaymentComboList(state).length,
+      paymentComboNumberItems: getAvailablePaymentComboList(state).length,
       contractNumberItems: getAvailableContractListCustomer(state).length,
     }),
     {

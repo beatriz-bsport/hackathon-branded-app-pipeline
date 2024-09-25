@@ -16,7 +16,7 @@ import {
 import { fetchTags } from '#src/libs/tag/actions';
 import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 import {
-  getPaymentComboList,
+  getAvailablePaymentComboList,
   getPaymentComboListAvailableForSale,
   getPaymentComboListUnavailableForSale,
 } from '#src/libs/payment-combo/selectors';
@@ -255,7 +255,7 @@ const connector = connect(
     paymentComboListUnavailableOnline:
       getPaymentComboListUnavailableForSale(state),
     error: state.paymentCombo.createOrUpdate.error,
-    paymentComboList: getPaymentComboList(state),
+    paymentComboList: getAvailablePaymentComboList(state),
     theme: themeSelectors.getTheme(state),
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     bookkeepingAccounts: getBookkeepingAccountList(state),

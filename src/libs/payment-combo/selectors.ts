@@ -13,7 +13,7 @@ export const getPaymentComboDataDict = (state: RootState) =>
 export const getPaymentCombo = (state: RootState, id: number) =>
   state.paymentCombo.byId[id];
 
-export const getPaymentComboList = createSelector(
+export const getAvailablePaymentComboList = createSelector(
   [_getPaymentComboIdList, getPaymentComboDataDict],
   (ids, data) =>
     ids
@@ -23,19 +23,19 @@ export const getPaymentComboList = createSelector(
 );
 
 export const getPaymentComboListAvailableOnline = createSelector(
-  getPaymentComboList,
+  getAvailablePaymentComboList,
   (paymentComboList) =>
     paymentComboList.filter((paymentCombo) => !paymentCombo.manager_only),
 );
 
 export const getPaymentComboListUnavailableOnline = createSelector(
-  getPaymentComboList,
+  getAvailablePaymentComboList,
   (paymentComboList) =>
     paymentComboList.filter((paymentCombo) => paymentCombo.manager_only),
 );
 
 export const getPaymentComboListAvailableForSale = createSelector(
-  getPaymentComboList,
+  getAvailablePaymentComboList,
   (paymentComboList) =>
     paymentComboList.filter(
       (paymentCombo) =>
@@ -44,7 +44,7 @@ export const getPaymentComboListAvailableForSale = createSelector(
 );
 
 export const getPaymentComboListUnavailableForSale = createSelector(
-  getPaymentComboList,
+  getAvailablePaymentComboList,
   (paymentComboList) =>
     paymentComboList.filter(
       (paymentCombo) =>

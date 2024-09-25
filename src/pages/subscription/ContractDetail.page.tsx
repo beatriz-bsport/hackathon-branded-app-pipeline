@@ -90,7 +90,7 @@ import ContractPauseFormDialog from '#src/libs/subscription/components/contract/
 import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { RootState } from '../../reducers';
-import { getPaymentComboList } from '../../libs/payment-combo/selectors';
+import { getAvailablePaymentComboList } from '#src/libs/payment-combo/selectors';
 import { OptionCallback } from '../../state/types';
 
 type OwnProps = {
@@ -462,7 +462,7 @@ const connector = connect(
     email_templates_details: getEmailTemplatesDetail(state),
     emailListLoading: state.emailTemplate.loading,
     emailDetailLoading: state.emailTemplate.detail.loading,
-    paymentComboList: getPaymentComboList(state),
+    paymentComboList: getAvailablePaymentComboList(state),
     theme: themeSelectors.getTheme(state),
     // @ts-expect-error
     contractPauseList: getContractPauseList(state, contractId),

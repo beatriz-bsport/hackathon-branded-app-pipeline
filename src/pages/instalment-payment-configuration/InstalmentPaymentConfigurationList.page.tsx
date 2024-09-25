@@ -32,7 +32,7 @@ import {
 
 import { getEnabledPaymentPacks } from '#src/libs/payment-packs/selectors';
 import { getGiftcardListActive } from '#src/libs/giftcard/selectors';
-import { getPaymentComboList } from '#src/libs/payment-combo/selectors';
+import { getAvailablePaymentComboList } from '#src/libs/payment-combo/selectors';
 import { getPrivatePassAvailable } from '#src/libs/private-service/selectors/private-pass';
 import { getShopItemBaseAndStandaloneList } from '#src/libs/shop/selectors';
 import {
@@ -294,7 +294,7 @@ const connector = connect(
   (state: RootState, props: StateHandlerType & RouterProps) => ({
     instalmentPaymentLoading: state.instalmentPayment.loading,
     paymentPackList: getEnabledPaymentPacks(state),
-    comboList: getPaymentComboList(state),
+    comboList: getAvailablePaymentComboList(state),
     privatePassList: getPrivatePassAvailable(state),
     shopItemList: getShopItemBaseAndStandaloneList(state),
     giftcardList: getGiftcardListActive(state),

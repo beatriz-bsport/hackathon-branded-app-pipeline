@@ -34,7 +34,7 @@ import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import { PrivatePass } from '../../libs/private-service/types';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
-import { getPaymentComboList } from '../../libs/payment-combo/selectors';
+import { getAvailablePaymentComboList } from '#src/libs/payment-combo/selectors';
 import { PaymentCombo } from '../../libs/payment-combo/types';
 import { fetchPaymentPackList as fetchPaymentPackListAction } from '../../libs/payment-packs/actions';
 import {
@@ -195,7 +195,7 @@ export default compose(
     (state, { memberId }) => ({
       paymentPacks: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),
-      paymentComboList: getPaymentComboList(state),
+      paymentComboList: getAvailablePaymentComboList(state),
       memberLoading: state.member.loading,
       member: getMember(state, memberId),
       savedPaymentMethodList: getSavedPaymentMethodList(state),

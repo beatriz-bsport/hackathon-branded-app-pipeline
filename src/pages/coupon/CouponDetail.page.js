@@ -40,7 +40,7 @@ import {
 } from '#src/libs/private-service/selectors/private-pass';
 import {
   getPaymentComboDataDict,
-  getPaymentComboList,
+  getAvailablePaymentComboList,
 } from '#src/libs/payment-combo/selectors';
 import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 import type { ShopItem } from '#src/libs/shop/types';
@@ -487,7 +487,7 @@ const connector = connect(
     allShopItemsById: getAllShopItemData(state),
     privatePasses: getPrivatePass(state),
     allPrivatePassesById: getPrivatePassById(state),
-    paymentCombos: getPaymentComboList(state),
+    paymentCombos: getAvailablePaymentComboList(state),
     allPaymentCombosById: getPaymentComboDataDict(state),
     tagList: getAllTagsWithTagGroup(state),
     shopItemBaseAndStandaloneById: getShopItemBaseAndStandaloneById(state),

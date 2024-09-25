@@ -1067,7 +1067,7 @@
             "sendTransactionnalNotification": "Een push-notificatie versturen",
             "transactionnalNotification": "Push-notificatie",
             "mailToSend": "Selecteer de te versturen e-mail",
-            "copyCarbon": "Ontvang kopieën van deze e-mails",
+            "copyCarbon": "Ontvang een kopie van deze e-mail",
             "sendTransactionnalEmail": "Een transactionele e-mail versturen",
             "transactionnalEmail": "Transactionele e-mail",
             "infoBoxErrorMessageFirstLine": "Deze mail moet de volgende variabelen bevatten:",

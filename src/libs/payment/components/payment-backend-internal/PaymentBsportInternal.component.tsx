@@ -20,7 +20,7 @@ import DateInput from '../../../../components/input/DateInput.component';
 
 import { submitInternalPayment as submitInternalPaymentAPI } from '../../api';
 
-import type { OptionBackgroundCallback } from '../../../../state/types';
+import type { OptionBackgroundCallback } from '#src/state/types';
 
 type Props = {
   paymentMethodChoices: Array<number>;
@@ -41,7 +41,7 @@ type Props = {
   ) => void;
 };
 
-export const PaymentStripe: React.FC<Props> = ({
+export const PaymentBsportInternal: React.FC<Props> = ({
   paymentMethodChoices,
   amountToPay,
   clientSecret,
@@ -68,7 +68,6 @@ export const PaymentStripe: React.FC<Props> = ({
     () => setModifiedAmountToPay(parseInt(amountToPay, 10) / 100),
     [amountToPay],
   );
-  console.log(modifiedAmountToPay);
 
   const [date, setDate] = React.useState(DateTime.now());
 
@@ -283,4 +282,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(PaymentStripe);
+export default React.memo(PaymentBsportInternal);

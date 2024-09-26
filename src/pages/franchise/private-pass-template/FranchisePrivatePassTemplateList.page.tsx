@@ -55,6 +55,12 @@ type Props = OwnProps &
   WithStyles &
   WithTranslation;
 
+/**
+ * @deprecated TODO: This page must be reworkedthe same way payment pack template pages have been reworked.
+ * The reworked must include at least: Pagination, Functionnal component, better state management, back-end search
+ * and a completly reworked redux-store.
+ 
+**/
 export class FranchisePrivatePassTemplateListPage extends Component<Props> {
   componentDidMount() {
     this.props.fetchPrivatePassTemplateList();

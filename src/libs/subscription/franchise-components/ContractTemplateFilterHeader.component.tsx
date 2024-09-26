@@ -20,25 +20,13 @@ import type {
 
 type Props = {
   companiesIdList: number[];
-  privatePassTemplateIdList: number[];
-  paymentPackTemplateIdList: number[];
   selectedPassType: PassTypeOptionProps;
   onAvailabilityChange: (availability: ContractAvailabilityOptionProps) => void;
   onCompanyChange: (company: CompanyOptionProps[]) => void;
-  onPrivatePassTemplateChange: (
-    privatePassTemplate: PrivatePassTemplateOptionProps[],
-  ) => void;
-  onPaymentPackTemplateChange: (
-    paymentPackTemplate: PaymentPackTemplateOptionProps[],
-  ) => void;
   onProductTypeChange: (productType: PassTypeOptionProps) => void;
   getFranchiseCompanyNameById: (id: number) => string;
-  getPrivatePassTemplateNameById: (id: number) => string;
-  getPaymentPackTemplateNameById: (id: number) => string;
   selectedCompanies: CompanyOptionProps[];
   selectedContractAvailability: ContractAvailabilityOptionProps;
-  selectedPrivatePassTemplates: PrivatePassTemplateOptionProps[];
-  selectedPaymentPackTemplates: PaymentPackTemplateOptionProps[];
 };
 
 type ChipsRendererProps = {
@@ -56,21 +44,13 @@ const ChipsRendererComponent: React.FC<ChipsRendererProps> = ({
 
 const ContractTemplateFilterHeader: React.FC<Props> = ({
   companiesIdList,
-  privatePassTemplateIdList,
-  paymentPackTemplateIdList,
   selectedPassType,
   onCompanyChange,
-  onPaymentPackTemplateChange,
-  onPrivatePassTemplateChange,
   onProductTypeChange,
   onAvailabilityChange,
   getFranchiseCompanyNameById,
-  getPrivatePassTemplateNameById,
-  getPaymentPackTemplateNameById,
   selectedCompanies,
   selectedContractAvailability,
-  selectedPrivatePassTemplates,
-  selectedPaymentPackTemplates,
 }) => {
   const { t } = useTranslation('subscription');
   const classes = useStyles();
@@ -119,24 +99,6 @@ const ContractTemplateFilterHeader: React.FC<Props> = ({
     [companiesIdList, getFranchiseCompanyNameById],
   );
 
-  const privatePassTemplateOptions = useMemo(
-    () =>
-      privatePassTemplateIdList.map((id) => ({
-        value: id,
-        label: getPrivatePassTemplateNameById(id),
-      })),
-    [privatePassTemplateIdList, getPrivatePassTemplateNameById],
-  );
-
-  const paymentPackTemplateOptions = useMemo(
-    () =>
-      paymentPackTemplateIdList.map((id) => ({
-        value: id,
-        label: getPaymentPackTemplateNameById(id),
-      })),
-    [paymentPackTemplateIdList, getPaymentPackTemplateNameById],
-  );
-
   const [openMenuState, setOpenMenuState] =
     useState<ContractTemplateFilterOpenMenu>(
       ContractTemplateFilterOpenMenu.NONE,
@@ -176,22 +138,6 @@ const ContractTemplateFilterHeader: React.FC<Props> = ({
     [setOpenMenuState, onProductTypeChange],
   );
 
-  const onPaymentPackTemplateChangeHandler = useCallback(
-    (paymentPackTemplate: PaymentPackTemplateOptionProps[]) => {
-      setOpenMenuState(ContractTemplateFilterOpenMenu.NONE);
-      onPaymentPackTemplateChange(paymentPackTemplate);
-    },
-    [setOpenMenuState, onPaymentPackTemplateChange],
-  );
-
-  const onPrivatePassTemplateChangeHandler = useCallback(
-    (privatePassTemplate: PrivatePassTemplateOptionProps[]) => {
-      setOpenMenuState(ContractTemplateFilterOpenMenu.NONE);
-      onPrivatePassTemplateChange(privatePassTemplate);
-    },
-    [setOpenMenuState, onPrivatePassTemplateChange],
-  );
-
   const onAvailabilityChangeHandler = useCallback(
     (availability: ContractAvailabilityOptionProps) => {
       setOpenMenuState(ContractTemplateFilterOpenMenu.NONE);
@@ -210,10 +156,6 @@ const ContractTemplateFilterHeader: React.FC<Props> = ({
 
   const openProductTypeMenu = useCallback(() => {
     setOpenMenuState(ContractTemplateFilterOpenMenu.PRODUCT_TYPE);
-  }, [setOpenMenuState]);
-
-  const openAssociatedPassesMenu = useCallback(() => {
-    setOpenMenuState(ContractTemplateFilterOpenMenu.ASSOCIATED_PASSES);
   }, [setOpenMenuState]);
 
   const openContractAvailabilityMenu = useCallback(() => {
@@ -251,42 +193,6 @@ const ContractTemplateFilterHeader: React.FC<Props> = ({
             placeholder={t('contractTemplate.filter.productType')}
             value={selectedPassType}
           />
-        </Grid>
-        <Grid item md={3} xs={6}>
-          {selectedPassType?.value === PassType.APPOINTMENT_PASSES ? (
-            <MaterialUISelector
-              isClearable
-              isMulti
-              chipsRenderer={ChipsRenderer}
-              id="associatedPasses"
-              menuIsOpen={
-                openMenuState ===
-                ContractTemplateFilterOpenMenu.ASSOCIATED_PASSES
-              }
-              onChange={onPrivatePassTemplateChangeHandler}
-              onMenuOpen={openAssociatedPassesMenu}
-              options={[...privatePassTemplateOptions]}
-              placeholder={t('contractTemplate.filter.associatedPass')}
-              value={selectedPrivatePassTemplates}
-            />
-          ) : (
-            <MaterialUISelector
-              isClearable
-              isMulti
-              chipsRenderer={ChipsRenderer}
-              id="associatedPasses"
-              isDisabled={selectedPassType === null}
-              menuIsOpen={
-                openMenuState ===
-                ContractTemplateFilterOpenMenu.ASSOCIATED_PASSES
-              }
-              onChange={onPaymentPackTemplateChangeHandler}
-              onMenuOpen={openAssociatedPassesMenu}
-              options={[...paymentPackTemplateOptions]}
-              placeholder={t('contractTemplate.filter.associatedPass')}
-              value={selectedPaymentPackTemplates}
-            />
-          )}
         </Grid>
         <Grid item md={3} xs={6}>
           <MaterialUISelector

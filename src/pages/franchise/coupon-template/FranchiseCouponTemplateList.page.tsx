@@ -62,6 +62,7 @@ type Props = ConnectedProps<typeof connector> &
   WithTranslation &
   StateHandlerType;
 
+// TODO : Paginated fetch + redux + with on success on the related objects + backend search
 export class FranchiseCouponTemplateList extends Component<Props> {
   componentDidMount() {
     this.props.fetchCouponTemplateList();

@@ -30,6 +30,7 @@ import type {
   PaymentPack,
   PaymentPackCategory,
   PaymentPackQueryParams,
+  PaymentPackTemplateAPI,
 } from '#src/libs/payment-packs/types';
 import type { PerformanceTrackingProgram } from '#src/libs/performance-tracking/types';
 import type {
@@ -73,6 +74,7 @@ import type {
 import type { PaginationFilterParams, SelectOption } from '#src/libs/types';
 import type { OptionsType } from 'react-select/lib/types';
 import type {
+  FranchiseProductTemplateQueryParams,
   FranchiseUserPass,
   FranchiseUserPrivatePass,
   PassesSearchPaginatedQueryParams,
@@ -138,6 +140,8 @@ export const searchObjectIdentifiers = [
   'private_pass',
   'private_pass_category',
   'private_pass_template',
+  'payment_pack_template',
+  'universal_payment_pack_template',
   'franchise_user_private_pass',
   'franchise_user_payment_pack',
   'cadence',
@@ -200,6 +204,8 @@ type ResultsTypes = {
   custom_form: CustomForm;
   coach_payment_rule_groups: CoachPaymentRuleGroupAPI;
   reportV2: ReportConfiguration;
+  payment_pack_template: PaymentPackTemplateAPI;
+  universal_payment_pack_template: PaymentPackTemplateAPI;
 };
 
 const variantType = ['default', 'mui-selector', 'underlined'] as const;
@@ -305,6 +311,8 @@ type APIParamsMap = {
   custom_form: CustomFormAPIParams;
   coach_payment_rule_groups: CoachPaymentRuleGroupAPIParams;
   reportV2: ReportAPIParams;
+  payment_pack_template: FranchiseProductTemplateQueryParams;
+  universal_payment_pack_template: FranchiseProductTemplateQueryParams;
 };
 
 export type FuzzySearchFilterParams<T extends SearchObjectType> =

@@ -1097,7 +1097,7 @@ export function fetchUniversalPaymentPackTemplatePaginatedListManagerOnly(
     const nextPage = currentState.next_page ?? 1;
 
     try {
-      const response = await fetchPaymentPackTemplateListPaginatedAPI({
+      const response = await fetchUniversalPaymentPackTemplatePaginatedListAPI({
         ...params,
         available_for_sale: false,
         disabled: false,

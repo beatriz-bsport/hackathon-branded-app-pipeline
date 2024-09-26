@@ -21,6 +21,7 @@ import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import type {
   PaymentPack,
   PaymentPackCategory,
+  PaymentPackTemplateAPI,
 } from '#src/libs/payment-packs/types';
 import type { PerformanceTrackingProgram } from '#src/libs/performance-tracking/types';
 import type {
@@ -87,6 +88,11 @@ const labelExtractorMap: Record<
   establishment_group: (group: EstablishmentGroupAPI) => group.name,
   coach_payment_rule_groups: (group: CoachPaymentRuleGroupAPI) => group.name,
   reportV2: (reportV2: ReportConfiguration) => reportV2.name,
+  payment_pack_template: (paymentPaymentTemplate: PaymentPackTemplateAPI) =>
+    paymentPaymentTemplate.name,
+  universal_payment_pack_template: (
+    paymentPaymentTemplate: PaymentPackTemplateAPI,
+  ) => paymentPaymentTemplate.name,
 };
 
 /**

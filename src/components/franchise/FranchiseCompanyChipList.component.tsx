@@ -9,7 +9,7 @@ import CompanyChip from './CompanyChip.component';
 
 type Props = {
   nbCompanyChips?: number;
-  companies: Array<FranchiseCompany>;
+  companies: FranchiseCompany[];
 };
 
 const FranchiseCompanyChipList = (props: Props) => {

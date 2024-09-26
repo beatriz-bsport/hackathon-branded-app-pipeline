@@ -38,6 +38,8 @@ const typeToURIMap: Record<SearchObjectType, string> = {
   custom_form: 'custom_form/custom_form',
   coach_payment_rule_groups: 'coach_payment_rule_group',
   reportV2: 'reporting/reports-v2',
+  payment_pack_template: 'payment-pack/payment-pack-template',
+  universal_payment_pack_template: 'payment-pack/universal-pass-template',
 };
 
 const typeToV0URIMap: { [key in SearchObjectType]?: string } = {

@@ -157,6 +157,7 @@ export type FranchiseProductTemplateQueryParams = {
   manager_only?: boolean;
   is_usable_by_staff?: boolean;
   available_for_sale?: boolean;
+  disabled?: boolean;
 };
 
 export type FranchiseProductTemplatePaginatedQueryParams = {

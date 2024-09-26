@@ -13,10 +13,11 @@ import {
   PaymentPack,
   PaymentPackFilters,
   PaymentPackTemplate,
+  PaymentPackTemplateAPI,
 } from './types';
 
 export const getValidityInfo = (
-  pack: PaymentPack | PaymentPackTemplate,
+  pack: PaymentPack | PaymentPackTemplate | PaymentPackTemplateAPI,
   t: TFunction,
   startInfo: boolean = false,
 ) => {

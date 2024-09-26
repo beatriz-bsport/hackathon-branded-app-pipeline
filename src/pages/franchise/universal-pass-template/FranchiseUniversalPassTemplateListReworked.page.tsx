@@ -33,6 +33,8 @@ import { buildUrlParams } from '#src/http';
 // @ts-expect-error
 import PaginatedListBase from '#src/components/PaginatedListBase.component';
 import PaymentPackTemplateListItem from '#src/libs/payment-packs/components/PaymentPackTemplateListItem.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import PaymentPackTemplateSearchItem from '#src/libs/payment-packs/components/Search/PaymentPackTemplateSearchItem.component';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -44,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginTop: theme.spacing(3),
+  },
+  searchComponent: {
+    paddingBottom: theme.spacing(2),
   },
 }));
 
@@ -191,8 +196,29 @@ const FranchiseUniversalPaymentPackTemplateListPageReworked: React.FC<
     !universalPaymentPackTemplateListPaginatedAvailableForSale.count &&
     !univerlPaymentPackTemplateListPaginatedManagerOnly.count;
 
+  const formatSearchOptions = React.useCallback(
+    (searchResults: PaymentPackTemplateAPI[]) => {
+      return searchResults.map((result) => ({
+        label: result.name,
+        value: result.id,
+        paymentPackTemplate: result,
+      }));
+    },
+    [],
+  );
   return (
     <>
+      <ObjectSearchComponent
+        additionalParams={{ disabled: false }}
+        className={classes.searchComponent}
+        components={{
+          Option: PaymentPackTemplateSearchItem,
+        }}
+        optionsFormatter={formatSearchOptions}
+        placeholder={t('search')}
+        searchedObjectType="universal_payment_pack_template"
+        variant="default"
+      />
       <IsEmptyList
         button={t('paymentPackTemplate.actions.createUniversalPass')}
         hideEmptyText={!noExistingPasses}

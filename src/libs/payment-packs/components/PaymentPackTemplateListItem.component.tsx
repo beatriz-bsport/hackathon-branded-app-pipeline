@@ -14,10 +14,10 @@ import FranchiseCompanyChipList from '../../../components/franchise/FranchiseCom
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { getValidityInfo } from '../utils';
 
-import { PaymentPackTemplate } from '../types';
+import { PaymentPackTemplate, PaymentPackTemplateAPI } from '../types';
 
 type Props = {
-  paymentPackTemplate: PaymentPackTemplate;
+  paymentPackTemplate: PaymentPackTemplate | PaymentPackTemplateAPI;
   onEdit?: (id: number) => void;
   onClick?: (id: number) => void;
   onRestore?: (id: number) => void;
@@ -35,6 +35,8 @@ const PaymentPackTemplateListItem = React.memo((props: Props) => {
   } = props;
 
   const dateInfo = getValidityInfo(template, t);
+
+  const hasCompaniesInfo = 'companies' in template;
 
   return (
     <ListItem
@@ -54,8 +56,10 @@ const PaymentPackTemplateListItem = React.memo((props: Props) => {
             : t('specifications.unlimitedCredits')
         } - ${getCurrencyDisplayWithPrice(template.price)}${` - ${dateInfo}`}`}
       />
-      {/* @ts-expect-error */}
-      <FranchiseCompanyChipList companies={template.companies} />
+      {hasCompaniesInfo && (
+        //@ts-expect-error
+        <FranchiseCompanyChipList companies={template.companies} />
+      )}
       {!template.is_usable_by_staff && !template.disabled && (
         <IconButton onClick={null}>
           <Tooltip title={t('listItem.unusableByStaff')}>

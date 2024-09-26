@@ -19,7 +19,6 @@ import Typography from '@material-ui/core/Typography';
 
 import type { OptionCallback } from '#src/state/types';
 import type { BillingDetails } from '#src/libs/marketplace/types';
-import type { PaymentMethod } from '#src/libs/payment/types';
 
 import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 import { useWidth } from '#src/hooks/useWidth';
@@ -30,11 +29,11 @@ import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe
 import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
 import {
   blockPendingBasket as blockPendingBasketAPI,
-  fetchPaymentMethodList as fetchPaymentMethodListAPI,
   updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
-import Config from '../../../../config';
+import { useInvoicePaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/invoice-payment/hooks/useInvoicePaymentMethodListProvider';
+import Alert from '#Fabrique/Alert';
 
 type Props = {
   AcceptTermsAndConditionsComponent?: React.Component;
@@ -115,7 +114,7 @@ const CardSection = (props: { error: any }) => {
   );
 };
 
-const PaymentStripeCard = forwardRef(
+const PaymentStripeCardRevamped = forwardRef(
   (
     {
       AcceptTermsAndConditionsComponent,
@@ -165,15 +164,30 @@ const PaymentStripeCard = forwardRef(
     const [processing, setProcessing] = React.useState(false);
     const [error, setError] = React.useState(null);
     const [saveForLater, setSaveForLater] = React.useState(false);
-    const [paymentMethodList, setPaymentMethodList] = React.useState<
-      PaymentMethod[]
-    >([]);
     const [paymentMethodSelected, setPaymentMethodSelected] =
       React.useState<string>(null);
-    const [hasDetached, setHasDetached] = React.useState(null);
     const [addPaymentMethod, setAddPaymentMethod] = React.useState(false);
     const [isPaymentSecurityInfoDisplayed, setIsPaymentSecurityInfoDisplayed] =
       React.useState(false);
+
+    const {
+      isPaymentMethodListLoading,
+      paymentMethodListAll,
+      paymentMethodListError,
+      handleFetchMemberPaymentMethodList,
+      hasFetchedPaymentMethodList,
+      resetPaymentMethodList,
+    } = useInvoicePaymentMethodListProvider({
+      memberId,
+    });
+
+    const paymentMethodList = React.useMemo(
+      () =>
+        paymentMethodListAll.filter(
+          (paymentMethod) => paymentMethod.type === 'card',
+        ),
+      [paymentMethodListAll],
+    );
 
     const defaultBillingDetailsValues = React.useMemo(() => {
       return Immutable({
@@ -190,8 +204,6 @@ const PaymentStripeCard = forwardRef(
       });
     }, [userDefaultName, userDefaultEmail, companyCountry]);
 
-    const [isFetchSuccessful, setIsFetchSuccessful] = React.useState(false);
-    const [isFetchFinished, setIsFetchFinished] = React.useState(false);
     const [billingDetails, setBillingDetails] = React.useState<BillingDetails>(
       defaultBillingDetailsValues,
     );
@@ -209,28 +221,14 @@ const PaymentStripeCard = forwardRef(
     );
 
     React.useEffect(() => {
-      fetchPaymentMethodListAPI({ member: memberId })
-        .then((r) => {
-          const filteredPaymentMethods = r.data.filter(
-            (pm) => pm.type === 'card',
-          );
-          setPaymentMethodList(filteredPaymentMethods);
-        })
-        .then(() => {
-          setIsFetchSuccessful(true);
-          setIsFetchFinished(true);
-        })
-        .catch((err) => {
-          console.error(err);
-          setIsFetchSuccessful(false);
-          setIsFetchFinished(true);
-        });
-    }, [memberId, clientSecret, hasDetached]);
+      handleFetchMemberPaymentMethodList();
+      return resetPaymentMethodList;
+    }, [handleFetchMemberPaymentMethodList, resetPaymentMethodList]);
 
     const paymentMethodSelectedBillingDetails: BillingDetails =
       React.useMemo(() => {
         if (paymentMethodSelected) {
-          return paymentMethodList?.find(
+          return paymentMethodList.find(
             (paymentMethod) => paymentMethod.id === paymentMethodSelected,
           )?.billing_details;
         }
@@ -241,41 +239,16 @@ const PaymentStripeCard = forwardRef(
         defaultBillingDetailsValues,
       ]);
 
-    // This is a Hail Mary attempt of saving Jab Box (80k of monthly transactions)
-    // from churning back to Zingfit because they are upset by the many 3D Secure they
-    // are getting. Note that a client saving a payment method doesn't mean that they
+    // Note that a client saving a payment method doesn't mean that they
     // want this payment method to be used for off-session payments so we have to think
-    // about this any way.
+    // about this. Setting off_session increases the number of 3DS required for card payments
     // Issue: https://gitlab.com/bsport/bsport-saas/-/issues/2101
-
-    const company_setup_intent_always_on_session = [
-      'local',
-      'dev',
-      'staging',
-    ].includes(Config.REACT_APP_SENTRY_ENVIRONMENT)
-      ? 72
-      : 1416;
-
     const setup_future_usage = React.useMemo(() => {
-      if (
-        (saveForLater || forceSave) &&
-        companyId !== company_setup_intent_always_on_session
-      ) {
+      if (saveForLater || forceSave) {
         return 'off_session';
       }
-      if (
-        (saveForLater || forceSave) &&
-        companyId === company_setup_intent_always_on_session
-      ) {
-        return 'on_session';
-      }
       return null;
-    }, [
-      saveForLater,
-      forceSave,
-      companyId,
-      company_setup_intent_always_on_session,
-    ]);
+    }, [saveForLater, forceSave]);
 
     // Whenever the paymentMethod changes, we change the state of the billing details
     React.useEffect(() => {
@@ -292,31 +265,36 @@ const PaymentStripeCard = forwardRef(
 
     React.useEffect(() => {
       if (
-        paymentMethodList.length &&
+        paymentMethodList?.length &&
         !paymentMethodSelected &&
-        isFetchSuccessful &&
+        hasFetchedPaymentMethodList &&
         !addPaymentMethod
       ) {
         setPaymentMethodSelected(paymentMethodList[0].id);
         setBillingDetails(paymentMethodSelectedBillingDetails);
-      } else if (!paymentMethodList.length && isFetchSuccessful) {
+      } else if (!paymentMethodList?.length && hasFetchedPaymentMethodList) {
         setBillingDetails(defaultBillingDetailsValues);
         setAddPaymentMethod(true);
       }
     }, [
       paymentMethodList,
-      isFetchSuccessful,
+      hasFetchedPaymentMethodList,
       paymentMethodSelectedBillingDetails,
       paymentMethodSelected,
       addPaymentMethod,
       defaultBillingDetailsValues,
     ]);
 
-    React.useEffect(() => {
-      if (hasDetached && paymentMethodList.length) {
-        setPaymentMethodSelected(paymentMethodList[0].id);
-      }
-    }, [hasDetached, setPaymentMethodSelected, paymentMethodList]);
+    const handleDetachPaymentMethod = React.useCallback(
+      (paymentMethod) => {
+        detachPaymentMethod(paymentMethod, {
+          onSuccess: () => {
+            setPaymentMethodSelected(null);
+          },
+        });
+      },
+      [detachPaymentMethod],
+    );
 
     React.useEffect(() => {
       if (addPaymentMethod) {
@@ -355,7 +333,7 @@ const PaymentStripeCard = forwardRef(
       !isEstablishmentBillingGroupSelected ||
       !termsAndConditionsAccepted ||
       !areBillingDetailsProvided ||
-      (!hasAddPaymentMethodPermission && !paymentMethodList.length);
+      (!hasAddPaymentMethodPermission && !paymentMethodList?.length);
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
@@ -379,6 +357,7 @@ const PaymentStripeCard = forwardRef(
         }
 
         if (basketId) {
+          // TODO with BS-5131: move this API call to Redux action
           const { data } = await verifyPriceBasketAPI(basketId);
 
           const basketItemsChecked = await checkItemsBasket(basketId);
@@ -408,6 +387,7 @@ const PaymentStripeCard = forwardRef(
             });
           }
 
+          //@ts-expect-error
           const result = await stripe.confirmCardPayment(clientSecret, {
             payment_method: paymentMethodSelected || {
               card: elements.getElement(CardElement),
@@ -427,6 +407,7 @@ const PaymentStripeCard = forwardRef(
             // The payment has been processed!
             if (basketId) {
               try {
+                // TODO with BS-5131: move this API call to Redux action
                 await blockPendingBasketAPI(basketId);
               } catch (err) {
                 console.error(err);
@@ -528,12 +509,21 @@ const PaymentStripeCard = forwardRef(
     const width = useWidth();
     const isMobile = isWidthDown('sm', width);
 
+    if (paymentMethodListError) {
+      return (
+        <Alert
+          className="bs-consumer-invoice-page__payment-portal__error"
+          color="error"
+          variant="weak"
+        >
+          {paymentMethodListError.message}
+        </Alert>
+      );
+    }
+
     return (
-      <form
-        className={classNames(classes.container, customClasses?.container)}
-        onSubmit={handleSubmit}
-      >
-        {!isFetchFinished ? (
+      <form className={customClasses?.container} onSubmit={handleSubmit}>
+        {isPaymentMethodListLoading || !hasFetchedPaymentMethodList ? (
           <LinearProgress />
         ) : (
           <>
@@ -624,7 +614,7 @@ const PaymentStripeCard = forwardRef(
                           </>
                         )}
                       </div>
-                      {!!paymentMethodList.length && (
+                      {!!paymentMethodList?.length && (
                         <ButtonBase
                           className={classNames(
                             classes.displayButton,
@@ -661,7 +651,7 @@ const PaymentStripeCard = forwardRef(
                 />
               </div>
             )}
-            {!addPaymentMethod && !!paymentMethodList.length && (
+            {!addPaymentMethod && !!paymentMethodList?.length && (
               <div>
                 <PaymentMethodList
                   areInitialBillingDetailsNecessary={
@@ -670,7 +660,7 @@ const PaymentStripeCard = forwardRef(
                   billingDetails={billingDetails}
                   cardBillingDetailsMandatory={cardBillingDetailsMandatory}
                   companyId={companyId}
-                  detachPaymentMethod={detachPaymentMethod}
+                  detachPaymentMethod={handleDetachPaymentMethod}
                   detachPaymentMethodLoading={detachPaymentMethodLoading}
                   onSelect={onPaymentMethodSelect}
                   paymentMethodType="card"
@@ -679,7 +669,6 @@ const PaymentStripeCard = forwardRef(
                   sepaDefaultEmail={userDefaultEmail}
                   sepaDefaultName={userDefaultName}
                   setBillingDetails={setBillingDetails}
-                  setHasDetached={setHasDetached}
                 />
 
                 {hasAddPaymentMethodPermission && (
@@ -769,7 +758,6 @@ const PaymentStripeCard = forwardRef(
   },
 );
 const useStyles = makeStyles((theme) => ({
-  container: {},
   cardSectionContainer: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
@@ -871,4 +859,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(PaymentStripeCard);
+export default React.memo(PaymentStripeCardRevamped);

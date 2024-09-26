@@ -46,6 +46,7 @@ export const updatePaymentMethodBillingDetails = async (data: {
 export const detachPaymentMethod = async (
   payload: DetachPaymentMethodPayload = {
     payment_method_id: '',
+    member: undefined,
   },
 ) => {
   return postAuth<DetachPaymentMethodResponse>(

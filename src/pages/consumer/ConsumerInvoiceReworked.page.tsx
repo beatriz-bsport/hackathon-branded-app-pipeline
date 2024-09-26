@@ -22,7 +22,6 @@ import {
 import {
   fetchInvoiceList as fetchInvoiceListAction,
   fetchSpecificInvoice as fetchSpecificInvoiceAction,
-  applyBalanceToInvoice as applyBalanceToInvoiceAction,
 } from '#src/libs/invoice/actions';
 import { fetchMembership as fetchMembershipAction } from '#src/libs/membership/actions';
 import {
@@ -101,13 +100,6 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
       this.props.fetchConsumerInvoices(this.state.selectedFilter, nextPage);
   };
 
-  applyBalanceToInvoice = (invoiceUuid: string) => {
-    this.props.applyBalanceToInvoiceAction(invoiceUuid, {
-      onSuccess: () => this.refreshConsumerInvoices(),
-      onError: () => this.refreshConsumerInvoices(),
-    });
-  };
-
   goToBookSession = () => {
     if (WidgetUtils.isWidget()) {
       WidgetUtils.closeModal();
@@ -176,22 +168,13 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
 
     return (
       <ConsumerInvoicePageReworked
-        applyBalanceToInvoice={this.applyBalanceToInvoice}
-        availablePaymentMethodList={
-          this.props.theme.payment_method_available_basket
-        }
         changeSelectedFilter={this.changeSelectedFilter}
         consumerInvoices={invoiceList}
-        detachPaymentMethod={this.props.detachPaymentMethod}
-        detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
         fetchMoreInvoices={this.fetchConsumerInvoicesNextPage}
         getInvoice={this.props.getInvoice}
         goToBookSession={this.goToBookSession}
         hasMoreInvoicesToFetch={hasMoreInvoicesToFetch}
         isBodyLoading={invoiceLoading}
-        isConsumerAllowedToUseInternalAccount={
-          this.props.theme.allow_consumer_to_use_internal_account
-        }
         isMultilocationEnabled={this.props.theme.enable_multi_localization}
         membership={this.props.membership}
         refreshConsumerInvoices={this.refreshConsumerInvoices}
@@ -235,7 +218,6 @@ const connector = connect(
     fetchMembership: fetchMembershipAction,
     fetchSpecificInvoice: fetchSpecificInvoiceAction,
     resetConsumerState: resetConsumerStateAction,
-    applyBalanceToInvoiceAction,
     detachPaymentMethodAction,
     fetchPaymentMethodListAction,
   },

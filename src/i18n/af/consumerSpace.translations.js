@@ -520,6 +520,8 @@ exports.default = {
         method: 'Payment method',
         myBalance: 'My internal account balance',
         successMessage: 'The payment was successful',
+        backendProcessingInvoice:
+          'Please wait a second while we process your invoice...',
         title: 'Invoice payment',
         useBalance: 'Use',
       },

@@ -48,6 +48,5 @@
 }
 
 .bs-consumer-invoice-page__payment-portal__processing {
-  display: flex;
-  justify-content: center;
+  padding-top: var(--bs-space-size-4);
 }

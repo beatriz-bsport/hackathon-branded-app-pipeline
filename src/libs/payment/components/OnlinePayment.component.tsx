@@ -47,9 +47,9 @@ type Props = {
   detachPaymentMethodLoading: boolean;
   enableMultiLocalization: boolean;
   establishmentBillingGroups?: EstablishmentBillingGroup[];
-  forceHideButton?: boolean;
+  forceHideConfirmPaymentButton?: boolean;
   fromApp?: boolean;
-  hidePrice?: boolean;
+  hideTotalPriceBeforePayment?: boolean;
   instalmentPaymentConfigurationList?:
     | InstalmentPaymentApiWithBasketId[]
     | null;
@@ -111,9 +111,9 @@ const OnlinePayment: React.FC<Props> = forwardRef(
       detachPaymentMethodLoading,
       enableMultiLocalization,
       establishmentBillingGroups,
-      forceHideButton,
+      forceHideConfirmPaymentButton,
       fromApp,
-      hidePrice,
+      hideTotalPriceBeforePayment,
       instalmentPaymentConfigurationList,
       instalmentPaymentSelectedId,
       isEstablishmentBillingGroupSelected = true,
@@ -222,26 +222,28 @@ const OnlinePayment: React.FC<Props> = forwardRef(
             </IconButton>
           </div>
         )}
-        {!priceUpdaterOpen && !!paymentGroupPriceCts && !hidePrice && (
-          <div className={classes.priceContainer}>
-            <Typography variant="h5">
-              {`${getCurrencyDisplayWithPrice(
-                (paymentGroupPriceCts / 100).toFixed(2),
-              )}`}
-            </Typography>
-            {!!updatePriceCts && (
-              <IconButton
-                color="primary"
-                disabled={isOnlinePaymentLoading}
-                onClick={() => {
-                  setPriceUpdaterOpen(true);
-                }}
-              >
-                <EditIcon />
-              </IconButton>
-            )}
-          </div>
-        )}
+        {!priceUpdaterOpen &&
+          !!paymentGroupPriceCts &&
+          !hideTotalPriceBeforePayment && (
+            <div className={classes.priceContainer}>
+              <Typography variant="h5">
+                {`${getCurrencyDisplayWithPrice(
+                  (paymentGroupPriceCts / 100).toFixed(2),
+                )}`}
+              </Typography>
+              {!!updatePriceCts && (
+                <IconButton
+                  color="primary"
+                  disabled={isOnlinePaymentLoading}
+                  onClick={() => {
+                    setPriceUpdaterOpen(true);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+              )}
+            </div>
+          )}
         <PaymentMethodCardSelector
           paymentMethodChoices={paymentMethodChoices}
           paymentMethodSelected={paymentMethodSelected}
@@ -292,7 +294,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
                 creditAccountBalance={creditAccountBalance}
                 detachPaymentMethod={detachPaymentMethod}
                 detachPaymentMethodLoading={detachPaymentMethodLoading}
-                forceHideButton={forceHideButton}
+                forceHideConfirmPaymentButton={forceHideConfirmPaymentButton}
                 instalmentPaymentSelectedId={instalmentPaymentSelectedId}
                 isEstablishmentBillingGroupSelected={
                   isEstablishmentBillingGroupSelected

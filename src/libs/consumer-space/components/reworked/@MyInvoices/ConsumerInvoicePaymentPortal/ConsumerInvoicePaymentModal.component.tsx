@@ -7,62 +7,68 @@ import ModalDialog from '#Fabrique/ModalDialog';
 import { ConsumerInvoicePaymentContent } from '.';
 
 import './styles.css';
+import { useInvoicePaymentStatusTracker } from '#src/libs/payment/payment-module-revamped/invoice-payment/hooks/useInvoicePaymentStatusTracker';
+import { OptionCallback } from '#src/state/types';
 
 type Props = {
-  availablePaymentMethodList: number[];
-  clientSecret: string | null;
-  clientSecretError: Error | null;
-  clientSecretLoading: boolean;
+  applyBalanceToInvoiceCallbacks: OptionCallback;
   companyId: number;
-  creditAccountBalance?: number;
-  detachPaymentMethodLoading: boolean;
-  isConsumerAllowedToUseInternalAccount: boolean;
-  isMultiLocalizationEnabled: boolean;
   isOpen: boolean;
   memberId: number;
-  paymentGroupId: number | null;
-  paymentProcessing: boolean;
-  paymentSucceeded: boolean;
-  priceToPayCts: number;
+  invoiceUuid: string;
   ref: React.Ref<any>;
   title: string;
-  applyBalanceToInvoice: () => void;
-  confirmPayment: () => void;
-  detachPaymentMethod: (id: string) => void;
   handleClose: () => void;
   onPaymentSuccess: () => void;
-  setPaymentProcessing: (isProcessing: boolean) => void;
 };
 
 const ConsumerInvoicePaymentModal: React.FC<Props> = React.forwardRef(
   (
     {
-      availablePaymentMethodList,
-      clientSecret,
-      clientSecretError,
-      clientSecretLoading,
+      applyBalanceToInvoiceCallbacks,
       companyId,
-      creditAccountBalance,
-      detachPaymentMethodLoading,
-      isConsumerAllowedToUseInternalAccount,
-      isMultiLocalizationEnabled,
+      invoiceUuid,
       isOpen,
       memberId,
-      paymentGroupId,
-      paymentProcessing,
-      paymentSucceeded,
-      priceToPayCts,
       title,
-      applyBalanceToInvoice,
-      confirmPayment,
-      detachPaymentMethod,
       handleClose,
       onPaymentSuccess,
-      setPaymentProcessing,
     },
     ref,
   ) => {
     const { t } = useTranslation(['consumerSpace', 'common']);
+
+    const handleConfirmPayment = React.useCallback(
+      (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        // @ts-expect-error
+        !!event && ref?.current?.onPaymentConfirm?.(event);
+      },
+      [ref],
+    );
+    const handleResetInvoicePaymentSetup = React.useCallback(() => {
+      // @ts-expect-error
+      ref?.current?.onResetInvoicePaymentSetup?.(event);
+    }, [ref]);
+
+    React.useEffect(() => {
+      return () => {
+        handleResetInvoicePaymentSetup();
+      };
+    }, [handleResetInvoicePaymentSetup]);
+
+    const {
+      isPaymentProcessing,
+      setupPaymentError,
+      isBackendProcessingAfterPayment,
+      hasPaymentSucceeded,
+      isPaymentInterfaceLoading,
+    } = useInvoicePaymentStatusTracker({
+      invoiceUuid,
+      memberId,
+    });
+
+    const hasPaymentSucceededAndBackendProcessedIt =
+      hasPaymentSucceeded && !isBackendProcessingAfterPayment;
 
     return (
       <PortalContainer wrapperId="bs-consumer-invoice-page__payment-portal__modal__portal-container">
@@ -73,9 +79,11 @@ const ConsumerInvoicePaymentModal: React.FC<Props> = React.forwardRef(
         >
           <ModalDialog
             isFullWidth
-            cancelLabel={paymentSucceeded && t('common:close')}
+            cancelLabel={
+              hasPaymentSucceededAndBackendProcessedIt && t('common:close')
+            }
             className={
-              paymentSucceeded
+              hasPaymentSucceededAndBackendProcessedIt
                 ? 'bs-consumer-invoice-page__payment-portal__modal--success'
                 : 'bs-consumer-invoice-page__payment-portal__modal--payment'
             }
@@ -83,16 +91,18 @@ const ConsumerInvoicePaymentModal: React.FC<Props> = React.forwardRef(
               'consumerSpace:reworked.myInvoices.payment.confirm',
             )}
             isSubmitLoading={
-              paymentProcessing ||
-              clientSecretLoading ||
-              !paymentGroupId ||
-              !clientSecret
+              isPaymentProcessing ||
+              isPaymentInterfaceLoading ||
+              isBackendProcessingAfterPayment
             }
             onCancel={handleClose}
             onClose={handleClose}
             onConfirm={
-              !paymentSucceeded && !clientSecretError && !clientSecretLoading
-                ? confirmPayment
+              !setupPaymentError &&
+              !hasPaymentSucceededAndBackendProcessedIt &&
+              !isBackendProcessingAfterPayment &&
+              !isPaymentInterfaceLoading
+                ? handleConfirmPayment
                 : null
             }
             size="lg"
@@ -100,26 +110,11 @@ const ConsumerInvoicePaymentModal: React.FC<Props> = React.forwardRef(
           >
             <ConsumerInvoicePaymentContent
               ref={ref}
-              applyBalanceToInvoice={applyBalanceToInvoice}
-              availablePaymentMethodList={availablePaymentMethodList}
-              clientSecret={clientSecret}
-              clientSecretError={clientSecretError}
-              clientSecretLoading={clientSecretLoading}
+              applyBalanceToInvoiceCallbacks={applyBalanceToInvoiceCallbacks}
               companyId={companyId}
-              creditAccountBalance={creditAccountBalance}
-              detachPaymentMethod={detachPaymentMethod}
-              detachPaymentMethodLoading={detachPaymentMethodLoading}
-              isConsumerAllowedToUseInternalAccount={
-                isConsumerAllowedToUseInternalAccount
-              }
-              isMultiLocalizationEnabled={isMultiLocalizationEnabled}
+              invoiceUuid={invoiceUuid}
               memberId={memberId}
               onPaymentSuccess={onPaymentSuccess}
-              paymentGroupId={paymentGroupId}
-              paymentGroupPriceCts={priceToPayCts}
-              paymentProcessing={paymentProcessing}
-              paymentSucceeded={paymentSucceeded}
-              setPaymentProcessing={setPaymentProcessing}
             />
           </ModalDialog>
         </Blanket>

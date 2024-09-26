@@ -21,13 +21,13 @@ import {
 import AcceptTermsAndConditions from '#src/libs/payment/components/AcceptTermsAndConditions.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getStripePkKey, getCompanyCountry } from '#src/libs/theme/selectors';
-import PaymentStripeBancontact from './PaymentStripeBancontact.component';
-import PaymentStripeCard from './PaymentStripeCard.component';
-import PaymentStripeEPS from './PaymentStripeEPS.component';
-import PaymentStripeGiropay from './PaymentStripeGiropay.component';
-import PaymentStripeIdeal from './PaymentStripeIdeal.component';
-import PaymentStripeSEPA from './PaymentStripeSEPA.component';
-import PaymentStripeSofort from './PaymentStripeSofort.component';
+import PaymentStripeBancontact from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeBancontact.component';
+import PaymentStripeCardRevamped from './PaymentStripeCardRevamped.component';
+import PaymentStripeEPS from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeEPS.component';
+import PaymentStripeGiropay from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeGiropay.component';
+import PaymentStripeIdeal from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeIdeal.component';
+import PaymentStripeSEPARevamped from './PaymentStripeSEPARevamped.component';
+import PaymentStripeSofort from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeSofort.component';
 
 const fallbackStripePromise = loadStripe(getStripePkKey());
 
@@ -79,8 +79,8 @@ type PaymentStripePropsNewCheckoutFlow = Omit<
   Partial<PaymentStripeProps>;
 
 const STRIPE_PAYMENT_METHOD_FORM_COMPONENT: { [key: number]: any } = {
-  [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: PaymentStripeCard,
-  [PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA]: PaymentStripeSEPA,
+  [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: PaymentStripeCardRevamped,
+  [PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA]: PaymentStripeSEPARevamped,
   [PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT]: PaymentStripeBancontact,
   [PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL]: PaymentStripeIdeal,
   [PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT]: PaymentStripeSofort,
@@ -90,7 +90,7 @@ const STRIPE_PAYMENT_METHOD_FORM_COMPONENT: { [key: number]: any } = {
   //  [PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT]: PaymentStripeBacsDebit,
 };
 
-const PaymentStripe: React.FC<
+const PaymentStripeRevamped: React.FC<
   PaymentStripeProps | PaymentStripePropsNewCheckoutFlow
 > = forwardRef(
   (
@@ -143,6 +143,7 @@ const PaymentStripe: React.FC<
           {(hasAddPaymentMethodPermission) => (
             <StripePaymentMethodForm
               ref={ref}
+              paym
               AcceptTermsAndConditionsComponent={
                 termsAndConditions ? (
                   <AcceptTermsAndConditions
@@ -201,4 +202,4 @@ const PaymentStripe: React.FC<
   },
 );
 
-export default React.memo(PaymentStripe);
+export default React.memo(PaymentStripeRevamped);

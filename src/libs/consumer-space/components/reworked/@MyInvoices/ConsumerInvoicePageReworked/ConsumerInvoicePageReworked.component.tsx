@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-import {
-  PAYMENT_ENGINE_STRIPE,
-  PAYMENT_INTENT_TYPE_INVOICE,
-} from '@bsport/common/lib/master-data/payment-group';
 import { useTranslation } from 'react-i18next';
 
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
@@ -19,27 +15,20 @@ import { HeaderButton } from '#src/libs/consumer-space/components/reworked/commo
 import ConsumerInvoiceModals from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceModals';
 import { ChevronRight } from '#src/components/untitledui';
 
-import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
-
 import type { ConsumerInvoice, Invoice } from '#src/libs/invoice/types';
 import type { Membership } from '#src/libs/membership/types';
 
 import './styles.css';
 
 type Props = {
-  availablePaymentMethodList: number[];
   consumerInvoices: ConsumerInvoice[];
-  detachPaymentMethodLoading: boolean;
   hasMoreInvoicesToFetch: boolean;
   isBodyLoading?: boolean;
-  isConsumerAllowedToUseInternalAccount: boolean;
   isMultilocationEnabled: boolean;
   membership: Membership;
   selectedFilter: InvoicesFiltersEnum;
   totalUnpaid: number;
-  applyBalanceToInvoice: (invoiceUuid: string) => void;
   changeSelectedFilter: (filter: InvoicesFiltersEnum) => void;
-  detachPaymentMethod: (paymentMethodId: string) => void;
   fetchMoreInvoices: () => void;
   getInvoice: (uuid: string) => Invoice;
   goToBookSession: () => void;
@@ -48,19 +37,14 @@ type Props = {
 };
 
 const ConsumerInvoicePageReworked: React.FC<Props> = ({
-  availablePaymentMethodList,
   consumerInvoices,
-  detachPaymentMethodLoading,
   hasMoreInvoicesToFetch,
   isBodyLoading,
-  isConsumerAllowedToUseInternalAccount,
   isMultilocationEnabled,
   membership,
   selectedFilter,
   totalUnpaid,
-  applyBalanceToInvoice,
   changeSelectedFilter,
-  detachPaymentMethod,
   fetchMoreInvoices,
   getInvoice,
   goToBookSession,
@@ -73,17 +57,6 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
 
   const [consumerInvoiceToPay, setConsumerInvoiceToPay] =
     useState<ConsumerInvoice | null>(null);
-
-  const [clientSecret, setClientSecret] = React.useState<string | null>(null);
-
-  const [clientSecretError, setClientSecretError] =
-    React.useState<Error | null>(null);
-
-  const [clientSecretLoading, setClientSecretLoading] = React.useState(false);
-
-  const [paymentGroupId, setPaymentGroupId] = React.useState<number | null>(
-    null,
-  );
 
   const [selectedConsumerInvoice, setSelectedConsumerInvoice] =
     React.useState<ConsumerInvoice | null>(null);
@@ -134,38 +107,23 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
     [],
   );
 
-  const handleApplyBalanceToInvoice = React.useCallback(
-    (invoiceUuid: string) => {
-      applyBalanceToInvoice?.(invoiceUuid);
-      closePaymentPortal();
-    },
-    [applyBalanceToInvoice, closePaymentPortal],
+  const refreshAndClose = React.useCallback(() => {
+    refreshConsumerInvoices?.();
+    closePaymentPortal();
+  }, [refreshConsumerInvoices, closePaymentPortal]);
+
+  const applyBalanceToInvoiceCallbacks = React.useMemo(
+    () => ({
+      onSuccess: refreshAndClose,
+      onError: refreshAndClose,
+    }),
+    [refreshAndClose],
   );
 
   const handleRefreshAfterPayment = React.useCallback(() => {
     clearSelectedConsumerInvoice();
     refreshConsumerInvoices?.();
   }, [refreshConsumerInvoices, clearSelectedConsumerInvoice]);
-
-  const requestClientSecret = React.useCallback((invoiceUuid: string) => {
-    setClientSecret(null);
-    setClientSecretError(null);
-    setClientSecretLoading(true);
-    setPaymentGroupId(null);
-
-    requestClientSecretAPI(PAYMENT_ENGINE_STRIPE, PAYMENT_INTENT_TYPE_INVOICE, {
-      invoice: invoiceUuid,
-    })
-      .then((response) => {
-        setClientSecret(response.data.client_secret);
-        setPaymentGroupId(response.data.payment_group);
-        setClientSecretLoading(false);
-      })
-      .catch((error) => {
-        setClientSecretError(error);
-        setClientSecretLoading(false);
-      });
-  }, []);
 
   const isWidget = WidgetUtils.isWidget();
 
@@ -273,27 +231,14 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
       />
       {!!consumerInvoiceToPay && (
         <ConsumerInvoicePaymentPortal
-          applyBalanceToInvoice={handleApplyBalanceToInvoice}
-          availablePaymentMethodList={availablePaymentMethodList}
-          clientSecret={clientSecret}
-          clientSecretError={clientSecretError}
-          clientSecretLoading={clientSecretLoading}
+          applyBalanceToInvoiceCallbacks={applyBalanceToInvoiceCallbacks}
           companyId={membership.company}
           consumerInvoice={consumerInvoiceToPay}
-          creditAccountBalance={membership.credit_account_balance}
-          detachPaymentMethod={detachPaymentMethod}
-          detachPaymentMethodLoading={detachPaymentMethodLoading}
           displayBottomDrawer={isMobile}
-          isConsumerAllowedToUseInternalAccount={
-            isConsumerAllowedToUseInternalAccount
-          }
-          isMultiLocalizationEnabled={isMultilocationEnabled}
           isOpen={!!consumerInvoiceToPay}
           memberId={membership.id}
           onClose={closePaymentPortal}
           onPaymentSuccess={handleRefreshAfterPayment}
-          paymentGroupId={paymentGroupId}
-          requestClientSecret={requestClientSecret}
         />
       )}
     </PageContentContainer>

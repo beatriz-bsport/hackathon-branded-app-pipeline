@@ -44,7 +44,7 @@ interface PaymentStripeBacsDebitProps {
   clientSecret: string;
   detachPaymentMethodLoading: boolean;
   forceDisabled?: boolean;
-  forceHideButton?: boolean;
+  forceHideConfirmPaymentButton?: boolean;
   fromApp: boolean;
   hasAddPaymentMethodPermission?: boolean;
   isEstablishmentBillingGroupSelected?: boolean;
@@ -76,7 +76,7 @@ const PaymentStripeBacsDebit = forwardRef(
       clientSecret,
       detachPaymentMethodLoading,
       forceDisabled,
-      forceHideButton,
+      forceHideConfirmPaymentButton,
       fromApp,
       hasAddPaymentMethodPermission = true,
       isEstablishmentBillingGroupSelected,
@@ -457,7 +457,7 @@ const PaymentStripeBacsDebit = forwardRef(
         )}
         {errorMessage && <Typography color="error">{errorMessage}</Typography>}
         {children}
-        {!isNewCheckoutFlow && !forceHideButton && (
+        {!isNewCheckoutFlow && !forceHideConfirmPaymentButton && (
           <>
             <div className={classes.conditionRow}>
               {AcceptTermsAndConditionsComponent}

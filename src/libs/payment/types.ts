@@ -181,11 +181,17 @@ export type fetchBookkeepingAccountListFilter = {
 };
 
 export type DetachPaymentMethodPayload = {
-  company?: number;
-  member?: number;
   payment_method_id: string;
-};
-
+} & (
+  | {
+      company: number;
+      member?: number;
+    }
+  | {
+      member: number;
+      company?: number;
+    }
+);
 export type DetachPaymentMethodResponse = {
   payment_backend_payment_method_id: string | null;
 };

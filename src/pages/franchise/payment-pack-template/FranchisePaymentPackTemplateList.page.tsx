@@ -195,7 +195,6 @@ export class FranchisePaymentPackTemplateListPage extends Component<
         {/* @ts-expect-error */}
         {!!this.props.createModalOpen && (
           <PaymentPackTemplateFormDrawer
-            // @ts-expect-error
             onClose={this.props.closeCreateDialog}
             onSubmit={this.props.createOrUpdatePaymentPackTemplate}
             // @ts-expect-error

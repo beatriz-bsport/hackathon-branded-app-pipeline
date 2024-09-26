@@ -262,8 +262,7 @@ const FranchisePaymentPackTemplateListPage: React.FC<Props> = ({
       </div>
       {!!isCreateModalOpen && (
         <PaymentPackTemplateFormDrawer
-          // @ts-expect-error
-          isUniversal={true}
+          isUniversal
           onClose={closeCreateDialog}
           onSubmit={handleCreateOrUpdateTemplate}
           open={isCreateModalOpen}
@@ -276,9 +275,8 @@ const FranchisePaymentPackTemplateListPage: React.FC<Props> = ({
       />
       {!!templateToEdit && (
         <PaymentPackTemplateFormDrawer
-          // @ts-expect-error
+          isUniversal
           initial={templateToEdit}
-          isUniversal={true}
           onClose={closeEditDialog}
           onSubmit={handleCreateOrUpdateTemplate}
           open={!!templateToEdit}

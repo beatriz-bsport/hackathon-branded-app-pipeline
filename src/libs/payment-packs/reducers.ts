@@ -765,13 +765,14 @@ export const newPaymentPackReducer = handleActions(
       // @ts-expect-error
       return state.merge({ byId: payload.paymentPacksById }, { deep: true });
     },
-    [paymentPackBulkWidgetActions.success.toString()]: (state, { payload }) => {
-      // @ts-expect-error
+    [paymentPackBulkWidgetActions.success.toString()]: (
+      state,
+      { payload }: { payload: { results: PaymentPack[] } },
+    ) => {
       const { results } = payload;
       return state.merge(
         {
           byId: (results || []).reduce<{ [id: number]: PaymentPack }>(
-            // @ts-expect-error
             (acc, paymentPack) => {
               acc[paymentPack.id] = paymentPack;
               return acc;

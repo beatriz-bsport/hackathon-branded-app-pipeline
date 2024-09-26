@@ -307,7 +307,6 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
         />
         {!!isEditDialogOpen && (
           <PaymentPackTemplateFormDrawer
-            // @ts-expect-error
             initial={paymentPackTemplate}
             isUniversal={true}
             onClose={closeEditDialog}

@@ -158,6 +158,7 @@ export type FranchiseProductTemplateQueryParams = {
   is_usable_by_staff?: boolean;
   available_for_sale?: boolean;
   disabled?: boolean;
+  id__not_in?: number[];
 };
 
 export type FranchiseProductTemplatePaginatedQueryParams = {

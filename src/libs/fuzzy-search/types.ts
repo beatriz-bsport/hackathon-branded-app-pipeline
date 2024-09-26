@@ -372,7 +372,10 @@ type PrivatePassAPIParams = PaginationFilterParams & PrivatePassQueryParams;
 
 type PrivatePassCategoryAPIParams = PaginationFilterParams;
 
-type PrivatePassTemplateAPIParams = PaginationFilterParams;
+type PrivatePassTemplateAPIParams = PaginationFilterParams & {
+  id__not_in?: number[];
+  disabled?: boolean;
+};
 
 type CadenceAPIParams = PaginationFilterParams & { id__in?: number };
 

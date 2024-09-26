@@ -45,19 +45,26 @@ import { RootState } from '../../../reducers';
 import { Company } from '#src/libs/company/types';
 
 const CONSUMER_PACK_PAGINATION_SIZE = 5;
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_PRIVATE_PASS,
+} from '@bsport/common/lib/master-data/buyable-items';
 
 type OwnProps = { couponTemplateId: number };
 
 type Props = OwnProps &
   ConnectedProps<typeof connector> &
   typeof stateHandlersInit &
-  WithHandlerType<typeof stateHandlersSetter>;
+  WithHandlerType<typeof stateHandlersSetter> & {
+    fetchCouponRelatedObjects: (couponTemplate?: CouponTemplateAPI) => void;
+  };
 
 export class FranchiseCouponTemplateDetail extends Component<Props> {
   componentDidMount() {
-    this.props.retrieveCouponTemplate(this.props.couponTemplateId);
-    this.props.fetchPaymentPackTemplateList();
-    this.props.fetchPrivatePassTemplateList();
+    this.props.retrieveCouponTemplate(this.props.couponTemplateId, {
+      onSuccess: this.props.fetchCouponRelatedObjects,
+    });
+
     if (
       // eslint-disable-next-line
       parseQueryString(location.search || '')?.openTemplateInstanceForm
@@ -90,7 +97,9 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
       {
         // @ts-expect-error
         onSuccess: (couponTemplateInstances: Array<CouponTemplateInstance>) => {
-          this.props.retrieveCouponTemplate(this.props.couponTemplateId);
+          this.props.retrieveCouponTemplate(this.props.couponTemplateId, {
+            onSuccess: this.props.fetchCouponRelatedObjects,
+          });
           this.handleCloseCreateForm();
           if (options && options.onSuccess)
             options.onSuccess(couponTemplateInstances);
@@ -162,8 +171,8 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
               onClose={this.handleCloseCreateForm}
               // @ts-expect-error
               onSubmit={this.handleCreateCouponTemplateInstance}
-              paymentPackTemplateList={this.props.paymentPackTemplateList}
-              privatePassTemplateList={this.props.privatePassTemplateList}
+              paymentPackTemplateList={this.props.paymentPackTemplateList || []}
+              privatePassTemplateList={this.props.privatePassTemplateList || []}
             />
           )}
         {!!this.props.instanceCompanyIdToDelete && (
@@ -247,6 +256,36 @@ export default compose(
   withStateHandlers(stateHandlersInit, stateHandlersSetter),
   connector,
   withHandlers({
+    fetchCouponRelatedObjects:
+      ({ fetchPaymentPackTemplateList, fetchPrivatePassTemplateList }) =>
+      (couponTemplate: CouponTemplateAPI) => {
+        if (
+          ![BUYABLE_ITEM_PASS, BUYABLE_ITEM_PRIVATE_PASS].includes(
+            couponTemplate.applies_to,
+          ) ||
+          !couponTemplate.only_on_objects?.length
+        ) {
+          return;
+        }
+
+        if (
+          couponTemplate.applies_to === BUYABLE_ITEM_PASS &&
+          !!couponTemplate.only_on_objects?.length
+        ) {
+          return fetchPaymentPackTemplateList({
+            id__in: couponTemplate.only_on_objects,
+          });
+        }
+
+        if (
+          couponTemplate.applies_to === BUYABLE_ITEM_PRIVATE_PASS &&
+          !!couponTemplate.only_on_objects?.length
+        ) {
+          return fetchPrivatePassTemplateList({
+            id__in: couponTemplate.only_on_objects,
+          });
+        }
+      },
     deleteCouponTemplate:
       ({
         deleteCouponTemplate,
@@ -267,12 +306,14 @@ export default compose(
         updateCouponTemplate,
         closeEditTemplateDialog,
         openCreateInstanceDialog,
+        fetchCouponRelatedObjects,
       }) =>
       (data: any, options: OptionCallback<CouponTemplateAPI>) => {
         updateCouponTemplate(data, {
           onError: options && options.onError,
           onSuccess: (couponTemplate: CouponTemplateAPI) => {
             closeEditTemplateDialog();
+            fetchCouponRelatedObjects(couponTemplate);
             if (
               !couponTemplate.coupon_template_instances.filter(
                 (i) => !i.disabled,

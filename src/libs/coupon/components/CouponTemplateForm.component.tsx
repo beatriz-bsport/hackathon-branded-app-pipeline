@@ -30,16 +30,17 @@ import {
 } from '@bsport/common/lib/master-data/buyable-items';
 import { CircularProgress } from '@material-ui/core';
 import CouponTemplateUpdateWarningDialog from '#src/libs/coupon/components/CouponTemplateUpdateWarningDialog.component';
-import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
+import type {
+  PaymentPackTemplate,
+  PaymentPackTemplateAPI,
+} from '#src/libs/payment-packs/types';
 import type { PrivatePassTemplate } from '#src/libs/private-service/types';
 import type { CouponTemplate } from '#src/libs/coupon/types';
 import { OptionCallback } from '../../../state/types';
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
-import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
-import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import FranchiseShopItemTemplateListItem from '#src/libs/franchise/components/FranchiseShopItemTemplateListItem';
-import ObjectSearch from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
 import {
   PriceField,
@@ -49,7 +50,6 @@ import {
   DateField,
   // @ts-expect-error
 } from '../../../components/forms';
-
 import type { ShopItemTemplate } from '#src/libs/shop/types';
 import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 
@@ -143,7 +143,7 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-const SearchOption: React.FC<
+const ShopItemSearchOption: React.FC<
   OptionPropsWithData<{ onClick: () => void; item: ShopItemTemplate }>
 > = (props) => (
   <FranchiseShopItemTemplateListItem
@@ -152,8 +152,22 @@ const SearchOption: React.FC<
   />
 );
 
+const PrivatePassTemplateSearchOption: React.FC<
+  OptionPropsWithData<{ onClick: () => void; item: PrivatePassTemplate }>
+> = (props) => (
+  //@ts-expect-error
+  <PrivatePassListItem onClick={props.data.onClick} pass={props.data.item} />
+);
+
+const PaymentPackTemplateSearchOption: React.FC<
+  OptionPropsWithData<{ onClick: () => void; item: PaymentPackTemplate }>
+> = (props) => (
+  //@ts-expect-error
+  <PaymentPackListItem onClick={props.data.onClick} pack={props.data.item} />
+);
+
 export const CouponTemplateForm = (props: Props) => {
-  const { values } = props;
+  const { values, setFieldValue } = props;
   const { t } = useTranslation('coupon');
   const classes = useStyles();
 
@@ -201,6 +215,43 @@ export const CouponTemplateForm = (props: Props) => {
         onClick: handleSelectShopItemTemplate,
       })),
     [getResultsById, handleSelectShopItemTemplate],
+  );
+
+  const handleOnPaymentPackTemplateChange = React.useCallback(
+    (id: number) => {
+      let newObjects = [...values.only_on_objects];
+      if (values.applies_to !== BUYABLE_ITEM_PASS.toString()) {
+        setFieldValue('applies_to', BUYABLE_ITEM_PASS.toString());
+        newObjects = [];
+      }
+      newObjects.push(id);
+      setFieldValue('only_on_objects', newObjects);
+    },
+    [values.applies_to, values.only_on_objects, setFieldValue],
+  );
+
+  const formatPaymentPackTemplateSearchOptions = React.useCallback(
+    (searchResults: PaymentPackTemplateAPI[]) => {
+      return searchResults.map((result) => ({
+        label: result.name,
+        value: result.id,
+        item: getResultsById('payment_pack_template')[result.id],
+        onClick: handleOnPaymentPackTemplateChange,
+      }));
+    },
+    [handleOnPaymentPackTemplateChange, getResultsById],
+  );
+
+  const formatPrivatePassTemplateSearchOptions = React.useCallback(
+    (searchResults: PrivatePassTemplate[]) => {
+      return searchResults.map((result) => ({
+        label: result.name,
+        value: result.id,
+        item: getResultsById('private_pass_template')[result.id],
+        onClick: handleOnPaymentPackTemplateChange,
+      }));
+    },
+    [handleOnPaymentPackTemplateChange, getResultsById],
   );
 
   return (
@@ -315,24 +366,21 @@ export const CouponTemplateForm = (props: Props) => {
                 value={BUYABLE_ITEM_PASS.toString()}
               />
               <div className={classes.fullWidth}>
-                <PaymentPackSelector
-                  nullCurrentValue
-                  helperText={t('form.selectorPlaceholder.paymentPack')}
-                  onChange={(id) => {
-                    let newObjects = [...values.only_on_objects];
-                    if (values.applies_to !== BUYABLE_ITEM_PASS.toString()) {
-                      props.setFieldValue(
-                        'applies_to',
-                        BUYABLE_ITEM_PASS.toString(),
-                      );
-                      newObjects = [];
-                    }
-                    newObjects.push(id);
-                    props.setFieldValue('only_on_objects', newObjects);
+                <ObjectSearchComponent
+                  additionalParams={{
+                    disabled: false,
+                    id__not_in:
+                      values.applies_to === BUYABLE_ITEM_PASS.toString()
+                        ? values.only_on_objects
+                        : [],
                   }}
-                  paymentPacks={props.paymentPackTemplateList
-                    .filter((ppt) => !ppt.disabled)
-                    .filter((ppt) => !values.only_on_objects.includes(ppt.id))}
+                  components={{ Option: PaymentPackTemplateSearchOption }}
+                  initialValues={values.only_on_objects}
+                  optionsFormatter={formatPaymentPackTemplateSearchOptions}
+                  placeholder={t('form.selectorPlaceholder.paymentPack')}
+                  searchedObjectType="payment_pack_template"
+                  value={[]}
+                  variant="underlined"
                 />
                 {values.applies_to === BUYABLE_ITEM_PASS.toString()
                   ? values.only_on_objects.map((id, i) => (
@@ -365,27 +413,21 @@ export const CouponTemplateForm = (props: Props) => {
                 value={BUYABLE_ITEM_PRIVATE_PASS.toString()}
               />
               <div className={classes.fullWidth}>
-                <PrivatePassSelector
-                  // @ts-expect-error
-                  nullCurrentValue
-                  helperText={t('form.selectorPlaceholder.privatePass')}
-                  onChange={(id: number) => {
-                    let newObjects = [...values.only_on_objects];
-                    if (
-                      values.applies_to !== BUYABLE_ITEM_PRIVATE_PASS.toString()
-                    ) {
-                      props.setFieldValue(
-                        'applies_to',
-                        BUYABLE_ITEM_PRIVATE_PASS.toString(),
-                      );
-                      newObjects = [];
-                    }
-                    newObjects.push(id);
-                    props.setFieldValue('only_on_objects', newObjects);
+                <ObjectSearchComponent
+                  additionalParams={{
+                    disabled: false,
+                    id__not_in:
+                      values.applies_to === BUYABLE_ITEM_PRIVATE_PASS.toString()
+                        ? values.only_on_objects
+                        : [],
                   }}
-                  privatePassList={props.privatePassTemplateList
-                    .filter((ppt) => !ppt.disabled)
-                    .filter((ppt) => !values.only_on_objects.includes(ppt.id))}
+                  components={{ Option: PrivatePassTemplateSearchOption }}
+                  initialValues={values.only_on_objects}
+                  optionsFormatter={formatPrivatePassTemplateSearchOptions}
+                  placeholder={t('form.selectorPlaceholder.paymentPack')}
+                  searchedObjectType="private_pass_template"
+                  value={[]}
+                  variant="underlined"
                 />
                 {values.applies_to === BUYABLE_ITEM_PRIVATE_PASS.toString()
                   ? values.only_on_objects.map((id, i) => (
@@ -419,13 +461,13 @@ export const CouponTemplateForm = (props: Props) => {
                 value={BUYABLE_ITEM_SHOP_ITEM.toString()}
               />
               <div className={classes.fullWidth}>
-                <ObjectSearch
+                <ObjectSearchComponent
                   closeMenuOnSelect
                   additionalParams={{
                     is_variant: false,
                   }}
                   components={{
-                    Option: SearchOption,
+                    Option: ShopItemSearchOption,
                   }}
                   optionsFormatter={shopItemTemplateOptionFormatter}
                   placeholder={t('form.selectorPlaceholder.shopitem')}

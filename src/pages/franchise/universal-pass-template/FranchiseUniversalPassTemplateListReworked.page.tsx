@@ -202,9 +202,10 @@ const FranchiseUniversalPaymentPackTemplateListPageReworked: React.FC<
         label: result.name,
         value: result.id,
         paymentPackTemplate: result,
+        onClick: handleGoToPaymentPackTemplateDetailPage,
       }));
     },
-    [],
+    [handleGoToPaymentPackTemplateDetailPage],
   );
   return (
     <>

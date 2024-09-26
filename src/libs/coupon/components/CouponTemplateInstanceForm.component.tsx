@@ -16,6 +16,7 @@ import { OptionCallback } from '../../../state/types';
 import FranchiseCompaniesSelector from '../../franchise/components/FranchiseCompaniesSelector.component';
 import { FranchiseCompany } from '../../franchise/types';
 
+// TODO : FUCK THIS SHIT
 type OwnProps = {
   companies: Array<FranchiseCompany>;
   paymentPackTemplateList: Array<PaymentPackTemplate>;

@@ -15,9 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
 import CouponTemplateListItem from '#src/libs/coupon/components/CouponTemplateListItem.component';
 import { getPaymentPackTemplateList } from '#src/libs/payment-packs/selectors';
-import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#src/libs/payment-packs/actions';
 import { getPrivatePassTemplateList } from '#src/libs/private-service/selectors/private-pass';
-import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#src/libs/private-service/actions';
 import CouponTemplateFormDrawer from '#src/libs/coupon/components/CouponTemplateFormDrawer.component';
 import CouponTemplateDeleteDialog from '#src/libs/coupon/components/CouponTemplateDeleteDialog.component';
 import {
@@ -67,8 +65,6 @@ type Props = ConnectedProps<typeof connector> &
 export class FranchiseCouponTemplateList extends Component<Props> {
   componentDidMount() {
     this.props.fetchCouponTemplateList();
-    this.props.fetchPaymentPackTemplateList();
-    this.props.fetchPrivatePassTemplateList();
   }
 
   render() {
@@ -169,8 +165,6 @@ const connector = connect(
     fetchCouponTemplateList: fetchCouponTemplateListAction,
     createOrUpdateCouponTemplate: createOrUpdateCouponTemplateAction,
     deleteCouponTemplate: deleteCouponTemplateAction,
-    fetchPaymentPackTemplateList: fetchPaymentPackTemplateListAction,
-    fetchPrivatePassTemplateList: fetchPrivatePassTemplateListAction,
     goToTemplateDetail: (id: number, params: any = {}) =>
       pushAction(`/f/coupon-template/${id}/${buildUrlParams(params)}`),
   },

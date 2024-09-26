@@ -199,9 +199,10 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
         label: result.name,
         value: result.id,
         paymentPackTemplate: result,
+        onClick: handleGoToPaymentPackTemplateDetailPage,
       }));
     },
-    [],
+    [handleGoToPaymentPackTemplateDetailPage],
   );
   return (
     <>

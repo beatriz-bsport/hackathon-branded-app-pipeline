@@ -346,6 +346,8 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
     fetchActiveContractTemplateList,
     fetchDisabledContractTemplateList,
     fetchContractsRelatedObjects,
+    fetchPaymentPackTemplateBulk,
+    fetchPrivatePassTemplateBulk,
   ]);
 
   const handleShowDisabledContractList = useCallback(() => {

@@ -6,18 +6,19 @@ import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericRespon
 import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
 import type { PrivatePassTemplate } from '#src/libs/private-service/types';
 import CouponTemplateForm from './CouponTemplateForm.component';
-import type { CouponTemplate } from '../types';
-
+import type { CouponTemplate, CouponTemplateAPI } from '#src/libs/coupon/types';
+import type { OptionCallback } from '#src/state/types';
 type OwnProps = {
   open: boolean;
   onClose: () => void;
   initial?: CouponTemplate | null;
-  onSubmit: (data: CouponTemplate) => void;
+  onSubmit: (
+    data: CouponTemplate,
+    options?: OptionCallback<CouponTemplateAPI>,
+  ) => void;
   processing?: boolean;
-  onCancel: () => void;
   privatePassTemplateList: Array<PrivatePassTemplate>;
   paymentPackTemplateList: Array<PaymentPackTemplate>;
-  tagsLoading: boolean;
 };
 type Props = OwnProps;
 

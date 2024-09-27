@@ -36,7 +36,8 @@ const getTranslations = async () => {
   return {
     list: {
       isEmpty: 'There are no promotions to display.',
-      inactiveCoupons: 'Inactive or expired promotions',
+      inactiveCoupons: 'Inactive promotions',
+      expiredActiveCoupons: 'Active promotions expired',
       activeCoupons: 'Active promotions',
     },
     detail: { seeParameters: 'Edit', seeVouchers: 'See the vouchers' },

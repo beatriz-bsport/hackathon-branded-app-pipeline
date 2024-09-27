@@ -123,7 +123,6 @@ export class FranchiseCouponTemplateList extends Component<Props> {
           ) : null}
         </div>
         {!!this.props.createModalOpen && (
-          // @ts-expect-error
           <CouponTemplateFormDrawer
             open
             onClose={this.props.closeCreateDialog}
@@ -133,7 +132,6 @@ export class FranchiseCouponTemplateList extends Component<Props> {
           />
         )}
         {!!this.props.couponTemplateToEdit && (
-          // @ts-expect-error
           <CouponTemplateFormDrawer
             open
             initial={this.props.couponTemplateToEdit}

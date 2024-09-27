@@ -7,6 +7,10 @@ import type { LuxonDateTime } from '#src/types';
 import { ErrorAndLoading } from '../types';
 import type { Company } from '#src/libs/company/types';
 import { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
+import {
+  FranchiseProductTemplatePaginatedQueryParams,
+  FranchiseProductTemplateQueryParams,
+} from '#src/libs/franchise/types';
 
 export type Discount = {
   id: string;
@@ -73,6 +77,35 @@ export type CouponState = {
     loading: false;
     error: null | Error;
     upsert: ErrorAndLoading;
+  };
+  couponTemplatePaginated: {
+    activeCoupons: {
+      page: number;
+      next_page: number | null;
+      previous_page: number | null;
+      count: number;
+      page_size: number;
+      allIds: number[];
+      byId: Record<number, CouponTemplateAPI>;
+    } & ErrorAndLoading;
+    expiredActiveCoupons: {
+      page: number;
+      next_page: number | null;
+      previous_page: number | null;
+      count: number;
+      page_size: number;
+      allIds: number[];
+      byId: Record<number, CouponTemplateAPI>;
+    } & ErrorAndLoading;
+    inactiveCoupons: {
+      page: number;
+      next_page: number | null;
+      previous_page: number | null;
+      count: number;
+      page_size: number;
+      allIds: number[];
+      byId: Record<number, CouponTemplateAPI>;
+    } & ErrorAndLoading;
   };
   exportCodes: {
     loading: boolean;
@@ -155,6 +188,18 @@ export type FetchCouponsParams = {
   page_size?: number;
   available?: boolean;
 };
+
+export type FetchCouponTemplateQueryParams =
+  FranchiseProductTemplateQueryParams & {
+    active?: boolean;
+    expired?: boolean;
+  };
+
+export type FetchCouponTemplatePaginatedQueryParams =
+  FranchiseProductTemplatePaginatedQueryParams & {
+    active?: boolean;
+    expired?: boolean;
+  };
 
 export type AppliesToInvoiceBody = {
   codes: string[];

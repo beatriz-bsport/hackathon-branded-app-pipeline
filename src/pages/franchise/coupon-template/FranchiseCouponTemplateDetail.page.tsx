@@ -145,7 +145,6 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
           </Grid>
         </Grid>
         {this.props.editTemplateDialogOpen && (
-          // @ts-expect-error
           <CouponTemplateFormDrawer
             open
             initial={this.props.couponTemplate}

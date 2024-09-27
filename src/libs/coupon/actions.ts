@@ -5,6 +5,7 @@ import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 import {
   Coupon,
   CouponTemplate,
+  CouponTemplateAPI,
   CouponTemplateInstance,
   CouponTemplateParams,
   Discount,
@@ -12,6 +13,7 @@ import {
   FetchDiscountParams,
   ResetDiscountList,
   UniqueCodeCouponCreationPayload,
+  FetchCouponTemplatePaginatedQueryParams,
 } from '#src/libs/coupon/types';
 import { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
 
@@ -21,6 +23,7 @@ import {
   Dispatch,
   ThunkAction,
   OptionCallBackWithKeyedCallbacks,
+  PaginatedResponse,
 } from '../../state/types';
 import {
   fetchCouponPage as fetchCouponPageAPI,
@@ -32,6 +35,7 @@ import {
   fetchCoupons as fetchCouponsAPI,
   untagCoupon as untagCouponAPI,
   fetchCouponTemplateList as fetchCouponTemplateListAPI,
+  fetchCouponTemplatePaginetedList as fetchCouponTemplatePaginetedListAPI,
   createOrUpdateCouponTemplate as createOrUpdateCouponTemplateAPI,
   deleteCouponTemplate as deleteCouponTemplateAPI,
   retrieveCouponTemplate as retrieveCouponTemplateAPI,
@@ -257,12 +261,18 @@ export function resetDiscounts(): ThunkAction {
   };
 }
 
+/**
+ * @deprecated Unpaginated actions and redux store
+ */
 export const listCouponTemplateActions = {
   isLoading: createAction<boolean>('COUPON_TEMPLATE/LIST/IS_LOADING'),
   error: createAction<Error | null>('COUPON_TEMPLATE/LIST/ERROR'),
   success: createAction<CouponTemplate[]>('COUPON_TEMPLATE/LIST/SUCCESS'),
 };
 
+/**
+ * @deprecated Unpaginated action
+ */
 export function fetchCouponTemplateList(
   params?: FranchiseProductTemplateQueryParams,
   options?: OptionCallback<CouponTemplate[]>,
@@ -286,6 +296,183 @@ export function fetchCouponTemplateList(
       if (options && options.onError) options.onError(err);
     }
     dispatch(listCouponTemplateActions.isLoading(false));
+  };
+}
+
+export const listCouponTemplatePaginatedActions = {
+  isLoadingActiveCouponTemplate: createAction<boolean>(
+    'ACTIVE_COUPON_TEMPLATE/PAGINATED_LIST/IS_LOADING',
+  ),
+  errorActiveCouponTemplate: createAction<Error | null>(
+    'ACTIVE_COUPON_TEMPLATE/PAGINATED_LIST/ERROR',
+  ),
+  successActiveCouponTemplate: createAction<
+    PaginatedResponse<CouponTemplateAPI>
+  >('ACTIVE_COUPON_TEMPLATE/PAGINATED_LIST/SUCCESS'),
+
+  isLoadingExpiredActiveCouponTemplate: createAction<boolean>(
+    'EXPIRED_ACTIVE_COUPON_TEMPLATE/PAGINATED_LIST/IS_LOADING',
+  ),
+  errorExpiredActiveCouponTemplate: createAction<Error | null>(
+    'EXPIRED_ACTIVE_COUPON_TEMPLATE/PAGINATED_LIST/ERROR',
+  ),
+  successExpiredActiveCouponTemplate: createAction<
+    PaginatedResponse<CouponTemplateAPI>
+  >('EXPIRED_ACTIVE_COUPON_TEMPLATE/PAGINATED_LIST/SUCCESS'),
+  isLoadingInActiveCouponTemplate: createAction<boolean>(
+    'INACTIVE_COUPON_TEMPLATE/PAGINATED_LIST/IS_LOADING',
+  ),
+  errorInActiveCouponTemplate: createAction<Error | null>(
+    'INACTIVE_COUPON_TEMPLATE/PAGINATED_LIST/ERROR',
+  ),
+  successInActiveCouponTemplate: createAction<
+    PaginatedResponse<CouponTemplateAPI>
+  >('INACTIVE_COUPON_TEMPLATE/PAGINATED_LIST/SUCCESS'),
+};
+
+export function fetchActiveCouponTemplateListPaginated(
+  params?: FetchCouponTemplatePaginatedQueryParams,
+  options?: OptionCallback<PaginatedResponse<CouponTemplateAPI>>,
+): ThunkAction {
+  return async (dispatch, getState) => {
+    dispatch(
+      listCouponTemplatePaginatedActions.errorActiveCouponTemplate(null),
+    );
+    dispatch(
+      listCouponTemplatePaginatedActions.isLoadingActiveCouponTemplate(true),
+    );
+
+    const currentState =
+      getState().coupon.couponTemplatePaginated.activeCoupons;
+
+    const nextPage = currentState.next_page ?? 1;
+
+    try {
+      const response = await fetchCouponTemplatePaginetedListAPI({
+        ...params,
+        active: true,
+        expired: false,
+        disabled: false,
+        page: nextPage,
+        page_size: 50,
+      });
+
+      dispatch(
+        listCouponTemplatePaginatedActions.successActiveCouponTemplate(
+          response.data,
+        ),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        listCouponTemplatePaginatedActions.errorActiveCouponTemplate(err),
+      );
+      options?.onError?.(err);
+    }
+    dispatch(
+      listCouponTemplatePaginatedActions.isLoadingActiveCouponTemplate(false),
+    );
+  };
+}
+
+export function fetchExpiredActiveCouponTemplateListPaginated(
+  params?: FetchCouponTemplatePaginatedQueryParams,
+  options?: OptionCallback<PaginatedResponse<CouponTemplateAPI>>,
+): ThunkAction {
+  return async (dispatch, getState) => {
+    dispatch(
+      listCouponTemplatePaginatedActions.errorExpiredActiveCouponTemplate(null),
+    );
+    dispatch(
+      listCouponTemplatePaginatedActions.isLoadingExpiredActiveCouponTemplate(
+        true,
+      ),
+    );
+
+    const currentState =
+      getState().coupon.couponTemplatePaginated.expiredActiveCoupons;
+
+    const nextPage = currentState.next_page ?? 1;
+
+    try {
+      const response = await fetchCouponTemplatePaginetedListAPI({
+        ...params,
+        active: true,
+        expired: true,
+        disabled: false,
+        page: nextPage,
+        page_size: 50,
+      });
+
+      dispatch(
+        listCouponTemplatePaginatedActions.successExpiredActiveCouponTemplate(
+          response.data,
+        ),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        listCouponTemplatePaginatedActions.errorExpiredActiveCouponTemplate(
+          err,
+        ),
+      );
+      options?.onError?.(err);
+    }
+    dispatch(
+      listCouponTemplatePaginatedActions.isLoadingExpiredActiveCouponTemplate(
+        false,
+      ),
+    );
+  };
+}
+
+export function fetchInActiveCouponTemplateListPaginated(
+  params?: FetchCouponTemplatePaginatedQueryParams,
+  options?: OptionCallback<PaginatedResponse<CouponTemplateAPI>>,
+): ThunkAction {
+  return async (dispatch, getState) => {
+    dispatch(
+      listCouponTemplatePaginatedActions.errorInActiveCouponTemplate(null),
+    );
+    dispatch(
+      listCouponTemplatePaginatedActions.isLoadingInActiveCouponTemplate(true),
+    );
+
+    const currentState =
+      getState().coupon.couponTemplatePaginated.expiredActiveCoupons;
+
+    const nextPage = currentState.next_page ?? 1;
+
+    try {
+      const response = await fetchCouponTemplatePaginetedListAPI({
+        ...params,
+        active: false,
+        disabled: false,
+        page: nextPage,
+        page_size: 50,
+      });
+
+      dispatch(
+        listCouponTemplatePaginatedActions.successInActiveCouponTemplate(
+          response.data,
+        ),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        listCouponTemplatePaginatedActions.errorInActiveCouponTemplate(err),
+      );
+      options?.onError?.(err);
+    }
+    dispatch(
+      listCouponTemplatePaginatedActions.isLoadingInActiveCouponTemplate(false),
+    );
   };
 }
 

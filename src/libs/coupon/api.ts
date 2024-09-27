@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
 import { PaginatedResponse } from '../../state/types';
 import {
   API_V1_URI,
@@ -25,6 +24,9 @@ import type {
   CheckCouponCodePayload,
   CheckCouponCodeResponsePayload,
   CouponTemplateParams,
+  CouponTemplateAPI,
+  FetchCouponTemplateQueryParams,
+  FetchCouponTemplatePaginatedQueryParams,
 } from './types';
 
 const COUPON_URI = `${API_V1_URI}/coupon/`;
@@ -124,13 +126,19 @@ export const appliesToInvoice = (payload: AppliesToInvoiceBody) =>
     payload,
   );
 
-export const fetchCouponTemplateList: (
-  params?: FranchiseProductTemplateQueryParams,
-) => Promise<AxiosResponse<PaginatedResponse<CouponTemplate>>> = (params) => {
-  return getAuth(
+export const fetchCouponTemplateList = (
+  params?: FetchCouponTemplateQueryParams,
+) =>
+  getAuth<PaginatedResponse<CouponTemplate>>(
     `${API_V1_URI}/coupon/coupon_template/${buildUrlParams(params)}`,
   );
-};
+
+export const fetchCouponTemplatePaginetedList = (
+  params: FetchCouponTemplatePaginatedQueryParams,
+) =>
+  getAuth<PaginatedResponse<CouponTemplateAPI>>(
+    `${API_V1_URI}/coupon/coupon_template/${buildUrlParams(params)}`,
+  );
 
 export const retrieveCouponTemplate: (
   id: number,

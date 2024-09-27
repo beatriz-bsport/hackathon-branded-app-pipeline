@@ -12,9 +12,16 @@ import {
   retrieveCouponTemplateActions,
   retrieveCouponActions,
   exportCodesAsCsvActions,
+  listCouponTemplatePaginatedActions,
 } from './actions';
 
-import type { Coupon, CouponState, CouponTemplate, Discount } from './types';
+import type {
+  Coupon,
+  CouponState,
+  CouponTemplate,
+  CouponTemplateAPI,
+  Discount,
+} from './types';
 
 const initialState: Immutable.Immutable<CouponState> = Immutable<CouponState>({
   discount: {
@@ -40,6 +47,41 @@ const initialState: Immutable.Immutable<CouponState> = Immutable<CouponState>({
     loading: false,
     error: null,
     upsert: {
+      loading: false,
+      error: null,
+    },
+  },
+  couponTemplatePaginated: {
+    activeCoupons: {
+      page: 1,
+      next_page: null,
+      previous_page: null,
+      count: 0,
+      page_size: 50,
+      allIds: [],
+      byId: {},
+      loading: false,
+      error: null,
+    },
+    expiredActiveCoupons: {
+      page: 1,
+      next_page: null,
+      previous_page: null,
+      count: 0,
+      page_size: 50,
+      allIds: [],
+      byId: {},
+      loading: false,
+      error: null,
+    },
+    inactiveCoupons: {
+      page: 1,
+      next_page: null,
+      previous_page: null,
+      count: 0,
+      page_size: 50,
+      allIds: [],
+      byId: {},
       loading: false,
       error: null,
     },
@@ -243,6 +285,167 @@ export default handleActions<Immutable.Immutable<CouponState>, any>(
     ) => {
       return state.setIn(['exportCodes', 'loading'], payload);
     },
+    // =====
+    // ===== PAGINATED ACTIVE AND NOT EXPIRED COUPON ACTIONS
+    [listCouponTemplatePaginatedActions.isLoadingActiveCouponTemplate.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(
+          ['couponTemplatePaginated', 'activeCoupons', 'loading'],
+          payload,
+        );
+      },
+    [listCouponTemplatePaginatedActions.errorActiveCouponTemplate.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['couponTemplatePaginated', 'activeCoupons', 'error'],
+        payload,
+      );
+    },
+    [listCouponTemplatePaginatedActions.successActiveCouponTemplate.toString()]:
+      (
+        state,
+        { payload }: { payload: PaginatedResponse<CouponTemplateAPI> },
+      ) => {
+        const { next_page, results, count, page } = payload;
+        return state
+          .setIn(['couponTemplatePaginated', 'activeCoupons', 'page'], page)
+          .setIn(
+            ['couponTemplatePaginated', 'activeCoupons', 'next_page'],
+            next_page,
+          )
+          .setIn(['couponTemplatePaginated', 'activeCoupons', 'count'], count)
+          .setIn(
+            ['couponTemplatePaginated', 'activeCoupons', 'allIds'],
+            (results || []).map((template) => template.id),
+          )
+          .merge(
+            {
+              couponTemplatePaginated: {
+                activeCoupons: {
+                  byId: (results || []).reduce(
+                    (accumulator, couponTemplate) => ({
+                      ...accumulator,
+                      [couponTemplate.id]: couponTemplate,
+                    }),
+                    {},
+                  ),
+                },
+              },
+            },
+            { deep: true },
+          );
+      },
+
+    // =====
+    // ===== PAGINATED ACTIVE AND EXPIRED COUPON ACTIONS
+    [listCouponTemplatePaginatedActions.isLoadingExpiredActiveCouponTemplate.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(
+          ['couponTemplatePaginated', 'expiredActiveCoupons', 'loading'],
+          payload,
+        );
+      },
+    [listCouponTemplatePaginatedActions.errorExpiredActiveCouponTemplate.toString()]:
+      (state, { payload }: { payload: Error | null }) => {
+        return state.setIn(
+          ['couponTemplatePaginated', 'expiredActiveCoupons', 'error'],
+          payload,
+        );
+      },
+    [listCouponTemplatePaginatedActions.successExpiredActiveCouponTemplate.toString()]:
+      (
+        state,
+        { payload }: { payload: PaginatedResponse<CouponTemplateAPI> },
+      ) => {
+        const { next_page, results, count, page } = payload;
+        return state
+          .setIn(
+            ['couponTemplatePaginated', 'expiredActiveCoupons', 'page'],
+            page,
+          )
+          .setIn(
+            ['couponTemplatePaginated', 'expiredActiveCoupons', 'next_page'],
+            next_page,
+          )
+          .setIn(
+            ['couponTemplatePaginated', 'expiredActiveCoupons', 'count'],
+            count,
+          )
+          .setIn(
+            ['couponTemplatePaginated', 'expiredActiveCoupons', 'allIds'],
+            (results || []).map((template) => template.id),
+          )
+          .merge(
+            {
+              couponTemplatePaginated: {
+                expiredActiveCoupons: {
+                  byId: (results || []).reduce(
+                    (accumulator, couponTemplate) => ({
+                      ...accumulator,
+                      [couponTemplate.id]: couponTemplate,
+                    }),
+                    {},
+                  ),
+                },
+              },
+            },
+            { deep: true },
+          );
+      },
+
+    // =====
+    // ===== PAGINATED INACTIVE COUPON ACTIONS (not active)
+    [listCouponTemplatePaginatedActions.isLoadingInActiveCouponTemplate.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(
+          ['couponTemplatePaginated', 'inactiveCoupons', 'loading'],
+          payload,
+        );
+      },
+    [listCouponTemplatePaginatedActions.errorInActiveCouponTemplate.toString()]:
+      (state, { payload }: { payload: Error | null }) => {
+        return state.setIn(
+          ['couponTemplatePaginated', 'inactiveCoupons', 'error'],
+          payload,
+        );
+      },
+    [listCouponTemplatePaginatedActions.successInActiveCouponTemplate.toString()]:
+      (
+        state,
+        { payload }: { payload: PaginatedResponse<CouponTemplateAPI> },
+      ) => {
+        const { next_page, results, count, page } = payload;
+        return state
+          .setIn(['couponTemplatePaginated', 'inactiveCoupons', 'page'], page)
+          .setIn(
+            ['couponTemplatePaginated', 'inactiveCoupons', 'next_page'],
+            next_page,
+          )
+          .setIn(['couponTemplatePaginated', 'inactiveCoupons', 'count'], count)
+          .setIn(
+            ['couponTemplatePaginated', 'inactiveCoupons', 'allIds'],
+            (results || []).map((template) => template.id),
+          )
+          .merge(
+            {
+              couponTemplatePaginated: {
+                inactiveCoupons: {
+                  byId: (results || []).reduce(
+                    (accumulator, couponTemplate) => ({
+                      ...accumulator,
+                      [couponTemplate.id]: couponTemplate,
+                    }),
+                    {},
+                  ),
+                },
+              },
+            },
+            { deep: true },
+          );
+      },
   },
+
   initialState,
 );

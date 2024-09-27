@@ -15,6 +15,7 @@ import {
   getAllowedFranchisees,
   getFranchiseCompanyById,
   withAllowed,
+  withAllowedOnArray,
 } from '../franchise/selectors';
 
 export const getAllCoupons = (state: RootState) => state.coupon.coupon.items;
@@ -123,6 +124,113 @@ export const getInactiveCouponTemplates: (
     couponTemplateList.filter((ct) => !isCurrentlyActive(ct)),
 );
 
+const getActiveCouponTemplatePaginatedState = (state: RootState) =>
+  state.coupon.couponTemplatePaginated.activeCoupons;
+
+export const getActiveCouponTemplatePaginated = createSelector(
+  [
+    getActiveCouponTemplatePaginatedState,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+  ],
+  (paginateState, allowed_franchisee_ids, companyById) => {
+    const { allIds, byId } = paginateState;
+    return {
+      ...paginateState,
+      coupons: allIds
+        .map((id) => byId[id])
+        .filter((couponTemplate) => !!couponTemplate)
+        .map((_couponTemplate) => ({
+          ..._couponTemplate,
+          companies: withAllowedOnArray(
+            _couponTemplate.coupon_template_instances
+              .map(
+                (couponTemplateInstance: CouponTemplateInstance) =>
+                  !couponTemplateInstance.disabled &&
+                  couponTemplateInstance.company,
+              )
+              .filter(
+                (coupon_template_instance_id) => !!coupon_template_instance_id,
+              ),
+            allowed_franchisee_ids,
+            companyById,
+          )?.filter((c) => !!c),
+        })),
+    };
+  },
+);
+
+const getExpiredActiveCouponTemplatePaginatedState = (state: RootState) =>
+  state.coupon.couponTemplatePaginated.expiredActiveCoupons;
+
+export const getExpiredActiveCouponTemplatePaginated = createSelector(
+  [
+    getExpiredActiveCouponTemplatePaginatedState,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+  ],
+  (paginateState, allowed_franchisee_ids, companyById) => {
+    const { allIds, byId } = paginateState;
+    return {
+      ...paginateState,
+      coupons: allIds
+        .map((id) => byId[id])
+        .filter((couponTemplate) => !!couponTemplate)
+        .map((_couponTemplate) => ({
+          ..._couponTemplate,
+          companies: withAllowedOnArray(
+            _couponTemplate.coupon_template_instances
+              .map(
+                (couponTemplateInstance: CouponTemplateInstance) =>
+                  !couponTemplateInstance.disabled &&
+                  couponTemplateInstance.company,
+              )
+              .filter(
+                (coupon_template_instance_id) => !!coupon_template_instance_id,
+              ),
+            allowed_franchisee_ids,
+            companyById,
+          )?.filter((c) => !!c),
+        })),
+    };
+  },
+);
+
+const getInActiveCouponTemplatePaginatedState = (state: RootState) =>
+  state.coupon.couponTemplatePaginated.inactiveCoupons;
+
+export const getInActiveCouponTemplatePaginated = createSelector(
+  [
+    getInActiveCouponTemplatePaginatedState,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+  ],
+  (paginateState, allowed_franchisee_ids, companyById) => {
+    const { allIds, byId } = paginateState;
+    return {
+      ...paginateState,
+      coupons: allIds
+        .map((id) => byId[id])
+        .filter((couponTemplate) => !!couponTemplate)
+        .map((_couponTemplate) => ({
+          ..._couponTemplate,
+          companies: withAllowedOnArray(
+            _couponTemplate.coupon_template_instances
+              .map(
+                (couponTemplateInstance: CouponTemplateInstance) =>
+                  !couponTemplateInstance.disabled &&
+                  couponTemplateInstance.company,
+              )
+              .filter(
+                (coupon_template_instance_id) => !!coupon_template_instance_id,
+              ),
+            allowed_franchisee_ids,
+            companyById,
+          )?.filter((c) => !!c),
+        })),
+    };
+  },
+);
 const _getId = (state: RootState, id: number) => id;
 
 export const getCouponTemplate: (

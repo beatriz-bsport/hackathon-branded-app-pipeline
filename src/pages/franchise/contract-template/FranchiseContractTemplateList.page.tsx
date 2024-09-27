@@ -23,8 +23,8 @@ import {
   restoreContractTemplate as restoreContractTemplateAction,
   createOrUpdateContractTemplate as createOrUpdateContractTemplateAction,
 } from '#src/libs/subscription/actions';
-import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#src/libs/payment-packs/actions';
-import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#src/libs/private-service/actions';
+import { fetchPaymentPackTemplateBulk as fetchPaymentPackTemplateBulkAction } from '#src/libs/payment-packs/actions';
+import { fetchPrivatePassTemplateBulk as fetchPrivatePassTemplateBulkAction } from '#src/libs/private-service/actions';
 import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/actions';
 
 import {
@@ -261,8 +261,8 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
   fetchDisabledContractTemplateList,
   deleteContractTemplate,
   restoreContractTemplate,
-  fetchPaymentPackTemplateList,
-  fetchPrivatePassTemplateList,
+  fetchPaymentPackTemplateBulk,
+  fetchPrivatePassTemplateBulk,
   fetchFranchise,
   createOrUpdateContractTemplate,
   t,
@@ -324,9 +324,9 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
           );
 
           !!paymentPackTemplateIds?.length &&
-            fetchPaymentPackTemplateList({ id__in: paymentPackTemplateIds });
+            fetchPaymentPackTemplateBulk({ id__in: paymentPackTemplateIds });
           !!privatePassTemplateIds?.length &&
-            fetchPrivatePassTemplateList({
+            fetchPrivatePassTemplateBulk({
               id__in: privatePassTemplateIds,
             });
         },
@@ -348,9 +348,9 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
           );
 
           !!paymentPackTemplateIds?.length &&
-            fetchPaymentPackTemplateList({ id__in: paymentPackTemplateIds });
+            fetchPaymentPackTemplateBulk({ id__in: paymentPackTemplateIds });
           !!privatePassTemplateIds?.length &&
-            fetchPrivatePassTemplateList({
+            fetchPrivatePassTemplateBulk({
               id__in: privatePassTemplateIds,
             });
         },
@@ -359,8 +359,8 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
   }, [
     fetchActiveContractTemplateList,
     fetchDisabledContractTemplateList,
-    fetchPaymentPackTemplateList,
-    fetchPrivatePassTemplateList,
+    fetchPaymentPackTemplateBulk,
+    fetchPrivatePassTemplateBulk,
   ]);
 
   const handleShowDisabledContractList = useCallback(() => {
@@ -617,8 +617,8 @@ const mapDispatchToProps = {
   fetchDisabledContractTemplateList: fetchDisabledContractTemplateListAction,
   deleteContractTemplate: deleteContractTemplateAction,
   restoreContractTemplate: restoreContractTemplateAction,
-  fetchPaymentPackTemplateList: fetchPaymentPackTemplateListAction,
-  fetchPrivatePassTemplateList: fetchPrivatePassTemplateListAction,
+  fetchPaymentPackTemplateBulk: fetchPaymentPackTemplateBulkAction,
+  fetchPrivatePassTemplateBulk: fetchPrivatePassTemplateBulkAction,
   fetchFranchise: fetchFranchiseAction,
   createOrUpdateContractTemplate: createOrUpdateContractTemplateAction,
   push: pushAction,

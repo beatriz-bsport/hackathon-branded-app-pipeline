@@ -353,7 +353,7 @@ export const getPaymentPackTemplateList: (
   (data, ids, allowed_franchisee_ids, companyById) =>
     ids
       .map((id: number) => data[id])
-      .filter((ppt: PaymentPackTemplateAPI) => !ppt.disabled)
+      .filter((ppt: PaymentPackTemplateAPI) => !!ppt && !ppt.disabled)
       .map((ppt: PaymentPackTemplateAPI) => ({
         ...ppt,
         companies: withAllowed(

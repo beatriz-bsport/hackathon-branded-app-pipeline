@@ -9,9 +9,10 @@ import Grid from '@material-ui/core/Grid';
 import CouponTemplateCard from '#src/libs/coupon/components/CouponTemplateCard.component';
 import PaginatedDiscountList from '#src/libs/coupon/components/PaginatedDiscountList.component';
 import { getPaymentPackTemplateList } from '#src/libs/payment-packs/selectors';
-import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#src/libs/payment-packs/actions';
+import { fetchPaymentPackTemplateBulk as fetchPaymentPackTemplateBulkAction } from '#src/libs/payment-packs/actions';
+import { fetchPrivatePassTemplateBulk as fetchPrivatePassTemplateBulkAction } from '#src/libs/private-service/actions';
 import { getPrivatePassTemplateList } from '#src/libs/private-service/selectors/private-pass';
-import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#src/libs/private-service/actions';
+
 import CouponTemplateDeleteDialog from '#src/libs/coupon/components/CouponTemplateDeleteDialog.component';
 import CouponTemplateInstanceFormDialog from '#src/libs/coupon/components/CouponTemplateInstanceFormDialog.component';
 import CouponTemplateInstanceDeleteDialog from '#src/libs/coupon/components/CouponTemplateInstanceDeleteDialog.component';
@@ -147,6 +148,12 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
         {this.props.editTemplateDialogOpen && (
           <CouponTemplateFormDrawer
             open
+            fetchPaymentPackTemplateBulk={
+              this.props.fetchPaymentPackTemplateBulk
+            }
+            fetchPrivatePassTemplateBulk={
+              this.props.fetchPrivatePassTemplateBulk
+            }
             initial={this.props.couponTemplate}
             onClose={this.props.closeEditTemplateDialog}
             onSubmit={this.props.updateCouponTemplate}
@@ -211,8 +218,8 @@ const connector = connect(
     deleteCouponTemplate: deleteCouponTemplateAction,
     createCouponTemplateInstance: createCouponTemplateInstanceAction,
     deleteCouponTemplateInstance: deleteCouponTemplateInstanceAction,
-    fetchPaymentPackTemplateList: fetchPaymentPackTemplateListAction,
-    fetchPrivatePassTemplateList: fetchPrivatePassTemplateListAction,
+    fetchPaymentPackTemplateBulk: fetchPaymentPackTemplateBulkAction,
+    fetchPrivatePassTemplateBulk: fetchPrivatePassTemplateBulkAction,
     fetchDiscountList: fetchDiscountListAction,
     goToTemplateList: () => pushAction('/f/coupon-template'),
     replace: replaceAction,
@@ -256,7 +263,7 @@ export default compose(
   connector,
   withHandlers({
     fetchCouponRelatedObjects:
-      ({ fetchPaymentPackTemplateList, fetchPrivatePassTemplateList }) =>
+      ({ fetchPaymentPackTemplateBulk, fetchPrivatePassTemplateBulk }) =>
       (couponTemplate: CouponTemplateAPI) => {
         if (
           ![BUYABLE_ITEM_PASS, BUYABLE_ITEM_PRIVATE_PASS].includes(
@@ -271,7 +278,7 @@ export default compose(
           couponTemplate.applies_to === BUYABLE_ITEM_PASS &&
           !!couponTemplate.only_on_objects?.length
         ) {
-          return fetchPaymentPackTemplateList({
+          return fetchPaymentPackTemplateBulk({
             id__in: couponTemplate.only_on_objects,
           });
         }
@@ -280,7 +287,7 @@ export default compose(
           couponTemplate.applies_to === BUYABLE_ITEM_PRIVATE_PASS &&
           !!couponTemplate.only_on_objects?.length
         ) {
-          return fetchPrivatePassTemplateList({
+          return fetchPrivatePassTemplateBulk({
             id__in: couponTemplate.only_on_objects,
           });
         }

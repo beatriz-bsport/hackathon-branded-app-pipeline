@@ -717,6 +717,7 @@ export const listPaymentPackTemplateActions = {
   isLoading: createAction('PAYMENT_PACK_TEMPLATE/LIST/IS_LOADING'),
   error: createAction('PAYMENT_PACK_TEMPLATE/LIST/ERROR'),
   success: createAction('PAYMENT_PACK_TEMPLATE/LIST/SUCCESS'),
+  bulkSuccess: createAction('PAYMENT_PACK_TEMPLATE/BULK/SUCCESS'),
   successManagerOnly: createAction(
     'PAYMENT_PACK_TEMPLATE/LIST/SUCCESS_MANAGER_ONLY',
   ),
@@ -755,7 +756,28 @@ export function fetchPaymentPackTemplateList(
     dispatch(listPaymentPackTemplateActions.isLoading(false));
   };
 }
+export function fetchPaymentPackTemplateBulk(
+  params: { id__in: number[] },
+  options?: OptionCallback<Array<PaymentPackTemplate>>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPaymentPackTemplateActions.error(null));
+    dispatch(listPaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await fetchPaymentPackTemplateListAPI(params);
+      dispatch(listPaymentPackTemplateActions.bulkSuccess(response.data));
 
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listPaymentPackTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(listPaymentPackTemplateActions.isLoading(false));
+  };
+}
 export const listPaymentPackTemplatePaginatedActions = {
   isLoading: createAction<boolean>(
     'PAYMENT_PACK_TEMPLATE/AVAILABLE_FOR_SALE/PAGINATED_LIST/IS_LOADING',

@@ -8,9 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import CouponTemplateListItem from '#src/libs/coupon/components/CouponTemplateListItem.component';
-import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#src/libs/payment-packs/actions';
+import { fetchPaymentPackTemplateBulk as fetchPaymentPackTemplateBulkAction } from '#src/libs/payment-packs/actions';
 import { getPaymentPackTemplateList } from '#src/libs/payment-packs/selectors';
-import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#src/libs/private-service/actions';
+import { fetchPrivatePassTemplateBulk as fetchPrivatePassTemplateBulkAction } from '#src/libs/private-service/actions';
 
 import { getPrivatePassTemplateList } from '#src/libs/private-service/selectors/private-pass';
 import CouponTemplateFormDrawer from '#src/libs/coupon/components/CouponTemplateFormDrawer.component';
@@ -71,8 +71,8 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
   fetchActiveCouponTemplateListPaginated,
   fetchExpiredActiveCouponTemplateListPaginated,
   fetchInActiveCouponTemplateListPaginated,
-  fetchPaymentPackTemplateList,
-  fetchPrivatePassTemplateList,
+  fetchPaymentPackTemplateBulk,
+  fetchPrivatePassTemplateBulk,
   goToTemplateDetail,
   inactiveCouponTemplatesListPaginated,
   paymentPackTemplateList,
@@ -123,16 +123,16 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
         relatedObjectsIds.privatePassTemplateIds,
       );
       !!uniqpaymentPackTemplateIds?.length &&
-        fetchPaymentPackTemplateList({
+        fetchPaymentPackTemplateBulk({
           id__in: uniqpaymentPackTemplateIds,
         });
 
       !!uniqprivatePassTemplateIds?.length &&
-        fetchPrivatePassTemplateList({
+        fetchPrivatePassTemplateBulk({
           id__in: uniqprivatePassTemplateIds,
         });
     },
-    [fetchPaymentPackTemplateList, fetchPrivatePassTemplateList],
+    [fetchPaymentPackTemplateBulk, fetchPrivatePassTemplateBulk],
   );
 
   const handleFetchActiveCouponTemplateListPaginated = React.useCallback(
@@ -364,6 +364,8 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
       {!!openCreationDrawer && (
         <CouponTemplateFormDrawer
           open
+          fetchPaymentPackTemplateBulk={fetchPaymentPackTemplateBulk}
+          fetchPrivatePassTemplateBulk={fetchPrivatePassTemplateBulk}
           onClose={handleCloseCreationDialog}
           onSubmit={handleCreateOrUpdateSubmit}
           paymentPackTemplateList={paymentPackTemplateList || []}
@@ -373,6 +375,8 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
       {!!couponTemplateForEdit && (
         <CouponTemplateFormDrawer
           open
+          fetchPaymentPackTemplateBulk={fetchPaymentPackTemplateBulk}
+          fetchPrivatePassTemplateBulk={fetchPrivatePassTemplateBulk}
           initial={couponTemplateForEdit}
           onClose={handleResetCouponTemplateForEdit}
           onSubmit={handleCreateOrUpdateSubmit}
@@ -414,8 +418,8 @@ const connector = connect(
       urlParams: { openTemplateInstanceForm: boolean } | {} = {},
     ) => pushAction(`/f/coupon-template/${id}/${buildUrlParams(urlParams)}`),
 
-    fetchPaymentPackTemplateList: fetchPaymentPackTemplateListAction,
-    fetchPrivatePassTemplateList: fetchPrivatePassTemplateListAction,
+    fetchPaymentPackTemplateBulk: fetchPaymentPackTemplateBulkAction,
+    fetchPrivatePassTemplateBulk: fetchPrivatePassTemplateBulkAction,
   },
 );
 

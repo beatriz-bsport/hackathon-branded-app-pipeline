@@ -289,7 +289,7 @@ export const getPrivatePassTemplateList: (
   (data, ids, allowed_franchisee_ids, companyById) =>
     ids
       .map((id: number) => data[id])
-      .filter((ppt: PrivatePassTemplateAPI) => !ppt.disabled)
+      .filter((ppt: PrivatePassTemplateAPI) => !!ppt && !ppt.disabled)
       .map((ppt: PrivatePassTemplateAPI) => ({
         ...ppt,
         companies: withAllowed(

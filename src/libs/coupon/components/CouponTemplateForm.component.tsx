@@ -84,6 +84,8 @@ type WithStateProps = {
 type OwnProps = {
   paymentPackTemplateList: Array<PaymentPackTemplate>;
   privatePassTemplateList: Array<PrivatePassTemplate>;
+  fetchPaymentPackTemplateBulk: (params: { id__in: number[] }) => void;
+  fetchPrivatePassTemplateBulk: (params: { id__in: number[] }) => void;
   onClose: () => void;
   onSubmit: (data: any, options?: OptionCallback) => void;
 };
@@ -167,7 +169,12 @@ const PaymentPackTemplateSearchOption: React.FC<
 );
 
 export const CouponTemplateForm = (props: Props) => {
-  const { values, setFieldValue } = props;
+  const {
+    values,
+    setFieldValue,
+    fetchPaymentPackTemplateBulk,
+    fetchPrivatePassTemplateBulk,
+  } = props;
   const { t } = useTranslation('coupon');
   const classes = useStyles();
 
@@ -219,6 +226,7 @@ export const CouponTemplateForm = (props: Props) => {
 
   const handleOnPaymentPackTemplateChange = React.useCallback(
     (id: number) => {
+      fetchPaymentPackTemplateBulk?.({ id__in: [id] });
       let newObjects = [...values.only_on_objects];
       if (values.applies_to !== BUYABLE_ITEM_PASS.toString()) {
         setFieldValue('applies_to', BUYABLE_ITEM_PASS.toString());
@@ -227,7 +235,12 @@ export const CouponTemplateForm = (props: Props) => {
       newObjects.push(id);
       setFieldValue('only_on_objects', newObjects);
     },
-    [values.applies_to, values.only_on_objects, setFieldValue],
+    [
+      values.applies_to,
+      values.only_on_objects,
+      setFieldValue,
+      fetchPaymentPackTemplateBulk,
+    ],
   );
 
   const formatPaymentPackTemplateSearchOptions = React.useCallback(
@@ -236,10 +249,29 @@ export const CouponTemplateForm = (props: Props) => {
         label: result.name,
         value: result.id,
         item: getResultsById('payment_pack_template')[result.id],
-        onClick: handleOnPaymentPackTemplateChange,
+        onClick: () => handleOnPaymentPackTemplateChange(result.id),
       }));
     },
     [handleOnPaymentPackTemplateChange, getResultsById],
+  );
+
+  const handleOnPrivatePassTemplateChange = React.useCallback(
+    (id: number) => {
+      fetchPrivatePassTemplateBulk?.({ id__in: [id] });
+      let newObjects = [...values.only_on_objects];
+      if (values.applies_to !== BUYABLE_ITEM_PRIVATE_PASS.toString()) {
+        setFieldValue('applies_to', BUYABLE_ITEM_PRIVATE_PASS.toString());
+        newObjects = [];
+      }
+      newObjects.push(id);
+      setFieldValue('only_on_objects', newObjects);
+    },
+    [
+      values.applies_to,
+      values.only_on_objects,
+      setFieldValue,
+      fetchPrivatePassTemplateBulk,
+    ],
   );
 
   const formatPrivatePassTemplateSearchOptions = React.useCallback(
@@ -248,10 +280,10 @@ export const CouponTemplateForm = (props: Props) => {
         label: result.name,
         value: result.id,
         item: getResultsById('private_pass_template')[result.id],
-        onClick: handleOnPaymentPackTemplateChange,
+        onClick: () => handleOnPrivatePassTemplateChange(result.id),
       }));
     },
-    [handleOnPaymentPackTemplateChange, getResultsById],
+    [handleOnPrivatePassTemplateChange, getResultsById],
   );
 
   return (

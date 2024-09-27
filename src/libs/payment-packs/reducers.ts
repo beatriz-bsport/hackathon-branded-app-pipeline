@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import omit from 'lodash/omit';
+import uniq from 'lodash/uniq';
 import type { PaginatedResponse } from '../../state/types';
 import {
   actionTypes,
@@ -349,6 +350,27 @@ export const newPaymentPackReducer = handleActions(
           {
             paymentPackTemplate: {
               // @ts-expect-error
+              byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [listPaymentPackTemplateActions.bulkSuccess.toString()]: (
+      state,
+      { payload }: { payload: PaymentPackTemplateAPI[] },
+    ) => {
+      return state
+        .setIn(
+          ['paymentPackTemplate', 'allIds'],
+          uniq([
+            ...payload.map((pp) => pp.id),
+            ...state.paymentPackTemplate.allIds,
+          ]),
+        )
+        .merge(
+          {
+            paymentPackTemplate: {
               byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
             },
           },

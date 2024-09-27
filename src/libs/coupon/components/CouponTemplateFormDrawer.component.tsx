@@ -19,6 +19,8 @@ type OwnProps = {
   processing?: boolean;
   privatePassTemplateList: Array<PrivatePassTemplate>;
   paymentPackTemplateList: Array<PaymentPackTemplate>;
+  fetchPaymentPackTemplateBulk: (params: { id__in: number[] }) => void;
+  fetchPrivatePassTemplateBulk: (params: { id__in: number[] }) => void;
 };
 type Props = OwnProps;
 

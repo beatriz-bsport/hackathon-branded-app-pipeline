@@ -23,6 +23,7 @@ import type {
   PrivateConsumerPassExtensionParams,
   PrivateConsumerPassExtension,
   PrivateConsumerPassExtensionCreate,
+  PrivatePassTemplateAPI,
 } from './types';
 import type { PaginatedResponse } from '../../state/types';
 
@@ -817,6 +818,15 @@ export async function fetchPrivatePassTemplateList(
   );
 }
 
+export async function fetchPrivatePassTemplateBulk(params?: {
+  id__in: number[];
+}) {
+  return getAuth<PrivatePassTemplateAPI[]>(
+    `${API_V1_URI}/private_service/private-pass-template/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
 export async function retrievePrivatePassTemplate(id: number) {
   return getAuth(`${API_V1_URI}/private_service/private-pass-template/${id}/`);
 }

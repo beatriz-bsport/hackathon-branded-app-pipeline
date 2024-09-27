@@ -14,6 +14,9 @@ import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
 import CouponTemplateListItem from '#src/libs/coupon/components/CouponTemplateListItem.component';
+import { fetchPaymentPackTemplateBulk as fetchPaymentPackTemplateBulkAction } from '#src/libs/payment-packs/actions';
+import { fetchPrivatePassTemplateBulk as fetchPrivatePassTemplateBulkAction } from '#src/libs/private-service/actions';
+
 import { getPaymentPackTemplateList } from '#src/libs/payment-packs/selectors';
 import { getPrivatePassTemplateList } from '#src/libs/private-service/selectors/private-pass';
 import CouponTemplateFormDrawer from '#src/libs/coupon/components/CouponTemplateFormDrawer.component';
@@ -125,6 +128,12 @@ export class FranchiseCouponTemplateList extends Component<Props> {
         {!!this.props.createModalOpen && (
           <CouponTemplateFormDrawer
             open
+            fetchPaymentPackTemplateBulk={
+              this.props.fetchPaymentPackTemplateBulk
+            }
+            fetchPrivatePassTemplateBulk={
+              this.props.fetchPrivatePassTemplateBulk
+            }
             onClose={this.props.closeCreateDialog}
             onSubmit={this.props.createOrUpdateCouponTemplate}
             paymentPackTemplateList={this.props.paymentPackTemplateList || []}
@@ -134,6 +143,12 @@ export class FranchiseCouponTemplateList extends Component<Props> {
         {!!this.props.couponTemplateToEdit && (
           <CouponTemplateFormDrawer
             open
+            fetchPaymentPackTemplateBulk={
+              this.props.fetchPaymentPackTemplateBulk
+            }
+            fetchPrivatePassTemplateBulk={
+              this.props.fetchPrivatePassTemplateBulk
+            }
             initial={this.props.couponTemplateToEdit}
             onClose={this.props.closeEditDialog}
             onSubmit={this.props.createOrUpdateCouponTemplate}
@@ -166,6 +181,8 @@ const connector = connect(
     deleteCouponTemplate: deleteCouponTemplateAction,
     goToTemplateDetail: (id: number, params: any = {}) =>
       pushAction(`/f/coupon-template/${id}/${buildUrlParams(params)}`),
+    fetchPaymentPackTemplateBulk: fetchPaymentPackTemplateBulkAction,
+    fetchPrivatePassTemplateBulk: fetchPrivatePassTemplateBulkAction,
   },
 );
 

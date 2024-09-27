@@ -2,6 +2,7 @@ import Seamless from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import omit from 'lodash/omit';
+import uniq from 'lodash/uniq';
 import type { PaginatedResponse } from '../../state/types';
 import {
   availabilitySlotListActions,
@@ -79,6 +80,7 @@ import type {
   PrivatePassMassExtension,
   PrivateServiceState,
   ServiceCompatibilityPass,
+  PrivatePassTemplateAPI,
 } from './types';
 
 const initialState: Seamless.Immutable<PrivateServiceState> =
@@ -1819,6 +1821,28 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           {
             privatePassTemplate: {
               // @ts-expect-error
+              byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+
+    [listPrivatePassTemplateActions.bulkSuccess.toString()]: (
+      state,
+      { payload }: { payload: PrivatePassTemplateAPI[] },
+    ) => {
+      return state
+        .setIn(
+          ['privatePassTemplate', 'allIds'],
+          uniq([
+            ...payload.map((pp) => pp.id),
+            ...state.privatePassTemplate.allIds,
+          ]),
+        )
+        .merge(
+          {
+            privatePassTemplate: {
               byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
             },
           },

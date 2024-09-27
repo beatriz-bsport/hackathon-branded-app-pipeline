@@ -124,6 +124,7 @@ import {
 
   // template
   fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAPI,
+  fetchPrivatePassTemplateBulk as fetchPrivatePassTemplateBulkAPI,
   retrievePrivatePassTemplate as retrievePrivatePassTemplateAPI,
   createOrUpdatePrivatePassTemplate as createOrUpdatePrivatePassTemplateAPI,
   deletePrivatePassTemplate as deletePrivatePassTemplateAPI,
@@ -152,6 +153,7 @@ import {
   PrivatePass,
   ServiceCompatibilityPass,
   ResourceDataTypeForAllocation,
+  PrivatePassTemplateAPI,
 } from './types';
 
 import {
@@ -2906,7 +2908,10 @@ export function deletePrivatePassCategory(
 export const listPrivatePassTemplateActions = {
   isLoading: createAction('PRIVATE_PASS_TEMPLATE/LIST/IS_LOADING'),
   error: createAction('PRIVATE_PASS_TEMPLATE/LIST/ERROR'),
-  success: createAction('PRIVATE_PASS_TEMPLATE/LIST/SUCCESS'),
+  success: createAction<PrivatePassTemplateAPI[]>(
+    'PRIVATE_PASS_TEMPLATE/BULK/SUCCESS',
+  ),
+  bulkSuccess: createAction('PRIVATE_PASS_TEMPLATE/LIST/SUCCESS'),
 };
 
 export function fetchPrivatePassTemplateList(
@@ -2933,6 +2938,26 @@ export function fetchPrivatePassTemplateList(
       console.error(err);
       dispatch(listPrivatePassTemplateActions.error(err));
       if (options && options.onError) options.onError(err);
+    }
+    dispatch(listPrivatePassTemplateActions.isLoading(false));
+  };
+}
+export function fetchPrivatePassTemplateBulk(
+  params: { id__in: number[] },
+  options?: OptionCallback<PrivatePassTemplateAPI[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPrivatePassTemplateActions.error(null));
+    dispatch(listPrivatePassTemplateActions.isLoading(true));
+    try {
+      const response = await fetchPrivatePassTemplateBulkAPI(params);
+      dispatch(listPrivatePassTemplateActions.bulkSuccess(response.data));
+
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(listPrivatePassTemplateActions.error(err));
+      options?.onError?.(err);
     }
     dispatch(listPrivatePassTemplateActions.isLoading(false));
   };

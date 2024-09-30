@@ -97,7 +97,7 @@ const FranchiseReportList: React.FC<Props> = ({
   }, [setIsReportAlertDisplayedInV2]);
 
   const handleGoToReportV1 = React.useCallback(
-    (id: number) => pushRouter(`/f/reporting/${id}`),
+    (id: number) => pushRouter(`/f/reporting/v1/detail/${id}`),
     [pushRouter],
   );
 
@@ -108,8 +108,8 @@ const FranchiseReportList: React.FC<Props> = ({
         reportsV2?.find((result) => result.category === categoryName)?.id;
 
       reportId
-        ? pushRouter(`/f/reporting/${categoryName}/${reportId}`)
-        : pushRouter('/f/reporting');
+        ? pushRouter(`/f/reporting/detail/${categoryName}/${reportId}`)
+        : pushRouter('/f/reporting/categories/');
     },
     [pushRouter, reportsV2, lastVisitedReportV2],
   );

@@ -58,18 +58,6 @@ const FranchiseEmailList = asyncComponent(
 const FranchiseNotificationRulesPage = asyncComponent(
   () => import('./FranchiseNotificationRules.page'),
 );
-
-const FranchiseReportDetail = asyncComponent(
-  () => import('./FranchiseReportDetail.page'),
-);
-
-const FranchiseReportDetailV2 = asyncComponent(
-  () => import('./FranchiseReportDetailV2.page'),
-);
-
-const FranchiseReportList = asyncComponent(
-  () => import('./FranchiseReportList.page'),
-);
 const FranchisePaymentPackTemplateRouter = asyncComponent(
   () => import('./payment-pack-template/FranchisePaymentPackTemplate.router'),
 );
@@ -82,6 +70,9 @@ const FranchiseUniversalPassTemplateRouter = asyncComponent(
 );
 const FranchiseShopRouter = asyncComponent(
   () => import('./shop/FranchiseShop.router'),
+);
+const FranchiseReportingRouter = asyncComponent(
+  () => import('./reporting/FranchiseReporting.router'),
 );
 const FranchiseCouponTemplateRouter = asyncComponent(
   () => import('./coupon-template/FranchiseCouponTemplate.router'),
@@ -226,17 +217,7 @@ const FranchiseRouter = (props: Props) => {
                 />
               )}
             />
-            <Route
-              exact
-              component={FranchiseReportDetail}
-              path="/f/reporting/:reportId"
-            />
-            <Route
-              exact
-              component={FranchiseReportDetailV2}
-              path="/f/reporting/:categoryName/:reportId"
-            />
-            <Route component={FranchiseReportList} path="/f/reporting" />
+            <Route component={FranchiseReportingRouter} path="/f/reporting" />
             <Route
               component={FranchisePaymentPackTemplateRouter}
               path="/f/payment-pack-template"

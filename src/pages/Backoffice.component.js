@@ -311,7 +311,6 @@ type Props = {
 
   navigateBackToFranchise: () => void,
   t: TFunction,
-  isPluginActivated: boolean,
   fetchCompanyCustomMemberForm: (prams: { company: number }) => void,
   fetchCompanyCustomSignUp: (prams: { company: number }) => void,
   featureList: Array<{
@@ -864,7 +863,6 @@ export class Backoffice extends Component<Props, State> {
                     }
                     email={this.props.username}
                     environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
-                    isBsportChromePluginActivated={this.props.isPluginActivated}
                     theme={this.props.theme}
                     {...(this.props.name ? { name: this.props.name } : {})}
                     action_color={this.props.theme.primary_color}
@@ -1040,7 +1038,6 @@ export default compose(
         state.auth.lastPlatformSubscriptionDisputeWarningDate,
       lastStripeConfigurationWarningDate:
         state.auth.lastStripeConfigurationWarningDate,
-      isPluginActivated: state.plugin.isPluginActivated,
 
       stripeCompany: state.company.stripeCompany.data,
       platformSubscriptionPaymentStatus:

@@ -14,7 +14,6 @@ type Props = {
   role: string;
   action_color?: string;
   language_override?: string;
-  isBsportChromePluginActivated: boolean;
   theme?: Theme;
 };
 
@@ -22,13 +21,9 @@ export const FORCE_DISPLAY_FOR_TESTING = false;
 
 export const IntercomComponent = (props: Props) => {
   const shouldHideENV = !['production', 'staging'].includes(props.environment);
-  const shouldHidePLUGIN = props.isBsportChromePluginActivated;
   const shouldHideTHEME = props.theme?.hide_intercom;
 
-  if (
-    (shouldHideENV || shouldHidePLUGIN || shouldHideTHEME) &&
-    !FORCE_DISPLAY_FOR_TESTING
-  ) {
+  if ((shouldHideENV || shouldHideTHEME) && !FORCE_DISPLAY_FOR_TESTING) {
     return null;
   }
 

@@ -17,7 +17,6 @@ import IEMessage from './components/IEMessage.component';
 import { parseQueryString } from './http';
 import { fetchAccessLevel } from './actions/auth.actions';
 import WidgetUtils from './libs/widget/WidgetUtils';
-import { checkBsportPluginActivated } from './libs/plugin/actions';
 import withQueryParams from './hocs/with-query-params.hoc';
 
 const MarketPlaceRouter = asyncComponent(() =>
@@ -96,8 +95,6 @@ type Props = {
   networkAvailable: boolean,
   fetchAccessLevel: (token: string) => void,
   location: any,
-  checkBsportPluginActivated: () => void,
-  isPluginActivated: boolean,
 
   pendingEmailConfirmation: boolean,
   authenticated: boolean,
@@ -142,10 +139,6 @@ export class Root extends Component<Props> {
         WidgetUtils.setParentElementId(query.parentElementId.replace('?', ''));
       }
     }
-  }
-
-  componentDidMount() {
-    this.props.checkBsportPluginActivated();
   }
 
   // Function to send a scroll-up post message to the parent widget
@@ -203,7 +196,6 @@ export class Root extends Component<Props> {
           <Banner
             paymentMethodMissing
             environment={Config.REACT_APP_SENTRY_ENVIRONMENT}
-            isPluginActivated={this.props.isPluginActivated}
             networkAvailable={this.props.networkAvailable}
           />
         )}
@@ -276,7 +268,6 @@ function mapStateToProps(state) {
     rehydrated: state._persist && state._persist.rehydrated,
     initializating: state.auth.initializating,
     networkAvailable: state.network.isAvailable,
-    isPluginActivated: state.plugin.isPluginActivated,
     pendingEmailConfirmation: isPendingEmailConfirmation(state),
     authenticated: state.auth.authenticated,
   };
@@ -284,7 +275,6 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   fetchAccessLevel,
-  checkBsportPluginActivated,
 };
 
 export default compose(

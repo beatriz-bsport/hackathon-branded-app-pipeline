@@ -100,7 +100,7 @@ const ReportingDashboard: React.FC<Props> = ({
   );
 
   const handleGoToReportV1 = React.useCallback(
-    (id: number) => pushRouter(`/reporting/${id}`),
+    (id: number) => pushRouter(`/reporting/v1/detail/${id}`),
     [pushRouter],
   );
 
@@ -111,8 +111,8 @@ const ReportingDashboard: React.FC<Props> = ({
         reportsV2?.find((result) => result.category === categoryName)?.id;
 
       reportId
-        ? pushRouter(`/reporting/${categoryName}/${reportId}`)
-        : pushRouter('/reporting');
+        ? pushRouter(`/reporting/detail/${categoryName}/${reportId}`)
+        : pushRouter('/reporting/categories');
     },
     [pushRouter, reportsV2, lastVisitedReportV2],
   );

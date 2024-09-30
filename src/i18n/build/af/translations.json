@@ -5799,7 +5799,8 @@
       "appSettings": { "links": "External links", "popups": "Startup pop-up", "customize": "Personalisation" },
       "communicationSentGroupConfig": { "general": "General", "campaigns": "Campaigns" },
       "shop": { "products": "Products", "settings": "Settings" },
-      "settings": { "theme": { "general": "General", "memberProfile": "Member Profile" } }
+      "settings": { "theme": { "general": "General", "memberProfile": "Member Profile" } },
+      "reporting": { "categories": "Reports", "views": "Your views" }
     },
     "featureBaseButton": "Suggest a feature or improvement"
   },
@@ -10333,6 +10334,7 @@
     "readPermissionDenied": "Access denied",
     "pageTitle": "All reports",
     "pageSearchPlaceholder": "Search report name",
+    "viewPageSearchPlaceholder": "Search view name",
     "pageSearchEmpty": "We can't find any reports from this search",
     "versionSwitcher": {
       "title": "We are changing your experience with the Reporting tool.",

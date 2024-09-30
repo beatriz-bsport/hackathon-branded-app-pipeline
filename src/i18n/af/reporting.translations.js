@@ -930,6 +930,7 @@ const getTranslations = async () => {
     readPermissionDenied: 'Access denied',
     pageTitle: 'All reports',
     pageSearchPlaceholder: 'Search report name',
+    viewPageSearchPlaceholder: 'Search view name',
     pageSearchEmpty: "We can't find any reports from this search",
     versionSwitcher: {
       title: 'We are changing your experience with the Reporting tool.',

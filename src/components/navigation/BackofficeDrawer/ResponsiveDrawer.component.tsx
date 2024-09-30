@@ -553,7 +553,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
         text: t('backofficeMenu.member'),
       } as DrawerItemDefault,
       {
-        to: '/reporting',
+        to: '/reporting/categories',
         icon: DescriptionIcon,
         text: t('backofficeMenu.reporting'),
       } as DrawerItemDefault,

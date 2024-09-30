@@ -74,6 +74,10 @@ export const getReports = (state: RootState) => {
   return state.reports.list;
 };
 
+export const getCustomViewsReports = (state: RootState) => {
+  return state.reports.list.results;
+};
+
 export const getReport = (
   state: RootState,
   reportId: number,

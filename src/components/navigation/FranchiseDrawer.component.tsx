@@ -677,7 +677,7 @@ const getNavigationItems = (props: {
       icon: StarIcon,
     },
     {
-      to: '/f/reporting',
+      to: '/f/reporting/categories',
       text: 'franchiseMenu.reporting',
       icon: DescriptionIcon,
     },

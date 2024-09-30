@@ -2,23 +2,27 @@ import React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 
-import ReportingDashboard from './ReportingDashboard.page';
-import ReportingGeneration from './ReportingGeneration.page';
-import ReportDetail from './ReportDetail.page';
+import ReportReworkedInnerRouter from '#src/pages/reporting/ReportReworkedInner.router';
+import ReportGeneration from '#src/pages/reporting/ReportingGeneration.page';
+import ReportDetail from '#src/pages/reporting/ReportDetail.page';
 
 export default function Reporting() {
   return (
     <Switch>
-      <Route exact component={ReportingDashboard} path="/reporting/" />
       <Route
         exact
-        component={ReportingGeneration}
-        path="/reporting/:reportId"
+        component={ReportReworkedInnerRouter}
+        path="/reporting/:tab"
+      />
+      <Route
+        exact
+        component={ReportGeneration}
+        path="/reporting/v1/detail/:reportId"
       />
       <Route
         exact
         component={ReportDetail}
-        path="/reporting/:categoryName/:reportId"
+        path="/reporting/detail/:categoryName/:reportId"
       />
     </Switch>
   );

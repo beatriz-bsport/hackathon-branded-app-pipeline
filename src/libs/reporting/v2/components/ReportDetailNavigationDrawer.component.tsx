@@ -81,8 +81,8 @@ const ReportDetailNavigationDrawer: React.FC<Props> = ({
   const handleClickCategory = React.useCallback(
     (categoryNameSelected: ReportCategoryEnum, reportId: number) => () => {
       isFranchisor
-        ? pushRouter(`/f/reporting/${categoryNameSelected}/${reportId}`)
-        : pushRouter(`/reporting/${categoryNameSelected}/${reportId}`);
+        ? pushRouter(`/f/reporting/detail/${categoryNameSelected}/${reportId}`)
+        : pushRouter(`/reporting/detail/${categoryNameSelected}/${reportId}`);
 
       setIsCategoryExpanded(
         items.reduce((acc: Record<string, boolean>, item) => {
@@ -97,7 +97,9 @@ const ReportDetailNavigationDrawer: React.FC<Props> = ({
   );
 
   const handleAllReportsClick = React.useCallback(() => {
-    isFranchisor ? pushRouter('/f/reporting') : pushRouter('/reporting');
+    isFranchisor
+      ? pushRouter('/f/reporting/categories')
+      : pushRouter('/reporting/categories');
   }, [pushRouter, isFranchisor]);
 
   const handleDrawerExpanded = React.useCallback(() => {

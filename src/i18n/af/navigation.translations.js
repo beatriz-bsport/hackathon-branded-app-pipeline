@@ -268,6 +268,10 @@ exports.default = {
         memberProfile: 'Member Profile',
       },
     },
+    reporting: {
+      categories: 'Reports',
+      views: 'Your views',
+    },
   },
   featureBaseButton: 'Suggest a feature or improvement',
 };

@@ -24,6 +24,7 @@ type OwnProps = {
   config?: MarketplacePassData,
   onWindowOpen: (url: string) => void,
   uniqueWidgetId: string,
+  parentElement: string,
 };
 
 type Props = OwnProps &
@@ -129,7 +130,8 @@ class PassWidget extends Component<Props> {
       }
     }
 
-    const { companyId, store, theme } = this.props;
+    const { companyId, store, theme, parentElement } = this.props;
+
     return (
       <div className={this.props.classes.container}>
         <MarketplacePassStyled
@@ -142,6 +144,7 @@ class PassWidget extends Component<Props> {
           addPrivatePassToCart={this.addPrivatePassToCart}
           memberTagList={this.props.memberTagList}
           authenticated={this.props.authenticated}
+          widgetContext={{ parentElement: this.props.parentElement }}
         />
       </div>
     );

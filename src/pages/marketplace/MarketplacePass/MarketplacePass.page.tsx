@@ -62,6 +62,7 @@ import {
   type MarketplacePassDialogStateKey,
   MarketplacePassPageDialogState,
   type MarketplacePassParams,
+  type OptionalWidgetConfig,
 } from '#src/libs/marketplace/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import type { PrivatePass } from '#src/libs/private-service/types';
@@ -87,7 +88,6 @@ import { getAllPrivateSlotsDict } from '#src/libs/private-service/selectors/priv
 import { MarketplacePassDialogsPortal } from './MarketplacePassDialogs.component';
 import MarketplacePassFilters from './MarketplacePassFilters';
 import { RootState } from '../../../reducers';
-
 import './styles.css';
 
 type OwnProps = {
@@ -101,6 +101,7 @@ type OwnProps = {
   addComboToCart?: (id: number) => void;
   addPaymentPackToCart?: (id: number) => void;
   addPrivatePassToCart?: (id: number) => void;
+  widgetContext: OptionalWidgetConfig;
 };
 
 type Props = OwnProps &
@@ -666,6 +667,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
           metaActivities={this.props.metaActivities}
           privateServices={this.props.privateServices}
           privateSlots={this.props.privateSlots}
+          widgetContext={this.props.widgetContext}
         />
       </div>
     );

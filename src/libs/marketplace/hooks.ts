@@ -466,15 +466,41 @@ export const usePaymentMethodBillingDetails = (
 export const useMarketplaceFixedDialog = (
   DialogContainer: React.ReactElement,
   pageClass: string | null,
+  parentElementId?: string,
 ) => {
-  const [portalContainer, setPortalContainer] = useState<Element>(null);
+  const [portalContainer, setPortalContainer] = useState<Element | null>(null);
 
   useEffect(() => {
-    const pageContainer = document.querySelector(pageClass);
-    const cssHocContainer = pageContainer?.closest('div.bs-setup-variable');
-    setPortalContainer(cssHocContainer);
-  }, [pageClass]);
+    // If neither pageClass nor parentElementId is provided, exit early
+    if (!pageClass && !parentElementId) return;
 
+    if (parentElementId) {
+      // Find the parent element using the provided ID. This is used in a widget context,
+      // where the pageContainer must be found as a child of the element with the given parentElementId.
+      const parentElement = document.getElementById(parentElementId);
+      if (parentElement) {
+        // Find the first element inside the parent that matches the provided pageClass
+        const pageContainer = parentElement.querySelector(pageClass);
+
+        // Find the closest ancestor element with the class 'div.bs-setup-variable'
+        const cssHocContainer = pageContainer?.closest('div.bs-setup-variable');
+
+        // Set the portal container to the found ancestor element
+        setPortalContainer(cssHocContainer);
+      }
+    } else {
+      // If no parentElementId is provided, assume this hook is running outside of a widget context (or in a misconfigured one).
+      // In this case, search the DOM from top to bottom for the first element matching the provided pageClass,
+      // and find its closest ancestor with the class 'div.bs-setup-variable'.
+      const pageContainer = document.querySelector(pageClass);
+      const cssHocContainer = pageContainer?.closest('div.bs-setup-variable');
+
+      setPortalContainer(cssHocContainer);
+    }
+  }, [pageClass, parentElementId]);
+
+  // Return a portal rendering the DialogContainer inside the portal container, if found.
+  // Otherwise, return the DialogContainer as is.
   return portalContainer
     ? ReactDOM.createPortal(DialogContainer, portalContainer)
     : DialogContainer;

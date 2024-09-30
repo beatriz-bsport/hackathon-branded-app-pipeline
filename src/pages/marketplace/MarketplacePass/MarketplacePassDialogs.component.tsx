@@ -13,6 +13,7 @@ import {
   MarketplacePassDialogStateKey,
   MarketplacePassPagePaymentPack,
   MarketplacePassPageDialogState,
+  OptionalWidgetConfig,
 } from '#src/libs/marketplace/types';
 import { PaymentPack } from '#src/libs/payment-packs/types';
 import { PaymentCombo } from '#src/libs/payment-combo/types';
@@ -55,14 +56,18 @@ type Props = {
     selectedItem?: PaymentPack | PrivatePass | PaymentCombo,
   ) => void;
   hideCredits?: boolean;
+  widgetContext?: OptionalWidgetConfig;
 };
 
 export const MarketplacePassDialogsPortal: React.FC<Props> = React.memo(
   (props) => {
     const [pageContainerClass, setPageContainerClass] = useState<string>(null);
 
+    const parentElement = props.widgetContext?.parentElement;
+
     useEffect(() => {
       setPageContainerClass('.bs-pass-page');
+
       return () => {
         setPageContainerClass(null);
       };
@@ -71,6 +76,7 @@ export const MarketplacePassDialogsPortal: React.FC<Props> = React.memo(
     const portalContainer = useMarketplaceFixedDialog(
       <MarketplacePassDialogs {...props} />,
       pageContainerClass,
+      parentElement,
     );
 
     return portalContainer;

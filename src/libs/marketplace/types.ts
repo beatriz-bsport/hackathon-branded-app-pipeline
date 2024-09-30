@@ -144,6 +144,12 @@ export type WidgetConfig = {
   isBackofficePreview?: boolean;
 };
 
+/**
+ * @description This optional type is to be used wisely. Props from the widget configuration down to the page
+ * are not consistently passed down to the bsport-saas-related page. That is why all props are optional.
+ */
+export type OptionalWidgetConfig = Partial<WidgetConfig>;
+
 export type MarketplaceSettings = {
   company: number;
   id: number;

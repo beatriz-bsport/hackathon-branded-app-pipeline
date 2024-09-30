@@ -69,7 +69,6 @@ import {
   navigateToRelationAccount as navigateToRelationAccountAction,
   navigateBackToMasterRelation as navigateBackToMasterRelationAction,
 } from '../../actions/auth.actions';
-import { NEW_MEMBER_PROFILE_COMPANY_ID_LIST } from '../../libs/consumer-space/constants';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
@@ -77,13 +76,13 @@ import { ChevronRight } from '#src/components/untitledui';
 
 import ConsumerNavigation from '#src/libs/consumer-space/components/reworked/@Navigation/ConsumerNavigation';
 import { getCheckoutUrl } from '../../libs/marketplace/routing-utils';
-import Config from '../../config';
 import {
   urlToMarketplacePassTab,
   urlToMarketplaceSessionTab,
   urlToMarketplaceSubscriptionTab,
 } from '../../libs/marketplace/utils/navigation';
 import { getBasketBuyableItemsCount } from '../../libs/checkout/utils';
+import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
 
 const isWidget = WidgetUtils.isWidget();
 
@@ -323,15 +322,6 @@ export class ConsumerHome extends React.Component<Props> {
         ];
   };
 
-  getIsNewMemberProfileDisplayed = () => {
-    const isProduction = ['production'].includes(
-      Config.REACT_APP_SENTRY_ENVIRONMENT,
-    );
-    return isProduction
-      ? NEW_MEMBER_PROFILE_COMPANY_ID_LIST.includes(this.props.companyId)
-      : true;
-  };
-
   render() {
     const isRelationNavigation = !!getItemInStorage(
       'local',
@@ -343,7 +333,7 @@ export class ConsumerHome extends React.Component<Props> {
         <MemberShipValidationWrapper companyId={this.props.companyId}>
           <>
             {this.props.membership ? (
-              this.getIsNewMemberProfileDisplayed() ? (
+              getIsNewMemberProfileDisplayed(this.props.companyId) ? (
                 <ConsumerNavigation
                   basketProductListCount={getBasketBuyableItemsCount(
                     this.props.currentBasket?.checkout_items ?? [],

@@ -28,6 +28,7 @@ type Props = {
   membership: Membership;
   selectedFilter: InvoicesFiltersEnum;
   totalUnpaid: number;
+  selectedInvoiceUuid: string | null;
   changeSelectedFilter: (filter: InvoicesFiltersEnum) => void;
   fetchMoreInvoices: () => void;
   getInvoice: (uuid: string) => Invoice;
@@ -41,6 +42,7 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   hasMoreInvoicesToFetch,
   isBodyLoading,
   isMultilocationEnabled,
+  selectedInvoiceUuid,
   membership,
   selectedFilter,
   totalUnpaid,
@@ -60,6 +62,15 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
 
   const [selectedConsumerInvoice, setSelectedConsumerInvoice] =
     React.useState<ConsumerInvoice | null>(null);
+
+  React.useEffect(() => {
+    const invoice = selectedInvoiceUuid
+      ? consumerInvoices.filter(
+          (consumerInvoice) => consumerInvoice.uuid === selectedInvoiceUuid,
+        )[0]
+      : null;
+    setSelectedConsumerInvoice(invoice);
+  }, [consumerInvoices, selectedInvoiceUuid]);
 
   const [
     isConsumerInvoiceDetailsDrawerOpen,

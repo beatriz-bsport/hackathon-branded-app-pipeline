@@ -112,8 +112,7 @@ import { getTheme } from '../../theme';
 import MarketplaceBasketSummaryDialogCssOnly from '../../libs/marketplace/components/@Basket/MarketplaceBasketSummaryDialogCssOnly';
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
-import Config from '../../config';
-import { NEW_MEMBER_PROFILE_COMPANY_ID_LIST } from '../../libs/consumer-space/constants';
+import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
 
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
@@ -467,15 +466,6 @@ export class MarketPlace extends Component<Props, State> {
     return this.props.push(url);
   };
 
-  getIsNewMemberProfileDisplayed = () => {
-    const isProduction = ['production'].includes(
-      Config.REACT_APP_SENTRY_ENVIRONMENT,
-    );
-    return isProduction
-      ? NEW_MEMBER_PROFILE_COMPANY_ID_LIST.includes(this.props.companyId)
-      : true;
-  };
-
   render() {
     const { companyThemeLoading, classes, t } = this.props;
 
@@ -505,7 +495,7 @@ export class MarketPlace extends Component<Props, State> {
       );
     }
 
-    if (this.getIsNewMemberProfileDisplayed()) {
+    if (getIsNewMemberProfileDisplayed(this.props.companyId)) {
       return (
         <MarketplaceNavigation
           authStateInvalidFields={this.props.errorFields}

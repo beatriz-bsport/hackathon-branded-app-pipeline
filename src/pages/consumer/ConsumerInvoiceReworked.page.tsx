@@ -54,6 +54,7 @@ import type {
 import type { Membership } from '#src/libs/membership/types';
 import type { WithHandlerType } from '#src/utils/types';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
+import withQueryParamsToProps from '#src/hocs/query-params-to-props.hoc';
 
 type OwnProps = {
   membership: Membership;
@@ -62,9 +63,14 @@ type OwnProps = {
   push: (path: string) => void;
 };
 
+type QueryParamsProps = {
+  selectedInvoiceUuid: string | null;
+};
+
 type PropsWithConnector = OwnProps & ConnectedProps<typeof connector>;
 
 type Props = PropsWithConnector &
+  QueryParamsProps &
   WithHandlerType<typeof mapWithConsumerInvoiceReworkedHandlers>;
 
 type State = { selectedFilter: InvoicesFiltersEnum };
@@ -180,6 +186,7 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
         refreshConsumerInvoices={this.refreshConsumerInvoices}
         refreshMembership={this.refreshMembership}
         selectedFilter={this.state.selectedFilter}
+        selectedInvoiceUuid={this.props.selectedInvoiceUuid}
         totalUnpaid={this.props.unpaidInvoicesCount}
       />
     );
@@ -301,4 +308,5 @@ export const UnconnectedConsumerInvoiceReworked = compose(
 export default compose(
   connector,
   withHandlers(mapWithConsumerInvoiceReworkedHandlers),
+  withQueryParamsToProps(['selectedInvoiceUuid']),
 )(UnconnectedConsumerInvoiceReworked);

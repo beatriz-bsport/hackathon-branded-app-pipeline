@@ -53,6 +53,7 @@ const establishmentMap = {
   disabled: 'disabled',
   has_next_slots: 'has_next_slots',
   related_company: 'related_company',
+  wellhub_gym: 'wellhub_gym',
 };
 
 export class EstablishmentFormPage extends Component<Props> {
@@ -80,17 +81,20 @@ export class EstablishmentFormPage extends Component<Props> {
       ...updatedDataClean
     } = updatedData;
 
-    this.props.upsertEstablishmentV2(
-      this.props.update ? this.props.update.id : null,
-      mapFormDataWithObject(updatedDataClean, establishmentMap, ['cover']),
-      {
-        onSuccess: () => {
-          trackFormSuccess(this.props.update?.id);
-          this.props.fetchEstablishments();
-          this.props.goToEstablishmentList();
-        },
-      },
+    const establishmentId = this.props.update ? this.props.update.id : null;
+    const establishmentData = mapFormDataWithObject(
+      updatedDataClean,
+      establishmentMap,
+      ['cover'],
     );
+
+    this.props.upsertEstablishmentV2(establishmentId, establishmentData, {
+      onSuccess: () => {
+        trackFormSuccess(this.props.update?.id);
+        this.props.fetchEstablishments();
+        this.props.goToEstablishmentList();
+      },
+    });
   };
 
   cancel = () => {

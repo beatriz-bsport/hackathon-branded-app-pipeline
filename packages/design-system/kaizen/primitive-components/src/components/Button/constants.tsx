@@ -13,6 +13,7 @@ export const defaultClasses = [
   "gap-0",
   "transition ease-in duration-200",
   "cursor-pointer",
+  "font-weak",
   // Flex config
   "flex flex-row items-center justify-center",
   // Disabled
@@ -26,7 +27,6 @@ export const variants = {
   intent: {
     "call-to-action": [
       // Text
-      "font-strong",
       "fill-onsurface-default-onstrong",
       "text-onsurface-default-onstrong",
       // Disabled
@@ -122,7 +122,6 @@ export const variants = {
       // Text
       "text-onsurface-default-onstrong",
       "fill-onsurface-default-onstrong",
-
       // Background
       "active:bg-surface-action-default-onstrong-pressed/md",
       "hover:bg-surface-action-default-onstrong-hovered/lg",
@@ -132,15 +131,13 @@ export const variants = {
     sm: [
       // Container
       "rounded-sm",
-      "h-action-sm",
       // Text
-      "text-body-sm",
-      "leading-2xs",
+      "text-body-md",
+      "leading-xs",
     ],
     md: [
       // Container
       "rounded-md",
-      "h-action-md",
       // Text
       "text-body-md",
       "leading-xs",
@@ -148,20 +145,19 @@ export const variants = {
     lg: [
       // Container
       "rounded-lg",
-      "h-action-lg",
       // Text
       "text-body-lg",
-      "leading-sm",
+      "leading-md",
     ],
   },
   // Internal variant only
   iconVariant: {
-    "icon-only-sm": ["px-0", "h-action-sm w-action-sm"],
-    "icon-only-md": ["px-0", "h-action-md w-action-md"],
-    "icon-only-lg": ["px-0", "h-action-lg w-action-lg"],
-    "default-sm": ["px-sm"],
-    "default-md": ["px-md"],
-    "default-lg": ["px-md"],
+    "icon-only-sm": ["p-xs"],
+    "icon-only-md": ["p-sm"],
+    "icon-only-lg": ["p-md"],
+    "default-sm": ["p-xs"],
+    "default-md": ["p-sm"],
+    "default-lg": ["p-sm"],
   },
   widthMode: {
     default: [],

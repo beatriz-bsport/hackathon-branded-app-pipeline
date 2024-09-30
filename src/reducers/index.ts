@@ -65,7 +65,6 @@ import performanceTracking from '#src/libs/performance-tracking/reducers';
 // @ts-expect-error
 import platformBilling from '#src/libs/platform-billing/reducers';
 import playlist from '#src/libs/playlist/reducers';
-import plugin from '#src/libs/plugin/reducers';
 import pollReducers from '#src/libs/sign-up-form/reducers';
 import privateService from '#src/libs/private-service/reducers';
 import QuickbooksAppReducer from '#src/libs/quickbooks/reducers';
@@ -156,7 +155,6 @@ import type {
 } from '#src/libs/payment-packs/types';
 import type { PerformanceTrackingState } from '#src/libs/performance-tracking/types';
 import type { PlaylistState } from '#src/libs/playlist/types';
-import type { PluginState } from '#src/libs/plugin/types';
 import type { PollState } from '#src/libs/sign-up-form/types';
 import type { PrivateServiceState } from '#src/libs/private-service/types';
 import type { QuickbooksState } from '#src/libs/quickbooks/types';
@@ -254,7 +252,6 @@ const rootReducer = (history: any) =>
     performanceTracking,
     platformBilling,
     playlist,
-    plugin,
     poll: pollReducers,
     privateService,
     quickbooks: QuickbooksAppReducer,
@@ -352,7 +349,6 @@ export type RootState = {
   performanceTracking: PerformanceTrackingState;
   platformBilling: any;
   playlist: PlaylistState;
-  plugin: PluginState;
   poll: PollState;
   privateService: PrivateServiceState;
   quickbooks: QuickbooksState;

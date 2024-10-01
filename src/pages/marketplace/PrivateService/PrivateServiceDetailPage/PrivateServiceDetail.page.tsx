@@ -261,17 +261,18 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
     checkPrivateServiceTagEligibility(serviceId, null);
   }, [checkPrivateServiceTagEligibility, serviceId]);
 
-  const toggleFromArray = (array: any, item: any) => {
-    const _array = [...array];
-    const index = _array.findIndex((it) => it.id === item.id);
-    index === -1 ? _array.push(item) : _array.splice(index, 1);
-    return _array;
-  };
-
   const onCoachSelect = useCallback(
     (coach: Coach) => {
-      const _selectedCoaches = toggleFromArray(selectedCoaches, coach);
-      setSelectedCoaches(_selectedCoaches);
+      const isCoachCurrentlySelected = selectedCoaches.some(
+        (selectedCoach) => selectedCoach.id === coach.id,
+      );
+
+      const toggledCoaches = isCoachCurrentlySelected
+        ? selectedCoaches.filter(
+            (selectedCoach) => selectedCoach.id !== coach.id,
+          )
+        : [...selectedCoaches, coach];
+      setSelectedCoaches(toggledCoaches);
       setSelectedSessionMoment(null);
     },
     [selectedCoaches],
@@ -279,11 +280,17 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
 
   const onEstablishmentSelect = useCallback(
     (establishment: Establishment) => {
-      const _selectedEstablishments = toggleFromArray(
-        selectedEstablishments,
-        establishment,
+      const isEstablishmentCurrentlySelected = selectedEstablishments.some(
+        (selectedEstablishment) =>
+          selectedEstablishment.id === establishment.id,
       );
-      setSelectedEstablishments(_selectedEstablishments);
+      const toggledEstablishments = isEstablishmentCurrentlySelected
+        ? selectedEstablishments.filter(
+            (selectedEstablishment) =>
+              selectedEstablishment.id !== establishment.id,
+          )
+        : [...selectedEstablishments, establishment];
+      setSelectedEstablishments(toggledEstablishments);
       setSelectedSessionMoment(null);
     },
     [selectedEstablishments],

@@ -62,7 +62,6 @@ const PaginatedListBaseReworked: React.FC<Props> = ({
   page: pageProp,
   loading,
   nbItems,
-  // unknownNbItems,
 }) => {
   const classes = useStyles();
   const handlePageRequested = React.useCallback(

@@ -66,6 +66,8 @@ export const getCustomCurrencyDisplayWithPrice = (
     case 'sek':
     case 'nok':
     case 'dkk':
+    case 'лв.':
+    case 'RON':
       return `${priceTakingAccountOfTax}${'\u00A0'}${currencyDisplay}`;
     default:
       return `${currencyDisplay}${priceTakingAccountOfTax}`;

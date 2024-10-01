@@ -42,15 +42,15 @@ import HK_FLAG from './flags/HK.png';
 import PL_FLAG from './flags/PL.png';
 // import BR_FLAG from './flags/BR.png';
 import SG_FLAG from './flags/SG.png';
-// import NZ_FLAG from './flags/NZ.png';
+import NZ_FLAG from './flags/NZ.png';
 import LT_FLAG from './flags/LT.png';
 import LV_FLAG from './flags/LV.png';
 // import MY_FLAG from './flags/MY.png';
 // import IN_FLAG from './flags/IN.png';
 import GR_FLAG from './flags/GR.png';
 import CZ_FLAG from './flags/CZ.png';
-// import BG_FLAG from './flags/BG.png';
-// import RO_FLAG from './flags/RO.png';
+import BG_FLAG from './flags/BG.png';
+import RO_FLAG from './flags/RO.png';
 import SI_FLAG from './flags/SI.png';
 
 type Props = {
@@ -251,7 +251,6 @@ export const LOCALE_LIST: Array<Locale> = [
     currencyDisplay: 'A$',
     showLang: true,
   },
-  /*
   {
     locale: 'en_BG',
     icon: BG_FLAG,
@@ -259,6 +258,7 @@ export const LOCALE_LIST: Array<Locale> = [
     currencyDisplay: 'лв.',
     showLang: true,
   },
+  /*
   {
     locale: 'pt_BR',
     icon: BR_FLAG,
@@ -325,6 +325,7 @@ export const LOCALE_LIST: Array<Locale> = [
     currencyDisplay: 'RM',
     showLang: true,
   },
+  */
   {
     locale: 'en_NZ',
     icon: NZ_FLAG,
@@ -332,7 +333,6 @@ export const LOCALE_LIST: Array<Locale> = [
     currencyDisplay: 'NZ$',
     showLang: true,
   },
-  */
   {
     locale: 'en_PL',
     icon: PL_FLAG,
@@ -340,15 +340,13 @@ export const LOCALE_LIST: Array<Locale> = [
     currencyDisplay: 'zł',
     showLang: true,
   },
-  /*
   {
     locale: 'en_RO',
     icon: RO_FLAG,
     currencyCode: 'ron',
-    currencyDisplay: 'L',
+    currencyDisplay: 'RON',
     showLang: true,
   },
-  */
   {
     locale: 'en_SG',
     icon: SG_FLAG,

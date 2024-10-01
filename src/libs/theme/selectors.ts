@@ -111,6 +111,8 @@ export const getCurrencyDisplayWithPrice = (
     case 'sek':
     case 'nok':
     case 'dkk':
+    case 'лв.':
+    case 'RON':
       return `${priceTakingAccountOfTax}${'\u00A0'}${symbol}`;
     default:
       return `${symbol}${priceTakingAccountOfTax}`;
@@ -138,6 +140,8 @@ export const getCurrencyDisplayWithPriceAndQuantity = (
     case 'sek':
     case 'nok':
     case 'dkk':
+    case 'лв.':
+    case 'RON':
       return `${priceTakingAccountOfTax.toFixed(2)}${'\u00A0'}${symbol}`;
     default:
       return `${symbol}${priceTakingAccountOfTax}`;

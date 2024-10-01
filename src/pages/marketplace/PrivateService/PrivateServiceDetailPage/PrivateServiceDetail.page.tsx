@@ -237,17 +237,10 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
     () => isLoading || !isFetchSuccessful,
     [isLoading, isFetchSuccessful],
   );
-  const onPrivateSlotSelect = useCallback(
-    (slot: PrivateSlot) => {
-      if (!isSelectionDisabled) {
-        setSelectedSlot(slot);
-        setSelectedCoaches([...privateService.coaches]);
-        setSelectedEstablishments([...privateService.establishments]);
-        setSelectedSessionMoment(null);
-      }
-    },
-    [isSelectionDisabled, privateService],
-  );
+  const onPrivateSlotSelect = useCallback((slot: PrivateSlot) => {
+    setSelectedSlot(slot);
+    setSelectedSessionMoment(null);
+  }, []);
 
   // autoslect if only one slots available
   useEffect(() => {

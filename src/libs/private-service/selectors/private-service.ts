@@ -147,7 +147,7 @@ export const getPrivateServiceById: (
 };
 
 export const withAssociatedCoach = memoize(
-  (selector: (State: RootState) => any) =>
+  (selector: (State: RootState, id: string) => any) =>
     createSelector(
       [selector, getAllCoachesDict],
       (privateServices, coachData) => {
@@ -183,7 +183,7 @@ export const withAssociatedCoach = memoize(
 );
 
 export const withAssociatedEstablishment = memoize(
-  (selector: (State: RootState) => any) =>
+  (selector: (state: RootState, id: string) => any) =>
     createSelector(
       [selector, getAllEstablishmentsDict],
       (privateServices, establishmentData) => {
@@ -239,7 +239,7 @@ export const withPrivateSlots = memoize((selector: (State: RootState) => any) =>
 );
 
 export const withAvailablePrivateSlots = memoize(
-  (selector: (State: RootState) => any) =>
+  (selector: (State: RootState, id: string) => any) =>
     createSelector(
       [selector, getAllPrivateSlotsDict],
       (privateServices, slotsData) => {

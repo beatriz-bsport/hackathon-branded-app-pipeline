@@ -148,6 +148,8 @@ const ContractTemplateFormDrawer: React.FC<Props> = ({
   handleClose,
   getPaymentPackTemplateList,
   getPrivatePassTemplateList,
+  fetchPaymentPackTemplateBulk,
+  fetchPrivatePassTemplateBulk,
 }) => {
   const { t } = useTranslation('subscription');
   const classes = useStyles();
@@ -170,6 +172,8 @@ const ContractTemplateFormDrawer: React.FC<Props> = ({
         <ContractTemplateForm
           contractTemplateId={initialValues?.id}
           contractTemplateMonthBillingDay={initialValues?.monthBillingDay}
+          fetchPaymentPackTemplateBulk={fetchPaymentPackTemplateBulk}
+          fetchPrivatePassTemplateBulk={fetchPrivatePassTemplateBulk}
           getPaymentPackTemplateList={getPaymentPackTemplateList}
           getPrivatePassTemplateList={getPrivatePassTemplateList}
           handleClose={handleClose}

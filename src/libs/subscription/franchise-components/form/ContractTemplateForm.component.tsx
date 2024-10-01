@@ -33,11 +33,8 @@ import {
   // @ts-expect-error
 } from '#src/components/forms';
 import PopOver from '#src/components/Popover';
-
-// @ts-expect-error
-import PaymentPackSelectorField from '#src/libs/payment-packs/components/PaymentPackSelectorField.component';
-// @ts-expect-error
-import PrivatePassSelectorField from '#src/libs/private-service/components/pass/PrivatePassSelectorField.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
 import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 
 import {
@@ -46,12 +43,21 @@ import {
   SHARED_PASSES_SELECTOR_ICON_TOOLTIP_SHADOW,
 } from '#src/libs/subscription/constants';
 import type { ContractTemplateFormValues } from '#src/libs/subscription/types';
-import type { PrivatePassTemplate } from '#src/libs/private-service/types';
-import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
+import type {
+  PrivatePassTemplate,
+  PrivatePassTemplateAPI,
+} from '#src/libs/private-service/types';
+import type {
+  PaymentPackTemplate,
+  PaymentPackTemplateAPI,
+} from '#src/libs/payment-packs/types';
 import {
   PassType,
   SubscriptionInvoicingType,
 } from '#src/libs/subscription/enums';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
+import PaymentPackListItem from '#src/libs/payment-packs/components/PaymentPackListItem.component';
+import PrivatePassListItem from '#src/libs/private-service/components/pass/PrivatePassListItem.component';
 
 type ContractTemplateFormProps = {
   handleClose: () => void;
@@ -60,24 +66,40 @@ type ContractTemplateFormProps = {
   // Props when editing an existing contract template
   contractTemplateId?: number;
   contractTemplateMonthBillingDay?: number;
+  fetchPaymentPackTemplateBulk: (params: { id__in: number[] }) => void;
+  fetchPrivatePassTemplateBulk: (params: { id__in: number[] }) => void;
 };
 
+const PaymentPackTemplateSearchOption: React.FC<
+  OptionPropsWithData<{ onClick: () => void; item: PaymentPackTemplate }>
+> = (props) => (
+  //@ts-expect-error
+  <PaymentPackListItem onClick={props.data.onClick} pack={props.data.item} />
+);
+
+const PrivatePassTemplateSearchOption: React.FC<
+  OptionPropsWithData<{ onClick: () => void; item: PrivatePassTemplate }>
+> = (props) => (
+  //@ts-expect-error
+  <PrivatePassListItem onClick={props.data.onClick} pass={props.data.item} />
+);
 const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
   contractTemplateId,
   contractTemplateMonthBillingDay,
   handleClose,
   getPrivatePassTemplateList,
   getPaymentPackTemplateList,
+  fetchPaymentPackTemplateBulk,
+  fetchPrivatePassTemplateBulk,
 }) => {
   const { t } = useTranslation('subscription');
   const classes = useStyles();
   const tooltipClasses = useTooltipStyles();
-  const selectorFieldClasses = useSelectorFieldStyles();
   const { values, setFieldValue, handleSubmit } =
     useFormikContext<ContractTemplateFormValues>();
 
   const onSubmitHandler = useCallback(() => handleSubmit(), [handleSubmit]);
-
+  const { getResultsById } = useObjectSearch();
   const paymentPackTemplateList = getPaymentPackTemplateList();
   const privatePassTemplateList = getPrivatePassTemplateList();
 
@@ -117,12 +139,12 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
   const passTypeRadioFieldOptions = useMemo(
     () => [
       {
-        label: t('contract.form.object_type.privatePass'),
-        value: PassType.APPOINTMENT_PASSES,
-      },
-      {
         label: t('contract.form.object_type.paymentPack'),
         value: PassType.PASSES,
+      },
+      {
+        label: t('contract.form.object_type.privatePass'),
+        value: PassType.APPOINTMENT_PASSES,
       },
     ],
     [t],
@@ -150,6 +172,75 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
       setFieldValue('monthBillingDay', null);
     }
   }, [setFieldValue, values.invoicingType, values.monthBillingDay]);
+
+  // Payment Pack Template
+  const handleOnPaymentPackTemplateChange = React.useCallback(
+    (id: number) => {
+      fetchPaymentPackTemplateBulk?.({ id__in: [id] });
+      if (values.productType === PassType.PASSES) {
+        setFieldValue('paymentPackTemplate', id);
+      }
+    },
+    [setFieldValue, fetchPaymentPackTemplateBulk, values.productType],
+  );
+  const formatPaymentPackTemplateSearchOptions = React.useCallback(
+    (searchResults: PaymentPackTemplateAPI[]) => {
+      return searchResults.map((result) => ({
+        label: result.name,
+        value: result.id,
+        item: getResultsById('payment_pack_template')[result.id],
+        onClick: () => handleOnPaymentPackTemplateChange(result.id),
+      }));
+    },
+    [handleOnPaymentPackTemplateChange, getResultsById],
+  );
+
+  const formatPaymentPackTemplateSelectedOption = React.useMemo(() => {
+    const selectedTemplate = (paymentPackTemplateList || []).find(
+      (paymentPackTemplate) =>
+        paymentPackTemplate?.id === values.paymentPackTemplate,
+    );
+    if (!selectedTemplate) return null;
+    return {
+      label: selectedTemplate.name,
+      value: selectedTemplate.id,
+      item: selectedTemplate,
+    };
+  }, [paymentPackTemplateList, values.paymentPackTemplate]);
+
+  // Private Pass Template
+  const handleOnPrivatePassTemplateChange = React.useCallback(
+    (id: number) => {
+      fetchPrivatePassTemplateBulk?.({ id__in: [id] });
+      if (values.productType === PassType.APPOINTMENT_PASSES) {
+        setFieldValue('privatePassTemplate', id);
+      }
+    },
+    [setFieldValue, fetchPrivatePassTemplateBulk, values.productType],
+  );
+  const formatPrivatePassTemplateSearchOptions = React.useCallback(
+    (searchResults: PrivatePassTemplateAPI[]) => {
+      return searchResults.map((result) => ({
+        label: result.name,
+        value: result.id,
+        item: getResultsById('private_pass_template')[result.id],
+        onClick: () => handleOnPrivatePassTemplateChange(result.id),
+      }));
+    },
+    [handleOnPrivatePassTemplateChange, getResultsById],
+  );
+  const formatPrivatePassTemplateSelectedOption = React.useMemo(() => {
+    const selectedTemplate = (privatePassTemplateList || []).find(
+      (privatePassTemplate) =>
+        privatePassTemplate?.id === values.privatePassTemplate,
+    );
+    if (!selectedTemplate) return null;
+    return {
+      label: selectedTemplate.name,
+      value: selectedTemplate.id,
+      item: selectedTemplate,
+    };
+  }, [privatePassTemplateList, values.privatePassTemplate]);
 
   return (
     <div>
@@ -197,60 +288,80 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
           <div>
             <div>
               <Collapse in={values.productType === PassType.PASSES}>
-                {paymentPackTemplateList &&
-                  paymentPackTemplateList?.length > 0 && (
-                    <div className={classes.sharedPassesSelector}>
-                      <PaymentPackSelectorField
-                        fullWidth
-                        choices={paymentPackTemplateList}
-                        classes={selectorFieldClasses}
-                        name="paymentPackTemplate"
-                      />
-                      <Tooltip
-                        classes={tooltipClasses}
-                        placement="bottom-end"
-                        title={
-                          <Typography variant="body1">
-                            {t(
-                              'contractTemplate.form.sharedPassesSelectorTooltip',
-                            )}
-                          </Typography>
-                        }
-                      >
-                        <InfoOutlinedIcon
-                          className={classes.sharedPassesSelectorIcon}
-                        />
-                      </Tooltip>
-                    </div>
-                  )}
+                <div className={classes.sharedPassesSelector}>
+                  <div className={classes.fullWidth}>
+                    <ObjectSearchComponent
+                      closeMenuOnSelect
+                      additionalParams={{
+                        disabled: false,
+                        id__not_in:
+                          values.productType === PassType.PASSES
+                            ? [values.paymentPackTemplate]
+                            : [],
+                      }}
+                      components={{
+                        Option: PaymentPackTemplateSearchOption,
+                      }}
+                      initialValues={[values.paymentPackTemplate]}
+                      optionsFormatter={formatPaymentPackTemplateSearchOptions}
+                      searchedObjectType="payment_pack_template"
+                      value={formatPaymentPackTemplateSelectedOption}
+                      variant="underlined"
+                    />
+                  </div>
+                  <Tooltip
+                    classes={tooltipClasses}
+                    placement="bottom-end"
+                    title={
+                      <Typography variant="body1">
+                        {t('contractTemplate.form.sharedPassesSelectorTooltip')}
+                      </Typography>
+                    }
+                  >
+                    <InfoOutlinedIcon
+                      className={classes.sharedPassesSelectorIcon}
+                    />
+                  </Tooltip>
+                </div>
               </Collapse>
               <Collapse in={values.productType === PassType.APPOINTMENT_PASSES}>
-                {privatePassTemplateList &&
-                  privatePassTemplateList?.length > 0 && (
-                    <div className={classes.sharedPassesSelector}>
-                      <PrivatePassSelectorField
-                        fullWidth
-                        choices={privatePassTemplateList}
-                        classes={selectorFieldClasses}
-                        name="privatePassTemplate"
-                      />
-                      <Tooltip
-                        classes={tooltipClasses}
-                        placement="bottom-end"
-                        title={
-                          <Typography variant="body1">
-                            {t(
-                              'contractTemplate.form.sharedAppointmentPassesSelectorTooltip',
-                            )}
-                          </Typography>
-                        }
-                      >
-                        <InfoOutlinedIcon
-                          className={classes.sharedPassesSelectorIcon}
-                        />
-                      </Tooltip>
-                    </div>
-                  )}
+                <div className={classes.sharedPassesSelector}>
+                  <div className={classes.fullWidth}>
+                    <ObjectSearchComponent
+                      closeMenuOnSelect
+                      additionalParams={{
+                        disabled: false,
+                        id__not_in:
+                          values.productType === PassType.APPOINTMENT_PASSES
+                            ? [values.privatePassTemplate]
+                            : [],
+                      }}
+                      components={{
+                        Option: PrivatePassTemplateSearchOption,
+                      }}
+                      initialValues={[values.privatePassTemplate]}
+                      optionsFormatter={formatPrivatePassTemplateSearchOptions}
+                      searchedObjectType="private_pass_template"
+                      value={formatPrivatePassTemplateSelectedOption}
+                      variant="underlined"
+                    />
+                  </div>
+                  <Tooltip
+                    classes={tooltipClasses}
+                    placement="bottom-end"
+                    title={
+                      <Typography variant="body1">
+                        {t(
+                          'contractTemplate.form.sharedAppointmentPassesSelectorTooltip',
+                        )}
+                      </Typography>
+                    }
+                  >
+                    <InfoOutlinedIcon
+                      className={classes.sharedPassesSelectorIcon}
+                    />
+                  </Tooltip>
+                </div>
               </Collapse>
             </div>
           </div>
@@ -564,6 +675,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(4),
     columnGap: theme.spacing(2),
   },
+  fullWidth: {
+    width: '100%',
+  },
 }));
 
 const useTooltipStyles = makeStyles((theme) => ({
@@ -573,12 +687,6 @@ const useTooltipStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(1),
     background: theme.palette.background.paper,
     padding: theme.spacing(1),
-  },
-}));
-
-const useSelectorFieldStyles = makeStyles((theme) => ({
-  selectorField: {
-    marginBottom: theme.spacing(0),
   },
 }));
 

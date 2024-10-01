@@ -307,60 +307,45 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
     fetchFranchise();
   }, [fetchFranchise]);
 
+  const fetchContractsRelatedObjects = React.useCallback(
+    (contractTemplates: ContractTemplate[]) => {
+      const paymentPackTemplateIds = uniq(
+        (contractTemplates || [])
+          .map((contractTemplate) => contractTemplate.payment_pack_template)
+          .filter((paymentPackTemplateId) => !!paymentPackTemplateId),
+      );
+      const privatePassTemplateIds = uniq(
+        (contractTemplates || [])
+          .map((contractTemplate) => contractTemplate.payment_pack_template)
+          .filter((paymentPackTemplateId) => !!paymentPackTemplateId),
+      );
+
+      !!paymentPackTemplateIds?.length &&
+        fetchPaymentPackTemplateBulk({ id__in: paymentPackTemplateIds });
+      !!privatePassTemplateIds?.length &&
+        fetchPrivatePassTemplateBulk({
+          id__in: privatePassTemplateIds,
+        });
+    },
+    [fetchPaymentPackTemplateBulk, fetchPrivatePassTemplateBulk],
+  );
   useEffect(() => {
     fetchActiveContractTemplateList(
       {},
       {
-        onSuccess: (contractTemplates: ContractTemplate[]) => {
-          const paymentPackTemplateIds = uniq(
-            (contractTemplates || [])
-              .map((contractTemplate) => contractTemplate.payment_pack_template)
-              .filter((paymentPackTemplateId) => !!paymentPackTemplateId),
-          );
-          const privatePassTemplateIds = uniq(
-            (contractTemplates || [])
-              .map((contractTemplate) => contractTemplate.payment_pack_template)
-              .filter((paymentPackTemplateId) => !!paymentPackTemplateId),
-          );
-
-          !!paymentPackTemplateIds?.length &&
-            fetchPaymentPackTemplateBulk({ id__in: paymentPackTemplateIds });
-          !!privatePassTemplateIds?.length &&
-            fetchPrivatePassTemplateBulk({
-              id__in: privatePassTemplateIds,
-            });
-        },
+        onSuccess: fetchContractsRelatedObjects,
       },
     );
     fetchDisabledContractTemplateList(
       {},
       {
-        onSuccess: (contractTemplates: ContractTemplate[]) => {
-          const paymentPackTemplateIds = uniq(
-            (contractTemplates || [])
-              .map((contractTemplate) => contractTemplate.payment_pack_template)
-              .filter((paymentPackTemplateId) => !!paymentPackTemplateId),
-          );
-          const privatePassTemplateIds = uniq(
-            (contractTemplates || [])
-              .map((contractTemplate) => contractTemplate.payment_pack_template)
-              .filter((paymentPackTemplateId) => !!paymentPackTemplateId),
-          );
-
-          !!paymentPackTemplateIds?.length &&
-            fetchPaymentPackTemplateBulk({ id__in: paymentPackTemplateIds });
-          !!privatePassTemplateIds?.length &&
-            fetchPrivatePassTemplateBulk({
-              id__in: privatePassTemplateIds,
-            });
-        },
+        onSuccess: fetchContractsRelatedObjects,
       },
     );
   }, [
     fetchActiveContractTemplateList,
     fetchDisabledContractTemplateList,
-    fetchPaymentPackTemplateBulk,
-    fetchPrivatePassTemplateBulk,
+    fetchContractsRelatedObjects,
   ]);
 
   const handleShowDisabledContractList = useCallback(() => {
@@ -550,6 +535,8 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
         open={!!selectedContractTemplateIdToDelete}
       />
       <ContractTemplateFormDrawer
+        fetchPaymentPackTemplateBulk={fetchPaymentPackTemplateBulk}
+        fetchPrivatePassTemplateBulk={fetchPrivatePassTemplateBulk}
         getPaymentPackTemplateList={getPaymentPackTemplateList}
         getPrivatePassTemplateList={getPrivatePassTemplateList}
         handleClose={handleCloseEditOrAddDrawer}

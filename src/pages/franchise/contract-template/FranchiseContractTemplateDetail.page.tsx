@@ -24,14 +24,8 @@ import {
   deleteContractTemplate as deleteContractTemplateAction,
   createOrUpdateContractTemplate as createOrUpdateContractTemplateAction,
 } from '#src/libs/subscription/actions';
-import {
-  retrievePrivatePassTemplate as retrievePrivatePassTemplateAction,
-  fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction,
-} from '#src/libs/private-service/actions';
-import {
-  retrievePaymentPackTemplate as retrievePaymentPackTemplateAction,
-  fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction,
-} from '#src/libs/payment-packs/actions';
+import { fetchPrivatePassTemplateBulk as fetchPrivatePassTemplateBulkAction } from '#src/libs/private-service/actions';
+import { fetchPaymentPackTemplateBulk as fetchPaymentPackTemplateBulkAction } from '#src/libs/payment-packs/actions';
 import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/actions';
 
 import {
@@ -90,11 +84,9 @@ const FranchiseContractTemplateDetail: React.FC<Props> = ({
   fetchContractList,
   fetchContractTemplateDetail,
   fetchContractTemplateRelatedBillingPlans,
-  retrievePrivatePassTemplate,
-  retrievePaymentPackTemplate,
   t,
-  fetchPrivatePassTemplateList,
-  fetchPaymentPackTemplateList,
+  fetchPrivatePassTemplateBulk,
+  fetchPaymentPackTemplateBulk,
 }) => {
   const classes = useStyles();
 
@@ -112,27 +104,22 @@ const FranchiseContractTemplateDetail: React.FC<Props> = ({
     fetchContractTemplateDetail(selectedContractTemplateId);
   }, [selectedContractTemplateId, fetchContractTemplateDetail]);
 
-  useEffect(() => {
-    fetchPrivatePassTemplateList();
-    fetchPaymentPackTemplateList();
-  }, [fetchPrivatePassTemplateList, fetchPaymentPackTemplateList]);
-
   const { children_contracts, private_pass_template, payment_pack_template } =
     contractTemplate || {};
 
   useEffect(() => {
-    children_contracts && fetchContractList({ id__in: children_contracts });
-  }, [fetchContractList, children_contracts]);
+    fetchPrivatePassTemplateBulk({ id__in: [payment_pack_template] });
+    fetchPaymentPackTemplateBulk({ id__in: [private_pass_template] });
+  }, [
+    fetchPrivatePassTemplateBulk,
+    fetchPaymentPackTemplateBulk,
+    payment_pack_template,
+    private_pass_template,
+  ]);
 
   useEffect(() => {
-    private_pass_template && retrievePrivatePassTemplate(private_pass_template);
-    payment_pack_template && retrievePaymentPackTemplate(payment_pack_template);
-  }, [
-    retrievePrivatePassTemplate,
-    retrievePaymentPackTemplate,
-    private_pass_template,
-    payment_pack_template,
-  ]);
+    children_contracts && fetchContractList({ id__in: children_contracts });
+  }, [fetchContractList, children_contracts]);
 
   const submitEditFormHandler = useCallback(
     (formValues: ContractTemplateFormValues) => {
@@ -266,6 +253,8 @@ const FranchiseContractTemplateDetail: React.FC<Props> = ({
         />
       </div>
       <ContractTemplateFormDrawer
+        fetchPaymentPackTemplateBulk={fetchPaymentPackTemplateBulk}
+        fetchPrivatePassTemplateBulk={fetchPrivatePassTemplateBulk}
         getPaymentPackTemplateList={getPaymentPackTemplateList}
         getPrivatePassTemplateList={getPrivatePassTemplateList}
         handleClose={handleCloseEditDrawer}
@@ -313,11 +302,9 @@ const mapDispatchToProps = {
   fetchContractTemplateDetail: fetchContractTemplateDetailAction,
   fetchContractTemplateRelatedBillingPlans:
     fetchContractTemplateRelatedBillingPlansAction,
-  retrievePrivatePassTemplate: retrievePrivatePassTemplateAction,
-  retrievePaymentPackTemplate: retrievePaymentPackTemplateAction,
   createOrUpdateContractTemplate: createOrUpdateContractTemplateAction,
-  fetchPrivatePassTemplateList: fetchPrivatePassTemplateListAction,
-  fetchPaymentPackTemplateList: fetchPaymentPackTemplateListAction,
+  fetchPrivatePassTemplateBulk: fetchPrivatePassTemplateBulkAction,
+  fetchPaymentPackTemplateBulk: fetchPaymentPackTemplateBulkAction,
   deleteContractTemplate: deleteContractTemplateAction,
   fetchFranchise: fetchFranchiseAction,
   fetchContractList: fetchContractListAction,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Fade, ButtonBase, Typography } from '@material-ui/core';
+import { ButtonBase, Fade, Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Paper from '@material-ui/core/Paper';
@@ -19,6 +19,7 @@ type Props = {
   privateService: PrivateService<Coach, Establishment, PrivateSlot>;
   privateSlot: PrivateSlot;
   onSelect: (slot: PrivateSlot) => void;
+  isDisabled: boolean;
 };
 
 const PrivateSlotSelector: React.FC<Props> = (props) => {
@@ -47,6 +48,7 @@ const PrivateSlotSelector: React.FC<Props> = (props) => {
                   >
                     <ButtonBase
                       className={classes.item}
+                      disabled={props.isDisabled}
                       onClick={() => props.onSelect(slot)}
                     >
                       <Typography

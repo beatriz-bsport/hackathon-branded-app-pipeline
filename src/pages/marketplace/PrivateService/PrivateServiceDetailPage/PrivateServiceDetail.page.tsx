@@ -1,31 +1,37 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { DateTime } from 'luxon';
-import { ConnectedProps, connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import {
-  RESOURCE_ATTRIBUTION_CONSUMER,
   RESOURCE_ATTRIBUTION_AUTO,
+  RESOURCE_ATTRIBUTION_CONSUMER,
 } from '@bsport/common/lib/master-data/resource-attribution-methods';
-import { push as pushAction, goBack } from 'connected-react-router';
+import { goBack, push as pushAction } from 'connected-react-router';
 import { compose } from 'recompose';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import {
-  fetchMarketplacePrivateSlots as fetchMarketplacePrivateSlotsAction,
+  checkPrivateServiceTagEligibility as checkPrivateServiceTagEligibilityAction,
   fetchPrivateService as fetchPrivateServiceAction,
+  fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
   searchAvailableSlots as searchAvailableSlotsAction,
   searchFirstAvailableSlots as searchFirstAvailableSlotsAction,
-  checkPrivateServiceTagEligibility as checkPrivateServiceTagEligibilityAction,
 } from '#src/libs/private-service/actions';
 import { findAvailableEstablishment as findAvailableEstablishmentAPI } from '../../../../libs/private-service/api';
 import {
   getPrivateService,
-  withAssociatedCoach,
-  withAvailablePrivateSlots,
-  withAssociatedEstablishment,
   getPrivateServiceTagEligible,
   getPrivateServiceTagEligibleLoading,
+  withAssociatedCoach,
+  withAssociatedEstablishment,
+  withAvailablePrivateSlots,
 } from '#src/libs/private-service/selectors/private-service';
 import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '#src/libs/establishment/actions';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '#src/libs/associated-coach/actions';
@@ -39,10 +45,13 @@ import CoachSelector from './CoachSelector.component';
 import EstablishmentSelector from './EstablishmentSelector.component';
 import SlotCalendar from './SlotCalendar/SlotCalendar.component';
 import SessionSelector from './SessionSelector/SessionSelector.component';
-import type { PrivateSlot } from '#src/libs/private-service/types';
-import type { ArrayElement } from '../../../../utils/types';
+import type {
+  PrivateService,
+  PrivateSlot,
+} from '#src/libs/private-service/types';
+import type { ArrayElement } from '#src/utils/types';
 import { groupSessionsByDayMoment } from '#src/libs/private-service/utils';
-import type { RootState } from '../../../../reducers';
+import type { RootState } from '#src/reducers';
 import type { Coach } from '#src/libs/associated-coach/types';
 import type { Establishment } from '#src/libs/establishment/types';
 import PrivateServiceDetailSummary from './PrivateServiceDetailSummary.component';
@@ -103,15 +112,14 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
   const {
     onSessionSelect,
     hideDetailSummary,
-    fetchMarketplacePrivateSlots,
     fetchPrivateService,
+    fetchPrivateSlotBulk,
     fetchAssociatedEstablishmentBulk,
     fetchAssociatedCoachBulk,
     searchAvailableSlots,
     searchFirstAvailableSlots,
     checkPrivateServiceTagEligibility,
     push,
-    _privateService,
     privateService,
     availabilitySlotByDate,
     nextDateAvailableSlot,
@@ -123,6 +131,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
     serviceId,
     eligibleByTags,
     eligibleByTagsLoading,
+    isLoading,
   } = props;
   const hideSessionsIneligibleByTags =
     theme.hide_sessions_with_tags_when_not_eligible;
@@ -140,24 +149,28 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
   >([]);
   const [selectedSessionMoment, setSelectedSessionMoment] =
     useState<SessionMoment | null>(null);
+  const [isFetchSuccessful, setIsFetchSuccessful] = useState(false);
 
   const numberOfDayToShow = useNumberOfDayToShow();
 
   /** EFFECTS */
   useEffect(() => {
-    fetchMarketplacePrivateSlots(parseInt(companyId));
-    fetchPrivateService(parseInt(serviceId));
-  }, [fetchMarketplacePrivateSlots, fetchPrivateService, companyId, serviceId]);
-
-  useEffect(() => {
-    if (_privateService) {
-      fetchAssociatedEstablishmentBulk(_privateService.establishments);
-      fetchAssociatedCoachBulk(_privateService.coaches);
-    }
+    fetchPrivateService(parseInt(serviceId), {
+      onSuccess: (ps: PrivateService) => {
+        Promise.all([
+          ps.slots?.length && fetchPrivateSlotBulk(ps.slots),
+          ps.coaches?.length && fetchAssociatedCoachBulk(ps.coaches),
+          ps.establishments?.length &&
+            fetchAssociatedEstablishmentBulk(ps.establishments),
+        ]).then(() => setIsFetchSuccessful(true));
+      },
+    });
   }, [
-    _privateService,
-    fetchAssociatedEstablishmentBulk,
+    serviceId,
+    fetchPrivateService,
+    fetchPrivateSlotBulk,
     fetchAssociatedCoachBulk,
+    fetchAssociatedEstablishmentBulk,
   ]);
 
   useEffect(() => {
@@ -220,14 +233,20 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
     searchFirstAvailableSlots,
   ]);
 
+  const isSelectionDisabled = useMemo(
+    () => isLoading || !isFetchSuccessful,
+    [isLoading, isFetchSuccessful],
+  );
   const onPrivateSlotSelect = useCallback(
     (slot: PrivateSlot) => {
-      setSelectedSlot(slot);
-      setSelectedCoaches([...privateService.coaches]);
-      setSelectedEstablishments([...privateService.establishments]);
-      setSelectedSessionMoment(null);
+      if (!isSelectionDisabled) {
+        setSelectedSlot(slot);
+        setSelectedCoaches([...privateService.coaches]);
+        setSelectedEstablishments([...privateService.establishments]);
+        setSelectedSessionMoment(null);
+      }
     },
-    [privateService],
+    [isSelectionDisabled, privateService],
   );
 
   // autoslect if only one slots available
@@ -369,6 +388,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
           <div className={classes.container2}>
             {!!privateService?.slots?.length && (
               <PrivateSlotSelector
+                isDisabled={isSelectionDisabled}
                 onSelect={onPrivateSlotSelect}
                 privateService={privateService}
                 privateSlot={selectedSlot}
@@ -484,11 +504,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
-  _privateService: getPrivateService(state, ownProps.serviceId),
   privateService: withAssociatedCoach(
-    // @ts-expect-error
     withAvailablePrivateSlots(withAssociatedEstablishment(getPrivateService)),
-    // @ts-expect-error
   )(state, ownProps.serviceId),
   availabilitySlotByDate: getSearchedSlots(state),
   nextDateAvailableSlot: getNextDateAvailableSlot(state),
@@ -498,11 +515,15 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   theme: state.theme.theme,
   eligibleByTags: getPrivateServiceTagEligible(state, ownProps.serviceId),
   eligibleByTagsLoading: getPrivateServiceTagEligibleLoading(state),
+  isLoading:
+    state.privateService.privateSlot.loading ||
+    state.coach.loading ||
+    state.establishment.bulkRetrieve.loading,
 });
 
 const mapDispatchToProps = {
-  fetchMarketplacePrivateSlots: fetchMarketplacePrivateSlotsAction,
   fetchPrivateService: fetchPrivateServiceAction,
+  fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
   fetchAssociatedEstablishmentBulk: fetchAssociatedEstablishmentBulkAction,
   fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
   searchAvailableSlots: searchAvailableSlotsAction,

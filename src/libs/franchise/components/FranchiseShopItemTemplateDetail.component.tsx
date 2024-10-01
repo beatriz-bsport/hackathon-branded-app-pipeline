@@ -87,6 +87,7 @@ type Props = {
     options?: OptionCallback,
   ) => void;
   updateShopItemTemplateVariantBulk: (
+    lowestVariantPrice: number,
     data: FormData,
     options?: OptionCallback,
   ) => void;

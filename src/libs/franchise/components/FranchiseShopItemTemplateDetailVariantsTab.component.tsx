@@ -32,6 +32,7 @@ type Props = {
   handleOpenVariantDrawer: () => void;
   onDeleteShopItemVariant: (id: number) => void;
   updateShopItemTemplateVariantBulk: (
+    lowestVariantPrice: number,
     data: FormData,
     options?: OptionCallback,
   ) => void;
@@ -88,6 +89,10 @@ const FranchiseShopItemTemplateDetailVariantsTab: React.FC<Props> = ({
   const handleSubmit = useCallback(
     (values: ShopItemVariantBulkUpdateFormValues) => {
       const formData = new FormData();
+      const lowestVariantPrice = values.variants.reduce(
+        (acc, variant) => Math.min(acc, variant.price),
+        Number.MAX_SAFE_INTEGER,
+      );
 
       for (let index = 0; index < values.variants.length; index += 1) {
         const variantValues = values.variants[index];
@@ -115,7 +120,7 @@ const FranchiseShopItemTemplateDetailVariantsTab: React.FC<Props> = ({
           }),
         );
       }
-      updateShopItemTemplateVariantBulk(formData, {
+      updateShopItemTemplateVariantBulk(lowestVariantPrice, formData, {
         onSuccess: () => handleDisableEditMode(),
       });
     },

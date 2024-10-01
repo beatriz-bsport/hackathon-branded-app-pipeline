@@ -239,15 +239,20 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   };
 
   handleUpdateShopItemTemplateVariantBulk = (
+    lowestVariantPrice: number,
     data: FormData,
     options?: OptionCallback,
   ) => {
+    const needToRefetchShopItemDetails =
+      lowestVariantPrice !== this.props.shopItemTemplate?.lowest_variant_price;
     this.props.updateShopItemTemplateVariantBulk({
       data,
       id: this.props.id,
       options: {
         onSuccess: () => {
           this.fetchShopItemTemplateVariantList();
+          if (needToRefetchShopItemDetails)
+            this.retrieveShopItemTemplateDetails();
           options?.onSuccess?.();
         },
         onError: options?.onError,

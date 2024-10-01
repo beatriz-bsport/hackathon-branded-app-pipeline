@@ -76,6 +76,7 @@ type Props = {
   handleOpenBarcodeModal: (barcode: string) => void;
   onDeleteShopItemVariant: (id: number) => void;
   updateShopItemTemplateVariantBulk: (
+    lowestVariantPrice: number,
     data: FormData,
     options?: OptionCallback,
   ) => void;

@@ -6,7 +6,6 @@ import { push as pushAction } from 'connected-react-router';
 import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import Paper from '@material-ui/core/Paper';
 import CouponTemplateListItem from '#src/libs/coupon/components/CouponTemplateListItem.component';
 import { fetchPaymentPackTemplateBulk as fetchPaymentPackTemplateBulkAction } from '#src/libs/payment-packs/actions';
 import { getPaymentPackTemplateList } from '#src/libs/payment-packs/selectors';
@@ -41,8 +40,7 @@ import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
 import { buildUrlParams } from '#src/http';
 import type { OptionCallback } from '#src/state/types';
 import type { RootState } from '#src/reducers';
-// @ts-expect-error
-import PaginatedListBase from '#src/components/PaginatedListBase.component';
+import PaginatedListBaseReworked from '#src/components/PaginatedListBaseReworked.component';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -288,78 +286,67 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
       <div className={classes.container}>
         <Typography variant="h4">{t('list.activeCoupons')}</Typography>
         <Divider className={classes.divider} />
-        <Paper>
-          <PaginatedListBase
-            itemPerPage={50}
-            items={activeCouponTemplatesListPaginated.coupons}
-            listProps={{ disablePadding: true }}
-            loading={activeCouponTemplatesListPaginated.loading}
-            nbItems={activeCouponTemplatesListPaginated.count}
-            onPageRequested={handleFetchActiveCouponTemplateListPaginated}
-            page={activeCouponTemplatesListPaginated.page}
-            renderItem={(couponTemplate: CouponTemplate) => (
-              <CouponTemplateListItem
-                key={couponTemplate.id}
-                couponTemplate={couponTemplate}
-                onClick={goToTemplateDetail}
-                onDelete={handleOpenDeletionDialog}
-                onEdit={handleSetCouponTemplateForEdit}
-              />
-            )}
-          />
-        </Paper>
+        <PaginatedListBaseReworked
+          itemPerPage={50}
+          items={activeCouponTemplatesListPaginated.coupons}
+          loading={activeCouponTemplatesListPaginated.loading}
+          nbItems={activeCouponTemplatesListPaginated.count}
+          onPageRequested={handleFetchActiveCouponTemplateListPaginated}
+          page={activeCouponTemplatesListPaginated.page}
+          renderItem={(couponTemplate: CouponTemplate) => (
+            <CouponTemplateListItem
+              key={couponTemplate.id}
+              couponTemplate={couponTemplate}
+              onClick={goToTemplateDetail}
+              onDelete={handleOpenDeletionDialog}
+              onEdit={handleSetCouponTemplateForEdit}
+            />
+          )}
+        />
 
         <Typography className={classes.title} variant="h4">
           {t('list.expiredActiveCoupons')}
         </Typography>
         <Divider className={classes.divider} />
-        <Paper>
-          <PaginatedListBase
-            itemPerPage={50}
-            items={expiredActiveCouponTemplatesListPaginated.coupons}
-            listProps={{ disablePadding: true }}
-            loading={expiredActiveCouponTemplatesListPaginated.loading}
-            nbItems={expiredActiveCouponTemplatesListPaginated.count}
-            onPageRequested={
-              handleFetchExpiredActiveCouponTemplateListPaginated
-            }
-            page={expiredActiveCouponTemplatesListPaginated.page}
-            renderItem={(couponTemplate: CouponTemplate) => (
-              <CouponTemplateListItem
-                key={couponTemplate.id}
-                couponTemplate={couponTemplate}
-                onClick={goToTemplateDetail}
-                onDelete={handleOpenDeletionDialog}
-                onEdit={handleSetCouponTemplateForEdit}
-              />
-            )}
-          />
-        </Paper>
+        <PaginatedListBaseReworked
+          itemPerPage={50}
+          items={expiredActiveCouponTemplatesListPaginated.coupons}
+          loading={expiredActiveCouponTemplatesListPaginated.loading}
+          nbItems={expiredActiveCouponTemplatesListPaginated.count}
+          onPageRequested={handleFetchExpiredActiveCouponTemplateListPaginated}
+          page={expiredActiveCouponTemplatesListPaginated.page}
+          renderItem={(couponTemplate: CouponTemplate) => (
+            <CouponTemplateListItem
+              key={couponTemplate.id}
+              couponTemplate={couponTemplate}
+              onClick={goToTemplateDetail}
+              onDelete={handleOpenDeletionDialog}
+              onEdit={handleSetCouponTemplateForEdit}
+            />
+          )}
+        />
 
         <Typography className={classes.title} variant="h4">
           {t('list.inactiveCoupons')}
         </Typography>
         <Divider className={classes.divider} />
-        <Paper>
-          <PaginatedListBase
-            itemPerPage={50}
-            items={inactiveCouponTemplatesListPaginated.coupons}
-            listProps={{ disablePadding: true }}
-            loading={inactiveCouponTemplatesListPaginated.loading}
-            nbItems={inactiveCouponTemplatesListPaginated.count}
-            onPageRequested={handleFetchInActiveCouponTemplateListPaginated}
-            page={inactiveCouponTemplatesListPaginated.page}
-            renderItem={(couponTemplate: CouponTemplate) => (
-              <CouponTemplateListItem
-                key={couponTemplate.id}
-                couponTemplate={couponTemplate}
-                onClick={goToTemplateDetail}
-                onDelete={handleOpenDeletionDialog}
-                onEdit={handleSetCouponTemplateForEdit}
-              />
-            )}
-          />
-        </Paper>
+        <PaginatedListBaseReworked
+          itemPerPage={50}
+          items={inactiveCouponTemplatesListPaginated.coupons}
+          loading={inactiveCouponTemplatesListPaginated.loading}
+          nbItems={inactiveCouponTemplatesListPaginated.count}
+          onPageRequested={handleFetchInActiveCouponTemplateListPaginated}
+          page={inactiveCouponTemplatesListPaginated.page}
+          renderItem={(couponTemplate: CouponTemplate) => (
+            <CouponTemplateListItem
+              key={couponTemplate.id}
+              couponTemplate={couponTemplate}
+              onClick={goToTemplateDetail}
+              onDelete={handleOpenDeletionDialog}
+              onEdit={handleSetCouponTemplateForEdit}
+            />
+          )}
+        />
       </div>
       {!!openCreationDrawer && (
         <CouponTemplateFormDrawer

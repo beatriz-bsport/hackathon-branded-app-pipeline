@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import { push as pushAction } from 'connected-react-router';
 import Divider from '@material-ui/core/Divider';
 
@@ -31,8 +30,8 @@ import { OptionCallback } from '#src/state/types';
 import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
 import { RootState } from '#src/reducers';
 import { buildUrlParams } from '#src/http';
-// @ts-expect-error
-import PaginatedListBase from '#src/components/PaginatedListBase.component';
+import PaginatedListBaseReworked from '#src/components/PaginatedListBaseReworked.component';
+
 import PaymentPackTemplateListItem from '#src/libs/payment-packs/components/PaymentPackTemplateListItem.component';
 import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 
@@ -233,60 +232,54 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
           })`}
         </Typography>
         <Divider className={classes.divider} />
-        <Paper>
-          <PaginatedListBase
-            itemPerPage={
-              paymentPackTemplateListPaginatedAvailableForSale.page_size
-            }
-            items={paymentPackTemplateListPaginatedAvailableForSale.passes}
-            listProps={{ disablePadding: true }}
-            loading={paymentPackTemplateListPaginatedAvailableForSale.loading}
-            nbItems={paymentPackTemplateListPaginatedAvailableForSale.count}
-            onPageRequested={
-              fetchPaymentPackTemplatePaginatedListAvailableForSale
-            }
-            page={paymentPackTemplateListPaginatedAvailableForSale.page}
-            renderItem={(paymentPackTemplate: PaymentPackTemplate) => (
-              <PaymentPackTemplateListItem
-                key={paymentPackTemplate.id}
-                onClick={handleGoToPaymentPackTemplateDetailPage}
-                onDelete={(id: number) =>
-                  handleSetPaymentPackTemplateForDelete(id, false)
-                }
-                onEdit={handleSetPaymentPackTemplateForEdit}
-                paymentPackTemplate={paymentPackTemplate}
-              />
-            )}
-          />
-        </Paper>
+        <PaginatedListBaseReworked
+          itemPerPage={
+            paymentPackTemplateListPaginatedAvailableForSale.page_size
+          }
+          items={paymentPackTemplateListPaginatedAvailableForSale.passes}
+          loading={paymentPackTemplateListPaginatedAvailableForSale.loading}
+          nbItems={paymentPackTemplateListPaginatedAvailableForSale.count}
+          onPageRequested={
+            fetchPaymentPackTemplatePaginatedListAvailableForSale
+          }
+          page={paymentPackTemplateListPaginatedAvailableForSale.page}
+          renderItem={(paymentPackTemplate: PaymentPackTemplate) => (
+            <PaymentPackTemplateListItem
+              key={paymentPackTemplate.id}
+              onClick={handleGoToPaymentPackTemplateDetailPage}
+              onDelete={(id: number) =>
+                handleSetPaymentPackTemplateForDelete(id, false)
+              }
+              onEdit={handleSetPaymentPackTemplateForEdit}
+              paymentPackTemplate={paymentPackTemplate}
+            />
+          )}
+        />
         <Typography className={classes.title} variant="h4">
           {`${t('paymentPackTemplate.section.titleManagerOnly')} (${
             paymentPackTemplateListPaginatedManagerOnly.count || 0
           })`}
         </Typography>
         <Divider className={classes.divider} />
-        <Paper>
-          <PaginatedListBase
-            itemPerPage={paymentPackTemplateListPaginatedManagerOnly.page_size}
-            items={paymentPackTemplateListPaginatedManagerOnly.passes}
-            listProps={{ disablePadding: true }}
-            loading={paymentPackTemplateListPaginatedManagerOnly.loading}
-            nbItems={paymentPackTemplateListPaginatedManagerOnly.count}
-            onPageRequested={fetchPaymentPackTemplatePaginatedListManagerOnly}
-            page={paymentPackTemplateListPaginatedManagerOnly.page}
-            renderItem={(paymentPackTemplate: PaymentPackTemplate) => (
-              <PaymentPackTemplateListItem
-                key={paymentPackTemplate.id}
-                onClick={handleGoToPaymentPackTemplateDetailPage}
-                onDelete={(id: number) =>
-                  handleSetPaymentPackTemplateForDelete(id, true)
-                }
-                onEdit={handleSetPaymentPackTemplateForEdit}
-                paymentPackTemplate={paymentPackTemplate}
-              />
-            )}
-          />
-        </Paper>
+        <PaginatedListBaseReworked
+          itemPerPage={paymentPackTemplateListPaginatedManagerOnly.page_size}
+          items={paymentPackTemplateListPaginatedManagerOnly.passes}
+          loading={paymentPackTemplateListPaginatedManagerOnly.loading}
+          nbItems={paymentPackTemplateListPaginatedManagerOnly.count}
+          onPageRequested={fetchPaymentPackTemplatePaginatedListManagerOnly}
+          page={paymentPackTemplateListPaginatedManagerOnly.page}
+          renderItem={(paymentPackTemplate: PaymentPackTemplate) => (
+            <PaymentPackTemplateListItem
+              key={paymentPackTemplate.id}
+              onClick={handleGoToPaymentPackTemplateDetailPage}
+              onDelete={(id: number) =>
+                handleSetPaymentPackTemplateForDelete(id, true)
+              }
+              onEdit={handleSetPaymentPackTemplateForEdit}
+              paymentPackTemplate={paymentPackTemplate}
+            />
+          )}
+        />
       </div>
 
       <PaymentPackTemplateDeleteDialog

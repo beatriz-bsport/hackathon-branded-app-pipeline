@@ -827,7 +827,7 @@ export function fetchPaymentPackTemplatePaginatedListAvailableForSale(
       getState().paymentPackReworked.paymentPackTemplatePaginated
         .availablePasses;
 
-    const nextPage = currentState.next_page ?? 1;
+    const nextPage = params?.page ?? currentState.next_page ?? 1;
 
     try {
       const response = await fetchPaymentPackTemplateListPaginatedAPI({
@@ -900,7 +900,7 @@ export function fetchPaymentPackTemplatePaginatedListManagerOnly(
       getState().paymentPackReworked.paymentPackTemplatePaginated
         .managerOnlyPasses;
 
-    const nextPage = currentState.next_page ?? 1;
+    const nextPage = params?.page ?? currentState.next_page ?? 1;
 
     try {
       const response = await fetchPaymentPackTemplateListPaginatedAPI({
@@ -1036,7 +1036,7 @@ export function fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale(
       getState().paymentPackReworked.universalPaymentPackTemplatePaginated
         .availablePasses;
 
-    const nextPage = currentState.next_page ?? 1;
+    const nextPage = params?.page ?? currentState.next_page ?? 1;
 
     try {
       const response = await fetchUniversalPaymentPackTemplatePaginatedListAPI({
@@ -1119,7 +1119,7 @@ export function fetchUniversalPaymentPackTemplatePaginatedListManagerOnly(
       getState().paymentPackReworked.universalPaymentPackTemplatePaginated
         .managerOnlyPasses;
 
-    const nextPage = currentState.next_page ?? 1;
+    const nextPage = params?.page ?? currentState.next_page ?? 1;
 
     try {
       const response = await fetchUniversalPaymentPackTemplatePaginatedListAPI({

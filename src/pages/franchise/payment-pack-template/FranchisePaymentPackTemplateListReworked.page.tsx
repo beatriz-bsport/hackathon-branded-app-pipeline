@@ -255,6 +255,7 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
             />
           )}
         />
+
         <Typography className={classes.title} variant="h4">
           {`${t('paymentPackTemplate.section.titleManagerOnly')} (${
             paymentPackTemplateListPaginatedManagerOnly.count || 0

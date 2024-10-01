@@ -66,7 +66,10 @@ import type {
   PaginatedResponse,
 } from '../../state/types';
 import type { RootState } from '../../reducers';
-import { PAYMENT_PACK_MASS_EXTENSION_PAGE_SIZE } from './constants';
+import {
+  PAYMENT_PACK_MASS_EXTENSION_PAGE_SIZE,
+  FRANCHE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE,
+} from './constants';
 
 export const scalePaymentPackCreditActions = {
   isLoading: createAction('PAYMENT_PACK/SCALE_CREDIT/IS_LOADING'),
@@ -832,7 +835,7 @@ export function fetchPaymentPackTemplatePaginatedListAvailableForSale(
         available_for_sale: true,
         disabled: false,
         page: nextPage,
-        page_size: 50,
+        page_size: FRANCHE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE,
       });
       dispatch(listPaymentPackTemplatePaginatedActions.success(response.data));
 
@@ -905,7 +908,7 @@ export function fetchPaymentPackTemplatePaginatedListManagerOnly(
         available_for_sale: false,
         disabled: false,
         page: nextPage,
-        page_size: 50,
+        page_size: FRANCHE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE,
       });
       dispatch(
         listPaymentPackTemplatePaginatedActions.successManagerOnly(
@@ -1041,7 +1044,7 @@ export function fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale(
         available_for_sale: true,
         disabled: false,
         page: nextPage,
-        page_size: 50,
+        page_size: FRANCHE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE,
       });
       dispatch(
         listUniversalPaymentPackTemplatePaginatedActions.success(response.data),
@@ -1124,7 +1127,7 @@ export function fetchUniversalPaymentPackTemplatePaginatedListManagerOnly(
         available_for_sale: false,
         disabled: false,
         page: nextPage,
-        page_size: 50,
+        page_size: FRANCHE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE,
       });
       dispatch(
         listUniversalPaymentPackTemplatePaginatedActions.successManagerOnly(

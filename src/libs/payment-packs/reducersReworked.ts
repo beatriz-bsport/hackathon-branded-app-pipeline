@@ -9,6 +9,7 @@ import {
   listPaymentPackTemplatePaginatedActions,
   listUniversalPaymentPackTemplatePaginatedActions,
 } from '#src/libs/payment-packs/actions';
+import { FRANCHE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE } from '#src/libs/payment-packs/constants';
 
 const initialState: Immutable.Immutable<PaymentPackStateReworked> =
   Immutable<PaymentPackStateReworked>({
@@ -18,7 +19,7 @@ const initialState: Immutable.Immutable<PaymentPackStateReworked> =
         next_page: null,
         previous_page: null,
         count: 0,
-        page_size: 50,
+        page_size: FRANCHE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE,
         allIds: [],
         byId: {},
         loading: false,
@@ -29,7 +30,7 @@ const initialState: Immutable.Immutable<PaymentPackStateReworked> =
         next_page: null,
         previous_page: null,
         count: 0,
-        page_size: 50,
+        page_size: FRANCHE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE,
         allIds: [],
         byId: {},
         loading: false,
@@ -42,7 +43,7 @@ const initialState: Immutable.Immutable<PaymentPackStateReworked> =
         next_page: null,
         previous_page: null,
         count: 0,
-        page_size: 50,
+        page_size: FRANCHE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE,
         allIds: [],
         byId: {},
         loading: false,
@@ -53,7 +54,7 @@ const initialState: Immutable.Immutable<PaymentPackStateReworked> =
         next_page: null,
         previous_page: null,
         count: 0,
-        page_size: 50,
+        page_size: FRANCHE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE,
         allIds: [],
         byId: {},
         loading: false,

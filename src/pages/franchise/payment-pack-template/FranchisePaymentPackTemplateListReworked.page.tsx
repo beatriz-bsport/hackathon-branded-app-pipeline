@@ -26,6 +26,7 @@ import {
   getPaymentPackTemplatePaginatedManagerOnly,
   getPaymentPackTemplatePaginatedAvailableForSale,
 } from '#src/libs/payment-packs/selectors';
+
 import { OptionCallback } from '#src/state/types';
 import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
 import { RootState } from '#src/reducers';
@@ -234,7 +235,9 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
         <Divider className={classes.divider} />
         <Paper>
           <PaginatedListBase
-            itemPerPage={50}
+            itemPerPage={
+              paymentPackTemplateListPaginatedAvailableForSale.page_size
+            }
             items={paymentPackTemplateListPaginatedAvailableForSale.passes}
             listProps={{ disablePadding: true }}
             loading={paymentPackTemplateListPaginatedAvailableForSale.loading}
@@ -264,7 +267,7 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
         <Divider className={classes.divider} />
         <Paper>
           <PaginatedListBase
-            itemPerPage={50}
+            itemPerPage={paymentPackTemplateListPaginatedManagerOnly.page_size}
             items={paymentPackTemplateListPaginatedManagerOnly.passes}
             listProps={{ disablePadding: true }}
             loading={paymentPackTemplateListPaginatedManagerOnly.loading}

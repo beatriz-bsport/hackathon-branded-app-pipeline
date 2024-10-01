@@ -270,31 +270,15 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
 
   const onCoachSelect = useCallback(
     (coach: Coach) => {
-      // UX behavior: if all selected inverse selection from unselect to select uniq
-      if (selectedCoaches.length === privateService.coaches?.length) {
-        setSelectedCoaches([coach]);
-        setSelectedSessionMoment(null);
-        return;
-      }
-
       const _selectedCoaches = toggleFromArray(selectedCoaches, coach);
       setSelectedCoaches(_selectedCoaches);
       setSelectedSessionMoment(null);
     },
-    [selectedCoaches, privateService],
+    [selectedCoaches],
   );
 
   const onEstablishmentSelect = useCallback(
     (establishment: Establishment) => {
-      // UX behavior: if all selected inverse selection from unselect to select uniq
-      if (
-        selectedEstablishments.length === privateService.establishments?.length
-      ) {
-        setSelectedEstablishments([establishment]);
-        setSelectedSessionMoment(null);
-        return;
-      }
-
       const _selectedEstablishments = toggleFromArray(
         selectedEstablishments,
         establishment,
@@ -302,7 +286,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
       setSelectedEstablishments(_selectedEstablishments);
       setSelectedSessionMoment(null);
     },
-    [selectedEstablishments, privateService],
+    [selectedEstablishments],
   );
 
   const onSessionMomentSelect = useCallback((sessionMoment: SessionMoment) => {

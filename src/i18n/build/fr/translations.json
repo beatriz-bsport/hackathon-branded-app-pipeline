@@ -2195,7 +2195,8 @@
                     "method": "Méthode de paiement",
                     "details": "Détails de paiement",
                     "confirm": "Confirmer",
-                    "addPaymentMethod": "Ajouter un mode de paiement"
+                    "addPaymentMethod": "Ajouter un mode de paiement",
+                    "backendProcessingInvoice": "Veuillez patienter un instant pendant que nous traitons votre facture..."
                 },
                 "detailsCard": {
                     "total": "Total",

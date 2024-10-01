@@ -508,7 +508,8 @@
                     "method": "Betaalmethode",
                     "details": "Betaaldetails",
                     "confirm": "Bevestig",
-                    "addPaymentMethod": "Voeg betaalmethode toe"
+                    "addPaymentMethod": "Voeg betaalmethode toe",
+                    "backendProcessingInvoice": "Een klein momentje terwijl we je factuur verwerken..."
                 },
                 "detailsCard": {
                     "total": "Totaal",
@@ -5324,7 +5325,7 @@
             "errors": {
                 "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
-                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen bruikbaar in deze vestiging. Pas hun beperkingen aan voordat u de vestiging verwijdert.",
+                "exclusivePaymentPacks_plural": "De volgende kaarten ({{- pass_name }}) kunnen alleen in deze vestiging worden gebruikt. Werk de restricties en instellingen bij voordat je deze vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
                 "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die u wilt verwijderen. Werk deze locaties bij of verwijder ze.",
                 "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",

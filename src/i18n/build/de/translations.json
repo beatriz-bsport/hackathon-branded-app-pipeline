@@ -13281,7 +13281,8 @@
                     "method": "Zahlungsmethode",
                     "details": "Angaben zur Zahlung",
                     "confirm": "Bestätigen",
-                    "addPaymentMethod": "Zahlungsmethode hinzufügen"
+                    "addPaymentMethod": "Zahlungsmethode hinzufügen",
+                    "backendProcessingInvoice": "Bitte warten Sie einen Moment, während wir Ihre Rechnung bearbeiten..."
                 },
                 "detailsCard": {
                     "total": "Insgesamt",

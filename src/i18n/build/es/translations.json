@@ -8731,7 +8731,8 @@
                     "method": "Método de pago",
                     "details": "Detalles de pago",
                     "confirm": "Confirmar",
-                    "addPaymentMethod": "Añadir método de pago"
+                    "addPaymentMethod": "Añadir método de pago",
+                    "backendProcessingInvoice": "Por favor, espere un segundo mientras procesamos su factura..."
                 },
                 "detailsCard": {
                     "total": "Total",

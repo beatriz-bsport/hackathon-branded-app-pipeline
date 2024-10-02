@@ -1011,6 +1011,9 @@ const getTranslations = async () => {
       editView: 'Advanced filters',
       deleteView: 'Delete view',
     },
+    viewTab: {
+      allViews: 'All Views',
+    },
   };
 };
 

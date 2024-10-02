@@ -22,6 +22,7 @@ import {
 } from '#src/http';
 import type { PaginatedResponse } from '#src/state/types';
 import { cleanParams } from '#src/utils/createUrlHandlers';
+import type { PaginationFilterParams } from '#src/libs/types';
 
 export const fetchDefaultReports = () => {
   return getAuth<ReportConfiguration[]>(
@@ -120,4 +121,12 @@ export const checkIsReportNameUsedAPI = (params: IsReportNameUsedParams) => {
 export const getInvalidFilters = (reportId: number) =>
   getAuth<InvalidFiltersAPI>(
     `${API_URI}/reporting/reports-v2/${reportId}/get_invalid_filters/`,
+  );
+
+export const fetchReportsV2PaginatedList = (params: PaginationFilterParams) =>
+  getAuth<PaginatedResponse<ReportConfiguration>>(
+    `${API_URI}/reporting/reports-v2/${buildUrlParams({
+      ...params,
+      q: '',
+    })}`,
   );

@@ -10404,7 +10404,8 @@
       "addView": "Create different versions of the report with new filters, dates and data columns",
       "editView": "Advanced filters",
       "deleteView": "Delete view"
-    }
+    },
+    "viewTab": { "allViews": "All Views" }
   },
   "role": {
     "userRoles": "Staff accounts",

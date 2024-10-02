@@ -90,6 +90,17 @@ export type ReportingStateV2 = {
   } & ErrorAndLoading;
   excelExport: ErrorAndLoading;
   invalidFilters: ErrorAndLoading & { results: InvalidFiltersAPI };
+  reportsPaginated: ReportConfigurationPaginatedList & ErrorAndLoading;
+};
+
+export type ReportConfigurationPaginatedList = {
+  page: number;
+  next_page: number | null;
+  previous_page: number | null;
+  count: number;
+  page_size: number;
+  allIds: number[];
+  byId: Record<number, ReportConfiguration>;
 };
 
 export type ReportConfiguration = {

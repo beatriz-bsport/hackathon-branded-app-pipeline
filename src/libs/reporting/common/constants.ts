@@ -257,6 +257,8 @@ export const REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS = [
   ReportCategoryEnum.FIRST_BOOKING,
 ];
 
+export const REPORT_VIEWS_FETCHING_PAGINATION_SIZE = 20;
+
 export const FILTERABLE_PRODUCT_TYPE_OPTIONS: {
   translationKey: string;
   value: BuyableItemOptions;

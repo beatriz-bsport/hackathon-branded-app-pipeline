@@ -16,7 +16,10 @@ import type {
   OptionCallback,
   OptionBackgroundCallback,
   Dispatch,
+  PaginatedResponse,
+  ThunkAction,
 } from '#src/state/types';
+import type { PaginationFilterParams } from '#src/libs/types';
 
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
@@ -36,11 +39,49 @@ import {
   fetchExcelReporting as fetchExcelReportingAPI,
   getInvalidFilters as getInvalidFiltersAPI,
   fetchReportsV2 as fetchReportsV2API,
+  fetchReportsV2PaginatedList as fetchReportsV2PaginatedListAPI,
 } from '#src/libs/reporting/v2/api';
 import {
   BackgroundDialogActionMode,
   BackgroundDialogDisplayMode,
 } from '#src/libs/background-dialog/types';
+import { REPORT_VIEWS_FETCHING_PAGINATION_SIZE } from '#src/libs/reporting/common/constants';
+
+export const fetchPaginatedReportsV2ViewsActions = {
+  success: createAction<PaginatedResponse<ReportConfiguration>>(
+    'REPORT_VIEWS/PAGINATED/LIST/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('REPORT_VIEWS/PAGINATED/LIST/IS_LOADING'),
+  error: createAction<Error | null>('REPORT_VIEWS/PAGINATED/LIST/ERROR'),
+};
+
+export function fetchReportsV2Paginated(
+  params?: PaginationFilterParams,
+  options?: OptionCallback<PaginatedResponse<ReportConfiguration>>,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState) => {
+    dispatch(fetchPaginatedReportsV2ViewsActions.isLoading(true));
+    dispatch(fetchPaginatedReportsV2ViewsActions.error(null));
+
+    const currentState = getState().reportsV2.reportsPaginated;
+    const nextPage = params?.page ?? currentState.next_page ?? 1;
+    const pageSize = params?.page_size ?? REPORT_VIEWS_FETCHING_PAGINATION_SIZE;
+
+    try {
+      const response = await fetchReportsV2PaginatedListAPI({
+        page: nextPage,
+        page_size: pageSize,
+      });
+      dispatch(fetchPaginatedReportsV2ViewsActions.success(response.data));
+
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(fetchPaginatedReportsV2ViewsActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(fetchPaginatedReportsV2ViewsActions.isLoading(false));
+  };
+}
 
 export const fetchReportsActionsV2 = {
   error: createAction<Error | null>('REPORT_V2/LIST/ERROR'),

@@ -15,6 +15,7 @@ import {
   exportingExcelReportActionsV2,
   resetReportGenerationAction,
   reportGetInvalidFiltersV2,
+  fetchPaginatedReportsV2ViewsActions,
 } from '#src/libs/reporting/v2/actions';
 
 import type {
@@ -26,9 +27,22 @@ import type {
   ReportMetadataValue,
   InvalidFiltersAPI,
 } from '#src/libs/reporting/common/types';
+import { PaginatedResponse } from '#src/state/types';
+import { REPORT_VIEWS_FETCHING_PAGINATION_SIZE } from '#src/libs/reporting/common/constants';
 
 const initialState: Immutable.Immutable<ReportingStateV2> =
   Immutable<ReportingStateV2>({
+    reportsPaginated: {
+      page: 1,
+      next_page: null,
+      previous_page: null,
+      count: 0,
+      page_size: REPORT_VIEWS_FETCHING_PAGINATION_SIZE,
+      allIds: [],
+      byId: {},
+      loading: false,
+      error: null,
+    },
     reports: {
       loading: false,
       error: null,
@@ -67,8 +81,52 @@ const initialState: Immutable.Immutable<ReportingStateV2> =
     invalidFilters: { error: null, loading: false, results: {} },
   });
 
+type PayloadReduceType<T> = { [id: number]: T };
 export default handleActions<Immutable.Immutable<ReportingStateV2>, any>(
   {
+    [fetchPaginatedReportsV2ViewsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['reportsPaginated', 'loading'], payload);
+    },
+    [fetchPaginatedReportsV2ViewsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['reportsPaginated', 'error'], payload);
+    },
+    [fetchPaginatedReportsV2ViewsActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<ReportConfiguration> },
+    ) => {
+      const { next_page, results, count, page } = payload;
+
+      return state
+        .setIn(['reportsPaginated', 'page'], page)
+        .setIn(['reportsPaginated', 'next_page'], next_page)
+        .setIn(['reportsPaginated', 'count'], count)
+        .setIn(
+          ['reportsPaginated', 'allIds'],
+          uniq((results || []).map((report) => report.id)),
+        )
+        .merge(
+          {
+            reportsPaginated: {
+              byId: (results || []).reduce<
+                PayloadReduceType<ReportConfiguration>
+              >(
+                (accumulator, report) => ({
+                  ...accumulator,
+                  [report.id]: report,
+                }),
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
     [fetchReportsActionsV2.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },

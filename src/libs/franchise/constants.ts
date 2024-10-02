@@ -18,3 +18,10 @@ export enum FranchiseShopRouteTab {
 export const NEW_WEBSHOP_ROLE_LEVEL_PERMISSIONS_MA = [
   'franchiseMenu.products.shopTemplates',
 ];
+
+export const FRANCHISE_IDS_FOR_REWORKED_PAGES = [
+  // Idolem
+  36,
+  // Line Sport Club
+  38,
+];

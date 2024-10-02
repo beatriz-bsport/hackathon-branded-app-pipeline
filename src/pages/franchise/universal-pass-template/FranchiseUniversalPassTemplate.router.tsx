@@ -1,6 +1,12 @@
 import React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { getFranchisor } from '#src/libs/franchise/selectors';
+import type { RootState } from '#src/reducers';
 import { Switch, Route } from 'react-router-dom';
+
 import { Config } from '#src/config';
+import { FRANCHISE_IDS_FOR_REWORKED_PAGES } from '#src/libs/franchise/constants';
+
 // @ts-expect-error
 import asyncComponent from '#src/AsyncComponent';
 import { useTranslation } from 'react-i18next';
@@ -16,16 +22,21 @@ const FranchiseUniversalPassTemplateDetailPage = asyncComponent(
   () => import('./FranchiseUniversalPassTemplateDetail.page'),
 );
 
-const FranchiseUniversalPaymentPackTemplateListPageToUse: React.FC = React.memo(
-  () => {
-    if (Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production') {
-      return <FranchiseUniversalPassTemplateListPageReworked />;
-    }
-    return <FranchiseUniversalPassTemplateListPage />;
-  },
-);
+const FranchiseUniversalPaymentPackTemplateListPageToUse: React.FC<{
+  franchiseId: number;
+}> = React.memo(({ franchiseId }) => {
+  if (
+    Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+    FRANCHISE_IDS_FOR_REWORKED_PAGES.includes(franchiseId)
+  ) {
+    return <FranchiseUniversalPassTemplateListPageReworked />;
+  }
+  return <FranchiseUniversalPassTemplateListPage />;
+});
 
-const FranchiseUniversalPassTemplateRouter = () => {
+const FranchiseUniversalPassTemplateRouter = ({
+  franchise,
+}: ConnectedProps<typeof connector>) => {
   const { t } = useTranslation('navigation');
 
   return (
@@ -39,12 +50,21 @@ const FranchiseUniversalPassTemplateRouter = () => {
           path="/f/universal-pass-template/:paymentPackTemplateId"
         />
         <Route
-          component={FranchiseUniversalPaymentPackTemplateListPageToUse}
           path="/f/universal-pass-template"
+          render={() => (
+            <FranchiseUniversalPaymentPackTemplateListPageToUse
+              franchiseId={franchise.id}
+            />
+          )}
         />
       </Switch>
     </>
   );
 };
-
-export default React.memo(FranchiseUniversalPassTemplateRouter);
+const connector = connect(
+  (state: RootState) => ({
+    franchise: getFranchisor(state),
+  }),
+  null,
+);
+export default connector(React.memo(FranchiseUniversalPassTemplateRouter));

@@ -187,11 +187,17 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
                     })}
               </Typography>
             ) : (
-              <Typography align="left" color="textSecondary" variant="caption">
-                {t('service.configuration.explainHasOwnAvailabilitySlots', {
-                  serviceName: privateService.name,
-                })}
-              </Typography>
+              !props.privateService.available_on_partnership && (
+                <Typography
+                  align="left"
+                  color="textSecondary"
+                  variant="caption"
+                >
+                  {t('service.configuration.explainHasOwnAvailabilitySlots', {
+                    serviceName: privateService.name,
+                  })}
+                </Typography>
+              )
             )}
           </div>
         </ButtonBase>

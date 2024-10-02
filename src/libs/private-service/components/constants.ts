@@ -13,3 +13,5 @@ export const ActionStaffHistoryKindTranslationDict = {
   [PRIVATE_BOOKING_RESTORED_BY_STAFF]: 'restored',
   [RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF]: 'cancelledByRecurrence',
 };
+
+export const MIN_BOOKING_INTERVAL_MINUTES = 5;

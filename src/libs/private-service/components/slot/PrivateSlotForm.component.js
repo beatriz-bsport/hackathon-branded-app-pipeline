@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 
+import { MIN_BOOKING_INTERVAL_MINUTES } from '../constants';
 import DurationInput from '../../../../components/input/DurationInputWithSelect.component';
 import NumericInput from '../../../../components/input/NumericInput.component';
 import { DURATION_CHOICES_SHORT, Submit } from '../../../../components/forms';
@@ -73,7 +74,8 @@ export class PrivateSlotForm extends React.Component<Props, State> {
         : true;
     }
     return (
-      parseInt(this.state.booking_interval_minutes) < MIN_DURATION_MINUTES ||
+      parseInt(this.state.booking_interval_minutes) <
+        MIN_BOOKING_INTERVAL_MINUTES ||
       this.state.booking_interval_minutes === ''
     );
   }
@@ -169,6 +171,13 @@ export class PrivateSlotForm extends React.Component<Props, State> {
     this.setState({ duration_minutes: updatedValue });
   };
 
+  handleBookingIntervalMinuteChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) =>
+    this.setState({
+      booking_interval_minutes: event.target.value,
+    });
+
   render() {
     const { t, classes, onCancel } = this.props;
     const helperText = getDecimalCreditHelperText(
@@ -242,15 +251,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             InputProps={{ step: 15, max: MAX_DURATION_MINUTES }}
             label={t('slot.form.booking_interval_minutes.label')}
             onBlur={this.handleBlur}
-            onChange={(ev) => {
-              if (parseInt(ev.target.value) < MIN_DURATION_MINUTES) {
-                this.setState({
-                  booking_interval_minutes: ev.target.value,
-                });
-              } else {
-                this.setState({ booking_interval_minutes: ev.target.value });
-              }
-            }}
+            onChange={this.handleBookingIntervalMinuteChange}
             value={this.state.booking_interval_minutes}
           />
         </div>

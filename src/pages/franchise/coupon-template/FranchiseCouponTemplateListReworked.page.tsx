@@ -22,7 +22,6 @@ import {
   fetchInActiveCouponTemplateListPaginated as fetchInActiveCouponTemplateListPaginatedAction,
 } from '#src/libs/coupon/actions';
 import {
-  getCouponTemplateData,
   getActiveCouponTemplatePaginated,
   getExpiredActiveCouponTemplatePaginated,
   getInActiveCouponTemplatePaginated,
@@ -62,7 +61,6 @@ type Props = ConnectedProps<typeof connector>;
 
 const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
   activeCouponTemplatesListPaginated,
-  couponTemplateData,
   createOrUpdateCouponTemplate,
   deleteCouponTemplate,
   expiredActiveCouponTemplatesListPaginated,
@@ -188,12 +186,35 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
     React.useState<number | null>(null);
 
   const handleSetCouponTemplateForEdit = React.useCallback(
-    (couponTemplateId: number) => {
-      couponTemplateId &&
-        couponTemplateData?.[couponTemplateId] &&
-        setCouponTemplateForEdit(couponTemplateData[couponTemplateId]);
+    (
+      couponTemplateId: number,
+      kind: 'active' | 'expiredAndActive' | 'inactive',
+    ) => {
+      if (!couponTemplateId && !kind) return;
+
+      const getCouponTemplateData = () => {
+        switch (kind) {
+          case 'active':
+            return activeCouponTemplatesListPaginated.byId[couponTemplateId];
+          case 'expiredAndActive':
+            return expiredActiveCouponTemplatesListPaginated.byId[
+              couponTemplateId
+            ];
+          case 'inactive':
+            return inactiveCouponTemplatesListPaginated.byId[couponTemplateId];
+          default:
+            return null;
+        }
+      };
+      const couponTemplateData = getCouponTemplateData();
+      //@ts-expect-error Clashing type between CouponTemplateAPI a CouponTemplate having the additionnal companies attributes
+      couponTemplateData && setCouponTemplateForEdit(couponTemplateData);
     },
-    [couponTemplateData],
+    [
+      activeCouponTemplatesListPaginated,
+      expiredActiveCouponTemplatesListPaginated,
+      inactiveCouponTemplatesListPaginated,
+    ],
   );
 
   const handleResetCouponTemplateForEdit = React.useCallback(() => {
@@ -299,7 +320,9 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
               couponTemplate={couponTemplate}
               onClick={goToTemplateDetail}
               onDelete={handleOpenDeletionDialog}
-              onEdit={handleSetCouponTemplateForEdit}
+              onEdit={(id: number) =>
+                handleSetCouponTemplateForEdit(id, 'active')
+              }
             />
           )}
         />
@@ -321,7 +344,9 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
               couponTemplate={couponTemplate}
               onClick={goToTemplateDetail}
               onDelete={handleOpenDeletionDialog}
-              onEdit={handleSetCouponTemplateForEdit}
+              onEdit={(id: number) =>
+                handleSetCouponTemplateForEdit(id, 'expiredAndActive')
+              }
             />
           )}
         />
@@ -343,7 +368,9 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
               couponTemplate={couponTemplate}
               onClick={goToTemplateDetail}
               onDelete={handleOpenDeletionDialog}
-              onEdit={handleSetCouponTemplateForEdit}
+              onEdit={(id: number) =>
+                handleSetCouponTemplateForEdit(id, 'inactive')
+              }
             />
           )}
         />
@@ -387,7 +414,6 @@ const connector = connect(
       getExpiredActiveCouponTemplatePaginated(state),
     inactiveCouponTemplatesListPaginated:
       getInActiveCouponTemplatePaginated(state),
-    couponTemplateData: getCouponTemplateData(state),
     privatePassTemplateList: getPrivatePassTemplateList(state),
     paymentPackTemplateList: getPaymentPackTemplateList(state),
   }),

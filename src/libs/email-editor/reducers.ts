@@ -22,10 +22,15 @@ import {
   upsertEmailTemplateCategoryActions,
   listAllEmailTemplateCategoryActions,
   templateMetaDataActions,
-} from './actions';
+  fetchFranchiseEmailTemplatesSummariesPaginatedActions,
+} from '#src/libs/email-editor/actions';
 
-import type { EmailTemplateState } from './types';
-
+import { FRANCHISE_EMAIL_DESIGN_TEMPLATE_PAGINATION_SIZE } from '#src/libs/email-editor/constants';
+import type {
+  EmailTemplateState,
+  EmailTemplateSummary,
+} from '#src/libs/email-editor/types';
+import type { PaginatedResponse } from '#src/state/types';
 const initialState: Immutable.Immutable<EmailTemplateState> =
   Immutable<EmailTemplateState>({
     loading: false,
@@ -64,27 +69,58 @@ const initialState: Immutable.Immutable<EmailTemplateState> =
       loading: false,
       error: null,
     },
+    franchise: {
+      ownedByFranchisor: {
+        page: 1,
+        next_page: null,
+        previous_page: null,
+        count: 0,
+        page_size: FRANCHISE_EMAIL_DESIGN_TEMPLATE_PAGINATION_SIZE,
+        allIds: [],
+        byId: {},
+        loading: false,
+        error: null,
+      },
+      ownedByFranchisee: {
+        page: 1,
+        next_page: null,
+        previous_page: null,
+        count: 0,
+        page_size: FRANCHISE_EMAIL_DESIGN_TEMPLATE_PAGINATION_SIZE,
+        allIds: [],
+        byId: {},
+        loading: false,
+        error: null,
+      },
+      bsportDefault: {
+        page: 1,
+        next_page: null,
+        previous_page: null,
+        count: 0,
+        page_size: FRANCHISE_EMAIL_DESIGN_TEMPLATE_PAGINATION_SIZE,
+        allIds: [],
+        byId: {},
+        loading: false,
+        error: null,
+      },
+    },
   });
 
-export default handleActions(
+export default handleActions<Immutable.Immutable<EmailTemplateState>, any>(
   {
     // get name, id, and date of all templates for listing them
     [emailTemplatesSummariesAction.success.toString()]: (
       state,
       { payload },
     ) => {
-      return (
-        state
-          .merge(
-            {
-              // @ts-expect-error
-              byId: payload.emailTemplatesDict,
-            },
-            { deep: true },
-          )
-          // @ts-expect-error
-          .set('allIds', payload.emailTemplatesIdList)
-      );
+      return state
+        .merge(
+          {
+            byId: payload.emailTemplatesDict,
+          },
+          { deep: true },
+        )
+        .set('allIds', payload.emailTemplatesIdList);
     },
     [emailTemplatesSummariesAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
@@ -100,18 +136,14 @@ export default handleActions(
     },
 
     [emailTemplateBulkAction.success.toString()]: (state, { payload }) => {
-      return (
-        state
-          .merge(
-            {
-              // @ts-expect-error
-              byId: payload.emailTemplatesDict,
-            },
-            { deep: true },
-          )
-          // @ts-expect-error
-          .set('allIds', payload.emailTemplatesIdList)
-      );
+      return state
+        .merge(
+          {
+            byId: payload.emailTemplatesDict,
+          },
+          { deep: true },
+        )
+        .set('allIds', payload.emailTemplatesIdList);
     },
     [emailTemplateBulkAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
@@ -122,7 +154,6 @@ export default handleActions(
 
     // Load the html end design of one specific template
     [emailTemplateDetailAction.success.toString()]: (state, { payload }) => {
-      // @ts-expect-error
       return state.merge({ detail: { byId: payload } }, { deep: true });
     },
 
@@ -131,6 +162,9 @@ export default handleActions(
     },
     [emailTemplateDetailAction.error.toString()]: (state, { payload }) => {
       return state.setIn(['detail', 'error'], payload);
+    },
+    [emailTemplateDetailAction.reset.toString()]: (state) => {
+      return state.setIn(['detail', 'byId'], {});
     },
     [bulkEmailTemplateDetailAction.success.toString()]: (
       state,
@@ -163,7 +197,6 @@ export default handleActions(
     // Get all infos about one template, used when go to edit page
     [emailTemplateCompleteAction.success.toString()]: (state, { payload }) => {
       return state.merge(
-        // @ts-expect-error
         { byId: payload.summary, detail: { byId: payload.detail } },
         { deep: true },
       );
@@ -181,9 +214,8 @@ export default handleActions(
       return state
         .merge(
           {
-            // @ts-expect-error
             byId: payload.summary,
-            // @ts-expect-error
+
             detail: { byId: payload.detail },
           },
           { deep: true },
@@ -193,7 +225,7 @@ export default handleActions(
           (myList, newId) => {
             return myList.concat([newId]);
           },
-          // @ts-expect-error
+
           payload.id,
         );
     },
@@ -205,7 +237,6 @@ export default handleActions(
     },
     [updateEmailTemplateAction.success.toString()]: (state, { payload }) => {
       return state.merge(
-        // @ts-expect-error
         { byId: payload.summary, detail: { byId: payload.detail } },
         { deep: true },
       );
@@ -255,13 +286,11 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return (
-        state
-          .setIn(['savedFilter', 'loading'], false)
-          .setIn(['savedFilter', 'error'], null)
-          // @ts-expect-error
-          .setIn(['savedFilter', 'filters'], payload[0].filters)
-      );
+      return state
+        .setIn(['savedFilter', 'loading'], false)
+        .setIn(['savedFilter', 'error'], null)
+
+        .setIn(['savedFilter', 'filters'], payload[0].filters);
     },
     [updateFranchisePageFilterAction.loading.toString()]: (
       state,
@@ -283,13 +312,11 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return (
-        state
-          .setIn(['savedFilter', 'loading'], false)
-          .setIn(['savedFilter', 'error'], null)
-          // @ts-expect-error
-          .setIn(['savedFilter', 'filters'], payload[0].filters)
-      );
+      return state
+        .setIn(['savedFilter', 'loading'], false)
+        .setIn(['savedFilter', 'error'], null)
+
+        .setIn(['savedFilter', 'filters'], payload[0].filters);
     },
     [emailTemplateUpdateOrderActions.loading.toString()]: (
       state,
@@ -309,7 +336,6 @@ export default handleActions(
     ) => {
       return state.merge(
         {
-          // @ts-expect-error
           byId: payload.reduce(
             // @ts-expect-error
             (acc, curr) => ({ ...acc, [curr.id]: curr }),
@@ -344,7 +370,6 @@ export default handleActions(
         .merge(
           {
             emailTemplateCategory: {
-              // @ts-expect-error
               byId: payload.results.reduce(
                 // @ts-expect-error
                 (acc, v) => ({ ...acc, [v.id]: v }),
@@ -374,21 +399,17 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      // @ts-expect-error
       if (!state.emailTemplateCategory.allIds.includes(payload.id)) {
-        return (
-          state
-            // @ts-expect-error
-            .setIn(['emailTemplateCategory', 'byId', payload.id], payload)
-            .setIn(
-              ['emailTemplateCategory', 'allIds'],
-              // @ts-expect-error
-              [...state.emailTemplateCategory.allIds, payload.id],
-            )
-        );
+        return state
+
+          .setIn(['emailTemplateCategory', 'byId', payload.id], payload)
+          .setIn(
+            ['emailTemplateCategory', 'allIds'],
+
+            [...state.emailTemplateCategory.allIds, payload.id],
+          );
       }
       return state.setIn(
-        // @ts-expect-error
         ['emailTemplateCategory', 'byId', payload.id],
         payload,
       );
@@ -414,7 +435,7 @@ export default handleActions(
     ) => {
       return state.setIn(
         ['emailTemplateCategory', 'allIds'],
-        // @ts-expect-error
+
         state.emailTemplateCategory.allIds.filter((id) => id !== payload.id),
       );
     },
@@ -425,7 +446,6 @@ export default handleActions(
       return state.merge(
         {
           emailTemplateCategory: {
-            // @ts-expect-error
             byId: payload.reduce(
               // @ts-expect-error
               (acc, cat) => ({ ...acc, [cat.id]: cat }),
@@ -460,6 +480,130 @@ export default handleActions(
     [templateMetaDataActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['currentTemplateMetaData', 'error'], payload);
     },
+    // ===== PAGINATED EMAIL TEMAPLTES ACTIONS OWNED BY FRANCHISOR
+    [fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchisorIsLoading.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(
+          ['franchise', 'ownedByFranchisor', 'loading'],
+          payload,
+        );
+      },
+    [fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchisorError.toString()]:
+      (state, { payload }: { payload: Error | null }) => {
+        return state.setIn(
+          ['franchise', 'ownedByFranchisor', 'error'],
+          payload,
+        );
+      },
+    [fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchisorSuccess.toString()]:
+      (
+        state,
+        { payload }: { payload: PaginatedResponse<EmailTemplateSummary> },
+      ) => {
+        const { next_page, results, count, page } = payload;
+        return state
+          .setIn(['franchise', 'ownedByFranchisor', 'page'], page)
+          .setIn(['franchise', 'ownedByFranchisor', 'next_page'], next_page)
+          .setIn(['franchise', 'ownedByFranchisor', 'count'], count)
+          .setIn(
+            ['franchise', 'ownedByFranchisor', 'allIds'],
+            (results || []).map((template) => template.id),
+          )
+          .merge(
+            {
+              franchise: {
+                ownedByFranchisor: {
+                  byId: (results || []).reduce(
+                    (acc, v) => ({ ...acc, [v.id]: v }),
+                    {},
+                  ),
+                },
+              },
+            },
+            { deep: true },
+          );
+      },
+    // ===== PAGINATED EMAIL TEMAPLTES ACTIONS OWNED BY FRANCHISEE
+    [fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchiseeIsLoading.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(
+          ['franchise', 'ownedByFranchisee', 'loading'],
+          payload,
+        );
+      },
+    [fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchiseeError.toString()]:
+      (state, { payload }: { payload: Error | null }) => {
+        return state.setIn(
+          ['franchise', 'ownedByFranchisee', 'error'],
+          payload,
+        );
+      },
+    [fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchiseeSuccess.toString()]:
+      (
+        state,
+        { payload }: { payload: PaginatedResponse<EmailTemplateSummary> },
+      ) => {
+        const { next_page, results, count, page } = payload;
+        return state
+          .setIn(['franchise', 'ownedByFranchisee', 'page'], page)
+          .setIn(['franchise', 'ownedByFranchisee', 'next_page'], next_page)
+          .setIn(['franchise', 'ownedByFranchisee', 'count'], count)
+          .setIn(
+            ['franchise', 'ownedByFranchisee', 'allIds'],
+            (results || []).map((template) => template.id),
+          )
+          .merge(
+            {
+              franchise: {
+                ownedByFranchisee: {
+                  byId: (results || []).reduce(
+                    (acc, v) => ({ ...acc, [v.id]: v }),
+                    {},
+                  ),
+                },
+              },
+            },
+            { deep: true },
+          );
+      },
+
+    // ===== PAGINATED EMAIL TEMAPLTES ACTIONS BSPORT DEFAULT
+    [fetchFranchiseEmailTemplatesSummariesPaginatedActions.bsportDefaultIsLoading.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(['franchise', 'bsportDefault', 'loading'], payload);
+      },
+    [fetchFranchiseEmailTemplatesSummariesPaginatedActions.bsportDefaultError.toString()]:
+      (state, { payload }: { payload: Error | null }) => {
+        return state.setIn(['franchise', 'bsportDefault', 'error'], payload);
+      },
+    [fetchFranchiseEmailTemplatesSummariesPaginatedActions.bsportDefaultSuccess.toString()]:
+      (
+        state,
+        { payload }: { payload: PaginatedResponse<EmailTemplateSummary> },
+      ) => {
+        const { next_page, results, count, page } = payload;
+        return state
+          .setIn(['franchise', 'bsportDefault', 'page'], page)
+          .setIn(['franchise', 'bsportDefault', 'next_page'], next_page)
+          .setIn(['franchise', 'bsportDefault', 'count'], count)
+          .setIn(
+            ['franchise', 'bsportDefault', 'allIds'],
+            (results || []).map((template) => template.id),
+          )
+          .merge(
+            {
+              franchise: {
+                bsportDefault: {
+                  byId: (results || []).reduce(
+                    (acc, v) => ({ ...acc, [v.id]: v }),
+                    {},
+                  ),
+                },
+              },
+            },
+            { deep: true },
+          );
+      },
   },
   initialState,
 );

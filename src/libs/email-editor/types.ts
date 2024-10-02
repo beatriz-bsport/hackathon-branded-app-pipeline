@@ -1,17 +1,29 @@
 import { ErrorAndLoading } from '../../state/types';
 
 export type EmailTemplateSummary = {
-  available_for_companies?: number[];
+  available_for_companies: number[];
   available: boolean;
   category: number;
-  company_id?: number;
-  date_created?: string;
+  company_id: number | null;
   date_modified: string;
   id: number;
   is_default_bsport_template: boolean;
   ordering_in_category: number;
   subject: string;
   title: string;
+};
+
+export type EmailDesignQueryParams = {
+  id__in?: number[];
+  avaiable?: boolean;
+  available_for_companies?: number[];
+  company?: number;
+  is_franchise?: boolean;
+  is_default_bsport_template?: boolean;
+};
+export type EmailDesignQueryParamsPaginated = EmailDesignQueryParams & {
+  page: number;
+  page_size?: number;
 };
 
 export type EmailTemplateDetail = {
@@ -36,6 +48,46 @@ export type EmailTemplate = {
   title: string;
 };
 
+export type FranchiseEmailDesignState = {
+  /**
+   * @description A store containing EmailDesign created by the franchisor.
+   * These EmailDesign can then be shared to franchisees via : available_for_companies attribute.
+   */
+  ownedByFranchisor: {
+    page: number;
+    next_page: number | null;
+    previous_page: number | null;
+    count: number;
+    page_size: number;
+    allIds: number[];
+    byId: Record<number, EmailTemplateSummary>;
+  } & ErrorAndLoading;
+  /**
+   * @description A store containing EmailDesign created by the franchisees.
+   */
+  ownedByFranchisee: {
+    page: number;
+    next_page: number | null;
+    previous_page: number | null;
+    count: number;
+    page_size: number;
+    allIds: number[];
+    byId: Record<number, EmailTemplateSummary>;
+  } & ErrorAndLoading;
+  /**
+   * @description A store containing EmailDesign created by bsport and available for everyone.
+   * In the franchise context the back-end takes care of filtering the EmailDesign with the proper language.
+   */
+  bsportDefault: {
+    page: number;
+    next_page: number | null;
+    previous_page: number | null;
+    count: number;
+    page_size: number;
+    allIds: number[];
+    byId: Record<number, EmailTemplateSummary>;
+  } & ErrorAndLoading;
+};
 export type EmailTemplateState = {
   byId: { [key: string]: EmailTemplateSummary };
   allIds: Array<number>;
@@ -70,6 +122,7 @@ export type EmailTemplateState = {
     required_tags_list?: string[];
     related_notification_rule_events?: number[];
   } & ErrorAndLoading;
+  franchise: FranchiseEmailDesignState;
 };
 
 export type FranchisorSavedFilter = {

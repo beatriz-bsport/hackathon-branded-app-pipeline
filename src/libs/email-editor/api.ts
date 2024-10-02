@@ -7,13 +7,16 @@ import {
   deleteAuth,
   buildUrlParams,
   putAuth,
-} from '../../http';
+} from '#src/http';
 import {
   EmailTemplate,
   EmailTemplateCategory,
   FranchisorSavedFilter,
-} from './types';
+  EmailTemplateSummary,
+  EmailDesignQueryParamsPaginated,
+} from '#src/libs/email-editor/types';
 
+import { PaginatedResponse } from '#src/state/types';
 const MARKETING_EMAIL_URI = `${API_V1_URI}/email_design/`;
 
 export const fetchEmailTemplateDetail = async (id: number) => {
@@ -28,9 +31,24 @@ export const fetchBulkEmailTemplateDetail = async (params: {
   );
 };
 
+/**
+ * @deprecated Missed typped and unpaginated api call
+ *
+ */
 export const fetchEmailTemplatesSummaries = async (params?: any) => {
-  return getAuth(`${MARKETING_EMAIL_URI}summary/${buildUrlParams(params)}`);
+  return getAuth(
+    `${MARKETING_EMAIL_URI}summary/${buildUrlParams({
+      ...params,
+    })}`,
+  );
 };
+
+export const fetchEmailTemplatesSummariesPaginated = (
+  params: EmailDesignQueryParamsPaginated,
+) =>
+  getAuth<PaginatedResponse<EmailTemplateSummary>>(
+    `${MARKETING_EMAIL_URI}summary_paginated/${buildUrlParams(params)}`,
+  );
 
 export const fetchEmailTemplatesSummariesByFranchisor = async () => {
   return getAuth(`${MARKETING_EMAIL_URI}by_franchisor/`);

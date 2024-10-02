@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core';
 import { push as pushAction } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
@@ -33,11 +32,10 @@ import FranchiseEmailListing from '#src/libs/franchise/components/FranchiseEmail
 import HTMLPreview from '#src/components/html/HTMLPreview.component';
 import { getFranchiseCompanies } from '#src/libs/franchise/selectors';
 import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/actions';
-import withTitle from '#src/hocs/with-title.hoc';
 import { FranchiseCompany } from '#src/libs/franchise/types';
 import ModalConfirm from '#src/components/ModalConfirm.component';
 
-import { RootState } from '../../reducers';
+import { RootState } from '../../../reducers';
 
 type OwnProps = {
   id: number;
@@ -257,5 +255,4 @@ export default compose<any, OwnProps>(
   connector,
   routerParamsToProps({ id: 'id:number' }),
   withTranslation(['franchise']),
-  withTitle(({ t }: { t: TFunction }) => t('emails.pageTitle')),
 )(FranchiseEmailList);

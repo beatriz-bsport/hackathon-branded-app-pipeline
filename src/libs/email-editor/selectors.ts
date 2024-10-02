@@ -127,3 +127,47 @@ export const getRequiredTags = (state: RootState) =>
 
 export const getRelatedNotificationEvents = (state: RootState) =>
   state.emailTemplate.currentTemplateMetaData.related_notification_rule_events;
+
+const getFranchiseEmailDesignPaginatedStates = (state: RootState) =>
+  state.emailTemplate.franchise;
+
+export const getFranchiseEmailDesignOwnedByFranchisorPaginatedState =
+  createSelector(
+    [getFranchiseEmailDesignPaginatedStates],
+    (franchiseEmailDesignPaginatedStates) => ({
+      ...franchiseEmailDesignPaginatedStates.ownedByFranchisor,
+      items: franchiseEmailDesignPaginatedStates.ownedByFranchisor.allIds
+        .map(
+          (id) =>
+            franchiseEmailDesignPaginatedStates.ownedByFranchisor.byId?.[id],
+        )
+        .filter((item) => !!item),
+    }),
+  );
+
+export const getFranchiseEmailDesignOwnedByFranchiseePaginatedState =
+  createSelector(
+    [getFranchiseEmailDesignPaginatedStates],
+    (franchiseEmailDesignPaginatedStates) => ({
+      ...franchiseEmailDesignPaginatedStates.ownedByFranchisee,
+      items: franchiseEmailDesignPaginatedStates.ownedByFranchisee.allIds
+        .map(
+          (id) =>
+            franchiseEmailDesignPaginatedStates.ownedByFranchisee.byId?.[id],
+        )
+        .filter((item) => !!item),
+    }),
+  );
+
+export const getFranchiseEmailDesignBsportDefaultPaginatedState =
+  createSelector(
+    [getFranchiseEmailDesignPaginatedStates],
+    (franchiseEmailDesignPaginatedStates) => ({
+      ...franchiseEmailDesignPaginatedStates.bsportDefault,
+      items: franchiseEmailDesignPaginatedStates.bsportDefault.allIds
+        .map(
+          (id) => franchiseEmailDesignPaginatedStates.bsportDefault.byId?.[id],
+        )
+        .filter((item) => !!item),
+    }),
+  );

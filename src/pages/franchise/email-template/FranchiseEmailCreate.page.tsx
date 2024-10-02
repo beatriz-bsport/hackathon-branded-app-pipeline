@@ -4,24 +4,24 @@ import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import { DrawerContext, DrawerContextValue } from '../../context';
-import { RootState } from '../../reducers';
-import { snackbarError as snackbarErrorAction } from '../../libs/snackbar/actions';
+import { DrawerContext, DrawerContextValue } from '../../../context';
+import { RootState } from '../../../reducers';
+import { snackbarError as snackbarErrorAction } from '../../../libs/snackbar/actions';
 import {
   emailDesignCreate as emailDesignCreateAction,
   setEmailEditorHasBeenLoaded as setEmailEditorHasBeenLoadedAction,
-} from '../../libs/email-editor/actions';
-import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
-import { EmailTemplate } from '../../libs/email-editor/types';
+} from '../../../libs/email-editor/actions';
+import EmailEditorPanel from '../../../libs/email-editor/components/EmailEditor.component';
+import { EmailTemplate } from '../../../libs/email-editor/types';
 
 import {
   getFranchiseCompanies,
   getFranchiseId,
-} from '../../libs/franchise/selectors';
-import { fetchTagList as fetchTagListAction } from '../../libs/notification-rule/actions';
-import { getTagCategories } from '../../libs/notification-rule/selectors';
-import { FranchiseCompany } from '../../libs/franchise/types';
-import { fetchFranchise as fetchFranchiseAction } from '../../libs/franchise/actions';
+} from '../../../libs/franchise/selectors';
+import { fetchTagList as fetchTagListAction } from '../../../libs/notification-rule/actions';
+import { getTagCategories } from '../../../libs/notification-rule/selectors';
+import { FranchiseCompany } from '../../../libs/franchise/types';
+import { fetchFranchise as fetchFranchiseAction } from '../../../libs/franchise/actions';
 
 type OwnProps = {
   companies: FranchiseCompany[];

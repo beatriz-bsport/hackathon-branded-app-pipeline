@@ -2,12 +2,13 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
 import { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
-import { snackbarSuccess, snackbarError } from '../snackbar/actions';
+import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 
 import {
   createEmailTemplate as createEmailTemplateAPI,
   updateEmailTemplate as updateEmailTemplateAPI,
   fetchEmailTemplatesSummaries as fetchEmailTemplatesSummariesAPI,
+  fetchEmailTemplatesSummariesPaginated as fetchEmailTemplatesSummariesPaginatedAPI,
   fetchEmailTemplate as fetchEmailTemplateAPI,
   fetchEmailTemplateDetail as fetchEmailTemplateDetailAPI,
   fetchBulkEmailTemplateDetail as fetchBulkEmailTemplateDetailAPI,
@@ -24,20 +25,32 @@ import {
   fetchTemplateMetaData as fetchTemplateMetaDataAPI,
 } from './api';
 
-import { getFreshEmailTemplateSummariesIds } from './selectors';
+import { getFreshEmailTemplateSummariesIds } from '#src/libs/email-editor/selectors';
 
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import type {
+  Dispatch,
+  ThunkAction,
+  OptionCallback,
+  PaginatedResponse,
+} from '#src/state/types';
 
 // @ts-expect-error
-import { createDictionnaryById, createIdList } from '../../actions/utils';
-import { RootState } from '../../reducers';
+import { createDictionnaryById, createIdList } from '#src/actions/utils';
+import { RootState } from '#src/reducers';
 import {
   EmailTemplate,
   EmailTemplateCategory,
   EmailTemplateCategoryWithTemplates,
   FranchisorSavedFilter,
-} from './types';
-import { ELLIPSIS, EMAIL_TITLE_BACKEND_CHARACTER_LIMIT } from './constants';
+  EmailTemplateSummary,
+  EmailDesignQueryParamsPaginated,
+} from '#src/libs/email-editor/types';
+
+import {
+  ELLIPSIS,
+  EMAIL_TITLE_BACKEND_CHARACTER_LIMIT,
+  FRANCHISE_EMAIL_DESIGN_TEMPLATE_PAGINATION_SIZE,
+} from '#src/libs/email-editor/constants';
 
 export const emailTemplatesSummariesAction = {
   error: createAction('EMAIL/SUMMARIES/ERROR'),
@@ -72,6 +85,189 @@ export function emailTemplatesSummaries(
   };
 }
 
+export const fetchFranchiseEmailTemplatesSummariesPaginatedActions = {
+  ownedByFranchisorError: createAction<Error | null>(
+    'EMAIL_SUMMARIES/OWNED_BY_FRANCHISOR/PAGINATED_LIST/ERROR',
+  ),
+  ownedByFranchisorIsLoading: createAction<boolean>(
+    'EMAIL_SUMMARIES/OWNED_BY_FRANCHISOR/PAGINATED_LIST/IS_LOADING',
+  ),
+  ownedByFranchisorSuccess: createAction<
+    PaginatedResponse<EmailTemplateSummary>
+  >('EMAIL_SUMMARIES/OWNED_BY_FRANCHISOR/PAGINATED_LIST/SUCCESS'),
+
+  ownedByFranchiseeError: createAction<Error | null>(
+    'EMAIL_SUMMARIES/OWNED_BY_FRANCHISEE/PAGINATED_LIST/ERROR',
+  ),
+  ownedByFranchiseeIsLoading: createAction<boolean>(
+    'EMAIL_SUMMARIES/OWNED_BY_FRANCHISEE/PAGINATED_LIST/IS_LOADING',
+  ),
+  ownedByFranchiseeSuccess: createAction<
+    PaginatedResponse<EmailTemplateSummary>
+  >('EMAIL_SUMMARIES/OWNED_BY_FRANCHISEE/PAGINATED_LIST/SUCCESS'),
+
+  bsportDefaultError: createAction<Error | null>(
+    'EMAIL_SUMMARIES/BSPORT_DEFAULT_FRANCHISE/PAGINATED_LIST/ERROR',
+  ),
+  bsportDefaultIsLoading: createAction<boolean>(
+    'EMAIL_SUMMARIES/BSPORT_DEFAULT_FRANCHISE/PAGINATED_LIST/IS_LOADING',
+  ),
+  bsportDefaultSuccess: createAction<PaginatedResponse<EmailTemplateSummary>>(
+    'EMAIL_SUMMARIES/BSPORT_DEFAULT_FRANCHISE/PAGINATED_LIST/SUCCESS',
+  ),
+};
+
+export function fetchEmailTemplatesSummariesOwnedByFranchisorPaginated(
+  params?: EmailDesignQueryParamsPaginated,
+  options?: OptionCallback<PaginatedResponse<EmailTemplateSummary>>,
+): ThunkAction {
+  return async (dispatch, getState) => {
+    dispatch(
+      fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchisorError(
+        null,
+      ),
+    );
+    dispatch(
+      fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchisorIsLoading(
+        true,
+      ),
+    );
+    const currentState = getState().emailTemplate.franchise.ownedByFranchisor;
+
+    const nextPage = params?.page ?? currentState.next_page ?? 1;
+
+    try {
+      const response = await fetchEmailTemplatesSummariesPaginatedAPI({
+        ...params,
+        is_franchise: true,
+        is_default_bsport_template: false,
+        page: nextPage,
+        page_size: FRANCHISE_EMAIL_DESIGN_TEMPLATE_PAGINATION_SIZE,
+      });
+      dispatch(
+        fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchisorSuccess(
+          response.data,
+        ),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchisorError(
+          err,
+        ),
+      );
+      options?.onError?.(err);
+    }
+    dispatch(
+      fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchisorIsLoading(
+        false,
+      ),
+    );
+  };
+}
+
+export function fetchEmailTemplatesSummariesOwnedByFranchiseePaginated(
+  params?: EmailDesignQueryParamsPaginated,
+  options?: OptionCallback<PaginatedResponse<EmailTemplateSummary>>,
+): ThunkAction {
+  return async (dispatch, getState) => {
+    dispatch(
+      fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchiseeError(
+        null,
+      ),
+    );
+    dispatch(
+      fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchiseeIsLoading(
+        true,
+      ),
+    );
+    const currentState = getState().emailTemplate.franchise.ownedByFranchisor;
+
+    const nextPage = params?.page ?? currentState.next_page ?? 1;
+
+    try {
+      const response = await fetchEmailTemplatesSummariesPaginatedAPI({
+        ...params,
+        is_franchise: false,
+        is_default_bsport_template: false,
+        page: nextPage,
+        page_size: FRANCHISE_EMAIL_DESIGN_TEMPLATE_PAGINATION_SIZE,
+      });
+      dispatch(
+        fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchiseeSuccess(
+          response.data,
+        ),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchiseeError(
+          err,
+        ),
+      );
+      options?.onError?.(err);
+    }
+    dispatch(
+      fetchFranchiseEmailTemplatesSummariesPaginatedActions.ownedByFranchiseeIsLoading(
+        false,
+      ),
+    );
+  };
+}
+
+export function fetchEmailTemplatesSummariesBsportDefaultPaginated(
+  params?: EmailDesignQueryParamsPaginated,
+  options?: OptionCallback<PaginatedResponse<EmailTemplateSummary>>,
+): ThunkAction {
+  return async (dispatch, getState) => {
+    dispatch(
+      fetchFranchiseEmailTemplatesSummariesPaginatedActions.bsportDefaultError(
+        null,
+      ),
+    );
+    dispatch(
+      fetchFranchiseEmailTemplatesSummariesPaginatedActions.bsportDefaultIsLoading(
+        true,
+      ),
+    );
+    const currentState = getState().emailTemplate.franchise.ownedByFranchisor;
+
+    const nextPage = params?.page ?? currentState.next_page ?? 1;
+
+    try {
+      const response = await fetchEmailTemplatesSummariesPaginatedAPI({
+        ...params,
+        is_default_bsport_template: true,
+        page: nextPage,
+        page_size: FRANCHISE_EMAIL_DESIGN_TEMPLATE_PAGINATION_SIZE,
+      });
+      dispatch(
+        fetchFranchiseEmailTemplatesSummariesPaginatedActions.bsportDefaultSuccess(
+          response.data,
+        ),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        fetchFranchiseEmailTemplatesSummariesPaginatedActions.bsportDefaultError(
+          err,
+        ),
+      );
+      options?.onError?.(err);
+    }
+    dispatch(
+      fetchFranchiseEmailTemplatesSummariesPaginatedActions.bsportDefaultIsLoading(
+        false,
+      ),
+    );
+  };
+}
 export const emailTemplateBulkAction = {
   error: createAction('EMAIL_SUMMARY/BULK_RETRIEVE/ERROR'),
   loading: createAction('EMAIL_SUMMARY/BULK_RETRIEVE/IS_LOADING'),
@@ -227,6 +423,13 @@ export const emailTemplateDetailAction = {
   error: createAction('EMAIL/DETAIL/ERROR'),
   loading: createAction('EMAIL/DETAIL/IS_LOADING'),
   success: createAction('EMAIL/DETAIL/SUCCESS'),
+  reset: createAction<void>('EMAIL/DETAIL/RESET'),
+};
+
+export const resetEmailDetail = () => {
+  return (dispatch: Dispatch) => {
+    dispatch(emailTemplateDetailAction.reset());
+  };
 };
 
 export function emailTemplateDetail(

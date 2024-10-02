@@ -21,9 +21,9 @@ export function EmailTemplateDetailFactory(id?: number): EmailTemplateDetail {
 }
 
 export function EmailTemplateSummaryFactory(id?: number): EmailTemplateSummary {
-  // @ts-expect-error
   return {
     id: id ?? randomInt(1000),
+    ///@ts-expect-error
     date_created: faker.date.past().toString(),
     date_modified: faker.date.past().toString(),
     subject: faker.hacker.phrase(),

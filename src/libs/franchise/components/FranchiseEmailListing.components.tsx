@@ -166,6 +166,7 @@ const FranchiseEmailListing = (props: Props) => {
           {franchiseEmails.length > 0 && (
             <div className={classes.franchisedBlock}>
               <Typography className={classes.title} variant="h5">
+                {/* TODO  emails.franchiseEmails and emails.companiesEmails have the same translation and it is missleading*/}
                 {t('emails.franchiseEmails')}
               </Typography>
               <List className={classes.list}>

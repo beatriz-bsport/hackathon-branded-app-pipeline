@@ -28,8 +28,9 @@ export const companyEmailListFactory = (
     company_id,
     ordering_in_category: Math.floor(Math.random() * 1000),
     available: true,
-    category: null,
+    category: null as number,
     is_default_bsport_template: false,
+    available_for_companies: [] as number[],
   }));
 };
 export default FactoryBot;

@@ -46,15 +46,11 @@ const FranchiseCompanyList = asyncComponent(
   () => import('./FranchiseCompanyList.page'),
 );
 const FranchiseTheme = asyncComponent(() => import('./FranchiseTheme.page'));
-const FranchiseEmailCreate = asyncComponent(
-  () => import('./FranchiseEmailCreate.page'),
+
+const FranchiseEmailTemplateRouter = asyncComponent(
+  () => import('./email-template/FranchiseEmailTemplate.router'),
 );
-const FranchiseEmailEditor = asyncComponent(
-  () => import('./FranchiseEmailEditor.page'),
-);
-const FranchiseEmailList = asyncComponent(
-  () => import('./FranchiseEmailList.page'),
-);
+
 const FranchiseNotificationRulesPage = asyncComponent(
   () => import('./FranchiseNotificationRules.page'),
 );
@@ -191,7 +187,10 @@ const FranchiseRouter = (props: Props) => {
               path="/f/franchises/:companyId?"
             />
             <Route component={FranchiseTheme} path="/f/settings/theme" />
-            <Route component={EmailTemplate} path="/f/email-template" />
+            <Route
+              component={FranchiseEmailTemplateRouter}
+              path="/f/email-template"
+            />
             <Route component={FranchiseMarketingRouter} path="/f/marketing" />
             <Route component={WidgetGeneratorPage} path="/f/settings/widget" />
             <Route component={FranchiseUserSearch} path="/f/search" />
@@ -255,25 +254,6 @@ const FranchiseRouter = (props: Props) => {
         <GenericDialog />
       </DrawerContext.Provider>
     </MuiThemeProvider>
-  );
-};
-
-const EmailTemplate = () => {
-  return (
-    <Switch>
-      <Route
-        exact
-        component={FranchiseEmailEditor}
-        path="/f/email-template/:id/edit"
-      />
-      <Route
-        exact
-        component={FranchiseEmailCreate}
-        path="/f/email-template/create"
-      />
-      <Route component={FranchiseEmailList} path="/f/email-template/:id?" />
-      <Redirect to="/f/email-template" />
-    </Switch>
   );
 };
 

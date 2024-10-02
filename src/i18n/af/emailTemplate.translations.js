@@ -54,6 +54,30 @@ exports.default = {
   allCompanies: 'All studios',
   seeAll: 'See all',
   franchiseEmails: '[Master Account] Email Templates',
+  franchiseEmailsPage: {
+    tabs: {
+      ownByFranchisor: 'Master Account templates',
+      ownByFranchisee: 'Studios templates',
+      bsportDefault: 'bsport templates',
+    },
+    informativeAlert: {
+      ownedByFranchisor: {
+        description:
+          'Create templates you can share with your franchisees to maintain your brand identity.',
+      },
+      ownedByFranchisee: {
+        description:
+          'These templates have been created by your franchisees from their backoffice. You only view templates from studios to which you have access. You can edit those templates, note that your edition will impact the source template which may be used in campaigns by the related studio.',
+      },
+      bsportDefault: {
+        description:
+          'These templates are provided by bsport. To edit them or use them in campaigns, please duplicate them. They will appear in the "{{-masterAccountTabName}}" tab.',
+      },
+    },
+    filters: {
+      companySelectPlaceHolder: 'Select a studio',
+    },
+  },
   companieEmails: 'Templates',
   infoBsportTemplateEmails:
     'If you want to send communications or edit the templates in this section, it is necessary to create a copy of the desired template. Then select the copy of the email when sending a communication.',

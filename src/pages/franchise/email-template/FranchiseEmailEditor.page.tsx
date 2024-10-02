@@ -29,10 +29,10 @@ import { fetchTagList as fetchTagListAction } from '#src/libs/notification-rule/
 import { getTagCategories } from '#src/libs/notification-rule/selectors';
 import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/actions';
 import { FranchiseCompany } from '#src/libs/franchise/types';
-import { RootState } from '../../reducers';
-import { DrawerContext, DrawerContextValue } from '../../context';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import type { OptionCallback } from '../../state/types';
+import { RootState } from '../../../reducers';
+import { DrawerContext, DrawerContextValue } from '../../../context';
+import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
+import type { OptionCallback } from '../../../state/types';
 
 type OwnProps = {
   id: number;

@@ -147,7 +147,5 @@ const useStyles = makeStyles((theme) => ({
 export default compose<any, OwnProps>(
   connector,
   withTranslation('titles'),
-  withTitle(({ t }: { t: TFunction }) =>
-    t('dashboard.reportingDashboard'),
-  ),
+  withTitle(({ t }: { t: TFunction }) => t('dashboard.reportingDashboard')),
 )(React.memo(FranchiseReportViewDashboard));

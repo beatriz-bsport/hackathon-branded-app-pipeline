@@ -1,105 +1,133 @@
 import React from 'react';
+
 import { useTranslation } from 'react-i18next';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography/Typography';
-
-import Fuse, { FuseOptions } from 'fuse.js';
-
-import FuzeSearch from '#src/components/FuzeSearch.component';
+import { createTheme, MuiThemeProvider } from '@material-ui/core';
 
 import type {
   ReportConfiguration,
-  ReportMetadataValueWithLabel,
+  ReportConfigurationPaginatedList,
 } from '#src/libs/reporting/common/types';
+import { PaginationFilterParams } from '#src/libs/types';
+import { ErrorAndLoading } from '#src/state/types';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
-import { isNotReportMetadataValueWithLabel } from '#src/libs/reporting/common/utils';
-import ReportCustomViewItem from './ReportCustomViewItem.component';
+import ReportCustomViewItem from '#src/libs/reporting/v2/components/ReportCustomViewItem.component';
+import PaginatedListBaseReworked from '#src/components/PaginatedListBaseReworked.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import ReportV2CustomViewSearchItem from '#src/libs/payment-packs/components/Search/ReportV2CustomViewSearchItem.component';
+
+import { REPORT_VIEWS_FETCHING_PAGINATION_SIZE } from '#src/libs/reporting/common/constants';
 
 type Props = {
   handleGoToReportV2: (categoryName: ReportCategoryEnum) => () => void;
+  onPageRequested: (params: PaginationFilterParams) => void;
   reportViews: ReportConfiguration[];
+  reportViewsPaginated: ReportConfigurationPaginatedList & ErrorAndLoading;
 };
 
+const paginatedListCustomTheme = createTheme({
+  overrides: {
+    MuiList: {
+      root: {
+        backgroundColor: 'transparent',
+      },
+    },
+  },
+});
+
 const ReportViewDashboard: React.FC<Props> = ({
-  reportViews,
   handleGoToReportV2,
+  reportViews,
+  onPageRequested,
+  reportViewsPaginated,
 }) => {
   const { t } = useTranslation('reporting');
 
-  const [search, setSearch] = React.useState('');
-  const [searchResult, setSearchResult] = React.useState<ReportCategoryEnum[]>(
-    [],
+  const handleOnPageRequested = React.useCallback(
+    (params: PaginationFilterParams) => {
+      onPageRequested(params);
+    },
+    [onPageRequested],
+  );
+
+  const formatSearchOptions = React.useCallback(
+    (searchResults: ReportConfiguration[]) => {
+      return searchResults.map((result) => ({
+        label: result.name,
+        value: result.id,
+        reportView: result,
+        onClick: handleGoToReportV2,
+      }));
+    },
+    [handleGoToReportV2],
   );
 
   const classes = useStyles();
 
-  const changeSearch = React.useCallback(
-    (
-        fuse: Fuse<
-          ReportMetadataValueWithLabel,
-          FuseOptions<ReportMetadataValueWithLabel>
-        >,
-      ) =>
-      (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        setSearch(event.target.value);
-        const results = fuse.search(event.target.value);
-        if (isNotReportMetadataValueWithLabel(results)) {
-          setSearchResult(results.map((result) => result.item.category));
-        } else setSearchResult(results.map((result) => result.category));
-      },
-    [],
-  );
-
-  const clearSearch = React.useCallback(() => {
-    setSearch('');
-    setSearchResult([]);
-  }, []);
-
-  const filteredReportViewsWithSearch = React.useMemo(
-    () =>
-      search?.length > 0
-        ? reportViews.filter((view) => searchResult.includes(view.category))
-        : reportViews,
-    [reportViews, search, searchResult],
-  );
-
   return (
     <div className={classes.root}>
-      <FuzeSearch
-        changeSearch={changeSearch}
-        clearSearch={clearSearch}
-        items={reportViews}
-        placeholder={t('viewPageSearchPlaceholder')}
-        searchFields={['name', 'category']}
-        searchText={search}
+      <ObjectSearchComponent
+        additionalParams={{ page_size: 10 }}
+        className={classes.searchComponent}
+        components={{
+          Option: ReportV2CustomViewSearchItem,
+        }}
+        optionsFormatter={formatSearchOptions}
+        placeholder={t('search')}
+        searchedObjectType="reportV2"
+        variant="underlined"
       />
       <div className={classes.titleContainer}>
-        <Typography variant="h5">All Views</Typography>
+        <Typography variant="h5">{t('viewTab.allViews')}</Typography>
       </div>
-      {filteredReportViewsWithSearch &&
-      filteredReportViewsWithSearch.length > 0 ? (
-        filteredReportViewsWithSearch.map((view) => (
-          <ReportCustomViewItem
-            key={view.id}
-            handleGoToReportV2={handleGoToReportV2}
-            reportCustomView={view}
+      <MuiThemeProvider theme={paginatedListCustomTheme}>
+        {reportViewsPaginated && (
+          <PaginatedListBaseReworked
+            itemPerPage={REPORT_VIEWS_FETCHING_PAGINATION_SIZE}
+            items={reportViews}
+            loading={reportViewsPaginated.loading}
+            nbItems={reportViewsPaginated.count}
+            onPageRequested={handleOnPageRequested}
+            page={reportViewsPaginated.page}
+            renderItem={(reportView: ReportConfiguration) => (
+              <ReportCustomViewItem
+                key={reportView.id}
+                handleGoToReportV2={handleGoToReportV2}
+                reportCustomView={reportView}
+              />
+            )}
           />
-        ))
-      ) : (
-        <Typography align="center" color="textSecondary" variant="body1">
-          {t('pageSearchEmpty')}
-        </Typography>
-      )}
+        )}
+      </MuiThemeProvider>
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  root: { display: 'flex', flexDirection: 'column', gap: theme.spacing(2) },
-  titleContainer: { display: 'flex', justifyContent: 'space-between' },
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    '& [class*="css-"][class*="-menu"]': {
+      width: '70%',
+      maxWidth: '600px',
+    },
+  },
+  titleContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  listConsumerGiftcard: {
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(1),
+  },
+  searchComponent: {
+    paddingBottom: theme.spacing(2),
+  },
 }));
 
 export default React.memo(ReportViewDashboard);

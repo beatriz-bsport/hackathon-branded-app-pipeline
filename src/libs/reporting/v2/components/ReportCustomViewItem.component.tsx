@@ -23,7 +23,7 @@ const ReportCustomViewItem: React.FC<Props> = ({
   const classes = useStyles();
 
   return (
-    <Card>
+    <Card className={classes.cardItem}>
       <CardActionArea
         className={classNames(classes.withPadding, classes.cardActionArea)}
         onClick={handleGoToReportV2(reportCustomView?.category)}
@@ -42,6 +42,9 @@ const ReportCustomViewItem: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
+  cardItem: {
+    margin: `${theme.spacing(1)}px 0px`,
+  },
   withPadding: { padding: theme.spacing(2) },
   cardActionArea: {
     display: 'flex',

@@ -371,7 +371,7 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
         getFranchiseCompanyListById,
         getPaymentPackTemplateById,
         getPrivatePassTemplateById,
-        onClick: goToContractTemplateDetailPage,
+        onClick: () => goToContractTemplateDetailPage(contractTemplate.id),
         contractTemplate,
       })),
     [

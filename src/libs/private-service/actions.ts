@@ -1176,7 +1176,7 @@ export function searchAvailableSlots(
   privateServiceId: number,
   privateSlotId: number,
   associatedCoachIdList: Array<number>,
-  date: Array<string> | string,
+  dates: Array<string> | string,
   associatedEstablishmentIdList: Array<number>,
   options?: OptionCallback,
 ): ThunkAction {
@@ -1184,21 +1184,22 @@ export function searchAvailableSlots(
     dispatch(availabilitySlotSearchActions.isLoading(true));
     dispatch(availabilitySlotSearchActions.error(null));
     try {
-      const dateArr = Array.isArray(date) ? date : [date];
+      const dateArr = Array.isArray(dates) ? dates : [dates];
 
-      const responses = await Promise.all(
-        dateArr.map((_date) =>
-          searchAvailableSlotsAPI(
-            privateServiceId,
-            privateSlotId,
-            associatedCoachIdList,
-            _date,
-            associatedEstablishmentIdList,
-          ),
-        ),
+      const response = await searchAvailableSlotsAPI(
+        privateServiceId,
+        privateSlotId,
+        associatedCoachIdList,
+        dateArr,
+        associatedEstablishmentIdList,
       );
 
-      const result = responses.flatMap((response) => response.data);
+      const result = Object.keys(response.data).flatMap((date) => {
+        return response.data[date].map((entry) => ({
+          resource_identifier: entry.resource_identifier,
+          slots: entry.slots,
+        }));
+      });
 
       dispatch(availabilitySlotSearchActions.success(result));
       // @ts-expect-error

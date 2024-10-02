@@ -24,6 +24,7 @@ import type {
   PrivateConsumerPassExtension,
   PrivateConsumerPassExtensionCreate,
   PrivatePassTemplateAPI,
+  PrivateSlotsByResource,
 } from './types';
 import type { PaginatedResponse } from '../../state/types';
 
@@ -265,14 +266,14 @@ export const searchAvailableSlots = (
   privateServiceId: number,
   privateSlotId: number,
   associatedCoachIdList: Array<number>,
-  date: string,
+  dates: string[],
   associatedEstablishmentIdList: Array<number>,
 ) => {
-  return post(
-    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${privateSlotId}/find_slots_by_resource/`,
+  return post<PrivateSlotsByResource>(
+    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${privateSlotId}/find_slots_by_resource_batched/`,
     {
       coaches: associatedCoachIdList,
-      date,
+      dates,
       ...(associatedEstablishmentIdList
         ? { establishments: associatedEstablishmentIdList }
         : {}),

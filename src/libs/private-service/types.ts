@@ -146,6 +146,13 @@ export type PrivateEstablishment = {
   };
 };
 
+export type PrivateSlotsByResource = {
+  [date: string]: {
+    resource_identifier: string;
+    slots: string[];
+  }[];
+};
+
 export type PrivatePass<LPP = number | null> = {
   id: number;
   name: string;

@@ -1,0 +1,14 @@
+Deploy Production:
+  image: node:22-alpine
+  stage: deploy-production
+
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling
+
+  #rules:
+  #  - if: '$CI_COMMIT_BRANCH == "main"'
+
+  script:
+    - git fetch origin main
+    - pnpm exec nx affected --target=ci:deploy:production --base=origin/main

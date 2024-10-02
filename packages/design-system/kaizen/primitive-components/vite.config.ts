@@ -27,7 +27,12 @@ const config: UserConfig = {
     sourcemap: true,
     emptyOutDir: true,
   },
-  plugins: [svgr(), react(), dts({ rollupTypes: true })],
+  /*plugins: [svgr(), react(), dts({ rollupTypes: true })],*/
+  plugins: [
+    svgr(),
+    react(),
+    dts({ insertTypesEntry: true }),
+  ],
   css: {
     postcss: {
       plugins: [tailwindcss],

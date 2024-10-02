@@ -1,0 +1,16 @@
+image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-frontend:14
+
+variables:
+  AWS_REGION: eu-west-3
+  REGISTRY_ENDPOINT: 672633452901.dkr.ecr.eu-west-3.amazonaws.com
+  REGISTRY_NAME: bsport/bsport-saas-builder
+
+before_script:
+  - chmod +x ./ci/setup-ci.sh
+  - ./ci/setup-ci.sh
+
+stages:
+  - deploy-production
+
+include:
+  - local: "/ci/deploy-production.yml"

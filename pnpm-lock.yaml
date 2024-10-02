@@ -146,7 +146,7 @@ importers:
     dependencies:
       '@bsport/kaizen-primitive':
         specifier: workspace:*
-        version: link:../../packages/design-system/kaizen/primitive-components/storybook-static
+        version: link:../../packages/design-system/kaizen/primitive-components
       next:
         specifier: 14.2.3
         version: 14.2.3(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)
@@ -170,67 +170,6 @@ importers:
       '@bsport/kaizen-tokens':
         specifier: workspace:*
         version: link:../tokens
-      '@storybook/addon-themes':
-        specifier: ^8.2.7
-        version: 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.3(@babel/core@7.25.2)))
-      '@types/inquirer':
-        specifier: ^9.0.3
-        version: 9.0.7
-      '@types/lodash':
-        specifier: ^4.17.4
-        version: 4.17.4
-      '@vitejs/plugin-react':
-        specifier: ^4.3.1
-        version: 4.3.1(vite@5.4.1(@types/node@22.4.0)(less@4.1.3)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.3))
-      '@vitejs/plugin-react-swc':
-        specifier: ^3.7.0
-        version: 3.7.0(@swc/helpers@0.5.12)(vite@5.4.1(@types/node@22.4.0)(less@4.1.3)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.3))
-      autoprefixer:
-        specifier: ^10.4.20
-        version: 10.4.20(postcss@8.4.41)
-      concurrently:
-        specifier: ^8.2.2
-        version: 8.2.2
-      inquirer:
-        specifier: ^8.2.4
-        version: 8.2.6
-      postcss:
-        specifier: ^8.4.41
-        version: 8.4.41
-      tailwindcss:
-        specifier: ^3.4.7
-        version: 3.4.7(ts-node@10.9.2(@swc/core@1.7.6(@swc/helpers@0.5.12))(@types/node@22.4.0)(typescript@5.5.4))
-      tslib:
-        specifier: ^2.6.3
-        version: 2.6.3
-      tsx:
-        specifier: ^4.17.0
-        version: 4.17.0
-      vite:
-        specifier: ^5.4.1
-        version: 5.4.1(@types/node@22.4.0)(less@4.1.3)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.3)
-      vite-plugin-dts:
-        specifier: ^4.0.3
-        version: 4.0.3(@types/node@22.4.0)(rollup@4.20.0)(typescript@5.5.4)(vite@5.4.1(@types/node@22.4.0)(less@4.1.3)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.3))
-      vite-plugin-svgr:
-        specifier: ^4.2.0
-        version: 4.2.0(rollup@4.20.0)(typescript@5.5.4)(vite@5.4.1(@types/node@22.4.0)(less@4.1.3)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.3))
-
-  packages/design-system/kaizen/primitive-components/storybook-static:
-    dependencies:
-      class-variance-authority:
-        specifier: ^0.7.0
-        version: 0.7.0
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-    devDependencies:
-      '@bsport/eslint-config-react':
-        specifier: workspace:*
-        version: link:../../../../../tools/config/eslint
-      '@bsport/kaizen-tokens':
-        specifier: workspace:*
-        version: link:../../tokens
       '@storybook/addon-themes':
         specifier: ^8.2.7
         version: 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.3(@babel/core@7.25.2)))

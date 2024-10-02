@@ -36,6 +36,11 @@ const paginatedListCustomTheme = createTheme({
         backgroundColor: 'transparent',
       },
     },
+    MuiPaper: {
+      elevation1: {
+        boxShadow: 'none',
+      },
+    },
   },
 });
 

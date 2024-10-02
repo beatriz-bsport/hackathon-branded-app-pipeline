@@ -33,7 +33,7 @@ const ReportV2CustomViewItem: React.FC<Props> = ({
     >
       <div className={classes.titleContainer}>
         <Typography className={classes.title} variant="body1">
-          {reportCustomView.name} / V.{reportCustomView.version}
+          {reportCustomView.name}
         </Typography>
         <Typography className={classes.subtitle} variant="body2">
           {t(`categories.${reportCustomView.category}`)}

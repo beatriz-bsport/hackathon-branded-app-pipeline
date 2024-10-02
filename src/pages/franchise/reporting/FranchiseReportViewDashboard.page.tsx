@@ -7,10 +7,10 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
 
-import { getCompanyUpsellData } from '#src/libs/company/selectors';
-import withTitle from '#src/hocs/with-title.hoc';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
-import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import type { OwnProps } from '#src/components/HighlightedText/HighlightedText.component';
+import { PaginationFilterParams } from '#src/libs/types';
 
 import {
   fetchReports as fetchReportsAction,
@@ -18,76 +18,82 @@ import {
   updateReport as updateReportAction,
   createReport as createReportAction,
 } from '#src/libs/reporting/v1/actions';
-
 import {
-  fetchReportsV2 as fetchReportsV2Action,
+  fetchReportsV2Paginated as fetchReportsV2PaginatedAction,
   fetchReportMetadata as fetchReportMetadataAction,
 } from '#src/libs/reporting/v2/actions';
+import {
+  setIsReportAlertDisplayedInV2 as setIsReportAlertDisplayedAction,
+  setIsReportV2Displayed as setIsReportV2DisplayedAction,
+} from '#src/libs/user-preference/actions';
 
+import type { RootState } from '#src/reducers';
+
+import { getCompanyUpsellData } from '#src/libs/company/selectors';
 import {
   getIsReportV2Displayed,
   getIsReportAlertDisplayedInV2,
   getLastVisitedReportV2,
 } from '#src/libs/user-preference/selectors';
 import {
-  setIsReportAlertDisplayedInV2 as setIsReportAlertDisplayedAction,
-  setIsReportV2Displayed as setIsReportV2DisplayedAction,
-} from '#src/libs/user-preference/actions';
-import type { RootState } from '#src/reducers';
-import {
   getCustomViewsReports,
   getReports,
 } from '#src/libs/reporting/v1/selectors';
-import type { OwnProps } from '#src/components/HighlightedText/HighlightedText.component';
-
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import {
   getReportsV2,
   getReportV2Loading,
   getReportCategoriesMetadata,
+  getReportsViewsPaginated,
 } from '#src/libs/reporting/v2/selectors';
 import { getObjectPermissions } from '#src/libs/role/selectors';
+
+import withTitle from '#src/hocs/with-title.hoc';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import ReportViewDashboard from '#src/libs/reporting/v2/components/ReportViewDashboard.component';
+
+import { REPORT_VIEWS_FETCHING_PAGINATION_SIZE } from '#src/libs/reporting/common/constants';
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
 
 const FranchiseReportViewDashboard: React.FC<Props> = ({
   fetchReportMetadata,
-  fetchReports,
-  fetchReportsV2,
+  fetchReportsV2Paginated,
   pushRouter,
   isV2Displayed,
   lastVisitedReportV2,
   metadata,
   reports,
-  customReports,
   reportsV2,
   reportsV2Loading,
+  reportViewsPaginated,
 }) => {
   useEffect(() => {
-    fetchReports();
     fetchReportMetadata();
-    fetchReportsV2();
-  }, [fetchReports, fetchReportMetadata, fetchReportsV2]);
+    fetchReportsV2Paginated({
+      page_size: REPORT_VIEWS_FETCHING_PAGINATION_SIZE,
+    });
+  }, [fetchReportMetadata, fetchReportsV2Paginated]);
 
   const classes = useStyles();
-
-  const filteredReportViews = (reportsV2 || [])
-    .concat(customReports || [])
-    .filter((reportView) => !reportView.is_category_default);
 
   const handleGoToReportV2 = React.useCallback(
     (categoryName: ReportCategoryEnum) => () => {
       const reportId =
         lastVisitedReportV2?.[categoryName] ||
-        filteredReportViews?.find((result) => result.category === categoryName)
-          ?.id;
+        reportsV2?.find((result) => result.category === categoryName)?.id;
 
       reportId
         ? pushRouter(`/f/reporting/detail/${categoryName}/${reportId}`)
         : pushRouter('/f/reporting/views');
     },
-    [pushRouter, filteredReportViews, lastVisitedReportV2],
+    [pushRouter, reportsV2, lastVisitedReportV2],
+  );
+
+  const fetchNextReportViews = React.useCallback(
+    (params: PaginationFilterParams) => {
+      fetchReportsV2Paginated(params);
+    },
+    [fetchReportsV2Paginated],
   );
 
   if (
@@ -103,7 +109,9 @@ const FranchiseReportViewDashboard: React.FC<Props> = ({
     <div className={classes.pageContainer}>
       <ReportViewDashboard
         handleGoToReportV2={handleGoToReportV2}
-        reportViews={filteredReportViews}
+        onPageRequested={fetchNextReportViews}
+        reportViews={reportsV2}
+        reportViewsPaginated={reportViewsPaginated}
       />
     </div>
   );
@@ -121,6 +129,7 @@ const connector = connect(
     isV2Displayed: getIsReportV2Displayed(state),
     isReportAlertDisplayedInV2: getIsReportAlertDisplayedInV2(state),
     lastVisitedReportV2: getLastVisitedReportV2(state),
+    reportViewsPaginated: getReportsViewsPaginated(state),
   }),
   {
     fetchReportMetadata: fetchReportMetadataAction,
@@ -131,7 +140,7 @@ const connector = connect(
     pushRouter: push,
     setIsReportAlertDisplayedInV2: setIsReportAlertDisplayedAction,
     setIsReportV2Displayed: setIsReportV2DisplayedAction,
-    fetchReportsV2: fetchReportsV2Action,
+    fetchReportsV2Paginated: fetchReportsV2PaginatedAction,
   },
 );
 

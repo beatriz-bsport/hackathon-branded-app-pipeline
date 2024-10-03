@@ -1,5 +1,6 @@
 import { TFunction } from 'i18next';
 import { DateTime } from 'luxon';
+import Config from '#src/config';
 import uniq from 'lodash/uniq';
 import memoize from 'memoize-one';
 import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
@@ -30,6 +31,7 @@ import type {
 } from './types';
 import { sortByDate } from '../../utils/datetime';
 import type { FranchiseUserPrivatePass } from '#src/libs/franchise/types';
+import { ELIGIBLE_CLASSPASS_COMPANIES } from './constants';
 
 export const getMissingResourceForBooking = (
   service: PrivateService,
@@ -648,3 +650,10 @@ export const getMarketplaceSearchItemIndicator = (
 export const getCoachCorrespondingCapacity = (coachCapacity: number) =>
   //@ts-expect-error
   parseInt(12 / coachCapacity, 10);
+
+export const checkClassPassEligibility = (companyId: number) => {
+  const isProduction = ['production'].includes(
+    Config.REACT_APP_SENTRY_ENVIRONMENT,
+  );
+  return !isProduction || ELIGIBLE_CLASSPASS_COMPANIES.includes(companyId);
+};

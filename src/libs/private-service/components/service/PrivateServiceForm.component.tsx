@@ -36,7 +36,10 @@ import type { OptionCallback } from '#src/state/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
-import { getCoachCorrespondingCapacity } from '#src/libs/private-service/utils';
+import {
+  checkClassPassEligibility,
+  getCoachCorrespondingCapacity,
+} from '#src/libs/private-service/utils';
 
 // @ts-expect-error
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
@@ -167,7 +170,7 @@ const HelpPaddingDialog = ({
 };
 
 export const PrivateServiceForm = (props: Props) => {
-  const { values, setValues, setFieldValue, initial } = props;
+  const { values, setValues, setFieldValue, initial, companyId } = props;
   const { t } = useTranslation('privateService');
   const classes = useStyles();
 
@@ -335,6 +338,8 @@ export const PrivateServiceForm = (props: Props) => {
     [values.availability_padding_end_minutes, values.available_on_partnership],
   );
 
+  const isCompanyEligibleForClassPass = checkClassPassEligibility(companyId);
+
   return (
     <div className={classes.container}>
       <ImageField id="button_private_service_image" name="cover_main" />
@@ -374,7 +379,7 @@ export const PrivateServiceForm = (props: Props) => {
         name="description"
         variant="outlined"
       />
-      {props.isIntegratedWithClassPass && (
+      {props.isIntegratedWithClassPass && isCompanyEligibleForClassPass && (
         <div id="private-pass-available_on_partnership-switch-field-container">
           <SwitchField
             label={t('service.form.availableOnPartnership.label')}

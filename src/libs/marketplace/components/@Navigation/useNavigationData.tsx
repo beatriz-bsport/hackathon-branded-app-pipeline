@@ -67,7 +67,7 @@ const useNavigationData = ({
   );
 
   const handleChangeWidgetPage = useCallback(
-    (page: string) => () => {
+    (page: string) => {
       changeWidgetPage?.(page);
       handleCloseConsumerSideDrawer();
     },

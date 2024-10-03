@@ -6,8 +6,8 @@ Deploy Production:
     - build-frontend
     - cluster:bsport-tooling
 
-  #rules:
-  #  - if: '$CI_COMMIT_BRANCH == "main"'
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
 
   script:
     - git fetch origin main

@@ -1,13 +1,22 @@
 #!/bin/sh
 
-# Install pnpm
+# Read pnpm version from .npmrc
+pnpm_version=$(grep pnpm_version .npmrc | cut -d '=' -f 2)
+
+# Install pnpm if it's not already installed
 if ! command -v pnpm &> /dev/null
 then
-    echo "Installing pnpm..."
-    npm install -g pnpm@9.11.0
+    if [ -n "$pnpm_version" ]; then
+        echo "Installing pnpm version $pnpm_version..."
+        npm install -g pnpm@$pnpm_version
+    else
+        echo "pnpm version not found in .npmrc. Please specify a version."
+        exit 1
+    fi
 else
     echo "pnpm is already installed."
 fi
+
 
 # Install project dependencies
 echo "Installing project dependencies..."

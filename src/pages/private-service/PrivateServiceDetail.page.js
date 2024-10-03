@@ -26,6 +26,8 @@ import {
   getPrivateServices,
   getPrivateServiceGroupList,
 } from '../../libs/private-service/selectors/private-service';
+import { getTheme } from '#src/libs/theme/selectors';
+
 import { getResourceSlotsExistState } from '../../libs/private-service/selectors/availability-slot';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import {
@@ -143,6 +145,7 @@ type Props = {
   goToSmartlist: () => void,
   getSmartLists: () => void,
   smartLists: SmartList[],
+  companyId: number,
 };
 
 export class PrivateServiceList extends React.Component<Props> {
@@ -252,6 +255,7 @@ export class PrivateServiceList extends React.Component<Props> {
             allEstablishments={this.props.allEstablishments}
             availableEstablishments={this.props.availableEstablishments}
             coaches={this.props.availableCoaches}
+            companyId={this.props.companyId}
             initial={this.props.privateService}
             isIntegratedWithClassPass={this.props.isIntegratedWithClassPass}
             onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
@@ -319,6 +323,7 @@ export default compose(
         state,
         CLASSPASS_INTEGRATION_IDENTIFIER,
       ),
+      companyId: getTheme(state)?.company,
     }),
     {
       fetchPartnershipList: fetchPartnershipListAction,

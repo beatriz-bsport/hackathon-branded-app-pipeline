@@ -125,6 +125,7 @@ type OwnProps = {
   serviceGroupList: Array<PrivateServiceGroup>;
   tagList: Array<Tag<TagGroup>>;
   initial?: PrivateService<Coach, AssociatedEstablishment>;
+  companyId: number;
 };
 
 type Props = OwnProps & WithTranslation & FormikProps<FormikValues>;

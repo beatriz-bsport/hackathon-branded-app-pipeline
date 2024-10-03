@@ -51,6 +51,7 @@ import {
 } from '#src/libs/private-service/actions';
 import { fetchMarketingNotificationList } from '#src/libs/marketing/actions';
 import { withPrivateBookingNotification } from '#src/libs/marketing/selectors';
+import { getTheme } from '#src/libs/theme/selectors';
 
 import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 
@@ -258,6 +259,7 @@ export class PrivateServiceList extends React.Component<Props, State> {
             // @ts-expect-error
             availableEstablishments={this.props.availableEstablishments}
             coaches={this.props.availableCoaches}
+            companyId={this.props.companyId}
             initial={this.props.openEditForm}
             isIntegratedWithClassPass={this.props.isIntegratedWithClassPass}
             onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
@@ -415,6 +417,7 @@ const connector = connect(
       state,
       CLASSPASS_INTEGRATION_IDENTIFIER,
     ),
+    companyId: getTheme(state)?.company,
   }),
   {
     fetchAllPrivateServices: () =>

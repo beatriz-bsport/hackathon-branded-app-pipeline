@@ -1,0 +1,13 @@
+Merge Request Open:
+  image: node:22-alpine
+  stage: merge-request-open
+
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling
+
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+  script:
+    - pnpm run ci:merge-request:open

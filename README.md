@@ -8,18 +8,16 @@ This project is a simple implementation of how a Monorepository can be configure
 
 ### Get started
 
-1. Install [pnpm](https://pnpm.io/)
-
-On MacOS,
-
-```sh
-curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=9.11.0 sh -
-```
-
-2. Install [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) and run
+1. Install [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) and run
 
 ```sh
 nvm install && nvm use
+```
+
+2. Install [pnpm](https://pnpm.io/)
+
+```sh
+npm install -g pnpm@$(grep pnpm_version .npmrc | cut -d '=' -f 2)
 ```
 
 3. Install dependencies

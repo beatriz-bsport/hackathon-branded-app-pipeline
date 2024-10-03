@@ -10,7 +10,9 @@ before_script:
   - ./ci/setup-ci.sh
 
 stages:
+  - merge-request-open
   - deploy-production
 
 include:
+  - local: "/ci/merge-request-open.yml"
   - local: "/ci/deploy-production.yml"

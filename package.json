@@ -59,6 +59,7 @@
   "scripts": {
     "build": "nx build",
     "build:all": "nx run-many --all --target=build",
+    "ci:merge-request:open": "pnpm exec nx affected -t tokens:import --base=HEAD",
     "lint": "pnpm exec nx run-many -t lint",
     "lint:affected": "pnpm exec nx affected --target=lint --base=HEAD",
     "lint:fix": "pnpm exec nx run-many -t lint:fix",

@@ -12,7 +12,7 @@ import { resetConsumerState } from 'bsport-saas/src/libs/consumer-space/actions'
 import { fetchSCT } from 'bsport-saas/src/libs/category/actions';
 
 /* COMMON */
-const consumerSpaceCommonBridgeActions = {
+export const consumerSpaceCommonBridgeActions = {
   bridgeRequestAuthenticationStatus: bridgeRequestAuthenticationStatusAction,
   resetConsumerState,
   fetchMembershipByCompany: createAuthenticatedBridgeAction(
@@ -22,7 +22,7 @@ const consumerSpaceCommonBridgeActions = {
 };
 
 /* MY BOOKINGS */
-const consumerBookingBridgeActions = {
+export const consumerBookingBridgeActions = {
   fetchMyPastBookingAsMember: createAuthenticatedBridgeAction(
     'FETCH_PAST_BOOKING_AS_MEMBER',
   ),
@@ -101,7 +101,7 @@ const consumerBookingBridgeActions = {
 };
 
 /* MY PASSES */
-const consumerPassBridgeActions = {
+export const consumerPassBridgeActions = {
   fetchSCTs: fetchSCT,
   fetchPaymentPackBulk: createAuthenticatedBridgeAction(
     'FETCH_PAYMENT_PACK_BULK',
@@ -160,7 +160,7 @@ const consumerPassBridgeActions = {
 };
 
 /* MY SUBSCRIPTIONS */
-const consumerSubscriptionBridgeActions = {
+export const consumerSubscriptionBridgeActions = {
   fetchPaymentMethodListAction: createAuthenticatedBridgeAction(
     'FETCH_PAYMENT_METHOD_LIST',
   ),
@@ -191,7 +191,7 @@ const consumerSubscriptionBridgeActions = {
 };
 
 /* MY PROFILE */
-const consumerProfileBridgeActions = {
+export const consumerProfileBridgeActions = {
   fetchMember: createAuthenticatedBridgeAction('FETCH_MEMBER_BY_ID'),
   fetchPaymentMethodList: createAuthenticatedBridgeAction(
     'FETCH_PAYMENT_METHOD_LIST',
@@ -207,7 +207,7 @@ const consumerProfileBridgeActions = {
 };
 
 /* MY INVOICES */
-const consumerInvoiceBridgeActions = {
+export const consumerInvoiceBridgeActions = {
   fetchConsumerInvoicesComplementary: createAuthenticatedBridgeAction(
     'FETCH_CONSUMER_INVOICES_COMPLEMENTARY',
   ),
@@ -233,14 +233,4 @@ const consumerInvoiceBridgeActions = {
   fetchPaymentMethodListAction: createAuthenticatedBridgeAction(
     'FETCH_PAYMENT_METHOD_LIST',
   ),
-};
-
-// TODO performance - isolate actions per page
-export const mapDispatchToWidgetProps = {
-  ...consumerSpaceCommonBridgeActions,
-  ...consumerBookingBridgeActions,
-  ...consumerPassBridgeActions,
-  ...consumerSubscriptionBridgeActions,
-  ...consumerProfileBridgeActions,
-  ...consumerInvoiceBridgeActions,
 };

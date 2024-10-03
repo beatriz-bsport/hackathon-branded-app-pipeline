@@ -25,10 +25,14 @@ import {
 
 /* COMPONENTS & UTILS */
 import ConsumerNavigation from 'bsport-saas/src/libs/consumer-space/components/reworked/@Navigation/ConsumerNavigation/ConsumerNavigation.component';
-import useViewport from 'bsport-saas/src/components/css-only/Fabrique/hooks/useViewport';
-import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from 'bsport-saas/src/libs/consumer-space/constants';
-import { consumerSpaceMapStateToWidgetProps } from '../libs/bridge/consumer-space/consumerSpaceBridgeSelectors';
-import { mapDispatchToWidgetProps } from '../libs/bridge/consumer-space/consumerSpaceBridgeActions';
+import {
+  consumerBookingBridgeSelectors,
+  consumerInvoiceBridgeSelectors,
+  consumerPassBridgeSelectors,
+  consumerProfileBridgeSelectors,
+  consumerSpaceCommonBridgeSelectors,
+  consumerSubscriptionBridgeSelectors,
+} from '../libs/bridge/consumer-space/consumerSpaceBridgeSelectors';
 import withPostMessageOnPropsUpdate from 'bsport-saas/src/hocs/postMessages/with-post-message-on-props-update';
 import withPostMessageToUpdateProps from 'bsport-saas/src/hocs/postMessages/with-post-message-to-update-props';
 import { ConsumerSpacePageValidationSchema } from 'bsport-saas/src/libs/marketplace/utils/post-message-props-update';
@@ -39,6 +43,14 @@ import type {
   ConsumerSpaceWidgetConfig,
   ConsumerSpaceWidgetPage,
 } from 'bsport-saas/src/libs/exportable-components/types';
+import {
+  consumerBookingBridgeActions,
+  consumerInvoiceBridgeActions,
+  consumerPassBridgeActions,
+  consumerProfileBridgeActions,
+  consumerSpaceCommonBridgeActions,
+  consumerSubscriptionBridgeActions,
+} from '../libs/bridge/consumer-space/consumerSpaceBridgeActions';
 
 type OwnProps = {
   companyId: number,
@@ -49,8 +61,8 @@ type OwnProps = {
   page: ConsumerSpaceWidgetPage,
 };
 
-type ConnectedProps = ReturnType<typeof consumerSpaceMapStateToWidgetProps> &
-  typeof mapDispatchToWidgetProps;
+type ConnectedProps = ReturnType<typeof consumerSpaceCommonBridgeSelectors> &
+  typeof consumerSpaceCommonBridgeActions;
 
 type State = {
   selectedPage: ConsumerSpaceWidgetPage,
@@ -58,67 +70,48 @@ type State = {
 
 type Props = OwnProps & WithStyles<ReturnType<typeof styles>> & ConnectedProps;
 
-type WidgetContentProps = {
-  selectedPage: ConsumerSpaceWidgetPage,
-} & ConnectedProps;
+/* IMPORT CONSUMER SPACE PAGES */
+const ConsumerBookingPageStyled = themify(UnconnectedConsumerBookingPage);
+const ConsumerPassPageStyled = themify(UnconnectedConsumerPass);
+const ConsumerSubscriptionPageStyled = themify(UnconnectedConsumerSubscription);
+const ConsumerProfilePageStyled = themify(UnconnectedConsumerProfile);
+const ConsumerInvoicePageStyled = themify(UnconnectedConsumerInvoiceReworked);
 
-/* IMPORT CONSUMER SPACE WIDGETS */
-const ConsumerBookingWidgetStyled = themify(UnconnectedConsumerBookingPage);
-const ConsumerPassWidgetStyled = themify(UnconnectedConsumerPass);
-const ConsumerSubscriptionWidgetStyled = themify(
-  UnconnectedConsumerSubscription,
-);
-const ConsumerProfileWidgetStyled = themify(UnconnectedConsumerProfile);
-const ConsumerInvoiceWidgetStyled = themify(UnconnectedConsumerInvoiceReworked);
+const ConsumerBookingWidget = compose(
+  connect(consumerBookingBridgeSelectors, consumerBookingBridgeActions),
+)(ConsumerBookingPageStyled);
 
-export const ConsumerSpaceWidgetContent: React.FC<WidgetContentProps> = (
-  props,
-) => {
-  const { width } = useViewport();
-  const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
+const ConsumerPassWidget = compose(
+  connect(consumerPassBridgeSelectors, consumerPassBridgeActions),
+)(ConsumerPassPageStyled);
 
-  // TODO performance - better rendering handling
-  return (
-    <>
-      {props.selectedPage === 'consumerBooking' && (
-        <ConsumerBookingWidgetStyled isMobile={isMobile} {...props} />
-      )}
-      {props.selectedPage === 'consumerPass' && (
-        <ConsumerPassWidgetStyled isMobile={isMobile} {...props} />
-      )}
-      {props.selectedPage === 'consumerInvoice' && (
-        <ConsumerInvoiceWidgetStyled isMobile={isMobile} {...props} />
-      )}
-      {props.selectedPage === 'consumerProfile' && (
-        <ConsumerProfileWidgetStyled isMobile={isMobile} {...props} />
-      )}
-      {props.selectedPage === 'consumerSubscription' && (
-        <ConsumerSubscriptionWidgetStyled isMobile={isMobile} {...props} />
-      )}
-    </>
-  );
-};
+const ConsumerSubscriptionWidget = compose(
+  connect(
+    consumerSubscriptionBridgeSelectors,
+    consumerSubscriptionBridgeActions,
+  ),
+  withHandlers(consumerSubscriptionMapWithHandlers),
+)(ConsumerSubscriptionPageStyled);
 
-class ConsumerSpace extends React.Component<Props, State> {
+const ConsumerProfileWidget = compose(
+  connect(consumerProfileBridgeSelectors, consumerProfileBridgeActions),
+)(ConsumerProfilePageStyled);
+
+const ConsumerInvoiceWidget = compose(
+  connect(consumerInvoiceBridgeSelectors, consumerInvoiceBridgeActions),
+  withHandlers(mapWithConsumerInvoiceReworkedHandlers),
+)(ConsumerInvoicePageStyled);
+
+class ConsumerSpaceWidget extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
     this.state = {
       selectedPage:
         props.page || props.config?.defaultPage || 'consumerBooking',
     };
   }
 
-  componentDidMount() {
-    this.props.bridgeRequestAuthenticationStatus();
-  }
-
   componentDidUpdate(prevProps: Props) {
-    if (!prevProps.authenticated && this.props.authenticated) {
-      this.props.fetchMembershipByCompany(this.props.companyId);
-      this.props.bridgeRequestAuthenticationStatus();
-    }
-
     /** If page prop changed from a post message, change state */
     if (prevProps.page !== this.props.page) {
       this.changePage(this.props.page);
@@ -126,12 +119,30 @@ class ConsumerSpace extends React.Component<Props, State> {
   }
 
   /** Set the current member profile page */
-  changePage = (page: OwnProps['page']) =>
+  changePage = (page: OwnProps['page']) => {
     this.setState(() => ({
       selectedPage: page,
     }));
+  };
 
   signOut = () => this.props.bridgeRequestLogout();
+
+  getCurrentConsumerWidget = () => {
+    switch (this.state.selectedPage) {
+      case 'consumerBooking':
+        return <ConsumerBookingWidget {...this.props} />;
+      case 'consumerInvoice':
+        return <ConsumerInvoiceWidget {...this.props} />;
+      case 'consumerPass':
+        return <ConsumerPassWidget {...this.props} />;
+      case 'consumerProfile':
+        return <ConsumerProfileWidget {...this.props} />;
+      case 'consumerSubscription':
+        return <ConsumerSubscriptionWidget {...this.props} />;
+      default:
+        return <ConsumerBookingWidget {...this.props} />;
+    }
+  };
 
   render() {
     return (
@@ -143,11 +154,7 @@ class ConsumerSpace extends React.Component<Props, State> {
         widgetSignOut={this.signOut}
         widgetHideNavigation={this.props.config?.hideNavigation}
       >
-        <ConsumerSpaceWidgetContent
-          selectedPage={this.state.selectedPage}
-          // TODO performance - restrict props to local page scope
-          {...this.props}
-        />
+        {this.getCurrentConsumerWidget()}
       </ConsumerNavigation>
     );
   }
@@ -165,10 +172,8 @@ const styles = () =>
   });
 
 export default compose<Props, OwnProps>(
+  connect(consumerSpaceCommonBridgeSelectors, consumerSpaceCommonBridgeActions),
   withStyles(styles),
-  connect(consumerSpaceMapStateToWidgetProps, mapDispatchToWidgetProps),
-  withHandlers(mapWithConsumerInvoiceReworkedHandlers),
-  withHandlers(consumerSubscriptionMapWithHandlers),
   withLoginDisconnectedStatus,
   withPostMessageOnPropsUpdate([
     { propName: 'page', messageType: 'bsport:consumerspace:page:change' },
@@ -180,4 +185,4 @@ export default compose<Props, OwnProps>(
       validationSchema: ConsumerSpacePageValidationSchema,
     },
   ]),
-)(ConsumerSpace);
+)(ConsumerSpaceWidget);

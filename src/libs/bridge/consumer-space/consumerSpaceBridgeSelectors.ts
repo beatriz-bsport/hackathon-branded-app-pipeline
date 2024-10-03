@@ -101,14 +101,14 @@ import type { BookingTab } from 'bsport-saas/src/libs/consumer-space/components/
 import type { BookingFilterTab } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { Membership } from 'bsport-saas/src/libs/membership/types';
 
-type ConsumerSpaceWidgetProps = {
+export type ConsumerSpaceWidgetProps = {
   companyId: number,
   theme: CompanyTheme,
   membership: Membership,
 };
 
 /* COMMON */
-const consumerSpaceCommonBridgeSelectors = (
+export const consumerSpaceCommonBridgeSelectors = (
   state: RootState,
   { companyId }: ConsumerSpaceWidgetProps,
 ) => ({
@@ -118,7 +118,7 @@ const consumerSpaceCommonBridgeSelectors = (
 });
 
 /* MY BOOKINGS */
-const consumerBookingBridgeSelectors = (
+export const consumerBookingBridgeSelectors = (
   state: RootState,
   { theme }: ConsumerSpaceWidgetProps,
 ) => ({
@@ -182,7 +182,7 @@ const consumerBookingBridgeSelectors = (
 });
 
 /* MY PASSES */
-const consumerPassBridgeSelectors = (state: RootState) => ({
+export const consumerPassBridgeSelectors = (state: RootState) => ({
   consumerPassesTabDisplayLoading: adaptSelector(
     getConsumerPassesTabDisplayLoading,
   )(state),
@@ -248,7 +248,7 @@ const consumerPassBridgeSelectors = (state: RootState) => ({
 });
 
 /* MY SUBSCRIPTIONS */
-const consumerSubscriptionBridgeSelectors = (
+export const consumerSubscriptionBridgeSelectors = (
   state: RootState,
   { theme }: ConsumerSpaceWidgetProps,
 ) => ({
@@ -272,7 +272,7 @@ const consumerSubscriptionBridgeSelectors = (
 });
 
 /* MY PROFILE */
-const consumerProfileBridgeSelectors = (
+export const consumerProfileBridgeSelectors = (
   state: RootState,
   { companyId }: ConsumerSpaceWidgetProps,
 ) => ({
@@ -290,7 +290,7 @@ const consumerProfileBridgeSelectors = (
 });
 
 /* MY INVOICES */
-const consumerInvoiceBridgeSelectors = (state: RootState) => ({
+export const consumerInvoiceBridgeSelectors = (state: RootState) => ({
   loading: adaptSelector(getInvoicesLoading)(state),
   paidInvoiceList: adaptSelector(getPaidInvoices)(state),
   paidInvoicesLoading: getPaidInvoicesLoading(state),
@@ -308,17 +308,4 @@ const consumerInvoiceBridgeSelectors = (state: RootState) => ({
   getInvoice: (uuid: string) => adaptSelector(getInvoice)(state, uuid),
   getInvoiceComplementary: (uuid: string) =>
     getInvoiceComplementaryInformation(state, uuid),
-});
-
-// TODO performance - isolate selectors per page
-export const consumerSpaceMapStateToWidgetProps = (
-  state: RootState,
-  props: ConsumerSpaceWidgetProps,
-) => ({
-  ...consumerSpaceCommonBridgeSelectors(state, props),
-  ...consumerBookingBridgeSelectors(state, props),
-  ...consumerPassBridgeSelectors(state),
-  ...consumerSubscriptionBridgeSelectors(state, props),
-  ...consumerProfileBridgeSelectors(state, props),
-  ...consumerInvoiceBridgeSelectors(state),
 });

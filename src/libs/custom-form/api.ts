@@ -13,6 +13,7 @@ import type {
   ResponsiveLayouts,
   SignUpCustomFormPayload,
   CustomFormFilledAPI,
+  CustomFormFieldAnswer,
 } from './types';
 
 export async function fetchAllCustomForm(companyId?: number) {
@@ -143,7 +144,7 @@ export async function submitCustomForm(
 }
 
 export async function submitSignUpCustomForm(
-  signup_form_filled: FormData,
+  signup_form_filled: CustomFormFieldAnswer,
   companyId: number | string | null,
   referral_uuid?: string | null,
 ) {

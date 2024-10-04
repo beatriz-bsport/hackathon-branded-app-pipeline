@@ -401,6 +401,19 @@ export const ConsumerFormFieldsHOC = withFormik({
       ),
     };
 
+    /**
+     * The sign up form must send a JSON payload to the API
+     * @see {@link submitSignUpCustomForm}
+     */
+    if (is_signup) {
+      return onSubmit(customFormCleanedValues, {
+        onSuccess: () => {
+          setSubmitting(false);
+        },
+        onError: () => setSubmitting(false),
+      });
+    }
+
     const formData = parseCustomFormAnswersToFormData(customFormCleanedValues);
 
     onSubmit(formData, {

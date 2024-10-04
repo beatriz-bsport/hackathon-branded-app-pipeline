@@ -667,7 +667,6 @@ export function submitSignUpCustomForm(
     dispatch(signUpViaCustomFormActions.error(null));
     try {
       const response = await submitSignUpCustomFormAPI(
-        // @ts-expect-error
         sign_up_custom_form_filled,
         company,
         referral_uuid,

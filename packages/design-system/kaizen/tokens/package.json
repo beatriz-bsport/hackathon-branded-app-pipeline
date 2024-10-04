@@ -9,6 +9,7 @@
   "source": "src/index.ts",
   "scripts": {
     "build": "tsc",
+    "ci:merge-request:open": "pnpm run tokens:import",
     "dev": "tsc -w",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",

@@ -11,4 +11,4 @@ Deploy Production:
 
   script:
     - git fetch origin main
-    - pnpm exec nx affected --target=ci:deploy:production --base=origin/main
+    - pnpm exec nx affected --target=ci:deploy:production --base=origin/main~1

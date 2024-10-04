@@ -9,14 +9,8 @@ import adapters from "#src/tailwind.adapter";
 const SOURCE_FOLDER = path.resolve(__dirname, "../export/supernova");
 
 // TODO to be replaced with a monorepo utils function giving programatically the path to the primitive-components project
-const TAILWIND_THEME_PATH = path.resolve(
-  __dirname,
-  "../../primitive-components/tailwind.theme.json",
-);
-const CSS_VARIABLES_PATH = path.resolve(
-  __dirname,
-  "../../primitive-components/src/index.css",
-);
+const TAILWIND_THEME_PATH = path.resolve(__dirname, "./tailwind.theme.json");
+const CSS_VARIABLES_PATH = path.resolve(__dirname, "./index.css");
 // Theme that will be used for Tailwind theme definition
 const DEFAULT_THEME = "light";
 

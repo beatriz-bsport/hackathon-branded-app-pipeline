@@ -1,6 +1,6 @@
 import React from "react";
 import type { Preview } from "@storybook/react";
-import "../src/index.css";
+import "@bsport/kaizen-tokens/src/index.css";
 
 import { withThemeByClassName } from "@storybook/addon-themes";
 

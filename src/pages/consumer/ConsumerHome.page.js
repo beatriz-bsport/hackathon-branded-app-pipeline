@@ -72,7 +72,7 @@ import {
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
-import { ChevronRight } from '#src/components/untitledui';
+import { ChevronRight, Edit03 } from '#src/components/untitledui';
 
 import ConsumerNavigation from '#src/libs/consumer-space/components/reworked/@Navigation/ConsumerNavigation';
 import { getCheckoutUrl } from '../../libs/marketplace/routing-utils';
@@ -176,6 +176,12 @@ type Props = {
   marketplaceSettings: MarketplaceSettings,
 } & WithTranslation;
 export class ConsumerHome extends React.Component<Props> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEditProfileMobilePortalOpen: false,
+    };
+  }
   UNSAFE_componentWillMount() {
     if (this.props.from_basket) {
       this.props.fetchBasketGeneratedObjects(this.props.from_basket);
@@ -224,6 +230,18 @@ export class ConsumerHome extends React.Component<Props> {
     }
   }
 
+  openEditProfilePortalOnMobile = () => {
+    this.setState({
+      isEditProfileMobilePortalOpen: true,
+    });
+  };
+
+  closeEditProfilePortalOnMobile = () => {
+    this.setState({
+      isEditProfileMobilePortalOpen: false,
+    });
+  };
+
   buildPath = (path: string) => this.props.push(this.props.buildUrl(path));
 
   attachConsumerProps = (MyComponent: React.Component<*>) => (props: any) =>
@@ -238,6 +256,26 @@ export class ConsumerHome extends React.Component<Props> {
         push={this.buildPath}
       />
     );
+
+  /**
+   * Trick to pass local state and setters to consumer profile page.
+   * The structure of the pages, wrapped by the navigation that sets the pages footer
+   * obliges us to pass this props down the component to handle mobile footer actions.
+   */
+  attachConsumerProfileProps =
+    (MyComponent: React.Component<*>) => (props: any) =>
+      (
+        <MyComponent
+          companyId={this.props.companyId}
+          {...props}
+          closeEditProfilePortalOnMobile={this.closeEditProfilePortalOnMobile}
+          isEditProfileMobilePortalOpen={
+            this.state.isEditProfileMobilePortalOpen
+          }
+          membership={this.props.membership}
+          push={this.buildPath}
+        />
+      );
 
   handleBookASessionClick = () => {
     const marketplaceTabPath = urlToMarketplaceSessionTab(
@@ -286,6 +324,16 @@ export class ConsumerHome extends React.Component<Props> {
     const location = this.props.location;
     const isSubscriptionRoute = location.pathname.includes('/subscription');
     const isPassRoute = location.pathname.includes('/pack');
+    const isProfileRoute = location.pathname.includes('/profile');
+
+    if (isProfileRoute)
+      return [
+        {
+          label: this.props.t('reworked.myProfile.header.buttons.editProfile'),
+          onClick: this.openEditProfilePortalOnMobile,
+          rightIcon: <Edit03 stroke="currentColor" />,
+        },
+      ];
 
     return isWidget
       ? []
@@ -420,7 +468,9 @@ export class ConsumerHome extends React.Component<Props> {
                     />
                     <Route
                       path="/c/:companyId/profile/"
-                      render={this.attachConsumerProps(ConsumerProfileReworked)}
+                      render={this.attachConsumerProfileProps(
+                        ConsumerProfileReworked,
+                      )}
                     />
                     <Route
                       path="/c/:companyId/giftcard/"

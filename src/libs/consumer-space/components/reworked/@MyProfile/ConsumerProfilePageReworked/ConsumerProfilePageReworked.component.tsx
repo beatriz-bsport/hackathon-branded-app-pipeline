@@ -80,6 +80,8 @@ type Props = {
     memberId: number,
     settingsAccepted: boolean,
   ) => void;
+  closeEditProfilePortalOnMobile: () => void;
+  isEditProfileMobilePortalOpen: boolean;
 };
 
 const ConsumerProfilePageReworked: React.FC<Props> = ({
@@ -111,6 +113,8 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
   stripeRegion,
   submitCustomForm,
   updateSpiviPrivacySettings,
+  closeEditProfilePortalOnMobile,
+  isEditProfileMobilePortalOpen,
 }) => {
   const { t } = useTranslation(['consumerSpace', 'common']);
 
@@ -158,16 +162,25 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     (formdata: FormData, options?: OptionCallback<CustomFormFilledAPI>) => {
       submitCustomForm(formdata, {
         onSuccess: () => {
-          closeEditProfilePortal();
+          isMobile
+            ? closeEditProfilePortalOnMobile()
+            : closeEditProfilePortal();
           options?.onSuccess?.();
         },
         onError: () => {
-          closeEditProfilePortal();
+          isMobile
+            ? closeEditProfilePortalOnMobile()
+            : closeEditProfilePortal();
           options?.onError?.();
         },
       });
     },
-    [closeEditProfilePortal, submitCustomForm],
+    [
+      closeEditProfilePortal,
+      closeEditProfilePortalOnMobile,
+      isMobile,
+      submitCustomForm,
+    ],
   );
 
   const handleDetachPaymentMethod = useCallback(
@@ -317,10 +330,16 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
         generalTermsAndConditions={general_terms_of_use}
         initial={memberCustomForm}
         isMobile={isMobile}
-        isOpen={isEditProfilePortalOpen}
+        isOpen={
+          isMobile ? isEditProfileMobilePortalOpen : isEditProfilePortalOpen
+        }
         layouts={memberCustomForm?.layout}
-        onCancel={closeEditProfilePortal}
-        onClose={closeEditProfilePortal}
+        onCancel={
+          isMobile ? closeEditProfilePortalOnMobile : closeEditProfilePortal
+        }
+        onClose={
+          isMobile ? closeEditProfilePortalOnMobile : closeEditProfilePortal
+        }
         // @ts-expect-error bad typing of the submitCustomForm action
         onSubmit={handleSubmitCustomForm}
         title={t('consumerSpace:reworked.myProfile.edition.title')}

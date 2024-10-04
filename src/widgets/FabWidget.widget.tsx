@@ -41,6 +41,8 @@ import {
   bridgeRequestBasketCount,
   bridgeRequestBookingCount,
 } from '../libs/bridge/actions';
+import { buildUrlParams } from '../utils/http';
+import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
 
 type OwnProps = {
   companyId: number,
@@ -80,7 +82,10 @@ class FabWidget extends React.PureComponent<Props, State> {
       this.fetchData();
       if (
         this.props.dialogUrl.includes(
-          `${PUBLIC_URL}/login?next=/c/${this.props.companyId}`,
+          `${PUBLIC_URL}/login${buildUrlParams({
+            next: `next=/c/${this.props.companyId}`,
+            consumerspacecontext: ConsumerSpaceContextEnum.FAB,
+          })}`,
         )
       ) {
         this.props.closeUserInteractionPortal();

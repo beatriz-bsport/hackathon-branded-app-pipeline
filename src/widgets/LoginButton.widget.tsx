@@ -15,8 +15,10 @@ import {
   bridgeRequestLogout,
 } from '../libs/bridge/actions';
 import { closeUserInteractionPortal as closeUserInteractionPortalAction } from '../libs/modal/actions';
+import { buildUrlParams } from '../utils/http';
 
 import type { MarketplaceLoginButtonWidgetConfig } from 'bsport-saas/src/libs/exportable-components/types';
+import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
 
 // const MarketplaceShopStyled = themify(MarketplaceShopBase);
 
@@ -77,13 +79,25 @@ class LoginButton extends Component<Props> {
       if (this.props.franchiseId) {
         this.openUrl(`c/franchisee-selector/${this.props.franchiseId}/`);
       } else {
-        this.openUrl(`c/${this.props.companyId}/booking/`);
+        this.openUrl(
+          `c/${this.props.companyId}/booking/${buildUrlParams({
+            consumerspacecontext: ConsumerSpaceContextEnum.LOGIN_BUTTON,
+          })}`,
+        );
       }
     } else if (this.props.franchiseId) {
-      this.openUrl(`login?franchisor=${this.props.franchiseId}`);
+      this.openUrl(
+        `login?${buildUrlParams({
+          franchisor: this.props.franchiseId,
+        })}`,
+      );
     } else {
       this.openUrl(
-        `login?membership=${this.props.companyId}&next=/c/${this.props.companyId}/booking/`,
+        `login${buildUrlParams({
+          membership: this.props.companyId,
+          next: `/c/${this.props.companyId}/booking/`,
+          consumerspacecontext: ConsumerSpaceContextEnum.LOGIN_BUTTON,
+        })}`,
       );
     }
   };

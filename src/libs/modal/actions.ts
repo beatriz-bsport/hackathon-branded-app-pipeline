@@ -10,6 +10,7 @@ import { buildUrlParams } from '../../utils/http';
 import { RootState } from '../../reducers';
 import { SafeURI } from '../../widgets/utils';
 import type { DialogMode } from './types';
+import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
 
 const buildWidgetUrl = (path: string, theme: CompanyTheme, params?: any) => {
   const { company, company_name } = theme;
@@ -38,7 +39,12 @@ export const fabShowLogin =
 
     dispatch(
       openUserInteractionPortal({
-        url: `${PUBLIC_URL}/login?membership=${company}&context=widget&next=/c/${company}`,
+        url: `${PUBLIC_URL}/login${buildUrlParams({
+          membership: company,
+          context: 'widget',
+          next: `/c/${company}`,
+          consumerspacecontext: ConsumerSpaceContextEnum.FAB,
+        })}`,
         dialogMode: DIALOG_MODE_IFRAME,
         isFabContext: true,
       }),

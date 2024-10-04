@@ -51,6 +51,7 @@ import {
   consumerSpaceCommonBridgeActions,
   consumerSubscriptionBridgeActions,
 } from '../libs/bridge/consumer-space/consumerSpaceBridgeActions';
+import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
 
 type OwnProps = {
   companyId: number,
@@ -148,6 +149,7 @@ class ConsumerSpaceWidget extends React.Component<Props, State> {
     return (
       // @ts-expect-error children prop typing
       <ConsumerNavigation
+        context={ConsumerSpaceContextEnum.WIDGET}
         memberName={this.props.membership?.name}
         changeWidgetPage={this.changePage}
         selectedWidgetPage={this.state.selectedPage}

@@ -58,6 +58,7 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
           {selectedSubscriptionInvoiceDetails?.length ? (
             selectedSubscriptionInvoiceDetails.map((item) => (
               <ListItem
+                key={item.uuid}
                 captionText={getCurrencyDisplayWithPrice(
                   (parseFloat(item.amount_paid_cts) / 100).toString(),
                 )}

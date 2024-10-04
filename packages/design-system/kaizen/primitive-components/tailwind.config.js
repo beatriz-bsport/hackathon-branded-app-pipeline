@@ -1,4 +1,4 @@
-import THEME from "./tailwind.theme.json";
+import THEME from "@bsport/kaizen-tokens/src/tailwind.theme.json";
 
 /** @type {import('tailwindcss').Config} */
 export default {

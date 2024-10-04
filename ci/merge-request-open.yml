@@ -10,4 +10,5 @@ Merge Request Open:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
   script:
-    - pnpm run ci:merge-request:open
+    - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - pnpm exec nx affected --target=ci:merge-request:open --base=origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME

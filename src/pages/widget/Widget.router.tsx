@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { connect, ConnectedComponent, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 
 // @ts-expect-error
@@ -13,28 +13,44 @@ import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { Theme } from '../../libs/theme/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import ConsumerProfileReworked from '#src/pages/consumer/ConsumerProfileReworked.page';
+import ConsumerBookingReworked from '#src/pages/consumer/ConsumerBookingReworked.page';
+import ConsumerSubscriptionReworked from '#src/pages/consumer/ConsumerSubscriptionReworked.page';
+import { getMembership } from '#src/libs/membership/selectors';
+import { RootState } from '#src/reducers';
 
 const BridgeWidget = asyncComponent(() => import('./BridgeWidget.page'));
 const Basket = asyncComponent(() => import('./Basket.page'));
-const ProfileWidgetPage = asyncComponent(() => import('./Profile.page'));
-const ConsumerSubscription = asyncComponent(
-  () => import('./ConsumerSubscription.page'),
-);
-const BookingsAndPrivateBookings = asyncComponent(
-  () => import('./BookingsAndPrivateBookings.page'),
-);
 
-interface Props {
+type RouterProps = {
+  companyId: number;
+};
+
+type Props = {
   theme: Theme;
-  // @ts-expect-error
-  fetchCompanyTheme: (number) => void;
-}
+  fetchCompanyTheme: (companyId: number) => void;
+} & RouterProps &
+  ConnectedProps<typeof connector>;
 
 class WidgetRouter extends React.Component<Props> {
   componentDidMount() {
-    // @ts-expect-error
     this.props.fetchCompanyTheme(this.props.companyId);
   }
+
+  attachConsumerProps =
+    (
+      MyComponent:
+        | React.ComponentClass<Record<string, any>, Record<string, any>>
+        | ConnectedComponent<any, Record<string, any>>,
+    ) =>
+    (props: Record<string, any>) =>
+      (
+        <MyComponent
+          companyId={this.props.companyId}
+          {...props}
+          membership={this.props.membership}
+        />
+      );
 
   render() {
     return (
@@ -49,15 +65,15 @@ class WidgetRouter extends React.Component<Props> {
             path="/widget/:companyName/:companyId/basket"
           />
           <Route
-            component={BookingsAndPrivateBookings}
+            component={this.attachConsumerProps(ConsumerBookingReworked)}
             path="/widget/:companyName/:companyId/bookings/"
           />
           <Route
-            component={ProfileWidgetPage}
+            component={this.attachConsumerProps(ConsumerProfileReworked)}
             path="/widget/:companyName/:companyId/profile/"
           />
           <Route
-            component={ConsumerSubscription}
+            component={this.attachConsumerProps(ConsumerSubscriptionReworked)}
             path="/widget/:companyName/:companyId/subscription/"
           />
         </Switch>
@@ -66,19 +82,21 @@ class WidgetRouter extends React.Component<Props> {
   }
 }
 
+const connector = connect(
+  (state: RootState, props: RouterProps) => ({
+    theme: themeSelectors.getTheme(state),
+    membership: getMembership(state, props.companyId),
+  }),
+  {
+    fetchCompanyTheme,
+  },
+);
+
 export default compose(
   routerParamsToProps({
     companyId: 'companyId:number',
     // @ts-expect-error
     companyName: 'companyName',
   }),
-  connect(
-    (state) => ({
-      // @ts-expect-error
-      theme: themeSelectors.getTheme(state),
-    }),
-    {
-      fetchCompanyTheme,
-    },
-  ),
+  connector,
 )(WidgetRouter);

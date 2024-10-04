@@ -67,7 +67,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
         this.props.fetchMember(this.props.membership.id, {}, { me: true });
       this.fetchMemberPaymentMethod();
       this.props.fetchCompanyCustomMemberForm(
-        this.props.companyId ?? this.props.membership.company,
+        this.props.companyId ?? this.props.membership?.company,
       );
       this.props.fetchMyUserProfile();
       this.fetchReferralData();
@@ -103,7 +103,10 @@ class ConsumerProfileReworked extends React.Component<Props> {
     options?: OptionCallback<CustomFormFilledAPI>,
   ) => {
     this.props.submitCustomForm(
-      { form_filled: formData, companyId: this.props.membership.company },
+      {
+        form_filled: formData,
+        companyId: this.props.companyId ?? this.props.membership?.company,
+      },
       {
         onSuccess: () => {
           this.props.fetchMember(this.props.membership.id, {}, { me: true });
@@ -116,7 +119,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
   };
 
   requestSetupIntentSecret = () => {
-    return requestSetupIntentSecretAPI(this.props.membership.id, null);
+    return requestSetupIntentSecretAPI(this.props.membership?.id, null);
   };
 
   fetchReferralData = () => {

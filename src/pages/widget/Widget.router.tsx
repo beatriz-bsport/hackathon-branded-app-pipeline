@@ -18,6 +18,7 @@ import ConsumerBookingReworked from '#src/pages/consumer/ConsumerBookingReworked
 import ConsumerSubscriptionReworked from '#src/pages/consumer/ConsumerSubscriptionReworked.page';
 import { getMembership } from '#src/libs/membership/selectors';
 import { RootState } from '#src/reducers';
+import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 const BridgeWidget = asyncComponent(() => import('./BridgeWidget.page'));
 const Basket = asyncComponent(() => import('./Basket.page'));
@@ -49,6 +50,7 @@ class WidgetRouter extends React.Component<Props> {
           companyId={this.props.companyId}
           {...props}
           membership={this.props.membership}
+          queryParams={{ consumerspacecontext: ConsumerSpaceContextEnum.FAB }}
         />
       );
 

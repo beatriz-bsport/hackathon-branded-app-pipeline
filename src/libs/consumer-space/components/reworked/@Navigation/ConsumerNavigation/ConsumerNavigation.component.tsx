@@ -13,7 +13,10 @@ import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppB
 import useViewport from '#Fabrique/hooks/useViewport';
 import NavigationSideBar from '#src/components/css-only/Navigation/NavigationSideBar';
 import useNavigationData from '#src/libs/marketplace/components/@Navigation/useNavigationData';
-import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
+import {
+  CONSUMER_SPACE_MOBILE_BREAKPOINT,
+  ConsumerSpaceContextEnum,
+} from '#src/libs/consumer-space/constants';
 import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
 import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import {
@@ -63,6 +66,7 @@ type Props = {
   basketProductListCount?: number;
   /** The current company's marketplace settings config */
   tabConfigList: MarketplaceTabConfig[];
+  context: ConsumerSpaceContextEnum;
 };
 
 type CombinedProps = Partial<WidgetProps & CommonProps & Props>;
@@ -81,6 +85,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   tabConfigList,
   selectedWidgetPage,
   widgetHideNavigation,
+  context,
   push,
   changeWidgetPage,
   widgetSignOut,
@@ -89,11 +94,21 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   const { width } = useViewport();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
-  const isWidget = WidgetUtils.isWidget();
-
   const isIframe = WidgetUtils.getDialogMode() === DIALOG_MODE_IFRAME;
 
   const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
+
+  /** Compute the navigation display from widget config + context */
+  const shouldHideNavigation = useMemo(() => {
+    switch (context) {
+      case ConsumerSpaceContextEnum.WIDGET:
+        return widgetHideNavigation;
+      case ConsumerSpaceContextEnum.FAB:
+        return true;
+      default:
+        return false;
+    }
+  }, [context, widgetHideNavigation]);
 
   const linksList: AppBarTab[] = useMemo(
     () =>
@@ -142,6 +157,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
     companyId: companyId,
     linksList,
     selectedWidgetPage,
+    context,
     handleCloseMarketplaceSideDrawer,
     handleCloseConsumerSideDrawer,
     changeWidgetPage,
@@ -184,10 +200,10 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
     ],
   );
 
-  if (isWidget && isIframe) {
+  if (context === ConsumerSpaceContextEnum.WIDGET) {
     return (
       <div className="bs-widget-consumer-navigation__root">
-        {isMobile && (
+        {isMobile && !shouldHideNavigation && (
           <Button
             color="grey"
             leftIcon={<Menu01 stroke="currentColor" />}
@@ -199,55 +215,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
         )}
 
         <div className="bs-consumer-navigation__root">
-          <NavigationSideDrawer
-            handleBackArrowClick={handleBackArrowClick}
-            handleSetStackNavigationState={handleSetStackNavigationState}
-            isOpen={isConsumerSideDrawerOpen}
-            leftIcon={<ArrowLeft fill="currentColor" />}
-            stackNavigationState={stackNavigationState}
-            submenuItems={consumerNavigationData}
-            subtitle={t('reworked.navigation.exploreYourProfile')}
-            title={memberName && `${memberName},`}
-          />
-
-          <div className="bs-consumer-navigation__layout">
-            <NavigationSideBar
-              items={consumerNavigationData}
-              memberName={memberName}
-            />
-            <main
-              className={classNames(
-                'bs-consumer-navigation__content',
-                'bs-consumer-navigation__layout--computed-height',
-                {
-                  'bs-consumer-navigation__content--mobile': isMobile,
-                },
-              )}
-            >
-              {children}
-            </main>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (isWidget && !isIframe) {
-    return (
-      <div className="bs-widget-consumer-navigation__root">
-        {isMobile && !widgetHideNavigation && (
-          <Button
-            color="grey"
-            leftIcon={<Menu01 stroke="currentColor" />}
-            onClick={handleToggleConsumerSideDrawer}
-            variant="text"
-          >
-            {t('reworked.menu')}
-          </Button>
-        )}
-
-        <div className="bs-consumer-navigation__root">
-          {!widgetHideNavigation && (
+          {!shouldHideNavigation && (
             <NavigationSideDrawer
               handleBackArrowClick={handleBackArrowClick}
               handleSetStackNavigationState={handleSetStackNavigationState}
@@ -261,7 +229,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
           )}
 
           <div className="bs-consumer-navigation__layout">
-            {!widgetHideNavigation && (
+            {!shouldHideNavigation && (
               <NavigationSideBar
                 items={consumerNavigationWidgetData}
                 memberName={memberName}

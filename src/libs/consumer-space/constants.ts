@@ -9,6 +9,17 @@ export const NEW_MEMBER_PROFILE_ROUTE_LIST = [
 ];
 
 /**
+ * The context from where the consumer space is accessed from.
+ * This enum is used to compute various things including navigation elements.
+ */
+export enum ConsumerSpaceContextEnum {
+  WEB = 'WEB',
+  WIDGET = 'WIDGET',
+  FAB = 'FAB',
+  LOGIN_BUTTON = 'LOGIN_BUTTON',
+}
+
+/**
  * @description A list of company IDs that will be able to see the new member profile in production env
  * for local/dev/staging its always displayed
  */

@@ -15,6 +15,7 @@ import Analytics from '../../components/analytics/Analytics.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { parseQueryString, buildUrlParams } from '../../http';
 import { withTranslation } from 'react-i18next';
+import withQueryParams from '../../hocs/with-query-params.hoc';
 
 import asyncComponent from '../../AsyncComponent';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
@@ -83,8 +84,7 @@ import {
 } from '../../libs/marketplace/utils/navigation';
 import { getBasketBuyableItemsCount } from '../../libs/checkout/utils';
 import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
-
-const isWidget = WidgetUtils.isWidget();
+import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),
@@ -242,6 +242,12 @@ export class ConsumerHome extends React.Component<Props> {
     });
   };
 
+  /**
+   * The consumer space context. If not provided the default context is WEB
+   * @see {@link [ConsumerSpaceContextEnum](#src/libs/consumer-space/constants.ts)}
+   */
+  getConsumerSpaceContext = () => this.props.queryParams?.consumerspacecontextt;
+
   buildPath = (path: string) => this.props.push(this.props.buildUrl(path));
 
   attachConsumerProps = (MyComponent: React.Component<*>) => (props: any) =>
@@ -283,12 +289,7 @@ export class ConsumerHome extends React.Component<Props> {
       this.props.theme?.company_name,
       this.props.theme?.company?.toString(),
     );
-    if (WidgetUtils.isWidget()) {
-      WidgetUtils.closeModal();
-      window?.close();
-    } else {
-      this.props.push(marketplaceTabPath);
-    }
+    this.props.push(marketplaceTabPath);
   };
 
   handleGetASubscriptionClick = () => {
@@ -297,12 +298,7 @@ export class ConsumerHome extends React.Component<Props> {
       this.props.theme?.company_name,
       this.props.theme?.company?.toString(),
     );
-    if (WidgetUtils.isWidget()) {
-      WidgetUtils.closeModal();
-      window?.close();
-    } else {
-      this.props.push(marketplaceTabPath);
-    }
+    this.props.push(marketplaceTabPath);
   };
 
   handleBuyPassClick = () => {
@@ -311,12 +307,7 @@ export class ConsumerHome extends React.Component<Props> {
       this.props.theme?.company_name,
       this.props.theme?.company?.toString(),
     );
-    if (WidgetUtils.isWidget()) {
-      WidgetUtils.closeModal();
-      window?.close();
-    } else {
-      this.props.push(marketplaceTabPath);
-    }
+    this.props.push(marketplaceTabPath);
   };
 
   /** A list of buttons shown in the footer on mobile */
@@ -335,7 +326,7 @@ export class ConsumerHome extends React.Component<Props> {
         },
       ];
 
-    return isWidget
+    return this.getConsumerSpaceContext() !== ConsumerSpaceContextEnum.WEB
       ? []
       : [
           {
@@ -392,6 +383,7 @@ export class ConsumerHome extends React.Component<Props> {
                   companyLogo={this.props.theme?.cover}
                   companyName={this.props.theme?.company_name ?? ''}
                   companyWebsiteUrl={this.props.theme?.websiteURL}
+                  context={this.props.queryParams?.consumerspacecontext ?? ''}
                   controlableMemberList={this.props.controlableMemberList}
                   franchisorCompanyList={this.props.franchisor?.companies ?? []}
                   hasMultipleMembership={
@@ -615,6 +607,7 @@ export class ConsumerHome extends React.Component<Props> {
 }
 
 export default compose(
+  withQueryParams([['consumerspacecontext'], 'queryParams']),
   routerParamsToProps({ companyId: 'companyId:number' }),
   withRouter,
   withProps(({ location }) => ({

@@ -42,6 +42,19 @@ pnpm exec nx start @bsport/app-1
 
 ## Quick guide
 
+### Continuous Integration commands
+
+The monorepository comes with a set of pre-defined commands that are run when a project is edited based on various scenarios.
+
+In your project you can set-up the following pnpm scripts that will be ran by Gitlab's CI pipelines or husky git hooks:
+
+|      pnpm script       | When is it ran ?                                                                              |                              Use case                               | Diff based on |
+| :--------------------: | :-------------------------------------------------------------------------------------------- | :-----------------------------------------------------------------: | :-----------: |
+|      `pre-commit`      | Just before committing (don't forget to use `git add` if you'd like your changes to be added) | Allows to validate code before anything is committed on the project |    `HEAD`     |
+| `ci:deploy:production` | When a code is being pushed to `origin/main`                                                  |         This will be the deployment script of your project          | `origin/main` |
+
+**❗️ WARNING:** These commands will only be executed if your project has been modified compared to the base.
+
 ### CLI commands
 
 #### Utils
@@ -84,20 +97,6 @@ It will ask you some questions to create the project:
 - The template you want to use. The templates are located in the [`/templates`](/templates) folder. You can create your own templates and use them in this command.
 
 Full documentation [here](/tools/monorepo-utils/README.md#projectcreate).
-
-### Add pre-commit hook
-
-If you need your project to include a "pre-commit" hook, you can add it to the `package.json` file of your project.
-
-```json
-{
-  "scripts": {
-    "pre-commit": "your command"
-  }
-}
-```
-
-It will be executed just before committing (don't forget to use `git add` if you want your changes to be added) when your project has some changes compared to remote branch `origin/main`.
 
 ### Maintainance
 

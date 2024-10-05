@@ -13516,7 +13516,7 @@
         "list": {
             "activeCoupons": "Actieve promoties",
             "isEmpty": "In dit onderdeel kunnen alle promoties worden beheerd.",
-            "inactiveCoupons": "Verlopen of gedeactiveerde promoties"
+            "inactiveCoupons": "Verlopen promoties"
         },
         "detail": {
             "seeParameters": "Bewerken",
@@ -14176,7 +14176,12 @@
         "add": "Voeg toe",
         "continue": "Verder",
         "edit": "Bewerk",
-        "preview": "Voorbeeld"
+        "preview": "Voorbeeld",
+        "gender": {
+            "X": "Non-binair",
+            "M": "Man",
+            "F": "Vrouw"
+        }
     },
     "workshop": {
         "modal": {
@@ -15263,7 +15268,11 @@
             "addFooter": "Voetnoot wijzigen",
             "addCoupon": "Een promotiecode toevoegen",
             "downloadReceipt": "Betalingsbewijs",
-            "downloadXml": "Factuur downloaden (XML)"
+            "downloadXml": "Factuur downloaden (XML)",
+            "downloadXmlBulkState": {
+                "title": "ZIP-bestand"
+            },
+            "downloadXmlBulk": "Genereer facturen (XML)"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "De factuur is nu aangemaakt en kan niet meer worden bewerkt.",

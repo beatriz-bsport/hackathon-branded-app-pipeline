@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
@@ -90,6 +90,10 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   changeWidgetPage,
   widgetSignOut,
 }) => {
+  /** Using a local state to keep context - web, login button... - stored */
+  const [consumerSpaceContext, setConsumerSpaceContext] =
+    useState<ConsumerSpaceContextEnum>(ConsumerSpaceContextEnum.WEB);
+
   const { t } = useTranslation(['consumerSpace', 'marketplace']);
   const { width } = useViewport();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
@@ -97,6 +101,10 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   const isIframe = WidgetUtils.getDialogMode() === DIALOG_MODE_IFRAME;
 
   const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
+
+  useEffect(() => {
+    !!context && setConsumerSpaceContext(context);
+  }, [context]);
 
   /** Compute the navigation display from widget config + context */
   const shouldHideNavigation = useMemo(() => {
@@ -157,7 +165,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
     companyId: companyId,
     linksList,
     selectedWidgetPage,
-    context,
+    context: consumerSpaceContext,
     handleCloseMarketplaceSideDrawer,
     handleCloseConsumerSideDrawer,
     changeWidgetPage,
@@ -200,7 +208,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
     ],
   );
 
-  if (context === ConsumerSpaceContextEnum.WIDGET) {
+  if (consumerSpaceContext === ConsumerSpaceContextEnum.WIDGET) {
     return (
       <div className="bs-widget-consumer-navigation__root">
         {isMobile && !shouldHideNavigation && (
@@ -250,6 +258,19 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
 
   return (
     <div className="bs-consumer-navigation__root">
+      {isMobile &&
+        !shouldHideNavigation &&
+        consumerSpaceContext === ConsumerSpaceContextEnum.LOGIN_BUTTON && (
+          <Button
+            color="grey"
+            leftIcon={<Menu01 stroke="currentColor" />}
+            onClick={handleToggleConsumerSideDrawer}
+            variant="text"
+          >
+            {t('reworked.menu')}
+          </Button>
+        )}
+
       {!isIframe && (
         <NavigationAppBar
           actions={actionsList}

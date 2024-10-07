@@ -229,6 +229,7 @@ export const OfferCreateForm = (props: Props) => {
       {!isOfferInGroup && (
         <OfferFormSettings
           allowGuestMaster={allowGuestMaster}
+          availableEstablishments={availableEstablishments}
           isOfferInGroup={isOfferInGroup}
           isWorkshop={metaActivity?.is_workshop}
           roomBlueprints={roomBlueprints}
@@ -311,6 +312,8 @@ const formikFormWrapper = withFormik<
       selectedMetaActivity: props.metaActivity?.id,
       selectedWhitelistTags: [],
       waitingListMaxSize: props.isOfferInGroup ? 0 : null,
+      wellhubProductId: null,
+      isWellhubProductRequired: false,
     };
   },
   enableReinitialize: false,
@@ -339,6 +342,7 @@ const formikFormWrapper = withFormik<
       selectedWhitelistTags,
       syncOfferOnSpivi,
       waitingListMaxSize,
+      wellhubProductId,
     } = values;
 
     const didNameOrDescriptionChange = !(
@@ -384,6 +388,7 @@ const formikFormWrapper = withFormik<
       sync_on_spivi: syncOfferOnSpivi,
       waiting_list_max_size: waitingListMaxSize,
       whitelist_tags: selectedWhitelistTags,
+      wellhub_product_id: wellhubProductId,
     };
 
     if (roomBlueprint) {

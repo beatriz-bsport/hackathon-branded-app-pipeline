@@ -31,6 +31,7 @@ import { Establishment } from '../establishment/types';
 import { MetaActivity } from '../meta-activity/types';
 import { Coach } from '../associated-coach/types';
 import { OFFER_RECURRENCE } from './constants';
+import type { WellhubProductId } from '#src/libs/wellhub/types';
 
 export type OfferFilter = {
   establishments?: number[];
@@ -427,6 +428,8 @@ export type OfferFormValues = {
   selectedWhitelistTags: number[];
   syncOfferOnSpivi?: boolean;
   waitingListMaxSize?: number;
+  wellhubProductId?: WellhubProductId | null;
+  isWellhubProductRequired?: boolean;
 };
 
 export type OfferFormRecurrenceWeekDay =
@@ -461,6 +464,7 @@ export type OfferCreate = {
   room_blueprint?: number;
   sync_on_spivi?: boolean;
   waiting_list_max_size: number;
+  wellhub_product_id?: WellhubProductId | null;
   whitelist_tags: number[];
 };
 

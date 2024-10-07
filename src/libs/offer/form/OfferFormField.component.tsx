@@ -4,16 +4,24 @@ import { Typography, makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 
 type Props = {
+  children: React.ReactNode;
+  icon?: React.ReactNode;
   id?: string;
+  isBold?: boolean;
+  isError?: boolean;
   isRequired?: boolean;
   label: string;
-  icon?: React.ReactNode;
-  children: React.ReactNode;
-  isError?: boolean;
 };
 
-const OfferFormField = (props: Props) => {
-  const { id, isRequired, label, icon, children, isError } = props;
+const OfferFormField: React.FC<Props> = ({
+  children,
+  icon,
+  id,
+  isBold,
+  isError,
+  isRequired,
+  label,
+}) => {
   const classes = useStyles();
 
   return (
@@ -26,6 +34,7 @@ const OfferFormField = (props: Props) => {
       <Typography
         className={classNames({
           [classes.label]: !icon,
+          [classes.bold]: !!isBold,
         })}
         variant="body1"
       >
@@ -63,6 +72,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
     marginBottom: -6,
   },
+  bold: {
+    fontWeight: 500,
+  },
 }));
 
-export default OfferFormField;
+export default React.memo(OfferFormField);

@@ -129,6 +129,28 @@ const OfferEditFormValidationSchema = Yup.object().shape({
     }),
   nameOverride: Yup.string().max(500),
   descriptionOverride: Yup.string(),
+  wellhubProductId: Yup.number()
+    .nullable()
+    .typeError('offer:form.errors.required')
+    .positive('offer:form.errors.positiveNumber')
+    .test({
+      name: 'mandatoryUnderCertainConditions',
+      test: function mandatoryUnderCertainConditions() {
+        if (
+          this.parent.availableOnPartnership &&
+          this.parent.isShowPartnership &&
+          this.parent.establishment &&
+          this.parent.isWellhubProductRequired &&
+          !this.parent.wellhubProductId
+        ) {
+          return this.createError({
+            message: 'offer:form.errors.field.wellhubProductMissing',
+            path: this.path,
+          });
+        }
+        return true;
+      },
+    }),
 });
 
 export default OfferEditFormValidationSchema;

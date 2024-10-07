@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -16,21 +16,26 @@ import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.ho
 import FormSection from '#src/components/forms/FormSection';
 import NumericInput from '#src/components/input/NumericInput.component';
 import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
+import WellhubProductSelector from '#src/libs/wellhub/components/WellhubProductSelector';
 
 import { useOfferFormStyles } from '#src/libs/offer/hooks';
 
 import { hasUpsell } from '#src/libs/platform-billing/utils';
 import {
   UPSELL_IDENTIFIER_SPIVI,
+  UPSELL_IDENTIFIER_WELLHUB,
   UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER,
 } from '#src/libs/platform-billing/upsell-identifiers';
 
+import type { Establishment } from '#src/libs/establishment/types';
 import type { FeatureList } from '#src/libs/company/types';
 import type { OfferFormValues } from '#src/libs/offer/types';
 import type { RoomBlueprint } from '#src/libs/spot-scheduling/types';
+import type { WellhubProductId } from '#src/libs/wellhub/types';
 
 type Props = {
   allowGuestMaster: boolean;
+  availableEstablishments: Establishment[];
   hasActivityGroup?: boolean;
   isEditOffer?: boolean;
   isOfferInGroup?: boolean;
@@ -41,6 +46,7 @@ type Props = {
 
 const OfferFormSettings: React.FC<Props> = ({
   allowGuestMaster,
+  availableEstablishments,
   hasActivityGroup,
   isEditOffer,
   isOfferInGroup,
@@ -50,13 +56,24 @@ const OfferFormSettings: React.FC<Props> = ({
 }) => {
   const classes = useOfferFormStyles();
   const { t } = useTranslation('offer');
+
+  const [isWellhubProductRequired, setIsWellhubProductRequired] =
+    useState(true);
+
+  const [previousEstablishment, setPreviousEstablishment] = useState<
+    number | null
+  >(null);
+
   const { values, errors, handleChange, setFieldValue } =
     useFormikContext<OfferFormValues>();
+
   const {
     availableOnPartnership,
     dateIntervalStart,
     durationMinute,
+    establishment,
     partnerMaxBookingCount,
+    wellhubProductId,
   } = values;
 
   const offerSpreadOnTwoDays = useMemo(() => {
@@ -66,12 +83,48 @@ const OfferFormSettings: React.FC<Props> = ({
     return !dateIntervalStart.hasSame(datetimeEnd, 'day');
   }, [dateIntervalStart, durationMinute]);
 
+  const correspondingWellhubGymUuid = useMemo(
+    () =>
+      (!!establishment &&
+        availableEstablishments?.find(
+          (availableEstablishment) =>
+            availableEstablishment.id === establishment,
+        )?.wellhub_gym) ||
+      null,
+    [availableEstablishments, establishment],
+  );
+
   const handleToggleManagerOnly = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setFieldValue('isManagerOnly', !event.target.checked);
     },
     [setFieldValue],
   );
+
+  const handleSelectWellhubProduct = useCallback(
+    (productId: WellhubProductId | null) => {
+      productId !== wellhubProductId &&
+        setFieldValue('wellhubProductId', productId);
+    },
+    [setFieldValue, wellhubProductId],
+  );
+
+  const setWellhubProductRequired = useCallback(
+    (isRequired: boolean) => {
+      setIsWellhubProductRequired(isRequired);
+      values.isWellhubProductRequired != isRequired &&
+        setFieldValue('isWellhubProductRequired', isRequired);
+    },
+    [values.isWellhubProductRequired, setFieldValue],
+  );
+
+  React.useEffect(() => {
+    if (establishment != previousEstablishment) {
+      setIsWellhubProductRequired(true);
+      setPreviousEstablishment(establishment);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [establishment]);
 
   return (
     <FormSection
@@ -136,9 +189,17 @@ const OfferFormSettings: React.FC<Props> = ({
 
       {showPartnership && !isOfferInGroup && (
         <div className={classes.settingsMarketplaceContainer}>
-          <Typography className={classes.mediumFontWeight} variant="subtitle1">
-            {t('form.section.settings.field.partnership.title')}
-          </Typography>
+          <div>
+            <Typography
+              className={classes.mediumFontWeight}
+              variant="subtitle1"
+            >
+              {t('form.section.settings.field.partnership.title')}
+            </Typography>
+            <Typography variant="caption">
+              {t('form.section.settings.field.partnership.subtitle')}
+            </Typography>
+          </div>
 
           <FeatureListProvider>
             {(featureList: FeatureList) => {
@@ -175,7 +236,7 @@ const OfferFormSettings: React.FC<Props> = ({
           <SwitchField
             id="offer-form-available-partnership-switch"
             label={t(
-              'form.section.settings.field.partnership.availableOnPartnership',
+              'form.section.settings.field.partnership.enablePartneshipBookings',
             )}
             name="availableOnPartnership"
             switchColor="secondary"
@@ -193,7 +254,7 @@ const OfferFormSettings: React.FC<Props> = ({
                 disabled={isOfferInGroup}
                 error={!!errors.partnerMaxBookingCount}
                 id="offer-form-partner-max-booking-input"
-                inputClass={classNames(classes.mediumWidth, {
+                inputClass={classNames(classes.bigWidth, {
                   [classes.disabledInput]: isOfferInGroup,
                 })}
                 InputProps={{ inputProps: { min: 0 } }}
@@ -207,9 +268,57 @@ const OfferFormSettings: React.FC<Props> = ({
             </OfferFormField>
           )}
 
-          <Typography color="error" variant="caption">
-            {t(errors.partnerMaxBookingCount)}
-          </Typography>
+          <FeatureListProvider>
+            {(featureList: FeatureList) => {
+              const hasWellhubUpsell = hasUpsell(
+                featureList,
+                UPSELL_IDENTIFIER_WELLHUB,
+              );
+
+              return (
+                isWellhubProductRequired &&
+                hasWellhubUpsell &&
+                availableOnPartnership &&
+                !!correspondingWellhubGymUuid && (
+                  <OfferFormField
+                    isBold
+                    isRequired
+                    isError={!!errors.wellhubProductId}
+                    label={t(
+                      'form.section.settings.field.partnership.wellhubProduct.title',
+                    )}
+                  >
+                    <Typography variant="caption">
+                      {t(
+                        'form.section.settings.field.partnership.wellhubProduct.helperText',
+                      )}
+                    </Typography>
+                    <WellhubProductSelector
+                      id="offer-form-wellhub-product-selector"
+                      isVirtualOffer={values.isMetaActivityBroadcast}
+                      onSelect={handleSelectWellhubProduct}
+                      selectedProductId={wellhubProductId || null}
+                      setIsWellhubProductRequired={setWellhubProductRequired}
+                      styles={classes.bigWidth}
+                      wellhubGymUuid={correspondingWellhubGymUuid}
+                    />
+                    {!!errors.wellhubProductId &&
+                      Object.keys(errors).length === 1 && (
+                        <Typography color="error" variant="caption">
+                          {t(errors.wellhubProductId)}
+                        </Typography>
+                      )}
+                  </OfferFormField>
+                )
+              );
+            }}
+          </FeatureListProvider>
+
+          {!!errors.partnerMaxBookingCount && (
+            <Typography color="error" variant="caption">
+              {t(errors.partnerMaxBookingCount)}
+            </Typography>
+          )}
         </div>
       )}
     </FormSection>

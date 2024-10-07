@@ -154,7 +154,7 @@ const useOfferFormStyles = (
       display: 'flex',
       flexDirection: 'column',
       padding: theme.spacing(2),
-      gap: theme.spacing(1),
+      gap: theme.spacing(2),
       background: theme.palette.grey[100],
       borderRadius: theme.spacing(1),
     },

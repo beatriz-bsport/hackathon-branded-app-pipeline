@@ -1,3 +1,5 @@
+import type { WellhubProductId } from '#src/libs/wellhub/types';
+
 export type OfferPerformance = {
   id: number;
   nb_bookings: number;
@@ -117,6 +119,7 @@ export type Offer = {
   title: string;
   usc_event_id?: string;
   waiting_list_max_size: number;
+  wellhub_product_id?: WellhubProductId | null;
   whitelist_tags: Array<number>;
 };
 

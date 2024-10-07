@@ -332,8 +332,10 @@
     "icon-xs": "var(--kz-dimension-icon-xs)"
   },
   "fontWeight": {
+    "weak": "var(--kz-font-weight-weak)",
     "strong": "var(--kz-font-weight-strong)",
-    "weak": "var(--kz-font-weight-weak)"
+    "weaker": "var(--kz-font-weight-weaker)",
+    "stronger": "var(--kz-font-weight-stronger)"
   },
   "fontSize": {
     "body-xs": "var(--kz-font-size-body-xs)",

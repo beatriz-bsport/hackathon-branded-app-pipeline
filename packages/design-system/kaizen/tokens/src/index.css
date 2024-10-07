@@ -244,8 +244,10 @@
   --kz-dimension-icon-md: var(--kz-dimension-element-md);
   --kz-dimension-icon-sm: var(--kz-dimension-element-sm);
   --kz-dimension-icon-xs: var(--kz-dimension-element-xs);
-  --kz-font-weight-strong: 700;
   --kz-font-weight-weak: 400;
+  --kz-font-weight-strong: 500;
+  --kz-font-weight-weaker: 300;
+  --kz-font-weight-stronger: 600;
   --kz-font-size-body-xs: 0.625rem;
   --kz-font-size-body-lg: 1rem;
   --kz-font-size-body-sm: 0.75rem;
@@ -535,8 +537,10 @@
   --kz-dimension-icon-md: var(--kz-dimension-element-md);
   --kz-dimension-icon-sm: var(--kz-dimension-element-sm);
   --kz-dimension-icon-xs: var(--kz-dimension-element-xs);
-  --kz-font-weight-strong: 700;
   --kz-font-weight-weak: 400;
+  --kz-font-weight-strong: 500;
+  --kz-font-weight-weaker: 300;
+  --kz-font-weight-stronger: 600;
   --kz-font-size-body-xs: 0.625rem;
   --kz-font-size-body-lg: 1rem;
   --kz-font-size-body-sm: 0.75rem;

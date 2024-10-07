@@ -49,6 +49,7 @@ import {
 import { getTheme } from '../../theme';
 import themeSelectors from '../../libs/theme/selectors';
 import { fetchCountObjects as fetchCountObjectsAction } from '../../libs/member/actions';
+import { getMember } from '../../libs/member/selectors';
 import ConsumerLoading from '../../libs/consumer-space/components/ConsumerLoading.component';
 import ConsumerDrawer from '../../components/navigation/ConsumerDrawer.component';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
@@ -392,7 +393,10 @@ export class ConsumerHome extends React.Component<Props> {
                   isNewCheckoutFlow={
                     !!this.props.theme?.display_new_checkout_flow
                   }
-                  memberName={this.props.userFullName}
+                  memberName={
+                    this.props.getMemberFirstName(this.props.membership?.id) ??
+                    ''
+                  }
                   membership={this.props.membership}
                   navigateBackToMasterRelation={
                     this.props.navigateBackToMasterRelation
@@ -640,6 +644,7 @@ export default compose(
         ? getOfferWithRelated(state, parseInt(from_direct_booking, 10))
         : null,
       currentBasket: getCurrentBasket(state),
+      getMemberFirstName: (id: number) => getMember(state, id)?.firstname ?? '',
     }),
     {
       linkMeToCompany,

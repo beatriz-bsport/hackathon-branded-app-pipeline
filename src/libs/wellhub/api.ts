@@ -9,6 +9,7 @@ import {
 
 import type { PaginatedResponse } from '#src/state/types';
 import type {
+  FetchWellhubProductsResponse,
   GymAvailabilityQueryParams,
   GymAvailabilityResponse,
   WellhubGym,
@@ -59,5 +60,11 @@ export const deleteWellhubGym = (wellhubGymUuid: string) => {
 export const configureWellhubGymWebhooks = (wellhubGymUuid: string) => {
   return putAuth<WellhubGym>(
     `${API_V1_URI}/wellhub/wellhub-gym/${wellhubGymUuid}/configure-webhooks/`,
+  );
+};
+
+export const fetchWellhubProducts = () => {
+  return getAuth<FetchWellhubProductsResponse>(
+    `${API_V1_URI}/wellhub/wellhub-gym/get-products-by-wellhub-gym/`,
   );
 };

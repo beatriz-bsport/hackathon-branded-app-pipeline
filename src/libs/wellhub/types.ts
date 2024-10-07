@@ -45,3 +45,25 @@ export type WellhubState = {
     record: { [gym_id: number]: GymAvailabilityResponse };
   };
 } & ErrorAndLoading;
+
+export type WellhubProductId = number;
+
+export type WellhubProduct = {
+  product_id: WellhubProductId;
+  name: string;
+  updated_at: string | number; // TODO: type better
+  is_live_class: boolean;
+};
+
+export type WellhubProductOption = {
+  label: string;
+  value: WellhubProductId;
+};
+
+export type ProductsByWellhubGymUuid = {
+  [uuid: string]: WellhubProduct[];
+};
+
+export type FetchWellhubProductsResponse = {
+  products_by_wellhub_gym: ProductsByWellhubGymUuid;
+};

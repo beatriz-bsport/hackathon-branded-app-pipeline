@@ -41,6 +41,7 @@ This project has been designed to import the output of Supernova's pipeline and 
 These are the steps completed by this pipeline.
 
 1. Tokens are exported via Supernova [CSS theme exporter](https://github.com/Supernova-Studio/exporters/blob/main/exporters/css/README.md)
+2. Whenever a MR is opened, `ci-merge-request-open.sh` script is ran. If changes in Supernova are detected, it commits automatically those in your MR
 
 ## TODOs
 

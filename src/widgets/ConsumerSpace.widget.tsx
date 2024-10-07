@@ -117,6 +117,12 @@ class ConsumerSpaceWidget extends React.Component<Props, State> {
     if (prevProps.page !== this.props.page) {
       this.changePage(this.props.page);
     }
+    if (
+      !!this.props.membership?.id &&
+      prevProps.membership?.id !== this.props.membership?.id
+    ) {
+      this.props.fetchMember(this.props.membership?.id);
+    }
   }
 
   /** Set the current member profile page */
@@ -150,7 +156,9 @@ class ConsumerSpaceWidget extends React.Component<Props, State> {
       // @ts-expect-error children prop typing
       <ConsumerNavigation
         context={ConsumerSpaceContextEnum.WIDGET}
-        memberName={this.props.membership?.name}
+        memberName={
+          this.props.getMember(this.props.membership?.id)?.firstname ?? ''
+        }
         changeWidgetPage={this.changePage}
         selectedWidgetPage={this.state.selectedPage}
         widgetSignOut={this.signOut}

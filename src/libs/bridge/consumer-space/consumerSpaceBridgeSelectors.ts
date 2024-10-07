@@ -3,6 +3,7 @@
  * ONE SET OF SELECTORS PER PAGE/WIDGET
  */
 import {
+  getMemberById,
   getMembershipByCompanyId,
   getMemberUsingCompanyId,
 } from '../selectors';
@@ -100,6 +101,7 @@ import type { BookingTab } from 'bsport-saas/src/libs/consumer-space/components/
 // @ts-expect-error
 import type { BookingFilterTab } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { Membership } from 'bsport-saas/src/libs/membership/types';
+import type { Member } from 'bsport-saas/src/libs/member/types';
 
 export type ConsumerSpaceWidgetProps = {
   companyId: number,
@@ -115,6 +117,7 @@ export const consumerSpaceCommonBridgeSelectors = (
   authenticated: state.bridge.authentication.authenticated,
   authenticationReceived: state.bridge.authentication.hasBeenReceived,
   membership: getMembershipByCompanyId(state, companyId),
+  getMember: (memberId: number) => getMemberById(state, memberId),
 });
 
 /* MY BOOKINGS */
@@ -279,7 +282,6 @@ export const consumerProfileBridgeSelectors = (
   company: companyId,
   companyThemeLoading: state.theme.loading,
   memberLoading: state.member.loading,
-  member: getMemberUsingCompanyId(state, companyId),
   paymentMethods: adaptSelector(getSavedPaymentMethodList)(state),
   paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
   detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,

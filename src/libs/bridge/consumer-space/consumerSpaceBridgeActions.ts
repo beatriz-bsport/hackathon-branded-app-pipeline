@@ -18,6 +18,7 @@ export const consumerSpaceCommonBridgeActions = {
   fetchMembershipByCompany: createAuthenticatedBridgeAction(
     'MEMBERSHIP_BY_COMPANY',
   ),
+  fetchMember: createAuthenticatedBridgeAction('FETCH_MEMBER_BY_ID'),
   bridgeRequestLogout,
 };
 
@@ -192,7 +193,6 @@ export const consumerSubscriptionBridgeActions = {
 
 /* MY PROFILE */
 export const consumerProfileBridgeActions = {
-  fetchMember: createAuthenticatedBridgeAction('FETCH_MEMBER_BY_ID'),
   fetchPaymentMethodList: createAuthenticatedBridgeAction(
     'FETCH_PAYMENT_METHOD_LIST',
   ),

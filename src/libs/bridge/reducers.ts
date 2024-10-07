@@ -5,7 +5,7 @@ import type {
   ReferralMemberStatus,
   ReferralProgram,
 } from 'bsport-saas/src/libs/referral/types';
-import type { Member } from 'bsport-saas/src/api/types';
+import type { Member } from 'bsport-saas/src/libs/member/types';
 import type { Membership } from 'bsport-saas/src/libs/membership/types';
 import {
   basketCountActions,

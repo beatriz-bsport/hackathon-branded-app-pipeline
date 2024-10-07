@@ -1,66 +1,73 @@
 import React, { useCallback, useMemo } from 'react';
 
-import Tune from '@material-ui/icons/Tune';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Typography from '@material-ui/core/Typography';
-import Switch from '@material-ui/core/Switch';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+
 import Alert from '@material-ui/lab/Alert';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import Tune from '@material-ui/icons/Tune';
+import Typography from '@material-ui/core/Typography';
 
-import FormSection from '#src/components/forms/FormSection';
-import { useOfferFormStyles } from '#src/libs/offer/hooks';
 import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
-import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
-import NumericInput from '#src/components/input/NumericInput.component';
-
-import { OfferFormValues } from '#src/libs/offer/types';
 // @ts-expect-error
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
+import FormSection from '#src/components/forms/FormSection';
+import NumericInput from '#src/components/input/NumericInput.component';
+import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
+
+import { useOfferFormStyles } from '#src/libs/offer/hooks';
+
+import { hasUpsell } from '#src/libs/platform-billing/utils';
 import {
   UPSELL_IDENTIFIER_SPIVI,
   UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER,
 } from '#src/libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#src/libs/platform-billing/utils';
-import { FeatureList } from '#src/libs/company/types';
-import { RoomBlueprint } from '#src/libs/spot-scheduling/types';
+
+import type { FeatureList } from '#src/libs/company/types';
+import type { OfferFormValues } from '#src/libs/offer/types';
+import type { RoomBlueprint } from '#src/libs/spot-scheduling/types';
 
 type Props = {
   allowGuestMaster: boolean;
-  showPartnership: boolean;
-  isOfferInGroup?: boolean;
-  isEditOffer?: boolean;
-  roomBlueprints: RoomBlueprint[];
   hasActivityGroup?: boolean;
+  isEditOffer?: boolean;
+  isOfferInGroup?: boolean;
   isWorkshop?: boolean;
+  roomBlueprints: RoomBlueprint[];
+  showPartnership: boolean;
 };
 
-const OfferFormSettings = (props: Props) => {
-  const {
-    allowGuestMaster,
-    showPartnership,
-    isOfferInGroup,
-    isEditOffer,
-    roomBlueprints,
-    hasActivityGroup,
-    isWorkshop,
-  } = props;
+const OfferFormSettings: React.FC<Props> = ({
+  allowGuestMaster,
+  hasActivityGroup,
+  isEditOffer,
+  isOfferInGroup,
+  isWorkshop,
+  roomBlueprints,
+  showPartnership,
+}) => {
   const classes = useOfferFormStyles();
   const { t } = useTranslation('offer');
   const { values, errors, handleChange, setFieldValue } =
     useFormikContext<OfferFormValues>();
-  const { partnerMaxBookingCount, availableOnPartnership } = values;
+  const {
+    availableOnPartnership,
+    dateIntervalStart,
+    durationMinute,
+    partnerMaxBookingCount,
+  } = values;
 
   const offerSpreadOnTwoDays = useMemo(() => {
-    const datetimeEnd = values.dateIntervalStart.plus({
-      minute: values.durationMinute,
+    const datetimeEnd = dateIntervalStart.plus({
+      minute: durationMinute,
     });
-    return !values.dateIntervalStart.hasSame(datetimeEnd, 'day');
-  }, [values.dateIntervalStart, values.durationMinute]);
+    return !dateIntervalStart.hasSame(datetimeEnd, 'day');
+  }, [dateIntervalStart, durationMinute]);
 
   const handleToggleManagerOnly = useCallback(
-    (event) => {
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       setFieldValue('isManagerOnly', !event.target.checked);
     },
     [setFieldValue],
@@ -140,7 +147,7 @@ const OfferFormSettings = (props: Props) => {
                 UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER,
               );
 
-              if (hasUscUpsell && values.availableOnPartnership && isWorkshop)
+              if (hasUscUpsell && availableOnPartnership && isWorkshop)
                 return (
                   <Alert className={classes.centerAlert} severity="warning">
                     {t(
@@ -152,7 +159,7 @@ const OfferFormSettings = (props: Props) => {
               return (
                 <>
                   {hasUscUpsell &&
-                    values.availableOnPartnership &&
+                    availableOnPartnership &&
                     offerSpreadOnTwoDays && (
                       <Alert className={classes.centerAlert} severity="warning">
                         {t(

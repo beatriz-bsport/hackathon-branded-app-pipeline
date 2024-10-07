@@ -24,10 +24,15 @@ export type Review = {
     photo: string;
   };
 };
+
 export type Coach = {
-  name: string;
   id: number;
+  name: string;
   photo: string;
+};
+
+export type CoachWithNotes = Coach & {
+  notes?: string;
 };
 
 export type Stat = {
@@ -62,89 +67,68 @@ export type Activity = {
 };
 
 export type Offer = {
-  available: boolean;
-  title: string;
-  id: number;
   activity_id: number;
+  activity: ActivitySimplified;
+  additionalCoaches: Coach[];
+  allow_guest_offer: boolean;
+  available: boolean;
+  blacklist_tags: Array<number>;
+  broadcast_link: string;
   category: string;
-  waiting_list_max_size: number;
-  coach_override?: {
-    id: number;
-    name: string;
-    photo: string;
-    notes?: string;
-  };
-  coach: {
-    id: number;
-    name: string;
-    photo: string;
-    notes?: string;
-  };
-  additionalCoaches: {
-    id: number;
-    name: string;
-    photo: string;
-  }[];
+  coach_override?: CoachWithNotes;
+  coach_payment_rule_id: number;
+  coach: CoachWithNotes;
   cover_main: string;
+  credit_price_override: number | null;
+  credit_price: number;
+  custom_level: number;
   date_end: string;
   date_start: string;
+  description_override?: string;
+  duration_minute: number;
   effectif: number;
   etablissement: {
-    city: {
-      name: string;
-      slug: string;
-    };
-    cover: string;
+    city: { name: string; slug: string };
     cover_thumnail: string;
+    cover: string;
     id: number;
-    location: {
-      address: string;
-      latitude: number;
-      longitude: number;
-    };
+    location: { address: string; latitude: number; longitude: number };
     slug: string;
     title: string;
   };
-  level: string;
-  level_id: number;
-  meta_activity_id: number;
-  name: string;
-  nb_option: number;
-  nb_bookings: number;
-  parent_category: number;
-  price: number;
-  price_coach: number;
-  credit_price: number;
-  activity: ActivitySimplified;
-  broadcast_link: string;
-  room_blueprint: number;
-  coach_payment_rule_id: number;
-  duration_minute: number;
-  manager_only: boolean;
-  partner_max_booking_count: number;
-  credit_price_override: number | null;
-  meta_activity: number;
-  custom_level: number;
-  whitelist_tags: Array<number>;
-  blacklist_tags: Array<number>;
-  allow_guest_offer: boolean;
-  linked_hybrid_offer_id: number | null;
-  sync_on_spivi: boolean;
+  id: number;
   internal_note: string;
+  level_id: number;
+  level: string;
+  linked_hybrid_offer_id: number | null;
+  manager_only: boolean;
+  meta_activity_id: number;
+  meta_activity: number;
   name_override?: string;
-  description_override?: string;
+  name: string;
+  nb_bookings: number;
+  nb_option: number;
+  parent_category: number;
+  partner_max_booking_count: number;
+  price_coach: number;
+  price: number;
+  room_blueprint: number;
+  sync_on_spivi: boolean;
+  title: string;
   usc_event_id?: string;
+  waiting_list_max_size: number;
+  whitelist_tags: Array<number>;
 };
 
 export type MetaActivity = {
-  id: number;
-  name: string;
-  description: string;
-  offers: Array<Offer>;
   coaches: Array<Coach>;
-  etablissements: Array<Establishment>;
   cover_main?: string;
+  description: string;
+  etablissements: Array<Establishment>;
+  id: number;
   levels: Array<{ id: number; name: string }>;
+  name: string;
+  offers: Array<Offer>;
   parent_category: SCS;
 };
 
@@ -154,15 +138,15 @@ export type User = {
   photo: string;
 };
 export type Booking = {
-  user: User;
-  id: number;
-  status?: boolean;
-  date: string;
-  date_start: string;
   attendance: boolean;
+  date_start: string;
+  date: string;
+  id: number;
   nb_booking: number;
-  source: string;
   offer: Offer;
+  source: string;
+  status?: boolean;
+  user: User;
 };
 
 export type BookingOption = {
@@ -174,35 +158,35 @@ export type BookingOption = {
 };
 
 export type Consumer = {
-  id: number;
-  last_name: string;
-  first_name: string;
-  email: string;
-  phonenumber: { phone_number: string };
   birthday: string;
-  gender: string;
-  is_coach: boolean;
-  is_consumer: boolean;
-  photo?: string;
-  is_complete: boolean;
-  sports: Array<Object>;
+  email: string;
+  first_name: string;
   frequency?: Object;
+  gender: string;
+  id: number;
+  is_coach: boolean;
+  is_complete: boolean;
+  is_consumer: boolean;
+  last_name: string;
+  phonenumber: { phone_number: string };
+  photo?: string;
   situation?: Object;
+  sports: Array<Object>;
 };
 
 export type Member = {
-  name: string;
-  phone_number: string;
-  email: string;
   date_joined: string;
+  email: string;
+  emergency_contact: string | null;
+  general_terms_and_conditions_accepted: string;
+  general_terms_and_conditions_date_accepted: string;
+  id: number;
+  name: string;
   nb_bookings: number;
   nb_pass_active: number;
   next_booking?: string;
+  phone_number: string;
   previous_booking?: string;
-  id: number;
-  general_terms_and_conditions_date_accepted: string;
-  general_terms_and_conditions_accepted: string;
-  emergency_contact: string | null;
 };
 
 export type MemberDetailed = {
@@ -275,6 +259,7 @@ export type Location = {
   latitude: number;
   longitude: number;
 };
+
 export type Establishment = {
   id: number;
   cover: string;

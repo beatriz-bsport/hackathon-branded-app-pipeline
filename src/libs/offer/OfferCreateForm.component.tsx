@@ -1,38 +1,41 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 
-import Button from '@material-ui/core/Button';
-import Alert from '@material-ui/lab/Alert';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { withFormik, useFormikContext, FormikProps, Form } from 'formik';
-import { useTranslation } from 'react-i18next';
-
 import { DateTime } from 'luxon';
-import OfferFormRecurrencePreview from '#src/libs/offer/form/OfferFormRecurrencePreview.dialog';
-import OfferFormSkeleton from '#src/libs/offer/components/OfferFormSkeleton.component';
+import { useTranslation } from 'react-i18next';
+import { withFormik, useFormikContext, FormikProps, Form } from 'formik';
+
+import Alert from '@material-ui/lab/Alert';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import OfferFormBanner from '#src/libs/offer/form/OfferFormBanner.component';
-import OfferFormSpecificities from '#src/libs/offer/form/sections/OfferFormSpecificities.component';
-import OfferFormDateTime from '#src/libs/offer/form/sections/OfferFormDateTime.component';
 import OfferFormCoach from '#src/libs/offer/form/sections/OfferFormCoach.component';
+import OfferFormDateTime from '#src/libs/offer/form/sections/OfferFormDateTime.component';
+import OfferFormRecurrencePreview from '#src/libs/offer/form/OfferFormRecurrencePreview.dialog';
 import OfferFormSettings from '#src/libs/offer/form/sections/OfferFormSettings.component';
+import OfferFormSkeleton from '#src/libs/offer/components/OfferFormSkeleton.component';
+import OfferFormSpecificities from '#src/libs/offer/form/sections/OfferFormSpecificities.component';
 import OfferFormTags from '#src/libs/offer/form/sections/OfferFormTags.component';
-import OfferFormCreationValidationSchema from '#src/libs/offer/form/CreationValidationSchema';
+
+import { getCreditFactor } from '#src/libs/theme/selectors';
+import { getOfferRecurrenceDates } from '#src/libs/offer/utils';
 import { useOfferFormStyles } from '#src/libs/offer/hooks';
 import useFeaturesProvider from '#src/libs/company/hooks/feature-list-provider.hook';
-import { getOfferRecurrenceDates } from '#src/libs/offer/utils';
 
-import { MetaActivity } from '#src/libs/meta-activity/types';
-import { Level, LevelFilterSet } from '#src/libs/level/types';
-import { Establishment } from '#src/libs/establishment/types';
-import { ZoomApp } from '#src/libs/zoom-app/types';
-import { Coach } from '#src/libs/associated-coach/types';
-import { OfferCreate, OfferFormValues } from '#src/libs/offer/types';
-import { RoomBlueprint } from '#src/libs/spot-scheduling/types';
-import { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
-import { Tag, TagGroup } from '#src/libs/tag/types';
 import { OFFER_RECURRENCE } from '#src/libs/offer/constants';
+import OfferFormCreationValidationSchema from '#src/libs/offer/form/CreationValidationSchema';
+
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { Level, LevelFilterSet } from '#src/libs/level/types';
 import type { LuxonDateTime } from '#src/types';
-import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
-import { getCreditFactor } from '../theme/selectors';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { OfferCreate, OfferFormValues } from '#src/libs/offer/types';
+import type { OptionCallback, OptionPaginatedCallback } from '#src/state/types';
+import type { RoomBlueprint } from '#src/libs/spot-scheduling/types';
+import type { Tag, TagGroup } from '#src/libs/tag/types';
+import type { ZoomApp } from '#src/libs/zoom-app/types';
 
 type ComponentProps = {
   metaActivity: MetaActivity<number>;
@@ -182,6 +185,7 @@ export const OfferCreateForm = (props: Props) => {
       />
     );
   }
+
   return (
     <Form noValidate data-testid="offer-form" onSubmit={handleSubmit}>
       <OfferFormRecurrencePreview timezone={timezone} />
@@ -264,6 +268,7 @@ const formikFormWrapper = withFormik<
 
     const recurrenceIsoWeekDay = dateIntervalStart.weekday;
     return {
+      additionalCoaches: [],
       allowGuestOffer: true,
       availableOnPartnership: !props.isOfferInGroup,
       broadcastLink: '',
@@ -275,6 +280,7 @@ const formikFormWrapper = withFormik<
       dateIntervalEnd: sanitizedSelectedDate.plus({ day: 1 }),
       dateIntervalStart,
       dates: [],
+      descriptionOverride: '',
       durationMinute: 60,
       effectif: null,
       establishment: null,
@@ -287,7 +293,7 @@ const formikFormWrapper = withFormik<
       isShowPartnership: props.showPartnership,
       isZoomAppEnabled: false,
       level: 1,
-      additionalCoaches: [],
+      nameOverride: '',
       partnerMaxBookingCount: props.isOfferInGroup ? 0 : 6,
       recurrence: OFFER_RECURRENCE.WEEKLY,
       recurrenceWeekDay: {
@@ -302,11 +308,9 @@ const formikFormWrapper = withFormik<
       roomBlueprint: null,
       roomBlueprintSlots: null,
       selectedBlacklistTags: [],
+      selectedMetaActivity: props.metaActivity?.id,
       selectedWhitelistTags: [],
       waitingListMaxSize: props.isOfferInGroup ? 0 : null,
-      selectedMetaActivity: props.metaActivity?.id,
-      nameOverride: '',
-      descriptionOverride: '',
     };
   },
   enableReinitialize: false,
@@ -314,27 +318,27 @@ const formikFormWrapper = withFormik<
   validateOnBlur: false,
   handleSubmit: (values, { props: { timezone, onSubmit, metaActivity } }) => {
     const {
-      level,
-      effectif,
-      partnerMaxBookingCount,
-      waitingListMaxSize,
-      establishment,
-      roomBlueprint,
-      coach,
       additionalCoaches,
-      credits,
-      durationMinute,
-      broadcastLink,
-      coachPaymentRule,
-      availableOnPartnership,
-      isManagerOnly,
-      selectedWhitelistTags,
-      selectedBlacklistTags,
       allowGuestOffer,
-      is_hybrid,
-      syncOfferOnSpivi,
-      nameOverride,
+      availableOnPartnership,
+      broadcastLink,
+      coach,
+      coachPaymentRule,
+      credits,
       descriptionOverride,
+      durationMinute,
+      effectif,
+      establishment,
+      is_hybrid,
+      isManagerOnly,
+      level,
+      nameOverride,
+      partnerMaxBookingCount,
+      roomBlueprint,
+      selectedBlacklistTags,
+      selectedWhitelistTags,
+      syncOfferOnSpivi,
+      waitingListMaxSize,
     } = values;
 
     const didNameOrDescriptionChange = !(
@@ -351,6 +355,14 @@ const formikFormWrapper = withFormik<
       : '';
 
     const offer: OfferCreate = {
+      additional_coaches: additionalCoaches,
+      allow_guest_offer: allowGuestOffer,
+      available_on_partnership: availableOnPartnership,
+      blacklist_tags: selectedBlacklistTags,
+      broadcast_link: broadcastLink,
+      coach_payment_rule: coachPaymentRule,
+      coach,
+      credits: credits,
       dates: getOfferRecurrenceDates(
         {
           recurrence: values.isRecurrence ? values.recurrence : null,
@@ -360,26 +372,18 @@ const formikFormWrapper = withFormik<
         },
         timezone,
       ).map((d: LuxonDateTime) => d.toUnixInteger()),
-      establishment,
-      coach,
-      additional_coaches: additionalCoaches,
-      effectif,
-      partner_max_booking_count: partnerMaxBookingCount,
-      waiting_list_max_size: waitingListMaxSize,
-      level,
-      credits: credits,
-      duration_minute: durationMinute,
-      broadcast_link: broadcastLink,
-      coach_payment_rule: coachPaymentRule,
-      available_on_partnership: availableOnPartnership,
-      manager_only: isManagerOnly,
-      whitelist_tags: selectedWhitelistTags,
-      blacklist_tags: selectedBlacklistTags,
-      allow_guest_offer: allowGuestOffer,
-      is_hybrid,
-      sync_on_spivi: syncOfferOnSpivi,
-      name_override: sanitizedNameOverride,
       description_override: sanitizedDescriptionOverride,
+      duration_minute: durationMinute,
+      effectif,
+      establishment,
+      is_hybrid,
+      level,
+      manager_only: isManagerOnly,
+      name_override: sanitizedNameOverride,
+      partner_max_booking_count: partnerMaxBookingCount,
+      sync_on_spivi: syncOfferOnSpivi,
+      waiting_list_max_size: waitingListMaxSize,
+      whitelist_tags: selectedWhitelistTags,
     };
 
     if (roomBlueprint) {

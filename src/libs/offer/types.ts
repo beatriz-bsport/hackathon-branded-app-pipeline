@@ -369,17 +369,43 @@ export type OfferState = ErrorAndLoading & {
 };
 
 export type OfferFormValues = {
-  dates?: number[];
-  effectif: number;
-  waitingListMaxSize?: number;
-  level: number;
-  establishment: number;
+  additionalCoaches: number[];
+  allowGuestOffer: boolean;
+  availableOnPartnership: boolean;
   broadcastLink: string | null;
+  calendarSelectedDate?: string;
+  /* This value is only here to check if the custom name / description has changed. We use it to compare the field values to the  
+  chosenMetaActivity.name and chosenMetaActivity.description */
+  chosenMetaActivity?: MetaActivity;
+  coach: number;
+  coachOverride?: number | null;
+  coachOverridePropagateMode?: number;
+  coachPaymentRule: number | null;
+  creditPriceOverride?: number;
   credits: number;
-  dateIntervalStart: LuxonDateTime;
   dateIntervalEnd?: LuxonDateTime | null;
+  dateIntervalStart: LuxonDateTime;
+  dates?: number[];
+  descriptionOverride?: string;
   durationMinute: number;
+  effectif: number;
+  establishment: number;
+  is_hybrid: boolean;
+  isCoachOverridePropagate?: boolean;
+  // edit offer
+  isEditOffer?: boolean;
+  isManagerOnly: boolean;
+  isMetaActivityBroadcast: boolean;
+  isModifyRecursively?: boolean;
+  isNotifyConsumers?: boolean;
+  isOfferInGroup: boolean;
   isRecurrence?: boolean;
+  isRecurrenceWeekDayDialogOpen?: boolean;
+  isShowPartnership: boolean;
+  isZoomAppEnabled: boolean;
+  level: number;
+  nameOverride?: string;
+  partnerMaxBookingCount?: number | null;
   recurrence?:
     | OFFER_RECURRENCE.WEEKLY
     | OFFER_RECURRENCE.MONTHLY
@@ -393,40 +419,14 @@ export type OfferFormValues = {
     '6': boolean;
     '7': boolean;
   };
-  calendarSelectedDate?: string;
-  isRecurrenceWeekDayDialogOpen?: boolean;
-  coach: number;
-  additionalCoaches: number[];
-  coachPaymentRule: number | null;
-  isManagerOnly: boolean;
-  allowGuestOffer: boolean;
-  partnerMaxBookingCount?: number | null;
-  availableOnPartnership: boolean;
-  selectedWhitelistTags: number[];
-  selectedBlacklistTags: number[];
   roomBlueprint: number | null;
   roomBlueprintSlots: number | null;
-  isMetaActivityBroadcast: boolean;
-  isOfferInGroup: boolean;
-  isZoomAppEnabled: boolean;
-  isShowPartnership: boolean;
-  // edit offer
-  isEditOffer?: boolean;
+  selectedBlacklistTags: number[];
   selectedMetaActivity?: number;
-  isNotifyConsumers?: boolean;
-  isModifyRecursively?: boolean;
-  coachOverride?: number | null;
-  creditPriceOverride?: number;
   selectedSimilarOffers?: number[];
-  isCoachOverridePropagate?: boolean;
-  coachOverridePropagateMode?: number;
-  is_hybrid: boolean;
+  selectedWhitelistTags: number[];
   syncOfferOnSpivi?: boolean;
-  nameOverride?: string;
-  descriptionOverride?: string;
-  /* This value is only here to check if the custom name / description has changed. We use it to compare the field values to the  
-  chosenMetaActivity.name and chosenMetaActivity.description */
-  chosenMetaActivity?: MetaActivity;
+  waitingListMaxSize?: number;
 };
 
 export type OfferFormRecurrenceWeekDay =
@@ -439,49 +439,49 @@ export type OfferFormRecurrenceWeekDay =
   | '7';
 
 export type OfferCreate = {
-  meta_activity?: number;
-  dates: number[];
-  establishment: number;
-  coach: number;
   additional_coaches: number[];
-  effectif: number;
-  partner_max_booking_count: number;
-  waiting_list_max_size: number;
-  level: number;
-  credits: number;
-  duration_minute: number;
+  allow_guest_offer: boolean;
+  available_on_partnership: boolean;
+  blacklist_tags: number[];
   broadcast_link: string;
   coach_payment_rule: number | null;
-  available_on_partnership: boolean;
-  manager_only: boolean;
-  whitelist_tags: number[];
-  blacklist_tags: number[];
-  allow_guest_offer: boolean;
-  room_blueprint?: number;
-  is_hybrid: boolean;
-  sync_on_spivi?: boolean;
-  name_override?: string;
+  coach: number;
+  credits: number;
+  dates: number[];
   description_override?: string;
+  duration_minute: number;
+  effectif: number;
+  establishment: number;
+  is_hybrid: boolean;
+  level: number;
+  manager_only: boolean;
+  meta_activity?: number;
+  name_override?: string;
+  partner_max_booking_count: number;
+  room_blueprint?: number;
+  sync_on_spivi?: boolean;
+  waiting_list_max_size: number;
+  whitelist_tags: number[];
 };
 
 export type OfferEdit = Omit<OfferCreate, 'dates' | 'credits' | 'is_hybrid'> & {
-  id: number;
-  notifyConsumers: boolean;
-  available_on_partnership: boolean;
-  manager_only: boolean;
-  modifyAllDates: boolean;
-  custom_selection: boolean;
-  custom_selection_ids: number[];
-  allow_guest_offer: boolean;
-  propagate_coach_override_value: number;
-  meta_activity: number;
-  credit_price_override?: number;
-  date_start: LuxonDateTime;
-  coach_override: number | null;
-  credits?: number;
   additional_coaches: number[];
-  name_override?: string;
+  allow_guest_offer: boolean;
+  available_on_partnership: boolean;
+  coach_override: number | null;
+  credit_price_override?: number;
+  credits?: number;
+  custom_selection_ids: number[];
+  custom_selection: boolean;
+  date_start: LuxonDateTime;
   description_override?: string;
+  id: number;
+  manager_only: boolean;
+  meta_activity: number;
+  modifyAllDates: boolean;
+  name_override?: string;
+  notifyConsumers: boolean;
+  propagate_coach_override_value: number;
 };
 
 export enum MarketplaceOfferStatus {

@@ -20,12 +20,12 @@ const meta: Meta<typeof Button> = {
       table: { defaultValue: { summary: "md" } },
     },
     iconLeft: {
-      options: Object.keys(icons),
+      options: [undefined, ...Object.keys(icons)],
       control: { type: "select" },
       table: { defaultValue: { summary: "undefined" } },
     },
     iconRight: {
-      options: Object.keys(icons),
+      options: [undefined, ...Object.keys(icons)],
       control: { type: "select" },
       table: { defaultValue: { summary: "undefined" } },
     },

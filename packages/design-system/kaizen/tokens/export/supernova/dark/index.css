@@ -11,5 +11,7 @@
 @import "./line-heights.css";
 @import "./opacities.css";
 @import "./paragraph-spacings.css";
+@import "./sizes.css";
+@import "./spaces.css";
 @import "./font-weights.css";
 @import "./strings.css";

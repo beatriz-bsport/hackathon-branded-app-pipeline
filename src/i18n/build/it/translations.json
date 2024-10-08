@@ -2239,7 +2239,8 @@
             "venueIds": "VenueIDs: {{ establishmentIdList }}",
             "pleaseChoseEstablishment": "Per favore, seleziona uno stabilimento",
             "establishment": "Stabilimento",
-            "add": "Aggiungi"
+            "add": "Aggiungi",
+            "configurationDescription": "Selezionate il modo in cui volete che i vostri stabilimenti appaiano sull'app ClassPass. Questo cambia solo la visualizzazione delle attività di gruppo."
         },
         "requestDialog": {
             "explain": "Hai richiesto l'integrazione di classpass X bsport, il tuo account manager ti contatterà per convalidare questa operazione",
@@ -3433,7 +3434,11 @@
                 },
                 "title": "Allenamento",
                 "pre_selected_choices": "Durate predefinite",
-                "durationError": "Durata non valida (tra 15min e 1g)"
+                "durationError": "Durata non valida (tra 15min e 1g)",
+                "error": {
+                    "bookingInterval": "Aggiungi un intervallo consentito da ClassPass: 5, 10, 15, 30 o 60 minuti.",
+                    "peopleCapacityUsed": "Per aggiungere più di una persona, non consentire le prenotazioni ClassPass."
+                }
             }
         },
         "bookerModule": {
@@ -3717,7 +3722,11 @@
                 "isAlwaysAvailable": "{{resourceName}} può essere prenotato, una volta che lo/gli stabilimento/i e/o l'insegnante/i sono disponibili.",
                 "changeIsAlwaysAvailable": "Modifica",
                 "slot": "Tipo di sessione",
-                "noCapacity": "Questo stabilimento non ha una capacità massima."
+                "noCapacity": "Questo stabilimento non ha una capacità massima.",
+                "partnership": {
+                    "removeAvailabilities": "Per visualizzare correttamente gli appuntamenti su ClassPass, è necessario disabilitare le disponibilità specifiche.",
+                    "anySlotNotCompatible": "Aggiornare le impostazioni delle sessioni per assicurarsi che ciascuna abbia un intervallo di prenotazione e una capacità compatibili con ClassPass."
+                }
             },
             "form": {
                 "managerOnly": {
@@ -3836,6 +3845,32 @@
                         "header": "Tag"
                     },
                     "header": "Avanzate"
+                },
+                "availableOnPartnership": {
+                    "tagsAlert": "Non applicabile alle prenotazioni con ClassPass.",
+                    "buffersAlert": "Per aggiungere buffer a questa prenotazione, disabilitare le prenotazioni ClassPass.",
+                    "alert": "Per visualizzare correttamente questa prenotazione su ClassPass, è necessario configurare alcune impostazioni. Abbiamo aggiornato automaticamente alcuni campi. Si prega di rivedere e compilare i dati richiesti di seguito.",
+                    "label": "Disponibile con ClassPass"
+                },
+                "validation": {
+                    "zeroValueError": "È necessario programmare un appuntamento",
+                    "availabilityBuffers": "Per aggiungere buffer a questa prenotazione, disabilitare le prenotazioni ClassPass.",
+                    "coachCapacityUsed": "Per aggiungere più appuntamenti contemporaneamente per un insegnante, non consentire le prenotazioni ClassPass.",
+                    "oneOption": "Selezionare almeno un'opzione."
+                },
+                "tooltip": {
+                    "oneBookingPerTeacher": "È possibile aggiungere solo una prenotazione per insegnante, quando sono consentite le prenotazioni ClassPass.",
+                    "noTeacher": "È necessario assegnare un insegnante quando sono consentite le prenotazioni ClassPass."
+                },
+                "settingsTitle": "Impostazioni",
+                "establishmentSelectorTitle": "Selezionare lo stabilimento o gli stabilimenti per questo appuntamento:",
+                "coachSelectorTitle": "Selezionare l'insegnante o gli insegnanti per questo appuntamento:",
+                "editConfirmation": {
+                    "confirm": "Conferma",
+                    "cancel": "Fallo più tardi",
+                    "alert": "Fare clic su conferma per disattivare l'opzione di disponibilità.",
+                    "content": "Quando ClassPass viene attivato, le fasce orarie specifiche vengono disattivate. Verrà presa in considerazione solo la disponibilità dell'insegnante e dello stabilimento.",
+                    "title": "Problema di integrazione di ClassPass"
                 }
             },
             "parameters": {
@@ -5768,10 +5803,11 @@
             "generateXml": {
                 "errors": {
                     "default": "Si è verificato un errore durante la generazione della fattura XML",
-                    "14210": "Lo studio non è predisposto per l'esportazione di fatture XML. Contatta l'Account manager bsport.",
-                    "14213": "Il file generato non è conforme al controllo di pre-validazione (fornito nel nostro codice dal governo italiano)",
+                    "14210": "Le impostazioni non sono configurate per l'esportazione delle fatture in formato .XML. Contatta l'Account manager bsport.",
+                    "14213": "Impossibile generare il documento .XML a causa dei requisiti legali. Per ulteriori informazioni o domande, contattate l'Account manager bsport.",
                     "14212": "L'indirizzo del membro è mancante o incompleto",
-                    "14211": "Il membro non ha un documento d'identità ufficiale"
+                    "14211": "Il documento d'identità ufficiale del socio è mancante o incompleto.",
+                    "14214": "Il file Zip generato è vuoto perché non sono state trovate fatture del mese scorso da esportare"
                 },
                 "success": "Fattura XML generata con successo"
             }
@@ -6443,7 +6479,8 @@
             }
         },
         "privateSlot": {
-            "notAvailableForBookingAnymore": "Questo posto non è più disponibile."
+            "notAvailableForBookingAnymore": "Questo posto non è più disponibile.",
+            "notCompatibleWithPartnership": "La sessione non è stata salvata. Riprova."
         },
         "tag": {
             "error": {
@@ -6504,6 +6541,9 @@
                 "success": "L'ID dell'unità è stato collegato con successo",
                 "error": "Si è verificato un errore durante la configurazione"
             }
+        },
+        "privateService": {
+            "notCompatibleWithPartnership": "L'appuntamento non è stato salvato. Riprovare."
         }
     },
     "settings": {
@@ -7122,7 +7162,15 @@
             "addFooter": "Modificare la nota a piè di pagina",
             "addCoupon": "Aggiungere un codice promozionale",
             "downloadReceipt": "Ricezione del pagamento",
-            "downloadXml": "Scarica fattura (XML)"
+            "downloadXml": "Scarica fattura (XML)",
+            "downloadXmlBulkState": {
+                "processing": "Stiamo elaborando il vostro file Zip. Riceverete una notifica al termine dell'elaborazione.",
+                "generate": "Genera",
+                "ready": "Le fatture sono pronte per essere scaricate.",
+                "title": "FIle Zip"
+            },
+            "downloadXmlBulkTooltip": "Le fatture saranno generate a partire dall'ultimo mese. Se una fattura è già stata generata, deve essere scaricata singolarmente.",
+            "downloadXmlBulk": "Genera fatture (XML)"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "La ricevuta è stata finalizzata e pertanto non è più modificabile",
@@ -8865,7 +8913,9 @@
             "payment_method_paypal_wallet": "Portafoglio PayPal",
             "on_the_fly_bsport_fee": "Spese di transazione PayPal",
             "second_billing_plan": "Secondo piano di pagamento",
-            "incremental_identifier": "Numero"
+            "incremental_identifier": "Numero",
+            "product_categories": "Categorie di prodotti",
+            "product_types": "Tipi di prodotto"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -9459,6 +9509,10 @@
             "referred_member": "Membro raccomandato",
             "referring_member": "Membro referente",
             "member": "Membro"
+        },
+        "reportNoResults": "Nessun risultato",
+        "incompatibleFilter": {
+            "product": "I filtri dei prodotti non sono compatibili tra loro"
         }
     },
     "alerting": {
@@ -12577,8 +12631,9 @@
     "coupon": {
         "list": {
             "isEmpty": "Nessun codice promozionale registrato",
-            "inactiveCoupons": "Promozioni disattivate o scadute",
-            "activeCoupons": "Promozioni attive"
+            "inactiveCoupons": "Promozioni inattive",
+            "activeCoupons": "Promozioni attive",
+            "expiredActiveCoupons": "Promozioni attive scadute"
         },
         "card": {
             "validity": "Validità:",
@@ -13222,7 +13277,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il vostro marketplace non visualizzeranno più il calendario della sede.",
                     "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate.",
                     "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceverà quindi le richieste di sostituzione da tutte le sedi.",
-                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene effettuata una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceveranno quindi le richieste di sostituzione da tutte le sedi.",
+                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceveranno quindi le richieste di sostituzione da tutte le sedi.",
                     "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, non riceveranno più la relativa notifica.",
                     "hasRelatedStaffConfigurations": "Questa sede è utilizzata per il monitoraggio degli accessi da parte di uno o più utenti staff. Eliminando la sede senza selezionarne una nuova, questi non potranno più effettuare il monitoraggio degli accessi."
                 },
@@ -13246,7 +13301,7 @@
                 "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
                 "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
                 "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
-                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} sono avvisati solo quando viene effettuata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
+                "exclusiveAssociatedCoaches_plural": "I vostri insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando la struttura, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
                 "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
                 "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
                 "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento, queste fasce orarie saranno eliminate.",
@@ -13268,7 +13323,7 @@
                 "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
                 "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; aggiornare o eliminare queste sedi.",
                 "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
-                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellare lo stabilimento.",
+                "exclusivePaymentPacks_plural": "I seguenti paccheti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellare lo stabilimento.",
                 "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
                 "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
                 "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."
@@ -14664,7 +14719,12 @@
         "more": "Più",
         "continue": "Continua",
         "edit": "Modifica",
-        "preview": "Anteprima"
+        "preview": "Anteprima",
+        "gender": {
+            "X": "Non binario",
+            "M": "Maschio",
+            "F": "Femmina"
+        }
     },
     "titles": {
         "metaActivity": {
@@ -18741,7 +18801,9 @@
                     "invalidEmail": "Email non valida",
                     "passwordConfirmationError": "Le password non sono indefinite",
                     "passwordMinimumRequirementsError": "La password deve contenere almeno 6 caratteri",
-                    "invalidOfficialDocumentId": "Questo campo può contenere solo numeri e lettere"
+                    "invalidOfficialDocumentId": "Questo campo può contenere solo numeri e lettere",
+                    "membershipIdMaximumLength": "L'ID di un membro non può superare i 24 caratteri",
+                    "barcodeMaximumLength": "Un codice a barre non può superare i 16 caratteri"
                 }
             },
             "displayRule": {
@@ -20196,6 +20258,7 @@
                 "week": "settimana",
                 "week_plural": "settimane",
                 "month": "mese",
+                "month_plural": "mesi",
                 "year": "anno",
                 "year_plural": "anni",
                 "day": "giorno",

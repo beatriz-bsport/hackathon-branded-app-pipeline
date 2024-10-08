@@ -1132,7 +1132,8 @@
             "venueIds": "Vestiging-ID's: {{ establishmentIdList }}",
             "partnerId": "Partner-ID: {{ company }}",
             "establishmentMergedAs": "Deze vestigingen samenvoegen",
-            "establishmentMergeMaster": "Deze vestigingen samenvoegen:"
+            "establishmentMergeMaster": "Deze vestigingen samenvoegen:",
+            "configurationDescription": "Selecteer hoe je je vestigingen wilt weergeven op de ClassPass app. Dit verandert alleen hoe groepsactiviteiten worden weergegeven."
         },
         "pageTitle": "Integraties",
         "configurationType": {
@@ -3621,7 +3622,9 @@
             "payment_method_paypal_wallet": "PayPal Wallet",
             "on_the_fly_bsport_fee": "PayPal transactiekosten",
             "second_billing_plan": "Tweede factureringsplan",
-            "incremental_identifier": "Nummer"
+            "incremental_identifier": "Nummer",
+            "product_categories": "Categorieën van producten",
+            "product_types": "Soorten producten"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -4164,6 +4167,10 @@
             "referred_member": "Doorverwezen lid",
             "referring_member": "Verwijzend lid",
             "member": "Lid"
+        },
+        "reportNoResults": "Geen resultaten",
+        "incompatibleFilter": {
+            "product": "Productfilters zijn niet compatibel met elkaar"
         }
     },
     "alerting": {
@@ -5325,7 +5332,7 @@
             "errors": {
                 "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
-                "exclusivePaymentPacks_plural": "De volgende kaarten ({{- pass_name }}) kunnen alleen in deze vestiging worden gebruikt. Werk de restricties en instellingen bij voordat je deze vestiging verwijdert.",
+                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen bruikbaar in deze vestiging. Pas hun beperkingen aan voordat u de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
                 "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die u wilt verwijderen. Werk deze locaties bij of verwijder ze.",
                 "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
@@ -10300,7 +10307,11 @@
                     "helperText": "Geef aan hoeveel credits nodig zijn om een afspraak te reserveren."
                 },
                 "pre_selected_choices": "Vooraf ingestelde tijden",
-                "durationError": "De duur moet tussen 10 minuten en 1 dag zijn."
+                "durationError": "De duur moet tussen 10 minuten en 1 dag zijn.",
+                "error": {
+                    "bookingInterval": "Voeg een interval toe dat is toegestaan door ClassPass: 5, 10, 15, 30 of 60 minuten.",
+                    "peopleCapacityUsed": "Als u meer dan één persoon wilt toevoegen, moet u ClassPass-boekingen niet toestaan."
+                }
             }
         },
         "bookerModule": {
@@ -10730,6 +10741,32 @@
                         "notAllowed": "Niet toegestaan"
                     },
                     "header": "Geavanceerd"
+                },
+                "availableOnPartnership": {
+                    "tagsAlert": "Niet van toepassing op ClassPass boekingen.",
+                    "buffersAlert": "Om buffers aan deze boeking toe te voegen, moet je ClassPass boekingen niet toestaan.",
+                    "alert": "Om deze boeking correct weer te geven op ClassPass, moeten sommige instellingen worden geconfigureerd. We hebben sommige velden automatisch bijgewerkt. Controleer en vul de vereiste gegevens hieronder in.",
+                    "label": "Beschikbaar op ClassPass"
+                },
+                "validation": {
+                    "zeroValueError": "U moet één afspraak maken",
+                    "availabilityBuffers": "Om buffers aan deze boeking toe te voegen, moet je ClassPass boekingen niet toestaan.",
+                    "coachCapacityUsed": "Om meer dan één afspraak op hetzelfde moment toe te voegen voor een docent, moet u ClassPass boekingen niet toestaan.",
+                    "oneOption": "Selecteer minstens één optie."
+                },
+                "tooltip": {
+                    "oneBookingPerTeacher": "Kan slechts één boeking per leraar toevoegen, terwijl ClassPass-boekingen zijn toegestaan.",
+                    "noTeacher": "Moet een leraar toewijzen wanneer ClassPass boekingen zijn toegestaan."
+                },
+                "settingsTitle": "Instellingen",
+                "establishmentSelectorTitle": "Selecteer de vestiging(en) voor deze afspraak:",
+                "coachSelectorTitle": "Selecteer de teacher(s) voor deze afspraak:",
+                "editConfirmation": {
+                    "confirm": "Bevestig",
+                    "cancel": "Doe het later",
+                    "alert": "Klik op bevestigen om de beschikbaarheidsoptie uit te schakelen.",
+                    "content": "Wanneer ClassPass wordt geactiveerd, worden specifieke afspraakslots uitgeschakeld. Er wordt alleen rekening gehouden met de beschikbaarheid van de docent en de vestiging.",
+                    "title": "Integratieprobleem met ClassPass"
                 }
             },
             "parameters": {
@@ -10789,7 +10826,11 @@
                 "noFutureSlot": "De beschikbaarheid van \"{{resourceName}}\" is nog niet correct ingesteld. Klik hier om de beschikbaarheid te configureren.",
                 "title": "Beschikbaarheid",
                 "isAlwaysAvailable": "\"{{resourceName}}\" kan ingeboekt worden zodra de vestiging(en) en/of de instructeur(s) beschikbaar zijn.",
-                "changeIsAlwaysAvailable": "Bewerken"
+                "changeIsAlwaysAvailable": "Bewerken",
+                "partnership": {
+                    "removeAvailabilities": "Om afspraken correct weer te geven op ClassPass, moet u specifieke beschikbaarheden uitschakelen.",
+                    "anySlotNotCompatible": "Werk de sessie-instellingen bij om ervoor te zorgen dat elke sessie een boekingsinterval en -capaciteit heeft die compatibel zijn met ClassPass."
+                }
             },
             "navigation": {
                 "goToPrivatePass": "Afspraakkaarten"
@@ -12298,10 +12339,11 @@
             "generateXml": {
                 "errors": {
                     "default": "Er is een fout opgetreden tijdens het genereren van de XML-factuur",
-                    "14213": "Het gegenereerde bestand voldoet niet aan de prevalidatiecontrole (in onze code voorzien door de Italiaanse overheid)",
+                    "14213": "Kan het .XML-document niet genereren vanwege wettelijke vereisten. Neem voor meer informatie of vragen contact op met uw bsport Account Manager.",
                     "14212": "Het adres van het lid ontbreekt of is onvolledig",
-                    "14211": "Het lid heeft geen officieel identiteitsbewijs",
-                    "14210": "Het bedrijf is niet ingesteld voor XML-factuurexport. Neem contact op met uw bsport Account Manager."
+                    "14211": "Het officiële document ID van het lid ontbreekt of is onvolledig",
+                    "14210": "Uw instellingen zijn niet geconfigureerd voor .XML-factuurexport. Neem contact op met uw bsport Account Manager.",
+                    "14214": "Het gegenereerde Zip-bestand is leeg omdat er geen facturen zijn gevonden die van vorige maand moeten worden geëxporteerd"
                 },
                 "success": "XML-factuur succesvol gegenereerd"
             }
@@ -13123,7 +13165,8 @@
             }
         },
         "privateSlot": {
-            "notAvailableForBookingAnymore": "Dit tijdslot is niet langer beschikbaar."
+            "notAvailableForBookingAnymore": "Dit tijdslot is niet langer beschikbaar.",
+            "notCompatibleWithPartnership": "De sessie is niet opgeslagen. Probeer het opnieuw."
         },
         "tag": {
             "error": {
@@ -13184,6 +13227,9 @@
                 "success": "Uw eenheids-ID is succesvol gekoppeld",
                 "error": "Er is een fout opgetreden tijdens de configuratie"
             }
+        },
+        "privateService": {
+            "notCompatibleWithPartnership": "De afspraak is niet opgeslagen. Probeer het opnieuw."
         }
     },
     "coach": {
@@ -13516,7 +13562,8 @@
         "list": {
             "activeCoupons": "Actieve promoties",
             "isEmpty": "In dit onderdeel kunnen alle promoties worden beheerd.",
-            "inactiveCoupons": "Verlopen promoties"
+            "inactiveCoupons": "Verlopen promoties",
+            "expiredActiveCoupons": "Actieve acties verlopen"
         },
         "detail": {
             "seeParameters": "Bewerken",
@@ -15270,9 +15317,13 @@
             "downloadReceipt": "Betalingsbewijs",
             "downloadXml": "Factuur downloaden (XML)",
             "downloadXmlBulkState": {
-                "title": "ZIP-bestand"
+                "title": "ZIP-bestand",
+                "processing": "We zijn uw Zip-bestand aan het verwerken. Je ontvangt een bericht wanneer het klaar is.",
+                "generate": "genereren",
+                "ready": "Je facturen zijn klaar om gedownload te worden."
             },
-            "downloadXmlBulk": "Genereer facturen (XML)"
+            "downloadXmlBulk": "Genereer facturen (XML)",
+            "downloadXmlBulkTooltip": "Facturen worden vanaf de laatste maand gegenereerd. Als er al een factuur is gegenereerd, moet deze afzonderlijk worden gedownload."
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "De factuur is nu aangemaakt en kan niet meer worden bewerkt.",
@@ -18715,7 +18766,9 @@
                     "passwordConfirmationError": "Deze wachtwoorden komen niet overeen",
                     "invalidEmail": "Ongeldig e-mailadres",
                     "passwordMinimumRequirementsError": "Je wachtwoord moet minimaal 6 tekens bevatten.",
-                    "invalidOfficialDocumentId": "Dit veld mag alleen letters en cijfers bevatten."
+                    "invalidOfficialDocumentId": "Dit veld mag alleen letters en cijfers bevatten.",
+                    "membershipIdMaximumLength": "Een lidmaatschaps-ID mag niet langer zijn dan 24 tekens",
+                    "barcodeMaximumLength": "Een streepjescode mag niet langer zijn dan 16 tekens"
                 },
                 "date_submitted": "Datum",
                 "dialog": {
@@ -20235,6 +20288,7 @@
                 "week": "week/weken",
                 "week_plural": "week/weken",
                 "month": "maand(en)",
+                "month_plural": "maanden",
                 "year": "jaar",
                 "year_plural": "jaar",
                 "day": "dag(en)",

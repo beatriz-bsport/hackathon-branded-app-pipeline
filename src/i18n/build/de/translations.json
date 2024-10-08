@@ -6493,7 +6493,9 @@
             "payment_method_paypal_wallet": "PayPal-Wallet",
             "on_the_fly_bsport_fee": "PayPal Transaktionsgebühren",
             "second_billing_plan": "Zweiter Rechnungsplan",
-            "incremental_identifier": "Nummer"
+            "incremental_identifier": "Nummer",
+            "product_categories": "Produktkategorien",
+            "product_types": "Produkttypen"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -7027,6 +7029,10 @@
             "referred_member": "Geworbenes Mitglied",
             "referring_member": "Empfehlendes Mitglied",
             "member": "Mitglied"
+        },
+        "reportNoResults": "Keine Ergebnisse",
+        "incompatibleFilter": {
+            "product": "Produktfilter sind nicht miteinander kompatibel"
         }
     },
     "snackbar": {
@@ -7282,10 +7288,11 @@
             "generateXml": {
                 "errors": {
                     "default": "Beim Generieren der XML-Rechnung ist ein Fehler aufgetreten",
-                    "14213": "Die erzeugte Datei entspricht nicht der Vorvalidierungsprüfung (die von der italienischen Regierung in unserem Code bereitgestellt ist)",
+                    "14213": "Die Generierung des XML-Dokuments ist aufgrund gesetzlicher Vorgaben fehlgeschlagen. Für weitere Informationen oder bei Fragen wenden Sie sich bitte an Ihren bsport-Kundenbetreuer.",
                     "14212": "Die Adresse des Mitglieds fehlt oder ist unvollständig",
-                    "14211": "Das Mitglied hat kein offizielles Ausweisdokument",
-                    "14210": "Das Unternehmen ist nicht für den Export von XML-Rechnungen konfiguriert. Bitte wenden Sie sich an Ihren bsport-Kundenbetreuer."
+                    "14211": "Das offizielle Dokument ID des Mitglieds fehlt oder ist unvollständig",
+                    "14210": "Ihre Einstellungen sind nicht für den Export von XML-Rechnungen konfiguriert. Bitte wenden Sie sich an Ihren bsport-Kundenbetreuer.",
+                    "14214": "Die generierte Zip-Datei ist leer, da keine zu exportierenden Rechnungen des letzten Monats gefunden wurden."
                 },
                 "success": "XML-Rechnung erfolgreich generiert"
             }
@@ -8150,7 +8157,8 @@
             }
         },
         "privateSlot": {
-            "notAvailableForBookingAnymore": "Dieser Platz ist nicht mehr verfügbar."
+            "notAvailableForBookingAnymore": "Dieser Platz ist nicht mehr verfügbar.",
+            "notCompatibleWithPartnership": "Der Kurs wurde nicht gespeichert. Bitte versuchen Sie es erneut."
         },
         "tag": {
             "error": {
@@ -8211,6 +8219,9 @@
                 "success": "Ihre ID der Einheit wurde erfolgreich verknüpft",
                 "error": "Während der Konfiguration ist ein Fehler aufgetreten"
             }
+        },
+        "privateService": {
+            "notCompatibleWithPartnership": "Der Termin wurde nicht gespeichert. Bitte versuchen Sie es erneut."
         }
     },
     "invoice": {
@@ -8418,7 +8429,15 @@
             "addFooter": "Fußnote dieser Rechnung anpassen",
             "addCoupon": "Promo-Code hinzufügen",
             "downloadReceipt": "Quittung über die Zahlung",
-            "downloadXml": "Rechnung herunterladen (XML)"
+            "downloadXml": "Rechnung herunterladen (XML)",
+            "downloadXmlBulkState": {
+                "processing": "Wir verarbeiten Ihre Zip-Datei. Sie werden benachrichtigt, wenn die Bearbeitung abgeschlossen ist.",
+                "generate": "Generieren",
+                "ready": "Ihre Rechnungen stehen zum Download bereit.",
+                "title": "Zip Datei"
+            },
+            "downloadXmlBulkTooltip": "Die Rechnungen werden ab dem letzten Monat erstellt. Wenn eine Rechnung bereits erstellt wurde, muss sie einzeln heruntergeladen werden.",
+            "downloadXmlBulk": "Rechnungen generieren (XML)"
         },
         "invoice": {
             "editor": {
@@ -10913,7 +10932,12 @@
         "add": "Hinzufügen",
         "continue": "Fortfahren",
         "edit": "Bearbeiten",
-        "preview": "Vorschau"
+        "preview": "Vorschau",
+        "gender": {
+            "X": "Nicht-binär",
+            "M": "Männlich",
+            "F": "Weiblich"
+        }
     },
     "coupon": {
         "detail": {
@@ -11050,9 +11074,10 @@
             "alert": "Ein Rabattcode kann von einem Mitglied verwendet werden, um den Preis des Warenkorbs zu verringern. In diesem Formular können Sie komplett einstellen, wie der Code angewendet wird. Sie wählen den Code selbst und entscheiden darüber, wie Sie ihn mit Ihren Mitgliedern teilen."
         },
         "list": {
-            "inactiveCoupons": "Deaktivierte oder abgelaufene Werbeaktionen",
+            "inactiveCoupons": "Inaktive oder abgelaufene Werbeaktionen",
             "activeCoupons": "Aktive Werbeaktionen",
-            "isEmpty": "Kein gespeicherter Rabattcode."
+            "isEmpty": "Kein gespeicherter Rabattcode.",
+            "expiredActiveCoupons": "Aktive Werbeaktionen abgelaufen"
         },
         "card": {
             "member_use": "Verwendungen pro Mitglied",
@@ -11392,7 +11417,11 @@
                 "title": "Verfügbarkeit pro Stunde",
                 "noCapacity": "Raumkapazität nicht eingerichtet !",
                 "totalCapacity": "Maximale Raumkapazität : {{ capacity}}",
-                "noFutureSlot": "Keine Verfügbarkeit für {{resourceName}} wurde eingetragen! Klicke hier."
+                "noFutureSlot": "Keine Verfügbarkeit für {{resourceName}} wurde eingetragen! Klicke hier.",
+                "partnership": {
+                    "removeAvailabilities": "Um Termine auf ClassPass korrekt anzuzeigen, müssen Sie bestimmte Verfügbarkeiten deaktivieren.",
+                    "anySlotNotCompatible": "Aktualisieren Sie die Kurs Einstellungen, um sicherzustellen, dass jedes Buchungsintervall und jede Kapazität mit ClassPass kompatibel ist."
+                }
             },
             "form": {
                 "establishmentResourceType": {
@@ -11511,7 +11540,33 @@
                         "doNotSelectToAllowAllMembers": "Dieses Feld leer lassen, um alle Mitglieder zuzulassen",
                         "notAllowed": "Nicht erlaubt"
                     }
-                }
+                },
+                "editConfirmation": {
+                    "content": "Wenn ClassPass aktiviert ist, werden bestimmte Zeitfenster deaktiviert. Es wird nur die Verfügbarkeit des Lehrers und der Einrichtung berücksichtigt.",
+                    "confirm": "Bestätigen",
+                    "cancel": "Mache es später",
+                    "alert": "Klicken Sie auf Bestätigen, um die Verfügbarkeitsoption zu deaktivieren.",
+                    "title": "Problem mit der ClassPass Integration"
+                },
+                "availableOnPartnership": {
+                    "tagsAlert": "Gilt nicht für ClassPass Buchungen.",
+                    "buffersAlert": "Um Puffer zu dieser Buchung hinzuzufügen, müssen Sie ClassPass Buchungen ausschließen.",
+                    "alert": "Um diese Buchung auf ClassPass korrekt anzuzeigen, müssen einige Einstellungen konfiguriert werden. Wir haben einige Felder automatisch aktualisiert. Bitte überprüfen Sie diese und füllen Sie die erforderlichen Details unten aus.",
+                    "label": "Verfügbar auf ClassPass"
+                },
+                "validation": {
+                    "zeroValueError": "Sie müssen einen Termin vereinbaren",
+                    "availabilityBuffers": "Um Puffer zu dieser Buchung hinzuzufügen, müssen Sie ClassPass-Buchungen ausschließen.",
+                    "coachCapacityUsed": "Um mehr als einen Termin zur gleichen Zeit für einen Lehrer hinzuzufügen, deaktivieren Sie die ClassPass-Buchungen.",
+                    "oneOption": "Wählen Sie mindestens eine Option aus."
+                },
+                "tooltip": {
+                    "oneBookingPerTeacher": "Es kann nur eine Buchung pro Lehrer hinzugefügt werden, während ClassPass-Buchungen erlaubt sind.",
+                    "noTeacher": "Sie müssen einen Lehrer zuweisen, wenn ClassPass-Buchungen erlaubt sind."
+                },
+                "settingsTitle": "Einstellungen",
+                "establishmentSelectorTitle": "Wählen Sie die Einrichtung(en) für diesen Termin aus:",
+                "coachSelectorTitle": "Wählen Sie die Lehrkraft/Lehrkräfte für diesen Termin aus:"
             },
             "parameters": {
                 "slots": {
@@ -11670,7 +11725,11 @@
                     "helperText": "Wenn ein Raum eingerichtet ist, wird diese Nummer zur Aktualisierung seines Füllstands verwendet"
                 },
                 "pre_selected_choices": "Voreingestellte Zeiten",
-                "durationError": "Ungültige Dauer (zwischen 15 Minuten und 1 Tag)"
+                "durationError": "Ungültige Dauer (zwischen 15 Minuten und 1 Tag)",
+                "error": {
+                    "bookingInterval": "Fügen Sie ein von ClassPass zugelassenes Intervall hinzu: 5, 10, 15, 30 oder 60 Minuten.",
+                    "peopleCapacityUsed": "Um mehr als eine Person hinzuzufügen, deaktivieren Sie ClassPass-Buchungen."
+                }
             },
             "parameters": {
                 "credit": "{{ credit }} Credits"
@@ -16038,7 +16097,8 @@
             "venueIds": "VenueIDs: {{ establishmentIdList }}",
             "pleaseChoseEstablishmentMany": "Bitte wählen Sie mindestens eine Einrichtung aus.",
             "establishment": "Einrichtung",
-            "configurationTitle": "Konfigurieren Sie Ihre Integration"
+            "configurationTitle": "Konfigurieren Sie Ihre Integration",
+            "configurationDescription": "Wählen Sie aus, wie Ihre Einrichtungen in der ClassPass-App angezeigt werden sollen. Dies ändert nur, wie Gruppenaktivitäten angezeigt werden."
         },
         "requestDialog": {
             "close": "Verstanden",
@@ -18516,7 +18576,9 @@
                     "invalidEmail": "Ungültige E-Mail",
                     "passwordConfirmationError": "Diese Passwörter sind nicht identisch",
                     "passwordMinimumRequirementsError": "Ihr Passwort muss mindestens 6 Zeichen enthalten.",
-                    "invalidOfficialDocumentId": "Dieses Feld darf nur Zahlen und Buchstaben enthalten"
+                    "invalidOfficialDocumentId": "Dieses Feld darf nur Zahlen und Buchstaben enthalten",
+                    "membershipIdMaximumLength": "Eine Mitgliedschafts-ID darf nicht länger als 24 Zeichen sein",
+                    "barcodeMaximumLength": "Ein Barcode darf nicht länger als 16 Zeichen sein"
                 },
                 "dialog": {
                     "confirmButton": "Weiter",
@@ -20062,6 +20124,7 @@
                 "week": "Woche",
                 "week_plural": "Wochen",
                 "month": "Monat",
+                "month_plural": "Monate",
                 "year": "an",
                 "year_plural": "Jahre",
                 "day": "Tag",

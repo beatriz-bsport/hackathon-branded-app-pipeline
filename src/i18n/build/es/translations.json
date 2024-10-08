@@ -3640,7 +3640,15 @@
             "addFooter": "Modificar la nota a pie de página de la factura",
             "addCoupon": "Añadir un código promocional",
             "downloadReceipt": "Recibo del pago",
-            "downloadXml": "Descargar factura (XML)"
+            "downloadXml": "Descargar factura (XML)",
+            "downloadXmlBulkState": {
+                "processing": "Estamos procesando su archivo Zip. Recibirás una notificación cuando haya finalizado.",
+                "generate": "Generar",
+                "ready": "Sus facturas están listas para ser descargadas.",
+                "title": "Archivo Zip"
+            },
+            "downloadXmlBulkTooltip": "Las facturas se generarán a partir del último mes. Si ya se ha generado alguna factura, deberá descargarse individualmente.",
+            "downloadXmlBulk": "Generar facturas (XML)"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "La factura se ha finalizado y, por lo tanto, ya no se puede editar",
@@ -5422,7 +5430,9 @@
             "payment_method_paypal_wallet": "Cartera PayPal",
             "on_the_fly_bsport_fee": "Comisiones de transacción de PayPal",
             "second_billing_plan": "Segundo plan de facturación",
-            "incremental_identifier": "Número"
+            "incremental_identifier": "Número",
+            "product_categories": "Categorías de productos",
+            "product_types": "Tipos de productos"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -6008,6 +6018,10 @@
             "referred_member": "Miembro referido",
             "referring_member": "Miembro referente",
             "member": "Miembro"
+        },
+        "reportNoResults": "Sin resultados",
+        "incompatibleFilter": {
+            "product": "Los filtros de productos no son compatibles entre sí"
         }
     },
     "alerting": {
@@ -8193,7 +8207,8 @@
             "partnerId": "ID de socio: {{ company }}",
             "establishment": "Establecimiento",
             "configurationTitle": "Configure su integración",
-            "venueIds": "IDs de establecimientos: {{ establishmentIdList }}"
+            "venueIds": "IDs de establecimientos: {{ establishmentIdList }}",
+            "configurationDescription": "Seleccione cómo desea que aparezcan sus establecimientos en la app ClassPass. Esto solo cambia cómo se muestran las actividades de grupo."
         },
         "actions": {
             "requestPartnership": "Activar la integración",
@@ -9065,8 +9080,9 @@
         },
         "list": {
             "activeCoupons": "Promociones activas",
-            "inactiveCoupons": "Promociones desactivadas o expiradas",
-            "isEmpty": "Código promocional registrado"
+            "inactiveCoupons": "Promociones inactivas o caducadas",
+            "isEmpty": "Código promocional registrado",
+            "expiredActiveCoupons": "Promociones activas caducadas"
         },
         "search": "Buscar un código promocional",
         "reverted": "Factura anulada",
@@ -9317,6 +9333,32 @@
                         "doNotSelectToAllowAllMembers": "Deje este campo vacío para permitir a todos los miembros",
                         "notAllowed": "No autorizado"
                     }
+                },
+                "availableOnPartnership": {
+                    "tagsAlert": "No aplicable a las reservas ClassPass.",
+                    "buffersAlert": "Para añadir buffers a esta reserva, deshabilite las reservas ClassPass.",
+                    "alert": "Para mostrar correctamente esta reserva en ClassPass, es necesario configurar algunos parámetros. Hemos actualizado automáticamente algunos campos. Por favor, revise y rellene los datos requeridos a continuación.",
+                    "label": "Disponible en ClassPass"
+                },
+                "validation": {
+                    "zeroValueError": "Debe programar una cita",
+                    "availabilityBuffers": "Para añadir buffers a esta reserva, deshabilite las reservas ClassPass.",
+                    "coachCapacityUsed": "Para añadir más de una cita al mismo tiempo para un profesor, deshabilite las reservas de ClassPass.",
+                    "oneOption": "Seleccione al menos una opción."
+                },
+                "tooltip": {
+                    "oneBookingPerTeacher": "Sólo se puede añadir una reserva por profesor, mientras que las reservas ClassPass están permitidas.",
+                    "noTeacher": "Debe asignar un profesor cuando se permiten las reservas ClassPass."
+                },
+                "settingsTitle": "Ajustes",
+                "establishmentSelectorTitle": "Seleccione el establecimiento o establecimientos para esta cita:",
+                "coachSelectorTitle": "Seleccione el profesor o profesores para este cita:",
+                "editConfirmation": {
+                    "confirm": "Confirmar",
+                    "cancel": "Hazlo más tarde",
+                    "alert": "Haga clic en confirmar para desactivar la opción de disponibilidad.",
+                    "content": "Cuando se active ClassPass, se desactivarán las franjas horarias de citas específicas. Solo se tendrá en cuenta la disponibilidad del profesor y del establecimiento.",
+                    "title": "Problema de integración de ClassPass"
                 }
             },
             "configuration": {
@@ -9330,7 +9372,11 @@
                 "totalCapacity": "Capacidad máxima: {{ capacity }}",
                 "hasFutureSlot": "Calendario de disponibilidades futuras OK",
                 "explainSetToHasOwnAvailabilitySlots": "Reservable solo en ciertas plazas",
-                "explainSetToHasNotOwnAvailabilitySlots": "Posibilidad de reservar en cualquier horario si disponibilidad de sala/profesor"
+                "explainSetToHasNotOwnAvailabilitySlots": "Posibilidad de reservar en cualquier horario si disponibilidad de sala/profesor",
+                "partnership": {
+                    "removeAvailabilities": "Para mostrar correctamente las citas en ClassPass, debe desactivar las disponibilidades específicas.",
+                    "anySlotNotCompatible": "Actualice los ajustes de la sesión para asegurarse de que cada una tiene un intervalo de reserva y una capacidad compatibles con ClassPass."
+                }
             },
             "detail": {
                 "tab": {
@@ -9818,7 +9864,11 @@
                     }
                 },
                 "pre_selected_choices": "Duraciones predefinidas",
-                "durationError": "Duración no válida (entre 10min y 1d)"
+                "durationError": "Duración no válida (entre 10min y 1d)",
+                "error": {
+                    "bookingInterval": "Añada un intervalo permitido por ClassPass: 5, 10, 15, 30 o 60 minutos.",
+                    "peopleCapacityUsed": "Para añadir más de una persona, desactive las reservas ClassPass."
+                }
             },
             "parameters": {
                 "credit": "{{ credit }} crédito"
@@ -13827,7 +13877,12 @@
         "add": "Añadir",
         "continue": "Continuar",
         "edit": "Editar",
-        "preview": "Vista previa"
+        "preview": "Vista previa",
+        "gender": {
+            "X": "No binario",
+            "M": "Masculino",
+            "F": "Femenino"
+        }
     },
     "snackbar": {
         "invoice": {
@@ -13900,10 +13955,11 @@
             "generateXml": {
                 "errors": {
                     "default": "Se ha producido un error al generar la factura XML",
-                    "14213": "El archivo generado no cumple con la comprobación previa a la validación (proporcionada en nuestro código por el gobierno italiano)",
+                    "14213": "No se ha podido generar el documento .XML debido a requisitos legales. Para obtener más información o realizar cualquier consulta, póngase en contacto con su gestor de cuentas de bsport.",
                     "14212": "Falta la dirección del miembro o está incompleta",
-                    "14211": "El afiliado no tiene documento oficial de identidad",
-                    "14210": "La empresa no está configurada para la exportación de facturas XML. Póngase en contacto con su gestor de cuentas de bsport."
+                    "14211": "El documento oficial de identificación del afiliado falta o está incompleto",
+                    "14210": "Sus ajustes no están configurados para la exportación de facturas .XML. Póngase en contacto con su gestor de cuentas de bsport.",
+                    "14214": "El archivo Zip generado está vacío porque no se han encontrado facturas a exportar del mes pasado"
                 },
                 "success": "Factura XML generada correctamente"
             }
@@ -14952,7 +15008,8 @@
             }
         },
         "privateSlot": {
-            "notAvailableForBookingAnymore": "Este puesto ya no está disponible."
+            "notAvailableForBookingAnymore": "Este puesto ya no está disponible.",
+            "notCompatibleWithPartnership": "La sesión no se ha guardado. Por favor, inténtelo de nuevo."
         },
         "tag": {
             "error": {
@@ -15013,6 +15070,9 @@
                 "success": "Su ID de unidad se ha vinculado correctamente",
                 "error": "Se ha producido un error durante la configuración"
             }
+        },
+        "privateService": {
+            "notCompatibleWithPartnership": "La cita no se ha guardado. Por favor, inténtelo de nuevo."
         }
     },
     "paymentPack": {
@@ -18753,7 +18813,9 @@
                     "invalidEmail": "Correo electrónico no válido",
                     "passwordConfirmationError": "Las contraseñas no son indefinidas",
                     "passwordMinimumRequirementsError": "La contraseña debe contener al menos 6 caracteres",
-                    "invalidOfficialDocumentId": "Este campo sólo puede contener números y letras"
+                    "invalidOfficialDocumentId": "Este campo sólo puede contener números y letras",
+                    "membershipIdMaximumLength": "Un ID de miembro no puede tener más de 24 caracteres",
+                    "barcodeMaximumLength": "Un código de barras no puede tener más de 16 caracteres"
                 }
             },
             "statistics": {
@@ -20246,6 +20308,7 @@
                 "week": "semana",
                 "week_plural": "semanas",
                 "month": "mes",
+                "month_plural": "meses",
                 "year": "año",
                 "year_plural": "años",
                 "day": "día",

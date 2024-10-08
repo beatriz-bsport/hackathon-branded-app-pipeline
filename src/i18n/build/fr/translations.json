@@ -1220,7 +1220,12 @@
         "add": "Ajouter",
         "continue": "Continuer",
         "edit": "Éditer",
-        "preview": "Aperçu"
+        "preview": "Aperçu",
+        "gender": {
+            "X": "Autre",
+            "M": "Homme",
+            "F": "Femme"
+        }
     },
     "communication": {
         "table": {
@@ -2337,8 +2342,9 @@
     "coupon": {
         "list": {
             "isEmpty": "Aucun code promotionnel enregistré",
-            "inactiveCoupons": "Promotions désactivées ou expirées",
-            "activeCoupons": "Promotions actives"
+            "inactiveCoupons": "Promotions inactives",
+            "activeCoupons": "Promotions actives",
+            "expiredActiveCoupons": "Promotions actives expirées"
         },
         "detail": {
             "seeParameters": "Voir les paramètres",
@@ -4079,7 +4085,15 @@
             "consumeBalance": "Payer via solde",
             "addCoupon": "Ajouter un code promo",
             "downloadReceipt": "Reçu de paiement",
-            "downloadXml": "Télécharger la facture (XML)"
+            "downloadXml": "Télécharger la facture (XML)",
+            "downloadXmlBulkState": {
+                "processing": "Nous sommes en train de traiter votre fichier Zip. Vous serez averti lorsque le traitement sera terminé.",
+                "generate": "Générer",
+                "ready": "Vos factures sont prêtes à être téléchargées.",
+                "title": "Fichier zip"
+            },
+            "downloadXmlBulkTooltip": "Les factures seront générées à partir du mois dernier. Si une facture a déjà été générée, elle doit être téléchargée individuellement.",
+            "downloadXmlBulk": "Générer les factures (XML)"
         },
         "returnPayment": {
             "modal": {
@@ -5049,7 +5063,9 @@
                     "passwordMinimumRequirementsError": "Le mot de passe doit contenir au moins 6 caratères",
                     "passwordConfirmationError": "Les mots de passes ne sont pas indetiques",
                     "invalidEmail": "Email invalide",
-                    "invalidOfficialDocumentId": "Ce champ ne peut contenir que des chiffres et des lettres"
+                    "invalidOfficialDocumentId": "Ce champ ne peut contenir que des chiffres et des lettres",
+                    "membershipIdMaximumLength": "L'identifiant d'un membre ne peut pas dépasser 24 caractères",
+                    "barcodeMaximumLength": "Un code-barres ne peut pas dépasser 16 caractères"
                 }
             },
             "statistics": {
@@ -7747,7 +7763,8 @@
             "pleaseChoseEstablishmentMany": "Veuillez sélectionnez au moins un établissement",
             "establishment": "Etablissement",
             "configurationTitle": "Configurez votre intégration",
-            "add": "Ajouter"
+            "add": "Ajouter",
+            "configurationDescription": "Sélectionnez la façon dont vous souhaitez que vos établissements apparaissent sur l'application ClassPass. Cela ne s'applique qu'à la façon dont les activités de groupe sont affichées."
         },
         "requestDialog": {
             "explain": "Vous avez demandé l'intégration bsport X classpass, votre chargé de compte va vous contacter pour valider cette opération",
@@ -9922,7 +9939,11 @@
                 },
                 "cancel": "Annuler",
                 "submit": "Enregistrer",
-                "pre_selected_choices": "Durées prédéfinies"
+                "pre_selected_choices": "Durées prédéfinies",
+                "error": {
+                    "bookingInterval": "Ajoutez un intervalle autorisé par ClassPass : 5, 10, 15, 30 ou 60 minutes.",
+                    "peopleCapacityUsed": "Pour ajouter plus d'une personne, désactivez les réservations ClassPass."
+                }
             }
         },
         "bookerModule": {
@@ -10265,7 +10286,11 @@
                 "noFutureSlot": "Vous n'avez configuré aucune disponibilité pour {{resourceName}} ! Cliquez ici.",
                 "title": "Disponibilités horaires",
                 "isAlwaysAvailable": "{{ resourceName}} est réservable dès que la salle et/ou les profs sont disponibles",
-                "changeIsAlwaysAvailable": "Modifier"
+                "changeIsAlwaysAvailable": "Modifier",
+                "partnership": {
+                    "removeAvailabilities": "Pour afficher correctement le rendez-vous sur ClassPass, vous devez en désactiver les disponibilités spécifiques.",
+                    "anySlotNotCompatible": "Mettez à jour les paramètres des séances pour vous assurer que chacune a un intervalle de réservation et une capacité compatibles avec ClassPass."
+                }
             },
             "form": {
                 "pad_before_booking": {
@@ -10384,6 +10409,32 @@
                         "notAllowed": "Non-Autorisé"
                     },
                     "header": "Avancé"
+                },
+                "availableOnPartnership": {
+                    "tagsAlert": "Ne s'applique pas aux réservations ClassPass.",
+                    "buffersAlert": "Pour ajouter des temps de tampon à ce rendez-vous, désactivez les réservations ClassPass.",
+                    "alert": "Pour afficher correctement cette réservation sur ClassPass, certains paramètres doivent être configurés. Nous avons automatiquement mis à jour certains champs. Veuillez vérifier et compléter les informations requises ci-dessous.",
+                    "label": "Disponible sur ClassPass"
+                },
+                "validation": {
+                    "zeroValueError": "Vous devez fixer un rendez-vous",
+                    "availabilityBuffers": "Pour ajouter des temps de tampon à ce rendez-vous, désactivez les réservations ClassPass.",
+                    "coachCapacityUsed": "Pour ajouter plus d'un rendez-vous en même temps pour un professeur, désactivez les réservations ClassPass.",
+                    "oneOption": "Sélectionnez au moins une option."
+                },
+                "tooltip": {
+                    "oneBookingPerTeacher": "Une seule réservation par professeur est permise lorsque que les réservations ClassPass sont autorisées.",
+                    "noTeacher": "Un professeur doit être désigné lorsque les réservations ClassPass sont autorisées."
+                },
+                "settingsTitle": "Paramètres",
+                "establishmentSelectorTitle": "Sélectionnez le(s) établissement(s) pour ce rendez-vous :",
+                "coachSelectorTitle": "Sélectionnez le(s) professeur(s) pour ce rendez-vous :",
+                "editConfirmation": {
+                    "confirm": "Confirmer",
+                    "cancel": "Remettre à plus tard",
+                    "alert": "Cliquez sur confirmer pour désactiver l'option de disponibilité.",
+                    "content": "Lorsque ClassPass est activé, les créneaux spécifiques au rendez-vous sont désactivés. Seules les disponibilités du professeur et de l'établissement seront prises en compte.",
+                    "title": "Problème avec l'intégration ClassPass"
                 }
             },
             "parameters": {
@@ -11323,7 +11374,9 @@
             "payment_method_paypal_wallet": "Portefeuille PayPal",
             "on_the_fly_bsport_fee": "Frais de transaction PayPal",
             "second_billing_plan": "Second plan de facturation",
-            "incremental_identifier": "Nombre"
+            "incremental_identifier": "Nombre",
+            "product_categories": "Catégories de produits",
+            "product_types": "Types de produits"
         },
         "yes": "Oui",
         "no": "Non",
@@ -11768,6 +11821,10 @@
             "referred_member": "Membre parrainé",
             "referring_member": "Membre parrain",
             "member": "Membre"
+        },
+        "reportNoResults": "Aucun résultat",
+        "incompatibleFilter": {
+            "product": "Les filtres de produits ne sont pas compatibles entre eux"
         }
     },
     "role": {
@@ -15104,10 +15161,11 @@
             "generateXml": {
                 "errors": {
                     "default": "Une erreur s'est produite lors de la génération de la facture XML",
-                    "14213": "Le fichier généré n'est pas conforme au contrôle de pré-validation (fourni dans notre code par le gouvernement italien)",
+                    "14213": "Échec de la génération du document .XML en raison d'exigences légales. Pour plus d'informations ou pour toute question, contactez votre gestionnaire de compte bsport.",
                     "14212": "L'adresse du membre est manquante ou incomplète",
-                    "14211": "Le membre n'a pas de document d'identité officiel",
-                    "14210": "L'entreprise n'est pas configurée pour l'exportation de factures XML. Veuillez contacter votre gestionnaire de compte bsport."
+                    "14211": "Le document d'identité officiel du membre est manquant ou incomplet",
+                    "14210": "Vos paramètres ne sont pas configurés pour l'exportation de factures au format XML. Veuillez contacter votre gestionnaire de compte bsport.",
+                    "14214": "Le fichier Zip généré est vide car aucune facture à exporter du mois dernier n'a été trouvée"
                 },
                 "success": "Facture XML générée avec succès"
             }
@@ -16099,7 +16157,8 @@
             }
         },
         "privateSlot": {
-            "notAvailableForBookingAnymore": "Ce créneau n'est plus disponible."
+            "notAvailableForBookingAnymore": "Ce créneau n'est plus disponible.",
+            "notCompatibleWithPartnership": "La séance n'a pas été enregistrée. Veuillez réessayer."
         },
         "tag": {
             "error": {
@@ -16160,6 +16219,9 @@
                 "success": "Votre unit ID a été associé avec succès",
                 "error": "Une erreur s'est produite lors de la configuration"
             }
+        },
+        "privateService": {
+            "notCompatibleWithPartnership": "Le rendez-vous n'a pas été enregistré. Veuillez réessayer."
         }
     },
     "spotScheduling": {
@@ -20200,6 +20262,7 @@
                 "week": "semaine",
                 "week_plural": "semaines",
                 "month": "mois",
+                "month_plural": "mois",
                 "year": "an",
                 "year_plural": "ans",
                 "day": "jour",

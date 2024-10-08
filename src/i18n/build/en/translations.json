@@ -3835,7 +3835,10 @@
                 "noFutureSlot": "Click here to correctly configure {{resourceName}}'s availability.",
                 "title": "Availability",
                 "isAlwaysAvailable": "{{resourceName}} can be booked, once the establishment(s) and/or teacher(s) are available.",
-                "changeIsAlwaysAvailable": "Edit"
+                "changeIsAlwaysAvailable": "Edit",
+                "partnership": {
+                    "removeAvailabilities": "To display the appointment correctly on ClassPass, you must disable specific availabilities."
+                }
             },
             "form": {
                 "establishmentResourceType": {
@@ -3944,6 +3947,15 @@
                 },
                 "pad_before_booking": {
                     "label": "Activate to avoid overlapping buffer times from sessions with ending and starting times close to each other"
+                },
+                "availableOnPartnership": {
+                    "buffersAlert": "To add buffers to this appointment, disallow ClassPass bookings."
+                },
+                "validation": {
+                    "availabilityBuffers": "To add buffers to this appointment, disallow ClassPass bookings."
+                },
+                "editConfirmation": {
+                    "content": "When ClassPass is activated, appointment-specific slots will be disabled. Only the teacher's and establishment's availability will be considered."
                 }
             },
             "parameters": {
@@ -15394,6 +15406,11 @@
                     "14101": "You cannot refund a balance adjustment invoice with a credit note.",
                     "14100": "You cannot cancel an invoice with Interac payments.",
                     "14102": "It is impossible to reimburse this invoice."
+                }
+            },
+            "generateXml": {
+                "errors": {
+                    "14211": "The member's official document ID is missing or incomplete"
                 }
             }
         },

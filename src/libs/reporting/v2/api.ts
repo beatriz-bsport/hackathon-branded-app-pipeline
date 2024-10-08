@@ -127,6 +127,6 @@ export const fetchReportsV2PaginatedList = (params: PaginationFilterParams) =>
   getAuth<PaginatedResponse<ReportConfiguration>>(
     `${API_URI}/reporting/reports-v2/${buildUrlParams({
       ...params,
-      q: '',
+      is_category_default: false,
     })}`,
   );

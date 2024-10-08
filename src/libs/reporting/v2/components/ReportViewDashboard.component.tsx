@@ -76,7 +76,7 @@ const ReportViewDashboard: React.FC<Props> = ({
   return (
     <div className={classes.root}>
       <ObjectSearchComponent
-        additionalParams={{ page_size: 10 }}
+        additionalParams={{ page_size: 10, is_category_default: false }}
         className={classes.searchComponent}
         components={{
           Option: ReportV2CustomViewSearchItem,

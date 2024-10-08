@@ -230,6 +230,7 @@ export type GlobalCategoryData = {
 export type ReportQueryParams = {
   id__in?: number[];
   category?: ReportCategoryEnum;
+  is_category_default?: boolean;
 };
 
 export type ReportGenerationParams = {

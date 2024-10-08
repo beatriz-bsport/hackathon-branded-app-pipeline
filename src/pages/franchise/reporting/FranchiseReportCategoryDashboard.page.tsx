@@ -22,7 +22,7 @@ import {
 import { fetchDefaultReports as fetchDefaultReportsAction } from '#src/libs/reporting/v2/actions';
 
 import {
-  getReportsV2,
+  getDefaultReportsV2,
   getReportV2Loading,
 } from '#src/libs/reporting/v2/selectors';
 
@@ -61,7 +61,7 @@ const FranchiseReportList: React.FC<Props> = ({
   metadata,
   pushRouter,
   reports,
-  reportsV2,
+  defaultReportsV2,
   reportsV2Loading,
   setIsReportAlertDisplayedInV2,
   setIsReportV2Displayed,
@@ -105,13 +105,14 @@ const FranchiseReportList: React.FC<Props> = ({
     (categoryName: ReportCategoryEnum) => () => {
       const reportId =
         lastVisitedReportV2?.[categoryName] ||
-        reportsV2?.find((result) => result.category === categoryName)?.id;
+        defaultReportsV2?.find((result) => result.category === categoryName)
+          ?.id;
 
       reportId
         ? pushRouter(`/f/reporting/detail/${categoryName}/${reportId}`)
         : pushRouter('/f/reporting/categories/');
     },
-    [pushRouter, reportsV2, lastVisitedReportV2],
+    [pushRouter, defaultReportsV2, lastVisitedReportV2],
   );
 
   if (
@@ -179,7 +180,7 @@ const connector = connect(
   (state: RootState) => ({
     metadata: getReportMetadata(state),
     reports: getReports(state),
-    reportsV2: getReportsV2(state),
+    defaultReportsV2: getDefaultReportsV2(state),
     reportsV2Loading: getReportV2Loading(state),
     isV2Displayed: getIsReportV2Displayed(state),
     isReportAlertDisplayedInV2: getIsReportAlertDisplayedInV2(state),

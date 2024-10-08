@@ -45,7 +45,7 @@ import type { OwnProps } from '#src/components/HighlightedText/HighlightedText.c
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import {
-  getReportsV2,
+  getDefaultReportsV2,
   getReportV2Loading,
   getReportCategoriesMetadata,
 } from '#src/libs/reporting/v2/selectors';
@@ -66,7 +66,7 @@ const ReportingDashboard: React.FC<Props> = ({
   metadata,
   objectLevelPermissions,
   reports,
-  reportsV2,
+  defaultReportsV2,
   reportsV2Loading,
   setIsReportAlertDisplayedInV2,
   setIsReportV2Displayed,
@@ -108,13 +108,14 @@ const ReportingDashboard: React.FC<Props> = ({
     (categoryName: ReportCategoryEnum) => () => {
       const reportId =
         lastVisitedReportV2?.[categoryName] ||
-        reportsV2?.find((result) => result.category === categoryName)?.id;
+        defaultReportsV2?.find((result) => result.category === categoryName)
+          ?.id;
 
       reportId
         ? pushRouter(`/reporting/detail/${categoryName}/${reportId}`)
         : pushRouter('/reporting/categories');
     },
-    [pushRouter, reportsV2, lastVisitedReportV2],
+    [pushRouter, defaultReportsV2, lastVisitedReportV2],
   );
 
   const handleRemoveReportAlertDisplay = React.useCallback(() => {
@@ -196,7 +197,7 @@ const connector = connect(
     metadata: getReportCategoriesMetadata(state),
     objectLevelPermissions: getObjectPermissions(state),
     reports: getReports(state),
-    reportsV2: getReportsV2(state),
+    defaultReportsV2: getDefaultReportsV2(state),
     reportsV2Loading: getReportV2Loading(state),
     subscribedUpsells: getCompanyUpsellData(state),
     isV2Displayed: getIsReportV2Displayed(state),

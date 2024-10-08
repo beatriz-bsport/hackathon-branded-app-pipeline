@@ -239,9 +239,11 @@ const ReportDetailPage: React.FC<Props> = ({
       onSuccess: () => {
         isFranchisor
           ? pushRouter(
-              `/f/reporting/${categoryName}/${defaultCategoryReportId}`,
+              `/f/reporting/detail/${categoryName}/${defaultCategoryReportId}`,
             )
-          : pushRouter(`/reporting/${categoryName}/${defaultCategoryReportId}`);
+          : pushRouter(
+              `/reporting/detail/${categoryName}/${defaultCategoryReportId}`,
+            );
         setIsDeleteModalOpen(false);
       },
       onError: () => {

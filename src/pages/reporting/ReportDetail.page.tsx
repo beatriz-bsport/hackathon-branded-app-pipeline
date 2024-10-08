@@ -20,8 +20,8 @@ import {
   getReportGenerateredRows,
   getReportFilterConfigs,
   getReportFilterConfigLoading,
-  getReportsV2,
   getReportExcelState,
+  getDefaultReportsV2,
 } from '#src/libs/reporting/v2/selectors';
 import { getCompanyUpsellData } from '#src/libs/company/selectors';
 import { getLastVisitedReportV2 } from '#src/libs/user-preference/selectors';
@@ -395,7 +395,7 @@ const connector = connect(
     excelExportLoading: getReportExcelState(state).loading,
     getReportSearchResults: getResultsById(state, 'reportV2'),
     objectLevelPermissions: getObjectPermissions(state),
-    defaultReports: getReportsV2(state),
+    defaultReports: getDefaultReportsV2(state),
     invalidFilters: getInvalidFiltersV2(state),
     reportCategoriesMetadata: getReportCategoriesMetadata(state),
     reportFilterConfigLoading: getReportFilterConfigLoading(state),

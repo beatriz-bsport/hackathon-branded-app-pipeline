@@ -10405,7 +10405,11 @@
       "editView": "Advanced filters",
       "deleteView": "Delete view"
     },
-    "viewTab": { "allViews": "All Views" }
+    "viewTab": {
+      "allViews": "All Views",
+      "noCustomViews": "You haven’t created any custom view yet. You can do it from any report page "
+    },
+    "reportFilter": { "title": "Filter on ...", "default": "By default", "lastUpdated": "Last updated" }
   },
   "role": {
     "userRoles": "Staff accounts",

@@ -120,6 +120,7 @@ export type ReportConfiguration = {
   date_type?: ReportDateType;
   is_category_default?: boolean;
   version?: 1 | 2;
+  updated_at: string;
 };
 
 export type ReportUpdateAPI = Partial<Omit<ReportConfiguration, 'id'>>;
@@ -247,5 +248,10 @@ export type IsReportNameUsedParams = {
   category: ReportCategoryEnum;
   reportIdToIgnore?: number;
 };
+
+export enum ReportViewSortOption {
+  DEFAULT = -1,
+  LAST_UPDATED = 0,
+}
 
 export type InvalidFiltersAPI = { [reportFilterConfigId: number]: string[] };

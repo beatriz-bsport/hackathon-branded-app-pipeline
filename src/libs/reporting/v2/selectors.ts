@@ -62,3 +62,15 @@ export const getReportsV2 = createSelector(
   (byId, allIds) =>
     allIds.map((id: number) => byId[id]).filter((report) => !!report),
 );
+
+const _getDefaultReportsViewsById = (state: RootState) =>
+  _getReportV2State(state).reports.byId;
+
+const _getDefaultReportsViewsAllIds = (state: RootState) =>
+  _getReportV2State(state).reports.allIds;
+
+export const getDefaultReportsV2 = createSelector(
+  [_getDefaultReportsViewsById, _getDefaultReportsViewsAllIds],
+  (byId, allIds) =>
+    allIds.map((id: number) => byId[id]).filter((report) => !!report),
+);

@@ -1013,6 +1013,13 @@ const getTranslations = async () => {
     },
     viewTab: {
       allViews: 'All Views',
+      noCustomViews:
+        'You haven’t created any custom view yet. You can do it from any report page ',
+    },
+    reportFilter: {
+      title: 'Filter on ...',
+      default: 'By default',
+      lastUpdated: 'Last updated',
     },
   };
 };

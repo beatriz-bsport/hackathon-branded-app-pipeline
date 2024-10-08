@@ -112,7 +112,7 @@ const ReportingViewDashboard: React.FC<Props> = ({
 
   return (
     <div className={classes.pageContainer}>
-      {reportViewsPaginated && reportViewsPaginated?.allIds.length > 0 && (
+      {reportViewsPaginated && (
         <ReportViewDashboard
           handleGoToReportV2={handleGoToReportV2}
           onPageRequested={fetchNextReportViews}

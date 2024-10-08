@@ -99,9 +99,9 @@
   --colorKzColorShadowWeak: #3d4d471a;
   --colorKzColorShadowActionBrandSelected: #32a69e80;
   --colorKzBaseColorsBsportTurquoise0: #f0faf9;
-  --colorKzBaseColorsBsportTurquoise100: #dce5e5;
-  --colorKzBaseColorsBsportTurquoise200: #98d9d4;
-  --colorKzBaseColorsBsportTurquoise300: #85ccc8;
+  --colorKzBaseColorsBsportTurquoise100: #d0f6ef;
+  --colorKzBaseColorsBsportTurquoise200: #a1ede0;
+  --colorKzBaseColorsBsportTurquoise300: #69ddce;
   --colorKzBaseColorsBsportTurquoise400: #32a69e;
   --colorKzBaseColorsBsportTurquoise500: #25948d;
   --colorKzBaseColorsBsportTurquoise600: #21837d;
@@ -166,7 +166,7 @@
   /* Stronger colour for non-actionable elements, with strong contrast. Mainly used for callouts. */
   --colorKzColorSurfaceMainStrong: var(--colorKzBaseColorsBsportTurquoise700);
   /* Bsport light colour for non-actionable elements, maintaining brand identity with subtlety. */
-  --colorKzColorSurfaceMainWeak: var(--colorKzBaseColorsBsportTurquoise0);
+  --colorKzColorSurfaceMainWeak: var(--colorKzBaseColorsBsportTurquoise100);
   /* Colour for non-actionable elements, used to create significant contrast. */
   --colorKzColorSurfaceDefaultStrong: var(--colorKzBaseColorsLunaGrey700);
   /* Colour for non-actionable elements with informational status, used to create significant contrast. */
@@ -237,7 +237,7 @@
   /* Default link colour. Indicates interactivity. */
   --colorKzColorOnsurfaceLinkRest: var(--colorKzBaseColorsBsportTurquoise600);
   /* Default hovered link colour. */
-  --colorKzColorOnsurfaceLinkHovered: var(--colorKzBaseColorsBsportTurquoise500);
+  --colorKzColorOnsurfaceLinkHovered: var(--colorKzBaseColorsBsportTurquoise400);
   /* Default pressed link colour. */
   --colorKzColorOnsurfaceLinkPressed: var(--colorKzBaseColorsBsportTurquoise700);
   /* Indicate that the element is informational. Paired with weak status surfaces. */
@@ -276,4 +276,8 @@
   /* Default call-to-action colour for pressed actionable elements like buttons. */
   --colorKzColorSurfaceActionSelectedPressed: var(--colorKzBaseColorsBsportTurquoise200);
   --colorKzColorStrokeDivider: var(--colorKzColorStrokeDefault);
+  /* Used to be paired with strong colours. */
+  --colorKzColorOnsurfaceMainOnweak: var(--colorKzBaseColorsBsportTurquoise600);
+  /* Used to be paired with strong colours. */
+  --colorKzColorOnsurfaceMainOnstrong: var(--colorKzBaseColorsLunaGrey0);
 }

@@ -9,22 +9,22 @@
   /* Used for default-sized UI components such as buttons, icons, or input fields, offering a balance between usability and space. */
   --dimensionKzSizingElementMd: 24px;
   /* Used for prominent UI elements, such as large buttons, icons, or controls that need to be easily tappable. */
-  --dimensionKzSizingElementLg: 36px;
+  --dimensionKzSizingElementLg: 32px;
   --dimensionKzSizingElementXl: 48px;
   --dimensionKzSizingElement2xl: 72px;
   --dimensionKzSizingElement3xl: 140px;
-  /* Extra-small spacing, used for tight layouts or minimal padding and margins between closely related elements. (Eg: title and subtitle) */
-  --dimensionKzSizingSpacingXs: 4px;
   /* Small spacing, suitable for compact padding, margins, or small gaps between elements in dense layouts. */
-  --dimensionKzSizingSpacingSm: 8px;
+  --dimensionKzSizingSpacingXs: 8px;
+  /* Small spacing, suitable for compact padding, margins, or small gaps between elements in dense layouts. */
+  --dimensionKzSizingSpacingSm: 12px;
   /* Description: Medium spacing, used for standard padding, margins, or gaps between elements, balancing density and readability. */
   --dimensionKzSizingSpacingMd: 16px;
   /* Description: Large spacing, ideal for creating more breathable layouts with greater separation between sections or elements. */
   --dimensionKzSizingSpacingLg: 24px;
   /* Extra-large spacing, used to introduce substantial gaps between major sections or to emphasise content separation. */
-  --dimensionKzSizingSpacingXl: 36px;
+  --dimensionKzSizingSpacingXl: 32px;
   /* Designed for creating significant visual separation in layouts, such as between large sections or in spacious designs. */
-  --dimensionKzSizingSpacing2xl: 72px;
+  --dimensionKzSizingSpacing2xk: 72px;
   /* Reserved for major visual separation, often used in hero sections or large-scale layouts to create a strong visual impact */
   --dimensionKzSizingSpacing3xl: 140px;
   --dimensionKzSizingComponentContentCentered: 1200px;
@@ -61,7 +61,7 @@
   --dimensionKzFontLineHeightDisplayLg: 86px;
   --dimensionKzFontLineHeightDisplaySm: 48px;
   --dimensionKzFontLineHeightXl: 42px;
-  --dimensionKzFontLineHeightLg: 36px;
+  --dimensionKzFontLineHeightLg: 32px;
   --dimensionKzFontLineHeightMd: 24px;
   --dimensionKzFontLineHeightSm: 20px;
   --dimensionKzFontLineHeightXs: 16px;

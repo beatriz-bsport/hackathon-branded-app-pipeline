@@ -234,3 +234,9 @@ export const getSlotsByResourceIdentifier = (
 
 export const getNextDateAvailableSlot = (state: RootState) =>
   state.privateService.availabilitySlot.next.date;
+
+export const getSlotsByDate = (state: RootState) =>
+  state.privateService.availabilitySlot.slotsByDate.byDate;
+
+export const getSlotsByDateLoading = (state: RootState) =>
+  state.privateService.availabilitySlot.slotsByDate.loading;

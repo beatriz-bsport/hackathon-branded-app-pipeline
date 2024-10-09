@@ -133,7 +133,7 @@ exports.default = {
         nameCaption: 'Event name',
         recurrenceCount: 'Number of repetitions',
         withRecurrence: 'Enable recurrence',
-        marketPlaceAvailable: 'Available for booking (web+app)',
+        marketPlaceAvailable: 'Available for booking (web + app)',
         allowBookingAfterStartCaption:
           "By default, it's not possible for members to enrol for events that have already started. Activate this option to allow enrolments for the remaining sessions.",
         allowBookingAfterStart: 'Allow enrolment on the way',

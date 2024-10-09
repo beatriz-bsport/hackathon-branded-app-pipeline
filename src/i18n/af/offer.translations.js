@@ -245,6 +245,8 @@ exports.default = {
           'A room plan must be selected for sessions synchronized with Spivi',
         durationMinuteSpivi:
           'A session on Spivi should last between 20 minutes and 4 hours',
+        wellhubProductMissing:
+          'This field is required, you must select a product.',
       },
       dateTooFar:
         'Impossible to create sessions taking place in more than 3 years',
@@ -287,16 +289,26 @@ exports.default = {
             'Do you want to inform your customers of this change?',
           partnership: {
             partnerMaxBookingCount:
-              'Maximum number of marketplace bookings (OneFit + Urban Sports Club only)',
+              'Maximum bookings (Wellhub & Urban Sports Club only).',
             availableOnPartnership: 'On marketplaces (ClassPass, OneFit...)',
-            title: 'Marketplace',
+            enablePartneshipBookings: 'Enable marketplace bookings',
+            title: 'Marketplace integrations',
+            subtitle:
+              'Includes: ClassPass, Urban Sports Club, Gymlib and Wellhub for external bookings.',
             uscIntegrationWarning:
               'Your integration to the Urban Sports Club marketplace is active, any session spanning 2 days or more will not appear.',
             uscIntegrationWorkshopWarning:
               'Workshops are not compatible with the Urban Sports Club marketplace, so this session will not be included.',
+            wellhubProduct: {
+              title: 'Your available products on Wellhub:',
+              helperText:
+                "These products are offered by your studio on the Wellhub platform. Go to 'Partnership' section in the Partner Portal of your Wellhub account for more information.",
+              selectionMissing:
+                'This field is required, you must select a product.',
+            },
           },
           allowGuestOffer: 'Allow booking for a guest',
-          isManagerOnly: 'Available for booking (web+app)',
+          isManagerOnly: 'Available for booking (web + app)',
           syncOfferOnSpivi: 'Send to Spivi',
         },
         title: 'Settings',

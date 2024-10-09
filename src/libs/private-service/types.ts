@@ -6,6 +6,7 @@ import type {
 import type { PrivateConsumerPassLink } from '#src/libs/relationship/types';
 import { Company } from '../company/types';
 import { ErrorAndLoading, WithPagination } from '../types';
+import { DayTimeIntervals } from '#src/libs/private-service/constants';
 
 export enum ResourceAttributionEnum {
   auto = 0,
@@ -747,3 +748,5 @@ export type ResourceDataTypeForAllocation = Partial<
     number
   >
 >;
+
+export type DayTimeIntervalsType = DayTimeIntervals;

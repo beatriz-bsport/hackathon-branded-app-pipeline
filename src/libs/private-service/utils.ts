@@ -21,7 +21,7 @@ import type {
   PrivatePassTemplate,
   AvailabilitySlot,
   Selection,
-  Interval,
+  Interval as IntervalType,
   AvailabilityDetail,
   SlotsGroupedByResourceId,
   IntervalsGroupedByResourceId,
@@ -356,13 +356,13 @@ export const joinIntervalList = (intervalList: Array<Array<string>>) => {
 // * Merge intervals together when consecutive or overlapping
 // *
 const _consolidate = memoize(
-  (slots: Array<AvailabilitySlot>): Array<Interval> => {
+  (slots: Array<AvailabilitySlot>): Array<IntervalType> => {
     const sortedSlots = sortByDate(slots, 'date_start');
 
     if (!sortedSlots.length) return [];
 
     let { date_start, date_end } = sortedSlots[0];
-    const intervals: Array<Interval> = [];
+    const intervals: Array<IntervalType> = [];
     for (let i = 1; i < sortedSlots.length; i += 1) {
       const { date_start: curr_date_start, date_end: curr_date_end } =
         sortedSlots[i];

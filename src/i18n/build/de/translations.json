@@ -14417,7 +14417,7 @@
             "cancelRegistration": "Abbrechen",
             "backToOfferList": "Zurück zur Kursen",
             "noConsumerPaymentPack": "Kein gültigefr Kurspass !",
-            "activateBarcode": "Karten-Detektor",
+            "activateBarcode": "Strichcode Scanner",
             "actions": {
                 "createAccount": "Ein Konto erstellen",
                 "restartAnalyze": "Neu starten",

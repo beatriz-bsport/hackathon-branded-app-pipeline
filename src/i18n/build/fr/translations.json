@@ -14499,12 +14499,12 @@
             "20": {
                 "name": "Paniers abandonnés",
                 "explanation": "A abandonné un panier d'un montant de...",
-                "first": "A abandonné un panier d'un montant",
+                "first": "La valeur totale des articles du panier est de",
                 "second": "à",
                 "third": "{{ currencyDisplay }}",
                 "between": "et",
                 "date": {
-                    "first": "Panier abandonné",
+                    "first": "Le panier a été abandonné",
                     "second": "jours"
                 }
             },

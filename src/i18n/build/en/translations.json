@@ -14334,11 +14334,11 @@
             },
             "20": {
                 "name": "Abandoned baskets",
-                "first": "The value of the abandoned basket is",
+                "first": "The total value of the items in the basket is",
                 "second": "to",
                 "third": "{{ currencyDisplay }}",
                 "date": {
-                    "first": "Abandoned basket",
+                    "first": "The basket was abandoned",
                     "second": "days"
                 },
                 "explanation": "Display an overview of members with pending baskets and that not complete the payment yet",

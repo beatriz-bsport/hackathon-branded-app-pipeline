@@ -19,6 +19,7 @@ import FormSection from '#src/components/forms/FormSection';
 import OfferFormEditSettings from '#src/libs/offer/form/sections/OfferFormEditSettings.component';
 import OfferFormEditCoachOverride from '#src/libs/offer/form/sections/OfferFormEditCoachOverride.component';
 import OfferFormEditSimilarOffers from '#src/libs/offer/form/sections/OfferFormEditSimilarOffers.component';
+import OfferFormUpdateUSCWarning from '#src/libs/offer/form/OfferFormUpdateUSCWarning.component';
 import EditOfferStepper from '#src/libs/offer/form/EditOfferStepper.component';
 import { useOfferFormStyles } from '#src/libs/offer/hooks';
 
@@ -141,9 +142,12 @@ export const OfferEditForm = (props: Props) => {
   const [editCurrentStep, setEditCurrentStep] = useState(
     OFFER_EDIT_FORM_STEPS.GATHER_INFO,
   );
+  const [isUSCWarningModalDisplayed, setIsUSCWarningModalDisplayed] =
+    useState(false);
+
   const { t } = useTranslation(['common', 'offer']);
   const classes = useOfferFormStyles();
-  const { values, isValid, setFieldValue, handleSubmit } =
+  const { values, isValid, setFieldValue, handleSubmit, initialValues } =
     useFormikContext<OfferFormValues>();
 
   useEffect(() => {
@@ -177,17 +181,65 @@ export const OfferEditForm = (props: Props) => {
       : onCancel();
   }, [isWarningStep, onCancel]);
 
+  const shouldDisplayUSCWarningModal = useMemo(() => {
+    if (!offer || (offer && !offer.usc_event_id)) {
+      return false;
+    }
+
+    // Display if date_start changes
+    if (
+      values.dateIntervalStart.diff(initialValues.dateIntervalStart, 'seconds')
+        .seconds !== 0
+    ) {
+      return true;
+    }
+    // Display if both establishments have different usc_location_id
+    if (values.establishment && initialValues.establishment) {
+      const previousUSCLocationId = availableEstablishments.find(
+        (establishment) => establishment.id === initialValues.establishment,
+      ).usc_location_id;
+      const newUSCLocationId = availableEstablishments.find(
+        (establishment) => establishment.id === values.establishment,
+      ).usc_location_id;
+      if (previousUSCLocationId !== newUSCLocationId) return true;
+    }
+
+    return false;
+  }, [
+    availableEstablishments,
+    initialValues.dateIntervalStart,
+    initialValues.establishment,
+    offer,
+    values.dateIntervalStart,
+    values.establishment,
+  ]);
+
   const handleNext = useCallback(
     (submitEvent: React.FormEvent<HTMLFormElement>) => {
       submitEvent.preventDefault();
       if (editCurrentStep === OFFER_EDIT_FORM_STEPS.GATHER_INFO && offer) {
         // if first step, trigger form validation first
-        setEditCurrentStep(OFFER_EDIT_FORM_STEPS.SHOW_WARNING);
-      } else {
+        shouldDisplayUSCWarningModal
+          ? setIsUSCWarningModalDisplayed(true)
+          : setEditCurrentStep(OFFER_EDIT_FORM_STEPS.SHOW_WARNING);
+      } else if (
+        editCurrentStep === OFFER_EDIT_FORM_STEPS.SHOW_WARNING ||
+        (editCurrentStep === OFFER_EDIT_FORM_STEPS.GATHER_INFO && !offer)
+      ) {
         handleSubmit(submitEvent);
       }
     },
-    [editCurrentStep, offer, handleSubmit],
+    [editCurrentStep, offer, handleSubmit, shouldDisplayUSCWarningModal],
+  );
+
+  const handleUSCWarningConfirm = useCallback(() => {
+    setIsUSCWarningModalDisplayed(false);
+    setEditCurrentStep(OFFER_EDIT_FORM_STEPS.SHOW_WARNING);
+  }, []);
+
+  const handleUSCWarningModalClose = useCallback(
+    () => setIsUSCWarningModalDisplayed(false),
+    [],
   );
 
   const submitButtonStartIcon = useMemo(() => {
@@ -223,6 +275,11 @@ export const OfferEditForm = (props: Props) => {
 
   return (
     <Form noValidate data-testid="offer-edit-form" onSubmit={handleNext}>
+      <OfferFormUpdateUSCWarning
+        handleCancel={handleUSCWarningModalClose}
+        handleConfirm={handleUSCWarningConfirm}
+        isOpen={isUSCWarningModalDisplayed}
+      />
       {!hideBanner && (
         <OfferFormBanner
           isEditOffer

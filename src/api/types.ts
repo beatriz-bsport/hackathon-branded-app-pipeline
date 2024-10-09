@@ -133,6 +133,7 @@ export type Offer = {
   internal_note: string;
   name_override?: string;
   description_override?: string;
+  usc_event_id?: string;
 };
 
 export type MetaActivity = {

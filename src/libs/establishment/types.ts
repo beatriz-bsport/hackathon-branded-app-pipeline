@@ -26,6 +26,7 @@ export type Establishment = {
   title: string;
   tzname: string;
   wellhub_gym?: string;
+  usc_location_id?: string;
 };
 
 export type EstablishmentSelectOption = {

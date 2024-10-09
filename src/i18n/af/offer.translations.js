@@ -224,6 +224,13 @@ exports.default = {
       effectif:
         'Be careful, you are not entering a price. Are you sure of the value?',
     },
+    uscWarning: {
+      title: 'Attention: This will cancel the current bookings on USC.',
+      content:
+        'You will lose all current booking data if you change the date, time, or establishment of this session. Changing these details will create a new session and cancel the current one on USC.',
+      alertContent:
+        'Changes to this session will cancel the current bookings on USC. Confirm to proceed.',
+    },
     errors: {
       field: {
         dateIntervalEnd: 'The end date cannot be before the start date',

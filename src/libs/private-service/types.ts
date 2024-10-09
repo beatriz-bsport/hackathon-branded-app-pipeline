@@ -146,12 +146,14 @@ export type PrivateEstablishment = {
   };
 };
 
-export type PrivateSlotsByResource = {
-  [date: string]: {
-    resource_identifier: string;
-    slots: string[];
-  }[];
-};
+export type IsoDateTime = string; // "2024-10-04T06:00:00Z"
+export type IsoDate = string; // "2024-10-04"
+
+export type Slot = [IsoDateTime, IsoDateTime];
+
+export type ResourceSlots = { resource_identifier: string; slots: Slot[] };
+
+export type ResourceSlotsByDate = { [date: IsoDate]: ResourceSlots[] };
 
 export type PrivatePass<LPP = number | null> = {
   id: number;

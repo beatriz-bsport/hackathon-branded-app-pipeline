@@ -9,6 +9,7 @@ import {
   availabilitySlotExistsActions,
   availabilitySlotListActions,
   availabilitySlotSearchActions,
+  availableSlotsActions,
   availabilitySlotUpdateActions,
   byMember,
   byPrivatePass,
@@ -83,6 +84,7 @@ import type {
   PrivateServiceState,
   ServiceCompatibilityPass,
   PrivatePassTemplateAPI,
+  ResourceSlotsByDate,
 } from './types';
 
 const initialState: Seamless.Immutable<PrivateServiceState> =
@@ -279,6 +281,11 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
         error: null,
         date: null,
         cancelToken: null,
+      },
+      slotsByDate: {
+        byDate: {},
+        loading: false,
+        error: null,
       },
     },
     compatibleServicePass: {
@@ -652,6 +659,30 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     },
     [availabilitySlotSearchActions.reset.toString()]: (state) => {
       return state.setIn(['availabilitySlot', 'searched', 'items'], []);
+    },
+    [availableSlotsActions.success.toString()]: (
+      state,
+      { payload }: { payload: ResourceSlotsByDate },
+    ) => {
+      return state.setIn(
+        ['availabilitySlot', 'slotsByDate', 'byDate'],
+        payload,
+      );
+    },
+    [availableSlotsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['availabilitySlot', 'slotsByDate', 'loading'],
+        payload,
+      );
+    },
+    [availableSlotsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['availabilitySlot', 'slotsByDate', 'error'], payload);
     },
 
     [searchFirstAvailableSlotsActions.success.toString()]: (

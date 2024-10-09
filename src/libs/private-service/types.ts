@@ -493,6 +493,9 @@ export interface PrivateServiceState {
       date: string | null;
       cancelToken: CancelTokenSource | null;
     };
+    slotsByDate: ErrorAndLoading & {
+      byDate: ResourceSlotsByDate;
+    };
   };
   privateConsumerPass: ErrorAndLoading & {
     allIds: Array<number>;

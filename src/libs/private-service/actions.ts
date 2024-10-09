@@ -15,6 +15,7 @@ import type {
   PrivatePassMassExtensionCreate,
   PrivatePassMassExtensionParams,
   PrivatePassTemplate,
+  ResourceSlotsByDate,
 } from '#src/libs/private-service/types';
 import type { FranchiseProductTemplateQueryParams } from '#src/libs/franchise/types';
 // @ts-expect-error
@@ -1160,6 +1161,79 @@ export function fetchPrivateServiceWithSlot(
       if (options && options.onError) options.onError();
     }
     dispatch(privateServiceWithSlotRetrieveActions.isLoading(false));
+  };
+}
+
+export const availableSlotsActions = {
+  error: createAction<Error | null>('AVAILABLE_SLOTS/FETCH/ERROR'),
+  isLoading: createAction<boolean>('AVAILABLE_SLOTS/FETCH/IS_LOADING'),
+  success: createAction<ResourceSlotsByDate>('AVAILABLE_SLOTS/FETCH/SUCCESS'),
+};
+
+/**
+ * Fetches available slots for specified resources (e.g., coaches, establishments) on the given dates.
+ * This function dispatches actions to indicate loading, success, or error states during the fetch operation.
+ * The difference with availabilitySlotSearchActions is that we'll use the data returned by the backend
+ * without transforming it.
+ * @param {number} privateServiceId - The unique identifier of the private service requesting the slots.
+ * @param {number} privateSlotId - The identifier of the specific slot associated with the private service.
+ * @param {number[]} associatedCoachIdList - A list of coach IDs to filter available slots for specified coaches.
+ * @param {string | string[]} dates - A date or an array of dates (in "YYYY-MM-DD" format) for which to fetch slot availability.
+ * @param {number[]} associatedEstablishmentIdList - A list of establishment IDs to filter available slots for specified establishments.
+ * @param {OptionCallback<ResourceSlotsByDate>} [options] - Optional callback functions for handling success and error:
+ *   - `onSuccess(data)`: Called with fetched data when the request is successful.
+ *   - `onError(error)`: Called with an error object if the request fails.
+ *
+ * @returns {ThunkAction} - A ThunkAction that performs the asynchronous fetch and dispatches actions to update the Redux state.
+ *
+ * @example
+ * // Usage example in a Redux-connected component
+ * fetchAvailableSlotsByResource(
+ *   123,
+ *   456,
+ *   [1, 2],
+ *   ["2024-10-03", "2024-10-04"],
+ *   [10, 20],
+ *   {
+ *     onSuccess: (data) => console.log("Fetched slots:", data),
+ *     onError: (error) => console.error("Error fetching slots:", error),
+ *   }
+ * );
+ *
+ * @dispatches
+ * - `availableSlotsActions.fetchIsLoading`: Dispatches to set loading state to true or false.
+ * - `availableSlotsActions.fetchError`: Dispatches when an error occurs during the fetch operation.
+ * - `availableSlotsActions.fetchSuccess`: Dispatches with the fetched data when the fetch operation is successful.
+ */
+export function fetchAvailableSlotsByResource(
+  privateServiceId: number,
+  privateSlotId: number,
+  associatedCoachIdList: number[],
+  dates: string[] | string,
+  associatedEstablishmentIdList: number[],
+  options?: OptionCallback<ResourceSlotsByDate>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(availableSlotsActions.isLoading(true));
+    dispatch(availableSlotsActions.error(null));
+    try {
+      const dateArr = Array.isArray(dates) ? dates : [dates];
+
+      const response = await searchAvailableSlotsAPI(
+        privateServiceId,
+        privateSlotId,
+        associatedCoachIdList,
+        dateArr,
+        associatedEstablishmentIdList,
+      );
+      dispatch(availableSlotsActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(availableSlotsActions.error(null));
+      options?.onError?.(err);
+    }
+    dispatch(availableSlotsActions.isLoading(false));
   };
 }
 

@@ -10,3 +10,5 @@ export enum GymAvailabilityReasonCode {
 export const GymAvailabilityReasonCodeChoices = Object.values(
   GymAvailabilityReasonCode,
 );
+
+export const WELLHUB_OFFER_DEFAULT_PAGE_SIZE = 10;

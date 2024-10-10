@@ -7,7 +7,12 @@ import {
   putAuth,
 } from '#src/http';
 
-import type { PaginatedResponse } from '#src/state/types';
+import type { OfferSaas } from '#src/libs/offer/types';
+import type {
+  PaginatedResponse,
+  ReworkedPaginationResponse,
+} from '#src/state/types';
+import type { PaginationFilterParams } from '#src/libs/types';
 import type {
   FetchWellhubProductsResponse,
   GymAvailabilityQueryParams,
@@ -66,5 +71,15 @@ export const configureWellhubGymWebhooks = (wellhubGymUuid: string) => {
 export const fetchWellhubProducts = () => {
   return getAuth<FetchWellhubProductsResponse>(
     `${API_V1_URI}/wellhub/wellhub-gym/get-products-by-wellhub-gym/`,
+  );
+};
+
+export const fetchOffersMissingWellhubProduct = (
+  params: PaginationFilterParams,
+) => {
+  const hasParams = Object.keys(params).length > 0;
+
+  return getAuth<ReworkedPaginationResponse<OfferSaas>>(
+    `${API_V1_URI}/wellhub/offer/${buildUrlParams(hasParams ? params : null)}`,
   );
 };

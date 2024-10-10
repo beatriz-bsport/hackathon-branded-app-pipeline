@@ -85,6 +85,16 @@ export type ErrorAndLoading = {
   error?: Error;
 };
 
+export type ReworkedPaginationResponse<T> = {
+  current_page: number; // The current page number
+  total_pages: number; // Total number of pages available
+  total_count: number; // Total number of items across all pages
+  next_page: number | null; // The next page number, or null if there is no next page
+  previous_page: number | null; // The previous page number, or null if there is no previous page
+  results: T[]; // Array of results for the current page
+  page_size: number; // The size of the current page
+};
+
 export type OptionCallback<T = void, CustomError = Error> = {
   onSuccess?: (args?: T) => void;
   onError?: (error?: CustomError) => void;

@@ -24,3 +24,9 @@ export const getWellhubGymAvailabilityError = (state: RootState) =>
 
 export const getWellhubGymAvailability = (state: RootState, gym_id: number) =>
   state.wellhub.gymAvailability.record[gym_id];
+
+export const getOffersMissingWellhubProductLoading = (state: RootState) =>
+  state.wellhub.offersMissingProduct.loading;
+
+export const getOffersMissingWellhubProductPaginatedData = (state: RootState) =>
+  state.wellhub.offersMissingProduct.data;

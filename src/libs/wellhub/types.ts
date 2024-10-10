@@ -1,6 +1,9 @@
 import { GymAvailabilityReasonCode } from '#src/libs/wellhub/constants';
-import type { Establishment } from '#src/libs/establishment/types';
+
 import type { ErrorAndLoading } from '#src/libs/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { OfferREST } from '#src/libs/offer/types';
+import type { ReworkedPaginationResponse } from '#src/state/types';
 
 export type WellhubGym = {
   uuid: string;
@@ -44,6 +47,9 @@ export type WellhubState = {
   gymAvailability: ErrorAndLoading & {
     record: { [gym_id: number]: GymAvailabilityResponse };
   };
+  offersMissingProduct: ErrorAndLoading & {
+    data: ReworkedPaginationResponse<OfferREST>;
+  };
 } & ErrorAndLoading;
 
 export type WellhubProductId = number;
@@ -66,4 +72,10 @@ export type ProductsByWellhubGymUuid = {
 
 export type FetchWellhubProductsResponse = {
   products_by_wellhub_gym: ProductsByWellhubGymUuid;
+};
+
+export type WellhubProductSelectionFormValues = {
+  modifyRecursively: boolean;
+  selectedSimilarOffers: number[];
+  wellhubProductId: WellhubProductId | null;
 };

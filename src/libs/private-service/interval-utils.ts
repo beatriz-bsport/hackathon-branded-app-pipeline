@@ -1,5 +1,6 @@
 import { DateTime, Interval } from 'luxon';
 import { DayTimeIntervals } from '#src/libs/private-service/constants';
+import type { Slot } from '#src/libs/private-service/types';
 
 /**
  * Generates an object containing time intervals for different periods of the specified date.
@@ -50,4 +51,50 @@ export const getDayTimeIntervals = (isoDate: string) => {
       dateTime.set({ hour: 23, minute: 59, second: 59 }),
     ),
   };
+};
+
+/**
+ * Converts a time slot array into a Luxon `Interval` object.
+ *
+ * @param {string[]} slot - An array with two ISO 8601 date-time strings:
+ *  - `slot[0]` should represent the start date-time in ISO format.
+ *  - `slot[1]` should represent the end date-time in ISO format.
+ * @returns {Interval} A Luxon `Interval` object representing the period between the start and end date-times.
+ *
+ * @example
+ * // Converts a time slot to an interval
+ * convertSlotToInterval(['2023-10-05T08:00:00', '2023-10-05T10:00:00']);
+ */
+export const convertSlotToInterval = (slot: Slot) => {
+  if (slot?.length !== 2) {
+    throw new Error(
+      'Slot must be an array containing exactly two date-time strings.',
+    );
+  }
+  const [start, end] = slot;
+
+  // Validate that both `start` and `end` are valid ISO date-time strings
+  let startDateTime = DateTime.fromISO(start);
+  let endDateTime = DateTime.fromISO(end);
+
+  if (!startDateTime.isValid) {
+    console.error(
+      `Invalid start date-time: ${start}. Reason: ${startDateTime.invalidExplanation}`,
+    );
+    startDateTime = DateTime.now();
+  }
+
+  if (!endDateTime.isValid) {
+    console.error(
+      `Invalid end date-time: ${end}. Reason: ${endDateTime.invalidExplanation}`,
+    );
+    endDateTime = startDateTime.plus({ hours: 1 });
+  }
+
+  if (startDateTime.toMillis() > endDateTime.toMillis()) {
+    console.error('The slot start time should be before the end time.');
+    endDateTime = startDateTime.plus({ hours: 1 });
+  }
+
+  return Interval.fromDateTimes(startDateTime, endDateTime);
 };

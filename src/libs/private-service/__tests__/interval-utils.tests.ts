@@ -1,5 +1,10 @@
 import { DateTime, Interval, Settings } from 'luxon';
-import { getDayTimeIntervals } from '#src/libs/private-service/interval-utils';
+import {
+  convertSlotToInterval,
+  getDayTimeIntervals,
+} from '#src/libs/private-service/interval-utils';
+
+import type { Slot } from '#src/libs/private-service/types';
 
 describe('getDayTimeIntervals', () => {
   beforeAll(() => {
@@ -152,5 +157,73 @@ describe('getDayTimeIntervals', () => {
       'America/Los_Angeles',
     );
     Settings.defaultZone = 'system';
+  });
+});
+
+describe('convertSlotToInterval', () => {
+  beforeAll(() => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
+  const slot: Slot = [
+    DateTime.now().set({ hour: 7, minute: 30 }).toISO(),
+    DateTime.now().set({ hour: 13, minute: 45 }).toISO(),
+  ];
+  it('should convert a valid slot array to a Luxon Interval', () => {
+    const interval = convertSlotToInterval(slot);
+
+    expect(interval).toBeInstanceOf(Interval);
+    expect(interval.isValid).toBe(true);
+    expect(interval.start.toISO()).toEqual(slot[0]);
+    expect(interval.end.toISO()).toEqual(slot[1]);
+  });
+  it('should throw an error if slot is not an array of exactly two elements ', () => {
+    const [start, end] = slot;
+    //@ts-expect-error
+    expect(() => convertSlotToInterval([start])).toThrow(
+      'Slot must be an array containing exactly two date-time strings.',
+    );
+    //@ts-expect-error
+    expect(() => convertSlotToInterval([end])).toThrow(
+      'Slot must be an array containing exactly two date-time strings.',
+    );
+    //@ts-expect-error
+    expect(() => convertSlotToInterval([])).toThrow(
+      'Slot must be an array containing exactly two date-time strings.',
+    );
+  });
+
+  it('should log an error if start or end date-time is invalid', () => {
+    const invalidStartDateSlot: Slot = ['invalid-date', '2023-10-05T10:00:00'];
+    const invalidEndDateSlot: Slot = ['2023-10-05T08:00:00', 'invalid-date'];
+
+    expect(convertSlotToInterval(invalidStartDateSlot).start.day).toEqual(
+      DateTime.now().day,
+    );
+    expect(convertSlotToInterval(invalidEndDateSlot).end.hour).toEqual(
+      DateTime.fromISO(invalidEndDateSlot[0]).plus({ hours: 1 }).hour,
+    );
+    expect(console.error).toHaveBeenCalledWith(
+      `Invalid start date-time: invalid-date. Reason: the input "invalid-date" can't be parsed as ISO 8601`,
+    );
+    expect(console.error).toHaveBeenCalledWith(
+      `Invalid end date-time: invalid-date. Reason: the input "invalid-date" can't be parsed as ISO 8601`,
+    );
+    expect(console.error).toHaveBeenCalledWith(
+      `The slot start time should be before the end time.`,
+    );
+  });
+
+  it('should log an error if start time is after end time', () => {
+    const invalidSlot: Slot = ['2023-10-05T12:00:00', '2023-10-05T10:00:00'];
+    expect(convertSlotToInterval(invalidSlot).end.hour).toEqual(
+      DateTime.fromISO(invalidSlot[0]).plus({ hours: 1 }).hour,
+    );
+    expect(console.error).toHaveBeenCalledWith(
+      `The slot start time should be before the end time.`,
+    );
   });
 });

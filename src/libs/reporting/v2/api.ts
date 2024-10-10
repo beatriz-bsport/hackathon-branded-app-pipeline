@@ -34,10 +34,6 @@ export const fetchReportMetadataV2 = () => {
   return getAuth<ReportMetadataValue[]>(`${API_URI}/reporting/`);
 };
 
-export const fetchReportsV2 = () => {
-  return getAuth<ReportConfiguration[]>(`${API_URI}/reporting/reports-v2/`);
-};
-
 export const createReportV2 = (
   data: Partial<Omit<ReportConfiguration, 'id'>>,
 ) => {

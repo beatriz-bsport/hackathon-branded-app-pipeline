@@ -38,7 +38,6 @@ import {
   deleteReportV2 as deleteReportAPI,
   fetchExcelReporting as fetchExcelReportingAPI,
   getInvalidFilters as getInvalidFiltersAPI,
-  fetchReportsV2 as fetchReportsV2API,
   fetchReportsV2PaginatedList as fetchReportsV2PaginatedListAPI,
 } from '#src/libs/reporting/v2/api';
 import {
@@ -88,25 +87,6 @@ export const fetchReportsActionsV2 = {
   isLoading: createAction<boolean>('REPORT_V2/LIST/IS_LOADING'),
   success: createAction<ReportConfiguration[]>('REPORT_V2/LIST/SUCCESS'),
 };
-
-export function fetchReportsV2(
-  options?: OptionCallback<ReportConfiguration[]>,
-) {
-  return async (dispatch: Dispatch) => {
-    dispatch(fetchReportsActionsV2.isLoading(true));
-    dispatch(fetchReportsActionsV2.error(null));
-    try {
-      const response = await fetchReportsV2API();
-      dispatch(fetchReportsActionsV2.success(response.data));
-
-      options?.onSuccess?.(response.data);
-    } catch (error) {
-      dispatch(fetchReportsActionsV2.error(error));
-      options?.onError?.(error);
-    }
-    dispatch(fetchReportsActionsV2.isLoading(false));
-  };
-}
 
 export function fetchDefaultReports(
   options?: OptionCallback<ReportConfiguration[]>,

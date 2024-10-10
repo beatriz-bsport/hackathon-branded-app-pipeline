@@ -37,14 +37,19 @@ import {
 import type { LuxonDateTime } from '#src/types';
 
 import { hasUpsell } from '#src/libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#src/libs/platform-billing/upsell-identifiers';
+import {
+  UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
+  UPSELL_IDENTIFIER_WELLHUB,
+} from '#src/libs/platform-billing/upsell-identifiers';
 
 import withTitle from '#src/hocs/with-title.hoc';
 
 import {
-  getNumberOfMassDisabledOffer,
   getMassDisabledOfferInGroup,
+  getNumberOfMassDisabledOffer,
   getSimilars as getSimilarsOffers,
+  withCoach,
+  withEstablishment,
 } from '#src/libs/offer/selectors';
 import OfferCard from '#src/components/offer/OfferCard.component';
 import TimeTable from '#src/components/offer/TimeTable.component';
@@ -122,8 +127,17 @@ import {
   fetchBookingStatistics as fetchBookingStatisticsAction,
   fetchOffersWaitingListStatistics as fetchOffersWaitingListStatisticsAction,
 } from '#src/libs/statistics/actions';
+import { fetchOffersMissingWellhubProduct as fetchOffersMissingWellhubProductAction } from '#src/libs/wellhub/actions';
+import {
+  getOffersMissingWellhubProductLoading,
+  getOffersMissingWellhubProductPaginatedData,
+} from '#src/libs/wellhub/selectors';
 
-import type { OfferFilter, OfferTypeFilter } from '#src/libs/offer/types';
+import type {
+  OfferFilter,
+  OfferTypeFilter,
+  OfferREST,
+} from '#src/libs/offer/types';
 
 import { snackbarSuccess } from '#src/libs/snackbar/actions';
 import MassDisablerDialog from '#src/libs/offer/components/MassDisablerDialog.component';
@@ -169,12 +183,18 @@ import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/Objec
 import { redirectIfAllowed as redirectIfAllowedAction } from '../../libs/role/actions';
 import type { ReplacementRequestFilter } from '../../libs/replacement-request/types';
 import GenericResponsiveDialog from '../../components/genericDialog/GenericResponsiveDialog';
-import { OptionCallback } from '../../state/types';
+import type {
+  OptionCallback,
+  ReworkedPaginationResponse,
+} from '../../state/types';
 import type { Offer, Coach } from '#api/types';
 import {
   getBookingRelatedStatisticLoading,
   getStats,
 } from '../../state/stats/selectors';
+import WellhubProductAlert from '../../libs/wellhub/components/WellhubProductAlert';
+import WellhubProductSelectionDrawer from '../../libs/wellhub/components/WellhubProductSelectionDrawer';
+import type { PaginationFilterParams } from '../../libs/types';
 
 const styles = (theme) => ({
   container: {
@@ -275,7 +295,8 @@ type Props = {
   fetchBookingInOfferStats: () => void,
   metaActivities: Array<MetaActivity>,
   offers: Array<Offer>,
-  similarOffers: Array<Offer>,
+  similarOffers: Array<OfferREST>,
+  similarOffersWithCoachAndEstablishment: Array<Offer<Coach, Establishment>>,
   events: Array<Event>,
   coaches: Array<Coach>,
   establishmentGroupList: EstablishmentGroup[],
@@ -422,6 +443,9 @@ type Props = {
   bookingsWithConsumerPack: Array<Booking>,
   rollCallLoading: boolean,
   featureList: FeatureList,
+  fetchOffersMissingWellhubProduct: (params: PaginationFilterParams) => void,
+  offersMissingWellhubProductLoading: boolean,
+  offersMissingWellhubProductPaginatedData: ReworkedPaginationResponse<OfferREST>,
 };
 
 type State = {
@@ -433,6 +457,7 @@ type State = {
   isRollCallDrawerOpen: boolean,
   indexOfferInDrawer: number | null,
   isConfirmationRollCallDialogOpen: boolean,
+  isWellhubProductSelectionDrawerOpen: boolean,
 };
 
 export class Planning extends PureComponent<Props, State> {
@@ -448,6 +473,7 @@ export class Planning extends PureComponent<Props, State> {
       isRollCallDrawerOpen: false,
       indexOfferInDrawer: null,
       isConfirmationRollCallDialogOpen: false,
+      isWellhubProductSelectionDrawerOpen: false,
     };
   }
 
@@ -467,6 +493,8 @@ export class Planning extends PureComponent<Props, State> {
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
     this.props.fetchZoomApp(this.props.companyId);
+    hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_WELLHUB) &&
+      this.props.fetchOffersMissingWellhubProduct({});
     const promiseCoaches = this.props.fetchAssociatedCoachesList();
     const promiseEstablishments = this.props.fetchEstablishments();
     const promiseActivities = this.props.fetchActivitiesCompany(
@@ -538,7 +566,7 @@ export class Planning extends PureComponent<Props, State> {
     }
     if (
       this.props.selectedOffer &&
-      this.props.selectedOffer !== prevProps.selectedOffer
+      !isEqual(prevProps.selectedOffer, this.props.selectedOffer)
     ) {
       this.props.fetchFilteredMembers({
         offer: this.props.selectedOffer.id,
@@ -635,6 +663,8 @@ export class Planning extends PureComponent<Props, State> {
       },
       onBackgroundSuccess: () => {
         this.props.fetchRelevantOffers();
+        hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_WELLHUB) &&
+          this.props.fetchOffersMissingWellhubProduct({});
         this.loadDayData();
       },
     });
@@ -796,8 +826,8 @@ export class Planning extends PureComponent<Props, State> {
             processing={this.props.editOfferProcessing}
             roomBlueprints={roomBlueprints}
             showPartnership={this.props.showPartnership}
-            similarOfferLoading={similarOfferLoading}
             similarOffers={similarOffers}
+            similarOffersLoading={similarOfferLoading}
             tagList={allTagsWithTagGroup}
             updateLevel={this.props.updateLevel}
             zoomAppDetail={this.props.zoomAppDetail}
@@ -883,6 +913,8 @@ export class Planning extends PureComponent<Props, State> {
         },
         onBackgroundSuccess: () => {
           this.props.fetchRelevantOffers();
+          hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_WELLHUB) &&
+            this.props.fetchOffersMissingWellhubProduct({});
           this.loadDayData(this.props.date);
         },
       },
@@ -1158,6 +1190,29 @@ export class Planning extends PureComponent<Props, State> {
     );
   };
 
+  renderWellhubProductSelectionDrawer = () => {
+    if (!hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_WELLHUB))
+      return null;
+
+    return (
+      <WellhubProductSelectionDrawer
+        availableEstablishments={this.props.availableEstablishments}
+        coaches={this.props.coaches}
+        fetchMissingProductOffersSpecificPage={
+          this.fetchMissingProductOffersSpecificPage
+        }
+        fetchSimilarOffers={this.props.fetchSimilarOffers}
+        isLoading={this.props.offersMissingWellhubProductLoading}
+        isOpen={this.state.isWellhubProductSelectionDrawerOpen}
+        offersData={this.props.offersMissingWellhubProductPaginatedData}
+        onClose={this.closeWellhubProductSelectionDrawer}
+        onConfirm={this.onConfirmModal}
+        similarOffers={this.props.similarOffersWithCoachAndEstablishment}
+        similarOffersLoading={this.props.similarOfferLoading}
+      />
+    );
+  };
+
   openRollCallDrawer = (index: number, offer: Offer) => {
     this.props.fetchBookingsByOffer(offer.id, {
       onSuccess: (bookings) => {
@@ -1195,6 +1250,18 @@ export class Planning extends PureComponent<Props, State> {
     this.setState({ isConfirmationRollCallDialogOpen: false });
   };
 
+  openWellhubProductSelectionDrawer = () => {
+    this.setState({ isWellhubProductSelectionDrawerOpen: true });
+  };
+
+  closeWellhubProductSelectionDrawer = () => {
+    this.setState({ isWellhubProductSelectionDrawerOpen: false });
+  };
+
+  fetchMissingProductOffersSpecificPage = (page: number) => {
+    this.props.fetchOffersMissingWellhubProduct({ page });
+  };
+
   postRollCallBulk = (options?: OptionCallback) => {
     this.props.postRollCallBulk(
       {
@@ -1221,6 +1288,7 @@ export class Planning extends PureComponent<Props, State> {
       selectedOffer,
       hybridOfferLinkedToSelectedOffer,
     } = this.props;
+
     const showCancelledOffers =
       this.props.offerFilters.available === undefined
         ? this.props.theme.show_cancelled_offers_manager
@@ -1274,6 +1342,15 @@ export class Planning extends PureComponent<Props, State> {
                 showSubTeacherFilter={this.getShowSubTeacherFilter()}
                 theme={this.props.theme}
               />
+              {hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_WELLHUB) && (
+                <WellhubProductAlert
+                  onActionClick={this.openWellhubProductSelectionDrawer}
+                  total={
+                    this.props.offersMissingWellhubProductPaginatedData
+                      .total_count
+                  }
+                />
+              )}
               <Grid container className={classes.innerContainer} spacing={3}>
                 {isWidthDown('md', width) && selectedOffer
                   ? this.renderGoBackButton()
@@ -1423,6 +1500,7 @@ export class Planning extends PureComponent<Props, State> {
                 {this.renderRestoreModal()}
                 {this.renderRollCallDrawer()}
                 {this.renderConfirmationRollCallDialog()}
+                {this.renderWellhubProductSelectionDrawer()}
                 {!!this.props.massDisablerStartDate && (
                   <MassDisablerDialog
                     isWorkshop={massDisableOptions.is_workshop}
@@ -1527,6 +1605,9 @@ export default compose(
         state.establishment.loading,
 
       similarOffers: getSimilarsOffers(state),
+      similarOffersWithCoachAndEstablishment: withEstablishment(
+        withCoach(getSimilarsOffers),
+      )(state),
       offerFilters: state.userPreference.calendarFilter,
       offerByDayLoading: state.offer.byDay.loading,
 
@@ -1566,6 +1647,11 @@ export default compose(
         state.userPreference.replacementRequestManagerFilter,
       rollCallLoading: state.offer.rollCall.loading,
       featureList: state.company.feature.data,
+
+      offersMissingWellhubProductLoading:
+        getOffersMissingWellhubProductLoading(state),
+      offersMissingWellhubProductPaginatedData:
+        getOffersMissingWellhubProductPaginatedData(state),
     }),
     {
       goBack: goBackRouter,
@@ -1614,6 +1700,7 @@ export default compose(
       postRollCallBulk: postRollCallBulkAction,
       retrieveOfferAsManager: retrieveOfferAsManagerAction,
       fetchOffersWaitingListStatistics: fetchOffersWaitingListStatisticsAction,
+      fetchOffersMissingWellhubProduct: fetchOffersMissingWellhubProductAction,
     },
   ),
   withHandlers({

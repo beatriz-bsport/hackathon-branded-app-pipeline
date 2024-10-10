@@ -9,6 +9,7 @@ import { createTheme, MuiThemeProvider } from '@material-ui/core';
 import {
   ReportConfiguration,
   ReportConfigurationPaginatedList,
+  ReportV2QueryParams,
   ReportViewSortOption,
 } from '#src/libs/reporting/common/types';
 import type { PaginationFilterParams } from '#src/libs/types';
@@ -26,7 +27,7 @@ import { REPORT_VIEWS_FETCHING_PAGINATION_SIZE } from '#src/libs/reporting/commo
 
 type Props = {
   handleGoToReportV2: (categoryName: ReportCategoryEnum) => () => void;
-  onPageRequested: (params: PaginationFilterParams) => void;
+  onPageRequested: (params: ReportV2QueryParams) => void;
   reportViews: ReportConfiguration[];
   reportViewsPaginated: ReportConfigurationPaginatedList & ErrorAndLoading;
 };
@@ -60,19 +61,35 @@ const ReportViewDashboard: React.FC<Props> = ({
   const { t } = useTranslation('reporting');
 
   const [selectedSortOption, setSelectedSortOption] = React.useState<Option>({
-    label: t('reportFilter.default'),
-    value: ReportViewSortOption.DEFAULT,
+    label: t('reportFilter.lastCreated'),
+    value: ReportViewSortOption.LAST_CREATED,
   });
 
   const sortOptions = React.useMemo(
     () => [
       {
-        label: t('reportFilter.default'),
-        value: ReportViewSortOption.DEFAULT,
+        label: t('reportFilter.lastCreated'),
+        value: ReportViewSortOption.LAST_CREATED,
+      },
+      {
+        label: t('reportFilter.firstCreated'),
+        value: ReportViewSortOption.FIRST_CREATED,
       },
       {
         label: t('reportFilter.lastUpdated'),
         value: ReportViewSortOption.LAST_UPDATED,
+      },
+      {
+        label: t('reportFilter.firstUpdated'),
+        value: ReportViewSortOption.FIRST_UPDATED,
+      },
+      {
+        label: t('reportFilter.alphabeticalOrder'),
+        value: ReportViewSortOption.ALPHABETICAL,
+      },
+      {
+        label: t('reportFilter.reverseAlphabeticalOrder'),
+        value: ReportViewSortOption.REVERSE_ALPHABETICAL,
       },
     ],
     [t],
@@ -80,9 +97,12 @@ const ReportViewDashboard: React.FC<Props> = ({
 
   const handleOnPageRequested = React.useCallback(
     (params: PaginationFilterParams) => {
-      onPageRequested(params);
+      onPageRequested({
+        ...params,
+        ordering: selectedSortOption.value || '-created_at',
+      });
     },
-    [onPageRequested],
+    [onPageRequested, selectedSortOption],
   );
 
   const formatSearchOptions = React.useCallback(
@@ -100,24 +120,39 @@ const ReportViewDashboard: React.FC<Props> = ({
   const handleOnChange = React.useCallback(
     (selectedOption: { label: string; value: ReportViewSortOption }) => {
       setSelectedSortOption(selectedOption);
-    },
-    [],
-  );
-
-  const sortResults = React.useCallback(
-    (reportToSort: ReportConfiguration[]) => {
-      switch (selectedSortOption.value) {
+      let params: ReportV2QueryParams = {
+        page: 1,
+        page_size:
+          reportViewsPaginated.page_size ||
+          REPORT_VIEWS_FETCHING_PAGINATION_SIZE,
+        ordering: '-created_at',
+      };
+      switch (selectedOption.value) {
         case ReportViewSortOption.LAST_UPDATED:
-          return [...reportToSort].sort(
-            (a, b) =>
-              new Date(b.updated_at || b.date_end).getTime() -
-              new Date(a.updated_at || a.date_end).getTime(),
-          );
+          params.ordering = '-updated_at';
+          break;
+        case ReportViewSortOption.FIRST_UPDATED:
+          params.ordering = 'updated_at';
+          break;
+        case ReportViewSortOption.LAST_CREATED:
+          params.ordering = '-created_at';
+          break;
+        case ReportViewSortOption.FIRST_CREATED:
+          params.ordering = 'created_at';
+          break;
+        case ReportViewSortOption.REVERSE_ALPHABETICAL:
+          params.ordering = 'name';
+          break;
+        case ReportViewSortOption.ALPHABETICAL:
+          params.ordering = '-name';
+          break;
         default:
-          return [...reportToSort];
+          params.ordering = '-created_at';
+          break;
       }
+      onPageRequested(params);
     },
-    [selectedSortOption],
+    [onPageRequested, reportViewsPaginated],
   );
 
   const classes = useStyles();
@@ -153,7 +188,7 @@ const ReportViewDashboard: React.FC<Props> = ({
           {reportViewsPaginated && (
             <PaginatedListBaseReworked
               itemPerPage={REPORT_VIEWS_FETCHING_PAGINATION_SIZE}
-              items={sortResults(reportViews)}
+              items={reportViews}
               loading={reportViewsPaginated.loading}
               nbItems={reportViewsPaginated.count}
               onPageRequested={handleOnPageRequested}
@@ -204,7 +239,7 @@ const useStyles = makeStyles((theme) => ({
   searchComponent: {
     paddingBottom: theme.spacing(2),
   },
-  selector: { maxWidth: '150px' },
+  selector: { maxWidth: '250px' },
 }));
 
 export default React.memo(ReportViewDashboard);

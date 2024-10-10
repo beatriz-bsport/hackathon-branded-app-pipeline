@@ -1018,8 +1018,12 @@ const getTranslations = async () => {
     },
     reportFilter: {
       title: 'Filter on ...',
-      default: 'By default',
+      lastCreated: 'Last Created',
+      firstCreated: 'First Created',
       lastUpdated: 'Last updated',
+      firstUpdated: 'First updated',
+      alphabeticalOrder: 'Alphabetical order',
+      reverseAlphabeticalOrder: 'Reverse alphabetical order',
     },
   };
 };

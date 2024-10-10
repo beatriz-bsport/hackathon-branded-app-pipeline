@@ -8,8 +8,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-
-import { PaginationFilterParams } from '#src/libs/types';
+import type { ReportV2QueryParams } from '#src/libs/reporting/common/types';
 
 import {
   fetchReports as fetchReportsAction,
@@ -74,6 +73,7 @@ const ReportingViewDashboard: React.FC<Props> = ({
     fetchReportMetadata();
     fetchReportsV2Paginated({
       page_size: REPORT_VIEWS_FETCHING_PAGINATION_SIZE,
+      ordering: '-created_at',
     });
   }, [fetchReports, fetchReportMetadata, fetchReportsV2Paginated]);
 
@@ -95,7 +95,7 @@ const ReportingViewDashboard: React.FC<Props> = ({
   );
 
   const fetchNextReportViews = React.useCallback(
-    (params: PaginationFilterParams) => {
+    (params: ReportV2QueryParams) => {
       fetchReportsV2Paginated(params);
     },
     [fetchReportsV2Paginated],

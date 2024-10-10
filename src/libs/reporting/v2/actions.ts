@@ -11,6 +11,7 @@ import type {
   ReportUpdateAPI,
   SerializedReport,
   InvalidFiltersAPI,
+  ReportV2QueryParams,
 } from '#src/libs/reporting/common/types';
 import type {
   OptionCallback,
@@ -19,7 +20,6 @@ import type {
   PaginatedResponse,
   ThunkAction,
 } from '#src/state/types';
-import type { PaginationFilterParams } from '#src/libs/types';
 
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
@@ -55,7 +55,7 @@ export const fetchPaginatedReportsV2ViewsActions = {
 };
 
 export function fetchReportsV2Paginated(
-  params?: PaginationFilterParams,
+  params?: ReportV2QueryParams,
   options?: OptionCallback<PaginatedResponse<ReportConfiguration>>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
@@ -70,6 +70,8 @@ export function fetchReportsV2Paginated(
       const response = await fetchReportsV2PaginatedListAPI({
         page: nextPage,
         page_size: pageSize,
+        is_category_default: false,
+        ...params,
       });
       dispatch(fetchPaginatedReportsV2ViewsActions.success(response.data));
 

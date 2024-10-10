@@ -10,7 +10,7 @@ import { push } from 'connected-react-router';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 import type { OwnProps } from '#src/components/HighlightedText/HighlightedText.component';
-import { PaginationFilterParams } from '#src/libs/types';
+import { ReportV2QueryParams } from '#src/libs/reporting/common/types';
 
 import {
   fetchReports as fetchReportsAction,
@@ -71,6 +71,7 @@ const FranchiseReportViewDashboard: React.FC<Props> = ({
     fetchReportMetadata();
     fetchReportsV2Paginated({
       page_size: REPORT_VIEWS_FETCHING_PAGINATION_SIZE,
+      ordering: '-created_at',
     });
   }, [fetchReportMetadata, fetchReportsV2Paginated]);
 
@@ -90,7 +91,7 @@ const FranchiseReportViewDashboard: React.FC<Props> = ({
   );
 
   const fetchNextReportViews = React.useCallback(
-    (params: PaginationFilterParams) => {
+    (params: ReportV2QueryParams) => {
       fetchReportsV2Paginated(params);
     },
     [fetchReportsV2Paginated],

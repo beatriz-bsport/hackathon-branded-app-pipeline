@@ -1,5 +1,5 @@
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import { ErrorAndLoading } from '#src/libs/types';
+import { ErrorAndLoading, PaginationFilterParams } from '#src/libs/types';
 
 import type {
   DataSourceMedadataDataType,
@@ -250,8 +250,25 @@ export type IsReportNameUsedParams = {
 };
 
 export enum ReportViewSortOption {
-  DEFAULT = -1,
-  LAST_UPDATED = 0,
+  FIRST_CREATED = 'created_at',
+  LAST_CREATED = '-created_at',
+  FIRST_UPDATED = 'updated_at',
+  LAST_UPDATED = '-updated_at',
+  ALPHABETICAL = 'name',
+  REVERSE_ALPHABETICAL = '-name',
 }
 
 export type InvalidFiltersAPI = { [reportFilterConfigId: number]: string[] };
+
+export type ReportSortingOption =
+  | 'created_at'
+  | 'updated_at'
+  | 'name'
+  | '-created_at'
+  | '-updated_at'
+  | '-name';
+
+export type ReportV2QueryParams = {
+  ordering?: ReportSortingOption;
+} & PaginationFilterParams &
+  ReportQueryParams;

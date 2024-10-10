@@ -1,3 +1,5 @@
+import type { WellhubProductSelectionFormValues } from '#src/libs/wellhub/types';
+
 export enum GymAvailabilityReasonCode {
   VALID_GYM_EXISTS = 'VALID_GYM_EXISTS',
   DISABLED_GYM_EXISTS = 'DISABLED_GYM_EXISTS',
@@ -12,3 +14,10 @@ export const GymAvailabilityReasonCodeChoices = Object.values(
 );
 
 export const WELLHUB_OFFER_DEFAULT_PAGE_SIZE = 10;
+
+export const WELLHUB_PRODUCT_SELECTION_INITIAL_VALUES: WellhubProductSelectionFormValues =
+  {
+    wellhubProductId: null,
+    modifyRecursively: false,
+    selectedSimilarOffers: [],
+  };

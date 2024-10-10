@@ -17445,6 +17445,13 @@
                 "tableColumnLabel": {
                     "status": "Success"
                 }
+            },
+            "block": {
+                "unrecognized": {
+                    "dialog": {
+                        "helper": "The {{ workflowLowerCase }} you are attempting to access cannot be found."
+                    }
+                }
             }
         }
     },

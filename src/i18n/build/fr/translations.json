@@ -5567,7 +5567,7 @@
             "block": {
                 "unrecognized": {
                     "dialog": {
-                        "helper": "Le {{ workflowLowerCase }} que vous tentez d'accéder est introuvable.",
+                        "helper": "Le {{ workflowLowerCase }} auquel vous tentez d'accéder est introuvable.",
                         "title": "{{ workflowCamelCase }} non reconnu"
                     }
                 },

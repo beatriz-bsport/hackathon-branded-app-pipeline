@@ -1,9 +1,12 @@
 import { DateTime, Interval, Settings } from 'luxon';
 import {
   convertSlotToInterval,
+  getAvailableDayTimeIntervals,
+  getAvailableDayTimeSegments,
   getDayTimeIntervals,
 } from '#src/libs/private-service/interval-utils';
 
+import { DayTimeIntervals } from '#src/libs/private-service/constants';
 import type { Slot } from '#src/libs/private-service/types';
 
 describe('getDayTimeIntervals', () => {
@@ -224,6 +227,119 @@ describe('convertSlotToInterval', () => {
     );
     expect(console.error).toHaveBeenCalledWith(
       `The slot start time should be before the end time.`,
+    );
+  });
+});
+
+describe('getAvailableDayTimeSegments', () => {
+  const testDate = DateTime.now().toISODate();
+  it('should return the correct day time segments based on overlapping slots', () => {
+    const slots: Slot[] = [
+      [
+        DateTime.now().set({ hour: 7, minute: 30 }).toISO(),
+        DateTime.now().set({ hour: 13, minute: 45 }).toISO(),
+      ],
+      [
+        DateTime.now().set({ hour: 14, minute: 30 }).toISO(),
+        DateTime.now().set({ hour: 18, minute: 45 }).toISO(),
+      ],
+      [
+        DateTime.now().set({ hour: 17, minute: 30 }).toISO(),
+        DateTime.now().set({ hour: 23, minute: 45 }).toISO(),
+      ],
+    ];
+
+    const result = getAvailableDayTimeSegments(testDate, slots);
+    expect(result).toEqual(new Set(Object.values(DayTimeIntervals)));
+  });
+  it('should return the evening segment if the slot overlap on the next date', () => {
+    const slots: Slot[] = [
+      [
+        DateTime.now().set({ hour: 23, minute: 45 }).toISO(),
+        DateTime.now().plus({ day: 1 }).set({ hour: 3, minute: 45 }).toISO(),
+      ],
+    ];
+
+    const result = getAvailableDayTimeSegments(testDate, slots);
+    expect(result).toEqual(new Set([DayTimeIntervals.EVENING]));
+  });
+  it('should return an empty set if no slots overlap any day time segment', () => {
+    const slots: Slot[] = [
+      [
+        DateTime.now().plus({ day: 1 }).set({ hour: 3, minute: 45 }).toISO(),
+        DateTime.now().plus({ day: 1 }).set({ hour: 6, minute: 45 }).toISO(),
+      ],
+    ];
+
+    const result = getAvailableDayTimeSegments(testDate, slots);
+    expect(result).toEqual(new Set());
+  });
+  it('should return an empty set if no slot is provided', () => {
+    const undefinedSlots: Slot[] = undefined;
+    const emptySlots: Slot[] = [];
+
+    expect(getAvailableDayTimeSegments(testDate, undefinedSlots)).toEqual(
+      new Set(),
+    );
+    expect(getAvailableDayTimeSegments(testDate, emptySlots)).toEqual(
+      new Set(),
+    );
+  });
+});
+
+describe('getAvailableDayTimeIntervals', () => {
+  const testDate = DateTime.now().toISODate();
+  const dayTimeIntervals = getDayTimeIntervals(testDate);
+  it('should return the correct day time interval based on overlapping slots', () => {
+    const slots: Slot[] = [
+      [
+        DateTime.now().set({ hour: 7, minute: 30 }).toISO(),
+        DateTime.now().set({ hour: 13, minute: 45 }).toISO(),
+      ],
+      [
+        DateTime.now().set({ hour: 14, minute: 30 }).toISO(),
+        DateTime.now().set({ hour: 18, minute: 45 }).toISO(),
+      ],
+      [
+        DateTime.now().set({ hour: 17, minute: 30 }).toISO(),
+        DateTime.now().set({ hour: 23, minute: 45 }).toISO(),
+      ],
+    ];
+    const result = getAvailableDayTimeIntervals(testDate, slots);
+    expect(result).toStrictEqual(dayTimeIntervals);
+  });
+  it('should return the evening segment if the slot overlap on the next date', () => {
+    const slots: Slot[] = [
+      [
+        DateTime.now().set({ hour: 23, minute: 45 }).toISO(),
+        DateTime.now().plus({ day: 1 }).set({ hour: 3, minute: 45 }).toISO(),
+      ],
+    ];
+    const result = getAvailableDayTimeIntervals(testDate, slots);
+    expect(result).toStrictEqual({
+      [DayTimeIntervals.EVENING]: dayTimeIntervals[DayTimeIntervals.EVENING],
+    });
+  });
+  it('should return an empty object if no slots overlap any day time segment', () => {
+    const slots: Slot[] = [
+      [
+        DateTime.now().plus({ day: 1 }).set({ hour: 3, minute: 45 }).toISO(),
+        DateTime.now().plus({ day: 1 }).set({ hour: 6, minute: 45 }).toISO(),
+      ],
+    ];
+
+    const result = getAvailableDayTimeIntervals(testDate, slots);
+    expect(result).toStrictEqual({});
+  });
+  it('should return an empty object if no slot is provided', () => {
+    const undefinedSlots: Slot[] = undefined;
+    const emptySlots: Slot[] = [];
+
+    expect(
+      getAvailableDayTimeIntervals(testDate, undefinedSlots),
+    ).toStrictEqual({});
+    expect(getAvailableDayTimeIntervals(testDate, emptySlots)).toStrictEqual(
+      {},
     );
   });
 });

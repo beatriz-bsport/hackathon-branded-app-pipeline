@@ -98,3 +98,94 @@ export const convertSlotToInterval = (slot: Slot) => {
 
   return Interval.fromDateTimes(startDateTime, endDateTime);
 };
+
+/**
+ * Retrieves a set of unique availability day time segments (e.g., morning, afternoon, etc.) based on provided time slots.
+ *
+ * This function determines which predefined day time segments overlap with the given availability slots for a specific date.
+ * It returns a set of day time segments names (up to 4) that have overlapping time slots.
+ *
+ * @param {string} date - The date for which to get available day time segments in YYYY-MM-DD format.
+ * @param {Slot[]} slots - An array of availability slots where each slot is an object representing a start and end time.
+ *
+ * @returns {Set<string>} A set of day time segments names that have at least one overlapping slot.
+ *                        If four day time segments are found, the function returns early to optimize performance.
+ *
+ * @example
+ * // Example usage:
+ * const date = "2024-10-04";
+ * const slots = [
+ *   ["2024-10-04T06:00:00Z", "2024-10-04T11:00:00Z"],
+ *   ["2024-10-04T12:00:00Z", "2024-10-04T13:00:00Z" ]
+ * ];
+ *
+ * const availableDayTimeSegments = getAvailableDayTimeSegments(date, slots);
+ * console.log(availableDayTimeSegments); // Output could be: Set { "morning", "noon" }
+ */
+export const getAvailableDayTimeSegments = (isoDate: string, slots: Slot[]) => {
+  const dayTimeIntervals = getDayTimeIntervals(isoDate);
+
+  const numberOfDayTimeIntervals = Object.keys(dayTimeIntervals).length;
+
+  const availableDayTimeSegments = (slots ?? []).reduce<Set<DayTimeIntervals>>(
+    (availableDayTimeSegmentsSet, slot) => {
+      const slotInterval = convertSlotToInterval(slot);
+      Object.entries(dayTimeIntervals).every(
+        ([dayTimeSegment, dayTimeInterval]) => {
+          if (availableDayTimeSegmentsSet.size === numberOfDayTimeIntervals) {
+            return false;
+          }
+          if (slotInterval.overlaps(dayTimeInterval))
+            availableDayTimeSegmentsSet.add(dayTimeSegment as DayTimeIntervals);
+          return true;
+        },
+      );
+      return availableDayTimeSegmentsSet;
+    },
+    new Set<DayTimeIntervals>(),
+  );
+
+  return availableDayTimeSegments;
+};
+
+/**
+ * Retrieves the available day-time intervals based on the provided ISO date and available time slots.
+ *
+ * This function calculates the day-time intervals (e.g., morning, noon, afternoon, evening) for a given day,
+ * then checks the available slots and returns only those intervals that match the available time segments.
+ *
+ * @param {string} isoDate - The date in ISO format (yyyy-MM-dd) for which to calculate the day-time intervals.
+ * @param {Slot[]} slots - An array of `Slot` objects representing available time slots for the day.
+ *
+ * @returns {Record<DayTimeIntervals, Interval<true> | Interval<false>>}
+ *   An object where the keys are day-time intervals (e.g., morning, noon, afternoon, evening)
+ *   and the values are corresponding Luxon `Interval` objects. Only the intervals that match the available time segments are included.
+ *
+ * @example
+ * const isoDate = "2024-10-18";
+ * const slots = [
+ *   ["2024-10-18T08:00:00Z", "2024-10-18T10:00:00Z"],
+ *   ["2024-10-18T14:00:00Z", "2024-10-18T16:00:00Z"]
+ * ];
+ * const availableIntervals = getAvailableDayTimeIntervals(isoDate, slots);
+ *
+ * // availableIntervals will contain intervals for the morning and afternoon segments if they overlap with the provided slots.
+ */
+export const getAvailableDayTimeIntervals = (
+  isoDate: string,
+  slots: Slot[],
+) => {
+  const dayTimeIntervals = getDayTimeIntervals(isoDate);
+  const availableDayTimeSegments = getAvailableDayTimeSegments(isoDate, slots);
+
+  const availableDayTimeIntervals = Array.from(availableDayTimeSegments).reduce<
+    Record<DayTimeIntervals, Interval<true> | Interval<false>>
+  >((dayTimeIntervalsAcc, dayTimeSegment) => {
+    if (dayTimeSegment in dayTimeIntervals) {
+      dayTimeIntervalsAcc[dayTimeSegment] = dayTimeIntervals[dayTimeSegment];
+    }
+    return dayTimeIntervalsAcc;
+  }, {} as Record<DayTimeIntervals, Interval<true> | Interval<false>>);
+
+  return availableDayTimeIntervals;
+};

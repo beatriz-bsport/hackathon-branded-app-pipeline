@@ -152,12 +152,12 @@ export const variants = {
   },
   // Internal variant only
   iconVariant: {
-    "icon-only-sm": ["p-xs"],
-    "icon-only-md": ["p-sm"],
-    "icon-only-lg": ["p-md"],
-    "default-sm": ["p-xs"],
-    "default-md": ["p-sm"],
-    "default-lg": ["p-sm"],
+    "icon-only-sm": ["p-2xs"],
+    "icon-only-md": ["p-xs"],
+    "icon-only-lg": ["p-sm"],
+    "default-sm": ["p-2xs"],
+    "default-md": ["p-xs"],
+    "default-lg": ["p-xs"],
   },
   widthMode: {
     default: [],

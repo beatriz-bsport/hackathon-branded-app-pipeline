@@ -65,9 +65,9 @@ const Link: React.FC<LinkProps> = ({
       className={`${link({
         className,
         color,
-        underline: isUnderlined !== false ? "default" : "none",
+        underline: isUnderlined ? "default" : "none",
         weight,
-      })} inline-flex items-center gap-element-2xs`}
+      })} inline-flex items-center gap-2xs`}
       {...props}
     >
       {!!icon && <Icon icon={icon} className="h-[1em] w-[1em]" />}

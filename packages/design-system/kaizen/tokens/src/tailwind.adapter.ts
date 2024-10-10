@@ -172,7 +172,8 @@ const importDimension = async (folderPath: string): Promise<Output> => {
   });
   return Object.entries(cssContent).reduce(
     (acc, [cssName, cssValue]) => {
-      if (cssName.includes("Figma")) return acc;
+      /* Spacing are generated in its own function */
+      if (cssName.includes("Figma") || cssName.includes("Spacing")) return acc;
 
       const name = formatName(cssName);
       const value = formatValue(cssValue);
@@ -198,6 +199,82 @@ const importDimension = async (folderPath: string): Promise<Output> => {
       cssVariables: [],
       tailwindTheme: { size: {}, spacing: {} },
     } as Output,
+  );
+};
+
+/**
+ * Import exported sizes tokens from Supernova.
+ * @param folderPath Path of the folder containing the Supernova export.
+ */
+const importSizes = async (folderPath: string): Promise<Output> => {
+  const cssContent = await importFileContent(folderPath, "styles/sizes.css");
+
+  const formatCSSVariable = (name: string) => `kz-sizing-${name}`;
+  const formatName = formatVariableName(["sizing", "size"]);
+  const formatValue = formatVariableValue(formatName, {
+    formatCSSVariable,
+  });
+
+  return Object.entries(cssContent).reduce(
+    (acc: Output, [cssName, cssValue]) => {
+      if (cssName.includes("Figma")) return acc;
+
+      const name = formatName(cssName);
+      const value = formatValue(cssValue);
+
+      return {
+        cssVariables: [
+          ...acc.cssVariables,
+          `--${formatCSSVariable(name)}: ${value};`,
+        ],
+        tailwindTheme: {
+          ...acc.tailwindTheme,
+          size: {
+            ...acc.tailwindTheme?.size,
+            [name]: `var(--${formatCSSVariable(name)})`,
+          },
+        },
+      };
+    },
+    { cssVariables: [], tailwindTheme: { size: {} } } as Output,
+  );
+};
+
+/**
+ * Import exported spaces tokens from Supernova.
+ * @param folderPath Path of the folder containing the Supernova export.
+ */
+const importSpaces = async (folderPath: string): Promise<Output> => {
+  const cssContent = await importFileContent(folderPath, "styles/spaces.css");
+
+  const formatCSSVariable = (name: string) => `kz-spacing-${name}`;
+  const formatName = formatVariableName(["spacing", "space"]);
+  const formatValue = formatVariableValue(formatName, {
+    formatCSSVariable,
+  });
+
+  return Object.entries(cssContent).reduce(
+    (acc: Output, [cssName, cssValue]) => {
+      if (cssName.includes("Figma")) return acc;
+
+      const name = formatName(cssName);
+      const value = formatValue(cssValue);
+
+      return {
+        cssVariables: [
+          ...acc.cssVariables,
+          `--${formatCSSVariable(name)}: ${value};`,
+        ],
+        tailwindTheme: {
+          ...acc.tailwindTheme,
+          spacing: {
+            ...acc.tailwindTheme?.spacing,
+            [name]: `var(--${formatCSSVariable(name)})`,
+          },
+        },
+      };
+    },
+    { cssVariables: [], tailwindTheme: { spacing: {} } } as Output,
   );
 };
 
@@ -437,6 +514,8 @@ const adapters: ((folderPath: string) => Promise<Output>)[] = [
   importRadii,
   importColors,
   importDimension,
+  importSizes,
+  importSpaces,
   importFontWeigths,
   importFontSizes,
   importLineHeights,

@@ -23,9 +23,12 @@ if [ -n "$(git status --porcelain)" ]; then
 
   echo "Remote URL set to: https://oauth2:*****@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
 
+  echo "Attempting to pull from branch ${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}..."
   if ! git pull --rebase gitlab_origin "${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"; then
-      echo "Error pulling from branch ${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}. Please resolve conflicts."
-      exit 1
+      echo "Warning: Could not pull changes from branch ${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}."
+      echo "You may have ongoing changes that prevent merging."
+      echo "Please run 'pnpm run tokens:import' and resolve any conflicts manually."
+      exit 0
   fi
 
   echo "Pushing changes to gitlab_origin ${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"

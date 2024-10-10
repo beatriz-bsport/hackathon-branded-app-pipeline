@@ -139,7 +139,7 @@ const Button: React.FC<Props> = ({
     [loading, iconRight, size, label],
   );
   const labelToRender = useMemo(() => {
-    return label ? <span className={"px-sm"}>{label}</span> : null;
+    return label ? <span className={"px-xs"}>{label}</span> : null;
   }, [label]);
   return (
     <button

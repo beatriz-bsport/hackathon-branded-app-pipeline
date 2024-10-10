@@ -39,7 +39,12 @@ import CoachToolTip, {
 } from '../../libs/associated-coach/components/CoachToolTip.component';
 
 const styles = (theme) => ({
-  relativeContainer: { position: 'relative' },
+  relativeContainer: {
+    alignItems: 'end',
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'relative',
+  },
   chipContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -53,9 +58,9 @@ const styles = (theme) => ({
   videocamIcon: {
     marginRight: theme.spacing(1) / 2,
   },
-  listItem: {
-    width: '100%',
-  },
+  listItem: { width: '100%' },
+  noPadding: { padding: 0, paddingRight: theme.spacing(2) },
+  hidden: { visibility: 'hidden' },
   disabled: {
     backgroundColor: '#FFDDDD',
     '&:hover': {
@@ -99,6 +104,8 @@ type Props = {
   displayCoachInfoOnHover?: boolean,
   companyTheme: CompanyTheme,
   coachDisplay?: MarketPlaceCoachDisplay,
+  withoutPadding?: boolean,
+  hideFillingInfo?: boolean,
 };
 
 const getFillingInfo = (offer: Offer) => {
@@ -165,6 +172,8 @@ export function OfferMinimalSummary(props: Props) {
     displayCoachInfoOnHover,
     companyTheme,
     coachDisplay,
+    withoutPadding,
+    hideFillingInfo,
   } = props;
 
   const [tagManagementDialog, setTagManagementDialog] = useState(false);
@@ -251,10 +260,10 @@ export function OfferMinimalSummary(props: Props) {
         dense
         divider
         button={!!overrideClickAction}
-        className={classNames(
-          classes.listItem,
-          available ? {} : classes.disabled,
-        )}
+        className={classNames(classes.listItem, {
+          [classes.disabled]: !available,
+          [classes.noPadding]: !!withoutPadding,
+        })}
         onClick={overrideClickAction}
         selected={selected}
         style={{
@@ -268,7 +277,12 @@ export function OfferMinimalSummary(props: Props) {
               : null,
         }}
       >
-        <Grid container alignItems="center" directon="row">
+        <Grid
+          container
+          alignItems="center"
+          directon="row"
+          justifyContent="space-between"
+        >
           <Grid item xs={6}>
             <Grid container alignItems="center" direction="row" wrap="nowrap">
               <Hidden smDown>
@@ -403,7 +417,11 @@ export function OfferMinimalSummary(props: Props) {
                 )}
             </Grid>
           </Grid>
-          <Grid item xs={3}>
+          <Grid
+            item
+            className={classNames({ [classes.hidden]: !!hideFillingInfo })}
+            xs={3}
+          >
             <ListItemText
               classes={textClasses}
               primary={fillingInfo}
@@ -449,31 +467,37 @@ export function OfferMinimalSummary(props: Props) {
               />
             )}
           </Grid>
-          <Grid item className={classes.chipContainer} xs={1}>
-            {hasPendingReplacementRequest && (
-              <Tooltip>
+          {(hasPendingReplacementRequest || props.isRollCallMandatory) && (
+            <Grid item className={classes.chipContainer} xs={1}>
+              {hasPendingReplacementRequest && (
+                <Tooltip>
+                  <div
+                    className={
+                      props.isRollCallMandatory && classes.replacementChip
+                    }
+                    title={t('offer:pendingReplacementRequest')}
+                  >
+                    <ReplacementRequestPendingChip height={22} width={30} />
+                  </div>
+                </Tooltip>
+              )}
+              {props.isRollCallMandatory && (
                 <div
                   className={
-                    props.isRollCallMandatory && classes.replacementChip
+                    hasPendingReplacementRequest && classes.rollCallChip
                   }
-                  title={t('offer:pendingReplacementRequest')}
                 >
-                  <ReplacementRequestPendingChip height={22} width={30} />
+                  <RollCallChip
+                    isValidated={!offer.roll_call_needs_validation}
+                    lastValidatedRollCallDate={
+                      offer.date_roll_call_last_modified
+                    }
+                    onClick={props.openRollCallDrawer}
+                  />
                 </div>
-              </Tooltip>
-            )}
-            {props.isRollCallMandatory && (
-              <div
-                className={hasPendingReplacementRequest && classes.rollCallChip}
-              >
-                <RollCallChip
-                  isValidated={!offer.roll_call_needs_validation}
-                  lastValidatedRollCallDate={offer.date_roll_call_last_modified}
-                  onClick={props.openRollCallDrawer}
-                />
-              </div>
-            )}
-          </Grid>
+              )}
+            </Grid>
+          )}
         </Grid>
       </ListItem>
     </>

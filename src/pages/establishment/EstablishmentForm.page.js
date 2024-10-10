@@ -87,6 +87,9 @@ export class EstablishmentFormPage extends Component<Props> {
       establishmentMap,
       ['cover'],
     );
+    if (updatedDataClean.cover) {
+      establishmentData.append('cover', updatedDataClean.cover);
+    }
 
     this.props.upsertEstablishmentV2(establishmentId, establishmentData, {
       onSuccess: () => {

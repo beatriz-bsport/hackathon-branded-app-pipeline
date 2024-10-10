@@ -105,6 +105,30 @@ exports.default = {
       selector: {
         placeholder: 'Select a Wellhub product',
       },
+      alert: {
+        title: 'Some sessions didn’t sync with Wellhub.',
+        message:
+          'Please select a Wellhub product to display the sessions and make them bookable for Wellhub users.',
+        action: 'Set up',
+      },
+      drawer: {
+        title: 'Wellhub product is not linked yet',
+        description:
+          'Some sessions do not have a Wellhub product linked and won’t be available for bookings by Wellhub users.',
+        actionRequired: 'Select a Wellhub product to link with this session:',
+        element: '{{ count }} element',
+        element_plural: '{{ count }} elements',
+        form: {
+          label:
+            "These products are offered by your studio on the Wellhub platform. Go to 'Partnership' section in the Partner Portal of your Wellhub account for more information.",
+          applyToSimilarOffers: 'Apply to similar sessions',
+        },
+        footer: {
+          back: 'Back',
+          cancel: 'Cancel',
+          save: 'Save',
+        },
+      },
     },
   },
 };

@@ -805,7 +805,6 @@ const mapWithHandlers = {
           onSuccess: (offerList: any) => {
             props.fetchEstablishmentBulk([
               ...offerList.map((o: any) => o.establishment),
-              ...offerList.map((o: any) => o.establishment_override),
             ]);
             props.fetchAssociatedCoachBulkFromCoachIds(
               [

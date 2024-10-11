@@ -378,9 +378,7 @@ GoogleAnalytics.addMethod(
       coach: offer.coach_override
         ? offer.coach_override.name
         : offer.coach.name,
-      establishment: offer.establishment_override
-        ? offer.establishment_override.title
-        : offer.establishment.name,
+      establishment: offer.establishment.name,
       activity: offer.meta_activity.id,
     },
   }),
@@ -401,9 +399,7 @@ GoogleAnalytics.addMethod(
       sessionId: offer.id,
       activity: offer.meta_activity.name,
       sessionDate: DateTime.fromISO(offer.date_start).toISO(),
-      establishment: offer.establishment_override
-        ? offer.establishment_override.title
-        : offer.establishment.title,
+      establishment: offer.establishment.title,
       coach: offer.coach_override
         ? offer.coach_override.name
         : offer.coach.name,

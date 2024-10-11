@@ -66,7 +66,6 @@ export function offerFactory(overrideData?: {
     price_coach: generateRandomInt(20),
     credit_price: overrideData?.credits ?? generateRandomInt(3),
     is_full: false,
-    establishment_override: establishment_factory(1)[0],
     establishment: establishment_factory(1)[0],
     meta_activity: generateRandomInt(1000),
     timezone_name: 'Europe/Paris',

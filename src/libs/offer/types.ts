@@ -142,7 +142,6 @@ export type Offer<
   price_coach: number;
   credit_price: number;
   full: boolean;
-  establishment_override?: E;
   establishment: E;
   meta_activity: M;
   timezone_name: string;
@@ -191,7 +190,6 @@ export type OfferREST = {
   date_start: string;
   duration_minute: number;
   effectif: number;
-  establishment_override: number | null;
   establishment: number;
   full: boolean;
   group: number | null;

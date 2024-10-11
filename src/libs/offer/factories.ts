@@ -47,7 +47,6 @@ FactoryBot.define('Offer', {
   activity: 1,
   coach: 1,
   coach_override: null,
-  establishment_override: null,
   establishment: 1,
   meta_activity: 1,
   group: null,
@@ -75,7 +74,6 @@ export const offerFactory = memoize(
       withLevel,
       withCoach,
       withCoachOverride,
-      withEstablishmentOverride,
       withEstablishment,
       withMetaActivity,
       withGroup,
@@ -93,9 +91,6 @@ export const offerFactory = memoize(
     }
     if (withCoachOverride) {
       offer.coach_override = coachFactory(1);
-    }
-    if (withEstablishmentOverride) {
-      offer.establishment_override = establishment_factory(1)[0];
     }
     if (withEstablishment) {
       offer.establishment = establishment_factory(1)[0];

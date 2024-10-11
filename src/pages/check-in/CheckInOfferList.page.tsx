@@ -344,10 +344,7 @@ const mapWithHandlers = {
             ...offers.map((o) => o.coach),
             ...offers.map((o) => o.coach_override),
           ]);
-          props.fetchEstablishmentBulk([
-            ...offers.map((o) => o.establishment),
-            ...offers.map((o) => o.establishment_override),
-          ]);
+          props.fetchEstablishmentBulk([...offers.map((o) => o.establishment)]);
         },
       });
     },

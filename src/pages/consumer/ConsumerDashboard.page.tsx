@@ -675,7 +675,6 @@ const mapWithHandlers = {
                   ]);
                   props.fetchEstablishmentBulk([
                     ...offerList.map((b) => b.establishment),
-                    ...offerList.map((b) => b.establishment_override),
                   ]);
                 },
               },

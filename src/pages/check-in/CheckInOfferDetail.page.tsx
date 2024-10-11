@@ -132,10 +132,7 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
       onSuccess: (offer) => {
         !!(offer.custom_level || offer.level) &&
           this.props.fetchLevel(offer.custom_level ?? offer.level);
-        this.props.retrieveEstablishment(
-          this.props.offer?.establishment_override ??
-            this.props.offer?.establishment,
-        );
+        this.props.retrieveEstablishment(this.props.offer?.establishment);
         this.props.fetchAssociatedCoach(
           this.props.offer?.coach_override ?? this.props.offer?.coach,
         );
@@ -225,8 +222,7 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
           )}
           confirmBookingAttendance={this.handleConfirmBookingAttendance}
           establishment={this.props.getEstablishment(
-            this.props.offer?.establishment_override ??
-              this.props.offer?.establishment,
+            this.props.offer?.establishment,
           )}
           fetchMemberByBarcode={this.props.fetchMemberByBarcode}
           getMember={this.props.getMember}

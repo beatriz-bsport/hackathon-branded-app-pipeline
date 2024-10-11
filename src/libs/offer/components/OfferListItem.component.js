@@ -70,11 +70,8 @@ export const OfferListItem = (props: Props) => {
         }
         secondary={
           offer
-            ? (
-                offer.establishment_override ||
-                offer.etablissement ||
-                offer.establishment || { title: '' }
-              ).title
+            ? (offer.etablissement || offer.establishment || { title: '' })
+                .title
             : ''
         }
       />

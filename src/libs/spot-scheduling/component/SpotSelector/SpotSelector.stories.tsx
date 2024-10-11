@@ -161,8 +161,6 @@ const offer = {
   date_start: '2022-06-29T00:00:00+02:00',
   duration_minute: 30,
   effectif: 10,
-  // @ts-expect-error
-  establishment_override: null,
   id: 17975,
   recurrence_id: '1d30b0ff-cba8-4a1d-afbd-deca10531ebc',
   waiting_list_max_size: 10,

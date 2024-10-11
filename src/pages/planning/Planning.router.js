@@ -126,10 +126,7 @@ const PlanningWithDateAndOffer = compose(
               ...offers.map((o) => o.coach),
               ...offers.map((o) => o.coach_override),
             ]);
-            fetchEstablishmentBulk([
-              ...offers.map((o) => o.establishment),
-              ...offers.map((o) => o.establishment_override),
-            ]);
+            fetchEstablishmentBulk([...offers.map((o) => o.establishment)]);
             listOffersWithPendingReplacementRequestIds(
               offers.map((o) => o.id),
               true,

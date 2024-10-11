@@ -710,10 +710,7 @@ export default compose(
               ...offerList.map((b) => b.coach),
               ...offerList.map((b) => b.coach_override),
             ]);
-            fetchEstablishmentBulk([
-              ...offerList.map((b) => b.establishment),
-              ...offerList.map((b) => b.establishment_override),
-            ]);
+            fetchEstablishmentBulk([...offerList.map((b) => b.establishment)]);
           },
         });
       },

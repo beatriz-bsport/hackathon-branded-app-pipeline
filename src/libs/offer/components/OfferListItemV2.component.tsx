@@ -125,12 +125,8 @@ export const OfferListItemV2: React.FC<Props> = ({
         secondary={
           offer
             ? `${
-                (
-                  offer.establishment_override ||
-                  // @ts-expect-error Not deleted to make sure we are not breaking anything on all endpoints.
-                  offer.etablissement ||
-                  offer.establishment
-                )?.title ?? ''
+                // @ts-expect-error Not deleted to make sure we are not breaking anything on all endpoints.
+                (offer.etablissement || offer.establishment)?.title ?? ''
               }`
             : ''
         }

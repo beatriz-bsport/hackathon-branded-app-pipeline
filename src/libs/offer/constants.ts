@@ -14,7 +14,6 @@ export const OFFER_EDIT_FORM_STEPS = {
 export const OFFER_EDIT_FORM_FIELDS = [
   'broadcast_link',
   'establishment',
-  'establishment_override',
   'coach',
   'coach_override',
   'duration_minute',

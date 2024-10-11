@@ -89,22 +89,6 @@ export type Offer = {
   date_end: string;
   date_start: string;
   effectif: number;
-  establishment_override?: {
-    city: {
-      name: string;
-      slug: string;
-    };
-    cover: string;
-    cover_thumnail: string;
-    id: number;
-    location: {
-      address: string;
-      latitude: number;
-      longitude: number;
-    };
-    slug: string;
-    title: string;
-  };
   etablissement: {
     city: {
       name: string;

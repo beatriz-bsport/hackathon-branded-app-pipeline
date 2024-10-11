@@ -256,12 +256,8 @@ export const getManagerOffersFiltered = createSelector(
   (offers, filters, theme, userCalendarFilter) => {
     let offersFiltered = offers;
     if ((filters.establishments || []).length) {
-      offersFiltered = offersFiltered.filter(
-        (o) =>
-          (filters.establishments.includes(o.establishment) &&
-            !o.establishment_override) ||
-          (o.establishment_override &&
-            filters.establishments.includes(o.establishment_override)),
+      offersFiltered = offersFiltered.filter((o) =>
+        filters.establishments.includes(o.establishment),
       );
     }
     if ((filters.coaches || []).length) {
@@ -298,12 +294,8 @@ export const getAvailableOffersFiltered = createSelector(
   (offers, filters) => {
     let offersFiltered = offers;
     if ((filters.establishments || []).length) {
-      offersFiltered = offersFiltered.filter(
-        (o) =>
-          (filters.establishments.includes(o.establishment) &&
-            !o.establishment_override) ||
-          (o.establishment_override &&
-            filters.establishments.includes(o.establishment_override)),
+      offersFiltered = offersFiltered.filter((o) =>
+        filters.establishments.includes(o.establishment),
       );
     }
     if ((filters.coaches || []).length) {
@@ -546,9 +538,7 @@ const getOfferMetaActivity = (state: RootState, offerId: number) => {
 const getOfferEtablishment = (state: RootState, offerId: number) => {
   const offer = getOfferById(state, offerId);
   if (!offer) return null;
-  return offer.establishment_override
-    ? getEstablishment(state, offer.establishment_override)
-    : getEstablishment(state, offer.establishment);
+  return getEstablishment(state, offer.establishment);
 };
 
 const getOfferCoach = (state: RootState, offerId: number) => {

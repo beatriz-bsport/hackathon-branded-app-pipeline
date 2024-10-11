@@ -164,9 +164,7 @@ FacebookPixel.addMethod(
       session_id: offer.id,
       activity: offer.meta_activity.name,
       session_date: DateTime.fromISO(offer.date_start).toISO(),
-      establishment: offer.establishment_override
-        ? offer.establishment_override.title
-        : offer.establishment.name,
+      establishment: offer.establishment.name,
       coach: offer.coach_override
         ? offer.coach_override.name
         : offer.coach.name,

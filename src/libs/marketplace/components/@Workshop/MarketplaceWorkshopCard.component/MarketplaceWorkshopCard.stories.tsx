@@ -119,8 +119,6 @@ const offer = {
   date_start: '2022-04-30T14:30:00+02:00',
   duration_minute: 150,
   effectif: 30,
-  // @ts-expect-error
-  establishment_override: null,
   recurrence_id: '4879da5d-fdec-47d1-a507-985a072d63a5',
   waiting_list_max_size: 5,
   waiting_list_disabled: false,
@@ -223,8 +221,6 @@ const offers = {
       duration_minute: 150,
       effectif: 30,
       // @ts-expect-error
-      establishment_override: null,
-      // @ts-expect-error
       id: 5543008,
       recurrence_id: '4879da5d-fdec-47d1-a507-985a072d63a5',
       waiting_list_max_size: 5,
@@ -315,7 +311,6 @@ const offers = {
       date_start: '2022-04-30T14:30:00+02:00',
       duration_minute: 150,
       effectif: 30,
-      establishment_override: null,
       // @ts-expect-error
       id: 5543008,
       recurrence_id: '4879da5d-fdec-47d1-a507-985a072d63a5',

@@ -69,7 +69,7 @@ export async function fetchOffersList(
 
 export function fetchSimilarOffersUntyped(offerId: number, params: any) {
   return getAuth(
-    `${API_V1_URI}/offer/${offerId}/similars/${buildUrlParams(params || {})}`,
+    `${API_V1_URI}/offer/${offerId}/similars/${buildUrlParams(params || null)}`,
   );
 }
 
@@ -78,7 +78,7 @@ export function fetchSimilarOffers(
   params: PaginationFilterParams,
 ) {
   return getAuth<PaginatedResponse<OfferREST>>(
-    `${API_V1_URI}/offer/${offerId}/similars/${buildUrlParams(params || {})}`,
+    `${API_V1_URI}/offer/${offerId}/similars/${buildUrlParams(params)}`,
   );
 }
 

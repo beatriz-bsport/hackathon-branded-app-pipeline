@@ -191,3 +191,77 @@ export type FetchEstablishmentParams = {
   with_workshop?: boolean;
   page_size?: number;
 };
+
+/**
+ * Represents the location details of an establishment as defined in EstablishmentLocationSerializer of bsport-django.
+ */
+type EstablishmentLocation = {
+  address_line_1: string;
+  address_line_2: string;
+  address: string;
+  city: string;
+  country_code: string;
+  country: string;
+  geocoded_data: GeocodedData;
+  geometry: string | null;
+  latitude: number;
+  longitude: number;
+  state: string;
+  zipcode: string;
+};
+
+type Geometry = {
+  location_type: string;
+  location: LocationMinimal;
+  place_id: string;
+  viewport: Viewport;
+};
+
+type LocationMinimal = {
+  lat: number;
+  lng: number;
+};
+
+type Viewport = {
+  northeast: LocationMinimal;
+  southwest: LocationMinimal;
+};
+
+type GeocodedData = {
+  address_components: AddressComponent[];
+  formatted_address: string;
+  geometry: Geometry;
+  place_id: string;
+  plus_code: PlusCode;
+  types: string[];
+};
+
+type AddressComponent = {
+  long_name: string;
+  short_name: string;
+  types: string[];
+};
+
+type PlusCode = {
+  global_code: string;
+  compound_code: string;
+};
+
+/**
+ * Represents the minimal details of an establishment as defined in EstablishmentSerializerOld of bsport-django.
+ */
+export type EstablishmentMinimal = {
+  city: City;
+  cover_thumbnail: string | null;
+  cover: string | null;
+  id: number;
+  location: EstablishmentLocation;
+  slug: string;
+  title: string;
+  tzname: string;
+};
+
+type City = {
+  name: string;
+  slug: string;
+};

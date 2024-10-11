@@ -144,3 +144,14 @@ export type CoachProfilePerformanceFilterParams = {
   isCoachSpace: boolean;
   companyId: number;
 };
+
+/**
+ * Represents minimal coach data as defined by the CoachSerializerOld in the backend.
+ */
+export type CoachMinimal = {
+  id: number;
+  name: string;
+  rating: string;
+  age: number;
+  photo: string | null;
+};

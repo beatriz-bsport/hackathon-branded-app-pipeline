@@ -48,33 +48,52 @@ const MultiSessionModalStepper: React.FC<Props> = ({
   isOpen,
   isAbleToFetchMoreSimilarSessions,
 }) => {
-  const [currentStep, setCurrentStep] = React.useState<number>(0);
-  const [preSelectedOffer, setPreSelectedOffer] =
-    React.useState<Offer_FULL | null>(null);
+  const [currentStep, setCurrentStep] = React.useState<number>(
+    MultiSessionModalStepperStater.SESSION,
+  );
+  const [preSelectedOffers, setPreSelectedOffers] = React.useState<
+    Offer_FULL[]
+  >([]);
 
   const onConfirmSessionToAdd = React.useCallback(
     (offer: Offer_FULL) => {
       if (offer) {
         onConfirm(offer);
-        setCurrentStep(0);
-        setPreSelectedOffer(null);
       }
     },
-    [onConfirm, setCurrentStep, setPreSelectedOffer],
+    [onConfirm],
   );
 
   const nextStep = React.useCallback(() => {
     const isSpotSchedulingActivated =
-      preSelectedOffer && preSelectedOffer.room_blueprint;
+      preSelectedOffers &&
+      preSelectedOffers.length > 0 &&
+      preSelectedOffers.filter((offer) => offer.room_blueprint).length > 0;
     if (
       currentStep < Object.values(MultiSessionModalStepperStater).length &&
       isSpotSchedulingActivated
     ) {
+      const preSelectedOffersWithoutSpotScheduling =
+        preSelectedOffers.filter(
+          (preSelectedOffer) => preSelectedOffer.room_blueprint === null,
+        ) ?? [];
+      preSelectedOffersWithoutSpotScheduling.forEach((preSelectedOffer) =>
+        onConfirmSessionToAdd(preSelectedOffer),
+      );
       setCurrentStep((current) => current + 1);
-    } else if (preSelectedOffer) {
-      onConfirmSessionToAdd(preSelectedOffer);
+    } else if (preSelectedOffers) {
+      preSelectedOffers.forEach((preSelectedOffer) =>
+        onConfirmSessionToAdd(preSelectedOffer),
+      );
+      onClose();
     }
-  }, [currentStep, setCurrentStep, onConfirmSessionToAdd, preSelectedOffer]);
+  }, [
+    currentStep,
+    setCurrentStep,
+    onConfirmSessionToAdd,
+    preSelectedOffers,
+    onClose,
+  ]);
 
   const previousStep = React.useCallback(() => {
     if (currentStep > 0) {
@@ -92,20 +111,26 @@ const MultiSessionModalStepper: React.FC<Props> = ({
     [offerStatusById, similarOffers],
   );
 
+  const onCloseModal = React.useCallback(() => {
+    setPreSelectedOffers([]);
+    setCurrentStep(MultiSessionModalStepperStater.SESSION);
+    onClose();
+  }, [setPreSelectedOffers, setCurrentStep, onClose]);
+
   const currentProps: (
     | MultiSessionOfferFinalProps
     | MultiSessionSpotFinalProps
   )[] = [
     {
-      setPreSelectedOffer,
+      setPreSelectedOffers,
       metaActivities,
       establishments,
       similarOffers: bookableSimilarOffers,
       fetchMoreSessions,
       nextStep,
-      preSelectedOffer,
+      preSelectedOffers,
       companyTheme,
-      onClose,
+      onClose: onCloseModal,
       isAbleToFetchMoreSimilarSessions,
     },
     {
@@ -116,13 +141,14 @@ const MultiSessionModalStepper: React.FC<Props> = ({
       fetchSpotForBlueprint,
       getSpotCurrentlyInBasket,
       updateSpotForOffer,
-      offer: preSelectedOffer,
+      offers: preSelectedOffers,
       offerStatusById,
       roomBlueprintsById,
       selectedSpotsIds,
       spotTypes,
       previousStep,
       companyTheme,
+      onClose: onCloseModal,
     },
   ];
 

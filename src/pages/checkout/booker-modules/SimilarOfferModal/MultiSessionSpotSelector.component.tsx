@@ -44,7 +44,8 @@ export type MultiSessionSpotSelectorProps = {
 type SpotStepperProps = {
   addSessionOffer: (offer: Offer_FULL) => void;
   previousStep: () => void;
-  offer: Offer_FULL;
+  offers: Offer_FULL[];
+  onClose: () => void;
 };
 
 export type MultiSessionSpotFinalProps = MultiSessionSpotSelectorProps &
@@ -58,21 +59,34 @@ const MultiSessionSpotSelector: React.FC<MultiSessionSpotFinalProps> = ({
   fetchSpotForBlueprint,
   getSpotCurrentlyInBasket,
   updateSpotForOffer,
-  offer,
+  offers,
   offerStatusById,
   roomBlueprintsById,
   selectedSpotsIds,
   spotTypes,
   companyTheme,
   previousStep,
+  onClose,
 }) => {
   const { t } = useTranslation(['common', 'booking']);
+  const [spotToSelectQueueIndex, setSpotToSelectQueueIndex] =
+    React.useState<number>(0);
 
   const canvasContainerRef = React.useRef<HTMLDivElement | null>(null);
 
   const validateSpot = React.useCallback(() => {
-    addSessionOffer(offer);
-  }, [addSessionOffer, offer]);
+    addSessionOffer(offers[spotToSelectQueueIndex]);
+    setSpotToSelectQueueIndex((current) => current + 1);
+    if (spotToSelectQueueIndex >= offers.length - 1) {
+      onClose();
+    }
+  }, [
+    onClose,
+    addSessionOffer,
+    offers,
+    spotToSelectQueueIndex,
+    setSpotToSelectQueueIndex,
+  ]);
 
   return (
     <div className="bs-new-offer-booking-page-multi-session-spot-selector">
@@ -93,23 +107,31 @@ const MultiSessionSpotSelector: React.FC<MultiSessionSpotFinalProps> = ({
           </ButtonBase>
         </div>
         <div className="bs-new-offer-booking-multi-session-spot-selector__blueprint">
-          {offer &&
+          {offers &&
             roomBlueprintsById &&
-            roomBlueprintsById[offer.room_blueprint] && (
+            roomBlueprintsById[
+              offers[spotToSelectQueueIndex]?.room_blueprint
+            ] && (
               <div ref={canvasContainerRef}>
                 <MarketplaceSpotSelector
                   assetByIdBlueprintByIdentifier={
                     assetByIdBlueprintByIdentifier
                   }
                   closeSpotSelector={validateSpot}
-                  expirationDatetime={getSpotExpirationDatetime(offer.id)}
+                  expirationDatetime={getSpotExpirationDatetime(
+                    offers[spotToSelectQueueIndex].id,
+                  )}
                   fetchOfferStatus={fetchOfferStatus}
                   fetchSpotForBlueprint={fetchSpotForBlueprint}
-                  offer={offer}
+                  offer={offers[spotToSelectQueueIndex]}
                   offerStatusById={offerStatusById}
                   roomBlueprintsById={roomBlueprintsById}
-                  selectedSpot={selectedSpotsIds[offer.id]}
-                  spotCurrentlyInBasket={getSpotCurrentlyInBasket(offer.id)}
+                  selectedSpot={
+                    selectedSpotsIds[offers[spotToSelectQueueIndex].id]
+                  }
+                  spotCurrentlyInBasket={getSpotCurrentlyInBasket(
+                    offers[spotToSelectQueueIndex].id,
+                  )}
                   spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(spotTypes)}
                   theme={companyTheme}
                   updateSpotForOffer={updateSpotForOffer}

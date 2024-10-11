@@ -34,8 +34,8 @@ export type MultiSessionOfferSelectorProps = {
 
 type OfferStepperProps = {
   nextStep: () => void;
-  setPreSelectedOffer: (offer: Offer_FULL) => void;
-  preSelectedOffer: Offer_FULL;
+  setPreSelectedOffers: (offers: Offer_FULL[]) => void;
+  preSelectedOffers: Offer_FULL[];
 };
 
 export type MultiSessionOfferFinalProps = MultiSessionOfferSelectorProps &
@@ -105,30 +105,34 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
   metaActivities,
   establishments,
   similarOffers,
-  preSelectedOffer,
+  preSelectedOffers,
   isAbleToFetchMoreSimilarSessions,
   fetchMoreSessions,
   onClose,
   nextStep,
-  setPreSelectedOffer,
+  setPreSelectedOffers,
 }) => {
   const { t } = useTranslation(['common', 'booking']);
   const onSelectSession = React.useCallback(
     (offer: Offer_FULL, isSelected: boolean) => {
       if (isSelected) {
-        setPreSelectedOffer(null);
+        setPreSelectedOffers([
+          ...preSelectedOffers.filter(
+            (preSelectedOffer) => preSelectedOffer.id !== offer.id,
+          ),
+        ]);
       } else {
-        setPreSelectedOffer(offer);
+        setPreSelectedOffers([...preSelectedOffers, offer]);
       }
     },
-    [setPreSelectedOffer],
+    [setPreSelectedOffers, preSelectedOffers],
   );
 
   const handleAddOffer = React.useCallback(() => {
-    if (preSelectedOffer) {
+    if (preSelectedOffers) {
       nextStep();
     }
-  }, [nextStep, preSelectedOffer]);
+  }, [nextStep, preSelectedOffers]);
 
   return (
     <div className="bs-similar-offer-modal-container">
@@ -158,12 +162,18 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
                 typeof offer.establishment === 'number'
                   ? establishments?.[offer.establishment]
                   : offer.establishment;
+              const isOfferSelected =
+                preSelectedOffers &&
+                preSelectedOffers.length > 0 &&
+                !!preSelectedOffers.find(
+                  (selectedOffer) => selectedOffer.id === offer.id,
+                );
               return (
                 <OfferSessionCard
                   key={offer.id}
                   companyTheme={companyTheme}
                   establishment={offerEstablishments}
-                  isSelected={preSelectedOffer?.id === offer.id}
+                  isSelected={isOfferSelected}
                   metaActivity={offerMetaActiviy}
                   offer={offer}
                   onClick={onSelectSession}
@@ -201,7 +211,7 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
         </ButtonBase>
         <ButtonBase
           className="bs-similar-offer-modal-container__add__button"
-          disabled={preSelectedOffer === null}
+          disabled={preSelectedOffers && preSelectedOffers.length < 1}
           onClick={handleAddOffer}
         >
           {t('booking:bookingModule.multiSession.selectSpot.validationButton')}

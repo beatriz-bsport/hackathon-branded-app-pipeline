@@ -1,4 +1,4 @@
-import { DateTime, Interval } from 'luxon';
+import { DateTime, Duration, Interval } from 'luxon';
 import { DayTimeIntervals } from '#src/libs/private-service/constants';
 import type { Slot } from '#src/libs/private-service/types';
 
@@ -343,4 +343,27 @@ export const mergeAdjacentIntervals = (intervals: Interval[]) => {
     },
     [],
   );
+};
+
+/**
+ * Splits an array of time intervals into smaller chunks of a specified duration.
+ *
+ * @param {Interval[]} intervals - An array of `Interval` objects representing the original time intervals to split.
+ * @param {Duration} duration - The target duration in minutes for each chunk.
+ * @returns {Interval[]} - An array of `Interval` objects, each with a duration matching `durationMinutes`.
+ *
+ * @example
+ * // Given an interval from 10:00 to 11:00 and a duration of 30 minutes,
+ * // returns two intervals: [10:00 - 10:30, 10:30 - 11:00]
+ * chunkIntervalsByDuration([Interval.fromDateTimes(start, end)], 30);
+ */
+export const chunkIntervalsByDuration = (
+  intervals: Interval[],
+  duration: Duration,
+) => {
+  if (!intervals || !duration) return [];
+  const mergedIntervals = mergeAdjacentIntervals(intervals);
+  return mergedIntervals
+    .flatMap((interval) => interval.splitBy(duration))
+    .filter((interval) => interval.toDuration('minutes').equals(duration));
 };

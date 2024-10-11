@@ -1,6 +1,7 @@
 .bs-consumer-page__root {
   container: bsConsumerPageContentContainer / inline-size;
   width: 100%;
+  height: 100%;
   max-width: 1400px;
   display: flex;
   flex-direction: column;

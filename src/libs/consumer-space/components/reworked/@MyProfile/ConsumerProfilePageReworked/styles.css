@@ -8,13 +8,6 @@
   overflow-y: auto;
 }
 
-.bs-consumer-profile-page__root--mobile {
-  height: calc(
-    100cqh - var(--bs-navigation-app-bar-height) -
-      var(--bs-consumer-profile-page-footer-height)
-  );
-}
-
 .bs-consumer-profile-page__body {
   display: grid;
   grid-template-areas: 'consumerSummary consumerSettings';

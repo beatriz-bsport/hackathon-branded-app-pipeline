@@ -1,16 +1,15 @@
 .bs-consumer-navigation__root {
+  display: flex;
+  flex-direction: column;
   container: bsConsumerNavigation / inline-size;
   overflow: auto;
+  min-height: 100dvh;
 }
 
 .bs-consumer-navigation__layout {
   display: flex;
-  margin: 0 auto;
   background: var(--bs-grey-0);
-}
-
-.bs-consumer-navigation__layout--computed-height {
-  height: calc(100cqh - var(--bs-navigation-app-bar-height));
+  flex: 1;
 }
 
 .bs-consumer-navigation__layout--relationship {
@@ -26,6 +25,10 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.bs-consumer-navigation__content > .bs-setup-variable {
+  flex: 1;
 }
 
 .bs-consumer-navigation__content--mobile {

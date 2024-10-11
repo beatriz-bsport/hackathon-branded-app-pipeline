@@ -1,9 +1,9 @@
 .bs-navigation-side-drawer__root {
   display: flex;
   flex-direction: column;
+  height: calc(100% - var(--bs-navigation-app-bar-height));
   align-items: flex-start;
   width: 100%;
-  height: calc(100% - var(--bs-navigation-app-bar-height));
   background: var(--bs-color-action-light);
   bottom: 0;
   left: 0;

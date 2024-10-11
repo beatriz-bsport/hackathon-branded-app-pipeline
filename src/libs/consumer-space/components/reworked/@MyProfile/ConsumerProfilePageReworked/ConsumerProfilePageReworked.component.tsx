@@ -1,7 +1,6 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { AxiosResponse } from 'axios';
-import classNames from 'classnames';
 
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
@@ -247,11 +246,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
   } = member;
 
   return (
-    <PageContentContainer
-      contentClassName={classNames('bs-consumer-profile-page__root', {
-        'bs-consumer-profile-page__root--mobile': isMobile,
-      })}
-    >
+    <PageContentContainer contentClassName="bs-consumer-profile-page__root">
       <ConsumerPageHeader
         isMobile={isMobile}
         TitleProps={{

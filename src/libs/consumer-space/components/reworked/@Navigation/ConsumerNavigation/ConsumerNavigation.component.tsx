@@ -314,13 +314,9 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
         title={memberName && `${memberName},`}
       />
       <div
-        className={classNames(
-          'bs-consumer-navigation__layout',
-          'bs-consumer-navigation__layout--computed-height',
-          {
-            'bs-consumer-navigation__layout--relationship': isRelationshipAuth,
-          },
-        )}
+        className={classNames('bs-consumer-navigation__layout', {
+          'bs-consumer-navigation__layout--relationship': isRelationshipAuth,
+        })}
       >
         <NavigationSideBar
           items={consumerNavigationData}

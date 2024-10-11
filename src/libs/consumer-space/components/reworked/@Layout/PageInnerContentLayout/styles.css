@@ -24,6 +24,7 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--bs-space-size-4);
   width: 100%;
+  flex: 1;
 }
 
 .bs-consumer-page-inner-content__root-layout__empty {
@@ -33,19 +34,13 @@
 .bs-consumer-page-inner-content__root--left-component {
   padding: 0;
   margin: 0;
-  flex: 1;
-}
-
-.bs-consumer-page-inner-content__root--left-component
-  > .infinite-scroll-component__outerdiv
-  > .infinite-scroll-component {
-  display: flex;
-  flex-direction: column;
-  gap: var(--bs-space-size-4);
+  height: 100%;
 }
 
 .bs-consumer-page-inner-content__root--right-component {
   overflow: auto;
+  flex: 1;
+  height: 100%;
 }
 
 @container bsConsumerPageContentContainer (width < 400px) {

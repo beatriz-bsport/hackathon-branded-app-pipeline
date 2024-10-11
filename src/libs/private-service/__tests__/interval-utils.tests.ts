@@ -3,6 +3,7 @@ import {
   convertSlotToInterval,
   getAvailableDayTimeIntervals,
   getAvailableDayTimeSegments,
+  getIntersectingSlots,
   getDayTimeIntervals,
 } from '#src/libs/private-service/interval-utils';
 
@@ -340,6 +341,143 @@ describe('getAvailableDayTimeIntervals', () => {
     ).toStrictEqual({});
     expect(getAvailableDayTimeIntervals(testDate, emptySlots)).toStrictEqual(
       {},
+    );
+  });
+});
+
+describe('getIntersectingSlots', () => {
+  const dayTimeIntervals = getDayTimeIntervals(
+    DateTime.fromISO('2024-10-11').toISODate(),
+  );
+  const slots: Slot[] = [
+    ['2024-10-11T07:30:00', '2024-10-11T13:45:00'],
+    ['2024-10-11T14:30:00', '2024-10-11T18:25:00'],
+    ['2024-10-11T17:30:00', '2024-10-11T23:45:00'],
+  ];
+  it('should return intersecting intervals when slots overlap the selected interval', () => {
+    const morningSlots = getIntersectingSlots(dayTimeIntervals.morning, slots);
+    const noonSlots = getIntersectingSlots(dayTimeIntervals.noon, slots);
+    const afternoonSlots = getIntersectingSlots(
+      dayTimeIntervals.afternoon,
+      slots,
+    );
+    const eveningSlots = getIntersectingSlots(dayTimeIntervals.evening, slots);
+    expect(morningSlots[0]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T07:30:00'),
+        DateTime.fromISO('2024-10-11T12:00:00'),
+      ),
+    );
+    expect(noonSlots[0]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T12:00:00'),
+        DateTime.fromISO('2024-10-11T13:45:00'),
+      ),
+    );
+    expect(afternoonSlots[1]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T17:30:00'),
+        DateTime.fromISO('2024-10-11T18:00:00'),
+      ),
+    );
+    expect(eveningSlots[0]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T18:00:00'),
+        DateTime.fromISO('2024-10-11T18:25:00'),
+      ),
+    );
+    expect(eveningSlots[1]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T18:00:00'),
+        DateTime.fromISO('2024-10-11T23:45:00'),
+      ),
+    );
+  });
+  it('should return an empty array for slots that do not overlap with the selected interval', () => {
+    const result = getIntersectingSlots(dayTimeIntervals.morning, [slots[2]]);
+    expect(result).toStrictEqual([]);
+  });
+  it('should handle slots that exactly match the boundaries of the selected interval', () => {
+    const edgeSlots: Slot[] = [
+      ['2024-10-11T00:00:00', '2024-10-11T08:45:00'],
+      ['2024-10-11T09:00:00', '2024-10-11T12:00:00'],
+      ['2024-10-11T12:00:00', '2024-10-11T13:25:00'],
+      ['2024-10-11T12:45:00', '2024-10-11T14:00:00'],
+      ['2024-10-11T14:00:00', '2024-10-11T17:00:00'],
+      ['2024-10-11T17:30:00', '2024-10-11T18:00:00'],
+      ['2024-10-11T18:00:00', '2024-10-11T21:00:00'],
+      ['2024-10-11T19:30:00', '2024-10-11T24:00:00'],
+    ];
+    const morningSlots = getIntersectingSlots(
+      dayTimeIntervals.morning,
+      edgeSlots,
+    );
+    const noonSlots = getIntersectingSlots(dayTimeIntervals.noon, edgeSlots);
+    const afternoonSlots = getIntersectingSlots(
+      dayTimeIntervals.afternoon,
+      edgeSlots,
+    );
+    const eveningSlots = getIntersectingSlots(
+      dayTimeIntervals.evening,
+      edgeSlots,
+    );
+    expect(morningSlots.length).toEqual(2);
+    expect(morningSlots[0]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T00:00:00'),
+        DateTime.fromISO('2024-10-11T08:45:00'),
+      ),
+    );
+    expect(morningSlots[1]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T09:00:00'),
+        DateTime.fromISO('2024-10-11T12:00:00'),
+      ),
+    );
+    expect(noonSlots.length).toEqual(2);
+    expect(noonSlots[0]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T12:00:00'),
+        DateTime.fromISO('2024-10-11T13:25:00'),
+      ),
+    );
+    expect(noonSlots[1]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T12:45:00'),
+        DateTime.fromISO('2024-10-11T14:00:00'),
+      ),
+    );
+    expect(afternoonSlots.length).toEqual(2);
+    expect(afternoonSlots[0]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T14:00:00'),
+        DateTime.fromISO('2024-10-11T17:00:00'),
+      ),
+    );
+    expect(afternoonSlots[1]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T17:30:00'),
+        DateTime.fromISO('2024-10-11T18:00:00'),
+      ),
+    );
+    expect(eveningSlots.length).toEqual(2);
+    expect(eveningSlots[0]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T18:00:00'),
+        DateTime.fromISO('2024-10-11T21:00:00'),
+      ),
+    );
+    expect(eveningSlots[1]).toEqual(
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T19:30:00'),
+        DateTime.fromISO('2024-10-11T23:59:59'),
+      ),
+    );
+  });
+  it('should handle an empty or undefined slots array', () => {
+    expect(getIntersectingSlots(dayTimeIntervals.afternoon, [])).toEqual([]);
+    expect(getIntersectingSlots(dayTimeIntervals.afternoon, undefined)).toEqual(
+      [],
     );
   });
 });

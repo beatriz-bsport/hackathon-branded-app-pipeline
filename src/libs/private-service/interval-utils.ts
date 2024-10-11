@@ -189,3 +189,41 @@ export const getAvailableDayTimeIntervals = (
 
   return availableDayTimeIntervals;
 };
+
+/**
+ * Returns a list of intervals representing the intersection between each slot and a selected interval.
+ *
+ * This function converts each slot to a Luxon `Interval` and calculates the intersection with the provided
+ * `interval`.
+ *
+ * @param {Interval} interval - The Luxon `Interval` to check for intersections with each slot.
+ * @param {Slot[]} slots - An array of slots, where each slot represents a start and end time.
+ *
+ * @returns {Interval[]} An array of `Interval` objects, where each entry represents
+ *                                the intersection of the slot with the `interval`.
+ *
+ * @example
+ * // Example usage:
+ * const interval = Interval.fromDateTimes(
+ *   DateTime.fromISO("2024-10-04T09:00:00Z"),
+ *   DateTime.fromISO("2024-10-04T12:00:00Z")
+ * );
+ * const slots = [
+ *   ["2024-10-04T08:00:00Z","2024-10-04T10:00:00Z"],
+ *   ["2024-10-04T11:00:00Z","2024-10-04T13:00:00Z"]
+ * ];
+ *
+ * const intersections = getIntersectingSlots(interval, slots);
+ * console.log(intersections);
+ * // Output: [Interval.fromDateTimes("2024-10-04T09:00:00Z", "2024-10-04T10:00:00Z"),
+ * //          Interval.fromDateTimes("2024-10-04T11:00:00Z", "2024-10-04T12:00:00Z")]
+ */
+export const getIntersectingSlots = (interval: Interval, slots: Slot[]) => {
+  if (!slots || !interval || !interval?.isValid) return [];
+  return slots
+    .map((slot) => {
+      const slotInterval = convertSlotToInterval(slot);
+      return interval.intersection(slotInterval);
+    })
+    .filter((intersectingSlot) => !!intersectingSlot);
+};

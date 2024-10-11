@@ -5,6 +5,7 @@
 import {
   bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction,
   createAuthenticatedBridgeAction,
+  createFreeBridgeAction,
 } from '../actions';
 import { bridgeRequestLogout } from '../actions';
 
@@ -203,6 +204,12 @@ export const consumerProfileBridgeActions = {
   submitCustomForm: createAuthenticatedBridgeAction('SUBMIT_CUSTOM_FORM'),
   fetchMyUserProfile: createAuthenticatedBridgeAction(
     'RETRIEVE_MY_USER_PROFILE',
+  ),
+  retrieveReferralProgramForCompany: createFreeBridgeAction(
+    'FETCH_REFERRAL_PROGRAM_BY_COMPANY',
+  ),
+  retrieveReferralMemberStatus: createAuthenticatedBridgeAction(
+    'FETCH_REFERRAL_PROGRAM_MEMBER_STATUS',
   ),
 };
 

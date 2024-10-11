@@ -4,8 +4,10 @@
  */
 import {
   getMemberById,
+  getCompanyReferralProgram,
   getMembershipByCompanyId,
   getMemberUsingCompanyId,
+  getReferralMemberStatusUsingCompanyId,
 } from '../selectors';
 import { adaptSelector } from '../../../utils/reduxHelpers';
 
@@ -289,6 +291,15 @@ export const consumerProfileBridgeSelectors = (
     state,
     getMemberUsingCompanyId(state, companyId)?.id,
   ),
+  memberError: state.member.error,
+  referralProgram: getCompanyReferralProgram(state, companyId),
+  referralProgramLoading: state.bridge.referralProgram.loading,
+  referralProgramError: state.bridge.referralProgram.error,
+  referralMemberStatus: getReferralMemberStatusUsingCompanyId(state, companyId),
+  referralMemberStatusLoading: state.bridge.referralMemberStatus.loading,
+  referralMemberStatusError: state.bridge.referralMemberStatus.error,
+  membershipLoading: state.bridge.membership.loading,
+  membershipError: state.bridge.membership.error,
 });
 
 /* MY INVOICES */

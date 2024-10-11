@@ -3,6 +3,7 @@ import {
   convertSlotToInterval,
   getAvailableDayTimeIntervals,
   getAvailableDayTimeSegments,
+  findIntervalsIntersections,
   getIntersectingSlots,
   getDayTimeIntervals,
 } from '#src/libs/private-service/interval-utils';
@@ -479,5 +480,125 @@ describe('getIntersectingSlots', () => {
     expect(getIntersectingSlots(dayTimeIntervals.afternoon, undefined)).toEqual(
       [],
     );
+  });
+});
+
+describe('findIntervalsIntersections', () => {
+  it('should return intersections for overlapping intervals', () => {
+    const intervalsA = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-04T08:00:00'),
+        DateTime.fromISO('2024-10-04T12:00:00'),
+      ),
+    ];
+    const intervalsB = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-04T10:00:00'),
+        DateTime.fromISO('2024-10-04T14:00:00'),
+      ),
+    ];
+
+    const result = findIntervalsIntersections(intervalsA, intervalsB);
+    expect(result).toHaveLength(1);
+    expect(result[0].start).toStrictEqual(
+      DateTime.fromISO('2024-10-04T10:00:00'),
+    );
+    expect(result[0].end).toStrictEqual(
+      DateTime.fromISO('2024-10-04T12:00:00'),
+    );
+  });
+
+  it('should return empty array when there are no intersections', () => {
+    const intervalsA = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-04T08:00:00Z'),
+        DateTime.fromISO('2024-10-04T10:00:00Z'),
+      ),
+    ];
+    const intervalsB = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-04T11:00:00Z'),
+        DateTime.fromISO('2024-10-04T14:00:00Z'),
+      ),
+    ];
+
+    const result = findIntervalsIntersections(intervalsA, intervalsB);
+    expect(result).toHaveLength(0);
+  });
+
+  it('should return correct intersections for multiple overlapping intervals', () => {
+    const intervalsA = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-04T08:00:00'),
+        DateTime.fromISO('2024-10-04T12:00:00'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-04T13:00:00'),
+        DateTime.fromISO('2024-10-04T15:00:00'),
+      ),
+    ];
+    const intervalsB = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-04T10:00:00'),
+        DateTime.fromISO('2024-10-04T14:00:00'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-04T15:00:00'),
+        DateTime.fromISO('2024-10-04T16:00:00'),
+      ),
+    ];
+
+    const result = findIntervalsIntersections(intervalsA, intervalsB);
+    expect(result).toHaveLength(2);
+    expect(result[0].start).toStrictEqual(
+      DateTime.fromISO('2024-10-04T10:00:00'),
+    );
+    expect(result[0].end).toStrictEqual(
+      DateTime.fromISO('2024-10-04T12:00:00'),
+    );
+    expect(result[1].start).toStrictEqual(
+      DateTime.fromISO('2024-10-04T13:00:00'),
+    );
+    expect(result[1].end).toStrictEqual(
+      DateTime.fromISO('2024-10-04T14:00:00'),
+    );
+  });
+
+  it('should handle adjacent intervals without overlap', () => {
+    const intervalsA = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-04T08:00:00'),
+        DateTime.fromISO('2024-10-04T10:00:00'),
+      ),
+    ];
+    const intervalsB = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-04T10:00:00'),
+        DateTime.fromISO('2024-10-04T12:00:00'),
+      ),
+    ];
+
+    const result = findIntervalsIntersections(intervalsA, intervalsB);
+    expect(result).toHaveLength(0);
+  });
+
+  it('should handle intervals that overlap exactly at the boundary', () => {
+    const intervalsA = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-04T08:00:00'),
+        DateTime.fromISO('2024-10-04T10:00:00'),
+      ),
+    ];
+    const intervalsB = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-04T08:00:00'),
+        DateTime.fromISO('2024-10-04T09:00:00'),
+      ),
+    ];
+
+    const result = findIntervalsIntersections(intervalsA, intervalsB);
+    expect(result).toHaveLength(1);
+    expect(result[0].start).toStrictEqual(DateTime.fromISO('2024-10-04T08:00'));
+    expect(result[0].end).toStrictEqual(DateTime.fromISO('2024-10-04T09:00'));
   });
 });

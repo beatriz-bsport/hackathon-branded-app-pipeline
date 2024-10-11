@@ -227,3 +227,48 @@ export const getIntersectingSlots = (interval: Interval, slots: Slot[]) => {
     })
     .filter((intersectingSlot) => !!intersectingSlot);
 };
+
+/**
+ * Finds and returns the intersections between two arrays of time intervals.
+ *
+ * @param {Interval[]} intervalsA - The first array of time intervals to compare.
+ * @param {Interval[]} intervalsB - The second array of time intervals to compare.
+ * @returns {Interval[]} An array of intersecting intervals, each representing the overlap
+ * between an interval in `intervalsA` and an interval in `intervalsB`.
+ * If no intersections are found, returns an empty array.
+ *
+ * @example
+ * const intervalsA = [
+ *   Interval.fromDateTimes(DateTime.fromISO("2024-10-04T08:00:00Z"), DateTime.fromISO("2024-10-04T12:00:00Z")),
+ *   Interval.fromDateTimes(DateTime.fromISO("2024-10-04T13:00:00Z"), DateTime.fromISO("2024-10-04T15:00:00Z"))
+ * ];
+ *
+ * const intervalsB = [
+ *   Interval.fromDateTimes(DateTime.fromISO("2024-10-04T10:00:00Z"), DateTime.fromISO("2024-10-04T14:00:00Z")),
+ *   Interval.fromDateTimes(DateTime.fromISO("2024-10-04T15:00:00Z"), DateTime.fromISO("2024-10-04T16:00:00Z"))
+ * ];
+ *
+ * const result = findIntervalsIntersections(intervalsA, intervalsB);
+ * // result: [
+ * //   Interval.fromDateTimes(DateTime.fromISO("2024-10-04T10:00:00Z"), DateTime.fromISO("2024-10-04T12:00:00Z")),
+ * //   Interval.fromDateTimes(DateTime.fromISO("2024-10-04T13:00:00Z"), DateTime.fromISO("2024-10-04T14:00:00Z")),
+ * //   Interval.fromDateTimes(DateTime.fromISO("2024-10-04T15:00:00Z"), DateTime.fromISO("2024-10-04T15:00:00Z"))
+ * // ]
+ */
+export const findIntervalsIntersections = (
+  intervalsA: Interval[],
+  intervalsB: Interval[],
+) => {
+  if (
+    !intervalsA ||
+    !intervalsB ||
+    intervalsA.some((interval) => !interval.isValid) ||
+    intervalsB.some((interval) => !interval.isValid)
+  )
+    return [];
+  return intervalsA.flatMap((intervalA) =>
+    intervalsB
+      .map((intervalB) => intervalA.intersection(intervalB))
+      .filter((intersection) => !!intersection),
+  );
+};

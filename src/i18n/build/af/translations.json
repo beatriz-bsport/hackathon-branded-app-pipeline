@@ -6673,7 +6673,8 @@
           },
           "footer": { "addUnitButton": "Add Unit ID" }
         }
-      }
+      },
+      "productSelection": { "selector": { "placeholder": "Select a Wellhub product" } }
     }
   },
   "payment": {

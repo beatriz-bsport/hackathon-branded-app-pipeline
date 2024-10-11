@@ -101,5 +101,10 @@ exports.default = {
         },
       },
     },
+    productSelection: {
+      selector: {
+        placeholder: 'Select a Wellhub product',
+      },
+    },
   },
 };

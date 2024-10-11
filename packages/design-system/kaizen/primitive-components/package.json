@@ -44,9 +44,10 @@
     "component:add": "pnpm exec hygen component new",
     "ci:deploy:production": "./scripts/ci-deploy-production.sh",
     "dev": "pnpm run storybook:dev",
-    "icon:add": "tsx ./scripts/create-icon.ts",
+    "icon:generate": "tsx ./scripts/generate-icons.ts",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
+    "pre-commit": "sh ./scripts/pre-commit.sh",
     "storybook:build": "sb build",
     "storybook:dev": "sb dev"
   }

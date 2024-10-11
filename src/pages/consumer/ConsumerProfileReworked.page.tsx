@@ -46,6 +46,7 @@ import {
   getReferralProgramsLoading,
   getTheReferralProgram,
 } from '#src/libs/referral/selectors';
+import type { CompanyTheme } from '#src/libs/theme/types';
 
 type OwnProps = {
   membership: Membership;
@@ -56,6 +57,8 @@ type OwnProps = {
   companyId?: number;
   closeEditProfilePortalOnMobile: () => void;
   isEditProfileMobilePortalOpen: boolean;
+  /** Company theme for widget case */
+  theme?: CompanyTheme;
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
@@ -130,7 +133,8 @@ class ConsumerProfileReworked extends React.Component<Props> {
           onSuccess: () => {
             if (
               this.props.authenticated &&
-              this.props.companyTheme?.is_referral_program_activated
+              (this.props.theme?.is_referral_program_activated ||
+                this.props.companyTheme?.is_referral_program_activated)
             ) {
               this.props.retrieveReferralMemberStatus(this.props.membership.id);
             }
@@ -175,7 +179,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
         <ConsumerProfilePageReworked
           closeEditProfilePortalOnMobile={closeEditProfilePortalOnMobile}
           companyCountry={companyCountry}
-          companyTheme={companyTheme}
+          companyTheme={this.props.theme ?? companyTheme}
           companyThemeLoading={companyThemeLoading}
           detachPaymentMethod={this.detachPaymentMethod}
           detachPaymentMethodLoading={detachPaymentMethodLoading}

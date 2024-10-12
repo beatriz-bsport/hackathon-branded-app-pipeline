@@ -2177,9 +2177,9 @@
                 },
                 "header": {
                     "filters": {
-                        "unpaid": "Impayée",
-                        "refunded": "Remboursée",
-                        "paid": "Payée"
+                        "unpaid": "Impayées",
+                        "refunded": "Remboursées",
+                        "paid": "Payées"
                     },
                     "buttons": {
                         "goBack": "Retour",

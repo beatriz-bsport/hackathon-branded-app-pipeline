@@ -35,7 +35,6 @@ import {
   fetchOfferBulk,
   fetchOfferWaitingListPositionList as fetchOfferWaitingListPositionListAction,
 } from '#src/libs/offer/actions';
-// @ts-expect-error
 import Analytics from '#src/components/analytics/Analytics.component';
 import { fetchMetaActivityBulk } from '#src/libs/meta-activity/actions';
 import { fetchCoachBulk } from '#src/libs/associated-coach/actions';

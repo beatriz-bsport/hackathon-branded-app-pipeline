@@ -8,8 +8,7 @@ import { useMarketplacePassFilters } from '#src/libs/marketplace/hooks';
 import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
 
 import { PaymentCombo } from '#src/libs/payment-combo/types';
-// @ts-expect-error
-import Analytics from '../../../../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 
 import './styles.css';
 

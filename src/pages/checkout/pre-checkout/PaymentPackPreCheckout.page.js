@@ -27,7 +27,7 @@ import {
 } from '../../../libs/checkout/actions';
 import { fetchOne } from '../../../libs/payment-packs/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import Analytics from '../../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 
 type Props = {
   location: Object,

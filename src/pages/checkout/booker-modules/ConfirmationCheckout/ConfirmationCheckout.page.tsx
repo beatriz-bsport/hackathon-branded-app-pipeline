@@ -77,7 +77,6 @@ import MarketplaceCheckoutItemsWithPaymentComboList from '#src/libs/marketplace/
 import MarketplaceProductItemList from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceProductItemList';
 import MinimalSubscriptionCard from '#src/libs/marketplace/components/@Subscription/MinimalSubscriptionCard';
 import { Subscription } from '#src/libs/subscription/types';
-// @ts-expect-error
 import Analytics from '#src/components/analytics/Analytics.component';
 
 import ConfirmationMessage from '#src/libs/checkout/components/ConfirmationMessage';

@@ -25,7 +25,7 @@ import {
 import { urlToMarketplace } from '../../../libs/marketplace/utils';
 
 import { fetchPaymentCombo } from '../../../libs/payment-combo/actions';
-import Analytics from '../../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 
 type Props = {
   theme: Theme,

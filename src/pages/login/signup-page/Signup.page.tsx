@@ -15,7 +15,6 @@ import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-d
 import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
 
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
-// @ts-expect-error
 import Analytics from '#src/components/analytics/Analytics.component';
 
 import {

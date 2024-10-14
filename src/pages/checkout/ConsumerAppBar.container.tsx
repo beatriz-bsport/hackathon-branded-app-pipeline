@@ -13,8 +13,7 @@ import { navigateBackToMasterRelation as navigateBackToMasterRelationAction } fr
 import { auth as authActions } from '../../actions';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 
-// @ts-expect-error
-import Analytics from '../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 import themeSelectors from '../../libs/theme/selectors';
 // @ts-expect-error
 import { getTheme } from '../../theme';

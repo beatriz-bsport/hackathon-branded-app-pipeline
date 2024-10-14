@@ -77,7 +77,7 @@ import {
   monitorExpiredItemRemoval,
 } from '../../../libs/checkout/actions';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
-import Analytics from '../../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
 import { fetchOfferBulk as fetchOfferBulkAction } from '../../../libs/offer/actions';

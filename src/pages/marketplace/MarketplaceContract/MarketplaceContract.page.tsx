@@ -31,8 +31,7 @@ import { getContractCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import type { RootState } from '../../../reducers';
 import MarketplaceContractFilters from './MarketplaceContractFilters';
 import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
-// @ts-expect-error
-import Analytics from '../../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 
 import './styles.css';
 

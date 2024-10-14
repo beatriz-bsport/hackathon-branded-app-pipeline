@@ -46,7 +46,6 @@ import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
 import { getPaymentPack } from '#src/libs/payment-packs/selectors';
 import { getPrivatePass } from '#src/libs/private-service/selectors/private-pass';
 import { getPaymentCombo } from '#src/libs/payment-combo/selectors';
-// @ts-expect-error
 import Analytics from '#src/components/analytics/Analytics.component';
 import { snackbarWarning, snackbarSuccess } from '#src/libs/snackbar/actions';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';

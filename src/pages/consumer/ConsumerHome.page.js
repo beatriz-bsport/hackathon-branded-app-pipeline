@@ -11,7 +11,7 @@ import {
 import { getProgramList } from '#src/libs/performance-tracking/selector';
 import { fetchProgram as fetchProgramAction } from '#src/libs/performance-tracking/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import Analytics from '../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { parseQueryString, buildUrlParams } from '../../http';
 import { withTranslation } from 'react-i18next';

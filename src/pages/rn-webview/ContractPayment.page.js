@@ -36,7 +36,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { parseQueryString } from '../../http';
 import themeSelectors from '../../libs/theme/selectors';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
-import Analytics from '../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 
 const SubscriptionPayment = asyncComponent(() =>
   import('../../libs/subscription/components/SubscriptionPayment.component'),

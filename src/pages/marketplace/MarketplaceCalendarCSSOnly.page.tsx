@@ -83,7 +83,6 @@ import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#src/libs/gr
 
 import withTitle from '#src/hocs/with-title.hoc';
 
-// @ts-expect-error
 import Analytics from '#src/components/analytics/Analytics.component';
 import { Offer, OfferFilterData, Offer_FULL } from '#src/libs/offer/types';
 import {

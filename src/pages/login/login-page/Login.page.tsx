@@ -8,7 +8,6 @@ import { withTranslation, type WithTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
-// @ts-expect-error
 import Analytics from '#src/components/analytics/Analytics.component';
 import Login from '#src/components/css-only/Login/Login.component';
 // @ts-expect-error

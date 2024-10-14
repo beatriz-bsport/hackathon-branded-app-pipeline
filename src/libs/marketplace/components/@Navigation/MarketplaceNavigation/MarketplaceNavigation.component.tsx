@@ -17,7 +17,6 @@ import {
 import { getDefaultMarketplaceTabTitle } from '#src/libs/exportable-components/utils';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { getItemInStorage } from '#src/utils/storage';
-// @ts-expect-error JS
 import Analytics from '#src/components/analytics/Analytics.component';
 import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppBar';
 import NavigationSideDrawer from '#src/components/css-only/Navigation/NavigationSideDrawer/NavigationSideDrawer.component';

@@ -12,7 +12,6 @@ import { emailValidationRegExp } from '#src/libs/custom-form/constants';
 import { NewsletterV2FieldsKind } from '#src/libs/marketplace/constants';
 
 import './styles.css';
-// @ts-expect-error
 import Analytics from '#src/components/analytics/Analytics.component';
 import { OptionCallback } from '../../../state/types';
 

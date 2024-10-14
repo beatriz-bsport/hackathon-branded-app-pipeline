@@ -11,7 +11,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import themeSelectors from '../../libs/theme/selectors';
 
 import asyncComponent from '../../AsyncComponent';
-import Analytics from '../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 import { fetchProfile } from '../../libs/consumer-space/actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import namespaces from '../../i18n/namespaces.json';

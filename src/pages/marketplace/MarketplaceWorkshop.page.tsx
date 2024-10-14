@@ -70,7 +70,6 @@ import {
 } from '#src/libs/level/selectors';
 
 import MarketplaceWorkshop from '#src/libs/marketplace/components/@Workshop/MarketplaceWorkshop.component';
-// @ts-expect-error
 import Analytics from '#src/components/analytics/Analytics.component';
 import withTitle from '#src/hocs/with-title.hoc';
 import {

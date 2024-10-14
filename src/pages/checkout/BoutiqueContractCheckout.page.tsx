@@ -34,7 +34,6 @@ import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod,
 } from '#src/libs/payment/actions';
-// @ts-expect-error
 import Analytics from '#src/components/analytics/Analytics.component';
 import Button, {
   ButtonVariant,

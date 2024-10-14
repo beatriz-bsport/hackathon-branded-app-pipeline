@@ -34,7 +34,6 @@ import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppB
 import NavigationSideDrawer from '#src/components/css-only/Navigation/NavigationSideDrawer';
 import { AppBarButton } from '#src/components/css-only/Navigation/NavigationAppBar/types';
 import { ArrowLeft, UserCircle } from '#src/components/untitledui';
-// @ts-expect-error JS
 import Analytics from '#src/components/analytics/Analytics.component';
 
 // Types

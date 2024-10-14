@@ -26,7 +26,7 @@ import {
 import { urlToMarketplace } from '../../../libs/marketplace/utils';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
-import Analytics from '../../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 import { fetchPrivatePassRetrieve } from '../../../libs/private-service/actions';
 import { OptionCallback } from '../../../state/types';
 

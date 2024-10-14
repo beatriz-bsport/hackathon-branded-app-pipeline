@@ -13,8 +13,7 @@ import {
   PrivatePass,
   PrivatePassCategoryWithPasses,
 } from '#src/libs/private-service/types';
-// @ts-expect-error
-import Analytics from '../../../../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 
 import './styles.css';
 

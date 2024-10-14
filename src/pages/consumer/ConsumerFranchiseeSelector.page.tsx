@@ -11,7 +11,6 @@ import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
-// import Analytics from '#src/components/analytics/Analytics.component';
 import LoginBackground from '#src/libs/login/components/LoginBackground.component';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
@@ -123,8 +122,6 @@ export class ConsumerFranchiseeSelectorPage extends Component<Props> {
             selectedFranchisee={this.props.selectedFranchisee}
             setSelectedFranchisee={this.props.setSelectedFranchisee}
           />
-
-          {/* {!!theme && <Analytics username="" theme={theme} />} */}
         </div>
       </MuiThemeProvider>
     );

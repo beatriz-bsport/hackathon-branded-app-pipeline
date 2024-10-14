@@ -33,7 +33,6 @@ import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/wai
 import withQueryParams from '#src/hocs/with-query-params.hoc';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
-// @ts-expect-error
 import Analytics from '#src/components/analytics/Analytics.component';
 import withTheme from '#src/hocs/company-themifier.hoc';
 

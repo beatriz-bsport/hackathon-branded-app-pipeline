@@ -29,7 +29,6 @@ import {
   getReferralRegistrationErrorCode,
 } from '#src/libs/referral/selectors';
 import { retrieveReferralLinkStatus } from '#src/libs/referral/actions';
-// @ts-expect-error not typed
 import Analytics from '#src/components/analytics/Analytics.component';
 import {
   withUserProfileData,

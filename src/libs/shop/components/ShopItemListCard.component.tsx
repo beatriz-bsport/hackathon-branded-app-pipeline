@@ -6,8 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-// @ts-expect-error
-import Analytics from '../../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 import type { ShopItem } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 

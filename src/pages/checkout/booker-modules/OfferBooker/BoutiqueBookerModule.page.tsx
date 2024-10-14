@@ -28,7 +28,6 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
 import Alert, { AlertSeverity } from '#src/components/css-only/Alert';
-// @ts-expect-error
 import Analytics from '#src/components/analytics/Analytics.component';
 import type {
   MaxoutData,

@@ -36,8 +36,7 @@ import {
   retrievePaymentPackTemplate,
 } from '../../../libs/payment-packs/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-// @ts-expect-error
-import Analytics from '../../../components/analytics/Analytics.component';
+import Analytics from '#src/components/analytics/Analytics.component';
 
 type OwnProps = {
   location: Object;

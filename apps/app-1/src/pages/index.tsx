@@ -1,4 +1,4 @@
-import "@bsport/kaizen-primitive/style.css";
+import "@bsport/kaizen-tokens/src/index.css";
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import { Button } from "@bsport/kaizen-primitive";

@@ -95,7 +95,7 @@ export const REFERRAL_CARD_PREVIEW: React.FC<{
       }}
     >
       <Alert severity="info" style={{ alignItems: 'center' }}>
-        {t('widget.cssConfig.authenticationTextField', {
+        {t('widget.cssConfig.consumerReferralCard', {
           component_name: t('widget.components.referral_details'),
           page: t('widget.page.referral_details'),
         })}

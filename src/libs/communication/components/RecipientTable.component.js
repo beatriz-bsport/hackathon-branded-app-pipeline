@@ -27,35 +27,35 @@ const getColumnData = (t) => {
       name: 'recipient_raw_address',
       label: t('recipient.table.columns.email'),
       options: {
-        sort: true,
+        sort: false,
       },
     },
     {
       name: 'read_count',
       label: t('recipient.table.columns.readCount'),
       options: {
-        sort: true,
+        sort: false,
       },
     },
     {
       name: 'last_read',
       label: t('recipient.table.columns.lastRead'),
       options: {
-        sort: true,
+        sort: false,
       },
     },
     {
       name: 'links_opened_count',
       label: t('recipient.table.columns.clicked'),
       options: {
-        sort: true,
+        sort: false,
       },
     },
     {
       name: 'status',
       label: t('recipient.table.columns.status'),
       options: {
-        sort: true,
+        sort: false,
       },
     },
   ];

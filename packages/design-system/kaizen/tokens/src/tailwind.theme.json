@@ -1,8 +1,8 @@
 {
   "borderWidth": {
-    "stroke-thin": "var(--kz-border-radius-stroke-thin)",
-    "stroke-regular": "var(--kz-border-radius-stroke-regular)",
-    "stroke-bold": "var(--kz-border-radius-stroke-bold)"
+    "stroke-thin": "var(--kz-border-width-stroke-thin)",
+    "stroke-regular": "var(--kz-border-width-stroke-regular)",
+    "stroke-bold": "var(--kz-border-width-stroke-bold)"
   },
   "borderRadius": {
     "xl": "var(--kz-border-radius-xl)",

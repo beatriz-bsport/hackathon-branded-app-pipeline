@@ -24,7 +24,7 @@ const variants = {
   },
   weight: {
     weak: ["font-weak"],
-    strong: ["font-strong"],
+    strong: ["font-stronger"],
   },
 } as const;
 

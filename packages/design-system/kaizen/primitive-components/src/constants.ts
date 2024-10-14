@@ -14,4 +14,5 @@ export const TYPOGRAPHY_COLORS = {
   weak: "weak",
   weaker: "weaker",
   disabled: "disabled",
+  inherit: "inherit",
 } as const;

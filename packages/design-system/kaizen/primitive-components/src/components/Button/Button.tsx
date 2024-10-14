@@ -49,7 +49,7 @@ export type Props = React.ButtonHTMLAttributes<HTMLButtonElement> &
     iconLeft?: IconName;
     iconRight?: IconName;
     label?: string;
-    loading: boolean;
+    loading?: boolean;
     size: keyof typeof sizes;
     fullWidth?: boolean;
   } & (
@@ -73,7 +73,7 @@ export type Props = React.ButtonHTMLAttributes<HTMLButtonElement> &
 const IconToRender = (props: {
   icon?: IconName;
   size: keyof typeof sizes;
-  loading: boolean;
+  loading?: boolean;
   label: string | undefined | null;
 }) => {
   if (!props.size) {

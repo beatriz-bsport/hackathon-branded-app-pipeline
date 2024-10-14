@@ -53,7 +53,7 @@ const importBorderWidths = async (folderPath: string): Promise<Output> => {
     folderPath,
     "styles/border-widths.css",
   );
-  const formatCSSVariable = (name: string) => `kz-border-radius-${name}`;
+  const formatCSSVariable = (name: string) => `kz-border-width-${name}`;
   const formatName = formatVariableName(["borderWidth"]);
   const formatValue = formatVariableValue(formatName, {
     formatCSSVariable,

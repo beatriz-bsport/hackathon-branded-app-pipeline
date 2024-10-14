@@ -18,7 +18,6 @@ const preview: Preview = {
       defaultTheme: "light",
     }),
   ],
-
   parameters: {
     backgrounds: {
       default: "default",

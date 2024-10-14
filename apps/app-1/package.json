@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@bsport/kaizen-primitive": "workspace:*",
+    "@bsport/kaizen-tokens": "workspace:*",
     "next": "14.2.3"
   },
   "devDependencies": {

@@ -14,8 +14,7 @@
       "import": "./dist/index.es.js",
       "require": "./dist/index.umd.js",
       "types": "./dist/index.d.ts"
-    },
-    "./style.css": "./dist/style.css"
+    }
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",

@@ -7,3 +7,6 @@ packages:
 
   # Tools
   - "tools/**"
+
+  # Ignore storybook builds
+  - "!**/storybook-static/**"

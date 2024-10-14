@@ -94,13 +94,13 @@ const IconToRender = (props: {
 
 /**
  * React component implementing all the types of buttons used in Kaizen.
- * @param className Classname to add to the button.
- * @param color Defines the color of the button.
- * @param icon Name of the icon to use inside of the button.
- * @param intent Intent on the use of the button.
- * @param label Text label of the button.
- * @param loading State of the button when the action triggered by the button is loading.
- * @param size Size of the button.
+ * @param props.className Classname to add to the button.
+ * @param props.color Defines the color of the button.
+ * @param props.icon Name of the icon to use inside of the button.
+ * @param props.intent Intent on the use of the button.
+ * @param props.label Text label of the button.
+ * @param props.loading State of the button when the action triggered by the button is loading.
+ * @param props.size Size of the button.
  * @link https://bsport.supernova-docs.io/latest/components/button/component-overview-1SAZmv8Z
  * @link https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Proto-designSystem?node-id=218-12159&m=dev
  */

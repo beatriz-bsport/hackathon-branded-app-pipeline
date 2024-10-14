@@ -272,3 +272,75 @@ export const findIntervalsIntersections = (
       .filter((intersection) => !!intersection),
   );
 };
+
+/**
+ * Sorts a list of time intervals in ascending order based on their start times.
+ *
+ * @function
+ * @param {Interval[]} intervals - An array of Interval objects to be sorted.
+ *
+ * @returns {Interval[]} - The sorted array of intervals, ordered by start time
+ *        from earliest to latest.
+ */
+export const sortIntervalList = (intervals: Interval[]) => {
+  return intervals.sort(
+    (intervalA, intervalB) =>
+      intervalA.start.toMillis() - intervalB.start.toMillis(),
+  );
+};
+
+/**
+ * Merges Luxon intervals if they are adjacents, otherwise leaves them as is.
+ *
+ * By "adjacents intervals" we mean two intervals that are directly next to each other,
+ * meaning that the end of one interval is exactly at the start of the next interval without any gaps.
+ *
+ * This function takes an array of Luxon `Interval` objects, sorts them by start time,
+ * and checks if each interval abuts the previous one in the sorted list. If two intervals
+ * are adjacent, they are merged into one using the `union` method. Non-adjacent intervals
+ * are left unmerged.
+ *
+ * @param {Interval[]} intervals - An array of Luxon `Interval` objects to be checked and potentially merged.
+ *
+ * @returns {Interval[]} A new array of `Interval` objects, with adjacent intervals merged.
+ *
+ * @example
+ * const interval1 = Interval.fromDateTimes(
+ *   DateTime.fromISO("2023-10-01T00:00:00"),
+ *   DateTime.fromISO("2023-10-02T00:00:00")
+ * );
+ * const interval2 = Interval.fromDateTimes(
+ *   DateTime.fromISO("2023-10-02T00:00:00"),
+ *   DateTime.fromISO("2023-10-03T00:00:00")
+ * );
+ * const intervals = [interval1, interval2];
+ * const result = mergeAdjacentIntervals(intervals);
+ * // result contains one merged interval from 2023-10-01T00:00:00 to 2023-10-03T00:00:00
+ */
+
+export const mergeAdjacentIntervals = (intervals: Interval[]) => {
+  if (!intervals) return [];
+  if (intervals.length < 2) {
+    return intervals;
+  }
+  //We need to sort the intervals to check if some of them are adjacents
+  const sortedIntervalList = sortIntervalList(intervals);
+
+  return sortedIntervalList.reduce<Interval[]>(
+    (mergedIntervals, currentInterval) => {
+      const lastMergedInterval = mergedIntervals[mergedIntervals.length - 1];
+      if (lastMergedInterval && currentInterval.abutsEnd(lastMergedInterval)) {
+        // Merge with the last interval if they are adjacent
+        mergedIntervals[mergedIntervals.length - 1] =
+          lastMergedInterval.union(currentInterval);
+      } else {
+        // Otherwise, add the current interval to the result list
+
+        mergedIntervals.push(currentInterval);
+      }
+
+      return mergedIntervals;
+    },
+    [],
+  );
+};

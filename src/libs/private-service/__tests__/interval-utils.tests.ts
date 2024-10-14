@@ -6,6 +6,7 @@ import {
   findIntervalsIntersections,
   getIntersectingSlots,
   getDayTimeIntervals,
+  mergeAdjacentIntervals,
 } from '#src/libs/private-service/interval-utils';
 
 import { DayTimeIntervals } from '#src/libs/private-service/constants';
@@ -600,5 +601,112 @@ describe('findIntervalsIntersections', () => {
     expect(result).toHaveLength(1);
     expect(result[0].start).toStrictEqual(DateTime.fromISO('2024-10-04T08:00'));
     expect(result[0].end).toStrictEqual(DateTime.fromISO('2024-10-04T09:00'));
+  });
+});
+
+describe('mergeAdjacentIntervals', () => {
+  it('should return an empty array for no intervals', () => {
+    const result = mergeAdjacentIntervals([]);
+    expect(result).toEqual([]);
+  });
+  it('should return the same interval if there is only one', () => {
+    const interval = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-01T00:00:00'),
+        DateTime.fromISO('2023-10-02T00:00:00'),
+      ),
+    ];
+    const result = mergeAdjacentIntervals(interval);
+    expect(result).toEqual(interval);
+  });
+  it('should merge two adjacent intervals', () => {
+    const intervals = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-01T00:00:00'),
+        DateTime.fromISO('2023-10-02T00:00:00'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-02T00:00:00'),
+        DateTime.fromISO('2023-10-03T00:00:00'),
+      ),
+    ];
+    const result = mergeAdjacentIntervals(intervals);
+    const expected = Interval.fromDateTimes(
+      DateTime.fromISO('2023-10-01T00:00:00'),
+      DateTime.fromISO('2023-10-03T00:00:00'),
+    );
+    expect(result).toEqual([expected]);
+  });
+  it('should not merge non-adjacent intervals', () => {
+    const intervals = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-01T00:00:00'),
+        DateTime.fromISO('2023-10-02T00:00:00'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-03T00:00:00'),
+        DateTime.fromISO('2023-10-04T00:00:00'),
+      ),
+    ];
+    const result = mergeAdjacentIntervals(intervals);
+    expect(result).toEqual(intervals);
+  });
+  it('should merge multiple adjacent intervals', () => {
+    const intervals = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-01T00:00:00'),
+        DateTime.fromISO('2023-10-02T00:00:00'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-02T00:00:00'),
+        DateTime.fromISO('2023-10-03T00:00:00'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-03T00:00:00'),
+        DateTime.fromISO('2023-10-04T00:00:00'),
+      ),
+    ];
+    const result = mergeAdjacentIntervals(intervals);
+    const expected = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-01T00:00:00'),
+        DateTime.fromISO('2023-10-04T00:00:00'),
+      ),
+    ];
+    expect(result).toEqual(expected);
+  });
+  it('should handle intervals out of order', () => {
+    const intervals = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-02T00:00:00'),
+        DateTime.fromISO('2023-10-04T00:00:00'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-01T00:00:00'),
+        DateTime.fromISO('2023-10-02T00:00:00'),
+      ),
+    ];
+    const result = mergeAdjacentIntervals(intervals);
+    const expected = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-01T00:00:00'),
+        DateTime.fromISO('2023-10-04T00:00:00'),
+      ),
+    ];
+    expect(result).toEqual(expected);
+  });
+  it('should not merge intervals that overlap', () => {
+    const intervals = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-01T00:00:00'),
+        DateTime.fromISO('2023-10-03T00:00:00'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-02T00:00:00'),
+        DateTime.fromISO('2023-10-04T00:00:00'),
+      ),
+    ];
+    const result = mergeAdjacentIntervals(intervals);
+    expect(result).toEqual(intervals);
   });
 });

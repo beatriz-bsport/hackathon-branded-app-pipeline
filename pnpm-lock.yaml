@@ -121,7 +121,7 @@ importers:
         specifier: ^3.3.3
         version: 3.3.3
       storybook:
-        specifier: 8.2.9
+        specifier: ^8.2.9
         version: 8.2.9(@babel/preset-env@7.25.3(@babel/core@7.25.2))
       storybook:configuration.@latest:
         specifier: link:@nx/storybook:configuration.@latest

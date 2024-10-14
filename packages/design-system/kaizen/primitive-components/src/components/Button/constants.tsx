@@ -74,7 +74,7 @@ export const variants = {
       "active:bg-surface-action-default-elevated-pressed",
       "hover:bg-surface-action-default-elevated-hovered",
       // Border
-      "border-0",
+      "border-none",
       // Shadow
       "shadow-action-default-rest",
       "active:shadow-action-default-pressed",

@@ -12,7 +12,7 @@ const meta: Meta<typeof Button> = {
     intent: {
       options: Object.keys(intents),
       control: { type: "inline-radio" },
-      table: { requide: true },
+      table: { required: true },
     },
     size: {
       options: Object.keys(sizes),

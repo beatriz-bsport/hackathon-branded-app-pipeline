@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --kz-border-radius-stroke-thin: 1px;
-  --kz-border-radius-stroke-regular: 2px;
-  --kz-border-radius-stroke-bold: 4px;
+  --kz-border-width-stroke-thin: 1px;
+  --kz-border-width-stroke-regular: 2px;
+  --kz-border-width-stroke-bold: 4px;
   --kz-border-radius-xl: 16px;
   --kz-border-radius-lg: 12px;
   --kz-border-radius-md: 8px;
@@ -313,9 +313,9 @@
 }
 
 .kz-dark {
-  --kz-border-radius-stroke-thin: 1px;
-  --kz-border-radius-stroke-regular: 2px;
-  --kz-border-radius-stroke-bold: 4px;
+  --kz-border-width-stroke-thin: 1px;
+  --kz-border-width-stroke-regular: 2px;
+  --kz-border-width-stroke-bold: 4px;
   --kz-border-radius-xl: 16px;
   --kz-border-radius-lg: 12px;
   --kz-border-radius-md: 8px;

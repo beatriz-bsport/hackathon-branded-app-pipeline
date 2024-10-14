@@ -24,10 +24,11 @@ const variants = {
     [TYPOGRAPHY_COLORS.weak]: ["text-onsurface-weak"],
     [TYPOGRAPHY_COLORS.weaker]: ["text-onsurface-weaker"],
     [TYPOGRAPHY_COLORS.disabled]: ["text-onsurface-disabled", "opacity-sm"],
+    [TYPOGRAPHY_COLORS.inherit]: ["text-inherit"],
   },
   weight: {
     weak: ["font-weak"],
-    strong: ["font-strong"],
+    strong: ["font-stronger"],
   },
 } as const;
 
@@ -46,7 +47,7 @@ export type TitleProps = React.HTMLAttributes<HTMLHeadingElement> &
 
 const Title: React.FC<TitleProps> = ({
   className,
-  color,
+  color = "inherit",
   htmlVariant,
   weight,
   ...props

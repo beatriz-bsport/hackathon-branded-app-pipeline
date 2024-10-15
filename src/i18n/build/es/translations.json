@@ -17063,10 +17063,10 @@
             },
             "20": {
                 "explanation": "Ha abandonado una cesta de cantidad…",
-                "first": "Ha abandonado una cesta de cantidad",
+                "first": "El valor total de los artículos de la cesta es de",
                 "date": {
                     "second": "días",
-                    "first": "Cesta abandonada"
+                    "first": "La cesta fue abandonada"
                 },
                 "between": "y",
                 "third": "{{currencyDisplay }}",
@@ -18192,7 +18192,8 @@
                 "marketplaceCheckoutItemListPrivatePass": "Este componente es una lista de artículos de compra con pases privados. Para ajustar los componentes individuales {{component_name}}, puede utilizar la sección dedicada situada en {{page}} dentro del editor.",
                 "marketplaceProductItemListAlert": "Este componente es una lista de artículos del producto. Para ajustar el componente {{component_name}} individual, puede utilizar la sección dedicada dentro del editor.",
                 "selector": "Este componente se compone de una etiqueta, una entrada y un texto de título. Para personalizar la apariencia de {{component_name}}, recomendamos utilizar su componente raíz",
-                "authenticationTextField": "Este componente utiliza un componente de campo de texto. Para ajustar {{component_name}} individualmente, puede utilizar la sección dedicada situada en {{page}} dentro del editor."
+                "authenticationTextField": "Este componente utiliza un componente de campo de texto. Para ajustar {{component_name}} individualmente, puede utilizar la sección dedicada situada en {{page}} dentro del editor.",
+                "consumerReferralCard": "Este componente utiliza un componente de detalles de referencia. Para ajustar {{component_name}} individualmente, puede utilizar la sección dedicada situada en {{page}} dentro del editor."
             },
             "page": {
                 "calendar": "Calendario",
@@ -18352,7 +18353,8 @@
                 "consumer_saved_payment_methods_card": "Tarjeta de medios de pago ahorrados por el consumidor",
                 "consumer_terms_and_conditions": "Tarjeta de términos y condiciones del consumidor",
                 "authentication_disconnected_status": "Estado de desconexión",
-                "fabrique_submenu": "Submenú"
+                "fabrique_submenu": "Submenú",
+                "consumer_referral_card": "Tarjeta de referencia del consumidor"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",

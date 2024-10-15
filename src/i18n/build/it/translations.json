@@ -11938,11 +11938,11 @@
                 "1": "meno di (⩽)"
             },
             "20": {
-                "first": "Ha abbandonato un carrello di importo",
+                "first": "Il valore totale degli articoli nel cestino è",
                 "name": "Carrelli abbandonati",
                 "date": {
                     "second": "giorni",
-                    "first": "Carrello abbandonato"
+                    "first": "Il cestino è stato abbandonato"
                 },
                 "explanation": "Ha abbandonato un carrello nella quantità di ...",
                 "third": "{{ currencyDisplay }}",
@@ -13277,7 +13277,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il vostro marketplace non visualizzeranno più il calendario della sede.",
                     "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate.",
                     "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceverà quindi le richieste di sostituzione da tutte le sedi.",
-                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceveranno quindi le richieste di sostituzione da tutte le sedi.",
+                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceveranno quindi le richieste di sostituzione da ogni sede.",
                     "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, non riceveranno più la relativa notifica.",
                     "hasRelatedStaffConfigurations": "Questa sede è utilizzata per il monitoraggio degli accessi da parte di uno o più utenti staff. Eliminando la sede senza selezionarne una nuova, questi non potranno più effettuare il monitoraggio degli accessi."
                 },
@@ -13298,10 +13298,10 @@
                 "hasRelatedZoomEstablishment": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti utilizzati per lo streaming in diretta con l'integrazione di Zoom.",
                 "hasRelatedAvailabilitySlots": "Le fasce orarie disponibili dell'orario di questo stabilimento saranno cancellate.",
                 "relatedPaymentPacks": "Il seguente pass {{- pass_name }} non sarà più utilizzabile per questo stabilimento, assicuratevi di informare i vostri clienti.",
-                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
+                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicurati di informare i clienti.",
                 "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
                 "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
-                "exclusiveAssociatedCoaches_plural": "I vostri insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando la struttura, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
+                "exclusiveAssociatedCoaches_plural": "I vostri insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
                 "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
                 "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
                 "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento, queste fasce orarie saranno eliminate.",
@@ -13323,7 +13323,7 @@
                 "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
                 "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; aggiornare o eliminare queste sedi.",
                 "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
-                "exclusivePaymentPacks_plural": "I seguenti paccheti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellare lo stabilimento.",
+                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellare lo stabilimento.",
                 "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
                 "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
                 "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."
@@ -18047,7 +18047,8 @@
                 "consumer_saved_payment_methods_card": "Card dei metodi di pagamento salvati dai clienti",
                 "consumer_terms_and_conditions": "Card dei termini e delle condizioni per i clienti",
                 "authentication_disconnected_status": "Stato di disconnessione",
-                "fabrique_submenu": "Sottomenù"
+                "fabrique_submenu": "Sottomenù",
+                "consumer_referral_card": "Carta di referenza per i clienti"
             },
             "cssConfig": {
                 "title": {
@@ -18304,7 +18305,8 @@
                 "marketplaceCheckoutItemListPaymentCombo": "Questo componente è un elenco di elementi di pagamento con pacchetti combinati. Per mettere a punto i singoli componenti {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
                 "marketplaceCheckoutItemListPaymentPack": "Questo componente è un elenco di articoli in cassa con i pacchetti. Per mettere a punto i singoli {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
                 "selector": "Questo componente è composto da un'etichetta, un input e un testo di didascalia. Per personalizzare l'aspetto di {{component_name}}, si consiglia di utilizzare il suo componente principale",
-                "authenticationTextField": "Questo componente utilizza un elemento testo. Per mettere a punto i singoli {{component_name}}, si può utilizzare la sezione dedicata, situata in {{page}} all'interno dell'editor."
+                "authenticationTextField": "Questo componente utilizza un elemento testo. Per mettere a punto i singoli {{component_name}}, si può utilizzare la sezione dedicata, situata in {{page}} all'interno dell'editor.",
+                "consumerReferralCard": "Questo componente utilizza un componente Dettagli del referral. Per mettere a punto i singoli {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor."
             },
             "page": {
                 "workshop": "Workshop",

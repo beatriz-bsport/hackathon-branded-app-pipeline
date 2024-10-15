@@ -17396,7 +17396,7 @@
                 "lostTrigger": {
                     "addTrigger": "Add exit trigger",
                     "timeout": {
-                        "helperText": "Member will exit the {{ workflowLowerCase }} after this number of days no mater what step they are in."
+                        "helperText": "Member will exit the {{ workflowLowerCase }} after this number of days, no matter what step they are in."
                     },
                     "helperText": "Set when your objective is considered not met: define a time limit for it and/or specific trigger(s) after which the member will unsuccessfully exit this {{ workflowLowerCase }}.",
                     "title": "Unsuccessful exit"

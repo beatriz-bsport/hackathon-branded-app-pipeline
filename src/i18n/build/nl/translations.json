@@ -5345,7 +5345,7 @@
                 "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
                 "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
                 "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
-                "exclusiveCoachAvailabilitySlots_plural": "De docenten {{- coach_naam }} zijn aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
+                "exclusiveCoachAvailabilitySlots_plural": "De docenten {{- coach_name }} zijn aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
                 "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",
@@ -5617,11 +5617,11 @@
             },
             "20": {
                 "explanation": "Toon een overzicht van alle leden die een openstaand winkelmandje hebben",
-                "first": "Heeft een openstaand winkelmandje met een bedrag t.w.v.",
+                "first": "De waarde van de achtergelaten mand is",
                 "second": "in",
                 "third": "{{ currencyDisplay }}",
                 "date": {
-                    "first": "Haakte af",
+                    "first": "Verlaten mand",
                     "second": "dagen"
                 },
                 "name": "Onvoltooide aankopen",
@@ -18157,7 +18157,8 @@
                 "marketplaceCheckoutItemListPrivatePass": "Dit onderdeel bevat een lijst van afspraakkaarten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker binnen het tabblad \"{{page}}\".",
                 "marketplaceProductItemListAlert": "Dit onderdeel bevat een lijst van producten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker.",
                 "selector": "Deze component bestaat uit een label en invoer en een onderschrift. Om het uiterlijk van {{component_name}} aan te passen, raden we aan de hoofdcomponent te gebruiken",
-                "authenticationTextField": "Dit component gebruikt een tekstveld. Je kunt individuele componenten (bijv. {{component_name}}) in de toegewijde editor wijzigen: {{page}}."
+                "authenticationTextField": "Dit component gebruikt een tekstveld. Je kunt individuele componenten (bijv. {{component_name}}) in de toegewijde editor wijzigen: {{page}}.",
+                "consumerReferralCard": "Deze component maakt gebruik van een verwijzingsgegevenscomponent. Om de individuele {{component_name}} te verfijnen, kun je de speciale sectie in {{page}} in de editor gebruiken."
             },
             "page": {
                 "calendar": "Agenda",
@@ -18317,7 +18318,8 @@
                 "consumer_saved_payment_methods_card": "Door consumenten opgeslagen betaalmethoden kaart",
                 "consumer_terms_and_conditions": "Consumentenvoorwaardenkaart",
                 "authentication_disconnected_status": "Niet-verbonden status",
-                "fabrique_submenu": "Submenu"
+                "fabrique_submenu": "Submenu",
+                "consumer_referral_card": "Verwijzingskaart voor consumenten"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",

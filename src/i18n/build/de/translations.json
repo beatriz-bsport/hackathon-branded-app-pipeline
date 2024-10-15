@@ -2417,10 +2417,10 @@
             "20": {
                 "date": {
                     "second": "Tage",
-                    "first": "Warenkorb aufgegeben"
+                    "first": "Der Warenkorb wurde aufgegeben"
                 },
                 "third": "{{ currencyDisplay }}",
-                "first": "Hat einen Warenkorb aufgegeben im Wert von",
+                "first": "Der Gesamtwert der Artikel im Warenkorb beträgt",
                 "explanation": "Anzeige einer Übersicht der Mitglieder mit offenen Warenkörben, die noch nicht bezahlt haben",
                 "name": "Aufgegebene Warenkörbe",
                 "second": "um",
@@ -18038,7 +18038,8 @@
                 "consumer_saved_payment_methods_card": "Gespeicherte Verbraucherzahlungsmethoden Karte",
                 "consumer_terms_and_conditions": "Karte mit den allgemeinen Geschäftsbedingungen für Verbraucher",
                 "authentication_disconnected_status": "Offline-Zustand",
-                "fabrique_submenu": "Untermenü"
+                "fabrique_submenu": "Untermenü",
+                "consumer_referral_card": "Kundenempfehlungskarte"
             },
             "page": {
                 "calendar": "Kalender",
@@ -18311,7 +18312,8 @@
                 "marketplaceCheckoutItemListPrivatePass": "Diese Komponente ist eine Liste von Kassenartikeln mit privaten Pässen. Für die Feinabstimmung einzelner {{component_name}}-Komponenten können Sie den entsprechenden Abschnitt unter {{page}} im Editor verwenden.",
                 "marketplaceProductItemListAlert": "Diese Komponente ist eine Liste von Produktartikeln. Zur Feinabstimmung der einzelnen {{component_name}}-Komponente können Sie den entsprechenden Bereich im Editor verwenden.",
                 "selector": "Diese Komponente besteht aus einem Label, einem Input und einem Beschriftungstext. Um das Erscheinungsbild von {{component_name}} anzupassen, empfehlen wir die Verwendung der Stammkomponente",
-                "authenticationTextField": "Diese Komponente verwendet eine Textfeldkomponente. Für die Feinabstimmung einzelner {{component_name}} können Sie den entsprechenden Abschnitt unter {{page}} im Editor verwenden."
+                "authenticationTextField": "Diese Komponente verwendet eine Textfeldkomponente. Für die Feinabstimmung einzelner {{component_name}} können Sie den entsprechenden Abschnitt unter {{page}} im Editor verwenden.",
+                "consumerReferralCard": "Diese Komponente verwendet eine Komponente für Verweisungsdetails. Für die Feinabstimmung {{component_name}}, können Sie den speziellen Bereich unter {{page}} im Editor verwenden."
             },
             "newsletterV2": {
                 "showSubtitle": "Untertitel anzeigen",
@@ -18995,7 +18997,7 @@
                 },
                 "delete": "Löschen",
                 "kinds": {
-                    "3": "Verspätung",
+                    "3": "Verzögerung",
                     "2": "Event & Smartlist",
                     "0": "Event",
                     "1": "Smartlist"

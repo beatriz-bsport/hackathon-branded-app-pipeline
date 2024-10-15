@@ -19781,8 +19781,8 @@
                 "private_consumer_pass_details_card": "Carte de détails de la carte de RDV (pour le membre)",
                 "universal_pass_details_card": "Carte de détails de la carte universelle (pour le membre)",
                 "reset_password_confirmation": "Confirmation de la réinitialisation du mot de passe",
-                "consumer_subscription_card": "Carte de l'abonnement du consommateur",
-                "consumer_subscription_details_card": "Carte du détail de l'abonnement du consommateur",
+                "consumer_subscription_card": "Carte de l'abonnement du membre",
+                "consumer_subscription_details_card": "Carte du détail de l'abonnement du membre",
                 "fabrique_big_icon": "Grande icône",
                 "referral_details": "Détails du parrain",
                 "fabrique_title": "Titre",
@@ -19793,7 +19793,8 @@
                 "consumer_saved_payment_methods_card": "Carte des méthodes de paiements sauvegardées",
                 "consumer_terms_and_conditions": "Carte de conditions générales de vente pour les consommateurs",
                 "authentication_disconnected_status": "Etat déconnecté",
-                "fabrique_submenu": "Sous-menu"
+                "fabrique_submenu": "Sous-menu",
+                "consumer_referral_card": "Carte de parrainage du membre"
             },
             "page": {
                 "common": "Commun",
@@ -20067,7 +20068,8 @@
                 "marketplaceCheckoutItemListPaymentCombo": "Ce composant est une liste d'articles avec des packs. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur.",
                 "marketplaceProductItemListAlert": "Ce composant est une liste d'articles de produits. Pour peaufiner le composant {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",
                 "selector": "Ce composant est composé d'une étiquette et d'une entrée, ainsi que d'un texte de légende. Pour personnaliser l'apparence du {{component_name}}, nous recommandons d'utiliser son composant racine",
-                "authenticationTextField": "Ce composant utilise un composant champ de texte. Pour affiner chaque {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur."
+                "authenticationTextField": "Ce composant utilise un composant champ de texte. Pour affiner chaque {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur.",
+                "consumerReferralCard": "Ce composant utilise un composant du détail du parrainage. Pour affiner chaque {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur."
             },
             "newsletterV2": {
                 "showSubtitle": "Afficher le sous-titre",

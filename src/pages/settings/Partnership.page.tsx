@@ -135,10 +135,18 @@ type ConnectorProps = {
 
   fetchEstablishments: () => void;
   fetchPartnershipEstablishmentMergeList: () => void;
+  fetchAssociatedEstablishments: (
+    params?: { company: number },
+    options?: OptionCallback<AssociatedEstablishment[]>,
+  ) => void;
   fetchPartnershipList: () => void;
   // eslint-disable-next-line react/no-unused-prop-types
   requestPartnership: (identifier: string, options: OptionCallback) => void;
-  updatePartnership: (id: number, data: any) => void;
+  updatePartnership: (
+    id: number,
+    data: PartnershipCompany,
+    options?: OptionCallback,
+  ) => void;
 
   // Wellhub
   coaches: Coach[];
@@ -200,7 +208,6 @@ export class Partnership extends React.Component<Props> {
     this.props.fetchPartnershipList();
     this.props.fetchPartnershipEstablishmentMergeList();
     this.props.fetchEstablishments();
-    // @ts-expect-error
     this.props.fetchAssociatedEstablishments({ company: this.props.company });
     // Wellhub
     if (hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_WELLHUB)) {
@@ -210,8 +217,13 @@ export class Partnership extends React.Component<Props> {
     }
   }
 
-  updatePartnership = (data: any) => {
-    this.props.updatePartnership(this.props.classpass.id, data);
+  updatePartnership = (data: PartnershipCompany) => {
+    !!this.props.classpass.id &&
+      this.props.updatePartnership(this.props.classpass.id, data, {
+        onSuccess: () => {
+          this.props.fetchPartnershipEstablishmentMergeList();
+        },
+      });
   };
 
   openWellhubProductSelectionDrawer = () =>

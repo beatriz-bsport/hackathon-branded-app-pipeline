@@ -66,6 +66,8 @@ export type AssociatedEstablishment = {
   id: number;
   establishment: number;
   company: number;
+  disabled: boolean;
+  partnership_merged_as: number;
 };
 
 export type EstablishmentState = {

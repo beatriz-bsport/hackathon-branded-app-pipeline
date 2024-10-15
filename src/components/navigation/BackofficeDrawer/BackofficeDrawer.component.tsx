@@ -1031,7 +1031,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                 location.pathname.includes('/audience') ||
                 location.pathname.includes('/inbox/') ||
                 location.pathname.includes('/feature-base') ||
-                /^\/reporting\/[^/]+\/[^/]+$/.test(location.pathname)
+                /^\/reporting\/detail\/[^/]+\/[^/]+$/.test(location.pathname)
               ),
               [classes.unscrollableContent]:
                 (location.pathname.includes('/audience') &&
@@ -1040,7 +1040,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
               [classes.contentWithoutPadding]:
                 location.pathname.includes('/inbox/') ||
                 location.pathname.includes('/feature-base') ||
-                /^\/reporting\/[^/]+\/[^/]+$/.test(location.pathname),
+                /^\/reporting\/detail\/[^/]+\/[^/]+$/.test(location.pathname),
             })}
           >
             {displayBanner && <div className={classes.bannerContextspacing} />}

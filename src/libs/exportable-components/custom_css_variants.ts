@@ -472,6 +472,10 @@ import {
   FABRIQUE_SUBMENU_PREVIEW,
   FABRIQUE_SUBMENU_CONFIGURATION,
 } from '#src/components/css-only/Fabrique/Submenu';
+import {
+  FABRIQUE_PAGINATION_PREVIEW,
+  FABRIQUE_PAGINATION_CONFIGURATION,
+} from '#src/components/css-only/Fabrique/Pagination';
 
 import {
   REFERRAL_CARD_CONFIGURATION,
@@ -592,6 +596,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_BIGICON_CONFIGURATION,
         FABRIQUE_TOOLTIP_CONFIGURATION,
         FABRIQUE_SUBMENU_CONFIGURATION,
+        FABRIQUE_PAGINATION_CONFIGURATION,
         CONSUMER_BOOKING_CARD_CONFIGURATION,
         CONSUMER_BOOKING_DETAILS_CARD_CONFIGURATION,
         CONSUMER_PASS_CARD_CONFIGURATION,
@@ -805,6 +810,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         FABRIQUE_SELECTOR_INPUT_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_BIGICON]:
         FABRIQUE_BIGICON_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_PAGINATION]:
+        FABRIQUE_PAGINATION_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_BOOKING_CARD]:
         CONSUMER_BOOKING_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_BOOKING_DETAILS_CARD]:

@@ -362,6 +362,7 @@ exports.default = {
         isCollapsable: 'Title type',
         acceptEmail: 'Accept email',
         acceptSms: 'Accept sms',
+        hidePaginationControls: 'Hide pagination controls',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -509,6 +510,7 @@ exports.default = {
       fabrique_textform: 'Text form',
       fabrique_big_icon: 'Big icon',
       fabrique_submenu: 'Submenu',
+      fabrique_pagination: 'Pagination',
       selector: 'Selector',
       selector_input: 'Selector Input',
       marketing_newsletter_form_v2: 'Newsletter form',

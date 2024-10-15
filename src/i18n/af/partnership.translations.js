@@ -19,6 +19,18 @@ exports.default = {
     partnerId: 'Partner ID: {{ company }}',
     establishmentMergedAs: 'Merge these establishments',
     establishmentMergeMaster: 'Merge into this establishment:',
+    table: {
+      title: {
+        groupActivities: 'For group activities',
+        appointments: 'For appointments',
+      },
+      venueIds: 'Venue IDs',
+      establishments: 'Establishments',
+    },
+    drawerTitle: 'ClassPass configuration',
+    description:
+      'To set up your ClassPass integration, contact ClassPass through your partner dashboard. Provide your partner ID and the IDs of the establishments you want to enable on ClassPass. Please note that sessions or appointments at these establishments will not appear on ClassPass until the setup is fully confirmed by ClassPass.',
+    editButton: 'Edit configuration',
   },
   requestDialog: {
     explain:

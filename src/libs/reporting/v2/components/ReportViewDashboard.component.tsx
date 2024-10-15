@@ -4,7 +4,12 @@ import { useTranslation } from 'react-i18next';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography/Typography';
-import { createTheme, MuiThemeProvider } from '@material-ui/core';
+import {
+  createTheme,
+  Divider,
+  MenuItem,
+  MuiThemeProvider,
+} from '@material-ui/core';
 
 import {
   ReportConfiguration,
@@ -20,7 +25,9 @@ import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-catego
 import ReportCustomViewItem from '#src/libs/reporting/v2/components/ReportCustomViewItem.component';
 import PaginatedListBaseReworked from '#src/components/PaginatedListBaseReworked.component';
 import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
-import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import MaterialUISelector, {
+  ItemRendererProps,
+} from '#src/components/Selector/MaterialUISelector.component';
 import ReportV2CustomViewSearchItem from '#src/libs/payment-packs/components/Search/ReportV2CustomViewSearchItem.component';
 
 import { REPORT_VIEWS_FETCHING_PAGINATION_SIZE } from '#src/libs/reporting/common/constants';
@@ -50,6 +57,7 @@ const paginatedListCustomTheme = createTheme({
 type Option = {
   label: string;
   value: ReportViewSortOption;
+  isEndOfCategory: boolean;
 };
 
 const ReportViewDashboard: React.FC<Props> = ({
@@ -61,35 +69,37 @@ const ReportViewDashboard: React.FC<Props> = ({
   const { t } = useTranslation('reporting');
 
   const [selectedSortOption, setSelectedSortOption] = React.useState<Option>({
-    label: t('reportFilter.lastCreated'),
-    value: ReportViewSortOption.LAST_CREATED,
+    label: t('reportFilter.lastUpdated'),
+    value: ReportViewSortOption.LAST_UPDATED,
+    isEndOfCategory: false,
   });
 
   const sortOptions = React.useMemo(
     () => [
       {
+        label: t('reportFilter.lastUpdated'),
+        value: ReportViewSortOption.LAST_UPDATED,
+        isEndOfCategory: true,
+      },
+      {
         label: t('reportFilter.lastCreated'),
         value: ReportViewSortOption.LAST_CREATED,
+        isEndOfCategory: false,
       },
       {
         label: t('reportFilter.firstCreated'),
         value: ReportViewSortOption.FIRST_CREATED,
-      },
-      {
-        label: t('reportFilter.lastUpdated'),
-        value: ReportViewSortOption.LAST_UPDATED,
-      },
-      {
-        label: t('reportFilter.firstUpdated'),
-        value: ReportViewSortOption.FIRST_UPDATED,
+        isEndOfCategory: true,
       },
       {
         label: t('reportFilter.alphabeticalOrder'),
         value: ReportViewSortOption.ALPHABETICAL,
+        isEndOfCategory: false,
       },
       {
         label: t('reportFilter.reverseAlphabeticalOrder'),
         value: ReportViewSortOption.REVERSE_ALPHABETICAL,
+        isEndOfCategory: false,
       },
     ],
     [t],
@@ -99,7 +109,7 @@ const ReportViewDashboard: React.FC<Props> = ({
     (params: PaginationFilterParams) => {
       onPageRequested({
         ...params,
-        ordering: selectedSortOption.value || '-created_at',
+        ordering: selectedSortOption.value || '-updated_at',
       });
     },
     [onPageRequested, selectedSortOption],
@@ -118,7 +128,7 @@ const ReportViewDashboard: React.FC<Props> = ({
   );
 
   const handleOnChange = React.useCallback(
-    (selectedOption: { label: string; value: ReportViewSortOption }) => {
+    (selectedOption: Option) => {
       setSelectedSortOption(selectedOption);
       let params: ReportV2QueryParams = {
         page: 1,
@@ -130,9 +140,6 @@ const ReportViewDashboard: React.FC<Props> = ({
       switch (selectedOption.value) {
         case ReportViewSortOption.LAST_UPDATED:
           params.ordering = '-updated_at';
-          break;
-        case ReportViewSortOption.FIRST_UPDATED:
-          params.ordering = 'updated_at';
           break;
         case ReportViewSortOption.LAST_CREATED:
           params.ordering = '-created_at';
@@ -147,12 +154,24 @@ const ReportViewDashboard: React.FC<Props> = ({
           params.ordering = '-name';
           break;
         default:
-          params.ordering = '-created_at';
+          params.ordering = '-updated_at';
           break;
       }
       onPageRequested(params);
     },
     [onPageRequested, reportViewsPaginated],
+  );
+
+  const sortingOptionRenderer = React.useCallback(
+    ({ data }: ItemRendererProps<Option>) => (
+      <>
+        <MenuItem dense>
+          <p>{data.label}</p>
+        </MenuItem>
+        {data.isEndOfCategory && <Divider />}
+      </>
+    ),
+    [],
   );
 
   const classes = useStyles();
@@ -175,6 +194,7 @@ const ReportViewDashboard: React.FC<Props> = ({
       />
       <div className={classes.selector}>
         <MaterialUISelector
+          itemRenderer={sortingOptionRenderer}
           onChange={handleOnChange}
           options={sortOptions}
           value={selectedSortOption}
@@ -239,7 +259,7 @@ const useStyles = makeStyles((theme) => ({
   searchComponent: {
     paddingBottom: theme.spacing(2),
   },
-  selector: { maxWidth: '250px' },
+  selector: { maxWidth: '300px' },
 }));
 
 export default React.memo(ReportViewDashboard);

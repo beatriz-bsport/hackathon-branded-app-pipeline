@@ -250,10 +250,9 @@ export type IsReportNameUsedParams = {
 };
 
 export enum ReportViewSortOption {
+  LAST_UPDATED = '-updated_at',
   FIRST_CREATED = 'created_at',
   LAST_CREATED = '-created_at',
-  FIRST_UPDATED = 'updated_at',
-  LAST_UPDATED = '-updated_at',
   ALPHABETICAL = 'name',
   REVERSE_ALPHABETICAL = '-name',
 }
@@ -261,11 +260,10 @@ export enum ReportViewSortOption {
 export type InvalidFiltersAPI = { [reportFilterConfigId: number]: string[] };
 
 export type ReportSortingOption =
-  | 'created_at'
-  | 'updated_at'
-  | 'name'
-  | '-created_at'
   | '-updated_at'
+  | 'created_at'
+  | '-created_at'
+  | 'name'
   | '-name';
 
 export type ReportV2QueryParams = {

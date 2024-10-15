@@ -1021,9 +1021,8 @@ const getTranslations = async () => {
       lastCreated: 'Last Created',
       firstCreated: 'First Created',
       lastUpdated: 'Last updated',
-      firstUpdated: 'First updated',
-      alphabeticalOrder: 'Alphabetical order',
-      reverseAlphabeticalOrder: 'Reverse alphabetical order',
+      alphabeticalOrder: 'Alphabetical (A to Z)',
+      reverseAlphabeticalOrder: 'Alphabetical (Z to A)',
     },
   };
 };

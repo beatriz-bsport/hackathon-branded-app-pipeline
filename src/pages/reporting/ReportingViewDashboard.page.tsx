@@ -6,9 +6,10 @@ import { compose } from 'recompose';
 import { TFunction } from 'i18next';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import type { ReportV2QueryParams } from '#src/libs/reporting/common/types';
+import type {
+  ReportConfiguration,
+  ReportV2QueryParams,
+} from '#src/libs/reporting/common/types';
 
 import {
   fetchReports as fetchReportsAction,
@@ -42,7 +43,6 @@ import { getObjectPermissions } from '#src/libs/role/selectors';
 import {
   getIsReportV2Displayed,
   getIsReportAlertDisplayedInV2,
-  getLastVisitedReportV2,
 } from '#src/libs/user-preference/selectors';
 
 import withTitle from '#src/hocs/with-title.hoc';
@@ -61,7 +61,6 @@ const ReportingViewDashboard: React.FC<Props> = ({
   fetchReportsV2Paginated,
   pushRouter,
   isV2Displayed,
-  lastVisitedReportV2,
   metadata,
   reports,
   reportsV2,
@@ -73,25 +72,22 @@ const ReportingViewDashboard: React.FC<Props> = ({
     fetchReportMetadata();
     fetchReportsV2Paginated({
       page_size: REPORT_VIEWS_FETCHING_PAGINATION_SIZE,
-      ordering: '-created_at',
+      ordering: '-updated_at',
     });
   }, [fetchReports, fetchReportMetadata, fetchReportsV2Paginated]);
 
   const classes = useStyles();
 
-  const reportViews = Object.values(reportViewsPaginated.byId);
-
   const handleGoToReportV2 = React.useCallback(
-    (categoryName: ReportCategoryEnum) => () => {
-      const reportId =
-        lastVisitedReportV2?.[categoryName] ||
-        reportViews?.find((result) => result.category === categoryName)?.id;
+    (reportView: ReportConfiguration) => () => {
+      const reportId = reportView.id;
+      const categoryName = reportView.category;
 
-      reportId
+      reportId && categoryName
         ? pushRouter(`/reporting/detail/${categoryName}/${reportId}`)
         : pushRouter('/reporting/views');
     },
-    [pushRouter, reportViews, lastVisitedReportV2],
+    [pushRouter],
   );
 
   const fetchNextReportViews = React.useCallback(
@@ -135,7 +131,6 @@ const connector = connect(
     subscribedUpsells: getCompanyUpsellData(state),
     isV2Displayed: getIsReportV2Displayed(state),
     isReportAlertDisplayedInV2: getIsReportAlertDisplayedInV2(state),
-    lastVisitedReportV2: getLastVisitedReportV2(state),
     reportViewsPaginated: getReportsViewsPaginated(state),
   }),
   {

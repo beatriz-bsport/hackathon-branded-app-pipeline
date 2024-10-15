@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import { Card, CardActionArea } from '@material-ui/core';
 import classNames from 'classnames';
 
@@ -12,7 +11,7 @@ import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 
 type Props = {
   reportCustomView: ReportConfiguration;
-  handleGoToReportV2: (categoryName: ReportCategoryEnum) => () => void;
+  handleGoToReportV2: (reportView: ReportConfiguration) => () => void;
 };
 
 const ReportCustomViewItem: React.FC<Props> = ({
@@ -26,7 +25,7 @@ const ReportCustomViewItem: React.FC<Props> = ({
     <Card className={classes.cardItem}>
       <CardActionArea
         className={classNames(classes.withPadding, classes.cardActionArea)}
-        onClick={handleGoToReportV2(reportCustomView?.category)}
+        onClick={handleGoToReportV2(reportCustomView)}
       >
         <div className={classes.titleContainer}>
           <Typography className={classes.title} variant="body1">

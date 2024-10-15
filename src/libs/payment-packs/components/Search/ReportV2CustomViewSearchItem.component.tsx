@@ -4,19 +4,17 @@ import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-
 import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 
 type Props = {
   reportCustomView: ReportConfiguration;
-  handleGoToReportV2: (categoryName: ReportCategoryEnum) => () => void;
+  handleGoToReportV2: (reportView: ReportConfiguration) => () => void;
 };
 
 type ItemData = {
   reportView: ReportConfiguration;
-  onClick: (categoryName: ReportCategoryEnum) => () => void;
+  onClick: (reportView: ReportConfiguration) => () => void;
 };
 
 const ReportV2CustomViewItem: React.FC<Props> = ({
@@ -29,7 +27,7 @@ const ReportV2CustomViewItem: React.FC<Props> = ({
   return (
     <a
       className={classNames(classes.withPadding, classes.cardActionArea)}
-      onClick={handleGoToReportV2(reportCustomView?.category)}
+      onClick={handleGoToReportV2(reportCustomView)}
     >
       <div className={classes.titleContainer}>
         <Typography className={classes.title} variant="body1">

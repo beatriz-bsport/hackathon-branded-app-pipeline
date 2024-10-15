@@ -20,8 +20,6 @@ import {
 import type { PaginationFilterParams } from '#src/libs/types';
 import type { ErrorAndLoading } from '#src/state/types';
 
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-
 import ReportCustomViewItem from '#src/libs/reporting/v2/components/ReportCustomViewItem.component';
 import PaginatedListBaseReworked from '#src/components/PaginatedListBaseReworked.component';
 import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
@@ -33,7 +31,7 @@ import ReportV2CustomViewSearchItem from '#src/libs/payment-packs/components/Sea
 import { REPORT_VIEWS_FETCHING_PAGINATION_SIZE } from '#src/libs/reporting/common/constants';
 
 type Props = {
-  handleGoToReportV2: (categoryName: ReportCategoryEnum) => () => void;
+  handleGoToReportV2: (reportView: ReportConfiguration) => () => void;
   onPageRequested: (params: ReportV2QueryParams) => void;
   reportViews: ReportConfiguration[];
   reportViewsPaginated: ReportConfigurationPaginatedList & ErrorAndLoading;
@@ -132,10 +130,8 @@ const ReportViewDashboard: React.FC<Props> = ({
       setSelectedSortOption(selectedOption);
       let params: ReportV2QueryParams = {
         page: 1,
-        page_size:
-          reportViewsPaginated.page_size ||
-          REPORT_VIEWS_FETCHING_PAGINATION_SIZE,
-        ordering: '-created_at',
+        page_size: REPORT_VIEWS_FETCHING_PAGINATION_SIZE,
+        ordering: '-updated_at',
       };
       switch (selectedOption.value) {
         case ReportViewSortOption.LAST_UPDATED:
@@ -148,10 +144,10 @@ const ReportViewDashboard: React.FC<Props> = ({
           params.ordering = 'created_at';
           break;
         case ReportViewSortOption.REVERSE_ALPHABETICAL:
-          params.ordering = 'name';
+          params.ordering = '-name';
           break;
         case ReportViewSortOption.ALPHABETICAL:
-          params.ordering = '-name';
+          params.ordering = 'name';
           break;
         default:
           params.ordering = '-updated_at';
@@ -159,7 +155,7 @@ const ReportViewDashboard: React.FC<Props> = ({
       }
       onPageRequested(params);
     },
-    [onPageRequested, reportViewsPaginated],
+    [onPageRequested],
   );
 
   const sortingOptionRenderer = React.useCallback(

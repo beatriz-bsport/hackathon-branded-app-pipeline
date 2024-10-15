@@ -70,6 +70,8 @@ import {
   fetchOfferWaitingListPositionList,
 } from '#src/libs/offer/api';
 
+import { CONSUMER_SPACE_API_PAGE_SIZE } from './constants';
+
 import type { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 export const actionsType = {
   CONSUMER_HAS_FETCHED_OPTIONS: 'CONSUMER_HAS_FETCHED_OPTIONS_SUCCESS',
@@ -599,7 +601,7 @@ export function fetchMyPastBookingAsMember(
   // TODO : For franchise we must remove member and add franchise params in back-end
   {
     member,
-    page_size = 30,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
   }: {
     member: number;
     page_size?: number;
@@ -646,7 +648,7 @@ export function fetchMyFutureBookingAsMember(
   // TODO : For franchise we must remove member and add franchise params in back-end
   {
     member,
-    page_size = 30,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
   }: {
     member: number;
     page_size?: number;
@@ -693,7 +695,7 @@ export function fetchMyPastBookingWorkshopAsMember(
   // TODO : For franchise we must remove member and add franchise params in back-end
   {
     member,
-    page_size = 30,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
   }: {
     member: number;
     page_size?: number;
@@ -743,7 +745,7 @@ export function fetchMyFutureBookingWorkshopAsMember(
   // TODO : For franchise we must remove member and add franchise params in back-end
   {
     member,
-    page_size = 30,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
   }: {
     member: number;
     page_size?: number;
@@ -828,7 +830,11 @@ export const fetchMyPastPrivateBookingAsMemberActions = {
 };
 
 export function fetchMyPastPrivateBookingAsMember(
-  { member, page_size = 30, company }: PrivateBookingFilterParams,
+  {
+    member,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+    company,
+  }: PrivateBookingFilterParams,
   options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
@@ -869,7 +875,11 @@ export const fetchMyFuturePrivateBookingAsMemberActions = {
 };
 
 export function fetchMyFuturePrivateBookingAsMember(
-  { member, page_size = 30, company }: PrivateBookingFilterParams,
+  {
+    member,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+    company,
+  }: PrivateBookingFilterParams,
   options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
@@ -945,7 +955,7 @@ export const fetchMyBookingOptionAsMemberActions = {
 
 export function fetchMyBookingOptionAsMember(
   {
-    page_size = 30,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
     company,
     consumer,
   }: WaitingListBookingOptionPaginatedQueryParams,
@@ -1031,7 +1041,7 @@ export const fetchMyBookingOptionWorkshopAsMemberActions = {
 
 export function fetchMyBookingOptionWorkshopAsMember(
   {
-    page_size = 30,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
     company,
     consumer,
   }: WaitingListBookingOptionPaginatedQueryParams,
@@ -1118,7 +1128,10 @@ export const fetchMyActiveConsumerPaymentPacksAsMemberActions = {
 };
 
 export const fetchMyActiveConsumerPaymentPacksAsMember = (
-  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  {
+    memberId,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+  }: BaseMemberFetchOptions,
   options?: OptionCallback<PaginatedResponse<ConsumerPaymentPackREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
@@ -1165,7 +1178,10 @@ export const fetchMyExpiredConsumerPaymentPacksAsMemberActions = {
 };
 
 export const fetchMyExpiredConsumerPaymentPacksAsMember = (
-  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  {
+    memberId,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+  }: BaseMemberFetchOptions,
   options?: OptionCallback<PaginatedResponse<ConsumerPaymentPackREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
@@ -1216,7 +1232,10 @@ export const fetchMyFutureConsumerPaymentPacksAsMemberActions = {
 };
 
 export const fetchMyFutureConsumerPaymentPacksAsMember = (
-  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  {
+    memberId,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+  }: BaseMemberFetchOptions,
   options?: OptionCallback<PaginatedResponse<ConsumerPaymentPackREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
@@ -1266,7 +1285,10 @@ export const fetchMyActivePrivateConsumerPassesAsMemberActions = {
 };
 
 export const fetchMyActivePrivateConsumerPassesAsMember = (
-  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  {
+    memberId,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+  }: BaseMemberFetchOptions,
   options?: OptionCallback<PaginatedResponse<PrivateConsumerPassREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
@@ -1317,7 +1339,10 @@ export const fetchMyExpiredPrivateConsumerPassesAsMemberActions = {
 };
 
 export const fetchMyExpiredPrivateConsumerPassesAsMember = (
-  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  {
+    memberId,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+  }: BaseMemberFetchOptions,
   options?: OptionCallback<PaginatedResponse<PrivateConsumerPassREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
@@ -1370,7 +1395,10 @@ export const fetchMyFuturePrivateConsumerPassesAsMemberActions = {
 };
 
 export const fetchMyFuturePrivateConsumerPassesAsMember = (
-  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  {
+    memberId,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+  }: BaseMemberFetchOptions,
   options?: OptionCallback<PaginatedResponse<PrivateConsumerPassREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
@@ -1422,7 +1450,10 @@ export const fetchMyActiveUniversalPassesAsMemberActions = {
 };
 
 export const fetchMyActiveUniversalPassesAsMember = (
-  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  {
+    memberId,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+  }: BaseMemberFetchOptions,
   options?: OptionCallback<PaginatedResponse<UniversalPassREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
@@ -1468,7 +1499,10 @@ export const fetchMyExpiredUniversalPassesAsMemberActions = {
 };
 
 export const fetchMyExpiredUniversalPassesAsMember = (
-  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  {
+    memberId,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+  }: BaseMemberFetchOptions,
   options?: OptionCallback<PaginatedResponse<UniversalPassREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
@@ -1514,7 +1548,10 @@ export const fetchMyFutureUniversalPassesAsMemberActions = {
 };
 
 export const fetchMyFutureUniversalPassesAsMember = (
-  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  {
+    memberId,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+  }: BaseMemberFetchOptions,
   options?: OptionCallback<PaginatedResponse<UniversalPassREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
@@ -1589,7 +1626,11 @@ export const fetchConsumerUnpaidInvoicesActions = {
 };
 
 export function fetchConsumerUnpaidInvoices(
-  { page, page_size = 30, company_id }: ConsumerInvoiceParams,
+  {
+    page,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+    company_id,
+  }: ConsumerInvoiceParams,
   options?: OptionCallback<PaginatedResponse<ConsumerInvoiceREST>>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -1623,7 +1664,11 @@ export const fetchConsumerPaidInvoicesActions = {
   ),
 };
 export function fetchConsumerPaidInvoices(
-  { page, page_size = 30, company_id }: ConsumerInvoiceParams,
+  {
+    page,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+    company_id,
+  }: ConsumerInvoiceParams,
   options?: OptionCallback<PaginatedResponse<ConsumerInvoiceREST>>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -1657,7 +1702,11 @@ export const fetchConsumerRefundedInvoicesActions = {
   ),
 };
 export function fetchConsumerRefundedInvoices(
-  { page, page_size = 30, company_id }: ConsumerInvoiceParams,
+  {
+    page,
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+    company_id,
+  }: ConsumerInvoiceParams,
   options?: OptionCallback<PaginatedResponse<ConsumerInvoiceREST>>,
 ) {
   return async (dispatch: Dispatch) => {

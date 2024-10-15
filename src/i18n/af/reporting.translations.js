@@ -1015,6 +1015,9 @@ const getTranslations = async () => {
       allViews: 'All Views',
       noCustomViews:
         'You haven’t created any custom view yet. You can do it from any report page ',
+      searchBar: {
+        placeholder: 'Search a view name ...',
+      },
     },
     reportFilter: {
       title: 'Filter on ...',

@@ -188,7 +188,7 @@ const ReportViewDashboard: React.FC<Props> = ({
           Option: ReportV2CustomViewSearchItem,
         }}
         optionsFormatter={formatSearchOptions}
-        placeholder={t('search')}
+        placeholder={t('viewTab.searchBar.placeholder')}
         searchedObjectType="reportV2"
         variant="underlined"
       />

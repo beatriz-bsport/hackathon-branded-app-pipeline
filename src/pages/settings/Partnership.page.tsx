@@ -25,7 +25,11 @@ import withTitle from '#src/hocs/with-title.hoc';
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import themeSelector from '#src/libs/theme/selectors';
 import type { RootState } from '#src/reducers';
-import type { OptionCallback } from '#src/state/types';
+import type {
+  OptionBackgroundCallback,
+  OptionCallback,
+  ReworkedPaginationResponse,
+} from '#src/state/types';
 
 // UPSELL
 import { getCompanyFeatureList } from '#src/libs/company/selectors';
@@ -68,22 +72,44 @@ import CLASSPASS_LOGO from './classpass.png';
 
 // Wellhub
 import WellhubConfiguration from '#src/libs/wellhub/components/WellhubConfiguration';
+import WellhubProductSelectionDrawer from '#src/libs/wellhub/components/WellhubProductSelectionDrawer';
+
 import {
-  getGymAvailability as getGymAvailabilityAction,
-  createWellhubGym as createWellhubGymAction,
-  fetchWellhubGyms as fetchWellhubGymsAction,
-  updateWellhubGym as updateWellhubGymAction,
-  deleteWellhubGym as deleteWellhubGymAction,
   configureWellhubGymWebhooks as configureWellhubGymWebhooksAction,
+  createWellhubGym as createWellhubGymAction,
+  deleteWellhubGym as deleteWellhubGymAction,
+  fetchOffersMissingWellhubProduct as fetchOffersMissingWellhubProductAction,
+  fetchWellhubGyms as fetchWellhubGymsAction,
+  getGymAvailability as getGymAvailabilityAction,
+  updateWellhubGym as updateWellhubGymAction,
 } from '#src/libs/wellhub/actions';
-import { GymAvailabilityReasonCode } from '#src/libs/wellhub/constants';
+import { fetchAssociatedCoachesList as fetchAssociatedCoachListAction } from '#src/libs/associated-coach/actions';
 import {
+  editOffers as editOffersAction,
+  fetchSimilarOffers as fetchSimilarOffersAction,
+} from '#src/libs/offer/actions';
+
+import { GymAvailabilityReasonCode } from '#src/libs/wellhub/constants';
+
+import { getActiveCoaches } from '#src/libs/associated-coach/selectors';
+import {
+  getSimilars as getSimilarsOffers,
+  withCoach,
+  withEstablishment,
+} from '#src/libs/offer/selectors';
+import {
+  getOffersMissingWellhubProductLoading,
+  getOffersMissingWellhubProductPaginatedData,
   getWellhubGymAvailability,
   getWellhubGymAvailabilityError,
   getWellhubGymAvailabilityLoading,
   getWellhubGyms,
   getWellhubLoading,
 } from '#src/libs/wellhub/selectors';
+
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Offer, OfferEdit, OfferSaas } from '#src/libs/offer/types';
+import type { PaginationFilterParams } from '#src/libs/types';
 import type {
   GymAvailabilityResponse,
   WellhubGym,
@@ -92,7 +118,9 @@ import type {
 
 type StateProps = {
   hasRequested: boolean;
+  isWellhubProductSelectionDrawerOpen: boolean;
   setHasRequested: (b: boolean) => void;
+  setIsWellhubProductSelectionDrawerOpen: (b: boolean) => void;
 };
 
 type ConnectorProps = {
@@ -113,10 +141,15 @@ type ConnectorProps = {
   updatePartnership: (id: number, data: any) => void;
 
   // Wellhub
+  coaches: Coach[];
+  offersMissingWellhubProductLoading: boolean;
+  offersMissingWellhubProductPaginatedData: ReworkedPaginationResponse<OfferSaas>;
+  similarOfferLoading: boolean;
+  similarOffersWithCoachAndEstablishment: Offer<Coach, Establishment>[];
+  wellhubGymAvailabilityError: Error | null;
+  wellhubGymAvailabilityLoading: boolean;
   wellhubGyms: WellhubGym[];
   wellhubLoading: boolean;
-  wellhubGymAvailabilityLoading: boolean;
-  wellhubGymAvailabilityError: Error | null;
   getWellhubGymAvailability: (gymID: number) => GymAvailabilityResponse;
 
   // eslint-disable-next-line react/no-unused-prop-types
@@ -138,9 +171,17 @@ type ConnectorProps = {
     options?: OptionCallback<WellhubGymUpsert>,
   ) => void;
 
-  deleteWellhubGym: (wellhubGymUUID: string, options?: OptionCallback) => void;
-  fetchWellhubGyms: () => void;
   checkAvailability: (gymID: number) => void;
+  deleteWellhubGym: (wellhubGymUUID: string, options?: OptionCallback) => void;
+  editOffers: (
+    offerId: number,
+    offer: Partial<OfferEdit>,
+    options?: OptionBackgroundCallback,
+  ) => void;
+  fetchAssociatedCoachList: () => void;
+  fetchOffersMissingWellhubProduct: (params: PaginationFilterParams) => void;
+  fetchSimilarOffers: (offerId: number) => void;
+  fetchWellhubGyms: () => void;
 };
 
 type HandlerProps = {
@@ -162,11 +203,32 @@ export class Partnership extends React.Component<Props> {
     // @ts-expect-error
     this.props.fetchAssociatedEstablishments({ company: this.props.company });
     // Wellhub
-    this.props.fetchWellhubGyms();
+    if (hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_WELLHUB)) {
+      this.props.fetchWellhubGyms();
+      this.props.fetchOffersMissingWellhubProduct({});
+      this.props.fetchAssociatedCoachList();
+    }
   }
 
   updatePartnership = (data: any) => {
     this.props.updatePartnership(this.props.classpass.id, data);
+  };
+
+  openWellhubProductSelectionDrawer = () =>
+    this.props.setIsWellhubProductSelectionDrawerOpen(true);
+
+  closeWellhubProductSelectionDrawer = () =>
+    this.props.setIsWellhubProductSelectionDrawerOpen(false);
+
+  fetchMissingProductOffersSpecificPage = (page: number) =>
+    this.props.fetchOffersMissingWellhubProduct({ page });
+
+  onEditOffer = (data: { offerId: number; data: Partial<OfferEdit> }) => {
+    this.props.editOffers(data.offerId, data.data, {
+      onBackgroundSuccess: () => {
+        this.props.fetchOffersMissingWellhubProduct({});
+      },
+    });
   };
 
   render() {
@@ -222,6 +284,12 @@ export class Partnership extends React.Component<Props> {
             deleteWellhubGym={this.props.deleteWellhubGym}
             establishments={this.props.establishmentList}
             getWellhubGymAvailability={this.props.getWellhubGymAvailability}
+            offersMissingWellhubProductCount={
+              this.props.offersMissingWellhubProductPaginatedData.total_count
+            }
+            openWellhubProductSelectionDrawer={
+              this.openWellhubProductSelectionDrawer
+            }
             updateWellhubGym={this.props.updateWellhubGym}
             wellhubGymAvailabilityError={this.props.wellhubGymAvailabilityError}
             wellhubGymAvailabilityLoading={
@@ -229,6 +297,23 @@ export class Partnership extends React.Component<Props> {
             }
             wellhubGyms={this.props.wellhubGyms}
             wellhubLoading={this.props.wellhubLoading}
+          />
+        )}
+        {hasWellhubUpsell && (
+          <WellhubProductSelectionDrawer
+            availableEstablishments={this.props.establishmentList}
+            coaches={this.props.coaches}
+            fetchMissingProductOffersSpecificPage={
+              this.fetchMissingProductOffersSpecificPage
+            }
+            fetchSimilarOffers={this.props.fetchSimilarOffers}
+            isLoading={this.props.offersMissingWellhubProductLoading}
+            isOpen={this.props.isWellhubProductSelectionDrawerOpen}
+            offersData={this.props.offersMissingWellhubProductPaginatedData}
+            onClose={this.closeWellhubProductSelectionDrawer}
+            onConfirm={this.onEditOffer}
+            similarOffers={this.props.similarOffersWithCoachAndEstablishment}
+            similarOffersLoading={this.props.similarOfferLoading}
           />
         )}
         <div className={this.props.classes.classpassContainer}>
@@ -344,6 +429,7 @@ const mapWithHandlers = {
               onSuccess: (wellhubGymUpdated) => {
                 props.fetchWellhubGyms();
                 props.configureWellhubGymWebhooksAction(wellhubGymUpdated.uuid);
+                props.fetchOffersMissingWellhubProduct({});
               },
             },
           );
@@ -352,6 +438,7 @@ const mapWithHandlers = {
             onSuccess: (wellhubGymCreated) => {
               props.fetchWellhubGyms();
               props.configureWellhubGymWebhooksAction(wellhubGymCreated.uuid);
+              props.fetchOffersMissingWellhubProduct({});
             },
           });
         }
@@ -365,7 +452,10 @@ const mapWithHandlers = {
         wellhubGym.gym_id,
         establishmentIDs,
         {
-          onSuccess: () => props.fetchWellhubGyms(),
+          onSuccess: () => {
+            props.fetchWellhubGyms();
+            props.fetchOffersMissingWellhubProduct({});
+          },
         },
       );
     },
@@ -376,6 +466,11 @@ export default compose(
   withTitle(({ t }) => t('pageTitle')),
   withStyles(styles),
   withState('hasRequested', 'setHasRequested', false),
+  withState(
+    'isWellhubProductSelectionDrawerOpen',
+    'setIsWellhubProductSelectionDrawerOpen',
+    false,
+  ),
   connect(
     (state: RootState) => ({
       associatedEstablishmentList: getAllAssociatedEstablishment(state),
@@ -395,10 +490,19 @@ export default compose(
       partnershipEstablishmentMergeList:
         getPartnershipEstablishmentMergeList(state),
       // Wellhub
+      coaches: getActiveCoaches(state),
+      offersMissingWellhubProductLoading:
+        getOffersMissingWellhubProductLoading(state),
+      offersMissingWellhubProductPaginatedData:
+        getOffersMissingWellhubProductPaginatedData(state),
+      similarOfferLoading: state.offer.similarOffers.loading,
+      similarOffersWithCoachAndEstablishment: withEstablishment(
+        withCoach(getSimilarsOffers),
+      )(state),
+      wellhubGymAvailabilityError: getWellhubGymAvailabilityError(state),
+      wellhubGymAvailabilityLoading: getWellhubGymAvailabilityLoading(state),
       wellhubGyms: getWellhubGyms(state),
       wellhubLoading: getWellhubLoading(state),
-      wellhubGymAvailabilityLoading: getWellhubGymAvailabilityLoading(state),
-      wellhubGymAvailabilityError: getWellhubGymAvailabilityError(state),
       getWellhubGymAvailability: (gymID: number) =>
         getWellhubGymAvailability(state, gymID),
     }),
@@ -414,6 +518,10 @@ export default compose(
       configureWellhubGymWebhooksAction,
       createWellhubGymAction,
       deleteWellhubGym: deleteWellhubGymAction,
+      editOffers: editOffersAction,
+      fetchAssociatedCoachList: fetchAssociatedCoachListAction,
+      fetchOffersMissingWellhubProduct: fetchOffersMissingWellhubProductAction,
+      fetchSimilarOffers: fetchSimilarOffersAction,
       fetchWellhubGyms: fetchWellhubGymsAction,
       updateWellhubGymAction,
     },

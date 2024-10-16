@@ -45,7 +45,7 @@ const WellhubProductSelectorBase: React.FC<Props> = React.memo(
     const wellhubProductOptions: WellhubProductOption[] = React.useMemo(
       () =>
         productsByWellhubGymUuid?.[wellhubGymUuid]
-          ?.filter((product) => isVirtualOffer == product.is_live_class)
+          ?.filter((product) => isVirtualOffer == product.virtual)
           .map((product) => ({
             label: product.name,
             value: product.product_id,

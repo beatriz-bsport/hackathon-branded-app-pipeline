@@ -12,7 +12,7 @@ export type WellhubGym = {
   establishments: Establishment[];
   gym_id: number;
   gym_name: string;
-  products: any[]; //TODO: Type this properly
+  products: WellhubProduct[];
 };
 
 export type WellhubGymUpsert = {
@@ -22,7 +22,7 @@ export type WellhubGymUpsert = {
   establishments: number[];
   gym_id: number;
   gym_name: string;
-  products: any[]; //TODO: Type this properly
+  products: WellhubProduct[];
 };
 
 export type GymAvailabilityQueryParams = { gym_id: number };
@@ -57,8 +57,8 @@ export type WellhubProductId = number;
 export type WellhubProduct = {
   product_id: WellhubProductId;
   name: string;
-  updated_at: string | number; // TODO: type better
-  is_live_class: boolean;
+  virtual: boolean;
+  updated_at: string;
 };
 
 export type WellhubProductOption = {

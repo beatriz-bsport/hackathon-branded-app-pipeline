@@ -13,12 +13,9 @@ import {
   createStyles,
 } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 
 // GLOBAL
 import withTitle from '#src/hocs/with-title.hoc';
@@ -118,6 +115,7 @@ import type {
   WellhubGymUpsert,
 } from '#src/libs/wellhub/types';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import PartnershipConfiguration from '#src/libs/partnership/components/PartnershipConfiguration.component';
 
 type StateProps = {
   hasRequested: boolean;
@@ -275,7 +273,7 @@ export class Partnership extends React.Component<Props> {
       ];
     }
 
-    if (this.props.mergedEstablishmentWithAssociation) {
+    if (this.props.mergedEstablishmentWithAssociation.length) {
       return this.props.mergedEstablishmentWithAssociation.map(
         (establishmentGroup) => ({
           venueId: establishmentGroup.venueId,
@@ -286,7 +284,16 @@ export class Partnership extends React.Component<Props> {
         }),
       );
     }
-    return this.props.establishmentList.map((establishment) => ({
+    const filteredEstablishments = this.props.classpass
+      ?.associated_establishment_ids?.length
+      ? this.props.establishmentList?.filter((establishment) =>
+          this.props.classpass.associated_establishment_ids.includes(
+            establishment.associatedestablishment_set[0],
+          ),
+        )
+      : this.props.establishmentList ?? [];
+
+    return filteredEstablishments.map((establishment) => ({
       venueId: establishment.associatedestablishment_set[0],
       establishmentNames: [establishment.title],
     }));
@@ -384,65 +391,38 @@ export class Partnership extends React.Component<Props> {
           />
         )}
         <div className={this.props.classes.classpassContainer}>
-          <div
-            style={{ display: 'flex', alignItems: 'row', flexDirection: 'row' }}
-          ></div>
-          <Paper className={this.props.classes.paper}>
-            {this.props.loading || this.props.establishmentList.length === 0 ? (
-              <CircularProgress />
-            ) : (
-              <div className={this.props.classes.column}>
-                <Typography variant="h6">
-                  {this.props.t('parameters.partnerId', { company })}
-                </Typography>
-                <Typography variant="h6">
-                  {this.props.t('parameters.venueIds', {
-                    establishmentIdList: venueIds,
-                  })}
-                </Typography>
-                <Button
-                  className={this.props.classes.requestButton}
-                  color="primary"
-                  onClick={this.openPartnershipConfigurationForm}
-                  variant="outlined"
-                >
-                  {this.props.t('parameters.editButton')}
-                </Button>
-                <GenericResponsiveDrawer
-                  onClose={this.closePartnershipConfigurationForm}
-                  open={
-                    !!this.props.classpass &&
-                    this.props.isPartnershipConfigurationFormOpen
-                  }
-                  title={this.props.t('parameters.drawerTitle')}
-                >
-                  <PartnershipConfigurationForm
-                    associatedEstablishmentList={
-                      this.props.associatedEstablishmentList
-                    }
-                    establishmentList={this.props.establishmentList}
-                    initial={this.props.classpass}
-                    // @ts-expect-error
-                    iSubmitting={this.props.isSubmitting}
-                    onSubmit={this.updatePartnership}
-                    partnershipEstablishmentMergeList={
-                      this.props.partnershipEstablishmentMergeList
-                    }
-                  />
-                </GenericResponsiveDrawer>
-                {!this.props.classpass && (
-                  <Button
-                    className={this.props.classes.requestButton}
-                    color="primary"
-                    onClick={this.props.requestClasspassPartnership}
-                    variant="outlined"
-                  >
-                    {this.props.t('actions.requestPartnership')}
-                  </Button>
-                )}
-              </div>
-            )}
-          </Paper>
+          <PartnershipConfiguration
+            activitiesVenueEstablishmentList={this.getActivitiesVenueEstablishmentList()}
+            appointmentsVenueEstablishmentList={this.getAppointmentsVenueEstablishmentList()}
+            companyId={company}
+            isLoading={this.props.loading}
+            openPartnershipConfigurationForm={
+              this.openPartnershipConfigurationForm
+            }
+            requestClasspassPartnership={this.props.requestClasspassPartnership}
+            shouldRequestClassPassPartnership={!this.props.classpass}
+          />
+          <GenericResponsiveDrawer
+            onClose={this.closePartnershipConfigurationForm}
+            open={
+              !!this.props.classpass &&
+              this.props.isPartnershipConfigurationFormOpen
+            }
+            title={this.props.t('parameters.drawerTitle')}
+          >
+            <PartnershipConfigurationForm
+              associatedEstablishmentList={
+                this.props.associatedEstablishmentList
+              }
+              establishmentList={this.props.establishmentList}
+              initial={this.props.classpass}
+              isSubmitting={this.props.isSubmitting}
+              onSubmit={this.updatePartnership}
+              partnershipEstablishmentMergeList={
+                this.props.partnershipEstablishmentMergeList
+              }
+            />
+          </GenericResponsiveDrawer>
         </div>
       </div>
     );

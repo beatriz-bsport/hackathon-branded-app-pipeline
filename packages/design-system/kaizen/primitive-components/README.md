@@ -37,19 +37,18 @@ function MyComponent() {
 
 Kaizen is using [Untitled UI Icons](https://www.untitledui.com/free-icons) for icons.
 
-### Add a new icon
+### Update icons
 
-You can easily add new icons to Kaizen, for this you need to:
+You can easily update the icons into Kaizen, for this you need to:
 
-1. Choose a kebab-case name, for example `my-new-icon`
-2. Copy-pase your new icon as a SVG (as when clicking on any Untitled icon).
-3. Finally run the command below and follow the instructions.
+1. Inside the `src/components/Icon/assets` folder, copy-paste your new icon as a SVG. You can also remove some if they are no longer needed.
+2. Run the command below.
 
 ```sh
-pnpm run icon:add
+pnpm run icon:generate
 ```
 
-**NB:** You can add multiple icons in one session.
+**NB:** This script is also part of the `pre-commit` script, and the changes are added automatically.
 
 ## Development
 

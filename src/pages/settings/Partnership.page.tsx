@@ -72,8 +72,6 @@ import {
   CLASSPASS_INTEGRATION_IDENTIFIER,
 } from '#src/libs/partnership/constants';
 
-import CLASSPASS_LOGO from './classpass.png';
-
 // Wellhub
 import WellhubConfiguration from '#src/libs/wellhub/components/WellhubConfiguration';
 import WellhubProductSelectionDrawer from '#src/libs/wellhub/components/WellhubProductSelectionDrawer';
@@ -388,20 +386,7 @@ export class Partnership extends React.Component<Props> {
         <div className={this.props.classes.classpassContainer}>
           <div
             style={{ display: 'flex', alignItems: 'row', flexDirection: 'row' }}
-          >
-            <img
-              alt="classpass"
-              src={CLASSPASS_LOGO}
-              style={{ height: 64, width: 64 }}
-            />
-            <Typography
-              className={this.props.classes.paper}
-              component="h3"
-              variant="h3"
-            >
-              ClassPass
-            </Typography>
-          </div>
+          ></div>
           <Paper className={this.props.classes.paper}>
             {this.props.loading || this.props.establishmentList.length === 0 ? (
               <CircularProgress />

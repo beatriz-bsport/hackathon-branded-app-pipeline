@@ -170,6 +170,7 @@ const useNavigationData = ({
   const consumerNavigationData: SubmenuItem[] = React.useMemo(
     () => [
       {
+        className: 'bs-consumer-navigation-submenu-item-bookings',
         title: t('reworked.navigation.myBookings'),
         leftIcon: <Calendar />,
         to: `/c/${companyId}/booking/`,
@@ -177,6 +178,7 @@ const useNavigationData = ({
         onClick: handleCloseConsumerSideDrawer,
       },
       {
+        className: 'bs-consumer-navigation-submenu-item-passes',
         title: t('reworked.navigation.myPasses'),
         leftIcon: <Ticket01 />,
         to: `/c/${companyId}/pack/`,
@@ -184,6 +186,7 @@ const useNavigationData = ({
         onClick: handleCloseConsumerSideDrawer,
       },
       {
+        className: 'bs-consumer-navigation-submenu-item-subscriptions',
         title: t('reworked.navigation.mySubscriptions'),
         leftIcon: <Star01 />,
         to: `/c/${companyId}/subscription/`,
@@ -191,6 +194,7 @@ const useNavigationData = ({
         onClick: handleCloseConsumerSideDrawer,
       },
       {
+        className: 'bs-consumer-navigation-submenu-item-profile',
         title: t('reworked.navigation.myProfile'),
         leftIcon: <UserEdit />,
         to: `/c/${companyId}/profile/`,
@@ -198,6 +202,7 @@ const useNavigationData = ({
         onClick: handleCloseConsumerSideDrawer,
       },
       {
+        className: 'bs-consumer-navigation-submenu-item-giftcards',
         title: t('reworked.navigation.myGiftCards'),
         leftIcon: <Gift02 />,
         to: `/c/${companyId}/giftcard/`,
@@ -205,6 +210,7 @@ const useNavigationData = ({
         onClick: handleCloseConsumerSideDrawer,
       },
       {
+        className: 'bs-consumer-navigation-submenu-item-vod',
         title: t('reworked.navigation.myVideosAndEbooks'),
         leftIcon: <PlaySquare />,
         to: `/c/${companyId}/vod/`,
@@ -212,6 +218,7 @@ const useNavigationData = ({
         onClick: handleCloseConsumerSideDrawer,
       },
       {
+        className: 'bs-consumer-navigation-submenu-item-invoices',
         title: t('reworked.navigation.myInvoices'),
         leftIcon: <FileAttachment02 />,
         to: `/c/${companyId}/invoice/`,

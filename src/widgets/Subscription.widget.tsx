@@ -31,7 +31,6 @@ const SubscriptionWidget: React.FC<Props> = ({
   const handleAddToCartPostMessages = (event: MessageEvent) => {
     // If the postMessage includes a uniqueWidgetId parameter and the provided ID is not the same as the one belonging to this widget,
     // it indicates that this widget was not targeted. In such cases, we take no action.
-    console.log('CALLED ADD CART');
     if (
       event?.data?.data?.uniqueWidgetId &&
       event?.data?.data?.uniqueWidgetId !== uniqueWidgetId

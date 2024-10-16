@@ -5,6 +5,7 @@ export type PartnershipCompany = {
   company: number;
   date_created: number;
   partnership: number;
+  override_establishment_pk: number | null;
 };
 
 export type PartnershipEstablishmentMerge = {

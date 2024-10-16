@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const PartnershipConfigurationForm = (props: Props) => {
   const [configurationType, setConfigurationType] = React.useState<number>(
-    // @ts-expect-error
     (props.initial?.override_establishment_pk && OVERRIDE_MODE) ||
       (props.partnershipEstablishmentMergeList?.length &&
         MULTIPLE_MERGE_MODE) ||

@@ -43,6 +43,7 @@ import type {
   PartnershipEstablishmentMerge,
 } from '#src/libs/partnership/types';
 import {
+  getMergedEstablishmentsWithAssociation,
   getPartnershipByIdentifier,
   getPartnershipEstablishmentMergeList,
 } from '#src/libs/partnership/selectors';
@@ -66,7 +67,10 @@ import type {
   Establishment,
   AssociatedEstablishment,
 } from '#src/libs/establishment/types';
-import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/partnership/constants';
+import {
+  APPOINTMENT_VENUE_ID_PREFIX,
+  CLASSPASS_INTEGRATION_IDENTIFIER,
+} from '#src/libs/partnership/constants';
 
 import CLASSPASS_LOGO from './classpass.png';
 
@@ -193,6 +197,11 @@ type ConnectorProps = {
   fetchOffersMissingWellhubProduct: (params: PaginationFilterParams) => void;
   fetchSimilarOffers: (offerId: number) => void;
   fetchWellhubGyms: () => void;
+  mergedEstablishmentWithAssociation: {
+    venueId: number;
+    referenceEstablishment: string;
+    associatedEstablishments: string[];
+  }[];
 };
 
 type HandlerProps = {
@@ -247,6 +256,44 @@ export class Partnership extends React.Component<Props> {
     });
   };
 
+  getAppointmentsVenueEstablishmentList = () => {
+    if (!this.props.establishmentList) return [];
+    return this.props.establishmentList.map((establishment) => ({
+      venueId: `${APPOINTMENT_VENUE_ID_PREFIX}${establishment.associatedestablishment_set[0]}`,
+      establishmentNames: [establishment.title],
+    }));
+  };
+
+  getActivitiesVenueEstablishmentList = () => {
+    if (!this.props.establishmentList) return [];
+    if (this.props.classpass?.override_establishment_pk) {
+      return [
+        {
+          venueId: this.props.classpass.override_establishment_pk,
+          establishmentNames: this.props.establishmentList.map(
+            (establishment) => establishment.title,
+          ),
+        },
+      ];
+    }
+
+    if (this.props.mergedEstablishmentWithAssociation) {
+      return this.props.mergedEstablishmentWithAssociation.map(
+        (establishmentGroup) => ({
+          venueId: establishmentGroup.venueId,
+          establishmentNames: [
+            establishmentGroup.referenceEstablishment,
+            ...establishmentGroup.associatedEstablishments,
+          ],
+        }),
+      );
+    }
+    return this.props.establishmentList.map((establishment) => ({
+      venueId: establishment.associatedestablishment_set[0],
+      establishmentNames: [establishment.title],
+    }));
+  };
+
   openPartnershipConfigurationForm = () => {
     this.props.setIsPartnershipConfigurationFormOpen(true);
   };
@@ -275,9 +322,7 @@ export class Partnership extends React.Component<Props> {
         .map((pem) => pem.reference_establishment)
         .join(', ');
     }
-    // @ts-expect-error
     if (this.props.classpass?.override_establishment_pk) {
-      // @ts-expect-error
       venueIds = `${this.props.classpass?.override_establishment_pk}`;
     }
 
@@ -563,6 +608,8 @@ export default compose(
       wellhubLoading: getWellhubLoading(state),
       getWellhubGymAvailability: (gymID: number) =>
         getWellhubGymAvailability(state, gymID),
+      mergedEstablishmentWithAssociation:
+        getMergedEstablishmentsWithAssociation(state),
     }),
     {
       fetchAssociatedEstablishments,

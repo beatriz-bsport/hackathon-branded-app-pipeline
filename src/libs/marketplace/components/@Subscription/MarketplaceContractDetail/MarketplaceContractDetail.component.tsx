@@ -5,9 +5,10 @@ import classNames from 'classnames';
 import StarIcon from '@material-ui/icons/Star';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReplayIcon from '@material-ui/icons/Replay';
-
+import Button from '#src/components/css-only/Fabrique/Button';
+import Collapse from '#src/components/css-only/Fabrique/Collapse';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-
+import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import Card, { CardSize } from '#src/components/css-only/Card';
 import Content from '#src/components/css-only/Card/CardContent';
 import Grid from '#src/components/css-only/Grid';
@@ -22,7 +23,7 @@ import { PrivatePass } from '#src/libs/private-service/types';
 import { PaymentCombo } from '#src/libs/payment-combo/types';
 import { Contract } from '#src/libs/subscription/types';
 import BillingInterval from '../MarketplaceBillingInterval';
-
+import useIsTextExpandable from '#src/hooks/useIsTextExpandable';
 import './styles.css';
 
 export type Props = {
@@ -32,6 +33,63 @@ export type Props = {
   getPaymentPackSelected: (id: number) => PaymentPack;
   getPrivatePassSelected: (id: number) => PrivatePass;
   getPaymentComboSelected: (id: number) => PaymentCombo;
+  hideLegalNotice?: boolean;
+};
+
+const ContractLegalNotice: React.FC<{
+  legalNotice: string;
+  collapsible: boolean;
+}> = ({ legalNotice, collapsible }) => {
+  const { t } = useTranslation('marketplace');
+  const [showMore, setShowMore] = React.useState(false);
+
+  const handleShowMoreDescription = React.useCallback(
+    () =>
+      setShowMore(
+        (previousShowMoreDescription) => !previousShowMoreDescription,
+      ),
+    [setShowMore],
+  );
+  const legalContractText = useIsTextExpandable(collapsible);
+  if (!collapsible) {
+    return <>{legalNotice}</>;
+  }
+
+  return (
+    <>
+      <Collapse collapsedHeight={75} isExpanded={showMore}>
+        <div
+          ref={legalContractText.ref}
+          className={classNames('bs-contract-checkout__body__text', {
+            '--hide': !showMore,
+          })}
+        >
+          {legalNotice}
+        </div>
+      </Collapse>
+      {legalContractText.isExpandable && (
+        <Button
+          disableRipple
+          classes={{
+            root: 'bs-contract-checkout__body__button',
+          }}
+          onClick={handleShowMoreDescription}
+        >
+          {showMore ? (
+            <>
+              <KeyboardArrowUp />
+              {t('marketplace:contractCard.seeLess')}
+            </>
+          ) : (
+            <>
+              <KeyboardArrowDown />
+              {t('marketplace:contractCard.seeMore')}
+            </>
+          )}
+        </Button>
+      )}
+    </>
+  );
 };
 
 const ContractDetailList: React.FC<Props> = React.memo(
@@ -112,6 +170,7 @@ const MarketplaceContractDetail: React.FC<Props> = React.memo(
     getPaymentPackSelected,
     getPrivatePassSelected,
     getPaymentComboSelected,
+    hideLegalNotice,
   }) => {
     const { t } = useTranslation('marketplace');
     const flatFees = getCurrencyDisplayWithPrice(contract?.flat_fee);
@@ -236,16 +295,21 @@ const MarketplaceContractDetail: React.FC<Props> = React.memo(
                 <div className={classNames('bs-contract-details__body__text')}>
                   {contract?.description}
                 </div>
-                <div>
-                  <h4 className="bs-contract-card__subtitle --legal">
-                    {t('contractCard.legalContract')}
-                  </h4>
-                  <div
-                    className={classNames('bs-contract-details__body__text')}
-                  >
-                    {contract?.contract}
+                {!hideLegalNotice && (
+                  <div>
+                    <h4 className="bs-contract-card__subtitle --legal">
+                      {t('contractCard.legalContract')}
+                    </h4>
+                    <div
+                      className={classNames('bs-contract-details__body__text')}
+                    >
+                      <ContractLegalNotice
+                        collapsible
+                        legalNotice={contract?.contract}
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
               </Item>
             </Grid>
           </Content>

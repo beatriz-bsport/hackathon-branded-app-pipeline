@@ -523,6 +523,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
 
                 {displayDirectLinkLayout && (
                   <MarketplaceContractDetail
+                    hideLegalNotice
                     // @ts-expect-error
                     contract={contract}
                     getPaymentComboSelected={this.props.getPaymentComboSelected}
@@ -534,7 +535,6 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                     )}
                   />
                 )}
-
                 <MarketplaceContractPayment
                   billingStartDate={this.state.billingStartDate}
                   cardBillingDetailsMandatory={

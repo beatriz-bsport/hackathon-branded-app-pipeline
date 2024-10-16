@@ -1085,11 +1085,6 @@ export function cancelBookingOptionAsMember(
 }
 /** MY PASSES PAGE */
 
-type BaseMemberFetchOptions = {
-  memberId: number;
-  page_size?: number;
-};
-
 /** MY PASSES PAGE - CONSUMER PAYMENT PACKS */
 
 export const fetchMyActiveConsumerPaymentPacksAsMemberActions = {
@@ -1107,20 +1102,18 @@ export const fetchMyActiveConsumerPaymentPacksAsMemberActions = {
 export const fetchMyActiveConsumerPaymentPacksAsMember = (
   {
     memberId,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: BaseMemberFetchOptions,
+  }: PaginationFilterParams & { memberId: number },
   options?: OptionCallback<PaginatedResponse<ConsumerPaymentPackREST>>,
 ): ThunkAction => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(fetchMyActiveConsumerPaymentPacksAsMemberActions.isLoading(true));
     dispatch(fetchMyActiveConsumerPaymentPacksAsMemberActions.error(null));
-    const currentState =
-      getState().consumerReworked.myPasses.consumerPaymentPack.active;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchConsumerPaymentPackListAPI({
         member: memberId,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         is_valid_today: true,
         is_universal: false,
@@ -1157,20 +1150,18 @@ export const fetchMyExpiredConsumerPaymentPacksAsMemberActions = {
 export const fetchMyExpiredConsumerPaymentPacksAsMember = (
   {
     memberId,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: BaseMemberFetchOptions,
+  }: PaginationFilterParams & { memberId: number },
   options?: OptionCallback<PaginatedResponse<ConsumerPaymentPackREST>>,
 ): ThunkAction => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(fetchMyExpiredConsumerPaymentPacksAsMemberActions.isLoading(true));
     dispatch(fetchMyExpiredConsumerPaymentPacksAsMemberActions.error(null));
-    const currentState =
-      getState().consumerReworked.myPasses.consumerPaymentPack.expired;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchConsumerPaymentPackListAPI({
         member: memberId,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         is_expired: true,
         is_universal: false,
@@ -1211,20 +1202,18 @@ export const fetchMyFutureConsumerPaymentPacksAsMemberActions = {
 export const fetchMyFutureConsumerPaymentPacksAsMember = (
   {
     memberId,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: BaseMemberFetchOptions,
+  }: PaginationFilterParams & { memberId: number },
   options?: OptionCallback<PaginatedResponse<ConsumerPaymentPackREST>>,
 ): ThunkAction => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(fetchMyFutureConsumerPaymentPacksAsMemberActions.isLoading(true));
     dispatch(fetchMyFutureConsumerPaymentPacksAsMemberActions.error(null));
-    const currentState =
-      getState().consumerReworked.myPasses.consumerPaymentPack.future;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchConsumerPaymentPackListAPI({
         member: memberId,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         is_expired: false,
         is_valid_today: false,
@@ -1264,20 +1253,18 @@ export const fetchMyActivePrivateConsumerPassesAsMemberActions = {
 export const fetchMyActivePrivateConsumerPassesAsMember = (
   {
     memberId,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: BaseMemberFetchOptions,
+  }: PaginationFilterParams & { memberId: number },
   options?: OptionCallback<PaginatedResponse<PrivateConsumerPassREST>>,
 ): ThunkAction => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(fetchMyActivePrivateConsumerPassesAsMemberActions.isLoading(true));
     dispatch(fetchMyActivePrivateConsumerPassesAsMemberActions.error(null));
-    const currentState =
-      getState().consumerReworked.myPasses.privateConsumerPass.active;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchPrivateConsumerPassListAPI({
         member: memberId,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         is_valid_today: true,
         is_universal: false,
@@ -1318,22 +1305,20 @@ export const fetchMyExpiredPrivateConsumerPassesAsMemberActions = {
 export const fetchMyExpiredPrivateConsumerPassesAsMember = (
   {
     memberId,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: BaseMemberFetchOptions,
+  }: PaginationFilterParams & { memberId: number },
   options?: OptionCallback<PaginatedResponse<PrivateConsumerPassREST>>,
 ): ThunkAction => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(
       fetchMyExpiredPrivateConsumerPassesAsMemberActions.isLoading(true),
     );
     dispatch(fetchMyExpiredPrivateConsumerPassesAsMemberActions.error(null));
-    const currentState =
-      getState().consumerReworked.myPasses.privateConsumerPass.expired;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchPrivateConsumerPassListAPI({
         member: memberId,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         is_expired: true,
         is_universal: false,
@@ -1374,20 +1359,18 @@ export const fetchMyFuturePrivateConsumerPassesAsMemberActions = {
 export const fetchMyFuturePrivateConsumerPassesAsMember = (
   {
     memberId,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: BaseMemberFetchOptions,
+  }: PaginationFilterParams & { memberId: number },
   options?: OptionCallback<PaginatedResponse<PrivateConsumerPassREST>>,
 ): ThunkAction => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(fetchMyFuturePrivateConsumerPassesAsMemberActions.isLoading(true));
     dispatch(fetchMyFuturePrivateConsumerPassesAsMemberActions.error(null));
-    const currentState =
-      getState().consumerReworked.myPasses.privateConsumerPass.future;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchPrivateConsumerPassListAPI({
         member: memberId,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         is_expired: false,
         is_valid_today: false,
@@ -1429,20 +1412,18 @@ export const fetchMyActiveUniversalPassesAsMemberActions = {
 export const fetchMyActiveUniversalPassesAsMember = (
   {
     memberId,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: BaseMemberFetchOptions,
+  }: PaginationFilterParams & { memberId: number },
   options?: OptionCallback<PaginatedResponse<UniversalPassREST>>,
 ): ThunkAction => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(fetchMyActiveUniversalPassesAsMemberActions.isLoading(true));
     dispatch(fetchMyActiveUniversalPassesAsMemberActions.error(null));
-    const currentState =
-      getState().consumerReworked.myPasses.privateConsumerPass.future;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchUniversalPassesAPI({
         member: memberId,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         is_expired: false,
         is_valid_today: true,
@@ -1478,20 +1459,18 @@ export const fetchMyExpiredUniversalPassesAsMemberActions = {
 export const fetchMyExpiredUniversalPassesAsMember = (
   {
     memberId,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: BaseMemberFetchOptions,
+  }: PaginationFilterParams & { memberId: number },
   options?: OptionCallback<PaginatedResponse<UniversalPassREST>>,
 ): ThunkAction => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(fetchMyExpiredUniversalPassesAsMemberActions.isLoading(true));
     dispatch(fetchMyExpiredUniversalPassesAsMemberActions.error(null));
-    const currentState =
-      getState().consumerReworked.myPasses.privateConsumerPass.future;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchUniversalPassesAPI({
         member: memberId,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         is_expired: true,
         is_valid_today: false,
@@ -1527,20 +1506,18 @@ export const fetchMyFutureUniversalPassesAsMemberActions = {
 export const fetchMyFutureUniversalPassesAsMember = (
   {
     memberId,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: BaseMemberFetchOptions,
+  }: PaginationFilterParams & { memberId: number },
   options?: OptionCallback<PaginatedResponse<UniversalPassREST>>,
 ): ThunkAction => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(fetchMyFutureUniversalPassesAsMemberActions.isLoading(true));
     dispatch(fetchMyFutureUniversalPassesAsMemberActions.error(null));
-    const currentState =
-      getState().consumerReworked.myPasses.privateConsumerPass.future;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchUniversalPassesAPI({
         member: memberId,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         is_expired: false,
         is_valid_today: false,

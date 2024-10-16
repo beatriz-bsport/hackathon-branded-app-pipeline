@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CellMeasurerCache } from 'react-virtualized';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
@@ -38,6 +39,11 @@ import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/
 
 import './styles.css';
 
+const cache = new CellMeasurerCache({
+  defaultHeight: 300,
+  fixedWidth: true,
+});
+
 type Props = {
   activeConsumerPaymentPacksList: ConsumerPaymentPackReworked[];
   activeConsumerPaymentPacksState: ConsumerPassReworked<ConsumerPaymentPackREST>;
@@ -52,15 +58,15 @@ type Props = {
   expiredPrivateConsumerPassesState: ConsumerPassReworked<PrivateConsumerPassREST>;
   expiredUniversalPassesList: UniversalPassReworked[];
   expiredUniversalPassesState: ConsumerPassReworked<UniversalPassREST>;
-  fetchActiveConsumerPaymentPacks: () => void;
-  fetchActivePrivateConsumerPasses: () => void;
-  fetchActiveUniversalPasses: () => void;
-  fetchExpiredConsumerPaymentPacks: () => void;
-  fetchExpiredPrivateConsumerPasses: () => void;
-  fetchExpiredUniversalPasses: () => void;
-  fetchFutureConsumerPaymentPacks: () => void;
-  fetchFuturePrivateConsumerPasses: () => void;
-  fetchFutureUniversalPasses: () => void;
+  fetchActiveConsumerPaymentPacks: (page?: number) => void;
+  fetchActivePrivateConsumerPasses: (page?: number) => void;
+  fetchActiveUniversalPasses: (page?: number) => void;
+  fetchExpiredConsumerPaymentPacks: (page?: number) => void;
+  fetchExpiredPrivateConsumerPasses: (page?: number) => void;
+  fetchExpiredUniversalPasses: (page?: number) => void;
+  fetchFutureConsumerPaymentPacks: (page?: number) => void;
+  fetchFuturePrivateConsumerPasses: (page?: number) => void;
+  fetchFutureUniversalPasses: (page?: number) => void;
   futureConsumerPaymentPacksList: ConsumerPaymentPackReworked[];
   futureConsumerPaymentPacksState: ConsumerPassReworked<ConsumerPaymentPackREST>;
   futurePrivateConsumerPassesList: PrivateConsumerPassReworked[];
@@ -109,6 +115,8 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
   isMetadataLoading,
   resetConsumerState,
 }) => {
+  const resetVirtualizedListCache = useCallback(() => cache.clearAll(), []);
+
   const {
     selectedTab,
     selectedFilterTab,
@@ -120,14 +128,15 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
     handleSetSelectedTab,
     handleSetSelectedFilterTab,
     handleSetSelectedPass,
-    handlePaginationFetchMore,
+    handleChangePage,
     handleTogglePassDetailsDrawer,
     handleTogglePassTabDrawer,
     futureItemsCount,
     activeItemsCount,
-    nextPage,
     passList,
     isMobile,
+    currentCount,
+    currentPage,
   } = useConsumerPassesDataManager({
     activeConsumerPaymentPacksList,
     activeConsumerPaymentPacksState,
@@ -158,6 +167,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
     futureUniversalPassesList,
     futureUniversalPassesState,
     resetConsumerState,
+    resetVirtualizedListCache,
   });
 
   const { t } = useTranslation('consumerSpace');
@@ -324,8 +334,10 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
 
       {selectedTab === PassTabEnum.PRIVATE_CONSUMER_PASS && (
         <PrivateConsumerPassListContainer
-          handlePaginationFetchMore={handlePaginationFetchMore}
-          hasNextPage={!!nextPage}
+          cache={cache}
+          currentCount={currentCount}
+          currentPage={currentPage}
+          handleChangePage={handleChangePage}
           isLoading={isLoading}
           isMetadataLoading={isMetadataLoading}
           isMobile={isMobile}
@@ -337,8 +349,10 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
       )}
       {selectedTab === PassTabEnum.CONSUMER_PAYMENT_PACK && (
         <ConsumerPaymentPackListContainer
-          handlePaginationFetchMore={handlePaginationFetchMore}
-          hasNextPage={!!nextPage}
+          cache={cache}
+          currentCount={currentCount}
+          currentPage={currentPage}
+          handleChangePage={handleChangePage}
           isLoading={isLoading}
           isMetadataLoading={isMetadataLoading}
           isMobile={isMobile}
@@ -350,8 +364,10 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
       )}
       {selectedTab === PassTabEnum.UNIVERSAL_PASS && (
         <UniversalPassListContainer
-          handlePaginationFetchMore={handlePaginationFetchMore}
-          hasNextPage={!!nextPage}
+          cache={cache}
+          currentCount={currentCount}
+          currentPage={currentPage}
+          handleChangePage={handleChangePage}
           isLoading={isLoading}
           isMetadataLoading={isMetadataLoading}
           isMobile={isMobile}

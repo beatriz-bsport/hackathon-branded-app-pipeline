@@ -1,17 +1,13 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CellMeasurerCache } from 'react-virtualized';
 
-import { GenericInfiniteScrollEnhancedCssOnly } from '#src/components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import ConsumerPassCard from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
 import UniversalPassDetailsCard from '#src/libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsCard';
-import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
+import ConsumerSpaceVirtualizedList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceVirtualizedList';
 
 import { parseUniversalPassData } from '#src/libs/consumer-space/components/reworked/@MyPasses/UniversalPass/utils';
-import {
-  MY_PASSES_LIST_CONTAINER_HEIGHT,
-  MY_PASSES_MOBILE_LIST_CONTAINER_HEIGHT,
-} from '#src/libs/consumer-space/components/reworked/@MyPasses/constants';
 
 import type { UniversalPassReworked } from '#src/libs/universal-pass/types';
 import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/types';
@@ -21,8 +17,7 @@ import '#src/libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListC
 import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 type Props = {
-  handlePaginationFetchMore: () => void;
-  hasNextPage?: boolean;
+  handleChangePage: (page: number) => void;
   isLoading?: boolean;
   isMetadataLoading?: boolean;
   isMobile?: boolean;
@@ -30,18 +25,58 @@ type Props = {
   passList: UniversalPassReworked[];
   selectedFilterTab: PassFilterTab;
   selectedPass?: UniversalPassReworked;
+  cache: CellMeasurerCache;
+  currentPage: number;
+  currentCount: number;
 };
 
+type UniversalPassListContainerRowProps = {
+  selectedPassId?: number;
+  handleSeeDetails: (id: number) => () => void;
+  item: UniversalPassReworked;
+};
+
+const UniversalPassListContainerRow: React.FC<
+  UniversalPassListContainerRowProps
+> = ({ selectedPassId, handleSeeDetails, item }) => {
+  return (
+    <ConsumerPassCard
+      creditsLeft={getCreditsDividedDisplay(
+        item?.consumer_payment_pack?.available_credits,
+      )}
+      expirationDate={item?.consumer_payment_pack?.ending_date}
+      handleSeeDetails={handleSeeDetails(item?.id)}
+      isMultistudio={
+        !!item?.consumer_payment_pack
+          ?.created_from_payment_pack_template_instance
+      }
+      isSelected={item.id === selectedPassId}
+      isShared={
+        !!item?.consumer_payment_pack?.src_consumer_payment_pack?.length ||
+        !!item?.consumer_payment_pack?.dst_consumer_payment_pack
+      }
+      isSuspended={item?.consumer_payment_pack?.disabled}
+      isUnlimited={!item?.consumer_payment_pack?.payment_pack?.credits}
+      passName={item?.consumer_payment_pack?.payment_pack?.name}
+      startDate={item?.consumer_payment_pack?.starting_date}
+      totalCredits={getCreditsDividedDisplay(
+        item?.consumer_payment_pack?.payment_pack?.credits,
+      )}
+    />
+  );
+};
 export const UniversalPassListContainer: React.FC<Props> = ({
   isLoading,
   isMetadataLoading,
   isMobile,
   passList,
   selectedPass,
-  hasNextPage,
   onPassCardClick,
-  handlePaginationFetchMore,
+  handleChangePage,
   selectedFilterTab,
+  cache,
+  currentPage,
+  currentCount,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -71,6 +106,7 @@ export const UniversalPassListContainer: React.FC<Props> = ({
 
   return (
     <PageInnerContentLayout
+      count={currentCount}
       DetailComponent={
         <UniversalPassDetailsCard
           activityCompatibilities={activityCompatibilities}
@@ -102,48 +138,25 @@ export const UniversalPassListContainer: React.FC<Props> = ({
       emptyPlaceholder={t(
         `consumerSpace:reworked.myBookings.listContainer.placeholder.pass.${selectedFilterTab}`,
       )}
-      InfiniteScrollComponent={
-        <GenericInfiniteScrollEnhancedCssOnly<UniversalPassReworked>
-          fetchMoreData={handlePaginationFetchMore}
-          hasMore={hasNextPage}
-          height={
-            isMobile
-              ? MY_PASSES_MOBILE_LIST_CONTAINER_HEIGHT
-              : MY_PASSES_LIST_CONTAINER_HEIGHT
-          }
-          items={passList}
-          loader={<ConsumerCardSkeleton />}
-          renderItem={({ item }) => (
-            <ConsumerPassCard
-              key={item?.consumer_payment_pack?.id}
-              creditsLeft={getCreditsDividedDisplay(
-                item?.consumer_payment_pack?.available_credits,
-              )}
-              expirationDate={item?.consumer_payment_pack?.ending_date}
-              handleSeeDetails={handleSeeDetails(item?.id)}
-              isLoading={isLoading}
-              isMultistudio={
-                !!item?.consumer_payment_pack
-                  ?.created_from_payment_pack_template_instance
-              }
-              isSelected={item.id === selectedPass?.id}
-              isShared={
-                !!item?.consumer_payment_pack?.src_consumer_payment_pack
-                  ?.length ||
-                !!item?.consumer_payment_pack?.dst_consumer_payment_pack
-              }
-              isSuspended={item?.consumer_payment_pack?.disabled}
-              isUnlimited={!item?.consumer_payment_pack?.payment_pack?.credits}
-              passName={item?.consumer_payment_pack?.payment_pack?.name}
-              startDate={item?.consumer_payment_pack?.starting_date}
-              totalCredits={getCreditsDividedDisplay(
-                item?.consumer_payment_pack?.payment_pack?.credits,
-              )}
+      isEmpty={isCurrentTabContentEmpty}
+      isLoading={isLoading || isMetadataLoading}
+      onPageChange={handleChangePage}
+      page={currentPage}
+      VirtualizedListComponent={
+        <ConsumerSpaceVirtualizedList<UniversalPassReworked>
+          cache={cache}
+          data={passList}
+          isLoading={isLoading || isMetadataLoading}
+          rowCount={passList?.length ?? 0}
+          rowRenderer={({ item }) => (
+            <UniversalPassListContainerRow
+              handleSeeDetails={handleSeeDetails}
+              item={item}
+              selectedPassId={selectedPass?.id}
             />
           )}
         />
       }
-      isEmpty={isCurrentTabContentEmpty}
     />
   );
 };

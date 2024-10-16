@@ -1089,9 +1089,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           next_page,
         )
         .setIn(['myPasses', 'consumerPaymentPack', 'expired', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myPasses', 'consumerPaymentPack', 'expired', 'passes', 'allIds'],
-          (existingList, newIds) => uniq(existingList.concat(newIds)),
           (results || []).map((consumerPaymentPack) => consumerPaymentPack.id),
         )
         .merge(
@@ -1145,9 +1144,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           next_page,
         )
         .setIn(['myPasses', 'consumerPaymentPack', 'active', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myPasses', 'consumerPaymentPack', 'active', 'passes', 'allIds'],
-          (existingList, newIds) => uniq(existingList.concat(newIds)),
           (results || []).map((consumerPaymentPack) => consumerPaymentPack.id),
         )
         .merge(
@@ -1201,9 +1199,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           next_page,
         )
         .setIn(['myPasses', 'consumerPaymentPack', 'future', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myPasses', 'consumerPaymentPack', 'future', 'passes', 'allIds'],
-          (existingList, newIds) => uniq(existingList.concat(newIds)),
           (results || []).map((consumerPaymentPack) => consumerPaymentPack.id),
         )
         .merge(
@@ -1257,10 +1254,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           next_page,
         )
         .setIn(['myPasses', 'privateConsumerPass', 'expired', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myPasses', 'privateConsumerPass', 'expired', 'passes', 'allIds'],
-          (existingList, newIds) => uniq(existingList.concat(newIds)),
-          (results || []).map((consumerPaymentPack) => consumerPaymentPack.id),
+          (results || []).map((privateConsumerPass) => privateConsumerPass.id),
         )
         .merge(
           {
@@ -1313,9 +1309,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           next_page,
         )
         .setIn(['myPasses', 'privateConsumerPass', 'active', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myPasses', 'privateConsumerPass', 'active', 'passes', 'allIds'],
-          (existingList, newIds) => uniq(existingList.concat(newIds)),
           (results || []).map((privateConsumerPass) => privateConsumerPass.id),
         )
         .merge(
@@ -1369,9 +1364,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           next_page,
         )
         .setIn(['myPasses', 'privateConsumerPass', 'future', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myPasses', 'privateConsumerPass', 'future', 'passes', 'allIds'],
-          (existingList, newIds) => uniq(existingList.concat(newIds)),
           (results || []).map((privateConsumerPass) => privateConsumerPass.id),
         )
         .merge(
@@ -1422,9 +1416,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myPasses', 'universalPass', 'expired', 'page'], page)
         .setIn(['myPasses', 'universalPass', 'expired', 'next_page'], next_page)
         .setIn(['myPasses', 'universalPass', 'expired', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myPasses', 'universalPass', 'expired', 'passes', 'allIds'],
-          (existingList, newIds) => uniq(existingList.concat(newIds)),
           (results || []).map((universalPass) => universalPass.id),
         )
         .merge(
@@ -1475,9 +1468,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myPasses', 'universalPass', 'active', 'page'], page)
         .setIn(['myPasses', 'universalPass', 'active', 'next_page'], next_page)
         .setIn(['myPasses', 'universalPass', 'active', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myPasses', 'universalPass', 'active', 'passes', 'allIds'],
-          (existingList, newIds) => uniq(existingList.concat(newIds)),
           (results || []).map((universalPass) => universalPass.id),
         )
         .merge(
@@ -1528,9 +1520,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myPasses', 'universalPass', 'future', 'page'], page)
         .setIn(['myPasses', 'universalPass', 'future', 'next_page'], next_page)
         .setIn(['myPasses', 'universalPass', 'future', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myPasses', 'universalPass', 'future', 'passes', 'allIds'],
-          (existingList, newIds) => uniq(existingList.concat(newIds)),
           (results || []).map((universalPass) => universalPass.id),
         )
         .merge(

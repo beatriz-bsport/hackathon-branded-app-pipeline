@@ -54,6 +54,7 @@ export function useConsumerPassesDataManager({
   futureUniversalPassesList,
   futureUniversalPassesState,
   resetConsumerState,
+  resetVirtualizedListCache,
 }: Omit<
   ConsumerPassPageReworkedProps,
   | 'isLoading'
@@ -61,7 +62,9 @@ export function useConsumerPassesDataManager({
   | 'handleBookASessionClick'
   | 'isMetadataLoading'
   | 'isConsumerPassesTabDisplayLoading'
->) {
+> & {
+  resetVirtualizedListCache: () => void;
+}) {
   const { width } = useViewport();
 
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
@@ -240,6 +243,8 @@ export function useConsumerPassesDataManager({
   };
 
   const currentState = currentStateMap[`${selectedTab}-${selectedFilterTab}`];
+  const currentCount = currentState.count;
+  const currentPage = currentState.page;
   const futureItemsCount = futurePassesCountMap[selectedTab] || 0;
   const activeItemsCount = activePassesCountMap[selectedTab] || 0;
   const nextPage = currentState.next_page;
@@ -252,12 +257,17 @@ export function useConsumerPassesDataManager({
    * Function used to fetch data from pagination
    * @param type The selected pass tab
    */
-  const handlePaginationFetchMore = useCallback(
-    (type?: PassTab) =>
-      fetchMoreDataHandlerMap[
-        `${type ?? selectedTab}-${selectedFilterTab}`
-      ]?.(),
-    [fetchMoreDataHandlerMap, selectedFilterTab, selectedTab],
+  const handleChangePage = useCallback(
+    (page: number) => {
+      resetVirtualizedListCache();
+      fetchMoreDataHandlerMap[`${selectedTab}-${selectedFilterTab}`]?.(page);
+    },
+    [
+      fetchMoreDataHandlerMap,
+      resetVirtualizedListCache,
+      selectedFilterTab,
+      selectedTab,
+    ],
   );
 
   /**
@@ -279,8 +289,9 @@ export function useConsumerPassesDataManager({
       handleFetchTabData?.(type);
       setSelectedTab(type);
       setSelectedPass(null);
+      resetVirtualizedListCache();
     },
-    [handleFetchTabData, resetConsumerState],
+    [handleFetchTabData, resetConsumerState, resetVirtualizedListCache],
   );
 
   /**
@@ -288,8 +299,11 @@ export function useConsumerPassesDataManager({
    * @param type The selected pass filter tab
    */
   const handleSetSelectedFilterTab = useCallback(
-    (type: PassFilterTab) => setSelectedFilterTab(type),
-    [],
+    (type: PassFilterTab) => {
+      setSelectedFilterTab(type);
+      resetVirtualizedListCache();
+    },
+    [resetVirtualizedListCache],
   );
 
   /**
@@ -353,12 +367,14 @@ export function useConsumerPassesDataManager({
     handleTogglePassDetailsDrawer,
     handleTogglePassTabDrawer,
     // DATA/USER ACTIONS HANDLERS
-    handlePaginationFetchMore,
+    handleChangePage,
     // COMPUTED STATE
     futureItemsCount,
     activeItemsCount,
     nextPage,
     passList,
     isMobile,
+    currentCount,
+    currentPage,
   };
 }

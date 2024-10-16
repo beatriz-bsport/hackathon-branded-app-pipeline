@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CellMeasurerCache } from 'react-virtualized';
 
-import { GenericInfiniteScrollEnhancedCssOnly } from '#src/components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import ConsumerPassCard from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
 import PrivateConsumerPassDetailsCard from '#src/libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassDetailsCard';
-import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
+import ConsumerSpaceVirtualizedList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceVirtualizedList';
 
 import { parsePrivateConsumerPassData } from '#src/libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/utils';
 import { getExpirationDate } from '#src/libs/private-service/utils';
@@ -14,17 +14,11 @@ import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 import type { PrivateConsumerPassReworked } from '#src/libs/private-service/types';
 import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/types';
 
-import {
-  MY_PASSES_LIST_CONTAINER_HEIGHT,
-  MY_PASSES_MOBILE_LIST_CONTAINER_HEIGHT,
-} from '#src/libs/consumer-space/components/reworked/@MyPasses/constants';
-
 // Common stylesheet
 import '#src/libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
 
 type Props = {
-  handlePaginationFetchMore: () => void;
-  hasNextPage?: boolean;
+  handleChangePage: (page: number) => void;
   isLoading?: boolean;
   isMetadataLoading?: boolean;
   isMobile?: boolean;
@@ -32,6 +26,40 @@ type Props = {
   passList: PrivateConsumerPassReworked[];
   selectedFilterTab: PassFilterTab;
   selectedPass?: PrivateConsumerPassReworked;
+  cache: CellMeasurerCache;
+  currentPage: number;
+  currentCount: number;
+};
+
+type ConsumerPassListContainerRowProps = {
+  selectedPassId?: number;
+  handleSeeDetails: (id: number) => () => void;
+  item: PrivateConsumerPassReworked;
+};
+
+const PrivateConsumerPassListContainerRow: React.FC<
+  ConsumerPassListContainerRowProps
+> = ({ selectedPassId, handleSeeDetails, item }) => {
+  return (
+    <ConsumerPassCard
+      creditsLeft={getCreditsDividedDisplay(
+        item?.private_pass?.credits - item?.used_credits,
+      )}
+      expirationDate={item ? getExpirationDate(item) : null}
+      handleSeeDetails={handleSeeDetails(item.id)}
+      isMultistudio={null}
+      isSelected={item.id === selectedPassId}
+      isShared={
+        !!item?.dst_private_consumer_pass ||
+        !!item?.src_private_consumer_pass?.length
+      }
+      isSuspended={item.disabled}
+      isUnlimited={!item?.private_pass?.credits}
+      passName={item?.private_pass?.name}
+      startDate={item?.date_bought}
+      totalCredits={getCreditsDividedDisplay(item?.private_pass?.credits)}
+    />
+  );
 };
 
 export const ConsumerPassListContainer: React.FC<Props> = ({
@@ -40,10 +68,12 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
   isMobile,
   passList,
   selectedPass,
-  hasNextPage,
   onPassCardClick,
-  handlePaginationFetchMore,
+  handleChangePage,
   selectedFilterTab,
+  cache,
+  currentPage,
+  currentCount,
 }) => {
   const {
     appointmentCompatibilities,
@@ -63,6 +93,7 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
   const { t } = useTranslation('consumerSpace');
 
   const isCurrentTabContentEmpty = !isLoading && !passList?.length;
+
   const handleSeeDetails = useCallback(
     (id: number) => () => onPassCardClick(id),
     [onPassCardClick],
@@ -70,6 +101,7 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
 
   return (
     <PageInnerContentLayout
+      count={currentCount}
       DetailComponent={
         <PrivateConsumerPassDetailsCard
           appointmentCompatibilities={appointmentCompatibilities}
@@ -98,44 +130,25 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
       emptyPlaceholder={t(
         `consumerSpace:reworked.myBookings.listContainer.placeholder.pass.${selectedFilterTab}`,
       )}
-      InfiniteScrollComponent={
-        <GenericInfiniteScrollEnhancedCssOnly<PrivateConsumerPassReworked>
-          fetchMoreData={handlePaginationFetchMore}
-          hasMore={hasNextPage}
-          height={
-            isMobile
-              ? MY_PASSES_MOBILE_LIST_CONTAINER_HEIGHT
-              : MY_PASSES_LIST_CONTAINER_HEIGHT
-          }
-          items={passList}
-          loader={<ConsumerCardSkeleton />}
-          renderItem={({ item }) => (
-            <ConsumerPassCard
-              key={item.id}
-              creditsLeft={getCreditsDividedDisplay(
-                item?.private_pass?.credits - item?.used_credits,
-              )}
-              expirationDate={item ? getExpirationDate(item) : null}
-              handleSeeDetails={handleSeeDetails(item.id)}
-              isLoading={isLoading}
-              isMultistudio={null}
-              isSelected={item.id === selectedPass?.id}
-              isShared={
-                !!item?.dst_private_consumer_pass ||
-                !!item?.src_private_consumer_pass?.length
-              }
-              isSuspended={item.disabled}
-              isUnlimited={!item?.private_pass?.credits}
-              passName={item?.private_pass?.name}
-              startDate={item?.date_bought}
-              totalCredits={getCreditsDividedDisplay(
-                item?.private_pass?.credits,
-              )}
+      isEmpty={isCurrentTabContentEmpty}
+      isLoading={isLoading || isMetadataLoading}
+      onPageChange={handleChangePage}
+      page={currentPage}
+      VirtualizedListComponent={
+        <ConsumerSpaceVirtualizedList<PrivateConsumerPassReworked>
+          cache={cache}
+          data={passList}
+          isLoading={isLoading || isMetadataLoading}
+          rowCount={passList?.length ?? 0}
+          rowRenderer={({ item }) => (
+            <PrivateConsumerPassListContainerRow
+              handleSeeDetails={handleSeeDetails}
+              item={item}
+              selectedPassId={selectedPass?.id}
             />
           )}
         />
       }
-      isEmpty={isCurrentTabContentEmpty}
     />
   );
 };

@@ -21,7 +21,7 @@
 
 .bs-consumer-navigation__content {
   overflow-y: auto;
-  padding: var(--bs-space-size-8) var(--bs-space-size-8) 0;
+  padding: var(--bs-space-size-8);
   display: flex;
   flex-direction: column;
   width: 100%;

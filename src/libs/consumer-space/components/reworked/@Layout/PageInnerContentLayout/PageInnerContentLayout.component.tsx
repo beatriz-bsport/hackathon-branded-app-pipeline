@@ -2,8 +2,12 @@ import React, { memo } from 'react';
 import classNames from 'classnames';
 
 import Typography from '#Fabrique/Typography';
+import Pagination from '#Fabrique/Pagination';
 import useViewport from '#src/components/css-only/Fabrique/hooks/useViewport';
-import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
+import {
+  CONSUMER_SPACE_API_PAGE_SIZE,
+  CONSUMER_SPACE_MOBILE_BREAKPOINT,
+} from '#src/libs/consumer-space/constants';
 import useParentSize from '#src/hooks/useParentSize';
 import './styles.css';
 
@@ -11,8 +15,12 @@ type Props = {
   classes?: { root?: string; emptyPlaceholder?: string };
   isEmpty: boolean;
   emptyPlaceholder: string;
-  InfiniteScrollComponent: React.ReactNode;
+  VirtualizedListComponent: React.ReactNode;
   DetailComponent: React.ReactNode;
+  isLoading: boolean;
+  count: number;
+  page: number;
+  onPageChange: (page: number) => void;
 };
 
 type EmptyInnerContentProps = {
@@ -49,8 +57,12 @@ export const PageInnerContentLayout: React.FC<Props> = ({
   classes,
   isEmpty,
   emptyPlaceholder,
-  InfiniteScrollComponent,
+  VirtualizedListComponent,
   DetailComponent,
+  isLoading,
+  count,
+  page,
+  onPageChange,
 }) => {
   const { width } = useViewport();
   const computedRef = React.useRef<HTMLDivElement>(null);
@@ -74,14 +86,30 @@ export const PageInnerContentLayout: React.FC<Props> = ({
         classes?.root,
       )}
     >
-      <ul className="bs-consumer-page-inner-content__root--left-component">
-        {InfiniteScrollComponent}
-      </ul>
+      <div className="bs-consumer-page-inner-content__root--left-component">
+        <ul className="bs-consumer-page-inner-content__root--left-component__list">
+          {VirtualizedListComponent}
+        </ul>
+        <Pagination
+          className="bs-consumer-page-inner-content__root--left-component__pagination"
+          count={count}
+          currentPage={page}
+          disabled={isLoading}
+          onPageChange={onPageChange}
+          pageSize={CONSUMER_SPACE_API_PAGE_SIZE}
+        />
+      </div>
       <div
-        className="bs-consumer-page-inner-content__root--right-component"
+        className={classNames(
+          'bs-consumer-page-inner-content__root--right-component',
+          {
+            'bs-consumer-page-inner-content__root--right-component--hidden':
+              isMobile,
+          },
+        )}
         style={{ height }}
       >
-        {!isMobile && DetailComponent}
+        {DetailComponent}
       </div>
     </div>
   );

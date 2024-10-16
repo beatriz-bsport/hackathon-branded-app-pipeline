@@ -38,6 +38,7 @@ export type SerializedReport = {
   previous_page: null | number;
   next_page: number;
   other_pages: number[];
+  total: number;
 };
 
 export type ReportingState = {

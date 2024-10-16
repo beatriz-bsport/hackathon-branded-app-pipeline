@@ -70,6 +70,7 @@ type Props = {
   isV2Displayed: boolean;
   pushRouter: (path: string) => void;
   dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
+  totalElements: number;
 };
 
 const CATEGORIES_NEEDING_HELPER_TEXT = ['franchise_shared_pass'];
@@ -131,6 +132,7 @@ const ReportGeneration: React.FC<Props> = ({
   isV2Displayed,
   pushRouter,
   dynamicDataHasBeenLoaded,
+  totalElements,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -286,6 +288,7 @@ const ReportGeneration: React.FC<Props> = ({
                 report={report}
                 reportStoreRowsLoading={reportStoreRowsLoading}
                 result={reportStoreRows}
+                totalElements={totalElements}
                 userPermissions={userPermissions}
               />
             </Paper>

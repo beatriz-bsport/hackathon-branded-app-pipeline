@@ -1000,6 +1000,7 @@ const getTranslations = async () => {
       addQuickFilter: 'Add a quick filter',
       goBack: 'Back to all reports',
       notFound: 'Report has not been found',
+      tableTotalElements: 'Number of rows : {{ total }}',
     },
     reportHasNotBeenGenerated: 'Generate report to see data',
     reportNoResults: 'No results',

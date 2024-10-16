@@ -26,6 +26,7 @@ const initialState: Immutable.Immutable<ReportingState> =
         previous_page: null,
         next_page: 1,
         other_pages: [],
+        total: 0,
       },
     },
     allIds: null,

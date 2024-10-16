@@ -31,6 +31,7 @@ import {
   getReports,
   getReport,
   getReportFilterConfigList,
+  getTotalElementsCount,
 } from '#src/libs/reporting/v1/selectors';
 
 import withDatatypeDynamicData, {
@@ -286,6 +287,7 @@ export class ReportingGeneration extends Component<Props, State> {
       isV2Displayed,
       pushRouter,
       dynamicDataHasBeenLoaded,
+      totalElements,
     } = this.props;
 
     return (
@@ -327,6 +329,7 @@ export class ReportingGeneration extends Component<Props, State> {
           setDisableContinue={this.setDisableContinue}
           setShowDialog={this.setShowDialog}
           showDialog={this.state.showDialog}
+          totalElements={totalElements}
           userPermissions={this.props.userPermissions}
         />
       </div>
@@ -351,6 +354,7 @@ const connector = connect(
     userPermissions: getPermissions(state),
     objectLevelPermissions: getObjectPermissions(state),
     isV2Displayed: getIsReportV2Displayed(state),
+    totalElements: getTotalElementsCount(state, props.id),
   }),
   {
     fetchReportMetadata: fetchReportMetadataAction,

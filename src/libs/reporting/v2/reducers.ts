@@ -61,6 +61,7 @@ const initialState: Immutable.Immutable<ReportingStateV2> =
       next_page: 1,
       previous_page: null,
       other_pages: [],
+      total: 0,
     },
     columnsMetadata: {
       loading: false,

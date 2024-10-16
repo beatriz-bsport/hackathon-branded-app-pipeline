@@ -51,12 +51,14 @@ type TableProps = {
   objectLevelPermissions: ObjectLevelPermissions;
   v2?: boolean;
   hasReportBeenGenerated?: boolean;
+  totalElements: number;
 };
 
 type PaginationProps = {
   reportStoreRowsLoading: boolean;
   previousPage: number;
   nextPage: number;
+  totalElements: number;
   otherPages: Array<any>;
   handleGeneratePreviousPage: (data: any) => void;
   handleGenerateNextPage: (data: any) => void;
@@ -77,6 +79,7 @@ const TablePaginationContent: React.FC<
     previousPage,
     reportStoreRowsLoading,
     v2,
+    totalElements,
   }) => {
     const { t } = useTranslation('reporting');
     const classes = useTablePaginationActionsStyles({ isHeader });
@@ -88,26 +91,33 @@ const TablePaginationContent: React.FC<
             {t('reportDetailContent.tableTitle')}
           </Typography>
         )}
-        <div>
-          <IconButton
-            aria-label="previous page"
-            disabled={!previousPage || reportStoreRowsLoading}
-            onClick={handleGeneratePreviousPage}
-          >
-            <KeyboardArrowLeft />
-          </IconButton>
-          <Typography variant="caption">
-            {`Page ${nextPage ? nextPage - 1 : previousPage + 1}/${
-              otherPages ? Math.max(otherPages.length, 1) : 1
-            }`}
+        <div className={classes.tableHeaderInfos}>
+          <Typography variant="body2">
+            {t('reportDetailContent.tableTotalElements', {
+              total: totalElements,
+            })}
           </Typography>
-          <IconButton
-            aria-label="next page"
-            disabled={!nextPage || reportStoreRowsLoading}
-            onClick={handleGenerateNextPage}
-          >
-            <KeyboardArrowRight />
-          </IconButton>
+          <div>
+            <IconButton
+              aria-label="previous page"
+              disabled={!previousPage || reportStoreRowsLoading}
+              onClick={handleGeneratePreviousPage}
+            >
+              <KeyboardArrowLeft />
+            </IconButton>
+            <Typography variant="caption">
+              {`Page ${nextPage ? nextPage - 1 : previousPage + 1}/${
+                otherPages ? Math.max(otherPages.length, 1) : 1
+              }`}
+            </Typography>
+            <IconButton
+              aria-label="next page"
+              disabled={!nextPage || reportStoreRowsLoading}
+              onClick={handleGenerateNextPage}
+            >
+              <KeyboardArrowRight />
+            </IconButton>
+          </div>
         </div>
       </div>
     );
@@ -118,6 +128,7 @@ const TablePaginationActions: React.FC<PaginationProps> = ({
   reportStoreRowsLoading,
   previousPage,
   nextPage,
+  totalElements,
   otherPages,
   columnSpan,
   handleGeneratePreviousPage,
@@ -133,6 +144,7 @@ const TablePaginationActions: React.FC<PaginationProps> = ({
           otherPages={otherPages}
           previousPage={previousPage}
           reportStoreRowsLoading={reportStoreRowsLoading}
+          totalElements={totalElements}
         />
       </TableCell>
     </TableRow>
@@ -154,6 +166,7 @@ const ReportTable: React.FC<TableProps> = ({
   objectLevelPermissions,
   v2,
   hasReportBeenGenerated,
+  totalElements,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
@@ -222,6 +235,7 @@ const ReportTable: React.FC<TableProps> = ({
           otherPages={otherPages}
           previousPage={previousPage}
           reportStoreRowsLoading={reportStoreRowsLoading}
+          totalElements={totalElements}
           v2={v2}
         />
       )}
@@ -238,6 +252,7 @@ const ReportTable: React.FC<TableProps> = ({
                 otherPages={otherPages}
                 previousPage={previousPage}
                 reportStoreRowsLoading={reportStoreRowsLoading}
+                totalElements={totalElements}
               />
             )}
             <TableRow>
@@ -295,6 +310,7 @@ const ReportTable: React.FC<TableProps> = ({
                 otherPages={otherPages}
                 previousPage={previousPage}
                 reportStoreRowsLoading={reportStoreRowsLoading}
+                totalElements={totalElements}
               />
             </TableFooter>
           )}
@@ -330,6 +346,7 @@ const ReportTable: React.FC<TableProps> = ({
           otherPages={otherPages}
           previousPage={previousPage}
           reportStoreRowsLoading={reportStoreRowsLoading}
+          totalElements={totalElements}
           v2={v2}
         />
       ) : null}
@@ -388,12 +405,18 @@ const useStyles = makeStyles((theme) => ({
 const useTablePaginationActionsStyles = makeStyles<
   Theme,
   { isHeader: boolean }
->(() => ({
+>((theme) => ({
   tableHeader: ({ isHeader }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: isHeader ? 'space-between' : 'flex-end',
   }),
+  tableHeaderInfos: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: theme.spacing(1),
+    alignItems: 'center',
+  },
 }));
 
 export default React.memo(ReportTable);

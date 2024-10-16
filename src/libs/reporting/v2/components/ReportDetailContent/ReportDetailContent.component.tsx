@@ -236,6 +236,7 @@ const ReportDetailContent: React.FC<Props> = ({
             report={report}
             reportStoreRowsLoading={reportGeneratedRows.loading}
             result={reportGeneratedRows.result}
+            totalElements={reportGeneratedRows.total || 0}
             userPermissions={userPermissions}
           />
         </>

@@ -98,3 +98,13 @@ export const getReportFilterConfigList = createSelector(
   [getReportFilterConfigIds, getReportFilterConfigData],
   (ids, reportFilterConfig) => ids.map((id) => reportFilterConfig[id]),
 );
+
+export const getTotalElementsCount = (state: RootState, reportId: number) => {
+  const totalElementsCount = Object.keys(state.reports.reportResponse).includes(
+    reportId.toString(),
+  )
+    ? // @ts-expect-error
+      state.reports.reportResponse[reportId].total
+    : null;
+  return totalElementsCount;
+};

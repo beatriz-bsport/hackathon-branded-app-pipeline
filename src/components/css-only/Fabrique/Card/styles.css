@@ -64,30 +64,3 @@
 .bs-fabrique-modal-dialog__content [class*='bs-fabrique-card'] {
   box-shadow: none;
 }
-
-/* SCROLLBAR STYLES */
-::-webkit-scrollbar {
-  padding: 100px;
-  width: var(--bs-scrollbar-width);
-}
-
-::-webkit-scrollbar-track {
-  border-radius: var(--bs-scrollbar-border-radius);
-}
-
-::-webkit-scrollbar-track:hover {
-  background: var(--bs-scrollbar-track-hovered);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--bs-scrollbar-background);
-  border-radius: var(--bs-scrollbar-border-radius);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--bs-scrollbar-background-hovered);
-}
-
-::-webkit-scrollbar-thumb:active {
-  background: var(--bs-scrollbar-background-pressed);
-}

@@ -1198,18 +1198,15 @@ export function editOffers(
     try {
       const response = await editOffersAPI({ offerId, data: offer });
       const backgroundTaskUuid = response.headers['x-background-task-uuid'];
-      if (options && options.onSuccess) {
-        options.onSuccess();
 
-        dispatch(
-          monitorBackgroundTask(backgroundTaskUuid, {
-            onSuccess: options?.onBackgroundSuccess,
-            onError: options?.onBackgroundError,
-          }),
-        );
-      } else {
-        dispatch(monitorBackgroundTask(backgroundTaskUuid));
-      }
+      options?.onSuccess?.();
+
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: options?.onBackgroundSuccess,
+          onError: options?.onBackgroundError,
+        }),
+      );
     } catch (error) {
       if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
@@ -1219,7 +1216,7 @@ export function editOffers(
         );
       }
       dispatch(editOffersActions.error(error));
-      if (options && options.onError) options.onError();
+      options?.onError?.();
     }
     dispatch(editOffersActions.loading(false));
   };

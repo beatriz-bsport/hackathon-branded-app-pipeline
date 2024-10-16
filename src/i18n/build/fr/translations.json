@@ -20954,12 +20954,12 @@
                 "seePreviousImages": "Voir plus"
             },
             "photoHasChanged": "Photo de profil modifiée récemment",
-            "pass": "Carte:",
-            "spotName": "Emplacement: {{- spotName}}",
-            "teacherName": "Professeur: {{- coachName}}",
-            "nextBooking": "Prochaine réservation:",
-            "lastName": "Nom:",
-            "firstName": "Prénom:",
+            "pass": "Carte :",
+            "spotName": "Emplacement : {{- spotName}}",
+            "teacherName": "Professeur : {{- coachName}}",
+            "nextBooking": "Prochaine réservation :",
+            "lastName": "Nom :",
+            "firstName": "Prénom :",
             "title": "Information du membre",
             "accessStatus": {
                 "red": "Non valide",

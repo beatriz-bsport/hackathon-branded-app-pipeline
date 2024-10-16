@@ -201,6 +201,7 @@ export const consumerSubscriptionMapWithHandlers = {
   fetchActiveSubscriptionsList:
     (props: OwnAndConnectedAndRouteProps) =>
     (
+      page?: number,
       page_size?: number,
       options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
     ) => {
@@ -216,6 +217,7 @@ export const consumerSubscriptionMapWithHandlers = {
   fetchFutureSubscriptionsList:
     (props: OwnAndConnectedAndRouteProps) =>
     (
+      page?: number,
       page_size?: number,
       options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
     ) =>
@@ -230,6 +232,7 @@ export const consumerSubscriptionMapWithHandlers = {
   fetchExpiredSubscriptionsList:
     (props: OwnAndConnectedAndRouteProps) =>
     (
+      page?: number,
       page_size?: number,
       options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
     ) =>

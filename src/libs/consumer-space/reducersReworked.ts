@@ -864,9 +864,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['mySubscriptions', 'active', 'page'], page)
         .setIn(['mySubscriptions', 'active', 'next_page'], next_page)
         .setIn(['mySubscriptions', 'active', 'count'], count)
-        .updateIn(
+        .setIn(
           ['mySubscriptions', 'active', 'subscriptions', 'allIds'],
-          (existingList, newIds) => uniq(existingList.concat(newIds)),
           (results || []).map((subscription) => subscription.id),
         )
         .merge(
@@ -942,9 +941,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['mySubscriptions', 'future', 'page'], page)
         .setIn(['mySubscriptions', 'future', 'next_page'], next_page)
         .setIn(['mySubscriptions', 'future', 'count'], count)
-        .updateIn(
+        .setIn(
           ['mySubscriptions', 'future', 'subscriptions', 'allIds'],
-          (existingList, newIds) => uniq(existingList.concat(newIds)),
           (results || []).map((subscription) => subscription.id),
         )
         .merge(
@@ -1008,9 +1006,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['mySubscriptions', 'expired', 'page'], page)
         .setIn(['mySubscriptions', 'expired', 'next_page'], next_page)
         .setIn(['mySubscriptions', 'expired', 'count'], count)
-        .updateIn(
+        .setIn(
           ['mySubscriptions', 'expired', 'subscriptions', 'allIds'],
-          (existingList, newIds) => uniq(existingList.concat(newIds)),
           (results || []).map((subscription) => subscription.id),
         )
         .merge(

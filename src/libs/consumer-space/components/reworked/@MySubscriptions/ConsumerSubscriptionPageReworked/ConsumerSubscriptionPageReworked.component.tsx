@@ -1,7 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import type { AxiosResponse } from 'axios';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+import { CellMeasurerCache } from 'react-virtualized';
+
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
 import ConsumerSubscriptionsListContainer from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
@@ -46,14 +48,17 @@ type Props = {
   futureSubscriptionsList: SubscriptionREST[];
   paymentMethodList: PaymentMethod[];
   fetchActiveSubscriptionsList: (
+    page?: number,
     page_size?: number,
     options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
   fetchExpiredSubscriptionsList: (
+    page?: number,
     page_size?: number,
     options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
   fetchFutureSubscriptionsList: (
+    page?: number,
     page_size?: number,
     options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
@@ -91,6 +96,11 @@ type Props = {
   memberName: string;
 };
 
+const cache = new CellMeasurerCache({
+  defaultHeight: 300,
+  fixedWidth: true,
+});
+
 const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   activeSubscriptionsState,
   activeSubscriptionsList,
@@ -117,16 +127,17 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   memberMail,
   memberName,
 }) => {
+  const resetVirtualizedListCache = useCallback(() => cache.clearAll(), []);
+
   const {
     areDetailsLoading,
     detailsNextPage,
     handleInvoiceDetailsPaginationFetchMore,
-    handlePaginationFetchMore,
+    handleChangePage,
     handleSetSelectedSubscriptions,
     handleSetSelectedTab,
     isLoading,
     isMobile,
-    nextPage,
     selectedSubscription,
     selectedSubscriptionInvoiceDetails,
     selectedTab,
@@ -134,6 +145,8 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     isPaymentModalOpen,
     isTermsModalOpen,
     isSubscriptionDetailsDrawerOpen,
+    currentCount,
+    currentPage,
     handleTermsModalOpen,
     handleTermsModalClose,
     handlePaymentModalOpen,
@@ -151,6 +164,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     fetchExpiredSubscriptionsList,
     fetchConsumerSubscriptionInvoicesDetails,
     subscriptionsInvoicesDetailsState,
+    resetVirtualizedListCache,
   });
 
   const downloadBillingPlanTerms = React.useCallback(
@@ -304,14 +318,16 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
 
       <ConsumerSubscriptionsListContainer
         areDetailsLoading={areDetailsLoading}
+        cache={cache}
+        currentCount={currentCount}
+        currentPage={currentPage}
+        handleChangePage={handleChangePage}
         handleInvoiceDetailsPaginationFetchMore={
           handleInvoiceDetailsPaginationFetchMore
         }
-        handlePaginationFetchMore={handlePaginationFetchMore}
         handlePaymentModalOpen={handlePaymentModalOpen}
         handleSetSelectedSubscriptions={handleSetSelectedSubscriptions}
         hasDetailsNextPage={!!detailsNextPage}
-        hasNextPage={!!nextPage}
         invoiceRetryNumber={invoiceRetryNumber}
         isLoading={isLoading}
         isMobile={isMobile}

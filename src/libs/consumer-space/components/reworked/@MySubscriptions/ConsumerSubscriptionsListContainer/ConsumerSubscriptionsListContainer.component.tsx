@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
+import { CellMeasurerCache } from 'react-virtualized';
 
 import { DateTime, Interval } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import ConsumerSubscriptionCard from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionCard';
 import ConsumerSubscriptionDetailsCard from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
 import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
+import ConsumerSpaceVirtualizedList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceVirtualizedList';
 
-import { GenericInfiniteScrollEnhancedCssOnly } from '#src/components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import { formatAsDate } from '#src/utils/datetime';
 
 import type {
@@ -15,11 +16,7 @@ import type {
   SubscriptionsInvoicesDetailsREST,
 } from '#src/libs/subscription/types';
 import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
-import {
-  MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_MOBILE,
-  MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_DESKTOP,
-  SubscriptionTabEnum,
-} from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import type { PaymentMethod } from '#src/libs/payment/types';
 
 import { isPaused } from '#src/libs/subscription/utils';
@@ -30,15 +27,15 @@ import {
 } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/utils';
 
 import './styles.css';
+import { TFunction } from 'i18next';
 
 type Props = {
   areDetailsLoading: boolean;
   handleInvoiceDetailsPaginationFetchMore: () => void;
-  handlePaginationFetchMore: () => void;
+  handleChangePage: (page: number) => void;
   handlePaymentModalOpen: () => void;
   handleSetSelectedSubscriptions: (subscriptionId: number) => void;
   hasDetailsNextPage: boolean;
-  hasNextPage: boolean;
   invoiceRetryNumber: number;
   isLoading: boolean;
   isMobile: boolean;
@@ -51,16 +48,64 @@ type Props = {
   >[];
   selectedTab: SubscriptionTab;
   subscriptionsList: SubscriptionREST[];
+  cache: CellMeasurerCache;
+  currentCount: number;
+  currentPage: number;
+};
+
+type ConsumerSubscriptionsListContainerRowProps = {
+  selectedSubscriptionId?: number;
+  item: SubscriptionREST;
+  onAddPaymentMethodClick: (id: number) => () => void;
+  onCardDetailsClick: (id: number) => () => void;
+  t: TFunction;
+} & Pick<Props, 'isLoading' | 'isMobile' | 'selectedTab'>;
+
+const ConsumerSubscriptionsListContainerRow: React.FC<
+  ConsumerSubscriptionsListContainerRowProps
+> = ({
+  isMobile,
+  selectedSubscriptionId,
+  isLoading,
+  selectedTab,
+  item,
+  onAddPaymentMethodClick,
+  onCardDetailsClick,
+  t,
+}) => {
+  return (
+    <ConsumerSubscriptionCard
+      key={item.id}
+      addPaymentMethodDisabled={isLoading}
+      hasFailedPayments={!!item?.failed_payments_invoices?.length}
+      hasMissingPaymentMethod={!item?.stripe_payment_method_id}
+      isDetailsDisabled={isLoading}
+      isLoading={isLoading}
+      isPaused={isPaused(item?.pauses)}
+      isSelected={!isMobile && item.id === selectedSubscriptionId}
+      onAddPaymentMethodClick={onAddPaymentMethodClick(item.id)}
+      onDetailsClick={onCardDetailsClick(item.id)}
+      price={(item?.price_to_display_cts / 100).toFixed(2)}
+      recurrenceBasis={item?.recurrence_basis}
+      subscriptionDate={getSubtitleCardDate(selectedTab, item, t)}
+      subscriptionInterval={item?.interval}
+      subscriptionName={item?.name_without_member_name}
+      subscriptionNextPaymentDate={
+        selectedTab !== SubscriptionTabEnum.EXPIRED &&
+        item?.next_billing_date &&
+        formatAsDate(item?.next_billing_date)
+      }
+    />
+  );
 };
 
 export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   areDetailsLoading,
   handleInvoiceDetailsPaginationFetchMore,
-  handlePaginationFetchMore,
+  handleChangePage,
   handlePaymentModalOpen,
   handleSetSelectedSubscriptions,
   hasDetailsNextPage,
-  hasNextPage,
   invoiceRetryNumber,
   isLoading,
   isMobile,
@@ -70,6 +115,9 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   selectedSubscriptionInvoiceDetails,
   selectedTab,
   subscriptionsList,
+  cache,
+  currentPage,
+  currentCount,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -112,6 +160,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
 
   return (
     <PageInnerContentLayout
+      count={currentCount}
       DetailComponent={
         <ConsumerSubscriptionDetailsCard
           areDetailsLoading={areDetailsLoading}
@@ -185,48 +234,29 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
           ? t('reworked.mySubscriptions.placeholder.expired')
           : t('reworked.mySubscriptions.placeholder.nonExpired')
       }
-      InfiniteScrollComponent={
-        /* For this specific page content, on mobile, the infinite scroll component doesn't appear to leave space
-            for the detail component, which has its own infinite scroll component to handle payments and invoices display.
-          */
-        <GenericInfiniteScrollEnhancedCssOnly<SubscriptionREST>
-          fetchMoreData={handlePaginationFetchMore}
-          hasMore={hasNextPage}
-          height={
-            isMobile
-              ? MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_MOBILE
-              : MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_DESKTOP
-          }
-          items={subscriptionsList}
-          // @ts-expect-error
-          loader={<ConsumerSubscriptionCard isLoading />}
-          renderItem={({ item }) => (
-            <ConsumerSubscriptionCard
-              key={item.id}
-              addPaymentMethodDisabled={isLoading}
-              hasFailedPayments={!!item?.failed_payments_invoices?.length}
-              hasMissingPaymentMethod={!item?.stripe_payment_method_id}
-              isDetailsDisabled={isLoading}
+      isEmpty={isCurrentTabContentEmpty}
+      isLoading={isLoading}
+      onPageChange={handleChangePage}
+      page={currentPage}
+      VirtualizedListComponent={
+        <ConsumerSpaceVirtualizedList<SubscriptionREST>
+          cache={cache}
+          data={subscriptionsList}
+          isLoading={isLoading}
+          rowCount={subscriptionsList?.length ?? 0}
+          rowRenderer={({ item }) => (
+            <ConsumerSubscriptionsListContainerRow
               isLoading={isLoading}
-              isPaused={isPaused(item?.pauses)}
-              isSelected={!isMobile && item.id === selectedSubscription?.id}
-              onAddPaymentMethodClick={onAddPaymentMethodClick(item.id)}
-              onDetailsClick={onCardDetailsClick(item.id)}
-              price={(item?.price_to_display_cts / 100).toFixed(2)}
-              recurrenceBasis={item?.recurrence_basis}
-              subscriptionDate={getSubtitleCardDate(selectedTab, item, t)}
-              subscriptionInterval={item?.interval}
-              subscriptionName={item?.name_without_member_name}
-              subscriptionNextPaymentDate={
-                selectedTab !== SubscriptionTabEnum.EXPIRED &&
-                item?.next_billing_date &&
-                formatAsDate(item?.next_billing_date)
-              }
+              isMobile={isMobile}
+              item={item}
+              onAddPaymentMethodClick={onAddPaymentMethodClick}
+              onCardDetailsClick={onCardDetailsClick}
+              selectedTab={selectedTab}
+              t={t}
             />
           )}
         />
       }
-      isEmpty={isCurrentTabContentEmpty}
     />
   );
 };

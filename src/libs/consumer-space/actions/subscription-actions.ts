@@ -11,14 +11,15 @@ import type {
   SubscriptionsInvoicesDetailsParams,
 } from '#src/libs/subscription/types';
 import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import { CONSUMER_SPACE_API_PAGE_SIZE } from '#src/libs/consumer-space/constants';
 import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import type {
   OptionCallback,
   ThunkAction,
   PaginatedResponse,
 } from '../../../state/types';
+import { PaginationFilterParams } from '#src/libs/types';
 
-const DEFAULT_PAGE_SIZE = 30;
 const DEFAULT_INVOICE_PAGE_SIZE = 5;
 export const fetchMyActiveSubscriptionsAsMemberActions = {
   success: createAction<PaginatedResponse<SubscriptionREST>>(
@@ -34,23 +35,21 @@ export const fetchMyActiveSubscriptionsAsMemberActions = {
 
 export function fetchMyActiveSubscriptionsAsMember(
   {
+    page,
     member,
-    page_size = DEFAULT_PAGE_SIZE,
-  }: {
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+  }: PaginationFilterParams & {
     member: number;
-    page_size?: number;
   },
   options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
 ): ThunkAction {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(fetchMyActiveSubscriptionsAsMemberActions.isLoading(true));
     dispatch(fetchMyActiveSubscriptionsAsMemberActions.error(null));
-    const currentState = getState().consumerReworked.mySubscriptions.active;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchConsumerSubscriptionListAPI({
         member,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         status: SubscriptionTabEnum.ACTIVE,
       });
@@ -146,23 +145,21 @@ export const fetchMyFutureSubscriptionsAsMemberActions = {
 
 export function fetchMyFutureSubscriptionsAsMember(
   {
+    page,
     member,
-    page_size = DEFAULT_PAGE_SIZE,
-  }: {
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+  }: PaginationFilterParams & {
     member: number;
-    page_size?: number;
   },
   options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
 ): ThunkAction {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(fetchMyFutureSubscriptionsAsMemberActions.isLoading(true));
     dispatch(fetchMyFutureSubscriptionsAsMemberActions.error(null));
-    const currentState = getState().consumerReworked.mySubscriptions.future;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchConsumerSubscriptionListAPI({
         member,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         status: SubscriptionTabEnum.FUTURE,
       });
@@ -194,23 +191,21 @@ export const fetchMyExpiredSubscriptionsAsMemberActions = {
 
 export function fetchMyExpiredSubscriptionsAsMember(
   {
+    page,
     member,
-    page_size = DEFAULT_PAGE_SIZE,
-  }: {
+    page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+  }: PaginationFilterParams & {
     member: number;
-    page_size?: number;
   },
   options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
 ): ThunkAction {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(fetchMyExpiredSubscriptionsAsMemberActions.isLoading(true));
     dispatch(fetchMyExpiredSubscriptionsAsMemberActions.error(null));
-    const currentState = getState().consumerReworked.mySubscriptions.expired;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchConsumerSubscriptionListAPI({
         member,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         status: SubscriptionTabEnum.EXPIRED,
       });

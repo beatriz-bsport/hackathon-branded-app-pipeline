@@ -22,14 +22,17 @@ type Data = {
   expiredSubscriptionsState: ConsumerSubscriptionReworked;
   futureSubscriptionsList: SubscriptionREST[];
   fetchActiveSubscriptionsList: (
+    page?: number,
     page_size?: number,
     options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
   fetchExpiredSubscriptionsList: (
+    page?: number,
     page_size?: number,
     options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
   fetchFutureSubscriptionsList: (
+    page?: number,
     page_size?: number,
     options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
@@ -41,6 +44,7 @@ type Data = {
     }>,
   ) => void;
   subscriptionsInvoicesDetailsState: ConsumerSubscriptionInvoiceDetails;
+  resetVirtualizedListCache: () => void;
 };
 
 const useConsumerSubscriptionsDataManager = ({
@@ -55,6 +59,7 @@ const useConsumerSubscriptionsDataManager = ({
   fetchExpiredSubscriptionsList,
   fetchConsumerSubscriptionInvoicesDetails,
   subscriptionsInvoicesDetailsState,
+  resetVirtualizedListCache,
 }: Data) => {
   const [selectedTab, setSelectedTab] = useState<SubscriptionTab>(
     SubscriptionTabEnum.ACTIVE,
@@ -118,7 +123,10 @@ const useConsumerSubscriptionsDataManager = ({
 
   const areDetailsLoading = subscriptionsInvoicesDetailsState.loading;
 
-  const nextPage = currentSubscriptionsStateMap[`${selectedTab}`].next_page;
+  const currentState = currentSubscriptionsStateMap[`${selectedTab}`];
+  const nextPage = currentState.next_page;
+  const currentCount = currentState.count;
+  const currentPage = currentState.page;
 
   const detailsNextPage =
     subscriptionsInvoicesDetailsState.bySubscriptionId?.[
@@ -159,9 +167,12 @@ const useConsumerSubscriptionsDataManager = ({
     [],
   );
 
-  const handlePaginationFetchMore = useCallback(
-    () => fetchDataHandlerMap[`${selectedTab}`](),
-    [fetchDataHandlerMap, selectedTab],
+  const handleChangePage = useCallback(
+    (page?: number) => {
+      resetVirtualizedListCache();
+      fetchDataHandlerMap[`${selectedTab}`](page);
+    },
+    [fetchDataHandlerMap, resetVirtualizedListCache, selectedTab],
   );
 
   const handleInvoiceDetailsPaginationFetchMore = useCallback(
@@ -173,10 +184,14 @@ const useConsumerSubscriptionsDataManager = ({
     [fetchConsumerSubscriptionInvoicesDetails, selectedSubscription],
   );
 
-  const handleSetSelectedTab = useCallback((tab: SubscriptionTab) => {
-    setSelectedTab(tab);
-    setSelectedSubscription(null);
-  }, []);
+  const handleSetSelectedTab = useCallback(
+    (tab: SubscriptionTab) => {
+      setSelectedTab(tab);
+      setSelectedSubscription(null);
+      resetVirtualizedListCache();
+    },
+    [resetVirtualizedListCache],
+  );
 
   const handleSetSelectedSubscriptions = useCallback(
     (subscriptionId: number | null) => {
@@ -202,7 +217,7 @@ const useConsumerSubscriptionsDataManager = ({
     areDetailsLoading,
     detailsNextPage,
     handleInvoiceDetailsPaginationFetchMore,
-    handlePaginationFetchMore,
+    handleChangePage,
     handleSetSelectedSubscriptions,
     handleSetSelectedTab,
     isLoading,
@@ -223,6 +238,9 @@ const useConsumerSubscriptionsDataManager = ({
     handlePaymentModalClose,
     handleOpenSubscriptionDetailsDrawer,
     handleCloseSubscriptionDetailsDrawer,
+    // COMPUTED STATE
+    currentCount,
+    currentPage,
   };
 };
 

@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: flex-start;
   width: inherit;
-  margin-bottom: var(--bs-space-size-2);
   container: bsConsumerSubscriptionCard / inline-size;
 }
 

@@ -115,12 +115,15 @@ import type {
   WellhubGym,
   WellhubGymUpsert,
 } from '#src/libs/wellhub/types';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 
 type StateProps = {
   hasRequested: boolean;
   isWellhubProductSelectionDrawerOpen: boolean;
   setHasRequested: (b: boolean) => void;
   setIsWellhubProductSelectionDrawerOpen: (b: boolean) => void;
+  isPartnershipConfigurationFormOpen: boolean;
+  setIsPartnershipConfigurationFormOpen: (open: boolean) => void;
 };
 
 type ConnectorProps = {
@@ -222,6 +225,7 @@ export class Partnership extends React.Component<Props> {
       this.props.updatePartnership(this.props.classpass.id, data, {
         onSuccess: () => {
           this.props.fetchPartnershipEstablishmentMergeList();
+          this.closePartnershipConfigurationForm();
         },
       });
   };
@@ -241,6 +245,14 @@ export class Partnership extends React.Component<Props> {
         this.props.fetchOffersMissingWellhubProduct({});
       },
     });
+  };
+
+  openPartnershipConfigurationForm = () => {
+    this.props.setIsPartnershipConfigurationFormOpen(true);
+  };
+
+  closePartnershipConfigurationForm = () => {
+    this.props.setIsPartnershipConfigurationFormOpen(false);
   };
 
   render() {
@@ -358,7 +370,22 @@ export class Partnership extends React.Component<Props> {
                     establishmentIdList: venueIds,
                   })}
                 </Typography>
-                {this.props.classpass ? (
+                <Button
+                  className={this.props.classes.requestButton}
+                  color="primary"
+                  onClick={this.openPartnershipConfigurationForm}
+                  variant="outlined"
+                >
+                  {this.props.t('parameters.editButton')}
+                </Button>
+                <GenericResponsiveDrawer
+                  onClose={this.closePartnershipConfigurationForm}
+                  open={
+                    !!this.props.classpass &&
+                    this.props.isPartnershipConfigurationFormOpen
+                  }
+                  title={this.props.t('parameters.drawerTitle')}
+                >
                   <PartnershipConfigurationForm
                     associatedEstablishmentList={
                       this.props.associatedEstablishmentList
@@ -372,17 +399,16 @@ export class Partnership extends React.Component<Props> {
                       this.props.partnershipEstablishmentMergeList
                     }
                   />
-                ) : (
-                  <div>
-                    <Button
-                      className={this.props.classes.requestButton}
-                      color="primary"
-                      onClick={this.props.requestClasspassPartnership}
-                      variant="outlined"
-                    >
-                      {this.props.t('actions.requestPartnership')}
-                    </Button>
-                  </div>
+                </GenericResponsiveDrawer>
+                {!this.props.classpass && (
+                  <Button
+                    className={this.props.classes.requestButton}
+                    color="primary"
+                    onClick={this.props.requestClasspassPartnership}
+                    variant="outlined"
+                  >
+                    {this.props.t('actions.requestPartnership')}
+                  </Button>
                 )}
               </div>
             )}
@@ -497,6 +523,12 @@ export default compose(
     'setIsWellhubProductSelectionDrawerOpen',
     false,
   ),
+  withState(
+    'isPartnershipConfigurationFormOpen',
+    'setIsPartnershipConfigurationFormOpen',
+    false,
+  ),
+
   connect(
     (state: RootState) => ({
       associatedEstablishmentList: getAllAssociatedEstablishment(state),

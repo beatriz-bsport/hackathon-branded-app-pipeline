@@ -67,9 +67,6 @@ export const PartnershipConfigurationForm = (props: Props) => {
 
   return (
     <div>
-      <Typography className={classes.title} variant="h4">
-        {t('parameters.configurationTitle')}
-      </Typography>
       <Typography className={classes.description} variant="body1">
         {t('parameters.configurationDescription')}
       </Typography>

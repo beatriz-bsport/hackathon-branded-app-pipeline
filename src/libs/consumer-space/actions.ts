@@ -73,6 +73,7 @@ import {
 import { CONSUMER_SPACE_API_PAGE_SIZE } from './constants';
 
 import type { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
+import type { PaginationFilterParams } from '#src/libs/types';
 export const actionsType = {
   CONSUMER_HAS_FETCHED_OPTIONS: 'CONSUMER_HAS_FETCHED_OPTIONS_SUCCESS',
   CONSUMER_START_FETCH_OPTIONS: 'CONSUMER_START_FETCH_OPTIONS',
@@ -600,25 +601,22 @@ export const fetchMyPastBookingAsMemberActions = {
 export function fetchMyPastBookingAsMember(
   // TODO : For franchise we must remove member and add franchise params in back-end
   {
+    page,
     member,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: {
+  }: PaginationFilterParams & {
     member: number;
-    page_size?: number;
   },
   options?: OptionCallback<PaginatedResponse<BookingREST>>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState) => {
+  return async (dispatch: Dispatch) => {
     dispatch(fetchMyPastBookingAsMemberActions.isLoading(true));
     dispatch(fetchMyPastBookingAsMemberActions.error(null));
-
-    const currentState = getState().consumerReworked.myBookings.bookings.past;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchBookingListAPI({
         // TODO : For franchise we must remove member and add franchise params in back-end
         member,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         mine_as_consumer: true,
         strictly_past_booking: true,
@@ -648,24 +646,21 @@ export function fetchMyFutureBookingAsMember(
   // TODO : For franchise we must remove member and add franchise params in back-end
   {
     member,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: {
+  }: PaginationFilterParams & {
     member: number;
-    page_size?: number;
   },
   options?: OptionCallback<PaginatedResponse<BookingREST>>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState) => {
+  return async (dispatch: Dispatch) => {
     dispatch(fetchMyFutureBookingAsMemberActions.isLoading(true));
     dispatch(fetchMyFutureBookingAsMemberActions.error(null));
-
-    const currentState = getState().consumerReworked.myBookings.bookings.future;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchBookingListAPI({
         // TODO : For franchise we must remove member and add franchise params in back-end
         member,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         mine_as_consumer: true,
         strictly_future_booking: true,
@@ -695,25 +690,21 @@ export function fetchMyPastBookingWorkshopAsMember(
   // TODO : For franchise we must remove member and add franchise params in back-end
   {
     member,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: {
+  }: PaginationFilterParams & {
     member: number;
-    page_size?: number;
   },
   options?: OptionCallback<PaginatedResponse<BookingREST>>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState) => {
+  return async (dispatch: Dispatch) => {
     dispatch(fetchMyPastBookingWorkshopAsMemberActions.isLoading(true));
     dispatch(fetchMyPastBookingWorkshopAsMemberActions.error(null));
-
-    const currentState =
-      getState().consumerReworked.myBookings.bookingsWorkshop.past;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchBookingListAPI({
         // TODO : For franchise we must remove member and add franchise params in back-end
         member,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         mine_as_consumer: true,
         past_booking: true,
@@ -745,25 +736,22 @@ export function fetchMyFutureBookingWorkshopAsMember(
   // TODO : For franchise we must remove member and add franchise params in back-end
   {
     member,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
-  }: {
+  }: PaginationFilterParams & {
     member: number;
-    page_size?: number;
   },
   options?: OptionCallback<PaginatedResponse<BookingREST>>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState) => {
+  return async (dispatch: Dispatch) => {
     dispatch(fetchMyFutureBookingWorkshopAsMemberActions.isLoading(true));
     dispatch(fetchMyFutureBookingWorkshopAsMemberActions.error(null));
 
-    const currentState =
-      getState().consumerReworked.myBookings.bookingsWorkshop.future;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchBookingListAPI({
         // TODO : For franchise we must remove member and add franchise params in back-end
         member,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         mine_as_consumer: true,
         future_booking: true,
@@ -832,21 +820,18 @@ export const fetchMyPastPrivateBookingAsMemberActions = {
 export function fetchMyPastPrivateBookingAsMember(
   {
     member,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
     company,
   }: PrivateBookingFilterParams,
   options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState) => {
+  return async (dispatch: Dispatch) => {
     dispatch(fetchMyPastPrivateBookingAsMemberActions.isLoading(true));
     dispatch(fetchMyPastPrivateBookingAsMemberActions.error(null));
-
-    const currentState =
-      getState().consumerReworked.myBookings.privateBookings.past;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchPrivateBookingsV2API({
-        page: nextPage,
+        page: page ?? 1,
         member,
         page_size,
         company,
@@ -877,21 +862,19 @@ export const fetchMyFuturePrivateBookingAsMemberActions = {
 export function fetchMyFuturePrivateBookingAsMember(
   {
     member,
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
     company,
   }: PrivateBookingFilterParams,
   options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState) => {
+  return async (dispatch: Dispatch) => {
     dispatch(fetchMyFuturePrivateBookingAsMemberActions.isLoading(true));
     dispatch(fetchMyFuturePrivateBookingAsMemberActions.error(null));
 
-    const currentState =
-      getState().consumerReworked.myBookings.privateBookings.future;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchPrivateBookingsV2API({
-        page: nextPage,
+        page: page ?? 1,
         member,
         page_size,
         company,
@@ -956,23 +939,20 @@ export const fetchMyBookingOptionAsMemberActions = {
 export function fetchMyBookingOptionAsMember(
   {
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
+    page,
     company,
     consumer,
   }: WaitingListBookingOptionPaginatedQueryParams,
   options?: OptionCallback<PaginatedResponse<WaitingListBookingOption>>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState: () => RootState) => {
+  return async (dispatch: Dispatch) => {
     dispatch(fetchMyBookingOptionAsMemberActions.isLoading(true));
     dispatch(fetchMyBookingOptionAsMemberActions.error(null));
-
-    const currentState =
-      getState().consumerReworked.myBookings.bookings.waitlist;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchFilteredBookingOptionsPaginatedAPI({
         company,
         consumer,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         mine: true,
         offer_is_workshop: false,
@@ -1041,24 +1021,21 @@ export const fetchMyBookingOptionWorkshopAsMemberActions = {
 
 export function fetchMyBookingOptionWorkshopAsMember(
   {
+    page,
     page_size = CONSUMER_SPACE_API_PAGE_SIZE,
     company,
     consumer,
   }: WaitingListBookingOptionPaginatedQueryParams,
   options?: OptionCallback<PaginatedResponse<WaitingListBookingOption>>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState: () => RootState) => {
+  return async (dispatch: Dispatch) => {
     dispatch(fetchMyBookingOptionWorkshopAsMemberActions.isLoading(true));
     dispatch(fetchMyBookingOptionWorkshopAsMemberActions.error(null));
-
-    const currentState =
-      getState().consumerReworked.myBookings.bookings.waitlist;
-    const nextPage = currentState.next_page ?? 1;
     try {
       const response = await fetchFilteredBookingOptionsPaginatedAPI({
         company,
         consumer,
-        page: nextPage,
+        page: page ?? 1,
         page_size,
         mine: true,
         offer_is_workshop: true,

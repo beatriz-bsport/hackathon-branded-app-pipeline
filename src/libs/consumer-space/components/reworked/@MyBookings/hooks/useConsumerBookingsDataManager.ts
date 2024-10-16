@@ -79,6 +79,7 @@ export default function useConsumerBookingsDataManager({
   cancelPrivateBooking,
   cancelBookingOption,
   isConsumerPacksLoading,
+  resetVirtualizedListCache,
 }: {
   isNewCheckoutFlow: boolean;
   companyId: number;
@@ -99,14 +100,14 @@ export default function useConsumerBookingsDataManager({
   futureBookingsWorkshopState: ConsumerBookingReworked;
   futureBookingsWorkshopList: ConsumerBooking[];
   getIsBookingsLoading: (selectedTab: BookingTab) => boolean;
-  fetchPastBookings: () => void;
-  fetchFutureBookings: () => void;
-  fetchBookingOptions: () => void;
-  fetchBookingOptionsWorkshop: () => void;
-  fetchPastPrivateBookings: () => void;
-  fetchFuturePrivateBookings: () => void;
-  fetchPastBookingsWorkshop: () => void;
-  fetchFutureBookingsWorkshop: () => void;
+  fetchPastBookings: (page?: number) => void;
+  fetchFutureBookings: (page?: number) => void;
+  fetchBookingOptions: (page?: number) => void;
+  fetchBookingOptionsWorkshop: (page?: number) => void;
+  fetchPastPrivateBookings: (page?: number) => void;
+  fetchFuturePrivateBookings: (page?: number) => void;
+  fetchPastBookingsWorkshop: (page?: number) => void;
+  fetchFutureBookingsWorkshop: (page?: number) => void;
   resetConsumerState: () => void;
   cancelBooking: (
     params: CancelBookingParams,
@@ -126,6 +127,7 @@ export default function useConsumerBookingsDataManager({
   ) => ConsumerBooking[];
   fetchAssociatedBlueprintObjects: (blueprintid: number) => void;
   isConsumerPacksLoading: boolean;
+  resetVirtualizedListCache: () => void;
 }) {
   const history = useHistory();
   const { width } = useViewport();
@@ -304,6 +306,70 @@ export default function useConsumerBookingsDataManager({
     ],
   );
 
+  const stateCountMap = useMemo(
+    () => ({
+      [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.FUTURE}`]:
+        futureBookingsState.count,
+      [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.PAST}`]:
+        pastBookingsState.count,
+      [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.WAITLIST}`]:
+        bookingOptionsState.count,
+      [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.FUTURE}`]:
+        futurePrivateBookingsState.count,
+      [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.PAST}`]:
+        pastBookingsWorkshopState.count,
+      // MOCK TO AVOID TS ERROR
+      [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.WAITLIST}`]: 0,
+      [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.FUTURE}`]:
+        futureBookingsWorkshopState.count,
+      [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.PAST}`]:
+        pastBookingsWorkshopState.count,
+      [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.WAITLIST}`]:
+        bookingOptionsWorkshopState.count,
+    }),
+    [
+      bookingOptionsState.count,
+      bookingOptionsWorkshopState.count,
+      futureBookingsState.count,
+      futureBookingsWorkshopState.count,
+      futurePrivateBookingsState.count,
+      pastBookingsState.count,
+      pastBookingsWorkshopState.count,
+    ],
+  );
+
+  const statePageMap = useMemo(
+    () => ({
+      [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.FUTURE}`]:
+        futureBookingsState.page,
+      [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.PAST}`]:
+        pastBookingsState.page,
+      [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.WAITLIST}`]:
+        bookingOptionsState.page,
+      [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.FUTURE}`]:
+        futurePrivateBookingsState.page,
+      [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.PAST}`]:
+        pastBookingsWorkshopState.page,
+      // MOCK TO AVOID TS ERROR
+      [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.WAITLIST}`]: 0,
+      [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.FUTURE}`]:
+        futureBookingsWorkshopState.page,
+      [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.PAST}`]:
+        pastBookingsWorkshopState.page,
+      [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.WAITLIST}`]:
+        bookingOptionsWorkshopState.page,
+    }),
+    [
+      bookingOptionsState.page,
+      bookingOptionsWorkshopState.page,
+      futureBookingsState.page,
+      futureBookingsWorkshopState.page,
+      futurePrivateBookingsState.page,
+      pastBookingsState.page,
+      pastBookingsWorkshopState.page,
+    ],
+  );
+
   const bookingOptionsListMap = useMemo(
     () => ({
       [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.WAITLIST}`]:
@@ -330,13 +396,22 @@ export default function useConsumerBookingsDataManager({
     [BookingTabEnum.WORKSHOP]: futureBookingsWorkshopState.count,
   };
 
+  const pastBookingsCountMap = {
+    [BookingTabEnum.ACTIVITY]: pastBookingsState.count,
+    [BookingTabEnum.APPOINTMENT]: pastPrivateBookingsState.count,
+    [BookingTabEnum.WORKSHOP]: pastBookingsWorkshopState.count,
+  };
+
   const waitlistBookingsCountMap = {
     [BookingTabEnum.ACTIVITY]: bookingOptionsState.count,
     [BookingTabEnum.WORKSHOP]: bookingOptionsWorkshopState.count,
   };
 
   const currentState = currentStateMap[`${selectedTab}-${selectedFilterTab}`];
+  const currentCount = stateCountMap[`${selectedTab}-${selectedFilterTab}`];
+  const currentPage = statePageMap[`${selectedTab}-${selectedFilterTab}`];
   const futureItemsCount = futureBookingsCountMap[selectedTab] || 0;
+  const pastItemsCount = pastBookingsCountMap[selectedTab] || 0;
   const waitlistItemsCount =
     waitlistBookingsCountMap[selectedTab as 'activity' | 'workshop'] || 0;
 
@@ -399,12 +474,17 @@ export default function useConsumerBookingsDataManager({
    * Function used to fetch data from pagination
    * @param type The selected booking tab
    */
-  const handlePaginationFetchMore = useCallback(
-    (type?: BookingTab) =>
-      fetchMoreDataHandlerMap[
-        `${type ?? selectedTab}-${selectedFilterTab}`
-      ]?.(),
-    [fetchMoreDataHandlerMap, selectedFilterTab, selectedTab],
+  const handleChangePage = useCallback(
+    (page: number) => {
+      fetchMoreDataHandlerMap[`${selectedTab}-${selectedFilterTab}`]?.(page);
+      resetVirtualizedListCache();
+    },
+    [
+      fetchMoreDataHandlerMap,
+      resetVirtualizedListCache,
+      selectedFilterTab,
+      selectedTab,
+    ],
   );
 
   /**
@@ -451,6 +531,7 @@ export default function useConsumerBookingsDataManager({
         setSelectedFilterTab(BookingFilterTabEnum.FUTURE);
       }
       setSelectedTab(type);
+      resetVirtualizedListCache();
       handleResetSelectedItems();
       handleResetSelectedItemsForCancellation();
     },
@@ -460,6 +541,7 @@ export default function useConsumerBookingsDataManager({
       resetConsumerState,
       selectedFilterTab,
       handleResetSelectedItemsForCancellation,
+      resetVirtualizedListCache,
     ],
   );
 
@@ -472,8 +554,13 @@ export default function useConsumerBookingsDataManager({
       setSelectedFilterTab(type);
       handleResetSelectedItems();
       handleResetSelectedItemsForCancellation();
+      resetVirtualizedListCache();
     },
-    [handleResetSelectedItems, handleResetSelectedItemsForCancellation],
+    [
+      handleResetSelectedItems,
+      handleResetSelectedItemsForCancellation,
+      resetVirtualizedListCache,
+    ],
   );
 
   /**
@@ -824,7 +911,7 @@ export default function useConsumerBookingsDataManager({
     handleToggleBookingDetailsDrawer,
     // DATA/USER ACTIONS HANDLERS
     handleSeeBookingDetails,
-    handlePaginationFetchMore,
+    handleChangePage,
     handleJoinOnlineBooking,
     handleShowSpotDetails,
     handleCancelBooking,
@@ -832,7 +919,10 @@ export default function useConsumerBookingsDataManager({
     // COMPUTED STATE
     isBookingsPageLoading,
     futureItemsCount,
+    pastItemsCount,
     waitlistItemsCount,
+    currentCount,
+    currentPage,
     nextPage,
     bookingList,
     privateBookingList,

@@ -275,23 +275,22 @@ export class ConsumerBooking extends React.Component<Props, State> {
     }
   };
 
-  fetchPastBookings = () => {
+  fetchPastBookings = (page?: number) => {
     !!this.props.membership?.id &&
       this.props.fetchMyPastBookingAsMember(
-        { member: this.props.membership.id },
+        { page, member: this.props.membership.id },
         {
-          onSuccess: (data) =>
-            this.fetchAssociatedBookingsObjects(data.results),
+          onSuccess: (data) => {
+            this.fetchAssociatedBookingsObjects(data.results);
+          },
         },
       );
   };
 
-  fetchFutureBookings = () => {
+  fetchFutureBookings = (page?: number) => {
     !!this.props.membership?.id &&
       this.props.fetchMyFutureBookingAsMember(
-        {
-          member: this.props.membership.id,
-        },
+        { page, member: this.props.membership.id },
         {
           onSuccess: (data) => {
             this.fetchAssociatedBookingsObjects(data.results);
@@ -303,10 +302,11 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
-  fetchBookingOptions = () => {
+  fetchBookingOptions = (page?: number) => {
     !!this.props.membership?.id &&
       this.props.fetchMyBookingOptionAsMember(
         {
+          page,
           member: this.props.membership.id,
           company: this.props.companyId,
           consumer: this.props.membership.consumer,
@@ -317,10 +317,11 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
-  fetchBookingOptionsWorkshop = () => {
+  fetchBookingOptionsWorkshop = (page?: number) => {
     !!this.props.membership?.id &&
       this.props.fetchMyBookingOptionWorkshopAsMember(
         {
+          page,
           member: this.props.membership.id,
           company: this.props.companyId,
           consumer: this.props.membership.consumer,
@@ -331,10 +332,11 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
-  fetchPastPrivateBookings = () => {
+  fetchPastPrivateBookings = (page?: number) => {
     !!this.props.membership?.id &&
       this.props.fetchMyPastPrivateBookingAsMember(
         {
+          page,
           member: this.props.membership.id,
           company: this.props.companyId,
         },
@@ -345,10 +347,11 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
-  fetchFuturePrivateBookings = () => {
+  fetchFuturePrivateBookings = (page?: number) => {
     !!this.props.membership?.id &&
       this.props.fetchMyFuturePrivateBookingAsMember(
         {
+          page,
           member: this.props.membership.id,
           company: this.props.companyId,
         },
@@ -359,10 +362,10 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
-  fetchPastBookingsWorkshop = () => {
+  fetchPastBookingsWorkshop = (page?: number) => {
     !!this.props.membership?.id &&
       this.props.fetchMyPastBookingWorkshopAsMember(
-        { member: this.props.membership.id },
+        { page, member: this.props.membership.id },
         {
           onSuccess: (data) =>
             this.fetchAssociatedBookingsObjects(data.results),
@@ -370,12 +373,10 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
-  fetchFutureBookingsWorkshop = () => {
+  fetchFutureBookingsWorkshop = (page?: number) => {
     !!this.props.membership?.id &&
       this.props.fetchMyFutureBookingWorkshopAsMember(
-        {
-          member: this.props.membership.id,
-        },
+        { page, member: this.props.membership.id },
         {
           onSuccess: (data) =>
             this.fetchAssociatedBookingsObjects(data.results),

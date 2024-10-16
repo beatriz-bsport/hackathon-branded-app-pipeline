@@ -419,7 +419,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myBookings', 'bookings', 'past', 'count'], count)
         .setIn(
           ['myBookings', 'bookings', 'past', 'bookings', 'allIds'],
-          uniq((results || []).map((booking) => booking.id)),
+          (results || []).map((booking) => booking.id),
         )
         .merge(
           {
@@ -471,7 +471,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myBookings', 'bookings', 'future', 'count'], count)
         .setIn(
           ['myBookings', 'bookings', 'future', 'bookings', 'allIds'],
-          uniq((results || []).map((booking) => booking.id)),
+          (results || []).map((booking) => booking.id),
         )
         .merge(
           {
@@ -532,7 +532,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
             'private_services',
             'allIds',
           ],
-          uniq((results || []).map((privateBooking) => privateBooking.id)),
+          (results || []).map((privateBooking) => privateBooking.id),
         )
         .merge(
           {
@@ -593,7 +593,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
             'private_services',
             'allIds',
           ],
-          uniq((results || []).map((privateBooking) => privateBooking.id)),
+          (results || []).map((privateBooking) => privateBooking.id),
         )
         .merge(
           {
@@ -648,7 +648,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myBookings', 'bookingsWorkshop', 'past', 'count'], count)
         .setIn(
           ['myBookings', 'bookingsWorkshop', 'past', 'bookings', 'allIds'],
-          uniq((results || []).map((booking) => booking.id)),
+          (results || []).map((booking) => booking.id),
         )
         .merge(
           {
@@ -703,7 +703,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myBookings', 'bookingsWorkshop', 'future', 'count'], count)
         .setIn(
           ['myBookings', 'bookingsWorkshop', 'future', 'bookings', 'allIds'],
-          uniq((results || []).map((booking) => booking.id)),
+          (results || []).map((booking) => booking.id),
         )
         .merge(
           {
@@ -759,7 +759,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myBookings', 'bookings', 'waitlist', 'count'], count)
         .setIn(
           ['myBookings', 'bookings', 'waitlist', 'booking_options', 'allIds'],
-          uniq((results || []).map((bookingOption) => bookingOption.id)),
+          (results || []).map((bookingOption) => bookingOption.id),
         )
         .merge(
           {
@@ -824,7 +824,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
             'booking_options',
             'allIds',
           ],
-          uniq((results || []).map((bookingOption) => bookingOption.id)),
+          (results || []).map((bookingOption) => bookingOption.id),
         )
         .merge(
           {

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { CellMeasurerCache } from 'react-virtualized';
 
 import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/lib/master-data/booking_status_code';
 import {
@@ -17,13 +17,13 @@ import {
   formatAsDate,
   getIsLateBookingCancellation,
 } from '#src/utils/datetime';
-import { GenericInfiniteScrollEnhancedCssOnly } from '#src/components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
-import ConsumerBookingCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
+import { getLevelTranslation } from '#src/libs/level/utils';
 import ConsumerBookingDetailsCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard';
 import ConsumerBookingListItem from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListItem';
 import ConsumerPrivateBookingListItem from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerPrivateBookingListItem';
 import ConsumerBookingOptionListItem from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOptionListItem';
 import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
+import ConsumerSpaceVirtualizedList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceVirtualizedList';
 
 import type {
   ConsumerBooking,
@@ -38,14 +38,11 @@ import type {
 import {
   BookingFilterTabEnum,
   BookingTabEnum,
-  MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
-  MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
 } from '#src/libs/consumer-space/components/reworked/@MyBookings/constants';
 
 import type { WaitingListConfiguration } from '#src/libs/waiting-list/types';
 import type { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import './styles.css';
-import { getLevelTranslation } from '#src/libs/level/utils';
 
 type Props = {
   isMobile?: boolean;
@@ -56,7 +53,6 @@ type Props = {
   bookingList: ConsumerBooking[];
   bookingOptionList: ConsumerBookingOption[];
   privateBookingList: ConsumerPrivateBooking[];
-  hasNextPage?: boolean;
   timezone: string;
   sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
   selectedTab: BookingTab;
@@ -66,7 +62,7 @@ type Props = {
     type: 'booking' | 'privateBooking' | 'bookingOption',
   ) => void;
   coachDisplay?: MarketPlaceCoachDisplay;
-  handlePaginationFetchMore: () => void;
+  handleChangePage: (page: number) => void;
   handleSelectBookingForCancelation: (bookingId: number) => void;
   handleJoinOnlineBooking: (
     bookingBroadcastURL: string,
@@ -83,6 +79,110 @@ type Props = {
     offerId: number,
   ) => OfferStatusWaitingListPosition;
   waitingListConfiguration: WaitingListConfiguration;
+  cache: CellMeasurerCache;
+  currentCount: number;
+  currentPage: number;
+};
+
+type ConsumerBookingListContainerRowProps = {
+  isCurrentBookingSelected: boolean;
+  item: ConsumerBooking | ConsumerPrivateBooking | ConsumerBookingOption;
+  handleSetSelectedBooking: (bookingId: number) => void;
+  handleSetSelectedPrivateBooking: (privateBookingId: number) => void;
+  handleSetSelectedBookingOption: (bookingOptionId: number) => void;
+} & Pick<
+  Props,
+  | 'selectedFilterTab'
+  | 'selectedTab'
+  | 'coachDisplay'
+  | 'getOfferWaitingListPosition'
+  | 'handleBookSession'
+  | 'handleSelectBookingForCancelation'
+  | 'isMobile'
+  | 'isLoading'
+  | 'timezone'
+  | 'getOfferElligibleGuestNumber'
+  | 'sessionTimeDisplay'
+  | 'waitingListConfiguration'
+  | 'handleJoinOnlineBooking'
+  | 'handleShowSpotDetails'
+  | 'setSelectedBookingForBookingForAGuest'
+>;
+
+const ConsumerBookingListContainerRow: React.FC<
+  ConsumerBookingListContainerRowProps
+> = ({
+  selectedFilterTab,
+  selectedTab,
+  coachDisplay,
+  isMobile,
+  isLoading,
+  timezone,
+  sessionTimeDisplay,
+  waitingListConfiguration,
+  isCurrentBookingSelected,
+  handleSetSelectedBooking,
+  handleSetSelectedPrivateBooking,
+  handleSetSelectedBookingOption,
+  getOfferWaitingListPosition,
+  handleBookSession,
+  handleSelectBookingForCancelation,
+  getOfferElligibleGuestNumber,
+  handleJoinOnlineBooking,
+  handleShowSpotDetails,
+  setSelectedBookingForBookingForAGuest,
+  item,
+}: ConsumerBookingListContainerRowProps) => {
+  if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
+    return (
+      <ConsumerBookingOptionListItem
+        coachDisplay={coachDisplay}
+        getOfferWaitingListPosition={getOfferWaitingListPosition}
+        handleBookSession={handleBookSession}
+        handleSelectBookingForCancelation={handleSelectBookingForCancelation}
+        isLoading={isLoading}
+        isSelected={isCurrentBookingSelected}
+        item={item as ConsumerBookingOption}
+        onBookingCardClick={handleSetSelectedBookingOption}
+        sessionTimeDisplay={sessionTimeDisplay}
+        timezone={timezone}
+        waitingListConfiguration={waitingListConfiguration}
+      />
+    );
+  }
+  if (selectedTab === BookingTabEnum.APPOINTMENT) {
+    return (
+      <ConsumerPrivateBookingListItem
+        coachDisplay={coachDisplay}
+        handleSelectBookingForCancelation={handleSelectBookingForCancelation}
+        isLoading={isLoading}
+        isSelected={isCurrentBookingSelected}
+        item={item as ConsumerPrivateBooking}
+        onBookingCardClick={handleSetSelectedPrivateBooking}
+        sessionTimeDisplay={sessionTimeDisplay}
+        timezone={timezone}
+      />
+    );
+  }
+  return (
+    <ConsumerBookingListItem
+      coachDisplay={coachDisplay}
+      getOfferElligibleGuestNumber={getOfferElligibleGuestNumber}
+      handleJoinOnlineBooking={handleJoinOnlineBooking}
+      handleSelectBookingForCancelation={handleSelectBookingForCancelation}
+      handleShowSpotDetails={handleShowSpotDetails}
+      isLoading={isLoading}
+      isMobile={isMobile}
+      isSelected={isCurrentBookingSelected}
+      item={item as ConsumerBooking}
+      onBookingCardClick={handleSetSelectedBooking}
+      sessionTimeDisplay={sessionTimeDisplay}
+      setSelectedBookingForBookingForAGuest={
+        setSelectedBookingForBookingForAGuest
+      }
+      timezone={timezone}
+    />
+  );
 };
 
 export const ConsumerBookingListContainer: React.FC<Props> = ({
@@ -94,7 +194,6 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   selectedBooking,
   selectedPrivateBooking,
   selectedBookingOption,
-  hasNextPage,
   timezone,
   sessionTimeDisplay,
   relatedBookingsInGroup,
@@ -102,7 +201,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   selectedFilterTab,
   handleSeeBookingDetails,
   coachDisplay,
-  handlePaginationFetchMore,
+  handleChangePage,
   handleSelectBookingForCancelation,
   handleJoinOnlineBooking,
   handleShowSpotDetails,
@@ -111,8 +210,11 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   setSelectedBookingForBookingForAGuest,
   getOfferWaitingListPosition,
   waitingListConfiguration,
+  cache,
+  currentCount,
+  currentPage,
 }) => {
-  const { t } = useTranslation(['consumerSpace', 'translation']);
+  const { t } = useTranslation(['consumerSpace', 'translation', 'common']);
 
   const handleSetSelectedBooking = useCallback(
     (bookingId: number) => {
@@ -230,17 +332,43 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
       selectedBookingOption?.coach?.photo,
   );
 
+  const getIsCurrentBookingSelected = useCallback(
+    (index: number) => {
+      if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
+        return (
+          !isMobile &&
+          selectedBookingOption?.id === currentBookingList[index]?.id
+        );
+      }
+      if (selectedTab === BookingTabEnum.APPOINTMENT) {
+        return (
+          !isMobile &&
+          selectedPrivateBooking?.id === currentBookingList[index]?.id
+        );
+      }
+      return !isMobile && currentBookingList[index]?.id === selectedBooking?.id;
+    },
+    [
+      currentBookingList,
+      isMobile,
+      selectedBooking?.id,
+      selectedBookingOption?.id,
+      selectedFilterTab,
+      selectedPrivateBooking?.id,
+      selectedTab,
+    ],
+  );
+
   return (
     <PageInnerContentLayout
+      count={currentCount}
       DetailComponent={
         <ConsumerBookingDetailsCard
           cancellationDate={formatAsDate(
             selectedBooking?.date_canceled ||
               selectedPrivateBooking?.date_canceled,
           )}
-          className={classNames({
-            'bs-consumer-page-root__bookings__details-card--hidden': isMobile,
-          })}
+          className="bs-consumer-page-root__bookings__details-card"
           coachDescription={
             selectedBooking?.coach?.description ||
             selectedPrivateBooking?.coach?.description ||
@@ -355,87 +483,45 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
       emptyPlaceholder={t(
         `consumerSpace:reworked.myBookings.listContainer.placeholder.${selectedTab}.${selectedFilterTab}`,
       )}
-      InfiniteScrollComponent={
-        <GenericInfiniteScrollEnhancedCssOnly<
+      isEmpty={isCurrentTabContentEmpty}
+      isLoading={isLoading}
+      onPageChange={handleChangePage}
+      page={currentPage}
+      VirtualizedListComponent={
+        <ConsumerSpaceVirtualizedList<
           ConsumerBooking | ConsumerPrivateBooking | ConsumerBookingOption
         >
-          fetchMoreData={handlePaginationFetchMore}
-          hasMore={hasNextPage}
-          height={
-            isMobile
-              ? MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT
-              : MY_BOOKINGS_LIST_CONTAINER_HEIGHT
-          }
-          items={currentBookingList}
-          loader={<ConsumerBookingCard isLoading />}
-          renderItem={({ item }) => {
-            if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
-              return (
-                <ConsumerBookingOptionListItem
-                  key={item.id}
-                  coachDisplay={coachDisplay}
-                  getOfferWaitingListPosition={getOfferWaitingListPosition}
-                  handleBookSession={handleBookSession}
-                  handleSelectBookingForCancelation={
-                    handleSelectBookingForCancelation
-                  }
-                  isLoading={isLoading}
-                  isSelected={
-                    !isMobile && selectedBookingOption?.id === item.id
-                  }
-                  item={item as ConsumerBookingOption}
-                  onBookingCardClick={handleSetSelectedBookingOption}
-                  sessionTimeDisplay={sessionTimeDisplay}
-                  timezone={timezone}
-                  waitingListConfiguration={waitingListConfiguration}
-                />
-              );
-            }
-            if (selectedTab === BookingTabEnum.APPOINTMENT) {
-              return (
-                <ConsumerPrivateBookingListItem
-                  key={item.id}
-                  coachDisplay={coachDisplay}
-                  handleSelectBookingForCancelation={
-                    handleSelectBookingForCancelation
-                  }
-                  isLoading={isLoading}
-                  isSelected={
-                    !isMobile && selectedPrivateBooking?.id === item.id
-                  }
-                  item={item as ConsumerPrivateBooking}
-                  onBookingCardClick={handleSetSelectedPrivateBooking}
-                  sessionTimeDisplay={sessionTimeDisplay}
-                  timezone={timezone}
-                />
-              );
-            }
-            return (
-              <ConsumerBookingListItem
-                key={item.id}
-                coachDisplay={coachDisplay}
-                getOfferElligibleGuestNumber={getOfferElligibleGuestNumber}
-                handleJoinOnlineBooking={handleJoinOnlineBooking}
-                handleSelectBookingForCancelation={
-                  handleSelectBookingForCancelation
-                }
-                handleShowSpotDetails={handleShowSpotDetails}
-                isLoading={isLoading}
-                isMobile={isMobile}
-                isSelected={!isMobile && item.id === selectedBooking?.id}
-                item={item as ConsumerBooking}
-                onBookingCardClick={handleSetSelectedBooking}
-                sessionTimeDisplay={sessionTimeDisplay}
-                setSelectedBookingForBookingForAGuest={
-                  setSelectedBookingForBookingForAGuest
-                }
-                timezone={timezone}
-              />
-            );
-          }}
+          cache={cache}
+          data={currentBookingList}
+          isLoading={isLoading}
+          rowCount={currentBookingList?.length ?? 0}
+          rowRenderer={({ item, index }) => (
+            <ConsumerBookingListContainerRow
+              getOfferElligibleGuestNumber={getOfferElligibleGuestNumber}
+              getOfferWaitingListPosition={getOfferWaitingListPosition}
+              handleBookSession={handleBookSession}
+              handleJoinOnlineBooking={handleJoinOnlineBooking}
+              handleSelectBookingForCancelation={
+                handleSelectBookingForCancelation
+              }
+              handleSetSelectedBooking={handleSetSelectedBooking}
+              handleSetSelectedBookingOption={handleSetSelectedBookingOption}
+              handleSetSelectedPrivateBooking={handleSetSelectedPrivateBooking}
+              handleShowSpotDetails={handleShowSpotDetails}
+              isCurrentBookingSelected={getIsCurrentBookingSelected(index)}
+              item={item}
+              selectedFilterTab={selectedFilterTab}
+              selectedTab={selectedTab}
+              sessionTimeDisplay={sessionTimeDisplay}
+              setSelectedBookingForBookingForAGuest={
+                setSelectedBookingForBookingForAGuest
+              }
+              timezone={timezone}
+              waitingListConfiguration={waitingListConfiguration}
+            />
+          )}
         />
       }
-      isEmpty={isCurrentTabContentEmpty}
     />
   );
 };

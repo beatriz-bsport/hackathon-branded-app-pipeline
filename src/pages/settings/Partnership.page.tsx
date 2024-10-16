@@ -3,7 +3,6 @@ import type { WithT } from 'i18next';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose, withState, withHandlers } from 'recompose';
-import flatten from 'lodash/flatten';
 
 // MUI
 import {
@@ -308,28 +307,7 @@ export class Partnership extends React.Component<Props> {
   };
 
   render() {
-    const { classpass, company, establishmentList } = this.props;
-    let establishmentIdList: number[] = [];
-    if (establishmentList && establishmentList.length) {
-      if (classpass && classpass.associated_establishment_ids.length) {
-        establishmentIdList = classpass.associated_establishment_ids;
-      } else {
-        establishmentIdList = flatten(
-          establishmentList.map((e) => e.associatedestablishment_set),
-        );
-      }
-    }
-
-    let venueIds = establishmentIdList.join(', ');
-
-    if (this.props.partnershipEstablishmentMergeList?.length) {
-      venueIds = this.props.partnershipEstablishmentMergeList
-        .map((pem) => pem.reference_establishment)
-        .join(', ');
-    }
-    if (this.props.classpass?.override_establishment_pk) {
-      venueIds = `${this.props.classpass?.override_establishment_pk}`;
-    }
+    const { classpass, company } = this.props;
 
     const hasWellhubUpsell = hasUpsell(
       this.props.featureList,
@@ -400,14 +378,11 @@ export class Partnership extends React.Component<Props> {
               this.openPartnershipConfigurationForm
             }
             requestClasspassPartnership={this.props.requestClasspassPartnership}
-            shouldRequestClassPassPartnership={!this.props.classpass}
+            shouldRequestClassPassPartnership={!classpass}
           />
           <GenericResponsiveDrawer
             onClose={this.closePartnershipConfigurationForm}
-            open={
-              !!this.props.classpass &&
-              this.props.isPartnershipConfigurationFormOpen
-            }
+            open={!!classpass && this.props.isPartnershipConfigurationFormOpen}
             title={this.props.t('parameters.drawerTitle')}
           >
             <PartnershipConfigurationForm
@@ -415,7 +390,7 @@ export class Partnership extends React.Component<Props> {
                 this.props.associatedEstablishmentList
               }
               establishmentList={this.props.establishmentList}
-              initial={this.props.classpass}
+              initial={classpass}
               isSubmitting={this.props.isSubmitting}
               onSubmit={this.updatePartnership}
               partnershipEstablishmentMergeList={

@@ -22,7 +22,6 @@ const PartnershipConfigurationOverrideForm = (props: Props) => {
   const classes = useStyles();
 
   const [overrideAssociatedEstablishment, setOverrideAssociatedEstablishment] =
-    // @ts-expect-error
     React.useState<number | null>(props.initial?.override_establishment_pk);
 
   return (

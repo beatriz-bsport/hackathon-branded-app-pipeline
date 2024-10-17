@@ -40,6 +40,7 @@ import {
   getMyExpiredSubscriptionsState,
   getMyExpiredSubscriptionsList,
   getMySubscriptionsInvoicesDetailsState,
+  getInvoicesComplementaryLoading,
 } from 'bsport-saas/src/libs/consumer-space/selectors';
 import { getWaitingListConfigurationData } from 'bsport-saas/src/libs/waiting-list/selectors';
 
@@ -103,7 +104,6 @@ import type { BookingTab } from 'bsport-saas/src/libs/consumer-space/components/
 // @ts-expect-error
 import type { BookingFilterTab } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { Membership } from 'bsport-saas/src/libs/membership/types';
-import type { Member } from 'bsport-saas/src/libs/member/types';
 
 export type ConsumerSpaceWidgetProps = {
   companyId: number,
@@ -305,6 +305,9 @@ export const consumerProfileBridgeSelectors = (
 /* MY INVOICES */
 export const consumerInvoiceBridgeSelectors = (state: RootState) => ({
   loading: adaptSelector(getInvoicesLoading)(state),
+  invoiceComplementaryLoading: adaptSelector(getInvoicesComplementaryLoading)(
+    state,
+  ),
   paidInvoiceList: adaptSelector(getPaidInvoices)(state),
   paidInvoicesLoading: getPaidInvoicesLoading(state),
   paidInvoicesNextPage: getPaidInvoicesNextPage(state),

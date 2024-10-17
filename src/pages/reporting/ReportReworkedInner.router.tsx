@@ -22,8 +22,8 @@ type Props = {
 } & ConnectedProps<typeof connector>;
 
 const tabsData = Immutable([
-  { label: 'report:tab.reporting.categories', value: 'categories' },
-  { label: 'report:tab.reporting.views', value: 'views' },
+  { label: 'tab.reporting.categories', value: 'categories' },
+  { label: 'tab.reporting.views', value: 'views' },
 ]);
 
 const ReportReworkedInnerRouter: React.FC<Props> = ({
@@ -71,7 +71,7 @@ export default compose(
   routerParamsToProps({
     tab: 'tab:string',
   }),
-  withTranslation(['report', 'titles']),
+  withTranslation(['reporting', 'titles']),
   withTitle(({ t }) => t('titles:dashboard.reportingDashboard')),
   withPageHeightHOC(),
 )(ReportReworkedInnerRouter);

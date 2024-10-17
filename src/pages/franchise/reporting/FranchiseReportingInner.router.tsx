@@ -71,7 +71,7 @@ export default compose(
   routerParamsToProps({
     tab: 'tab:string',
   }),
-  withTranslation(['report', 'titles']),
+  withTranslation(['reporting', 'titles']),
   withTitle(({ t }) => t('titles:dashboard.reportingDashboard')),
   withPageHeightHOC(),
 )(ReportReworkedInnerRouter);

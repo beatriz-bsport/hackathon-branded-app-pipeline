@@ -11,9 +11,9 @@
   ],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.es.js",
-      "require": "./dist/index.umd.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.umd.js"
     }
   },
   "dependencies": {
@@ -21,13 +21,13 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@bsport/kaizen-tokens": "workspace:*",
     "@bsport/eslint-config-react": "workspace:*",
-    "@storybook/addon-themes": "^8.2.7",
-    "@types/inquirer": "^9.0.3",
-    "@types/lodash": "^4.17.4",
-    "@vitejs/plugin-react": "^4.3.1",
-    "@vitejs/plugin-react-swc": "^3.7.0",
+    "@bsport/kaizen-tokens": "workspace:*",
+    "@storybook/addon-themes": "^8.3.5",
+    "@types/inquirer": "^9.0.7",
+    "@types/lodash": "^4.17.10",
+    "@vitejs/plugin-react": "^4.3.2",
+    "@vitejs/plugin-react-swc": "^3.7.1",
     "autoprefixer": "^10.4.20",
     "concurrently": "^8.2.2",
     "inquirer": "^8.2.4",

@@ -3,6 +3,7 @@ import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Paper } from '@material-ui/core';
 
+import WellhubProductAlert from '#src/libs/wellhub/components/WellhubProductAlert';
 import {
   WellhubConfigurationHeader,
   WellhubConfigurationContent,
@@ -14,25 +15,33 @@ import type { Establishment } from '#src/libs/establishment/types';
 
 type Props = {
   establishmentsNotLinked: Establishment[];
+  offersMissingWellhubProductCount: number;
   wellhubGyms: WellhubGym[];
   wellhubLoading: boolean;
   deleteWellhubGym: (wellhubGym: WellhubGym) => void;
   editWellhubGym: (wellhubGym: WellhubGym) => void;
   handleAddUnit: () => void;
+  openWellhubProductSelectionDrawer: () => void;
 };
 
 const WellhubConfigurationPanel: React.FC<Props> = ({
   establishmentsNotLinked,
+  offersMissingWellhubProductCount,
   wellhubGyms,
   wellhubLoading,
   deleteWellhubGym,
   editWellhubGym,
   handleAddUnit,
+  openWellhubProductSelectionDrawer,
 }) => {
   const classes = useStyles();
   return (
     <Paper className={classes.configurationPanel}>
       <WellhubConfigurationHeader />
+      <WellhubProductAlert
+        onActionClick={openWellhubProductSelectionDrawer}
+        total={offersMissingWellhubProductCount}
+      />
       <WellhubConfigurationContent
         deleteWellhubGym={deleteWellhubGym}
         editWellhubGym={editWellhubGym}
@@ -49,7 +58,6 @@ const WellhubConfigurationPanel: React.FC<Props> = ({
 
 const useStyles = makeStyles((theme) => ({
   configurationPanel: {
-    alignItems: 'flex-end',
     alignSelf: 'stretch',
     display: 'flex',
     flexDirection: 'column',

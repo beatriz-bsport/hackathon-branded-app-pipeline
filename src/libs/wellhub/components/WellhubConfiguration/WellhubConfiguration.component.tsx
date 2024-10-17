@@ -15,6 +15,7 @@ import type { Establishment } from '#src/libs/establishment/types';
 
 type Props = {
   establishments: Establishment[];
+  offersMissingWellhubProductCount: number;
   wellhubGymAvailabilityError: Error | null;
   wellhubGymAvailabilityLoading: boolean;
   wellhubGyms: WellhubGym[];
@@ -23,6 +24,7 @@ type Props = {
   createWellhubGym: (gymId: number, establishmentIds: number[]) => void;
   deleteWellhubGym: (wellhubGymUuid: string) => void;
   getWellhubGymAvailability: (gymId: number) => GymAvailabilityResponse;
+  openWellhubProductSelectionDrawer: () => void;
   updateWellhubGym: (
     wellhubGym: WellhubGym,
     establishmentIds: number[],
@@ -31,6 +33,7 @@ type Props = {
 
 const WellhubConfiguration: React.FC<Props> = ({
   establishments,
+  offersMissingWellhubProductCount,
   wellhubGymAvailabilityError,
   wellhubGymAvailabilityLoading,
   wellhubGyms,
@@ -39,6 +42,7 @@ const WellhubConfiguration: React.FC<Props> = ({
   createWellhubGym,
   deleteWellhubGym,
   getWellhubGymAvailability,
+  openWellhubProductSelectionDrawer,
   updateWellhubGym,
 }) => {
   // --------- WellhubConfigurationPanel ---------
@@ -244,6 +248,8 @@ const WellhubConfiguration: React.FC<Props> = ({
         editWellhubGym={handleEditWellhubGym}
         establishmentsNotLinked={establishmentsNotLinked}
         handleAddUnit={handleAddWellhubGym}
+        offersMissingWellhubProductCount={offersMissingWellhubProductCount}
+        openWellhubProductSelectionDrawer={openWellhubProductSelectionDrawer}
         wellhubGyms={wellhubGyms}
         wellhubLoading={wellhubLoading}
       />

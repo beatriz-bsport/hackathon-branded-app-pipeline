@@ -34,7 +34,7 @@ const WellhubConfigurationFooter: React.FC<Props> = ({
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    alignItems: 'center',
+    alignItems: 'flex-end',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

@@ -13,6 +13,7 @@ export type Props = {
   selectedLevels: number[];
   inScrollBar?: boolean;
   onSelect: (levelId: number[]) => void;
+  className?: string;
 };
 
 const ChipRendererComponent = React.memo(
@@ -65,6 +66,7 @@ export const LevelMultiSelector: React.FC<Props> = ({
   selectedLevels,
   inScrollBar = false,
   onSelect,
+  className,
 }) => {
   const { t } = useTranslation(['offer']);
 
@@ -125,6 +127,7 @@ export const LevelMultiSelector: React.FC<Props> = ({
           color: '#808080',
         },
       }}
+      className={className}
       inScrollBar={inScrollBar}
       itemRenderer={itemRenderer}
       onChange={handleChange}

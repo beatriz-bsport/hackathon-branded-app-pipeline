@@ -131,32 +131,62 @@ export const VideoSearchBar: React.FC<Props> = ({
   );
 
   return (
-    <Grid container direction="row" spacing={1}>
-      <Grid item md={3} xs={6}>
+    <Grid
+      container
+      className="bs-marketplace-vod-filters__list"
+      direction="row"
+      spacing={1}
+    >
+      <Grid
+        item
+        className="bs-marketplace-vod-filters__level-container"
+        md={3}
+        xs={6}
+      >
         <LevelMultiSelector
+          className="bs-marketplace-vod-filters__level"
           customLevels={customLevels}
           onSelect={handleSelectCustomLevel}
           selectedLevels={selectedLevels}
         />
       </Grid>
-      <Grid item lg={2} md={3} xs={6}>
+      <Grid
+        item
+        className="bs-marketplace-vod-filters__sct-container"
+        lg={2}
+        md={3}
+        xs={6}
+      >
         <SCTSelector
           closeMenuOnSelect
           isClearable
           shouldSetMinHeight
+          className="bs-marketplace-vod-filters__sct"
           scts={scts}
           selectedValues={selectedScts}
           selectOption={handleSelectSCT}
         />
       </Grid>
-      <Grid item lg={2} md={3} xs={6}>
+      <Grid
+        item
+        className="bs-marketplace-vod-filters__duration-container"
+        lg={2}
+        md={3}
+        xs={6}
+      >
         <DurationSelector
           shouldSetMinHeight
+          className="bs-marketplace-vod-filters__duration"
           durationSecondRange={duration_second_range}
           onChange={handleSelectDurationRange}
         />
       </Grid>
-      <Grid item md={3} xs={6}>
+      <Grid
+        item
+        className="bs-marketplace-vod-filters__coach-container"
+        md={3}
+        xs={6}
+      >
         {!hideCoach && (
           <CoachSelector
             isClearable
@@ -165,12 +195,20 @@ export const VideoSearchBar: React.FC<Props> = ({
             coaches={coaches}
             selectedCoaches={selectedCoaches}
             selectOption={handleSelectCoach}
+            selectorClass="bs-marketplace-vod-filters__coach"
           />
         )}
       </Grid>
-      <Grid item lg={2} md={12} xs={12}>
+      <Grid
+        item
+        className="bs-marketplace-vod-filters__text-search-container"
+        lg={2}
+        md={12}
+        xs={12}
+      >
         <DelayedTextField
           fullWidth
+          className="bs-marketplace-vod-filters__text-search"
           InputProps={{
             className: classes.input,
             startAdornment: (

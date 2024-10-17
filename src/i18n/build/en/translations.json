@@ -13212,7 +13212,7 @@
                 "isWaitingListFull": "This session and the waitlist are full.",
                 "isTooSoon": "Bookings open on {{-date}}.",
                 "isAlreadyRegistered": "You've already booked this session.",
-                "blockedByTags": "It's not possible to book this session without the correct tags."
+                "blockedByTags": "You don’t have the required membership or access level to book this session."
             },
             "messages": {
                 "offerLocked": "Error when booking",
@@ -13230,7 +13230,7 @@
                 "unknowError": "Error while booking - try again later"
             },
             "tags": {
-                "unAuthorized": "It's not possible to book this session without the correct tags.",
+                "unAuthorized": "You don’t have the required membership or access level to book this session.",
                 "managerDialogWarningDialog": {
                     "confirm": "Confirm",
                     "cancel": "Cancel",

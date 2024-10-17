@@ -1,4 +1,4 @@
-import type { ErrorAndLoading } from 'src/libs/types';
+import type { ErrorAndLoading, PaginationFilterParams } from 'src/libs/types';
 import type {
   PrivateBooking,
   PrivateConsumerPassREST,
@@ -207,9 +207,7 @@ export type ConsumerInvoiceFilter = {
   refunded?: boolean;
 };
 
-export type ConsumerInvoiceParams = {
-  page?: number;
-  page_size?: number;
+export type ConsumerInvoiceParams = PaginationFilterParams & {
   company_id: number;
 };
 

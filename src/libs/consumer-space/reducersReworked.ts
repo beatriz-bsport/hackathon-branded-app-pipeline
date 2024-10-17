@@ -1,5 +1,4 @@
 import Immutable from 'seamless-immutable';
-import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
 import { handleActions } from 'redux-actions';
 
@@ -1674,13 +1673,11 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myInvoices', 'unpaid', 'count'], payload.count)
         .setIn(['myInvoices', 'unpaid', 'page'], payload.page)
         .setIn(['myInvoices', 'unpaid', 'nextPage'], payload.next_page)
-        .updateIn(['myInvoices', 'unpaid', 'allUuids'], (allUuids) =>
-          uniq([
-            ...allUuids,
-            ...(payload.results || []).map(
-              (consumerInvoice) => consumerInvoice.uuid,
-            ),
-          ]),
+        .setIn(
+          ['myInvoices', 'unpaid', 'allUuids'],
+          (payload.results || []).map(
+            (consumerInvoice) => consumerInvoice.uuid,
+          ),
         )
         .merge(
           {
@@ -1719,13 +1716,11 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myInvoices', 'paid', 'count'], payload.count)
         .setIn(['myInvoices', 'paid', 'page'], payload.page)
         .setIn(['myInvoices', 'paid', 'nextPage'], payload.next_page)
-        .updateIn(['myInvoices', 'paid', 'allUuids'], (allUuids) =>
-          uniq([
-            ...allUuids,
-            ...(payload.results || []).map(
-              (consumerInvoice) => consumerInvoice.uuid,
-            ),
-          ]),
+        .setIn(
+          ['myInvoices', 'paid', 'allUuids'],
+          (payload.results || []).map(
+            (consumerInvoice) => consumerInvoice.uuid,
+          ),
         )
         .merge(
           {
@@ -1764,13 +1759,11 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myInvoices', 'refunded', 'count'], payload.count)
         .setIn(['myInvoices', 'refunded', 'page'], payload.page)
         .setIn(['myInvoices', 'refunded', 'nextPage'], payload.next_page)
-        .updateIn(['myInvoices', 'refunded', 'allUuids'], (allUuids) =>
-          uniq([
-            ...allUuids,
-            ...(payload.results || []).map(
-              (consumerInvoice) => consumerInvoice.uuid,
-            ),
-          ]),
+        .setIn(
+          ['myInvoices', 'refunded', 'allUuids'],
+          (payload.results || []).map(
+            (consumerInvoice) => consumerInvoice.uuid,
+          ),
         )
         .merge(
           {

@@ -1038,6 +1038,8 @@ const _getInvoicesRESTByUuid = (state: RootState) =>
   state.consumerReworked.myInvoices.restByUuid;
 const _getInvoicesComplementaryByUuid = (state: RootState) =>
   state.consumerReworked.myInvoices.complementary.byUuid;
+export const getInvoicesComplementaryLoading = (state: RootState) =>
+  state.consumerReworked.myInvoices.complementary.loading;
 
 export const getUnpaidInvoices = createSelector(
   [_getInvoicesRESTByUuid, _getUnpaidInvoicesAllUuids],
@@ -1071,7 +1073,7 @@ export const getUnpaidInvoicesCount = (state: RootState) =>
 export const getPaidInvoicesCount = (state: RootState) =>
   state.consumerReworked.myInvoices.paid.count;
 export const getRefundedInvoicesCount = (state: RootState) =>
-  state.consumerReworked.myInvoices.paid.count;
+  state.consumerReworked.myInvoices.refunded.count;
 
 export const getInvoicesLoading = (state: RootState) =>
   state.consumerReworked.myInvoices.loading;
@@ -1091,6 +1093,10 @@ export const getRefundedInvoicesNextPage = (state: RootState) =>
 
 export const getUnpaidInvoicesPage = (state: RootState) =>
   state.consumerReworked.myInvoices.unpaid.page;
+export const getPaidInvoicesPage = (state: RootState) =>
+  state.consumerReworked.myInvoices.paid.page;
+export const getRefundedInvoicesPage = (state: RootState) =>
+  state.consumerReworked.myInvoices.refunded.page;
 
 const _getConsumerElligibleGuestNumberByOfferState = (state: RootState) =>
   state.consumerReworked.myBookings.elligibleGuestNumberByOffer;

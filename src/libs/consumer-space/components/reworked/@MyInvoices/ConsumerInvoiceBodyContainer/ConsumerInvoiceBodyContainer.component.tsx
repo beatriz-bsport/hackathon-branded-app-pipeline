@@ -1,47 +1,95 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { CellMeasurerCache } from 'react-virtualized';
 
-import { GenericInfiniteScrollEnhancedCssOnly } from '#src/components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import { getReceiptUrl as getReceiptUrlAPI } from '#src/libs/invoice/api';
 import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
-import ConsumerCardSkeleton from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 import ConsumerInvoiceCard from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceCard';
 import ConsumerInvoiceDetailsCard from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceDetailsCard';
 import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
+import ConsumerSpaceVirtualizedList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceVirtualizedList';
 
 import type { ConsumerInvoice, Invoice } from '#src/libs/invoice/types';
-import {
-  MY_INVOICES_LIST_CONTAINER_HEIGHT_DESKTOP,
-  MY_INVOICES_LIST_CONTAINER_HEIGHT_MOBILE,
-} from '.';
 
 import './styles.css';
 
 type Props = {
   consumerInvoiceList: ConsumerInvoice[];
-  hasMoreInvoicesToFetch: boolean;
-  isLoading?: boolean;
   isMobile?: boolean;
   isMultilocationEnabled: boolean;
   selectedConsumerInvoice: ConsumerInvoice;
   selectedFilter: InvoicesFiltersEnum;
+  cache: CellMeasurerCache;
+  isLoading: boolean;
+  currentCount: number;
+  currentPage: number;
   clearSelectedConsumerInvoice: () => void;
-  fetchMoreInvoices: () => void;
+  handleChangePage: (page?: number) => void;
   getInvoice: (uuid: string) => Invoice;
   payConsumerInvoice: (consumerInvoice: ConsumerInvoice) => void;
   seeInvoiceDetails: (consumerInvoice: ConsumerInvoice) => void;
 };
 
+type ConsumerInvoiceBodyContainerRowProps = {
+  selectedConsumerInvoiceUuid?: string;
+  item: ConsumerInvoice;
+  isInvoiceDownloadable: (invoice: ConsumerInvoice | Invoice) => string;
+  handleSeeInvoiceDetails: (consumerInvoice: ConsumerInvoice) => () => void;
+  handleDownloadInvoice: (invoice: ConsumerInvoice | Invoice) => void;
+  handleDownloadReceipt: (consumerInvoice: ConsumerInvoice) => void;
+} & Pick<
+  Props,
+  'getInvoice' | 'isMobile' | 'payConsumerInvoice' | 'selectedFilter'
+>;
+
+const ConsumerInvoiceBodyContainerRow: React.FC<
+  ConsumerInvoiceBodyContainerRowProps
+> = ({
+  isMobile,
+  selectedConsumerInvoiceUuid,
+  selectedFilter,
+  item,
+  isInvoiceDownloadable,
+  getInvoice,
+  payConsumerInvoice,
+  handleSeeInvoiceDetails,
+  handleDownloadInvoice,
+  handleDownloadReceipt,
+}) => {
+  return (
+    <ConsumerInvoiceCard
+      key={`ConsumerInvoiceCard-${item.uuid}`}
+      consumerInvoice={item}
+      downloadInvoice={
+        isInvoiceDownloadable(item) ? handleDownloadInvoice : null
+      }
+      downloadReceipt={item?.payments?.length ? handleDownloadReceipt : null}
+      getInvoice={getInvoice}
+      isMobile={isMobile}
+      isSelected={
+        !isMobile &&
+        !!selectedConsumerInvoiceUuid &&
+        selectedConsumerInvoiceUuid === item.uuid
+      }
+      payInvoice={payConsumerInvoice}
+      seeDetails={handleSeeInvoiceDetails(item)}
+      selectedFilter={selectedFilter}
+    />
+  );
+};
+
 const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
   consumerInvoiceList,
-  hasMoreInvoicesToFetch,
-  isLoading,
   isMobile,
   isMultilocationEnabled,
   selectedConsumerInvoice,
   selectedFilter,
+  isLoading,
+  currentCount,
+  currentPage,
+  cache,
   clearSelectedConsumerInvoice,
-  fetchMoreInvoices,
+  handleChangePage,
   getInvoice,
   payConsumerInvoice,
   seeInvoiceDetails,
@@ -80,14 +128,6 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
     [seeInvoiceDetails],
   );
 
-  const myInvoicesListHeight = React.useMemo(
-    () =>
-      isMobile
-        ? MY_INVOICES_LIST_CONTAINER_HEIGHT_MOBILE
-        : MY_INVOICES_LIST_CONTAINER_HEIGHT_DESKTOP,
-    [isMobile],
-  );
-
   const isCurrentTabContentEmpty =
     !isLoading && consumerInvoiceList?.length === 0;
 
@@ -98,6 +138,7 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
 
   return (
     <PageInnerContentLayout
+      count={currentCount}
       DetailComponent={
         <ConsumerInvoiceDetailsCard
           className={
@@ -124,38 +165,30 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
         />
       }
       emptyPlaceholder={t(`reworked.myInvoices.placeholder.${selectedFilter}`)}
-      InfiniteScrollComponent={
-        <GenericInfiniteScrollEnhancedCssOnly<ConsumerInvoice>
-          fetchMoreData={fetchMoreInvoices}
-          hasMore={hasMoreInvoicesToFetch}
-          height={myInvoicesListHeight}
-          items={consumerInvoiceList}
-          loader={<ConsumerCardSkeleton />}
-          renderItem={({ item }) => (
-            <ConsumerInvoiceCard
-              key={`ConsumerInvoiceCard-${item.uuid}`}
-              consumerInvoice={item}
-              downloadInvoice={
-                isInvoiceDownloadable(item) ? handleDownloadInvoice : null
-              }
-              downloadReceipt={
-                item?.payments?.length ? handleDownloadReceipt : null
-              }
+      isEmpty={isCurrentTabContentEmpty}
+      isLoading={isLoading}
+      onPageChange={handleChangePage}
+      page={currentPage}
+      VirtualizedListComponent={
+        <ConsumerSpaceVirtualizedList<ConsumerInvoice>
+          cache={cache}
+          data={consumerInvoiceList}
+          isLoading={isLoading}
+          rowCount={consumerInvoiceList?.length ?? 0}
+          rowRenderer={({ item }) => (
+            <ConsumerInvoiceBodyContainerRow
               getInvoice={getInvoice}
-              isMobile={isMobile}
-              isSelected={
-                !isMobile &&
-                !!selectedConsumerInvoice &&
-                selectedConsumerInvoice.uuid === item.uuid
-              }
-              payInvoice={payConsumerInvoice}
-              seeDetails={handleSeeInvoiceDetails(item)}
+              handleDownloadInvoice={handleDownloadInvoice}
+              handleDownloadReceipt={handleDownloadReceipt}
+              handleSeeInvoiceDetails={handleSeeInvoiceDetails}
+              isInvoiceDownloadable={isInvoiceDownloadable}
+              item={item}
+              payConsumerInvoice={payConsumerInvoice}
               selectedFilter={selectedFilter}
             />
           )}
         />
       }
-      isEmpty={isCurrentTabContentEmpty}
     />
   );
 };

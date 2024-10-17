@@ -1594,7 +1594,7 @@ export function fetchConsumerUnpaidInvoices(
 
       const response = await fetchConsumerInvoicesAPI({
         unpaid: true,
-        page,
+        page: page ?? 1,
         page_size,
         company_id,
       });
@@ -1632,7 +1632,7 @@ export function fetchConsumerPaidInvoices(
 
       const response = await fetchConsumerInvoicesAPI({
         paid: true,
-        page,
+        page: page ?? 1,
         page_size,
         company_id,
       });
@@ -1670,7 +1670,7 @@ export function fetchConsumerRefundedInvoices(
 
       const response = await fetchConsumerInvoicesAPI({
         refunded: true,
-        page,
+        page: page ?? 1,
         page_size,
         company_id,
       });

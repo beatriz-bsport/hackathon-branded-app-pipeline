@@ -31,17 +31,19 @@ import {
 
 import {
   getInvoiceComplementaryInformation,
+  getInvoicesComplementaryLoading,
   getInvoicesLoading,
   getPaidInvoices,
+  getPaidInvoicesCount,
   getPaidInvoicesLoading,
-  getPaidInvoicesNextPage,
+  getPaidInvoicesPage,
   getRefundedInvoices,
+  getRefundedInvoicesCount,
   getRefundedInvoicesLoading,
-  getRefundedInvoicesNextPage,
+  getRefundedInvoicesPage,
   getUnpaidInvoices,
   getUnpaidInvoicesCount,
   getUnpaidInvoicesLoading,
-  getUnpaidInvoicesNextPage,
   getUnpaidInvoicesPage,
 } from '#src/libs/consumer-space/selectors';
 import { getInvoice } from '#src/libs/invoice/selectors';
@@ -114,10 +116,8 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
     this.refreshMembership?.();
   };
 
-  fetchConsumerInvoicesNextPage = () => {
-    const nextPage = this.getInvoiceNextPage(this.state.selectedFilter);
-    nextPage &&
-      this.props.fetchConsumerInvoices(this.state.selectedFilter, nextPage);
+  handleChangePage = (page?: number) => {
+    this.props.fetchConsumerInvoices(this.state.selectedFilter, page);
   };
 
   goToBookSession = () => {
@@ -134,8 +134,8 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
     }
   };
 
-  getInvoiceRESTList = (selectedFilter: InvoicesFiltersEnum) => {
-    switch (selectedFilter) {
+  getInvoiceRESTList = () => {
+    switch (this.state.selectedFilter) {
       case InvoicesFiltersEnum.PAID:
         return this.props.paidInvoiceList;
       case InvoicesFiltersEnum.REFUNDED:
@@ -146,8 +146,8 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
     }
   };
 
-  getInvoiceList = (selectedFilter: InvoicesFiltersEnum): ConsumerInvoice[] => {
-    const invoiceRESTList = this.getInvoiceRESTList(selectedFilter);
+  getInvoiceList = (): ConsumerInvoice[] => {
+    const invoiceRESTList = this.getInvoiceRESTList();
     const invoiceList = invoiceRESTList?.map((consumerInvoiceREST) => ({
       ...consumerInvoiceREST,
       ...this.props.getInvoiceComplementary(consumerInvoiceREST.uuid),
@@ -155,37 +155,42 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
     return invoiceList;
   };
 
-  getInvoiceLoading = (selectedFilter: InvoicesFiltersEnum) => {
-    switch (selectedFilter) {
+  getIsLoading = () => {
+    const commonIsLoading =
+      this.props.loading || this.props.invoiceComplementaryLoading;
+    switch (this.state.selectedFilter) {
       case InvoicesFiltersEnum.UNPAID:
-      default:
-        return this.props.unpaidInvoicesLoading;
+        return this.props.unpaidInvoicesLoading || commonIsLoading;
       case InvoicesFiltersEnum.PAID:
-        return this.props.paidInvoicesLoading;
+        return this.props.paidInvoicesLoading || commonIsLoading;
       case InvoicesFiltersEnum.REFUNDED:
-        return this.props.refundedInvoicesLoading;
+        return this.props.refundedInvoicesLoading || commonIsLoading;
     }
   };
 
-  getInvoiceNextPage = (selectedFilter: InvoicesFiltersEnum) => {
-    switch (selectedFilter) {
+  getCurrentPage = () => {
+    switch (this.state.selectedFilter) {
       case InvoicesFiltersEnum.UNPAID:
-      default:
-        return this.props.unpaidInvoicesNextPage;
+        return this.props.paidInvoicesPage;
       case InvoicesFiltersEnum.PAID:
-        return this.props.paidInvoicesNextPage;
+        return this.props.paidInvoicesPage;
       case InvoicesFiltersEnum.REFUNDED:
-        return this.props.refundedInvoicesNextPage;
+        return this.props.refundedInvoicesPage;
+    }
+  };
+
+  getCurrentCount = () => {
+    switch (this.state.selectedFilter) {
+      case InvoicesFiltersEnum.UNPAID:
+        return this.props.unpaidInvoicesCount;
+      case InvoicesFiltersEnum.PAID:
+        return this.props.paidInvoicesCount;
+      case InvoicesFiltersEnum.REFUNDED:
+        return this.props.refundedInvoicesCount;
     }
   };
 
   render() {
-    const invoiceList = this.getInvoiceList(this.state.selectedFilter);
-    const invoiceLoading = this.getInvoiceLoading(this.state.selectedFilter);
-    const hasMoreInvoicesToFetch = !!this.getInvoiceNextPage(
-      this.state.selectedFilter,
-    );
-
     return (
       <ConsumerInvoiceContextProvider
         fetchPaymentGroupStatusAction={this.props.fetchPaymentGroupStatusAction}
@@ -193,12 +198,13 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
       >
         <ConsumerInvoicePageReworked
           changeSelectedFilter={this.changeSelectedFilter}
-          consumerInvoices={invoiceList}
-          fetchMoreInvoices={this.fetchConsumerInvoicesNextPage}
+          consumerInvoices={this.getInvoiceList()}
+          currentCount={this.getCurrentCount()}
+          currentPage={this.getCurrentPage()}
           getInvoice={this.props.getInvoice}
           goToBookSession={this.goToBookSession}
-          hasMoreInvoicesToFetch={hasMoreInvoicesToFetch}
-          isBodyLoading={invoiceLoading}
+          handleChangePage={this.handleChangePage}
+          isLoading={this.getIsLoading()}
           isMultilocationEnabled={this.props.theme.enable_multi_localization}
           membership={this.props.membership}
           refreshConsumerInvoices={this.refreshConsumerInvoices}
@@ -216,16 +222,18 @@ const connector = connect(
   (state: RootState) => ({
     theme: getTheme(state),
     loading: getInvoicesLoading(state),
+    invoiceComplementaryLoading: getInvoicesComplementaryLoading(state),
     paidInvoiceList: getPaidInvoices(state),
     paidInvoicesLoading: getPaidInvoicesLoading(state),
-    paidInvoicesNextPage: getPaidInvoicesNextPage(state),
+    paidInvoicesCount: getPaidInvoicesCount(state),
+    paidInvoicesPage: getPaidInvoicesPage(state),
     refundedInvoiceList: getRefundedInvoices(state),
     refundedInvoicesLoading: getRefundedInvoicesLoading(state),
-    refundedInvoicesNextPage: getRefundedInvoicesNextPage(state),
+    refundedInvoicesCount: getRefundedInvoicesCount(state),
+    refundedInvoicesPage: getRefundedInvoicesPage(state),
     unpaidInvoiceList: getUnpaidInvoices(state),
     unpaidInvoicesCount: getUnpaidInvoicesCount(state),
     unpaidInvoicesLoading: getUnpaidInvoicesLoading(state),
-    unpaidInvoicesNextPage: getUnpaidInvoicesNextPage(state),
     unpaidInvoicesPage: getUnpaidInvoicesPage(state),
     detachPaymentMethodLoading:
       state.paymentBackend.detachPaymentMethod.loading,

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CellMeasurerCache } from 'react-virtualized';
 
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
@@ -22,32 +23,39 @@ import './styles.css';
 
 type Props = {
   consumerInvoices: ConsumerInvoice[];
-  hasMoreInvoicesToFetch: boolean;
-  isBodyLoading?: boolean;
   isMultilocationEnabled: boolean;
   membership: Membership;
   selectedFilter: InvoicesFiltersEnum;
   totalUnpaid: number;
   selectedInvoiceUuid: string | null;
+  currentCount: number;
+  currentPage: number;
+  isLoading: boolean;
   changeSelectedFilter: (filter: InvoicesFiltersEnum) => void;
-  fetchMoreInvoices: () => void;
+  handleChangePage: (page?: number) => void;
   getInvoice: (uuid: string) => Invoice;
   goToBookSession: () => void;
   refreshConsumerInvoices: () => void;
   refreshMembership: () => void;
 };
 
+const cache = new CellMeasurerCache({
+  defaultHeight: 300,
+  fixedWidth: true,
+});
+
 const ConsumerInvoicePageReworked: React.FC<Props> = ({
   consumerInvoices,
-  hasMoreInvoicesToFetch,
-  isBodyLoading,
   isMultilocationEnabled,
   selectedInvoiceUuid,
   membership,
   selectedFilter,
   totalUnpaid,
+  currentCount,
+  currentPage,
+  isLoading,
   changeSelectedFilter,
-  fetchMoreInvoices,
+  handleChangePage,
   getInvoice,
   goToBookSession,
   refreshConsumerInvoices,
@@ -77,6 +85,8 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
     setIsConsumerInvoiceDetailsDrawerOpen,
   ] = React.useState(false);
 
+  const resetVirtualizedListCache = useCallback(() => cache.clearAll(), []);
+
   const handleOpenConsumerInvoiceDetailsDrawer = React.useCallback(
     () => setIsConsumerInvoiceDetailsDrawerOpen(true),
     [],
@@ -101,8 +111,19 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   );
 
   const handleChangeFilter = React.useCallback(
-    (filter: InvoicesFiltersEnum) => changeSelectedFilter(filter),
-    [changeSelectedFilter],
+    (filter: InvoicesFiltersEnum) => {
+      resetVirtualizedListCache();
+      changeSelectedFilter(filter);
+    },
+    [changeSelectedFilter, resetVirtualizedListCache],
+  );
+
+  const handleChangeInvoicePage = React.useCallback(
+    (page: number) => {
+      resetVirtualizedListCache();
+      handleChangePage(page);
+    },
+    [handleChangePage, resetVirtualizedListCache],
   );
 
   const payConsumerInvoice = React.useCallback(
@@ -227,12 +248,14 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
       />
 
       <ConsumerInvoiceBodyContainer
+        cache={cache}
         clearSelectedConsumerInvoice={clearSelectedConsumerInvoice}
         consumerInvoiceList={consumerInvoices}
-        fetchMoreInvoices={fetchMoreInvoices}
+        currentCount={currentCount}
+        currentPage={currentPage}
         getInvoice={getInvoice}
-        hasMoreInvoicesToFetch={hasMoreInvoicesToFetch}
-        isLoading={isBodyLoading}
+        handleChangePage={handleChangeInvoicePage}
+        isLoading={isLoading}
         isMobile={isMobile}
         isMultilocationEnabled={isMultilocationEnabled}
         payConsumerInvoice={payConsumerInvoice}

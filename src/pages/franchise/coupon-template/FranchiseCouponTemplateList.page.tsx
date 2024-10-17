@@ -1,257 +1,439 @@
-import React, { Component } from 'react';
+import React from 'react';
+import uniq from 'lodash/uniq';
 import { connect, ConnectedProps } from 'react-redux';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { push as pushAction } from 'connected-react-router';
-import {
-  WithStyles,
-  createStyles,
-  withStyles,
-  Theme,
-  LinearProgress,
-} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import Paper from '@material-ui/core/Paper';
-import { compose, withStateHandlers, withHandlers } from 'recompose';
 import CouponTemplateListItem from '#src/libs/coupon/components/CouponTemplateListItem.component';
 import { fetchPaymentPackTemplateBulk as fetchPaymentPackTemplateBulkAction } from '#src/libs/payment-packs/actions';
+import { getPaymentPackTemplateList } from '#src/libs/payment-packs/selectors';
 import { fetchPrivatePassTemplateBulk as fetchPrivatePassTemplateBulkAction } from '#src/libs/private-service/actions';
 
-import { getPaymentPackTemplateList } from '#src/libs/payment-packs/selectors';
 import { getPrivatePassTemplateList } from '#src/libs/private-service/selectors/private-pass';
 import CouponTemplateFormDrawer from '#src/libs/coupon/components/CouponTemplateFormDrawer.component';
 import CouponTemplateDeleteDialog from '#src/libs/coupon/components/CouponTemplateDeleteDialog.component';
 import {
-  fetchCouponTemplateList as fetchCouponTemplateListAction,
   createOrUpdateCouponTemplate as createOrUpdateCouponTemplateAction,
   deleteCouponTemplate as deleteCouponTemplateAction,
+  fetchActiveCouponTemplateListPaginated as fetchActiveCouponTemplateListPaginatedAction,
+  fetchExpiredActiveCouponTemplateListPaginated as fetchExpiredActiveCouponTemplateListPaginatedAction,
+  fetchInActiveCouponTemplateListPaginated as fetchInActiveCouponTemplateListPaginatedAction,
 } from '#src/libs/coupon/actions';
 import {
-  getCouponTemplateData,
-  getActiveCouponTemplates,
-  getInactiveCouponTemplates,
+  getActiveCouponTemplatePaginated,
+  getExpiredActiveCouponTemplatePaginated,
+  getInActiveCouponTemplatePaginated,
 } from '#src/libs/coupon/selectors';
-import type { CouponTemplateAPI } from '#src/libs/coupon/types';
-import IsEmptyList from '../../../components/navigation/IsEmptyList.component';
-import { buildUrlParams } from '../../../http';
-import { WithHandlerType } from '../../../utils/types';
-import type { OptionCallback } from '../../../state/types';
-import { RootState } from '../../../reducers';
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_PRIVATE_PASS,
+} from '@bsport/common/lib/master-data/buyable-items';
+import type {
+  CouponTemplateAPI,
+  CouponTemplate,
+  FetchCouponTemplatePaginatedQueryParams,
+} from '#src/libs/coupon/types';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
+import { buildUrlParams } from '#src/http';
+import type { OptionCallback } from '#src/state/types';
+import type { RootState } from '#src/reducers';
+import PaginatedListBaseReworked from '#src/components/PaginatedListBaseReworked.component';
 
-const styles = (theme: Theme) =>
-  createStyles({
-    container: {
-      paddingBottom: '20vh',
-    },
-    divider: {
-      marginBottom: theme.spacing(2),
-      marginTop: theme.spacing(1),
-    },
-    title: {
-      marginTop: theme.spacing(3),
-    },
-    inactiveCouponContainer: {
-      marginTop: theme.spacing(5),
-    },
-  });
+const useStyles = makeStyles((theme) => ({
+  container: {
+    paddingBottom: '20vh',
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
+  },
+  title: {
+    marginTop: theme.spacing(3),
+  },
+  searchComponent: {
+    paddingBottom: theme.spacing(2),
+  },
+}));
 
-// @ts-expect-error
-type StateHandlerType = typeof withStateHandlersInit &
-  WithHandlerType<typeof withStateHandlersSetter>;
+type Props = ConnectedProps<typeof connector>;
 
-// @ts-expect-error
-type Props = ConnectedProps<typeof connector> &
-  WithStyles &
-  WithTranslation &
-  StateHandlerType;
+const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
+  activeCouponTemplatesListPaginated,
+  createOrUpdateCouponTemplate,
+  deleteCouponTemplate,
+  expiredActiveCouponTemplatesListPaginated,
+  fetchActiveCouponTemplateListPaginated,
+  fetchExpiredActiveCouponTemplateListPaginated,
+  fetchInActiveCouponTemplateListPaginated,
+  fetchPaymentPackTemplateBulk,
+  fetchPrivatePassTemplateBulk,
+  goToTemplateDetail,
+  inactiveCouponTemplatesListPaginated,
+  paymentPackTemplateList,
+  privatePassTemplateList,
+}) => {
+  const classes = useStyles();
+  const { t } = useTranslation('coupon');
 
-// TODO : Paginated fetch + redux + with on success on the related objects + backend search
-export class FranchiseCouponTemplateList extends Component<Props> {
-  componentDidMount() {
-    this.props.fetchCouponTemplateList();
-  }
-
-  render() {
-    const { t, classes } = this.props;
-    return (
-      <div>
-        {this.props.loading && <LinearProgress />}
-        <IsEmptyList
-          button={t('couponTemplate.actions.create')}
-          hideEmptyText={
-            this.props.loading ||
-            !!(this.props.activeCouponTemplates || []).length ||
-            !!(this.props.inactiveCouponTemplates || []).length
+  const fetchCouponsRelatedObjects = React.useCallback(
+    (couponTemplates: CouponTemplateAPI[]) => {
+      const relatedObjectsIds = (couponTemplates || []).reduce(
+        (acc, couponTemplate) => {
+          if (
+            ![BUYABLE_ITEM_PASS, BUYABLE_ITEM_PRIVATE_PASS].includes(
+              couponTemplate.applies_to,
+            ) ||
+            !couponTemplate.only_on_objects?.length
+          ) {
+            return acc;
           }
-          onCreate={this.props.openCreateDialog}
-          onCreateLabel={t('couponTemplate.actions.create')}
-          text={t('couponTemplate.isEmptyExplain')}
+
+          if (
+            couponTemplate.applies_to === BUYABLE_ITEM_PASS &&
+            !!couponTemplate.only_on_objects?.length
+          ) {
+            acc.paymentpackTemplateIds.push(couponTemplate.only_on_objects);
+            return acc;
+          }
+
+          if (
+            couponTemplate.applies_to === BUYABLE_ITEM_PRIVATE_PASS &&
+            !!couponTemplate.only_on_objects?.length
+          ) {
+            acc.privatePassTemplateIds.push(couponTemplate.only_on_objects);
+            return acc;
+          }
+
+          return acc;
+        },
+        { paymentpackTemplateIds: [], privatePassTemplateIds: [] },
+      );
+
+      const uniqpaymentPackTemplateIds = uniq(
+        relatedObjectsIds.paymentpackTemplateIds,
+      );
+
+      const uniqprivatePassTemplateIds = uniq(
+        relatedObjectsIds.privatePassTemplateIds,
+      );
+      !!uniqpaymentPackTemplateIds?.length &&
+        fetchPaymentPackTemplateBulk({
+          id__in: uniqpaymentPackTemplateIds,
+        });
+
+      !!uniqprivatePassTemplateIds?.length &&
+        fetchPrivatePassTemplateBulk({
+          id__in: uniqprivatePassTemplateIds,
+        });
+    },
+    [fetchPaymentPackTemplateBulk, fetchPrivatePassTemplateBulk],
+  );
+
+  const handleFetchActiveCouponTemplateListPaginated = React.useCallback(
+    (params: FetchCouponTemplatePaginatedQueryParams) => {
+      fetchActiveCouponTemplateListPaginated(params, {
+        onSuccess: (couponTemplatesPaginated) =>
+          fetchCouponsRelatedObjects(couponTemplatesPaginated.results),
+      });
+    },
+    [fetchActiveCouponTemplateListPaginated, fetchCouponsRelatedObjects],
+  );
+
+  const handleFetchExpiredActiveCouponTemplateListPaginated = React.useCallback(
+    (params: FetchCouponTemplatePaginatedQueryParams) => {
+      fetchExpiredActiveCouponTemplateListPaginated(params, {
+        onSuccess: (couponTemplatesPaginated) =>
+          fetchCouponsRelatedObjects(couponTemplatesPaginated.results),
+      });
+    },
+    [fetchExpiredActiveCouponTemplateListPaginated, fetchCouponsRelatedObjects],
+  );
+
+  const handleFetchInActiveCouponTemplateListPaginated = React.useCallback(
+    (params: FetchCouponTemplatePaginatedQueryParams) => {
+      fetchInActiveCouponTemplateListPaginated(params, {
+        onSuccess: (couponTemplatesPaginated) =>
+          fetchCouponsRelatedObjects(couponTemplatesPaginated.results),
+      });
+    },
+    [fetchInActiveCouponTemplateListPaginated, fetchCouponsRelatedObjects],
+  );
+
+  const handlePageInitialization = React.useCallback(() => {
+    handleFetchActiveCouponTemplateListPaginated({ page: 1 });
+    handleFetchExpiredActiveCouponTemplateListPaginated({ page: 1 });
+    handleFetchInActiveCouponTemplateListPaginated({ page: 1 });
+  }, [
+    handleFetchActiveCouponTemplateListPaginated,
+    handleFetchExpiredActiveCouponTemplateListPaginated,
+    handleFetchInActiveCouponTemplateListPaginated,
+  ]);
+
+  // CDM
+  React.useEffect(() => {
+    handlePageInitialization();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [couponTemplateForEdit, setCouponTemplateForEdit] =
+    React.useState<CouponTemplate | null>(null);
+
+  const [openCreationDrawer, setOpenCreationDialog] = React.useState(false);
+
+  const [couponTemplateTemplateIdToDelete, setcouponTemplateIdToDelete] =
+    React.useState<number | null>(null);
+
+  const handleSetCouponTemplateForEdit = React.useCallback(
+    (
+      couponTemplateId: number,
+      kind: 'active' | 'expiredAndActive' | 'inactive',
+    ) => {
+      if (!couponTemplateId && !kind) return;
+
+      const getCouponTemplateData = () => {
+        switch (kind) {
+          case 'active':
+            return activeCouponTemplatesListPaginated.byId[couponTemplateId];
+          case 'expiredAndActive':
+            return expiredActiveCouponTemplatesListPaginated.byId[
+              couponTemplateId
+            ];
+          case 'inactive':
+            return inactiveCouponTemplatesListPaginated.byId[couponTemplateId];
+          default:
+            return null;
+        }
+      };
+      const couponTemplateData = getCouponTemplateData();
+      //@ts-expect-error Clashing type between CouponTemplateAPI a CouponTemplate having the additionnal companies attributes
+      couponTemplateData && setCouponTemplateForEdit(couponTemplateData);
+    },
+    [
+      activeCouponTemplatesListPaginated,
+      expiredActiveCouponTemplatesListPaginated,
+      inactiveCouponTemplatesListPaginated,
+    ],
+  );
+
+  const handleResetCouponTemplateForEdit = React.useCallback(() => {
+    setCouponTemplateForEdit(null);
+  }, []);
+
+  const handleOpenCreationDialog = React.useCallback(
+    () => setOpenCreationDialog(true),
+    [],
+  );
+  const handleCloseCreationDialog = React.useCallback(
+    () => setOpenCreationDialog(false),
+    [],
+  );
+
+  const handleOpenDeletionDialog = React.useCallback(
+    (couponTemplateId: number) => setcouponTemplateIdToDelete(couponTemplateId),
+    [],
+  );
+  const handleCloseDeletionDialog = React.useCallback(
+    () => setcouponTemplateIdToDelete(null),
+    [],
+  );
+
+  const handleDeleteCouponTemplate = React.useCallback(
+    () =>
+      !!couponTemplateTemplateIdToDelete &&
+      deleteCouponTemplate(couponTemplateTemplateIdToDelete, {
+        onSuccess: () => {
+          handleCloseDeletionDialog();
+          handlePageInitialization();
+        },
+      }),
+    [
+      couponTemplateTemplateIdToDelete,
+      deleteCouponTemplate,
+      handlePageInitialization,
+      handleCloseDeletionDialog,
+    ],
+  );
+  // TODO : Type data payload
+  const handleCreateOrUpdateSubmit = React.useCallback(
+    (data: any, options: OptionCallback<CouponTemplateAPI>) => {
+      createOrUpdateCouponTemplate(data, {
+        onError: options && options.onError,
+        onSuccess: (couponTemplate: CouponTemplateAPI) => {
+          if (openCreationDrawer) {
+            goToTemplateDetail(couponTemplate.id, {
+              openTemplateInstanceForm: true,
+            });
+          } else {
+            goToTemplateDetail(couponTemplate.id);
+          }
+          handleCloseCreationDialog();
+          handleResetCouponTemplateForEdit();
+          handlePageInitialization();
+          if (options && options.onSuccess) {
+            options.onSuccess(couponTemplate);
+          }
+        },
+      });
+    },
+    [
+      createOrUpdateCouponTemplate,
+      goToTemplateDetail,
+      handleCloseCreationDialog,
+      handleResetCouponTemplateForEdit,
+      openCreationDrawer,
+      handlePageInitialization,
+    ],
+  );
+
+  const noExistingCoupons =
+    !activeCouponTemplatesListPaginated.loading &&
+    !expiredActiveCouponTemplatesListPaginated.loading &&
+    !inactiveCouponTemplatesListPaginated.loading &&
+    !activeCouponTemplatesListPaginated.count &&
+    !expiredActiveCouponTemplatesListPaginated.count &&
+    !inactiveCouponTemplatesListPaginated.count;
+  return (
+    <div>
+      <IsEmptyList
+        button={t('couponTemplate.actions.create')}
+        hideEmptyText={!noExistingCoupons}
+        onCreate={handleOpenCreationDialog}
+        onCreateLabel={t('couponTemplate.actions.create')}
+        text={t('couponTemplate.isEmptyExplain')}
+      />
+
+      <div className={classes.container}>
+        <Typography variant="h4">{t('list.activeCoupons')}</Typography>
+        <Divider className={classes.divider} />
+        <PaginatedListBaseReworked
+          itemPerPage={50}
+          items={activeCouponTemplatesListPaginated.coupons}
+          loading={activeCouponTemplatesListPaginated.loading}
+          nbItems={activeCouponTemplatesListPaginated.count}
+          onPageRequested={handleFetchActiveCouponTemplateListPaginated}
+          page={activeCouponTemplatesListPaginated.page}
+          renderItem={(couponTemplate: CouponTemplate) => (
+            <CouponTemplateListItem
+              key={couponTemplate.id}
+              couponTemplate={couponTemplate}
+              onClick={goToTemplateDetail}
+              onDelete={handleOpenDeletionDialog}
+              onEdit={(id: number) =>
+                handleSetCouponTemplateForEdit(id, 'active')
+              }
+            />
+          )}
         />
-        <div className={classes.container}>
-          {(this.props.activeCouponTemplates || []).length ? (
-            <>
-              <Typography variant="h4">{t('list.activeCoupons')}</Typography>
-              <Divider className={classes.divider} />
-              <Paper>
-                {/* @ts-expect-error */}
-                {(this.props.activeCouponTemplates || []).map((ct) => (
-                  <CouponTemplateListItem
-                    key={ct.id}
-                    couponTemplate={ct}
-                    onClick={this.props.goToTemplateDetail}
-                    onDelete={this.props.openDeleteDialog}
-                    onEdit={this.props.openEditDialog}
-                  />
-                ))}
-              </Paper>
-            </>
-          ) : null}
-          {(this.props.inactiveCouponTemplates || []).length ? (
-            <div className={classes.inactiveCouponContainer}>
-              <Typography variant="h4">{t('list.inactiveCoupons')}</Typography>
-              <Divider className={classes.divider} />
-              <Paper>
-                {/* @ts-expect-error */}
-                {(this.props.inactiveCouponTemplates || []).map((ct) => (
-                  <CouponTemplateListItem
-                    key={ct.id}
-                    couponTemplate={ct}
-                    onClick={this.props.goToTemplateDetail}
-                    onDelete={this.props.openDeleteDialog}
-                    onEdit={this.props.openEditDialog}
-                  />
-                ))}
-              </Paper>
-            </div>
-          ) : null}
-        </div>
-        {!!this.props.createModalOpen && (
-          <CouponTemplateFormDrawer
-            open
-            fetchPaymentPackTemplateBulk={
-              this.props.fetchPaymentPackTemplateBulk
-            }
-            fetchPrivatePassTemplateBulk={
-              this.props.fetchPrivatePassTemplateBulk
-            }
-            onClose={this.props.closeCreateDialog}
-            onSubmit={this.props.createOrUpdateCouponTemplate}
-            paymentPackTemplateList={this.props.paymentPackTemplateList || []}
-            privatePassTemplateList={this.props.privatePassTemplateList || []}
-          />
-        )}
-        {!!this.props.couponTemplateToEdit && (
-          <CouponTemplateFormDrawer
-            open
-            fetchPaymentPackTemplateBulk={
-              this.props.fetchPaymentPackTemplateBulk
-            }
-            fetchPrivatePassTemplateBulk={
-              this.props.fetchPrivatePassTemplateBulk
-            }
-            initial={this.props.couponTemplateToEdit}
-            onClose={this.props.closeEditDialog}
-            onSubmit={this.props.createOrUpdateCouponTemplate}
-            paymentPackTemplateList={this.props.paymentPackTemplateList || []}
-            privatePassTemplateList={this.props.privatePassTemplateList || []}
-          />
-        )}
-        <CouponTemplateDeleteDialog
-          onClose={this.props.closeDeleteDialog}
-          onSubmit={this.props.deleteCouponTemplate}
-          open={!!this.props.couponTemplateIdToDelete}
+
+        <Typography className={classes.title} variant="h4">
+          {t('list.expiredActiveCoupons')}
+        </Typography>
+        <Divider className={classes.divider} />
+        <PaginatedListBaseReworked
+          itemPerPage={50}
+          items={expiredActiveCouponTemplatesListPaginated.coupons}
+          loading={expiredActiveCouponTemplatesListPaginated.loading}
+          nbItems={expiredActiveCouponTemplatesListPaginated.count}
+          onPageRequested={handleFetchExpiredActiveCouponTemplateListPaginated}
+          page={expiredActiveCouponTemplatesListPaginated.page}
+          renderItem={(couponTemplate: CouponTemplate) => (
+            <CouponTemplateListItem
+              key={couponTemplate.id}
+              couponTemplate={couponTemplate}
+              onClick={goToTemplateDetail}
+              onDelete={handleOpenDeletionDialog}
+              onEdit={(id: number) =>
+                handleSetCouponTemplateForEdit(id, 'expiredAndActive')
+              }
+            />
+          )}
+        />
+
+        <Typography className={classes.title} variant="h4">
+          {t('list.inactiveCoupons')}
+        </Typography>
+        <Divider className={classes.divider} />
+        <PaginatedListBaseReworked
+          itemPerPage={50}
+          items={inactiveCouponTemplatesListPaginated.coupons}
+          loading={inactiveCouponTemplatesListPaginated.loading}
+          nbItems={inactiveCouponTemplatesListPaginated.count}
+          onPageRequested={handleFetchInActiveCouponTemplateListPaginated}
+          page={inactiveCouponTemplatesListPaginated.page}
+          renderItem={(couponTemplate: CouponTemplate) => (
+            <CouponTemplateListItem
+              key={couponTemplate.id}
+              couponTemplate={couponTemplate}
+              onClick={goToTemplateDetail}
+              onDelete={handleOpenDeletionDialog}
+              onEdit={(id: number) =>
+                handleSetCouponTemplateForEdit(id, 'inactive')
+              }
+            />
+          )}
         />
       </div>
-    );
-  }
-}
+      {!!openCreationDrawer && (
+        <CouponTemplateFormDrawer
+          open
+          fetchPaymentPackTemplateBulk={fetchPaymentPackTemplateBulk}
+          fetchPrivatePassTemplateBulk={fetchPrivatePassTemplateBulk}
+          onClose={handleCloseCreationDialog}
+          onSubmit={handleCreateOrUpdateSubmit}
+          paymentPackTemplateList={paymentPackTemplateList || []}
+          privatePassTemplateList={privatePassTemplateList || []}
+        />
+      )}
+      {!!couponTemplateForEdit && (
+        <CouponTemplateFormDrawer
+          open
+          fetchPaymentPackTemplateBulk={fetchPaymentPackTemplateBulk}
+          fetchPrivatePassTemplateBulk={fetchPrivatePassTemplateBulk}
+          initial={couponTemplateForEdit}
+          onClose={handleResetCouponTemplateForEdit}
+          onSubmit={handleCreateOrUpdateSubmit}
+          paymentPackTemplateList={paymentPackTemplateList || []}
+          privatePassTemplateList={privatePassTemplateList || []}
+        />
+      )}
+      <CouponTemplateDeleteDialog
+        onClose={handleCloseDeletionDialog}
+        onSubmit={handleDeleteCouponTemplate}
+        open={!!couponTemplateTemplateIdToDelete}
+      />
+    </div>
+  );
+};
 
 const connector = connect(
   (state: RootState) => ({
-    loading: state.coupon.couponTemplate.loading,
-    couponTemplateData: getCouponTemplateData(state),
-    activeCouponTemplates: getActiveCouponTemplates(state),
-    inactiveCouponTemplates: getInactiveCouponTemplates(state),
+    activeCouponTemplatesListPaginated: getActiveCouponTemplatePaginated(state),
+    expiredActiveCouponTemplatesListPaginated:
+      getExpiredActiveCouponTemplatePaginated(state),
+    inactiveCouponTemplatesListPaginated:
+      getInActiveCouponTemplatePaginated(state),
     privatePassTemplateList: getPrivatePassTemplateList(state),
     paymentPackTemplateList: getPaymentPackTemplateList(state),
   }),
   {
-    fetchCouponTemplateList: fetchCouponTemplateListAction,
+    fetchActiveCouponTemplateListPaginated:
+      fetchActiveCouponTemplateListPaginatedAction,
+    fetchExpiredActiveCouponTemplateListPaginated:
+      fetchExpiredActiveCouponTemplateListPaginatedAction,
+    fetchInActiveCouponTemplateListPaginated:
+      fetchInActiveCouponTemplateListPaginatedAction,
     createOrUpdateCouponTemplate: createOrUpdateCouponTemplateAction,
     deleteCouponTemplate: deleteCouponTemplateAction,
-    goToTemplateDetail: (id: number, params: any = {}) =>
-      pushAction(`/f/coupon-template/${id}/${buildUrlParams(params)}`),
+    goToTemplateDetail: (
+      id: number,
+      urlParams: { openTemplateInstanceForm: boolean } | {} = {},
+    ) => pushAction(`/f/coupon-template/${id}/${buildUrlParams(urlParams)}`),
+
     fetchPaymentPackTemplateBulk: fetchPaymentPackTemplateBulkAction,
     fetchPrivatePassTemplateBulk: fetchPrivatePassTemplateBulkAction,
   },
 );
 
-const withStateHandlersInit = {
-  createModalOpen: false,
-  couponTemplateToEdit: null as any,
-  couponTemplateIdToDelete: null as any,
-};
-
-// @ts-expect-error
-const withStateHandlersSetter = {
-  openCreateDialog: () => () => ({ createModalOpen: true }),
-  closeCreateDialog: () => () => ({ createModalOpen: false }),
-  openDeleteDialog: () => (id: number) => ({ couponTemplateIdToDelete: id }),
-  closeDeleteDialog: () => () => ({ couponTemplateIdToDelete: null as any }),
-  openEditDialog:
-    (_: any, { couponTemplateData }: Props) =>
-    (id: number) => ({
-      couponTemplateToEdit: couponTemplateData[id],
-    }),
-  closeEditDialog: () => () => ({ couponTemplateToEdit: null as any }),
-};
-
-export default compose(
-  connector,
-  withStyles(styles),
-  withTranslation('coupon'),
-  withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
-  withHandlers({
-    deleteCouponTemplate:
-      ({
-        deleteCouponTemplate,
-        couponTemplateIdToDelete,
-        closeDeleteDialog,
-        fetchCouponTemplateList,
-      }) =>
-      () => {
-        deleteCouponTemplate(couponTemplateIdToDelete, {
-          onSuccess: () => {
-            fetchCouponTemplateList();
-            closeDeleteDialog();
-          },
-        });
-      },
-    createOrUpdateCouponTemplate:
-      ({
-        createOrUpdateCouponTemplate,
-        createModalOpen,
-        closeCreateDialog,
-        closeEditDialog,
-        goToTemplateDetail,
-      }) =>
-      (data: any, options: OptionCallback<CouponTemplateAPI>) =>
-        createOrUpdateCouponTemplate(data, {
-          onError: options && options.onError,
-          onSuccess: (couponTemplate: CouponTemplateAPI) => {
-            if (createModalOpen) {
-              goToTemplateDetail(couponTemplate.id, {
-                openTemplateInstanceForm: true,
-              });
-            } else {
-              goToTemplateDetail(couponTemplate.id);
-            }
-            closeCreateDialog();
-            closeEditDialog();
-            if (options && options.onSuccess) {
-              options.onSuccess(couponTemplate);
-            }
-          },
-        }),
-  }),
-)(FranchiseCouponTemplateList);
+export default connector(React.memo(FranchiseCouponTemplateListReworked));

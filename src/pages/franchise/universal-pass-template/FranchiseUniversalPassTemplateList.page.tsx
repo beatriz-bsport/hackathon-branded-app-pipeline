@@ -1,312 +1,38 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { compose } from 'recompose';
-
-import { buildUrlParams } from '#src/http';
-
-import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
-
-import Collapse from '@material-ui/core/Collapse';
-import Divider from '@material-ui/core/Divider';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import IconButton from '@material-ui/core/IconButton';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-
-import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
-import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
-import PaymentPackTemplateDeleteDialog from '#src/libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
-import PaymentPackTemplateFormDrawer from '#src/libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
-import VirtualizedPaymentPackTemplateList from '#src/libs/payment-packs/components/VirtualizedPaymentPackTemplateList.component';
-
-import type {
-  PaymentPackTemplate,
-  PaymentPackTemplateAPI,
-} from '#src/libs/payment-packs/types';
-import type { OptionCallback } from '#src/state/types';
-import type { RootState } from '#src/reducers';
-
 import { push as pushAction } from 'connected-react-router';
+import Divider from '@material-ui/core/Divider';
+
+import { WithStyles, makeStyles } from '@material-ui/core';
+
+import { useTranslation, WithTranslation } from 'react-i18next';
+
+import PaymentPackTemplateFormDrawer from '#src/libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
+import PaymentPackTemplateDeleteDialog from '#src/libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
 import {
+  PaymentPackTemplateAPI,
+  PaymentPackTemplate,
+} from '#src/libs/payment-packs/types';
+import {
+  fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale as fetchUniversalPaymentPackTemplatePaginatedListAvailableForSaleAction,
+  fetchUniversalPaymentPackTemplatePaginatedListManagerOnly as fetchUniversalPaymentPackTemplatePaginatedListManagerOnlyAction,
   createOrUpdateUniversalPaymentPackTemplate as createOrUpdateUniversalPaymentPackTemplateAction,
   deleteUniversalPaymentPackTemplate as deleteUniversalPaymentPackTemplateAction,
-  fetchUniversalPassTemplateList as fetchUniversalPassTemplateListAction,
-  fetchUniversalPassTemplateListManagerOnly as fetchUniversalPassTemplateListManagerOnlyAction,
-  resetPaymentPackTemplateData as resetPaymentPackTemplateDataAction,
 } from '#src/libs/payment-packs/actions';
 
 import {
-  getUniversalPaymentPackTemplateData,
-  getUniversalPaymentPackTemplateListAvailableForSale,
-  getUniversalPaymentPackTemplateListManagerOnly,
+  getUniverslPaymentPackTemplatePaginatedManagerOnly,
+  getUniversalPaymentPackTemplatePaginatedAvailableForSale,
 } from '#src/libs/payment-packs/selectors';
-
-type Props = ConnectedProps<typeof connector>;
-
-const FranchisePaymentPackTemplateListPage: React.FC<Props> = ({
-  createOrUpdateUniversalPaymentPackTemplate,
-  deleteUniversalPaymentPackTemplate,
-  fetchUniversalPassTemplateList,
-  fetchUniversalPassTemplateListManagerOnly,
-  loading,
-  paymentPackTemplateData,
-  paymentPackTemplateListAvailable,
-  paymentPackTemplateListManagerOnly,
-  pushRouter,
-  resetPaymentPackTemplateData,
-}) => {
-  const { t } = useTranslation('paymentPack');
-  const classes = useStyles();
-
-  const [showAvailable, setShowAvailable] = React.useState(true);
-  const [showManagerOnly, setShowManagerOnly] = React.useState(false);
-  const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
-  const [templateToEdit, setTemplateToEdit] =
-    React.useState<PaymentPackTemplate | null>(null);
-  const [templateIdToDelete, setTemplateIdToDelete] = React.useState<
-    number | null
-  >(null);
-  const [isManagerOnlyLoading, setIsManagerOnlyLoading] = React.useState(false);
-
-  const handleFetchTemplateAvailable = React.useCallback(() => {
-    fetchUniversalPassTemplateList();
-  }, [fetchUniversalPassTemplateList]);
-
-  React.useEffect(
-    () => handleFetchTemplateAvailable(),
-    [handleFetchTemplateAvailable],
-  );
-
-  React.useEffect(() => {
-    resetPaymentPackTemplateData();
-  }, [resetPaymentPackTemplateData]);
-
-  const closeCreateDialog = React.useCallback(
-    () => setIsCreateModalOpen(false),
-    [],
-  );
-
-  const openCreateDialog = React.useCallback(
-    () => setIsCreateModalOpen(true),
-    [],
-  );
-
-  const closeEditDialog = React.useCallback(() => setTemplateToEdit(null), []);
-
-  const openEditDialog = React.useCallback(
-    //@ts-expect-error
-    (id: number) => setTemplateToEdit(paymentPackTemplateData[id]),
-    [paymentPackTemplateData],
-  );
-
-  const closeDeleteDialog = React.useCallback(
-    () => setTemplateIdToDelete(null),
-    [],
-  );
-
-  const openDeleteDialog = React.useCallback(
-    (id: number) => setTemplateIdToDelete(id),
-    [],
-  );
-
-  const goToTemplateDetail = React.useCallback(
-    (id: number, params: { openTemplateInstanceForm?: boolean } = {}) =>
-      pushRouter(`/f/universal-pass-template/${id}/${buildUrlParams(params)}`),
-    [pushRouter],
-  );
-
-  const handleFetchTemplateListManagerOnly = React.useCallback(() => {
-    setIsManagerOnlyLoading(true);
-    fetchUniversalPassTemplateListManagerOnly({
-      onSuccess: () => setIsManagerOnlyLoading(false),
-      onError: () => setIsManagerOnlyLoading(false),
-    });
-  }, [fetchUniversalPassTemplateListManagerOnly]);
-
-  const handleDeleteTemplate = React.useCallback(
-    () =>
-      deleteUniversalPaymentPackTemplate(templateIdToDelete, {
-        onSuccess: () => {
-          handleFetchTemplateAvailable();
-          closeDeleteDialog();
-        },
-      }),
-    [
-      closeDeleteDialog,
-      deleteUniversalPaymentPackTemplate,
-      handleFetchTemplateAvailable,
-      templateIdToDelete,
-    ],
-  );
-
-  const handleCreateOrUpdateTemplate = React.useCallback(
-    (
-      data: PaymentPackTemplateAPI,
-      options: OptionCallback<PaymentPackTemplateAPI>,
-    ) =>
-      createOrUpdateUniversalPaymentPackTemplate(
-        { ...data, is_universal_template: true },
-        {
-          onError: options && options.onError,
-          onSuccess: (template: PaymentPackTemplateAPI) => {
-            if (isCreateModalOpen) {
-              goToTemplateDetail(template.id, {
-                openTemplateInstanceForm: true,
-              });
-            } else {
-              goToTemplateDetail(template.id);
-            }
-            closeCreateDialog();
-            closeEditDialog();
-            if (options && options.onSuccess) {
-              options.onSuccess(template);
-            }
-          },
-        },
-      ),
-    [
-      closeCreateDialog,
-      closeEditDialog,
-      createOrUpdateUniversalPaymentPackTemplate,
-      goToTemplateDetail,
-      isCreateModalOpen,
-    ],
-  );
-
-  const onShowManagerOnly = React.useCallback(() => {
-    if (!showManagerOnly) {
-      handleFetchTemplateListManagerOnly();
-    }
-    setShowManagerOnly(!showManagerOnly);
-  }, [handleFetchTemplateListManagerOnly, showManagerOnly]);
-
-  const onShowAvailable = React.useCallback(() => {
-    setShowAvailable(!showAvailable);
-  }, [showAvailable]);
-
-  return (
-    <div>
-      {loading && <BackofficeLinearProgress />}
-      {!loading && (
-        <IsEmptyList
-          button={t('paymentPackTemplate.actions.createUniversalPass')}
-          hideEmptyText={
-            loading ||
-            !!paymentPackTemplateListAvailable.length ||
-            !!paymentPackTemplateListManagerOnly.length
-          }
-          onCreate={openCreateDialog}
-          onCreateLabel={t('paymentPackTemplate.actions.createUniversalPass')}
-          text={t('paymentPackTemplate.isEmptyExplain')}
-        />
-      )}
-      <div className={classes.container}>
-        {!!paymentPackTemplateListAvailable.length && (
-          <>
-            <div className={classes.row}>
-              <Typography variant="h4">
-                {`${t('paymentPackTemplate.section.titleAvailable')} (${
-                  paymentPackTemplateListAvailable?.length || 0
-                })`}
-              </Typography>
-              <IconButton onClick={onShowAvailable}>
-                {showAvailable ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </IconButton>
-            </div>
-            <Divider className={classes.divider} />
-            <Collapse in={showAvailable}>
-              <Paper>
-                <VirtualizedPaymentPackTemplateList
-                  divider
-                  onClick={goToTemplateDetail}
-                  onDelete={openDeleteDialog}
-                  onEdit={openEditDialog}
-                  //@ts-expect-error
-                  paymentPackTemplateList={paymentPackTemplateListAvailable}
-                />
-              </Paper>
-            </Collapse>
-          </>
-        )}
-        <div className={classes.row}>
-          <Typography className={classes.title} variant="h4">
-            {t('paymentPackTemplate.section.titleManagerOnly')}
-          </Typography>
-          <IconButton onClick={onShowManagerOnly}>
-            {showManagerOnly ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </IconButton>
-        </div>
-        {isManagerOnlyLoading ? (
-          <div className={classes.divider}>
-            <LinearProgress />
-          </div>
-        ) : (
-          <Divider className={classes.divider} />
-        )}
-        {showManagerOnly && (
-          <Collapse in={showManagerOnly}>
-            <Paper>
-              <VirtualizedPaymentPackTemplateList
-                onClick={goToTemplateDetail}
-                onDelete={openDeleteDialog}
-                onEdit={openEditDialog}
-                //@ts-expect-error
-                paymentPackTemplateList={paymentPackTemplateListManagerOnly}
-              />
-            </Paper>
-          </Collapse>
-        )}
-      </div>
-      {!!isCreateModalOpen && (
-        <PaymentPackTemplateFormDrawer
-          isUniversal
-          onClose={closeCreateDialog}
-          onSubmit={handleCreateOrUpdateTemplate}
-          open={isCreateModalOpen}
-        />
-      )}
-      <PaymentPackTemplateDeleteDialog
-        onClose={closeDeleteDialog}
-        onSubmit={handleDeleteTemplate}
-        open={!!templateIdToDelete}
-      />
-      {!!templateToEdit && (
-        <PaymentPackTemplateFormDrawer
-          isUniversal
-          initial={templateToEdit}
-          onClose={closeEditDialog}
-          onSubmit={handleCreateOrUpdateTemplate}
-          open={!!templateToEdit}
-        />
-      )}
-    </div>
-  );
-};
-
-const connector = connect(
-  (state: RootState) => ({
-    paymentPackTemplateListManagerOnly:
-      getUniversalPaymentPackTemplateListManagerOnly(state),
-    paymentPackTemplateListAvailable:
-      getUniversalPaymentPackTemplateListAvailableForSale(state),
-    paymentPackTemplateData: getUniversalPaymentPackTemplateData(state),
-    loading: state.paymentPack.universalPaymentPackTemplate.loading,
-  }),
-  {
-    fetchUniversalPassTemplateList: fetchUniversalPassTemplateListAction,
-    fetchUniversalPassTemplateListManagerOnly:
-      fetchUniversalPassTemplateListManagerOnlyAction,
-    pushRouter: pushAction,
-    createOrUpdateUniversalPaymentPackTemplate:
-      createOrUpdateUniversalPaymentPackTemplateAction,
-    deleteUniversalPaymentPackTemplate:
-      deleteUniversalPaymentPackTemplateAction,
-    resetPaymentPackTemplateData: resetPaymentPackTemplateDataAction,
-  },
-);
+import { OptionCallback } from '#src/state/types';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
+import { RootState } from '#src/reducers';
+import { buildUrlParams } from '#src/http';
+import PaginatedListBaseReworked from '#src/components/PaginatedListBaseReworked.component';
+import PaymentPackTemplateListItem from '#src/libs/payment-packs/components/PaymentPackTemplateListItem.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import PaymentPackTemplateSearchItem from '#src/libs/payment-packs/components/Search/PaymentPackTemplateSearchItem.component';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -319,16 +45,306 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginTop: theme.spacing(3),
   },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
+  searchComponent: {
+    paddingBottom: theme.spacing(2),
   },
 }));
 
-export default compose(
-  connector,
-  React.memo,
-)(FranchisePaymentPackTemplateListPage);
+type Props = ConnectedProps<typeof connector> & WithStyles & WithTranslation;
+
+type deleteUniversalPaymentPackTemplateState = {
+  paymentPackTemplateId: number;
+} & {
+  isManagerOnly: boolean;
+};
+
+const FranchiseUniversalPaymentPackTemplateListPageReworked: React.FC<
+  Props
+> = ({
+  universalPaymentPackTemplateListPaginatedAvailableForSale,
+  univerlPaymentPackTemplateListPaginatedManagerOnly,
+  fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale,
+  fetchUniversalPaymentPackTemplatePaginatedListManagerOnly,
+  deleteUniversalPaymentPackTemplate,
+  goToTemplateDetail,
+  createOrUpdateUniversalPaymentPackTemplate,
+}) => {
+  const classes = useStyles();
+  const { t } = useTranslation('paymentPack');
+
+  const [paymentPackTemplateForEdit, setPaymentPackTemplateForEdit] =
+    React.useState<PaymentPackTemplate | null>(null);
+
+  const [openCreationDrawer, setOpenCreationDialog] = React.useState(false);
+
+  const [paymentPackTemplateToDelete, setPaymentPackTemplateToDelete] =
+    React.useState<deleteUniversalPaymentPackTemplateState | null>(null);
+  // CDM
+  React.useEffect(() => {
+    // Fetching the first page for both available for purchase and manager only passes.
+    fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale({ page: 1 });
+    fetchUniversalPaymentPackTemplatePaginatedListManagerOnly({ page: 1 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleOpenCreationDialog = React.useCallback(
+    () => setOpenCreationDialog(true),
+    [],
+  );
+  const handleCloseCreationDialog = React.useCallback(
+    () => setOpenCreationDialog(false),
+    [],
+  );
+  const handleSetPaymentPackTemplateForEdit = React.useCallback(
+    (id: number) => {
+      const paymentPackTemplate =
+        universalPaymentPackTemplateListPaginatedAvailableForSale.byId[id] ||
+        univerlPaymentPackTemplateListPaginatedManagerOnly.byId[id];
+      paymentPackTemplate &&
+        //@ts-expect-error : This is an mandatory spreading since specific package dealing badly with immutable could break
+        // on underlying components
+        setPaymentPackTemplateForEdit({ ...paymentPackTemplate });
+    },
+    [
+      universalPaymentPackTemplateListPaginatedAvailableForSale,
+      univerlPaymentPackTemplateListPaginatedManagerOnly,
+      setPaymentPackTemplateForEdit,
+    ],
+  );
+
+  const handleResetEditionState = React.useCallback(() => {
+    setPaymentPackTemplateForEdit(null);
+  }, []);
+
+  const handleSubmitPaymentPackTemplateForm = React.useCallback(
+    (data: any, options: OptionCallback<PaymentPackTemplateAPI>) => {
+      createOrUpdateUniversalPaymentPackTemplate(data, {
+        onError: options?.onError,
+        onSuccess: (template: PaymentPackTemplateAPI) => {
+          if (openCreationDrawer) {
+            goToTemplateDetail(template.id, {
+              openTemplateInstanceForm: true,
+            });
+          } else {
+            goToTemplateDetail(template.id);
+          }
+          handleOpenCreationDialog();
+          handleResetEditionState();
+          if (options && options.onSuccess) {
+            options.onSuccess(template);
+          }
+        },
+      });
+    },
+    [
+      openCreationDrawer,
+      createOrUpdateUniversalPaymentPackTemplate,
+      goToTemplateDetail,
+      handleOpenCreationDialog,
+      handleResetEditionState,
+    ],
+  );
+
+  const handleSetPaymentPackTemplateForDelete = React.useCallback(
+    (paymentPackTemplateId: number, isManagerOnly: boolean) => {
+      setPaymentPackTemplateToDelete({ paymentPackTemplateId, isManagerOnly });
+    },
+    [],
+  );
+
+  const handleDeleteUniversalPaymentPackTemplate = React.useCallback(() => {
+    !!paymentPackTemplateToDelete?.paymentPackTemplateId &&
+      deleteUniversalPaymentPackTemplate(
+        paymentPackTemplateToDelete?.paymentPackTemplateId,
+        {
+          onSuccess: () => {
+            setPaymentPackTemplateToDelete(null);
+            paymentPackTemplateToDelete.isManagerOnly &&
+              fetchUniversalPaymentPackTemplatePaginatedListManagerOnly({
+                page: 1,
+              });
+
+            !paymentPackTemplateToDelete.isManagerOnly &&
+              fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale({
+                page: 1,
+              });
+          },
+        },
+      );
+  }, [
+    paymentPackTemplateToDelete,
+    deleteUniversalPaymentPackTemplate,
+    fetchUniversalPaymentPackTemplatePaginatedListManagerOnly,
+    fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale,
+  ]);
+
+  const handleResetDeltionState = React.useCallback(() => {
+    setPaymentPackTemplateToDelete(null);
+  }, []);
+
+  const handleGoToPaymentPackTemplateDetailPage = React.useCallback(
+    (id: number, urlParams: { openTemplateInstanceForm: boolean } | {} = {}) =>
+      goToTemplateDetail(id, urlParams),
+    [goToTemplateDetail],
+  );
+
+  const noExistingPasses =
+    !universalPaymentPackTemplateListPaginatedAvailableForSale.loading &&
+    !univerlPaymentPackTemplateListPaginatedManagerOnly.loading &&
+    !universalPaymentPackTemplateListPaginatedAvailableForSale.count &&
+    !univerlPaymentPackTemplateListPaginatedManagerOnly.count;
+
+  const formatSearchOptions = React.useCallback(
+    (searchResults: PaymentPackTemplateAPI[]) => {
+      return searchResults.map((result) => ({
+        label: result.name,
+        value: result.id,
+        paymentPackTemplate: result,
+        onClick: handleGoToPaymentPackTemplateDetailPage,
+      }));
+    },
+    [handleGoToPaymentPackTemplateDetailPage],
+  );
+  return (
+    <>
+      <ObjectSearchComponent
+        additionalParams={{ disabled: false }}
+        className={classes.searchComponent}
+        components={{
+          Option: PaymentPackTemplateSearchItem,
+        }}
+        optionsFormatter={formatSearchOptions}
+        placeholder={t('search')}
+        searchedObjectType="universal_payment_pack_template"
+        variant="default"
+      />
+      <IsEmptyList
+        button={t('paymentPackTemplate.actions.createUniversalPass')}
+        hideEmptyText={!noExistingPasses}
+        onCreate={handleOpenCreationDialog}
+        onCreateLabel={t('paymentPackTemplate.actions.createUniversalPass')}
+        text={t('paymentPackTemplate.isEmptyExplain')}
+      />
+
+      <div className={classes.container}>
+        <Typography variant="h4">
+          {`${t('paymentPackTemplate.section.titleAvailable')} (${
+            universalPaymentPackTemplateListPaginatedAvailableForSale.count || 0
+          })`}
+        </Typography>
+        <Divider className={classes.divider} />
+        <PaginatedListBaseReworked
+          itemPerPage={50}
+          items={
+            universalPaymentPackTemplateListPaginatedAvailableForSale.passes
+          }
+          loading={
+            universalPaymentPackTemplateListPaginatedAvailableForSale.loading
+          }
+          nbItems={
+            universalPaymentPackTemplateListPaginatedAvailableForSale.count
+          }
+          onPageRequested={
+            fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale
+          }
+          page={universalPaymentPackTemplateListPaginatedAvailableForSale.page}
+          renderItem={(paymentPackTemplate: PaymentPackTemplate) => (
+            <PaymentPackTemplateListItem
+              key={paymentPackTemplate.id}
+              onClick={handleGoToPaymentPackTemplateDetailPage}
+              onDelete={(id: number) =>
+                handleSetPaymentPackTemplateForDelete(id, false)
+              }
+              onEdit={handleSetPaymentPackTemplateForEdit}
+              paymentPackTemplate={paymentPackTemplate}
+            />
+          )}
+        />
+        <Typography className={classes.title} variant="h4">
+          {`${t('paymentPackTemplate.section.titleManagerOnly')} (${
+            univerlPaymentPackTemplateListPaginatedManagerOnly.count || 0
+          })`}
+        </Typography>
+        <Divider className={classes.divider} />
+        <PaginatedListBaseReworked
+          itemPerPage={50}
+          items={univerlPaymentPackTemplateListPaginatedManagerOnly.passes}
+          loading={univerlPaymentPackTemplateListPaginatedManagerOnly.loading}
+          nbItems={univerlPaymentPackTemplateListPaginatedManagerOnly.count}
+          onPageRequested={
+            fetchUniversalPaymentPackTemplatePaginatedListManagerOnly
+          }
+          page={univerlPaymentPackTemplateListPaginatedManagerOnly.page}
+          renderItem={(paymentPackTemplate: PaymentPackTemplate) => (
+            <PaymentPackTemplateListItem
+              key={paymentPackTemplate.id}
+              onClick={handleGoToPaymentPackTemplateDetailPage}
+              onDelete={(id: number) =>
+                handleSetPaymentPackTemplateForDelete(id, true)
+              }
+              onEdit={handleSetPaymentPackTemplateForEdit}
+              paymentPackTemplate={paymentPackTemplate}
+            />
+          )}
+        />
+      </div>
+
+      <PaymentPackTemplateDeleteDialog
+        onClose={handleResetDeltionState}
+        onSubmit={handleDeleteUniversalPaymentPackTemplate}
+        open={!!paymentPackTemplateToDelete}
+      />
+
+      {/* 
+      open props and conditionnally rendering the component are both required 
+      for formik state re-initialisation  
+      */}
+      {!!paymentPackTemplateForEdit && (
+        <PaymentPackTemplateFormDrawer
+          isUniversal
+          initial={paymentPackTemplateForEdit}
+          onClose={handleResetEditionState}
+          onSubmit={handleSubmitPaymentPackTemplateForm}
+          open={!!paymentPackTemplateForEdit}
+        />
+      )}
+
+      {openCreationDrawer && (
+        <PaymentPackTemplateFormDrawer
+          isUniversal
+          onClose={handleCloseCreationDialog}
+          onSubmit={handleSubmitPaymentPackTemplateForm}
+          open={openCreationDrawer}
+        />
+      )}
+    </>
+  );
+};
+
+const connector = connect(
+  (state: RootState) => ({
+    univerlPaymentPackTemplateListPaginatedManagerOnly:
+      getUniverslPaymentPackTemplatePaginatedManagerOnly(state),
+    universalPaymentPackTemplateListPaginatedAvailableForSale:
+      getUniversalPaymentPackTemplatePaginatedAvailableForSale(state),
+  }),
+  {
+    fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale:
+      fetchUniversalPaymentPackTemplatePaginatedListAvailableForSaleAction,
+    fetchUniversalPaymentPackTemplatePaginatedListManagerOnly:
+      fetchUniversalPaymentPackTemplatePaginatedListManagerOnlyAction,
+    goToTemplateDetail: (
+      id: number,
+      urlParams: { openTemplateInstanceForm: boolean } | {} = {},
+    ) =>
+      pushAction(
+        `/f/universal-pass-template/${id}/${buildUrlParams(urlParams)}`,
+      ),
+    createOrUpdateUniversalPaymentPackTemplate:
+      createOrUpdateUniversalPaymentPackTemplateAction,
+    deleteUniversalPaymentPackTemplate:
+      deleteUniversalPaymentPackTemplateAction,
+  },
+);
+
+export default connector(FranchiseUniversalPaymentPackTemplateListPageReworked);

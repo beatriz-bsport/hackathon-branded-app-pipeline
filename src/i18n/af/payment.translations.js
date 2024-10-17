@@ -152,6 +152,7 @@ const getTranslations = async () => {
       [PAYPAL_WALLET.id]: 'PayPal',
       label: 'Payment method',
       disputeWon: 'Won',
+      onlinePayments: 'Online payments',
     },
     actions: { addThisPaymentItem: 'Add this payment method' },
     creditAccountBalance: { current: 'Current account' },

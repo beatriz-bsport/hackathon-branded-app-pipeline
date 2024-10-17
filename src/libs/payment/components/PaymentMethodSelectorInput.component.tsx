@@ -59,7 +59,7 @@ const PaymentMethodSelectorField: React.FC<Props> = ({
   onChange,
   paymentMethodIds,
 }) => {
-  const { t } = useTranslation('translation');
+  const { t } = useTranslation(['payment', 'translation']);
 
   const handleTogglePaymentMethod = useCallback(
     (paymentMethodId: number) => {
@@ -77,10 +77,12 @@ const PaymentMethodSelectorField: React.FC<Props> = ({
       {!!label && <legend style={{ marginBottom: -2 }}>{label}</legend>}
       <FormGroup>
         {[
-          { id: CB.id, optionLabel: t(`paymentMethod.${CB.text}`) },
+          { id: CB.id, optionLabel: t(`payment:paymentMethod.onlinePayments`) },
           {
             id: CREDIT_ACCOUNT.id,
-            optionLabel: t('form.shop.item.onsite_payment_available'),
+            optionLabel: t(
+              'translation:form.shop.item.onsite_payment_available',
+            ),
           },
         ].map((paymentMethod) => (
           <PaymentMethodItem

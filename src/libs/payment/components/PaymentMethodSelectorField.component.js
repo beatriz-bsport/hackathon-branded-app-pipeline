@@ -19,16 +19,16 @@ const PaymentMethodSelectorField = (props: Props) => {
     <MultipleCheckboxField
       {...props}
       choices={[
-        { id: CB.id, optionLabel: props.t(`paymentMethod.${CB.text}`) },
+        { id: CB.id, optionLabel: props.t('paymentMethod.onlinePayments') },
         {
           id: CREDIT_ACCOUNT.id,
-          optionLabel: props.t(`paymentMethod.${CREDIT_ACCOUNT.text}`),
+          optionLabel: props.t(`paymentMethod.${CREDIT_ACCOUNT.id}`),
         },
       ]}
     />
   );
 };
 
-export default compose(withTranslation(['translation']))(
+export default compose(withTranslation(['payment']))(
   PaymentMethodSelectorField,
 );

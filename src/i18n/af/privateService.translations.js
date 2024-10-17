@@ -549,7 +549,7 @@ const getTranslations = async () => {
         },
         available_payment_method_identifiers: {
           helperText:
-            'Select at least one payment method. If none is selected, a card payment will be offered by default.',
+            'Select at least one payment method. If none is selected, online payments will be offered by default.',
           label: 'Accepted payment methods',
           warning:
             'Accepted payment methods can be assigned, once the appointment pass has been made available to members.',

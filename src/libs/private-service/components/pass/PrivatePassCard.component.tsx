@@ -274,7 +274,7 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                   color="textSecondary"
                   variant="caption"
                 >
-                  {t(`translation:paymentMethod.${CB.text}`)}
+                  {t(`payment:paymentMethod.onlinePayments`)}
                 </Typography>
               )}
               {available_payment_method_identifiers.includes(
@@ -285,7 +285,7 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                   color="textSecondary"
                   variant="caption"
                 >
-                  {t(`translation:paymentMethod.${CREDIT_ACCOUNT.text}`)}
+                  {t(`payment:paymentMethod.${CREDIT_ACCOUNT.id}`)}
                 </Typography>
               )}
             </div>

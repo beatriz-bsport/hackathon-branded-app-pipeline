@@ -6810,7 +6810,8 @@
       "70": "Bacs Direct Debit",
       "80": "PayPal",
       "label": "Payment method",
-      "disputeWon": "Won"
+      "disputeWon": "Won",
+      "onlinePayments": "Online payments"
     },
     "actions": { "addThisPaymentItem": "Add this payment method" },
     "creditAccountBalance": { "current": "Current account" },
@@ -6945,7 +6946,7 @@
         "shopItemExcludingvariant": "Webshop (products with variants excluded)"
       },
       "available_payment_method_identifiers": {
-        "helperText": "Select at least one payment method. If none is selected, a card payment will be offered by default.",
+        "helperText": "Select at least one payment method. If none is selected, online payments will be offered by default.",
         "label": "Accepted payment methods"
       },
       "new_member_only": { "label": "Only available for new members" },
@@ -8510,7 +8511,7 @@
         "tax": { "label": "VAT / Sales tax" },
         "actions": { "submit": "Save", "cancel": "Cancel", "back": "Back", "next": "Next" },
         "available_payment_method_identifiers": {
-          "helperText": "Select at least one payment method. If none is selected, a card payment will be offered by default.",
+          "helperText": "Select at least one payment method. If none is selected, online payments will be offered by default.",
           "label": "Accepted payment methods",
           "warning": "Accepted payment methods can be assigned, once the appointment pass has been made available to members."
         },
@@ -15439,7 +15440,7 @@
           "sell_only_on_provision": "Only sell if there's sufficient available stock",
           "onsite_payment_available": "Possibility to pay in studio",
           "available_payment_method_identifiers": {
-            "helperText": "Select at least one payment method. If none is selected, a card payment will be offered by default.",
+            "helperText": "Select at least one payment method. If none is selected, online payments will be offered by default.",
             "label": "Accepted payment methods"
           },
           "advancedOptions": {

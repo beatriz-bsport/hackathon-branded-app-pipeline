@@ -31,13 +31,19 @@ const getIcon = (identifier: number) => {
 
 const AvailablePaymentMethodList = (props: Props) => {
   const { t } = useTranslation(['payment']);
+
   return (
     <List dense>
       {(props.available_payment_method_identifiers || []).map((identifier) => {
+        const paymentMethodCategory =
+          identifier === CB.id
+            ? t(`paymentMethod.onlinePayments`)
+            : t(`paymentMethod.${identifier}`);
+
         return (
           <ListItem dense>
             <ListItemIcon>{getIcon(identifier)}</ListItemIcon>
-            <ListItemText primary={t(`paymentMethod.${identifier}`)} />
+            <ListItemText primary={paymentMethodCategory} />
           </ListItem>
         );
       })}

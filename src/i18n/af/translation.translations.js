@@ -781,7 +781,7 @@ exports.default = {
         onsite_payment_available: 'Possibility to pay in studio',
         available_payment_method_identifiers: {
           helperText:
-            'Select at least one payment method. If none is selected, a card payment will be offered by default.',
+            'Select at least one payment method. If none is selected, online payments will be offered by default.',
           label: 'Accepted payment methods',
         },
         advancedOptions: {

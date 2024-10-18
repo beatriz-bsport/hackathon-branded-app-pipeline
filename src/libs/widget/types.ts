@@ -184,4 +184,8 @@ export type CallAction<A, R> = (
   options?: OptionCallback<R>,
 ) => ThunkAction;
 
-export type ApiCallActions = CorrectApiCallActions | LegacyApiCallActions;
+export type ApiCallActions =
+  | (CorrectApiCallActions | LegacyApiCallActions) & {
+      reset?: ActionFunctionAny<Action<any>>;
+      set?: ActionFunctionAny<Action<any>>;
+    };

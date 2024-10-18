@@ -153,7 +153,7 @@ type ConnectorProps = {
   getWellhubGymAvailability: (gymID: number) => GymAvailabilityResponse;
 
   // eslint-disable-next-line react/no-unused-prop-types
-  configureWellhubGymWebhooksAction: (
+  configureWellhubGymWebhooks: (
     wellhubGymUUID: string,
     options?: OptionCallback<WellhubGym>,
   ) => Promise<void>;
@@ -427,18 +427,32 @@ const mapWithHandlers = {
             establishmentIDs,
             {
               onSuccess: (wellhubGymUpdated) => {
-                props.fetchWellhubGyms();
-                props.configureWellhubGymWebhooksAction(wellhubGymUpdated.uuid);
-                props.fetchOffersMissingWellhubProduct({});
+                props.configureWellhubGymWebhooks(wellhubGymUpdated.uuid, {
+                  onSuccess: () => {
+                    props.fetchWellhubGyms();
+                    props.fetchOffersMissingWellhubProduct({});
+                  },
+                  onError: () => {
+                    props.fetchWellhubGyms();
+                    props.fetchOffersMissingWellhubProduct({});
+                  },
+                });
               },
             },
           );
         } else {
           props.createWellhubGymAction(gymID, establishmentIDs, {
             onSuccess: (wellhubGymCreated) => {
-              props.fetchWellhubGyms();
-              props.configureWellhubGymWebhooksAction(wellhubGymCreated.uuid);
-              props.fetchOffersMissingWellhubProduct({});
+              props.configureWellhubGymWebhooks(wellhubGymCreated.uuid, {
+                onSuccess: () => {
+                  props.fetchWellhubGyms();
+                  props.fetchOffersMissingWellhubProduct({});
+                },
+                onError: () => {
+                  props.fetchWellhubGyms();
+                  props.fetchOffersMissingWellhubProduct({});
+                },
+              });
             },
           });
         }
@@ -515,7 +529,7 @@ export default compose(
       updatePartnership,
       // Wellhub
       checkAvailability: getGymAvailabilityAction,
-      configureWellhubGymWebhooksAction,
+      configureWellhubGymWebhooks: configureWellhubGymWebhooksAction,
       createWellhubGymAction,
       deleteWellhubGym: deleteWellhubGymAction,
       editOffers: editOffersAction,

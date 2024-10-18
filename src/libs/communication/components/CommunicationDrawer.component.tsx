@@ -1,6 +1,8 @@
 import React from 'react';
 import { DateTime, Settings } from 'luxon';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { connect, ConnectedProps } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -80,9 +82,13 @@ import WriteEmail from './WriteEmail.component';
 import SelectTemplate from './SelectTemplate.component';
 // @ts-expect-error
 import ReceiversCollapseItem from './ReceiversCollapseItem.component';
+
+import AlertSmsProviderSmsNotVerified from '#src/libs/communication-v2/components/AlertSmsProviderNotVerified.component';
 import Config from '../../../config';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
+import { getCommunicationSMSProviderVerificationState } from '../../communication-v2/selectors';
 
+import type { RootState } from '#src/reducers';
 const WRITE_EMAIL = 0;
 const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
@@ -142,7 +148,10 @@ type OwnProps = {
   timezone: string;
 };
 
-type Props = OwnProps & WithTranslation & WithStyles;
+type Props = OwnProps &
+  WithTranslation &
+  WithStyles &
+  ConnectedProps<typeof connector>;
 
 type State = {
   actionType: number;
@@ -1008,16 +1017,21 @@ class CommunicationDrawer extends React.Component<Props, State> {
                   />
                 )}
                 {this.state.actionType === SEND_SMS && (
-                  <WriteSMS
-                    countReceivers={
-                      this.props.countWithPhone -
-                        this.state.unCheckedMembers.phone?.length || 0
-                    }
-                    onChangeContent={(text: string) =>
-                      this.setState({ smsContent: text })
-                    }
-                    smsContent={this.state.smsContent}
-                  />
+                  <>
+                    {!this.props.communicationSMSProviderVerificationState
+                      .isVerified && <AlertSmsProviderSmsNotVerified />}
+
+                    <WriteSMS
+                      countReceivers={
+                        this.props.countWithPhone -
+                          this.state.unCheckedMembers.phone?.length || 0
+                      }
+                      onChangeContent={(text: string) =>
+                        this.setState({ smsContent: text })
+                      }
+                      smsContent={this.state.smsContent}
+                    />
+                  </>
                 )}
                 {this.state.actionType === SEND_PUSH_NOTIFICATION && (
                   <WriteNotification
@@ -1286,7 +1300,10 @@ class CommunicationDrawer extends React.Component<Props, State> {
                             this.state.communicationScheduledDate &&
                             this.checkIsMessageSchedulable()
                           )) ||
-                        this.checkErrors()
+                        this.checkErrors() ||
+                        (this.state.actionType == SEND_SMS &&
+                          !this.props.communicationSMSProviderVerificationState
+                            .isVerified)
                       }
                       type="submit"
                       variant="outlined"
@@ -1309,6 +1326,13 @@ class CommunicationDrawer extends React.Component<Props, State> {
   }
 }
 
+const connector = connect(
+  (state: RootState) => ({
+    communicationSMSProviderVerificationState:
+      getCommunicationSMSProviderVerificationState(state),
+  }),
+  null,
+);
 const styles = (theme: Theme) =>
   createStyles({
     radioContainer: {
@@ -1406,4 +1430,5 @@ export default compose<Props, OwnProps>(
   withTranslation(['communication', 'common']),
   withStyles(styles),
   React.memo,
+  connector,
 )(CommunicationDrawer);

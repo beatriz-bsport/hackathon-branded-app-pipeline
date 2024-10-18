@@ -27,6 +27,7 @@ import {
   updateCommunicationScheduledActions,
   sendNowCommunicationScheduledActions,
   fetchCommunicationScheduledListForSmartlistActions,
+  retrieveCommunicationSMSProviderVerificationActions,
 } from './actions';
 
 import type {
@@ -137,6 +138,11 @@ const initialState: Immutable.Immutable<CommunicationState> =
       page: 1,
       next_page: null,
       count: null,
+      loading: false,
+      error: null,
+    },
+    communicationSMSProviderVerification: {
+      isVerified: true,
       loading: false,
       error: null,
     },
@@ -805,6 +811,33 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
         state.communicationScheduled.allIds.filter(
           (communicationScheduledId) => communicationScheduledId !== payload,
         ),
+      );
+    },
+    [retrieveCommunicationSMSProviderVerificationActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['communicationSMSProviderVerification', 'loading'],
+        payload,
+      );
+    },
+    [retrieveCommunicationSMSProviderVerificationActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['communicationSMSProviderVerification', 'error'],
+        payload,
+      );
+    },
+    [retrieveCommunicationSMSProviderVerificationActions.success.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['communicationSMSProviderVerification', 'isVerified'],
+        payload,
       );
     },
   },

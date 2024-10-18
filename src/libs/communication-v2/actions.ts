@@ -41,6 +41,7 @@ import {
   deleteCommunicationScheduled as deleteCommunicationScheduledAPI,
   updateCommunicationScheduled as updateCommunicationScheduledAPI,
   sendNowCommunicationScheduled as sendNowCommunicationScheduledAPI,
+  retrieveCommunicationSMSProviderVerification as retrieveCommunicationSMSProviderVerificationAPI,
 } from './api';
 import type {
   FetchCommunicationParams,
@@ -886,6 +887,46 @@ export const sendNowCommunicationScheduled = (
       options?.onError?.(error);
     } finally {
       dispatch(sendNowCommunicationScheduledActions.loading(false));
+    }
+  };
+};
+
+export const retrieveCommunicationSMSProviderVerificationActions = {
+  error: createAction<Error | null>(
+    'COMMUNICATION_SMS_PROVIDER/IS_VERIFIED/ERROR',
+  ),
+  loading: createAction<boolean>(
+    'COMMUNICATION_SMS_PROVIDER/IS_VERIFIED/LOADING',
+  ),
+  success: createAction<boolean>(
+    'COMMUNICATION_SMS_PROVIDER/IS_VERIFIED/SUCCESS',
+  ),
+};
+
+export const retrieveCommunicationSMSProviderVerification = (
+  options?: OptionCallback,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(
+        retrieveCommunicationSMSProviderVerificationActions.loading(true),
+      );
+      dispatch(retrieveCommunicationSMSProviderVerificationActions.error(null));
+      const response = await retrieveCommunicationSMSProviderVerificationAPI();
+      dispatch(
+        retrieveCommunicationSMSProviderVerificationActions.success(
+          response.data,
+        ),
+      );
+    } catch (error) {
+      dispatch(
+        retrieveCommunicationSMSProviderVerificationActions.error(error),
+      );
+      options?.onError?.(error);
+    } finally {
+      dispatch(
+        retrieveCommunicationSMSProviderVerificationActions.loading(false),
+      );
     }
   };
 };

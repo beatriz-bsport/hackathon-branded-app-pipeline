@@ -70,6 +70,9 @@ export type CommunicationState = {
       };
     } & ErrorAndLoading;
   } & ErrorAndLoading;
+  communicationSMSProviderVerification: {
+    isVerified: boolean;
+  } & ErrorAndLoading;
 };
 
 export type Recipient<MemberType = number> = {

@@ -521,14 +521,16 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
     const onFocus = () =>
       this.setState({ focusTextField: TEXTFIELD_SMS_CONTENT });
     return (
-      <CommunicationWriteSMS
-        handleChangeContent={handleChangeContent}
-        isMobileSize={this.props.fullScreen}
-        onFocus={onFocus}
-        smsContent={this.state.smsContent}
-      >
-        {this.renderBottomIcons()}
-      </CommunicationWriteSMS>
+      <>
+        <CommunicationWriteSMS
+          handleChangeContent={handleChangeContent}
+          isMobileSize={this.props.fullScreen}
+          onFocus={onFocus}
+          smsContent={this.state.smsContent}
+        >
+          {this.renderBottomIcons()}
+        </CommunicationWriteSMS>
+      </>
     );
   };
 

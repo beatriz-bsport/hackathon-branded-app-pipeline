@@ -177,3 +177,7 @@ export const getCommunicationScheduledBySmartlistPage = (
 ) =>
   state.communicationV2.communicationScheduled.bySmartlistId.all[smartlistId]
     ?.page ?? 1;
+
+export const getCommunicationSMSProviderVerificationState = (
+  state: RootState,
+) => state.communicationV2.communicationSMSProviderVerification;

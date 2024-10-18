@@ -111,6 +111,9 @@ export const fetchCommunicationProviderSettings = async (
   return getAuth(`${API_V1_URI}/communication/provider/${kind}/0/`);
 };
 
+export const retrieveCommunicationSMSProviderVerification = () =>
+  getAuth<boolean>(`${API_V1_URI}/communication/provider/sms/0/is_verified/`);
+
 export const updateCommunicationProviderSettings = async (
   kind: string,
   data: CommunicationProviderSettings,

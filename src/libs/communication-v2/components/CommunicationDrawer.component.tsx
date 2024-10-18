@@ -1,5 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import {
   Typography,
@@ -17,7 +19,10 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
 import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
-import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind';
+import {
+  COMMUNICATION_KIND_EMAIL,
+  COMMUNICATION_KIND_SMS,
+} from '@bsport/common/lib/master-data/communication-kind';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import CommunicationHeader from './CommunicationHeader.component';
 import CommunicationFilterContainer from './Filter/CommunicationFilterContainer.component';
@@ -42,6 +47,8 @@ import {
   WRITE_EMAIL,
   REFRESH_THREAD_TIMEOUT,
 } from '../constants';
+import { getCommunicationSMSProviderVerificationState } from '#src/libs/communication-v2/selectors';
+import type { RootState } from '#src/reducers';
 
 type NullableTimeout = ReturnType<typeof setTimeout> | null;
 
@@ -62,8 +69,11 @@ type State = {
   timeoutId: NullableTimeout;
 };
 
-export class CommunicationDrawer extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
+export class CommunicationDrawer extends React.PureComponent<
+  Props & ConnectedProps<typeof connector>,
+  State
+> {
+  constructor(props: Props & ConnectedProps<typeof connector>) {
     super(props);
     this.state = {
       messagePage: 1,
@@ -270,6 +280,11 @@ export class CommunicationDrawer extends React.PureComponent<Props, State> {
       this.state.showMessageWritter &&
       this.state.communicationKindBeingWritten === COMMUNICATION_KIND_EMAIL &&
       !theme.is_two_way_email_activated;
+
+    const showCommunicationSmsProviderNotVerifiedWarning =
+      !this.props.communicationSMSProviderVerificationState.isVerified &&
+      this.state.communicationKindBeingWritten === COMMUNICATION_KIND_SMS;
+
     return (
       <GenericResponsiveDrawer
         flexContent
@@ -325,6 +340,9 @@ export class CommunicationDrawer extends React.PureComponent<Props, State> {
             recipientListCount={informationRecipientListCount}
             resolvedGenericTags={resolvedGenericTags}
             scrollToBottomFlag={this.state.scrollToBottomFlag}
+            showCommunicationSmsProviderNotVerifiedWarning={
+              showCommunicationSmsProviderNotVerifiedWarning
+            }
             showMailProviderWarningContent={showMailProviderWarningContent}
           />
         </div>
@@ -408,6 +426,13 @@ export class CommunicationDrawer extends React.PureComponent<Props, State> {
   }
 }
 
+const connector = connect(
+  (state: RootState) => ({
+    communicationSMSProviderVerificationState:
+      getCommunicationSMSProviderVerificationState(state),
+  }),
+  null,
+);
 const styles: any = (theme: Theme) => ({
   buttonMessageWriter: {
     width: '100%',
@@ -483,5 +508,6 @@ export default compose<any, DrawerProps>(
   withTranslation(['communication']),
   withMobileDialog(),
   withStyles(styles),
+  connector,
   withCommunicationData,
 )(CommunicationDrawer);

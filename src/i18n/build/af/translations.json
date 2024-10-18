@@ -1337,7 +1337,12 @@
     "send": { "error": "Error while sending", "success": "Sending..." },
     "sms": {
       "warningConsent2": "Not to respect this decision of your member would be illegal. Bsport cannot be held responsible in the event of abusive use of the direct sms.",
-      "warningConsent1": "Warning! This member does not want to receive promotional sms. Direct sms allow you to reach out to your members in a simple and fast way. They should not be used for advertising or promotional purposes."
+      "warningConsent1": "Warning! This member does not want to receive promotional sms. Direct sms allow you to reach out to your members in a simple and fast way. They should not be used for advertising or promotional purposes.",
+      "warningProviderNotVerified": {
+        "title": "SMS sending unavailable",
+        "mainMessage": "It looks like the phone number for SMS hasn’t been validated yet.",
+        "regulatoryNotice": "Before you can send SMS campaigns, automatic communications, or direct messages, the number needs to be validated to comply with local regulations in the US and Canada."
+      }
     },
     "filter": {
       "choicesLabels": {

@@ -1,4 +1,6 @@
 import React, { memo, useState } from 'react';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { connect, ConnectedProps } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { Theme, makeStyles } from '@material-ui/core';
@@ -12,6 +14,8 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import { getCommunicationSMSProviderVerificationState } from '#src/libs/communication-v2/selectors';
+import type { RootState } from '#src/reducers';
 import {
   Mail as MailIcon,
   MailOutlined as MailOutlinedIcon,
@@ -73,7 +77,7 @@ type Props = {
   openResendConfigDialog?: () => void;
 };
 
-const BottomBarIcons: React.FC<Props> = ({
+const BottomBarIcons: React.FC<Props & ConnectedProps<typeof connector>> = ({
   actionType,
   directMember,
   fullScreen,
@@ -89,6 +93,7 @@ const BottomBarIcons: React.FC<Props> = ({
   validity,
   contextIdentifier,
   openResendConfigDialog,
+  communicationSMSProviderVerificationState,
 }) => {
   const { t } = useTranslation('communication');
   const classes = useStyles();
@@ -341,6 +346,10 @@ const BottomBarIcons: React.FC<Props> = ({
             {validity === CAN_SEND_MESSAGE && hasCommunicationPermission ? (
               <Button
                 color="primary"
+                disabled={
+                  actionType == WRITE_SMS &&
+                  !communicationSMSProviderVerificationState.isVerified
+                }
                 onClick={
                   actionType === WRITE_SMS &&
                   contextIdentifier !== CONTEXT_MEMBER
@@ -377,6 +386,13 @@ const BottomBarIcons: React.FC<Props> = ({
   );
 };
 
+const connector = connect(
+  (state: RootState) => ({
+    communicationSMSProviderVerificationState:
+      getCommunicationSMSProviderVerificationState(state),
+  }),
+  null,
+);
 const useStyles = makeStyles((theme: Theme) => ({
   bottomActionsContainer: {
     display: 'flex',
@@ -450,4 +466,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default memo(BottomBarIcons);
+export default memo(connector(BottomBarIcons));

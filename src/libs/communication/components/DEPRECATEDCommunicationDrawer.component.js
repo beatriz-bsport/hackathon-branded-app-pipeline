@@ -1,11 +1,14 @@
 // @flow
 import React, { Component } from 'react';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Button from '@material-ui/core/Button';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
+import { Alert } from '@material-ui/lab';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
@@ -29,8 +32,10 @@ import SelectTemplate from './SelectTemplate.component';
 import WriteEmail from './WriteEmail.component';
 import WriteSMS from './WriteSMS.component';
 import WriteNotification from './WriteNotification.component';
+import AlertSmsProviderSmsNotVerified from '../../communication-v2/components/AlertSmsProviderNotVerified.component';
 import { MAX_LENGTH_PUSH_TITLE, MAX_LENGTH_PUSH_CONTENT } from '../constants';
 
+import { getCommunicationSMSProviderVerificationState } from '../../communication-v2/selectors';
 import type { MemberMailData } from '../types';
 import Config from '../../../config';
 
@@ -72,6 +77,9 @@ type Props = {
   page_size: number,
   membersByPageLoading: boolean,
   membersAllLoading: boolean,
+  communicationSMSProviderVerificationState: {
+    isVerified: boolean,
+  } & ErrorAndLoading,
 };
 
 type State = {
@@ -278,7 +286,21 @@ export class CommunicationDrawer extends Component<Props, State> {
     }
     return null;
   };
+  renderProviderVerificationStatus = () => {
+    const { t, classes, communicationSMSProviderVerificationState } =
+      this.props;
 
+    if (
+      this.state.actionType !== SEND_SMS ||
+      communicationSMSProviderVerificationState.loading
+    ) {
+      return null;
+    }
+    if (!communicationSMSProviderVerificationState.isVerified) {
+      return <AlertSmsProviderSmsNotVerified />;
+    }
+    return null;
+  };
   onClose = () => {
     this.setState({
       unCheckedMembers: [],
@@ -315,7 +337,9 @@ export class CommunicationDrawer extends Component<Props, State> {
           this.state.smsContent === '' ||
           this.props.allIdsWithPhone.filter(
             (item) => !this.state.unCheckedMembers.includes(item),
-          ).length === 0
+          ).length === 0 ||
+          this.props.communicationSMSProviderVerificationState.loading ||
+          !this.props.communicationSMSProviderVerificationState.isVerified
         );
       case SELECT_EMAIL:
         return (
@@ -479,6 +503,7 @@ export class CommunicationDrawer extends Component<Props, State> {
               </GenericResponsiveDialog>
               {this.renderCommunicationTypeChoice()}
               {this.renderConsentWarning()}
+              {this.renderProviderVerificationStatus()}
               <DEPRECATEDReceiversCollapseItem
                 checkedMembers={this.getCheckedMember()}
                 fetchNextPage={() => fetchNextPage(page, this.state.page_size)}
@@ -581,6 +606,14 @@ export class CommunicationDrawer extends Component<Props, State> {
   }
 }
 
+const connector = connect(
+  (state: RootState) => ({
+    communicationSMSProviderVerificationState:
+      getCommunicationSMSProviderVerificationState(state),
+  }),
+  null,
+);
+
 const styles = (theme) => ({
   radioContainer: {
     marginBottom: theme.spacing(2),
@@ -604,9 +637,18 @@ const styles = (theme) => ({
   center: {
     textAlign: 'center',
   },
+  textColumn: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  smsMainMessage: {
+    paddingBottom: theme.spacing(1),
+    fontStyle: 'italic',
+  },
 });
 
 export default compose(
+  connector,
   withTranslation(['communication']),
   withStyles(styles),
 )(CommunicationDrawer);

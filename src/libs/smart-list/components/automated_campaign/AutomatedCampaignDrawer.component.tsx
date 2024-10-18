@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { connect, ConnectedProps } from 'react-redux';
 import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
@@ -62,12 +64,14 @@ import {
 import { hasUpsell } from '#src/libs/platform-billing/utils';
 import { UNLIMITED_AUTOMATIC_MESSAGING } from '#src/libs/smart-list/components/constants';
 import CommunicationSMSCostReminderModal from '#src/libs/communication-v2/CommunicationSMSCostReminderModal.component';
+import AlertSmsProviderSmsNotVerified from '#src/libs/communication-v2/components/AlertSmsProviderNotVerified.component';
 import { util } from '#src/libs/communication-v2/components/convertEncode.utils';
 import type { OptionCallback } from '../../../../state/types';
 // @ts-expect-error
 import FeatureListProvider from '../../../company/hocs/feature-list-provider.hoc';
 import Config from '../../../../config';
-
+import { getCommunicationSMSProviderVerificationState } from '#src/libs/communication-v2/selectors';
+import type { RootState } from '#src/reducers';
 const WRITTEN_EMAIL_KIND = 0;
 const TEMPLATE_EMAIL_KIND = 1;
 
@@ -163,7 +167,7 @@ const useFormikHandlers = () => {
   };
 };
 export const AutomatedCommunicationDrawer: React.FC<
-  Props & FormikProps<Values>
+  Props & FormikProps<Values> & ConnectedProps<typeof connector>
 > = ({
   initial,
   errors,
@@ -186,6 +190,7 @@ export const AutomatedCommunicationDrawer: React.FC<
   hideAutoResend,
   handleSubmit,
   validateForm,
+  communicationSMSProviderVerificationState,
 }) => {
   const { t } = useTranslation(['communication', 'common']);
   const classes = useStyles();
@@ -444,12 +449,17 @@ export const AutomatedCommunicationDrawer: React.FC<
               />
             )}
           {values.communication_kind === COMMUNICATION_KIND_SMS && (
-            <WriteSMS
-              hideSmsCount
-              contentLengthError={!!errors?.text}
-              onChangeContent={handleTextChange}
-              smsContent={values.text}
-            />
+            <>
+              {!communicationSMSProviderVerificationState.isVerified && (
+                <AlertSmsProviderSmsNotVerified />
+              )}
+              <WriteSMS
+                hideSmsCount
+                contentLengthError={!!errors?.text}
+                onChangeContent={handleTextChange}
+                smsContent={values.text}
+              />
+            </>
           )}
           {values.communication_kind ===
             COMMUNICATION_KIND_PUSH_NOTIFICATION && (
@@ -566,7 +576,11 @@ export const AutomatedCommunicationDrawer: React.FC<
           {values.communication_kind === COMMUNICATION_KIND_SMS ? (
             <Button
               color="primary"
-              disabled={isSubmitting || !isValid}
+              disabled={
+                isSubmitting ||
+                !isValid ||
+                !communicationSMSProviderVerificationState.isVerified
+              }
               onClick={handleCostReminderModalOpen}
               variant="contained"
             >
@@ -591,7 +605,13 @@ export const AutomatedCommunicationDrawer: React.FC<
     </GenericResponsiveDrawer>
   );
 };
-
+const connector = connect(
+  (state: RootState) => ({
+    communicationSMSProviderVerificationState:
+      getCommunicationSMSProviderVerificationState(state),
+  }),
+  null,
+);
 const useStyles = makeStyles((theme) => ({
   selectContainer: {
     display: 'flex',
@@ -828,4 +848,4 @@ const formikFormWrapper = withFormik<Props, Values>({
   },
 });
 
-export default formikFormWrapper(AutomatedCommunicationDrawer);
+export default formikFormWrapper(connector(AutomatedCommunicationDrawer));

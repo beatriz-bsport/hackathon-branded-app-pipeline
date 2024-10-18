@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
-
+// eslint-disable-next-line bsport/no-redux-in-component
+import { connect, ConnectedProps } from 'react-redux';
 import type { DateTime } from 'luxon';
 import type { CallHistoryMethodAction } from 'connected-react-router';
 import { makeStyles } from '@material-ui/core';
@@ -8,7 +9,10 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { useTranslation } from 'react-i18next';
-import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind';
+import {
+  COMMUNICATION_KIND_EMAIL,
+  COMMUNICATION_KIND_SMS,
+} from '@bsport/common/lib/master-data/communication-kind';
 import InboxThreadContainerHeader from '#src/libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadContainerHeader.component';
 import CommunicationMessageListContainer from '#src/libs/communication-v2/components/MessageList/CommunicationMessageListContainer.component';
 import type {
@@ -33,6 +37,8 @@ import InboxNoThread from '#src/libs/communication-v2/thread/InboxThreadContaine
 import InboxThreadSenderContainer from '#src/libs/communication-v2/thread/InboxThreadContainer/InboxThreadSenderContainer.component';
 import type { OptionCallback } from '../../../../state/types';
 import Config from '../../../../config';
+import { getCommunicationSMSProviderVerificationState } from '#src/libs/communication-v2/selectors';
+import type { RootState } from '#src/reducers';
 
 export type Props = {
   // --- Inbox Thread ---
@@ -172,7 +178,9 @@ export type Props = {
   };
 };
 
-const InboxThreadContainer: React.FC<Props> = (props) => {
+const InboxThreadContainer: React.FC<
+  Props & ConnectedProps<typeof connector>
+> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation('communication');
 
@@ -195,6 +203,10 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
   const hideAutoResend =
     Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
     props.theme.company !== 498;
+
+  const showCommunicationSmsProviderNotVerifiedWarning =
+    !props.communicationSMSProviderVerificationState.isVerified &&
+    props.communicationKindBeingWritten === COMMUNICATION_KIND_SMS;
 
   return (
     <>
@@ -270,7 +282,7 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
                   }
                   loadingRecipientList={props.loadingInformationRecipientList}
                   messageList={props.messageList}
-                  // @ts-expect-error
+                  //@ts-expect-error
                   onCloseSnackbar={props.onCloseSnackbar}
                   openSnackbar={props.displaySnackbar}
                   paginationSize={PAGINATION_SIZE_RECIPIENTS}
@@ -278,6 +290,9 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
                   recipientListCount={props.recipientListCount}
                   resolvedGenericTags={props.resolvedGenericTags}
                   scrollToBottomFlag={props.scrollToBottomFlag}
+                  showCommunicationSmsProviderNotVerifiedWarning={
+                    showCommunicationSmsProviderNotVerifiedWarning
+                  }
                   showMailProviderWarningContent={
                     showMailProviderWarningContent
                   }
@@ -338,6 +353,13 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
   );
 };
 
+const connector = connect(
+  (state: RootState) => ({
+    communicationSMSProviderVerificationState:
+      getCommunicationSMSProviderVerificationState(state),
+  }),
+  null,
+);
 const useStyles = makeStyles((theme) => ({
   loadingThread: {
     display: 'flex',
@@ -360,4 +382,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default memo(InboxThreadContainer);
+export default memo(connector(InboxThreadContainer));

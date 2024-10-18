@@ -149,6 +149,7 @@ import {
   setItemInStorage,
 } from '../utils/storage';
 
+import { retrieveCommunicationSMSProviderVerification } from '../libs/communication-v2/actions';
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
 );
@@ -376,6 +377,7 @@ type Props = {
     options?: OptionCallback,
   ) => void,
   userAuthState: any,
+  retrieveCommunicationSMSProviderVerification: () => void,
 };
 
 const DELAY_BETWEEN_ALERTS = 10 * 60000;
@@ -505,6 +507,8 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchSignFormUpConfiguration();
     this.props.fetchTags();
     this.props.fetchUserTutorialCompletion();
+
+    this.props.retrieveCommunicationSMSProviderVerification();
     if (
       this.props.fetchInboxThreadList &&
       this.props.fetchBatchUnreadAnswersCounts
@@ -1108,6 +1112,7 @@ export default compose(
       checkMemberInEstablishment: checkMemberInEstablishmentAction,
 
       getStripeOnboardingPending,
+      retrieveCommunicationSMSProviderVerification,
     },
   ),
   withHandlers({

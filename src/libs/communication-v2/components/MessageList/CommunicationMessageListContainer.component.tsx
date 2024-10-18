@@ -16,7 +16,7 @@ import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component'
 import type { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import CommunicationMessageScrollableView from './CommunicationMessageScrollableView.component';
 import CommunicationInformationModal from './ModalInformation/CommunicationInformationModal.component';
-
+import AlertSmsProviderSmsNotVerified from '#src/libs/communication-v2/components/AlertSmsProviderNotVerified.component';
 import './styles.css';
 
 type OwnProps = {
@@ -41,6 +41,7 @@ type OwnProps = {
   resolvedGenericTags: ResolvedGenericTags;
   scrollToBottomFlag: boolean;
   showMailProviderWarningContent: boolean;
+  showCommunicationSmsProviderNotVerifiedWarning: boolean;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles;
@@ -155,6 +156,11 @@ class CommunicationMessageListContainer extends React.PureComponent<
               variant="contained"
               variantIcon="outlined"
             />
+          </div>
+        )}
+        {this.props.showCommunicationSmsProviderNotVerifiedWarning && (
+          <div className={classes.consentContainer}>
+            <AlertSmsProviderSmsNotVerified />
           </div>
         )}
         <CommunicationMessageScrollableView

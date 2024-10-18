@@ -83,6 +83,11 @@ import {
   detachPaymentMethod as detachPaymentMethodAction,
 } from '#src/libs/payment/actions';
 import {
+  fetchPaymentGroupStatus as fetchPaymentGroupStatusAction,
+  setPaymentStatus as setPaymentStatusAction,
+  setBackendProcessingAfterPayment as setBackendProcessingAfterPaymentAction,
+} from '#src/libs/payment/payment-module-revamped/actions';
+import {
   fetchInvoiceList as fetchInvoiceListAction,
   fetchSpecificInvoice as fetchSpecificInvoiceAction,
   applyBalanceToInvoice as applyBalanceToInvoiceAction,
@@ -513,6 +518,9 @@ const mapDispatchToProps = {
     downloadPDFContractTermsForBillingPlanAction,
   switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
   fetchMySubscriptionAsMember: fetchMySubscriptionAsMemberAction,
+  fetchPaymentGroupStatus: fetchPaymentGroupStatusAction,
+  setPaymentStatus: setPaymentStatusAction,
+  setBackendProcessingAfterPayment: setBackendProcessingAfterPaymentAction,
 };
 
 export default compose(

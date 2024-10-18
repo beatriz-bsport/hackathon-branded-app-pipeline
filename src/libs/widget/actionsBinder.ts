@@ -126,6 +126,18 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
     'DETACH_PAYMENT_METHOD',
     actions.detachPaymentMethod,
   );
+  bridgeAPIActionsRegistry.register(
+    'FETCH_PAYMENT_GROUP_STATUS',
+    actions.fetchPaymentGroupStatus,
+  );
+  bridgeAPIActionsRegistry.register(
+    'SET_PAYMENT_STATUS',
+    actions.setPaymentStatus,
+  );
+  bridgeAPIActionsRegistry.register(
+    'SET_BACKEND_PROCESSING_AFTER_PAYMENT',
+    actions.setBackendProcessingAfterPayment,
+  );
 
   // INVOICE
   bridgeAPIActionsRegistry.register(

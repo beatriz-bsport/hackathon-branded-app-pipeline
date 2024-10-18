@@ -64,6 +64,26 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
     )
     .map((e) => e.id);
 
+  const deleteNestedEstablishment = useCallback(
+    (establishmentGroupIndex: number, establishment: Establishment) => () => {
+      const updatedConfiguration = configuration.map((group, index) =>
+        index === establishmentGroupIndex
+          ? {
+              ...group,
+              associated_establishment_list:
+                group.associated_establishment_list.filter(
+                  (associatedEstablishmentId: number) =>
+                    associatedEstablishmentId !==
+                    establishment.associatedestablishment_set[0],
+                ),
+            }
+          : group,
+      );
+      setConfiguration(updatedConfiguration);
+    },
+    [configuration],
+  );
+
   return (
     <div>
       {configuration.map((conf, idx_ref) => (
@@ -174,18 +194,10 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
                       key={`${id}-${i}`}
                       dense
                       establishment={establishment}
-                      onClickDelete={() => {
-                        const newConf = [...configuration];
-                        newConf[idx_ref].associated_establishment_list =
-                          configuration[
-                            idx_ref
-                          ].associated_establishment_list.filter(
-                            (aid: number) =>
-                              aid !==
-                              establishment.associatedestablishment_set[0],
-                          );
-                        setConfiguration(newConf);
-                      }}
+                      onClickDelete={deleteNestedEstablishment(
+                        idx_ref,
+                        establishment,
+                      )}
                     />
                   );
                 }

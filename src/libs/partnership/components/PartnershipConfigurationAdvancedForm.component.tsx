@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -17,18 +17,20 @@ import EstablishmentSelector from '../../establishment/components/EstablishmentS
 import EstablishmentListItem from '../../establishment/components/EstablishmentListItem.component';
 
 import { Establishment } from '../../establishment/types';
-import { PartnershipCompany } from '../types';
+import type {
+  ClassPassConfiguration,
+  PartnershipCompany,
+} from '#src/libs/partnership/types';
 
 type Props = {
   establishmentList: Array<Establishment>;
 };
 
-const emptyConf = {
-  // @ts-expect-error
+const emptyConf: ClassPassConfiguration = {
   reference_establishment: null,
-  // @ts-expect-error
   associated_establishment_list: [],
 };
+
 export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
   Props
 > = (props) => {
@@ -36,7 +38,9 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
   const { t } = useTranslation(['partnership']);
   const classes = useStyles();
 
-  const [configuration, setConfiguration] = React.useState<any>(
+  const [configuration, setConfiguration] = React.useState<
+    ClassPassConfiguration[]
+  >(
     // @ts-expect-error
     props.partnershipEstablishmentMergeList.map((pem) => ({
       reference_establishment: pem.reference_establishment,
@@ -52,10 +56,8 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
   const selectedEstablishments = props.establishmentList
     .filter((e) =>
       [
-        // @ts-expect-error
         ...configuration.map((pem) => pem.reference_establishment),
         ...flatten(
-          // @ts-expect-error
           configuration.map((pem) => pem.associated_establishment_list),
         ),
       ].includes(e.associatedestablishment_set[0]),
@@ -64,7 +66,6 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
 
   return (
     <div>
-      {/* @ts-expect-error */}
       {configuration.map((conf, idx_ref) => (
         <div key={conf.reference_establishment}>
           <div className={classes.selector}>

@@ -29,3 +29,8 @@ export type PartnershipState = {
     error: Error | null;
   };
 };
+
+export type ClassPassConfiguration = {
+  reference_establishment: number;
+  associated_establishment_list: number[];
+};

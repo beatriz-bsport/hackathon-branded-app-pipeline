@@ -26,17 +26,17 @@ type Props = {
   establishmentList: Array<Establishment>;
 };
 
-const emptyConf: ClassPassConfiguration = {
-  reference_establishment: null,
-  associated_establishment_list: [],
-};
-
 export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
   Props
 > = (props) => {
   const { establishmentList } = props;
   const { t } = useTranslation(['partnership']);
   const classes = useStyles();
+
+  const emptyConf: ClassPassConfiguration = {
+    reference_establishment: null,
+    associated_establishment_list: [],
+  };
 
   const [configuration, setConfiguration] = React.useState<
     ClassPassConfiguration[]

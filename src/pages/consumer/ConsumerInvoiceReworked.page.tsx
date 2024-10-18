@@ -55,6 +55,7 @@ import type { Membership } from '#src/libs/membership/types';
 import type { WithHandlerType } from '#src/utils/types';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import withQueryParamsToProps from '#src/hocs/query-params-to-props.hoc';
+import ReLiftReduxProviderIfDetected from '#src/hocs/relift-redux-provider.hoc';
 
 type OwnProps = {
   membership: Membership;
@@ -307,6 +308,7 @@ export const UnconnectedConsumerInvoiceReworked = compose(
 )(ConsumerInvoiceReworked);
 
 export default compose(
+  ReLiftReduxProviderIfDetected(),
   connector,
   withHandlers(mapWithConsumerInvoiceReworkedHandlers),
   withQueryParamsToProps(['selectedInvoiceUuid']),

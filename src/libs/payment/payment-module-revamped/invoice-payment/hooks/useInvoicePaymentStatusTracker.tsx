@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { useSelector } from 'react-redux';
 import type { RootState } from '#src/reducers';
 import {

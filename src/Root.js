@@ -141,6 +141,14 @@ export class Root extends Component<Props> {
     }
   }
 
+  componentDidMount() {
+    const query = parseQueryString(window?.location?.href ?? '');
+
+    if (query.consumerspacecontext) {
+      WidgetUtils.setConsumerSpaceContext(query.consumerspacecontext);
+    }
+  }
+
   // Function to send a scroll-up post message to the parent widget
   sendScrollUpPostMessageToWidget = () => {
     // Check if the current environment is within a widget and the widget is in deactivated dialog mode

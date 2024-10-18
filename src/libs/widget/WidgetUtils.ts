@@ -4,6 +4,8 @@ import {
   DIALOG_MODE_TAB,
   DIALOG_MODE_DEACTIVATED,
 } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
+
 import { WidgetApiMessageType, WidgetMessageType } from './types';
 
 export class WidgetUtils {
@@ -43,6 +45,20 @@ export class WidgetUtils {
   static getWidgetType() {
     // @ts-expect-error
     return window?.env?.WIDGET_TYPE ?? null;
+  }
+
+  static setConsumerSpaceContext(context: ConsumerSpaceContextEnum) {
+    // @ts-expect-error
+    window.env = {
+      // @ts-expect-error
+      ...(window.env || {}),
+      CONSUMER_SPACE_CONTEXT: context,
+    };
+  }
+
+  static getConsumerSpaceContext(): ConsumerSpaceContextEnum | null {
+    // @ts-expect-error
+    return window?.env?.CONSUMER_SPACE_CONTEXT ?? null;
   }
 
   static setParentElementId(parentElementId: string) {

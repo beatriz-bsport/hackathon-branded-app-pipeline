@@ -36,6 +36,8 @@ import invoice from 'bsport-saas/src/libs/invoice/reducers';
 import paymentBackend from 'bsport-saas/src/libs/payment/reducers';
 import member from 'bsport-saas/src/libs/member/reducers';
 import customForm from 'bsport-saas/src/libs/custom-form/reducers';
+import paymentModule from 'bsport-saas/src/libs/payment/payment-module-revamped/reducers';
+import role from 'bsport-saas/src/libs/role/reducers';
 
 import type { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types';
 import type { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
@@ -54,6 +56,8 @@ import type { FranchiseState } from '../../../bsport-saas/src/libs/franchise/typ
 import type { PaymentBackendState } from '../../../bsport-saas/src/libs/payment/types';
 import type { MemberState } from 'bsport-saas/src/libs/member/types';
 import type { CustomFormState } from 'bsport-saas/src/libs/custom-form/types';
+import type { PaymentModuleState } from 'bsport-saas/src/libs/payment/payment-module-revamped/types';
+import type { RoleState } from 'bsport-saas/src/libs/role/types';
 //  -----------------------------------------
 
 // FROM WIDGET ONLY
@@ -100,6 +104,8 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     paymentBackend,
     member,
     customForm,
+    paymentModule,
+    role,
   });
 
 export interface RootState {
@@ -136,6 +142,8 @@ export interface RootState {
   invoice: InvoiceState;
   member: MemberState;
   customForm: CustomFormState;
+  paymentModule: PaymentModuleState;
+  role: RoleState;
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) =>

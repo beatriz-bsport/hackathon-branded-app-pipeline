@@ -240,4 +240,12 @@ export const consumerInvoiceBridgeActions = {
   fetchPaymentMethodListAction: createAuthenticatedBridgeAction(
     'FETCH_PAYMENT_METHOD_LIST',
   ),
+  fetchPaymentGroupStatusAction: createAuthenticatedBridgeAction(
+    'FETCH_PAYMENT_GROUP_STATUS',
+  ),
+  setPaymentStatusActions:
+    createAuthenticatedBridgeAction('SET_PAYMENT_STATUS'),
+  setBackendProcessingAfterPayment: createAuthenticatedBridgeAction(
+    'SET_BACKEND_PROCESSING_AFTER_PAYMENT',
+  ),
 };

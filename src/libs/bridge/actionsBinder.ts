@@ -78,6 +78,9 @@ import {
 import {
   fetchPaymentMethodListActions,
   detachPaymentMethodActions,
+  getPaymentGroupStatusActions,
+  setPaymentStatusActions,
+  setBackendProcessingAfterPaymentActions,
 } from '../../actions/payment';
 import {
   listInvoiceActions,
@@ -345,6 +348,20 @@ export const actionsBinder = () => {
   apiCallHandler.bindActions(
     'DETACH_PAYMENT_METHOD',
     detachPaymentMethodActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_PAYMENT_GROUP_STATUS',
+    getPaymentGroupStatusActions,
+  );
+
+  // @ts-expect-error Exception action: just contains a "set" action
+  apiCallHandler.bindActions('SET_PAYMENT_STATUS', setPaymentStatusActions);
+
+  apiCallHandler.bindActions(
+    'SET_BACKEND_PROCESSING_AFTER_PAYMENT',
+    // @ts-expect-error Exception action: just contains a "set" action
+    setBackendProcessingAfterPaymentActions,
   );
 
   apiCallHandler.bindActions('FETCH_INVOICE_LIST', listInvoiceActions);

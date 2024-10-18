@@ -5,6 +5,7 @@ import { RouteChildrenProps, withRouter } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import { push as pushRouter } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
+import classNames from 'classnames';
 import {
   createStyles,
   withStyles,
@@ -96,10 +97,30 @@ export class MarketplaceVideo extends React.Component<Props> {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.container}>
-        <div className={classes.container2}>
-          <div className={classes.videoListContainer}>
-            <div className={classes.searchContainer}>
+      <div
+        className={classNames(
+          classes.container,
+          'bs-marketplace-vod-page__main-container',
+        )}
+      >
+        <div
+          className={classNames(
+            classes.container2,
+            'bs-marketplace-vod-page__sub-container',
+          )}
+        >
+          <div
+            className={classNames(
+              classes.videoListContainer,
+              'bs-marketplace-vod-page__vod-list-container',
+            )}
+          >
+            <div
+              className={classNames(
+                classes.searchContainer,
+                'bs-marketplace-vod-page__vod-search-container',
+              )}
+            >
               <VideoSearchBar
                 coachDisplay={this.props.companyTheme?.coach_display}
                 coaches={this.props.videoFilterableParams.coaches || []}
@@ -112,7 +133,12 @@ export class MarketplaceVideo extends React.Component<Props> {
                 searchParams={this.props.searchParams}
               />
             </div>
-            <Divider className={classes.divider} />
+            <Divider
+              className={classNames(
+                classes.divider,
+                'bs-marketplace-vod-page__search-divider',
+              )}
+            />
             <VideoItemList
               coachDisplay={this.props.companyTheme?.coach_display}
               hasMoreVideo={this.props.hasMoreVideo}

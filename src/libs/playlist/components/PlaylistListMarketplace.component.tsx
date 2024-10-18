@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -27,13 +28,33 @@ const PlaylistListMarketPlace: React.FC<Props> = ({
 
   const { t } = useTranslation('video');
   return (
-    <div className={classes.playlistListContainer}>
-      <Typography component="h3" variant="h6">
+    <div
+      className={classNames(
+        classes.playlistListContainer,
+        'bs-marketplace-vod__playlist-list-main-container',
+      )}
+    >
+      <Typography
+        className="bs-marketplace-vod__playlist-list-title"
+        component="h3"
+        variant="h6"
+      >
         {t('playlist.playlist')}
       </Typography>
-      <div className={classes.playlistItemsContainer}>
+      <div
+        className={classNames(
+          classes.playlistItemsContainer,
+          'bs-marketplace-vod__playlist-list-sub-container',
+        )}
+      >
         {playlists.map((playlist) => (
-          <div key={playlist.id} className={classes.playlistListItem}>
+          <div
+            key={playlist.id}
+            className={classNames(
+              classes.playlistListItem,
+              'bs-marketplace-vod__playlist-list-item',
+            )}
+          >
             <PlaylistItemMarketplace
               description={playlist.description}
               imageUrl={playlist.cover_main}
@@ -47,8 +68,18 @@ const PlaylistListMarketPlace: React.FC<Props> = ({
         ))}
       </div>
       {hasMorePlaylist && (
-        <div className={classes.buttonContainer}>
-          <Button color="primary" onClick={onShowMore} variant="contained">
+        <div
+          className={classNames(
+            classes.buttonContainer,
+            'bs-marketplace-vod__playlist__show-more-button-container',
+          )}
+        >
+          <Button
+            className="bs-marketplace-vod__playlist__show-more-button"
+            color="primary"
+            onClick={onShowMore}
+            variant="contained"
+          >
             {t('video.showMore')}
           </Button>
         </div>

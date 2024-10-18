@@ -5,6 +5,7 @@ import { ConnectedProps, connect } from 'react-redux';
 import flatten from 'lodash/flatten';
 import { push as pushRouter } from 'connected-react-router';
 import { LinearProgress } from '@material-ui/core';
+import classNames from 'classnames';
 import {
   createStyles,
   withStyles,
@@ -111,15 +112,30 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
 
   render() {
     return (
-      <div className={this.props.classes.container}>
-        {!!this.props.loading && <LinearProgress />}
+      <div
+        className={classNames(
+          this.props.classes.container,
+          'bs-marketplace-vod-detail-page__main-container',
+        )}
+      >
+        {!!this.props.loading && (
+          <LinearProgress className="bs-marketplace-vod-detail-page__linear-progress" />
+        )}
         <Grid
           container
-          className={this.props.classes.gridContainer}
+          className={classNames(
+            this.props.classes.gridContainer,
+            'bs-marketplace-vod-detail-page__grid-container',
+          )}
           direction="row"
           spacing={2}
         >
-          <Grid item md={8} xs={12}>
+          <Grid
+            item
+            className="bs-marketplace-vod-detail-page__vod-player-full__grid-container"
+            md={8}
+            xs={12}
+          >
             {!!this.props.video && (
               <VideoPlayerFull
                 accessDenied={this.props.accessDenied}
@@ -136,7 +152,12 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
               />
             )}
           </Grid>
-          <Grid item md={4} xs={12}>
+          <Grid
+            item
+            className="bs-marketplace-vod-detail-page__vod-thumbnai-list-grid-container"
+            md={4}
+            xs={12}
+          >
             <VideoThumbnailList
               coachDisplay={this.props.companyTheme.coach_display}
               fetchMoreVideo={this.props.fetchMoreVideo}

@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -32,7 +33,7 @@ export const VideoItem = (props: Props) => {
 
   return (
     <div
-      className={classes.container}
+      className={classNames(classes.container, 'bs-vod-item__container')}
       onClick={() => {
         if (props.openVideo) props.openVideo(props.video.id);
       }}
@@ -42,7 +43,12 @@ export const VideoItem = (props: Props) => {
       role="button"
       tabIndex={props.video.id}
     >
-      <div className={classes.imageWrapper}>
+      <div
+        className={classNames(
+          classes.imageWrapper,
+          'bs-vod-item__image-wrappper',
+        )}
+      >
         {props.loading ? (
           <Skeleton animatoin="wave" className={classes.media} />
         ) : (
@@ -52,13 +58,24 @@ export const VideoItem = (props: Props) => {
             src={props.video.cover_main}
           />
         )}
-        <div className={classes.mediaOverlay} />
+        <div
+          className={classNames(
+            classes.mediaOverlay,
+            'bs-vod-item__media-overlay',
+          )}
+        />
       </div>
-      <div className={classes.footer}>
+      <div className={classNames(classes.footer, 'bs-vod-item__footer')}>
         {props.loading ? (
-          <Skeleton animation="wave" variant="text" />
+          <Skeleton
+            animation="wave"
+            className="bs-vod-item__name-loader"
+            variant="text"
+          />
         ) : (
-          <Typography variant="h6">{props.video.name}</Typography>
+          <Typography className="bs-vod-item__name" variant="h6">
+            {props.video.name}
+          </Typography>
         )}
 
         {!props.hideCoach && (
@@ -72,7 +89,7 @@ export const VideoItem = (props: Props) => {
       </div>
       {expiration_date && (
         <Typography
-          className={classes.typo}
+          className={classNames(classes.typo, 'bs-vod-item__expiration-detail')}
           color="textSecondary"
           variant="body2"
         >

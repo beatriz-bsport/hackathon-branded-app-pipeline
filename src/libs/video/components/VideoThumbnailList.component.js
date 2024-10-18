@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
@@ -36,14 +37,28 @@ export const VideoThumbnailList = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['video']);
   return (
-    <div className={classes.container}>
-      <div className={classes.header}>
-        <Typography component="h4" variant="h5">
+    <div
+      className={classNames(
+        classes.container,
+        'bs-vod-thumbnail-list__container',
+      )}
+    >
+      <div
+        className={classNames(classes.header, 'bs-vod-thumbnail-list__header')}
+      >
+        <Typography
+          className="bs-vod-thumbnail-list__title"
+          component="h4"
+          variant="h5"
+        >
           {props.title || t('video.thumbnailList.similarVideoTitle')}
         </Typography>
 
         {!!props.count && (
-          <Typography color="primary">
+          <Typography
+            className="bs-vod-thumbnail-list__counter"
+            color="primary"
+          >
             {t('video.thumbnailList.count', { count: props.count })}
           </Typography>
         )}
@@ -51,6 +66,7 @@ export const VideoThumbnailList = (props: Props) => {
           <div>
             <TypographyWithShowMore
               multiline
+              className="bs-vod-thumbnail-list__description"
               color="textSecondary"
               variant="body"
               whiteSpace="pre-wrap"
@@ -61,11 +77,22 @@ export const VideoThumbnailList = (props: Props) => {
         )}
         <Divider className={classes.divider} />
       </div>
-      <div className={classes.contentList}>
+      <div
+        className={classNames(
+          classes.contentList,
+          'bs-vod-thumbnail-list__vod-thumbnail-list-container',
+        )}
+      >
         {props.videoList
           .filter((v) => !!v)
           .map((v) => (
-            <div key={v.id} className={classes.thumbnailContainer}>
+            <div
+              key={v.id}
+              className={classNames(
+                classes.thumbnailContainer,
+                'bs-vod-thumbnail-list__vod-thumbnail-list-item',
+              )}
+            >
               <VideoThumbnail
                 coachDisplay={props.coachDisplay}
                 hideCoach={props.hideCoach}
@@ -79,7 +106,10 @@ export const VideoThumbnailList = (props: Props) => {
           ))}
         {!props.loading && !!props.hasMoreVideo && !!props.fetchMoreVideo && (
           <Button
-            className={classes.fetchMoreButton}
+            className={classNames(
+              classes.fetchMoreButton,
+              'bs-vod-thumbnail-list__show-more-button',
+            )}
             color="primary"
             onClick={props.fetchMoreVideo}
             variant="outlined"

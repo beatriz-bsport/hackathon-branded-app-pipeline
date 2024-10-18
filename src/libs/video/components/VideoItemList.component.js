@@ -1,5 +1,6 @@
 // @flow
 import React, { memo } from 'react';
+import classNames from 'classnames';
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -24,10 +25,25 @@ export const VideoCardList = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['video']);
   return (
-    <Grid container alignItems="stretch" direction="row" spacing={2}>
+    <Grid
+      container
+      alignItems="stretch"
+      className="bs-vod-list__grid-container"
+      direction="row"
+      spacing={2}
+    >
       {props.videoList.map((v) => (
-        <Grid key={v.id} item lg={3} md={4} sm={6} xs={12}>
+        <Grid
+          key={v.id}
+          item
+          className={`bs-vod-list__vod_item_container_${v.id}`}
+          lg={3}
+          md={4}
+          sm={6}
+          xs={12}
+        >
           <VideoItem
+            className={`bs-vod-list__vod_item_${v.id}`}
             coachDisplay={props.coachDisplay}
             hideCoach={props.hideCoach}
             loading={v.coaches.includes(undefined)}
@@ -46,15 +62,35 @@ export const VideoCardList = (props: Props) => {
           </Grid>
         ))}
       {!props.loading && !props.videoList.length && (
-        <div className={classes.buttonContainer}>
-          <Typography color="textSecondary" component="p" variant="h6">
+        <div
+          className={classNames(
+            classes.buttonContainer,
+            'bs-vod-list__empty-container',
+          )}
+        >
+          <Typography
+            className="bs-vod-list__empty-text"
+            color="textSecondary"
+            component="p"
+            variant="h6"
+          >
             {t('video.search.isEmpty')}
           </Typography>
         </div>
       )}
       {!props.loading && !!props.hasMoreVideo && !!props.onShowMore && (
-        <div className={classes.buttonContainer}>
-          <Button color="primary" onClick={props.onShowMore} variant="outlined">
+        <div
+          className={classNames(
+            classes.buttonContainer,
+            'bs-vod-list__show-more-button-container',
+          )}
+        >
+          <Button
+            className="bs-vod-list__show-more-button"
+            color="primary"
+            onClick={props.onShowMore}
+            variant="outlined"
+          >
             {t('video.showMore')}
           </Button>
         </div>

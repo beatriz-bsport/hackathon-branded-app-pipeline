@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -38,36 +39,69 @@ export const VideoThumbnail = (props: Props) => {
   const { t } = useTranslation(['video']);
   const { video } = props;
   return (
-    <div className={classes.container}>
+    <div
+      className={classNames(
+        classes.container,
+        'bs-vod-thumbnail-item__container',
+      )}
+    >
       <ButtonBase
         disableRipple
         button={!!props.onClick}
-        className={classes.buttonContainer}
+        className={classNames(
+          classes.buttonContainer,
+          'bs-vod-thumbnail-item__button-container',
+        )}
         onClick={props.onClick}
       >
-        <div className={classes.mediaContainer}>
+        <div
+          className={classNames(
+            classes.mediaContainer,
+            'bs-vod-thumbnail-item__media-container',
+          )}
+        >
           {!!props.isPlaying && (
-            <div className={classes.playIconContainer}>
+            <div
+              className={classNames(
+                classes.playIconContainer,
+                'bs-vod-thumbnail-item__play-icon-container',
+              )}
+            >
               <PlayCircleOutlineIcon color="primary" fontSize="large" />
             </div>
           )}
           {props.loading ? (
             <Skeleton
               animation="wave"
-              className={classes.media}
+              className={classNames(
+                classes.media,
+                'bs-vod-thumbnail-item__cover-loader',
+              )}
               variant="rect"
             />
           ) : (
             <img
               alt={video.name}
-              className={classes.media}
+              className={classNames(
+                classes.media,
+                'bs-vod-thumbnail-item__cover',
+              )}
               src={video.cover_main}
             />
           )}
         </div>
-        <div className={classes.rightPanel}>
-          <div style={{ width: '100%' }}>
+        <div
+          className={classNames(
+            classes.rightPanel,
+            'bs-vod-thumbnail-item__details-container',
+          )}
+        >
+          <div
+            className="bs-vod-thumbnail-item__details-sub-container"
+            style={{ width: '100%' }}
+          >
             <div
+              className="bs-vod-thumbnail-item__details-inner-container"
               style={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -76,10 +110,13 @@ export const VideoThumbnail = (props: Props) => {
                 width: '100%',
               }}
             >
-              <div>
+              <div className="bs-vod-thumbnail-item__details-inner__title-container">
                 <Typography
                   align="left"
-                  className={classes.title}
+                  className={classNames(
+                    classes.title,
+                    'bs-vod-thumbnail-item__details-inner__title',
+                  )}
                   variant="subtitle2"
                 >
                   {props.loading ? (
@@ -90,12 +127,24 @@ export const VideoThumbnail = (props: Props) => {
                 </Typography>
                 {props.video.provider_identifier !==
                 VideoProvider.EBOOK_PROVIDER ? (
-                  <div className={classes.row}>
+                  <div
+                    className={classNames(
+                      classes.row,
+                      'bs-vod-thumbnail-item__details-inner__duration-container',
+                    )}
+                  >
                     <AccessTimeIcon
-                      className={classes.leftIcon}
+                      className={classNames(
+                        classes.leftIcon,
+                        'bs-vod-thumbnail-item__details-inner__duration-icon',
+                      )}
                       fontSize="small"
                     />
-                    <Typography color="textSecondary" variant="body2">
+                    <Typography
+                      className="bs-vod-thumbnail-item__details-inner__duration"
+                      color="textSecondary"
+                      variant="body2"
+                    >
                       {props.loading ? (
                         <Skeleton animation="wave" variant="text" />
                       ) : (

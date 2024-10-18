@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
 
-const _getMembershipData = (state: RootState) => state.membership.byId;
+const _getMembershipData = (state: RootState) => state.membership?.byId;
 export const _getConsumerMembershipIds = (state: RootState) =>
-  state.membership.asConsumer.allIds;
+  state.membership?.asConsumer?.allIds;
 
 export const getMembership = (state: RootState, id: number) => {
   return _getMembershipData(state)[id];
@@ -35,10 +35,11 @@ export const getUsableCreditAccountBalance = (state: RootState, id: number) => {
   if (!state.theme?.theme?.allow_consumer_to_use_internal_account) {
     return null;
   }
-  const creditAccountBalance = parseFloat(
-    // @ts-expect-error
-    _getMembershipData(state)[id]?.credit_account_balance,
-  );
+  const creditAccountBalance =
+    parseFloat(
+      // @ts-expect-error
+      _getMembershipData(state)?.[id]?.credit_account_balance,
+    ) ?? 0;
   if (!creditAccountBalance || creditAccountBalance < 0) {
     return null;
   }

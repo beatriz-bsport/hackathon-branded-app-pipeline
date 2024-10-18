@@ -5,7 +5,7 @@ import type {
 import type { OptionCallback } from 'bsport-saas/src/state/types';
 import type { Dispatch } from 'react';
 import { BridgeAPIActionsRegistry } from 'bsport-saas/src/libs/widget/actionsRegistry';
-import { ActionOptions, QueryClientParams } from './types';
+import type { ActionOptions, QueryClientParams } from './types';
 import { defaultActionOptions } from './constants';
 
 class BridgeApiCallHandler {
@@ -75,6 +75,16 @@ class BridgeApiCallHandler {
       return;
     }
 
+    /**
+     * If set of actions doesnt contains the classic error/loading/success
+     * we can verify for specific action names such as "set" or "reset" etc
+     */
+    if ('reset' in actions || 'set' in actions) {
+      if (actions.reset) dispatch(actions.reset(payload.args));
+      if (actions.set) dispatch(actions.set(payload.args));
+      return;
+    }
+
     this.#requestStatusStore[type] = 'pending';
 
     if (payload.options?.onSuccess) {
@@ -89,18 +99,18 @@ class BridgeApiCallHandler {
       if (this.#requestStatusStore[type] === 'fulfilled') return;
 
       if (attempt >= this.#maxCallAttempts) {
-        dispatch(actions.error(new Error('Max call attempts reached')));
-        dispatch(isLoadingAction(false));
+        dispatch(actions.error?.(new Error('Max call attempts reached')));
+        dispatch(isLoadingAction?.(false));
         return;
       }
 
-      dispatch(isLoadingAction(true));
-      dispatch(actions.error(null));
+      dispatch(isLoadingAction?.(true));
+      dispatch(actions.error?.(null));
       try {
         iframe.contentWindow?.postMessage({ type, args: payload.args }, '*');
       } catch (err) {
-        dispatch(actions.error(err));
-        dispatch(isLoadingAction(false));
+        dispatch(actions.error?.(err));
+        dispatch(isLoadingAction?.(false));
         console.error(err);
       }
       setTimeout(() => {

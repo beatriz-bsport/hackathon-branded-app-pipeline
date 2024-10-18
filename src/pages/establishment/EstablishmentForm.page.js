@@ -54,6 +54,7 @@ const establishmentMap = {
   has_next_slots: 'has_next_slots',
   related_company: 'related_company',
   wellhub_gym: 'wellhub_gym',
+  usc_location_id: 'usc_location_id',
 };
 
 export class EstablishmentFormPage extends Component<Props> {

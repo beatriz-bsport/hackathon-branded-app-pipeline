@@ -11,7 +11,7 @@ import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import { urlToMarketplaceSessionTab } from '#src/libs/marketplace/utils/navigation';
 import ConsumerInvoicePageReworked from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePageReworked';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
-
+import ReLiftReduxProviderIfDetected from '#src/hocs/relift-redux-provider.hoc';
 import {
   fetchConsumerUnpaidInvoices as fetchConsumerUnpaidInvoicesAction,
   fetchConsumerPaidInvoices as fetchConsumerPaidInvoicesAction,
@@ -55,13 +55,25 @@ import type { Membership } from '#src/libs/membership/types';
 import type { WithHandlerType } from '#src/utils/types';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import withQueryParamsToProps from '#src/hocs/query-params-to-props.hoc';
-import ReLiftReduxProviderIfDetected from '#src/hocs/relift-redux-provider.hoc';
+import ConsumerInvoiceContextProvider from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceContext';
 
 type OwnProps = {
   membership: Membership;
   // eslint-disable-next-line react/no-unused-prop-types
   companyId: number;
   push: (path: string) => void;
+  /*
+   * Additional actions for widget use case
+   */
+  fetchPaymentGroupStatusAction?: (
+    paymentGroupId: number,
+    options?: OptionCallback<number>,
+  ) => void;
+  setPaymentStatusActions?: (params: {
+    paymentGroupId: number;
+    paymentSucceeded?: boolean;
+    paymentProcessing?: boolean;
+  }) => void;
 };
 
 type QueryParamsProps = {
@@ -175,22 +187,27 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
     );
 
     return (
-      <ConsumerInvoicePageReworked
-        changeSelectedFilter={this.changeSelectedFilter}
-        consumerInvoices={invoiceList}
-        fetchMoreInvoices={this.fetchConsumerInvoicesNextPage}
-        getInvoice={this.props.getInvoice}
-        goToBookSession={this.goToBookSession}
-        hasMoreInvoicesToFetch={hasMoreInvoicesToFetch}
-        isBodyLoading={invoiceLoading}
-        isMultilocationEnabled={this.props.theme.enable_multi_localization}
-        membership={this.props.membership}
-        refreshConsumerInvoices={this.refreshConsumerInvoices}
-        refreshMembership={this.refreshMembership}
-        selectedFilter={this.state.selectedFilter}
-        selectedInvoiceUuid={this.props.selectedInvoiceUuid}
-        totalUnpaid={this.props.unpaidInvoicesCount}
-      />
+      <ConsumerInvoiceContextProvider
+        fetchPaymentGroupStatusAction={this.props.fetchPaymentGroupStatusAction}
+        setPaymentStatusActions={this.props.setPaymentStatusActions}
+      >
+        <ConsumerInvoicePageReworked
+          changeSelectedFilter={this.changeSelectedFilter}
+          consumerInvoices={invoiceList}
+          fetchMoreInvoices={this.fetchConsumerInvoicesNextPage}
+          getInvoice={this.props.getInvoice}
+          goToBookSession={this.goToBookSession}
+          hasMoreInvoicesToFetch={hasMoreInvoicesToFetch}
+          isBodyLoading={invoiceLoading}
+          isMultilocationEnabled={this.props.theme.enable_multi_localization}
+          membership={this.props.membership}
+          refreshConsumerInvoices={this.refreshConsumerInvoices}
+          refreshMembership={this.refreshMembership}
+          selectedFilter={this.state.selectedFilter}
+          selectedInvoiceUuid={this.props.selectedInvoiceUuid}
+          totalUnpaid={this.props.unpaidInvoicesCount}
+        />
+      </ConsumerInvoiceContextProvider>
     );
   }
 }
@@ -303,6 +320,7 @@ export const mapWithConsumerInvoiceReworkedHandlers = {
 };
 
 export const UnconnectedConsumerInvoiceReworked = compose(
+  ReLiftReduxProviderIfDetected(),
   marketplaceCssHoc(),
   WithCustomCssProvider,
 )(ConsumerInvoiceReworked);

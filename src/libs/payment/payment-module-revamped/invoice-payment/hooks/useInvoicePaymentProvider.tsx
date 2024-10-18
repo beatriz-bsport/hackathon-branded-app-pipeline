@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import themeSelectors from '#src/libs/theme/selectors';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
@@ -30,6 +30,9 @@ import {
 import { getUsableCreditAccountBalance } from '#src/libs/membership/selectors';
 import { getMemberDetail } from '#src/libs/member/selectors';
 import { fetchMembership as fetchMembershipAction } from '#src/libs/membership/actions';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
+import { ConsumerInvoiceContext } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceContext';
 
 type UseInvoicePaymentProviderProps = {
   payerContext: PayerContext;
@@ -100,6 +103,8 @@ export const useInvoicePaymentProvider = ({
   invoiceUuid,
   applyBalanceToInvoiceCallbacks,
 }: UseInvoicePaymentProviderProps): UseInvoicePaymentProvider => {
+  const { handleWidgetFetchPaymentGroupStatus, handleWidgetSetPaymentStatus } =
+    useContext(ConsumerInvoiceContext) ?? {};
   const dispatch = useDispatch();
   const {
     allow_consumer_to_use_internal_account: allowConsumerToUseInternalAccount,
@@ -161,7 +166,11 @@ export const useInvoicePaymentProvider = ({
   }, [dispatch, invoiceUuid, applyBalanceToInvoiceCallbacks]);
 
   const handleFetchMembership = React.useCallback(() => {
-    if (payerContext.memberId) {
+    if (
+      WidgetUtils.getConsumerSpaceContext() !==
+        ConsumerSpaceContextEnum.WIDGET &&
+      !!payerContext.memberId
+    ) {
       dispatch(fetchMembershipAction(payerContext.memberId));
     }
   }, [dispatch, payerContext.memberId]);
@@ -215,7 +224,7 @@ export const useInvoicePaymentProvider = ({
                   onSuccess: options?.onSuccess,
                 });
               },
-              onError: options && options.onError,
+              onError: options?.onError,
             },
           ),
         );
@@ -236,10 +245,28 @@ export const useInvoicePaymentProvider = ({
   const handleFetchPaymentGroupStatus = React.useCallback(
     ({ paymentGroupId, options }) => {
       if (paymentGroupId) {
+        if (
+          WidgetUtils.getConsumerSpaceContext() ===
+          ConsumerSpaceContextEnum.WIDGET
+        ) {
+          return handleWidgetFetchPaymentGroupStatus(paymentGroupId, {
+            onSuccess: (response) => {
+              options?.onSuccess?.(response);
+              if (response >= PAYMENT_INTENT_STATUS_SUCCESS) {
+                handleWidgetSetPaymentStatus({
+                  paymentGroupId,
+                  paymentProcessing: false,
+                  paymentSucceeded: true,
+                });
+              }
+            },
+            onError: options?.onError,
+          });
+        }
         dispatch(
           fetchPaymentGroupStatusAction(paymentGroupId, {
             onSuccess: (response) => {
-              options.onSuccess(response);
+              options?.onSuccess?.(response);
               if (response >= PAYMENT_INTENT_STATUS_SUCCESS) {
                 dispatch(
                   setPaymentStatusActions({
@@ -250,12 +277,16 @@ export const useInvoicePaymentProvider = ({
                 );
               }
             },
-            onError: options.onError,
+            onError: options?.onError,
           }),
         );
       }
     },
-    [dispatch],
+    [
+      dispatch,
+      handleWidgetFetchPaymentGroupStatus,
+      handleWidgetSetPaymentStatus,
+    ],
   );
 
   const handleSetPaymentProcessing = React.useCallback(
@@ -266,6 +297,15 @@ export const useInvoicePaymentProvider = ({
       paymentProcessing: boolean;
       paymentGroupId: number;
     }) => {
+      if (
+        WidgetUtils.getConsumerSpaceContext() ===
+        ConsumerSpaceContextEnum.WIDGET
+      ) {
+        return handleWidgetSetPaymentStatus({
+          paymentGroupId,
+          paymentProcessing,
+        });
+      }
       dispatch(
         setPaymentStatusActions({
           paymentGroupId,
@@ -273,7 +313,7 @@ export const useInvoicePaymentProvider = ({
         }),
       );
     },
-    [dispatch],
+    [dispatch, handleWidgetSetPaymentStatus],
   );
 
   return {
@@ -309,8 +349,8 @@ export const useInvoicePaymentProvider = ({
     },
 
     member: {
-      sepaDefaultEmail: member.email,
-      sepaDefaultName: member.name,
+      sepaDefaultEmail: member?.email ?? '',
+      sepaDefaultName: member?.name ?? '',
       handleFetchMembership,
     },
   };

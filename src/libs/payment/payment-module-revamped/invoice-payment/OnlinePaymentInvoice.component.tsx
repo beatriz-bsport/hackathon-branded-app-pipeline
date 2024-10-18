@@ -15,6 +15,8 @@ import { PaymentMethodCardSelector } from '#src/libs/payment/components/PaymentM
 import { PaymentRequesterRole } from '#src/libs/payment/payment-module-revamped/types';
 import { useInvoicePaymentProvider } from '#src/libs/payment/payment-module-revamped/invoice-payment/hooks/useInvoicePaymentProvider';
 import CircularProgress from '#src/components/css-only/CircularProgress';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 // !! Triple check before passing new props to this component
 // PaymentModule logic should be isolated from the rest
@@ -116,17 +118,16 @@ const OnlinePaymentInvoice: React.FC<Props> = forwardRef(
     });
 
     React.useEffect(() => {
-      handleFetchCompanyTheme();
-      handleFetchMembership();
-      handleRequestClientSecretInvoice();
-    }, [
-      invoiceUuid,
-      memberId,
-      companyId,
-      handleFetchMembership,
-      handleFetchCompanyTheme,
-      handleRequestClientSecretInvoice,
-    ]);
+      if (
+        WidgetUtils.getConsumerSpaceContext() !==
+        ConsumerSpaceContextEnum.WIDGET
+      ) {
+        handleFetchCompanyTheme?.();
+        handleFetchMembership?.();
+      }
+      handleRequestClientSecretInvoice?.();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     /**
      * Checks if the backend has processed the payment after receiving a webhook event.
@@ -271,7 +272,7 @@ const OnlinePaymentInvoice: React.FC<Props> = forwardRef(
                 paymentProcessing,
               })
             }
-          ></PaymentStripeRevamped>
+          />
         </div>
       </div>
     );

@@ -9,7 +9,6 @@ import {
 import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 import type { ThunkAction, Dispatch, OptionCallback } from '#src/state/types';
 import { isErrorWithCustomCode } from '#src/libs/utils';
-import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import {
   PaymentGroupStatus,
@@ -20,7 +19,6 @@ import type {
   PaymentMethod,
   DetachPaymentMethodPayload,
 } from '#src/libs/payment/types';
-import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 export const applyBalanceToInvoiceActions = {
   isLoading: createAction<{ invoiceUuid: string; loading: boolean }>(
@@ -379,25 +377,21 @@ export function setPaymentStatus(params: {
   return async (dispatch: Dispatch) => {
     dispatch(setPaymentStatusActions.set(params));
     if (params.paymentSucceeded) {
-      if (
-        WidgetUtils.getConsumerSpaceContext() !==
-        ConsumerSpaceContextEnum.WIDGET
-      ) {
+      dispatch(
+        setBackendProcessingAfterPaymentActions.set({
+          paymentGroupId: params.paymentGroupId,
+          processing: false,
+        }),
+      );
+      setTimeout(() => {
         dispatch(
           setBackendProcessingAfterPaymentActions.set({
             paymentGroupId: params.paymentGroupId,
             processing: false,
           }),
         );
-        setTimeout(() => {
-          dispatch(
-            setBackendProcessingAfterPaymentActions.set({
-              paymentGroupId: params.paymentGroupId,
-              processing: false,
-            }),
-          );
-        }, 2000);
-      }
+      }, 2000);
     }
+    // }
   };
 }

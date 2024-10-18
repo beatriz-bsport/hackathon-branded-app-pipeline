@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
@@ -69,7 +69,6 @@ type Props = {
   basketProductListCount?: number;
   /** The current company's marketplace settings config */
   tabConfigList: MarketplaceTabConfig[];
-  context: ConsumerSpaceContextEnum;
   memberRelationshipList: MemberMinimal[];
   navigateToRelationAccount: (relatedMemberId: number) => void;
   navigateBackToMasterRelation: () => void;
@@ -91,7 +90,6 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   tabConfigList,
   selectedWidgetPage,
   widgetHideNavigation,
-  context,
   push,
   changeWidgetPage,
   widgetSignOut,
@@ -99,9 +97,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   navigateToRelationAccount,
   navigateBackToMasterRelation,
 }) => {
-  /** Using a local state to keep context - web, login button... - stored */
-  const [consumerSpaceContext, setConsumerSpaceContext] =
-    useState<ConsumerSpaceContextEnum>(ConsumerSpaceContextEnum.WEB);
+  const consumerSpaceContext = WidgetUtils.getConsumerSpaceContext();
 
   const { t } = useTranslation(['consumerSpace', 'marketplace']);
   const { width } = useViewport();
@@ -116,13 +112,9 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
 
   const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
 
-  useEffect(() => {
-    !!context && setConsumerSpaceContext(context);
-  }, [context]);
-
   /** Compute the navigation display from widget config + context */
   const shouldHideNavigation = useMemo(() => {
-    switch (context) {
+    switch (consumerSpaceContext) {
       case ConsumerSpaceContextEnum.WIDGET:
         return widgetHideNavigation;
       case ConsumerSpaceContextEnum.FAB:
@@ -130,7 +122,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
       default:
         return false;
     }
-  }, [context, widgetHideNavigation]);
+  }, [consumerSpaceContext, widgetHideNavigation]);
 
   const linksList: AppBarTab[] = useMemo(
     () =>

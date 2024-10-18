@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 import BottomDrawer from '#Fabrique/BottomDrawer';
 import { ConsumerInvoicePaymentContent } from '.';
 import { PortalContainer } from '#src/components/css-only/Fabrique/PortalContainer';
-
-import './styles.css';
 import { useInvoicePaymentStatusTracker } from '#src/libs/payment/payment-module-revamped/invoice-payment/hooks/useInvoicePaymentStatusTracker';
 import { OptionCallback } from '#src/state/types';
+
+import './styles.css';
 
 type Props = {
   companyId: number;

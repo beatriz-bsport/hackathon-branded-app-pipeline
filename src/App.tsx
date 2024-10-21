@@ -71,16 +71,8 @@ import {
 import { SafeURI } from './widgets/utils';
 import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
 
-const ConsumerBookingWidget = asyncComponent(
-  () => import('./widgets/ConsumerBooking.widget'),
-);
-
 const ConsumerSpaceWidget = asyncComponent(
   () => import('./widgets/ConsumerSpace.widget'),
-);
-
-const ConsumerPassWidget = asyncComponent(
-  () => import('./widgets/ConsumerPass.widget'),
 );
 
 const FabWidget = asyncComponent(() => import('./widgets/FabWidget.widget'));

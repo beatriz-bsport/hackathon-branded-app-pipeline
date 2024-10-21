@@ -3,11 +3,11 @@ import React, { useMemo } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import Icon, { type IconName } from "../Icon";
 import {
-  variants,
-  sizes,
-  intents,
   colorsByIntent,
   defaultClasses,
+  intents,
+  sizes,
+  variants,
 } from "./constants";
 
 const button = cva(defaultClasses, {
@@ -112,7 +112,7 @@ const Button: React.FC<Props> = ({
   iconRight,
   intent,
   label,
-  loading,
+  loading = false,
   size,
   ...props
 }) => {

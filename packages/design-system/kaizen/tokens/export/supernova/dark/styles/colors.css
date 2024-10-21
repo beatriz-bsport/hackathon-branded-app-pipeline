@@ -59,19 +59,19 @@
   /* Semi-transparent overlay colour, used to highlight or obscure content. */
   --colorKzColorSurfaceBlanket: #ffffff80;
   /* Default colour for borders across the platform. */
-  --colorFigmaColorStrokeDefault: var(--colorKzBaseColorsLunaGrey600);
-  --colorFigmaColorStrokeStrong: var(--colorKzBaseColorsLunaGrey400);
-  --colorFigmaColorStrokeDivider: var(--colorKzBaseColorsLunaGrey600);
-  --colorFigmaColorStrokeActionDefaultRest: var(--colorKzBaseColorsLunaGrey900);
-  --colorFigmaColorStrokeActionDefaultHovered: var(--colorKzBaseColorsLunaGrey700);
-  --colorFigmaColorStrokeActionDefaultPressed: var(--colorKzBaseColorsLunaGrey500);
-  --colorFigmaColorStrokeActionDefaultDisabled: var(--colorKzBaseColorsLunaGrey500);
+  --colorFigmaColorStrokeDefault: #565e5d;
+  --colorFigmaColorStrokeStrong: #a3afae;
+  --colorFigmaColorStrokeDivider: #565e5d;
+  --colorFigmaColorStrokeActionDefaultRest: #121313;
+  --colorFigmaColorStrokeActionDefaultHovered: #353c3c;
+  --colorFigmaColorStrokeActionDefaultPressed: #7c8786;
+  --colorFigmaColorStrokeActionDefaultDisabled: #7c8786;
   /* Default disabled colour for strong actionable elements like buttons. */
   --colorFigmaColorSurfaceActionMainStrongDisabled: #ffffff0a;
   /* Default colour token for actions on weak flat surfaces. */
   --colorFigmaColorSurfaceActionDefaultFlatRest: #00000000;
   /* Default hovered colour for actions on weak flat surface. */
-  --colorFigmaColorSurfaceActionDefaultFlatHovered: var(--colorKzBaseColorsLunaGrey700);
+  --colorFigmaColorSurfaceActionDefaultFlatHovered: #353c3c;
   /* Default colour token for actions on strong flat surfaces. */
   --colorFigmaColorSurfaceActionDefaultOnstrongRest: #00000000;
   /* Default hovered colour for actions on strong flat surface. */
@@ -79,25 +79,25 @@
   /* Default pressed colour for actions on strong flat surface. */
   --colorFigmaColorSurfaceActionDefaultOnstrongPressed: #15231e14;
   /* Default pressed colour for actions on weak flat surface. */
-  --colorFigmaColorSurfaceActionDefaultFlatPressed: var(--colorKzBaseColorsLunaGrey500);
+  --colorFigmaColorSurfaceActionDefaultFlatPressed: #7c8786;
   /* Subtle bsport colour for actions on a flat surface. */
-  --colorFigmaColorSurfaceActionMainWeakRest: var(--colorKzBaseColorsBsportTurquoise700);
+  --colorFigmaColorSurfaceActionMainWeakRest: #0f6660;
   /* Subtle bsport colour for actions while hovered. */
-  --colorFigmaColorSurfaceActionMainWeakHovered: var(--colorKzBaseColorsBsportTurquoise600);
+  --colorFigmaColorSurfaceActionMainWeakHovered: #21837d;
   /* Default disabled colour for actionable elements like buttons. */
   --colorFigmaColorSurfaceActionDisabled: #ffffff0a;
   /* Subtle bsport colour for actions while pressed. */
-  --colorFigmaColorSurfaceActionMainWeakPressed: var(--colorKzBaseColorsBsportTurquoise800);
+  --colorFigmaColorSurfaceActionMainWeakPressed: #04302d;
   /* Critical colour for weak actionable elements like buttons in resting state. */
-  --colorFigmaColorSurfaceActionCriticalWeakRest: var(--colorKzBaseColorsCupidRed500);
+  --colorFigmaColorSurfaceActionCriticalWeakRest: #84273b;
   /* Critical colour for weak actionable elements like buttons in hovered state. */
-  --colorFigmaColorSurfaceActionCriticalWeakHovered: var(--colorKzBaseColorsCupidRed500);
+  --colorFigmaColorSurfaceActionCriticalWeakHovered: #84273b;
   /* Critical colour for weak actionable elements like buttons in pressed state. */
-  --colorFigmaColorSurfaceActionCriticalWeakPressed: var(--colorKzBaseColorsCupidRed700);
+  --colorFigmaColorSurfaceActionCriticalWeakPressed: #540c1c;
   /* Used on disabled strong surfaces or as disabled element by itself. */
-  --colorFigmaColorOnsurfaceDisabled: var(--colorKzBaseColorsLunaGrey600);
+  --colorFigmaColorOnsurfaceDisabled: #565e5d;
   --colorKzColorShadowWeak: #15231e14;
-  --colorKzColorShadowActionBrandSelected: var(--colorKzBaseColorsBsportTurquoise800);
+  --colorKzColorShadowActionBrandSelected: #04302d;
   --colorKzBaseColorsBsportTurquoise0: #f0faf9;
   --colorKzBaseColorsBsportTurquoise100: #d0f6ef;
   --colorKzBaseColorsBsportTurquoise200: #a1ede0;
@@ -148,136 +148,136 @@
   --colorKzColorStrokeStrong: #7c8786bf;
   --colorKzColorStrokeWeak: #7c878614;
   --colorKzColorOnsurfaceDisabled: #1e232380;
-  --colorFigmaColorStrokeWeak: var(--colorKzBaseColorsLunaGrey700);
+  --colorFigmaColorStrokeWeak: #353c3c;
   /* Default colour for page background. */
-  --colorKzColorSurfacePage: var(--colorKzBaseColorsLunaGrey1000);
+  --colorKzColorSurfacePage: #0c0d0d;
   /* Default page side and top navigation. */
-  --colorKzColorSurfacePageNavigation: var(--colorKzBaseColorsLunaGrey1000);
+  --colorKzColorSurfacePageNavigation: #0c0d0d;
   /* Default colour for surface elements. */
-  --colorKzColorSurfaceDefault: var(--colorKzBaseColorsLunaGrey900);
+  --colorKzColorSurfaceDefault: #121313;
   /* Default colour for surface elements. */
-  --colorKzColorSurfaceDefaultElevated: var(--colorKzBaseColorsLunaGrey800);
+  --colorKzColorSurfaceDefaultElevated: #1e2323;
   /* Colour non-actionable elements used to create subtle background contrast and indicate hierarchy on a flat surface. */
-  --colorKzColorSurfaceDefaultWeak: var(--colorKzBaseColorsLunaGrey800);
+  --colorKzColorSurfaceDefaultWeak: #1e2323;
   /* Lighter colour for non-actionable elements used for minimal contrast on a flat surface. */
-  --colorKzColorSurfaceDefaultWeaker: var(--colorKzBaseColorsLunaGrey600);
+  --colorKzColorSurfaceDefaultWeaker: #565e5d;
   /* Default colour for surface elements. */
-  --colorKzColorSurfaceDefaultWeakest: var(--colorKzBaseColorsLunaGrey500);
+  --colorKzColorSurfaceDefaultWeakest: #7c8786;
   /* Stronger colour for non-actionable elements, with strong contrast. Mainly used for callouts. */
-  --colorKzColorSurfaceMainStrong: var(--colorKzBaseColorsBsportTurquoise300);
+  --colorKzColorSurfaceMainStrong: #69ddce;
   /* Bsport light colour for non-actionable elements, maintaining brand identity with subtlety. */
-  --colorKzColorSurfaceMainWeak: var(--colorKzBaseColorsBsportTurquoise900);
+  --colorKzColorSurfaceMainWeak: #011a18;
   /* Colour for non-actionable elements, used to create significant contrast. */
-  --colorKzColorSurfaceDefaultStrong: var(--colorKzBaseColorsLunaGrey100);
+  --colorKzColorSurfaceDefaultStrong: #eff9f8;
   /* Colour for non-actionable elements with informational status, used to create significant contrast. */
-  --colorKzColorSurfaceStatusInfoStrong: var(--colorKzBaseColorsNeptuneBlue300);
+  --colorKzColorSurfaceStatusInfoStrong: #6fa5d1;
   /* Colour for non-actionable elements with success status, used to create significant contrast. */
-  --colorKzColorSurfaceStatusPositiveStrong: var(--colorKzBaseColorsTerraGreen400);
+  --colorKzColorSurfaceStatusPositiveStrong: #47af4f;
   /* Subtle colour used for successful status on non-actionable elements. Meant to be coupled with other higher-contrast status colours. */
-  --colorKzColorSurfaceStatusPositiveWeak: var(--colorKzBaseColorsTerraGreen800);
+  --colorKzColorSurfaceStatusPositiveWeak: #031a04;
   /* Subtle colour used for informational status on non-actionable elements. Meant to be coupled with other higher-contrast status colours. */
-  --colorKzColorSurfaceStatusInfoWeak: var(--colorKzBaseColorsNeptuneBlue800);
+  --colorKzColorSurfaceStatusInfoWeak: #030f1a;
   /* Colour for non-actionable elements with warning status, used to create significant contrast. */
-  --colorKzColorSurfaceStatusWarningStrong: var(--colorKzBaseColorsAuroraOrange500);
+  --colorKzColorSurfaceStatusWarningStrong: #f59e0b;
   /* Colour for non-actionable elements with error status, used to create significant contrast. */
-  --colorKzColorSurfaceStatusCriticalStrong: var(--colorKzBaseColorsCupidRed300);
+  --colorKzColorSurfaceStatusCriticalStrong: #d16f84;
   /* Subtle colour used for error status on non-actionable elements. Meant to be coupled with other higher-contrast status colours. */
-  --colorKzColorSurfaceStatusCriticalWeak: var(--colorKzBaseColorsCupidRed800);
+  --colorKzColorSurfaceStatusCriticalWeak: #1a0308;
   /* Subtle colour used for warning status on non-actionable elements. Meant to be coupled with other higher-contrast status colours. */
-  --colorKzColorSurfaceStatusWarningWeak: var(--colorKzBaseColorsAuroraOrange1000);
-  --colorKzColorStrokeMain: var(--colorKzBaseColorsBsportTurquoise300);
-  --colorKzColorStrokeActionDefaultSelected: var(--colorKzBaseColorsBsportTurquoise600);
-  --colorKzColorStrokeStatusInfo: var(--colorKzBaseColorsNeptuneBlue400);
-  --colorKzColorStrokeStatusPositive: var(--colorKzBaseColorsTerraGreen500);
-  --colorKzColorStrokeStatusWarning: var(--colorKzBaseColorsAuroraOrange600);
-  --colorKzColorStrokeStatusCritical: var(--colorKzBaseColorsCupidRed400);
+  --colorKzColorSurfaceStatusWarningWeak: #261105;
+  --colorKzColorStrokeMain: #69ddce;
+  --colorKzColorStrokeActionDefaultSelected: #21837d;
+  --colorKzColorStrokeStatusInfo: #447ba9;
+  --colorKzColorStrokeStatusPositive: #27842f;
+  --colorKzColorStrokeStatusWarning: #d97706;
+  --colorKzColorStrokeStatusCritical: #a34257;
   /* Default call-to-action colour for actionable elements like buttons. */
-  --colorKzColorSurfaceActionMainStrongRest: var(--colorKzBaseColorsBsportTurquoise300);
+  --colorKzColorSurfaceActionMainStrongRest: #69ddce;
   /* Default call-to-action colour for hovered actionable elements like buttons. */
-  --colorKzColorSurfaceActionMainStrongHovered: var(--colorKzBaseColorsBsportTurquoise400);
+  --colorKzColorSurfaceActionMainStrongHovered: #32a69e;
   /* Default call-to-action colour for pressed actionable elements like buttons. */
-  --colorKzColorSurfaceActionMainStrongPressed: var(--colorKzBaseColorsBsportTurquoise600);
+  --colorKzColorSurfaceActionMainStrongPressed: #21837d;
   /* Default call-to-action colour for selected actionable elements. */
-  --colorKzColorSurfaceActionMainStrongSelected: var(--colorKzBaseColorsBsportTurquoise600);
+  --colorKzColorSurfaceActionMainStrongSelected: #21837d;
   /* Default colour for default actions across the platform, slightly elevated above a flat surface. */
-  --colorKzColorSurfaceActionDefaultElevatedRest: var(--colorKzBaseColorsLunaGrey800);
+  --colorKzColorSurfaceActionDefaultElevatedRest: #1e2323;
   /* Critical colour for strong actionable elements like buttons in resting state. */
-  --colorKzColorSurfaceActionCriticalStrongRest: var(--colorKzBaseColorsCupidRed600);
+  --colorKzColorSurfaceActionCriticalStrongRest: #78192d;
   /* Critical colour for strong actionable elements like buttons in hovered state. */
-  --colorKzColorSurfaceActionCriticalStrongHovered: var(--colorKzBaseColorsCupidRed500);
+  --colorKzColorSurfaceActionCriticalStrongHovered: #84273b;
   /* Critical colour for strong actionable elements like buttons in pressed state. */
-  --colorKzColorSurfaceActionCriticalStrongPressed: var(--colorKzBaseColorsCupidRed700);
+  --colorKzColorSurfaceActionCriticalStrongPressed: #540c1c;
   /* Default hovered colour for default actions across the platform, slightly elevated above a flat surface. */
-  --colorKzColorSurfaceActionDefaultElevatedHovered: var(--colorKzBaseColorsLunaGrey600);
+  --colorKzColorSurfaceActionDefaultElevatedHovered: #565e5d;
   /* Default pressed colour for default actions across the platform, slightly elevated above a flat surface. */
-  --colorKzColorSurfaceActionDefaultElevatedPressed: var(--colorKzBaseColorsLunaGrey800);
+  --colorKzColorSurfaceActionDefaultElevatedPressed: #1e2323;
   /* Default selected colour for default actions across the platform, slightly elevated above a flat surface. */
-  --colorKzColorSurfaceActionDefaultElevatedSelected: var(--colorKzBaseColorsBsportTurquoise800);
+  --colorKzColorSurfaceActionDefaultElevatedSelected: #04302d;
   /* Used to be paired with strong colours. */
-  --colorKzColorOnsurfaceDefaultOnstrong: var(--colorKzBaseColorsLunaGrey900);
+  --colorKzColorOnsurfaceDefaultOnstrong: #121313;
   /* Default colour on default or elevated surfaces. */
-  --colorKzColorOnsurfaceDefault: var(--colorKzBaseColorsBsportTurquoise0);
+  --colorKzColorOnsurfaceDefault: #f0faf9;
   /* Used to indicate interactivity or call attention to an element. */
-  --colorKzColorOnsurfaceMainStrong: var(--colorKzBaseColorsBsportTurquoise0);
+  --colorKzColorOnsurfaceMainStrong: #f0faf9;
   /* Less prominent version of main colour. Used to call attention to an element. */
-  --colorKzColorOnsurfaceMainWeak: var(--colorKzBaseColorsBsportTurquoise0);
+  --colorKzColorOnsurfaceMainWeak: #f0faf9;
   /* Default colour of elements on main actions. */
-  --colorKzColorOnsurfaceActionMainRest: var(--colorKzBaseColorsBsportTurquoise0);
+  --colorKzColorOnsurfaceActionMainRest: #f0faf9;
   /* Default hovered colour of elements on main actions. */
-  --colorKzColorOnsurfaceActionMainHovered: var(--colorKzBaseColorsBsportTurquoise0);
+  --colorKzColorOnsurfaceActionMainHovered: #f0faf9;
   /* Default pressed colour of elements on main actions. */
-  --colorKzColorOnsurfaceActionMainPressed: var(--colorKzBaseColorsBsportTurquoise0);
-  --colorKzColorOnsurfaceActionMainSelected: var(--colorKzBaseColorsBsportTurquoise200);
+  --colorKzColorOnsurfaceActionMainPressed: #f0faf9;
+  --colorKzColorOnsurfaceActionMainSelected: #a1ede0;
   /* Default colour of elements disabled weak actions. */
   --colorKzColorOnsurfaceActionMainDisabled: #ffffff40;
   /* Used for descriptions under the default colour. */
-  --colorKzColorOnsurfaceWeak: var(--colorKzBaseColorsLunaGrey300);
+  --colorKzColorOnsurfaceWeak: #c4d1d0;
   /* Used as less prominent text (extra information that might not by needed by all the users). */
-  --colorKzColorOnsurfaceWeaker: var(--colorKzBaseColorsLunaGrey500);
+  --colorKzColorOnsurfaceWeaker: #7c8786;
   /* Default link colour. Indicates interactivity. */
-  --colorKzColorOnsurfaceLinkRest: var(--colorKzBaseColorsBsportTurquoise300);
+  --colorKzColorOnsurfaceLinkRest: #69ddce;
   /* Default hovered link colour. */
-  --colorKzColorOnsurfaceLinkHovered: var(--colorKzBaseColorsBsportTurquoise200);
+  --colorKzColorOnsurfaceLinkHovered: #a1ede0;
   /* Default pressed link colour. */
-  --colorKzColorOnsurfaceLinkPressed: var(--colorKzBaseColorsBsportTurquoise400);
+  --colorKzColorOnsurfaceLinkPressed: #32a69e;
   /* Indicate that the element is informational. Paired with weak status surfaces. */
-  --colorKzColorOnsurfaceStatusInfoStrong: var(--colorKzBaseColorsNeptuneBlue0);
+  --colorKzColorOnsurfaceStatusInfoStrong: #e8f3fc;
   /* Indicate that the element is informational. Paired with weak surfaces. */
-  --colorKzColorOnsurfaceStatusInfoWeak: var(--colorKzBaseColorsNeptuneBlue100);
+  --colorKzColorOnsurfaceStatusInfoWeak: #c3e0f7;
   /* Indicate that the element is informational. Paired with strong info strong surfaces. */
-  --colorKzColorOnsurfaceStatusInfoOnstrong: var(--colorKzBaseColorsNeptuneBlue600);
+  --colorKzColorOnsurfaceStatusInfoOnstrong: #16476e;
   /* Indicate that the element is positive or successful. Paired with weak status surfaces. */
-  --colorKzColorOnsurfaceStatusPositiveStrong: var(--colorKzBaseColorsTerraGreen0);
+  --colorKzColorOnsurfaceStatusPositiveStrong: #e8fcea;
   /* Indicate that the element is positive or successful. Paired with weak surfaces. */
-  --colorKzColorOnsurfaceStatusPositiveWeak: var(--colorKzBaseColorsTerraGreen100);
+  --colorKzColorOnsurfaceStatusPositiveWeak: #c3f7c8;
   /* Indicate that the element is positive or successful. Paired with positive strong surfaces. */
-  --colorKzColorOnsurfaceStatusPositiveOnstrong: var(--colorKzBaseColorsTerraGreen700);
+  --colorKzColorOnsurfaceStatusPositiveOnstrong: #07330b;
   /* Indicate that the element requires caution. Paired with weak surfaces. */
-  --colorKzColorOnsurfaceStatusWarningStrong: var(--colorKzBaseColorsAuroraOrange0);
+  --colorKzColorOnsurfaceStatusWarningStrong: #fffbeb;
   /* Indicate that the element is critical or there is an error. Paired with weak status surfaces. */
-  --colorKzColorOnsurfaceStatusCriticalStrong: var(--colorKzBaseColorsCupidRed0);
+  --colorKzColorOnsurfaceStatusCriticalStrong: #fce8ed;
   /* Indicate that the element is critical or there is an error. Paired with weak surfaces. */
-  --colorKzColorOnsurfaceStatusCriticalWeak: var(--colorKzBaseColorsCupidRed100);
+  --colorKzColorOnsurfaceStatusCriticalWeak: #f7c3ce;
   /* Indicate that the element critical or there was an error. Paired with critical strong surfaces. */
-  --colorKzColorOnsurfaceStatusCriticalOnstrong: var(--colorKzBaseColorsCupidRed700);
+  --colorKzColorOnsurfaceStatusCriticalOnstrong: #540c1c;
   /* Indicate that the element requires caution. Paired with weak status surfaces. */
-  --colorKzColorOnsurfaceStatusWarningWeak: var(--colorKzBaseColorsAuroraOrange200);
+  --colorKzColorOnsurfaceStatusWarningWeak: #fde68a;
   /* Indicate that the element requires caution. Paired with weak surfaces. */
-  --colorKzColorOnsurfaceStatusWarningOnstrong: var(--colorKzBaseColorsAuroraOrange900);
-  --colorKzColorShadowActionDefaultSelected: var(--colorKzBaseColorsBsportTurquoise800);
+  --colorKzColorOnsurfaceStatusWarningOnstrong: #5e2a0c;
+  --colorKzColorShadowActionDefaultSelected: #04302d;
   /* Default colour of elements on default weak actions. */
-  --colorKzColorOnsurfaceActionDefault: var(--colorKzBaseColorsBsportTurquoise0);
+  --colorKzColorOnsurfaceActionDefault: #f0faf9;
   /* Default colour of elements on critical weak actions. */
-  --colorKzColorOnsurfaceActionCritical: var(--colorKzBaseColorsBsportTurquoise0);
+  --colorKzColorOnsurfaceActionCritical: #f0faf9;
   /* Default call-to-action colour for actionable elements like buttons. */
-  --colorKzColorSurfaceActionSelectedRest: var(--colorKzBaseColorsBsportTurquoise300);
+  --colorKzColorSurfaceActionSelectedRest: #69ddce;
   /* Default call-to-action colour for hovered actionable elements like buttons. */
-  --colorKzColorSurfaceActionSelectedHovered: var(--colorKzBaseColorsBsportTurquoise400);
+  --colorKzColorSurfaceActionSelectedHovered: #32a69e;
   /* Default call-to-action colour for pressed actionable elements like buttons. */
-  --colorKzColorSurfaceActionSelectedPressed: var(--colorKzBaseColorsBsportTurquoise600);
+  --colorKzColorSurfaceActionSelectedPressed: #21837d;
   --colorKzColorStrokeDivider: var(--colorKzColorStrokeDefault);
   /* Used to be paired with strong colours. */
-  --colorKzColorOnsurfaceMainOnweak: var(--colorKzBaseColorsLunaGrey900);
+  --colorKzColorOnsurfaceMainOnweak: #121313;
   /* Used to be paired with strong colours. */
-  --colorKzColorOnsurfaceMainOnstrong: var(--colorKzBaseColorsLunaGrey900);
+  --colorKzColorOnsurfaceMainOnstrong: #121313;
 }

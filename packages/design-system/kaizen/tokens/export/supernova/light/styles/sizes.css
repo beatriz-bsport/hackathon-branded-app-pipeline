@@ -9,9 +9,4 @@
   --sizeKzSizingSm: 1rem;
   --sizeKzSizingXs: 0.5rem;
   --sizeKzSizing2xs: 0.25rem;
-  --sizeKzSizingIconXs: var(--sizeKzSizingXs);
-  --sizeKzSizingIconXl: var(--sizeKzSizingXl);
-  --sizeKzSizingIconLg: var(--sizeKzSizingLg);
-  --sizeKzSizingIconMd: var(--sizeKzSizingMd);
-  --sizeKzSizingIconSm: var(--sizeKzSizingSm);
 }

@@ -5,10 +5,7 @@ if [ -z "$GITLAB_USER_EMAIL" ] || [ -z "$GITLAB_USER_NAME" ] || [ -z "$CI_GITLAB
   exit 1
 fi
 
-CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-git checkout main
 pnpm run tokens:import
-git checkout "$CURRENT_BRANCH"
 
 if [ -n "$(git status --porcelain)" ]; then
   echo "Changes detected, committing and pushing..."

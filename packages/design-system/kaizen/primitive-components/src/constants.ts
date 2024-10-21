@@ -5,6 +5,7 @@ export const FOCUS_CLASSES = [
 ] as const;
 
 export const TYPOGRAPHY_COLORS = {
+  main: "main",
   positive: "positive",
   info: "info",
   warning: "warning",

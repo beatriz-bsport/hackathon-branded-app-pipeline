@@ -29,6 +29,7 @@ const icons = {
   ),
   save: React.lazy(async () => await import("./assets/save.svg?react")),
   "x-close": React.lazy(async () => await import("./assets/x-close.svg?react")),
+  x: React.lazy(async () => await import("./assets/x.svg?react")),
 } as const;
 
 export default icons;

@@ -1,31 +1,3 @@
-:root {
-  --my-subscriptions-app-bar-component-height: 64px; /* once Fabrique app bar imported => 48px */
-  --my-subscriptions-header-component-height: 40px;
-  --my-subscriptions-tabs-component-height: 44px;
-  --my-subscriptions-spacing-height-desktop: calc(
-    16px + 16px + 16px + 32px
-  ); /* include all padding/margin */
-  --my-subscriptions-spacing-height-mobile: calc(
-    16px + 16px + 16px + 16px
-  ); /* include all padding/margin */
-  --my-subscriptions-footer-component-height: 125px;
-
-  --my-subscriptions-list-container-height-desktop: calc(
-    100dvh - var(--my-subscriptions-app-bar-component-height) -
-      var(--my-subscriptions-header-component-height) -
-      var(--my-subscriptions-tabs-component-height) -
-      var(--my-subscriptions-spacing-height-desktop)
-  );
-
-  --my-subscriptions-list-container-height-mobile: calc(
-    100dvh - var(--my-subscriptions-app-bar-component-height) -
-      var(--my-subscriptions-header-component-height) -
-      var(--my-subscriptions-tabs-component-height) -
-      var(--my-subscriptions-spacing-height-mobile) -
-      var(--my-subscriptions-footer-component-height)
-  );
-}
-
 .bs-consumer-page-root__subscription {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -39,21 +11,10 @@
   margin: 0;
 }
 
-.bs-consumer-page-root__subscription--empty {
-  height: var(--my-subscriptions-list-container-height-desktop);
-}
-
 .bs-consumer__subscription-details-card__root--hidden {
   display: none;
 }
 
 .bs-consumer-page-root__subscriptions_list--hidden {
   display: none;
-}
-
-@container bsConsumerSubscriptionPage (width < 475px) {
-  .bs-consumer-page-root__subscription--empty {
-    height: var(--my-subscriptions-list-container-height-mobile);
-    align-items: center;
-  }
 }

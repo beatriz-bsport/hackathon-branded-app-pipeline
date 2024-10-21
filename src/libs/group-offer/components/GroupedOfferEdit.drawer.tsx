@@ -131,6 +131,7 @@ export const GroupedOfferEditDrawer: React.FC<Props> = ({
     </GenericResponsiveDrawer>
   );
 };
+
 const useStyles = makeStyles((theme: Theme) => ({
   drawerInner: {
     paddingTop: theme.spacing(2),
@@ -140,4 +141,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default GroupedOfferEditDrawer;
+export default React.memo(GroupedOfferEditDrawer);

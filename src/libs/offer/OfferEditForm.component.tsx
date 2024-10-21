@@ -84,20 +84,20 @@ type ComponentProps = {
   metaActivities: MetaActivity[];
   similarOffersLoading: boolean;
   similarOffers: SimilarOffer[];
+  createLevel?: (data: Level, options?: OptionCallback<Level>) => void;
+  deleteLevel?: (id: number, options?: OptionCallback) => void;
   fetchLevelList?: (
     params?: LevelFilterSet,
     options?: OptionPaginatedCallback<Level>,
   ) => void;
+  fetchSimilarOffers: (id: number, params?: OfferFilterData) => void;
+  onBannerGoBack?: () => void;
+  onCancel: () => void;
   updateLevel?: (
     id: number,
     data: Omit<Level, 'id'>,
     options: OptionCallback<Level>,
   ) => void;
-  createLevel?: (data: Level, options?: OptionCallback<Level>) => void;
-  deleteLevel?: (id: number, options?: OptionCallback) => void;
-  onCancel: () => void;
-  onBannerGoBack?: () => void;
-  fetchSimilarOffers: (id: number, params?: OfferFilterData) => void;
 };
 
 type FormProps = {
@@ -132,13 +132,13 @@ export const OfferEditForm = (props: Props) => {
     metaActivities,
     similarOffers,
     similarOffersLoading,
-    fetchSimilarOffers,
-    fetchLevelList,
-    updateLevel,
     createLevel,
     deleteLevel,
-    onCancel,
+    fetchLevelList,
+    fetchSimilarOffers,
     onBannerGoBack,
+    onCancel,
+    updateLevel,
   } = props;
 
   const [editCurrentStep, setEditCurrentStep] = useState(

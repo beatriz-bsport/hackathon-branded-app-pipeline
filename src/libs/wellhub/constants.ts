@@ -13,11 +13,13 @@ export const GymAvailabilityReasonCodeChoices = Object.values(
   GymAvailabilityReasonCode,
 );
 
-export const WELLHUB_OFFER_DEFAULT_PAGE_SIZE = 10;
-
 export const WELLHUB_PRODUCT_SELECTION_INITIAL_VALUES: WellhubProductSelectionFormValues =
   {
     wellhubProductId: null,
     modifyRecursively: false,
     selectedSimilarOffers: [],
   };
+
+export const WELLHUB_SLOT_MAX_DURATION_MINUTES = 200;
+
+export const WELLHUB_OFFER_DEFAULT_PAGE_SIZE = 10;

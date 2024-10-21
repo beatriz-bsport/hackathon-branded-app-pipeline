@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 import {
   UPSELL_IDENTIFIER_SPIVI,
   UPSELL_IDENTIFIER_STRIPE_TERMINAL,
+  UPSELL_IDENTIFIER_WELLHUB,
   UPSELL_IDENTIFIER_ZOOM_APP,
   UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER,
 } from '#src/libs/platform-billing/upsell-identifiers';
-import Config from '../../../config';
+import Config from '#src/config';
 
-import { getCompanyFeatureState } from '../selectors';
-import type { State } from '../../../state/types';
+import { getCompanyFeatureState } from '#src/libs/company/selectors';
+import type { State } from '#src/state/types';
 
 // Use a hook to determine the availability of features, taking into account the company and environment settings.
 const useFeaturesProvider = () => {
@@ -57,6 +58,12 @@ const useFeaturesProvider = () => {
     );
   }, [feature]);
 
+  const wellhubEnabled = React.useMemo(() => {
+    return feature.data.upsell.some(
+      (f) => f.upsell_identifier === UPSELL_IDENTIFIER_WELLHUB,
+    );
+  }, [feature]);
+
   return {
     pushNotificationEnabled,
     smsEnabled,
@@ -64,6 +71,7 @@ const useFeaturesProvider = () => {
     stripeTerminalEnabled,
     spiviEnabled,
     USCEnabled,
+    wellhubEnabled,
     featuresLoading: feature.loading,
   };
 };

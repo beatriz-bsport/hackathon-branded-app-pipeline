@@ -1,46 +1,51 @@
 import React, { useCallback, useMemo } from 'react';
+import { Settings, DateTime } from 'luxon';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
+import { useFormikContext } from 'formik';
+import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
+import {
+  useTheme,
+  Button,
+  Typography,
+  IconButton,
+  InputAdornment,
+  useMediaQuery,
+} from '@material-ui/core';
 import {
   AccessTime,
   CalendarToday,
   DateRange,
   RemoveRedEye,
 } from '@material-ui/icons';
-import { useTheme } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Alert from '@material-ui/lab/Alert';
 import {
   MuiPickersUtilsProvider,
   DatePicker,
   TimePicker,
 } from 'material-ui-pickers';
-import { Settings, DateTime } from 'luxon';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Alert from '@material-ui/lab/Alert';
-import { useFormikContext } from 'formik';
-import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
-import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 
-import FormSection from '#src/components/forms/FormSection';
-import useOfferFormStyles from '#src/libs/offer/hooks/useOfferFormStyles';
-import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
-import NumericInput from '#src/components/input/NumericInput.component';
 import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
-import { OFFER_RECURRENCE } from '#src/libs/offer/constants';
-import OfferFormWeeklyRecurrenceDays from '#src/libs/offer/components/OfferFormWeeklyRecurrenceDays.component';
+import FormSection from '#src/components/forms/FormSection';
+import NumericInput from '#src/components/input/NumericInput.component';
+import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
 import OfferFormSelector from '#src/libs/offer/form/OfferFormSelector.component';
-import { useOfferFormDateTime } from '#src/libs/offer/hooks';
+import OfferFormWeeklyRecurrenceDays from '#src/libs/offer/components/OfferFormWeeklyRecurrenceDays.component';
 
-import {
+import { getOfferRecurrenceDates } from '#src/libs/offer/utils';
+import { isAmPmTimeFormat } from '#src/utils/datetime';
+import { OFFER_RECURRENCE } from '#src/libs/offer/constants';
+import { useOfferFormDateTime } from '#src/libs/offer/hooks';
+import { WELLHUB_SLOT_MAX_DURATION_MINUTES } from '#src/libs/wellhub/constants';
+import useFeaturesProvider from '#src/libs/company/hooks/feature-list-provider.hook';
+import useOfferFormStyles from '#src/libs/offer/hooks/useOfferFormStyles';
+
+import type {
   OfferFormRecurrenceWeekDay,
   OfferFormValues,
 } from '#src/libs/offer/types';
-import { getOfferRecurrenceDates } from '#src/libs/offer/utils';
 import type { LuxonDateTime } from '#src/types';
-import { isAmPmTimeFormat } from '../../../../utils/datetime';
 
 type Props = {
   timezone: string;
@@ -49,8 +54,12 @@ type Props = {
   disabled?: boolean;
 };
 
-const OfferFormDateTime = (props: Props) => {
-  const { timezone, isOfferInGroup, isEditOffer, disabled } = props;
+const OfferFormDateTime: React.FC<Props> = ({
+  timezone,
+  isOfferInGroup,
+  isEditOffer,
+  disabled,
+}) => {
   const { t } = useTranslation(['offer', 'translation']);
   const classes = useOfferFormStyles();
   const theme = useTheme();
@@ -58,6 +67,9 @@ const OfferFormDateTime = (props: Props) => {
   const { values, errors, setFieldValue } = useFormikContext<OfferFormValues>();
   const { rebuildDatetime, getMinutes, getHours, getDays, getDurationMinute } =
     useOfferFormDateTime(timezone);
+
+  const { wellhubEnabled } = useFeaturesProvider();
+
   const {
     recurrence,
     recurrenceWeekDay,
@@ -223,6 +235,14 @@ const OfferFormDateTime = (props: Props) => {
   }, [isOfferInGroup, t]);
 
   const datePickerPlaceholder = useMemo(() => DateTime.now().toFormat('D'), []);
+
+  const displayWellhubDurationWarning = useMemo(
+    () =>
+      wellhubEnabled &&
+      !values.isOfferInGroup &&
+      values.durationMinute > WELLHUB_SLOT_MAX_DURATION_MINUTES,
+    [values.durationMinute, values.isOfferInGroup, wellhubEnabled],
+  );
 
   return (
     <FormSection
@@ -421,6 +441,12 @@ const OfferFormDateTime = (props: Props) => {
             )}
         </div>
       </OfferFormField>
+
+      {displayWellhubDurationWarning && (
+        <Alert severity="warning">
+          {t('offer:form.section.dateTime.field.wellhubDurationWarning')}
+        </Alert>
+      )}
 
       {!isEditOffer && (
         <>

@@ -20,64 +20,64 @@ import type { LuxonDateTime } from '#src/types';
 import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 
 type Props = {
-  metaActivities: MetaActivity[];
-  availableEstablishments: Establishment[];
-  roomBlueprints: RoomBlueprint[];
-  coaches: Coach[];
-  onCancel: () => void;
-  processing: boolean;
+  activeCustomLevels: Level[];
   activitiesLoading: boolean;
-  onSubmit: (metaActivityId: number, data: OfferCreate) => void;
-  selectedDate: LuxonDateTime;
-  is_whereby_integration_enabled: boolean;
-  timezone: string;
+  allCustomLevels: Level[];
+  allowGuestMaster: boolean;
+  availableEstablishments: Establishment[];
+  coaches: Coach[];
+  coachesLoading: boolean;
   coachPaymentRulesByKind: { [kind: number]: CoachPaymentRule[] };
+  establishmentsLoading: boolean;
+  is_whereby_integration_enabled: boolean;
+  metaActivities: MetaActivity[];
+  processing: boolean;
+  roomBlueprints: RoomBlueprint[];
+  selectedDate: LuxonDateTime;
   showPartnership: boolean;
   tagList: Tag<TagGroup>[];
-  activeCustomLevels: Level[];
-  allCustomLevels: Level[];
+  timezone: string;
+  zoomAppDetail: ZoomApp;
+  createLevel: (data: Level, options?: OptionCallback<Level>) => void;
+  deleteLevel: (id: number, options?: OptionCallback) => void;
   fetchLevelList: (
     params: LevelFilterSet,
     options?: OptionPaginatedCallback<Level>,
   ) => void;
+  onCancel: () => void;
+  onSubmit: (metaActivityId: number, data: OfferCreate) => void;
   updateLevel: (
     id: number,
     data: Level,
     options: OptionCallback<Level>,
   ) => void;
-  createLevel: (data: Level, options?: OptionCallback<Level>) => void;
-  deleteLevel: (id: number, options?: OptionCallback) => void;
-  allowGuestMaster: boolean;
-  zoomAppDetail: ZoomApp;
-  coachesLoading: boolean;
-  establishmentsLoading: boolean;
 };
 
 export const OfferFormWithActivity: React.FC<Props> = ({
-  metaActivities,
-  availableEstablishments,
-  roomBlueprints,
-  coaches,
-  onCancel,
-  processing,
+  activeCustomLevels,
   activitiesLoading,
-  onSubmit,
-  selectedDate,
-  is_whereby_integration_enabled,
-  timezone,
+  allCustomLevels,
+  allowGuestMaster,
+  availableEstablishments,
+  coaches,
+  coachesLoading,
   coachPaymentRulesByKind,
+  establishmentsLoading,
+  is_whereby_integration_enabled,
+  metaActivities,
+  processing,
+  roomBlueprints,
+  selectedDate,
   showPartnership,
   tagList,
-  activeCustomLevels,
-  allCustomLevels,
-  fetchLevelList,
-  updateLevel,
+  timezone,
+  zoomAppDetail,
   createLevel,
   deleteLevel,
-  allowGuestMaster,
-  zoomAppDetail,
-  coachesLoading,
-  establishmentsLoading,
+  fetchLevelList,
+  onCancel,
+  onSubmit,
+  updateLevel,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['metaActivity', 'translation', 'common']);
@@ -181,4 +181,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default OfferFormWithActivity;
+export default React.memo(OfferFormWithActivity);

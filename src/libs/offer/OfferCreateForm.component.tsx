@@ -60,20 +60,20 @@ type ComponentProps = {
   hideActivitySection?: boolean;
   onCancelText?: string;
   isForbidden?: boolean;
+  createLevel?: (data: Level, options?: OptionCallback<Level>) => void;
+  deleteLevel?: (id: number, options?: OptionCallback) => void;
   fetchLevelList?: (
     params?: LevelFilterSet,
     options?: OptionPaginatedCallback<Level>,
   ) => void;
+  onBannerGoBack?: () => void;
+  onCancel: () => void;
+  onSelectMetaActivity?: (activity: MetaActivity) => void;
   updateLevel?: (
     id: number,
     data: Omit<Level, 'id'>,
     options: OptionCallback<Level>,
   ) => void;
-  createLevel?: (data: Level, options?: OptionCallback<Level>) => void;
-  deleteLevel?: (id: number, options?: OptionCallback) => void;
-  onCancel: () => void;
-  onBannerGoBack?: () => void;
-  onSelectMetaActivity?: (activity: MetaActivity) => void;
 };
 
 type FormProps = {
@@ -126,13 +126,13 @@ export const OfferCreateForm = (props: Props) => {
     hideBanner,
     hideActivitySection,
     onCancelText,
-    fetchLevelList,
-    updateLevel,
     createLevel,
     deleteLevel,
-    onCancel,
+    fetchLevelList,
     onBannerGoBack,
+    onCancel,
     onSelectMetaActivity,
+    updateLevel,
   } = props;
   const { t } = useTranslation('common');
   const classes = useOfferFormStyles();

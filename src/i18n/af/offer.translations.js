@@ -345,6 +345,8 @@ exports.default = {
           dateIntervalStart: 'Date of the class',
           durationMinute: 'Duration',
           dateIntervalStartTime: 'Start time',
+          wellhubDurationWarning:
+            'Sessions exceeding 200 minutes will be automatically adjusted to a maximum duration of 200 minutes when submitted to Wellhub. Please ensure that your session duration complies with this limit to avoid any discrepancies.',
         },
         title: 'Time and date',
       },

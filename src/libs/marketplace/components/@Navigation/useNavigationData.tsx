@@ -247,7 +247,9 @@ const useNavigationData = ({
           onClick: handleChangeLocale(locale),
         })),
       },
-      ...(memberRelationshipList?.length > 0 && !isRelationshipAuth
+      ...(memberRelationshipList?.length > 0 &&
+      !isRelationshipAuth &&
+      context === ConsumerSpaceContextEnum.WEB
         ? [
             {
               title: t('reworked.navigation.switchAccount'),
@@ -280,8 +282,9 @@ const useNavigationData = ({
       isAbleToChangeStudio,
       franchisorCompanyList,
       memberRelationshipList,
-      isMobile,
       isRelationshipAuth,
+      context,
+      isMobile,
       navigateBackToMasterRelation,
       handleChangeLocale,
       handleSwitchAccount,

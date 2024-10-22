@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { compose, withState } from 'recompose';
+import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Theme as MaterialTheme, Typography, Dialog } from '@material-ui/core';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -19,8 +19,6 @@ import RedButton from '#src/components/button/RedButton.component';
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
 import ColorInput from '../../../components/input/ColorInput.component';
 import type { Theme } from '../types';
-// @ts-expect-error
-import AnalyticsDialog from './AnalyticsDialog.component';
 import { MaterialStyleType } from '../../../utils/types';
 import { MAX_COLOR_BRIGHTNESS } from '../utils';
 
@@ -28,8 +26,6 @@ type OwnProps = {
   theme: Theme;
   onSubmit: (id: number, data: any) => void;
   processing: boolean;
-  openAnalyticsUsage: boolean;
-  setOpenAnalyticsUsage: (open: boolean) => void;
 };
 
 type Props = OwnProps &
@@ -421,16 +417,6 @@ export class ThemeForm extends Component<Props, State> {
             variant="outlined"
           />
         </div>
-
-        <div className={classes.buttonContainer}>
-          <Button
-            color="primary"
-            onClick={() => this.props.setOpenAnalyticsUsage(true)}
-          >
-            {t('analytics.showAnalyticsInformation')}
-          </Button>
-        </div>
-
         <div className={classes.buttonContainer}>
           <Button
             color="primary"
@@ -455,11 +441,6 @@ export class ThemeForm extends Component<Props, State> {
             <CircularProgress className={classes.progress} />
           ) : null}
         </div>
-
-        <AnalyticsDialog
-          onCancel={() => this.props.setOpenAnalyticsUsage(false)}
-          open={this.props.openAnalyticsUsage}
-        />
       </div>
     );
   }
@@ -516,5 +497,4 @@ export default compose(
   // @ts-expect-error
   withStyles(styles),
   withTranslation(['theme']),
-  withState('openAnalyticsUsage', 'setOpenAnalyticsUsage', false),
 )(ThemeForm);

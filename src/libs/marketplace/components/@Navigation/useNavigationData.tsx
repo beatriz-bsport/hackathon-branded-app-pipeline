@@ -24,6 +24,7 @@ import type { SubmenuItem } from '#src/components/css-only/Fabrique/Submenu/type
 import type { AppBarTab } from '#src/components/css-only/Navigation/NavigationAppBar/types';
 import type { Company } from '#src/libs/company/types';
 import type { MemberMinimal } from '#src/libs/member/types';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 const useNavigationData = ({
   companyId,
@@ -249,7 +250,11 @@ const useNavigationData = ({
       },
       ...(memberRelationshipList?.length > 0 &&
       !isRelationshipAuth &&
-      context === ConsumerSpaceContextEnum.WEB
+      ![
+        ConsumerSpaceContextEnum.WIDGET,
+        ConsumerSpaceContextEnum.LOGIN_BUTTON,
+        ConsumerSpaceContextEnum.FAB,
+      ].includes(WidgetUtils.getConsumerSpaceContext())
         ? [
             {
               title: t('reworked.navigation.switchAccount'),
@@ -283,7 +288,6 @@ const useNavigationData = ({
       franchisorCompanyList,
       memberRelationshipList,
       isRelationshipAuth,
-      context,
       isMobile,
       navigateBackToMasterRelation,
       handleChangeLocale,

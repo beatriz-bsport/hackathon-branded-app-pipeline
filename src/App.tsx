@@ -69,6 +69,7 @@ import {
   buildAnalyticsTrackingParamsFromCurrentUrl,
 } from './utils/http';
 import { SafeURI } from './widgets/utils';
+import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
 
 const ConsumerBookingWidget = asyncComponent(
   () => import('./widgets/ConsumerBooking.widget'),
@@ -222,6 +223,17 @@ class BsportWidget extends Component<Props> {
     });
   };
 
+  getConsumerSpaceContext = () => {
+    switch (this.props.widgetType) {
+      case 'consumerSpace':
+        return ConsumerSpaceContextEnum.WIDGET;
+      case 'loginButton':
+        return ConsumerSpaceContextEnum.LOGIN_BUTTON;
+      default:
+        return null;
+    }
+  };
+
   render() {
     const {
       classes,
@@ -318,6 +330,7 @@ class BsportWidget extends Component<Props> {
               companyId={companyId}
               companyName={this.props.theme.company_name}
               isBackofficePreview={isBackofficePreview}
+              consumerSpaceContext={this.getConsumerSpaceContext()}
             />
 
             {this.props.showFab && !window.bsportModalUrlOpen && (

@@ -52,6 +52,7 @@ import {
   consumerSubscriptionBridgeActions,
 } from '../libs/bridge/consumer-space/consumerSpaceBridgeActions';
 import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
+import WidgetUtils from 'bsport-saas/src/libs/widget/WidgetUtils';
 
 type OwnProps = {
   companyId: number,
@@ -112,6 +113,10 @@ class ConsumerSpaceWidget extends React.Component<Props, State> {
     };
   }
 
+  componentDidMount() {
+    WidgetUtils.setConsumerSpaceContext(ConsumerSpaceContextEnum.WIDGET);
+  }
+
   componentDidUpdate(prevProps: Props) {
     /** If page prop changed from a post message, change state */
     if (prevProps.page !== this.props.page) {
@@ -155,7 +160,6 @@ class ConsumerSpaceWidget extends React.Component<Props, State> {
     return (
       // @ts-expect-error children prop typing
       <ConsumerNavigation
-        context={ConsumerSpaceContextEnum.WIDGET}
         memberName={
           this.props.getMember(this.props.membership?.id)?.firstname ?? ''
         }

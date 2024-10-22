@@ -19,6 +19,7 @@ import { buildUrlParams } from '../utils/http';
 
 import type { MarketplaceLoginButtonWidgetConfig } from 'bsport-saas/src/libs/exportable-components/types';
 import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
+import WidgetUtils from 'bsport-saas/src/libs/widget/WidgetUtils';
 
 // const MarketplaceShopStyled = themify(MarketplaceShopBase);
 
@@ -39,6 +40,7 @@ class LoginButton extends Component<Props> {
   componentDidMount() {
     this.props.bridgeRequestAuthenticationStatus();
     window?.addEventListener('message', this.handleOpenViaPostMessage);
+    WidgetUtils.setConsumerSpaceContext(ConsumerSpaceContextEnum.LOGIN_BUTTON);
   }
 
   componentDidUpdate(prevProps: Props) {

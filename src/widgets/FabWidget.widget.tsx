@@ -43,6 +43,7 @@ import {
 } from '../libs/bridge/actions';
 import { buildUrlParams } from '../utils/http';
 import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
+import WidgetUtils from 'bsport-saas/src/libs/widget/WidgetUtils';
 
 type OwnProps = {
   companyId: number,
@@ -69,6 +70,7 @@ class FabWidget extends React.PureComponent<Props, State> {
     if (this.props.authenticated) {
       this.fetchData();
     }
+    WidgetUtils.setConsumerSpaceContext(ConsumerSpaceContextEnum.FAB);
   }
 
   fetchData = () => {
@@ -84,7 +86,6 @@ class FabWidget extends React.PureComponent<Props, State> {
         this.props.dialogUrl.includes(
           `${PUBLIC_URL}/login${buildUrlParams({
             next: `next=/c/${this.props.companyId}`,
-            consumerspacecontext: ConsumerSpaceContextEnum.FAB,
           })}`,
         )
       ) {

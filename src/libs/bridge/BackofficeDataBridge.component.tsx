@@ -13,11 +13,13 @@ import {
 import { closeUserInteractionPortal } from '../modal/actions';
 import { handleBridgeMessage } from './actions';
 import { getEnv } from '../../utils/env';
+import { SafeURI } from '../../widgets/utils';
 
 type OwnProps = {
   companyId: number,
   companyName: string,
   isBackofficePreview?: boolean,
+  consumerSpaceContext: string | null,
 };
 
 type Props = OwnProps &
@@ -57,11 +59,21 @@ class WidgetBridge extends React.PureComponent<Props> {
   }
 
   render() {
-    const { companyId, companyName, isBackofficePreview } = this.props;
+    const {
+      companyId,
+      companyName,
+      isBackofficePreview,
+      consumerSpaceContext,
+    } = this.props;
     const { PUBLIC_URL } = getEnv();
-    const url = `${PUBLIC_URL}/widget/${companyName}/${companyId}/bridge?context=widget${
-      isBackofficePreview ? '&isBackofficePreview=true' : ''
-    }`;
+    const url = `${PUBLIC_URL}/widget/${companyName}/${companyId}/bridge`;
+    let uri = new SafeURI(url)
+      .safeAddQuery('context', 'widget')
+      .safeAddQuery('consumerspacecontext', consumerSpaceContext);
+    if (isBackofficePreview) {
+      uri.safeAddQuery('isBackofficePreview', 'true');
+    }
+
     const key = `${companyId}-${companyName}`;
 
     if (this.state.currentState !== IS_MASTER) {
@@ -77,7 +89,7 @@ class WidgetBridge extends React.PureComponent<Props> {
           id={bridgeId}
           title="bsport-bridge"
           key={key}
-          src={url}
+          src={uri.valueOf()}
         />
       </Portal>
     );

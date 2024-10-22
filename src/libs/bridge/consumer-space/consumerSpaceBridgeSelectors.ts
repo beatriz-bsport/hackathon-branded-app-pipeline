@@ -279,10 +279,11 @@ export const consumerSubscriptionBridgeSelectors = (
 /* MY PROFILE */
 export const consumerProfileBridgeSelectors = (
   state: RootState,
-  { companyId }: ConsumerSpaceWidgetProps,
+  { companyId, membership }: ConsumerSpaceWidgetProps,
 ) => ({
   company: companyId,
   companyThemeLoading: state.theme.loading,
+  member: getMemberById(state, membership?.id),
   memberLoading: state.member.loading,
   paymentMethods: adaptSelector(getSavedPaymentMethodList)(state),
   paymentMethodLoading: state.paymentBackend.paymentMethod.loading,

@@ -7,13 +7,12 @@ import Icon, { IconName } from "../Icon";
 const defaultClasses = [
   "flex items-center justify-center",
   "gap-element-2xs",
-  "absolute -top-xs -right-sm",
 ] as const;
 
 const variants = {
   size: {
-    sm: ["text-body-xs", "leading-2xs"],
-    lg: ["text-body-md", "leading-xs"],
+    sm: ["text-body-xs"],
+    lg: ["text-body-md"],
   },
   sizeByType: {
     "text:sm": ["h-element-sm"],
@@ -33,7 +32,7 @@ const variants = {
       "text-onsurface-main-strong",
     ],
     "text:critical": [
-      "bg-surface-status-weak",
+      "bg-surface-status-critical-weak",
       "border-stroke-status-critical",
       "text-onsurface-status-critical-strong",
     ],
@@ -42,7 +41,7 @@ const variants = {
     "dot:critical": ["bg-surface-status-critical-strong"],
   },
   buttonType: {
-    text: ["w-fit", "border-stroke-thin rounded-circle", "p-xs"],
+    text: ["w-fit", "border-stroke-thin rounded-circle", "px-xs"],
     dot: ["rounded-sm"],
   },
 } as const;
@@ -69,35 +68,41 @@ const badge = cva(defaultClasses, {
   variants,
 });
 
+/**
+ * React component to render a badge with customizable text and icon.
+ * This component is different from Indicator and is meant to be placed alongside other elements.
+ * @param props.className Classname to add to the badge.
+ * @param props.text Text to display in the badge.
+ * @param props.size Size of the badge. Can be "sm" or "lg".
+ * @param props.color Defines the color, background and border of the badge.
+ * @param props.icon Optional icon to display on the right side of the badge.
+ * @link https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=486-2932
+ */
 const Badge: React.FC<BadgeProps> = ({
   className,
   text,
   size,
   color,
   icon,
-  children,
   ...props
 }) => {
   const buttonType = text.length || icon ? "text" : "dot";
   const iconSize = size === "lg" ? "sm" : "xs";
 
   return (
-    <div style={{ position: "relative", display: "inline-block" }} {...props}>
-      {children}
-      <div
-        className={badge({
-          className,
-          size,
-          sizeByType:
-            `${buttonType}:${size}` as keyof typeof variants.sizeByType,
-          colorByType:
-            `${buttonType}:${color}` as keyof typeof variants.colorByType,
-          buttonType,
-        })}
-      >
-        {text}
-        {!!icon && <Icon icon={icon} size={iconSize} />}
-      </div>
+    <div
+      className={badge({
+        className,
+        size,
+        sizeByType: `${buttonType}:${size}` as keyof typeof variants.sizeByType,
+        colorByType:
+          `${buttonType}:${color}` as keyof typeof variants.colorByType,
+        buttonType,
+      })}
+      {...props}
+    >
+      <span className="leading-xs">{text}</span>
+      {!!icon && <Icon icon={icon} size={iconSize} />}
     </div>
   );
 };

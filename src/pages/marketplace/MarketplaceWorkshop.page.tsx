@@ -70,7 +70,6 @@ import {
 } from '#src/libs/level/selectors';
 
 import MarketplaceWorkshop from '#src/libs/marketplace/components/@Workshop/MarketplaceWorkshop.component';
-import Analytics from '#src/components/analytics/Analytics.component';
 import withTitle from '#src/hocs/with-title.hoc';
 import {
   fetchMarketplaceOfferByMetaActivityList as fetchMarketplaceOfferByMetaActivityListAction,
@@ -97,6 +96,8 @@ import {
 import { useWidth } from '../../hooks/useWidth';
 import { sortByDate } from '../../utils/datetime';
 import { RootState } from '../../reducers';
+
+import analyticsUtils from '#src/components/analytics/analytics';
 
 import './MarketplaceWorkshop.css';
 
@@ -324,7 +325,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
 
   const goToBook = React.useCallback(
     (offer: Offer) => {
-      Analytics.workshopClick(offer);
+      analyticsUtils.onWorkshopShow(offer);
       if (bookWidget) {
         // @ts-expect-error
         bookWidget(offer.id || offer, companyId);

@@ -34,7 +34,6 @@ import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod,
 } from '#src/libs/payment/actions';
-import Analytics from '#src/components/analytics/Analytics.component';
 import Button, {
   ButtonVariant,
 } from '#src/components/css-only/Fabrique/Button';
@@ -110,6 +109,8 @@ import { WithHandlerType } from '../../utils/types';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import { RootState } from '../../reducers';
+
+import analyticsUtils from '#src/components/analytics/analytics';
 
 import './BoutiqueContractCheckout.css';
 
@@ -225,7 +226,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     if (this.props.contractId) {
       this.props.fetchContractDetail(this.props.contractId, {
         onSuccess: (contract: Contract) => {
-          Analytics.contractShow(contract);
+          analyticsUtils.onShowContract(contract);
           if (contract?.payment_pack) {
             this.props.fetchPaymentPackBulk([contract.payment_pack]);
           }
@@ -491,7 +492,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     coupon?: string,
     establishmentBillingGroupId?: number,
   ) => {
-    Analytics.contractShowPayment(this.props.contractId);
+    analyticsUtils.onShowContractPayment(this.props.contract);
     this.setState({ processing: true });
     this.updateMemberDefaultEstablishmentBillingGroup();
     const first_billing_timestamp = DateTime.fromISO(
@@ -529,7 +530,9 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
           }),
         onBackgroundSuccess: (taskReturnValue) => {
           try {
-            Analytics.contractPaymentSuccess(this.props?.contract);
+            if (this.props.contract) {
+              analyticsUtils.onContractPaymentSuccess(this.props.contract);
+            }
           } catch (err) {
             console.error(err);
           }

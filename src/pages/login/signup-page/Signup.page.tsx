@@ -15,7 +15,6 @@ import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-d
 import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
 
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
-import Analytics from '#src/components/analytics/Analytics.component';
 
 import {
   fetchCompanyCustomSignUp,
@@ -48,6 +47,9 @@ import type { RootState } from '../../../reducers';
 import { requestLogin } from '../../../actions/auth.actions';
 import { buildUrlParams, parseQueryString } from '../../../http';
 import type { Dispatch, OptionCallback } from '../../../state/types';
+
+import analyticsUtils from '#src/components/analytics/analytics';
+
 import './SignupPageStyles.css';
 
 type OwnProps = {
@@ -88,7 +90,8 @@ type Props = OwnProps &
 export class SignupPage extends Component<Props> {
   componentDidMount() {
     if (this.props.membership) {
-      if (this.props.theme?.id) Analytics.signupShow();
+      // add analytics
+      // if (this.props.theme?.id) Analytics.signupShow();
       this.props.fetchCompanyTheme(parseInt(this.props.membership, 10));
       this.props.fetchCompanyCustomSignUp({
         company: parseInt(this.props.membership),
@@ -100,7 +103,7 @@ export class SignupPage extends Component<Props> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (!prevProps.theme && this.props.theme?.id) Analytics.signupShow();
+    if (!prevProps.theme && this.props.theme?.id) analyticsUtils.onShowSignup();
   }
 
   submitCustomForm = (formdata: FormData, options?: OptionCallback) => {
@@ -119,7 +122,7 @@ export class SignupPage extends Component<Props> {
             );
           } else {
             if (this.props.membership && this.props.theme?.id)
-              Analytics.signupSuccess(this.props.loginInformations);
+              analyticsUtils.onSignupSuccess(this.props.loginInformations);
             options?.onSuccess?.();
           }
         },
@@ -224,7 +227,7 @@ export class SignupPage extends Component<Props> {
             </div>
           )}
 
-          {!!theme && membership && <Analytics theme={theme} username="" />}
+          {/* {!!theme && membership && <Analytics theme={theme} username="" />} */}
         </div>
       </div>
     );

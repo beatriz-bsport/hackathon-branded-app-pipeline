@@ -28,7 +28,6 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
 import Alert, { AlertSeverity } from '#src/components/css-only/Alert';
-import Analytics from '#src/components/analytics/Analytics.component';
 import type {
   MaxoutData,
   PaymentPack,
@@ -222,6 +221,8 @@ import { filterObjectOnSingleKey } from '#src/libs/utils';
 import { SlashCircle01 } from '#src/components/untitledui';
 
 import { buildDataForUserRegistrationWithMultiSessionsAllowed } from '#src/libs/marketplace/utils/booker-module';
+
+import analyticsUtils from '#src/components/analytics/analytics';
 
 import './BoutiqueBookerModule.css';
 
@@ -1022,13 +1023,17 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER
     ) {
       data.payment_pack = this.state.selectedItem?.data.id;
-      Analytics.addPassToCart(this.state.selectedItem?.data);
+      analyticsUtils.addPassToCart(
+        this.state.selectedItem?.data as PaymentPack,
+      );
     } else if (
       this.state.selectedItem?.itemIdentifier ===
       PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER
     ) {
       data.payment_combo = this.state.selectedItem?.data.id;
-      Analytics.addPackToCart(this.state.selectedItem?.data);
+      analyticsUtils.addPackToCart(
+        this.state.selectedItem?.data as PaymentCombo,
+      );
     }
 
     const isBookingSingleSession = data.offers.length === 1;

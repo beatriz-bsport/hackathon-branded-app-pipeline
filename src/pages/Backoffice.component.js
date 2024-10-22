@@ -877,7 +877,7 @@ export class Backoffice extends Component<Props, State> {
                   />
                 )}
 
-                <Analytics isInternal username={this.props.username} />
+                {/* <Analytics isInternal username={this.props.username} /> */}
                 <main
                   className={clx({
                     [classes.content]: true,

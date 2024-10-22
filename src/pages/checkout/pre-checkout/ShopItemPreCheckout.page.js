@@ -27,6 +27,7 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
 import Analytics from '#src/components/analytics/Analytics.component';
 import { fetchShopItem } from '../../../libs/shop/actions/shopitem';
+import analyticsUtils from '../../../components/analytics/analytics';
 
 type Props = {
   fetchShopItem: (number, options: OptionCallback) => void,
@@ -55,7 +56,7 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
       onSuccess: (shopItem) => {
         this.props.fetchCurrentBasket(shopItem.company, {
           onSuccess: (basket) => {
-            Analytics.addShopItemToCart(shopItem);
+            analyticsUtils.addShopItemToCart(shopItem);
             this.props.addItemToBasket(
               basket.id,
               {

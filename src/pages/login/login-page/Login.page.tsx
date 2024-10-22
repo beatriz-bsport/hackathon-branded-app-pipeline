@@ -8,7 +8,6 @@ import { withTranslation, type WithTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
-import Analytics from '#src/components/analytics/Analytics.component';
 import Login from '#src/components/css-only/Login/Login.component';
 // @ts-expect-error
 import { withQueryParamsUndecoded } from '#src/hocs/with-query-params.hoc';
@@ -36,6 +35,7 @@ import { buildSignUpUrl } from '../utils';
 import { requestLogin, disconnect } from '#src/actions/auth.actions';
 import { parseQueryString } from '#src/http';
 import type { Dispatch } from '#src/state/types';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 type OwnProps = {
   location: {
@@ -80,7 +80,9 @@ type Props = OwnProps &
 export class ConsumerLoginPage extends Component<Props> {
   componentDidMount() {
     if (this.props.membership) {
-      if (this.props.theme?.id) Analytics.signinShow();
+      if (this.props.theme?.id) {
+        analyticsUtils.onShowSignin();
+      }
       this.props.fetchCompanyTheme(parseInt(this.props.membership, 10));
       this.props.retrieveCompanyCssConfiguration(
         parseInt(this.props.membership, 10),
@@ -93,7 +95,7 @@ export class ConsumerLoginPage extends Component<Props> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (!prevProps.theme && this.props.theme?.id) Analytics.signupShow();
+    if (!prevProps.theme && this.props.theme?.id) analyticsUtils.onShowSignup();
   }
 
   onRequestSignup = () => {
@@ -211,9 +213,9 @@ export class ConsumerLoginPage extends Component<Props> {
             />
           )}
 
-          {((!!theme && membership) || franchisor) && (
-            <Analytics theme={theme} username="" />
-          )}
+          {/* {((!!theme && membership) || franchisor) && (
+            // <Analytics theme={theme} username="" />
+          )} */}
         </div>
       </div>
     );
@@ -245,7 +247,8 @@ function mapDispatchToProps(dispatch: Dispatch, props: OwnProps) {
       dispatch(
         requestLogin(email, password, {
           ...(opts || {}),
-          onDone: () => Analytics.signinSuccess({ email }),
+          // add analytics
+          // onDone: () => Analytics.signinSuccess({ email }),
         }),
       );
     },

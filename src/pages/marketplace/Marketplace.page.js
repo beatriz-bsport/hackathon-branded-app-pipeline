@@ -113,6 +113,7 @@ import MarketplaceBasketSummaryDialogCssOnly from '../../libs/marketplace/compon
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
 import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
+import analyticsUtils from '../../components/analytics/analytics';
 
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
@@ -412,14 +413,15 @@ export class MarketPlace extends Component<Props, State> {
     this.setState({ currentBasketOpen });
 
   toggleSignUp = (value: boolean) => {
-    if (value) {
-      Analytics.signupShow();
-    }
+    // add analytics
+    // if (value) {
+    //   Analytics.signupShow();
+    // }
     this.setState({ signupDialogOpen: value });
   };
 
   openLogin = () => {
-    Analytics.signinShow();
+    analyticsUtils.onShowSignin();
     this.setState({ loginDialogOpen: true });
   };
 
@@ -432,7 +434,8 @@ export class MarketPlace extends Component<Props, State> {
   doEmailLogin = ({ email, password }: { email: string, password: string }) => {
     this.props.doEmailLogin({ email, password }, () => {
       this.props.fetchProfile({
-        onSuccess: (profile) => Analytics.signinSuccess(profile),
+        // add analytics
+        // onSuccess: (profile) => Analytics.signinSuccess(profile),
       });
       this.props.fetchCurrentBasket(this.props.companyId);
     });
@@ -442,7 +445,7 @@ export class MarketPlace extends Component<Props, State> {
     this.props.submitSignUpCustomForm(formdata, this.props.companyId, {
       onSuccess: () => {
         this.doEmailLogin(this.props.loginInformations);
-        Analytics.signupSuccess(this.props.loginInformations);
+        analyticsUtils.onSignupSuccess(this.props.loginInformations);
         if (options && options.onSuccess) options.onSuccess();
       },
       onError: () => {

@@ -113,7 +113,7 @@ export class PaymentRouter extends React.Component<Props> {
       that provide a theme. That's why we need to wrap the router into a MuiThemeProvider
        */
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <Analytics theme={this.props.theme} />
+        {/* <Analytics theme={this.props.theme} /> */}
         <Switch>
           <Route
             component={ValidationCheckout}

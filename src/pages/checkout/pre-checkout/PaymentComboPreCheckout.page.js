@@ -25,7 +25,7 @@ import {
 import { urlToMarketplace } from '../../../libs/marketplace/utils';
 
 import { fetchPaymentCombo } from '../../../libs/payment-combo/actions';
-import Analytics from '#src/components/analytics/Analytics.component';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 type Props = {
   theme: Theme,
@@ -60,7 +60,7 @@ export class PaymentComboPreCheckout extends React.Component<Props, State> {
         this.props.fetchCurrentBasket(paymentCombo.company, {
           onSuccess: (basket) => {
             const { nextOffer } = parseQueryString(this.props.location.search);
-            Analytics.addPackToCart(paymentCombo);
+            analyticsUtils.addPackToCart(paymentCombo);
             this.props.addItemToBasket(
               basket.id,
               {

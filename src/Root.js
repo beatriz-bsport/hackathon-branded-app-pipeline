@@ -18,6 +18,7 @@ import { parseQueryString } from './http';
 import { fetchAccessLevel } from './actions/auth.actions';
 import WidgetUtils from './libs/widget/WidgetUtils';
 import withQueryParams from './hocs/with-query-params.hoc';
+import Analytics from './components/analytics/Analytics.component';
 
 const MarketPlaceRouter = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
@@ -98,6 +99,7 @@ type Props = {
 
   pendingEmailConfirmation: boolean,
   authenticated: boolean,
+  theme: CompanyTheme,
 };
 
 export class Root extends Component<Props> {
@@ -191,6 +193,7 @@ export class Root extends Component<Props> {
       initializating,
       pendingEmailConfirmation,
       authenticated,
+      theme,
     } = this.props;
 
     if (!rehydrated || initializating) {
@@ -207,7 +210,7 @@ export class Root extends Component<Props> {
             networkAvailable={this.props.networkAvailable}
           />
         )}
-
+        {theme && theme.gtmId && <Analytics theme={theme} />}
         {!pendingEmailConfirmation || !authenticated ? (
           <Switch>
             <Route
@@ -278,6 +281,7 @@ function mapStateToProps(state) {
     networkAvailable: state.network.isAvailable,
     pendingEmailConfirmation: isPendingEmailConfirmation(state),
     authenticated: state.auth.authenticated,
+    theme: state.theme.theme,
   };
 }
 

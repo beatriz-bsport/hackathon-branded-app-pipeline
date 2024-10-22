@@ -12,8 +12,8 @@ import { emailValidationRegExp } from '#src/libs/custom-form/constants';
 import { NewsletterV2FieldsKind } from '#src/libs/marketplace/constants';
 
 import './styles.css';
-import Analytics from '#src/components/analytics/Analytics.component';
 import { OptionCallback } from '../../../state/types';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 const NewsletterFormSchema = Yup.object({
   firstName: Yup.string().nullable(),
@@ -128,7 +128,7 @@ const NewsletterFormV2: React.FC<Props> = React.memo(
           {
             onSuccess: () => {
               formikHelpers?.resetForm();
-              Analytics.leadAcquisitionSuccess({
+              analyticsUtils.onLeadAcquisitionSuccess({
                 email: values.email,
                 first_name: values.firstName,
                 last_name: values.lastName,

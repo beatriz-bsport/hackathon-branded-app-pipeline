@@ -77,6 +77,7 @@ import {
   SearchItemData,
 } from '#src/components/css-only/Search/Search.component';
 import MarketplacePaymentComboList from '#src/libs/marketplace/components/@PaymentCombo/MarketplacePaymentComboList';
+
 import {
   getParsedPassRestrictedCategories,
   getPassFilterAvailableCategories,
@@ -89,6 +90,7 @@ import { MarketplacePassDialogsPortal } from './MarketplacePassDialogs.component
 import MarketplacePassFilters from './MarketplacePassFilters';
 import { RootState } from '../../../reducers';
 import './styles.css';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 type OwnProps = {
   authenticated: boolean;
@@ -155,17 +157,20 @@ const CarouselItem = (props: CarouselItemProps) => {
 
   const handleOpenDetailDialog = useCallback(() => {
     handleOpenDialog('isPaymentComboDetailsDialogOpen', paymentCombo);
+    analyticsUtils.showPack(paymentCombo);
   }, [handleOpenDialog, paymentCombo]);
 
   const handleMobileClick = useCallback(() => {
     if (isMobile) {
       handleOpenDialog('isPaymentComboDetailsDialogOpen', paymentCombo);
+      analyticsUtils.showPack(paymentCombo);
     }
   }, [handleOpenDialog, isMobile, paymentCombo]);
 
   const handleAddToCart = useCallback(() => {
     addComboToCart(paymentCombo.id);
-  }, [addComboToCart, paymentCombo.id]);
+    analyticsUtils.showPack(paymentCombo);
+  }, [addComboToCart, paymentCombo]);
 
   return (
     <MarketplacePaymentComboCard
@@ -298,6 +303,10 @@ export class MarketPlacePassPage extends Component<Props, State> {
 
   addComboToCart = (comboId: number) => {
     if (this.props.addComboToCart) {
+      // console.log('test : ', this.state);
+      // if (this.state.dialogSelectedItem) {
+      //   Analytics.addPackToCart(this.state.dialogSelectedItem);
+      // }
       this.props.addComboToCart(comboId);
       return;
     }
@@ -313,6 +322,10 @@ export class MarketPlacePassPage extends Component<Props, State> {
 
   addPaymentPackToCart = (packId: number) => {
     if (this.props.addPaymentPackToCart) {
+      // add analytics
+      // if (this.state.dialogSelectedItem) {
+      //   Analytics.addPassToCart(this.state.dialogSelectedItem);
+      // }
       this.props.addPaymentPackToCart(packId);
       return;
     }
@@ -328,6 +341,10 @@ export class MarketPlacePassPage extends Component<Props, State> {
 
   addPrivatePassToCart = (packId: number) => {
     if (this.props.addPrivatePassToCart) {
+      // add analytics
+      // if (this.state.dialogSelectedItem) {
+      //   Analytics.addPrivatePassToCart(this.state.dialogSelectedItem);
+      // }
       this.props.addPrivatePassToCart(packId);
       return;
     }
@@ -483,6 +500,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
     selectedItem?: PaymentPack | PrivatePass | PaymentCombo,
   ) => {
     if (selectedItem) {
+      //      Analytics.selectPaymentPack(selectedItem);
       return this.setState((prevState) => {
         return {
           ...prevState,

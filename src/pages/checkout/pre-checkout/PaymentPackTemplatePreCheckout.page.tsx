@@ -36,7 +36,7 @@ import {
   retrievePaymentPackTemplate,
 } from '../../../libs/payment-packs/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import Analytics from '#src/components/analytics/Analytics.component';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 type OwnProps = {
   location: Object;
@@ -75,7 +75,7 @@ export class PaymentPackTemplatePreCheckoutPage extends Component<
       const { nextOffer } = parseQueryString(this.props.location.search);
       // @ts-expect-error
       const { force } = parseQueryString(this.props.location.search);
-      Analytics.addPassToCart(paymentPack, 'payment_pack');
+      analyticsUtils.addPassToCart(paymentPack);
       this.props.addItemToBasket(
         basket.id,
         {

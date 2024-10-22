@@ -13,7 +13,8 @@ import {
   PrivatePass,
   PrivatePassCategoryWithPasses,
 } from '#src/libs/private-service/types';
-import Analytics from '#src/components/analytics/Analytics.component';
+
+import analyticsUtils from '#src/components/analytics/analytics';
 
 import './styles.css';
 
@@ -55,7 +56,7 @@ const PrivatePassCard: React.FC<PrivatePassCardProps> = React.memo(
 
     const handleAddToCart = useCallback(() => {
       onAddBasket(pass.id);
-      Analytics.addPrivatePassToCart(pass);
+      analyticsUtils.addAppointmentPassToCart(pass);
     }, [onAddBasket, pass]);
 
     return (

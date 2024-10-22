@@ -77,7 +77,6 @@ import MarketplaceCheckoutItemsWithPaymentComboList from '#src/libs/marketplace/
 import MarketplaceProductItemList from '#src/libs/marketplace/components/@CheckoutItem/MarketplaceProductItemList';
 import MinimalSubscriptionCard from '#src/libs/marketplace/components/@Subscription/MinimalSubscriptionCard';
 import { Subscription } from '#src/libs/subscription/types';
-import Analytics from '#src/components/analytics/Analytics.component';
 
 import ConfirmationMessage from '#src/libs/checkout/components/ConfirmationMessage';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
@@ -192,9 +191,10 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
   }
 
   trackBookings = () => {
-    this.props.offerBookedList.forEach((offerBooked) => {
-      Analytics.bookingSuccess(offerBooked);
-    });
+    // Add booking success analytics
+    // this.props.offerBookedList.forEach((offerBooked) => {
+    //   Analytics.bookingSuccess(offerBooked);
+    // });
   };
 
   fetchOfferData = () => {

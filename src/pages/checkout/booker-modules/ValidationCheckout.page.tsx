@@ -35,7 +35,6 @@ import {
   fetchOfferBulk,
   fetchOfferWaitingListPositionList as fetchOfferWaitingListPositionListAction,
 } from '#src/libs/offer/actions';
-import Analytics from '#src/components/analytics/Analytics.component';
 import { fetchMetaActivityBulk } from '#src/libs/meta-activity/actions';
 import { fetchCoachBulk } from '#src/libs/associated-coach/actions';
 import { fetchEstablishmentBulk } from '#src/libs/establishment/actions';
@@ -137,9 +136,10 @@ export class ValidationCheckout extends React.Component<Props> {
   };
 
   trackBookings = () => {
-    this.props.offerBookedList.forEach((offerBooked) =>
-      Analytics.bookingSuccess(offerBooked),
-    );
+    // Add nooking success analytics
+    // this.props.offerBookedList.forEach((offerBooked) =>
+    //   Analytics.bookingSuccess(offerBooked),
+    // );
   };
 
   fetchOfferData = () => {

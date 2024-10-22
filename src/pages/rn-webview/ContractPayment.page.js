@@ -142,11 +142,12 @@ export class ContractPayment extends React.Component<Props, State> {
       {
         onBackgroundSuccess: () => {
           this.props.onSuccess();
-          try {
-            Analytics.contractPaymentSuccess(this.props.contract);
-          } catch (err) {
-            console.error(err);
-          }
+          // add analytics
+          // try {
+          //   Analytics.contractPaymentSuccess(this.props.contract);
+          // } catch (err) {
+          //   console.error(err);
+          // }
           this.setState({ processing: false });
         },
         onError: () => this.setState({ processing: false }),

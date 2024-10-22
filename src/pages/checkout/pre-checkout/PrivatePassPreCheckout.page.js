@@ -29,6 +29,7 @@ import { getCurrentBasket } from '../../../libs/checkout/selectors';
 import Analytics from '#src/components/analytics/Analytics.component';
 import { fetchPrivatePassRetrieve } from '../../../libs/private-service/actions';
 import { OptionCallback } from '../../../state/types';
+import analyticsUtils from '../../../components/analytics/analytics';
 
 type Props = {
   theme: Theme,
@@ -56,7 +57,7 @@ export class PaymentPrivatePassPage extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchPrivatePassRetrieve(this.props.privatePassId, {
       onSuccess: (privatePass) => {
-        Analytics.addPrivatePassToCart(privatePass);
+        analyticsUtils.addAppointmentPassToCart(privatePass);
         this.props.fetchCurrentBasket(privatePass.company, {
           onSuccess: (basket) => {
             const { force } = parseQueryString(this.props.location.search);

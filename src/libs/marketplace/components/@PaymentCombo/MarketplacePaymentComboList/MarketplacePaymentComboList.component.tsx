@@ -8,7 +8,8 @@ import { useMarketplacePassFilters } from '#src/libs/marketplace/hooks';
 import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
 
 import { PaymentCombo } from '#src/libs/payment-combo/types';
-import Analytics from '#src/components/analytics/Analytics.component';
+
+import analyticsUtils from '#src/components/analytics/analytics';
 
 import './styles.css';
 
@@ -37,18 +38,19 @@ const PaymentComboCard: React.FC<PaymentComboCardProps> = React.memo(
     const handleMobileClick = useCallback(() => {
       if (isMobile) {
         setSelectedPass(paymentCombo.id);
+        analyticsUtils.showPack(paymentCombo);
       }
-    }, [isMobile, paymentCombo.id, setSelectedPass]);
+    }, [isMobile, paymentCombo, setSelectedPass]);
 
     const handleAddToCart = useCallback(() => {
       onAddBasket(paymentCombo.id);
-      Analytics.addPackToCart(paymentCombo);
+      analyticsUtils.showPack(paymentCombo);
     }, [onAddBasket, paymentCombo]);
 
-    const handleOpenDetailDialog = useCallback(
-      () => setSelectedPass(paymentCombo.id),
-      [paymentCombo.id, setSelectedPass],
-    );
+    const handleOpenDetailDialog = useCallback(() => {
+      setSelectedPass(paymentCombo.id);
+      analyticsUtils.showPack(paymentCombo);
+    }, [paymentCombo, setSelectedPass]);
 
     return (
       <MarketplacePaymentComboCard

@@ -83,7 +83,6 @@ import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#src/libs/gr
 
 import withTitle from '#src/hocs/with-title.hoc';
 
-import Analytics from '#src/components/analytics/Analytics.component';
 import { Offer, OfferFilterData, Offer_FULL } from '#src/libs/offer/types';
 import {
   Establishment,
@@ -100,6 +99,7 @@ import { getBookCalendarUrl } from '#src/libs/marketplace/routing-utils';
 import type { MarketplaceComponentConfig } from '#src/libs/marketplace/types';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 export type OwnProps = {
   companyId: number;
@@ -462,11 +462,13 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   }
 
   openOfferDialog = (offerId: number) => {
+    const offerOpened = this.props.offers.find((o: any) => o.id === offerId);
     this.setState({
       offerId,
       // @ts-expect-error
-      offer: this.props.offers.find((o: any) => o.id === offerId),
+      offer: offerOpened,
     });
+    analyticsUtils.onSessionShow(offerOpened);
   };
 
   closeOfferDialog = () => {
@@ -484,11 +486,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       );
       return;
     }
-    const enrichedOfferForAnalytics = this.props.getEnrichedOfferForAnalytics(
-      offer.id,
-    );
-    enrichedOfferForAnalytics &&
-      Analytics.calendarSessionShow(enrichedOfferForAnalytics);
     this.props.goToBook(offer.id, this.props.companyId);
   };
 
@@ -500,11 +497,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       });
       return;
     }
-    const enrichedOfferForAnalytics = this.props.getEnrichedOfferForAnalytics(
-      offer.id,
-    );
-    enrichedOfferForAnalytics &&
-      Analytics.calendarSessionShow(enrichedOfferForAnalytics);
     this.props.goToBookOption(offer.id, this.props.companyId);
   };
 

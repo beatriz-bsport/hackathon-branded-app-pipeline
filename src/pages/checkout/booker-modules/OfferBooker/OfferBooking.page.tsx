@@ -33,7 +33,6 @@ import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/wai
 import withQueryParams from '#src/hocs/with-query-params.hoc';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
-import Analytics from '#src/components/analytics/Analytics.component';
 import withTheme from '#src/hocs/company-themifier.hoc';
 
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
@@ -130,6 +129,7 @@ import { buildUrlParams, parseQueryString } from '../../../../http';
 import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 import { RootState } from '../../../../reducers';
 import { WithHandlerType, MaterialStyleType } from '../../../../utils/types';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 type OwnProps = { id: number; redirectedToFirstOfferToBeBooked: boolean };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
@@ -533,10 +533,10 @@ class OfferBooking extends React.PureComponent<Props, State> {
         this.state.selectedPack.consumerPaymentPack.id;
     } else if (this.state.selectedPack.paymentPack) {
       data.payment_pack = this.state.selectedPack.paymentPack.id;
-      Analytics.addPassToCart(this.state.selectedPack.paymentPack);
+      analyticsUtils.addPassToCart(this.state.selectedPack.paymentPack);
     } else if (this.state.selectedPack.paymentPackCombo) {
       data.payment_combo = this.state.selectedPack.paymentPackCombo.id;
-      Analytics.addPackToCart(this.state.selectedPack.paymentPackCombo);
+      analyticsUtils.addPackToCart(this.state.selectedPack.paymentPackCombo);
     }
 
     data.offers = [

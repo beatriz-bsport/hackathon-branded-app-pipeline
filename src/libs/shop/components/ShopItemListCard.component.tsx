@@ -6,9 +6,9 @@ import IconButton from '@material-ui/core/IconButton';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import Analytics from '#src/components/analytics/Analytics.component';
 import type { ShopItem } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 type Props = {
   shopitem: ShopItem;
@@ -71,7 +71,7 @@ export const ShopItemListCard = (props: Props) => {
               onClick={(ev) => {
                 ev.stopPropagation();
                 props.addToOrder(shopitem.id);
-                Analytics.addShopItemToCart(shopitem);
+                analyticsUtils.addShopItemToCart(shopitem);
               }}
             >
               <AddShoppingCartIcon />

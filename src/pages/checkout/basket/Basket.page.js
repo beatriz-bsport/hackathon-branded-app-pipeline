@@ -77,7 +77,8 @@ import {
   monitorExpiredItemRemoval,
 } from '../../../libs/checkout/actions';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
-import Analytics from '#src/components/analytics/Analytics.component';
+//import Analytics from '../../../components/analytics/Analytics.component';
+import analyticsUtils from '../../../components/analytics/analytics';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
 import { fetchOfferBulk as fetchOfferBulkAction } from '../../../libs/offer/actions';
@@ -282,7 +283,7 @@ export class BasketPage extends React.Component<Props> {
     }
     if (this.props.basket) {
       this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
-      Analytics.showBasket(this.props.basket);
+      analyticsUtils.showBasket(this.props.basket);
       if (this.props.basket.total_price_cts) {
         this.getSecret(this.state.paymentEngine);
       }
@@ -303,7 +304,7 @@ export class BasketPage extends React.Component<Props> {
     }
     if (this.props.basket && !prevProps.basket) {
       this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
-      Analytics.showBasket(this.props.basket);
+      analyticsUtils.showBasket(this.props.basket);
       if (this.props.basket.total_price_cts) {
         this.getSecret(this.state.paymentEngine);
       }
@@ -392,7 +393,7 @@ export class BasketPage extends React.Component<Props> {
       .then((r) => {
         if (r.data >= PAYMENT_INTENT_STATUS_SUCCESS) {
           setTimeout(() => {
-            Analytics.onPaymentSuccess(this.props.basket);
+            analyticsUtils.onPaymentSuccess(this.props.basket);
             this.props.onSuccess();
             if (callback) callback();
           }, 2000);
@@ -410,7 +411,7 @@ export class BasketPage extends React.Component<Props> {
     validateUnpaidAPI(this.props.basket.id)
       .then(() => {
         this.props.onSuccess();
-        Analytics.onPaymentSuccess(this.props.basket);
+        analyticsUtils.onPaymentSuccess(this.props.basket);
         if (options && options.onSuccess) {
           options.onSuccess();
         }
@@ -954,24 +955,23 @@ export default compose(
       () => (checkoutItemAnalyticsData: CheckoutItemAnalytics) => {
         switch (checkoutItemAnalyticsData.buyable_item_identifier) {
           case BUYABLE_ITEM_PRIVATE_PASS:
-            Analytics.addPrivatePassToCart(
+            analyticsUtils.addAppointmentPassToCart(
               checkoutItemAnalyticsData.checkoutItemToTrack,
             );
             break;
           case BUYABLE_ITEM_SHOP_ITEM:
-            Analytics.addShopItemToCart(
+            analyticsUtils.addShopItemToCart(
               checkoutItemAnalyticsData.checkoutItemToTrack,
             );
             break;
           case BUYABLE_ITEM_COMBO_ITEM:
-            Analytics.addPackToCart(
+            analyticsUtils.addPackToCart(
               checkoutItemAnalyticsData.checkoutItemToTrack,
             );
             break;
           case BUYABLE_ITEM_PASS:
-            Analytics.addPassToCart(
+            analyticsUtils.addPassToCart(
               checkoutItemAnalyticsData.checkoutItemToTrack,
-              'payment_pack',
             );
             break;
           default:

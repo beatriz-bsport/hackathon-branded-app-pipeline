@@ -12,7 +12,8 @@ import {
   PaymentPack,
   PaymentPackCategoryWithPacks,
 } from '#src/libs/payment-packs/types';
-import Analytics from '#src/components/analytics/Analytics.component';
+
+import analyticsUtils from '#src/components/analytics/analytics';
 
 import './styles.css';
 
@@ -51,18 +52,18 @@ const PaymentPackCard: React.FC<PaymentPackCardProps> = React.memo(
     const handleMobileClick = useCallback(() => {
       if (isMobile) {
         setSelectedPass(pack.id);
-        Analytics.selectPaymentPack(pack);
+        analyticsUtils.showPass(pack);
       }
     }, [isMobile, setSelectedPass, pack]);
 
     const handleOpenDetailDialog = useCallback(() => {
       setSelectedPass(pack.id);
-      Analytics.selectPaymentPack(pack);
+      analyticsUtils.showPass(pack);
     }, [setSelectedPass, pack]);
 
     const handleAddToCart = useCallback(() => {
       pushPackCheckout(pack.id);
-      Analytics.addPassToCart(pack, 'payment_pack');
+      analyticsUtils.showPass(pack);
     }, [pushPackCheckout, pack]);
 
     return (

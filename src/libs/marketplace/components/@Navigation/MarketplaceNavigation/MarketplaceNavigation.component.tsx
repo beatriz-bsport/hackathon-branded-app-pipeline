@@ -17,7 +17,6 @@ import {
 import { getDefaultMarketplaceTabTitle } from '#src/libs/exportable-components/utils';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { getItemInStorage } from '#src/utils/storage';
-import Analytics from '#src/components/analytics/Analytics.component';
 import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppBar';
 import NavigationSideDrawer from '#src/components/css-only/Navigation/NavigationSideDrawer/NavigationSideDrawer.component';
 import useNavigationData from '#src/libs/marketplace/components/@Navigation/useNavigationData';
@@ -96,7 +95,6 @@ type Props = {
 
 const MarketplaceNavigation: React.FC<Props> = ({
   companyTheme,
-  authUsername,
   isAuthenticated,
   isLoginDialogOpen,
   isSignUpDialogOpen,
@@ -292,7 +290,6 @@ const MarketplaceNavigation: React.FC<Props> = ({
             {children}
           </main>
 
-          <Analytics theme={companyTheme} username={authUsername || ''} />
           {!!customConfiguration?.apply_on_marketplace && (
             <>
               {!!companyTheme?.widget_theme && (

@@ -31,7 +31,8 @@ import { getContractCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import type { RootState } from '../../../reducers';
 import MarketplaceContractFilters from './MarketplaceContractFilters';
 import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
-import Analytics from '#src/components/analytics/Analytics.component';
+
+import analyticsUtils from '#src/components/analytics/analytics';
 
 import './styles.css';
 
@@ -104,7 +105,7 @@ export class MarketplaceContract extends React.Component<Props, State> {
       this.props.onAddToCart(contract.id);
       return;
     }
-    Analytics.contractShowPayment(contract);
+    analyticsUtils.onShowContractPayment(contract);
     this.props.push(getContractCheckoutUrl(this.props.companyId, contract.id));
   };
 

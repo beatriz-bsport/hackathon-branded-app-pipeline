@@ -67,7 +67,8 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
                   this.props.location.search,
                 );
                 const { force } = parseQueryString(this.props.location.search);
-                Analytics.addPassToCart(paymentPack, 'payment_pack');
+                // Add add pass to cart
+                //                Analytics.addPassToCart(paymentPack, 'payment_pack');
                 this.props.addItemToBasket(
                   basket.id,
                   {

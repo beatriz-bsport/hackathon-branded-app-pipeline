@@ -13,7 +13,6 @@ import { navigateBackToMasterRelation as navigateBackToMasterRelationAction } fr
 import { auth as authActions } from '../../actions';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 
-import Analytics from '#src/components/analytics/Analytics.component';
 import themeSelectors from '../../libs/theme/selectors';
 // @ts-expect-error
 import { getTheme } from '../../theme';
@@ -68,7 +67,7 @@ export const ConsumerAppBar: React.FC<Props> = ({
   return (
     <MuiThemeProvider theme={getTheme(theme)}>
       <div className={classes.container}>
-        <Analytics theme={theme} />
+        {/* <Analytics theme={theme} /> */}
         {isWidgetNoPopUp && theme?.display_new_checkout_flow ? (
           <MinimalMarketplaceAppBarCSSOnly
             auth={auth}

@@ -46,7 +46,6 @@ import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
 import { getPaymentPack } from '#src/libs/payment-packs/selectors';
 import { getPrivatePass } from '#src/libs/private-service/selectors/private-pass';
 import { getPaymentCombo } from '#src/libs/payment-combo/selectors';
-import Analytics from '#src/components/analytics/Analytics.component';
 import { snackbarWarning, snackbarSuccess } from '#src/libs/snackbar/actions';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import type {
@@ -86,6 +85,8 @@ import asyncComponent from '../../AsyncComponent';
 import { RootState } from '../../reducers';
 // @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
+
+import analyticsUtils from '#src/components/analytics/analytics';
 
 import './styles.css';
 
@@ -269,7 +270,8 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     coupon?: string,
     establishmentBillingGroupId?: number,
   ) => {
-    Analytics.contractShowPayment(this.props.contractId);
+    // add analytics
+    //    Analytics.contractShowPayment(this.props.contractId);
     this.setState({ processing: true });
     const contract =
       this.props.contractList.find(
@@ -310,7 +312,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                   (contractItem: ContractWithPaymentPack) =>
                     contractItem.id === parseInt(this.props.contractId, 10),
                 ) || this.props.contract;
-              Analytics.contractPaymentSuccess(contractValues);
+              analyticsUtils.onContractPaymentSuccess(
+                contractValues as Contract,
+              );
             } catch (err) {
               console.error(err);
             }
@@ -364,7 +368,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     this.fetchAssociatedContractContent(contract.id);
     this.handleSetAcceptContractLegalTerms(false);
     this.props.setSelected(contract.id);
-    Analytics.contractShow(contract);
+    analyticsUtils.onShowContract(contract);
   };
 
   handleOpenContractTermsDialog = () =>

@@ -107,7 +107,8 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
             this.setState({ processing: false });
             this.props.onSubmit(this.props.contract.id, true);
             try {
-              Analytics.contractPaymentSuccess(this.props.contract);
+              // Add contract payment success analytics
+              //              Analytics.contractPaymentSuccess(this.props.contract);
             } catch (err) {
               console.error(err);
             }

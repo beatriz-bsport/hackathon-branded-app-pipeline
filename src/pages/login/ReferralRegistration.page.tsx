@@ -29,7 +29,6 @@ import {
   getReferralRegistrationErrorCode,
 } from '#src/libs/referral/selectors';
 import { retrieveReferralLinkStatus } from '#src/libs/referral/actions';
-import Analytics from '#src/components/analytics/Analytics.component';
 import {
   withUserProfileData,
   getMemberCustomFormWithEnabledField,
@@ -65,6 +64,8 @@ import { requestLogin } from '../../actions/auth.actions';
 import type { OptionCallback } from '../../state/types';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
+
+import analyticsUtils from '#src/components/analytics/analytics';
 
 import './signup-page/SignupPageStyles.css';
 
@@ -201,7 +202,7 @@ export class ReferralRegistration extends Component<Props, State> {
               this.props.referralLinkStatus.company_id &&
               this.props.theme?.id
             )
-              Analytics.signupSuccess(this.props.loginInformations);
+              analyticsUtils.onSignupSuccess(this.props.loginInformations);
             window.location.href =
               this.props.referralLinkStatus.redirect_link ||
               getMarketplaceRoute(
@@ -309,7 +310,7 @@ export class ReferralRegistration extends Component<Props, State> {
                 />
               </div>
             )}
-          {!!theme && <Analytics theme={theme} username="" />}
+          {/* {!!theme && <Analytics theme={theme} username="" />} */}
         </div>
       </div>
     );

@@ -10,12 +10,14 @@ import withTitle from '#src/hocs/with-title.hoc';
 
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
-import { fetchReportMetadata as fetchReportMetadataAction } from '#src/libs/reporting/v1/actions';
-
-import { fetchDefaultReports as fetchDefaultReportsAction } from '#src/libs/reporting/v2/actions';
+import {
+  fetchReportMetadata as fetchReportMetadataAction,
+  fetchDefaultReports as fetchDefaultReportsAction,
+} from '#src/libs/reporting/v2/actions';
 
 import {
   getDefaultReportsV2,
+  getReportCategoriesMetadata,
   getReportV2Loading,
 } from '#src/libs/reporting/v2/selectors';
 
@@ -25,7 +27,6 @@ import {
   getLastVisitedReportV2,
 } from '#src/libs/user-preference/selectors';
 import { RootState } from '#src/reducers';
-import { getReportMetadata } from '#src/libs/reporting/v1/selectors';
 import { OwnProps } from '#src/components/HighlightedText/HighlightedText.component';
 import ReportCategoryDashboard from '#src/libs/reporting/v2/components/ReportCategoryDashboard.component';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
@@ -77,7 +78,7 @@ const FranchiseReportList: React.FC<Props> = ({
 
 const connector = connect(
   (state: RootState) => ({
-    metadata: getReportMetadata(state),
+    metadata: getReportCategoriesMetadata(state),
     defaultReportsV2: getDefaultReportsV2(state),
     reportsV2Loading: getReportV2Loading(state),
     isV2Displayed: getIsReportV2Displayed(state),

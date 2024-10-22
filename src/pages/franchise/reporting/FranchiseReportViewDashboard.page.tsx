@@ -11,37 +11,16 @@ import {
   ReportConfiguration,
   ReportV2QueryParams,
 } from '#src/libs/reporting/common/types';
-
 import {
-  fetchReports as fetchReportsAction,
-  deleteReport as deleteReportAction,
-  updateReport as updateReportAction,
-  createReport as createReportAction,
-} from '#src/libs/reporting/v1/actions';
-import {
+  fetchDefaultReports as fetchDefaultReportsAction,
   fetchReportsV2Paginated as fetchReportsV2PaginatedAction,
-  fetchReportMetadata as fetchReportMetadataAction,
 } from '#src/libs/reporting/v2/actions';
-import {
-  setIsReportAlertDisplayedInV2 as setIsReportAlertDisplayedAction,
-  setIsReportV2Displayed as setIsReportV2DisplayedAction,
-} from '#src/libs/user-preference/actions';
 
 import type { RootState } from '#src/reducers';
 
-import { getCompanyUpsellData } from '#src/libs/company/selectors';
-import {
-  getIsReportV2Displayed,
-  getIsReportAlertDisplayedInV2,
-} from '#src/libs/user-preference/selectors';
-import {
-  getCustomViewsReports,
-  getReports,
-} from '#src/libs/reporting/v1/selectors';
 import {
   getReportsV2,
   getReportV2Loading,
-  getReportCategoriesMetadata,
   getReportsViewsPaginated,
 } from '#src/libs/reporting/v2/selectors';
 import { getObjectPermissions } from '#src/libs/role/selectors';
@@ -55,23 +34,20 @@ import { REPORT_VIEWS_FETCHING_PAGINATION_SIZE } from '#src/libs/reporting/commo
 type Props = ConnectedProps<typeof connector> & WithTranslation;
 
 const FranchiseReportViewDashboard: React.FC<Props> = ({
-  fetchReportMetadata,
+  fetchDefaultReports,
   fetchReportsV2Paginated,
   pushRouter,
-  isV2Displayed,
-  metadata,
-  reports,
   reportsV2,
   reportsV2Loading,
   reportViewsPaginated,
 }) => {
   useEffect(() => {
-    fetchReportMetadata();
+    fetchDefaultReports();
     fetchReportsV2Paginated({
       page_size: REPORT_VIEWS_FETCHING_PAGINATION_SIZE,
       ordering: '-updated_at',
     });
-  }, [fetchReportMetadata, fetchReportsV2Paginated]);
+  }, [fetchDefaultReports, fetchReportsV2Paginated]);
 
   const classes = useStyles();
 
@@ -94,12 +70,7 @@ const FranchiseReportViewDashboard: React.FC<Props> = ({
     [fetchReportsV2Paginated],
   );
 
-  if (
-    metadata.loading ||
-    !metadata.results ||
-    (!isV2Displayed && reports.loading) ||
-    (isV2Displayed && reportsV2Loading)
-  ) {
+  if (reportsV2Loading) {
     return <LinearProgress />;
   }
 
@@ -117,26 +88,14 @@ const FranchiseReportViewDashboard: React.FC<Props> = ({
 
 const connector = connect(
   (state: RootState) => ({
-    metadata: getReportCategoriesMetadata(state),
     objectLevelPermissions: getObjectPermissions(state),
-    reports: getReports(state),
     reportsV2: getReportsV2(state),
-    customReports: getCustomViewsReports(state),
     reportsV2Loading: getReportV2Loading(state),
-    subscribedUpsells: getCompanyUpsellData(state),
-    isV2Displayed: getIsReportV2Displayed(state),
-    isReportAlertDisplayedInV2: getIsReportAlertDisplayedInV2(state),
     reportViewsPaginated: getReportsViewsPaginated(state),
   }),
   {
-    fetchReportMetadata: fetchReportMetadataAction,
-    fetchReports: fetchReportsAction,
-    updateReport: updateReportAction,
-    createReport: createReportAction,
-    deleteReport: deleteReportAction,
     pushRouter: push,
-    setIsReportAlertDisplayedInV2: setIsReportAlertDisplayedAction,
-    setIsReportV2Displayed: setIsReportV2DisplayedAction,
+    fetchDefaultReports: fetchDefaultReportsAction,
     fetchReportsV2Paginated: fetchReportsV2PaginatedAction,
   },
 );

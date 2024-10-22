@@ -10,40 +10,18 @@ import type {
   ReportConfiguration,
   ReportV2QueryParams,
 } from '#src/libs/reporting/common/types';
-
 import {
-  fetchReports as fetchReportsAction,
-  deleteReport as deleteReportAction,
-  updateReport as updateReportAction,
-  createReport as createReportAction,
-} from '#src/libs/reporting/v1/actions';
-import {
-  fetchReportMetadata as fetchReportMetadataAction,
+  fetchDefaultReports as fetchDefaultReportsAction,
   fetchReportsV2Paginated as fetchReportsV2PaginatedAction,
 } from '#src/libs/reporting/v2/actions';
-import {
-  setIsReportAlertDisplayedInV2 as setIsReportAlertDisplayedAction,
-  setIsReportV2Displayed as setIsReportV2DisplayedAction,
-} from '#src/libs/user-preference/actions';
 
 import type { RootState } from '#src/reducers';
 
-import { getCompanyUpsellData } from '#src/libs/company/selectors';
-import {
-  getCustomViewsReports,
-  getReports,
-} from '#src/libs/reporting/v1/selectors';
 import {
   getReportsV2,
   getReportV2Loading,
-  getReportCategoriesMetadata,
   getReportsViewsPaginated,
 } from '#src/libs/reporting/v2/selectors';
-import { getObjectPermissions } from '#src/libs/role/selectors';
-import {
-  getIsReportV2Displayed,
-  getIsReportAlertDisplayedInV2,
-} from '#src/libs/user-preference/selectors';
 
 import withTitle from '#src/hocs/with-title.hoc';
 
@@ -56,25 +34,20 @@ import { REPORT_VIEWS_FETCHING_PAGINATION_SIZE } from '#src/libs/reporting/commo
 type Props = ConnectedProps<typeof connector> & WithTranslation;
 
 const ReportingViewDashboard: React.FC<Props> = ({
-  fetchReportMetadata,
-  fetchReports,
+  fetchDefaultReports,
   fetchReportsV2Paginated,
   pushRouter,
-  isV2Displayed,
-  metadata,
-  reports,
   reportsV2,
   reportsV2Loading,
   reportViewsPaginated,
 }) => {
   useEffect(() => {
-    fetchReports();
-    fetchReportMetadata();
+    fetchDefaultReports();
     fetchReportsV2Paginated({
       page_size: REPORT_VIEWS_FETCHING_PAGINATION_SIZE,
       ordering: '-updated_at',
     });
-  }, [fetchReports, fetchReportMetadata, fetchReportsV2Paginated]);
+  }, [fetchDefaultReports, fetchReportsV2Paginated]);
 
   const classes = useStyles();
 
@@ -97,12 +70,7 @@ const ReportingViewDashboard: React.FC<Props> = ({
     [fetchReportsV2Paginated],
   );
 
-  if (
-    metadata.loading ||
-    !metadata.results ||
-    (!isV2Displayed && reports.loading) ||
-    (isV2Displayed && reportsV2Loading)
-  ) {
+  if (reportsV2Loading) {
     return <LinearProgress />;
   }
 
@@ -122,27 +90,14 @@ const ReportingViewDashboard: React.FC<Props> = ({
 
 const connector = connect(
   (state: RootState) => ({
-    metadata: getReportCategoriesMetadata(state),
-    objectLevelPermissions: getObjectPermissions(state),
-    reports: getReports(state),
     reportsV2: getReportsV2(state),
-    customReports: getCustomViewsReports(state),
     reportsV2Loading: getReportV2Loading(state),
-    subscribedUpsells: getCompanyUpsellData(state),
-    isV2Displayed: getIsReportV2Displayed(state),
-    isReportAlertDisplayedInV2: getIsReportAlertDisplayedInV2(state),
     reportViewsPaginated: getReportsViewsPaginated(state),
   }),
   {
-    fetchReportMetadata: fetchReportMetadataAction,
-    fetchReports: fetchReportsAction,
-    updateReport: updateReportAction,
-    createReport: createReportAction,
-    deleteReport: deleteReportAction,
     pushRouter: push,
-    setIsReportAlertDisplayedInV2: setIsReportAlertDisplayedAction,
-    setIsReportV2Displayed: setIsReportV2DisplayedAction,
     fetchReportsV2Paginated: fetchReportsV2PaginatedAction,
+    fetchDefaultReports: fetchDefaultReportsAction,
   },
 );
 

@@ -3,7 +3,6 @@ import { ErrorAndLoading, PaginationFilterParams } from '#src/libs/types';
 
 import type {
   DataSourceMedadataDataType,
-  DynamicFilterDataType,
   DatatypeFilterConfigGroup,
   DatatypeFilterConfigGroupOperand,
 } from '#src/libs/datatype-filtering/types';
@@ -42,38 +41,7 @@ export type SerializedReport = {
 };
 
 export type ReportingState = {
-  reportResponse: {
-    reportId: SerializedReport;
-  };
-  allIds: null | number[];
-  loading: boolean;
-  error: null | string;
-  page_size: number;
-  reportId: null | number;
-  reportHeaders: ReportHeader;
-  headersLoading: boolean;
-  headersError: null | string;
-  excelReportingReducer: {
-    loading: boolean;
-    link: null | string;
-    error: null | string;
-  };
-  list: {
-    loading: boolean;
-    error: null | string;
-    results: ReportConfiguration[];
-  };
-  metadata: {
-    loading: boolean;
-    error: null | string;
-    results: ReportMetadataValue[];
-  };
   offerManagement: ErrorAndLoading;
-  reportFilterConfigs: {
-    dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
-    byId: Record<number, ReportFilterConfig>;
-    allIds: number[];
-  } & ErrorAndLoading;
 };
 
 export type ReportingStateV2 = {

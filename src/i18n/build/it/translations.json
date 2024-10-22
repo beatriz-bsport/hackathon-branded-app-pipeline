@@ -234,7 +234,7 @@
                 },
                 "item": {
                     "available_payment_method_identifiers": {
-                        "helperText": "Seleziona almeno un metodo di pagamento. Se il carrello del membro contiene articoli per i quali i mezzi di pagamento sono incompatibili, verrà offerto il pagamento attraverso carta.",
+                        "helperText": "Seleziona almeno un metodo di pagamento. Se non è stato selezionato alcun metodo, i pagamenti online saranno proposti come impostazione predefinita.",
                         "label": "Mezzi di pagamento autorizzati"
                     },
                     "updateProvisionExplain": "Inserisci la fornitura al tuo inventario. Questa verrà aggiunta allo stock corrente",
@@ -2196,7 +2196,9 @@
                 "myInvoices": "Le mie ricevute",
                 "myGiftCards": "Le mie giftcard",
                 "myProfile": "Il mio profilo",
-                "myVideosAndEbooks": "I miei video & eBooks"
+                "myVideosAndEbooks": "I miei video & eBooks",
+                "switchAccount": "Cambia account",
+                "loggedInAs": "Al momento sei connesso come {{ name }}"
             },
             "exploreYourProfile": "Esplora il tuo profilo.",
             "appbar": {
@@ -2326,6 +2328,32 @@
                     "success": "L'ID dell'unità è stato associato con successo",
                     "error": "Si è verificato un errore durante la configurazione"
                 }
+            },
+            "productSelection": {
+                "drawer": {
+                    "footer": {
+                        "save": "Salva",
+                        "cancel": "Cancella",
+                        "back": "Indietro"
+                    },
+                    "form": {
+                        "applyToSimilarOffers": "Applica a sessioni simili",
+                        "label": "Questi prodotti sono offerti dal vostro studio sulla piattaforma Wellhub. Per maggiori informazioni, visitate la sezione “Partnership” nel Portale Partner del vostro account Wellhub."
+                    },
+                    "element": "{{ count }} elemento",
+                    "element_plural": "{{ count }} elementi",
+                    "actionRequired": "Selezionare un prodotto Wellhub da collegare a questa sessione:",
+                    "description": "Alcune sessioni non hanno un prodotto Wellhub collegato e non saranno disponibili per le prenotazioni da parte degli utenti Wellhub.",
+                    "title": "Il prodotto Wellhub non è ancora collegato"
+                },
+                "alert": {
+                    "action": "Impostazioni",
+                    "message": "Selezionare un prodotto Wellhub per visualizzare le sessioni e renderle prenotabili per gli utenti Wellhub.",
+                    "title": "Alcune sessioni non si sono sincronizzate con Wellhub."
+                },
+                "selector": {
+                    "placeholder": "Selezionare un prodotto Wellhub"
+                }
             }
         }
     },
@@ -2364,7 +2392,7 @@
         "form": {
             "available_payment_method_identifiers": {
                 "label": "Mezzi di pagamento autorizzati",
-                "helperText": "Seleziona almeno un metodo di pagamento. Se il carrello del membro contiene articoli per i quali i mezzi di pagamento sono incompatibili, verrà offerto il pagamento attraverso carta."
+                "helperText": "Seleziona almeno un metodo di pagamento. Se non è stato selezionato alcun metodo, i pagamenti online saranno proposti come impostazione predefinita."
             },
             "manager_only": {
                 "label": "Invisibile ai clienti"
@@ -3548,7 +3576,7 @@
                     "label": "Durata della validità in mesi"
                 },
                 "available_payment_method_identifiers": {
-                    "helperText": "Selezionare almeno un metodo di pagamento. Se non ne viene selezionato nessuno, il pagamento con carta sarà offerto per impostazione predefinita.",
+                    "helperText": "Seleziona almeno un metodo di pagamento. Se non è stato selezionato alcun metodo, i pagamenti online saranno proposti come impostazione predefinita.",
                     "label": "Mezzi di pagamento autorizzati",
                     "warning": "Rendi il tuo pacchetto visibile ai clienti in modo che possano selezionare i metodi di pagamento."
                 },
@@ -4737,6 +4765,10 @@
             "shop": {
                 "settings": "Impostazioni",
                 "products": "Prodotti"
+            },
+            "reporting": {
+                "views": "Le tue opinioni",
+                "categories": "Report"
             }
         },
         "logout": "Logout",
@@ -7268,6 +7300,14 @@
             "autoDebitDialog": {
                 "title": "Saldo Stripe insufficiente",
                 "helper": "Lo studio sta avviando la procedura di chiusura del tuo account Bsport.\n\nCliccando su conferma, la ricevuta verrà rimborsata. Il tuo saldo Stripe verrà detratto da {{refundAmount}} {{ currencyDisplay }}. Tuttavia, per azzerare il tuo saldo Stripe {{ currencyDisplay }} ti verrà automaticamente addebitata la differenza direttamente sul tuo conto bancario indicato in Impostazioni > Azienda.\n\nSe non vuoi superare il limite di scoperto, puoi aspettare che il tuo saldo Stripe aumenti. Puoi seguire l'importo del tuo saldo in tempo reale in Impostazioni > Abbonamento bsport."
+            },
+            "SEPARefundDialog": {
+                "actions": {
+                    "cancel": "Annulla azione",
+                    "confirm": "Emissione del rimborso"
+                },
+                "alert": "L'elaborazione di un rimborso su un pagamento SEPA può richiedere fino a 5 giorni lavorativi. Assicuratevi che il cliente sia informato che il rimborso è in corso. Tenete presente che anche dopo il rimborso di un pagamento SEPA, il cliente può ancora contestare la transazione.",
+                "title": "Elaborazione dei rimborsi SEPA"
             }
         },
         "table": {
@@ -9491,7 +9531,8 @@
             "tableTitle": "Report dettagliato",
             "addQuickFilter": "Aggiungi un filtro rapido",
             "goBack": "Torna a tutti i report",
-            "notFound": "Il report non è stato trovato"
+            "notFound": "Il report non è stato trovato",
+            "tableTotalElements": "Numero di righe: {{ total }}"
         },
         "reportHasNotBeenGenerated": "Genera il report per visualizzare i dati",
         "accessOldUIWithNewVersionEnabled": "Hai provato ad accedere all'interfaccia precedente mentre è abilitata la nuova versione. Per favore, torna indietro per cambiare interfaccia",
@@ -9513,7 +9554,23 @@
         "reportNoResults": "Nessun risultato",
         "incompatibleFilter": {
             "product": "I filtri dei prodotti non sono compatibili tra loro"
-        }
+        },
+        "reportFilter": {
+            "reverseAlphabeticalOrder": "Alfabetico (dalla Z alla A)",
+            "alphabeticalOrder": "Alfabetico (dalla A alla Z)",
+            "lastUpdated": "Ultimo aggiornato",
+            "firstCreated": "Primo creato",
+            "lastCreated": "Ultimo creato",
+            "title": "Filtra per ..."
+        },
+        "viewTab": {
+            "searchBar": {
+                "placeholder": "Cerca il nome di una vista"
+            },
+            "noCustomViews": "Non è stata ancora creata una vista personalizzata. È possibile farlo da qualsiasi pagina di report ",
+            "allViews": "Tutte le viste"
+        },
+        "viewPageSearchPlaceholder": "Nome della vista di ricerca"
     },
     "alerting": {
         "unevenInvoice": {
@@ -10562,7 +10619,7 @@
                     "timeStartHelper": "Seleziona la data della prima sessione della copia di gruppo. Le altre sessioni del gruppo verranno copiate e spostate in base a questa data.",
                     "nameCaption": "Nome del gruppo di sessioni",
                     "withRecurrence": "Abilita ricorrenza",
-                    "marketPlaceAvailable": "Disponibile per la prenotazione (web+app)",
+                    "marketPlaceAvailable": "Disponibile per la prenotazione (web + app)",
                     "allowBookingAfterStartCaption": "Per impostazione predefinita, se una sessione è già stata avviata, i tuoi membri non potranno più iscriversi. Attivando questa funzione, i tuoi membri potranno comunque registrarsi per le restanti sessioni.",
                     "allowBookingAfterStart": "Consenti l'iscrizione durante il percorso",
                     "fullBookingOnlyCaption": "Per impostazione predefinita, i tuoi membri verranno automaticamente registrati a tutte le sessioni del gruppo se si registrano a una di queste. Disabilitando questa impostazione, i tuoi membri avranno la libertà di registrarsi per una o tutte le sessioni del gruppo.",
@@ -11177,7 +11234,7 @@
                 "isDisabled": "La sessione è stata purtroppo annullata.",
                 "isTooSoon": "La registrazione è chiusa per il momento e si aprirà il {{-date}}.",
                 "isAlreadyRegistered": "Sei già registrato per questa sessione",
-                "blockedByTags": "Non hai i diritti necessari per iscriverti a questa sessione."
+                "blockedByTags": "Non possiedi l'abbonamento ricorrente o il livello di accesso richiesto per prenotare questa sessione."
             },
             "messages": {
                 "offerLocked": "Non è possibile prenotare questa sessione",
@@ -11203,7 +11260,7 @@
                 "unknowError": "Impossibile prenotare, si prega di riprovare tra un momento"
             },
             "tags": {
-                "unAuthorized": "Non hai i diritti necessari per iscriverti a questa sessione.",
+                "unAuthorized": "Non possiedi l'abbonamento ricorrente o il livello di accesso richiesto per prenotare questa sessione.",
                 "managerDialogWarningDialog": {
                     "confirm": "Confermare",
                     "cancel": "Cancella",
@@ -13298,10 +13355,10 @@
                 "hasRelatedZoomEstablishment": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti utilizzati per lo streaming in diretta con l'integrazione di Zoom.",
                 "hasRelatedAvailabilitySlots": "Le fasce orarie disponibili dell'orario di questo stabilimento saranno cancellate.",
                 "relatedPaymentPacks": "Il seguente pass {{- pass_name }} non sarà più utilizzabile per questo stabilimento, assicuratevi di informare i vostri clienti.",
-                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicurati di informare i clienti.",
+                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
                 "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
                 "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
-                "exclusiveAssociatedCoaches_plural": "I vostri insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
+                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
                 "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
                 "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
                 "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento, queste fasce orarie saranno eliminate.",
@@ -13498,7 +13555,8 @@
             "disputeWon": "Risolta",
             "70": "Bacs Direct Debit",
             "3": "Pacchetto",
-            "80": "PayPal"
+            "80": "PayPal",
+            "onlinePayments": "Pagamenti online"
         },
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
         "method": {
@@ -15915,7 +15973,8 @@
                     "partnerMaxBookingCount": "Il numero di posti qui è maggiore del numero di posti nella sessione",
                     "effectif": "Il valore è maggiore del numero massimo di posti",
                     "roomBlueprintSpivi": "Devi selezionare una gestione dei posti per le sessioni sincornizzate con Spivi",
-                    "durationMinuteSpivi": "Una sessione di Spivi deve durare tra i 20 minuti e le 4 ore"
+                    "durationMinuteSpivi": "Una sessione di Spivi deve durare tra i 20 minuti e le 4 ore",
+                    "wellhubProductMissing": "Questo campo è obbligatorio, è necessario selezionare un prodotto."
                 },
                 "dateTooFar": "Impossibile creare sessioni che si svolgono tra più di 3 anni",
                 "dateFormat": "Formato data non valido",
@@ -15956,14 +16015,21 @@
                         "isModifyRecursively": "Vuoi modificare tutte le sessioni simili in base a queste nuove condizioni?",
                         "isNotifyConsumers": "Vuoi informare i tuoi clienti di questo cambiamento?",
                         "partnership": {
-                            "partnerMaxBookingCount": "Numero massimo di prenotazioni dal marketplace (solo OneFit + Urban Sports Club)",
+                            "partnerMaxBookingCount": "Massimo di prenotazioni (solo Wellhub e Urban Sports Club).",
                             "availableOnPartnership": "Sui marketplace (ClassPass, OneFit...)",
-                            "title": "Marketplace",
+                            "title": "Integrazioni con il Marketplace",
                             "uscIntegrationWorkshopWarning": "I workshop non sono compatibili con il marketplace Urban Sports Club, pertanto questa sessione non sarà inclusa.",
-                            "uscIntegrationWarning": "L'integrazione al marketplace Urban Sports Club è attiva, ma le sessioni di durata pari o superiore a 2 giorni non verranno mostrate."
+                            "uscIntegrationWarning": "L'integrazione al marketplace Urban Sports Club è attiva, ma le sessioni di durata pari o superiore a 2 giorni non verranno mostrate.",
+                            "wellhubProduct": {
+                                "selectionMissing": "Questo campo è obbligatorio, è necessario selezionare un prodotto.",
+                                "helperText": "Questi prodotti sono offerti dal vostro studio sulla piattaforma Wellhub. Per maggiori informazioni, visitate la sezione “Partnership” nel Portale Partner del vostro account Wellhub.",
+                                "title": "I tuoi prodotti disponibili su Wellhub:"
+                            },
+                            "subtitle": "Include: ClassPass, Urban Sports Club, Gymlib e Wellhub per le prenotazioni esterne.",
+                            "enablePartneshipBookings": "Abilitare le prenotazioni sul marketplace"
                         },
                         "allowGuestOffer": "Consenti la prenotazione per un ospite",
-                        "isManagerOnly": "Disponibile per la prenotazione (web+app)",
+                        "isManagerOnly": "Disponibile per la prenotazione (web + app)",
                         "syncOfferOnSpivi": "Invia a Spivi"
                     },
                     "title": "Parametri"
@@ -16071,7 +16137,12 @@
                     "INFOS": "Sessione"
                 }
             },
-            "forbidden": "Non si ha il permesso di aggiungere sessioni a questa attività. Contattare il proprio manager per ottenere i diritti necessari."
+            "forbidden": "Non si ha il permesso di aggiungere sessioni a questa attività. Contattare il proprio manager per ottenere i diritti necessari.",
+            "uscWarning": {
+                "alertContent": "Le modifiche a questa sessione annulleranno le prenotazioni in corso su USC. Confermare per procedere.",
+                "content": "Se si modificano la data, l'ora o lo stabilimento di questa sessione, si perderanno tutti i dati di prenotazione attuali. La modifica di questi dettagli creerà una nuova sessione e annullerà quella attuale su USC.",
+                "title": "Attenzione: In questo modo si annulleranno le prenotazioni in corso su USC."
+            }
         },
         "isFree": "Gratis",
         "broadcast": "Videoconferenza",

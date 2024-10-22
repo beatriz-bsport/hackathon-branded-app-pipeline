@@ -678,7 +678,9 @@
                 "myPasses": "Mijn leskaarten",
                 "myBookings": "Mijn boekingen",
                 "exploreYourProfile": "Verken je profiel",
-                "myVideosAndEbooks": "Mijn video's en eBooks"
+                "myVideosAndEbooks": "Mijn video's en eBooks",
+                "switchAccount": "Verander account",
+                "loggedInAs": "U bent momenteel ingelogd als {{ name }}"
             },
             "exploreYourProfile": "Verken je profiel.",
             "appbar": {
@@ -1210,6 +1212,32 @@
                 "configureWebhooks": {
                     "error": "Er is een fout opgetreden tijdens de configuratie",
                     "success": "Uw unit ID is succesvol gekoppeld"
+                }
+            },
+            "productSelection": {
+                "drawer": {
+                    "footer": {
+                        "save": "Opslaan",
+                        "cancel": "Annuleer",
+                        "back": "Terug"
+                    },
+                    "form": {
+                        "applyToSimilarOffers": "Solliciteer op vergelijkbare sessies",
+                        "label": "Deze producten worden door jouw studio aangeboden op het Wellhub platform. Ga naar het onderdeel 'Partnerschap' in de Partner Portal van je Wellhub account voor meer informatie."
+                    },
+                    "element": "{{ count }} element",
+                    "element_plural": "{{ count }} elementen",
+                    "actionRequired": "Selecteer een Wellhub-product om aan deze sessie te koppelen:",
+                    "description": "Aan sommige sessies is geen Wellhub-product gekoppeld en ze zijn niet beschikbaar voor boekingen door Wellhub-gebruikers.",
+                    "title": "Wellhub-product is nog niet gekoppeld"
+                },
+                "alert": {
+                    "action": "Set up",
+                    "message": "Selecteer een Wellhub-product om de sessies weer te geven en boekbaar te maken voor Wellhub-gebruikers.",
+                    "title": "Sommige sessies werden niet gesynchroniseerd met Wellhub."
+                },
+                "selector": {
+                    "placeholder": "Selecteer een Wellhub-product"
                 }
             }
         }
@@ -2921,7 +2949,7 @@
         },
         "form": {
             "available_payment_method_identifiers": {
-                "helperText": "Selecteer ten minste één betaalmethode. Als je geen enkele betaalmethode selecteert, dan biedt het systeem automatisch een kaartbetaling aan.",
+                "helperText": "Selecteer ten minste één betaalmethode. Als er geen is geselecteerd, worden online betalingen standaard aangeboden.",
                 "label": "Geaccepteerde betaalmethoden"
             },
             "selectorPlaceholder": {
@@ -4123,7 +4151,8 @@
             "title": "Datum- en snelfilters",
             "tableTitle": "Gedetailleerd verslag",
             "goBack": "Terug naar alle rapporten",
-            "notFound": "Rapport niet gevonden"
+            "notFound": "Rapport niet gevonden",
+            "tableTotalElements": "Aantal rijen : {{ total }}"
         },
         "accessOldUIWithNewVersionEnabled": "U probeerde toegang te krijgen tot de oude interface terwijl de nieuwe versie is ingeschakeld. Ga terug naar de interface wijzigen",
         "pageTitle": "Alle rapporten",
@@ -4171,7 +4200,23 @@
         "reportNoResults": "Geen resultaten",
         "incompatibleFilter": {
             "product": "Productfilters zijn niet compatibel met elkaar"
-        }
+        },
+        "reportFilter": {
+            "reverseAlphabeticalOrder": "Alfabetisch (Z tot A)",
+            "alphabeticalOrder": "Alfabetisch (A tot Z)",
+            "lastUpdated": "Laatst bijgewerkt",
+            "firstCreated": "Voor het eerst gemaakt",
+            "lastCreated": "Laatst gemaakt",
+            "title": "Filter op ..."
+        },
+        "viewTab": {
+            "searchBar": {
+                "placeholder": "Een weergavenaam zoeken"
+            },
+            "noCustomViews": "Je hebt nog geen aangepaste weergave gemaakt. Je kunt dit doen vanaf elke rapportpagina ",
+            "allViews": "Alle weergaven"
+        },
+        "viewPageSearchPlaceholder": "Naam zoekweergave"
     },
     "alerting": {
         "list": {
@@ -6604,7 +6649,8 @@
                     "partnerMaxBookingCount": "Het aantal zitplaatsen hier is groter dan het aantal zitplaatsen in de zitting",
                     "effectif": "De waarde is hoger dan het maximum aantal plaatsen",
                     "durationMinuteSpivi": "Een Spivi-sessie moet tussen 20 minuten en 4 uur zijn.",
-                    "roomBlueprintSpivi": "Er moet een Spot Scheduling-layout voor de synchronisatie met Spivi geselecteerd worden"
+                    "roomBlueprintSpivi": "Er moet een Spot Scheduling-layout voor de synchronisatie met Spivi geselecteerd worden",
+                    "wellhubProductMissing": "Dit veld is verplicht, je moet een product selecteren."
                 },
                 "dateTooFar": "Onmogelijk om sessies te maken die in meer dan 3 jaar plaatsvinden",
                 "dateFormat": "Ongeldig datumformaat",
@@ -6645,11 +6691,18 @@
                         "isModifyRecursively": "Wil je soortgelijke sessies wijzigen aan de aan hand van de nieuwe informatie?",
                         "isNotifyConsumers": "Wil je ingeboekte leden over deze wijzigingen informeren?",
                         "partnership": {
-                            "partnerMaxBookingCount": "Maximaal aantal marketplace-reserveringen (alleen voor OneFit / Urban Sports CLub)",
+                            "partnerMaxBookingCount": "Maximale boekingen (alleen Wellhub & Urban Sports Club).",
                             "availableOnPartnership": "Op marketplaces (ClassPass, OneFit...)",
-                            "title": "Marketplace",
+                            "title": "Marketplace integraties",
                             "uscIntegrationWorkshopWarning": "Workshops zijn niet compatibel met Urban Sports Club en worden daarom ook niet getoond.",
-                            "uscIntegrationWarning": "Je integratie met Urban Sports Club is actief. Sessies die later plaatsvinden dan 2 dagen worden niet getoond."
+                            "uscIntegrationWarning": "Je integratie met Urban Sports Club is actief. Sessies die later plaatsvinden dan 2 dagen worden niet getoond.",
+                            "wellhubProduct": {
+                                "selectionMissing": "Dit veld is verplicht, je moet een product selecteren.",
+                                "helperText": "Deze producten worden door jouw studio aangeboden op het Wellhub platform. Ga naar het onderdeel 'Partnerschap' in de Partner Portal van je Wellhub account voor meer informatie.",
+                                "title": "Uw beschikbare producten op Wellhub:"
+                            },
+                            "subtitle": "Inclusief: ClassPass, Urban Sports Club, Gymlib en Wellhub voor externe boekingen.",
+                            "enablePartneshipBookings": "Boekingen op de marktplaats mogelijk maken"
                         },
                         "allowGuestOffer": "De reservering voor een gast autoriseren",
                         "isManagerOnly": "Beschikbaar voor reservering (web+app)",
@@ -6760,7 +6813,12 @@
                     "INFOS": "Sessies"
                 }
             },
-            "forbidden": "Het is niet mogelijk om sessies toe te voegen, omdat je account niet de juiste bevoegdheden heeft. Contacteer een manager om de juiste toegang te bemachtigen."
+            "forbidden": "Het is niet mogelijk om sessies toe te voegen, omdat je account niet de juiste bevoegdheden heeft. Contacteer een manager om de juiste toegang te bemachtigen.",
+            "uscWarning": {
+                "alertContent": "Wijzigingen aan deze sessie annuleren de huidige boekingen op USC. Bevestigen om door te gaan.",
+                "content": "Je verliest alle huidige boekingsgegevens als je de datum, tijd of instelling van deze sessie wijzigt. Als u deze gegevens wijzigt, wordt er een nieuwe sessie aangemaakt en wordt de huidige sessie op USC geannuleerd.",
+                "title": "Let op: Hierdoor worden de huidige boekingen op USC geannuleerd."
+            }
         },
         "isFree": "Gratis",
         "broadcast": "Videoconferenties",
@@ -7305,7 +7363,7 @@
                 "isWaitingListFull": "De sessie en de wachtlijst zijn vol.",
                 "isTooSoon": "Reserven kan vanaf {{-date}}.",
                 "isAlreadyRegistered": "Je hebt deze sessie al gereserveerd.",
-                "blockedByTags": "Het is niet mogelijk om je voor deze sessie in te schrijven."
+                "blockedByTags": "Het is niet mogelijk om deze sessie te boeken zonder de juiste tags."
             },
             "messages": {
                 "offerLocked": "Fout bij het inschrijven",
@@ -7323,7 +7381,7 @@
                 "unknowError": "De reservering kon momenteel niet worden voltooid."
             },
             "tags": {
-                "unAuthorized": "Het is niet mogelijk om je voor deze sessie in te schrijven.",
+                "unAuthorized": "Het is niet mogelijk om deze sessie te boeken zonder de juiste tags.",
                 "managerDialogWarningDialog": {
                     "confirm": "Bevestigen",
                     "cancel": "Annuleren",
@@ -10486,7 +10544,7 @@
                 },
                 "available_payment_method_identifiers": {
                     "label": "Geaccepteerde betaalmethoden",
-                    "helperText": "Selecteer ten minste één betaalmethode. Als geen enkele betaalmethode geselecteerd is, dan biedt het systeem standaard een kaartbetaling aan.",
+                    "helperText": "Selecteer ten minste één betaalmethode. Als er geen is geselecteerd, worden online betalingen standaard aangeboden.",
                     "warning": "Maak deze afspraakkaart beschikbaar voor leden om de geaccepteerde betaalmethode(n) in te stellen."
                 },
                 "actions": {
@@ -11779,7 +11837,8 @@
             "disputeWon": "Gewonnen",
             "70": "Bacs Automatische Incasso",
             "3": "Kaart",
-            "80": "PayPal"
+            "80": "PayPal",
+            "onlinePayments": "Online betalingen"
         },
         "explainOption": "Je ontvangt een e-mail wanneer er een plaats vrij komt",
         "bookAnotherOption": "Opnieuw op de wachtlijst inschrijven",
@@ -15487,6 +15546,14 @@
                 "title": "Onvoldoende Stripe saldo",
                 "alert": "Waarschuwing: met deze terugbetaling overschrijdt u de toegestane debetlimiet van {{refundBlockingLimit }} {{currencyDisplay}}.",
                 "helper": "Je Stripe-saldo is te laag om een terugbetaling te verwerken. Probeer het gelieve over een paar dagen opnieuw, zodra er meer betalingen verwerkt zijn."
+            },
+            "SEPARefundDialog": {
+                "actions": {
+                    "cancel": "Actie annuleren",
+                    "confirm": "Terugbetaling"
+                },
+                "alert": "De verwerking van een terugbetaling van een SEPA-betaling kan tot 5 werkdagen in beslag nemen. Zorg ervoor dat uw klant op de hoogte is van het feit dat de terugbetaling wordt uitgevoerd. Houd er rekening mee dat zelfs nadat een SEPA-betaling is terugbetaald, de klant de transactie nog steeds kan betwisten.",
+                "title": "Verwerking van SEPA-terugbetalingen"
             }
         },
         "table": {
@@ -17810,6 +17877,10 @@
             "shop": {
                 "settings": "Instellingen",
                 "products": "Producten"
+            },
+            "reporting": {
+                "views": "Jouw zicht",
+                "categories": "Rapportages"
             }
         },
         "logout": "Loguit",

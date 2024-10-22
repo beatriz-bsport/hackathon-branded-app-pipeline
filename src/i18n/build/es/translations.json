@@ -292,7 +292,7 @@
                     "price": "Precio",
                     "tva": "IVA",
                     "available_payment_method_identifiers": {
-                        "helperText": "Selecciona al menos un método de pago. Si la cesta del miembro contiene artículos para los cuales los medios de pago son incompatibles, se ofrecerá el pago por tarjeta.",
+                        "helperText": "Seleccione al menos un método de pago. Si no se selecciona ninguno, se ofrecerán pagos en línea por defecto.",
                         "label": "Medios de pago autorizados"
                     },
                     "sell_only_on_provision": "Oferta en venta SOLO si hay disponibilidad",
@@ -2237,7 +2237,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán por tanto solicitudes de sustitución de todas las ubicaciones.",
                     "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
@@ -3244,7 +3244,8 @@
             "disputeWon": "Resuelto",
             "70": "Bacs Direct Debit",
             "3": "Bono",
-            "80": "PayPal"
+            "80": "PayPal",
+            "onlinePayments": "Pagos online"
         },
         "creditAccountBalance": {
             "current": "Anticipo actual"
@@ -3730,6 +3731,14 @@
             "autoDebitDialog": {
                 "helper": "Su estudio está actualmente en proceso de cerrar su cuenta Bsport.\n\nAl hacer clic en confirmar, la factura será reembolsada. Su saldo de Stripe se cargará en {{refundAmount}} {{ currencyDisplay }}. Sin embargo, para restablecer tu saldo de Stripe a 0 {{ currencyDisplay }} se te cargará automáticamente la diferencia directamente en tu cuenta bancaria indicada en Configuración > Empresa.\n\nSi no quieres sobrepasar tu límite de descubierto, puedes esperar a que tu saldo de Stripe vuelva a subir. Puedes seguir el importe de tu saldo en directo en Ajustes > Suscripción bsport.",
                 "title": "Saldo insuficiente de Stripe"
+            },
+            "SEPARefundDialog": {
+                "actions": {
+                    "cancel": "Cancelar acción",
+                    "confirm": "Emitir reembolso"
+                },
+                "alert": "El reembolso de un pago SEPA puede tardar hasta 5 días laborables en procesarse. Asegúrese de que su cliente esté informado de que su reembolso está en curso. Tenga en cuenta que, incluso después de que se haya reembolsado un pago SEPA, el cliente todavía puede impugnar la transacción.",
+                "title": "Tramitación de reembolsos SEPA"
             }
         },
         "table": {
@@ -5920,7 +5929,8 @@
             "notFound": "No se ha encontrado el reporte",
             "goBack": "Volver a todos los reportes",
             "addQuickFilter": "Añadir un filtro rápido",
-            "tableTitle": "Reporte diario"
+            "tableTitle": "Reporte diario",
+            "tableTotalElements": "Número de líneas : {{ total }}"
         },
         "reportDeleteModal": {
             "content": "Se perderá la configuración de los filtros.",
@@ -6022,7 +6032,23 @@
         "reportNoResults": "Sin resultados",
         "incompatibleFilter": {
             "product": "Los filtros de productos no son compatibles entre sí"
-        }
+        },
+        "reportFilter": {
+            "reverseAlphabeticalOrder": "Alfabético (de la Z a la A)",
+            "alphabeticalOrder": "Alfabético (de la A a la Z)",
+            "lastUpdated": "Última actualización",
+            "firstCreated": "Primera creación",
+            "lastCreated": "Última creación",
+            "title": "Filtrar por ..."
+        },
+        "viewTab": {
+            "searchBar": {
+                "placeholder": "Buscar un nombre de vista"
+            },
+            "noCustomViews": "Aún no has creado ninguna vista personalizada. Puede hacerlo desde cualquier página de reporte ",
+            "allViews": "Todas las vistas"
+        },
+        "viewPageSearchPlaceholder": "Buscar nombre de vista"
     },
     "alerting": {
         "list": {
@@ -6310,7 +6336,8 @@
                     "partnerMaxBookingCount": "El número de plazas aquí es mayor que el número de plazas en la sesión",
                     "effectif": "El valor es superior al número máximo de plazas",
                     "roomBlueprintSpivi": "Debe seleccionarse un plano de la sala para las sesiones sincronizadas con Spivi",
-                    "durationMinuteSpivi": "Una sesión en Spivi debe durar entre 20 minutos y 4 horas"
+                    "durationMinuteSpivi": "Una sesión en Spivi debe durar entre 20 minutos y 4 horas",
+                    "wellhubProductMissing": "Este campo es obligatorio, debe seleccionar un producto."
                 },
                 "dateTooFar": "Imposible crear sesiones que tengan lugar en más de 3 años",
                 "dateFormat": "Formato de fecha inválido",
@@ -6351,14 +6378,21 @@
                         "isModifyRecursively": "¿Desea modificar sesiones similares en función de estas nuevas condiciones?",
                         "isNotifyConsumers": "¿Quiere informar a sus clientes de este cambio?",
                         "partnership": {
-                            "partnerMaxBookingCount": "Número máximo de reservas de mercado (sólo OneFit + Urban Sports Club)",
+                            "partnerMaxBookingCount": "Número máximo de reservas de marketplace (sólo OneFit + Urban Sports Club)",
                             "availableOnPartnership": "En los marketplaces (ClassPass, OneFit...)",
-                            "title": "Marketplace",
+                            "title": "Integraciones de Marketplace",
                             "uscIntegrationWorkshopWarning": "Los talleres no son compatibles con el marketplace Urban Sports Club, por lo que no se incluirá esta sesión.",
-                            "uscIntegrationWarning": "Tu integración en el marketplace Urban Sports Club está activa, cualquier sesión que dure 2 días o más no aparecerá."
+                            "uscIntegrationWarning": "Tu integración en el marketplace Urban Sports Club está activa, cualquier sesión que dure 2 días o más no aparecerá.",
+                            "wellhubProduct": {
+                                "selectionMissing": "Este campo es obligatorio, debe seleccionar un producto.",
+                                "helperText": "Estos productos son ofrecidos por su estudio en la plataforma Wellhub. Vaya a la sección «Asociación» en el Portal de Socios de su cuenta Wellhub para obtener más información.",
+                                "title": "Tus productos disponibles en Wellhub:"
+                            },
+                            "subtitle": "Incluye: ClassPass, Urban Sports Club, Gymlib y Wellhub para reservas externas.",
+                            "enablePartneshipBookings": "Permitir reservas de marketplace"
                         },
                         "allowGuestOffer": "Permitir reservar para invitados",
-                        "isManagerOnly": "Disponible para reservas (web+app)",
+                        "isManagerOnly": "Disponible para reservas (web + app)",
                         "syncOfferOnSpivi": "Enviar a Spivi"
                     },
                     "title": "Parámetros"
@@ -6466,7 +6500,12 @@
                     "INFOS": "Sesión"
                 }
             },
-            "forbidden": "No tiene permiso para añadir sesiones a esta actividad. Póngase en contacto con su gestor para obtener los derechos necesarios."
+            "forbidden": "No tiene permiso para añadir sesiones a esta actividad. Póngase en contacto con su gestor para obtener los derechos necesarios.",
+            "uscWarning": {
+                "alertContent": "Los cambios en esta sesión cancelarán las reservas actuales en USC. Confirme para continuar.",
+                "content": "Perderá todos los datos de reserva actuales si cambia la fecha, la hora o el establecimiento de esta sesión. Al cambiar estos datos se creará una nueva sesión y se cancelará la actual en USC.",
+                "title": "Atención: Esto cancelará las reservas actuales en USC."
+            }
         },
         "isFree": "Gratis",
         "onSite": "En el estudio",
@@ -6989,7 +7028,7 @@
                 "isTooLate": "Las inscripciones están cerradas.",
                 "isDisabled": "La sesión fue desafortunadamente cancelada.",
                 "isAlreadyRegistered": "Ya está inscrito en esta sesión",
-                "blockedByTags": "No tienes los derechos necesarios para inscribirse en esta sesión."
+                "blockedByTags": "No tiene la suscripción o el nivel de acceso necesarios para reservar esta sesión."
             },
             "option": {
                 "registerOption": "Registrar en la lista de espera",
@@ -7024,7 +7063,7 @@
                     "cancel": "Cancelar",
                     "confirm": "Validar"
                 },
-                "unAuthorized": "No tienes los derechos necesarios para inscribirse en esta sesión."
+                "unAuthorized": "No tiene la suscripción o el nivel de acceso necesarios para reservar esta sesión."
             },
             "isBookingLimitReached": "Ha alcanzado su límite de reservas",
             "multiSession": {
@@ -8290,6 +8329,32 @@
                     "success": "Su ID de unidad se ha vinculado correctamente",
                     "error": "Se ha producido un error durante la configuración"
                 }
+            },
+            "productSelection": {
+                "drawer": {
+                    "footer": {
+                        "save": "Guardar",
+                        "cancel": "Cancelar",
+                        "back": "Atrás"
+                    },
+                    "form": {
+                        "applyToSimilarOffers": "Aplicar a sesiones similares",
+                        "label": "Estos productos son ofrecidos por su estudio en la plataforma Wellhub. Vaya a la sección «Asociación» en el Portal de Socios de su cuenta Wellhub para obtener más información."
+                    },
+                    "element": "{{ count }} elemento",
+                    "element_plural": "{{ count }} elementos",
+                    "actionRequired": "Seleccione un producto Wellhub para vincularlo con esta sesión:",
+                    "description": "Algunas sesiones no tienen un producto Wellhub vinculado y no podrán ser reservadas por los usuarios de Wellhub.",
+                    "title": "El producto Wellhub aún no está vinculado"
+                },
+                "alert": {
+                    "action": "Puesta en marcha",
+                    "message": "Seleccione un producto Wellhub para mostrar las sesiones y hacerlas reservables para los usuarios de Wellhub.",
+                    "title": "Algunas sesiones no se sincronizaron con Wellhub."
+                },
+                "selector": {
+                    "placeholder": "Seleccione un producto Wellhub"
+                }
             }
         }
     },
@@ -8916,7 +8981,9 @@
                 "myPasses": "Mis pases",
                 "myBookings": "Mis reservas",
                 "exploreYourProfile": "Explora tu perfil",
-                "myVideosAndEbooks": "Mis videos & eBooks"
+                "myVideosAndEbooks": "Mis videos & eBooks",
+                "switchAccount": "Cambiar de cuenta",
+                "loggedInAs": "Actualmente estás conectado como {{ name }}"
             },
             "exploreYourProfile": "Explora tu perfil.",
             "appbar": {
@@ -9448,7 +9515,7 @@
                     "back": "Atrás"
                 },
                 "available_payment_method_identifiers": {
-                    "helperText": "Seleccione al menos un método de pago. Si la cesta del miembro contiene artículos para los cuales los medios de pago son incompatibles, se ofrecerá el pago por tarjeta.",
+                    "helperText": "Seleccione al menos un método de pago. Si no se selecciona ninguno, se ofrecerán pagos online por defecto.",
                     "label": "Medios de pago autorizados",
                     "warning": "Haga que su tarjeta sea visible para que los clientes puedan seleccionar los métodos de pago."
                 },
@@ -10955,7 +11022,7 @@
                 "label": "Descripción"
             },
             "available_payment_method_identifiers": {
-                "helperText": "Selecciona al menos un método de pago. Si la cesta del miembro contiene artículos con métodos de pago incompatibles, se propondrá el pago.",
+                "helperText": "Seleccione al menos un método de pago. Si no se selecciona ninguno, se ofrecerán pagos online por defecto.",
                 "label": "Medios de pago autorizados"
             },
             "actions": {
@@ -16167,7 +16234,7 @@
                     "timeStartHelper": "Selecciona la fecha de la primera sesión de la copia de grupo. Las demás sesiones del grupo se copiarán y desplazarán en función de esta fecha.",
                     "nameCaption": "Nombre del grupo de sesión",
                     "withRecurrence": "Activar la recurrencia",
-                    "marketPlaceAvailable": "Disponible para reservar (web+app)",
+                    "marketPlaceAvailable": "Disponible para reservas (web+app)",
                     "allowBookingAfterStartCaption": "Por defecto, si un grupo de sesiones ya se ha iniciado, tus miembros no podrán inscribirse a él. Al activar esta función, tus miembros podrán seguir inscribiéndose en las sesiones restantes.",
                     "allowBookingAfterStart": "Permitir la inscripción en el camino",
                     "fullBookingOnlyCaption": "Por defecto, los miembros se inscribirán automáticamente en todas las sesiones de este grupo cuando reserven una de las sesiones del grupo. Desactiva esta opción para que los usuarios puedan seleccionar por separado las sesiones a las que desean inscribirse.",
@@ -16546,6 +16613,10 @@
             "shop": {
                 "settings": "Ajustes",
                 "products": "Productos"
+            },
+            "reporting": {
+                "views": "Tus vistas",
+                "categories": "Reportes"
             }
         },
         "logout": "Cerrar sesión",

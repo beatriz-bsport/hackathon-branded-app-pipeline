@@ -1567,7 +1567,7 @@
                     "sell_only_on_provision": "NUR dann zum Verkauf anbieten, wenn das Inventar verfügbar ist",
                     "onsite_payment_available": "Es ist möglich vor Ort zu bezahlen",
                     "available_payment_method_identifiers": {
-                        "helperText": "Wähle mindestens eine Zahlungsmethode aus. Wenn der Warenkorb des Mitglieds Produkte enthält, die mit den Zahlungsmethoden nicht vereinbar sind, wird eine Zahlung per Kreditkarte angeboten.",
+                        "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wird keine Zahlungsmethode ausgewählt, bietet das System standardmäßig Kartenzahlung an.",
                         "label": "Zugelassene Zahlungsmethoden"
                     },
                     "advancedOptions": {
@@ -7011,7 +7011,8 @@
             "tableTitle": "Ausführlicher Bericht",
             "addQuickFilter": "Hinzufügen eines Schnellfilters",
             "goBack": "Zurück zu allen Berichten",
-            "notFound": "Der Bericht wurde nicht gefunden"
+            "notFound": "Der Bericht wurde nicht gefunden",
+            "tableTotalElements": "Anzahl der Reihen: {{ total }}"
         },
         "reportHasNotBeenGenerated": "Generieren eines Berichts zur Anzeige der Daten",
         "accessOldUIWithNewVersionEnabled": "Es wurde versucht, auf die alten Schnittstellen zuzugreifen, während die neue Version aktiviert ist. Bitte gehe zurück, um die Schnittstelle zu ändern",
@@ -7033,7 +7034,23 @@
         "reportNoResults": "Keine Ergebnisse",
         "incompatibleFilter": {
             "product": "Produktfilter sind nicht miteinander kompatibel"
-        }
+        },
+        "reportFilter": {
+            "reverseAlphabeticalOrder": "Alphabetisch (Z bis A)",
+            "alphabeticalOrder": "Alphabetisch (A bis Z)",
+            "lastUpdated": "Zuletzt aktualisiert",
+            "firstCreated": "Zuerst erstellt",
+            "lastCreated": "Zuletzt erstellt",
+            "title": "Filter auf ..."
+        },
+        "viewTab": {
+            "searchBar": {
+                "placeholder": "Suche nach einem Ansichtsnamen"
+            },
+            "noCustomViews": "Sie haben noch keine benutzerdefinierte Ansicht erstellt. Sie können dies von jeder Berichtsseite aus tun ",
+            "allViews": "Alle Ansichten"
+        },
+        "viewPageSearchPlaceholder": "Name der Suchansicht"
     },
     "snackbar": {
         "establishment": {
@@ -8537,6 +8554,14 @@
                 "title": "Unzureichender Stripe-Saldo",
                 "helper": "Ihr Stripe-Guthaben reicht nicht aus, um die Erstattung zu bearbeiten. Bitte versuchen Sie es in ein paar Tagen erneut, damit die Zahlungen gesammelt werden können.",
                 "alert": "Achtung, mit dieser Rückzahlung überschreiten Sie den zulässigen Überziehungsrahmen von {{ refundBlockingLimit }} {{currencyDisplay}}."
+            },
+            "SEPARefundDialog": {
+                "actions": {
+                    "confirm": "Rückerstattung",
+                    "cancel": "Aktion abbrechen"
+                },
+                "alert": "Die Bearbeitung einer Erstattung für eine SEPA-Zahlung kann bis zu 5 Werktage dauern. Bitte stellen Sie sicher, dass Ihr Kunde darüber informiert ist, dass die Erstattung in Bearbeitung ist. Beachten Sie, dass der Kunde auch nach der Rückerstattung einer SEPA-Zahlung die Transaktion noch anfechten kann.",
+                "title": "SEPA-Erstattungsbearbeitung"
             }
         },
         "balance": {
@@ -8862,7 +8887,8 @@
             "disputeWon": "Gewonnen",
             "70": "Bacs-Lastschriftverfahren",
             "3": "Pass",
-            "80": "PayPal"
+            "80": "PayPal",
+            "onlinePayments": "Online-Zahlungen"
         },
         "generalTermsAndConditions": {
             "close": "Schließen",
@@ -9859,7 +9885,7 @@
                 "isTooLate": "Anmeldungen sind nicht mehr möglich.",
                 "isTooSoon": "Buchungen öffnen am {{-date}}.",
                 "isAlreadyRegistered": "Sie sind bereits für diesen Kurs registriert.",
-                "blockedByTags": "Sie haben nicht die erforderlichen Rechte, um sich für diesen Kurs anzumelden."
+                "blockedByTags": "Sie haben nicht die erforderliche Mitgliedschaft oder Zugangsstufe, um diesen Kurs zu buchen."
             },
             "section": {
                 "consumerPacks": "Meine Kurspässe",
@@ -9884,7 +9910,7 @@
                 "unknowError": "Momentan keine Buchung möglich - Bitte versuchen Sie es später erneut"
             },
             "tags": {
-                "unAuthorized": "Sie haben nicht die erforderlichen Rechte, um sich für diesen Kurs anzumelden.",
+                "unAuthorized": "Sie haben nicht die erforderliche Mitgliedschaft oder Zugangsstufe, um diesen Kurs zu buchen.",
                 "managerDialogWarningDialog": {
                     "confirm": "Bestätigen",
                     "cancel": "Abbrechen",
@@ -11784,7 +11810,7 @@
                     "back": "Zurück"
                 },
                 "available_payment_method_identifiers": {
-                    "helperText": "Wähle mindestens eine Zahlungsmethode aus. Wenn der Warenkorb des Mitglieds Produkte mit inkompatiblen Zahlungsmethoden enthält, wird eine Zahlung per Kreditkarte vorgeschlagen.",
+                    "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn Sie keine auswählen, wird standardmäßig eine Kartenzahlung angeboten.",
                     "label": "Zugelassene Zahlungsmethoden",
                     "warning": "Machen Sie Ihre Karte für die Kunden sichtbar, damit sie die Zahlungsmethoden auswählen können."
                 },
@@ -13510,7 +13536,9 @@
                 "myPasses": "Meine Kurspässe",
                 "myBookings": "Meine Buchungen",
                 "exploreYourProfile": "Erkunden Sie Ihr Profil",
-                "myVideosAndEbooks": "Meine Videos & eBooks"
+                "myVideosAndEbooks": "Meine Videos & eBooks",
+                "switchAccount": "Account wechseln",
+                "loggedInAs": "Sie sind derzeit angemeldet als {{ name }}"
             },
             "exploreYourProfile": "Erkunden Sie Ihr Profil.",
             "appbar": {
@@ -13634,7 +13662,7 @@
                     "name": "Name",
                     "fullBookingOnlyCaption": "Standardmäßig werden Ihre Mitglieder automatisch für alle Kurse in dieser Gruppe angemeldet, wenn sie einen der Kurse in der Gruppe buchen. Deaktivieren Sie diese Option, damit Ihre Mitglieder separat auswählen können, für welche Kurse sie sich anmelden möchten.",
                     "allowBookingAfterStartCaption": "Standardmäßig ist es für Mitglieder nicht möglich, sich für Veranstaltungen anzumelden, die bereits begonnen haben. Aktivieren Sie diese Option, um Anmeldungen für die verbleibenden Veranstaltungen zuzulassen.",
-                    "marketPlaceAvailable": "Verfügbar für Buchungen (Web+App)",
+                    "marketPlaceAvailable": "Verfügbar zur Buchung (Web+App)",
                     "withRecurrence": "Wiederholung aktivieren",
                     "nameCaption": "Veranstaltungsname",
                     "timeStartHelper": "Wählen Sie das Datum des ersten Kurses dieser Veranstaltung. Alle zukünftigen Kurse werden der Veranstaltung nach diesem Datum zugeordnet.",
@@ -13839,7 +13867,7 @@
             },
             "title": "Package-Formular",
             "available_payment_method_identifiers": {
-                "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn der Warenkorb des Mitglieds Elemente enthält, deren Zahlungsmethoden nicht miteinander vereinbar sind, wird die Zahlung per Karte vorgeschlagen.",
+                "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn Sie keine auswählen, wird standardmäßig eine Kartenzahlung angeboten.",
                 "label": "Zugelassene Zahlungsmethoden"
             },
             "description": {
@@ -15437,6 +15465,10 @@
             "shop": {
                 "settings": "Einstellungen",
                 "products": "Produkte"
+            },
+            "reporting": {
+                "views": "Ihre Ansichten",
+                "categories": "Berichte"
             }
         },
         "logout": "Abmelden",
@@ -16180,6 +16212,32 @@
                     "error": "Während der Konfiguration ist ein Fehler aufgetreten",
                     "success": "Ihr Einheit ID wurde erfolgreich verknüpft"
                 }
+            },
+            "productSelection": {
+                "drawer": {
+                    "footer": {
+                        "save": "Sichern",
+                        "cancel": "Stornieren",
+                        "back": "Zurück"
+                    },
+                    "form": {
+                        "applyToSimilarOffers": "Für ähnliche Kurse anwenden",
+                        "label": "Diese Produkte werden von Ihrem Studio auf der Wellhub-Plattform angeboten. Gehen Sie zum Abschnitt „Partnerschaft“ im Partner-Portal Ihres Wellhub-Kontos für weitere Informationen."
+                    },
+                    "element": "{{ count }} Element",
+                    "element_plural": "{{ count }} Elemente",
+                    "actionRequired": "Wählen Sie ein Wellhub-Produkt aus, das Sie mit diesem Kurs verknüpfen möchten:",
+                    "description": "Einige Kurse sind nicht mit einem Wellhub-Produkt verknüpft und können von Wellhub-Nutzern nicht gebucht werden.",
+                    "title": "Wellhub Produkt ist noch nicht verlinkt"
+                },
+                "alert": {
+                    "action": "Einrichten",
+                    "message": "Bitte wählen Sie ein Wellhub-Produkt aus, um die Kurse anzuzeigen und sie für Wellhub-Benutzer buchbar zu machen.",
+                    "title": "Einige Kurse wurden nicht mit Wellhub synchronisiert."
+                },
+                "selector": {
+                    "placeholder": "Wählen Sie ein Wellhub-Produkt"
+                }
             }
         }
     },
@@ -16438,7 +16496,8 @@
                     "partnerMaxBookingCount": "Die Anzahl der Plätze hier ist größer als die Anzahl der Plätze im Kurs",
                     "effectif": "Der Wert ist höher als die maximale Anzahl von Plätzen",
                     "roomBlueprintSpivi": "Für mit Spivi synchronisierte Kurse muss ein Raumplan ausgewählt werden",
-                    "durationMinuteSpivi": "Die Dauer eines Kurses auf Spivi sollte zwischen 20 Minuten und 4 Stunden betragen"
+                    "durationMinuteSpivi": "Die Dauer eines Kurses auf Spivi sollte zwischen 20 Minuten und 4 Stunden betragen",
+                    "wellhubProductMissing": "Dieses Feld ist erforderlich, Sie müssen ein Produkt auswählen."
                 },
                 "dateTooFar": "Es ist nicht möglich, Kurse zu erstellen, die in mehr als 3 Jahren stattfinden",
                 "dateFormat": "Ungültiges Datumsformat",
@@ -16481,12 +16540,19 @@
                         "partnership": {
                             "partnerMaxBookingCount": "Maximale Anzahl von Marketplace-Buchungen (nur OneFit + Urban Sports Club)",
                             "availableOnPartnership": "Über die Marketplaces (ClassPass, OneFit...)",
-                            "title": "Marketplace",
+                            "title": "Marktplatz",
                             "uscIntegrationWarning": "Ihre Integration mit dem Urban Sports Club Marketplace ist aktiv. Alle Kurse, die 2 oder mehr Tage lang sind, werden nicht angezeigt.",
-                            "uscIntegrationWorkshopWarning": "Workshops sind nicht mit dem Urban Sports Club Marketplace kompatibel, also wir dieser Kurs nicht eingeschlossen."
+                            "uscIntegrationWorkshopWarning": "Workshops sind nicht mit dem Urban Sports Club Marketplace kompatibel, also wir dieser Kurs nicht eingeschlossen.",
+                            "wellhubProduct": {
+                                "selectionMissing": "Dieses Feld ist erforderlich, Sie müssen ein Produkt auswählen.",
+                                "helperText": "Diese Produkte werden von Ihrem Studio auf der Wellhub-Plattform angeboten. Gehen Sie zum Abschnitt „Partnerschaft“ im Partner-Portal Ihres Wellhub-Kontos für weitere Informationen.",
+                                "title": "Ihre verfügbaren Produkte auf Wellhub:"
+                            },
+                            "subtitle": "Einschließlich: ClassPass, Urban Sports Club, Gymlib und Wellhub für externe Buchungen.",
+                            "enablePartneshipBookings": "Marktplatz-Buchungen ermöglichen"
                         },
                         "allowGuestOffer": "Buchung für einen Gast zulassen",
-                        "isManagerOnly": "Verfügbar für Buchungen (Web + App)",
+                        "isManagerOnly": "Verfügbar zur Buchung (Web + App)",
                         "syncOfferOnSpivi": "An Spivi senden"
                     },
                     "title": "Einstellungen"
@@ -16594,7 +16660,12 @@
                     "INFOS": "Kurs"
                 }
             },
-            "forbidden": "Sie haben nicht die Erlaubnis Kurse zu dieser Aktivität hinzuzufügen. Bitte kontaktieren Sie Ihren Manager, um die notwendigen Rechte zu erhalten."
+            "forbidden": "Sie haben nicht die Erlaubnis Kurse zu dieser Aktivität hinzuzufügen. Bitte kontaktieren Sie Ihren Manager, um die notwendigen Rechte zu erhalten.",
+            "uscWarning": {
+                "alertContent": "Änderungen an diesem Kurs führen zur Stornierung der aktuellen Buchungen bei USC. Bestätigen Sie, um fortzufahren.",
+                "content": "Sie verlieren alle aktuellen Buchungsdaten, wenn Sie das Datum, die Uhrzeit oder die Einrichtung dieses Kurses ändern. Wenn Sie diese Angaben ändern, wird eine neuer Kurs erstellt und der aktuelle Kurs bei USC storniert.",
+                "title": "Achtung: Dadurch werden die laufenden Buchungen auf USC storniert."
+            }
         },
         "broadcast": "Videokonferenzen",
         "onSite": "Im Studio",
@@ -17411,7 +17482,7 @@
             }
         },
         "payLater": {
-            "submit": "Später bezahlen",
+            "submit": "Barzahlung",
             "explain": "Ihre Rechnung wird als unbezahlt betrachtet, bis Sie diese über Ihr Mitgliedsprofil oder direkt im Studio begleichen."
         },
         "or": "oder",

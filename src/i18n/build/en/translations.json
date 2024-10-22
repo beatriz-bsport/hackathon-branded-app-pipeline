@@ -2555,7 +2555,8 @@
                 },
                 "consumerSubscriptionCardDetails": {
                     "failedPaymentReason": "Reason: {{- note }} Please contact your studio to regularize the situation",
-                    "emptyInvoices": " No billing history to show"
+                    "emptyInvoices": " No billing history to show",
+                    "failedPaymentReasonWithRetry": "Reason: {{- note }} The payment will be retried on {{- nextRetryDate}}"
                 }
             },
             "myInvoices": {

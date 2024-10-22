@@ -10,12 +10,12 @@ import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-catego
 
 type Props = {
   globalCategoryData: GlobalCategoryData;
-  handleGoToReportV2: (categoryName: ReportCategoryEnum) => () => void;
+  handleGoToReport: (categoryName: ReportCategoryEnum) => () => void;
 };
 
 const ReportCategorySection: React.FC<Props> = ({
   globalCategoryData,
-  handleGoToReportV2,
+  handleGoToReport,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -29,7 +29,7 @@ const ReportCategorySection: React.FC<Props> = ({
           <CardSectionItem
             key={reportCategory.category}
             description={t(`descriptions.${reportCategory.category}`)}
-            onCardClick={handleGoToReportV2(reportCategory.category)}
+            onCardClick={handleGoToReport(reportCategory.category)}
             title={t(`categories.${reportCategory.category}`)}
           />
         ))}

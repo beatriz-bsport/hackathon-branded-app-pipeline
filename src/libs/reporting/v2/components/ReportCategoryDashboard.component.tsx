@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import SecondaryActionButton from '#src/components/button/SecondaryActionButton.component';
 import Typography from '@material-ui/core/Typography/Typography';
 
 import Fuse, { FuseOptions } from 'fuse.js';
@@ -24,16 +23,14 @@ import {
 } from '#src/libs/reporting/common/utils';
 
 type Props = {
-  handleConfirmationDialogState: (bool: boolean) => () => void;
-  handleGoToReportV2: (categoryName: ReportCategoryEnum) => () => void;
+  handleGoToReport: (categoryName: ReportCategoryEnum) => () => void;
   metadata: ReportMetadataValue[];
   // optional for franchisor
   objectLevelPermissions?: ObjectLevelPermissions;
 };
 
-const ReportDashboardReworked: React.FC<Props> = ({
-  handleConfirmationDialogState,
-  handleGoToReportV2,
+const ReportCategoryDashboard: React.FC<Props> = ({
+  handleGoToReport,
   metadata,
   objectLevelPermissions,
 }) => {
@@ -113,12 +110,6 @@ const ReportDashboardReworked: React.FC<Props> = ({
 
   return (
     <div className={classes.root}>
-      <div className={classes.titleContainer}>
-        <Typography variant="h5">{t('pageTitle')}</Typography>
-        <SecondaryActionButton onClick={handleConfirmationDialogState(true)}>
-          {t('versionSwitcher.fromNewToOld')}
-        </SecondaryActionButton>
-      </div>
       <FuzeSearch
         changeSearch={changeSearch}
         clearSearch={clearSearch}
@@ -132,7 +123,7 @@ const ReportDashboardReworked: React.FC<Props> = ({
           <ReportCategorySection
             key={globalCategoryData.globalCategory}
             globalCategoryData={globalCategoryData}
-            handleGoToReportV2={handleGoToReportV2}
+            handleGoToReport={handleGoToReport}
           />
         ))
       ) : (
@@ -149,4 +140,4 @@ const useStyles = makeStyles((theme) => ({
   titleContainer: { display: 'flex', justifyContent: 'space-between' },
 }));
 
-export default React.memo(ReportDashboardReworked);
+export default React.memo(ReportCategoryDashboard);

@@ -11,12 +11,12 @@ import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 
 type Props = {
   reportCustomView: ReportConfiguration;
-  handleGoToReportV2: (reportView: ReportConfiguration) => () => void;
+  handleGoToReport: (reportView: ReportConfiguration) => () => void;
 };
 
 const ReportCustomViewItem: React.FC<Props> = ({
   reportCustomView,
-  handleGoToReportV2,
+  handleGoToReport,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -25,7 +25,7 @@ const ReportCustomViewItem: React.FC<Props> = ({
     <Card className={classes.cardItem}>
       <CardActionArea
         className={classNames(classes.withPadding, classes.cardActionArea)}
-        onClick={handleGoToReportV2(reportCustomView)}
+        onClick={handleGoToReport(reportCustomView)}
       >
         <div className={classes.titleContainer}>
           <Typography className={classes.title} variant="body1">

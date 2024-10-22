@@ -9,7 +9,7 @@ import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 
 type Props = {
   reportCustomView: ReportConfiguration;
-  handleGoToReportV2: (reportView: ReportConfiguration) => () => void;
+  handleGoToReport: (reportView: ReportConfiguration) => () => void;
 };
 
 type ItemData = {
@@ -19,7 +19,7 @@ type ItemData = {
 
 const ReportV2CustomViewItem: React.FC<Props> = ({
   reportCustomView,
-  handleGoToReportV2,
+  handleGoToReport,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -27,7 +27,7 @@ const ReportV2CustomViewItem: React.FC<Props> = ({
   return (
     <a
       className={classNames(classes.withPadding, classes.cardActionArea)}
-      onClick={handleGoToReportV2(reportCustomView)}
+      onClick={handleGoToReport(reportCustomView)}
     >
       <div className={classes.titleContainer}>
         <Typography className={classes.title} variant="body1">
@@ -48,7 +48,7 @@ const ReportV2CustomViewSearchItem: React.ComponentType<
 > = (props) => {
   return (
     <ReportV2CustomViewItem
-      handleGoToReportV2={props.data.onClick}
+      handleGoToReport={props.data.onClick}
       reportCustomView={{ ...props.data.reportView }}
     />
   );

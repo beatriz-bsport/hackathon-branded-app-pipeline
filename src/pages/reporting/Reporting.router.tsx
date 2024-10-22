@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import ReportReworkedInnerRouter from '#src/pages/reporting/ReportReworkedInner.router';
-import ReportGeneration from '#src/pages/reporting/ReportingGeneration.page';
 import ReportDetail from '#src/pages/reporting/ReportDetail.page';
 
 export default function Reporting() {
@@ -16,14 +15,10 @@ export default function Reporting() {
       />
       <Route
         exact
-        component={ReportGeneration}
-        path="/reporting/v1/detail/:reportId"
-      />
-      <Route
-        exact
         component={ReportDetail}
         path="/reporting/detail/:categoryName/:reportId"
       />
+      <Redirect to="/reporting/categories" />
     </Switch>
   );
 }

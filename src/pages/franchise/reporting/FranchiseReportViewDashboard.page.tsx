@@ -75,7 +75,7 @@ const FranchiseReportViewDashboard: React.FC<Props> = ({
 
   const classes = useStyles();
 
-  const handleGoToReportV2 = React.useCallback(
+  const handleGoToReport = React.useCallback(
     (reportView: ReportConfiguration) => () => {
       const reportId = reportView.id;
       const categoryName = reportView.category;
@@ -106,7 +106,7 @@ const FranchiseReportViewDashboard: React.FC<Props> = ({
   return (
     <div className={classes.pageContainer}>
       <ReportViewDashboard
-        handleGoToReportV2={handleGoToReportV2}
+        handleGoToReport={handleGoToReport}
         onPageRequested={fetchNextReportViews}
         reportViews={reportsV2}
         reportViewsPaginated={reportViewsPaginated}

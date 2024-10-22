@@ -31,7 +31,7 @@ import ReportV2CustomViewSearchItem from '#src/libs/payment-packs/components/Sea
 import { REPORT_VIEWS_FETCHING_PAGINATION_SIZE } from '#src/libs/reporting/common/constants';
 
 type Props = {
-  handleGoToReportV2: (reportView: ReportConfiguration) => () => void;
+  handleGoToReport: (reportView: ReportConfiguration) => () => void;
   onPageRequested: (params: ReportV2QueryParams) => void;
   reportViews: ReportConfiguration[];
   reportViewsPaginated: ReportConfigurationPaginatedList & ErrorAndLoading;
@@ -59,7 +59,7 @@ type Option = {
 };
 
 const ReportViewDashboard: React.FC<Props> = ({
-  handleGoToReportV2,
+  handleGoToReport,
   reportViews,
   onPageRequested,
   reportViewsPaginated,
@@ -119,10 +119,10 @@ const ReportViewDashboard: React.FC<Props> = ({
         label: result.name,
         value: result.id,
         reportView: result,
-        onClick: handleGoToReportV2,
+        onClick: handleGoToReport,
       }));
     },
-    [handleGoToReportV2],
+    [handleGoToReport],
   );
 
   const handleOnChange = React.useCallback(
@@ -212,7 +212,7 @@ const ReportViewDashboard: React.FC<Props> = ({
               renderItem={(reportView: ReportConfiguration) => (
                 <ReportCustomViewItem
                   key={reportView.id}
-                  handleGoToReportV2={handleGoToReportV2}
+                  handleGoToReport={handleGoToReport}
                   reportCustomView={reportView}
                 />
               )}

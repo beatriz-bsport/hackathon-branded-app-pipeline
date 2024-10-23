@@ -1,5 +1,7 @@
 import { ErrorAndLoading } from '#src/libs/types';
 import { Member } from '../member/types';
+import { GiftcardKindEnum } from '#src/libs/giftcard/constants';
+import { DateTime } from 'luxon';
 
 export type Giftcard = {
   id: number;
@@ -28,6 +30,26 @@ export type GiftcardDataAPI = {
   name: string;
   price: number;
   tags_on_consumer_item_creation: Array<number>;
+};
+
+export type GiftcardFormValues = {
+  activation_datetime: DateTime | null;
+  background_image: string | null;
+  date_to_send: string;
+  force: boolean;
+  message_content: string;
+  message_is_for: string;
+  message_is_from: string;
+  name: string;
+  recipients: string[];
+  kind: GiftcardKindEnum;
+};
+
+export type ConsumerGiftcardAPI = Omit<
+  GiftcardFormValues,
+  'activation_datetime'
+> & {
+  activation_datetime: string | null;
 };
 
 export type GiftcardTemplate = {
@@ -88,6 +110,11 @@ export type ConsumerGiftcard<
   giftcard_company: number;
   source_company_id: number;
   incremental_identifier: string;
+  kind: GiftcardKindEnum;
+  pdf_link: string | null;
+  printable_code: string | null;
+  activation_datetime: string | null;
+  expiration_date: string | null;
 };
 
 export type GiftcardState = {

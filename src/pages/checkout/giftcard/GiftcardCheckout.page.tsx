@@ -23,7 +23,7 @@ import {
   addItemToBasket,
   fetchCurrentBasket,
 } from '#src/libs/checkout/actions';
-import { Giftcard } from '#src/libs/giftcard/types';
+import { ConsumerGiftcardAPI, Giftcard } from '#src/libs/giftcard/types';
 
 import { getCurrentBasket } from '#src/libs/checkout/selectors';
 import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';
@@ -55,7 +55,7 @@ export class GiftcardCheckout extends React.Component<Props> {
     });
   }
 
-  addItemToBasket = (data: any) => {
+  addItemToBasket = (data: ConsumerGiftcardAPI) => {
     this.props.addItemToBasket(
       this.props.currentBasket.id,
       {

@@ -3226,8 +3226,15 @@
     "link": { "copyLink": "Copy the direct link to the gift card", "activationLink": "Copy activation link" },
     "consumerGiftcard": {
       "form": {
+        "type": {
+          "label": "How would you like to send the gift card",
+          "option": { "digital": "Activation link via email", "physical": "Printable code (PDF)" }
+        },
         "footer": "The gift card will be sent to the recipient at {{- hour_send }}. It’ll be valid for {{ expiration_days }} day(s) after activation and the recipient’s account will be topped up with {{- price }}.",
+        "footerPhysical": "The gift card will be activated on {{- activation_date }} and will be valid until {{- activation_date_until }} ({{ duration }} day(s)). You will receive by e-mail needed informations to use the gift card and a printable version of your card in a PDF file",
+        "footerPhysicalUnlimited": "You will receive by e-mail the needed information to use the gift card and a printable version of your card in a PDF file.",
         "actions": { "submit": "Add to basket", "cancel": "Cancel" },
+        "activationDate": { "label": "Activation date", "helperText": "The recipient can use the gift card from this date" },
         "date_send": { "label": "Date of sending the email" },
         "recipients": { "label": "Recipient's email" },
         "message_content": { "label": "Custom message" },

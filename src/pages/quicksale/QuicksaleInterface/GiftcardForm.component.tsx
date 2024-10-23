@@ -9,10 +9,10 @@ import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-item
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import ConsumerGiftcardFormWithPreview from '#src/libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
 
-import type { FormValues as ConsumerGiftcardDetails } from '#src/libs/giftcard/components/ConsumerGiftcardForm.component';
 import type { QuicksaleCardInfo } from '#src/libs/quicksale/types';
 import type { Basket, CheckoutItemData } from '#src/libs/checkout/types';
 import type {
+  ConsumerGiftcardAPI,
   Giftcard,
   GiftcardBackgroundImage,
 } from '#src/libs/giftcard/types';
@@ -57,7 +57,7 @@ const GiftcardForm: React.FC<Props> = ({
 }) => {
   const addGiftcardToBasket = React.useCallback(
     (
-      data: ConsumerGiftcardDetails & { force: boolean },
+      data: ConsumerGiftcardAPI & { force: boolean },
       options?: OptionCallback,
     ) => {
       const [buyable_item_identifier, buyable_item_id] =

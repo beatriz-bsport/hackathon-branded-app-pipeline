@@ -113,7 +113,6 @@ export class ConsumerLoginPage extends Component<Props> {
   render() {
     const {
       authenticated,
-      t,
       theme,
       membership,
       franchisor,
@@ -182,7 +181,7 @@ export class ConsumerLoginPage extends Component<Props> {
               company={!!membership}
               context={context}
               doEmailLogin={this.props.doEmailLogin}
-              error={this.props.errorLogin}
+              error={!!this.props.errorLogin}
               errorFields={this.props.errorFields}
               franchisor={franchisor}
               isPremium={this.props.is_premium}
@@ -191,8 +190,6 @@ export class ConsumerLoginPage extends Component<Props> {
               originalLoginNextLink={goNext}
               requestSignUp={this.onRequestSignup}
               simplifyUI={simplifyUI}
-              // @ts-expect-error
-              t={t}
               theme={theme}
             />
           )}

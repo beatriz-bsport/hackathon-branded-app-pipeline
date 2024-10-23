@@ -15,6 +15,7 @@ import {
 import MultipleSessionDetails from '../components/navigation/MultipleSessions.component';
 import { STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN } from '#src/actions/constants';
 import { setItemInStorage } from '#src/utils/storage';
+import type { AuthConnection } from '#src/libs/types';
 
 type OwnProps = {
   newToken: string;
@@ -71,11 +72,7 @@ export const MultipleSessions = (props: Props) => {
   );
 };
 
-const getStatus = (user: {
-  username: string;
-  is_franchisor: boolean;
-  is_manager: boolean;
-}): 'franchisor' | 'manager' | '' => {
+const getStatus = (user: AuthConnection): 'franchisor' | 'manager' | '' => {
   if (!user) return '';
 
   if (user.is_franchisor) {

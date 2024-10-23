@@ -190,6 +190,7 @@ import searchReducer from './search.reducers';
 // @ts-expect-error
 import authReducers from './auth';
 import type { DeleteObjectState } from '#src/libs/delete-object/types';
+import type { AuthState } from '#src/libs/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -289,7 +290,7 @@ export type RootState = {
   accessControl: AccessControlState;
   activeCampaign: ActiveCampaignState;
   alerting: AlertingState;
-  auth: any;
+  auth: AuthState;
   backgroundDialog: BackgroundDialogState;
   backgroundTask: BackgroundTaskState;
   booking: BookingsState;

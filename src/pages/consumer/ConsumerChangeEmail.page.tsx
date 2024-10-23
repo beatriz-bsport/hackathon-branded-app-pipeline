@@ -202,12 +202,11 @@ export class ConsumerChangeEmailRequestPage extends Component<Props> {
             company={!!this.props.companyId}
             doEmailLogin={this.props.doEmailLogin}
             emailChoices={this.props.changeEmailRequestEmailChoices}
-            error={this.props.errorLogin}
+            error={!!this.props.errorLogin}
             errorFields={this.props.errorFields}
             isPremium={this.props.theme.is_premium}
             loading={this.props.loginProcessing}
-            // @ts-expect-error
-            t={this.props.t}
+            onRequestResetPassword={() => {}} // TODO: verify optional prop
             theme={this.props.theme}
           />
         </div>

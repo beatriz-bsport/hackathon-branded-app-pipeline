@@ -122,3 +122,51 @@ export type SelectOption<T = string> = {
 export type ObjectWithKeys<T> = {
   [key: number | string]: T;
 };
+
+export type AuthConnection = {
+  username: string;
+  is_manager: boolean;
+  is_coach: boolean;
+  is_consumer: boolean;
+  is_franchisor: boolean;
+  role: number | null;
+  name: string | null;
+};
+
+export type AuthState = {
+  allowed_franchisees: number[];
+  authenticated: boolean;
+  coaches_selected_in_role: number[];
+  doubleConnexion: {
+    previous: AuthConnection;
+    current: AuthConnection;
+  };
+  email_confirmed: boolean;
+  emailExists: {
+    exists: boolean;
+  } & ErrorAndLoading;
+  emailConfirmation: {
+    last_time_sent_email_confirmation: string | null;
+  } & ErrorAndLoading;
+  establishments_selected_in_role: number[];
+  franchise_role_identifier: number;
+  franchise_role: number;
+  has_completed_account_configuration_on_boarding: boolean;
+  initializating: boolean;
+  invalidFields: { email?: string; password?: string } | null;
+  is_coach: boolean;
+  is_consumer: boolean;
+  is_franchisor: boolean;
+  is_manager: boolean;
+  lastPlatformSubscriptionDisputeWarningDate: string | null;
+  lastPlatformSubscriptionWarningDate: string | null;
+  lastStripeConfigurationWarningDate: string | null;
+  loadingImpersonation: boolean;
+  name: string;
+  resetPassword: {
+    last_password_reset_request: string | null;
+  } & ErrorAndLoading;
+  role: number;
+  token: string;
+  username: string;
+} & ErrorAndLoading;

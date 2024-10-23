@@ -332,29 +332,31 @@ export class ConsumerBooking extends React.Component<Props, State> {
   };
 
   fetchPastPrivateBookings = () => {
-    this.props.fetchMyPastPrivateBookingAsMember(
-      {
-        member: this.props.membership.id,
-        company: this.props.companyId,
-      },
-      {
-        onSuccess: (data) =>
-          this.fetchAssociatedPrivateBookingsObjects(data.results),
-      },
-    );
+    !!this.props.membership?.id &&
+      this.props.fetchMyPastPrivateBookingAsMember(
+        {
+          member: this.props.membership.id,
+          company: this.props.companyId,
+        },
+        {
+          onSuccess: (data) =>
+            this.fetchAssociatedPrivateBookingsObjects(data.results),
+        },
+      );
   };
 
   fetchFuturePrivateBookings = () => {
-    this.props.fetchMyFuturePrivateBookingAsMember(
-      {
-        member: this.props.membership.id,
-        company: this.props.companyId,
-      },
-      {
-        onSuccess: (data) =>
-          this.fetchAssociatedPrivateBookingsObjects(data.results),
-      },
-    );
+    !!this.props.membership?.id &&
+      this.props.fetchMyFuturePrivateBookingAsMember(
+        {
+          member: this.props.membership.id,
+          company: this.props.companyId,
+        },
+        {
+          onSuccess: (data) =>
+            this.fetchAssociatedPrivateBookingsObjects(data.results),
+        },
+      );
   };
 
   fetchPastBookingsWorkshop = () => {

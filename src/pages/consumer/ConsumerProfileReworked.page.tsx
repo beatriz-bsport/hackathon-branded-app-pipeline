@@ -78,27 +78,29 @@ class ConsumerProfileReworked extends React.Component<Props> {
   }
 
   detachPaymentMethod = (paymentMethodId: string, options?: OptionCallback) => {
-    this.props.detachPaymentMethod(
-      {
-        member: this.props.membership.id,
-        payment_method_id: paymentMethodId,
-      },
-      {
-        onSuccess: () => {
-          this.props.fetchPaymentMethodList({
-            member: this.props.membership.id,
-          });
-          options?.onSuccess?.();
+    !!this.props.membership?.id &&
+      this.props.detachPaymentMethod(
+        {
+          member: this.props.membership.id,
+          payment_method_id: paymentMethodId,
         },
-        onError: () => {
-          options?.onError?.();
+        {
+          onSuccess: () => {
+            this.props.fetchPaymentMethodList({
+              member: this.props.membership.id,
+            });
+            options?.onSuccess?.();
+          },
+          onError: () => {
+            options?.onError?.();
+          },
         },
-      },
-    );
+      );
   };
 
   fetchMemberPaymentMethod = () => {
-    this.props.fetchPaymentMethodList({ member: this.props.membership.id });
+    !!this.props.membership?.id &&
+      this.props.fetchPaymentMethodList({ member: this.props.membership.id });
   };
 
   submitCustomForm = (
@@ -112,7 +114,8 @@ class ConsumerProfileReworked extends React.Component<Props> {
       },
       {
         onSuccess: () => {
-          this.props.fetchMember(this.props.membership.id, {}, { me: true });
+          !!this.props.membership?.id &&
+            this.props.fetchMember(this.props.membership.id, {}, { me: true });
           this.props.fetchMyUserProfile();
           options?.onSuccess?.();
         },
@@ -122,6 +125,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
   };
 
   requestSetupIntentSecret = () => {
+    if (!this.props.membership?.id) return null;
     return requestSetupIntentSecretAPI(this.props.membership?.id, null);
   };
 
@@ -132,6 +136,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
         {
           onSuccess: () => {
             if (
+              !!this.props.membership?.id &&
               this.props.authenticated &&
               (this.props.theme?.is_referral_program_activated ||
                 this.props.companyTheme?.is_referral_program_activated)
@@ -215,7 +220,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
 
 const mapStateToProps = (
   state: RootState,
-  { membership }: { membership: Membership },
+  { membership }: { membership: Membership | null },
 ) => ({
   authenticated: state.auth.authenticated,
   companyThemeLoading: state.theme.loading,

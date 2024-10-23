@@ -92,6 +92,7 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
   };
 
   refreshMembership = () =>
+    !!this.props.membership?.id &&
     this.props.fetchMembership?.(this.props.membership.id);
 
   refreshConsumerInvoices = () => {

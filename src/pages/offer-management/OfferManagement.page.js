@@ -95,7 +95,10 @@ import {
 import { getAllCustomLevels, withCustomLevel } from '#src/libs/level/selectors';
 import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
 
-import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#src/libs/consumer-payment-pack/actions';
+import {
+  retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
+  retrieveConsumerPackBulkBatched as retrieveConsumerPackBulkBatchedAction,
+} from '#src/libs/consumer-payment-pack/actions';
 
 import { fetchPrivatePassList } from '#src/libs/private-service/actions';
 import { fetchPaymentComboList } from '#src/libs/payment-combo/actions';
@@ -329,6 +332,7 @@ export default compose(
       fetchBookingsByOffer: fetchBookingsByOfferAction,
       refreshBookingsByOffer: refreshBookingsByOfferAction,
       retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
+      retrieveConsumerPackBulkBatched: retrieveConsumerPackBulkBatchedAction,
       fetchRecurrenceRuleBooking: fetchRecurrenceRuleBookingAction,
       createRecurrenceRuleBooking,
       deleteRecurrenceRuleBooking,
@@ -525,6 +529,7 @@ export default compose(
         refreshBookingsByOffer,
         fetchFilteredMembers,
         retrieveConsumerPackBulk,
+        retrieveConsumerPackBulkBatched,
         id,
         fetchPaymentPackBulk,
       }) =>
@@ -550,7 +555,7 @@ export default compose(
                   },
                 },
               );
-              retrieveConsumerPackBulk(
+              retrieveConsumerPackBulkBatched(
                 bookings.map((b) => b.consumer_payment_pack),
                 {
                   onSuccess: (cppList) =>
@@ -613,6 +618,7 @@ export default compose(
         fetchRecurrenceRuleBooking,
         fetchBookingOptionByOffer,
         retrieveConsumerPackBulk,
+        retrieveConsumerPackBulkBatched,
         fetchFilteredMembers,
         fetchMemberBulkById,
         offerId,
@@ -645,7 +651,7 @@ export default compose(
           offerId,
           {
             onSuccess: (bookings) => {
-              retrieveConsumerPackBulk(
+              retrieveConsumerPackBulkBatched(
                 bookings.map((b) => b.consumer_payment_pack),
                 {
                   onSuccess: (cppList) => {

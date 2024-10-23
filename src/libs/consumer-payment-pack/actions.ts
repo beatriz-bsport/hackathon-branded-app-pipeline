@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
-
+import uniq from 'lodash/uniq';
+import chunk from 'lodash/chunk';
 import type {
   Dispatch,
   OptionCallback,
@@ -492,6 +493,54 @@ export function retrieveConsumerPackBulk(
       }
     }
     dispatch(retrieveBulk.isLoading(false));
+  };
+}
+
+/**
+ * To be used only in cases where the length of the batch could be
+ * critical.
+ */
+export function retrieveConsumerPackBulkBatched(
+  ids: Array<number>,
+  options?: OptionCallback<ConsumerPaymentPack[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    const id_uniq = uniq(ids);
+    if (!id_uniq.length) {
+      options.onSuccess([]);
+      return;
+    }
+
+    const BATCH_SIZE = 50;
+
+    const ids_batched = chunk(id_uniq, BATCH_SIZE);
+
+    const boundActionList = ids_batched.map(
+      (bacth_ids) => () =>
+        dispatch(
+          retrieveConsumerPackBulk(bacth_ids, {
+            onSuccess: options?.onSuccess,
+            onError: options?.onError,
+          }),
+        ),
+    );
+
+    try {
+      // /!\ Async reduce below to await for batch to be resolved before sending the next ones
+      boundActionList.reduce(
+        async (previousPromise, nextBoundedAction, index) => {
+          if (index === 0) return previousPromise;
+          await previousPromise;
+          return nextBoundedAction();
+        },
+        boundActionList[0](),
+      );
+
+      // No implementation of a general "onSuccess" since they are all handled batch by batch
+    } catch (err) {
+      console.error(err);
+      // No implementation of a general "onError" since they are all handled batch by batch
+    }
   };
 }
 

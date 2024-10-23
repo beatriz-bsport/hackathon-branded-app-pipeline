@@ -1,6 +1,6 @@
 import { STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE } from '#src/libs/theme/constants';
 import { getItemInStorage } from '#src/utils/storage';
-import type { CartItem } from './types';
+import type { CartItem, SessionItem } from './types';
 
 import {
   BUYABLE_ITEM_COMBO_ITEM,
@@ -28,6 +28,25 @@ export const getCurrencyCode = () => {
   ).toUpperCase();
 };
 
+export const getSessionCoachId = (session: SessionItem) => {
+  if (!session.coach) return 0;
+  return typeof session.coach === 'number' ? session.coach : session.coach.id;
+};
+
+export const getSessionMetaActivityId = (session: SessionItem) => {
+  if (!session.meta_activity) return 0;
+  return typeof session.meta_activity === 'number'
+    ? session.meta_activity
+    : session.meta_activity.id;
+};
+
+export const getSessionEstablishmentId = (session: SessionItem) => {
+  if (!session.establishment) return 0;
+  return typeof session.establishment === 'number'
+    ? session.establishment
+    : session.establishment.id;
+};
+
 export const getItemPrice = (item: CartItem) => {
   if ('unit_price' in item) return item.unit_price;
   if ('price' in item)
@@ -37,11 +56,9 @@ export const getItemPrice = (item: CartItem) => {
 
 export const getItemId = (item: CartItem) => {
   if ('id' in item) return item.id;
-  if ('buyable_item_id' in item)
-    return item['buyable_item_id'];
+  if ('buyable_item_id' in item) return item['buyable_item_id'];
   return 0;
 };
-
 
 const isCheckoutItem = (item: CartItem) => {
   return 'buyable_item_identifier' in item;
@@ -64,7 +81,6 @@ const isShopItem = (item: CartItem) => {
 };
 
 export const getItemType = (item: CartItem) => {
-  console.log('item to check : ', item);
   if (isCheckoutItem(item)) return itemTypeList[item.buyable_item_identifier];
   if (isPrivatePass(item)) return 'appointment_pass';
   if (isPack(item)) return 'pack';

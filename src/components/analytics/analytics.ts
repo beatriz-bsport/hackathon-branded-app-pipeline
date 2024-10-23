@@ -12,19 +12,21 @@ import type {
   MetaPixelInteractWithBasketItemPayload,
   MetaPixelPayload,
   MetaPixelSubscriptionPayload,
+  SessionItem,
   SessionPayload,
 } from './types';
 import type { PrivatePass } from '#src/libs/private-service/types';
 import type { Offer, OfferREST } from '#src/libs/offer/types';
 import type { Contract } from '#src/libs/subscription/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
-import type { ShopItem } from '#src/libs/shop/types';
 import {
   getItemPrice,
   getCurrencyCode,
   itemTypeList,
   getItemType,
   getItemId,
+  getSessionCoachId,
+  getSessionMetaActivityId,
 } from './utils';
 
 const analyticsUtils = {
@@ -199,134 +201,6 @@ const analyticsUtils = {
     analyticsUtils.trackMetaPixel('addToCart', metaPixelPayload);
   },
 
-  addPassToCart: (payload: PaymentPack) => {
-    const gtmPayload: GTMInteractWithBasketItemPayload = {
-      items: [
-        {
-          item_id: payload.id.toString(),
-          item_name: payload.name,
-          price: payload.base_price,
-          item_category: 'pass',
-        },
-      ],
-      currency: getCurrencyCode(),
-      value: payload.base_price,
-    };
-
-    const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
-      value: payload.base_price,
-      currency: getCurrencyCode(),
-      contents: [
-        {
-          id: payload.id?.toString(),
-          name: payload.name,
-          quantity: 1,
-          category: 'pass',
-        },
-      ],
-    };
-
-    analyticsUtils.trackGTM('bsport:basket:add-to-cart:pass', gtmPayload);
-    analyticsUtils.trackMetaPixel('addPassToCart', metaPixelPayload);
-  },
-
-  addPackToCart: (payload: PaymentCombo) => {
-    const gtmPayload: GTMInteractWithBasketItemPayload = {
-      items: [
-        {
-          item_id: payload.id.toString(),
-          item_name: payload.name,
-          price: payload.price,
-          item_category: 'pack',
-        },
-      ],
-      currency: getCurrencyCode(),
-      value: payload.price,
-    };
-
-    const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
-      value: payload.price,
-      currency: getCurrencyCode(),
-      contents: [
-        {
-          id: payload.id?.toString(),
-          name: payload.name,
-          quantity: 1,
-          category: 'pack',
-        },
-      ],
-    };
-
-    analyticsUtils.trackGTM('bsport:basket:add-to-cart:pack', gtmPayload);
-    analyticsUtils.trackMetaPixel('addPackToCart', metaPixelPayload);
-  },
-
-  addAppointmentPassToCart: (payload: PrivatePass) => {
-    const gtmPayload: GTMInteractWithBasketItemPayload = {
-      items: [
-        {
-          item_id: payload.id.toString(),
-          item_name: payload.name,
-          price: payload.price,
-          item_category: 'appointment_pass',
-        },
-      ],
-      currency: getCurrencyCode(),
-      value: payload.price,
-    };
-
-    const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
-      value: payload.price,
-      currency: getCurrencyCode(),
-      contents: [
-        {
-          id: payload.id?.toString(),
-          name: payload.name,
-          quantity: 1,
-          category: 'appointment_pass',
-        },
-      ],
-    };
-
-    analyticsUtils.trackGTM(
-      'bsport:basket:add-to-cart:private-pass',
-      gtmPayload,
-    );
-    analyticsUtils.trackMetaPixel('addAppointmentPassToCart', metaPixelPayload);
-  },
-
-  addShopItemToCart: (payload: ShopItem) => {
-    const gtmPayload: GTMInteractWithBasketItemPayload = {
-      items: [
-        {
-          item_id: payload.id.toString(),
-          item_name: payload.name,
-          price: parseFloat(payload.price),
-          item_category: 'shop_item',
-        },
-      ],
-      currency: getCurrencyCode(),
-      value: parseFloat(payload.price),
-    };
-
-    const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
-      value: parseFloat(payload.price),
-      currency: getCurrencyCode(),
-      contents: [
-        {
-          id: payload.id?.toString(),
-          name: payload.name,
-          quantity: 1,
-          category: 'shop_item',
-          price: parseFloat(payload.price),
-        },
-      ],
-    };
-
-    analyticsUtils.trackGTM('bsport:basket:add-to-cart:shop-item', gtmPayload);
-    analyticsUtils.trackMetaPixel('addShopItemToCart', metaPixelPayload);
-  },
-
   onPaymentSuccess: (payload: Basket) => {
     const gtmPayload: GTMInteractWithBasketItemPayload = {
       items: payload.checkout_items.map((item) => ({
@@ -393,22 +267,49 @@ const analyticsUtils = {
     analyticsUtils.trackMetaPixel('signupSuccess', metaPixelPayload);
   },
 
-  onSessionShow: (payload: OfferREST) => {
+  onSessionShow: (session: SessionItem) => {
+    const coachId = getSessionCoachId(session);
+    const metaActivityId = getSessionMetaActivityId(session);
+    const establishmentId = getSessionMetaActivityId(session);
+
     const gtmPayload: SessionPayload = {
-      date: DateTime.fromISO(payload.date_start).toISO(),
-      coachId: payload.coach,
-      establishmentId: payload.establishment,
-      activityId: payload.meta_activity,
+      date: DateTime.fromISO(session.date_start).toISO(),
+      coachId: coachId,
+      establishmentId: establishmentId,
+      activityId: metaActivityId,
     };
 
     const metaPixelPayload: SessionPayload = {
-      date: DateTime.fromISO(payload.date_start).toISO(),
-      coachId: payload.coach,
-      establishmentId: payload.establishment,
-      activityId: payload.meta_activity,
+      date: DateTime.fromISO(session.date_start).toISO(),
+      coachId: coachId,
+      establishmentId: establishmentId,
+      activityId: metaActivityId,
     };
 
     analyticsUtils.trackGTM('bsport:calendar:session-show', gtmPayload);
+    analyticsUtils.trackMetaPixel('sessionShow', metaPixelPayload);
+  },
+
+  onGoToSessionBooking: (session: SessionItem) => {
+    const coachId = getSessionCoachId(session);
+    const metaActivityId = getSessionMetaActivityId(session);
+    const establishmentId = getSessionMetaActivityId(session);
+
+    const gtmPayload: SessionPayload = {
+      date: DateTime.fromISO(session.date_start).toISO(),
+      coachId: coachId,
+      establishmentId: establishmentId,
+      activityId: metaActivityId,
+    };
+
+    const metaPixelPayload: SessionPayload = {
+      date: DateTime.fromISO(session.date_start).toISO(),
+      coachId: coachId,
+      establishmentId: establishmentId,
+      activityId: metaActivityId,
+    };
+
+    analyticsUtils.trackGTM('bsport:session:go-to-booking', gtmPayload);
     analyticsUtils.trackMetaPixel('sessionShow', metaPixelPayload);
   },
 

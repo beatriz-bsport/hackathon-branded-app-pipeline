@@ -951,11 +951,7 @@ export default compose(
   }),
   withHandlers({
     addItemToBasket:
-      ({
-        addItemToBasket,
-        basket,
-        fetchInstalmentPaymentByBasket,
-      }) =>
+      ({ addItemToBasket, basket, fetchInstalmentPaymentByBasket }) =>
       (basketId, addCheckoutItemData, options) =>
         addItemToBasket(
           basketId,

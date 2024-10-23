@@ -486,6 +486,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       );
       return;
     }
+    analyticsUtils.onGoToSessionBooking(offer);
     this.props.goToBook(offer.id, this.props.companyId);
   };
 
@@ -497,6 +498,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       });
       return;
     }
+    analyticsUtils.onGoToSessionBooking(offer);
     this.props.goToBookOption(offer.id, this.props.companyId);
   };
 

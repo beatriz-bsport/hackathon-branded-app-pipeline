@@ -22,11 +22,10 @@ const ShopItemBuyableItemCard = (props: {
   loading?: boolean,
   isExcludingTax?: boolean,
 }) => {
-
   const handleAddItemToCart = () => {
     props.addToOrder(props.shopitem.id);
     analyticsUtils.addItemToCart(props.shopitem);
-  }
+  };
 
   if (!props.shopitem) {
     return <div />;

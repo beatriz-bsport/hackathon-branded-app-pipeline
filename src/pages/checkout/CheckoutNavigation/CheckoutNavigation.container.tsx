@@ -34,7 +34,6 @@ import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppB
 import NavigationSideDrawer from '#src/components/css-only/Navigation/NavigationSideDrawer';
 import { AppBarButton } from '#src/components/css-only/Navigation/NavigationAppBar/types';
 import { ArrowLeft, UserCircle } from '#src/components/untitledui';
-import Analytics from '#src/components/analytics/Analytics.component';
 
 // Types
 import type { RootState } from '#src/reducers';
@@ -150,7 +149,6 @@ const CheckoutNavigation: React.FC<Props> = ({
 
   return (
     <MuiThemeProvider theme={companyTheme}>
-      <Analytics theme={companyTheme} username={userFullName || ''} />
       <MemberShipValidationWrapper companyId={companyTheme?.company}>
         <div className="bs-checkout-navigation__container">
           {isWidget ? (

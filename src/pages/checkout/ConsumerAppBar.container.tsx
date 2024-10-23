@@ -67,7 +67,6 @@ export const ConsumerAppBar: React.FC<Props> = ({
   return (
     <MuiThemeProvider theme={getTheme(theme)}>
       <div className={classes.container}>
-        {/* <Analytics theme={theme} /> */}
         {isWidgetNoPopUp && theme?.display_new_checkout_flow ? (
           <MinimalMarketplaceAppBarCSSOnly
             auth={auth}

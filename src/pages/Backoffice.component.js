@@ -41,7 +41,6 @@ import FeatureBase from '#src/components/feature-base/FeatureBase.component';
 import FeatureBaseSurvey from '#src/components/feature-base/FeatureBaseSurvey.component';
 import i18n, { setLuxonLocale } from '../i18n/index';
 import GenericResponsiveDialog from '../components/genericDialog/GenericResponsiveDialog';
-import Analytics from '#src/components/analytics/Analytics.component';
 import RELEASE from '../release';
 import { retrievePlatformSubscriptionPaymentStatusAction } from '../libs/platform-billing/actions';
 import { DrawerContext, PermissionContext } from '../context';
@@ -877,7 +876,6 @@ export class Backoffice extends Component<Props, State> {
                   />
                 )}
 
-                {/* <Analytics isInternal username={this.props.username} /> */}
                 <main
                   className={clx({
                     [classes.content]: true,

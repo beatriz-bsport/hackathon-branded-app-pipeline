@@ -36,7 +36,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { parseQueryString } from '../../http';
 import themeSelectors from '../../libs/theme/selectors';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
-import Analytics from '#src/components/analytics/Analytics.component';
+import analyticsUtils from '../../components/analytics/analytics';
 
 const SubscriptionPayment = asyncComponent(() =>
   import('../../libs/subscription/components/SubscriptionPayment.component'),
@@ -142,12 +142,7 @@ export class ContractPayment extends React.Component<Props, State> {
       {
         onBackgroundSuccess: () => {
           this.props.onSuccess();
-          // add analytics
-          // try {
-          //   Analytics.contractPaymentSuccess(this.props.contract);
-          // } catch (err) {
-          //   console.error(err);
-          // }
+          analyticsUtils.onContractPaymentSuccess(this.props.contract);
           this.setState({ processing: false });
         },
         onError: () => this.setState({ processing: false }),

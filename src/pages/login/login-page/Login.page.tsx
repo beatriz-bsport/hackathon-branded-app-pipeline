@@ -212,10 +212,6 @@ export class ConsumerLoginPage extends Component<Props> {
               setStep={this.props.setQueryParams('step')}
             />
           )}
-
-          {/* {((!!theme && membership) || franchisor) && (
-            // <Analytics theme={theme} username="" />
-          )} */}
         </div>
       </div>
     );

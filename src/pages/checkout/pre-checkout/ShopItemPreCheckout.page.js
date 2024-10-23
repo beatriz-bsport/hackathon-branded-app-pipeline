@@ -25,7 +25,6 @@ import {
 import { urlToMarketplace } from '../../../libs/marketplace/utils';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
-import Analytics from '#src/components/analytics/Analytics.component';
 import { fetchShopItem } from '../../../libs/shop/actions/shopitem';
 import analyticsUtils from '../../../components/analytics/analytics';
 

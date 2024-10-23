@@ -20,9 +20,9 @@ import SubscriptionPayment from '../../../libs/subscription/components/Subscript
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../../libs/payment/selectors';
 import { registerContractBackground } from '../../../libs/subscription/actions';
-import Analytics from '#src/components/analytics/Analytics.component';
 import { COUNTDOWN_BEFORE_ACTIVATION } from '../constants';
 import type { EstablishmentBillingGroup } from '../../../libs/establishment/types';
+import analyticsUtils from '../../../components/analytics/analytics';
 
 type Props = {
   t: TFunction,
@@ -106,12 +106,7 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
           onBackgroundSuccess: () => {
             this.setState({ processing: false });
             this.props.onSubmit(this.props.contract.id, true);
-            try {
-              // Add contract payment success analytics
-              //              Analytics.contractPaymentSuccess(this.props.contract);
-            } catch (err) {
-              console.error(err);
-            }
+            analyticsUtils.onContractPaymentSuccess(this.props.contract);
           },
         },
       );

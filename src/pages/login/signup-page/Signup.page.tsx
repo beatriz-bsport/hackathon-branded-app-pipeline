@@ -226,8 +226,6 @@ export class SignupPage extends Component<Props> {
               />
             </div>
           )}
-
-          {/* {!!theme && membership && <Analytics theme={theme} username="" />} */}
         </div>
       </div>
     );

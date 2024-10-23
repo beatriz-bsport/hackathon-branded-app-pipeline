@@ -310,7 +310,6 @@ export class ReferralRegistration extends Component<Props, State> {
                 />
               </div>
             )}
-          {/* {!!theme && <Analytics theme={theme} username="" />} */}
         </div>
       </div>
     );

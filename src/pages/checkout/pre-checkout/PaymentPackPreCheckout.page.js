@@ -27,7 +27,7 @@ import {
 } from '../../../libs/checkout/actions';
 import { fetchOne } from '../../../libs/payment-packs/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import Analytics from '#src/components/analytics/Analytics.component';
+import analyticsUtils from '../../../components/analytics/analytics';
 
 type Props = {
   location: Object,
@@ -67,8 +67,7 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
                   this.props.location.search,
                 );
                 const { force } = parseQueryString(this.props.location.search);
-                // Add add pass to cart
-                //                Analytics.addPassToCart(paymentPack, 'payment_pack');
+                analyticsUtils.addPassToCart(paymentPack);
                 this.props.addItemToBasket(
                   basket.id,
                   {

@@ -11,7 +11,6 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import themeSelectors from '../../libs/theme/selectors';
 
 import asyncComponent from '../../AsyncComponent';
-import Analytics from '#src/components/analytics/Analytics.component';
 import { fetchProfile } from '../../libs/consumer-space/actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import namespaces from '../../i18n/namespaces.json';
@@ -113,7 +112,6 @@ export class PaymentRouter extends React.Component<Props> {
       that provide a theme. That's why we need to wrap the router into a MuiThemeProvider
        */
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        {/* <Analytics theme={this.props.theme} /> */}
         <Switch>
           <Route
             component={ValidationCheckout}

@@ -29,7 +29,6 @@ import ApplyCustomCssStyles from '#src/libs/widget/components/ApplyCustomCssStyl
 import Login from '#src/components/css-only/Login/Login.component';
 import MarketplaceAppBar from '#src/libs/marketplace/components/@AppBar/MarketplaceAppBar';
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
-import Analytics from '#src/components/analytics/Analytics.component';
 import CustomFormPortal from '#Fabrique/Temporary/CustomFormPortal';
 import MarketplaceNavigation from '#src/libs/marketplace/components/@Navigation/MarketplaceNavigation';
 
@@ -413,10 +412,9 @@ export class MarketPlace extends Component<Props, State> {
     this.setState({ currentBasketOpen });
 
   toggleSignUp = (value: boolean) => {
-    // add analytics
-    // if (value) {
-    //   Analytics.signupShow();
-    // }
+    if (value) {
+      analyticsUtils.onShowSignup();
+    }
     this.setState({ signupDialogOpen: value });
   };
 
@@ -434,8 +432,7 @@ export class MarketPlace extends Component<Props, State> {
   doEmailLogin = ({ email, password }: { email: string, password: string }) => {
     this.props.doEmailLogin({ email, password }, () => {
       this.props.fetchProfile({
-        // add analytics
-        // onSuccess: (profile) => Analytics.signinSuccess(profile),
+        onSuccess: (profile) => analyticsUtils.onSigninSuccess(profile),
       });
       this.props.fetchCurrentBasket(this.props.companyId);
     });
@@ -540,11 +537,6 @@ export class MarketPlace extends Component<Props, State> {
     return (
       <MuiThemeProvider theme={getTheme(this.props.companyTheme)}>
         <MemberShipValidationWrapper companyId={this.props.companyId}>
-          <Analytics
-            theme={this.props.companyTheme}
-            username={(this.props.auth && this.props.auth.username) || ''}
-          />
-
           {!!this.props.customConfiguration &&
             !!this.props.customConfiguration.apply_on_marketplace && (
               <>

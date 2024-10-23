@@ -516,9 +516,9 @@ export function retrieveConsumerPackBulkBatched(
     const ids_batched = chunk(id_uniq, BATCH_SIZE);
 
     const boundActionList = ids_batched.map(
-      (bacth_ids) => () =>
+      (batch_ids) => () =>
         dispatch(
-          retrieveConsumerPackBulk(bacth_ids, {
+          retrieveConsumerPackBulk(batch_ids, {
             onSuccess: options?.onSuccess,
             onError: options?.onError,
           }),

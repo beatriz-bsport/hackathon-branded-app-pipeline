@@ -285,7 +285,7 @@ export function fetchMemberBulkByIdBatched(
 
     const ids_batched = chunk(id_uniq, BATCH_SIZE);
     const boundActionList = ids_batched.map(
-      (bacth_ids) => () => dispatch(fetchMemberBulkById(bacth_ids)),
+      (batch_ids) => () => dispatch(fetchMemberBulkById(batch_ids)),
     );
 
     try {

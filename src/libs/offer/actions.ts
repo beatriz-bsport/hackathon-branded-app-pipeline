@@ -606,9 +606,9 @@ export function fetchOfferBulkBatched(
 
     const ids_batched = chunk(ids_uniq, BATCH_SIZE);
     const boundActionList = ids_batched.map(
-      (bacth_ids) => () =>
+      (batch_ids) => () =>
         dispatch(
-          fetchOfferBulk(bacth_ids, options, useCache, ignoreManagerOnly),
+          fetchOfferBulk(batch_ids, options, useCache, ignoreManagerOnly),
         ),
     );
 

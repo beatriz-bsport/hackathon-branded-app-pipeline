@@ -533,10 +533,10 @@ class OfferBooking extends React.PureComponent<Props, State> {
         this.state.selectedPack.consumerPaymentPack.id;
     } else if (this.state.selectedPack.paymentPack) {
       data.payment_pack = this.state.selectedPack.paymentPack.id;
-      analyticsUtils.addPassToCart(this.state.selectedPack.paymentPack);
+      analyticsUtils.addItemToCart(this.state.selectedPack.paymentPack);
     } else if (this.state.selectedPack.paymentPackCombo) {
       data.payment_combo = this.state.selectedPack.paymentPackCombo.id;
-      analyticsUtils.addPackToCart(this.state.selectedPack.paymentPackCombo);
+      analyticsUtils.addItemToCart(this.state.selectedPack.paymentPackCombo);
     }
 
     data.offers = [

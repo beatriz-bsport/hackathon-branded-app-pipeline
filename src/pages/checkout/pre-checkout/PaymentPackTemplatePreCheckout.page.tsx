@@ -75,7 +75,7 @@ export class PaymentPackTemplatePreCheckoutPage extends Component<
       const { nextOffer } = parseQueryString(this.props.location.search);
       // @ts-expect-error
       const { force } = parseQueryString(this.props.location.search);
-      analyticsUtils.addPassToCart(paymentPack);
+      analyticsUtils.addItemToCart(paymentPack);
       this.props.addItemToBasket(
         basket.id,
         {

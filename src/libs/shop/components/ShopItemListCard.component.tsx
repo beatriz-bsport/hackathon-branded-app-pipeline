@@ -71,7 +71,7 @@ export const ShopItemListCard = (props: Props) => {
               onClick={(ev) => {
                 ev.stopPropagation();
                 props.addToOrder(shopitem.id);
-                analyticsUtils.addShopItemToCart(shopitem);
+                analyticsUtils.addItemToCart(shopitem);
               }}
             >
               <AddShoppingCartIcon />

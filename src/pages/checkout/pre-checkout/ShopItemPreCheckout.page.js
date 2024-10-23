@@ -55,7 +55,7 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
       onSuccess: (shopItem) => {
         this.props.fetchCurrentBasket(shopItem.company, {
           onSuccess: (basket) => {
-            analyticsUtils.addShopItemToCart(shopItem);
+            analyticsUtils.addItemToCart(shopItem);
             this.props.addItemToBasket(
               basket.id,
               {

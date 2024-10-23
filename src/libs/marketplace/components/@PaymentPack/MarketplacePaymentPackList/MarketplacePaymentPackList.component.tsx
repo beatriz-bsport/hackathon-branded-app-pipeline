@@ -63,7 +63,7 @@ const PaymentPackCard: React.FC<PaymentPackCardProps> = React.memo(
 
     const handleAddToCart = useCallback(() => {
       pushPackCheckout(pack.id);
-      analyticsUtils.showPass(pack);
+      analyticsUtils.addItemToCart(pack);
     }, [pushPackCheckout, pack]);
 
     return (

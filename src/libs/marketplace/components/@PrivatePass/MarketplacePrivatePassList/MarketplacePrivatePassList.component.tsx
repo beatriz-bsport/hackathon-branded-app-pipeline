@@ -56,7 +56,7 @@ const PrivatePassCard: React.FC<PrivatePassCardProps> = React.memo(
 
     const handleAddToCart = useCallback(() => {
       onAddBasket(pass.id);
-      analyticsUtils.addAppointmentPassToCart(pass);
+      analyticsUtils.addItemToCart(pass);
     }, [onAddBasket, pass]);
 
     return (

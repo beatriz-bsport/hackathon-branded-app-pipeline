@@ -56,7 +56,7 @@ export class PaymentPrivatePassPage extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchPrivatePassRetrieve(this.props.privatePassId, {
       onSuccess: (privatePass) => {
-        analyticsUtils.addAppointmentPassToCart(privatePass);
+        analyticsUtils.addItemToCart(privatePass);
         this.props.fetchCurrentBasket(privatePass.company, {
           onSuccess: (basket) => {
             const { force } = parseQueryString(this.props.location.search);

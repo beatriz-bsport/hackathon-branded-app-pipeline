@@ -1,3 +1,9 @@
+import { CheckoutItem } from "#src/libs/checkout/types";
+import { PaymentCombo } from "#src/libs/payment-combo/types";
+import { PaymentPack } from "#src/libs/payment-packs/types";
+import { PrivatePass } from "#src/libs/private-service/types";
+import { ShopItem } from "#src/libs/shop/types";
+
 declare global {
   interface Window {
     dataLayer: Object[] | null;
@@ -29,6 +35,10 @@ interface CommonBasketPayload {
   basketId?: string;
 }
 
+export type CartItem = ShopItem | PaymentPack | PaymentCombo | PrivatePass | CheckoutItem;
+
+export type CartItemTypeList = 'pass' | 'appointment_pass' | 'pack' | 'shop_item';
+
 // Common item structure for GTM
 interface GoogleTagManagerBasketItem {
   item_id: string;
@@ -48,6 +58,7 @@ interface MetaPixelBasketItem {
   name: string;
   quantity?: number;
   category?: string;
+  price?: number;
 }
 
 export type SessionPayload = {

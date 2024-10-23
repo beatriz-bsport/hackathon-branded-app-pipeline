@@ -1,22 +1,11 @@
 import { DateTime } from 'luxon';
-import { getItemInStorage } from '#src/utils/storage';
-
-import {
-  BUYABLE_ITEM_COMBO_ITEM,
-  BUYABLE_ITEM_COUPON,
-  BUYABLE_ITEM_FEE,
-  BUYABLE_ITEM_GIFTCARD,
-  BUYABLE_ITEM_PASS,
-  BUYABLE_ITEM_PRIVATE_PASS,
-  BUYABLE_ITEM_SHOP_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items';
-import { STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE } from '#src/libs/theme/constants';
 
 import type { Basket } from '#src/libs/checkout/types';
 import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import type {
   AnalyticsInterractWithLoginPayload,
   AnalyticsLeadAcquisitionPayload,
+  CartItem,
   GTMInteractWithBasketItemPayload,
   GTMPayload,
   GTMSubscriptionPayload,
@@ -26,31 +15,24 @@ import type {
   SessionPayload,
 } from './types';
 import type { PrivatePass } from '#src/libs/private-service/types';
-import type { ShopItem } from '#src/libs/shop/types';
 import type { Offer, OfferREST } from '#src/libs/offer/types';
 import type { Contract } from '#src/libs/subscription/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
-
-const itemType = {
-  [BUYABLE_ITEM_PASS.toString()]: 'pass',
-  [BUYABLE_ITEM_SHOP_ITEM.toString()]: 'webshop_item',
-  [BUYABLE_ITEM_PRIVATE_PASS.toString()]: 'appointment_pass',
-  [BUYABLE_ITEM_FEE.toString()]: 'delivery_fee',
-  [BUYABLE_ITEM_COMBO_ITEM.toString()]: 'pack',
-  [BUYABLE_ITEM_GIFTCARD.toString()]: 'gift_card',
-  [BUYABLE_ITEM_COUPON.toString()]: 'discount',
-};
-
-const currencyCode = (
-  getItemInStorage('local', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE) || 'EUR'
-).toUpperCase();
+import type { ShopItem } from '#src/libs/shop/types';
+import {
+  getItemPrice,
+  getCurrencyCode,
+  itemTypeList,
+  getItemType,
+  getItemId,
+} from './utils';
 
 const analyticsUtils = {
   trackGTM: (eventName: string, payload?: GTMPayload) => {
     if (typeof window !== 'undefined' && window.dataLayer) {
       window.dataLayer.push({
         event: eventName,
-        data: payload || {},
+        ...(payload || {}),
       });
     }
   },
@@ -68,26 +50,26 @@ const analyticsUtils = {
         item_name: item.name,
         quantity: item.quantity,
         price: item.unit_price,
-        item_category: itemType[item.buyable_item_identifier],
+        item_category: itemTypeList[item.buyable_item_identifier],
       })),
       memberId: payload.member,
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       value: payload.total_price_cts / 100,
     };
 
     const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
       value: payload.total_price_cts / 100,
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       memberId: payload.member,
       contents: payload.checkout_items.map((item) => ({
         id: item.id,
         name: item.name,
         quantity: item.quantity,
-        category: itemType[item.buyable_item_identifier],
+        category: itemTypeList[item.buyable_item_identifier],
       })),
     };
 
-    analyticsUtils.trackGTM('bsport:basket:show', gtmPayload);
+    analyticsUtils.trackGTM('view_cart', gtmPayload);
     analyticsUtils.trackMetaPixel('showBasket', metaPixelPayload);
   },
 
@@ -101,13 +83,13 @@ const analyticsUtils = {
           item_category: 'pass',
         },
       ],
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       value: payload.base_price,
     };
 
     const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
       value: payload.base_price,
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       contents: [
         {
           id: payload.id?.toString(),
@@ -132,13 +114,13 @@ const analyticsUtils = {
           item_category: 'pack',
         },
       ],
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       value: payload.price,
     };
 
     const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
       value: payload.price,
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       contents: [
         {
           id: payload.id?.toString(),
@@ -163,13 +145,13 @@ const analyticsUtils = {
           item_category: 'appointment_pass',
         },
       ],
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       value: payload.price,
     };
 
     const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
       value: payload.price,
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       contents: [
         {
           id: payload.id?.toString(),
@@ -184,6 +166,39 @@ const analyticsUtils = {
     analyticsUtils.trackMetaPixel('showAppointmentPass', metaPixelPayload);
   },
 
+  addItemToCart: (item: CartItem) => {
+    const itemPrice = getItemPrice(item);
+    const itemType = getItemType(item);
+    const itemId = getItemId(item).toString();
+
+    const gtmPayload: GTMInteractWithBasketItemPayload = {
+      items: [
+        {
+          item_id: itemId,
+          item_name: item.name,
+          price: itemPrice,
+          item_category: itemType,
+        },
+      ],
+      currency: getCurrencyCode(),
+      value: itemPrice,
+    };
+    const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
+      value: itemPrice,
+      currency: getCurrencyCode(),
+      contents: [
+        {
+          id: itemId,
+          name: item.name,
+          quantity: 1,
+          category: itemType,
+        },
+      ],
+    };
+    analyticsUtils.trackGTM('add_to_cart', gtmPayload);
+    analyticsUtils.trackMetaPixel('addToCart', metaPixelPayload);
+  },
+
   addPassToCart: (payload: PaymentPack) => {
     const gtmPayload: GTMInteractWithBasketItemPayload = {
       items: [
@@ -194,13 +209,13 @@ const analyticsUtils = {
           item_category: 'pass',
         },
       ],
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       value: payload.base_price,
     };
 
     const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
       value: payload.base_price,
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       contents: [
         {
           id: payload.id?.toString(),
@@ -225,13 +240,13 @@ const analyticsUtils = {
           item_category: 'pack',
         },
       ],
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       value: payload.price,
     };
 
     const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
       value: payload.price,
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       contents: [
         {
           id: payload.id?.toString(),
@@ -256,13 +271,13 @@ const analyticsUtils = {
           item_category: 'appointment_pass',
         },
       ],
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       value: payload.price,
     };
 
     const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
       value: payload.price,
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       contents: [
         {
           id: payload.id?.toString(),
@@ -286,23 +301,24 @@ const analyticsUtils = {
         {
           item_id: payload.id.toString(),
           item_name: payload.name,
-          price: parseInt(payload.price),
+          price: parseFloat(payload.price),
           item_category: 'shop_item',
         },
       ],
-      currency: currencyCode,
-      value: parseInt(payload.price),
+      currency: getCurrencyCode(),
+      value: parseFloat(payload.price),
     };
 
     const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
-      value: parseInt(payload.price),
-      currency: currencyCode,
+      value: parseFloat(payload.price),
+      currency: getCurrencyCode(),
       contents: [
         {
           id: payload.id?.toString(),
           name: payload.name,
           quantity: 1,
           category: 'shop_item',
+          price: parseFloat(payload.price),
         },
       ],
     };
@@ -318,24 +334,24 @@ const analyticsUtils = {
         item_name: item.name,
         quantity: item.quantity,
         price: item.unit_price,
-        item_category: itemType[item.buyable_item_identifier],
+        item_category: itemTypeList[item.buyable_item_identifier],
       })),
       memberId: payload.member,
       basketId: payload.id,
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       value: payload.total_price_cts / 100,
     };
 
     const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
       value: payload.total_price_cts / 100,
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       memberId: payload.member,
       basketId: payload.id,
       contents: payload.checkout_items.map((item) => ({
         id: item.id,
         name: item.name,
         quantity: item.quantity,
-        category: itemType[item.buyable_item_identifier],
+        category: itemTypeList[item.buyable_item_identifier],
       })),
     };
 
@@ -412,13 +428,13 @@ const analyticsUtils = {
         auto_renewal: payload.auto_renewal,
         duration: payload.nb_interval,
       },
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       value: parseInt(payload.recurrent_price),
     };
 
     const metaPixelPayload: MetaPixelSubscriptionPayload = {
       value: parseInt(payload.recurrent_price),
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       contents: [
         {
           id: payload.id.toString(),
@@ -454,13 +470,13 @@ const analyticsUtils = {
         auto_renewal: payload.auto_renewal,
         duration: payload.nb_interval,
       },
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       value: parseInt(payload.recurrent_price),
     };
 
     const metaPixelPayload: MetaPixelSubscriptionPayload = {
       value: parseInt(payload.recurrent_price),
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       contents: [
         {
           id: payload.id.toString(),
@@ -496,13 +512,13 @@ const analyticsUtils = {
         auto_renewal: payload.auto_renewal,
         duration: payload.nb_interval,
       },
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       value: parseInt(payload.recurrent_price),
     };
 
     const metaPixelPayload: MetaPixelSubscriptionPayload = {
       value: parseInt(payload.recurrent_price),
-      currency: currencyCode,
+      currency: getCurrencyCode(),
       contents: [
         {
           id: payload.id.toString(),

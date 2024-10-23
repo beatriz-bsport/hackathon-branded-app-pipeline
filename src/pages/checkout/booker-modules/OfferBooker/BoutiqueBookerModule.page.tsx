@@ -1023,7 +1023,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER
     ) {
       data.payment_pack = this.state.selectedItem?.data.id;
-      analyticsUtils.addPassToCart(
+      analyticsUtils.addItemToCart(
         this.state.selectedItem?.data as PaymentPack,
       );
     } else if (
@@ -1031,7 +1031,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER
     ) {
       data.payment_combo = this.state.selectedItem?.data.id;
-      analyticsUtils.addPackToCart(
+      analyticsUtils.addItemToCart(
         this.state.selectedItem?.data as PaymentCombo,
       );
     }

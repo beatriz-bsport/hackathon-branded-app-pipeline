@@ -60,7 +60,7 @@ export class PaymentComboPreCheckout extends React.Component<Props, State> {
         this.props.fetchCurrentBasket(paymentCombo.company, {
           onSuccess: (basket) => {
             const { nextOffer } = parseQueryString(this.props.location.search);
-            analyticsUtils.addPackToCart(paymentCombo);
+            analyticsUtils.addItemToCart(paymentCombo);
             this.props.addItemToBasket(
               basket.id,
               {

@@ -12,6 +12,7 @@ import classname from 'classnames';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type { ShopItem } from '../types';
+import analyticsUtils from '../../../components/analytics/analytics';
 
 const ShopItemBuyableItemCard = (props: {
   shopitem: ShopItem,
@@ -21,6 +22,12 @@ const ShopItemBuyableItemCard = (props: {
   loading?: boolean,
   isExcludingTax?: boolean,
 }) => {
+
+  const handleAddItemToCart = () => {
+    props.addToOrder(props.shopitem.id);
+    analyticsUtils.addItemToCart(props.shopitem);
+  }
+
   if (!props.shopitem) {
     return <div />;
   }
@@ -64,7 +71,7 @@ const ShopItemBuyableItemCard = (props: {
           <Button
             color="primary"
             disabled={props.loading}
-            onClick={() => props.addToOrder(props.shopitem.id)}
+            onClick={handleAddItemToCart}
           >
             <AddShoppingCartIcon className={props.classes.leftIcon} />
             {`${getCurrencyDisplayWithPrice(

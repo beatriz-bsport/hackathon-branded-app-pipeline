@@ -44,7 +44,7 @@ const PaymentComboCard: React.FC<PaymentComboCardProps> = React.memo(
 
     const handleAddToCart = useCallback(() => {
       onAddBasket(paymentCombo.id);
-      analyticsUtils.showPack(paymentCombo);
+      analyticsUtils.addItemToCart(paymentCombo);
     }, [onAddBasket, paymentCombo]);
 
     const handleOpenDetailDialog = useCallback(() => {

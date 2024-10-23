@@ -950,41 +950,11 @@ export default compose(
         }),
   }),
   withHandlers({
-    trackOnAddingOne:
-      () => (checkoutItemAnalyticsData: CheckoutItemAnalytics) => {
-        switch (checkoutItemAnalyticsData.buyable_item_identifier) {
-          case BUYABLE_ITEM_PRIVATE_PASS:
-            analyticsUtils.addAppointmentPassToCart(
-              checkoutItemAnalyticsData.checkoutItemToTrack,
-            );
-            break;
-          case BUYABLE_ITEM_SHOP_ITEM:
-            analyticsUtils.addShopItemToCart(
-              checkoutItemAnalyticsData.checkoutItemToTrack,
-            );
-            break;
-          case BUYABLE_ITEM_COMBO_ITEM:
-            analyticsUtils.addPackToCart(
-              checkoutItemAnalyticsData.checkoutItemToTrack,
-            );
-            break;
-          case BUYABLE_ITEM_PASS:
-            analyticsUtils.addPassToCart(
-              checkoutItemAnalyticsData.checkoutItemToTrack,
-            );
-            break;
-          default:
-            break;
-        }
-      },
-  }),
-  withHandlers({
     addItemToBasket:
       ({
         addItemToBasket,
         basket,
         fetchInstalmentPaymentByBasket,
-        trackOnAddingOne,
       }) =>
       (basketId, addCheckoutItemData, options) =>
         addItemToBasket(
@@ -1001,15 +971,7 @@ export default compose(
               fetchInstalmentPaymentByBasket(basket.id);
               if (options && options.onSuccess) options.onSuccess();
               if (addCheckoutItemData.name && addCheckoutItemData.price)
-                trackOnAddingOne({
-                  checkoutItemToTrack: {
-                    name: addCheckoutItemData.name,
-                    id: addCheckoutItemData.buyable_item_id,
-                    price: addCheckoutItemData.price,
-                  },
-                  buyable_item_identifier:
-                    addCheckoutItemData.buyable_item_identifier,
-                });
+                analyticsUtils.addItemToCart(addCheckoutItemData);
             },
             onError: options?.onError,
           },

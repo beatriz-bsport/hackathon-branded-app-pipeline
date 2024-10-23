@@ -67,7 +67,7 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
                   this.props.location.search,
                 );
                 const { force } = parseQueryString(this.props.location.search);
-                analyticsUtils.addPassToCart(paymentPack);
+                analyticsUtils.addItemToCart(paymentPack);
                 this.props.addItemToBasket(
                   basket.id,
                   {

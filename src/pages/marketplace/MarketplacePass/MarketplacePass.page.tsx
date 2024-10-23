@@ -169,7 +169,7 @@ const CarouselItem = (props: CarouselItemProps) => {
 
   const handleAddToCart = useCallback(() => {
     addComboToCart(paymentCombo.id);
-    analyticsUtils.showPack(paymentCombo);
+    analyticsUtils.addItemToCart(paymentCombo);
   }, [addComboToCart, paymentCombo]);
 
   return (

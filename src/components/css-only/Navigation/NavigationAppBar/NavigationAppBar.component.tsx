@@ -54,7 +54,7 @@ const NavigationAppBar: React.FC<NavigationAppBarProps> = ({
       >
         <Alert
           actionText={t('navigation.backToRelationMasterSpace')}
-          className=""
+          className="bs-navigation-app-bar__relationship-alert__alert"
           color="info"
           leftIcon={<Users02 stroke="currentColor" />}
           onActionClick={navigateBackToMasterRelation}

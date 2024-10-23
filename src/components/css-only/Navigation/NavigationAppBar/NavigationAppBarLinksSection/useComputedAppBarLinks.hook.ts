@@ -37,7 +37,7 @@ export function useComputedAppBarLinks({
       const visibleLinks: AppBarTab[] = [];
       const hiddenLinks: SubmenuItem[] = [];
 
-      for (let i = 0; i < links.length; i++) {
+      for (let i = 0; i < links?.length; i++) {
         const childNodeWidth = Math.round(
           computedRef?.current.children[i].clientWidth,
         );

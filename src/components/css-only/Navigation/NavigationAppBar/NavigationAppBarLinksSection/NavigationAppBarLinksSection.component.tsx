@@ -71,7 +71,7 @@ const NavigationAppBarLinksSection: React.FC<Props> = ({ links, isHidden }) => {
         ref={computedRef}
         className="bs-navigation-app-bar__links-section--computed"
       >
-        {links.map((link, index) => (
+        {links?.map((link, index) => (
           <Tab
             key={index}
             classes={{

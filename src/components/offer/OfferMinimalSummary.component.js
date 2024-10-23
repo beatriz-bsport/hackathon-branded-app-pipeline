@@ -39,12 +39,7 @@ import CoachToolTip, {
 } from '../../libs/associated-coach/components/CoachToolTip.component';
 
 const styles = (theme) => ({
-  relativeContainer: {
-    alignItems: 'end',
-    display: 'flex',
-    flexDirection: 'column',
-    position: 'relative',
-  },
+  relativeContainer: { position: 'relative' },
   chipContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -59,7 +54,11 @@ const styles = (theme) => ({
     marginRight: theme.spacing(1) / 2,
   },
   listItem: { width: '100%' },
-  noPadding: { padding: 0, paddingRight: theme.spacing(2) },
+  noPadding: {
+    padding: 0,
+    paddingRight: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: { paddingLeft: theme.spacing(2) },
+  },
   hidden: { visibility: 'hidden' },
   disabled: {
     backgroundColor: '#FFDDDD',

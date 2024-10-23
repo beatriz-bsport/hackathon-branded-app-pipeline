@@ -70,6 +70,7 @@ const WellhubProductSelectionOfferList: React.FC<Props> = ({
           {offersWithAssociatedCoach.map((offer) => (
             <OfferMinimalSummary
               key={offer.id}
+              fixedHeight
               hideFillingInfo
               withoutPadding
               offer={offer}

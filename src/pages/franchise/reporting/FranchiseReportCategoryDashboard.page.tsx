@@ -21,11 +21,7 @@ import {
   getReportV2Loading,
 } from '#src/libs/reporting/v2/selectors';
 
-import {
-  getIsReportV2Displayed,
-  getIsReportAlertDisplayedInV2,
-  getLastVisitedReportV2,
-} from '#src/libs/user-preference/selectors';
+import { getLastVisitedReportV2 } from '#src/libs/user-preference/selectors';
 import { RootState } from '#src/reducers';
 import { OwnProps } from '#src/components/HighlightedText/HighlightedText.component';
 import ReportCategoryDashboard from '#src/libs/reporting/v2/components/ReportCategoryDashboard.component';
@@ -81,8 +77,6 @@ const connector = connect(
     metadata: getReportCategoriesMetadata(state),
     defaultReportsV2: getDefaultReportsV2(state),
     reportsV2Loading: getReportV2Loading(state),
-    isV2Displayed: getIsReportV2Displayed(state),
-    isReportAlertDisplayedInV2: getIsReportAlertDisplayedInV2(state),
     lastVisitedReportV2: getLastVisitedReportV2(state),
   }),
   {

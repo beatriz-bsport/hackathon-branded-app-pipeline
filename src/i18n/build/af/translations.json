@@ -10374,6 +10374,7 @@
     "last_invoice_status": { "0": "Succeeded", "1": "Failed", "2": "Pending", "3": "Cancelled", "4": "Processing" },
     "payment_method_with_credit_account": { "0": "Card", "9": "Internal account", "13": "SEPA", "70": "Bacs Direct Debit" },
     "readPermissionDenied": "Access denied",
+    "pageTitle": "All reports",
     "pageSearchPlaceholder": "Search report name",
     "viewPageSearchPlaceholder": "Search view name",
     "pageSearchEmpty": "We can't find any reports from this search",

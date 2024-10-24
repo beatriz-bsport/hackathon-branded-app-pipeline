@@ -928,6 +928,7 @@ const getTranslations = async () => {
       [BACS_DEBIT.id]: 'Bacs Direct Debit',
     },
     readPermissionDenied: 'Access denied',
+    pageTitle: 'All reports',
     pageSearchPlaceholder: 'Search report name',
     viewPageSearchPlaceholder: 'Search view name',
     pageSearchEmpty: "We can't find any reports from this search",

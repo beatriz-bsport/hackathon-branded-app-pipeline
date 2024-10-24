@@ -26,6 +26,11 @@ type CouponCodeInputProps = {
   isBasketModificationDisabled: boolean;
 };
 
+/**
+ * Coupon code input - A text field to insert either a valid promo code or giftcard
+ * @param onSubmit The action to perform once applying the code
+ * @param isBasketModificationDisabled If true, disables the submit button
+ */
 const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
   onSubmit,
   isBasketModificationDisabled,

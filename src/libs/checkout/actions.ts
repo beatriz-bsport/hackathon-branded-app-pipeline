@@ -330,6 +330,12 @@ export function patchCurrentBasket(
   };
 }
 
+/**
+ * Attach a promo code or a gift card code to the current basket
+ * @param {string} basketId The current basket identifier
+ * @param {string} code The code to apply to the basket
+ * @param {boolean} hideSnackbar Hides the snackbar error if failed to attach to basket
+ */
 export function attachCoupon(
   basketId: string,
   code: string,

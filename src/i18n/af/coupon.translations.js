@@ -163,7 +163,7 @@ const getTranslations = async () => {
         [UNIQUE_CODE_LOCKED]:
           'This unique code is already linked to an open basket',
         apply: 'Apply',
-        label: 'Promo code',
+        label: 'Promo code & gift card',
         placeholder: 'PROMOTIONAL CODE',
         cancel: 'Cancel',
         submit: 'Apply',

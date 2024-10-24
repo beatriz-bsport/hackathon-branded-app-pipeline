@@ -29,6 +29,7 @@ export const checkoutItemFactory = (
     tax: 0.2,
     extra_data: {},
     expiration_datetime: '',
+    pdf_link: null,
     ...safeCheckoutItemOverwrite,
   };
 };

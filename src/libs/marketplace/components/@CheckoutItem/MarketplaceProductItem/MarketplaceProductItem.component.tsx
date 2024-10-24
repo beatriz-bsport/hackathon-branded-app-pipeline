@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Card, { CardSize } from '#src/components/css-only/Card';
@@ -10,6 +12,7 @@ import GridItem, {
   Justification,
 } from '#src/components/css-only/Grid/GridItem';
 import Price from '#src/components/css-only/Price/Price.component';
+import { Button } from '#src/components/css-only/Fabrique/ButtonV2/Button.component';
 import { MarketplaceProductItemSkeleton } from '.';
 
 import './styles.css';
@@ -21,6 +24,8 @@ export type Props = {
   tax: number;
   isExcludingTax?: boolean;
   isLoading: boolean;
+  /** If current checkout item is a physical giftcard */
+  pdfLink?: string;
 };
 
 const MarketplaceProductItem: React.FC<Props> = ({
@@ -30,9 +35,17 @@ const MarketplaceProductItem: React.FC<Props> = ({
   isExcludingTax,
   tax,
   isLoading,
+  pdfLink,
 }) => {
+  const { t } = useTranslation('giftcard');
+
   const nbsp = `\u00A0`;
   const formattedQuantity = quantity && `x${nbsp}${quantity}`;
+
+  const handleDownloadPdf = useCallback(() => {
+    window.open(pdfLink);
+  }, [pdfLink]);
+
   if (isLoading) {
     return <MarketplaceProductItemSkeleton />;
   }
@@ -72,7 +85,14 @@ const MarketplaceProductItem: React.FC<Props> = ({
             direction={Direction.ROW}
             justification={Justification.FLEX_START}
           >
-            <p>{name}</p>
+            <div className="bs-product-item-name__content">
+              <p className="bs-product-item-name__text">{name}</p>
+              {pdfLink && (
+                <Button onClick={handleDownloadPdf} size="sm">
+                  {t('giftcard:downloadPDF')}
+                </Button>
+              )}
+            </div>
           </GridItem>
           <GridItem
             alignment={Alignment.CENTER}

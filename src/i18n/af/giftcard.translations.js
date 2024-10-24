@@ -1,4 +1,5 @@
 exports.default = {
+  downloadPDF: 'Download PDF',
   backgroundImage: {
     dialog: {
       explain:

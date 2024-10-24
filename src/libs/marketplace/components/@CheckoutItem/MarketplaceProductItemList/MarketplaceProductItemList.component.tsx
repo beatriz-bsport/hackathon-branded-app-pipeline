@@ -30,6 +30,7 @@ const MarketplaceProductItemList: React.FC<Props> = ({
               key={item.id}
               isLoading={isLoading}
               name={item.name}
+              pdfLink={item.extra_data.pdf_link}
               price={item.unit_price}
               quantity={item.quantity}
               tax={item.tax}

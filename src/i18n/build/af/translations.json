@@ -3175,6 +3175,7 @@
     }
   },
   "giftcard": {
+    "downloadPDF": "Download PDF",
     "backgroundImage": {
       "dialog": {
         "explain": "Add custom images to allow your members to make their gift cards more personal. During the creation of the gift card, members will be able to choose a background image.",

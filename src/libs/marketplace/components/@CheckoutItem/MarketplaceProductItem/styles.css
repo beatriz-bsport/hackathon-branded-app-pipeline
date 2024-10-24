@@ -32,6 +32,18 @@
   letter-spacing: var(--subtitle2-letterSpacing);
 }
 
+.bs-product-item-name__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--spacing-1);
+  align-items: flex-start;
+}
+
+.bs-product-item-name__text {
+  margin: 0;
+}
+
 /*.bs-product-item-price__container{}
 */
 
@@ -47,5 +59,16 @@
   .bs-product-item-name,
   .bs-product-item-quantity {
     flex-direction: row;
+  }
+
+  .bs-product-item-name__content {
+    flex-direction: column;
+    flex: initial;
+    gap: 0;
+    align-items: initial;
+  }
+
+  .bs-product-item-name__text {
+    margin: 0;
   }
 }

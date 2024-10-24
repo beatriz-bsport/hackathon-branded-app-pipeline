@@ -16,3 +16,9 @@ export enum DayTimeIntervals {
   AFTERNOON = 'afternoon',
   EVENING = 'evening',
 }
+
+export enum ResourceIdentifier {
+  COACH = 'associated_coach',
+  ESTABLISHMENT = 'associated_establishment',
+  PRIVATE_SERVICE = 'private_service',
+}

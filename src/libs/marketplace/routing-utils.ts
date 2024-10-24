@@ -12,6 +12,7 @@ import {
   MARKETPLACE_PATH_TAB_GIFTCARD,
 } from './constants';
 import { getIsNewMemberProfileDisplayed } from '../consumer-space/utils';
+import { getUTMParamsFromURL } from '#src/utils/urlUtils';
 
 export const getMarketplaceRoute = (
   companyName: string,
@@ -249,10 +250,11 @@ export const getCheckoutUrl = (
   isNewCheckoutFlow: boolean,
   params?: { [key: string]: string | number },
 ) => {
+  const utmParams = getUTMParamsFromURL();
   const checkoutUrl = isNewCheckoutFlow
     ? `/checkout-s/${companyId}`
     : `/checkout/${companyId}`;
-  return buildFinalUrlWithParams(checkoutUrl, params);
+  return buildFinalUrlWithParams(checkoutUrl, { ...params, ...utmParams });
 };
 
 export const getOfferBookerUrl = (

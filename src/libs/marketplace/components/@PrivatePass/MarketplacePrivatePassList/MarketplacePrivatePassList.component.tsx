@@ -47,12 +47,14 @@ const PrivatePassCard: React.FC<PrivatePassCardProps> = React.memo(
     const handleClickMobile = useCallback(() => {
       if (isMobile) {
         setSelectedPass(pass.id);
+        analyticsUtils.showPrivatePass(pass);
       }
-    }, [isMobile, pass.id, setSelectedPass]);
+    }, [isMobile, pass, setSelectedPass]);
 
     const handleOpenDetailDialog = useCallback(() => {
       setSelectedPass(pass.id);
-    }, [pass.id, setSelectedPass]);
+      analyticsUtils.showPrivatePass(pass);
+    }, [pass, setSelectedPass]);
 
     const handleAddToCart = useCallback(() => {
       onAddBasket(pass.id);

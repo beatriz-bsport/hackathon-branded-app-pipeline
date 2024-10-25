@@ -30,6 +30,7 @@ import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import { RootState } from '../../../reducers';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 type OwnProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -64,11 +65,16 @@ export class GiftcardCheckout extends React.Component<Props> {
         extra_data: { customization_dict: data },
       },
       {
-        onSuccess: () =>
+        onSuccess: (basket) => {
+          const addedItem = basket.checkout_items.find(
+            (checkoutItem) => checkoutItem.buyable_item_id === this.props.id,
+          );
+          analyticsUtils.addItemToCart(addedItem);
           this.props.goToBasket(
             this.props.giftcard.company,
             this.props.theme?.display_new_checkout_flow,
-          ),
+          );
+        },
       },
     );
   };

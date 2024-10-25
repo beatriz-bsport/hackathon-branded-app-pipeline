@@ -185,6 +185,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   );
 
   const handleClick = useCallback(() => {
+    // GTM add analytics tracking for grouped sessions
     if (group?.full_booking_only) {
       !getBookGroupButtonIsDisabled() && setOpenModal(true);
     } else {

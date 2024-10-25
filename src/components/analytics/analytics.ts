@@ -16,7 +16,7 @@ import type {
   SessionPayload,
 } from './types';
 import type { PrivatePass } from '#src/libs/private-service/types';
-import type { Offer, OfferREST } from '#src/libs/offer/types';
+import type { OfferREST } from '#src/libs/offer/types';
 import type { Contract } from '#src/libs/subscription/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import {
@@ -439,23 +439,51 @@ const analyticsUtils = {
     analyticsUtils.trackMetaPixel('contractPaymentShow', metaPixelPayload);
   },
 
-  onWorkshopShow: (payload: Offer) => {
+  onShowWorkshopBooking: (session: SessionItem) => {
+    if (!session) return;
+    const coachId = getSessionCoachId(session);
+    const metaActivityId = getSessionMetaActivityId(session);
+    const establishmentId = getSessionMetaActivityId(session);
+
     const gtmPayload: SessionPayload = {
-      date: DateTime.fromISO(payload.date_start).toISO(),
-      coachId: payload.coach,
-      establishmentId: payload.establishment,
-      activityId: payload.meta_activity,
+      date: DateTime.fromISO(session.date_start).toISO(),
+      coachId: coachId,
+      establishmentId: establishmentId,
+      activityId: metaActivityId,
     };
 
     const metaPixelPayload: SessionPayload = {
-      date: DateTime.fromISO(payload.date_start).toISO(),
-      coachId: payload.coach,
-      establishmentId: payload.establishment,
-      activityId: payload.meta_activity,
+      date: DateTime.fromISO(session.date_start).toISO(),
+      coachId: coachId,
+      establishmentId: establishmentId,
+      activityId: metaActivityId,
     };
 
-    analyticsUtils.trackGTM('bsport:workshop-click', gtmPayload);
-    analyticsUtils.trackMetaPixel('workshopClick', metaPixelPayload);
+    analyticsUtils.trackGTM('bsport:workshop:show', gtmPayload);
+    analyticsUtils.trackMetaPixel('workshopShow', metaPixelPayload);
+  },
+
+  onGoToWorkshopBooking: (session: SessionItem) => {
+    const coachId = getSessionCoachId(session);
+    const metaActivityId = getSessionMetaActivityId(session);
+    const establishmentId = getSessionMetaActivityId(session);
+
+    const gtmPayload: SessionPayload = {
+      date: DateTime.fromISO(session.date_start).toISO(),
+      coachId: coachId,
+      establishmentId: establishmentId,
+      activityId: metaActivityId,
+    };
+
+    const metaPixelPayload: SessionPayload = {
+      date: DateTime.fromISO(session.date_start).toISO(),
+      coachId: coachId,
+      establishmentId: establishmentId,
+      activityId: metaActivityId,
+    };
+
+    analyticsUtils.trackGTM('bsport:workshop:go-to-booking', gtmPayload);
+    analyticsUtils.trackMetaPixel('workshopGoToBooking', metaPixelPayload);
   },
 
   onSessionBookingSuccess: (payload: OfferREST) => {

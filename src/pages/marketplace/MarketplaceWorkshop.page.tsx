@@ -97,8 +97,6 @@ import { useWidth } from '../../hooks/useWidth';
 import { sortByDate } from '../../utils/datetime';
 import { RootState } from '../../reducers';
 
-import analyticsUtils from '#src/components/analytics/analytics';
-
 import './MarketplaceWorkshop.css';
 
 const BATCH_SIZE_FOR_META_ACTIVITY = 6;
@@ -325,7 +323,6 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
 
   const goToBook = React.useCallback(
     (offer: Offer) => {
-      analyticsUtils.onWorkshopShow(offer);
       if (bookWidget) {
         // @ts-expect-error
         bookWidget(offer.id || offer, companyId);

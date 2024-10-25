@@ -1,5 +1,5 @@
 import type { CheckoutItem } from '#src/libs/checkout/types';
-import type { Offer_FULL, OfferREST } from '#src/libs/offer/types';
+import type { Offer, Offer_FULL, OfferREST } from '#src/libs/offer/types';
 import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import type { PrivatePass } from '#src/libs/private-service/types';
@@ -43,7 +43,7 @@ export type CartItem =
   | PrivatePass
   | CheckoutItem;
 
-export type SessionItem = OfferREST | Offer_FULL;
+export type SessionItem = OfferREST | Offer_FULL | Offer;
 
 // Common item structure for GTM
 interface GoogleTagManagerBasketItem {

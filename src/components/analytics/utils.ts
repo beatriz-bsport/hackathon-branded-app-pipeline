@@ -60,10 +60,6 @@ export const getItemId = (item: CartItem) => {
   return 0;
 };
 
-const isCheckoutItem = (item: CartItem) => {
-  return 'buyable_item_identifier' in item;
-};
-
 const isPrivatePass = (item: CartItem) => {
   return 'private_services' in item;
 };
@@ -81,7 +77,13 @@ const isShopItem = (item: CartItem) => {
 };
 
 export const getItemType = (item: CartItem) => {
-  if (isCheckoutItem(item)) return itemTypeList[item.buyable_item_identifier];
+  /*
+    check if it is of type CheckoutItem,
+    I wanted to do a type guarding function like the one above
+    but tsc was not happy with that so I did it this way
+  */
+  if ('buyable_item_identifier' in item)
+    return itemTypeList[item.buyable_item_identifier];
   if (isPrivatePass(item)) return 'appointment_pass';
   if (isPack(item)) return 'pack';
   if (isPass(item)) return 'pass';

@@ -41,6 +41,7 @@ import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 
 import './MarketplaceOfferListItemCSSOnly.css';
 import OfferPriceTag from '#src/components/css-only/OfferPriceTag';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 export const DISABLE_BOOKING_ELEMENTS_IDS = [
   'book-button--disabled',
@@ -198,6 +199,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       event.stopPropagation();
       const savedEvent = event;
 
+      analyticsUtils.onGoToWorkshopBooking(offer);
       if (theme?.hide_book_button) {
         handleClickOnHiddenBookButton(savedEvent);
       } else if (
@@ -213,7 +215,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       isBookingDisabled,
       theme?.hide_book_button,
       handleClickOnHiddenBookButton,
-      offer?.id,
+      offer,
       handleBook,
       isWorkshop,
       onClick,

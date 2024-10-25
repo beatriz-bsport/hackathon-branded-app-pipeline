@@ -2693,7 +2693,7 @@
                 "0": "Application",
                 "1": "Web",
                 "2": "Backoffice bsport",
-                "3": "Autre",
+                "3": "Marketplaces",
                 "4": "Migration de données"
             }
         },
@@ -5085,7 +5085,7 @@
                         "member": "Membre",
                         "display_count": "Nombres d'ouvertures",
                         "last_display_date": "Dernière ouverture",
-                        "completed": "Complété"
+                        "completed": "Terminé"
                     },
                     "row": {
                         "no": "Non",

@@ -15825,7 +15825,7 @@
                 "close": "Schließen",
                 "sentAgainExplain": "Die Bestätigungs-E-Mail wurde soeben erneut an Ihre E-Mail-Adresse gesendet."
             },
-            "title": "Sie sind bereits registriert",
+            "title": "Registrierung war erfolgreich",
             "clickHere": "Hier klicken",
             "helperToSendOnceAgain": "um die Bestätigungsmail erneut zu senden",
             "backToLogin": "Zurück zur Anmelde-Seite",

@@ -342,3 +342,27 @@ export const getPrivateServiceTagEligible = (state: RootState, id: string) => {
 export const getPrivateServiceTagEligibleLoading = (state: RootState) => {
   return state.privateService.privateServiceTagEligibility.loading;
 };
+
+export const getPrivateServiceWithDetails = createSelector(
+  [
+    getPrivateService,
+    getAllEstablishmentsDict,
+    getAllPrivateSlotsDict,
+    getAllCoachesDict,
+  ],
+  (privateService, establishmentsById, privateSlotsById, coachesById) => {
+    if (!privateService) return null;
+    return {
+      ...privateService,
+      coaches: privateService.coaches
+        ?.map((coachId) => coachesById?.[coachId])
+        .filter(Boolean),
+      establishments: privateService.establishments
+        ?.map((establishmentId) => establishmentsById?.[establishmentId])
+        .filter(Boolean),
+      slots: privateService.slots
+        ?.map((slotId) => privateSlotsById?.[slotId])
+        .filter(Boolean),
+    };
+  },
+);

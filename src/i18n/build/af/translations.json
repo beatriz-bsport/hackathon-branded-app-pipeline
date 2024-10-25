@@ -3519,7 +3519,7 @@
           "1": "Web",
           "2": "Backoffice",
           "3": "Other",
-          "4": "Migration",
+          "undefined": "Migration",
           "label": "Channel : {{ source }}"
         },
         "clientAuthor": "Customer",
@@ -13123,7 +13123,7 @@
     "clientSecret": {
       "errors": {
         "12102": "Your payment is in process of validation. Return later to register a new payment.",
-        "12909": "Payments are disabled for this studio"
+        "undefined": "Payments are disabled for this studio"
       }
     },
     "companyTheme": {

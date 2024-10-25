@@ -58,6 +58,7 @@ import { RootState } from '../../../reducers';
 
 import PrivatePassBookableItem from '../../../libs/booker-module/components/PrivatePassBookableItem.component';
 import PrivateConsumerPassBookableItem from '../../../libs/booker-module/components/PrivateConsumerPassBookableItem.component';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 const BOOKER_ITEM_PASS = -1;
 const BOOKER_ITEM_PRIVATE_PASS = -2;
@@ -219,13 +220,18 @@ export class VideoCheckoutBase extends Component<Props, State> {
             },
             {
               onError: () => this.setState({ processing: false }),
-              onSuccess: () =>
+              onSuccess: (addedItemBasket) => {
+                const addedItem = addedItemBasket.checkout_items.find(
+                  (checkoutItem) => checkoutItem.buyable_item_id === id,
+                );
+                analyticsUtils.addItemToCart(addedItem);
                 this.props.push(
                   getCheckoutUrl(
                     this.props.companyId,
                     this.props.theme?.display_new_checkout_flow,
                   ),
-                ),
+                );
+              },
             },
           );
         },

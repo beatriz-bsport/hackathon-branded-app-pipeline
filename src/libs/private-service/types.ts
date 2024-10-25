@@ -7,7 +7,7 @@ import type { PrivateConsumerPassLink } from '#src/libs/relationship/types';
 import { Company } from '../company/types';
 import { ErrorAndLoading, WithPagination } from '../types';
 import { DayTimeIntervals } from '#src/libs/private-service/constants';
-
+import { Interval as LuxonInterval } from 'luxon';
 export enum ResourceAttributionEnum {
   auto = 0,
   consumer = 1,
@@ -155,6 +155,28 @@ export type Slot = [IsoDateTime, IsoDateTime];
 export type ResourceSlots = { resource_identifier: string; slots: Slot[] };
 
 export type ResourceSlotsByDate = { [date: IsoDate]: ResourceSlots[] };
+
+export type AvailableResource = {
+  resource_identifier: string;
+  availableIntervals: LuxonInterval[];
+};
+
+export type AvailableIntervalByCoachId = { [coachId: string]: LuxonInterval[] };
+
+export type AvailableIntervalByEstablishmentId = {
+  [establishmentId: string]: LuxonInterval[];
+};
+
+export type CoachAvailabilitiesByEstablishment = {
+  [establishmentId: string]: AvailableIntervalByCoachId;
+};
+
+export type AvailabilityByEstablishmentAndCoach = {
+  [establishmentId: string]: {
+    establishmentAvailabilities: LuxonInterval[];
+    coachAvailabilities: AvailableIntervalByCoachId;
+  };
+};
 
 export type PrivatePass<LPP = number | null> = {
   id: number;

@@ -46,10 +46,12 @@ import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/memb
 
 import { Invoice } from '#src/libs/invoice/types';
 import ConsumerGiftcardInvitationModal from '#src/libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
+import ConsumerPhysicalGiftcardDetails from '#src/libs/giftcard/components/ConsumerPhysicalGiftcardDetails.components';
 import { getMember } from '#src/libs/member/selectors';
 import { RootState } from '../../reducers';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 import { OptionCallback } from '../../state/types';
+import { GiftcardKindEnum } from '#src/libs/giftcard/constants';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -84,10 +86,12 @@ const PAGE_SIZE = 15;
 
 type State = {
   consumerGiftcardToInvite: ConsumerGiftcard | null;
+  consumerPhysicalGiftcardSelected: ConsumerGiftcard | null;
 };
 export class MemberDetailGiftcard extends PureComponent<Props, State> {
   state: State = {
     consumerGiftcardToInvite: null,
+    consumerPhysicalGiftcardSelected: null,
   };
 
   componentDidMount() {
@@ -187,27 +191,45 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
                 </div>
               )}
               renderItem={(
-                cgc: WithGiftcard<WithSender<WithReceiver<ConsumerGiftcard>>>,
+                consumerGiftcard: WithGiftcard<
+                  WithSender<WithReceiver<ConsumerGiftcard>>
+                >,
               ) => (
                 <ConsumerGiftcardListItem
-                  key={cgc.id}
+                  key={consumerGiftcard.id}
                   divider
                   showReceiver
-                  consumerGiftcard={cgc}
-                  giftcard={cgc.giftcard}
-                  memberReceiver={cgc.dst_member}
-                  memberSender={cgc.src_member}
+                  consumerGiftcard={consumerGiftcard}
+                  giftcard={consumerGiftcard.giftcard}
+                  memberReceiver={consumerGiftcard.dst_member}
+                  memberSender={consumerGiftcard.src_member}
                   onClickReceiver={
-                    cgc.dst_member && this.props.goToMemberGiftcard
+                    consumerGiftcard.dst_member && this.props.goToMemberGiftcard
+                  }
+                  onClickSeeDetails={
+                    consumerGiftcard.kind === GiftcardKindEnum.PHYSICAL
+                      ? () =>
+                          this.setState({
+                            consumerPhysicalGiftcardSelected: consumerGiftcard,
+                          })
+                      : null
                   }
                   onClickSender={this.props.goToMemberGiftcard}
                   onClickSendInvitation={
-                    cgc.date_activated
+                    consumerGiftcard.date_activated
                       ? null
-                      : () => this.setState({ consumerGiftcardToInvite: cgc })
+                      : () =>
+                          this.setState({
+                            consumerGiftcardToInvite: consumerGiftcard,
+                          })
                   }
-                  selected={cgc.id === this.props.selectedConsumerGiftcardId}
-                  sharedFromFranchisor={!!cgc.consumer_giftcard_source}
+                  selected={
+                    consumerGiftcard.id ===
+                    this.props.selectedConsumerGiftcardId
+                  }
+                  sharedFromFranchisor={
+                    !!consumerGiftcard.consumer_giftcard_source
+                  }
                 />
               )}
             />
@@ -219,6 +241,15 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
               onClose={() => this.setState({ consumerGiftcardToInvite: null })}
               onSubmit={this.sendInvitations}
               snackbarSuccess={this.props.snackbarSuccess}
+            />
+          )}
+          {!!this.state.consumerPhysicalGiftcardSelected && (
+            <ConsumerPhysicalGiftcardDetails
+              consumerGiftcard={this.state.consumerPhysicalGiftcardSelected}
+              isOpen={!!this.state.consumerPhysicalGiftcardSelected}
+              onClose={() =>
+                this.setState({ consumerPhysicalGiftcardSelected: null })
+              }
             />
           )}
           {!this.props.is_pos_member && (

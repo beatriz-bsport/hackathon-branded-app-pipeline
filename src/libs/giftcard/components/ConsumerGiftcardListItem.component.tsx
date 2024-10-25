@@ -10,6 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import GiftIcon from '@material-ui/icons/Redeem';
 import { DateTime } from 'luxon';
 import EmailIcon from '@material-ui/icons/Email';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InfoIcon from '@material-ui/icons/Info';
 import IconButton from '@material-ui/core/IconButton';
 import CartIcon from '@material-ui/icons/ShoppingCart';
@@ -26,6 +27,7 @@ import type {
 import type { FranchiseCompany } from '#src/libs/franchise/types';
 import type { Member } from '#src/libs/member/types';
 import CompanyChip from '#src/components/franchise/CompanyChip.component';
+import { GiftcardKindEnum } from '#src/libs/giftcard/constants';
 
 type SenderProps = {
   sourceFranchiseCompany: FranchiseCompany;
@@ -161,6 +163,8 @@ type ReceiverProps = {
   showMember?: boolean;
   onClick: (consumerGiftcardId: number, memberId: number) => void;
   onClickSendInvitation?: () => void;
+  /** See details for a physical giftcard */
+  onClickSeeDetails?: () => void;
 };
 
 const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
@@ -175,6 +179,7 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
     showMember,
     onClick,
     onClickSendInvitation,
+    onClickSeeDetails,
   }) => {
     const { t } = useTranslation('giftcard');
     const classes = useStyles();
@@ -303,13 +308,23 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
                 </Tooltip>
               </div>
             )}
-            {!!onClickSendInvitation && !consumerGiftcard?.reverted && (
-              <Tooltip title={t('consumerGiftcard.sendTo')}>
-                <IconButton color="primary" onClick={onClickSendInvitation}>
-                  <EmailIcon />
-                </IconButton>
-              </Tooltip>
-            )}
+            {!!onClickSendInvitation &&
+              !consumerGiftcard?.reverted &&
+              consumerGiftcard.kind === GiftcardKindEnum.DIGITAL && (
+                <Tooltip title={t('consumerGiftcard.sendTo')}>
+                  <IconButton color="primary" onClick={onClickSendInvitation}>
+                    <EmailIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+            {!!onClickSeeDetails &&
+              consumerGiftcard.kind === GiftcardKindEnum.PHYSICAL && (
+                <Tooltip title={t('consumerGiftcard.seeDetails')}>
+                  <IconButton onClick={onClickSeeDetails}>
+                    <AttachFileIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
           </ListItem>
         )}
       </ObjectLevelPermissionProvider>
@@ -377,6 +392,8 @@ type Props = {
   onClickSender?: (consumerGiftcardId: number, memberId: number) => void;
   onClickReceiver?: (consumerGiftcardId: number, memberId: number) => void;
   onClickSendInvitation?: () => void;
+  /** See details for a physical giftcard */
+  onClickSeeDetails?: () => void;
   selected?: boolean;
   divider?: boolean;
   sharedFromFranchisor?: boolean;
@@ -395,6 +412,7 @@ const ConsumerGiftcardListItem: React.FC<Props> = ({
   onClickSender,
   onClickReceiver,
   onClickSendInvitation,
+  onClickSeeDetails,
   selected,
   divider,
   sharedFromFranchisor,
@@ -423,6 +441,7 @@ const ConsumerGiftcardListItem: React.FC<Props> = ({
       giftcard={giftcard}
       memberReceiver={memberReceiver}
       onClick={onClickReceiver}
+      onClickSeeDetails={onClickSeeDetails}
       onClickSendInvitation={onClickSendInvitation}
       selected={selected_}
       sharedFromFranchisor={sharedFromFranchisor}

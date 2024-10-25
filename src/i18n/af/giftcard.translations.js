@@ -64,6 +64,7 @@ exports.default = {
     activationLink: 'Copy activation link',
   },
   consumerGiftcard: {
+    seeDetails: 'See details',
     form: {
       type: {
         label: 'How would you like to send the gift card',
@@ -114,6 +115,17 @@ exports.default = {
     list: {
       myGifted: 'Received gift cards',
       myPurchases: 'Purchased gift cards',
+    },
+    physicalDetails: {
+      title: 'Gift card',
+      to: 'To',
+      code: 'Code:',
+      validFrom: 'Valid from: {{- from }} to {{- to }}',
+      helperAlert: {
+        title: 'How to use the gift card?',
+        message:
+          'Share the gift card code with the member so they can use the credit on their next purchase.',
+      },
     },
     invitationForm: {
       actions: { submit: 'Send', close: 'Close' },

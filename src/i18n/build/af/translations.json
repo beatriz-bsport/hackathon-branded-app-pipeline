@@ -3226,6 +3226,7 @@
     },
     "link": { "copyLink": "Copy the direct link to the gift card", "activationLink": "Copy activation link" },
     "consumerGiftcard": {
+      "seeDetails": "See details",
       "form": {
         "type": {
           "label": "How would you like to send the gift card",
@@ -3264,6 +3265,16 @@
       "isEmpty": "There are no gift cards to display.",
       "linkedInvoice": "Associated invoice",
       "list": { "myGifted": "Received gift cards", "myPurchases": "Purchased gift cards" },
+      "physicalDetails": {
+        "title": "Gift card",
+        "to": "To",
+        "code": "Code:",
+        "validFrom": "Valid from: {{- from }} to {{- to }}",
+        "helperAlert": {
+          "title": "How to use the gift card?",
+          "message": "Share the gift card code with the member so they can use the credit on their next purchase."
+        }
+      },
       "invitationForm": {
         "actions": { "submit": "Send", "close": "Close" },
         "content": "You can change the recipient of the gift card. Attention: it can only be used by 1 user. You can also send this activation link:",

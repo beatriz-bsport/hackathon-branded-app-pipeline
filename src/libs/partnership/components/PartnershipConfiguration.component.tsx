@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ClassPassLogo from '#src/libs/partnership/components/ClassPassLogo.component';
 import ClassPassTable from './ClassPassTable.component';
+import { checkClassPassEligibility } from '#src/libs/private-service/utils';
 
 type Props = {
   activitiesVenueEstablishmentList: {
@@ -33,6 +34,8 @@ const PartnershipConfiguration: React.FC<Props> = ({
   shouldRequestClassPassPartnership,
 }) => {
   const { t } = useTranslation('partnership');
+
+  const isCompanyEligibleForClassPass = checkClassPassEligibility(companyId);
 
   const classes = useStyles();
 
@@ -78,13 +81,17 @@ const PartnershipConfiguration: React.FC<Props> = ({
         isLoading={isLoading}
         venueEstablishmentList={activitiesVenueEstablishmentList}
       />
-      <Typography variant="h6">
-        {t('parameters.table.title.appointments')}
-      </Typography>
-      <ClassPassTable
-        isLoading={isLoading}
-        venueEstablishmentList={appointmentsVenueEstablishmentList}
-      />
+      {isCompanyEligibleForClassPass && (
+        <>
+          <Typography variant="h6">
+            {t('parameters.table.title.appointments')}
+          </Typography>
+          <ClassPassTable
+            isLoading={isLoading}
+            venueEstablishmentList={appointmentsVenueEstablishmentList}
+          />
+        </>
+      )}
     </Paper>
   );
 };

@@ -7524,7 +7524,8 @@
                             "preview": "Prévisualiser",
                             "previewCount": "{{count}} séance va être créée",
                             "previewCount_plural": "{{count}} séances vont être créées"
-                        }
+                        },
+                        "wellhubDurationWarning": "Les séances dépassant 200 minutes seront automatiquement ajustées à une durée maximale de 200 minutes lorsqu'elles seront envoyées à Wellhub. Veuillez vous assurer que la durée de votre séance respecte cette limite afin d'éviter tout écart."
                     }
                 },
                 "coach": {
@@ -7791,7 +7792,16 @@
             "establishment": "Etablissement",
             "configurationTitle": "Configurez votre intégration",
             "add": "Ajouter",
-            "configurationDescription": "Sélectionnez la façon dont vous souhaitez que vos établissements apparaissent sur l'application ClassPass. Cela ne s'applique qu'à la façon dont les activités de groupe sont affichées."
+            "configurationDescription": "Sélectionnez la façon dont vous souhaitez que vos établissements apparaissent sur l'application ClassPass. Cela ne s'applique qu'à la façon dont les activités de groupe sont affichées.",
+            "editButton": "Modifier la configuration",
+            "drawerTitle": "Configuration ClassPass",
+            "table": {
+                "establishments": "Salles",
+                "title": {
+                    "appointments": "Pour les rendez-vous",
+                    "groupActivities": "Pour les cours collectifs"
+                }
+            }
         },
         "requestDialog": {
             "explain": "Vous avez demandé l'intégration bsport X classpass, votre chargé de compte va vous contacter pour valider cette opération",

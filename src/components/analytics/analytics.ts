@@ -235,8 +235,8 @@ const analyticsUtils = {
       })),
     };
 
-    analyticsUtils.trackGTM('bsport:basket:payment-success', gtmPayload);
-    analyticsUtils.trackMetaPixel('paymentSuccess', metaPixelPayload);
+    analyticsUtils.trackGTM('purchase', gtmPayload);
+    analyticsUtils.trackMetaPixel('purchase', metaPixelPayload);
   },
 
   onShowSignup: () => {

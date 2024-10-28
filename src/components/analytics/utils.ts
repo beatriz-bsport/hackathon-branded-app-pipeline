@@ -65,6 +65,11 @@ export const getItemId = (item: CartItem) => {
   return 0;
 };
 
+export const getItemQuantity = (item: CartItem) => {
+  if ('quantity' in item) return item.quantity;
+  return 1;
+};
+
 const isPrivatePass = (item: CartItem) => {
   return 'private_services' in item;
 };

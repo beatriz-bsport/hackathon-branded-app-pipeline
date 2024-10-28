@@ -25,10 +25,13 @@ import {
   getItemId,
   getSessionCoachId,
   getSessionMetaActivityId,
+  getItemQuantity,
 } from './utils';
 
 const analyticsUtils = {
   trackGTM: (eventName: string, payload?: GTMPayload) => {
+    console.log('event name : ', eventName);
+    console.log('payload: ', payload);
     if (typeof window !== 'undefined' && window.dataLayer) {
       window.dataLayer.push({
         event: eventName,
@@ -167,6 +170,41 @@ const analyticsUtils = {
     };
     analyticsUtils.trackGTM('add_to_cart', gtmPayload);
     analyticsUtils.trackMetaPixel('addToCart', metaPixelPayload);
+  },
+
+  removeItemFromCart: (item: CartItem) => {
+    const itemType = getItemType(item);
+    const itemId = getItemId(item).toString();
+    const itemQuantity = getItemQuantity(item);
+    const itemPrice = getItemPrice(item) * itemQuantity;
+
+    const gtmPayload: GTMInteractWithBasketItemPayload = {
+      items: [
+        {
+          item_id: itemId,
+          item_name: item.name,
+          price: itemPrice,
+          item_category: itemType,
+          quantity: itemQuantity,
+        },
+      ],
+      currency: getCurrencyCode(),
+      value: itemPrice,
+    };
+    const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
+      value: itemPrice,
+      currency: getCurrencyCode(),
+      contents: [
+        {
+          id: itemId,
+          name: item.name,
+          quantity: itemQuantity,
+          category: itemType,
+        },
+      ],
+    };
+    analyticsUtils.trackGTM('remove_from_cart', gtmPayload);
+    analyticsUtils.trackMetaPixel('removeFromCart', metaPixelPayload);
   },
 
   onPaymentSuccess: (payload: Basket) => {

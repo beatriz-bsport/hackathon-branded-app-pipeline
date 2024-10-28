@@ -975,7 +975,13 @@ export default compose(
       ({ removeItemFromBasket, basket, fetchInstalmentPaymentByBasket }) =>
       (basketId, data) =>
         removeItemFromBasket(basketId, data, {
-          onSuccess: () => fetchInstalmentPaymentByBasket(basket.id),
+          onSuccess: () => {
+            const itemToRemove = basket?.checkout_items.find(
+              (item) => item.id === data.checkout_item,
+            );
+            analyticsUtils.removeItemFromCart(itemToRemove);
+            fetchInstalmentPaymentByBasket(basket.id);
+          },
         }),
   }),
   withHandlers({

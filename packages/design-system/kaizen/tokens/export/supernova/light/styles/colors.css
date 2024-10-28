@@ -59,13 +59,13 @@
   /* Semi-transparent overlay colour, used to highlight or obscure content. */
   --colorKzColorSurfaceBlanket: #12131340;
   /* Default colour for borders across the platform. */
-  --colorFigmaColorStrokeDefault: #7c878640;
-  --colorFigmaColorStrokeStrong: #7c8786bf;
-  --colorFigmaColorStrokeDivider: #7c878640;
-  --colorFigmaColorStrokeActionDefaultRest: #7c878640;
-  --colorFigmaColorStrokeActionDefaultHovered: #7c878680;
-  --colorFigmaColorStrokeActionDefaultPressed: #7c8786bf;
-  --colorFigmaColorStrokeActionDefaultDisabled: #7c878626;
+  --colorFigmaColorStrokeDefault: #c4d1d040;
+  --colorFigmaColorStrokeStrong: #c4d1d0bf;
+  --colorFigmaColorStrokeDivider: #c4d1d080;
+  --colorFigmaColorStrokeActionDefaultRest: #a3afae0a;
+  --colorFigmaColorStrokeActionDefaultHovered: #a3afae80;
+  --colorFigmaColorStrokeActionDefaultPressed: #a3afaebf;
+  --colorFigmaColorStrokeActionDefaultDisabled: #a3afae40;
   /* Default disabled colour for strong actionable elements like buttons. */
   --colorFigmaColorSurfaceActionMainStrongDisabled: #7c8786bf;
   /* Default colour token for actions on weak flat surfaces. */

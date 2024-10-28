@@ -269,8 +269,8 @@ const analyticsUtils = {
     const metaPixelPayload: AnalyticsInterractWithLoginPayload = {
       email: payload.email,
     };
-    analyticsUtils.trackGTM('bsport:signup:success', gtmPayload);
-    analyticsUtils.trackMetaPixel('signupSuccess', metaPixelPayload);
+    analyticsUtils.trackGTM('sign_up', gtmPayload);
+    analyticsUtils.trackMetaPixel('signUp', metaPixelPayload);
   },
 
   onSessionShow: (session: SessionItem) => {

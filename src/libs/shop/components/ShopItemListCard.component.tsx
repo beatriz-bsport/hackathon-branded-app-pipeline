@@ -19,14 +19,20 @@ type Props = {
 
 export const ShopItemListCard = (props: Props) => {
   const classes = useStyles();
-  const { shopitem } = props;
+  const { shopitem, onClick } = props;
+
+  const handleClick = React.useCallback(() => {
+    analyticsUtils.viewBuyableItem(shopitem);
+    onClick();
+  }, [onClick, shopitem]);
+
   return (
     <div className={classes.container}>
       <div className={classes.imageWrapper}>
         <div
           className={classes.media}
-          onClick={props.onClick}
-          onKeyDown={props.onClick}
+          onClick={handleClick}
+          onKeyDown={handleClick}
           role="button"
           tabIndex={shopitem.id}
         >
@@ -64,7 +70,7 @@ export const ShopItemListCard = (props: Props) => {
           </Typography>
           <div>
             <IconButton>
-              <VisibilityIcon onClick={props.onClick} />
+              <VisibilityIcon onClick={handleClick} />
             </IconButton>
             <IconButton
               color="primary"

@@ -73,6 +73,36 @@ const analyticsUtils = {
     analyticsUtils.trackMetaPixel('viewCart', metaPixelPayload);
   },
 
+  beginCheckout: (payload: Basket) => {
+    const gtmPayload: GTMInteractWithBasketItemPayload = {
+      items: payload.checkout_items.map((item) => ({
+        item_id: item.id,
+        item_name: item.name,
+        quantity: item.quantity,
+        price: item.unit_price,
+        item_category: itemTypeList[item.buyable_item_identifier],
+      })),
+      memberId: payload.member,
+      currency: getCurrencyCode(),
+      value: payload.total_price_cts / 100,
+    };
+
+    const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
+      value: payload.total_price_cts / 100,
+      currency: getCurrencyCode(),
+      memberId: payload.member,
+      contents: payload.checkout_items.map((item) => ({
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        category: itemTypeList[item.buyable_item_identifier],
+      })),
+    };
+
+    analyticsUtils.trackGTM('begin_checkout', gtmPayload);
+    analyticsUtils.trackMetaPixel('beginCheckout', metaPixelPayload);
+  },
+
   viewBuyableItem: (item: CartItem) => {
     const itemPrice = getItemPrice(item);
     const itemType = getItemType(item);

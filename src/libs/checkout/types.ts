@@ -276,3 +276,16 @@ export type ExpiredItemRemovalStatusPayload = {
 export type ExpiredItemRemovalStatusResponse = {
   removal_successful: boolean;
 };
+
+export type AnalyticsBasket = {
+  member: number;
+  id: string; // uuid
+  total_price: string;
+  total_price_cts: number;
+  checkout_items: CheckoutItem[];
+  available_payment_methods: number[];
+  instalment_payment?: number;
+  date_created: string;
+  date_updated: string;
+  is_fully_paid?: boolean;
+};

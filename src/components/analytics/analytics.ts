@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-import type { Basket } from '#src/libs/checkout/types';
+import type { AnalyticsBasket } from '#src/libs/checkout/types';
 import type {
   AnalyticsInterractWithLoginPayload,
   AnalyticsLeadAcquisitionPayload,
@@ -30,8 +30,6 @@ import {
 
 const analyticsUtils = {
   trackGTM: (eventName: string, payload?: GTMPayload) => {
-    console.log('event name : ', eventName);
-    console.log('payload: ', payload);
     if (typeof window !== 'undefined' && window.dataLayer) {
       window.dataLayer.push({
         event: eventName,
@@ -46,7 +44,7 @@ const analyticsUtils = {
     }
   },
 
-  viewCart: (payload: Basket) => {
+  viewCart: (payload: AnalyticsBasket) => {
     const gtmPayload: GTMInteractWithBasketItemPayload = {
       items: payload.checkout_items.map((item) => ({
         item_id: item.id,
@@ -76,7 +74,7 @@ const analyticsUtils = {
     analyticsUtils.trackMetaPixel('viewCart', metaPixelPayload);
   },
 
-  beginCheckout: (payload: Basket) => {
+  beginCheckout: (payload: AnalyticsBasket) => {
     const gtmPayload: GTMInteractWithBasketItemPayload = {
       items: payload.checkout_items.map((item) => ({
         item_id: item.id,
@@ -207,7 +205,7 @@ const analyticsUtils = {
     analyticsUtils.trackMetaPixel('removeFromCart', metaPixelPayload);
   },
 
-  onPaymentSuccess: (payload: Basket) => {
+  onPaymentSuccess: (payload: AnalyticsBasket) => {
     const gtmPayload: GTMInteractWithBasketItemPayload = {
       items: payload.checkout_items.map((item) => ({
         item_id: item.id,

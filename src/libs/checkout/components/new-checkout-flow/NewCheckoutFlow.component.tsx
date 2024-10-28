@@ -265,7 +265,6 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   React.useEffect(() => {
     if (!steps.map((step) => step.id).includes(currentStep.id))
       setCurrentStep(steps[0]);
-    //@ts-ignore - I dont know the basket has this type but its easier to manage it like that
     if (currentStep.id === 1) analyticsUtils.beginCheckout(basket);
   }, [currentStep, steps, basket]);
 

@@ -283,7 +283,7 @@ export class BasketPage extends React.Component<Props> {
     }
     if (this.props.basket) {
       this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
-      analyticsUtils.showBasket(this.props.basket);
+      analyticsUtils.viewCart(this.props.basket);
       if (this.props.basket.total_price_cts) {
         this.getSecret(this.state.paymentEngine);
       }
@@ -304,7 +304,7 @@ export class BasketPage extends React.Component<Props> {
     }
     if (this.props.basket && !prevProps.basket) {
       this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
-      analyticsUtils.showBasket(this.props.basket);
+      analyticsUtils.viewCart(this.props.basket);
       if (this.props.basket.total_price_cts) {
         this.getSecret(this.state.paymentEngine);
       }

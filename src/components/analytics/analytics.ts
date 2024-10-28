@@ -43,7 +43,7 @@ const analyticsUtils = {
     }
   },
 
-  showBasket: (payload: Basket) => {
+  viewCart: (payload: Basket) => {
     const gtmPayload: GTMInteractWithBasketItemPayload = {
       items: payload.checkout_items.map((item) => ({
         item_id: item.id,
@@ -70,7 +70,7 @@ const analyticsUtils = {
     };
 
     analyticsUtils.trackGTM('view_cart', gtmPayload);
-    analyticsUtils.trackMetaPixel('showBasket', metaPixelPayload);
+    analyticsUtils.trackMetaPixel('viewCart', metaPixelPayload);
   },
 
   viewBuyableItem: (item: CartItem) => {

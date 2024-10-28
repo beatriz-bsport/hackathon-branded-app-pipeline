@@ -17,8 +17,8 @@ import type {
   SubscriptionsInvoicesDetailsREST,
 } from '#src/libs/subscription/types';
 import type { PaymentMethod } from '#src/libs/payment/types';
-import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
-import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
+import { SubscriptionFilterEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 
 type Props = {
   hasDetailsNextPage: boolean;
@@ -34,7 +34,7 @@ type Props = {
     SubscriptionsInvoicesDetailsREST,
     'billing_plan_id'
   >[];
-  selectedTab: SubscriptionTab;
+  selectedFilter: SubscriptionFilter;
   handleClose: () => void;
   onSeeTermsClick: () => void;
   handleInvoiceDetailsPaginationFetchMore: () => void;
@@ -50,7 +50,7 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
   paymentMethodUsed,
   selectedSubscription,
   selectedSubscriptionInvoiceDetails,
-  selectedTab,
+  selectedFilter,
   showPlaceholder,
   areDetailsLoading,
   handleClose,
@@ -103,7 +103,7 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
           handleInvoiceDetailsPaginationFetchMore
         }
         hasAutoRenewal={
-          selectedTab !== SubscriptionTabEnum.EXPIRED &&
+          selectedFilter !== SubscriptionFilterEnum.EXPIRED &&
           selectedSubscription?.auto_renewal
         }
         hasDetailsNextPage={hasDetailsNextPage}
@@ -115,7 +115,7 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
         isMobile={isMobile}
         isPaused={isPaused(selectedSubscription?.pauses)}
         isPaymentMethodSectionHidden={
-          selectedTab === SubscriptionTabEnum.EXPIRED
+          selectedFilter === SubscriptionFilterEnum.EXPIRED
         }
         joiningFee={selectedSubscription?.flat_fee}
         lastInvoiceDateBeforeRenewal={informationBasedOnCouponApplied(
@@ -140,12 +140,12 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
         subscriptionInterval={selectedSubscription?.interval}
         subscriptionName={selectedSubscription?.name_without_member_name}
         subscriptionNextPaymentDate={
-          selectedTab !== SubscriptionTabEnum.EXPIRED &&
+          selectedFilter !== SubscriptionFilterEnum.EXPIRED &&
           selectedSubscription?.next_billing_date &&
           formatAsDate(selectedSubscription?.next_billing_date)
         }
         subtitleDate={getSubtitleCardDetailsDate(
-          selectedTab,
+          selectedFilter,
           selectedSubscription,
           t,
         )}

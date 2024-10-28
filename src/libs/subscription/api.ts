@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
+import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import {
   API_URI,
   API_V1_URI,
@@ -61,7 +61,7 @@ export const fetchConsumerSubscriptionList = async (
 
 export const fetchConsumerSubscription = (
   id: number,
-  params: { member: number; status: SubscriptionTab },
+  params: { member: number; status: SubscriptionFilter },
 ) => {
   return getAuth<SubscriptionREST>(
     `${API_URI}/subscription/consumer-billing-plan/${id}/${buildUrlParams(

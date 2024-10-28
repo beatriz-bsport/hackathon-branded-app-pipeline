@@ -8,7 +8,7 @@ import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
 } from '#src/libs/subscription/types';
-import type { SubscriptionTab } from '../types';
+import type { SubscriptionFilter } from '../types';
 
 type Props = {
   /* DETAILS DRAWER */
@@ -24,7 +24,7 @@ type Props = {
     SubscriptionsInvoicesDetailsREST,
     'billing_plan_id'
   >[];
-  selectedTab: SubscriptionTab;
+  selectedFilter: SubscriptionFilter;
   handleCloseSubscriptionDetailsDrawer: () => void;
   onSeeTermsClick: () => void;
   handleInvoiceDetailsPaginationFetchMore: () => void;
@@ -42,7 +42,7 @@ const ConsumerSubscriptionModals: React.FC<Props> = ({
   paymentMethodUsed,
   selectedSubscription,
   selectedSubscriptionInvoiceDetails,
-  selectedTab,
+  selectedFilter,
   handleCloseSubscriptionDetailsDrawer,
   onSeeTermsClick,
   handleInvoiceDetailsPaginationFetchMore,
@@ -64,9 +64,9 @@ const ConsumerSubscriptionModals: React.FC<Props> = ({
         isOpen={isMobile && isSubscriptionDetailsDrawerOpen}
         onSeeTermsClick={onSeeTermsClick}
         paymentMethodUsed={paymentMethodUsed}
+        selectedFilter={selectedFilter}
         selectedSubscription={selectedSubscription}
         selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
-        selectedTab={selectedTab}
       />
     </PortalContainer>
   );

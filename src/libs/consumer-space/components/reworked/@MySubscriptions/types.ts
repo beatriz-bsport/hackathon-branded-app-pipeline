@@ -1,3 +1,3 @@
-const SubscriptionTabTypes = ['active', 'future', 'expired'] as const;
+const SubscriptionFilterTypes = ['active', 'future', 'expired'] as const;
 
-export type SubscriptionTab = (typeof SubscriptionTabTypes)[number];
+export type SubscriptionFilter = (typeof SubscriptionFilterTypes)[number];

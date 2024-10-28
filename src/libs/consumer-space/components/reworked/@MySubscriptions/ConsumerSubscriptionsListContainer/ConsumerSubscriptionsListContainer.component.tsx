@@ -15,8 +15,8 @@ import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
 } from '#src/libs/subscription/types';
-import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
-import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
+import { SubscriptionFilterEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import type { PaymentMethod } from '#src/libs/payment/types';
 
 import { isPaused } from '#src/libs/subscription/utils';
@@ -46,7 +46,7 @@ type Props = {
     SubscriptionsInvoicesDetailsREST,
     'billing_plan_id'
   >[];
-  selectedTab: SubscriptionTab;
+  selectedFilter: SubscriptionFilter;
   subscriptionsList: SubscriptionREST[];
   cache: CellMeasurerCache;
   currentCount: number;
@@ -59,7 +59,7 @@ type ConsumerSubscriptionsListContainerRowProps = {
   onAddPaymentMethodClick: (id: number) => () => void;
   onCardDetailsClick: (id: number) => () => void;
   t: TFunction;
-} & Pick<Props, 'isLoading' | 'isMobile' | 'selectedTab'>;
+} & Pick<Props, 'isLoading' | 'isMobile' | 'selectedFilter'>;
 
 const ConsumerSubscriptionsListContainerRow: React.FC<
   ConsumerSubscriptionsListContainerRowProps
@@ -67,7 +67,7 @@ const ConsumerSubscriptionsListContainerRow: React.FC<
   isMobile,
   selectedSubscriptionId,
   isLoading,
-  selectedTab,
+  selectedFilter,
   item,
   onAddPaymentMethodClick,
   onCardDetailsClick,
@@ -87,11 +87,11 @@ const ConsumerSubscriptionsListContainerRow: React.FC<
       onDetailsClick={onCardDetailsClick(item.id)}
       price={(item?.price_to_display_cts / 100).toFixed(2)}
       recurrenceBasis={item?.recurrence_basis}
-      subscriptionDate={getSubtitleCardDate(selectedTab, item, t)}
+      subscriptionDate={getSubtitleCardDate(selectedFilter, item, t)}
       subscriptionInterval={item?.interval}
       subscriptionName={item?.name_without_member_name}
       subscriptionNextPaymentDate={
-        selectedTab !== SubscriptionTabEnum.EXPIRED &&
+        selectedFilter !== SubscriptionFilterEnum.EXPIRED &&
         item?.next_billing_date &&
         formatAsDate(item?.next_billing_date)
       }
@@ -113,7 +113,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   paymentMethodUsed,
   selectedSubscription,
   selectedSubscriptionInvoiceDetails,
-  selectedTab,
+  selectedFilter,
   subscriptionsList,
   cache,
   currentPage,
@@ -176,7 +176,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
             handleInvoiceDetailsPaginationFetchMore
           }
           hasAutoRenewal={
-            selectedTab !== SubscriptionTabEnum.EXPIRED &&
+            selectedFilter !== SubscriptionFilterEnum.EXPIRED &&
             selectedSubscription?.auto_renewal
           }
           hasDetailsNextPage={hasDetailsNextPage}
@@ -188,7 +188,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
           isMobile={isMobile}
           isPaused={isPaused(selectedSubscription?.pauses)}
           isPaymentMethodSectionHidden={
-            selectedTab === SubscriptionTabEnum.EXPIRED
+            selectedFilter === SubscriptionFilterEnum.EXPIRED
           }
           joiningFee={selectedSubscription?.flat_fee}
           lastInvoiceDateBeforeRenewal={informationBasedOnCouponApplied(
@@ -215,12 +215,12 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
           subscriptionInterval={selectedSubscription?.interval}
           subscriptionName={selectedSubscription?.name_without_member_name}
           subscriptionNextPaymentDate={
-            selectedTab !== SubscriptionTabEnum.EXPIRED &&
+            selectedFilter !== SubscriptionFilterEnum.EXPIRED &&
             selectedSubscription?.next_billing_date &&
             formatAsDate(selectedSubscription?.next_billing_date)
           }
           subtitleDate={getSubtitleCardDetailsDate(
-            selectedTab,
+            selectedFilter,
             selectedSubscription,
             t,
           )}
@@ -230,7 +230,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         />
       }
       emptyPlaceholder={
-        selectedTab === SubscriptionTabEnum.EXPIRED
+        selectedFilter === SubscriptionFilterEnum.EXPIRED
           ? t('reworked.mySubscriptions.placeholder.expired')
           : t('reworked.mySubscriptions.placeholder.nonExpired')
       }
@@ -251,7 +251,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
               item={item}
               onAddPaymentMethodClick={onAddPaymentMethodClick}
               onCardDetailsClick={onCardDetailsClick}
-              selectedTab={selectedTab}
+              selectedFilter={selectedFilter}
               t={t}
             />
           )}

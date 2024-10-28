@@ -49,7 +49,7 @@ import {
 } from '#src/libs/marketplace/utils/navigation';
 import { getTheme } from '#src/libs/theme/selectors';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
-import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
+import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
@@ -262,7 +262,7 @@ export const consumerSubscriptionMapWithHandlers = {
     (
       subscriptionId: number,
       payment_method_id: string,
-      status: SubscriptionTab,
+      status: SubscriptionFilter,
       options?: OptionCallback,
     ) => {
       props.switchSubscriptionPaymentMethod(

@@ -10,9 +10,9 @@ import type {
   SubscriptionsInvoicesDetailsREST,
   SubscriptionsInvoicesDetailsParams,
 } from '#src/libs/subscription/types';
-import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import { SubscriptionFilterEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import { CONSUMER_SPACE_API_PAGE_SIZE } from '#src/libs/consumer-space/constants';
-import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
+import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import type {
   OptionCallback,
   ThunkAction,
@@ -51,7 +51,7 @@ export function fetchMyActiveSubscriptionsAsMember(
         member,
         page: page ?? 1,
         page_size,
-        status: SubscriptionTabEnum.ACTIVE,
+        status: SubscriptionFilterEnum.ACTIVE,
       });
       dispatch(
         fetchMyActiveSubscriptionsAsMemberActions.success(response.data),
@@ -94,9 +94,10 @@ export const fetchExpiredSubscriptionDetailAsMemberActions = {
 };
 
 const actionType = {
-  [SubscriptionTabEnum.ACTIVE]: fetchActiveSubscriptionDetailAsMemberActions,
-  [SubscriptionTabEnum.FUTURE]: fetchFutureSubscriptionDetailAsMemberActions,
-  [SubscriptionTabEnum.EXPIRED]: fetchExpiredSubscriptionDetailAsMemberActions,
+  [SubscriptionFilterEnum.ACTIVE]: fetchActiveSubscriptionDetailAsMemberActions,
+  [SubscriptionFilterEnum.FUTURE]: fetchFutureSubscriptionDetailAsMemberActions,
+  [SubscriptionFilterEnum.EXPIRED]:
+    fetchExpiredSubscriptionDetailAsMemberActions,
 };
 
 export function fetchMySubscriptionAsMember(
@@ -107,7 +108,7 @@ export function fetchMySubscriptionAsMember(
   }: {
     id: number;
     member: number;
-    status: SubscriptionTab;
+    status: SubscriptionFilter;
   },
   options?: OptionCallback<SubscriptionREST>,
 ): ThunkAction {
@@ -161,7 +162,7 @@ export function fetchMyFutureSubscriptionsAsMember(
         member,
         page: page ?? 1,
         page_size,
-        status: SubscriptionTabEnum.FUTURE,
+        status: SubscriptionFilterEnum.FUTURE,
       });
       dispatch(
         fetchMyFutureSubscriptionsAsMemberActions.success(response.data),
@@ -207,7 +208,7 @@ export function fetchMyExpiredSubscriptionsAsMember(
         member,
         page: page ?? 1,
         page_size,
-        status: SubscriptionTabEnum.EXPIRED,
+        status: SubscriptionFilterEnum.EXPIRED,
       });
       dispatch(
         fetchMyExpiredSubscriptionsAsMemberActions.success(response.data),

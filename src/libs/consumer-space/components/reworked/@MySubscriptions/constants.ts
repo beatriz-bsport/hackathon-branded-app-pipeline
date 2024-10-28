@@ -1,4 +1,4 @@
-export enum SubscriptionTabEnum {
+export enum SubscriptionFilterEnum {
   ACTIVE = 'active',
   FUTURE = 'future',
   EXPIRED = 'expired',

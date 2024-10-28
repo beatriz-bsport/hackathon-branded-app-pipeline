@@ -25,11 +25,11 @@ import type {
   ConsumerSubscriptionReworked,
 } from '#src/libs/consumer-space/types';
 import type { PaymentMethod } from '#src/libs/payment/types';
-import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
+import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
 import useConsumerSubscriptionsDataManager from '#src/libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
-import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import { SubscriptionFilterEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 
@@ -89,7 +89,7 @@ type Props = {
   switchPaymentMethod: (
     subscriptionId: number,
     payment_method_id: string,
-    status: SubscriptionTab,
+    status: SubscriptionFilter,
     options?: OptionCallback,
   ) => void;
   memberMail: string;
@@ -135,12 +135,12 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     handleInvoiceDetailsPaginationFetchMore,
     handleChangePage,
     handleSetSelectedSubscriptions,
-    handleSetSelectedTab,
+    handleSetSelectedFilter,
     isLoading,
     isMobile,
     selectedSubscription,
     selectedSubscriptionInvoiceDetails,
-    selectedTab,
+    selectedFilter,
     subscriptionsList,
     isPaymentModalOpen,
     isTermsModalOpen,
@@ -187,11 +187,11 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
       switchPaymentMethod(
         subscriptionId,
         payment_method_id,
-        selectedTab,
+        selectedFilter,
         options,
       );
     },
-    [selectedTab, switchPaymentMethod],
+    [selectedFilter, switchPaymentMethod],
   );
 
   const { t } = useTranslation('consumerSpace');
@@ -225,44 +225,45 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
           ],
     [isWidget, onGetASubscriptionClick, onBookSessionClick, t],
   );
-  const handleSetActiveTab = React.useCallback(
-    () => handleSetSelectedTab?.(SubscriptionTabEnum.ACTIVE),
-    [handleSetSelectedTab],
+  const handleSetActiveFilter = React.useCallback(
+    () => handleSetSelectedFilter?.(SubscriptionFilterEnum.ACTIVE),
+    [handleSetSelectedFilter],
   );
 
-  const handleSetFutureTab = React.useCallback(
-    () => handleSetSelectedTab?.(SubscriptionTabEnum.FUTURE),
-    [handleSetSelectedTab],
+  const handleSetFutureFilter = React.useCallback(
+    () => handleSetSelectedFilter?.(SubscriptionFilterEnum.FUTURE),
+    [handleSetSelectedFilter],
   );
 
-  const handleSetExpiredTab = React.useCallback(
-    () => handleSetSelectedTab?.(SubscriptionTabEnum.EXPIRED),
-    [handleSetSelectedTab],
+  const handleSetExpiredFilter = React.useCallback(
+    () => handleSetSelectedFilter?.(SubscriptionFilterEnum.EXPIRED),
+    [handleSetSelectedFilter],
   );
 
-  const tabs = useMemo(
+  const filters = useMemo(
     () => [
       {
         hidden: false,
         hasBadge: activeSubscriptionsState.count > 0,
-        type: SubscriptionTabEnum.ACTIVE,
+        type: SubscriptionFilterEnum.ACTIVE,
         label: t('reworked.mySubscriptions.tab.active'),
-        onClick: handleSetActiveTab,
+        onClick: handleSetActiveFilter,
         value: activeSubscriptionsState.count,
       },
       {
         hidden: false,
         hasBadge: futureSubscriptionsState.count > 0,
-        type: SubscriptionTabEnum.FUTURE,
+        type: SubscriptionFilterEnum.FUTURE,
         label: t('reworked.mySubscriptions.tab.future'),
-        onClick: handleSetFutureTab,
+        onClick: handleSetFutureFilter,
         value: futureSubscriptionsState.count,
       },
       {
         hidden: false,
-        type: SubscriptionTabEnum.EXPIRED,
+        hasBadge: false,
+        type: SubscriptionFilterEnum.EXPIRED,
         label: t('reworked.mySubscriptions.tab.expired'),
-        onClick: handleSetExpiredTab,
+        onClick: handleSetExpiredFilter,
         value: expiredSubscriptionsState.count,
       },
     ],
@@ -270,9 +271,9 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
       expiredSubscriptionsState.count,
       futureSubscriptionsState.count,
       activeSubscriptionsState.count,
-      handleSetActiveTab,
-      handleSetFutureTab,
-      handleSetExpiredTab,
+      handleSetActiveFilter,
+      handleSetFutureFilter,
+      handleSetExpiredFilter,
       t,
     ],
   );
@@ -299,17 +300,17 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         isSubscriptionDetailsDrawerOpen={isSubscriptionDetailsDrawerOpen}
         onSeeTermsClick={handleTermsModalOpen}
         paymentMethodUsed={paymentMethodUsed}
+        selectedFilter={selectedFilter}
         selectedSubscription={selectedSubscription}
         selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
-        selectedTab={selectedTab}
       />
 
       <ConsumerPageHeader
-        isMobile={isMobile}
-        TabsProps={{
-          tabs,
-          selectedTab,
+        FilterProps={{
+          filters,
+          selectedFilter,
         }}
+        isMobile={isMobile}
         TitleProps={{
           buttons: buttonsData,
           title: t('reworked.mySubscriptions.title'),
@@ -333,9 +334,9 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         isMobile={isMobile}
         onSeeTermsClick={handleTermsModalOpen}
         paymentMethodUsed={paymentMethodUsed}
+        selectedFilter={selectedFilter}
         selectedSubscription={selectedSubscription}
         selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
-        selectedTab={selectedTab}
         subscriptionsList={subscriptionsList}
       />
       {selectedSubscription && (

@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { SubscriptionTabEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import { SubscriptionFilterEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import useViewport from '#Fabrique/hooks/useViewport';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 
-import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
+import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
@@ -61,8 +61,8 @@ const useConsumerSubscriptionsDataManager = ({
   subscriptionsInvoicesDetailsState,
   resetVirtualizedListCache,
 }: Data) => {
-  const [selectedTab, setSelectedTab] = useState<SubscriptionTab>(
-    SubscriptionTabEnum.ACTIVE,
+  const [selectedFilter, setSelectedFilter] = useState<SubscriptionFilter>(
+    SubscriptionFilterEnum.ACTIVE,
   );
 
   const [selectedSubscription, setSelectedSubscription] =
@@ -81,9 +81,9 @@ const useConsumerSubscriptionsDataManager = ({
 
   const fetchDataHandlerMap = useMemo(
     () => ({
-      [SubscriptionTabEnum.ACTIVE]: fetchActiveSubscriptionsList,
-      [SubscriptionTabEnum.FUTURE]: fetchFutureSubscriptionsList,
-      [SubscriptionTabEnum.EXPIRED]: fetchExpiredSubscriptionsList,
+      [SubscriptionFilterEnum.ACTIVE]: fetchActiveSubscriptionsList,
+      [SubscriptionFilterEnum.FUTURE]: fetchFutureSubscriptionsList,
+      [SubscriptionFilterEnum.EXPIRED]: fetchExpiredSubscriptionsList,
     }),
     [
       fetchActiveSubscriptionsList,
@@ -93,16 +93,16 @@ const useConsumerSubscriptionsDataManager = ({
   );
 
   const currentSubscriptionsStateMap = {
-    [SubscriptionTabEnum.ACTIVE]: activeSubscriptionsState,
-    [SubscriptionTabEnum.FUTURE]: futureSubscriptionsState,
-    [SubscriptionTabEnum.EXPIRED]: expiredSubscriptionsState,
+    [SubscriptionFilterEnum.ACTIVE]: activeSubscriptionsState,
+    [SubscriptionFilterEnum.FUTURE]: futureSubscriptionsState,
+    [SubscriptionFilterEnum.EXPIRED]: expiredSubscriptionsState,
   };
 
   const subscriptionsListMap = useMemo(
     () => ({
-      [SubscriptionTabEnum.ACTIVE]: activeSubscriptionsList,
-      [SubscriptionTabEnum.FUTURE]: futureSubscriptionsList,
-      [SubscriptionTabEnum.EXPIRED]: expiredSubscriptionsList,
+      [SubscriptionFilterEnum.ACTIVE]: activeSubscriptionsList,
+      [SubscriptionFilterEnum.FUTURE]: futureSubscriptionsList,
+      [SubscriptionFilterEnum.EXPIRED]: expiredSubscriptionsList,
     }),
     [
       activeSubscriptionsList,
@@ -112,8 +112,8 @@ const useConsumerSubscriptionsDataManager = ({
   );
 
   const subscriptionsList = useMemo(
-    () => subscriptionsListMap[`${selectedTab}`],
-    [selectedTab, subscriptionsListMap],
+    () => subscriptionsListMap[`${selectedFilter}`],
+    [selectedFilter, subscriptionsListMap],
   );
 
   const isLoading =
@@ -123,7 +123,7 @@ const useConsumerSubscriptionsDataManager = ({
 
   const areDetailsLoading = subscriptionsInvoicesDetailsState.loading;
 
-  const currentState = currentSubscriptionsStateMap[`${selectedTab}`];
+  const currentState = currentSubscriptionsStateMap[`${selectedFilter}`];
   const nextPage = currentState.next_page;
   const currentCount = currentState.count;
   const currentPage = currentState.page;
@@ -170,9 +170,9 @@ const useConsumerSubscriptionsDataManager = ({
   const handleChangePage = useCallback(
     (page?: number) => {
       resetVirtualizedListCache();
-      fetchDataHandlerMap[`${selectedTab}`](page);
+      fetchDataHandlerMap[`${selectedFilter}`](page);
     },
-    [fetchDataHandlerMap, resetVirtualizedListCache, selectedTab],
+    [fetchDataHandlerMap, resetVirtualizedListCache, selectedFilter],
   );
 
   const handleInvoiceDetailsPaginationFetchMore = useCallback(
@@ -184,13 +184,14 @@ const useConsumerSubscriptionsDataManager = ({
     [fetchConsumerSubscriptionInvoicesDetails, selectedSubscription],
   );
 
-  const handleSetSelectedTab = useCallback(
-    (tab: SubscriptionTab) => {
-      setSelectedTab(tab);
+  const handleSetSelectedFilter = useCallback(
+    (filter: SubscriptionFilter) => {
+      setSelectedFilter(filter);
       setSelectedSubscription(null);
       resetVirtualizedListCache();
+      fetchDataHandlerMap[`${selectedFilter}`](1); // Fetch page 1 when changing filter
     },
-    [resetVirtualizedListCache],
+    [fetchDataHandlerMap, resetVirtualizedListCache, selectedFilter],
   );
 
   const handleSetSelectedSubscriptions = useCallback(
@@ -219,13 +220,13 @@ const useConsumerSubscriptionsDataManager = ({
     handleInvoiceDetailsPaginationFetchMore,
     handleChangePage,
     handleSetSelectedSubscriptions,
-    handleSetSelectedTab,
+    handleSetSelectedFilter,
     isLoading,
     isMobile,
     nextPage,
     selectedSubscription,
     selectedSubscriptionInvoiceDetails,
-    selectedTab,
+    selectedFilter,
     subscriptionsList,
     // MODAL STATE
     isTermsModalOpen,

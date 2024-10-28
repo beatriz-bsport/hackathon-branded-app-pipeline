@@ -95,13 +95,13 @@ export const urlToMarketplaceSubscriptionTab = (
   companyName: string,
   companyId: string,
 ) => {
-  const subscriptionTab = marketplaceConfig?.find(
+  const subscriptionFilter = marketplaceConfig?.find(
     (tabConfig) =>
       tabConfig.component_type === EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
   )?.component_type;
 
   const marketplaceTab =
-    subscriptionTab || marketplaceConfig[0]?.component_type;
+    subscriptionFilter || marketplaceConfig[0]?.component_type;
 
   return `${urlToMarketplace(companyName, companyId)}/${marketplaceTab}`;
 };

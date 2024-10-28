@@ -7,9 +7,9 @@ import type {
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import {
   LIST_ITEM_HEIGHT,
-  SubscriptionTabEnum,
+  SubscriptionFilterEnum,
 } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
-import type { SubscriptionTab } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
+import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import { formatAsDate } from '#src/utils/datetime';
 
 export const getSubscriptionRecurrenceLabel = (
@@ -42,12 +42,12 @@ export const getSubscriptionRecurrenceLabel = (
       );
 
 export const getSubtitleCardDetailsDate = (
-  selectedTab: SubscriptionTab,
+  selectedFilter: SubscriptionFilter,
   selectedSubscription: SubscriptionREST,
   t: TFunction,
 ) => {
-  switch (selectedTab) {
-    case SubscriptionTabEnum.ACTIVE:
+  switch (selectedFilter) {
+    case SubscriptionFilterEnum.ACTIVE:
       return `${t('reworked.mySubscriptions.dateLabel.active', {
         date: formatAsDate(selectedSubscription?.first_billing_date),
       })}${
@@ -57,7 +57,7 @@ export const getSubtitleCardDetailsDate = (
               date: formatAsDate(selectedSubscription?.expiration_date),
             })
       }`;
-    case SubscriptionTabEnum.FUTURE:
+    case SubscriptionFilterEnum.FUTURE:
       return `${t('reworked.mySubscriptions.dateLabel.future', {
         date: formatAsDate(selectedSubscription?.first_billing_date),
       })} ${
@@ -67,7 +67,7 @@ export const getSubtitleCardDetailsDate = (
               date: formatAsDate(selectedSubscription?.expiration_date),
             })
       }`;
-    case SubscriptionTabEnum.EXPIRED:
+    case SubscriptionFilterEnum.EXPIRED:
       return t('reworked.mySubscriptions.dateLabel.expired', {
         date: formatAsDate(selectedSubscription?.expiration_date),
       });
@@ -77,20 +77,20 @@ export const getSubtitleCardDetailsDate = (
 };
 
 export const getSubtitleCardDate = (
-  selectedTab: SubscriptionTab,
+  selectedFilter: SubscriptionFilter,
   subscription: SubscriptionREST,
   t: TFunction,
 ) => {
-  switch (selectedTab) {
-    case SubscriptionTabEnum.ACTIVE:
+  switch (selectedFilter) {
+    case SubscriptionFilterEnum.ACTIVE:
       return t('reworked.mySubscriptions.dateLabel.active', {
         date: formatAsDate(subscription?.first_billing_date),
       });
-    case SubscriptionTabEnum.FUTURE:
+    case SubscriptionFilterEnum.FUTURE:
       return t('reworked.mySubscriptions.dateLabel.future', {
         date: formatAsDate(subscription?.first_billing_date),
       });
-    case SubscriptionTabEnum.EXPIRED:
+    case SubscriptionFilterEnum.EXPIRED:
       return t('reworked.mySubscriptions.dateLabel.expired', {
         date: formatAsDate(subscription?.expiration_date),
       });

@@ -257,8 +257,8 @@ const analyticsUtils = {
     const metaPixelPayload: AnalyticsInterractWithLoginPayload = {
       email: payload.email,
     };
-    analyticsUtils.trackGTM('bsport:signin:success', gtmPayload);
-    analyticsUtils.trackMetaPixel('signinSuccess', metaPixelPayload);
+    analyticsUtils.trackGTM('login', gtmPayload);
+    analyticsUtils.trackMetaPixel('login', metaPixelPayload);
   },
 
   onSignupSuccess: (payload: { email: string }) => {

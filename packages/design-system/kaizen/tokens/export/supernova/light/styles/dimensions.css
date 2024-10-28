@@ -75,6 +75,10 @@
   --dimensionKzSizingBreakpointTablet: 1024px;
   --dimensionKzSizingComponentBreadcrumb: 280px;
   --dimensionKzSizingElement4xl: 200px;
+  /* Extra-small spacing, used for tight layouts or minimal padding and margins between closely related elements. (Eg: title and subtitle) */
+  --dimensionKzSizingSpacing2xs: 4px;
+  /* Designed for creating significant visual separation in layouts, such as between large sections or in spacious designs. */
+  --dimensionKzSizingSpacing2xl: 72px;
   --dimensionKzSizingActionLg: var(--dimensionKzSizingElementXl);
   --dimensionKzSizingActionMd: var(--dimensionKzSizingElementLg);
   --dimensionKzSizingActionSm: var(--dimensionKzSizingElementMd);

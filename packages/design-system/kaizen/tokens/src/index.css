@@ -285,13 +285,13 @@
   --kz-opacity-xs: 0.75;
   --kz-opacity-2xs: 0.9;
   --kz-opacity-transparent: 0;
-  --kz-shadow-action-default-rest: 0px 2px 4px 0px #43535226, inset 0px 0px 0px 1px #7c878640;
-  --kz-shadow-action-default-hovered: 0px 2px 8px 0px #43535240, inset 0px 0px 0px 1px #7c878680;
-  --kz-shadow-action-default-pressed: 0px 1px 8px -2px #4353522e, inset 0px 0px 0px 1px #7c8786bf;
+  --kz-shadow-action-default-rest: 0px 1px 2px 0px #a3afae0a, inset 0px 0px 0px 1px #7c878640;
+  --kz-shadow-action-default-hovered: 0px 2px 6px 0px #a3afae0a, inset 0px 0px 0px 1px #a3afae80;
+  --kz-shadow-action-default-pressed: 0px 1px 4px -4px #a3afaebf, inset 0px 0px 0px 1px #a3afaebf;
   --kz-shadow-action-default-selected: inset 0px 3px 8px 0px #d0f6ef;
-  --kz-shadow-action-call-to-action-rest: 0px 2px 4px 0px #365a5873;
-  --kz-shadow-action-call-to-action-hovered: 0px 2px 8px 0px #2a8b8599;
-  --kz-shadow-action-call-to-action-pressed: 0px 1px 8px -2px #50505073;
+  --kz-shadow-action-call-to-action-rest: 0px 1px 2px 0px #365a5840;
+  --kz-shadow-action-call-to-action-hovered: 0px 2px 6px 0px #2a8b8580;
+  --kz-shadow-action-call-to-action-pressed: 0px 1px 8px -2px #50505014;
   --kz-shadow-focused: inset 0px 0px 0px 2px #21837d, 0px 0px 0px 4px #25948d80;
   --kz-shadow-action-status-success: 0px 2px 4px 0px #12581840, inset 0px 0px 0px 2px #47af4f;
   --kz-shadow-action-status-error: 0px 2px 4px 0px #84273b40, inset 0px 0px 0px 2px #d16f84;
@@ -304,7 +304,8 @@
   --kz-shadow-action-call-to-action-critical-pressed: 0px 1px 8px -2px #50505073;
   --kz-shadow-none: 0px 0px 0px 0px #000000;
   --kz-shadow-test-this-focus: 0px 0px 0px 2px #21837d, 0px 0px 0px 4px #25948d80;
-  --kz-shadow-critical: 0px 0px 8px 0px #91001f40, inset 0px 0px 0px 1px #7c878640;
+  --kz-shadow-critical: 0px 0px 8px 0px #91001f40, inset 0px 0px 0px 1px #a3afae0a;
+  --kz-shadow-border-default: var(--kz-shadow-color-base-colors-luna-grey-500);
 }
 
 .kz-dark {
@@ -590,13 +591,13 @@
   --kz-opacity-xs: 0.75;
   --kz-opacity-2xs: 0.9;
   --kz-opacity-transparent: 0;
-  --kz-shadow-action-default-rest: 0px 2px 4px 0px #43535226, inset 0px 0px 0px 1px #7c878640;
-  --kz-shadow-action-default-hovered: 0px 2px 8px 0px #43535240, inset 0px 0px 0px 1px #7c878680;
-  --kz-shadow-action-default-pressed: 0px 1px 8px -2px #4353522e, inset 0px 0px 0px 1px #7c8786bf;
+  --kz-shadow-action-default-rest: 0px 1px 2px 0px #a3afae0a, inset 0px 0px 0px 1px #7c878640;
+  --kz-shadow-action-default-hovered: 0px 2px 6px 0px #a3afae0a, inset 0px 0px 0px 1px #a3afae80;
+  --kz-shadow-action-default-pressed: 0px 1px 4px -4px #a3afaebf, inset 0px 0px 0px 1px #a3afaebf;
   --kz-shadow-action-default-selected: inset 0px 3px 8px 0px #d0f6ef;
-  --kz-shadow-action-call-to-action-rest: 0px 2px 4px 0px #365a5873;
-  --kz-shadow-action-call-to-action-hovered: 0px 2px 8px 0px #2a8b8599;
-  --kz-shadow-action-call-to-action-pressed: 0px 1px 8px -2px #50505073;
+  --kz-shadow-action-call-to-action-rest: 0px 1px 2px 0px #365a5840;
+  --kz-shadow-action-call-to-action-hovered: 0px 2px 6px 0px #2a8b8580;
+  --kz-shadow-action-call-to-action-pressed: 0px 1px 8px -2px #50505014;
   --kz-shadow-focused: inset 0px 0px 0px 2px #21837d, 0px 0px 0px 4px #25948d80;
   --kz-shadow-action-status-success: 0px 2px 4px 0px #12581840, inset 0px 0px 0px 2px #47af4f;
   --kz-shadow-action-status-error: 0px 2px 4px 0px #84273b40, inset 0px 0px 0px 2px #d16f84;
@@ -609,5 +610,6 @@
   --kz-shadow-action-call-to-action-critical-pressed: 0px 1px 8px -2px #50505073;
   --kz-shadow-none: 0px 0px 0px 0px #000000;
   --kz-shadow-test-this-focus: 0px 0px 0px 2px #21837d, 0px 0px 0px 4px #25948d80;
-  --kz-shadow-critical: 0px 0px 8px 0px #91001f40, inset 0px 0px 0px 1px #7c878640;
+  --kz-shadow-critical: 0px 0px 8px 0px #91001f40, inset 0px 0px 0px 1px #a3afae0a;
+  --kz-shadow-border-default: var(--kz-shadow-color-base-colors-luna-grey-500);
 }

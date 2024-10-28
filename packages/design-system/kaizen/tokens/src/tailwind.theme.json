@@ -393,6 +393,7 @@
     "action-call-to-action-critical-pressed": "var(--kz-shadow-action-call-to-action-critical-pressed)",
     "none": "var(--kz-shadow-none)",
     "test-this-focus": "var(--kz-shadow-test-this-focus)",
-    "critical": "var(--kz-shadow-critical)"
+    "critical": "var(--kz-shadow-critical)",
+    "border-default": "var(--kz-shadow-border-default)"
   }
 }

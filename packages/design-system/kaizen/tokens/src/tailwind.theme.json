@@ -392,8 +392,12 @@
     "action-call-to-action-critical-hovered": "var(--kz-shadow-action-call-to-action-critical-hovered)",
     "action-call-to-action-critical-pressed": "var(--kz-shadow-action-call-to-action-critical-pressed)",
     "none": "var(--kz-shadow-none)",
-    "test-this-focus": "var(--kz-shadow-test-this-focus)",
     "critical": "var(--kz-shadow-critical)",
-    "border-default": "var(--kz-shadow-border-default)"
+    "border-thin-default": "var(--kz-shadow-border-thin-default)",
+    "border-thin-main": "var(--kz-shadow-border-thin-main)",
+    "border-thin-info": "var(--kz-shadow-border-thin-info)",
+    "border-thin-positive": "var(--kz-shadow-border-thin-positive)",
+    "border-thin-warning": "var(--kz-shadow-border-thin-warning)",
+    "border-thin-critical": "var(--kz-shadow-border-thin-critical)"
   }
 }

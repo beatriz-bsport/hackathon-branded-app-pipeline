@@ -30,6 +30,7 @@ import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/
 
 import useConsumerSubscriptionsDataManager from '#src/libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
 import { SubscriptionFilterEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 
@@ -282,6 +283,9 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
       contentClassName={classNames('bs-consumer__subscription-page__root', {
         'bs-consumer__subscription-page__root--mobile':
           isMobile && !!selectedSubscription?.id,
+        'bs-consumer__subscription-page__root--fab':
+          WidgetUtils.getConsumerSpaceContext() ===
+          ConsumerSpaceContextEnum.FAB,
       })}
     >
       <ConsumerSubscriptionModals

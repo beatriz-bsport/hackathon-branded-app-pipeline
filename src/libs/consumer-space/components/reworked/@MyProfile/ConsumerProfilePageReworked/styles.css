@@ -8,6 +8,10 @@
   overflow-y: auto;
 }
 
+.bs-consumer-profile-page__root--fab {
+  padding: var(--bs-space-size-8);
+}
+
 .bs-consumer-profile-page__body {
   display: grid;
   grid-template-areas: 'consumerSummary consumerSettings';

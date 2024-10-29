@@ -1,7 +1,9 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 import type { AxiosResponse } from 'axios';
 
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
 
@@ -18,6 +20,7 @@ import { AddPaymentMethod } from '#src/libs/payment/components/AddPaymentMethod.
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 import { Edit03 } from '#src/components/untitledui';
 import ReferralCard from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ReferralCard';
+import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 import type {
   CustomForm,
@@ -246,7 +249,13 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
   } = member;
 
   return (
-    <PageContentContainer contentClassName="bs-consumer-profile-page__root">
+    <PageContentContainer
+      contentClassName={classNames('bs-consumer-profile-page__root', {
+        'bs-consumer-profile-page__root--fab':
+          WidgetUtils.getConsumerSpaceContext() ===
+          ConsumerSpaceContextEnum.FAB,
+      })}
+    >
       <ConsumerPageHeader
         isMobile={isMobile}
         TitleProps={{

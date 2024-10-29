@@ -1,7 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import {
+  MuiThemeProvider,
+  withStyles,
+  WithStyles,
+} from '@material-ui/core/styles';
 import { connect, ConnectedComponent, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 
@@ -11,7 +15,6 @@ import themeSelectors from '../../libs/theme/selectors';
 // @ts-expect-error
 import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
-import { Theme } from '../../libs/theme/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import ConsumerProfileReworked from '#src/pages/consumer/ConsumerProfileReworked.page';
 import ConsumerBookingReworked from '#src/pages/consumer/ConsumerBookingReworked.page';
@@ -27,11 +30,9 @@ type RouterProps = {
   companyId: number;
 };
 
-type Props = {
-  theme: Theme;
-  fetchCompanyTheme: (companyId: number) => void;
-} & RouterProps &
-  ConnectedProps<typeof connector>;
+type Props = RouterProps &
+  ConnectedProps<typeof connector> &
+  WithStyles<typeof styles>;
 
 class WidgetRouter extends React.Component<Props> {
   componentDidMount() {
@@ -46,12 +47,14 @@ class WidgetRouter extends React.Component<Props> {
     ) =>
     (props: Record<string, any>) =>
       (
-        <MyComponent
-          companyId={this.props.companyId}
-          {...props}
-          membership={this.props.membership}
-          queryParams={{ consumerspacecontext: ConsumerSpaceContextEnum.FAB }}
-        />
+        <div className={this.props.classes.consumerSpaceContainer}>
+          <MyComponent
+            companyId={this.props.companyId}
+            {...props}
+            membership={this.props.membership}
+            queryParams={{ consumerspacecontext: ConsumerSpaceContextEnum.FAB }}
+          />
+        </div>
       );
 
   render() {
@@ -94,11 +97,20 @@ const connector = connect(
   },
 );
 
+const styles = () => ({
+  consumerSpaceContainer: {
+    display: 'flex',
+    flex: 1,
+    height: '100dvh',
+  },
+});
+
 export default compose(
   routerParamsToProps({
     companyId: 'companyId:number',
     // @ts-expect-error
     companyName: 'companyName',
   }),
+  withStyles(styles),
   connector,
 )(WidgetRouter);

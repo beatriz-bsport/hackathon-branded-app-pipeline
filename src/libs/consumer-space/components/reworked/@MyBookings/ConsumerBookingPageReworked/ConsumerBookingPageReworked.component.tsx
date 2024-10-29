@@ -3,6 +3,7 @@ import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/pe
 import { useTranslation } from 'react-i18next';
 import { CellMeasurerCache } from 'react-virtualized';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import classNames from 'classnames';
 
 import useConsumerBookingsDataManager from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingsDataManager';
 import ConsumerBookingListContainer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListContainer';
@@ -48,6 +49,7 @@ import {
   BookingFilterTabEnum,
   BookingTabEnum,
 } from '#src/libs/consumer-space/components/reworked/@MyBookings/constants';
+import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 import './styles.css';
 
@@ -350,7 +352,13 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     ],
   );
   return (
-    <PageContentContainer contentClassName="bs-consumer-booking-page__root">
+    <PageContentContainer
+      contentClassName={classNames('bs-consumer-booking-page__root', {
+        'bs-consumer-booking-page__root--fab':
+          WidgetUtils.getConsumerSpaceContext() ===
+          ConsumerSpaceContextEnum.FAB,
+      })}
+    >
       <ConsumerBookingModals
         bookingGuestFrequency={bookingGuestFrequency}
         calendarBookingDate={calendarBookingDate}

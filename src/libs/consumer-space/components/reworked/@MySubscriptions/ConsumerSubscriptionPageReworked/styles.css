@@ -14,3 +14,7 @@
   width: 100%;
   border-radius: 0;
 }
+
+.bs-consumer__subscription-page__root--fab {
+  padding: var(--bs-space-size-8);
+}

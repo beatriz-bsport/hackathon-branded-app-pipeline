@@ -84,6 +84,7 @@ import {
 import { getBasketBuyableItemsCount } from '../../libs/checkout/utils';
 import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
+import WidgetUtils from '../../libs/widget/WidgetUtils';
 
 const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),
@@ -282,13 +283,19 @@ export class ConsumerHome extends React.Component<Props> {
         />
       );
 
+  getIsWidget = () =>
+    WidgetUtils.getConsumerSpaceContext() !== ConsumerSpaceContextEnum.WEB &&
+    WidgetUtils.getConsumerSpaceContext() !== null;
+
   handleBookASessionClick = () => {
     const marketplaceTabPath = urlToMarketplaceSessionTab(
       this.props.marketplaceSettingsConfig,
       this.props.theme?.company_name,
       this.props.theme?.company?.toString(),
     );
-    this.props.push(marketplaceTabPath);
+    this.getIsWidget()
+      ? window.open(marketplaceTabPath, '_blank')
+      : this.props.push(marketplaceTabPath);
   };
 
   handleGetASubscriptionClick = () => {
@@ -297,7 +304,9 @@ export class ConsumerHome extends React.Component<Props> {
       this.props.theme?.company_name,
       this.props.theme?.company?.toString(),
     );
-    this.props.push(marketplaceTabPath);
+    this.getIsWidget()
+      ? window.open(marketplaceTabPath, '_blank')
+      : this.props.push(marketplaceTabPath);
   };
 
   handleBuyPassClick = () => {
@@ -306,7 +315,9 @@ export class ConsumerHome extends React.Component<Props> {
       this.props.theme?.company_name,
       this.props.theme?.company?.toString(),
     );
-    this.props.push(marketplaceTabPath);
+    this.getIsWidget()
+      ? window.open(marketplaceTabPath, '_blank')
+      : this.props.push(marketplaceTabPath);
   };
 
   /** A list of buttons shown in the footer on mobile */
@@ -325,39 +336,37 @@ export class ConsumerHome extends React.Component<Props> {
         },
       ];
 
-    return this.getConsumerSpaceContext() !== ConsumerSpaceContextEnum.WEB
-      ? []
-      : [
-          {
-            label: this.props.t('reworked.myBookings.bookASession'),
-            onClick: this.handleBookASessionClick,
-            rightIcon: <ChevronRight stroke="currentColor" />,
-            ...((isSubscriptionRoute || isPassRoute) && {
-              variant: 'outlined',
-            }),
-            ...((isSubscriptionRoute || isPassRoute) && { color: 'grey' }),
-          },
-          ...(isSubscriptionRoute
-            ? [
-                {
-                  label: this.props.t(
-                    'reworked.mySubscriptions.headerButtonsLabel.getSubscription',
-                  ),
-                  onClick: this.handleGetASubscriptionClick,
-                  rightIcon: <ChevronRight stroke="currentColor" />,
-                },
-              ]
-            : []),
-          ...(isPassRoute
-            ? [
-                {
-                  label: this.props.t('reworked.myPasses.buyANewPass'),
-                  onClick: this.handleBuyPassClick,
-                  rightIcon: <ChevronRight stroke="currentColor" />,
-                },
-              ]
-            : []),
-        ];
+    return [
+      {
+        label: this.props.t('reworked.myBookings.bookASession'),
+        onClick: this.handleBookASessionClick,
+        rightIcon: <ChevronRight stroke="currentColor" />,
+        ...((isSubscriptionRoute || isPassRoute) && {
+          variant: 'outlined',
+        }),
+        ...((isSubscriptionRoute || isPassRoute) && { color: 'grey' }),
+      },
+      ...(isSubscriptionRoute
+        ? [
+            {
+              label: this.props.t(
+                'reworked.mySubscriptions.headerButtonsLabel.getSubscription',
+              ),
+              onClick: this.handleGetASubscriptionClick,
+              rightIcon: <ChevronRight stroke="currentColor" />,
+            },
+          ]
+        : []),
+      ...(isPassRoute
+        ? [
+            {
+              label: this.props.t('reworked.myPasses.buyANewPass'),
+              onClick: this.handleBuyPassClick,
+              rightIcon: <ChevronRight stroke="currentColor" />,
+            },
+          ]
+        : []),
+    ];
   };
 
   render() {

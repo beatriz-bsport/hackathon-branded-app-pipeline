@@ -25,7 +25,6 @@ import {
   UserCircle,
   Menu01,
 } from '#src/components/untitledui';
-import ConsumerGenericFooter from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericFooter';
 import NavigationSideDrawer from '#src/components/css-only/Navigation/NavigationSideDrawer/NavigationSideDrawer.component';
 import useNavigationSideDrawerData from '#src/components/css-only/Navigation/NavigationSideDrawer/useNavigationSideDrawerData.hook';
 import Button from '#src/components/css-only/Fabrique/ButtonV2';
@@ -85,7 +84,6 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   memberName,
   franchisorCompanyList,
   children,
-  buttonsData,
   basketProductListCount,
   tabConfigList,
   selectedWidgetPage,
@@ -328,9 +326,6 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
           })}
         >
           {children}
-          {isMobile && !!buttonsData?.length && (
-            <ConsumerGenericFooter buttons={buttonsData} />
-          )}
         </main>
       </div>
     </div>

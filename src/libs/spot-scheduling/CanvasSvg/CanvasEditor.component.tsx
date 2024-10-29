@@ -458,6 +458,7 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
+    width: '100%',
   },
   canvasContainer: {
     display: 'flex',

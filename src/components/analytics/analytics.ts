@@ -15,7 +15,6 @@ import type {
   SessionItem,
   SessionPayload,
 } from './types';
-import type { PrivatePass } from '#src/libs/private-service/types';
 import type { Contract } from '#src/libs/subscription/types';
 import {
   getItemPrice,

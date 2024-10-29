@@ -61,7 +61,6 @@ import {
   STEPS,
 } from '../../types';
 import { useWidth } from '../../../../hooks/useWidth';
-import analyticsUtils from '#src/components/analytics/analytics';
 
 // These checkout item types are displayed in the bill after the basket summary
 const BILL_CHECKOUT_ITEMS = [BUYABLE_ITEM_COUPON, BUYABLE_ITEM_FEE];
@@ -265,8 +264,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   React.useEffect(() => {
     if (!steps.map((step) => step.id).includes(currentStep.id))
       setCurrentStep(steps[0]);
-    if (currentStep.id === 1) analyticsUtils.beginCheckout(basket);
-  }, [currentStep, steps, basket]);
+  }, [currentStep, steps]);
 
   // DISPLAY CONSTANTS DEFINITION
 

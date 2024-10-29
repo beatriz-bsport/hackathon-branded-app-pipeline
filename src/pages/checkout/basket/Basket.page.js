@@ -293,7 +293,14 @@ export class BasketPage extends React.Component<Props> {
       this.props.fetchMembership(this.props.basket.member);
     }
     if (this.props.companyId) {
-      this.props.fetchPaymentMethod({ company: this.props.companyId });
+      this.props.fetchPaymentMethod(
+        { company: this.props.companyId },
+        {
+          onSuccess: () => {
+            analyticsUtils.beginCheckout(this.props.basket);
+          },
+        },
+      );
     }
   }
 

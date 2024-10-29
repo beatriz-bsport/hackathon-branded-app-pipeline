@@ -52,13 +52,13 @@ const PaymentPackCard: React.FC<PaymentPackCardProps> = React.memo(
     const handleMobileClick = useCallback(() => {
       if (isMobile) {
         setSelectedPass(pack.id);
-        analyticsUtils.showPass(pack);
+        analyticsUtils.viewBuyableItem(pack);
       }
     }, [isMobile, setSelectedPass, pack]);
 
     const handleOpenDetailDialog = useCallback(() => {
       setSelectedPass(pack.id);
-      analyticsUtils.showPass(pack);
+      analyticsUtils.viewBuyableItem(pack);
     }, [setSelectedPass, pack]);
 
     const handleAddToCart = useCallback(() => {

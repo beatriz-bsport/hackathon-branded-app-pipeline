@@ -38,7 +38,7 @@ const PaymentComboCard: React.FC<PaymentComboCardProps> = React.memo(
     const handleMobileClick = useCallback(() => {
       if (isMobile) {
         setSelectedPass(paymentCombo.id);
-        analyticsUtils.showPack(paymentCombo);
+        analyticsUtils.viewBuyableItem(paymentCombo);
       }
     }, [isMobile, paymentCombo, setSelectedPass]);
 
@@ -49,7 +49,7 @@ const PaymentComboCard: React.FC<PaymentComboCardProps> = React.memo(
 
     const handleOpenDetailDialog = useCallback(() => {
       setSelectedPass(paymentCombo.id);
-      analyticsUtils.showPack(paymentCombo);
+      analyticsUtils.viewBuyableItem(paymentCombo);
     }, [paymentCombo, setSelectedPass]);
 
     return (

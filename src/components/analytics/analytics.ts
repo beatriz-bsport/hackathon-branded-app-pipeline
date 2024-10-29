@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon';
 
 import type { Basket } from '#src/libs/checkout/types';
-import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import type {
   AnalyticsInterractWithLoginPayload,
   AnalyticsLeadAcquisitionPayload,
@@ -18,7 +17,6 @@ import type {
 } from './types';
 import type { PrivatePass } from '#src/libs/private-service/types';
 import type { Contract } from '#src/libs/subscription/types';
-import type { PaymentPack } from '#src/libs/payment-packs/types';
 import {
   getItemPrice,
   getCurrencyCode,
@@ -75,97 +73,37 @@ const analyticsUtils = {
     analyticsUtils.trackMetaPixel('showBasket', metaPixelPayload);
   },
 
-  showPass: (payload: PaymentPack) => {
+  viewBuyableItem: (item: CartItem) => {
+    const itemPrice = getItemPrice(item);
+    const itemType = getItemType(item);
+    const itemId = getItemId(item).toString();
+
     const gtmPayload: GTMInteractWithBasketItemPayload = {
       items: [
         {
-          item_id: payload.id.toString(),
-          item_name: payload.name,
-          price: payload.base_price,
-          item_category: 'pass',
+          item_id: itemId,
+          item_name: item.name,
+          price: itemPrice,
+          item_category: itemType,
         },
       ],
       currency: getCurrencyCode(),
-      value: payload.base_price,
+      value: itemPrice,
     };
-
     const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
-      value: payload.base_price,
+      value: itemPrice,
       currency: getCurrencyCode(),
       contents: [
         {
-          id: payload.id?.toString(),
-          name: payload.name,
+          id: itemId,
+          name: item.name,
           quantity: 1,
-          category: 'pass',
+          category: itemType,
         },
       ],
     };
-
-    analyticsUtils.trackGTM('bsport:pass:show', gtmPayload);
-    analyticsUtils.trackMetaPixel('showPass', metaPixelPayload);
-  },
-
-  showPack: (payload: PaymentCombo) => {
-    const gtmPayload: GTMInteractWithBasketItemPayload = {
-      items: [
-        {
-          item_id: payload.id.toString(),
-          item_name: payload.name,
-          price: payload.price,
-          item_category: 'pack',
-        },
-      ],
-      currency: getCurrencyCode(),
-      value: payload.price,
-    };
-
-    const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
-      value: payload.price,
-      currency: getCurrencyCode(),
-      contents: [
-        {
-          id: payload.id?.toString(),
-          name: payload.name,
-          quantity: 1,
-          category: 'pack',
-        },
-      ],
-    };
-
-    analyticsUtils.trackGTM('bsport:pack:show', gtmPayload);
-    analyticsUtils.trackMetaPixel('showPack', metaPixelPayload);
-  },
-
-  showPrivatePass: (payload: PrivatePass) => {
-    const gtmPayload: GTMInteractWithBasketItemPayload = {
-      items: [
-        {
-          item_id: payload.id.toString(),
-          item_name: payload.name,
-          price: payload.price,
-          item_category: 'appointment_pass',
-        },
-      ],
-      currency: getCurrencyCode(),
-      value: payload.price,
-    };
-
-    const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
-      value: payload.price,
-      currency: getCurrencyCode(),
-      contents: [
-        {
-          id: payload.id?.toString(),
-          name: payload.name,
-          quantity: 1,
-          category: 'appointment_pass',
-        },
-      ],
-    };
-
-    analyticsUtils.trackGTM('bsport:appointment_pass:show', gtmPayload);
-    analyticsUtils.trackMetaPixel('showAppointmentPass', metaPixelPayload);
+    analyticsUtils.trackGTM('view_item', gtmPayload);
+    analyticsUtils.trackMetaPixel('viewItem', metaPixelPayload);
   },
 
   addItemToCart: (item: CartItem) => {

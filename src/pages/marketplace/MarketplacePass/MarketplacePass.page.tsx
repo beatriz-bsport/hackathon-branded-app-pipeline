@@ -158,13 +158,13 @@ const CarouselItem = (props: CarouselItemProps) => {
 
   const handleOpenDetailDialog = useCallback(() => {
     handleOpenDialog('isPaymentComboDetailsDialogOpen', paymentCombo);
-    analyticsUtils.showPack(paymentCombo);
+    analyticsUtils.viewBuyableItem(paymentCombo);
   }, [handleOpenDialog, paymentCombo]);
 
   const handleMobileClick = useCallback(() => {
     if (isMobile) {
       handleOpenDialog('isPaymentComboDetailsDialogOpen', paymentCombo);
-      analyticsUtils.showPack(paymentCombo);
+      analyticsUtils.viewBuyableItem(paymentCombo);
     }
   }, [handleOpenDialog, isMobile, paymentCombo]);
 

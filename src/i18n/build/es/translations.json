@@ -1322,7 +1322,7 @@
         "bookingDropdown": {
             "source": {
                 "4": "Migración de datos",
-                "3": "Otro",
+                "3": "Marketplaces",
                 "2": "Backoffice bsport",
                 "1": "Web",
                 "0": "Aplicación"
@@ -2237,7 +2237,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán por tanto solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán las solicitudes de sustitución de todas las ubicaciones.",
                     "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
@@ -6437,7 +6437,8 @@
                         "dateIntervalEnd": "Fecha final",
                         "dateIntervalStart": "Fecha de la clase",
                         "durationMinute": "Duración",
-                        "dateIntervalStartTime": "Hora de inicio"
+                        "dateIntervalStartTime": "Hora de inicio",
+                        "wellhubDurationWarning": "Las sesiones que superen los 200 minutos se ajustarán automáticamente a una duración máxima de 200 minutos cuando se envíen a Wellhub. Asegúrese de que la duración de su sesión se ajusta a este límite para evitar discrepancias."
                     },
                     "title": "Fecha y hora"
                 },
@@ -8247,7 +8248,18 @@
             "establishment": "Establecimiento",
             "configurationTitle": "Configure su integración",
             "venueIds": "IDs de establecimientos: {{ establishmentIdList }}",
-            "configurationDescription": "Seleccione cómo desea que aparezcan sus establecimientos en la app ClassPass. Esto solo cambia cómo se muestran las actividades de grupo."
+            "configurationDescription": "Seleccione cómo desea que aparezcan sus establecimientos en la app ClassPass. Esto solo cambia cómo se muestran las actividades de grupo.",
+            "table": {
+                "venueIds": "Venue IDs",
+                "establishments": "Establecimientos",
+                "title": {
+                    "appointments": "Para citas",
+                    "groupActivities": "Para actividades de grupo"
+                }
+            },
+            "editButton": "Editar configuración",
+            "description": "Para configurar su integración con ClassPass, póngase en contacto con ClassPass a través de su panel de socio. Proporcione su ID de socio y los ID de los establecimientos que desea habilitar en ClassPass. Tenga en cuenta que las sesiones o citas en estos establecimientos no aparecerán en ClassPass hasta que ClassPass confirme por completo la configuración.",
+            "drawerTitle": "Configuración de ClassPass"
         },
         "actions": {
             "requestPartnership": "Activar la integración",

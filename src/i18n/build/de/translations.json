@@ -14827,7 +14827,7 @@
         "bookingDropdown": {
             "source": {
                 "4": "Datenmigration",
-                "3": "Andere",
+                "3": "Marketplaces",
                 "2": "Bsport Backoffice",
                 "1": "Webseite",
                 "0": "App"
@@ -16130,7 +16130,18 @@
             "pleaseChoseEstablishmentMany": "Bitte wählen Sie mindestens eine Einrichtung aus.",
             "establishment": "Einrichtung",
             "configurationTitle": "Konfigurieren Sie Ihre Integration",
-            "configurationDescription": "Wählen Sie aus, wie Ihre Einrichtungen in der ClassPass-App angezeigt werden sollen. Dies ändert nur, wie Gruppenaktivitäten angezeigt werden."
+            "configurationDescription": "Wählen Sie aus, wie Ihre Einrichtungen in der ClassPass-App angezeigt werden sollen. Dies ändert nur, wie Gruppenaktivitäten angezeigt werden.",
+            "editButton": "Konfiguration bearbeiten",
+            "description": "Um Ihre ClassPass-Integration einzurichten, kontaktieren Sie ClassPass über Ihr Partner-Dashboard. Geben Sie Ihre Partner-ID sowie die IDs der Einrichtungen an, die Sie auf ClassPass aktivieren möchten. Bitte beachten Sie, dass Kurse oder Termine in dieser Einrichtung erst dann auf ClassPass angezeigt werden, wenn die Einrichtung vollständig von ClassPass bestätigt wurde.",
+            "drawerTitle": "ClassPass-Konfiguration",
+            "table": {
+                "establishments": "Einrichtungen",
+                "venueIds": "Veranstaltungsort IDs",
+                "title": {
+                    "appointments": "Für Termine",
+                    "groupActivities": "Für Gruppenaktivitäten"
+                }
+            }
         },
         "requestDialog": {
             "close": "Verstanden",
@@ -16597,7 +16608,8 @@
                         "dateIntervalEnd": "Enddatum",
                         "dateIntervalStart": "Datum des Kurses",
                         "durationMinute": "Dauer",
-                        "dateIntervalStartTime": "Startzeit"
+                        "dateIntervalStartTime": "Startzeit",
+                        "wellhubDurationWarning": "Kurse, die 200 Minuten überschreiten, werden beim Übermitteln an Wellhub automatisch auf eine maximale Dauer von 200 Minuten angepasst. Bitte stellen Sie sicher, dass die Kursdauer diesem Limit entspricht, um Unstimmigkeiten zu vermeiden."
                     },
                     "title": "Datum & Uhrzeit"
                 },

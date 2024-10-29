@@ -1135,7 +1135,18 @@
             "partnerId": "Partner-ID: {{ company }}",
             "establishmentMergedAs": "Deze vestigingen samenvoegen",
             "establishmentMergeMaster": "Deze vestigingen samenvoegen:",
-            "configurationDescription": "Selecteer hoe je je vestigingen wilt weergeven op de ClassPass app. Dit verandert alleen hoe groepsactiviteiten worden weergegeven."
+            "configurationDescription": "Selecteer hoe je je vestigingen wilt weergeven op de ClassPass app. Dit verandert alleen hoe groepsactiviteiten worden weergegeven.",
+            "editButton": "Configuratie bewerken",
+            "description": "Om uw ClassPass integratie op te zetten, neemt u contact op met ClassPass via uw partnerdashboard. Geef uw partner ID op en de ID's van de vestigingen die u wilt inschakelen op ClassPass. Houd er rekening mee dat sessies of afspraken bij deze instellingen pas in ClassPass verschijnen als de instelling volledig door ClassPass is bevestigd.",
+            "drawerTitle": "ClassPass configuratie",
+            "table": {
+                "establishments": "Vestigingen",
+                "venueIds": "Locatie-id's",
+                "title": {
+                    "appointments": "Voor afspraken",
+                    "groupActivities": "Voor groepsactiviteiten"
+                }
+            }
         },
         "pageTitle": "Integraties",
         "configurationType": {
@@ -6750,7 +6761,8 @@
                         "dateIntervalEnd": "Einddatum",
                         "dateIntervalStart": "Datum van de les",
                         "durationMinute": "Duur",
-                        "dateIntervalStartTime": "Starttijd"
+                        "dateIntervalStartTime": "Starttijd",
+                        "wellhubDurationWarning": "Sessies die langer duren dan 200 minuten worden automatisch aangepast naar een maximale duur van 200 minuten wanneer ze worden ingediend bij Wellhub. Zorg ervoor dat de duur van uw sessie aan deze limiet voldoet om discrepanties te voorkomen."
                     },
                     "title": "Tijd en datum"
                 },

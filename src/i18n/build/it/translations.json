@@ -2242,7 +2242,18 @@
             "pleaseChoseEstablishment": "Per favore, seleziona uno stabilimento",
             "establishment": "Stabilimento",
             "add": "Aggiungi",
-            "configurationDescription": "Selezionate il modo in cui volete che i vostri stabilimenti appaiano sull'app ClassPass. Questo cambia solo la visualizzazione delle attività di gruppo."
+            "configurationDescription": "Selezionate il modo in cui volete che i vostri stabilimenti appaiano sull'app ClassPass. Questo cambia solo la visualizzazione delle attività di gruppo.",
+            "editButton": "Modifica configurazione",
+            "description": "Per impostare l'integrazione con ClassPass, contattate ClassPass attraverso la tua sezione partner. Fornire il l'ID partner e gli ID delle strutture che si vogliono abilitare su ClassPass. Si prega di notare che le sessioni o gli appuntamenti in queste strutture non appariranno su ClassPass fino a quando la configurazione non sarà completamente confermata da ClassPass.",
+            "drawerTitle": "Configurazione ClassPass",
+            "table": {
+                "establishments": "Stabilimenti",
+                "venueIds": "IDs della sede",
+                "title": {
+                    "appointments": "Per gli appuntamenti",
+                    "groupActivities": "Per le attività"
+                }
+            }
         },
         "requestDialog": {
             "explain": "Hai richiesto l'integrazione di classpass X bsport, il tuo account manager ti contatterà per convalidare questa operazione",
@@ -13358,7 +13369,7 @@
                 "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
                 "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
                 "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
-                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
+                "exclusiveAssociatedCoaches_plural": "I vostri insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceveranno quindi le richieste di sostituzione da ogni stabilimento.",
                 "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
                 "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
                 "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento, queste fasce orarie saranno eliminate.",
@@ -15006,7 +15017,7 @@
         "bookingDropdown": {
             "source": {
                 "4": "Trasferimento dati",
-                "3": "Altro",
+                "3": "Marketplace",
                 "2": "Backoffice bsport",
                 "1": "Web",
                 "0": "Applicazione"
@@ -16074,7 +16085,8 @@
                         "dateIntervalEnd": "Data di fine",
                         "dateIntervalStart": "Data del corso",
                         "durationMinute": "Durata",
-                        "dateIntervalStartTime": "Orario di inizio"
+                        "dateIntervalStartTime": "Orario di inizio",
+                        "wellhubDurationWarning": "Le sessioni che superano i 200 minuti verranno automaticamente adattate a una durata massima di 200 minuti quando vengono inviate a Wellhub. Assicurarsi che la durata della sessione rispetti questo limite per evitare discrepanze."
                     },
                     "title": "Ora e data"
                 },

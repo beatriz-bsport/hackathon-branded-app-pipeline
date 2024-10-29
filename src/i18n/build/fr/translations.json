@@ -7800,8 +7800,10 @@
                 "title": {
                     "appointments": "Pour les rendez-vous",
                     "groupActivities": "Pour les cours collectifs"
-                }
-            }
+                },
+                "venueIds": "Venue IDs"
+            },
+            "description": "Pour mettre en place votre intégration ClassPass, contactez ClassPass via votre tableau de bord partenaire. Fournissez votre Partner ID et les ID des établissements que vous souhaitez activer sur ClassPass. Veuillez noter que les séances ou les rendez-vous dans ces établissements n'apparaîtront pas sur ClassPass tant que la configuration n'aura pas été entièrement confirmée par ClassPass."
         },
         "requestDialog": {
             "explain": "Vous avez demandé l'intégration bsport X classpass, votre chargé de compte va vous contacter pour valider cette opération",

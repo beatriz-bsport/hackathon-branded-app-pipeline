@@ -76,8 +76,6 @@ type Props = {
   recurrenceBasis: number;
   /** Recurrent price to be displayed if it has not been renewed yet and a coupon has been applied for all billings before first renewal */
   recurrentPrice: string | null;
-  /** Indicates if any subscriptions were selected : needed for mobile display */
-  selected?: boolean;
   /** List of invoices related to a subscription */
   selectedSubscriptionInvoiceDetails: Omit<
     SubscriptionsInvoicesDetailsREST,
@@ -124,7 +122,6 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   readableIdentifier,
   recurrenceBasis,
   recurrentPrice,
-  selected,
   selectedSubscriptionInvoiceDetails,
   selectedSubscriptionsFuturePauses,
   showPlaceholder,
@@ -136,17 +133,14 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('consumerSpace');
 
-  if (!selected) {
-    return null;
-  }
-
   if (isLoading) {
     return <ConsumerDetailsCardSkeleton />;
   }
 
-  if (showPlaceholder) {
+  if (showPlaceholder && !isLoading) {
     return (
       <ConsumerCardPlaceholder
+        className={className}
         message={t('consumerSpace:reworked.placeholderCard.mySubscriptions')}
       />
     );

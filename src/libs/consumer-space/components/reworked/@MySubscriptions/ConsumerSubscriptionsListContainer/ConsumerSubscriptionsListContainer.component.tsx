@@ -206,7 +206,6 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
             selectedSubscription,
             selectedSubscription?.recurrent_price,
           )}
-          selected={!!selectedSubscription}
           selectedSubscriptionInvoiceDetails={
             selectedSubscriptionInvoiceDetails
           }

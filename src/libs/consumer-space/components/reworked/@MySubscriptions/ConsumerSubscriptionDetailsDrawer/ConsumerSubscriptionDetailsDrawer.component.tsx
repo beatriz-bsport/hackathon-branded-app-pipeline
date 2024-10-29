@@ -133,7 +133,6 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
           selectedSubscription,
           selectedSubscription?.recurrent_price,
         )}
-        selected={!!selectedSubscription}
         selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
         selectedSubscriptionsFuturePauses={selectedSubscriptionsFuturePauses}
         showPlaceholder={showPlaceholder}

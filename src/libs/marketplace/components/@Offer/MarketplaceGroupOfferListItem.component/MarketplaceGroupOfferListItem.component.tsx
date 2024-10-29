@@ -26,6 +26,7 @@ import {
   getPositionOfOfferInTheList,
 } from '../../../utils';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 import './MarketplaceGroupOfferListItem.css';
 
@@ -185,14 +186,18 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   );
 
   const handleClick = useCallback(() => {
-    // GTM add analytics tracking for grouped sessions
+    analyticsUtils.onShowWorkshopBooking(offersToDisplay[0]);
     if (group?.full_booking_only) {
       !getBookGroupButtonIsDisabled() && setOpenModal(true);
     } else {
       setOpenModal(true);
     }
+  }, [
+    offersToDisplay,
+    group?.full_booking_only,
     // @ts-expect-error
-  }, [group?.full_booking_only, getBookGroupButtonIsDisabled]);
+    getBookGroupButtonIsDisabled,
+  ]);
 
   const isRegisteredInOnOfferInGroup = React.useMemo(() => {
     if (!group?.full_booking_only) {
@@ -507,6 +512,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
               disabled={getBookGroupButtonIsDisabled()}
               onClick={() => {
                 if (getBookGroupButtonIsDisabled()) return;
+                analyticsUtils.onGoToWorkshopBooking(firstBookableOffer);
                 if (firstBookableOffer?.available) {
                   handleBook()(firstBookableOffer);
                 }

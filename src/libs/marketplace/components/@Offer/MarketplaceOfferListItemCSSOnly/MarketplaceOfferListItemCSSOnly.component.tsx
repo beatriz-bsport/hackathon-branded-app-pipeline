@@ -199,15 +199,16 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       event.stopPropagation();
       const savedEvent = event;
 
-      analyticsUtils.onGoToWorkshopBooking(offer);
       if (theme?.hide_book_button) {
         handleClickOnHiddenBookButton(savedEvent);
       } else if (
         AVAILABLE_BOOKING_ELEMENTS_IDS.includes(savedEvent.target?.id)
       ) {
+        analyticsUtils.onGoToWorkshopBooking(offer);
         handleBook();
         // offer?.full ? handleBookOption() : handleBook();
       } else if (!isWorkshop) {
+        analyticsUtils.onGoToWorkshopBooking(offer);
         onClick(offer?.id);
       }
     },

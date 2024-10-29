@@ -14,7 +14,7 @@ import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
 } from 'bsport-saas/src/libs/subscription/types';
-import { SubscriptionTabEnum } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import { SubscriptionFilterEnum } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 
 export const fetchMyPastBookingAsMemberActions = {
   success: createAction('BOOKING/PAST/AS_MEMBER/SUCCESS'),
@@ -342,7 +342,18 @@ export const fetchConsumerSubscriptionInvoicesDetailsActions = {
 };
 
 export const fetchMySubscriptionAsMemberActions = {
-  [SubscriptionTabEnum.ACTIVE]: fetchActiveSubscriptionDetailAsMemberActions,
-  [SubscriptionTabEnum.FUTURE]: fetchFutureSubscriptionDetailAsMemberActions,
-  [SubscriptionTabEnum.EXPIRED]: fetchExpiredSubscriptionDetailAsMemberActions,
+  [SubscriptionFilterEnum.ACTIVE]: fetchActiveSubscriptionDetailAsMemberActions,
+  [SubscriptionFilterEnum.FUTURE]: fetchFutureSubscriptionDetailAsMemberActions,
+  [SubscriptionFilterEnum.EXPIRED]:
+    fetchExpiredSubscriptionDetailAsMemberActions,
+};
+
+export const switchPaymentMethodActions = {
+  error: createAction<Error | null>('SUBSCRIPTION/SWITCH_PAYMENT_METHOD/ERROR'),
+  isLoading: createAction<boolean>(
+    'SUBSCRIPTION/SWITCH_PAYMENT_METHOD/IS_LOADING',
+  ),
+  success: createAction<SubscriptionREST>(
+    'SUBSCRIPTION/SWITCH_PAYMENT_METHOD/SUCCESS',
+  ),
 };

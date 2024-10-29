@@ -32,7 +32,7 @@ const NavigationAppBar: React.FC<NavigationAppBarProps> = ({
 
   return (
     <div className="bs-navigation-app-bar__root">
-      <div className="flex">
+      <div className="bs-navigation-app-bar__content">
         <NavigationAppBarLogoSection
           goBackNavigation={goBackNavigation}
           hideMarketplaceMenuButton={hideMarketplaceMenuButton}

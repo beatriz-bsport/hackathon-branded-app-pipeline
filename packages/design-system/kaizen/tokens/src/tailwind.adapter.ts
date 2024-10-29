@@ -481,6 +481,7 @@ const importShadows = async (folderPath: string): Promise<Output> => {
     "shadowKaizen",
     "elevation",
     "shadow",
+    "css",
   ]);
   const formatValue = formatVariableValue(formatName, {
     formatCSSVariable,

@@ -108,7 +108,7 @@
   --kz-color-stroke-weak: 124 135 134;
   --kz-color-onsurface-disabled: 30 35 35;
   --kz-color-surface-page: 249 252 252;
-  --kz-color-surface-page-navigation: 255 255 255;
+  --kz-color-surface-page-navigation: 249 252 252;
   --kz-color-surface-default: 255 255 255;
   --kz-color-surface-default-elevated: 255 255 255;
   --kz-color-surface-default-weak: 225 234 233;
@@ -285,9 +285,9 @@
   --kz-opacity-xs: 0.75;
   --kz-opacity-2xs: 0.9;
   --kz-opacity-transparent: 0;
-  --kz-shadow-action-default-rest: 0px 1px 2px 0px #a3afae0a,
+  --kz-shadow-action-default-rest: 0px 1px 2px 0px #a3afae40,
     inset 0px 0px 0px 1px #7c878640;
-  --kz-shadow-action-default-hovered: 0px 2px 6px 0px #a3afae0a,
+  --kz-shadow-action-default-hovered: 0px 2px 6px 0px #a3afae40,
     inset 0px 0px 0px 1px #a3afae80;
   --kz-shadow-action-default-pressed: 0px 1px 4px -4px #a3afaebf,
     inset 0px 0px 0px 1px #a3afaebf;
@@ -304,15 +304,18 @@
   --kz-shadow-sm: 0px 2px 8px 0px #3d4d471a;
   --kz-shadow-md: 0px 8px 16px 4px #3d4d471a;
   --kz-shadow-lg: 0px 12px 20px 2px #5c676333;
-  --kz-shadow-action-call-to-action-critical-rest: 0px 2px 4px 0px #59363d73;
-  --kz-shadow-action-call-to-action-critical-hovered: 0px 2px 8px 0px #8b465599;
-  --kz-shadow-action-call-to-action-critical-pressed: 0px 1px 8px -2px #50505073;
+  --kz-shadow-action-call-to-action-critical-rest: 0px 1px 2px 0px #59363d40;
+  --kz-shadow-action-call-to-action-critical-hovered: 0px 2px 6px 0px #8b465580;
+  --kz-shadow-action-call-to-action-critical-pressed: 0px 1px 8px -2px #50505014;
   --kz-shadow-none: 0px 0px 0px 0px #000000;
-  --kz-shadow-test-this-focus: 0px 0px 0px 2px #21837d,
-    0px 0px 0px 4px #25948d80;
   --kz-shadow-critical: 0px 0px 8px 0px #91001f40,
     inset 0px 0px 0px 1px #a3afae0a;
-  --kz-shadow-border-default: var(--kz-shadow-color-base-colors-luna-grey-500);
+  --kz-shadow-border-thin-default: inset 0px 0px 0px 1px #c4d1d040;
+  --kz-shadow-border-thin-main: inset 0px 0px 0px 1px #25948d;
+  --kz-shadow-border-thin-info: inset 0px 0px 0px 1px #d16f84;
+  --kz-shadow-border-thin-positive: inset 0px 0px 0px 1px #47af4f;
+  --kz-shadow-border-thin-warning: inset 0px 0px 0px 1px #f59e0b;
+  --kz-shadow-border-thin-critical: inset 0px 0px 0px 1px #d16f84;
 }
 
 .kz-dark {
@@ -598,9 +601,9 @@
   --kz-opacity-xs: 0.75;
   --kz-opacity-2xs: 0.9;
   --kz-opacity-transparent: 0;
-  --kz-shadow-action-default-rest: 0px 1px 2px 0px #a3afae0a,
+  --kz-shadow-action-default-rest: 0px 1px 2px 0px #a3afae40,
     inset 0px 0px 0px 1px #7c878640;
-  --kz-shadow-action-default-hovered: 0px 2px 6px 0px #a3afae0a,
+  --kz-shadow-action-default-hovered: 0px 2px 6px 0px #a3afae40,
     inset 0px 0px 0px 1px #a3afae80;
   --kz-shadow-action-default-pressed: 0px 1px 4px -4px #a3afaebf,
     inset 0px 0px 0px 1px #a3afaebf;
@@ -617,13 +620,16 @@
   --kz-shadow-sm: 0px 2px 8px 0px #3d4d471a;
   --kz-shadow-md: 0px 8px 16px 4px #3d4d471a;
   --kz-shadow-lg: 0px 12px 20px 2px #5c676333;
-  --kz-shadow-action-call-to-action-critical-rest: 0px 2px 4px 0px #59363d73;
-  --kz-shadow-action-call-to-action-critical-hovered: 0px 2px 8px 0px #8b465599;
-  --kz-shadow-action-call-to-action-critical-pressed: 0px 1px 8px -2px #50505073;
+  --kz-shadow-action-call-to-action-critical-rest: 0px 1px 2px 0px #59363d40;
+  --kz-shadow-action-call-to-action-critical-hovered: 0px 2px 6px 0px #8b465580;
+  --kz-shadow-action-call-to-action-critical-pressed: 0px 1px 8px -2px #50505014;
   --kz-shadow-none: 0px 0px 0px 0px #000000;
-  --kz-shadow-test-this-focus: 0px 0px 0px 2px #21837d,
-    0px 0px 0px 4px #25948d80;
   --kz-shadow-critical: 0px 0px 8px 0px #91001f40,
     inset 0px 0px 0px 1px #a3afae0a;
-  --kz-shadow-border-default: var(--kz-shadow-color-base-colors-luna-grey-500);
+  --kz-shadow-border-thin-default: inset 0px 0px 0px 1px #c4d1d040;
+  --kz-shadow-border-thin-main: inset 0px 0px 0px 1px #25948d;
+  --kz-shadow-border-thin-info: inset 0px 0px 0px 1px #d16f84;
+  --kz-shadow-border-thin-positive: inset 0px 0px 0px 1px #47af4f;
+  --kz-shadow-border-thin-warning: inset 0px 0px 0px 1px #f59e0b;
+  --kz-shadow-border-thin-critical: inset 0px 0px 0px 1px #d16f84;
 }

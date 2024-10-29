@@ -48,6 +48,10 @@ export const getSessionEstablishmentId = (session: SessionItem) => {
 };
 
 export const getItemPrice = (item: CartItem) => {
+  if ('recurrent_price' in item)
+    return typeof item.recurrent_price === 'string'
+      ? parseFloat(item.recurrent_price)
+      : item.recurrent_price;
   if ('unit_price' in item) return item.unit_price;
   if ('price' in item)
     return typeof item.price === 'number' ? item.price : parseFloat(item.price);
@@ -76,6 +80,10 @@ const isShopItem = (item: CartItem) => {
   return 'is_standalone_item' in item;
 };
 
+const isContract = (item: CartItem) => {
+  return 'auto_renewal' in item;
+};
+
 export const getItemType = (item: CartItem) => {
   /*
     check if it is of type CheckoutItem,
@@ -84,6 +92,7 @@ export const getItemType = (item: CartItem) => {
   */
   if ('buyable_item_identifier' in item)
     return itemTypeList[item.buyable_item_identifier];
+  if (isContract(item)) return 'subscription';
   if (isPrivatePass(item)) return 'appointment_pass';
   if (isPack(item)) return 'pack';
   if (isPass(item)) return 'pass';

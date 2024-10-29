@@ -21,6 +21,7 @@ import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import type { Contract } from '#src/libs/subscription/types';
 import BillingInterval from '../MarketplaceBillingInterval';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 import './styles.css';
 
@@ -42,12 +43,14 @@ const MarketplaceContractCard: React.FC<Props> = ({
   const handleAddToCart = useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       event.stopPropagation();
+      analyticsUtils.addItemToCart(contract);
       addToCart(contract);
     },
     [addToCart, contract],
   );
 
   const handleOpenDetailDialog = useCallback(() => {
+    analyticsUtils.onShowContract(contract);
     onOpenDetailDialog(contract);
   }, [contract, onOpenDetailDialog]);
 

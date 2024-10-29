@@ -4,6 +4,7 @@ import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import type { PrivatePass } from '#src/libs/private-service/types';
 import type { ShopItem } from '#src/libs/shop/types';
+import type { Contract } from '#src/libs/subscription/types';
 
 declare global {
   interface Window {
@@ -41,7 +42,8 @@ export type CartItem =
   | PaymentPack
   | PaymentCombo
   | PrivatePass
-  | CheckoutItem;
+  | CheckoutItem
+  | Contract;
 
 export type SessionItem = OfferREST | Offer_FULL | Offer;
 

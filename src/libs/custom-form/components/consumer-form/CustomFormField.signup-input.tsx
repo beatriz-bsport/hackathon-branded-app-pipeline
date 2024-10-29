@@ -887,7 +887,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 export default compose<any, OwnProps>(
-  withTranslation('marketing'),
+  withTranslation(['marketing', 'payment']),
   // @ts-expect-error
   withStyles(styles),
 )(CustomFormConsumerInput);

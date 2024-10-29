@@ -1,6 +1,7 @@
+import type { Basket } from '#src/libs/checkout/types';
+import type { CartItem, OfferBookingValidation, SessionItem } from './types';
 import { STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE } from '#src/libs/theme/constants';
 import { getItemInStorage } from '#src/utils/storage';
-import type { CartItem, SessionItem } from './types';
 
 import {
   BUYABLE_ITEM_COMBO_ITEM,
@@ -98,4 +99,33 @@ export const getItemType = (item: CartItem) => {
   if (isPass(item)) return 'pass';
   if (isShopItem(item)) return 'shop_item';
   return 'none';
+};
+
+/*
+    This function is made to retrieve all the sesion dat
+    that is linked to the items bought during a purchase event on bsport
+    It take the basket checkout items and will check for each of them
+    if they have any session data linked to them so that we can know
+    how many sessions have been booked during a single purchase process
+  */
+export const getBookedSessionListDataFromBasket = (
+  basket: Basket,
+): OfferBookingValidation[] => {
+  const bookingSuccessData: OfferBookingValidation[] = [];
+
+  basket.checkout_items.forEach((item) => {
+    if (item.extra_data && Array.isArray(item.extra_data.offers_data)) {
+      const offers = item.extra_data.offers_data;
+
+      offers.forEach((offer) => {
+        bookingSuccessData.push({
+          id: offer.offer_id || 0,
+          spotId: offer?.extra_data?.spot_id || null,
+          spotName: offer?.extra_data?.spot_name || null,
+          isNewPass: true,
+        });
+      });
+    }
+  });
+  return bookingSuccessData;
 };

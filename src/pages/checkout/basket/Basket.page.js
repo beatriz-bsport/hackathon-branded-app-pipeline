@@ -130,6 +130,7 @@ import {
 
 import { type EstablishmentBillingGroup } from '../../../libs/establishment/types';
 import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
+import { getBookedSessionListDataFromBasket } from '../../../components/analytics/utils';
 
 type Props = {
   basket: ?Basket,
@@ -392,7 +393,6 @@ export class BasketPage extends React.Component<Props> {
       .then((r) => {
         if (r.data >= PAYMENT_INTENT_STATUS_SUCCESS) {
           setTimeout(() => {
-            analyticsUtils.onPaymentSuccess(this.props.basket);
             this.props.onSuccess();
             if (callback) callback();
           }, 2000);
@@ -410,7 +410,6 @@ export class BasketPage extends React.Component<Props> {
     validateUnpaidAPI(this.props.basket.id)
       .then(() => {
         this.props.onSuccess();
-        analyticsUtils.onPaymentSuccess(this.props.basket);
         if (options && options.onSuccess) {
           options.onSuccess();
         }
@@ -992,6 +991,13 @@ export default compose(
     onSuccess:
       ({ replace, basket, isNewCheckoutFlow, queryParams, theme }) =>
       () => {
+        const bookedSessionListData =
+          getBookedSessionListDataFromBasket(basket);
+        if (bookedSessionListData.length || bookedSessionListData.length > 0)
+          analyticsUtils.onSessionBookingSuccess({
+            offersBooked: bookedSessionListData,
+          });
+        analyticsUtils.onPaymentSuccess(basket);
         const urlParams = queryParams.basket_redirection
           ? { basket: queryParams.basket_redirection }
           : { basket: basket.id };

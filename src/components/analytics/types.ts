@@ -17,7 +17,8 @@ declare global {
 export type GTMPayload =
   | GTMInteractWithBasketItemPayload
   | AnalyticsInterractWithLoginPayload
-  | SessionPayload;
+  | SessionPayload
+  | BookingSuccess;
 
 export type MetaPixelPayload =
   | (CommonBasketPayload & {
@@ -28,7 +29,19 @@ export type MetaPixelPayload =
       contents?: MetaPixelBasketItem[];
     })
   | AnalyticsInterractWithLoginPayload
-  | SessionPayload;
+  | SessionPayload
+  | BookingSuccess;
+
+export type BookingSuccess = {
+  offersBooked: OfferBookingValidation[];
+};
+
+export type OfferBookingValidation = {
+  id: number;
+  spotId: number | null;
+  spotName: string | null;
+  isNewPass: boolean;
+};
 
 interface CommonBasketPayload {
   currency?: string;

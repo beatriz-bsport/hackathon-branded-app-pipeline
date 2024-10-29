@@ -5,6 +5,7 @@ import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import type {
   AnalyticsInterractWithLoginPayload,
   AnalyticsLeadAcquisitionPayload,
+  BookingSuccess,
   CartItem,
   GTMInteractWithBasketItemPayload,
   GTMPayload,
@@ -16,7 +17,6 @@ import type {
   SessionPayload,
 } from './types';
 import type { PrivatePass } from '#src/libs/private-service/types';
-import type { OfferREST } from '#src/libs/offer/types';
 import type { Contract } from '#src/libs/subscription/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import {
@@ -486,25 +486,9 @@ const analyticsUtils = {
     analyticsUtils.trackMetaPixel('workshopGoToBooking', metaPixelPayload);
   },
 
-  onSessionBookingSuccess: (payload: OfferREST) => {
-    const gtmPayload: SessionPayload = {
-      sessionId: payload.id,
-      date: DateTime.fromISO(payload.date_start).toISO(),
-      coachId: payload.coach,
-      establishmentId: payload.establishment,
-      activityId: payload.meta_activity,
-    };
-
-    const metaPixelPayload: SessionPayload = {
-      sessionId: payload.id,
-      date: DateTime.fromISO(payload.date_start).toISO(),
-      coachId: payload.coach,
-      establishmentId: payload.establishment,
-      activityId: payload.meta_activity,
-    };
-
-    analyticsUtils.trackGTM('bsport:booking:success', gtmPayload);
-    analyticsUtils.trackMetaPixel('bookingSuccess', metaPixelPayload);
+  onSessionBookingSuccess: (payload: BookingSuccess) => {
+    analyticsUtils.trackGTM('bsport:booking:success', payload);
+    analyticsUtils.trackMetaPixel('bookingSuccess', payload);
   },
 
   onLeadAcquisitionSuccess: (payload: AnalyticsLeadAcquisitionPayload) => {

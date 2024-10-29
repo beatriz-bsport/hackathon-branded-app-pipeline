@@ -1044,6 +1044,15 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         onSuccess: (responseData: any) => {
           this.setState({ confirmLoading: false });
           if (data.consumer_payment_pack || !data.offers.length) {
+            const offersBookedData = this.state.selectedOffers.map((offer) => ({
+              id: offer.offer.id,
+              spotId: offer.extra_data?.spot_id || null,
+              spotName: offer.extra_data?.spot_name || null,
+              isNewPass: false,
+            }));
+            analyticsUtils.onSessionBookingSuccess({
+              offersBooked: offersBookedData,
+            });
             this.props.push(
               getCheckoutValidationUrl(this.props.offer.company, true, {
                 basket: 'null',

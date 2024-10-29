@@ -279,9 +279,6 @@ const useModalStyles = makeStyles(() => ({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     borderRadius: 12,
-    '@media (max-width: 600px), (max-height: 600px)': {
-      maxHeight: 25,
-    },
   },
   iframe: {
     borderTopWidth: 0,

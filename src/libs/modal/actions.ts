@@ -25,6 +25,7 @@ export const openUserInteractionPortal: (args: {
   dialogMode: DialogMode,
   isFabContext?: boolean,
   fullScreenPopup?: boolean,
+  consumerspacecontext?: ConsumerSpaceContextEnum,
 }) => any = createAction('WIDGET_SET_IFRAME_URL');
 
 export const closeUserInteractionPortal = () => (dispatch: Dispatch) => {
@@ -134,7 +135,9 @@ export const fabShowBookings =
     const { theme } = getState().theme;
     dispatch(
       openUserInteractionPortal({
-        url: buildWidgetUrl('bookings', theme),
+        url: buildWidgetUrl('bookings', theme, {
+          consumerspacecontext: ConsumerSpaceContextEnum.FAB,
+        }),
         dialogMode: DIALOG_MODE_IFRAME,
       }),
     );
@@ -145,7 +148,9 @@ export const fabShowProfile =
     const { theme } = getState().theme;
     dispatch(
       openUserInteractionPortal({
-        url: buildWidgetUrl('profile', theme),
+        url: buildWidgetUrl('profile', theme, {
+          consumerspacecontext: ConsumerSpaceContextEnum.FAB,
+        }),
         dialogMode: DIALOG_MODE_IFRAME,
       }),
     );
@@ -155,7 +160,9 @@ export const fabShowSubscription =
     const { theme } = getState().theme;
     dispatch(
       openUserInteractionPortal({
-        url: buildWidgetUrl('subscription', theme),
+        url: buildWidgetUrl('subscription', theme, {
+          consumerspacecontext: ConsumerSpaceContextEnum.FAB,
+        }),
         dialogMode: DIALOG_MODE_IFRAME,
       }),
     );

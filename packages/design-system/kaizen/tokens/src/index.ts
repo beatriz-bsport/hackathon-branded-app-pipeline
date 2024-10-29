@@ -5,6 +5,7 @@ import { existsSync } from "fs";
 import merge from "lodash/merge";
 import without from "lodash/without";
 import adapters from "#src/tailwind.adapter";
+import prettier from "prettier";
 
 const SOURCE_FOLDER = path.resolve(__dirname, "../export/supernova");
 
@@ -71,11 +72,32 @@ const importSupernovaTokens = async () => {
     );
   }
 
+  // Format
+  const formattedThemes: {
+    cssContent: string;
+    tailwindConfig: Config["theme"];
+  }[] = await Promise.all(
+    convertedThemes?.map(async (theme) => {
+      const tailwindConfig = await prettier.format(
+        JSON.stringify(theme.tailwindConfig),
+        { parser: "json" },
+      );
+      const cssContent = await prettier.format(theme.cssContent, {
+        parser: "css",
+      });
+      return {
+        ...theme,
+        tailwindConfig: JSON.parse(tailwindConfig) as Config["theme"],
+        cssContent,
+      };
+    }),
+  );
+
   // Write in files for Tailwind
   await fs.writeFile(
     TAILWIND_THEME_PATH,
     // We pick one the theme's as Tailwind theme config as it should be identical for all themes
-    JSON.stringify(convertedThemes[0].tailwindConfig, null, 2) + "\n",
+    JSON.stringify(formattedThemes[0].tailwindConfig, null, 2) + "\n",
   );
   console.log(
     `✅ Tailwind theme config exported in ${path.relative(process.cwd(), TAILWIND_THEME_PATH)}`,
@@ -86,8 +108,7 @@ const importSupernovaTokens = async () => {
 @tailwind components;
 @tailwind utilities;
 
-${convertedThemes.map(({ cssContent }) => cssContent).join("\n\n")}
-`,
+${formattedThemes.map(({ cssContent }) => cssContent).join("\n")}`,
   );
   console.log(
     `✅ CSS Variables exported in ${path.relative(process.cwd(), CSS_VARIABLES_PATH)}`,

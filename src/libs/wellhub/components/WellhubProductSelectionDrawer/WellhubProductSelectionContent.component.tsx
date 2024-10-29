@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormikContext } from 'formik';
 
@@ -60,14 +60,6 @@ const WellhubProductSelectionContent: React.FC<Props> = ({
     total_pages: totalPages,
   } = offersData;
 
-  const filteredSimilarOffers = useMemo(() => {
-    const offerIds = offersData.results.map((offer) => offer.id);
-
-    return similarOffers.filter((similarOffer) =>
-      offerIds.includes(similarOffer.id),
-    );
-  }, [offersData.results, similarOffers]);
-
   const handleChangePage = useCallback(
     (page: number) => fetchMissingProductOffersSpecificPage(page),
     [fetchMissingProductOffersSpecificPage],
@@ -125,7 +117,7 @@ const WellhubProductSelectionContent: React.FC<Props> = ({
           <WellhubProductSelectionForm
             availableEstablishments={availableEstablishments}
             offer={offerSelected}
-            similarOffers={filteredSimilarOffers}
+            similarOffers={similarOffers}
             similarOffersLoading={similarOffersLoading}
           />
         )}

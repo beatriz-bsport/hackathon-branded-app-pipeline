@@ -227,8 +227,7 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
   );
   bridgeAPIActionsRegistry.register(
     'SWITCH_SUBSCRIPTION_PAYMENT_METHOD',
-    // @ts-expect-error TODO
-    () => {},
+    actions.switchSubscriptionPaymentMethod,
   );
 
   // PRIVATE SERVICE

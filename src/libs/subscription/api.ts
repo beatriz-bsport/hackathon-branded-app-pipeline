@@ -23,6 +23,7 @@ import type {
   ContractTemplate,
   ContractTemplatePaginatedQueryParams,
   ContractTemplatePayload,
+  SubscriptionPaymentMethodParams,
 } from './types';
 import type { PaginationFilterParams } from '#src/libs/types';
 import type { PaginatedResponse } from '#src/state/types';
@@ -235,13 +236,15 @@ export const switchSubscriptionPaymentCombo = async (
     data,
   );
 };
-export const switchSubscriptionPaymentMethod = async (
-  id: number,
-  data: { payment_method_identifier: number; source: string },
-) => {
-  return postAuth(
+export const switchSubscriptionPaymentMethod = async ({
+  id,
+  payment_method_identifier,
+  payment_method_id,
+  source,
+}: SubscriptionPaymentMethodParams) => {
+  return postAuth<SubscriptionREST>(
     `${API_URI}/subscription/billing-plan/${id}/switch_payment_provider/`,
-    data,
+    { payment_method_identifier, source, payment_method_id },
   );
 };
 

@@ -348,11 +348,11 @@ const mapWithHandlers1 = {
       payment_method_id: number,
     ) => {
       switchSubscriptionPaymentMethod(
-        id,
         {
-          is_v2: true,
+          id,
           // @ts-expect-error
-          payment_method_id,
+          is_v2: true,
+          payment_method_id: payment_method_id.toString(),
           payment_engine: PAYMENT_ENGINE_STRIPE,
         },
         {

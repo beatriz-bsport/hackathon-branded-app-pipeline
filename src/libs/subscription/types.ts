@@ -524,3 +524,12 @@ export type ContractTemplateFormValues = {
   autoRenewal: boolean;
   unusableByStaff: boolean;
 };
+
+/** The payload type when adding or switching payment method for a Subscription */
+export type SubscriptionPaymentMethodParams = {
+  id: number;
+  payment_engine?: number;
+  payment_method_id: string;
+  payment_method_identifier: number;
+  source?: string;
+};

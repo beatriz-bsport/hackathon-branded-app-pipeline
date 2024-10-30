@@ -340,8 +340,8 @@ export default compose(
       }) =>
       (source, options, payment_method_id) => {
         switchSubscriptionPaymentMethod(
-          id,
           {
+            id,
             source,
             payment_method_id,
             payment_method_identifier: BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,

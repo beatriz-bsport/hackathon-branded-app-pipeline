@@ -148,8 +148,8 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
   switchPaymentMethod = (source: string, payment_method_id: string) => {
     this.setState({ processing: true });
     this.props.switchSubscriptionPaymentMethod(
-      this.props.subscription,
       {
+        id: this.props.subscription,
         // @ts-expect-error
         is_v2: true,
         payment_method_id: source || payment_method_id,

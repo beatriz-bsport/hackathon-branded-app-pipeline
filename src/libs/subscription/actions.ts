@@ -62,6 +62,7 @@ import type {
   SubscriptionREST,
   PauseRequestResults,
   PauseRequestErrorResults,
+  SubscriptionPaymentMethodParams,
 } from './types';
 import type { PaginationFilterParams } from '#src/libs/types';
 import {
@@ -718,32 +719,29 @@ export function switchSubscriptionPaymentCombo(
     dispatch(switchPaymentComboActions.isLoading(false));
   };
 }
+
 export const switchPaymentMethodActions = {
-  error: createAction('SUBSCRIPTION/SWITCH_PAYMENT_METHOD/ERROR'),
-  isLoading: createAction('SUBSCRIPTION/SWITCH_PAYMENT_METHOD/IS_LOADING'),
-  success: createAction('SUBSCRIPTION/SWITCH_PAYMENT_METHOD/SUCCESS'),
+  error: createAction<Error | null>('SUBSCRIPTION/SWITCH_PAYMENT_METHOD/ERROR'),
+  isLoading: createAction<boolean>(
+    'SUBSCRIPTION/SWITCH_PAYMENT_METHOD/IS_LOADING',
+  ),
+  success: createAction<SubscriptionREST>(
+    'SUBSCRIPTION/SWITCH_PAYMENT_METHOD/SUCCESS',
+  ),
 };
 
 export function switchSubscriptionPaymentMethod(
-  id: number,
-  data: {
-    payment_method_id?: string;
-    payment_engine?: number;
-    payment_method_identifier: number;
-    source?: string;
-  },
-  options: OptionCallback,
+  data: SubscriptionPaymentMethodParams,
+  options?: OptionCallback<SubscriptionREST>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(switchPaymentMethodActions.error(null));
     dispatch(switchPaymentMethodActions.isLoading(true));
     try {
-      // @ts-expect-error
-      const response = await switchSubscriptionPaymentMethodAPI(id, data);
+      const response = await switchSubscriptionPaymentMethodAPI(data);
       dispatch(switchPaymentMethodActions.success(response.data));
       dispatch(snackbarSuccess('subscription.switchPaymentMethod.success'));
       if (options && options.onSuccess) {
-        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {

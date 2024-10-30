@@ -53,6 +53,7 @@ import type { SubscriptionFilter } from '#src/libs/consumer-space/components/rew
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
+import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 type OwnProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -266,18 +267,42 @@ export const consumerSubscriptionMapWithHandlers = {
       options?: OptionCallback,
     ) => {
       props.switchSubscriptionPaymentMethod(
-        subscriptionId,
         {
+          id: subscriptionId,
           payment_method_id,
           payment_method_identifier: BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
         },
         {
           onSuccess: (sub) => {
-            props.fetchMySubscriptionAsMemberAction({
-              id: subscriptionId,
-              member: props.membership?.id,
-              status,
-            });
+            if (
+              WidgetUtils.getConsumerSpaceContext() ===
+              ConsumerSpaceContextEnum.WIDGET
+            ) {
+              switch (status) {
+                case 'active':
+                  props.fetchMyActiveSubscriptionsAsMemberAction({
+                    member: props.membership?.id,
+                  });
+                  break;
+                case 'future':
+                  props.fetchMyFutureSubscriptionsAsMemberAction({
+                    member: props.membership?.id,
+                  });
+                  break;
+                case 'expired':
+                  props.fetchMyExpiredSubscriptionsAsMemberAction({
+                    member: props.membership?.id,
+                  });
+                  break;
+              }
+            } else {
+              props.fetchMySubscriptionAsMemberAction({
+                id: subscriptionId,
+                member: props.membership?.id,
+                status,
+              });
+            }
+            // @ts-expect-error
             options?.onSuccess?.(sub);
           },
           onError: options?.onError,

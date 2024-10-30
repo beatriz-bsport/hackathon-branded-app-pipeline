@@ -127,6 +127,7 @@ export class ConsumerSubscription extends React.Component<Props> {
         ) : null}
         {this.props.subscriptionList.map((sub) => (
           <SubscriptionListItem
+            key={sub.id}
             changePaymentMethod={this.props.setSwitchPaymentMethodDialogOpen}
             downloadContractTerms={(options: OptionCallback) =>
               this.props.downloadContractTerms(sub.id, options)
@@ -248,8 +249,8 @@ export default compose(
       }) =>
       (source, options, payment_method_id) => {
         switchSubscriptionPaymentMethod(
-          switchPaymentMethodDialogOpen,
           {
+            id: switchPaymentMethodDialogOpen,
             source: source || payment_method_id,
             payment_method_identifier: BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
           },

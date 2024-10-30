@@ -39,8 +39,13 @@ import {
   BookingFilterTabEnum,
 } from '#src/libs/consumer-space/components/reworked/@MyBookings/constants';
 import { getOfferBookerUrl } from '#src/libs/marketplace/routing-utils';
-import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
+import {
+  CONSUMER_SPACE_MOBILE_BREAKPOINT,
+  ConsumerSpaceContextEnum,
+} from '#src/libs/consumer-space/constants';
 import { getUserZone } from '#src/utils/datetime';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import Config from '#src/config';
 import type { OptionCallback } from '../../../../../../state/types';
 
 /** Provides all of the necessary data and fetch handlers for consumer booking page */
@@ -829,6 +834,13 @@ export default function useConsumerBookingsDataManager({
         offerId,
         isNewCheckoutFlow,
       );
+      if (
+        ![ConsumerSpaceContextEnum.WEB, null].includes(
+          WidgetUtils.getConsumerSpaceContext(),
+        )
+      ) {
+        return window.open(`${Config.PUBLIC_URL}${offerBookerUrl}`, '_blank');
+      }
       history.push(offerBookerUrl);
     },
     [companyId, history, isNewCheckoutFlow],

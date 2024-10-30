@@ -56,7 +56,7 @@ const CustomFormPortal: React.FC<CustomFormPortalProps> = ({
     }
   }, [isOpen, isSubmitting, setSubmitting]);
 
-  if (isMobile)
+  if (isMobile) {
     return (
       <CustomFormBottomDrawer
         cancelLabel={cancelButtonLabel}
@@ -71,6 +71,7 @@ const CustomFormPortal: React.FC<CustomFormPortalProps> = ({
         {...restProps}
       />
     );
+  }
 
   return (
     <CustomFormDialog

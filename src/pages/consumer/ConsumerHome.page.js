@@ -178,9 +178,6 @@ type Props = {
 export class ConsumerHome extends React.Component<Props> {
   constructor(props) {
     super(props);
-    this.state = {
-      isEditProfileMobilePortalOpen: false,
-    };
   }
   UNSAFE_componentWillMount() {
     if (this.props.from_basket) {
@@ -230,18 +227,6 @@ export class ConsumerHome extends React.Component<Props> {
     }
   }
 
-  openEditProfilePortalOnMobile = () => {
-    this.setState({
-      isEditProfileMobilePortalOpen: true,
-    });
-  };
-
-  closeEditProfilePortalOnMobile = () => {
-    this.setState({
-      isEditProfileMobilePortalOpen: false,
-    });
-  };
-
   /**
    * The consumer space context. If not provided the default context is WEB
    * @see {@link [ConsumerSpaceContextEnum](#src/libs/consumer-space/constants.ts)}
@@ -274,10 +259,6 @@ export class ConsumerHome extends React.Component<Props> {
         <MyComponent
           companyId={this.props.companyId}
           {...props}
-          closeEditProfilePortalOnMobile={this.closeEditProfilePortalOnMobile}
-          isEditProfileMobilePortalOpen={
-            this.state.isEditProfileMobilePortalOpen
-          }
           membership={this.props.membership}
           push={this.buildPath}
         />

@@ -27,6 +27,9 @@ const ConsumerProfileContextProvider: React.FC<{
 
   const [isEditProfilePortalOpen, setIsEditProfilePortalOpen] = useState(false);
 
+  const [isEditProfileMobilePortalOpen, setIsEditProfileMobilePortalOpen] =
+    useState(false);
+
   const [paymentMethodIdToDetach, setPaymentMethodIdToDetach] = useState<
     string | null
   >(null);
@@ -73,6 +76,15 @@ const ConsumerProfileContextProvider: React.FC<{
     setIsDetachPaymentPortalOpen(false);
   }, []);
 
+  // bottom drawer handlers
+  const openEditProfileMobilePortal = useCallback(() => {
+    setIsEditProfileMobilePortalOpen(true);
+  }, []);
+
+  const closeEditProfileMobilePortal = useCallback(() => {
+    setIsEditProfileMobilePortalOpen(false);
+  }, []);
+
   return (
     <ConsumerProfileContext.Provider
       value={{
@@ -87,6 +99,9 @@ const ConsumerProfileContextProvider: React.FC<{
         isTermsOfUsePortalOpen,
         openAddPaymentMethodPortal,
         openEditProfilePortal,
+        openEditProfileMobilePortal,
+        closeEditProfileMobilePortal,
+        isEditProfileMobilePortalOpen,
         paymentMethodIdToDetach,
         selectPaymentMethodToDetach,
         toggleBarcodeModal,

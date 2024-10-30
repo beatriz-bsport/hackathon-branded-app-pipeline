@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import ConsumerGenericHeader from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader';
 
@@ -15,12 +15,13 @@ export const PageHeaderTitle: React.FC<Props> = ({
   buttonsData,
   title,
 }) => {
-  const buttons = useMemo(
-    () => (isMobile ? [] : buttonsData),
-    [isMobile, buttonsData],
+  return (
+    <ConsumerGenericHeader
+      buttons={buttonsData}
+      isMobile={isMobile}
+      title={title}
+    />
   );
-
-  return <ConsumerGenericHeader buttons={buttons} title={title} />;
 };
 
 export default React.memo(PageHeaderTitle);

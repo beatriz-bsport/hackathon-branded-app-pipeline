@@ -53,20 +53,23 @@ export type ConsumerHeaderProps = {
 
 export type ConsumerProfileContextType = {
   closeAddPaymentMethodPortal: () => void;
+  closeDetachPaymentMethodPortal: () => void;
+  closeEditProfileMobilePortal: () => void;
   closeEditProfilePortal: () => void;
   isAddPaymentMethodPortalOpen: boolean;
   isBarcodePortalOpen: boolean;
   isDetachPaymentPortalOpen: boolean;
   isEditProfilePortalOpen: boolean;
+  isEditProfileMobilePortalOpen: boolean;
   isMobile: boolean;
   isTermsAndConditionPortalOpen: boolean;
   isTermsOfUsePortalOpen: boolean;
   openAddPaymentMethodPortal: () => void;
+  openEditProfileMobilePortal: () => void;
   openEditProfilePortal: () => void;
   paymentMethodIdToDetach: string;
   selectPaymentMethodToDetach: (id: string) => () => void;
   toggleBarcodeModal: () => void;
-  closeDetachPaymentMethodPortal: () => void;
   toggleTermsAndConditionPortal: () => void;
   toggleTermsOfUsePortal: () => void;
 };

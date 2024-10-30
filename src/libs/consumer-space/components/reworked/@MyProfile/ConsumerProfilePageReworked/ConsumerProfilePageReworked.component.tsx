@@ -82,8 +82,6 @@ type Props = {
     memberId: number,
     settingsAccepted: boolean,
   ) => void;
-  closeEditProfilePortalOnMobile: () => void;
-  isEditProfileMobilePortalOpen: boolean;
 };
 
 const ConsumerProfilePageReworked: React.FC<Props> = ({
@@ -115,8 +113,6 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
   stripeRegion,
   submitCustomForm,
   updateSpiviPrivacySettings,
-  closeEditProfilePortalOnMobile,
-  isEditProfileMobilePortalOpen,
 }) => {
   const { t } = useTranslation(['consumerSpace', 'common']);
 
@@ -136,6 +132,9 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     toggleTermsOfUsePortal,
     closeDetachPaymentMethodPortal,
     openEditProfilePortal,
+    openEditProfileMobilePortal,
+    closeEditProfileMobilePortal,
+    isEditProfileMobilePortalOpen,
   } = useContext(ConsumerProfileContext);
 
   const { general_terms_of_use, waiver, is_referral_program_activated } =
@@ -164,22 +163,18 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     (formdata: FormData, options?: OptionCallback<CustomFormFilledAPI>) => {
       submitCustomForm(formdata, {
         onSuccess: () => {
-          isMobile
-            ? closeEditProfilePortalOnMobile()
-            : closeEditProfilePortal();
+          isMobile ? closeEditProfileMobilePortal() : closeEditProfilePortal();
           options?.onSuccess?.();
         },
         onError: () => {
-          isMobile
-            ? closeEditProfilePortalOnMobile()
-            : closeEditProfilePortal();
+          isMobile ? closeEditProfileMobilePortal() : closeEditProfilePortal();
           options?.onError?.();
         },
       });
     },
     [
       closeEditProfilePortal,
-      closeEditProfilePortalOnMobile,
+      closeEditProfileMobilePortal,
       isMobile,
       submitCustomForm,
     ],
@@ -202,11 +197,11 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     () => [
       {
         label: t('reworked.myProfile.header.buttons.editProfile'),
-        onClick: openEditProfilePortal,
+        onClick: isMobile ? openEditProfileMobilePortal : openEditProfilePortal,
         leftIcon: <Edit03 stroke="currentColor" />,
       },
     ],
-    [t, openEditProfilePortal],
+    [t, isMobile, openEditProfileMobilePortal, openEditProfilePortal],
   );
   if (!member) return null;
 
@@ -339,10 +334,10 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
         }
         layouts={memberCustomForm?.layout}
         onCancel={
-          isMobile ? closeEditProfilePortalOnMobile : closeEditProfilePortal
+          isMobile ? closeEditProfileMobilePortal : closeEditProfilePortal
         }
         onClose={
-          isMobile ? closeEditProfilePortalOnMobile : closeEditProfilePortal
+          isMobile ? closeEditProfileMobilePortal : closeEditProfilePortal
         }
         // @ts-expect-error bad typing of the submitCustomForm action
         onSubmit={handleSubmitCustomForm}

@@ -55,8 +55,6 @@ type OwnProps = {
    * For that reason we pass companyId
    */
   companyId?: number;
-  closeEditProfilePortalOnMobile: () => void;
-  isEditProfileMobilePortalOpen: boolean;
   /** Company theme for widget case */
   theme?: CompanyTheme;
 };
@@ -152,11 +150,9 @@ class ConsumerProfileReworked extends React.Component<Props> {
   render() {
     const {
       authenticated,
-      closeEditProfilePortalOnMobile,
       companyTheme,
       companyThemeLoading,
       detachPaymentMethodLoading,
-      isEditProfileMobilePortalOpen,
       member,
       memberCustomForm,
       memberError,
@@ -182,7 +178,6 @@ class ConsumerProfileReworked extends React.Component<Props> {
     return (
       <ConsumerProfileContextProvider>
         <ConsumerProfilePageReworked
-          closeEditProfilePortalOnMobile={closeEditProfilePortalOnMobile}
           companyCountry={companyCountry}
           companyTheme={this.props.theme ?? companyTheme}
           companyThemeLoading={companyThemeLoading}
@@ -190,7 +185,6 @@ class ConsumerProfileReworked extends React.Component<Props> {
           detachPaymentMethodLoading={detachPaymentMethodLoading}
           fetchMemberPaymentMethod={this.fetchMemberPaymentMethod}
           isAuthenticated={authenticated}
-          isEditProfileMobilePortalOpen={isEditProfileMobilePortalOpen}
           member={member}
           memberCustomForm={memberCustomForm}
           memberError={memberError}

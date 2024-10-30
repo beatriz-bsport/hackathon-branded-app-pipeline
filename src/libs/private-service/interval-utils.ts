@@ -220,12 +220,13 @@ export const getAvailableDayTimeIntervals = (
  */
 export const getIntersectingSlots = (interval: Interval, slots: Slot[]) => {
   if (!slots || !interval || !interval?.isValid) return [];
-  return slots
-    .map((slot) => {
-      const slotInterval = convertSlotToInterval(slot);
-      return interval.intersection(slotInterval);
-    })
-    .filter((intersectingSlot) => !!intersectingSlot);
+  const intersections: Interval[] = [];
+  slots.forEach((slot) => {
+    const slotInterval = convertSlotToInterval(slot);
+    const intersectingIntervals = interval.intersection(slotInterval);
+    intersections.push(intersectingIntervals);
+  });
+  return intersections.filter(Boolean);
 };
 
 /**

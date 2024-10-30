@@ -35,6 +35,7 @@ import {
   fetchMyPastPrivateBookingAsMemberActions,
   fetchMySubscriptionAsMemberActions,
   resetConsumerStateActions,
+  switchPaymentMethodActions,
 } from '../../actions/consumerSpace';
 import { establishmentBulkRetrieveActions } from '../../actions/establishment';
 import { fetchLevelListActions } from '../../actions/level';
@@ -404,8 +405,7 @@ export const actionsBinder = () => {
   );
 
   apiCallHandler.bindActions(
-    'FETCH_MY_SUBSCRIPTION_AS_MEMBER',
-    // @ts-expect-error TODO FIX WITH PAYMENT
-    fetchMySubscriptionAsMemberActions,
+    'SWITCH_SUBSCRIPTION_PAYMENT_METHOD',
+    switchPaymentMethodActions,
   );
 };

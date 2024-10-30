@@ -27,17 +27,10 @@ import {
 
 import { getFreshEmailTemplateSummariesIds } from '#src/libs/email-editor/selectors';
 
-import type {
-  Dispatch,
-  ThunkAction,
-  OptionCallback,
-  PaginatedResponse,
-} from '#src/state/types';
-
 // @ts-expect-error
 import { createDictionnaryById, createIdList } from '#src/actions/utils';
-import { RootState } from '#src/reducers';
-import {
+
+import type {
   EmailTemplate,
   EmailTemplateCategory,
   EmailTemplateCategoryWithTemplates,
@@ -51,6 +44,15 @@ import {
   EMAIL_TITLE_BACKEND_CHARACTER_LIMIT,
   FRANCHISE_EMAIL_DESIGN_TEMPLATE_PAGINATION_SIZE,
 } from '#src/libs/email-editor/constants';
+
+import type { RootState } from '#src/reducers';
+
+import type {
+  Dispatch,
+  ThunkAction,
+  OptionCallback,
+  PaginatedResponse,
+} from '#src/state/types';
 
 export const emailTemplatesSummariesAction = {
   error: createAction('EMAIL/SUMMARIES/ERROR'),

@@ -46,7 +46,7 @@ import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearc
 import FranchiseEmailTemplatePageInfo from '#src/libs/email-editor/components/FranchiseEmailTemplatePageInfo.component';
 import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 
-import { FranchisrEmailDesignTabs } from '#src/pages/franchise/email-template/constants';
+import { FranchisorEmailDesignTabs } from '#src/pages/franchise/email-template/constants';
 import { buildUrlParams } from '#src/http/utils';
 
 import type { FranchiseCompany } from '#src/libs/franchise/types';
@@ -61,7 +61,7 @@ import type { RootState } from '#src/reducers';
 type RouterParamsToProps = {
   id: number;
   queryParams: {
-    tab?: FranchisrEmailDesignTabs;
+    tab?: FranchisorEmailDesignTabs;
   };
   setQueryParam: (queryParam: 'tab') => (value: string) => void;
 };
@@ -96,8 +96,8 @@ const FranchiseEmailList: React.FC<Props> = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const [currentTab, setCurrentTab] = React.useState<FranchisrEmailDesignTabs>(
-    FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR,
+  const [currentTab, setCurrentTab] = React.useState<FranchisorEmailDesignTabs>(
+    FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR,
   );
 
   const [emailTemplateToDelete, setEmailTemplateToDelete] = React.useState<
@@ -111,13 +111,13 @@ const FranchiseEmailList: React.FC<Props> = ({
 
   const pageFilters = React.useMemo(() => {
     if (
-      currentTab === FranchisrEmailDesignTabs.OWNED_BY_FRANCHISEE &&
+      currentTab === FranchisorEmailDesignTabs.OWNED_BY_FRANCHISEE &&
       selectedCompany?.value
     ) {
       return { company: selectedCompany.value };
     }
     if (
-      currentTab === FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR &&
+      currentTab === FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR &&
       selectedCompany?.value
     ) {
       return { available_for_companies: [selectedCompany.value] };
@@ -150,14 +150,14 @@ const FranchiseEmailList: React.FC<Props> = ({
   React.useEffect(() => {
     if (
       [
-        FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR,
-        FranchisrEmailDesignTabs.OWNED_BY_FRANCHISEE,
-        FranchisrEmailDesignTabs.BSPORT_DEFAULT,
+        FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR,
+        FranchisorEmailDesignTabs.OWNED_BY_FRANCHISEE,
+        FranchisorEmailDesignTabs.BSPORT_DEFAULT,
       ].includes(queryParams?.tab)
     ) {
       setCurrentTab(queryParams?.tab);
     } else {
-      setQueryParam('tab')(FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR);
+      setQueryParam('tab')(FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR);
     }
   }, [queryParams?.tab, setQueryParam]);
 
@@ -170,19 +170,19 @@ const FranchiseEmailList: React.FC<Props> = ({
   const emailTemplateActionToUse = React.useCallback(
     (params: EmailDesignQueryParamsPaginated) => {
       switch (currentTab) {
-        case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR:
+        case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR:
           return fetchEmailTemplatesSummariesOwnedByFranchisorPaginated({
             ...params,
             ...pageFilters,
           });
 
-        case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISEE:
+        case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISEE:
           return fetchEmailTemplatesSummariesOwnedByFranchiseePaginated({
             ...params,
             ...pageFilters,
           });
 
-        case FranchisrEmailDesignTabs.BSPORT_DEFAULT:
+        case FranchisorEmailDesignTabs.BSPORT_DEFAULT:
           return fetchEmailTemplatesSummariesBsportDefaultPaginated({
             ...params,
           });
@@ -204,13 +204,13 @@ const FranchiseEmailList: React.FC<Props> = ({
   );
   React.useEffect(() => {
     if (
-      currentTab === FranchisrEmailDesignTabs.OWNED_BY_FRANCHISEE &&
+      currentTab === FranchisorEmailDesignTabs.OWNED_BY_FRANCHISEE &&
       selectedCompany?.value
     ) {
       emailTemplateActionToUse({ page: 1, company: selectedCompany.value });
     }
     if (
-      currentTab === FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR &&
+      currentTab === FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR &&
       selectedCompany?.value
     ) {
       emailTemplateActionToUse({
@@ -226,7 +226,7 @@ const FranchiseEmailList: React.FC<Props> = ({
   }, [emailTemplateActionToUse]);
 
   const handleOnChange = React.useCallback(
-    (newTab: FranchisrEmailDesignTabs) => {
+    (newTab: FranchisorEmailDesignTabs) => {
       setQueryParam('tab')(newTab);
     },
     [setQueryParam],
@@ -274,7 +274,7 @@ const FranchiseEmailList: React.FC<Props> = ({
           onSuccess: (templateId: number) => {
             navigateTo(templateId);
             // Duplicating EmailDesign no matter the context here will create a EmailDesign owned by the franchisor.
-            handleOnChange(FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR);
+            handleOnChange(FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR);
           },
         },
       });
@@ -312,25 +312,25 @@ const FranchiseEmailList: React.FC<Props> = ({
   const tabsData = Immutable([
     {
       label: t('emailTemplate:franchiseEmailsPage.tabs.ownByFranchisor'),
-      value: FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR,
+      value: FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR,
     },
     {
       label: t('emailTemplate:franchiseEmailsPage.tabs.ownByFranchisee'),
-      value: FranchisrEmailDesignTabs.OWNED_BY_FRANCHISEE,
+      value: FranchisorEmailDesignTabs.OWNED_BY_FRANCHISEE,
     },
     {
       label: t('emailTemplate:franchiseEmailsPage.tabs.bsportDefault'),
-      value: FranchisrEmailDesignTabs.BSPORT_DEFAULT,
+      value: FranchisorEmailDesignTabs.BSPORT_DEFAULT,
     },
   ]);
 
   const paginatedStateToUse = React.useMemo(() => {
     switch (currentTab) {
-      case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR:
+      case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR:
         return franchiseEmailDesignOwnedByFranchisorPaginatedState;
-      case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISEE:
+      case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISEE:
         return franchiseEmailDesignOwnedByFranchiseePaginatedState;
-      case FranchisrEmailDesignTabs.BSPORT_DEFAULT:
+      case FranchisorEmailDesignTabs.BSPORT_DEFAULT:
         return franchiseEmailDesignBsportDefaultPaginatedState;
       default:
         return franchiseEmailDesignOwnedByFranchisorPaginatedState;
@@ -344,17 +344,17 @@ const FranchiseEmailList: React.FC<Props> = ({
 
   const searchParams = React.useMemo(() => {
     switch (currentTab) {
-      case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR:
+      case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR:
         return {
           is_franchise: true,
           is_default_bsport_template: false,
         };
-      case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISEE:
+      case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISEE:
         return {
           is_franchise: false,
           is_default_bsport_template: false,
         };
-      case FranchisrEmailDesignTabs.BSPORT_DEFAULT:
+      case FranchisorEmailDesignTabs.BSPORT_DEFAULT:
         return { is_default_bsport_template: true };
       default:
         return {
@@ -376,8 +376,8 @@ const FranchiseEmailList: React.FC<Props> = ({
   const handleFilterCompanyChange = React.useCallback(
     (options: { label: string; value: number }) => {
       switch (currentTab) {
-        case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISEE:
-        case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR:
+        case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISEE:
+        case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR:
           setSelectedCompany(options);
           break;
         default:
@@ -399,37 +399,34 @@ const FranchiseEmailList: React.FC<Props> = ({
       tabsData={tabsData}
     >
       <>
-        <ObjectSearchComponent
-          additionalParams={{ available: true, ...searchParams }}
-          className={classes.searchComponent}
-          components={{
-            Option: EmailDesignSearchItem,
-          }}
-          optionsFormatter={formatSearchOptions}
-          placeholder={t('emailTemplate:search')}
-          searchedObjectType="email_design"
-          variant="default"
-        />
-
-        <div className={classes.filterContainer}>
-          {currentTab !== FranchisrEmailDesignTabs.BSPORT_DEFAULT && (
-            <MaterialUISelector
-              isClearable
-              onChange={handleFilterCompanyChange}
-              options={[...allowedCompaniesOptions]}
-              placeholder={t(
-                'emailTemplate:franchiseEmailsPage.filters.companySelectPlaceHolder',
-              )}
-              value={selectedCompany}
-            />
-          )}
-        </div>
-        <div className={classes.infoContainer}>
-          <FranchiseEmailTemplatePageInfo context={currentTab} />
-        </div>
         <div className={classes.container}>
           <Grid container direction="row" spacing={3}>
             <Grid item md={6} xs={12}>
+              <div className={classes.filtersAndInfoContainer}>
+                <ObjectSearchComponent
+                  additionalParams={{ available: true, ...searchParams }}
+                  components={{
+                    Option: EmailDesignSearchItem,
+                  }}
+                  optionsFormatter={formatSearchOptions}
+                  placeholder={t('emailTemplate:search')}
+                  searchedObjectType="email_design"
+                  variant="default"
+                />
+
+                {currentTab !== FranchisorEmailDesignTabs.BSPORT_DEFAULT && (
+                  <MaterialUISelector
+                    isClearable
+                    onChange={handleFilterCompanyChange}
+                    options={[...allowedCompaniesOptions]}
+                    placeholder={t(
+                      'emailTemplate:franchiseEmailsPage.filters.companySelectPlaceHolder',
+                    )}
+                    value={selectedCompany}
+                  />
+                )}
+                <FranchiseEmailTemplatePageInfo context={currentTab} />
+              </div>
               <PaginatedListBaseReworked
                 itemPerPage={paginatedStateToUse.page_size}
                 items={paginatedStateToUse.items}
@@ -474,7 +471,7 @@ const FranchiseEmailList: React.FC<Props> = ({
               </div>
             </Grid>
           </Grid>
-          {currentTab === FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR && (
+          {currentTab === FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR && (
             <BottomActionButtons
               onCreate={navigateToCreate}
               onCreateLabel={t('emails.create')}
@@ -501,13 +498,6 @@ const useStyles = makeStyles((theme) => ({
   container: {
     paddingBottom: '20vh',
   },
-  searchComponent: {
-    paddingBottom: theme.spacing(2),
-    maxWidth: '50%',
-    [theme.breakpoints.down('md')]: {
-      maxWidth: '100%',
-    },
-  },
   loader: {
     position: 'relative',
     top: 0 - theme.spacing(2),
@@ -521,19 +511,11 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '100%',
     height: '100%',
   },
-  infoContainer: {
+  filtersAndInfoContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-    maxWidth: '50%',
-    [theme.breakpoints.down('md')]: {
-      maxWidth: '100%',
-    },
-  },
-  filterContainer: {
-    paddingBottom: theme.spacing(2),
-    maxWidth: '50%',
-    [theme.breakpoints.down('md')]: {
-      maxWidth: '100%',
-    },
   },
 }));
 

@@ -8,7 +8,8 @@ import {
   buildUrlParams,
   putAuth,
 } from '#src/http';
-import {
+
+import type {
   EmailTemplate,
   EmailTemplateCategory,
   FranchisorSavedFilter,
@@ -16,7 +17,8 @@ import {
   EmailDesignQueryParamsPaginated,
 } from '#src/libs/email-editor/types';
 
-import { PaginatedResponse } from '#src/state/types';
+import type { PaginatedResponse } from '#src/state/types';
+
 const MARKETING_EMAIL_URI = `${API_V1_URI}/email_design/`;
 
 export const fetchEmailTemplateDetail = async (id: number) => {

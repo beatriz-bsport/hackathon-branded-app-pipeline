@@ -6,10 +6,11 @@ import {
   getAllowedFranchisees,
 } from '#src/libs/franchise/selectors';
 
-import { FranchiseCompany } from '#src/libs/franchise/types';
-import type { EmailTemplateSummary } from '#src/libs/email-editor/types';
 import EmailListItem from '#src/libs/email-editor/components/EmailListItem.components';
+
+import type { FranchiseCompany } from '#src/libs/franchise/types';
 import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
+import type { EmailTemplateSummary } from '#src/libs/email-editor/types';
 
 /**
 @description Connected component necessary to leverage the permissions of a staff and companies.

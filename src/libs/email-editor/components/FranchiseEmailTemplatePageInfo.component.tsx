@@ -2,9 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
-import { FranchisrEmailDesignTabs } from '#src/pages/franchise/email-template/constants';
+import { FranchisorEmailDesignTabs } from '#src/pages/franchise/email-template/constants';
 type Props = {
-  context: FranchisrEmailDesignTabs;
+  context: FranchisorEmailDesignTabs;
 };
 export const FranchiseEmailTemplatePageInfo: React.FC<Props> = ({
   context,
@@ -13,21 +13,21 @@ export const FranchiseEmailTemplatePageInfo: React.FC<Props> = ({
 
   const { title, description } = React.useMemo(() => {
     switch (context) {
-      case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR:
+      case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR:
         return {
           title: t('franchiseEmailsPage.tabs.ownByFranchisor'),
           description: t(
             'franchiseEmailsPage.informativeAlert.ownedByFranchisor.description',
           ),
         };
-      case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISEE:
+      case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISEE:
         return {
           title: t('franchiseEmailsPage.tabs.ownByFranchisee'),
           description: t(
             'franchiseEmailsPage.informativeAlert.ownedByFranchisee.description',
           ),
         };
-      case FranchisrEmailDesignTabs.BSPORT_DEFAULT:
+      case FranchisorEmailDesignTabs.BSPORT_DEFAULT:
         return {
           title: t('bsportTemplateEmails'),
           description: t(

@@ -6,14 +6,14 @@ import EmailListItem from '#src/libs/email-editor/components/EmailListItem.compo
 
 import { sortCompanyListByIsAllowedAndName } from '#src/libs/franchise/utils';
 
-import { FranchisrEmailDesignTabs } from '#src/pages/franchise/email-template/constants';
+import { FranchisorEmailDesignTabs } from '#src/pages/franchise/email-template/constants';
 
 import type { FranchiseCompany } from '#src/libs/franchise/types';
 import type { EmailTemplateSummary } from '#src/libs/email-editor/types';
 
 const EmailTemplateFranchiseAdaptedListItem: React.FC<{
   companies: Immutable.ImmutableArray<FranchiseCompany>;
-  context: FranchisrEmailDesignTabs;
+  context: FranchisorEmailDesignTabs;
   emailTemplate: EmailTemplateSummary;
   navigateTo: (id: number) => void;
   onDelete: (id: number) => void;
@@ -34,13 +34,13 @@ const EmailTemplateFranchiseAdaptedListItem: React.FC<{
     Immutable.ImmutableArray<FranchiseCompany>
   >(() => {
     switch (context) {
-      // When the context is FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR, this block displays
+      // When the context is FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR, this block displays
       // only the chips (UI elements) for companies that are allowed. Specifically,
       // it filters and displays companies that:
       //   - are marked as allowed (company.isAllowed),
       //   - and have IDs included in the email template's available_for_companies list.
       // After filtering, the list is sorted by the sortCompanyListByIsAllowedAndName function.
-      case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR:
+      case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR:
         return sortCompanyListByIsAllowedAndName(
           (companies ?? [])
             .filter(
@@ -51,11 +51,11 @@ const EmailTemplateFranchiseAdaptedListItem: React.FC<{
             .filter((_company) => !!_company),
         );
 
-      // When the context is FranchisrEmailDesignTabs.OWNED_BY_FRANCHISEE, this block displays
+      // When the context is FranchisorEmailDesignTabs.OWNED_BY_FRANCHISEE, this block displays
       // only the chip for the company that created the email template. The assumption
       // here is that the API has already filtered out unauthorized companies, ensuring
       // that only the relevant company's chip is displayed.
-      case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISEE:
+      case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISEE:
         return Immutable(
           [
             companies?.find(
@@ -77,7 +77,7 @@ const EmailTemplateFranchiseAdaptedListItem: React.FC<{
 
   const allCompanies = React.useMemo(() => {
     switch (context) {
-      case FranchisrEmailDesignTabs.OWNED_BY_FRANCHISOR:
+      case FranchisorEmailDesignTabs.OWNED_BY_FRANCHISOR:
         return (
           emailTemplate?.available_for_companies.length === companies?.length
         );

@@ -8,6 +8,7 @@ export { default as Icon } from "./components/Icon";
 export { default as Indicator } from "./components/Indicator";
 export { default as Link } from "./components/Link";
 export { default as Modal } from "./components/Modal";
+export { default as RadioGroup } from "./components/RadioGroup";
 export { ThemeProvider, themes, useTheme } from "./components/ThemeProvider";
 export { default as Tabs } from "./components/Tabs";
 export { default as Title } from "./components/Title";

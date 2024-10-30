@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, withHandlers } from 'recompose';
+import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import uniq from 'lodash/uniq';
@@ -83,15 +83,16 @@ import type {
 import type { PrivateBooking } from '#src/libs/private-service/types';
 import type { WaitingListBookingOption } from '#src/libs/waiting-list/types';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-import type { WithHandlerType } from '../../utils/types';
 import type { RootState } from '../../reducers';
 import type { AddGuestFormValues } from '#src/libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
 import { getOfferBookerUrl } from '#src/libs/marketplace/routing-utils';
 import { buildUrlParams } from '#src/http';
-
+import Config from '#src/config';
 import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#src/libs/waiting-list/actions';
 import { getWaitingListConfigurationData } from '#src/libs/waiting-list/selectors';
 import { getMarketplaceSettingsConfig } from '#src/libs/marketplace/selectors';
+
+import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 import type { PaginatedResponse } from '#src/state/types';
 
@@ -107,7 +108,7 @@ type OwnAndConnectedProps = OwnProps &
   ParamsProps &
   ConnectedProps<typeof connector>;
 
-type Props = WithHandlerType<typeof mapWithHandlers> & OwnAndConnectedProps;
+type Props = OwnAndConnectedProps;
 
 export class ConsumerBooking extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -384,6 +385,35 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
+  handleBookingForAGuestSubmit = ({
+    guestFormValues,
+    offerBookedId,
+  }: {
+    guestFormValues: AddGuestFormValues;
+    offerBookedId: number;
+  }) => {
+    const URL =
+      getOfferBookerUrl(this.props.companyId, offerBookedId, true) +
+      buildUrlParams({
+        guest_first_name: encodeURIComponent(guestFormValues.firstName),
+        ...(guestFormValues.lastName && {
+          guest_last_name: encodeURIComponent(guestFormValues.lastName),
+        }),
+        ...(guestFormValues.email && {
+          guest_email: encodeURIComponent(guestFormValues.email),
+        }),
+        guest_booking: 'true',
+      });
+    if (
+      ![ConsumerSpaceContextEnum.WEB, null].includes(
+        WidgetUtils.getConsumerSpaceContext(),
+      )
+    ) {
+      return window.open(`${Config.PUBLIC_URL}${URL}`, '_blank');
+    }
+    this.props.push(URL);
+  };
+
   render() {
     return (
       <ConsumerBookingPageReworked
@@ -419,7 +449,7 @@ export class ConsumerBooking extends React.Component<Props, State> {
         }
         handleBookASessionClick={this.handleBookASessionClick}
         isConsumerPacksLoading={this.state.isConsumerPacksLoading}
-        onBookingForAGuestSubmit={this.props.onBookingForAGuestSubmit}
+        onBookingForAGuestSubmit={this.handleBookingForAGuestSubmit}
         pastBookingsList={this.props.myPastBookingsList}
         pastBookingsState={this.props.myPastBookingsState}
         pastBookingsWorkshopList={this.props.myPastBookingsWorkshopList}
@@ -521,32 +551,6 @@ const connector = connect(
   },
 );
 
-const mapWithHandlers = {
-  onBookingForAGuestSubmit:
-    ({ push, companyId }: OwnAndConnectedProps) =>
-    ({
-      guestFormValues,
-      offerBookedId,
-    }: {
-      guestFormValues: AddGuestFormValues;
-      offerBookedId: number;
-    }) => {
-      push(
-        getOfferBookerUrl(companyId, offerBookedId, true) +
-          buildUrlParams({
-            guest_first_name: encodeURIComponent(guestFormValues.firstName),
-            ...(guestFormValues.lastName && {
-              guest_last_name: encodeURIComponent(guestFormValues.lastName),
-            }),
-            ...(guestFormValues.email && {
-              guest_email: encodeURIComponent(guestFormValues.email),
-            }),
-            guest_booking: 'true',
-          }),
-      );
-    },
-};
-
 export const UnconnectedConsumerBookingPage = compose(
   marketplaceCssHoc(),
   WithCustomCssProvider,
@@ -555,5 +559,4 @@ export const UnconnectedConsumerBookingPage = compose(
 export default compose(
   routerParamsToProps({ companyId: 'companyId:number' }),
   connector,
-  withHandlers(mapWithHandlers),
 )(UnconnectedConsumerBookingPage);

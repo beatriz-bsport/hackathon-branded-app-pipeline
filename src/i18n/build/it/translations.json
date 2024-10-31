@@ -2257,7 +2257,7 @@
         },
         "requestDialog": {
             "explain": "Hai richiesto l'integrazione di classpass X bsport, il tuo account manager ti contatterà per convalidare questa operazione",
-            "close": "Ricevuto"
+            "close": "OK"
         },
         "actions": {
             "save": "Salva",

@@ -4,3 +4,4 @@ export { default as useAvailableIntervalsByResourceId } from './availableInterva
 export { default as availabilityByEstablishmentIdAndCoachId } from './availabilityByEstablishmentIdAndCoachId.hook';
 export { default as useSlotCalendarNavigation } from './slotCalendarNavigation.hook';
 export { default as useCoachSelection } from './coachSelection.hook';
+export { default as useEstablishmentSelection } from './establishmentSelection.hook';

@@ -19,9 +19,9 @@ import { getUserZone } from '#src/utils/datetime';
 
 const DAYS_IN_FUTURE = 3;
 const RANDOM_URL = faker.internet.url();
-const COACH_PICTURE = faker.internet.avatar();
+const COACH_PICTURE = faker.image.avatar();
 const COACH_NAME = faker.person.fullName();
-const COACH_OVERRIDE_PICTURE = faker.internet.avatar();
+const COACH_OVERRIDE_PICTURE = faker.image.avatar();
 const COACH_OVERRIDE_NAME = faker.person.fullName();
 const META_ACTIVITY = meta_activity_factory(1)[0];
 const ESTABLISHMENT = establishment_factory(1)[0];

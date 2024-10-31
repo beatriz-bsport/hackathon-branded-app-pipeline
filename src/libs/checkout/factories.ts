@@ -60,7 +60,7 @@ export const prepaidLineFactory = (
   return {
     id: faker.number.int().toString(),
     unit_value: faker.number
-      .float({ max: 1000, min: 0, precision: 0.01 })
+      .float({ max: 1000, min: 0, multipleOf: 0.01 })
       .toFixed(2),
     name: generateRandomName(faker),
     extra_data: extraData ?? {},

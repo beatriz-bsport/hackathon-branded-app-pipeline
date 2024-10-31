@@ -32,9 +32,9 @@ const OFFER_DATE_START = `${DateTime.fromISO(offerDateStart).toFormat(
 )} • ${DateTime.fromISO(offerDateStart).toFormat('HH:mm')}`;
 const LEVEL_NAME = faker.word.adjective({ length: { min: 5, max: 10 } });
 const RANDOM_URL = faker.internet.url();
-const COACH_PICTURE = faker.internet.avatar();
+const COACH_PICTURE = faker.image.avatar();
 const COACH_NAME = faker.person.fullName();
-const COACH_OVERRIDE_PICTURE = faker.internet.avatar();
+const COACH_OVERRIDE_PICTURE = faker.image.avatar();
 const COACH_OVERRIDE_NAME = faker.person.fullName();
 const META_ACTIVITY = meta_activity_factory(1)[0];
 const ESTABLISHMENT = establishment_factory(1)[0];

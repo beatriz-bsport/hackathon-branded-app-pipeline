@@ -30,7 +30,7 @@ export type IconProps = HTMLAttributes<HTMLDivElement> &
  * @param className Classe for style the container of your icon.
  * @param size Size of the icon.
  * @link Tutorial: https://medium.com/@mateuszpalka/creating-your-custom-svg-icon-library-in-react-a5ff1c4c704a
- * @returns
+ * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-icon--docs
  */
 const Icon: React.FC<IconProps> = ({ icon, className, size, ...rest }) => {
   const SvgIcon = useMemo(() => ICONS[icon], [icon]);
@@ -57,16 +57,9 @@ const Icon: React.FC<IconProps> = ({ icon, className, size, ...rest }) => {
 
 Icon.displayName = "KaizenIcon";
 
-/**
- * Maps all the available icons that are available for the Icon component.
- */
 export const icons = mapValues(ICONS, (_, key) => key) as {
   [key in keyof typeof ICONS]: key;
 };
-
-/**
- * Maps all the available sizes that are available for the Icon component.
- */
 export const sizes = mapValues(variants.size, (_, key) => key) as {
   [key in keyof typeof variants.size]: key;
 };

@@ -46,11 +46,11 @@ type VariantButtonProps = SetRequired<
 
 export type Props = React.ButtonHTMLAttributes<HTMLButtonElement> &
   VariantButtonProps & {
+    label?: string;
+    size: keyof typeof sizes;
+    loading?: boolean;
     iconLeft?: IconName;
     iconRight?: IconName;
-    label?: string;
-    loading?: boolean;
-    size: keyof typeof sizes;
     fullWidth?: boolean;
   } & (
     | {
@@ -95,25 +95,26 @@ const IconToRender = (props: {
 /**
  * React component implementing all the types of buttons used in Kaizen.
  * @param props.className Classname to add to the button.
- * @param props.color Defines the color of the button.
- * @param props.icon Name of the icon to use inside of the button.
- * @param props.intent Intent on the use of the button.
  * @param props.label Text label of the button.
- * @param props.loading State of the button when the action triggered by the button is loading.
+ * @param props.intent Intent on the use of the button.
+ * @param props.color Defines the color of the button.
  * @param props.size Size of the button.
- * @link https://bsport.supernova-docs.io/latest/components/button/component-overview-1SAZmv8Z
- * @link https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Proto-designSystem?node-id=218-12159&m=dev
+ * @param props.loading State of the button when the action triggered by the button is loading.
+ * @param props.iconLeft Name of the icon to use on the left side of the button.
+ * @param props.iconRight Name of the icon to use on the right side of the button.
+ * @param props.fullWidth Boolean indicating if the button should take the full width of its container.
+ * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-button--docs
  */
 const Button: React.FC<Props> = ({
   className,
+  label,
+  intent,
   color,
-  fullWidth = false,
+  size,
+  loading = false,
   iconLeft,
   iconRight,
-  intent,
-  label,
-  loading = false,
-  size,
+  fullWidth = false,
   ...props
 }) => {
   const renderedIconLeft = useMemo(

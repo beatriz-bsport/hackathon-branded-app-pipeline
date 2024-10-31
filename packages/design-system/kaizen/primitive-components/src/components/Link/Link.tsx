@@ -3,7 +3,10 @@ import { cva, type VariantProps } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import Icon, { type IconName } from "../Icon";
 
-const defaultClasses = ["disabled:opacity-sm"] as const;
+const defaultClasses = [
+  "inline-flex items-center gap-2xs",
+  "disabled:opacity-sm",
+] as const;
 
 const variants = {
   color: {
@@ -29,19 +32,6 @@ const link = cva(defaultClasses, {
   variants,
 });
 
-/**
- * Colors available for a body text.
- */
-export const colors = mapValues(variants.color, (_, key) => key) as {
-  [key in keyof typeof variants.color]: key;
-};
-/**
- * Font weights available for a body text.
- */
-export const weights = mapValues(variants.weight, (_, key) => key) as {
-  [key in keyof typeof variants.weight]: key;
-};
-
 type LinkVariantProps = Omit<VariantProps<typeof link>, "underline">;
 
 export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
@@ -51,23 +41,34 @@ export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
     isUnderlined: boolean;
   }>;
 
+/**
+ * The Link component is used to render hyperlinks with various customization options
+ * including different colors, font weights, and an optional icon on the left.
+ * @param props.className Classname to add to the link.
+ * @param props.color Color of the link text.
+ * @param props.weight Weight of the link text. Can be "weak" or "strong".
+ * @param props.icon Name of the icon to use, as listed in the exported icons const.
+ * @param props.isUnderlined Boolean to define if the link is underlined.
+ * @param props.children Content of the link.
+ * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-link--docs
+ */
 const Link: React.FC<LinkProps> = ({
   className,
-  children,
   color,
   weight,
-  isUnderlined,
   icon,
+  isUnderlined,
+  children,
   ...props
 }) => {
   return (
     <a
-      className={`${link({
+      className={link({
         className,
         color,
         underline: isUnderlined ? "default" : "none",
         weight,
-      })} inline-flex items-center gap-2xs`}
+      })}
       {...props}
     >
       {!!icon && <Icon icon={icon} className="h-[1em] w-[1em]" />}
@@ -77,5 +78,12 @@ const Link: React.FC<LinkProps> = ({
 };
 
 Link.displayName = "KaizenLink";
+
+export const colors = mapValues(variants.color, (_, key) => key) as {
+  [key in keyof typeof variants.color]: key;
+};
+export const weights = mapValues(variants.weight, (_, key) => key) as {
+  [key in keyof typeof variants.weight]: key;
+};
 
 export default Link;

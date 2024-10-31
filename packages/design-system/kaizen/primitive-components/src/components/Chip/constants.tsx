@@ -91,16 +91,9 @@ export const variants = {
   },
 } as const;
 
-/**
- * Types available for the chip
- */
 export const types = mapValues(variants.type, (_, key) => key) as {
   [key in keyof typeof variants.type]: key;
 };
-
-/**
- * Sizes available for the chip
- */
 export const sizes = mapValues(variants.size, (_, key) => key) as {
   [key in keyof typeof variants.size]: key;
 };

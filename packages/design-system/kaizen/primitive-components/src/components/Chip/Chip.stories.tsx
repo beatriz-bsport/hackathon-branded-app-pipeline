@@ -3,30 +3,45 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Chip, { colors, sizes, types } from "./Chip";
 import { icons } from "../Icon";
 
+/**
+ * React component for a chip element. It is a compact component that can be used to
+ * represent a small piece of information, such as a tag, a label, a status, or an action.<br>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=490-3106" target="_blank">Figma</a><br>
+ * <a href="https://bsport.supernova-docs.io/latest/components/chip/component-overview-W7G0WBp0" target="_blank">Supernova docs</a>
+ */
 const meta: Meta<typeof Chip> = {
   component: Chip,
   argTypes: {
-    label: { control: "text", required: true },
+    label: { control: "text" },
     type: {
       options: Object.keys(types),
       control: { type: "inline-radio" },
-    },
-    size: {
-      options: Object.keys(sizes),
-      control: { type: "inline-radio" },
+      table: { type: { summary: "string" } },
     },
     color: {
       options: colors,
       control: { type: "select" },
+      table: { type: { summary: "string" } },
+    },
+    size: {
+      options: Object.keys(sizes),
+      control: { type: "inline-radio" },
+      table: { type: { summary: "string" } },
     },
     iconLeft: {
       options: [undefined, ...Object.keys(icons)],
       control: { type: "select" },
-      table: { defaultValue: { summary: "undefined" } },
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: "undefined" },
+      },
     },
     dismissible: {
       control: { type: "boolean" },
       table: { defaultValue: { summary: "false" } },
+    },
+    onClick: {
+      table: { type: { summary: "function" } },
     },
   },
 };
@@ -48,8 +63,8 @@ export const Primary: Story = {
   args: {
     label: "Chip",
     type: "weak",
-    size: "lg",
     color: "main",
+    size: "lg",
     iconLeft: undefined,
     dismissible: false,
     onClick: () => console.log("Dismissed"),

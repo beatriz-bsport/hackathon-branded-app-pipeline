@@ -8,6 +8,7 @@ const defaultClasses = [
   "overflow-hidden",
   "border-stroke-default",
   "border-opacity-md",
+  "cursor-pointer",
   "active:shadow-action-default-hovered",
 ] as const;
 
@@ -68,6 +69,7 @@ const getIconInitialsPadding = (size: keyof typeof variants.size) => {
 
 /**
  * A component that displays an avatar, which can be an image or an icon.
+ * It allows to customize the size and shape of the avatar.
  * @param props.className Classname to add to the avatar container.
  * @param props.src The URL of the image to display.
  * @param props.alt The alt text for the image.
@@ -75,7 +77,7 @@ const getIconInitialsPadding = (size: keyof typeof variants.size) => {
  * @param props.shape The shape of the avatar. Can be "squared" or "round".
  * @param props.onClick A callback function to call when the avatar is clicked.
  * @param props.children The icon to display when no image is provided through src and alt.
- * @link https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=686-3148
+ * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-avatar--docs
  */
 const Avatar: React.FC<AvatarProps> = ({
   className,

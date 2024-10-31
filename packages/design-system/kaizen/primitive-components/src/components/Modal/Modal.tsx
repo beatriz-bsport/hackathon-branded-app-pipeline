@@ -52,7 +52,9 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> &
   } | null);
 
 /**
- * A modal window component that can be used to display important information or confirm an action.
+ * A dialog box that appears on top of the main content, requiring the user to
+ * interact with it before returning to the main flow, and can be used to
+ * display important information or confirm an action.
  * @param props.className Classname to add to the modal container.
  * @param props.open Whether the modal is open or not.
  * @param props.size Size of the modal. Can be one of "sm", "md", or "lg".
@@ -68,8 +70,7 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.cancelLabel Text label of the cancel button.
  * @param props.onCancelClick Function to call when the cancel button is clicked.
  * @param props.children Content in the middle of the modal.
- * @link https://bsport.supernova-docs.io/latest/components/modal/component-overview-md8WHQHD
- * @link https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Proto-designSystem?node-id=528-3960&m=dev
+ * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-modal--docs
  */
 const Modal: React.FC<ModalProps> = ({
   className,

@@ -1,5 +1,5 @@
-import type { SetRequired } from "type-fest";
 import React, { useMemo } from "react";
+import type { SetRequired } from "type-fest";
 import { cva, type VariantProps } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import { TYPOGRAPHY_COLORS } from "../../constants";
@@ -28,7 +28,7 @@ const variants = {
   },
   weight: {
     weak: ["font-weak"],
-    strong: ["font-stronger"],
+    strong: ["font-strong"],
   },
 } as const;
 
@@ -45,10 +45,19 @@ export type TitleProps = React.HTMLAttributes<HTMLHeadingElement> &
   TitleVariantsProps &
   React.PropsWithChildren;
 
+/**
+ * The Title component is a fundamental component used to render text with various
+ * styling options, including different colors, HTML variants, and font weights.
+ * @param props.className Classname to add to the title component.
+ * @param props.htmlVariant HTML heading element to render. Can be "h1", "h2", "h3", "h4", or "h5".
+ * @param props.color Color of the title text.
+ * @param props.weight Weight of the title text. Can be "weak" or "strong".
+ * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-title--docs
+ */
 const Title: React.FC<TitleProps> = ({
   className,
-  color = "inherit",
   htmlVariant,
+  color = "inherit",
   weight,
   ...props
 }) => {
@@ -66,24 +75,15 @@ const Title: React.FC<TitleProps> = ({
 
 Title.displayName = "KaizenTitle";
 
-/**
- * HTML variants available for a title
- */
 export const htmlVariants = mapValues(
   variants.htmlVariant,
   (_, key) => key,
 ) as {
   [key in keyof typeof variants.htmlVariant]: key;
 };
-/**
- * Colors available for a title
- */
 export const colors = mapValues(variants.color, (_, key) => key) as {
   [key in keyof typeof variants.color]: key;
 };
-/**
- * Colors available for a title
- */
 export const weights = mapValues(variants.weight, (_, key) => key) as {
   [key in keyof typeof variants.weight]: key;
 };

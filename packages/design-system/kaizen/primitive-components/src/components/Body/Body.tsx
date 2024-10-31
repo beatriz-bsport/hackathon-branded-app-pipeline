@@ -24,31 +24,19 @@ const variants = {
   },
   weight: {
     weak: ["font-weak"],
-    strong: ["font-stronger"],
+    strong: ["font-strong"],
   },
 } as const;
 
-/**
- * Colors available for a body text.
- */
-export const colors = mapValues(variants.color, (_, key) => key) as {
-  [key in keyof typeof variants.color]: key;
-};
-/**
- * Colors available for a body text.
- */
 export const sizes = mapValues(variants.size, (_, key) => key) as {
   [key in keyof typeof variants.size]: key;
 };
-/**
- * Font weights available for a body text.
- */
+export const colors = mapValues(variants.color, (_, key) => key) as {
+  [key in keyof typeof variants.color]: key;
+};
 export const weights = mapValues(variants.weight, (_, key) => key) as {
   [key in keyof typeof variants.weight]: key;
 };
-/**
- * HTML Variants available for a body text.
- */
 export const htmlVariants = {
   p: "p",
   span: "span",
@@ -63,6 +51,13 @@ export type BodyProps = React.HTMLAttributes<HTMLDivElement> &
     htmlVariant: keyof typeof htmlVariants;
   };
 
+/**
+ * @param props.className Classname to add to the body component.
+ * @param props.htmlVariant HTML element to render. Can be "p" or "span".
+ * @param props.size Size of the body text. Can be "sm", "md", or "lg".
+ * @param props.color Color of the body text.
+ * @param props.weight Weight of the body text. Can be "weak" or "strong".
+ */
 const Body: React.FC<BodyProps> = ({
   className,
   htmlVariant,

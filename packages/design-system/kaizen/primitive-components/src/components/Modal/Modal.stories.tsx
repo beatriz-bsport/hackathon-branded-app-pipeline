@@ -4,16 +4,25 @@ import Modal, { confirmColors, footerDirections, sizes } from "./Modal";
 import Body from "../Body";
 import Button from "../Button";
 
+/**
+ * A dialog box that appears on top of the main content, requiring the user to
+ * interact with it before returning to the main flow, and can be used to
+ * display important information or confirm an action.<br>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Proto-designSystem?node-id=528-3960" target="_blank">Figma</a><br>
+ * <a href="https://bsport.supernova-docs.io/latest/components/modal/component-overview-md8WHQHD" target="_blank">Supernova docs</a>
+ */
 const meta: Meta<typeof Modal> = {
   component: Modal,
   argTypes: {
     size: {
       options: Object.keys(sizes),
       control: { type: "inline-radio" },
+      type: { name: "string", required: true },
     },
     title: {
       control: { type: "text" },
       required: true,
+      type: { name: "string", required: true },
     },
     description: {
       control: { type: "text" },
@@ -21,6 +30,16 @@ const meta: Meta<typeof Modal> = {
     footerDirection: {
       options: footerDirections,
       control: { type: "inline-radio" },
+      table: { defaultValue: { summary: "row" } },
+    },
+    onClose: {
+      table: { type: { summary: "function" } },
+    },
+    onCrossButtonClick: {
+      table: { type: { summary: "function" } },
+    },
+    onClickOutside: {
+      table: { type: { summary: "function" } },
     },
     confirmLabel: {
       control: { type: "text" },
@@ -29,8 +48,17 @@ const meta: Meta<typeof Modal> = {
       options: confirmColors,
       control: { type: "inline-radio" },
     },
+    onConfirmClick: {
+      table: { type: { summary: "function" } },
+    },
     cancelLabel: {
       control: { type: "text" },
+    },
+    onCancelClick: {
+      table: { type: { summary: "function" } },
+    },
+    children: {
+      table: { type: { summary: "ReactNode" } },
     },
   },
 };
@@ -75,6 +103,8 @@ export const Primary: Story = {
     footerDirection: "row",
     confirmLabel: "Confirm",
     confirmColor: "main",
+    onConfirmClick: () => console.log("confirm clicked"),
     cancelLabel: "Cancel",
+    onCancelClick: () => console.log("cancel clicked"),
   },
 };

@@ -95,6 +95,14 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
     setAnchorEl(null);
   }, []);
 
+  const handleMenuOptionClick = React.useCallback(
+    (onOptionClick: () => void) => () => {
+      onOptionClick?.();
+      handleOnMenuClose?.();
+    },
+    [handleOnMenuClose],
+  );
+
   return (
     <div className={classNames('bs-consumer__generic-card__footer', className)}>
       {secondaryButtonsHidden && (
@@ -182,7 +190,6 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
           ),
       )}
 
-      {/* TODO: DISPLAY BOTTOMDRAWER IF ON MOBILE AND MENU IF ON DESKTOP */}
       {!!menuId && !isMobile && (
         <Menu
           anchorEl={anchorEl}
@@ -203,7 +210,7 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
                   className={menuItemClassName}
                   label={label}
                   leftIcon={leftIcon}
-                  onClick={onClick}
+                  onClick={handleMenuOptionClick(onClick)}
                 />
               ),
           )}

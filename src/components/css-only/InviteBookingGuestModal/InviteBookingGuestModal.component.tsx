@@ -147,7 +147,11 @@ const InviteBookingGuestModal: React.FC<Props> = ({
   };
 
   return (
-    <Blanket className="bs-invite-booking-guest-modal__blanket" isOpen={open}>
+    <Blanket
+      className="bs-invite-booking-guest-modal__blanket"
+      isOpen={open}
+      onClick={onClose}
+    >
       <Formik
         initialValues={initialValues}
         onSubmit={emptyFn}

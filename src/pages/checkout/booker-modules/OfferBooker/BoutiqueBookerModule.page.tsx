@@ -18,6 +18,7 @@ import {
   getOfferFeature,
   getMainOfferNotBookableReasonWithTitle,
 } from '@bsport/common/lib/master-data/available-payment';
+import { OFFER_WAITING_LIST_STATUS_CONVERTIBLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { DateTime } from 'luxon';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
@@ -1493,8 +1494,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       ? getBookingDisplayPrice(this.state.selectedItem)
       : '';
 
-    const isWaitingList = this.props.offer?.full;
-
     const isRegistered =
       this.props.offerStatusById?.[this.props.offer?.id]?.is_registered;
 
@@ -1509,6 +1508,11 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       offerStatus?.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE;
     const isWaitlistOpen =
       offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_OPEN;
+    const isWaitlistConvertible =
+      offerStatus?.waiting_list_status ===
+      OFFER_WAITING_LIST_STATUS_CONVERTIBLE;
+
+    const isWaitingList = this.props.offer?.full && !isWaitlistConvertible;
 
     const disableBookingButton =
       this.state.selectedItem === null ||
@@ -1811,9 +1815,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                         // @ts-expect-error
                         tax={this.state.selectedItem?.data?.tax}
                         value={
-                          !this.props.offer?.full
-                            ? t(`booking:notification.form.submit`)
-                            : t(`booking:offer.mainButton.registerWaitingList`)
+                          isWaitingList
+                            ? t(`booking:offer.mainButton.registerWaitingList`)
+                            : t(`booking:notification.form.submit`)
                         }
                       />
                     }
@@ -1962,9 +1966,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   // @ts-expect-error
                   tax={this.state.selectedItem?.data?.tax}
                   value={
-                    !this.props.offer?.full
-                      ? t(`booking:notification.form.submit`)
-                      : t(`booking:offer.mainButton.registerWaitingList`)
+                    isWaitingList
+                      ? t(`booking:offer.mainButton.registerWaitingList`)
+                      : t(`booking:notification.form.submit`)
                   }
                 />
               </div>

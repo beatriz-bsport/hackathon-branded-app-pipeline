@@ -11,8 +11,8 @@ const defaultClasses = [
 
 const variants = {
   position: {
-    "top-right": ["top-[0]", "-translate-y-1/2"],
-    "bottom-right": ["bottom-[0]", "translate-y-1/2"],
+    "top": ["top-[0]", "-translate-y-1/2"],
+    "bottom": ["bottom-[0]", "translate-y-1/2"],
   },
   size: {
     sm: ["text-body-xs", "p-2xs"],
@@ -87,7 +87,8 @@ const indicator = cva(defaultClasses, {
  * @param props.position Position of the indicator when children are provided. Can be "top" or "bottom", always on the right side.
  * @param props.size Size of the component. Can be "sm" or "lg".
  * @param props.color Color of the component.
- * @link https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=486-2932
+ * @param props.children Component(s) to display along with the indicator.
+ * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-indicator--docs
  */
 const Indicator: React.FC<IndicatorProps> = ({
   className,

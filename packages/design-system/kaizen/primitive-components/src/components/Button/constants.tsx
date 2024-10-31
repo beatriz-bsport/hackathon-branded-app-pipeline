@@ -165,21 +165,13 @@ export const variants = {
   },
 } as const;
 
-/**
- * Sizes available for the button
- */
+
 export const sizes = mapValues(variants.size, (_, key) => key) as {
   [key in keyof typeof variants.size]: key;
 };
-/**
- * Intents available for the button
- */
 export const intents = mapValues(variants.intent, (_, key) => key) as {
   [key in keyof typeof variants.intent]: key;
 };
-/**
- * Colors available by the intent of the button
- */
 export const colorsByIntent = {
   "call-to-action": ["main", "critical"],
   flat: ["default", "main", "critical", "onstrong"],

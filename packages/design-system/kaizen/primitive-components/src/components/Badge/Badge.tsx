@@ -58,7 +58,7 @@ type BadgeVariantProps = SetRequired<
 
 export type BadgeProps = React.HTMLAttributes<HTMLDivElement> &
   BadgeVariantProps & {
-    text: string;
+    text?: string;
     size: keyof typeof sizes;
     color: (typeof colors)[number];
     icon?: IconName;
@@ -72,11 +72,11 @@ const badge = cva(defaultClasses, {
  * React component to render a badge with customizable text and icon.
  * This component is different from Indicator and is meant to be placed alongside other elements.
  * @param props.className Classname to add to the badge.
- * @param props.text Text to display in the badge.
+ * @param props.text Text to display in the badge. If the text is empty, the badge will be a dot.
  * @param props.size Size of the badge. Can be "sm" or "lg".
  * @param props.color Defines the color, background and border of the badge.
  * @param props.icon Optional icon to display on the right side of the badge.
- * @link https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=486-2932
+ * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-badge--docs
  */
 const Badge: React.FC<BadgeProps> = ({
   className,
@@ -86,7 +86,7 @@ const Badge: React.FC<BadgeProps> = ({
   icon,
   ...props
 }) => {
-  const buttonType = text.length || icon ? "text" : "dot";
+  const buttonType = text?.length || icon ? "text" : "dot";
   const iconSize = size === "lg" ? "sm" : "xs";
 
   return (

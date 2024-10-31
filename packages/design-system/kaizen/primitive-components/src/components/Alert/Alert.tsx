@@ -12,7 +12,7 @@ const defaultClasses = [
   "rounded-lg",
   "font-weak",
   "p-md",
-  "flex flex-direction-row gap-md",
+  "flex flex-direction-row gap-md items-stretch",
 ] as const;
 
 const variants = {
@@ -75,6 +75,7 @@ type AlertVariantProps = SetRequired<VariantProps<typeof alert>, "status">;
 export type AlertProps = React.HTMLAttributes<HTMLDivElement> &
   AlertVariantProps &
   React.PropsWithChildren<{
+    status: keyof typeof statuses;
     title?: string;
     buttonLabel?: string;
     isClearable?: boolean;
@@ -82,25 +83,35 @@ export type AlertProps = React.HTMLAttributes<HTMLDivElement> &
     onButtonClick: MouseEventHandler<HTMLButtonElement>;
   }>;
 
+/**
+ * The Alert component is a visual element that is used to convey important information to users.
+ * It can be used to display info, warnings, errors, or success messages.
+ * @param props.className Classname to add to the alert.
+ * @param props.status Status of the alert. Can be "default", "warning", "info", "critical", or "positive".
+ * @param props.title Title of the alert.
+ * @param props.buttonLabel Text label of the button.
+ * @param props.isClearable Boolean to define if the alert is clearable.
+ * @param props.onClearClick Function to call when the alert is cleared.
+ * @param props.onButtonClick Function to call when the button is clicked.
+ * @param props.children Content of the alert.
+ * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-alert--docs
+ */
 const Alert: React.FC<AlertProps> = ({
   className,
-  children,
-  title,
   status,
-  isClearable = true,
+  title,
   buttonLabel,
-  onButtonClick,
+  isClearable = true,
   onClearClick,
+  onButtonClick,
+  children,
   ...props
 }) => {
   const isDisplayingActions = buttonLabel || isClearable;
 
   return (
-    <div
-      className={`${alert({ className, status })} flex items-stretch`}
-      {...props}
-    >
-      <div className="">
+    <div className={`${alert({ className, status })}`} {...props}>
+      <div>
         <Icon icon={iconByStatus[status || "default"]} size={"md"} />
       </div>
       <div className="flex-1 flex flex-col gap-2xs">

@@ -1926,7 +1926,7 @@
                     "hours_before_start": "Hour(s) before the start of the session:",
                     "min_bookings_nb": "Number of booking(s) :",
                     "emailRecipients": "An email will be automatically sent to Owner and Admin accounts, as well as to the teacher (or substitute) of this session. You can also set up an email to send to students.",
-                    "explain": "Cancel sessions with ≤ {{bookings_nb}} booking(s) {{hours}} hours(s) before the start of the session. Members that had booked this session will be informed that the session has been cancelled.",
+                    "explain": "Cancel sessions with ≤ {{bookings_nb}} booking(s) {{hours}} hours(s) before the start of the session. Members who had booked this session will be informed that it has been canceled.",
                     "checkbox": "Automatically cancel underoccupied sessions"
                 }
             }

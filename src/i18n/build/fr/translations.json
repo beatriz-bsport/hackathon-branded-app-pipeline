@@ -6434,7 +6434,7 @@
             "lastBookingBeforeMinutes": "Jusqu'à {{m}} avant le début de la séance",
             "lastDiscardBeforeMinutes": "Jusqu'à {{m}} avant le début de la séance",
             "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance",
-            "autoDiscard": "La séance sera annulée si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance",
+            "autoDiscard": "La séance sera annulée s'il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance",
             "lastDiscardBeforeMinutesFull": "Annulations possibles jusqu'à {{m}} avant le début de la séance",
             "lastBookingBeforeMinutesFull": "Dernières réservations possibles jusqu'à {{m}} avant le début de la séance",
             "lastBookingBeforeMinutesHeader": "Avant le début du cours, dernière réservation possible",

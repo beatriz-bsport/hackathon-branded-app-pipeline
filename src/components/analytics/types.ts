@@ -18,6 +18,7 @@ export type GTMPayload =
   | GTMInteractWithBasketItemPayload
   | AnalyticsInterractWithLoginPayload
   | SessionPayload
+  | SessionFullPayload
   | BookingSuccess;
 
 export type MetaPixelPayload =
@@ -30,6 +31,7 @@ export type MetaPixelPayload =
     })
   | AnalyticsInterractWithLoginPayload
   | SessionPayload
+  | SessionFullPayload
   | BookingSuccess;
 
 export type BookingSuccess = {
@@ -38,10 +40,10 @@ export type BookingSuccess = {
 
 export type OfferBookingValidation = {
   id: number;
-  spotId: number | null;
-  spotName: string | null;
+  spotId?: number;
+  spotName?: string;
   isNewPass: boolean;
-};
+} & Partial<SessionPayload>;
 
 interface CommonBasketPayload {
   currency?: string;
@@ -86,7 +88,15 @@ export type SessionPayload = {
   date: string;
   coachId: number;
   establishmentId: number;
-  activityId: number;
+  metaActivityId: number;
+  sessionId?: number;
+};
+
+export type SessionFullPayload = {
+  date: string;
+  coach: string;
+  establishmentName: string;
+  metaActivityName: string;
   sessionId?: number;
 };
 

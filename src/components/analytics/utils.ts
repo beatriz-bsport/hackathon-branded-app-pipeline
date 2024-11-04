@@ -125,8 +125,8 @@ export const getBookedSessionListDataFromBasket = (
       offers.forEach((offer) => {
         bookingSuccessData.push({
           id: offer.offer_id || 0,
-          spotId: offer?.extra_data?.spot_id || null,
-          spotName: offer?.extra_data?.spot_name || null,
+          spotId: offer?.extra_data?.spot_id,
+          spotName: offer?.extra_data?.spot_name,
           isNewPass: true,
         });
       });

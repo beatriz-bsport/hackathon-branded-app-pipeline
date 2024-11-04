@@ -72,6 +72,7 @@ const getTranslations = async () => {
         },
         selectSpot: {
           dialogTitle: 'Select spot',
+          dialogTitleWithSteps: 'Select spot ({{currentStep}}/{{totalSteps}})',
           dialogSubtitle: 'Select your spot for the class',
           validationButton: 'Add session',
         },

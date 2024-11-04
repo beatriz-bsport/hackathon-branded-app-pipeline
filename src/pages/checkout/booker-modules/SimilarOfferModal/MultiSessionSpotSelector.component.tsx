@@ -94,7 +94,13 @@ const MultiSessionSpotSelector: React.FC<MultiSessionSpotFinalProps> = ({
         <div className="bs-new-offer-booking-multi-session-spot-selector__header">
           <div className="bs-new-offer-booking-multi-session-spot-selector__header__text__container">
             <div className="bs-new-offer-booking-multi-session-spot-selector__header__title">
-              {t('booking:bookingModule.multiSession.selectSpot.dialogTitle')}
+              {t(
+                'booking:bookingModule.multiSession.selectSpot.dialogTitleWithSteps',
+                {
+                  currentStep: spotToSelectQueueIndex + 1,
+                  totalSteps: offers.length,
+                },
+              )}
             </div>
             <div className="bs-new-offer-booking-multi-session-spot-selector__header__subtitle">
               {t(

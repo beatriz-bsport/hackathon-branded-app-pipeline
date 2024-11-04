@@ -1,6 +1,5 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CellMeasurerCache } from 'react-virtualized';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
@@ -38,11 +37,6 @@ import type {
 import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
 import './styles.css';
-
-const cache = new CellMeasurerCache({
-  defaultHeight: 300,
-  fixedWidth: true,
-});
 
 type Props = {
   activeConsumerPaymentPacksList: ConsumerPaymentPackReworked[];
@@ -115,8 +109,6 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
   isMetadataLoading,
   resetConsumerState,
 }) => {
-  const resetVirtualizedListCache = useCallback(() => cache.clearAll(), []);
-
   const {
     selectedTab,
     selectedFilterTab,
@@ -167,7 +159,6 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
     futureUniversalPassesList,
     futureUniversalPassesState,
     resetConsumerState,
-    resetVirtualizedListCache,
   });
 
   const { t } = useTranslation('consumerSpace');
@@ -334,7 +325,6 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
 
       {selectedTab === PassTabEnum.PRIVATE_CONSUMER_PASS && (
         <PrivateConsumerPassListContainer
-          cache={cache}
           currentCount={currentCount}
           currentPage={currentPage}
           handleChangePage={handleChangePage}
@@ -349,7 +339,6 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
       )}
       {selectedTab === PassTabEnum.CONSUMER_PAYMENT_PACK && (
         <ConsumerPaymentPackListContainer
-          cache={cache}
           currentCount={currentCount}
           currentPage={currentPage}
           handleChangePage={handleChangePage}
@@ -364,7 +353,6 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
       )}
       {selectedTab === PassTabEnum.UNIVERSAL_PASS && (
         <UniversalPassListContainer
-          cache={cache}
           currentCount={currentCount}
           currentPage={currentPage}
           handleChangePage={handleChangePage}

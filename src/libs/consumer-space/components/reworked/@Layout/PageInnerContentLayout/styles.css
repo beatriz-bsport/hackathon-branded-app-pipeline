@@ -26,9 +26,7 @@
 }
 
 .bs-consumer-page-inner-content__root--right-component {
-  overflow: auto;
-  flex: 1;
-  height: 100%;
+  height: fit-content;
 }
 
 .bs-consumer-page-inner-content__root--right-component--hidden {

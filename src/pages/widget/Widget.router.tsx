@@ -101,7 +101,6 @@ const styles = () => ({
   consumerSpaceContainer: {
     display: 'flex',
     flex: 1,
-    height: '100dvh',
   },
 });
 

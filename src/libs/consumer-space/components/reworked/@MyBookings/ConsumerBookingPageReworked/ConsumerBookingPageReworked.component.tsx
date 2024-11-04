@@ -1,7 +1,6 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 import { useTranslation } from 'react-i18next';
-import { CellMeasurerCache } from 'react-virtualized';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import classNames from 'classnames';
 
@@ -118,11 +117,6 @@ type Props = {
   waitingListConfiguration: WaitingListConfiguration;
 };
 
-const cache = new CellMeasurerCache({
-  defaultHeight: 300,
-  fixedWidth: true,
-});
-
 export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   pastBookingsState,
   pastBookingsList,
@@ -167,8 +161,6 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   getOfferWaitingListPosition,
   waitingListConfiguration,
 }) => {
-  const resetVirtualizedListCache = useCallback(() => cache.clearAll(), []);
-
   const {
     selectedTab,
     selectedFilterTab,
@@ -255,7 +247,6 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     cancelPrivateBooking,
     cancelBookingOption,
     isConsumerPacksLoading,
-    resetVirtualizedListCache,
   });
 
   const { t } = useTranslation('consumerSpace');
@@ -427,7 +418,6 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
       <ConsumerBookingListContainer
         bookingList={bookingList}
         bookingOptionList={bookingOptionList}
-        cache={cache}
         coachDisplay={companyTheme?.coach_display}
         currentCount={currentCount}
         currentPage={currentPage}

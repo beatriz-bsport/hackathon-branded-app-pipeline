@@ -1,13 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CellMeasurerCache } from 'react-virtualized';
 
 import { getReceiptUrl as getReceiptUrlAPI } from '#src/libs/invoice/api';
 import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 import ConsumerInvoiceCard from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceCard';
 import ConsumerInvoiceDetailsCard from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceDetailsCard';
 import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
-import ConsumerSpaceVirtualizedList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceVirtualizedList';
+import ConsumerSpaceList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceList';
 
 import type { ConsumerInvoice, Invoice } from '#src/libs/invoice/types';
 
@@ -19,7 +18,6 @@ type Props = {
   isMultilocationEnabled: boolean;
   selectedConsumerInvoice: ConsumerInvoice;
   selectedFilter: InvoicesFiltersEnum;
-  cache: CellMeasurerCache;
   isLoading: boolean;
   currentCount: number;
   currentPage: number;
@@ -87,7 +85,6 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
   isLoading,
   currentCount,
   currentPage,
-  cache,
   clearSelectedConsumerInvoice,
   handleChangePage,
   getInvoice,
@@ -170,11 +167,9 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
       onPageChange={handleChangePage}
       page={currentPage}
       VirtualizedListComponent={
-        <ConsumerSpaceVirtualizedList<ConsumerInvoice>
-          cache={cache}
+        <ConsumerSpaceList<ConsumerInvoice>
           data={consumerInvoiceList}
           isLoading={isLoading}
-          rowCount={consumerInvoiceList?.length ?? 0}
           rowRenderer={({ item }) => (
             <ConsumerInvoiceBodyContainerRow
               getInvoice={getInvoice}

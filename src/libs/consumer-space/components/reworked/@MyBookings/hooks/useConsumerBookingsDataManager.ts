@@ -84,7 +84,6 @@ export default function useConsumerBookingsDataManager({
   cancelPrivateBooking,
   cancelBookingOption,
   isConsumerPacksLoading,
-  resetVirtualizedListCache,
 }: {
   isNewCheckoutFlow: boolean;
   companyId: number;
@@ -132,7 +131,6 @@ export default function useConsumerBookingsDataManager({
   ) => ConsumerBooking[];
   fetchAssociatedBlueprintObjects: (blueprintid: number) => void;
   isConsumerPacksLoading: boolean;
-  resetVirtualizedListCache: () => void;
 }) {
   const history = useHistory();
   const { width } = useViewport();
@@ -482,14 +480,8 @@ export default function useConsumerBookingsDataManager({
   const handleChangePage = useCallback(
     (page: number) => {
       fetchMoreDataHandlerMap[`${selectedTab}-${selectedFilterTab}`]?.(page);
-      resetVirtualizedListCache();
     },
-    [
-      fetchMoreDataHandlerMap,
-      resetVirtualizedListCache,
-      selectedFilterTab,
-      selectedTab,
-    ],
+    [fetchMoreDataHandlerMap, selectedFilterTab, selectedTab],
   );
 
   /**
@@ -536,7 +528,6 @@ export default function useConsumerBookingsDataManager({
         setSelectedFilterTab(BookingFilterTabEnum.FUTURE);
       }
       setSelectedTab(type);
-      resetVirtualizedListCache();
       handleResetSelectedItems();
       handleResetSelectedItemsForCancellation();
     },
@@ -546,7 +537,6 @@ export default function useConsumerBookingsDataManager({
       resetConsumerState,
       selectedFilterTab,
       handleResetSelectedItemsForCancellation,
-      resetVirtualizedListCache,
     ],
   );
 
@@ -559,13 +549,8 @@ export default function useConsumerBookingsDataManager({
       setSelectedFilterTab(type);
       handleResetSelectedItems();
       handleResetSelectedItemsForCancellation();
-      resetVirtualizedListCache();
     },
-    [
-      handleResetSelectedItems,
-      handleResetSelectedItemsForCancellation,
-      resetVirtualizedListCache,
-    ],
+    [handleResetSelectedItems, handleResetSelectedItemsForCancellation],
   );
 
   /**

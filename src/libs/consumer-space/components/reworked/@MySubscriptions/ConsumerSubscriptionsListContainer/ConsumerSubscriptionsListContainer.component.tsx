@@ -1,13 +1,12 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import { CellMeasurerCache } from 'react-virtualized';
 
 import { DateTime, Interval } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import ConsumerSubscriptionCard from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionCard';
 import ConsumerSubscriptionDetailsCard from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
 import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
-import ConsumerSpaceVirtualizedList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceVirtualizedList';
+import ConsumerSpaceList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceList';
 
 import { formatAsDate } from '#src/utils/datetime';
 
@@ -48,7 +47,6 @@ type Props = {
   >[];
   selectedFilter: SubscriptionFilter;
   subscriptionsList: SubscriptionREST[];
-  cache: CellMeasurerCache;
   currentCount: number;
   currentPage: number;
 };
@@ -115,7 +113,6 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   selectedSubscriptionInvoiceDetails,
   selectedFilter,
   subscriptionsList,
-  cache,
   currentPage,
   currentCount,
 }) => {
@@ -238,11 +235,9 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
       onPageChange={handleChangePage}
       page={currentPage}
       VirtualizedListComponent={
-        <ConsumerSpaceVirtualizedList<SubscriptionREST>
-          cache={cache}
+        <ConsumerSpaceList<SubscriptionREST>
           data={subscriptionsList}
           isLoading={isLoading}
-          rowCount={subscriptionsList?.length ?? 0}
           rowRenderer={({ item }) => (
             <ConsumerSubscriptionsListContainerRow
               isLoading={isLoading}

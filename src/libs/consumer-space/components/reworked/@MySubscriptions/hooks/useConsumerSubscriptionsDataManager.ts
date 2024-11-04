@@ -44,7 +44,6 @@ type Data = {
     }>,
   ) => void;
   subscriptionsInvoicesDetailsState: ConsumerSubscriptionInvoiceDetails;
-  resetVirtualizedListCache: () => void;
 };
 
 const useConsumerSubscriptionsDataManager = ({
@@ -59,7 +58,6 @@ const useConsumerSubscriptionsDataManager = ({
   fetchExpiredSubscriptionsList,
   fetchConsumerSubscriptionInvoicesDetails,
   subscriptionsInvoicesDetailsState,
-  resetVirtualizedListCache,
 }: Data) => {
   const [selectedFilter, setSelectedFilter] = useState<SubscriptionFilter>(
     SubscriptionFilterEnum.ACTIVE,
@@ -169,10 +167,9 @@ const useConsumerSubscriptionsDataManager = ({
 
   const handleChangePage = useCallback(
     (page?: number) => {
-      resetVirtualizedListCache();
       fetchDataHandlerMap[`${selectedFilter}`](page);
     },
-    [fetchDataHandlerMap, resetVirtualizedListCache, selectedFilter],
+    [fetchDataHandlerMap, selectedFilter],
   );
 
   const handleInvoiceDetailsPaginationFetchMore = useCallback(
@@ -188,10 +185,9 @@ const useConsumerSubscriptionsDataManager = ({
     (filter: SubscriptionFilter) => {
       setSelectedFilter(filter);
       setSelectedSubscription(null);
-      resetVirtualizedListCache();
       fetchDataHandlerMap[`${selectedFilter}`](1); // Fetch page 1 when changing filter
     },
-    [fetchDataHandlerMap, resetVirtualizedListCache, selectedFilter],
+    [fetchDataHandlerMap, selectedFilter],
   );
 
   const handleSetSelectedSubscriptions = useCallback(

@@ -1,6 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CellMeasurerCache } from 'react-virtualized';
 
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
@@ -38,11 +37,6 @@ type Props = {
   refreshConsumerInvoices: () => void;
   refreshMembership: () => void;
 };
-
-const cache = new CellMeasurerCache({
-  defaultHeight: 300,
-  fixedWidth: true,
-});
 
 const ConsumerInvoicePageReworked: React.FC<Props> = ({
   consumerInvoices,
@@ -85,8 +79,6 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
     setIsConsumerInvoiceDetailsDrawerOpen,
   ] = React.useState(false);
 
-  const resetVirtualizedListCache = useCallback(() => cache.clearAll(), []);
-
   const handleOpenConsumerInvoiceDetailsDrawer = React.useCallback(
     () => setIsConsumerInvoiceDetailsDrawerOpen(true),
     [],
@@ -112,18 +104,16 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
 
   const handleChangeFilter = React.useCallback(
     (filter: InvoicesFiltersEnum) => {
-      resetVirtualizedListCache();
       changeSelectedFilter(filter);
     },
-    [changeSelectedFilter, resetVirtualizedListCache],
+    [changeSelectedFilter],
   );
 
   const handleChangeInvoicePage = React.useCallback(
     (page: number) => {
-      resetVirtualizedListCache();
       handleChangePage(page);
     },
-    [handleChangePage, resetVirtualizedListCache],
+    [handleChangePage],
   );
 
   const payConsumerInvoice = React.useCallback(
@@ -248,7 +238,6 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
       />
 
       <ConsumerInvoiceBodyContainer
-        cache={cache}
         clearSelectedConsumerInvoice={clearSelectedConsumerInvoice}
         consumerInvoiceList={consumerInvoices}
         currentCount={currentCount}

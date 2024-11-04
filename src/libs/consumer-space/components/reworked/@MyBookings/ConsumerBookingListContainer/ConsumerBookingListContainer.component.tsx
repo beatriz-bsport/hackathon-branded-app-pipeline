@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CellMeasurerCache } from 'react-virtualized';
 
 import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/lib/master-data/booking_status_code';
 import {
@@ -23,7 +22,7 @@ import ConsumerBookingListItem from '#src/libs/consumer-space/components/reworke
 import ConsumerPrivateBookingListItem from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerPrivateBookingListItem';
 import ConsumerBookingOptionListItem from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOptionListItem';
 import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
-import ConsumerSpaceVirtualizedList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceVirtualizedList';
+import ConsumerSpaceList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceList';
 
 import type {
   ConsumerBooking,
@@ -79,7 +78,6 @@ type Props = {
     offerId: number,
   ) => OfferStatusWaitingListPosition;
   waitingListConfiguration: WaitingListConfiguration;
-  cache: CellMeasurerCache;
   currentCount: number;
   currentPage: number;
 };
@@ -210,7 +208,6 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   setSelectedBookingForBookingForAGuest,
   getOfferWaitingListPosition,
   waitingListConfiguration,
-  cache,
   currentCount,
   currentPage,
 }) => {
@@ -488,13 +485,11 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
       onPageChange={handleChangePage}
       page={currentPage}
       VirtualizedListComponent={
-        <ConsumerSpaceVirtualizedList<
+        <ConsumerSpaceList<
           ConsumerBooking | ConsumerPrivateBooking | ConsumerBookingOption
         >
-          cache={cache}
           data={currentBookingList}
           isLoading={isLoading}
-          rowCount={currentBookingList?.length ?? 0}
           rowRenderer={({ item, index }) => (
             <ConsumerBookingListContainerRow
               getOfferElligibleGuestNumber={getOfferElligibleGuestNumber}

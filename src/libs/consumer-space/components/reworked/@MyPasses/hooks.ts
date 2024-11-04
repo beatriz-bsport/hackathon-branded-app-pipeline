@@ -54,7 +54,6 @@ export function useConsumerPassesDataManager({
   futureUniversalPassesList,
   futureUniversalPassesState,
   resetConsumerState,
-  resetVirtualizedListCache,
 }: Omit<
   ConsumerPassPageReworkedProps,
   | 'isLoading'
@@ -62,9 +61,7 @@ export function useConsumerPassesDataManager({
   | 'handleBookASessionClick'
   | 'isMetadataLoading'
   | 'isConsumerPassesTabDisplayLoading'
-> & {
-  resetVirtualizedListCache: () => void;
-}) {
+>) {
   const { width } = useViewport();
 
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
@@ -259,15 +256,9 @@ export function useConsumerPassesDataManager({
    */
   const handleChangePage = useCallback(
     (page: number) => {
-      resetVirtualizedListCache();
       fetchMoreDataHandlerMap[`${selectedTab}-${selectedFilterTab}`]?.(page);
     },
-    [
-      fetchMoreDataHandlerMap,
-      resetVirtualizedListCache,
-      selectedFilterTab,
-      selectedTab,
-    ],
+    [fetchMoreDataHandlerMap, selectedFilterTab, selectedTab],
   );
 
   /**
@@ -289,22 +280,17 @@ export function useConsumerPassesDataManager({
       handleFetchTabData?.(type);
       setSelectedTab(type);
       setSelectedPass(null);
-      resetVirtualizedListCache();
     },
-    [handleFetchTabData, resetConsumerState, resetVirtualizedListCache],
+    [handleFetchTabData, resetConsumerState],
   );
 
   /**
    * Update local state when clicking on a filter tab Active/Future/Expired
    * @param type The selected pass filter tab
    */
-  const handleSetSelectedFilterTab = useCallback(
-    (type: PassFilterTab) => {
-      setSelectedFilterTab(type);
-      resetVirtualizedListCache();
-    },
-    [resetVirtualizedListCache],
-  );
+  const handleSetSelectedFilterTab = useCallback((type: PassFilterTab) => {
+    setSelectedFilterTab(type);
+  }, []);
 
   /**
    * Toggle display the pass details drawer

@@ -8,7 +8,7 @@ import {
   CONSUMER_SPACE_API_PAGE_SIZE,
   CONSUMER_SPACE_MOBILE_BREAKPOINT,
 } from '#src/libs/consumer-space/constants';
-import useParentSize from '#src/hooks/useParentSize';
+
 import './styles.css';
 
 type Props = {
@@ -68,7 +68,6 @@ export const PageInnerContentLayout: React.FC<Props> = ({
   const computedRef = React.useRef<HTMLDivElement>(null);
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
-  const { height } = useParentSize(computedRef);
   if (isEmpty) {
     return (
       <EmptyInnerContentPlaceholder
@@ -99,7 +98,7 @@ export const PageInnerContentLayout: React.FC<Props> = ({
           pageSize={CONSUMER_SPACE_API_PAGE_SIZE}
         />
       </div>
-      <div
+      <aside
         className={classNames(
           'bs-consumer-page-inner-content__root--right-component',
           {
@@ -107,10 +106,9 @@ export const PageInnerContentLayout: React.FC<Props> = ({
               isMobile,
           },
         )}
-        style={{ height }}
       >
         {DetailComponent}
-      </div>
+      </aside>
     </div>
   );
 };

@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CellMeasurerCache } from 'react-virtualized';
 
 import ConsumerPassCard from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
 import UniversalPassDetailsCard from '#src/libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsCard';
 import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
-import ConsumerSpaceVirtualizedList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceVirtualizedList';
+import ConsumerSpaceList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceList';
 
 import useUniversalPassData from '#src/libs/consumer-space/hooks/universalPassData.hook';
 import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
@@ -25,7 +24,6 @@ type Props = {
   passList: UniversalPassReworked[];
   selectedFilterTab: PassFilterTab;
   selectedPass?: UniversalPassReworked;
-  cache: CellMeasurerCache;
   currentPage: number;
   currentCount: number;
 };
@@ -74,7 +72,6 @@ export const UniversalPassListContainer: React.FC<Props> = ({
   onPassCardClick,
   handleChangePage,
   selectedFilterTab,
-  cache,
   currentPage,
   currentCount,
 }) => {
@@ -143,11 +140,9 @@ export const UniversalPassListContainer: React.FC<Props> = ({
       onPageChange={handleChangePage}
       page={currentPage}
       VirtualizedListComponent={
-        <ConsumerSpaceVirtualizedList<UniversalPassReworked>
-          cache={cache}
+        <ConsumerSpaceList<UniversalPassReworked>
           data={passList}
           isLoading={isLoading || isMetadataLoading}
-          rowCount={passList?.length ?? 0}
           rowRenderer={({ item }) => (
             <UniversalPassListContainerRow
               handleSeeDetails={handleSeeDetails}

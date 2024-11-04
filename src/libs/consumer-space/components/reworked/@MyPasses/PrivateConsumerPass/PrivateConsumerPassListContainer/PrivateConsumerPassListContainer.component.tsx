@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CellMeasurerCache } from 'react-virtualized';
 
 import ConsumerPassCard from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
 import PrivateConsumerPassDetailsCard from '#src/libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassDetailsCard';
 import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
-import ConsumerSpaceVirtualizedList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceVirtualizedList';
+import ConsumerSpaceList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceList';
 
 import { parsePrivateConsumerPassData } from '#src/libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/utils';
 import { getExpirationDate } from '#src/libs/private-service/utils';
@@ -26,7 +25,6 @@ type Props = {
   passList: PrivateConsumerPassReworked[];
   selectedFilterTab: PassFilterTab;
   selectedPass?: PrivateConsumerPassReworked;
-  cache: CellMeasurerCache;
   currentPage: number;
   currentCount: number;
 };
@@ -71,7 +69,6 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
   onPassCardClick,
   handleChangePage,
   selectedFilterTab,
-  cache,
   currentPage,
   currentCount,
 }) => {
@@ -135,11 +132,9 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
       onPageChange={handleChangePage}
       page={currentPage}
       VirtualizedListComponent={
-        <ConsumerSpaceVirtualizedList<PrivateConsumerPassReworked>
-          cache={cache}
+        <ConsumerSpaceList<PrivateConsumerPassReworked>
           data={passList}
           isLoading={isLoading || isMetadataLoading}
-          rowCount={passList?.length ?? 0}
           rowRenderer={({ item }) => (
             <PrivateConsumerPassListContainerRow
               handleSeeDetails={handleSeeDetails}

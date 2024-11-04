@@ -34,20 +34,9 @@ export type MetaPixelPayload =
   | SessionFullPayload
   | BookingSuccess;
 
-export type BookingSuccess = {
-  offersBooked: OfferBookingValidation[];
-};
-
-export type OfferBookingValidation = {
-  id: number;
-  spotId?: number;
-  spotName?: string;
-  isNewPass: boolean;
-} & Partial<SessionPayload>;
-
 interface CommonBasketPayload {
-  currency?: string;
-  value?: number;
+  currency: string;
+  value: number;
   memberId?: number;
   basketId?: string;
 }
@@ -59,8 +48,6 @@ export type CartItem =
   | PrivatePass
   | CheckoutItem
   | Contract;
-
-export type SessionItem = OfferREST | Offer_FULL | Offer;
 
 // Common item structure for GTM
 interface GoogleTagManagerBasketItem {
@@ -100,15 +87,18 @@ export type SessionFullPayload = {
   sessionId?: number;
 };
 
-type SubscriptionMetadata = {
-  flat_fee: number;
-  duration: number;
-  auto_renewal: boolean;
+export type SessionItem = OfferREST | Offer_FULL | Offer;
+
+export type BookingSuccess = {
+  offersBooked: OfferBookingValidation[];
 };
 
-export type GTMSubscriptionPayload = GTMInteractWithBasketItemPayload & {
-  metadata: SubscriptionMetadata;
-};
+export type OfferBookingValidation = {
+  id: number;
+  spotId?: number;
+  spotName?: string;
+  isNewPass: boolean;
+} & Partial<SessionPayload>;
 
 export type GTMInteractWithBasketItemPayload = CommonBasketPayload & {
   items: GoogleTagManagerBasketItem[];
@@ -117,11 +107,6 @@ export type GTMInteractWithBasketItemPayload = CommonBasketPayload & {
 export type MetaPixelInteractWithBasketItemPayload = CommonBasketPayload & {
   contents: MetaPixelBasketItem[];
 };
-
-export type MetaPixelSubscriptionPayload =
-  MetaPixelInteractWithBasketItemPayload & {
-    metadata: SubscriptionMetadata;
-  };
 
 export type AnalyticsInterractWithLoginPayload = {
   email: string;

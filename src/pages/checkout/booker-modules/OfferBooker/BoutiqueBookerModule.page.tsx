@@ -214,6 +214,10 @@ import type {
   OptionCallback,
   PaginatedResponse,
 } from '../../../../state/types';
+import type {
+  CartItem,
+  OfferBookingValidation,
+} from '#src/components/analytics/types';
 import type { WithHandlerType } from '../../../../utils/types';
 import type { MemberMinimal } from '#src/libs/member/types';
 import BookingForAnotherSelector from '#src/libs/booker-module/components/BookingForAnotherSelector.component';
@@ -221,7 +225,11 @@ import { filterObjectOnSingleKey } from '#src/libs/utils';
 import { SlashCircle01 } from '#src/components/untitledui';
 
 import { buildDataForUserRegistrationWithMultiSessionsAllowed } from '#src/libs/marketplace/utils/booker-module';
-
+import {
+  getSessionCoachId,
+  getSessionEstablishmentId,
+  getSessionMetaActivityId,
+} from '#src/components/analytics/utils';
 import analyticsUtils from '#src/components/analytics/analytics';
 
 import './BoutiqueBookerModule.css';
@@ -1044,12 +1052,25 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         onSuccess: (responseData: any) => {
           this.setState({ confirmLoading: false });
           if (data.consumer_payment_pack || !data.offers.length) {
-            const offersBookedData = this.state.selectedOffers.map((offer) => ({
-              id: offer.offer.id,
-              spotId: offer.extra_data?.spot_id || null,
-              spotName: offer.extra_data?.spot_name || null,
-              isNewPass: false,
-            }));
+            const offersBookedData: OfferBookingValidation[] =
+              this.state.selectedOffers.map((offer) => {
+                const mappedOffer: OfferBookingValidation = {
+                  id: offer.offer.id,
+                  isNewPass: false,
+                  metaActivityId: getSessionMetaActivityId(offer.offer),
+                  coachId: getSessionCoachId(offer.offer),
+                  establishmentId: getSessionEstablishmentId(offer.offer),
+                  date: offer.offer.date_start,
+                };
+                if (offer.extra_data?.spot_id)
+                  mappedOffer.spotId = offer.extra_data.spot_id;
+
+                if (offer.extra_data?.spot_name)
+                  mappedOffer.spotName = offer.extra_data.spot_name;
+
+                return mappedOffer;
+              });
+
             analyticsUtils.onSessionBookingSuccess({
               offersBooked: offersBookedData,
             });
@@ -1102,13 +1123,15 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   onClickBuyableItem = (
     buyableItem: BookerModuleBuyableItem,
     itemIdentifier: BuyableItemIdentifier,
-  ) =>
+  ) => {
+    analyticsUtils.viewBuyableItem(buyableItem as CartItem);
     this.setState({
       selectedItem: {
         data: buyableItem,
         itemIdentifier,
       },
     });
+  };
 
   getIsLoading: () => boolean = () => {
     return (
@@ -1365,12 +1388,26 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
     const formattedOffer = this.refineOffers(offer);
 
-    this.setState((prevState: State) => ({
-      selectedOffers: [
-        ...prevState.selectedOffers,
-        { offer: formattedOffer, extra_data: {} },
-      ],
-    }));
+    analyticsUtils.onAddSessionToBookingList(formattedOffer);
+    this.setState(
+      (prevState: State) => ({
+        selectedOffers: [
+          ...prevState.selectedOffers,
+          { offer: formattedOffer, extra_data: {} },
+        ],
+      }),
+      () => {
+        this.fetchOfferStatusList(
+          this.state.selectedOffers.map(
+            (selectedOffer) => selectedOffer.offer.id,
+          ),
+        );
+        this.updateOfferConstraints();
+        if (this.state.isSimilarOfferModalOpened) {
+          this.toggleSimilarOfferModal();
+        }
+      },
+    );
   };
 
   handleRemoveOffer = (offerId: number) => {

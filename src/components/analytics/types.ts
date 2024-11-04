@@ -17,6 +17,7 @@ declare global {
 export type GTMPayload =
   | GTMInteractWithBasketItemPayload
   | AnalyticsInterractWithLoginPayload
+  | AnalyticsLeadAcquisitionPayload
   | SessionPayload
   | SessionFullPayload
   | BookingSuccess;
@@ -30,6 +31,7 @@ export type MetaPixelPayload =
       contents?: MetaPixelBasketItem[];
     })
   | AnalyticsInterractWithLoginPayload
+  | AnalyticsLeadAcquisitionPayload
   | SessionPayload
   | SessionFullPayload
   | BookingSuccess;
@@ -109,7 +111,8 @@ export type MetaPixelInteractWithBasketItemPayload = CommonBasketPayload & {
 };
 
 export type AnalyticsInterractWithLoginPayload = {
-  email: string;
+  email?: string;
+  method: string;
 };
 
 export type AnalyticsLeadAcquisitionPayload = {

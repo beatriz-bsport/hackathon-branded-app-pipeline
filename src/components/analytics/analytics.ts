@@ -474,10 +474,12 @@ const analyticsUtils = {
   onSigninSuccess: (payload: { email: string }) => {
     const gtmPayload: AnalyticsInterractWithLoginPayload = {
       email: payload.email,
+      method: 'Authentication',
     };
 
     const metaPixelPayload: AnalyticsInterractWithLoginPayload = {
       email: payload.email,
+      method: 'Authentication',
     };
     analyticsUtils.trackGTM('login', gtmPayload);
     analyticsUtils.trackMetaPixel('Login', metaPixelPayload);
@@ -486,10 +488,12 @@ const analyticsUtils = {
   onSignupSuccess: (payload: { email: string }) => {
     const gtmPayload: AnalyticsInterractWithLoginPayload = {
       email: payload.email,
+      method: 'Authentication',
     };
 
     const metaPixelPayload: AnalyticsInterractWithLoginPayload = {
       email: payload.email,
+      method: 'Authentication',
     };
     analyticsUtils.trackGTM('sign_up', gtmPayload);
     analyticsUtils.trackMetaPixel('SignUp', metaPixelPayload);

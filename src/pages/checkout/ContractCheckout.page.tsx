@@ -368,7 +368,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     this.fetchAssociatedContractContent(contract.id);
     this.handleSetAcceptContractLegalTerms(false);
     this.props.setSelected(contract.id);
-    analyticsUtils.onShowContract(contract);
+    analyticsUtils.viewBuyableItem(contract);
+    analyticsUtils.addItemToCart(contract);
+    analyticsUtils.onBeginContractPayment(contract);
   };
 
   handleOpenContractTermsDialog = () =>

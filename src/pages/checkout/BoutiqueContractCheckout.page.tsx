@@ -226,7 +226,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     if (this.props.contractId) {
       this.props.fetchContractDetail(this.props.contractId, {
         onSuccess: (contract: Contract) => {
-          analyticsUtils.onShowContract(contract);
+          analyticsUtils.addItemToCart(contract);
           if (contract?.payment_pack) {
             this.props.fetchPaymentPackBulk([contract.payment_pack]);
           }
@@ -492,7 +492,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     coupon?: string,
     establishmentBillingGroupId?: number,
   ) => {
-    analyticsUtils.onShowContractPayment(this.props.contract);
+    analyticsUtils.onBeginContractPayment(this.props.contract);
     this.setState({ processing: true });
     this.updateMemberDefaultEstablishmentBillingGroup();
     const first_billing_timestamp = DateTime.fromISO(

@@ -102,10 +102,11 @@ export class MarketplaceContract extends React.Component<Props, State> {
 
   addContractToCart = (contract: Contract) => {
     if (this.props.onAddToCart) {
+      analyticsUtils.addItemToCart(contract);
       this.props.onAddToCart(contract.id);
       return;
     }
-    analyticsUtils.onShowContractPayment(contract);
+    analyticsUtils.onBeginContractPayment(contract);
     this.props.push(getContractCheckoutUrl(this.props.companyId, contract.id));
   };
 

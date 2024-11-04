@@ -76,6 +76,7 @@ type OwnProps = {
     paymentSucceeded?: boolean;
     paymentProcessing?: boolean;
   }) => void;
+  getReceiptUrl?: (uuid: string, options?: OptionCallback<string>) => void;
 };
 
 type QueryParamsProps = {
@@ -194,6 +195,7 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
     return (
       <ConsumerInvoiceContextProvider
         fetchPaymentGroupStatusAction={this.props.fetchPaymentGroupStatusAction}
+        getReceiptUrl={this.props.getReceiptUrl}
         setPaymentStatusActions={this.props.setPaymentStatusActions}
       >
         <ConsumerInvoicePageReworked

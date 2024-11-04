@@ -77,6 +77,7 @@ import {
   applyBalanceToInvoice as applyBalanceToInvoiceAPI,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAPI,
   changePaymentMethodAndRegisterPlannedPaymentEvent as changePaymentMethodAndRegisterPlannedPaymentEventAPI,
+  getReceiptUrl as getReceiptUrlAPI,
 } from './api';
 import { ExportInvoiceStatus } from './constants';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
@@ -220,6 +221,38 @@ export function generateInvoiceXml(
       options?.onError?.(err);
     }
     dispatch(generateInvoiceXmlActions.isLoading(false));
+  };
+}
+
+export const getInvoiceReceiptUrlActions = {
+  isLoading: createAction<boolean>('INVOICE/GET_RECEIPT_URL/IS_LOADING'),
+  error: createAction<Error | null>('INVOICE/GET_RECEIPT_URL/ERROR'),
+  success: createAction<string>('INVOICE/GET_RECEIPT_URL/SUCCESS'),
+};
+
+/**
+ * Retrieves an invoice receipt URL. Only used for widget.
+ * @param uuid The invoice uuid
+ * @returns {string}
+ */
+export function getInvoiceReceiptUrl(
+  uuid: string,
+  options?: OptionCallback<string>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(generateInvoiceXmlBulkActions.isLoading(true));
+    dispatch(generateInvoiceXmlBulkActions.error(null));
+    try {
+      const response = await getReceiptUrlAPI(uuid);
+      dispatch(getInvoiceReceiptUrlActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(getInvoiceReceiptUrlActions.error(error));
+      console.error(error);
+      options?.onError?.(error);
+    } finally {
+      dispatch(generateInvoiceXmlBulkActions.isLoading(false));
+    }
   };
 }
 

@@ -10,4 +10,5 @@ export type ConsumerInvoiceContextType = {
     paymentSucceeded?: boolean;
     paymentProcessing?: boolean;
   }) => void;
+  getReceiptUrl?: (uuid: string, options?: OptionCallback<string>) => void;
 };

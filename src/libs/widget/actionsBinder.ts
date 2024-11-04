@@ -156,6 +156,10 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
     'FETCH_INVOICE_CONFIGURATION_AS_MEMBER',
     actions.fetchInvoiceConfigurationAsMember,
   );
+  bridgeAPIActionsRegistry.register(
+    'GET_INVOICE_RECEIPT_URL',
+    actions.getReceiptUrl,
+  );
 
   // COACH
   bridgeAPIActionsRegistry.register('FETCH_COACH_BULK', actions.fetchCoachBulk);

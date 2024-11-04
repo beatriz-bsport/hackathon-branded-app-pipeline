@@ -92,6 +92,7 @@ import {
   fetchSpecificInvoice as fetchSpecificInvoiceAction,
   applyBalanceToInvoice as applyBalanceToInvoiceAction,
   fetchInvoiceConfigurationAsMember as fetchInvoiceConfigurationAsMemberAction,
+  getInvoiceReceiptUrl as getInvoiceReceiptUrlAction,
 } from '#src/libs/invoice/actions';
 
 import { bridgeAPIActionsRegistry } from '#src/libs/widget/actionsRegistry';
@@ -521,6 +522,7 @@ const mapDispatchToProps = {
   fetchPaymentGroupStatus: fetchPaymentGroupStatusAction,
   setPaymentStatus: setPaymentStatusAction,
   setBackendProcessingAfterPayment: setBackendProcessingAfterPaymentAction,
+  getReceiptUrl: getInvoiceReceiptUrlAction,
 };
 
 export default compose(

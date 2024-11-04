@@ -2185,6 +2185,8 @@
       "addCoupon": {
         "5004": "This code can only be applied to one item.",
         "5006": "This unique code is already linked to an open basket",
+        "45009": "This gift card code cannot be applied to this basket",
+        "45010": "The gift card has been well associated to your account, but could not be activated because it is before the activation date",
         "apply": "Apply",
         "label": "Promo code & gift card",
         "placeholder": "PROMOTIONAL CODE",

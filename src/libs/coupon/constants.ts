@@ -17,6 +17,10 @@ export enum CouponErrorCodes {
   UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT = 5003,
   COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS = 5004,
   UNIQUE_CODE_LOCKED = 5006,
+  /** Provided error code for invalid (expired, not existing) giftcard codes */
+  GIFTCARD_EXCEPTION = 45009,
+  /** Attempting attaching a giftcard before allowed activation date */
+  GIFTCARD_INVALID_ACTIVATION_DATE = 45010,
 }
 
 export const VOUCHER_CODE_CSV_FILE_SIZE_LIMIT_IN_BYTES = 1000000;

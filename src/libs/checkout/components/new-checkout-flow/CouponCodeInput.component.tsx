@@ -15,6 +15,8 @@ import { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
 enum ErrorType {
   COUPON_NOT_APPLICABLE = 'not_applicable',
   ON_SEVERAL_ITEMS = CouponErrorCodes.COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS,
+  GIFTCARD_INVALID_ACTIVATION_DATE = CouponErrorCodes.GIFTCARD_INVALID_ACTIVATION_DATE,
+  GIFTCARD_EXCEPTION = CouponErrorCodes.GIFTCARD_EXCEPTION,
   EMPTY = '',
 }
 
@@ -72,6 +74,14 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
           setCouponProcessing(false);
           setError(ErrorType.ON_SEVERAL_ITEMS);
         },
+      [CouponErrorCodes.GIFTCARD_EXCEPTION]: () => {
+        setCouponProcessing(false);
+        setError(ErrorType.GIFTCARD_EXCEPTION);
+      },
+      [CouponErrorCodes.GIFTCARD_INVALID_ACTIVATION_DATE]: () => {
+        setCouponProcessing(false);
+        setError(ErrorType.GIFTCARD_INVALID_ACTIVATION_DATE);
+      },
     });
   }, [couponCode, onSubmit]);
 
@@ -90,7 +100,7 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
   return (
     <div
       className={classNames(classes.couponInputContainer, {
-        [classes.couponInputContainerError]: error !== ErrorType.EMPTY,
+        [classes.couponInputContainerError]: !!error,
       })}
     >
       <TextFieldWithCustomColors
@@ -105,10 +115,8 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
             </InputAdornment>
           )
         }
-        error={error !== ErrorType.EMPTY}
-        helperText={
-          error !== ErrorType.EMPTY ? t(`code.addCoupon.${error}`) : null
-        }
+        error={!!error}
+        helperText={error ? t(`code.addCoupon.${error}`) : null}
         label={t('code.addCoupon.label')}
         name="coupon_code-input"
         onChange={handleCouponCodeChange}

@@ -475,6 +475,17 @@ export class BasketPage extends React.Component<Props> {
                   .COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS
               ]();
           },
+        [CouponErrorCodes.GIFTCARD_EXCEPTION]: () => {
+          if (options && options[CouponErrorCodes.GIFTCARD_EXCEPTION])
+            options[CouponErrorCodes.GIFTCARD_EXCEPTION]();
+        },
+        [CouponErrorCodes.GIFTCARD_INVALID_ACTIVATION_DATE]: () => {
+          if (
+            options &&
+            options[CouponErrorCodes.GIFTCARD_INVALID_ACTIVATION_DATE]
+          )
+            options[CouponErrorCodes.GIFTCARD_INVALID_ACTIVATION_DATE]();
+        },
       },
       this.props.isNewCheckoutFlow,
     );

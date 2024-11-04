@@ -5,6 +5,8 @@ const {
   COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS,
   COUPON_UNIQUE_CODE_NOT_AVAILABLE,
   UNIQUE_CODE_LOCKED,
+  GIFTCARD_EXCEPTION,
+  GIFTCARD_INVALID_ACTIVATION_DATE,
 } = require('../../libs/coupon/errors.ts');
 
 const getTranslations = async () => {
@@ -162,6 +164,10 @@ const getTranslations = async () => {
           'This code can only be applied to one item.',
         [UNIQUE_CODE_LOCKED]:
           'This unique code is already linked to an open basket',
+        [GIFTCARD_EXCEPTION]:
+          'This gift card code cannot be applied to this basket',
+        [GIFTCARD_INVALID_ACTIVATION_DATE]:
+          'The gift card has been well associated to your account, but could not be activated because it is before the activation date',
         apply: 'Apply',
         label: 'Promo code & gift card',
         placeholder: 'PROMOTIONAL CODE',

@@ -9,6 +9,18 @@
   color: var(--bs-grey-400);
 }
 
+.bs-similar-offer-modal-container__header__select-all-button-container {
+}
+
+.bs-similar-offer-modal-container__header__select-all-button {
+  padding: var(--bs-space-size-2) 0;
+  color: var(--bs-grey-900);
+  font-size: var(--bs-font-size-body-sm);
+  font-weight: 500;
+  line-height: var(--bs-fabrique-line-height-action-lg);
+  text-transform: uppercase;
+}
+
 @media (min-width: 950px) {
   .bs-similar-offer-modal-container {
     background-color: var(--bs-grey-0);

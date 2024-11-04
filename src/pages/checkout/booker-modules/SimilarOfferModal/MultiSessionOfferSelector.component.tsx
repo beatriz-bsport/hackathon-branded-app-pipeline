@@ -130,6 +130,10 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
     [setPreSelectedOffers, preSelectedOffers],
   );
 
+  const onSelectAllSessions = React.useCallback(() => {
+    setPreSelectedOffers(similarOffers);
+  }, [setPreSelectedOffers, similarOffers]);
+
   const handleAddOffer = React.useCallback(() => {
     if (preSelectedOffers) {
       nextStep();
@@ -146,6 +150,12 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
     }
   }, [similarOffers?.length, preSelectedOffers?.length, fetchMoreSessions]);
 
+  const areAllSessionsSelected =
+    !isAbleToFetchMoreSimilarSessions &&
+    similarOffers?.length &&
+    preSelectedOffers?.length &&
+    similarOffers.length === preSelectedOffers.length;
+
   return (
     <div className="bs-similar-offer-modal-container">
       <div className="bs-similar-offer-modal-container__header__container">
@@ -161,7 +171,18 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
           <Close />
         </ButtonBase>
       </div>
-
+      <div className="bs-similar-offer-modal-container__header__select-all-button-container">
+        <ButtonBase
+          className="bs-similar-offer-modal-container__header__select-all-button"
+          disabled={areAllSessionsSelected || similarOffersLoading}
+          onClick={onSelectAllSessions}
+        >
+          {t('booking:bookingModule.multiSession.addSession.selectAll', {
+            count: similarOffers?.length ?? 0,
+            totalSessions: similarOffers?.length ?? 0,
+          })}
+        </ButtonBase>
+      </div>
       <div className="bs-similar-offer-modal-container__body">
         <>
           {similarOffers && similarOffers.length > 0 ? (

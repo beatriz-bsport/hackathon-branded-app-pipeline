@@ -8,13 +8,13 @@ import type {
   CartItem,
   GTMInteractWithBasketItemPayload,
   GTMPayload,
-  GTMSubscriptionPayload,
   MetaPixelInteractWithBasketItemPayload,
   MetaPixelPayload,
-  MetaPixelSubscriptionPayload,
+  SessionFullPayload,
   SessionItem,
   SessionPayload,
 } from './types';
+import type { Offer_FULL } from '#src/libs/offer/types';
 import type { Contract } from '#src/libs/subscription/types';
 import {
   getItemPrice,
@@ -249,14 +249,16 @@ const analyticsUtils = {
       date: DateTime.fromISO(session.date_start).toISO(),
       coachId: coachId,
       establishmentId: establishmentId,
-      activityId: metaActivityId,
+      metaActivityId: metaActivityId,
+      sessionId: session.id,
     };
 
     const metaPixelPayload: SessionPayload = {
       date: DateTime.fromISO(session.date_start).toISO(),
       coachId: coachId,
       establishmentId: establishmentId,
-      activityId: metaActivityId,
+      metaActivityId: metaActivityId,
+      sessionId: session.id,
     };
 
     analyticsUtils.trackGTM('bsport:calendar:session-show', gtmPayload);
@@ -272,14 +274,16 @@ const analyticsUtils = {
       date: DateTime.fromISO(session.date_start).toISO(),
       coachId: coachId,
       establishmentId: establishmentId,
-      activityId: metaActivityId,
+      metaActivityId: metaActivityId,
+      sessionId: session.id,
     };
 
     const metaPixelPayload: SessionPayload = {
       date: DateTime.fromISO(session.date_start).toISO(),
       coachId: coachId,
       establishmentId: establishmentId,
-      activityId: metaActivityId,
+      metaActivityId: metaActivityId,
+      sessionId: session.id,
     };
 
     analyticsUtils.trackGTM('bsport:session:go-to-booking', gtmPayload);
@@ -296,14 +300,16 @@ const analyticsUtils = {
       date: DateTime.fromISO(session.date_start).toISO(),
       coachId: coachId,
       establishmentId: establishmentId,
-      activityId: metaActivityId,
+      metaActivityId: metaActivityId,
+      sessionId: session.id,
     };
 
     const metaPixelPayload: SessionPayload = {
       date: DateTime.fromISO(session.date_start).toISO(),
       coachId: coachId,
       establishmentId: establishmentId,
-      activityId: metaActivityId,
+      metaActivityId: metaActivityId,
+      sessionId: session.id,
     };
 
     analyticsUtils.trackGTM('bsport:workshop:show', gtmPayload);
@@ -319,18 +325,44 @@ const analyticsUtils = {
       date: DateTime.fromISO(session.date_start).toISO(),
       coachId: coachId,
       establishmentId: establishmentId,
-      activityId: metaActivityId,
+      metaActivityId: metaActivityId,
+      sessionId: session.id,
     };
 
     const metaPixelPayload: SessionPayload = {
       date: DateTime.fromISO(session.date_start).toISO(),
       coachId: coachId,
       establishmentId: establishmentId,
-      activityId: metaActivityId,
+      metaActivityId: metaActivityId,
+      sessionId: session.id,
     };
 
     analyticsUtils.trackGTM('bsport:workshop:go-to-booking', gtmPayload);
     analyticsUtils.trackMetaPixel('workshopGoToBooking', metaPixelPayload);
+  },
+
+  onAddSessionToBookingList: (payload: Offer_FULL) => {
+    const analyticsPayload: SessionFullPayload = {
+      sessionId: payload.id,
+      metaActivityName: payload.meta_activity.name,
+      establishmentName: payload.establishment.title,
+      coach: payload.coach.name,
+      date: payload.date_start,
+    };
+    analyticsUtils.trackGTM('bsport:booking:add-session', analyticsPayload);
+    analyticsUtils.trackMetaPixel('bookingAddSession', analyticsPayload);
+  },
+
+  onRemoveSessionFromBookingList: (payload: Offer_FULL) => {
+    const analyticsPayload: SessionFullPayload = {
+      sessionId: payload.id,
+      metaActivityName: payload.meta_activity.name,
+      establishmentName: payload.establishment.title,
+      coach: payload.coach.name,
+      date: payload.date_start,
+    };
+    analyticsUtils.trackGTM('bsport:booking:remove-session', analyticsPayload);
+    analyticsUtils.trackMetaPixel('bookingRemoveSession', analyticsPayload);
   },
 
   onSessionBookingSuccess: (payload: BookingSuccess) => {
@@ -339,9 +371,8 @@ const analyticsUtils = {
   },
 
   // Contract events
-
-  onShowContract: (payload: Contract) => {
-    const gtmPayload: GTMSubscriptionPayload = {
+  onBeginContractPayment: (payload: Contract) => {
+    const gtmPayload: GTMInteractWithBasketItemPayload = {
       items: [
         {
           item_id: payload.id.toString(),
@@ -351,16 +382,11 @@ const analyticsUtils = {
           price: parseInt(payload.recurrent_price),
         },
       ],
-      metadata: {
-        flat_fee: parseInt(payload.flat_fee),
-        auto_renewal: payload.auto_renewal,
-        duration: payload.nb_interval,
-      },
       currency: getCurrencyCode(),
       value: parseInt(payload.recurrent_price),
     };
 
-    const metaPixelPayload: MetaPixelSubscriptionPayload = {
+    const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
       value: parseInt(payload.recurrent_price),
       currency: getCurrencyCode(),
       contents: [
@@ -371,61 +397,14 @@ const analyticsUtils = {
           category: 'subscription',
         },
       ],
-      metadata: {
-        flat_fee: parseInt(payload.flat_fee),
-        auto_renewal: payload.auto_renewal,
-        duration: payload.nb_interval,
-      },
     };
 
-    analyticsUtils.trackGTM('bsport:contract:show', gtmPayload);
-    analyticsUtils.trackMetaPixel('contractShow', metaPixelPayload);
-  },
-
-  onShowContractPayment: (payload: Contract) => {
-    const gtmPayload: GTMSubscriptionPayload = {
-      items: [
-        {
-          item_id: payload.id.toString(),
-          item_name: payload.name,
-          item_category: 'subscription',
-          quantity: 1,
-          price: parseInt(payload.recurrent_price),
-        },
-      ],
-      metadata: {
-        flat_fee: parseInt(payload.flat_fee),
-        auto_renewal: payload.auto_renewal,
-        duration: payload.nb_interval,
-      },
-      currency: getCurrencyCode(),
-      value: parseInt(payload.recurrent_price),
-    };
-
-    const metaPixelPayload: MetaPixelSubscriptionPayload = {
-      value: parseInt(payload.recurrent_price),
-      currency: getCurrencyCode(),
-      contents: [
-        {
-          id: payload.id.toString(),
-          name: payload.name,
-          quantity: 1,
-          category: 'subscription',
-        },
-      ],
-      metadata: {
-        flat_fee: parseInt(payload.flat_fee),
-        auto_renewal: payload.auto_renewal,
-        duration: payload.nb_interval,
-      },
-    };
-
-    analyticsUtils.trackGTM('bsport:contract:show-payment', gtmPayload);
-    analyticsUtils.trackMetaPixel('contractPaymentShow', metaPixelPayload);
+    analyticsUtils.trackGTM('begin_checkout', gtmPayload);
+    analyticsUtils.trackMetaPixel('beginCheckout', metaPixelPayload);
   },
 
   onContractPaymentSuccess: (payload: Contract) => {
-    const gtmPayload: GTMSubscriptionPayload = {
+    const gtmPayload: GTMInteractWithBasketItemPayload = {
       items: [
         {
           item_id: payload.id.toString(),
@@ -435,16 +414,11 @@ const analyticsUtils = {
           price: parseInt(payload.recurrent_price),
         },
       ],
-      metadata: {
-        flat_fee: parseInt(payload.flat_fee),
-        auto_renewal: payload.auto_renewal,
-        duration: payload.nb_interval,
-      },
       currency: getCurrencyCode(),
       value: parseInt(payload.recurrent_price),
     };
 
-    const metaPixelPayload: MetaPixelSubscriptionPayload = {
+    const metaPixelPayload: MetaPixelInteractWithBasketItemPayload = {
       value: parseInt(payload.recurrent_price),
       currency: getCurrencyCode(),
       contents: [
@@ -455,15 +429,10 @@ const analyticsUtils = {
           category: 'subscription',
         },
       ],
-      metadata: {
-        flat_fee: parseInt(payload.flat_fee),
-        auto_renewal: payload.auto_renewal,
-        duration: payload.nb_interval,
-      },
     };
 
-    analyticsUtils.trackGTM('bsport:contract:payment-success', gtmPayload);
-    analyticsUtils.trackMetaPixel('contractPaymentSuccess', metaPixelPayload);
+    analyticsUtils.trackGTM('purchase', gtmPayload);
+    analyticsUtils.trackMetaPixel('purchase', metaPixelPayload);
   },
 
   // Lead acquisition events

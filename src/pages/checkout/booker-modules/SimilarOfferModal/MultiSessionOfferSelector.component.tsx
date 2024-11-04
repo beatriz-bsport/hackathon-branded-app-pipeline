@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -30,6 +30,7 @@ export type MultiSessionOfferSelectorProps = {
   fetchMoreSessions: () => void;
   onClose: () => void;
   isAbleToFetchMoreSimilarSessions: boolean;
+  similarOffersLoading: boolean;
 };
 
 type OfferStepperProps = {
@@ -111,6 +112,7 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
   onClose,
   nextStep,
   setPreSelectedOffers,
+  similarOffersLoading,
 }) => {
   const { t } = useTranslation(['common', 'booking']);
   const onSelectSession = React.useCallback(
@@ -133,6 +135,16 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
       nextStep();
     }
   }, [nextStep, preSelectedOffers]);
+
+  useEffect(() => {
+    if (
+      similarOffers?.length &&
+      preSelectedOffers?.length &&
+      similarOffers.length === preSelectedOffers.length
+    ) {
+      fetchMoreSessions();
+    }
+  }, [similarOffers?.length, preSelectedOffers?.length, fetchMoreSessions]);
 
   return (
     <div className="bs-similar-offer-modal-container">
@@ -185,7 +197,7 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
               {t('booking:bookingModule.multiSession.addSession.noContent')}
             </div>
           )}
-          {isAbleToFetchMoreSimilarSessions ? (
+          {isAbleToFetchMoreSimilarSessions && (
             <ButtonBase
               className={classNames(
                 'bs-similar-offer-modal-container__fetch__button',
@@ -194,12 +206,14 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
                     !isAbleToFetchMoreSimilarSessions,
                 },
               )}
-              disabled={!isAbleToFetchMoreSimilarSessions}
+              disabled={
+                !isAbleToFetchMoreSimilarSessions || similarOffersLoading
+              }
               onClick={fetchMoreSessions}
             >
               {t('common:text.showMoreText')}
             </ButtonBase>
-          ) : null}
+          )}
         </>
       </div>
       <div className="bs-similar-offer-modal-container__footer">

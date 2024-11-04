@@ -47,6 +47,7 @@ const MultiSessionModalStepper: React.FC<Props> = ({
   companyTheme,
   isOpen,
   isAbleToFetchMoreSimilarSessions,
+  similarOffersLoading,
 }) => {
   const [currentStep, setCurrentStep] = React.useState<number>(
     MultiSessionModalStepperStater.SESSION,
@@ -132,6 +133,7 @@ const MultiSessionModalStepper: React.FC<Props> = ({
       companyTheme,
       onClose: onCloseModal,
       isAbleToFetchMoreSimilarSessions,
+      similarOffersLoading,
     },
     {
       assetByIdBlueprintByIdentifier,

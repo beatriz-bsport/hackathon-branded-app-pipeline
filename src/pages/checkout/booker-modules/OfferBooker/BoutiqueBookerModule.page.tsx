@@ -150,6 +150,7 @@ import {
   getSimilarOffersReworkedCount,
   getSimilarOffersReworkedAllIds,
   getOfferBookableStatus,
+  getSimilarOffersReworkedIsLoading,
 } from '#src/libs/offer/selectors';
 import { getMarketplaceSettingsConfig } from '#src/libs/marketplace/selectors';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
@@ -2011,6 +2012,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               similarOffers={this.getUnselectedSimilarOrGroupedOffers(
                 similarOrGrouppedOffers,
               )}
+              similarOffersLoading={this.props.similarOffersLoading}
               spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
                 this.props.spotTypes,
               )}
@@ -2101,6 +2103,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     getGroupedOffer: (groupId: number) => getOffersListByGroup(state, groupId),
     getOfferGroupData: (groupId: number) =>
       getGroupDataById(state, groupId) as OffersGroup,
+    similarOffersLoading: getSimilarOffersReworkedIsLoading(state),
   };
 };
 

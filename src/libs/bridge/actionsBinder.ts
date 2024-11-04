@@ -88,6 +88,7 @@ import {
   retrieveInvoiceActions,
   applyBalanceToInvoiceActions,
   invoiceConfigurationDetailActions,
+  getInvoiceReceiptUrlActions,
 } from '../../actions/invoice';
 
 export const actionsBinder = () => {
@@ -407,5 +408,10 @@ export const actionsBinder = () => {
   apiCallHandler.bindActions(
     'SWITCH_SUBSCRIPTION_PAYMENT_METHOD',
     switchPaymentMethodActions,
+  );
+
+  apiCallHandler.bindActions(
+    'GET_INVOICE_RECEIPT_URL',
+    getInvoiceReceiptUrlActions,
   );
 };

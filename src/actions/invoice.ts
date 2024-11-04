@@ -47,3 +47,9 @@ export const invoiceConfigurationDetailActions = {
     'INVOICE-CONFIGURATION/DETAIL/SUCCESS',
   ),
 };
+
+export const getInvoiceReceiptUrlActions = {
+  isLoading: createAction<boolean>('INVOICE/GET_RECEIPT_URL/IS_LOADING'),
+  error: createAction<Error | null>('INVOICE/GET_RECEIPT_URL/ERROR'),
+  success: createAction<string>('INVOICE/GET_RECEIPT_URL/SUCCESS'),
+};

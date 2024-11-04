@@ -248,4 +248,5 @@ export const consumerInvoiceBridgeActions = {
   setBackendProcessingAfterPayment: createAuthenticatedBridgeAction(
     'SET_BACKEND_PROCESSING_AFTER_PAYMENT',
   ),
+  getReceiptUrl: createAuthenticatedBridgeAction('GET_INVOICE_RECEIPT_URL'),
 };

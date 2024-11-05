@@ -426,7 +426,13 @@ const getTranslations = async () => {
       broadcast: 'Livestream',
     },
     analytics: {
-      showAnalyticsInformation: 'Show retargeting events',
+      analyticsInformationModal: {
+        title: 'Set up analytics for better insights with your data',
+        content:
+          'Unlock more powerful analytics by connecting Google Tag Manager with  Google Analytics, and Meta Pixel (Facebook Pixel). Access our step-by-step guide to start tracking the metrics that matter most to your business.',
+        confirm: 'VIEW SETUP GUIDE',
+      },
+      openAnalyticsModalButton: 'Connect Analytics Tools',
       eventDesc: 'Events',
       gtmEvent: 'Google Tag Management',
       fbPixelEvent: 'Facebook Pixel',

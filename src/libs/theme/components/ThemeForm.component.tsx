@@ -18,6 +18,7 @@ import RedButton from '#src/components/button/RedButton.component';
 // @ts-expect-error
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
 import ColorInput from '../../../components/input/ColorInput.component';
+import AnalyticsInfoModal from './AnalyticsInfoModal.component';
 import type { Theme } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import { MAX_COLOR_BRIGHTNESS } from '../utils';
@@ -35,6 +36,7 @@ type Props = OwnProps &
 type State = {
   theme: Theme;
   isWarningDialogOpen: boolean;
+  isAnalyticsInfoModalOpen: boolean;
 };
 
 const regexHTTP = /https?:\/\//;
@@ -67,6 +69,7 @@ export class ThemeForm extends Component<Props, State> {
     this.state = {
       theme: props.theme,
       isWarningDialogOpen: false,
+      isAnalyticsInfoModalOpen: false,
     };
   }
 
@@ -158,6 +161,14 @@ export class ThemeForm extends Component<Props, State> {
 
   closeWarningDialog = () => {
     this.setState({ isWarningDialogOpen: false });
+  };
+
+  openAnalyticsInfoModal = () => {
+    this.setState({ isAnalyticsInfoModalOpen: true });
+  };
+
+  closeAnalyticsInfoModal = () => {
+    this.setState({ isAnalyticsInfoModalOpen: false });
   };
 
   confirmColorDialog = () => {
@@ -418,6 +429,11 @@ export class ThemeForm extends Component<Props, State> {
           />
         </div>
         <div className={classes.buttonContainer}>
+          <Button color="primary" onClick={this.openAnalyticsInfoModal}>
+            {t('analytics.openAnalyticsModalButton')}
+          </Button>
+        </div>
+        <div className={classes.buttonContainer}>
           <Button
             color="primary"
             disabled={
@@ -441,6 +457,10 @@ export class ThemeForm extends Component<Props, State> {
             <CircularProgress className={classes.progress} />
           ) : null}
         </div>
+        <AnalyticsInfoModal
+          isOpen={this.state.isAnalyticsInfoModalOpen}
+          onClose={this.closeAnalyticsInfoModal}
+        />
       </div>
     );
   }

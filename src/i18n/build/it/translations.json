@@ -15288,7 +15288,7 @@
         "or": "o",
         "payLater": {
             "explain": "La tua ricevuta sarà considerata non pagata finchè non verrà saldata dal tuo profilo, o direttamente in sede.",
-            "submit": "Pagare sul posto"
+            "submit": "Pagamento in loco"
         },
         "validation": {
             "sections": {

@@ -8702,8 +8702,8 @@
                 "showInvoice": "Rechnung anzeigen",
                 "confirmPayment": "Zahlung bestätigen",
                 "payAll": "Kundenschulden begleichen",
-                "cancel": "Stornieren",
-                "revert": "Stornieren",
+                "cancel": "Abbrechen",
+                "revert": "Abbrechen",
                 "pay": "Rechnung bezahlen",
                 "bill": "Einziehen",
                 "basketInconsistent": "Ihr Warenkorb wurde geändert, bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\nSie wurden nicht belastet.",
@@ -10893,7 +10893,7 @@
             "selectAll": "Alle auswählen",
             "indeterminate": "Alle auswählen ({{count}} ausgewählt)"
         },
-        "cancel": "Stornieren",
+        "cancel": "Abbrechen",
         "confirm": "Bestätigen",
         "disconnectInfo": "Zurück zur Anmeldeseite",
         "disconnect": "Mich abmelden",
@@ -12931,7 +12931,7 @@
         "booking": {
             "showCalendar": "Kalender ansehen",
             "bookAgain": "Erneut buchen",
-            "discard": "Stornieren",
+            "discard": "Abbrechen",
             "titlePrivateBooking": "Termine",
             "titleBooking": "Gruppenaktivitäten",
             "accessLive": "Livestream beitreten",
@@ -13208,7 +13208,7 @@
                         "book": "Buchen",
                         "seeDetails": "Details ansehen",
                         "more": "Mehr",
-                        "cancel": "Storniert"
+                        "cancel": "Abbrechen"
                     },
                     "chip": {
                         "status": {
@@ -16228,7 +16228,7 @@
                 "drawer": {
                     "footer": {
                         "save": "Sichern",
-                        "cancel": "Stornieren",
+                        "cancel": "Abbrechen",
                         "back": "Zurück"
                     },
                     "form": {
@@ -16982,7 +16982,7 @@
                 "deleteModal": {
                     "title": "Löschen",
                     "confirm": "Löschen",
-                    "cancel": "Stornieren",
+                    "cancel": "Abbrechen",
                     "content": "Sind Sie sicher, dass Sie diesen Link entfernen möchten? Dieser Vorgang ist nicht rückgängig zu machen"
                 },
                 "updated": "Aktualisieren",
@@ -17010,7 +17010,7 @@
                     "title": "Start-Pop-up",
                     "name": "Name Pop-up",
                     "link": "Weiterleitungs-Link",
-                    "cancel": "Stornieren",
+                    "cancel": "Abbrechen",
                     "submit": "Speichern"
                 },
                 "image": "Bild",
@@ -17494,7 +17494,7 @@
             }
         },
         "payLater": {
-            "submit": "Barzahlung",
+            "submit": "Vor Ort bezahlen",
             "explain": "Ihre Rechnung wird als unbezahlt betrachtet, bis Sie diese über Ihr Mitgliedsprofil oder direkt im Studio begleichen."
         },
         "or": "oder",
@@ -17931,7 +17931,7 @@
                 "dialog": {
                     "title": "Einstellungen zurücksetzen",
                     "content": "Achtung Sie sind dabei, alle bereits angepassten Felder zurückzusetzen.",
-                    "cancel": "Stornieren",
+                    "cancel": "Abbrechen",
                     "confirm": "Bestätigen"
                 },
                 "submit": "Speichern",
@@ -17959,7 +17959,7 @@
                 "save": "Speichern",
                 "dialog": {
                     "title": "Element zurücksetzen",
-                    "cancel": "Stornieren",
+                    "cancel": "Abbrechen",
                     "confirm": "Bestätigen",
                     "content": "Achtung Sie sind dabei, das CSS dieses Elements zurückzusetzen. Es wird auf seine Standardkonfiguration zurückgesetzt."
                 },
@@ -19035,7 +19035,7 @@
                     "beingArchived": "Sie sind dabei, {{- name }} zu archivieren.",
                     "confirm": "Weiter",
                     "helper": "Die Mitglieder, die sich gerade in der Kadenz befinden, verlassen diese automatisch. Diese Kadenz wird archiviert, aber Sie können sie später wieder aktivieren.",
-                    "cancel": "Stornieren",
+                    "cancel": "Abbrechen",
                     "title": "Eine Kadenz löschen",
                     "confirmButton": "Archivieren"
                 },
@@ -19130,7 +19130,7 @@
                 "addAction": "Eine Aktion hinzufügen"
             },
             "bubble": {
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "confirm": "Speichern",
                 "next": "Weiter",
                 "previous": "Zurück",
@@ -20562,7 +20562,7 @@
             "description": "Die Registrierung für diesen Antrag wurde am {{closing_date}} geschlossen. Wenn nicht genügend Antworten auf diese Anfrage eingehen, können Sie den Anmeldeschluss immer noch verschieben.",
             "closing_date": "Einsendeschluss",
             "new_closing_date": "Der neue Einsendeschluss wird {{closing_date}} um {{time}} sein",
-            "cancel": "Stornieren",
+            "cancel": "Abbrechen",
             "submit": "bestätigen",
             "requestSent": "Anfrage gesendet",
             "close": "Schließen",
@@ -20781,7 +20781,7 @@
             "modalTitle": "Erstellen eines Zugangs zur Verkaufsschnittstelle",
             "email": "E-Mail",
             "password": "Passwort",
-            "cancel": "Stornieren",
+            "cancel": "Abbrechen",
             "submit": "Validieren",
             "staffColumn": "Mitarbeiter",
             "emailColumn": "E-Mail",
@@ -20802,7 +20802,7 @@
             "memberModal": {
                 "title": "Identifikation des Mitglieds",
                 "confirm": "Registrieren",
-                "cancel": "Stornieren"
+                "cancel": "Abbrechen"
             },
             "authenticationNecessary": "Für diesen Abschnitt ist die Authentifizierung eines Mitglieds erforderlich.",
             "ongoingBaskets": {

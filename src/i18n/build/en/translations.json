@@ -7692,7 +7692,7 @@
             }
         },
         "payLater": {
-            "submit": "Pay later",
+            "submit": "Pay on site",
             "explain": "Your invoice will be considered unpaid until you settle it from your member profile, or directly in the studio."
         },
         "or": "or",

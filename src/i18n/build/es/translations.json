@@ -13551,7 +13551,7 @@
         "or": "o",
         "payLater": {
             "explain": "Su factura se considerará impagada hasta que la liquide desde su perfil de miembro, o directamente en el estudio.",
-            "submit": "Pague en el sitio"
+            "submit": "Pague in situ"
         },
         "validation": {
             "sections": {

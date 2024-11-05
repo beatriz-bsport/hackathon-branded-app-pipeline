@@ -1,4 +1,5 @@
 import type { Basket } from '#src/libs/checkout/types';
+import type { OfferREST } from '#src/libs/offer/types';
 import type { CartItem, OfferBookingValidation, SessionItem } from './types';
 import { STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE } from '#src/libs/theme/constants';
 import { getItemInStorage } from '#src/utils/storage';
@@ -106,15 +107,21 @@ export const getItemType = (item: CartItem) => {
   return 'none';
 };
 
-/*
-    This function is made to retrieve all the sesion dat
-    that is linked to the items bought during a purchase event on bsport
-    It take the basket checkout items and will check for each of them
-    if they have any session data linked to them so that we can know
-    how many sessions have been booked during a single purchase process
-  */
+/**
+ * This function is made to retrieve all the sessions that are linked to the items bought
+ * during a purchase event on bsport It take the basket checkout items and also the basketOffers
+ * and will check for each of them if they have any session data linked to them so that
+ * we can know how many sessions have been booked during a single purchase process
+ *
+ * @param basket - The basket that was purcahsed during the checkout flow
+ * @param basketOffers - An OfferREST array with the data of all the sessions booked linked
+ *                       to passes bought during a checkout flow .
+ * @returns - A OfferBookingValidation array containing the analytics data to send to Analytics
+ *            integration when there is a new booking success with an Item bought
+ */
 export const getBookedSessionListDataFromBasket = (
   basket: Basket,
+  basketOffers: OfferREST[],
 ): OfferBookingValidation[] => {
   const bookingSuccessData: OfferBookingValidation[] = [];
 
@@ -123,12 +130,24 @@ export const getBookedSessionListDataFromBasket = (
       const offers = item.extra_data.offers_data;
 
       offers.forEach((offer) => {
-        bookingSuccessData.push({
-          id: offer.offer_id || 0,
-          spotId: offer?.extra_data?.spot_id,
-          spotName: offer?.extra_data?.spot_name,
+        const offerData = basketOffers.find(
+          (basketOffer) => basketOffer.id === offer.offer_id,
+        );
+        const mappedOffer: OfferBookingValidation = {
+          id: offer.offer_id,
           isNewPass: true,
-        });
+        };
+        if (offerData) {
+          mappedOffer.metaActivityId = getSessionMetaActivityId(offerData);
+          mappedOffer.coachId = getSessionCoachId(offerData);
+          mappedOffer.establishmentId = getSessionEstablishmentId(offerData);
+          if (offerData.date_start) mappedOffer.date = offerData.date_start;
+        }
+        if (offer.extra_data?.spot_id)
+          mappedOffer.spotId = offer.extra_data.spot_id;
+        if (offer.extra_data?.spot_name)
+          mappedOffer.spotName = offer.extra_data.spot_name;
+        bookingSuccessData.push(mappedOffer);
       });
     }
   });

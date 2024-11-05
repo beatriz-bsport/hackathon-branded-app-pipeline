@@ -130,7 +130,7 @@ import {
 
 import { type EstablishmentBillingGroup } from '../../../libs/establishment/types';
 import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
-import { getBookedSessionListDataFromBasket } from '../../../components/analytics/utils';
+import { getBookedSessionListDataFromBasket } from '#src/components/analytics/utils';
 
 type Props = {
   basket: ?Basket,
@@ -1002,10 +1002,19 @@ export default compose(
           extra_data: {},
         }),
     onSuccess:
-      ({ replace, basket, isNewCheckoutFlow, queryParams, theme }) =>
+      ({
+        replace,
+        basket,
+        isNewCheckoutFlow,
+        queryParams,
+        theme,
+        basketOffers,
+      }) =>
       () => {
-        const bookedSessionListData =
-          getBookedSessionListDataFromBasket(basket);
+        const bookedSessionListData = getBookedSessionListDataFromBasket(
+          basket,
+          basketOffers,
+        );
         if (bookedSessionListData.length || bookedSessionListData.length > 0)
           analyticsUtils.onSessionBookingSuccess({
             offersBooked: bookedSessionListData,

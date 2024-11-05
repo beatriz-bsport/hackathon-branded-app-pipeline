@@ -29,7 +29,7 @@
                     "hours_before_start": "Hora(s) antes de la sesión :",
                     "min_bookings_nb": "Número de reserva(s):",
                     "emailRecipients": "Este correo se enviará a las cuentas con el papel de Propietario o Administrador, así como al profesor (o sustituto) de la sesión en cuestión. También puedes configurar un correo electrónico para enviarlo a los estudiantes.",
-                    "explain": "Cancele la sesión y envíe una notificación por correo a los estudiantes si hay {{bookings_nb}} reserva(s) o menos {{hours}}h antes del comienzo de la sesión.",
+                    "explain": "Cancele la sesión y envíe una notificación por correo a los estudiantes si hay ≤ {{bookings_nb}} reserva(s) o menos {{hours}}h antes del comienzo de la sesión.",
                     "checkbox": "Cancelar sesiones con muy pocas reservas"
                 }
             },

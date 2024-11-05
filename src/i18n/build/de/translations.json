@@ -13556,7 +13556,7 @@
             "title": "Einstellungen",
             "firstBookingMinutesUntil": "Mitglieder können Kurse für bis zu {{m}} in der Zukunft buchen.",
             "conditions": "Stornierungsbedingungen",
-            "autoDiscard": "Der Kurs wird abgesagt, wenn es {{nb_bookings}} Buchung(en) oder weniger {{hours}}h vor Beginn des Kurses gibt.",
+            "autoDiscard": "Der Kurs wird abgesagt, wenn es nicht mehr als {{nb_bookings}} Buchung(en) oder weniger {{hours}}h vor Beginn des Kurses gibt.",
             "firstBookingMinutesUntilHeader": "Öffnung des Buchungsfensters",
             "lastBookingBeforeMinutesHeader": "Letzte Möglichkeit der Buchung vor Beginn des Kurses",
             "lastBookingBeforeMinutesFull": "Letzte Buchungen möglich bis {{m}} vor Beginn des Kurses",

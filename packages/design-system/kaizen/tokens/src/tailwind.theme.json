@@ -382,8 +382,6 @@
     "action-call-to-action-hovered": "var(--kz-shadow-action-call-to-action-hovered)",
     "action-call-to-action-pressed": "var(--kz-shadow-action-call-to-action-pressed)",
     "focused": "var(--kz-shadow-focused)",
-    "action-status-success": "var(--kz-shadow-action-status-success)",
-    "action-status-error": "var(--kz-shadow-action-status-error)",
     "xl": "var(--kz-shadow-xl)",
     "sm": "var(--kz-shadow-sm)",
     "md": "var(--kz-shadow-md)",

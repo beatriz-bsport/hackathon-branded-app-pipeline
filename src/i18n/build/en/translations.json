@@ -2353,7 +2353,8 @@
             "1001": "Spivi account created (for members)",
             "1003": "Spivi account created (for teachers)",
             "1200": "Payment method expiration first reminder for payments by instalments",
-            "1201": "Payment method expiration second reminder for payments by instalments"
+            "1201": "Payment method expiration second reminder for payments by instalments",
+            "308": "Physical gift card activation"
         },
         "messages": {
             "createOrUpdate": {

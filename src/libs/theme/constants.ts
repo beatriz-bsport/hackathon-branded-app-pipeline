@@ -14,4 +14,4 @@ export const STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR =
   'bsport:display:pass_credit_factor';
 
 export const AnalyticsDocumentationURL =
-  'https://www.notion.so/bright-shovel-41b/Configure-Google-Analytics-4-and-GTM-4ecc0e47d30044f48c4b67663c6c7e3c';
+  'https://docs.ext.bsport.io/Connect-your-analytics-tools-136137e4c640802e8d81f19804aa4e2f?pvs=4';

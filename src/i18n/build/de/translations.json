@@ -399,7 +399,7 @@
                 "alertDifferentMonthInput": "Wert vergangener Rechnungen",
                 "validate": "Bestätigen",
                 "title": "Vergangenes Datum",
-                "cancel": "Stornieren"
+                "cancel": "Abbrechen"
             },
             "monthBillingDay": "Wird jeden {{ month_billing_day }} des Monats in Rechnung gestellt",
             "autoRenewal": "Automatische Verlängerung",
@@ -789,7 +789,7 @@
                     "goBack": "Zurück",
                     "confirm": "Bestätigen",
                     "pause": "Pausieren",
-                    "cancel": "Stornieren",
+                    "cancel": "Abbrechen",
                     "verify": "Überprüfen",
                     "save": "Speichern",
                     "continue": "Weiter"
@@ -878,7 +878,7 @@
             },
             "buttons": {
                 "submit": "Speichern",
-                "cancel": "Stornieren"
+                "cancel": "Abbrechen"
             },
             "emailNotification": {
                 "parameters": "E-Mail Einstellungen",
@@ -2941,7 +2941,7 @@
         "delete": "Löschen",
         "edit": "Einrichten",
         "tag_rules": {
-            "cancel": "Stornieren",
+            "cancel": "Abbrechen",
             "associated_tag": "Zugehöriges Tag",
             "create": "Erstelle eine Regel",
             "tag_on_join_and_untag_on_left": "Tag, falls in der Smartlist vorhanden",
@@ -3326,7 +3326,7 @@
                     "dialogTitle": "Hinweis",
                     "dialogContent": "Achtung: Wenn Sie diese Option deaktivieren, ist es für Ihre Mitglieder nicht mehr möglich, für einen Gast zu buchen.",
                     "dialogButtonConfirm": "Bestätigen",
-                    "dialogButtonCancel": "Stornieren"
+                    "dialogButtonCancel": "Abbrechen"
                 },
                 "frequencies": {
                     "week": "Woche",
@@ -3342,7 +3342,7 @@
             },
             "warningColorBrightness": {
                 "save": "Speichern",
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "text": "Eine der ausgewählten Farben ist sehr hell und könnte schwer zu erkennen sein",
                 "title": "Achtung",
                 "example": "Beispiel"
@@ -3902,7 +3902,7 @@
                     "_label": "Änderung"
                 },
                 "delete": {
-                    "_label": "Stornierung"
+                    "_label": "Abbrechen"
                 },
                 "create": {
                     "_label": "Erstellung"
@@ -6660,7 +6660,7 @@
                     "invalidTypeForColumns": "Fehler bei der Bearbeitung dieser Aktion"
                 },
                 "columnError": "Bitte beachten Sie, dass die hier gefilterte Spalte aus dem Bericht entfernt worden ist. Der Filter für diese Spalte wird jedoch weiterhin angewendet.",
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "title": "Gefilterte Ansicht",
                 "name": "Name",
                 "filter": "Filter",
@@ -8914,7 +8914,7 @@
                     "close": "Schließen",
                     "displayPaymentMethod": "Meine Zahlungsmethoden anzeigen",
                     "selectPaymentMethod": "Wählen Sie Ihre Zahlungsmethode",
-                    "cancel": "Stornieren",
+                    "cancel": "Abbrechen",
                     "addPaymentMethodDenied": "Dieses Mitglied hat derzeit keine solche Zahlungsmethode gespeichert, und Sie haben nicht die Erlaubnis, eine neue hinzuzufügen."
                 },
                 "collect": {
@@ -11789,7 +11789,7 @@
                 "resource": "Achtung! {{ resource }} ist im Moment nicht verfügbar.\n",
                 "continue": "Sind Sie sicher, dass Sie den Termin verschieben möchten?",
                 "validate": "Bestätigen",
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "loading": "Prüfung der Verfügbarkeit"
             }
         },
@@ -16941,7 +16941,7 @@
                 "popup": {
                     "title": "Externer Link",
                     "link": "weitergeleiteter Link",
-                    "cancel": "Stornieren",
+                    "cancel": "Abbrechen",
                     "submit": "Speichern",
                     "name": "Name",
                     "icon": "Symbol"
@@ -19536,7 +19536,7 @@
                 "title": "Löschen",
                 "actions": {
                     "confirm": "Bestätigen",
-                    "cancel": "Stornieren"
+                    "cancel": "Abbrechen"
                 },
                 "content": {
                     "canDelete": "Sind Sie sicher, dass Sie diesen Spot löschen wollen? Diese Aktion ist unwiederruflich. Er wird gelöscht und durch den Standard-Spot auf diesem Plan und allen anderen, auf denen er hinzugefügt wurde, ersetzt."
@@ -20515,7 +20515,7 @@
                 "pickCategory": "Kategorie wählen",
                 "allCategories": "Unterrichtet alle Kategorien",
                 "coaches": "Zugehörige Lehrkräfte",
-                "close": "Stornieren",
+                "close": "Abbrechen",
                 "submit": "Speichern",
                 "coachRequired": "Bitte wählen Sie mindestens eine Lehrkraft aus",
                 "name": "Name",
@@ -20570,7 +20570,7 @@
         },
         "requests": {
             "description": "Hier finden Sie alle Ihre Anfragen auf Vertretung.",
-            "cancel": "Stornieren",
+            "cancel": "Abbrechen",
             "title": "Meine Anfragen"
         },
         "confirmations": {
@@ -20706,7 +20706,7 @@
                 "objectType": "Produkt-Typ",
                 "category": "Kategorie",
                 "add": "Hinzufügen",
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "search": "Suche",
                 "tilesColor": "Produkt-Farbe",
                 "objectsAddition": "Objekte hinzufügen",
@@ -20812,12 +20812,12 @@
             "deleteCurrentBasket": {
                 "title": "Aktuellen Warenkorb löschen",
                 "subText": "Sind Sie sicher, dass Sie den aktuellen Warenkorb löschen möchten?",
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "delete": "Löschen"
             },
             "payLater": {
                 "title": "Aufschieben",
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "payLater": "Auf später verschieben",
                 "subText": "Dieser Warenkorb ist bereits teilweise bezahlt. Wenn Sie ihn schließen, verschieben Sie den Rest der Zahlung auf später. Sie können die Rechnung im Backoffice wiederfinden."
             },
@@ -20924,7 +20924,7 @@
             "firstName": "Vorname",
             "lastName": "Nachname",
             "sendToTerminal": "An das Terminal senden",
-            "cancel": "Stornieren",
+            "cancel": "Abbrechen",
             "validate": "Bestätigen",
             "clientDebt": "Kunden-Restguthaben",
             "internalCredits": "Interne Credits"

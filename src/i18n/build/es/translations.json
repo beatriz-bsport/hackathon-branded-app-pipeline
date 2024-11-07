@@ -7674,7 +7674,7 @@
                 "compatibleWithEverything": "Compatible con todo",
                 "onlyVodAccess": "Disponible sólo para VOD",
                 "fullVodAccess": "Compatible con VOD",
-                "onsitePaymentAvailable": "Pago in situ disponible",
+                "onsitePaymentAvailable": "Pago presencial disponible",
                 "cancellation": "{{count}} cancelación",
                 "cancellation_plural": "{{count}} cancelaciones",
                 "penaltyNoShow": {
@@ -12543,7 +12543,7 @@
                                 "_label": "Editar"
                             }
                         },
-                        "_label": "Pagos in situ"
+                        "_label": "Pago presencial"
                     },
                     "unpaid_invoices": {
                         "_label": "Facturas impagadas",
@@ -15797,7 +15797,7 @@
             "activities": "Actividades",
             "room": "Salas",
             "categories": "Categorías",
-            "inShopPayment": "Posibilidad de pagar en el momento",
+            "inShopPayment": "Permitir el pago presencial",
             "notForSell": "Invisible para los clientes",
             "newClientOnly": "Solo para nuevos clientes",
             "maxUseMember": "Compra máxima por miembro",

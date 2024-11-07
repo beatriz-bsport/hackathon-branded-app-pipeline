@@ -69,6 +69,8 @@ export const NEW_MEMBER_PROFILE_COMPANY_ID_LIST = [
   467,
   // Espace Anahata
   488,
+  // LINE SPORTS CLUB - TESTING
+  498,
   // Yoga Reims Graines De Yogi
   504,
   // MV Coaching

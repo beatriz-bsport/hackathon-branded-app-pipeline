@@ -197,7 +197,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
           memberLoading={memberLoading}
           membershipCompany={this.props.companyId ?? membership.company}
           membershipError={membershipError}
-          membershipId={membership.id}
+          membershipId={membership?.id}
           membershipLoading={membershipLoading}
           paymentMethodLoading={paymentMethodLoading}
           paymentMethods={paymentMethods}

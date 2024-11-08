@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { SetRequired } from "type-fest";
 import Icon, { IconName } from "../Icon";
-import { colors, defaultClasses, sizes, types, variants } from "./constants";
+import { colors, defaultClasses, sizes, variants } from "./constants";
 
 const chip = cva(defaultClasses, {
   variants,
@@ -16,7 +16,7 @@ type VariantChipsProps = SetRequired<
 export type ChipProps = React.HTMLAttributes<HTMLDivElement> &
   VariantChipsProps & {
     label: string;
-    type: keyof typeof types;
+    type: "weak" | "strong";
     color: (typeof colors)[number];
     size: keyof typeof sizes;
     iconLeft?: IconName;
@@ -90,7 +90,6 @@ const Chip: React.FC<ChipProps> = ({
     <div
       className={chip({
         className,
-        type,
         size,
         colorByType: `${type}:${color}` as keyof typeof variants.colorByType,
       })}
@@ -105,6 +104,6 @@ const Chip: React.FC<ChipProps> = ({
 
 Chip.displayName = "KaizenChip";
 
-export { colors, sizes, types };
+export { colors, sizes };
 
 export default Chip;

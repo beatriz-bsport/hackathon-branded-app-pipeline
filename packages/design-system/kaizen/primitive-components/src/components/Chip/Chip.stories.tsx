@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Chip, { colors, sizes, types } from "./Chip";
+import Chip, { colors, sizes } from "./Chip";
 import { icons } from "../Icon";
 
 /**
@@ -14,7 +14,7 @@ const meta: Meta<typeof Chip> = {
   argTypes: {
     label: { control: "text" },
     type: {
-      options: Object.keys(types),
+      options: ["weak", "strong"],
       control: { type: "inline-radio" },
       table: { type: { summary: "string" } },
     },

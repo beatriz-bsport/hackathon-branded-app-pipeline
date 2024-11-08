@@ -675,14 +675,14 @@ export type PrivateBookingFilterParams = {
   date_start__gte?: string;
   date_start__lte?: string;
   establishment?: number;
-  future_booking?: boolean;
+  strictly_future_booking?: boolean;
   id__in?: number[];
   is_recurrent?: boolean;
   is_unpaid?: boolean;
   member?: number;
   page_size?: number;
   page?: number;
-  past_booking?: boolean;
+  strictly_past_booking?: boolean;
   was_refunded?: boolean;
 };
 

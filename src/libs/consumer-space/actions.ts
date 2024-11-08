@@ -707,7 +707,7 @@ export function fetchMyPastBookingWorkshopAsMember(
         page: page ?? 1,
         page_size,
         mine_as_consumer: true,
-        past_booking: true,
+        strictly_past_booking: true,
         offer_is_workshop: true,
       });
       dispatch(
@@ -754,7 +754,7 @@ export function fetchMyFutureBookingWorkshopAsMember(
         page: page ?? 1,
         page_size,
         mine_as_consumer: true,
-        future_booking: true,
+        strictly_future_booking: true,
         offer_is_workshop: true,
       });
       dispatch(
@@ -835,7 +835,7 @@ export function fetchMyPastPrivateBookingAsMember(
         member,
         page_size,
         company,
-        past_booking: true,
+        strictly_past_booking: true,
       });
       dispatch(fetchMyPastPrivateBookingAsMemberActions.success(response.data));
       if (options && options.onSuccess) {
@@ -878,7 +878,7 @@ export function fetchMyFuturePrivateBookingAsMember(
         member,
         page_size,
         company,
-        future_booking: true,
+        strictly_future_booking: true,
       });
       dispatch(
         fetchMyFuturePrivateBookingAsMemberActions.success(response.data),

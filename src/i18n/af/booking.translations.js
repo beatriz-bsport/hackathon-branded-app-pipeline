@@ -440,6 +440,7 @@ const getTranslations = async () => {
       bookingFor: 'Booking for',
       bookingForSubtitle: 'Select the person you want to book for',
       bookingForAGuest: {
+        submit: 'Book for a guest',
         sendInvitation: 'Send invitation',
         addGuest: 'Add a guest',
         warningLeveledSession:

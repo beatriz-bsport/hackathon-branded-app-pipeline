@@ -536,6 +536,7 @@
       "bookingFor": "Booking for",
       "bookingForSubtitle": "Select the person you want to book for",
       "bookingForAGuest": {
+        "submit": "Book for a guest",
         "sendInvitation": "Send invitation",
         "addGuest": "Add a guest",
         "warningLeveledSession": "This session is reserved for people with the following level: {{level}}. Make sure the person you invite has the expected level.",

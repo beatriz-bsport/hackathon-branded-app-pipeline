@@ -136,7 +136,7 @@ const InviteBookingGuestModal: React.FC<Props> = ({
   const getConfirmLabel = (emailValue?: string, emailError?: string) => {
     switch (formStep) {
       case InviteBookingGuestFormStepEnum.INITIAL:
-        return t('booking:offer.bookingForAGuest.sendInvitation');
+        return t('booking:offer.bookingForAGuest.submit');
       case InviteBookingGuestFormStepEnum.EMAIL_WARNING:
         return !!emailValue && !emailError
           ? t('common:send')

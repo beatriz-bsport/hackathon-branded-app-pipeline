@@ -140,6 +140,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     isSubscriptionDetailsDrawerOpen,
     currentCount,
     currentPage,
+    setSelectedSubscription,
     handleTermsModalOpen,
     handleTermsModalClose,
     handlePaymentModalOpen,
@@ -176,14 +177,26 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
 
   const handleSwitchPaymentMethod = React.useCallback(
     (subscriptionId, payment_method_id, options) => {
-      switchPaymentMethod(
-        subscriptionId,
-        payment_method_id,
-        selectedFilter,
-        options,
-      );
+      switchPaymentMethod(subscriptionId, payment_method_id, selectedFilter, {
+        onSuccess: () => {
+          options?.onSuccess?.();
+          if (isPaymentModalOpen) {
+            handleCloseSubscriptionDetailsDrawer();
+            handlePaymentModalClose();
+            setSelectedSubscription(null);
+          }
+        },
+        onError: options?.onError,
+      });
     },
-    [selectedFilter, switchPaymentMethod],
+    [
+      switchPaymentMethod,
+      selectedFilter,
+      isPaymentModalOpen,
+      handleCloseSubscriptionDetailsDrawer,
+      handlePaymentModalClose,
+      setSelectedSubscription,
+    ],
   );
 
   const { t } = useTranslation('consumerSpace');

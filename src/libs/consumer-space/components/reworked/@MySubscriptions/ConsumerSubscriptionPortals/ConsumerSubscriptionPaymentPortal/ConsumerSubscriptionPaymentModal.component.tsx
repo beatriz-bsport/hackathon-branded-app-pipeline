@@ -72,7 +72,7 @@ const ConsumerSubscriptionPaymentModal: React.FC<Props> = ({
           isConfirmButtonDisabled={!selectedPaymentMethodId}
           isSubmitLoading={isProcessing}
           onCancel={handleClose}
-          onClose={selectedSubscription && handleClose}
+          onClose={handleClose}
           onConfirm={
             !switchSucceeded && selectedSubscription ? handleConfirm : null
           }

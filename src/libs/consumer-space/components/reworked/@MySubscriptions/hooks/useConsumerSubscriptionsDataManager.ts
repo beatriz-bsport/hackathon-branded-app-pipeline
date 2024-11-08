@@ -224,6 +224,7 @@ const useConsumerSubscriptionsDataManager = ({
     selectedSubscriptionInvoiceDetails,
     selectedFilter,
     subscriptionsList,
+    setSelectedSubscription,
     // MODAL STATE
     isTermsModalOpen,
     isPaymentModalOpen,

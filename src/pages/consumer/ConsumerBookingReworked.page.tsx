@@ -5,7 +5,6 @@ import { push as pushRouter } from 'connected-react-router';
 import uniq from 'lodash/uniq';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
-import { urlToMarketplaceSessionTab } from '#src/libs/marketplace/utils/navigation';
 
 import { fetchOfferBulk as fetchOfferBulkAction } from '#src/libs/offer/actions';
 import { fetchGroupOffer as fetchGroupOfferAction } from '#src/libs/group-offer/actions';
@@ -262,20 +261,6 @@ export class ConsumerBooking extends React.Component<Props, State> {
     this.props.fetchPrivateSlotBulk(privateBookingsPrivateSlotList);
   };
 
-  handleBookASessionClick = () => {
-    const marketplaceTabPath = urlToMarketplaceSessionTab(
-      this.props.marketplaceSettingsConfig,
-      this.props.theme.company_name,
-      this.props.theme.company.toString(),
-    );
-    if (WidgetUtils.isWidget()) {
-      WidgetUtils.closeModal();
-      window?.close();
-    } else {
-      this.props.push(marketplaceTabPath);
-    }
-  };
-
   fetchPastBookings = (page?: number) => {
     !!this.props.membership?.id &&
       this.props.fetchMyPastBookingAsMember(
@@ -447,7 +432,6 @@ export class ConsumerBooking extends React.Component<Props, State> {
         getRelatedConsumerBookingsInGroup={
           this.props.getRelatedConsumerBookingsInGroup
         }
-        handleBookASessionClick={this.handleBookASessionClick}
         isConsumerPacksLoading={this.state.isConsumerPacksLoading}
         onBookingForAGuestSubmit={this.handleBookingForAGuestSubmit}
         pastBookingsList={this.props.myPastBookingsList}

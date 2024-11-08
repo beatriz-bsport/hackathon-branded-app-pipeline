@@ -12,14 +12,6 @@ import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 
 import ConsumerPassReworkedComponent from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPassPageReworked';
 
-/** UTILS */
-
-import {
-  urlToMarketplacePassTab,
-  urlToMarketplaceSessionTab,
-} from '#src/libs/marketplace/utils/navigation';
-import WidgetUtils from '#src/libs/widget/WidgetUtils';
-
 /** SELECTORS */
 
 import {
@@ -325,34 +317,6 @@ export class ConsumerPassReworked extends React.Component<
       );
   };
 
-  handleBuyPassClick = () => {
-    const marketplaceTabPath = urlToMarketplacePassTab(
-      this.props.marketplaceSettingsConfig,
-      this.props.theme.company_name,
-      this.props.theme.company.toString(),
-    );
-    if (WidgetUtils.isWidget()) {
-      WidgetUtils.closeModal();
-      window?.close();
-    } else {
-      this.props.push(marketplaceTabPath);
-    }
-  };
-
-  handleBookASessionClick = () => {
-    const marketplaceTabPath = urlToMarketplaceSessionTab(
-      this.props.marketplaceSettingsConfig,
-      this.props.theme.company_name,
-      this.props.theme.company.toString(),
-    );
-    if (WidgetUtils.isWidget()) {
-      WidgetUtils.closeModal();
-      window?.close();
-    } else {
-      this.props.push(marketplaceTabPath);
-    }
-  };
-
   getIsLoading = () => {
     return this.props.consumerPassesLoading;
   };
@@ -414,8 +378,6 @@ export class ConsumerPassReworked extends React.Component<
         }
         futureUniversalPassesList={this.props.myFutureUniversalPassesList}
         futureUniversalPassesState={this.props.myFutureUniversalPassesState}
-        handleBookASessionClick={this.handleBookASessionClick}
-        handleBuyPassClick={this.handleBuyPassClick}
         isLoading={this.getIsLoading()}
         isMetadataLoading={this.props.consumerPassesMetadataLoading}
         resetConsumerState={this.props.resetConsumerState}

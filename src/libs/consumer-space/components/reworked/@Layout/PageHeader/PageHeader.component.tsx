@@ -18,7 +18,7 @@ type Props = {
 
   isMobile: boolean;
   TitleProps?: {
-    buttons: HeaderButton[];
+    buttons?: HeaderButton[];
     title: string;
   };
   TabsProps?: {

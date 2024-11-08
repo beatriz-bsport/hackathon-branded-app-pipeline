@@ -1,8 +1,6 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import WidgetUtils from '#src/libs/widget/WidgetUtils';
-
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
 import ConsumerPaymentPackListContainer from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackListContainer';
 import PrivateConsumerPassListContainer from '#src/libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassListContainer';
@@ -16,7 +14,6 @@ import {
   PassFilterTabEnum,
 } from '#src/libs/consumer-space/components/reworked/@MyPasses/constants';
 
-import { Calendar, ChevronRight } from '#src/components/untitledui';
 import type {
   ConsumerPaymentPackREST,
   ConsumerPaymentPackReworked,
@@ -33,8 +30,6 @@ import type {
   UniversalPassREST,
   UniversalPassReworked,
 } from '#src/libs/universal-pass/types';
-
-import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
 import './styles.css';
 
@@ -67,8 +62,6 @@ type Props = {
   futurePrivateConsumerPassesState: ConsumerPassReworked<PrivateConsumerPassREST>;
   futureUniversalPassesList: UniversalPassReworked[];
   futureUniversalPassesState: ConsumerPassReworked<UniversalPassREST>;
-  handleBookASessionClick: () => void;
-  handleBuyPassClick: () => void;
   isLoading: boolean;
   isMetadataLoading: boolean;
   resetConsumerState: () => void;
@@ -103,8 +96,6 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
   futurePrivateConsumerPassesState,
   futureUniversalPassesList,
   futureUniversalPassesState,
-  handleBookASessionClick,
-  handleBuyPassClick,
   isLoading,
   isMetadataLoading,
   resetConsumerState,
@@ -162,29 +153,6 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
   });
 
   const { t } = useTranslation('consumerSpace');
-
-  const isWidget = WidgetUtils.isWidget();
-
-  const buttonsData: HeaderButton[] = useMemo(
-    () =>
-      isWidget
-        ? []
-        : [
-            {
-              label: t('reworked.myPasses.bookASession'),
-              onClick: handleBookASessionClick,
-              variant: 'outlined',
-              color: 'grey',
-              leftIcon: <Calendar stroke="currentColor" />,
-            },
-            {
-              label: t('reworked.myPasses.buyANewPass'),
-              onClick: handleBuyPassClick,
-              rightIcon: <ChevronRight stroke="currentColor" />,
-            },
-          ],
-    [handleBookASessionClick, handleBuyPassClick, t, isWidget],
-  );
 
   const handleSetActivityPassTab = React.useCallback(
     () => handleSetSelectedTab(PassTabEnum.CONSUMER_PAYMENT_PACK),
@@ -318,7 +286,6 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
           handleToggleTabDrawer: handleTogglePassTabDrawer,
         }}
         TitleProps={{
-          buttons: buttonsData,
           title: t('reworked.myPasses.title'),
         }}
       />

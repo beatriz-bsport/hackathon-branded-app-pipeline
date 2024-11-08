@@ -43,10 +43,6 @@ import {
   downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAction,
 } from '#src/libs/subscription/actions';
 import { fetchInvoiceConfigurationAsMember as fetchInvoiceConfigurationAsMemberAction } from '#src/libs/invoice/actions';
-import {
-  urlToMarketplaceSessionTab,
-  urlToMarketplaceSubscriptionTab,
-} from '#src/libs/marketplace/utils/navigation';
 import { getTheme } from '#src/libs/theme/selectors';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
@@ -60,7 +56,6 @@ type OwnProps = {
   membership: Membership;
   // eslint-disable-next-line react/no-unused-prop-types
   companyId: number;
-  push: (path: string) => void;
 };
 
 type Props = OwnAndConnectedAndRouteProps &
@@ -78,30 +73,6 @@ export class ConsumerSubscription extends React.Component<Props> {
     this.props.fetchInvoiceConfiguration();
     this.props.fetchPaymentMethodList();
   }
-
-  handleBookASessionClick = () => {
-    const marketplaceTabPath = urlToMarketplaceSessionTab(
-      this.props.marketplaceSettingsConfig,
-      this.props.companyTheme.company_name,
-      this.props.companyTheme.company.toString(),
-    );
-
-    this.props.push(marketplaceTabPath);
-  };
-
-  handleGetASubscription = () => {
-    const marketplaceTabPath = urlToMarketplaceSubscriptionTab(
-      this.props.marketplaceSettingsConfig,
-      this.props.companyTheme.company_name,
-      this.props.companyTheme.company.toString(),
-    );
-    if (WidgetUtils.isWidget()) {
-      WidgetUtils.closeModal();
-      window?.close();
-    } else {
-      this.props.push(marketplaceTabPath);
-    }
-  };
 
   render() {
     const {
@@ -152,8 +123,6 @@ export class ConsumerSubscription extends React.Component<Props> {
         }
         memberMail={auth.username}
         memberName={auth.name}
-        onBookSessionClick={this.handleBookASessionClick}
-        onGetASubscriptionClick={this.handleGetASubscription}
         paymentMethodList={paymentMethodList as PaymentMethod[]}
         paymentMethodLoading={paymentMethodLoading}
         refreshSavedPaymentMethodList={fetchPaymentMethodList}

@@ -15,7 +15,7 @@ export type HeaderButton = Pick<
 
 type Props = {
   isMobile?: boolean;
-  buttons: HeaderButton[];
+  buttons?: HeaderButton[];
   title: string;
 };
 

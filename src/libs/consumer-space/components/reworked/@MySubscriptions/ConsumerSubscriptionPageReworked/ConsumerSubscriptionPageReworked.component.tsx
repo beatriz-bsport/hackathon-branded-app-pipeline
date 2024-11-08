@@ -12,7 +12,6 @@ import {
   ConsumerSubscriptionTermsPortal,
   ConsumerSubscriptionPaymentPortal,
 } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPortals';
-import { Calendar, ChevronRight } from '#src/components/untitledui';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import type {
@@ -25,7 +24,6 @@ import type {
 } from '#src/libs/consumer-space/types';
 import type { PaymentMethod } from '#src/libs/payment/types';
 import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
-import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
 import useConsumerSubscriptionsDataManager from '#src/libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
 import { SubscriptionFilterEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
@@ -34,10 +32,6 @@ import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 
 import './styles.css';
-import {
-  ButtonColor,
-  ButtonVariant,
-} from '#src/components/css-only/Fabrique/ButtonV2/types';
 
 type Props = {
   activeSubscriptionsState: ConsumerSubscriptionReworked;
@@ -62,8 +56,6 @@ type Props = {
     page_size?: number,
     options?: OptionCallback<PaginatedResponse<SubscriptionREST>>,
   ) => void;
-  onBookSessionClick: () => void;
-  onGetASubscriptionClick: () => void;
   fetchConsumerSubscriptionInvoicesDetails: (
     params: { id: number; page_size?: number },
     options?: OptionCallback<{
@@ -104,8 +96,6 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   expiredSubscriptionsState,
   expiredSubscriptionsList,
   paymentMethodList,
-  onBookSessionClick,
-  onGetASubscriptionClick,
   fetchActiveSubscriptionsList,
   fetchFutureSubscriptionsList,
   fetchExpiredSubscriptionsList,
@@ -201,35 +191,6 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
 
   const { t } = useTranslation('consumerSpace');
 
-  const isWidget = WidgetUtils.isWidget();
-
-  const buttonsData: HeaderButton[] = useMemo(
-    () =>
-      isWidget
-        ? []
-        : [
-            {
-              label: t(
-                'reworked.mySubscriptions.headerButtonsLabel.bookASession',
-              ),
-              onClick: onBookSessionClick,
-              leftIcon: <Calendar stroke="currentColor" />,
-              variant: 'outlined' as ButtonVariant,
-              color: 'grey' as ButtonColor,
-            },
-
-            {
-              label: t(
-                'reworked.mySubscriptions.headerButtonsLabel.getSubscription',
-              ),
-              onClick: onGetASubscriptionClick,
-              rightIcon: <ChevronRight stroke="currentColor" />,
-              variant: 'contained' as ButtonVariant,
-              color: 'primary' as ButtonColor,
-            },
-          ],
-    [isWidget, onGetASubscriptionClick, onBookSessionClick, t],
-  );
   const handleSetActiveFilter = React.useCallback(
     () => handleSetSelectedFilter?.(SubscriptionFilterEnum.ACTIVE),
     [handleSetSelectedFilter],
@@ -320,7 +281,6 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         }}
         isMobile={isMobile}
         TitleProps={{
-          buttons: buttonsData,
           title: t('reworked.mySubscriptions.title'),
         }}
       />

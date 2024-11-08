@@ -10,10 +10,7 @@ import ConsumerInvoicePaymentPortal from '#src/libs/consumer-space/components/re
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 import useViewport from '#Fabrique/hooks/useViewport';
 
-import WidgetUtils from '#src/libs/widget/WidgetUtils';
-import { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 import ConsumerInvoiceModals from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceModals';
-import { ChevronRight } from '#src/components/untitledui';
 
 import type { ConsumerInvoice, Invoice } from '#src/libs/invoice/types';
 import type { Membership } from '#src/libs/membership/types';
@@ -33,7 +30,6 @@ type Props = {
   changeSelectedFilter: (filter: InvoicesFiltersEnum) => void;
   handleChangePage: (page?: number) => void;
   getInvoice: (uuid: string) => Invoice;
-  goToBookSession: () => void;
   refreshConsumerInvoices: () => void;
   refreshMembership: () => void;
 };
@@ -51,7 +47,6 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   changeSelectedFilter,
   handleChangePage,
   getInvoice,
-  goToBookSession,
   refreshConsumerInvoices,
   refreshMembership,
 }) => {
@@ -147,21 +142,6 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
     refreshConsumerInvoices?.();
   }, [refreshConsumerInvoices, clearSelectedConsumerInvoice]);
 
-  const isWidget = WidgetUtils.isWidget();
-
-  const buttonsData: HeaderButton[] = React.useMemo(
-    () =>
-      isWidget
-        ? []
-        : [
-            {
-              label: t('reworked.myInvoices.header.buttons.bookSession'),
-              onClick: goToBookSession,
-              rightIcon: <ChevronRight stroke="currentColor" />,
-            },
-          ],
-    [goToBookSession, t, isWidget],
-  );
   const filterUnpaidInvoices = React.useCallback(
     () => handleChangeFilter(InvoicesFiltersEnum.UNPAID),
     [handleChangeFilter],
@@ -232,7 +212,6 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
         FilterProps={{ filters, selectedFilter: selectedFilter }}
         isMobile={isMobile}
         TitleProps={{
-          buttons: buttonsData,
           title: t('reworked.myInvoices.header.title'),
         }}
       />

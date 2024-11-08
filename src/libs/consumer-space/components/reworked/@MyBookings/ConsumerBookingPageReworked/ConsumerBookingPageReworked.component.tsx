@@ -9,7 +9,6 @@ import ConsumerBookingListContainer from '#src/libs/consumer-space/components/re
 import ConsumerBookingModals from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingModals';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
-import { ChevronRight } from '#src/components/untitledui';
 
 import type {
   BookingTab,
@@ -36,7 +35,6 @@ import type {
   WaitingListBookingOption,
   WaitingListConfiguration,
 } from '#src/libs/waiting-list/types';
-import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 
 import type { OptionCallback } from '#src/state/types';
 import {
@@ -75,7 +73,6 @@ type Props = {
   companyTheme: CompanyTheme;
   isConsumerPacksLoading: boolean;
   getIsBookingsLoading: (selectedTab: BookingTab) => boolean;
-  handleBookASessionClick: () => void;
   fetchPastBookings: (page?: number) => void;
   fetchFutureBookings: () => void;
   fetchBookingOptions: () => void;
@@ -139,7 +136,6 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   spotTypes,
   companyTheme,
   getIsBookingsLoading,
-  handleBookASessionClick,
   isConsumerPacksLoading,
   fetchPastBookings,
   fetchFutureBookings,
@@ -251,17 +247,6 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
 
   const { t } = useTranslation('consumerSpace');
 
-  const isWidget = WidgetUtils.isWidget();
-
-  const buttonsData: HeaderButton[] = isWidget
-    ? []
-    : [
-        {
-          label: t('consumerSpace:reworked.myBookings.bookASession'),
-          onClick: handleBookASessionClick,
-          rightIcon: <ChevronRight stroke="currentColor" />,
-        },
-      ];
   const handleSetFutureFilterTab = React.useCallback(
     () => handleSetSelectedFilterTab?.(BookingFilterTabEnum.FUTURE),
     [handleSetSelectedFilterTab],
@@ -410,7 +395,6 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           handleToggleTabDrawer: handleToggleBookingTabDrawer,
         }}
         TitleProps={{
-          buttons: buttonsData,
           title: t('reworked.myBookings.title'),
         }}
       />

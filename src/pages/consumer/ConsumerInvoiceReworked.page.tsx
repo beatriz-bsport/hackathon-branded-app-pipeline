@@ -8,9 +8,7 @@ import { getTheme } from '#src/libs/theme/selectors';
 import { InvoicesFiltersEnum } from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
-import { urlToMarketplaceSessionTab } from '#src/libs/marketplace/utils/navigation';
 import ConsumerInvoicePageReworked from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoicePageReworked';
-import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import ReLiftReduxProviderIfDetected from '#src/hocs/relift-redux-provider.hoc';
 import {
   fetchConsumerUnpaidInvoices as fetchConsumerUnpaidInvoicesAction,
@@ -121,20 +119,6 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
     this.props.fetchConsumerInvoices(this.state.selectedFilter, page);
   };
 
-  goToBookSession = () => {
-    if (WidgetUtils.isWidget()) {
-      WidgetUtils.closeModal();
-      window?.close();
-    } else {
-      const marketplaceTabPath = urlToMarketplaceSessionTab(
-        this.props.marketplaceSettingsConfig,
-        this.props.theme.company_name,
-        this.props.theme.company.toString(),
-      );
-      this.props.push(marketplaceTabPath);
-    }
-  };
-
   getInvoiceRESTList = () => {
     switch (this.state.selectedFilter) {
       case InvoicesFiltersEnum.PAID:
@@ -204,7 +188,6 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
           currentCount={this.getCurrentCount()}
           currentPage={this.getCurrentPage()}
           getInvoice={this.props.getInvoice}
-          goToBookSession={this.goToBookSession}
           handleChangePage={this.handleChangePage}
           isLoading={this.getIsLoading()}
           isMultilocationEnabled={this.props.theme.enable_multi_localization}

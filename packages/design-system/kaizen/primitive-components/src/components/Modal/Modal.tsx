@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { SetRequired } from "type-fest";
@@ -6,6 +6,7 @@ import mapValues from "lodash/mapValues";
 import Title from "../Title";
 import Body from "../Body";
 import Button from "../Button";
+import useEscapeKeydownListener from "./escape-keydown-listener.hook";
 
 const defaultClasses = [
   "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
@@ -39,16 +40,16 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> &
     description?: string;
     footerDirection?: (typeof footerDirections)[number];
     onClose?: () => void;
-    onCrossButtonClick?: () => void;
-    onClickOutside?: () => void;
+    onCrossButtonClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onClickOutside?: (event: React.MouseEvent<HTMLDivElement>) => void;
   } & ({
     confirmLabel: string;
     confirmColor: (typeof confirmColors)[number];
-    onConfirmClick: () => void;
+    onConfirmClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   } | null) &
   ({
     cancelLabel?: string;
-    onCancelClick?: () => void;
+    onCancelClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   } | null);
 
 /**
@@ -90,30 +91,53 @@ const Modal: React.FC<ModalProps> = ({
   children,
   ...props
 }) => {
-  if (!open) return null;
-
   const handleBackdropClick = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
       if (event.target === event.currentTarget) {
-        onClickOutside?.();
+        onClickOutside?.(event);
         onClose?.();
       }
     },
     [onClickOutside, onClose],
   );
-  const handleCrossButtonClick = useCallback(() => {
-    onCrossButtonClick?.();
-    onClose?.();
-  }, [onCrossButtonClick, onClose]);
-  const handleCancelClick = useCallback(() => {
-    onCancelClick?.();
-    onClose?.();
-  }, [onCancelClick, onClose]);
+
+  const handleCrossButtonClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      onCrossButtonClick?.(event);
+      onClose?.();
+    },
+    [onCrossButtonClick, onClose],
+  );
+
+  const handleCancelClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      onCancelClick?.(event);
+      onClose?.();
+    },
+    [onCancelClick, onClose],
+  );
 
   const handleModalClick = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => event.stopPropagation(),
     [],
   );
+
+  // Manage focus by storing the previous focus and setting focus to the modal when open
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    if (open) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      previousFocusRef.current?.blur();
+      modalRef.current?.focus();
+    } else {
+      previousFocusRef.current?.focus();
+    }
+  }, [open]);
+
+  useEscapeKeydownListener(onClose ?? (() => {}), open);
+
+  if (!open) return null;
 
   return createPortal(
     <div className="fixed inset-[0]" onClick={handleBackdropClick}>

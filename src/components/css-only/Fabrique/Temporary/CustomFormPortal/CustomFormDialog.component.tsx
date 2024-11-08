@@ -50,9 +50,7 @@ const CustomFormDialog: React.FC<CustomFormModalsProps> = ({
             subtitle={subtitle}
             title={title}
           >
-            <Form>
-              <ConsumerFormFields {...restProps} />
-            </Form>
+            <Form>{isOpen && <ConsumerFormFields {...restProps} />}</Form>
           </ModalDialog>
         )}
       </Blanket>

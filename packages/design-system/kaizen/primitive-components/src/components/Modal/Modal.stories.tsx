@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import Modal, { confirmColors, footerDirections, sizes } from "./Modal";
 import Body from "../Body";
@@ -14,6 +14,10 @@ import Button from "../Button";
 const meta: Meta<typeof Modal> = {
   component: Modal,
   argTypes: {
+    open: {
+      control: { type: "boolean" },
+      type: { name: "boolean", required: true },
+    },
     size: {
       options: Object.keys(sizes),
       control: { type: "inline-radio" },
@@ -33,13 +37,23 @@ const meta: Meta<typeof Modal> = {
       table: { defaultValue: { summary: "row" } },
     },
     onClose: {
-      table: { type: { summary: "function" } },
+      table: { type: { summary: "function", detail: "() => void" } },
     },
     onCrossButtonClick: {
-      table: { type: { summary: "function" } },
+      table: {
+        type: {
+          summary: "function",
+          detail: "(event: React.MouseEvent<HTMLButtonElement>) => void",
+        },
+      },
     },
     onClickOutside: {
-      table: { type: { summary: "function" } },
+      table: {
+        type: {
+          summary: "function",
+          detail: "(event: React.MouseEvent<HTMLDivElement>) => void",
+        },
+      },
     },
     confirmLabel: {
       control: { type: "text" },
@@ -49,13 +63,23 @@ const meta: Meta<typeof Modal> = {
       control: { type: "inline-radio" },
     },
     onConfirmClick: {
-      table: { type: { summary: "function" } },
+      table: {
+        type: {
+          summary: "function",
+          detail: "(event: React.MouseEvent<HTMLButtonElement>) => void",
+        },
+      },
     },
     cancelLabel: {
       control: { type: "text" },
     },
     onCancelClick: {
-      table: { type: { summary: "function" } },
+      table: {
+        type: {
+          summary: "function",
+          detail: "(event: React.MouseEvent<HTMLButtonElement>) => void",
+        },
+      },
     },
     children: {
       table: { type: { summary: "ReactNode" } },
@@ -70,9 +94,13 @@ type Story = StoryObj<typeof Modal>;
 export const Primary: Story = {
   name: "Modal",
   render: (args) => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const handleOpen = () => setIsOpen(true);
     const handleClose = () => setIsOpen(false);
+
+    useEffect(() => {
+      setIsOpen(args.open);
+    }, [args.open]);
 
     return (
       <>
@@ -96,11 +124,15 @@ export const Primary: Story = {
     );
   },
   args: {
+    open: false,
     size: "sm",
     title: "Modal title",
     description:
       "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support.",
     footerDirection: "row",
+    onClose: () => console.log("modal closed"),
+    onCrossButtonClick: () => console.log("cross button clicked"),
+    onClickOutside: () => console.log("clicked outside"),
     confirmLabel: "Confirm",
     confirmColor: "main",
     onConfirmClick: () => console.log("confirm clicked"),

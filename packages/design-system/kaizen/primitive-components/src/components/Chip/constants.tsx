@@ -15,7 +15,6 @@ export const defaultClasses = [
   "gap-2xs",
   "px-xs",
   "leading-xs",
-  "box-border"
 ] as const;
 
 export const variants = {
@@ -23,46 +22,38 @@ export const variants = {
     sm: ["rounded-xs", "text-body-sm"],
     lg: ["rounded-sm", "text-body-md", "py-2xs"],
   },
-  type: {
-    weak: "border-stroke-thin",
-    strong: "border-none",
-  },
   colorByType: {
     "weak:default": [
       "bg-surface-default-weaker",
       "text-onsurface-default",
-      "border-stroke-strong",
+      "shadow-border-thin-default",
     ],
     "weak:main": [
       "bg-surface-main-weak",
-      "text-onsurface-action-main-rest",
-      "border-stroke-main",
+      "text-onsurface-main-onweak",
+      "shadow-border-thin-main",
     ],
     "weak:info": [
       "bg-surface-status-info-weak",
       "text-onsurface-status-info-strong",
-      "border-stroke-status-info",
+      "shadow-border-thin-info",
     ],
     "weak:positive": [
       "bg-surface-status-positive-weak",
       "text-onsurface-status-positive-strong",
-      "border-stroke-status-positive",
+      "shadow-border-thin-positive",
     ],
     "weak:warning": [
       "bg-surface-status-warning-weak",
       "text-onsurface-status-warning-strong",
-      "border-stroke-status-warning",
+      "shadow-border-thin-warning",
     ],
     "weak:critical": [
       "bg-surface-status-critical-weak",
       "text-onsurface-status-critical-strong",
-      "border-stroke-status-critical",
+      "shadow-border-thin-critical",
     ],
-    "weak:onstrong": [
-      "bg-surface-default-weakest",
-      "text-onsurface-default",
-      "border-stroke-default",
-    ],
+    "weak:onstrong": ["bg-surface-page/md", "text-onsurface-default-onstrong"],
     "strong:default": [
       "bg-surface-default-strong",
       "text-onsurface-default-onstrong",
@@ -91,9 +82,6 @@ export const variants = {
   },
 } as const;
 
-export const types = mapValues(variants.type, (_, key) => key) as {
-  [key in keyof typeof variants.type]: key;
-};
 export const sizes = mapValues(variants.size, (_, key) => key) as {
   [key in keyof typeof variants.size]: key;
 };

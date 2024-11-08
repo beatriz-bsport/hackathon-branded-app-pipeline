@@ -1,6 +1,8 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import Avatar, { sizes } from "./Avatar";
+// @ts-expect-error Importing a local file
+import AvatarImage from "./assets/avatar.jpeg";
 import Icon from "../Icon";
 
 /**
@@ -17,7 +19,7 @@ const meta: Meta<typeof Avatar> = {
       control: { type: "inline-radio" },
       mapping: {
         none: undefined,
-        "avatar image": "/src/components/Avatar/assets/avatar.jpeg",
+        "avatar image": AvatarImage,
       },
     },
     size: {

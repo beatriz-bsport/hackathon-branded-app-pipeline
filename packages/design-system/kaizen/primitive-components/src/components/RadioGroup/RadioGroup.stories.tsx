@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import RadioGroup from "./RadioGroup";
-import React, { useState } from "react";
 
 /**
  * A group of radio buttons presented as a single component.
@@ -46,6 +46,9 @@ export const Primary: Story = {
   name: "RadioGroup",
   render: (args) => {
     const [checked, setChecked] = useState(args.value);
+    useEffect(() => {
+      setChecked(args.value);
+    }, [args.value]);
 
     return (
       <RadioGroup

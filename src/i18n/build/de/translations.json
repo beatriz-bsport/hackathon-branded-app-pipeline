@@ -789,7 +789,7 @@
                     "goBack": "Zurück",
                     "confirm": "Bestätigen",
                     "pause": "Pausieren",
-                    "cancel": "Abbrechen",
+                    "cancel": "Stornieren",
                     "verify": "Überprüfen",
                     "save": "Speichern",
                     "continue": "Weiter"
@@ -878,7 +878,7 @@
             },
             "buttons": {
                 "submit": "Speichern",
-                "cancel": "Abbrechen"
+                "cancel": "Stornieren"
             },
             "emailNotification": {
                 "parameters": "E-Mail Einstellungen",
@@ -2941,7 +2941,7 @@
         "delete": "Löschen",
         "edit": "Einrichten",
         "tag_rules": {
-            "cancel": "Abbrechen",
+            "cancel": "Stornieren",
             "associated_tag": "Zugehöriges Tag",
             "create": "Erstelle eine Regel",
             "tag_on_join_and_untag_on_left": "Tag, falls in der Smartlist vorhanden",
@@ -3902,7 +3902,7 @@
                     "_label": "Änderung"
                 },
                 "delete": {
-                    "_label": "Abbrechen"
+                    "_label": "Stornieren"
                 },
                 "create": {
                     "_label": "Erstellung"
@@ -8703,7 +8703,7 @@
                 "confirmPayment": "Zahlung bestätigen",
                 "payAll": "Kundenschulden begleichen",
                 "cancel": "Abbrechen",
-                "revert": "Abbrechen",
+                "revert": "Stornieren",
                 "pay": "Rechnung bezahlen",
                 "bill": "Einziehen",
                 "basketInconsistent": "Ihr Warenkorb wurde geändert, bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\nSie wurden nicht belastet.",
@@ -16941,7 +16941,7 @@
                 "popup": {
                     "title": "Externer Link",
                     "link": "weitergeleiteter Link",
-                    "cancel": "Abbrechen",
+                    "cancel": "Stornieren",
                     "submit": "Speichern",
                     "name": "Name",
                     "icon": "Symbol"
@@ -19536,7 +19536,7 @@
                 "title": "Löschen",
                 "actions": {
                     "confirm": "Bestätigen",
-                    "cancel": "Abbrechen"
+                    "cancel": "Stornieren"
                 },
                 "content": {
                     "canDelete": "Sind Sie sicher, dass Sie diesen Spot löschen wollen? Diese Aktion ist unwiederruflich. Er wird gelöscht und durch den Standard-Spot auf diesem Plan und allen anderen, auf denen er hinzugefügt wurde, ersetzt."
@@ -20812,7 +20812,7 @@
             "deleteCurrentBasket": {
                 "title": "Aktuellen Warenkorb löschen",
                 "subText": "Sind Sie sicher, dass Sie den aktuellen Warenkorb löschen möchten?",
-                "cancel": "Abbrechen",
+                "cancel": "Stornieren",
                 "delete": "Löschen"
             },
             "payLater": {
@@ -20924,7 +20924,7 @@
             "firstName": "Vorname",
             "lastName": "Nachname",
             "sendToTerminal": "An das Terminal senden",
-            "cancel": "Abbrechen",
+            "cancel": "Stornieren",
             "validate": "Bestätigen",
             "clientDebt": "Kunden-Restguthaben",
             "internalCredits": "Interne Credits"

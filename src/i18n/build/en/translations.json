@@ -12619,7 +12619,7 @@
                         "isModifyRecursively": "Do you want to modify similar sessions according to these new conditions?",
                         "isNotifyConsumers": "Do you want to inform your customers of this change?",
                         "partnership": {
-                            "partnerMaxBookingCount": "Maximum bookings (Wellhub & Urban Sports Club only).",
+                            "partnerMaxBookingCount": "Maximum number of bookings from Wellhub and Urban Sports Club combined (the rest of marketplaces are not affected by this setting)",
                             "availableOnPartnership": "On marketplaces (ClassPass, OneFit...)",
                             "title": "Marketplace integrations",
                             "uscIntegrationWarning": "Your integration to the Urban Sports Club marketplace is active, any session spanning 2 days or more will not appear.",

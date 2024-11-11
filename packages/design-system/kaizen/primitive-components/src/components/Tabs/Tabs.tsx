@@ -131,4 +131,5 @@ const Tabs: React.FC<TabsProps> = ({
 };
 
 Tabs.displayName = "KaizenTabs";
+
 export default Tabs;

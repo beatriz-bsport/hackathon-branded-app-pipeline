@@ -11,8 +11,8 @@ export type RadioOptionsProps = {
 export type RadioButtonProps = RadioOptionsProps & {
   checked: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  direction: "start" | "end";
   disabled: boolean;
+  direction?: "start" | "end";
 };
 
 /**
@@ -45,8 +45,8 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   return (
     <div
       className={classNames(
-        "grid grid-cols-[auto,1fr] grid-rows-[auto,auto,auto,1fr] gap-x-xs",
-        { "opacity-sm cursor-not-allowed": disabled },
+        "grid grid-cols-[auto,1fr] grid-rows-[auto,auto,auto,1fr]",
+        { "opacity-sm pointer-events-none": disabled },
       )}
       style={{
         gridTemplateAreas:
@@ -56,26 +56,31 @@ const RadioButton: React.FC<RadioButtonProps> = ({
       }}
     >
       <div
-        className={classNames("flex gap-xs items-center", {
+        className={classNames("flex items-center", {
           "justify-end": direction === "end",
         })}
         style={{ gridArea: "input" }}
       >
         <input
           className={classNames(
-            "appearance-none w-md h-md rounded-circle border-stroke-thin checked:border-none disabled:bg-surface-action-disabled/md disabled:border-stroke-action-default-disabled/md",
+            "appearance-none w-md h-md rounded-circle",
+            "cursor-pointer",
+            "border-stroke-thin border-stroke-action-default-rest",
+            "checked:border-none disabled:bg-surface-action-disabled/md disabled:border-stroke-action-default-disabled/md",
+            "bg-surface-action-default-elevated-rest checked:bg-surface-action-main-strong-rest",
             {
               "bg-surface-status-critical-weak border-stroke-status-critical checked:bg-surface-status-critical-strong":
                 errorText,
-              "bg-surface-action-default-elevated-rest border-stroke-action-default-rest checked:bg-surface-action-main-strong-rest":
-                !errorText,
+              "cursor-default": disabled,
             },
           )}
           type="radio"
           role="radio"
+          name={value}
           value={value}
           id={id}
           checked={checked}
+          disabled={disabled}
           aria-checked={checked}
           aria-invalid={!!errorText}
           aria-labelledby={id}
@@ -104,13 +109,26 @@ const RadioButton: React.FC<RadioButtonProps> = ({
         )}
       </div>
       <div className="flex" style={{ gridArea: "label" }}>
-        <label htmlFor={id} className="flex gap-2xs">
+        <label
+          htmlFor={id}
+          className={classNames("flex cursor-pointer w-full", {
+            "cursor-default": disabled,
+            "pl-xs": direction === "start",
+            "pr-xs": direction === "end",
+          })}
+        >
           <span>{value}</span>
         </label>
       </div>
 
       <div style={{ gridArea: "empty" }} />
-      <div className="flex flex-col" style={{ gridArea: "helper" }}>
+      <div
+        className={classNames("flex flex-col", {
+          "pl-xs": direction === "start",
+          "pr-xs": direction === "end",
+        })}
+        style={{ gridArea: "helper" }}
+      >
         {helperText && (
           <span className="text-onsurface-weak text-body-sm leading-xs">
             {helperText}

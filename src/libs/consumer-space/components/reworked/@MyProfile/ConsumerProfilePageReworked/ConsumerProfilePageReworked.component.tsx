@@ -45,7 +45,7 @@ type Props = {
   companyThemeLoading: boolean;
   detachPaymentMethod: (
     paymentMethodId: string,
-    options?: OptionCallback,
+    options?: OptionCallback<unknown, number>,
   ) => void;
   detachPaymentMethodLoading: boolean;
 
@@ -114,7 +114,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
   submitCustomForm,
   updateSpiviPrivacySettings,
 }) => {
-  const { t } = useTranslation(['consumerSpace', 'common']);
+  const { t } = useTranslation(['consumerSpace', 'common', 'snackbar']);
 
   const {
     isMobile,
@@ -135,6 +135,8 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     openEditProfileMobilePortal,
     closeEditProfileMobilePortal,
     isEditProfileMobilePortalOpen,
+    detachPaymentMethodErrorCode,
+    setDetachPaymentMethodErrorCode,
   } = useContext(ConsumerProfileContext);
 
   const { general_terms_of_use, waiver, is_referral_program_activated } =
@@ -182,16 +184,27 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
 
   const handleDetachPaymentMethod = useCallback(
     (paymentMethodId: string) => () => {
+      const isWidget =
+        WidgetUtils.getConsumerSpaceContext() ===
+        ConsumerSpaceContextEnum.WIDGET;
+      isWidget && setDetachPaymentMethodErrorCode(null);
       detachPaymentMethod(paymentMethodId, {
         onSuccess: () => {
           closeDetachPaymentMethodPortal();
         },
-        onError: () => {
+        onError: (errorCode: number) => {
+          if (isWidget) {
+            return setDetachPaymentMethodErrorCode(errorCode);
+          }
           closeDetachPaymentMethodPortal();
         },
       });
     },
-    [detachPaymentMethod, closeDetachPaymentMethodPortal],
+    [
+      detachPaymentMethod,
+      closeDetachPaymentMethodPortal,
+      setDetachPaymentMethodErrorCode,
+    ],
   );
   const buttonsData = React.useMemo(
     () => [
@@ -356,6 +369,11 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
 
       <DetachPaymentPortal
         confirmLabel={t('common:delete')}
+        errorMessage={
+          detachPaymentMethodErrorCode
+            ? t(`snackbar:paymentMethod.errors.${detachPaymentMethodErrorCode}`)
+            : null
+        }
         isLoading={detachPaymentMethodLoading}
         isMobile={isMobile}
         isOpen={isDetachPaymentPortalOpen}

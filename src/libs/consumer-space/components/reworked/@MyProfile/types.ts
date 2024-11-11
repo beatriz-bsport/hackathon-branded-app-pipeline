@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 import type { PaymentMethod } from '#src/libs/payment/types';
 
 export type ConsumerSummaryCardProps = {
@@ -72,4 +74,6 @@ export type ConsumerProfileContextType = {
   toggleBarcodeModal: () => void;
   toggleTermsAndConditionPortal: () => void;
   toggleTermsOfUsePortal: () => void;
+  detachPaymentMethodErrorCode: number | null;
+  setDetachPaymentMethodErrorCode: Dispatch<SetStateAction<number | null>>;
 };

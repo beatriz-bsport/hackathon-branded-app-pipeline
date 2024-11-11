@@ -53,7 +53,10 @@ export type Props = {
   withPaymentMethodTitle?: boolean;
   withoutPaymentMethodPadding?: boolean;
   initialPaymentMethod?: MarketplacePaymentMethods;
-  detachPaymentMethod: (id: string, options?: OptionCallback) => void;
+  detachPaymentMethod: (
+    id: string,
+    options?: OptionCallback<unknown, number>,
+  ) => void;
   requestSetupIntentSecret: () => Promise<
     AxiosResponse<{ client_secret: string }>
   >;

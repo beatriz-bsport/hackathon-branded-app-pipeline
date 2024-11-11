@@ -74,7 +74,10 @@ type Props = {
       client_secret: string;
     }>
   >;
-  detachPaymentMethod: (pm_id: string, options?: OptionCallback) => void;
+  detachPaymentMethod: (
+    pm_id: string,
+    options?: OptionCallback<unknown, number>,
+  ) => void;
   enabledPaymentGroupMethodIdentifierIds: number[];
   paymentMethodLoading: boolean;
   refreshSavedPaymentMethodList: () => void;

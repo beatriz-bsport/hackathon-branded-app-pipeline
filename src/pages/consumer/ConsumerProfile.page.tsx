@@ -323,7 +323,7 @@ const mapWithHandler = {
       fetchPaymentMethodListActions,
       membership,
     }: RouterProps & ConnectedProps<typeof connector>) =>
-    (pm_id: string, options?: OptionCallback) => {
+    (pm_id: string, options?: OptionCallback<unknown, number>) => {
       detachPaymentMethodAction(
         { member: membership.id, payment_method_id: pm_id },
         {

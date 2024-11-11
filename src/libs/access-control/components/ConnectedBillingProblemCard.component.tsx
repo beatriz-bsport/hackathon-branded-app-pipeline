@@ -153,7 +153,7 @@ const useBillingProblemHandlers = ({
   }, [fetchPaymentMethodList, memberId]);
 
   const handleDetachMemberPaymentMethod = useCallback(
-    (pm_id: string, options: OptionCallback) => {
+    (pm_id: string, options: OptionCallback<unknown, number>) => {
       detachPaymentMethod(
         { member: memberId, payment_method_id: pm_id },
         {

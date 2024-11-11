@@ -14,11 +14,13 @@ const DetachPaymentPortal: React.FC<PortalProps> = ({
   title,
   subtitle,
   isLoading,
+  errorMessage,
 }) => {
   if (isMobile) {
     return (
       <DetachPaymentBottomDrawer
         confirmLabel={confirmLabel}
+        errorMessage={errorMessage}
         isLoading={isLoading}
         isOpen={isOpen}
         onClose={onClose}
@@ -32,6 +34,7 @@ const DetachPaymentPortal: React.FC<PortalProps> = ({
     <DetachPaymentModal
       cancelLabel={cancelLabel}
       confirmLabel={confirmLabel}
+      errorMessage={errorMessage}
       isLoading={isLoading}
       isOpen={isOpen}
       onClose={onClose}

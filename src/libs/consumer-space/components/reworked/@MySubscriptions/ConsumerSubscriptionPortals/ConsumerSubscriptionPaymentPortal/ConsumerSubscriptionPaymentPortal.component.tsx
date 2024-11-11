@@ -20,7 +20,10 @@ type Props = {
   paymentMethodLoading: boolean;
   paymentMethodUsed: PaymentMethod;
   selectedSubscription: SubscriptionREST;
-  detachPaymentMethod: (id: string, options?: OptionCallback) => void;
+  detachPaymentMethod: (
+    id: string,
+    options?: OptionCallback<unknown, number>,
+  ) => void;
   onClose: () => void;
   refreshSavedPaymentMethodList: () => void;
   requestSetupIntentSecret: () => Promise<

@@ -25,6 +25,13 @@
 .bs-detach-payment-modal {
 }
 
+.bs-detach-payment-modal__alert {
+}
+
+.bs-detach-payment-modal__alert--hidden {
+  display: none;
+}
+
 /* TERMS AND CONDITIONS PORTAL */
 .bs-terms-and-conditions-drawer__root {
 }

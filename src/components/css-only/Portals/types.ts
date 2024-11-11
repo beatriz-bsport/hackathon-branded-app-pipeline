@@ -7,10 +7,14 @@ export type ModalsAndDrawersProps = {
   subtitle?: string;
   title: string;
   isLoading?: boolean;
+  /** An optional error message */
+  errorMessage?: string;
 };
 
 export type PortalProps = ModalsAndDrawersProps & {
   isMobile: boolean;
+  /** An optional error message */
+  errorMessage?: string;
 };
 
 export type BarcodeModalsAndDrawersProps = ModalsAndDrawersProps & {

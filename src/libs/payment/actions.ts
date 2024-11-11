@@ -84,7 +84,7 @@ export const detachPaymentMethodActions = {
 };
 export function detachPaymentMethod(
   payload: DetachPaymentMethodPayload,
-  options?: OptionCallback,
+  options?: OptionCallback<unknown, number>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(detachPaymentMethodActions.error(null));
@@ -102,7 +102,7 @@ export function detachPaymentMethod(
           snackbarError(`paymentMethod.errors.${err.response.data.error_code}`),
         );
       }
-      options?.onError?.(err);
+      options?.onError?.(err.response.data.error_code);
       dispatch(detachPaymentMethodActions.error(err.response?.data || err));
     }
     dispatch(detachPaymentMethodActions.isLoading(false));

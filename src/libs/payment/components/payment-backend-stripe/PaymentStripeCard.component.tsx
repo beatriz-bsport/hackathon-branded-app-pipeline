@@ -69,7 +69,7 @@ type Props = {
   }) => void;
   detachPaymentMethod: (
     paymentMethodId: string,
-    options?: OptionCallback,
+    options?: OptionCallback<unknown, number>,
   ) => void;
   onCancel: () => void;
   onError?: () => void;

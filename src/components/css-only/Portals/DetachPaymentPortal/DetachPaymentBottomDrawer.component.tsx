@@ -1,6 +1,9 @@
 import React from 'react';
+import classNames from 'classnames';
+
 import type { ModalsAndDrawersProps } from '#src/components/css-only/Portals/types';
 import BottomDrawer from '#Fabrique/BottomDrawer';
+import Alert from '#Fabrique/Alert';
 import { PortalContainer } from '#Fabrique/PortalContainer';
 
 import '#src/components/css-only/Portals/styles.css';
@@ -14,6 +17,7 @@ const DetachPaymentBottomDrawer: React.FC<ModalsAndDrawersProps> = ({
   subtitle,
   title,
   isLoading,
+  errorMessage,
 }) => {
   return (
     <PortalContainer wrapperId="bs-detach-payment-portal-container">
@@ -30,7 +34,17 @@ const DetachPaymentBottomDrawer: React.FC<ModalsAndDrawersProps> = ({
           title,
           isSubmitLoading: isLoading,
         }}
-      />
+      >
+        <Alert
+          className={classNames('bs-detach-payment-modal__alert', {
+            'bs-detach-payment-modal__alert--hidden': !errorMessage,
+          })}
+          color="error"
+          variant="weak"
+        >
+          {errorMessage}
+        </Alert>
+      </BottomDrawer>
     </PortalContainer>
   );
 };

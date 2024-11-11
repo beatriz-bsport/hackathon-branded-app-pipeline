@@ -26,7 +26,10 @@ type Props = {
   selectedSubscription: SubscriptionREST;
   switchSucceeded: boolean;
   title: string;
-  detachPaymentMethod: (id: string, options?: OptionCallback) => void;
+  detachPaymentMethod: (
+    id: string,
+    options?: OptionCallback<unknown, number>,
+  ) => void;
   handleClose: () => void;
   handleConfirm: () => void;
   refreshSavedPaymentMethodList: () => void;

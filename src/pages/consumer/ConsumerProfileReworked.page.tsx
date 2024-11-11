@@ -75,7 +75,10 @@ class ConsumerProfileReworked extends React.Component<Props> {
     }
   }
 
-  detachPaymentMethod = (paymentMethodId: string, options?: OptionCallback) => {
+  detachPaymentMethod = (
+    paymentMethodId: string,
+    options?: OptionCallback<unknown, number>,
+  ) => {
     !!this.props.membership?.id &&
       this.props.detachPaymentMethod(
         {
@@ -89,8 +92,8 @@ class ConsumerProfileReworked extends React.Component<Props> {
             });
             options?.onSuccess?.();
           },
-          onError: () => {
-            options?.onError?.();
+          onError: (errorCode) => {
+            options?.onError?.(errorCode);
           },
         },
       );

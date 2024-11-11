@@ -724,7 +724,7 @@ export default compose<any, ownProps>(
   withHandlers({
     detachPaymentMethod:
       ({ detachPaymentMethodAction, fetchPaymentMethodList, companyId }) =>
-      (pm_id: string, options: OptionCallback) => {
+      (pm_id: string, options: OptionCallback<unknown, number>) => {
         detachPaymentMethodAction(
           { company: companyId, payment_method_id: pm_id },
           {

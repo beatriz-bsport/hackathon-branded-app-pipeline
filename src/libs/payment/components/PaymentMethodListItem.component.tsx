@@ -30,7 +30,7 @@ type Props = {
   disabled?: boolean;
   detachPaymentMethod?: (
     paymentMethodId: string,
-    options?: OptionCallback,
+    options?: OptionCallback<unknown, number>,
   ) => void;
   setHasDetached?: (id: string) => void;
   detachPaymentMethodLoading?: boolean;

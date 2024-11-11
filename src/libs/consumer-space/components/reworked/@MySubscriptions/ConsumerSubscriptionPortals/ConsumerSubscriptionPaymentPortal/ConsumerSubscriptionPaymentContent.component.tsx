@@ -21,7 +21,10 @@ type Props = {
   paymentMethodUsed: PaymentMethod;
   selectedPaymentMethodId: string | null;
   switchSucceeded: boolean;
-  detachPaymentMethod: (id: string, options?: OptionCallback) => void;
+  detachPaymentMethod: (
+    id: string,
+    options?: OptionCallback<unknown, number>,
+  ) => void;
   refreshSavedPaymentMethodList: () => void;
   requestSetupIntentSecret: () => Promise<
     AxiosResponse<{ client_secret: string }>

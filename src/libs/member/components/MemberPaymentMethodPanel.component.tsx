@@ -34,7 +34,10 @@ type Props = {
   paymentMethod?: Array<any>;
   paymentMethodLoading: boolean;
   detachPaymentMethodLoading: boolean;
-  detachPaymentMethod: (pm_id: string, option?: OptionCallback) => void;
+  detachPaymentMethod: (
+    pm_id: string,
+    option?: OptionCallback<unknown, number>,
+  ) => void;
   openAddPaymentMethodDialog: (isDialogOpen: boolean) => void;
   snackbarSuccess: (msg: string) => void;
   companyId?: number;

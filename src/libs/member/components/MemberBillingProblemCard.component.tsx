@@ -55,7 +55,10 @@ type Props = {
   companyId?: number;
   consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>;
   creditAccountBalance?: number | null;
-  detachPaymentMethod: (pm_id: string, options?: OptionCallback) => void;
+  detachPaymentMethod: (
+    pm_id: string,
+    options?: OptionCallback<unknown, number>,
+  ) => void;
   detachPaymentMethodLoading: boolean;
   enableMultiLocalization: boolean;
   establishmentBillingGroups: EstablishmentBillingGroup[];

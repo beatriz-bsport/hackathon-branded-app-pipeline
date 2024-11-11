@@ -34,6 +34,10 @@ const ConsumerProfileContextProvider: React.FC<{
     string | null
   >(null);
 
+  /** Display a message when failed to detach a payment method from widget */
+  const [detachPaymentMethodErrorCode, setDetachPaymentMethodErrorCode] =
+    useState<number>(null);
+
   // Modal Handlers
   const toggleBarcodeModal = useCallback(() => {
     setIsBarcodePortalOpen((prevState) => !prevState);
@@ -73,6 +77,7 @@ const ConsumerProfileContextProvider: React.FC<{
 
   const closeDetachPaymentMethodPortal = useCallback(() => {
     setPaymentMethodIdToDetach(null);
+    setDetachPaymentMethodErrorCode(null);
     setIsDetachPaymentPortalOpen(false);
   }, []);
 
@@ -108,6 +113,8 @@ const ConsumerProfileContextProvider: React.FC<{
         closeDetachPaymentMethodPortal,
         toggleTermsAndConditionPortal,
         toggleTermsOfUsePortal,
+        detachPaymentMethodErrorCode,
+        setDetachPaymentMethodErrorCode,
       }}
     >
       {children}

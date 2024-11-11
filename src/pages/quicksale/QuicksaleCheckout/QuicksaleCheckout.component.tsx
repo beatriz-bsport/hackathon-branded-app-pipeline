@@ -63,7 +63,7 @@ type Props = {
   detachPaymentMethodLoading?: boolean;
   removePaymentMethod: (
     paymentMethodId: string,
-    options?: OptionCallback,
+    options?: OptionCallback<unknown, number>,
   ) => void;
   checkItemsBasket: (basketId: string) => Promise<boolean>;
   instalmentPaymentConfigurationList?: InstalmentPaymentApiWithBasketId[];

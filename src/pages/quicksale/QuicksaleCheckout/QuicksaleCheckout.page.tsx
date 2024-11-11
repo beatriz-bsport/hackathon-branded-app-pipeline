@@ -317,7 +317,7 @@ const QuicksalePayment: React.FC<Props> = ({
   );
 
   const removePaymentMethod = React.useCallback(
-    (paymentMethodId: string, options: OptionCallback) => {
+    (paymentMethodId: string, options: OptionCallback<unknown, number>) => {
       detachPaymentMethod(
         {
           payment_method_id: paymentMethodId,

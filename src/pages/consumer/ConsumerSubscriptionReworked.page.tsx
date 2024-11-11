@@ -280,7 +280,7 @@ export const consumerSubscriptionMapWithHandlers = {
     },
   detachPaymentMethod:
     (props: OwnAndConnectedAndRouteProps) =>
-    (pm_id: string, options?: OptionCallback) => {
+    (pm_id: string, options?: OptionCallback<unknown, number>) => {
       props.detachPaymentMethodAction(
         {
           company: props.companyId ?? props.membership?.company,

@@ -29,7 +29,10 @@ type Props = {
   paymentMethodType?: string;
   setHasDetached?: (paymentMethodId: string) => void;
   detachPaymentMethodLoading?: boolean;
-  detachPaymentMethod?: (pm_id: string, options?: OptionCallback) => void;
+  detachPaymentMethod?: (
+    pm_id: string,
+    options?: OptionCallback<unknown, number>,
+  ) => void;
   onlyDefault?: boolean;
   sepaDefaultName?: string;
   sepaDefaultEmail?: string;

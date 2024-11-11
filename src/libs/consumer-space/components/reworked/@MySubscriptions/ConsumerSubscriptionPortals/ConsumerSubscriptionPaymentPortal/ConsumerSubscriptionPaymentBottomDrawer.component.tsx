@@ -11,7 +11,10 @@ import { ConsumerSubscriptionPaymentContent } from '.';
 
 type Props = {
   cancelLabel: string;
-  detachPaymentMethod: (id: string, options?: OptionCallback) => void;
+  detachPaymentMethod: (
+    id: string,
+    options?: OptionCallback<unknown, number>,
+  ) => void;
   enabledPaymentGroupMethodIdentifierIds: number[];
   handleClose: () => void;
   handleConfirm: () => void;

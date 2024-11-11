@@ -124,6 +124,7 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
   );
   bridgeAPIActionsRegistry.register(
     'DETACH_PAYMENT_METHOD',
+    // @ts-expect-error
     actions.detachPaymentMethod,
   );
   bridgeAPIActionsRegistry.register(

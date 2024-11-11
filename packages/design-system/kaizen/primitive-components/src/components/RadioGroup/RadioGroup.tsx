@@ -6,15 +6,16 @@ export const defaultClasses = ["flex flex-col gap-md"] as const;
 
 const radioGroup = cva(defaultClasses);
 
-export type RadioGroupProps = React.HTMLAttributes<HTMLFieldSetElement> &
-  VariantProps<typeof radioGroup> & {
-    id: string;
-    options: Array<RadioOptionsProps>;
-    value: string;
-    onChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    disabled?: boolean;
-    direction?: "start" | "end";
-  };
+export type RadioGroupProps =
+  React.FieldsetHTMLAttributes<HTMLFieldSetElement> &
+    VariantProps<typeof radioGroup> & {
+      id: string;
+      options: Array<RadioOptionsProps>;
+      value: string;
+      onChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
+      disabled?: boolean;
+      direction?: "start" | "end";
+    };
 
 /**
  * A group of radio buttons presented as a single component.

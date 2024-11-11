@@ -3,6 +3,7 @@ export { default as Avatar } from "./components/Avatar";
 export { default as Badge } from "./components/Badge";
 export { default as Body } from "./components/Body";
 export { default as Button } from "./components/Button";
+export { default as Checkbox } from "./components/Checkbox";
 export { default as Chip } from "./components/Chip";
 export { default as Icon } from "./components/Icon";
 export { default as Indicator } from "./components/Indicator";

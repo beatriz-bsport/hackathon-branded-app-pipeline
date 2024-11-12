@@ -190,6 +190,9 @@ export const consumerSubscriptionBridgeActions = {
   switchSubscriptionPaymentMethod: createAuthenticatedBridgeAction(
     'SWITCH_SUBSCRIPTION_PAYMENT_METHOD',
   ),
+  detachPaymentMethodAction: createAuthenticatedBridgeAction(
+    'DETACH_PAYMENT_METHOD',
+  ),
 };
 
 /* MY PROFILE */

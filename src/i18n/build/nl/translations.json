@@ -519,7 +519,7 @@
                     "plannedPayments": "Geplande betalingen",
                     "placeholder": "Kies een factuur om de details te bekijken.",
                     "paymentHistory": "Betaal geschiedenis",
-                    "paymentErrorWithReason": "Deze betaling is mislukt. Reden: { {{ reason }} }.",
+                    "paymentErrorWithReason": "Deze betaling is mislukt. Reden: {{- reason }}",
                     "paymentError": "Deze betaling was niet succesvol.",
                     "pay": "Betaal nu",
                     "paid": "Betaald",
@@ -2622,7 +2622,12 @@
         },
         "sms": {
             "warningConsent2": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt.",
-            "warningConsent1": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt."
+            "warningConsent1": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt.",
+            "warningProviderNotVerified": {
+                "regulatoryNotice": "Voordat je sms-campagnes, automatische berichten of rechtstreekse berichten kunt versturen, moet het nummer worden gevalideerd om te voldoen aan de lokale regelgeving in de VS en Canada.",
+                "mainMessage": "Het lijkt erop dat het telefoonnummer voor SMS nog niet is gevalideerd.",
+                "title": "SMS verzenden niet beschikbaar"
+            }
         },
         "filter": {
             "choicesLabels": {
@@ -6909,7 +6914,28 @@
         "companieEmails": "Sjablonen",
         "bsportTemplateEmail": "Overstapbericht",
         "infoBsportTemplateEmails": "Als u meldingen wilt verzenden of de sjablonen in deze sectie wilt bewerken, is het noodzakelijk een kopie van de gewenste sjabloon te maken. Selecteer vervolgens de kopie van de e-mail wanneer u een melding verzendt.",
-        "bsportTemplateEmails": "Bsport Sjablonen"
+        "bsportTemplateEmails": "Bsport Sjablonen",
+        "franchiseEmailsPage": {
+            "filters": {
+                "companySelectPlaceHolder": "Selecteer een studio"
+            },
+            "informativeAlert": {
+                "bsportDefault": {
+                    "description": "Deze sjablonen worden geleverd door bsport. Om ze te bewerken of te gebruiken in campagnes, moet je ze dupliceren. Ze verschijnen in het tabblad “{{-masterAccountTabName}}”."
+                },
+                "ownedByFranchisee": {
+                    "description": "Deze sjablonen zijn gemaakt door je franchisenemers vanuit hun backoffice. U kunt alleen sjablonen bekijken van studio's waartoe u toegang hebt. U kunt deze sjablonen bewerken. Houd er rekening mee dat uw bewerking invloed heeft op de bronsjabloon die door de betreffende studio in campagnes kan worden gebruikt."
+                },
+                "ownedByFranchisor": {
+                    "description": "Maak sjablonen die je kunt delen met je franchisenemers om je merkidentiteit te behouden."
+                }
+            },
+            "tabs": {
+                "bsportDefault": "bsport sjablonen",
+                "ownByFranchisee": "Studiosjablonen",
+                "ownByFranchisor": "Masteraccountsjablonen"
+            }
+        }
     },
     "member": {
         "pass_owner": "Geldige leskaart",
@@ -18230,7 +18256,8 @@
                     "isMultilocationEnabled": "Factureringslocatie weergeven",
                     "invoiceType": "Factuur type",
                     "acceptSms": "Accepteer sms",
-                    "acceptEmail": "Acceot email"
+                    "acceptEmail": "Acceot email",
+                    "hidePaginationControls": "Besturingselementen voor paginering verbergen"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -18402,7 +18429,8 @@
                 "consumer_terms_and_conditions": "Consumentenvoorwaardenkaart",
                 "authentication_disconnected_status": "Niet-verbonden status",
                 "fabrique_submenu": "Submenu",
-                "consumer_referral_card": "Verwijzingskaart voor consumenten"
+                "consumer_referral_card": "Verwijzingskaart voor consumenten",
+                "fabrique_pagination": "Paginering"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",

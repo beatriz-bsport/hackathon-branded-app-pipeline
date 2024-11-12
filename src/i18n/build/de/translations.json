@@ -12609,7 +12609,12 @@
         "recipients": "Empfänger",
         "sms": {
             "warningConsent2": "Diese Entscheidung deines Mitglieds zu missachten, wäre illegal. Bsport distanziert sich von jeglicher Verantwortung für den Missbrauch von Direkt-SMS.",
-            "warningConsent1": "Achtung! Dieses Mitglied hat die Möglichkeit, ihm Werbe-SMS zu senden, deaktiviert. Direkt-SMS ermöglichen es Ihnen, sich schnell und einfach mit Ihren Mitgliedern zu unterhalten. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden."
+            "warningConsent1": "Achtung! Dieses Mitglied hat die Möglichkeit, ihm Werbe-SMS zu senden, deaktiviert. Direkt-SMS ermöglichen es Ihnen, sich schnell und einfach mit Ihren Mitgliedern zu unterhalten. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden.",
+            "warningProviderNotVerified": {
+                "regulatoryNotice": "Bevor Sie SMS-Kampagnen, automatische Mitteilungen oder Direktnachrichten versenden können, muss die Nummer validiert werden, um den lokalen Vorschriften in den USA und Kanada zu entsprechen.",
+                "mainMessage": "Es sieht so aus, als ob die Telefonnummer für SMS noch nicht validiert wurde.",
+                "title": "SMS Nachrichten nicht verfügbar"
+            }
         },
         "thread": {
             "emptyThread": {
@@ -13377,7 +13382,7 @@
                     "plannedPayments": "Geplante Zahlungen",
                     "placeholder": "Wähle eine Rechnung aus, um Details zu sehen.",
                     "paymentHistory": "Zahlungsverlauf",
-                    "paymentErrorWithReason": "Diese Zahlung war nicht erfolgreich. Grund: {{- reason }}.",
+                    "paymentErrorWithReason": "Diese Zahlung war nicht erfolgreich. Grund: {{- reason }}",
                     "paymentError": "Diese Zahlung war nicht erfolgreich.",
                     "pay": "Jetzt bezahlen",
                     "paid": "Bezahlt",
@@ -15528,7 +15533,28 @@
         "franchiseEmails": "[Master Account] E-Mail-Vorlagen",
         "companieEmails": "Meine Vorlagen",
         "infoBsportTemplateEmails": "Wenn Sie Benachrichtigungen versenden oder die Vorlagen in diesem Abschnitt bearbeiten möchten, müssen Sie eine Kopie der gewünschten Vorlage erstellen. Wählen Sie dann die Kopie der E-Mail aus, wenn Sie eine Benachrichtigung versenden.",
-        "bsportTemplateEmails": "Bsport-Templates"
+        "bsportTemplateEmails": "Bsport-Templates",
+        "franchiseEmailsPage": {
+            "filters": {
+                "companySelectPlaceHolder": "Ein Studio auswählen"
+            },
+            "informativeAlert": {
+                "bsportDefault": {
+                    "description": "Diese Vorlagen werden von bsport zur Verfügung gestellt. Um sie zu bearbeiten oder sie in Kampagnen zu verwenden, duplizieren Sie sie bitte. Sie werden auf der Registerkarte \"{{-masterAccountTabName}}\" angezeigt."
+                },
+                "ownedByFranchisee": {
+                    "description": "Diese Vorlagen wurden von Ihren Franchisenehmern in deren Backoffice erstellt. Sie sehen nur Vorlagen von Studios, auf die Sie Zugriff haben. Sie können diese Vorlagen bearbeiten. Beachten Sie, dass sich Ihre Bearbeitung auf die Quellvorlage auswirkt, die in Kampagnen des entsprechenden Studios verwendet werden kann."
+                },
+                "ownedByFranchisor": {
+                    "description": "Erstellen Sie Vorlagen, die Sie an Ihre Franchisenehmer weitergeben können, um Ihre Markenidentität aufrecht zu halten."
+                }
+            },
+            "tabs": {
+                "bsportDefault": "bsport Vorlagen",
+                "ownByFranchisee": "Studio-Vorlagen",
+                "ownByFranchisor": "Master-Konto Vorlagen"
+            }
+        }
     },
     "coach": {
         "forms": {
@@ -16549,7 +16575,7 @@
                         "isModifyRecursively": "Möchten Sie ähnliche Kurse gemäß dieser neuen Bedingungen ändern?",
                         "isNotifyConsumers": "Möchten Sie Ihre Kunden über diese Änderung informieren?",
                         "partnership": {
-                            "partnerMaxBookingCount": "Maximale Anzahl von Marketplace-Buchungen (nur OneFit + Urban Sports Club)",
+                            "partnerMaxBookingCount": "Maximale Anzahl von Buchungen von Wellhub und Urban Sports Club zusammen (die übrigen Marktplätze sind von dieser Einstellung nicht betroffen).",
                             "availableOnPartnership": "Über die Marketplaces (ClassPass, OneFit...)",
                             "title": "Marktplatz",
                             "uscIntegrationWarning": "Ihre Integration mit dem Urban Sports Club Marketplace ist aktiv. Alle Kurse, die 2 oder mehr Tage lang sind, werden nicht angezeigt.",
@@ -18122,7 +18148,8 @@
                 "consumer_terms_and_conditions": "Karte mit den allgemeinen Geschäftsbedingungen für Verbraucher",
                 "authentication_disconnected_status": "Offline-Zustand",
                 "fabrique_submenu": "Untermenü",
-                "consumer_referral_card": "Kundenempfehlungskarte"
+                "consumer_referral_card": "Kundenempfehlungskarte",
+                "fabrique_pagination": "Paginierung"
             },
             "page": {
                 "calendar": "Kalender",
@@ -18280,7 +18307,8 @@
                     "isMultilocationEnabled": "Rechnungsort anzeigen",
                     "invoiceType": "Rechnungsart",
                     "acceptSms": "Sms akzeptieren",
-                    "acceptEmail": "E-Mail akzeptieren"
+                    "acceptEmail": "E-Mail akzeptieren",
+                    "hidePaginationControls": "Steuerelemente für die Paginierung ausblenden"
                 },
                 "option": {
                     "activityName": "Aktivität",

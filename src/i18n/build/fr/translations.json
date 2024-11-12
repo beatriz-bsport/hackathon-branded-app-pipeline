@@ -1406,7 +1406,12 @@
         },
         "sms": {
             "warningConsent1": "Attention ! Ce membre a désactivé la possibilité de lui envoyer des sms promotionnels. Les sms directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.",
-            "warningConsent2": "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des sms directs."
+            "warningConsent2": "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des sms directs.",
+            "warningProviderNotVerified": {
+                "regulatoryNotice": "Avant de pouvoir envoyer des campagnes SMS, des communications automatiques ou des messages directs, le numéro doit être validé afin de respecter les réglementations en vigueur aux États-Unis et au Canada.",
+                "mainMessage": "Il semble que le numéro de téléphone pour les SMS n'ait pas encore été validé.",
+                "title": "Envoi de SMS indisponible"
+            }
         },
         "thread": {
             "filter": {
@@ -2211,7 +2216,7 @@
                     "plannedPayments": "Paiements prévus",
                     "placeholder": "Sélectionnez une facture pour en voir les détails.",
                     "paymentHistory": "Historique des paiements",
-                    "paymentErrorWithReason": "Ce paiement n'a pas abouti. Raison: {{- reason }}.",
+                    "paymentErrorWithReason": "Ce paiement n'a pas abouti. Raison : {{- reason }}",
                     "paymentError": "Ce paiement n'a pas abouti.",
                     "pay": "Payer maintenant",
                     "paid": "Payé",
@@ -3077,7 +3082,28 @@
         "allCompanies": "Tous les franchisés",
         "bsportTemplateEmail": "Templates Bsport",
         "bsportTemplateEmails": "Templates Bsport",
-        "infoBsportTemplateEmails": "Si vous souhaitez envoyer des communications ou éditer les templates de cette section, il est nécessaire de créer une copie du template souhaité. Sélectionnez ensuite la copie de l'email lors de l'envoi d'une communication."
+        "infoBsportTemplateEmails": "Si vous souhaitez envoyer des communications ou éditer les templates de cette section, il est nécessaire de créer une copie du template souhaité. Sélectionnez ensuite la copie de l'email lors de l'envoi d'une communication.",
+        "franchiseEmailsPage": {
+            "filters": {
+                "companySelectPlaceHolder": "Sélectionner un studio"
+            },
+            "informativeAlert": {
+                "bsportDefault": {
+                    "description": "Ces templates sont fournis par bsport. Pour les modifier ou les utiliser dans des campagnes, veuillez les dupliquer. Ils apparaîtront dans l'onglet «{{-masterAccountTabName}}»."
+                },
+                "ownedByFranchisee": {
+                    "description": "Ces templates ont été créés par vos franchisés à partir de leur backoffice. Vous ne voyez que les templates des studios auxquels vous avez accès. Vous pouvez modifier ces templates. Notez que votre édition aura un impact sur le template source qui peut être utilisé dans les campagnes par le studio concerné."
+                },
+                "ownedByFranchisor": {
+                    "description": "Créez des templates que vous pourrez partager avec vos franchisés afin de préserver l'identité de votre marque."
+                }
+            },
+            "tabs": {
+                "bsportDefault": "Templates emails bsport",
+                "ownByFranchisee": "Templates emails franchisés",
+                "ownByFranchisor": "Templates emails franchiseur"
+            }
+        }
     },
     "establishment": {
         "marketing": {
@@ -19877,7 +19903,8 @@
                 "consumer_terms_and_conditions": "Carte de conditions générales de vente pour les consommateurs",
                 "authentication_disconnected_status": "Etat déconnecté",
                 "fabrique_submenu": "Sous-menu",
-                "consumer_referral_card": "Carte de parrainage du membre"
+                "consumer_referral_card": "Carte de parrainage du membre",
+                "fabrique_pagination": "Pagination"
             },
             "page": {
                 "common": "Commun",
@@ -20036,7 +20063,8 @@
                     "isMultilocationEnabled": "Afficher le lieu de facturation",
                     "invoiceType": "Type de facture",
                     "acceptSms": "Accepter les sms",
-                    "acceptEmail": "Accepter les emails"
+                    "acceptEmail": "Accepter les emails",
+                    "hidePaginationControls": "Masquer les commandes de pagination"
                 },
                 "option": {
                     "true": "Oui",

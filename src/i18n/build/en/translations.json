@@ -2561,7 +2561,7 @@
             },
             "myInvoices": {
                 "detailsCard": {
-                    "paymentErrorWithReason": "This payment was unsuccessful. Reason: {{- reason }}."
+                    "paymentErrorWithReason": "This payment was unsuccessful. Reason: {{- reason }}"
                 }
             }
         }

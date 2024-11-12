@@ -2261,7 +2261,7 @@
                 "relatedPaymentPacks_plural": "Los siguientes pases {{- pass_name }} ya no serán utilizables para este establecimiento, asegúrese de informar a sus clientes al respecto.",
                 "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se solicita una sustitución para una sesión en este establecimiento. Al eliminar el establecimiento, dejarán de recibir la notificación correspondiente.",
                 "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Por lo tanto, al eliminar el establecimiento, recibirán solicitudes de sustitución de todos los establecimientos.",
-                "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Al eliminar el establecimiento, recibirán por tanto solicitudes de sustitución de todos los establecimientos.",
+                "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Por lo tanto, al eliminar el establecimiento, recibirán solicitudes de sustitución de todos los establecimientos.",
                 "hasRelatedCoachAvailabilitySlots": "Este establecimiento se eliminará de la lista de establecimientos disponibles utilizada en el calendario de sus profesores.",
                 "exclusiveCoachAvailabilitySlots": "Se indica que el profesor {{- coach_name }} está disponible para este establecimiento sólo para algunas franjas horarias. Al eliminar el establecimiento, se eliminarán estas franjas horarias.",
                 "exclusiveCoachAvailabilitySlots_plural": "Los profesores {{- coach_name }} están indicados como disponibles para este establecimiento sólo para algunas franjas horarias. Al eliminar el establecimiento, se eliminarán estas franjas horarias.",
@@ -6378,7 +6378,7 @@
                         "isModifyRecursively": "¿Desea modificar sesiones similares en función de estas nuevas condiciones?",
                         "isNotifyConsumers": "¿Quiere informar a sus clientes de este cambio?",
                         "partnership": {
-                            "partnerMaxBookingCount": "Número máximo de reservas de marketplace (sólo OneFit + Urban Sports Club)",
+                            "partnerMaxBookingCount": "Número máximo de reservas de Wellhub y Urban Sports Club combinadas (el resto de mercados no se ven afectados por esta configuración)",
                             "availableOnPartnership": "En los marketplaces (ClassPass, OneFit...)",
                             "title": "Integraciones de Marketplace",
                             "uscIntegrationWorkshopWarning": "Los talleres no son compatibles con el marketplace Urban Sports Club, por lo que no se incluirá esta sesión.",
@@ -8834,7 +8834,7 @@
                     "plannedPayments": "Pagos programados",
                     "placeholder": "Seleccione una factura para ver los detalles.",
                     "paymentHistory": "Historial de pagos",
-                    "paymentErrorWithReason": "Este pago no se ha realizado correctamente. Motivo: {{ reason }}.",
+                    "paymentErrorWithReason": "Este pago no se ha realizado correctamente. Motivo: {{- reason }}",
                     "paymentError": "Este pago no se ha realizado correctamente.",
                     "pay": "Pagar ahora",
                     "paid": "Pagada",
@@ -10689,7 +10689,12 @@
         },
         "sms": {
             "warningConsent2": "No respetar esta decisión de tu socio sería ilegal. Bsport no se hace responsable en caso de uso abusivo del sms directo.",
-            "warningConsent1": "Advertencia: este miembro no quiere recibir sms promocionales. Los sms directos te permiten llegar a tus socios de forma sencilla y rápida. No deben utilizarse con fines publicitarios o promocionales."
+            "warningConsent1": "Advertencia: este miembro no quiere recibir sms promocionales. Los sms directos te permiten llegar a tus socios de forma sencilla y rápida. No deben utilizarse con fines publicitarios o promocionales.",
+            "warningProviderNotVerified": {
+                "regulatoryNotice": "Antes de poder enviar campañas de SMS, comunicaciones automáticas o mensajes directos, es necesario validar el número para cumplir la normativa local de EE.UU. y Canadá.",
+                "mainMessage": "Parece que el número de teléfono para SMS aún no ha sido validado.",
+                "title": "Envío de SMS no disponible"
+            }
         },
         "filter": {
             "numberFilter": "1 filtro aplicado",
@@ -16145,7 +16150,28 @@
         "companieEmails": "Mis plantillas",
         "bsportTemplateEmail": "Correos electrónicos de lanzamiento",
         "infoBsportTemplateEmails": "Si desea enviar comunicaciones o editar las plantillas de esta sección, es necesario crear una copia de la plantilla deseada. A continuación, selecciona la copia del correo electrónico al enviar una comunicación.",
-        "bsportTemplateEmails": "Templates Bsport"
+        "bsportTemplateEmails": "Templates Bsport",
+        "franchiseEmailsPage": {
+            "informativeAlert": {
+                "bsportDefault": {
+                    "description": "Estas plantillas son proporcionadas por bsport. Para editarlas o utilizarlas en campañas, duplíquelas. Aparecerán en la pestaña «{{-masterAccountTabName}}»."
+                },
+                "ownedByFranchisee": {
+                    "description": "Estas plantillas han sido creadas por sus franquiciados desde su backoffice. Sólo podrá ver las plantillas de los estudios a los que tenga acceso. Puede editar esas plantillas, tenga en cuenta que su edición afectará a la plantilla de origen que puede ser utilizada en campañas por el estudio relacionado."
+                },
+                "ownedByFranchisor": {
+                    "description": "Cree plantillas que pueda compartir con sus franquiciados para mantener su identidad de marca."
+                }
+            },
+            "filters": {
+                "companySelectPlaceHolder": "Seleccione un estudio"
+            },
+            "tabs": {
+                "bsportDefault": "Plantillas de bsport",
+                "ownByFranchisee": "Plantillas de estudios",
+                "ownByFranchisor": "Plantillas de Master Account"
+            }
+        }
     },
     "metaActivity": {
         "reviews": "Opinión de los clientes: ",
@@ -18265,7 +18291,8 @@
                     "isMultilocationEnabled": "Mostrar la ubicación de facturación",
                     "invoiceType": "Tipo de factura",
                     "acceptSms": "Aceptar sms",
-                    "acceptEmail": "Aceptar correo electrónico"
+                    "acceptEmail": "Aceptar correo electrónico",
+                    "hidePaginationControls": "Ocultar controles de paginación"
                 },
                 "configurationTitle": "Variaciones",
                 "confirmationMessageComponentAlert": "Este componente gestiona principalmente los estados de reserva y pago. Para personalizar su apariencia, recomendamos utilizar sus componentes raíz situados en la sección común",
@@ -18437,7 +18464,8 @@
                 "consumer_terms_and_conditions": "Tarjeta de términos y condiciones del consumidor",
                 "authentication_disconnected_status": "Estado de desconexión",
                 "fabrique_submenu": "Submenú",
-                "consumer_referral_card": "Tarjeta de referencia del consumidor"
+                "consumer_referral_card": "Tarjeta de referencia del consumidor",
+                "fabrique_pagination": "Paginación"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",

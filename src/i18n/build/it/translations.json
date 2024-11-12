@@ -2079,7 +2079,7 @@
                     "plannedPayments": "Pagamenti pianificati",
                     "placeholder": "Seleziona una ricevuta per vedere i dettagli.",
                     "paymentHistory": "Cronologia dei pagamenti",
-                    "paymentErrorWithReason": "Il pagamento non è andato a buon fine. Motivo: {{- reason }}.",
+                    "paymentErrorWithReason": "Il pagamento non è andato a buon fine. Motivo: {{- reason }}",
                     "paymentError": "Questo pagamento non è andato a buon fine.",
                     "pay": "Paga ora",
                     "paid": "Pagata",
@@ -2672,7 +2672,12 @@
         },
         "sms": {
             "warningConsent2": "Non rispettare questa decisione del vostro membro sarebbe illegale. Bsport è sollevata da ogni responsabilità in caso di uso abusivo degli sms diretti.",
-            "warningConsent1": "Attenzione! Questo membro ha disattivato la possibilità di inviare sms promozionali. Gli sms diretti ti permettono di discutere con i tuoi membri in modo semplice e veloce. Non devono essere usati per scopi pubblicitari o promozionali."
+            "warningConsent1": "Attenzione! Questo membro ha disattivato la possibilità di inviare sms promozionali. Gli sms diretti ti permettono di discutere con i tuoi membri in modo semplice e veloce. Non devono essere usati per scopi pubblicitari o promozionali.",
+            "warningProviderNotVerified": {
+                "regulatoryNotice": "Prima di poter inviare campagne SMS, comunicazioni automatiche o messaggi diretti, il numero deve essere convalidato per rispettare le normative locali negli Stati Uniti e in Canada.",
+                "mainMessage": "Sembra che il numero di telefono per gli SMS non sia ancora stato convalidato.",
+                "title": "Invio di SMS non disponibile"
+            }
         },
         "generic": {
             "history": "Storia",
@@ -10777,7 +10782,28 @@
         "franchiseEmails": "Modelli di franchising",
         "companieEmails": "I miei modelli",
         "infoBsportTemplateEmails": "Se si desidera inviare comunicazioni o modificare i modelli presenti in questa sezione, è necessario creare una copia del modello desiderato. Quindi seleziona la copia dell'e-mail quando invii una comunicazione.",
-        "bsportTemplateEmails": "Template Bsport"
+        "bsportTemplateEmails": "Template Bsport",
+        "franchiseEmailsPage": {
+            "filters": {
+                "companySelectPlaceHolder": "Seleziona uno studio"
+            },
+            "informativeAlert": {
+                "bsportDefault": {
+                    "description": "Questi modelli sono forniti da bsport. Per modificarli o utilizzarli nelle campagne, duplicali. Appariranno nella scheda \"{{-masterAccountTabName}}\"."
+                },
+                "ownedByFranchisee": {
+                    "description": "Questi modelli email sono stati creati dai tuoi affiliati dal loro backoffice. Puoi visualizzare solo i modelli degli studi ai quali hai accesso. Puoi modificare questi modelli; tieni presente che la tua modifica influenzerà il modello originale, che potrebbe essere utilizzato nelle campagne dallo studio correlato."
+                },
+                "ownedByFranchisor": {
+                    "description": "Crea modelli email da condividere tra i tuoi Studi per mantenere l'identità del brand."
+                }
+            },
+            "tabs": {
+                "bsportDefault": "Modelli email bsport",
+                "ownByFranchisee": "Modelli email per gli Studi",
+                "ownByFranchisor": "Modelli email nell'Account Master"
+            }
+        }
     },
     "member": {
         "showNextBooking": "Vedi le prenotazioni future",
@@ -13345,7 +13371,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il vostro marketplace non visualizzeranno più il calendario della sede.",
                     "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate.",
                     "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceverà quindi le richieste di sostituzione da tutte le sedi.",
-                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceveranno quindi le richieste di sostituzione da ogni sede.",
+                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceveranno quindi le richieste di sostituzione da tutte le sedi.",
                     "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, non riceveranno più la relativa notifica.",
                     "hasRelatedStaffConfigurations": "Questa sede è utilizzata per il monitoraggio degli accessi da parte di uno o più utenti staff. Eliminando la sede senza selezionarne una nuova, questi non potranno più effettuare il monitoraggio degli accessi."
                 },
@@ -13366,10 +13392,10 @@
                 "hasRelatedZoomEstablishment": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti utilizzati per lo streaming in diretta con l'integrazione di Zoom.",
                 "hasRelatedAvailabilitySlots": "Le fasce orarie disponibili dell'orario di questo stabilimento saranno cancellate.",
                 "relatedPaymentPacks": "Il seguente pass {{- pass_name }} non sarà più utilizzabile per questo stabilimento, assicuratevi di informare i vostri clienti.",
-                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
+                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicurati di informare i tuoi clienti.",
                 "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
                 "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
-                "exclusiveAssociatedCoaches_plural": "I vostri insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceveranno quindi le richieste di sostituzione da ogni stabilimento.",
+                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceveranno quindi le richieste di sostituzione da tutte le strutture.",
                 "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
                 "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
                 "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento, queste fasce orarie saranno eliminate.",
@@ -13391,7 +13417,7 @@
                 "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
                 "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; aggiornare o eliminare queste sedi.",
                 "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
-                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellare lo stabilimento.",
+                "exclusivePaymentPacks_plural": "I seguenti pachetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiorna le restrizioni prima di cancellare lo stabilimento.",
                 "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
                 "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
                 "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."
@@ -16026,7 +16052,7 @@
                         "isModifyRecursively": "Vuoi modificare tutte le sessioni simili in base a queste nuove condizioni?",
                         "isNotifyConsumers": "Vuoi informare i tuoi clienti di questo cambiamento?",
                         "partnership": {
-                            "partnerMaxBookingCount": "Massimo di prenotazioni (solo Wellhub e Urban Sports Club).",
+                            "partnerMaxBookingCount": "Numero massimo di prenotazioni da Wellhub e Urban Sports Club combinate (il resto dei marketplace non è interessato da questa impostazione)",
                             "availableOnPartnership": "Sui marketplace (ClassPass, OneFit...)",
                             "title": "Integrazioni con il Marketplace",
                             "uscIntegrationWorkshopWarning": "I workshop non sono compatibili con il marketplace Urban Sports Club, pertanto questa sessione non sarà inclusa.",
@@ -18131,7 +18157,8 @@
                 "consumer_terms_and_conditions": "Card dei termini e delle condizioni per i clienti",
                 "authentication_disconnected_status": "Stato di disconnessione",
                 "fabrique_submenu": "Sottomenù",
-                "consumer_referral_card": "Carta di referenza per i clienti"
+                "consumer_referral_card": "Carta di referenza per i clienti",
+                "fabrique_pagination": "Paginazione"
             },
             "cssConfig": {
                 "title": {
@@ -18272,7 +18299,8 @@
                     "isMultilocationEnabled": "Visualizza la sede di contabilizzazione",
                     "invoiceType": "Tipo di ricevuta",
                     "acceptSms": "Accetta sms",
-                    "acceptEmail": "Accetta email"
+                    "acceptEmail": "Accetta email",
+                    "hidePaginationControls": "Nascondi i controlli di paginazione"
                 },
                 "option": {
                     "false": "No",

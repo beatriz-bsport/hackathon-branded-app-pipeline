@@ -56,6 +56,8 @@ import {
   deleteGiftcard as deleteGiftcardActions,
 } from '../../libs/giftcard/actions';
 import withTitle from '../../hocs/with-title.hoc';
+import { GiftcardKindEnum } from '#src/libs/giftcard/constants';
+import ConsumerPhysicalGiftcardDetails from '#src/libs/giftcard/components/ConsumerPhysicalGiftcardDetails.components';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -104,9 +106,17 @@ type Props = OwnProps &
   WithStyles &
   WithTranslation;
 
+type State = {
+  consumerPhysicalGiftcardSelected: ConsumerGiftcard | null;
+};
+
 const PAGE_SIZE = 15;
 
-export class GiftcardDetailPage extends Component<Props> {
+export class GiftcardDetailPage extends Component<Props, State> {
+  state: State = {
+    consumerPhysicalGiftcardSelected: null,
+  };
+
   componentDidMount() {
     this.props.retrieveGiftcard(this.props.id);
     this.props.fetchTags();
@@ -169,6 +179,14 @@ export class GiftcardDetailPage extends Component<Props> {
                   onClickReceiver={
                     cgc.dst_member && this.props.goToMemberGiftcard
                   }
+                  onClickSeeDetails={
+                    cgc.kind === GiftcardKindEnum.PHYSICAL
+                      ? () =>
+                          this.setState({
+                            consumerPhysicalGiftcardSelected: cgc,
+                          })
+                      : null
+                  }
                   onClickSender={this.props.goToMemberGiftcard}
                 />
               )}
@@ -199,6 +217,15 @@ export class GiftcardDetailPage extends Component<Props> {
             open
             onClose={() => this.props.setDeleteIsOpen(false)}
             onSubmit={this.props.deleteGiftcard}
+          />
+        )}
+        {!!this.state.consumerPhysicalGiftcardSelected && (
+          <ConsumerPhysicalGiftcardDetails
+            consumerGiftcard={this.state.consumerPhysicalGiftcardSelected}
+            isOpen={!!this.state.consumerPhysicalGiftcardSelected}
+            onClose={() =>
+              this.setState({ consumerPhysicalGiftcardSelected: null })
+            }
           />
         )}
       </Grid>

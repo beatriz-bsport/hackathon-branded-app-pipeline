@@ -184,9 +184,23 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
     const { t } = useTranslation('giftcard');
     const classes = useStyles();
 
-    const receiverName = consumerGiftcard.dst_member
-      ? memberReceiver?.name
-      : t('consumerGiftcard.notAttributedYet');
+    const isPhysicalGiftcard =
+      consumerGiftcard.kind === GiftcardKindEnum.PHYSICAL;
+
+    const receiverName = useMemo(() => {
+      if (consumerGiftcard.kind === GiftcardKindEnum.PHYSICAL) {
+        return consumerGiftcard.message_is_for;
+      }
+      return consumerGiftcard.dst_member
+        ? memberReceiver?.name
+        : t('consumerGiftcard.notAttributedYet');
+    }, [
+      consumerGiftcard?.dst_member,
+      consumerGiftcard?.kind,
+      consumerGiftcard?.message_is_for,
+      memberReceiver?.name,
+      t,
+    ]);
 
     const status = consumerGiftcard.dst_member ? (
       <span>
@@ -268,12 +282,27 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
             }
             selected={selected}
           >
-            {!!showMember && !!consumerGiftcard.dst_member && (
+            {((!!showMember && !!consumerGiftcard.dst_member) ||
+              isPhysicalGiftcard) && (
               <ListItemAvatar>
                 <Avatar alt="member" src={memberReceiver?.photo} />
               </ListItemAvatar>
             )}
             <ListItemText
+              hidden={!isPhysicalGiftcard}
+              primary={
+                <div className={classes.row}>
+                  {consumerGiftcard.message_is_for}
+                </div>
+              }
+              secondary={t('consumerGiftcard.invitedOn', {
+                d: DateTime.fromISO(
+                  consumerGiftcard.planned_date_send,
+                ).toLocaleString(DateTime.DATE_SHORT),
+              })}
+            />
+            <ListItemText
+              hidden={isPhysicalGiftcard}
               primary={
                 <div className={classes.row}>
                   {showMember ? (

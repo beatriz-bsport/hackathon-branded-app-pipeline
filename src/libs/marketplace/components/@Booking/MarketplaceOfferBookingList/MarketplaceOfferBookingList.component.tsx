@@ -29,6 +29,7 @@ export type Props = {
   getOfferWaitListPosition: (
     offerId: number,
   ) => OfferStatusWaitingListPosition | {};
+  getOfferStatus: (offerId: number) => OfferStatus;
 };
 
 const MarketplaceOfferBookingList: React.FC<Props> = ({
@@ -44,6 +45,7 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
   getBookableStatus,
   getIsAddGuestDisabled,
   getOfferWaitListPosition,
+  getOfferStatus,
 }) => {
   const filteredOffers = offers.filter((offer) => !!offer);
 
@@ -66,6 +68,7 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
             hideCoach={hideCoach}
             isAddGuestDisabled={getIsAddGuestDisabled(offer.id)}
             isLoading={isLoading}
+            isRegistered={getOfferStatus(offer.id)?.is_registered}
             offer={offer}
             onOpenAddGuestModal={onOpenAddGuestModal}
           />

@@ -28,6 +28,7 @@ import {
   getBookingGuestNumberLeft,
   getOfferBookableStatus,
   getOfferStatusWaitingListPosition,
+  getBookableStatusData,
 } from '#src/libs/offer/selectors';
 import { withCustomLevel } from '#src/libs/level/selectors';
 import { getSubscriptionDetail } from '#src/libs/subscription/selectors';
@@ -351,6 +352,14 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
     return null;
   };
 
+  /**
+   * Retrieves the offer status for display purposes
+   * @param offerId The offer ID
+   */
+  getOfferStatus = (offerId: number) => {
+    return this.props.offerStatusById[offerId];
+  };
+
   render() {
     const {
       t,
@@ -503,6 +512,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                 getBookableStatus={this.props.getOfferBookableStatus}
                 getGuestNameFromQueryParams={this.getGuestNameFromQueryParams}
                 getIsAddGuestDisabled={this.getIsAddGuestDisabled}
+                getOfferStatus={this.getOfferStatus}
                 getOfferWaitListPosition={
                   this.props.getOfferStatusWaitingListPosition
                 }
@@ -788,6 +798,7 @@ const mapStateToProps = (
     offerExtraDataList: ExtraDataFromQueryParams;
   },
 ) => ({
+  offerStatusById: getBookableStatusData(state),
   bookingGuestRemainingCount: getBookingGuestNumberLeft(state),
   hideCoach: themeSelectors.getTheme(state).hideCoach,
   isBasketLoading: state.checkout.basket.loading,

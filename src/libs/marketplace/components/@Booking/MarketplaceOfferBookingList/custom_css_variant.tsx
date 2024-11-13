@@ -125,6 +125,7 @@ const usePropsFromVariation = (
     offers,
     hideCoach,
     getGuestNameFromQueryParams: () => '',
+    getOfferStatus: () => null,
     getIsAddGuestDisabled: mockedGetIsAddGuestDisabled,
     onOpenAddGuestModal: () => {},
     companyTheme: fakeCompanyTheme,

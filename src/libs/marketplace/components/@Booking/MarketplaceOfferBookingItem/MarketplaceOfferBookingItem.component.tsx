@@ -32,6 +32,7 @@ export type Props = {
   guestName?: string;
   bookingGuestFrequency?: BOOKING_FOR_GUEST_FREQUENCY;
   bookingGuestNumberLeft?: number;
+  isRegistered: boolean;
   onOpenAddGuestModal?: () => void;
   getOfferWaitListPosition: (
     offerId: number,
@@ -48,6 +49,7 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
   guestName,
   bookingGuestFrequency,
   bookingGuestNumberLeft,
+  isRegistered,
   onOpenAddGuestModal,
   getOfferWaitListPosition,
 }) => {
@@ -102,7 +104,9 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
       hideCoach={hideCoach}
       isAddGuestDisabled={isAddGuestDisabled}
       isWaitingList={
-        offer?.full && bookableStatus === OFFER_BOOKABLE_STATUS_FULL
+        offer?.full &&
+        bookableStatus === OFFER_BOOKABLE_STATUS_FULL &&
+        !isRegistered
       }
       level={offer.customLevel}
       onOpenAddGuestModal={onOpenAddGuestModal}

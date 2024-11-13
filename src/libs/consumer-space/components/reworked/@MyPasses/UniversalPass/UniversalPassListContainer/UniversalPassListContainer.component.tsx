@@ -7,14 +7,14 @@ import UniversalPassDetailsCard from '#src/libs/consumer-space/components/rework
 import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
 import ConsumerSpaceVirtualizedList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceVirtualizedList';
 
-import { parseUniversalPassData } from '#src/libs/consumer-space/components/reworked/@MyPasses/UniversalPass/utils';
+import useUniversalPassData from '#src/libs/consumer-space/hooks/universalPassData.hook';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 import type { UniversalPassReworked } from '#src/libs/universal-pass/types';
 import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/types';
 
 // Common stylesheet
 import '#src/libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
-import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 type Props = {
   handleChangePage: (page: number) => void;
@@ -97,7 +97,7 @@ export const UniversalPassListContainer: React.FC<Props> = ({
     timeSlots,
     totalCredits,
     isCompatibleWithVod,
-  } = parseUniversalPassData(selectedPass);
+  } = useUniversalPassData(selectedPass);
 
   const handleSeeDetails = useCallback(
     (id: number) => () => onPassCardClick(id),

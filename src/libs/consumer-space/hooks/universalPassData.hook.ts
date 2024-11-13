@@ -1,4 +1,6 @@
 import uniq from 'lodash/uniq';
+import { getTheme } from '#src/libs/theme/selectors';
+import { useSelector } from 'react-redux';
 
 import type {
   ConsumerPaymentPackCompatibility,
@@ -6,7 +8,7 @@ import type {
 } from '#src/libs/consumer-space/types';
 import type { UniversalPassReworked } from '#src/libs/universal-pass/types';
 import { PrivateServiceCompatibilityPass } from '#src/libs/private-service/types';
-import type { UniversalPassDetailsCardProps } from './UniversalPassDetailsCard';
+import type { UniversalPassDetailsCardProps } from '#src/libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsCard';
 
 const getPrivateServiceCompatibilityPassData = (
   privateServiceCompatibilityPass: PrivateServiceCompatibilityPass,
@@ -33,8 +35,8 @@ const getPrivateServiceCompatibilityPassData = (
   };
 };
 
-export const parseUniversalPassData = (
-  universalPass: UniversalPassReworked,
+const useUniversalPassData = (
+  universalPass: UniversalPassReworked | null,
 ): Omit<
   Required<UniversalPassDetailsCardProps>,
   | 'className'
@@ -44,6 +46,8 @@ export const parseUniversalPassData = (
   | 'showPlaceholder'
   | 'suspensionDate'
 > => {
+  const companyTheme = useSelector(getTheme);
+
   const name = universalPass?.consumer_payment_pack?.payment_pack?.name;
 
   const description =
@@ -58,6 +62,8 @@ export const parseUniversalPassData = (
     !universalPass?.consumer_payment_pack?.payment_pack?.credits;
 
   const isCompatibleWithBookingForGuest =
+    companyTheme?.allow_guest_activatable &&
+    companyTheme?.allow_guest &&
     universalPass?.consumer_payment_pack?.payment_pack?.allow_guest_pass;
 
   const startDate = universalPass?.consumer_payment_pack?.starting_date;
@@ -159,3 +165,5 @@ export const parseUniversalPassData = (
     totalCredits,
   };
 };
+
+export default useUniversalPassData;

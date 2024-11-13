@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
 
-import { parseUniversalPassData } from '#src/libs/consumer-space/components/reworked/@MyPasses/UniversalPass/utils';
+import useUniversalPassData from '#src/libs/consumer-space/hooks/universalPassData.hook';
 import ConsumerPaymentPackCreditStatus from '#src/libs/consumer-space/components/reworked/common/ConsumerPaymentPackCreditStatus';
 import UniversalPassDetailsCard from '#src/libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsCard';
 
@@ -26,10 +26,6 @@ const UniversalPassDetailsDrawer: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('common');
 
-  if (!selectedPass) {
-    return null;
-  }
-
   const {
     activityCompatibilities,
     appointmentCompatibilities,
@@ -46,7 +42,11 @@ const UniversalPassDetailsDrawer: React.FC<Props> = ({
     timeSlots,
     totalCredits,
     isCompatibleWithVod,
-  } = parseUniversalPassData(selectedPass);
+  } = useUniversalPassData(selectedPass);
+
+  if (!selectedPass) {
+    return null;
+  }
 
   return (
     <BottomDrawer

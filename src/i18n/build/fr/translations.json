@@ -9280,7 +9280,7 @@
             "max_remuneration": "Maximum",
             "taxe_rate": "Exclure la TVA du calcul de la valeur marginale (pourcentage)",
             "add_taxe_rate": "Taxe à ajouter",
-            "taxeConciseHelper": "Le bonus en pourcentage, calculé à partir de la valeur marginale, sera retranché de la TVA en vigueur.",
+            "taxeConciseHelper": "Le calcul du bonus en pourcentage sera basé sur la valeur marginale hors TVA.",
             "taxeLongHelper": "Aide : Tous les pourcentages sont calculés sur la valeur marginale de chaque réservation hors taxe. La taxe ajoutée s’applique sur la valeur marginale ainsi que l’ensemble des fixes et des bonus.",
             "cancellationBaseHelper": "Aide : En cochant cette case le coach ne percevera pas de rémunération supplémentaire sur la valeur marginale des réservations annulées",
             "fixedBonusbyInterval": "Ajouter un bonus fixe par intervalle",

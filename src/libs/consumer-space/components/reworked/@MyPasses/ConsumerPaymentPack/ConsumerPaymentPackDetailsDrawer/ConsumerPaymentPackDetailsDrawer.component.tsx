@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
 
-import { parseConsumerPaymentPackData } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/utils';
+import useConsumerPaymentPackData from '#src/libs/consumer-space/hooks/consumerPaymentPackData.hook';
+
 import ConsumerPaymentPackCreditStatus from '#src/libs/consumer-space/components/reworked/common/ConsumerPaymentPackCreditStatus';
 import ConsumerPaymentPackDetailsCard from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackDetailsCard';
 
@@ -44,7 +45,7 @@ const ConsumerPaymentPackDetailsDrawer: React.FC<Props> = ({
     timeSlots,
     totalCredits,
     isCompatibleWithVod,
-  } = parseConsumerPaymentPackData(selectedPass);
+  } = useConsumerPaymentPackData(selectedPass);
 
   return (
     <BottomDrawer

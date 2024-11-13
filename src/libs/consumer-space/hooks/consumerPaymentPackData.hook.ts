@@ -1,14 +1,16 @@
 import uniq from 'lodash/uniq';
+import { useSelector } from 'react-redux';
+import { getTheme } from '#src/libs/theme/selectors';
 
 import type { ConsumerPaymentPackReworked } from '#src/libs/consumer-payment-pack/types';
 import type {
   ConsumerPassRestriction,
   ConsumerPaymentPackCompatibility,
 } from '#src/libs/consumer-space/types';
-import type { ConsumerPaymentPackDetailsCardProps } from './ConsumerPaymentPackDetailsCard';
+import type { ConsumerPaymentPackDetailsCardProps } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackDetailsCard';
 
-export const parseConsumerPaymentPackData = (
-  consumerPaymentPack: ConsumerPaymentPackReworked,
+const useConsumerPaymentPackData = (
+  consumerPaymentPack: ConsumerPaymentPackReworked | null,
 ): Omit<
   Required<ConsumerPaymentPackDetailsCardProps>,
   | 'className'
@@ -18,6 +20,8 @@ export const parseConsumerPaymentPackData = (
   | 'showPlaceholder'
   | 'suspensionDate'
 > => {
+  const companyTheme = useSelector(getTheme);
+
   const name = consumerPaymentPack?.payment_pack?.name;
 
   const description = consumerPaymentPack?.payment_pack?.description;
@@ -29,6 +33,8 @@ export const parseConsumerPaymentPackData = (
   const isUnlimited = !consumerPaymentPack?.payment_pack?.credits;
 
   const isCompatibleWithBookingForGuest =
+    companyTheme?.allow_guest_activatable &&
+    companyTheme?.allow_guest &&
     consumerPaymentPack?.payment_pack?.allow_guest_pass;
 
   const startDate = consumerPaymentPack?.starting_date;
@@ -146,3 +152,5 @@ export const parseConsumerPaymentPackData = (
     isCompatibleWithVod,
   };
 };
+
+export default useConsumerPaymentPackData;

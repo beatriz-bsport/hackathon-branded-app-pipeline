@@ -8,7 +8,7 @@ import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 import PageInnerContentLayout from '#src/libs/consumer-space/components/reworked/@Layout/PageInnerContentLayout';
 import ConsumerSpaceVirtualizedList from '#src/libs/consumer-space/components/reworked/@Layout/ConsumerSpaceVirtualizedList';
 
-import { parseConsumerPaymentPackData } from '#src/libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/utils';
+import useConsumerPaymentPackData from '#src/libs/consumer-space/hooks/consumerPaymentPackData.hook';
 
 import type { PassFilterTab } from '#src/libs/consumer-space/components/reworked/@MyPasses/types';
 import type { ConsumerPaymentPackReworked } from '#src/libs/consumer-payment-pack/types';
@@ -91,7 +91,7 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
     startDate,
     timeSlots,
     totalCredits,
-  } = parseConsumerPaymentPackData(selectedPass);
+  } = useConsumerPaymentPackData(selectedPass);
 
   const handleSeeDetails = useCallback(
     (id) => () => onPassCardClick(id),

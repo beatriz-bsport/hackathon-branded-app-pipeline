@@ -613,6 +613,8 @@ const getTranslations = async () => {
         title: 'Delete shared pass',
       },
       form: {
+        notEditable:
+          'This pass originates from a previously completed data migration. Some fields may not be editable to preserve the data.',
         actions: { submit: 'Save', close: 'Close' },
         submit: 'Save',
         close: 'Close',

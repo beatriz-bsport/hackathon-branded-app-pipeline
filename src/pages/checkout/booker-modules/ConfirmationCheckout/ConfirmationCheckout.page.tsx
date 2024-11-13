@@ -332,6 +332,25 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
     );
   };
 
+  /**
+   * Retrieve the name from query params if a booking is for a guest
+   * @param index The index of booking from the list in extra data
+   * returns {string}
+   */
+  getGuestNameFromQueryParams = (index: number) => {
+    const userRegistrationResponse =
+      this.getParsedUserRegistrationResponse()?.extra_data;
+    const guest =
+      // @ts-expect-error
+      userRegistrationResponse?.[index]?.additional_guest_info?.[0] ?? null;
+    if (guest) {
+      return `${guest?.first_name}${
+        guest?.last_name ? ` ${guest?.last_name}` : ''
+      }`;
+    }
+    return null;
+  };
+
   render() {
     const {
       t,
@@ -476,13 +495,13 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                   this.props.companyTheme.allow_guest_frequency
                 }
                 bookingGuestNumberLeft={this.props.bookingGuestRemainingCount}
-                checkoutItems={this.props.basket?.checkout_items}
                 classes={{
                   'bs-confirmation-checkout-booking-list__list':
                     'bs-confirmation-checkout-booking-list__list',
                 }}
                 companyTheme={companyTheme}
                 getBookableStatus={this.props.getOfferBookableStatus}
+                getGuestNameFromQueryParams={this.getGuestNameFromQueryParams}
                 getIsAddGuestDisabled={this.getIsAddGuestDisabled}
                 getOfferWaitListPosition={
                   this.props.getOfferStatusWaitingListPosition

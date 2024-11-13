@@ -3,7 +3,6 @@ import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import MarketplaceOfferBookingItem from '#src/libs/marketplace/components/@Booking/MarketplaceOfferBookingItem';
-import { getGuestBookingName } from '#src/libs/marketplace/utils/booking';
 
 import {
   BOOKING_FOR_GUEST_FREQUENCY,
@@ -12,7 +11,6 @@ import {
   type OfferWithSpotInformation,
 } from '#src/libs/offer/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
-import { CheckoutItem } from '#src/libs/checkout/types';
 
 import './styles.css';
 
@@ -24,7 +22,7 @@ export type Props = {
   classes?: { [key: string]: string | boolean };
   bookingGuestNumberLeft?: number;
   bookingGuestFrequency?: BOOKING_FOR_GUEST_FREQUENCY;
-  checkoutItems: CheckoutItem[];
+  getGuestNameFromQueryParams: (index: number) => string;
   onOpenAddGuestModal: () => void;
   getBookableStatus: (offerId: number) => OfferStatus['bookable_status'];
   getIsAddGuestDisabled: (offerId: number) => boolean;
@@ -41,7 +39,7 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
   isLoading,
   bookingGuestNumberLeft,
   bookingGuestFrequency,
-  checkoutItems,
+  getGuestNameFromQueryParams,
   onOpenAddGuestModal,
   getBookableStatus,
   getIsAddGuestDisabled,
@@ -56,7 +54,7 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
       })}
     >
       <ul className="bs-offer-booking-list">
-        {filteredOffers.map((offer) => (
+        {filteredOffers.map((offer, index) => (
           <MarketplaceOfferBookingItem
             key={`offer-booking-item-id-${offer.id}`}
             bookableStatus={getBookableStatus(offer.id)}
@@ -64,7 +62,7 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
             bookingGuestNumberLeft={bookingGuestNumberLeft}
             companyTheme={companyTheme}
             getOfferWaitListPosition={getOfferWaitListPosition}
-            guestName={getGuestBookingName(checkoutItems, offer.id)}
+            guestName={getGuestNameFromQueryParams(index)}
             hideCoach={hideCoach}
             isAddGuestDisabled={getIsAddGuestDisabled(offer.id)}
             isLoading={isLoading}

@@ -12,8 +12,6 @@ import {
   VariationConfigurationChoice,
 } from '#src/libs/exportable-components/types';
 
-import { checkoutItemsFactory } from '#src/libs/checkout/factories';
-import { BuyableItemOptions, CheckoutItem } from '#src/libs/checkout/types';
 import themeFactoryBot from '#src/libs/theme/factories';
 
 import { offerFactory } from '#src/libs/offer/factories';
@@ -25,10 +23,6 @@ import MarketplaceOfferBookingListCss from './styles.css?raw';
 import MarketplaceOfferBookingList, { Props } from '.';
 
 const fakeCompanyTheme: CompanyTheme = themeFactoryBot.companyTheme.createOne();
-
-const checkoutPaymentComboItems: CheckoutItem[] = checkoutItemsFactory(3, {
-  buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_COMBO_ITEM,
-});
 
 const offer = {
   ...offerFactory({
@@ -129,8 +123,8 @@ const usePropsFromVariation = (
   return {
     isLoading,
     offers,
-    checkoutItems: checkoutPaymentComboItems,
     hideCoach,
+    getGuestNameFromQueryParams: () => '',
     getIsAddGuestDisabled: mockedGetIsAddGuestDisabled,
     onOpenAddGuestModal: () => {},
     companyTheme: fakeCompanyTheme,

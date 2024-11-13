@@ -220,6 +220,7 @@ import type { WithHandlerType } from '../../../../utils/types';
 import type { MemberMinimal } from '#src/libs/member/types';
 import BookingForAnotherSelector from '#src/libs/booker-module/components/BookingForAnotherSelector.component';
 import { filterObjectOnSingleKey } from '#src/libs/utils';
+import { SlashCircle01 } from '#src/components/untitledui';
 
 import { buildDataForUserRegistrationWithMultiSessionsAllowed } from '#src/libs/marketplace/utils/booker-module';
 
@@ -1687,6 +1688,30 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
             onRedirectToPass={this.handleRedirectToPass}
             onRegisterToWaitList={this.onConfirm}
             positionInWaitingList={positionInWaitingList}
+          />
+        </div>
+      );
+    }
+
+    /**
+     * Guest booking: show error for waitlist use case
+     * We do not allow guests in waitlists
+     */
+    if (isWaitingList && this.getIsGuestBooking()) {
+      return (
+        <div ref={containerRef} className="bs-new-offer-booking-page">
+          <MarketplaceBookingBlockedReason
+            bookingBlockedReason={{
+              title: t('booking:newBookingModule.blockedReasons.default.title'),
+              message: t(
+                'booking:newBookingModule.blockedReasons.default.message',
+              ),
+              TheIcon: SlashCircle01,
+              color: 'error',
+              isWaitingListOpenMainReason: false,
+            }}
+            goBackToCalendar={this.goBackToCalendar}
+            isLoading={this.getIsLoading()}
           />
         </div>
       );

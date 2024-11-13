@@ -45,3 +45,15 @@ export const setBackendProcessingAfterPaymentActions = {
     processing: boolean,
   }>('PAYMENT_MODULE/PAYMENT_GROUP/SET_BACKEND_PROCESSING_AFTER_PAYMENT'),
 };
+
+export const requestSetupIntentSecretActions = {
+  isLoading: createAction<boolean>(
+    'PAYMENT/REQUEST_SETUP_INTENT_SECRET/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PAYMENT/REQUEST_SETUP_INTENT_SECRET/ERROR',
+  ),
+  success: createAction<{ client_secret: string }>(
+    'PAYMENT/REQUEST_SETUP_INTENT_SECRET/SUCCESS',
+  ),
+};

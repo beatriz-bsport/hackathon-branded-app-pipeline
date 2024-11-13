@@ -82,6 +82,7 @@ import {
   getPaymentGroupStatusActions,
   setPaymentStatusActions,
   setBackendProcessingAfterPaymentActions,
+  requestSetupIntentSecretActions,
 } from '../../actions/payment';
 import {
   listInvoiceActions,
@@ -413,5 +414,9 @@ export const actionsBinder = () => {
   apiCallHandler.bindActions(
     'GET_INVOICE_RECEIPT_URL',
     getInvoiceReceiptUrlActions,
+  );
+  apiCallHandler.bindActions(
+    'REQUEST_SETUP_INTENT_SECRET',
+    requestSetupIntentSecretActions,
   );
 };

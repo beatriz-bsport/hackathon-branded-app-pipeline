@@ -193,6 +193,9 @@ export const consumerSubscriptionBridgeActions = {
   detachPaymentMethodAction: createAuthenticatedBridgeAction(
     'DETACH_PAYMENT_METHOD',
   ),
+  requestSetupIntentSecret: createAuthenticatedBridgeAction(
+    'REQUEST_SETUP_INTENT_SECRET',
+  ),
 };
 
 /* MY PROFILE */

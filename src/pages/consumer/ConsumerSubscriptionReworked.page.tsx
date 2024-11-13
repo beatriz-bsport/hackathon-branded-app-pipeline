@@ -56,6 +56,23 @@ type OwnProps = {
   membership: Membership;
   // eslint-disable-next-line react/no-unused-prop-types
   companyId: number;
+  // optional widget action
+  requestSetupIntentSecret: (
+    {
+      member,
+      company,
+      as_company,
+      payment_method,
+    }: {
+      member?: number;
+      company?: number;
+      as_company?: boolean;
+      payment_method?: string;
+    },
+    options?: OptionCallback<{
+      client_secret: string;
+    }>,
+  ) => void;
 };
 
 type Props = OwnAndConnectedAndRouteProps &
@@ -126,6 +143,7 @@ export class ConsumerSubscription extends React.Component<Props> {
         paymentMethodList={paymentMethodList as PaymentMethod[]}
         paymentMethodLoading={paymentMethodLoading}
         refreshSavedPaymentMethodList={fetchPaymentMethodList}
+        // @ts-expect-error TODO dynamic typing for widget action
         requestSetupIntentSecret={requestSetupIntentSecret}
         subscriptionsInvoicesDetailsState={subscriptionsInvoicesDetailsState}
         switchPaymentMethod={switchPaymentMethod}
@@ -222,11 +240,25 @@ export const consumerSubscriptionMapWithHandlers = {
     props.fetchInvoiceConfigurationAsMemberAction(
       (props.companyId ?? props.membership?.company).toString(),
     ),
-  requestSetupIntentSecret: (props: OwnAndConnectedAndRouteProps) => () =>
-    requestSetupIntentSecretAPI(
-      props.membership?.id,
-      props.companyId ?? props.membership?.company,
-    ),
+  requestSetupIntentSecret:
+    (props: OwnAndConnectedAndRouteProps) =>
+    (options?: OptionCallback<{ client_secret: string }>) => {
+      const isWidget =
+        WidgetUtils.getConsumerSpaceContext() ===
+        ConsumerSpaceContextEnum.WIDGET;
+      return isWidget
+        ? props.requestSetupIntentSecret(
+            {
+              member: props.membership?.id,
+              company: props.companyId ?? props.membership?.company,
+            },
+            options,
+          )
+        : requestSetupIntentSecretAPI(
+            props.membership?.id,
+            props.companyId ?? props.membership?.company,
+          );
+    },
   switchPaymentMethod:
     (props: OwnAndConnectedAndRouteProps) =>
     (

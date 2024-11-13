@@ -33,6 +33,7 @@ import {
   createPaymentAttemptWebview as createPaymentAttemptWebviewAPI,
   executePaymentAttempt as executePaymentAttemptAPI,
   executePaymentAttemptWebview as executePaymentAttemptWebviewAPI,
+  requestSetupIntentSecret as requestSetupIntentSecretAPI,
 } from './api';
 import type {
   PaymentGroup,
@@ -722,3 +723,58 @@ export const fetchLinkedProductNames = (
     }
   };
 };
+
+export const requestSetupIntentSecretActions = {
+  isLoading: createAction<boolean>(
+    'PAYMENT/REQUEST_SETUP_INTENT_SECRET/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PAYMENT/REQUEST_SETUP_INTENT_SECRET/ERROR',
+  ),
+  success: createAction<{ client_secret: string }>(
+    'PAYMENT/REQUEST_SETUP_INTENT_SECRET/SUCCESS',
+  ),
+};
+
+/**
+ * Retrieves the Stripe client secret. Only used for widget.
+ * @param member Optional membership ID
+ * @param company Optional company ID
+ * @param as_company Retrieve the client secret as company
+ * @param payment_method Optional payment method ID
+ */
+export function requestSetupIntentSecret(
+  {
+    member,
+    company,
+    as_company,
+    payment_method,
+  }: {
+    member?: number;
+    company?: number;
+    as_company?: boolean;
+    payment_method?: string;
+  },
+  options?: OptionCallback<{ client_secret: string }>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(requestSetupIntentSecretActions.isLoading(true));
+    dispatch(requestSetupIntentSecretActions.error(null));
+    try {
+      const response = await requestSetupIntentSecretAPI(
+        member,
+        company,
+        as_company,
+        payment_method,
+      );
+      dispatch(requestSetupIntentSecretActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(requestSetupIntentSecretActions.error(error));
+      console.error(error);
+      options?.onError?.(error);
+    } finally {
+      dispatch(requestSetupIntentSecretActions.isLoading(false));
+    }
+  };
+}

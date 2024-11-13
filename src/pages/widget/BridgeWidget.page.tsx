@@ -81,6 +81,7 @@ import {
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod as detachPaymentMethodAction,
+  requestSetupIntentSecret as requestSetupIntentSecretAction,
 } from '#src/libs/payment/actions';
 import {
   fetchPaymentGroupStatus as fetchPaymentGroupStatusAction,
@@ -523,6 +524,7 @@ const mapDispatchToProps = {
   setPaymentStatus: setPaymentStatusAction,
   setBackendProcessingAfterPayment: setBackendProcessingAfterPaymentAction,
   getReceiptUrl: getInvoiceReceiptUrlAction,
+  requestSetupIntentSecret: requestSetupIntentSecretAction,
 };
 
 export default compose(

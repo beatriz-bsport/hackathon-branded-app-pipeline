@@ -45,6 +45,9 @@ import MarketplaceCardBillingDetailsFormFields from './MarketplaceCardBillingDet
 import { AVAILABLE_PAYMENT_METHOD_TYPE } from '../../../../payment/components/payment-backend-stripe-deprecated/helpers';
 import { getStripePkKey } from '../../../../theme/selectors';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
+import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import type { OptionCallback } from '#src/state/types';
 
 import './styles.css';
 
@@ -59,7 +62,11 @@ export type Props = {
   sepaDefaultEmail?: string;
   stripe: Stripe;
   elements: StripeElements;
-  requestSetupIntentSecret: () => { data: { client_secret: string } };
+  requestSetupIntentSecret: (
+    options?: OptionCallback<{ client_secret: string }>,
+  ) => {
+    data: { client_secret: string };
+  };
   onSuccess: (setupIntentResult: SetupIntentResult) => void;
   onCancel: () => void;
   companyId?: string;
@@ -157,6 +164,8 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
     companyCountry,
     paymentMethodLoading,
   }) => {
+    const isWidget =
+      WidgetUtils.getConsumerSpaceContext() === ConsumerSpaceContextEnum.WIDGET;
     const [
       isSepaDebitBillingAddressRequired,
       setIsSepaDebitBillingAddressRequired,
@@ -255,7 +264,16 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
             setStripeDeclineCode(err.response?.data?.decline_code ?? null);
           }
         };
-        getClientSecret();
+        // Handle widget case
+        if (isWidget && !!requestSetupIntentSecret) {
+          requestSetupIntentSecret({
+            onSuccess: (data: { client_secret: string }) => {
+              setClientSecret(data.client_secret);
+            },
+          });
+        } else {
+          getClientSecret();
+        }
         handleRetry();
       }
       if (isOpen && elements && type === MarketplacePaymentMethods.sepa) {
@@ -276,6 +294,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
       handleRetry,
       requestSetupIntentSecret,
       paymentMethodLoading,
+      isWidget,
     ]);
 
     const onDialogClose = useCallback(() => {

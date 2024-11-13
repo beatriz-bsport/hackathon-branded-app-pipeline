@@ -139,6 +139,10 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
     'SET_BACKEND_PROCESSING_AFTER_PAYMENT',
     actions.setBackendProcessingAfterPayment,
   );
+  bridgeAPIActionsRegistry.register(
+    'REQUEST_SETUP_INTENT_SECRET',
+    actions.requestSetupIntentSecret,
+  );
 
   // INVOICE
   bridgeAPIActionsRegistry.register(

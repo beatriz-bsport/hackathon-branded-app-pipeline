@@ -20,7 +20,10 @@ import {
   DateField,
   // @ts-expect-error
 } from '#src/components/forms';
-import type { PaymentPackFormValues } from '#src/libs/payment-packs/types';
+import type {
+  PaymentPackFormValues,
+  PaymentPackTemplate,
+} from '#src/libs/payment-packs/types';
 import { getValidityString } from '#src/libs/payment-packs/utils';
 import {
   VALID_BY_DATERANGE,
@@ -28,10 +31,14 @@ import {
 } from '#src/libs/payment-packs/components/PaymentPackTemplateForm/constants';
 
 type Props = {
+  initial?: PaymentPackTemplate;
   isUniversal?: boolean;
 };
 
-export const PaymentPackFormValidity: React.FC<Props> = ({ isUniversal }) => {
+export const PaymentPackFormValidity: React.FC<Props> = ({
+  initial,
+  isUniversal,
+}) => {
   const { t } = useTranslation('paymentPack');
   const { values, setFieldValue }: FormikProps<PaymentPackFormValues> =
     useFormikContext();
@@ -82,7 +89,10 @@ export const PaymentPackFormValidity: React.FC<Props> = ({ isUniversal }) => {
                   <FormControlLabel
                     key={value}
                     control={
-                      <Radio checked={`${values.timeType}` === `${value}`} />
+                      <Radio
+                        checked={`${values.timeType}` === `${value}`}
+                        disabled={initial && initial?.editable === false}
+                      />
                     }
                     label={l}
                     value={value}
@@ -98,6 +108,7 @@ export const PaymentPackFormValidity: React.FC<Props> = ({ isUniversal }) => {
               <DateField
                 bottomError
                 parseAsString
+                disabled={initial && initial?.editable === false}
                 label={t('addPaymentPack.fromDate')}
                 name="lower_date"
               />
@@ -106,6 +117,7 @@ export const PaymentPackFormValidity: React.FC<Props> = ({ isUniversal }) => {
               <DateField
                 bottomError
                 parseAsString
+                disabled={initial && initial?.editable === false}
                 label={t('addPaymentPack.toDate')}
                 name="upper_date"
               />
@@ -125,6 +137,7 @@ export const PaymentPackFormValidity: React.FC<Props> = ({ isUniversal }) => {
               <div className={classes.row}>
                 <TextFieldEnhancedLabelWithError
                   fullWidth
+                  disabled={initial && initial?.editable === false}
                   helperText=" "
                   id="dayValidity"
                   label={t('addPaymentPack.dayValidity')}
@@ -136,6 +149,7 @@ export const PaymentPackFormValidity: React.FC<Props> = ({ isUniversal }) => {
 
                 <TextFieldEnhancedLabelWithError
                   fullWidth
+                  disabled={initial && initial?.editable === false}
                   helperText={t('addPaymentPack.monthValidityHelper')}
                   id="monthValidity"
                   label={t('addPaymentPack.monthValidity')}
@@ -147,6 +161,7 @@ export const PaymentPackFormValidity: React.FC<Props> = ({ isUniversal }) => {
 
                 <TextFieldEnhancedLabelWithError
                   fullWidth
+                  disabled={initial && initial?.editable === false}
                   helperText={t('addPaymentPack.yearValidityHelper')}
                   id="yearValidity"
                   label={t('addPaymentPack.yearValidity')}
@@ -185,6 +200,7 @@ export const PaymentPackFormValidity: React.FC<Props> = ({ isUniversal }) => {
                       control={
                         <Radio
                           checked={`${values.start_date_method}` === `${value}`}
+                          disabled={initial && initial?.editable === false}
                         />
                       }
                       label={l}
@@ -200,6 +216,7 @@ export const PaymentPackFormValidity: React.FC<Props> = ({ isUniversal }) => {
                 <TextFieldEnhancedLabelWithError
                   fullWidth
                   required
+                  disabled={initial && initial?.editable === false}
                   helperText={t('addPaymentPack.expirationDateHelper')}
                   id="textfield_expiration_date"
                   label={t('addPaymentPack.expirationDate')}

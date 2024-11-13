@@ -113,6 +113,16 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
 
   return (
     <>
+      {initial && initial?.editable === false ? (
+        <Grid item xs={12}>
+          <div className={classes.row}>
+            <WarningIcon color="error" />
+            <Typography color="error" variant="body1">
+              {t('paymentPackTemplate.form.notEditable')}
+            </Typography>
+          </div>
+        </Grid>
+      ) : null}
       <Grid item xs={12}>
         <div className={classes.infoText}>
           <InfoIcon className={classes.icon} />
@@ -153,6 +163,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
           <PriceField
             fullWidth
             required
+            disabled={initial && initial?.editable === false}
             helperText={t('form.paymentPack.priceIncludingTax.helperText')}
             id="textfield_template_price"
             label={t('form.paymentPack.priceIncludingTax.label')}
@@ -163,6 +174,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
           <TextField
             fullWidth
             required
+            disabled={initial && initial?.editable === false}
             InputProps={{
               inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
               startAdornment: (
@@ -185,7 +197,10 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                 <FormControlLabel
                   key={value}
                   control={
-                    <Radio checked={`${values.credit_number}` === `${value}`} />
+                    <Radio
+                      checked={`${values.credit_number}` === `${value}`}
+                      disabled={initial && initial?.editable === false}
+                    />
                   }
                   label={l}
                   value={value}
@@ -201,6 +216,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
             <TextField
               fullWidth
               required
+              disabled={initial && initial?.editable === false}
               helperText={
                 isUniversal
                   ? t('universalPass.add.helperText')
@@ -233,6 +249,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
             <PriceField
               fullWidth
               required
+              disabled={initial && initial?.editable === false}
               helperText={t('addPaymentPack.marginalContributionHelperText', {
                 currencyDisplay: getCurrencyDisplay(),
               })}
@@ -251,7 +268,10 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
             <Grid item xs={12}>
               <div className={classes.row}>
                 <SwitchField
-                  disabled={values.credit_number === 'limited'}
+                  disabled={
+                    values.credit_number === 'limited' ||
+                    (initial && initial?.editable === false)
+                  }
                   label={t('form.paymentPack.penalty.label')}
                   name="apply_penalties"
                 />
@@ -300,6 +320,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
             <Grid item xs={12}>
               <div className={classes.row}>
                 <CheckboxField
+                  disabled={initial && initial?.editable === false}
                   label={t('form.paymentPack.penalty.cancellationsCheckbox')}
                   name="penalty_active"
                 />
@@ -308,6 +329,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
             <Grid item xs={12}>
               <div className={classes.row}>
                 <CheckboxField
+                  disabled={initial && initial?.editable === false}
                   label={t('form.paymentPack.penalty.noShowCheckbox')}
                   name="no_show_penalty_active"
                 />
@@ -344,6 +366,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                     <TextFieldEnhancedLabelWithError
                       fullWidth
                       required
+                      disabled={initial && initial?.editable === false}
                       id="textfield_penalityNumberCancel"
                       label={t('addPaymentPack.penalityNumberCancel')}
                       name="penalty_nb_late_cancellations"
@@ -354,6 +377,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                     <TextFieldEnhancedLabelWithError
                       fullWidth
                       required
+                      disabled={initial && initial?.editable === false}
                       id="penalty_nb_days"
                       label={t('addPaymentPack.penalityNumberDay')}
                       name="penalty_nb_days"
@@ -389,6 +413,9 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                                 checked={
                                   `${values.penalty_kind}` === `${value}`
                                 }
+                                disabled={
+                                  initial && initial?.editable === false
+                                }
                               />
                             }
                             label={l}
@@ -403,6 +430,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                       <TextFieldEnhancedLabelWithError
                         fullWidth
                         required
+                        disabled={initial && initial?.editable === false}
                         helperText={t('addPaymentPack.penalityBlockDayHelper', {
                           penalityBlockDay: values.penalty_days_blocked,
                         })}
@@ -417,6 +445,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                       <PriceField
                         fullWidth
                         required
+                        disabled={initial && initial?.editable === false}
                         helperText={t('addPaymentPack.penalityAccountHelper', {
                           penalityBlockAccount: values.penalty_account_value,
                           currencyDisplay: getCurrencyDisplay(),
@@ -451,6 +480,9 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                                     checked={
                                       `${values.penalty_mode_franchisor}` ===
                                       `${value}`
+                                    }
+                                    disabled={
+                                      initial && initial?.editable === false
                                     }
                                   />
                                 }
@@ -502,6 +534,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                     <TextFieldEnhancedLabelWithError
                       fullWidth
                       required
+                      disabled={initial && initial?.editable === false}
                       id="no_show_penalty_threshold"
                       InputProps={{
                         inputProps: {
@@ -517,6 +550,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                     <TextFieldEnhancedLabelWithError
                       fullWidth
                       required
+                      disabled={initial && initial?.editable === false}
                       id="no_show_penalty_time_window_days"
                       InputProps={{
                         inputProps: {
@@ -559,6 +593,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                               checked={
                                 `${values.no_show_penalty_kind}` === `${value}`
                               }
+                              disabled={initial && initial?.editable === false}
                             />
                           }
                           label={l}
@@ -573,6 +608,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                     <TextFieldEnhancedLabelWithError
                       fullWidth
                       required
+                      disabled={initial && initial?.editable === false}
                       helperText={t('addPaymentPack.penalityBlockDayHelper', {
                         penalityBlockDay: values.no_show_penalty_days_blocked,
                       })}
@@ -587,6 +623,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                     <PriceField
                       fullWidth
                       required
+                      disabled={initial && initial?.editable === false}
                       helperText={t('addPaymentPack.penalityAccountHelper', {
                         penalityBlockAccount: values.no_show_penalty_amount,
                         currencyDisplay: getCurrencyDisplay(),
@@ -622,6 +659,9 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
                                   checked={
                                     `${values.no_show_penalty_mode_franchisor}` ===
                                     `${value}`
+                                  }
+                                  disabled={
+                                    initial && initial?.editable === false
                                   }
                                 />
                               }

@@ -183,6 +183,7 @@ export type PaymentPackTemplateAPI = {
   expiration_date: string;
   off_peak_schedule: Record<string, string[][]>;
   is_universal_template: boolean;
+  editable?: boolean;
 };
 
 export type PaymentPackTemplate = PaymentPackTemplateAPI & {

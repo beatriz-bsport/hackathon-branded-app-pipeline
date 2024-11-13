@@ -67,7 +67,10 @@ const PaymentPackTemplateForm: React.FC<Props> = ({ initial, isUniversal }) => {
       />
       <Divider className={classes.divider} />
       <div className={classes.section}>
-        <PaymentPackTemplateFormValidity isUniversal={isUniversal} />
+        <PaymentPackTemplateFormValidity
+          initial={initial}
+          isUniversal={isUniversal}
+        />
       </div>
       <Divider className={classes.divider} />
       <div className={classes.section}>

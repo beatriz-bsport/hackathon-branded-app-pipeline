@@ -20,6 +20,7 @@ import {
   WIDGET_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS,
   WIDGET_NOT_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS,
   CSS_SUPPORTED_EXPORTABLE_COMPONENTS,
+  WIDGET_CONSUMER_SPACE_EXPORTABLE_COMPONENTS,
 } from '../constants';
 import { EXPORTABLE_COMPONENT_TYPE_PLAYLIST } from '../../exportable-components/constants';
 
@@ -43,6 +44,7 @@ import {
   PaymentPackCategory,
   PaymentPackTemplate,
 } from '../../payment-packs/types';
+import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
 
 type Props = {
   componentType: string;
@@ -73,6 +75,7 @@ type Props = {
   customLevels: Level[];
   tagList: Array<Tag<TagGroupAPI>>;
   tagsLoading: boolean;
+  companyId?: number;
 };
 
 export const WidgetComponentConfigBuilder = (props: Props) => {
@@ -112,11 +115,23 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
   };
 
   const selectorSource = useMemo(() => {
+    const displayNewMemberProfile = getIsNewMemberProfileDisplayed(
+      props.companyId,
+    );
     if (props.isFranchisor)
       return WIDGET_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS;
     if (props.cssOnly) return CSS_SUPPORTED_EXPORTABLE_COMPONENTS;
-    return WIDGET_NOT_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS;
-  }, [props.cssOnly, props.isFranchisor]);
+    /**
+     * TODO - Temp member profile release
+     * Adds the member profile widget for tier 3 studios
+     */
+    return [
+      ...WIDGET_NOT_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS,
+      ...(displayNewMemberProfile
+        ? WIDGET_CONSUMER_SPACE_EXPORTABLE_COMPONENTS
+        : []),
+    ];
+  }, [props.companyId, props.cssOnly, props.isFranchisor]);
 
   const handleClose = () => setWidgetConfigOpen(false);
   const [config, setConfig] = useState(props.config);

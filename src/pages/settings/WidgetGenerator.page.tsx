@@ -298,6 +298,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
 
             <WidgetComponentConfigBuilder
               coaches={this.props.coaches}
+              companyId={this.props.theme?.company}
               componentType={this.state.componentType}
               config={this.state.config}
               customLevels={this.props.customLevels}

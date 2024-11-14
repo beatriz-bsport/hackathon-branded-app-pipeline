@@ -7,7 +7,6 @@ import ExportableWorkshopSettings from './ExportableWorkshopSettings.form';
 import ExportableGiftcardSettings from './ExportableGiftcardSettings.form';
 import ExportablePaymentPackTemplateSettings from './ExportablePaymentPackTemplateSettings.form';
 import ExportableNewsletterV2Settings from './ExportableNewsletterV2Settings.form';
-import ExportableLoginWithDisconnectedStatusSettings from './ExportableLoginWithDisconnectedStatusSettings.form';
 import ExportableConsumerSpaceSettingsForm from './ExportableConsumerSpaceSettings.form';
 import ExportableLoginButtonSettingsForm from './ExportableLoginButtonSettings.form';
 
@@ -22,8 +21,6 @@ import {
   EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE,
   EXPORTABLE_COMPONENT_TYPE_CALENDAR,
   EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2,
-  EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING,
-  EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS,
   EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE,
   EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON,
 } from '../../constants';
@@ -40,10 +37,6 @@ export const EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE = {
   [EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE]:
     ExportablePaymentPackTemplateSettings,
   [EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2]: ExportableNewsletterV2Settings,
-  [EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING]:
-    ExportableLoginWithDisconnectedStatusSettings,
-  [EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS]:
-    ExportableLoginWithDisconnectedStatusSettings,
   [EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE]:
     ExportableConsumerSpaceSettingsForm,
   [EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON]: ExportableLoginButtonSettingsForm,

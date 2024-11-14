@@ -182,9 +182,9 @@ export const generateMarketPlaceCustomFormLink = (
 };
 
 /**
- * TODO : FIX ME.
- * The usage of getIsNewMemberProfileDisplayed is temporary and should
- * be removed once the new member profile is activated for everyone.
+ * A function that returns the default route for the new member profile
+ * @param id The company id
+ * @returns {string}
  */
 export const getUserSpaceUrl = (id: number) =>
   getIsNewMemberProfileDisplayed(id) ? `/c/${id}/booking/` : `/c/${id}/`;

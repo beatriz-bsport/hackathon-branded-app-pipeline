@@ -16,8 +16,6 @@ export const EXPORTABLE_COMPONENT_TYPE_GIFTCARD = 'giftcard';
 export const EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE =
   'paymentPackTemplate';
 export const EXPORTABLE_COMPONENT_TYPE_REFERRAL = 'referral';
-export const EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING = 'consumerBooking';
-export const EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS = 'consumerPass';
 export const EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE = 'consumerSpace';
 
 const LOGIN_WITH_DISCONNECTED_STATUS_DEFAULT_CONFIG: ConsumerSpaceWidgetConfig =
@@ -34,16 +32,6 @@ export const EXPORTABLE_COMPONENTS = [
     identifier: EXPORTABLE_COMPONENT_TYPE_REFERRAL,
     label: 'referral',
     defaultConfig: {},
-  },
-  {
-    identifier: EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING,
-    label: 'consumerBooking',
-    defaultConfig: LOGIN_WITH_DISCONNECTED_STATUS_DEFAULT_CONFIG,
-  },
-  {
-    identifier: EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS,
-    label: 'consumerPass',
-    defaultConfig: LOGIN_WITH_DISCONNECTED_STATUS_DEFAULT_CONFIG,
   },
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE,

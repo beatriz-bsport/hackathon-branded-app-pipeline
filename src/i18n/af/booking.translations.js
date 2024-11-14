@@ -78,6 +78,7 @@ const getTranslations = async () => {
           dialogTitleWithSteps: 'Select spot ({{currentStep}}/{{totalSteps}})',
           dialogSubtitle: 'Select your spot for the class',
           validationButton: 'Add session',
+          validationButton_plural: 'Add sessions ({{selectedSessionsCount}})',
         },
       },
       messages: {

@@ -256,7 +256,10 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
           disabled={preSelectedOffers && preSelectedOffers.length < 1}
           onClick={handleAddOffer}
         >
-          {t('booking:bookingModule.multiSession.selectSpot.validationButton')}
+          {t('booking:bookingModule.multiSession.selectSpot.validationButton', {
+            count: preSelectedOffers?.length || 1,
+            selectedSessionsCount: preSelectedOffers?.length,
+          })}
         </ButtonBase>
       </div>
     </div>

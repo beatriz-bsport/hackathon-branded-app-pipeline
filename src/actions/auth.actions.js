@@ -61,6 +61,7 @@ import {
 import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
 import { getBaseURL } from '../utils/urlUtils';
 import { NEW_MEMBER_PROFILE_COMPANY_ID_LIST } from '../libs/consumer-space/constants';
+import analyticsUtils from '../components/analytics/analytics';
 
 export const initiateInterface = createAction('initiate');
 
@@ -100,6 +101,9 @@ export function fetchAccessLevel(
         has_completed_account_configuration_on_boarding,
         email_confirmed,
       } = response.data;
+      if (!is_franchisor && !is_manager) {
+        analyticsUtils.onSigninSuccess({ email: username });
+      }
       if (!is_manager && !is_franchisor && is_consumer) {
         dispatch(errorLogin());
       }
@@ -255,7 +259,6 @@ export function requestLogin(
         throw new Error('No token');
       }
       dispatch(fetchAccessLevel(token, options));
-
       options?.onDone?.(response.data);
     } catch (err) {
       if (!noStorageClearOnError) {

@@ -243,8 +243,6 @@ function mapDispatchToProps(dispatch: Dispatch, props: OwnProps) {
       dispatch(
         requestLogin(email, password, {
           ...(opts || {}),
-          // add analytics
-          // onDone: () => Analytics.signinSuccess({ email }),
         }),
       );
     },

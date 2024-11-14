@@ -1389,25 +1389,12 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const formattedOffer = this.refineOffers(offer);
 
     analyticsUtils.onAddSessionToBookingList(formattedOffer);
-    this.setState(
-      (prevState: State) => ({
-        selectedOffers: [
-          ...prevState.selectedOffers,
-          { offer: formattedOffer, extra_data: {} },
-        ],
-      }),
-      () => {
-        this.fetchOfferStatusList(
-          this.state.selectedOffers.map(
-            (selectedOffer) => selectedOffer.offer.id,
-          ),
-        );
-        this.updateOfferConstraints();
-        if (this.state.isSimilarOfferModalOpened) {
-          this.toggleSimilarOfferModal();
-        }
-      },
-    );
+    this.setState((prevState: State) => ({
+      selectedOffers: [
+        ...prevState.selectedOffers,
+        { offer: formattedOffer, extra_data: {} },
+      ],
+    }));
   };
 
   handleRemoveOffer = (offerId: number) => {

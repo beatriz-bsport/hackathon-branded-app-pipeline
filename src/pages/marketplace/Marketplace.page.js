@@ -431,9 +431,7 @@ export class MarketPlace extends Component<Props, State> {
 
   doEmailLogin = ({ email, password }: { email: string, password: string }) => {
     this.props.doEmailLogin({ email, password }, () => {
-      this.props.fetchProfile({
-        onSuccess: (profile) => analyticsUtils.onSigninSuccess(profile),
-      });
+      this.props.fetchProfile();
       this.props.fetchCurrentBasket(this.props.companyId);
     });
   };

@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*",
-    "@types/lodash": "^4.17.4",
+    "@types/lodash": "^4.17.13",
     "@types/node": "^20",
     "tsconfig-paths": "^4.2.0"
   }

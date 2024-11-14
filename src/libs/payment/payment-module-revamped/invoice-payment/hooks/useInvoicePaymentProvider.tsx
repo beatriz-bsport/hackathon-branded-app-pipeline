@@ -103,8 +103,13 @@ export const useInvoicePaymentProvider = ({
   invoiceUuid,
   applyBalanceToInvoiceCallbacks,
 }: UseInvoicePaymentProviderProps): UseInvoicePaymentProvider => {
-  const { handleWidgetFetchPaymentGroupStatus, handleWidgetSetPaymentStatus } =
-    useContext(ConsumerInvoiceContext) ?? {};
+  const {
+    handleWidgetFetchPaymentGroupStatus,
+    handleWidgetSetPaymentStatus,
+    detachPaymentMethod,
+  } = useContext(ConsumerInvoiceContext) ?? {};
+  const isWidget =
+    WidgetUtils.getConsumerSpaceContext() === ConsumerSpaceContextEnum.WIDGET;
   const dispatch = useDispatch();
   const {
     allow_consumer_to_use_internal_account: allowConsumerToUseInternalAccount,
@@ -130,7 +135,7 @@ export const useInvoicePaymentProvider = ({
   const isPaymentProcessing = useSelector((state: RootState) =>
     getIsPaymentProcessing(state, invoiceClientSecretPayload?.payment_group),
   );
-  const detachPaymentMethod = useSelector((state: RootState) =>
+  const detachPaymentMethodSelector = useSelector((state: RootState) =>
     getDetachPaymentMethod(state, payerContext.memberId),
   );
 
@@ -166,14 +171,10 @@ export const useInvoicePaymentProvider = ({
   }, [dispatch, invoiceUuid, applyBalanceToInvoiceCallbacks]);
 
   const handleFetchMembership = React.useCallback(() => {
-    if (
-      WidgetUtils.getConsumerSpaceContext() !==
-        ConsumerSpaceContextEnum.WIDGET &&
-      !!payerContext.memberId
-    ) {
+    if (!isWidget && !!payerContext.memberId) {
       dispatch(fetchMembershipAction(payerContext.memberId));
     }
-  }, [dispatch, payerContext.memberId]);
+  }, [dispatch, isWidget, payerContext.memberId]);
 
   /***
    * @description Request client secret for invoice
@@ -211,6 +212,16 @@ export const useInvoicePaymentProvider = ({
   const handleDetachPaymentMethod = React.useCallback(
     (pm_id: string, options?: any) => {
       if (payerContext.memberId) {
+        if (isWidget && !!detachPaymentMethod) {
+          return detachPaymentMethod?.(pm_id, {
+            onSuccess: () => {
+              handleFetchMemberPaymentMethodList({
+                onSuccess: options?.onSuccess,
+              });
+            },
+            onError: options?.onError,
+          });
+        }
         dispatch(
           detachPaymentMethodAction(
             {
@@ -231,9 +242,11 @@ export const useInvoicePaymentProvider = ({
       }
     },
     [
-      dispatch,
       payerContext.memberId,
+      isWidget,
+      dispatch,
       companyId,
+      detachPaymentMethod,
       handleFetchMemberPaymentMethodList,
     ],
   );
@@ -245,10 +258,7 @@ export const useInvoicePaymentProvider = ({
   const handleFetchPaymentGroupStatus = React.useCallback(
     ({ paymentGroupId, options }) => {
       if (paymentGroupId) {
-        if (
-          WidgetUtils.getConsumerSpaceContext() ===
-          ConsumerSpaceContextEnum.WIDGET
-        ) {
+        if (isWidget) {
           return handleWidgetFetchPaymentGroupStatus(paymentGroupId, {
             onSuccess: (response) => {
               options?.onSuccess?.(response);
@@ -286,6 +296,7 @@ export const useInvoicePaymentProvider = ({
       dispatch,
       handleWidgetFetchPaymentGroupStatus,
       handleWidgetSetPaymentStatus,
+      isWidget,
     ],
   );
 
@@ -297,10 +308,7 @@ export const useInvoicePaymentProvider = ({
       paymentProcessing: boolean;
       paymentGroupId: number;
     }) => {
-      if (
-        WidgetUtils.getConsumerSpaceContext() ===
-        ConsumerSpaceContextEnum.WIDGET
-      ) {
+      if (isWidget) {
         return handleWidgetSetPaymentStatus({
           paymentGroupId,
           paymentProcessing,
@@ -313,7 +321,7 @@ export const useInvoicePaymentProvider = ({
         }),
       );
     },
-    [dispatch, handleWidgetSetPaymentStatus],
+    [dispatch, handleWidgetSetPaymentStatus, isWidget],
   );
 
   return {
@@ -344,7 +352,7 @@ export const useInvoicePaymentProvider = ({
 
     paymentMethod: {
       paymentMethodChoices,
-      isDetachPaymentMethodLoading: detachPaymentMethod?.loading,
+      isDetachPaymentMethodLoading: detachPaymentMethodSelector?.loading,
       handleDetachPaymentMethod,
     },
 

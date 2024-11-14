@@ -16,6 +16,10 @@ type ProviderProps = {
     paymentProcessing?: boolean;
   }) => void;
   getReceiptUrl?: (uuid: string, options?: OptionCallback<string>) => void;
+  detachPaymentMethod?: (
+    paymentMethodId: string,
+    options?: OptionCallback,
+  ) => void;
 } & {
   children?: ReactNode | undefined;
 };
@@ -25,6 +29,7 @@ const ConsumerInvoiceContextProvider: React.FC<ProviderProps> = ({
   fetchPaymentGroupStatusAction,
   setPaymentStatusActions,
   getReceiptUrl,
+  detachPaymentMethod,
 }) => {
   const handleWidgetFetchPaymentGroupStatus = useCallback(
     (paymentGroupId: number, options?: OptionCallback<number>) => {
@@ -50,6 +55,7 @@ const ConsumerInvoiceContextProvider: React.FC<ProviderProps> = ({
         handleWidgetFetchPaymentGroupStatus,
         handleWidgetSetPaymentStatus,
         getReceiptUrl,
+        detachPaymentMethod,
       }}
     >
       {children}

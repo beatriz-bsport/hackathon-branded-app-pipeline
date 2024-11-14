@@ -11,4 +11,8 @@ export type ConsumerInvoiceContextType = {
     paymentProcessing?: boolean;
   }) => void;
   getReceiptUrl?: (uuid: string, options?: OptionCallback<string>) => void;
+  detachPaymentMethod?: (
+    paymentMethodId: string,
+    options?: OptionCallback,
+  ) => void;
 };

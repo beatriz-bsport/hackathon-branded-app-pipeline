@@ -178,6 +178,7 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
   render() {
     return (
       <ConsumerInvoiceContextProvider
+        detachPaymentMethod={this.props.detachPaymentMethod}
         fetchPaymentGroupStatusAction={this.props.fetchPaymentGroupStatusAction}
         getReceiptUrl={this.props.getReceiptUrl}
         setPaymentStatusActions={this.props.setPaymentStatusActions}

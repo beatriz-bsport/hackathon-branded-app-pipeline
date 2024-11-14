@@ -7,8 +7,9 @@ import {
   FinalProps as MarketplaceCalendarFinalProps,
   OwnProps as MarketplaceCalendarOwnProps,
 } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendarCSSOnly.page';
-import {
-  MarketplaceCalendarData
+import type {
+  MarketplaceCalendarData,
+  MarketplaceFilters,
 } from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import withPostMessageOnPropsUpdate from 'bsport-saas/src/hocs/postMessages/with-post-message-on-props-update';
@@ -90,40 +91,26 @@ type Props = OwnProps &
   WithStyles;
 
 type State = {
-  filters: FiltersType,
-  onlineFilter: {
-    is_online?: boolean | undefined,
-  },
   selectedDate: string,
-};
-
-type FiltersType = {
-  coaches: number[],
-  establishments: number[],
-  activity__in: number[],
-  levels: number[],
-  establishment_group__in: number[],
 };
 
 export class CalendarWidget extends Component<Props, State> {
   popupWindow: any;
 
+  filters: MarketplaceFilters = {
+    coaches: this.props.config.coaches || [],
+    establishments: this.props.config.establishments || [],
+    activity__in: this.props.config.metaActivities || [],
+    levels: this.props.config.levels || [],
+    establishment_group__in: this.props.config.establishmentGroups || [],
+  };
+
+  onlineFilter = this.props.config.onlineFilter ?? {};
+
   constructor(props: Props) {
     super(props);
 
-    const filters: FiltersType = {
-      coaches: props.config.coaches || [],
-      establishments: props.config.establishments || [],
-      activity__in: props.config.metaActivities || [],
-      levels: props.config.levels || [],
-      establishment_group__in: props.config.establishmentGroups || [],
-    };
-
-    const onlineFilter = props.config.onlineFilter ?? {};
-
     this.state = {
-      filters,
-      onlineFilter,
       selectedDate: getNowISODate(),
     };
   }
@@ -140,16 +127,6 @@ export class CalendarWidget extends Component<Props, State> {
       this.props.bridgeRequestRegisteredOfferIdList();
     }
   }
-
-  setFilters = (key: any) => {
-    const _this = this;
-
-    return (values: any) => {
-      _this.setState((prevState) => ({
-        filters: { ...prevState.filters, [key]: values },
-      }));
-    };
-  };
 
   setOtherParams = (key: string) => {
     return (arg: any) => {
@@ -181,12 +158,11 @@ export class CalendarWidget extends Component<Props, State> {
           this.props.config ? this.props.config.compactMode : undefined
         }
         onlineFilter={{
-          is_online: this.state.onlineFilter.is_online || undefined,
+          is_online: this.onlineFilter.is_online || undefined,
         }}
-        filters={this.state.filters}
+        filters={this.filters}
         variant={this.props?.config?.variant}
         groupSessionByPeriod={this.props?.config?.groupSessionByPeriod}
-        setFilters={this.setFilters}
         otherParams={{
           date: this.state.selectedDate,
           onlyDay: this.props.config.todayOnly ? 'true' : '',

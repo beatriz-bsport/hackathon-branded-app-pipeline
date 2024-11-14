@@ -6046,7 +6046,10 @@
           "message_is_from": "Member sending the gift card",
           "message_is_for": "Recipient of the gift card",
           "giftcard_value": "Gift card value",
-          "giftcard_name": "Gift card name"
+          "giftcard_name": "Gift card name",
+          "activation_date": "Activation date",
+          "pdf_link": "PDF link",
+          "printable_code": "Printable code"
         },
         "name": "Gift card"
       },
@@ -6145,7 +6148,6 @@
       "303": "Merger of two studio accounts",
       "304": "Digital gift card activation",
       "305": "Change of member email from the backoffice",
-      "308": "Physical gift card activation",
       "400": "The appointment was cancelled too late (for teachers)",
       "401": "The appointment was cancelled and has been refunded (for teachers)",
       "402": "New appointment (for teachers)",
@@ -6182,7 +6184,8 @@
       "1101": "Referral grant available (referred member)",
       "1102": "Referral grant available (referring member)",
       "1200": "Payment method expiration first reminder for payments by installment",
-      "1201": "Payment method expiration second reminder for payments by installment"
+      "1201": "Payment method expiration second reminder for payments by installment",
+      "undefined": "Physical gift card activation"
     },
     "pageTitle": "Transactional notifications",
     "caption": {

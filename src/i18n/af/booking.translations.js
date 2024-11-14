@@ -70,6 +70,8 @@ const getTranslations = async () => {
           dialogSubtitle: 'Select the session that you want to book',
           noContent: 'No similar sessions has been found.',
           selectAll: 'Select all',
+          sessionCount:
+            '{{selectedSessionsCount}} of {{totalSessionsCount}} sessions',
         },
         selectSpot: {
           dialogTitle: 'Select spot',

@@ -31,6 +31,7 @@ export type MultiSessionOfferSelectorProps = {
   onClose: () => void;
   isAbleToFetchMoreSimilarSessions: boolean;
   similarOffersLoading: boolean;
+  similarOffersTotalCount: number;
 };
 
 type OfferStepperProps = {
@@ -113,6 +114,7 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
   nextStep,
   setPreSelectedOffers,
   similarOffersLoading,
+  similarOffersTotalCount,
 }) => {
   const { t } = useTranslation(['common', 'booking']);
   const onSelectSession = React.useCallback(
@@ -179,6 +181,14 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
         >
           {t('booking:bookingModule.multiSession.addSession.selectAll')}
         </ButtonBase>
+        {!!similarOffersTotalCount && (
+          <Typography color="textSecondary" variant="body2">
+            {t('booking:bookingModule.multiSession.addSession.sessionCount', {
+              selectedSessionsCount: preSelectedOffers?.length,
+              totalSessionsCount: similarOffersTotalCount,
+            })}
+          </Typography>
+        )}
       </div>
       <div className="bs-similar-offer-modal-container__body">
         <>

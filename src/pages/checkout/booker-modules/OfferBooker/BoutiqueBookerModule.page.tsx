@@ -2079,6 +2079,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 similarOrGrouppedOffers,
               )}
               similarOffersLoading={this.props.similarOffersLoading}
+              similarOffersTotalCount={this.props.similarOffersTotalCount}
               spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
                 this.props.spotTypes,
               )}

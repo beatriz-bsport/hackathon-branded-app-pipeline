@@ -10,6 +10,9 @@
 }
 
 .bs-similar-offer-modal-container__header__select-all-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .bs-similar-offer-modal-container__header__select-all-button {

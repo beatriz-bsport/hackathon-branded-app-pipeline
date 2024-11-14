@@ -11,6 +11,7 @@ import { RootState } from '../../reducers';
 import { SafeURI } from '../../widgets/utils';
 import type { DialogMode } from './types';
 import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
+import { getIsNewMemberProfileDisplayed } from 'bsport-saas/src/libs/consumer-space/utils';
 
 const buildWidgetUrl = (path: string, theme: CompanyTheme, params?: any) => {
   const { company, company_name } = theme;
@@ -43,7 +44,9 @@ export const fabShowLogin =
         url: `${PUBLIC_URL}/login${buildUrlParams({
           membership: company,
           context: 'widget',
-          next: `/c/${company}`,
+          next: getIsNewMemberProfileDisplayed(company)
+            ? `/c/${company}/booking`
+            : `/c/${company}`,
           consumerspacecontext: ConsumerSpaceContextEnum.FAB,
         })}`,
         dialogMode: DIALOG_MODE_IFRAME,

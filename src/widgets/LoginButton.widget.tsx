@@ -20,6 +20,7 @@ import { buildUrlParams } from '../utils/http';
 import type { MarketplaceLoginButtonWidgetConfig } from 'bsport-saas/src/libs/exportable-components/types';
 import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
 import WidgetUtils from 'bsport-saas/src/libs/widget/WidgetUtils';
+import { getIsNewMemberProfileDisplayed } from 'bsport-saas/src/libs/consumer-space/utils';
 
 // const MarketplaceShopStyled = themify(MarketplaceShopBase);
 
@@ -97,7 +98,9 @@ class LoginButton extends Component<Props> {
       this.openUrl(
         `login${buildUrlParams({
           membership: this.props.companyId,
-          next: `/c/${this.props.companyId}/booking/`,
+          next: getIsNewMemberProfileDisplayed(this.props.companyId)
+            ? `/c/${this.props.companyId}/booking`
+            : `/c/${this.props.companyId}`,
           consumerspacecontext: ConsumerSpaceContextEnum.LOGIN_BUTTON,
         })}`,
       );

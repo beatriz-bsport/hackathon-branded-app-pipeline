@@ -280,7 +280,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
           </Button>
         )}
 
-      {!isIframe && (
+      {!isIframe && !shouldHideNavigation && (
         <NavigationAppBar
           actions={actionsList}
           isMobile={isMobile}

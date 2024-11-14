@@ -34,6 +34,10 @@ type Props = {
     payment_method_id: string,
     options: OptionCallback,
   ) => void;
+  setSelectedSubscription: React.Dispatch<
+    React.SetStateAction<SubscriptionREST>
+  >;
+  handleCloseSubscriptionDetailsDrawer: () => void;
 };
 
 const ConsumerSubscriptionPaymentPortal: React.FC<Props> = ({
@@ -51,6 +55,8 @@ const ConsumerSubscriptionPaymentPortal: React.FC<Props> = ({
   refreshSavedPaymentMethodList,
   requestSetupIntentSecret,
   switchPaymentMethod,
+  setSelectedSubscription,
+  handleCloseSubscriptionDetailsDrawer,
 }) => {
   const { t } = useTranslation('consumerSpace');
   const [isProcessing, setIsProcessing] = React.useState(false);
@@ -69,20 +75,28 @@ const ConsumerSubscriptionPaymentPortal: React.FC<Props> = ({
   const handleClose = React.useCallback(() => {
     onClose();
     setSwitchSucceeded(false);
-  }, [onClose]);
+    displayBottomDrawer && handleCloseSubscriptionDetailsDrawer();
+  }, [onClose, displayBottomDrawer, handleCloseSubscriptionDetailsDrawer]);
 
   const handleConfirm = React.useCallback(() => {
     setIsProcessing(true);
     switchPaymentMethod(selectedSubscription?.id, selectedPaymentMethodId, {
       onSuccess: () => {
         setSwitchSucceeded(true);
+        !displayBottomDrawer && setSelectedSubscription(null);
         setIsProcessing(false);
       },
       onError: () => {
         setIsProcessing(false);
       },
     });
-  }, [switchPaymentMethod, selectedSubscription, selectedPaymentMethodId]);
+  }, [
+    switchPaymentMethod,
+    selectedSubscription?.id,
+    selectedPaymentMethodId,
+    displayBottomDrawer,
+    setSelectedSubscription,
+  ]);
 
   const title = selectedSubscription?.stripe_payment_method_id
     ? t('reworked.mySubscriptions.changePaymentMethod')

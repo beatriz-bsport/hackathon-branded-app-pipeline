@@ -173,23 +173,11 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
       switchPaymentMethod(subscriptionId, payment_method_id, selectedFilter, {
         onSuccess: () => {
           options?.onSuccess?.();
-          if (isPaymentModalOpen) {
-            handleCloseSubscriptionDetailsDrawer();
-            handlePaymentModalClose();
-            setSelectedSubscription(null);
-          }
         },
         onError: options?.onError,
       });
     },
-    [
-      switchPaymentMethod,
-      selectedFilter,
-      isPaymentModalOpen,
-      handleCloseSubscriptionDetailsDrawer,
-      handlePaymentModalClose,
-      setSelectedSubscription,
-    ],
+    [switchPaymentMethod, selectedFilter],
   );
 
   const { t } = useTranslation('consumerSpace');
@@ -325,6 +313,9 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         enabledPaymentGroupMethodIdentifierIds={
           enabledPaymentGroupMethodIdentifierIds
         }
+        handleCloseSubscriptionDetailsDrawer={
+          handleCloseSubscriptionDetailsDrawer
+        }
         isOpen={isPaymentModalOpen}
         memberMail={memberMail}
         memberName={memberName}
@@ -335,6 +326,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
         requestSetupIntentSecret={requestSetupIntentSecret}
         selectedSubscription={selectedSubscription}
+        setSelectedSubscription={setSelectedSubscription}
         switchPaymentMethod={handleSwitchPaymentMethod}
       />
     </PageContentContainer>

@@ -177,10 +177,7 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
           disabled={areAllSessionsSelected || similarOffersLoading}
           onClick={onSelectAllSessions}
         >
-          {t('booking:bookingModule.multiSession.addSession.selectAll', {
-            count: similarOffers?.length ?? 0,
-            totalSessions: similarOffers?.length ?? 0,
-          })}
+          {t('booking:bookingModule.multiSession.addSession.selectAll')}
         </ButtonBase>
       </div>
       <div className="bs-similar-offer-modal-container__body">

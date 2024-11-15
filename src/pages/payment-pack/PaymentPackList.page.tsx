@@ -56,6 +56,7 @@ import {
   groupByCategory,
   getAllPaymentPackCategory,
   withLinkedPrivatePass,
+  getWithSCT,
 } from '#src/libs/payment-packs/selectors';
 import { fetchVideoFilterableParams } from '#src/libs/video/actions';
 import {
@@ -505,7 +506,12 @@ export class PaymentPackList extends React.Component<Props, State> {
             ? () => this.requestDelete(paymentPack)
             : null,
           onEdit: hasEditPermission
-            ? () => this.requestEdit(paymentPack)
+            ? () => {
+                const paymentPackWithCategories = this.props.getWithSCT(
+                  paymentPack?.id,
+                );
+                this.requestEdit(paymentPackWithCategories);
+              }
             : null,
           pack: paymentPack,
           value: paymentPack.id,
@@ -981,6 +987,7 @@ const styles = (theme: Theme) =>
     },
   });
 const mapStateToProps = (state: RootState) => ({
+  getWithSCT: (paymentPackId: number) => getWithSCT(state, paymentPackId),
   loading: state.paymentPack.loading,
   // @ts-expect-error
   enabledPacks: withSCT(withLinkedPrivatePass(getEnabledPaymentPacks))(state),

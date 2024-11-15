@@ -49,8 +49,6 @@ import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import {
   EXPORTABLE_COMPONENT_TYPE_REFERRAL,
-  EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING,
-  EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS,
   EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE,
 } from 'bsport-saas/src/libs/exportable-components/constants/widget_builder';
 
@@ -137,8 +135,6 @@ const WidgetByType = {
   [EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2]: CalendarWidget,
   [EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE]: PaymentPackTemplate,
   [EXPORTABLE_COMPONENT_TYPE_REFERRAL]: ReferralWidget,
-  [EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING]: ConsumerBookingWidget,
-  [EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS]: ConsumerPassWidget,
   [EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE]: ConsumerSpaceWidget,
 };
 

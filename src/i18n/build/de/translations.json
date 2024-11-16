@@ -9928,7 +9928,9 @@
                 "addSession": {
                     "noContent": "Es wurden keine ähnlichen Kurse gefunden.",
                     "dialogSubtitle": "Wählen Sie den Kurs, den Sie buchen möchten",
-                    "dialogTitle": "Einen Kurs hinzufügen"
+                    "dialogTitle": "Einen Kurs hinzufügen",
+                    "sessionCount": "{{selectedSessionsCount}} von {{totalSessionsCount}} Kurse",
+                    "selectAll": "Alle Auswählen"
                 }
             },
             "groupedSession": {

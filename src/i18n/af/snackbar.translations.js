@@ -138,6 +138,7 @@ const getTranslations = async () => {
     INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER,
     CANNOT_REFUND_INVOICE_EXCEPTION_ERROR_CODE,
     PAYMENT_GROUP_LOCK_ACQUISITION_ERROR,
+    PAYMENT_DISABLED,
     PENDING_PAYMENT_ATTEMPT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION,
     PAYMENT_GROUP_PRICE_INCONSISTENCY,
     PAYMENT_ATTEMPT_EXECUTION_FAILED,
@@ -1198,6 +1199,7 @@ const getTranslations = async () => {
     },
     clientSecret: {
       errors: {
+        [PAYMENT_DISABLED]: 'Payments are disabled for this studio',
         [PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION]:
           'Your payment is in process of validation. Return later to register a new payment.',
       },

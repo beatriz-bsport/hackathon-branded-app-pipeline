@@ -5,6 +5,7 @@ import { push } from 'connected-react-router';
 import omit from 'lodash/omit';
 
 import {
+  fetchShopItemTemplateList as fetchShopItemTemplateListAction,
   retrieveShopItemTemplate as retrieveShopItemTemplateAction,
   retrieveShopItemBarcodeUnicity as retrieveShopItemBarcodeUnicityAction,
   updateShopItemTemplate as updateShopItemTemplateAction,
@@ -37,6 +38,7 @@ import {
   getShopItemBarcodeUnicity,
   getShopItemBarcodeUnicityLoading,
   getShopItemBarcodeListUnicity,
+  getShopItemTemplateState,
 } from '#src/libs/shop/selectors';
 import { getFranchiseCompanies } from '#src/libs/franchise/selectors';
 
@@ -49,7 +51,7 @@ import withTitle from '#src/hocs/with-title.hoc';
 // @ts-expect-error
 import { mapFormDataWithObject } from '#src/pages/form.utils';
 
-import type { OptionCallback } from '#src/state/types';
+import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { RootState } from '#src/reducers';
 import type {
   Provision,
@@ -128,6 +130,19 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     });
   };
 
+  handleFetchRelatedSubshopShopItemTemplateList = (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<ShopItemTemplate>>,
+  ) => {
+    this.props.fetchShopItemTemplateList(
+      {
+        sub_shop_template: this.props.shopItemTemplate?.sub_shop_template,
+        page,
+      },
+      options,
+    );
+  };
+
   retrieveShopItemTemplateDetails = (
     options?: OptionCallback<ShopItemTemplate>,
   ) => {
@@ -171,6 +186,9 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       options: {
         onSuccess: () => {
           this.fetchShopItemTemplateVariantList();
+          // If the number of variant changes, which is the case when we create some
+          // We need to refetch the subshop again
+          this.handleFetchRelatedSubshopShopItemTemplateList();
           if (!isShopItemTemplateMutated)
             this.fetchShopItemTemplateInstanceList();
           if (isShopItemTemplateMutated)
@@ -212,6 +230,12 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     formValues: ShopItemEdit,
     options?: OptionCallback,
   ) => {
+    // The Supplier Template displays the ShopItemTemplate name, number of variants and price
+    const needToRefetchSupplierTemplate =
+      formValues?.name !== this.props.shopItemTemplate?.name ||
+      formValues?.price !== Number(this.props.shopItemTemplate?.price) ||
+      formValues?.subtitle !== this.props.shopItemTemplate?.subtitle;
+
     const shopItemTemplateFormValues = {
       ...omit(formValues, ['subshop', 'supplier']),
       supplier_template: formValues.supplier,
@@ -231,6 +255,9 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       options: {
         onBackgroundSuccess: () => {
           this.retrieveShopItemTemplateDetails();
+          if (needToRefetchSupplierTemplate) {
+            this.handleFetchRelatedSubshopShopItemTemplateList();
+          }
           options?.onSuccess();
         },
         onBackgroundError: options?.onError,
@@ -243,7 +270,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     data: FormData,
     options?: OptionCallback,
   ) => {
-    const needToRefetchShopItemDetails =
+    const needToRefetchShopItemDetailsAndSubshop =
       lowestVariantPrice !== this.props.shopItemTemplate?.lowest_variant_price;
     this.props.updateShopItemTemplateVariantBulk({
       data,
@@ -251,8 +278,10 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       options: {
         onSuccess: () => {
           this.fetchShopItemTemplateVariantList();
-          if (needToRefetchShopItemDetails)
+          if (needToRefetchShopItemDetailsAndSubshop) {
             this.retrieveShopItemTemplateDetails();
+            this.handleFetchRelatedSubshopShopItemTemplateList();
+          }
           options?.onSuccess?.();
         },
         onError: options?.onError,
@@ -261,8 +290,22 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   };
 
   handleDeleteShopItemTemplate = () => {
+    const subshopTemplateId = this.props.shopItemTemplate?.sub_shop_template;
+    const shopItemTemplatePage =
+      this.props.getShopItemTemplateState(subshopTemplateId)?.page ?? 1;
+    const isRemovingLastListItem =
+      (this.props.getShopItemTemplateState(subshopTemplateId)?.results ?? [])
+        .length === 1 && shopItemTemplatePage > 1;
+
     this.props.deleteShopItemTemplate(this.props.id, {
-      onSuccess: this.props.backToShopPage,
+      onSuccess: () => {
+        this.handleFetchRelatedSubshopShopItemTemplateList(
+          isRemovingLastListItem
+            ? shopItemTemplatePage - 1
+            : shopItemTemplatePage,
+        );
+        this.props.backToShopPage();
+      },
     });
   };
 
@@ -290,6 +333,9 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
           this.props.setQueryParam('inventorypage')(`${currentPage - 1}`);
         }
         this.fetchShopItemTemplateVariantList();
+        // If the number of variant changes, which is the case when we delete one
+        // We need to refetch the subshop again
+        this.handleFetchRelatedSubshopShopItemTemplateList();
 
         if (!isShopItemTemplateMutated)
           this.fetchShopItemTemplateInstanceList();
@@ -474,6 +520,8 @@ const connector = connect(
       getShopItemTemplateSupplier(state, supplierTemplateId),
     getShopItemBarcodeUnicity: (barcode: string) =>
       getShopItemBarcodeUnicity(state, barcode),
+    getShopItemTemplateState: (subshopTemplateId: number) =>
+      getShopItemTemplateState(state, subshopTemplateId),
   }),
   {
     retrieveShopItemTemplate: retrieveShopItemTemplateAction,
@@ -489,6 +537,7 @@ const connector = connect(
     createShopItemTemplateVariants: createShopItemTemplateVariantsAction,
     fetchShopItemTemplateVariantCombinationList:
       fetchShopItemTemplateVariantCombinationListAction,
+    fetchShopItemTemplateList: fetchShopItemTemplateListAction,
     backToShopPage: () => push('/f/shop'),
   },
 );

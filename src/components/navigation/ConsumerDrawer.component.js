@@ -690,7 +690,7 @@ const styles = (theme) => ({
     display: 'flex',
     width: '100dvw',
     flexDirection: 'column',
-    height: '100dvh',
+    minHeight: '100dvh',
     [theme.breakpoints.up('md')]: {
       paddingLeft: drawerWidth,
     },
@@ -738,30 +738,21 @@ const styles = (theme) => ({
       position: 'fixed',
     },
   },
-  content: ({ location }) => ({
+  content: {
     flex: '1 1 auto',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: theme.palette.background.default,
     width: '100%',
-    ...(!['staging', 'production'].includes(
-      Config.REACT_APP_SENTRY_ENVIRONMENT,
-    ) && containsAnySubstring(location.pathname, NEW_MEMBER_PROFILE_ROUTE_LIST)
-      ? {
-          margin: 0,
-          padding: 0,
-          overflow: 'inherit',
-        }
-      : {
-          [theme.breakpoints.up('md')]: {
-            paddingLeft: theme.spacing(3),
-            paddingRight: theme.spacing(3),
-          },
-          paddingBottom: theme.spacing(1),
-          paddingTop: theme.spacing(2),
-          overflow: 'auto',
-        }),
-  }),
+    [theme.breakpoints.up('md')]: {
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+    },
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
+    paddingTop: theme.spacing(2),
+  },
   logo: {
     alignItems: 'center',
     justify: 'center',

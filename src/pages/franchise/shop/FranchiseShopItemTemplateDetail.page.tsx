@@ -67,6 +67,7 @@ import type { SelectOption } from '#src/libs/types';
 import type { FranchiseCompany } from '#src/libs/franchise/types';
 
 import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
+import { doesBaseItemMutationAffectsVariants } from '#src/libs/shop/utils';
 
 type OwnProps = {
   id: number;
@@ -236,6 +237,15 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       formValues?.price !== Number(this.props.shopItemTemplate?.price) ||
       formValues?.subtitle !== this.props.shopItemTemplate?.subtitle;
 
+    /*
+      Whenever the ShopItem is updated, some infos may have also changed for variants
+      Then, we want to refetch the variant list too
+    */
+    const needToRefetchVariants = doesBaseItemMutationAffectsVariants(
+      formValues,
+      this.props.shopItemTemplate,
+    );
+
     const shopItemTemplateFormValues = {
       ...omit(formValues, ['subshop', 'supplier']),
       supplier_template: formValues.supplier,
@@ -257,6 +267,9 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
           this.retrieveShopItemTemplateDetails();
           if (needToRefetchSupplierTemplate) {
             this.handleFetchRelatedSubshopShopItemTemplateList();
+          }
+          if (needToRefetchVariants) {
+            this.fetchShopItemTemplateVariantList();
           }
           options?.onSuccess();
         },

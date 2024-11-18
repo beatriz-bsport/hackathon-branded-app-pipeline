@@ -125,14 +125,18 @@ export const getBookedSessionListDataFromBasket = (
 ): OfferBookingValidation[] => {
   const bookingSuccessData: OfferBookingValidation[] = [];
 
+  if (!basket || !basket.checkout_items || !basketOffers) return [];
+
   basket.checkout_items.forEach((item) => {
-    if (item.extra_data && Array.isArray(item.extra_data.offers_data)) {
-      const offers = item.extra_data.offers_data;
+    if (item?.extra_data && Array.isArray(item?.extra_data?.offers_data)) {
+      const offers = item.extra_data?.offers_data;
 
       offers.forEach((offer) => {
         const offerData = basketOffers.find(
-          (basketOffer) => basketOffer.id === offer.offer_id,
+          (basketOffer) =>
+            basketOffer && offer && basketOffer.id === offer.offer_id,
         );
+        if (!offerData) return;
         const mappedOffer: OfferBookingValidation = {
           id: offer.offer_id,
           isNewPass: true,

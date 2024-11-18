@@ -1011,15 +1011,19 @@ export default compose(
         basketOffers,
       }) =>
       () => {
-        const bookedSessionListData = getBookedSessionListDataFromBasket(
-          basket,
-          basketOffers,
-        );
-        if (bookedSessionListData.length || bookedSessionListData.length > 0)
-          analyticsUtils.onSessionBookingSuccess({
-            offersBooked: bookedSessionListData,
-          });
-        analyticsUtils.onPaymentSuccess(basket);
+        if (basket) {
+          if (basketOffer?.length > 0) {
+            const bookedSessionListData = getBookedSessionListDataFromBasket(
+              basket,
+              basketOffers,
+            );
+            if (bookedSessionListData?.length > 0)
+              analyticsUtils.onSessionBookingSuccess({
+                offersBooked: bookedSessionListData,
+              });
+          }
+          analyticsUtils.onPaymentSuccess(basket);
+        }
         const urlParams = queryParams.basket_redirection
           ? { basket: queryParams.basket_redirection }
           : { basket: basket.id };

@@ -26,6 +26,7 @@ import type {
 } from '#src/libs/shop/types';
 import type {
   Dispatch,
+  OptionBackgroundCallback,
   OptionCallback,
   PaginatedResponse,
 } from '#src/state/types';
@@ -53,6 +54,7 @@ import {
   deleteShopItemTemplate as deleteShopItemTemplateAPI,
   fetchAll,
 } from '../api';
+import { monitorBackgroundTask } from '#src/libs/background-task/actions';
 
 export const fetchShopItemBaseListActions = {
   isLoading: createAction<boolean>('SHOP_ITEM_BASE/LIST/LOADING'),
@@ -969,14 +971,29 @@ export const updateShopItemTemplate = ({
 }: {
   formData: FormData;
   id: number;
-  options?: OptionCallback;
+  options?: OptionBackgroundCallback;
 }) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(updateShopItemTemplateActions.isLoading(true));
       dispatch(updateShopItemTemplateActions.error(null));
 
-      await updateShopItemTemplateAPI(id, formData);
+      const response = await updateShopItemTemplateAPI(id, formData);
+
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onError: (err) => {
+            console.error(err);
+            dispatch(updateShopItemTemplateActions.error(err));
+            options?.onBackgroundError?.(err);
+          },
+          onSuccess: () => {
+            options?.onBackgroundSuccess?.();
+          },
+        }),
+      );
 
       options?.onSuccess?.();
     } catch (error) {

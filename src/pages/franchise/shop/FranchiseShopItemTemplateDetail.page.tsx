@@ -229,11 +229,11 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       formData,
       id: this.props.id,
       options: {
-        onSuccess: () => {
+        onBackgroundSuccess: () => {
           this.retrieveShopItemTemplateDetails();
           options?.onSuccess();
         },
-        onError: options?.onError,
+        onBackgroundError: options?.onError,
       },
     });
   };

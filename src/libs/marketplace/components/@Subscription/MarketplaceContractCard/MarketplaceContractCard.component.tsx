@@ -50,7 +50,7 @@ const MarketplaceContractCard: React.FC<Props> = ({
   );
 
   const handleOpenDetailDialog = useCallback(() => {
-    analyticsUtils.onBeginContractPayment(contract);
+    analyticsUtils.viewBuyableItem(contract);
     onOpenDetailDialog(contract);
   }, [contract, onOpenDetailDialog]);
 

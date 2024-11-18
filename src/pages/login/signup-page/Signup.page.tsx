@@ -99,6 +99,7 @@ export class SignupPage extends Component<Props> {
       this.props.retrieveCompanyCssConfiguration(
         parseInt(this.props.membership, 10),
       );
+      analyticsUtils.onShowSignup();
     }
   }
 

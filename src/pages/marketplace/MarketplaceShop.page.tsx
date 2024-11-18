@@ -19,6 +19,7 @@ import shopSelectors from '#src/libs/shop/selectors';
 import themeSelectors from '#src/libs/theme/selectors';
 import withTitle from '#src/hocs/with-title.hoc';
 import { RootState } from '../../reducers';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 type OwnProps = {
   companyId: number;
@@ -72,12 +73,23 @@ const mapDispatchToProps = {
   fetchShopItems: fetchShopItemAsConsumer,
   fetchSubShops: fetchAllSubShop,
   addItemToBasket: (shopItemId: number, basketId: string) =>
-    addItemToBasket(basketId, {
-      buyable_item_identifier: BUYABLE_ITEM_SHOP_ITEM,
-      quantity: 1,
-      buyable_item_id: shopItemId,
-      extra_data: {},
-    }),
+    addItemToBasket(
+      basketId,
+      {
+        buyable_item_identifier: BUYABLE_ITEM_SHOP_ITEM,
+        quantity: 1,
+        buyable_item_id: shopItemId,
+        extra_data: {},
+      },
+      {
+        onSuccess: (response) => {
+          const addedItem = response.checkout_items.find(
+            (checkoutItem) => checkoutItem.buyable_item_id === shopItemId,
+          );
+          analyticsUtils.addItemToCart(addedItem);
+        },
+      },
+    ),
   push,
 };
 

@@ -95,7 +95,7 @@ export class ConsumerLoginPage extends Component<Props> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (!prevProps.theme && this.props.theme?.id) analyticsUtils.onShowSignup();
+    if (!prevProps.theme && this.props.theme?.id) analyticsUtils.onShowSignin();
   }
 
   onRequestSignup = () => {

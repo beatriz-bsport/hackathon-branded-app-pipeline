@@ -110,6 +110,13 @@ import withQueryParams from '../../hocs/with-query-params.hoc';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import { RootState } from '../../reducers';
 
+import {
+  getSessionCoachId,
+  getSessionEstablishmentId,
+  getSessionMetaActivityId,
+} from '#src/components/analytics/utils';
+import type { OfferBookingValidation } from '#src/components/analytics/types';
+
 import analyticsUtils from '#src/components/analytics/analytics';
 
 import './BoutiqueContractCheckout.css';
@@ -932,6 +939,22 @@ const handlers = {
         {
           onSuccess: (responseData: any) => {
             options?.onSuccess?.();
+            const offerBookedData: OfferBookingValidation = {
+              id: offer.id,
+              isNewPass: true,
+              metaActivityId: getSessionMetaActivityId(offer),
+              coachId: getSessionCoachId(offer),
+              establishmentId: getSessionEstablishmentId(offer),
+              date: offer.date_start,
+            };
+            if (responseData.extra_data?.spot_id)
+              offerBookedData.spotId = offer.extra_data.spot_id;
+
+            if (responseData.extra_data?.spot_name)
+              offerBookedData.spotName = offer.extra_data.spot_name;
+            analyticsUtils.onSessionBookingSuccess({
+              offersBooked: [offerBookedData],
+            });
             goToConfirmationPage(billingPlanid, responseData);
           },
           onError: () => {

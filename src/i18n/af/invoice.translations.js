@@ -18,9 +18,13 @@ const getTranslations = async () => {
   } = await import('@bsport/common/lib/master-data/buyable-items.js');
   const { INVOICE_TYPE_MIGRATION, INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } =
     await import('@bsport/common/lib/master-data/invoice-type.js');
-  const { SOURCE_APP, SOURCE_WEB, SOURCE_SAAS, SOURCE_OTHER } = await import(
-    '@bsport/common/lib/master-data/source-device.js'
-  );
+  const {
+    SOURCE_APP,
+    SOURCE_WEB,
+    SOURCE_SAAS,
+    SOURCE_OTHER,
+    SOURCE_MIGRATION,
+  } = await import('@bsport/common/lib/master-data/source-device.js');
   const {
     PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
     PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
@@ -282,6 +286,7 @@ const getTranslations = async () => {
           [SOURCE_WEB]: 'Web',
           [SOURCE_SAAS]: 'Backoffice',
           [SOURCE_OTHER]: 'Other',
+          [SOURCE_MIGRATION]: 'Migration',
           label: 'Channel : {{ source }}',
         },
         clientAuthor: 'Customer',

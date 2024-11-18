@@ -3493,7 +3493,14 @@
       "editor": { "title": "Invoicing", "save": "Issue invoice", "sumup": "Overview" },
       "title": "Invoice {{ uuid }}",
       "header": {
-        "source": { "0": "App", "1": "Web", "2": "Backoffice", "3": "Other", "label": "Channel : {{ source }}" },
+        "source": {
+          "0": "App",
+          "1": "Web",
+          "2": "Backoffice",
+          "3": "Other",
+          "4": "Migration",
+          "label": "Channel : {{ source }}"
+        },
         "clientAuthor": "Customer",
         "author": "Created by : {{ name }}",
         "date": "Date: {{ date }}",

@@ -8,6 +8,9 @@ const icons = {
   "arrow-right": React.lazy(
     async () => await import("./assets/arrow-right.svg?react"),
   ),
+  "filter-lines": React.lazy(
+    async () => await import("./assets/filter-lines.svg?react"),
+  ),
   loading: React.lazy(async () => await import("./assets/loading.svg?react")),
   "message-alert-square": React.lazy(
     async () => await import("./assets/message-alert-square.svg?react"),

@@ -63,9 +63,6 @@ const Chip: React.FC<ChipProps> = ({
     }
   }, [dismissible, onClick]);
 
-  const shouldRender = useMemo(() => !dismissed, [dismissed]);
-  if (!shouldRender) return null;
-
   const renderedIconLeft = useMemo(
     () =>
       iconLeft ? (
@@ -85,6 +82,9 @@ const Chip: React.FC<ChipProps> = ({
       ) : null,
     [dismissible, size],
   );
+
+  const shouldRender = useMemo(() => !dismissed, [dismissed]);
+  if (!shouldRender) return null;
 
   return (
     <div

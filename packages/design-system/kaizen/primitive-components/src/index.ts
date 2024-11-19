@@ -5,6 +5,7 @@ export { default as Body } from "./components/Body";
 export { default as Button } from "./components/Button";
 export { default as Checkbox } from "./components/Checkbox";
 export { default as Chip } from "./components/Chip";
+export { default as Divider } from "./components/Divider";
 export { default as Icon } from "./components/Icon";
 export { default as Indicator } from "./components/Indicator";
 export { default as Link } from "./components/Link";

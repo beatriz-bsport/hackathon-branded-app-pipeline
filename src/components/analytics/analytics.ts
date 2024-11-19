@@ -70,6 +70,7 @@ const analyticsUtils = {
           id: itemId,
           name: item.name,
           quantity: 1,
+          price: itemPrice,
           category: itemType,
         },
       ],
@@ -103,6 +104,7 @@ const analyticsUtils = {
           id: itemId,
           name: item.name,
           quantity: 1,
+          price: itemPrice,
           category: itemType,
         },
       ],
@@ -139,6 +141,7 @@ const analyticsUtils = {
           name: item.name,
           quantity: itemQuantity,
           category: itemType,
+          price: itemPrice,
         },
       ],
     };
@@ -168,6 +171,7 @@ const analyticsUtils = {
         id: item.id,
         name: item.name,
         quantity: item.quantity,
+        price: item.unit_price,
         category: itemTypeList[item.buyable_item_identifier],
       })),
     };
@@ -198,6 +202,7 @@ const analyticsUtils = {
         id: item.id,
         name: item.name,
         quantity: item.quantity,
+        price: item.unit_price,
         category: itemTypeList[item.buyable_item_identifier],
       })),
     };
@@ -230,6 +235,7 @@ const analyticsUtils = {
         id: item.id,
         name: item.name,
         quantity: item.quantity,
+        price: item.unit_price,
         category: itemTypeList[item.buyable_item_identifier],
       })),
     };
@@ -401,6 +407,7 @@ const analyticsUtils = {
           name: payload.name,
           quantity: 1,
           category: 'subscription',
+          price: parseInt(payload.recurrent_price),
         },
       ],
     };
@@ -433,6 +440,7 @@ const analyticsUtils = {
           name: payload.name,
           quantity: 1,
           category: 'subscription',
+          price: parseInt(payload.recurrent_price),
         },
       ],
     };
@@ -488,12 +496,12 @@ const analyticsUtils = {
   onSignupSuccess: (payload: { email: string }) => {
     const gtmPayload: AnalyticsInterractWithLoginPayload = {
       email: payload.email,
-      method: 'Authentication',
+      method: 'Form',
     };
 
     const metaPixelPayload: AnalyticsInterractWithLoginPayload = {
       email: payload.email,
-      method: 'Authentication',
+      method: 'Form',
     };
     analyticsUtils.trackGTM('sign_up', gtmPayload);
     analyticsUtils.trackMetaPixel('SignUp', metaPixelPayload);

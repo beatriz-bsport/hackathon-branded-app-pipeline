@@ -15,6 +15,7 @@ import CustomFormPortal from '#Fabrique/Temporary/CustomFormPortal';
 import BarcodePortal from '#src/components/css-only/Portals/BarcodePortal';
 import DetachPaymentPortal from '#src/components/css-only/Portals/DetachPaymentPortal';
 import TermsAndConditions from '#src/components/css-only/Portals/TermsAndConditions';
+import RegularizeDebtModal from '#src/components/css-only/Portals/RegularizeDebtPortal/RegularizeDebtModal.component';
 import PaymentModal from '#src/libs/payment/components/PaymentModal.component';
 import { AddPaymentMethod } from '#src/libs/payment/components/AddPaymentMethod.component';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
@@ -137,6 +138,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     isEditProfileMobilePortalOpen,
     detachPaymentMethodErrorCode,
     setDetachPaymentMethodErrorCode,
+    isRegularizeBalancePortalOpen,
   } = useContext(ConsumerProfileContext);
 
   const { general_terms_of_use, waiver, is_referral_program_activated } =
@@ -296,6 +298,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
             officialDocumentId={official_document_id}
             phoneNumber={phone_number}
             photo={photo}
+            regularizeBalanceAllowed={companyTheme?.consumer_regularize_debt}
             showAccountBalance={companyTheme?.show_member_account_balance}
             showBarcodeButton={companyTheme?.show_barcode_button}
             showMembershipNumber={companyTheme?.show_membership_number}
@@ -400,6 +403,15 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
           'consumerSpace:reworked.myProfile.termsAndConditions.termOfuse',
         )}
       />
+
+      {!!membershipId &&
+        !!credit_account_balance &&
+        isRegularizeBalancePortalOpen && (
+          <RegularizeDebtModal
+            defaultUserEmail={member?.email}
+            defaultUserName={member?.name}
+          />
+        )}
 
       {membershipId && !!companyCountry && !!stripeRegion && (
         <PaymentModal isOpen={isAddPaymentMethodPortalOpen}>

@@ -11,6 +11,8 @@ import {
 import {
   detachPaymentMethod as detachPaymentMethodAction,
   fetchPaymentMethodList as fetchPaymentMethodListAction,
+  requestClientSecret as requestClientSecretAction,
+  setPaymentGroupBillingEstablishment as setPaymentGroupBillingEstablishmentAction,
 } from '#src/libs/payment/actions';
 import {
   fetchCompanyCustomMemberForm as fetchCompanyCustomMemberFormAction,
@@ -20,6 +22,7 @@ import {
   retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
 } from '#src/libs/referral/actions';
+import { fetchPaymentGroupStatus as fetchPaymentGroupStatusAction } from '#src/libs/payment/payment-module-revamped/actions';
 
 import {
   getCompanyCountry,
@@ -64,8 +67,7 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 class ConsumerProfileReworked extends React.Component<Props> {
   componentDidMount() {
     if (!!this.props.membership?.id || !!this.props.companyId) {
-      this.props.membership?.id &&
-        this.props.fetchMember(this.props.membership.id, {}, { me: true });
+      this.fetchMember();
       this.fetchMemberPaymentMethod();
       this.props.fetchCompanyCustomMemberForm(
         this.props.companyId ?? this.props.membership?.company,
@@ -74,6 +76,11 @@ class ConsumerProfileReworked extends React.Component<Props> {
       this.fetchReferralData();
     }
   }
+
+  fetchMember = () => {
+    !!this.props.membership?.id &&
+      this.props.fetchMember(this.props.membership.id, {}, { me: true });
+  };
 
   detachPaymentMethod = (
     paymentMethodId: string,
@@ -87,9 +94,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
         },
         {
           onSuccess: () => {
-            this.props.fetchPaymentMethodList({
-              member: this.props.membership.id,
-            });
+            this.fetchMemberPaymentMethod();
             options?.onSuccess?.();
           },
           onError: (errorCode) => {
@@ -115,8 +120,7 @@ class ConsumerProfileReworked extends React.Component<Props> {
       },
       {
         onSuccess: () => {
-          !!this.props.membership?.id &&
-            this.props.fetchMember(this.props.membership.id, {}, { me: true });
+          this.fetchMember();
           this.props.fetchMyUserProfile();
           options?.onSuccess?.();
         },
@@ -173,13 +177,36 @@ class ConsumerProfileReworked extends React.Component<Props> {
       referralProgramLoading,
       spiviPrivacySettingsLoading,
       updateSpiviPrivacySettings,
+      requestClientSecret,
+      fetchPaymentGroupStatus,
+      setPaymentGroupBillingEstablishment,
     } = this.props;
 
     const companyCountry = getCompanyCountry();
     const stripeRegion = getStripeRegion();
 
     return (
-      <ConsumerProfileContextProvider>
+      <ConsumerProfileContextProvider
+        availablePaymentMethodList={
+          this.props.companyTheme?.payment_method_available_basket
+        }
+        cardBillingDetailsMandatory={
+          this.props.companyTheme?.force_billing_details_on_cards
+        }
+        companyId={this.props.companyId ?? membership.company}
+        creditAccountBalance={member?.credit_account_balance}
+        detachPaymentMethod={this.detachPaymentMethod}
+        detachPaymentMethodLoading={detachPaymentMethodLoading}
+        fetchMember={this.fetchMember}
+        fetchMemberPaymentMethod={this.fetchMemberPaymentMethod}
+        fetchPaymentGroupStatus={fetchPaymentGroupStatus}
+        memberId={this.props.member?.id}
+        requestClientSecret={requestClientSecret}
+        setPaymentGroupBillingEstablishment={
+          setPaymentGroupBillingEstablishment
+        }
+        stripeId={this.props.companyTheme?.stripe_id}
+      >
         <ConsumerProfilePageReworked
           companyCountry={companyCountry}
           companyTheme={this.props.theme ?? companyTheme}
@@ -253,6 +280,10 @@ const mapDispatchToProps = {
   updateSpiviPrivacySettings: updateSpiviPrivacySettingsAction,
   retrieveReferralProgramForCompany: retrieveReferralProgramForCompanyAction,
   retrieveReferralMemberStatus: retrieveReferralMemberStatusAction,
+  requestClientSecret: requestClientSecretAction,
+  fetchPaymentGroupStatus: fetchPaymentGroupStatusAction,
+  setPaymentGroupBillingEstablishment:
+    setPaymentGroupBillingEstablishmentAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

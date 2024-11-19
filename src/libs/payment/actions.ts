@@ -34,7 +34,9 @@ import {
   executePaymentAttempt as executePaymentAttemptAPI,
   executePaymentAttemptWebview as executePaymentAttemptWebviewAPI,
   requestSetupIntentSecret as requestSetupIntentSecretAPI,
+  setBillingEstablishmentOnCompletedPaymentGroupStatus as setBillingEstablishmentOnCompletedPaymentGroupStatusAPI,
 } from './api';
+import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 import type {
   PaymentGroup,
   PaymentMethod,
@@ -47,7 +49,9 @@ import type {
   fetchBookkeepingAccountListFilter,
   DetachPaymentMethodPayload,
   DetachPaymentMethodResponse,
+  PaymentGroupBillingEstablishmentPayload,
 } from './types';
+import { RequestClientSecretPayload } from '../invoice/types';
 
 // Active campaign Account
 export const listSavedPaymentMethodListActions = {
@@ -778,3 +782,87 @@ export function requestSetupIntentSecret(
     }
   };
 }
+
+export const requestClientSecretActions = {
+  isLoading: createAction<boolean>('PAYMENT/REQUEST_CLIENT_SECRET/LOADING'),
+  error: createAction<Error | null>('PAYMENT/REQUEST_CLIENT_SECRET/ERROR'),
+  success: createAction<RequestClientSecretPayload>(
+    'PAYMENT/REQUEST_CLIENT_SECRET/SUCCESS',
+  ),
+};
+
+export function requestClientSecret(
+  params: {
+    payment_engine_identifier: number;
+    payment_intent_type: number;
+    basket?: string;
+    requested_price_cts?: number;
+    invoice?: string;
+    member?: string;
+    is_physical_payment_intent?: boolean;
+  },
+  options?: OptionCallback<RequestClientSecretPayload>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(requestSetupIntentSecretActions.isLoading(true));
+    dispatch(requestSetupIntentSecretActions.error(null));
+    try {
+      const response = await requestClientSecretAPI(
+        params.payment_engine_identifier,
+        params.payment_intent_type,
+        {
+          invoice: params.invoice,
+          member: params.member,
+          requested_price_cts: params.requested_price_cts,
+        },
+      );
+      dispatch(requestSetupIntentSecretActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(requestSetupIntentSecretActions.error(error));
+      console.error(error);
+      options?.onError?.(error);
+    } finally {
+      dispatch(requestSetupIntentSecretActions.isLoading(false));
+    }
+  };
+}
+
+export const setPaymentGroupBillingEstablishmentActions = {
+  isLoading: createAction<boolean>(
+    'PAYMENT/SET_PAYMENT_GROUP_BILLING_ESTABLISHMENT/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PAYMENT/SET_PAYMENT_GROUP_BILLING_ESTABLISHMENT/ERROR',
+  ),
+  success: createAction<number>(
+    'PAYMENT/SET_PAYMENT_GROUP_BILLING_ESTABLISHMENT/SUCCESS',
+  ),
+};
+
+export const setPaymentGroupBillingEstablishment = (
+  params: PaymentGroupBillingEstablishmentPayload,
+  options?: OptionCallback<number>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(setPaymentGroupBillingEstablishmentActions.isLoading(true));
+    dispatch(setPaymentGroupBillingEstablishmentActions.error(null));
+    try {
+      const response =
+        await setBillingEstablishmentOnCompletedPaymentGroupStatusAPI(
+          params.paymentGroupId,
+          params.establishmentId,
+        );
+      dispatch(
+        setPaymentGroupBillingEstablishmentActions.success(response.data),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(setPaymentGroupBillingEstablishmentActions.error(error));
+      console.error(error);
+      options?.onError?.(error);
+    } finally {
+      dispatch(setPaymentGroupBillingEstablishmentActions.isLoading(false));
+    }
+  };
+};

@@ -35,7 +35,7 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
   showAccountBalance,
   showBarcodeButton,
   showMembershipNumber,
-  totalUnpaidAmount,
+  regularizeBalanceAllowed,
 }) => {
   const { t } = useTranslation('consumerSpace');
   const { toggleBarcodeModal, isMobile } =
@@ -54,6 +54,7 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
           isMobile={isMobile}
           lastName={lastName}
           photo={photo}
+          regularizeBalanceAllowed={regularizeBalanceAllowed}
           showAccountBalance={showAccountBalance}
           showBarcodeButton={showBarcodeButton}
           totalUnpaidAmount={totalUnpaidAmount}

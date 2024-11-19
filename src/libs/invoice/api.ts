@@ -216,8 +216,8 @@ export async function requestClientSecret(
     member?: string;
     is_physical_payment_intent?: boolean;
   },
-): Promise<AxiosResponse<RequestClientSecretPayload>> {
-  return postAuth(
+) {
+  return postAuth<RequestClientSecretPayload>(
     `${API_V1_URI}/payment/payment_group/request_client_secret/`,
     { payment_engine_identifier, payment_intent_type, ...(params || {}) },
   );

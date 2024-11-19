@@ -2,13 +2,67 @@ import React, { createContext, ReactNode, useCallback, useState } from 'react';
 import useViewport from '#Fabrique/hooks/useViewport';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/constants';
 import type { ConsumerProfileContextType } from './types';
+import type { OptionCallback } from '#src/state/types';
+import {
+  PaymentGroupStatus,
+  RequestClientSecretPayload,
+} from '#src/libs/invoice/types';
+import type { PaymentGroupBillingEstablishmentPayload } from '#src/libs/payment/types';
 
 export const ConsumerProfileContext =
   createContext<ConsumerProfileContextType>(null);
 
 const ConsumerProfileContextProvider: React.FC<{
   children?: ReactNode | undefined;
-}> = ({ children }) => {
+  creditAccountBalance: number;
+  memberId: number;
+  fetchMember: () => void;
+  stripeId: string;
+  availablePaymentMethodList: number[];
+  cardBillingDetailsMandatory: boolean;
+  companyId: number;
+  detachPaymentMethod: (
+    paymentMethodId: string,
+    options?: OptionCallback<unknown, number>,
+  ) => void;
+  detachPaymentMethodLoading: boolean;
+  fetchMemberPaymentMethod: () => void;
+  requestClientSecret: (
+    params: {
+      payment_engine_identifier: number;
+      payment_intent_type: number;
+      basket?: string;
+      requested_price_cts?: number;
+      invoice?: string;
+      member?: string;
+      is_physical_payment_intent?: boolean;
+    },
+    options?: OptionCallback<RequestClientSecretPayload>,
+  ) => void;
+  fetchPaymentGroupStatus: (
+    paymentGroupId: number,
+    options?: OptionCallback<PaymentGroupStatus>,
+  ) => void;
+  setPaymentGroupBillingEstablishment: (
+    params: PaymentGroupBillingEstablishmentPayload,
+    options?: OptionCallback<number>,
+  ) => void;
+}> = ({
+  children,
+  creditAccountBalance,
+  memberId,
+  fetchMember,
+  stripeId,
+  availablePaymentMethodList,
+  cardBillingDetailsMandatory,
+  companyId,
+  detachPaymentMethod,
+  detachPaymentMethodLoading,
+  fetchMemberPaymentMethod,
+  requestClientSecret,
+  fetchPaymentGroupStatus,
+  setPaymentGroupBillingEstablishment,
+}) => {
   const { width } = useViewport();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
@@ -21,6 +75,9 @@ const ConsumerProfileContextProvider: React.FC<{
     useState(false);
 
   const [isTermsOfUsePortalOpen, setIsTermsOfUsePortalOpen] = useState(false);
+
+  const [isRegularizeBalancePortalOpen, setIsRegularizeBalancePortalOpen] =
+    useState(false);
 
   const [isAddPaymentMethodPortalOpen, setIsAddPaymentMethodPortalOpen] =
     useState(false);
@@ -50,6 +107,16 @@ const ConsumerProfileContextProvider: React.FC<{
   const toggleTermsOfUsePortal = useCallback(() => {
     setIsTermsOfUsePortalOpen((prevState) => !prevState);
   }, []);
+
+  const toggleRegularizeBalancePortal = useCallback(() => {
+    setIsRegularizeBalancePortalOpen((prevState) => !prevState);
+  }, []);
+
+  const handleConfirmRegularizeBalance = () => {
+    fetchMember();
+    fetchMemberPaymentMethod();
+    toggleRegularizeBalancePortal();
+  };
 
   const openAddPaymentMethodPortal = useCallback(() => {
     setIsAddPaymentMethodPortalOpen(true);
@@ -115,6 +182,21 @@ const ConsumerProfileContextProvider: React.FC<{
         toggleTermsOfUsePortal,
         detachPaymentMethodErrorCode,
         setDetachPaymentMethodErrorCode,
+        isRegularizeBalancePortalOpen,
+        setIsRegularizeBalancePortalOpen,
+        toggleRegularizeBalancePortal,
+        creditAccountBalance,
+        memberId,
+        handleConfirmRegularizeBalance,
+        stripeId,
+        availablePaymentMethodList,
+        cardBillingDetailsMandatory,
+        companyId,
+        detachPaymentMethodLoading,
+        detachPaymentMethod,
+        requestClientSecret,
+        fetchPaymentGroupStatus,
+        setPaymentGroupBillingEstablishment,
       }}
     >
       {children}

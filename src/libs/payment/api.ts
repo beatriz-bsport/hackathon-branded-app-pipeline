@@ -94,7 +94,7 @@ export const requestSetupIntentSecretNoAuth = async (
   });
 };
 
-export const submitInternalPayment = async (data: any) => {
+export const submitInternalPayment = async (data: InternalPaymentPayload) => {
   return postAuth(`${API_V1_URI}/payment/internal_payment/`, data);
 };
 
@@ -129,7 +129,7 @@ export const setBillingEstablishmentOnCompletedPaymentGroupStatus = async (
   paymentGroupId: number,
   establishmentId: number,
 ) => {
-  return postAuth(
+  return postAuth<number>(
     `${API_V1_URI}/payment/payment_group/set_billing_establishment/`,
     {
       payment_group_id: paymentGroupId,

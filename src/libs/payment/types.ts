@@ -143,11 +143,12 @@ export type PaymentGroup = {
 };
 
 export type InternalPaymentPayload = {
-  payment_backend_id: string;
-  payment_method_identifier: number;
-  price_cts: number;
-  payment_note: string;
   date: string;
+  payment_backend_id?: string;
+  payment_method_identifier: number;
+  payment_note: string;
+  price_cts?: number;
+  secret?: string;
 };
 
 export type StripeAPIException = {
@@ -207,4 +208,9 @@ export type PayPalScriptProviderOptions = {
   intent: string;
   dataPartnerAttributionId: string;
   locale?: string;
+};
+
+export type PaymentGroupBillingEstablishmentPayload = {
+  paymentGroupId: number;
+  establishmentId: number | null;
 };

@@ -51,6 +51,7 @@ const defaultProps: Omit<
   spiviPrivacySettingsLoading: false,
   updateSpiviPrivacySettings: emptyFn,
   isLoading: false,
+  regularizeBalanceAllowed: false,
 };
 
 const ConsumerSummaryCardVariationRegistry = [

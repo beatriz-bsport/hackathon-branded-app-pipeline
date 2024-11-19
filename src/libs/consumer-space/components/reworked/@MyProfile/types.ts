@@ -1,6 +1,14 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import type { PaymentMethod } from '#src/libs/payment/types';
+import type {
+  PaymentGroupBillingEstablishmentPayload,
+  PaymentMethod,
+} from '#src/libs/payment/types';
+import type { OptionCallback } from '#src/state/types';
+import {
+  PaymentGroupStatus,
+  RequestClientSecretPayload,
+} from '#src/libs/invoice/types';
 
 export type ConsumerSummaryCardProps = {
   acceptEmail: boolean;
@@ -31,7 +39,7 @@ export type ConsumerSummaryCardProps = {
   showMembershipNumber: boolean;
   spiviPrivacySettingsAccepted: boolean;
   spiviPrivacySettingsLoading: boolean;
-  totalUnpaidAmount: string;
+  regularizeBalanceAllowed: boolean;
   updateSpiviPrivacySettings: (memberId: number, value: boolean) => void;
 };
 
@@ -76,4 +84,39 @@ export type ConsumerProfileContextType = {
   toggleTermsOfUsePortal: () => void;
   detachPaymentMethodErrorCode: number | null;
   setDetachPaymentMethodErrorCode: Dispatch<SetStateAction<number | null>>;
+  isRegularizeBalancePortalOpen: boolean;
+  setIsRegularizeBalancePortalOpen: Dispatch<SetStateAction<boolean>>;
+  toggleRegularizeBalancePortal: () => void;
+  creditAccountBalance: number;
+  memberId: number;
+  handleConfirmRegularizeBalance: () => void;
+  stripeId: string;
+  availablePaymentMethodList: number[];
+  cardBillingDetailsMandatory: boolean;
+  companyId: number;
+  detachPaymentMethodLoading: boolean;
+  detachPaymentMethod: (
+    paymentMethodId: string,
+    options?: OptionCallback<unknown, number>,
+  ) => void;
+  requestClientSecret: (
+    params: {
+      payment_engine_identifier: number;
+      payment_intent_type: number;
+      basket?: string;
+      requested_price_cts?: number;
+      invoice?: string;
+      member?: string;
+      is_physical_payment_intent?: boolean;
+    },
+    options?: OptionCallback<RequestClientSecretPayload>,
+  ) => void;
+  fetchPaymentGroupStatus: (
+    paymentGroupId: number,
+    options?: OptionCallback<PaymentGroupStatus>,
+  ) => void;
+  setPaymentGroupBillingEstablishment: (
+    params: PaymentGroupBillingEstablishmentPayload,
+    options?: OptionCallback<number>,
+  ) => void;
 };

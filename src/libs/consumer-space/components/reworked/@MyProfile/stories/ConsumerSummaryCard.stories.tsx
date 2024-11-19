@@ -45,6 +45,7 @@ const defaultArgs: Omit<
   totalUnpaidAmount: member.total_unpaid_amount,
   spiviPrivacySettingsLoading: false,
   isLoading: false,
+  regularizeBalanceAllowed: false,
   updateSpiviPrivacySettings: () => {},
 };
 

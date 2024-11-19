@@ -191,7 +191,9 @@ export type MarketplaceFilters = {
   activity__in: number[];
   establishment_group__in: number[];
 };
-export type MarketplaceSetFilters = (key: string) => (value: any) => void;
+export type MarketplaceFiltersSetter = (
+  key: keyof MarketplaceFilters,
+) => (value: number[]) => void;
 
 export type MarketplaceCategoryPassFilterOption = {
   label: string;

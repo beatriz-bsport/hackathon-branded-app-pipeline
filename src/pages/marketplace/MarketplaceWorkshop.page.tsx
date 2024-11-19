@@ -56,7 +56,7 @@ import {
 import MarketplaceFilters from '#src/libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly';
 import type {
   MarketplaceFilters as MarketplaceFiltersType,
-  MarketplaceSetFilters,
+  MarketplaceFiltersSetter,
 } from '#src/libs/marketplace/types';
 import themeSelectors from '#src/libs/theme/selectors';
 
@@ -105,7 +105,7 @@ export type OwnProps = {
   companyId: number;
   username: string;
   filters: MarketplaceFiltersType;
-  setFilters: MarketplaceSetFilters;
+  setFilters: MarketplaceFiltersSetter;
   store: any;
   bookedOffers: number[];
   mapContainerClassName?: string;

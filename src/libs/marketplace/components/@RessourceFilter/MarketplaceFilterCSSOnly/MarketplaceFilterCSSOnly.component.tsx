@@ -18,7 +18,7 @@ import { MetaActivity } from '#src/libs/meta-activity/types';
 import { Coach } from '#src/libs/associated-coach/types';
 import type {
   MarketplaceFilters,
-  MarketplaceSetFilters,
+  MarketplaceFiltersSetter,
 } from '#src/libs/marketplace/types';
 import MarketplaceFilter from '../MarketplaceFilter/MarketplaceFilter.component';
 
@@ -32,7 +32,7 @@ export type Props = {
   establishmentGroupList: Array<EstablishmentGroup>;
   metaActivities: { [key: number]: MetaActivity };
   filters: MarketplaceFilters;
-  setFilters: MarketplaceSetFilters;
+  setFilters: MarketplaceFiltersSetter;
   variant: 'activity' | 'workshop';
   showMultiLocalization: boolean;
   customLevels: Level[];
@@ -142,8 +142,8 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
     [establishmentGroupList],
   );
 
-  const handleChange = useCallback(
-    (key: string) => (values: number[]) => {
+  const handleChange: MarketplaceFiltersSetter = useCallback(
+    (key) => (values) => {
       setFilters(key)(values);
     },
     [setFilters],

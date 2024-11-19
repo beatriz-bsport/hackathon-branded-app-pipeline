@@ -96,7 +96,11 @@ import withPostMessageOnPropsUpdate from '#src/hocs/postMessages/with-post-messa
 import withPostMessageToUpdateProps from '#src/hocs/postMessages/with-post-message-to-update-props';
 import { getBookCalendarUrl } from '#src/libs/marketplace/routing-utils';
 
-import type { MarketplaceComponentConfig } from '#src/libs/marketplace/types';
+import type {
+  MarketplaceComponentConfig,
+  MarketplaceFilters,
+  MarketplaceFiltersSetter,
+} from '#src/libs/marketplace/types';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import analyticsUtils from '#src/components/analytics/analytics';
@@ -112,18 +116,11 @@ export type OwnProps = {
     filtersOpen: 'true' | '';
     onlyDay: string;
   };
-  filters: {
-    coaches: number[];
-    establishments: number[];
-    activity__in: number[];
-    levels: number[];
-    establishment_group__in: number[];
-  };
+  filters: MarketplaceFilters;
   onlineFilter: {
     is_online: boolean | undefined;
   };
   setOtherParams: (key: string) => (value: any) => void;
-  setFilters: (key: string) => (value: any) => void;
   goToPackPayment?: (packId: number, offerId: number) => void;
   goToBook?: (id: number, companyId: number) => void;
   goToBookOption?: (id: number, companyId: number) => void;
@@ -140,10 +137,15 @@ export type OwnProps = {
 type ConnectProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
+type QueryParamsHocProps = {
+  setFilters: MarketplaceFiltersSetter;
+};
+
 type Props = OwnProps &
   ConnectProps &
   WithTranslation &
-  RouteChildrenProps<any>;
+  RouteChildrenProps<any> &
+  QueryParamsHocProps;
 
 export type FinalProps = Props & WithHandlerType<typeof mapWithHandlers>;
 type State = {
@@ -151,6 +153,7 @@ type State = {
   offer: Offer | null;
   displayGroupPopup: (Offer_FULL & { redirect: string }) | null;
   filteredEstablishments: Array<Establishment> | null;
+  filters: MarketplaceFilters;
   offerSearchResult: { query: string; offerList: Offer[] | null };
 };
 
@@ -207,14 +210,6 @@ function withContainerWidthListener<
 }
 
 export class MarketplaceCalendar extends Component<FinalProps, State> {
-  state: State = {
-    offerId: null,
-    offer: null,
-    displayGroupPopup: null,
-    filteredEstablishments: null,
-    offerSearchResult: { query: '', offerList: null },
-  };
-
   constructor(props: FinalProps) {
     super(props);
     // This reference is used to evaluate the size of the calendar,
@@ -222,7 +217,39 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     // That way, we can enable or disable the fetching of the offers when updating the start date.
     // @ts-expect-error
     this.calendarRefContainer = React.createRef();
+    this.state = {
+      offerId: null,
+      offer: null,
+      displayGroupPopup: null,
+      filteredEstablishments: null,
+      filters: {
+        coaches: props?.filters?.coaches || [],
+        establishments: props?.filters?.establishments || [],
+        activity__in: props?.filters?.activity__in || [],
+        levels: props?.filters?.levels || [],
+        establishment_group__in: props?.filters?.establishment_group__in || [],
+      },
+      offerSearchResult: { query: '', offerList: null },
+    };
   }
+
+  /**
+   * Returns a function that updates a specific filter in the marketplace calendar state.
+   *
+   * The returned function takes an array of `values` (number[]) and updates the filter for the specified `key`
+   * in the `filters` state, merging it with the previous state.
+   *
+   * @param key - The filter key to update, from `MarketplaceFilters`.
+   * @returns A function that accepts `values` (number[]) and updates the filter.
+   */
+  setFilters: MarketplaceFiltersSetter = (key) => {
+    const _this = this;
+    return (values) => {
+      _this.setState((prevState) => ({
+        filters: { ...prevState.filters, [key]: values },
+      }));
+    };
+  };
 
   /**
    *  @description Wheter or not the calendar must display its list or card version. For the widget this is configurable via the property compactMode.
@@ -290,16 +317,16 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   };
 
   fetchData = () => {
-    this.props.fetchEstablishmentBulk(this.props.filters.establishments || []);
+    this.props.fetchEstablishmentBulk(this.state.filters.establishments || []);
 
     this.props.fetchAssociatedCoachBulkFromCoachIds(
-      this.props.filters.coaches || [],
+      this.state.filters.coaches || [],
       this.props.companyId,
     );
 
     this.props.fetchLevelBulk({
       company: this.props.companyId,
-      id__in: this.props.filters.levels || [],
+      id__in: this.state.filters.levels || [],
     });
 
     const optionalParams: any = {};
@@ -317,11 +344,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       optionalParams.is_online = this.props.onlineFilter?.is_online;
     }
 
-    this.props.fetchMetaActivityBulk(this.props.filters.activity__in || []);
+    this.props.fetchMetaActivityBulk(this.state.filters.activity__in || []);
 
     this.props.fetchNextAvailableOffer({
       company: this.props.companyId,
-      ...this.props.filters,
+      ...this.state.filters,
       ...optionalParams,
     });
     this.props.fetchOfferList({
@@ -331,7 +358,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       ...(this.props.username
         ? { username: encodeURI(this.props.username) }
         : {}),
-      ...this.props.filters,
+      ...this.state.filters,
       ...optionalParams,
       with_tags: true,
       only_future_strict: !this.props.theme.show_past_sessions_calendar,
@@ -366,12 +393,16 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     if (!prevProps.containerWidth && this.props.containerWidth) {
       this.fetchData();
     }
-    const filtersPropsChanged = !isEqual(prevProps.filters, this.props.filters);
+    const filtersStateChanged = !isEqual(prevState.filters, this.state.filters);
 
     const onlineFilterPropsHasChanged = !isEqual(
       prevProps.onlineFilter,
       this.props.onlineFilter,
     );
+
+    if (prevProps.filters !== this.props.filters) {
+      this.setState({ filters: this.props.filters });
+    }
 
     const selectedWeekChanged = (() => {
       if (
@@ -396,21 +427,20 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     })();
 
     if (
-      filtersPropsChanged ||
+      filtersStateChanged ||
       selectedWeekChanged ||
       onlineFilterPropsHasChanged
     ) {
       this.fetchData();
     }
     const filtersEstablishmentsChanged = !isEqual(
-      prevProps.filters.establishment_group__in,
-      this.props.filters.establishment_group__in,
+      prevState.filters.establishment_group__in,
+      this.state.filters.establishment_group__in,
     );
     const establishmentsChanged = !isEqual(
       prevProps.establishments,
       this.props.establishments,
     );
-
     const offersChanged = !isEqual(
       prevProps.offers.map((o) => o.id),
       this.props.offers.map((o) => o.id),
@@ -430,20 +460,20 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
         ...this.props.establishments,
       ];
 
-      if (this.props.filters.establishment_group__in?.length) {
+      if (this.state.filters.establishment_group__in?.length) {
         const filteredEstablishmentIds: Array<number> =
           this.props.establishmentGroupList
             .filter((eg: EstablishmentGroup) =>
-              this.props.filters.establishment_group__in.includes(eg.id),
+              this.state.filters.establishment_group__in.includes(eg.id),
             )
             .flatMap((eg: EstablishmentGroup) => eg.establishment)
             .map((e: Establishment) => e.id);
 
-        const uniqueEstIds = this.props.filters.establishments?.length
+        const uniqueEstIds = this.state.filters.establishments?.length
           ? [
               ...new Set(
                 filteredEstablishmentIds.concat(
-                  this.props.filters.establishments,
+                  this.state.filters.establishments,
                 ),
               ),
             ]
@@ -567,7 +597,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       const metaActivities = this.props.theme.show_workshops_customer
         ? this.props.metaActivitiesWorkshops
         : this.props.metaActivities;
-      const establishments = this.props.filters.establishment_group__in?.length
+      const establishments = this.state.filters.establishment_group__in?.length
         ? this.state.filteredEstablishments
         : this.props.establishments;
 
@@ -604,7 +634,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   render() {
     const {
-      filters,
       establishments,
       coaches,
       activeCustomLevels,
@@ -631,12 +660,12 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           customLevels={customLevels}
           establishmentGroupList={establishmentGroupList}
           establishments={
-            filters.establishment_group__in?.length
+            this.state.filters.establishment_group__in?.length
               ? this.state.filteredEstablishments
               : establishments
           }
           events={this.props.events}
-          filters={filters}
+          filters={this.state.filters}
           filtersOpen={this.props.otherParams.filtersOpen === 'true'}
           forceDayDisplayOnly={this.props.otherParams.onlyDay === 'true'}
           genderCount={this.props.genderCount}
@@ -669,7 +698,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
               ? DateTime.fromISO(this.props.otherParams.date)
               : DateTime.now()
           }
-          setFilters={this.props.setFilters}
+          setFilters={this.props.setFilters || this.setFilters}
           showMultiLocalization={this.props.theme.enable_multi_localization}
           showOfferFilling={this.props.theme.show_offers_filling}
           showOfferGender={this.props.theme.show_booked_gender_offer}
@@ -684,7 +713,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           customLevels={this.props.customLevels}
           // @ts-expect-error
           establishments={
-            filters.establishment_group__in?.length
+            this.state.filters.establishment_group__in?.length
               ? this.state.filteredEstablishments
               : establishments
           }

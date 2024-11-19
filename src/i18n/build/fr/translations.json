@@ -245,14 +245,18 @@
             "isBookingLimitReached": "Vous avez atteint votre limite de réservation",
             "multiSession": {
                 "selectSpot": {
-                    "validationButton": "Ajouter une séance",
+                    "validationButton": "Ajouter la séance",
+                    "validationButton_plural": "Ajouter les séances ({{selectedSessionsCount}})",
                     "dialogSubtitle": "Sélectionnez votre place pour la classe",
-                    "dialogTitle": "Sélectionnez une place"
+                    "dialogTitle": "Sélectionnez une place",
+                    "dialogTitleWithSteps": "Choisissez votre place ({{currentStep}}/{{totalSteps}})"
                 },
                 "addSession": {
                     "noContent": "Aucune séance similaire n'a été trouvée.",
                     "dialogSubtitle": "Sélectionnez la séance que vous voulez réserver",
-                    "dialogTitle": "Ajouter une séance"
+                    "dialogTitle": "Ajouter une séance",
+                    "sessionCount": "{{selectedSessionsCount}} sur {{totalSessionsCount}} séances",
+                    "selectAll": "Tout sélectionner"
                 }
             },
             "groupedSession": {
@@ -504,7 +508,8 @@
                     "every_month": "Vous avez atteint la limite d'invitations pour ce mois.",
                     "every_week": "Vous avez atteint la limite d'invitations pour cette semaine."
                 },
-                "sendInvitation": "Envoyer l'invitation"
+                "sendInvitation": "Envoyer l'invitation",
+                "submit": "Réserver pour un invité"
             },
             "bookingFor": "Réservation pour",
             "bookingForSubtitle": "Sélectionnez la personne pour laquelle vous souhaitez faire une réservation"
@@ -18031,7 +18036,13 @@
             "contractPaymentShow": "Lorsque l'utilisateur est sur la page de paiement d'un abonnement",
             "workshopClick": "Lorsque l'utilisateur selectionne une date d'un atelier",
             "bookingSuccess": "Lorsqu'un utilisateur réserve une séance (activités de groupe)",
-            "leadAcquisitionSuccess": "Lorsqu'un utilisateur soumet avec succès le widget d'acquisition"
+            "leadAcquisitionSuccess": "Lorsqu'un utilisateur soumet avec succès le widget d'acquisition",
+            "openAnalyticsModalButton": "Connecter les outils d'analyse",
+            "analyticsInformationModal": {
+                "confirm": "VOIR LE GUIDE DE CONFIGURATION",
+                "content": "Débloquez des analyses plus puissantes en connectant Google Tag Manager avec Google Analytics, et Meta Pixel (Facebook Pixel). Suivez notre guide étape par étape pour commencer à suivre les indicateurs les plus importants pour votre entreprise.",
+                "title": "Paramétrer l'analyse pour mieux comprendre vos données"
+            }
         },
         "zoom": {
             "confirmDialog": {

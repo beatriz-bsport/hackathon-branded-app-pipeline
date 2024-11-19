@@ -2261,7 +2261,7 @@
                 "relatedPaymentPacks_plural": "Los siguientes pases {{- pass_name }} ya no serán utilizables para este establecimiento, asegúrese de informar a sus clientes al respecto.",
                 "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se solicita una sustitución para una sesión en este establecimiento. Al eliminar el establecimiento, dejarán de recibir la notificación correspondiente.",
                 "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Por lo tanto, al eliminar el establecimiento, recibirán solicitudes de sustitución de todos los establecimientos.",
-                "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Por lo tanto, al eliminar el establecimiento, recibirán solicitudes de sustitución de todos los establecimientos.",
+                "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Al eliminar el establecimiento, recibirán por tanto solicitudes de sustitución de todos los establecimientos.",
                 "hasRelatedCoachAvailabilitySlots": "Este establecimiento se eliminará de la lista de establecimientos disponibles utilizada en el calendario de sus profesores.",
                 "exclusiveCoachAvailabilitySlots": "Se indica que el profesor {{- coach_name }} está disponible para este establecimiento sólo para algunas franjas horarias. Al eliminar el establecimiento, se eliminarán estas franjas horarias.",
                 "exclusiveCoachAvailabilitySlots_plural": "Los profesores {{- coach_name }} están indicados como disponibles para este establecimiento sólo para algunas franjas horarias. Al eliminar el establecimiento, se eliminarán estas franjas horarias.",
@@ -7070,13 +7070,17 @@
             "multiSession": {
                 "selectSpot": {
                     "validationButton": "Añadir sesión",
+                    "validationButton_plural": "Añadir sesiones ({{selectedSessionsCount}})",
                     "dialogSubtitle": "Seleccione su sitio para la clase",
-                    "dialogTitle": "Seleccionar sitio"
+                    "dialogTitle": "Seleccionar sitio",
+                    "dialogTitleWithSteps": "Seleccionar sitio ({{currentStep}}/{{totalSteps}})"
                 },
                 "addSession": {
                     "noContent": "No se han encontrado sesiones similares.",
                     "dialogSubtitle": "Seleccione la sesión que desea reservar",
-                    "dialogTitle": "Añadir una sesión"
+                    "dialogTitle": "Añadir una sesión",
+                    "sessionCount": "{{selectedSessionsCount}} de {{totalSessionsCount}} sesiones",
+                    "selectAll": "Seleccionar todo"
                 }
             },
             "groupedSession": {
@@ -7394,7 +7398,8 @@
                     "every_month": "Ha alcanzado el límite de invitaciones para este mes.",
                     "every_week": "Ha alcanzado el límite de invitaciones para esta semana."
                 },
-                "sendInvitation": "Enviar invitación"
+                "sendInvitation": "Enviar invitación",
+                "submit": "Reserva para un invitado"
             },
             "bookingFor": "Reserva para",
             "bookingForSubtitle": "Seleccione la persona para la que desea reservar"
@@ -11509,7 +11514,13 @@
             "contractPaymentShow": "Cuando el usuario está en la página de pago de una suscripción",
             "workshopClick": "Cuando el usuario selecciona una fecha para un taller",
             "bookingSuccess": "Cuando un usuario reserva una sesión (actividades de grupo)",
-            "leadAcquisitionSuccess": "Cuando un usuario envía correctamente el widget de adquisición"
+            "leadAcquisitionSuccess": "Cuando un usuario envía correctamente el widget de adquisición",
+            "openAnalyticsModalButton": "Conectar herramientas analíticas",
+            "analyticsInformationModal": {
+                "confirm": "VER GUÍA DE CONFIGURACIÓN",
+                "content": "Desbloquee análisis más potentes conectando Google Tag Manager con Google Analytics y Meta Pixel (Facebook Pixel). Acceda a nuestra guía paso a paso para empezar a realizar el seguimiento de las métricas más importantes para su negocio.",
+                "title": "Configure los análisis para conocer mejor sus datos"
+            }
         },
         "signUpForm": {
             "error": "Ha surgido un problema",

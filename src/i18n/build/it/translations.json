@@ -5252,7 +5252,13 @@
             "eventDesc": "Descrizione dell'evento",
             "showAnalyticsInformation": "Mostra gli eventi tracciati",
             "bookingSuccess": "Quando un membro prenota una sessione (lezioni di gruppo)",
-            "leadAcquisitionSuccess": "Quando l'utente invia con successo il widget di acquisizione"
+            "leadAcquisitionSuccess": "Quando l'utente invia con successo il widget di acquisizione",
+            "openAnalyticsModalButton": "Collegare gli strumenti di analisi",
+            "analyticsInformationModal": {
+                "confirm": "VISUALIZZA LA GUIDA ALLA CONFIGURAZIONE",
+                "content": "Ottieni analisi più efficaci collegando Google Tag Manager con Google Analytics e Meta Pixel (Facebook Pixel). Accedi alla nostra guida per iniziare, passo dopo passo, a tracciare le metriche più importanti per l'azienda.",
+                "title": "Impostare l'analisi per una migliore comprensione dei dati"
+            }
         },
         "signUpForm": {
             "error": "Si è verificato un problema",
@@ -11309,13 +11315,17 @@
             "multiSession": {
                 "selectSpot": {
                     "validationButton": "Aggiungi una sessione",
+                    "validationButton_plural": "Aggiungi sessioni ({{selectedSessionsCount}})",
                     "dialogSubtitle": "Seleziona il tuo posto per la classe",
-                    "dialogTitle": "Seleziona un posto"
+                    "dialogTitle": "Seleziona un posto",
+                    "dialogTitleWithSteps": "Seleziona posto ({{currentStep}}/{{totalSteps}})"
                 },
                 "addSession": {
                     "noContent": "Non sono state trovate sessioni simili.",
                     "dialogSubtitle": "Seleziona la sessione che vuoi prenotare",
-                    "dialogTitle": "Aggiungere una sessione"
+                    "dialogTitle": "Aggiungere una sessione",
+                    "sessionCount": "{{selectedSessionsCount}} di {{totalSessionsCount}} sessioni",
+                    "selectAll": "Seleziona tutto"
                 }
             },
             "groupedSession": {
@@ -11661,7 +11671,8 @@
                     "every_month": "Hai raggiunto il limite di inviti per questo mese.",
                     "every_week": "Hai raggiunto il limite di inviti per questa settimana."
                 },
-                "sendInvitation": "Invia invito"
+                "sendInvitation": "Invia invito",
+                "submit": "Prenota per un ospite"
             },
             "bookingFor": "Prenota per",
             "bookingForSubtitle": "Seleziona la persona per cui vuoi prenotare"
@@ -13371,7 +13382,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il vostro marketplace non visualizzeranno più il calendario della sede.",
                     "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate.",
                     "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceverà quindi le richieste di sostituzione da tutte le sedi.",
-                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceveranno quindi le richieste di sostituzione da tutte le sedi.",
+                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminandola, riceveranno quindi le richieste di sostituzione da ogni sede.",
                     "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, non riceveranno più la relativa notifica.",
                     "hasRelatedStaffConfigurations": "Questa sede è utilizzata per il monitoraggio degli accessi da parte di uno o più utenti staff. Eliminando la sede senza selezionarne una nuova, questi non potranno più effettuare il monitoraggio degli accessi."
                 },
@@ -13392,10 +13403,10 @@
                 "hasRelatedZoomEstablishment": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti utilizzati per lo streaming in diretta con l'integrazione di Zoom.",
                 "hasRelatedAvailabilitySlots": "Le fasce orarie disponibili dell'orario di questo stabilimento saranno cancellate.",
                 "relatedPaymentPacks": "Il seguente pass {{- pass_name }} non sarà più utilizzabile per questo stabilimento, assicuratevi di informare i vostri clienti.",
-                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicurati di informare i tuoi clienti.",
+                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
                 "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
                 "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
-                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceveranno quindi le richieste di sostituzione da tutte le strutture.",
+                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminandolo, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
                 "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
                 "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
                 "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento, queste fasce orarie saranno eliminate.",
@@ -13417,7 +13428,7 @@
                 "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
                 "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; aggiornare o eliminare queste sedi.",
                 "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
-                "exclusivePaymentPacks_plural": "I seguenti pachetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiorna le restrizioni prima di cancellare lo stabilimento.",
+                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellare lo stabilimento.",
                 "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
                 "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
                 "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."

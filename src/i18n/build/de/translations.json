@@ -3398,7 +3398,13 @@
             "signupShow": "Wenn der Benutzer das Registrierungsformular anzeigt",
             "contractPaymentSuccess": "Wenn der Benutzer ein Abo abgeschlossen hat",
             "bookingSuccess": "Wenn ein Benutzer einen Kurs bucht (Gruppenaktivitäten)",
-            "leadAcquisitionSuccess": "Wenn ein Benutzer das Akquise-Widget erfolgreich übermittelt hat"
+            "leadAcquisitionSuccess": "Wenn ein Benutzer das Akquise-Widget erfolgreich übermittelt hat",
+            "openAnalyticsModalButton": "Analyse-Tools verbinden",
+            "analyticsInformationModal": {
+                "confirm": "ANLEITUNG ANZEIGEN",
+                "content": "Nutze erweiterte Analysen, indem du den Google Tag Manager mit Google Analytics und dem Meta Pixel (Facebook Pixel) verknüpfst. Folge unserer Schritt-für-Schritt-Anleitung, um die wichtigsten Kennzahlen für dein Unternehmen zu erfassen.",
+                "title": "Richte Analyse-tools ein, um umfassendere Einblicke in deine Daten zu gewinnen"
+            }
         },
         "signUpForm": {
             "fields": {
@@ -9921,9 +9927,11 @@
             "isBookingLimitReached": "Sie haben Ihr Buchungslimit erreicht",
             "multiSession": {
                 "selectSpot": {
-                    "validationButton": "Kurs hinzufügen",
+                    "validationButton": "Kurs hinzufügen{{selectedSessionsCount}}",
+                    "validationButton_plural": "Kurse hinzufügen{{selectedSessionsCount}}",
                     "dialogSubtitle": "Wählen Sie Ihren Platz für die Klasse",
-                    "dialogTitle": "Platz auswählen"
+                    "dialogTitle": "Platz auswählen",
+                    "dialogTitleWithSteps": "Platz auswählen{{currentStep}}{{totalSteps}}"
                 },
                 "addSession": {
                     "noContent": "Es wurden keine ähnlichen Kurse gefunden.",
@@ -10270,7 +10278,8 @@
                     "every_month": "Sie haben das Einladungslimit für diesen Monat erreicht.",
                     "every_week": "Sie haben das Einladungslimit für diese Woche erreicht."
                 },
-                "sendInvitation": "Einladung versenden"
+                "sendInvitation": "Einladung versenden",
+                "submit": "Für einen Gast buchen"
             },
             "bookingFor": "Buchung für",
             "bookingForSubtitle": "Wählen Sie die Person, für die Sie buchen möchten"
@@ -11955,7 +11964,7 @@
                 "days": "Gültig für {{ duration_days }} Tage"
             },
             "edit": "Ändern",
-            "disabledTitle": "Archivierter Terminpass",
+            "disabledTitle": "Archivierte Terminpässe",
             "detailTitles": {
                 "paymentMeans": "Zahlungsmittel",
                 "privateServiceCompatibility": "Kompatible Verabredungen",
@@ -12324,7 +12333,7 @@
         "searshAppointmentPass": "Suche nach einer RDV-Karte",
         "search": "Suche nach einem Termin",
         "categoryTitle": "Kategorien von Terminpässen",
-        "disabledPacksTitle": "Archivierte RDV-Pässe",
+        "disabledPacksTitle": "Archivierte Terminpässe",
         "notification": {
             "listItem": {
                 "smartListInclude": "Enthaltene Listen",
@@ -13047,7 +13056,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }} verbleibende Tage",
+                        "expiresIn_plural": "{{ daysRemaining }}Tage übrig",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -13215,7 +13224,7 @@
                         "book": "Buchen",
                         "seeDetails": "Details ansehen",
                         "more": "Mehr",
-                        "cancel": "Abbrechen"
+                        "cancel": "Stornieren"
                     },
                     "chip": {
                         "status": {
@@ -17397,7 +17406,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Ihre Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gestellt wird. Wenn Sie die Einrichtung löschen, erhalten sie daher Vertretungsanfragen von jeder Einrichtung.",
+                "exclusiveAssociatedCoaches_plural": "Deine Trainer {{- coach_name }} werden nur dann benachrichtigt, wenn eine Vertretungsanfrage für eine Einheit in dieser Einrichtung gestellt wird. Wenn du die Einrichtung löschst, erhalten sie Vertretungsanfragen aus allen Einrichtungen.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",

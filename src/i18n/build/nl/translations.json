@@ -5393,9 +5393,9 @@
             "errors": {
                 "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
-                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen bruikbaar in deze vestiging. Pas hun beperkingen aan voordat u de vestiging verwijdert.",
+                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} kunnen alleen in deze vestiging worden gebruikt. Werk hun beperkingen bij voordat je de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
-                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die u wilt verwijderen. Werk deze locaties bij of verwijder ze.",
+                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen. Werk deze locaties bij of verwijder ze.",
                 "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                 "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
@@ -5404,9 +5404,9 @@
             "warnings": {
                 "hasBillingGroup": "Deze vestiging wordt ook verwijderd uit de factureringsgroep {{- establishment_billing_group_name }}.",
                 "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
-                "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
+                "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn zo ingesteld dat ze alleen in deze vestiging plaatsvinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
                 "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
-                "exclusiveCoachAvailabilitySlots_plural": "De docenten {{- coach_name }} zijn aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
+                "exclusiveCoachAvailabilitySlots_plural": "De docenten {{- coach_name }} zijn aangegeven als beschikbaar voor deze vestiging tijdens bepaalde tijdsloten. Door de vestiging te verwijderen, worden deze tijdsloten verwijderd.",
                 "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",
@@ -7431,13 +7431,17 @@
             "multiSession": {
                 "selectSpot": {
                     "validationButton": "Voeg sessie toe",
+                    "validationButton_plural": "Voeg sessies toe",
                     "dialogSubtitle": "Selecteer je plek voor de klas",
-                    "dialogTitle": "Selecteer plaats"
+                    "dialogTitle": "Selecteer plaats",
+                    "dialogTitleWithSteps": "Selecteer een spot ({{currentStep}}/{{totalSteps}})"
                 },
                 "addSession": {
                     "noContent": "Er zijn geen vergelijkbare sessies gevonden.",
                     "dialogSubtitle": "Selecteer de sessie die je wilt boeken",
-                    "dialogTitle": "Voeg een sessie toe"
+                    "dialogTitle": "Voeg een sessie toe",
+                    "sessionCount": "{{selectedSessionsCount}} van {{totalSessionsCount}} sessies",
+                    "selectAll": "Alles selecteren"
                 }
             },
             "groupedSession": {
@@ -7793,7 +7797,8 @@
                     "every_month": "Je hebt het maximaal aantal gasten uitgenodigd voor deze maand.",
                     "every_week": "Je hebt het maximaal aantal gasten uitgenodigd voor deze week."
                 },
-                "sendInvitation": "Uitnodiging versturen"
+                "sendInvitation": "Uitnodiging versturen",
+                "submit": "Boeken voor een gast"
             },
             "bookingFor": "Boeken voor",
             "bookingForSubtitle": "Selecteer de persoon voor wie je wilt boeken"
@@ -14902,7 +14907,13 @@
             "sessionShow": "Wanneer een gebruiker een sessie selecteert",
             "workshopClick": "Wanneer een lid een datum van een workshop selecteert",
             "bookingSuccess": "Wanneer een gebruiker een sessie boekt (groepsactiviteiten)",
-            "leadAcquisitionSuccess": "Wanneer een gebruiker de aankoopwidget met succes indient"
+            "leadAcquisitionSuccess": "Wanneer een gebruiker de aankoopwidget met succes indient",
+            "openAnalyticsModalButton": "Verbind Analytics Tools",
+            "analyticsInformationModal": {
+                "confirm": "BEKIJK DE INSTALLATIEGIDS",
+                "content": "Ontgrendel krachtigere analytics door Google Tag Manager te verbinden met Google Analytics en Meta Pixel (Facebook Pixel). Raadpleeg onze stapsgewijze handleiding om de belangrijkste statistieken voor jouw bedrijf te gaan volgen.",
+                "title": "Stel analytics in voor betere inzichten in je gegevens"
+            }
         },
         "zoom": {
             "confirmDialog": {

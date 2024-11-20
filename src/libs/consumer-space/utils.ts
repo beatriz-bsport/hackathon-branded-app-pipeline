@@ -1,10 +1,12 @@
 import Config from '../../config';
 import { NEW_MEMBER_PROFILE_COMPANY_ID_LIST } from '#src/libs/consumer-space/constants';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 export function getIsNewMemberProfileDisplayed(companyId: number) {
-  const isProduction = ['production'].includes(
-    Config.REACT_APP_SENTRY_ENVIRONMENT,
-  );
+  const isWidget = WidgetUtils.isWidget();
+  const isProduction = isWidget
+    ? ['production'].includes(window.runtime.env.ENVIRONMENT_LABEL)
+    : ['production'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT);
   return isProduction
     ? NEW_MEMBER_PROFILE_COMPANY_ID_LIST.includes(companyId)
     : true;

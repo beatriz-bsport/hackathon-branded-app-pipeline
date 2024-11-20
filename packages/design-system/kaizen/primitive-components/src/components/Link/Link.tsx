@@ -5,6 +5,7 @@ import Icon, { type IconName } from "../Icon";
 
 const defaultClasses = [
   "inline-flex items-center gap-2xs",
+  "underline-offset-4",
   "disabled:opacity-sm",
 ] as const;
 
@@ -19,7 +20,7 @@ const variants = {
     ],
   },
   underline: {
-    none: [],
+    none: ["hover:underline"],
     default: ["underline"],
   },
   weight: {
@@ -37,8 +38,8 @@ type LinkVariantProps = Omit<VariantProps<typeof link>, "underline">;
 export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
   LinkVariantProps &
   React.PropsWithChildren<{
-    icon: IconName;
-    isUnderlined: boolean;
+    icon?: IconName;
+    isUnderlined?: boolean;
   }>;
 
 /**
@@ -69,6 +70,7 @@ const Link: React.FC<LinkProps> = ({
         underline: isUnderlined ? "default" : "none",
         weight,
       })}
+      style={{ textUnderlinePosition: "from-font" }}
       {...props}
     >
       {!!icon && <Icon icon={icon} className="h-[1em] w-[1em]" />}

@@ -319,6 +319,10 @@
   --kz-shadow-border-thin-positive: inset 0px 0px 0px 1px #47af4f;
   --kz-shadow-border-thin-warning: inset 0px 0px 0px 1px #f59e0b;
   --kz-shadow-border-thin-critical: inset 0px 0px 0px 1px #d16f84;
+  --kz-transition-duration-default: 200ms;
+  --kz-transition-duration-long: 300ms;
+  --kz-transition-duration-short: 100ms;
+  --kz-transition-duration-extra-long: 500ms;
 }
 
 .kz-dark {
@@ -638,4 +642,8 @@
   --kz-shadow-border-thin-positive: inset 0px 0px 0px 1px #47af4f;
   --kz-shadow-border-thin-warning: inset 0px 0px 0px 1px #f59e0b;
   --kz-shadow-border-thin-critical: inset 0px 0px 0px 1px #d16f84;
+  --kz-transition-duration-default: 200ms;
+  --kz-transition-duration-long: 300ms;
+  --kz-transition-duration-short: 100ms;
+  --kz-transition-duration-extra-long: 500ms;
 }

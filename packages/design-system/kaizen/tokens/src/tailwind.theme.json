@@ -404,5 +404,11 @@
     "border-thin-positive": "var(--kz-shadow-border-thin-positive)",
     "border-thin-warning": "var(--kz-shadow-border-thin-warning)",
     "border-thin-critical": "var(--kz-shadow-border-thin-critical)"
+  },
+  "transitionDuration": {
+    "default": "var(--kz-transition-duration-default)",
+    "long": "var(--kz-transition-duration-long)",
+    "short": "var(--kz-transition-duration-short)",
+    "extra-long": "var(--kz-transition-duration-extra-long)"
   }
 }

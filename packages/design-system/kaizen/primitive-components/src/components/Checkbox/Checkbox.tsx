@@ -88,7 +88,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
           className={classNames(
             "appearance-none w-md h-md rounded-xs",
             "cursor-pointer",
-            "transition-colors duration-200 ease-in-out",
+            "transition-colors duration-default ease-in-out",
             "border-stroke-thin indeterminate:border-none checked:border-none disabled:bg-surface-action-disabled/md disabled:border-stroke-action-default-disabled/md",
             {
               "bg-surface-status-critical-weak border-stroke-status-critical indeterminate:bg-surface-status-critical-strong checked:bg-surface-status-critical-strong":

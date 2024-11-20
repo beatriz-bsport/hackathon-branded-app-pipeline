@@ -455,7 +455,10 @@ export class BasketPage extends React.Component<Props> {
       this.props.basket.id,
       code,
       {
-        onSuccess: options?.onSuccess,
+        onSuccess: () => {
+          this.props.refreshBasket();
+          options?.onSuccess?.();
+        },
         onError: () => {
           if (options?.onError) {
             options.onError();

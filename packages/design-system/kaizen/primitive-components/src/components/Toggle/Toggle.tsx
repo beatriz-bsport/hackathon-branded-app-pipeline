@@ -79,7 +79,7 @@ const Toggle: React.FC<ToggleProps> = ({
             "appearance-none w-xl h-md rounded-circle",
             "bg-surface-default-weak",
             "cursor-pointer",
-            "transition-colors duration-200 ease-in-out",
+            "transition-colors duration-default ease-in-out",
             "bg-surface-default-weak hover:bg-surface-action-main-weak-hovered/lg active:bg-surface-action-main-weak-pressed/md",
             "checked:bg-surface-action-main-strong-rest checked:hover:bg-surface-action-main-strong-hovered checked:active:bg-surface-action-main-strong-pressed",
             {
@@ -111,7 +111,7 @@ const Toggle: React.FC<ToggleProps> = ({
             "w-[12px] h-[12px] rounded-circle",
             "bg-surface-action-default-elevated-rest",
             "border-stroke-action-default-rest border-stroke-thin",
-            "transition-left duration-200 ease-in-out",
+            "transition-left duration-default ease-in-out",
             {
               "left-[2px]": !checked && direction === "start",
               "left-[18px]": checked && direction === "start",

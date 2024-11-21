@@ -17,7 +17,7 @@ const defaultClasses = [
   "shadow-[0px_4px_12px_-4px_rgba(32,35,34,0.36)]",
   "z-[999]",
   "transform",
-  "transition ease-in duration-200",
+  "transition ease-in duration-default",
 ] as const;
 
 const tooltip = cva(defaultClasses);

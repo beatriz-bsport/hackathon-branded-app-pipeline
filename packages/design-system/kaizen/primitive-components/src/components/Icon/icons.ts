@@ -8,6 +8,12 @@ const icons = {
   "arrow-right": React.lazy(
     async () => await import("./assets/arrow-right.svg?react"),
   ),
+  "chevron-right": React.lazy(
+    async () => await import("./assets/chevron-right.svg?react"),
+  ),
+  "dots-horizontal": React.lazy(
+    async () => await import("./assets/dots-horizontal.svg?react"),
+  ),
   "filter-lines": React.lazy(
     async () => await import("./assets/filter-lines.svg?react"),
   ),

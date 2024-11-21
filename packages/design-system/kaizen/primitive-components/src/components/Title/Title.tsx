@@ -27,8 +27,10 @@ const variants = {
     [TYPOGRAPHY_COLORS.inherit]: ["text-inherit"],
   },
   weight: {
+    weaker: ["font-weaker"],
     weak: ["font-weak"],
     strong: ["font-strong"],
+    stronger: ["font-stronger"],
   },
 } as const;
 

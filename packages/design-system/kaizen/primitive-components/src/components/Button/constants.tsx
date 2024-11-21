@@ -11,7 +11,7 @@ const nonFlatDisabledStyle = [
 export const defaultClasses = [
   "border-0",
   "gap-0",
-  "transition ease-in duration-200",
+  "transition ease-in duration-default",
   "cursor-pointer",
   "font-weak",
   // Flex config

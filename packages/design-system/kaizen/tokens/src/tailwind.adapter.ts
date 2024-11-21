@@ -510,6 +510,41 @@ const importShadows = async (folderPath: string): Promise<Output> => {
   );
 };
 
+/**
+ * Import exported duration tokens from Supernova.
+ * @param folderPath Path of the folder containing the Supernova export.
+ */
+const importDurations = async (folderPath: string): Promise<Output> => {
+  const cssContent = await importFileContent(folderPath, "styles/durations.css");
+  const formatCSSVariable = (name: string) => `kz-transition-duration-${name}`;
+  const formatName = formatVariableName(["duration"]);
+  const formatValue = formatVariableValue(formatName, {
+    formatCSSVariable,
+  });
+  return Object.entries(cssContent).reduce(
+    (acc: Output, [cssName, cssValue]) => {
+      if (cssName.includes("Figma")) return acc;
+
+      const name = formatName(cssName);
+      const value = formatValue(cssValue);
+      return {
+        cssVariables: [
+          ...acc.cssVariables,
+          `--${formatCSSVariable(name)}: ${value};`,
+        ],
+        tailwindTheme: {
+          ...acc.tailwindTheme,
+          transitionDuration: {
+            ...acc.tailwindTheme?.transitionDuration,
+            [name]: `var(--${formatCSSVariable(name)})`,
+          },
+        },
+      };
+    },
+    { cssVariables: [], tailwindTheme: { transitionDuration: {} } } as Output,
+  );
+};
+
 const adapters: ((folderPath: string) => Promise<Output>)[] = [
   importBorderWidths,
   importRadii,
@@ -522,6 +557,7 @@ const adapters: ((folderPath: string) => Promise<Output>)[] = [
   importLineHeights,
   importOpacities,
   importShadows,
+  importDurations,
 ];
 
 export default adapters;

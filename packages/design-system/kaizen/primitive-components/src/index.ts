@@ -11,6 +11,7 @@ export { default as Icon } from "./components/Icon";
 export { default as Indicator } from "./components/Indicator";
 export { default as Link } from "./components/Link";
 export { default as Modal } from "./components/Modal";
+export { default as ProgressBar } from "./components/ProgressBar";
 export { default as RadioGroup } from "./components/RadioGroup";
 export { default as Tabs } from "./components/Tabs";
 export { default as TextArea } from "./components/TextArea";

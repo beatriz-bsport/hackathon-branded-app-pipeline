@@ -23,8 +23,10 @@ const variants = {
     [TYPOGRAPHY_COLORS.disabled]: ["text-onsurface-disabled", "opacity-sm"],
   },
   weight: {
+    weaker: ["font-weaker"],
     weak: ["font-weak"],
     strong: ["font-strong"],
+    stronger: ["font-stronger"],
   },
 } as const;
 

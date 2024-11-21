@@ -24,8 +24,10 @@ const variants = {
     default: ["underline"],
   },
   weight: {
+    weaker: ["font-weaker"],
     weak: ["font-weak"],
     strong: ["font-strong"],
+    stronger: ["font-stronger"],
   },
 } as const;
 

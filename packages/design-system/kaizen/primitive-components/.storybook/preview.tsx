@@ -20,7 +20,8 @@ const preview: Preview = {
   ],
   parameters: {
     backgrounds: {
-      default: "default",
+      // Do not provide default value as the property overrides
+      // background-color which messes with light/dark mode switching
       values: [
         { name: "default", value: "#f0f0f0" },
         { name: "strong", value: "#484848" },

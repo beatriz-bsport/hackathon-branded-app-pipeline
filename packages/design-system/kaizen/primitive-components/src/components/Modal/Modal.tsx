@@ -15,7 +15,7 @@ const defaultClasses = [
   "bg-surface-default-elevated",
   "max-h-[70%]",
   "flex flex-col",
-  "transition ease-out duration-200",
+  "transition ease-out duration-default",
 ] as const;
 
 const variants = {
@@ -163,7 +163,7 @@ const Modal: React.FC<ModalProps> = ({
   return createPortal(
     <div
       className={classNames(
-        "fixed inset-[0] z-[999] bg-surface-blanket/md transition ease-out duration-200",
+        "fixed inset-[0] z-[999] bg-surface-blanket/md transition ease-out duration-default",
         { "bg-surface-blanket/transparent": !isVisible },
       )}
       onClick={handleBackdropClick}

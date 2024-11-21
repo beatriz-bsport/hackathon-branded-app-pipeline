@@ -28,4 +28,5 @@ Prepare Docker Builder Image:
     REGISTRY_NAME: bsport/bsport-saas-builder
     TAG: $CI_COMMIT_REF_NAME
   services:
-    - docker:24-dind
+    - name: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/dind:1.0.2
+      alias: docker

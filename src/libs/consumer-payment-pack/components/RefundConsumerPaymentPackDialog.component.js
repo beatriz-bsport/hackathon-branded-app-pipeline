@@ -92,7 +92,13 @@ export const RefundConsumerPaymentPack = (props: Props) => {
                 <TextField
                   className={classes.field}
                   helperText={creditHelperText}
-                  InputProps={{ inputProps: { step: 1, min: 1 } }}
+                  InputProps={{
+                    inputProps: {
+                      step: 1,
+                      min: 0,
+                      max: props.consumerPaymentPack.available_credits,
+                    },
+                  }}
                   label={t('consumerPaymentPack.refund.credits.label')}
                   onChange={props.handleCreditChange}
                   type="number"
@@ -100,9 +106,20 @@ export const RefundConsumerPaymentPack = (props: Props) => {
                   variant="outlined"
                 />
               )}
+            {props.consumerPaymentPack.payment_pack.unlimited && (
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={props.blockUnlimited}
+                    onChange={props.toogleBlockUnlimited}
+                  />
+                }
+                label={t('consumerPaymentPack.refund.blockUnlimited')}
+              />
+            )}
             <TextField
               className={classes.field}
-              InputProps={{ inputProps: { step: 0.01, min: 0 } }}
+              InputProps={{ inputProps: { step: 'any', min: 0 } }}
               label={t('consumerPaymentPack.refund.price.label')}
               onBlur={() =>
                 props.handlePriceChange({
@@ -127,18 +144,6 @@ export const RefundConsumerPaymentPack = (props: Props) => {
               value={props.note}
               variant="outlined"
             />
-            {props.consumerPaymentPack.payment_pack.unlimited &&
-              props.showCreditRefund && (
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={props.blockUnlimited}
-                      onChange={props.toogleBlockUnlimited}
-                    />
-                  }
-                  label={t('consumerPaymentPack.refund.blockUnlimited')}
-                />
-              )}
           </div>
         </DialogContent>
         <DialogActions>
@@ -185,7 +190,7 @@ const useStyles = makeStyles((theme) => ({
 export default compose(
   withStateHandlers(
     ({ consumerPaymentPack }) => ({
-      credits: Math.max(parseInt(consumerPaymentPack.available_credits, 10), 0),
+      credits: 0,
       price: 0,
       note: '',
       blockUnlimited: true,

@@ -13,6 +13,9 @@ const getTranslations = async () => {
     PAYMENT_PACK_CAN_NOT_BE_BOUGHT_LATER_FIRST_BOOKING,
     PAYMENT_PACK_CAN_NOT_BE_BOUGHT_LATER_FIRST_ATTENDANCE,
     PAYMENT_PACK_CAN_NOT_BE_BOUGHT_INCOMPATIBLE_WITH_OFF_PEAK_SCHEDULE,
+    CONSUMER_PAYMENT_PACK_REFUND_AMOUNT_EXCEEDS_PURCHASE,
+    CONSUMER_PAYMENT_PACK_REFUND_CREDITS_EXCEED_PASS,
+    CONSUMER_PAYMENT_PACK_REFUND_LOCK_ACQUISITION_ERROR,
   } = await import(
     '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js'
   );
@@ -22,16 +25,16 @@ const getTranslations = async () => {
       addExtension: 'Extend validity',
       details: {
         actions: {
-          refund: 'Transform in credit',
+          refund: 'Partial refund',
           applyVoucher: 'Apply a discount',
         },
       },
       refund: {
         actions: { submit: 'Save', cancel: 'Cancel' },
         explain:
-          "Choose the number of credits to be reimbursed as well as the total value that will be credited on the member's deposit",
+          'Specify the amount to refund to the internal account and, if needed, the number of credits to deduct from the pass',
         credits: {
-          label: 'Credit to deduct',
+          label: 'Credits to deduct',
           decimalCredit: {
             helperText: '{{count}} credit will be deducted',
             helperText_plural: '{{count}} credits will be deducted',
@@ -40,13 +43,21 @@ const getTranslations = async () => {
         note: { label: 'Note' },
         description: '{{credits}} credit - {{note}}',
         description_plural: '{{credits}} credits - {{note}}',
-        price: { label: 'Amount to be credited back' },
-        title: 'Refund',
+        price: { label: 'Amount to refund' },
+        title: 'Partial refund to internal account',
         warningSecond:
-          'If you wish to reimburse the client via transfer with the payment method used cancel the billing and do not reimburse him/her in credit !',
-        warningFirst:
-          'Warning, this operation is irreversible (invoice generation).',
+          'To refund via the original payment method, cancel the entire invoice instead.',
+        warningFirst: 'Warning: This action is irreversible',
         blockUnlimited: 'Block pass',
+        error: {
+          default: 'An error occurred. Please retry.',
+          [CONSUMER_PAYMENT_PACK_REFUND_AMOUNT_EXCEEDS_PURCHASE]:
+            'The refund amount exceeds the purchase amount. Please retry with a lower amount.',
+          [CONSUMER_PAYMENT_PACK_REFUND_CREDITS_EXCEED_PASS]:
+            'The number of credits to deduct exceeds the number of credits on the pass. Please retry with a lower number.',
+          [CONSUMER_PAYMENT_PACK_REFUND_LOCK_ACQUISITION_ERROR]:
+            'An error occurred. Please retry.',
+        },
       },
       maxout: {
         dialog_message:
@@ -415,7 +426,7 @@ const getTranslations = async () => {
       invoiceTitle: 'Associated invoice',
       bookingsTitle: 'Associated bookings',
       extensionsTitle: 'Validity extension',
-      refundTitle: 'Associated reimbursement',
+      refundTitle: 'Associated refund',
       trackModifiedCreditTitle: 'History',
       penaltyAccount:
         'Additional billing of {{account_value}} {{currencyDisplay }}',

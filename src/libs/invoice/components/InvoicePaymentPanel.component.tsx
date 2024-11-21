@@ -359,7 +359,10 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
       0,
     );
 
-  const is_reverse = props.invoice.source_invoice;
+  // partial refund invoices have no source_invoice
+  const is_reverse =
+    props.invoice.source_invoice ||
+    props.invoice.invoice_type == INVOICE_TYPE_REVERSE;
 
   const plannedPaymentUnrecoverableErrorList = useMemo(
     () =>

@@ -84,18 +84,28 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
   const { t } = useTranslation('paymentPack');
   const classes = useStyles();
 
+  const isPartialRefundButtonDisabled =
+    // if pass is already disabled
+    props.consumerPack.disabled ||
+    // if pass has no credits
+    (!props.consumerPack.payment_pack.unlimited &&
+      !props.consumerPack.available_credits) ||
+    // if original invoice is already refunded (the normal way)
+    props.invoice?.reverse_invoices?.length > 0 ||
+    // if there is already a partial refund on the consumer pack
+    (props.consumerPaymentPackCreditRefundList &&
+      props.consumerPaymentPackCreditRefundList.length > 0);
+
   return (
     <div>
       <ObjectLevelPermissionProvider
         requiredPermission={[
           'billing.allowed_actions.readInvoices',
-          'billing.allowed_actions.partialRefundAsDiscount',
           'billing.allowed_actions.partialRefundAsCredit',
         ]}
       >
         {([
           hasReadInvoicePermission,
-          hasRefundAsDiscountPermission,
           hasRefundAsCreditPermission,
         ]: boolean[]) => (
           <>
@@ -131,31 +141,10 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
                   )}
                 {!props.consumerPack.linked_private_consumer_pass && (
                   <div className={classes.rightButton}>
-                    {hasRefundAsDiscountPermission && (
-                      <Button
-                        color="primary"
-                        disabled={
-                          props.consumerPack.disabled ||
-                          (!props.consumerPack.payment_pack.unlimited &&
-                            !props.consumerPack.available_credits)
-                        }
-                        onClick={() =>
-                          props.requestRefund(props.consumerPack, false)
-                        }
-                        variant="contained"
-                      >
-                        {t('consumerPaymentPack.details.actions.applyVoucher')}
-                      </Button>
-                    )}
-
                     {hasRefundAsCreditPermission && (
                       <Button
                         color="primary"
-                        disabled={
-                          props.consumerPack.disabled ||
-                          (!props.consumerPack.payment_pack.unlimited &&
-                            !props.consumerPack.available_credits)
-                        }
+                        disabled={isPartialRefundButtonDisabled}
                         onClick={() =>
                           props.requestRefund(props.consumerPack, true)
                         }

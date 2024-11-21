@@ -38,6 +38,7 @@ import type {
 import type { RootState } from '../../reducers';
 
 import { CONSUMER_PAYMENT_PACK_EXTENSION_PAGE_SIZE } from './constants';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 
 export const byOfferByMember = {
   isLoading: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/IS_LOADING'),
@@ -349,6 +350,17 @@ export function refundConsumerPaymentPack(
     } catch (error) {
       console.error(error);
       dispatch(partialRefundActions.error(error));
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `paymentPack:consumerPaymentPack.refund.error.${error.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(
+          snackbarError('paymentPack:consumerPaymentPack.refund.error.default'),
+        );
+      }
       if (options && options.onError) {
         options.onError(error);
       }

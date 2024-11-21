@@ -17,7 +17,10 @@ import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { INVOICE_TYPE_MIGRATION } from '@bsport/common/lib/master-data/invoice-type';
+import {
+  INVOICE_TYPE_MIGRATION,
+  INVOICE_TYPE_REVERSE,
+} from '@bsport/common/lib/master-data/invoice-type';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ListItem } from '@material-ui/core';
 import Tooltip from '#src/components/Tooltip.component';
@@ -119,7 +122,9 @@ export const InvoiceContent: React.FC<Props> = ({
   // eslint-disable-next-line
   const [loading, setLoading] = React.useState(false);
 
-  const is_reverse = invoice?.source_invoice;
+  // partial refund invoices have no source_invoice
+  const is_reverse =
+    invoice?.source_invoice || invoice?.invoice_type === INVOICE_TYPE_REVERSE;
 
   const handleRemoveInvoiceItem = useCallback(
     (ii: InvoiceItem) => () => removeInvoiceItem(ii.id),

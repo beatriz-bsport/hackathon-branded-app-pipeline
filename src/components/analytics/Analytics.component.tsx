@@ -15,11 +15,10 @@ const Analytics: React.FC<Props> = ({ theme, isInternal }) => {
       return;
     }
 
-    const gtmId = !theme.gtmId || isInternal ? 'GTM-W4G3NQ6' : theme.gtmId;
-    const facebookPixelId =
-      !theme.facebookPixelId || isInternal
-        ? '515094402731005'
-        : theme.facebookPixelId;
+    const gtmId = isInternal ? 'GTM-W4G3NQ6' : theme.gtmId;
+    const facebookPixelId = isInternal
+      ? '515094402731005'
+      : theme.facebookPixelId;
 
     if (facebookPixelId) {
       setTimeout(() => {

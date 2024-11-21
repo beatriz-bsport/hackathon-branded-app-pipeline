@@ -14,6 +14,7 @@ const icons = {
   "dots-horizontal": React.lazy(
     async () => await import("./assets/dots-horizontal.svg?react"),
   ),
+  "file-06": React.lazy(async () => await import("./assets/file-06.svg?react")),
   "filter-lines": React.lazy(
     async () => await import("./assets/filter-lines.svg?react"),
   ),

@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { SetRequired } from "type-fest";
 import mapValues from "lodash/mapValues";
+import classNames from "classnames";
 import Title from "../Title";
 import Body from "../Body";
 import Button from "../Button";
@@ -10,8 +11,11 @@ import useEscapeKeydownListener from "./escape-keydown-listener.hook";
 
 const defaultClasses = [
   "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
-  "rounded-lg shadow-xl overflow-hidden",
+  "rounded-lg shadow-xl",
   "bg-surface-default-elevated",
+  "max-h-[70%]",
+  "flex flex-col",
+  "transition ease-out duration-200",
 ] as const;
 
 const variants = {
@@ -91,11 +95,23 @@ const Modal: React.FC<ModalProps> = ({
   children,
   ...props
 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setTimeout(() => {
+      setIsMounted(false);
+      onClose?.();
+      document.body.style.overflow = "";
+    }, 200);
+    setIsVisible(false);
+  }, [setIsVisible, onClose]);
+
   const handleBackdropClick = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
       if (event.target === event.currentTarget) {
         onClickOutside?.(event);
-        onClose?.();
+        handleClose();
       }
     },
     [onClickOutside, onClose],
@@ -104,7 +120,7 @@ const Modal: React.FC<ModalProps> = ({
   const handleCrossButtonClick = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       onCrossButtonClick?.(event);
-      onClose?.();
+      handleClose();
     },
     [onCrossButtonClick, onClose],
   );
@@ -112,7 +128,7 @@ const Modal: React.FC<ModalProps> = ({
   const handleCancelClick = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       onCancelClick?.(event);
-      onClose?.();
+      handleClose();
     },
     [onCancelClick, onClose],
   );
@@ -125,28 +141,42 @@ const Modal: React.FC<ModalProps> = ({
   // Manage focus by storing the previous focus and setting focus to the modal when open
   const modalRef = useRef<HTMLDivElement | null>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     if (open) {
+      setIsMounted(true);
+      setIsVisible(true);
       previousFocusRef.current = document.activeElement as HTMLElement;
       previousFocusRef.current?.blur();
       modalRef.current?.focus();
+      document.body.style.overflow = "hidden";
     } else {
+      handleClose();
       previousFocusRef.current?.focus();
     }
-  }, [open]);
+  }, [open, handleClose]);
 
-  useEscapeKeydownListener(onClose ?? (() => {}), open);
+  useEscapeKeydownListener(handleClose ?? (() => {}), open);
 
-  if (!open) return null;
+  if (!open && !isMounted) return null;
 
   return createPortal(
-    <div className="fixed inset-[0]" onClick={handleBackdropClick}>
+    <div
+      className={classNames(
+        "fixed inset-[0] z-[999] bg-surface-blanket/md transition ease-out duration-200",
+        { "bg-surface-blanket/transparent": !isVisible },
+      )}
+      onClick={handleBackdropClick}
+    >
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
-        className={modal({ className, size })}
+        className={classNames(modal({ className, size }), {
+          "opacity-transparent scale-95": !isVisible,
+        })}
         onClick={handleModalClick}
+        ref={modalRef}
         {...props}
       >
         <div className="flex justify-between p-md gap-xs border-b-stroke-divider border-b-stroke-thin border-opacity-md">
@@ -175,7 +205,9 @@ const Modal: React.FC<ModalProps> = ({
             onClick={handleCrossButtonClick}
           />
         </div>
-        {children && <div className="p-md">{children}</div>}
+        {children && (
+          <div className="p-md flex-grow overflow-y-auto">{children}</div>
+        )}
         {(cancelLabel || confirmLabel) && (
           <div
             className={`flex justify-end p-md gap-xs border-t-stroke-divider border-t-stroke-thin border-opacity-md

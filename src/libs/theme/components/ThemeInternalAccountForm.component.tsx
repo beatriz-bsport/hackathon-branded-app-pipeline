@@ -100,9 +100,14 @@ export class ThemeInternalAccountForm extends Component<Props, State> {
                 )
               }
             />
-            <Typography>
-              {t('forms.themePersonalization.consumerRegularizeDebt')}
-            </Typography>
+            <div>
+              <Typography>
+                {t('forms.themePersonalization.consumerRegularizeDebt')}
+              </Typography>
+              <Typography variant="caption">
+                {t('forms.themePersonalization.consumerRegularizeDebtHelper')}
+              </Typography>
+            </div>
           </div>
           <div className={classes.inputContainer}>
             <Switch

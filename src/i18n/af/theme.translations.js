@@ -59,6 +59,8 @@ const getTranslations = async () => {
         },
         consumerRegularizeDebt:
           'Allow members to regularize their outstanding debts with online payments',
+        consumerRegularizeDebtHelper:
+          'This feature is available on the marketplace, Easy Connect Button and Login Button Widget. It is not yet available on the App and Member Profile widget',
         workshopsCustomer: 'Show workshops on the calendar of your members',
         cancelledOffersCustomer:
           'Show cancelled sessions on the calendar of your members',

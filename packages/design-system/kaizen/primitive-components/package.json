@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*",

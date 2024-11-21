@@ -87,14 +87,28 @@ const Checkbox: React.FC<CheckboxProps> = ({
         <input
           className={classNames(
             "appearance-none w-md h-md rounded-xs",
-            "cursor-pointer",
+            "cursor-pointer disabled:cursor-default",
             "transition-colors duration-default ease-in-out",
-            "border-stroke-thin indeterminate:border-none checked:border-none disabled:bg-surface-action-disabled/md disabled:border-stroke-action-default-disabled/md",
+            "border-stroke-thin indeterminate:border-none checked:border-none",
             {
-              "bg-surface-status-critical-weak border-stroke-status-critical indeterminate:bg-surface-status-critical-strong checked:bg-surface-status-critical-strong":
+              "bg-surface-status-critical-weak border-stroke-status-critical \
+              indeterminate:bg-surface-status-critical-strong checked:bg-surface-status-critical-strong":
                 errorText,
-              "bg-surface-action-default-elevated-rest border-stroke-action-default-rest indeterminate:bg-surface-action-main-strong-rest checked:bg-surface-action-main-strong-rest":
+              "bg-surface-action-default-elevated-rest border-stroke-action-default-rest \
+              indeterminate:bg-surface-action-main-strong-rest checked:bg-surface-action-main-strong-rest":
                 !errorText,
+              // Hovered state
+              "hover:bg-surface-action-default-elevated-hovered hover:border-stroke-action-default-hovered/sm \
+              hover:active:bg-surface-action-default-elevated-pressed hover:border-stroke-action-default-pressed/sm":
+                !disabled && value === "unchecked" && !errorText,
+              "hover:shadow-action-call-to-action-hovered hover:bg-surface-action-main-strong-hovered \
+              hover:active:shadow-action-call-to-action-pressed hover:active:bg-surface-action-main-strong-pressed":
+                !disabled && value !== "unchecked" && !errorText,
+              // Disabled state
+              "border-stroke-action-default-pressed/xs bg-surface-action-default-elevated-pressed":
+                disabled && value === "unchecked",
+              "bg-surface-action-main-strong-pressed":
+                disabled && value !== "unchecked",
             },
           )}
           type="checkbox"
@@ -117,11 +131,12 @@ const Checkbox: React.FC<CheckboxProps> = ({
         <svg
           className={classNames(
             "absolute pointer-events-none",
-            { "ml-[1px]": direction === "start" },
-            { "mr-[1px]": direction === "end" },
-            { hidden: value === "unchecked" },
-            { "fill-onsurface-action-main-disabled": disabled },
-            { "fill-onsurface-default-onstrong": !disabled },
+            "fill-onsurface-default-onstrong",
+            {
+              "ml-[1px]": direction === "start",
+              "mr-[1px]": direction === "end",
+              hidden: value === "unchecked",
+            },
           )}
           xmlns="http://www.w3.org/2000/svg"
           width={14}

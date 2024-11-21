@@ -254,7 +254,6 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     official_document_id,
     photo,
     spivi_privacy_settings_accepted,
-    total_unpaid_amount,
     phone_number,
   } = member;
 
@@ -304,7 +303,6 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
             showMembershipNumber={companyTheme?.show_membership_number}
             spiviPrivacySettingsAccepted={spivi_privacy_settings_accepted}
             spiviPrivacySettingsLoading={spiviPrivacySettingsLoading}
-            totalUnpaidAmount={total_unpaid_amount}
             updateSpiviPrivacySettings={updateSpiviPrivacySettings}
           />
         </div>

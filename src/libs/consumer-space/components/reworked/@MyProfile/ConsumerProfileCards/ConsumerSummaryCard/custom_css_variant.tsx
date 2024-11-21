@@ -47,7 +47,6 @@ const defaultProps: Omit<
   phoneNumber: member.official_document_id,
   photo: member.photo,
   spiviPrivacySettingsAccepted: member.spivi_privacy_settings_accepted,
-  totalUnpaidAmount: member.total_unpaid_amount,
   spiviPrivacySettingsLoading: false,
   updateSpiviPrivacySettings: emptyFn,
   isLoading: false,

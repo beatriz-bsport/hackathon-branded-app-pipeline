@@ -57,7 +57,6 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
           regularizeBalanceAllowed={regularizeBalanceAllowed}
           showAccountBalance={showAccountBalance}
           showBarcodeButton={showBarcodeButton}
-          totalUnpaidAmount={totalUnpaidAmount}
         />
         <ConsumerInfoSection
           birthday={birthday}

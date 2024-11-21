@@ -23,7 +23,6 @@ type Props = Pick<
   | 'firstName'
   | 'lastName'
   | 'photo'
-  | 'totalUnpaidAmount'
   | 'showAccountBalance'
   | 'showBarcodeButton'
   | 'regularizeBalanceAllowed'
@@ -49,10 +48,7 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
 
   const userName = [firstName ?? '', lastName ?? ''].join(' ');
 
-  const totalUnpaidAmountNumber = parseFloat(totalUnpaidAmount);
-
-  const consumerCreditAccountBalance =
-    creditAccountBalance - totalUnpaidAmountNumber ?? 0;
+  const consumerCreditAccountBalance = creditAccountBalance ?? 0;
 
   const accountBalanceColor = (() => {
     switch (Math.sign(consumerCreditAccountBalance)) {

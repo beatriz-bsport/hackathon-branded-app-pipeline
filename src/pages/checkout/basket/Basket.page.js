@@ -1012,7 +1012,7 @@ export default compose(
       }) =>
       () => {
         if (basket) {
-          if (basketOffer?.length > 0) {
+          if (basketOffers?.length > 0) {
             const bookedSessionListData = getBookedSessionListDataFromBasket(
               basket,
               basketOffers,

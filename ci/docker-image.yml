@@ -51,6 +51,7 @@ Prepare Docker Builder Image Production:
 
 Prepare Docker Builder Image Dev:
   extends: .Prepare Docker Builder Image Base
+  interruptible: true
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
@@ -66,6 +67,7 @@ Prepare Docker Builder Image Dev:
  
 Prepare Docker Builder Image Feature Branch:
   extends: .Prepare Docker Builder Image Base
+  interruptible: true
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never

@@ -42,6 +42,7 @@ Build Deploy Production:
  
 Build Deploy Dev:
   extends: .Build and deploy Base
+  interruptible: true
   environment:
     name: dev
     deployment_tier: development
@@ -62,6 +63,7 @@ Build Deploy Dev:
     INVALIDATION_LAMBDA_URL: https://uc7e26gvpwrprl5hubmfe4zeou0zyqyu.lambda-url.eu-west-3.on.aws/
 
 Build Deploy Feature Branch:
+  interruptible: true
   extends: .Build and deploy Base
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'

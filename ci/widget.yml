@@ -6,6 +6,7 @@
 
 Build widget dev:
   extends: .Build widget
+  interruptible: true
   trigger:
     branch: dev
   rules:

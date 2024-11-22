@@ -96,6 +96,7 @@ Build Deploy Production:
 
 Build Deploy Dev:
   extends: .Build and deploy Base
+  interruptible: true
   environment:
     name: dev
     deployment_tier: development
@@ -120,6 +121,7 @@ Build Deploy Dev:
     - cluster:bsport-tooling
 
 .Build Deploy Feature Branch Generic:
+  interruptible: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never

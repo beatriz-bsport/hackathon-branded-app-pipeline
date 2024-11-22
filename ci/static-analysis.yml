@@ -1,6 +1,7 @@
 Lint and Compile:
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
   stage: static-analysis
+  interruptible: true
   tags:
     - high-ram
     - cluster:bsport-tooling
@@ -29,6 +30,7 @@ Lint and Compile:
 
 Test:
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  interruptible: true
   stage: static-analysis
   tags:
     - build

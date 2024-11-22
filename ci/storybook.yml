@@ -27,6 +27,7 @@
 
 Deploy-storybook Feature Branch:
   extends: .Deploy-storybook
+  interruptible: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
@@ -53,6 +54,7 @@ Deploy-storybook:
       when: never
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: on_success
+      interruptible: true
     - if: $CI_COMMIT_REF_NAME == "master"
       when: on_success
     - if: $CI_COMMIT_REF_NAME == "production"

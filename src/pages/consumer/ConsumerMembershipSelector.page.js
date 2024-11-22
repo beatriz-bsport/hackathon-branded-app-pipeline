@@ -22,6 +22,7 @@ import MembershipSelector from '../../libs/membership/components/MembershipSelec
 
 import type { Membership } from '../../libs/membership/types';
 import type { Company } from '../../libs/company/types';
+import { getUserSpaceUrl } from '../../libs/marketplace/routing-utils';
 
 type Props = {
   fetchMembershipListAsConsumer: (params: any) => void,
@@ -59,7 +60,9 @@ export class ConsumerMembershipSelector extends React.Component<Props, State> {
       return <ConsumerLoading />;
     }
     if (this.props.membershipList.length === 1) {
-      return <Redirect to={`/c/${this.props.membershipList[0].company}/`} />;
+      return (
+        <Redirect to={getUserSpaceUrl(this.props.membershipList[0].company)} />
+      );
     }
     return (
       <MembershipSelector

@@ -17,7 +17,6 @@ import BasketConsumer from '../../libs/checkout/components/BasketConsumer.compon
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
-import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
 
 type OwnProps = {
   companyId: number;
@@ -38,11 +37,7 @@ class BasketPage extends React.PureComponent<Props> {
   }
 
   onClickCheckout = () => {
-    const isMemberProfileDisplayed = getIsNewMemberProfileDisplayed(
-      this.props.companyId,
-    );
-    const checkoutRoute = isMemberProfileDisplayed ? 'checkout-s' : 'checkout';
-    const url = `/${checkoutRoute}/${this.props.companyId}?&context=widget`;
+    const url = `/checkout-s/${this.props.companyId}?&context=widget`;
     this.props.push(url);
   };
 

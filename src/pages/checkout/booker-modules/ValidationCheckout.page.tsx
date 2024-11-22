@@ -72,6 +72,7 @@ import {
 import { fetchMember as fetchMemberAction } from '../../../libs/member/actions';
 import { fetchMembershipByCompany } from '../../../libs/membership/actions';
 import { getMembership } from '../../../libs/membership/selectors';
+import { getUserSpaceUrl } from '#src/libs/marketplace/routing-utils';
 
 type OwnProps = {
   queryParams: any;
@@ -608,7 +609,7 @@ const mapWithHandlers = {
           }
           return;
         }
-        replace(`/c/${companyId}`);
+        replace(getUserSpaceUrl(companyId));
       },
   goToMarketplace:
     // @ts-expect-error

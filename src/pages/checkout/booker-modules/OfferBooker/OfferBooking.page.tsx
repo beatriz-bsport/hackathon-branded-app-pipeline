@@ -120,6 +120,7 @@ import { REDIRECTED_TO_FIRST_OFFER_TO_BE_BOOKED } from '#src/libs/group-offer/co
 import {
   getCheckoutUrl,
   getCheckoutValidationUrl,
+  getUserSpaceUrl,
 } from '#src/libs/marketplace/routing-utils';
 import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#src/libs/waiting-list/actions';
 import { getEnabledEstablishmentBillingGroups } from '#src/libs/establishment/selectors';
@@ -1254,7 +1255,7 @@ const mapDispatchToProps = {
   replace: repalceAction,
   fetchSimilarOffers,
   resetSimilarOffers,
-  goToUserSpace: (id: number) => pushAction(`/c/${id}/`),
+  goToUserSpace: (id: number) => pushAction(getUserSpaceUrl(id)),
   snackbarError: snackbarErrorAction,
   snackbarWarning: snackbarWarningAction,
   fetchOfferStatusList,

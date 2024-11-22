@@ -11,7 +11,6 @@ import {
   MARKETPLACE_PATH_TAB_SHOP,
   MARKETPLACE_PATH_TAB_GIFTCARD,
 } from './constants';
-import { getIsNewMemberProfileDisplayed } from '../consumer-space/utils';
 import { getUTMParamsFromURL } from '#src/utils/urlUtils';
 
 export const getMarketplaceRoute = (
@@ -183,11 +182,11 @@ export const generateMarketPlaceCustomFormLink = (
 
 /**
  * A function that returns the default route for the new member profile
- * @param id The company id
+ * @param companyId The company id
  * @returns {string}
  */
-export const getUserSpaceUrl = (id: number) =>
-  getIsNewMemberProfileDisplayed(id) ? `/c/${id}/booking/` : `/c/${id}/`;
+export const getUserSpaceUrl = (companyId: number) =>
+  `/c/${companyId}/booking/`;
 
 export const getLoginUrl = (
   companyId: number,

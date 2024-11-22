@@ -34,6 +34,7 @@ import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppB
 import NavigationSideDrawer from '#src/components/css-only/Navigation/NavigationSideDrawer';
 import { AppBarButton } from '#src/components/css-only/Navigation/NavigationAppBar/types';
 import { ArrowLeft, UserCircle } from '#src/components/untitledui';
+import { getUserSpaceUrl } from '#src/libs/marketplace/routing-utils';
 
 // Types
 import type { RootState } from '#src/reducers';
@@ -123,7 +124,7 @@ const CheckoutNavigation: React.FC<Props> = ({
         onClick:
           isMobile && !!userFullName
             ? handleToggleConsumerSideDrawer
-            : () => push(`/c/${companyTheme?.company}/booking/`),
+            : () => push(getUserSpaceUrl(companyTheme?.company)),
         variant: isMobile ? 'text' : 'outlined',
         isIconButton: isMobile,
       },

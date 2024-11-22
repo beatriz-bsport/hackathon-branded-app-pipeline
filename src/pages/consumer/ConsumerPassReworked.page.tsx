@@ -7,6 +7,7 @@ import uniq from 'lodash/uniq';
 import type { RootState } from 'src/reducers';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
+import ReLiftReduxProviderIfDetected from '#src/hocs/relift-redux-provider.hoc';
 
 /** COMPONENTS */
 
@@ -470,8 +471,12 @@ const connector = connect(
 );
 
 export const UnconnectedConsumerPass = compose(
+  ReLiftReduxProviderIfDetected(),
   marketplaceCssHoc(),
   WithCustomCssProvider,
 )(ConsumerPassReworked);
 
-export default connector(UnconnectedConsumerPass);
+export default compose(
+  ReLiftReduxProviderIfDetected(),
+  connector,
+)(UnconnectedConsumerPass);

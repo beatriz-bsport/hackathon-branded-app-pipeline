@@ -84,7 +84,10 @@ import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import MarketplaceBookingAddGuestModal, {
   AddGuestFormValues,
 } from '#src/libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
-import { getOfferBookerUrl } from '#src/libs/marketplace/routing-utils';
+import {
+  getOfferBookerUrl,
+  getUserSpaceUrl,
+} from '#src/libs/marketplace/routing-utils';
 import { ConfirmationCheckoutSkeleton } from '.';
 import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 import type { RootState } from '../../../../reducers';
@@ -687,7 +690,7 @@ const mapWithHandlers = {
         replace(buildUrlForWidget('bookings/', companyTheme));
         return;
       }
-      replace(`/c/${companyId}`);
+      replace(getUserSpaceUrl(companyId));
     },
   goToMemberBookings:
     ({

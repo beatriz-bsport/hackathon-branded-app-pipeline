@@ -21,8 +21,6 @@ import ShopConfigurationPage from '#src/pages/settings/ShopConfigurationPage.pag
 import ThemeConfigurationPage from '#src/pages/settings/ThemeConfiguration.page';
 import CoachPlaceSettingsPage from '#src/pages/settings/CoachPlaceSettings.page';
 // @ts-expect-error
-import SettingsPersonalizePage from '#src/pages/settings/SettingsPersonalizePage.page';
-// @ts-expect-error
 import WebhookConfigurationPage from '#src/pages/settings/WebhookConfigurationPage.page';
 import NotificationRulePage from '#src/pages/settings/NotificationRule.page';
 import NotificationRuleDetailPage from '#src/pages/settings/NotificationRuleDetail.page';
@@ -45,18 +43,13 @@ import SettingsMobileRouter from '#src/pages/settings/SettingsMobile.router';
 import SettingsPersonalization from '#src/pages/settings/SettingsPersonalization.router';
 import themeSelectors from '#src/libs/theme/selectors';
 import { RootState } from '#src/reducers';
-import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
 
 type SettingsRouterConnectedProps = ConnectedProps<typeof connector>;
 
-export const Settings: React.FC<SettingsRouterConnectedProps> = ({
-  companyId,
-}) => {
+export const Settings: React.FC<SettingsRouterConnectedProps> = () => {
   const displayNewWebshop = useSelector(
     (state: RootState) => themeSelectors.getTheme(state).display_new_webshop,
   );
-
-  const isNewMemberProfileDisplayed = getIsNewMemberProfileDisplayed(companyId);
 
   return (
     <Switch>
@@ -115,18 +108,10 @@ export const Settings: React.FC<SettingsRouterConnectedProps> = ({
         <Route exact component={ShopConfigurationPage} path="/settings/shop" />
       )}
       <Route exact component={ThemeConfigurationPage} path="/settings/theme" />
-      {isNewMemberProfileDisplayed ? (
-        <Route
-          component={SettingsPersonalization}
-          path={['/settings/personalization/:tab', '/settings/personalization']}
-        />
-      ) : (
-        <Route
-          exact
-          component={SettingsPersonalizePage}
-          path="/settings/personalization"
-        />
-      )}
+      <Route
+        component={SettingsPersonalization}
+        path={['/settings/personalization/:tab', '/settings/personalization']}
+      />
       <Route
         component={SettingsMobileRouter}
         path="/settings/mobile-personalisation/:tab"

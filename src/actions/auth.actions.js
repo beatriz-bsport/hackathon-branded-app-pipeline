@@ -24,6 +24,7 @@ import { WidgetMessageType } from '../libs/widget/types';
 import { snackbarError } from './snackbar.actions';
 import { getAuthToken } from '../http';
 import Config from '../config';
+import { getUserSpaceUrl } from '../libs/marketplace/routing-utils';
 
 import { urlToMarketplace } from '../libs/marketplace/utils';
 
@@ -58,9 +59,7 @@ import {
   storageToString,
 } from '../utils/storage';
 
-import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
 import { getBaseURL } from '../utils/urlUtils';
-import { NEW_MEMBER_PROFILE_COMPANY_ID_LIST } from '../libs/consumer-space/constants';
 import analyticsUtils from '../components/analytics/analytics';
 
 export const initiateInterface = createAction('initiate');
@@ -710,10 +709,7 @@ export function navigateToRelationAccount(
         }),
       );
 
-      if (
-        params.companyName ||
-        getIsNewMemberProfileDisplayed(params.company)
-      ) {
+      if (params.companyName) {
         const marketplaceUrl = urlToMarketplace(
           params.companyName,
           params.company,
@@ -721,8 +717,9 @@ export function navigateToRelationAccount(
         dispatch(push('/c/'));
         dispatch(push(marketplaceUrl));
       } else {
+        const marketplaceUrl = urlToMarketplace('aaa', params.company);
         dispatch(push('/c/'));
-        dispatch(push(`/c/${params.company}/`));
+        dispatch(push(marketplaceUrl));
       }
     } catch (err) {
       // Disconnect to avoid users stuck in a loop
@@ -789,10 +786,7 @@ export function navigateBackToMasterRelation(params: {
         }),
       );
 
-      if (
-        params.companyName ||
-        getIsNewMemberProfileDisplayed(params.company)
-      ) {
+      if (params.companyName) {
         const marketplaceUrl = urlToMarketplace(
           params.companyName,
           params.company,
@@ -800,8 +794,9 @@ export function navigateBackToMasterRelation(params: {
         dispatch(push('/c/'));
         dispatch(push(marketplaceUrl));
       } else {
+        const marketplaceUrl = urlToMarketplace('aaa', params.company);
         dispatch(push('/c/'));
-        dispatch(push(`/c/${params.company}/`));
+        dispatch(push(marketplaceUrl));
       }
     } catch (err) {
       // Disconnect to avoid users stuck in a loop

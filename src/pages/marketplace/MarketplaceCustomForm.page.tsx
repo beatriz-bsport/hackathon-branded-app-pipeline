@@ -15,7 +15,10 @@ import Grid from '@material-ui/core/Grid';
 
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-import { getLoginUrl as getLoginRedirectionUrl } from '#src/libs/marketplace/routing-utils';
+import {
+  getLoginUrl as getLoginRedirectionUrl,
+  getUserSpaceUrl,
+} from '#src/libs/marketplace/routing-utils';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
@@ -105,6 +108,10 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
     );
   };
 
+  goToMemberProfile = () => {
+    this.props.pushRouter(getUserSpaceUrl(this.props.companyId));
+  };
+
   render() {
     const { classes, authenticated, t } = this.props;
     if (!authenticated) {
@@ -145,9 +152,7 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
                     </Typography>
                     <Button
                       color="primary"
-                      onClick={() =>
-                        this.props.pushRouter(`/c/${this.props.companyId}`)
-                      }
+                      onClick={this.goToMemberProfile}
                       variant="contained"
                     >
                       <ArrowForwardIcon className={classes.arrowIcon} />
@@ -174,9 +179,7 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
               </Grid>
             </Grid>
             <CustomFormSubmitDialog
-              goToUserSpace={() =>
-                this.props.pushRouter(`/c/${this.props.companyId}`)
-              }
+              goToUserSpace={this.goToMemberProfile}
               open={this.props.submitSuccess}
             />
           </div>

@@ -61,7 +61,7 @@ export const WelcomePage: React.FC<Props> = ({
           simplifyUI={simplifyUI}
           urlRedirection={
             theme.confirm_email_url_redirection ||
-            `${Config.PUBLIC_URL}/c/${companyId}`
+            `${Config.PUBLIC_URL}/c/${companyId}/booking/`
           }
         />
       </Paper>

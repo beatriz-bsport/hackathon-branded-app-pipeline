@@ -81,7 +81,6 @@ import {
   urlToMarketplaceSubscriptionTab,
 } from '../../libs/marketplace/utils/navigation';
 import { getBasketBuyableItemsCount } from '../../libs/checkout/utils';
-import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 
@@ -360,224 +359,112 @@ export class ConsumerHome extends React.Component<Props> {
         <MemberShipValidationWrapper companyId={this.props.companyId}>
           <>
             {this.props.membership ? (
-              getIsNewMemberProfileDisplayed(this.props.companyId) ? (
-                <ConsumerNavigation
-                  basketProductListCount={getBasketBuyableItemsCount(
-                    this.props.currentBasket?.checkout_items ?? [],
-                  )}
-                  buildUrl={this.props.buildUrl}
-                  buttonsData={this.getConsumerMobileNavigationButtonsData()}
-                  companyId={this.props.companyId}
-                  companyLogo={this.props.theme?.cover}
-                  companyName={this.props.theme?.company_name ?? ''}
-                  companyWebsiteUrl={this.props.theme?.websiteURL}
-                  context={this.props.queryParams?.consumerspacecontext ?? ''}
-                  controlableMemberList={this.props.controlableMemberList}
-                  franchisorCompanyList={this.props.franchisor?.companies ?? []}
-                  hasMultipleMembership={
-                    this.props.membershipCount && this.props.membershipCount > 1
+              <ConsumerNavigation
+                basketProductListCount={getBasketBuyableItemsCount(
+                  this.props.currentBasket?.checkout_items ?? [],
+                )}
+                buildUrl={this.props.buildUrl}
+                buttonsData={this.getConsumerMobileNavigationButtonsData()}
+                companyId={this.props.companyId}
+                companyLogo={this.props.theme?.cover}
+                companyName={this.props.theme?.company_name ?? ''}
+                companyWebsiteUrl={this.props.theme?.websiteURL}
+                context={this.props.queryParams?.consumerspacecontext ?? ''}
+                controlableMemberList={this.props.controlableMemberList}
+                franchisorCompanyList={this.props.franchisor?.companies ?? []}
+                hasMultipleMembership={
+                  this.props.membershipCount && this.props.membershipCount > 1
+                }
+                isNewCheckoutFlow={
+                  !!this.props.theme?.display_new_checkout_flow
+                }
+                memberName={
+                  this.props.getMemberFirstName(this.props.membership?.id) ?? ''
+                }
+                memberRelationshipList={this.props.controlableMemberList}
+                membership={this.props.membership}
+                navigateBackToMasterRelation={
+                  this.props.navigateBackToMasterRelation
+                }
+                navigateToRelationAccount={this.props.navigateToRelationAccount}
+                push={this.props.push}
+                showCredit={
+                  this.props.theme && this.props.theme.consumer_regularize_debt
+                }
+                subscriptionPendingActionCount={
+                  this.props.subscriptionPendingActionCount
+                }
+                tabConfigList={this.props.marketplaceSettingsConfig}
+              >
+                <CongratulationDialog
+                  basketGeneratedObjects={this.props.basketGeneratedObjects}
+                  goToCalendar={this.props.goToCalendar}
+                  offerBooked={
+                    this.props.offerBooked && this.props.offerBooked.length
+                      ? this.props.offerBooked[0]
+                      : null
                   }
-                  isNewCheckoutFlow={
-                    !!this.props.theme?.display_new_checkout_flow
+                  onCancel={this.props.resetCongratulations}
+                  open={
+                    !!this.props.from_basket || !!this.props.from_direct_booking
                   }
-                  memberName={
-                    this.props.getMemberFirstName(this.props.membership?.id) ??
-                    ''
-                  }
-                  memberRelationshipList={this.props.controlableMemberList}
-                  membership={this.props.membership}
-                  navigateBackToMasterRelation={
-                    this.props.navigateBackToMasterRelation
-                  }
-                  navigateToRelationAccount={
-                    this.props.navigateToRelationAccount
-                  }
-                  push={this.props.push}
-                  showCredit={
-                    this.props.theme &&
-                    this.props.theme.consumer_regularize_debt
-                  }
-                  subscriptionPendingActionCount={
-                    this.props.subscriptionPendingActionCount
-                  }
-                  tabConfigList={this.props.marketplaceSettingsConfig}
-                >
-                  <CongratulationDialog
-                    basketGeneratedObjects={this.props.basketGeneratedObjects}
-                    goToCalendar={this.props.goToCalendar}
-                    offerBooked={
-                      this.props.offerBooked && this.props.offerBooked.length
-                        ? this.props.offerBooked[0]
-                        : null
-                    }
-                    onCancel={this.props.resetCongratulations}
-                    open={
-                      !!this.props.from_basket ||
-                      !!this.props.from_direct_booking
-                    }
+                />
+                <Switch>
+                  <Route
+                    path="/c/:companyId/booking/"
+                    render={this.attachConsumerProps(ConsumerBookingReworked)}
                   />
-                  <Switch>
-                    <Route
-                      path="/c/:companyId/booking/"
-                      render={this.attachConsumerProps(ConsumerBookingReworked)}
-                    />
-                    <Route
-                      path="/c/:companyId/subscription/"
-                      render={this.attachConsumerProps(
-                        ConsumerSubscriptionReworked,
-                      )}
-                    />
-                    <Route
-                      path="/c/:companyId/pack/"
-                      render={this.attachConsumerProps(ConsumerPassReworked)}
-                    />
-                    <Route
-                      path="/c/:companyId/vod/"
-                      render={this.attachConsumerProps(ConsumerVOD)}
-                    />
-                    <Route
-                      path="/c/:companyId/broadcast/:bookingId/"
-                      render={this.attachConsumerProps(
-                        ConsumerBookingBroadcast,
-                      )}
-                    />
-                    <Route
-                      path="/c/:companyId/invoice/"
-                      render={this.attachConsumerProps(ConsumerInvoiceReworked)}
-                    />
-                    <Route
-                      path="/c/:companyId/profile/"
-                      render={this.attachConsumerProfileProps(
-                        ConsumerProfileReworked,
-                      )}
-                    />
-                    <Route
-                      path="/c/:companyId/giftcard/"
-                      render={this.attachConsumerProps(ConsumerGiftcard)}
-                    />
-                    <Route
-                      path="/c/:companyId/program/:memberProgramId/"
-                      render={this.attachConsumerProps(ConsumerProgram)}
-                    />
-                    <Route
-                      path="/c/:companyId/program/"
-                      render={this.attachConsumerProps(ConsumerProgram)}
-                    />
-                    <Route
-                      path="/c/:companyId/home/"
-                      render={this.attachConsumerProps(ConsumerDashboard)}
-                    />
-
-                    <Route
-                      path="/c/:companyId/"
-                      render={this.attachConsumerProps(ConsumerDashboard)}
-                    />
-                  </Switch>
-                </ConsumerNavigation>
-              ) : (
-                <ConsumerDrawer
-                  buildUrl={this.props.buildUrl}
-                  buttonsData={this.getConsumerMobileNavigationButtonsData()}
-                  companyId={this.props.companyId}
-                  companyLogo={
-                    this.props.theme ? this.props.theme?.cover : null
-                  }
-                  companyTheme={this.props.theme}
-                  controlableMemberList={this.props.controlableMemberList}
-                  disconnect={this.props.disconnect}
-                  hasFranchise={this.props.theme?.franchisor}
-                  hasMultipleMembership={
-                    this.props.membershipCount && this.props.membershipCount > 1
-                  }
-                  infosOfMember={this.props.infosOfMember}
-                  isRelationNavigation={isRelationNavigation}
-                  memberName={this.props.userFullName}
-                  membership={this.props.membership}
-                  name={this.props.name}
-                  navigateBackToMasterRelation={
-                    this.props.navigateBackToMasterRelation
-                  }
-                  navigateToRelationAccount={
-                    this.props.navigateToRelationAccount
-                  }
-                  programList={this.props.programList}
-                  showCredit={
-                    this.props.theme &&
-                    this.props.theme.consumer_regularize_debt
-                  }
-                  subscriptionPendingActionCount={
-                    this.props.subscriptionPendingActionCount
-                  }
-                >
-                  <CongratulationDialog
-                    basketGeneratedObjects={this.props.basketGeneratedObjects}
-                    goToCalendar={this.props.goToCalendar}
-                    offerBooked={
-                      this.props.offerBooked && this.props.offerBooked.length
-                        ? this.props.offerBooked[0]
-                        : null
-                    }
-                    onCancel={this.props.resetCongratulations}
-                    open={
-                      !!this.props.from_basket ||
-                      !!this.props.from_direct_booking
-                    }
+                  <Route
+                    path="/c/:companyId/subscription/"
+                    render={this.attachConsumerProps(
+                      ConsumerSubscriptionReworked,
+                    )}
                   />
-                  <Switch>
-                    <Route
-                      path="/c/:companyId/booking/"
-                      render={this.attachConsumerProps(ConsumerBooking)}
-                    />
-                    <Route
-                      path="/c/:companyId/subscription/"
-                      render={this.attachConsumerProps(ConsumerSubscription)}
-                    />
-                    <Route
-                      path="/c/:companyId/pack/"
-                      render={this.attachConsumerProps(ConsumerPack)}
-                    />
-                    <Route
-                      path="/c/:companyId/vod/"
-                      render={this.attachConsumerProps(ConsumerVOD)}
-                    />
-                    <Route
-                      path="/c/:companyId/broadcast/:bookingId/"
-                      render={this.attachConsumerProps(
-                        ConsumerBookingBroadcast,
-                      )}
-                    />
-                    <Route
-                      path="/c/:companyId/invoice/"
-                      render={this.attachConsumerProps(ConsumerInvoice)}
-                    />
-                    <Route
-                      path="/c/:companyId/profile/"
-                      render={this.attachConsumerProps(ConsumerProfile)}
-                    />
-                    <Route
-                      path="/c/:companyId/giftcard/"
-                      render={this.attachConsumerProps(ConsumerGiftcard)}
-                    />
-                    <Route
-                      path="/c/:companyId/program/:memberProgramId/"
-                      render={this.attachConsumerProps(ConsumerProgram)}
-                    />
-                    <Route
-                      path="/c/:companyId/program/"
-                      render={this.attachConsumerProps(ConsumerProgram)}
-                    />
-                    <Route
-                      path="/c/:companyId/home/"
-                      render={this.attachConsumerProps(ConsumerDashboard)}
-                    />
+                  <Route
+                    path="/c/:companyId/pack/"
+                    render={this.attachConsumerProps(ConsumerPassReworked)}
+                  />
+                  <Route
+                    path="/c/:companyId/vod/"
+                    render={this.attachConsumerProps(ConsumerVOD)}
+                  />
+                  <Route
+                    path="/c/:companyId/broadcast/:bookingId/"
+                    render={this.attachConsumerProps(ConsumerBookingBroadcast)}
+                  />
+                  <Route
+                    path="/c/:companyId/invoice/"
+                    render={this.attachConsumerProps(ConsumerInvoiceReworked)}
+                  />
+                  <Route
+                    path="/c/:companyId/profile/"
+                    render={this.attachConsumerProfileProps(
+                      ConsumerProfileReworked,
+                    )}
+                  />
+                  <Route
+                    path="/c/:companyId/giftcard/"
+                    render={this.attachConsumerProps(ConsumerGiftcard)}
+                  />
+                  <Route
+                    path="/c/:companyId/program/:memberProgramId/"
+                    render={this.attachConsumerProps(ConsumerProgram)}
+                  />
+                  <Route
+                    path="/c/:companyId/program/"
+                    render={this.attachConsumerProps(ConsumerProgram)}
+                  />
+                  <Route
+                    path="/c/:companyId/home/"
+                    render={this.attachConsumerProps(ConsumerDashboard)}
+                  />
 
-                    <Route
-                      path="/c/:companyId/"
-                      render={this.attachConsumerProps(ConsumerDashboard)}
-                    />
-                  </Switch>
-                </ConsumerDrawer>
-              )
+                  <Route
+                    path="/c/:companyId/"
+                    render={this.attachConsumerProps(ConsumerDashboard)}
+                  />
+                </Switch>
+              </ConsumerNavigation>
             ) : (
               <ConsumerLoading />
             )}

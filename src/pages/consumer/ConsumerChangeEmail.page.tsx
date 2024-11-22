@@ -49,6 +49,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { Dispatch } from '../../state/types';
 // @ts-expect-error
 import { requestLogin } from '../../actions/auth.actions';
+import { getUserSpaceUrl } from '#src/libs/marketplace/routing-utils';
 
 type StateHandlerInit = {
   submitStatus: {
@@ -111,7 +112,8 @@ export class ConsumerChangeEmailRequestPage extends Component<Props> {
     }
   }
 
-  goToUserSpace = () => this.props.pushRouter(`/c/${this.props.companyId}`);
+  goToUserSpace = () =>
+    this.props.pushRouter(getUserSpaceUrl(this.props.companyId));
 
   denied = () => {
     this.props.answerChangeEmailRequest(

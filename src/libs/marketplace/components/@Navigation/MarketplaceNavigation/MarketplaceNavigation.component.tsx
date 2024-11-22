@@ -13,6 +13,7 @@ import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#src/libs/consumer-space/const
 import {
   fromConfigToUrl,
   getCheckoutUrl,
+  getUserSpaceUrl,
 } from '#src/libs/marketplace/routing-utils';
 import { getDefaultMarketplaceTabTitle } from '#src/libs/exportable-components/utils';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
@@ -219,7 +220,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
         onClick:
           isMobile && !!memberName
             ? handleToggleConsumerSideDrawer
-            : () => push(`/c/${companyTheme.company}/booking/`),
+            : () => push(getUserSpaceUrl(companyTheme.company)),
         variant: isMobile ? 'text' : 'outlined',
         isIconButton: isMobile,
       },

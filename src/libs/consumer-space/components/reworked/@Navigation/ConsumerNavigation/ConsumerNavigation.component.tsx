@@ -6,6 +6,7 @@ import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import {
   fromConfigToUrl,
   getCheckoutUrl,
+  getUserSpaceUrl,
 } from '#src/libs/marketplace/routing-utils';
 import { getDefaultMarketplaceTabTitle } from '#src/libs/exportable-components/utils';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -122,6 +123,16 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
     }
   }, [consumerSpaceContext, widgetHideNavigation]);
 
+  /** Compute the sidebar display from widget config + context */
+  const shouldHideSidebar = useMemo(() => {
+    switch (consumerSpaceContext) {
+      case ConsumerSpaceContextEnum.FAB:
+        return true;
+      default:
+        return false;
+    }
+  }, [consumerSpaceContext]);
+
   const linksList: AppBarTab[] = useMemo(
     () =>
       (tabConfigList ?? []).map((tabConfig) => ({
@@ -199,7 +210,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
         onClick:
           isMobile && !!memberName
             ? handleToggleConsumerSideDrawer
-            : () => push(`/c/${companyId}/booking/`),
+            : () => push(getUserSpaceUrl(companyId)),
         variant: isMobile ? 'text' : 'outlined',
         isIconButton: isMobile,
       },
@@ -316,10 +327,12 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
           'bs-consumer-navigation__layout--relationship': isRelationshipAuth,
         })}
       >
-        <NavigationSideBar
-          items={consumerNavigationData}
-          memberName={memberName}
-        />
+        {!shouldHideSidebar && (
+          <NavigationSideBar
+            items={consumerNavigationData}
+            memberName={memberName}
+          />
+        )}
         <main
           className={classNames('bs-consumer-navigation__content', {
             'bs-consumer-navigation__content--mobile': isMobile,

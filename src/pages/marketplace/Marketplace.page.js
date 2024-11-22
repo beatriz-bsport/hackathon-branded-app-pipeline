@@ -111,7 +111,6 @@ import { getTheme } from '../../theme';
 import MarketplaceBasketSummaryDialogCssOnly from '../../libs/marketplace/components/@Basket/MarketplaceBasketSummaryDialogCssOnly';
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
-import { getIsNewMemberProfileDisplayed } from '#src/libs/consumer-space/utils';
 import analyticsUtils from '../../components/analytics/analytics';
 
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
@@ -493,251 +492,41 @@ export class MarketPlace extends Component<Props, State> {
       );
     }
 
-    if (getIsNewMemberProfileDisplayed(this.props.companyId)) {
-      return (
-        <MarketplaceNavigation
-          authStateInvalidFields={this.props.errorFields}
-          authStateLoading={this.props.loginProcessing}
-          authUsername={this.props.auth.username || ''}
-          basketProductListCount={getBasketBuyableItemsCount(
-            this.props.currentBasket?.checkout_items ?? [],
-          )}
-          companyTheme={this.props.companyTheme}
-          customConfiguration={this.props.customConfiguration}
-          franchisor={this.props.franchisor}
-          handleCloseLoginDialog={this.closeLogin}
-          handleCloseSignUpDialog={this.closeSignup}
-          handleEmailLogin={this.doEmailLogin}
-          handleSubmitCustomForm={this.submitCustomForm}
-          handleSubmitDraftCustomForm={this.handleSubmitDraft}
-          isAuthenticated={this.props.auth.authenticated}
-          isAuthStateError={!!this.props.auth.error}
-          isLoginDialogOpen={this.state.loginDialogOpen}
-          isSettingsConfigLoading={false}
-          isSignUpDialogOpen={this.state.signupDialogOpen}
-          memberFirstName={this.props.consumerProfile?.first_name}
-          memberName={this.props.userFullName ?? ''}
-          memberRelationshipList={this.props.controlableMemberList}
-          navigateBackToMasterRelation={this.props.navigateBackToMasterRelation}
-          navigateToRelationAccount={this.props.navigateToRelationAccount}
-          onRequestResetPassword={this.onRequestResetPassword}
-          onToggleSignUpDialog={this.toggleSignUp}
-          push={this.props.push}
-          signUpCustomForm={this.props.signUpCustomForm}
-          tabConfigList={this.props.marketplaceSettingsConfig}
-          tabSelected={this.props.tabSelected}
-        >
-          {this.renderContent()}
-        </MarketplaceNavigation>
-      );
-    }
-
     return (
-      <MuiThemeProvider theme={getTheme(this.props.companyTheme)}>
-        <MemberShipValidationWrapper companyId={this.props.companyId}>
-          {!!this.props.customConfiguration &&
-            !!this.props.customConfiguration.apply_on_marketplace && (
-              <>
-                {!!this.props.companyTheme?.widget_theme && (
-                  <ApplyCustomTheme
-                    styles={this.props.companyTheme.widget_theme}
-                  />
-                )}
-                <ApplyCustomCssStyles
-                  customConfiguration={this.props.customConfiguration}
-                />
-              </>
-            )}
-          <div className={classes.container}>
-            <MarketplaceAppBar
-              withNavigation
-              auth={this.props.auth}
-              controlableMemberList={this.props.controlableMemberList}
-              currentBasket={this.props.currentBasket}
-              disconnect={() => {
-                this.props.disconnect();
-              }}
-              franchisor={this.props.franchisor}
-              goToUserSpace={() =>
-                this.props.goToUserSpace(this.props.companyId)
-              }
-              handleTabChange={this.handleTabChange}
-              hideAppBar={this.props.hideAppBar}
-              hideNavigation={this.props.hideNavigation}
-              isRelationNavigation={
-                !!getItemInStorage(
-                  'local',
-                  STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
-                )
-              }
-              logo={this.props.companyTheme.cover}
-              navigateBackToMasterRelation={
-                this.props.navigateBackToMasterRelation
-              }
-              navigateToRelationAccount={this.props.navigateToRelationAccount}
-              onCompanySelected={this.onCompanySelected}
-              openCurrentBasket={() => this.toggleCurrentBasketOpen(true)}
-              photo={this.props.consumerProfile?.photo}
-              requestLogin={this.openLogin}
-              requestSignUp={() => this.toggleSignUp(true)}
-              settings={this.props.settings}
-              tabSelected={this.props.tabSelected}
-              theme={this.props.companyTheme}
-              websiteURL={this.props.companyTheme.websiteURL}
-            />
-            <div className={classes.content}>{this.renderContent()}</div>
-
-            {this.props.companyTheme?.display_new_checkout_flow ? (
-              <MarketplaceBasketSummaryDialogCssOnly
-                basket={this.props.currentBasket}
-                goToCheckout={() =>
-                  this.props.goToCheckout(
-                    this.props.currentBasket.company,
-                    this.props.companyTheme?.display_new_checkout_flow,
-                  )
-                }
-                isExcludingTax={
-                  this.props.companyTheme.is_tax_excluded_in_marketplace
-                }
-                loading={this.props.currentBasketLoading}
-                onAddCheckoutItem={(data, options?) =>
-                  this.props.addItemToBasket(
-                    this.props.currentBasket.id,
-                    data,
-                    options,
-                  )
-                }
-                onCancel={() => this.toggleCurrentBasketOpen(false)}
-                onRemoveCheckoutItem={(data) =>
-                  this.props.removeItemFromBasket(
-                    this.props.currentBasket.id,
-                    data,
-                  )
-                }
-                open={!!this.state.currentBasketOpen}
-              />
-            ) : (
-              <MarketplaceBasketDialog
-                basket={this.props.currentBasket}
-                goToCheckout={() =>
-                  this.props.goToCheckout(
-                    this.props.currentBasket.company,
-                    this.props.companyTheme?.display_new_checkout_flow,
-                  )
-                }
-                isExcludingTax={
-                  this.props.companyTheme.is_tax_excluded_in_marketplace
-                }
-                loading={this.props.currentBasketLoading}
-                onAddCheckoutItem={(data, options?) =>
-                  this.props.addItemToBasket(
-                    this.props.currentBasket.id,
-                    data,
-                    options,
-                  )
-                }
-                onCancel={() => this.toggleCurrentBasketOpen(false)}
-                onRemoveCheckoutItem={(data) =>
-                  this.props.removeItemFromBasket(
-                    this.props.currentBasket.id,
-                    data,
-                  )
-                }
-                open={!!this.state.currentBasketOpen}
-              />
-            )}
-
-            <GenericResponsiveDialog
-              maxWidth="sm"
-              onClose={this.closeLogin}
-              open={
-                this.state.loginDialogOpen &&
-                !this.props.auth.authenticated &&
-                !this.state.signupDialogOpen
-              }
-            >
-              <DialogContent>
-                <div
-                  className="bs-setup-variable"
-                  id="bs-setup-derived-variable"
-                >
-                  <Login
-                    company
-                    isPremium
-                    logoHidden
-                    marketplace
-                    doEmailLogin={this.doEmailLogin}
-                    error={this.props.auth.error}
-                    errorFields={this.props.errorFields}
-                    franchisor={this.props.franchisor}
-                    loading={this.props.auth.loading}
-                    onRequestResetPassword={this.onRequestResetPassword}
-                    requestSignUp={() => this.toggleSignUp(true)}
-                    theme={this.props.companyTheme}
-                  />
-                </div>
-              </DialogContent>
-            </GenericResponsiveDialog>
-            {CUSTOM_FORM_CSS_VARIANT_ACTIVATED ? (
-              <CustomFormPortal
-                generalTermsAndConditions={
-                  this.props.companyTheme.general_terms_of_use
-                }
-                initial={this.props.signUpCustomForm}
-                isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
-                isOpen={
-                  this.state.signupDialogOpen &&
-                  !this.props.auth.authenticated &&
-                  this.props.signUpCustomForm
-                }
-                layouts={
-                  this.props.signUpCustomForm
-                    ? this.props.signUpCustomForm.layout
-                    : null
-                }
-                onCancel={this.closeSignup}
-                onClose={this.closeSignup}
-                onSubmit={this.submitCustomForm}
-                onSubmitDraft={this.handleSubmitDraft}
-                title={t('form.signUpTitle')}
-                waiver={this.props.companyTheme.waiver}
-              />
-            ) : (
-              <CustomFormViewDialogComponent
-                fullWidth
-                maxWidth="md"
-                onClose={this.closeSignup}
-                open={
-                  this.state.signupDialogOpen &&
-                  !this.props.auth.authenticated &&
-                  this.props.signUpCustomForm
-                }
-              >
-                <DialogTitle>
-                  <CustomFormTitle isCompany title={t('form.signUpTitle')} />
-                </DialogTitle>
-                <div className={classes.customFormContainer}>
-                  <CustomFormView
-                    general_terms_and_conditions={
-                      this.props.companyTheme.general_terms_of_use
-                    }
-                    initial={this.props.signUpCustomForm}
-                    layouts={
-                      this.props.signUpCustomForm
-                        ? this.props.signUpCustomForm.layout
-                        : null
-                    }
-                    onCancel={this.handlCancelCustomForm}
-                    onSubmit={this.submitCustomForm}
-                    onSubmitDraft={this.handleSubmitDraft}
-                    waiver={this.props.companyTheme.waiver}
-                  />
-                </div>
-              </CustomFormViewDialogComponent>
-            )}
-          </div>
-        </MemberShipValidationWrapper>
-      </MuiThemeProvider>
+      <MarketplaceNavigation
+        authStateInvalidFields={this.props.errorFields}
+        authStateLoading={this.props.loginProcessing}
+        authUsername={this.props.auth.username || ''}
+        basketProductListCount={getBasketBuyableItemsCount(
+          this.props.currentBasket?.checkout_items ?? [],
+        )}
+        companyTheme={this.props.companyTheme}
+        customConfiguration={this.props.customConfiguration}
+        franchisor={this.props.franchisor}
+        handleCloseLoginDialog={this.closeLogin}
+        handleCloseSignUpDialog={this.closeSignup}
+        handleEmailLogin={this.doEmailLogin}
+        handleSubmitCustomForm={this.submitCustomForm}
+        handleSubmitDraftCustomForm={this.handleSubmitDraft}
+        isAuthenticated={this.props.auth.authenticated}
+        isAuthStateError={!!this.props.auth.error}
+        isLoginDialogOpen={this.state.loginDialogOpen}
+        isSettingsConfigLoading={false}
+        isSignUpDialogOpen={this.state.signupDialogOpen}
+        memberFirstName={this.props.consumerProfile?.first_name}
+        memberName={this.props.userFullName ?? ''}
+        memberRelationshipList={this.props.controlableMemberList}
+        navigateBackToMasterRelation={this.props.navigateBackToMasterRelation}
+        navigateToRelationAccount={this.props.navigateToRelationAccount}
+        onRequestResetPassword={this.onRequestResetPassword}
+        onToggleSignUpDialog={this.toggleSignUp}
+        push={this.props.push}
+        signUpCustomForm={this.props.signUpCustomForm}
+        tabConfigList={this.props.marketplaceSettingsConfig}
+        tabSelected={this.props.tabSelected}
+      >
+        {this.renderContent()}
+      </MarketplaceNavigation>
     );
   }
 }

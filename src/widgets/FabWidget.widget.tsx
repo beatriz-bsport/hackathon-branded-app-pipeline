@@ -44,7 +44,6 @@ import {
 import { buildUrlParams } from '../utils/http';
 import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
 import WidgetUtils from 'bsport-saas/src/libs/widget/WidgetUtils';
-import { getIsNewMemberProfileDisplayed } from 'bsport-saas/src/libs/consumer-space/utils';
 
 type OwnProps = {
   companyId: number,
@@ -86,9 +85,7 @@ class FabWidget extends React.PureComponent<Props, State> {
       if (
         this.props.dialogUrl.includes(
           `${PUBLIC_URL}/login${buildUrlParams({
-            next: getIsNewMemberProfileDisplayed(this.props.companyId)
-              ? `/c/${this.props.companyId}/booking`
-              : `/c/${this.props.companyId}`,
+            next: `/c/${this.props.companyId}/booking/`,
           })}`,
         )
       ) {

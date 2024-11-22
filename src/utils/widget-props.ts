@@ -5,7 +5,6 @@ import {
 } from 'bsport-saas/src/libs/exportable-components/constants';
 import { WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS } from 'bsport-saas/src/libs/widget/constants';
 import { DIALOG_MODE_TAB } from '@bsport/common/lib/master-data/widget-dialog-mode';
-import { getIsNewMemberProfileDisplayed } from 'bsport-saas/src/libs/consumer-space/utils';
 
 export type WidgetConfig = {
   widgetId: string,
@@ -62,15 +61,7 @@ export const migrateOldProps = (props: WidgetConfig) => {
   /**
    * Use a default config when the current config is wrong
    */
-  if (
-    ![
-      ...WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS,
-      // TODO pre-release widget
-      ...(getIsNewMemberProfileDisplayed(props.companyId)
-        ? [EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE]
-        : []),
-    ].includes(_props.widgetType)
-  ) {
+  if (!WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS.includes(_props.widgetType)) {
     _props.widgetType = EXPORTABLE_COMPONENT_TYPE_CALENDAR;
   }
 

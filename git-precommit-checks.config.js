@@ -71,5 +71,11 @@ module.exports = {
         'Always use named imports from index when working with material-ui-pickers',
       regex: /material-ui-pickers\//,
     },
+    {
+      filter: /\.json$/,
+      message:
+        '🔴 undefined as a translation key. Make sure to update your dependencies, and run `updateTranslation`',
+      regex: /"undefined":/,
+    },
   ],
 };

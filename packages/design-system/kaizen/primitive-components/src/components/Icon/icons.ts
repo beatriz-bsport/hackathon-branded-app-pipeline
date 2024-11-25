@@ -38,6 +38,9 @@ const icons = {
     async () => await import("./assets/message-x-square.svg?react"),
   ),
   save: React.lazy(async () => await import("./assets/save.svg?react")),
+  "user-edit": React.lazy(
+    async () => await import("./assets/user-edit.svg?react"),
+  ),
   "x-close": React.lazy(async () => await import("./assets/x-close.svg?react")),
   x: React.lazy(async () => await import("./assets/x.svg?react")),
 } as const;

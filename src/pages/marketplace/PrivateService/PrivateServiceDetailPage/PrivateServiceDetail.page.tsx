@@ -323,9 +323,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
           },
         );
 
-        // @ts-expect-error
         if (establishment_found?.data?.establishment) {
-          // @ts-expect-error
           data.establishment = establishment_found.data.establishment;
         }
       }

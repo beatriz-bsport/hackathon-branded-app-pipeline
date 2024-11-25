@@ -27,6 +27,7 @@ import type {
   ResourceSlotsByDate,
 } from './types';
 import type { PaginatedResponse } from '../../state/types';
+import type { AssociatedEstablishment } from '#src/libs/establishment/types';
 
 export const fetchAvailabilitySlots = (params: any = {}) => {
   return getAuth(
@@ -758,7 +759,7 @@ export async function findAvailableEstablishment(
     associated_coach?: number;
   },
 ) {
-  return postAuth(
+  return postAuth<AssociatedEstablishment>(
     `${API_V1_URI}/private_service/private_slot/find_available_establishment/`,
     { private_slot: privateSlotId, ...data },
   );

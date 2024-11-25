@@ -316,6 +316,13 @@ const SlotSelectorPage: React.FC<Props> = ({
     setActiveEstablishment,
   ]);
 
+  // Automatically select the single available slot if only one slot is defined in the service
+  useEffect(() => {
+    if ((privateService?.slots ?? []).length === 1) {
+      onSelectPrivateSlot(privateService.slots[0]);
+    }
+  }, [privateService, onSelectPrivateSlot]);
+
   return (
     <div className={classes.pageContainer}>
       <div className={classes.container}>

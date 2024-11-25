@@ -1,19 +1,14 @@
-import { useCallback, useContext, useEffect, useMemo } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import { Duration } from 'luxon';
 import { useSelector } from 'react-redux';
-import { getPrivateServiceWithDetails } from '#src/libs/private-service/selectors/private-service';
 import { getSlotsByDate } from '#src/libs/private-service/selectors/availability-slot';
 
 import { SlotSelectorContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelector.context';
 
-import type { Coach } from '#src/libs/associated-coach/types';
-import type { Establishment } from '#src/libs/establishment/types';
 import type {
-  PrivateService,
   PrivateSlot,
   ResourceSlotsByDate,
 } from '#src/libs/private-service/types';
-import type { RootState } from '#src/reducers';
 
 /**
  * Custom hook for handling private slot selection in a booking or scheduling application.
@@ -32,17 +27,10 @@ const usePrivateSlotSelection = () => {
     selectedPrivateSlot,
     setSelectedPrivateSlot,
     setSelectedDayTimeInterval,
-    serviceId,
   } = useContext(SlotSelectorContext);
 
   // Retrieve all available slots grouped by date
   const availabilitySlotByDate = useSelector(getSlotsByDate);
-
-  // Access detailed service information from the Redux store based on service ID
-  const privateService = useSelector<
-    RootState,
-    PrivateService<Coach, Establishment, PrivateSlot>
-  >((state) => getPrivateServiceWithDetails(state, serviceId));
 
   /**
    * Callback to select a private slot.
@@ -93,13 +81,6 @@ const usePrivateSlotSelection = () => {
   const selectedPrivateSlotDuration = Duration.fromObject({
     minutes: selectedPrivateSlot?.duration_minutes ?? 0,
   });
-
-  // Automatically select the single available slot if only one slot is defined in the service
-  useEffect(() => {
-    if ((privateService?.slots ?? []).length === 1) {
-      onSelectPrivateSlot(privateService.slots[0]);
-    }
-  }, [privateService, onSelectPrivateSlot]);
 
   return {
     onSelectPrivateSlot,

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Avatar, { sizes } from "./Avatar";
 // @ts-expect-error Importing a local file
 import AvatarImage from "./assets/avatar.jpeg";
-import Icon from "../Icon";
+import Icon, { icons } from "../Icon";
 
 /**
  * A component that displays an avatar, which can be an image or an icon.<br>
@@ -35,12 +35,28 @@ const meta: Meta<typeof Avatar> = {
     onClick: {
       table: { type: { summary: "function" } },
     },
+    iconName: {
+      options: [undefined, ...Object.keys(icons)],
+      control: { type: "select" },
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: "undefined" },
+      },
+    },
+    actionableIconName: {
+      options: [undefined, ...Object.keys(icons)],
+      control: { type: "select" },
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: "undefined" },
+      },
+    },
     children: {
       options: ["empty", "icon", "initials"],
       control: { type: "select" },
       mapping: {
         empty: [],
-        icon: <Icon icon="save" />,
+        icon: <Icon icon="save" size="sm" />,
         initials: "FR",
       },
       table: { type: { summary: "ReactNode" } },
@@ -65,7 +81,16 @@ export const AvatarWithImage: Story = {
 };
 
 export const AvatarWithIcon: Story = {
-  name: "Avatar with icon",
+  name: "Avatar with icon from name",
+  args: {
+    size: "md",
+    shape: "round",
+    iconName: "filter-lines",
+  },
+};
+
+export const AvatarWithChildrenIcon: Story = {
+  name: "Avatar with icon from children",
   args: {
     size: "md",
     shape: "squared",
@@ -73,7 +98,7 @@ export const AvatarWithIcon: Story = {
   },
 };
 
-export const AvatarWithInitials: Story = {
+export const AvatarWithChildrenInitials: Story = {
   name: "Avatar with initials",
   args: {
     size: "md",

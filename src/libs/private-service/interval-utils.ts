@@ -126,25 +126,25 @@ export const getAvailableDayTimeSegments = (isoDate: string, slots: Slot[]) => {
   const dayTimeIntervals = getDayTimeIntervals(isoDate);
 
   const numberOfDayTimeIntervals = Object.keys(dayTimeIntervals).length;
+  const availableDayTimeSegments = new Set<DayTimeIntervals>();
 
-  const availableDayTimeSegments = (slots ?? []).reduce<Set<DayTimeIntervals>>(
-    (availableDayTimeSegmentsSet, slot) => {
-      const slotInterval = convertSlotToInterval(slot);
-      Object.entries(dayTimeIntervals).every(
-        ([dayTimeSegment, dayTimeInterval]) => {
-          if (availableDayTimeSegmentsSet.size === numberOfDayTimeIntervals) {
-            return false;
-          }
-          if (slotInterval.overlaps(dayTimeInterval))
-            availableDayTimeSegmentsSet.add(dayTimeSegment as DayTimeIntervals);
-          return true;
-        },
-      );
-      return availableDayTimeSegmentsSet;
-    },
-    new Set<DayTimeIntervals>(),
-  );
+  const slotIntervals = [...(slots ?? [])]
+    .map((slot) => convertSlotToInterval(slot))
+    .sort((a, b) => a.start.toMillis() - b.start.toMillis());
 
+  (slotIntervals ?? []).forEach((slotInterval) => {
+    Object.entries(dayTimeIntervals).every(
+      ([dayTimeSegment, dayTimeInterval]) => {
+        if (availableDayTimeSegments.size === numberOfDayTimeIntervals) {
+          return false;
+        }
+        if (slotInterval.overlaps(dayTimeInterval)) {
+          availableDayTimeSegments.add(dayTimeSegment as DayTimeIntervals);
+        }
+        return true;
+      },
+    );
+  });
   return availableDayTimeSegments;
 };
 
@@ -186,7 +186,6 @@ export const getAvailableDayTimeIntervals = (
     }
     return dayTimeIntervalsAcc;
   }, {} as Record<DayTimeIntervals, Interval<true> | Interval<false>>);
-
   return availableDayTimeIntervals;
 };
 

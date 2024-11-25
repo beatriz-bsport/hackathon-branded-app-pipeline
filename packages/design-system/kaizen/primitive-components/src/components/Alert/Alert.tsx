@@ -1,14 +1,12 @@
-import type { SetRequired } from "type-fest";
 import React, { MouseEventHandler } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import mapValues from "lodash/mapValues";
+import { cva } from "class-variance-authority";
+import classNames from "classnames";
 import Icon, { type IconName } from "../Icon";
 import Title from "../Title";
 import Body from "../Body";
 import Button from "../Button";
 
 const defaultClasses = [
-  "border-stroke-thin",
   "rounded-lg",
   "font-weak",
   "p-md",
@@ -16,42 +14,41 @@ const defaultClasses = [
 ] as const;
 
 const variants = {
-  status: {
-    default: [
+  statusByType: {
+    "weak:default": [
       "bg-surface-default",
-      "border-stroke-default/md",
-      "border-stroke-thin",
-      "fill-onsurface-default",
+      "shadow-border-thin-default",
       "text-onsurface-default",
     ],
-    warning: [
+    "weak:warning": [
       "bg-surface-status-warning-weak",
-      "border-stroke-status-warning",
-      "fill-onsurface-status-warning-strong",
+      "shadow-border-thin-warning",
       "text-onsurface-status-warning-strong",
     ],
-    info: [
+    "weak:info": [
       "bg-surface-status-info-weak",
-      "border-stroke-status-info",
-      "fill-onsurface-status-info-strong",
+      "shadow-border-thin-info",
       "text-onsurface-status-info-strong",
     ],
-    critical: [
+    "weak:critical": [
       "bg-surface-status-critical-weak",
-      "border-stroke-status-critical",
-      "fill-onsurface-status-critical-strong",
+      "shadow-border-thin-critical",
       "text-onsurface-status-critical-strong",
     ],
-    positive: [
+    "weak:positive": [
       "bg-surface-status-positive-weak",
-      "border-stroke-status-positive",
-      "fill-onsurface-status-positive-strong",
+      "shadow-border-thin-positive",
       "text-onsurface-status-positive-strong",
     ],
+    "strong:default": ["bg-surface-default-strong"],
+    "strong:warning": ["bg-surface-status-warning-strong"],
+    "strong:info": ["bg-surface-status-info-strong"],
+    "strong:critical": ["bg-surface-status-critical-strong"],
+    "strong:positive": ["bg-surface-status-positive-strong"],
   },
 } as const;
 
-const iconByStatus: { [status in keyof typeof variants.status]: IconName } = {
+const iconByStatus: Record<(typeof statuses)[number], IconName> = {
   default: "message-text-square-02",
   warning: "message-alert-square",
   info: "message-question-square",
@@ -59,35 +56,36 @@ const iconByStatus: { [status in keyof typeof variants.status]: IconName } = {
   positive: "message-check-square",
 } as const;
 
-/**
- * Intents available for the button
- */
-export const statuses = mapValues(variants.status, (_, key) => key) as {
-  [key in keyof typeof variants.status]: key;
-};
+export const statuses = [
+  "default",
+  "warning",
+  "info",
+  "critical",
+  "positive",
+] as const;
+
+export const types = ["weak", "strong"] as const;
 
 const alert = cva(defaultClasses, {
   variants,
 });
 
-type AlertVariantProps = SetRequired<VariantProps<typeof alert>, "status">;
-
-export type AlertProps = React.HTMLAttributes<HTMLDivElement> &
-  AlertVariantProps &
-  React.PropsWithChildren<{
-    status: keyof typeof statuses;
-    title?: string;
-    buttonLabel?: string;
-    isClearable?: boolean;
-    onClearClick: MouseEventHandler<HTMLButtonElement>;
-    onButtonClick: MouseEventHandler<HTMLButtonElement>;
-  }>;
+export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
+  status: (typeof statuses)[number];
+  type: (typeof types)[number];
+  title?: string;
+  buttonLabel?: string;
+  isClearable?: boolean;
+  onClearClick: MouseEventHandler<HTMLButtonElement>;
+  onButtonClick: MouseEventHandler<HTMLButtonElement>;
+};
 
 /**
  * The Alert component is a visual element that is used to convey important information to users.
  * It can be used to display info, warnings, errors, or success messages.
  * @param props.className Classname to add to the alert.
  * @param props.status Status of the alert. Can be "default", "warning", "info", "critical", or "positive".
+ * @param props.type Type of the alert. Can be "weak" or "strong".
  * @param props.title Title of the alert.
  * @param props.buttonLabel Text label of the button.
  * @param props.isClearable Boolean to define if the alert is clearable.
@@ -99,6 +97,7 @@ export type AlertProps = React.HTMLAttributes<HTMLDivElement> &
 const Alert: React.FC<AlertProps> = ({
   className,
   status,
+  type,
   title,
   buttonLabel,
   isClearable = true,
@@ -114,11 +113,14 @@ const Alert: React.FC<AlertProps> = ({
       role="alert"
       aria-live="assertive"
       aria-labelledby={title ? `${title}-title` : undefined}
-      className={`${alert({ className, status })}`}
+      className={classNames(
+        `${alert({ className, statusByType: `${type}:${status}` as keyof typeof variants.statusByType })}`,
+        { "text-onsurface-default-onstrong": type === "strong" },
+      )}
       {...props}
     >
       <div>
-        <Icon icon={iconByStatus[status || "default"]} size={"md"} />
+        <Icon icon={iconByStatus[status]} size="md" />
       </div>
       <div className="flex-1 flex flex-col gap-2xs">
         {title && (
@@ -132,21 +134,21 @@ const Alert: React.FC<AlertProps> = ({
         <div className="flex flex-row items-center gap-sm">
           {buttonLabel && (
             <Button
+              label={buttonLabel}
               intent="default"
+              color="main"
               size="sm"
               onClick={onButtonClick}
-              color="main"
-              label={buttonLabel}
             />
           )}
           {isClearable && (
             <Button
+              intent="flat"
+              color={type === "weak" ? "default" : "onstrong"}
+              size="sm"
               iconLeft="x-close"
               onClick={onClearClick}
-              size="sm"
-              intent="flat"
               loading={false}
-              color="default"
               aria-label="Clear alert"
             />
           )}

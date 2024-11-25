@@ -31,6 +31,7 @@ const useEstablishmentSelection = () => {
     setSelectedDayTimeInterval,
     serviceId,
     setActiveEstablishment,
+    selectedEstablishmentsIds,
   } = useContext(SlotSelectorContext);
 
   const availabilityByEstablishmentAndCoach =
@@ -90,12 +91,14 @@ const useEstablishmentSelection = () => {
     );
 
   const establishments = useMemo(
-    () =>
-      privateService?.establishments?.filter(
-        (establishment) => !!establishment?.id,
-      ) ?? [],
+    () => privateService?.establishments ?? [],
     [privateService?.establishments],
   );
+
+  const selectedAssociatedEstablishmentsIds = establishments
+    .filter(({ id }) => selectedEstablishmentsIds.includes(id))
+    .map(({ associatedestablishment_set }) => associatedestablishment_set?.[0])
+    ?.filter(Boolean);
 
   /**Memoized array of establishments that have available slots based
    * on availabilityByEstablishmentAndCoach. This array is filtered to
@@ -105,8 +108,9 @@ const useEstablishmentSelection = () => {
     () =>
       establishments.filter(
         (establishment) =>
-          !!availabilityByEstablishmentAndCoach[establishment?.id]
-            ?.establishmentAvailabilities?.length,
+          !!availabilityByEstablishmentAndCoach[
+            establishment?.associatedestablishment_set[0]
+          ]?.establishmentAvailabilities?.length,
       ),
     [availabilityByEstablishmentAndCoach, establishments],
   );
@@ -133,6 +137,7 @@ const useEstablishmentSelection = () => {
     showEstablishmentSelector,
     availableEstablishments,
     handleSelectEstablishment,
+    selectedAssociatedEstablishmentsIds,
   };
 };
 

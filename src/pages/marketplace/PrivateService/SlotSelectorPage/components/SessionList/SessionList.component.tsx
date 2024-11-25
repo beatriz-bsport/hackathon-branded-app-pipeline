@@ -25,22 +25,27 @@ const SessionList: React.FC<SessionSelectorProps> = ({
 
   const coachAvailabilitiesByEstablishment = useMemo(
     () =>
-      availabilityByEstablishmentAndCoach[activeEstablishment?.id]
-        ?.coachAvailabilities,
-    [availabilityByEstablishmentAndCoach, activeEstablishment?.id],
+      availabilityByEstablishmentAndCoach[
+        activeEstablishment?.associatedestablishment_set[0]
+      ]?.coachAvailabilities,
+    [
+      availabilityByEstablishmentAndCoach,
+      activeEstablishment?.associatedestablishment_set,
+    ],
   );
 
   const establishmentAvailabilities =
-    availabilityByEstablishmentAndCoach[activeEstablishment?.id]
-      ?.establishmentAvailabilities;
+    availabilityByEstablishmentAndCoach[
+      activeEstablishment?.associatedestablishment_set[0]
+    ]?.establishmentAvailabilities;
 
   if (coaches?.length) {
     return (
       <div className={classes.sessionsContainer}>
         {coaches.map((coach) => {
           const coachSessions =
-            coachAvailabilitiesByEstablishment?.[coach.id] ??
-            availableIntervalByCoachId?.[coach.id] ??
+            coachAvailabilitiesByEstablishment?.[coach.associated_coach_id] ??
+            availableIntervalByCoachId?.[coach.associated_coach_id] ??
             [];
           return (
             <SessionListItem

@@ -26,8 +26,12 @@ import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/re
  */
 const useCoachSelection = () => {
   // Destructure context values for setting coach-related state
-  const { setSelectedCoachesIds, setSelectedDayTimeInterval, serviceId } =
-    useContext(SlotSelectorContext);
+  const {
+    setSelectedCoachesIds,
+    setSelectedDayTimeInterval,
+    serviceId,
+    selectedCoachesIds,
+  } = useContext(SlotSelectorContext);
 
   // Retrieve `privateService` from the Redux store, which includes detailed info.
   const privateService = useSelector<
@@ -36,8 +40,16 @@ const useCoachSelection = () => {
   >((state) => getPrivateServiceWithDetails(state, serviceId));
 
   const coaches = useMemo(
-    () => privateService?.coaches?.filter((coach) => !!coach?.id) ?? [],
+    () => privateService?.coaches ?? [],
     [privateService?.coaches],
+  );
+
+  const selectedAssociatedCoachesIds = useMemo(
+    () =>
+      coaches
+        .filter(({ id }) => selectedCoachesIds?.includes(id))
+        .map(({ associated_coach_id }) => associated_coach_id),
+    [selectedCoachesIds, coaches],
   );
 
   /**
@@ -75,6 +87,7 @@ const useCoachSelection = () => {
   return {
     coaches,
     onSelectCoaches,
+    selectedAssociatedCoachesIds,
     showCoachSelector,
   };
 };

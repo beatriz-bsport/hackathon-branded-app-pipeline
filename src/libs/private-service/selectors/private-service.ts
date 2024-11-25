@@ -355,10 +355,20 @@ export const getPrivateServiceWithDetails = createSelector(
     return {
       ...privateService,
       coaches: privateService.coaches
-        ?.map((coachId) => coachesById?.[coachId])
+        ?.map((associatedCoachId) =>
+          Object.values(coachesById)?.find(
+            (coach) => coach.associated_coach_id === associatedCoachId,
+          ),
+        )
         .filter(Boolean),
       establishments: privateService.establishments
-        ?.map((establishmentId) => establishmentsById?.[establishmentId])
+        ?.map((associatedEstablishmentId) =>
+          Object.values(establishmentsById)?.find(
+            (establishment) =>
+              establishment.associatedestablishment_set[0] ===
+              associatedEstablishmentId,
+          ),
+        )
         .filter(Boolean),
       slots: privateService.slots
         ?.map((slotId) => privateSlotsById?.[slotId])

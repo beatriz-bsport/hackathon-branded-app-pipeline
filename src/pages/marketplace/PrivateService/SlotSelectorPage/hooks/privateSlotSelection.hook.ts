@@ -1,7 +1,6 @@
 import { useCallback, useContext, useEffect, useMemo } from 'react';
 import { Duration } from 'luxon';
 import { useSelector } from 'react-redux';
-import { extractResourceIdentifierInformation } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/utils';
 import { getPrivateServiceWithDetails } from '#src/libs/private-service/selectors/private-service';
 import { getSlotsByDate } from '#src/libs/private-service/selectors/availability-slot';
 
@@ -15,8 +14,6 @@ import type {
   ResourceSlotsByDate,
 } from '#src/libs/private-service/types';
 import type { RootState } from '#src/reducers';
-
-import { ResourceIdentifier } from '#src/libs/private-service/constants';
 
 /**
  * Custom hook for handling private slot selection in a booking or scheduling application.
@@ -35,8 +32,6 @@ const usePrivateSlotSelection = () => {
     selectedPrivateSlot,
     setSelectedPrivateSlot,
     setSelectedDayTimeInterval,
-    selectedEstablishmentsIds,
-    selectedCoachesIds,
     serviceId,
   } = useContext(SlotSelectorContext);
 
@@ -76,25 +71,9 @@ const usePrivateSlotSelection = () => {
     if (!selectedPrivateSlot) return {};
     return Object.entries(availabilitySlotByDate)?.reduce<ResourceSlotsByDate>(
       (slotsByDate, [date, resourceSlots]) => {
-        const filteredSlots = resourceSlots.filter((resourceSlot) => {
-          if (!resourceSlot.slots.length) return false;
-          const resourceIdentifierInfo = extractResourceIdentifierInformation(
-            resourceSlot.resource_identifier,
-          );
-          // Filter by coaches if resource identifier matches coach type
-          if (resourceIdentifierInfo.identifier === ResourceIdentifier.COACH) {
-            return (
-              selectedCoachesIds.length === 0 ||
-              selectedCoachesIds.includes(resourceIdentifierInfo.id)
-            );
-          }
-          // Filter by establishments for other resources
-          return (
-            selectedEstablishmentsIds.length === 0 ||
-            selectedEstablishmentsIds.includes(resourceIdentifierInfo.id)
-          );
-        });
-
+        const filteredSlots = resourceSlots.filter(
+          (resourceSlot) => resourceSlot.slots.length,
+        );
         if (filteredSlots.length > 0) {
           slotsByDate[date] = filteredSlots;
         }
@@ -103,13 +82,7 @@ const usePrivateSlotSelection = () => {
       },
       {},
     );
-  }, [
-    availabilitySlotByDate,
-    selectedCoachesIds,
-    selectedEstablishmentsIds,
-    selectedPrivateSlot,
-  ]);
-
+  }, [availabilitySlotByDate, selectedPrivateSlot]);
   /**
    * Computes the duration of the selected private slot.
    *

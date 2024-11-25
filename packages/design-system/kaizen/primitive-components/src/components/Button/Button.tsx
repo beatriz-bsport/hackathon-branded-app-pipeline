@@ -128,6 +128,7 @@ const Button: React.FC<Props> = ({
     ),
     [loading, iconLeft, size, label],
   );
+
   const renderedIconRight = useMemo(
     () => (
       <IconToRender
@@ -139,11 +140,20 @@ const Button: React.FC<Props> = ({
     ),
     [loading, iconRight, size, label],
   );
+
   const labelToRender = useMemo(() => {
     return label ? <span className={"px-xs"}>{label}</span> : null;
   }, [label]);
+
+  const customAriaLabel = props["aria-label"] ?? label;
+  const fallbackAriaLabel = iconLeft ? "Icon button" : "Button";
+
   return (
     <button
+      role="button"
+      aria-label={customAriaLabel ?? fallbackAriaLabel}
+      aria-busy={loading ? "true" : "false"}
+      aria-disabled={props.disabled ? "true" : "false"}
       className={button({
         className,
         intent,

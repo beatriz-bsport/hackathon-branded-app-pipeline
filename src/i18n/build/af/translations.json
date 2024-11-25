@@ -3245,7 +3245,7 @@
         "recipients": { "label": "Recipient's email" },
         "message_content": { "label": "Custom message" },
         "message_is_from": { "label": "From " },
-        "message_is_for": { "label": "To the attention of " },
+        "message_is_for": { "label": "To " },
         "name": { "label": "Gift card's name" },
         "footerUnlimited": "The gift card will be sent to the recipient at {{- hour_send }}. It has no expiration date and the receiver's account balance will be topped up with {{- price }} for future purchases.",
         "select_image": "Select your background image",

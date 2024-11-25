@@ -383,18 +383,24 @@ export default handleActions(
       return state.setIn(['giftcard', 'error'], payload);
     },
     [listBulkGiftcardActions.success.toString()]: (state, { payload }) => {
-      return state.merge(
-        {
-          giftcard: {
-            // @ts-expect-error
-            byId: payload.reduce((acc: { [id: number]: Giftcard }, g) => {
-              acc[g.id] = g;
-              return acc;
-            }, {}),
+      return state
+        .setIn(
+          ['giftcard', 'allIds'],
+          // @ts-expect-error
+          payload.map((giftcard: Giftcard) => giftcard.id),
+        )
+        .merge(
+          {
+            giftcard: {
+              // @ts-expect-error
+              byId: payload.reduce((acc: { [id: number]: Giftcard }, g) => {
+                acc[g.id] = g;
+                return acc;
+              }, {}),
+            },
           },
-        },
-        { deep: true },
-      );
+          { deep: true },
+        );
     },
     [listGiftcardTemplateActions.isLoading.toString()]: (
       state,

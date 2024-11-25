@@ -11,8 +11,11 @@ import AddIcon from '@material-ui/icons/Add';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
+import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items';
 
 import EstablishmentBillingGroupSelector from '#src/libs/establishment/components/EstablishmentBillingGroupSelector';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import ConsumerGiftcardFormWithPreview from '#src/libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
 
 import InvoiceItem from '../components/InvoiceItem.component';
@@ -47,12 +50,16 @@ type State = {
   processing: boolean,
   selectedEstablishmentBillingGroup: EstablishmentBillingGroup | null,
   requiredEstablishmentBillingGroupIsMissing: boolean,
+  giftcardConfigList: Array<any>,
+  giftcardToConfigureList: Array<number>,
 };
 
 export class QuickInvoice extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      giftcardConfigList: [],
+      giftcardToConfigureList: [],
       showInvoiceItemSelector: !props.editMode,
       invoiceItemList: [],
       processing: false,
@@ -67,7 +74,19 @@ export class QuickInvoice extends PureComponent<Props, State> {
 
   closeUnevenInvoiceDialog = () => {};
 
-  onSubmit = () => {
+  finalizeInvoiceItems = () => {
+    this.setState((prevState: State) => {
+      const giftcardToConfigureList = prevState.invoiceItemList
+        .filter((ii) => ii.buyable_item_identifier === BUYABLE_ITEM_GIFTCARD)
+        .map((b) => b.buyable_item_id);
+      if (!giftcardToConfigureList.length) this.onSubmit();
+      return {
+        giftcardToConfigureList,
+      };
+    });
+  };
+
+  onSubmit = (giftcard_config_list?: Array<unknown>) => {
     const { quickInvoice, createInvoice } = this.props;
     const invoiceData = {
       payment_methods: [],
@@ -76,6 +95,7 @@ export class QuickInvoice extends PureComponent<Props, State> {
       member: quickInvoice.memberId,
       establishment_billing_group:
         this.state.selectedEstablishmentBillingGroup?.id,
+      giftcard_config_list,
     };
     if (
       this.props.enableMultiLocalization &&
@@ -132,13 +152,64 @@ export class QuickInvoice extends PureComponent<Props, State> {
     };
   };
 
+  getGiftcardToConfigure = () => {
+    const giftcardToConfigure = this.state.giftcardToConfigureList.length
+      ? this.props.availableBuyableItems[BUYABLE_ITEM_GIFTCARD].find(
+          (buyableItem) =>
+            buyableItem.id === this.state.giftcardToConfigureList[0],
+        )
+      : null;
+    return giftcardToConfigure;
+  };
+
+  storeGiftcardConfig = (giftcardConfig) => {
+    this.setState((prevState) => {
+      const newState = {
+        giftcardConfigList: [...prevState.giftcardConfigList, giftcardConfig],
+        giftcardToConfigureList: prevState.giftcardToConfigureList.slice(1),
+      };
+      if (!newState.giftcardToConfigureList.length) {
+        this.onSubmit(newState.giftcardConfigList);
+      }
+      return newState;
+    });
+  };
+
+  handleStoreGiftcardConfig = (data) => {
+    this.storeGiftcardConfig({
+      ...data,
+      giftcard: this.getGiftcardToConfigure()?.id,
+    });
+  };
+
   render() {
     const { classes, onClose, quickInvoiceTitle, quickInvoice } = this.props;
     if (!quickInvoice.member) {
       return <CircularProgress />;
     }
+    const giftcardToConfigure = this.getGiftcardToConfigure();
     return (
       <div className={classes.container}>
+        {!!this.state.giftcardToConfigureList?.length &&
+          this.state.giftcardToConfigureList.map(
+            (giftcardId) =>
+              !!giftcardToConfigure && (
+                <GenericResponsiveDialog
+                  key={giftcardId}
+                  classes={{ paper: classes.container }}
+                  open={giftcardId === this.state.giftcardToConfigureList[0]}
+                >
+                  <ConsumerGiftcardFormWithPreview
+                    forceVertical
+                    isManager
+                    giftcard={giftcardToConfigure}
+                    giftcardBackgroundImageList={[]}
+                    onSubmit={this.handleStoreGiftcardConfig}
+                  />
+                </GenericResponsiveDialog>
+              ),
+          )}
+
         <Grid
           container
           alignItems="center"
@@ -246,7 +317,7 @@ export class QuickInvoice extends PureComponent<Props, State> {
               ) : (
                 <Button
                   color="primary"
-                  onClick={this.onSubmit}
+                  onClick={this.finalizeInvoiceItems}
                   variant="outlined"
                 >
                   {this.props.t('invoice.editor.save')}

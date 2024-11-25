@@ -94,6 +94,7 @@ import { withMemberBannerHOC } from '#src/hocs/banner.hoc';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
+  fetchConsumerGiftcardList as fetchConsumerGiftcardListAction,
 } from '#src/libs/giftcard/actions';
 import {
   getConsumerGiftcardReceivedList,
@@ -101,11 +102,13 @@ import {
   withSender,
   withReceiver,
   onlyUsable,
+  getConsumerGiftcard,
 } from '#src/libs/giftcard/selectors';
 import { getBackofficeEnabledPaymentGroupMethods } from '#src/libs/payment/utils';
 import { withDefaultBillingEstablishment } from '#src/libs/member/selectors';
 import { getInvoiceIdentifier } from '#src/libs/invoice/utils';
 import RevalidateMandateDialog from '#src/libs/payment/components/payment-backend-stripe/RevalidateMandateDialog.component';
+import ConsumerPhysicalGiftcardDetails from '#src/libs/giftcard/components/ConsumerPhysicalGiftcardDetails.components.tsx';
 import type { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import type { Theme as CompanyThemeType } from '../../libs/theme/types';
 import type { Payment, PaymentMethod } from '../../libs/payment/types';
@@ -117,8 +120,10 @@ import type {
 } from '#src/libs/invoice/types';
 import type { StripeReader } from '../../libs/terminal/types';
 import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '../../libs/invoice/constants';
+import { GiftcardKindEnum } from '../../libs/giftcard/constants';
 
 import { formatAsDate } from '../../utils/datetime';
+import isEqual from 'lodash/isEqual';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 
@@ -229,6 +234,11 @@ type Props = {
   fetchAllEstablishmentBillingGroup: (params: { company: number }) => void,
   establishmentBillingGroups: EstablishmentBillingGroup[],
   editEstablishmentBillingGroupIsLoading: boolean,
+  fetchConsumerGiftcardList: (
+    params: any,
+    options?: OptionCallback<Array<ConsumerGiftcard>>,
+  ) => void,
+  getConsumerGiftcard: (id: number) => ConsumerGiftcard,
 };
 
 type State = {
@@ -238,6 +248,7 @@ type State = {
   paymentGroupPriceCts: number,
   paymentGroupMethodIdentifierToRevalidate: number,
   paymentMethodIdToRevalidate: string,
+  selectedConsumerPhysicalGiftcard: ConsumerGiftcard | null,
   onPaymentMethodRefreshed: () => void,
 };
 
@@ -246,6 +257,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
     clientSecret: null,
     clientSecretLoading: false,
     paymentGroupPriceCts: 0,
+    selectedConsumerPhysicalGiftcard: null,
   };
 
   componentDidMount() {
@@ -262,11 +274,29 @@ export class InvoiceDetail extends React.Component<Props, State> {
     }
   }
 
+  /** Whenever clicking on the details of a physical consumer gift card, when the invoice item is one  */
+  handleSelectPhysicalGiftcard = (id: number) => () => {
+    const physicalConsumerGiftcard = this.props.getConsumerGiftcard(id);
+    !!physicalConsumerGiftcard &&
+      this.setState({
+        selectedConsumerPhysicalGiftcard: physicalConsumerGiftcard,
+      });
+  };
+
+  /** Get all invoice items that are linked to a giftcard */
+  getGiftcardInvoiceItemList = () => {
+    return (
+      this.props.invoice?.invoice_items?.filter(
+        (invoiceItem) => !!invoiceItem && invoiceItem.content_type === 5,
+      ) ?? []
+    );
+  };
+
   fetchInvoiceData = () => {
+    const giftcardInvoiceItemList = this.getGiftcardInvoiceItemList();
     this.props.fetchInvoice(this.props.uuid, {
       onSuccess: (invoice) => {
         this.props.fetchMember(invoice.member);
-        this.props.fetchConsumerGiftcardReceivedList(invoice.member);
         if (invoice.plannedinvoice) {
           this.props.fetchPaymentGroupRequiringActionList();
         }
@@ -524,6 +554,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
     });
   };
 
+  handleCloseConsumerPrintableGiftcardModal = () =>
+    this.setState({ selectedConsumerPrintableGiftcard: null });
+
   render() {
     const stripeRegion = getStripeRegion();
     const companyCountry = getCompanyCountry();
@@ -556,6 +589,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   editCustomFooter={this.props.editCustomFooter}
                   finalizeInvoice={this.props.finalizeInvoice}
                   goToSubscription={this.props.goToSubscription}
+                  handleShowPhysicalGiftcardDetails={
+                    this.handleSelectPhysicalGiftcard
+                  }
                   invoice={this.props.invoice}
                   invoiceItemList={this.props.invoice.invoice_items.filter(
                     (ii) => !!ii,
@@ -794,6 +830,14 @@ export class InvoiceDetail extends React.Component<Props, State> {
             </ObjectLevelPermissionWrapper>
           )}
         </div>
+
+        {!!this.state.selectedConsumerPhysicalGiftcard && (
+          <ConsumerPhysicalGiftcardDetails
+            consumerGiftcard={this.state.selectedConsumerPhysicalGiftcard}
+            isOpen={!!this.state.selectedConsumerPhysicalGiftcard}
+            onClose={this.handleCloseConsumerPrintableGiftcardModal}
+          />
+        )}
       </>
     );
   }
@@ -893,8 +937,10 @@ export default compose(
       establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
       editEstablishmentBillingGroupIsLoading:
         getEditEstablishmentBillingGroupIsLoading(state),
+      getConsumerGiftcard: (id: number) => getConsumerGiftcard(state, id),
     }),
     {
+      fetchConsumerGiftcardList: fetchConsumerGiftcardListAction,
       fetchInvoiceItemList,
       fetchPaymentMethodList: fetchPaymentMethodListAction,
       fetchInvoice: fetchInvoiceAction,

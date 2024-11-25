@@ -11,10 +11,14 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { getShopItemName } from '../../shop/utils';
 
 import classNames from 'classnames';
+import { AttachFile } from '@material-ui/icons';
+import { GiftcardKindEnum } from '../../giftcard/constants';
 
 type Props = {
   invoiceItem: InvoiceItem,
   onDelete: () => void,
+  /** An optional handler when clicking on an invoice item that is a physical gift card */
+  handleShowPhysicalGiftcardDetails?: (id: number) => () => void,
 };
 
 export const InvoiceItem = (props: Props) => {
@@ -35,6 +39,16 @@ export const InvoiceItem = (props: Props) => {
 
   return (
     <div className={classes.container}>
+      {invoiceItem?.consumer_giftcard_kind === GiftcardKindEnum.PHYSICAL && (
+        <IconButton
+          className={classes.physicalGiftcardShowDetails}
+          onClick={props.handleShowPhysicalGiftcardDetails?.(
+            invoiceItem?.object_id,
+          )}
+        >
+          <AttachFile />
+        </IconButton>
+      )}
       <div className={classes.leftText}>
         <Typography className={invoiceItem.reverted ? classes.revert : null}>
           {getShopItemName({
@@ -121,6 +135,9 @@ const useStyles = makeStyles((theme) => ({
   },
   subtitleNotDisplayed: {
     display: 'none',
+  },
+  physicalGiftcardShowDetails: {
+    marginRight: theme.spacing(1),
   },
 }));
 

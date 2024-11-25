@@ -1,3 +1,5 @@
+import { GiftcardKindEnum } from '#src/libs/giftcard/constants';
+
 export type InvoiceItem = {
   id: number;
   price: string;
@@ -12,4 +14,6 @@ export type InvoiceItem = {
   voucher?: string;
   // A specific field for invoice items containing giftcards
   incremental_consumer_giftcard_identifier?: string;
+  /** An optional field for invoice items that are linked to a physical gift card */
+  consumer_giftcard_kind?: GiftcardKindEnum;
 };

@@ -69,6 +69,7 @@ const Title: React.FC<TitleProps> = ({
   }, [htmlVariant]);
   return (
     <TitleComponent
+      role="heading"
       className={title({ className, color, htmlVariant, weight })}
       {...props}
     />

@@ -110,7 +110,13 @@ const Alert: React.FC<AlertProps> = ({
   const isDisplayingActions = buttonLabel || isClearable;
 
   return (
-    <div className={`${alert({ className, status })}`} {...props}>
+    <div
+      role="alert"
+      aria-live="assertive"
+      aria-labelledby={title ? `${title}-title` : undefined}
+      className={`${alert({ className, status })}`}
+      {...props}
+    >
       <div>
         <Icon icon={iconByStatus[status || "default"]} size={"md"} />
       </div>
@@ -141,6 +147,7 @@ const Alert: React.FC<AlertProps> = ({
               intent="flat"
               loading={false}
               color="default"
+              aria-label="Clear alert"
             />
           )}
         </div>

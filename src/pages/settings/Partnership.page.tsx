@@ -63,10 +63,7 @@ import type {
   Establishment,
   AssociatedEstablishment,
 } from '#src/libs/establishment/types';
-import {
-  APPOINTMENT_VENUE_ID_PREFIX,
-  CLASSPASS_INTEGRATION_IDENTIFIER,
-} from '#src/libs/partnership/constants';
+import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/partnership/constants';
 
 // Wellhub
 import WellhubConfiguration from '#src/libs/wellhub/components/WellhubConfiguration';
@@ -251,14 +248,6 @@ export class Partnership extends React.Component<Props> {
     });
   };
 
-  getAppointmentsVenueEstablishmentList = () => {
-    if (!this.props.establishmentList) return [];
-    return this.props.establishmentList.map((establishment) => ({
-      venueId: `${APPOINTMENT_VENUE_ID_PREFIX}${establishment.associatedestablishment_set[0]}`,
-      establishmentNames: [establishment.title],
-    }));
-  };
-
   getActivitiesVenueEstablishmentList = () => {
     if (!this.props.establishmentList) return [];
     if (this.props.classpass?.override_establishment_pk) {
@@ -371,7 +360,6 @@ export class Partnership extends React.Component<Props> {
         <div className={this.props.classes.classpassContainer}>
           <PartnershipConfiguration
             activitiesVenueEstablishmentList={this.getActivitiesVenueEstablishmentList()}
-            appointmentsVenueEstablishmentList={this.getAppointmentsVenueEstablishmentList()}
             companyId={company}
             isLoading={this.props.loading}
             openPartnershipConfigurationForm={

@@ -6,15 +6,10 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ClassPassLogo from '#src/libs/partnership/components/ClassPassLogo.component';
 import ClassPassTable from './ClassPassTable.component';
-import { checkClassPassEligibility } from '#src/libs/private-service/utils';
 
 type Props = {
   activitiesVenueEstablishmentList: {
     venueId: number;
-    establishmentNames: string[];
-  }[];
-  appointmentsVenueEstablishmentList: {
-    venueId: string;
     establishmentNames: string[];
   }[];
   companyId: number;
@@ -26,7 +21,6 @@ type Props = {
 
 const PartnershipConfiguration: React.FC<Props> = ({
   activitiesVenueEstablishmentList,
-  appointmentsVenueEstablishmentList,
   companyId,
   isLoading,
   openPartnershipConfigurationForm,
@@ -34,8 +28,6 @@ const PartnershipConfiguration: React.FC<Props> = ({
   shouldRequestClassPassPartnership,
 }) => {
   const { t } = useTranslation('partnership');
-
-  const isCompanyEligibleForClassPass = checkClassPassEligibility(companyId);
 
   const classes = useStyles();
 
@@ -62,12 +54,10 @@ const PartnershipConfiguration: React.FC<Props> = ({
       <Typography color="textSecondary" variant="subtitle1">
         {t('parameters.description')}
       </Typography>
-      <Typography className={classes.bold} variant="subtitle1">
-        {t('parameters.partnerId', { company: companyId })}
-      </Typography>
+
       <div className={classes.subtitleAndButton}>
-        <Typography variant="h6">
-          {t('parameters.table.title.groupActivities')}
+        <Typography className={classes.bold} variant="subtitle1">
+          {t('parameters.partnerId', { company: companyId })}
         </Typography>
         <Button
           color="primary"
@@ -81,17 +71,6 @@ const PartnershipConfiguration: React.FC<Props> = ({
         isLoading={isLoading}
         venueEstablishmentList={activitiesVenueEstablishmentList}
       />
-      {isCompanyEligibleForClassPass && (
-        <>
-          <Typography variant="h6">
-            {t('parameters.table.title.appointments')}
-          </Typography>
-          <ClassPassTable
-            isLoading={isLoading}
-            venueEstablishmentList={appointmentsVenueEstablishmentList}
-          />
-        </>
-      )}
     </Paper>
   );
 };

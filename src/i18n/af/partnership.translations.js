@@ -11,7 +11,7 @@ exports.default = {
     add: 'Add',
     configurationTitle: 'Configure your integration',
     configurationDescription:
-      'Select how you want your establishments to appear on the ClassPass app. This only changes how group activities are displayed.',
+      'Select how you want your establishments to appear on the ClassPass app.',
     establishment: 'Establishment',
     pleaseChoseEstablishmentMany: 'Please select at least one establishment.',
     pleaseChoseEstablishment: 'Please select an establishment.',
@@ -29,7 +29,7 @@ exports.default = {
     },
     drawerTitle: 'ClassPass configuration',
     description:
-      'To set up your ClassPass integration, contact ClassPass through your partner dashboard. Provide your partner ID and the IDs of the establishments you want to enable on ClassPass. Please note that sessions or appointments at these establishments will not appear on ClassPass until the setup is fully confirmed by ClassPass.',
+      'To set up your ClassPass integration, contact ClassPass through your partner dashboard. Provide your partner ID and the IDs of the establishments you want to enable on ClassPass. Please note that sessions at these establishments will not appear on ClassPass until the setup is fully confirmed by ClassPass.',
     editButton: 'Edit configuration',
   },
   requestDialog: {

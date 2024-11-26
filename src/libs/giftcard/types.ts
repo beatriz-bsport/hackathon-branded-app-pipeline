@@ -82,6 +82,16 @@ export type ConsumerGiftcardPersonnalizationElements = {
   background_image: string | null;
 };
 
+export type GiftcardAttributeMemberPayload = {
+  dst_member: string;
+  activation_code?: string;
+};
+
+export type GiftcardAttributePrintableCodePayload = {
+  dst_member: string;
+  code: string;
+};
+
 export type GiftcardBackgroundImage = {
   id: number;
   image: string; // url

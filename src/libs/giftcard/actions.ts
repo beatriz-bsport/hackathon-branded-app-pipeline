@@ -38,6 +38,7 @@ import {
   Giftcard,
   GiftcardBackgroundImage,
   GiftcardDataAPI,
+  GiftcardAttributeMemberPayload,
   GiftcardTemplate,
 } from './types';
 
@@ -356,14 +357,20 @@ export function fetchConsumerGiftcardList(
 }
 
 export const attributeToMemberActions = {
-  error: createAction('CONSUMER_GIFTCARD/ATTRIBUTE_TO_MEMBER/ERROR'),
-  isLoading: createAction('CONSUMER_GIFTCARD/ATTRIBUTE_TO_MEMBER/LOADING'),
-  success: createAction('CONSUMER_GIFTCARD/ATTRIBUTE_TO_MEMBER/SUCCESS'),
+  error: createAction<Error | null>(
+    'CONSUMER_GIFTCARD/ATTRIBUTE_TO_MEMBER/ERROR',
+  ),
+  isLoading: createAction<boolean>(
+    'CONSUMER_GIFTCARD/ATTRIBUTE_TO_MEMBER/LOADING',
+  ),
+  success: createAction<ConsumerGiftcard>(
+    'CONSUMER_GIFTCARD/ATTRIBUTE_TO_MEMBER/SUCCESS',
+  ),
 };
 
 export function attributeToMember(
-  id: any,
-  data: any,
+  id: number,
+  data: GiftcardAttributeMemberPayload,
   options?: OptionCallback<ConsumerGiftcard>,
 ) {
   return async (dispatch: Dispatch) => {

@@ -209,7 +209,7 @@ const connector = connect(
     fetchCompanyTheme,
     attributeToMember,
     goToConsumerGiftcard: (companyId: number) =>
-      replace(`/c/${companyId}/giftcard`),
+      replace(`/c/${companyId}/giftcard/`),
   },
 );
 

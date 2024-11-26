@@ -273,7 +273,7 @@ const connector = connect(
     fetchConsumerGiftcardReceivedList: fetchConsumerGiftcardReceivedListAction,
     goToGiftcard: (name: string, id: number) =>
       // @ts-expect-error
-      push(`${urlToMarketplace(name, id)}/giftcard`),
+      push(`${urlToMarketplace(name, id)}/giftcard/`),
     fetchConsumerGiftcardSentList: fetchConsumerGiftcardSentListAction,
   },
 );

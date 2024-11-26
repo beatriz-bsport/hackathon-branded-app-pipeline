@@ -100,11 +100,13 @@ const SmartListPreview: React.FC<SmartListPreviewProps> = (
   const classes = useStyles();
 
   const includeSmartLists = useMemo(
-    () => smartListInclude.map((id) => smartListsById[id]),
+    () =>
+      smartListInclude.map((id) => smartListsById[id]).filter((item) => !!item),
     [smartListInclude, smartListsById],
   );
   const excludeSmartLists = useMemo(
-    () => smartListExclude.map((id) => smartListsById[id]),
+    () =>
+      smartListExclude.map((id) => smartListsById[id]).filter((item) => !!item),
     [smartListExclude, smartListsById],
   );
 
@@ -223,12 +225,16 @@ export const PreviewModal: React.FC<PreviewModalProps> = ({
     (hasPushNotification && hasSmartList) ||
     (hasEmailDesign && hasSmartList);
 
+  const isIncludedSmartlistExist =
+    smartlist_include?.filter((id) => !!smartListsById?.[id]).length > 0;
+  const isExcludedSmartlistExist =
+    smartlist_exclude?.filter((id) => !!smartListsById?.[id]).length > 0;
+
   return (
     <Dialog open onClose={onClose}>
       <DialogTitle>{`${t('notifications.preview')} ${name}`}</DialogTitle>
       <DialogContent className={classes.previewDialogContent}>
-        {((smartlist_include && smartlist_include.length > 0) ||
-          (smartlist_exclude && smartlist_exclude.length > 0)) && (
+        {(isIncludedSmartlistExist || isExcludedSmartlistExist) && (
           <SendMethodPreviewWrapper
             icon={<SupervisorAccount />}
             isOpen={smartListPreviewOpen}

@@ -352,7 +352,7 @@ const mapWithHandlers1 = {
           id,
           // @ts-expect-error
           is_v2: true,
-          payment_method_id: payment_method_id.toString(),
+          payment_method_id: payment_method_id?.toString(),
           payment_engine: PAYMENT_ENGINE_STRIPE,
         },
         {

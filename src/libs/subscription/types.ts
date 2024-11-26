@@ -529,7 +529,7 @@ export type ContractTemplateFormValues = {
 export type SubscriptionPaymentMethodParams = {
   id: number;
   payment_engine?: number;
-  payment_method_id: string;
+  payment_method_id: string | null;
   payment_method_identifier: number;
   source?: string;
 };

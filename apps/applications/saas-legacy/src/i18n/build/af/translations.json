@@ -3587,6 +3587,7 @@
         "14100": "At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards.",
         "14101": "Note: an adjustment to the account balance cannot be refunded with the account balance",
         "14103": "Direct refunds are only available if at least one of the payments uses an online method.",
+        "14106": "Direct refunds are not possible for SEPA payments older than 180 days.",
         "debtAndNewPaymentMethodNotAllowed": "At least one payment is pending. Only a direct refund is available."
       },
       "SEPARefundDialog": {

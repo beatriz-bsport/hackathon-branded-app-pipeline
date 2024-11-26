@@ -3,15 +3,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 import {
-  REVERSE_ON_PAYMENT_METHOD,
   REVERSE_ON_DEBT,
   REVERSE_ON_NEW_PAYMENT_METHOD,
+  REVERSE_ON_PAYMENT_METHOD,
 } from '@bsport/common/lib/master-data/payment-group.js';
 import {
-  INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
-  INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT,
   INVOICE_NO_DEBT_REFUND_ON_PENDING_PAYMENT,
   INVOICE_NO_MANUAL_REFUND_ON_PENDING_PAYMENT,
+  INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
+  INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT,
+  INVOICE_NO_REFUND_ON_SEPA_PAYMENT_OLDER_THAN_SIX_MONTHS,
   INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER,
 } from '@bsport/common/lib/master-data/error-codes/payment.js';
 import { InvoiceAllowedReverseMethods } from '#src/libs/invoice/types';
@@ -38,20 +39,16 @@ const InvoiceReverterMeansAlerting: React.FC<InvoiceReverterDialogProps> = ({
     // The three following if blocks are disjoint, we can only have one of them at a time
     switch (true) {
       case !reverseOnPaymentMethodAllowed &&
-        allowedReverseMethods[REVERSE_ON_PAYMENT_METHOD]?.error_code ===
-          INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE:
+        [
+          INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
+          INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT,
+          INVOICE_NO_REFUND_ON_SEPA_PAYMENT_OLDER_THAN_SIX_MONTHS,
+        ].includes(
+          allowedReverseMethods[REVERSE_ON_PAYMENT_METHOD]?.error_code,
+        ):
         setAlertMessage(
           t(
-            `revert.warning.${INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE}`,
-          ),
-        );
-        break;
-      case !reverseOnPaymentMethodAllowed &&
-        allowedReverseMethods[REVERSE_ON_PAYMENT_METHOD]?.error_code ==
-          INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT:
-        setAlertMessage(
-          t(
-            `revert.warning.${INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT}`,
+            `revert.warning.${allowedReverseMethods[REVERSE_ON_PAYMENT_METHOD]?.error_code}`,
           ),
         );
         break;

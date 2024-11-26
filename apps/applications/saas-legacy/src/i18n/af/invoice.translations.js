@@ -7,6 +7,7 @@ const getTranslations = async () => {
     INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
     INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER,
     INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT,
+    INVOICE_NO_REFUND_ON_SEPA_PAYMENT_OLDER_THAN_SIX_MONTHS,
   } = await import('@bsport/common/lib/master-data/error-codes/payment.js');
   const {
     BUYABLE_ITEM_PASS,
@@ -373,6 +374,8 @@ const getTranslations = async () => {
       warning: {
         [INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT]:
           'Direct refunds are only available if at least one of the payments uses an online method.',
+        [INVOICE_NO_REFUND_ON_SEPA_PAYMENT_OLDER_THAN_SIX_MONTHS]:
+          'Direct refunds are not possible for SEPA payments older than 180 days.',
         [INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE]:
           'At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards.',
         [INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER]:

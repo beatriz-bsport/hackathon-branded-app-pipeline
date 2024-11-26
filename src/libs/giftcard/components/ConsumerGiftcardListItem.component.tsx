@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
@@ -27,7 +27,7 @@ import type {
 import type { FranchiseCompany } from '#src/libs/franchise/types';
 import type { Member } from '#src/libs/member/types';
 import CompanyChip from '#src/components/franchise/CompanyChip.component';
-import { GiftcardKindEnum } from '#src/libs/giftcard/constants';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
 
 type SenderProps = {
   sourceFranchiseCompany: FranchiseCompany;
@@ -163,7 +163,7 @@ type ReceiverProps = {
   showMember?: boolean;
   onClick: (consumerGiftcardId: number, memberId: number) => void;
   onClickSendInvitation?: () => void;
-  /** See details for a physical giftcard */
+  /** See details for a printable giftcard */
   onClickSeeDetails?: () => void;
 };
 
@@ -184,11 +184,11 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
     const { t } = useTranslation('giftcard');
     const classes = useStyles();
 
-    const isPhysicalGiftcard =
-      consumerGiftcard.kind === GiftcardKindEnum.PHYSICAL;
+    const isPrintableGiftcard =
+      consumerGiftcard.kind === ConsumerGiftcardKind.PRINTABLE;
 
     const receiverName = useMemo(() => {
-      if (consumerGiftcard.kind === GiftcardKindEnum.PHYSICAL) {
+      if (consumerGiftcard.kind === ConsumerGiftcardKind.PRINTABLE) {
         return consumerGiftcard.message_is_for;
       }
       return consumerGiftcard.dst_member
@@ -201,6 +201,14 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
       memberReceiver?.name,
       t,
     ]);
+
+    const handleSeeDetails = useCallback(
+      (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation?.();
+        onClickSeeDetails();
+      },
+      [onClickSeeDetails],
+    );
 
     const status = consumerGiftcard.dst_member ? (
       <span>
@@ -283,13 +291,13 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
             selected={selected}
           >
             {((!!showMember && !!consumerGiftcard.dst_member) ||
-              isPhysicalGiftcard) && (
+              isPrintableGiftcard) && (
               <ListItemAvatar>
                 <Avatar alt="member" src={memberReceiver?.photo} />
               </ListItemAvatar>
             )}
             <ListItemText
-              hidden={!isPhysicalGiftcard}
+              hidden={!isPrintableGiftcard}
               primary={
                 <div className={classes.row}>
                   {consumerGiftcard.message_is_for}
@@ -302,7 +310,7 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
               })}
             />
             <ListItemText
-              hidden={isPhysicalGiftcard}
+              hidden={isPrintableGiftcard}
               primary={
                 <div className={classes.row}>
                   {showMember ? (
@@ -339,7 +347,7 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
             )}
             {!!onClickSendInvitation &&
               !consumerGiftcard?.reverted &&
-              consumerGiftcard.kind === GiftcardKindEnum.DIGITAL && (
+              consumerGiftcard.kind === ConsumerGiftcardKind.DIGITAL && (
                 <Tooltip title={t('consumerGiftcard.sendTo')}>
                   <IconButton color="primary" onClick={onClickSendInvitation}>
                     <EmailIcon />
@@ -347,9 +355,9 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
                 </Tooltip>
               )}
             {!!onClickSeeDetails &&
-              consumerGiftcard.kind === GiftcardKindEnum.PHYSICAL && (
+              consumerGiftcard.kind === ConsumerGiftcardKind.PRINTABLE && (
                 <Tooltip title={t('consumerGiftcard.seeDetails')}>
-                  <IconButton onClick={onClickSeeDetails}>
+                  <IconButton onClick={handleSeeDetails}>
                     <AttachFileIcon />
                   </IconButton>
                 </Tooltip>
@@ -421,7 +429,7 @@ type Props = {
   onClickSender?: (consumerGiftcardId: number, memberId: number) => void;
   onClickReceiver?: (consumerGiftcardId: number, memberId: number) => void;
   onClickSendInvitation?: () => void;
-  /** See details for a physical giftcard */
+  /** See details for a printable giftcard */
   onClickSeeDetails?: () => void;
   selected?: boolean;
   divider?: boolean;

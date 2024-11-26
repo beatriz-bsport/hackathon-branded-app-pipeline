@@ -1,7 +1,8 @@
-import { ErrorAndLoading } from '#src/libs/types';
+import { ErrorAndLoading, PaginationFilterParams } from '#src/libs/types';
 import { Member } from '../member/types';
-import { GiftcardKindEnum } from '#src/libs/giftcard/constants';
 import { DateTime } from 'luxon';
+
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
 
 export type Giftcard = {
   id: number;
@@ -42,7 +43,7 @@ export type GiftcardFormValues = {
   message_is_from: string;
   name: string;
   recipients: string[];
-  kind: GiftcardKindEnum;
+  kind: ConsumerGiftcardKind;
 };
 
 export type ConsumerGiftcardAPI = Omit<
@@ -97,6 +98,16 @@ export type GiftcardBackgroundImage = {
   image: string; // url
 };
 
+export type ConsumerGiftcardFilterParams = {
+  as_received?: boolean;
+  as_sent?: boolean;
+  company?: number;
+  giftcard_template?: number;
+  has_amount_left?: boolean;
+  id__in?: number[];
+  in_timeframe?: boolean;
+} & PaginationFilterParams;
+
 export type ConsumerGiftcard<
   G = number,
   SRCM = number,
@@ -120,7 +131,7 @@ export type ConsumerGiftcard<
   giftcard_company: number;
   source_company_id: number;
   incremental_identifier: string;
-  kind: GiftcardKindEnum;
+  kind: ConsumerGiftcardKind;
   pdf_link: string | null;
   printable_code: string | null;
   activation_datetime: string | null;

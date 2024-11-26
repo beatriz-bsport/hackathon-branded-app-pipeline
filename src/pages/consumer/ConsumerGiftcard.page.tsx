@@ -42,8 +42,8 @@ import {
 import { OptionCallback } from '../../state/types';
 
 import { RootState } from '../../reducers';
-import { GiftcardKindEnum } from '#src/libs/giftcard/constants';
-import ConsumerPhysicalGiftcardDetails from '#src/libs/giftcard/components/ConsumerPhysicalGiftcardDetails.components';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
+import ConsumerPrintableGiftcardDetails from '#src/libs/giftcard/components/ConsumerPrintableGiftcardDetails.components';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -83,8 +83,8 @@ const PAGE_SIZE = 15;
 export const ConsumerGiftcardPage = (props: Props) => {
   const { classes, t } = props;
   const [
-    consumerPhysicalGiftcardSelected,
-    setConsumerPhysicalGiftcardSelected,
+    consumerPrintableGiftcardSelected,
+    setConsumerPrintableGiftcardSelected,
   ] = useState<null | ConsumerGiftcard>(null);
   const [consumerGiftcardToInvite, selectConsumerGiftcardToInvite] =
     React.useState(null);
@@ -101,14 +101,14 @@ export const ConsumerGiftcardPage = (props: Props) => {
     });
   };
 
-  const handleSetConsumerPhysicalGiftcardSelected = useCallback(
+  const handleSetConsumerPrintableGiftcardSelected = useCallback(
     (consumerGiftCard: ConsumerGiftcard) => () =>
-      setConsumerPhysicalGiftcardSelected(consumerGiftCard),
+      setConsumerPrintableGiftcardSelected(consumerGiftCard),
     [],
   );
 
-  const handleResetConsumerPhysicalGiftcardSelected = useCallback(
-    () => setConsumerPhysicalGiftcardSelected(null),
+  const handleResetConsumerPrintableGiftcardSelected = useCallback(
+    () => setConsumerPrintableGiftcardSelected(null),
     [],
   );
 
@@ -165,8 +165,8 @@ export const ConsumerGiftcardPage = (props: Props) => {
                   consumerGiftcard={cgc}
                   giftcard={cgc.giftcard}
                   onClickSeeDetails={
-                    cgc.kind === GiftcardKindEnum.PHYSICAL
-                      ? handleSetConsumerPhysicalGiftcardSelected(cgc)
+                    cgc.kind === ConsumerGiftcardKind.PRINTABLE
+                      ? handleSetConsumerPrintableGiftcardSelected(cgc)
                       : null
                   }
                   onClickSendInvitation={
@@ -214,8 +214,8 @@ export const ConsumerGiftcardPage = (props: Props) => {
                   consumerGiftcard={cgc}
                   giftcard={cgc.giftcard}
                   onClickSeeDetails={
-                    cgc.kind === GiftcardKindEnum.PHYSICAL
-                      ? handleSetConsumerPhysicalGiftcardSelected(cgc)
+                    cgc.kind === ConsumerGiftcardKind.PRINTABLE
+                      ? handleSetConsumerPrintableGiftcardSelected(cgc)
                       : null
                   }
                 />
@@ -235,11 +235,11 @@ export const ConsumerGiftcardPage = (props: Props) => {
         )}
       </Grid>
 
-      {!!consumerPhysicalGiftcardSelected && (
-        <ConsumerPhysicalGiftcardDetails
-          consumerGiftcard={consumerPhysicalGiftcardSelected}
-          isOpen={!!consumerPhysicalGiftcardSelected}
-          onClose={handleResetConsumerPhysicalGiftcardSelected}
+      {!!consumerPrintableGiftcardSelected && (
+        <ConsumerPrintableGiftcardDetails
+          consumerGiftcard={consumerPrintableGiftcardSelected}
+          isOpen={!!consumerPrintableGiftcardSelected}
+          onClose={handleResetConsumerPrintableGiftcardSelected}
         />
       )}
     </PageContentContainer>

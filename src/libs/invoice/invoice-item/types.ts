@@ -1,4 +1,4 @@
-import { GiftcardKindEnum } from '#src/libs/giftcard/constants';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
 
 export type InvoiceItem = {
   id: number;
@@ -14,6 +14,6 @@ export type InvoiceItem = {
   voucher?: string;
   // A specific field for invoice items containing giftcards
   incremental_consumer_giftcard_identifier?: string;
-  /** An optional field for invoice items that are linked to a physical gift card */
-  consumer_giftcard_kind?: GiftcardKindEnum;
+  /** An optional field for invoice items that are linked to a printable gift card */
+  consumer_giftcard_kind?: ConsumerGiftcardKind;
 };

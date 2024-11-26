@@ -46,12 +46,12 @@ import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/memb
 
 import { Invoice } from '#src/libs/invoice/types';
 import ConsumerGiftcardInvitationModal from '#src/libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
-import ConsumerPhysicalGiftcardDetails from '#src/libs/giftcard/components/ConsumerPhysicalGiftcardDetails.components';
+import ConsumerPrintableGiftcardDetails from '#src/libs/giftcard/components/ConsumerPrintableGiftcardDetails.components';
 import { getMember } from '#src/libs/member/selectors';
 import { RootState } from '../../reducers';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 import { OptionCallback } from '../../state/types';
-import { GiftcardKindEnum } from '#src/libs/giftcard/constants';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -86,12 +86,12 @@ const PAGE_SIZE = 15;
 
 type State = {
   consumerGiftcardToInvite: ConsumerGiftcard | null;
-  consumerPhysicalGiftcardSelected: ConsumerGiftcard | null;
+  consumerPrintableGiftcardSelected: ConsumerGiftcard | null;
 };
 export class MemberDetailGiftcard extends PureComponent<Props, State> {
   state: State = {
     consumerGiftcardToInvite: null,
-    consumerPhysicalGiftcardSelected: null,
+    consumerPrintableGiftcardSelected: null,
   };
 
   componentDidMount() {
@@ -207,10 +207,10 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
                     consumerGiftcard.dst_member && this.props.goToMemberGiftcard
                   }
                   onClickSeeDetails={
-                    consumerGiftcard.kind === GiftcardKindEnum.PHYSICAL
+                    consumerGiftcard.kind === ConsumerGiftcardKind.PRINTABLE
                       ? () =>
                           this.setState({
-                            consumerPhysicalGiftcardSelected: consumerGiftcard,
+                            consumerPrintableGiftcardSelected: consumerGiftcard,
                           })
                       : null
                   }
@@ -243,12 +243,12 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
               snackbarSuccess={this.props.snackbarSuccess}
             />
           )}
-          {!!this.state.consumerPhysicalGiftcardSelected && (
-            <ConsumerPhysicalGiftcardDetails
-              consumerGiftcard={this.state.consumerPhysicalGiftcardSelected}
-              isOpen={!!this.state.consumerPhysicalGiftcardSelected}
+          {!!this.state.consumerPrintableGiftcardSelected && (
+            <ConsumerPrintableGiftcardDetails
+              consumerGiftcard={this.state.consumerPrintableGiftcardSelected}
+              isOpen={!!this.state.consumerPrintableGiftcardSelected}
               onClose={() =>
-                this.setState({ consumerPhysicalGiftcardSelected: null })
+                this.setState({ consumerPrintableGiftcardSelected: null })
               }
             />
           )}

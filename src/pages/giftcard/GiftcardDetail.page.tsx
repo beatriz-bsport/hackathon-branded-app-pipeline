@@ -56,8 +56,8 @@ import {
   deleteGiftcard as deleteGiftcardActions,
 } from '../../libs/giftcard/actions';
 import withTitle from '../../hocs/with-title.hoc';
-import { GiftcardKindEnum } from '#src/libs/giftcard/constants';
-import ConsumerPhysicalGiftcardDetails from '#src/libs/giftcard/components/ConsumerPhysicalGiftcardDetails.components';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
+import ConsumerPrintableGiftcardDetails from '#src/libs/giftcard/components/ConsumerPrintableGiftcardDetails.components';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -107,14 +107,14 @@ type Props = OwnProps &
   WithTranslation;
 
 type State = {
-  consumerPhysicalGiftcardSelected: ConsumerGiftcard | null;
+  consumerPrintableGiftcardSelected: ConsumerGiftcard | null;
 };
 
 const PAGE_SIZE = 15;
 
 export class GiftcardDetailPage extends Component<Props, State> {
   state: State = {
-    consumerPhysicalGiftcardSelected: null,
+    consumerPrintableGiftcardSelected: null,
   };
 
   componentDidMount() {
@@ -180,10 +180,10 @@ export class GiftcardDetailPage extends Component<Props, State> {
                     cgc.dst_member && this.props.goToMemberGiftcard
                   }
                   onClickSeeDetails={
-                    cgc.kind === GiftcardKindEnum.PHYSICAL
+                    cgc.kind === ConsumerGiftcardKind.PRINTABLE
                       ? () =>
                           this.setState({
-                            consumerPhysicalGiftcardSelected: cgc,
+                            consumerPrintableGiftcardSelected: cgc,
                           })
                       : null
                   }
@@ -219,12 +219,12 @@ export class GiftcardDetailPage extends Component<Props, State> {
             onSubmit={this.props.deleteGiftcard}
           />
         )}
-        {!!this.state.consumerPhysicalGiftcardSelected && (
-          <ConsumerPhysicalGiftcardDetails
-            consumerGiftcard={this.state.consumerPhysicalGiftcardSelected}
-            isOpen={!!this.state.consumerPhysicalGiftcardSelected}
+        {!!this.state.consumerPrintableGiftcardSelected && (
+          <ConsumerPrintableGiftcardDetails
+            consumerGiftcard={this.state.consumerPrintableGiftcardSelected}
+            isOpen={!!this.state.consumerPrintableGiftcardSelected}
             onClose={() =>
-              this.setState({ consumerPhysicalGiftcardSelected: null })
+              this.setState({ consumerPrintableGiftcardSelected: null })
             }
           />
         )}

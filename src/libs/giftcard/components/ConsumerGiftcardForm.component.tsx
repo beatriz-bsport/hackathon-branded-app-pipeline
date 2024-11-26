@@ -24,7 +24,7 @@ import {
   Radio,
   RadioGroup,
 } from '@material-ui/core';
-import { GiftcardKindEnum } from '#src/libs/giftcard/constants';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
 import { Alert } from '@material-ui/lab';
 import { formatAsDate } from '#src/utils/datetime';
 
@@ -69,7 +69,7 @@ export const ConsumerGiftcardForm = (props: Props) => {
       : props.values.date_to_send;
 
   const messageContentFieldMaxCharCount =
-    props.values.kind === GiftcardKindEnum.PHYSICAL ? 150 : 2000;
+    props.values.kind === ConsumerGiftcardKind.PRINTABLE ? 150 : 2000;
 
   return (
     <div className={classes.container}>
@@ -125,16 +125,16 @@ export const ConsumerGiftcardForm = (props: Props) => {
           <FormControlLabel
             control={<Radio color="primary" />}
             label={t('consumerGiftcard.form.type.option.physical')}
-            value={GiftcardKindEnum.PHYSICAL}
+            value={ConsumerGiftcardKind.PRINTABLE}
           />
           <FormControlLabel
             control={<Radio color="primary" />}
             label={t('consumerGiftcard.form.type.option.digital')}
-            value={GiftcardKindEnum.DIGITAL}
+            value={ConsumerGiftcardKind.DIGITAL}
           />
         </RadioGroup>
       </FormControl>
-      {props.values.kind === GiftcardKindEnum.PHYSICAL &&
+      {props.values.kind === ConsumerGiftcardKind.PRINTABLE &&
         !!props.giftcard.expiration_days && (
           <>
             <DateField
@@ -165,13 +165,13 @@ export const ConsumerGiftcardForm = (props: Props) => {
             )}
           </>
         )}
-      {props.values.kind === GiftcardKindEnum.PHYSICAL &&
+      {props.values.kind === ConsumerGiftcardKind.PRINTABLE &&
         !props.giftcard.expiration_days && (
           <Alert severity="info">
             {t('consumerGiftcard.form.footerPhysicalUnlimited')}
           </Alert>
         )}
-      {props.values.kind === GiftcardKindEnum.DIGITAL && (
+      {props.values.kind === ConsumerGiftcardKind.DIGITAL && (
         <>
           {props.giftcardBackgroundImageList.length > 0 && (
             // @ts-expect-error
@@ -267,7 +267,7 @@ export const ConsumerGiftcardSchema = Yup.object().shape({
   message_content: Yup.string()
     .required()
     .when('kind', (value, schema) => {
-      if (value === GiftcardKindEnum.PHYSICAL) {
+      if (value === ConsumerGiftcardKind.PRINTABLE) {
         return schema.max(150);
       }
       return schema.max(2000);
@@ -277,8 +277,8 @@ export const ConsumerGiftcardSchema = Yup.object().shape({
   recipients: Yup.array().of(Yup.string()),
   date_to_send: Yup.string(),
   kind: Yup.number().oneOf([
-    GiftcardKindEnum.DIGITAL,
-    GiftcardKindEnum.PHYSICAL,
+    ConsumerGiftcardKind.DIGITAL,
+    ConsumerGiftcardKind.PRINTABLE,
   ]),
   activation_datetime: Yup.object().nullable(),
 });
@@ -297,7 +297,7 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
       date_to_send: DateTime.now()
         .set({ hour: 7, minute: 0, second: 0, millisecond: 0 })
         .toISO(),
-      kind: GiftcardKindEnum.PHYSICAL,
+      kind: ConsumerGiftcardKind.PRINTABLE,
       activation_datetime: INTIAL_ACTIVATION_DATE,
     },
   }),

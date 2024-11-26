@@ -12,13 +12,13 @@ import { getShopItemName } from '../../shop/utils';
 
 import classNames from 'classnames';
 import { AttachFile } from '@material-ui/icons';
-import { GiftcardKindEnum } from '../../giftcard/constants';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
 
 type Props = {
   invoiceItem: InvoiceItem,
   onDelete: () => void,
-  /** An optional handler when clicking on an invoice item that is a physical gift card */
-  handleShowPhysicalGiftcardDetails?: (id: number) => () => void,
+  /** An optional handler when clicking on an invoice item that is a printable gift card */
+  handleShowPrintableGiftcardDetails?: (id: number) => () => void,
 };
 
 export const InvoiceItem = (props: Props) => {
@@ -39,16 +39,6 @@ export const InvoiceItem = (props: Props) => {
 
   return (
     <div className={classes.container}>
-      {invoiceItem?.consumer_giftcard_kind === GiftcardKindEnum.PHYSICAL && (
-        <IconButton
-          className={classes.physicalGiftcardShowDetails}
-          onClick={props.handleShowPhysicalGiftcardDetails?.(
-            invoiceItem?.object_id,
-          )}
-        >
-          <AttachFile />
-        </IconButton>
-      )}
       <div className={classes.leftText}>
         <Typography className={invoiceItem.reverted ? classes.revert : null}>
           {getShopItemName({
@@ -82,7 +72,30 @@ export const InvoiceItem = (props: Props) => {
         </Typography>
       </div>
 
-      <div className={classes.line} />
+      {invoiceItem?.consumer_giftcard_kind ===
+        ConsumerGiftcardKind.PRINTABLE && (
+        <IconButton
+          className={classes.printableGiftcardShowDetails}
+          onClick={props.handleShowPrintableGiftcardDetails?.(
+            invoiceItem?.object_id,
+          )}
+          size="small"
+        >
+          <AttachFile fontSize="inherit" />
+        </IconButton>
+      )}
+
+      <div
+        className={classNames({
+          [classes.line]: !(
+            invoiceItem?.consumer_giftcard_kind ===
+            ConsumerGiftcardKind.PRINTABLE
+          ),
+          [classes.compactLine]:
+            invoiceItem?.consumer_giftcard_kind ===
+            ConsumerGiftcardKind.PRINTABLE,
+        })}
+      />
       <div className={classes.secondaryAction}>
         <Typography className={invoiceItem.reverted ? classes.revert : null}>
           {getCurrencyDisplayWithPrice(
@@ -116,6 +129,12 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(4),
     marginLeft: theme.spacing(4),
   },
+  compactLine: {
+    flexGrow: 1,
+    borderBottom: '1px dashed gray',
+    marginRight: theme.spacing(4),
+    marginLeft: theme.spacing(2),
+  },
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -136,8 +155,8 @@ const useStyles = makeStyles((theme) => ({
   subtitleNotDisplayed: {
     display: 'none',
   },
-  physicalGiftcardShowDetails: {
-    marginRight: theme.spacing(1),
+  printableGiftcardShowDetails: {
+    marginLeft: theme.spacing(1),
   },
 }));
 

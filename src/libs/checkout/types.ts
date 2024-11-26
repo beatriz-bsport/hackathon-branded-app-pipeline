@@ -67,7 +67,7 @@ export type CheckoutItem = {
   tax: number;
   extra_data: CheckoutItemExtraData;
   expiration_datetime: string | null;
-  /** If current checkout item is a physical giftcard */
+  /** If current checkout item is a printable giftcard */
   pdf_link: string | null;
 };
 
@@ -110,7 +110,7 @@ export type CheckoutItemExtraData = {
   has_reached_max_uses?: boolean;
   missing_amount_before_application?: number;
   theoretical_voucher_cts?: number;
-  /** Generated PDF link after buying a physical gift card */
+  /** Generated PDF link after buying a printable gift card */
   pdf_link?: string;
 };
 

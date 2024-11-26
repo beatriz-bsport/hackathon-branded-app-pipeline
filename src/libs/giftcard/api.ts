@@ -15,7 +15,9 @@ import {
   GiftcardDataAPI,
   GiftcardAttributeMemberPayload,
   GiftcardAttributePrintableCodePayload,
+  ConsumerGiftcardFilterParams,
 } from './types';
+import { PaginatedResponse } from '#src/state/types';
 
 export const fetchGiftcardList = (
   params: any,
@@ -46,10 +48,10 @@ export const deleteGiftcard = (
 };
 
 export const fetchConsumerGiftcardList = (
-  params: any,
-): Promise<AxiosResponse<Array<ConsumerGiftcard>>> => {
+  params: ConsumerGiftcardFilterParams,
+) => {
   const cleanedParams = cleanParams(params);
-  return getAuth(
+  return getAuth<PaginatedResponse<ConsumerGiftcard>>(
     `${API_V1_URI}/giftcard/consumer_giftcard/${buildUrlParams(cleanedParams)}`,
   );
 };

@@ -25,7 +25,7 @@ type Props = {
   onClose: () => void;
 };
 
-const ConsumerPhysicalGiftcardDetails: React.FC<Props> = ({
+const ConsumerPrintableGiftcardDetails: React.FC<Props> = ({
   isOpen,
   consumerGiftcard,
   onClose,
@@ -157,4 +157,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default React.memo(ConsumerPhysicalGiftcardDetails);
+export default React.memo(ConsumerPrintableGiftcardDetails);

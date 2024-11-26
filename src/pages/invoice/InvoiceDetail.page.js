@@ -95,6 +95,7 @@ import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
   fetchConsumerGiftcardList as fetchConsumerGiftcardListAction,
+  attributeByPrintableCode as attributeByPrintableCodeAction,
 } from '#src/libs/giftcard/actions';
 import {
   getConsumerGiftcardReceivedList,
@@ -108,19 +109,23 @@ import { getBackofficeEnabledPaymentGroupMethods } from '#src/libs/payment/utils
 import { withDefaultBillingEstablishment } from '#src/libs/member/selectors';
 import { getInvoiceIdentifier } from '#src/libs/invoice/utils';
 import RevalidateMandateDialog from '#src/libs/payment/components/payment-backend-stripe/RevalidateMandateDialog.component';
-import ConsumerPhysicalGiftcardDetails from '#src/libs/giftcard/components/ConsumerPhysicalGiftcardDetails.components.tsx';
+import ConsumerPrintableGiftcardDetails from '#src/libs/giftcard/components/ConsumerPrintableGiftcardDetails.components.tsx';
 import type { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import type { Theme as CompanyThemeType } from '../../libs/theme/types';
 import type { Payment, PaymentMethod } from '../../libs/payment/types';
 import type { OptionCallback } from '../../state/types';
-import type { ConsumerGiftcard, Giftcard } from '#../../ibs/giftcard/types';
+import type {
+  ConsumerGiftcard,
+  Giftcard,
+  GiftcardAttributePrintableCodePayload,
+} from '#../../ibs/giftcard/types';
 import type {
   PlannedPaymentEvent,
   InvoiceV1Serializer,
 } from '#src/libs/invoice/types';
 import type { StripeReader } from '../../libs/terminal/types';
 import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '../../libs/invoice/constants';
-import { GiftcardKindEnum } from '../../libs/giftcard/constants';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
 
 import { formatAsDate } from '../../utils/datetime';
 import isEqual from 'lodash/isEqual';
@@ -235,10 +240,14 @@ type Props = {
   establishmentBillingGroups: EstablishmentBillingGroup[],
   editEstablishmentBillingGroupIsLoading: boolean,
   fetchConsumerGiftcardList: (
-    params: any,
+    params: ConsumerGiftcardFilterParams,
     options?: OptionCallback<Array<ConsumerGiftcard>>,
   ) => void,
   getConsumerGiftcard: (id: number) => ConsumerGiftcard,
+  attributeByPrintableCode: (
+    data: GiftcardAttributePrintableCodePayload,
+    options?: OptionCallback<ConsumerGiftcard>,
+  ) => void,
 };
 
 type State = {
@@ -248,7 +257,7 @@ type State = {
   paymentGroupPriceCts: number,
   paymentGroupMethodIdentifierToRevalidate: number,
   paymentMethodIdToRevalidate: string,
-  selectedConsumerPhysicalGiftcard: ConsumerGiftcard | null,
+  selectedConsumerPrintableGiftcard: ConsumerGiftcard | null,
   onPaymentMethodRefreshed: () => void,
 };
 
@@ -257,7 +266,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
     clientSecret: null,
     clientSecretLoading: false,
     paymentGroupPriceCts: 0,
-    selectedConsumerPhysicalGiftcard: null,
+    selectedConsumerPrintableGiftcard: null,
   };
 
   componentDidMount() {
@@ -275,38 +284,61 @@ export class InvoiceDetail extends React.Component<Props, State> {
   }
 
   /** Whenever clicking on the details of a physical consumer gift card, when the invoice item is one  */
-  handleSelectPhysicalGiftcard = (id: number) => () => {
+  handleSelectPrintableGiftcard = (id: number) => () => {
     const physicalConsumerGiftcard = this.props.getConsumerGiftcard(id);
     !!physicalConsumerGiftcard &&
       this.setState({
-        selectedConsumerPhysicalGiftcard: physicalConsumerGiftcard,
+        selectedConsumerPrintableGiftcard: physicalConsumerGiftcard,
       });
   };
 
-  /** Get all invoice items that are linked to a giftcard */
-  getGiftcardInvoiceItemList = () => {
+  /** Get all invoice items that are linked to a printable giftcard */
+  getPhysicalConsumerGiftcardIdList = () => {
     return (
-      this.props.invoice?.invoice_items?.filter(
-        (invoiceItem) => !!invoiceItem && invoiceItem.content_type === 5,
-      ) ?? []
+      this.props.invoice?.invoice_items
+        ?.filter(
+          (invoiceItem) =>
+            !!invoiceItem &&
+            !!invoiceItem.consumer_giftcard_kind &&
+            invoiceItem.consumer_giftcard_kind ===
+              ConsumerGiftcardKind.PRINTABLE,
+        )
+        .map((invoiceItem) => invoiceItem.object_id) ?? []
     );
   };
 
   fetchInvoiceData = () => {
-    const giftcardInvoiceItemList = this.getGiftcardInvoiceItemList();
     this.props.fetchInvoice(this.props.uuid, {
       onSuccess: (invoice) => {
-        this.props.fetchMember(invoice.member);
+        this.props.fetchMember(invoice.member, {
+          onSuccess: () => {
+            this.props.fetchConsumerGiftcardReceivedList(
+              this.props.invoice?.member?.id,
+            );
+          },
+        });
         if (invoice.plannedinvoice) {
           this.props.fetchPaymentGroupRequiringActionList();
         }
         this.props.fetchPaymentMethodList({ member: invoice.member });
       },
     });
-    this.props.fetchInvoiceItemList({
-      invoice__uuid: this.props.uuid,
-      page_size: 100,
-    });
+    this.props.fetchInvoiceItemList(
+      {
+        invoice__uuid: this.props.uuid,
+        page_size: 100,
+      },
+      {
+        onSuccess: () => {
+          const giftcardInvoiceItemIdList =
+            this.getPhysicalConsumerGiftcardIdList();
+          giftcardInvoiceItemIdList.length > 0 &&
+            this.props.fetchConsumerGiftcardList({
+              id__in: giftcardInvoiceItemIdList,
+            });
+        },
+      },
+    );
     this.props.fetchPaymentList({
       invoice__uuid: this.props.uuid,
       page_size: 100,
@@ -557,6 +589,28 @@ export class InvoiceDetail extends React.Component<Props, State> {
   handleCloseConsumerPrintableGiftcardModal = () =>
     this.setState({ selectedConsumerPrintableGiftcard: null });
 
+  handleAttributeByPrintableCode = (
+    code: string,
+    options?: OptionCallback<ConsumerGiftcard>,
+  ) => {
+    !!this.props.invoice?.member?.id &&
+      this.props.attributeByPrintableCode?.(
+        {
+          dst_member: this.props.invoice?.member?.id,
+          code,
+        },
+        {
+          onSuccess: () => {
+            this.props.fetchConsumerGiftcardReceivedList(
+              this.props.invoice?.member?.id,
+            );
+            options?.onSuccess();
+          },
+          onError: (error) => options?.onError(error),
+        },
+      );
+  };
+
   render() {
     const stripeRegion = getStripeRegion();
     const companyCountry = getCompanyCountry();
@@ -589,8 +643,8 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   editCustomFooter={this.props.editCustomFooter}
                   finalizeInvoice={this.props.finalizeInvoice}
                   goToSubscription={this.props.goToSubscription}
-                  handleShowPhysicalGiftcardDetails={
-                    this.handleSelectPhysicalGiftcard
+                  handleShowPrintableGiftcardDetails={
+                    this.handleSelectPrintableGiftcard
                   }
                   invoice={this.props.invoice}
                   invoiceItemList={this.props.invoice.invoice_items.filter(
@@ -612,6 +666,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 companyId={this.props.companyId}
                 consumeBalance={this.allocateDebt}
                 consumerGiftcardList={this.props.consumerGiftcardList}
+                handleAttributeByPrintableCode={
+                  this.handleAttributeByPrintableCode
+                }
                 handleChangeMethod={this.props.updatePaymentMethod}
                 invoice={this.props.invoice}
                 onInstalmentPayment={this.props.openInstalmentPaymentDialog}
@@ -831,10 +888,10 @@ export class InvoiceDetail extends React.Component<Props, State> {
           )}
         </div>
 
-        {!!this.state.selectedConsumerPhysicalGiftcard && (
-          <ConsumerPhysicalGiftcardDetails
-            consumerGiftcard={this.state.selectedConsumerPhysicalGiftcard}
-            isOpen={!!this.state.selectedConsumerPhysicalGiftcard}
+        {!!this.state.selectedConsumerPrintableGiftcard && (
+          <ConsumerPrintableGiftcardDetails
+            consumerGiftcard={this.state.selectedConsumerPrintableGiftcard}
+            isOpen={!!this.state.selectedConsumerPrintableGiftcard}
             onClose={this.handleCloseConsumerPrintableGiftcardModal}
           />
         )}
@@ -940,6 +997,7 @@ export default compose(
       getConsumerGiftcard: (id: number) => getConsumerGiftcard(state, id),
     }),
     {
+      attributeByPrintableCode: attributeByPrintableCodeAction,
       fetchConsumerGiftcardList: fetchConsumerGiftcardListAction,
       fetchInvoiceItemList,
       fetchPaymentMethodList: fetchPaymentMethodListAction,
@@ -1048,6 +1106,7 @@ export default compose(
             active: true,
             reverted: false,
             has_amount_left: true,
+            in_timeframe: true,
           },
           {
             onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
@@ -1065,7 +1124,13 @@ export default compose(
         );
       },
     applyGiftcardOnInvoice:
-      ({ applyGiftcardOnInvoice, fetchInvoice, fetchPaymentList }) =>
+      ({
+        applyGiftcardOnInvoice,
+        fetchInvoice,
+        fetchPaymentList,
+        fetchConsumerGiftcardReceivedList,
+        member,
+      }) =>
       (
         invoice_uuid: string,
         consumerGiftCardId: number,

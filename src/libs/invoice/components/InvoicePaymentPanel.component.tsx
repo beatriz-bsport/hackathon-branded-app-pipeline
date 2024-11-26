@@ -113,6 +113,10 @@ const PaymentActions: FC<{
     amount: number,
     options?: OptionCallback,
   ) => void;
+  handleAttributeByPrintableCode: (
+    code: string,
+    options?: OptionCallback<ConsumerGiftcard>,
+  ) => void;
 }> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
@@ -259,6 +263,9 @@ const PaymentActions: FC<{
                 props.amountToPayCts === 0 ||
                 processing
               }
+              handleAttributeByPrintableCode={
+                props.handleAttributeByPrintableCode
+              }
               // @ts-expect-error
               invoice={props.invoice}
               loading={props.loading}
@@ -316,6 +323,10 @@ type Props = {
     consumergiftCardId: number,
     amount: number,
     options?: OptionCallback,
+  ) => void;
+  handleAttributeByPrintableCode: (
+    code: string,
+    options?: OptionCallback<ConsumerGiftcard>,
   ) => void;
 };
 
@@ -543,7 +554,8 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
           applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
           companyId={props.companyId}
           consumeBalance={props.consumeBalance}
-          consumerGiftcardList={props.consumerGiftcardList}
+          consumerGiftcardList={props.consumerGiftcardList ?? []}
+          handleAttributeByPrintableCode={props.handleAttributeByPrintableCode}
           invoice={props.invoice}
           // @ts-expect-error
           is_reverse={is_reverse}

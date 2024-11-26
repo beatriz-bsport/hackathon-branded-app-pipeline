@@ -68,8 +68,8 @@ type Props = {
   ) => void;
   updatePaymentMethod: (uuid: string, paymentMethodId: number) => void;
   displayCouponNotFullyAppliedWarning?: boolean;
-  /** An optional handler when clicking on an invoice item that is a physical gift card */
-  handleShowPhysicalGiftcardDetails?: (id: number) => () => void;
+  /** An optional handler when clicking on an invoice item that is a printable gift card */
+  handleShowPrintableGiftcardDetails?: (id: number) => () => void;
 };
 
 export const InvoiceContent: React.FC<Props> = ({
@@ -100,7 +100,7 @@ export const InvoiceContent: React.FC<Props> = ({
   setEstablishmentBillingGroup,
   updatePaymentMethod,
   displayCouponNotFullyAppliedWarning,
-  handleShowPhysicalGiftcardDetails,
+  handleShowPrintableGiftcardDetails,
 }) => {
   const classes = useStyles({
     amountPaymentItem,
@@ -207,8 +207,8 @@ export const InvoiceContent: React.FC<Props> = ({
             /* hotfix: key can't be unique, the same Invoice Item can be rendered multiple times */
             <InvoiceItem
               key={`${ii.id}:${uuidv4()}`}
-              handleShowPhysicalGiftcardDetails={
-                handleShowPhysicalGiftcardDetails
+              handleShowPrintableGiftcardDetails={
+                handleShowPrintableGiftcardDetails
               }
               invoiceItem={ii}
               onDelete={handleRemoveInvoiceItem(ii)}

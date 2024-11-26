@@ -683,6 +683,13 @@ const getTranslations = async () => {
         errors: { errorAmount: 'Invalid amount.' },
         usedGiftcard: 'Used gift card',
         amountToPay: 'Amount paid by gift card',
+        title: 'Payment by gift card',
+        availableGiftcards: 'Available gift card(s)',
+        addGiftcardError:
+          'This gift card code is incorrect. Please check and try again.',
+        addGiftcard: 'Add gift card',
+        giftcardCode: 'Gift card code',
+        expiresOn: 'Expires on: {{- date }}',
       },
       giftcard: 'Gift card',
     },

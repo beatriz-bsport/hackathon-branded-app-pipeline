@@ -10,7 +10,7 @@ import {
 import { snackbarError } from '#src/libs/snackbar/actions';
 import { isErrorWithCustomCode } from '#src/libs/utils';
 import { monitorBackgroundTask } from '../background-task/actions';
-import { OptionCallback, Dispatch } from '../../state/types';
+import { OptionCallback, Dispatch, PaginatedResponse } from '../../state/types';
 import {
   fetchGiftcardList as fetchGiftcardListAPI,
   retrieveGiftcard as retrieveGiftcardAPI,
@@ -36,6 +36,7 @@ import {
 } from './api';
 import {
   ConsumerGiftcard,
+  ConsumerGiftcardFilterParams,
   Giftcard,
   GiftcardAttributePrintableCodePayload,
   GiftcardBackgroundImage,
@@ -323,14 +324,16 @@ export function retrieveConsumerGiftcardByActivationCode(
 }
 
 export const listConsumerGiftcardActions = {
-  error: createAction('CONSUMER_GIFTCARD/LIST/ERROR'),
-  isLoading: createAction('CONSUMER_GIFTCARD/LIST/LOADING'),
-  success: createAction('CONSUMER_GIFTCARD/LIST/SUCCESS'),
+  error: createAction<Error | null>('CONSUMER_GIFTCARD/LIST/ERROR'),
+  isLoading: createAction<boolean>('CONSUMER_GIFTCARD/LIST/LOADING'),
+  success: createAction<PaginatedResponse<ConsumerGiftcard>>(
+    'CONSUMER_GIFTCARD/LIST/SUCCESS',
+  ),
 };
 
 export function fetchConsumerGiftcardList(
-  params: any,
-  options?: OptionCallback<Array<ConsumerGiftcard>>,
+  params: ConsumerGiftcardFilterParams,
+  options?: OptionCallback<ConsumerGiftcard[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listConsumerGiftcardActions.isLoading(true));
@@ -345,7 +348,6 @@ export function fetchConsumerGiftcardList(
         }),
       );
       if (options && options.onSuccess) {
-        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
       dispatch(listConsumerGiftcardActions.error(null));
@@ -383,14 +385,10 @@ export function attributeToMember(
   return async (dispatch: Dispatch) => {
     dispatch(attributeToMemberActions.isLoading(true));
     dispatch(attributeToMemberActions.error(null));
-
     try {
       const response = await attributeMemberAPI(id, data);
       dispatch(attributeToMemberActions.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
-      dispatch(attributeToMemberActions.error(null));
+      options?.onSuccess?.(response.data);
     } catch (error) {
       console.error(error);
       dispatch(attributeToMemberActions.error(error));
@@ -407,6 +405,7 @@ export function attributeToMember(
           ),
         );
       }
+      options?.onError?.(error);
     }
 
     dispatch(attributeToMemberActions.isLoading(false));
@@ -597,7 +596,6 @@ export function fetchConsumerGiftcardReceivedList(
         ...(params || {}),
         ...(memberId ? { dst_member: memberId } : { as_received: true }),
       });
-      // @ts-expect-error
       const current_page = response.data?.page ?? params?.page;
       dispatch(
         listConsumerGiftcardReceivedActions.success({
@@ -606,7 +604,6 @@ export function fetchConsumerGiftcardReceivedList(
         }),
       );
       if (options && options.onSuccess) {
-        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
       dispatch(listConsumerGiftcardReceivedActions.error(null));
@@ -639,7 +636,6 @@ export function fetchConsumerGiftcardSentList(
         ...(params || {}),
         ...(memberId ? { src_member: memberId } : { as_sent: true }),
       });
-      // @ts-expect-error
       const current_page = response.data?.page ?? params?.page;
       dispatch(
         listConsumerGiftcardSentActions.success({
@@ -648,7 +644,6 @@ export function fetchConsumerGiftcardSentList(
         }),
       );
       if (options && options.onSuccess) {
-        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
       dispatch(listConsumerGiftcardSentActions.error(null));

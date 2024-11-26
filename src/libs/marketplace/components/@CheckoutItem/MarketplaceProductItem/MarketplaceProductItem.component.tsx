@@ -24,7 +24,7 @@ export type Props = {
   tax: number;
   isExcludingTax?: boolean;
   isLoading: boolean;
-  /** If current checkout item is a physical giftcard */
+  /** If current checkout item is a printable giftcard */
   pdfLink?: string;
 };
 

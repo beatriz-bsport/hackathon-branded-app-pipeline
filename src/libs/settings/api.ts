@@ -5,6 +5,7 @@ import {
   putAuth,
   patchAuth,
   deleteAuth,
+  get,
 } from '../../http';
 import type {
   CustomAppNavigationTabsNames,
@@ -14,6 +15,9 @@ import type {
 
 export const fetchCustomShopRedirections = async () =>
   getAuth(`${API_V1_URI}/mobile_app/custom_shop_redirection/`);
+
+export const fetchCustomPrivacyPolicy = async (id: number) =>
+  get(`${API_V1_URI}/mobile_app/custom_privacy_policy/${id}/`);
 
 export const createCustomShopRedirection = async (
   data: Omit<CustomShopRedirection, 'id'>,

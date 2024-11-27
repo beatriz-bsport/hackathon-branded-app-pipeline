@@ -80,6 +80,10 @@ const ReferralRegistration = asyncComponent(() =>
   import('./pages/login/ReferralRegistration.page'),
 );
 
+const PrivacyPolicy = asyncComponent(() =>
+  import('./pages/privacy-policy/PrivacyPolicy.page.tsx'),
+);
+
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -216,6 +220,10 @@ export class Root extends Component<Props> {
             <Route
               component={CompanyExternalRouter}
               path="/external/:companyId/"
+            />
+            <Route
+              component={PrivacyPolicy}
+              path="/privacy-policy/:customAppConfigurationId"
             />
             <Route component={SentryTestError} path="/sentry" />
             <Route component={LoginRouter} path="/login" />

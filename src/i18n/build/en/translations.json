@@ -2347,7 +2347,7 @@
             "303": "Merger of two studio accounts",
             "20": "Request for invoice download",
             "302": "Member email validation",
-            "304": "Gift card activation",
+            "304": "Digital gift card activation",
             "305": "Change of member email from the backoffice",
             "1002": "Spinning session performance",
             "1001": "Spivi account created (for members)",
@@ -4530,7 +4530,7 @@
         "code": {
             "addCoupon": {
                 "apply": "Apply",
-                "label": "Promo code",
+                "label": "Promo code & gift card",
                 "placeholder": "PROMOTIONAL CODE",
                 "cancel": "Cancel",
                 "submit": "Apply",

@@ -1329,7 +1329,10 @@
                     "message_is_for": "Destinatario della gift card",
                     "giftcard_message": "Messaggio nella gift card",
                     "giftcard_value": "Valore della gift card",
-                    "giftcard_name": "Nome della gift card"
+                    "giftcard_name": "Nome della gift card",
+                    "printable_code": "Codice stampabile della gift card",
+                    "pdf_link": "Link PDF della gift card",
+                    "activation_datetime": "Data di attivazione della gift card"
                 },
                 "name": "Gift card"
             },
@@ -1351,7 +1354,8 @@
                 "activate_giftcard_url": "Link di attivazione della gift card",
                 "message_is_from": "Membro che invia la gift card",
                 "giftcard_value": "Valore della gift card",
-                "manage_changing_email_link": "Link per la gestione delle modifiche all'email"
+                "manage_changing_email_link": "Link per la gestione delle modifiche all'email",
+                "pdf_link": "Link PDF della gift card"
             },
             "SpiviPerformance": {
                 "tags": {
@@ -1455,7 +1459,7 @@
             "20": "Richiesta di download della ricevuta",
             "301": "Reimpostazione della password utente",
             "302": "Convalida della email utente",
-            "304": "Attivazione della gift card",
+            "304": "Attivazione della gift card digitale",
             "305": "Modifica della email del membro dal backoffice",
             "1002": "Performance della sessione di spinning",
             "1001": "Account Spivi creato (membri)",
@@ -1467,7 +1471,8 @@
             "201": "Metodo di pagamento dell'abbonamento in scadenza (secondo avviso)",
             "200": "Metodo di pagamento dell'abbonamento in scadenza (primo avviso)",
             "1200": "Modalità di pagamento, primo sollecito per la scadenza dei pagamenti rateali",
-            "1201": "Modalità di pagamento, secondo sollecito per la scadenza dei pagamenti rateali"
+            "1201": "Modalità di pagamento, secondo sollecito per la scadenza dei pagamenti rateali",
+            "308": "Attivazione della git card fisica"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -6343,7 +6348,8 @@
         },
         "clientSecret": {
             "errors": {
-                "12102": "Un pagamento è già stato convalidato, torna più tardi per registrare un nuovo pagamento."
+                "12102": "Un pagamento è già stato convalidato, torna più tardi per registrare un nuovo pagamento.",
+                "12909": "I pagamenti sono disabilitati per questo studio"
             }
         },
         "companyTheme": {
@@ -7238,7 +7244,8 @@
                     "3": "Altro",
                     "2": "Backoffice",
                     "1": "Web",
-                    "0": "App"
+                    "0": "App",
+                    "4": "Migrazione"
                 },
                 "clientAuthor": "Cliente",
                 "author": "Creato da: {{name}}",
@@ -10444,7 +10451,8 @@
                     "title": "Conferma della modifica"
                 },
                 "universalPassTooltip": "I pacchetti universali possono essere utilizzati per attività di gruppo e appuntamenti. Per ogni pacchetto universale vengono creati due àcchetti per appuntamenti per collegare il numero di crediti. Una volta acquistato uno di questi pacchetti, l'altro verrà aggiunto automaticamente senza costi aggiuntivi.",
-                "universalPassTitle": "Pacchetto universale condiviso"
+                "universalPassTitle": "Pacchetto universale condiviso",
+                "notEditable": "Questo pacchetto proviene da una migrazione di dati precedentemente completata. Alcuni campi potrebbero non essere modificabili per preservare i dati."
             },
             "section": {
                 "titleManagerOnly": "Non disponibile per la vendita",
@@ -12879,7 +12887,7 @@
         "createCoupon": "Aggiungi un codice",
         "code": {
             "addCoupon": {
-                "label": "Codice promozionale",
+                "label": "Codice promozionale & gift card",
                 "placeholder": "RIENTRO_SPECIALE",
                 "cancel": "Annullare",
                 "submit": "Confermare",
@@ -12887,7 +12895,9 @@
                 "not_applicable": "Questo codice promozionale non è applicabile.",
                 "apply": "Applica",
                 "5006": "Questo codice univoco è già collegato a un carrello aperto",
-                "5004": "Questo codice può essere applicato solo a un singolo articolo."
+                "5004": "Questo codice può essere applicato solo a un singolo articolo.",
+                "45010": "La gift card è stata associata al tuo conto, ma non è stato possibile attivarla perché è precedente alla data di attivazione",
+                "45009": "Questo codice gift card non può essere applicato a questo carrello"
             }
         },
         "search": "Cerca un codice promozionale",
@@ -13382,7 +13392,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il vostro marketplace non visualizzeranno più il calendario della sede.",
                     "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate.",
                     "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceverà quindi le richieste di sostituzione da tutte le sedi.",
-                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminandola, riceveranno quindi le richieste di sostituzione da ogni sede.",
+                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }}  vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminandola, riceveranno quindi le richieste di sostituzione da tutte le sedi.",
                     "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, non riceveranno più la relativa notifica.",
                     "hasRelatedStaffConfigurations": "Questa sede è utilizzata per il monitoraggio degli accessi da parte di uno o più utenti staff. Eliminando la sede senza selezionarne una nuova, questi non potranno più effettuare il monitoraggio degli accessi."
                 },
@@ -13413,7 +13423,7 @@
                 "hasRelatedStaffConfigurations": "Questo stabilimento sarà rimosso dagli stabilimenti utilizzati dgli utenti staff per il monitoraggio degli accessi.",
                 "hasExclusiveStaffConfigurations": "Alcuni utenti Staff sono configurati per monitorare l'accesso dei membri per questo stabilimento. Eliminando lo stabilimento senza selezionarne uno nuovo, non potranno più effettuare il monitoraggio degli accessi.",
                 "exclusivePrivateServices": "L'appuntamento {{- private_service_name }} è configurato per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, l'appuntamento potrà svolgersi ovunque.",
-                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per essere svolti solo in questo stabilimento. Eliminando questo stabilimento, gli appuntamenti potranno svolgersi ovunque.",
+                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per essere svolti solo in questo stabilimento. Eliminandolo, gli appuntamenti potranno svolgersi ovunque.",
                 "hasBillingGroup": "Questo stabilimento sarà anche rimosso dal gruppo di fatturazione {{- establishment_billing_group_name }}."
             },
             "infos": {
@@ -13428,7 +13438,7 @@
                 "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
                 "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; aggiornare o eliminare queste sedi.",
                 "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
-                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellare lo stabilimento.",
+                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellare la struttura.",
                 "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
                 "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
                 "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."
@@ -14822,7 +14832,7 @@
         "send": "Invia",
         "reset": "Ripristina",
         "add": "Aggiungi",
-        "more": "Più",
+        "more": "Di più",
         "continue": "Continua",
         "edit": "Modifica",
         "preview": "Anteprima",
@@ -19943,7 +19953,20 @@
                 },
                 "footerUnlimited": "La carta sarà inviata via email il {{- date_send }} alle {{- hour_send }} agli indirizzi indicati. Non contiene una data di scadenza. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri.",
                 "select_image": "Seleziona la tua immagine di sfondo",
-                "hour_send": "Tempo di invio"
+                "hour_send": "Tempo di invio",
+                "activationDate": {
+                    "helperText": "Il destinatario potrà utilizzare la gift card a partire da questa data",
+                    "label": "Data di attivazione"
+                },
+                "footerPhysicalUnlimited": "Riceverai via email le informazioni necessarie per utilizzare la gift card e una versione stampabile della carta in un file PDF.",
+                "footerPhysical": "La gift card verrà attivata il {{- activation_date }} e sarà valida fino al {{- activation_date_until }} ({{ duration }} giorni). Riceverai via email le informazioni necessarie per utilizzare la gift card e una versione stampabile della carta in un file PDF",
+                "type": {
+                    "option": {
+                        "physical": "Codice stampabile (PDF)",
+                        "digital": "Link di attivazione via email"
+                    },
+                    "label": "Come vorresti inviare la gift card"
+                }
             },
             "previewPlaceholder": {
                 "message_content": "[Messaggio personalizzato]",
@@ -19984,7 +20007,18 @@
                 "subtitle": "Sembra che qualcuno ti abbia fatto una sorpresa.",
                 "title": "Qualcuno ha voluto farti qualcosa di carino!",
                 "content1withDate": "La tua gift card {{price}} è compatibile con tutti i prodotti del nostro shop. Questa card scade {{ expiration_days }} giorni dopo l'attivazione, quindi fatti un regalo!"
-            }
+            },
+            "physicalDetails": {
+                "helperAlert": {
+                    "message": "Condividi il codice della gift card con il membro, in modo che possa utilizzare il credito per il suo prossimo acquisto.",
+                    "title": "Come utilizzare la gift card?"
+                },
+                "validFrom": "Valida dal: {{- from }} al {{- to }}",
+                "code": "Codice:",
+                "to": "Destinatario",
+                "title": "Gift card"
+            },
+            "seeDetails": "Vedi dettagli"
         },
         "list": {
             "actions": {
@@ -20028,7 +20062,8 @@
             },
             "sharedCard": "Condiviso da un altro franchisee",
             "giftcard": "Gift card"
-        }
+        },
+        "downloadPDF": "Scarica PDF"
     },
     "performanceTracking": {
         "program": {

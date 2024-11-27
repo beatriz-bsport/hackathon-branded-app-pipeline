@@ -2501,11 +2501,13 @@
                 "5006": "Ce code unique est déjà lié à un panier ouvert",
                 "submit": "Valider",
                 "cancel": "annuler",
-                "label": "Code promo",
+                "label": "Code promo & carte cadeau",
                 "placeholder": "SPECIAL_RENTREE",
                 "not_found": "Ce code promo n'est pas valide.",
                 "not_applicable": "Ce code promo n'est pas applicable.",
-                "apply": "Appliquer"
+                "apply": "Appliquer",
+                "45010": "La carte cadeau a bien été associée à votre compte, mais n'a pas pu être activée car elle est antérieure à la date d'activation",
+                "45009": "Ce code de carte cadeau ne peut pas être appliqué à ce panier"
             }
         },
         "search": "Rechercher un code promo",
@@ -3086,7 +3088,7 @@
         "seeAll": "Voir tous",
         "allCompanies": "Tous les franchisés",
         "bsportTemplateEmail": "Templates Bsport",
-        "bsportTemplateEmails": "Templates Bsport",
+        "bsportTemplateEmails": "Templates bsport",
         "infoBsportTemplateEmails": "Si vous souhaitez envoyer des communications ou éditer les templates de cette section, il est nécessaire de créer une copie du template souhaité. Sélectionnez ensuite la copie de l'email lors de l'envoi d'une communication.",
         "franchiseEmailsPage": {
             "filters": {
@@ -3765,8 +3767,32 @@
                     "cancel": "Annuler"
                 },
                 "footer": "La carte sera envoyée par mail le {{- date_send }} à {{- hour_send }} aux adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après activation. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats.",
-                "footerUnlimited": "La carte sera envoyée par mail le {{- date_send }} à {{- hour_send }} aux adresses indiquées. Elle ne contient pas de date d'expiration. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats."
-            }
+                "footerUnlimited": "La carte sera envoyée par mail le {{- date_send }} à {{- hour_send }} aux adresses indiquées. Elle ne contient pas de date d'expiration. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats.",
+                "footerPhysical": "La carte cadeau sera activée le {{- activation_date }} sera valable jusqu'au {{- activation_date_until }} ({{ duration }} jour(s)). Vous recevrez par e-mail les informations nécessaires à l'utilisation de la carte cadeau ainsi qu'une version de votre carte à imprimer au format PDF",
+                "activationDate": {
+                    "helperText": "Le bénéficiaire peut utiliser la carte cadeau à partir de cette date",
+                    "label": "Date d'activation"
+                },
+                "footerPhysicalUnlimited": "Vous recevrez par e-mail les informations nécessaires à l'utilisation de la carte cadeau ainsi qu'une version de votre carte à imprimer au format PDF.",
+                "type": {
+                    "option": {
+                        "physical": "Code à imprimer (PDF)",
+                        "digital": "Lien d'activation par e-mail"
+                    },
+                    "label": "Comment voulez-vous envoyer la carte-cadeau"
+                }
+            },
+            "physicalDetails": {
+                "helperAlert": {
+                    "message": "Partagez le code de la carte-cadeau avec le membre afin qu'il puisse utiliser le crédit lors de son prochain achat.",
+                    "title": "Comment utiliser la carte cadeau ?"
+                },
+                "validFrom": "Valable à partir du : {{- from }} au {{- to }}",
+                "code": "Code :",
+                "to": "Au",
+                "title": "Carte cadeau"
+            },
+            "seeDetails": "Voir détails"
         },
         "link": {
             "copyLink": "Copier le lien d'achat",
@@ -3867,7 +3893,8 @@
                 "unlimited": "Illimitée",
                 "withoutTax": "Hors taxe"
             }
-        }
+        },
+        "downloadPDF": "Télécharger le PDF"
     },
     "invoice": {
         "paymentGroup": {
@@ -3923,7 +3950,8 @@
                     "1": "Web",
                     "2": "Backoffice",
                     "3": "Autre",
-                    "label": "Canal : {{ source }}"
+                    "label": "Canal : {{ source }}",
+                    "4": "Migration"
                 },
                 "noBillingGroup": "Aucun groupe de facturation n'a été associé à cette facture",
                 "reverseInvoicePending": "Remboursement en cours via "
@@ -7069,7 +7097,10 @@
                     "message_is_for": "Destinataire de la carte cadeau",
                     "giftcard_message": "Message de la carte cadeau",
                     "giftcard_value": "Valeur de la carte cadeau",
-                    "giftcard_name": "Nom de la carte cadeau"
+                    "giftcard_name": "Nom de la carte cadeau",
+                    "printable_code": "Code à imprimer pour la carte cadeau",
+                    "pdf_link": "Carte cadeau lien PDF",
+                    "activation_datetime": "Date d'activation de la carte cadeau"
                 }
             },
             "EmailChange": {
@@ -7107,7 +7138,8 @@
                 "message_is_from": "Membre envoyant la carte cadeau",
                 "giftcard_message": "Message de la carte cadeau",
                 "giftcard_value": "Valeur de la carte cadeau",
-                "manage_changing_email_link": "Lien de gestion du changement d'email"
+                "manage_changing_email_link": "Lien de gestion du changement d'email",
+                "pdf_link": "Carte cadeau lien PDF"
             },
             "GuestInvitation": {
                 "tags": {
@@ -7164,7 +7196,7 @@
             "301": "Réinitialisation mot de passe membre",
             "302": "Validation d'email membre",
             "303": "Fusion de deux comptes du studio",
-            "304": "Activation de carte cadeau",
+            "304": "Activation de la carte cadeau numérique",
             "305": "Changement d'email membre depuis le backoffice",
             "400": "Rendez-vous annulé - hors-délai (professeur)",
             "401": "Rendez-vous annulé - remboursé (professeur)",
@@ -7206,7 +7238,8 @@
             "201": "La méthode de paiement de l'abonnement sur le point d'expirer (deuxième avertissement)",
             "200": "La méthode de paiement de l'abonnement est sur le point d'expirer (premier avertissement)",
             "1201": "Second rappel d'expiration du mode de paiement pour les paiements échelonnés",
-            "1200": "Premier rappel d'expiration du mode de paiement pour les paiements échelonnés"
+            "1200": "Premier rappel d'expiration du mode de paiement pour les paiements échelonnés",
+            "308": "Activation de la carte cadeau physique"
         },
         "franchise": {
             "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",
@@ -8388,7 +8421,8 @@
                     "title": "Confirmation de modification"
                 },
                 "universalPassTitle": "Carte universelle partagée",
-                "universalPassTooltip": "Les cartes universelles peuvent être utilisées pour les activités collectives et les rendez-vous. Des cartes de rendez-vous jumelles sont créées pour chaque carte universelle afin d'y lier le nombre de crédits. Une fois l'une de ces cartes achetée, l'autre sera automatiquement ajoutée sans frais supplémentaires."
+                "universalPassTooltip": "Les cartes universelles peuvent être utilisées pour les activités collectives et les rendez-vous. Des cartes de rendez-vous jumelles sont créées pour chaque carte universelle afin d'y lier le nombre de crédits. Une fois l'une de ces cartes achetée, l'autre sera automatiquement ajoutée sans frais supplémentaires.",
+                "notEditable": "Cette carte de cours provient d'une migration de données précédemment effectuée. Certains champs peuvent ne pas être modifiables afin de préserver les données."
             },
             "deleteForm": {
                 "title": "Supprimer la carte partagée",
@@ -16081,7 +16115,8 @@
         },
         "clientSecret": {
             "errors": {
-                "12102": "Un paiment est déjà en cours de validation, revenez plus tard pour enregistrer un nouveau paiement."
+                "12102": "Un paiment est déjà en cours de validation, revenez plus tard pour enregistrer un nouveau paiement.",
+                "12909": "Les paiements sont désactivés pour ce studio"
             }
         },
         "companyTheme": {

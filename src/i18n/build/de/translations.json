@@ -5951,7 +5951,8 @@
                     "title": "Bestätigung bearbeiten"
                 },
                 "universalPassTitle": "Gemeinsamer Universalpass",
-                "universalPassTooltip": "Universalpässe können für Gruppenaktivitäten und Termine verwendet werden. Für jeden Universalpass werden zwei Terminpässe erstellt, um die Anzahl der Credits zu verbinden. Sobald einer dieser Pässe gekauft wurde, wird der andere automatisch und ohne zusätzliche Kosten hinzugefügt."
+                "universalPassTooltip": "Universalpässe können für Gruppenaktivitäten und Termine verwendet werden. Für jeden Universalpass werden zwei Terminpässe erstellt, um die Anzahl der Credits zu verbinden. Sobald einer dieser Pässe gekauft wurde, wird der andere automatisch und ohne zusätzliche Kosten hinzugefügt.",
+                "notEditable": "Dieser Pass stammt aus einer zuvor abgeschlossenen Datenmigration. Einige Felder sind möglicherweise nicht bearbeitbar, um die Daten zu erhalten."
             },
             "section": {
                 "titleManagerOnly": "Nicht zum Verkauf verfügbar",
@@ -7990,7 +7991,8 @@
         },
         "clientSecret": {
             "errors": {
-                "12102": "Eine Zahlung wird bereits bestätigt, kommen Sie später zurück, um eine neue Zahlung zu registrieren."
+                "12102": "Eine Zahlung wird bereits bestätigt, kommen Sie später zurück, um eine neue Zahlung zu registrieren.",
+                "12909": "Zahlungen sind für dieses Studio deaktiviert"
             }
         },
         "companyTheme": {
@@ -8474,7 +8476,8 @@
                     "3": "Divers",
                     "2": "Backoffice",
                     "1": "Web",
-                    "0": "App"
+                    "0": "App",
+                    "4": "Migration"
                 },
                 "clientAuthor": "Kunde",
                 "author": "Erstellt von : {{ name }}",
@@ -10993,7 +10996,7 @@
         },
         "code": {
             "addCoupon": {
-                "label": "Werbe-Code",
+                "label": "Werbe-Code & Geschenkkarte",
                 "placeholder": "spezial für die Rückkehr",
                 "cancel": "Abbrechen",
                 "submit": "Bestätigen",
@@ -11001,7 +11004,9 @@
                 "not_applicable": "Dieser Gutscheincode ist nicht anwendbar.",
                 "apply": "Bewerben",
                 "5006": "Dieser einmalige Code ist bereits mit einem offenen Warenkorb verbunden",
-                "5004": "Dieser Code kann nur auf einen Artikel angewendet werden."
+                "5004": "Dieser Code kann nur auf einen Artikel angewendet werden.",
+                "45010": "Die Geschenkkarte wurde deinem Konto hinzugefügt, ist jedoch noch nicht aktiv, da das Aktivierungsdatum noch aussteht",
+                "45009": "Dieser Rabattcode kann nicht auf den aktuellen Warenkorb angewendet werden"
             }
         },
         "createCoupon": "Einen Rabatt hinzufügen",
@@ -13056,7 +13061,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }}Tage übrig",
+                        "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -14088,7 +14093,7 @@
             "301": "Passwort für Mitglied zurücksetzen",
             "302": "E-Mail-Überprüfung für Mitglieder",
             "303": "Zusammenlegung von zwei Studiokonten",
-            "304": "Aktivierung des Gutscheins",
+            "304": "Digitale Aktivierung des Gutscheins",
             "305": "Änderung der Mitglieds-E-Mail aus dem Backoffice",
             "1002": "Leistung des Spinningkurses",
             "1001": "Spivi-Konto erstellt (für Mitglieder)",
@@ -14101,7 +14106,8 @@
             "201": "Zahlmethode für das Abo läuft bald ab (zweite Warnung)",
             "200": "Zahlungsmethode für das Abo läuft bald ab (erste Warnung)",
             "1201": "Zweiten Mahnung für den Zahlungsmethode Ablauf der Ratenzahlungen",
-            "1200": "Zahlungsmethode Ablauf der ersten Mahnung für Ratenzahlungen"
+            "1200": "Zahlungsmethode Ablauf der ersten Mahnung für Ratenzahlungen",
+            "308": "Aktivierung der physischen Geschenkkarte"
         },
         "tag": {
             "BookingOption": {
@@ -14263,7 +14269,10 @@
                     "message_is_from": "Mitglied, das den Gutschein versendet",
                     "message_is_for": "Empfänger des Geschenkgutscheins",
                     "giftcard_value": "Geschenkgutscheinwert",
-                    "giftcard_name": "Geschenkgutscheinname"
+                    "giftcard_name": "Geschenkgutscheinname",
+                    "printable_code": "druckfertiger Gutschein-Code",
+                    "pdf_link": "PDF-link des Gutscheins",
+                    "activation_datetime": "Aktivierungsdatum des Gutschein-Codes"
                 }
             },
             "EmailChange": {
@@ -14284,7 +14293,8 @@
                 "activate_giftcard_url": "Aktivierungslink für den Geschenkgutschein",
                 "giftcard_message": "Geschenkgutschein-Nachricht",
                 "giftcard_value": "Geschenkgutscheinwert",
-                "manage_changing_email_link": "Link zur Verwaltung von E-Mail-Änderungen"
+                "manage_changing_email_link": "Link zur Verwaltung von E-Mail-Änderungen",
+                "pdf_link": "Gutschein PDF-Link"
             },
             "SpiviPerformance": {
                 "tags": {
@@ -17406,7 +17416,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Deine Trainer {{- coach_name }} werden nur dann benachrichtigt, wenn eine Vertretungsanfrage für eine Einheit in dieser Einrichtung gestellt wird. Wenn du die Einrichtung löschst, erhalten sie Vertretungsanfragen aus allen Einrichtungen.",
+                "exclusiveAssociatedCoaches_plural": "Deine Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung gestellt wird. Wird die Einrichtung gelöscht, erhalten sie daher Vertretungsanfragen von allen Einrichtungen.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
@@ -19849,7 +19859,20 @@
                 },
                 "footerUnlimited": "Der Geschenkgutschein wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Er enthält kein Verfallsdatum. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschrieben.",
                 "select_image": "Wählen Sie Ihr Hintergrundbild",
-                "hour_send": "Uhrzeit des Versands"
+                "hour_send": "Uhrzeit des Versands",
+                "activationDate": {
+                    "helperText": "Der Empfänger kann die Geschenkkarte ab dem jeweiligen Datum verwenden",
+                    "label": "Aktivierungsdatum"
+                },
+                "footerPhysicalUnlimited": "Sie erhalten per E-Mail die notwendigen Informationen zur Nutzung der Geschenkkarte sowie eine druckfertige Version Ihrer Karte im PDF-Format.",
+                "footerPhysical": "Die Geschenkkarte wird am {{- activation_date }} aktiviert und ist gültig bis {{- activation_date_until }} ({{ duration }} Tag(e)). Sie erhalten per E-Mail alle notwendigen Informationen zur Nutzung der Geschenkkarte sowie eine druckfertige Version Ihrer Karte als PDF-Datei",
+                "type": {
+                    "option": {
+                        "physical": "druckfertiger Code (PDF)",
+                        "digital": "Aktivierungslink per E-mail"
+                    },
+                    "label": "Wie möchtest du den Geschenkgutschein erhalten"
+                }
             },
             "previewPlaceholder": {
                 "message_content": "[Personalisierte Nachricht]",
@@ -19890,7 +19913,18 @@
                 "subtitle": "Es scheint, als wolle Sie jemand überraschen.",
                 "title": "Sie haben ein Geschenk erhalten!",
                 "content1withDate": "Ihr {{price}} Gutschein ist mit allen Produkten in unserem Shop kompatibel. Dieser Gutschein verfällt {{expiration_days }} Tage nach der Aktivierung, also gönnen Sie sich was!"
-            }
+            },
+            "physicalDetails": {
+                "helperAlert": {
+                    "message": "Gib dem Mitglied den Gutschein-Code, damit er/sie das Guthaben bei der nächsten Buchung im einlösen kann.",
+                    "title": "wie nutze ich den Gutschein?"
+                },
+                "validFrom": "Gültig vom {{- from }} bis {{- to }}",
+                "code": "Rabattcode:",
+                "to": "für",
+                "title": "Geschenkgutschein"
+            },
+            "seeDetails": "siehe Details"
         },
         "list": {
             "actions": {
@@ -19934,7 +19968,8 @@
                 "fuzzyPlaceholder": "Gutschein suchen"
             },
             "giftcard": "Gutschein"
-        }
+        },
+        "downloadPDF": "PDF herunterladen"
     },
     "performanceTracking": {
         "requiredField": "dieses Feld ist erforderlich",

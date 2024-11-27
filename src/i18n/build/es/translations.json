@@ -3663,7 +3663,8 @@
                     "3": "Otro",
                     "2": "Backoffice",
                     "1": "Web",
-                    "0": "App"
+                    "0": "App",
+                    "4": "Migración"
                 },
                 "clientAuthor": "Cliente",
                 "author": "Creado por: {{name}}",
@@ -7898,7 +7899,7 @@
             "301": "Restablecer contraseña de miembro",
             "302": "Validación del email del miembro",
             "303": "Fusión de dos cuentas de estudio",
-            "304": "Activación de la tarjeta regalo",
+            "304": "Activación de la tarjeta regalo digital",
             "305": "Cambio del email del miembro desde el backoffice",
             "1002": "Rendimiento de la sesión de spinning",
             "1001": "Cuenta Spivi creada (alumnos)",
@@ -7911,7 +7912,8 @@
             "201": "Método de pago de la suscripción a punto de caducar (segundo aviso)",
             "200": "Método de pago de suscripción a punto de caducar (primer aviso)",
             "1200": "Primer recordatorio de vencimiento del método de pago para los pagos a plazos",
-            "1201": "Segundo recordatorio de vencimiento del método de pago para los pagos a plazos"
+            "1201": "Segundo recordatorio de vencimiento del método de pago para los pagos a plazos",
+            "308": "Activación de la tarjeta regalo física"
         },
         "tag": {
             "BookingOption": {
@@ -8073,7 +8075,10 @@
                     "message_is_for": "Destinatario de la tarjeta regalo",
                     "giftcard_message": "Mensaje de la tarjeta regalo",
                     "giftcard_value": "Valor de la tarjeta regalo",
-                    "giftcard_name": "Nombre de la tarjeta regalo"
+                    "giftcard_name": "Nombre de la tarjeta regalo",
+                    "printable_code": "Código imprimible de la tarjeta regalo",
+                    "pdf_link": "Enlace PDF de la tarjeta regalo",
+                    "activation_datetime": "Fecha de activación de la tarjeta regalo"
                 }
             },
             "EmailChange": {
@@ -8094,7 +8099,8 @@
                 "message_is_from": "Miembro que envía la tarjeta regalo",
                 "giftcard_message": "Mensaje de la tarjeta regalo",
                 "giftcard_value": "Valor de la tarjeta regalo",
-                "manage_changing_email_link": "Enlace de gestión de cambios de e-mail"
+                "manage_changing_email_link": "Enlace de gestión de cambios de e-mail",
+                "pdf_link": "Enlace PDF de la tarjeta regalo"
             },
             "SpiviPerformance": {
                 "tags": {
@@ -9015,14 +9021,16 @@
         "code": {
             "addCoupon": {
                 "placeholder": "SPECIAL_VUELTA",
-                "label": "Código promocional",
+                "label": "Código promocional y tarjeta regalo",
                 "cancel": "cancelar",
                 "submit": "Enviar",
                 "not_found": "Este código promocional no es válido.",
                 "not_applicable": "Este código promocional no es aplicable.",
                 "apply": "Solicitar",
                 "5004": "Este código sólo puede aplicarse a un artículo.",
-                "5006": "Este código único ya está vinculado a una cesta abierta"
+                "5006": "Este código único ya está vinculado a una cesta abierta",
+                "45010": "La tarjeta regalo ha sido bien asociada a su cuenta, pero no ha podido ser activada porque es anterior a la fecha de activación",
+                "45009": "Este código de tarjeta regalo no se puede aplicar a esta cesta"
             }
         },
         "createCoupon": "Añadir un código",
@@ -14912,7 +14920,8 @@
         },
         "clientSecret": {
             "errors": {
-                "12102": "Ya se está validando un pago, vuelva más tarde para registrar un nuevo pago."
+                "12102": "Ya se está validando un pago, vuelva más tarde para registrar un nuevo pago.",
+                "12909": "Los pagos están desactivados para este estudio"
             }
         },
         "companyTheme": {
@@ -15943,7 +15952,8 @@
                     "title": "Editar confirmación"
                 },
                 "universalPassTooltip": "Los pases universales pueden utilizarse para actividades de grupo y citas. Por cada pase universal se crean pases de cita gemelos para enlazar el número de créditos. Una vez adquirido uno de estos pases, el otro se añadirá automáticamente sin costes adicionales.",
-                "universalPassTitle": "Pase universal compartido"
+                "universalPassTitle": "Pase universal compartido",
+                "notEditable": "Este pase procede de una migración de datos realizada anteriormente. Algunos campos pueden no ser editables para preservar los datos."
             },
             "section": {
                 "titleManagerOnly": "No disponible para la venta",
@@ -19998,7 +20008,20 @@
                 },
                 "footerUnlimited": "La tarjeta se enviará por correo electrónico en {{- date_send }} a {{- hour_send }} a las direcciones indicadas. No contiene fecha de caducidad. La cuenta del destinatario será acreditada con {{- price }} para futuras compras.",
                 "select_image": "Seleccione su imagen de fondo",
-                "hour_send": "Hora de envío"
+                "hour_send": "Hora de envío",
+                "activationDate": {
+                    "helperText": "El destinatario puede utilizar la tarjeta regalo a partir de esta fecha",
+                    "label": "Fecha de activación"
+                },
+                "footerPhysicalUnlimited": "Recibirá por correo electrónico la información necesaria para utilizar la tarjeta regalo y una versión imprimible de su tarjeta en un archivo PDF.",
+                "footerPhysical": "La tarjeta regalo se activará el {{- activation_date }} y será válida hasta el {{- activation_date_until }} ({{ duration }} día(s)). Recibirá por correo electrónico la información necesaria para utilizar la tarjeta regalo y una versión imprimible de su tarjeta en un archivo PDF.",
+                "type": {
+                    "option": {
+                        "physical": "Código imprimible (PDF)",
+                        "digital": "Enlace de activación por correo electrónico"
+                    },
+                    "label": "Cómo desea enviar la tarjeta regalo"
+                }
             },
             "previewPlaceholder": {
                 "message_content": "[Mensaje personalizado]",
@@ -20039,7 +20062,18 @@
                 "subtitle": "Parece que alguien le ha dado una sorpresa.",
                 "title": "¡Alguien quería complacerte!",
                 "content1withDate": "iTu tarjeta regalo {{price}} es compatible con todos los productos de nuestra tienda. Esta tarjeta caduca {{expiration_days }} días después de su activación, así que date un capricho!"
-            }
+            },
+            "physicalDetails": {
+                "helperAlert": {
+                    "message": "Comparta el código de la tarjeta regalo con el socio para que pueda utilizar el crédito en su próxima compra.",
+                    "title": "¿Cómo utilizar la tarjeta regalo?"
+                },
+                "validFrom": "Válido de: {{- from }} a {{- to }}",
+                "code": "Código:",
+                "to": "A",
+                "title": "Tarjeta regalo"
+            },
+            "seeDetails": "Ver detalles"
         },
         "list": {
             "actions": {
@@ -20084,7 +20118,8 @@
             },
             "sharedCard": "Compartido por otro franquiciado",
             "giftcard": "Tarjeta de regalo"
-        }
+        },
+        "downloadPDF": "Descargar PDF"
     },
     "performanceTracking": {
         "requiredField": "este campo es obligatorio",

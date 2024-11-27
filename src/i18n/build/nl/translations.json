@@ -753,7 +753,7 @@
             "301": "Wachtwoord herstellen",
             "302": "Registratiebevestiging",
             "303": "Samenvoeging ledenaccounts",
-            "304": "Cadeaubon activering",
+            "304": "Digitale cadeaubon activering",
             "305": "Wijziging e-mailadres vanuit de BackOffice",
             "1002": "Lesprestaties",
             "1001": "Spivi-account aangemaakt (leden)",
@@ -765,7 +765,8 @@
             "1102": "Verwijzingsbeloning beschikbaar (verwijzend lid)",
             "1101": "Verwijzingsbeloning beschikbaar (doorverwezen lid)",
             "1201": "Betalingsmethode vervaldatum tweede herinnering voor betalingen op afbetaling",
-            "1200": "Betalingsmethode vervaldatum eerste herinnering voor betalingen op afbetaling"
+            "1200": "Betalingsmethode vervaldatum eerste herinnering voor betalingen op afbetaling",
+            "308": "Fysieke cadeaubon activering"
         },
         "tag": {
             "BookingOption": {
@@ -926,7 +927,10 @@
                     "message_is_for": "Ontvanger van de cadeaubon",
                     "giftcard_message": "Gepersonaliseerd bericht van de cadeaubon",
                     "giftcard_value": "Waarde van de cadeaubon",
-                    "giftcard_name": "Naam van de cadeaubon"
+                    "giftcard_name": "Naam van de cadeaubon",
+                    "printable_code": "Cadeaubon printbare code",
+                    "pdf_link": "Cadeaubon PDF link",
+                    "activation_datetime": "Activeringsdatum cadeaukaart"
                 },
                 "name": "Cadeaubon"
             },
@@ -948,7 +952,8 @@
                 "message_is_from": "Lid dat de cadeaubon verstuurt",
                 "giftcard_message": "Bericht van de cadeaubon",
                 "giftcard_value": "Waarde van de cadeaubon",
-                "manage_changing_email_link": "E-mail link voor wijzigingsbeheer"
+                "manage_changing_email_link": "E-mail link voor wijzigingsbeheer",
+                "pdf_link": "Cadeaubon PDF link"
             },
             "SpiviPerformance": {
                 "tags": {
@@ -4943,7 +4948,8 @@
                     "title": "Bevestiging bewerken"
                 },
                 "universalPassTooltip": "Universele passen kunnen worden gebruikt voor groepsactiviteiten en afspraken. Voor elke universele pas worden dubbele afsprakenpassen aangemaakt om het aantal credits te koppelen. Zodra een van deze passen is aangeschaft, wordt de andere automatisch toegevoegd zonder extra kosten.",
-                "universalPassTitle": "Gedeelde universele pas"
+                "universalPassTitle": "Gedeelde universele pas",
+                "notEditable": "Deze pas is afkomstig van een eerder voltooide gegevensmigratie. Sommige velden kunnen mogelijk niet worden bewerkt om de gegevens te bewaren."
             },
             "section": {
                 "titleManagerOnly": "Niet beschikbaar voor verkoop",
@@ -5393,9 +5399,9 @@
             "errors": {
                 "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
-                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} kunnen alleen in deze vestiging worden gebruikt. Werk hun beperkingen bij voordat je de vestiging verwijdert.",
+                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} kunnen alleen in deze vestiging worden gebruikt. Werk de beperkingen bij voordat je de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
-                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen. Werk deze locaties bij of verwijder ze.",
+                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die u wilt verwijderen. Werk deze locaties bij of verwijder ze.",
                 "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                 "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
@@ -5404,9 +5410,9 @@
             "warnings": {
                 "hasBillingGroup": "Deze vestiging wordt ook verwijderd uit de factureringsgroep {{- establishment_billing_group_name }}.",
                 "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
-                "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn zo ingesteld dat ze alleen in deze vestiging plaatsvinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
+                "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
                 "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
-                "exclusiveCoachAvailabilitySlots_plural": "De docenten {{- coach_name }} zijn aangegeven als beschikbaar voor deze vestiging tijdens bepaalde tijdsloten. Door de vestiging te verwijderen, worden deze tijdsloten verwijderd.",
+                "exclusiveCoachAvailabilitySlots_plural": "De instructeurs {{- coach_naam }} zijn aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
                 "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",
@@ -13076,7 +13082,8 @@
         },
         "clientSecret": {
             "errors": {
-                "12102": "Momenteel wordt een betaling verwerkt. Controleer later om een nieuwe betaling te registreren."
+                "12102": "Momenteel wordt een betaling verwerkt. Controleer later om een nieuwe betaling te registreren.",
+                "12909": "Betalingen zijn uitgeschakeld voor deze studio"
             }
         },
         "companyTheme": {
@@ -13691,7 +13698,7 @@
         },
         "code": {
             "addCoupon": {
-                "label": "Promotiecode",
+                "label": "Promotiecode & cadeaubon",
                 "placeholder": "PROMOTIECODE",
                 "cancel": "annuleren",
                 "submit": "Bevestigen",
@@ -13699,7 +13706,9 @@
                 "not_found": "Deze promotiecode is ongeldig.",
                 "apply": "Toepassen",
                 "5006": "Deze unieke promotiecode is al aan een openstaand winkelmandje gekoppeld",
-                "5004": "Deze promotiecode kan slechts voor één artikel worden gebruikt."
+                "5004": "Deze promotiecode kan slechts voor één artikel worden gebruikt.",
+                "45010": "De cadeaubon is succesvol gekoppeld aan je account, maar kon niet worden geactiveerd omdat het vóór de activatiedatum is.",
+                "45009": "Deze cadeaubon code kan niet worden toegepast op deze winkelmand."
             }
         },
         "search": "Zoek een promotiecode",
@@ -15445,7 +15454,8 @@
                     "3": "Andere",
                     "2": "Back Office",
                     "1": "Web",
-                    "0": "App"
+                    "0": "App",
+                    "4": "Migratie"
                 },
                 "clientAuthor": "Lid",
                 "author": "Opgemaakt door: {{ name }}",
@@ -19978,7 +19988,20 @@
                 },
                 "footerUnlimited": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} om {{- hour_send }} naar de ontvanger verstuurd. Deze cadeaubon heeft een onbeperkte geldigheid.",
                 "select_image": "Selecteer je achtergrondafbeelding",
-                "hour_send": "Verstuur om"
+                "hour_send": "Verstuur om",
+                "activationDate": {
+                    "helperText": "De ontvanger kan de cadeaubon vanaf deze datum gebruiken",
+                    "label": "Activeringsdatum"
+                },
+                "footerPhysicalUnlimited": "Je ontvangt per e-mail de benodigde informatie om de cadeaukaart te gebruiken en een printbare versie van je kaart in een PDF-bestand.",
+                "footerPhysical": "De cadeaubon wordt geactiveerd op {{- activation_date }} en is geldig tot {{- activation_date_until }} ({{ duration}} day(s)). Je ontvangt per e-mail de benodigde informatie voor het gebruik van de cadeaubon en een afdrukbare versie van je cadeaubon in een PDF-bestand.",
+                "type": {
+                    "option": {
+                        "physical": "Code afdrukken (PDF)",
+                        "digital": "Activatie link via email"
+                    },
+                    "label": "Hoe wilt u de cadeaubon versturen"
+                }
             },
             "previewPlaceholder": {
                 "message_content": "[Gepersonaliseerd bericht]",
@@ -20019,7 +20042,18 @@
                 "subtitle": "Het lijkt erop dat iemand je wilde verrassen.",
                 "title": "Iemand wilde je blij maken!",
                 "content1withDate": "Je kunt je cadeaubon t.w.v. {{price}} is op al onze producten geldig. Gelieve rekening houden met het feit dat de cadeaubon {{ expiration_days }} dag(en) na activatie verloopt. Geniet ervan!"
-            }
+            },
+            "physicalDetails": {
+                "helperAlert": {
+                    "message": "Deel de cadeauboncode met het lid zodat ze het tegoed kunnen gebruiken bij hun volgende aankoop.",
+                    "title": "Hoe gebruik je de cadeaubon?"
+                },
+                "validFrom": "Geldig van: {{- from }} tot {{- to }}",
+                "code": "Code:",
+                "to": "Naar",
+                "title": "Cadeaubon"
+            },
+            "seeDetails": "Zie details"
         },
         "delete": {
             "submit": "Bevestig",
@@ -20049,7 +20083,8 @@
             },
             "giftcard": "Cadeaubon",
             "sharedCard": "Gedeeld door een andere franchisenemer"
-        }
+        },
+        "downloadPDF": "Download PDF"
     },
     "performanceTracking": {
         "memberProgram": {

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { PLANNED_PAYMENT_EVENT_STATUS_PENDING } from '@bsport/common/lib/master-data/planned-payment-event';
+
 import {
   AlertCircle,
   Building08,
@@ -74,7 +76,12 @@ const ConsumerInvoiceCardHeader: React.FC<Props> = ({
         shouldDisplay:
           [InvoicesFiltersEnum.UNPAID, InvoicesFiltersEnum.PAID].includes(
             selectedFilter,
-          ) && consumerInvoice?.plannedpaymentevent_set?.length > 0,
+          ) &&
+          consumerInvoice?.plannedpaymentevent_set?.some(
+            (plannedPaymentEvent) =>
+              plannedPaymentEvent.status ===
+              PLANNED_PAYMENT_EVENT_STATUS_PENDING,
+          ),
         chipColor: 'success' as ChipColor,
         leftIcon: <CalendarDate stroke="currentColor" />,
         text: t('reworked.myInvoices.card.chip.plannedPayments'),
@@ -103,7 +110,7 @@ const ConsumerInvoiceCardHeader: React.FC<Props> = ({
     ],
     [
       consumerInvoice?.disputed_payments?.length,
-      consumerInvoice?.plannedpaymentevent_set?.length,
+      consumerInvoice?.plannedpaymentevent_set,
       consumerInvoice?.reverted,
       selectedFilter,
       successfulPayments.length,

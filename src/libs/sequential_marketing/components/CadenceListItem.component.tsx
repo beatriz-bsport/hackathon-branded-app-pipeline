@@ -145,7 +145,11 @@ export const CadenceListItem: React.FC<Props> = ({
           {!archived && !!cadence?.cadence_status && (
             <CadenceStatusChip status={cadence.cadence_status} />
           )}
-          <Typography noWrap color="textSecondary" variant="body1">
+          <Typography
+            className={classes.textNoWrap}
+            color="textSecondary"
+            variant="body1"
+          >
             {cadence.name}
           </Typography>
         </div>
@@ -272,6 +276,12 @@ const useListItemStyles = makeStyles<
     '100%': {
       color: 'rgba(0, 0, 0, 0.11)',
     },
+  },
+  textNoWrap: {
+    overflow: 'hidden',
+    display: '-webkit-box',
+    '-webkit-line-clamp': '1',
+    '-webkit-box-orient': 'vertical',
   },
 }));
 

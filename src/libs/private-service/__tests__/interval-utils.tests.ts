@@ -1,5 +1,6 @@
 import { DateTime, Duration, Interval, Settings } from 'luxon';
 import {
+  chunkByDurationAndInterval,
   chunkIntervalsByDuration,
   convertSlotToInterval,
   getAvailableDayTimeIntervals,
@@ -733,7 +734,7 @@ describe('chunkIntervalsByDuration', () => {
     ];
     const chunkIntervals = chunkIntervalsByDuration(intervals, duration);
 
-    expect(chunkIntervals).toHaveLength(8);
+    expect(chunkIntervals).toHaveLength(15);
     chunkIntervals.forEach((chunkInterval) =>
       expect(chunkInterval.toDuration('minutes').minutes).toBe(
         duration.minutes,
@@ -753,7 +754,7 @@ describe('chunkIntervalsByDuration', () => {
     ];
     const result = chunkIntervalsByDuration(intervals, duration);
 
-    expect(result).toHaveLength(3);
+    expect(result).toHaveLength(6);
     result.forEach((interval) => {
       expect(interval.toDuration('minutes').minutes).toBe(duration.minutes);
     });
@@ -786,8 +787,8 @@ describe('chunkIntervalsByDuration', () => {
     ];
     const result = chunkIntervalsByDuration(intervals, duration);
 
-    // Expected 3 intervals of 30 minutes (50 minutes gets truncated)
-    expect(result).toHaveLength(3);
+    // Expected 5 intervals of 30 minutes (50 minutes gets truncated)
+    expect(result).toHaveLength(5);
     result.forEach((interval) => {
       expect(interval.toDuration('minutes').minutes).toBe(duration.minutes);
     });
@@ -805,8 +806,8 @@ describe('chunkIntervalsByDuration', () => {
     ];
     const result = chunkIntervalsByDuration(intervals, duration);
 
-    // Expected 4 intervals of 30 minutes, the intervals are adjacent and thus merged
-    expect(result).toHaveLength(4);
+    // Expected 7 intervals of 30 minutes, the intervals are adjacent and thus merged
+    expect(result).toHaveLength(7);
     result.forEach((interval) => {
       expect(interval.toDuration('minutes').minutes).toBe(duration.minutes);
     });
@@ -832,9 +833,124 @@ describe('chunkIntervalsByDuration', () => {
     ];
     const result = chunkIntervalsByDuration(intervals, duration);
 
-    expect(result).toHaveLength(9);
+    expect(result).toHaveLength(17);
     result.forEach((interval) => {
       expect(interval.toDuration('minutes').minutes).toBe(duration.minutes);
     });
+  });
+});
+
+describe('chunkByDurationAndInterval', () => {
+  test('includes chunks fully engulfed by interval', () => {
+    const interval = Interval.fromDateTimes(
+      DateTime.fromISO('2023-01-01T09:00'),
+      DateTime.fromISO('2023-01-01T11:00'),
+    );
+    const duration = Duration.fromObject({ minutes: 30 });
+    const intervalMinutes = 15;
+
+    // The interval will be split into 15-minute chunks
+    const result = chunkByDurationAndInterval(
+      interval,
+      duration,
+      intervalMinutes,
+    );
+
+    // We expect 15-minute chunks that can fully fit a 30-minute duration
+    expect(result).toEqual([
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-01-01T09:00'),
+        DateTime.fromISO('2023-01-01T09:30'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-01-01T09:15'),
+        DateTime.fromISO('2023-01-01T09:45'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-01-01T09:30'),
+        DateTime.fromISO('2023-01-01T10:00'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-01-01T09:45'),
+        DateTime.fromISO('2023-01-01T10:15'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-01-01T10:00'),
+        DateTime.fromISO('2023-01-01T10:30'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-01-01T10:15'),
+        DateTime.fromISO('2023-01-01T10:45'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-01-01T10:30'),
+        DateTime.fromISO('2023-01-01T11:00'),
+      ),
+    ]);
+  });
+
+  test('excludes chunks where duration does not fit within interval', () => {
+    const interval = Interval.fromDateTimes(
+      DateTime.fromISO('2023-01-01T09:00'),
+      DateTime.fromISO('2023-01-01T10:00'),
+    );
+    const duration = Duration.fromObject({ minutes: 45 }); // Duration is longer than some chunks
+    const intervalMinutes = 15;
+
+    // The interval will be split into 15-minute chunks
+    const result = chunkByDurationAndInterval(
+      interval,
+      duration,
+      intervalMinutes,
+    );
+
+    // Expect chunks that can fully fit a 45-minute duration
+    expect(result).toEqual([
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-01-01T09:00'),
+        DateTime.fromISO('2023-01-01T09:45'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-01-01T09:15'),
+        DateTime.fromISO('2023-01-01T10:00'),
+      ),
+    ]);
+  });
+
+  test('returns an empty array when chunks are too small to fit the duration', () => {
+    const interval = Interval.fromDateTimes(
+      DateTime.fromISO('2023-01-01T09:00'),
+      DateTime.fromISO('2023-01-01T09:30'),
+    );
+    const duration = Duration.fromObject({ minutes: 45 }); // Duration is larger than the interval itself
+    const intervalMinutes = 15;
+
+    // The interval will be split into 15-minute chunks
+    const result = chunkByDurationAndInterval(
+      interval,
+      duration,
+      intervalMinutes,
+    );
+
+    // No chunks should fit a 45-minute duration
+    expect(result).toEqual([]);
+  });
+
+  test('handles edge cases with no intervals', () => {
+    const interval = Interval.fromDateTimes(
+      DateTime.fromISO('2023-01-01T09:00'),
+      DateTime.fromISO('2023-01-01T09:00'), // Zero-length interval
+    );
+    const duration = Duration.fromObject({ minutes: 15 });
+    const intervalMinutes = 15;
+
+    // No chunks should be generated from a zero-length interval
+    const result = chunkByDurationAndInterval(
+      interval,
+      duration,
+      intervalMinutes,
+    );
+
+    expect(result).toEqual([]);
   });
 });

@@ -360,10 +360,29 @@ export const mergeAdjacentIntervals = (intervals: Interval[]) => {
 export const chunkIntervalsByDuration = (
   intervals: Interval[],
   duration: Duration,
+  intervalMinutes: number = 15,
 ) => {
   if (!intervals || !duration) return [];
   const mergedIntervals = mergeAdjacentIntervals(intervals);
-  return mergedIntervals
-    .flatMap((interval) => interval.splitBy(duration))
-    .filter((interval) => interval.toDuration('minutes').equals(duration));
+  return mergedIntervals.flatMap((interval) =>
+    chunkByDurationAndInterval(interval, duration, intervalMinutes),
+  );
+};
+
+export const chunkByDurationAndInterval = (
+  interval: Interval,
+  duration: Duration,
+  intervalMinutes: number,
+) => {
+  const chunkedIntervals: Interval[] = [];
+  const chunks: Interval[] = interval.splitBy(
+    Duration.fromObject({ minutes: intervalMinutes }),
+  );
+  chunks.forEach((chunk) => {
+    const chunkEnd = chunk.start.plus(duration);
+    if (interval.engulfs(Interval.fromDateTimes(chunk.start, chunkEnd))) {
+      chunkedIntervals.push(Interval.fromDateTimes(chunk.start, chunkEnd));
+    }
+  });
+  return chunkedIntervals;
 };

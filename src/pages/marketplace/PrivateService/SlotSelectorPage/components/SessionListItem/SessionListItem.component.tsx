@@ -31,10 +31,15 @@ const SessionListItem: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
 
-  const { activeEstablishment } = useContext(SlotSelectorContext);
+  const { activeEstablishment, selectedPrivateSlot } =
+    useContext(SlotSelectorContext);
 
   if (!sessions || !sessions.length) return null;
-  const chunkedSessions = chunkIntervalsByDuration(sessions, duration);
+  const chunkedSessions = chunkIntervalsByDuration(
+    sessions,
+    duration,
+    selectedPrivateSlot?.booking_interval_minutes,
+  );
   return (
     <div
       className={classNames(classes.container, {

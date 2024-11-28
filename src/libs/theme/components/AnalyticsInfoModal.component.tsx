@@ -31,7 +31,7 @@ const AnalyticsInfoModal: React.FC<AnalyticsInfoModalProps> = ({
       open={isOpen}
       options={{
         title: t('analytics.analyticsInformationModal.title'),
-        cancel: t('commmon:cancel'),
+        cancel: t('common:cancel'),
         confirm: t('analytics.analyticsInformationModal.confirm'),
       }}
     >

@@ -62,14 +62,6 @@ export const fetchRecipientListExportLink = (id: string) => {
   return getAuth(`${API_V1_URI}/communication/email/${id}/get-export/`);
 };
 
-export const fetchPushNotificationAvailableMember = (ids: number[]) => {
-  return getAuth(
-    `${API_V1_URI}/push_notification/get_available_member/${buildUrlParams({
-      ids,
-    })}`,
-  );
-};
-
 export const createCommunicationSentGroupConfig = (
   data: CommunicationSentGroupConfig,
 ) => {

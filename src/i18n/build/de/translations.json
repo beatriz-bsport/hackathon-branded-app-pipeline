@@ -9289,7 +9289,7 @@
             "base_remuneration": "Basis fixe",
             "set_base_remuneration": "Definieren Sie eine feste Vergütungsbasis pro Kurs",
             "forCancelledBookings": "Bei verspäteter Stornierung und Nichterscheinen",
-            "forConfirmedBookings": "Für die anwesenden Studenten",
+            "forConfirmedBookings": "Für die anwesenden Teilnehmer",
             "calculationMethod": "Berechnungsmethode",
             "actions": "Aktionen",
             "coaches": "Trainer",

@@ -179,6 +179,7 @@ import {
 import {
   fetchConsumerGiftcardList as fetchConsumerGiftcardListAction,
   fetchGiftcardBulk as fetchGiftcardBulkAction,
+  fetchGiftcardList as fetchGiftcardListAction,
 } from '#src/libs/giftcard/actions';
 import {
   getConsumerGiftcardList,
@@ -382,6 +383,7 @@ export default compose(
 
       fetchConsumerGiftcardList: fetchConsumerGiftcardListAction,
       fetchGiftcardBulk: fetchGiftcardBulkAction,
+      fetchGiftcardList: fetchGiftcardListAction,
       // move
       goToCalendar: (date) =>
         replaceRouter(`/calendar/${date.year}/${date.month}/${date.day}`),

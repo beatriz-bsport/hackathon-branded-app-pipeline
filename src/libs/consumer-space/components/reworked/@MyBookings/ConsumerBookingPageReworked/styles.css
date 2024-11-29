@@ -1,2 +1,6 @@
 .bs-consumer-booking-page__root {
 }
+
+.bs-consumer-booking-page__root--fab {
+  padding: var(--bs-space-size-8);
+}

@@ -1,12 +1,15 @@
 import React from 'react';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 import useConsumerBookingsDataManager from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingsDataManager';
 import ConsumerBookingListContainer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListContainer';
 import ConsumerBookingModals from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingModals';
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 import type {
   BookingTab,
@@ -325,7 +328,13 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     ],
   );
   return (
-    <PageContentContainer contentClassName="bs-consumer-booking-page__root">
+    <PageContentContainer
+      contentClassName={classNames('bs-consumer-booking-page__root', {
+        'bs-consumer-booking-page__root--fab':
+          WidgetUtils.getConsumerSpaceContext() ===
+          ConsumerSpaceContextEnum.FAB,
+      })}
+    >
       <ConsumerBookingModals
         bookingGuestFrequency={bookingGuestFrequency}
         calendarBookingDate={calendarBookingDate}

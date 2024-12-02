@@ -11,6 +11,7 @@ export { default as Divider } from "./components/Divider";
 export { default as Icon } from "./components/Icon";
 export { default as Indicator } from "./components/Indicator";
 export { default as Link } from "./components/Link";
+export { default as MenuItem } from "./components/MenuItem";
 export { default as Modal } from "./components/Modal";
 export { default as ProgressBar } from "./components/ProgressBar";
 export { default as Popover } from "./components/Popover";

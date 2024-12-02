@@ -111,6 +111,8 @@ const TextField: React.FC<TextFieldProps> = ({
   prefix,
   suffix,
   type = "text",
+  onBlur,
+  onFocus,
   ...props
 }) => {
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -179,11 +181,11 @@ const TextField: React.FC<TextFieldProps> = ({
             onChange={onChange}
             onBlur={(e) => {
               setIsInputFocused(false);
-              props?.onBlur?.(e);
+              onBlur?.(e);
             }}
             onFocus={(e) => {
               setIsInputFocused(true);
-              props?.onFocus?.(e);
+              onFocus?.(e);
             }}
             type={type}
             {...props}

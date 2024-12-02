@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Alert, { statuses } from "./Alert";
+import Alert, { statuses, types } from "./Alert";
 
 /**
  * The Alert component is a visual element that is used to convey important information to users.
@@ -11,9 +11,14 @@ const meta: Meta<typeof Alert> = {
   component: Alert,
   argTypes: {
     status: {
-      options: Object.keys(statuses),
+      options: statuses,
       control: { type: "select" },
       table: { defaultValue: { summary: "default" } },
+    },
+    type: {
+      options: types,
+      control: { type: "inline-radio" },
+      table: { type: { summary: "string" } },
     },
     title: {
       control: { type: "text" },
@@ -30,7 +35,7 @@ const meta: Meta<typeof Alert> = {
     },
     children: {
       table: { type: { summary: "ReactNode" } },
-    }
+    },
   },
 };
 
@@ -42,6 +47,7 @@ export const Primary: Story = {
   name: "Alert",
   args: {
     status: "default",
+    type: "weak",
     title: "Title of this alert",
     buttonLabel: "Assign",
     isClearable: true,

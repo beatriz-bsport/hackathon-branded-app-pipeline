@@ -40,6 +40,7 @@ const SessionListItem: React.FC<Props> = ({
     duration,
     selectedPrivateSlot?.booking_interval_minutes,
   );
+  if (!chunkedSessions?.length) return null;
   return (
     <div
       className={classNames(classes.container, {

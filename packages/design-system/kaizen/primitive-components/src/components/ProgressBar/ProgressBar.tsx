@@ -2,7 +2,7 @@ import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import classNames from "classnames";
-import Icon from "../Icon";
+import Icon from "#src/components/Icon";
 
 const defaultClasses = ["rounded-circle", "overflow-hidden"] as const;
 

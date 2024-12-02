@@ -1,7 +1,7 @@
 import React from "react";
-import Icon, { IconName } from "../Icon";
-import Link from "../Link";
-import Body from "../Body";
+import Icon, { IconName } from "#src/components/Icon";
+import Link from "#src/components/Link";
+import Body from "#src/components/Body";
 
 export type BreadcrumbItemProps =
   React.AnchorHTMLAttributes<HTMLAnchorElement> & {

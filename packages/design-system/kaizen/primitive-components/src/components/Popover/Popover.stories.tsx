@@ -1,12 +1,12 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import Popover from "./Popover";
-import Button from "../Button";
-import Body from "../Body";
+import Button from "#src/components/Button";
+import Body from "#src/components/Body";
 import {
   AnchorTypeValues,
   TransitionStyleValues,
-} from "../../hooks/useContainerPosition";
+} from "#src/hooks/useContainerPosition";
 
 /**
  * A Popover Container is a UI component that displays temporary content in a floating

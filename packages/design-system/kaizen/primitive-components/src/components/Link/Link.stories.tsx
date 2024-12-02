@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Link, { colors, weights } from "./Link";
-import { icons } from "../Icon";
+import { icons } from "#src/components/Icon";
 
 /**
  * The Link component is used to render hyperlinks with various customization options

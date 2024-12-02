@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "jsx": "react-jsx",
     "module": "ESNext",
     "moduleResolution": "node",
@@ -14,16 +18,16 @@
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "#src/*": [
+        "./src/*"
+      ]
+    }
   },
-  "exclude": [
-    "./src/tailwindcss/tailwind-variables.js",
-    "**/*.stories.ts",
-    "**/*.stories.js",
-    "**/*.stories.jsx",
-    "**/*.stories.tsx"
+  "include": [
+    "src"
   ],
-  "include": ["src"],
   "references": [
     {
       "path": "./tsconfig.node.json"

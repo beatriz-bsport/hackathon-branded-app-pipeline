@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import Chip, { colors, sizes } from "./Chip";
-import { icons } from "../Icon";
+import { icons } from "#src/components/Icon";
 
 /**
  * React component for a chip element. It is a compact component that can be used to

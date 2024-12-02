@@ -11,8 +11,8 @@ const defaultClasses = [
 
 const variants = {
   position: {
-    "top": ["top-[0]", "-translate-y-1/2"],
-    "bottom": ["bottom-[0]", "translate-y-1/2"],
+    top: ["top-[0]", "-translate-y-1/2"],
+    bottom: ["bottom-[0]", "translate-y-1/2"],
   },
   size: {
     sm: ["text-body-xs", "p-2xs"],

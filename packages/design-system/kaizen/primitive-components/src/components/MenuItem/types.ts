@@ -1,5 +1,5 @@
-import { DividerProps } from "../Divider";
-import { IconName } from "../Icon";
+import { DividerProps } from "#src/components/Divider";
+import { IconName } from "#src/components/Icon";
 import { menuItemTypes } from "./constants";
 
 export type MenuItemLeftSlot = { avatar?: string; iconLeft?: IconName }; // If `avatar` is provided, `iconLeft` must not be provided

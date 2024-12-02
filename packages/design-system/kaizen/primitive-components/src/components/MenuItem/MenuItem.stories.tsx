@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MenuItem from ".";
-import AvatarImage from "../Avatar/assets/avatar.jpeg";
-import { icons } from "../Icon";
+import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
+import { icons } from "#src/components/Icon";
 import { menuItemTypes } from "./constants";
 import type { Meta, StoryObj } from "@storybook/react";
 import { MenuItemCheckBoxType, MenuItemRadioType } from "./types";

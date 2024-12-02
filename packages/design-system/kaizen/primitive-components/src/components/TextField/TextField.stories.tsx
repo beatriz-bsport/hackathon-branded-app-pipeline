@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import TextField, { statuses, inputTypes } from "./TextField";
-import { icons } from "../Icon";
+import { icons } from "#src/components/Icon";
 
 /**
  * A component that allows users to input a single line of text.<br>

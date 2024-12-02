@@ -4,6 +4,7 @@ import { resolve } from "path";
 import dts from "vite-plugin-dts";
 import tailwindcss from "tailwindcss";
 import svgr from "vite-plugin-svgr";
+import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import pkg from "./package.json";
 
 // https://vitejs.dev/config/
@@ -28,11 +29,12 @@ const config: UserConfig = {
     emptyOutDir: true,
   },
   /*plugins: [svgr(), react(), dts({ rollupTypes: true })],*/
-  plugins: [
-    svgr(),
-    react(),
-    dts({ insertTypesEntry: true }),
-  ],
+  plugins: [nxViteTsPaths(), svgr(), react(), dts({ insertTypesEntry: true })],
+  resolve: {
+    alias: {
+      "#src": resolve(__dirname, "src"),
+    },
+  },
   css: {
     postcss: {
       plugins: [tailwindcss],

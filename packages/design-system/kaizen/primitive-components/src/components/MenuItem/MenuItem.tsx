@@ -5,7 +5,7 @@ import MenuItemButton from "./MenuItemButton";
 import MenuItemCheckbox from "./MenuItemCheckbox";
 import MenuItemRadio from "./MenuItemRadio";
 import MenuItemTitle from "./MenuItemTitle";
-import Divider from "../Divider";
+import Divider from "#src/components/Divider";
 
 import type { MenuItemType } from "./types";
 

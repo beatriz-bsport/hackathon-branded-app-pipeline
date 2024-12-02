@@ -1,12 +1,12 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import PortalContainer from "../../utils/PortalContainer";
+import PortalContainer from "#src/utils/PortalContainer";
 import {
   AnchorType,
   TransitionStyleType,
   useContainerPosition,
-} from "../../hooks/useContainerPosition";
-import useEscapeKeydownListener from "../Modal/escape-keydown-listener.hook";
+} from "#src/hooks/useContainerPosition";
+import useEscapeKeydownListener from "#src/components/Modal/escape-keydown-listener.hook";
 
 const defaultClasses = [
   "min-w-component-popover-min",

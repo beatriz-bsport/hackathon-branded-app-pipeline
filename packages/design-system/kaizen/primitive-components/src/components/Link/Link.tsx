@@ -1,7 +1,7 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
-import Icon, { type IconName } from "../Icon";
+import Icon, { type IconName } from "#src/components/Icon";
 
 const defaultClasses = [
   "inline-flex items-center gap-2xs",

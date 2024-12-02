@@ -41,7 +41,8 @@ Kaizen is using [Untitled UI Icons](https://www.untitledui.com/free-icons) for i
 
 You can easily update the icons into Kaizen, for this you need to:
 
-1. Inside the `src/components/Icon/assets` folder, copy-paste your new icon as a SVG. You can also remove some if they are no longer needed.
+1. Inside the `src/components/Icon/assets` folder, copy-paste your new icon as a SVG. You can also remove some if they
+   are no longer needed.
 2. Run the command below.
 
 ```sh

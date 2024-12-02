@@ -1,10 +1,10 @@
 import React, { MouseEventHandler, useEffect } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
-import Icon, { IconName } from "../Icon";
-import Title from "../Title";
-import Body from "../Body";
-import Button from "../Button";
+import Icon, { IconName } from "#src/components/Icon";
+import Title from "#src/components/Title";
+import Body from "#src/components/Body";
+import Button from "#src/components/Button";
 
 const defaultClasses = [
   "flex",

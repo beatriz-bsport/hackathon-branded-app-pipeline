@@ -1,5 +1,5 @@
 import mapValues from "lodash/mapValues";
-import { FOCUS_CLASSES } from "../../constants";
+import { FOCUS_CLASSES } from "#src/constants";
 
 const nonFlatDisabledStyle = [
   "disabled:text-onsurface-default",
@@ -164,7 +164,6 @@ export const variants = {
     "full-width": ["w-full"],
   },
 } as const;
-
 
 export const sizes = mapValues(variants.size, (_, key) => key) as {
   [key in keyof typeof variants.size]: key;

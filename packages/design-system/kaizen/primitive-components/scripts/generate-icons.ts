@@ -25,7 +25,10 @@ async function generateIcons() {
   const newIcons = EXISTING_ICONS.filter((file) => file.endsWith(".svg")).map(
     (file) => {
       const iconName = file.replace(".svg", "");
-      const iconKey = iconName.includes(" ") || iconName.includes("-") ? `"${iconName}"` : iconName;
+      const iconKey =
+        iconName.includes(" ") || iconName.includes("-")
+          ? `"${iconName}"`
+          : iconName;
       const iconFilePath = path.resolve(ASSETS_FOLDER_PATH, file);
       const relativeIconFilePath = path.relative(
         path.dirname(ICONS_FILE_PATH),

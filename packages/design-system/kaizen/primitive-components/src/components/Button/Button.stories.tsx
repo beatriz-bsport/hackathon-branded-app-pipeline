@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { icons } from "../Icon";
+import { icons } from "#src/components/Icon";
 import Button, { colorsByIntent, intents, sizes } from "./Button";
 
 /**

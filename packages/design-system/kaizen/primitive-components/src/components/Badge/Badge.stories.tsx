@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Badge, { colors, sizes } from "./Badge";
-import { icons } from "../Icon";
+import { icons } from "#src/components/Icon";
 
 /**
  * React component to render a badge with customizable text and icon.<br>

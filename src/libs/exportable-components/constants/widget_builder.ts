@@ -20,7 +20,6 @@ export const EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE = 'consumerSpace';
 
 const LOGIN_WITH_DISCONNECTED_STATUS_DEFAULT_CONFIG: ConsumerSpaceWidgetConfig =
   {
-    hideWhenNotLoggedIn: false,
     loginSubtitle: '',
     loginTitle: '',
     showSubtitle: true,

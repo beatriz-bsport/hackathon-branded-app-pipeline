@@ -59,7 +59,6 @@ export type ConsumerSpaceWidgetPage =
   | 'consumerSubscription';
 
 export type ConsumerSpaceWidgetConfig = {
-  hideWhenNotLoggedIn?: boolean;
   loginSubtitle?: string;
   loginTitle?: string;
   showSubtitle?: boolean;

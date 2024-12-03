@@ -87,17 +87,6 @@ const ExportableLoginWithDisconnectedStatusSettingsForm: React.FC<Props> = ({
         }
         label={t('widget:widget.newsletterV2.showSubtitle')}
       />
-
-      <FormControlLabel
-        control={
-          <Switch
-            checked={config?.hideWhenNotLoggedIn}
-            color="primary"
-            onChange={handleBooleanChange('hideWhenNotLoggedIn')}
-          />
-        }
-        label={t('widget:widget.hideWidgets')}
-      />
     </div>
   );
 };

@@ -70,6 +70,12 @@ import type {
 
 // Constants
 import { RESOURCE_ATTRIBUTION_AUTO } from '@bsport/common/lib/master-data/resource-attribution-methods';
+import SlotSelectorStoreContextProvider from './context/SlotSelectorStore.context';
+import {
+  getNextDateAvailableSlot,
+  getSlotsByDate,
+  getSlotsByDateLoading,
+} from '#src/libs/private-service/selectors/availability-slot';
 
 type PropsFromWidget = {
   companyId: string;
@@ -84,7 +90,15 @@ type PropsFromWidget = {
 
 type Props = PropsFromWidget & ConnectedProps<typeof connector>;
 
-const SlotSelectorPage: React.FC<Props> = ({
+type PageProps = Omit<
+  Props,
+  | 'availableSlotsLoading'
+  | 'nextAvailableSlotLoading'
+  | 'availabilitySlotByDate'
+  | 'nextDateAvailableSlot'
+>;
+
+const SlotSelectorPage: React.FC<PageProps> = ({
   checkPrivateServiceTagEligibility,
   companyId,
   eligibleByTags,
@@ -390,7 +404,7 @@ const SlotSelectorPage: React.FC<Props> = ({
   );
 };
 
-const SlotSelectorPageWithContext: React.FC<Props> = ({
+export const SlotSelectorPageWithContext: React.FC<Props> = ({
   checkPrivateServiceTagEligibility,
   companyId,
   eligibleByTags,
@@ -409,30 +423,42 @@ const SlotSelectorPageWithContext: React.FC<Props> = ({
   theme,
   hideDetailSummary,
   onSessionSelect,
+  availableSlotsLoading,
+  nextAvailableSlotLoading,
+  availabilitySlotByDate,
+  nextDateAvailableSlot,
 }) => {
   return (
-    <SlotSelectorContextProvider serviceId={serviceId}>
-      <SlotSelectorPage
-        checkPrivateServiceTagEligibility={checkPrivateServiceTagEligibility}
-        companyId={companyId}
-        eligibleByTags={eligibleByTags}
-        eligibleByTagsLoading={eligibleByTagsLoading}
-        fetchAssociatedCoachBulk={fetchAssociatedCoachBulk}
-        fetchAssociatedEstablishmentBulk={fetchAssociatedEstablishmentBulk}
-        fetchAvailableSlotsByResource={fetchAvailableSlotsByResource}
-        fetchPrivateService={fetchPrivateService}
-        fetchPrivateSlotBulk={fetchPrivateSlotBulk}
-        goBack={goBack}
-        hideDetailSummary={hideDetailSummary}
-        isLoading={isLoading}
-        onSessionSelect={onSessionSelect}
-        privateService={privateService}
-        push={push}
-        searchFirstAvailableSlots={searchFirstAvailableSlots}
-        serviceId={serviceId}
-        theme={theme}
-      />
-    </SlotSelectorContextProvider>
+    <SlotSelectorStoreContextProvider
+      availabilitySlotByDate={availabilitySlotByDate}
+      availableSlotsLoading={availableSlotsLoading}
+      nextAvailableSlotLoading={nextAvailableSlotLoading}
+      nextDateAvailableSlot={nextDateAvailableSlot}
+      privateService={privateService}
+    >
+      <SlotSelectorContextProvider serviceId={serviceId}>
+        <SlotSelectorPage
+          checkPrivateServiceTagEligibility={checkPrivateServiceTagEligibility}
+          companyId={companyId}
+          eligibleByTags={eligibleByTags}
+          eligibleByTagsLoading={eligibleByTagsLoading}
+          fetchAssociatedCoachBulk={fetchAssociatedCoachBulk}
+          fetchAssociatedEstablishmentBulk={fetchAssociatedEstablishmentBulk}
+          fetchAvailableSlotsByResource={fetchAvailableSlotsByResource}
+          fetchPrivateService={fetchPrivateService}
+          fetchPrivateSlotBulk={fetchPrivateSlotBulk}
+          goBack={goBack}
+          hideDetailSummary={hideDetailSummary}
+          isLoading={isLoading}
+          onSessionSelect={onSessionSelect}
+          privateService={privateService}
+          push={push}
+          searchFirstAvailableSlots={searchFirstAvailableSlots}
+          serviceId={serviceId}
+          theme={theme}
+        />
+      </SlotSelectorContextProvider>
+    </SlotSelectorStoreContextProvider>
   );
 };
 
@@ -493,6 +519,10 @@ const mapStateToProps = (
     state.establishment.bulkRetrieve.loading,
   privateService: getPrivateServiceWithDetails(state, serviceId),
   theme: getTheme(state),
+  availableSlotsLoading: getSlotsByDateLoading(state),
+  nextAvailableSlotLoading: state.privateService.availabilitySlot.next.loading,
+  availabilitySlotByDate: getSlotsByDate(state),
+  nextDateAvailableSlot: getNextDateAvailableSlot(state),
 });
 
 const mapDispatchToProps = {

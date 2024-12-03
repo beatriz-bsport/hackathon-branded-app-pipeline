@@ -1,15 +1,10 @@
 import { DateTime, Interval } from 'luxon';
 import { useCallback, useContext, useEffect, useMemo } from 'react';
 import { SlotSelectorContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelector.context';
-import { useSelector } from 'react-redux';
-import {
-  getNextDateAvailableSlot,
-  getSlotsByDateLoading,
-} from '#src/libs/private-service/selectors/availability-slot';
 import { useTranslation } from 'react-i18next';
 import usePrivateSlotSelection from './privateSlotSelection.hook';
 
-import type { RootState } from '#src/reducers';
+import { SlotSelectorStoreContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelectorStore.context';
 
 /**
  * Custom hook to manage slot calendar navigation functionality.
@@ -48,16 +43,11 @@ const useSlotCalendarNavigation = () => {
     setSelectedDayTimeInterval, // Setter to update the selected time interval for a day
   } = useContext(SlotSelectorContext);
 
-  // Get next available date from Redux for slot availability
-  const nextDateAvailableSlot = useSelector(getNextDateAvailableSlot);
-
-  // Loading states from Redux for both general slots and next available slots
-  const availableSlotsLoading = useSelector<RootState, boolean>(
-    getSlotsByDateLoading,
-  );
-  const nextAvailableSlotLoading = useSelector<RootState, boolean>(
-    (state) => state.privateService.availabilitySlot.next.loading,
-  );
+  const {
+    nextDateAvailableSlot,
+    availableSlotsLoading,
+    nextAvailableSlotLoading,
+  } = useContext(SlotSelectorStoreContext);
 
   // Filtered slots by resource identifiers, coaches, and establishments, it's an object of resource slots organized by date.
   const { filteredAvailableSlots } = usePrivateSlotSelection();

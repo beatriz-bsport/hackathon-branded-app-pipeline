@@ -1,7 +1,5 @@
 import { useCallback, useContext, useMemo } from 'react';
 import { Duration } from 'luxon';
-import { useSelector } from 'react-redux';
-import { getSlotsByDate } from '#src/libs/private-service/selectors/availability-slot';
 
 import { SlotSelectorContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelector.context';
 
@@ -9,6 +7,7 @@ import type {
   PrivateSlot,
   ResourceSlotsByDate,
 } from '#src/libs/private-service/types';
+import { SlotSelectorStoreContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelectorStore.context';
 
 /**
  * Custom hook for handling private slot selection in a booking or scheduling application.
@@ -29,8 +28,7 @@ const usePrivateSlotSelection = () => {
     setSelectedDayTimeInterval,
   } = useContext(SlotSelectorContext);
 
-  // Retrieve all available slots grouped by date
-  const availabilitySlotByDate = useSelector(getSlotsByDate);
+  const { availabilitySlotByDate } = useContext(SlotSelectorStoreContext);
 
   /**
    * Callback to select a private slot.

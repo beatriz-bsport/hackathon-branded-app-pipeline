@@ -1,7 +1,12 @@
 import React from 'react';
-import type { PrivateSlot } from '#src/libs/private-service/types';
+import type {
+  PrivateService,
+  PrivateSlot,
+  ResourceSlotsByDate,
+} from '#src/libs/private-service/types';
 import { DateTime, Interval } from 'luxon';
 import { Establishment } from '#src/libs/establishment/types';
+import { Coach } from '#src/libs/associated-coach/types';
 
 export type SlotSelectorContextType = {
   numberOfDayToShow: number;
@@ -27,4 +32,12 @@ export type SlotSelectorContextType = {
   setActiveEstablishment: React.Dispatch<
     React.SetStateAction<Establishment | null>
   >;
+};
+
+export type SlotSelectorStoreContextType = {
+  availabilitySlotByDate: ResourceSlotsByDate;
+  nextDateAvailableSlot: string;
+  availableSlotsLoading: boolean;
+  nextAvailableSlotLoading: boolean;
+  privateService: PrivateService<Coach, Establishment, PrivateSlot>;
 };

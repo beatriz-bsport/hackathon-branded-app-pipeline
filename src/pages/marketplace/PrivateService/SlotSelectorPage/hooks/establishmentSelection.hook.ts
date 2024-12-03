@@ -1,17 +1,10 @@
 import React, { useCallback, useContext, useMemo } from 'react';
 import { SlotSelectorContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelector.context';
-import { useSelector } from 'react-redux';
-import { getPrivateServiceWithDetails } from '#src/libs/private-service/selectors/private-service';
 import useAvailabilityByEstablishmentIdAndCoachId from './availabilityByEstablishmentIdAndCoachId.hook';
 
-import type { Coach } from '#src/libs/associated-coach/types';
 import type { Establishment } from '#src/libs/establishment/types';
-import type {
-  PrivateService,
-  PrivateSlot,
-} from '#src/libs/private-service/types';
-import type { RootState } from '#src/reducers';
 import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods';
+import { SlotSelectorStoreContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelectorStore.context';
 
 /**
  * Custom hook for managing establishment selection within a booking or scheduling context.
@@ -29,19 +22,14 @@ const useEstablishmentSelection = () => {
   const {
     setSelectedEstablishmentsIds,
     setSelectedDayTimeInterval,
-    serviceId,
     setActiveEstablishment,
     selectedEstablishmentsIds,
   } = useContext(SlotSelectorContext);
 
+  const { privateService } = useContext(SlotSelectorStoreContext);
+
   const availabilityByEstablishmentAndCoach =
     useAvailabilityByEstablishmentIdAndCoachId();
-
-  // Retrieve `privateService` from the Redux store, which includes detailed information.
-  const privateService = useSelector<
-    RootState,
-    PrivateService<Coach, Establishment, PrivateSlot>
-  >((state) => getPrivateServiceWithDetails(state, serviceId));
 
   /**
    * Callback for handling establishment selection.

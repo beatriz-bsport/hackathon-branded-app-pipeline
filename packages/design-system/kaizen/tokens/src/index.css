@@ -13,178 +13,280 @@
   --kz-border-radius-xs: 4px;
   --kz-border-radius-square: 0px;
   --kz-border-radius-circle: 999px;
-  --kz-color-luna-grey-0: 255 255 255;
-  --kz-color-luna-grey-50: 249 252 252;
-  --kz-color-luna-grey-100: 244 249 249;
-  --kz-color-luna-grey-200: 229 234 234;
-  --kz-color-luna-grey-300: 201 209 208;
-  --kz-color-luna-grey-400: 166 175 174;
-  --kz-color-luna-grey-500: 127 135 134;
-  --kz-color-luna-grey-600: 86 94 93;
-  --kz-color-luna-grey-700: 53 60 60;
-  --kz-color-luna-grey-800: 30 35 35;
-  --kz-color-luna-grey-900: 18 19 19;
-  --kz-color-luna-grey-1000: 12 13 13;
-  --kz-color-terra-green-0: 232 252 234;
-  --kz-color-terra-green-100: 195 247 200;
-  --kz-color-terra-green-200: 154 233 160;
-  --kz-color-terra-green-300: 111 209 119;
-  --kz-color-terra-green-400: 71 175 79;
-  --kz-color-terra-green-500: 39 132 47;
-  --kz-color-terra-green-600: 18 88 24;
-  --kz-color-terra-green-700: 7 51 11;
-  --kz-color-terra-green-800: 3 26 4;
-  --kz-color-terra-green-900: 1 11 2;
-  --kz-color-terra-green-1000: 0 5 1;
-  --kz-color-neptune-blue-0: 232 243 252;
-  --kz-color-neptune-blue-100: 195 224 247;
-  --kz-color-neptune-blue-200: 154 197 233;
-  --kz-color-neptune-blue-300: 111 165 209;
-  --kz-color-neptune-blue-400: 68 123 169;
-  --kz-color-neptune-blue-500: 39 90 132;
-  --kz-color-neptune-blue-600: 22 71 110;
-  --kz-color-neptune-blue-700: 11 48 77;
-  --kz-color-neptune-blue-800: 3 15 26;
-  --kz-color-neptune-blue-900: 1 6 11;
-  --kz-color-neptune-blue-1000: 0 3 5;
-  --kz-color-aurora-orange-0: 255 251 235;
-  --kz-color-aurora-orange-100: 254 243 199;
-  --kz-color-aurora-orange-200: 253 230 138;
-  --kz-color-aurora-orange-300: 252 211 77;
-  --kz-color-aurora-orange-400: 251 191 36;
-  --kz-color-aurora-orange-500: 245 158 11;
-  --kz-color-aurora-orange-600: 217 119 6;
-  --kz-color-aurora-orange-700: 180 83 9;
-  --kz-color-aurora-orange-800: 146 64 14;
-  --kz-color-aurora-orange-900: 94 42 12;
-  --kz-color-aurora-orange-1000: 38 17 5;
-  --kz-color-cupid-red-0: 252 232 237;
-  --kz-color-cupid-red-100: 247 195 206;
-  --kz-color-cupid-red-200: 233 154 171;
-  --kz-color-cupid-red-300: 209 111 132;
-  --kz-color-cupid-red-400: 163 66 87;
-  --kz-color-cupid-red-500: 132 39 59;
-  --kz-color-cupid-red-600: 120 25 45;
-  --kz-color-cupid-red-700: 84 12 28;
-  --kz-color-cupid-red-800: 26 3 8;
-  --kz-color-cupid-red-900: 11 1 3;
-  --kz-color-cupid-red-1000: 5 0 1;
-  --kz-color-surface-blanket: 18 19 19;
-  --kz-color-shadow-weak: 61 77 71;
-  --kz-color-shadow-action-brand-selected: 50 166 158;
-  --kz-color-bsport-turquoise-0: 240 250 249;
-  --kz-color-bsport-turquoise-100: 208 246 239;
-  --kz-color-bsport-turquoise-200: 161 237 224;
-  --kz-color-bsport-turquoise-300: 105 221 206;
-  --kz-color-bsport-turquoise-400: 50 166 158;
-  --kz-color-bsport-turquoise-500: 37 148 141;
-  --kz-color-bsport-turquoise-600: 33 131 125;
-  --kz-color-bsport-turquoise-700: 15 102 96;
-  --kz-color-bsport-turquoise-800: 4 48 45;
-  --kz-color-bsport-turquoise-900: 1 26 24;
-  --kz-color-bsport-turquoise-1000: 0 6 5;
-  --kz-color-shadow-strong: 92 103 99;
-  --kz-color-surface-highlighted: 33 131 125;
-  --kz-color-surface-action-disabled: 124 135 134;
-  --kz-color-surface-action-main-strong-disabled: 124 135 134;
-  --kz-color-surface-action-main-weak-rest: 33 131 125;
-  --kz-color-surface-action-main-weak-hovered: 33 131 125;
-  --kz-color-surface-action-main-weak-pressed: 33 131 125;
-  --kz-color-surface-action-critical-weak-rest: 132 39 59;
-  --kz-color-surface-action-critical-weak-hovered: 132 39 59;
-  --kz-color-surface-action-critical-weak-pressed: 132 39 59;
-  --kz-color-surface-action-default-flat-rest: 124 135 134;
-  --kz-color-surface-action-default-flat-hovered: 124 135 134;
-  --kz-color-surface-action-default-flat-pressed: 124 135 134;
-  --kz-color-surface-action-default-onstrong-rest: 255 255 255;
-  --kz-color-surface-action-default-onstrong-hovered: 255 255 255;
-  --kz-color-surface-action-default-onstrong-pressed: 255 255 255;
-  --kz-color-stroke-action-default-rest: 124 135 134;
-  --kz-color-stroke-action-default-hovered: 124 135 134;
-  --kz-color-stroke-action-default-pressed: 124 135 134;
-  --kz-color-stroke-action-default-disabled: 124 135 134;
-  --kz-color-stroke-default: 124 135 134;
-  --kz-color-stroke-strong: 124 135 134;
-  --kz-color-stroke-weak: 124 135 134;
-  --kz-color-onsurface-disabled: 30 35 35;
-  --kz-color-shadow-action-default-rest: 163 175 174;
-  --kz-color-shadow-action-default-hovered: 163 175 174;
-  --kz-color-surface-page: 249 252 252;
-  --kz-color-surface-page-navigation: 249 252 252;
-  --kz-color-surface-default: 255 255 255;
-  --kz-color-surface-default-elevated: 255 255 255;
-  --kz-color-surface-default-weak: 229 234 234;
-  --kz-color-surface-default-weaker: 244 249 249;
-  --kz-color-surface-default-weakest: 249 252 252;
-  --kz-color-surface-main-strong: 15 102 96;
-  --kz-color-surface-main-weak: 208 246 239;
-  --kz-color-surface-default-strong: 53 60 60;
-  --kz-color-surface-status-info-strong: 39 90 132;
-  --kz-color-surface-status-positive-strong: 39 132 47;
-  --kz-color-surface-status-positive-weak: 232 252 234;
-  --kz-color-surface-status-info-weak: 232 243 252;
-  --kz-color-surface-status-warning-strong: 180 83 9;
-  --kz-color-surface-status-critical-strong: 132 39 59;
-  --kz-color-surface-status-critical-weak: 252 232 237;
-  --kz-color-surface-status-warning-weak: 255 251 235;
-  --kz-color-stroke-main: 37 148 141;
-  --kz-color-stroke-action-default-selected: 33 131 125;
-  --kz-color-stroke-status-info: 68 123 169;
-  --kz-color-stroke-status-positive: 71 175 79;
-  --kz-color-stroke-status-warning: 245 158 11;
-  --kz-color-stroke-status-critical: 209 111 132;
-  --kz-color-surface-action-main-strong-rest: 33 131 125;
-  --kz-color-surface-action-main-strong-hovered: 37 148 141;
-  --kz-color-surface-action-main-strong-pressed: 15 102 96;
-  --kz-color-surface-action-main-strong-selected: 105 221 206;
-  --kz-color-surface-action-default-elevated-rest: 255 255 255;
-  --kz-color-surface-action-critical-strong-rest: 132 39 59;
-  --kz-color-surface-action-critical-strong-hovered: 163 66 87;
-  --kz-color-surface-action-critical-strong-pressed: 120 25 45;
-  --kz-color-surface-action-default-elevated-hovered: 244 249 249;
-  --kz-color-surface-action-default-elevated-pressed: 229 234 234;
-  --kz-color-surface-action-default-elevated-selected: 240 250 249;
-  --kz-color-onsurface-default-onstrong: 255 255 255;
-  --kz-color-onsurface-default: 1 26 24;
-  --kz-color-onsurface-main-strong: 15 102 96;
-  --kz-color-onsurface-main-weak: 50 166 158;
-  --kz-color-onsurface-action-main-rest: 4 48 45;
-  --kz-color-onsurface-action-main-hovered: 15 102 96;
-  --kz-color-onsurface-action-main-pressed: 1 26 24;
-  --kz-color-onsurface-action-main-selected: 15 102 96;
-  --kz-color-onsurface-action-main-disabled: 30 35 35;
-  --kz-color-onsurface-weak: 86 94 93;
-  --kz-color-onsurface-weaker: 166 175 174;
-  --kz-color-onsurface-link-rest: 33 131 125;
-  --kz-color-onsurface-link-hovered: 50 166 158;
-  --kz-color-onsurface-link-pressed: 15 102 96;
-  --kz-color-onsurface-status-info-strong: 39 90 132;
-  --kz-color-onsurface-status-info-weak: 68 123 169;
-  --kz-color-onsurface-status-info-onstrong: 195 224 247;
-  --kz-color-onsurface-status-positive-strong: 18 88 24;
-  --kz-color-onsurface-status-positive-weak: 39 132 47;
-  --kz-color-onsurface-status-positive-onstrong: 195 247 200;
-  --kz-color-onsurface-status-warning-strong: 180 83 9;
-  --kz-color-onsurface-status-critical-strong: 132 39 59;
-  --kz-color-onsurface-status-critical-weak: 163 66 87;
-  --kz-color-onsurface-status-critical-onstrong: 247 195 206;
-  --kz-color-onsurface-status-warning-weak: 217 119 6;
-  --kz-color-onsurface-status-warning-onstrong: 255 251 235;
-  --kz-color-shadow-action-default-selected: 208 246 239;
-  --kz-color-onsurface-action-weak-default: 4 48 45;
-  --kz-color-onsurface-action-weak-critical: 132 39 59;
-  --kz-color-surface-action-selected-rest: 33 131 125;
-  --kz-color-surface-action-selected-hovered: 37 148 141;
-  --kz-color-surface-action-selected-pressed: 15 102 96;
-  --kz-color-stroke-divider: var(--kz-color-stroke-default);
-  --kz-color-onsurface-main-onweak: 33 131 125;
-  --kz-color-onsurface-main-onstrong: 255 255 255;
-  --kz-color-surface-action-main-weak: 33 131 125;
-  --kz-color-surface-action-onstrong: 255 255 255;
-  --kz-color-surface-action-critical-weak: 132 39 59;
-  --kz-color-onsurface-action-weak-onstrong: 255 255 255;
-  --kz-color-onsurface-action-weak-main: 15 102 96;
-  --kz-color-shadow-action-default-pressed: 163 175 174;
+  --kz-color-luna-grey-0: 255, 255, 255, 1;
+  --kz-color-luna-grey-50: 249, 252, 252, 1;
+  --kz-color-luna-grey-100: 247, 249, 249, 1;
+  --kz-color-luna-grey-200: 229, 234, 234, 1;
+  --kz-color-luna-grey-300: 201, 209, 208, 1;
+  --kz-color-luna-grey-400: 166, 175, 174, 1;
+  --kz-color-luna-grey-500: 127, 135, 134, 1;
+  --kz-color-luna-grey-600: 86, 94, 93, 1;
+  --kz-color-luna-grey-700: 53, 60, 60, 1;
+  --kz-color-luna-grey-800: 30, 35, 35, 1;
+  --kz-color-luna-grey-900: 18, 19, 19, 1;
+  --kz-color-luna-grey-1000: 12, 13, 13, 1;
+  --kz-color-terra-green-0: 232, 252, 234, 1;
+  --kz-color-terra-green-100: 195, 247, 200, 1;
+  --kz-color-terra-green-200: 154, 233, 160, 1;
+  --kz-color-terra-green-300: 111, 209, 119, 1;
+  --kz-color-terra-green-400: 71, 175, 79, 1;
+  --kz-color-terra-green-500: 39, 132, 47, 1;
+  --kz-color-terra-green-600: 18, 88, 24, 1;
+  --kz-color-terra-green-700: 7, 51, 11, 1;
+  --kz-color-terra-green-800: 3, 26, 4, 1;
+  --kz-color-terra-green-900: 1, 11, 2, 1;
+  --kz-color-terra-green-1000: 0, 5, 1, 1;
+  --kz-color-neptune-blue-0: 232, 243, 252, 1;
+  --kz-color-neptune-blue-100: 195, 224, 247, 1;
+  --kz-color-neptune-blue-200: 154, 197, 233, 1;
+  --kz-color-neptune-blue-300: 111, 165, 209, 1;
+  --kz-color-neptune-blue-400: 68, 123, 169, 1;
+  --kz-color-neptune-blue-500: 39, 90, 132, 1;
+  --kz-color-neptune-blue-600: 22, 71, 110, 1;
+  --kz-color-neptune-blue-700: 11, 48, 77, 1;
+  --kz-color-neptune-blue-800: 3, 15, 26, 1;
+  --kz-color-neptune-blue-900: 1, 6, 11, 1;
+  --kz-color-neptune-blue-1000: 0, 3, 5, 1;
+  --kz-color-aurora-orange-0: 255, 251, 235, 1;
+  --kz-color-aurora-orange-100: 254, 243, 199, 1;
+  --kz-color-aurora-orange-200: 253, 230, 138, 1;
+  --kz-color-aurora-orange-300: 252, 211, 77, 1;
+  --kz-color-aurora-orange-400: 251, 191, 36, 1;
+  --kz-color-aurora-orange-500: 245, 158, 11, 1;
+  --kz-color-aurora-orange-600: 217, 119, 6, 1;
+  --kz-color-aurora-orange-700: 180, 83, 9, 1;
+  --kz-color-aurora-orange-800: 146, 64, 14, 1;
+  --kz-color-aurora-orange-900: 94, 42, 12, 1;
+  --kz-color-aurora-orange-1000: 38, 17, 5, 1;
+  --kz-color-cupid-red-0: 252, 232, 237, 1;
+  --kz-color-cupid-red-100: 247, 195, 206, 1;
+  --kz-color-cupid-red-200: 233, 154, 171, 1;
+  --kz-color-cupid-red-300: 209, 111, 132, 1;
+  --kz-color-cupid-red-400: 163, 66, 87, 1;
+  --kz-color-cupid-red-500: 132, 39, 59, 1;
+  --kz-color-cupid-red-600: 120, 25, 45, 1;
+  --kz-color-cupid-red-700: 84, 12, 28, 1;
+  --kz-color-cupid-red-800: 26, 3, 8, 1;
+  --kz-color-cupid-red-900: 11, 1, 3, 1;
+  --kz-color-cupid-red-1000: 5, 0, 1, 1;
+  --kz-color-shadow-weak: 61, 77, 71, 0.1;
+  --kz-color-shadow-action-brand-selected: 50, 166, 158, 0.5;
+  --kz-color-bsport-turquoise-0: 240, 250, 249, 1;
+  --kz-color-bsport-turquoise-100: 229, 246, 243, 1;
+  --kz-color-bsport-turquoise-200: 190, 237, 229, 1;
+  --kz-color-bsport-turquoise-300: 133, 222, 210, 1;
+  --kz-color-bsport-turquoise-400: 50, 166, 158, 1;
+  --kz-color-bsport-turquoise-500: 37, 148, 141, 1;
+  --kz-color-bsport-turquoise-600: 33, 131, 125, 1;
+  --kz-color-bsport-turquoise-700: 15, 102, 96, 1;
+  --kz-color-bsport-turquoise-800: 4, 48, 45, 1;
+  --kz-color-bsport-turquoise-900: 1, 26, 24, 1;
+  --kz-color-bsport-turquoise-1000: 0, 6, 5, 1;
+  --kz-color-shadow-strong: 92, 103, 99, 0.2;
+  --kz-color-surface-action-main-weak-rest: var(
+    --kz-color-base-transparent-bsport-turquoise-0
+  );
+  --kz-color-shadow-action-default-rest: 163, 175, 174, 0.25;
+  --kz-color-shadow-action-default-hovered: 163, 175, 174, 0.25;
+  --kz-color-test: 201, 0, 175, 0.5;
+  --kz-color-base-transparent-bsport-turquoise-0: 37, 148, 141, 0;
+  --kz-color-base-transparent-bsport-turquoise-40: 37, 148, 141, 0.04;
+  --kz-color-base-transparent-bsport-turquoise-80: 37, 148, 141, 0.08;
+  --kz-color-base-transparent-bsport-turquoise-150: 37, 148, 141, 0.15;
+  --kz-color-base-transparent-bsport-turquoise-250: 37, 148, 141, 0.25;
+  --kz-color-base-transparent-bsport-turquoise-350: 37, 148, 141, 0.35;
+  --kz-color-base-transparent-bsport-turquoise-500: 50, 166, 158, 0.5;
+  --kz-color-base-transparent-bsport-turquoise-750: 50, 166, 158, 0.75;
+  --kz-color-base-transparent-bsport-turquoise-900: 50, 166, 158, 0.9;
+  --kz-color-base-transparent-luna-grey-0: 53, 60, 60, 0;
+  --kz-color-base-transparent-luna-grey-40: 53, 60, 60, 0.04;
+  --kz-color-base-transparent-luna-grey-80: 53, 60, 60, 0.08;
+  --kz-color-base-transparent-luna-grey-150: 53, 60, 60, 0.15;
+  --kz-color-base-transparent-luna-grey-250: 53, 60, 60, 0.25;
+  --kz-color-base-transparent-luna-grey-350: 53, 60, 60, 0.35;
+  --kz-color-base-transparent-luna-grey-500: 53, 60, 60, 0.5;
+  --kz-color-base-transparent-luna-grey-750: 53, 60, 60, 0.75;
+  --kz-color-base-transparent-luna-grey-900: 53, 60, 60, 0.9;
+  --kz-color-base-transparent-nix-white-0: 255, 255, 255, 0;
+  --kz-color-base-transparent-nix-white-40: 255, 255, 255, 0.04;
+  --kz-color-base-transparent-nix-white-80: 255, 255, 255, 0.08;
+  --kz-color-base-transparent-nix-white-150: 255, 255, 255, 0.15;
+  --kz-color-base-transparent-nix-white-250: 255, 255, 255, 0.25;
+  --kz-color-base-transparent-nix-white-350: 255, 255, 255, 0.35;
+  --kz-color-base-transparent-nix-white-500: 255, 255, 255, 0.5;
+  --kz-color-base-transparent-nix-white-750: 255, 255, 255, 0.75;
+  --kz-color-base-transparent-nix-white-900: 255, 255, 255, 0.9;
+  --kz-color-base-transparent-cupid-red-0: 132, 39, 59, 0;
+  --kz-color-base-transparent-cupid-red-40: 132, 39, 59, 0.04;
+  --kz-color-base-transparent-cupid-red-80: 132, 39, 59, 0.08;
+  --kz-color-base-transparent-cupid-red-150: 132, 39, 59, 0.15;
+  --kz-color-base-transparent-cupid-red-250: 132, 39, 59, 0.25;
+  --kz-color-base-transparent-cupid-red-350: 132, 39, 59, 0.35;
+  --kz-color-base-transparent-cupid-red-500: 132, 39, 59, 0.5;
+  --kz-color-base-transparent-cupid-red-750: 132, 39, 59, 0.75;
+  --kz-color-base-transparent-cupid-red-900: 132, 39, 59, 0.9;
+  --kz-color-surface-page: var(--kz-color-luna-grey-0);
+  --kz-color-surface-page-navigation: var(--kz-color-luna-grey-100);
+  --kz-color-surface-default: var(--kz-color-luna-grey-0);
+  --kz-color-surface-default-elevated: var(--kz-color-luna-grey-0);
+  --kz-color-surface-default-weak: var(--kz-color-luna-grey-200);
+  --kz-color-surface-default-weaker: var(--kz-color-luna-grey-100);
+  --kz-color-surface-default-weakest: var(--kz-color-luna-grey-50);
+  --kz-color-surface-main-strong: var(--kz-color-bsport-turquoise-700);
+  --kz-color-surface-main-weak: var(--kz-color-bsport-turquoise-100);
+  --kz-color-surface-default-strong: var(--kz-color-luna-grey-700);
+  --kz-color-surface-status-info-strong: var(--kz-color-neptune-blue-500);
+  --kz-color-surface-status-positive-strong: var(--kz-color-terra-green-500);
+  --kz-color-surface-status-positive-weak: var(--kz-color-terra-green-0);
+  --kz-color-surface-status-info-weak: var(--kz-color-neptune-blue-0);
+  --kz-color-surface-status-warning-strong: var(--kz-color-aurora-orange-700);
+  --kz-color-surface-status-critical-strong: var(--kz-color-cupid-red-500);
+  --kz-color-surface-status-critical-weak: var(--kz-color-cupid-red-0);
+  --kz-color-surface-blanket: var(--kz-color-base-transparent-luna-grey-750);
+  --kz-color-surface-status-warning-weak: var(--kz-color-aurora-orange-0);
+  --kz-color-stroke-main: var(--kz-color-bsport-turquoise-500);
+  --kz-color-stroke-default: var(--kz-color-base-transparent-luna-grey-150);
+  --kz-color-stroke-strong: var(--kz-color-base-transparent-luna-grey-500);
+  --kz-color-stroke-divider: var(--kz-color-base-transparent-luna-grey-150);
+  --kz-color-stroke-action-default-rest: var(
+    --kz-color-base-transparent-luna-grey-150
+  );
+  --kz-color-stroke-action-default-hovered: var(
+    --kz-color-base-transparent-luna-grey-250
+  );
+  --kz-color-stroke-action-default-pressed: var(
+    --kz-color-base-transparent-luna-grey-350
+  );
+  --kz-color-stroke-action-main-selected: var(--kz-color-bsport-turquoise-600);
+  --kz-color-stroke-status-info: var(--kz-color-neptune-blue-400);
+  --kz-color-stroke-status-positive: var(--kz-color-terra-green-400);
+  --kz-color-stroke-status-warning: var(--kz-color-aurora-orange-500);
+  --kz-color-stroke-status-critical: var(--kz-color-cupid-red-300);
+  --kz-color-surface-action-main-strong-rest: var(
+    --kz-color-bsport-turquoise-600
+  );
+  --kz-color-surface-action-main-strong-hovered: var(
+    --kz-color-bsport-turquoise-500
+  );
+  --kz-color-surface-action-main-strong-pressed: var(
+    --kz-color-bsport-turquoise-700
+  );
+  --kz-color-surface-action-main-strong-selected: var(
+    --kz-color-bsport-turquoise-300
+  );
+  --kz-color-surface-action-default-elevated-rest: var(--kz-color-luna-grey-0);
+  --kz-color-surface-action-critical-strong-rest: var(--kz-color-cupid-red-500);
+  --kz-color-surface-action-critical-strong-hovered: var(
+    --kz-color-cupid-red-400
+  );
+  --kz-color-surface-action-critical-strong-pressed: var(
+    --kz-color-cupid-red-600
+  );
+  --kz-color-surface-action-default-elevated-hovered: var(
+    --kz-color-luna-grey-100
+  );
+  --kz-color-surface-action-default-elevated-pressed: var(
+    --kz-color-luna-grey-200
+  );
+  --kz-color-surface-action-default-elevated-selected-rest: var(
+    --kz-color-bsport-turquoise-0
+  );
+  --kz-color-onsurface-default-onstrong: var(--kz-color-luna-grey-0);
+  --kz-color-onsurface-default: var(--kz-color-bsport-turquoise-900);
+  --kz-color-onsurface-main-strong: var(--kz-color-bsport-turquoise-700);
+  --kz-color-onsurface-main-weak: var(--kz-color-bsport-turquoise-400);
+  --kz-color-onsurface-action-main-rest: var(--kz-color-bsport-turquoise-800);
+  --kz-color-onsurface-action-main-hovered: var(
+    --kz-color-bsport-turquoise-700
+  );
+  --kz-color-onsurface-action-main-pressed: var(
+    --kz-color-bsport-turquoise-900
+  );
+  --kz-color-onsurface-action-main-selected: var(
+    --kz-color-bsport-turquoise-700
+  );
+  --kz-color-onsurface-action-main-disabled: var(--kz-color-luna-grey-800);
+  --kz-color-onsurface-weak: var(--kz-color-luna-grey-600);
+  --kz-color-onsurface-weaker: var(--kz-color-luna-grey-400);
+  --kz-color-onsurface-link-rest: var(--kz-color-bsport-turquoise-600);
+  --kz-color-onsurface-link-hovered: var(--kz-color-bsport-turquoise-400);
+  --kz-color-onsurface-link-pressed: var(--kz-color-bsport-turquoise-700);
+  --kz-color-onsurface-status-info-strong: var(--kz-color-neptune-blue-500);
+  --kz-color-onsurface-status-info-weak: var(--kz-color-neptune-blue-400);
+  --kz-color-onsurface-status-info-onstrong: var(--kz-color-neptune-blue-100);
+  --kz-color-onsurface-status-positive-strong: var(--kz-color-terra-green-600);
+  --kz-color-onsurface-status-positive-weak: var(--kz-color-terra-green-500);
+  --kz-color-onsurface-status-positive-onstrong: var(
+    --kz-color-terra-green-100
+  );
+  --kz-color-onsurface-status-warning-strong: var(--kz-color-aurora-orange-700);
+  --kz-color-onsurface-status-critical-strong: var(--kz-color-cupid-red-500);
+  --kz-color-onsurface-status-critical-weak: var(--kz-color-cupid-red-400);
+  --kz-color-onsurface-status-critical-onstrong: var(--kz-color-cupid-red-100);
+  --kz-color-onsurface-status-warning-weak: var(--kz-color-aurora-orange-600);
+  --kz-color-onsurface-status-warning-onstrong: var(--kz-color-aurora-orange-0);
+  --kz-color-shadow-action-default-selected: var(
+    --kz-color-bsport-turquoise-100
+  );
+  --kz-color-onsurface-action-weak-default: var(--kz-color-luna-grey-700);
+  --kz-color-onsurface-action-weak-critical: var(--kz-color-cupid-red-500);
+  --kz-color-surface-action-main-selected-rest: var(
+    --kz-color-base-transparent-bsport-turquoise-80
+  );
+  --kz-color-surface-action-main-selected-hovered: var(
+    --kz-color-base-transparent-bsport-turquoise-150
+  );
+  --kz-color-surface-action-main-selected-pressed: var(
+    --kz-color-base-transparent-bsport-turquoise-350
+  );
+  --kz-color-surface-action-main-weak-hovered: var(
+    --kz-color-base-transparent-bsport-turquoise-80
+  );
+  --kz-color-surface-action-main-weak-pressed: var(
+    --kz-color-base-transparent-bsport-turquoise-250
+  );
+  --kz-color-stroke-weak: var(--kz-color-base-transparent-luna-grey-250);
+  --kz-color-onsurface-main-onweak: var(--kz-color-bsport-turquoise-600);
+  --kz-color-onsurface-main-onstrong: var(--kz-color-luna-grey-0);
+  --kz-color-surface-action-default-onstrong-rest: var(
+    --kz-color-base-transparent-nix-white-0
+  );
+  --kz-color-surface-action-critical-weak-rest: var(
+    --kz-color-base-transparent-cupid-red-0
+  );
+  --kz-color-onsurface-action-weak-onstrong: var(--kz-color-luna-grey-0);
+  --kz-color-onsurface-action-weak-main: var(--kz-color-bsport-turquoise-700);
+  --kz-color-shadow-action-default-pressed: var(
+    --kz-color-stroke-action-default-pressed
+  );
+  --kz-color-surface-test-super-opacity: var(--kz-color-test);
+  --kz-color-surface-action-default-elevated-selected-hovered: var(
+    --kz-color-luna-grey-100
+  );
+  --kz-color-surface-action-default-elevated-selected-pressed: var(
+    --kz-color-luna-grey-200
+  );
+  --kz-color-surface-action-default-weak-rest: var(
+    --kz-color-base-transparent-luna-grey-0
+  );
+  --kz-color-surface-action-default-weak-hovered: var(
+    --kz-color-base-transparent-luna-grey-80
+  );
+  --kz-color-surface-action-default-weak-pressed: var(
+    --kz-color-base-transparent-luna-grey-150
+  );
+  --kz-color-surface-action-default-onstrong-hovered: var(
+    --kz-color-base-transparent-nix-white-80
+  );
+  --kz-color-surface-action-default-onstrong-pressed: var(
+    --kz-color-base-transparent-nix-white-150
+  );
+  --kz-color-surface-action-critical-weak-hovered: var(
+    --kz-color-base-transparent-cupid-red-40
+  );
+  --kz-color-surface-action-critical-weak-pressed: var(
+    --kz-color-base-transparent-cupid-red-150
+  );
   --kz-dimension-element-2xs: 4px;
   --kz-dimension-element-xs: 8px;
   --kz-dimension-element-sm: 16px;
@@ -239,6 +341,14 @@
   --kz-dimension-breakpoint-tablet: 1024px;
   --kz-dimension-component-breadcrumb: 280px;
   --kz-dimension-element-4xl: 200px;
+  --kz-dimension-opacity-transparent: 0px;
+  --kz-dimension-opacity-xl: 4px;
+  --kz-dimension-opacity-lg: 8px;
+  --kz-dimension-opacity-md: 25px;
+  --kz-dimension-opacity-sm: 50px;
+  --kz-dimension-opacity-xs: 65px;
+  --kz-dimension-opacity-2xs: 85px;
+  --kz-dimension-opacity-none: 100px;
   --kz-dimension-action-lg: var(--kz-dimension-element-xl);
   --kz-dimension-action-md: var(--kz-dimension-element-lg);
   --kz-dimension-action-sm: var(--kz-dimension-element-md);
@@ -296,10 +406,10 @@
   --kz-shadow-action-default-rest: 0px 1px 2px 0px #a3afae40,
     inset 0px 0px 0px 1px #121313;
   --kz-shadow-action-default-hovered: 0px 2px 6px 0px #a3afae40,
-    inset 0px 0px 0px 1px #a3afae80;
-  --kz-shadow-action-default-pressed: 0px 1px 4px -4px #a3afaebf,
-    inset 0px 0px 0px 1px #a3afaebf;
-  --kz-shadow-action-default-selected: inset 0px 3px 8px 0px #d0f6ef;
+    inset 0px 0px 0px 1px #353c3c40;
+  --kz-shadow-action-default-pressed: 0px 1px 4px -4px #353c3c59,
+    inset 0px 0px 0px 1px #353c3c59;
+  --kz-shadow-action-default-selected: inset 0px 3px 8px 0px #e5f6f3;
   --kz-shadow-action-call-to-action-rest: 0px 1px 2px 0px #365a5840;
   --kz-shadow-action-call-to-action-hovered: 0px 2px 6px 0px #2a8b8580;
   --kz-shadow-action-call-to-action-pressed: 0px 1px 8px -2px #50505014;
@@ -313,7 +423,7 @@
   --kz-shadow-action-call-to-action-critical-pressed: 0px 1px 8px -2px #50505014;
   --kz-shadow-critical: 0px 0px 8px 0px #91001f40,
     inset 0px 0px 0px 1px #7c878640;
-  --kz-shadow-border-thin-default: inset 0px 0px 0px 1px #c4d1d0;
+  --kz-shadow-border-thin-default: inset 0px 0px 0px 1px #353c3c26;
   --kz-shadow-border-thin-main: inset 0px 0px 0px 1px #25948d;
   --kz-shadow-border-thin-info: inset 0px 0px 0px 1px #447ba9;
   --kz-shadow-border-thin-positive: inset 0px 0px 0px 1px #47af4f;
@@ -336,178 +446,272 @@
   --kz-border-radius-xs: 4px;
   --kz-border-radius-square: 0px;
   --kz-border-radius-circle: 999px;
-  --kz-color-luna-grey-0: 255 255 255;
-  --kz-color-luna-grey-50: 249 252 252;
-  --kz-color-luna-grey-100: 244 249 249;
-  --kz-color-luna-grey-200: 229 234 234;
-  --kz-color-luna-grey-300: 201 209 208;
-  --kz-color-luna-grey-400: 166 175 174;
-  --kz-color-luna-grey-500: 127 135 134;
-  --kz-color-luna-grey-600: 86 94 93;
-  --kz-color-luna-grey-700: 53 60 60;
-  --kz-color-luna-grey-800: 30 35 35;
-  --kz-color-luna-grey-900: 18 19 19;
-  --kz-color-luna-grey-1000: 12 13 13;
-  --kz-color-terra-green-0: 232 252 234;
-  --kz-color-terra-green-100: 195 247 200;
-  --kz-color-terra-green-200: 154 233 160;
-  --kz-color-terra-green-300: 111 209 119;
-  --kz-color-terra-green-400: 71 175 79;
-  --kz-color-terra-green-500: 39 132 47;
-  --kz-color-terra-green-600: 18 88 24;
-  --kz-color-terra-green-700: 7 51 11;
-  --kz-color-terra-green-800: 3 26 4;
-  --kz-color-terra-green-900: 1 11 2;
-  --kz-color-terra-green-1000: 0 5 1;
-  --kz-color-neptune-blue-0: 232 243 252;
-  --kz-color-neptune-blue-100: 195 224 247;
-  --kz-color-neptune-blue-200: 154 197 233;
-  --kz-color-neptune-blue-300: 111 165 209;
-  --kz-color-neptune-blue-400: 68 123 169;
-  --kz-color-neptune-blue-500: 39 90 132;
-  --kz-color-neptune-blue-600: 22 71 110;
-  --kz-color-neptune-blue-700: 11 48 77;
-  --kz-color-neptune-blue-800: 3 15 26;
-  --kz-color-neptune-blue-900: 1 6 11;
-  --kz-color-neptune-blue-1000: 0 3 5;
-  --kz-color-aurora-orange-0: 255 251 235;
-  --kz-color-aurora-orange-100: 254 243 199;
-  --kz-color-aurora-orange-200: 253 230 138;
-  --kz-color-aurora-orange-300: 252 211 77;
-  --kz-color-aurora-orange-400: 251 191 36;
-  --kz-color-aurora-orange-500: 245 158 11;
-  --kz-color-aurora-orange-600: 217 119 6;
-  --kz-color-aurora-orange-700: 180 83 9;
-  --kz-color-aurora-orange-800: 146 64 14;
-  --kz-color-aurora-orange-900: 94 42 12;
-  --kz-color-aurora-orange-1000: 38 17 5;
-  --kz-color-cupid-red-0: 252 232 237;
-  --kz-color-cupid-red-100: 247 195 206;
-  --kz-color-cupid-red-200: 233 154 171;
-  --kz-color-cupid-red-300: 209 111 132;
-  --kz-color-cupid-red-400: 163 66 87;
-  --kz-color-cupid-red-500: 132 39 59;
-  --kz-color-cupid-red-600: 120 25 45;
-  --kz-color-cupid-red-700: 84 12 28;
-  --kz-color-cupid-red-800: 26 3 8;
-  --kz-color-cupid-red-900: 11 1 3;
-  --kz-color-cupid-red-1000: 5 0 1;
-  --kz-color-surface-blanket: 255 255 255;
-  --kz-color-shadow-weak: 21 35 30;
-  --kz-color-shadow-action-brand-selected: 4 48 45;
-  --kz-color-bsport-turquoise-0: 240 250 249;
-  --kz-color-bsport-turquoise-100: 208 246 239;
-  --kz-color-bsport-turquoise-200: 161 237 224;
-  --kz-color-bsport-turquoise-300: 105 221 206;
-  --kz-color-bsport-turquoise-400: 50 166 158;
-  --kz-color-bsport-turquoise-500: 37 148 141;
-  --kz-color-bsport-turquoise-600: 33 131 125;
-  --kz-color-bsport-turquoise-700: 15 102 96;
-  --kz-color-bsport-turquoise-800: 4 48 45;
-  --kz-color-bsport-turquoise-900: 1 26 24;
-  --kz-color-bsport-turquoise-1000: 0 6 5;
-  --kz-color-shadow-strong: 21 35 30;
-  --kz-color-surface-highlighted: 33 131 125;
-  --kz-color-surface-action-disabled: 124 135 134;
-  --kz-color-surface-action-main-strong-disabled: 124 135 134;
-  --kz-color-surface-action-main-weak-rest: 33 131 125;
-  --kz-color-surface-action-main-weak-hovered: 33 131 125;
-  --kz-color-surface-action-main-weak-pressed: 33 131 125;
-  --kz-color-surface-action-critical-weak-rest: 132 39 59;
-  --kz-color-surface-action-critical-weak-hovered: 132 39 59;
-  --kz-color-surface-action-critical-weak-pressed: 132 39 59;
-  --kz-color-surface-action-default-flat-rest: 124 135 134;
-  --kz-color-surface-action-default-flat-hovered: 124 135 134;
-  --kz-color-surface-action-default-flat-pressed: 124 135 134;
-  --kz-color-surface-action-default-onstrong-rest: 255 255 255;
-  --kz-color-surface-action-default-onstrong-hovered: 255 255 255;
-  --kz-color-surface-action-default-onstrong-pressed: 255 255 255;
-  --kz-color-stroke-action-default-rest: 124 135 134;
-  --kz-color-stroke-action-default-hovered: 124 135 134;
-  --kz-color-stroke-action-default-pressed: 124 135 134;
-  --kz-color-stroke-action-default-disabled: 124 135 134;
-  --kz-color-stroke-default: 124 135 134;
-  --kz-color-stroke-strong: 124 135 134;
-  --kz-color-stroke-weak: 124 135 134;
-  --kz-color-onsurface-disabled: 30 35 35;
-  --kz-color-shadow-action-default-rest: 163 175 174;
-  --kz-color-shadow-action-default-hovered: 163 175 174;
-  --kz-color-surface-page: 12 13 13;
-  --kz-color-surface-page-navigation: 12 13 13;
-  --kz-color-surface-default: 18 19 19;
-  --kz-color-surface-default-elevated: 30 35 35;
-  --kz-color-surface-default-weak: 30 35 35;
-  --kz-color-surface-default-weaker: 86 94 93;
-  --kz-color-surface-default-weakest: 127 135 134;
-  --kz-color-surface-main-strong: 105 221 206;
-  --kz-color-surface-main-weak: 1 26 24;
-  --kz-color-surface-default-strong: 244 249 249;
-  --kz-color-surface-status-info-strong: 111 165 209;
-  --kz-color-surface-status-positive-strong: 71 175 79;
-  --kz-color-surface-status-positive-weak: 3 26 4;
-  --kz-color-surface-status-info-weak: 3 15 26;
-  --kz-color-surface-status-warning-strong: 245 158 11;
-  --kz-color-surface-status-critical-strong: 209 111 132;
-  --kz-color-surface-status-critical-weak: 26 3 8;
-  --kz-color-surface-status-warning-weak: 38 17 5;
-  --kz-color-stroke-main: 105 221 206;
-  --kz-color-stroke-action-default-selected: 33 131 125;
-  --kz-color-stroke-status-info: 68 123 169;
-  --kz-color-stroke-status-positive: 39 132 47;
-  --kz-color-stroke-status-warning: 217 119 6;
-  --kz-color-stroke-status-critical: 163 66 87;
-  --kz-color-surface-action-main-strong-rest: 105 221 206;
-  --kz-color-surface-action-main-strong-hovered: 50 166 158;
-  --kz-color-surface-action-main-strong-pressed: 33 131 125;
-  --kz-color-surface-action-main-strong-selected: 33 131 125;
-  --kz-color-surface-action-default-elevated-rest: 30 35 35;
-  --kz-color-surface-action-critical-strong-rest: 120 25 45;
-  --kz-color-surface-action-critical-strong-hovered: 132 39 59;
-  --kz-color-surface-action-critical-strong-pressed: 84 12 28;
-  --kz-color-surface-action-default-elevated-hovered: 86 94 93;
-  --kz-color-surface-action-default-elevated-pressed: 30 35 35;
-  --kz-color-surface-action-default-elevated-selected: 4 48 45;
-  --kz-color-onsurface-default-onstrong: 18 19 19;
-  --kz-color-onsurface-default: 240 250 249;
-  --kz-color-onsurface-main-strong: 240 250 249;
-  --kz-color-onsurface-main-weak: 240 250 249;
-  --kz-color-onsurface-action-main-rest: 240 250 249;
-  --kz-color-onsurface-action-main-hovered: 240 250 249;
-  --kz-color-onsurface-action-main-pressed: 240 250 249;
-  --kz-color-onsurface-action-main-selected: 161 237 224;
-  --kz-color-onsurface-action-main-disabled: 255 255 255;
-  --kz-color-onsurface-weak: 201 209 208;
-  --kz-color-onsurface-weaker: 127 135 134;
-  --kz-color-onsurface-link-rest: 105 221 206;
-  --kz-color-onsurface-link-hovered: 161 237 224;
-  --kz-color-onsurface-link-pressed: 50 166 158;
-  --kz-color-onsurface-status-info-strong: 232 243 252;
-  --kz-color-onsurface-status-info-weak: 195 224 247;
-  --kz-color-onsurface-status-info-onstrong: 22 71 110;
-  --kz-color-onsurface-status-positive-strong: 232 252 234;
-  --kz-color-onsurface-status-positive-weak: 195 247 200;
-  --kz-color-onsurface-status-positive-onstrong: 7 51 11;
-  --kz-color-onsurface-status-warning-strong: 255 251 235;
-  --kz-color-onsurface-status-critical-strong: 252 232 237;
-  --kz-color-onsurface-status-critical-weak: 247 195 206;
-  --kz-color-onsurface-status-critical-onstrong: 84 12 28;
-  --kz-color-onsurface-status-warning-weak: 253 230 138;
-  --kz-color-onsurface-status-warning-onstrong: 94 42 12;
-  --kz-color-shadow-action-default-selected: 4 48 45;
-  --kz-color-onsurface-action-weak-default: 240 250 249;
-  --kz-color-onsurface-action-weak-critical: 209 111 132;
-  --kz-color-surface-action-selected-rest: 105 221 206;
-  --kz-color-surface-action-selected-hovered: 50 166 158;
-  --kz-color-surface-action-selected-pressed: 33 131 125;
-  --kz-color-stroke-divider: var(--kz-color-stroke-default);
-  --kz-color-onsurface-main-onweak: 18 19 19;
-  --kz-color-onsurface-main-onstrong: 18 19 19;
-  --kz-color-surface-action-main-weak: 105 221 206;
-  --kz-color-surface-action-onstrong: 105 221 206;
-  --kz-color-surface-action-critical-weak: 247 195 206;
-  --kz-color-onsurface-action-weak-onstrong: 30 35 35;
-  --kz-color-onsurface-action-weak-main: 105 221 206;
-  --kz-color-shadow-action-default-pressed: var(--kz-color-luna-grey-500);
+  --kz-color-luna-grey-0: 255, 255, 255, 1;
+  --kz-color-luna-grey-50: 249, 252, 252, 1;
+  --kz-color-luna-grey-100: 247, 249, 249, 1;
+  --kz-color-luna-grey-200: 229, 234, 234, 1;
+  --kz-color-luna-grey-300: 201, 209, 208, 1;
+  --kz-color-luna-grey-400: 166, 175, 174, 1;
+  --kz-color-luna-grey-500: 127, 135, 134, 1;
+  --kz-color-luna-grey-600: 86, 94, 93, 1;
+  --kz-color-luna-grey-700: 53, 60, 60, 1;
+  --kz-color-luna-grey-800: 30, 35, 35, 1;
+  --kz-color-luna-grey-900: 18, 19, 19, 1;
+  --kz-color-luna-grey-1000: 12, 13, 13, 1;
+  --kz-color-terra-green-0: 232, 252, 234, 1;
+  --kz-color-terra-green-100: 195, 247, 200, 1;
+  --kz-color-terra-green-200: 154, 233, 160, 1;
+  --kz-color-terra-green-300: 111, 209, 119, 1;
+  --kz-color-terra-green-400: 71, 175, 79, 1;
+  --kz-color-terra-green-500: 39, 132, 47, 1;
+  --kz-color-terra-green-600: 18, 88, 24, 1;
+  --kz-color-terra-green-700: 7, 51, 11, 1;
+  --kz-color-terra-green-800: 3, 26, 4, 1;
+  --kz-color-terra-green-900: 1, 11, 2, 1;
+  --kz-color-terra-green-1000: 0, 5, 1, 1;
+  --kz-color-neptune-blue-0: 232, 243, 252, 1;
+  --kz-color-neptune-blue-100: 195, 224, 247, 1;
+  --kz-color-neptune-blue-200: 154, 197, 233, 1;
+  --kz-color-neptune-blue-300: 111, 165, 209, 1;
+  --kz-color-neptune-blue-400: 68, 123, 169, 1;
+  --kz-color-neptune-blue-500: 39, 90, 132, 1;
+  --kz-color-neptune-blue-600: 22, 71, 110, 1;
+  --kz-color-neptune-blue-700: 11, 48, 77, 1;
+  --kz-color-neptune-blue-800: 3, 15, 26, 1;
+  --kz-color-neptune-blue-900: 1, 6, 11, 1;
+  --kz-color-neptune-blue-1000: 0, 3, 5, 1;
+  --kz-color-aurora-orange-0: 255, 251, 235, 1;
+  --kz-color-aurora-orange-100: 254, 243, 199, 1;
+  --kz-color-aurora-orange-200: 253, 230, 138, 1;
+  --kz-color-aurora-orange-300: 252, 211, 77, 1;
+  --kz-color-aurora-orange-400: 251, 191, 36, 1;
+  --kz-color-aurora-orange-500: 245, 158, 11, 1;
+  --kz-color-aurora-orange-600: 217, 119, 6, 1;
+  --kz-color-aurora-orange-700: 180, 83, 9, 1;
+  --kz-color-aurora-orange-800: 146, 64, 14, 1;
+  --kz-color-aurora-orange-900: 94, 42, 12, 1;
+  --kz-color-aurora-orange-1000: 38, 17, 5, 1;
+  --kz-color-cupid-red-0: 252, 232, 237, 1;
+  --kz-color-cupid-red-100: 247, 195, 206, 1;
+  --kz-color-cupid-red-200: 233, 154, 171, 1;
+  --kz-color-cupid-red-300: 209, 111, 132, 1;
+  --kz-color-cupid-red-400: 163, 66, 87, 1;
+  --kz-color-cupid-red-500: 132, 39, 59, 1;
+  --kz-color-cupid-red-600: 120, 25, 45, 1;
+  --kz-color-cupid-red-700: 84, 12, 28, 1;
+  --kz-color-cupid-red-800: 26, 3, 8, 1;
+  --kz-color-cupid-red-900: 11, 1, 3, 1;
+  --kz-color-cupid-red-1000: 5, 0, 1, 1;
+  --kz-color-shadow-weak: 21, 35, 30, 0.08;
+  --kz-color-shadow-action-brand-selected: var(--kz-color-bsport-turquoise-800);
+  --kz-color-bsport-turquoise-0: 240, 250, 249, 1;
+  --kz-color-bsport-turquoise-100: 229, 246, 243, 1;
+  --kz-color-bsport-turquoise-200: 190, 237, 229, 1;
+  --kz-color-bsport-turquoise-300: 133, 222, 210, 1;
+  --kz-color-bsport-turquoise-400: 50, 166, 158, 1;
+  --kz-color-bsport-turquoise-500: 37, 148, 141, 1;
+  --kz-color-bsport-turquoise-600: 33, 131, 125, 1;
+  --kz-color-bsport-turquoise-700: 15, 102, 96, 1;
+  --kz-color-bsport-turquoise-800: 4, 48, 45, 1;
+  --kz-color-bsport-turquoise-900: 1, 26, 24, 1;
+  --kz-color-bsport-turquoise-1000: 0, 6, 5, 1;
+  --kz-color-shadow-strong: 21, 35, 30, 0.08;
+  --kz-color-surface-action-main-weak-rest: var(
+    --kz-color-bsport-turquoise-300
+  );
+  --kz-color-shadow-action-default-rest: 163, 175, 174, 0.25;
+  --kz-color-shadow-action-default-hovered: 163, 175, 174, 0.25;
+  --kz-color-test: 201, 0, 175, 0.5;
+  --kz-color-base-transparent-bsport-turquoise-0: 37, 148, 141, 0;
+  --kz-color-base-transparent-bsport-turquoise-40: 37, 148, 141, 0.04;
+  --kz-color-base-transparent-bsport-turquoise-80: 37, 148, 141, 0.08;
+  --kz-color-base-transparent-bsport-turquoise-150: 37, 148, 141, 0.15;
+  --kz-color-base-transparent-bsport-turquoise-250: 37, 148, 141, 0.25;
+  --kz-color-base-transparent-bsport-turquoise-350: 37, 148, 141, 0.35;
+  --kz-color-base-transparent-bsport-turquoise-500: 50, 166, 158, 0.5;
+  --kz-color-base-transparent-bsport-turquoise-750: 50, 166, 158, 0.75;
+  --kz-color-base-transparent-bsport-turquoise-900: 50, 166, 158, 0.9;
+  --kz-color-base-transparent-luna-grey-0: 53, 60, 60, 0;
+  --kz-color-base-transparent-luna-grey-40: 53, 60, 60, 0.04;
+  --kz-color-base-transparent-luna-grey-80: 53, 60, 60, 0.08;
+  --kz-color-base-transparent-luna-grey-150: 53, 60, 60, 0.15;
+  --kz-color-base-transparent-luna-grey-250: 53, 60, 60, 0.25;
+  --kz-color-base-transparent-luna-grey-350: 53, 60, 60, 0.35;
+  --kz-color-base-transparent-luna-grey-500: 53, 60, 60, 0.5;
+  --kz-color-base-transparent-luna-grey-750: 53, 60, 60, 0.75;
+  --kz-color-base-transparent-luna-grey-900: 53, 60, 60, 0.9;
+  --kz-color-base-transparent-nix-white-0: 255, 255, 255, 0;
+  --kz-color-base-transparent-nix-white-40: 255, 255, 255, 0.04;
+  --kz-color-base-transparent-nix-white-80: 255, 255, 255, 0.08;
+  --kz-color-base-transparent-nix-white-150: 255, 255, 255, 0.15;
+  --kz-color-base-transparent-nix-white-250: 255, 255, 255, 0.25;
+  --kz-color-base-transparent-nix-white-350: 255, 255, 255, 0.35;
+  --kz-color-base-transparent-nix-white-500: 255, 255, 255, 0.5;
+  --kz-color-base-transparent-nix-white-750: 255, 255, 255, 0.75;
+  --kz-color-base-transparent-nix-white-900: 255, 255, 255, 0.9;
+  --kz-color-base-transparent-cupid-red-0: 132, 39, 59, 0;
+  --kz-color-base-transparent-cupid-red-40: 132, 39, 59, 0.04;
+  --kz-color-base-transparent-cupid-red-80: 132, 39, 59, 0.08;
+  --kz-color-base-transparent-cupid-red-150: 132, 39, 59, 0.15;
+  --kz-color-base-transparent-cupid-red-250: 132, 39, 59, 0.25;
+  --kz-color-base-transparent-cupid-red-350: 132, 39, 59, 0.35;
+  --kz-color-base-transparent-cupid-red-500: 132, 39, 59, 0.5;
+  --kz-color-base-transparent-cupid-red-750: 132, 39, 59, 0.75;
+  --kz-color-base-transparent-cupid-red-900: 132, 39, 59, 0.9;
+  --kz-color-surface-page: var(--kz-color-luna-grey-1000);
+  --kz-color-surface-page-navigation: var(--kz-color-luna-grey-1000);
+  --kz-color-surface-default: var(--kz-color-luna-grey-900);
+  --kz-color-surface-default-elevated: var(--kz-color-luna-grey-800);
+  --kz-color-surface-default-weak: var(--kz-color-luna-grey-800);
+  --kz-color-surface-default-weaker: var(--kz-color-luna-grey-600);
+  --kz-color-surface-default-weakest: var(--kz-color-luna-grey-500);
+  --kz-color-surface-main-strong: var(--kz-color-bsport-turquoise-300);
+  --kz-color-surface-main-weak: var(--kz-color-bsport-turquoise-900);
+  --kz-color-surface-default-strong: var(--kz-color-luna-grey-100);
+  --kz-color-surface-status-info-strong: var(--kz-color-neptune-blue-300);
+  --kz-color-surface-status-positive-strong: var(--kz-color-terra-green-400);
+  --kz-color-surface-status-positive-weak: var(--kz-color-terra-green-800);
+  --kz-color-surface-status-info-weak: var(--kz-color-neptune-blue-800);
+  --kz-color-surface-status-warning-strong: var(--kz-color-aurora-orange-500);
+  --kz-color-surface-status-critical-strong: var(--kz-color-cupid-red-300);
+  --kz-color-surface-status-critical-weak: var(--kz-color-cupid-red-800);
+  --kz-color-surface-blanket: 255, 255, 255, 0.5;
+  --kz-color-surface-status-warning-weak: var(--kz-color-aurora-orange-1000);
+  --kz-color-stroke-main: var(--kz-color-bsport-turquoise-300);
+  --kz-color-stroke-default: var(--kz-color-luna-grey-600);
+  --kz-color-stroke-strong: var(--kz-color-luna-grey-400);
+  --kz-color-stroke-divider: var(--kz-color-luna-grey-600);
+  --kz-color-stroke-action-default-rest: var(--kz-color-luna-grey-900);
+  --kz-color-stroke-action-default-hovered: var(--kz-color-luna-grey-700);
+  --kz-color-stroke-action-default-pressed: var(--kz-color-luna-grey-500);
+  --kz-color-stroke-action-main-selected: var(--kz-color-bsport-turquoise-600);
+  --kz-color-stroke-status-info: var(--kz-color-neptune-blue-400);
+  --kz-color-stroke-status-positive: var(--kz-color-terra-green-500);
+  --kz-color-stroke-status-warning: var(--kz-color-aurora-orange-600);
+  --kz-color-stroke-status-critical: var(--kz-color-cupid-red-400);
+  --kz-color-surface-action-main-strong-rest: var(
+    --kz-color-bsport-turquoise-300
+  );
+  --kz-color-surface-action-main-strong-hovered: var(
+    --kz-color-bsport-turquoise-400
+  );
+  --kz-color-surface-action-main-strong-pressed: var(
+    --kz-color-bsport-turquoise-600
+  );
+  --kz-color-surface-action-main-strong-selected: var(
+    --kz-color-bsport-turquoise-600
+  );
+  --kz-color-surface-action-default-elevated-rest: var(
+    --kz-color-luna-grey-800
+  );
+  --kz-color-surface-action-critical-strong-rest: var(--kz-color-cupid-red-600);
+  --kz-color-surface-action-critical-strong-hovered: var(
+    --kz-color-cupid-red-500
+  );
+  --kz-color-surface-action-critical-strong-pressed: var(
+    --kz-color-cupid-red-700
+  );
+  --kz-color-surface-action-default-elevated-hovered: var(
+    --kz-color-luna-grey-600
+  );
+  --kz-color-surface-action-default-elevated-pressed: var(
+    --kz-color-luna-grey-800
+  );
+  --kz-color-surface-action-default-elevated-selected-rest: var(
+    --kz-color-bsport-turquoise-800
+  );
+  --kz-color-onsurface-default-onstrong: var(--kz-color-luna-grey-900);
+  --kz-color-onsurface-default: var(--kz-color-bsport-turquoise-0);
+  --kz-color-onsurface-main-strong: var(--kz-color-bsport-turquoise-0);
+  --kz-color-onsurface-main-weak: var(--kz-color-bsport-turquoise-0);
+  --kz-color-onsurface-action-main-rest: var(--kz-color-bsport-turquoise-0);
+  --kz-color-onsurface-action-main-hovered: var(--kz-color-bsport-turquoise-0);
+  --kz-color-onsurface-action-main-pressed: var(--kz-color-bsport-turquoise-0);
+  --kz-color-onsurface-action-main-selected: var(
+    --kz-color-bsport-turquoise-200
+  );
+  --kz-color-onsurface-action-main-disabled: 255, 255, 255, 0.25;
+  --kz-color-onsurface-weak: var(--kz-color-luna-grey-300);
+  --kz-color-onsurface-weaker: var(--kz-color-luna-grey-500);
+  --kz-color-onsurface-link-rest: var(--kz-color-bsport-turquoise-300);
+  --kz-color-onsurface-link-hovered: var(--kz-color-bsport-turquoise-200);
+  --kz-color-onsurface-link-pressed: var(--kz-color-bsport-turquoise-400);
+  --kz-color-onsurface-status-info-strong: var(--kz-color-neptune-blue-0);
+  --kz-color-onsurface-status-info-weak: var(--kz-color-neptune-blue-100);
+  --kz-color-onsurface-status-info-onstrong: var(--kz-color-neptune-blue-600);
+  --kz-color-onsurface-status-positive-strong: var(--kz-color-terra-green-0);
+  --kz-color-onsurface-status-positive-weak: var(--kz-color-terra-green-100);
+  --kz-color-onsurface-status-positive-onstrong: var(
+    --kz-color-terra-green-700
+  );
+  --kz-color-onsurface-status-warning-strong: var(--kz-color-aurora-orange-0);
+  --kz-color-onsurface-status-critical-strong: var(--kz-color-cupid-red-0);
+  --kz-color-onsurface-status-critical-weak: var(--kz-color-cupid-red-100);
+  --kz-color-onsurface-status-critical-onstrong: var(--kz-color-cupid-red-700);
+  --kz-color-onsurface-status-warning-weak: var(--kz-color-aurora-orange-200);
+  --kz-color-onsurface-status-warning-onstrong: var(
+    --kz-color-aurora-orange-900
+  );
+  --kz-color-shadow-action-default-selected: var(
+    --kz-color-bsport-turquoise-800
+  );
+  --kz-color-onsurface-action-weak-default: var(--kz-color-bsport-turquoise-0);
+  --kz-color-onsurface-action-weak-critical: var(--kz-color-cupid-red-300);
+  --kz-color-surface-action-main-selected-rest: var(
+    --kz-color-bsport-turquoise-300
+  );
+  --kz-color-surface-action-main-selected-hovered: var(
+    --kz-color-bsport-turquoise-400
+  );
+  --kz-color-surface-action-main-selected-pressed: var(
+    --kz-color-bsport-turquoise-600
+  );
+  --kz-color-surface-action-main-weak-hovered: var(
+    --kz-color-bsport-turquoise-300
+  );
+  --kz-color-surface-action-main-weak-pressed: var(
+    --kz-color-bsport-turquoise-300
+  );
+  --kz-color-stroke-weak: var(--kz-color-luna-grey-700);
+  --kz-color-onsurface-main-onweak: var(--kz-color-luna-grey-900);
+  --kz-color-onsurface-main-onstrong: var(--kz-color-luna-grey-900);
+  --kz-color-surface-action-default-onstrong-rest: var(
+    --kz-color-bsport-turquoise-300
+  );
+  --kz-color-surface-action-critical-weak-rest: var(--kz-color-cupid-red-100);
+  --kz-color-onsurface-action-weak-onstrong: var(--kz-color-luna-grey-800);
+  --kz-color-onsurface-action-weak-main: var(--kz-color-bsport-turquoise-300);
+  --kz-color-shadow-action-default-pressed: var(
+    --kz-color-stroke-action-default-pressed
+  );
+  --kz-color-surface-test-super-opacity: var(--kz-color-luna-grey-1000);
+  --kz-color-surface-action-default-elevated-selected-hovered: var(
+    --kz-color-bsport-turquoise-800
+  );
+  --kz-color-surface-action-default-elevated-selected-pressed: var(
+    --kz-color-bsport-turquoise-800
+  );
+  --kz-color-surface-action-default-weak-rest: var(
+    --kz-color-bsport-turquoise-300
+  );
+  --kz-color-surface-action-default-weak-hovered: var(
+    --kz-color-bsport-turquoise-300
+  );
+  --kz-color-surface-action-default-weak-pressed: var(
+    --kz-color-bsport-turquoise-300
+  );
+  --kz-color-surface-action-default-onstrong-hovered: var(
+    --kz-color-bsport-turquoise-300
+  );
+  --kz-color-surface-action-default-onstrong-pressed: var(
+    --kz-color-bsport-turquoise-300
+  );
+  --kz-color-surface-action-critical-weak-hovered: var(
+    --kz-color-cupid-red-100
+  );
+  --kz-color-surface-action-critical-weak-pressed: var(
+    --kz-color-cupid-red-100
+  );
   --kz-dimension-element-2xs: 4px;
   --kz-dimension-element-xs: 8px;
   --kz-dimension-element-sm: 16px;
@@ -562,6 +766,14 @@
   --kz-dimension-breakpoint-tablet: 1024px;
   --kz-dimension-component-breadcrumb: 280px;
   --kz-dimension-element-4xl: 200px;
+  --kz-dimension-opacity-transparent: 0px;
+  --kz-dimension-opacity-xl: 4px;
+  --kz-dimension-opacity-lg: 8px;
+  --kz-dimension-opacity-md: 25px;
+  --kz-dimension-opacity-sm: 50px;
+  --kz-dimension-opacity-xs: 65px;
+  --kz-dimension-opacity-2xs: 85px;
+  --kz-dimension-opacity-none: 100px;
   --kz-dimension-action-lg: var(--kz-dimension-element-xl);
   --kz-dimension-action-md: var(--kz-dimension-element-lg);
   --kz-dimension-action-sm: var(--kz-dimension-element-md);
@@ -619,10 +831,10 @@
   --kz-shadow-action-default-rest: 0px 1px 2px 0px #a3afae40,
     inset 0px 0px 0px 1px #121313;
   --kz-shadow-action-default-hovered: 0px 2px 6px 0px #a3afae40,
-    inset 0px 0px 0px 1px #a3afae80;
-  --kz-shadow-action-default-pressed: 0px 1px 4px -4px #a3afaebf,
-    inset 0px 0px 0px 1px #a3afaebf;
-  --kz-shadow-action-default-selected: inset 0px 3px 8px 0px #d0f6ef;
+    inset 0px 0px 0px 1px #353c3c40;
+  --kz-shadow-action-default-pressed: 0px 1px 4px -4px #353c3c59,
+    inset 0px 0px 0px 1px #353c3c59;
+  --kz-shadow-action-default-selected: inset 0px 3px 8px 0px #e5f6f3;
   --kz-shadow-action-call-to-action-rest: 0px 1px 2px 0px #365a5840;
   --kz-shadow-action-call-to-action-hovered: 0px 2px 6px 0px #2a8b8580;
   --kz-shadow-action-call-to-action-pressed: 0px 1px 8px -2px #50505014;
@@ -636,7 +848,7 @@
   --kz-shadow-action-call-to-action-critical-pressed: 0px 1px 8px -2px #50505014;
   --kz-shadow-critical: 0px 0px 8px 0px #91001f40,
     inset 0px 0px 0px 1px #7c878640;
-  --kz-shadow-border-thin-default: inset 0px 0px 0px 1px #c4d1d0;
+  --kz-shadow-border-thin-default: inset 0px 0px 0px 1px #353c3c26;
   --kz-shadow-border-thin-main: inset 0px 0px 0px 1px #25948d;
   --kz-shadow-border-thin-info: inset 0px 0px 0px 1px #447ba9;
   --kz-shadow-border-thin-positive: inset 0px 0px 0px 1px #47af4f;

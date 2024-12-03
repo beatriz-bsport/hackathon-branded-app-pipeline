@@ -66,21 +66,21 @@ const RadioButton: React.FC<RadioButtonProps> = ({
             "appearance-none w-md h-md rounded-circle",
             "cursor-pointer disabled:cursor-default",
             "transition-colors duration-default ease-in-out",
-            "border-stroke-thin border-stroke-action-default-rest/md",
+            "border-stroke-thin border-stroke-action-default-rest",
             "checked:border-none",
             "bg-surface-action-default-elevated-rest checked:bg-surface-action-main-strong-rest",
             {
               "bg-surface-status-critical-weak border-stroke-status-critical checked:bg-surface-status-critical-strong":
                 errorText,
               // Hovered state
-              "hover:bg-surface-action-default-elevated-hovered hover:border-stroke-action-default-hovered/sm \
-              hover:active:bg-surface-action-default-elevated-pressed hover:active:border-stroke-action-default-pressed/xs":
+              "hover:bg-surface-action-default-elevated-hovered hover:border-stroke-action-default-hovered \
+              hover:active:bg-surface-action-default-elevated-pressed hover:active:border-stroke-action-default-pressed":
                 !disabled && !checked && !errorText,
               "hover:bg-surface-action-main-strong-hovered hover:shadow-action-call-to-action-hovered \
               hover:active:bg-surface-action-main-strong-pressed hover:active:shadow-action-call-to-action-pressed":
                 !disabled && checked && !errorText,
               // Disabled state
-              "bg-surface-action-default-elevated-pressed border-stroke-action-default-pressed/xs":
+              "bg-surface-action-default-elevated-pressed border-stroke-action-default-pressed":
                 disabled && !checked && !errorText,
               "bg-surface-action-main-strong-pressed":
                 disabled && checked && !errorText,

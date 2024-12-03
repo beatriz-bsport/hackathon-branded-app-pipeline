@@ -115,7 +115,7 @@ const Tabs: React.FC<TabsProps> = ({
         >
           <div
             className={classNames("flex px-xs py-2xs gap-xs rounded-sm", {
-              "hover:bg-surface-action-default-flat-hovered/lg active:bg-surface-action-default-flat-pressed/md":
+              "hover:bg-surface-action-default-flat-hovered active:bg-surface-action-default-flat-pressed":
                 !disabled,
             })}
           >

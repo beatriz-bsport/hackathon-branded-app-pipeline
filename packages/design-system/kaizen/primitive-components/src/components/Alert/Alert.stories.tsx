@@ -13,7 +13,7 @@ const meta: Meta<typeof Alert> = {
     status: {
       options: statuses,
       control: { type: "select" },
-      table: { defaultValue: { summary: "default" } },
+      table: { type: { summary: "string" } },
     },
     type: {
       options: types,

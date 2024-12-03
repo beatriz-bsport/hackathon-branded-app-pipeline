@@ -163,7 +163,7 @@ const Modal: React.FC<ModalProps> = ({
   return createPortal(
     <div
       className={classNames(
-        "fixed inset-[0] z-[999] bg-surface-blanket/md transition ease-out duration-default",
+        "fixed inset-[0] z-[999] bg-surface-blanket transition ease-out duration-default",
         { "bg-surface-blanket/transparent": !isVisible },
       )}
       onClick={handleBackdropClick}

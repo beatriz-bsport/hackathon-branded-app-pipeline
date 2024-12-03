@@ -14,6 +14,7 @@ const defaultClasses = [
   "border-none",
   "text-onsurface-weak placeholder:text-onsurface-weaker",
   "text-ellipsis",
+  "bg-[transparent]",
 ] as const;
 
 const variants = {
@@ -151,7 +152,7 @@ const TextField: React.FC<TextFieldProps> = ({
       >
         {/* TODO: type country */}
         {prefix && Object.keys(prefix).length > 0 && (
-          <div className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default/md bg-surface-default-weak text-onsurface-weaker">
+          <div className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weaker">
             {prefix.type === "text" ? (
               <span>{prefix.value}</span>
             ) : prefix.type === "icon" ? (
@@ -208,7 +209,7 @@ const TextField: React.FC<TextFieldProps> = ({
         </div>
         {/* TODO: type country */}
         {suffix && Object.keys(suffix).length > 0 && (
-          <div className="flex px-md justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default/md bg-surface-default-weak text-onsurface-weaker">
+          <div className="flex px-md justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weaker">
             {suffix?.type === "text" ? (
               <span>{suffix.value}</span>
             ) : suffix?.type === "icon" ? (

@@ -95,7 +95,9 @@ const importColors = async (folderPath: string): Promise<Output> => {
     formatCSSVariable,
     formatValue: (color) => {
       const rgba = hexToRGBA(color);
-      return rgba ? `${rgba.red} ${rgba.green} ${rgba.blue}` : "";
+      return rgba
+        ? `${rgba.red}, ${rgba.green}, ${rgba.blue}, ${rgba.alpha === 1 ? 1 : Math.round(rgba.alpha / 2.55) / 100}`
+        : "";
     },
   });
 
@@ -118,7 +120,7 @@ const importColors = async (folderPath: string): Promise<Output> => {
     const baseColorRegex = /(.+)-([0-9]+)/;
     const baseColorMatch = baseColorRegex.exec(name);
 
-    const tailwindValue = `rgb(var(--${formatCSSVariable(name)}) / <alpha-value>)`;
+    const tailwindValue = `rgba(var(--${formatCSSVariable(name)}))`;
 
     if (!baseColorMatch) {
       tailwindOtherColors[name] = tailwindValue;
@@ -515,7 +517,10 @@ const importShadows = async (folderPath: string): Promise<Output> => {
  * @param folderPath Path of the folder containing the Supernova export.
  */
 const importDurations = async (folderPath: string): Promise<Output> => {
-  const cssContent = await importFileContent(folderPath, "styles/durations.css");
+  const cssContent = await importFileContent(
+    folderPath,
+    "styles/durations.css",
+  );
   const formatCSSVariable = (name: string) => `kz-transition-duration-${name}`;
   const formatName = formatVariableName(["duration"]);
   const formatValue = formatVariableValue(formatName, {

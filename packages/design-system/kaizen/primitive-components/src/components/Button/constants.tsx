@@ -1,22 +1,14 @@
 import mapValues from "lodash/mapValues";
 import { FOCUS_CLASSES } from "../../constants";
 
-const nonFlatDisabledStyle = [
-  "disabled:text-onsurface-default",
-  "disabled:fill-onsurface-default",
-  "disabled:opacity-md",
-  "disabled:shadow-action-default-rest",
-] as const;
-
 export const defaultClasses = [
-  "border-0",
-  "gap-0",
-  "transition ease-in duration-default",
+  "transition ease-out duration-default",
   "cursor-pointer",
   "font-weak",
   // Flex config
   "flex flex-row items-center justify-center",
   // Disabled
+  "disabled:opacity-md",
   "disabled:shadow-none",
   "disabled:cursor-not-allowed",
   // Focus
@@ -30,18 +22,12 @@ export const variants = {
       "fill-onsurface-default-onstrong",
       "text-onsurface-default-onstrong",
       // Disabled
-      "disabled:bg-surface-action-main-strong-disabled",
-      ...nonFlatDisabledStyle,
+      "disabled:opacity-md",
     ],
-    default: ["disabled:bg-surface-action-disabled", ...nonFlatDisabledStyle],
+    default: [],
     flat: [
       // Background
       "bg-none",
-      // Disabled
-      "disabled:bg-none",
-      "disabled:text-onsurface-action-main-disabled",
-      "disabled:fill-onsurface-action-main-disabled",
-      "disabled:opacity-md",
     ],
   },
   colorByIntent: {
@@ -73,8 +59,6 @@ export const variants = {
       "bg-surface-action-default-elevated-rest",
       "active:bg-surface-action-default-elevated-pressed",
       "hover:bg-surface-action-default-elevated-hovered",
-      // Border
-      "border-none",
       // Shadow
       "shadow-action-default-rest",
       "active:shadow-action-default-pressed",
@@ -98,33 +82,37 @@ export const variants = {
       "fill-onsurface-action-main-selected",
     ],
     "flat-default": [
-      "text-onsurface-default",
-      "fill-onsurface-default",
+      "text-onsurface-action-weak-default",
+      "fill-onsurface-action-weak-default",
       // Background
-      "active:bg-surface-action-default-flat-pressed/md",
-      "hover:bg-surface-action-default-flat-hovered/lg",
+      "bg-action-default-weak-rest",
+      "active:bg-surface-action-default-weak-pressed",
+      "hover:bg-surface-action-default-weak-hovered",
     ],
     "flat-main": [
       "text-onsurface-link-rest",
       "fill-onsurface-link-rest",
       // Background
-      "active:bg-surface-action-main-weak-pressed/md",
-      "hover:bg-surface-action-main-weak-hovered/lg",
+      "bg-action-main-weak-rest",
+      "active:bg-surface-action-main-weak-pressed",
+      "hover:bg-surface-action-main-weak-hovered",
     ],
     "flat-critical": [
-      "text-onsurface-action-critical",
-      "fill-onsurface-action-critical",
+      "text-onsurface-action-weak-critical",
+      "fill-onsurface-action-weak-critical",
       // Background
-      "active:bg-surface-action-critical-weak-pressed/md",
-      "hover:bg-surface-action-critical-weak-hovered/lg",
+      "bg-action-critical-weak-rest",
+      "active:bg-surface-action-critical-weak-pressed",
+      "hover:bg-surface-action-critical-weak-hovered",
     ],
     "flat-onstrong": [
       // Text
-      "text-onsurface-default-onstrong",
-      "fill-onsurface-default-onstrong",
+      "text-onsurface-default-weak-onstrong",
+      "fill-onsurface-default-weak-onstrong",
       // Background
-      "active:bg-surface-action-default-onstrong-pressed/md",
-      "hover:bg-surface-action-default-onstrong-hovered/lg",
+      "bg-action-default-onstrong-rest",
+      "active:bg-surface-action-default-onstrong-pressed",
+      "hover:bg-surface-action-default-onstrong-hovered",
     ],
   },
   size: {
@@ -164,7 +152,6 @@ export const variants = {
     "full-width": ["w-full"],
   },
 } as const;
-
 
 export const sizes = mapValues(variants.size, (_, key) => key) as {
   [key in keyof typeof variants.size]: key;

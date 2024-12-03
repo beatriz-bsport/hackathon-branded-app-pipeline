@@ -74,7 +74,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   return (
     <div>
       {label && (
-        <div className="flex flex-row items-center gap-2xs mb-sm">
+        <div className="flex flex-row items-center gap-2xs mb-sm text-onsurface-weak">
           <Icon icon="file-06" size="sm" />
           <span>{label}</span>
         </div>

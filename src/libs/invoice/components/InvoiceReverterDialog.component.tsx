@@ -225,9 +225,12 @@ export const InvoiceReverterDialog = ({
       return;
     }
     // Display a disclaimer about the time needed for a SEPA refund, to prevent double SEPA refund issue
+    // Should not be displayed if the price_payed is 0, as it means the refund has already been made (through a dispute for instance)
+    // In that case, we just cancel the invoice as we would do for an invoice with no payments
     if (
       reverseMethod === REVERSE_ON_PAYMENT_METHOD &&
-      hasAtLeastOneSEPAPayment
+      hasAtLeastOneSEPAPayment &&
+      parseInt(invoice.price_payed) > 0
     ) {
       onClose();
       setIsSEPARefundModalOpened(true);

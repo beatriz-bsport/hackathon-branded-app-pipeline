@@ -53,7 +53,7 @@ export const variants = {
       "text-onsurface-status-critical-strong",
       "shadow-border-thin-critical",
     ],
-    "weak:onstrong": ["bg-surface-page/md", "text-onsurface-default-onstrong"],
+    "weak:onstrong": ["bg-surface-page", "text-onsurface-default-onstrong"],
     "strong:default": [
       "bg-surface-default-strong",
       "text-onsurface-default-onstrong",

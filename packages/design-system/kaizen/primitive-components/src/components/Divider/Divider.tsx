@@ -2,7 +2,7 @@ import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { mapValues } from "lodash";
 
-const defaultClasses = ["border-stroke-divider/sm", "flex"] as const;
+const defaultClasses = ["border-stroke-divider", "flex"] as const;
 
 const variants = {
   orientation: {

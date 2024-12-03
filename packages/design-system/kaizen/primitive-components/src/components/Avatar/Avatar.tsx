@@ -7,12 +7,13 @@ import Icon, { type IconName } from "../Icon";
 const defaultClasses = [
   "flex items-center justify-center",
   "text-center",
+  "text-onsurface-default",
+  "font-stronger",
   "overflow-hidden",
   "border-stroke-default",
-  "border-opacity-md",
   "cursor-pointer",
   "active:shadow-action-default-hovered",
-  "hover:border-stroke-action-default-hovered/sm",
+  "hover:border-stroke-action-default-hovered",
 ] as const;
 
 const variants = {
@@ -158,7 +159,7 @@ const Avatar: React.FC<AvatarProps> = ({
             "absolute top-[0] bottom-[0] left-[0] right-[0]",
             "flex items-center justify-center",
             "z-10 opacity-transparent",
-            "group-hover:opacity-[100] group-hover:bg-surface-blanket/md",
+            "group-hover:opacity-[100] group-hover:bg-surface-blanket",
             transitionClasses,
           )}
         >

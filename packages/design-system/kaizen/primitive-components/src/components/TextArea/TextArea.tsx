@@ -17,7 +17,7 @@ const variants = {
   status: {
     default: [
       "shadow-border-thin-default",
-      "focus:outline-stroke-action-default-selected",
+      "focus:outline-stroke-action-main-selected",
     ],
     positive: [
       "shadow-border-thin-positive",

@@ -79,6 +79,14 @@
   --dimensionKzSizingSpacing2xs: 4px;
   /* Designed for creating significant visual separation in layouts, such as between large sections or in spacious designs. */
   --dimensionKzSizingSpacing2xl: 72px;
+  --dimensionKzSizingOpacityTransparent: 0px;
+  --dimensionKzSizingOpacityXl: 4px;
+  --dimensionKzSizingOpacityLg: 8px;
+  --dimensionKzSizingOpacityMd: 25px;
+  --dimensionKzSizingOpacitySm: 50px;
+  --dimensionKzSizingOpacityXs: 65px;
+  --dimensionKzSizingOpacity2xs: 85px;
+  --dimensionKzSizingOpacityNone: 100px;
   --dimensionKzSizingActionLg: var(--dimensionKzSizingElementXl);
   --dimensionKzSizingActionMd: var(--dimensionKzSizingElementLg);
   --dimensionKzSizingActionSm: var(--dimensionKzSizingElementMd);

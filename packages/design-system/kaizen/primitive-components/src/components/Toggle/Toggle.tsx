@@ -80,7 +80,7 @@ const Toggle: React.FC<ToggleProps> = ({
             "bg-surface-default-weak",
             "cursor-pointer",
             "transition-colors duration-default ease-in-out",
-            "bg-surface-default-weak hover:bg-surface-action-main-weak-hovered/lg active:bg-surface-action-main-weak-pressed/md",
+            "bg-surface-default-weak hover:bg-surface-action-main-weak-hovered active:bg-surface-action-main-weak-pressed",
             "checked:bg-surface-action-main-strong-rest checked:hover:bg-surface-action-main-strong-hovered checked:active:bg-surface-action-main-strong-pressed",
             {
               "shadow-critical bg-surface-status-critical-weak hover:bg-surface-status-critical-weak active:bg-surface-status-critical-weak checked:bg-surface-status-critical-strong checked:hover:bg-surface-status-critical-strong checked:active:bg-surface-status-critical-strong":

@@ -99,14 +99,14 @@ const Checkbox: React.FC<CheckboxProps> = ({
               indeterminate:bg-surface-action-main-strong-rest checked:bg-surface-action-main-strong-rest":
                 !errorText,
               // Hovered state
-              "hover:bg-surface-action-default-elevated-hovered \
-              hover:active:bg-surface-action-default-elevated-pressed hover:border-stroke-action-default-pressed/sm":
+              "hover:bg-surface-action-default-elevated-hovered hover:border-stroke-action-default-hovered \
+              hover:active:bg-surface-action-default-elevated-pressed hover:active:border-stroke-action-default-pressed":
                 !disabled && value === "unchecked" && !errorText,
               "hover:shadow-action-call-to-action-hovered hover:bg-surface-action-main-strong-hovered \
               hover:active:shadow-action-call-to-action-pressed hover:active:bg-surface-action-main-strong-pressed":
                 !disabled && value !== "unchecked" && !errorText,
               // Disabled state
-              "border-stroke-action-default-pressed/xs bg-surface-action-default-elevated-pressed":
+              "border-stroke-action-default-pressed bg-surface-action-default-elevated-pressed":
                 disabled && value === "unchecked",
               "bg-surface-action-main-strong-pressed":
                 disabled && value !== "unchecked",

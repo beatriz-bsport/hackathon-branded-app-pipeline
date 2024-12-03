@@ -30,11 +30,11 @@ const variants = {
       // Hover effect
       "hover:ease-in-out duration-short",
       "hover:shadow-action-default-hovered",
-      "hover:bg-onsurface-default-onstrong/lg",
+      "hover:bg-onsurface-default-onstrong",
       // on click effect
       "active:shadow-action-default-pressed",
       "active:bg-surface-action-default-elevated-pressed",
-      "active:bg-onsurface-default-onstrong/md",
+      "active:bg-onsurface-default-onstrong",
     ],
     "elevated-not-interactible": [],
     "not-elevated-not-interactible": [],

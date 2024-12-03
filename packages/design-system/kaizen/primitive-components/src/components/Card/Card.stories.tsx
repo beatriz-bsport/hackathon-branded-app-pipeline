@@ -89,10 +89,10 @@ export const CompleteCardWithChildren: Story = {
   render: (args) => {
     return (
       <Card elevated={args.elevated} selected={args.selected} type={args.type}>
-        <Title htmlVariant="h2" weight="strong">
+        <Title htmlVariant="h2" weight="strong" color="default">
           This is the title of the card
         </Title>
-        <Body htmlVariant="p" size="sm">
+        <Body htmlVariant="p" size="sm" color="default">
           What about clicking on that sweet and delicously looking button ?
         </Body>
         <Button intent="default" color="main" size="md" label="Click me pls" />
@@ -129,7 +129,7 @@ export const ShortText: Story = {
   render: (args) => {
     return (
       <Card elevated={args.elevated} selected={args.selected} type={args.type}>
-        <Body htmlVariant="p" size="sm">
+        <Body htmlVariant="p" size="sm" color="default">
           Test
         </Body>
       </Card>
@@ -147,7 +147,7 @@ export const LongText: Story = {
   render: (args) => {
     return (
       <Card elevated={args.elevated} selected={args.selected} type={args.type}>
-        <Body htmlVariant="p" size="sm">
+        <Body htmlVariant="p" size="sm" color="default">
           Lorem ipsum odor amet, consectetuer adipiscing elit. Iaculis tempus
           libero habitant ex potenti; aptent vel fringilla. Commodo himenaeos
           vitae ullamcorper commodo enim lacus leo finibus. Ultricies urna

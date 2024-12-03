@@ -14,10 +14,8 @@ export default function withLoginDisconnectedStatusHOC<P>(
       parentElement,
       isBackofficePreview,
     } = props;
-    const { hideWhenNotLoggedIn = false } = config;
     return (
       <LoginWithDisconnectedStatusWidget
-        hideWhenNotLoggedIn={hideWhenNotLoggedIn}
         companyId={companyId}
         config={config}
         dialogMode={dialogMode}

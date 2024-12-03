@@ -215,7 +215,7 @@
                     "paymentPack": "Kurspässe",
                     "label": "Abonnement-Typ",
                     "privatePass": "Terminpass",
-                    "paymentCombo": "Package"
+                    "paymentCombo": "Pakete"
                 },
                 "error": {
                     "missingObject": "Pflichtfeld",
@@ -1289,7 +1289,7 @@
         },
         "payment": {
             "noBookingsLeftOnPack": "Karte für diese Woche ausverkauft",
-            "paymentCombo": "Package",
+            "paymentCombo": "Paket",
             "type": "Art",
             "payWithNCredits2": "Credits",
             "noCreditLeft": "Nicht genügend Credits",
@@ -1314,7 +1314,7 @@
                 "DISPUTE": "Streitfall",
                 "SUBSCRIPTION_CB": "Geplante Zahlung",
                 "BANK_TRANSFER": "Überweisung",
-                "CREDIT_ACCOUNT": "Internes Konto (Credit)"
+                "CREDIT_ACCOUNT": "Internes Konto (Guthaben)"
             },
             "paymentMethod": "Zahlungsmethode",
             "invoice": "Rechnung",
@@ -2102,7 +2102,7 @@
             "CHECK": "Scheck",
             "CB_MANUAL": "Kreditkarte (manuell)",
             "CB": "Kreditkarte",
-            "CREDIT_ACCOUNT": "Internes Konto (Credit)"
+            "CREDIT_ACCOUNT": "Internes Konto (Guthaben)"
         },
         "members": {
             "form": {
@@ -3277,7 +3277,8 @@
                         "title": "Mein Profil"
                     }
                 },
-                "displayActivityPrice": "Anzeige der Anzahl der Credits"
+                "displayActivityPrice": "Anzeige der Anzahl der Credits",
+                "consumerRegularizeDebtHelper": "Dieses Feature ist auf dem Marktplatz verfügbar, sowohl im Easy Connect Button als auch im Login Button Widget. Es ist jedoch noch nicht im App- und Member Profile Widget verfügbar."
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -3384,7 +3385,7 @@
             "cancel": "Abbrechen",
             "showBasket": "Wenn der Benutzer seinen Warenkorb anzeigt",
             "showPass": "Wenn der Nutzer auf einen Pass klickt",
-            "addPackToCart": "Wenn der Benutzer eine Package in den Warenkorb legt",
+            "addPackToCart": "Wenn der Benutzer eine Paket in den Warenkorb legt",
             "addPrivatePassToCart": "Wenn der Benutzer eines Terminpasses in den Warenkorb legt",
             "addShopItemToCart": "Wenn der Benutzer einen Artikel aus dem Webshop in den Warenkorb legt",
             "paymentSuccess": "Wenn der Benutzer die Zahlung erfolgreich abgeschlossen hat",
@@ -8884,7 +8885,7 @@
             "2": "Scheck",
             "1": "Bargeld",
             "0": "Kreditkarte",
-            "9": "Internes Konto (Credit)",
+            "9": "Internes Konto (Guthaben)",
             "label": "Zahlungsmethode",
             "12": "Streitfall",
             "13": "SEPA",
@@ -13061,7 +13062,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
+                        "expiresIn_plural": "{{ daysRemaining }} Tage verbleibend",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -13517,7 +13518,8 @@
                     "buttons": {
                         "editProfile": "Bearbeiten"
                     }
-                }
+                },
+                "regularizeBalance": "Kontostand begleichen"
             },
             "moreActions": "Weitere Aktionen",
             "navigation": {
@@ -16177,7 +16179,7 @@
             "pleaseChoseEstablishmentMany": "Bitte wählen Sie mindestens eine Einrichtung aus.",
             "establishment": "Einrichtung",
             "configurationTitle": "Konfigurieren Sie Ihre Integration",
-            "configurationDescription": "Wählen Sie aus, wie Ihre Einrichtungen in der ClassPass-App angezeigt werden sollen. Dies ändert nur, wie Gruppenaktivitäten angezeigt werden.",
+            "configurationDescription": "Wähle aus, wie deine Einrichtungen in der ClassPass-App angezeigt werden sollen. Dies ändert nur, wie Gruppenaktivitäten angezeigt werden.",
             "editButton": "Konfiguration bearbeiten",
             "description": "Um Ihre ClassPass-Integration einzurichten, kontaktieren Sie ClassPass über Ihr Partner-Dashboard. Geben Sie Ihre Partner-ID sowie die IDs der Einrichtungen an, die Sie auf ClassPass aktivieren möchten. Bitte beachten Sie, dass Kurse oder Termine in dieser Einrichtung erst dann auf ClassPass angezeigt werden, wenn die Einrichtung vollständig von ClassPass bestätigt wurde.",
             "drawerTitle": "ClassPass-Konfiguration",
@@ -17416,7 +17418,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Deine Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung gestellt wird. Wird die Einrichtung gelöscht, erhalten sie daher Vertretungsanfragen von allen Einrichtungen.",
+                "exclusiveAssociatedCoaches_plural": "Deine Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für eine Stunde in dieser Einrichtung gestellt wird. Durch das Löschen der Einrichtung erhalten sie jedoch Vertretungsanfragen von allen Studios.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
@@ -17541,7 +17543,7 @@
             }
         },
         "payLater": {
-            "submit": "Vor Ort bezahlen",
+            "submit": "Im Studio bezahlen",
             "explain": "Ihre Rechnung wird als unbezahlt betrachtet, bis Sie diese über Ihr Mitgliedsprofil oder direkt im Studio begleichen."
         },
         "or": "oder",

@@ -2298,7 +2298,8 @@
                     "buttons": {
                         "editProfile": "Modifier"
                     }
-                }
+                },
+                "regularizeBalance": "Régulariser le solde"
             },
             "moreActions": "Autres actions",
             "navigation": {
@@ -7856,7 +7857,7 @@
             "establishment": "Etablissement",
             "configurationTitle": "Configurez votre intégration",
             "add": "Ajouter",
-            "configurationDescription": "Sélectionnez la façon dont vous souhaitez que vos établissements apparaissent sur l'application ClassPass. Cela ne s'applique qu'à la façon dont les activités de groupe sont affichées.",
+            "configurationDescription": "Sélectionnez la façon dont vous souhaitez que vos établissements apparaissent sur l'application ClassPass.",
             "editButton": "Modifier la configuration",
             "drawerTitle": "Configuration ClassPass",
             "table": {
@@ -17930,7 +17931,8 @@
                         "title": "Mon profil"
                     }
                 },
-                "displayActivityPrice": "Afficher le nombre de crédits"
+                "displayActivityPrice": "Afficher le nombre de crédits",
+                "consumerRegularizeDebtHelper": "Cette fonctionnalité est disponible pour la marketplace, le bouton de connexion facile et le widget du bouton de connexion. Elle n'est pas encore disponible sur l'application et le widget du profil des membres"
             },
             "cover": {
                 "label": "Logo",

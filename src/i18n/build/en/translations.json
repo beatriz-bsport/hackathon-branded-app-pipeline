@@ -2035,7 +2035,8 @@
             "venueIds": "Venue IDs: {{ establishmentIdList }}",
             "partnerId": "Partner ID: {{ company }}",
             "establishmentMergedAs": "Merge these establishments",
-            "establishmentMergeMaster": "Merge into this establishment:"
+            "establishmentMergeMaster": "Merge into this establishment:",
+            "description": "To set up your ClassPass integration, contact ClassPass through your partner dashboard. Provide your partner ID and the IDs of the establishments you want to enable on ClassPass. Please note that sessions or appointments at these establishments will not appear on ClassPass until the setup is fully confirmed by ClassPass."
         },
         "requestDialog": {
             "explain": "You've requested the ClassPass integration with BSPORT. Your Account Manager will shortly contact you to validate this request.",

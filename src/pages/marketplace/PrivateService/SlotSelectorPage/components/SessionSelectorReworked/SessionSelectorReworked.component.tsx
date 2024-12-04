@@ -30,9 +30,7 @@ const SessionSelectorReworked: React.FC<SessionSelectorProps> = ({
 
   return (
     <div className={classes.container}>
-      <Typography variant="subtitle2">
-        {t('slotSearcher.selectSession')}
-      </Typography>
+      <Typography variant="subtitle2">{t('slotSearcher.pickASlot')}</Typography>
       <Paper className={classes.container2}>
         {showEstablishmentSelector && (
           <Tabs
@@ -41,6 +39,7 @@ const SessionSelectorReworked: React.FC<SessionSelectorProps> = ({
             onChange={handleSelectEstablishment}
             textColor="primary"
             value={activeEstablishment?.id ?? ''}
+            variant="scrollable"
           >
             {availableEstablishments.map((establishment) => (
               <Tab

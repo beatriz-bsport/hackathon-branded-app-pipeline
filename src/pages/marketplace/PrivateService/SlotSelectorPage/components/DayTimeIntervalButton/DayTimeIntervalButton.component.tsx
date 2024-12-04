@@ -40,11 +40,7 @@ const DayTimeIntervalButton: React.FC<Props> = React.memo(
         disabled={!selectedPrivateSlot}
         onClick={onSelectDayTimeInterval(dayTimeInterval)}
       >
-        <AccessTimeIcon
-          className={classes.accessTimeIcon}
-          color={isDayTimeIntervalSelected ? 'primary' : 'inherit'}
-          fontSize="small"
-        />
+        <AccessTimeIcon className={classes.accessTimeIcon} fontSize="small" />
         <div className={classes.row}>
           <Typography align="left" variant="subtitle2">
             {t(
@@ -53,10 +49,7 @@ const DayTimeIntervalButton: React.FC<Props> = React.memo(
           </Typography>
         </div>
 
-        <Typography
-          className={classes.interval}
-          color={isDayTimeIntervalSelected ? 'textSecondary' : 'inherit'}
-        >
+        <Typography className={classes.interval}>
           {t(
             `privateService:slotSearcher.groupIdentifier.${availableDayTimeSegment}.interval`,
           )}

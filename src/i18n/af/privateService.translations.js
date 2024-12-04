@@ -297,6 +297,9 @@ const getTranslations = async () => {
     selector: {
       privateService: 'Select an appointment',
       privateSlot: 'Session',
+      session: 'Select your session type',
+      coachPlaceholder: 'All teachers',
+      establishmentPlaceholder: 'All establishments',
     },
     slotSearcher: {
       title: 'Appointment',
@@ -308,7 +311,7 @@ const getTranslations = async () => {
       bookableSlots: { title: 'Available slots', isEmpty: 'No availability' },
       groupIdentifier: {
         evening: { interval: 'After 6 PM', label: 'Evening' },
-        afternoon: { interval: '3 PM - 6 PM', label: 'Afternoon' },
+        afternoon: { interval: '2 PM - 6 PM', label: 'Afternoon' },
         noon: { interval: '12 PM - 2 PM', label: 'Noon' },
         morning: { interval: 'Before 12 PM', label: 'Morning' },
       },
@@ -322,6 +325,7 @@ const getTranslations = async () => {
       previousOffer: 'Available session: {{- date }} at {{ hour }}',
       nextOffer: 'First availability: {{- date }} at {{ hour }}',
       searchFirstSlot: 'Search the first available moment',
+      pickASlot: 'Select your available time',
     },
     slot: {
       parameters: { credit: '{{ credit }} credit(s)' },

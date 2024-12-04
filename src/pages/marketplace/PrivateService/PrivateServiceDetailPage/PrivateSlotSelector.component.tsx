@@ -29,8 +29,8 @@ const PrivateSlotSelector: React.FC<Props> = (props) => {
   return (
     <Fade in timeout={500}>
       <div className={classes.container}>
-        <Typography className={classes.titleMargin} variant="h5">
-          {t('selector.privateSlot')}
+        <Typography className={classes.titleMargin} variant="subtitle2">
+          {t('selector.session')}
         </Typography>
         <div className={classes.container2}>
           {props.privateService.slots
@@ -60,10 +60,7 @@ const PrivateSlotSelector: React.FC<Props> = (props) => {
 
                       <div className={classes.row}>
                         <AccessTimeIcon fontSize="small" />
-                        <Typography
-                          color={isSelected ? 'inherit' : 'textSecondary'}
-                          variant="subtitle2"
-                        >
+                        <Typography variant="subtitle2">
                           {t('privateSlot.duration', {
                             minutes: slot.duration_minutes,
                           })}

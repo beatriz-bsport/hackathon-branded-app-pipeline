@@ -76,6 +76,7 @@ import {
   getSlotsByDate,
   getSlotsByDateLoading,
 } from '#src/libs/private-service/selectors/availability-slot';
+import { useTranslation } from 'react-i18next';
 
 type PropsFromWidget = {
   companyId: string;
@@ -118,6 +119,7 @@ const SlotSelectorPage: React.FC<PageProps> = ({
   hideDetailSummary,
   onSessionSelect,
 }) => {
+  const { t } = useTranslation('privateService');
   const {
     selectedDayTimeInterval,
     selectedPrivateSlot,
@@ -357,37 +359,43 @@ const SlotSelectorPage: React.FC<PageProps> = ({
                 privateSlot={selectedPrivateSlot}
               />
             )}
-            <div className={classes.selectorsContainer}>
-              {showCoachSelector && (
-                <CoachSelector
-                  isClearable
+            <div>
+              <div className={classes.selectorsContainer}>
+                {showCoachSelector && (
+                  <CoachSelector
+                    isClearable
+                    coachDisplay={theme?.coach_display}
+                    coaches={coaches}
+                    isDisabled={isSelectionDisabled || !selectedPrivateSlot}
+                    isLoading={isLoading}
+                    placeholder={t('selector.coachPlaceholder')}
+                    selectedCoaches={selectedCoachesIds}
+                    selectOption={onSelectCoaches}
+                    selectorClass={classes.selector}
+                  />
+                )}
+                {showEstablishmentSelector && (
+                  <EstablishmentSelector
+                    disabled={isSelectionDisabled || !selectedPrivateSlot}
+                    establishments={establishments}
+                    placeholder={t('selector.establishmentPlaceholder')}
+                    selectedEstablishments={selectedEstablishmentsIds}
+                    selectOption={onSelectEstablishment}
+                    selectorClass={classes.selector}
+                  />
+                )}
+              </div>
+              {privateService && <SlotCalendarReworked />}
+            </div>
+            {selectedDayTimeInterval && (
+              <div>
+                <SessionSelectorReworked
                   coachDisplay={theme?.coach_display}
                   coaches={coaches}
-                  isDisabled={isSelectionDisabled || !selectedPrivateSlot}
-                  isLoading={isLoading}
-                  selectedCoaches={selectedCoachesIds}
-                  selectOption={onSelectCoaches}
-                  selectorClass={classes.selector}
+                  duration={selectedPrivateSlotDuration}
+                  onSessionSelect={onSelectSession}
                 />
-              )}
-              {showEstablishmentSelector && (
-                <EstablishmentSelector
-                  disabled={isSelectionDisabled || !selectedPrivateSlot}
-                  establishments={establishments}
-                  selectedEstablishments={selectedEstablishmentsIds}
-                  selectOption={onSelectEstablishment}
-                  selectorClass={classes.selector}
-                />
-              )}
-            </div>
-            {privateService && <SlotCalendarReworked />}
-            {selectedDayTimeInterval && (
-              <SessionSelectorReworked
-                coachDisplay={theme?.coach_display}
-                coaches={coaches}
-                duration={selectedPrivateSlotDuration}
-                onSessionSelect={onSelectSession}
-              />
+              </div>
             )}
             {!eligibleByTagsLoading && !showSessions && (
               <PrivateServiceIneligibleBannerComponent
@@ -486,19 +494,23 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 1200,
     marginTop: theme.spacing(2),
     padding: theme.spacing(2),
+    gap: theme.spacing(2),
   },
   selectorsContainer: {
     display: 'flex',
     width: '50%',
+    marginTop: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+    },
     [theme.breakpoints.down('sm')]: {
       width: '100%',
-      flexDirection: 'column',
     },
     gap: theme.spacing(2),
     padding: theme.spacing(1),
   },
   selector: {
-    width: '50%',
+    width: '100%',
   },
   displayOnMobile: {
     [theme.breakpoints.up('lg')]: {

@@ -20,7 +20,7 @@ const PrivateServiceDetailSummary: React.FC<Props> = (props) => {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.serviceDescriptionContainer}>
+    <Paper className={classes.serviceDescriptionContainer} variant="outlined">
       {privateService && (
         <img
           alt={privateService.name}

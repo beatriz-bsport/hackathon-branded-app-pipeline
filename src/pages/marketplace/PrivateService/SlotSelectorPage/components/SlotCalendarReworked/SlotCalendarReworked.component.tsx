@@ -44,8 +44,6 @@ const EmptyCalendar: React.FC = () => {
 };
 
 const SlotCalendarReworked: React.FC = () => {
-  const { t } = useTranslation('privateService');
-
   const { selectedPrivateSlot } = useContext(SlotSelectorContext);
 
   const {
@@ -59,7 +57,6 @@ const SlotCalendarReworked: React.FC = () => {
 
   return (
     <div className={classes.container}>
-      <Typography variant="subtitle2">{t('slotSearcher.search')}</Typography>
       {shouldDisplayAvailableSlotFromPreviousWeeks && (
         <div className={classes.helperText}>
           <ButtonBase onClick={goToFirstAvailableSession}>
@@ -88,7 +85,6 @@ const SlotCalendarReworked: React.FC = () => {
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(2),
     padding: theme.spacing(1),
   },
   container2: ({ disabled }: { disabled: boolean }) => ({

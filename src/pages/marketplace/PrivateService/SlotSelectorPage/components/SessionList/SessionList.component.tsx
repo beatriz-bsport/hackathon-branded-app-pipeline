@@ -75,7 +75,9 @@ const SessionList: React.FC<SessionSelectorProps> = ({
 const useStyles = makeStyles((theme) => ({
   sessionsContainer: {
     display: 'flex',
-    flexDirection: 'row',
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+    },
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
     marginTop: theme.spacing(2),

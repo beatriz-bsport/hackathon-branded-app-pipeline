@@ -18,7 +18,7 @@ const PrivateServiceDetailCard: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   return (
-    <Card>
+    <Card variant="outlined">
       {privateServiceCover && (
         <CardMedia
           className={classes.cover}

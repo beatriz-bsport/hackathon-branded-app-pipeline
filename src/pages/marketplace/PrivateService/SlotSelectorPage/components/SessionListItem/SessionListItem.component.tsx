@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     marginTop: theme.spacing(2),
   },
   containerWithCoach: {
@@ -110,7 +110,6 @@ const useStyles = makeStyles((theme) => ({
   },
   sessionsContainer: {
     display: 'flex',
-    flexDirection: 'row',
     width: '100%',
     flexWrap: 'wrap',
     paddingBottom: theme.spacing(1),

@@ -148,7 +148,7 @@ const PaymentItemForm = (props: Props) => {
   }
 };
 
-export const PaymentEditor = (props: {
+export const DEPRECATEDPaymentEditor = (props: {
   price: string,
   paymentMethod: number,
   payment_note: string,
@@ -301,4 +301,4 @@ export default compose(
   withState('price', 'setPrice', ({ amountDue }) => amountDue || 0),
   withState('payment_note', 'setPaymentNote', ''),
   withState('paymentMethod', 'setPaymentMethod', PAYMENT_METHOD_CB.id),
-)(PaymentEditor);
+)(DEPRECATEDPaymentEditor);

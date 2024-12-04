@@ -9,27 +9,18 @@ import Button from '@material-ui/core/Button';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import InvoiceItemEditor from './InvoiceItemEditor.component';
-import PaymentForm from './PaymentEditor.component';
 
 import { STEP_INVOICE_ITEM, STEP_PAYMENT } from './invoice-step-constants';
 
 type Props = {
   step: number,
-  setStep: (number) => void,
 
   availableBuyableItems: { [buyableItemIdentifier: string]: Array<any> },
   onAddBuyableItem: (InvoiceItem) => void,
-  onAddPaymentItem: (PaymentItem) => void,
-  savedPaymentMethodList: Array<PaymentMethod>,
 
   goToSubscription: (id: number) => void,
-  amountInvoiceItem: number,
-  amountPaymentItem: number,
   invoice: ?Invoice,
   member: Member,
-
-  requestSetupIntentSecret: () => void,
-  refreshSavedPaymentMethodList: () => void,
 };
 
 const NonEditableMessage = ({
@@ -108,23 +99,6 @@ export const InvoiceEditor = (props: Props) => {
                 availableBuyableItems={props.availableBuyableItems}
                 member={props.member}
                 onAddBuyableItem={props.onAddBuyableItem}
-              />
-            )}
-            {(!!props.invoice || props.step === STEP_PAYMENT) && (
-              <PaymentForm
-                amountDue={
-                  Math.max(
-                    props.amountInvoiceItem - props.amountPaymentItem,
-                    0,
-                  ) || 0
-                }
-                onCancel={() => props.setStep(STEP_INVOICE_ITEM)}
-                onSubmit={props.onAddPaymentItem}
-                refreshSavedPaymentMethodList={
-                  props.refreshSavedPaymentMethodList
-                }
-                requestSetupIntentSecret={props.requestSetupIntentSecret}
-                savedPaymentMethodList={props.savedPaymentMethodList}
               />
             )}
           </div>

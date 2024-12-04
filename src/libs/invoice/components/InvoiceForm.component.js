@@ -1,3 +1,4 @@
+// Semi-deprecated component, interface of historical v1 invoices
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -10,7 +11,6 @@ import {
 } from '@bsport/common/lib/master-data/buyable-items';
 import { withTranslation, TFunction } from 'react-i18next';
 import InvoiceContent from './InvoiceContent.component';
-import InvoiceEditor from './InvoiceEditor.component';
 import UnevenInvoiceDialog from '../dialog/UnevenInvoiceDialog.component';
 import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
 // import InvoiceActions from './InvoiceActions.component';
@@ -24,9 +24,7 @@ type Props = {
   paymentItemList: Array<PaymentItem>,
   invoiceItemList: Array<InvoiceItem>,
 
-  member: Member,
   finalizeInvoice: (uuid: string) => void,
-  goToSubscription: (id: number) => void,
   unevenInvoiceAlertOpen: boolean,
   closeUnevenInvoiceDialog: () => void,
   onSubmit: (
@@ -43,17 +41,8 @@ type Props = {
   updatePaymentMethod: (uuid: string, paymentMethodId: number) => void,
   isReturningPayment: boolean,
   returnPayment: (uuid: string) => void,
-  revertInvoice: () => void,
   initialItems?: { withPrivatePass?: string, withCredit?: string },
   t: TFunction,
-
-  savedPaymentMethodList: Array<PaymentMethod>,
-  requestSetupIntentSecret: () => void,
-  refreshSavedPaymentMethodList: () => void,
-  detachPaymentMethodLoading: boolean,
-  detachPaymentMethod: (pm_id: string) => void,
-  snackbarErrorMsg: (msg: string) => void,
-  snackbarSuccessMsg: (msg: string) => void,
 };
 
 type State = {
@@ -190,7 +179,7 @@ export class InvoiceForm extends React.Component<Props, State> {
     const paymentAmount = this.getPaymentItemAmount();
     return (
       <Grid container className={classes.container} spacing={1}>
-        <Grid item md={6} xs={12}>
+        <Grid item md={8} sm={12} xs={12}>
           <InvoiceHeader invoice={this.props.invoice} />
           <InvoiceContent
             amountInvoiceItem={invoiceItemAmount}
@@ -211,36 +200,38 @@ export class InvoiceForm extends React.Component<Props, State> {
             updatePaymentMethod={this.props.updatePaymentMethod}
           />
         </Grid>
-        <Grid item md={6} xs={12}>
-          <InvoiceEditor
-            amountInvoiceItem={invoiceItemAmount}
-            amountPaymentItem={paymentAmount}
-            availableBuyableItems={this.props.availableBuyableItems}
-            detachPaymentMethod={this.props.detachPaymentMethod}
-            detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
-            finalizeInvoice={this.props.finalizeInvoice}
-            goToSubscription={this.props.goToSubscription}
-            invoice={this.props.invoice}
-            invoiceHasChanged={
-              this.state.invoiceItemList.length ||
-              this.state.paymentItemList.length
-            }
-            invoiceItemIsEmpty={this.invoiceItemIsEmpty()}
-            isEquilibrated={paymentAmount === invoiceItemAmount}
-            member={this.props.member}
-            onAddBuyableItem={this.addBuyableItem}
-            onAddPaymentItem={this.addPaymentItem}
-            onSubmit={this.onSubmit}
-            refreshSavedPaymentMethodList={
-              this.props.refreshSavedPaymentMethodList
-            }
-            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-            revertInvoice={this.props.revertInvoice}
-            savedPaymentMethodList={this.props.savedPaymentMethodList}
-            snackbarErrorMsg={this.props.snackbarErrorMsg}
-            snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-          />
-        </Grid>
+        {/* Historical V1 invoices no longer can take payments (deprecated
+        endpoints) nor can they be edited/finalized */}
+        {/* <Grid item md={6} xs={12}> */}
+        {/* <DEPRECATEDInvoiceEditor */}
+        {/*   amountInvoiceItem={invoiceItemAmount} */}
+        {/*   amountPaymentItem={paymentAmount} */}
+        {/*   availableBuyableItems={this.props.availableBuyableItems} */}
+        {/*   detachPaymentMethod={this.props.detachPaymentMethod} */}
+        {/*   detachPaymentMethodLoading={this.props.detachPaymentMethodLoading} */}
+        {/*   finalizeInvoice={this.props.finalizeInvoice} */}
+        {/*   goToSubscription={this.props.goToSubscription} */}
+        {/*   invoice={this.props.invoice} */}
+        {/*   invoiceHasChanged={ */}
+        {/*     this.state.invoiceItemList.length || */}
+        {/*     this.state.paymentItemList.length */}
+        {/*   } */}
+        {/*   invoiceItemIsEmpty={this.invoiceItemIsEmpty()} */}
+        {/*   isEquilibrated={paymentAmount === invoiceItemAmount} */}
+        {/*   member={this.props.member} */}
+        {/*   onAddBuyableItem={this.addBuyableItem} */}
+        {/*   onAddPaymentItem={this.addPaymentItem} */}
+        {/*   onSubmit={this.onSubmit} */}
+        {/*   refreshSavedPaymentMethodList={ */}
+        {/*     this.props.refreshSavedPaymentMethodList */}
+        {/*   } */}
+        {/*   requestSetupIntentSecret={this.props.requestSetupIntentSecret} */}
+        {/*   revertInvoice={this.props.revertInvoice} */}
+        {/*   savedPaymentMethodList={this.props.savedPaymentMethodList} */}
+        {/*   snackbarErrorMsg={this.props.snackbarErrorMsg} */}
+        {/*   snackbarSuccessMsg={this.props.snackbarSuccessMsg} */}
+        {/* /> */}
+        {/* </Grid> */}
         <UnevenInvoiceDialog
           onClose={this.props.closeUnevenInvoiceDialog}
           onSubmit={this.onSubmit}

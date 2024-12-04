@@ -9,8 +9,8 @@ import Button from '@material-ui/core/Button';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import InvoiceItemEditor from './InvoiceItemEditor.component';
-import PaymentForm from './PaymentEditor.component';
-import InvoiceEditorActions from './InvoiceEditorActions.component';
+import DEPRECATEDPaymentForm from './DEPRECATEDPaymentEditor.component';
+import DEPRECATEDInvoiceEditorActions from './DEPRECATEDInvoiceEditorActions.component';
 
 import { STEP_INVOICE_ITEM, STEP_PAYMENT } from './invoice-step-constants';
 
@@ -122,7 +122,7 @@ export const InvoiceEditor = (props: Props) => {
               />
             )}
             {(!!props.invoice || props.step === STEP_PAYMENT) && (
-              <PaymentForm
+              <DEPRECATEDPaymentForm
                 amountDue={
                   Math.max(
                     props.amountInvoiceItem - props.amountPaymentItem,
@@ -146,7 +146,7 @@ export const InvoiceEditor = (props: Props) => {
           </div>
         )}
       </Paper>
-      <InvoiceEditorActions
+      <DEPRECATEDInvoiceEditorActions
         finalizeInvoice={props.finalizeInvoice}
         invoice={props.invoice}
         invoiceHasChanged={props.invoiceHasChanged}

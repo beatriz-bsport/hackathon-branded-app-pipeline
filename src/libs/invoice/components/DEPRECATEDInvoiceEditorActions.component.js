@@ -60,7 +60,7 @@ const RevertButton = (props: {
   );
 };
 
-export const InvoiceEditorActions = (props: Props) => {
+export const DEPRECATEDInvoiceEditorActions = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
   return (
@@ -156,4 +156,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default withState('loading', 'setLoading', false)(InvoiceEditorActions);
+export default withState(
+  'loading',
+  'setLoading',
+  false,
+)(DEPRECATEDInvoiceEditorActions);

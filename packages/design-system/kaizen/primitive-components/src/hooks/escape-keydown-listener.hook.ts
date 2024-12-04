@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 
-// Close the modal when the escape key is pressed
+/**
+ * Close the modal when the escape key is pressed
+ * @param onClose - Function to call when the escape key is pressed
+ * @param open - Boolean indicating if the modal is open
+ */
 const useEscapeKeydownListener = (onClose: () => void, open: boolean) => {
   useEffect(() => {
     const handleEscapePress = ({ key }: KeyboardEvent) =>

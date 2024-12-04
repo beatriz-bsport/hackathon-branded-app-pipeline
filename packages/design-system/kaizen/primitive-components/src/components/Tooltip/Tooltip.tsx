@@ -2,7 +2,9 @@ import React, { useCallback, useMemo, useState } from "react";
 import { cva } from "class-variance-authority";
 import classNames from "classnames";
 import Chip, { ChipProps } from "#src/components/Chip";
-import usePlacementClasses, { Placements } from "./placement-classes.hook";
+import usePlacementClasses, {
+  Placements,
+} from "#src/hooks/placement-classes.hook";
 
 const defaultClasses = [
   "flex",

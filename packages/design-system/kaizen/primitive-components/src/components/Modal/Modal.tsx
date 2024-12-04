@@ -7,7 +7,7 @@ import classNames from "classnames";
 import Title from "#src/components/Title";
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
-import useEscapeKeydownListener from "./escape-keydown-listener.hook";
+import useEscapeKeydownListener from "#src/hooks/escape-keydown-listener.hook";
 
 const defaultClasses = [
   "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",

@@ -1,14 +1,22 @@
-import React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import PortalContainer from "#src/utils/PortalContainer";
-import {
-  AnchorType,
-  TransitionStyleType,
-  useContainerPosition,
-} from "#src/hooks/useContainerPosition";
-import useEscapeKeydownListener from "#src/components/Modal/escape-keydown-listener.hook";
+import React, {
+  createContext,
+  isValidElement,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import classNames from "classnames";
+import usePlacementClasses, {
+  Placements,
+} from "#src/hooks/placement-classes.hook";
+import useEscapeKeydownListener from "#src/hooks/escape-keydown-listener.hook";
+import useOutsideClickListener from "#src/hooks/outside-click-listener";
 
 const defaultClasses = [
+  "absolute",
   "min-w-component-popover-min",
   "max-w-component-popover-max",
   "rounded-sm",
@@ -17,137 +25,151 @@ const defaultClasses = [
   "bg-surface-default-elevated",
   "border-stroke-thin",
   "border-stroke-default",
+  "shadow-lg",
+  "transition ease-out duration-default",
 ] as const;
 
-const variants = {} as const;
-
-const popover = cva(defaultClasses, {
-  variants,
+export const PopoverContext = createContext<{
+  isPopoverOpened: boolean;
+  setIsPopoverOpened: (isOpen: boolean) => void;
+}>({
+  isPopoverOpened: false,
+  setIsPopoverOpened: () => {},
 });
 
-export type PopoverProps = React.HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof popover> & {
-    parentId: string;
-    containerId: string;
-    anchor: AnchorType;
-    open: boolean;
-    transitionStyle: TransitionStyleType;
-    onClose: () => void;
-  };
+export type PopoverProps = {
+  children: ReactNode;
+};
 
 /**
- * A Popover Container is a UI component that displays temporary content in a floating
- * overlay, triggered by user actions (e.g., click or hover). It provides additional
- * information or actions without navigating away from the current view. The goal is
- * also to not break the DOM Tree and use a portal to render it outside of the actual
- * tree while linking it to its parent component
- * @param props.className Classname to add to the modal container.
- * @param props.open Whether the modal is open or not.
- * @param props.containerId The Id of the newly created container
- * @param props.anchor The direction wjere the container should be displayed and anchored
- * @param props.transitionStyle The way the container should display on opening
- * @param props.onClose Function to call when the modal is closed.
- * @param props.children Content in the middle of the modal.
+ * The Popover component is a compound component that consists of an Anchor and Content.
+ * It displays temporary content in a floating overlay, triggered by user actions such as click or hover.
+ * The Popover is always positioned relative to a target element, which is specified by the Anchor subcomponent.
+ * The Content subcomponent holds the additional information or actions that the Popover provides.
+ * @param placement The position of the Popover relative to the Anchor.
+ * @param children Node(s) to render inside the Popover, including Anchor and Content components.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-popover--docs
  */
-const Popover: React.FC<PopoverProps> = ({
-  className,
-  children,
-  parentId,
-  anchor,
-  containerId,
-  open,
-  transitionStyle,
-  onClose,
-  ...props
-}) => {
-  const containerRef = React.useRef<HTMLDivElement>(null!);
-  const previouslyFocusedRef = React.useRef<HTMLElement>(null!);
-  const [inlineStyle, setInlineStyle] = React.useState({});
-  const { setPositioningStyles } = useContainerPosition({
-    containerRef,
-    parentId,
-    anchor,
-  });
-
-  const handleClose = React.useCallback(() => {
-    setTimeout(onClose, 5);
-  }, [onClose]);
-
-  const handlePopoverMouseClose = React.useCallback(
-    (event: MouseEvent) => {
-      event.stopPropagation();
-      const parentElement = document.getElementById(parentId);
-      if (
-        event.target &&
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node) &&
-        parentElement &&
-        !parentElement.contains(event.target as Node)
-      ) {
-        handleClose();
-      }
-    },
-    [open, onClose, containerRef, parentId],
-  );
-
-  React.useEffect(() => {
-    if (transitionStyle === "appear") {
-      setInlineStyle({
-        visibility: "hidden",
-        opacity: "0",
-        transition: "opacity 150ms ease-in, visibility 0ms ease-in 150ms",
-      });
-    }
-    return () => {
-      setInlineStyle({});
-    };
-  }, [transitionStyle, setInlineStyle]);
-
-  React.useEffect(() => {
-    if (open) {
-      setTimeout(() => {
-        setPositioningStyles(transitionStyle);
-        previouslyFocusedRef.current = document.activeElement as HTMLElement;
-        const containerElem = document.getElementById(containerId);
-        containerElem?.focus();
-      }, 20);
-    } else {
-      handleClose();
-      previouslyFocusedRef.current?.focus();
-    }
-  }, [
-    open,
-    previouslyFocusedRef,
-    containerRef,
-    handleClose,
-    setPositioningStyles,
-  ]);
-
-  React.useEffect(() => {
-    document.addEventListener("mouseup", handlePopoverMouseClose);
-    return () => {
-      document.removeEventListener("mouseup", handlePopoverMouseClose);
-    };
-  }, [handlePopoverMouseClose, previouslyFocusedRef, containerRef]);
-
-  useEscapeKeydownListener(handleClose ?? (() => {}), open);
-
-  if (!open) return null;
+const Popover: React.FC<PopoverProps> & {
+  Anchor: typeof Anchor;
+  Content: typeof Content;
+} = ({ children }) => {
+  const [isPopoverOpened, setIsPopoverOpened] = useState(false);
 
   return (
-    <PortalContainer {...props} parentId={parentId} containerId={containerId}>
-      <div
-        ref={containerRef}
-        style={inlineStyle}
-        className={popover({ className })}
-      >
-        {children}
-      </div>
-    </PortalContainer>
+    <PopoverContext.Provider value={{ isPopoverOpened, setIsPopoverOpened }}>
+      <div className="relative">{children}</div>
+    </PopoverContext.Provider>
   );
 };
 
-Popover.displayName = "KaizenPopover";
+/**
+ * The Anchor component is a subcomponent of the Popover that is used to define
+ * the target element to which the Popover's position is relative. It is responsible
+ * for determining when the Popover should be opened or closed based on user
+ * interactions.
+ * @param children Node(s) to render inside the Anchor.
+ */
+const Anchor: React.FC<{
+  children: (props: {
+    isPopoverOpened: boolean;
+    setIsPopoverOpened: (isOpen: boolean) => void;
+  }) => ReactNode;
+}> = ({ children }) => {
+  const { isPopoverOpened, setIsPopoverOpened } = useContext(PopoverContext);
+
+  return <>{children({ isPopoverOpened, setIsPopoverOpened })}</>;
+};
+
+/**
+ * The Content component is a subcomponent of the Popover that renders the
+ * contents of the Popover. It is responsible for displaying the Popover's
+ * content and handling its visibility state.
+ * @param className Additional classes to apply to the Content.
+ * @param children Node(s) to render inside the Content.
+ */
+const Content: React.FC<{
+  className?: string;
+  children: (props: {
+    setIsPopoverOpened: (isOpen: boolean) => void;
+  }) => ReactNode;
+  placement?: (typeof Placements)[number];
+}> = ({ className, children, placement = "bottom-left" }) => {
+  const { isPopoverOpened, setIsPopoverOpened } = useContext(PopoverContext);
+  const placementClasses = usePlacementClasses(placement);
+
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setIsVisible(false);
+    setTimeout(() => {
+      setIsMounted(false);
+      setIsPopoverOpened(false);
+    }, 200);
+  }, []);
+
+  useEffect(() => {
+    if (isPopoverOpened) {
+      setIsMounted(true);
+      setTimeout(() => {
+        setIsVisible(true);
+      }, 10);
+    } else {
+      handleClose();
+    }
+  }, [isPopoverOpened, handleClose]);
+
+  // Use "dialog" role if content is interactive, "tooltip" otherwise.
+  const content =
+    typeof children === "function"
+      ? children({ setIsPopoverOpened })
+      : children;
+  const hasInteractiveContent = (node: ReactNode): boolean => {
+    if (isValidElement(node)) {
+      if (
+        node.type === "button" ||
+        node.type === "a" ||
+        node.type === "input" ||
+        (typeof node.type === "function" &&
+          (node.props.onClick || node.props.href || node.props.onChange))
+      ) {
+        return true;
+      }
+
+      if (node.props?.children) {
+        return React.Children.toArray(node.props.children).some(
+          hasInteractiveContent,
+        );
+      }
+    }
+    return false;
+  };
+  const role = hasInteractiveContent(content) ? "dialog" : "tooltip";
+
+  // Close the popover when the escape key is pressed or when a click occurs outside
+  useEscapeKeydownListener(handleClose, isVisible);
+  useOutsideClickListener(popoverRef, handleClose, isVisible);
+
+  if (!isMounted) return null;
+
+  return (
+    <div
+      ref={popoverRef}
+      tabIndex={-1}
+      className={classNames(defaultClasses, placementClasses, className, {
+        "opacity-transparent scale-95": !isVisible,
+      })}
+      role={role}
+      aria-hidden={!isVisible}
+    >
+      {content}
+    </div>
+  );
+};
+
+Popover.Anchor = Anchor;
+Popover.Content = Content;
 
 export default Popover;

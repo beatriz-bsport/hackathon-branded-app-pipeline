@@ -1,9 +1,9 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import Card, { CardTypeValues } from "./Card";
-import Body from "../Body";
-import Button from "../Button";
-import Title from "../Title";
+import Body from "#src/components/Body";
+import Button from "#src/components/Button";
+import Title from "#src/components/Title";
 
 /**
  * A card container that can be displayed with children in it so that you can show

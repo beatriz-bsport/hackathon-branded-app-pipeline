@@ -2,7 +2,7 @@ import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import { SetRequired } from "type-fest";
-import Icon, { IconName } from "../Icon";
+import Icon, { IconName } from "#src/components/Icon";
 
 const defaultClasses = [
   "flex items-center justify-center",

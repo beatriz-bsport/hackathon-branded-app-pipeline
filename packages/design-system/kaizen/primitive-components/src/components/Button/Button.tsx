@@ -1,7 +1,7 @@
 import type { SetRequired } from "type-fest";
 import React, { useMemo } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import Icon, { type IconName } from "../Icon";
+import Icon, { type IconName } from "#src/components/Icon";
 import {
   colorsByIntent,
   defaultClasses,

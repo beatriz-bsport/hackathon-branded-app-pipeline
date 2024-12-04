@@ -2,9 +2,9 @@ import React, { ChangeEvent, useState } from "react";
 import { cva } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import classNames from "classnames";
-import Button from "../Button";
-import Icon, { IconName } from "../Icon";
-import Badge from "../Badge";
+import Button from "#src/components/Button";
+import Icon, { IconName } from "#src/components/Icon";
+import Badge from "#src/components/Badge";
 
 const defaultClasses = [
   "w-full",

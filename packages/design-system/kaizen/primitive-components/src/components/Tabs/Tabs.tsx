@@ -2,8 +2,8 @@ import React, { AnchorHTMLAttributes, useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import classNames from "classnames";
 import mapValues from "lodash/mapValues";
-import Icon, { IconName } from "../Icon";
-import Body from "../Body";
+import Icon, { IconName } from "#src/components/Icon";
+import Body from "#src/components/Body";
 
 const defaultClasses = [
   "flex",

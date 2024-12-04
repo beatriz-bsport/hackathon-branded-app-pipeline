@@ -1,9 +1,8 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import Avatar, { sizes } from "./Avatar";
-// @ts-expect-error Importing a local file
 import AvatarImage from "./assets/avatar.jpeg";
-import Icon, { icons } from "../Icon";
+import Icon, { icons } from "#src/components/Icon";
 
 /**
  * A component that displays an avatar, which can be an image or an icon.<br>

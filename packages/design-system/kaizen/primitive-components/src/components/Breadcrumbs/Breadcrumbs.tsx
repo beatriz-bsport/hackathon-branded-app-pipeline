@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import BreadcrumbsItem, { BreadcrumbItemProps } from "./BreadcrumbsItem";
-import Icon from "../Icon";
+import Icon from "#src/components/Icon";
 
 const defaultClasses = [
   "flex",

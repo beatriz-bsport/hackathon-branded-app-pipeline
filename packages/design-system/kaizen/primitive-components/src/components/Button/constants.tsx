@@ -1,5 +1,5 @@
 import mapValues from "lodash/mapValues";
-import { FOCUS_CLASSES } from "../../constants";
+import { FOCUS_CLASSES } from "#src/constants";
 
 export const defaultClasses = [
   "transition ease-out duration-default",

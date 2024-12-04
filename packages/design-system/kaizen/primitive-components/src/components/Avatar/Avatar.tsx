@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import classNames from "classnames";
-import Icon, { type IconName } from "../Icon";
+import Icon, { IconName } from "#src/components/Icon";
 
 const defaultClasses = [
   "flex items-center justify-center",

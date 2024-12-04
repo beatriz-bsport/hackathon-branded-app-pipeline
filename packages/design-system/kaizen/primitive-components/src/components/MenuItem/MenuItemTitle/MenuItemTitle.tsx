@@ -1,6 +1,6 @@
 import React from "react";
-import type { MenuItemTitleType } from "../types";
-import Title from "../../Title";
+import type { MenuItemTitleType } from "#src/components/MenuItem/types";
+import Title from "#src/components/Title";
 
 export type MenuItemTitleProps = React.HTMLAttributes<HTMLDivElement> &
   MenuItemTitleType;

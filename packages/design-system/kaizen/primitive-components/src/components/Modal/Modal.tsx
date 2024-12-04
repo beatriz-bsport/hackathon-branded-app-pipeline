@@ -4,9 +4,9 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { SetRequired } from "type-fest";
 import mapValues from "lodash/mapValues";
 import classNames from "classnames";
-import Title from "../Title";
-import Body from "../Body";
-import Button from "../Button";
+import Title from "#src/components/Title";
+import Body from "#src/components/Body";
+import Button from "#src/components/Button";
 import useEscapeKeydownListener from "./escape-keydown-listener.hook";
 
 const defaultClasses = [

@@ -1,10 +1,13 @@
 import React, { useMemo } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import Avatar from "../../Avatar";
-import Icon from "../../Icon";
-import { defaultMenuItemClasses, menuItemVariants } from "../constants";
-import type { MenuItemButtonType } from "../types";
-import MenuItemIndicator from "../MenuItemIndicator";
+import Avatar from "#src/components/Avatar";
+import Icon from "#src/components/Icon";
+import {
+  defaultMenuItemClasses,
+  menuItemVariants,
+} from "#src/components/MenuItem/constants";
+import type { MenuItemButtonType } from "#src/components/MenuItem/types";
+import MenuItemIndicator from "#src/components/MenuItem/MenuItemIndicator";
 
 const menuItemButton = cva(defaultMenuItemClasses, {
   variants: menuItemVariants,

@@ -4,6 +4,7 @@ import { push } from 'connected-react-router';
 import { withRouter } from 'react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
+import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
@@ -75,10 +76,27 @@ export class MarketplaceGiftcardList extends Component<Props> {
     }
 
     return (
-      <div className={classes.container}>
-        <Grid container spacing={4}>
+      <div
+        className={classNames(
+          'bs-marketplace-giftcard-page',
+          classes.container,
+        )}
+      >
+        <Grid
+          container
+          className="bs-marketplace-giftcard__container"
+          spacing={4}
+        >
           {filteredGiftcards.map((giftcard) => (
-            <Grid key={giftcard.id} item lg={3} md={4} sm={6} xs={12}>
+            <Grid
+              key={giftcard.id}
+              item
+              className="bs-marketplace-giftcard__item"
+              lg={3}
+              md={4}
+              sm={6}
+              xs={12}
+            >
               <MarketplaceGiftcardItem
                 giftcard={giftcard}
                 onClick={this.onClickGiftcard}

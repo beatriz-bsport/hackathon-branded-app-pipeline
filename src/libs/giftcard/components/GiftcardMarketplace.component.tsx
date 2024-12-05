@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import classNames from 'classnames';
 import { Giftcard } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
@@ -16,18 +17,37 @@ export function GiftcardMarketplace(props: Props) {
   return (
     <>
       <ButtonBase
-        className={classes.imageWrapper}
+        className={classNames(
+          'bs-marketplace-giftcard__item__button',
+          classes.imageWrapper,
+        )}
         onClick={() => props.onClick(giftcard.id)}
       >
         {giftcard.cover ? (
-          <img alt="" className={classes.image} src={giftcard.cover} />
+          <img
+            alt="Giftcard"
+            className={classNames(
+              'bs-marketplace-giftcard__item__button__image',
+              classes.image,
+            )}
+            src={giftcard.cover}
+          />
         ) : (
-          // @ts-expect-error
-          <div alt="" className={classes.image} />
+          <div
+            className={classNames(
+              'bs-marketplace-giftcard__item__button__image',
+              classes.image,
+            )}
+          />
         )}
       </ButtonBase>
-      <Typography variant="h6">{giftcard.name}</Typography>
-      <Typography color="primary">
+      <Typography className="bs-marketplace-giftcard__item__name" variant="h6">
+        {giftcard.name}
+      </Typography>
+      <Typography
+        className="bs-marketplace-giftcard__item__price"
+        color="primary"
+      >
         {getCurrencyDisplayWithPrice(giftcard.price)}
       </Typography>
     </>

@@ -20,7 +20,6 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 
 import EbookUploadForm from '#src/libs/video/components/EbookUploadForm.component';
-import VideoUploadFormMUX from './VideoUploadFormMUX.component';
 import VideoUploadFormYoutube from './VideoUploadFormYoutube.component';
 import VideoUploadFormVimeo from './VideoUploadFormVimeo.component';
 
@@ -58,17 +57,12 @@ export class VideoUploadDialog extends React.Component<Props, State> {
     super(props);
     this.state = {
       isUploading: false,
-      providerIdentifier: props.videoProviderList.includes(
-        VideoProvider.MUX_PROVIDER,
-      )
-        ? props.video.provider_identifier
-        : VideoProvider.YOUTUBE_URL_PROVIDER,
+      providerIdentifier: VideoProvider.YOUTUBE_URL_PROVIDER,
       processing: false,
     };
   }
 
   getStep = () => {
-    // @ts-expect-error
     if (this.props.video.provider_identifier_defined_by_user) {
       return STEP_FINISH;
     }
@@ -109,34 +103,6 @@ export class VideoUploadDialog extends React.Component<Props, State> {
                   }
                   value={this.state.providerIdentifier}
                 >
-                  <FormControlLabel
-                    checked={
-                      this.state.providerIdentifier ===
-                      VideoProvider.MUX_PROVIDER
-                    }
-                    control={<Radio />}
-                    disabled={
-                      this.state.processing ||
-                      !this.props.videoProviderList.includes(
-                        VideoProvider.MUX_PROVIDER,
-                      )
-                    }
-                    label={this.props.t('video.upload.type.file')}
-                    value={VideoProvider.MUX_PROVIDER}
-                  />
-                  <Typography
-                    color={
-                      this.props.videoProviderList.includes(
-                        VideoProvider.MUX_PROVIDER,
-                      )
-                        ? 'inherit'
-                        : 'textSecondary'
-                    }
-                    variant="caption"
-                  >
-                    {this.props.t('video.upload.type.fileExplain')}
-                  </Typography>
-
                   <FormControlLabel
                     checked={
                       this.state.providerIdentifier ===
@@ -209,13 +175,6 @@ export class VideoUploadDialog extends React.Component<Props, State> {
         </DialogTitle>
         <DialogContent>
           <div className={this.props.classes.container}>
-            {this.props.video.provider_identifier ===
-              VideoProvider.MUX_PROVIDER && (
-              <VideoUploadFormMUX
-                onClose={this.props.onClose}
-                video={this.props.video}
-              />
-            )}
             {this.props.video.provider_identifier ===
               VideoProvider.YOUTUBE_URL_PROVIDER && (
               // @ts-expect-error

@@ -24,6 +24,7 @@ export type Video<S = number, C = number> = {
   credit_price: number;
   manager_only: boolean;
   provider_identifier: VideoProvider;
+  provider_identifier_defined_by_user: boolean;
   rental_days: number;
 };
 

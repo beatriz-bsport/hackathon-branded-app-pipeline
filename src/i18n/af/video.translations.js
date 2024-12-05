@@ -45,9 +45,6 @@ exports.default = {
       title: 'Upload a video',
       urlInputError: 'Please enter the URL',
       type: {
-        file: 'File',
-        fileExplain:
-          'If you have a video file (mp4,avi,mov...), please use this to upload directly your video on our servers.',
         youtubeExplain:
           'You have a Youtube video and want to monetize it via bsport.',
         vimeoExplain:

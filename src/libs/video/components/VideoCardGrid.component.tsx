@@ -10,6 +10,7 @@ import VideoCardGridItem from './VideoCardGridItem.component';
 import { Video } from '../types';
 import { SCT } from '../../category/types';
 import { Coach } from '../../associated-coach/types';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 
 type Props = {
   videoList: Array<Video<SCT, Coach>>;
@@ -29,20 +30,26 @@ export const VideoCardList = (props: Props) => {
   const { t } = useTranslation(['video']);
   return (
     <Grid container alignItems="stretch" direction="row" spacing={2}>
-      {props.videoList.map((v) => (
-        <Grid key={v.id} item lg={3} md={4} sm={6} xs={12}>
-          <VideoCardGridItem
-            withStatus
-            goToDetail={() => props.goToDetail(v.id)}
-            onDelete={props.onDelete}
-            onDuplicate={props.onDuplicate}
-            onEdit={props.onEdit}
-            onRequestUpload={props.onRequestUpload}
-            onStream={props.onStream}
-            video={v}
-          />
-        </Grid>
-      ))}
+      {props.videoList
+        .filter(
+          (videoItem) =>
+            videoItem?.provider_identifier !== VideoProvider.MUX_PROVIDER ||
+            videoItem?.provider_identifier_defined_by_user === false,
+        )
+        .map((videoItem) => (
+          <Grid key={videoItem.id} item lg={3} md={4} sm={6} xs={12}>
+            <VideoCardGridItem
+              withStatus
+              goToDetail={() => props.goToDetail(videoItem.id)}
+              onDelete={props.onDelete}
+              onDuplicate={props.onDuplicate}
+              onEdit={props.onEdit}
+              onRequestUpload={props.onRequestUpload}
+              onStream={props.onStream}
+              video={videoItem}
+            />
+          </Grid>
+        ))}
       {!props.loading && !props.videoList.length && (
         <div className={classes.buttonContainer}>
           <Typography color="textSecondary" component="p" variant="h6">

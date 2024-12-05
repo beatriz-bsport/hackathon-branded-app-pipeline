@@ -14,6 +14,7 @@ import VideoCardListItem from './VideoCardListItem.component';
 import { Video } from '../types';
 import { SCT } from '../../category/types';
 import { Coach } from '../../associated-coach/types';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 
 type Props = {
   videoList: Array<Video<SCT, Coach>>;
@@ -36,19 +37,26 @@ export const VideoCardList = (props: Props) => {
     <div className={classes.container}>
       <Paper>
         <List disablePadding>
-          {props.videoList.map((v) => (
-            <VideoCardListItem
-              // @ts-expect-error
-              withStatus
-              goToDetail={props.goToDetail}
-              onDelete={props.onDelete}
-              onDuplicate={props.onDuplicate}
-              onEdit={props.onEdit}
-              onRequestUpload={props.onRequestUpload}
-              onStream={props.onStream}
-              video={v}
-            />
-          ))}
+          {props.videoList
+            .filter(
+              (videoItem) =>
+                videoItem?.provider_identifier !== VideoProvider.MUX_PROVIDER ||
+                videoItem?.provider_identifier_defined_by_user === false,
+            )
+            .map((videoItem) => (
+              <VideoCardListItem
+                key={videoItem.id}
+                // @ts-expect-error
+                withStatus
+                goToDetail={props.goToDetail}
+                onDelete={props.onDelete}
+                onDuplicate={props.onDuplicate}
+                onEdit={props.onEdit}
+                onRequestUpload={props.onRequestUpload}
+                onStream={props.onStream}
+                video={videoItem}
+              />
+            ))}
         </List>
       </Paper>
 

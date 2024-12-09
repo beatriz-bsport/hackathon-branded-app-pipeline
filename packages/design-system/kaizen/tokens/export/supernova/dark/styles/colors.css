@@ -266,8 +266,6 @@
   /* Default colour of elements on default weak actions. */
   --colorKzColorOnsurfaceActionWeakMain: var(--colorKzBaseColorsBsportTurquoise300);
   --colorKzColorShadowActionDefaultPressed: var(--colorKzColorStrokeActionDefaultPressed);
-  /* Default colour for page background. */
-  --colorKzColorSurfaceTestSuperOpacity: var(--colorKzBaseColorsLunaGrey1000);
   /* Default selected colour for default actions across the platform, slightly elevated above a flat surface. */
   --colorKzColorSurfaceActionDefaultElevatedSelectedHovered: var(--colorKzBaseColorsBsportTurquoise800);
   /* Default selected colour for default actions across the platform, slightly elevated above a flat surface. */

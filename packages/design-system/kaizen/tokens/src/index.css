@@ -226,7 +226,7 @@
   --kz-color-onsurface-status-warning-weak: var(--kz-color-aurora-orange-600);
   --kz-color-onsurface-status-warning-onstrong: var(--kz-color-aurora-orange-0);
   --kz-color-shadow-action-default-selected: var(
-    --kz-color-bsport-turquoise-100
+    --kz-color-base-transparent-bsport-turquoise-500
   );
   --kz-color-onsurface-action-weak-default: var(--kz-color-luna-grey-700);
   --kz-color-onsurface-action-weak-critical: var(--kz-color-cupid-red-500);
@@ -245,7 +245,7 @@
   --kz-color-surface-action-main-weak-pressed: var(
     --kz-color-base-transparent-bsport-turquoise-250
   );
-  --kz-color-stroke-weak: var(--kz-color-base-transparent-luna-grey-250);
+  --kz-color-stroke-weak: var(--kz-color-base-transparent-luna-grey-80);
   --kz-color-onsurface-main-onweak: var(--kz-color-bsport-turquoise-600);
   --kz-color-onsurface-main-onstrong: var(--kz-color-luna-grey-0);
   --kz-color-surface-action-default-onstrong-rest: var(
@@ -259,7 +259,6 @@
   --kz-color-shadow-action-default-pressed: var(
     --kz-color-stroke-action-default-pressed
   );
-  --kz-color-surface-test-super-opacity: var(--kz-color-test);
   --kz-color-surface-action-default-elevated-selected-hovered: var(
     --kz-color-luna-grey-100
   );
@@ -404,12 +403,12 @@
   --kz-opacity-2xs: 0.9;
   --kz-opacity-transparent: 0;
   --kz-shadow-action-default-rest: 0px 1px 2px 0px #a3afae40,
-    inset 0px 0px 0px 1px #121313;
+    inset 0px 0px 0px 1px #353c3c26;
   --kz-shadow-action-default-hovered: 0px 2px 6px 0px #a3afae40,
     inset 0px 0px 0px 1px #353c3c40;
   --kz-shadow-action-default-pressed: 0px 1px 4px -4px #353c3c59,
     inset 0px 0px 0px 1px #353c3c59;
-  --kz-shadow-action-default-selected: inset 0px 3px 8px 0px #e5f6f3;
+  --kz-shadow-action-default-selected: inset 0px 3px 8px 0px #25948d40;
   --kz-shadow-action-call-to-action-rest: 0px 1px 2px 0px #365a5840;
   --kz-shadow-action-call-to-action-hovered: 0px 2px 6px 0px #2a8b8580;
   --kz-shadow-action-call-to-action-pressed: 0px 1px 8px -2px #50505014;
@@ -421,8 +420,6 @@
   --kz-shadow-action-call-to-action-critical-rest: 0px 1px 2px 0px #59363d40;
   --kz-shadow-action-call-to-action-critical-hovered: 0px 2px 6px 0px #8b465580;
   --kz-shadow-action-call-to-action-critical-pressed: 0px 1px 8px -2px #50505014;
-  --kz-shadow-critical: 0px 0px 8px 0px #91001f40,
-    inset 0px 0px 0px 1px #7c878640;
   --kz-shadow-border-thin-default: inset 0px 0px 0px 1px #353c3c26;
   --kz-shadow-border-thin-main: inset 0px 0px 0px 1px #25948d;
   --kz-shadow-border-thin-info: inset 0px 0px 0px 1px #447ba9;
@@ -684,7 +681,6 @@
   --kz-color-shadow-action-default-pressed: var(
     --kz-color-stroke-action-default-pressed
   );
-  --kz-color-surface-test-super-opacity: var(--kz-color-luna-grey-1000);
   --kz-color-surface-action-default-elevated-selected-hovered: var(
     --kz-color-bsport-turquoise-800
   );
@@ -829,12 +825,12 @@
   --kz-opacity-2xs: 0.9;
   --kz-opacity-transparent: 0;
   --kz-shadow-action-default-rest: 0px 1px 2px 0px #a3afae40,
-    inset 0px 0px 0px 1px #121313;
+    inset 0px 0px 0px 1px #353c3c26;
   --kz-shadow-action-default-hovered: 0px 2px 6px 0px #a3afae40,
     inset 0px 0px 0px 1px #353c3c40;
   --kz-shadow-action-default-pressed: 0px 1px 4px -4px #353c3c59,
     inset 0px 0px 0px 1px #353c3c59;
-  --kz-shadow-action-default-selected: inset 0px 3px 8px 0px #e5f6f3;
+  --kz-shadow-action-default-selected: inset 0px 3px 8px 0px #25948d40;
   --kz-shadow-action-call-to-action-rest: 0px 1px 2px 0px #365a5840;
   --kz-shadow-action-call-to-action-hovered: 0px 2px 6px 0px #2a8b8580;
   --kz-shadow-action-call-to-action-pressed: 0px 1px 8px -2px #50505014;
@@ -846,8 +842,6 @@
   --kz-shadow-action-call-to-action-critical-rest: 0px 1px 2px 0px #59363d40;
   --kz-shadow-action-call-to-action-critical-hovered: 0px 2px 6px 0px #8b465580;
   --kz-shadow-action-call-to-action-critical-pressed: 0px 1px 8px -2px #50505014;
-  --kz-shadow-critical: 0px 0px 8px 0px #91001f40,
-    inset 0px 0px 0px 1px #7c878640;
   --kz-shadow-border-thin-default: inset 0px 0px 0px 1px #353c3c26;
   --kz-shadow-border-thin-main: inset 0px 0px 0px 1px #25948d;
   --kz-shadow-border-thin-info: inset 0px 0px 0px 1px #447ba9;

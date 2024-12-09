@@ -235,7 +235,7 @@
   --colorKzColorOnsurfaceStatusWarningWeak: var(--colorKzBaseColorsAuroraOrange600);
   /* Indicate that the element requires caution. Paired with weak surfaces. */
   --colorKzColorOnsurfaceStatusWarningOnstrong: var(--colorKzBaseColorsAuroraOrange0);
-  --colorKzColorShadowActionDefaultSelected: var(--colorKzBaseColorsBsportTurquoise100);
+  --colorKzColorShadowActionDefaultSelected: var(--colorKzBaseTransparentBsportTurquoise500);
   /* Default colour of elements on default weak actions. */
   --colorKzColorOnsurfaceActionWeakDefault: var(--colorKzBaseColorsLunaGrey700);
   /* Default colour of elements on critical weak actions. */
@@ -250,7 +250,7 @@
   --colorKzColorSurfaceActionMainWeakHovered: var(--colorKzBaseTransparentBsportTurquoise80);
   /* Default call-to-action colour for actionable elements like buttons. */
   --colorKzColorSurfaceActionMainWeakPressed: var(--colorKzBaseTransparentBsportTurquoise250);
-  --colorKzColorStrokeWeak: var(--colorKzBaseTransparentLunaGrey250);
+  --colorKzColorStrokeWeak: var(--colorKzBaseTransparentLunaGrey80);
   /* Used to be paired with strong colours. */
   --colorKzColorOnsurfaceMainOnweak: var(--colorKzBaseColorsBsportTurquoise600);
   /* Used to be paired with strong colours. */
@@ -266,8 +266,6 @@
   /* Default colour of elements on default weak actions. */
   --colorKzColorOnsurfaceActionWeakMain: var(--colorKzBaseColorsBsportTurquoise700);
   --colorKzColorShadowActionDefaultPressed: var(--colorKzColorStrokeActionDefaultPressed);
-  /* Default colour for page background. */
-  --colorKzColorSurfaceTestSuperOpacity: var(--colorTest);
   /* Default selected colour for default actions across the platform, slightly elevated above a flat surface. */
   --colorKzColorSurfaceActionDefaultElevatedSelectedHovered: var(--colorKzBaseColorsLunaGrey100);
   /* Default selected colour for default actions across the platform, slightly elevated above a flat surface. */

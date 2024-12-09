@@ -104,7 +104,7 @@ export default function useConsumerBookingDateTime({
         case MarketPlaceSessionTimeDisplay.STARTING_TIME_AND_DURATION:
           return { startTime: startHour, endTimeOrDuration: readableDuration };
         default:
-          return { startTime: '', endTimeOrDuration: endHour };
+          return { startTime: startHour, endTimeOrDuration: endHour };
       }
     }
     return { startTime: '', endTimeOrDuration: '' };

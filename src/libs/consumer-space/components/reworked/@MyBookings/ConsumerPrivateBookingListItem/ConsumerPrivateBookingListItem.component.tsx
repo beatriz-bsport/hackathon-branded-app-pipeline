@@ -39,7 +39,7 @@ const ConsumerPrivateBookingListItem: React.FC<Props> = ({
   const selectedBookingDate = useConsumerBookingDateTime({
     dateStart: item?.date_start,
     durationMinute: item?.private_slot?.duration_minutes,
-    establishmentTimezoneName: null,
+    establishmentTimezoneName: item.establishment?.tzname,
     isMetaActivityBroadcast: null,
     sessionTimeDisplay,
     timezoneName: timezone,

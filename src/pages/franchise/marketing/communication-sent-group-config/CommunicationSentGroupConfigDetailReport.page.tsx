@@ -5,6 +5,7 @@ import { goBack } from 'connected-react-router';
 import { WithStyles } from '@material-ui/core';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
+  getCommunicationGroupRecipientPaginationData,
   getCommunicationSentGroup,
   getCommunicationSentGroupReport,
   getRecipientListByCommunicationSentGroup,
@@ -84,9 +85,8 @@ const mapStateToProps = (
   state: RootState,
   { communicationSentGroupId }: { communicationSentGroupId: number },
 ) => ({
-  recipientState: state.communicationSentGroupConfig.recipient,
   recipientList: getRecipientListByCommunicationSentGroup(state),
-  recipientLoading: state.communicationSentGroupConfig.recipient.loading,
+  recipientState: getCommunicationGroupRecipientPaginationData(state),
   communicationSentGroup: getCommunicationSentGroup(
     state,
     communicationSentGroupId,

@@ -100,11 +100,12 @@ export class RecipientTable extends React.Component<Props> {
   }
 
   fetchRecipientList = (page, params) => {
-    if (
-      (page !== this.props.recipientState.page &&
-        !this.props.recipientState.loading) ||
-      !isEqual(params, this.props.recipientState.params)
-    ) {
+    const isTryingToLoadSamePage = page === this.props.recipientState.page;
+    const hasDifferentParamsThanBefore = !isEqual(
+      params,
+      this.props.recipientState.params,
+    );
+    if (!isTryingToLoadSamePage || hasDifferentParamsThanBefore) {
       this.props.fetchRecipientList(page, params);
     }
   };
@@ -118,7 +119,7 @@ export class RecipientTable extends React.Component<Props> {
 
   render() {
     const { t, recipientState } = this.props;
-    const { loading, count, page } = recipientState;
+    const { page, loading, count, error } = recipientState;
     const options = {
       onRowClick: this.onRowClick,
       serverSide: true,
@@ -137,7 +138,7 @@ export class RecipientTable extends React.Component<Props> {
       viewColumns: false,
       textLabels: {
         body: {
-          noMatch: loading ? <CircularProgress /> : 'No recipient',
+          noMatch: loading && !error ? <CircularProgress /> : 'No recipient',
         },
       },
       onTableChange: (action, tableState) => {
@@ -150,10 +151,9 @@ export class RecipientTable extends React.Component<Props> {
           }
           return acc;
         }, '');
-        this.fetchRecipientList(tableState.page + 1, { ordering });
+        if (!error) this.fetchRecipientList(tableState.page + 1, { ordering });
       },
     };
-
     return (
       <div>
         <MUIDataTable

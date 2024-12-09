@@ -123,8 +123,36 @@ export const getAllCommunicationSentGroupConfigs = createSelector(
 const getCommunicationGroupRecipientData = (state: RootState) =>
   _getCommunicationSentGroupConfigState(state).recipient.byId;
 
+const getCommunicationGroupRecipientParams = (state: RootState) =>
+  _getCommunicationSentGroupConfigState(state).recipient.params;
+
+const getCommunicationGroupRecipientCount = (state: RootState) =>
+  _getCommunicationSentGroupConfigState(state).recipient.count;
+
+const getCommunicationGroupRecipientLoading = (state: RootState) =>
+  _getCommunicationSentGroupConfigState(state).recipient.loading;
+
+const getCommunicationGroupRecipientPage = (state: RootState) =>
+  _getCommunicationSentGroupConfigState(state).recipient.page;
+
+const getCommunicationGroupRecipientError = (state: RootState) =>
+  _getCommunicationSentGroupConfigState(state).recipient.error;
+
 const getRecipientByCommunicationSentGroupIds = (state: RootState) =>
   _getCommunicationSentGroupConfigState(state).recipient.allIds;
+
+export const getCommunicationGroupRecipientPaginationData = createSelector(
+  [
+    getCommunicationGroupRecipientParams,
+    getCommunicationGroupRecipientLoading,
+    getCommunicationGroupRecipientCount,
+    getCommunicationGroupRecipientPage,
+    getCommunicationGroupRecipientError,
+  ],
+  (params, loading, count, page, error) => {
+    return { count, loading, page, params, error };
+  },
+);
 
 export const getRecipientListByCommunicationSentGroup = createSelector(
   [getCommunicationGroupRecipientData, getRecipientByCommunicationSentGroupIds],

@@ -26,18 +26,24 @@ npm install -g pnpm@$(grep pnpm_version .npmrc | cut -d '=' -f 2)
 pnpm install
 ```
 
-### Run a project
+### Run an application
 
-To run of an app, you can either
+To run an app, you can either
 
 ```sh
-cd app/app-1 && pnpm run start
+cd apps/applications/[application] && pnpm run build && pnpm run start
 ```
 
 or
 
 ```sh
-pnpm exec nx start @bsport/app-1
+pnpm exec nx start @bsport/[application]
+```
+
+### Run Kaizen primitive components library
+
+```sh
+cd packages/design-system/kaizen/primitive-components && pnpm run dev
 ```
 
 ## Quick guide
@@ -113,13 +119,22 @@ You can find more regarding upgrading NX here: https://nx.dev/features/automate-
 
 ```tree
 ├── README.md
-├── apps                   // End-user applications projects
-│   └── app-1
+├── apps                  // End-user applications
+│   ├── applications
+│   │   ├── micro-frontend-1
+│   │   ├── ...
+│   │   └── saas
+│   └── widgets
+│       ├── widget-1
+│       ├── ...
+│       └── widget
 ├── node_modules
 ├── nx.json               // NX config file
 ├── package.json          // Workspace package.json
 ├── packages
-│   ├── constants
+│   ├── common
+│   ├── design-system
+│   │   └── kaizen
 │   ├── types
 │   └── utils
 ├── pnpm-lock.yaml        // Dependencies lock file

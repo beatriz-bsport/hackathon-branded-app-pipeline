@@ -309,7 +309,7 @@ export default async function importProject(program: Command) {
     )
     .argument(
       "<target-path>",
-      "Monorepo path where the project will be imported (ex: apps/services/core/map).",
+      "Monorepo path where the project will be imported (ex: apps/applications/saas).",
     )
     .argument(
       "<filesystem-path>",

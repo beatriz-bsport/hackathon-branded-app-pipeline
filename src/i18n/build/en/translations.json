@@ -13601,7 +13601,7 @@
                 },
                 "blockedByTags": {
                     "title": "Insufficient rights",
-                    "message": "Sorry, but this session is not open to bookings right now. Bookings were restrained to a specific group of members."
+                    "message": "You don’t have the required membership or access level to book this session."
                 },
                 "isAlreadyRegistered": {
                     "title": "Session already booked",

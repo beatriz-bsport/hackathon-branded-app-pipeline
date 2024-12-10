@@ -11781,7 +11781,7 @@
                     "title": "Sessione già prenotata"
                 },
                 "blockedByTags": {
-                    "message": "Siamo spiacenti, ma questa sessione non è attualmente disponibile per la prenotazione. È stata riservata a un gruppo specifico di membri.",
+                    "message": "Non hai i diritti necessari o il livello di accesso richiesto per prenotare questa sessione.",
                     "title": "Permessi insufficienti"
                 },
                 "default": {

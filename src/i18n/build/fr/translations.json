@@ -576,7 +576,7 @@
                 },
                 "blockedByTags": {
                     "title": "Droits insuffisants",
-                    "message": "Désolé, mais cette séance n'est actuellement pas disponible à la réservation. Elle a été restreinte à un groupe spécifique de membres."
+                    "message": "Vous ne disposez pas de l’abonnement nécessaire ou du niveau d’accès suffisant pour réserver cette séance."
                 },
                 "isAlreadyRegistered": {
                     "title": "Séance déjà réservée",

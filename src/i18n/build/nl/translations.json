@@ -7904,7 +7904,7 @@
                     "title": "Sessie al geboekt"
                 },
                 "blockedByTags": {
-                    "message": "Sorry, maar deze sessie kan momenteel niet worden geboekt. De sessie is voorbehouden aan een specifieke groep leden.",
+                    "message": "Je hebt niet het vereiste lidmaatschap of toegangsniveau om deze sessie te boeken.",
                     "title": "Onvoldoende rechten"
                 },
                 "default": {

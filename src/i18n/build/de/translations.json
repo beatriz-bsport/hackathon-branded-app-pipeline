@@ -10362,7 +10362,7 @@
                     "title": "Kurs bereits reserviert"
                 },
                 "blockedByTags": {
-                    "message": "Leider kann dieser Kurs derzeit nicht gebucht werden. Er wurde auf eine bestimmte Gruppe von Mitgliedern beschränkt.",
+                    "message": "Du verfügst nicht über die erforderliche Mitgliedschaft oder den passenden Zugang, um diese Sitzung zu buchen.",
                     "title": "Unzureichende Rechte"
                 },
                 "default": {

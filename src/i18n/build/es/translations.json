@@ -7490,7 +7490,7 @@
                 },
                 "blockedByTags": {
                     "title": "Permisos insuficientes",
-                    "message": "Lo sentimos, pero esta sesión no está abierta a reservas en este momento. Las reservas están restringidas a un grupo específico de miembros."
+                    "message": "No tiene los derechos necesarios o el nivel de acceso requerido para reservar esta sesión."
                 },
                 "waitingListLockedByPendingBookings": {
                     "title": "Otras reservas en curso",

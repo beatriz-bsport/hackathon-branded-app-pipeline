@@ -2,7 +2,7 @@ export const menuItemTypes = {
   title: "title",
   button: "button",
   radio: "radio",
-  checkBox: "checkBox",
+  checkbox: "checkbox",
   divider: "divider",
 } as const;
 
@@ -14,6 +14,7 @@ export const baseMenuItemClasses = [
   "gap-xs",
   "cursor-pointer w-full",
   "transition ease-out duration-long",
+  "text-onsurface-action-weak-default",
   // Flex config
   "flex flex-row items-center justify-start",
   // Disabled
@@ -27,11 +28,11 @@ export const baseMenuItemClasses = [
 
 export const menuItemStateClasses = [
   // Focus
-  "focus-visible:bg-surface-default-strong/xl outline-none",
+  "focus-visible:bg-surface-action-default-weak-hovered outline-none",
   // Hover
-  "hover:bg-surface-default-strong/xl",
+  "hover:bg-surface-action-default-weak-hovered",
   // Active
-  "active:bg-surface-default-strong/lg",
+  "active:bg-surface-action-default-weak-pressed",
 ];
 
 export const defaultMenuItemClasses = [
@@ -70,15 +71,15 @@ export const menuItemVariants = {
       "transition ease-out duration-long",
       "flex flex-row items-center justify-start",
       "border-stroke-thin",
-      "border-stroke-action-default-selected/2xs",
-      "bg-surface-action-selected-rest/lg",
-      "hover:bg-surface-action-selected-rest/md",
-      "focus-visible:bg-surface-action-selected-rest/md",
-      "active:bg-surface-action-selected-rest/sm",
+      "border-stroke-action-main-selected",
+      "bg-surface-action-main-selected-rest",
+      "hover:bg-surface-action-main-selected-hovered",
+      "focus-visible:bg-surface-action-main-selected-hovered",
+      "active:bg-surface-action-main-selected-pressed",
     ],
     false: [
       "border-stroke-thin",
-      "border-stroke-action-default-selected/transparent",
+      "border-[white]/transparent",
       ...menuItemStateClasses,
     ],
   },

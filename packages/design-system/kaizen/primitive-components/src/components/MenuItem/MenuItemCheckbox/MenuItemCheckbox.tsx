@@ -51,6 +51,7 @@ const MenuItemCheckbox: React.FC<MenuItemCheckboxProps> = ({
   onChange,
   onClick,
   value,
+  rightSlot,
   ...props
 }) => {
   const handleCheckboxChange = useCallback(
@@ -93,6 +94,11 @@ const MenuItemCheckbox: React.FC<MenuItemCheckboxProps> = ({
     [disabled],
   );
 
+  const renderedRightSlot = useMemo(
+    () => (rightSlot ? <div className="flex">{rightSlot}</div> : null),
+    [rightSlot],
+  );
+
   return (
     <button
       role="check"
@@ -118,14 +124,14 @@ const MenuItemCheckbox: React.FC<MenuItemCheckboxProps> = ({
               indeterminate:bg-surface-action-main-strong-rest checked:bg-surface-action-main-strong-rest",
             {
               // Hovered state
-              "hover:bg-surface-action-default-elevated-hovered hover:border-stroke-action-default-hovered/sm \
+              "hover:bg-surface-action-default-elevated-hovered hover:border-stroke-action-default-hovered \
               hover:active:bg-surface-action-default-elevated-pressed":
                 !disabled && value === "unchecked",
               "hover:shadow-action-call-to-action-hovered hover:bg-surface-action-main-strong-hovered \
               hover:active:shadow-action-call-to-action-pressed hover:active:bg-surface-action-main-strong-pressed":
                 !disabled && value !== "unchecked",
               // Disabled state
-              "border-stroke-action-default-pressed/xs bg-surface-action-default-elevated-pressed":
+              "border-stroke-action-default-pressed bg-surface-action-default-elevated-pressed":
                 disabled && value === "unchecked",
               "bg-surface-action-main-strong-pressed":
                 disabled && value !== "unchecked",
@@ -154,14 +160,17 @@ const MenuItemCheckbox: React.FC<MenuItemCheckboxProps> = ({
           onClick={handleOnClick}
           htmlFor={id}
           className={classNames(
-            "flex items-center gap-2xs cursor-pointer w-full",
+            "flex items-center justify-between cursor-pointer w-full",
             {
               "cursor-default": disabled,
             },
           )}
         >
-          {renderedAvatar ?? renderedIcon}
-          <span>{label}</span>
+          <div className="flex gap-2xs">
+            {renderedAvatar ?? renderedIcon}
+            <span>{label}</span>
+          </div>
+          {renderedRightSlot}
         </label>
       </div>
     </button>

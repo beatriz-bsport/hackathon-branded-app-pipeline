@@ -100,7 +100,7 @@ const MenuItemRadio: React.FC<MenuItemRadioProps> = ({
 
   return (
     <button
-      className={menuItemRadio({ disabled, checked })}
+      className={menuItemRadio({ disabled, checked: checked ?? false })}
       onClick={handleMenuItemClick}
       tabIndex={0}
       role="radio"

@@ -107,7 +107,7 @@
             "paymentMethod": "Método de pago",
             "activity": "Actividad",
             "datetime": "Sesión",
-            "paymentPack": "Bono",
+            "paymentPack": "Bonos",
             "amount": "Cantidad",
             "continue": "Continuar",
             "credit_s": "Crédito(s)",
@@ -703,7 +703,7 @@
             "payment": "Pagos",
             "logoff": "Cerrar sesión",
             "goBack": "Volver",
-            "pass": "Bono",
+            "pass": "Bonos",
             "settings": "Parámetros",
             "myClub": "Mi Club",
             "subscription": "Cuotas",
@@ -774,7 +774,7 @@
             "object": "Descripción",
             "addInvoiceItem": "Añadir a la factura",
             "addOffer": "Sesión",
-            "addPaymentPack": "Bono",
+            "addPaymentPack": "Bonos",
             "updateInvoiceVoucher": "Añadir una rebaja",
             "voucher": "Rebaja",
             "total": "TOTAL",
@@ -1052,7 +1052,7 @@
                 }
             },
             "welcomeTo": "Bienvenido en ",
-            "pass": "Bono",
+            "pass": "Bonos",
             "buyPack": "Comprar",
             "selector": {
                 "coach": {
@@ -3610,7 +3610,7 @@
                 "9": "Tarjeta de cita",
                 "3": "Crédito",
                 "2": "Tienda",
-                "1": "Bono",
+                "1": "Bonos",
                 "undefined": "tarjeta regalo",
                 "11": "tarjeta de regalo"
             },
@@ -4205,7 +4205,7 @@
             "nbMonths": "Número de pagos recurrentes",
             "dateStart": "Primera facturación",
             "firstBilling": "Primero pago",
-            "payment_pack": "Bono",
+            "payment_pack": "Bonos",
             "flat_fee": "Gastos de reserva : {{price_with_currency}}",
             "status": "Estado",
             "payment_method": {
@@ -4290,7 +4290,7 @@
                 },
                 "title": "Formulario contrato",
                 "object_type": {
-                    "paymentPack": "Bono",
+                    "paymentPack": "Bonos",
                     "privatePass": "Tarjeta de cita",
                     "label": "Tipo de suscripción",
                     "paymentCombo": "Pack"
@@ -7959,7 +7959,7 @@
                     "pass_name": "Nombre del bono",
                     "pass_price": "Precio del pase"
                 },
-                "name": "Bono"
+                "name": "Bonos"
             },
             "PrivateBooking": {
                 "tags": {
@@ -8425,9 +8425,9 @@
             "changeMembership": "Cambiar de club",
             "logoff": "Desconectar",
             "profile": "Perfil",
-            "subscription": "Suscripción",
+            "subscription": "Suscripciónes",
             "invoice": "Factura",
-            "pack": "Bono",
+            "pack": "Bonos",
             "calendar": "Histórico",
             "dashboard": "Resumen",
             "myVideos": "Mis videos",
@@ -8519,7 +8519,7 @@
                         "suspended": "Suspendido"
                     },
                     "credits": "{{ creditsLeft }}/{{ totalCredits }} créditos",
-                    "unlimited": "Sin límites"
+                    "unlimited": "Illimitado"
                 },
                 "consumerPassDetailsCard": {
                     "header": {
@@ -8583,9 +8583,9 @@
                 "bookASession": "Reservar una sesión",
                 "buyANewPass": "Comprar un bono nuevo",
                 "filters": {
-                    "future": "Futuro",
-                    "expired": "Expirado",
-                    "active": "Activo"
+                    "future": "Proxímos",
+                    "expired": "Expirados",
+                    "active": "Activos"
                 },
                 "tab": {
                     "universal": "Universal",
@@ -8714,8 +8714,8 @@
                 },
                 "filter": {
                     "onWaitlist": "En la lista de espera",
-                    "past": "Pasado",
-                    "upcoming": "Próximamente"
+                    "past": "Anteriores",
+                    "upcoming": "Próximas"
                 },
                 "tab": {
                     "workshops": "Talleres",
@@ -8803,16 +8803,16 @@
                     "backToSubscriptions": "Volver a suscripciones"
                 },
                 "tab": {
-                    "expired": "Expirado",
-                    "future": "No iniciado",
-                    "active": "Activo"
+                    "expired": "Expiradas",
+                    "future": "No iniciadas",
+                    "active": "Activas"
                 },
-                "title": "Mi suscripción",
+                "title": "Mis suscripciones",
                 "dateLabel": {
                     "until": " hasta {{- date }}",
                     "expired": "Caducado desde {{- date }}",
                     "future": "Inicia en {{- date }}",
-                    "active": "Iniciado el {{- date }}"
+                    "active": "Iniciada el {{- date }}"
                 },
                 "close": "Cerrar",
                 "paymentMethodUpdatedContent": "Su método de pago se ha actualizado correctamente",
@@ -9002,7 +9002,7 @@
                 "myGiftCards": "Mis tarjetas de regalo",
                 "myProfile": "Mi perfil",
                 "mySubscriptions": "Mis suscripciones",
-                "myPasses": "Mis pases",
+                "myPasses": "Mis bonos",
                 "myBookings": "Mis reservas",
                 "exploreYourProfile": "Explora tu perfil",
                 "myVideosAndEbooks": "Mis videos & eBooks",
@@ -9047,7 +9047,7 @@
                     "9": "Tarjeta de cita",
                     "6": "Gastos de envío",
                     "2": "Tienda",
-                    "1": "Bono",
+                    "1": "Bonos",
                     "10": "Pack"
                 },
                 "choicesFranchise": {
@@ -16457,7 +16457,7 @@
                 "quicksale": "Interfaz de ventas",
                 "referral": "Referencia"
             },
-            "pass": "Bono",
+            "pass": "Bonos",
             "goBack": "Volver",
             "refresh": "Actualizar",
             "logoff": "Cerrar sesión",
@@ -18540,7 +18540,7 @@
                     "consumerSubscription": "Mis Suscripciones",
                     "consumerProfile": "Mi Perfil",
                     "consumerInvoice": "Mis Facturas",
-                    "consumerPass": "Mis Pases",
+                    "consumerPass": "Mis bonos",
                     "consumerBooking": "Mis Reservas"
                 },
                 "defaultPage": "Página predeterminada",
@@ -18673,7 +18673,7 @@
                 "validity": "Validez del pase"
             },
             "groupTitle": {
-                "paymentPack": "Bono",
+                "paymentPack": "Bonos",
                 "privateBooking": "Cita",
                 "booking": "Reservar",
                 "privatePass": "Tarjeta de cita",
@@ -18681,7 +18681,7 @@
                 "contract": "Suscripción"
             },
             "fabLabels": {
-                "payment_pack": "Bono",
+                "payment_pack": "Bonos",
                 "private_service": "Cita",
                 "establishment": "Establecimiento",
                 "meta_activity": "Actividad",

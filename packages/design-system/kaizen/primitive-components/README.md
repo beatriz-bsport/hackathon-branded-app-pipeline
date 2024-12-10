@@ -1,5 +1,7 @@
 # Kaizen Primitive components
 
+Have a look on our [Notion documentation](https://www.notion.so/bright-shovel-41b/Develop-Primitive-Component-Kaizen-for-newbies-13b137e4c64080c8abaddb7ec1a909fc) !
+
 ## How to use
 
 1. Import the package by adding this line to your project `package.json`
@@ -21,7 +23,7 @@ import "@bsport/kaizen-primitive/build/index.css";
 import "@bsport/kaizen-primitive/build/variables.css";
 ```
 
-1. Add any component in your React project as follows:
+3. Add any component in your React project as follows:
 
 ```jsx
 // MyComponent.tsx

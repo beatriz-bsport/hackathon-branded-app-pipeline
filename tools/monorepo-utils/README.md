@@ -20,7 +20,7 @@ You can run any script from this folder using the following command: `pnpm exec 
 
 ## Commands list
 
-**Warning:** Everything between `CommandListStart` and `CommandListEnd` is generated using the following command: `node monorepo-utils command-list --format markdown --output readme`. Do not try to remove these markers nor add documentation between them.
+**Warning:** Everything between `CommandListStart` and `CommandListEnd` is generated using the following command: `node monorepo-utils command-list --format markdown --output readme` (or `pnpm run command:list --format markdown --output readme`). Do not try to remove these markers nor add documentation between them.
 
 ----CommandListStart----
 
@@ -123,7 +123,7 @@ __Usage:__ `@bsport/monorepo-utils-tools project:import [options] <target-path> 
 
 | Arg | Description |
 |:----:|:----:|
-| `target-path` | Monorepo path where the project will be imported (ex: apps/services/core/map). |
+| `target-path` | Monorepo path where the project will be imported (ex: apps/applications/saas). |
 | `filesystem-path` | Filesystem path where the repository is currently located. |
 
 | Option | Description |

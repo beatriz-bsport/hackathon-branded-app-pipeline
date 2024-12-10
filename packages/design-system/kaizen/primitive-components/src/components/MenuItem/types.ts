@@ -10,6 +10,7 @@ export type MenuItemTitleType = {
 };
 
 export type MenuItemButtonType = {
+  id: string;
   subItems?: SubMenuType[];
   disabled?: boolean;
   label: string;
@@ -35,7 +36,7 @@ export type MenuItemCheckBoxType = {
   label: string;
   onClick?: (event?: React.MouseEvent) => void;
   rightSlot?: React.ReactNode;
-  type: typeof menuItemTypes.checkBox;
+  type: typeof menuItemTypes.checkbox;
   value: "checked" | "unchecked" | "indeterminate";
 } & MenuItemLeftSlot;
 

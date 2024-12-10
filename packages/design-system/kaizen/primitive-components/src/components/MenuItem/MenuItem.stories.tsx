@@ -54,7 +54,7 @@ const meta: Meta<typeof MenuItem> = {
       options: ["checked", "unchecked", "indeterminate"],
       control: { type: "inline-radio" },
       table: { defaultValue: { summary: "unchecked" } },
-      if: { arg: "type", eq: menuItemTypes.checkBox },
+      if: { arg: "type", eq: menuItemTypes.checkbox },
     },
     checked: {
       control: { type: "boolean" },
@@ -64,7 +64,7 @@ const meta: Meta<typeof MenuItem> = {
   decorators: [
     (Story, context) => {
       const { args } = context;
-      if (args.type === menuItemTypes.checkBox) {
+      if (args.type === menuItemTypes.checkbox) {
         args.value = args.value || "unchecked"; // Default checkbox value
       }
       return <Story />;
@@ -160,7 +160,7 @@ export const MenuItemCheckbox = {
   },
   args: {
     id: "checkbox-2",
-    type: menuItemTypes.checkBox,
+    type: menuItemTypes.checkbox,
     disabled: false,
     value: "checked",
     avatar: "avatar image",

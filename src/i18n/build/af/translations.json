@@ -3240,7 +3240,11 @@
         "footerPhysical": "The gift card will be activated on {{- activation_date }} and will be valid until {{- activation_date_until }} ({{ duration }} day(s)). You will receive by e-mail needed informations to use the gift card and a printable version of your card in a PDF file",
         "footerPhysicalUnlimited": "You will receive by e-mail the needed information to use the gift card and a printable version of your card in a PDF file.",
         "actions": { "submit": "Add to basket", "cancel": "Cancel" },
-        "activationDate": { "label": "Activation date", "helperText": "The recipient can use the gift card from this date" },
+        "activationDate": {
+          "label": "Activation date",
+          "helperText": "The recipient can use the gift card from this date",
+          "errorMaxDate": "Please enter a valid date"
+        },
         "date_send": { "label": "Date of sending the email" },
         "recipients": { "label": "Recipient's email" },
         "message_content": { "label": "Custom message" },

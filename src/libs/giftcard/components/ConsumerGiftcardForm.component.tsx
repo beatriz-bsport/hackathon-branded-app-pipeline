@@ -138,7 +138,11 @@ export const ConsumerGiftcardForm = (props: Props) => {
         !!props.giftcard.expiration_days && (
           <>
             <DateField
-              helperText={t('consumerGiftcard.form.activationDate.helperText')}
+              helperText={
+                props.errors.activation_datetime
+                  ? t(props.errors.activation_datetime as string)
+                  : t('consumerGiftcard.form.activationDate.helperText')
+              }
               initialFocusedDate={INTIAL_ACTIVATION_DATE}
               label={t('consumerGiftcard.form.activationDate.label')}
               maxDate={ACTIVATION_DATE_MAX_DATE}
@@ -280,7 +284,16 @@ export const ConsumerGiftcardSchema = Yup.object().shape({
     ConsumerGiftcardKind.DIGITAL,
     ConsumerGiftcardKind.PRINTABLE,
   ]),
-  activation_datetime: Yup.object().nullable(),
+  activation_datetime: Yup.date()
+    .nullable()
+    .test(
+      'is-date-too-far',
+      `consumerGiftcard.form.activationDate.errorMaxDate`,
+      (value: Date) =>
+        DateTime.fromJSDate(value)
+          .diff(INTIAL_ACTIVATION_DATE, 'months')
+          .as('months') <= 2,
+    ),
 });
 
 export const ConsumerGiftcardFormFieldHOC = withFormik({

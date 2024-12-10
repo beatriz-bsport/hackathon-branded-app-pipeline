@@ -83,6 +83,7 @@ exports.default = {
       activationDate: {
         label: 'Activation date',
         helperText: 'The recipient can use the gift card from this date',
+        errorMaxDate: 'Please enter a valid date',
       },
       date_send: { label: 'Date of sending the email' },
       recipients: { label: "Recipient's email" },

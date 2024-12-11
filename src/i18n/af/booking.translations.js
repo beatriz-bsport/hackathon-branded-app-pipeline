@@ -503,6 +503,10 @@ const getTranslations = async () => {
             alert: "They won't receive information about this session.",
             fieldLabel: 'Want to include the email?',
             submitLabel: 'Continue without',
+            actions: {
+              continueWithoutEmail: 'Continue without email',
+              saveAndContinue: 'Save and continue',
+            },
           },
         },
         errors: {

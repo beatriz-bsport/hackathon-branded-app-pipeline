@@ -587,7 +587,8 @@
             "description": "You haven't provided an email address for your guest.",
             "alert": "They won't receive information about this session.",
             "fieldLabel": "Want to include the email?",
-            "submitLabel": "Continue without"
+            "submitLabel": "Continue without",
+            "actions": { "continueWithoutEmail": "Continue without email", "saveAndContinue": "Save and continue" }
           }
         },
         "errors": { "requiredField": "Please fill in this field", "email": "Please enter a valid email address" },

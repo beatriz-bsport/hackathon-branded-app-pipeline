@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import WarningRounded from '@material-ui/icons/WarningRounded';
 import { useTranslation } from 'react-i18next';
 import { useFormikContext } from 'formik';
@@ -10,8 +10,13 @@ import { type AddGuestFormValues } from '..';
 
 const AddGuestFormEmailWarningStep: React.FC = () => {
   const { t } = useTranslation('booking');
-  const { values, errors, handleChange } =
+  const { values, errors, handleChange, setFieldValue, submitForm } =
     useFormikContext<AddGuestFormValues>();
+
+  const onClickContinueWithoutEmail = useCallback(() => {
+    setFieldValue('email', '', true);
+    submitForm();
+  }, [setFieldValue, submitForm]);
 
   return (
     <>
@@ -48,7 +53,7 @@ const AddGuestFormEmailWarningStep: React.FC = () => {
           classes={{
             root: 'bs-booking-add-guest-modal__actions__cancel',
           }}
-          type={ButtonType.SUBMIT}
+          onClick={onClickContinueWithoutEmail}
         >
           {t(
             'booking:guest.form.dialog.emailWarning.actions.continueWithoutEmail',

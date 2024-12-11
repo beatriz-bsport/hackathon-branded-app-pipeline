@@ -410,10 +410,22 @@ export const buildDataForUserRegistrationWithMultiSessionsAllowed = (
     data.payment_combo = selectedItem.data.id;
   }
 
-  data.offers = selectedOffers
+  /* 
+  - In the regular flow, multiple offers can be selected and booked simultaneously. We first call `getOfferFeature` 
+    to verify that each offer is bookable before including it in the payload sent to the backend.
+
+  - However, when booking for a guest, only a single offer can be booked at a time. In this specific case, we avoid 
+    calling `getOfferFeature` because the current user has already booked the session earlier in the flow. Consequently, 
+    the offer might no longer be bookable, depending on whether the company allows double booking.
+  */
+  const isBookingForAGuestFlow =
+    !!bookingForGuestValues && selectedOffers.length === 1;
+
+  const bookableOffers = selectedOffers
     ?.filter((_selectedOffer) => !!_selectedOffer)
     .filter(
       (offerData: MultipleOfferSelectedData) =>
+        isBookingForAGuestFlow ||
         getOfferFeature(
           // @ts-expect-error
           offerData.offer,
@@ -421,35 +433,36 @@ export const buildDataForUserRegistrationWithMultiSessionsAllowed = (
           accept_double_booking,
           accept_double_booking_workshop,
         ).isBookable,
-    )
-    .map((offerData: MultipleOfferSelectedData) => {
-      const _data = {
-        offer_id: offerData.offer.id,
-        extra_data: {
-          ...(offerData.extra_data || {}),
-          ...(bookingForGuestValues
-            ? {
-                additional_guest_info: [
-                  {
-                    first_name: bookingForGuestValues.firstName,
-                    last_name: bookingForGuestValues.lastName,
-                    email: bookingForGuestValues.email,
-                    spot_id: selectedSpotsIds[offerData.offer.id] ?? null,
-                    spot_name: selectedSpots[offerData.offer.id] ?? null,
-                  },
-                ],
-                booking_for_member: null,
-                booking_for_invitee_only: true,
-              }
-            : {
-                spot_id: selectedSpotsIds[offerData.offer.id] ?? null,
-                spot_name: selectedSpots[offerData.offer.id] ?? null,
-                booking_for_member: memberBookingId || null,
-              }),
-        },
-      };
-      return _data;
-    });
+    );
+
+  data.offers = bookableOffers.map((offerData: MultipleOfferSelectedData) => {
+    const _data = {
+      offer_id: offerData.offer.id,
+      extra_data: {
+        ...(offerData.extra_data || {}),
+        ...(bookingForGuestValues
+          ? {
+              additional_guest_info: [
+                {
+                  first_name: bookingForGuestValues.firstName,
+                  last_name: bookingForGuestValues.lastName,
+                  email: bookingForGuestValues.email,
+                  spot_id: selectedSpotsIds[offerData.offer.id] ?? null,
+                  spot_name: selectedSpots[offerData.offer.id] ?? null,
+                },
+              ],
+              booking_for_member: null,
+              booking_for_invitee_only: true,
+            }
+          : {
+              spot_id: selectedSpotsIds[offerData.offer.id] ?? null,
+              spot_name: selectedSpots[offerData.offer.id] ?? null,
+              booking_for_member: memberBookingId || null,
+            }),
+      },
+    };
+    return _data;
+  });
 
   data.waiting_list = selectedOffers
     ?.filter((_selectedOffer) => !!_selectedOffer)

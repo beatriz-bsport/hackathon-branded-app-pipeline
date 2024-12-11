@@ -43,11 +43,11 @@ const AddMoreSessionsButton: React.FC<AddMoreSessionsButtonProps> = ({
 
   const doShowButton = React.useMemo(
     () =>
-      (similarOffers &&
+      !isGuestBooking &&
+      ((similarOffers &&
         similarOffers.length > 0 &&
-        !isGuestBooking &&
         doExistBookableSimilarOffers) ||
-      canFetchMoreSimilarOffers,
+        canFetchMoreSimilarOffers),
     [
       similarOffers,
       isGuestBooking,

@@ -7,6 +7,7 @@ export { default as Button } from "./components/Button";
 export { default as Card } from "./components/Card";
 export { default as Checkbox } from "./components/Checkbox";
 export { default as Chip } from "./components/Chip";
+export { default as Collapse } from "./components/Collapse";
 export { default as Divider } from "./components/Divider";
 export { default as FileUpload } from "./components/FileUpload";
 export { default as Icon } from "./components/Icon";

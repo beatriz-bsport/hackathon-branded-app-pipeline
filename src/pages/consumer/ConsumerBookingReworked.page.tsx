@@ -178,13 +178,18 @@ export class ConsumerBooking extends React.Component<Props, State> {
     const bookingsConsumerPackList = uniq(
       bookings.map((booking) => booking.consumer_payment_pack),
     );
-    this.props.fetchOfferBulk(bookingsOfferList, {
-      onSuccess: () => {
-        this.props.fetchRoomBlueprints({
-          establishment__in: bookingsEstablishmentList,
-        });
+    this.props.fetchOfferBulk(
+      bookingsOfferList,
+      {
+        onSuccess: () => {
+          this.props.fetchRoomBlueprints({
+            establishment__in: bookingsEstablishmentList,
+          });
+        },
       },
-    });
+      false,
+      true,
+    );
     this.props.fetchCoachBulk([
       ...bookingsCoachList,
       ...bookingsCoachOverrideList,

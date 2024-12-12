@@ -3,8 +3,9 @@ import { cva, type VariantProps } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import classNames from "classnames";
 import Icon from "#src/components/Icon";
+import Body from "#src/components/Body";
 
-const defaultClasses = ["rounded-circle", "overflow-hidden"] as const;
+const defaultClasses = ["rounded-circle", "overflow-hidden", "w-full"] as const;
 
 const variants = {
   size: {
@@ -35,12 +36,21 @@ function computeProgressValue(value: number) {
   return value ? Math.min(100, Math.max(0, value)) : 0;
 }
 
+function getMessageColor(status: ProgressBarStatuses) {
+  if (status === "positive") return "positive";
+  if (status === "critical") return "critical";
+  return "default";
+}
+
+export type ProgressBarStatuses = keyof typeof statuses;
+
 export type ProgressBarProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof progressBar> & {
     size: keyof typeof sizes;
-    status: keyof typeof statuses;
+    status: ProgressBarStatuses;
     value: number;
     label?: string;
+    message?: string;
   };
 
 /**
@@ -58,6 +68,7 @@ export type ProgressBarProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.size The height of the progress bar. Can be `sm`, `md`, or `lg`.
  * @param props.status The color/status of the progress bar. Can be `main`, `positive`, or `critical`.
  * @param props.label (Optional) A label to display above the progress bar indicating the work in progress.
+ * @param props.message (Optional) A message to display under the progress bar, giving some hints about the result.
  * @param props.value The current progress value, from 0 to 100. If outside the range, it will be rounded to the closest bound.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-progressbar--docs
  */
@@ -67,14 +78,16 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   status,
   value,
   label,
+  message,
   ...props
 }) => {
   const progressValue = computeProgressValue(value);
+  const messageColor = getMessageColor(status);
 
   return (
-    <div>
+    <div className="w-full gap-xs flex flex-col items-start">
       {label && (
-        <div className="flex flex-row items-center gap-2xs mb-sm text-onsurface-weak">
+        <div className="flex flex-row items-center gap-2xs text-onsurface-weak">
           <Icon icon="file-06" size="sm" />
           <span>{label}</span>
         </div>
@@ -102,6 +115,11 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
           style={{ width: `${progressValue}%` }}
         />
       </div>
+      {message && (
+        <Body htmlVariant="p" size="sm" weight="weak" color={messageColor}>
+          {message}
+        </Body>
+      )}
     </div>
   );
 };

@@ -36,6 +36,9 @@ const meta: Meta<typeof ProgressBar> = {
     label: {
       control: { type: "text" },
     },
+    message: {
+      control: { type: "text" },
+    },
   },
 };
 
@@ -80,7 +83,12 @@ export const ProgressBarTransition: Story = {
         value={args.value || animatedValue}
         size={args.size}
         label={args.label}
-        status={args.status}
+        status={animatedValue === 100 ? "positive" : args.status}
+        message={
+          args?.message ||
+          (animatedValue === 100 && "Uploaded successfully !") ||
+          ""
+        }
       />
     );
   },

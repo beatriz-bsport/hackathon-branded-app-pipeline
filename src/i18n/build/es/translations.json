@@ -8672,7 +8672,7 @@
                     },
                     "buttonsLabel": {
                         "bookForAGuest": "Reservar para un invitado",
-                        "joinOnline": "Inscripción en línea",
+                        "joinOnline": "Unirse online",
                         "book": "Reservar",
                         "seeDetails": "Ver detalles",
                         "more": "Más",
@@ -18290,7 +18290,7 @@
                     "isJoinableOnline": "Las reservas pueden unirse en línea",
                     "isBookingCancelled": "Se ha cancelado la reserva",
                     "isBookable": "Se puede reservar",
-                    "isJoinableOnlineDisabled": "El botón \"Unirse en línea\" está desactivado",
+                    "isJoinableOnlineDisabled": "El botón \"Unirse online\" está desactivado",
                     "isBookableDisabled": "El botón \"Reservar\" está desactivado",
                     "isMoreDisabled": "El botón \"Más\" está desactivado",
                     "isDetailsDisabled": "El botón \"Ver detalles\" está desactivado",

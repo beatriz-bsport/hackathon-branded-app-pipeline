@@ -8,6 +8,7 @@ export { default as Card } from "./components/Card";
 export { default as Checkbox } from "./components/Checkbox";
 export { default as Chip } from "./components/Chip";
 export { default as Divider } from "./components/Divider";
+export { default as FileUpload } from "./components/FileUpload";
 export { default as Icon } from "./components/Icon";
 export { default as Indicator } from "./components/Indicator";
 export { default as Link } from "./components/Link";

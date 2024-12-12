@@ -13,6 +13,8 @@ import {
   ConsumerGiftcard,
   GiftcardBackgroundImage,
   GiftcardDataAPI,
+  GiftcardAttributeMemberPayload,
+  GiftcardAttributePrintableCodePayload,
 } from './types';
 
 export const fetchGiftcardList = (
@@ -67,12 +69,30 @@ export const retrieveConsumerGiftcardByActivationCode = (
   );
 };
 
+/**
+ * Link a digital consumer giftcard to a member from an activation link as a member
+ * @param id The uuid of the digital giftcard to activate
+ * @param data
+ */
 export const attributeMember = (
   id: number,
-  data: any,
-): Promise<AxiosResponse<ConsumerGiftcard>> => {
-  return postAuth(
+  data: GiftcardAttributeMemberPayload,
+) => {
+  return postAuth<ConsumerGiftcard>(
     `${API_V1_URI}/giftcard/consumer_giftcard/${id}/attribute_to_member/`,
+    data,
+  );
+};
+
+/**
+ * Link a printable consumer giftcard to a member from a code as a manager
+ * @param data
+ */
+export const attributeByPrintableCode = (
+  data: GiftcardAttributePrintableCodePayload,
+) => {
+  return postAuth<ConsumerGiftcard>(
+    `${API_V1_URI}/giftcard/consumer_giftcard/attribute_by_printable_code/`,
     data,
   );
 };

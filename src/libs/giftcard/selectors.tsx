@@ -27,6 +27,9 @@ export const getGiftcardBackgroundImageListIds = (state: RootState) =>
 export const getConsumerGiftcard = (state: RootState, id: number) =>
   state.giftcard.consumerGiftcard.byId[id];
 
+export const getAttributeByPrintableCodeLoading = (state: RootState) =>
+  state.giftcard.consumerGiftcard.attributeByPrintableCode.loading;
+
 export const getConsumerGiftcardByActivationCode = (
   state: RootState,
   activationCode: string,

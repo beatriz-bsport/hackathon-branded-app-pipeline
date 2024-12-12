@@ -155,6 +155,10 @@ export type GiftcardState = {
       page: number;
       count: number;
     };
+    attributeByPrintableCode: {
+      loading: boolean;
+      error: Error | null;
+    };
   };
   giftcardBackgroundImage: {
     byId: { [id: number]: GiftcardBackgroundImage };

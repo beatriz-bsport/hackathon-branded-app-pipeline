@@ -19,6 +19,7 @@ import {
   fetchConsumerGiftcardList as fetchConsumerGiftcardListAPI,
   retrieveConsumerGiftcard as retrieveConsumerGiftcardAPI,
   attributeMember as attributeMemberAPI,
+  attributeByPrintableCode as attributeByPrintableCodeAPI,
   sendEmailInvitation as sendEmailInvitationAPI,
   fetchGiftcardBackgroundList as fetchGiftcardBackgroundImageListAPI,
   deleteGiftcardBackgroundImage as deleteGiftcardBackgroundImageAPI,
@@ -36,6 +37,7 @@ import {
 import {
   ConsumerGiftcard,
   Giftcard,
+  GiftcardAttributePrintableCodePayload,
   GiftcardBackgroundImage,
   GiftcardDataAPI,
   GiftcardAttributeMemberPayload,
@@ -368,6 +370,11 @@ export const attributeToMemberActions = {
   ),
 };
 
+/**
+ * Link a digital consumer giftcard to a member from an activation link as a member
+ * @param id The uuid of the digital giftcard to activate
+ * @param data
+ */
 export function attributeToMember(
   id: number,
   data: GiftcardAttributeMemberPayload,
@@ -403,6 +410,44 @@ export function attributeToMember(
     }
 
     dispatch(attributeToMemberActions.isLoading(false));
+  };
+}
+
+export const attributeByPrintableCodeActions = {
+  error: createAction<Error | null>(
+    'CONSUMER_GIFTCARD/ATTRIBUTE_BY_PRINTABLE_CODE/ERROR',
+  ),
+  isLoading: createAction<boolean>(
+    'CONSUMER_GIFTCARD/ATTRIBUTE_BY_PRINTABLE_CODE/LOADING',
+  ),
+  success: createAction<ConsumerGiftcard>(
+    'CONSUMER_GIFTCARD/ATTRIBUTE_BY_PRINTABLE_CODE/SUCCESS',
+  ),
+};
+
+/**
+ * Link a printable consumer giftcard to a member from a code as a manager
+ * @param data Payload containing the printable code of the consumer giftcard
+ * @param options
+ */
+export function attributeByPrintableCode(
+  data: GiftcardAttributePrintableCodePayload,
+  options?: OptionCallback<ConsumerGiftcard>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(attributeByPrintableCodeActions.isLoading(true));
+    dispatch(attributeByPrintableCodeActions.error(null));
+    try {
+      const response = await attributeByPrintableCodeAPI(data);
+      dispatch(attributeByPrintableCodeActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(attributeByPrintableCodeActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(attributeByPrintableCodeActions.isLoading(false));
+    }
   };
 }
 

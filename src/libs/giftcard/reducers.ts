@@ -6,6 +6,7 @@ import {
   retrieveGiftcardActions,
   retrieveConsumerGiftcardActions,
   attributeToMemberActions,
+  attributeByPrintableCodeActions,
   listConsumerGiftcardActions,
   listConsumerGiftcardSentActions,
   listConsumerGiftcardReceivedActions,
@@ -62,6 +63,10 @@ const initialState: Immutable.Immutable<GiftcardState> =
         error: null,
         count: 0,
         page: 1,
+      },
+      attributeByPrintableCode: {
+        loading: false,
+        error: null,
       },
     },
     giftcardBackgroundImage: {
@@ -146,6 +151,24 @@ export default handleActions(
     [attributeToMemberActions.success.toString()]: (state, { payload }) => {
       // @ts-expect-error
       return state.setIn(['consumerGiftcard', 'byId', payload.id], payload);
+    },
+    [attributeByPrintableCodeActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['consumerGiftcard', 'attributeByPrintableCode', 'loading'],
+        payload,
+      );
+    },
+    [attributeByPrintableCodeActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['consumerGiftcard', 'attributeByPrintableCode', 'error'],
+        payload,
+      );
     },
     [sendEmailInvitationActions.success.toString()]: (state, { payload }) => {
       // @ts-expect-error

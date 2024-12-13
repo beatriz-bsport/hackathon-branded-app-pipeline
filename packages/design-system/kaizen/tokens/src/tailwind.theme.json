@@ -236,7 +236,8 @@
     "surface-action-default-onstrong-hovered": "rgba(var(--kz-color-surface-action-default-onstrong-hovered))",
     "surface-action-default-onstrong-pressed": "rgba(var(--kz-color-surface-action-default-onstrong-pressed))",
     "surface-action-critical-weak-hovered": "rgba(var(--kz-color-surface-action-critical-weak-hovered))",
-    "surface-action-critical-weak-pressed": "rgba(var(--kz-color-surface-action-critical-weak-pressed))"
+    "surface-action-critical-weak-pressed": "rgba(var(--kz-color-surface-action-critical-weak-pressed))",
+    "surface-default-onstrong": "rgba(var(--kz-color-surface-default-onstrong))"
   },
   "size": {
     "element-2xs": "var(--kz-dimension-element-2xs)",

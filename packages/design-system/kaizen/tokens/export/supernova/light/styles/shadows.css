@@ -3,7 +3,7 @@
   --shadowKzElevationActionDefaultRest: 0px 1px 2px 0px #a3afae40, inset 0px 0px 0px 1px #353c3c26;
   --shadowKzElevationActionDefaultHovered: 0px 2px 6px 0px #a3afae40, inset 0px 0px 0px 1px #353c3c40;
   --shadowKzElevationActionDefaultPressed: 0px 1px 4px -4px #353c3c59, inset 0px 0px 0px 1px #353c3c59;
-  --shadowKzElevationActionDefaultSelected: inset 0px 3px 8px 0px #25948d40;
+  --shadowKzElevationActionDefaultSelected: inset 0px 3px 8px 0px #242929;
   --shadowKzElevationActionCallToActionRest: 0px 1px 2px 0px #365a5840;
   --shadowKzElevationActionCallToActionHovered: 0px 2px 6px 0px #2a8b8580;
   --shadowKzElevationActionCallToActionPressed: 0px 1px 8px -2px #50505014;

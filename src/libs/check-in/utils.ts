@@ -16,7 +16,6 @@ import {
 
 import type { OfferFilter } from '#src/libs/offer/types';
 import type { Establishment } from '#src/libs/establishment/types';
-import type { MemberWithBooking } from '#src/libs/member/types';
 import type { SpotInformation } from '#src/libs/spot-scheduling/types';
 
 // -------------------------FILTER CONFIGURATION-------------------------
@@ -129,17 +128,16 @@ export const isLocalStorageEstablishementListValid = (): boolean => {
 /**
 
 Retrieves the display text for a spot if it exists in the member object.
-@param {MemberWithBooking} member - The member object.
+@param {number} spotId - The spot id.
+@param {SpotInformation} spotInformation - The spot information object with the suffix and the spot name.
 @param {TFunction} t - The translation function.
 @returns {string} The spot display text if it exists, otherwise translated text for a spot unassigned.
 */
 export const getSpotDisplayText = (
-  member: MemberWithBooking,
+  spotId: number,
+  spotInformation: {} | SpotInformation,
   t: TFunction,
 ): string => {
-  const spotId = member?.booking?.spot_id;
-  const spotInformation = member?.booking?.spot_information;
-
   if (!spotId || !spotInformation) {
     return t('confirmPage.spotUnassigned');
   }

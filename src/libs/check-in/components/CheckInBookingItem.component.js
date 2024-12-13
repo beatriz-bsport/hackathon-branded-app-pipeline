@@ -15,6 +15,7 @@ import type { Member } from '../../member/types';
 import type { Offer } from '../../offer/types';
 import { anonymizeEmail, anonymizeName } from '../../member/utils';
 import { getSpotDisplayText } from '../utils';
+import type { Booking } from '#src/libs/booking/types.ts';
 
 type Props = {
   t: TFunction,
@@ -23,17 +24,21 @@ type Props = {
   bookingAttendance: boolean,
   offer: Offer,
   confirmAttendance: () => void,
+  booking: Booking,
 };
 
 export const CheckInBookingItem = (props: Props) => {
-  const { classes, member, t, bookingAttendance, confirmAttendance } = props;
+  const { classes, member, t, bookingAttendance, confirmAttendance, booking } =
+    props;
 
   const secondaryTextEmail = member?.consumer
     ? anonymizeEmail(member.consumer.email)
     : ' - ';
 
   const secondarytextSpot =
-    props?.offer?.room_blueprint && member ? getSpotDisplayText(member, t) : '';
+    props?.offer?.room_blueprint && booking
+      ? getSpotDisplayText(booking.spot_id, booking.spot_information, t)
+      : '';
 
   if (!member) {
     return null;

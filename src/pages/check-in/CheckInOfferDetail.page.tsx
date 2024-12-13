@@ -52,11 +52,7 @@ import {
   getOfferById,
   getRetrieveOfferLoading,
 } from '#src/libs/offer/selectors';
-import {
-  getSearchedMembers,
-  getAllMembers,
-  getMember,
-} from '#src/libs/member/selectors';
+import { getSearchedMembers, getMember } from '#src/libs/member/selectors';
 import {
   getByOfferByMember,
   withPaymentPack as withPaymentPackForConsumer,
@@ -214,7 +210,6 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
       <div className={this.props.classes.container}>
         <CheckInOfferDetail
           barcodeDetectorEnabled={this.props.barcodeDetectorEnabled}
-          // @ts-expect-error TODO - typing
           bookings={this.props.bookings}
           closeBarcode={this.props.closeBarcode}
           coach={this.props.getCoach(
@@ -235,7 +230,6 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
           level={this.props.getLevel(
             this.props.offer?.custom_level ?? this.props.offer?.level,
           )}
-          members={this.props.members || []}
           offer={this.props.offer}
           onAddMember={this.props.openSearchMemberModal}
           onMemberSearched={this.handleMemberSearched}
@@ -357,7 +351,6 @@ const connector = connect(
     theme: state.theme.theme,
     companyCountry: state.theme.theme.locale.split('_')[1],
     offer: getOfferById(state, offerId),
-    members: getAllMembers(state),
     searchedMemberList: getSearchedMembers(state),
     memberBarcodeLoading: state.member.barcode.loading,
     bookings: getOfferBookingListWithConsumerPack(state),

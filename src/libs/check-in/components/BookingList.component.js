@@ -13,6 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 import boop from '../../../sounds/boop.mp3';
 import CheckInBookingItem from './CheckInBookingItem.component';
 import type { Offer } from '../../offer/types';
+import type { Booking } from '#src/libs/booking/types.ts';
 
 const likeAudio = new Audio(boop);
 
@@ -23,7 +24,7 @@ const playSound = (audioFile) => {
 type Props = {
   bookingLoading: boolean,
   offer: Offer,
-  bookings: BookingWithPaymentPack[],
+  bookings: Booking[],
   onAddMember: () => void,
   confirmBookingAttendance: (bookingId: number) => void,
   getMember: (id: number) => Member,
@@ -71,6 +72,7 @@ export const BookingList: React.FC<Props> = ({
         {(bookings || []).map((booking) => (
           <CheckInBookingItem
             key={booking.id}
+            booking={booking}
             bookingAttendance={booking.attendance}
             confirmAttendance={() => {
               playSound(likeAudio);

@@ -31,7 +31,7 @@ import type { WithHandlerType } from '#src/utils/types';
 import type { Establishment } from '#src/libs/establishment/types';
 import type { Level } from '#src/libs/level/types';
 import type { Coach } from '#src/libs/associated-coach/types';
-import type { BookingWithConsumerPaymentPack } from '#src/libs/booking/types';
+import type { Booking } from '#src/libs/booking/types';
 
 const MEMBER_LIST_REFRESH_DURATION = 1000 * 60 * 2;
 
@@ -45,7 +45,7 @@ type OwnProps = {
   establishment: Establishment;
   level: Level;
   coach: Coach;
-  bookings: BookingWithConsumerPaymentPack[];
+  bookings: Booking[];
   isBookingLoading: boolean;
   isOfferLoading: boolean;
   isEstablishmentLoading: boolean;

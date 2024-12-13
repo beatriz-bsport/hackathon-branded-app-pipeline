@@ -235,7 +235,7 @@
   --colorKzColorOnsurfaceStatusWarningWeak: var(--colorKzBaseColorsAuroraOrange600);
   /* Indicate that the element requires caution. Paired with weak surfaces. */
   --colorKzColorOnsurfaceStatusWarningOnstrong: var(--colorKzBaseColorsAuroraOrange0);
-  --colorKzColorShadowActionDefaultSelected: var(--colorKzBaseTransparentBsportTurquoise500);
+  --colorKzColorShadowActionDefaultSelected: var(--colorKzBaseTransparentBsportTurquoise250);
   /* Default colour of elements on default weak actions. */
   --colorKzColorOnsurfaceActionWeakDefault: var(--colorKzBaseColorsLunaGrey700);
   /* Default colour of elements on critical weak actions. */
@@ -284,4 +284,6 @@
   --colorKzColorSurfaceActionCriticalWeakHovered: var(--colorKzBaseTransparentCupidRed40);
   /* Critical colour for strong actionable elements like buttons in resting state. */
   --colorKzColorSurfaceActionCriticalWeakPressed: var(--colorKzBaseTransparentCupidRed150);
+  /* Colour for non-actionable elements, used to create significant contrast. */
+  --colorKzColorSurfaceDefaultOnstrong: var(--colorKzBaseTransparentNixWhite250);
 }

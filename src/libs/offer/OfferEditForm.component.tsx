@@ -439,7 +439,7 @@ const formikFormWrapper = withFormik<
     is_hybrid: !!props.offer?.linked_hybrid_offer_id,
     isCoachOverridePropagate: true,
     isManagerOnly: props.offer?.manager_only,
-    isMetaActivityBroadcast: !!props.offer?.broadcast_link,
+    isMetaActivityBroadcast: !!props.offer?.meta_activity?.is_broadcast,
     isModifyRecursively: false,
     isNotifyConsumers: false,
     isOfferInGroup: props.isOfferInGroup,

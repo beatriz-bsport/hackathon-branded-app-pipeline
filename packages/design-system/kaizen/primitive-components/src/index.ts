@@ -19,6 +19,7 @@ export { default as Modal } from "./components/Modal";
 export { default as Popover } from "./components/Popover";
 export { default as ProgressBar } from "./components/ProgressBar";
 export { default as RadioGroup } from "./components/RadioGroup";
+export { default as Select } from "./components/Select";
 export { default as Tabs } from "./components/Tabs";
 export { default as TextArea } from "./components/TextArea";
 export { default as TextField } from "./components/TextField";

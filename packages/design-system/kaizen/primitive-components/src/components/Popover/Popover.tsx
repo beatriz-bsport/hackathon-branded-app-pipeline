@@ -172,4 +172,6 @@ const Content: React.FC<{
 Popover.Anchor = Anchor;
 Popover.Content = Content;
 
+Popover.displayName = "KaizenPopover";
+
 export default Popover;

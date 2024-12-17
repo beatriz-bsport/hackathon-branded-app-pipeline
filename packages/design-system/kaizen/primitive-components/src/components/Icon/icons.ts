@@ -11,6 +11,9 @@ const icons = {
   "chevron-right": React.lazy(
     async () => await import("./assets/chevron-right.svg?react"),
   ),
+  "chevron-selector-vertical": React.lazy(
+    async () => await import("./assets/chevron-selector-vertical.svg?react"),
+  ),
   "dots-horizontal": React.lazy(
     async () => await import("./assets/dots-horizontal.svg?react"),
   ),

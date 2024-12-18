@@ -12,7 +12,7 @@ import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_SHOP_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 
 export const itemTypeList = {
   [BUYABLE_ITEM_PASS.toString()]: 'pass',

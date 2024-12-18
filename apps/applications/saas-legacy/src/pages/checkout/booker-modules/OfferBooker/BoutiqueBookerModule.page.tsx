@@ -17,16 +17,16 @@ import {
   getAvailableContracts,
   getOfferFeature,
   getMainOfferNotBookableReasonWithTitle,
-} from '@bsport/common/lib/master-data/available-payment';
-import { OFFER_WAITING_LIST_STATUS_CONVERTIBLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+} from '@bsport/common/lib/master-data/available-payment.js';
+import { OFFER_WAITING_LIST_STATUS_CONVERTIBLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import { DateTime } from 'luxon';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { SvgIconComponent } from '@material-ui/icons';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
-import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status.js';
+import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status.js';
 import Alert, { AlertSeverity } from '#src/components/css-only/Alert';
 import type {
   MaxoutData,

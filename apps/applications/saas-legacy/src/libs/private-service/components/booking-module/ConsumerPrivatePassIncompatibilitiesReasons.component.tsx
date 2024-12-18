@@ -4,7 +4,7 @@ import { makeStyles, Typography } from '@material-ui/core';
 import {
   PRIVATE_PASS_CAN_NOT_BOOK_SERVICE_NOT_COMPATIBLE,
   PRIVATE_PASS_CAN_NOT_BOOK_LATER_FIRST_BOOKING,
-} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import { formatAsDate } from '../../../../utils/datetime';

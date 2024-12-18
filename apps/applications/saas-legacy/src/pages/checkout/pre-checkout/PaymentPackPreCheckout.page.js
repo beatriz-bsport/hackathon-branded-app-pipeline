@@ -10,7 +10,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { push, replace as replaceRouter, goBack } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers } from 'recompose';
-import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items.js';
 import InfoIcon from '@material-ui/icons/Info';
 import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import { parseQueryString } from '../../../http';

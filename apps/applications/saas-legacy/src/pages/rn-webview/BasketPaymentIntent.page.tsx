@@ -10,13 +10,13 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import type { Theme } from '@material-ui/core/styles';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
-import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_INTENT_TYPE_BASKET,
   PAYMENT_INTENT_STATUS_SUCCESS,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import {
   checkItemsBasket as checkItemsBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,

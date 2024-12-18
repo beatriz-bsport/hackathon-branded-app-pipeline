@@ -42,7 +42,7 @@ import {
 import { OptionCallback } from '../../state/types';
 
 import { RootState } from '../../reducers';
-import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
 import ConsumerPrintableGiftcardDetails from '#src/libs/giftcard/components/ConsumerPrintableGiftcardDetails.components';
 
 const styles = (theme: Theme) =>

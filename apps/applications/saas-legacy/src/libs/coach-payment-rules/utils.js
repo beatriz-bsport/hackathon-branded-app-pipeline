@@ -4,7 +4,7 @@ import {
   BONUS_COACH_PAYMENT_RULE_EVERY_BOOKING,
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
-} from '@bsport/common/lib/master-data/coach_payment_rule';
+} from '@bsport/common/lib/master-data/coach_payment_rule.js';
 import axios from 'axios';
 
 import type { ImmutableArray } from 'seamless-immutable';

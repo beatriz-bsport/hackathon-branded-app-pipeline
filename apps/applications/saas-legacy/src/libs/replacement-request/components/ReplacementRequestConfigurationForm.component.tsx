@@ -16,7 +16,7 @@ import {
   LATE_REQUEST_LIMITATION_PERIOD_TYPE_WEEK,
   LATE_REQUEST_LIMITATION_PERIOD_TYPE_MONTH,
   LATE_REQUEST_LIMITATION_PERIOD_TYPE_YEAR,
-} from '@bsport/common/lib/master-data/replacement';
+} from '@bsport/common/lib/master-data/replacement.js';
 import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 
 import { ReplacementRequestConfiguration } from '#src/libs/replacement-request/types';

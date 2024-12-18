@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { useTranslation } from 'react-i18next';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar.component';
 import { Video, VideoPurchase } from '../types';
 import { getExpirationDate } from '../utils';

@@ -10,7 +10,7 @@ import '#src/components/css-only/Portals/styles.css';
 import {
   PAYMENT_INTENT_STATUS_SUCCESS,
   PAYMENT_INTENT_TYPE_DEBT,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import { ConsumerProfileContext } from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 
 import type { PaymentEngine } from '#src/libs/payment/types';

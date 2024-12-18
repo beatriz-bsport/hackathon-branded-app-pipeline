@@ -10,11 +10,11 @@ import { offerFactory } from '#src/libs/offer/factories';
 import {
   OFFER_WAITING_LIST_STATUS_OPEN,
   OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS,
-} from '@bsport/common/lib/master-data/waiting-list-status';
+} from '@bsport/common/lib/master-data/waiting-list-status.js';
 import {
   OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
   OFFER_WAITING_LIST_STATUS_FULL,
-} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 
 const fakeCompanyTheme = {
   ...themeFactoryBot.companyTheme.createOne(),

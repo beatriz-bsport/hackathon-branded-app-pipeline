@@ -8,13 +8,13 @@ import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_CANCELLED_BY_OFFER,
-} from '@bsport/common/lib/master-data/booking_status_code';
+} from '@bsport/common/lib/master-data/booking_status_code.js';
 
 import BOOKING_SOURCES, {
   BOOKING_SOURCE_APP,
   BOOKING_SOURCE_WEB,
   BOOKING_SOURCE_SAAS,
-} from '@bsport/common/lib/master-data/booking_source';
+} from '@bsport/common/lib/master-data/booking_source.js';
 import PersonIcon from '@material-ui/icons/Person';
 import PublicIcon from '@material-ui/icons/Public';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';

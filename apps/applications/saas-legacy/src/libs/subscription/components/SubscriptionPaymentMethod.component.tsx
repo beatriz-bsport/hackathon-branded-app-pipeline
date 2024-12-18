@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import {
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_ENGINE_STRIPE,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import PaymentMethodListItem from '../../payment/components/PaymentMethodListItem.component';
 
 import { PaymentMethod } from '../../payment/types';

@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 
 import { Divider, makeStyles } from '@material-ui/core';
-import { CouponKind } from '@bsport/common/lib/master-data/coupon';
+import { CouponKind } from '@bsport/common/lib/master-data/coupon.js';
 import CouponListItem from './CouponListItem.component';
 import CouponTypeFilter from './CouponTypeFilter/CouponTypeFilter.component';
 import { CouponFilterOptions, type Coupon } from '../types';

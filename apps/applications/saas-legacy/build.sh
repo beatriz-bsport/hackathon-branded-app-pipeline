@@ -5,5 +5,5 @@ then
   mv /app/.env.staging /app/.env.production
 fi
 
-yarn build
+pnpm run build
 cp -r /app/build/* /build/

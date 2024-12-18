@@ -22,7 +22,7 @@
     - RETRO_TAG=release-`coreutils --coreutils-prog=date -d ${TODAY} -${RETRO_DURATION} ${RETRO_DURATION_TYPE} +%F`
     - echo "goin back to retro tag ${RETRO_TAG}"
     - git checkout $RETRO_TAG
-    - yarn install --frozen-lockfile # just to be sure
+    - pnpm run install --frozen-lockfile # just to be sure
     - echo "FAILED" > .job_status
     - VERSION=`echo "$(cat ./VERSION)"`
     - export ENVIRONMENT=retro-${RETRO_IDENTIFIER}
@@ -34,8 +34,8 @@
     - echo "\"$VERSION\"" > public/version.json
     - VERSION_SHA="${VERSION}-${CI_COMMIT_SHORT_SHA}"
     - echo "export default '$VERSION_SHA';" > src/release-sha.js
-    - yarn updateTranslation
-    - yarn build
+    - pnpm run updateTranslation
+    - pnpm run build
     - sed -i "s/RETRO_IDENTIFIER/${RETRO_IDENTIFIER}/g" envs/${ENV_TEMPLATE_FILE}
     - mv envs/${ENV_TEMPLATE_FILE} build/env.js
     - export SENTRY_NO_PROGRESS_BAR=1

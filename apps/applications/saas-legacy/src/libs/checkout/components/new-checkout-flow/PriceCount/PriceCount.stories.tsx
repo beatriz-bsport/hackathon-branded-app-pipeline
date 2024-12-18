@@ -8,7 +8,7 @@ import {
   basketFactory,
   checkoutItemFactory,
 } from '#src/libs/checkout/factories';
-import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items';
+import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items.js';
 
 const PriceCountStorybookTemplate: ComponentStory<
   typeof PriceCountStorybook

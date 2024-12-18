@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import {
   UNREAD_COMMUNICATION,
   UNEVEN_INVOICE_ALERT,
-} from '@bsport/common/lib/master-data/alerting_kind';
+} from '@bsport/common/lib/master-data/alerting_kind.js';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import type { RootState } from 'src/reducers';

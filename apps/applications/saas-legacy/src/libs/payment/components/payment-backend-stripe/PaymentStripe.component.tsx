@@ -11,7 +11,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
   PAYMENT_GROUP_METHOD_IDENTIFIER_EPS,
   PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 
 import {
   TermsAndConditionType,

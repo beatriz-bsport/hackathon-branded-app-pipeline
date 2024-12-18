@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';

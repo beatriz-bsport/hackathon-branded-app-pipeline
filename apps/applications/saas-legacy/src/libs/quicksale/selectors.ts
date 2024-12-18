@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
-import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
+import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
 import { getBuyableItem } from '#src/libs/invoice/selectors';
 import shopSelectors, { getAllShopItemData } from '#src/libs/shop/selectors';
 import { getAvailableContractList } from '#src/libs/subscription/selectors';

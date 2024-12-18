@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
+import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
 import {
   QuicksaleConfiguration,
   QuicksaleItem,

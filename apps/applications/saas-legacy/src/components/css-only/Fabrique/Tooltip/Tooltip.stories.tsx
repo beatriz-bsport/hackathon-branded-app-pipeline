@@ -5,7 +5,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import EditIcon from '@material-ui/icons/Edit';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import i18n from 'i18next';
-import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status.js';
 
 import { MuiThemeToCssVarsHOC } from '#src/hocs/marketplace-css.hoc';
 import Button, { ButtonColor, ButtonVariant } from '#Fabrique/Button';

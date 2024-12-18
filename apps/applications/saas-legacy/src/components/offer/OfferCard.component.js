@@ -25,7 +25,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { BOOKING_SOURCE_MIGRATION } from '@bsport/common/lib/master-data/booking_source';
+import { BOOKING_SOURCE_MIGRATION } from '@bsport/common/lib/master-data/booking_source.js';
 
 import { Alert, AlertTitle } from '@material-ui/lab';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';

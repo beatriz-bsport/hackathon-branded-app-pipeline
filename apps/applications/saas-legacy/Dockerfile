@@ -4,8 +4,8 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY package.json .
-COPY yarn.lock .
-RUN yarn install --frozen-lockfile
+COPY pnpm run.lock .
+RUN pnpm run install --frozen-lockfile
 
 FROM 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-frontend:node-18
 WORKDIR /app

@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
+import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization.js';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';

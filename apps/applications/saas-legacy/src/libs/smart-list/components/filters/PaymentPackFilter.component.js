@@ -15,7 +15,7 @@ import { DateTime } from 'luxon';
 import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
-} from '@bsport/common/lib/master-data/smart-list';
+} from '@bsport/common/lib/master-data/smart-list.js';
 import Tooltip from '../../../../components/Tooltip.component';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import type { PaymentPack } from '../../../payment-packs/types';

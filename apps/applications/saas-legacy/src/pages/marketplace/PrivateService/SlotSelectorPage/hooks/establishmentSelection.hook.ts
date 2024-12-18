@@ -3,7 +3,7 @@ import { SlotSelectorContext } from '#src/pages/marketplace/PrivateService/SlotS
 import useAvailabilityByEstablishmentIdAndCoachId from './availabilityByEstablishmentIdAndCoachId.hook';
 
 import type { Establishment } from '#src/libs/establishment/types';
-import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods';
+import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods.js';
 import { SlotSelectorStoreContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelectorStore.context';
 
 /**

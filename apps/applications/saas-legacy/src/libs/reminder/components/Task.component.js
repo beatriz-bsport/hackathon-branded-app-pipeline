@@ -21,7 +21,7 @@ import {
   TASK_STATUS_UNSTARTED,
   TASK_STATUS_FINISHED,
   TASK_STATUS_CANCELLED,
-} from '@bsport/common/lib/master-data/tasks';
+} from '@bsport/common/lib/master-data/tasks.js';
 
 import { DateTime } from 'luxon';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';

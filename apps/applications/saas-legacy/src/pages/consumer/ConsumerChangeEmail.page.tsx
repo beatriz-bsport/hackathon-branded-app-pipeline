@@ -9,7 +9,7 @@ import {
   CHANGE_EMAIL_REQUEST_LINK_ACCOUNT_KIND,
   CHANGE_EMAIL_REQUEST_SIMPLE_EMAIL_CONFIRMATION_KIND,
   CHANGE_MEMBER_EMAIL_PENDING_STATUS,
-} from '@bsport/common/lib/master-data/change-email-request';
+} from '@bsport/common/lib/master-data/change-email-request.js';
 import {
   getMembership,
   _getConsumerMembershipIds,

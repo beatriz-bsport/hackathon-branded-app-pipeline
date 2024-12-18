@@ -7,7 +7,7 @@ It is completed by bsport-mobile which is the repo of our mobile app, and bsport
 First install the dependencies :
 
 ```sh
-yarn # shortcut to yarn install
+pnpm run # shortcut to pnpm run install
 ```
 
 You can now run the frontend cf next section
@@ -19,19 +19,19 @@ To bootstrap the local backend, follow instructions in the README of https://git
 When you are ready you can start with :
 
 ```sh
-yarn start
+pnpm run start
 ```
 
 ## Running with the staging backend
 
 ```sh
-yarn start-staging
+pnpm run start-staging
 ```
 
 Under the hood what it does is basically :
 
 ```sh
-yarn start
+pnpm run start
 cp envs/staging public/env.js
 ```
 
@@ -44,7 +44,7 @@ Add your key (argument of `t`) in the right i18n/af/ file (file ~ t namespace, s
 You now want to update the translation of other language (dont worry you dont have to translate it) with :
 
 ```sh
-yarn updateTranslation
+pnpm run updateTranslation
 ```
 
 It will add uncommited changes to some "built" files
@@ -449,4 +449,4 @@ the alias need to respect some convention use a # as a prefix to make it clear i
    env.I18N_TRANSLATION_DOMAIN = '<step_4_url>';
    ```
 
-6. Restart yarn, and navigate to step 4 url on your device. You’re all set !
+6. Restart pnpm run, and navigate to step 4 url on your device. You’re all set !

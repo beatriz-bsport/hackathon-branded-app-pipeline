@@ -33,7 +33,7 @@ import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_CANCELLED_BY_OFFER,
-} from '@bsport/common/lib/master-data/booking_status_code';
+} from '@bsport/common/lib/master-data/booking_status_code.js';
 import type { LuxonDateTime } from '#src/types';
 
 import { hasUpsell } from '#src/libs/platform-billing/utils';

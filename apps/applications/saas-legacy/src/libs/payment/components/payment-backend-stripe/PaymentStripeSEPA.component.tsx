@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 /**
  * Use the CSS tab above to style your Element's container.
  */
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group.js';
 import { useStripe, useElements, IbanElement } from '@stripe/react-stripe-js';
 import { StripeError } from '@stripe/stripe-js';
 

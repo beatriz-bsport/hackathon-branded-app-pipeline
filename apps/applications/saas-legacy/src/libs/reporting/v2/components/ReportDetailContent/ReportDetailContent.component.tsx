@@ -34,7 +34,7 @@ import type {
 import type { OptionCallback } from '#src/state/types';
 import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import { CREDIT_COLUMNS } from '#src/libs/reporting/common/constants';
 import { getCreditFactor } from '#src/libs/theme/selectors';
 import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';

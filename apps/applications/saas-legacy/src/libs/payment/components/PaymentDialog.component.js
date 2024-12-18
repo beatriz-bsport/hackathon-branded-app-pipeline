@@ -19,7 +19,7 @@ import {
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_INTENT_STATUS_SUCCESS,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import PaymentStripeTerminal from '#src/libs/terminal/components/PaymentStripeTerminal.component';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#src/libs/payment/utils';
 import type { StripeReader } from '#src/libs/terminal/types';

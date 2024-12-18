@@ -9,8 +9,8 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import clx from 'classnames';
-import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import { DateTime } from 'luxon';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 

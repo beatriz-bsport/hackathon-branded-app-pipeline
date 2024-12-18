@@ -54,7 +54,7 @@ import type {
   ReportMetadataValue,
 } from '#src/libs/reporting/common/types';
 import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 
 type Props = {
   categoryName: ReportCategoryEnum;

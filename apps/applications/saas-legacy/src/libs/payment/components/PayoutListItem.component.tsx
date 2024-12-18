@@ -20,7 +20,7 @@ import {
   PAYOUT_STATUS_FAILED,
   PAYOUT_STATUS_SUCCESS,
   PAYOUT_STATUS_TRANSIT,
-} from '@bsport/common/lib/master-data/payout-status';
+} from '@bsport/common/lib/master-data/payout-status.js';
 
 import { DateTime } from 'luxon';
 import CustomMuiDialog from '#src/components/genericDialog/CustomMuiDialog.component';

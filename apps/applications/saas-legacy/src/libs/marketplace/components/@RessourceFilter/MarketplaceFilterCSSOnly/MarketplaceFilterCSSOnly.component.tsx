@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
 
 import { withTheme } from '@material-ui/styles';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
 import { Level } from '#src/libs/level/types';
 import { getLevelColor, getLevelTranslation } from '#src/libs/level/utils';
 import { getGroupedEstablishmentOptions } from '#src/libs/establishment/components/EstablishmentSelector.component';

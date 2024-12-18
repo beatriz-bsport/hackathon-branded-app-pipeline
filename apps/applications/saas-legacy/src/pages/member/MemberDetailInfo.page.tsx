@@ -6,9 +6,9 @@ import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withProps } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
-import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT } from '@bsport/common/lib/master-data/payment-group';
+import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag.js';
+import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils.js';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT } from '@bsport/common/lib/master-data/payment-group.js';
 
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 // @ts-expect-error

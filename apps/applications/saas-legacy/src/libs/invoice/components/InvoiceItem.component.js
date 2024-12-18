@@ -12,7 +12,7 @@ import { getShopItemName } from '../../shop/utils';
 
 import classNames from 'classnames';
 import { AttachFile } from '@material-ui/icons';
-import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
 
 type Props = {
   invoiceItem: InvoiceItem,

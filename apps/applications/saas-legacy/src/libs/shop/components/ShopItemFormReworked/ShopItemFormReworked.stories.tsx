@@ -5,7 +5,7 @@ import withFormik from '@bbbtech/storybook-formik';
 import {
   CB,
   CREDIT_ACCOUNT,
-} from '@bsport/common/lib/master-data/payment-methods';
+} from '@bsport/common/lib/master-data/payment-methods.js';
 
 import ShopItemFormReworked from './ShopItemFormReworked.component';
 

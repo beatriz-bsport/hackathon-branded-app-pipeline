@@ -15,7 +15,7 @@ import { CircularProgress, Theme, Typography } from '@material-ui/core';
 import { push as pushRouter, replace } from 'connected-react-router';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import WarningIcon from '@material-ui/icons/Warning';
-import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
 import themeSelectors from '#src/libs/theme/selectors';
 import { snackbarSuccess } from '#src/libs/snackbar/actions';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';

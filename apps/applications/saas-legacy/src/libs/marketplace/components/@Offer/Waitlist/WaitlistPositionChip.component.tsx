@@ -3,7 +3,7 @@ import Chip from '#src/components/css-only/Chip';
 import HourglassEmptyOutlined from '@material-ui/icons/HourglassEmptyOutlined';
 import HourglassFullOutlined from '@material-ui/icons/HourglassFullOutlined';
 import { useTranslation } from 'react-i18next';
-import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 
 type Props = {
   classes?: { [key: string]: string | boolean };

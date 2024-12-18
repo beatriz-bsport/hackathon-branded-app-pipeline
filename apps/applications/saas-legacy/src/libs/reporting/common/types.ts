@@ -1,4 +1,4 @@
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import { ErrorAndLoading, PaginationFilterParams } from '#src/libs/types';
 
 import type {

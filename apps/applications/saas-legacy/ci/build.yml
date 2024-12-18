@@ -5,7 +5,7 @@
     max: 2
   script:
     - mv /app/node_modules .
-    - yarn install --frozen-lockfile # just to be sure
+    - pnpm run install --frozen-lockfile # just to be sure
     - echo "FAILED" > .job_status
     - VERSION=`echo "$(cat ./VERSION)"`
     - echo "Preparing VERSION:${VERSION} on ${ENVIRONMENT}"
@@ -14,8 +14,8 @@
     - echo "\"$VERSION\"" > public/version.json
     - VERSION_SHA="${VERSION}-${CI_COMMIT_SHORT_SHA}"
     - echo "export default '$VERSION_SHA';" > src/release-sha.js
-    - yarn updateTranslation
-    - yarn build
+    - pnpm run updateTranslation
+    - pnpm run build
     - mv envs/$ENVIRONMENT build/env.js
     - export SENTRY_NO_PROGRESS_BAR=1
     - ./scripts/prepare-sentry-release.sh $VERSION_SHA $FRONTEND_URL
@@ -148,7 +148,7 @@ Build Deploy Dev:
   stage: build-deploy-feature-branch
   script:
     - mv /app/node_modules .
-    - yarn install --frozen-lockfile # just to be sure
+    - pnpm run install --frozen-lockfile # just to be sure
     - echo "FAILED" > .job_status
     - VERSION=`echo "$(cat ./VERSION)"`
     - export FEATURE_BRANCH_IDENTIFIER=`echo $CI_COMMIT_TAG | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}\([[:alnum:]_-]\+\).*/\2/p'`
@@ -162,8 +162,8 @@ Build Deploy Dev:
     - echo "\"$VERSION\"" > public/version.json
     - VERSION_SHA="${VERSION}-${CI_COMMIT_SHORT_SHA}"
     - echo "export default '$VERSION_SHA';" > src/release-sha.js
-    - yarn updateTranslation
-    - yarn build
+    - pnpm run updateTranslation
+    - pnpm run build
     - sed -i "s/FEATURE_BRANCH_IDENTIFIER/${FEATURE_BRANCH_IDENTIFIER}/g" envs/${ENV_TEMPLATE_FILE}
     - mv envs/${ENV_TEMPLATE_FILE} build/env.js
     - export SENTRY_NO_PROGRESS_BAR=1

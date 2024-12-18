@@ -121,8 +121,10 @@ i.UnPaid {
   .fc-center h2 {
     font-size: 1.25em;
   }
-  display: block;
-  text-align: center;
+  & {
+    display: block;
+    text-align: center;
+  }
   @media (min-width: 600px) {
     display: flex;
   }

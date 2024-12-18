@@ -16,7 +16,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider.js';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 // @ts-expect-error
 import SCT from '../../category/components/SCT.component';

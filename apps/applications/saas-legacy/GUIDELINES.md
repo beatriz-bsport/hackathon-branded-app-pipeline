@@ -28,7 +28,7 @@ Technology
 
 Packages used
 -------------
-* **yarn** for package management
+* **pnpm** for package management
   * version sould be >=1.12.1 
 * **flow** All new components must implement https://flow.org/ declaration
   * easier for future developers to understand your API

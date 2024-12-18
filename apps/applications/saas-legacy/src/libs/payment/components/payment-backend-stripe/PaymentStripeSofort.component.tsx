@@ -10,7 +10,7 @@ import TextInput from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import { useStripe, useElements } from '@stripe/react-stripe-js';
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT } from '@bsport/common/lib/master-data/payment-group';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT } from '@bsport/common/lib/master-data/payment-group.js';
 import { saveQueryParamInLocalStorage } from '#src/libs/utils';
 import {
   USER_REGISTRATION_RESPONSE_QUERY_PARAM,

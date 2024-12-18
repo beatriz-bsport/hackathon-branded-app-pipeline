@@ -26,9 +26,9 @@ import {
   getOfferFeature,
   getMainOfferNotBookableReason,
   getCanIBook,
-} from '@bsport/common/lib/master-data/available-payment';
-import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
-import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
+} from '@bsport/common/lib/master-data/available-payment.js';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status.js';
+import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic.js';
 // @ts-expect-error
 import withQueryParams from '#src/hocs/with-query-params.hoc';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';

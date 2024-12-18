@@ -2,7 +2,7 @@ import { ErrorAndLoading, PaginationFilterParams } from '#src/libs/types';
 import { Member } from '../member/types';
 import { DateTime } from 'luxon';
 
-import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
 
 export type Giftcard = {
   id: number;

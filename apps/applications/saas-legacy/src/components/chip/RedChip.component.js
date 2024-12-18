@@ -4,7 +4,7 @@ import React, { Node } from 'react';
 import Chip from '@material-ui/core/Chip';
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
-import { colors } from '@bsport/common/lib/colors';
+import { colors } from '@bsport/common/lib/colors.js';
 
 const redTheme = createTheme({
   palette: {

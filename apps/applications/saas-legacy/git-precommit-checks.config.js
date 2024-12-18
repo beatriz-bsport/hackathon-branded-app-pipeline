@@ -62,7 +62,7 @@ module.exports = {
     },
     {
       filter: /\.(js|ts|tsx|jsx)$/,
-      message: '😫 Always import from @bsport/common/lib',
+      message: '😫 Always import from @bsport/common/lib.js',
       regex: /@bsport\/common\/src/,
     },
     {

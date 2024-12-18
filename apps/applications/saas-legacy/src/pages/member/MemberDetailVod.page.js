@@ -12,7 +12,7 @@ import Alert from '@material-ui/lab/Alert/Alert';
 import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
-} from '@bsport/common/lib/master-data/buyable-items';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 import themeSelectors from '../../libs/theme/selectors';
 import { getMember } from '../../libs/member/selectors';

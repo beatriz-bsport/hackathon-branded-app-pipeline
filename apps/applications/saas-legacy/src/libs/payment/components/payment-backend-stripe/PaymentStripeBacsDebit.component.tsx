@@ -20,7 +20,7 @@ import Info from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 import { ButtonBase, Checkbox } from '@material-ui/core';
 
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT } from '@bsport/common/lib/master-data/payment-group';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT } from '@bsport/common/lib/master-data/payment-group.js';
 import {
   blockPendingBasket as blockPendingBasketAPI,
   confirmPaymentByPaymentMethodId as confirmPaymentByPaymentMethodIdAPI,

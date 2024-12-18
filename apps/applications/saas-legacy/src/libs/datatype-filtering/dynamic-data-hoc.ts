@@ -68,7 +68,7 @@ import { OptionTypeBase } from '#src/components/Selector/MaterialUISelector.comp
 import { getFranchiseCompanies } from '../franchise/selectors';
 import { ReportFilterableDataType } from './constants';
 import type { RootState } from '#src/reducers';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import {
   REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS,
   REPORT_CATEGORIES_WITH_DISABLED_PAYMENT_PACK,

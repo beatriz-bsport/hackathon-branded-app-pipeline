@@ -1,4 +1,4 @@
-import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
+import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
 import chroma from 'chroma-js';
 import { TFunction } from 'i18next';
 

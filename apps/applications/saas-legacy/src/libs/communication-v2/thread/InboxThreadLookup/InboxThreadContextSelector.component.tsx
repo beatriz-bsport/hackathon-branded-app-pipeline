@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import { Button, Typography, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 
 type Props = {
   handleContextThreadChange: (context: ChatThreadKinds) => void;

@@ -9,7 +9,7 @@ const getTranslations = async () => {
     REFERRAL_PROGRAM_DEACTIVATED,
     WRONG_APPLICATION_TIME_LIMIT_UNIT,
   } = await import(
-    '@bsport/common/lib/master-data/referral-exception-error-code'
+    '@bsport/common/lib/master-data/referral-exception-error-code.js'
   );
 
   return {

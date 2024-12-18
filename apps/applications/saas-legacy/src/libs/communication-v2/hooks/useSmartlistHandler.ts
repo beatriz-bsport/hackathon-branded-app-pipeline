@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 
 import { SmartListSelectOption } from '../types';
 

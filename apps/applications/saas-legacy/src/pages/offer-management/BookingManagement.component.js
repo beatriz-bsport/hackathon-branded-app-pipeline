@@ -23,12 +23,12 @@ import SendIcon from '@material-ui/icons/Send';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 import {
   BOOKING_DATE_ORDER,
   BOOKING_FIRSTNAME_ORDER,
   BOOKING_LASTNAME_ORDER,
-} from '@bsport/common/lib/master-data/settings';
+} from '@bsport/common/lib/master-data/settings.js';
 import {
   ButtonBase,
   DialogContent,

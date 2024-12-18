@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Theme, makeStyles } from '@material-ui/core';
 
-import { GTE_COMPARATOR } from '@bsport/common/lib/master-data/smart-list';
+import { GTE_COMPARATOR } from '@bsport/common/lib/master-data/smart-list.js';
 import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 import { DisableInputComponent, NumbersComparatorInput } from './inputs';
 

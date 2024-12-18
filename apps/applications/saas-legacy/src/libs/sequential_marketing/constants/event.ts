@@ -20,7 +20,7 @@ import {
   EVENT_BILLING_PLAN_PAUSE,
   EVENT_BILLING_PLAN_STOP,
   EVENT_BILLING_PLAN_RENEW,
-} from '@bsport/common/lib/master-data/events';
+} from '@bsport/common/lib/master-data/events.js';
 
 export enum Events {
   // PURCHASE

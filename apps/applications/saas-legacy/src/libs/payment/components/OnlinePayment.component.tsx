@@ -4,7 +4,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET,
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_ENGINE_PAYPAL,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';

@@ -11,7 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
-import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items';
+import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items.js';
 
 import EstablishmentBillingGroupSelector from '#src/libs/establishment/components/EstablishmentBillingGroupSelector';
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';

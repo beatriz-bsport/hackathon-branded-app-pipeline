@@ -3,15 +3,15 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 
-import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import {
   LOCK_ACQUISITION_FAILURE_GENERIC,
   LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
-} from '@bsport/common/lib/master-data/error-codes/lock';
+} from '@bsport/common/lib/master-data/error-codes/lock.js';
 
-import { UNEVEN_INVOICE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
+import { UNEVEN_INVOICE_ALERT } from '@bsport/common/lib/master-data/alerting_kind.js';
 import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#src/libs/role/constants';

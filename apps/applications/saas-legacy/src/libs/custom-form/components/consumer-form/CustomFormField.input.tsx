@@ -23,7 +23,7 @@ import {
   CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
   CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
   CUSTOM_FORM_FIELD_LOCATION_OPTION,
-} from '@bsport/common/lib/master-data/custom-form';
+} from '@bsport/common/lib/master-data/custom-form.js';
 import FabriqueTitle from '#Fabrique/Temporary/Title';
 import FabriqueParagraph from '#Fabrique/Temporary/Paragraph';
 import FabriqueTextfield from '#Fabrique/Temporary/Textfield';

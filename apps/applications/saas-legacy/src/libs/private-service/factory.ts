@@ -1,6 +1,6 @@
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { CB } from '@bsport/common/lib/master-data/payment-methods';
+import { CB } from '@bsport/common/lib/master-data/payment-methods.js';
 
 import { coachesFactory } from '#src/libs/associated-coach/factories';
 

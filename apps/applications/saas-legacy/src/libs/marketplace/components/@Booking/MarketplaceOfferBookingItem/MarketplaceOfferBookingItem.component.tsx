@@ -20,7 +20,7 @@ import {
 } from '#src/libs/marketplace/utils/offer';
 import MarketplaceOfferBookingItemSkeleton from './MarketplaceOfferBookingItemSkeleton.component';
 import MarketplaceBookingItem from '../MarketplaceBookingItem';
-import { OFFER_BOOKABLE_STATUS_FULL } from '@bsport/common/lib/master-data/bookable-status';
+import { OFFER_BOOKABLE_STATUS_FULL } from '@bsport/common/lib/master-data/bookable-status.js';
 
 export type Props = {
   offer: OfferWithSpotInformation;

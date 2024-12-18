@@ -16,14 +16,14 @@ import {
   INVOICE_TYPE_REGULAR,
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER as INVOICE_TYPE_RECEIPT,
   INVOICE_TYPE_REVERSE,
-} from '@bsport/common/lib/master-data/invoice-type';
-import { DISPUTE as PAYMENT_METHOD_DISPUTE } from '@bsport/common/lib/master-data/payment-methods';
-import { PAYMENT_ENGINE_BSPORT } from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/invoice-type.js';
+import { DISPUTE as PAYMENT_METHOD_DISPUTE } from '@bsport/common/lib/master-data/payment-methods.js';
+import { PAYMENT_ENGINE_BSPORT } from '@bsport/common/lib/master-data/payment-group.js';
 import {
   PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
   PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
   PLANNED_PAYMENT_EVENT_STATUS_ERROR,
-} from '@bsport/common/lib/master-data/planned-payment-event';
+} from '@bsport/common/lib/master-data/planned-payment-event.js';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { Payment } from '#src/libs/payment/types';
 import type { ConsumerGiftcard, Giftcard } from '#src/libs/giftcard/types';

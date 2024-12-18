@@ -9,11 +9,11 @@ import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
-} from '@bsport/common/lib/master-data/communication-kind';
+} from '@bsport/common/lib/master-data/communication-kind.js';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
-import { colors } from '@bsport/common/lib/colors';
+import { colors } from '@bsport/common/lib/colors.js';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -28,7 +28,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import Alert from '@material-ui/lab/Alert';
-import { SEND_COMMUNICATION_ON_JOIN } from '@bsport/common/lib/master-data/smart-list';
+import { SEND_COMMUNICATION_ON_JOIN } from '@bsport/common/lib/master-data/smart-list.js';
 import classNames from 'classnames';
 import Select from 'react-select';
 import type { ValueType } from 'react-select/lib/types';

@@ -2,7 +2,7 @@ import React from 'react';
 import { Checkbox, Chip, MenuItem } from '@material-ui/core';
 import { isColumnChipsable } from '#src/libs/reporting/common/utils';
 import ReportCellRenderer from '#src/libs/reporting/common/components/ReportCellRenderer.component';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 
 type ItemProps = {
   children: string;

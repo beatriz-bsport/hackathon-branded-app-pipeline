@@ -7,7 +7,7 @@ import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_SHOP_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 import { useFormikContext } from 'formik';
 import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';

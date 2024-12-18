@@ -14,7 +14,7 @@ module.exports = {
   },
   transformIgnorePatterns: [
     // Ignore all node_modules except @bsport/common and uuid
-    'node_modules/(?!(@bsport|uuid)/)',
+    '<rootDir>/node_modules/(?!(@bsport/common|uuid)/)',
   ],
 
   moduleNameMapper: {

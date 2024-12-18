@@ -14,7 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
-} from '@bsport/common/lib/master-data/smart-list';
+} from '@bsport/common/lib/master-data/smart-list.js';
 import { getLevelTranslation } from '#src/libs/level/utils';
 import { Level } from '#src/libs/level/types';
 import CheckboxSelector from '../CheckboxSelector.component';

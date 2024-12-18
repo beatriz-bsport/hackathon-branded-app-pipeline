@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { compose } from 'recompose';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import { connect, type ConnectedProps } from 'react-redux';
 import InboxThreadContainer from '#src/libs/communication-v2/thread/InboxThreadContainer/InboxThreadContainer.component';
 

@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import {
   COMMUNICATION_KIND,
   INBOX_THREAD_PAGE_SIZE,

@@ -22,7 +22,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import { RoleType } from '@bsport/common/lib/master-data/user-role';
+import { RoleType } from '@bsport/common/lib/master-data/user-role.js';
 
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 

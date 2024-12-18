@@ -7,8 +7,8 @@ import {
   PaymentMetadataIdentifierEnum,
   ReferralGrantMetadataIdentifierEnum,
   UnpaidInvoiceMetadataIdentifierEnum,
-} from '@bsport/common/lib/master-data/metadata-identifiers';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+} from '@bsport/common/lib/master-data/metadata-identifiers.js';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import { BuyableItemOptions } from '#src/libs/checkout/types';
 import type {
   DynamicFilterDataType,

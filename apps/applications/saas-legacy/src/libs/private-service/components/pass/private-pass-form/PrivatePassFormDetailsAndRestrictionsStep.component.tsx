@@ -30,13 +30,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
-} from '@bsport/common/lib/master-data/payment-pack';
+} from '@bsport/common/lib/master-data/payment-pack.js';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import List from '@material-ui/core/List';
 import { useFormikContext, type FormikProps, FieldArray } from 'formik';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import { DateTime } from 'luxon';
-import { CB } from '@bsport/common/lib/master-data/payment-methods';
+import { CB } from '@bsport/common/lib/master-data/payment-methods.js';
 import { FormikValues } from './PrivatePassForm.component';
 import TagSelector from '#src/libs/tag/components/TagSelector.selector';
 import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';

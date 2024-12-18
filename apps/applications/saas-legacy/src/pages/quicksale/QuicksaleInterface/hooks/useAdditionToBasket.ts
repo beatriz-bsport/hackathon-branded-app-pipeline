@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
+import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
 
 import type {
   AddItemToBasketParams,

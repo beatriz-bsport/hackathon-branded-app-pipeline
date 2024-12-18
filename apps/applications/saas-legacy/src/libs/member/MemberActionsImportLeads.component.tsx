@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState, memo } from 'react';
-import { LEAD_MANAGEMENT_IMPORT_LOCK_ACQUISITION_ERROR } from '@bsport/common/lib/master-data/error-codes/member';
+import { LEAD_MANAGEMENT_IMPORT_LOCK_ACQUISITION_ERROR } from '@bsport/common/lib/master-data/error-codes/member.js';
 
 import { useTranslation } from 'react-i18next';
 

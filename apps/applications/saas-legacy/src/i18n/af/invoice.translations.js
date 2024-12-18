@@ -7,7 +7,7 @@ const getTranslations = async () => {
     INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
     INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER,
     INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT,
-  } = await import('@bsport/common/lib/master-data/error-codes/payment');
+  } = await import('@bsport/common/lib/master-data/error-codes/payment.js');
   const {
     BUYABLE_ITEM_PASS,
     BUYABLE_ITEM_SHOP_ITEM,

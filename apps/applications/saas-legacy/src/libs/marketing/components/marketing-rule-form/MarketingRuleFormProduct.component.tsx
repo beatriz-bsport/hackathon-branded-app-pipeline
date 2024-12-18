@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
 import InfoIcon from '@material-ui/icons/Info';
-import { PAYMENT_PACK_EVENT_RULE } from '@bsport/common/lib/master-data/notification-rule-events';
+import { PAYMENT_PACK_EVENT_RULE } from '@bsport/common/lib/master-data/notification-rule-events.js';
 import { Divider, FormHelperText, Switch } from '@material-ui/core';
 import {
   TextField,

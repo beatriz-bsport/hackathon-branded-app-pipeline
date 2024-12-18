@@ -7,8 +7,8 @@ import Hidden from '@material-ui/core/Hidden';
 import PlaceIcon from '@material-ui/icons/Place';
 import PersonIcon from '@material-ui/icons/Person';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
 import { Coach } from '#src/libs/associated-coach/types';
 import { MaterialStyleType } from '../../../utils/types';
 

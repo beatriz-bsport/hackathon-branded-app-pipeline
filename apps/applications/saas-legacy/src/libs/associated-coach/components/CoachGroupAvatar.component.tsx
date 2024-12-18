@@ -6,8 +6,8 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
 import Tooltip from '#src/components/Tooltip.component';
 import CoachChip from './CoachChip.component';
 import type { Coach } from '../types';

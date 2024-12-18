@@ -3,8 +3,8 @@ import { createAction } from 'redux-actions';
 
 import uniq from 'lodash/uniq';
 import { ThunkDispatch } from 'redux-thunk';
-import { COACH_EMAIL_ADDRESS_EXISTS } from '@bsport/common/lib/master-data/error-codes/associated-coach';
-import { REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME } from '@bsport/common/lib/master-data/error-codes/replacement';
+import { COACH_EMAIL_ADDRESS_EXISTS } from '@bsport/common/lib/master-data/error-codes/associated-coach.js';
+import { REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME } from '@bsport/common/lib/master-data/error-codes/replacement.js';
 import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 import {
   updateCoach as updateCoachAPI,

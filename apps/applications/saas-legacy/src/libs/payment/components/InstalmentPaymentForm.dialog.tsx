@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import { Form } from 'formik';
 import Immutable from 'seamless-immutable';
 // @ts-expect-error

@@ -7,7 +7,7 @@ import { withFormik, type FormikProps, Form } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group.js';
 import PaymentMethodMultiSelector from '#src/libs/payment/components/PaymentMethodMultiSelector.component';
 import NumericInput from '#src/components/input/NumericInput.component';
 import { addOrRemove } from './utils';

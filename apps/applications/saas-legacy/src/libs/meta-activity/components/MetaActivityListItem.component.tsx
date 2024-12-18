@@ -11,7 +11,7 @@ import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import IconButton from '@material-ui/core/IconButton';
-import SPORTS from '@bsport/common/lib/master-data/sports';
+import SPORTS from '@bsport/common/lib/master-data/sports.js';
 
 import { DraggableSyntheticListeners } from '@dnd-kit/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';

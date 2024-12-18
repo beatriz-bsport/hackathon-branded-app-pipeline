@@ -10,7 +10,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import {
   CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
-} from '@bsport/common/lib/master-data/custom-form';
+} from '@bsport/common/lib/master-data/custom-form.js';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';

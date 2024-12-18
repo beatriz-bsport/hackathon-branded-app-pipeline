@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 import KeyboardTabIcon from '@material-ui/icons/KeyboardTab';
 
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import type { Member } from '#src/libs/member/types';
 import type { Tag, TagGroup } from '#src/libs/tag/types';
 import type { SmartList } from '#src/libs/smart-list/types';

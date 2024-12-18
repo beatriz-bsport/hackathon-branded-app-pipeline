@@ -13,7 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
-} from '@bsport/common/lib/master-data/smart-list';
+} from '@bsport/common/lib/master-data/smart-list.js';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import CalendarPicker from '../CalendarPicker.component';
 import Selector from '../MultiSelector.component';

@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status';
+import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status.js';
 import { DateTime } from 'luxon';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
 import type { StripeReader } from '#src/libs/terminal/types';

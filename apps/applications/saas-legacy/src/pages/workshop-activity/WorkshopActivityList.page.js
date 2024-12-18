@@ -9,7 +9,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withHandlers, withState, withStateHandlers } from 'recompose';

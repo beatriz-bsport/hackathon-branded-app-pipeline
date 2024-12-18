@@ -15,7 +15,7 @@ import { alpha } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withTranslation, TFunction } from 'react-i18next';
-import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items.js';
 import PrivateServiceIneligibleBanner from '#src/libs/private-service/components/service/PrivateServiceIneligibleBanner.component';
 
 import {

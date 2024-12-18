@@ -9,8 +9,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
 import Level from '#src/libs/level/components/Level.component';
 import Avatar from '../Avatar.component';
 

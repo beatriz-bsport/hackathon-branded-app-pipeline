@@ -14,7 +14,7 @@ import { PrivatePass } from '#src/libs/private-service/types';
 import { privatePassListFactory } from '#src/libs/private-service/factory';
 import { paymentComboListFactory } from '#src/libs/payment-combo/factory';
 import { PaymentCombo } from '#src/libs/payment-combo/types';
-import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items.js';
 import { UniqueCodeCouponCreationPayload } from '#src/libs/coupon/types';
 
 const actionsData = {

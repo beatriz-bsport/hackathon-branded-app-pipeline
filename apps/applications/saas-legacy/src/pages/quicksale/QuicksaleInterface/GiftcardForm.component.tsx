@@ -4,7 +4,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
 
-import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
+import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
 
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import ConsumerGiftcardFormWithPreview from '#src/libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';

@@ -8,7 +8,7 @@ import {
   BUYABLE_ITEM_COUPON as COUPON,
   BUYABLE_ITEM_CREDIT as CREDIT,
   BUYABLE_ITEM_GIFTCARD as GIFTCARD,
-} from '@bsport/common/lib/master-data/buyable-items';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 import { AdditionalGuest } from '#src/libs/booker-module/types';
 
 export type AddItemToBasketParams = {

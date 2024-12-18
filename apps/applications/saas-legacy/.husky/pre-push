@@ -3,10 +3,10 @@
 echo "---------- Git fetching remote ----------" &&
 git fetch && 
 echo "---------- 🎨 Prettier ----------" &&
-yarn pretty-cache &&
+pnpm run pretty-cache &&
 echo "---------- 👮 TypeScript ----------" && 
 npx tsc -p . &&
 echo "---------- 🧪 Tests ----------" &&
-yarn test && 
+pnpm run test && 
 echo "---------- 📑 Linting upstream diff in src/ ----------" &&
 ./scripts/lint-upstream-diff.sh

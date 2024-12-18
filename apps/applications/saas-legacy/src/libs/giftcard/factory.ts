@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { CB } from '@bsport/common/lib/master-data/payment-methods';
+import { CB } from '@bsport/common/lib/master-data/payment-methods.js';
 import { FranchiseCompanyListFactory } from '#src/libs/franchise/factories/FranchiseCompanyFactory';
 import { WithFranchiseCompanies } from '#src/libs/franchise/types';
 import { generateRandomInt } from '../../utils/factories';

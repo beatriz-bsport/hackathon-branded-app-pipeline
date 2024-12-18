@@ -6,7 +6,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import {
   NOTIFICATION_KIND,
   BOOKING_EVENT_RULES,
-} from '@bsport/common/lib/master-data/notification-rule-events';
+} from '@bsport/common/lib/master-data/notification-rule-events.js';
 import {
   Button,
   CircularProgress,

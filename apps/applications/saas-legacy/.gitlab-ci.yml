@@ -11,14 +11,14 @@ stages:
   - bump-version
   - deploy
   - build-widget
-  - storybook
+  # - storybook
   - tag-releases
 
 before_script:
   - OLD_VERSION=`echo "$(cat ./VERSION)"`
 
 include:
-  - local: '/ci/storybook.yml'
+  # - local: '/ci_/storybook.yml'
   - local: '/ci/widget.yml'
   - local: '/ci/docker-image.yml'
   - local: '/ci/static-analysis.yml'
@@ -31,7 +31,7 @@ include:
 #   tags:
 #     - deployment
 #   before_script:
-#     - echo 'drop yarn install'
+#     - echo 'drop pnpm run install'
 #   image:
 #     name: sonarsource/sonar-scanner-cli:latest
 #     entrypoint: [""]
@@ -59,7 +59,7 @@ include:
 #     - master
 #     - production
 #   before_script:
-#     - echo 'Overriding default before_script instruction relying on yarn'
+#     - echo 'Overriding default before_script instruction relying on pnpm run'
 #
 #   script:
 #     - echo $CI_COMMIT_REF_NAME
@@ -112,7 +112,7 @@ include:
 # release on sentry:
 #   stage: build
 #   script:
-#     - yarn add @sentry/cli --dev
+#     - pnpm run add @sentry/cli --dev
 #     - ./scripts/make-release.sh
 #   only:
 #     refs:
@@ -127,15 +127,15 @@ include:
 #   stage: e2e_tests
 #
 #   before_script:
-#     - yarn config set cache-folder $YARN_CACHE_DIR
+#     - pnpm run config set cache-folder $YARN_CACHE_DIR
 #
-#     - yarn install --frozen-lockfile
+#     - pnpm run install --frozen-lockfile
 #     # Confirm Cypress is ready to use
 #     - $(npm bin)/cypress verify
 #     # add wait-on package
-#     - yarn global add wait-on
+#     - pnpm run global add wait-on
 #     # add serve package that will serve our static files (build)
-#     - yarn global add serve
+#     - pnpm run global add serve
 #
 #   script:
 #     # server our build through the port 3000 (same as cypress dev conf)

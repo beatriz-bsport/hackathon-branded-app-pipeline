@@ -20,7 +20,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CodeIcon from '@material-ui/icons/Code';
 import ReplayIcon from '@material-ui/icons/Replay';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import {
   resetCssWidgetConfiguration as resetCssWidgetConfigurationAction,
   retrieveManagerCssConfiguration as retrieveManagerCssConfigurationAction,

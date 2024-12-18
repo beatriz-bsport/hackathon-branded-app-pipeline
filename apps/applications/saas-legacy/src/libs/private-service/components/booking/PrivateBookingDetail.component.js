@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import { withTranslation, TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 import {
   PRIVATE_BOOKING_CREATED_BY_STAFF,
   PRIVATE_BOOKING_CANCELLED_BY_STAFF,

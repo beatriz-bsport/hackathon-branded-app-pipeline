@@ -9,13 +9,13 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import {
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
+} from '@bsport/common/lib/master-data/subscription-payment-methods.js';
 import Config from '#src/config';
 import { getCurrencyCode } from '#src/libs/theme/selectors';
 import { getLocaleFromLanguage } from '#src/utils/language';

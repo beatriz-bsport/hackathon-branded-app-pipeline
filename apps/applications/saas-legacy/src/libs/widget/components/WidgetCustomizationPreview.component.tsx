@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 
 import { Paper, Typography } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 
 import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
 import { Coach } from '#src/libs/associated-coach/types';

@@ -10,7 +10,7 @@ Other languages are translated via translate.tools.bsport.io
 
 * create french translation file
 * add it into namespaces.json
-* run yarn updateTranslations
+* run pnpm run updateTranslations
 
 -> concatenate all chunk into `i18n/build/fr-FR/translations.js`
 -> send that to the translation service for future updates

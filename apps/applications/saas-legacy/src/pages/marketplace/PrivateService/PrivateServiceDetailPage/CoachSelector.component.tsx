@@ -4,8 +4,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
 import {
   PrivateService,
   PrivateSlot,

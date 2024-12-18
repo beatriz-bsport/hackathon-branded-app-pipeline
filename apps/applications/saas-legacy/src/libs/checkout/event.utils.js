@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { BASKET_EVENTS } from '@bsport/common/lib/master-data/events';
+import { BASKET_EVENTS } from '@bsport/common/lib/master-data/events.js';
 
 import PauseIcon from '@material-ui/icons/Pause';
 import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';

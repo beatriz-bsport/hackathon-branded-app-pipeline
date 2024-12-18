@@ -1,12 +1,12 @@
 import { createAction } from 'redux-actions';
 
-import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import {
   BASKET_LOCK_ACQUISITION_FAILURE,
   BASKET_PROCESSING_PAYMENT_EXCEPTION,
-} from '@bsport/common/lib/master-data/error-codes/lock';
+} from '@bsport/common/lib/master-data/error-codes/lock.js';
 
-import { BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS } from '@bsport/common/lib/master-data/error-codes/basket';
+import { BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS } from '@bsport/common/lib/master-data/error-codes/basket.js';
 
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import { fetchEventList } from '#src/libs/event/actions';

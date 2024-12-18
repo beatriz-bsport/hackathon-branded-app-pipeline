@@ -12,7 +12,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import {
   RESOURCE_ATTRIBUTION_AUTO,
   RESOURCE_ATTRIBUTION_CONSUMER,
-} from '@bsport/common/lib/master-data/resource-attribution-methods';
+} from '@bsport/common/lib/master-data/resource-attribution-methods.js';
 import { goBack, push as pushAction } from 'connected-react-router';
 import { compose } from 'recompose';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';

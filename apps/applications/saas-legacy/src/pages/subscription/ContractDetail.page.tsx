@@ -12,7 +12,7 @@ import PauseIcon from '@material-ui/icons/Pause';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import memoize from 'memoize-one';
-import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
 import { TFunction } from 'i18next';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';

@@ -17,7 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import uniqBy from 'lodash/uniqBy';
-import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
 import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import withTitle from '#src/hocs/with-title.hoc';
 import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';

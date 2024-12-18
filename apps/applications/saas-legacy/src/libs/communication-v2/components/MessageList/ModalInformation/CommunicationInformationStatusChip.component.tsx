@@ -9,7 +9,7 @@ import { red, green, orange } from '@material-ui/core/colors/';
 import {
   EMAIL_RECIPIENT_DELIVERED,
   EMAIL_RECIPIENT_PROCESSED,
-} from '@bsport/common/lib/master-data/recipient-status';
+} from '@bsport/common/lib/master-data/recipient-status.js';
 
 const BACKGROUND_COLOR_VARIANT = 50;
 const ICON_COLOR_VARIANT = 500;

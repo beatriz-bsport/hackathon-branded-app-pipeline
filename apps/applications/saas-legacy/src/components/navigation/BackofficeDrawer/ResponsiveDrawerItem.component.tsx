@@ -5,7 +5,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import Collapse from '@material-ui/core/Collapse';
 import { Link } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
-import { colors } from '@bsport/common/lib/colors';
+import { colors } from '@bsport/common/lib/colors.js';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';

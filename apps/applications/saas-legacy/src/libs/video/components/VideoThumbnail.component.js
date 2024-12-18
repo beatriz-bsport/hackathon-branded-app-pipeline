@@ -18,9 +18,9 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import Skeleton from '@material-ui/lab/Skeleton';
 // import ListItem from '@material-ui/core/ListItem';
 //
-import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider.js';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar.component';
 
 type Props = {

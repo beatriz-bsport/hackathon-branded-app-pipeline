@@ -3,7 +3,7 @@ import {
   DIALOG_MODE_IFRAME,
   DIALOG_MODE_TAB,
   DIALOG_MODE_DEACTIVATED,
-} from '@bsport/common/lib/master-data/widget-dialog-mode';
+} from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 import { WidgetApiMessageType, WidgetMessageType } from './types';

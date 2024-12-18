@@ -3,7 +3,7 @@ import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import { colors } from '@bsport/common/lib/colors';
+import { colors } from '@bsport/common/lib/colors.js';
 import Select, { components } from 'react-select';
 import chroma from 'chroma-js';
 import BlockIcon from '@material-ui/icons/Block';

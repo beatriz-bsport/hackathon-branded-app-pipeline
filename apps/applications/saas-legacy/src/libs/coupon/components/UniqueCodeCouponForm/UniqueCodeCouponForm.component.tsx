@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormikContext, Form, withFormik, type FormikProps } from 'formik';
-import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items.js';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { DateTime } from 'luxon';

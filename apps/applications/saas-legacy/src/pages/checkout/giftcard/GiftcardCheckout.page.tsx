@@ -5,7 +5,7 @@ import { push } from 'connected-react-router';
 
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items';
+import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items.js';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import {

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import Select from 'react-select';
 import chroma from 'chroma-js';
-import { colors } from '@bsport/common/lib/colors';
+import { colors } from '@bsport/common/lib/colors.js';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';

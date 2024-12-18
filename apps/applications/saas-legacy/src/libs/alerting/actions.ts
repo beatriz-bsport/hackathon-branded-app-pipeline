@@ -10,8 +10,8 @@ import {
   UNPAID_PRIVATE_BOOKING_ALERT,
   NEW_TUTORIAL_SECTION_OR_LESSON,
   REPLACEMEMENT_REQUEST_LATE_ALERT_KIND,
-} from '@bsport/common/lib/master-data/alerting_kind';
-import { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-status';
+} from '@bsport/common/lib/master-data/alerting_kind.js';
+import { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-status.js';
 import type { RootState } from 'src/reducers';
 import type { Dispatch, OptionCallback, ThunkAction } from 'src/state/types';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#src/libs/platform-billing/upsell-identifiers';

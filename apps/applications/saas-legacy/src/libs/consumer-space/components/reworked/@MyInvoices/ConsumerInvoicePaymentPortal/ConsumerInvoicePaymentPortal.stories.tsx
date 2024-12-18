@@ -7,7 +7,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 
 const availablePaymentMethodList = [
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,

@@ -23,7 +23,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import {
   CB,
   CREDIT_ACCOUNT,
-} from '@bsport/common/lib/master-data/payment-methods';
+} from '@bsport/common/lib/master-data/payment-methods.js';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import RedButton from '#src/components/button/RedButton.component';
 

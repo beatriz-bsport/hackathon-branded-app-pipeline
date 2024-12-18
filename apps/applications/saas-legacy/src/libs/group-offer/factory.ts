@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { DateTime } from 'luxon';
-import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports';
+import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports.js';
 import { MetaActivity } from '#src/libs/meta-activity/types';
 import { generateRandomInt } from '../../utils/factories';
 

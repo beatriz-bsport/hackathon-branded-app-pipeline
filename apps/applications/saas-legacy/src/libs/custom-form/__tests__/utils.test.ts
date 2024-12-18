@@ -18,7 +18,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS,
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
   CUSTOM_FORM_FIELD_SIGN_UP_WAIVER,
-} from '@bsport/common/lib/master-data/custom-form';
+} from '@bsport/common/lib/master-data/custom-form.js';
 import { Member, MemberAddress } from '#src/libs/member/types';
 
 import {

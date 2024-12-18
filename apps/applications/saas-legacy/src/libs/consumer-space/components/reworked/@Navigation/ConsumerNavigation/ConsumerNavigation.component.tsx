@@ -19,7 +19,7 @@ import {
   ConsumerSpaceContextEnum,
 } from '#src/libs/consumer-space/constants';
 import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
-import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 import {
   ArrowLeft,
   ShoppingCart01,

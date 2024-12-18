@@ -5,7 +5,7 @@ import clx from 'classnames';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import Popover from '@material-ui/core/Popover';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import CanvasSvg from './CanvasSvg';
 import CanvasSvgDisplayOnly from './CanvasSvgDisplayOnly';
 import { CanvasElement } from './tools/BaseClasses/Base.tool';

@@ -3,7 +3,7 @@ import React from 'react';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 
 import * as Sentry from '@sentry/react';
 // @ts-expect-error

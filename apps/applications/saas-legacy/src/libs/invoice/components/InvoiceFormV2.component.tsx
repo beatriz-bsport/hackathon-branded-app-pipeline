@@ -6,7 +6,7 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_CREDIT,
   BUYABLE_ITEM_GIFTCARD,
-} from '@bsport/common/lib/master-data/buyable-items';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 import Modal from '@material-ui/core/Modal';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';

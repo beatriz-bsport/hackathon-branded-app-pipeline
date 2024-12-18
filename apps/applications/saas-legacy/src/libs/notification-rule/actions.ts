@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule';
+import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule.js';
 import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 

@@ -17,13 +17,13 @@ import { withTranslation } from 'react-i18next';
 import {
   VOUCHER_TYPE_PERCENT,
   VOUCHER_TYPE_AMOUNT,
-} from '@bsport/common/lib/master-data/coupon';
+} from '@bsport/common/lib/master-data/coupon.js';
 import {
   COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE,
   COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE,
   COUPON_SUBSCRIPTION_MODE_ALL_INVOICES,
   COUPON_SUBSCRIPTION_MODE_NONE,
-} from '@bsport/common/lib/master-data/coupon-subscription-mode';
+} from '@bsport/common/lib/master-data/coupon-subscription-mode.js';
 
 import {
   BUYABLE_ITEM_PASS,
@@ -31,7 +31,7 @@ import {
   BUYABLE_ITEM_FEE,
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 import Block from '@material-ui/icons/Block';
 import Check from '@material-ui/icons/Check';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';

@@ -3,7 +3,7 @@ import React from 'react';
 import chroma from 'chroma-js';
 import { withTranslation } from 'react-i18next';
 
-import { colors } from '@bsport/common/lib/colors';
+import { colors } from '@bsport/common/lib/colors.js';
 
 import Select from 'react-select';
 

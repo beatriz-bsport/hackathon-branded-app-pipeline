@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import GroupIcon from '@material-ui/icons/Group';
 import ToolTip from '@material-ui/core/Tooltip';
-import { CUSTOM_FORM_DISPLAY_ON_SIGN_UP } from '@bsport/common/lib/master-data/custom-form';
+import { CUSTOM_FORM_DISPLAY_ON_SIGN_UP } from '@bsport/common/lib/master-data/custom-form.js';
 import { MaterialStyleType } from '../../../../utils/types';
 import type { CustomFormDisplayRule } from '../../types';
 

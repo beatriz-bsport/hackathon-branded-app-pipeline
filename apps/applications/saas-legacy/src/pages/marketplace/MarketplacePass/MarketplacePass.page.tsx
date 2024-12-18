@@ -12,7 +12,7 @@ import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 import isEqual from 'lodash/isEqual';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import themeSelector from '#src/libs/theme/selectors';

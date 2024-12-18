@@ -7,7 +7,7 @@ import {
   COACH_PAYMENT_RULE_FOR_APPOINTMENT,
   COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY,
   COACH_PAYMENT_RULE_FOR_WORKSHOP,
-} from '@bsport/common/lib/master-data/coach_payment_rule';
+} from '@bsport/common/lib/master-data/coach_payment_rule.js';
 import CoachPaymentRuleTable from './CoachPaymentRuleTable.component';
 import CoachPaymentRuleGroupTable from './CoachPaymentRuleGroupTable.component';
 import type { CoachPaymentRule, CoachPaymentRuleGroup } from '../types';

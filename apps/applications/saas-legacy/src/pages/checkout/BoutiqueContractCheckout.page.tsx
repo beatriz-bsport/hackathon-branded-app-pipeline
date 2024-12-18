@@ -13,9 +13,9 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import {
   BUYABLE_ITEM_COUPON,
   BUYABLE_ITEM_PRIVATE_PASS,
-} from '@bsport/common/lib/master-data/buyable-items';
-import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription';
-import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment';
+} from '@bsport/common/lib/master-data/buyable-items.js';
+import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription.js';
+import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment.js';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { consumerAppBarHOC } from '#src/hocs/consumer-app-bar.hoc';
 import {

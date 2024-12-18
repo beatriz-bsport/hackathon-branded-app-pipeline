@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import TodayIcon from '@material-ui/icons/Today';
 import { DateTime } from 'luxon';
 
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 import { WidgetUtils } from '../../widget/WidgetUtils';
 
 import BookingCancellationDialog from '../../booking/components/BookingCancellationDialog.component';

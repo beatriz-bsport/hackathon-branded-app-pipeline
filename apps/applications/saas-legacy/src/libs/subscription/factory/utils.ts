@@ -5,7 +5,7 @@ import {
   FAILED,
   PROCESSING,
   CANCELED,
-} from '@bsport/common/lib/master-data/planned-invoice-status';
+} from '@bsport/common/lib/master-data/planned-invoice-status.js';
 
 export const randomStatus = faker.helpers.arrayElement([
   PENDING.id,

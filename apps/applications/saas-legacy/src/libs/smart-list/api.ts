@@ -1,4 +1,4 @@
-import { FILTERS_ROOTS } from '@bsport/common/lib/master-data/smart-list';
+import { FILTERS_ROOTS } from '@bsport/common/lib/master-data/smart-list.js';
 import { AxiosResponse } from 'axios';
 
 import {

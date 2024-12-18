@@ -17,7 +17,7 @@ import {
   CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES,
   ReportDateType,
 } from '#src/libs/reporting/common/constants';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 
 import { mapTimePeriodToDateValues } from '#src/components/date/utils';
 

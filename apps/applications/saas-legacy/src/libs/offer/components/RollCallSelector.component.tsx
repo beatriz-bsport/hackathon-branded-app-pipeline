@@ -1,7 +1,7 @@
 import React from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
-import { colors } from '@bsport/common/lib/colors';
+import { colors } from '@bsport/common/lib/colors.js';
 import memoize from 'memoize-one';
 import Select from 'react-select';
 import { TFunction } from 'i18next';

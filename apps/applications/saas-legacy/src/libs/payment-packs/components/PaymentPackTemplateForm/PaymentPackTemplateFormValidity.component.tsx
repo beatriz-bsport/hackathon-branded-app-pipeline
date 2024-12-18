@@ -14,7 +14,7 @@ import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
   START_ON_FIRST_ATTENDANCE,
-} from '@bsport/common/lib/master-data/payment-pack';
+} from '@bsport/common/lib/master-data/payment-pack.js';
 import {
   TextFieldEnhancedLabelWithError,
   DateField,

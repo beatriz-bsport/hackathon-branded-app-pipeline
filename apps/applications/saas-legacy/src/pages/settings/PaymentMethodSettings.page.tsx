@@ -8,7 +8,7 @@ import {
   NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING,
   NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_FIRST_WARNING,
   NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_SECOND_WARNING,
-} from '@bsport/common/lib/master-data/notification-rule-events';
+} from '@bsport/common/lib/master-data/notification-rule-events.js';
 import { MaterialStyleType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';

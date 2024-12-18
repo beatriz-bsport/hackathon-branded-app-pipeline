@@ -7,13 +7,13 @@ Lint and Compile:
     - cluster:bsport-tooling
   script:
     - mv /app/node_modules .
-    - yarn install --frozen-lockfile # just to be sure
+    - pnpm run install --frozen-lockfile # just to be sure
     - echo "Format checking CSS files"
-    - yarn pretty
+    - pnpm run pretty
     - echo "Type checking all files"
-    - yarn compile
+    - pnpm run compile
     - echo "Lint checking all files"
-    - NODE_OPTIONS=--max-old-space-size=7000 yarn lint
+    - NODE_OPTIONS=--max-old-space-size=7000 pnpm run lint
 
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
@@ -37,8 +37,8 @@ Test:
     - cluster:bsport-tooling
   script:
     - mv /app/node_modules .
-    - yarn install --frozen-lockfile # just to be sure
-    - yarn test
+    - pnpm run install --frozen-lockfile # just to be sure
+    - pnpm run test
 
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'

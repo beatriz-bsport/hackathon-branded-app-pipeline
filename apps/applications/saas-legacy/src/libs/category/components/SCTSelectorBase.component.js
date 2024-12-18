@@ -3,7 +3,7 @@ import React from 'react';
 import chroma from 'chroma-js';
 import { withTranslation } from 'react-i18next';
 import Select from 'react-select';
-import { colors } from '@bsport/common/lib/colors';
+import { colors } from '@bsport/common/lib/colors.js';
 import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '#src/libs/video/constant';
 import Sport from './SCT.component';
 

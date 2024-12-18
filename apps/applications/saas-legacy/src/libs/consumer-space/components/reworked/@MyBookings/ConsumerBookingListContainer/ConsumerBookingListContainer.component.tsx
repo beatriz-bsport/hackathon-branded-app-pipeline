@@ -1,16 +1,16 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/lib/master-data/booking_status_code';
+import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/lib/master-data/booking_status_code.js';
 import {
   MarketPlaceCoachDisplay,
   MarketPlaceSessionTimeDisplay,
-} from '@bsport/common/lib/master-data/personalization';
+} from '@bsport/common/lib/master-data/personalization.js';
 
 import {
   getCoachDisplayName,
   getCoachDisplayPicture,
-} from '@bsport/common/lib/master-data/coach';
+} from '@bsport/common/lib/master-data/coach.js';
 import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import {
   formatAsDate,

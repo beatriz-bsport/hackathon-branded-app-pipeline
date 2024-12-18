@@ -3,7 +3,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { loadStripe } from '@stripe/stripe-js';
 
-import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-group';
+import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-group.js';
 
 import withStyles from '@material-ui/styles/withStyles';
 import { CircularProgress } from '@material-ui/core';

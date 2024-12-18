@@ -9,7 +9,7 @@ import withDatatypeDynamicData, {
 } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import { useTranslation } from 'react-i18next';
 
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 
 import { getResultsById } from '#src/libs/fuzzy-search/selectors';
 

@@ -12,7 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Theme, WithStyles, withStyles } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import PauseIcon from '@material-ui/icons/Pause';
-import { SubscriptionPause as SubscriptionPausePacks } from '@bsport/common/lib/master-data/subscription-pause';
+import { SubscriptionPause as SubscriptionPausePacks } from '@bsport/common/lib/master-data/subscription-pause.js';
 import CustomMuiDialog from '#src/components/genericDialog/CustomMuiDialog.component';
 import InfoGenericBox from '#src/components/box/InfoGenericBox.component';
 import { OptionCallback } from '../../../../state/types';

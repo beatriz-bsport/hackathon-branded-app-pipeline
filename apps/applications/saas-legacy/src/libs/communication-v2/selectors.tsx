@@ -1,6 +1,6 @@
 import createCachedSelector from 're-reselect';
 import Immutable from 'seamless-immutable';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import { createSelector } from 'reselect';
 import { getMemberListData } from '#src/libs/member/selectors';
 import type { Member } from '#src/libs/member/types';

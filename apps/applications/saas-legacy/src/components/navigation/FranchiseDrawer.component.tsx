@@ -61,7 +61,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import Send from '@material-ui/icons/Send';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-import { colors } from '@bsport/common/lib/colors';
+import { colors } from '@bsport/common/lib/colors.js';
 import { checkRequiredPermissions } from '#src/libs/role/utils';
 import { FranchiseRolePermission } from '#src/libs/role/types';
 import FranchiseUserSearchBarComponent from '#src/libs/franchise/components/FranchiseUserSearchBar.component';

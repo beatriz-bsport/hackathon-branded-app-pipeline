@@ -10,7 +10,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { DateTime } from 'luxon';
-import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription';
+import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription.js';
 import GenericDialogWithCountdownConfirm from '#src/components/genericDialog/GenericDialogWithCountdownConfirm.component';
 import { getMarketplaceEnabledPaymentMethods } from '#src/libs/payment/utils';
 import themeSelectors from '../../../libs/theme/selectors';

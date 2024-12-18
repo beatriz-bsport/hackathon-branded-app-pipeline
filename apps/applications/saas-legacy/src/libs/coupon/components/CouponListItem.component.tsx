@@ -12,7 +12,7 @@ import {
   VOUCHER_TYPE_PERCENT,
   VOUCHER_TYPE_AMOUNT,
   CouponKind,
-} from '@bsport/common/lib/master-data/coupon';
+} from '@bsport/common/lib/master-data/coupon.js';
 
 import { useTranslation } from 'react-i18next';
 import { IconButton, makeStyles } from '@material-ui/core';

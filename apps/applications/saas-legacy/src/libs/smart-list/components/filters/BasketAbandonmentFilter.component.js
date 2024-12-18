@@ -12,7 +12,7 @@ import { DateTime } from 'luxon';
 import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
-} from '@bsport/common/lib/master-data/smart-list';
+} from '@bsport/common/lib/master-data/smart-list.js';
 
 import CalendarPicker from '../CalendarPicker.component';
 

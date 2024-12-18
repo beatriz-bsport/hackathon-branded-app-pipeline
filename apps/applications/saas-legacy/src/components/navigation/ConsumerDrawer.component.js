@@ -43,7 +43,7 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import RedeemIcon from '@material-ui/icons/Redeem';
 import Badge from '@material-ui/core/Badge';
 import OfflineBolt from '@material-ui/icons/OfflineBolt';
-import { colors } from '@bsport/common/lib/colors';
+import { colors } from '@bsport/common/lib/colors.js';
 import { People } from '@material-ui/icons';
 import { ButtonBase, Dialog } from '@material-ui/core';
 import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';

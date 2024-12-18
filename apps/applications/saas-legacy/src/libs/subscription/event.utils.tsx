@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BILLING_PLAN_EVENTS } from '@bsport/common/lib/master-data/events';
+import { BILLING_PLAN_EVENTS } from '@bsport/common/lib/master-data/events.js';
 
 import PauseIcon from '@material-ui/icons/Pause';
 import BlockIcon from '@material-ui/icons/Block';

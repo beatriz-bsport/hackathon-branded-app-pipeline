@@ -14,7 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider.js';
 // @ts-expect-error
 import VideoStatus from './VideoStatus.component';
 // @ts-expect-error

@@ -17,10 +17,10 @@ import {
   UNEVEN_INVOICE_ALERT,
   UNPAID_PRIVATE_BOOKING_ALERT,
   UNREAD_COMMUNICATION,
-} from '@bsport/common/lib/master-data/alerting_kind';
+} from '@bsport/common/lib/master-data/alerting_kind.js';
 
 import { Trans, useTranslation } from 'react-i18next';
-import { PAYMENT_ENGINE_PAYPAL } from '@bsport/common/lib/master-data/payment-group';
+import { PAYMENT_ENGINE_PAYPAL } from '@bsport/common/lib/master-data/payment-group.js';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { AVAILABLE_LANGUAGES, LANGUAGES } from '#src/i18n/languages';
 

@@ -4,13 +4,13 @@ import {
   BILLING_PLAN_STATUS_STOPPED,
   BILLING_PLAN_STATUS_PAUSED,
   BILLING_PLAN_STATUS_ENDED,
-} from '@bsport/common/lib/master-data/subscription-status';
+} from '@bsport/common/lib/master-data/subscription-status.js';
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
+} from '@bsport/common/lib/master-data/subscription-payment-methods.js';
 import type { Payment, PaymentEngine } from '#src/libs/payment/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import type { PrivatePass } from '#src/libs/private-service/types';

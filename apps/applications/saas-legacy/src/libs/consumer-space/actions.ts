@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import type { RootState } from 'src/reducers';
 
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 import api, {

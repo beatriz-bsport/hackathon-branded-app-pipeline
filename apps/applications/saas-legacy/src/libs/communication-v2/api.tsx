@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import type { FetchRecipientsParams } from '#src/libs/member/types';
 import type { GenericPaginationResults } from '#src/libs/types';
 import {

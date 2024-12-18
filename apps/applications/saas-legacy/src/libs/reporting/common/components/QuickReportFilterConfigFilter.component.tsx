@@ -33,7 +33,7 @@ import {
   FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS,
 } from '#src/libs/reporting/common/constants';
 import { getCreditFactor } from '#src/libs/theme/selectors';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import type { BuyableItemOptions } from '#src/libs/checkout/types';
 import { retrieveFilterableProductOptions } from '#src/libs/reporting/common/utils';
 import get from 'lodash/get';

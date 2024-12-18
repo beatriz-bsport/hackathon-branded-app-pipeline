@@ -3,7 +3,7 @@ import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import { compose } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
-import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider.js';
 // @ts-expect-error
 import VideoPlayerBase from './VideoPlayerBase.component';
 import { Video, VideoStatusEnum } from '../types';

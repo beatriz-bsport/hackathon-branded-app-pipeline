@@ -33,7 +33,7 @@ import {
   BONUS_COACH_PAYMENT_RULE_EVERY_BOOKING,
   BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE,
   COACH_PAYMENT_RULE_FOR_APPOINTMENT,
-} from '@bsport/common/lib/master-data/coach_payment_rule';
+} from '@bsport/common/lib/master-data/coach_payment_rule.js';
 import InfoBox from '#src/components/box/InfoBox.component';
 import {
   TextField,

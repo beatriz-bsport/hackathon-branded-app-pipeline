@@ -3,7 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_ENGINE_BSPORT,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import {
   MarketplacePaymentMethodBillingDetails,
   MarketplacePaymentMethods,

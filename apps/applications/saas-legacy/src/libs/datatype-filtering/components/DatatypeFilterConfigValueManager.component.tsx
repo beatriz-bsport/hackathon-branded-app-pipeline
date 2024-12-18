@@ -8,11 +8,11 @@ import {
   PAYOUT_STATUS_PENDING,
   PAYOUT_STATUS_SUCCESS,
   PAYOUT_STATUS_TRANSIT,
-} from '@bsport/common/lib/master-data/payout-status';
+} from '@bsport/common/lib/master-data/payout-status.js';
 
-import { CouponKind } from '@bsport/common/lib/master-data/coupon';
+import { CouponKind } from '@bsport/common/lib/master-data/coupon.js';
 
-import PLANNED_INVOICE_STATUS from '@bsport/common/lib/master-data/planned-invoice-status';
+import PLANNED_INVOICE_STATUS from '@bsport/common/lib/master-data/planned-invoice-status.js';
 
 import {
   BOOKING_SOURCE_APP,
@@ -20,16 +20,16 @@ import {
   BOOKING_SOURCE_SAAS,
   BOOKING_SOURCE_OTHER,
   BOOKING_SOURCE_MIGRATION,
-} from '@bsport/common/lib/master-data/booking_source';
+} from '@bsport/common/lib/master-data/booking_source.js';
 import {
   DISPUTE_STATUS_WON,
   DISPUTE_STATUS_LOST,
   DISPUTE_STATUS_PENDING,
-} from '@bsport/common/lib/master-data/dispute-status';
+} from '@bsport/common/lib/master-data/dispute-status.js';
 
 import PAYMENT_METHODS, {
   CREDIT_ACCOUNT,
-} from '@bsport/common/lib/master-data/payment-methods';
+} from '@bsport/common/lib/master-data/payment-methods.js';
 
 import {
   BILLING_PLAN_STATUS_NOT_STARTED,
@@ -37,7 +37,7 @@ import {
   BILLING_PLAN_STATUS_STOPPED,
   BILLING_PLAN_STATUS_PAUSED,
   BILLING_PLAN_STATUS_ENDED,
-} from '@bsport/common/lib/master-data/subscription-status';
+} from '@bsport/common/lib/master-data/subscription-status.js';
 
 import { Field, FieldAttributes, useFormikContext } from 'formik';
 import {
@@ -45,7 +45,7 @@ import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_CANCELLED_BY_OFFER,
-} from '@bsport/common/lib/master-data/booking_status_code';
+} from '@bsport/common/lib/master-data/booking_status_code.js';
 import get from 'lodash/get';
 
 import { CircularProgress, makeStyles, Typography } from '@material-ui/core';
@@ -53,7 +53,7 @@ import { CircularProgress, makeStyles, Typography } from '@material-ui/core';
 import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_ENGINE_BSPORT,
-} from '@bsport/common/lib/master-data/payment-group';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import {
   AllComparator,
   DatatypeFilterConfigItem,
@@ -82,7 +82,7 @@ import { AccessStatus, EntryStatus } from '#src/libs/access-control/constants';
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import NestedAlertError from './NestedAlertError.component';
 import MaterialUISelectorConsumers from '#src/components/Selector/MaterialUISelectorConsumers.component';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import {
   isDatatypeFilterConfigItemValueDynamic,
   isDatatypeFilterConfigItemValueProducts,

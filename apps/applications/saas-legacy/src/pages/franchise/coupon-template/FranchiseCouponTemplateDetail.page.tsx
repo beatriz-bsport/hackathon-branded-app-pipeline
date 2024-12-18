@@ -49,7 +49,7 @@ const CONSUMER_PACK_PAGINATION_SIZE = 5;
 import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
-} from '@bsport/common/lib/master-data/buyable-items';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 
 type OwnProps = { couponTemplateId: number };
 

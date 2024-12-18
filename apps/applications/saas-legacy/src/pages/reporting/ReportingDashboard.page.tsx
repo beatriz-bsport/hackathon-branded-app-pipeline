@@ -22,7 +22,7 @@ import { getLastVisitedReportV2 } from '#src/libs/user-preference/selectors';
 import type { RootState } from '#src/reducers';
 import type { OwnProps } from '#src/components/HighlightedText/HighlightedText.component';
 
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import {
   getDefaultReportsV2,
   getReportCategoriesMetadata,

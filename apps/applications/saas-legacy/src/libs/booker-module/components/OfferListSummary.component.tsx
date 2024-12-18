@@ -16,9 +16,9 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { DateTime } from 'luxon';
-import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment';
+import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment.js';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import {
   Offer_FULL,
   OfferStatus,

@@ -21,7 +21,7 @@ import PAYMENT_METHODS, {
   DISPUTE as PAYMENT_METHOD_DISPUTE,
   SEPA as PAYMENT_METHOD_SEPA,
   CB as PAYMENT_METHOD_CB,
-} from '@bsport/common/lib/master-data/payment-methods';
+} from '@bsport/common/lib/master-data/payment-methods.js';
 
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';

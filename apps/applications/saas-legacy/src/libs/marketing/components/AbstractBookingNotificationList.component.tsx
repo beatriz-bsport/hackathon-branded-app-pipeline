@@ -20,7 +20,7 @@ import {
 import {
   BOOKING_EVENT_RULES,
   PRIVATEBOOKING_EVENT_RULES,
-} from '@bsport/common/lib/master-data/notification-rule-events';
+} from '@bsport/common/lib/master-data/notification-rule-events.js';
 
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { MarketingNotification } from '../types';

@@ -4,7 +4,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { VOUCHER_TYPE_PERCENT } from '@bsport/common/lib/master-data/coupon';
+import { VOUCHER_TYPE_PERCENT } from '@bsport/common/lib/master-data/coupon.js';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import FranchiseCompanyChipList from '../../../components/franchise/FranchiseCompanyChipList.component';

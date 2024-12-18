@@ -1,5 +1,5 @@
 import React from 'react';
-import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
+import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 

@@ -29,6 +29,7 @@ You can run any script from this folder using the following command: `pnpm exec 
 [command:create](#commandcreate)
 [command:list](#commandlist)
 [db:sync](#dbsync)
+[project:clean](#projectclean)
 [project:create](#projectcreate)
 [project:dependencies:list](#projectdependencies-list)
 [project:import](#projectimport)
@@ -75,6 +76,22 @@ __Usage:__ `@bsport/monorepo-utils-tools db:sync [env_name]`
 
 | Option | Description |
 |:----:|:----:|
+| `-h, --help` | display help for command |
+
+### `project:clean`
+
+Clean a bsport project that have been imported in the monorepository.
+
+__Usage:__ `@bsport/monorepo-utils-tools project:clean [options] <project-path>`
+
+| Arg | Description |
+|:----:|:----:|
+| `project-path` | The path of the project inside the monorepository. |
+
+| Option | Description |
+|:----:|:----:|
+| `-r, --repo <repo>` | which specific bsport repository the script is cleaning. Valid inputs : bsport-saas, bsport-widget, bsport-commons-js (default: "") |
+| `-q, --quiet` | suppress all output, unless an error occurs. (default: false) |
 | `-h, --help` | display help for command |
 
 ### `project:create`
